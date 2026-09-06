@@ -272,7 +272,7 @@
       "rule": "You now own two complete systems for saying the same thing, and this lesson is about moving between them quickly. To a friend a verb stays in its dictionary form and a noun sentence ends in だ. To a teacher the verb takes ます and the noun sentence ends in です. What is worth noticing is how little else changes: same topic, same particles, same word order, same meaning — only the last word moves. That is the shape of the whole language, politeness bolted onto the end rather than a different way of building the sentence. Two things follow. The register is chosen by the AUDIENCE, not by the topic — there is no polite subject matter and no casual one. And the switch happens at SPEED, because the person you are talking to can change mid-room. That is the skill: not knowing both forms, which you already do, but reaching for the right one without stopping to think.",
       "diagram": {
         "kind": "register",
-        "gloss": "I'm going abroad in the summer holidays",
+        "gloss": "I'm going abroad in the summer vacation",
         "cast": [
           "friend",
           "teacher"
@@ -285,11 +285,11 @@
       "examples": [
         {
           "ja": "なつやすみに がいこくに いくよ。",
-          "en": "Say to a friend: I'm going abroad in the summer holidays, you know"
+          "en": "Say to a friend: I'm going abroad in the summer vacation, you know"
         },
         {
           "ja": "なつやすみに がいこくに いきますよ。",
-          "en": "Say politely: I'll be going abroad in the summer holidays, just so you know"
+          "en": "Say politely: I'll be going abroad in the summer vacation, just so you know"
         },
         {
           "ja": "へやが せまいから つくえを かいます。",
@@ -387,7 +387,7 @@
         },
         {
           "ja": "なつやすみに がいこくに いくんだね。",
-          "en": "Say to a friend: So you're going abroad in the summer holidays"
+          "en": "Say to a friend: So you're going abroad in the summer vacation"
         },
         {
           "ja": "めがねが ないんです。",
@@ -1353,7 +1353,7 @@
         {
           "kind": "sentence",
           "ja": "なつやすみに がいこくに いくよ。",
-          "en": "Say to a friend: I'm going abroad in the summer holidays, you know",
+          "en": "Say to a friend: I'm going abroad in the summer vacation, you know",
           "exercises": [
             "register-audience",
             "yo-emphasis",
@@ -1364,7 +1364,7 @@
         {
           "kind": "sentence",
           "ja": "なつやすみに がいこくに いきますよ。",
-          "en": "Say politely: I'll be going abroad in the summer holidays, just so you know",
+          "en": "Say politely: I'll be going abroad in the summer vacation, just so you know",
           "exercises": [
             "register-audience",
             "yo-emphasis",
@@ -1510,7 +1510,7 @@
             {
               "speaker": "Tanaka",
               "ja": "なつやすみは どこに いきますか。",
-              "en": "Where are you going in the summer holidays?"
+              "en": "Where are you going in the summer vacation?"
             },
             {
               "speaker": "Mika",
@@ -2168,7 +2168,7 @@
         {
           "kind": "sentence",
           "ja": "なつやすみに がいこくに いくんだね。",
-          "en": "Say to a friend: So you're going abroad in the summer holidays",
+          "en": "Say to a friend: So you're going abroad in the summer vacation",
           "exercises": [
             "n-desu",
             "ne-agreement",
@@ -2450,11 +2450,11 @@
         {
           "kind": "listening-comp",
           "audio": "ちかてつで いっしょに いきましょう。",
-          "answer": "Let's go together by underground",
+          "answer": "Let's go together by subway",
           "distractors": [
-            "Shall we go together by underground?",
+            "Shall we go together by subway?",
             "Let's go together by bus",
-            "I'm going by underground alone"
+            "I'm going by subway alone"
           ],
           "exercises": [
             "masenka",
@@ -2472,19 +2472,19 @@
             {
               "speaker": "Tom",
               "ja": "いいね。ちかてつで いきましょう。",
-              "en": "Sounds good. Let's go by underground."
+              "en": "Sounds good. Let's go by subway."
             }
           ],
           "questions": [
             {
               "q": "How does Tom suggest they go?",
               "options": [
-                "By underground",
+                "By subway",
                 "By bus",
                 "On foot",
                 "By bicycle"
               ],
-              "answer": "By underground"
+              "answer": "By subway"
             }
           ]
         },
@@ -3330,11 +3330,11 @@
         {
           "kind": "listening-comp",
           "audio": "なつやすみに がいこくに いくんですね。",
-          "answer": "So you're going abroad in the summer holidays",
+          "answer": "So you're going abroad in the summer vacation",
           "distractors": [
-            "So you went abroad in the summer holidays",
-            "So you aren't going abroad in the summer holidays",
-            "So you're going abroad in the winter holidays"
+            "So you went abroad in the summer vacation",
+            "So you aren't going abroad in the summer vacation",
+            "So you're going abroad in the winter vacations"
           ],
           "exercises": [
             "n-desu",
@@ -3415,6 +3415,7 @@
     }
   ],
   "priorVocab": [
+    "あかい",
     "あき",
     "あけて",
     "あけない",
@@ -3500,6 +3501,7 @@
     "ううん",
     "うえ",
     "うた",
+    "うたう",
     "うち",
     "うま",
     "うみ",
@@ -3585,6 +3587,7 @@
     "かみ",
     "かめ",
     "かようび",
+    "から",
     "からい",
     "からだ",
     "かわ",
@@ -3659,6 +3662,7 @@
     "ごじ",
     "ごじゅう",
     "ごぜん",
+    "ごにん",
     "ごはい",
     "ごはん",
     "ごほん",
@@ -3782,6 +3786,7 @@
     "だめ",
     "だれ",
     "だろう",
+    "だんだん",
     "ちいさい",
     "ちいさすぎる",
     "ちかい",
@@ -4867,6 +4872,13 @@
       "kind": "vocab"
     },
     {
+      "kana": "ひま",
+      "romaji": "hima",
+      "gloss": "free time",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "たべたい",
       "romaji": "tabetai",
       "gloss": "want to eat",
@@ -5085,7 +5097,7 @@
     {
       "kana": "なつやすみ",
       "romaji": "natsuyasumi",
-      "gloss": "summer holiday",
+      "gloss": "summer vacation",
       "shortGloss": "summer break",
       "imageable": true,
       "kind": "vocab"
@@ -5187,6 +5199,28 @@
       "romaji": "hayai",
       "gloss": "early",
       "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "とりにく",
+      "romaji": "toriniku",
+      "gloss": "chicken meat",
+      "shortGloss": "chicken",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あかい",
+      "romaji": "akai",
+      "gloss": "red",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うたう",
+      "romaji": "utau",
+      "gloss": "to sing",
+      "imageable": true,
       "kind": "vocab"
     },
     {
@@ -5500,6 +5534,14 @@
       "kind": "vocab"
     },
     {
+      "kana": "から",
+      "romaji": "kara",
+      "gloss": "from (origin)",
+      "shortGloss": "from",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
       "kana": "さむい",
       "romaji": "samui",
       "gloss": "cold (weather)",
@@ -5549,8 +5591,8 @@
     {
       "kana": "やすみ",
       "romaji": "yasumi",
-      "gloss": "holiday, time off",
-      "shortGloss": "holiday",
+      "gloss": "vacation, day off",
+      "shortGloss": "vacation",
       "imageable": true,
       "kind": "vocab"
     },
@@ -6108,7 +6150,7 @@
     {
       "kana": "ちかてつ",
       "romaji": "chikatetsu",
-      "gloss": "underground train, subway",
+      "gloss": "subway",
       "shortGloss": "subway",
       "kind": "vocab"
     },
@@ -6417,6 +6459,13 @@
       "romaji": "ittari",
       "gloss": "go, and things like that",
       "shortGloss": "go, etc.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごにん",
+      "romaji": "go nin",
+      "gloss": "5 people",
       "imageable": false,
       "kind": "vocab"
     },
@@ -7048,8 +7097,8 @@
     {
       "kana": "ことば",
       "romaji": "kotoba",
-      "gloss": "word, language",
-      "shortGloss": "language",
+      "gloss": "word",
+      "shortGloss": "word",
       "kind": "vocab"
     },
     {
@@ -7253,6 +7302,13 @@
       "romaji": "natta",
       "gloss": "became, got (become, past)",
       "shortGloss": "became",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "だんだん",
+      "romaji": "dandan",
+      "gloss": "gradually",
       "imageable": false,
       "kind": "vocab"
     },
@@ -7763,7 +7819,7 @@
     {
       "kana": "いきません",
       "romaji": "ikimasen",
-      "gloss": "don't go, not travelling (polite)",
+      "gloss": "don't go, not traveling (polite)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -8079,7 +8135,7 @@
       "kana": "ちゃ",
       "romaji": "cha",
       "gloss": "tea",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -8087,7 +8143,7 @@
       "romaji": "kome",
       "gloss": "rice (uncooked)",
       "shortGloss": "rice (raw)",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -8189,7 +8245,7 @@
       "kana": "えん",
       "romaji": "en",
       "gloss": "yen",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -8210,7 +8266,7 @@
       "kana": "かね",
       "romaji": "kane",
       "gloss": "money",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {

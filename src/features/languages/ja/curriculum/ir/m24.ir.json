@@ -149,7 +149,7 @@
         },
         {
           "ja": "としょかんで えいがが みられるから よく いく。",
-          "en": "You can watch films at the library, so I go often."
+          "en": "You can watch movies at the library, so I go often."
         },
         {
           "ja": "ひまだから あした ミカも こられる。",
@@ -161,7 +161,7 @@
         },
         {
           "ja": "えいがが みれる。",
-          "en": "I can watch a film. — the casual ら-dropped form; recognise it, but say みられる"
+          "en": "I can watch a movie. — the casual ら-dropped form; recognise it, but say みられる"
         }
       ],
       "antiPattern": {
@@ -187,7 +187,7 @@
         },
         {
           "ja": "なつやすみに りょこうが できるから きっぷを かう。",
-          "en": "I can travel in the summer holidays, so I'm buying a ticket."
+          "en": "I can travel in the summer vacation, so I'm buying a ticket."
         },
         {
           "ja": "ひまな とき うちで りょうりが できる。",
@@ -231,7 +231,7 @@
     },
     {
       "id": "mieru-kikoeru",
-      "rule": "みられる and みえる are both about seeing and they are not the same sentence. みられる is the potential you built two lessons ago: it says the OPPORTUNITY exists. 「としょかんで えいがが みられる」 — you can watch films at the library, because they have them and you are allowed in. Somebody arranged that. みえる is not about you at all. It says the thing is VISIBLE, and whether anyone is looking is beside the point: 「まどから やまが みえる」, you can see the mountain from the window, which is a fact about the window. Ears divide the same way. きける is I get to listen; きこえる is it reaches my ear. 「こえが きこえる」 means a voice arrives, not that you chose to hear it. Both take が and both are る-verbs, so nothing else changes. And the test is one question: did a person decide? If yes, it is the potential. If the world is simply like that, it is みえる or きこえる.",
+      "rule": "みられる and みえる are both about seeing and they are not the same sentence. みられる is the potential you built two lessons ago: it says the OPPORTUNITY exists. 「としょかんで えいがが みられる」 — you can watch movies at the library, because they have them and you are allowed in. Somebody arranged that. みえる is not about you at all. It says the thing is VISIBLE, and whether anyone is looking is beside the point: 「まどから やまが みえる」, you can see the mountain from the window, which is a fact about the window. Ears divide the same way. きける is I get to listen; きこえる is it reaches my ear. 「こえが きこえる」 means a voice arrives, not that you chose to hear it. Both take が and both are る-verbs, so nothing else changes. And the test is one question: did a person decide? If yes, it is the potential. If the world is simply like that, it is みえる or きこえる.",
       "examples": [
         {
           "ja": "まどから やまが みえる。",
@@ -359,7 +359,7 @@
         },
         {
           "ja": "あした えいがを みませんか。",
-          "en": "Won't you watch a film tomorrow?"
+          "en": "Won't you watch a movie tomorrow?"
         },
         {
           "ja": "いっしょに たべない？",
@@ -789,7 +789,7 @@
         {
           "kind": "sentence",
           "ja": "としょかんで えいがが みられるから よく いく。",
-          "en": "You can watch films at the library, so I go often",
+          "en": "You can watch movies at the library, so I go often",
           "exercises": [
             "potential-rareru",
             "de-action",
@@ -813,7 +813,7 @@
         {
           "kind": "sentence",
           "ja": "なつやすみだから ケンも うちに こられる。",
-          "en": "It's the summer holidays, so Ken can come over too",
+          "en": "It's the summer vacation, so Ken can come over too",
           "exercises": [
             "potential-rareru",
             "kara-because",
@@ -825,7 +825,7 @@
         {
           "kind": "sentence",
           "ja": "ばんに えいがが みられる。",
-          "en": "I can watch a film in the evening",
+          "en": "I can watch a movie in the evening",
           "exercises": [
             "potential-rareru",
             "ni-time"
@@ -874,13 +874,13 @@
             "みる",
             "みた"
           ],
-          "en": "You can watch films at the library, so I go often",
+          "en": "You can watch movies at the library, so I go often",
           "explanation": "みる is a る-verb, so it drops る and adds られる — みられる. みる is the dictionary form and みた is the past."
         },
         {
           "kind": "listening-comp",
           "audio": "ケンは すしが たべれる。",
-          "answer": "Ken can eat sushi — said the casual ら-dropped way",
+          "answer": "Ken can eat sushi",
           "distractors": [
             "Ken can't eat sushi",
             "Ken ate sushi",
@@ -894,11 +894,11 @@
         {
           "kind": "listening-comp",
           "audio": "あした えいがが みれる。",
-          "answer": "I can watch a film tomorrow — said the casual ら-dropped way",
+          "answer": "I can watch a movie tomorrow",
           "distractors": [
-            "I watched a film yesterday",
-            "I can't watch a film tomorrow",
-            "I want to watch a film tomorrow"
+            "I watched a movie yesterday",
+            "I can't watch a movie tomorrow",
+            "I want to watch a movie tomorrow"
           ],
           "exercises": [
             "potential-rareru"
@@ -1007,7 +1007,7 @@
         {
           "kind": "sentence",
           "ja": "なつやすみに りょこうが できるから きっぷを かう。",
-          "en": "I can travel in the summer holidays, so I'm buying a ticket",
+          "en": "I can travel in the summer vacation, so I'm buying a ticket",
           "exercises": [
             "dekiru",
             "ni-time",
@@ -1090,11 +1090,11 @@
         {
           "kind": "listening-comp",
           "audio": "なつやすみに りょこうが できる。",
-          "answer": "I can travel in the summer holidays",
+          "answer": "I can travel in the summer vacation",
           "distractors": [
-            "I travelled in the summer holidays",
-            "I intend to travel in the summer holidays",
-            "I can't travel in the summer holidays"
+            "I travelled in the summer vacation",
+            "I intend to travel in the summer vacation",
+            "I can't travel in the summer vacation"
           ],
           "exercises": [
             "dekiru",
@@ -1131,7 +1131,7 @@
         {
           "kind": "challenge",
           "ja": "なつやすみは ひまだから りょこうが できるけど かいものは しない。",
-          "en": "I'm free in the summer holidays, so I can travel, but I won't go shopping",
+          "en": "I'm free in the summer vacation, so I can travel, but I won't go shopping",
           "combines": [
             "dekiru",
             "na-adj-present",
@@ -1228,7 +1228,7 @@
         {
           "kind": "sentence",
           "ja": "としょかんで えいがが みられるから よく いく。",
-          "en": "You can watch films at the library, so I go often",
+          "en": "You can watch movies at the library, so I go often",
           "exercises": [
             "potential-rareru",
             "kara-because"
@@ -1285,7 +1285,7 @@
         {
           "kind": "sentence",
           "ja": "なつやすみに りょこうが できるから きっぷを かう。",
-          "en": "I can travel in the summer holidays, so I'm buying a ticket",
+          "en": "I can travel in the summer vacation, so I'm buying a ticket",
           "exercises": [
             "dekiru",
             "wo-object"
@@ -1854,7 +1854,7 @@
             "すき",
             "きらい"
           ],
-          "en": "She is good at swimming in the river, so the summer holidays are fun",
+          "en": "She is good at swimming in the river, so the summer vacation are fun",
           "explanation": "じょうず says the skill is there. すき says she likes it and きらい says she hates it — all three are real, but only one is about skill."
         },
         {
@@ -2215,7 +2215,7 @@
         {
           "kind": "sentence",
           "ja": "いもうとは はなすのが あまり じょうずじゃないけど えいがを みるのが すきだ。",
-          "en": "My little sister isn't very good at speaking, but she likes watching films",
+          "en": "My little sister isn't very good at speaking, but she likes watching movies",
           "exercises": [
             "no-ga-heta",
             "na-adj-negative",
@@ -2400,7 +2400,7 @@
         {
           "kind": "sentence",
           "ja": "ばんに いっしょに えいがを みましょう。",
-          "en": "Say politely: Let's watch a film together in the evening",
+          "en": "Say politely: Let's watch a movie together in the evening",
           "exercises": [
             "mashou",
             "ni-time",
@@ -2549,7 +2549,7 @@
         {
           "kind": "sentence",
           "ja": "あした えいがを みませんか。",
-          "en": "Say politely: Won't you watch a film tomorrow",
+          "en": "Say politely: Won't you watch a movie tomorrow",
           "exercises": [
             "masenka",
             "wo-object",
@@ -2615,7 +2615,7 @@
         {
           "kind": "sentence",
           "ja": "あした えいがを みない？",
-          "en": "Say to a friend: Wanna watch a film tomorrow",
+          "en": "Say to a friend: Wanna watch a movie tomorrow",
           "exercises": [
             "masenka"
           ],
@@ -2631,7 +2631,7 @@
             "みましょう",
             "みません"
           ],
-          "en": "Won't you watch a film tomorrow?",
+          "en": "Won't you watch a movie tomorrow?",
           "explanation": "ませんか is the invitation that leaves room to say no. みましょう decides for both of you and みません just says you don't watch."
         },
         {
@@ -2668,7 +2668,7 @@
             {
               "speaker": "Mika",
               "ja": "あした いっしょに えいがを みない？",
-              "en": "Wanna watch a film together tomorrow?"
+              "en": "Wanna watch a movie together tomorrow?"
             },
             {
               "speaker": "Tom",
@@ -2746,7 +2746,7 @@
         {
           "kind": "sentence",
           "ja": "あした えいがを みませんか。",
-          "en": "Say politely: Won't you watch a film tomorrow",
+          "en": "Say politely: Won't you watch a movie tomorrow",
           "exercises": [
             "masenka",
             "ka-question"
@@ -2974,7 +2974,7 @@
         {
           "kind": "sentence",
           "ja": "ひまな とき としょかんで えいがが みられる。",
-          "en": "When I'm free, I can watch films at the library",
+          "en": "When I'm free, I can watch movies at the library",
           "exercises": [
             "potential-rareru",
             "toki",
@@ -3077,7 +3077,7 @@
                 "Going to the coffee shop",
                 "Swimming in the river",
                 "Going to the library",
-                "Watching a film"
+                "Watching a movie"
               ],
               "answer": "Going to the coffee shop"
             }
@@ -3112,6 +3112,7 @@
     }
   ],
   "priorVocab": [
+    "あかい",
     "あけて",
     "あけない",
     "あける",
@@ -3186,6 +3187,7 @@
     "ううん",
     "うえ",
     "うた",
+    "うたう",
     "うち",
     "うま",
     "うみ",
@@ -3258,6 +3260,7 @@
     "かばん",
     "かめ",
     "かようび",
+    "から",
     "からだ",
     "かわ",
     "かわない",
@@ -3324,6 +3327,7 @@
     "ごじ",
     "ごじゅう",
     "ごぜん",
+    "ごにん",
     "ごはい",
     "ごはん",
     "ごほん",
@@ -4465,6 +4469,13 @@
       "kind": "vocab"
     },
     {
+      "kana": "ひま",
+      "romaji": "hima",
+      "gloss": "free time",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "たべたい",
       "romaji": "tabetai",
       "gloss": "want to eat",
@@ -4683,7 +4694,7 @@
     {
       "kana": "なつやすみ",
       "romaji": "natsuyasumi",
-      "gloss": "summer holiday",
+      "gloss": "summer vacation",
       "shortGloss": "summer break",
       "imageable": true,
       "kind": "vocab"
@@ -4785,6 +4796,28 @@
       "romaji": "hayai",
       "gloss": "early",
       "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "とりにく",
+      "romaji": "toriniku",
+      "gloss": "chicken meat",
+      "shortGloss": "chicken",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あかい",
+      "romaji": "akai",
+      "gloss": "red",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うたう",
+      "romaji": "utau",
+      "gloss": "to sing",
+      "imageable": true,
       "kind": "vocab"
     },
     {
@@ -5098,6 +5131,14 @@
       "kind": "vocab"
     },
     {
+      "kana": "から",
+      "romaji": "kara",
+      "gloss": "from (origin)",
+      "shortGloss": "from",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
       "kana": "さむい",
       "romaji": "samui",
       "gloss": "cold (weather)",
@@ -5147,8 +5188,8 @@
     {
       "kana": "やすみ",
       "romaji": "yasumi",
-      "gloss": "holiday, time off",
-      "shortGloss": "holiday",
+      "gloss": "vacation, day off",
+      "shortGloss": "vacation",
       "imageable": true,
       "kind": "vocab"
     },
@@ -5706,7 +5747,7 @@
     {
       "kana": "ちかてつ",
       "romaji": "chikatetsu",
-      "gloss": "underground train, subway",
+      "gloss": "subway",
       "shortGloss": "subway",
       "kind": "vocab"
     },
@@ -6015,6 +6056,13 @@
       "romaji": "ittari",
       "gloss": "go, and things like that",
       "shortGloss": "go, etc.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごにん",
+      "romaji": "go nin",
+      "gloss": "5 people",
       "imageable": false,
       "kind": "vocab"
     },
@@ -6576,7 +6624,7 @@
     {
       "kana": "いきません",
       "romaji": "ikimasen",
-      "gloss": "don't go, not travelling (polite)",
+      "gloss": "don't go, not traveling (polite)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -6892,7 +6940,7 @@
       "kana": "ちゃ",
       "romaji": "cha",
       "gloss": "tea",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -6900,7 +6948,7 @@
       "romaji": "kome",
       "gloss": "rice (uncooked)",
       "shortGloss": "rice (raw)",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -7002,7 +7050,7 @@
       "kana": "えん",
       "romaji": "en",
       "gloss": "yen",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -7023,7 +7071,7 @@
       "kana": "かね",
       "romaji": "kane",
       "gloss": "money",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {

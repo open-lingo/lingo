@@ -263,7 +263,7 @@
         },
         {
           "ja": "あした ひまだから えいがを みた ほうが いい。",
-          "en": "You'd better watch a film, because you're free tomorrow."
+          "en": "You'd better watch a movie, because you're free tomorrow."
         }
       ],
       "antiPattern": {
@@ -311,7 +311,7 @@
         },
         {
           "ja": "じかんが ないから ちかてつに のった ほうが いい。",
-          "en": "You'd better take the underground, because you haven't got time."
+          "en": "You'd better take the subway, because you haven't got time."
         },
         {
           "ja": "かえる まえに うちに でんわを しなきゃ。",
@@ -333,11 +333,11 @@
     },
     {
       "id": "yori-comparison",
-      "rule": "ほう has been doing quiet work for two lessons and it is time to say where it came from. Module 20 taught 「AのほうがBより〜」: the winner takes ほうが and the loser takes より. 「バスより ちかてつの ほうが いい」 is the underground is better than the bus — and 「ちかてつに のった ほうが いい」, the advice you have been building, is the SAME sentence with the losing side left unsaid. That is why advice uses ほう at all. It is a comparison of two courses of action in which only the winner gets named. Once you see it, two things become easy. You can put the loser back in whenever you want to be explicit: 「バスより ちかてつの ほうが いい。」 And you can compare two things that are not actions at all, which is exactly module 20's frame: 「この さいふより あの さいふの ほうが やすい。」 Note where the particles sit, because it is the one thing that goes wrong. ほう is a noun, so a noun in front of it needs の. より goes straight onto the losing side with nothing in front of it. Neither word inflects, ever.",
+      "rule": "ほう has been doing quiet work for two lessons and it is time to say where it came from. Module 20 taught 「AのほうがBより〜」: the winner takes ほうが and the loser takes より. 「バスより ちかてつの ほうが いい」 is the subway is better than the bus — and 「ちかてつに のった ほうが いい」, the advice you have been building, is the SAME sentence with the losing side left unsaid. That is why advice uses ほう at all. It is a comparison of two courses of action in which only the winner gets named. Once you see it, two things become easy. You can put the loser back in whenever you want to be explicit: 「バスより ちかてつの ほうが いい。」 And you can compare two things that are not actions at all, which is exactly module 20's frame: 「この さいふより あの さいふの ほうが やすい。」 Note where the particles sit, because it is the one thing that goes wrong. ほう is a noun, so a noun in front of it needs の. より goes straight onto the losing side with nothing in front of it. Neither word inflects, ever.",
       "examples": [
         {
           "ja": "バスより ちかてつの ほうが いい。",
-          "en": "The underground is better than the bus."
+          "en": "The subway is better than the bus."
         },
         {
           "ja": "この くつより あの くつの ほうが やすい。",
@@ -353,7 +353,7 @@
         },
         {
           "ja": "バスは うるさいから ちかてつの ほうが いい。",
-          "en": "The bus is noisy, so the underground is better."
+          "en": "The bus is noisy, so the subway is better."
         }
       ],
       "antiPattern": {
@@ -1662,7 +1662,7 @@
         {
           "kind": "sentence",
           "ja": "あした ひまだから えいがを みた ほうが いい。",
-          "en": "You'd better watch a film, because you're free tomorrow",
+          "en": "You'd better watch a movie, because you're free tomorrow",
           "exercises": [
             "hou-ga-ii",
             "ta-form",
@@ -1825,7 +1825,7 @@
         {
           "kind": "sentence",
           "ja": "この えいがは うるさいから みない ほうが いい。",
-          "en": "This film is noisy, so you'd better not watch it",
+          "en": "This movie is noisy, so you'd better not watch it",
           "exercises": [
             "ta-form",
             "hou-ga-ii",
@@ -1906,11 +1906,11 @@
         {
           "kind": "listening-comp",
           "audio": "この えいがは うるさいから みない ほうが いい。",
-          "answer": "This film is noisy, so you'd better not watch it",
+          "answer": "This movie is noisy, so you'd better not watch it",
           "distractors": [
-            "This film is noisy, so you'd better watch it",
-            "This film is long, so you'd better not watch it",
-            "This room is noisy, so you'd better not watch the film"
+            "This movie is noisy, so you'd better watch it",
+            "This movie is long, so you'd better not watch it",
+            "This room is noisy, so you'd better not watch the movie"
           ],
           "exercises": [
             "ta-form",
@@ -1938,7 +1938,7 @@
                 "Eat spicy things",
                 "Take medicine",
                 "Go home",
-                "Watch the film"
+                "Watch the movie"
               ],
               "answer": "Eat spicy things"
             }
@@ -2068,7 +2068,7 @@
         {
           "kind": "sentence",
           "ja": "あした ひまだから えいがを みた ほうが いい。",
-          "en": "You'd better watch a film, because you're free tomorrow",
+          "en": "You'd better watch a movie, because you're free tomorrow",
           "exercises": [
             "hou-ga-ii",
             "desu-copula"
@@ -2102,7 +2102,7 @@
         {
           "kind": "sentence",
           "ja": "この えいがは うるさいから みない ほうが いい。",
-          "en": "This film is noisy, so you'd better not watch it",
+          "en": "This movie is noisy, so you'd better not watch it",
           "exercises": [
             "ta-form",
             "hou-ga-ii"
@@ -2201,7 +2201,7 @@
         {
           "kind": "sentence",
           "ja": "じかんが ないから ちかてつに のった ほうが いい。",
-          "en": "You'd better take the underground, because you haven't got time",
+          "en": "You'd better take the subway, because you haven't got time",
           "exercises": [
             "kanji-set-3",
             "hou-ga-ii",
@@ -2377,7 +2377,7 @@
         {
           "kind": "sentence",
           "ja": "バスより ちかてつの ほうが いい。",
-          "en": "The underground is better than the bus",
+          "en": "The subway is better than the bus",
           "exercises": [
             "yori-comparison",
             "hou-ga-ii",
@@ -2440,7 +2440,7 @@
         {
           "kind": "sentence",
           "ja": "バスは うるさいから ちかてつの ほうが いい。",
-          "en": "The bus is noisy, so the underground is better",
+          "en": "The bus is noisy, so the subway is better",
           "exercises": [
             "yori-comparison",
             "kara-because",
@@ -2462,7 +2462,7 @@
         {
           "kind": "sentence",
           "ja": "バスより ちかてつの ほうが いい。",
-          "en": "The underground is better than the bus",
+          "en": "The subway is better than the bus",
           "exercises": [
             "yori-comparison"
           ],
@@ -2484,9 +2484,9 @@
         {
           "kind": "listening-comp",
           "audio": "バスは うるさいから ちかてつの ほうが いい。",
-          "answer": "The bus is noisy, so the underground is better",
+          "answer": "The bus is noisy, so the subway is better",
           "distractors": [
-            "The underground is noisy, so the bus is better",
+            "The subway is noisy, so the bus is better",
             "The bus is cheap, so the bus is better",
             "The bus is noisy, but the bus is better"
           ],
@@ -2515,24 +2515,24 @@
             {
               "speaker": "Tom",
               "ja": "バスと ちかてつと どっちが いい？",
-              "en": "Which is better, the bus or the underground?"
+              "en": "Which is better, the bus or the subway?"
             },
             {
               "speaker": "Mika",
               "ja": "バスは うるさいから ちかてつの ほうが いい。",
-              "en": "The bus is noisy, so the underground is better."
+              "en": "The bus is noisy, so the subway is better."
             }
           ],
           "questions": [
             {
               "q": "Which does Mika say is better?",
               "options": [
-                "The underground",
+                "The subway",
                 "The bus",
                 "The bicycle",
                 "She doesn't say"
               ],
-              "answer": "The underground"
+              "answer": "The subway"
             }
           ]
         },
@@ -2659,7 +2659,7 @@
         {
           "kind": "sentence",
           "ja": "えいがを みたいけど じかんが ないんだ。",
-          "en": "I want to watch the film, but the thing is, I haven't got time",
+          "en": "I want to watch the movie, but the thing is, I haven't got time",
           "exercises": [
             "v-tai",
             "n-desu",
@@ -2693,11 +2693,11 @@
         {
           "kind": "listening-comp",
           "audio": "えいがを みたいけど しごとを しなきゃ。",
-          "answer": "I want to watch a film, but I have to do the work",
+          "answer": "I want to watch a movie, but I have to do the work",
           "distractors": [
-            "I want to watch a film, so I'm not doing the work",
-            "I want to do the work, but I have to watch a film",
-            "I don't want to watch a film, and I have to do the work"
+            "I want to watch a movie, so I'm not doing the work",
+            "I want to do the work, but I have to watch a movie",
+            "I don't want to watch a movie, and I have to do the work"
           ],
           "exercises": [
             "v-tai",
@@ -2724,7 +2724,7 @@
             {
               "speaker": "Ken",
               "ja": "なつやすみに かわで あそびたい。",
-              "en": "I want to play at the river over the summer holidays."
+              "en": "I want to play at the river over the summer vacation."
             },
             {
               "speaker": "Mika",
@@ -2748,7 +2748,7 @@
         {
           "kind": "challenge",
           "ja": "なつやすみに がいこくに いきたいけど おかねが ないから まいにち はたらかなきゃ。",
-          "en": "I want to go abroad over the summer holidays, but I haven't got the money, so I have to work every day",
+          "en": "I want to go abroad over the summer vacation, but I haven't got the money, so I have to work every day",
           "combines": [
             "v-tai",
             "nakereba-naranai",
@@ -2792,7 +2792,7 @@
         {
           "kind": "sentence",
           "ja": "バスより ちかてつの ほうが いい。",
-          "en": "The underground is better than the bus",
+          "en": "The subway is better than the bus",
           "exercises": [
             "yori-comparison",
             "hou-ga-ii"
@@ -3113,7 +3113,7 @@
             {
               "speaker": "Tanaka",
               "ja": "なつやすみに がいこくに いくんですか。",
-              "en": "Are you going abroad over the summer holidays?"
+              "en": "Are you going abroad over the summer vacation?"
             },
             {
               "speaker": "Mika",
@@ -3163,6 +3163,7 @@
     }
   ],
   "priorVocab": [
+    "あかい",
     "あき",
     "あけて",
     "あけない",
@@ -3245,6 +3246,7 @@
     "ううん",
     "うえ",
     "うた",
+    "うたう",
     "うち",
     "うま",
     "うみ",
@@ -3325,6 +3327,7 @@
     "かみ",
     "かめ",
     "かようび",
+    "から",
     "からだ",
     "かわ",
     "かわない",
@@ -3397,6 +3400,7 @@
     "ごじ",
     "ごじゅう",
     "ごぜん",
+    "ごにん",
     "ごはい",
     "ごはん",
     "ごほん",
@@ -3514,6 +3518,7 @@
     "だめ",
     "だれ",
     "だろう",
+    "だんだん",
     "ちいさい",
     "ちいさすぎる",
     "ちかい",
@@ -4591,6 +4596,13 @@
       "kind": "vocab"
     },
     {
+      "kana": "ひま",
+      "romaji": "hima",
+      "gloss": "free time",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "たべたい",
       "romaji": "tabetai",
       "gloss": "want to eat",
@@ -4809,7 +4821,7 @@
     {
       "kana": "なつやすみ",
       "romaji": "natsuyasumi",
-      "gloss": "summer holiday",
+      "gloss": "summer vacation",
       "shortGloss": "summer break",
       "imageable": true,
       "kind": "vocab"
@@ -4911,6 +4923,28 @@
       "romaji": "hayai",
       "gloss": "early",
       "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "とりにく",
+      "romaji": "toriniku",
+      "gloss": "chicken meat",
+      "shortGloss": "chicken",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あかい",
+      "romaji": "akai",
+      "gloss": "red",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うたう",
+      "romaji": "utau",
+      "gloss": "to sing",
+      "imageable": true,
       "kind": "vocab"
     },
     {
@@ -5224,6 +5258,14 @@
       "kind": "vocab"
     },
     {
+      "kana": "から",
+      "romaji": "kara",
+      "gloss": "from (origin)",
+      "shortGloss": "from",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
       "kana": "さむい",
       "romaji": "samui",
       "gloss": "cold (weather)",
@@ -5273,8 +5315,8 @@
     {
       "kana": "やすみ",
       "romaji": "yasumi",
-      "gloss": "holiday, time off",
-      "shortGloss": "holiday",
+      "gloss": "vacation, day off",
+      "shortGloss": "vacation",
       "imageable": true,
       "kind": "vocab"
     },
@@ -5832,7 +5874,7 @@
     {
       "kana": "ちかてつ",
       "romaji": "chikatetsu",
-      "gloss": "underground train, subway",
+      "gloss": "subway",
       "shortGloss": "subway",
       "kind": "vocab"
     },
@@ -6141,6 +6183,13 @@
       "romaji": "ittari",
       "gloss": "go, and things like that",
       "shortGloss": "go, etc.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごにん",
+      "romaji": "go nin",
+      "gloss": "5 people",
       "imageable": false,
       "kind": "vocab"
     },
@@ -6772,8 +6821,8 @@
     {
       "kana": "ことば",
       "romaji": "kotoba",
-      "gloss": "word, language",
-      "shortGloss": "language",
+      "gloss": "word",
+      "shortGloss": "word",
       "kind": "vocab"
     },
     {
@@ -6977,6 +7026,13 @@
       "romaji": "natta",
       "gloss": "became, got (become, past)",
       "shortGloss": "became",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "だんだん",
+      "romaji": "dandan",
+      "gloss": "gradually",
       "imageable": false,
       "kind": "vocab"
     },
@@ -7284,7 +7340,7 @@
     {
       "kana": "いきません",
       "romaji": "ikimasen",
-      "gloss": "don't go, not travelling (polite)",
+      "gloss": "don't go, not traveling (polite)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -7600,7 +7656,7 @@
       "kana": "ちゃ",
       "romaji": "cha",
       "gloss": "tea",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -7608,7 +7664,7 @@
       "romaji": "kome",
       "gloss": "rice (uncooked)",
       "shortGloss": "rice (raw)",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -7710,7 +7766,7 @@
       "kana": "えん",
       "romaji": "en",
       "gloss": "yen",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -7731,7 +7787,7 @@
       "kana": "かね",
       "romaji": "kane",
       "gloss": "money",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {

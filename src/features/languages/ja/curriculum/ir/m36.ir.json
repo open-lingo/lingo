@@ -156,7 +156,7 @@
         },
         {
           "ja": "えいがが はじまりそう。",
-          "en": "The film looks about to start."
+          "en": "The movie looks about to start."
         },
         {
           "ja": "あめは ふりそうにない。",
@@ -900,13 +900,13 @@
             "はじまった",
             "はじまる"
           ],
-          "en": "The film looks about to start",
+          "en": "The movie looks about to start",
           "explanation": "そう rides the ます-stem for verbs too — はじまる → はじまり + そう. はじまった already happened; はじまる is just the bare fact, no leaning-forward feel."
         },
         {
           "kind": "sentence",
           "ja": "えいがが はじまりそうだから、はやく いそごう。",
-          "en": "The film looks about to start, so let's hurry",
+          "en": "The movie looks about to start, so let's hurry",
           "exercises": [
             "sou-appearance",
             "kara-because",
@@ -1258,7 +1258,7 @@
             {
               "speaker": "Tom",
               "ja": "この えいがは おもしろそう。",
-              "en": "This film looks interesting."
+              "en": "This movie looks interesting."
             },
             {
               "speaker": "Mika",
@@ -1276,7 +1276,7 @@
               "q": "Why do they decide to watch at home?",
               "options": [
                 "It looks like rain",
-                "The film is too expensive",
+                "The movie is too expensive",
                 "They are busy",
                 "The cinema is closed"
               ],
@@ -1566,7 +1566,7 @@
         {
           "kind": "sentence",
           "ja": "べんりな けいたいが ある。",
-          "en": "There's a convenient mobile phone",
+          "en": "There's a convenient cell phone",
           "exercises": [
             "na-adj-present",
             "ga-existence"
@@ -1589,7 +1589,7 @@
         {
           "kind": "sentence",
           "ja": "ちかてつは べんりだ。",
-          "en": "The underground is convenient",
+          "en": "The subway is convenient",
           "exercises": [
             "na-adj-present"
           ],
@@ -1615,7 +1615,7 @@
             "ふべん",
             "やすい"
           ],
-          "en": "The underground is convenient",
+          "en": "The subway is convenient",
           "explanation": "べんり praises how HANDY something is. ふべん is its negative twin. やすい here would just be 'cheap' — a real word, but the wrong one; it never means 'convenient.'"
         },
         {
@@ -2350,7 +2350,7 @@
                 "ja": "こうえんは やめる？",
                 "en": "Skip the park, then?"
               },
-              "goal": "Pivot the plan — suggest watching a film at your place instead.",
+              "goal": "Pivot the plan — suggest watching a movie at your place instead.",
               "reply": {
                 "mode": "build",
                 "tiles": [
@@ -2363,7 +2363,7 @@
                 ],
                 "answer": "うちで えいがを みよう。"
               },
-              "replyGloss": "Let's watch a film at my place.",
+              "replyGloss": "Let's watch a movie at my place.",
               "explanation": "The look of the sky drives the decision, and the suggestion lands on m34's volitional: みよう。 いこう would head somewhere — the whole point is staying in."
             }
           ]
@@ -2371,7 +2371,7 @@
         {
           "kind": "challenge",
           "ja": "あめが ふりそうだから、こうえんは やめて うちで えいがを みよう。",
-          "en": "It looks like rain, so let's skip the park and watch a film at my place",
+          "en": "It looks like rain, so let's skip the park and watch a movie at my place",
           "combines": [
             "sou-appearance",
             "kara-because",
@@ -2634,7 +2634,7 @@
               "q": "What do they decide to do instead of the park?",
               "options": [
                 "Do homework while listening to music at home",
-                "Watch a film at home",
+                "Watch a movie at home",
                 "Go to the library",
                 "Go shopping"
               ],
@@ -2669,6 +2669,7 @@
   ],
   "priorVocab": [
     "あいて",
+    "あかい",
     "あき",
     "あく",
     "あけて",
@@ -2772,6 +2773,7 @@
     "うごいて",
     "うごく",
     "うた",
+    "うたう",
     "うち",
     "うま",
     "うみ",
@@ -2887,6 +2889,7 @@
     "かみ",
     "かめ",
     "かようび",
+    "から",
     "からい",
     "からだ",
     "かりた",
@@ -2996,6 +2999,7 @@
     "ごじ",
     "ごじゅう",
     "ごぜん",
+    "ごにん",
     "ごはい",
     "ごはん",
     "ごほん",
@@ -3153,6 +3157,7 @@
     "だめ",
     "だれ",
     "だろう",
+    "だんだん",
     "ちいさい",
     "ちいさすぎる",
     "ちかい",
@@ -3215,6 +3220,7 @@
     "ともだち",
     "とりあえず",
     "とりにく",
+    "とる",
     "どう",
     "どうして",
     "どうぶつ",
@@ -3472,6 +3478,7 @@
     "りょうり",
     "りょこう",
     "れんしゅう",
+    "れんしゅうする",
     "ろく",
     "ろくじ",
     "ろくじゅう",
@@ -4326,6 +4333,13 @@
       "kind": "vocab"
     },
     {
+      "kana": "ひま",
+      "romaji": "hima",
+      "gloss": "free time",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "たべたい",
       "romaji": "tabetai",
       "gloss": "want to eat",
@@ -4544,7 +4558,7 @@
     {
       "kana": "なつやすみ",
       "romaji": "natsuyasumi",
-      "gloss": "summer holiday",
+      "gloss": "summer vacation",
       "shortGloss": "summer break",
       "imageable": true,
       "kind": "vocab"
@@ -4646,6 +4660,28 @@
       "romaji": "hayai",
       "gloss": "early",
       "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "とりにく",
+      "romaji": "toriniku",
+      "gloss": "chicken meat",
+      "shortGloss": "chicken",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あかい",
+      "romaji": "akai",
+      "gloss": "red",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うたう",
+      "romaji": "utau",
+      "gloss": "to sing",
+      "imageable": true,
       "kind": "vocab"
     },
     {
@@ -4959,6 +4995,14 @@
       "kind": "vocab"
     },
     {
+      "kana": "から",
+      "romaji": "kara",
+      "gloss": "from (origin)",
+      "shortGloss": "from",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
       "kana": "さむい",
       "romaji": "samui",
       "gloss": "cold (weather)",
@@ -5008,8 +5052,8 @@
     {
       "kana": "やすみ",
       "romaji": "yasumi",
-      "gloss": "holiday, time off",
-      "shortGloss": "holiday",
+      "gloss": "vacation, day off",
+      "shortGloss": "vacation",
       "imageable": true,
       "kind": "vocab"
     },
@@ -5567,7 +5611,7 @@
     {
       "kana": "ちかてつ",
       "romaji": "chikatetsu",
-      "gloss": "underground train, subway",
+      "gloss": "subway",
       "shortGloss": "subway",
       "kind": "vocab"
     },
@@ -5876,6 +5920,13 @@
       "romaji": "ittari",
       "gloss": "go, and things like that",
       "shortGloss": "go, etc.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごにん",
+      "romaji": "go nin",
+      "gloss": "5 people",
       "imageable": false,
       "kind": "vocab"
     },
@@ -6507,8 +6558,8 @@
     {
       "kana": "ことば",
       "romaji": "kotoba",
-      "gloss": "word, language",
-      "shortGloss": "language",
+      "gloss": "word",
+      "shortGloss": "word",
       "kind": "vocab"
     },
     {
@@ -6712,6 +6763,13 @@
       "romaji": "natta",
       "gloss": "became, got (become, past)",
       "shortGloss": "became",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "だんだん",
+      "romaji": "dandan",
+      "gloss": "gradually",
       "imageable": false,
       "kind": "vocab"
     },
@@ -6987,8 +7045,8 @@
     {
       "kana": "とりあえず",
       "romaji": "toriaezu",
-      "gloss": "for now, to start with",
-      "shortGloss": "for now",
+      "gloss": "first off, for now",
+      "shortGloss": "first off",
       "imageable": false,
       "kind": "vocab"
     },
@@ -7285,6 +7343,14 @@
       "kind": "grammar-chunk"
     },
     {
+      "kana": "とる",
+      "romaji": "toru",
+      "gloss": "to take a photo or record a movie",
+      "shortGloss": "take a photo",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
       "kana": "そと",
       "romaji": "soto",
       "gloss": "outside (the in-group boundary)",
@@ -7329,8 +7395,8 @@
     {
       "kana": "おかし",
       "romaji": "okashi",
-      "gloss": "sweets",
-      "shortGloss": "sweets",
+      "gloss": "candy",
+      "shortGloss": "candy",
       "imageable": false,
       "kind": "vocab"
     },
@@ -8059,8 +8125,8 @@
     {
       "kana": "エレベーター",
       "romaji": "erebeetaa",
-      "gloss": "a lift, an elevator",
-      "shortGloss": "lift",
+      "gloss": "an elevator",
+      "shortGloss": "elevator",
       "imageable": true,
       "kind": "vocab"
     },
@@ -8600,6 +8666,13 @@
       "verbClass": "u"
     },
     {
+      "kana": "れんしゅうする",
+      "romaji": "renshuusuru",
+      "gloss": "to practice",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
       "kana": "てつだう",
       "romaji": "tetsudau",
       "gloss": "to help, to lend a hand",
@@ -9060,7 +9133,7 @@
     {
       "kana": "いきません",
       "romaji": "ikimasen",
-      "gloss": "don't go, not travelling (polite)",
+      "gloss": "don't go, not traveling (polite)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -9376,7 +9449,7 @@
       "kana": "ちゃ",
       "romaji": "cha",
       "gloss": "tea",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -9384,7 +9457,7 @@
       "romaji": "kome",
       "gloss": "rice (uncooked)",
       "shortGloss": "rice (raw)",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -9486,7 +9559,7 @@
       "kana": "えん",
       "romaji": "en",
       "gloss": "yen",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -9507,7 +9580,7 @@
       "kana": "かね",
       "romaji": "kane",
       "gloss": "money",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {

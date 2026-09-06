@@ -118,7 +118,7 @@ grammarPoints:
     variant: invitation
     rule: "Said flat, 「いこう」 is let's-go. Said with a question's rise — 「いこう？」 — it is an INVITATION, the plainest one Japanese has. You have owned the polite rungs of this ladder since module 24: いきませんか asks \"won't you go?\", いきましょうか offers \"shall we?\". 「いこう？」 is the same move with the layers off, and it is what friends actually say. Pick by audience, exactly as always: to Ken, いこう？ To たなかせんせい, いきませんか. The move never changes; the dress does."
     examples:
-      - { ja: "いっしょに えいがを みよう？", en: "Want to watch a film together?" }
+      - { ja: "いっしょに えいがを みよう？", en: "Want to watch a movie together?" }
       - { ja: "こうえんに いこう？", en: "Shall we go to the park?" }
       - { ja: "いっしょに いきませんか。", en: "Won't you come along? (polite)" }
     antiPattern: { ja: "せんせい、いっしょに いこう？", why: "the bare volitional invitation is friend-register — inviting your teacher takes the polite rung of the same ladder: いきませんか." }
@@ -240,14 +240,14 @@ lessons:
       - { kind: rule, grammarPointId: volitional, variant: mashou-is-polite }
       - { kind: sentence, ja: "いっしょに えきまで あるこう。", en: "Let's walk to the station together", exercises: [volitional, made-until], mode: build }
       - { kind: listening-comp, audio: "コーヒーを のみましょう。", answer: "Let's have a coffee (polite)", distractors: ["Let's have a coffee (to a friend)", "I don't drink coffee", "I had a coffee"], explanation: "のみましょう is のもう wearing the polite layer — same suggestion, dressed for a teacher or a stranger." }
-      - { kind: sentence, ja: "えいがが はじまる まえに コーヒーを のもう。", en: "Let's have a coffee before the film starts", exercises: [volitional, mae-ni, jidoushi-tadoushi], mode: build }
+      - { kind: sentence, ja: "えいがが はじまる まえに コーヒーを のもう。", en: "Let's have a coffee before the movie starts", exercises: [volitional, mae-ni, jidoushi-tadoushi], mode: build }
       - { kind: sentence, ja: "あした てがみを だそう。", en: "I'll send the letter tomorrow", exercises: [volitional, wo-object], mode: build }
       - { kind: sentence, ja: "でんきを けそう。", en: "Let's turn off the light", exercises: [volitional, jidoushi-tadoushi], mode: translate }
       - { kind: kanji, kana: としょかん, kanji: 図書館, distractors: ["ずしょかん", "としょうかん", "としょかいん"], exercises: [volitional] }
       - { kind: particle-cloze, stem: "せんせいに、コーヒーを ", tail: "。", answer: "のみましょう", options: ["のみましょう", "のもう", "のみます"], en: "Say to your teacher: Let's have a coffee", explanation: "のみましょう is のもう wearing the polite layer — the audience is your teacher, so the dressed-up form is right. のもう is the same will bare, for a friend. のみます is only a plain statement — it does not suggest anything." }
       - { kind: sentence, ja: "みせに いって、のみものを かおう。", en: "Let's go to the shop and buy a drink", exercises: [volitional, te-form, wo-object], mode: build }
       - { kind: listening-comp, audio: "としょかんに いこう。", answer: "Let's go to the library", distractors: ["I'm going to the library", "The library is closed", "Let's go to the shop"], q: "What does this mean?", explanation: "いこう is the bare will thrown forward — let's go — and に names the library as where." }
-      - { kind: challenge, ja: "えいがが はじまる まえに みせに いって、のみものを かおう。", en: "Before the film starts, let's go to the shop and buy drinks", combines: [volitional, mae-ni, te-form, jidoushi-tadoushi], mode: build }
+      - { kind: challenge, ja: "えいがが はじまる まえに みせに いって、のみものを かおう。", en: "Before the movie starts, let's go to the shop and buy drinks", combines: [volitional, mae-ni, te-form, jidoushi-tadoushi], mode: build }
     reviewPool: [コーヒー, としょかん, えき, かばん, てがみ, でんき, えいが, のみもの, みせ, いっしょ]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -286,7 +286,7 @@ lessons:
     introduces: [あそぼう]
     beats:
       - { kind: rule, grammarPointId: volitional, variant: invitation }
-      - { kind: sentence, ja: "いっしょに えいがを みよう？", en: "Want to watch a film together?", exercises: [volitional, wo-object], mode: build }
+      - { kind: sentence, ja: "いっしょに えいがを みよう？", en: "Want to watch a movie together?", exercises: [volitional, wo-object], mode: build }
       - { kind: sentence, ja: "こうえんで あそぼう？", en: "Want to hang out at the park?", exercises: [volitional, de-action], mode: build }
       - { kind: sentence, ja: "としょかんに いこう？", en: "Want to go to the library?", exercises: [volitional, ni-location], mode: build }
       - { kind: sentence, ja: "コーヒーを のもう？", en: "Want to have a coffee?", exercises: [volitional, wo-object], mode: build }
@@ -302,9 +302,9 @@ lessons:
             replyGloss: "Yeah, I'm free."
             explanation: "To Ken, plain うん、ひま is the natural register — a bare はい works too, but with a friend the fuller casual answer is what actually gets said. ううん、いそがしい declines the whole Saturday."
           - npc: { speaker: "Ken", ja: "なにを する？", en: "What shall we do?" }
-            goal: "Suggest watching a film together."
+            goal: "Suggest watching a movie together."
             reply: { mode: build, tiles: ["えいが", "を", "みよう", "たべよう", "いこう"], answer: "えいがを みよう。" }
-            replyGloss: "Let's watch a film."
+            replyGloss: "Let's watch a movie."
             explanation: "The suggestion lands on the volitional — みよう carries the let's. たべよう and いこう are real volitionals too, but they suggest the wrong activity."
           - npc: { speaker: "Ken", ja: "いいね。どこで みる？", en: "Nice. Where shall we watch it?" }
             goal: "Suggest your place."
@@ -338,7 +338,7 @@ lessons:
           - { speaker: "Tom", ja: "うん、ひま。なにを する？", en: "Yeah, I'm free. What shall we do?" }
           - { speaker: "Mika", ja: "こうえんで あそぼう？", en: "Want to hang out at the park?" }
         questions:
-          - { q: "What does Mika suggest?", options: ["Hanging out at the park", "Watching a film", "Eating dinner", "Going to the library"], answer: "Hanging out at the park" }
+          - { q: "What does Mika suggest?", options: ["Hanging out at the park", "Watching a movie", "Eating dinner", "Going to the library"], answer: "Hanging out at the park" }
     reviewPool: [コーヒー, えいが, としょかん, ばんごはん, しゅくだい, こうえん, えき, うち]
 
   # ═══════════════════════════════════════════════════════════════════════

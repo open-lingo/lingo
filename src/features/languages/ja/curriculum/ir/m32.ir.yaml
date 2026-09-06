@@ -184,7 +184,7 @@ grammarPoints:
     rule: "Here is what たら can do that と cannot, and it is the practical half of this module. The second clause of a たら sentence may be anything at all — a request, an invitation, a want, a plan. 「えきに ついたら、でんわを して ください」. 「やすみに なったら、うみに いきたい」. Nothing is blocked, because たら only claims that one thing follows another and makes no claim that it always does. Whenever you are unsure which conditional to reach for, たら is the safe answer."
     examples:
       - { ja: "えきに ついたら、でんわを して ください。", en: "When you get to the station, please call." }
-      - { ja: "やすみに なったら、うみに いきたい。", en: "When the holidays come, I want to go to the sea." }
+      - { ja: "やすみに なったら、うみに いきたい。", en: "When vacation comes, I want to go to the sea." }
       - { ja: "その ほんを よんだら、わたしに かして ください。", en: "When you've read that book, please lend it to me." }
       - { ja: "じかんが あったら、あそびに いきましょう。", en: "If you have time, let's go and hang out." }
       - { ja: "うちに かえったら、しゅくだいを して ください。", en: "When you get home, please do your homework." }
@@ -216,7 +216,7 @@ grammarPoints:
     examples:
       - { ja: "えきに ついたら、でんわを して ください。", en: "When you get to the station, please call." }
       - { ja: "この ボタンを おすと、ドアが うごく。", en: "If you press this button, the door moves." }
-      - { ja: "やすみに なったら、うみに いきましょう。", en: "When the holidays come, let's go to the sea." }
+      - { ja: "やすみに なったら、うみに いきましょう。", en: "When vacation comes, let's go to the sea." }
       - { ja: "うちに かえったら、ねる つもりだ。", en: "When I get home, I intend to sleep." }
       - { ja: "ふゆに なると、ゆきが ふる。", en: "When winter comes, it snows." }
     antiPattern: { ja: "えきに つくと、でんわを して ください。", why: "と promises the result always happens, so its second half cannot be a request — たら takes those: えきに ついたら、でんわを して ください。" }
@@ -226,7 +226,7 @@ grammarPoints:
     rule: "One ready-made phrase, and it is the politest way to suggest something in the language. Hang どうですか on a たら clause and you have \"how about ~ing?\": 「いしゃに いったら どうですか」. It is softer than a suggestion because it never actually says what you should do; it asks the other person what they make of the idea. 〜たら いい is the same shape making a recommendation instead of a question — 「はやく ねたら いい」, you'd do well to sleep early. Both are just たら with something on the end, so there is nothing new to build."
     examples:
       - { ja: "いしゃに いったら どうですか。", en: "How about going to a doctor?" }
-      - { ja: "ちかてつに のったら どうですか。", en: "How about taking the underground?" }
+      - { ja: "ちかてつに のったら どうですか。", en: "How about taking the subway?" }
       - { ja: "はやく ねたら いい。", en: "You'd do well to sleep early." }
       - { ja: "せんせいに きいたら どうですか。", en: "How about asking the teacher?" }
       - { ja: "ちかみちを とおったら いい。", en: "You'd do well to take the shortcut." }
@@ -239,7 +239,7 @@ grammarPoints:
       - { ja: "えきまで じゅっぷんぐらい かかる。", en: "It takes about ten minutes to the station." }
       - { ja: "この ほんは せんえんぐらいだ。", en: "This book is about a thousand yen." }
       - { ja: "しちじごろ ごはんを たべる。", en: "I eat around seven." }
-      - { ja: "ちかてつに じゅっぷんぐらい のったら、うみに つく。", en: "If you ride the underground for about ten minutes, you reach the sea." }
+      - { ja: "ちかてつに じゅっぷんぐらい のったら、うみに つく。", en: "If you ride the subway for about ten minutes, you reach the sea." }
     antiPattern: { ja: "さんじぐらい うちに かえる。", why: "a point on the clock takes ごろ, not ぐらい — ぐらい is for amounts: さんじごろ うちに かえる。" }
 
 newAtoms:
@@ -389,7 +389,7 @@ lessons:
       - { kind: particle-cloze, stem: "はるに ", tail: "、はなが さく。", answer: "なったら", options: ["なったら", "なる", "なった"], en: "When spring comes, the flowers bloom", explanation: "spring is certain to come, and たら is STILL the form — Japanese does not make you pick between if and when. ら needs the past, so なる on its own will not do, and なった is that past without the ら that turns it into a condition." }
       - { kind: sentence, ja: "だいがくに はいったら、にほんごを ならう。", en: "When I get into university, I'll study Japanese", exercises: [tara, ni-location, wo-object], mode: build }
       - { kind: sentence, ja: "なつに なったら、うみに いく。", en: "When summer comes, I'll go to the sea", exercises: [tara, ni-time, ni-location], mode: listening }
-      - { kind: sentence, ja: "やすみに なったら、りょこうを する。", en: "When the holidays come, I'll take a trip", exercises: [tara, ni-time, wo-object], mode: translate }
+      - { kind: sentence, ja: "やすみに なったら、りょこうを する。", en: "When vacation comes, I'll take a trip", exercises: [tara, ni-time, wo-object], mode: translate }
       - { kind: kanji, kana: はる, kanji: 春, distractors: ["ばる", "はろ", "しゅう"], exercises: [tara] }
       - { kind: sentence, ja: "がっこうに はいったら、ともだちが できる。", en: "When I start school, I'll make friends", exercises: [tara, dekiru, ga-existence], mode: build }
       - { kind: sentence, ja: "じかんが あったら、あそびに いく。", en: "If I have time, I'll come over", exercises: [tara, ni-iku, ga-existence], mode: build }
@@ -422,7 +422,7 @@ lessons:
       - { kind: rule, grammarPointId: tara, variant: request }
       - { kind: sentence, ja: "えきに ついたら、でんわを して ください。", en: "When you get to the station, please call", exercises: [tara, te-kudasai, wo-object], mode: build }
       - { kind: sentence, ja: "しごとが おわったら、ごはんを たべに いきましょう。", en: "When work finishes, let's go and eat", exercises: [tara, mashou, ni-iku], mode: build }
-      - { kind: sentence, ja: "やすみに なったら、うみに いきたい。", en: "When the holidays come, I want to go to the sea", exercises: [tara, v-tai, ni-location], mode: build }
+      - { kind: sentence, ja: "やすみに なったら、うみに いきたい。", en: "When vacation comes, I want to go to the sea", exercises: [tara, v-tai, ni-location], mode: build }
       - { kind: sentence, ja: "その ほんを よんだら、わたしに かして ください。", en: "When you've read that book, please lend it to me", exercises: [tara, te-kudasai, ni-recipient], mode: build }
       - { kind: sentence, ja: "この みちを まっすぐ いって ください。", en: "Please go straight along this road", exercises: [te-kudasai, wo-object], mode: build }
       - { kind: sentence, ja: "こうえんは みぎですか、ひだりですか。", en: "Is the park on the right or the left?", exercises: [ka-question, desu-copula], mode: build }
@@ -434,7 +434,7 @@ lessons:
       - { kind: sentence, ja: "ひだりの みちを いって ください。", en: "Please take the road on the left", exercises: [te-kudasai, no-possession, wo-object], mode: translate }
       - { kind: sentence, ja: "しごとが おわったら、うちに かえる つもりだ。", en: "When work finishes, I intend to go home", exercises: [tara, tsumori-desu, ni-location], mode: listening }
       - { kind: listening-comp, audio: "えきに ついたら、でんわを して ください。", answer: "When you get to the station, please call", distractors: ["When you get to the station, I'll call you", "When you get home, please call", "If you called, you'd get to the station"], exercises: [tara, te-kudasai] }
-      - { kind: listening-comp, audio: "やすみに なったら、うみに いきたい。", answer: "When the holidays come, I want to go to the sea", distractors: ["When the holidays come, I want to go to the mountains", "During the holidays I went to the sea", "When the holidays come, let's go to the sea"], exercises: [tara, v-tai] }
+      - { kind: listening-comp, audio: "やすみに なったら、うみに いきたい。", answer: "When vacation comes, I want to go to the sea", distractors: ["When vacation comes, I want to go to the mountains", "During vacation I went to the sea", "When vacation comes, let's go to the sea"], exercises: [tara, v-tai] }
       - kind: dialogue
         lines:
           - { speaker: "Tanaka", ja: "えきは どこですか。", en: "Where's the station?" }
@@ -465,7 +465,7 @@ lessons:
       - { kind: particle-cloze, stem: "ごはんを ", tail: "、ねる。", answer: "たべたら", options: ["たべたら", "たべる", "たべたり"], en: "When I've eaten, I'll sleep", explanation: "ら lands on the plain past, so たべる gives たべた and then たべたら." }
       - { kind: sentence, ja: "この みちを まっすぐ いって ください。", en: "Please go straight along this road", exercises: [te-kudasai, wo-object], mode: build }
       - { kind: sentence, ja: "おかねが あったら、くるまを かう。", en: "If I had money, I'd buy a car", exercises: [tara, ga-existence], mode: translate }
-      - { kind: listening-comp, audio: "やすみに なったら、うみに いきたい。", answer: "When the holidays come, I want to go to the sea", distractors: ["When the holidays come, I went to the sea", "If it rains, I want to go to the sea", "When work finishes, I want to go to the sea"], exercises: [tara, v-tai] }
+      - { kind: listening-comp, audio: "やすみに なったら、うみに いきたい。", answer: "When vacation comes, I want to go to the sea", distractors: ["When vacation comes, I went to the sea", "If it rains, I want to go to the sea", "When work finishes, I want to go to the sea"], exercises: [tara, v-tai] }
       - { kind: sentence, ja: "うちに かえったら、しゅくだいを する。", en: "When I get home, I'll do my homework", exercises: [tara, wo-object], mode: build }
       - { kind: sentence, ja: "えきは みぎですか、ひだりですか。", en: "Is the station on the right or the left?", exercises: [ka-question], mode: build }
       - { kind: challenge, ja: "しごとが おわったら ともだちと うみに いきたいけど、あめが ふったら いかない。", en: "When work finishes I want to go to the sea with a friend, but if it rains I won't go", combines: [tara, v-tai, kedo, nai-form, to-and], mode: build }
@@ -563,13 +563,13 @@ lessons:
       - { kind: sentence, ja: "えきに ついたら、でんわを して ください。", en: "When you get to the station, please call", exercises: [tara, te-kudasai, ni-location], mode: build }
       - { kind: sentence, ja: "ボタンを おすと、ドアが うごく。", en: "If you press the button, the door moves", exercises: [to-conditional, wo-object, ga-existence], mode: build }
       - { kind: sentence, ja: "ボタンを おすと、きかいが とまる。", en: "If you press the button, the machine stops", exercises: [to-conditional, wo-object, ga-existence], mode: build }
-      - { kind: sentence, ja: "やすみに なったら、うみに いきましょう。", en: "When the holidays come, let's go to the sea", exercises: [tara, mashou, ni-time], mode: build }
+      - { kind: sentence, ja: "やすみに なったら、うみに いきましょう。", en: "When vacation comes, let's go to the sea", exercises: [tara, mashou, ni-time], mode: build }
       - { kind: sentence, ja: "うちに かえったら、ねる つもりだ。", en: "When I get home, I intend to sleep", exercises: [tara, tsumori-desu, ni-location], mode: build }
       # The tell, drilled directly: look at the END of the sentence.
       - { kind: particle-cloze, stem: "えきに ", tail: "、でんわを して ください。", answer: "ついたら", options: ["ついたら", "つくと", "つく"], en: "When you get to the station, please call", explanation: "the sentence ends in ください, and a request is something that might not happen — と has already promised the result ALWAYS follows, so it cannot take one. Swap to たら and the sentence is fine. This is the single most useful test in the module: read the ending first." }
       - { kind: sentence, ja: "かぎを まわすと、くるまが とまる。", en: "If you turn the key, the car stops", exercises: [to-conditional, wo-object, ga-existence], mode: build }
       - { kind: sentence, ja: "しごとが おわったら、ごはんを たべに いきましょう。", en: "When work finishes, let's go and eat", exercises: [tara, mashou, ni-iku], mode: build }
-      - { kind: particle-cloze, stem: "やすみに ", tail: "、うみに いきましょう。", answer: "なったら", options: ["なったら", "なると", "なる"], en: "When the holidays come, let's go to the sea", explanation: "ましょう is an invitation, so the same test applies — と cannot promise that the holidays automatically produce a trip to the sea. たら is the form for anything the speaker is proposing rather than reporting." }
+      - { kind: particle-cloze, stem: "やすみに ", tail: "、うみに いきましょう。", answer: "なったら", options: ["なったら", "なると", "なる"], en: "When vacation comes, let's go to the sea", explanation: "ましょう is an invitation, so the same test applies — と cannot promise that vacation automatically produce a trip to the sea. たら is the form for anything the speaker is proposing rather than reporting." }
       - { kind: sentence, ja: "はるに なると、はなが さく。", en: "Every spring, the flowers bloom", exercises: [to-conditional, ni-time], mode: build }
       - { kind: kanji, kana: でんわ, kanji: 電話, distractors: ["てんわ", "でんは", "でんき"], exercises: [to-conditional] }
       - { kind: sentence, ja: "この みちを わたったら、みぎに まがって ください。", en: "When you've crossed this road, please turn right", exercises: [tara, te-kudasai, ni-location], mode: build }
@@ -606,7 +606,7 @@ lessons:
       - { kind: sentence, ja: "ボタンを おすと、きかいが うごく。", en: "If you press the button, the machine starts", exercises: [to-conditional, ga-existence], mode: build }
       - { kind: particle-cloze, stem: "しごとが ", tail: "、ごはんを たべに いきましょう。", answer: "おわったら", options: ["おわったら", "おわると", "おわる"], en: "When work finishes, let's go and eat", explanation: "ましょう is an invitation, and と cannot promise one — read the ending and pick たら." }
       - { kind: sentence, ja: "こうさてんを みぎに まがると、こうえんが ある。", en: "If you turn right at the intersection, there's a park", exercises: [to-conditional, ni-location], mode: build }
-      - { kind: sentence, ja: "やすみに なったら、うみに いきたい。", en: "When the holidays come, I want to go to the sea", exercises: [tara, v-tai], mode: build }
+      - { kind: sentence, ja: "やすみに なったら、うみに いきたい。", en: "When vacation comes, I want to go to the sea", exercises: [tara, v-tai], mode: build }
       - { kind: particle-cloze, stem: "ふゆに ", tail: "、ゆきが ふる。", answer: "なると", options: ["なると", "なったと", "なったら"], en: "When winter comes, it snows", explanation: "と takes the dictionary form — なる, not なった — the mirror of たら, which wanted the past. なったと borrows たら's past and pins と on it, which is not a form. なったら IS real Japanese, but it makes the weaker one-time claim — snow every winter is the result that never varies, and stating that law is exactly what と is for." }
       - { kind: sentence, ja: "ちかみちを とおると、はやく つく。", en: "If you take the shortcut, you get there quickly", exercises: [to-conditional, wo-object], mode: build }
       - { kind: sentence, ja: "うちに かえったら、しゅくだいを して ください。", en: "When you get home, please do your homework", exercises: [tara, te-kudasai], mode: translate }
@@ -626,7 +626,7 @@ lessons:
       # will actually reach for, all built from verbs owned since m7.
       - { kind: rule, grammarPointId: tara-dou, variant: suggestion }
       - { kind: sentence, ja: "いしゃに いったら どうですか。", en: "How about going to a doctor?", exercises: [tara-dou, ni-location], mode: build }
-      - { kind: sentence, ja: "ちかてつに のったら どうですか。", en: "How about taking the underground?", exercises: [tara-dou, ni-location], mode: build }
+      - { kind: sentence, ja: "ちかてつに のったら どうですか。", en: "How about taking the subway?", exercises: [tara-dou, ni-location], mode: build }
       - { kind: sentence, ja: "せんせいに きいたら どうですか。", en: "How about asking the teacher?", exercises: [tara-dou, ni-recipient], mode: build }
       - { kind: sentence, ja: "くすりを のんだら どうですか。", en: "How about taking some medicine?", exercises: [tara-dou, wo-object], mode: build }
       - { kind: sentence, ja: "はやく ねたら いい。", en: "You'd do well to sleep early", exercises: [tara-dou], mode: build }
@@ -637,7 +637,7 @@ lessons:
       - { kind: sentence, ja: "この みちを まっすぐ いったら どうですか。", en: "How about going straight along this road?", exercises: [tara-dou, wo-object], mode: translate }
       - { kind: kanji, kana: くすり, kanji: 薬, distractors: ["くすい", "ぐすり", "やくそう"], exercises: [tara-dou] }
       - { kind: sentence, ja: "びょうきだから、はやく かえったら どうですか。", en: "You're ill, so how about going home early?", exercises: [tara-dou, kara-because], mode: build }
-      - { kind: sentence, ja: "ちかてつに のったら、はやく つく。", en: "If you take the underground, you get there quickly", exercises: [tara, ni-location], mode: listening }
+      - { kind: sentence, ja: "ちかてつに のったら、はやく つく。", en: "If you take the subway, you get there quickly", exercises: [tara, ni-location], mode: listening }
       - { kind: particle-cloze, stem: "はやく ", tail: " いい。", answer: "ねたら", options: ["ねたら", "ねると", "ねる"], en: "You'd do well to sleep early", explanation: "〜たら いい recommends, and it is built on exactly the same たら — ねる gives ねた, then ねたら. It is softer than saying you should, because it only says the outcome would be good." }
       - { kind: sentence, ja: "くすりを のんだら、よく なる。", en: "If you take the medicine, you'll get better", exercises: [tara, ku-ni-naru], mode: listening }
       - { kind: listening-comp, audio: "いしゃに いったら どうですか。", answer: "How about going to a doctor?", distractors: ["How about asking the teacher?", "I went to the doctor", "Please go to a doctor"], exercises: [tara-dou] }
@@ -684,7 +684,7 @@ lessons:
         lines:
           - { speaker: "Tom", ja: "えきまで どのぐらい かかる？", en: "How long does it take to the station?" }
           - { speaker: "Mika", ja: "あるくと、じゅっぷんぐらい。", en: "About ten minutes if you walk." }
-          - { speaker: "Tom", ja: "ちかてつは？", en: "And the underground?" }
+          - { speaker: "Tom", ja: "ちかてつは？", en: "And the subway?" }
           - { speaker: "Mika", ja: "ごふんぐらいだよ。ろくじごろ つく。", en: "About five minutes. You'd get there around six." }
         questions:
           - { q: "Which is the length of time, and which is the point on the clock?", options: ["ごふん is the length, ろくじ is the point", "ろくじ is the length, ごふん is the point", "Both are lengths", "Both are points"], answer: "ごふん is the length, ろくじ is the point" }
@@ -747,8 +747,8 @@ lessons:
       - { kind: particle-cloze, stem: "さんじ", tail: " うちに かえる。", answer: "ごろ", options: ["ごろ", "ぐらい", "から"], en: "I'll go home around three", explanation: "a point on the clock takes ごろ; ぐらい is for amounts." }
       - { kind: sentence, ja: "はるに なると、はなが さく。", en: "Every spring, the flowers bloom", exercises: [to-conditional, ni-time], mode: build }
       - { kind: sentence, ja: "ちかみちを とおったら いい。", en: "You'd do well to take the shortcut", exercises: [tara-dou, wo-object], mode: translate }
-      - { kind: listening-comp, audio: "ちかてつに のったら どうですか。", answer: "How about taking the underground?", distractors: ["How about taking the bus?", "I took the underground", "Please take the underground"], exercises: [tara-dou] }
-      - { kind: challenge, ja: "ろくじごろ えきに ついたら、ちかてつに のったら どうですか。", en: "If you get to the station around six, how about taking the underground?", combines: [gurai-goro, tara, tara-dou, ni-location], mode: build }
+      - { kind: listening-comp, audio: "ちかてつに のったら どうですか。", answer: "How about taking the subway?", distractors: ["How about taking the bus?", "I took the subway", "Please take the subway"], exercises: [tara-dou] }
+      - { kind: challenge, ja: "ろくじごろ えきに ついたら、ちかてつに のったら どうですか。", en: "If you get to the station around six, how about taking the subway?", combines: [gurai-goro, tara, tara-dou, ni-location], mode: build }
     reviewPool: [ぐらい, ごろ, かかる, いしゃ, くすり, ちかてつ, ちかみち, こうさてん, ボタン, きかい]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -759,7 +759,7 @@ lessons:
     introduces: []
     beats:
       - { kind: sentence, ja: "この みちを まっすぐ いって おおきい こうさてんを みぎに まがると、びょういんが みえる。", en: "Go straight along this road and turn right at the big intersection, and you'll see the hospital", exercises: [to-conditional, te-form, mieru-kikoeru], mode: build }
-      - { kind: sentence, ja: "しごとが おわったら、ちかてつに のって うみに いきたい。", en: "When work finishes, I want to take the underground and go to the sea", exercises: [tara, te-form, v-tai], mode: build }
+      - { kind: sentence, ja: "しごとが おわったら、ちかてつに のって うみに いきたい。", en: "When work finishes, I want to take the subway and go to the sea", exercises: [tara, te-form, v-tai], mode: build }
       - { kind: sentence, ja: "その ボタンを おすと きかいが とまるから、おわったら おして ください。", en: "If you press that button the machine stops, so when it finishes please press it", exercises: [to-conditional, kara-because, tara, te-kudasai], mode: build }
       - { kind: sentence, ja: "はるに なると はなが さくから、こうえんに いったら どうですか。", en: "When spring comes the flowers bloom, so how about going to the park?", exercises: [to-conditional, kara-because, tara-dou], mode: build }
       - { kind: sentence, ja: "うちから えきまで じゅっぷんぐらい かかるけど、ちかみちを とおると はやい。", en: "It takes about ten minutes from home to the station, but if you take the shortcut it's quick", exercises: [gurai-goro, kedo, to-conditional], mode: build }
@@ -767,15 +767,15 @@ lessons:
       - { kind: sentence, ja: "びょうきだから、くすりを のんで はやく ねたら いい。", en: "You're ill, so you'd do well to take some medicine and sleep early", exercises: [kara-because, te-form, tara-dou], mode: build }
       - { kind: sentence, ja: "ふゆに なると ゆきが ふるから、くるまで いかない つもりだ。", en: "When winter comes it snows, so I don't intend to go by car", alsoAccept: ["ふゆに なったら ゆきが ふるから、くるまで いかない つもりだ。"], exercises: [to-conditional, kara-because, nai-form, tsumori-desu], mode: translate }
       - { kind: particle-cloze, stem: "その ボタンを おすと きかいが とまるから、しごとが ", tail: " おして ください。", answer: "おわったら", options: ["おわったら", "おわると", "おわる"], en: "If you press that button the machine stops, so when work finishes please press it", explanation: "the first half is a fact about the machine and takes と; the second half is a request and takes たら. One sentence, both forms, and the endings decide which goes where." }
-      - { kind: listening-comp, audio: "しごとが おわったら、ちかてつに のって うみに いきたい。", answer: "When work finishes, I want to take the underground and go to the sea", distractors: ["When work finishes, I want to take the bus and go to the sea", "If you take the underground to the sea, work finishes", "When work finished, I took the underground to the sea"], exercises: [tara, v-tai] }
+      - { kind: listening-comp, audio: "しごとが おわったら、ちかてつに のって うみに いきたい。", answer: "When work finishes, I want to take the subway and go to the sea", distractors: ["When work finishes, I want to take the bus and go to the sea", "If you take the subway to the sea, work finishes", "When work finished, I took the subway to the sea"], exercises: [tara, v-tai] }
       - { kind: listening-comp, audio: "うちから えきまで じゅっぷんぐらい かかる。", answer: "It takes about ten minutes from home to the station", distractors: ["It takes about ten hours from home to the station", "I'll leave home for the station around twenty past", "It takes about ten minutes from the station to home"], exercises: [gurai-goro, made-until] }
       - kind: dialogue
         lines:
-          - { speaker: "Tanaka", ja: "やすみに なったら、なにを しますか。", en: "What'll you do when the holidays come?" }
-          - { speaker: "Mika", ja: "うみに いきたいです。ちかてつに のると、じゅっぷんぐらいです。", en: "I want to go to the sea. It's about ten minutes on the underground." }
+          - { speaker: "Tanaka", ja: "やすみに なったら、なにを しますか。", en: "What'll you do when vacation come?" }
+          - { speaker: "Mika", ja: "うみに いきたいです。ちかてつに のると、じゅっぷんぐらいです。", en: "I want to go to the sea. It's about ten minutes on the subway." }
           - { speaker: "Tom", ja: "あめが ふったら？", en: "And if it rains?" }
           - { speaker: "Mika", ja: "うちで ほんを よむ。はやく おわったら、でんわを して ください。", en: "I'll read at home. If you finish early, please call." }
         questions:
           - { q: "Which of Mika's sentences could NOT have used と?", options: ["「はやく おわったら、でんわを して ください」 — it ends in a request", "「ちかてつに のると、じゅっぷんぐらいです」 — it names a time", "Both of them could use と", "Neither of them could use と"], answer: "「はやく おわったら、でんわを して ください」 — it ends in a request" }
-      - { kind: challenge, ja: "やすみに なったら うみに いきたいけど、あめが ふったら いかない つもりだ。", en: "When the holidays come I want to go to the sea, but if it rains I don't intend to go", combines: [tara, v-tai, kedo, nai-form, tsumori-desu], mode: build }
+      - { kind: challenge, ja: "やすみに なったら うみに いきたいけど、あめが ふったら いかない つもりだ。", en: "When vacation comes I want to go to the sea, but if it rains I don't intend to go", combines: [tara, v-tai, kedo, nai-form, tsumori-desu], mode: build }
     reviewPool: [ちかみち, こうさてん, ボタン, きかい, とまる, ぐらい, ごろ, かかる, くすり, ちかてつ]

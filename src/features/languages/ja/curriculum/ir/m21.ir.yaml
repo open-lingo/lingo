@@ -203,12 +203,12 @@ grammarPoints:
     antiPattern: { ja: "うみや やまや すきだ。", why: "や goes BETWEEN the things you are listing — the last one still needs the particle the sentence wants, here が: うみや やまが すきだ。" }
 
   - id: to-and
-    rule: "と is the other 'and', and it closes the list. 「いぬと ねこが いる」 means there is a dog and a cat and that is all of them — you have named everything. 「いぬや ねこが いる」 means a dog, a cat, and other animals besides. Same English, opposite claim, and the only difference on the page is one kana. Use と when the list is genuinely complete: the two things in your bag, the two people who came, the whole shopping list. Use や when you are giving examples. Both sit BETWEEN the nouns and neither one replaces the particle at the end — 「パンと たまごを かう」 keeps its を exactly as the や version did. One more job worth remembering, because you have had it since module 8: と also means 'with' when it sits before a person and a verb — 「ミカと えいがを みる」 is watching a film with Mika, not a list of two things."
+    rule: "と is the other 'and', and it closes the list. 「いぬと ねこが いる」 means there is a dog and a cat and that is all of them — you have named everything. 「いぬや ねこが いる」 means a dog, a cat, and other animals besides. Same English, opposite claim, and the only difference on the page is one kana. Use と when the list is genuinely complete: the two things in your bag, the two people who came, the whole shopping list. Use や when you are giving examples. Both sit BETWEEN the nouns and neither one replaces the particle at the end — 「パンと たまごを かう」 keeps its を exactly as the や version did. One more job worth remembering, because you have had it since module 8: と also means 'with' when it sits before a person and a verb — 「ミカと えいがを みる」 is watching a movie with Mika, not a list of two things."
     examples:
       - { ja: "いぬと ねこが いる。", en: "There's a dog and a cat — those two, and that's the whole list." }
       - { ja: "いぬや ねこが いる。", en: "There's a dog and a cat and other animals too — や leaves the list open." }
       - { ja: "パンと たまごを かう。", en: "I'll buy bread and eggs — the whole shopping list." }
-      - { ja: "ミカと えいがを みる。", en: "I'm watching a film with Mika — と also means 'with'." }
+      - { ja: "ミカと えいがを みる。", en: "I'm watching a movie with Mika — と also means 'with'." }
       - { ja: "じしょと えんぴつが かばんに ある。", en: "The dictionary and the pencil are in my bag." }
     antiPattern: { ja: "いぬ ねこが いる。", why: "two nouns cannot just sit next to each other — a finished list needs と between them: いぬと ねこが いる。" }
 
@@ -228,7 +228,7 @@ grammarPoints:
       - { ja: "ミカの おにいさんは がくせいだ。", en: "Mika's older brother is a student." }
       - { ja: "あには だいがくに いく。", en: "My older brother goes to university — あに already means 'my'." }
       - { ja: "ともだちの おねえさんは かいしゃで はたらく。", en: "My friend's older sister works at a company." }
-      - { ja: "あねは えいがが すきだ。", en: "My older sister likes films." }
+      - { ja: "あねは えいがが すきだ。", en: "My older sister likes movies." }
       - { ja: "せんせいの おねえさんも せんせいだ。", en: "The teacher's older sister is a teacher too." }
     antiPattern: { ja: "ミカの あには がくせいだ。", why: "あに already means MY older brother, so it can never take somebody else's name — Mika's is おにいさん: ミカの おにいさんは がくせいだ。" }
 
@@ -253,20 +253,20 @@ grammarPoints:
     antiPattern: { ja: "かぞくは ごはいだ。", why: "はい counts cupfuls and never people — a person takes にん: かぞくは ごにんだ。" }
 
   - id: tari-tari-suru
-    rule: "や opens a list of things; 〜たり 〜たり する opens a list of ACTIONS. It is built out of something you already have: the plain past. Take たべた, add り — たべたり. Take のんだ, add り — のんだり. Do that to two verbs, line them up, and finish the sentence with する: 「あさは パンを たべたり ぎゅうにゅうを のんだり する」. In the mornings I do things like eat bread and drink milk. The 'things like' is not decoration — it is the whole point. You are naming a couple of examples out of many, exactly as や does, and a listener understands there was more. Two rules keep it upright. The たり pieces never change, however long the sentence gets. And する at the end is not optional: it is the verb of the sentence, and without it you have listed two half-actions and stopped. One more thing follows from that. Because する is the verb, する is what carries the tense — change it and the whole list moves with it: 「やすみは えいがを みたり おんがくを きいたり しました」, on my days off I DID things like watch films and listen to music. The たり pieces still do not move. That past form is the one you will hear most, because it is the answer to the question people actually ask: what did you do at the weekend?"
+    rule: "や opens a list of things; 〜たり 〜たり する opens a list of ACTIONS. It is built out of something you already have: the plain past. Take たべた, add り — たべたり. Take のんだ, add り — のんだり. Do that to two verbs, line them up, and finish the sentence with する: 「あさは パンを たべたり ぎゅうにゅうを のんだり する」. In the mornings I do things like eat bread and drink milk. The 'things like' is not decoration — it is the whole point. You are naming a couple of examples out of many, exactly as や does, and a listener understands there was more. Two rules keep it upright. The たり pieces never change, however long the sentence gets. And する at the end is not optional: it is the verb of the sentence, and without it you have listed two half-actions and stopped. One more thing follows from that. Because する is the verb, する is what carries the tense — change it and the whole list moves with it: 「やすみは えいがを みたり おんがくを きいたり しました」, on my days off I DID things like watch movies and listen to music. The たり pieces still do not move. That past form is the one you will hear most, because it is the answer to the question people actually ask: what did you do at the weekend?"
     examples:
-      - { ja: "やすみは えいがを みたり おんがくを きいたり する。", en: "On my days off I do things like watch films and listen to music." }
+      - { ja: "やすみは えいがを みたり おんがくを きいたり する。", en: "On my days off I do things like watch movies and listen to music." }
       - { ja: "あさは パンを たべたり ぎゅうにゅうを のんだり する。", en: "In the mornings I do things like eat bread and drink milk." }
       - { ja: "きっさてんで コーヒーを のんだり ほんを みたり する。", en: "At the coffee shop I do things like drink coffee and look at a book." }
-      - { ja: "やすみは すしを たべたり えいがを みたり する。", en: "On my days off I do things like eat sushi and watch films." }
+      - { ja: "やすみは すしを たべたり えいがを みたり する。", en: "On my days off I do things like eat sushi and watch movies." }
       - { ja: "たべたり のんだり するのが すきだ。", en: "I like doing things like eating and drinking." }
-      - { ja: "やすみは えいがを みたり おんがくを きいたり しました。", en: "On my days off I did things like watch films and listen to music." }
+      - { ja: "やすみは えいがを みたり おんがくを きいたり しました。", en: "On my days off I did things like watch movies and listen to music." }
     antiPattern: { ja: "やすみは えいがを みたり おんがくを きいたり。", why: "a たり list has to be finished with する — without it you have named two half-actions and stopped: …おんがくを きいたり する。" }
 
   - id: suki-kirai-no
-    rule: "An open list and a preference belong together, because almost nobody likes exactly one thing. すき and きらい take が on the thing — they are adjectives, not verbs, however hard English fights you on it — and が is the particle the LAST item of a や list hands over to: 「あねは えいがや おんがくが すきだ」. My sister likes films and music and that sort of thing. Every piece of that is already yours: や joins, が marks what is liked, だ finishes the な-adjective. The same works with a たり list when what you like is an activity rather than a thing, and there the nominalizer の from module 13 does the joining instead: 「うみに いったり やまで あそんだり するのが すきだ」. And the negative is the same shape with きらい in place of すき — the thing you dislike still takes が, never を."
+    rule: "An open list and a preference belong together, because almost nobody likes exactly one thing. すき and きらい take が on the thing — they are adjectives, not verbs, however hard English fights you on it — and が is the particle the LAST item of a や list hands over to: 「あねは えいがや おんがくが すきだ」. My sister likes movies and music and that sort of thing. Every piece of that is already yours: や joins, が marks what is liked, だ finishes the な-adjective. The same works with a たり list when what you like is an activity rather than a thing, and there the nominalizer の from module 13 does the joining instead: 「うみに いったり やまで あそんだり するのが すきだ」. And the negative is the same shape with きらい in place of すき — the thing you dislike still takes が, never を."
     examples:
-      - { ja: "あねは えいがや おんがくが すきだ。", en: "My older sister likes films and music and things like that." }
+      - { ja: "あねは えいがや おんがくが すきだ。", en: "My older sister likes movies and music and things like that." }
       - { ja: "ぼくは きのこが きらいだ。", en: "I don't like mushrooms." }
       - { ja: "やすみは うみに いったり やまで あそんだり する。", en: "On my days off I do things like go to the sea and play in the mountains." }
       - { ja: "ミカの おかあさんは りょうりが すきだ。", en: "Mika's mother likes cooking." }
@@ -374,7 +374,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "なにが すき？", en: "What do you like?" }
-          - { speaker: "Tom", ja: "うみや やまが すきだ。りょこうが すきだから。", en: "The sea, the mountains, that sort of thing. Because I like travelling." }
+          - { speaker: "Tom", ja: "うみや やまが すきだ。りょこうが すきだから。", en: "The sea, the mountains, that sort of thing. Because I like traveling." }
         questions:
           - { q: "What does Tom say he likes?", options: ["The sea, the mountains and things like that", "Only the sea", "Only the mountains", "Nothing in particular"], answer: "The sea, the mountains and things like that" }
       - { kind: challenge, ja: "ミカと うみや かわに いくから かさを かう。", en: "I'm going to the sea and the river and places like that with Mika, so I'll buy an umbrella", combines: [ya-incomplete-list, to-and, kara-because, ni-location], mode: build }
@@ -421,7 +421,7 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: family-register }
       - { kind: sentence, ja: "ちちは おんがくが すきだ。", en: "My father likes music", exercises: [family-register, suki-kirai-no], mode: build }
-      - { kind: sentence, ja: "ミカの おかあさんは えいがが すきだ。", en: "Mika's mother likes films", exercises: [family-register, no-possession, suki-kirai-no], mode: build }
+      - { kind: sentence, ja: "ミカの おかあさんは えいがが すきだ。", en: "Mika's mother likes movies", exercises: [family-register, no-possession, suki-kirai-no], mode: build }
       - { kind: sentence, ja: "ちちと ははが かいしゃで はたらく。", en: "My father and my mother work at a company", exercises: [family-register, to-and, de-action], mode: build }
       - { kind: sentence, ja: "ケンの おとうさんは がっこうの せんせいだ。", en: "Ken's father is a teacher at the school", exercises: [family-register, no-possession, desu-copula], mode: listening }
       - { kind: sentence, ja: "せんせいの おかあさんは げんきだ。", en: "The teacher's mother is well", exercises: [family-register, no-possession, na-adj-present], mode: build }
@@ -441,7 +441,7 @@ lessons:
           - { speaker: "Mika", ja: "うん。ははは がっこうで はたらく。", en: "Yeah. My mother works at a school." }
         questions:
           - { q: "Where does Mika's mother work?", options: ["At a school", "At a company", "At a coffee shop", "At a hospital"], answer: "At a school" }
-      - { kind: challenge, ja: "ミカの おかあさんは えいがや おんがくが すきだから えいがを みに いく。", en: "Mika's mother likes films and music and things like that, so she goes to watch a film", combines: [family-register, ya-incomplete-list, kara-because, ni-iku], mode: build }
+      - { kind: challenge, ja: "ミカの おかあさんは えいがや おんがくが すきだから えいがを みに いく。", en: "Mika's mother likes movies and music and things like that, so she goes to watch a movie", combines: [family-register, ya-incomplete-list, kara-because, ni-iku], mode: build }
     reviewPool: [かぞく, ちち, はは, せんせい, がくせい, かいしゃ, がっこう, にほんじん, おんがく, えいが]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -453,7 +453,7 @@ lessons:
     beats:
       - { kind: sentence, ja: "そらや うみが きれいだ。", en: "The sky and the sea and all of it are beautiful", exercises: [ya-incomplete-list], mode: build }
       - { kind: sentence, ja: "じてんしゃと くるまが ある。", en: "There's a bicycle and a car", exercises: [to-and, arimasu], mode: build }
-      - { kind: sentence, ja: "ミカの おかあさんは えいがが すきだ。", en: "Mika's mother likes films", exercises: [family-register, no-possession], mode: listening }
+      - { kind: sentence, ja: "ミカの おかあさんは えいがが すきだ。", en: "Mika's mother likes movies", exercises: [family-register, no-possession], mode: listening }
       - { kind: sentence, ja: "みせで くつや ぼうしを かう。", en: "I'll buy shoes and a hat and a few other things at the shop", exercises: [ya-incomplete-list, de-action], mode: build }
       - { kind: sentence, ja: "ちちと ははが かいしゃで はたらく。", en: "My father and my mother work at a company", exercises: [family-register, to-and], mode: build }
       - { kind: particle-cloze, stem: "かばんに かぎ", tail: " けいたいなどが ある。", answer: "や", options: ["や", "を", "から"], en: "In my bag there are keys, a phone and so on", explanation: "や leaves the list open, and など says so out loud. を marks a thing you act on and から a starting point." }
@@ -496,7 +496,7 @@ lessons:
           - { speaker: "Mika", ja: "うん。あには だいがくに いく。", en: "Yeah. My older brother goes to university." }
         questions:
           - { q: "What does Mika say about her older brother?", options: ["He goes to university", "He works at a company", "He is a teacher", "He is at home"], answer: "He goes to university" }
-      - { kind: challenge, ja: "ともだちの おねえさんは えいがや おんがくが すきだけど あねは りょうりが すきだ。", en: "My friend's older sister likes films and music and things like that, but my older sister likes cooking", combines: [no-possession, family-register, ya-incomplete-list, kedo], mode: build }
+      - { kind: challenge, ja: "ともだちの おねえさんは えいがや おんがくが すきだけど あねは りょうりが すきだ。", en: "My friend's older sister likes movies and music and things like that, but my older sister likes cooking", combines: [no-possession, family-register, ya-incomplete-list, kedo], mode: build }
     reviewPool: [あに, あね, いもうと, おとうと, きょうだい, おかあさん, おとうさん, だいがく, がっこう, かいしゃ]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -590,32 +590,32 @@ lessons:
     introduces: [たべたり, のんだり, みたり, きいたり]
     beats:
       - { kind: rule, grammarPointId: tari-tari-suru }
-      - { kind: sentence, ja: "やすみは えいがを みたり おんがくを きいたり する。", en: "On my days off I do things like watch films and listen to music", exercises: [tari-tari-suru, wa-topic, wo-object], mode: build }
+      - { kind: sentence, ja: "やすみは えいがを みたり おんがくを きいたり する。", en: "On my days off I do things like watch movies and listen to music", exercises: [tari-tari-suru, wa-topic, wo-object], mode: build }
       - { kind: sentence, ja: "あさは パンを たべたり ちゃを のんだり する。", en: "In the mornings I do things like eat bread and drink tea", exercises: [tari-tari-suru, wo-object], mode: build }
       - { kind: sentence, ja: "きっさてんで コーヒーを のんだり ほんを みたり する。", en: "At the coffee shop I do things like drink coffee and look at a book", exercises: [tari-tari-suru, de-action], mode: build }
       - { kind: sentence, ja: "うちで すしを たべたり うたを きいたり する。", en: "At home I do things like eat sushi and listen to songs", exercises: [tari-tari-suru, de-action], mode: listening }
-      - { kind: sentence, ja: "なつやすみは えいがを みたり すしを たべたり する。", en: "Over the summer holiday I do things like watch films and eat sushi", exercises: [tari-tari-suru, wa-topic], mode: build }
+      - { kind: sentence, ja: "なつやすみは えいがを みたり すしを たべたり する。", en: "Over the summer vacation I do things like watch movies and eat sushi", exercises: [tari-tari-suru, wa-topic], mode: build }
       - { kind: sentence, ja: "ミカの おかあさんは りょうりを たべたり ちゃを のんだり する。", en: "Mika's mother does things like eat food and drink tea", exercises: [tari-tari-suru, family-register, no-possession], mode: build }
       - { kind: sentence, ja: "きっさてんは しずかだから ほんを みたり おんがくを きいたり する。", en: "The coffee shop is quiet, so I do things like look at a book and listen to music", exercises: [tari-tari-suru, kara-because, na-adj-present], mode: build }
-      - { kind: sentence, ja: "えいがを みたり おんがくを きいたり する。", en: "Say to a friend: I do things like watch films and listen to music", exercises: [tari-tari-suru], mode: translate }
+      - { kind: sentence, ja: "えいがを みたり おんがくを きいたり する。", en: "Say to a friend: I do things like watch movies and listen to music", exercises: [tari-tari-suru], mode: translate }
       # PAST たり. する carries the tense for the whole list, and 「〜たり 〜たり
       # しました」 is the form a learner meets first in the wild — it answers "what
       # did you do at the weekend?". The prompt NAMES the register (inv 48) rather
       # than accepting both, because the plain past した is a homograph of the m17
       # atom 下 and cannot be tiled without mis-crediting SRS; polite past is the
       # only rendering this module can grade honestly, so it says so out loud.
-      - { kind: sentence, ja: "やすみは えいがを みたり おんがくを きいたり しました。", en: "Say politely: On my days off I did things like watch films and listen to music", exercises: [tari-tari-suru, masu-past, wa-topic], mode: build }
+      - { kind: sentence, ja: "やすみは えいがを みたり おんがくを きいたり しました。", en: "Say politely: On my days off I did things like watch movies and listen to music", exercises: [tari-tari-suru, masu-past, wa-topic], mode: build }
       - { kind: listening-comp, audio: "あさは パンを たべたり ちゃを のんだり しました。", answer: "In the mornings I did things like eat bread and drink tea", distractors: ["In the mornings I do things like eat bread and drink tea", "In the evenings I did things like eat bread and drink tea", "In the mornings I did things like eat rice and drink tea"], exercises: [tari-tari-suru, masu-past] }
-      - { kind: particle-cloze, stem: "やすみは えいがを ", tail: " おんがくを きいたり する。", answer: "みたり", options: ["みたり", "たべたり", "のんだり"], en: "On my days off I do things like watch films and listen to music", explanation: "みたり is the たり form of みる — take the plain past みた and add り. たべたり is eat and のんだり is drink." }
+      - { kind: particle-cloze, stem: "やすみは えいがを ", tail: " おんがくを きいたり する。", answer: "みたり", options: ["みたり", "たべたり", "のんだり"], en: "On my days off I do things like watch movies and listen to music", explanation: "みたり is the たり form of みる — take the plain past みた and add り. たべたり is eat and のんだり is drink." }
       - { kind: listening-comp, audio: "あさは パンを たべたり ちゃを のんだり する。", answer: "In the mornings I do things like eat bread and drink tea", distractors: ["In the mornings I eat bread and drink tea, and nothing else", "In the evenings I do things like eat bread and drink tea", "In the mornings I do things like eat rice and drink tea"], exercises: [tari-tari-suru] }
       - { kind: listening-comp, audio: "きっさてんで コーヒーを のんだり ほんを みたり する。", answer: "At the coffee shop I do things like drink coffee and look at a book", distractors: ["At the coffee shop I drink coffee and look at a book — those two things only", "At home I do things like drink coffee and look at a book", "At the coffee shop I do things like drink tea and look at a book"], exercises: [tari-tari-suru, de-action] }
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "やすみは なにを する？", en: "What do you do on your days off?" }
-          - { speaker: "Mika", ja: "えいがを みたり おんがくを きいたり する。", en: "I do things like watch films and listen to music." }
+          - { speaker: "Mika", ja: "えいがを みたり おんがくを きいたり する。", en: "I do things like watch movies and listen to music." }
         questions:
-          - { q: "What does Mika do on her days off?", options: ["Things like watching films and listening to music", "Only watches films", "Only listens to music", "Works at a company"], answer: "Things like watching films and listening to music" }
-      - { kind: challenge, ja: "あさは ちゃを のんだり ほんを みたり するけど えいがは みない。", en: "In the mornings I do things like drink tea and look at a book, but I don't watch films", combines: [tari-tari-suru, kedo, nai-form, wa-topic], mode: build }
+          - { q: "What does Mika do on her days off?", options: ["Things like watching movies and listening to music", "Only watches movies", "Only listens to music", "Works at a company"], answer: "Things like watching movies and listening to music" }
+      - { kind: challenge, ja: "あさは ちゃを のんだり ほんを みたり するけど えいがは みない。", en: "In the mornings I do things like drink tea and look at a book, but I don't watch movies", combines: [tari-tari-suru, kedo, nai-form, wa-topic], mode: build }
     reviewPool: [おかあさん, おとうさん, おにいさん, おねえさん, えいが, おんがく, やすみ, すし, パン, きっさてん]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -627,22 +627,22 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: suki-kirai-no }
       - { kind: sentence, ja: "やすみは うみに いったり やまで あそんだり する。", en: "On my days off I do things like go to the sea and play in the mountains", exercises: [suki-kirai-no, tari-tari-suru, ni-location], mode: build }
-      - { kind: sentence, ja: "あねは えいがや おんがくが すきだ。", en: "My older sister likes films and music and things like that", exercises: [suki-kirai-no, ya-incomplete-list], mode: build }
+      - { kind: sentence, ja: "あねは えいがや おんがくが すきだ。", en: "My older sister likes movies and music and things like that", exercises: [suki-kirai-no, ya-incomplete-list], mode: build }
       - { kind: sentence, ja: "ぼくは きのこが きらいだ。", en: "I don't like mushrooms", exercises: [suki-kirai-no, na-adj-present], mode: build }
       - { kind: sentence, ja: "いけや かわで あそんだり さくらを みたり する。", en: "I do things like play at ponds and rivers and look at the cherry blossom", exercises: [tari-tari-suru, ya-incomplete-list, de-action], mode: listening }
       - { kind: sentence, ja: "ミカの おにいさんは すしや りょうりが すきだ。", en: "Mika's older brother likes sushi and cooking and things like that", exercises: [suki-kirai-no, ya-incomplete-list, family-register], mode: build }
       - { kind: sentence, ja: "うみに いったり やまに いったり するのが すきだ。", en: "I like doing things like going to the sea and going to the mountains", exercises: [suki-kirai-no, tari-tari-suru, no-ga-suki], mode: build }
       - { kind: sentence, ja: "ちちは おさけが すきだけど ははは ちゃが すきだ。", en: "My father likes sake, but my mother likes tea", exercises: [suki-kirai-no, kedo, family-register], mode: build }
-      - { kind: sentence, ja: "えいがや おんがくが すきだ。", en: "Say to a friend: I like films and music and things like that", exercises: [suki-kirai-no, ya-incomplete-list], mode: translate }
+      - { kind: sentence, ja: "えいがや おんがくが すきだ。", en: "Say to a friend: I like movies and music and things like that", exercises: [suki-kirai-no, ya-incomplete-list], mode: translate }
       - { kind: particle-cloze, stem: "やすみは やまで ", tail: " うみに いったり する。", answer: "あそんだり", options: ["あそんだり", "たべたり", "きいたり"], en: "On my days off I do things like play in the mountains and go to the sea", explanation: "あそんだり is the たり form of あそぶ — take the plain past あそんだ and add り. たべたり is eat and きいたり is listen." }
-      - { kind: listening-comp, audio: "あねは えいがや おんがくが すきだ。", answer: "My older sister likes films and music and things like that", distractors: ["My older sister likes films and music — those two only", "My friend's older sister likes films and music and things like that", "My older sister likes films and books and things like that"], exercises: [suki-kirai-no, ya-incomplete-list] }
-      - { kind: listening-comp, audio: "なつやすみは うみに いったり すしを たべたり する。", answer: "Over the summer holiday I do things like go to the sea and eat sushi", distractors: ["Over the summer holiday I go to the sea and eat sushi, and nothing else", "Over the summer holiday I do things like go to the mountains and eat sushi", "In the mornings I do things like go to the sea and eat sushi"], exercises: [tari-tari-suru] }
+      - { kind: listening-comp, audio: "あねは えいがや おんがくが すきだ。", answer: "My older sister likes movies and music and things like that", distractors: ["My older sister likes movies and music — those two only", "My friend's older sister likes movies and music and things like that", "My older sister likes movies and books and things like that"], exercises: [suki-kirai-no, ya-incomplete-list] }
+      - { kind: listening-comp, audio: "なつやすみは うみに いったり すしを たべたり する。", answer: "Over the summer vacation I do things like go to the sea and eat sushi", distractors: ["Over the summer vacation I go to the sea and eat sushi, and nothing else", "Over the summer vacation I do things like go to the mountains and eat sushi", "In the mornings I do things like go to the sea and eat sushi"], exercises: [tari-tari-suru] }
       - kind: dialogue
         lines:
-          - { speaker: "Tom", ja: "なつやすみは なにを する？", en: "What are you doing over the summer holiday?" }
-          - { speaker: "Mika", ja: "うみに いったり やまで あそんだり する。りょこうが すきだから。", en: "Things like going to the sea and playing in the mountains. Because I like travelling." }
+          - { speaker: "Tom", ja: "なつやすみは なにを する？", en: "What are you doing over the summer vacation?" }
+          - { speaker: "Mika", ja: "うみに いったり やまで あそんだり する。りょこうが すきだから。", en: "Things like going to the sea and playing in the mountains. Because I like traveling." }
         questions:
-          - { q: "What does Mika say about the summer holiday?", options: ["Things like going to the sea and playing in the mountains", "Only going to the sea", "Only playing in the mountains", "Working at a company"], answer: "Things like going to the sea and playing in the mountains" }
+          - { q: "What does Mika say about the summer vacation?", options: ["Things like going to the sea and playing in the mountains", "Only going to the sea", "Only playing in the mountains", "Working at a company"], answer: "Things like going to the sea and playing in the mountains" }
       - { kind: challenge, ja: "ミカの おねえさんは うみや やまが すきだから やすみは うみに いったり やまで あそんだり する。", en: "Mika's older sister likes the sea and the mountains and places like that, so on her days off she does things like go to the sea and play in the mountains", combines: [suki-kirai-no, ya-incomplete-list, tari-tari-suru, kara-because, family-register], mode: build }
     reviewPool: [たべたり, のんだり, みたり, きいたり, うみ, やま, えいが, おんがく, やすみ, りょうり]
 
@@ -681,8 +681,8 @@ lessons:
     focus: "や and と, 〜たり 〜たり する, both family sets and both counters in one pass"
     introduces: []
     beats:
-      - { kind: sentence, ja: "やすみは えいがを みたり おんがくを きいたり する。", en: "On my days off I do things like watch films and listen to music", exercises: [tari-tari-suru], mode: build }
-      - { kind: sentence, ja: "あねは えいがや おんがくが すきだ。", en: "My older sister likes films and music and things like that", exercises: [suki-kirai-no, ya-incomplete-list], mode: build }
+      - { kind: sentence, ja: "やすみは えいがを みたり おんがくを きいたり する。", en: "On my days off I do things like watch movies and listen to music", exercises: [tari-tari-suru], mode: build }
+      - { kind: sentence, ja: "あねは えいがや おんがくが すきだ。", en: "My older sister likes movies and music and things like that", exercises: [suki-kirai-no, ya-incomplete-list], mode: build }
       - { kind: sentence, ja: "コーヒーを いっぱい ください。", en: "One coffee please", exercises: [kudasai, counter-hai], mode: listening }
       - { kind: sentence, ja: "ミカの おにいさんは がくせいだ。", en: "Mika's older brother is a student", exercises: [no-possession, family-register], mode: build }
       - { kind: sentence, ja: "じてんしゃと くるまが ある。", en: "There's a bicycle and a car", exercises: [to-and, arimasu], mode: build }
@@ -708,7 +708,7 @@ lessons:
     focus: "End-of-module stretch: a family, an open list, a たり list and a count in one sentence"
     introduces: []
     beats:
-      - { kind: sentence, ja: "ミカの おかあさんは えいがや おんがくが すきだから やすみは えいがを みに いく。", en: "Mika's mother likes films and music and things like that, so on her days off she goes to watch a film", exercises: [family-register, ya-incomplete-list, kara-because, ni-iku], mode: build }
+      - { kind: sentence, ja: "ミカの おかあさんは えいがや おんがくが すきだから やすみは えいがを みに いく。", en: "Mika's mother likes movies and music and things like that, so on her days off she goes to watch a movie", exercises: [family-register, ya-incomplete-list, kara-because, ni-iku], mode: build }
       - { kind: sentence, ja: "さんにんで きっさてんに いって コーヒーを さんばい のんだ。", en: "The three of us went to the coffee shop and drank three coffees", exercises: [counter-nin, counter-hai, ta-form], mode: build }
       - { kind: sentence, ja: "あにと あねは うみに いったり やまで あそんだり する。", en: "My older brother and my older sister do things like go to the sea and play in the mountains", exercises: [tari-tari-suru, to-and, no-possession], mode: listening }
       - { kind: sentence, ja: "ともだちの おにいさんは おさけが きらいだから ちゃを よんはい のんだ。", en: "My friend's older brother doesn't like sake, so he drank four cups of tea", exercises: [family-register, suki-kirai-no, kara-because, counter-hai], mode: build }
@@ -723,8 +723,8 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Tom", ja: "ミカの おねえさんは やすみに なにを する？", en: "What does your older sister do on her days off?" }
-          - { speaker: "Mika", ja: "あねは うみに いったり やまで あそんだり する。りょこうが すきだから。", en: "My older sister does things like go to the sea and play in the mountains. Because she likes travelling." }
+          - { speaker: "Mika", ja: "あねは うみに いったり やまで あそんだり する。りょこうが すきだから。", en: "My older sister does things like go to the sea and play in the mountains. Because she likes traveling." }
         questions:
-          - { q: "What does Mika's older sister do on her days off?", options: ["Things like going to the sea and playing in the mountains", "Works at a company", "Goes to university", "Watches films at home"], answer: "Things like going to the sea and playing in the mountains" }
+          - { q: "What does Mika's older sister do on her days off?", options: ["Things like going to the sea and playing in the mountains", "Works at a company", "Goes to university", "Watches movies at home"], answer: "Things like going to the sea and playing in the mountains" }
       - { kind: challenge, ja: "ミカの おとうさんは コーヒーや ちゃが すきだから きっさてんで さんばい のんだ。", en: "Mika's father likes coffee and tea and things like that, so he drank three cups at the coffee shop", combines: [family-register, ya-incomplete-list, counter-hai, kara-because, de-action], mode: build }
     reviewPool: [コーヒー, おさけ, おかあさん, おにいさん, たべたり, みたり, いっぱい, ごはい, うみ, えいが]

@@ -302,7 +302,7 @@ grammarPoints:
       - { ja: "やさいを たべた ほうが いい。", en: "You'd better eat vegetables." }
       - { ja: "がっこうに いった ほうが いい。", en: "You'd better go to school." }
       - { ja: "じかんが ないから バスに のった ほうが いい。", en: "You'd better take the bus, because you haven't got time." }
-      - { ja: "あした ひまだから えいがを みた ほうが いい。", en: "You'd better watch a film, because you're free tomorrow." }
+      - { ja: "あした ひまだから えいがを みた ほうが いい。", en: "You'd better watch a movie, because you're free tomorrow." }
     antiPattern: { ja: "ねつが あるから くすりを のんだ ほう いい。", why: "ほう is a NOUN, so it needs が to be what the sentence is about — without the particle two nouns are stacked with nothing between them: ねつが あるから くすりを のんだ ほうが いい。" }
 
   - id: ta-form
@@ -319,20 +319,20 @@ grammarPoints:
     rule: "Third reading set, and it has a theme. Module 23 said that a glyph usually answers to two readings — a native Japanese one and a borrowed Chinese one — and that the WORD picks which. This set is what that rule was for. When two kanji are pushed together into a single word they almost always both take their Chinese readings, and the result sounds nothing like either word standing alone. 山 is やま by itself and さん inside a compound; 人 is ひと by itself and にん inside one. Seven of the words below work exactly that way, and the eighth is the pair that proves it: one glyph appears twice in this set, once buried inside a two-kanji word and once standing on its own with kana behind it, and it sounds completely different in the two places. That is not an exception, it is the system. You are never asked to write one of these. Reading is the whole job, and every word here is one you have been reading for modules with its kana floating overhead. Now it reads cold."
     examples:
       - { ja: "かいしゃの しごとは いそがしいんだ。", en: "The thing is, the work at the office is busy." }
-      - { ja: "じかんが ないから ちかてつに のった ほうが いい。", en: "You'd better take the underground, because you haven't got time." }
+      - { ja: "じかんが ないから ちかてつに のった ほうが いい。", en: "You'd better take the subway, because you haven't got time." }
       - { ja: "かえる まえに うちに でんわを しなきゃ。", en: "I have to phone home before I go back." }
       - { ja: "せんせいと はなす まえに ことばを おぼえなきゃ。", en: "I have to learn the words before I speak to the teacher." }
       - { ja: "せいとは がっこうに いかなくちゃ。", en: "A pupil has to go to school." }
     antiPattern: { ja: "かいしゃの しごとは いそがしいだ。", why: "an い-adjective finishes a sentence on its own and never takes だ — the explanatory ん is what goes there: かいしゃの しごとは いそがしいんだ。" }
 
   - id: yori-comparison
-    rule: "ほう has been doing quiet work for two lessons and it is time to say where it came from. Module 20 taught 「AのほうがBより〜」: the winner takes ほうが and the loser takes より. 「バスより ちかてつの ほうが いい」 is the underground is better than the bus — and 「ちかてつに のった ほうが いい」, the advice you have been building, is the SAME sentence with the losing side left unsaid. That is why advice uses ほう at all. It is a comparison of two courses of action in which only the winner gets named. Once you see it, two things become easy. You can put the loser back in whenever you want to be explicit: 「バスより ちかてつの ほうが いい。」 And you can compare two things that are not actions at all, which is exactly module 20's frame: 「この さいふより あの さいふの ほうが やすい。」 Note where the particles sit, because it is the one thing that goes wrong. ほう is a noun, so a noun in front of it needs の. より goes straight onto the losing side with nothing in front of it. Neither word inflects, ever."
+    rule: "ほう has been doing quiet work for two lessons and it is time to say where it came from. Module 20 taught 「AのほうがBより〜」: the winner takes ほうが and the loser takes より. 「バスより ちかてつの ほうが いい」 is the subway is better than the bus — and 「ちかてつに のった ほうが いい」, the advice you have been building, is the SAME sentence with the losing side left unsaid. That is why advice uses ほう at all. It is a comparison of two courses of action in which only the winner gets named. Once you see it, two things become easy. You can put the loser back in whenever you want to be explicit: 「バスより ちかてつの ほうが いい。」 And you can compare two things that are not actions at all, which is exactly module 20's frame: 「この さいふより あの さいふの ほうが やすい。」 Note where the particles sit, because it is the one thing that goes wrong. ほう is a noun, so a noun in front of it needs の. より goes straight onto the losing side with nothing in front of it. Neither word inflects, ever."
     examples:
-      - { ja: "バスより ちかてつの ほうが いい。", en: "The underground is better than the bus." }
+      - { ja: "バスより ちかてつの ほうが いい。", en: "The subway is better than the bus." }
       - { ja: "この くつより あの くつの ほうが やすい。", en: "Those shoes over there are cheaper than these." }
       - { ja: "この くすりは あの くすりより つよいから のまない ほうが いい。", en: "This medicine is stronger than that one, so you'd better not take it." }
       - { ja: "にくより さかなを たべた ほうが いい。", en: "You'd better eat fish rather than meat." }
-      - { ja: "バスは うるさいから ちかてつの ほうが いい。", en: "The bus is noisy, so the underground is better." }
+      - { ja: "バスは うるさいから ちかてつの ほうが いい。", en: "The bus is noisy, so the subway is better." }
     antiPattern: { ja: "バス ちかてつの ほうが いい。", why: "the losing side needs より on it — without the particle the two things are just sitting next to each other: バスより ちかてつの ほうが いい。" }
 
   - id: v-tai
@@ -570,7 +570,7 @@ lessons:
       - { kind: sentence, ja: "この くすりは つよいから いしゃに きいた ほうが いい。", en: "This medicine is strong, so you'd better ask a doctor", exercises: [hou-ga-ii, kara-because, i-adj-present], mode: build }
       - { kind: sentence, ja: "あしたの てんきを みた ほうが いい。", en: "You'd better look at tomorrow's weather", exercises: [hou-ga-ii, ta-form, no-possession], mode: listening }
       - { kind: sentence, ja: "じかんが ないから バスに のった ほうが いい。", en: "You'd better take the bus, because you haven't got time", exercises: [hou-ga-ii, kara-because, nai-existence], mode: build }
-      - { kind: sentence, ja: "あした ひまだから えいがを みた ほうが いい。", en: "You'd better watch a film, because you're free tomorrow", exercises: [hou-ga-ii, ta-form, desu-copula], mode: build }
+      - { kind: sentence, ja: "あした ひまだから えいがを みた ほうが いい。", en: "You'd better watch a movie, because you're free tomorrow", exercises: [hou-ga-ii, ta-form, desu-copula], mode: build }
       - { kind: sentence, ja: "やさいを たべた ほうが いい。", en: "You'd better eat vegetables", exercises: [hou-ga-ii, ta-form], mode: translate }
       - { kind: particle-cloze, stem: "ねつが あるから くすりを ", tail: " ほうが いい。", answer: "のんだ", options: ["のんだ", "たべた", "みた"], en: "You'd better take medicine, because you've got a fever", explanation: "medicine is something you drink, so the advice is のむ's た-form. たべた belongs to food and みた to something you look at, and neither does anything about a fever." }
       - { kind: listening-comp, audio: "じかんが ないから バスに のった ほうが いい。", answer: "You'd better take the bus, because you haven't got time", distractors: ["You'd better walk, because you haven't got time", "You've got time, so you'd better take the bus", "You haven't got time, but you'd better not take the bus"], exercises: [hou-ga-ii, kara-because] }
@@ -595,20 +595,20 @@ lessons:
       - { kind: sentence, ja: "からい ものは たべない ほうが いい。", en: "You'd better not eat spicy things", exercises: [ta-form, hou-ga-ii, nai-form], mode: build }
       - { kind: sentence, ja: "ねつが あるから いかない ほうが いい。", en: "You'd better not go, because you've got a fever", exercises: [ta-form, hou-ga-ii, kara-because], mode: build }
       - { kind: sentence, ja: "この くすりは つよいから のまない ほうが いい。", en: "This medicine is strong, so you'd better not take it", exercises: [ta-form, hou-ga-ii, i-adj-present], mode: build }
-      - { kind: sentence, ja: "この えいがは うるさいから みない ほうが いい。", en: "This film is noisy, so you'd better not watch it", exercises: [ta-form, hou-ga-ii, kara-because], mode: build }
+      - { kind: sentence, ja: "この えいがは うるさいから みない ほうが いい。", en: "This movie is noisy, so you'd better not watch it", exercises: [ta-form, hou-ga-ii, kara-because], mode: build }
       - { kind: sentence, ja: "たかいから かわない ほうが いい。", en: "You'd better not buy it, because it's expensive", exercises: [ta-form, hou-ga-ii, i-adj-present], mode: listening }
       - { kind: sentence, ja: "あめが ふるから かわで およがない ほうが いい。", en: "It's going to rain, so you'd better not swim in the river", exercises: [ta-form, hou-ga-ii, de-action], mode: build }
       - { kind: sentence, ja: "じかんが ないから きょうは しない ほうが いい。", en: "You'd better not do it today, because you haven't got time", exercises: [ta-form, hou-ga-ii, nai-existence], mode: build }
       - { kind: sentence, ja: "からい ものは たべない ほうが いい。", en: "You'd better not eat spicy things", exercises: [ta-form, nai-form], mode: translate }
       - { kind: particle-cloze, stem: "ねつが あるから きょうは ", tail: " ほうが いい。", answer: "いかない", options: ["いかない", "いった", "かわない"], en: "You'd better not go today, because you've got a fever", explanation: "a fever is a reason to stay put, so the advice has to be the negative one. いった would send you out with a temperature, and かわない answers a question about shopping." }
       - { kind: listening-comp, audio: "からい りょうりは たべない ほうが いい。", answer: "You'd better not eat spicy food", distractors: ["You'd better eat spicy food", "You'd better not buy spicy food", "You'd better not eat this fish"], exercises: [ta-form, nai-form] }
-      - { kind: listening-comp, audio: "この えいがは うるさいから みない ほうが いい。", answer: "This film is noisy, so you'd better not watch it", distractors: ["This film is noisy, so you'd better watch it", "This film is long, so you'd better not watch it", "This room is noisy, so you'd better not watch the film"], exercises: [ta-form, hou-ga-ii] }
+      - { kind: listening-comp, audio: "この えいがは うるさいから みない ほうが いい。", answer: "This movie is noisy, so you'd better not watch it", distractors: ["This movie is noisy, so you'd better watch it", "This movie is long, so you'd better not watch it", "This room is noisy, so you'd better not watch the movie"], exercises: [ta-form, hou-ga-ii] }
       - kind: dialogue
         lines:
           - { speaker: "Tom", ja: "この りょうりは からいんだ。", en: "The thing is, this dish is spicy." }
           - { speaker: "Mika", ja: "ねつが あるから からい ものは たべない ほうが いい。", en: "You've got a fever, so you'd better not eat spicy things." }
         questions:
-          - { q: "What does Mika say Tom had better not do?", options: ["Eat spicy things", "Take medicine", "Go home", "Watch the film"], answer: "Eat spicy things" }
+          - { q: "What does Mika say Tom had better not do?", options: ["Eat spicy things", "Take medicine", "Go home", "Watch the movie"], answer: "Eat spicy things" }
       - { kind: challenge, ja: "この くすりは つよいけど ねつが あるから のんだ ほうが いいんだ。", en: "This medicine is strong, but you've got a fever, so you'd better take it — that's the thing", combines: [ta-form, hou-ga-ii, kedo, kara-because, n-desu], mode: build }
     reviewPool: [からい, うるさい, つよい, もの, りょうり, えいが, やさい, あめ, かわ, くすり]
 
@@ -627,10 +627,10 @@ lessons:
       - { kind: particle-cloze, stem: "びょうきだから やさいを ", tail: " ほうが いい。", answer: "たべた", options: ["たべた", "のんだ", "かわない"], en: "You'd better eat vegetables, because you're ill", explanation: "vegetables are something you eat, so the advice is たべる's た-form. のんだ belongs to a drink, and かわない turns the advice into a shopping decision." }
       - { kind: sentence, ja: "あしたの てんきを みた ほうが いい。", en: "You'd better look at tomorrow's weather", exercises: [hou-ga-ii, no-possession], mode: build }
       - { kind: listening-comp, audio: "たかいから かわない ほうが いい。", answer: "You'd better not buy it, because it's expensive", distractors: ["You'd better buy it, because it's cheap", "You'd better not eat it, because it's expensive", "It's expensive, but you'd better buy it"], exercises: [ta-form, hou-ga-ii] }
-      - { kind: sentence, ja: "あした ひまだから えいがを みた ほうが いい。", en: "You'd better watch a film, because you're free tomorrow", exercises: [hou-ga-ii, desu-copula], mode: build }
+      - { kind: sentence, ja: "あした ひまだから えいがを みた ほうが いい。", en: "You'd better watch a movie, because you're free tomorrow", exercises: [hou-ga-ii, desu-copula], mode: build }
       - { kind: sentence, ja: "やさいを たべた ほうが いい。", en: "You'd better eat vegetables", exercises: [hou-ga-ii, ta-form], mode: translate }
       - { kind: listening-comp, audio: "あめが ふるから かわで およがない ほうが いい。", answer: "It's going to rain, so you'd better not swim in the river", distractors: ["It's going to rain, so you'd better swim in the river", "It's going to snow, so you'd better not swim in the river", "It's going to rain, so you'd better not go to the river"], exercises: [ta-form, de-action] }
-      - { kind: sentence, ja: "この えいがは うるさいから みない ほうが いい。", en: "This film is noisy, so you'd better not watch it", exercises: [ta-form, hou-ga-ii], mode: build }
+      - { kind: sentence, ja: "この えいがは うるさいから みない ほうが いい。", en: "This movie is noisy, so you'd better not watch it", exercises: [ta-form, hou-ga-ii], mode: build }
       - { kind: sentence, ja: "きょうは しごとを しなきゃ。", en: "Say to a friend: I have to do the work today", exercises: [nakereba-naranai, wo-object], mode: build }
       - kind: dialogue
         lines:
@@ -651,7 +651,7 @@ lessons:
       - { kind: kanji, kana: かいしゃ, kanji: 会社, exercises: [kanji-set-3] }
       - { kind: sentence, ja: "かいしゃの しごとは いそがしいんだ。", en: "The thing is, the work at the office is busy", exercises: [kanji-set-3, n-desu, no-possession], mode: build }
       - { kind: kanji, kana: じかん, kanji: 時間, exercises: [kanji-set-3] }
-      - { kind: sentence, ja: "じかんが ないから ちかてつに のった ほうが いい。", en: "You'd better take the underground, because you haven't got time", exercises: [kanji-set-3, hou-ga-ii, nai-existence], mode: build }
+      - { kind: sentence, ja: "じかんが ないから ちかてつに のった ほうが いい。", en: "You'd better take the subway, because you haven't got time", exercises: [kanji-set-3, hou-ga-ii, nai-existence], mode: build }
       - { kind: kanji, kana: でんわ, kanji: 電話, exercises: [kanji-set-3] }
       - { kind: sentence, ja: "かえる まえに うちに でんわを しなきゃ。", en: "I have to phone home before I go back", exercises: [kanji-set-3, nakereba-naranai, mae-ni], mode: build }
       - { kind: kanji, kana: はなす, kanji: 話す, exercises: [kanji-set-3] }
@@ -678,24 +678,24 @@ lessons:
     introduces: [さいふ]
     beats:
       - { kind: rule, grammarPointId: yori-comparison }
-      - { kind: sentence, ja: "バスより ちかてつの ほうが いい。", en: "The underground is better than the bus", exercises: [yori-comparison, hou-ga-ii, no-possession], mode: build }
+      - { kind: sentence, ja: "バスより ちかてつの ほうが いい。", en: "The subway is better than the bus", exercises: [yori-comparison, hou-ga-ii, no-possession], mode: build }
       - { kind: sentence, ja: "この さいふより あの さいふの ほうが やすい。", en: "That wallet over there is cheaper than this one", exercises: [yori-comparison, kono-sono-ano-dono, i-adj-present], mode: build }
       - { kind: kanji, kana: てんき, kanji: 天気, exercises: [kanji-set-3] }
       - { kind: sentence, ja: "がいこくに いく まえに てんきを きいた ほうが いい。", en: "You'd better ask about the weather before you go abroad", exercises: [yori-comparison, hou-ga-ii, mae-ni], mode: build }
       - { kind: sentence, ja: "この くすりは あの くすりより つよいから のまない ほうが いい。", en: "This medicine is stronger than that one, so you'd better not take it", exercises: [yori-comparison, hou-ga-ii, i-adj-present], mode: build }
       - { kind: sentence, ja: "にくより さかなを たべた ほうが いい。", en: "You'd better eat fish rather than meat", exercises: [yori-comparison, hou-ga-ii, ta-form], mode: listening }
-      - { kind: sentence, ja: "バスは うるさいから ちかてつの ほうが いい。", en: "The bus is noisy, so the underground is better", exercises: [yori-comparison, kara-because, wa-topic], mode: build }
+      - { kind: sentence, ja: "バスは うるさいから ちかてつの ほうが いい。", en: "The bus is noisy, so the subway is better", exercises: [yori-comparison, kara-because, wa-topic], mode: build }
       - { kind: sentence, ja: "この さいふは たかいから かわない ほうが いい。", en: "This wallet is expensive, so you'd better not buy it", exercises: [yori-comparison, hou-ga-ii, kara-because], mode: build }
-      - { kind: sentence, ja: "バスより ちかてつの ほうが いい。", en: "The underground is better than the bus", exercises: [yori-comparison], mode: translate }
+      - { kind: sentence, ja: "バスより ちかてつの ほうが いい。", en: "The subway is better than the bus", exercises: [yori-comparison], mode: translate }
       - { kind: particle-cloze, stem: "この さいふより あの さいふの ほうが ", tail: "。", answer: "やすい", options: ["やすい", "たかい", "うるさい"], en: "That wallet over there is cheaper than this one", explanation: "ほうが names the winning side of the comparison, and the thing a shopper wants to win on is price. たかい would make the winner the costlier one, and うるさい says nothing a wallet can be." }
-      - { kind: listening-comp, audio: "バスは うるさいから ちかてつの ほうが いい。", answer: "The bus is noisy, so the underground is better", distractors: ["The underground is noisy, so the bus is better", "The bus is cheap, so the bus is better", "The bus is noisy, but the bus is better"], exercises: [yori-comparison, kara-because] }
+      - { kind: listening-comp, audio: "バスは うるさいから ちかてつの ほうが いい。", answer: "The bus is noisy, so the subway is better", distractors: ["The subway is noisy, so the bus is better", "The bus is cheap, so the bus is better", "The bus is noisy, but the bus is better"], exercises: [yori-comparison, kara-because] }
       - { kind: listening-comp, audio: "この さいふより あの さいふの ほうが やすい。", answer: "That wallet over there is cheaper than this one", distractors: ["This wallet is cheaper than that one over there", "That wallet over there is more expensive than this one", "That bag over there is cheaper than this one"], exercises: [yori-comparison, kono-sono-ano-dono] }
       - kind: dialogue
         lines:
-          - { speaker: "Tom", ja: "バスと ちかてつと どっちが いい？", en: "Which is better, the bus or the underground?" }
-          - { speaker: "Mika", ja: "バスは うるさいから ちかてつの ほうが いい。", en: "The bus is noisy, so the underground is better." }
+          - { speaker: "Tom", ja: "バスと ちかてつと どっちが いい？", en: "Which is better, the bus or the subway?" }
+          - { speaker: "Mika", ja: "バスは うるさいから ちかてつの ほうが いい。", en: "The bus is noisy, so the subway is better." }
         questions:
-          - { q: "Which does Mika say is better?", options: ["The underground", "The bus", "The bicycle", "She doesn't say"], answer: "The underground" }
+          - { q: "Which does Mika say is better?", options: ["The subway", "The bus", "The bicycle", "She doesn't say"], answer: "The subway" }
       - { kind: challenge, ja: "この さいふは あの さいふより たかいけど おかねが ないから かわない ほうが いい。", en: "This wallet is more expensive than that one, but I haven't got the money, so you'd better not buy it", combines: [yori-comparison, hou-ga-ii, kedo, kara-because, nai-existence], mode: build }
     reviewPool: [さいふ, てんき, うるさい, つよい, バス, ちかてつ, にく, さかな, がいこく, くすり]
 
@@ -721,18 +721,18 @@ lessons:
       - { kind: sentence, ja: "やさいを たべたくないけど たべなきゃ。", en: "I don't want to eat vegetables, but I have to", exercises: [v-tai, nakereba-naranai, i-adj-negative], mode: build }
       - { kind: sentence, ja: "あそびたいけど あした じゅぎょうが あるんだ。", en: "I want to play, but the thing is, I've got a class tomorrow", exercises: [v-tai, n-desu, kedo], mode: listening }
       - { kind: sentence, ja: "コーヒーを のみたいけど ねつが あるから のまない ほうが いい。", en: "I want to drink coffee, but I've got a fever, so I'd better not", exercises: [v-tai, hou-ga-ii, kara-because], mode: build }
-      - { kind: sentence, ja: "えいがを みたいけど じかんが ないんだ。", en: "I want to watch the film, but the thing is, I haven't got time", exercises: [v-tai, n-desu, nai-existence], mode: build }
+      - { kind: sentence, ja: "えいがを みたいけど じかんが ないんだ。", en: "I want to watch the movie, but the thing is, I haven't got time", exercises: [v-tai, n-desu, nai-existence], mode: build }
       - { kind: sentence, ja: "あそびたいけど はたらかなきゃ。", en: "I want to play, but I have to work", exercises: [v-tai, nakereba-naranai], mode: translate }
       - { kind: particle-cloze, stem: "がいこくに ", tail: "から ことばを おぼえなきゃ。", answer: "いきたい", options: ["いきたい", "いきたくない", "みたい"], en: "I want to go abroad, so I have to learn the words", explanation: "learning the words is what wanting to go abroad costs you, so the first half has to be the positive wish. いきたくない would remove the reason, and みたい is about watching rather than going." }
-      - { kind: listening-comp, audio: "えいがを みたいけど しごとを しなきゃ。", answer: "I want to watch a film, but I have to do the work", distractors: ["I want to watch a film, so I'm not doing the work", "I want to do the work, but I have to watch a film", "I don't want to watch a film, and I have to do the work"], exercises: [v-tai, nakereba-naranai] }
+      - { kind: listening-comp, audio: "えいがを みたいけど しごとを しなきゃ。", answer: "I want to watch a movie, but I have to do the work", distractors: ["I want to watch a movie, so I'm not doing the work", "I want to do the work, but I have to watch a movie", "I don't want to watch a movie, and I have to do the work"], exercises: [v-tai, nakereba-naranai] }
       - { kind: listening-comp, audio: "やさいを たべたくないけど たべなきゃ。", answer: "I don't want to eat vegetables, but I have to", distractors: ["I want to eat vegetables, so I'm eating them", "I don't want to eat vegetables, so I'm not eating them", "I don't want to buy vegetables, but I have to"], exercises: [v-tai, nakereba-naranai] }
       - kind: dialogue
         lines:
-          - { speaker: "Ken", ja: "なつやすみに かわで あそびたい。", en: "I want to play at the river over the summer holidays." }
+          - { speaker: "Ken", ja: "なつやすみに かわで あそびたい。", en: "I want to play at the river over the summer vacation." }
           - { speaker: "Mika", ja: "わたしも あそびたいけど まいにち はたらかなきゃ。", en: "I want to as well, but I have to work every day." }
         questions:
           - { q: "What does Mika say she has to do every day?", options: ["Work", "Play at the river", "Learn the words", "Go abroad"], answer: "Work" }
-      - { kind: challenge, ja: "なつやすみに がいこくに いきたいけど おかねが ないから まいにち はたらかなきゃ。", en: "I want to go abroad over the summer holidays, but I haven't got the money, so I have to work every day", combines: [v-tai, nakereba-naranai, kedo, kara-because, nai-existence], mode: build }
+      - { kind: challenge, ja: "なつやすみに がいこくに いきたいけど おかねが ないから まいにち はたらかなきゃ。", en: "I want to go abroad over the summer vacation, but I haven't got the money, so I have to work every day", combines: [v-tai, nakereba-naranai, kedo, kara-because, nai-existence], mode: build }
     reviewPool: [がいこく, ことば, しごと, やさい, えいが, じゅぎょう, なつやすみ, かわ, コーヒー, じかん]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -743,7 +743,7 @@ lessons:
     introduces: []
     beats:
       - { kind: sentence, ja: "あそびたいけど はたらかなきゃ。", en: "I want to play, but I have to work", exercises: [v-tai, nakereba-naranai], mode: build }
-      - { kind: sentence, ja: "バスより ちかてつの ほうが いい。", en: "The underground is better than the bus", exercises: [yori-comparison, hou-ga-ii], mode: build }
+      - { kind: sentence, ja: "バスより ちかてつの ほうが いい。", en: "The subway is better than the bus", exercises: [yori-comparison, hou-ga-ii], mode: build }
       - { kind: kanji, kana: せんせい, kanji: 先生, exercises: [kanji-set-3] }
       - { kind: sentence, ja: "あした びょういんに いかなければ なりません。", en: "Say politely: I have to go to the hospital tomorrow", exercises: [masu-present, nakereba-naranai], mode: build }
       - { kind: sentence, ja: "がいこくに いきたいから ことばを おぼえなきゃ。", en: "I want to go abroad, so I have to learn the words", exercises: [v-tai, kara-because], mode: listening }
@@ -784,7 +784,7 @@ lessons:
       - { kind: sentence, ja: "あにの けいたいは たかすぎるから かわない ほうが いい。", en: "My older brother's phone is too expensive, so you'd better not buy one", exercises: [sugiru, hou-ga-ii, kara-because], mode: build }
       - kind: dialogue
         lines:
-          - { speaker: "Tanaka", ja: "なつやすみに がいこくに いくんですか。", en: "Are you going abroad over the summer holidays?" }
+          - { speaker: "Tanaka", ja: "なつやすみに がいこくに いくんですか。", en: "Are you going abroad over the summer vacation?" }
           - { speaker: "Mika", ja: "はい ことばを おぼえなければ なりません。まいにち じゅぎょうが あるんです。", en: "Yes. I have to learn the words. I have a class every day." }
         questions:
           - { q: "What does Mika say she has to do?", options: ["Learn the words", "Buy a ticket", "Phone the teacher", "Work every day"], answer: "Learn the words" }

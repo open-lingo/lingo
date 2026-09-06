@@ -130,7 +130,7 @@ notes: |
         cheat sheet, once, for `じゃないです`. Stage 1 fires ONCE per word
         course-wide and this is that once.
       * **L1 and L5, stage 2 (KNOW)** — picture and meter, sheet withdrawn:
-        `じゃない` (friend), `じゃありません` (clerk, then the elderly neighbour).
+        `じゃない` (friend), `じゃありません` (clerk, then the elderly neighbor).
       * **L5 and L11, stage 3 (OWN)** — NO picture, NO meter. A Japanese
         vocative frame carries the audience, so the cue costs no English at
         all: 「せんせい：「ごごは ひまですか。」　ひま___。」
@@ -295,14 +295,14 @@ grammarPoints:
     # the utterance itself — よ survives the switch and sits outside ます.
     diagram:
       kind: register
-      gloss: "I'm going abroad in the summer holidays"
+      gloss: "I'm going abroad in the summer vacation"
       cast: [friend, teacher]
       forms:
         1: "なつやすみに がいこくに いくよ。"
         2: "なつやすみに がいこくに いきますよ。"
     examples:
-      - { ja: "なつやすみに がいこくに いくよ。", en: "Say to a friend: I'm going abroad in the summer holidays, you know" }
-      - { ja: "なつやすみに がいこくに いきますよ。", en: "Say politely: I'll be going abroad in the summer holidays, just so you know" }
+      - { ja: "なつやすみに がいこくに いくよ。", en: "Say to a friend: I'm going abroad in the summer vacation, you know" }
+      - { ja: "なつやすみに がいこくに いきますよ。", en: "Say politely: I'll be going abroad in the summer vacation, just so you know" }
       - { ja: "へやが せまいから つくえを かいます。", en: "Say politely: I'm going to buy a desk, because the room is narrow" }
       - { ja: "ばんは とりにくを たべるよ。", en: "Say to a friend: I eat chicken in the evening, you know" }
       - { ja: "たなかさんに えいごを ききますね。", en: "Say politely: I'll ask Tanaka about English, then" }
@@ -334,7 +334,7 @@ grammarPoints:
       - { ja: "ごごは やすみなんだ。", en: "Say to a friend: The thing is, I'm off this afternoon" }
       - { ja: "かぜが つよいんです。", en: "Say politely: The thing is, the wind's strong" }
       - { ja: "くつが ちいさいんですよ。", en: "Say politely: The shoes are small, you see" }
-      - { ja: "なつやすみに がいこくに いくんだね。", en: "Say to a friend: So you're going abroad in the summer holidays" }
+      - { ja: "なつやすみに がいこくに いくんだね。", en: "Say to a friend: So you're going abroad in the summer vacation" }
       - { ja: "めがねが ないんです。", en: "Say politely: The thing is, I haven't got my glasses" }
     antiPattern: { ja: "ごごは やすみんだ。", why: "after a NOUN, ん needs な in front of it — なんだ, never んだ: ごごは やすみなんだ。" }
 
@@ -516,8 +516,8 @@ lessons:
     introduces: []
     beats:
       - { kind: rule, grammarPointId: register-audience }
-      - { kind: sentence, ja: "なつやすみに がいこくに いくよ。", en: "Say to a friend: I'm going abroad in the summer holidays, you know", exercises: [register-audience, yo-emphasis, ni-location], mode: build }
-      - { kind: sentence, ja: "なつやすみに がいこくに いきますよ。", en: "Say politely: I'll be going abroad in the summer holidays, just so you know", exercises: [register-audience, yo-emphasis, masu-present], mode: build }
+      - { kind: sentence, ja: "なつやすみに がいこくに いくよ。", en: "Say to a friend: I'm going abroad in the summer vacation, you know", exercises: [register-audience, yo-emphasis, ni-location], mode: build }
+      - { kind: sentence, ja: "なつやすみに がいこくに いきますよ。", en: "Say politely: I'll be going abroad in the summer vacation, just so you know", exercises: [register-audience, yo-emphasis, masu-present], mode: build }
       - { kind: register, stage: 2, audience: grandmother, answer: "じゃありません", options: ["じゃない", "じゃないです", "じゃありません", "です"], en: "Say it isn't.", exercises: [janai-desu, register-audience] }
       - { kind: sentence, ja: "へやが せまいから つくえを かいます。", en: "Say politely: I'm going to buy a desk, because the room is narrow", exercises: [register-audience, kara-because, masu-present], mode: listening }
       - { kind: register, stage: 2, audience: teacher, answer: "じゃないです", options: ["じゃない", "じゃないです", "じゃありません", "です"], en: "Say it isn't.", exercises: [janai-desu, register-audience] }
@@ -530,7 +530,7 @@ lessons:
       - { kind: listening-comp, audio: "まいにち えいごを ききますよ。", answer: "I listen to English every day, you know", distractors: ["I listen to English every week", "I don't listen to English every day", "I listened to English every day"], exercises: [register-audience, masu-present] }
       - kind: dialogue
         lines:
-          - { speaker: "Tanaka", ja: "なつやすみは どこに いきますか。", en: "Where are you going in the summer holidays?" }
+          - { speaker: "Tanaka", ja: "なつやすみは どこに いきますか。", en: "Where are you going in the summer vacation?" }
           - { speaker: "Mika", ja: "がいこくに いきます。ちちも いきますよ。", en: "I'm going abroad. My father's going too." }
         questions:
           - { q: "Who else does Mika say is going?", options: ["Her father", "Her mother", "Her older brother", "Tanaka"], answer: "Her father" }
@@ -627,7 +627,7 @@ lessons:
       - { kind: sentence, ja: "ごごは やすみなんだ。", en: "Say to a friend: The thing is, I'm off this afternoon", exercises: [n-desu, wa-topic], mode: build }
       - { kind: sentence, ja: "かぜが つよいんです。", en: "Say politely: The thing is, the wind's strong", exercises: [n-desu, i-adj-present, ga-existence], mode: build }
       - { kind: sentence, ja: "くつが ちいさいんですよ。", en: "Say politely: The shoes are small, you see", exercises: [n-desu, yo-emphasis, i-adj-present], mode: build }
-      - { kind: sentence, ja: "なつやすみに がいこくに いくんだね。", en: "Say to a friend: So you're going abroad in the summer holidays", exercises: [n-desu, ne-agreement, ni-location], mode: build }
+      - { kind: sentence, ja: "なつやすみに がいこくに いくんだね。", en: "Say to a friend: So you're going abroad in the summer vacation", exercises: [n-desu, ne-agreement, ni-location], mode: build }
       - { kind: sentence, ja: "めがねが ないんです。", en: "Say politely: The thing is, I haven't got my glasses", exercises: [n-desu, nai-existence], mode: build }
       - { kind: sentence, ja: "この じしょが ほしいんですよ。", en: "Say politely: The thing is, I want this dictionary, you know", exercises: [n-desu, ga-hoshii, yo-emphasis], mode: build }
       - { kind: sentence, ja: "ごぜんから ゆきが ふるんだ。", en: "Say to a friend: The thing is, it snows from this morning", exercises: [n-desu, ga-existence, kara-time], mode: listening }
@@ -663,13 +663,13 @@ lessons:
       - { kind: sentence, ja: "ごぜんは ひまだから いっしょに とりにくを たべませんか。", en: "Say politely: I'm free this morning, so shall we eat chicken together", exercises: [masenka, kara-because, na-adj-present], mode: build }
       - { kind: particle-cloze, stem: "いっしょに さかなを ", tail: "か。", answer: "たべません", options: ["たべません", "たべます", "たべない"], en: "Say politely: Shall we eat fish together", explanation: "a polite invitation is a polite NEGATIVE question, so it takes たべません plus か. たべますか only asks whether you eat fish, and たべない is the casual invitation with no か on it at all." }
       - { kind: listening-comp, audio: "ばんに いっしょに たまごを たべませんか。", answer: "Shall we eat eggs together this evening?", distractors: ["Don't you eat eggs in the evening?", "Shall we eat fish together this evening?", "Shall we eat eggs together this morning?"], exercises: [masenka, ka-question] }
-      - { kind: listening-comp, audio: "ちかてつで いっしょに いきましょう。", answer: "Let's go together by underground", distractors: ["Shall we go together by underground?", "Let's go together by bus", "I'm going by underground alone"], exercises: [masenka, mashou] }
+      - { kind: listening-comp, audio: "ちかてつで いっしょに いきましょう。", answer: "Let's go together by subway", distractors: ["Shall we go together by subway?", "Let's go together by bus", "I'm going by subway alone"], exercises: [masenka, mashou] }
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "ごごから いけを みない？", en: "Shall we go and look at the pond this afternoon?" }
-          - { speaker: "Tom", ja: "いいね。ちかてつで いきましょう。", en: "Sounds good. Let's go by underground." }
+          - { speaker: "Tom", ja: "いいね。ちかてつで いきましょう。", en: "Sounds good. Let's go by subway." }
         questions:
-          - { q: "How does Tom suggest they go?", options: ["By underground", "By bus", "On foot", "By bicycle"], answer: "By underground" }
+          - { q: "How does Tom suggest they go?", options: ["By subway", "By bus", "On foot", "By bicycle"], answer: "By subway" }
       - { kind: challenge, ja: "ごぜんは じかんが ないけど ごごから いっしょに かいものに いきませんか。", en: "Say politely: I haven't got time this morning, but shall we go shopping together this afternoon", combines: [masenka, kedo, nai-existence, kara-time, ni-iku], mode: build }
     reviewPool: [さんぽ, とりにく, ぎゅうにゅう, かいもの, いけ, えいご, じかん, ごぜん, ばん, あき]
 
@@ -801,7 +801,7 @@ lessons:
       - { kind: sentence, ja: "その おんがくは ながすぎるから ぼくは かわないよ。", en: "Say to a friend: That music is too long, so I won't buy it, you know", exercises: [sugiru, masu-negative, yo-emphasis, kara-because], mode: translate }
       - { kind: particle-cloze, stem: "せんせい ごごは かいものに ", tail: "か。", answer: "いきません", options: ["いきません", "いかない", "いきました"], en: "Say to your teacher: Shall we go shopping this afternoon", explanation: "an invitation to somebody you owe politeness to is a polite NEGATIVE question, so it takes いきません plus か. いかない is the casual invitation, and いきました asks about a trip that already happened." }
       - { kind: listening-comp, audio: "ちょっと からいけど とりにくは おいしかったですね。", answer: "It was a bit spicy, but the chicken was delicious, wasn't it", distractors: ["It was a bit spicy, so the chicken wasn't delicious", "It's a bit spicy, but the chicken is delicious, isn't it", "It was a bit sweet, but the chicken was delicious, wasn't it"], exercises: [chotto-softener, kedo, masu-past] }
-      - { kind: listening-comp, audio: "なつやすみに がいこくに いくんですね。", answer: "So you're going abroad in the summer holidays", distractors: ["So you went abroad in the summer holidays", "So you aren't going abroad in the summer holidays", "So you're going abroad in the winter holidays"], exercises: [n-desu, ne-agreement] }
+      - { kind: listening-comp, audio: "なつやすみに がいこくに いくんですね。", answer: "So you're going abroad in the summer vacation", distractors: ["So you went abroad in the summer vacation", "So you aren't going abroad in the summer vacation", "So you're going abroad in the winter vacations"], exercises: [n-desu, ne-agreement] }
       # 下→口 (2026-08-20): same finding as m23 — 下/した untaught. 口/くち is
       # m22-taught, glyph m20.
       - { kind: kanji, kana: くち, kanji: 口, distractors: ["こう", "ぐち", "くじ"], exercises: [kanji-set-1] }

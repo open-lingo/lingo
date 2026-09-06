@@ -83,7 +83,7 @@ grammarPoints:
     examples:
       - { ja: "あめが ふりそう。", en: "It looks like rain." }
       - { ja: "かばんから さいふが おちそう。", en: "Your wallet looks about to fall out of your bag." }
-      - { ja: "えいがが はじまりそう。", en: "The film looks about to start." }
+      - { ja: "えいがが はじまりそう。", en: "The movie looks about to start." }
       - { ja: "あめは ふりそうにない。", en: "There's no sign of rain." }
     antiPattern: { ja: "あめが ふるそう。", why: "the looks-like そう rides the ます-stem: ふり + そう. On the dictionary form it stops being about looks at all — ふりそう is what the sky shows you." }
 
@@ -216,8 +216,8 @@ lessons:
       - { kind: rule, grammarPointId: sou-appearance, variant: verb }
       - { kind: sentence, ja: "あめが ふりそう。", en: "It looks like rain", exercises: [sou-appearance, ga-existence], mode: build }
       - { kind: sentence, ja: "かばんから さいふが おちそう。", en: "Your wallet looks about to fall out of your bag", exercises: [sou-appearance, ga-existence], mode: build }
-      - { kind: particle-cloze, stem: "えいがが ", tail: "。", answer: "はじまりそう", options: ["はじまりそう", "はじまった", "はじまる"], en: "The film looks about to start", explanation: "そう rides the ます-stem for verbs too — はじまる → はじまり + そう. はじまった already happened; はじまる is just the bare fact, no leaning-forward feel." }
-      - { kind: sentence, ja: "えいがが はじまりそうだから、はやく いそごう。", en: "The film looks about to start, so let's hurry", exercises: [sou-appearance, kara-because, volitional], mode: build }
+      - { kind: particle-cloze, stem: "えいがが ", tail: "。", answer: "はじまりそう", options: ["はじまりそう", "はじまった", "はじまる"], en: "The movie looks about to start", explanation: "そう rides the ます-stem for verbs too — はじまる → はじまり + そう. はじまった already happened; はじまる is just the bare fact, no leaning-forward feel." }
+      - { kind: sentence, ja: "えいがが はじまりそうだから、はやく いそごう。", en: "The movie looks about to start, so let's hurry", exercises: [sou-appearance, kara-because, volitional], mode: build }
       - { kind: listening-comp, audio: "あめは ふりそうにない。", answer: "There's no sign of rain", distractors: ["It's raining now", "It looks like it's about to rain", "It rained yesterday"], q: "What does this mean?", explanation: "ふりそうにない is the flatter, stronger denial — no sign of it at all." }
       - { kind: sentence, ja: "あめは ふらなさそう。", en: "It doesn't look like rain", exercises: [sou-appearance], mode: build }
       - { kind: sentence, ja: "かさが なさそう。", en: "There doesn't seem to be an umbrella", exercises: [sou-appearance, ga-existence], mode: build }
@@ -278,11 +278,11 @@ lessons:
       - { kind: sentence, ja: "その とけいは たかそう。", en: "That watch looks expensive", exercises: [sou-appearance, wa-topic], mode: listening }
       - kind: dialogue
         lines:
-          - { speaker: "Tom", ja: "この えいがは おもしろそう。", en: "This film looks interesting." }
+          - { speaker: "Tom", ja: "この えいがは おもしろそう。", en: "This movie looks interesting." }
           - { speaker: "Mika", ja: "うん、みよう。", en: "Yeah, let's watch it." }
           - { speaker: "Tom", ja: "あめが ふりそうだから、うちで みよう。", en: "It looks like rain, so let's watch at home." }
         questions:
-          - { q: "Why do they decide to watch at home?", options: ["It looks like rain", "The film is too expensive", "They are busy", "The cinema is closed"], answer: "It looks like rain" }
+          - { q: "Why do they decide to watch at home?", options: ["It looks like rain", "The movie is too expensive", "They are busy", "The cinema is closed"], answer: "It looks like rain" }
     reviewPool: [りょうり, あめ, とけい, さいふ, パン, てんき, ほん, えいが]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -327,11 +327,11 @@ lessons:
       - { kind: sentence, ja: "この ほんは よみやすい。", en: "This book is easy to read", exercises: [yasui-nikui, kono-sono-ano-dono], mode: build }
       - { kind: listening-comp, audio: "この ことばは おぼえにくい。", answer: "This word is hard to memorise", distractors: ["This word is easy to memorise", "This word is easy to read", "This word is hard to say"], q: "What does this mean?" }
       - { kind: sentence, ja: "この みちは あるきやすかった。", en: "This road was easy to walk", exercises: [yasui-nikui, ta-form], mode: build }
-      - { kind: sentence, ja: "べんりな けいたいが ある。", en: "There's a convenient mobile phone", exercises: [na-adj-present, ga-existence], mode: build }
+      - { kind: sentence, ja: "べんりな けいたいが ある。", en: "There's a convenient cell phone", exercises: [na-adj-present, ga-existence], mode: build }
       - { kind: kanji, kana: みち, kanji: 道, distractors: ["どう", "みぢ", "どうろ"], exercises: [yasui-nikui] }
-      - { kind: sentence, ja: "ちかてつは べんりだ。", en: "The underground is convenient", exercises: [na-adj-present], mode: listening }
+      - { kind: sentence, ja: "ちかてつは べんりだ。", en: "The subway is convenient", exercises: [na-adj-present], mode: listening }
       - { kind: sentence, ja: "この じしょは ふべんだ。", en: "This dictionary is inconvenient", exercises: [na-adj-present, kono-sono-ano-dono], mode: build }
-      - { kind: particle-cloze, stem: "ちかてつは ", tail: "だ。", answer: "べんり", options: ["べんり", "ふべん", "やすい"], en: "The underground is convenient", explanation: "べんり praises how HANDY something is. ふべん is its negative twin. やすい here would just be 'cheap' — a real word, but the wrong one; it never means 'convenient.'" }
+      - { kind: particle-cloze, stem: "ちかてつは ", tail: "だ。", answer: "べんり", options: ["べんり", "ふべん", "やすい"], en: "The subway is convenient", explanation: "べんり praises how HANDY something is. ふべん is its negative twin. やすい here would just be 'cheap' — a real word, but the wrong one; it never means 'convenient.'" }
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "この じしょは わかりやすい？", en: "Is this dictionary easy to follow?" }
@@ -449,11 +449,11 @@ lessons:
             replyGloss: "Looks like rain, doesn't it."
             explanation: "The sky hasn't decided yet — that is exactly the そう slot. ふる would state a fact the clouds haven't committed to."
           - npc: { speaker: "Ken", ja: "こうえんは やめる？", en: "Skip the park, then?" }
-            goal: "Pivot the plan — suggest watching a film at your place instead."
+            goal: "Pivot the plan — suggest watching a movie at your place instead."
             reply: { mode: build, tiles: ["うち", "で", "えいが", "を", "みよう", "いこう"], answer: "うちで えいがを みよう。" }
-            replyGloss: "Let's watch a film at my place."
+            replyGloss: "Let's watch a movie at my place."
             explanation: "The look of the sky drives the decision, and the suggestion lands on m34's volitional: みよう。 いこう would head somewhere — the whole point is staying in."
-      - { kind: challenge, ja: "あめが ふりそうだから、こうえんは やめて うちで えいがを みよう。", en: "It looks like rain, so let's skip the park and watch a film at my place", combines: [sou-appearance, kara-because, te-form, volitional], mode: build }
+      - { kind: challenge, ja: "あめが ふりそうだから、こうえんは やめて うちで えいがを みよう。", en: "It looks like rain, so let's skip the park and watch a movie at my place", combines: [sou-appearance, kara-because, te-form, volitional], mode: build }
     reviewPool: [そら, あめ, こうえん, うち, えいが, かさ, みち, てんき]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -500,6 +500,6 @@ lessons:
           - { speaker: "Tom", ja: "うん。こうえんは やめて、うちで おんがくを ききながら しゅくだいを しよう。", en: "Yeah. Let's skip the park and do homework while listening to music at home." }
           - { speaker: "Mika", ja: "いいね。", en: "Sounds good." }
         questions:
-          - { q: "What do they decide to do instead of the park?", options: ["Do homework while listening to music at home", "Watch a film at home", "Go to the library", "Go shopping"], answer: "Do homework while listening to music at home" }
+          - { q: "What do they decide to do instead of the park?", options: ["Do homework while listening to music at home", "Watch a movie at home", "Go to the library", "Go shopping"], answer: "Do homework while listening to music at home" }
       - { kind: challenge, ja: "あめが ふりそうだから、あんぜんな みちを あるこう。", en: "It looks like rain, so let's walk the safe road", combines: [sou-appearance, kara-because, na-adj-present, volitional], mode: build }
     reviewPool: [あめ, おとうと, みち, おんがく, しゅくだい, えいが, うち, こうえん]

@@ -213,7 +213,7 @@ grammarPoints:
       - { ja: "ミカは きっさてんに いく。", en: "Mika is going to the coffee shop." }
       - { ja: "トムは あした だいがくに くる。", en: "Tom is coming to the university tomorrow." }
       - { ja: "ろくじに うちに かえる。", en: "I'm going home at six." }
-      - { ja: "なつやすみに にほんに いく。", en: "I'm going to Japan for the summer holiday." }
+      - { ja: "なつやすみに にほんに いく。", en: "I'm going to Japan for the summer vacation." }
     antiPattern: { ja: "えきで いく。", why: "で marks where an action HAPPENS; the place you go TO is marked with に: えきに いく。" }
 
   - id: e-direction
@@ -263,7 +263,7 @@ grammarPoints:
     antiPattern: { ja: "くるまを だいがくに いく。", why: "を marks a thing you ACT ON, and you are not acting on the car — you are using it, so it takes で: くるまで だいがくに いく。" }
 
   - id: ni-iku
-    rule: "To say WHY you are going somewhere, Japanese states the purpose first and the going second. Take the verb for what you will do, cut it back to its ます-stem — the piece that sits in front of ます — and hang に いく on the end. たべます minus ます is たべ, so 「たべに いく」 = I'm going to eat. のみます becomes のみ, giving 「のみに いく」; みます becomes み, giving 「みに いく」. The stem is not a new form and there is nothing extra to memorise: it is the piece you have been attaching ます to since module 7, now standing on its own with に behind it. Activity NOUNS skip the stem and take に directly — 「かいものに いく」, I'm going shopping; 「りょこうに いく」, I'm going travelling. くる and かえる work exactly the same way. The one thing to get right is that the DICTIONARY form never goes there: 「たべるに いく」 is wrong, it is 「たべに いく」."
+    rule: "To say WHY you are going somewhere, Japanese states the purpose first and the going second. Take the verb for what you will do, cut it back to its ます-stem — the piece that sits in front of ます — and hang に いく on the end. たべます minus ます is たべ, so 「たべに いく」 = I'm going to eat. のみます becomes のみ, giving 「のみに いく」; みます becomes み, giving 「みに いく」. The stem is not a new form and there is nothing extra to memorise: it is the piece you have been attaching ます to since module 7, now standing on its own with に behind it. Activity NOUNS skip the stem and take に directly — 「かいものに いく」, I'm going shopping; 「りょこうに いく」, I'm going traveling. くる and かえる work exactly the same way. The one thing to get right is that the DICTIONARY form never goes there: 「たべるに いく」 is wrong, it is 「たべに いく」."
     examples:
       - { ja: "ごはんを たべに いく。", en: "I'm going out to eat." }
       - { ja: "ミカは ちゃを のみに きっさてんに いく。", en: "Mika is going to the coffee shop to drink tea." }
@@ -346,7 +346,7 @@ newAtoms:
   #    registry. でんしゃ is CEJC #427 and has been seen once (inv 27).
   - { kana: でんしゃ, romaji: densha, gloss: "train", shortGloss: "train", kind: vocab }
   - { kana: バス, romaji: basu, gloss: "bus", shortGloss: "bus", kind: vocab }
-  - { kana: ちかてつ, romaji: chikatetsu, gloss: "underground train, subway", shortGloss: "subway", kind: vocab }
+  - { kana: ちかてつ, romaji: chikatetsu, gloss: "subway", shortGloss: "subway", kind: vocab }
   #    あるく is 🚶 — the same emoji as いく and さんぽ, both met. Same call as
   #    かえる: imageable: false, debut on the L3 rule card. Only the dictionary
   #    form is ever used; あるいて and あるきます exist in no tokenizer here.
@@ -415,11 +415,11 @@ lessons:
       - { kind: listening-comp, audio: "ミカは びょういんへ いくから きょうは こない。", answer: "Mika is heading to the hospital, so she isn't coming today", distractors: ["Mika is coming today and then heading to the hospital", "Mika isn't heading to the hospital today", "Mika is heading to school, so she isn't coming today"], exercises: [e-direction, kara-because, nai-form] }
       - kind: dialogue
         lines:
-          - { speaker: "Tom", ja: "なつやすみは どこへ いく？", en: "Where are you heading for the summer holiday?" }
+          - { speaker: "Tom", ja: "なつやすみは どこへ いく？", en: "Where are you heading for the summer vacation?" }
           - { speaker: "Ken", ja: "うみへ いく。ミカも いくと おもう。", en: "I'm heading to the sea. I think Mika is going too." }
         questions:
           - { q: "Where is Ken heading?", options: ["To the sea", "To the mountains", "To Japan", "To the hospital"], answer: "To the sea" }
-      - { kind: challenge, ja: "あしたは やすみだから ともだちと うみへ いく。", en: "Tomorrow is a holiday, so I'm heading to the sea with a friend", combines: [e-direction, desu-copula, kara-because, to-and], mode: build }
+      - { kind: challenge, ja: "あしたは やすみだから ともだちと うみへ いく。", en: "Tomorrow is a day off, so I'm heading to the sea with a friend", combines: [e-direction, desu-copula, kara-because, to-and], mode: build }
     reviewPool: [へ, びょういん, がっこう, うみ, やま, にほん, くつ, きっぷ, なつやすみ, かえる]
 
   # ═══════════════════════════════════════════════════════════════════════

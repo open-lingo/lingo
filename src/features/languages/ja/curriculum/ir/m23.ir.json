@@ -115,11 +115,11 @@
         },
         {
           "ja": "あの えいがを みた ことが あるけど おもしろくなかった。",
-          "en": "I have seen that film, but it wasn't interesting."
+          "en": "I have seen that movie, but it wasn't interesting."
         },
         {
           "ja": "なつやすみに うみに いった ことが ある。",
-          "en": "I have been to the sea in the summer holidays."
+          "en": "I have been to the sea in the summer vacation."
         }
       ],
       "antiPattern": {
@@ -163,7 +163,7 @@
       "examples": [
         {
           "ja": "なつやすみに にほんに いく つもりだ。",
-          "en": "I intend to go to Japan in the summer holidays."
+          "en": "I intend to go to Japan in the summer vacation."
         },
         {
           "ja": "あした きっぷを かう つもりだ。",
@@ -171,7 +171,7 @@
         },
         {
           "ja": "ミカと えいがを みる つもりだ。",
-          "en": "I intend to see a film with Mika."
+          "en": "I intend to see a movie with Mika."
         },
         {
           "ja": "りょこうに いく つもりだけど じかんが ない。",
@@ -201,7 +201,7 @@
         },
         {
           "ja": "あした えいがを みたいけど みる つもりは ない。",
-          "en": "I want to see a film tomorrow, but I don't intend to."
+          "en": "I want to see a movie tomorrow, but I don't intend to."
         },
         {
           "ja": "おさけを のみたいから かう つもりだ。",
@@ -235,7 +235,7 @@
         },
         {
           "ja": "その えいがは みない つもりだ。",
-          "en": "I intend not to see that film."
+          "en": "I intend not to see that movie."
         },
         {
           "ja": "パンを たべない つもりだ。",
@@ -287,7 +287,7 @@
         },
         {
           "ja": "りょこうに いく とき カメラを かう。",
-          "en": "When I go travelling, I buy a camera first."
+          "en": "When I go traveling, I buy a camera first."
         },
         {
           "ja": "うみに いった とき およいだ。",
@@ -491,7 +491,7 @@
         {
           "kind": "sentence",
           "ja": "あの えいがを みた ことが あるけど おもしろくなかった。",
-          "en": "I have seen that film, but it wasn't interesting",
+          "en": "I have seen that movie, but it wasn't interesting",
           "exercises": [
             "koto-ga-aru",
             "ta-form",
@@ -503,7 +503,7 @@
         {
           "kind": "sentence",
           "ja": "なつやすみに うみに いった ことが ある。",
-          "en": "I have been to the sea in the summer holidays",
+          "en": "I have been to the sea in the summer vacation",
           "exercises": [
             "koto-ga-aru",
             "ni-time",
@@ -525,7 +525,7 @@
         {
           "kind": "sentence",
           "ja": "がいこくの りょうりを たべた ことが あるから りょこうが すきだ。",
-          "en": "I have eaten foreign food, so I like travelling",
+          "en": "I have eaten foreign food, so I like traveling",
           "exercises": [
             "koto-ga-aru",
             "no-possession",
@@ -537,7 +537,7 @@
         {
           "kind": "sentence",
           "ja": "ミカと えいがを みた ことが ある。",
-          "en": "I have seen a film with Mika",
+          "en": "I have seen a movie with Mika",
           "exercises": [
             "koto-ga-aru",
             "to-and"
@@ -864,7 +864,7 @@
         {
           "kind": "sentence",
           "ja": "なつやすみに がいこくに いく つもりだ。",
-          "en": "I intend to go abroad in the summer holidays",
+          "en": "I intend to go abroad in the summer vacation",
           "exercises": [
             "tsumori-desu",
             "dictionary-form",
@@ -962,11 +962,11 @@
         {
           "kind": "listening-comp",
           "audio": "なつやすみに うみに いく つもりだ。",
-          "answer": "I intend to go to the sea in the summer holidays",
+          "answer": "I intend to go to the sea in the summer vacation",
           "distractors": [
-            "I have been to the sea in the summer holidays",
-            "I want to go to the sea in the summer holidays",
-            "I intend to go to the mountains in the summer holidays"
+            "I have been to the sea in the summer vacation",
+            "I want to go to the sea in the summer vacation",
+            "I intend to go to the mountains in the summer vacation"
           ],
           "exercises": [
             "tsumori-desu",
@@ -1017,7 +1017,7 @@
         {
           "kind": "challenge",
           "ja": "なつやすみに がいこくに いく つもりだから いま ひこうきの きっぷを かう。",
-          "en": "I intend to go abroad in the summer holidays, so I'm buying a plane ticket now",
+          "en": "I intend to go abroad in the summer vacation, so I'm buying a plane ticket now",
           "combines": [
             "tsumori-desu",
             "dictionary-form",
@@ -1071,7 +1071,7 @@
         {
           "kind": "sentence",
           "ja": "なつやすみに がいこくに いく つもりだ。",
-          "en": "I intend to go abroad in the summer holidays",
+          "en": "I intend to go abroad in the summer vacation",
           "exercises": [
             "tsumori-desu",
             "ni-time"
@@ -1124,11 +1124,11 @@
         {
           "kind": "listening-comp",
           "audio": "あの えいがを みた ことが あるけど おもしろくなかった。",
-          "answer": "I have seen that film, but it wasn't interesting",
+          "answer": "I have seen that movie, but it wasn't interesting",
           "distractors": [
-            "I have never seen that film, but it looks interesting",
-            "I saw that film yesterday and it wasn't interesting",
-            "I intend to see that film, but it doesn't look interesting"
+            "I have never seen that movie, but it looks interesting",
+            "I saw that movie yesterday and it wasn't interesting",
+            "I intend to see that movie, but it doesn't look interesting"
           ],
           "exercises": [
             "koto-ga-aru",
@@ -1291,7 +1291,7 @@
         {
           "kind": "sentence",
           "ja": "えいがを みたいけど みる つもりは ない。",
-          "en": "I want to see a film, but I don't intend to",
+          "en": "I want to see a movie, but I don't intend to",
           "exercises": [
             "v-tai",
             "tsumori-desu",
@@ -1477,7 +1477,7 @@
         {
           "kind": "sentence",
           "ja": "その えいがは みない つもりだ。",
-          "en": "I intend not to see that film",
+          "en": "I intend not to see that movie",
           "exercises": [
             "nai-form",
             "tsumori-desu",
@@ -1576,7 +1576,7 @@
             {
               "speaker": "Ken",
               "ja": "あした えいがを みる つもり？",
-              "en": "Are you planning to see a film tomorrow?"
+              "en": "Are you planning to see a movie tomorrow?"
             },
             {
               "speaker": "Tom",
@@ -1589,7 +1589,7 @@
               "q": "What is Tom planning to do tomorrow?",
               "options": [
                 "Go out for sushi",
-                "See a film",
+                "See a movie",
                 "Stay at home and wait",
                 "Buy a ticket"
               ],
@@ -1926,7 +1926,7 @@
         {
           "kind": "sentence",
           "ja": "その えいがは みない つもりだ。",
-          "en": "I intend not to see that film",
+          "en": "I intend not to see that movie",
           "exercises": [
             "nai-form",
             "kono-sono-ano-dono"
@@ -2078,7 +2078,7 @@
         {
           "kind": "sentence",
           "ja": "りょこうに いく とき カメラを かう つもりだ。",
-          "en": "When I go travelling, I intend to buy a camera first",
+          "en": "When I go traveling, I intend to buy a camera first",
           "exercises": [
             "toki",
             "tsumori-desu",
@@ -2222,7 +2222,7 @@
         {
           "kind": "challenge",
           "ja": "がくせいの とき がいこくに いった ことが あるから なつやすみに いく つもりだ。",
-          "en": "I have been abroad once, back when I was a student, so I intend to go in the summer holidays",
+          "en": "I have been abroad once, back when I was a student, so I intend to go in the summer vacation",
           "combines": [
             "toki",
             "koto-ga-aru",
@@ -2304,7 +2304,7 @@
         {
           "kind": "sentence",
           "ja": "ミカを まってから えいがを みる。",
-          "en": "I'll wait for Mika, then watch the film",
+          "en": "I'll wait for Mika, then watch the movie",
           "exercises": [
             "te-kara",
             "te-form",
@@ -2372,10 +2372,10 @@
         {
           "kind": "listening-comp",
           "audio": "はたらいてから りょこうに いく つもりだ。",
-          "answer": "I intend to work first, then go travelling",
+          "answer": "I intend to work first, then go traveling",
           "distractors": [
             "I intend to travel first, then work",
-            "I worked and then went travelling",
+            "I worked and then went traveling",
             "I want to work and travel"
           ],
           "exercises": [
@@ -2826,7 +2826,7 @@
         {
           "kind": "sentence",
           "ja": "がくせいの とき がいこくで はたらいた ことが あるから なつやすみに いく つもりだ。",
-          "en": "I have worked abroad, back when I was a student, so I intend to go in the summer holidays",
+          "en": "I have worked abroad, back when I was a student, so I intend to go in the summer vacation",
           "exercises": [
             "toki",
             "koto-ga-aru",
@@ -2944,11 +2944,11 @@
         {
           "kind": "listening-comp",
           "audio": "りょこうに いく とき カメラを かう つもりだ。",
-          "answer": "When I go travelling, I intend to buy a camera first",
+          "answer": "When I go traveling, I intend to buy a camera first",
           "distractors": [
-            "When I went travelling, I bought a camera",
+            "When I went traveling, I bought a camera",
             "I have bought a camera for the trip",
-            "I intend to buy a camera while travelling"
+            "I intend to buy a camera while traveling"
           ],
           "exercises": [
             "toki",
@@ -2996,7 +2996,7 @@
         {
           "kind": "challenge",
           "ja": "ミカは がいこくに いった ことが ないと おもうけど なつやすみに ひこうきで いく つもりだと きいた。",
-          "en": "I don't think Mika has ever been abroad, but I hear she intends to fly there in the summer holidays",
+          "en": "I don't think Mika has ever been abroad, but I hear she intends to fly there in the summer vacation",
           "combines": [
             "to-omoimasu",
             "nai-existence",
@@ -3023,6 +3023,7 @@
     }
   ],
   "priorVocab": [
+    "あかい",
     "あけて",
     "あけない",
     "あける",
@@ -3097,6 +3098,7 @@
     "ううん",
     "うえ",
     "うた",
+    "うたう",
     "うち",
     "うま",
     "うみ",
@@ -3168,6 +3170,7 @@
     "かばん",
     "かめ",
     "かようび",
+    "から",
     "からだ",
     "かわ",
     "かわない",
@@ -3232,6 +3235,7 @@
     "ごじ",
     "ごじゅう",
     "ごぜん",
+    "ごにん",
     "ごはい",
     "ごはん",
     "ごほん",
@@ -4365,6 +4369,13 @@
       "kind": "vocab"
     },
     {
+      "kana": "ひま",
+      "romaji": "hima",
+      "gloss": "free time",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "たべたい",
       "romaji": "tabetai",
       "gloss": "want to eat",
@@ -4583,7 +4594,7 @@
     {
       "kana": "なつやすみ",
       "romaji": "natsuyasumi",
-      "gloss": "summer holiday",
+      "gloss": "summer vacation",
       "shortGloss": "summer break",
       "imageable": true,
       "kind": "vocab"
@@ -4685,6 +4696,28 @@
       "romaji": "hayai",
       "gloss": "early",
       "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "とりにく",
+      "romaji": "toriniku",
+      "gloss": "chicken meat",
+      "shortGloss": "chicken",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あかい",
+      "romaji": "akai",
+      "gloss": "red",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うたう",
+      "romaji": "utau",
+      "gloss": "to sing",
+      "imageable": true,
       "kind": "vocab"
     },
     {
@@ -4998,6 +5031,14 @@
       "kind": "vocab"
     },
     {
+      "kana": "から",
+      "romaji": "kara",
+      "gloss": "from (origin)",
+      "shortGloss": "from",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
       "kana": "さむい",
       "romaji": "samui",
       "gloss": "cold (weather)",
@@ -5047,8 +5088,8 @@
     {
       "kana": "やすみ",
       "romaji": "yasumi",
-      "gloss": "holiday, time off",
-      "shortGloss": "holiday",
+      "gloss": "vacation, day off",
+      "shortGloss": "vacation",
       "imageable": true,
       "kind": "vocab"
     },
@@ -5606,7 +5647,7 @@
     {
       "kana": "ちかてつ",
       "romaji": "chikatetsu",
-      "gloss": "underground train, subway",
+      "gloss": "subway",
       "shortGloss": "subway",
       "kind": "vocab"
     },
@@ -5915,6 +5956,13 @@
       "romaji": "ittari",
       "gloss": "go, and things like that",
       "shortGloss": "go, etc.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごにん",
+      "romaji": "go nin",
+      "gloss": "5 people",
       "imageable": false,
       "kind": "vocab"
     },
@@ -6391,7 +6439,7 @@
     {
       "kana": "いきません",
       "romaji": "ikimasen",
-      "gloss": "don't go, not travelling (polite)",
+      "gloss": "don't go, not traveling (polite)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -6707,7 +6755,7 @@
       "kana": "ちゃ",
       "romaji": "cha",
       "gloss": "tea",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -6715,7 +6763,7 @@
       "romaji": "kome",
       "gloss": "rice (uncooked)",
       "shortGloss": "rice (raw)",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -6817,7 +6865,7 @@
       "kana": "えん",
       "romaji": "en",
       "gloss": "yen",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -6838,7 +6886,7 @@
       "kana": "かね",
       "romaji": "kane",
       "gloss": "money",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {

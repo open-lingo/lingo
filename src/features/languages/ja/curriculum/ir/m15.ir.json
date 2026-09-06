@@ -1589,7 +1589,7 @@
         {
           "kind": "sentence",
           "ja": "なつやすみの とき うみに いった。",
-          "en": "When it was summer holiday, I went to the sea",
+          "en": "When it was summer vacation, I went to the sea",
           "exercises": [
             "toki",
             "no-possession",
@@ -1643,7 +1643,7 @@
         {
           "kind": "sentence",
           "ja": "りょこうが すきな ひとと あそぶ。",
-          "en": "I hang out with a person who likes travelling",
+          "en": "I hang out with a person who likes traveling",
           "exercises": [
             "ga-existence",
             "na-adj-present",
@@ -1654,7 +1654,7 @@
         {
           "kind": "sentence",
           "ja": "なつやすみの とき うみに いく。",
-          "en": "Say to a friend: When it's the summer holiday, I go to the sea",
+          "en": "Say to a friend: When it's the summer vacation, I go to the sea",
           "exercises": [
             "toki",
             "ni-location"
@@ -1677,10 +1677,10 @@
         {
           "kind": "listening-comp",
           "audio": "なつやすみの とき ともだちと あそんだ。",
-          "answer": "When it was summer holiday, I hung out with a friend",
+          "answer": "When it was summer vacation, I hung out with a friend",
           "distractors": [
-            "I hang out with friends during the summer holiday",
-            "When it was summer holiday, I worked",
+            "I hang out with friends during the summer vacation",
+            "When it was summer vacation, I worked",
             "I want to hang out with a friend in the summer"
           ],
           "exercises": [
@@ -1708,7 +1708,7 @@
             {
               "speaker": "Tom",
               "ja": "なつやすみの とき なにを した？",
-              "en": "What did you do over the summer holiday?"
+              "en": "What did you do over the summer vacation?"
             },
             {
               "speaker": "Mika",
@@ -1718,7 +1718,7 @@
           ],
           "questions": [
             {
-              "q": "What did Mika do over the summer holiday?",
+              "q": "What did Mika do over the summer vacation?",
               "options": [
                 "Went on a trip with a friend",
                 "Worked at a company",
@@ -1866,7 +1866,7 @@
         {
           "kind": "sentence",
           "ja": "なつやすみの とき うみに いく。",
-          "en": "Say to a friend: When it's the summer holiday, I go to the sea",
+          "en": "Say to a friend: When it's the summer vacation, I go to the sea",
           "exercises": [
             "toki",
             "ni-location"
@@ -2669,7 +2669,7 @@
             {
               "speaker": "Tom",
               "ja": "なつやすみの とき なにを した？",
-              "en": "What did you do over the summer holiday?"
+              "en": "What did you do over the summer vacation?"
             },
             {
               "speaker": "Mika",
@@ -4324,7 +4324,7 @@
     {
       "kana": "なつやすみ",
       "romaji": "natsuyasumi",
-      "gloss": "summer holiday",
+      "gloss": "summer vacation",
       "shortGloss": "summer break",
       "imageable": true,
       "kind": "vocab"
@@ -4433,21 +4433,21 @@
       "romaji": "toriniku",
       "gloss": "chicken meat",
       "shortGloss": "chicken",
-      "imageable": false,
+      "imageable": true,
       "kind": "vocab"
     },
     {
       "kana": "あかい",
       "romaji": "akai",
       "gloss": "red",
-      "imageable": false,
+      "imageable": true,
       "kind": "vocab"
     },
     {
       "kana": "うたう",
       "romaji": "utau",
       "gloss": "to sing",
-      "imageable": false,
+      "imageable": true,
       "kind": "vocab"
     },
     {
@@ -5005,7 +5005,7 @@
     {
       "kana": "いきません",
       "romaji": "ikimasen",
-      "gloss": "don't go, not travelling (polite)",
+      "gloss": "don't go, not traveling (polite)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -5321,7 +5321,7 @@
       "kana": "ちゃ",
       "romaji": "cha",
       "gloss": "tea",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -5329,7 +5329,7 @@
       "romaji": "kome",
       "gloss": "rice (uncooked)",
       "shortGloss": "rice (raw)",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -5431,7 +5431,7 @@
       "kana": "えん",
       "romaji": "en",
       "gloss": "yen",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -5452,7 +5452,7 @@
       "kana": "かね",
       "romaji": "kane",
       "gloss": "money",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {

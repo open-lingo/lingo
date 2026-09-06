@@ -263,7 +263,7 @@ grammarPoints:
       - { ja: "あの くるまは あにのだから あたらしい。", en: "That car over there is my older brother's, so it's new." }
       - { ja: "これは いもうとの ぼうしだから ちいさい。", en: "This is my younger sister's hat, so it's small." }
       - { ja: "どの じてんしゃが あねのだ？", en: "Which bicycle is my older sister's?" }
-      - { ja: "それは おとうとの けいたいだ。", en: "That is my younger brother's mobile phone." }
+      - { ja: "それは おとうとの けいたいだ。", en: "That is my younger brother's cell phone." }
     antiPattern: { ja: "あのは あにの くるまだから あたらしい。", why: "あの always needs a noun right behind it — with nothing to attach to, the word you want is the stand-alone あれ: あれは あにの くるまだから あたらしい。" }
   - id: dare
     rule: "A question word sits exactly where its answer would sit, and it never takes は. だれ asks WHO — 「あの ひとは だれ？」 — and だれ plus の asks WHOSE — 「これは だれの かばん？」. The family questions run on the same rails and you now have all of them: 「かぞくは なんにん？」 for how many, 「なんさい？」 for how old, 「どの ひとが ミカの ともだちだ？」 for which one. Watch what comes back, though. Answering ABOUT your own family, every answer lands in the うち set — ちち, はは, あに, あね, おとうと, いもうと — because the moment you are speaking to an outsider, your family is the inside group."
@@ -577,7 +577,7 @@ lessons:
       - { kind: sentence, ja: "どの じてんしゃが あねのだ？", en: "Which bicycle is my older sister's", exercises: [kono-sono-ano-dono, ka-question], mode: listening }
       - { kind: sentence, ja: "これは いもうとの ぼうしだから ちいさい。", en: "This is my younger sister's hat, so it's small", exercises: [kore-sore-are-dore, no-possession, kara-because], mode: build }
       - { kind: sentence, ja: "この ぼうしは いもうとのだけど ぼくが かった。", en: "This hat is my younger sister's, but I bought it", exercises: [kono-sono-ano-dono, kedo, ta-form], mode: build }
-      - { kind: sentence, ja: "それは おとうとの けいたいだ。", en: "That is my younger brother's mobile phone", exercises: [kore-sore-are-dore, no-possession], mode: build }
+      - { kind: sentence, ja: "それは おとうとの けいたいだ。", en: "That is my younger brother's cell phone", exercises: [kore-sore-are-dore, no-possession], mode: build }
       - { kind: sentence, ja: "あれは ちちの くるまだ。", en: "Say to a friend: That over there is my father's car", exercises: [kore-sore-are-dore], mode: translate }
       - { kind: particle-cloze, stem: "", tail: " じてんしゃが あねのだ？", answer: "どの", options: ["どの", "どれ", "どこ"], en: "Which bicycle is my older sister's?", explanation: "どの needs the noun behind it, and here it is じてんしゃ. どれ stands alone (\"which one\"), and どこ asks WHERE." }
       - { kind: listening-comp, audio: "これは いもうとの ぼうしだ。", answer: "This is my younger sister's hat", distractors: ["That over there is my younger sister's hat", "This is my younger brother's hat", "My younger sister bought this hat"], exercises: [kore-sore-are-dore, no-possession] }

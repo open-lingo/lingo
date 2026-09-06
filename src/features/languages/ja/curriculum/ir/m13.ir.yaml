@@ -314,7 +314,7 @@ newAtoms:
   # instead of arriving as a word the learner is assumed to know.
   - { kana: だいがく, romaji: daigaku, gloss: "university", imageable: true, kind: vocab }
   - { kana: ふく, romaji: fuku, gloss: "clothes", imageable: true, kind: vocab }
-  - { kana: なつやすみ, romaji: natsuyasumi, gloss: "summer holiday", shortGloss: "summer break", imageable: true, kind: vocab }
+  - { kana: なつやすみ, romaji: natsuyasumi, gloss: "summer vacation", shortGloss: "summer break", imageable: true, kind: vocab }
   - { kana: きっさてん, romaji: kissaten, gloss: "coffee shop", imageable: true, kind: vocab }
   # ══ Vocab pack 3 (B065/B067, 2026-07-29) — the morning routine (L10).
   #    Verbs carry verbClass but NO lesson card here has a `conjugation:` key,
@@ -579,8 +579,8 @@ lessons:
       - { kind: sentence, ja: "わたしは ちいさい ねこが すきだ。", en: "I like small cats", exercises: [wa-topic, i-adj-present, suki-kirai-no], mode: build }
       - { kind: sentence, ja: "ミカは あたらしい うたが すきだ。", en: "Mika likes new songs", exercises: [wa-topic, i-adj-present, suki-kirai-no], mode: build }
       - { kind: sentence, ja: "わたしは きゅうりが きらいだ。", en: "I don't like cucumber", exercises: [wa-topic, suki-kirai-no], mode: listening }
-      - { kind: sentence, ja: "わたしは なつやすみが すきだ。", en: "I like the summer holiday", exercises: [wa-topic, suki-kirai-no], mode: build }
-      - { kind: sentence, ja: "わたしの すきな いろは あかい。", en: "The colour I like is red", exercises: [no-possession, suki-kirai-no, i-adj-present], mode: build }
+      - { kind: sentence, ja: "わたしは なつやすみが すきだ。", en: "I like the summer vacation", exercises: [wa-topic, suki-kirai-no], mode: build }
+      - { kind: sentence, ja: "わたしの すきな いろは あかい。", en: "The color I like is red", exercises: [no-possession, suki-kirai-no, i-adj-present], mode: build }
       - { kind: sentence, ja: "とりにくは すきじゃない。", en: "I don't like chicken", exercises: [wa-topic, suki-kirai-no, na-adj-negative], mode: build }
       - { kind: sentence, ja: "ケンは にぎやかな みせが きらいだ。", en: "Ken doesn't like lively shops", exercises: [wa-topic, na-adj-present, suki-kirai-no], mode: build }
       - { kind: sentence, ja: "ねこが すきだ。", en: "Say to a friend: I like cats", exercises: [suki-kirai-no], mode: translate, alsoAccept: ["ねこが すき。"] }
@@ -588,10 +588,10 @@ lessons:
       - { kind: listening-comp, audio: "ミカは ふるい うたが すきだ。", answer: "Mika likes old songs", distractors: ["Mika likes new songs", "Mika doesn't like old songs", "Mika likes old books"], exercises: [wa-topic, i-adj-present, suki-kirai-no] }
       - kind: dialogue
         lines:
-          - { speaker: "Tom", ja: "なつやすみは すき？", en: "Do you like the summer holiday?" }
+          - { speaker: "Tom", ja: "なつやすみは すき？", en: "Do you like the summer vacation?" }
           - { speaker: "Mika", ja: "うん、すきだ。うみに いきたい。", en: "Yeah, I like it. I want to go to the sea." }
         questions:
-          - { q: "What does Mika say?", options: ["She likes the summer holiday and wants to go to the sea", "She doesn't like the summer holiday", "She wants to go to the mountain", "She likes the sea but not the holiday"], answer: "She likes the summer holiday and wants to go to the sea" }
+          - { q: "What does Mika say?", options: ["She likes the summer vacation and wants to go to the sea", "She doesn't like the summer vacation", "She wants to go to the mountain", "She likes the sea but not the vacation"], answer: "She likes the summer vacation and wants to go to the sea" }
       - { kind: challenge, ja: "わたしは しずかな みせの おいしい ごはんが すきだ。", en: "I like the good food at a quiet shop", combines: [wa-topic, na-adj-present, no-possession, suki-kirai-no], mode: build }
     reviewPool: [ねこ, いぬ, うた, きゅうり, いろ, とりにく, みせ, ごはん, ほん, うみ, りょうり]
 
@@ -715,7 +715,7 @@ lessons:
       - { kind: sentence, ja: "あたらしい じてんしゃが かいたい。", en: "Say to a friend: I want to buy a new bicycle", exercises: [i-adj-present, v-tai], mode: translate, alsoAccept: ["あたらしい じてんしゃを かいたい。"] }
       - { kind: listening-comp, audio: "わたしは にぎやかな みせが きらいだ。", answer: "I don't like lively shops", distractors: ["I like lively shops", "I don't like quiet shops", "I don't like big shops"], exercises: [wa-topic, na-adj-present, suki-kirai-no] }
       - { kind: sentence, ja: "きょうは おいしい りょうりが たべたい。", en: "I want to eat good food today", exercises: [wa-topic, i-adj-present, v-tai], mode: build }
-      - { kind: sentence, ja: "なつやすみに にほんに いきたい。", en: "I want to go to Japan in the summer holiday", exercises: [ni-time, ni-location, v-tai], mode: build }
+      - { kind: sentence, ja: "なつやすみに にほんに いきたい。", en: "I want to go to Japan in the summer vacation", exercises: [ni-time, ni-location, v-tai], mode: build }
       # Pack-3 coverage (2026-07-29): the morning-routine words land in L10
       # before this review — same rationale as m11-R1's weekday block. A
       # review appearance is also the pack atoms' Track-A write surface
@@ -733,10 +733,10 @@ lessons:
       - { kind: sentence, ja: "にちようびに くるまも あらう。", en: "On Sunday I wash the car too", exercises: [youbi-days, ni-time, mo-also, wo-object], mode: build }
       - kind: dialogue
         lines:
-          - { speaker: "Tom", ja: "なつやすみは なにが したい？", en: "What do you want to do in the summer holiday?" }
+          - { speaker: "Tom", ja: "なつやすみは なにが したい？", en: "What do you want to do in the summer vacation?" }
           - { speaker: "Mika", ja: "にほんに いきたい。おいしい すしが たべたい。", en: "I want to go to Japan. I want to eat good sushi." }
         questions:
-          - { q: "What does Mika want for the summer holiday?", options: ["To go to Japan and eat good sushi", "To stay home and eat sushi", "To go to Japan and buy clothes", "To go to the sea"], answer: "To go to Japan and eat good sushi" }
+          - { q: "What does Mika want for the summer vacation?", options: ["To go to Japan and eat good sushi", "To stay home and eat sushi", "To go to Japan and buy clothes", "To go to the sea"], answer: "To go to Japan and eat good sushi" }
     reviewPool: [きっさてん, きゅうり, ごはん, ちゃ, めがね, ねこ, うみ, しゃしん, いえ, じてんしゃ, なつやすみ]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -751,7 +751,7 @@ lessons:
       - { kind: sentence, ja: "わたしは しずかな いえで ほんを みるのが すきだ。", en: "I like looking at books in a quiet house", exercises: [wa-topic, na-adj-present, de-action, no-ga-suki], mode: listening }
       - { kind: sentence, ja: "ミカの ゆうめいな みせの りょうりが たべたい。", en: "I want to eat the food at Mika's famous shop", exercises: [no-possession, na-adj-present, v-tai], mode: build }
       - { kind: sentence, ja: "きのう ケンと にぎやかな えきで かいものが したかった。", en: "I wanted to go shopping with Ken at the lively station yesterday", exercises: [na-adj-present, de-action, i-adj-past], mode: build }
-      - { kind: sentence, ja: "なつやすみに ともだちと うみに いきたい。", en: "I want to go to the sea with a friend in the summer holiday", exercises: [ni-time, ni-location, v-tai], mode: build }
+      - { kind: sentence, ja: "なつやすみに ともだちと うみに いきたい。", en: "I want to go to the sea with a friend in the summer vacation", exercises: [ni-time, ni-location, v-tai], mode: build }
       # Replaced 2026-07-27: the original repeated a sentence this module had
       # already taught AND reviewed. `challengeNovelty.test.ts` now gates this.
       - { kind: sentence, ja: "ちいさい じてんしゃが ほしい。", en: "Say to a friend: I want a small bicycle", exercises: [i-adj-present, ga-hoshii], mode: translate }
@@ -762,9 +762,9 @@ lessons:
       - { kind: listening-comp, audio: "あたらしい じてんしゃが ほしい。", answer: "I want a new bicycle", distractors: ["I want to buy a new bicycle", "I want an old bicycle", "I don't want a new bicycle"], exercises: [i-adj-present, ga-hoshii] }
       - kind: dialogue
         lines:
-          - { speaker: "Tanaka", ja: "なつやすみは なにが したいですか。", en: "What would you like to do in the summer holiday?" }
+          - { speaker: "Tanaka", ja: "なつやすみは なにが したいですか。", en: "What would you like to do in the summer vacation?" }
           - { speaker: "Tom", ja: "にほんに いきたいです。おいしい りょうりが たべたいです。", en: "I'd like to go to Japan. I'd like to eat good food." }
         questions:
-          - { q: "What does Tom want to do in the summer holiday?", options: ["Go to Japan and eat good food", "Stay in America and study", "Go to Japan and buy clothes", "Go to the sea with Tanaka"], answer: "Go to Japan and eat good food" }
-      - { kind: challenge, ja: "なつやすみに ミカと にほんの ゆうめいな みせで おいしい すしが たべたい。", en: "I want to eat good sushi with Mika at a famous shop in Japan in the summer holiday", combines: [ni-time, no-possession, na-adj-present, de-action, v-tai], mode: build }
+          - { q: "What does Tom want to do in the summer vacation?", options: ["Go to Japan and eat good food", "Stay in America and study", "Go to Japan and buy clothes", "Go to the sea with Tanaka"], answer: "Go to Japan and eat good food" }
+      - { kind: challenge, ja: "なつやすみに ミカと にほんの ゆうめいな みせで おいしい すしが たべたい。", en: "I want to eat good sushi with Mika at a famous shop in Japan in the summer vacation", combines: [ni-time, no-possession, na-adj-present, de-action, v-tai], mode: build }
     reviewPool: [きっさてん, ふく, ちゃ, ほん, りょうり, えき, なつやすみ, うみ, とけい, すし, ねこ]

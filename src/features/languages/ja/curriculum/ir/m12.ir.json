@@ -1209,7 +1209,7 @@
         {
           "kind": "sentence",
           "ja": "ミカの けいたいは おおきくない。",
-          "en": "Say to a friend: Mika's mobile phone isn't big",
+          "en": "Say to a friend: Mika's cell phone isn't big",
           "exercises": [
             "no-possession",
             "wa-topic",
@@ -2336,7 +2336,7 @@
         {
           "kind": "sentence",
           "ja": "あたらしい けいたいは たかいです。",
-          "en": "Say politely: The new mobile phone is expensive",
+          "en": "Say politely: The new cell phone is expensive",
           "exercises": [
             "i-adj-present",
             "wa-topic",
@@ -3753,7 +3753,7 @@
     {
       "kana": "いきません",
       "romaji": "ikimasen",
-      "gloss": "don't go, not travelling (polite)",
+      "gloss": "don't go, not traveling (polite)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -4078,7 +4078,7 @@
       "kana": "ちゃ",
       "romaji": "cha",
       "gloss": "tea",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -4086,7 +4086,7 @@
       "romaji": "kome",
       "gloss": "rice (uncooked)",
       "shortGloss": "rice (raw)",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -4188,7 +4188,7 @@
       "kana": "えん",
       "romaji": "en",
       "gloss": "yen",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -4209,7 +4209,7 @@
       "kana": "かね",
       "romaji": "kane",
       "gloss": "money",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {

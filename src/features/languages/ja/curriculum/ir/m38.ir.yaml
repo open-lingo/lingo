@@ -119,7 +119,7 @@ grammarPoints:
     rule: "いく and くる have anchored you in space since module 19: いく moves away from here, くる moves toward here. Park them behind a て-form and the anchor comes with them: 「かさを もっていく」 — take the umbrella (carry it AWAY with you); 「かさを もってくる」 — bring it (carry it TOWARD here). For people, Japanese uses つれる: 「いもうとを つれていく」 take my sister along, 「ともだちを つれてくる」 bring a friend. English take/bring is exactly this split, so for once your instinct maps straight on. The helper keeps every slot rule — glued, tense-carrying, kana."
     examples:
       - { ja: "かさを もっていく。", en: "I'll take an umbrella." }
-      - { ja: "あした おかしを もってくる。", en: "I'll bring sweets tomorrow." }
+      - { ja: "あした おかしを もってくる。", en: "I'll bring candy tomorrow." }
       - { ja: "ともだちを つれてくる。", en: "I'll bring a friend along." }
     antiPattern: { ja: "ともだちを もってくる。", why: "もつ carries THINGS — people are not carried, they are led along: つれてくる. The pair does the same trajectory work, split by what travels." }
 
@@ -324,7 +324,7 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: te-iku-kuru-space }
       - { kind: sentence, ja: "かさを もっていく。", en: "I'll take an umbrella", exercises: [te-iku-kuru-space, wo-object], mode: build }
-      - { kind: sentence, ja: "あした おかしを もってくる。", en: "I'll bring sweets tomorrow", exercises: [te-iku-kuru-space, ni-time], mode: build }
+      - { kind: sentence, ja: "あした おかしを もってくる。", en: "I'll bring candy tomorrow", exercises: [te-iku-kuru-space, ni-time], mode: build }
       - { kind: sentence, ja: "あめが ふりそうだから、かさを もっていく。", en: "It looks like rain, so I'll take an umbrella", exercises: [te-iku-kuru-space, sou-appearance, kara-because], mode: build }
       - { kind: particle-cloze, stem: "かさを ", tail: "。", answer: "もっていく", options: ["もっていく", "もってくる", "もらう"], en: "I'll take an umbrella", explanation: "From where you stand the umbrella travels AWAY with you — もっていく. もってくる would carry it TOWARD here, backwards for someone about to leave. もらう is a real verb too — 'receive' — but it isn't a trajectory verb at all." }
       - { kind: sentence, ja: "としょかんに ほんを もっていく。", en: "I'll take the book to the library", exercises: [te-iku-kuru-space, ni-location], mode: build }
@@ -406,14 +406,14 @@ lessons:
       - { kind: particle-cloze, stem: "さむく ", tail: "。", answer: "なってきた", options: ["なってきた", "なっていく", "なった"], en: "It's been getting cold", explanation: "てくる anchors the change up to NOW — さむく なってきた. ていく would point onward into the future instead. なった is just plain past, no up-to-now arc at all." }
       - { kind: listening-comp, audio: "ひとが ふえてきた。", answer: "The number of people has been increasing", distractors: ["The number of people has been decreasing", "People increased and then stopped", "There are very few people"] }
       - { kind: sentence, ja: "かぎを なくしてしまった。", en: "I went and lost the key", exercises: [te-shimau], mode: listening }
-      - { kind: sentence, ja: "おかしを もってくる。", en: "I'll bring sweets", exercises: [te-iku-kuru-space], mode: build }
+      - { kind: sentence, ja: "おかしを もってくる。", en: "I'll bring candy", exercises: [te-iku-kuru-space], mode: build }
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "がっこうから もどってくる？", en: "Are you coming back from school?" }
           - { speaker: "Tom", ja: "うん、みずを もってきて。", en: "Yeah, bring some water." }
           - { speaker: "Ken", ja: "わかった。", en: "Got it." }
         questions:
-          - { q: "What does Tom ask Ken to bring?", options: ["Water", "Sweets", "An umbrella", "A friend"], answer: "Water" }
+          - { q: "What does Tom ask Ken to bring?", options: ["Water", "Candy", "An umbrella", "A friend"], answer: "Water" }
     reviewPool: [かさ, みず, ともだち, てんき, おかし, かぎ, がっこう, うち]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -451,7 +451,7 @@ lessons:
       - { kind: sentence, ja: "ケンの うちに のみものを もっていく。", en: "I'll take drinks to Ken's place", exercises: [te-iku-kuru-space, ni-location], mode: build }
       - { kind: particle-cloze, stem: "ケンは のみものを ", tail: "。", answer: "もってくる", options: ["もってくる", "もっていく", "かってくる"], en: "Ken will bring drinks (toward here)", explanation: "From Ken's own vantage the drinks travel TOWARD him — もってくる, matching his house as the anchor. もっていく would send them away, the wrong direction from his side. かってくる is a real verb too, but it means going to buy — a different errand from just carrying." }
       - { kind: listening-comp, audio: "ミカを つれてくる。", answer: "I'll bring Mika along (toward here)", distractors: ["I'll take Mika away", "Mika is coming by herself", "I'll buy something for Mika"], q: "What does this mean?" }
-      - { kind: sentence, ja: "おかしも もっていく。", en: "I'll take sweets too", exercises: [te-iku-kuru-space, mo-also], mode: build }
+      - { kind: sentence, ja: "おかしも もっていく。", en: "I'll take candy too", exercises: [te-iku-kuru-space, mo-also], mode: build }
       - { kind: kanji, kana: えいが, kanji: 映画, exercises: [te-iku-kuru-space] }
       - kind: dialogue
         lines:
@@ -459,7 +459,7 @@ lessons:
           - { speaker: "Tom", ja: "うん、のみものを かってくる。", en: "Yeah, I'll go buy drinks." }
           - { speaker: "Ken", ja: "ありがとう。", en: "Thanks." }
         questions:
-          - { q: "What does Tom say he'll go buy?", options: ["Drinks", "Sweets", "A cake", "Nothing"], answer: "Drinks" }
+          - { q: "What does Tom say he'll go buy?", options: ["Drinks", "Candy", "A cake", "Nothing"], answer: "Drinks" }
       - kind: sim
         scene: { emoji: "🎉", title: "Party day", setting: "Tonight's party is at Ken's place, and you two are planning it." }
         turns:

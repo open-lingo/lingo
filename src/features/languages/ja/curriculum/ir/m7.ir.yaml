@@ -119,7 +119,7 @@ newAtoms:
   - { kana: たべません, romaji: tabemasen, gloss: "don't eat (polite)", imageable: false, kind: verb-form, derivedFrom: たべる, verbClass: ru }
   - { kana: のみません, romaji: nomimasen, gloss: "don't drink (polite)", imageable: false, kind: verb-form, derivedFrom: のむ, verbClass: u }
   - { kana: みません, romaji: mimasen, gloss: "don't watch (polite)", imageable: false, kind: verb-form, derivedFrom: みる, verbClass: ru }
-  - { kana: いきません, romaji: ikimasen, gloss: "don't go, not travelling (polite)", imageable: false, kind: verb-form, derivedFrom: いく, verbClass: u }
+  - { kana: いきません, romaji: ikimasen, gloss: "don't go, not traveling (polite)", imageable: false, kind: verb-form, derivedFrom: いく, verbClass: u }
   - { kana: きません, romaji: kimasen, gloss: "doesn't come (polite)", imageable: false, kind: verb-form, derivedFrom: くる, verbClass: irregular }
   # The gap in this paradigm: every other verb here has its ません form, かう
   # had only かいます. m9 and m10 then wrote five 「かいません」 beats that

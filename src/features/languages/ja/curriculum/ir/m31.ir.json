@@ -335,7 +335,7 @@
         },
         {
           "ja": "かいしゃの ひとに おかしを もらう。",
-          "en": "I get sweets from the people at the company."
+          "en": "I get candy from the people at the company."
         }
       ],
       "antiPattern": {
@@ -376,7 +376,7 @@
     {
       "id": "ageru",
       "variant": "limits",
-      "rule": "Here is the one hard ban in this module. あげる CANNOT POINT AT YOU. 「わたしに プレゼントを あげる」 is not awkward or impolite — it is broken, the way I gave me a present is broken in English, and a Japanese speaker will not work out what you meant. あげる's arrow leaves your circle, so there is nowhere for it to land if the destination is inside the circle it just left. The moment a thing is arriving at you, あげる is off the table and you pick between two verbs — and the choice is about what the sentence is ABOUT, not about the event. くれる if the giver is the news: 「ともだちが プレゼントを くれる。」 もらう if what you ended up with is the news: 「ともだちに プレゼントを もらう。」 The circle stretches too, and your family is inside it. 「ともだちが いもうとに おかしを くれる」 is fine — the sweets came in to my side even though they did not come to my hand. Say あげる there and you have pushed your own sister outside the circle.",
+      "rule": "Here is the one hard ban in this module. あげる CANNOT POINT AT YOU. 「わたしに プレゼントを あげる」 is not awkward or impolite — it is broken, the way I gave me a present is broken in English, and a Japanese speaker will not work out what you meant. あげる's arrow leaves your circle, so there is nowhere for it to land if the destination is inside the circle it just left. The moment a thing is arriving at you, あげる is off the table and you pick between two verbs — and the choice is about what the sentence is ABOUT, not about the event. くれる if the giver is the news: 「ともだちが プレゼントを くれる。」 もらう if what you ended up with is the news: 「ともだちに プレゼントを もらう。」 The circle stretches too, and your family is inside it. 「ともだちが いもうとに おかしを くれる」 is fine — the candy came in to my side even though they did not come to my hand. Say あげる there and you have pushed your own sister outside the circle.",
       "examples": [
         {
           "ja": "ともだちが わたしに プレゼントを くれる。",
@@ -388,7 +388,7 @@
         },
         {
           "ja": "せんせいが いもうとに おかしを くれる。",
-          "en": "The teacher gives my little sister sweets."
+          "en": "The teacher gives my little sister candy."
         },
         {
           "ja": "がくせいに ノートを あげる。",
@@ -414,7 +414,7 @@
         },
         {
           "ja": "ともだちが けいたいを くれた。",
-          "en": "My friend gave me a mobile phone."
+          "en": "My friend gave me a cell phone."
         },
         {
           "ja": "せんせいに はなたばを あげた。",
@@ -503,7 +503,7 @@
       "examples": [
         {
           "ja": "ともだちが けいたいを くれた。",
-          "en": "My friend gave me a mobile phone."
+          "en": "My friend gave me a cell phone."
         },
         {
           "ja": "ちちに おかねを もらった。",
@@ -574,8 +574,8 @@
     {
       "kana": "おかし",
       "romaji": "okashi",
-      "gloss": "sweets",
-      "shortGloss": "sweets",
+      "gloss": "candy",
+      "shortGloss": "candy",
       "imageable": false,
       "kind": "vocab"
     },
@@ -1211,7 +1211,7 @@
         {
           "kind": "sentence",
           "ja": "かいしゃの ひとに おかしを もらう。",
-          "en": "I get sweets from the people at the company",
+          "en": "I get candy from the people at the company",
           "exercises": [
             "morau",
             "no-possession",
@@ -1222,7 +1222,7 @@
         {
           "kind": "sentence",
           "ja": "おかしが すきだから ともだちが ケーキを くれる。",
-          "en": "I like sweets, so my friend gives me a cake",
+          "en": "I like candy, so my friend gives me a cake",
           "exercises": [
             "kureru",
             "kara-because",
@@ -1296,7 +1296,7 @@
           "distractors": [
             "My older sister gives her friend a souvenir",
             "My older brother gets a souvenir from his friend",
-            "My older sister gets sweets from her friend"
+            "My older sister gets candy from her friend"
           ],
           "exercises": [
             "morau",
@@ -1338,7 +1338,7 @@
         {
           "kind": "challenge",
           "ja": "おかしが すきだから たんじょうびに ともだちに おおきい ケーキを もらう。",
-          "en": "I like sweets, so I'll get a big cake from my friend for my birthday",
+          "en": "I like candy, so I'll get a big cake from my friend for my birthday",
           "combines": [
             "morau",
             "ni-time",
@@ -1711,7 +1711,7 @@
         {
           "kind": "sentence",
           "ja": "おかしが すきだから ともだちが ケーキを くれる。",
-          "en": "I like sweets, so my friend gives me a cake",
+          "en": "I like candy, so my friend gives me a cake",
           "exercises": [
             "kureru",
             "kara-because"
@@ -1808,7 +1808,7 @@
         {
           "kind": "sentence",
           "ja": "せんせいが いもうとに おかしを くれる。",
-          "en": "The teacher gives my little sister sweets",
+          "en": "The teacher gives my little sister candy",
           "exercises": [
             "kureru",
             "ni-recipient",
@@ -2020,7 +2020,7 @@
         {
           "kind": "sentence",
           "ja": "ともだちが けいたいを くれた。",
-          "en": "My friend gave me a mobile phone",
+          "en": "My friend gave me a cell phone",
           "exercises": [
             "ta-form",
             "kureru",
@@ -2083,7 +2083,7 @@
         {
           "kind": "sentence",
           "ja": "こどもに おかしを あげたけど たべなかった。",
-          "en": "I gave the child sweets, but he didn't eat them",
+          "en": "I gave the child candy, but he didn't eat it",
           "exercises": [
             "ta-form",
             "ageru",
@@ -2094,7 +2094,7 @@
         {
           "kind": "sentence",
           "ja": "ともだちが けいたいを くれた。",
-          "en": "My friend gave me a mobile phone",
+          "en": "My friend gave me a cell phone",
           "exercises": [
             "ta-form",
             "kureru"
@@ -2453,7 +2453,7 @@
         {
           "kind": "sentence",
           "ja": "ともだちが けいたいを くれた。",
-          "en": "My friend gave me a mobile phone",
+          "en": "My friend gave me a cell phone",
           "exercises": [
             "ta-form",
             "kureru"
@@ -2565,7 +2565,7 @@
         {
           "kind": "sentence",
           "ja": "こどもに おかしを あげたけど たべなかった。",
-          "en": "I gave the child sweets, but he didn't eat them",
+          "en": "I gave the child candy, but he didn't eat it",
           "exercises": [
             "ta-form",
             "kedo"
@@ -2922,7 +2922,7 @@
         {
           "kind": "sentence",
           "ja": "ともだちが けいたいを くれたから よろこんだ。",
-          "en": "My friend gave me a mobile phone, so I was delighted",
+          "en": "My friend gave me a cell phone, so I was delighted",
           "exercises": [
             "kureru",
             "ta-form",
@@ -2959,7 +2959,7 @@
           "answer": "My little sister gave me a cake, so I was delighted",
           "distractors": [
             "I gave my little sister a cake, so she was delighted",
-            "My little sister gave me sweets, so I was delighted",
+            "My little sister gave me candy, so I was delighted",
             "My little sister didn't give me a cake, so I was sad"
           ],
           "exercises": [
@@ -2987,7 +2987,7 @@
             {
               "speaker": "Ken",
               "ja": "ぼくは けいたいを もらった。",
-              "en": "I got a mobile phone."
+              "en": "I got a cell phone."
             },
             {
               "speaker": "Mika",
@@ -3196,7 +3196,7 @@
           "distractors": [
             "I want to give a cake for a birthday",
             "I got a cake for my birthday",
-            "I want to get sweets for my birthday"
+            "I want to get candy for my birthday"
           ],
           "exercises": [
             "v-tai",
@@ -3277,7 +3277,7 @@
         {
           "kind": "sentence",
           "ja": "ともだちが けいたいを くれた。",
-          "en": "My friend gave me a mobile phone",
+          "en": "My friend gave me a cell phone",
           "exercises": [
             "ta-form",
             "kureru"
@@ -3374,10 +3374,10 @@
         {
           "kind": "listening-comp",
           "audio": "こどもに おかしを あげたけど たべなかった。",
-          "answer": "I gave the child sweets, but he didn't eat them",
+          "answer": "I gave the child candy, but he didn't eat it",
           "distractors": [
-            "I gave the child sweets and he ate them",
-            "I got sweets from the child, but I didn't eat them",
+            "I gave the child candy and he ate them",
+            "I got candy from the child, but I didn't eat them",
             "I gave the child a cake, but he didn't eat it"
           ],
           "exercises": [
@@ -3434,12 +3434,12 @@
             {
               "q": "What did Ken get?",
               "options": [
-                "A mobile phone from his family",
+                "A cell phone from his family",
                 "A watch from his father",
                 "An umbrella from a friend",
                 "Money from his older sister"
               ],
-              "answer": "A mobile phone from his family"
+              "answer": "A cell phone from his family"
             }
           ]
         }
@@ -3536,7 +3536,7 @@
         {
           "kind": "sentence",
           "ja": "ははは しんせつだから こどもに おかしを あげる。",
-          "en": "My mother is kind, so she gives the child sweets",
+          "en": "My mother is kind, so she gives the child candy",
           "exercises": [
             "ageru",
             "na-adj-present",
@@ -3671,6 +3671,7 @@
     }
   ],
   "priorVocab": [
+    "あかい",
     "あき",
     "あけて",
     "あけない",
@@ -3758,6 +3759,7 @@
     "ううん",
     "うえ",
     "うた",
+    "うたう",
     "うち",
     "うま",
     "うみ",
@@ -3849,6 +3851,7 @@
     "かみ",
     "かめ",
     "かようび",
+    "から",
     "からい",
     "からだ",
     "かわ",
@@ -3930,6 +3933,7 @@
     "ごじ",
     "ごじゅう",
     "ごぜん",
+    "ごにん",
     "ごはい",
     "ごはん",
     "ごほん",
@@ -4064,6 +4068,7 @@
     "だめ",
     "だれ",
     "だろう",
+    "だんだん",
     "ちいさい",
     "ちいさすぎる",
     "ちかい",
@@ -4109,6 +4114,7 @@
     "ともだち",
     "とりあえず",
     "とりにく",
+    "とる",
     "どう",
     "どうして",
     "どうぶつ",
@@ -5165,6 +5171,13 @@
       "kind": "vocab"
     },
     {
+      "kana": "ひま",
+      "romaji": "hima",
+      "gloss": "free time",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "たべたい",
       "romaji": "tabetai",
       "gloss": "want to eat",
@@ -5383,7 +5396,7 @@
     {
       "kana": "なつやすみ",
       "romaji": "natsuyasumi",
-      "gloss": "summer holiday",
+      "gloss": "summer vacation",
       "shortGloss": "summer break",
       "imageable": true,
       "kind": "vocab"
@@ -5485,6 +5498,28 @@
       "romaji": "hayai",
       "gloss": "early",
       "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "とりにく",
+      "romaji": "toriniku",
+      "gloss": "chicken meat",
+      "shortGloss": "chicken",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あかい",
+      "romaji": "akai",
+      "gloss": "red",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うたう",
+      "romaji": "utau",
+      "gloss": "to sing",
+      "imageable": true,
       "kind": "vocab"
     },
     {
@@ -5798,6 +5833,14 @@
       "kind": "vocab"
     },
     {
+      "kana": "から",
+      "romaji": "kara",
+      "gloss": "from (origin)",
+      "shortGloss": "from",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
       "kana": "さむい",
       "romaji": "samui",
       "gloss": "cold (weather)",
@@ -5847,8 +5890,8 @@
     {
       "kana": "やすみ",
       "romaji": "yasumi",
-      "gloss": "holiday, time off",
-      "shortGloss": "holiday",
+      "gloss": "vacation, day off",
+      "shortGloss": "vacation",
       "imageable": true,
       "kind": "vocab"
     },
@@ -6406,7 +6449,7 @@
     {
       "kana": "ちかてつ",
       "romaji": "chikatetsu",
-      "gloss": "underground train, subway",
+      "gloss": "subway",
       "shortGloss": "subway",
       "kind": "vocab"
     },
@@ -6715,6 +6758,13 @@
       "romaji": "ittari",
       "gloss": "go, and things like that",
       "shortGloss": "go, etc.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごにん",
+      "romaji": "go nin",
+      "gloss": "5 people",
       "imageable": false,
       "kind": "vocab"
     },
@@ -7346,8 +7396,8 @@
     {
       "kana": "ことば",
       "romaji": "kotoba",
-      "gloss": "word, language",
-      "shortGloss": "language",
+      "gloss": "word",
+      "shortGloss": "word",
       "kind": "vocab"
     },
     {
@@ -7551,6 +7601,13 @@
       "romaji": "natta",
       "gloss": "became, got (become, past)",
       "shortGloss": "became",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "だんだん",
+      "romaji": "dandan",
+      "gloss": "gradually",
       "imageable": false,
       "kind": "vocab"
     },
@@ -7826,8 +7883,8 @@
     {
       "kana": "とりあえず",
       "romaji": "toriaezu",
-      "gloss": "for now, to start with",
-      "shortGloss": "for now",
+      "gloss": "first off, for now",
+      "shortGloss": "first off",
       "imageable": false,
       "kind": "vocab"
     },
@@ -8122,6 +8179,14 @@
       "shortGloss": "do ahead (とく)",
       "imageable": false,
       "kind": "grammar-chunk"
+    },
+    {
+      "kana": "とる",
+      "romaji": "toru",
+      "gloss": "to take a photo or record a movie",
+      "shortGloss": "take a photo",
+      "imageable": true,
+      "kind": "vocab"
     },
     {
       "kana": "うえ",
@@ -8427,7 +8492,7 @@
     {
       "kana": "いきません",
       "romaji": "ikimasen",
-      "gloss": "don't go, not travelling (polite)",
+      "gloss": "don't go, not traveling (polite)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -8743,7 +8808,7 @@
       "kana": "ちゃ",
       "romaji": "cha",
       "gloss": "tea",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -8751,7 +8816,7 @@
       "romaji": "kome",
       "gloss": "rice (uncooked)",
       "shortGloss": "rice (raw)",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -8853,7 +8918,7 @@
       "kana": "えん",
       "romaji": "en",
       "gloss": "yen",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -8874,7 +8939,7 @@
       "kana": "かね",
       "romaji": "kane",
       "gloss": "money",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {

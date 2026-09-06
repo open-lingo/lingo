@@ -203,7 +203,7 @@
         },
         {
           "ja": "あした おかしを もってくる。",
-          "en": "I'll bring sweets tomorrow."
+          "en": "I'll bring candy tomorrow."
         },
         {
           "ja": "ともだちを つれてくる。",
@@ -1363,7 +1363,7 @@
         {
           "kind": "sentence",
           "ja": "あした おかしを もってくる。",
-          "en": "I'll bring sweets tomorrow",
+          "en": "I'll bring candy tomorrow",
           "exercises": [
             "te-iku-kuru-space",
             "ni-time"
@@ -1881,7 +1881,7 @@
         {
           "kind": "sentence",
           "ja": "おかしを もってくる。",
-          "en": "I'll bring sweets",
+          "en": "I'll bring candy",
           "exercises": [
             "te-iku-kuru-space"
           ],
@@ -1911,7 +1911,7 @@
               "q": "What does Tom ask Ken to bring?",
               "options": [
                 "Water",
-                "Sweets",
+                "Candy",
                 "An umbrella",
                 "A friend"
               ],
@@ -2126,7 +2126,7 @@
         {
           "kind": "sentence",
           "ja": "おかしも もっていく。",
-          "en": "I'll take sweets too",
+          "en": "I'll take candy too",
           "exercises": [
             "te-iku-kuru-space",
             "mo-also"
@@ -2165,7 +2165,7 @@
               "q": "What does Tom say he'll go buy?",
               "options": [
                 "Drinks",
-                "Sweets",
+                "Candy",
                 "A cake",
                 "Nothing"
               ],
@@ -2504,6 +2504,7 @@
   ],
   "priorVocab": [
     "あいて",
+    "あかい",
     "あき",
     "あく",
     "あけて",
@@ -2617,6 +2618,7 @@
     "うごいて",
     "うごく",
     "うた",
+    "うたう",
     "うち",
     "うま",
     "うみ",
@@ -2745,6 +2747,7 @@
     "かみ",
     "かめ",
     "かようび",
+    "から",
     "からい",
     "からだ",
     "かりた",
@@ -2861,6 +2864,7 @@
     "ごじ",
     "ごじゅう",
     "ごぜん",
+    "ごにん",
     "ごはい",
     "ごはん",
     "ごほん",
@@ -3024,6 +3028,7 @@
     "だめ",
     "だれ",
     "だろう",
+    "だんだん",
     "ちいさい",
     "ちいさすぎる",
     "ちかい",
@@ -3089,6 +3094,7 @@
     "ともだち",
     "とりあえず",
     "とりにく",
+    "とる",
     "どう",
     "どうして",
     "どうぶつ",
@@ -3375,6 +3381,7 @@
     "りょうり",
     "りょこう",
     "れんしゅう",
+    "れんしゅうする",
     "れんしゅうすれば",
     "ろく",
     "ろくじ",
@@ -4232,6 +4239,13 @@
       "kind": "vocab"
     },
     {
+      "kana": "ひま",
+      "romaji": "hima",
+      "gloss": "free time",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "たべたい",
       "romaji": "tabetai",
       "gloss": "want to eat",
@@ -4450,7 +4464,7 @@
     {
       "kana": "なつやすみ",
       "romaji": "natsuyasumi",
-      "gloss": "summer holiday",
+      "gloss": "summer vacation",
       "shortGloss": "summer break",
       "imageable": true,
       "kind": "vocab"
@@ -4552,6 +4566,28 @@
       "romaji": "hayai",
       "gloss": "early",
       "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "とりにく",
+      "romaji": "toriniku",
+      "gloss": "chicken meat",
+      "shortGloss": "chicken",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あかい",
+      "romaji": "akai",
+      "gloss": "red",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うたう",
+      "romaji": "utau",
+      "gloss": "to sing",
+      "imageable": true,
       "kind": "vocab"
     },
     {
@@ -4865,6 +4901,14 @@
       "kind": "vocab"
     },
     {
+      "kana": "から",
+      "romaji": "kara",
+      "gloss": "from (origin)",
+      "shortGloss": "from",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
       "kana": "さむい",
       "romaji": "samui",
       "gloss": "cold (weather)",
@@ -4914,8 +4958,8 @@
     {
       "kana": "やすみ",
       "romaji": "yasumi",
-      "gloss": "holiday, time off",
-      "shortGloss": "holiday",
+      "gloss": "vacation, day off",
+      "shortGloss": "vacation",
       "imageable": true,
       "kind": "vocab"
     },
@@ -5473,7 +5517,7 @@
     {
       "kana": "ちかてつ",
       "romaji": "chikatetsu",
-      "gloss": "underground train, subway",
+      "gloss": "subway",
       "shortGloss": "subway",
       "kind": "vocab"
     },
@@ -5782,6 +5826,13 @@
       "romaji": "ittari",
       "gloss": "go, and things like that",
       "shortGloss": "go, etc.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごにん",
+      "romaji": "go nin",
+      "gloss": "5 people",
       "imageable": false,
       "kind": "vocab"
     },
@@ -6413,8 +6464,8 @@
     {
       "kana": "ことば",
       "romaji": "kotoba",
-      "gloss": "word, language",
-      "shortGloss": "language",
+      "gloss": "word",
+      "shortGloss": "word",
       "kind": "vocab"
     },
     {
@@ -6618,6 +6669,13 @@
       "romaji": "natta",
       "gloss": "became, got (become, past)",
       "shortGloss": "became",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "だんだん",
+      "romaji": "dandan",
+      "gloss": "gradually",
       "imageable": false,
       "kind": "vocab"
     },
@@ -6893,8 +6951,8 @@
     {
       "kana": "とりあえず",
       "romaji": "toriaezu",
-      "gloss": "for now, to start with",
-      "shortGloss": "for now",
+      "gloss": "first off, for now",
+      "shortGloss": "first off",
       "imageable": false,
       "kind": "vocab"
     },
@@ -7191,6 +7249,14 @@
       "kind": "grammar-chunk"
     },
     {
+      "kana": "とる",
+      "romaji": "toru",
+      "gloss": "to take a photo or record a movie",
+      "shortGloss": "take a photo",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
       "kana": "そと",
       "romaji": "soto",
       "gloss": "outside (the in-group boundary)",
@@ -7235,8 +7301,8 @@
     {
       "kana": "おかし",
       "romaji": "okashi",
-      "gloss": "sweets",
-      "shortGloss": "sweets",
+      "gloss": "candy",
+      "shortGloss": "candy",
       "imageable": false,
       "kind": "vocab"
     },
@@ -7965,8 +8031,8 @@
     {
       "kana": "エレベーター",
       "romaji": "erebeetaa",
-      "gloss": "a lift, an elevator",
-      "shortGloss": "lift",
+      "gloss": "an elevator",
+      "shortGloss": "elevator",
       "imageable": true,
       "kind": "vocab"
     },
@@ -8504,6 +8570,13 @@
       "kind": "verb-form",
       "derivedFrom": "つかう",
       "verbClass": "u"
+    },
+    {
+      "kana": "れんしゅうする",
+      "romaji": "renshuusuru",
+      "gloss": "to practice",
+      "imageable": true,
+      "kind": "vocab"
     },
     {
       "kana": "てつだう",
@@ -9608,7 +9681,7 @@
     {
       "kana": "いきません",
       "romaji": "ikimasen",
-      "gloss": "don't go, not travelling (polite)",
+      "gloss": "don't go, not traveling (polite)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -9924,7 +9997,7 @@
       "kana": "ちゃ",
       "romaji": "cha",
       "gloss": "tea",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -9932,7 +10005,7 @@
       "romaji": "kome",
       "gloss": "rice (uncooked)",
       "shortGloss": "rice (raw)",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -10034,7 +10107,7 @@
       "kana": "えん",
       "romaji": "en",
       "gloss": "yen",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -10055,7 +10128,7 @@
       "kana": "かね",
       "romaji": "kane",
       "gloss": "money",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {

@@ -199,7 +199,7 @@
       "examples": [
         {
           "ja": "いっしょに えいがを みよう？",
-          "en": "Want to watch a film together?"
+          "en": "Want to watch a movie together?"
         },
         {
           "ja": "こうえんに いこう？",
@@ -746,7 +746,7 @@
         {
           "kind": "sentence",
           "ja": "えいがが はじまる まえに コーヒーを のもう。",
-          "en": "Let's have a coffee before the film starts",
+          "en": "Let's have a coffee before the movie starts",
           "exercises": [
             "volitional",
             "mae-ni",
@@ -826,7 +826,7 @@
         {
           "kind": "challenge",
           "ja": "えいがが はじまる まえに みせに いって、のみものを かおう。",
-          "en": "Before the film starts, let's go to the shop and buy drinks",
+          "en": "Before the movie starts, let's go to the shop and buy drinks",
           "combines": [
             "volitional",
             "mae-ni",
@@ -1053,7 +1053,7 @@
         {
           "kind": "sentence",
           "ja": "いっしょに えいがを みよう？",
-          "en": "Want to watch a film together?",
+          "en": "Want to watch a movie together?",
           "exercises": [
             "volitional",
             "wo-object"
@@ -1161,7 +1161,7 @@
                 "ja": "なにを する？",
                 "en": "What shall we do?"
               },
-              "goal": "Suggest watching a film together.",
+              "goal": "Suggest watching a movie together.",
               "reply": {
                 "mode": "build",
                 "tiles": [
@@ -1173,7 +1173,7 @@
                 ],
                 "answer": "えいがを みよう。"
               },
-              "replyGloss": "Let's watch a film.",
+              "replyGloss": "Let's watch a movie.",
               "explanation": "The suggestion lands on the volitional — みよう carries the let's. たべよう and いこう are real volitionals too, but they suggest the wrong activity."
             },
             {
@@ -1376,7 +1376,7 @@
               "q": "What does Mika suggest?",
               "options": [
                 "Hanging out at the park",
-                "Watching a film",
+                "Watching a movie",
                 "Eating dinner",
                 "Going to the library"
               ],
@@ -4672,7 +4672,7 @@
     {
       "kana": "なつやすみ",
       "romaji": "natsuyasumi",
-      "gloss": "summer holiday",
+      "gloss": "summer vacation",
       "shortGloss": "summer break",
       "imageable": true,
       "kind": "vocab"
@@ -5166,8 +5166,8 @@
     {
       "kana": "やすみ",
       "romaji": "yasumi",
-      "gloss": "holiday, time off",
-      "shortGloss": "holiday",
+      "gloss": "vacation, day off",
+      "shortGloss": "vacation",
       "imageable": true,
       "kind": "vocab"
     },
@@ -5725,7 +5725,7 @@
     {
       "kana": "ちかてつ",
       "romaji": "chikatetsu",
-      "gloss": "underground train, subway",
+      "gloss": "subway",
       "shortGloss": "subway",
       "kind": "vocab"
     },
@@ -6672,8 +6672,8 @@
     {
       "kana": "ことば",
       "romaji": "kotoba",
-      "gloss": "word, language",
-      "shortGloss": "language",
+      "gloss": "word",
+      "shortGloss": "word",
       "kind": "vocab"
     },
     {
@@ -7159,8 +7159,8 @@
     {
       "kana": "とりあえず",
       "romaji": "toriaezu",
-      "gloss": "for now, to start with",
-      "shortGloss": "for now",
+      "gloss": "first off, for now",
+      "shortGloss": "first off",
       "imageable": false,
       "kind": "vocab"
     },
@@ -7459,7 +7459,7 @@
     {
       "kana": "とる",
       "romaji": "toru",
-      "gloss": "to take a photo or record a film",
+      "gloss": "to take a photo or record a movie",
       "shortGloss": "take a photo",
       "imageable": true,
       "kind": "vocab"
@@ -7509,8 +7509,8 @@
     {
       "kana": "おかし",
       "romaji": "okashi",
-      "gloss": "sweets",
-      "shortGloss": "sweets",
+      "gloss": "candy",
+      "shortGloss": "candy",
       "imageable": false,
       "kind": "vocab"
     },
@@ -8239,8 +8239,8 @@
     {
       "kana": "エレベーター",
       "romaji": "erebeetaa",
-      "gloss": "a lift, an elevator",
-      "shortGloss": "lift",
+      "gloss": "an elevator",
+      "shortGloss": "elevator",
       "imageable": true,
       "kind": "vocab"
     },
@@ -8742,7 +8742,7 @@
     {
       "kana": "いきません",
       "romaji": "ikimasen",
-      "gloss": "don't go, not travelling (polite)",
+      "gloss": "don't go, not traveling (polite)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -9058,7 +9058,7 @@
       "kana": "ちゃ",
       "romaji": "cha",
       "gloss": "tea",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -9066,7 +9066,7 @@
       "romaji": "kome",
       "gloss": "rice (uncooked)",
       "shortGloss": "rice (raw)",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -9168,7 +9168,7 @@
       "kana": "えん",
       "romaji": "en",
       "gloss": "yen",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -9189,7 +9189,7 @@
       "kana": "かね",
       "romaji": "kane",
       "gloss": "money",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {

@@ -216,7 +216,7 @@ grammarPoints:
       - { ja: "すしと とりにくと どっちが すき？", en: "Which do you like more, sushi or chicken?" }
       - { ja: "どっちが やすい？", en: "Which is the cheaper one?" }
       - { ja: "この かさと あの かさと どっちが あたらしい？", en: "Which umbrella is newer, this one or that one?" }
-      - { ja: "えいがと おんがくと どちらが すきですか。", en: "Which do you prefer, films or music? — the same question, said politely" }
+      - { ja: "えいがと おんがくと どちらが すきですか。", en: "Which do you prefer, movies or music? — the same question, said politely" }
     antiPattern: { ja: "でんしゃと バスと どっちは たかい？", why: "a question word can never be the topic, so どっち always takes が: でんしゃと バスと どっちが たかい？" }
 
   - id: numbers-100-10000
@@ -254,7 +254,7 @@ grammarPoints:
     examples:
       - { ja: "としょかんの ほうが きっさてんより しずかだ。", en: "The library is quieter than the coffee shop." }
       - { ja: "みせは としょかんより にぎやかだ。", en: "The shop is livelier than the library." }
-      - { ja: "この えいがの ほうが ゆうめいだ。", en: "This film is the more famous one." }
+      - { ja: "この えいがの ほうが ゆうめいだ。", en: "This movie is the more famous one." }
       - { ja: "すしの ほうが すきだ。", en: "Sushi is the one I like more." }
       - { ja: "きょうの ほうが ひまだ。", en: "Today is the freer of the two days." }
     antiPattern: { ja: "としょかんの ほうが きっさてんより しずか。", why: "a な-adjective cannot end a sentence on its own — it needs だ: としょかんの ほうが きっさてんより しずかだ。" }
@@ -395,13 +395,13 @@ lessons:
       - { kind: sentence, ja: "すしと とりにくと どっちが すき？", en: "Which do you like more, sushi or chicken", exercises: [to-and, suki-kirai-no], mode: build }
       - { kind: sentence, ja: "この かさと あの かさと どっちが あたらしい？", en: "Which umbrella is newer, this one or that one", exercises: [to-and, kono-sono-ano-dono], mode: build }
       - { kind: sentence, ja: "じてんしゃと くるまと どっちが やすい？", en: "Which is cheaper, a bike or a car", exercises: [to-and, i-adj-present], mode: listening }
-      - { kind: sentence, ja: "えいがと おんがくと どっちが おもしろい？", en: "Which is more interesting, films or music", exercises: [to-and, i-adj-present], mode: build }
+      - { kind: sentence, ja: "えいがと おんがくと どっちが おもしろい？", en: "Which is more interesting, movies or music", exercises: [to-and, i-adj-present], mode: build }
       - { kind: sentence, ja: "どっちが ちかい？", en: "Which is the closer one", exercises: [to-and], mode: build }
       - { kind: sentence, ja: "ちかてつの ほうが やすいから ちかてつで いく。", en: "The subway is the cheaper one, so I'll go by subway", exercises: [yori-comparison, kara-because, de-action], mode: build }
       - { kind: sentence, ja: "でんしゃと バスと どっちが たかい？", en: "Say to a friend: Which is more expensive, the train or the bus", exercises: [to-and], mode: translate }
       - { kind: particle-cloze, stem: "でんしゃと バスと ", tail: "が たかい？", answer: "どっち", options: ["どっち", "どこ", "だれ"], en: "Which is more expensive, the train or the bus?", explanation: "どっち asks which of TWO things. どこ asks where and だれ asks who — neither can pick between a train and a bus." }
       - { kind: listening-comp, audio: "すしと とりにくと どっちが すき？", answer: "Which do you like more, sushi or chicken?", distractors: ["Do you like sushi and chicken?", "Which is more expensive, sushi or chicken?", "Which do you like more, sushi or bread?"], exercises: [to-and, suki-kirai-no] }
-      - { kind: listening-comp, audio: "えいがと おんがくと どっちが おもしろい？", answer: "Which is more interesting, films or music?", distractors: ["Which is more interesting, films or books?", "Are films and music interesting?", "Which do you like more, films or music?"], exercises: [to-and, i-adj-present] }
+      - { kind: listening-comp, audio: "えいがと おんがくと どっちが おもしろい？", answer: "Which is more interesting, movies or music?", distractors: ["Which is more interesting, movies or books?", "Are movies and music interesting?", "Which do you like more, movies or music?"], exercises: [to-and, i-adj-present] }
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "この かさと あの かさと どっちが あたらしい？", en: "Which umbrella is newer, this one or that one?" }
@@ -426,7 +426,7 @@ lessons:
       - { kind: particle-cloze, stem: "この かばんは あの かばん", tail: " おおきい。", answer: "より", options: ["より", "を", "から"], en: "This bag is bigger than that bag", explanation: "より marks the one that loses. を marks a thing you act on, and から would make the other bag a starting point." }
       - { kind: sentence, ja: "じてんしゃの ほうが くるまより やすいから じてんしゃを かう。", en: "A bike is cheaper than a car, so I'll buy a bike", exercises: [yori-comparison, kara-because, wo-object], mode: build }
       - { kind: listening-comp, audio: "としょかんは びょういんより ちかいから あるく。", answer: "The library is closer than the hospital, so I'll walk", distractors: ["The hospital is closer than the library, so I'll walk", "The library is farther than the hospital, so I'll take the bus", "The library is closer than the station, so I'll walk"], exercises: [wa-topic, kara-because] }
-      - { kind: sentence, ja: "えいがと おんがくと どっちが おもしろい？", en: "Which is more interesting, films or music", exercises: [to-and], mode: build }
+      - { kind: sentence, ja: "えいがと おんがくと どっちが おもしろい？", en: "Which is more interesting, movies or music", exercises: [to-and], mode: build }
       - { kind: sentence, ja: "バスの ほうが やすい。", en: "Say to a friend: The bus is the cheaper one", exercises: [yori-comparison], mode: translate }
       - { kind: listening-comp, audio: "ミカの けいたいの ほうが わたしの けいたいより あたらしい。", answer: "Mika's phone is newer than mine", distractors: ["My phone is newer than Mika's", "Mika's phone is more expensive than mine", "Mika's phone is older than mine"], exercises: [yori-comparison, no-possession] }
       - { kind: sentence, ja: "だいがくは きっさてんより とおいけど あるく。", en: "The university is farther than the coffee shop, but I'll walk", exercises: [wa-topic, kedo], mode: build }
@@ -559,7 +559,7 @@ lessons:
       - { kind: rule, grammarPointId: na-adj-present }
       - { kind: sentence, ja: "としょかんの ほうが きっさてんより しずかだ。", en: "The library is quieter than the coffee shop", exercises: [na-adj-present, yori-comparison], mode: build }
       - { kind: sentence, ja: "みせは としょかんより にぎやかだ。", en: "The shop is livelier than the library", exercises: [na-adj-present, wa-topic], mode: build }
-      - { kind: sentence, ja: "この えいがの ほうが ゆうめいだ。", en: "This film is the more famous one", exercises: [na-adj-present, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "この えいがの ほうが ゆうめいだ。", en: "This movie is the more famous one", exercises: [na-adj-present, kono-sono-ano-dono], mode: build }
       - { kind: sentence, ja: "すしの ほうが すきだから すしを たべる。", en: "Sushi is the one I like more, so I'll eat sushi", exercises: [na-adj-present, suki-kirai-no, kara-because], mode: listening }
       - { kind: sentence, ja: "きょうの ほうが きのうより ひまだ。", en: "Today is freer than yesterday", exercises: [na-adj-present, yori-comparison], mode: build }
       # じかん is the ONE under-exposed CEJC top-150 word `exposure-audit`
@@ -592,7 +592,7 @@ lessons:
       - { kind: sentence, ja: "すしも とりにくも おいしいけど すしの ほうが すきだ。", en: "Sushi and chicken are both delicious, but sushi is the one I like more", exercises: [mo-also, kedo, na-adj-present], mode: build }
       - { kind: sentence, ja: "どっちも たかい。", en: "Both are expensive", exercises: [mo-also], mode: build }
       - { kind: sentence, ja: "としょかんも きっさてんも しずかだ。", en: "The library and the coffee shop are both quiet", exercises: [mo-also, na-adj-present], mode: listening }
-      - { kind: sentence, ja: "えいがも おんがくも おもしろいけど えいがの ほうが すきだ。", en: "Films and music are both interesting, but films are what I like more", exercises: [mo-also, kedo, na-adj-present], mode: build }
+      - { kind: sentence, ja: "えいがも おんがくも おもしろいけど えいがの ほうが すきだ。", en: "Movies and music are both interesting, but movies are what I like more", exercises: [mo-also, kedo, na-adj-present], mode: build }
       - { kind: sentence, ja: "この かさも あの かさも ごひゃくえんだ。", en: "This umbrella and that umbrella are both 500 yen", exercises: [mo-also, numbers-100-10000], mode: build }
       - { kind: sentence, ja: "たまごも きゅうりも やすいから みせで かう。", en: "Eggs and cucumbers are both cheap, so I'll buy them at the shop", exercises: [mo-also, kara-because, de-action], mode: build }
       - { kind: sentence, ja: "きょうも あしたも じかんが ある。", en: "I have time both today and tomorrow", exercises: [mo-also, ga-existence, arimasu], mode: build }

@@ -162,7 +162,7 @@
         },
         {
           "ja": "その えいがは おもしろいでしょう。",
-          "en": "That film's probably interesting."
+          "en": "That movie's probably interesting."
         },
         {
           "ja": "としょかんは しずかでしょう。",
@@ -210,7 +210,7 @@
     },
     {
       "id": "ni-time",
-      "rule": "The four seasons — はる spring, なつ summer, あき autumn, ふゆ winter — are ordinary nouns, and the particle you put on one decides what kind of sentence you are making. は TOPICS the season — you are about to say what it is LIKE: 「ふゆは さむい」, winter is cold. に says WHEN something happened or will happen: 「はるに さくらを みる」, I look at the cherry blossom in spring. That に is module 11's に and the rule has not changed a word: it goes on times you could point to on a calendar or a clock, and a season is exactly that kind of time. The trap is putting に on the first kind of sentence. 「ふゆに さむい」 is wrong, because nothing HAPPENS in it — cold is not an event, it is what winter is like, and そこ needs は. Test yourself with one question: is there a verb? If there is an event, に is available. If you are only describing the season, use は. Two small notes. なつ and なつやすみ are different words — one is the season, one is the holiday inside it. And the seasons pair naturally with everything you learned last module about comparing: 「なつは はるより あつい」.",
+      "rule": "The four seasons — はる spring, なつ summer, あき autumn, ふゆ winter — are ordinary nouns, and the particle you put on one decides what kind of sentence you are making. は TOPICS the season — you are about to say what it is LIKE: 「ふゆは さむい」, winter is cold. に says WHEN something happened or will happen: 「はるに さくらを みる」, I look at the cherry blossom in spring. That に is module 11's に and the rule has not changed a word: it goes on times you could point to on a calendar or a clock, and a season is exactly that kind of time. The trap is putting に on the first kind of sentence. 「ふゆに さむい」 is wrong, because nothing HAPPENS in it — cold is not an event, it is what winter is like, and そこ needs は. Test yourself with one question: is there a verb? If there is an event, に is available. If you are only describing the season, use は. Two small notes. なつ and なつやすみ are different words — one is the season, one is the vacation inside it. And the seasons pair naturally with everything you learned last module about comparing: 「なつは はるより あつい」.",
       "examples": [
         {
           "ja": "ふゆは さむいでしょう。",
@@ -256,7 +256,7 @@
         },
         {
           "ja": "なつやすみは きっと たのしいでしょう。",
-          "en": "The summer holidays will definitely be fun."
+          "en": "The summer vacation will definitely be fun."
         },
         {
           "ja": "たぶん あきは すずしいでしょう。",
@@ -338,7 +338,7 @@
         },
         {
           "ja": "その えいがは おもしろいでしょ？",
-          "en": "That film's interesting, right?"
+          "en": "That movie's interesting, right?"
         },
         {
           "ja": "あしたは やすみでしょ？",
@@ -790,7 +790,7 @@
         {
           "kind": "sentence",
           "ja": "なつやすみは いそがしいけど たのしいでしょう。",
-          "en": "The summer holidays are busy, but they're probably fun",
+          "en": "The summer vacation are busy, but they're probably fun",
           "exercises": [
             "deshou-adjective",
             "kedo",
@@ -845,11 +845,11 @@
         {
           "kind": "listening-comp",
           "audio": "なつやすみは あついでしょう。",
-          "answer": "The summer holidays will probably be hot",
+          "answer": "The summer vacation will probably be hot",
           "distractors": [
-            "The summer holidays were hot",
-            "The summer holidays definitely won't be hot",
-            "The summer holidays are busy"
+            "The summer vacation were hot",
+            "The summer vacation definitely won't be hot",
+            "The summer vacation are busy"
           ],
           "exercises": [
             "deshou-adjective",
@@ -900,7 +900,7 @@
         {
           "kind": "challenge",
           "ja": "きょうは すずしいけど なつやすみは やまも あついでしょう。",
-          "en": "It's cool today, but in the summer holidays even the mountains will probably be hot",
+          "en": "It's cool today, but in the summer vacation even the mountains will probably be hot",
           "combines": [
             "deshou-adjective",
             "kedo",
@@ -1563,7 +1563,7 @@
         {
           "kind": "sentence",
           "ja": "なつやすみは きっと たのしいでしょう。",
-          "en": "The summer holidays will definitely be fun",
+          "en": "The summer vacation will definitely be fun",
           "exercises": [
             "tabun-kitto",
             "deshou-adjective",
@@ -1662,7 +1662,7 @@
             {
               "speaker": "Ken",
               "ja": "あしたの えいがに いく？",
-              "en": "Are you going to tomorrow's film?"
+              "en": "Are you going to tomorrow's movie?"
             },
             {
               "speaker": "Mika",
@@ -1677,7 +1677,7 @@
                 "She has class",
                 "She has already seen it",
                 "It'll rain",
-                "She is going travelling"
+                "She is going traveling"
               ],
               "answer": "She has class"
             }
@@ -1791,7 +1791,7 @@
         {
           "kind": "sentence",
           "ja": "なつやすみに りょこうが できるかな。",
-          "en": "I wonder whether I'll be able to travel in the summer holidays",
+          "en": "I wonder whether I'll be able to travel in the summer vacation",
           "exercises": [
             "kana-wondering",
             "dekiru",
@@ -1952,7 +1952,7 @@
         {
           "kind": "sentence",
           "ja": "なつやすみは きっと たのしいでしょう。",
-          "en": "The summer holidays will definitely be fun",
+          "en": "The summer vacation will definitely be fun",
           "exercises": [
             "tabun-kitto",
             "deshou-adjective"
@@ -2055,7 +2055,7 @@
             {
               "speaker": "Ken",
               "ja": "なつやすみに りょこうを する？",
-              "en": "Are you travelling in the summer holidays?"
+              "en": "Are you traveling in the summer vacation?"
             },
             {
               "speaker": "Mika",
@@ -2204,7 +2204,7 @@
         {
           "kind": "listening-comp",
           "audio": "あした あめだろう。",
-          "answer": "It'll probably rain tomorrow — said the blunt plain way",
+          "answer": "It'll probably rain tomorrow",
           "distractors": [
             "It rained yesterday",
             "It definitely won't rain tomorrow",
@@ -2217,7 +2217,7 @@
         {
           "kind": "listening-comp",
           "audio": "あきは すずしいだろう。",
-          "answer": "Autumn's probably cool — said the blunt plain way",
+          "answer": "Autumn's probably cool",
           "distractors": [
             "Autumn was cool",
             "I wonder if autumn's cool",
@@ -2307,7 +2307,7 @@
         {
           "kind": "sentence",
           "ja": "その えいがは おもしろいでしょ？",
-          "en": "Say to a friend: That film's interesting, right",
+          "en": "Say to a friend: That movie's interesting, right",
           "exercises": [
             "deshou-casual",
             "kono-sono-ano-dono"
@@ -2391,11 +2391,11 @@
         {
           "kind": "listening-comp",
           "audio": "あの えいがは おもしろいでしょ？",
-          "answer": "That film's interesting, right?",
+          "answer": "That movie's interesting, right?",
           "distractors": [
-            "That film's probably interesting",
-            "Was that film interesting?",
-            "That film definitely isn't interesting"
+            "That movie's probably interesting",
+            "Was that movie interesting?",
+            "That movie definitely isn't interesting"
           ],
           "exercises": [
             "deshou-casual",
@@ -2516,7 +2516,7 @@
         {
           "kind": "sentence",
           "ja": "その えいがは おもしろいと おもう。",
-          "en": "I think that film's interesting",
+          "en": "I think that movie's interesting",
           "exercises": [
             "to-omoimasu",
             "kono-sono-ano-dono"
@@ -2744,7 +2744,7 @@
         {
           "kind": "listening-comp",
           "audio": "あきは すずしいだろう。",
-          "answer": "Autumn's probably cool — said the blunt plain way",
+          "answer": "Autumn's probably cool",
           "distractors": [
             "I wonder if autumn's cool",
             "Autumn was cool",
@@ -2882,7 +2882,7 @@
         {
           "kind": "sentence",
           "ja": "なつやすみに かぞくと りょこうが できるかな。",
-          "en": "I wonder whether I'll be able to travel with my family in the summer holidays",
+          "en": "I wonder whether I'll be able to travel with my family in the summer vacation",
           "exercises": [
             "kana-wondering",
             "dekiru",
@@ -3055,6 +3055,7 @@
     }
   ],
   "priorVocab": [
+    "あかい",
     "あけて",
     "あけない",
     "あける",
@@ -3132,6 +3133,7 @@
     "ううん",
     "うえ",
     "うた",
+    "うたう",
     "うち",
     "うま",
     "うみ",
@@ -3205,6 +3207,7 @@
     "かばん",
     "かめ",
     "かようび",
+    "から",
     "からだ",
     "かわ",
     "かわない",
@@ -3273,6 +3276,7 @@
     "ごじ",
     "ごじゅう",
     "ごぜん",
+    "ごにん",
     "ごはい",
     "ごはん",
     "ごほん",
@@ -4430,6 +4434,13 @@
       "kind": "vocab"
     },
     {
+      "kana": "ひま",
+      "romaji": "hima",
+      "gloss": "free time",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "たべたい",
       "romaji": "tabetai",
       "gloss": "want to eat",
@@ -4648,7 +4659,7 @@
     {
       "kana": "なつやすみ",
       "romaji": "natsuyasumi",
-      "gloss": "summer holiday",
+      "gloss": "summer vacation",
       "shortGloss": "summer break",
       "imageable": true,
       "kind": "vocab"
@@ -4750,6 +4761,28 @@
       "romaji": "hayai",
       "gloss": "early",
       "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "とりにく",
+      "romaji": "toriniku",
+      "gloss": "chicken meat",
+      "shortGloss": "chicken",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あかい",
+      "romaji": "akai",
+      "gloss": "red",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うたう",
+      "romaji": "utau",
+      "gloss": "to sing",
+      "imageable": true,
       "kind": "vocab"
     },
     {
@@ -5063,6 +5096,14 @@
       "kind": "vocab"
     },
     {
+      "kana": "から",
+      "romaji": "kara",
+      "gloss": "from (origin)",
+      "shortGloss": "from",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
       "kana": "さむい",
       "romaji": "samui",
       "gloss": "cold (weather)",
@@ -5112,8 +5153,8 @@
     {
       "kana": "やすみ",
       "romaji": "yasumi",
-      "gloss": "holiday, time off",
-      "shortGloss": "holiday",
+      "gloss": "vacation, day off",
+      "shortGloss": "vacation",
       "imageable": true,
       "kind": "vocab"
     },
@@ -5671,7 +5712,7 @@
     {
       "kana": "ちかてつ",
       "romaji": "chikatetsu",
-      "gloss": "underground train, subway",
+      "gloss": "subway",
       "shortGloss": "subway",
       "kind": "vocab"
     },
@@ -5980,6 +6021,13 @@
       "romaji": "ittari",
       "gloss": "go, and things like that",
       "shortGloss": "go, etc.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごにん",
+      "romaji": "go nin",
+      "gloss": "5 people",
       "imageable": false,
       "kind": "vocab"
     },
@@ -6717,7 +6765,7 @@
     {
       "kana": "いきません",
       "romaji": "ikimasen",
-      "gloss": "don't go, not travelling (polite)",
+      "gloss": "don't go, not traveling (polite)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -7033,7 +7081,7 @@
       "kana": "ちゃ",
       "romaji": "cha",
       "gloss": "tea",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -7041,7 +7089,7 @@
       "romaji": "kome",
       "gloss": "rice (uncooked)",
       "shortGloss": "rice (raw)",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -7143,7 +7191,7 @@
       "kana": "えん",
       "romaji": "en",
       "gloss": "yen",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -7164,7 +7212,7 @@
       "kana": "かね",
       "romaji": "kane",
       "gloss": "money",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {

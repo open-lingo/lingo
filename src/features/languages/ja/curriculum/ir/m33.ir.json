@@ -372,11 +372,11 @@
       "examples": [
         {
           "ja": "えいがが はじまる。",
-          "en": "The film starts."
+          "en": "The movie starts."
         },
         {
           "ja": "えいがを はじめる。",
-          "en": "I start the film."
+          "en": "I start the movie."
         },
         {
           "ja": "でんしゃが でる。",
@@ -393,7 +393,7 @@
       ],
       "antiPattern": {
         "ja": "えいがを はじまる。",
-        "why": "はじまる is the film starting on its own — が. The を-verb is はじめる, which needs somebody to start it: えいがを はじめる。"
+        "why": "はじまる is the movie starting on its own — が. The を-verb is はじめる, which needs somebody to start it: えいがを はじめる。"
       }
     }
   ],
@@ -418,8 +418,8 @@
     {
       "kana": "エレベーター",
       "romaji": "erebeetaa",
-      "gloss": "a lift, an elevator",
-      "shortGloss": "lift",
+      "gloss": "an elevator",
+      "shortGloss": "elevator",
       "imageable": true,
       "kind": "vocab"
     },
@@ -727,7 +727,7 @@
         {
           "kind": "sentence",
           "ja": "エレベーターの ドアが あく。",
-          "en": "The lift doors open",
+          "en": "The elevator doors open",
           "exercises": [
             "jidoushi-tadoushi",
             "no-possession"
@@ -761,7 +761,7 @@
         {
           "kind": "sentence",
           "ja": "エレベーターの ドアを あける。",
-          "en": "I open the lift doors",
+          "en": "I open the elevator doors",
           "exercises": [
             "jidoushi-tadoushi",
             "wo-object",
@@ -779,7 +779,7 @@
             "あける",
             "はいる"
           ],
-          "en": "The lift doors open",
+          "en": "The elevator doors open",
           "explanation": "が is the tell: nothing is being done to ドア, so the verb has to be the が-half, あく. あける needs somebody doing it, and that comes with を."
         },
         {
@@ -833,7 +833,7 @@
             {
               "speaker": "Mika",
               "ja": "うん。エレベーターの ドアが あく。",
-              "en": "Yeah. The lift doors are opening."
+              "en": "Yeah. The elevator doors are opening."
             }
           ],
           "questions": [
@@ -995,7 +995,7 @@
         {
           "kind": "sentence",
           "ja": "エレベーターの ドアが しまる。",
-          "en": "The lift doors close",
+          "en": "The elevator doors close",
           "exercises": [
             "jidoushi-tadoushi",
             "no-possession"
@@ -1455,7 +1455,7 @@
             "しめる",
             "あく"
           ],
-          "en": "The lift doors close",
+          "en": "The elevator doors close",
           "explanation": "が is the tell: nothing is being done to ドア, so the verb has to be the が-half, しまる. しめる needs somebody doing it, and that comes with を. あく would also follow が — the English says close, not open."
         },
         {
@@ -2379,7 +2379,7 @@
         {
           "kind": "sentence",
           "ja": "エレベーターの ドアが あく。",
-          "en": "The lift doors open",
+          "en": "The elevator doors open",
           "exercises": [
             "jidoushi-tadoushi",
             "no-possession"
@@ -2636,7 +2636,7 @@
         {
           "kind": "sentence",
           "ja": "エレベーターの ドアが あいている。",
-          "en": "The lift doors are open",
+          "en": "The elevator doors are open",
           "exercises": [
             "te-iru-resultative",
             "no-possession"
@@ -2724,7 +2724,7 @@
         {
           "kind": "sentence",
           "ja": "えいがが はじまる。",
-          "en": "The film starts",
+          "en": "The movie starts",
           "exercises": [
             "jidoushi-tadoushi",
             "ga-existence"
@@ -2734,7 +2734,7 @@
         {
           "kind": "sentence",
           "ja": "えいがを はじめる。",
-          "en": "I start the film",
+          "en": "I start the movie",
           "exercises": [
             "jidoushi-tadoushi",
             "wo-object"
@@ -2744,11 +2744,11 @@
         {
           "kind": "listening-comp",
           "audio": "えいがが はじまる。",
-          "answer": "The film starts",
+          "answer": "The movie starts",
           "distractors": [
-            "I start the film",
-            "The film finishes",
-            "The film is starting now"
+            "I start the movie",
+            "The movie finishes",
+            "The movie is starting now"
           ],
           "exercises": [
             "jidoushi-tadoushi"
@@ -2790,7 +2790,7 @@
         {
           "kind": "sentence",
           "ja": "えいがは さんじに はじまる。",
-          "en": "The film starts at three",
+          "en": "The movie starts at three",
           "exercises": [
             "jidoushi-tadoushi",
             "ni-time",
@@ -2862,7 +2862,7 @@
         {
           "kind": "sentence",
           "ja": "えいがが おわると、でんきが きえる。",
-          "en": "When the film ends, the light goes out",
+          "en": "When the movie ends, the light goes out",
           "exercises": [
             "to-conditional",
             "jidoushi-tadoushi"
@@ -2885,7 +2885,7 @@
             {
               "speaker": "Mika",
               "ja": "えいがは なんじに はじまる？",
-              "en": "What time does the film start?"
+              "en": "What time does the movie start?"
             },
             {
               "speaker": "Tom",
@@ -2905,7 +2905,7 @@
           ],
           "questions": [
             {
-              "q": "Who starts the film in this conversation?",
+              "q": "Who starts the movie in this conversation?",
               "options": [
                 "Nobody — はじまる names no doer",
                 "Tom",
@@ -2919,7 +2919,7 @@
         {
           "kind": "challenge",
           "ja": "じゅぎょうが おわったら、えいがが はじまる まえに でんきを けす。",
-          "en": "When class finishes, I'll turn the light off before the film starts",
+          "en": "When class finishes, I'll turn the light off before the movie starts",
           "combines": [
             "tara",
             "mae-ni",
@@ -3220,7 +3220,7 @@
         {
           "kind": "sentence",
           "ja": "えいがが はじまる。",
-          "en": "The film starts",
+          "en": "The movie starts",
           "exercises": [
             "jidoushi-tadoushi",
             "ga-existence"
@@ -3474,7 +3474,7 @@
         {
           "kind": "sentence",
           "ja": "せんせいが えいがを はじめる。",
-          "en": "The teacher starts the film",
+          "en": "The teacher starts the movie",
           "exercises": [
             "jidoushi-tadoushi",
             "wo-object"
@@ -3484,7 +3484,7 @@
         {
           "kind": "sentence",
           "ja": "エレベーターの ドアが あいている。",
-          "en": "The lift doors are open",
+          "en": "The elevator doors are open",
           "exercises": [
             "te-iru-resultative",
             "no-possession"
@@ -3681,7 +3681,7 @@
         {
           "kind": "sentence",
           "ja": "えいがが はじまると、でんきが きえる。",
-          "en": "When the film starts, the light goes out",
+          "en": "When the movie starts, the light goes out",
           "exercises": [
             "to-conditional",
             "jidoushi-tadoushi"
@@ -3733,7 +3733,7 @@
             "はじめる",
             "おわる"
           ],
-          "en": "Before the film starts, I turn the light off",
+          "en": "Before the movie starts, I turn the light off",
           "explanation": "が is the tell: nothing is being done to えいが, so the verb has to be the が-half, はじまる. はじめる needs somebody doing it, and that comes with を. おわる would also follow が — the English says starts, not ends."
         },
         {
@@ -3826,6 +3826,7 @@
     }
   ],
   "priorVocab": [
+    "あかい",
     "あき",
     "あけて",
     "あけない",
@@ -3923,6 +3924,7 @@
     "うごいて",
     "うごく",
     "うた",
+    "うたう",
     "うち",
     "うま",
     "うみ",
@@ -4031,6 +4033,7 @@
     "かみ",
     "かめ",
     "かようび",
+    "から",
     "からい",
     "からだ",
     "かりた",
@@ -4126,6 +4129,7 @@
     "ごじ",
     "ごじゅう",
     "ごぜん",
+    "ごにん",
     "ごはい",
     "ごはん",
     "ごほん",
@@ -4267,6 +4271,7 @@
     "だめ",
     "だれ",
     "だろう",
+    "だんだん",
     "ちいさい",
     "ちいさすぎる",
     "ちかい",
@@ -4319,6 +4324,7 @@
     "ともだち",
     "とりあえず",
     "とりにく",
+    "とる",
     "どう",
     "どうして",
     "どうぶつ",
@@ -5405,6 +5411,13 @@
       "kind": "vocab"
     },
     {
+      "kana": "ひま",
+      "romaji": "hima",
+      "gloss": "free time",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "たべたい",
       "romaji": "tabetai",
       "gloss": "want to eat",
@@ -5623,7 +5636,7 @@
     {
       "kana": "なつやすみ",
       "romaji": "natsuyasumi",
-      "gloss": "summer holiday",
+      "gloss": "summer vacation",
       "shortGloss": "summer break",
       "imageable": true,
       "kind": "vocab"
@@ -5725,6 +5738,28 @@
       "romaji": "hayai",
       "gloss": "early",
       "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "とりにく",
+      "romaji": "toriniku",
+      "gloss": "chicken meat",
+      "shortGloss": "chicken",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あかい",
+      "romaji": "akai",
+      "gloss": "red",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うたう",
+      "romaji": "utau",
+      "gloss": "to sing",
+      "imageable": true,
       "kind": "vocab"
     },
     {
@@ -6038,6 +6073,14 @@
       "kind": "vocab"
     },
     {
+      "kana": "から",
+      "romaji": "kara",
+      "gloss": "from (origin)",
+      "shortGloss": "from",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
       "kana": "さむい",
       "romaji": "samui",
       "gloss": "cold (weather)",
@@ -6087,8 +6130,8 @@
     {
       "kana": "やすみ",
       "romaji": "yasumi",
-      "gloss": "holiday, time off",
-      "shortGloss": "holiday",
+      "gloss": "vacation, day off",
+      "shortGloss": "vacation",
       "imageable": true,
       "kind": "vocab"
     },
@@ -6646,7 +6689,7 @@
     {
       "kana": "ちかてつ",
       "romaji": "chikatetsu",
-      "gloss": "underground train, subway",
+      "gloss": "subway",
       "shortGloss": "subway",
       "kind": "vocab"
     },
@@ -6955,6 +6998,13 @@
       "romaji": "ittari",
       "gloss": "go, and things like that",
       "shortGloss": "go, etc.",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "ごにん",
+      "romaji": "go nin",
+      "gloss": "5 people",
       "imageable": false,
       "kind": "vocab"
     },
@@ -7586,8 +7636,8 @@
     {
       "kana": "ことば",
       "romaji": "kotoba",
-      "gloss": "word, language",
-      "shortGloss": "language",
+      "gloss": "word",
+      "shortGloss": "word",
       "kind": "vocab"
     },
     {
@@ -7791,6 +7841,13 @@
       "romaji": "natta",
       "gloss": "became, got (become, past)",
       "shortGloss": "became",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "だんだん",
+      "romaji": "dandan",
+      "gloss": "gradually",
       "imageable": false,
       "kind": "vocab"
     },
@@ -8066,8 +8123,8 @@
     {
       "kana": "とりあえず",
       "romaji": "toriaezu",
-      "gloss": "for now, to start with",
-      "shortGloss": "for now",
+      "gloss": "first off, for now",
+      "shortGloss": "first off",
       "imageable": false,
       "kind": "vocab"
     },
@@ -8355,6 +8412,14 @@
       "kind": "grammar-chunk"
     },
     {
+      "kana": "とる",
+      "romaji": "toru",
+      "gloss": "to take a photo or record a movie",
+      "shortGloss": "take a photo",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
       "kana": "そと",
       "romaji": "soto",
       "gloss": "outside (the in-group boundary)",
@@ -8399,8 +8464,8 @@
     {
       "kana": "おかし",
       "romaji": "okashi",
-      "gloss": "sweets",
-      "shortGloss": "sweets",
+      "gloss": "candy",
+      "shortGloss": "candy",
       "imageable": false,
       "kind": "vocab"
     },
@@ -9413,7 +9478,7 @@
     {
       "kana": "いきません",
       "romaji": "ikimasen",
-      "gloss": "don't go, not travelling (polite)",
+      "gloss": "don't go, not traveling (polite)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -9729,7 +9794,7 @@
       "kana": "ちゃ",
       "romaji": "cha",
       "gloss": "tea",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -9737,7 +9802,7 @@
       "romaji": "kome",
       "gloss": "rice (uncooked)",
       "shortGloss": "rice (raw)",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -9839,7 +9904,7 @@
       "kana": "えん",
       "romaji": "en",
       "gloss": "yen",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -9860,7 +9925,7 @@
       "kana": "かね",
       "romaji": "kane",
       "gloss": "money",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {

@@ -149,7 +149,7 @@
     },
     {
       "id": "desu-copula",
-      "rule": "When the thing you are explaining ends in a NOUN or a な-adjective, one small piece appears that catches everybody out. A noun sentence needs its copula — 「びょうきだ」, not 「びょうき」 — and in front of ん that copula changes shape: だ becomes な. So 「びょうきだ」 explaining itself is 「びょうきなんだ」. The だ has not disappeared and it has not doubled; it has changed clothes. な-adjectives behave identically, because they are nouns wearing a hat: しずかだ becomes しずかなんだ, すきだ becomes すきなんだ. And nouns of every kind take it — 「ぼくの かさなんだ」, it's my umbrella; 「あしたは やすみなんだ」, tomorrow is a holiday. Now the trap, and it is worth saying out loud. い-adjectives do NOT take な. たかい is already a whole predicate with no copula in it, so it goes straight to んだ: 「たかいんだ」, never 「たかいなんだ」. The rule of thumb is short: if you would have said だ, say な instead. If you would not have, do not add one.",
+      "rule": "When the thing you are explaining ends in a NOUN or a な-adjective, one small piece appears that catches everybody out. A noun sentence needs its copula — 「びょうきだ」, not 「びょうき」 — and in front of ん that copula changes shape: だ becomes な. So 「びょうきだ」 explaining itself is 「びょうきなんだ」. The だ has not disappeared and it has not doubled; it has changed clothes. な-adjectives behave identically, because they are nouns wearing a hat: しずかだ becomes しずかなんだ, すきだ becomes すきなんだ. And nouns of every kind take it — 「ぼくの かさなんだ」, it's my umbrella; 「あしたは やすみなんだ」, tomorrow is a vacation. Now the trap, and it is worth saying out loud. い-adjectives do NOT take な. たかい is already a whole predicate with no copula in it, so it goes straight to んだ: 「たかいんだ」, never 「たかいなんだ」. The rule of thumb is short: if you would have said だ, say な instead. If you would not have, do not add one.",
       "examples": [
         {
           "ja": "びょうきなんだ。",
@@ -169,7 +169,7 @@
         },
         {
           "ja": "あしたは やすみなんだ。",
-          "en": "It's a holiday tomorrow, you see."
+          "en": "It's a vacation tomorrow, you see."
         }
       ],
       "antiPattern": {
@@ -255,7 +255,7 @@
         },
         {
           "ja": "なつやすみに あそびすぎた。",
-          "en": "I played too much over the summer holidays."
+          "en": "I played too much over the summer vacation."
         },
         {
           "ja": "あるきすぎたから きょうは いかないんだ。",
@@ -850,7 +850,7 @@
         {
           "kind": "sentence",
           "ja": "あしたは やすみなんだ。",
-          "en": "It's a holiday tomorrow, you see",
+          "en": "It's a vacation tomorrow, you see",
           "exercises": [
             "desu-copula",
             "wa-topic",
@@ -899,8 +899,8 @@
             "んだ",
             "だった"
           ],
-          "en": "It's a holiday tomorrow, you see",
-          "explanation": "やすみ is a noun, so its copula comes first and turns into な. んだ would leave the noun with no copula at all, and だった puts a holiday that has not happened yet into the past."
+          "en": "It's a vacation tomorrow, you see",
+          "explanation": "やすみ is a noun, so its copula comes first and turns into な. んだ would leave the noun with no copula at all, and だった puts a vacation that has not happened yet into the past."
         },
         {
           "kind": "listening-comp",
@@ -919,11 +919,11 @@
         {
           "kind": "listening-comp",
           "audio": "あしたは やすみだから としょかんに いくんだ。",
-          "answer": "I'm going to the library, because tomorrow is a holiday",
+          "answer": "I'm going to the library, because tomorrow is a vacation",
           "distractors": [
-            "I'm not going to the library, because tomorrow is a holiday",
-            "I'm going to the hospital, because tomorrow is a holiday",
-            "Tomorrow is a holiday, but I'm not going to the library"
+            "I'm not going to the library, because tomorrow is a vacation",
+            "I'm going to the hospital, because tomorrow is a vacation",
+            "Tomorrow is a day off, but I'm not going to the library"
           ],
           "exercises": [
             "desu-copula",
@@ -1265,11 +1265,11 @@
         {
           "kind": "listening-comp",
           "audio": "あしたは やすみなんだ。",
-          "answer": "It's a holiday tomorrow, you see",
+          "answer": "It's a vacation tomorrow, you see",
           "distractors": [
-            "It was a holiday yesterday, you see",
+            "It was a vacation yesterday, you see",
             "Tomorrow is a class, you see",
-            "It isn't a holiday tomorrow"
+            "It isn't a vacation tomorrow"
           ],
           "exercises": [
             "desu-copula",
@@ -1340,7 +1340,7 @@
             {
               "speaker": "Mika",
               "ja": "じかんが ないんだ。あしたは やすみだから あした いく。",
-              "en": "I haven't got time. Tomorrow's a holiday, so I'll go tomorrow."
+              "en": "I haven't got time. Tomorrow's a vacation, so I'll go tomorrow."
             }
           ],
           "questions": [
@@ -1612,7 +1612,7 @@
         {
           "kind": "sentence",
           "ja": "なつやすみに あそびすぎた。",
-          "en": "I played too much over the summer holidays",
+          "en": "I played too much over the summer vacation",
           "exercises": [
             "sugiru",
             "ni-time",
@@ -1693,11 +1693,11 @@
         {
           "kind": "listening-comp",
           "audio": "なつやすみに かわで およぎすぎたんだ。",
-          "answer": "The thing is, I swam too much in the river over the summer holidays",
+          "answer": "The thing is, I swam too much in the river over the summer vacation",
           "distractors": [
-            "The thing is, I swam too much in the pond over the summer holidays",
-            "The thing is, I played too much in the river over the summer holidays",
-            "The thing is, I didn't swim in the river over the summer holidays"
+            "The thing is, I swam too much in the pond over the summer vacation",
+            "The thing is, I played too much in the river over the summer vacation",
+            "The thing is, I didn't swim in the river over the summer vacation"
           ],
           "exercises": [
             "sugiru",
@@ -1734,7 +1734,7 @@
         {
           "kind": "challenge",
           "ja": "なつやすみに かわで およぎすぎたから いまは およがないんだ。",
-          "en": "I swam too much in the river over the summer holidays, so I don't swim now",
+          "en": "I swam too much in the river over the summer vacation, so I don't swim now",
           "combines": [
             "sugiru",
             "kara-because",
@@ -4757,7 +4757,7 @@
     {
       "kana": "なつやすみ",
       "romaji": "natsuyasumi",
-      "gloss": "summer holiday",
+      "gloss": "summer vacation",
       "shortGloss": "summer break",
       "imageable": true,
       "kind": "vocab"
@@ -4866,21 +4866,21 @@
       "romaji": "toriniku",
       "gloss": "chicken meat",
       "shortGloss": "chicken",
-      "imageable": false,
+      "imageable": true,
       "kind": "vocab"
     },
     {
       "kana": "あかい",
       "romaji": "akai",
       "gloss": "red",
-      "imageable": false,
+      "imageable": true,
       "kind": "vocab"
     },
     {
       "kana": "うたう",
       "romaji": "utau",
       "gloss": "to sing",
-      "imageable": false,
+      "imageable": true,
       "kind": "vocab"
     },
     {
@@ -5251,8 +5251,8 @@
     {
       "kana": "やすみ",
       "romaji": "yasumi",
-      "gloss": "holiday, time off",
-      "shortGloss": "holiday",
+      "gloss": "vacation, day off",
+      "shortGloss": "vacation",
       "imageable": true,
       "kind": "vocab"
     },
@@ -5810,7 +5810,7 @@
     {
       "kana": "ちかてつ",
       "romaji": "chikatetsu",
-      "gloss": "underground train, subway",
+      "gloss": "subway",
       "shortGloss": "subway",
       "kind": "vocab"
     },
@@ -6757,8 +6757,8 @@
     {
       "kana": "ことば",
       "romaji": "kotoba",
-      "gloss": "word, language",
-      "shortGloss": "language",
+      "gloss": "word",
+      "shortGloss": "word",
       "kind": "vocab"
     },
     {
@@ -7073,7 +7073,7 @@
     {
       "kana": "いきません",
       "romaji": "ikimasen",
-      "gloss": "don't go, not travelling (polite)",
+      "gloss": "don't go, not traveling (polite)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -7389,7 +7389,7 @@
       "kana": "ちゃ",
       "romaji": "cha",
       "gloss": "tea",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -7397,7 +7397,7 @@
       "romaji": "kome",
       "gloss": "rice (uncooked)",
       "shortGloss": "rice (raw)",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -7499,7 +7499,7 @@
       "kana": "えん",
       "romaji": "en",
       "gloss": "yen",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -7520,7 +7520,7 @@
       "kana": "かね",
       "romaji": "kane",
       "gloss": "money",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {

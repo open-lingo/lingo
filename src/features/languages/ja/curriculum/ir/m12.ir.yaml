@@ -342,7 +342,7 @@ lessons:
       - { kind: particle-cloze, stem: "ほんは ", tail: "。", answer: "たかかった", options: ["たかかった", "たかくない", "たかい"], en: "The book was expensive", explanation: "かった is the adjective's own past — たかい becomes たかかった." }
       - { kind: sentence, ja: "ちいさい いぬが いる。", en: "Say to a friend: There's a small dog", exercises: [i-adj-present, ga-existence, imasu], mode: build }
       - { kind: listening-comp, audio: "きのう みせは よかった。", answer: "The shop was good yesterday", distractors: ["The shop wasn't good yesterday", "The shop is good today", "The shop was big yesterday"], exercises: [wa-topic, i-adj-past] }
-      - { kind: sentence, ja: "ミカの けいたいは おおきくない。", en: "Say to a friend: Mika's mobile phone isn't big", exercises: [no-possession, wa-topic, i-adj-negative], mode: build }
+      - { kind: sentence, ja: "ミカの けいたいは おおきくない。", en: "Say to a friend: Mika's cell phone isn't big", exercises: [no-possession, wa-topic, i-adj-negative], mode: build }
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "ミカの いえは ふるい？", en: "Is Mika's house old?" }
@@ -517,7 +517,7 @@ lessons:
       - { kind: sentence, ja: "きのう うみは きれいだった。", en: "Say to a friend: The sea was pretty yesterday", exercises: [wa-topic, na-adj-past], mode: build }
       - { kind: sentence, ja: "てがみは おもしろかった。", en: "Say to a friend: The letter was interesting", exercises: [wa-topic, i-adj-past], mode: build }
       - { kind: sentence, ja: "いけは しずかじゃなかった。", en: "The pond wasn't quiet", exercises: [wa-topic, na-adj-past], mode: listening }
-      - { kind: sentence, ja: "あたらしい けいたいは たかいです。", en: "Say politely: The new mobile phone is expensive", exercises: [i-adj-present, wa-topic, desu-copula], mode: build }
+      - { kind: sentence, ja: "あたらしい けいたいは たかいです。", en: "Say politely: The new cell phone is expensive", exercises: [i-adj-present, wa-topic, desu-copula], mode: build }
       - { kind: sentence, ja: "りょうりは おいしくなかった。", en: "Say to a friend: The food wasn't delicious", exercises: [wa-topic, i-adj-past-negative], mode: build }
       - { kind: sentence, ja: "ゆうめいな ひとが きた。", en: "Say to a friend: A famous person came", exercises: [na-adj-present, ga-existence, ta-form], mode: build }
       - { kind: particle-cloze, stem: "うみは ", tail: "。", answer: "きれいだった", options: ["きれいだった", "きれいじゃなかった", "おおきかった"], en: "The sea was pretty", explanation: "きれい borrows the noun past だった — かった belongs to い-adjectives." }

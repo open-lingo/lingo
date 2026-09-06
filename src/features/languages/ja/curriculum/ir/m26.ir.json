@@ -179,15 +179,15 @@
       "examples": [
         {
           "ja": "なつやすみに およぐのが いちばん すきだ。",
-          "en": "Swimming is what I like most in the summer holidays."
+          "en": "Swimming is what I like most in the summer vacation."
         },
         {
           "ja": "えいがを みるのが いちばん たのしい。",
-          "en": "Watching films is the most fun."
+          "en": "Watching movies is the most fun."
         },
         {
           "ja": "かぞくと りょこうを するのが いちばん たのしい。",
-          "en": "Travelling with my family is the most fun."
+          "en": "Traveling with my family is the most fun."
         },
         {
           "ja": "じてんしゃに のるのが いちばん おもしろい。",
@@ -205,7 +205,7 @@
     },
     {
       "id": "yori-comparison",
-      "rule": "You now have two comparison frames and the only thing to get right is which one you are in. Count the things on the table. TWO takes last module's frame: the winner marked ほうが, the loser marked より, and nothing else. THREE OR MORE takes this module's: the field named with なかで, the winner marked が, and いちばん in front of the adjective. Everything else is shared — neither frame touches the adjective, both put the winner before the predicate, and both let you drop whatever the listener already knows, so 「バスより やすい」 is a whole answer to a question about the underground. The one thing you must not do is stack them. ほうが has already picked the winner of a pair, so there is nothing left for いちばん to top, and 「ほうが いちばん」 is not a sentence anybody says.",
+      "rule": "You now have two comparison frames and the only thing to get right is which one you are in. Count the things on the table. TWO takes last module's frame: the winner marked ほうが, the loser marked より, and nothing else. THREE OR MORE takes this module's: the field named with なかで, the winner marked が, and いちばん in front of the adjective. Everything else is shared — neither frame touches the adjective, both put the winner before the predicate, and both let you drop whatever the listener already knows, so 「バスより やすい」 is a whole answer to a question about the subway. The one thing you must not do is stack them. ほうが has already picked the winner of a pair, so there is nothing left for いちばん to top, and 「ほうが いちばん」 is not a sentence anybody says.",
       "diagram": {
         "kind": "scale",
         "dimension": "たかい",
@@ -250,11 +250,11 @@
       "examples": [
         {
           "ja": "バスより ちかてつの ほうが やすい。",
-          "en": "The underground is cheaper than the bus."
+          "en": "The subway is cheaper than the bus."
         },
         {
           "ja": "ちかてつと バスと じてんしゃの なかで じてんしゃが いちばん やすい。",
-          "en": "Of the underground, the bus and the bike, the bike is the cheapest."
+          "en": "Of the subway, the bus and the bike, the bike is the cheapest."
         },
         {
           "ja": "ちゃより コーヒーの ほうが たかい。",
@@ -306,7 +306,7 @@
     },
     {
       "id": "na-adj-present",
-      "rule": "な-adjectives go into the superlative frame with nothing removed and nothing added, and they keep their だ. 「がっこうの なかで としょかんが いちばん しずかだ」 — of everywhere in the school, the library is the quietest. This is module 12's rule and module 20's promise meeting each other: a な-adjective is not a verb and cannot finish a sentence on its own, so it needs だ; and いちばん is an adverb, so it cannot supply one. しずか is a quality, しずかだ is a statement, and いちばん しずかだ is a statement about the top of a group. Nothing about the frame changes that in either direction. The words worth practising here are the ones English hears as verbs but Japanese treats as な-adjectives: すき and きらい, which take が on the thing liked, and じょうず and へた, which do the same. 「のみものの なかで ちゃが いちばん すきだ」 is 'tea is my favourite drink' — literally, of the drinks, tea is the most likeable. And the negative behaves exactly as module 12 left it: しずかじゃない.",
+      "rule": "な-adjectives go into the superlative frame with nothing removed and nothing added, and they keep their だ. 「がっこうの なかで としょかんが いちばん しずかだ」 — of everywhere in the school, the library is the quietest. This is module 12's rule and module 20's promise meeting each other: a な-adjective is not a verb and cannot finish a sentence on its own, so it needs だ; and いちばん is an adverb, so it cannot supply one. しずか is a quality, しずかだ is a statement, and いちばん しずかだ is a statement about the top of a group. Nothing about the frame changes that in either direction. The words worth practising here are the ones English hears as verbs but Japanese treats as な-adjectives: すき and きらい, which take が on the thing liked, and じょうず and へた, which do the same. 「のみものの なかで ちゃが いちばん すきだ」 is 'tea is my favorite drink' — literally, of the drinks, tea is the most likeable. And the negative behaves exactly as module 12 left it: しずかじゃない.",
       "examples": [
         {
           "ja": "がっこうの なかで としょかんが いちばん しずかだ。",
@@ -322,7 +322,7 @@
         },
         {
           "ja": "のみものの なかで ちゃが いちばん すきだ。",
-          "en": "Tea is my favourite drink."
+          "en": "Tea is my favorite drink."
         },
         {
           "ja": "この みっつの なかで これが いちばん きれいだ。",
@@ -352,7 +352,7 @@
         },
         {
           "ja": "ちかてつも バスも やすいけど じてんしゃが いちばん やすい。",
-          "en": "The underground and the bus are both cheap, but the bike is the cheapest."
+          "en": "The subway and the bus are both cheap, but the bike is the cheapest."
         },
         {
           "ja": "いぬも ねこも すきだけど ねこが いちばん すきだ。",
@@ -366,7 +366,7 @@
     },
     {
       "id": "dictionary-form",
-      "rule": "いちばん scales a VERB exactly the way it scales an adjective, and this is where the frame stops being about qualities and starts being about behaviour. 「かぞくの なかで ちちが いちばん はたらく」 — of everyone in my family, my father works the most. Put いちばん directly in front of the verb and leave the verb alone. It stays in the plain dictionary form, and — the thing worth restating because English speakers reach for it — it takes NO だ. A dictionary-form verb has been a complete sentence since module 5; だ finishes NOUNS. 「はたらくだ」 is wrong here for the same reason it was wrong then, and いちばん changes nothing about it. Add よく in front of the verb when you mean 'the most often' rather than 'the most': 「いぬが いちばん よく あるく」. And note what the frame is really claiming — 「おとうとが いちばん たべる」 says he eats more than the rest, not that eating is his favourite thing. For that you want の from the earlier lesson: 「たべるのが いちばん すきだ」.",
+      "rule": "いちばん scales a VERB exactly the way it scales an adjective, and this is where the frame stops being about qualities and starts being about behaviour. 「かぞくの なかで ちちが いちばん はたらく」 — of everyone in my family, my father works the most. Put いちばん directly in front of the verb and leave the verb alone. It stays in the plain dictionary form, and — the thing worth restating because English speakers reach for it — it takes NO だ. A dictionary-form verb has been a complete sentence since module 5; だ finishes NOUNS. 「はたらくだ」 is wrong here for the same reason it was wrong then, and いちばん changes nothing about it. Add よく in front of the verb when you mean 'the most often' rather than 'the most': 「いぬが いちばん よく あるく」. And note what the frame is really claiming — 「おとうとが いちばん たべる」 says he eats more than the rest, not that eating is his favorite thing. For that you want の from the earlier lesson: 「たべるのが いちばん すきだ」.",
       "examples": [
         {
           "ja": "かぞくの なかで ちちが いちばん はたらく。",
@@ -487,8 +487,8 @@
     {
       "kana": "ことば",
       "romaji": "kotoba",
-      "gloss": "word, language",
-      "shortGloss": "language",
+      "gloss": "word",
+      "shortGloss": "word",
       "kind": "vocab"
     },
     {
@@ -953,7 +953,7 @@
         {
           "kind": "sentence",
           "ja": "えいがを みるのが いちばん すきだ。",
-          "en": "Watching films is what I like most",
+          "en": "Watching movies is what I like most",
           "exercises": [
             "no-ga-suki",
             "ichiban-superlative",
@@ -964,7 +964,7 @@
         {
           "kind": "sentence",
           "ja": "かぞくと りょこうを するのが いちばん たのしい。",
-          "en": "Travelling with my family is the most fun",
+          "en": "Traveling with my family is the most fun",
           "exercises": [
             "no-ga-suki",
             "ichiban-superlative",
@@ -1042,7 +1042,7 @@
             {
               "speaker": "Ken",
               "ja": "なつやすみに なにを するのが いちばん すき？",
-              "en": "What do you most like doing in the summer holidays?"
+              "en": "What do you most like doing in the summer vacation?"
             },
             {
               "speaker": "Tom",
@@ -1056,8 +1056,8 @@
               "options": [
                 "Swimming in the river",
                 "Swimming in the pond",
-                "Travelling with his family",
-                "Watching films"
+                "Traveling with his family",
+                "Watching movies"
               ],
               "answer": "Swimming in the river"
             }
@@ -1066,7 +1066,7 @@
         {
           "kind": "challenge",
           "ja": "なつやすみに かぞくと かわで およぐのが いちばん たのしい。",
-          "en": "Swimming in the river with my family in the summer holidays is the most fun",
+          "en": "Swimming in the river with my family in the summer vacation is the most fun",
           "combines": [
             "no-ga-suki",
             "ichiban-superlative",
@@ -1206,11 +1206,11 @@
         {
           "kind": "listening-comp",
           "audio": "かぞくと りょこうを するのが いちばん たのしい。",
-          "answer": "Travelling with my family is the most fun",
+          "answer": "Traveling with my family is the most fun",
           "distractors": [
-            "Travelling with my friends is the most fun",
+            "Traveling with my friends is the most fun",
             "I want to travel with my family",
-            "Travelling with my family is the most expensive"
+            "Traveling with my family is the most expensive"
           ],
           "exercises": [
             "no-ga-suki",
@@ -1371,7 +1371,7 @@
         {
           "kind": "sentence",
           "ja": "バスより ちかてつの ほうが やすい。",
-          "en": "The underground is cheaper than the bus",
+          "en": "The subway is cheaper than the bus",
           "exercises": [
             "yori-comparison"
           ],
@@ -1387,7 +1387,7 @@
             "なか",
             "より"
           ],
-          "en": "The underground is cheaper than the bus",
+          "en": "The subway is cheaper than the bus",
           "explanation": "ほう marks the winner of a PAIR and takes の in front of it. なか needs で after it and names a whole group, and より is already on バス at the front."
         },
         {
@@ -1424,12 +1424,12 @@
             {
               "speaker": "Tom",
               "ja": "バスと ちかてつと どっちが やすい？",
-              "en": "Which is cheaper, the bus or the underground?"
+              "en": "Which is cheaper, the bus or the subway?"
             },
             {
               "speaker": "Ken",
               "ja": "ちかてつ。じてんしゃが いちばん やすいけど。",
-              "en": "The underground. The bike's the cheapest, though."
+              "en": "The subway. The bike's the cheapest, though."
             }
           ],
           "questions": [
@@ -1437,7 +1437,7 @@
               "q": "What does Ken say is the cheapest?",
               "options": [
                 "The bike",
-                "The underground",
+                "The subway",
                 "The bus",
                 "He says they cost the same"
               ],
@@ -1754,7 +1754,7 @@
         {
           "kind": "sentence",
           "ja": "のみものの なかで ちゃが いちばん すきだ。",
-          "en": "Tea is my favourite drink",
+          "en": "Tea is my favorite drink",
           "exercises": [
             "na-adj-present",
             "ichiban-superlative"
@@ -1923,7 +1923,7 @@
             "どっち",
             "どこ"
           ],
-          "en": "Of the plane, the boat and the underground, which is the most expensive?",
+          "en": "Of the plane, the boat and the subway, which is the most expensive?",
           "explanation": "three things are named, so the question word is どれ. どっち asks about exactly two, and どこ asks after a place rather than one of a set."
         },
         {
@@ -2105,7 +2105,7 @@
         {
           "kind": "sentence",
           "ja": "ちかてつも バスも やすいけど じてんしゃが いちばん やすい。",
-          "en": "The underground and the bus are both cheap, but the bike is the cheapest",
+          "en": "The subway and the bus are both cheap, but the bike is the cheapest",
           "exercises": [
             "mo-also",
             "ichiban-superlative"
@@ -2161,11 +2161,11 @@
         {
           "kind": "listening-comp",
           "audio": "ちかてつも バスも やすいけど じてんしゃが いちばん やすい。",
-          "answer": "The underground and the bus are both cheap, but the bike is the cheapest",
+          "answer": "The subway and the bus are both cheap, but the bike is the cheapest",
           "distractors": [
-            "The underground and the bus are both cheap, but the underground is the cheapest",
+            "The subway and the bus are both cheap, but the subway is the cheapest",
             "The bike is cheaper than the bus",
-            "The underground and the bus are both expensive"
+            "The subway and the bus are both expensive"
           ],
           "exercises": [
             "mo-also",
@@ -2310,7 +2310,7 @@
         {
           "kind": "sentence",
           "ja": "なつやすみに かぞくの なかで いもうとが いちばん あそぶ。",
-          "en": "In the summer holidays, my younger sister plays the most of anyone in my family",
+          "en": "In the summer vacation, my younger sister plays the most of anyone in my family",
           "exercises": [
             "dictionary-form",
             "ichiban-superlative",
@@ -2411,7 +2411,7 @@
         {
           "kind": "challenge",
           "ja": "なつやすみに きょうだいの なかで おとうとが いちばん およぐから おとうとが いちばん げんきだ。",
-          "en": "In the summer holidays my younger brother swims the most of my siblings, so he's the liveliest",
+          "en": "In the summer vacation my younger brother swims the most of my siblings, so he's the liveliest",
           "combines": [
             "dictionary-form",
             "ichiban-superlative",
@@ -2757,7 +2757,7 @@
         {
           "kind": "sentence",
           "ja": "なつやすみに かぞくの なかで いもうとが いちばん あそぶ。",
-          "en": "In the summer holidays, my younger sister plays the most of anyone in my family",
+          "en": "In the summer vacation, my younger sister plays the most of anyone in my family",
           "exercises": [
             "dictionary-form",
             "ni-time"
@@ -3021,6 +3021,7 @@
     }
   ],
   "priorVocab": [
+    "あかい",
     "あき",
     "あけて",
     "あけない",
@@ -3071,6 +3072,7 @@
     "いきませんでした",
     "いく",
     "いくら",
+    "いくらですか",
     "いけ",
     "いけません",
     "いける",
@@ -3101,6 +3103,7 @@
     "ううん",
     "うえ",
     "うた",
+    "うたう",
     "うち",
     "うま",
     "うみ",
@@ -3175,6 +3178,7 @@
     "かばん",
     "かめ",
     "かようび",
+    "から",
     "からだ",
     "かわ",
     "かわない",
@@ -3245,6 +3249,7 @@
     "ごじ",
     "ごじゅう",
     "ごぜん",
+    "ごにん",
     "ごはい",
     "ごはん",
     "ごほん",
@@ -3378,6 +3383,7 @@
     "でした",
     "でしょ",
     "でしょう",
+    "です",
     "でんき",
     "でんしゃ",
     "でんわ",
@@ -3391,6 +3397,7 @@
     "とりにく",
     "どう",
     "どこ",
+    "どこですか",
     "どちら",
     "どっち",
     "どの",
@@ -3865,7 +3872,6 @@
       "romaji": "gogo",
       "gloss": "p.m., afternoon",
       "shortGloss": "p.m.",
-      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -4412,6 +4418,13 @@
       "kind": "vocab"
     },
     {
+      "kana": "ひま",
+      "romaji": "hima",
+      "gloss": "free time",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "たべたい",
       "romaji": "tabetai",
       "gloss": "want to eat",
@@ -4630,7 +4643,7 @@
     {
       "kana": "なつやすみ",
       "romaji": "natsuyasumi",
-      "gloss": "summer holiday",
+      "gloss": "summer vacation",
       "shortGloss": "summer break",
       "imageable": true,
       "kind": "vocab"
@@ -4732,6 +4745,28 @@
       "romaji": "hayai",
       "gloss": "early",
       "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "とりにく",
+      "romaji": "toriniku",
+      "gloss": "chicken meat",
+      "shortGloss": "chicken",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あかい",
+      "romaji": "akai",
+      "gloss": "red",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うたう",
+      "romaji": "utau",
+      "gloss": "to sing",
+      "imageable": true,
       "kind": "vocab"
     },
     {
@@ -5045,6 +5080,14 @@
       "kind": "vocab"
     },
     {
+      "kana": "から",
+      "romaji": "kara",
+      "gloss": "from (origin)",
+      "shortGloss": "from",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
       "kana": "さむい",
       "romaji": "samui",
       "gloss": "cold (weather)",
@@ -5094,8 +5137,8 @@
     {
       "kana": "やすみ",
       "romaji": "yasumi",
-      "gloss": "holiday, time off",
-      "shortGloss": "holiday",
+      "gloss": "vacation, day off",
+      "shortGloss": "vacation",
       "imageable": true,
       "kind": "vocab"
     },
@@ -5653,7 +5696,7 @@
     {
       "kana": "ちかてつ",
       "romaji": "chikatetsu",
-      "gloss": "underground train, subway",
+      "gloss": "subway",
       "shortGloss": "subway",
       "kind": "vocab"
     },
@@ -5966,6 +6009,13 @@
       "kind": "vocab"
     },
     {
+      "kana": "ごにん",
+      "romaji": "go nin",
+      "gloss": "5 people",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "いたい",
       "romaji": "itai",
       "gloss": "painful, sore — it hurts",
@@ -6016,7 +6066,6 @@
       "romaji": "te",
       "gloss": "hand",
       "shortGloss": "hand",
-      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -6476,7 +6525,6 @@
       "romaji": "natsu",
       "gloss": "summer",
       "shortGloss": "summer",
-      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -6484,7 +6532,6 @@
       "romaji": "aki",
       "gloss": "autumn",
       "shortGloss": "autumn",
-      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -6839,7 +6886,7 @@
     {
       "kana": "いきません",
       "romaji": "ikimasen",
-      "gloss": "don't go, not travelling (polite)",
+      "gloss": "don't go, not traveling (polite)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -7155,7 +7202,7 @@
       "kana": "ちゃ",
       "romaji": "cha",
       "gloss": "tea",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -7163,7 +7210,7 @@
       "romaji": "kome",
       "gloss": "rice (uncooked)",
       "shortGloss": "rice (raw)",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -7265,7 +7312,7 @@
       "kana": "えん",
       "romaji": "en",
       "gloss": "yen",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -7286,7 +7333,7 @@
       "kana": "かね",
       "romaji": "kane",
       "gloss": "money",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {

@@ -242,7 +242,7 @@
         },
         {
           "ja": "ちかてつの きっぷを かっておく。",
-          "en": "I'll buy the underground ticket in advance."
+          "en": "I'll buy the subway ticket in advance."
         },
         {
           "ja": "せんしゅう ホテルの よやくを しておいた。",
@@ -250,7 +250,7 @@
         },
         {
           "ja": "とりあえず コーヒーを かっておく。",
-          "en": "I'll buy some coffee in advance for now."
+          "en": "First off, I'll buy some coffee in advance."
         }
       ],
       "antiPattern": {
@@ -295,7 +295,7 @@
       "examples": [
         {
           "ja": "しつもんを して こたえを きいてみた。",
-          "en": "I asked the question and heard what the answer was."
+          "en": "I asked the question to see what the answer was."
         },
         {
           "ja": "せつめいが むずかしいから あにに きいてみる。",
@@ -303,7 +303,7 @@
         },
         {
           "ja": "むずかしいけど とりあえず やってみる。",
-          "en": "It's difficult, but I'll give it a go for now."
+          "en": "It's difficult, but first off I'll give it a go."
         },
         {
           "ja": "この しつもんは むずかしいから せんせいに きいてみる。",
@@ -417,8 +417,8 @@
     {
       "kana": "とりあえず",
       "romaji": "toriaezu",
-      "gloss": "for now, to start with",
-      "shortGloss": "for now",
+      "gloss": "first off, for now",
+      "shortGloss": "first off",
       "imageable": false,
       "kind": "vocab"
     },
@@ -717,7 +717,7 @@
     {
       "kana": "とる",
       "romaji": "toru",
-      "gloss": "to take a photo or record a film",
+      "gloss": "to take a photo or record a movie",
       "shortGloss": "take a photo",
       "imageable": true,
       "kind": "vocab"
@@ -1575,7 +1575,7 @@
         {
           "kind": "sentence",
           "ja": "ちかてつの きっぷを かっておく。",
-          "en": "I'll buy the underground ticket in advance",
+          "en": "I'll buy the subway ticket in advance",
           "exercises": [
             "te-oku",
             "no-possession",
@@ -1597,7 +1597,7 @@
         {
           "kind": "sentence",
           "ja": "とりあえず コーヒーを かっておく。",
-          "en": "I'll buy some coffee in advance for now",
+          "en": "First off, I'll buy some coffee in advance",
           "exercises": [
             "te-oku",
             "wo-object"
@@ -1666,11 +1666,11 @@
         {
           "kind": "listening-comp",
           "audio": "せんしゅう ちかてつの きっぷを かっておいた。",
-          "answer": "I bought the underground ticket in advance last week",
+          "answer": "I bought the subway ticket in advance last week",
           "distractors": [
-            "I'll buy the underground ticket in advance next week",
+            "I'll buy the subway ticket in advance next week",
             "I bought the bus ticket in advance last week",
-            "I didn't buy the underground ticket last week"
+            "I didn't buy the subway ticket last week"
           ],
           "exercises": [
             "te-oku",
@@ -1959,7 +1959,7 @@
         {
           "kind": "sentence",
           "ja": "しつもんを して こたえを きいてみた。",
-          "en": "I asked the question and heard what the answer was",
+          "en": "I asked the question to see what the answer was",
           "exercises": [
             "te-miru",
             "ta-form",
@@ -1981,7 +1981,7 @@
         {
           "kind": "sentence",
           "ja": "むずかしいけど とりあえず やってみる。",
-          "en": "It's difficult, but I'll give it a go for now",
+          "en": "It's difficult, but first off I'll give it a go",
           "exercises": [
             "te-miru",
             "kedo"
@@ -2046,7 +2046,7 @@
         {
           "kind": "sentence",
           "ja": "この しつもんの こたえを きいてみる。",
-          "en": "I'll ask what the answer to this question is",
+          "en": "I'll ask and see what the answer to this question is",
           "exercises": [
             "te-miru",
             "no-possession"
@@ -2083,10 +2083,10 @@
         {
           "kind": "listening-comp",
           "audio": "たかいけど とりあえず かってみる。",
-          "answer": "It's expensive, but I'll give buying it a go for now",
+          "answer": "It's expensive, but first off I'll give buying it a go",
           "distractors": [
             "It's expensive, so I'm not buying it",
-            "It's cheap, so I'll give buying it a go for now",
+            "It's cheap, so first off I'll give buying it a go",
             "It was expensive, but I gave buying it a go"
           ],
           "exercises": [
@@ -2124,7 +2124,7 @@
         {
           "kind": "challenge",
           "ja": "こたえは わからないけど せつめいが むずかしいから とりあえず あにに きいてみる。",
-          "en": "I don't know the answer, but the explanation is difficult, so I'll ask my older brother and see for now",
+          "en": "I don't know the answer, but the explanation is difficult, so first off I'll ask my older brother and see",
           "combines": [
             "te-miru",
             "kedo",
@@ -2198,7 +2198,7 @@
         {
           "kind": "sentence",
           "ja": "むずかしいけど とりあえず やってみる。",
-          "en": "It's difficult, but I'll give it a go for now",
+          "en": "It's difficult, but first off I'll give it a go",
           "exercises": [
             "te-miru",
             "kedo"
@@ -2221,7 +2221,7 @@
         {
           "kind": "sentence",
           "ja": "ちかてつの きっぷを かっておく。",
-          "en": "I'll buy the underground ticket in advance",
+          "en": "I'll buy the subway ticket in advance",
           "exercises": [
             "te-oku",
             "no-possession"
@@ -2234,7 +2234,7 @@
           "answer": "I booked the hotel in advance last week",
           "distractors": [
             "I'll book the hotel in advance next week",
-            "I booked the underground ticket in advance last week",
+            "I booked the subway ticket in advance last week",
             "I didn't book the hotel last week"
           ],
           "exercises": [
@@ -2279,7 +2279,7 @@
         {
           "kind": "sentence",
           "ja": "しつもんを して こたえを きいてみた。",
-          "en": "I asked the question and heard what the answer was",
+          "en": "I asked the question to see what the answer was",
           "exercises": [
             "te-miru",
             "ta-form"
@@ -2717,7 +2717,7 @@
                 "By bicycle",
                 "By bus",
                 "On foot",
-                "By underground"
+                "By subway"
               ],
               "answer": "By bicycle"
             }
@@ -3055,7 +3055,7 @@
         {
           "kind": "sentence",
           "ja": "しつもんを して こたえを きいてみた。",
-          "en": "I asked the question and heard what the answer was",
+          "en": "I asked the question to see what the answer was",
           "exercises": [
             "te-miru",
             "ta-form"
@@ -3067,7 +3067,7 @@
           "audio": "だいがくが ちかいから じてんしゃに のってみる。",
           "answer": "The university is near, so I'll give the bicycle a go",
           "distractors": [
-            "The university is far, so I'll take the underground",
+            "The university is far, so I'll take the subway",
             "The school is near, so I'll give the bicycle a go",
             "The university is near, so I'll have a walk and see"
           ],
@@ -3170,7 +3170,7 @@
         {
           "kind": "sentence",
           "ja": "きっぷが たかかったから ちかてつに のってみた。",
-          "en": "The ticket was expensive, so I gave the underground a go",
+          "en": "The ticket was expensive, so I gave the subway a go",
           "exercises": [
             "te-miru",
             "ta-form",
@@ -5055,7 +5055,7 @@
     {
       "kana": "なつやすみ",
       "romaji": "natsuyasumi",
-      "gloss": "summer holiday",
+      "gloss": "summer vacation",
       "shortGloss": "summer break",
       "imageable": true,
       "kind": "vocab"
@@ -5549,8 +5549,8 @@
     {
       "kana": "やすみ",
       "romaji": "yasumi",
-      "gloss": "holiday, time off",
-      "shortGloss": "holiday",
+      "gloss": "vacation, day off",
+      "shortGloss": "vacation",
       "imageable": true,
       "kind": "vocab"
     },
@@ -6108,7 +6108,7 @@
     {
       "kana": "ちかてつ",
       "romaji": "chikatetsu",
-      "gloss": "underground train, subway",
+      "gloss": "subway",
       "shortGloss": "subway",
       "kind": "vocab"
     },
@@ -7055,8 +7055,8 @@
     {
       "kana": "ことば",
       "romaji": "kotoba",
-      "gloss": "word, language",
-      "shortGloss": "language",
+      "gloss": "word",
+      "shortGloss": "word",
       "kind": "vocab"
     },
     {
@@ -7843,7 +7843,7 @@
     {
       "kana": "いきません",
       "romaji": "ikimasen",
-      "gloss": "don't go, not travelling (polite)",
+      "gloss": "don't go, not traveling (polite)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -8159,7 +8159,7 @@
       "kana": "ちゃ",
       "romaji": "cha",
       "gloss": "tea",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -8167,7 +8167,7 @@
       "romaji": "kome",
       "gloss": "rice (uncooked)",
       "shortGloss": "rice (raw)",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -8269,7 +8269,7 @@
       "kana": "えん",
       "romaji": "en",
       "gloss": "yen",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -8290,7 +8290,7 @@
       "kana": "かね",
       "romaji": "kane",
       "gloss": "money",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {

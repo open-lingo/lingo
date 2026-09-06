@@ -467,22 +467,22 @@ lessons:
     introduces: [りょこう]
     beats:
       - { kind: sentence, ja: "りょこうの とき カメラを かう。", en: "When I travel, I buy a camera", exercises: [toki, no-possession], mode: build }
-      - { kind: sentence, ja: "なつやすみの とき うみに いった。", en: "When it was summer holiday, I went to the sea", exercises: [toki, no-possession, ta-form], mode: build }
+      - { kind: sentence, ja: "なつやすみの とき うみに いった。", en: "When it was summer vacation, I went to the sea", exercises: [toki, no-possession, ta-form], mode: build }
       - { kind: sentence, ja: "りょこうに いく とき あたらしい かばんを かう。", en: "When I go on a trip, I buy a new bag", exercises: [toki, ni-location, i-adj-present], mode: build }
       - { kind: sentence, ja: "じかんが ある とき えいがを みる。", en: "When I have time, I watch movies", exercises: [toki, ga-existence, dictionary-form], mode: listening }
       - { kind: sentence, ja: "じゅぎょうが ない とき ともだちと あそぶ。", en: "When there is no class, I hang out with friends", exercises: [toki, nai-existence, to-and], mode: build }
       - { kind: sentence, ja: "にほんに いった とき すしを たべた。", en: "When I went to Japan, I ate sushi", exercises: [toki, ta-form], mode: build }
-      - { kind: sentence, ja: "りょこうが すきな ひとと あそぶ。", en: "I hang out with a person who likes travelling", exercises: [ga-existence, na-adj-present, to-and], mode: build }
-      - { kind: sentence, ja: "なつやすみの とき うみに いく。", en: "Say to a friend: When it's the summer holiday, I go to the sea", exercises: [toki, ni-location], mode: translate }
+      - { kind: sentence, ja: "りょこうが すきな ひとと あそぶ。", en: "I hang out with a person who likes traveling", exercises: [ga-existence, na-adj-present, to-and], mode: build }
+      - { kind: sentence, ja: "なつやすみの とき うみに いく。", en: "Say to a friend: When it's the summer vacation, I go to the sea", exercises: [toki, ni-location], mode: translate }
       - { kind: particle-cloze, stem: "じかんが ある ", tail: " えいがを みる。", answer: "とき", options: ["とき", "こと", "ひと"], en: "When I have time, I watch movies", explanation: "とき is the noun 'time' — a clause in front of it says WHEN. こと would turn the clause into a thing instead." }
-      - { kind: listening-comp, audio: "なつやすみの とき ともだちと あそんだ。", answer: "When it was summer holiday, I hung out with a friend", distractors: ["I hang out with friends during the summer holiday", "When it was summer holiday, I worked", "I want to hang out with a friend in the summer"], exercises: [toki, ta-form] }
+      - { kind: listening-comp, audio: "なつやすみの とき ともだちと あそんだ。", answer: "When it was summer vacation, I hung out with a friend", distractors: ["I hang out with friends during the summer vacation", "When it was summer vacation, I worked", "I want to hang out with a friend in the summer"], exercises: [toki, ta-form] }
       - { kind: listening-comp, audio: "じかんが ない とき えいがを みない。", answer: "When I have no time, I don't watch movies", distractors: ["When I have time, I watch movies", "I have no time for movies today", "I didn't watch a movie because I had no time"], exercises: [toki, nai-existence] }
       - kind: dialogue
         lines:
-          - { speaker: "Tom", ja: "なつやすみの とき なにを した？", en: "What did you do over the summer holiday?" }
+          - { speaker: "Tom", ja: "なつやすみの とき なにを した？", en: "What did you do over the summer vacation?" }
           - { speaker: "Mika", ja: "ともだちと りょこうに いった。うみが きれいだった。", en: "I went on a trip with a friend. The sea was beautiful." }
         questions:
-          - { q: "What did Mika do over the summer holiday?", options: ["Went on a trip with a friend", "Worked at a company", "Stayed at home", "Went to university"], answer: "Went on a trip with a friend" }
+          - { q: "What did Mika do over the summer vacation?", options: ["Went on a trip with a friend", "Worked at a company", "Stayed at home", "Went to university"], answer: "Went on a trip with a friend" }
       - { kind: challenge, ja: "にほんに いった とき ミカが すきな みせで くつを かった。", en: "When I went to Japan, I bought shoes at the shop Mika likes", combines: [toki, ta-form, ga-existence, na-adj-present, de-action], mode: build }
     reviewPool: [とき, なつやすみ, えいが, じかん, かばん, カメラ, うみ, すし, じゅぎょう, くつ]
 
@@ -502,7 +502,7 @@ lessons:
       - { kind: sentence, ja: "りょこうに いく とき あたらしい かばんを かう。", en: "When I go on a trip, I buy a new bag", exercises: [toki, ni-location, i-adj-present], mode: build }
       - { kind: listening-comp, audio: "いそがしい とき ごはんを たべない。", answer: "When I'm busy, I don't eat", distractors: ["When I'm busy, I eat at the shop", "I don't eat because I'm busy today", "I was busy and didn't eat"], exercises: [toki, nai-form] }
       - { kind: sentence, ja: "ともだちと あそぶ ことは おもしろい。", en: "Hanging out with friends is fun", exercises: [no-ga-suki, i-adj-present], mode: build }
-      - { kind: sentence, ja: "なつやすみの とき うみに いく。", en: "Say to a friend: When it's the summer holiday, I go to the sea", exercises: [toki, ni-location], mode: translate }
+      - { kind: sentence, ja: "なつやすみの とき うみに いく。", en: "Say to a friend: When it's the summer vacation, I go to the sea", exercises: [toki, ni-location], mode: translate }
       - { kind: listening-comp, audio: "じかんが ある とき えいがを みる。", answer: "When I have time, I watch movies", distractors: ["When I had time, I watched a movie", "I want to watch a movie", "I have no time to watch movies"], exercises: [toki, ga-existence] }
       - { kind: sentence, ja: "わからない ことが ある。", en: "There is something I don't understand", exercises: [dictionary-form, nai-form, ga-existence], mode: build }
       - kind: dialogue
@@ -619,7 +619,7 @@ lessons:
       - { kind: sentence, ja: "きらいな ことが ない。", en: "There is nothing I dislike", exercises: [suki-kirai-no, na-adj-present, nai-existence], mode: build }
       - kind: dialogue
         lines:
-          - { speaker: "Tom", ja: "なつやすみの とき なにを した？", en: "What did you do over the summer holiday?" }
+          - { speaker: "Tom", ja: "なつやすみの とき なにを した？", en: "What did you do over the summer vacation?" }
           - { speaker: "Mika", ja: "りょこうに いった。うみで およぐ ことが すきだ。", en: "I went on a trip. I love swimming in the sea." }
         questions:
           - { q: "What does Mika say she likes?", options: ["Swimming in the sea", "Watching movies", "Buying shoes", "Working"], answer: "Swimming in the sea" }

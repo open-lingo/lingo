@@ -449,7 +449,7 @@ lessons:
       - { kind: sentence, ja: "この じゅぎょうは むずかしいと おもう。", en: "Say to a friend: I think this class is difficult", exercises: [desu-copula, to-omoimasu], mode: translate }
       - { kind: particle-cloze, stem: "ミカは ", tail: "と おもう。", answer: "がくせいだ", options: ["がくせいだ", "がくせい", "がくせいじゃない"], en: "I think Mika is a student", explanation: "a noun on its own is not a sentence — だ is what finishes it, and it survives in front of と. がくせいじゃない is the negative, \"isn't a student\"." }
       - { kind: listening-comp, audio: "この ほんは むずかしいと おもう。", answer: "I think this book is difficult", distractors: ["I think this book is fun", "I don't think this book is difficult", "I think this class is difficult"], exercises: [desu-copula, to-omoimasu] }
-      - { kind: listening-comp, audio: "なつやすみは たのしいと おもう。", answer: "I think the summer holiday is fun", distractors: ["I think the summer holiday is difficult", "I don't think the summer holiday is fun", "I think the class is fun"], exercises: [desu-copula, to-omoimasu] }
+      - { kind: listening-comp, audio: "なつやすみは たのしいと おもう。", answer: "I think the summer vacation is fun", distractors: ["I think the summer vacation is difficult", "I don't think the summer vacation is fun", "I think the class is fun"], exercises: [desu-copula, to-omoimasu] }
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "この じゅぎょうは どう？", en: "How is this class?" }

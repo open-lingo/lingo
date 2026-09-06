@@ -103,7 +103,7 @@
         },
         {
           "ja": "なつやすみに にほんに いく。",
-          "en": "I'm going to Japan for the summer holiday."
+          "en": "I'm going to Japan for the summer vacation."
         }
       ],
       "antiPattern": {
@@ -200,7 +200,7 @@
     },
     {
       "id": "ni-iku",
-      "rule": "To say WHY you are going somewhere, Japanese states the purpose first and the going second. Take the verb for what you will do, cut it back to its ます-stem — the piece that sits in front of ます — and hang に いく on the end. たべます minus ます is たべ, so 「たべに いく」 = I'm going to eat. のみます becomes のみ, giving 「のみに いく」; みます becomes み, giving 「みに いく」. The stem is not a new form and there is nothing extra to memorise: it is the piece you have been attaching ます to since module 7, now standing on its own with に behind it. Activity NOUNS skip the stem and take に directly — 「かいものに いく」, I'm going shopping; 「りょこうに いく」, I'm going travelling. くる and かえる work exactly the same way. The one thing to get right is that the DICTIONARY form never goes there: 「たべるに いく」 is wrong, it is 「たべに いく」.",
+      "rule": "To say WHY you are going somewhere, Japanese states the purpose first and the going second. Take the verb for what you will do, cut it back to its ます-stem — the piece that sits in front of ます — and hang に いく on the end. たべます minus ます is たべ, so 「たべに いく」 = I'm going to eat. のみます becomes のみ, giving 「のみに いく」; みます becomes み, giving 「みに いく」. The stem is not a new form and there is nothing extra to memorise: it is the piece you have been attaching ます to since module 7, now standing on its own with に behind it. Activity NOUNS skip the stem and take に directly — 「かいものに いく」, I'm going shopping; 「りょこうに いく」, I'm going traveling. くる and かえる work exactly the same way. The one thing to get right is that the DICTIONARY form never goes there: 「たべるに いく」 is wrong, it is 「たべに いく」.",
       "examples": [
         {
           "ja": "ごはんを たべに いく。",
@@ -434,7 +434,7 @@
     {
       "kana": "ちかてつ",
       "romaji": "chikatetsu",
-      "gloss": "underground train, subway",
+      "gloss": "subway",
       "shortGloss": "subway",
       "kind": "vocab"
     },
@@ -810,7 +810,7 @@
             {
               "speaker": "Tom",
               "ja": "なつやすみは どこへ いく？",
-              "en": "Where are you heading for the summer holiday?"
+              "en": "Where are you heading for the summer vacation?"
             },
             {
               "speaker": "Ken",
@@ -834,7 +834,7 @@
         {
           "kind": "challenge",
           "ja": "あしたは やすみだから ともだちと うみへ いく。",
-          "en": "Tomorrow is a holiday, so I'm heading to the sea with a friend",
+          "en": "Tomorrow is a day off, so I'm heading to the sea with a friend",
           "combines": [
             "e-direction",
             "desu-copula",
@@ -2909,6 +2909,7 @@
     }
   ],
   "priorVocab": [
+    "あかい",
     "あけて",
     "あけない",
     "あける",
@@ -2972,6 +2973,7 @@
     "ううん",
     "うえ",
     "うた",
+    "うたう",
     "うち",
     "うま",
     "うみ",
@@ -3036,6 +3038,7 @@
     "かばん",
     "かめ",
     "かようび",
+    "から",
     "からだ",
     "かわ",
     "かわない",
@@ -3271,6 +3274,7 @@
     "ひと",
     "ひとつ",
     "ひとり",
+    "ひま",
     "ひゃく",
     "ふく",
     "ふたつ",
@@ -3636,7 +3640,6 @@
       "romaji": "gogo",
       "gloss": "p.m., afternoon",
       "shortGloss": "p.m.",
-      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -4183,6 +4186,13 @@
       "kind": "vocab"
     },
     {
+      "kana": "ひま",
+      "romaji": "hima",
+      "gloss": "free time",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "たべたい",
       "romaji": "tabetai",
       "gloss": "want to eat",
@@ -4401,7 +4411,7 @@
     {
       "kana": "なつやすみ",
       "romaji": "natsuyasumi",
-      "gloss": "summer holiday",
+      "gloss": "summer vacation",
       "shortGloss": "summer break",
       "imageable": true,
       "kind": "vocab"
@@ -4503,6 +4513,28 @@
       "romaji": "hayai",
       "gloss": "early",
       "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "とりにく",
+      "romaji": "toriniku",
+      "gloss": "chicken meat",
+      "shortGloss": "chicken",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あかい",
+      "romaji": "akai",
+      "gloss": "red",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うたう",
+      "romaji": "utau",
+      "gloss": "to sing",
+      "imageable": true,
       "kind": "vocab"
     },
     {
@@ -4816,6 +4848,14 @@
       "kind": "vocab"
     },
     {
+      "kana": "から",
+      "romaji": "kara",
+      "gloss": "from (origin)",
+      "shortGloss": "from",
+      "imageable": false,
+      "kind": "particle"
+    },
+    {
       "kana": "さむい",
       "romaji": "samui",
       "gloss": "cold (weather)",
@@ -4865,8 +4905,8 @@
     {
       "kana": "やすみ",
       "romaji": "yasumi",
-      "gloss": "holiday, time off",
-      "shortGloss": "holiday",
+      "gloss": "vacation, day off",
+      "shortGloss": "vacation",
       "imageable": true,
       "kind": "vocab"
     },
@@ -5674,7 +5714,7 @@
     {
       "kana": "いきません",
       "romaji": "ikimasen",
-      "gloss": "don't go, not travelling (polite)",
+      "gloss": "don't go, not traveling (polite)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -5990,7 +6030,7 @@
       "kana": "ちゃ",
       "romaji": "cha",
       "gloss": "tea",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -5998,7 +6038,7 @@
       "romaji": "kome",
       "gloss": "rice (uncooked)",
       "shortGloss": "rice (raw)",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -6100,7 +6140,7 @@
       "kana": "えん",
       "romaji": "en",
       "gloss": "yen",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -6121,7 +6161,7 @@
       "kana": "かね",
       "romaji": "kane",
       "gloss": "money",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {

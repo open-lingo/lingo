@@ -375,7 +375,7 @@ newAtoms:
   # ══ L6 — the span, the month suffix, and the module's second picture debut.
   - { kana: まで, romaji: made, gloss: "until, as far as", shortGloss: "until", imageable: false, kind: vocab }
   - { kana: がつ, romaji: gatsu, gloss: "month (in a date)", shortGloss: "month", imageable: false, kind: vocab }
-  - { kana: やすみ, romaji: yasumi, gloss: "holiday, time off", shortGloss: "holiday", imageable: true, kind: vocab }
+  - { kana: やすみ, romaji: yasumi, gloss: "vacation, day off", shortGloss: "vacation", imageable: true, kind: vocab }
   # ══ L7 — ませんでした. ORDER MATTERS (inv 37): the ramp takes the FIRST THREE
   #    in-scope entries of this list, so the three drilled are the three the
   #    masu-past-negative card spells out, and each of their BASES (たべる /
@@ -620,7 +620,7 @@ lessons:
       - { kind: sentence, ja: "ごじまで まつ。", en: "I'll wait until five", exercises: [made-until, counter-ji], mode: build }
       - { kind: sentence, ja: "いちがつから さんがつまで さむい。", en: "It's cold from January to March", exercises: [made-until, kara-origin], mode: build }
       - { kind: sentence, ja: "あさから いそがしい。", en: "I've been busy since morning", exercises: [kara-origin, i-adj-present], mode: listening }
-      - { kind: sentence, ja: "やすみは ろくがつから くがつまでだ。", en: "The holiday runs from June to September", exercises: [made-until, kara-origin, desu-copula], mode: build }
+      - { kind: sentence, ja: "やすみは ろくがつから くがつまでだ。", en: "The vacation runs from June to September", exercises: [made-until, kara-origin, desu-copula], mode: build }
       - { kind: sentence, ja: "にほんから アメリカまで いく。", en: "I'll go from Japan to America", exercises: [made-until, kara-origin], mode: build }
       - { kind: sentence, ja: "あさから ばんまで えいがを みた。", en: "I watched movies from morning till evening", exercises: [made-until, kara-origin, ta-form], mode: build }
       - { kind: sentence, ja: "さんじまで まつ。", en: "Say to a friend: I'll wait until three", exercises: [made-until], mode: translate }
@@ -629,11 +629,11 @@ lessons:
       - { kind: listening-comp, audio: "ろくがつから じゅうがつまで うみに いく。", answer: "I go to the sea from June to October", distractors: ["I go to the sea from October to June", "I went to the sea in June", "I don't go to the sea until October"], exercises: [made-until, kara-origin] }
       - kind: dialogue
         lines:
-          - { speaker: "Mika", ja: "やすみは いつ？", en: "When is your holiday?" }
+          - { speaker: "Mika", ja: "やすみは いつ？", en: "When is your vacation?" }
           - { speaker: "Tom", ja: "ろくがつから。くがつまで にほんに いる。", en: "From June. I'll be in Japan until September." }
         questions:
-          - { q: "When does Tom's holiday start?", options: ["June", "September", "January", "March"], answer: "June" }
-      - { kind: challenge, ja: "なつやすみは ろくがつから くがつまでだから りょこうに いく。", en: "The summer holiday runs from June to September, so I'm going on a trip", combines: [made-until, kara-because, kara-origin, ni-location], mode: build }
+          - { q: "When does Tom's vacation start?", options: ["June", "September", "January", "March"], answer: "June" }
+      - { kind: challenge, ja: "なつやすみは ろくがつから くがつまでだから りょこうに いく。", en: "The summer vacation runs from June to September, so I'm going on a trip", combines: [made-until, kara-because, kara-origin, ni-location], mode: build }
     reviewPool: [さむい, うち, ので, けど, じかん, にほん, えき, ほん, ともだち, なつやすみ]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -649,7 +649,7 @@ lessons:
       - { kind: sentence, ja: "ゆきだけど いく。", en: "It's snowing, but I'll go", exercises: [kedo, desu-copula], mode: build }
       - { kind: sentence, ja: "あさから いそがしい。", en: "I've been busy since morning", exercises: [kara-origin, i-adj-present], mode: build }
       - { kind: particle-cloze, stem: "いそがしい", tail: " いく。", answer: "けど", options: ["けど", "ので", "から"], en: "I'm busy, but I'll go", explanation: "the second half goes against the first, so it is けど. ので and から would make being busy the reason for going." }
-      - { kind: sentence, ja: "やすみは ろくがつから くがつまでだ。", en: "The holiday runs from June to September", exercises: [made-until, kara-origin], mode: build }
+      - { kind: sentence, ja: "やすみは ろくがつから くがつまでだ。", en: "The vacation runs from June to September", exercises: [made-until, kara-origin], mode: build }
       - { kind: listening-comp, audio: "ここは しずかだけど すきじゃない。", answer: "It's quiet here, but I don't like it", distractors: ["It's quiet here, so I like it", "It's noisy here, but I like it", "I don't like quiet places"], exercises: [kedo, na-adj-negative] }
       - { kind: sentence, ja: "ごじまで まつ。", en: "I'll wait until five", exercises: [made-until, counter-ji], mode: build }
       - { kind: sentence, ja: "さむいけど うみに いく。", en: "Say to a friend: It's cold, but I'm going to the sea", exercises: [kedo, ni-location], mode: translate }
@@ -843,7 +843,7 @@ lessons:
       - { kind: sentence, ja: "にほんから ともだちが くる。", en: "A friend is coming from Japan", exercises: [kara-origin, ga-existence], mode: build }
       - { kind: sentence, ja: "じかんが なかったから いかなかった。", en: "Say to a friend: I had no time, so I didn't go", exercises: [nai-form, kara-because], mode: translate }
       - { kind: listening-comp, audio: "ぜんぜん おもしろくなかった。", answer: "It wasn't interesting at all", distractors: ["It was interesting", "It wasn't expensive at all", "It wasn't quiet at all"], exercises: [nai-form, i-adj-past-negative] }
-      - { kind: sentence, ja: "やすみは ろくがつから くがつまでだ。", en: "The holiday runs from June to September", exercises: [made-until, kara-origin], mode: build }
+      - { kind: sentence, ja: "やすみは ろくがつから くがつまでだ。", en: "The vacation runs from June to September", exercises: [made-until, kara-origin], mode: build }
       - { kind: sentence, ja: "さむかったから いきませんでした。", en: "Say politely: I didn't go because it was cold", exercises: [masu-past-negative, kara-because], mode: build }
       # Packs 5+6 coverage (2026-07-30): the classroom and habits words land
       # in L10/L11 before this review — same rationale as m13/m14's R3
@@ -891,7 +891,7 @@ lessons:
       - { kind: listening-comp, audio: "ゆきだったから きっぷを いちまいも かわなかった。", answer: "It was snowing, so I didn't buy even one ticket", distractors: ["It was snowing, so I bought one ticket", "It's snowing, so I won't buy a ticket", "I bought one ticket in the snow"], exercises: [kara-because, counter-mai, nai-form] }
       - kind: dialogue
         lines:
-          - { speaker: "Tanaka", ja: "なつやすみは どうでしたか。", en: "How was your summer holiday?" }
+          - { speaker: "Tanaka", ja: "なつやすみは どうでしたか。", en: "How was your summer vacation?" }
           - { speaker: "Tom", ja: "ろくがつから くがつまで にほんに いきました。ゆきが ぜんぜん なかったので うみに いきました。", en: "I went to Japan from June to September. There was no snow at all, so I went to the sea." }
         questions:
           - { q: "Where did Tom go?", options: ["To the sea", "To America", "To the station", "To the coffee shop"], answer: "To the sea" }

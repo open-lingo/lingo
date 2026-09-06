@@ -581,7 +581,7 @@
     {
       "kana": "なつやすみ",
       "romaji": "natsuyasumi",
-      "gloss": "summer holiday",
+      "gloss": "summer vacation",
       "shortGloss": "summer break",
       "imageable": true,
       "kind": "vocab"
@@ -2271,7 +2271,7 @@
         {
           "kind": "sentence",
           "ja": "わたしは なつやすみが すきだ。",
-          "en": "I like the summer holiday",
+          "en": "I like the summer vacation",
           "exercises": [
             "wa-topic",
             "suki-kirai-no"
@@ -2281,7 +2281,7 @@
         {
           "kind": "sentence",
           "ja": "わたしの すきな いろは あかい。",
-          "en": "The colour I like is red",
+          "en": "The color I like is red",
           "exercises": [
             "no-possession",
             "suki-kirai-no",
@@ -2357,7 +2357,7 @@
             {
               "speaker": "Tom",
               "ja": "なつやすみは すき？",
-              "en": "Do you like the summer holiday?"
+              "en": "Do you like the summer vacation?"
             },
             {
               "speaker": "Mika",
@@ -2369,12 +2369,12 @@
             {
               "q": "What does Mika say?",
               "options": [
-                "She likes the summer holiday and wants to go to the sea",
-                "She doesn't like the summer holiday",
+                "She likes the summer vacation and wants to go to the sea",
+                "She doesn't like the summer vacation",
                 "She wants to go to the mountain",
-                "She likes the sea but not the holiday"
+                "She likes the sea but not the vacation"
               ],
-              "answer": "She likes the summer holiday and wants to go to the sea"
+              "answer": "She likes the summer vacation and wants to go to the sea"
             }
           ]
         },
@@ -3227,7 +3227,7 @@
         {
           "kind": "sentence",
           "ja": "なつやすみに にほんに いきたい。",
-          "en": "I want to go to Japan in the summer holiday",
+          "en": "I want to go to Japan in the summer vacation",
           "exercises": [
             "ni-time",
             "ni-location",
@@ -3327,7 +3327,7 @@
             {
               "speaker": "Tom",
               "ja": "なつやすみは なにが したい？",
-              "en": "What do you want to do in the summer holiday?"
+              "en": "What do you want to do in the summer vacation?"
             },
             {
               "speaker": "Mika",
@@ -3337,7 +3337,7 @@
           ],
           "questions": [
             {
-              "q": "What does Mika want for the summer holiday?",
+              "q": "What does Mika want for the summer vacation?",
               "options": [
                 "To go to Japan and eat good sushi",
                 "To stay home and eat sushi",
@@ -3430,7 +3430,7 @@
         {
           "kind": "sentence",
           "ja": "なつやすみに ともだちと うみに いきたい。",
-          "en": "I want to go to the sea with a friend in the summer holiday",
+          "en": "I want to go to the sea with a friend in the summer vacation",
           "exercises": [
             "ni-time",
             "ni-location",
@@ -3518,7 +3518,7 @@
             {
               "speaker": "Tanaka",
               "ja": "なつやすみは なにが したいですか。",
-              "en": "What would you like to do in the summer holiday?"
+              "en": "What would you like to do in the summer vacation?"
             },
             {
               "speaker": "Tom",
@@ -3528,7 +3528,7 @@
           ],
           "questions": [
             {
-              "q": "What does Tom want to do in the summer holiday?",
+              "q": "What does Tom want to do in the summer vacation?",
               "options": [
                 "Go to Japan and eat good food",
                 "Stay in America and study",
@@ -3542,7 +3542,7 @@
         {
           "kind": "challenge",
           "ja": "なつやすみに ミカと にほんの ゆうめいな みせで おいしい すしが たべたい。",
-          "en": "I want to eat good sushi with Mika at a famous shop in Japan in the summer holiday",
+          "en": "I want to eat good sushi with Mika at a famous shop in Japan in the summer vacation",
           "combines": [
             "ni-time",
             "no-possession",
@@ -5005,7 +5005,7 @@
     {
       "kana": "いきません",
       "romaji": "ikimasen",
-      "gloss": "don't go, not travelling (polite)",
+      "gloss": "don't go, not traveling (polite)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -5330,7 +5330,7 @@
       "kana": "ちゃ",
       "romaji": "cha",
       "gloss": "tea",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -5338,7 +5338,7 @@
       "romaji": "kome",
       "gloss": "rice (uncooked)",
       "shortGloss": "rice (raw)",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -5440,7 +5440,7 @@
       "kana": "えん",
       "romaji": "en",
       "gloss": "yen",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -5461,7 +5461,7 @@
       "kana": "かね",
       "romaji": "kane",
       "gloss": "money",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {

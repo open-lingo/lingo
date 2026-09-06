@@ -55,7 +55,7 @@ notes: |
   DEEPEN target. So はず, かもしれない and にちがいない appear nowhere here, not
   even as recognition — pre-empting them would spend m43's contrast material
   and leave the learner with four half-taught rungs instead of one solid one.
-  What m25 ships is the m25 rung and its two neighbours in REGISTER (だろう
+  What m25 ships is the m25 rung and its two neighbors in REGISTER (だろう
   below, でしょ beside), plus the two adverbs that agree with it.
 
   **だろう IS RECOGNITION, and the ONE production carve-out is 何だろう.** The
@@ -255,7 +255,7 @@ grammarPoints:
     examples:
       - { ja: "あしたは さむいでしょう。", en: "It'll probably be cold tomorrow." }
       - { ja: "やまは とおいでしょう。", en: "The mountain's probably a long way off." }
-      - { ja: "その えいがは おもしろいでしょう。", en: "That film's probably interesting." }
+      - { ja: "その えいがは おもしろいでしょう。", en: "That movie's probably interesting." }
       - { ja: "としょかんは しずかでしょう。", en: "The library's probably quiet." }
       - { ja: "きょうは あたたかいでしょう。", en: "It's probably mild today." }
     antiPattern: { ja: "あしたは さむいだでしょう。", why: "an い-adjective is already a complete sentence and never takes だ — in front of でしょう or anywhere else: あしたは さむいでしょう。" }
@@ -271,7 +271,7 @@ grammarPoints:
     antiPattern: { ja: "あした あめが ふるだでしょう。", why: "a verb is already a whole sentence and never takes だ — でしょう attaches to the dictionary form as it stands: あした あめが ふるでしょう。" }
 
   - id: ni-time
-    rule: "The four seasons — はる spring, なつ summer, あき autumn, ふゆ winter — are ordinary nouns, and the particle you put on one decides what kind of sentence you are making. は TOPICS the season — you are about to say what it is LIKE: 「ふゆは さむい」, winter is cold. に says WHEN something happened or will happen: 「はるに さくらを みる」, I look at the cherry blossom in spring. That に is module 11's に and the rule has not changed a word: it goes on times you could point to on a calendar or a clock, and a season is exactly that kind of time. The trap is putting に on the first kind of sentence. 「ふゆに さむい」 is wrong, because nothing HAPPENS in it — cold is not an event, it is what winter is like, and そこ needs は. Test yourself with one question: is there a verb? If there is an event, に is available. If you are only describing the season, use は. Two small notes. なつ and なつやすみ are different words — one is the season, one is the holiday inside it. And the seasons pair naturally with everything you learned last module about comparing: 「なつは はるより あつい」."
+    rule: "The four seasons — はる spring, なつ summer, あき autumn, ふゆ winter — are ordinary nouns, and the particle you put on one decides what kind of sentence you are making. は TOPICS the season — you are about to say what it is LIKE: 「ふゆは さむい」, winter is cold. に says WHEN something happened or will happen: 「はるに さくらを みる」, I look at the cherry blossom in spring. That に is module 11's に and the rule has not changed a word: it goes on times you could point to on a calendar or a clock, and a season is exactly that kind of time. The trap is putting に on the first kind of sentence. 「ふゆに さむい」 is wrong, because nothing HAPPENS in it — cold is not an event, it is what winter is like, and そこ needs は. Test yourself with one question: is there a verb? If there is an event, に is available. If you are only describing the season, use は. Two small notes. なつ and なつやすみ are different words — one is the season, one is the vacation inside it. And the seasons pair naturally with everything you learned last module about comparing: 「なつは はるより あつい」."
     examples:
       - { ja: "ふゆは さむいでしょう。", en: "Winter's probably cold." }
       - { ja: "はるに やまで さくらを みる。", en: "I look at the cherry blossom on the mountain in spring." }
@@ -286,7 +286,7 @@ grammarPoints:
       - { ja: "あした たぶん あめでしょう。", en: "It'll probably rain tomorrow." }
       - { ja: "なつは きっと あついでしょう。", en: "Summer's definitely going to be hot." }
       - { ja: "ミカは たぶん こないでしょう。", en: "Mika probably won't come." }
-      - { ja: "なつやすみは きっと たのしいでしょう。", en: "The summer holidays will definitely be fun." }
+      - { ja: "なつやすみは きっと たのしいでしょう。", en: "The summer vacation will definitely be fun." }
       - { ja: "たぶん あきは すずしいでしょう。", en: "Autumn's probably cool." }
     antiPattern: { ja: "あした あめ たぶん でしょう。", why: "たぶん is an adverb and sits in FRONT of the sentence — it can never come between the noun and でしょう: あした たぶん あめでしょう。" }
 
@@ -314,7 +314,7 @@ grammarPoints:
     rule: "でしょ is でしょう with the tail clipped, and the shortening does what shortening always does in Japanese — it makes the sentence casual. 「あした あめでしょ。」 is 「あした あめでしょう。」 said to a friend. Attachment does not change: だ still disappears after a noun, an い-adjective still takes it bare. But でしょ has a second job that でしょう barely does, and it is the reason you will hear it forty times a day. Say it with a RISING contour and it stops being a guess and becomes an appeal: 「あついでしょ？」 — it's hot, right? You are not informing the listener and you are not really asking either; you are handing them a thought you are confident they share and inviting them to agree. English does this with a tag question — isn't it, right?, don't you think? — and Japanese does it with でしょ？. Two things follow. First, it only works when you genuinely expect agreement, so it is a warm move between friends and a pushy one with a stranger. Second, keep it out of polite conversation entirely: with a teacher or in a shop, the neutral でしょう is what you want."
     examples:
       - { ja: "あついでしょ？", en: "It's hot, right?" }
-      - { ja: "その えいがは おもしろいでしょ？", en: "That film's interesting, right?" }
+      - { ja: "その えいがは おもしろいでしょ？", en: "That movie's interesting, right?" }
       - { ja: "あしたは やすみでしょ？", en: "Tomorrow's a day off, right?" }
       - { ja: "ミカは くるでしょ？", en: "Mika's coming, right?" }
       - { ja: "あした あめでしょ。", en: "It'll probably rain tomorrow. — falling, just casual でしょう" }
@@ -418,12 +418,12 @@ lessons:
       - { kind: sentence, ja: "あさは すずしいでしょうけど ばんは あついでしょう。", en: "The morning will probably be cool, but the evening will probably be hot", exercises: [deshou-adjective, kedo, wa-topic], mode: build }
       - { kind: sentence, ja: "この ホテルは たかいけど きれいでしょう。", en: "This hotel's expensive, but it's probably lovely", exercises: [deshou-adjective, na-adj-present, kedo, kono-sono-ano-dono], mode: build }
       - { kind: sentence, ja: "にほんの りょうりは おいしいでしょう。", en: "Japanese food is probably delicious", exercises: [deshou-adjective, no-possession, wa-topic], mode: build }
-      - { kind: sentence, ja: "なつやすみは いそがしいけど たのしいでしょう。", en: "The summer holidays are busy, but they're probably fun", exercises: [deshou-adjective, kedo, i-adj-present], mode: listening }
+      - { kind: sentence, ja: "なつやすみは いそがしいけど たのしいでしょう。", en: "The summer vacation are busy, but they're probably fun", exercises: [deshou-adjective, kedo, i-adj-present], mode: listening }
       - { kind: sentence, ja: "ふるい いえは さむいでしょう。", en: "An old house is probably cold", exercises: [deshou-adjective, i-adj-present], mode: build }
       - { kind: sentence, ja: "やまは とおいけど まどから みえるでしょう。", en: "The mountain's far away, but you can probably see it from the window", exercises: [deshou-adjective, mieru-kikoeru, kedo, kara-origin], mode: build }
       - { kind: sentence, ja: "あしたは あたたかいでしょう。", en: "It'll probably be mild tomorrow", exercises: [deshou-adjective], mode: translate }
       - { kind: particle-cloze, stem: "あさは ", tail: "でしょうけど ばんは あついでしょう。", answer: "すずしい", options: ["すずしい", "あつい", "さむい"], en: "The morning will probably be cool, but the evening will probably be hot", explanation: "すずしい is the pleasant cool of an early morning. あつい is hot — the opposite half of this sentence — and さむい is properly cold." }
-      - { kind: listening-comp, audio: "なつやすみは あついでしょう。", answer: "The summer holidays will probably be hot", distractors: ["The summer holidays were hot", "The summer holidays definitely won't be hot", "The summer holidays are busy"], exercises: [deshou-adjective, wa-topic] }
+      - { kind: listening-comp, audio: "なつやすみは あついでしょう。", answer: "The summer vacation will probably be hot", distractors: ["The summer vacation were hot", "The summer vacation definitely won't be hot", "The summer vacation are busy"], exercises: [deshou-adjective, wa-topic] }
       - { kind: listening-comp, audio: "としょかんは しずかでしょう。", answer: "The library's probably quiet", distractors: ["The library is quiet", "The library was quiet", "The library probably isn't quiet"], exercises: [deshou-adjective, na-adj-present] }
       - kind: dialogue
         lines:
@@ -431,7 +431,7 @@ lessons:
           - { speaker: "Tom", ja: "うん。やまは すずしいでしょう。", en: "Yeah. The mountains will probably be cool, though." }
         questions:
           - { q: "What does Tom say about the mountains?", options: ["They'll probably be cool", "They'll probably be hot", "They'll probably be cold", "He has never been"], answer: "They'll probably be cool" }
-      - { kind: challenge, ja: "きょうは すずしいけど なつやすみは やまも あついでしょう。", en: "It's cool today, but in the summer holidays even the mountains will probably be hot", combines: [deshou-adjective, kedo, wa-topic, mo-also, i-adj-present], mode: build }
+      - { kind: challenge, ja: "きょうは すずしいけど なつやすみは やまも あついでしょう。", en: "It's cool today, but in the summer vacation even the mountains will probably be hot", combines: [deshou-adjective, kedo, wa-topic, mo-also, i-adj-present], mode: build }
     reviewPool: [てんき, はれ, あめ, ホテル, としょかん, りょうり, なつやすみ, いえ, やま, ゆき]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -529,7 +529,7 @@ lessons:
       - { kind: sentence, ja: "あした たぶん あめでしょう。", en: "Tomorrow will most likely be rain", exercises: [tabun-kitto, deshou], mode: build }
       - { kind: sentence, ja: "なつは きっと あついでしょう。", en: "Summer's definitely going to be hot", exercises: [tabun-kitto, deshou-adjective, ni-time], mode: build }
       - { kind: sentence, ja: "ミカは いそがしいから たぶん こないでしょう。", en: "Mika's busy, so she probably won't come", exercises: [tabun-kitto, deshou-verb, nai-form, kara-because], mode: build }
-      - { kind: sentence, ja: "なつやすみは きっと たのしいでしょう。", en: "The summer holidays will definitely be fun", exercises: [tabun-kitto, deshou-adjective, wa-topic], mode: build }
+      - { kind: sentence, ja: "なつやすみは きっと たのしいでしょう。", en: "The summer vacation will definitely be fun", exercises: [tabun-kitto, deshou-adjective, wa-topic], mode: build }
       - { kind: sentence, ja: "あきは たぶん すずしいでしょう。", en: "Autumn's probably cool", exercises: [tabun-kitto, deshou-adjective, ni-time], mode: listening }
       - { kind: sentence, ja: "きっと ばんに ほしが みえるでしょう。", en: "You'll definitely be able to see the stars in the evening", exercises: [tabun-kitto, mieru-kikoeru, deshou-verb, ni-time], mode: build }
       - { kind: sentence, ja: "たぶん あしたの じゅぎょうは むずかしいでしょう。", en: "Tomorrow's class is probably going to be difficult", exercises: [tabun-kitto, deshou-adjective, no-possession], mode: build }
@@ -539,10 +539,10 @@ lessons:
       - { kind: listening-comp, audio: "あきは きっと すずしいでしょう。", answer: "Autumn will definitely be cool", distractors: ["Autumn is probably cool", "Autumn was cool", "Autumn definitely isn't cool"], exercises: [tabun-kitto, deshou-adjective] }
       - kind: dialogue
         lines:
-          - { speaker: "Ken", ja: "あしたの えいがに いく？", en: "Are you going to tomorrow's film?" }
+          - { speaker: "Ken", ja: "あしたの えいがに いく？", en: "Are you going to tomorrow's movie?" }
           - { speaker: "Mika", ja: "じゅぎょうが あるから たぶん いかない。", en: "I've got class, so probably not." }
         questions:
-          - { q: "Why is Mika probably not going?", options: ["She has class", "She has already seen it", "It'll rain", "She is going travelling"], answer: "She has class" }
+          - { q: "Why is Mika probably not going?", options: ["She has class", "She has already seen it", "It'll rain", "She is going traveling"], answer: "She has class" }
       - { kind: challenge, ja: "あしたは たぶん くもりでしょうけど あさは ほしが みえるでしょう。", en: "Tomorrow will probably be cloudy, but you'll probably be able to see the stars in the morning", combines: [tabun-kitto, deshou, mieru-kikoeru, kedo, wa-topic], mode: build }
     reviewPool: [はる, なつ, あき, ふゆ, あつい, すずしい, てんき, あめ, ゆき, ほし]
 
@@ -560,7 +560,7 @@ lessons:
       - { kind: sentence, ja: "あの ひとは だれかな。", en: "I wonder who that person over there is", exercises: [kana-wondering, dare, kono-sono-ano-dono], mode: build }
       - { kind: sentence, ja: "あしたの じゅぎょうは なんじかな。", en: "I wonder what time tomorrow's class is", exercises: [kana-wondering, counter-ji, no-possession], mode: listening }
       - { kind: sentence, ja: "ふゆに やまで ゆきが みえるかな。", en: "I wonder whether you can see snow on the mountain in winter", exercises: [kana-wondering, mieru-kikoeru, ni-time, de-action], mode: build }
-      - { kind: sentence, ja: "なつやすみに りょこうが できるかな。", en: "I wonder whether I'll be able to travel in the summer holidays", exercises: [kana-wondering, dekiru, ni-time], mode: build }
+      - { kind: sentence, ja: "なつやすみに りょこうが できるかな。", en: "I wonder whether I'll be able to travel in the summer vacation", exercises: [kana-wondering, dekiru, ni-time], mode: build }
       - { kind: sentence, ja: "あした ゆきかな。", en: "Say to a friend: I wonder if it'll snow tomorrow", exercises: [kana-wondering], mode: translate }
       - { kind: particle-cloze, stem: "あの ひとは ", tail: "かな。", answer: "だれ", options: ["だれ", "どこ", "なんじ"], en: "I wonder who that person over there is", explanation: "だれ asks about a person. どこ asks about a place and なんじ asks about a time — neither fits ひと." }
       - { kind: listening-comp, audio: "あきは すずしいかな。", answer: "I wonder whether autumn's cool", distractors: ["Autumn's probably cool", "Was autumn cool?", "Autumn definitely isn't cool"], exercises: [kana-wondering, ni-time] }
@@ -585,7 +585,7 @@ lessons:
       - { kind: sentence, ja: "あした たぶん あめでしょう。", en: "Tomorrow will most likely be rain", exercises: [tabun-kitto, deshou], mode: build }
       - { kind: sentence, ja: "あの ひとは だれかな。", en: "I wonder who that person over there is", exercises: [kana-wondering, dare], mode: listening }
       - { kind: sentence, ja: "あきは すずしいから さんぽを する。", en: "Autumn's cool, so I go for a walk", exercises: [ni-time, kara-because], mode: build }
-      - { kind: sentence, ja: "なつやすみは きっと たのしいでしょう。", en: "The summer holidays will definitely be fun", exercises: [tabun-kitto, deshou-adjective], mode: build }
+      - { kind: sentence, ja: "なつやすみは きっと たのしいでしょう。", en: "The summer vacation will definitely be fun", exercises: [tabun-kitto, deshou-adjective], mode: build }
       - { kind: particle-cloze, stem: "なつは ", tail: "より あついでしょう。", answer: "あき", options: ["あき", "はる", "ふゆ"], en: "Summer's probably hotter than autumn", explanation: "あき is autumn, the season this sentence measures summer against. はる is spring and ふゆ is winter." }
       - { kind: sentence, ja: "ミカは じてんしゃで くるかな。", en: "I wonder if Mika's coming by bicycle", exercises: [kana-wondering, de-action], mode: build }
       - { kind: listening-comp, audio: "はるに やまで さくらを みる。", answer: "I look at the cherry blossom on the mountain in spring", distractors: ["I looked at the cherry blossom on the mountain in spring", "I want to look at the cherry blossom on the mountain in spring", "You can see cherry blossom on the mountain in spring"], exercises: [ni-time, de-action] }
@@ -596,7 +596,7 @@ lessons:
       - { kind: sentence, ja: "あしたの じゅぎょうは なんじかな。", en: "I wonder what time tomorrow's class is", exercises: [kana-wondering, counter-ji], mode: build }
       - kind: dialogue
         lines:
-          - { speaker: "Ken", ja: "なつやすみに りょこうを する？", en: "Are you travelling in the summer holidays?" }
+          - { speaker: "Ken", ja: "なつやすみに りょこうを する？", en: "Are you traveling in the summer vacation?" }
           - { speaker: "Mika", ja: "たぶん。あきの ほうが すずしいけど。", en: "Probably. Autumn's cooler, though." }
         questions:
           - { q: "What does Mika say about autumn?", options: ["It's cooler", "It's hotter", "It's warmer", "It rains more"], answer: "It's cooler" }
@@ -619,8 +619,8 @@ lessons:
       - { kind: sentence, ja: "この おんがくは なんだろう。", en: "I wonder what this music is", exercises: [darou, kono-sono-ano-dono], mode: build }
       - { kind: sentence, ja: "これは なんだろう。", en: "Say to a friend: I wonder what this is", exercises: [darou], mode: translate }
       - { kind: particle-cloze, stem: "これは なん", tail: "。", answer: "だろう", options: ["だろう", "だった", "でした"], en: "I wonder what this is", explanation: "だろう after a question word is thinking out loud — I wonder what this is. だった and でした both put the question in the past." }
-      - { kind: listening-comp, audio: "あした あめだろう。", answer: "It'll probably rain tomorrow — said the blunt plain way", distractors: ["It rained yesterday", "It definitely won't rain tomorrow", "I wonder if it'll rain tomorrow"], exercises: [darou] }
-      - { kind: listening-comp, audio: "あきは すずしいだろう。", answer: "Autumn's probably cool — said the blunt plain way", distractors: ["Autumn was cool", "I wonder if autumn's cool", "Autumn definitely isn't cool"], exercises: [darou, ni-time] }
+      - { kind: listening-comp, audio: "あした あめだろう。", answer: "It'll probably rain tomorrow", distractors: ["It rained yesterday", "It definitely won't rain tomorrow", "I wonder if it'll rain tomorrow"], exercises: [darou] }
+      - { kind: listening-comp, audio: "あきは すずしいだろう。", answer: "Autumn's probably cool", distractors: ["Autumn was cool", "I wonder if autumn's cool", "Autumn definitely isn't cool"], exercises: [darou, ni-time] }
       - kind: dialogue
         lines:
           - { speaker: "Tom", ja: "これは なんだろう。" , en: "What is this, I wonder?" }
@@ -639,7 +639,7 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: deshou-casual }
       - { kind: sentence, ja: "きょうは あついでしょ？", en: "Say to a friend: It's hot today, right", exercises: [deshou-casual, wa-topic], mode: build }
-      - { kind: sentence, ja: "その えいがは おもしろいでしょ？", en: "Say to a friend: That film's interesting, right", exercises: [deshou-casual, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "その えいがは おもしろいでしょ？", en: "Say to a friend: That movie's interesting, right", exercises: [deshou-casual, kono-sono-ano-dono], mode: build }
       - { kind: sentence, ja: "あしたは やすみでしょ？", en: "Say to a friend: Tomorrow's a day off, right", exercises: [deshou-casual, wa-topic], mode: build }
       - { kind: sentence, ja: "ミカは じてんしゃで くるでしょ？", en: "Say to a friend: Mika's coming by bicycle, right", exercises: [deshou-casual, de-action], mode: build }
       - { kind: sentence, ja: "ふゆの かわは さむいでしょ？", en: "Say to a friend: The river in winter is cold, right", exercises: [deshou-casual, ni-time, no-possession], mode: listening }
@@ -647,7 +647,7 @@ lessons:
       - { kind: sentence, ja: "たなかせんせいの じゅぎょうは むずかしいでしょう。", en: "Tanaka's class is probably difficult", exercises: [deshou-adjective, no-possession], mode: build }
       - { kind: sentence, ja: "きょうは さむいでしょ？", en: "Say to a friend: It's cold today, right", exercises: [deshou-casual], mode: translate }
       - { kind: particle-cloze, stem: "きょうは あつい", tail: "？", answer: "でしょ", options: ["でしょ", "でしょう", "だった"], en: "It's hot today, right?", explanation: "でしょ is the clipped casual one, and rising it asks a friend to agree. でしょう is the neutral form you would use with anybody, and だった puts the whole thing in the past." }
-      - { kind: listening-comp, audio: "あの えいがは おもしろいでしょ？", answer: "That film's interesting, right?", distractors: ["That film's probably interesting", "Was that film interesting?", "That film definitely isn't interesting"], exercises: [deshou-casual, kono-sono-ano-dono] }
+      - { kind: listening-comp, audio: "あの えいがは おもしろいでしょ？", answer: "That movie's interesting, right?", distractors: ["That movie's probably interesting", "Was that movie interesting?", "That movie definitely isn't interesting"], exercises: [deshou-casual, kono-sono-ano-dono] }
       - { kind: listening-comp, audio: "なつの やまは すずしいでしょ？", answer: "The mountains in summer are cool, right?", distractors: ["The mountains in summer are probably cool", "The mountains in summer were cool", "Are the mountains cool in summer?"], exercises: [deshou-casual, ni-time] }
       - kind: dialogue
         lines:
@@ -669,7 +669,7 @@ lessons:
       - { kind: sentence, ja: "あした あめが ふると おもう。", en: "I think it'll rain tomorrow", exercises: [to-omoimasu, to-quotation, ga-existence], mode: build }
       - { kind: sentence, ja: "なつは あついと おもうけど あきは すずしいでしょう。", en: "I think summer's hot, but autumn's probably cool", exercises: [to-omoimasu, deshou-adjective, kedo, ni-time], mode: build }
       - { kind: sentence, ja: "あしたは はれだと おもう。", en: "I think it'll be clear tomorrow", exercises: [to-omoimasu, desu-copula], mode: build }
-      - { kind: sentence, ja: "その えいがは おもしろいと おもう。", en: "I think that film's interesting", exercises: [to-omoimasu, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "その えいがは おもしろいと おもう。", en: "I think that movie's interesting", exercises: [to-omoimasu, kono-sono-ano-dono], mode: build }
       - { kind: sentence, ja: "ミカは こないと おもう。", en: "I don't think Mika's coming", exercises: [to-omoimasu, nai-form, wa-topic], mode: listening }
       - { kind: sentence, ja: "ふゆの やまは きっと さむいでしょう。", en: "The mountains in winter will definitely be cold", exercises: [tabun-kitto, deshou-adjective, ni-time, no-possession], mode: build }
       - { kind: sentence, ja: "たなかせんせいは もう かいしゃに いったと おもう。", en: "I think Tanaka's already gone to the office", exercises: [to-omoimasu, ta-form, ni-location, mada-mou], mode: build }
@@ -700,7 +700,7 @@ lessons:
       - { kind: sentence, ja: "あしたは やすみでしょ？", en: "Say to a friend: Tomorrow's a day off, right", exercises: [deshou-casual], mode: build }
       - { kind: particle-cloze, stem: "あしたは はれ", tail: "と おもう。", answer: "だ", options: ["だ", "でしょ", "だろう"], en: "I think it'll be clear tomorrow", explanation: "と おもう quotes a whole plain sentence, so the noun keeps its だ. でしょ and だろう are endings — they finish a sentence instead of being quoted inside one." }
       - { kind: sentence, ja: "あしたは はれだと おもう。", en: "I think it'll be clear tomorrow", exercises: [to-omoimasu, desu-copula], mode: build }
-      - { kind: listening-comp, audio: "あきは すずしいだろう。", answer: "Autumn's probably cool — said the blunt plain way", distractors: ["I wonder if autumn's cool", "Autumn was cool", "Autumn definitely isn't cool"], exercises: [darou, ni-time] }
+      - { kind: listening-comp, audio: "あきは すずしいだろう。", answer: "Autumn's probably cool", distractors: ["I wonder if autumn's cool", "Autumn was cool", "Autumn definitely isn't cool"], exercises: [darou, ni-time] }
       - { kind: sentence, ja: "ミカは じてんしゃで くるでしょ？", en: "Say to a friend: Mika's coming by bicycle, right", exercises: [deshou-casual, de-action], mode: build }
       - { kind: sentence, ja: "これは なんだろう。", en: "Say to a friend: I wonder what this is", exercises: [darou], mode: translate }
       - { kind: listening-comp, audio: "ふゆの かわは さむいでしょ？", answer: "The river in winter is cold, right?", distractors: ["The river in winter is probably cold", "The river in winter was cold", "Is the river cold in winter?"], exercises: [deshou-casual, ni-time] }
@@ -723,7 +723,7 @@ lessons:
     beats:
       - { kind: sentence, ja: "ふゆに やまで ゆきが ふるでしょうけど はるは あたたかいでしょう。", en: "It'll probably snow on the mountain in winter, but spring will probably be mild", exercises: [ni-time, deshou-verb, deshou-adjective, kedo], mode: build }
       - { kind: sentence, ja: "たぶん あしたの あさは くもりでしょう。", en: "Tomorrow morning will probably be cloudy", exercises: [tabun-kitto, deshou, no-possession], mode: build }
-      - { kind: sentence, ja: "なつやすみに かぞくと りょこうが できるかな。", en: "I wonder whether I'll be able to travel with my family in the summer holidays", exercises: [kana-wondering, dekiru, ni-time, to-and], mode: listening }
+      - { kind: sentence, ja: "なつやすみに かぞくと りょこうが できるかな。", en: "I wonder whether I'll be able to travel with my family in the summer vacation", exercises: [kana-wondering, dekiru, ni-time, to-and], mode: listening }
       - { kind: sentence, ja: "この しゃしんは なんだろう。", en: "I wonder what this photo is", exercises: [darou, kono-sono-ano-dono, wa-topic], mode: build }
       - { kind: sentence, ja: "あきは すずしいでしょ？", en: "Say to a friend: Autumn's cool, right", exercises: [deshou-casual, ni-time], mode: build }
       - { kind: sentence, ja: "きっと なつは あきより あついと おもう。", en: "I think summer's definitely hotter than autumn", exercises: [to-omoimasu, tabun-kitto, yori-comparison, ni-time], mode: build }
