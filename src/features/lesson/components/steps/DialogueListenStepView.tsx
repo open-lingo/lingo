@@ -147,7 +147,9 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
   // module-cached AudioBuffers — first play decodes, replays are zero-cost).
   const sessionRef = useRef(0);
   const timeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
-  const [isPlaying, setIsPlaying] = useState(false);
+  // Only the setter survives the header control's removal (#8); the flag
+  // still gates the sequence so a second autoplay cannot overlap the first.
+  const [, setIsPlaying] = useState(false);
   const [activeLineIdx, setActiveLineIdx] = useState<number | null>(null);
   // Every line index that has started playing at least once (this mount) —
   // drives the "previous line stays readable" transcript treatment. Reset
@@ -398,35 +400,12 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
         explanation={step.explanation}
         hasSubmittedWrong={anyWrongCommit}
       />
-      {/* ── Header: replay control + speakers manifest ─────────────────── */}
-      <div className="flex shrink-0 items-center gap-4">
-        <button
-          type="button"
-          onClick={playSequence}
-          disabled={isPlaying}
-          className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_3px_0_0_rgb(var(--color-accent-hover))] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_0_0_rgb(var(--color-accent-hover))] active:translate-y-px active:shadow-[0_1px_0_0_rgb(var(--color-accent-hover))] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:shadow-[0_3px_0_0_rgb(var(--color-accent-hover))]"
-          aria-label={t("lesson.dialogueListen.replay", "Replay dialogue")}
-        >
-          <Icon name="play" size={24} />
-        </button>
-        <div className="min-w-0">
-          <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
-            {t(
-              "lesson.dialogueListen.listenLabel",
-              "Listen to the dialogue",
-            )}
-          </p>
-          <p className="text-sm font-medium text-text-secondary">
-            {isPlaying
-              ? t("lesson.dialogueListen.playing", "Playing…")
-              : t(
-                  "lesson.dialogueListen.replayHint",
-                  "▶ Replay dialogue",
-                )}
-          </p>
-        </div>
-      </div>
-
+      {/* No header play control (Spencer TestFlight #8, 2026-09-05: "get rid
+          of the playing listen button up top and only keep room for the
+          dialogue — they can replay individual lines"). The dialogue autoplays
+          on mount and every transcript row has its own replay button, so the
+          header was a second copy of a control the rows already carry, at the
+          cost of the vertical room the transcript needs on a phone. */}
       {/* ── Transcript (always visible, un-blurs as audio plays) ──────────
           Three-tier treatment (Spencer QA 2026-07-16: "a better view of the
           active and previous transcript line would help too") — the active

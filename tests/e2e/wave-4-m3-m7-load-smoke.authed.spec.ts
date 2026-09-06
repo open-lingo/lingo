@@ -113,8 +113,8 @@ test.describe("Wave 4 — M3-M7 load smoke", () => {
   test.skip("dialogue closers render the new dialogue_listen step type", async ({ page }) => {
     // After Wave 4B re-author lands, M3-7 / M4-7 / M5-7 / M6-8 / M7-8
     // should contain a `dialogue_listen` step. Visit each and look for
-    // the dialogue_listen view's distinctive copy ("Replay dialogue"
-    // button label, per DialogueListenStepView).
+    // the dialogue_listen view's distinctive copy ("Transcript" label —
+    // the header "Replay dialogue" button was removed 2026-09-06, #8).
     const closers = [
       { id: "ja-m3-7", title: "M3-7" },
       { id: "ja-m4-7", title: "M4-7" },
