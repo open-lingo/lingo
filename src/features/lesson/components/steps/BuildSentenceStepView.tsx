@@ -209,12 +209,20 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
     // Seed from the AUTHORED sentence — its spacing carries the word
     // grouping the variant regexes key on (きょうは, not きょう|は).
     const seed = step.targetSentence?.trim() || step.correctOrder.join(" ");
+    // Author-listed alternatives (`alsoAccepted`) ride the same expansion.
+    const seeds = [seed, ...(step.alsoAccepted ?? [])];
     return new Set(
-      expandAcceptedAnswers([seed], { moduleIndex }).map((v) =>
+      expandAcceptedAnswers(seeds, { moduleIndex }).map((v) =>
         normalizeTypedAnswer(v),
       ),
     );
-  }, [step.correctOrder, step.granularity, step.targetSentence, moduleIndex]);
+  }, [
+    step.correctOrder,
+    step.granularity,
+    step.targetSentence,
+    step.alsoAccepted,
+    moduleIndex,
+  ]);
   const isCorrect =
     JSON.stringify(placed) === JSON.stringify(step.correctOrder) ||
     (acceptedBuildSurfaces !== null &&

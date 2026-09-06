@@ -119,3 +119,30 @@ describe("build_sentence grading leniency", () => {
     expect(onComplete.mock.calls[0][3]).toBe("きょう これ");
   });
 });
+
+describe("build_sentence alsoAccepted (TestFlight #21)", () => {
+  // あさが いそがしいから is correct Japanese beside the authored あさ
+  // いそがしいから; the が tile is a floor distractor. The IR's `alsoAccept`
+  // reached translate steps only — builds ignored it.
+  function makeAsaStep(): BuildSentenceStep {
+    return {
+      id: "test-build-also",
+      type: "build_sentence",
+      prompt: "Build: The morning is busy, so I bought the ticket in advance",
+      targetSentence: "あさ いそがしいから きっぷを かっておいた",
+      tiles: ["あさ", "いそがしい", "から", "きっぷ", "を", "かっておいた", "が"],
+      correctOrder: ["あさ", "いそがしい", "から", "きっぷ", "を", "かっておいた"],
+      granularity: "word",
+      alsoAccepted: ["あさが いそがしいから きっぷを かっておいた"],
+    } as BuildSentenceStep;
+  }
+  it("accepts an author-listed alternative surface", () => {
+    const onComplete = vi.fn();
+    render(
+      <BuildSentenceStepView step={makeAsaStep()} onComplete={onComplete} onContinue={() => {}} />,
+    );
+    for (const t of ["あさ", "が", "いそがしい", "から", "きっぷ", "を", "かっておいた"]) fireEvent.click(bankButtonFor(t));
+    fireEvent.click(screen.getByRole("button", { name: /check/i }));
+    expect(onComplete).toHaveBeenCalledWith("test-build-also", true, undefined, "あさ が いそがしい から きっぷ を かっておいた");
+  });
+});

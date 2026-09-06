@@ -1613,7 +1613,10 @@
             "ta-form",
             "kara-because"
           ],
-          "mode": "build"
+          "mode": "build",
+          "alsoAccept": [
+            "あさが いそがしいから きっぷを かっておいた。"
+          ]
         },
         {
           "kind": "sentence",

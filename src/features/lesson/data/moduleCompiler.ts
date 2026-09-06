@@ -1227,6 +1227,11 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
             tiles,
             ex,
           );
+          // `alsoAccept` used to reach translate steps only; a build with a
+          // floor particle tile can assemble a second correct sentence too.
+          if (beat.alsoAccept?.length) {
+            step.alsoAccepted = beat.alsoAccept.map(clean);
+          }
         }
         // Track B (grammar SRS): carry the beat's declared grammar points
         // onto the step. `exercises` (sentence) and `combines` (challenge)

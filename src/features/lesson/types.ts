@@ -190,6 +190,14 @@ export type BuildSentenceStep = StepBase & {
   granularity: "word" | "character";
   targetAnnotation?: JapaneseAnnotation[];
   /**
+   * Additional CORRECT surfaces (authored `alsoAccept` in the IR), each
+   * expanded through the same variant machinery as `targetSentence`. A
+   * floor-drawn particle tile can make a second correct sentence (あさが
+   * いそがしいから beside あさ いそがしいから — TestFlight #21); the author
+   * lists it here and the build grades it right instead of "Not quite".
+   */
+  alsoAccepted?: string[];
+  /**
    * TRANSFORM MODE (n4-scoping §3 "sentence_transform" verdict: parametrize,
    * don't fork the type). When set, the JA source sentence renders above the
    * tile bank and the learner assembles its transformation (polite↔plain,

@@ -637,7 +637,7 @@ lessons:
       - { kind: sentence, ja: "ちかてつの きっぷを かっておく。", en: "I'll buy the subway ticket in advance", exercises: [te-oku, no-possession, wo-object], mode: build }
       - { kind: sentence, ja: "せんしゅう ホテルの よやくを しておいた。", en: "I booked the hotel in advance last week", exercises: [te-oku, ta-form, no-possession], mode: build }
       - { kind: sentence, ja: "とりあえず コーヒーを かっておく。", en: "First off, I'll buy some coffee in advance", exercises: [te-oku, wo-object], mode: listening }
-      - { kind: sentence, ja: "あさ いそがしいから きっぷを かっておいた。", en: "The morning is busy, so I bought the ticket in advance", exercises: [te-oku, ta-form, kara-because], mode: build }
+      - { kind: sentence, ja: "あさ いそがしいから きっぷを かっておいた。", en: "The morning is busy, so I bought the ticket in advance", exercises: [te-oku, ta-form, kara-because], mode: build, alsoAccept: ["あさが いそがしいから きっぷを かっておいた。"] }
       - { kind: sentence, ja: "らいげつ りょこうが あるから じゅんびを しておく。", en: "I've got a trip next month, so I'll get ready in advance", exercises: [te-oku, kara-because, ga-existence], mode: build }
       - { kind: sentence, ja: "ホテルの よやくを しておく。", en: "I'll book the hotel in advance", exercises: [te-oku, wo-object], mode: translate }
       - { kind: particle-cloze, stem: "あした りょこうに いくから じゅんびを ", tail: "。", answer: "しておく", options: ["しておく", "してみる", "する"], en: "I'm going on a trip tomorrow, so I'll get ready in advance", explanation: "a trip tomorrow is a deadline, so the helper is おく — you get ready now so that later it is done. してみる would only be finding out what getting ready is like, and bare する says you get ready without saying when." }
