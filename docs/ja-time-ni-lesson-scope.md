@@ -46,6 +46,7 @@ put it in m30 — the learner should have it long before ておく.
   the "Not quite" panel could surface the pitfall line above. That is the
   reactive-tip mechanism, today typed-only (`reactiveTipGate`); extend to
   builds when this lesson lands.
-- Sweep: any authored sentence with 〈relative time〉に in ja IR is wrong —
-  grep `(きょう|あした|きのう|今日|明日|昨日|こんしゅう|らいげつ|きょねん|まいにち)に\b`
-  before authoring, to be sure the course is not already teaching the error.
+- Sweep done 2026-09-06: the only 〈relative time〉に in the JA IR are two
+  `antiPattern` entries (m11 きょねんに, m13 けさに) whose `why` already states
+  the rule — so the course knows it, but only as a passing rule-card aside.
+  Reuse that `why` wording in the new lesson.
