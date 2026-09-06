@@ -53,7 +53,12 @@ const config: CapacitorConfig = {
  */
 const devServer = process.env.CAP_DEV_SERVER;
 if (devServer) {
-  config.server = { url: devServer, cleartext: true };
+  // `allowNavigation` — Capacitor treats any in-webview navigation whose URL
+  // does not START WITH `server.url` as external and hands it to Safari
+  // (WebViewDelegationHandler.swift:105). With a path in `CAP_DEV_SERVER`
+  // (the `/__sim` capture launcher) every SPA route would fail that prefix
+  // test, so the whole dev-server host is allowed instead.
+  config.server = { url: devServer, cleartext: true, allowNavigation: [new URL(devServer).hostname] };
 }
 
 // `CAP_DEV_LOGGING=1` forwards the webview console WITHOUT redirecting the app

@@ -279,6 +279,65 @@ function reviewQueueMiddleware(): Plugin {
   };
 }
 
+/**
+ * Simulator capture harness (dev-only). The iOS shell is synced with
+ * `CAP_DEV_SERVER=http://localhost:<port>/__sim`; each app launch hits this
+ * route and is redirected to whatever path `/tmp/lingo-sim-target` holds, so a
+ * capture script can drive the native WebKit view to any step by writing a
+ * file and relaunching the app — no deep-link plumbing needed.
+ */
+function simTargetMiddleware(): Plugin {
+  const targetFile = "/tmp/lingo-sim-target";
+  return {
+    name: "sim-target-middleware",
+    apply: "serve",
+    configureServer(server) {
+      server.middlewares.use("/__sim/report", (req, res) => {
+        // Geometry reports from `src/shared/dev/simProbe.ts` (the WKWebView
+        // cannot be measured from outside; Playwright numbers are Chromium's).
+        let body = "";
+        req.on("data", (c: Buffer) => { body += c.toString(); });
+        req.on("end", () => {
+          try {
+            fs.mkdirSync("artifacts/ux-loop", { recursive: true });
+            fs.appendFileSync("artifacts/ux-loop/sim-probe.jsonl", body.replace(/\n/g, " ") + "\n");
+          } catch { /* best effort */ }
+          res.statusCode = 204;
+          res.end();
+        });
+      });
+      server.middlewares.use("/__sim", (_req, res) => {
+        let target = "/";
+        try { target = fs.readFileSync(targetFile, "utf8").trim() || "/"; } catch { /* default */ }
+        // A same-document JS navigation, NOT a 302: Capacitor treats a
+        // server-side redirect off its configured `server.url` as an external
+        // navigation and hands it to Safari.
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "text/html; charset=utf-8");
+        res.setHeader("Cache-Control", "no-store");
+        // Same seeds as scripts/ux-loop/capture.mjs: past the FTUE arc, the
+        // placement prompt, the cookie banner and the funding strip, so the
+        // capture shows the step and not a modal.
+        const lang = /^\/([a-z]{2})\//.exec(target)?.[1] ?? "ja";
+        res.end(`<!doctype html><meta charset="utf-8"><script>
+try {
+  const key = "open-lingo-settings";
+  const raw = localStorage.getItem(key); const parsed = raw ? JSON.parse(raw) : {};
+  parsed.learning = { learningLanguageId: ${JSON.stringify(lang)}, uiLocale: "en", showAlphabetRomanization: true, showAlphabetFurigana: true, showRomaji: true, ftueArcSeen: true };
+  parsed.appearance = { ...(parsed.appearance ?? {}), themeId: "dark" }; // testers run dark
+  localStorage.setItem(key, JSON.stringify(parsed));
+  localStorage.setItem("lingo_placement_dismissed_v2_${lang}", "1");
+  localStorage.setItem("lingo:sim-probe", "1");
+  localStorage.setItem("open-lingo-cookie-consent", JSON.stringify({ essential: true, advertising: false, decidedAt: "2026-01-01T00:00:00.000Z" }));
+  sessionStorage.setItem("open-lingo-funding-collapsed", "1");
+} catch {}
+location.replace(${JSON.stringify(target)});
+</script>`);
+      });
+    },
+  };
+}
+
 function qaNotesMiddleware(): Plugin {
   const notesFile = "/tmp/lingo-qa-notes.json";
   return {
@@ -558,6 +617,7 @@ export default defineConfig(({ mode }) => {
     devLogMiddleware(),
     harnessDriverPlugin(),
     qaNotesMiddleware(),
+    simTargetMiddleware(),
     reviewQueueMiddleware(),
     spinePlanMiddleware(),
     cspMetaPlugin(env),

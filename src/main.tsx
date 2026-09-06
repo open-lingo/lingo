@@ -1,3 +1,4 @@
+import { installSimProbe } from "@/shared/dev/simProbe";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
@@ -45,6 +46,8 @@ import { AuthBypassBadge } from "@/shared/auth/AuthBypassBadge";
 import { warmLearnerPathOnIdle } from "@/shared/utils/routePrefetch";
 import "overlayscrollbars/overlayscrollbars.css";
 import "./index.css";
+
+installSimProbe();
 
 installDevLog();
 // Boot-time read so `?tester=1` is captured on landing and persists
