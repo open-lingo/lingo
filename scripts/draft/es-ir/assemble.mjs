@@ -169,6 +169,50 @@ export function makeAssembler({ frame, pool, moduleId, tense = "preterite" }) {
     return distractors;
   }
 
+  /** Mirror of buildAcceptance.ts coverWithTiles: lay the sentence out as
+   *  whole tiles (multi-word tiles allowed), each used at most as often as
+   *  the bank holds it; punctuation-fused tiles stay at their edge. */
+  function coverWithTiles(sentence, tiles, normFn) {
+    const words = sentence.split(" ").filter(Boolean);
+    const kinds = new Map();
+    for (const t of tiles) {
+      const n = normFn(t);
+      const k = kinds.get(n);
+      if (k) k.count++;
+      else kinds.set(n, { words: n.split(" "), opens: /^[¿¡]/.test(t), closes: /[?!.]$/.test(t), count: 1 });
+    }
+    const cands = [...kinds.values()].sort((a, b) => b.words.length - a.words.length);
+    let edge = null;
+    const rec = (i) => {
+      if (i === words.length) return true;
+      for (const c of cands) {
+        if (c.count === 0 || c.words.some((w, j) => words[i + j] !== w)) continue;
+        if ((c.opens && i !== 0) || (c.closes && i + c.words.length !== words.length)) { edge = `moves the punctuated tile «${c.words.join(" ")}» off its edge`; continue; }
+        c.count--; if (rec(i + c.words.length)) return true; c.count++;
+      }
+      return false;
+    };
+    return rec(0) ? null : (edge ?? "cannot be laid out from the bank's tiles");
+  }
+
+  function checkAlso(id, es, distractors, also) {
+    if (!Array.isArray(also)) throw new Error(`${id}: also must be a list`);
+    if (also.length > 3) throw new Error(`${id}: also lists ${also.length} alternates > max 3`);
+    const norm = (s) => bare(s).toLowerCase().replace(/[¿¡]/g, "").replace(/[.!?,;:]+/g, "").replace(/\s+/g, " ").trim();
+    const exact = norm(es);
+    const tiles = [...tileWords(es), ...distractors];
+    const seen = new Set();
+    for (const alt of also) {
+      const n = norm(alt);
+      if (n === exact) throw new Error(`${id}: also «${alt}» is the answer itself`);
+      if (seen.has(n)) throw new Error(`${id}: also «${alt}» listed twice`);
+      seen.add(n);
+      const why = coverWithTiles(n, tiles, norm);
+      if (why) throw new Error(`${id}: also «${alt}» ${why}`);
+    }
+    return also.map((a) => lower1(bare(a)));
+  }
+
   /** Atom surfaces a sentence exercises: its conjugated verb, its object noun,
    *  and its time marker. */
   const exercised = (p) => [p.conj, p.object, p.time].filter(Boolean);
@@ -346,7 +390,13 @@ export function makeAssembler({ frame, pool, moduleId, tense = "preterite" }) {
       requireLit(id, o, ["es", "en"]);
       requireAtoms(id, o);
       checkDistractors(id, o.es, o.tiles ?? []);
-      return `    build(\n      ${q(id)},\n      ${q(`Build: '${bare(o.en)}'`)},\n      ${q(lower1(bare(o.es)))},\n      [${[...tileWords(o.es), ...(o.tiles ?? [])].map(q).join(", ")}],\n      [${tileWords(o.es).map(q).join(", ")}],\n      [${o.atoms.map(q).join(", ")}],\n    ),`;
+      // `also:` — vetted alternative sentences (max 3), each buildable from
+      // the bank. Absent = exact grading; nothing is emitted. Mirrors
+      // lintAlsoAccepted in buildAcceptance.ts so the compile fails where
+      // the test would.
+      const also = checkAlso(id, o.es, o.tiles ?? [], o.also ?? []);
+      const alsoArg = also.length ? `,\n      [${also.map(q).join(", ")}]` : "";
+      return `    build(\n      ${q(id)},\n      ${q(`Build: '${bare(o.en)}'`)},\n      ${q(lower1(bare(o.es)))},\n      [${[...tileWords(o.es), ...(o.tiles ?? [])].map(q).join(", ")}],\n      [${tileWords(o.es).map(q).join(", ")}],\n      [${o.atoms.map(q).join(", ")}]${alsoArg},\n    ),`;
     },
 
     translateLit: (id, o) => {

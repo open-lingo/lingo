@@ -379,6 +379,10 @@ function lesson3(): LessonStep[] {
       revealNote:
         "Add the title and the greeting turns formal-friendly: «buenos días, señor». And that blue glow with the tiny m? «señor» is a he-word — the colors will quietly track this from now on.",
     },
+    // «señor» was receptive-only across the whole module while «señora»
+    // got two voicings (retention walk B4) — caught by the course-wide
+    // answer-position pin (2026-09-06). Printed first voicing.
+    speaking("es-m2v2-3-speak-senor", "buenos días señor", "good morning, sir", ["señor"]),
     vocabMcq(
       "es-m2v2-3-img-senora",
       { surface: "señora", meaningEn: "Mrs. / ma'am", emoji: "👩" },
@@ -570,6 +574,8 @@ function lesson4(): LessonStep[] {
       "yo soy Ana",
       ["yo", "soy", "Ana", "eres", "tú"],
       ["yo", "soy", "Ana"],
+      undefined,
+      ["soy Ana"],
     ),
     cloze(
       // Trial #2 — answer ERES, soy live (alternation, R5).
@@ -1511,8 +1517,10 @@ function lesson10(): LessonStep[] {
       "es-m2v2-10-build-soydeespana",
       "Build: 'I'm from Spain'",
       "soy de España",
-      ["soy", "de", "España", "eres", "me"],
+      ["soy", "de", "España", "eres", "me", "yo"],
       ["soy", "de", "España"],
+      undefined,
+      ["yo soy de España"],
     ),
     {
       id: "es-m2v2-10-hear-eeuu",

@@ -188,9 +188,9 @@ checkpoint: 8
 #   printed as a recall), mi familia (L6), ¿dónde está? (L8), gracias (all
 #   lessons, match filler).
 newAtoms:
-  - { surface: "hablar", meaningEn: "to speak", partOfSpeech: "verb", kind: "vocab" }
-  - { surface: "trabajar", meaningEn: "to work", partOfSpeech: "verb", kind: "vocab", hint: "j sounds like h — tra-ba-HAR" }
-  - { surface: "estudiar", meaningEn: "to study", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "hablar", meaningEn: "to speak", partOfSpeech: "verb", kind: "vocab", emoji: "🗣️" }
+  - { surface: "trabajar", meaningEn: "to work", partOfSpeech: "verb", kind: "vocab", hint: "j sounds like h — tra-ba-HAR", emoji: "👷" }
+  - { surface: "estudiar", meaningEn: "to study", partOfSpeech: "verb", kind: "vocab", emoji: "📚" }
   - { surface: "hablo", meaningEn: "I speak", partOfSpeech: "verb", kind: "vocab" }
   - { surface: "hablas", meaningEn: "you speak", partOfSpeech: "verb", kind: "vocab" }
   - { surface: "habla", meaningEn: "he/she speaks", partOfSpeech: "verb", kind: "vocab" }
@@ -199,9 +199,9 @@ newAtoms:
   - { surface: "estudio", meaningEn: "I study", partOfSpeech: "verb", kind: "vocab" }
   - { surface: "estudias", meaningEn: "you study", partOfSpeech: "verb", kind: "vocab" }
   - { surface: "estudia", meaningEn: "he/she studies", partOfSpeech: "verb", kind: "vocab" }
-  - { surface: "escuchar", meaningEn: "to listen", partOfSpeech: "verb", kind: "vocab" }
-  - { surface: "bailar", meaningEn: "to dance", partOfSpeech: "verb", kind: "vocab" }
-  - { surface: "cantar", meaningEn: "to sing", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "escuchar", meaningEn: "to listen", partOfSpeech: "verb", kind: "vocab", emoji: "👂" }
+  - { surface: "bailar", meaningEn: "to dance", partOfSpeech: "verb", kind: "vocab", emoji: "💃" }
+  - { surface: "cantar", meaningEn: "to sing", partOfSpeech: "verb", kind: "vocab", emoji: "🎤" }
   - { surface: "siempre", meaningEn: "always", partOfSpeech: "adverb", kind: "vocab", hint: "SYEM-preh" }
   - { surface: "nunca", meaningEn: "never", partOfSpeech: "adverb", kind: "vocab" }
   - { surface: "todos los días", meaningEn: "every day", partOfSpeech: "phrase", kind: "phrase" }

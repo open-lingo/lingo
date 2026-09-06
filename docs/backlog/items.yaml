@@ -3144,3 +3144,166 @@
     the stage-tail measurements in CLAUDE.md §Lesson UI: fix by container
     sizing + min-content rows, and verify with getBoundingClientRect
     measurements, not eyeballs.
+
+# ── 2026-09-06 build-alternates + FR-port session ──────────────────────
+
+- id: B109
+  title: KO build steps grade exact word order only; Korean order is freer than the one authored answer
+  status: open
+  severity: minor
+  effort: M
+  confidence: suspected
+  area: content
+  tags: [lang/ko, step/build_sentence, class/grading-strictness]
+  found: 2026-09-06
+  source: build-alternates session
+  detail: >
+    ES (44 steps) and FR (10 steps) now carry author-listed `alsoAccepted`
+    alternates (max 3) behind the optional field in buildAcceptance.ts. KO's
+    134 word-granularity builds still grade exact-only, and KO adverb/topic
+    placement is at least as flexible as Spanish, so a correct build can be
+    marked wrong. Needs a KO-literate brief (topic/adverb slots, particle
+    attachment never moves) and one author pass, same shape as the ES/FR
+    passes — then the same whole-tile cover lint.
+  evidence: >
+    Cross-language acceptance snapshot 2026-09-06: ko 134 build steps, 0
+    alternates, 0 generator lane (JA variants are kana-gated).
+  fix: >
+    Port the ES brief with KO rules; apply via the hand-authored `build()`
+    7th arg or the KO IR key; verify with the before/after snapshot.
+
+- id: B110
+  title: the ES IR assembler does not validate that an audioWimcq target is a registered atom
+  status: open
+  severity: minor
+  effort: S
+  confidence: verified
+  area: tooling
+  tags: [lang/es, step/word_image_mcq, system/ir-compiler]
+  found: 2026-09-02
+  source: m14 wave author report
+  detail: >
+    A fabricated `audioWimcq` target compiles cleanly and reaches the learner;
+    it is caught only downstream by the provenance bar guard, and only if the
+    word lands in `esSurfaces`. The assembler already throws for a distractor
+    that repeats the target, so the hook exists; it lacks the registry lookup.
+  evidence: >
+    `scripts/draft/es-ir/assemble.mjs` audioWimcq emitter checks only
+    distractor count and target/distractor collision.
+  fix: >
+    Load the registered-surface set the carrier allowlist is generated from
+    and throw on an unknown target surface at compile time.
+
+- id: B111
+  title: ES m16 cannot be briefed until a human walks a conjugation module — the checkpoint law's walk never happened
+  status: decision-needed
+  severity: major
+  effort: S
+  confidence: verified
+  area: pedagogy
+  tags: [lang/es, module/m11, module/m14, class/checkpoint-walk]
+  found: 2026-09-06
+  source: ES status review
+  detail: >
+    The first-conjugation-module checkpoint law (docs/es-m4-m10-wave-2026-08-24.md)
+    gates the next verb module on a walk. "Get to 15" superseded the m10 walk;
+    m11–m15 shipped gated but unwalked, and the tester feedback so far is
+    test-outs only (no speaking steps, no sims). JA's walks of m4/m5 produced
+    five invariants the gates had missed; expect the same here.
+  evidence: >
+    No ES walk feedback in docs/user-feedback/; testflight 2026-09-05 rows
+    14/16 are ES test-out layout bugs only.
+  fix: >
+    Spencer walks m11 or m14 (~20 min, /es/qa route), ledgers every failure;
+    the m16 brief carries the resulting invariants. Alternative: proceed to
+    m16 knowingly and schedule the walk after.
+
+- id: B112
+  title: hacer is registered with introducedAtModule 16, so from m16 every hacer form counts as prior and passes every automated gate
+  status: open
+  severity: major
+  effort: XS
+  confidence: verified
+  area: content
+  tags: [lang/es, module/m15, module/m16, class/gate-blind-spot]
+  found: 2026-09-02
+  source: m15 wave record
+  detail: >
+    m15 teaches hago/haces/hace and pins form discipline bespoke because the
+    shared gates cannot see hacer (its forms sit in ES_VERB_ENTRIES). At m16
+    the fold makes «hacemos»/«hacéis» PRIOR: an author can print them in an
+    answer position with no lesson teaching them and nothing fails.
+  evidence: >
+    docs/handoff-2026-09-02-es-m11-m15.md, "The gate is blind to two of the
+    five verbs"; m15.test.ts bespoke lane.
+  fix: >
+    The m16 brief must state hacer's status explicitly and m16.test.ts must
+    carry a bespoke hacer-forms pin (or the introducedAtModule must move to
+    where hacer is actually completed).
+
+- id: B113
+  title: nothing guards that every ES compiled mN.ts is reproducible from its IR — hand edits to compiled files are silently lost on recompile
+  status: open
+  severity: major
+  effort: S
+  confidence: verified
+  area: tooling
+  tags: [lang/es, system/ir-compiler, class/drift]
+  found: 2026-09-06
+  source: build-alternates session
+  detail: >
+    Commit 05635129 (emoji-refit) applied nine emoji decisions to compiled
+    m4/m5/m7/m9/m10.ts and never touched the IR; the next recompile dropped
+    them all. Found only because the diff was read line by line. The law
+    "never hand-edit compiled TS" has no enforcement.
+  evidence: >
+    2026-09-06 recompile of untouched m5/m7/m10 produced non-empty diffs;
+    all decisions since ported into the IR headers.
+  fix: >
+    A test (or preflight step) that compiles every ir/*.ir.yaml to a temp
+    path and asserts byte-equality with the committed mN.ts. Fail with the
+    diff so the author ports the hunk into the IR.
+
+- id: B114
+  title: the build-grader change (alsoAccepted lane) is on the web tree only until the iOS/Android bundles are rebuilt
+  status: note
+  severity: note
+  effort: XS
+  confidence: verified
+  area: engine
+  tags: [system/mobile, step/build_sentence, class/sibling-parity]
+  found: 2026-09-06
+  source: build-alternates session
+  detail: >
+    Sibling-parity record: JA inherits (kana lane unchanged, snapshot 0
+    non-additive changes across 3,676 steps), KO/FR inherit the field, test-outs
+    inherit (same view). The TestFlight/APK bundles carry it only after the
+    next mobile build; the UI session owns that rebuild.
+  evidence: >
+    src/features/lesson/components/steps/buildAcceptance.ts; cross-language
+    snapshot 2026-09-06.
+  fix: >
+    Tell the mobile session; no code change.
+
+- id: B115
+  title: the 2026-09-06 ES/FR gates, alternates and drift fixes are uncommitted on the working tree
+  status: open
+  severity: major
+  effort: XS
+  confidence: verified
+  area: tooling
+  tags: [lang/es, lang/fr, class/release]
+  found: 2026-09-06
+  source: build-alternates session
+  detail: >
+    52 modified + 2 new files: buildAcceptance grader + tests, ES/FR
+    answer-position gates, 47 ES + 10 FR alternates, emoji decisions ported
+    into IR, «cero»/«señor»/«zéro»/«café»/«monsieur»/«madame»/«maison»
+    production slots, tester-doc corrections. All suites green, tsc clean,
+    preflight NOT yet run.
+  evidence: >
+    git status on the lingo tree 2026-09-06; another session holds unrelated
+    dirty files (android/, docs/user-feedback/), so stage explicit paths.
+  fix: >
+    npm run preflight; branch; commit the listed paths; push; confirm deploy
+    conclusion and that prod serves the new entry chunk.

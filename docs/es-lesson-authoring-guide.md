@@ -665,3 +665,22 @@ learner actually said, es and fr, both recognizers); the pipeline
 `silent_letter` kind is BANNED (English speakers own silent letters
 already — the concept costs one info-card sentence, not an interactive
 type; drop the kind when fr recompiles from IR).
+
+## §14 — Build alternates (`also:`), 2026-09-06
+
+A `buildLit` may carry `also: ["…", "…"]` — up to **3** vetted alternative
+orders that grade correct alongside `es`. Absent = exact grading; do not add
+the key to steps with nothing to list. Each alternate must be laid out from
+`es` + `tiles` as WHOLE tiles (the compiler throws otherwise; the lint in
+`moduleContentLints` re-checks the compiled step). Grading lanes live in
+`src/features/lesson/components/steps/buildAcceptance.ts`.
+
+What to list: a fronted time/place adverb in its other slot («ahora voy a la
+playa» ↔ «voy a la playa ahora»); «también» either side; a 1st/2nd-person
+pronoun added or dropped when the tile is in the bank and the English does
+not stress it. What NOT to list: verb-first or object-fronted orders; any
+order the module teaches against (m6 noun-adjective, m10 siempre-before-verb,
+m13 «a X le gusta»); 3rd-person pronoun drops (they lose she/he); reorders
+of question steps whose tiles carry «¿…?»; a contrastive «yo … y ella …».
+The list grows from tester "this should be accepted" reports, not from
+speculation. m1–m15 record: 47 alternates on 44 of 246 builds.

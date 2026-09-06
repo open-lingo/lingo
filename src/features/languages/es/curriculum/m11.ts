@@ -598,6 +598,7 @@ const ES_M11_4: LessonContent = {
       ["como", "carne", "también", "pero", "bebes"],
       ["como", "carne", "también"],
       ["como", "carne", "también"],
+      ["también como carne"],
     ),
     {
       id: "es-m11-4-l4-map-comopanperocarne",
@@ -1598,6 +1599,7 @@ const ES_M11_9: LessonContent = {
       ["sofía", "come", "carne", "también", "como", "comes"],
       ["sofía", "come", "carne", "también"],
       ["come", "carne", "también"],
+      ["sofía también come carne"],
     ),
     {
       id: "es-m11-9-l9-match",

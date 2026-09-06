@@ -30,7 +30,12 @@ registerEsDoctrinePins({
   lessons: ES_M10_LESSONS,
   checkpointIndex: ES_M10_CHECKPOINT_INDEX,
 });
-registerEsAtomUsagePin("m10", ES_M10_LESSONS, ES_M10_ATOMS);
+registerEsAtomUsagePin("m10", ES_M10_LESSONS, ES_M10_ATOMS, {
+  // The L8 transfer test debuts «visitar» and demands «visito»; «visitas»
+  // and «visita» are registered ONLY so the didn't-pick-by-shape foil tiles
+  // are legible to the provenance gate. Producing them would hand the cell over.
+  neverProduced: ["visitas", "visita"],
+});
 
 const getLesson = (n: number) => ES_M10_LESSONS[n - 1].steps;
 const LESSONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as const;

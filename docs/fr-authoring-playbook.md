@@ -196,3 +196,18 @@ previous mastery sim's `explanation` before designing).
   for `aspect_choice_cloze` (imparfait later).
 - **m15 «La visite»** — grand consolidation; «en ville» unlocks; h-aspiré
   contrast beat; a real tour of everything.
+
+## Build alternates (`alsoAccepted`), 2026-09-06
+
+`build()` takes an optional 7th argument: up to **3** vetted alternative
+orders, each laid out from the bank as WHOLE tiles (multi-word tiles like
+«je vais» / «s'il vous plaît» count as one). Absent = exact grading. The FR
+content lint checks every listed alternate.
+
+French rules beyond the ES ones (es guide §14): elided tiles never move
+(«j'aime», «l'école», «n'aime»); `ne … pas` is a frame, not two adverbs;
+subject pronouns are NOT droppable; be conservative near liaison (m10).
+Safe: a fronted day/time word moved to the end of a statement; «s'il vous
+plaît» to the front of a bare noun request. Not safe: «aujourd'hui c'est …»
+inversions (m8's frame), «ici» fronting, conjunct swaps, any question step
+(the «?» is fused into a tile). m1–m10 record: 10 alternates on 100 builds.

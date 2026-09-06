@@ -19,6 +19,9 @@ registerFrModuleContentLints({
   lessons: FR_M1_MODULE.lessons,
   atoms: FR_M1_ATOMS,
   expectedLessonCount: 9,
+  // «bon» and «soir» are the two halves of «bonsoir», registered so the
+  // fused word decomposes; the learner produces «bonsoir», never the halves.
+  neverProduced: ["bon", "soir"],
 });
 registerFrModuleContentLints({
   moduleId: "m2",

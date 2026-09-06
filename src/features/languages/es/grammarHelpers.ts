@@ -240,6 +240,15 @@ export function sentenceMcq(opts: {
   explanation?: string;
   exercisedAtomSurfaces?: string[];
 }): MultipleChoiceStep {
+  // The tuple type is not checked at runtime (IR `mcq` passes a plain
+  // array). A 2-distractor call used to emit `{ text: undefined }` and crash
+  // the MCQ lint with "Cannot read properties of undefined (reading 'trim')"
+  // instead of naming the step. Found in the m15 wave.
+  if (opts.distractorsText.length !== 3 || opts.distractorsText.some((d) => !d)) {
+    throw new Error(
+      `sentenceMcq(${opts.id}): needs exactly 3 non-empty distractorsText, got ${JSON.stringify(opts.distractorsText)}`,
+    );
+  }
   const items = [
     { id: "correct", text: opts.correctText },
     { id: "opt-1", text: opts.distractorsText[0] },
@@ -277,6 +286,8 @@ export function build(
   tiles: string[],
   correctOrder: string[],
   exercisedAtomSurfaces?: string[],
+  /** Vetted alternative orders, max 3; omitted = exact grading. */
+  alsoAccepted?: string[],
 ): BuildSentenceStep {
   return {
     id,
@@ -285,6 +296,7 @@ export function build(
     targetSentence: target,
     tiles,
     correctOrder,
+    ...(alsoAccepted && alsoAccepted.length > 0 ? { alsoAccepted } : {}),
     granularity: "word",
     audioKey: target,
     exercisedAtoms: resolveAtomIds(exercisedAtomSurfaces),

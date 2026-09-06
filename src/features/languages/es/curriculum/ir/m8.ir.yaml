@@ -705,6 +705,7 @@ lessons:
         why: "Talking about the NEXT day, not today — «mañana»."
       - kind: buildLit
         id: b-hoyvsmanana
+        also: ["quiero café hoy"]
         es: "hoy quiero café"
         en: "today I want coffee"
         atoms: ["hoy", "quiero", "café"]
@@ -941,6 +942,7 @@ lessons:
           - { surface: "viernes", emoji: "💘" }
       - kind: buildLit
         id: b-review7
+        also: ["tengo sed hoy"]
         es: "hoy tengo sed"
         en: "today I'm thirsty"
         atoms: ["hoy", "tengo sed"]
@@ -1101,6 +1103,7 @@ lessons:
           - "On Saturday I'm thirsty."
       - kind: buildLit
         id: cp-build-2
+        also: ["quiero una manzana el viernes"]
         es: "el viernes quiero una manzana"
         en: "on Friday I want an apple"
         atoms: ["el", "viernes", "quiero", "una", "manzana"]
@@ -1170,6 +1173,7 @@ lessons:
           - { surface: "viernes", emoji: "💘" }
       - kind: buildLit
         id: b-summit1
+        also: ["quiero pan mañana"]
         es: "mañana quiero pan"
         en: "tomorrow I want bread"
         atoms: ["mañana", "quiero", "pan"]

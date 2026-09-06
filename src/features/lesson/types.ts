@@ -186,6 +186,15 @@ export type BuildSentenceStep = StepBase & {
   targetSentence: string;
   tiles: string[];
   correctOrder: string[];
+  /**
+   * Whole alternative sentences the author has vetted as equally correct
+   * (a fronted adverb moved to the end, an optional subject pronoun…),
+   * max 3 (`MAX_ALSO_ACCEPTED`). ABSENT = exact grading; steps with nothing
+   * to list carry no line. Each must be buildable from `tiles`
+   * (`lintAlsoAccepted`). Language-agnostic; JA additionally has the
+   * rule-based variant generator. See buildAcceptance.ts.
+   */
+  alsoAccepted?: string[];
   audioKey?: string;
   granularity: "word" | "character";
   targetAnnotation?: JapaneseAnnotation[];

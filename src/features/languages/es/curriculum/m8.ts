@@ -776,6 +776,7 @@ const ES_M8_5: LessonContent = {
       ["hoy", "quiero", "café", "mañana", "el"],
       ["hoy", "quiero", "café"],
       ["hoy", "quiero", "café"],
+      ["quiero café hoy"],
     ),
     {
       id: "es-m8-5-ear-hoymanana-b",
@@ -1108,6 +1109,7 @@ const ES_M8_7: LessonContent = {
       ["hoy", "tengo", "sed", "mañana", "el"],
       ["hoy", "tengo", "sed"],
       ["hoy", "tengo sed"],
+      ["tengo sed hoy"],
     ),
     {
       id: "es-m8-7-ear-review-numbers2",
@@ -1318,6 +1320,7 @@ const ES_M8_8: LessonContent = {
       ["el", "viernes", "quiero", "una", "manzana", "es", "jueves"],
       ["el", "viernes", "quiero", "una", "manzana"],
       ["el", "viernes", "quiero", "una", "manzana"],
+      ["quiero una manzana el viernes"],
     ),
     speaking("es-m8-8-cp-sp-2", "el sábado", "on Saturday", [], "recall"),
     cloze(
@@ -1409,6 +1412,7 @@ const ES_M8_9: LessonContent = {
       ["mañana", "quiero", "pan", "hoy", "el"],
       ["mañana", "quiero", "pan"],
       ["mañana", "quiero", "pan"],
+      ["quiero pan mañana"],
     ),
     {
       id: "es-m8-9-ear-summit2",

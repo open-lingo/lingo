@@ -32,7 +32,11 @@ registerEsDoctrinePins({
   lessons: ES_M11_LESSONS,
   checkpointIndex: ES_M11_CHECKPOINT_INDEX,
 });
-registerEsAtomUsagePin("m11", ES_M11_LESSONS, ES_M11_ATOMS);
+registerEsAtomUsagePin("m11", ES_M11_LESSONS, ES_M11_ATOMS, {
+  // «recibir» is the -ir transfer test: the learner produces «recibo» from
+  // a bank holding all three singular cells. «recibes»/«recibe» are foils.
+  neverProduced: ["recibes", "recibe"],
+});
 
 const getLesson = (n: number) => ES_M11_LESSONS[n - 1].steps;
 const LESSONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as const;

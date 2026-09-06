@@ -283,6 +283,7 @@ const ES_M15_2: LessonContent = {
       ["yo", "hago", "la", "tarea", "tengo", "hablo"],
       ["yo", "hago", "la", "tarea"],
       ["hago", "tarea"],
+      ["hago la tarea"],
     ),
     sentenceMcq({
       id: "es-m15-2-l2-q-hagohaco",
@@ -311,6 +312,7 @@ const ES_M15_2: LessonContent = {
       ["tú", "haces", "el", "trabajo", "hago", "tengo"],
       ["tú", "haces", "el", "trabajo"],
       ["haces", "trabajo"],
+      ["haces el trabajo"],
     ),
     infoStep(
       "es-m15-2-l2-info-solotuyo",
@@ -796,6 +798,7 @@ const ES_M15_4: LessonContent = {
       ["quiero", "salir", "hoy", "salgo", "sale"],
       ["quiero", "salir", "hoy"],
       ["quiero", "salir", "hoy"],
+      ["hoy quiero salir"],
     ),
     agreementCloze(
       "es-m15-4-l4-agree-salgoyviene",
@@ -1180,6 +1183,7 @@ const ES_M15_6: LessonContent = {
       ["hoy", "no", "tengo", "tarea", "tener", "tienes", "tiene"],
       ["hoy", "no", "tengo", "tarea"],
       ["tengo", "tarea"],
+      ["no tengo tarea hoy"],
     ),
     infoStep(
       "es-m15-6-l6-info-lafamilia",
@@ -1445,6 +1449,7 @@ const ES_M15_7: LessonContent = {
       ["veo", "a", "mi", "amigo", "hoy", "ve", "ver"],
       ["veo", "a", "mi", "amigo", "hoy"],
       ["veo", "amigo"],
+      ["hoy veo a mi amigo"],
     ),
     agreementCloze(
       "es-m15-7-l7-agree-go",
@@ -1625,6 +1630,7 @@ const ES_M15_8: LessonContent = {
       ["yo", "vengo", "a", "la", "fiesta", "temprano", "viene", "tarde"],
       ["yo", "vengo", "a", "la", "fiesta", "temprano"],
       ["vengo", "fiesta", "temprano"],
+      ["vengo a la fiesta temprano", "yo vengo temprano a la fiesta", "vengo temprano a la fiesta"],
     ),
     cloze(
       "es-m15-8-cp-cloze-1",
@@ -1716,6 +1722,7 @@ const ES_M15_8: LessonContent = {
       ["ella", "ve", "la", "película", "hoy", "veo", "ver"],
       ["ella", "ve", "la", "película", "hoy"],
       ["ve", "película"],
+      ["hoy ella ve la película"],
     ),
     listeningCompSentence({
       id: "es-m15-8-cp-lc-2",
@@ -1801,6 +1808,7 @@ const ES_M15_9: LessonContent = {
       ["vengo", "a", "la", "fiesta", "el", "sábado", "viene", "venir"],
       ["vengo", "a", "la", "fiesta", "el", "sábado"],
       ["vengo", "fiesta", "sábado"],
+      ["el sábado vengo a la fiesta"],
     ),
     speaking("es-m15-9-l9-sp-recall-1", "tengo un perro", "I have a dog", [], "recall"),
     listeningBuildSentence({
@@ -1917,6 +1925,7 @@ const ES_M15_10: LessonContent = {
       ["ana", "viene", "a", "mi", "casa", "mañana", "vengo", "venir"],
       ["ana", "viene", "a", "mi", "casa", "mañana"],
       ["viene", "casa"],
+      ["mañana ana viene a mi casa", "ana viene mañana a mi casa"],
     ),
     {
       id: "es-m15-10-l10-ear-1",

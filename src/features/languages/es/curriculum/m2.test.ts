@@ -10,6 +10,7 @@ import { describe, it, expect } from "vitest";
 import { ES_M2_ATOMS, ES_M2_LESSONS, ES_M2_PLACEMENT, ES_M2_CHECKPOINT_INDEX } from "./m2";
 import { registerEsModuleContentLints } from "../__tests__/moduleContentLints";
 import { registerEsModuleBarGuards } from "../__tests__/moduleBarGuards";
+import { registerEsAtomUsagePin } from "../__tests__/doctrinePins";
 import { ES_MODULE_ORDER } from "../grammarHelpers";
 import { isGradedStep } from "@/features/lesson/data/_stepPredicates";
 
@@ -25,6 +26,8 @@ registerEsModuleBarGuards({
   lessons: ES_M2_LESSONS,
   priorModules: ES_MODULE_ORDER.slice(0, ES_MODULE_ORDER.indexOf("m2")),
 });
+registerEsAtomUsagePin("m2", ES_M2_LESSONS, ES_M2_ATOMS);
+
 
 describe("ES M2 bespoke guards", () => {
   it("the placement bank carries the m2 facts (1 screener + 4 byModule)", () => {

@@ -384,6 +384,10 @@ function lesson3(): LessonStep[] {
       revealNote:
         "Add the title and the greeting turns properly polite: «bonjour monsieur». France runs on this. (The blue m again — «monsieur» is a blue-family word, like the pink f on «bonne nuit».)",
     },
+    // «monsieur»/«madame» were receptive-only for the whole module — caught
+    // by the answer-position pin (ported from ES, 2026-09-06). Printed
+    // first voicings; the same fix «señor» got in ES m2.
+    speaking("fr-m2v2-3-speak-bonjourmonsieur", "bonjour monsieur", "hello, sir", ["monsieur"]),
     {
       id: "fr-m2v2-3-img-madame",
       type: "word_image_mcq",
@@ -395,6 +399,7 @@ function lesson3(): LessonStep[] {
       ],
       correctOptionId: "correct",
     },
+    speaking("fr-m2v2-3-speak-bonjourmadame", "bonjour madame", "hello, ma'am", ["madame"]),
     listeningCompSentence({
       id: "fr-m2v2-3-lc-madame",
       audioText: "bonjour madame",

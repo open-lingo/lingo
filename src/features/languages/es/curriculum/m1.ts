@@ -556,7 +556,7 @@ function lesson4(): LessonStep[] {
       id: "es-m1v2-4-sim-hastaluego",
       type: "dialogue_sim",
       scene: {
-        emoji: "🚪",
+        emoji: "🚶",
         title: "Ana heads out",
         setting: "She'll be back tomorrow.",
       },
@@ -676,6 +676,10 @@ function lesson5(): LessonStep[] {
       revealNote:
         "«cero» — the soft c from the card: SE-ro. You just read a phone number's worth of Spanish digits.",
     },
+    // «cero» was offered (ear, map, MCQ, match) and never once produced —
+    // the course-wide answer-position pin (2026-09-06). Printed first
+    // voicing; the soft c is the whole point of saying it aloud.
+    speaking("es-m1v2-5-speak-cero", "cero", "zero", ["cero"]),
     {
       // The INTERLEAVE break — and a MIRROR exchange (§13.6): «mucho
       // gusto» is answered with itself in real Spanish. The line IS the

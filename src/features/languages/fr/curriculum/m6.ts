@@ -294,6 +294,8 @@ function lesson2(): LessonStep[] {
       "un sandwich et une salade s'il vous plaît",
       ["un", "sandwich", "et", "une", "salade", "s'il vous plaît", "ou"],
       ["un", "sandwich", "et", "une", "salade", "s'il vous plaît"],
+      undefined,
+      ["s'il vous plaît un sandwich et une salade"],
     ),
     listeningCompSentence({
       // TAIL: m5 lane — the plan that got you here.
@@ -428,6 +430,8 @@ function lesson3(): LessonStep[] {
       "encore une salade s'il vous plaît",
       ["encore", "une", "salade", "s'il vous plaît", "un"],
       ["encore", "une", "salade", "s'il vous plaît"],
+      undefined,
+      ["s'il vous plaît encore une salade"],
     ),
     listeningCompSentence({
       // TAIL: m2 origins lane, by ear.
@@ -594,6 +598,8 @@ function lesson4(): LessonStep[] {
       "encore un gâteau s'il te plaît",
       ["encore", "un", "gâteau", "s'il te plaît", "s'il vous plaît"],
       ["encore", "un", "gâteau", "s'il te plaît"],
+      undefined,
+      ["s'il te plaît encore un gâteau"],
     ),
     listeningCompSentence({
       // TAIL: m4 lane by ear.
@@ -1095,6 +1101,8 @@ function checkpointLesson(): LessonStep[] {
       "l'addition s'il vous plaît",
       ["l'addition", "s'il vous plaît", "encore", "un", "café"],
       ["l'addition", "s'il vous plaît"],
+      undefined,
+      ["s'il vous plaît l'addition"],
     ),
     {
       id: "fr-m6-8-hear-gateau",
@@ -1136,6 +1144,8 @@ function checkpointLesson(): LessonStep[] {
       "encore un café s'il vous plaît",
       ["encore", "un", "café", "s'il vous plaît", "s'il te plaît"],
       ["encore", "un", "café", "s'il vous plaît"],
+      undefined,
+      ["s'il vous plaît encore un café"],
     ),
     cloze(
       "fr-m6-8-cloze-stp",
@@ -1426,6 +1436,8 @@ function lesson10(): LessonStep[] {
       "encore un croissant s'il vous plaît",
       ["encore", "un", "croissant", "s'il vous plaît", "une"],
       ["encore", "un", "croissant", "s'il vous plaît"],
+      undefined,
+      ["s'il vous plaît encore un croissant"],
     ),
     {
       id: "fr-m6-10-hear-croissant",

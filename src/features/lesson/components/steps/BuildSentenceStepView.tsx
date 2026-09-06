@@ -1,8 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { seededShuffle } from "@/shared/utils/seededShuffle";
-import { expandAcceptedAnswers } from "./translateVariants";
-import { normalizeTypedAnswer } from "@/shared/speech";
+import { jaVariantSurfaces, alsoAcceptedSurfaces, isBuildCorrect } from "./buildAcceptance";
 import { getTrayOverride } from "../../data/devGates";
 import type { BuildSentenceStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
@@ -202,23 +201,14 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   // remaining sentence is correct Japanese). Word-granularity JA builds
   // only: character builds spell ONE word (exact by definition), and
   // listening builds stay exact — you build what you HEARD, は included.
-  const acceptedBuildSurfaces = useMemo(() => {
-    if (step.granularity !== "word") return null;
-    const target = step.correctOrder.join("");
-    if (!/[぀-ヿ]/.test(target)) return null;
-    // Seed from the AUTHORED sentence — its spacing carries the word
-    // grouping the variant regexes key on (きょうは, not きょう|は).
-    const seed = step.targetSentence?.trim() || step.correctOrder.join(" ");
-    return new Set(
-      expandAcceptedAnswers([seed], { moduleIndex }).map((v) =>
-        normalizeTypedAnswer(v),
-      ),
-    );
-  }, [step.correctOrder, step.granularity, step.targetSentence, moduleIndex]);
-  const isCorrect =
-    JSON.stringify(placed) === JSON.stringify(step.correctOrder) ||
-    (acceptedBuildSurfaces !== null &&
-      acceptedBuildSurfaces.has(normalizeTypedAnswer(placed.join(""))));
+  // The three lanes live in buildAcceptance.ts (pure, snapshot-tested across
+  // every course): exact → JA variants → author-listed `alsoAccepted`.
+  const acceptedBuildSurfaces = useMemo(
+    () => jaVariantSurfaces(step, moduleIndex),
+    [step, moduleIndex],
+  );
+  const alsoAccepted = useMemo(() => alsoAcceptedSurfaces(step), [step]);
+  const isCorrect = isBuildCorrect(placed, step, acceptedBuildSurfaces, alsoAccepted);
 
   // DISPLAY-ONLY kanji-fication (Spencer 2026-07-17): once the lesson's
   // module unlocks a tile word's kanji, the tile shows the kanji form

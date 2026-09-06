@@ -701,6 +701,9 @@ export function build(
   tiles: string[],
   correctOrder: string[],
   exercisedAtomSurfaces?: string[],
+  /** Vetted alternative orders, max 3; omitted = exact grading
+   *  (buildAcceptance.ts lane 3). Elided tiles never move. */
+  alsoAccepted?: string[],
 ): BuildSentenceStep {
   assertNoElisionBreach(id, correctOrder);
   return {
@@ -710,6 +713,7 @@ export function build(
     targetSentence: target,
     tiles,
     correctOrder,
+    ...(alsoAccepted && alsoAccepted.length > 0 ? { alsoAccepted } : {}),
     granularity: "word",
     audioKey: target,
     exercisedAtoms: resolveAtomIds(exercisedAtomSurfaces),

@@ -32,7 +32,7 @@ export const ES_M4_ATOMS: EsAtom[] = [
   atom({ surface: "cama", meaningEn: "bed", partOfSpeech: "noun", fromModule: "m4", kind: "vocab", gender: "f", emoji: "🛏️" }),
   atom({ surface: "baño", meaningEn: "bathroom", partOfSpeech: "noun", fromModule: "m4", kind: "vocab", gender: "m", emoji: "🚽", hint: "ny sound from ñ: BA-nyo" }),
   atom({ surface: "cocina", meaningEn: "kitchen", partOfSpeech: "noun", fromModule: "m4", kind: "vocab", gender: "f", emoji: "🍳", hint: "soft c, like cero: ko-SEE-na" }),
-  atom({ surface: "cuarto", emoji: "🛋️", meaningEn: "room", partOfSpeech: "noun", fromModule: "m4", kind: "vocab", gender: "m" }),
+  atom({ surface: "cuarto", meaningEn: "room", partOfSpeech: "noun", fromModule: "m4", kind: "vocab", gender: "m", emoji: "🛋️" }),
   atom({ surface: "allí", meaningEn: "there", partOfSpeech: "adverb", fromModule: "m4", kind: "vocab", hint: "ll sounds like y, just like llave: a-YEE" }),
   atom({ surface: "los", meaningEn: "the (el-words, plural)", partOfSpeech: "particle", fromModule: "m4", kind: "particle" }),
   atom({ surface: "las", meaningEn: "the (la-words, plural)", partOfSpeech: "particle", fromModule: "m4", kind: "particle" }),
@@ -245,6 +245,7 @@ const ES_M4_2: LessonContent = {
       ["hay", "una", "cocina", "aquí", "el", "la"],
       ["hay", "una", "cocina", "aquí"],
       ["hay", "una", "cocina", "aquí"],
+      ["aquí hay una cocina"],
     ),
     {
       id: "es-m4-2-ear-banococina",
@@ -650,6 +651,7 @@ const ES_M4_5: LessonContent = {
       ["hay", "tres", "fotos", "aquí", "las", "los"],
       ["hay", "tres", "fotos", "aquí"],
       ["hay", "tres", "foto", "aquí"],
+      ["aquí hay tres fotos"],
     ),
     cloze(
       "es-m4-5-c-lasfotos",
@@ -969,6 +971,7 @@ const ES_M4_7: LessonContent = {
       ["hay", "nueve", "fotos", "en", "la", "cama", "diez", "los"],
       ["hay", "nueve", "fotos", "en", "la", "cama"],
       ["hay", "nueve", "foto", "en", "la", "cama"],
+      ["en la cama hay nueve fotos"],
     ),
     {
       id: "es-m4-7-ear-numeros2",
@@ -1101,6 +1104,7 @@ const ES_M4_8: LessonContent = {
       ["hay", "ocho", "fotos", "en", "el", "baño", "nueve", "los"],
       ["hay", "ocho", "fotos", "en", "el", "baño"],
       ["hay", "ocho", "foto", "en", "el", "baño"],
+      ["en el baño hay ocho fotos"],
     ),
     cloze(
       "es-m4-8-cp-cloze-2",
@@ -1171,6 +1175,7 @@ const ES_M4_8: LessonContent = {
       ["hay", "diez", "llaves", "aquí", "nueve", "las"],
       ["hay", "diez", "llaves", "aquí"],
       ["hay", "diez", "llave", "aquí"],
+      ["aquí hay diez llaves"],
     ),
     cloze(
       "es-m4-8-cp-cloze-4",
@@ -1241,6 +1246,7 @@ const ES_M4_9: LessonContent = {
       ["hay", "nueve", "llaves", "en", "la", "casa", "ocho", "los"],
       ["hay", "nueve", "llaves", "en", "la", "casa"],
       ["hay", "nueve", "llave", "en", "la", "casa"],
+      ["en la casa hay nueve llaves"],
     ),
     {
       id: "es-m4-9-ear-review-noches",
@@ -1412,6 +1418,7 @@ const ES_M4_10: LessonContent = {
       ["hay", "diez", "llaves", "en", "la", "casa", "nueve", "los"],
       ["hay", "diez", "llaves", "en", "la", "casa"],
       ["hay", "diez", "llave", "en", "la", "casa"],
+      ["en la casa hay diez llaves"],
     ),
     {
       id: "es-m4-10-m-ear-1",
@@ -1470,6 +1477,7 @@ const ES_M4_10: LessonContent = {
       ["hay", "nueve", "fotos", "en", "la", "cocina", "ocho", "los"],
       ["hay", "nueve", "fotos", "en", "la", "cocina"],
       ["hay", "nueve", "foto", "en", "la", "cocina"],
+      ["en la cocina hay nueve fotos"],
     ),
     cloze(
       "es-m4-10-m-cloze-3",

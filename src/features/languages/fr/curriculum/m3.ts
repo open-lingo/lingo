@@ -883,6 +883,9 @@ function lesson6(): LessonStep[] {
       ],
       correctOptionId: "correct",
     },
+    // «maison» was offered in four recognition slots and never produced —
+    // answer-position pin (2026-09-06). Printed first voicing, article on.
+    speaking("fr-m3-6-speak-lamaison", "la maison", "the house", ["maison"]),
     listeningCompSentence({
       // Discrimination lane, trial 2 — answer DON'T (alternation, law 4).
       id: "fr-m3-6-lc-jenaimepaslethe",
