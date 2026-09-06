@@ -841,11 +841,11 @@
           "answer": "きいてみる",
           "options": [
             "きいてみる",
-            "たべてみる",
-            "つかってみる"
+            "きくみる",
+            "きいて"
           ],
           "en": "I don't understand, so I'll ask the teacher and see",
-          "explanation": "not understanding is a reason to ASK, so the て-form belongs to きく. たべてみる would put the teacher on a plate, and つかってみる would use them as a tool."
+          "explanation": "きいて is an unfinished て-form until a helper is parked behind it, and みる is what finishes it here. きくみる puts the helper on the dictionary form instead of the て-form, and きいて alone never gets to the finding out: わからないから せんせいに きいてみる。"
         },
         {
           "kind": "listening-comp",
@@ -1257,11 +1257,11 @@
           "answer": "しらべてみる",
           "options": [
             "しらべてみる",
-            "きめてみる",
-            "つづけてみる"
+            "しらべてみた",
+            "しらべる"
           ],
           "en": "I don't know the word, so I'll look it up in the dictionary and see",
-          "explanation": "a dictionary is where you look something up, so the て-form belongs to しらべる. きめてみる decides something rather than finding it out, and つづけてみる keeps going with something already started."
+          "explanation": "not knowing the word is a reason still ahead of you, so the helper stays non-past. しらべてみた already happened, and bare しらべる drops the helper — and the finding out — altogether."
         },
         {
           "kind": "listening-comp",
@@ -1853,11 +1853,11 @@
           "answer": "つけておく",
           "options": [
             "つけておく",
-            "けしておく",
-            "あらっておく"
+            "つけてみる",
+            "つける"
           ],
           "en": "It's cold, so I'll leave the light on",
-          "explanation": "cold is a reason to keep the light on, so the て-form belongs to つける. けしておく would turn it off, and あらっておく washes something rather than switching it on."
+          "explanation": "cold is a reason to leave the light on for later, so the helper is おく. つけてみる would only be trying the light out to see, and bare つける turns it on without saying anything stays that way."
         },
         {
           "kind": "listening-comp",
@@ -2215,11 +2215,11 @@
           "answer": "つけておく",
           "options": [
             "つけておく",
-            "けしておく",
-            "かっておく"
+            "つけてみる",
+            "つける"
           ],
           "en": "It's cold, so I'll leave the light on",
-          "explanation": "cold is a reason to keep the light on, so the て-form belongs to つける. けしておく would turn it off, and かっておく buys a light rather than switching one on."
+          "explanation": "cold is a reason to leave the light on for later, so the helper is おく. つけてみる would only be trying the light out to see, and bare つける turns it on without saying anything stays that way."
         },
         {
           "kind": "sentence",
@@ -2459,11 +2459,11 @@
           "answer": "とってみる",
           "options": [
             "とってみる",
-            "おくってみる",
-            "ならってみる"
+            "とっておく",
+            "とる"
           ],
           "en": "I'll have a go at taking a photo on the mountain",
-          "explanation": "a photo on a mountain is one you TAKE, so the て-form belongs to とる. おくってみる would send a photo you have not taken yet, and ならってみる takes lessons from somebody."
+          "explanation": "a photo you're curious how it will turn out is one you take and see, so the helper is みる. とっておく would be taking it now so it's already done for later, and bare とる just takes it without any of that."
         },
         {
           "kind": "listening-comp",
