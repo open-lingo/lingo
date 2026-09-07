@@ -1,0 +1,2414 @@
+module: m16
+title: "Lo veo — the word that stands in for the thing"
+frame: none
+throughModule: m15
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m16 — direct-object pronouns lo / la / los / las.
+#
+#     ¿el libro?   lo veo        ¿la camisa?   la veo
+#     ¿los boletos? los tengo    ¿las llaves?  las busco
+#
+# ONE rule, the whole module: a thing you have just named does not get
+# named again — a short word stands in for it, and that word takes the
+# GENDER and NUMBER of the thing it replaces. The learner already owns three
+# of the four words (la / los / las are the articles from m3/m4); the new
+# claim is that they can appear WITHOUT a noun, in front of the verb.
+#
+# PLACEMENT is the second, smaller claim, and it is one line: the pronoun
+# goes IMMEDIATELY BEFORE the conjugated verb — «lo veo», «no lo veo»,
+# «lo quiero ver» (before «quiero», the verb that carries the person).
+# NOTHING in this module attaches a pronoun to an infinitive («verlo»,
+# «comprarlo»). Those are real Spanish and they are NOT taught here: every
+# such fused form is an unregistered surface and fails the provenance gate
+# if printed anywhere `esSurfaces` reads — including a guillemet span on an
+# info card. Do not mention them. m17 may.
+#
+# ── «lo» IS A FUNCTION WORD WITH ZERO PRIOR EXPOSURE ─────────────────────
+# `lo` sits in ES_FUNCTION_WORDS, so every gate LICENSES it without evidence
+# the learner has ever met it — the m12 «son» hole exactly. Verified 2026-09-07:
+# «lo» appears in NO shipped ES lesson m1–m15. It is NOT registered as an atom
+# (closed-class; registering would collide with the function-word lexicon).
+# So L1 must debut it DELIBERATELY: one info card that names it, then an
+# intro-capable first contact (buildLit / speakLit / listenCompLit) BEFORE
+# any graded use. Any lesson that spends «lo» before L1's debut is wrong.
+#
+# ── la / los / las ARE CARRIERS, NOT NEW ATOMS ───────────────────────────
+# `atomModuleBySurfaceWord` owns «la» (m3), «los»/«las» (m4). They are NOT
+# re-registered (exact-surface duplicate = the m11 pan/pero failure). A
+# clozeLit whose answer is la/los/las reads as a PRIOR-module atom under pin
+# E2 and survives ONLY as a §13.9 law 5 discrimination trial — EXACTLY TWO
+# options, both REGISTERED surfaces. «lo» is NOT registered (function word),
+# so «lo» may NEVER be a clozeLit option — the gate reads
+# `atomModuleBySurfaceWord.has(o)` and «lo» is in no atom (author B, 2026-09-07).
+# The lo-vs-la choice is drilled on build banks, agreementLit blanks and sim
+# options instead; a la/los/las cloze pairs two ARTICLES ([la, las], [los, las]).
+#
+# ── hacer RULING (B112) ──────────────────────────────────────────────────
+# `hacer.introducedAtModule = 16`, so from THIS module every present form
+# of hacer is "prior" to the shared gates: «hacemos», «hacéis», «hacen»
+# pass unknownTokens and the debut check with nobody having taught them.
+# m15 taught ONLY hago / haces / hace. Those three are legal carriers here.
+# «hacemos / hacéis / hacen» are BANNED in every answer position; m16.test.ts
+# pins it. The same holds for tener (m5 fold): tengo / tienes / tiene only.
+#
+# ── FORM DISCIPLINE ──────────────────────────────────────────────────────
+# Only the forms in newAtoms below and the carrier list may be a correct
+# answer. Present indicative only. No nosotros/vosotros/ustedes forms of any
+# verb. No preterite, no progressive, no imperative, no subjunctive.
+# «comprar» is m12's atom (infinitive only) — m16 registers its three
+# singular cells; the infinitive itself is NOT re-registered.
+#
+# ── TRANSFER CELL (L8 only): «maleta» ────────────────────────────────────
+# An unseen FEMININE noun, met cold in the checkpoint, no emoji, glossed in
+# place: «¿la maleta? la necesito». The learner has to decide the pronoun
+# from the article they are given — the m12 «sombrero» shape. Registered so
+# the gate can track it; NEVER appears in L1–L7 or L9–L10.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # verbs — necesitar, buscar (regular -ar, m10's machine, taught as words)
+  - { surface: "necesitar", meaningEn: "to need", partOfSpeech: "verb", kind: "vocab", hint: "neh-seh-see-TAR" }
+  - { surface: "necesito", meaningEn: "I need", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "necesitas", meaningEn: "you need", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "necesita", meaningEn: "he/she needs", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "buscar", meaningEn: "to look for", partOfSpeech: "verb", kind: "vocab", hint: "boos-KAR — no «por»: the 'for' is inside the verb" }
+  - { surface: "busco", meaningEn: "I'm looking for", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "buscas", meaningEn: "you're looking for", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "busca", meaningEn: "he/she is looking for", partOfSpeech: "verb", kind: "vocab" }
+  # comprar's singular cells — the infinitive is m12's, not re-registered
+  - { surface: "compro", meaningEn: "I buy", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "compras", meaningEn: "you buy", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "compra", meaningEn: "he/she buys", partOfSpeech: "verb", kind: "vocab" }
+  # things you point at, need, look for, buy
+  - { surface: "regalo", meaningEn: "gift", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🎁" }
+  - { surface: "boleto", meaningEn: "ticket", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🎟️" }
+  - { surface: "mensaje", meaningEn: "message", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "✉️", hint: "men-SA-heh — the j is an h sound" }
+  - { surface: "mochila", meaningEn: "backpack", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🎒" }
+  # two adverbs that live around the pronoun
+  - { surface: "ya", meaningEn: "already", partOfSpeech: "adverb", kind: "vocab", hint: "one syllable — «ya lo tengo»" }
+  - { surface: "todavía", meaningEn: "still, yet", partOfSpeech: "adverb", kind: "vocab", hint: "to-da-VEE-a — «todavía no» = not yet" }
+  # ── TRANSFER CELL (L8 only) — no emoji: it must be met cold, in text.
+  - { surface: "maleta", meaningEn: "suitcase", partOfSpeech: "noun", kind: "vocab", gender: "f" }
+
+lessons:
+  # ── L1 · «Lo veo» — ZERO new atoms. The debut of a function word the gates
+  #    license without evidence: «lo» has appeared in no shipped ES lesson
+  #    m1–m15 (only in two lesson TITLES, which nothing bills). ──────────────
+  #
+  #    ⚠️ DEBUT ORDER IS THE HEADER'S LAW, and it shapes the opening. «lo»
+  #    must be NAMED on the card before it is USED on a graded step, and
+  #    `word_map` is graded (it is absent from TEACH_STEP_KINDS), so the map
+  #    that opens this lesson deliberately carries NO «lo» at all: it shows
+  #    «veo el libro» — the thing named in full — and its revealNote sets
+  #    up the question the card answers. Then the card names «lo»; then a
+  #    printed speakLit «lo veo» is the intro-capable first contact
+  #    (`speaking` ∈ ES_INTRO_TYPES); only after that does any build, cloze
+  #    or sim spend the word. `esSurfaces` skips «lo» anyway (ES_FUNCTION_
+  #    WORDS), so the order is held by hand and by this comment, not by a
+  #    gate — which is exactly why the header spelled it out.
+  #
+  #    ⚠️ NO clozeLit IN THIS LESSON, BY THE HEADER'S RULE: «lo» is not a
+  #    registered surface, so it may never be a clozeLit option. (Gate
+  #    mechanics, for the record: pin E2 fires on the ANSWER's module —
+  #    `fm = atomModuleBySurfaceWord.get(correct)` — so a cloze ANSWERED by
+  #    «lo» has fm = undefined and would pass; a cloze answered by «la»
+  #    with «lo» as the foil is what actually fails, because the two-option
+  #    exemption needs every option in that map. The header bans both
+  #    shapes; this lesson honours the ban.) The two binaries the lesson
+  #    wants — «lo» against the article «el», «lo» against the person «él»
+  #    — live on an agreementLit blank (l1-agree-libroquiero; agreement_
+  #    cloze is outside E2 and bills only its solved sentence) and on a
+  #    build bank whose foils are «la» and «él» (l1-b-cafequiero).
+  #
+  #    ⚠️ PLACEMENT GHOSTS («veo lo», «el veo») live ONLY in a
+  #    `multiple_choice` distractor (l1-q-loveo) and in sim options. Both
+  #    are unbilled. A build bank grades order; it never offers a wrong
+  #    order as a tile, so no tile here is a ghost.
+  #
+  #    NOT HERE: «la» as a pronoun (L2), «no lo …» (L5), verb + infinitive
+  #    with a pronoun (L7), «ya»/«todavía» (L6), and every m16 atom. Every
+  #    billed word in this lesson is m1–m15 property or a function word.
+  #
+  #    inv 24: «lo veo» normalises to 5 characters and is exempt; every
+  #    ≥8-character sentence below is printed at most twice outside clozes.
+  #    The recall «quiero leer el libro» was printed non-recall at m11
+  #    (es-m11-6-l6-sp-quieroleerlibro) — verified against the shipped
+  #    course, not remembered.
+  - n: 1
+    template: free
+    title: "Lo veo"
+    description: "You have named the book. Spanish will not make you name it twice — a two-letter word steps in, and it stands in FRONT of the verb."
+    steps:
+      # The noticing beat, without the new word. The map bills nothing and
+      # the revealNote asks the question the card is about to answer.
+      - kind: map
+        id: l1-map-veoellibro
+        tokens: ["veo", "el", "libro"]
+        pairs:
+          - { en: "I see", tokenIndex: 0 }
+          - { en: "the", tokenIndex: 1 }
+          - { en: "book", tokenIndex: 2 }
+        audioText: "veo el libro"
+        revealNote: "Nothing new: «veo» from last module, «el libro» from module three. Now imagine somebody has just asked you about the book — «¿el libro?» — and you want to answer 'I see it'. In English you swap 'the book' for 'it'. Spanish does the same swap, with a word you have not met yet, and it puts that word somewhere English never would. The next card shows you where."
+        tokenGenders: { 1: "m", 2: "m" }
+      # The lesson's one card, and the header's debut: «lo» is NAMED here
+      # before any graded step uses it.
+      - kind: info
+        id: l1-info-lo
+        title: "The word that stands in for the thing"
+        body: "«veo el libro» — I see the book. Say the book has already come up: «¿el libro?». Spanish does not name it again. It hands you a short word that stands in for the whole thing: «lo». So the answer is «lo veo» — I see it. Look at where «lo» went. Not after the verb, where English puts 'it', but in FRONT of it: «lo veo», «lo tengo», «lo quiero». That is the only rule this module has, and it holds for every sentence in it. «lo» is the stand-in for a masculine thing — one you would call «el»: «¿el libro? lo veo», «¿el carro? lo quiero». It is not a name for a person and it is not «él»; it is the thing itself, said in two letters."
+      # THE FIRST CONTACT — printed, spoken, intro-capable. Everything
+      # graded below is downstream of this step.
+      - kind: speakLit
+        id: l1-sp-loveo
+        es: "lo veo"
+        en: "I see it"
+        atoms: ["veo"]
+      # First production. The bank holds the article the learner would
+      # reach for and a wrong-person verb; the ORDER is what is graded.
+      - kind: buildLit
+        id: l1-b-lotengoaqui
+        also: ["aquí lo tengo"]
+        es: "lo tengo aquí"
+        en: "I have it here"
+        atoms: ["tengo", "aquí"]
+        tiles: ["el", "tienes"]
+      # One blank, two function words, one decision: the article cannot
+      # stand alone. An agreement_cloze, not a particle_cloze — «lo» may not
+      # be a clozeLit option (header), and this type is outside pin E2.
+      - kind: agreementLit
+        id: l1-agree-libroquiero
+        en: "The book is good and I want it"
+        audioText: "el libro es bueno y lo quiero"
+        atoms: ["libro", "bueno", "quiero"]
+        segments:
+          - { text: "el libro es bueno y " }
+          - { blank: { id: "p1", answer: "lo", options: ["lo", "el"] } }
+          - { text: " quiero" }
+      - kind: audioWimcq
+        id: l1-ear-libro
+        target: { surface: "el libro", emoji: "📖" }
+        distractors:
+          - { surface: "el lápiz", emoji: "✏️" }
+          - { surface: "el papel", emoji: "📄" }
+      - kind: listenBuildLit
+        id: l1-lb-loquierohoy
+        es: "lo quiero hoy"
+        en: "I want it today"
+        atoms: ["quiero", "hoy"]
+        tiles: ["el", "quieres"]
+      # THE PLACEMENT BEAT. «veo lo» is what English word order builds; it
+      # is a real pair of words and would pass provenance as a tile, which
+      # is exactly why it lives in an MCQ distractor slot (unbilled) and
+      # nowhere else. «lo ve» is real Spanish with the wrong person in it.
+      - kind: mcq
+        id: l1-q-loveo
+        prompt: "'The book? I see it.' Which one is the Spanish?"
+        correct: "lo veo"
+        distractors: ["veo lo", "el veo", "lo ve"]
+        atoms: ["veo"]
+        why: "«lo veo». The stand-in goes in FRONT of the verb, so «veo lo» is English word order wearing Spanish words — nobody says it. «el veo» leaves the article with no noun to hold. «lo ve» is real Spanish, but it means he or she sees it."
+      # Printed non-recall at m11 (es-m11-6-l6-sp-quieroleerlibro).
+      - kind: speakLit
+        id: l1-sp-recall-quieroleerellibro
+        es: "quiero leer el libro"
+        en: "I want to read the book"
+        atoms: []
+        cue: recall
+      - kind: listenCompLit
+        id: l1-lc-veoelcarro
+        es: "veo el carro y lo quiero"
+        en: "I see the car and I want it."
+        atoms: ["veo", "carro", "quiero"]
+        distractorsEn:
+          - "I see the car and I have it."
+          - "I see the book and I want it."
+          - "I have the car and I see it."
+      - kind: buildLit
+        id: l1-b-lotengoencasa
+        es: "lo tengo en casa"
+        en: "I have it at home"
+        atoms: ["tengo", "en", "casa"]
+        tiles: ["el", "tiene"]
+      - kind: textMcq
+        id: l1-tm-veo
+        target: "veo"
+        distractors: ["ve", "ver", "vengo"]
+      # The second binary on a build bank: «lo» is a thing, «él» is a
+      # person, «la» is the other kind of thing. All three are function
+      # words; the bank grades order and the foils grade the choice.
+      - kind: buildLit
+        id: l1-b-cafequiero
+        es: "el café es rico y lo quiero"
+        en: "The coffee is tasty and I want it"
+        atoms: ["café", "rico", "quiero"]
+        tiles: ["él", "la"]
+      - kind: speakLit
+        id: l1-sp-loveoalli
+        es: "lo veo allí"
+        en: "I see it over there"
+        atoms: ["veo", "allí"]
+      # The scene the word is for: somebody asks about a thing by name and
+      # you answer without naming it. Diego never says «ves» — the tú form
+      # of «ver» is not a registered atom — so he asks with «tienes»,
+      # «quieres» and a bare «¿y …?».
+      - kind: sim
+        id: l1-sim-diego-libro
+        scene: { emoji: "📖", title: "Diego is looking for his things", setting: "Diego has emptied his bag onto the table and is checking what is where." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Tienes el libro?", audioText: "¿tienes el libro?", gloss: "Do you have the book?" }
+            goal: "Say yes — you have it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, lo tengo" }
+                - { id: "wrong1", text: "sí, tengo lo" }
+                - { id: "wrong2", text: "sí, el tengo" }
+              correctOptionId: "right"
+              audioText: "sí, lo tengo"
+            replyGloss: "Yes, I have it."
+            explanation: "Diego named the book, so you do not: «lo» stands in for it, and it stands in FRONT of «tengo». «tengo lo» is English order; «el tengo» is an article with nothing to hold."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y el celular?", audioText: "¿y el celular?", gloss: "And the phone?" }
+            goal: "Say you see it here."
+            reply:
+              mode: build
+              tiles: ["lo", "veo", "aquí", "la", "el"]
+              answer: "lo veo aquí"
+              alsoAccepted: ["aquí lo veo"]
+            replyGloss: "I see it here."
+            explanation: "«el celular» is an «el» thing, so its stand-in is «lo». The bank also holds «la» — that is the stand-in for the OTHER kind of thing, and it is the next lesson."
+          - id: t3
+            npc: { speaker: "Diego", es: "Quiero el café.", audioText: "quiero el café", gloss: "I want the coffee." }
+            goal: "Say you want it too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "lo quiero también" }
+                - { id: "wrong1", text: "quiero lo también" }
+                - { id: "wrong2", text: "lo quieres también" }
+              correctOptionId: "right"
+              audioText: "lo quiero también"
+            replyGloss: "I want it too."
+            explanation: "Same word, same slot: «lo», then the verb. «lo quieres» would be about Diego, and «quiero lo» puts the stand-in where English keeps 'it' — after the verb, which Spanish never does."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "lo", target: "it (an «el» thing)" }
+          - { source: "el libro", target: "the book" }
+          - { source: "veo", target: "I see" }
+          - { source: "tengo", target: "I have" }
+          - { source: "quiero", target: "I want" }
+          - { source: "el carro", target: "the car" }
+          - { source: "aquí", target: "here" }
+      # The win: the thing named once, then stood in for — the whole
+      # lesson in one line.
+      - kind: speakLit
+        id: l1-sp-win
+        es: "el libro es bueno y lo quiero"
+        en: "The book is good and I want it"
+        atoms: ["libro", "bueno", "quiero"]
+
+  # ── L2 · «La veo» — ZERO new atoms. The article the learner has used
+  #    since m3, now standing alone in front of the verb. ────────────────
+  #
+  #    ⚠️ NO clozeLit IN THIS LESSON. Pin E2's two-option exemption needs
+  #    EVERY option in `atomModuleBySurfaceWord`, and «lo» is in no map, so
+  #    a cloze answered by «la» with «lo» as the foil fails at zero debt —
+  #    and the header now bans «lo» as a clozeLit option in any position.
+  #    The lo/la decision therefore lives where the gates allow it:
+  #      - «la» is PRODUCED on builds and a listenBuild whose bank holds
+  #        «lo» as the wrong-gender foil (l2-b-latengoaqui,
+  #        l2-lb-laveoenlatienda, l2-b-lafaldaesbonita);
+  #      - «lo» against «la» is picked on `agreementLit` blanks
+  #        (l2-agree-casacarro carries BOTH answers live in one sentence,
+  #        §13.9 law 4; l2-agree-libroquiero is the single-blank retest) —
+  #        `agreement_cloze` is outside E2 and bills only its solved
+  #        sentence;
+  #      - and on the MCQ and every sim turn, where wrong options are
+  #        unbilled.
+  #
+  #    ⚠️ NO «ves» ANYWHERE, not even in the sim. `ver` is absent from
+  #    ES_VERB_ENTRIES and m15 registered only ver/veo/ve; Ana asks with
+  #    «quieres», «tienes» and «está», never «ves».
+  #
+  #    NOT HERE: «no la …» (L5), «la quiero comprar»-type chains (L7), any
+  #    plural (L4), any m16 atom. Every billed word is m1–m15 property.
+  #
+  #    inv 24: the map's audioText «la camisa es nueva y la quiero» counts
+  #    (lintSentenceOveruse falls through to audioText) and the win repeats
+  #    it — two uses. The recall «la camisa cuesta mucho» was printed
+  #    non-recall at m14 (es-m14-1-l1-sp-camisacuesta).
+  - n: 2
+    template: free
+    title: "La veo"
+    description: "«la» has walked in front of nouns since module three. Take the noun away and it does the same job «lo» does — for the other half of the language."
+    steps:
+      # First sentence view. The second «la» has no noun after it, and the
+      # map's job is to make the learner notice that before anything says it.
+      - kind: map
+        id: l2-map-lacamisa
+        tokens: ["la", "camisa", "es", "nueva", "y", "la", "quiero"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "shirt", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "new", tokenIndex: 3 }
+          - { en: "and", tokenIndex: 4 }
+          - { en: "it", tokenIndex: 5 }
+          - { en: "I want", tokenIndex: 6 }
+        audioText: "la camisa es nueva y la quiero"
+        revealNote: "Count the «la»s. The first one is the article you know, with «camisa» behind it. The second one has no noun behind it at all — and it is sitting in front of «quiero», exactly where «lo» sat last lesson. That is not a coincidence. A shirt is a «la» thing, so its stand-in is «la»."
+        tokenGenders: { 0: "f", 1: "f", 3: "f", 5: "f" }
+      - kind: speakLit
+        id: l2-sp-laveo
+        es: "la veo"
+        en: "I see it"
+        atoms: ["veo"]
+      # Deduction before the card: an «el» thing, so «lo» — with «la» now
+      # live in the bank as the wrong-gender foil.
+      - kind: buildLit
+        id: l2-b-carroquiero
+        es: "el carro es nuevo y lo quiero"
+        en: "The car is new and I want it"
+        atoms: ["carro", "nuevo", "quiero"]
+        tiles: ["la", "veo"]
+      # The lesson's one card, after the learner has already made the
+      # choice once. Every guillemet span is m1–m15 property or a function
+      # word.
+      - kind: info
+        id: l2-info-la
+        title: "The article you know, without its noun"
+        body: "Last lesson: «¿el libro? lo veo». Now the shirt. «la camisa» is a «la» thing, and when it has already been named, the word that stands in for it is «la» — the same «la» you have put in front of nouns since module three, now standing on its own: «la veo», «la tengo», «la quiero». So there are two stand-ins, and you choose by the article the thing wears. «el libro» becomes «lo»; «la camisa» becomes «la». Same slot, in front of the verb — «lo veo», «la veo» — and the only thing that changes is which kind of thing you are talking about."
+      - kind: buildLit
+        id: l2-b-latengoaqui
+        also: ["aquí la tengo"]
+        es: "la tengo aquí"
+        en: "I have it here"
+        atoms: ["tengo", "aquí"]
+        tiles: ["lo", "tienes"]
+      - kind: audioWimcq
+        id: l2-ear-camisa
+        target: { surface: "la camisa", emoji: "👕" }
+        distractors:
+          - { surface: "la falda", emoji: "👗" }
+          - { surface: "el zapato", emoji: "👟" }
+      # THE TWO-WAY TRIAL, both halves live (§13.9 law 4): a «la» thing and
+      # an «el» thing in one sentence, and the factory rotates each blank's
+      # options independently, so position tells the learner nothing.
+      # agreement_cloze is outside pin E2 and bills only the solved sentence.
+      - kind: agreementLit
+        id: l2-agree-casacarro
+        en: "I see the house and I want it, and I see the car and I want it"
+        audioText: "veo la casa y la quiero, y veo el carro y lo quiero"
+        atoms: ["veo", "casa", "carro", "quiero"]
+        segments:
+          - { text: "veo la casa y " }
+          - { blank: { id: "p1", answer: "la", options: ["la", "lo"] } }
+          - { text: " quiero, y veo el carro y " }
+          - { blank: { id: "p2", answer: "lo", options: ["lo", "la"] } }
+          - { text: " quiero" }
+      # Printed non-recall at m14 (es-m14-1-l1-sp-camisacuesta).
+      - kind: speakLit
+        id: l2-sp-recall-lacamisacuestamucho
+        es: "la camisa cuesta mucho"
+        en: "The shirt costs a lot"
+        atoms: []
+        cue: recall
+      - kind: listenCompLit
+        id: l2-lc-tengolallave
+        es: "tengo la llave y la veo aquí"
+        en: "I have the key and I see it here."
+        atoms: ["tengo", "llave", "veo", "aquí"]
+        distractorsEn:
+          - "I have the key and I want it here."
+          - "I have the book and I see it here."
+          - "I see the key and I have it here."
+      # The single-blank retest of the two-way trial, three steps on.
+      - kind: agreementLit
+        id: l2-agree-libroquiero
+        en: "Today I see the book and I want it"
+        audioText: "hoy veo el libro y lo quiero"
+        atoms: ["hoy", "veo", "libro", "quiero"]
+        segments:
+          - { text: "hoy veo el libro y " }
+          - { blank: { id: "p1", answer: "lo", options: ["lo", "la"] } }
+          - { text: " quiero" }
+      - kind: listenBuildLit
+        id: l2-lb-laveoenlatienda
+        es: "la veo en la tienda"
+        en: "I see it at the store"
+        atoms: ["veo", "en", "tienda"]
+        tiles: ["lo", "ve"]
+      # The placement ghost for the feminine half, unbilled. «lo veo» is
+      # real and wrong: the thing is a shirt.
+      - kind: mcq
+        id: l2-q-laveo
+        prompt: "'The shirt? I see it.' Which one is the Spanish?"
+        correct: "la veo"
+        distractors: ["lo veo", "veo la", "el veo"]
+        atoms: ["veo"]
+        why: "«la veo». A shirt is «la camisa», so its stand-in is «la», and it sits in front of the verb. «lo veo» is a perfectly good sentence about a book. «veo la» is English order, and «el veo» is an article with nothing behind it."
+      - kind: buildLit
+        id: l2-b-lafaldaesbonita
+        es: "la falda es bonita y la quiero"
+        en: "The skirt is pretty and I want it"
+        atoms: ["falda", "bonito", "quiero"]
+        tiles: ["lo", "veo"]
+      - kind: textMcq
+        id: l2-tm-falda
+        target: "falda"
+        distractors: ["camisa", "casa", "llave"]
+      - kind: speakLit
+        id: l2-sp-lapelicula
+        es: "la película es buena y la veo hoy"
+        en: "The movie is good and I see it today"
+        atoms: ["película", "bueno", "veo", "hoy"]
+      # A shop, two «la» things and a «la» question about each. Ana never
+      # says «ves»; she asks with «quieres», «está» and «tienes».
+      - kind: sim
+        id: l2-sim-ana-tienda
+        scene: { emoji: "👕", title: "Ana at the clothes shop", setting: "Ana is holding things up and asking what you think." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Quieres la camisa?", audioText: "¿quieres la camisa?", gloss: "Do you want the shirt?" }
+            goal: "Say yes — you want it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, la quiero" }
+                - { id: "wrong1", text: "sí, lo quiero" }
+                - { id: "wrong2", text: "sí, quiero la" }
+              correctOptionId: "right"
+              audioText: "sí, la quiero"
+            replyGloss: "Yes, I want it."
+            explanation: "Ana said «la camisa», so the stand-in is «la», in front of «quiero». «lo quiero» would be about an «el» thing, and «quiero la» is the English slot — after the verb — which Spanish never uses."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y la falda? Está allí.", audioText: "¿y la falda? está allí", gloss: "And the skirt? It's over there." }
+            goal: "Say you see it."
+            reply:
+              mode: build
+              tiles: ["la", "veo", "allí", "lo"]
+              answer: "la veo"
+              alsoAccepted: ["la veo allí", "allí la veo"]
+            replyGloss: "I see it."
+            explanation: "«la falda» is a «la» thing, so «la», then the verb. The bank holds «lo» because that is the one way this goes wrong — the right slot with the wrong gender."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Tienes la llave de casa?", audioText: "¿tienes la llave de casa?", gloss: "Do you have the house key?" }
+            goal: "Say yes — you have it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, la tengo" }
+                - { id: "wrong1", text: "sí, tengo la" }
+                - { id: "wrong2", text: "sí, la tienes" }
+              correctOptionId: "right"
+              audioText: "sí, la tengo"
+            replyGloss: "Yes, I have it."
+            explanation: "«la llave» — a «la» thing, so «la tengo». «la tienes» hands the key to Ana, and «tengo la» leaves the stand-in stranded after the verb."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "la", target: "it (a «la» thing)" }
+          - { source: "lo", target: "it (an «el» thing)" }
+          - { source: "la camisa", target: "the shirt" }
+          - { source: "la llave", target: "the key" }
+          - { source: "veo", target: "I see" }
+          - { source: "quiero", target: "I want" }
+          - { source: "tengo", target: "I have" }
+      # The win is the map's sentence, now produced from memory: the
+      # article with its noun, then the same word standing alone.
+      - kind: speakLit
+        id: l2-sp-win
+        es: "la camisa es nueva y la quiero"
+        en: "The shirt is new and I want it"
+        atoms: ["camisa", "nuevo", "quiero"]
+
+  # ── L3 · «Lo necesito» — a new verb, and the little word does not move ──
+  #    L1 taught «lo», L2 taught «la» doing the same job. This lesson adds
+  #    ONE regular -ar verb, taught as a word, and shows that the pronoun
+  #    treats it exactly as it treated «veo» and «tengo»: it sits in front.
+  #    The -ar machine is m10's; the card only points at «hablo / hablas /
+  #    habla» and lets the learner see the same three endings on the new verb.
+  #
+  #    ⚠️ DEBUT ORDER (inv 33 — cloze options and build tiles are BILLED):
+  #      «regalo»    debuts l3-im-regalo        (word_image_mcq, English-
+  #                                             prompted — a true first
+  #                                             exposure, inv 44 satisfied)
+  #      «necesitar» debuts l3-sp-necesitar     (speaking — the m15 L2
+  #                                             «hacer» idiom)
+  #      «necesito»  debuts l3-b-necesitoelregalo (build_sentence)
+  #      «necesitas» debuts l3-lc-necesitasunregalo (listening_comprehension)
+  #      «necesita»  debuts l3-info-nuevoverbo  (an info card's «…» spans
+  #                                             are billed; `info` is intro-
+  #                                             capable — m15 L2's «hace»)
+  #      «mensaje»   debuts l3-im-mensaje       (word_image_mcq)
+  #    No tile, cloze option or match source carries any of these before its
+  #    line above. The map at step 1 bills nothing (`esSurfaces` has no
+  #    word_map case) and cannot debut anything; it is a free first reading
+  #    that the speakLit and build under it pay for.
+  #
+  #    ⚠️ «mensaje» WEARS ✉️ HERE, NOT THE HEADER'S 💬. 💬 is already bound
+  #    to «español» (m10, `es-m10-*`), and one emoji means one thing. The
+  #    header's atom line should be corrected to ✉️; every step below is
+  #    consistent with ✉️ so the fix is a one-character edit up there.
+  #
+  #    ⚠️ PLACEMENT GHOSTS («necesito lo», «lo necesita» for a first-person
+  #    English) live ONLY in `multiple_choice` distractors and `dialogue_sim`
+  #    options — `esSurfaces` bills neither. No cloze option, tile or match
+  #    source carries a wrong order.
+  #
+  #    ⚠️ pin E2: the one particle_cloze here is answered by «necesita», an
+  #    m16 atom, so the option count is free; it takes two because the only
+  #    decision in the sentence is who needs the thing. The lo/la trial is an
+  #    agreement_cloze (l3-agr-regalocamisa): both blanks two-option, both
+  #    options taught, and its surface is reconstructed from the CORRECT
+  #    answers only, so nothing wrong is billed.
+  #
+  #    ⚠️ NO «ya», NO «todavía», NO «busco/buscar», NO «compro/compras/
+  #    compra», NO «boleto», NO «mochila», NO «maleta» — those are L4–L8's
+  #    debuts and a stray tile here would spend one in a discard pile.
+  #    «comprar» (m12's infinitive) is used once, inside a cued recall that
+  #    m12 printed non-recall (es-m12-7-l7-sp-win / es-m12-9-l9-sp-win).
+  - n: 3
+    template: free
+    title: "Lo necesito"
+    description: "«necesitar» — to need. A brand-new verb, and the little word you learned two lessons ago goes in front of it exactly as before."
+    steps:
+      - kind: map
+        id: l3-map-necesitoelregalo
+        tokens: ["necesito", "el", "regalo"]
+        pairs:
+          - { en: "I need", tokenIndex: 0 }
+          - { en: "the", tokenIndex: 1 }
+          - { en: "gift", tokenIndex: 2 }
+        audioText: "necesito el regalo"
+        revealNote: "Two new words, and one of them you can already take apart. «el regalo» is the gift. «necesito» is I need, from «necesitar» — an ordinary -ar verb, the kind you built in module ten: the same -o you put on «hablo». Now imagine the gift has just been mentioned. You know what happens next: the noun drops out and one short word stands in front of the verb — «lo necesito». Same job it did for «veo» and «tengo»."
+        tokenGenders: { 1: "m", 2: "m" }
+      - kind: imageMcq
+        id: l3-im-regalo
+        target: { surface: "el regalo", meaningEn: "the gift", emoji: "🎁" }
+        distractors:
+          - { surface: "el libro", emoji: "📖" }
+          - { surface: "la llave", emoji: "🔑" }
+          - { surface: "el dinero", emoji: "💰" }
+      - kind: speakLit
+        id: l3-sp-necesitar
+        es: "necesitar"
+        en: "to need"
+        atoms: ["necesitar"]
+      - kind: buildLit
+        id: l3-b-necesitoelregalo
+        es: "necesito el regalo"
+        en: "I need the gift"
+        atoms: ["necesito", "regalo"]
+        tiles: ["quiero", "tengo"]
+      - kind: listenCompLit
+        id: l3-lc-necesitasunregalo
+        es: "hoy necesitas un regalo"
+        en: "You need a gift today."
+        atoms: ["necesitas", "regalo", "hoy"]
+        distractorsEn:
+          - "I need a gift today."
+          - "You want a gift today."
+          - "You need a book today."
+      # THE TRY, before the card: the gift was named one step ago, so it
+      # drops out and «lo» stands in front of the new verb. The bank holds
+      # the feminine pronoun and an old verb — the two ways this goes wrong.
+      - kind: buildLit
+        id: l3-b-lonecesito
+        es: "lo necesito"
+        en: "I need it — the gift"
+        atoms: ["necesito"]
+        tiles: ["la", "quiero"]
+      # The lesson's one card, after the learner has already produced
+      # «necesito» and «lo necesito». Its new claim is the él/ella cell, and
+      # the sentence that says the pronoun rule did not change.
+      - kind: info
+        id: l3-info-nuevoverbo
+        title: "A new verb, the same little word"
+        body: "«necesitar» is to need, and it is the most ordinary verb you have met in weeks. Take the -ar off and hang the three endings you have used since «hablar»: «necesito», I need — «necesitas», you need — «necesita», he needs, she needs. «hablo», «hablas», «habla»; «necesito», «necesitas», «necesita». Nothing else moves. Now the part that matters for this module. When the thing you need has just been named, it drops out and its stand-in takes its place — in front of the verb, exactly where it stood for «veo» and «tengo». «el regalo» — «lo necesito». «la camisa» — «la necesito». The verb is new. The rule is the one you already have."
+      - kind: clozeLit
+        id: l3-c-ananecesita
+        es: "Ana necesita el regalo"
+        en: "Ana needs the gift"
+        blank: "necesita"
+        options: ["necesita", "necesito"]
+        atoms: ["necesita", "regalo"]
+        why: "Ana is the one who needs it, so the él/ella ending: the plain -a you already hang on «habla». «necesito» would put the needing on you."
+      # THE PLACEMENT BEAT. The two ghosts («necesito lo», and «lo necesita»
+      # for an English 'I') live in distractor slots, which `esSurfaces`
+      # never reads. The correct option is two words, so inv 28 passes.
+      - kind: mcq
+        id: l3-q-lonecesito
+        prompt: "'The gift? I need it.' — which one?"
+        correct: "lo necesito"
+        distractors: ["necesito lo", "la necesito", "lo necesita"]
+        atoms: ["necesito"]
+        why: "The stand-in goes in FRONT of the verb — «lo necesito», never after it. «la» would be for a feminine thing, and the gift is «el regalo». And the -a ending would make somebody else the one who needs it."
+      - kind: imageMcq
+        id: l3-im-mensaje
+        target: { surface: "el mensaje", meaningEn: "the message", emoji: "✉️" }
+        distractors:
+          - { surface: "el celular", emoji: "📱" }
+          - { surface: "el papel", emoji: "📄" }
+          - { surface: "la foto", emoji: "📷" }
+      # «hoy» in either slot is the §14 shape (a fronted time adverb).
+      - kind: buildLit
+        id: l3-b-necesitoelmensaje
+        also: ["hoy necesito el mensaje"]
+        es: "necesito el mensaje hoy"
+        en: "I need the message today"
+        atoms: ["necesito", "mensaje", "hoy"]
+        tiles: ["necesitas", "la"]
+      - kind: audioWimcq
+        id: l3-ear-regalo
+        target: { surface: "el regalo", emoji: "🎁" }
+        distractors:
+          - { surface: "el mensaje", emoji: "✉️" }
+          - { surface: "el libro", emoji: "📖" }
+      # Printed non-recall at m12 (es-m12-7-l7-sp-win, es-m12-9-l9-sp-win) —
+      # verified against the shipped course. It also puts «comprar» back in
+      # the mouth four lessons before L7 puts a pronoun in front of «quiero».
+      - kind: speakLit
+        id: l3-sp-recall-quierocomprarestacamisa
+        es: "quiero comprar esta camisa"
+        en: "I want to buy this shirt"
+        atoms: []
+        cue: recall
+      # The lo/la trial with both halves live (§13.9 law 4): the antecedent
+      # is printed in front of each blank, so the decision is honest. An
+      # agreement_cloze reconstructs its surface from the correct answers
+      # alone, so the wrong option in each blank is never billed.
+      - kind: agreementLit
+        id: l3-agr-regalocamisa
+        en: "The gift? I need it. The shirt? I need it."
+        audioText: "¿el regalo? lo necesito. ¿la camisa? la necesito"
+        atoms: ["necesito", "regalo", "camisa"]
+        segments:
+          - { text: "¿el regalo? " }
+          - { blank: { id: "p1", answer: "lo", options: ["lo", "la"] } }
+          - { text: " necesito. ¿la camisa? " }
+          - { blank: { id: "p2", answer: "la", options: ["la", "lo"] } }
+          - { text: " necesito" }
+      # «necesitas» earns its ANSWER position here — the atom-usage pin
+      # counts build/listen-build targets, speaking, blanks and sim replies;
+      # a transcript, a tile or a match source does not count.
+      - kind: listenBuildLit
+        id: l3-lb-tunecesitaselmensaje
+        es: "tú necesitas el mensaje"
+        en: "You need the message"
+        atoms: ["necesitas", "mensaje"]
+        tiles: ["necesito", "necesita"]
+      - kind: textMcq
+        id: l3-tm-necesito
+        target: "necesito"
+        distractors: ["necesitas", "necesita", "necesitar"]
+      # The scene the verb is for. Ana names the thing each time, so every
+      # reply is deducible from her line alone (§13.6 self-cueing). Build
+      # bank: single-word tiles, with «la» as the wrong-gender foil.
+      - kind: sim
+        id: l3-sim-ana-regalo
+        scene: { emoji: "🎁", title: "Ana is wrapping a present", setting: "Ana has paper, a box, and a list of what is still missing." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes el regalo?", audioText: "¿tienes el regalo?", gloss: "Do you have the gift?" }
+            goal: "Say yes — you have it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, lo tengo" }
+                - { id: "wrong1", text: "sí, la tengo" }
+                - { id: "wrong2", text: "sí, tengo lo" }
+              correctOptionId: "right"
+              audioText: "sí, lo tengo"
+            replyGloss: "Yes, I have it."
+            explanation: "«el regalo» is masculine, so its stand-in is «lo» — and it goes in front of the verb, never after it."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y el mensaje?", audioText: "¿y el mensaje?", gloss: "And the message?" }
+            goal: "Say you need it."
+            reply:
+              mode: build
+              tiles: ["lo", "necesito", "la", "necesitas"]
+              answer: "lo necesito"
+            replyGloss: "I need it."
+            explanation: "New verb, same rule: «lo» for «el mensaje», sitting in front of «necesito». «la» is the wrong gender and «necesitas» is the wrong person."
+          - id: t3
+            npc: { speaker: "Ana", es: "Necesito dinero.", audioText: "necesito dinero", gloss: "I need money." }
+            goal: "Say you need money too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "necesito dinero también" }
+                - { id: "wrong1", text: "necesitas dinero también" }
+                - { id: "wrong2", text: "necesita dinero también" }
+              correctOptionId: "right"
+              audioText: "necesito dinero también"
+            replyGloss: "I need money too."
+            explanation: "Ana said it about herself and you say it about yourself — the same word, «necesito». The -as and -a endings would hand the needing to somebody else."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "necesitar", target: "to need" }
+          - { source: "necesito", target: "I need" }
+          - { source: "necesitas", target: "you need" }
+          - { source: "necesita", target: "he or she needs" }
+          - { source: "el regalo", target: "the gift" }
+          - { source: "el mensaje", target: "the message" }
+          - { source: "lo necesito", target: "I need it" }
+      # The win: the noun once, then its stand-in in front of the new verb.
+      - kind: speakLit
+        id: l3-sp-win
+        es: "tengo el mensaje, pero el regalo, lo necesito hoy"
+        en: "I have the message, but the gift — I need it today"
+        atoms: ["tengo", "mensaje", "regalo", "necesito", "hoy"]
+
+  # ── L4 · «Los tengo, las tengo» — the same job, in the plural ──────────
+  #    Two words the learner has owned since m4 («los», «las», the plural
+  #    articles) turn out to do the same trick «la» did in L2: drop the noun,
+  #    keep the word, put it in front of the verb. Nothing about the verb
+  #    changes — «tengo» and «necesito» are carriers here. Two nouns debut,
+  #    one masculine («el boleto») and one feminine («la mochila»), so both
+  #    plural shapes and both singular shapes have something real to point at.
+  #
+  #    ⚠️ DEBUT ORDER (inv 33):
+  #      «boleto»  debuts l4-im-boleto   (word_image_mcq, English-prompted,
+  #                                      a true first exposure — inv 44 ok)
+  #      «mochila» debuts l4-im-mochila  (word_image_mcq)
+  #    «boletos» / «mochilas» / «llaves» / «libros» fold to their singulars
+  #    through the plural canon (`esRegularPlurals`), so a plural token is
+  #    never an untracked word and never a second debut. The map bills
+  #    nothing and debuts nothing.
+  #
+  #    ⚠️ pin E2, AND THE HEADER IS WRONG ABOUT «lo». A particle_cloze whose
+  #    answer is «la / los / las» resolves to m3/m4 and survives ONLY as a
+  #    two-option trial where BOTH options are in `atomModuleBySurfaceWord`.
+  #    «lo» is NOT in that map — it is a function word registered nowhere —
+  #    so «___ tengo» with options [las, lo] is NOT a discrimination trial
+  #    and FAILS E2. Every la/los/las cloze here therefore pairs two
+  #    REGISTERED articles: [las, los] (gender) and [la, las] (number). The
+  #    lo-vs-los decision lives on a build bank, an agreement_cloze and the
+  #    sim, none of which E2 reads.
+  #
+  #    ⚠️ «boleto» must reach an ANSWER position in the singular — the atom
+  #    pin matches whole words, and «boletos» is not «boleto». That is
+  #    l4-b-necesitounboleto. Same for «mochila» (l4-b-necesitolamochila).
+  #
+  #    ⚠️ NO «ya», NO «todavía», NO busco/buscar, NO compro/compras/compra,
+  #    NO «maleta». Negation with a pronoun («no lo veo») is L5's contrast
+  #    and appears nowhere here. tener: tengo / tienes / tiene only.
+  - n: 4
+    template: free
+    title: "Los tengo, las tengo"
+    description: "«los» and «las» — you have used them as 'the' since module four. Drop the noun and they stand in for it, exactly as «lo» and «la» do."
+    steps:
+      - kind: map
+        id: l4-map-tengolosboletos
+        tokens: ["tengo", "los", "boletos"]
+        pairs:
+          - { en: "I have", tokenIndex: 0 }
+          - { en: "the", tokenIndex: 1 }
+          - { en: "tickets", tokenIndex: 2 }
+        audioText: "tengo los boletos"
+        revealNote: "One new word: «el boleto» is a ticket, and «los boletos» is more than one — the plural you have made since module four. Now do what you did with «lo» and «la». The tickets have just been mentioned, so they drop out, and the word that stays is the one that was already sitting in front of them: «los tengo». I have them. Same trick, plural."
+        tokenGenders: { 1: "m", 2: "m" }
+      - kind: imageMcq
+        id: l4-im-boleto
+        target: { surface: "el boleto", meaningEn: "the ticket", emoji: "🎟️" }
+        distractors:
+          - { surface: "el libro", emoji: "📖" }
+          - { surface: "el dinero", emoji: "💰" }
+          - { surface: "el celular", emoji: "📱" }
+      - kind: speakLit
+        id: l4-sp-tengolosboletos
+        es: "tengo los boletos"
+        en: "I have the tickets"
+        atoms: ["tengo", "boleto"]
+      # THE TRY, before the card: the bank holds the singular and the
+      # feminine plural — the two ways this goes wrong.
+      - kind: buildLit
+        id: l4-b-lostengo
+        es: "los tengo"
+        en: "I have them — the tickets"
+        atoms: ["tengo"]
+        tiles: ["lo", "las"]
+      # The lesson's one card, after the learner has produced «los tengo».
+      # Every guillemet span is m3/m4/m5/m16-L3 property or this lesson's
+      # own «boleto»; «mochila» is kept out until its picture.
+      - kind: info
+        id: l4-info-cuatroformas
+        title: "One word, four shapes"
+        body: "You already own all four. «el», «la», «los», «las» — the four ways of saying 'the', and you pick one by looking at the noun. The stand-in works the same way, and three of the four shapes are the article itself, with the noun gone. «el libro» — «lo tengo». «la llave» — «la tengo». «los boletos» — «los tengo». «las llaves» — «las tengo». Only the masculine singular changes its letter, from «el» to «lo»; the other three are the words you have said since module four. Whatever the shape, it stands in FRONT of the verb, and the verb does not care: «los tengo», «los necesito», «las veo»."
+      # Gender trial, both options registered articles (m4) — the §13.9 law 5
+      # shape pin E2 exempts. The antecedent is in the English.
+      - kind: clozeLit
+        id: l4-c-lastengo
+        es: "las tengo aquí"
+        en: "I have them here — the keys"
+        blank: "las"
+        options: ["las", "los"]
+        atoms: ["tengo", "aquí"]
+        why: "Keys are «las llaves» — feminine, plural — so their stand-in is «las». «los» would be for masculine things, like the tickets."
+      - kind: imageMcq
+        id: l4-im-mochila
+        target: { surface: "la mochila", meaningEn: "the backpack", emoji: "🎒" }
+        distractors:
+          - { surface: "la camisa", emoji: "👕" }
+          - { surface: "la llave", emoji: "🔑" }
+          - { surface: "el libro", emoji: "📖" }
+      # L3's verb kept warm, and «mochila» earns its answer position.
+      - kind: buildLit
+        id: l4-b-necesitolamochila
+        es: "necesito la mochila"
+        en: "I need the backpack"
+        atoms: ["necesito", "mochila"]
+        tiles: ["necesitas", "el"]
+      - kind: listenCompLit
+        id: l4-lc-lasllaveslastengo
+        es: "¿las llaves? las tengo"
+        en: "The keys? I have them."
+        atoms: ["llave", "tengo"]
+        distractorsEn:
+          - "The keys? I need them."
+          - "The books? I have them."
+          - "The key? I have it."
+      # Printed non-recall at m4 (es-m4-4-sp-lasllaves) — verified against the
+      # shipped course. The plural article said out loud one beat before it
+      # has to stand alone.
+      - kind: speakLit
+        id: l4-sp-recall-lasllaves
+        es: "las llaves"
+        en: "the keys"
+        atoms: []
+        cue: recall
+      # Number trial: singular against plural, both registered articles.
+      - kind: clozeLit
+        id: l4-c-lanecesito
+        es: "la necesito hoy"
+        en: "I need it today — the backpack"
+        blank: "la"
+        options: ["la", "las"]
+        atoms: ["necesito", "hoy"]
+        why: "One backpack — «la mochila» — so the singular stand-in, «la». «las» would mean more than one."
+      # THE PLACEMENT BEAT for the plural. «tengo los» lives in a distractor
+      # slot, which `esSurfaces` never reads.
+      - kind: mcq
+        id: l4-q-lostengo
+        prompt: "'The tickets? I have them.' — which one?"
+        correct: "los tengo"
+        distractors: ["tengo los", "las tengo", "lo tengo"]
+        atoms: ["tengo"]
+        why: "Tickets are «los boletos» — masculine, plural — so «los», and it stands in front of the verb. «las» is the feminine plural, «lo» is one thing, and «tengo los» has the words in the wrong order."
+      # «hoy» in either slot is the §14 shape. The bank's foils are the
+      # feminine plural and the wrong person.
+      - kind: buildLit
+        id: l4-b-losnecesitohoy
+        also: ["hoy los necesito"]
+        es: "los necesito hoy"
+        en: "I need them today — the tickets"
+        atoms: ["necesito", "hoy"]
+        tiles: ["las", "necesitas"]
+      - kind: audioWimcq
+        id: l4-ear-boleto
+        target: { surface: "el boleto", emoji: "🎟️" }
+        distractors:
+          - { surface: "la mochila", emoji: "🎒" }
+          - { surface: "el libro", emoji: "📖" }
+      # Both plural shapes in one line, each blank a two-option trial with
+      # the antecedent printed in front of it; the factory rotates each
+      # blank on its own, so position tells the learner nothing.
+      - kind: agreementLit
+        id: l4-agr-boletosllaves
+        en: "The tickets? I have them. The keys? I need them."
+        audioText: "¿los boletos? los tengo. ¿las llaves? las necesito"
+        atoms: ["tengo", "necesito", "boleto", "llave"]
+        segments:
+          - { text: "¿los boletos? " }
+          - { blank: { id: "p1", answer: "los", options: ["los", "las"] } }
+          - { text: " tengo. ¿las llaves? " }
+          - { blank: { id: "p2", answer: "las", options: ["las", "los"] } }
+          - { text: " necesito" }
+      # «boleto» in the singular, in an answer position — the atom pin
+      # matches whole words and «boletos» is not «boleto».
+      - kind: buildLit
+        id: l4-b-necesitounboleto
+        es: "necesito un boleto"
+        en: "I need a ticket"
+        atoms: ["necesito", "boleto"]
+        tiles: ["los", "tengo"]
+      - kind: listenBuildLit
+        id: l4-lb-anatienelosboletos
+        es: "Ana tiene los boletos"
+        en: "Ana has the tickets"
+        atoms: ["tiene", "boleto"]
+        tiles: ["tengo", "las"]
+      - kind: textMcq
+        id: l4-tm-mochila
+        target: "mochila"
+        distractors: ["boleto", "regalo", "mensaje"]
+      # Diego names the thing every time, so each reply is deducible from
+      # his line alone. Build bank: single-word tiles; «los» is the wrong-
+      # gender foil and «la» the wrong-number foil.
+      - kind: sim
+        id: l4-sim-diego-boletos
+        scene: { emoji: "🎟️", title: "Diego checks the bag", setting: "Diego is going through the backpack before you both leave for the bus." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Tienes los boletos?", audioText: "¿tienes los boletos?", gloss: "Do you have the tickets?" }
+            goal: "Say yes — you have them."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, los tengo" }
+                - { id: "wrong1", text: "sí, las tengo" }
+                - { id: "wrong2", text: "sí, tengo los" }
+              correctOptionId: "right"
+              audioText: "sí, los tengo"
+            replyGloss: "Yes, I have them."
+            explanation: "«los boletos» — masculine, plural — so «los», in front of the verb. «las» is for feminine things, and «tengo los» has the order backwards."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y las llaves?", audioText: "¿y las llaves?", gloss: "And the keys?" }
+            goal: "Say you have them too."
+            reply:
+              mode: build
+              tiles: ["las", "tengo", "también", "los", "la"]
+              answer: "las tengo también"
+              alsoAccepted: ["también las tengo", "las tengo"]
+            replyGloss: "I have them too."
+            explanation: "Keys are «las llaves», so «las» — and it stays in front of «tengo» wherever «también» goes. «los» is the wrong gender and «la» is only one key."
+          - id: t3
+            npc: { speaker: "Diego", es: "Necesito la mochila.", audioText: "necesito la mochila", gloss: "I need the backpack." }
+            goal: "Say you have it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "la tengo" }
+                - { id: "wrong1", text: "lo tengo" }
+                - { id: "wrong2", text: "las tengo" }
+              correctOptionId: "right"
+              audioText: "la tengo"
+            replyGloss: "I have it."
+            explanation: "One backpack, feminine: «la mochila» — «la tengo». «lo» would be a masculine thing and «las» would be several."
+          - id: t4
+            npc: { speaker: "Diego", es: "¡Muy bien!", audioText: "muy bien", gloss: "Great!" }
+            goal: "Say goodbye."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hasta luego" }
+                - { id: "wrong1", text: "buenos días" }
+                - { id: "wrong2", text: "mucho gusto" }
+              correctOptionId: "right"
+              audioText: "hasta luego"
+            replyGloss: "See you later."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "el boleto", target: "the ticket" }
+          - { source: "la mochila", target: "the backpack" }
+          - { source: "los tengo", target: "I have them — the tickets" }
+          - { source: "las tengo", target: "I have them — the keys" }
+          - { source: "lo tengo", target: "I have it — the gift" }
+          - { source: "la tengo", target: "I have it — the backpack" }
+          - { source: "necesito", target: "I need" }
+      # The win: both plurals, then the singular, in one line the learner
+      # would say at the door.
+      - kind: speakLit
+        id: l4-sp-win
+        es: "tengo los boletos y las llaves, pero necesito la mochila"
+        en: "I have the tickets and the keys, but I need the backpack"
+        atoms: ["tengo", "boleto", "llave", "necesito", "mochila"]
+
+  # ── L5 · «No lo veo» — negation. «no» goes FIRST and the pronoun stays
+  #    glued to the verb: «no lo veo», never the pronoun before «no» and
+  #    never the pronoun after the verb. Debuts buscar / busco / buscas /
+  #    busca (regular -ar, m10's machine, taught as words) and the one thing
+  #    English speakers get wrong with it: there is no «por» — the 'for' is
+  #    inside the verb. ───────────────────────────────────────────────────
+  #
+  #    ⚠️ PIN E2 AND «lo». `atomModuleBySurfaceWord` does NOT know «lo» — it
+  #    is a function word, never registered — so the §13.9 law 5 two-option
+  #    exemption (both options resolvable) is UNAVAILABLE to any cloze whose
+  #    answer is la/los/las with «lo» as the foil. Every cloze here is
+  #    UNAVAILABLE to any cloze offering «lo» at all. So no clozeLit here
+  #    carries «lo» as an option: the lo-vs-la trial is an agreementLit
+  #    (outside E2), and every clozeLit is answered by an m16 atom
+  #    (busco/busca, free to run at three options). None is answered by
+  #    la/los/las.
+  #
+  #    ⚠️ GHOST ORDERS («lo no veo», «no veo lo», «busco lo») are two real
+  #    words each, so they would PASS provenance in a billed slot and teach
+  #    the error as a bank order. They live ONLY in l5-mcq-noloveo's
+  #    distractors and the sim's choice options — both unbilled. No tile,
+  #    cloze option or match source carries one.
+  #
+  #    ⚠️ «ves» is NOT registered (m15 taught veo/ve only), so Ana never
+  #    asks «¿lo ves?» — she asks with «tienes», which is m5's.
+  #
+  #    ANSWER POSITIONS for every L5 atom (the usage pin counts only
+  #    build/listen-build targets, speaking phrases, cloze blanks and sim
+  #    replies): busco — l5-b-buscocelular, l5-c-buscoboleto, l5-sp-win,
+  #    sim t2; buscas — l5-sp-buscas; busca — l5-c-anabusca; buscar —
+  #    l5-lb-quierobuscar.
+  #
+  #    RECALL: «quiero ver la película» was printed on es-m15-5-l5-sp-quierover
+  #    (non-recall) — verified against the shipped course.
+  - n: 5
+    template: free
+    title: "No lo veo"
+    description: "The word that stands in for the thing does not move when you say no — «no» goes in front of the pair, and the pair stays together. And a verb for looking that carries its own 'for'."
+    steps:
+      # First contact with the negated shape. The map bills nothing; the
+      # speakLit under it is the printed voicing.
+      - kind: map
+        id: l5-map-noloveo
+        tokens: ["no", "lo", "veo"]
+        pairs:
+          - { en: "not", tokenIndex: 0 }
+          - { en: "it", tokenIndex: 1 }
+          - { en: "I see", tokenIndex: 2 }
+        audioText: "no lo veo"
+        revealNote: "You know «lo veo» — the book, the gift, the phone, seen. To say you do NOT see it, one word goes in front: «no». That is the whole change. «lo» does not move. It was glued to «veo» before the «no» arrived and it is still glued to «veo» after — the «no» sits in front of the pair, never between them."
+      - kind: speakLit
+        id: l5-sp-noloveo
+        es: "no lo veo"
+        en: "I don't see it"
+        atoms: ["veo"]
+      # The bank tests the order by grading. «la» is the wrong-gender foil,
+      # «tienes» the wrong-person one; neither is a ghost.
+      - kind: buildLit
+        id: l5-b-nolotengo
+        es: "no lo tengo"
+        en: "I don't have it (the gift)"
+        atoms: ["tengo"]
+        tiles: ["la", "tienes"]
+      # lo-vs-la, and it is an agreement_cloze ON PURPOSE: «lo» is not a
+      # registered surface, so a clozeLit offering it fails pin E2's
+      # both-options-resolvable test (coordinator ruling 2026-09-07).
+      # agreement_cloze is outside E2 and bills only the solved sentence.
+      # The English carries the gender cue; the sentence is not a question.
+      - kind: agreementLit
+        id: l5-agr-nolonecesito
+        en: "I don't need it (the ticket)"
+        audioText: "no lo necesito"
+        atoms: ["necesito"]
+        segments:
+          - { text: "no " }
+          - { blank: { id: "pron", answer: "lo", options: ["lo", "la"] } }
+          - { text: " necesito" }
+      # The lesson's one card. It confirms the order the learner has just
+      # built twice, and it debuts «buscar» and its three cells — legal
+      # because an info card's guillemet spans are billed and `info` is
+      # intro-capable. The wrong order is DESCRIBED, never printed in
+      # guillemets: «lo no veo» is two real words and a billed span would
+      # teach it.
+      - kind: info
+        id: l5-info-noprimero
+        title: "No goes first — and a verb that looks"
+        body: "You have said it twice now, so here is the rule you were using. «no lo veo»: the «no» goes in front, and «lo» stays exactly where it was — pressed against the verb. English speakers want to slip the 'not' in between the two, or push the little word to the end the way English does with 'it'. Spanish does neither. The pair «lo veo» is a unit, and «no» sits in front of the unit. Now a new verb, because not seeing something usually means looking for it. «buscar» is to look for. «busco» — I look for. «buscas» — you look for. «busca» — he or she looks for. Ordinary -ar endings, the same ones «hablo», «hablas», «habla» have worn since module ten. One warning, and it is the only thing about this verb anyone gets wrong: the 'for' is already inside it. «busco mi celular» is I look for my phone — nothing goes between the verb and the thing. There is no «por» here. Not ever."
+      # First production of «busco». «por» is the trap the card just named;
+      # it is a function word, so a billed tile is legal, and leaving it on
+      # the board IS the test. «lo» is the leftover-pronoun foil.
+      - kind: buildLit
+        id: l5-b-buscocelular
+        es: "busco mi celular"
+        en: "I look for my phone"
+        atoms: ["busco", "celular"]
+        tiles: ["busca", "por", "lo"]
+      - kind: audioWimcq
+        id: l5-ear-celular
+        target: { surface: "el celular", emoji: "📱" }
+        distractors:
+          - { surface: "la llave", emoji: "🔑" }
+          - { surface: "el regalo", emoji: "🎁" }
+      # «busca» is m16's own atom, so pin E2 needs no exemption and three
+      # options are legal. Ana is in front of the verb on purpose — the
+      # decision is who is doing the looking.
+      - kind: clozeLit
+        id: l5-c-anabusca
+        es: "Ana busca la mochila"
+        en: "Ana looks for the backpack"
+        blank: "busca"
+        options: ["busca", "busco", "buscas"]
+        atoms: ["busca", "mochila"]
+        why: "Ana is the one looking, so the verb takes the él/ella ending — the plain -a you have used since «habla»."
+      # Plural pronoun under negation, by ear. The gloss stays simple present
+      # (pin E7): no estar + -ndo anywhere in the transcript.
+      - kind: listenCompLit
+        id: l5-lc-buscolasllaves
+        es: "busco las llaves, pero no las veo"
+        en: "I look for the keys, but I don't see them."
+        atoms: ["busco", "llave", "veo"]
+        distractorsEn:
+          - "I look for the keys, and I see them."
+          - "I look for the books, but I don't see them."
+          - "I have the keys, but I don't need them."
+      # Cross-module recall. m15 printed this line on a non-recall speaking
+      # step (es-m15-5-l5-sp-quierover), which is what licenses it — and it
+      # is the dictionary shape of the verb this lesson keeps negating.
+      - kind: speakLit
+        id: l5-sp-recall-quierover
+        es: "quiero ver la película"
+        en: "I want to see the movie"
+        atoms: []
+        cue: recall
+      # THE PLACEMENT GHOSTS, NAMED. A `multiple_choice` bills only its
+      # correct option, so the two wrong orders are legal here and nowhere
+      # else in the lesson; the third distractor is the wrong gender. Three
+      # tokens, unpunctuated — under inv 28's full-sentence line.
+      - kind: mcq
+        id: l5-mcq-noloveo
+        prompt: "'The phone? I don't see it.' — which one?"
+        correct: "no lo veo"
+        distractors: ["lo no veo", "no veo lo", "no la veo"]
+        atoms: ["veo"]
+        why: "«no» goes in front of the pair and the pair stays together — the pronoun never sits between «no» and the verb, and never after it. The last one is a real sentence about something feminine, and a phone is not."
+      # The infinitive earns its answer position here, behind «quiero» the
+      # way every infinitive has since m10. «busco» is the didn't-keep-the-
+      # dictionary-shape foil; «por» is the card's trap again.
+      - kind: listenBuildLit
+        id: l5-lb-quierobuscar
+        es: "quiero buscar el regalo"
+        en: "I want to look for the gift"
+        atoms: ["quiero", "buscar", "regalo"]
+        tiles: ["busco", "por"]
+      - kind: clozeLit
+        id: l5-c-buscoboleto
+        es: "busco el boleto"
+        en: "I look for the ticket"
+        blank: "busco"
+        options: ["busco", "buscas", "busca"]
+        atoms: ["busco", "boleto"]
+        why: "You are the one looking. The yo ending on a regular -ar verb is the -o you have used since «hablo» — no surprises, this verb behaves."
+      - kind: textMcq
+        id: l5-tm-buscar
+        target: "buscar"
+        distractors: ["ver", "tener", "comprar"]
+      # «buscas» earns its answer position on a printed voicing. A spoken
+      # question is fine (m10 printed «¿hablas ahora?»); it is never a cloze.
+      - kind: speakLit
+        id: l5-sp-buscas
+        es: "¿buscas mi celular?"
+        en: "Are you looking for my phone?"
+        atoms: ["buscas", "celular"]
+      # Ana loses things — m3's «Ana's keys» scene, same character, same
+      # habit. She never says «ves»: the tú form of ver is unregistered.
+      - kind: sim
+        id: l5-sim-ana-celular
+        scene: { emoji: "🔍", title: "Ana's phone", setting: "Ana pats every pocket twice. Her phone is not in any of them." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "No veo mi celular. ¿Lo tienes?", audioText: "no veo mi celular. ¿lo tienes?", gloss: "I don't see my phone. Do you have it?" }
+            goal: "Say no, you don't have it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, no lo tengo" }
+                - { id: "wrong1", text: "no, lo no tengo" }
+                - { id: "wrong2", text: "no, no la tengo" }
+              correctOptionId: "right"
+              audioText: "no, no lo tengo"
+            replyGloss: "No, I don't have it."
+            explanation: "The first «no» answers her; the second one goes in front of the pair, and the pair stays together. One option splits the pair, and one turns her phone into something feminine."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Dónde está?", audioText: "¿dónde está?", gloss: "Where is it?" }
+            goal: "Say you are looking for it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "lo busco" }
+                - { id: "wrong1", text: "busco lo" }
+                - { id: "wrong2", text: "la busco" }
+              correctOptionId: "right"
+              audioText: "lo busco"
+            replyGloss: "I'm looking for it."
+            explanation: "Pronoun first, then the verb — the same order as «lo veo». Nothing goes after «busco»: no pronoun, and no «por»."
+          - id: t3
+            npc: { speaker: "Ana", es: "¡Está en la mochila!", audioText: "¡está en la mochila!", gloss: "It's in the backpack!" }
+            goal: "Say you see it now."
+            reply:
+              mode: build
+              tiles: ["ahora", "lo", "veo", "la", "ve"]
+              answer: "ahora lo veo"
+              alsoAccepted: ["lo veo ahora"]
+            replyGloss: "Now I see it."
+            explanation: "«la» is the wrong gender for a phone and «ve» hands the looking to somebody else. «ahora» can sit at either end — the pair in the middle is what never changes."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "buscar", target: "to look for" }
+          - { source: "busco", target: "I look for" }
+          - { source: "busca", target: "he/she looks for" }
+          - { source: "no lo veo", target: "I don't see it" }
+          - { source: "el celular", target: "the phone" }
+          - { source: "la mochila", target: "the backpack" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "busco mi celular, pero no lo veo"
+        en: "I look for my phone, but I don't see it"
+        atoms: ["busco", "celular", "veo"]
+
+  # ── L6 · «Ya lo tengo» — two adverbs that live around the pronoun, and
+  #    comprar's three singular cells. «ya lo tengo» = I already have it;
+  #    «todavía no lo tengo» = I don't have it yet. Neither adverb ever
+  #    enters the «no lo tengo» block: each sits at one end of it or the
+  #    other, and BOTH ends grade correct — this is the lesson the brief
+  #    assigns the `also:` alternates to, and every alternate below is laid
+  #    out from the step's own tiles as whole tiles. ───────────────────────
+  #
+  #    ⚠️ inv 24 BUDGET: «ya lo tengo» is counted on the map's audioText,
+  #    the speakLit and nothing else — the build under them is the PLURAL
+  #    «ya los tengo», the cloze is excluded by the gate, and the mcq/sim
+  #    options are unbilled. Count = 2 of 3.
+  #
+  #    ⚠️ inv 28: «todavía no lo tengo» is FOUR tokens, so it may never be
+  #    the correct option of a `multiple_choice` in a teaching lesson. The
+  #    order trial on it is a buildLit; the mcq trial is on the three-token
+  #    «ya lo tengo».
+  #
+  #    ⚠️ «comprar» is m12's atom and is NOT re-registered; it appears here
+  #    only in the card's guillemets and the recall («quiero comprar esa
+  #    falda», printed on es-m12-6-l6-sp-quierocomprar). Never a
+  #    fused pronoun-on-infinitive form — not in a card, not in a sim, not anywhere.
+  #
+  #    ⚠️ PIN E2, same as L5: no clozeLit offers «lo»; the lo-vs-la trial is
+  #    an agreementLit, and every clozeLit is answered by an m16 atom
+  #    (compro / todavía). None is answered by la/los/las.
+  #
+  #    ANSWER POSITIONS: ya — l6-sp-yalotengo, l6-b-yalostengo, sim t1;
+  #    todavía — l6-b-todavianolotengo, l6-c-todavia, sim t2; compro —
+  #    l6-c-comproregalo, sim t3; compras — l6-sp-compras; compra —
+  #    l6-lb-anacompra.
+  - n: 6
+    template: free
+    title: "Ya lo tengo"
+    description: "Already, and not yet. Two words that sit on either side of the pair you built last lesson — and the verb for buying finally gets its own endings."
+    steps:
+      # First contact. The map bills nothing; «ya» debuts on the speakLit
+      # under it (`speaking` is intro-capable).
+      - kind: map
+        id: l6-map-yalotengo
+        tokens: ["ya", "lo", "tengo"]
+        pairs:
+          - { en: "already", tokenIndex: 0 }
+          - { en: "it", tokenIndex: 1 }
+          - { en: "I have", tokenIndex: 2 }
+        audioText: "ya lo tengo"
+        revealNote: "«ya» is one syllable and it means already. It goes in front of the pair, the way «no» did — and, like «no», it leaves «lo tengo» exactly as it was. Say it when somebody asks whether you have the ticket, the gift, the book: «ya lo tengo»."
+      - kind: speakLit
+        id: l6-sp-yalotengo
+        es: "ya lo tengo"
+        en: "I already have it"
+        atoms: ["ya", "tengo"]
+      # Plural, and the first `also:`. «ya» sits at either end of the pair;
+      # «lo» and «la» are the gender/number foils. No «todavía» on the board
+      # yet — a tile is a billed exposure and it has not debuted.
+      - kind: buildLit
+        id: l6-b-yalostengo
+        es: "ya los tengo"
+        en: "I already have them (the tickets)"
+        atoms: ["ya", "tengo", "boleto"]
+        tiles: ["lo", "la"]
+        also: ["los tengo ya"]
+      # lo-vs-la as an agreement_cloze, not a clozeLit — «lo» is unregistered
+      # and a clozeLit offering it fails pin E2 (same ruling as L5).
+      - kind: agreementLit
+        id: l6-agr-yalotengo
+        en: "I already have it (the gift)"
+        audioText: "ya lo tengo"
+        atoms: ["ya", "tengo", "regalo"]
+        segments:
+          - { text: "ya " }
+          - { blank: { id: "pron", answer: "lo", options: ["lo", "la"] } }
+          - { text: " tengo" }
+      # The lesson's one card: debuts «todavía» and comprar's three cells.
+      # Every guillemet span is a registered surface or a function word;
+      # «comprar» is m12's. The two alternates are printed side by side on
+      # purpose — the card is what licenses grading both ends.
+      - kind: info
+        id: l6-info-yatodavia
+        title: "Already, not yet — and buying"
+        body: "«ya lo tengo» — I already have it. The opposite is not a new word for «no»; it is «todavía», which means still, and it teams up with «no»: «todavía no lo tengo» — I still don't have it, I don't have it yet. Look at where the two adverbs stand. «ya» and «todavía» both stay OUTSIDE the pair. They go in front of it, or after it — «lo tengo ya» and «no lo tengo todavía» are just as right as the other order — but they never step between «lo» and the verb, and «todavía» never steps between «no» and «lo» either. The block «no lo tengo» does not break. Now the verb you need when you don't have something yet. You have said «quiero comprar» since module twelve; here are its own endings. «compro» — I buy. «compras» — you buy. «compra» — he or she buys. Regular -ar, exactly like «busco», «buscas», «busca» last lesson."
+      # The second `also:`. «ya» is on the board as a real foil — «ya no lo
+      # tengo» is a real sentence with a different meaning, and it is graded
+      # wrong against this English. «la» is the gender foil.
+      - kind: buildLit
+        id: l6-b-todavianolotengo
+        es: "todavía no lo tengo"
+        en: "I don't have it yet (the ticket)"
+        atoms: ["todavía", "tengo", "boleto"]
+        tiles: ["ya", "la"]
+        also: ["no lo tengo todavía"]
+      - kind: audioWimcq
+        id: l6-ear-regalo
+        target: { surface: "el regalo", emoji: "🎁" }
+        distractors:
+          - { surface: "el boleto", emoji: "🎟️" }
+          - { surface: "la mochila", emoji: "🎒" }
+      # «compro» is m16's own atom: three options are legal, and the three
+      # are the paradigm.
+      - kind: clozeLit
+        id: l6-c-comproregalo
+        es: "compro el regalo hoy"
+        en: "I buy the gift today"
+        blank: "compro"
+        options: ["compro", "compra", "compras"]
+        atoms: ["compro", "regalo", "hoy"]
+        why: "You are the one buying — the yo ending, -o, the same one «busco» and «hablo» wear."
+      # Simple-present gloss throughout (pin E7).
+      - kind: listenCompLit
+        id: l6-lc-nolotengolocompro
+        es: "no tengo el regalo, lo compro hoy"
+        en: "I don't have the gift, I buy it today."
+        atoms: ["tengo", "regalo", "compro", "hoy"]
+        distractorsEn:
+          - "I have the gift, I buy it today."
+          - "I don't have the ticket, I buy it today."
+          - "I don't have the gift, I buy it tomorrow."
+      # Cross-module recall. m12 printed this line on a non-recall speaking
+      # step (es-m12-6-l6-sp-quierocomprar) — the infinitive the card just
+      # handed endings to.
+      - kind: speakLit
+        id: l6-sp-recall-quierocomprar
+        es: "quiero comprar esa falda"
+        en: "I want to buy that skirt"
+        atoms: []
+        cue: recall
+      # THE ORDER GHOSTS, NAMED. Three tokens, unpunctuated — under inv 28.
+      # «ya la tengo» is a real sentence with the wrong gender.
+      - kind: mcq
+        id: l6-mcq-yalotengo
+        prompt: "'The book? I already have it.' — which one?"
+        correct: "ya lo tengo"
+        distractors: ["lo ya tengo", "ya tengo lo", "ya la tengo"]
+        atoms: ["ya", "tengo"]
+        why: "«ya» stays outside the pair — in front of it here — and the pair stays together with the pronoun first. The last one is real Spanish about something feminine, and a book is not."
+      # «compra» earns its answer position by ear. «compro» is the person
+      # foil; «las» the number foil.
+      - kind: listenBuildLit
+        id: l6-lb-anacompra
+        es: "Ana compra los boletos"
+        en: "Ana buys the tickets"
+        atoms: ["compra", "boleto"]
+        tiles: ["compro", "las"]
+      # ya against todavía, the pair the lesson is for. «todavía» is m16's
+      # atom; two options because the decision is a binary. The English
+      # 'yet' is what settles it.
+      - kind: clozeLit
+        id: l6-c-todavia
+        es: "todavía no lo tengo"
+        en: "I don't have it yet (the ticket)"
+        blank: "todavía"
+        options: ["todavía", "ya"]
+        atoms: ["todavía", "tengo"]
+        why: "'Yet' is the still-not word. The other choice in front of «no» would mean you HAD it and no longer do — real Spanish, and the opposite of what the English says."
+      - kind: textMcq
+        id: l6-tm-todavia
+        target: "todavía"
+        distractors: ["ya", "hoy", "ahora"]
+      # «compras» earns its answer position on a printed voicing — a
+      # question, spoken, never a cloze.
+      - kind: speakLit
+        id: l6-sp-compras
+        es: "¿compras el boleto hoy?"
+        en: "Are you buying the ticket today?"
+        atoms: ["compras", "boleto", "hoy"]
+      # Diego and his checklist (m13/m14's «Diego is packing» beat). Every
+      # form he says is registered: tienes (m5), compras (m16, debuted on
+      # the card above). Both build turns accept both ends.
+      - kind: sim
+        id: l6-sim-diego-lista
+        scene: { emoji: "📋", title: "Diego checks the list", setting: "Diego has a list on his phone and is ticking things off before the trip." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Tienes los boletos?", audioText: "¿tienes los boletos?", gloss: "Do you have the tickets?" }
+            goal: "Say yes, you already have them."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, ya los tengo" }
+                - { id: "wrong1", text: "sí, ya lo tengo" }
+                - { id: "wrong2", text: "sí, los ya tengo" }
+              correctOptionId: "right"
+              audioText: "sí, ya los tengo"
+            replyGloss: "Yes, I already have them."
+            explanation: "Tickets, plural and masculine, so «los». «ya» stands in front of the pair and never inside it."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y el regalo?", audioText: "¿y el regalo?", gloss: "And the gift?" }
+            goal: "Say you don't have it yet."
+            reply:
+              mode: build
+              tiles: ["todavía", "no", "lo", "tengo", "la", "ya"]
+              answer: "todavía no lo tengo"
+              alsoAccepted: ["no lo tengo todavía"]
+            replyGloss: "I don't have it yet."
+            explanation: "«todavía» can open the sentence or close it; the block «no lo tengo» stays whole either way. «la» is the wrong gender for a gift, and «ya» would say you used to have it."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿Lo compras hoy?", audioText: "¿lo compras hoy?", gloss: "Are you buying it today?" }
+            goal: "Say you buy it today."
+            reply:
+              mode: build
+              tiles: ["lo", "compro", "hoy", "la", "compras"]
+              answer: "lo compro hoy"
+              alsoAccepted: ["hoy lo compro"]
+            replyGloss: "I buy it today."
+            explanation: "His «compras» turns into your «compro» — the question's tú becomes your yo. «hoy» can sit at either end; «lo» stays in front of the verb."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "ya", target: "already" }
+          - { source: "todavía", target: "still, yet" }
+          - { source: "compro", target: "I buy" }
+          - { source: "compra", target: "he/she buys" }
+          - { source: "el boleto", target: "the ticket" }
+          - { source: "el regalo", target: "the gift" }
+          - { source: "buscar", target: "to look for" }
+          - { source: "el celular", target: "the phone" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "ya lo tengo, pero todavía no tengo los boletos"
+        en: "I already have it, but I still don't have the tickets"
+        atoms: ["ya", "tengo", "todavía", "boleto"]
+
+  # ── L7 · «Lo quiero comprar» — ZERO new atoms. Two verbs in one line, and
+  #    the pronoun has to choose which one to stand in front of. ──
+  #
+  #    The claim is one sentence: the pronoun goes before the verb that
+  #    CARRIES THE PERSON — «lo quiero comprar», «la puedo ver», «los
+  #    necesito comprar» — never in the middle, never after the infinitive.
+  #    Carriers: quiero/quieres (m7), puedo/puede (m14), tengo/tienes (m5),
+  #    veo (m15), necesito/necesita (L3), busco (L5), compro (L6);
+  #    infinitives comprar (m12), ver (m15), leer (m11). Nouns: regalo,
+  #    mensaje (L3), boleto, mochila (L4) plus m3/m12/m13 property.
+  #
+  #    ⚠️ NO FUSED FORM ANYWHERE — not «comprarlo», not «verlo», not in a
+  #    sim option, not in an explanation, not in a guillemet span. Every
+  #    such form is an unregistered surface (header) and the module does not
+  #    mention that they exist. The placement ghosts this lesson DOES use —
+  #    «quiero lo comprar», «quiero comprar lo», «necesito los comprar» —
+  #    live ONLY in multiple_choice distractors and sim options, which
+  #    `esSurfaces` never bills (brief rule 6).
+  #
+  #    ⚠️ PIN E2 IS NARROWER THAN THE HEADER SAYS. The §13.9 law 5 exemption
+  #    in moduleBarGuards requires EVERY option of the two-option cloze to
+  #    resolve in `atomModuleBySurfaceWord`, and «lo» is deliberately NOT an
+  #    atom — so «lo» is never a clozeLit option in this lesson, in either
+  #    role (coordinator ruling 2026-09-07). The one cloze that remains is
+  #    answered by «la» and pairs it with «los», both m3/m4 atoms. The
+  #    lo-vs-la decision itself lives on build banks (a «la» foil tile), the
+  #    agreementLit's single keystroke, the MCQs and the sim options.
+  #
+  #    ⚠️ CLOZE BLANKS ARE MATCHED BY `words(es).indexOf(blank)` — the FIRST
+  #    occurrence. A sentence like «la camisa … la quiero» would blank the
+  #    ARTICLE. The pronoun-blank sentence below names its noun with «una»
+  #    so the pronoun is the first «la» in the line.
+  #
+  #    Cloze share 1/20 (cap 0.25). Selection runs peak at 3 (steps 11–13),
+  #    broken by a build. One map, one card, four builds, one listen-build,
+  #    one agreement keystroke, two listen-comps, two audio ear trials, two
+  #    MCQs, three speaks (one recall, licensed by m15 L5's printed voicing
+  #    of «quiero ver la película»), sim → match → win.
+  - n: 7
+    template: free
+    title: "Lo quiero comprar"
+    description: "Two verbs, one pronoun — and it goes in front of the verb that says who. No new words."
+    steps:
+      - kind: map
+        id: l7-map-loquierocomprar
+        tokens: ["lo", "quiero", "comprar"]
+        pairs:
+          - { en: "it", tokenIndex: 0 }
+          - { en: "I want", tokenIndex: 1 }
+          - { en: "to buy", tokenIndex: 2 }
+        audioText: "lo quiero comprar"
+        revealNote: "Read the two verbs first. «quiero» has you on it — the -o that says yo. «comprar» has nobody on it; it is the bare dictionary shape you have been putting after «quiero» since module twelve. The little word that stands for the thing goes in front of the verb that carries the person: «lo quiero comprar». It does not slip into the gap between the two verbs, and it does not come after «comprar»."
+        tokenGenders: { 0: "m" }
+      # The lesson's one card. Every guillemet span is a billed surface, so
+      # everything inside «…» is m1–m15 or m16 property — and no fused form
+      # is named, even to forbid it.
+      - kind: info
+        id: l7-info-antesdelverbo
+        title: "In front of the verb that carries the person"
+        body: "«quiero comprar» is two verbs, and only one of them has a person on it. «quiero» says who — that final -o is you. «comprar» is the dictionary shape and says nothing about who at all. So when a thing you have already named turns into «lo», «la», «los» or «las», the short word goes in front of the verb that carries the person: «lo quiero comprar». Not between the two verbs, not after «comprar». It is the same with every helper verb you own — «la puedo ver», «los necesito comprar» — the pronoun stands in front of «puedo» and «necesito», the words with a person on them. And a question hands the same short word back to you: «¿lo tienes?» — «sí, lo tengo». Name the thing once; after that, it is one short word, and it stands in front."
+      - kind: buildLit
+        id: l7-b-loquierocomprar
+        es: "lo quiero comprar"
+        en: "I want to buy it"
+        atoms: ["quiero", "comprar"]
+        tiles: ["la", "compro"]
+      - kind: audioWimcq
+        id: l7-ear-regalo
+        target: { surface: "el regalo", emoji: "🎁" }
+        distractors:
+          - { surface: "el boleto", emoji: "🎟️" }
+          - { surface: "el libro", emoji: "📖" }
+      # The lo/la gender pick as ONE keystroke. An agreementLit, not a
+      # clozeLit: «lo» is not a registered atom, so it may never be a cloze
+      # option (coordinator ruling 2026-09-07) — and agreement_cloze bills
+      # only the reconstructed correct sentence, never its options.
+      - kind: agreementLit
+        id: l7-agree-regalolo
+        en: "the gift is pretty and I want to buy it"
+        audioText: "el regalo es bonito y lo quiero comprar"
+        atoms: ["regalo", "bonito", "quiero", "comprar"]
+        segments:
+          - { text: "el regalo es bonito y l" }
+          - { blank: { id: "g1", answer: "o", options: ["o", "a"] } }
+          - { text: " quiero comprar" }
+      # Cross-module recall: the SAME sentence without a pronoun, printed on
+      # a non-recall speaking step before m16. Said back cold, one step
+      # before the lesson takes the noun out of it.
+      - kind: speakLit
+        id: l7-sp-recall-quierover
+        es: "quiero ver la película"
+        en: "I want to see the movie"
+        atoms: []
+        cue: recall
+      - kind: listenCompLit
+        id: l7-lc-laquierover
+        es: "la quiero ver hoy"
+        en: "I want to see it today."
+        atoms: ["quiero", "ver", "hoy"]
+        distractorsEn:
+          - "I want to buy it today."
+          - "I can see it today."
+          - "I want to see it tomorrow."
+      # Fronted time adverb is the one reorder §14 licenses; the bank holds
+      # the wrong gender and the wrong person.
+      - kind: buildLit
+        id: l7-b-lapuedover
+        also: ["mañana la puedo ver"]
+        es: "la puedo ver mañana"
+        en: "I can see it tomorrow"
+        atoms: ["puedo", "ver", "mañana"]
+        tiles: ["lo", "puede"]
+      # The placement ghosts, and the only slot they may occupy: MCQ
+      # distractors. A three-token correct option is under the inv 28 line.
+      - kind: mcq
+        id: l7-tm-losnecesito
+        prompt: "Which one means 'I need to buy them' — the tickets?"
+        correct: "los necesito comprar"
+        distractors: ["necesito los comprar", "necesito comprar los", "las necesito comprar"]
+        atoms: ["necesito", "comprar"]
+        why: "The pronoun sits in front of the verb that carries the person — «necesito» — not in front of «comprar», and never after it. Tickets are «los»."
+      - kind: listenBuildLit
+        id: l7-lb-losnecesitocomprar
+        es: "los necesito comprar hoy"
+        en: "I need to buy them today"
+        atoms: ["necesito", "comprar", "hoy"]
+        tiles: ["las", "necesita"]
+      # «la» is m3's atom, so this survives pin E2 only as the two-option
+      # trial with BOTH options in atomModuleBySurfaceWord — «la» (m3) and
+      # «los» (m4). «lo» cannot sit in this slot; see the lesson header.
+      - kind: clozeLit
+        id: l7-c-mochilala
+        es: "necesito una mochila y la quiero comprar"
+        en: "I need a backpack and I want to buy it"
+        blank: "la"
+        options: ["la", "los"]
+        atoms: ["necesito", "mochila", "quiero", "comprar"]
+        why: "«una mochila» — one la-word. The stand-in copies both the gender and the number, so it is «la», in front of «quiero»."
+      - kind: listenCompLit
+        id: l7-lc-silatengo
+        es: "sí, la tengo aquí"
+        en: "Yes, I have it here."
+        atoms: ["tengo"]
+        distractorsEn:
+          - "Yes, I have them here."
+          - "No, I don't have it here."
+          - "Yes, I see it here."
+      - kind: audioWimcq
+        id: l7-ear-mochila
+        target: { surface: "la mochila", emoji: "🎒" }
+        distractors:
+          - { surface: "la camisa", emoji: "👕" }
+          - { surface: "la llave", emoji: "🔑" }
+      # The noun and its stand-in in one line: «los boletos» named, then
+      # «los» in front of «quiero». Two «los» tiles in the bank on purpose.
+      - kind: buildLit
+        id: l7-b-boletoslos
+        es: "los boletos son caros pero los quiero comprar"
+        en: "the tickets are expensive but I want to buy them"
+        atoms: ["boleto", "caro", "quiero", "comprar"]
+        tiles: ["las", "lo"]
+      - kind: mcq
+        id: l7-tm-silotengo
+        prompt: "«¿lo tienes?» — which one means 'yes, I have it'?"
+        correct: "sí, lo tengo"
+        distractors: ["sí, tengo lo", "sí, la tengo", "sí, lo tienes"]
+        atoms: ["tengo"]
+        why: "«lo» stands in for the thing you were just asked about, and it goes before «tengo»."
+      # «mensaje» ends in -e and is still an el-word; the bank offers both
+      # la-forms so the article in «un mensaje» is the only cue.
+      - kind: buildLit
+        id: l7-b-mensajelo
+        es: "tengo un mensaje de Ana y lo quiero leer"
+        en: "I have a message from Ana and I want to read it"
+        atoms: ["tengo", "mensaje", "quiero", "leer"]
+        tiles: ["la", "los"]
+      - kind: speakLit
+        id: l7-sp-silotengo
+        es: "sí, lo tengo"
+        en: "yes, I have it"
+        atoms: ["tengo"]
+      - kind: sim
+        id: l7-sim-tienda
+        scene: { emoji: "🛍️", title: "The gift, the tickets and the backpack", setting: "Ana and Diego are at the market with you, working out what still has to be bought before the trip." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Quieres comprar el regalo?", audioText: "¿quieres comprar el regalo?", gloss: "Do you want to buy the gift?" }
+            goal: "Say yes, you want to buy it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, lo quiero comprar" }
+                - { id: "wrong1", text: "sí, quiero lo comprar" }
+                - { id: "wrong2", text: "sí, la quiero comprar" }
+              correctOptionId: "right"
+              audioText: "sí, lo quiero comprar"
+            replyGloss: "Yes, I want to buy it."
+            explanation: "Ana named «el regalo», so it is «lo» — and «lo» stands in front of «quiero», the verb with you on it, never in the gap before «comprar»."
+          - id: t2
+            # Build turn: single-word tiles, the wrong-gender «las» and the
+            # wrong-number «lo» in the bank, and every natural order with
+            # «ya» accepted (§13.9 law 11).
+            npc: { speaker: "Diego", es: "¿Tienes los boletos?", audioText: "¿tienes los boletos?", gloss: "Do you have the tickets?" }
+            goal: "Say you have them."
+            reply:
+              mode: build
+              tiles: ["los", "tengo", "ya", "las", "lo"]
+              answer: "los tengo"
+              alsoAccepted: ["ya los tengo", "los tengo ya"]
+            replyGloss: "I have them."
+            explanation: "«los boletos» — el-words, more than one — so «los», in front of «tengo». Diego handed you the word in his question; you only had to give it back."
+          - id: t3
+            npc: { speaker: "Ana", es: "La película es nueva.", audioText: "la película es nueva", gloss: "The movie is new." }
+            goal: "Say you want to see it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "la quiero ver" }
+                - { id: "wrong1", text: "quiero la ver" }
+                - { id: "wrong2", text: "lo quiero ver" }
+              correctOptionId: "right"
+              audioText: "la quiero ver"
+            replyGloss: "I want to see it."
+            explanation: "«la película» is a la-word, so «la» — and it goes in front of «quiero». Between the two verbs is the one place it never goes."
+          - id: t4
+            npc: { speaker: "Diego", es: "¿Y la mochila?", audioText: "¿y la mochila?", gloss: "And the backpack?" }
+            goal: "Say you can buy it tomorrow."
+            reply:
+              mode: build
+              tiles: ["la", "puedo", "comprar", "mañana", "lo", "compro"]
+              answer: "la puedo comprar mañana"
+              alsoAccepted: ["mañana la puedo comprar"]
+            replyGloss: "I can buy it tomorrow."
+            explanation: "«puedo» carries the person, so «la» stands in front of it; «comprar» stays bare at the end. «compro» would put a second person on the line — one verb says who, and that is enough."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "lo quiero comprar", target: "I want to buy it" }
+          - { source: "la puedo ver", target: "I can see it" }
+          - { source: "los necesito comprar", target: "I need to buy them" }
+          - { source: "lo tengo", target: "I have it" }
+          - { source: "el regalo", target: "the gift" }
+          - { source: "los boletos", target: "the tickets" }
+          - { source: "la mochila", target: "the backpack" }
+          - { source: "las llaves", target: "the keys" }
+      # The win: the noun named, then replaced, then carried past two verbs
+      # — the whole module in one breath.
+      - kind: speakLit
+        id: l7-sp-win
+        es: "el regalo es bonito y lo quiero comprar"
+        en: "the gift is pretty and I want to buy it"
+        atoms: ["regalo", "bonito", "quiero", "comprar"]
+
+  # ── L8 · CHECKPOINT — every pronoun, every position, nothing to lean on.
+  #   Graded steps only: no info card, no map (a reveal, not a retrieval —
+  #   m15's ruling), no sim. All four pronouns are produced at least once,
+  #   both placements (before the one verb, before the FIRST of two), the
+  #   negative («no lo veo»), the adverbs («ya», «todavía»), the question
+  #   exchange («¿los tienes?» → «sí, los tengo»), and the two ghost shapes
+  #   as MCQ distractors only.
+  #
+  #   ── TRANSFER TEST — the one step the module is built to earn ─────────
+  #   `cp-transfer-maleta` is the only step in the module that carries an
+  #   unseen noun. «maleta» appears in exactly one step — not in L7, not in
+  #   any later lesson, not in this lesson's match. The shape:
+  #     - buildLit, because build_sentence is intro-capable (ES_INTRO_TYPES)
+  #       and bills its target AND its tiles, so the debut is legal and the
+  #       foils are visible to the provenance gate. A clozeLit could not
+  #       carry it (particle_cloze is not intro-capable, and no question is
+  #       ever a cloze), and a map or a sim bills nothing.
+  #     - the target is the brief's «¿la maleta? la necesito»: the noun is
+  #       handed over WITH its article and the learner has to turn that
+  #       article into the pronoun. The bank holds «lo» and «los» as foils —
+  #       the wrong gender and the wrong number — so the live decision is
+  #       exactly the module's.
+  #     - GLOSSED IN PLACE in the prompt, the way m15 glossed «poner». The
+  #       gloss is in the `en` (the build prompt), never in a Spanish slot.
+  #     - ⚠️ the prompt has NO internal sentence period: lintTheatricalPrompts
+  #       (inv 29) fails a build prompt matching /[.!?]\s+\S/, so the English
+  #       is written as one clause with a dash, not as "The suitcase? I need
+  #       it".
+  #     - no picture of a suitcase anywhere near it; the ear trial after it
+  #       is about somewhere else, and «maleta» has no emoji (header).
+  #   Placement: step 9 of 20, between an agreementLit and an audioWimcq —
+  #   two selection kinds — so the build BREAKS the run rather than joining
+  #   one.
+  #
+  #   Pin E2 discipline is the same as L7's: «lo» is never a cloze option;
+  #   the two clozes are answered by «la»/«los» and pair each with its other
+  #   number (both atoms). The «lo» decisions are builds with a la-foil, the
+  #   agreementLit's two keystrokes, and the MCQs. Cloze share 2/20 (cap ⅓).
+  #   Two cued recalls, both licensed by m5/m12 printed voicings. Selection
+  #   runs peak at 2.
+  - n: 8
+    template: free
+    title: "L8 ✓ Checkpoint · The word that stands in for the thing"
+    description: "Four short words, every position they take, no help — and one thing in the middle of it that this module never named."
+    steps:
+      - kind: listenCompLit
+        id: cp-lc-1
+        es: "el regalo es caro pero lo quiero comprar"
+        en: "The gift is expensive but I want to buy it."
+        atoms: ["regalo", "caro", "quiero", "comprar"]
+        distractorsEn:
+          - "The gift is cheap but I want to buy it."
+          - "The gift is expensive but I want to see it."
+          - "The gift is expensive and I have it."
+      - kind: audioWimcq
+        id: cp-ear-1
+        target: { surface: "el boleto", emoji: "🎟️" }
+        distractors:
+          - { surface: "el regalo", emoji: "🎁" }
+          - { surface: "la mochila", emoji: "🎒" }
+      - kind: buildLit
+        id: cp-build-1
+        also: ["los tengo ya"]
+        es: "ya los tengo"
+        en: "I already have them — the tickets"
+        atoms: ["ya", "tengo"]
+        tiles: ["las", "lo"]
+      # «la» is m3's — two options, both atoms (pin E2 / §13.9 law 5).
+      - kind: clozeLit
+        id: cp-cloze-1
+        es: "quiero una falda y la busco hoy"
+        en: "I want a skirt and I look for it today"
+        blank: "la"
+        options: ["la", "las"]
+        atoms: ["quiero", "falda", "busco", "hoy"]
+        why: "«una falda» — one la-word. The stand-in copies the number too, so «la», not «las», and it sits in front of «busco»."
+      - kind: listenBuildLit
+        id: cp-lb-1
+        es: "no lo veo aquí"
+        en: "I don't see it here"
+        atoms: ["veo"]
+        tiles: ["la", "ve"]
+      - kind: mcq
+        id: cp-tm-1
+        prompt: "Which one means 'I want to see it' — the gift?"
+        correct: "lo quiero ver"
+        distractors: ["quiero lo ver", "quiero ver lo", "la quiero ver"]
+        atoms: ["quiero", "ver"]
+        why: "Before the verb that carries the person: «quiero». «ver» stays bare."
+      # m12's line, printed there on a non-recall speaking step — the noun
+      # still in it, said back cold.
+      - kind: speakLit
+        id: cp-sp-1
+        es: "quiero comprar esta camisa"
+        en: "I want to buy this shirt"
+        atoms: []
+        cue: recall
+      # Both pronouns as two keystrokes in one line, and both stand for the
+      # same el-word. «a» and «as» are on offer and right at neither blank —
+      # nothing on screen says which ending the thing takes. (Never «os» as
+      # an option: the vosotros lint reads bare «os» as the clitic.)
+      - kind: agreementLit
+        id: cp-agree-1
+        en: "I see it and I want to buy it — the gift"
+        audioText: "lo veo y lo quiero comprar"
+        atoms: ["veo", "quiero", "comprar"]
+        segments:
+          - { text: "l" }
+          - { blank: { id: "g1", answer: "o", options: ["o", "a"] } }
+          - { text: " veo y l" }
+          - { blank: { id: "g2", answer: "o", options: ["o", "as"] } }
+          - { text: " quiero comprar" }
+      # ── TRANSFER TEST — see the lesson header for why it is shaped this way.
+      - kind: buildLit
+        id: cp-transfer-maleta
+        es: "¿la maleta? la necesito"
+        en: "the suitcase — I need it, and «la maleta» is the suitcase"
+        atoms: ["maleta", "necesito"]
+        tiles: ["lo", "los"]
+      - kind: audioWimcq
+        id: cp-ear-2
+        target: { surface: "la llave", emoji: "🔑" }
+        distractors:
+          - { surface: "la camisa", emoji: "👕" }
+          - { surface: "la foto", emoji: "📷" }
+      # «los» is m4's — two options, both atoms.
+      - kind: clozeLit
+        id: cp-cloze-3
+        es: "todavía no los tengo"
+        en: "I don't have them yet — the tickets"
+        blank: "los"
+        options: ["los", "las"]
+        atoms: ["todavía", "tengo"]
+        why: "The tickets are el-words, more than one: «los». «todavía no» comes first, then the pronoun, then «tengo» — the pronoun stays glued to the verb."
+      - kind: listenBuildLit
+        id: cp-lb-2
+        es: "las necesito comprar mañana"
+        en: "I need to buy them tomorrow"
+        atoms: ["necesito", "comprar", "mañana"]
+        tiles: ["los", "necesita"]
+      - kind: mcq
+        id: cp-tm-2
+        prompt: "«¿los tienes?» — which one means 'yes, I have them'?"
+        correct: "sí, los tengo"
+        distractors: ["sí, tengo los", "sí, las tengo", "sí, los tienes"]
+        atoms: ["tengo"]
+        why: "Plural things get «los», and it goes before «tengo»."
+      # «un mensaje» is an el-word that ends in -e; the bank holds both
+      # la-forms, so the article is the only thing that decides.
+      - kind: buildLit
+        id: cp-build-2
+        es: "tengo un mensaje y lo quiero leer ahora"
+        en: "I have a message and I want to read it now"
+        atoms: ["tengo", "mensaje", "quiero", "leer", "ahora"]
+        tiles: ["la", "las"]
+      - kind: listenCompLit
+        id: cp-lc-2
+        es: "busco las llaves pero no las veo"
+        en: "I look for the keys but I don't see them."
+        atoms: ["busco", "llave", "veo"]
+        distractorsEn:
+          - "I look for the keys and I see them."
+          - "I look for the keys but I don't have them."
+          - "I look for the tickets but I don't see them."
+      - kind: buildLit
+        id: cp-build-3
+        also: ["hoy no la puedo ver"]
+        es: "no la puedo ver hoy"
+        en: "I can't see it today — the movie"
+        atoms: ["puedo", "ver", "hoy"]
+        tiles: ["lo", "puede"]
+      # m5's question, printed there ten modules ago — and the shape every
+      # «¿lo tienes?» in this module grew out of.
+      - kind: speakLit
+        id: cp-sp-2
+        es: "¿tienes un perro?"
+        en: "do you have a dog?"
+        atoms: []
+        cue: recall
+      - kind: listenCompLit
+        id: cp-lc-3
+        es: "el boleto es caro y no lo quiero comprar"
+        en: "The ticket is expensive and I don't want to buy it."
+        atoms: ["boleto", "caro", "quiero", "comprar"]
+        distractorsEn:
+          - "The ticket is cheap and I don't want to buy it."
+          - "The ticket is expensive and I want to buy it."
+          - "The ticket is expensive and I don't want to see it."
+      - kind: matchLit
+        id: cp-match
+        pairs:
+          - { source: "lo quiero comprar", target: "I want to buy it" }
+          - { source: "la puedo ver", target: "I can see it" }
+          - { source: "los busco", target: "I look for them" }
+          - { source: "las tengo", target: "I have them" }
+          - { source: "ya", target: "already" }
+          - { source: "todavía", target: "still, yet" }
+          - { source: "el boleto", target: "the ticket" }
+          - { source: "la mochila", target: "the backpack" }
+      - kind: speakLit
+        id: cp-sp-win
+        es: "ya lo tengo y lo quiero ver"
+        en: "I already have it and I want to see it"
+        atoms: ["ya", "tengo", "quiero", "ver"]
+
+  # ── L9 · CONSOLIDATION — zero new atoms. Everything the module taught,
+  #    loosed across mixed gender AND number in one lesson, and dialogue-
+  #    heavy on purpose: the pronoun is a CONVERSATIONAL device (you only
+  #    say «lo» because somebody just said «el boleto»), so two sims carry
+  #    the lesson instead of one. The packing list (mochila, boletos,
+  #    llaves) and the bus stop (boleto, celular, regalo, fotos) hand the
+  #    learner a fresh antecedent every turn and ask for the matching word.
+  #    Cloze runs 3/19 = 0.16 (teaching cap ¼). Every cloze answered by a
+  #    CARRIER (la/las) offers exactly two options, both registered atoms
+  #    (la/las/los) — «lo» is a function word, not an atom, so a [la, lo]
+  #    pair does NOT read as a pin-E2 discrimination trial (see report);
+  #    the lo-trials put «lo» in the ANSWER slot, where E2 has no atom to
+  #    object to. Recalls: 3, all printed in earlier modules (m4 L?, m15
+  #    L5, m12). No info card: a consolidation lesson states nothing new.
+  - n: 9
+    template: free
+    title: "¿Lo tienes?"
+    description: "No new words. A packing list, a bus stop, and four little words — lo, la, los, las — doing all the pointing so you never have to say the thing twice."
+    steps:
+      - kind: map
+        id: l9-map-yalostengo
+        tokens: ["¿los", "boletos?", "ya", "los", "tengo"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "tickets?", tokenIndex: 1 }
+          - { en: "already", tokenIndex: 2 }
+          - { en: "them", tokenIndex: 3 }
+          - { en: "I have", tokenIndex: 4 }
+        audioText: "¿los boletos? ya los tengo"
+        revealNote: "The same word twice, doing two different jobs. The first «los» is the article — the one you have used since m4. The second «los» stands in for «los boletos» entirely: you named the tickets once, so you do not name them again. Masculine, plural, in front of the verb. Nothing in this lesson is new; what is new is how much of it arrives at once."
+        tokenGenders: { 1: "m", 3: "m" }
+      - kind: speakLit
+        id: l9-sp-yalostengo
+        es: "¿los boletos? ya los tengo"
+        en: "the tickets? I already have them"
+        atoms: ["boleto", "ya", "tengo"]
+      - kind: clozeLit
+        id: l9-c-lamochila
+        es: "¿la mochila? ya la tengo"
+        en: "the backpack? I already have it"
+        blank: "la"
+        options: ["la", "las"]
+        atoms: ["mochila", "ya"]
+        why: "One backpack, feminine, so «la». «las» would be several of them. The word you pick is a copy of the article you were just given — read the question, and the answer is already in it."
+      # ── by ear only: the feminine noun this lesson leans on ─────────────
+      - kind: audioWimcq
+        id: l9-ear-mochila
+        target: { surface: "la mochila", emoji: "🎒" }
+        distractors:
+          - { surface: "la camisa", emoji: "👕" }
+          - { surface: "la llave", emoji: "🔑" }
+      - kind: buildLit
+        id: l9-b-todavianolastengo
+        also: ["no las tengo todavía"]
+        es: "todavía no las tengo"
+        en: "I still don't have them (the keys)"
+        atoms: ["todavía", "tengo"]
+        tiles: ["los", "lo", "ya"]
+      # ── SIM 1 — the packing list. Ana names a thing per turn; Sam answers
+      #    with the pronoun that thing takes. Feminine singular, masculine
+      #    plural, feminine plural — three genders/numbers in three turns.
+      - kind: sim
+        id: l9-sim-mochila
+        scene: { emoji: "🎒", title: "The packing list", setting: "Ana is going through the list for the trip. She names each thing; you say whether you have it." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes la mochila?", audioText: "¿tienes la mochila?", gloss: "Do you have the backpack?" }
+            goal: "Say yes, you have it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, la tengo" }
+                - { id: "wrong1", text: "sí, lo tengo" }
+                - { id: "wrong2", text: "sí, tengo la" }
+              correctOptionId: "right"
+              audioText: "sí, la tengo"
+            replyGloss: "Yes, I have it."
+            explanation: "Ana said «la mochila», so the word that stands in for it is «la» — same gender, and it goes BEFORE «tengo». «lo tengo» would be a masculine thing; «tengo la» puts the pronoun where English puts «it», which Spanish never does."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y los boletos? ¿Los tienes?", audioText: "¿y los boletos? ¿los tienes?", gloss: "And the tickets? Do you have them?" }
+            goal: "Say you already have them."
+            reply:
+              mode: build
+              tiles: ["ya", "los", "tengo", "las", "lo", "todavía"]
+              answer: "ya los tengo"
+              alsoAccepted: ["los tengo ya"]
+            replyGloss: "I already have them."
+            explanation: "«los boletos» → «los». Ana even used the word herself: «¿los tienes?». Your answer keeps her pronoun and changes only the verb to «tengo». «ya» sits comfortably either side of the pair — «ya los tengo» or «los tengo ya» — but «los» never leaves «tengo»'s side."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y las llaves?", audioText: "¿y las llaves?", gloss: "And the keys?" }
+            goal: "Say you're still looking for them."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "todavía las busco" }
+                - { id: "wrong1", text: "todavía los busco" }
+                - { id: "wrong2", text: "todavía busco las" }
+              correctOptionId: "right"
+              audioText: "todavía las busco"
+            replyGloss: "I'm still looking for them."
+            explanation: "«las llaves» → «las», feminine plural, right before «busco». «los busco» would be the tickets again. And notice there is no «por» after «busco» — the 'for' is inside the verb."
+      # ── review tail 1 — m4's own question, cued cold (m4 printed it) ────
+      - kind: speakLit
+        id: l9-sp-recall-celular
+        es: "¿dónde está el celular?"
+        en: "where is the phone?"
+        atoms: []
+        cue: recall
+      - kind: listenCompLit
+        id: l9-lc-regalo
+        es: "todavía busco el regalo pero no lo veo"
+        en: "I'm still looking for the gift but I don't see it."
+        atoms: ["todavía", "busco", "regalo", "veo"]
+        distractorsEn:
+          - "I'm still looking for the gift and I see it."
+          - "I already have the gift but I don't see it."
+          - "I'm still looking for the keys but I don't see them."
+      - kind: clozeLit
+        id: l9-c-noloveo
+        es: "¿el regalo? no lo veo"
+        en: "the gift? I don't see it"
+        blank: "lo"
+        options: ["lo", "la"]
+        atoms: ["regalo", "veo"]
+        why: "«el regalo» is masculine, so «lo» — and it sits between «no» and «veo», never before the «no». The pronoun hugs the verb; the negative goes outside both."
+      - kind: listenBuildLit
+        id: l9-lb-laquierocomprar
+        es: "la quiero comprar"
+        en: "I want to buy it (the shirt)"
+        atoms: ["quiero", "comprar"]
+        tiles: ["lo", "las", "compro"]
+      - kind: textMcq
+        id: l9-tm-todavia
+        target: "todavía"
+        distractors: ["ya", "ahora", "nunca"]
+      # ── review tail 2 — m15's own wish, cued cold (m15 L5 printed it) ───
+      - kind: speakLit
+        id: l9-sp-recall-pelicula
+        es: "quiero ver la película"
+        en: "I want to see the movie"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l9-b-lasquierover
+        es: "las quiero ver"
+        en: "I want to see them (the photos)"
+        atoms: ["quiero", "ver"]
+        tiles: ["los", "la", "veo"]
+      - kind: mcq
+        id: l9-q-losbusco
+        prompt: "'The tickets? I'm looking for them.' — which one?"
+        correct: "los busco"
+        distractors: ["las busco", "busco los", "lo busco"]
+        atoms: ["busco"]
+        why: "Tickets are «los boletos» — masculine, plural — so «los», and it goes before «busco». «las» would be feminine things, «lo» a single thing, and «busco los» puts the word after the verb, where Spanish never leaves it."
+      # ── by ear only: the masculine noun this lesson leans on ────────────
+      - kind: audioWimcq
+        id: l9-ear-boleto
+        target: { surface: "el boleto", emoji: "🎟️" }
+        distractors:
+          - { surface: "el dinero", emoji: "💰" }
+          - { surface: "el papel", emoji: "📄" }
+      # ── review tail 3 — m12's errand, cued cold (m12 printed it) ────────
+      - kind: speakLit
+        id: l9-sp-recall-tienda
+        es: "voy a la tienda"
+        en: "I'm going to the store"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: l9-c-analastiene
+        es: "¿las llaves? Ana las tiene"
+        en: "the keys? Ana has them"
+        blank: "las"
+        options: ["las", "los"]
+        atoms: ["llave", "tiene"]
+        why: "«las llaves» → «las», feminine plural. The subject changed — it is Ana now, so «tiene» — but the pronoun does not care who is holding the keys, only what the keys are."
+      # ── the four words in one grid, with the two adverbs that live
+      #    around them and the noun that carried the lesson ─────────────────
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "lo tengo", target: "I have it (masculine)" }
+          - { source: "la tengo", target: "I have it (feminine)" }
+          - { source: "los busco", target: "I'm looking for them (masculine)" }
+          - { source: "las veo", target: "I see them (feminine)" }
+          - { source: "ya", target: "already" }
+          - { source: "todavía", target: "still, yet" }
+          - { source: "la mochila", target: "the backpack" }
+      # ── SIM 2 — the bus stop. Diego asks about four things in a row; each
+      #    reply needs a different pronoun (lo · lo · lo · las), and the
+      #    banks carry the wrong-gender foil every time. The ghost «lo no
+      #    veo» appears once, as a choice, where it teaches most.
+      - kind: sim
+        id: l9-sim-autobus
+        scene: { emoji: "🚌", title: "Before the bus", setting: "Diego is at the stop with you, checking everything before the bus comes. He asks; you answer with the little word each thing takes." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¡Hola, Sam! ¿Tienes el boleto?", audioText: "¡hola, Sam! ¿tienes el boleto?", gloss: "Hi Sam! Do you have the ticket?" }
+            goal: "Say you have it."
+            reply:
+              mode: build
+              tiles: ["lo", "tengo", "la", "los", "ya"]
+              answer: "lo tengo"
+              alsoAccepted: ["ya lo tengo", "lo tengo ya"]
+            replyGloss: "I have it."
+            explanation: "«el boleto» → «lo». Diego said the noun; you do not say it again. With «ya» you can add 'already' on either side — «ya lo tengo», «lo tengo ya» — and the pronoun stays glued to «tengo» both times."
+          - id: t2
+            npc: { speaker: "Diego", es: "Yo busco mi celular. ¿Lo ves?", audioText: "yo busco mi celular. ¿lo ves?", gloss: "I'm looking for my phone. Do you see it?" }
+            goal: "Say no, you don't see it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, no lo veo" }
+                - { id: "wrong1", text: "no, no la veo" }
+                - { id: "wrong2", text: "no, lo no veo" }
+              correctOptionId: "right"
+              audioText: "no, no lo veo"
+            replyGloss: "No, I don't see it."
+            explanation: "«el celular» → «lo», and it sits BETWEEN «no» and «veo». «lo no veo» is the order an English speaker reaches for — 'it, not see' — and Spanish never says it. The negative goes first, then the pronoun, then the verb."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿Y el regalo para Ana?", audioText: "¿y el regalo para Ana?", gloss: "And the gift for Ana?" }
+            goal: "Say you still need to buy it."
+            reply:
+              mode: build
+              tiles: ["todavía", "lo", "necesito", "comprar", "la", "ya"]
+              answer: "todavía lo necesito comprar"
+            replyGloss: "I still need to buy it."
+            explanation: "Two verbs, and the pronoun goes before the one that carries the person: «lo necesito comprar», never before «comprar» and never stuck onto it. «todavía» opens the sentence, as it did all module."
+          - id: t4
+            npc: { speaker: "Diego", es: "¡Y las fotos! ¿Las tienes?", audioText: "¡y las fotos! ¿las tienes?", gloss: "And the photos! Do you have them?" }
+            goal: "Say yes, you have them."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, las tengo" }
+                - { id: "wrong1", text: "sí, los tengo" }
+                - { id: "wrong2", text: "sí, la tengo" }
+              correctOptionId: "right"
+              audioText: "sí, las tengo"
+            replyGloss: "Yes, I have them."
+            explanation: "«las fotos» → «las». Four things, four answers, and the only thing that changed each time was the gender and number of what Diego named. That is the entire module: the pronoun copies the thing."
+
+  # ── L10 · MASTERY — every step graded, zero cards, zero maps, zero new
+  #    atoms. The graded lane proves the CONTRAST four ways (lo/la, los/las,
+  #    negation between, verb+infinitive) and the sim is the payoff: Diego's
+  #    stall at the market (he has worked there since m10), where Sam looks
+  #    for a gift, is offered a shirt, already has the shoes, still lacks
+  #    the photos, and buys — «lo busco», «la quiero comprar», «ya los
+  #    tengo», «todavía no las tengo», «la compro». Every pronoun, once
+  #    each at least, and the last word of the module is a purchase.
+  #    Cloze runs 3/19 = 0.16 (mastery cap ⅓); each cloze answered by a
+  #    carrier (los) is a two-atom trial [los, las]; the lo-answered ones
+  #    carry «lo» in the answer slot. Recalls: 3 (m12 ×2, m7).
+  #    Every surface the sim uses — busco, quiero, comprar, tengo, compro,
+  #    camisa, zapatos, fotos, regalo, cuesta, diez, todavía, ya — is
+  #    carried by a graded step above it or by an earlier module.
+  - n: 10
+    template: free
+    title: "Lo busco, la compro"
+    description: "Four little words, one market stall. You look for a gift, you're offered a shirt, you already have the shoes and still lack the photos — and you buy something without naming it twice."
+    steps:
+      - kind: clozeLit
+        id: l10-c-yalotengo
+        es: "¿el regalo? ya lo tengo"
+        en: "the gift? I already have it"
+        blank: "lo"
+        options: ["lo", "la"]
+        atoms: ["regalo", "ya", "tengo"]
+        why: "«el regalo» is masculine, so «lo» — one thing, masculine, right before «tengo». «la» would be a feminine thing like «la camisa». The article you were handed in the question tells you which word to reach for."
+      - kind: buildLit
+        id: l10-b-nolanecesito
+        es: "no la necesito"
+        en: "I don't need it (the shirt)"
+        atoms: ["necesito"]
+        tiles: ["lo", "las", "necesita"]
+      # ── by ear only: the module's own gift ───────────────────────────────
+      - kind: audioWimcq
+        id: l10-ear-regalo
+        target: { surface: "el regalo", emoji: "🎁" }
+        distractors:
+          - { surface: "el libro", emoji: "📖" }
+          - { surface: "el zapato", emoji: "👟" }
+      - kind: listenBuildLit
+        id: l10-lb-todavialasbusco
+        es: "todavía las busco"
+        en: "I'm still looking for them (the keys)"
+        atoms: ["todavía", "busco"]
+        tiles: ["los", "la", "busca"]
+      - kind: clozeLit
+        id: l10-c-losquierocomprar
+        es: "¿los zapatos? los quiero comprar"
+        en: "the shoes? I want to buy them"
+        blank: "los"
+        options: ["los", "las"]
+        atoms: ["zapato", "quiero", "comprar"]
+        why: "«los zapatos» → «los», and it goes before «quiero», the verb that carries the person — not before «comprar», and never stuck onto the end of it."
+      # ── review tail 1 — m12's shopping line, cued cold (m12 printed it) ──
+      - kind: speakLit
+        id: l10-sp-recall-camisa
+        es: "quiero comprar esta camisa"
+        en: "I want to buy this shirt"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l10-tm-necesita
+        target: "necesita"
+        distractors: ["necesito", "necesitas", "necesitar"]
+      - kind: buildLit
+        id: l10-b-hoylacompro
+        also: ["la compro hoy"]
+        es: "hoy la compro"
+        en: "today I buy it (the skirt)"
+        atoms: ["hoy", "compro"]
+        tiles: ["lo", "las", "compra"]
+      # ── by ear only: the module's own backpack ───────────────────────────
+      - kind: audioWimcq
+        id: l10-ear-mochila
+        target: { surface: "la mochila", emoji: "🎒" }
+        distractors:
+          - { surface: "la falda", emoji: "👗" }
+          - { surface: "la foto", emoji: "📷" }
+      - kind: listenCompLit
+        id: l10-lc-llaves
+        es: "todavía busco las llaves pero no las veo"
+        en: "I'm still looking for the keys but I don't see them."
+        atoms: ["todavía", "busco", "llave", "veo"]
+        distractorsEn:
+          - "I'm still looking for the keys and I see them."
+          - "I'm still looking for the tickets but I don't see them."
+          - "I already have the keys but I don't see them."
+      - kind: speakLit
+        id: l10-sp-lanecesito
+        es: "¿la mochila? la necesito, pero no la veo"
+        en: "the backpack? I need it, but I don't see it"
+        atoms: ["mochila", "necesito", "veo"]
+      - kind: clozeLit
+        id: l10-c-diegonolove
+        es: "Diego busca el boleto pero no lo ve"
+        en: "Diego is looking for the ticket but he doesn't see it"
+        blank: "lo"
+        options: ["lo", "la"]
+        atoms: ["busca", "boleto", "ve"]
+        why: "«el boleto» → «lo». Diego is the one looking, so «busca» and «ve» — but the pronoun does not change with the person, only with the thing. Between «no» and «ve», as always."
+      - kind: listenBuildLit
+        id: l10-lb-losnecesitocomprar
+        es: "los necesito comprar hoy"
+        en: "I need to buy them today (the tickets)"
+        atoms: ["necesito", "comprar", "hoy"]
+        tiles: ["las", "lo", "necesita"]
+      # ── review tail 2 — m12's question, cued cold (m12 printed it) ───────
+      - kind: speakLit
+        id: l10-sp-recall-cuanto
+        es: "¿cuánto cuesta?"
+        en: "how much does it cost?"
+        atoms: []
+        cue: recall
+      - kind: mcq
+        id: l10-q-todavianolotengo
+        prompt: "'The gift? I still don't have it.' — which one?"
+        correct: "todavía no lo tengo"
+        distractors: ["todavía lo no tengo", "todavía no tengo lo", "todavía no la tengo"]
+        atoms: ["todavía", "tengo"]
+        why: "Three pieces in a fixed order: «no», then «lo», then «tengo». «lo no tengo» and «no tengo lo» are the two orders English tempts you into; «la» is the right order for the wrong thing — the gift is masculine."
+      - kind: buildLit
+        id: l10-b-yalastengo
+        also: ["las tengo ya"]
+        es: "ya las tengo"
+        en: "I already have them (the photos)"
+        atoms: ["ya", "tengo"]
+        tiles: ["los", "la", "todavía"]
+      # ── the four pronouns beside the three verbs the module gave them ──
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "lo veo", target: "I see it (masculine)" }
+          - { source: "la veo", target: "I see it (feminine)" }
+          - { source: "los tengo", target: "I have them (masculine)" }
+          - { source: "las busco", target: "I'm looking for them (feminine)" }
+          - { source: "necesito", target: "I need" }
+          - { source: "compro", target: "I buy" }
+          - { source: "ya", target: "already" }
+      # ── review tail 3 — m7's oldest request, cued cold (m7 printed it) ──
+      - kind: speakLit
+        id: l10-sp-recall-cuenta
+        es: "la cuenta por favor"
+        en: "the check, please"
+        atoms: []
+        cue: recall
+      # ── THE PAYOFF — Diego's stall at the market. Five things named, five
+      #    replies, and not one noun repeated: lo (t1), la (t2), los (t3),
+      #    las (t4), la again with a new verb (t5). Two builds, three
+      #    choices; every build bank carries the wrong-gender foil and every
+      #    accepted answer is composable from its own bank word for word.
+      - kind: sim
+        id: l10-sim-mercado
+        scene: { emoji: "🛒", title: "Diego's stall", setting: "Diego is working at the market today. You need a gift for Ana; he has things to show you. You never say a noun twice." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¡Hola, Sam! ¿Buscas un regalo para Ana?", audioText: "¡hola, Sam! ¿buscas un regalo para Ana?", gloss: "Hi Sam! Are you looking for a gift for Ana?" }
+            goal: "Say yes, you're looking for it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, lo busco" }
+                - { id: "wrong1", text: "sí, la busco" }
+                - { id: "wrong2", text: "sí, busco lo" }
+              correctOptionId: "right"
+              audioText: "sí, lo busco"
+            replyGloss: "Yes, I'm looking for it."
+            explanation: "«un regalo» is masculine, so «lo» — and before «busco». Diego named the gift; you point at it with one word."
+          - id: t2
+            npc: { speaker: "Diego", es: "Tengo esta camisa. ¿La quieres?", audioText: "tengo esta camisa. ¿la quieres?", gloss: "I have this shirt. Do you want it?" }
+            goal: "Say you want to buy it."
+            reply:
+              mode: build
+              tiles: ["sí", "la", "quiero", "comprar", "lo", "los"]
+              answer: "la quiero comprar"
+              alsoAccepted: ["sí la quiero comprar"]
+            replyGloss: "I want to buy it."
+            explanation: "«esta camisa» → «la», and Diego handed you the pronoun himself: «¿la quieres?». With two verbs the pronoun goes before the one that carries the person — «la quiero comprar» — never onto the end of «comprar»."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿Y los zapatos? Son muy bonitos.", audioText: "¿y los zapatos? son muy bonitos.", gloss: "And the shoes? They're very nice." }
+            goal: "Say you already have them."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "ya los tengo" }
+                - { id: "wrong1", text: "ya las tengo" }
+                - { id: "wrong2", text: "los ya tengo" }
+              correctOptionId: "right"
+              audioText: "ya los tengo"
+            replyGloss: "I already have them."
+            explanation: "«los zapatos» → «los». «ya» sits outside the pair; «los ya tengo» wedges it between the pronoun and its verb, and nothing is allowed in there."
+          - id: t4
+            npc: { speaker: "Diego", es: "¿Y las fotos de la fiesta? ¿Las tienes?", audioText: "¿y las fotos de la fiesta? ¿las tienes?", gloss: "And the photos from the party? Do you have them?" }
+            goal: "Say you still don't have them."
+            reply:
+              mode: build
+              tiles: ["todavía", "no", "las", "tengo", "los", "la", "ya"]
+              answer: "todavía no las tengo"
+              alsoAccepted: ["no las tengo todavía"]
+            replyGloss: "I still don't have them."
+            explanation: "«las fotos» → «las», between «no» and «tengo». «todavía» can open the sentence or close it — «todavía no las tengo», «no las tengo todavía» — and the three words in the middle never change their order."
+          - id: t5
+            npc: { speaker: "Diego", es: "La camisa cuesta diez. ¿La compras?", audioText: "la camisa cuesta diez. ¿la compras?", gloss: "The shirt costs ten. Are you buying it?" }
+            goal: "Say yes, you're buying it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, la compro" }
+                - { id: "wrong1", text: "sí, lo compro" }
+                - { id: "wrong2", text: "sí, compro la" }
+              correctOptionId: "right"
+              audioText: "sí, la compro"
+            replyGloss: "Yes, I'm buying it."
+            explanation: "The last thing you say in this module is a purchase without a noun in it. «la camisa» → «la», before «compro» — the verb m12 gave you as «comprar» and this module taught you to bend. Diego asked with «¿la compras?»; you answered with the same pronoun and your own verb. That is the whole skill: you name a thing once, and after that a single word carries it."
+
+
+placement:
+  screener:
+    - id: "es-m16-scr-1"
+      prompt: "'The book? I see it.' — which one?"
+      correct: "lo veo"
+      distractors: ["veo lo", "la veo", "el veo"]
+  byModule:
+    - id: "es-m16-pl-1"
+      prompt: "The shirt? I need it."
+      correct: "la necesito"
+      distractors: ["lo necesito", "necesito la", "las necesito"]
+    - id: "es-m16-pl-2"
+      prompt: "The tickets? I already have them."
+      correct: "ya los tengo"
+      distractors: ["ya lo tengo", "ya las tengo", "los ya tengo"]
+    - id: "es-m16-pl-3"
+      prompt: "I don't see it (the gift)."
+      correct: "no lo veo"
+      distractors: ["lo no veo", "no veo lo", "no la veo"]
+    - id: "es-m16-pl-4"
+      prompt: "The keys? I'm looking for them."
+      correct: "las busco"
+      distractors: ["los busco", "busco las", "la busco"]
