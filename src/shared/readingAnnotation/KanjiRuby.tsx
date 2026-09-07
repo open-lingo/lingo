@@ -29,10 +29,13 @@ type Props = {
   show: boolean;
 } & ComponentPropsWithoutRef<"ruby">;
 
-export function KanjiRuby({ surface, reading, show, ...rubyProps }: Props) {
+export function KanjiRuby({ surface, reading, show, className, ...rubyProps }: Props) {
   const { prefix, body, rt, suffix } = alignFurigana(surface, reading);
   return (
-    <ruby {...rubyProps}>
+    // `kanji-ruby` (index.css) start-aligns the annotation so a reading wider
+    // than its kanji overhangs the following kana instead of prying the word
+    // apart — 忙(いそが)しい rendered as "忙 しい" on iOS (TestFlight #36).
+    <ruby {...rubyProps} className={className ? `kanji-ruby ${className}` : "kanji-ruby"}>
       {prefix !== "" && (
         <>
           {prefix}

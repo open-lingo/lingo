@@ -280,7 +280,7 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
           {step.correctOrder.map((tile, i) => (
             <span
               key={`ghost-${i}`}
-              className="rounded-xl border-2 px-4 py-2 text-xl font-bold sm:px-5 sm:py-2.5 sm:text-3xl"
+              className="rounded-xl border-2 px-4 py-2 text-xl font-bold leading-tight sm:px-5 sm:py-2.5 sm:text-3xl"
             >
               {/* Ghost sizing MUST use the same glyphs (kanji + rt) as the
                   real tiles or the tray mis-sizes. */}
@@ -306,7 +306,7 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
               onTileHoverEnd={peek.hoverEnd}
               forceHelperFor={(id) => peek.revealed.has(id)}
               className="flex flex-wrap content-start gap-2.5"
-              tileClassName="rounded-xl border-2 border-accent bg-accent-muted px-4 py-2 text-xl font-bold text-accent sm:px-5 sm:py-2.5 sm:text-3xl transition-colors duration-150 hover:bg-accent hover:text-white"
+              tileClassName="rounded-xl border-2 border-accent bg-accent-muted px-4 py-2 text-xl font-bold leading-tight text-accent sm:px-5 sm:py-2.5 sm:text-3xl transition-colors duration-150 hover:bg-accent hover:text-white"
             />
           )}
         </div>
@@ -327,8 +327,8 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
               aria-pressed={used}
               className={
                 used
-                  ? "rounded-xl border-2 border-border bg-surface-muted px-4 py-2 text-xl font-bold text-text-muted opacity-40 sm:px-5 sm:py-4 sm:text-3xl"
-                  : "rounded-xl border-2 border-border bg-surface px-4 py-2 text-xl font-bold text-text-primary transition-colors duration-150 hover:border-accent disabled:opacity-50 sm:px-5 sm:py-4 sm:text-3xl"
+                  ? "rounded-xl border-2 border-border bg-surface-muted px-4 py-2 text-xl font-bold leading-tight text-text-muted opacity-40 sm:px-5 sm:py-4 sm:text-3xl"
+                  : "rounded-xl border-2 border-border bg-surface px-4 py-2 text-xl font-bold leading-tight text-text-primary transition-colors duration-150 hover:border-accent disabled:opacity-50 sm:px-5 sm:py-4 sm:text-3xl"
               }
             >
               <BuildTileSurface

@@ -292,14 +292,19 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   // their OWN tier — on the 2xl tier it measured 0→87 at 1280×700, and even
   // sm:text-xl with sm:py-2 left 3px. Zero regression at every viewport.
   const hugeBank = !bigTiles && step.tiles.length >= 12;
+  // `leading-tight` on every tile: a tile is one word, and a furigana band
+  // already rides above it, so the default 1.5 leading was pure height —
+  // 50px for a 16px word once any tile in the row carried a reading
+  // (TestFlight 2026-09-06 #50, しつもん). Measured on the iOS sim: 39→35px
+  // plain, 50→48px with furigana at text-base.
   const denseTileClass = hugeBank
-    ? "px-3.5 py-1.5 text-base font-bold sm:px-4 sm:text-xl"
-    : "px-3.5 py-1.5 text-base font-bold sm:px-4 sm:py-2 sm:text-2xl";
+    ? "px-3.5 py-1.5 text-base font-bold leading-tight sm:px-4 sm:text-xl"
+    : "px-3.5 py-1.5 text-base font-bold leading-tight sm:px-4 sm:py-2 sm:text-2xl";
   const bankTileClass = bigTiles
-    ? "px-5 py-3 text-[clamp(1.5rem,3.4cqh,2.25rem)] font-bold"
+    ? "px-5 py-3 text-[clamp(1.5rem,3.4cqh,2.25rem)] font-bold leading-tight"
     : denseTileClass;
   const placedTileClass = bigTiles
-    ? "px-5 py-3 text-[clamp(1.5rem,3.4cqh,2.25rem)] font-bold"
+    ? "px-5 py-3 text-[clamp(1.5rem,3.4cqh,2.25rem)] font-bold leading-tight"
     : denseTileClass;
 
   const handleEnter = useCallback(() => {

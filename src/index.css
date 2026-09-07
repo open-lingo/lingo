@@ -361,6 +361,21 @@ html::-webkit-scrollbar-button,
 ruby {
   ruby-position: over;
 }
+/* Kanji furigana overhangs; it never widens the word. With the default
+   `ruby-align: space-around` WebKit pads the annotated kanji out to the width
+   of its reading, so 忙(いそが)しい painted as "忙 しい" and 高(たか)い as
+   "高 い" (TestFlight 2026-09-06 #36). `start` keeps the base at its own
+   width and lets the reading run over the kana that follows — measured on
+   the iOS 26 simulator: <ruby>忙<rt>いそが</rt>しい</ruby> is 68.6px either
+   with or without the reading, versus 89.6px under the default. Scoped to
+   KanjiRuby: romaji helpers over kana stay centred (a romaji band is wider
+   than every kana it labels, and adjacent rubies cannot overhang each other,
+   so `start` would only left-shift them). Inside a flex item the overhang is
+   still counted as content width, so a kanji word that ENDS a flex item can
+   carry a trailing gap — keep sentences in inline flow, not word-per-item. */
+.kanji-ruby {
+  ruby-align: start;
+}
 
 /* Apply Noto Sans JP to every Japanese-language span so kana/kanji render in
    a consistent glyph rather than the OS default. AnnotatedJa always tags its
@@ -387,6 +402,10 @@ ruby {
   font-weight: 500;
   color: rgb(var(--color-accent)); /* reading aid rides the theme accent (marginalia red) */
   letter-spacing: 0.02em;
+  /* The reading sits on the word: a furigana band is exactly one glyph tall,
+     never a full line box. `.65em × 1.5` was adding ~5px of dead air between
+     a reading and its kanji on every furigana line (TestFlight #47/#49/#52). */
+  line-height: 1;
   transition: opacity 200ms ease-out;
   opacity: 1;
 }
