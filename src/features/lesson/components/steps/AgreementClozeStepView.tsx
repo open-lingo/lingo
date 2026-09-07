@@ -5,8 +5,8 @@ import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { playJaAudio, getTtsUrl } from "@/shared/tts";
-import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
+import { PromptAudioButton } from "./PromptAudioButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
 const CELEBRATE_MS = 1100;
@@ -180,18 +180,7 @@ export function AgreementClozeStepView({ step, onComplete, onContinue }: Props) 
           )}
         </div>
 
-        {submitted && hasFullAudio ? (
-          <div className="mt-4 flex items-center justify-center">
-            <button
-              type="button"
-              onClick={replayAudio}
-              className="inline-flex h-7 w-7 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white"
-              aria-label={t("lesson.play", "Play audio")}
-            >
-              <Icon name="play" size={12} />
-            </button>
-          </div>
-        ) : null}
+        <PromptAudioButton hasAudio={hasFullAudio} answered={submitted} onPlay={replayAudio} />
       </div>
 
       {/* Single bottom block (house CTA-harmony): banner + CTA together so

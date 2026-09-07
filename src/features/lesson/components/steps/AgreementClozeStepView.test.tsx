@@ -29,6 +29,7 @@ vi.mock("@/shared/tts", () => ({
   getTtsUrl: vi.fn(() => null),
 }));
 
+import { getTtsUrl } from "@/shared/tts";
 import { AgreementClozeStepView } from "./AgreementClozeStepView";
 
 afterEach(() => {
@@ -129,5 +130,22 @@ describe("AgreementClozeStepView", () => {
     fireEvent.click(screen.getByRole("button", { name: "Continue" }));
     expect(onContinue).toHaveBeenCalledTimes(1);
     expect(onComplete).toHaveBeenCalledTimes(1);
+  });
+
+  it("TestFlight #48/#53: reserves the audio slot before answering — no post-answer layout shift", () => {
+    vi.mocked(getTtsUrl).mockReturnValue("https://cdn.example/audio.mp3");
+    const step: AgreementClozeStep = { ...makeStep(), audioText: "Las casas blancas" };
+    render(
+      <AgreementClozeStepView step={step} onComplete={vi.fn()} onContinue={vi.fn()} />,
+    );
+    const slot = screen.getByTestId("prompt-audio-button");
+    expect(slot).toBeDisabled();
+    pick("Blank 1", "Las");
+    pick("Blank 2", "as");
+    pick("Blank 3", "as");
+    fireEvent.click(screen.getByRole("button", { name: "Check" }));
+    // Same node, now live — never unmounted/remounted.
+    expect(screen.getByTestId("prompt-audio-button")).toBe(slot);
+    expect(slot).not.toBeDisabled();
   });
 });

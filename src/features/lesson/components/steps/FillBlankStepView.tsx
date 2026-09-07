@@ -66,12 +66,14 @@ export function FillBlankStepView({ step, onComplete, onContinue }: Props) {
       )}
 
       {/* 3xl, not 2xl (Spencer 2026-07-29: "make the tiles and sentence text
-          bigger ... fill some more space"). `leading-relaxed` comes with it —
-          furigana rides above the line, and at 3xl a tight leading clips it.
+          bigger ... fill some more space"). `leading-snug`, not relaxed: the
+          furigana band is added ABOVE the line box (ruby-position: over), so
+          leading never clips it — relaxed only spread the lines apart
+          (TestFlight 2026-09-06 #47/#52).
           The blank narrows below `sm`: at 3xl a 128px blank plus といきます
           exceeds the ~300px available at 390px wide and the sentence wrapped,
           leaving the blank stranded on its own line. */}
-      <div className="flex flex-wrap items-baseline gap-1.5 text-2xl font-bold leading-relaxed text-text-primary sm:text-3xl">
+      <div className="flex flex-wrap items-baseline gap-1.5 text-2xl font-bold leading-snug text-text-primary sm:text-3xl">
         {parts.map((part, i) => (
           <span key={i} className="flex items-baseline gap-1">
             <span><AnnotatedJa text={part} /></span>

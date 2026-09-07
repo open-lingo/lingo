@@ -98,6 +98,18 @@ describe("ConjugationClozeStepView", () => {
     expect(screen.getByRole("button", { name: "Check" })).toBeDisabled();
   });
 
+  it("TestFlight #48/#53: reserves the audio slot pre-answer, locked — then unlocks in place", () => {
+    render(
+      <ConjugationClozeStepView step={step} onComplete={noop} onContinue={noop} />,
+    );
+    const slot = screen.getByTestId("prompt-audio-button");
+    expect(slot).toBeDisabled();
+    fireEvent.click(screen.getByRole("button", { name: correct.text }));
+    fireEvent.click(screen.getByRole("button", { name: "Check" }));
+    expect(screen.getByTestId("prompt-audio-button")).toBe(slot);
+    expect(slot).not.toBeDisabled();
+  });
+
   it("grades a correct pick, slots the form into the pill, fires onComplete once", () => {
     const onComplete = vi.fn();
     const { container } = render(

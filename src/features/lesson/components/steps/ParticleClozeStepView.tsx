@@ -6,8 +6,8 @@ import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
 import { playJaAudio, getTtsUrl } from "@/shared/tts";
-import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
+import { PromptAudioButton } from "./PromptAudioButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
 const CELEBRATE_MS = 1100;
@@ -161,7 +161,7 @@ export function ParticleClozeStepView({
             &ldquo;{step.meaningEn}&rdquo;
           </p>
         ) : null}
-        <div className="font-japanese text-2xl leading-relaxed text-text-primary sm:text-3xl">
+        <div className="font-japanese text-2xl leading-snug text-text-primary sm:text-3xl">
           {step.beforeAnnotation ? (
             <AnnotatedJa segments={step.beforeAnnotation} />
           ) : (
@@ -192,23 +192,13 @@ export function ParticleClozeStepView({
           </p>
         ) : null}
 
-        {submitted && (!showMeaningUpFront || hasFullAudio) ? (
-          <div className="mt-4 flex items-center justify-center gap-2 text-sm text-text-secondary">
-            {/* Meaning already sits above the sentence in pre-answer mode —
-                don't repeat it; the row then carries only the audio replay. */}
-            {!showMeaningUpFront ? <span>{step.meaningEn}</span> : null}
-            {hasFullAudio ? (
-              <button
-                type="button"
-                onClick={replayAudio}
-                className="inline-flex h-7 w-7 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white"
-                aria-label={t("lesson.play", "Play audio")}
-              >
-                <Icon name="play" size={12} />
-              </button>
-            ) : null}
-          </div>
+        {/* Meaning already sits above the sentence in pre-answer mode — don't
+            repeat it; this only fires for a step authored with no upfront
+            gloss (meaningEn falsy), which disables showMeaningUpFront too. */}
+        {submitted && !showMeaningUpFront ? (
+          <p className="mt-4 text-sm text-text-secondary">{step.meaningEn}</p>
         ) : null}
+        <PromptAudioButton hasAudio={hasFullAudio} answered={submitted} onPlay={replayAudio} />
       </div>
 
       {/* flex-wrap, not a fixed grid: long options (じゃないです) must widen

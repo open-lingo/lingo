@@ -120,6 +120,22 @@ describe("KanjiReadingStepView", () => {
     expect(screen.getByRole("button", { name: "Check" })).toBeDisabled();
   });
 
+  it("TestFlight #48/#53: reserves the audio slot before answering, locked — then unlocks in place", () => {
+    render(
+      <KanjiReadingStepView step={makeStep()} onComplete={vi.fn()} onContinue={vi.fn()} />,
+    );
+    const slot = screen.getByTestId("prompt-audio-button");
+    expect(slot).toBeDisabled();
+    expect(slot.getAttribute("aria-disabled")).toBe("true");
+    fireEvent.click(screen.getByRole("button", { name: "みず" }));
+    fireEvent.click(screen.getByRole("button", { name: "Check" }));
+    // Same node persists across the answered transition — no unmount/remount,
+    // so nothing below it in the card can shift.
+    expect(screen.getByTestId("prompt-audio-button")).toBe(slot);
+    expect(slot).not.toBeDisabled();
+    expect(screen.getByRole("button", { name: "Play audio" })).toBe(slot);
+  });
+
   it("advances via onContinue after submitting", () => {
     const onContinue = vi.fn();
     render(

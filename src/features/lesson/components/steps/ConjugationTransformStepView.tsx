@@ -6,8 +6,8 @@ import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { playJaAudio, getTtsUrl } from "@/shared/tts";
-import { Icon } from "@/shared/components/Icon";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { PromptAudioButton } from "./PromptAudioButton";
 import {
   getTransformStage,
   isStreakShielded,
@@ -304,18 +304,12 @@ export function ConjugationTransformStepView({ step, lessonId, onComplete, onCon
         </div>
       )}
 
-      {submitted && hasAnswerAudio ? (
-        <div className="flex items-center justify-center">
-          <button
-            type="button"
-            onClick={() => playJaAudio(step.answer)}
-            className="inline-flex h-7 w-7 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white"
-            aria-label={t("lesson.play", "Play audio")}
-          >
-            <Icon name="play" size={12} />
-          </button>
-        </div>
-      ) : null}
+      <PromptAudioButton
+        hasAudio={hasAnswerAudio}
+        answered={submitted}
+        onPlay={() => playJaAudio(step.answer)}
+        className="flex items-center justify-center"
+      />
 
       {/* single bottom block (house convention: CTA never moves) */}
       {/* `primary-cta` opts into the sticky action bar (index.css § "Lesson

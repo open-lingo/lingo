@@ -6,8 +6,8 @@ import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
 import { getTtsUrl, playJaAudio } from "@/shared/tts";
-import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
+import { PromptAudioButton } from "./PromptAudioButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
 const CELEBRATE_MS = 1100;
@@ -129,18 +129,11 @@ export function KanjiReadingStepView({ step, onComplete, onContinue }: Props) {
             &ldquo;{step.meaningEn}&rdquo;
           </p>
         ) : null}
-        {submitted && hasAudio ? (
-          <div className="mt-4 flex items-center justify-center">
-            <button
-              type="button"
-              onClick={() => step.audioText && playJaAudio(step.audioText)}
-              className="inline-flex h-7 w-7 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white"
-              aria-label={t("lesson.play", "Play audio")}
-            >
-              <Icon name="play" size={12} />
-            </button>
-          </div>
-        ) : null}
+        <PromptAudioButton
+          hasAudio={hasAudio}
+          answered={submitted}
+          onPlay={() => step.audioText && playJaAudio(step.audioText)}
+        />
       </div>
 
       {/* Two columns at EVERY width. Single-column below sm made this the

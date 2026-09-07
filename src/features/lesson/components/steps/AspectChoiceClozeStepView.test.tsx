@@ -317,6 +317,18 @@ describe("AspectChoiceClozeStepView", () => {
     expect(screen.queryByRole("button", { name: "Play audio" })).toBeNull();
   });
 
+  it("TestFlight #48/#53: reserves the audio slot pre-answer, locked — then unlocks in place", () => {
+    mount();
+    const slot = screen.getByTestId("prompt-audio-button");
+    expect(slot).toBeDisabled();
+    fillAllCorrect();
+    fireEvent.click(cta());
+    act(() => void vi.advanceTimersByTime(500));
+    // Same node throughout — nothing mounted/unmounted, so nothing shifted.
+    expect(screen.getByTestId("prompt-audio-button")).toBe(slot);
+    expect(slot).not.toBeDisabled();
+  });
+
   it("renders no audio control when the step authored no audioText", () => {
     mount(makeStep({ audioText: undefined }));
     fillAllCorrect();
