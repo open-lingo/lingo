@@ -58,8 +58,29 @@ function TrainerSession({
   const [intro, setIntro] = useState(() => !!ruleStep && conj.typeMasteryPercent(typeId) === 0);
 
   return (
-    <div className="conj-scope mx-auto max-w-3xl space-y-5">
+    <div className="conj-scope mx-auto max-w-3xl space-y-3 sm:space-y-5">
       <style>{conj.scopeCss}</style>
+      {/* Spencer TestFlight #39: the grammar-rule card below (GrammarRuleStepView,
+          owned by the lesson feature — not edited from here) already draws its
+          own full bordered/padded card. It used to sit inside an extra
+          `Card padding="lg"`, so mobile got two nested boxes — a border, then
+          more border-space, then the actual content. Trim the rule card's own
+          side borders + padding at small widths from here via a scoped
+          override (never editing the imported component), and drop the
+          redundant outer Card entirely. */}
+      <style>{`
+        @media (max-width: 639px) {
+          .trainer-rule-card-host > div > div:first-of-type {
+            border-left-width: 0;
+            border-right-width: 0;
+            border-radius: 0;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            padding-top: 1.25rem;
+            padding-bottom: 1.25rem;
+          }
+        }
+      `}</style>
       <div className="flex items-center gap-3">
         <Link
           to={langPath("practice/grammar/conjugation")}
@@ -68,18 +89,23 @@ function TrainerSession({
         >
           <Icon name="arrowLeft" size={16} />
         </Link>
-        <h1 className="text-xl font-bold text-text-primary">{type.title}</h1>
+        {/* Spencer TestFlight #40: on a phone this row + the progress bar +
+            the chip row above the question pushed the 4 answer options under
+            the bottom tab bar. The drill card already names the form via the
+            word-class chip + glyph stack, so this title is redundant weight
+            below `sm` — drop it there and keep just the exit affordance. */}
+        <h1 className="hidden truncate text-xl font-bold text-text-primary sm:block">
+          {type.title}
+        </h1>
       </div>
 
       {intro && ruleStep ? (
-        <Card padding="lg">
-          <div className="flex flex-col">
-            <GrammarRuleStepView
-              step={ruleStep as GrammarRuleStep}
-              onContinue={() => setIntro(false)}
-            />
-          </div>
-        </Card>
+        <div className="trainer-rule-card-host">
+          <GrammarRuleStepView
+            step={ruleStep as GrammarRuleStep}
+            onContinue={() => setIntro(false)}
+          />
+        </div>
       ) : (
         <DrillSegment
           conj={conj}
@@ -171,7 +197,7 @@ function DrillSegment({
   const current = questions[index];
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-2 sm:space-y-4">
       <div className="h-2 w-full overflow-hidden rounded-full bg-surface-muted">
         <div
           className="h-full rounded-full bg-accent transition-all"

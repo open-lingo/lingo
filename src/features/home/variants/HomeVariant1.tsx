@@ -20,7 +20,11 @@ export function HomeVariant1({ data }: { data: HomeVariantData }) {
   return (
     // Sizing/centering is owned by the app shell (Layout <main> hub canvas):
     // this grid just fills it via flex-1. No width cap or min-height here.
-    <div className="grid w-full flex-1 gap-5 lg:min-h-0 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-stretch">
+    // overflow-x-hidden is the page-level backstop: no unwrapped/overflowing
+    // child (a long lesson title, a wide row) should ever be able to push
+    // this page into horizontal scroll (Spencer TestFlight #38/#1 — the whole
+    // page scrolled sideways because one row's content didn't wrap).
+    <div className="grid w-full flex-1 gap-5 overflow-x-hidden lg:min-h-0 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-stretch">
       <div className="flex min-w-0 flex-col gap-5">
         <Hero data={data} />
         <BelowHero data={data} />
@@ -61,9 +65,14 @@ function QuestsCard({ data }: { data: HomeVariantData }) {
       {goalQuests.length > 0 ? (
         <ul className="mt-4 space-y-4">
           {goalQuests.map(({ quest, percent, isClaimable }) => (
-            <li key={quest.id}>
-              <div className="flex items-center justify-between gap-2 text-sm">
-                <span className="truncate font-semibold text-text-primary">{quest.title}</span>
+            <li key={quest.id} className="min-w-0">
+              {/* min-w-0 on both the li and this row: a flex item's default
+                  min-width is `auto` (= its content size), which silently
+                  disables `truncate` on the child span and forces the row —
+                  and the whole card — wider than the viewport for a long
+                  quest title. See HomeVariant1's RecentCard for the same fix. */}
+              <div className="flex min-w-0 items-center justify-between gap-2 text-sm">
+                <span className="min-w-0 truncate font-semibold text-text-primary">{quest.title}</span>
                 <span className="shrink-0 text-xs text-text-muted">
                   {quest.progress.current}/{quest.progress.target} {quest.progress.unit}
                 </span>
@@ -130,9 +139,17 @@ function RecentCard({ data }: { data: HomeVariantData }) {
       {data.recentlyCompleted.length > 0 ? (
         <ul className="mt-4 space-y-2.5">
           {data.recentlyCompleted.map((title, i) => (
-            <li key={i} className="flex items-center gap-2 text-sm text-text-primary">
-              <Icon name="checkCircle" size={16} aria-hidden className="shrink-0 text-success" />
-              <span className="truncate">{title}</span>
+            // min-w-0 is required here: this <li> is a flex row, and a flex
+            // item's default min-width is `auto` (its content size), not 0 —
+            // so without it, a long lesson title (e.g. a 「〜ってみる」
+            // 「おくっておく」 module name) refuses to shrink and blows the
+            // card, and the whole page, wider than the viewport. This was the
+            // root cause of TestFlight #38 (horizontal scroll) and likely #1
+            // (visible scrollbar). Root-cause fix: wrap the title instead of
+            // truncating it — these titles are the actual lesson name.
+            <li key={i} className="flex min-w-0 items-start gap-2 text-sm text-text-primary">
+              <Icon name="checkCircle" size={16} aria-hidden className="mt-0.5 shrink-0 text-success" />
+              <span className="min-w-0 line-clamp-2 break-words">{title}</span>
             </li>
           ))}
         </ul>
@@ -200,7 +217,7 @@ function Hero({ data }: { data: HomeVariantData }) {
             )}
           >
             <Icon name="hand" size={18} aria-hidden className="shrink-0 text-warning" />
-            <span className="truncate">
+            <span className="min-w-0 truncate">
               Hi {data.name}
               <span className="hidden sm:inline"> · pick up where you left off</span>
             </span>

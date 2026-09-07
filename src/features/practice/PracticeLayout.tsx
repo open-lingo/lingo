@@ -81,7 +81,19 @@ export function PracticeLayout() {
             : "mx-auto max-w-screen-2xl space-y-6"
         }
       >
-        {!isPracticeHub && !isFocusedSession && <PracticeBreadcrumbs />}
+        {/* Spencer TestFlight #42: the crumb trail is a desktop wayfinding aid
+            (there's no room for it on a phone next to the native top bar, and
+            the bottom tab bar + back buttons already cover mobile nav) — hide
+            it below `md`, matching the app's one documented mobile/desktop
+            seam (`shared/hooks/breakpoints.ts`, same as `isFocusedFlow`'s
+            `MOBILE_FOCUSED_FLOW_PATTERN`). No native-only detection exists in
+            this codebase, so this is a width-only breakpoint, same as every
+            other responsive chrome decision in `Layout`. */}
+        {!isPracticeHub && !isFocusedSession && (
+          <div className="hidden md:block">
+            <PracticeBreadcrumbs />
+          </div>
+        )}
         <Outlet />
       </div>
     </ReadingCrumbProvider>

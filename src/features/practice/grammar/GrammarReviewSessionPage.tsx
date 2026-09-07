@@ -105,7 +105,14 @@ function SessionRunner({
   }
 
   return (
-    <div className="mx-auto flex h-[calc(100dvh-1.5rem-var(--cookie-consent-height,0px))] w-full max-w-2xl flex-col">
+    // Spencer TestFlight #43: this route is a focused flow (see
+    // `routes/focusedFlow.ts`), so `Layout` renders no header here — the X +
+    // progress bar below ARE the top of the screen. On iOS they sat right
+    // under the status bar/notch (the "TestFlight" back label overlapped the
+    // X). `pt-safe` is the same safe-area token `LessonShell` uses for the
+    // identical problem (`max(env(safe-area-inset-top), 0px)` — a no-op on a
+    // rectangular screen, load-bearing in the full-bleed WKWebView wrapper).
+    <div className="mx-auto flex h-[calc(100dvh-1.5rem-var(--cookie-consent-height,0px))] w-full max-w-2xl flex-col pt-safe">
       <div className="flex w-full items-center gap-4 py-3">
         <button
           type="button"

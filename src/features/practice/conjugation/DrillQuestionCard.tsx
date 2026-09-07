@@ -221,14 +221,19 @@ export function DrillQuestionCard({
   const correct = selectedAnswer === question.correct;
 
   return (
-    <Card padding="lg" className="flex flex-col">
+    // Spencer TestFlight #40: Card padding="lg" (24px) plus the 6-unit gap
+    // before the options and the 104px-tall hint footer left the 4th answer
+    // clipped under the bottom tab bar on a 16 Pro. `padding="none"` +
+    // responsive padding here, and every gap/min-height below, tighten below
+    // `sm` only — desktop/tablet spacing is unchanged.
+    <Card padding="none" className="flex flex-col p-3 sm:p-6">
       <div className="mx-auto grid w-full max-w-md grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 sm:gap-3">
         {cheatTypes.length > 0 ? (
           <button
             type="button"
             onClick={openCheat}
             className={
-              "flex max-w-[76px] flex-col items-center gap-1 justify-self-start rounded-xl border px-2.5 py-2 text-[10px] font-semibold leading-tight transition " +
+              "flex max-w-[76px] flex-col items-center gap-1 justify-self-start rounded-xl border px-2.5 py-1.5 text-[10px] font-semibold leading-tight transition sm:py-2 " +
               (stuck && !showResult && !peeked
                 ? (cheatOpen ? "" : "conj-cheat-nudge ") +
                   "border-warning/70 bg-warning/10 text-warning"
@@ -242,7 +247,7 @@ export function DrillQuestionCard({
           <span aria-hidden />
         )}
 
-        <div className="flex min-w-0 flex-col items-center gap-1.5 text-center">
+        <div className="flex min-w-0 flex-col items-center gap-1 text-center sm:gap-1.5">
           <div className="flex flex-wrap items-center justify-center gap-1.5">
             <WordClassChip conj={conj} wordClassId={question.wordClassId} />
             {question.isAdjective && (
@@ -251,7 +256,7 @@ export function DrillQuestionCard({
               </span>
             )}
           </div>
-          <p className="break-words text-4xl font-bold leading-snug text-text-primary">
+          <p className="break-words text-3xl font-bold leading-snug text-text-primary sm:text-4xl">
             <Surface
               conj={conj}
               question={question}
@@ -268,7 +273,7 @@ export function DrillQuestionCard({
       </div>
 
       <div
-        className="mx-auto mt-6 flex w-full max-w-sm flex-1 flex-col gap-3"
+        className="mx-auto mt-3 flex w-full max-w-sm flex-1 flex-col gap-2 sm:mt-6 sm:gap-3"
         style={{ "--fc": formColor } as React.CSSProperties}
       >
         {question.options.map((opt, i) => {
@@ -294,7 +299,7 @@ export function DrillQuestionCard({
               type="button"
               onClick={() => answer(opt)}
               disabled={showResult}
-              className={`conj-opt flex min-h-[68px] flex-1 items-center justify-center rounded-xl border-2 px-4 py-3 text-center transition md:min-h-[76px] ${stateClass}`}
+              className={`conj-opt flex min-h-[52px] flex-1 items-center justify-center rounded-xl border-2 px-3 py-2 text-center transition sm:min-h-[68px] sm:px-4 sm:py-3 md:min-h-[76px] ${stateClass}`}
             >
               <span className="text-xl font-semibold leading-snug">
                 <Surface
@@ -309,7 +314,7 @@ export function DrillQuestionCard({
         })}
       </div>
 
-      <div className="mx-auto mt-4 flex min-h-[104px] w-full max-w-sm flex-col justify-center">
+      <div className="mx-auto mt-2 flex min-h-[64px] w-full max-w-sm flex-col justify-center sm:mt-4 sm:min-h-[104px]">
         {!showResult &&
           (stuck && cheatTypes.length > 0 ? (
             <p className="text-center text-xs font-medium text-warning">

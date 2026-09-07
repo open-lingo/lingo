@@ -104,37 +104,50 @@ export function AdFreeShopSection({ lingots, statsReady }: Props) {
         )}
       </div>
 
-      <ul className="grid gap-3 sm:grid-cols-3">
+      {/* Spencer TestFlight #45: 3 full-width stacked cards (icon + title +
+          description + a right-aligned duration row + a full-width Buy
+          button) ran long on a phone for what is, at a glance, "pick a
+          duration, buy it". 2-up below `sm` with a tighter, icon+title+price
+          compact card; the fuller sm:+ card (description, separate duration
+          row) is unchanged at tablet/desktop width. */}
+      <ul className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3">
         {AD_FREE_SKUS.map((sku) => {
           const canAfford = statsReady && lingots !== null && lingots >= sku.price;
           const busy = pendingId === sku.id;
           return (
             <li key={sku.id}>
-              <Card padding="md" className="flex h-full flex-col">
-                <div className="flex items-start gap-3">
+              <Card padding="sm" className="flex h-full flex-col sm:p-5">
+                <div className="flex items-center gap-2 sm:items-start sm:gap-3">
                   <span
-                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent-muted text-accent"
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent-muted text-accent sm:h-9 sm:w-9"
                     aria-hidden
                   >
                     <Icon
                       name={sku.id === "30m" ? "clock" : sku.id === "2h" ? "shield" : "moon"}
-                      size={18}
+                      size={16}
                     />
                   </span>
                   <div className="min-w-0 flex-1">
-                    <p className="font-semibold text-text-primary">
+                    <p className="truncate font-semibold text-text-primary">
                       {t(`adFree.skus.${sku.i18nKey}.title`, {
                         defaultValue: sku.id,
                       })}
                     </p>
-                    <p className="mt-0.5 text-sm text-text-secondary">
+                    {/* Duration folds into the header on the compact mobile
+                        card instead of its own row — description drops below
+                        `sm` (title + duration + Buy is the whole compact
+                        card; the fuller card at `sm`+ keeps it). */}
+                    <p className="text-xs text-text-muted tabular-nums sm:hidden">
+                      {formatHM(sku.durationMs)}
+                    </p>
+                    <p className="mt-0.5 hidden text-sm text-text-secondary sm:block">
                       {t(`adFree.skus.${sku.i18nKey}.description`, {
                         defaultValue: "",
                       })}
                     </p>
                   </div>
                 </div>
-                <div className="mt-4 flex items-center justify-end gap-2">
+                <div className="mt-4 hidden items-center justify-end gap-2 sm:flex">
                   <span className="text-xs text-text-muted tabular-nums">
                     {formatHM(sku.durationMs)}
                   </span>
@@ -143,7 +156,7 @@ export function AdFreeShopSection({ lingots, statsReady }: Props) {
                   type="button"
                   variant="primary"
                   size="sm"
-                  className="mt-3 w-full"
+                  className="mt-2.5 w-full sm:mt-3"
                   disabled={!statsReady || busy || !canAfford}
                   title={
                     !canAfford && statsReady

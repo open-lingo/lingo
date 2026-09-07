@@ -168,10 +168,15 @@ export function ConjugationPracticePage() {
     <div className="conj-scope mx-auto flex min-h-[calc(100dvh-8rem)] max-w-2xl flex-col">
       <style>{conj.scopeCss}</style>
 
-      {/* Slim header + combined-forms mode toggle (combo-capable languages) */}
+      {/* Slim header + combined-forms mode toggle (combo-capable languages).
+          Spencer TestFlight #42: at 375-393px `justify-between` squeezed the
+          "Combined forms" switch + label into the sliver left by the h1,
+          wrapping the label ugly and pushing the switch past the edge —
+          `flex-wrap` lets the toggle drop to its own line instead of being
+          clipped. */}
       <div className="mb-3">
-        <div className="flex items-start justify-between gap-3">
-          <h1 className="text-xl font-bold text-text-primary">
+        <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-2">
+          <h1 className="min-w-0 shrink text-lg font-bold text-text-primary sm:text-xl">
             {t("practice.conjugation.title", { defaultValue: "Conjugation trainer" })}
           </h1>
           {supportsCombos && (
@@ -180,7 +185,7 @@ export function ConjugationPracticePage() {
               onCheckedChange={toggleCombinedMode}
               labelLeading
               label={
-                <span className="text-xs font-semibold text-text-secondary">
+                <span className="whitespace-nowrap text-xs font-semibold text-text-secondary">
                   {t("practice.conjugation.combinedToggle", { defaultValue: "Combined forms" })}
                 </span>
               }
