@@ -84,6 +84,34 @@ Status legend: `open` / `fixed <sha>` / `wontfix (reason)` / `discuss`.
 | 34 | 34 | iPhone 14 Pro, KO m21-6 build 비빔밥하고 라면 주세요 | "buttons too tall" | layout: same tile family as #3/#7 (shared BuildSentenceStepView) | fixed fb77a859 |
 | 35 | 35 | 15 Pro Max, JA m30 build あした つかうから しゃしんを おくっておいた | "Should be correct no?" — learner placed に after あした | grading/content: に is a floor particle contrast; あしたに is not natural Japanese (relative time words take no に) | discuss — position: keep rejecting; あした takes no に |
 
+## Build 8 — Spencer, 2026-09-06 evening (pulled 2026-09-07)
+
+20 more screenshot submissions on build 8 (all iPhone 15 Pro Max), items 36–55.
+Shots: `2026-09-05-testflight-shots/36.jpg` … `55.jpg`.
+
+| # | Shot | Surface | Verbatim | Class | Status |
+|---|---|---|---|---|---|
+| 36 | 36 | Flashcard 忙しい | "We need a way to creatively resolve the bad spacing here, what edge cases are there for the furigana being so wide it spaces the word? Maybe we can left align position it?" | furigana: WebKit widens the kanji to the reading's width → "忙 しい" | fixed c1faad87 (`.kanji-ruby { ruby-align: start }`; reading overhangs the kana; measured 68.6px == bare word) |
+| 37 | 37 | Flashcard 居る | "Is this wrong? It's for the 'to exist' いる" | content: 居る is a dictionary spelling; いる is written in kana | fixed c1faad87 (atom loses `kanji`; also 御飯 family → ご飯) |
+| 38 | 38 | Home | "Bad clipping here … should be no real horizontal scroll for these pages either" | layout: Recent progress rows wider than the viewport → page scrolls sideways (also the #1 scrollbar) | fixed (lane C) |
+| 39 | 39 | Practice › Grammar rule card | "All the extra border space here seems inefficient … drop the blue vertical lines and just cordon off a section with the horizontal lines inside the GRAMMAR section" | layout: card padding + side rules on a phone | fixed (lane D) |
+| 40 | 40 | Conjugation quiz | "This clips off the screen, we using space inefficiently anywhere? Do we need the header visible?" | layout: 4 options under the tab bar | fixed (lane D) |
+| 41 | 41 | Free drill | "This screen is a little ugly on mobile, make we rework the buttons a bit and then we should scope out adding more conjugations, they should be able to see ANY verb they've learned here if they want to do 'up to X module'" | UI + scope | scoped `docs/practice-any-verb-drill-scope.md`; chips restyle folded into lane D |
+| 42 | 42 | Conjugation trainer landing | "Too much info up top, they don't need the page links on mobile … correcting the star button (clipped off currently)" | layout: breadcrumbs on phone; Combined-forms toggle clipped | fixed (lane D) |
+| 43 | 43 | Particle practice cloze | "Needs the UI fit fix for notch phone like my iPhone and is the kanji correctly exposed here?" | layout: no safe-area top inset on the drill shell. Kanji: かばんの うえ has none eligible at that module — correct | fixed (lane D, all drill shells) |
+| 44 | 44 | Particle practice hub | "This page is a little useless as is, it's effectively grammar training. Maybe we expand the grammar training to count particle usage as training and do a better 'combined forms' …" | scope | scoped `docs/practice-particle-training-scope.md` |
+| 45 | 45 | Shop | "These take up too much space here, maybe we look for better space saving or list two tiles in a row or have better categories?" | layout | fixed (lane D, 2-up cards) |
+| 46 | 46 | Build tray drag | "Look and mado and tokei, weird potential failure when dragging I was moving shirabete, simulate an example like this and see if we can find why or get it to recreate" | dnd: rect-swap preview overlaps variable-width tiles mid-drag (reproduced 10/20) | fixed 40612f16 (live reorder + DragOverlay + hysteresis; 160/160 clean) |
+| 47 | 47 | Listen & answer | "Way too much spacing between the sentences still with the furigana, don't they normally display it vertically next to the letters in Japanese books? … less padding vertically" | furigana band + relaxed leading | fixed c1faad87 (helper line-height 1, leading-snug; 101 → 94px for the two-line case; the band itself is the reading) |
+| 48 | 48 | Kanji reading MCQ | "when you pick the answer there is a vertical movement on the play button … think of some ideas please" | layout: replay button mounted on submit | fixed 3425933b (slot reserved, locked before the answer) |
+| 49 | 49 | Listening build | "Same as other, little too much vertical spacing and padding, furigana can be a bit lower close to the word, should be a bit tighter" | tiles + furigana | fixed c1faad87 (tile leading-tight: 39→35 / 50→48px) |
+| 50 | 50 | Build tray | "look at how much vertical space is used here. Shitsumon has so much used" | tiles: a row is as tall as its tallest (furigana) tile | fixed c1faad87 (same; residual 11px is the reading band — smaller furigana would need a floor below 12px, Spencer's call) |
+| 51 | — | ES typed answer (Mikey) | "both question marks for a Spanish sentence works but not one at the end, 'improper' but should still be a correct answer" | grading: strip was trailing-only | fixed b332803f (both edges, ¿ ¡ « » quotes dashes; 7 callers) |
+| 52 | 52 | Cloze おぼえておく | "the furigana adds so much visual spacing" | as 47 | fixed c1faad87 + 3425933b |
+| 53 | 53 | Cloze after answer | "Same comment on the play button … maybe a lock over the button or something until they answer?" | as 48 | fixed 3425933b (lock glyph, exactly that) |
+| 54 | 54 | Dialogue comprehension | "transcript box can move a bit higher maybe, or we move the transcript text and less vertical padding on the answer buttons?" | layout | open — SE-class crowding; revisit with the next fit pass |
+| 55 | 55 | Match (review) | "Still vertical crowding but better" | layout | monitor (0px overflow on 15 Pro Max; scrolls by design) |
+
 ## Other channels
 
 | # | Source | Verbatim / summary | Class | Status |
