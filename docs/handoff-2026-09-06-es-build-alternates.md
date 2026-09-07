@@ -48,6 +48,49 @@ from `acceptedBuildSurfaces` if the lanes change.
 - Test-outs are healthy: 12 items, pass at 10/12, ~half production. Mikey's
   comfortable passes are not a leaky test.
 
+## m16 «Lo veo» — AUTHORED 2026-09-07, COMMITTED LOCALLY, NOT PUSHED
+
+State at the pause: commit on local `main` (see `git log -1`, "es m16 «Lo
+veo»"), 0 pushed. ES suite 1,139 passed / 0 failed; tsc clean; emoji gate
+green after vendoring 🎟️. **Full `npm run preflight` was interrupted mid-run
+after the emoji fix — it must be re-run to completion before the push.**
+191 new clips are staged under `tts-publish/es/` (tracked; the deploy
+workflow syncs them to S3, no manual upload needed — verified in
+`.github/workflows/deploy.yml` "publish staged TTS audio").
+
+Resume recipe:
+1. `npm run preflight > log 2>&1; echo $?` — read the exit code directly.
+2. `git fetch; git rebase --autostash origin/main` (the mobile session works
+   on branch `feedback-2026-09-05` in its own worktree and will rebase on us).
+3. `git push origin main`; `gh run watch <deploy id> --exit-status`; then the
+   prod fingerprint: entry chunk contains "Lo veo" and `es-m16-8`; sample 3
+   new clip hashes from `tts-publish/es` return `audio/mpeg`.
+4. Update memory `es-course-state` (m16 LIVE) and this doc.
+
+Wave record (what the five authors caught in the brief — keep for m17):
+- «lo» is unregistered, so pin E2's two-option exemption can never hold for a
+  la/los/las-answered cloze with «lo» as the foil (`options.every(o =>
+  atomModuleBySurfaceWord.has(o))`). A cloze ANSWERED by «lo» passes (the
+  answer is unmapped). All authors moved lo-vs-la trials to agreementLit,
+  build banks and sims. Header corrected mid-wave.
+- 💬 was already «español» (m10); «mensaje» → ✉️. The atom TSV dump carries
+  no emoji column — rebuild bindings from the IR files, not from the dump.
+- `textMcq` requires a registered-atom target (`vocabTextMcq` throws at
+  import time and takes the WHOLE ES suite down with it); sentence targets
+  must be `mcq`. Four of author D's steps were converted.
+- The ES course map is derived from `curriculum/index.ts`'s lessons map —
+  a SEVENTH registration point; `register-m16.py` in the scratchpad now
+  covers it (meta card + lessons map + ES_MODULE_ORDER + courseAtoms ×3 +
+  es-quality + placementBank + review-pool regen).
+- "Each teaching lesson ends on a sim" was wrong: law 7 is sim → match →
+  speak-win, only the MODULE ends on a sim. All five followed m15.
+- inv 29 (theatrical prompt) forbids `?` mid-prompt on build English; the
+  transfer's gloss became one dashed clause. inv 28 caps mcq correct options
+  at 3 tokens in teaching lessons. `imageMcq` is first-exposure only (inv 44),
+  so zero-new lessons use `audioWimcq`. `esPromptComprehensibility` bills
+  English words of any MCQ prompt containing ¿¡/accents or ≥3 Spanish
+  function words — keep MCQ prompts plain English.
+
 ## NEXT (in order)
 
 1. **B111 — the conjugation walk.** Recommend Spencer walks m14 (~20 min,
@@ -61,7 +104,7 @@ from `acceptedBuildSurfaces` if the lanes change.
    rung: stem changes → irregular presents → object pronouns → past pair).
    Retire the "sixteen modules" sentence in `es-authoring-invariants-pinned.md`
    when the decision is written.
-3. **m16 wave**: same five-agent recipe as m11–m15 (header + placement block
+3. **m17 «Me levanto» wave** (m16 is authored): same five-agent recipe as m11–m15 (header + placement block
    + carrier allowlist + scratchpad prefixes per author; assembler is zsh;
    re-check lesson mtimes vs assembled IR). Brief must include: the hacer
    ruling (B112), the billed/unbilled slot table (memory
