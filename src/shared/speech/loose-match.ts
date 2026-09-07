@@ -472,10 +472,29 @@ const APOSTROPHE_VARIANTS_RE = /[\u2018\u2019\u02bc\u02b9\u055a\u2032\uff07\u006
  */
 const FOLDABLE_DIACRITIC_RE = /(?![\u3099\u309a])\p{Diacritic}/gu;
 
-/** Trailing sentence punctuation ignored on BOTH sides of a typed-answer
- *  compare — toKana turns a natural final "." into 。, and authored
- *  answers vary in whether they carry one. */
-const TYPED_TRAILING_PUNCT_RE = /[。．.、,!?！？\s]+$/u;
+/**
+ * Sentence-edge punctuation ignored on BOTH ends of a typed-answer
+ * compare — toKana turns a natural final "." into 。, and authored
+ * answers vary in whether they carry one.
+ *
+ * TestFlight #51 (Mikey, 2026-09-05): this used to be TRAILING-only
+ * despite the doc comment's claim, so a typed "Como estas?" (no
+ * opening ¿) graded wrong against an authored "¿Cómo estás?" — the
+ * leading ¿ survived on the accepted side and broke the exact/accent-
+ * fold compare. Spanish opens questions/exclamations with ¿ / ¡, which
+ * sit at the START of the string, so a trailing-only strip could never
+ * reach them. Widened to:
+ *   - actually strip both edges (the `^…|…$` alternation, `g` flag)
+ *   - ¿ ¡ (Spanish open marks), ; : (never sentence-final in any
+ *     authored answer, so free to drop), « » " ' and their curly
+ *     variants (quote marks a learner may wrap the whole answer in),
+ *     and ASCII/en/em dashes (a typed dash-led aside).
+ * This can only turn a fail into a pass, same guarantee as the
+ * apostrophe fold above: content punctuation stays untouched, only
+ * marks glued to an edge disappear.
+ */
+const TYPED_EDGE_PUNCT_RE =
+  /^[¿¡。．.、,;:!?！？«»"'‘’“”\-–—\s]+|[¿¡。．.、,;:!?！？«»"'‘’“”\-–—\s]+$/gu;
 
 /**
  * Fold accents/diacritics: NFD-decompose, strip combining diacritics
@@ -562,7 +581,7 @@ function accentPolicyTokens(s: string): string[] {
     .normalize("NFKC")
     .toLowerCase()
     .split(/[\s']+/u)
-    .map((t) => t.replace(TYPED_TRAILING_PUNCT_RE, ""))
+    .map((t) => t.replace(TYPED_EDGE_PUNCT_RE, ""))
     .filter(Boolean);
 }
 
@@ -603,7 +622,7 @@ export function gradeTypedAnswer(
   policy?: AccentPolicy,
 ): TypedAnswerGrade {
   const inputNorm = normalizeTypedAnswer(input).replace(
-    TYPED_TRAILING_PUNCT_RE,
+    TYPED_EDGE_PUNCT_RE,
     "",
   );
   const inputFold = accentFold(inputNorm);
@@ -617,7 +636,7 @@ export function gradeTypedAnswer(
   let kanaDisplay: string | null = null;
 
   for (const a of acceptedAnswers) {
-    const aNorm = normalizeTypedAnswer(a).replace(TYPED_TRAILING_PUNCT_RE, "");
+    const aNorm = normalizeTypedAnswer(a).replace(TYPED_EDGE_PUNCT_RE, "");
     if (aNorm === inputNorm) {
       exact = true;
       continue; // the learner typed this one — never a nudge source

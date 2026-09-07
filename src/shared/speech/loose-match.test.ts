@@ -516,6 +516,53 @@ describe("gradeTypedAnswer — accentPolicy (F5, 2026-08-20)", () => {
   });
 });
 
+describe("typed-answer edge punctuation (TestFlight #51, 2026-09-05)", () => {
+  // Mikey (Spanish): typing only the closing "?" — no opening "¿" — was
+  // marked wrong against an authored "¿Cómo estás?" even though "¿Cómo
+  // estás?" typed in full graded correct. The strip used to be trailing-only,
+  // so the leading ¿ on the accepted side had nowhere to go.
+  it("accepts a Spanish question missing its opening ¿", () => {
+    expect(gradeTypedAnswer(["¿Cómo estás?"], "Como estas?").correct).toBe(true);
+    expect(gradeTypedAnswer(["¿Cómo estás?"], "Cómo estás?").correct).toBe(true);
+  });
+
+  it("still accepts the fully-punctuated form", () => {
+    expect(gradeTypedAnswer(["¿Cómo estás?"], "¿Cómo estás?").correct).toBe(true);
+    expect(gradeTypedAnswer(["¿Cómo estás?"], "¿Como estas?").correct).toBe(true);
+  });
+
+  it("works the other way too: authored without ¿, typed with it", () => {
+    expect(gradeTypedAnswer(["Como estas?"], "¿Cómo estás?").correct).toBe(true);
+  });
+
+  it("accepts a missing/extra opening ¡ on an exclamation", () => {
+    expect(gradeTypedAnswer(["¡Hola!"], "Hola").correct).toBe(true);
+    expect(gradeTypedAnswer(["Hola"], "¡Hola!").correct).toBe(true);
+  });
+
+  it("ignores stray edge quotes and dashes a learner wraps the answer in", () => {
+    expect(gradeTypedAnswer(["Hola"], '"Hola"').correct).toBe(true);
+    expect(gradeTypedAnswer(["Hola"], "«Hola»").correct).toBe(true);
+    expect(gradeTypedAnswer(["Hola"], "-Hola-").correct).toBe(true);
+    expect(gradeTypedAnswer(["Hola"], "'Hola'").correct).toBe(true);
+  });
+
+  it("strips ; and : glued to an edge, but not content punctuation mid-answer", () => {
+    expect(gradeTypedAnswer(["Hola"], "Hola;").correct).toBe(true);
+    expect(gradeTypedAnswer(["Hola"], ":Hola").correct).toBe(true);
+  });
+
+  it("does not turn a genuinely different answer correct", () => {
+    expect(gradeTypedAnswer(["¿Cómo estás?"], "¿Dónde vives?").correct).toBe(false);
+  });
+
+  it("composes with the accent fold already established for Spanish", () => {
+    // No accent AND no opening ¿ — both leniency tiers apply at once.
+    const g = gradeTypedAnswer(["¿Cómo estás?"], "Como estas?");
+    expect(g.correct).toBe(true);
+  });
+});
+
 describe("fragment of the target is not a match (TestFlight #33)", () => {
   // A one-syllable recognition "이" was graded Perfect! against
   // 이거는 김치라고 해요 because any substring of the target scored 1.
