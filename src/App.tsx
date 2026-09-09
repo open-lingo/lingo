@@ -198,6 +198,9 @@ const PracticePage = lazyRetry(() =>
 const ProtectedHome = lazyRetry(() =>
   import("@/routes/ProtectedHome").then((m) => ({ default: m.ProtectedHome })),
 );
+const PairDrillPage = lazyRetry(() =>
+  import("@/features/practice/particles/PairDrillPage").then((m) => ({ default: m.PairDrillPage })),
+);
 const ParticlePracticePage = lazyRetry(() =>
   import("@/features/practice/ParticlePracticePage").then((m) => ({ default: m.ParticlePracticePage })),
 );
@@ -554,6 +557,7 @@ const router = createBrowserRouter([
                   { path: "stories", element: <StoryLibraryPage /> },
                   { path: "stories/:storyId", element: <ReadingRoute /> },
                   { path: "grammar/particles", element: <ParticlePracticePage /> },
+                  { path: "grammar/particles/combine", element: <PairDrillPage /> },
                   { path: "alphabet/:alphabetId/learn", element: <AlphabetLessonPage /> },
                   { path: "alphabet/:alphabetId", element: <AlphabetPracticePage /> },
                   { path: "alphabet", element: <PracticeAlphabetHubPage /> },
