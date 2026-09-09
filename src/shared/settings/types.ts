@@ -217,6 +217,13 @@ export type UserSettings = {
      * which snaps a stored value to the nearest offered step.
      */
     storyFontSize?: number;
+    /**
+     * Ids of particle usage cards the learner has dismissed (`ni-time`, and
+     * one per particle pair — see practice/particles/particlePairs.ts). Each
+     * card shows once, before the first combined drill that needs it. Absent
+     * = none seen.
+     */
+    particleUsageCardsSeen?: string[];
   };
   display?: {
     dateLocale?: string;

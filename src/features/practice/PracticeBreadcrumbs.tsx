@@ -156,6 +156,8 @@ export function PracticeBreadcrumbs() {
       label = t("practice.reading.title", { defaultValue: "Reading" });
     } else if (seg === "speaking") {
       label = t("practice.speaking.title", { defaultValue: "Speaking" });
+    } else if (seg === "combine" && prev === "particles") {
+      label = t("practice.particles.combine.title", { defaultValue: "Combine" });
     } else if (seg === "learn" && twoBack === "alphabet") {
       label = t("practice.hub.breadcrumbAlphabetLesson");
     } else if (prev === "alphabet" && seg !== "learn") {

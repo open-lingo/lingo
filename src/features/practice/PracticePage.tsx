@@ -9,6 +9,7 @@ import {
   reviewModuleIdFor,
 } from "@/features/lesson/data/moduleReviewSchedule";
 import { usePracticeStats } from "@/features/practice/hooks/usePracticeStats";
+import { getTodayCount } from "@/features/practice/practiceStats";
 import { PillarTile } from "@/features/practice/components/PillarTile";
 import { PracticeHero } from "@/features/practice/components/PracticeHero";
 import {
@@ -34,6 +35,26 @@ export function PracticePage() {
   );
 
   const hasDue = !stats.isLoading && stats.dueCount > 0;
+
+  // Grammar training done today, from the practice-stats store (localStorage,
+  // written on every graded drill). Mount-read is enough: the drills live on
+  // other routes, so coming back here re-mounts this page.
+  const grammarMeta = useMemo(() => {
+    const parts: string[] = [];
+    const particles = getTodayCount("particles");
+    if (particles > 0) {
+      parts.push(
+        t("practice.pillars.grammar.particlesToday", { defaultValue: "particles · {{count}} today", count: particles }),
+      );
+    }
+    const conjugation = getTodayCount("conjugation");
+    if (conjugation > 0) {
+      parts.push(
+        t("practice.pillars.grammar.conjugationToday", { defaultValue: "conjugation · {{count}} today", count: conjugation }),
+      );
+    }
+    return parts.length ? parts.join(" · ") : undefined;
+  }, [t]);
 
   const suggestion = useMemo(
     () =>
@@ -95,6 +116,7 @@ export function PracticePage() {
                 pillar={pillar}
                 to={langPath(pillar.route)}
                 badge={pillar.id === "vocabulary" && hasDue ? stats.dueCount : undefined}
+                meta={pillar.id === "grammar" ? grammarMeta : undefined}
               />
             </div>
           ))}

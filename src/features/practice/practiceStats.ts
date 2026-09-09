@@ -10,7 +10,9 @@ export type PracticeFeatureKey =
   | "speaking"
   | "counters"
   | "listening"
-  | "writing";
+  | "writing"
+  /** Particle pair drills (practice/particles) — grammar training, same store as conjugation. */
+  | "particles";
 
 export type ItemStats = {
   correct: number;
@@ -22,7 +24,28 @@ export type FeatureStats = {
   items: Record<string, ItemStats>;
   sessions: number;
   lastSessionDate: string | null;
+  /**
+   * Answers per calendar day (`YYYY-MM-DD` → count), kept for the last
+   * `DAILY_WINDOW_DAYS`. Optional: stores written before 2026-09-09 have no
+   * field and read as zero. Feeds "particles · N today" on the grammar pillar.
+   */
+  daily?: Record<string, number>;
 };
+
+const DAILY_WINDOW_DAYS = 14;
+
+function todayKey(): string {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function bumpDaily(feat: FeatureStats, today: string): void {
+  const daily = feat.daily ?? {};
+  daily[today] = (daily[today] ?? 0) + 1;
+  // Prune: keep the newest DAILY_WINDOW_DAYS keys (ISO dates sort lexically).
+  const keys = Object.keys(daily).sort();
+  for (const k of keys.slice(0, Math.max(0, keys.length - DAILY_WINDOW_DAYS))) delete daily[k];
+  feat.daily = daily;
+}
 
 type PracticeStatsStore = Partial<Record<PracticeFeatureKey, FeatureStats>>;
 
@@ -57,7 +80,7 @@ export function recordPracticeResult(
 ): void {
   const store = load();
   const feat = ensureFeature(store, feature);
-  const today = new Date().toISOString().slice(0, 10);
+  const today = todayKey();
 
   if (!feat.items[itemId]) {
     feat.items[itemId] = { correct: 0, total: 0, lastPracticed: today };
@@ -66,8 +89,14 @@ export function recordPracticeResult(
   item.total++;
   if (correct) item.correct++;
   item.lastPracticed = today;
+  bumpDaily(feat, today);
 
   save(store);
+}
+
+/** Answers recorded for `feature` today (local calendar day, per `daily`). */
+export function getTodayCount(feature: PracticeFeatureKey): number {
+  return getFeatureStats(feature).daily?.[todayKey()] ?? 0;
 }
 
 export function recordSessionEnd(feature: PracticeFeatureKey): void {

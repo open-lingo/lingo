@@ -138,13 +138,24 @@ const PILLARS: Pillar[] = [
         languages: ["ja", "ko"],
       },
       {
+        // JA has Combine mode (pair drills); KO/ES are reference-only, so the
+        // same route carries two descriptions split by language.
+        id: "particles",
+        titleKey: "practice.particlePractice",
+        titleDefault: "Particles",
+        descKey: "practice.pillars.grammar.particlesDescJa",
+        descDefault: "Reference and pair drills",
+        route: "practice/grammar/particles",
+        languages: ["ja"],
+      },
+      {
         id: "particles",
         titleKey: "practice.particlePractice",
         titleDefault: "Particles",
         descKey: "practice.pillars.grammar.particlesDesc",
         descDefault: "Reference guide and meanings",
         route: "practice/grammar/particles",
-        languages: ["ja", "ko", "es"],
+        languages: ["ko", "es"],
       },
       {
         id: "counters",
