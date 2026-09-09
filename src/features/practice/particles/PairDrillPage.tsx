@@ -271,7 +271,7 @@ function UsageCardView({ card, onDismiss }: { card: UsageCard; onDismiss: () => 
  * CTA never move on submit: the bank stays mounted (disabled) after grading
  * and the footer row swaps Check → Next in place.
  */
-function QuestionCard({
+export function QuestionCard({
   question: q,
   langId,
   isLast,
@@ -311,11 +311,11 @@ function QuestionCard({
   const blank = (i: 0 | 1) => {
     const value = picked[i];
     let cls =
-      "mx-0.5 inline-flex h-9 min-w-[2.75rem] items-center justify-center rounded-md border-2 px-1.5 align-middle text-xl font-semibold leading-none transition";
+      "mx-0.5 inline-flex h-9 min-w-[2.75rem] items-center justify-center gap-1 rounded-md border-2 px-1.5 align-middle text-xl font-semibold leading-none transition";
     if (revealed && grade) {
-      cls += grade.blanks[i]
-        ? " border-success bg-success/10 text-success"
-        : " border-error bg-error/10 text-error line-through decoration-2";
+      // A wrong blank reads its own fix in place: the learner's particle
+      // small and struck, the correct one beside it in green.
+      cls += grade.blanks[i] ? " border-success bg-success/10 text-success" : " border-error bg-error/5 text-success";
     } else if (active === i) {
       cls += " border-accent bg-accent/10 text-text-primary";
     } else {
@@ -333,8 +333,18 @@ function QuestionCard({
           value: value ? `: ${value}` : "",
         })}
         aria-pressed={!revealed && active === i}
+        data-testid={`blank-${i + 1}`}
       >
-        {value ?? <span className="text-text-muted">{i + 1}</span>}
+        {revealed && grade && !grade.blanks[i] ? (
+          <>
+            <s className="text-sm font-medium text-error decoration-2" data-testid={`blank-${i + 1}-picked`}>
+              {value}
+            </s>
+            <span data-testid={`blank-${i + 1}-answer`}>{q.answers[i]}</span>
+          </>
+        ) : (
+          (value ?? <span className="text-text-muted">{i + 1}</span>)
+        )}
       </button>
     );
   };
