@@ -37,9 +37,9 @@
         tiles: ["salí", "sale"]
       - kind: speakLit
         id: l4-sp-vivi
-        es: "viví en México"
-        en: "I lived in Mexico"
-        atoms: ["viví", "México"]
+        es: "viví en México y mi abuela vivió en España"
+        en: "I lived in Mexico and my grandmother lived in Spain"
+        atoms: ["viví", "México", "abuela", "vivió", "España"]
       - kind: clozeLit
         id: l4-c-miabuelavivio
         es: "mi abuela vivió en España"

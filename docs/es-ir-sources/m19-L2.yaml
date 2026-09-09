@@ -34,18 +34,23 @@
         title: "One machine, every -ar verb"
         body: "What «hablar» did, every -ar verb does. «comprar»: «compré», I bought; «compraste», you bought; «compró», he or she bought. «trabajar»: «trabajé», I worked; «trabajaste», you worked; «trabajó», he or she worked. The accent is still the whole story: «compro» is I buy, now; «compró» is he bought, then. Say them out loud and put the weight where the accent is."
       - kind: speakLit
-        id: l2-sp-trabaje
-        es: "trabajé mucho ayer"
-        en: "I worked a lot yesterday"
-        atoms: ["trabajé", "mucho", "ayer"]
+        id: l2-sp-trabajoycompro
+        es: "Diego trabajó y compró un carro"
+        en: "Diego worked and bought a car"
+        atoms: ["trabajó", "compró", "carro"]
       - kind: clozeLit
         id: l2-c-anatrabajo
         es: "Ana trabajó el sábado"
         en: "Ana worked on Saturday"
         blank: "trabajó"
-        options: ["trabajó", "trabajé", "trabajaste"]
+        options: ["trabajó", "trabajo"]
         atoms: ["trabajó", "sábado"]
         why: "Ana did the working, so «trabajó» — the he-or-she ending, stress on the o."
+      - kind: speakLit
+        id: l2-sp-trabaje
+        es: "trabajé mucho ayer"
+        en: "I worked a lot yesterday"
+        atoms: ["trabajé", "mucho", "ayer"]
       - kind: listenCompLit
         id: l2-lc-compraste
         es: "¿compraste el regalo ayer?"
@@ -102,11 +107,6 @@
         id: l2-tm-compro
         target: "compró"
         distractors: ["compro", "compré", "compraste"]
-      - kind: speakLit
-        id: l2-sp-trabajoycompro
-        es: "Diego trabajó y compró un carro"
-        en: "Diego worked and bought a car"
-        atoms: ["trabajó", "compró", "carro"]
       - kind: sim
         id: l2-sim-ana-compras
         scene: { emoji: "🛒", title: "Ana checks the shopping", setting: "The party is tomorrow. Ana wants to know what got bought and who did the work." }

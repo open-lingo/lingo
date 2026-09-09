@@ -56,7 +56,7 @@
         es: "Diego no habló con Ana ayer"
         en: "Diego didn't speak with Ana yesterday"
         blank: "habló"
-        options: ["habló", "hablé"]
+        options: ["habló", "hablo"]
         atoms: ["habló", "ayer"]
         why: "Diego, yesterday: «habló». The «no» in front does not change the ending."
       - kind: mcq
