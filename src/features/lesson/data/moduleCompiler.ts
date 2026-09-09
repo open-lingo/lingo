@@ -11,7 +11,7 @@
  * the IR is missing (density-short, distractor-thin, …) so the content author
  * can fix the YAML instead of the compiler guessing.
  */
-import type { LessonContent, LessonStep } from "@/features/lesson/types";
+import type { LessonContent, LessonStep, ReactiveGrammarTip } from "@/features/lesson/types";
 import type { IrSceneSpec } from "@/features/lesson/data/sceneResolve";
 import { resolveScene } from "@/features/lesson/data/sceneResolve";
 import {
@@ -136,6 +136,17 @@ export type IRBeat =
        *  the learner's typed answer actually contains the trap (それを…
        *  with わかる — the transitive-“get” instinct). */
       pitfall?: { wrong: string; why: string; title?: string };
+      /** Build mode only: distractor tiles the bank MUST offer — a
+       *  deliberate trap the tile floor cannot be relied on to draw (it
+       *  fills from the prior-atom pool, seeded, with no way to ask for one
+       *  tile). The に-time lesson (m11-neo-12) puts a に tile in a
+       *  relative-time bank so あした いく is a real choice, not an
+       *  elimination. NOT compiled into `tiles` — compiled tiles stay a
+       *  partition of the target (buildSentenceBoundary); the tile floor
+       *  merges these at load, ahead of its pool fill. An entry that is
+       *  already an answer token would be a duplicate answer tile (the
+       *  oversupply bar), so it is dropped there. */
+      bankExtras?: string[];
     }
   | {
       kind: "particle-cloze";
@@ -1215,16 +1226,7 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
             // fires this ONLY when the learner's typed answer actually
             // contains the trap surface — targeted correction, not a
             // generic lecture.
-            step.reactiveGrammarTip = {
-              grammarPointId: `pitfall-${id}`,
-              title: beat.pitfall.title ?? "Heads up",
-              ruleLine: beat.pitfall.why,
-              wrongJa: beat.pitfall.wrong,
-              wrongRomaji: kanaToRomaji(beat.pitfall.wrong),
-              rightJa: beat.ja,
-              rightRomaji: kanaToRomaji(beat.ja),
-              why: beat.pitfall.why,
-            };
+            step.reactiveGrammarTip = pitfallTip(id, beat.pitfall, beat.ja);
           }
         } else if (beat.mode === "listening") {
           const tiles = tokenize(beat.ja);
@@ -1251,10 +1253,22 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
             tiles,
             ex,
           );
+          if (beat.bankExtras?.length) {
+            step.bankExtras = beat.bankExtras.map(clean);
+          }
           // `alsoAccept` used to reach translate steps only; a build with a
           // floor particle tile can assemble a second correct sentence too.
           if (beat.alsoAccept?.length) {
             step.alsoAccepted = beat.alsoAccept.map(clean);
+          }
+          // Same known-trap tip as translate mode. Tile builds have fed the
+          // reactive-tip gate with their tray text since 2026-08-15, so the
+          // tip fires only when the built sentence actually contains the
+          // trap chunk (あしたに …) — the m11-neo-12 relative-time banks
+          // offer a に tile on purpose and this is the "Not quite" line
+          // the scope doc asked for (docs/ja-time-ni-lesson-scope.md).
+          if (beat.pitfall) {
+            step.reactiveGrammarTip = pitfallTip(id, beat.pitfall, beat.ja);
           }
         }
         // Track B (grammar SRS): carry the beat's declared grammar points
@@ -2265,4 +2279,22 @@ export function diagnoseModule(ir: ModuleIR): Diagnostic[] {
     }
   }
   return out;
+}
+
+/** A beat's `pitfall` as the step's reactive tip (translate + build modes). */
+function pitfallTip(
+  id: string,
+  pitfall: { wrong: string; why: string; title?: string },
+  rightJa: string,
+): ReactiveGrammarTip {
+  return {
+    grammarPointId: `pitfall-${id}`,
+    title: pitfall.title ?? "Heads up",
+    ruleLine: pitfall.why,
+    wrongJa: pitfall.wrong,
+    wrongRomaji: kanaToRomaji(pitfall.wrong),
+    rightJa,
+    rightRomaji: kanaToRomaji(rightJa),
+    why: pitfall.why,
+  };
 }

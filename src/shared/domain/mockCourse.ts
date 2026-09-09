@@ -504,6 +504,7 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m11-neo-8", title: "でした \u2014 was, politely", status: "available" as const },
             { id: "ja-m11-neo-9", title: "いつ \u2014 asking when", status: "available" as const },
             { id: "ja-m11-neo-11", title: "This year, last year \u2014 the wider calendar", status: "available" as const },
+            { id: "ja-m11-neo-12", title: "に or nothing \u2014 pointing at the clock and calendar", status: "available" as const },
             { id: "ja-m11-neo-review-3", title: "Review \u2014 clock, calendar and past", status: "available" as const },
             { id: "ja-m11-neo-challenge", title: "Challenge \u2014 put it all together", status: "available" as const },
             { id: "story:ja-m11-last-saturday", title: "Read — Last Saturday", status: "available" as const,

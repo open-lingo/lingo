@@ -292,6 +292,33 @@
         "en": "",
         "why": "きょねん is relative, like きょう and きのう — it takes no に"
       }
+    },
+    {
+      "id": "ni-time-or-nothing",
+      "rule": "One test decides に: can you point at the moment on a CLOCK or a CALENDAR without knowing what day it is today? Then it takes に — さんじに, げつようびに, どようびに. If it only makes sense from where you stand now, it takes NO に at all: きょう, あした, きのう, あさって on one side; せんしゅう, せんげつ, らいげつ, ことし, きょねん, まいとし on the other. It is the same に you use for a destination — a moment you can arrive at. あした already means 'the day after now', so there is nothing left for に to point at.",
+      "examples": [
+        {
+          "ja": "さんじに いく。",
+          "en": "I'll go at three — a clock time, so に"
+        },
+        {
+          "ja": "あした いく。",
+          "en": "I'll go tomorrow — relative, so nothing"
+        },
+        {
+          "ja": "げつようびに はたらく。",
+          "en": "I work on Monday — a calendar day, so に"
+        },
+        {
+          "ja": "あさって はたらく。",
+          "en": "I work the day after tomorrow — relative, so nothing"
+        }
+      ],
+      "antiPattern": {
+        "ja": "あしたに いく。",
+        "en": "",
+        "why": "あした is relative, like きょう and きのう — it takes no に"
+      }
     }
   ],
   "newAtoms": [
@@ -2715,6 +2742,189 @@
       ]
     },
     {
+      "id": "m11-neo-12",
+      "role": "teaching",
+      "title": "に or nothing — pointing at the clock and calendar",
+      "focus": "the one test for に on a time word: clock or calendar takes に, relative time takes nothing",
+      "introduces": [],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "ni-time-or-nothing"
+        },
+        {
+          "kind": "sentence",
+          "ja": "さんじに いく。",
+          "en": "Say to a friend: I'll go at three",
+          "exercises": [
+            "ni-time",
+            "counter-ji"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あした いく。",
+          "en": "Say to a friend: I'll go tomorrow",
+          "exercises": [
+            "ni-time"
+          ],
+          "mode": "build",
+          "bankExtras": [
+            "に"
+          ],
+          "pitfall": {
+            "wrong": "あしたに いく。",
+            "title": "に points at a clock or calendar",
+            "why": "あした already means 'the day after now' — に only points at a clock or calendar. あした いく, no に."
+          }
+        },
+        {
+          "kind": "sentence",
+          "ja": "げつようびに はたらく。",
+          "en": "Say to a friend: I work on Monday",
+          "exercises": [
+            "youbi-days",
+            "ni-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あさって はたらく。",
+          "en": "Say to a friend: I work the day after tomorrow",
+          "exercises": [
+            "ni-time"
+          ],
+          "mode": "build",
+          "bankExtras": [
+            "に"
+          ],
+          "pitfall": {
+            "wrong": "あさってに はたらく。",
+            "title": "に points at a clock or calendar",
+            "why": "あさって already means 'two days after now' — に only points at a clock or calendar. あさって はたらく, no に."
+          }
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "きょう ともだちが くる。",
+          "answer": "A friend is coming today",
+          "distractors": [
+            "A friend is coming on Tuesday",
+            "A friend is coming on Sunday",
+            "A friend came yesterday"
+          ],
+          "exercises": [
+            "ga-existence"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "にちようびに うみに いった。",
+          "en": "Say to a friend: I went to the sea on Sunday",
+          "exercises": [
+            "youbi-days",
+            "ni-time",
+            "ta-form",
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "せんしゅう うみに いった。",
+          "en": "Say to a friend: I went to the sea last week",
+          "exercises": [
+            "time-spans",
+            "ni-time",
+            "ta-form",
+            "ni-location"
+          ],
+          "mode": "build",
+          "pitfall": {
+            "wrong": "せんしゅうに うみに いった。",
+            "title": "に points at a clock or calendar",
+            "why": "せんしゅう already means 'the week before now' — に only points at a clock or calendar. The に in this sentence belongs to うみ, the destination."
+          }
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "もくようびに かいものを する。",
+          "answer": "I'll do the shopping on Thursday",
+          "distractors": [
+            "I'll do the shopping this week",
+            "I'll do the shopping tomorrow",
+            "I'll do the shopping on Tuesday"
+          ],
+          "exercises": [
+            "youbi-days",
+            "ni-time",
+            "wo-object"
+          ]
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "いつ うみに いく？",
+              "en": "When are you going to the sea?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "どようびに いく。あさっても いく。",
+              "en": "I'm going on Saturday. The day after tomorrow too."
+            }
+          ],
+          "questions": [
+            {
+              "q": "When is Tom going to the sea?",
+              "options": [
+                "Saturday and the day after tomorrow",
+                "Tomorrow only",
+                "Today",
+                "Last week"
+              ],
+              "answer": "Saturday and the day after tomorrow"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "あした よじに ミカの いえで ごはんを たべる。",
+          "en": "Say to a friend: I'm eating at Mika's house at four tomorrow",
+          "combines": [
+            "ni-time",
+            "counter-ji",
+            "no-possession",
+            "de-action",
+            "wo-object"
+          ],
+          "mode": "build",
+          "pitfall": {
+            "wrong": "あしたに よじ ミカの いえで ごはんを たべる。",
+            "title": "に points at a clock or calendar",
+            "why": "Both time words are in one sentence: よじ is a clock time and takes に; あした is relative and takes nothing. あした よじに, never あしたに."
+          }
+        }
+      ],
+      "reviewPool": [
+        "さんじ",
+        "よじ",
+        "げつようび",
+        "にちようび",
+        "どようび",
+        "あした",
+        "あさって",
+        "せんしゅう",
+        "きょう",
+        "うみ",
+        "ともだち",
+        "ごはん"
+      ]
+    },
+    {
       "id": "m11-neo-r3",
       "role": "review",
       "title": "Review — clock, calendar and past",
@@ -3763,7 +3973,7 @@
     {
       "kana": "いきません",
       "romaji": "ikimasen",
-      "gloss": "don't go, not travelling (polite)",
+      "gloss": "don't go, not traveling (polite)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -4088,7 +4298,7 @@
       "kana": "ちゃ",
       "romaji": "cha",
       "gloss": "tea",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -4096,7 +4306,7 @@
       "romaji": "kome",
       "gloss": "rice (uncooked)",
       "shortGloss": "rice (raw)",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -4198,7 +4408,7 @@
       "kana": "えん",
       "romaji": "en",
       "gloss": "yen",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -4219,7 +4429,7 @@
       "kana": "かね",
       "romaji": "kane",
       "gloss": "money",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {

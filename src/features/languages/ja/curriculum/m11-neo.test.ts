@@ -54,16 +54,17 @@ registerModuleBarGuards({
 });
 
 describe("m11-neo module shape (invariant 25)", () => {
-  // 17 = the inv-25 15 plus the two 2026-07-29 vocab-pack insertions
+  // 18 = the inv-25 15 plus the two 2026-07-29 vocab-pack insertions
   // (B065/B067, Spencer-approved wave plan): ja-m11-neo-10 (weekdays) and
-  // ja-m11-neo-11 (wider calendar).
-  it("ships 17 lessons: 13 teaching + 3 review + 1 challenge", () => {
-    expect(M11_NEO_LESSONS).toHaveLength(17);
+  // ja-m11-neo-11 (wider calendar), plus ja-m11-neo-12 (に or nothing,
+  // 2026-09-09 — docs/ja-time-ni-lesson-scope.md, TestFlight #35).
+  it("ships 18 lessons: 14 teaching + 3 review + 1 challenge", () => {
+    expect(M11_NEO_LESSONS).toHaveLength(18);
     const reviews = M11_NEO_LESSONS.filter((l) => /-review(-\d+)?$/.test(l.id));
     const challenge = M11_NEO_LESSONS.filter((l) => l.id.endsWith("-challenge"));
     expect(reviews, reviews.map((l) => l.id).join(", ")).toHaveLength(3);
     expect(challenge).toHaveLength(1);
-    expect(M11_NEO_LESSONS.length - reviews.length - challenge.length).toBe(13);
+    expect(M11_NEO_LESSONS.length - reviews.length - challenge.length).toBe(14);
   });
 
   it("the CHALLENGE lesson is last", () => {

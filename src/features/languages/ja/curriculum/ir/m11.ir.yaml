@@ -130,6 +130,23 @@ grammarPoints:
       - { ja: "らいげつ アメリカに いく。", en: "I'm going to America next month." }
       - { ja: "はじめて すしを たべた。", en: "I ate sushi for the first time." }
     antiPattern: { ja: "きょねんに いった。", en: "", why: "きょねん is relative, like きょう and きのう — it takes no に" }
+  # ── に or nothing (2026-09-09, docs/ja-time-ni-lesson-scope.md, TestFlight
+  #    #35). A SECOND card under the shared ni-time id: L3 taught the clock
+  #    half and every calendar/relative card since has stated the other
+  #    half in passing, but no step ever put the two SIDE BY SIDE — the
+  #    learner built あしたに in m30 and could not say why it was wrong.
+  #    Its OWN id: a second card under ni-time would make L3's bare rule
+  #    beat ambiguous (provenance diagnostic) and force a variant onto it,
+  #    renaming a shipped step id. The antiPattern `why` reuses the
+  #    time-spans wording verbatim.
+  - id: ni-time-or-nothing
+    rule: "One test decides に: can you point at the moment on a CLOCK or a CALENDAR without knowing what day it is today? Then it takes に — さんじに, げつようびに, どようびに. If it only makes sense from where you stand now, it takes NO に at all: きょう, あした, きのう, あさって on one side; せんしゅう, せんげつ, らいげつ, ことし, きょねん, まいとし on the other. It is the same に you use for a destination — a moment you can arrive at. あした already means 'the day after now', so there is nothing left for に to point at."
+    examples:
+      - { ja: "さんじに いく。", en: "I'll go at three — a clock time, so に" }
+      - { ja: "あした いく。", en: "I'll go tomorrow — relative, so nothing" }
+      - { ja: "げつようびに はたらく。", en: "I work on Monday — a calendar day, so に" }
+      - { ja: "あさって はたらく。", en: "I work the day after tomorrow — relative, so nothing" }
+    antiPattern: { ja: "あしたに いく。", en: "", why: "あした is relative, like きょう and きのう — it takes no に" }
 
 newAtoms:
   # ── multiples of ten. Declared as ATOMS, not as じゅう+X tiles, for a
@@ -552,6 +569,54 @@ lessons:
           - { q: "When did Tom buy the bag?", options: ["Last month", "Last week", "Last year", "Next month"], answer: "Last month" }
       - { kind: challenge, ja: "きょねん はじめて にほんに いきました。", en: "Say politely: Last year I went to Japan for the first time", combines: [time-spans, masu-past, ni-location], mode: build }
     reviewPool: [うみ, うた, すし, なまえ, とけい, かばん, にほん, アメリカ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # に or nothing (2026-09-09, docs/ja-time-ni-lesson-scope.md). Sits after
+  # L11 so every word on both sides of the test is already taught: the
+  # clock (L3), the weekdays (L10) and the wider calendar (L11). Introduces
+  # NOTHING — its whole job is the contrast the course had only ever stated
+  # as rule-card asides. Build-heavy per Spencer: each pair keeps the SAME
+  # verb phrase and changes only the time slot. A relative-time bank whose
+  # answer has no に of its own carries a forced に tile (`bankExtras`,
+  # merged by the tile floor at load — compiled tiles stay a partition of
+  # the target) so choosing nothing is a real decision; where the sentence
+  # already owns a に (せんしゅう うみに いった) that single tile IS the trap,
+  # since a second copy would be a duplicate answer token (tile-floor
+  # oversupply bar). The `pitfall` fires the "Not quite" line only when the
+  # learner actually built あしたに / あさってに / せんしゅうに.
+  #
+  # NO particle-clozes here, by policy: the scope doc asked for two on a
+  # relative stem with a ∅ option, but (a) ParticleClozeStepView renders
+  # options as literal tiles with string-equality grading and an empty/∅
+  # option is not a supported tile (verified 2026-09-09; the は-drop lessons
+  # never used one), and (b) the particle-cloze placement ratchet
+  # (workshop D, Spencer 2026-07-12) confines true-particle clozes to the
+  # particle's intro module + 2 — に is m6, this is m11. The recognition
+  # half is carried by two listening-comps (one absolute, one relative)
+  # and a dialogue instead.
+  - id: m11-neo-12
+    role: teaching
+    title: "に or nothing — pointing at the clock and calendar"
+    focus: "the one test for に on a time word: clock or calendar takes に, relative time takes nothing"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: ni-time-or-nothing }
+      - { kind: sentence, ja: "さんじに いく。", en: "Say to a friend: I'll go at three", exercises: [ni-time, counter-ji], mode: build }
+      - { kind: sentence, ja: "あした いく。", en: "Say to a friend: I'll go tomorrow", exercises: [ni-time], mode: build, bankExtras: [に], pitfall: { wrong: "あしたに いく。", title: "に points at a clock or calendar", why: "あした already means 'the day after now' — に only points at a clock or calendar. あした いく, no に." } }
+      - { kind: sentence, ja: "げつようびに はたらく。", en: "Say to a friend: I work on Monday", exercises: [youbi-days, ni-time], mode: build }
+      - { kind: sentence, ja: "あさって はたらく。", en: "Say to a friend: I work the day after tomorrow", exercises: [ni-time], mode: build, bankExtras: [に], pitfall: { wrong: "あさってに はたらく。", title: "に points at a clock or calendar", why: "あさって already means 'two days after now' — に only points at a clock or calendar. あさって はたらく, no に." } }
+      - { kind: listening-comp, audio: "きょう ともだちが くる。", answer: "A friend is coming today", distractors: ["A friend is coming on Tuesday", "A friend is coming on Sunday", "A friend came yesterday"], exercises: [ga-existence] }
+      - { kind: sentence, ja: "にちようびに うみに いった。", en: "Say to a friend: I went to the sea on Sunday", exercises: [youbi-days, ni-time, ta-form, ni-location], mode: build }
+      - { kind: sentence, ja: "せんしゅう うみに いった。", en: "Say to a friend: I went to the sea last week", exercises: [time-spans, ni-time, ta-form, ni-location], mode: build, pitfall: { wrong: "せんしゅうに うみに いった。", title: "に points at a clock or calendar", why: "せんしゅう already means 'the week before now' — に only points at a clock or calendar. The に in this sentence belongs to うみ, the destination." } }
+      - { kind: listening-comp, audio: "もくようびに かいものを する。", answer: "I'll do the shopping on Thursday", distractors: ["I'll do the shopping this week", "I'll do the shopping tomorrow", "I'll do the shopping on Tuesday"], exercises: [youbi-days, ni-time, wo-object] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "いつ うみに いく？", en: "When are you going to the sea?" }
+          - { speaker: "Tom", ja: "どようびに いく。あさっても いく。", en: "I'm going on Saturday. The day after tomorrow too." }
+        questions:
+          - { q: "When is Tom going to the sea?", options: ["Saturday and the day after tomorrow", "Tomorrow only", "Today", "Last week"], answer: "Saturday and the day after tomorrow" }
+      - { kind: challenge, ja: "あした よじに ミカの いえで ごはんを たべる。", en: "Say to a friend: I'm eating at Mika's house at four tomorrow", combines: [ni-time, counter-ji, no-possession, de-action, wo-object], mode: build, pitfall: { wrong: "あしたに よじ ミカの いえで ごはんを たべる。", title: "に points at a clock or calendar", why: "Both time words are in one sentence: よじ is a clock time and takes に; あした is relative and takes nothing. あした よじに, never あしたに." } }
+    reviewPool: [さんじ, よじ, げつようび, にちようび, どようび, あした, あさって, せんしゅう, きょう, うみ, ともだち, ごはん]
 
   # ═══════════════════════════════════════════════════════════════════════
   - id: m11-neo-r3

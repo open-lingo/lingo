@@ -122,9 +122,16 @@ export function deriveGrammarMicroSteps(lesson: LessonContent): LessonContent {
     const inDrillSpan =
       isGradedStep(step) && step.type !== "row_test" && step.type !== "speaking";
     if (inDrillSpan && (activeTip || activeHint)) {
+      // An AUTHORED step tip (IR `pitfall`, compiled by moduleCompiler) is
+      // the more specific correction and must survive the span tip: the
+      // card's antiPattern is one sentence (✗あしたに いく), so on a sibling
+      // build (あさって はたらく) the reactive gate finds no あしたに in the
+      // tray and shows NOTHING — the authored ✗あさってに tip is what should
+      // fire there (m11-neo-12, 2026-09-09).
+      const stepTip = step.reactiveGrammarTip ?? activeTip;
       out.push({
         ...step,
-        ...(activeTip ? { reactiveGrammarTip: activeTip } : {}),
+        ...(stepTip ? { reactiveGrammarTip: stepTip } : {}),
         ...(activeHint ? { ruleHint: activeHint } : {}),
       });
       changed = true;

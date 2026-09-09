@@ -101,14 +101,29 @@ export function padBuildTileFloor(lesson: LessonContent): LessonContent {
   let changed = false;
   const steps = lesson.steps.map((step) => {
     if (!isPaddableStep(step)) return step;
+    // Authored must-offer distractors first (BuildSentenceStep.bankExtras):
+    // never a duplicate of an answer token or of a tile already present.
+    const extras =
+      step.type === "build_sentence"
+        ? (step.bankExtras ?? []).filter(
+            (t, i, arr) =>
+              !step.correctOrder.includes(t) &&
+              !step.tiles.includes(t) &&
+              arr.indexOf(t) === i,
+          )
+        : [];
     const answerCount = step.correctOrder.length;
-    const have = step.tiles.length - answerCount;
+    const have = step.tiles.length + extras.length - answerCount;
     const need = minDistractorsFor(answerCount) - have;
-    if (need <= 0) return step;
-    const fill = pickFillTiles(step, need, lesson.moduleId, lesson.languageId, lesson.id);
-    if (fill.length === 0) return step;
+    if (need <= 0 && extras.length === 0) return step;
+    const seeded = extras.length ? { ...step, tiles: [...step.tiles, ...extras] } : step;
+    const fill =
+      need > 0
+        ? pickFillTiles(seeded, need, lesson.moduleId, lesson.languageId, lesson.id)
+        : [];
+    if (fill.length === 0 && extras.length === 0) return step;
     changed = true;
-    return { ...step, tiles: [...step.tiles, ...fill] };
+    return { ...step, tiles: [...seeded.tiles, ...fill] };
   });
   return changed ? { ...lesson, steps } : lesson;
 }
