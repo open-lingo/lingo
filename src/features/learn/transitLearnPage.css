@@ -526,8 +526,18 @@ a:focus-visible .tmc-d-stop {
   --vnm-line: var(--tmc-line-main); /* brand red / tier hue — rides the theme */
   --vnm-ahead: #3b456b; /* un-travelled track */
   --vnm-node-locked: #2b3352;
+  /* Unset by default (no art) — VerticalNetworkMap sets this per language;
+     `.vnm-bg-photo` only paints once it's non-empty. */
+  --vnm-bg-image: none;
   /* Sit as its own rounded card a clean step below the light signage header —
-     harmony by consistent card language + spacing, not a colour fade. */
+     harmony by consistent card language + spacing, not a colour fade.
+     `z-index: 0` (with `position: relative`) forces this box to establish
+     its OWN stacking context — without it, `.vnm-bg-photo`'s negative
+     z-index doesn't stack against this element at all, it escapes to the
+     nearest ancestor that DOES form one, and paints behind unrelated page
+     chrome instead of behind just this panel's own header/line content. */
+  position: relative;
+  z-index: 0;
   margin-top: 14px;
   border-radius: 14px;
   overflow: hidden;
@@ -535,6 +545,41 @@ a:focus-visible .tmc-d-stop {
   color: var(--vnm-ink);
   border: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.7);
+}
+/* background art layer (design-call prototype, 2026-09-09) — a flat-vector
+   scene behind the night-metro line. `background-attachment: fixed` pins it
+   to the viewport (not this panel's full, page-length height), so as the
+   learner scrolls the stations over it, the art holds still relative to the
+   window — a slow-parallax read achieved with zero JS. Negative z-index
+   keeps it under the in-flow header/line content while staying above this
+   root's own solid `--vnm-bg` fill (stacking-context paint order: root
+   background, then negative-z-index descendants, then in-flow children). */
+.vnm-bg-photo {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: var(--vnm-bg-image);
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+  opacity: 0.34;
+  pointer-events: none;
+}
+/* Navy fade top + bottom so the header and the tier-interchange stops at
+   either end of the line stay readable over the art; the untinted band in
+   the middle is where most stations live. */
+.vnm-bg-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    var(--vnm-bg) 0%,
+    transparent 14%,
+    transparent 82%,
+    var(--vnm-bg) 100%
+  );
 }
 .vnm-header {
   display: flex;
@@ -581,7 +626,7 @@ a:focus-visible .tmc-d-stop {
   align-items: center;
   gap: 8px;
   margin: 10px 0 2px;
-  padding: 10px 14px 10px 52px;
+  padding: 10px 14px 10px 68px;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -605,10 +650,10 @@ a:focus-visible .tmc-d-stop {
 }
 .vnm-station-btn {
   display: grid;
-  grid-template-columns: 52px 1fr;
+  grid-template-columns: 68px 1fr;
   align-items: stretch;
   width: 100%;
-  min-height: 58px;
+  min-height: 76px;
   text-align: left;
   background: transparent;
   color: inherit;
@@ -634,7 +679,7 @@ a:focus-visible .tmc-d-stop {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  width: 3px;
+  width: 4px;
   background: var(--vnm-line);
 }
 .vnm-seg-top {
@@ -657,11 +702,11 @@ a:focus-visible .tmc-d-stop {
   z-index: 1;
   display: grid;
   place-items: center;
-  width: 22px;
-  height: 22px;
+  width: 29px;
+  height: 29px;
   border-radius: 999px;
   background: var(--vnm-node-locked);
-  border: 3px solid var(--vnm-ahead);
+  border: 4px solid var(--vnm-ahead);
   color: var(--vnm-ink);
 }
 .vnm-node[data-state="completed"] {
@@ -675,7 +720,7 @@ a:focus-visible .tmc-d-stop {
   color: var(--vnm-line);
 }
 .vnm-seal {
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 800;
   line-height: 1;
   color: rgb(var(--color-on-accent));
@@ -684,12 +729,12 @@ a:focus-visible .tmc-d-stop {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 2px;
-  padding: 8px 14px 8px 6px;
+  gap: 3px;
+  padding: 10px 14px 10px 8px;
   min-width: 0;
 }
 .vnm-title {
-  font-size: 13.5px;
+  font-size: 17.5px;
   font-weight: 700;
   line-height: 1.2;
   color: var(--vnm-ink);
@@ -698,7 +743,7 @@ a:focus-visible .tmc-d-stop {
   color: color-mix(in srgb, var(--vnm-ink) 66%, transparent);
 }
 .vnm-sub {
-  font-size: 11px;
+  font-size: 14px;
   color: var(--vnm-muted);
 }
 /* side-quest spur — branches off the interchange station */
@@ -708,12 +753,12 @@ a:focus-visible .tmc-d-stop {
   flex-wrap: wrap;
   gap: 6px;
   margin: -2px 0 6px;
-  padding: 2px 14px 8px 60px;
+  padding: 2px 14px 8px 76px;
 }
 .vnm-spur::before {
   content: "";
   position: absolute;
-  left: 25px; /* under the rail node (52px/2 ≈ 26) */
+  left: 33px; /* under the rail node (68px/2 = 34) */
   top: -6px;
   width: 22px;
   height: 22px;
@@ -757,10 +802,10 @@ a:focus-visible .tmc-d-stop {
 }
 .vnm-nav-btn {
   display: grid;
-  grid-template-columns: 52px 1fr;
+  grid-template-columns: 68px 1fr;
   align-items: stretch;
   width: 100%;
-  min-height: 56px;
+  min-height: 73px;
   text-align: left;
   background: transparent;
   color: inherit;
@@ -779,12 +824,12 @@ a:focus-visible .tmc-d-stop {
   place-self: center;
   display: grid;
   place-items: center;
-  width: 30px;
-  height: 30px;
+  width: 39px;
+  height: 39px;
   border-radius: 999px;
   background: var(--vnm-node-locked);
   color: var(--vnm-ink);
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 800;
 }
 .vnm-nav-node--n4 {
