@@ -214,6 +214,14 @@ const WORD_CLASS: Record<string, ConjWordClassInfo> = {
  *  - nai-past …………………… m11  stacked: max(nai, ta) — FORM_GATE_POINTS.
  *  - tai / tai-* ……………… m13  `v-tai`; ir/m13.ir.yaml:357 `introduces: [たべたい…]`;
  *                           the stacks max with nai (m6) / ta (m11) → still m13.
+ *  - potential ………………… m24  no grammar point (N4 tier has no registry);
+ *                           ir/m24.ir.yaml:383 lesson `m24-neo-1` "「おさけが
+ *                           のめる」 — the え row and る", rule beat
+ *                           `potential-form`; `potential-rareru` (line 247)
+ *                           is the る-verb lesson in the same module.
+ *  - tara ……………………………………… m32  no grammar point (ids `tara` are invented,
+ *                           ir/m32.ir.yaml:67); ir/m32.ir.yaml:334 lesson
+ *                           `m32-neo-1` `introduces: [ふったら, ついたら, たべたら…]`.
  *  - volitional ………………… m34  NO grammar point in n5-grammar-points.json (N4
  *                           tier); ir/m34.ir.yaml:2 title "Volitional: よう/おう".
  *  - ba ………………………………………… m37  no grammar point; ir/m37.ir.yaml:82 (ば rule
@@ -232,6 +240,8 @@ export const FREE_DRILL_VERB_FORM_MODULE: Record<ChainForm, number> = {
   "tai-neg": 13,
   "tai-past": 13,
   "tai-neg-past": 13,
+  potential: 24,
+  tara: 32,
   volitional: 34,
   ba: 37,
 };

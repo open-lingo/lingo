@@ -26,7 +26,9 @@ export type ChainForm =
   | "tai-past" // たかった
   | "tai-neg-past" // たくなかった
   | "volitional" // のもう／たべよう／しよう／こよう — "let's …"
-  | "ba"; // のめば／たべれば／すれば／くれば — "if …"
+  | "ba" // のめば／たべれば／すれば／くれば — "if …"
+  | "potential" // のめる／たべられる／できる／こられる — "can …" (m24)
+  | "tara"; // のんだら／たべたら／したら／きたら — "if/when …" (m32)
 
 /** い-adjective conjugated forms (present is the dictionary form itself). */
 export type IAdjForm = "negative" | "past" | "past-negative" | "ba";
@@ -47,6 +49,8 @@ export const CHAIN_FORM_LABELS: Record<ChainForm, string> = {
   "tai-neg-past": "たい form (negative past)",
   volitional: "volitional form (let's)",
   ba: "ば form (if)",
+  potential: "potential form (can)",
+  tara: "たら form (if/when)",
 };
 
 /**
@@ -136,6 +140,9 @@ type Stems = {
   ta: string;
   volitional: string;
   ba: string;
+  /** m24: う-verbs slide to the え-row + る; る-verbs attach られる; くる →
+   *  こられる; する has no potential of its own and uses できる. */
+  potential: string;
 };
 
 function stemsOf(dictionary: string, group: VerbGroup): Stems {
@@ -148,6 +155,7 @@ function stemsOf(dictionary: string, group: VerbGroup): Stems {
       ta: s + "た",
       volitional: s + "よう",
       ba: s + "れば",
+      potential: s + "られる",
     };
   }
   if (group === "irregular") {
@@ -159,6 +167,7 @@ function stemsOf(dictionary: string, group: VerbGroup): Stems {
         ta: "きた",
         volitional: "こよう",
         ba: "くれば",
+        potential: "こられる",
       };
     // する family (する, べんきょうする, …): keep the prefix, swap する.
     const prefix = dictionary.slice(0, -2);
@@ -169,6 +178,7 @@ function stemsOf(dictionary: string, group: VerbGroup): Stems {
       ta: prefix + "した",
       volitional: prefix + "しよう",
       ba: prefix + "すれば",
+      potential: prefix + "できる",
     };
   }
   // godan
@@ -184,6 +194,7 @@ function stemsOf(dictionary: string, group: VerbGroup): Stems {
     ta: godanEuphonic(dictionary, true),
     volitional: base + (U_TO_O[last] ?? last) + "う",
     ba: base + (U_TO_E[last] ?? last) + "ば",
+    potential: base + (U_TO_E[last] ?? last) + "る",
   };
 }
 
@@ -192,8 +203,13 @@ function stemsOf(dictionary: string, group: VerbGroup): Stems {
  * `group` disambiguates ichidan/godan homographs (きる, かえる, …).
  */
 export function conjugateVerb(dictionary: string, group: VerbGroup, form: ChainForm): string {
-  const { masuStem, naiStem, te, ta, volitional, ba } = stemsOf(dictionary, group);
+  const { masuStem, naiStem, te, ta, volitional, ba, potential } = stemsOf(dictionary, group);
   switch (form) {
+    case "potential":
+      return potential;
+    case "tara":
+      // たら = plain past + ら, every class (m32: "take たべた, add ら").
+      return ta + "ら";
     case "masu":
       return masuStem + "ます";
     case "masu-neg":

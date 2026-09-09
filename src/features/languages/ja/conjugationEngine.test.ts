@@ -104,6 +104,23 @@ describe("stacked chain forms — explicit expected values", () => {
     expect(conjugateVerb("とる", "godan", "ba")).toBe("とれば");
   });
 
+  it("potential (can) — all four classes (m24)", () => {
+    expect(conjugateVerb("たべる", "ichidan", "potential")).toBe("たべられる");
+    expect(conjugateVerb("よむ", "godan", "potential")).toBe("よめる");
+    expect(conjugateVerb("する", "irregular", "potential")).toBe("できる");
+    expect(conjugateVerb("くる", "irregular", "potential")).toBe("こられる");
+    expect(conjugateVerb("べんきょうする", "irregular", "potential")).toBe("べんきょうできる");
+    expect(conjugateVerb("かう", "godan", "potential")).toBe("かえる"); // no う → わ exception
+  });
+
+  it("たら (if/when) — plain past + ら, all four classes (m32)", () => {
+    expect(conjugateVerb("たべる", "ichidan", "tara")).toBe("たべたら");
+    expect(conjugateVerb("よむ", "godan", "tara")).toBe("よんだら");
+    expect(conjugateVerb("する", "irregular", "tara")).toBe("したら");
+    expect(conjugateVerb("くる", "irregular", "tara")).toBe("きたら");
+    expect(conjugateVerb("いく", "godan", "tara")).toBe("いったら"); // いく exception carries over
+  });
+
   it("ba (if) — ichidan drops る, adds れば", () => {
     expect(conjugateVerb("たべる", "ichidan", "ba")).toBe("たべれば");
     expect(conjugateVerb("みる", "ichidan", "ba")).toBe("みれば");
