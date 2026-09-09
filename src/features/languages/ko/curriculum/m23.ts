@@ -36,6 +36,7 @@
  * verbs are introduced here as recognition vocab. NATIVE-REVIEW flags inline.
  */
 import type { LessonContent } from "@/features/lesson/types";
+import { withReviewInterleave } from "./_reviewInterleave";
 import {
   build,
   cloze,
@@ -190,7 +191,7 @@ const M23_3: LessonContent = {
       "못해요",
       "를",
       ["를", "이", "에", "보다"],
-      "I'm bad at cooking.",
+      "I'm bad at cooking. (object)",
       "요리를 못해요",
       "The activity takes 을/를: 요리를 못해요.",
     ),
@@ -498,7 +499,7 @@ const M23_8: LessonContent = {
   ],
 };
 
-export const KO_M23_LESSONS: LessonContent[] = [
+export const KO_M23_LESSONS: LessonContent[] = withReviewInterleave("m23", [
   M23_1,
   M23_2,
   M23_3,
@@ -507,4 +508,4 @@ export const KO_M23_LESSONS: LessonContent[] = [
   M23_6,
   M23_7,
   M23_8,
-];
+]);

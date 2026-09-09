@@ -40,6 +40,7 @@
  *   먹다/보다/가다 (M7), 친구 (M3), 병원 (M6). NATIVE-REVIEW flags inline.
  */
 import type { LessonContent } from "@/features/lesson/types";
+import { withReviewInterleave } from "./_reviewInterleave";
 import {
   build,
   cloze,
@@ -513,7 +514,7 @@ const M25_8: LessonContent = {
   ],
 };
 
-export const KO_M25_LESSONS: LessonContent[] = [
+export const KO_M25_LESSONS: LessonContent[] = withReviewInterleave("m25", [
   M25_1,
   M25_2,
   M25_3,
@@ -522,4 +523,4 @@ export const KO_M25_LESSONS: LessonContent[] = [
   M25_6,
   M25_7,
   M25_8,
-];
+]);

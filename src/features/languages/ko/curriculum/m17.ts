@@ -29,6 +29,7 @@
  * NATIVE-REVIEW flags are inline at the relevant steps. See WORKTREE_REPORT.md.
  */
 import type { LessonContent } from "@/features/lesson/types";
+import { withReviewInterleave } from "./_reviewInterleave";
 import {
   build,
   cloze,
@@ -185,7 +186,7 @@ const M17_3: LessonContent = {
       "내려요",
       "에서",
       ["에서", "를", "로", "에"],
-      "I get off the subway.",
+      "I get off the subway. (location of action)",
       "지하철에서 내려요",
       "내리다 takes 에서: 지하철에서 내려요.",
     ),
@@ -460,7 +461,7 @@ const M17_8: LessonContent = {
       "내려요",
       "에서",
       ["에서", "를", "로", "에"],
-      "I get off the subway.",
+      "I get off the subway. (location of action)",
       "지하철에서 내려요",
       "내리다 takes 에서.",
     ),
@@ -489,7 +490,7 @@ const M17_8: LessonContent = {
   ],
 };
 
-export const KO_M17_LESSONS: LessonContent[] = [
+export const KO_M17_LESSONS: LessonContent[] = withReviewInterleave("m17", [
   M17_1,
   M17_2,
   M17_3,
@@ -498,4 +499,4 @@ export const KO_M17_LESSONS: LessonContent[] = [
   M17_6,
   M17_7,
   M17_8,
-];
+]);

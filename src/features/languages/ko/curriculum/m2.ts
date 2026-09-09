@@ -475,7 +475,7 @@ function buildCompoundVowelLesson1(): LessonContent {
   const ctx: KoRowContext = {
     allBlocks: BLOCKS,
     words: [
-      { word: "개", meaningEn: "dog", emoji: "🐶" },
+      { word: "개", meaningEn: "dog", emoji: "🐶" }, // homograph: the m5 counter 개 (things/items) is a different word
       { word: "가게", meaningEn: "store / shop", emoji: "🏪" },
       { word: "노래", meaningEn: "song", emoji: "🎵" },
     ],
@@ -565,8 +565,9 @@ function buildCompoundVowelLesson2(): LessonContent {
   steps.push(
     wordImageMcq(ctx, "ko-m2-cv2-mcq-sagwa", "사과"),
     listeningBuild(ctx, "ko-m2-cv2-build-sagwa", "사과", "apple"),
-    wordImageMcq(ctx, "ko-m2-cv2-mcq-gwi", "귀"),
+    wordImageMcq(ctx, "ko-m2-cv2-mcq-mwo", "뭐"),
     listeningComp("ko-m2-cv2-lc-mwo", "뭐", "what", ["an apple", "an ear", "who"]),
+    wordImageMcq(ctx, "ko-m2-cv2-mcq-gwi", "귀"),
     listeningComp("ko-m2-cv2-lc-sagwa", "사과", "apple", ["what", "an ear", "a grape"]),
     speaking("ko-m2-cv2-speak-sagwa", "사과", "apple"),
     speaking("ko-m2-cv2-speak-mwo", "뭐", "what"),
@@ -648,6 +649,7 @@ function buildCompoundVowelLesson3(): LessonContent {
     listeningBuild(ctx, "ko-m2-cv3-build-hoesa", "회사", "company / office"),
     wordImageMcq(ctx, "ko-m2-cv3-mcq-uija", "의자"),
     listeningBuild(ctx, "ko-m2-cv3-build-uija", "의자", "chair"),
+    wordImageMcq(ctx, "ko-m2-cv3-mcq-wae", "왜"),
     listeningComp("ko-m2-cv3-lc-wae", "왜", "why", ["what", "a company", "a chair"]),
     listeningComp("ko-m2-cv3-lc-uija", "의자", "chair", ["a company", "why", "a doctor"]),
     speaking("ko-m2-cv3-speak-wae", "왜", "why"),
@@ -1224,7 +1226,6 @@ function buildBatchimWrapLesson(): LessonContent {
         "있어요 means 'there is / I have' — you'll hear it in half the sentences in this course. Spelled 있 + 어요; the double ㅆ slides over: [이써요].\n\nListen for the strong 'ss' starting the middle syllable — that's the 받침, relocated.",
       variant: "tip",
     },
-    listeningComp("ko-m2-btr-lc-isseoyo", "있어요", "there is / I have", ["it's good", "there isn't", "a person"]),
     codaSoundMcq(
       "ko-m2-btr-mcq-isseoyo",
       "있어요 — which spelling shows how it SOUNDS?",
@@ -1247,7 +1248,6 @@ function buildBatchimWrapLesson(): LessonContent {
       ["조하요", "조타요", "졸아요"],
       "Final ㅎ before a vowel disappears: [조아요]. Saying the h ([조하요]) is the giveaway of reading letter-by-letter.",
     ),
-    listeningComp("ko-m2-btr-lc-eopseoyo", "없어요", "there isn't / I don't have", ["there is / I have", "it's good", "a lot"]),
     speaking("ko-m2-btr-speak-joayo", "좋아요", "it's good"),
     {
       id: "ko-m2-btr-info-end",

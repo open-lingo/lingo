@@ -31,6 +31,7 @@
  * earlier greetings. NATIVE-REVIEW flags inline; see WORKTREE_REPORT.md.
  */
 import type { LessonContent } from "@/features/lesson/types";
+import { withReviewInterleave } from "./_reviewInterleave";
 import {
   build,
   cloze,
@@ -487,7 +488,7 @@ const M19_8: LessonContent = {
   ],
 };
 
-export const KO_M19_LESSONS: LessonContent[] = [
+export const KO_M19_LESSONS: LessonContent[] = withReviewInterleave("m19", [
   M19_1,
   M19_2,
   M19_3,
@@ -496,4 +497,4 @@ export const KO_M19_LESSONS: LessonContent[] = [
   M19_6,
   M19_7,
   M19_8,
-];
+]);

@@ -29,6 +29,7 @@
  * the disambiguation note in M20-1). NATIVE-REVIEW flags inline.
  */
 import type { LessonContent } from "@/features/lesson/types";
+import { withReviewInterleave } from "./_reviewInterleave";
 import {
   build,
   cloze,
@@ -174,7 +175,7 @@ const M20_3: LessonContent = {
       "아파요",
       "가",
       ["가", "를", "에", "도"],
-      "My stomach hurts.",
+      "My stomach hurts. (subject)",
       "배가 아파요",
       "The body part is the subject → 배가 아파요.",
     ),
@@ -478,7 +479,7 @@ const M20_8: LessonContent = {
   ],
 };
 
-export const KO_M20_LESSONS: LessonContent[] = [
+export const KO_M20_LESSONS: LessonContent[] = withReviewInterleave("m20", [
   M20_1,
   M20_2,
   M20_3,
@@ -487,4 +488,4 @@ export const KO_M20_LESSONS: LessonContent[] = [
   M20_6,
   M20_7,
   M20_8,
-];
+]);

@@ -32,6 +32,7 @@
  * NATIVE-REVIEW flags are inline at the relevant steps. See WORKTREE_REPORT.md.
  */
 import type { LessonContent } from "@/features/lesson/types";
+import { withReviewInterleave } from "./_reviewInterleave";
 import {
   build,
   cloze,
@@ -83,6 +84,7 @@ const M16_1: LessonContent = {
       "여기서 밥을 먹으면 안 돼요",
       "먹다 is a consonant stem → 먹으면 안 돼요.",
     ),
+    phrase("ko-m16-1-p-cigarette", "cigarette(s)", "dambae", "담배", undefined, { emoji: "🚬" }),
     sentenceMcq({
       id: "ko-m16-1-q-mustnotsmoke",
       prompt: "'You must not smoke (cigarettes).' —",
@@ -255,7 +257,7 @@ const M16_4: LessonContent = {
       "좋아해요",
       "를",
       ["를", "가", "에", "도"],
-      "I like movies.",
+      "I like movies. (object)",
       "영화를 좋아해요",
       "Object of 좋아하다 → 를.",
     ),
@@ -315,7 +317,7 @@ const M16_5: LessonContent = {
       "싫어해요",
       "를",
       ["를", "가", "에", "도"],
-      "I dislike rain.",
+      "I dislike rain. (object)",
       "비를 싫어해요",
       "Object of 싫어하다 → 를.",
     ),
@@ -506,7 +508,7 @@ const M16_8: LessonContent = {
   ],
 };
 
-export const KO_M16_LESSONS: LessonContent[] = [
+export const KO_M16_LESSONS: LessonContent[] = withReviewInterleave("m16", [
   M16_1,
   M16_2,
   M16_3,
@@ -515,4 +517,4 @@ export const KO_M16_LESSONS: LessonContent[] = [
   M16_6,
   M16_7,
   M16_8,
-];
+]);

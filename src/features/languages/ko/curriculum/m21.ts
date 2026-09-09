@@ -32,6 +32,7 @@
  * NATIVE-REVIEW flags inline.
  */
 import type { LessonContent } from "@/features/lesson/types";
+import { withReviewInterleave } from "./_reviewInterleave";
 import {
   build,
   cloze,
@@ -484,7 +485,7 @@ const M21_8: LessonContent = {
   ],
 };
 
-export const KO_M21_LESSONS: LessonContent[] = [
+export const KO_M21_LESSONS: LessonContent[] = withReviewInterleave("m21", [
   M21_1,
   M21_2,
   M21_3,
@@ -493,4 +494,4 @@ export const KO_M21_LESSONS: LessonContent[] = [
   M21_6,
   M21_7,
   M21_8,
-];
+]);

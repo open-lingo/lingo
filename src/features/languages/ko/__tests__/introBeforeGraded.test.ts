@@ -1,5 +1,5 @@
 /**
- * Intro-before-graded gate for KO content modules (m3–m15 since the
+ * Intro-before-graded gate for KO content modules (m3–m27; m3–m15 since the
  * 2026-09-01 release audit; extend the MODULE_LESSONS table as later
  * modules get their audit pass).
  *
@@ -34,6 +34,18 @@ import { KO_M12_LESSONS } from "../curriculum/m12";
 import { KO_M13_LESSONS } from "../curriculum/m13";
 import { KO_M14_LESSONS } from "../curriculum/m14";
 import { KO_M15_LESSONS } from "../curriculum/m15";
+import { KO_M16_LESSONS } from "../curriculum/m16";
+import { KO_M17_LESSONS } from "../curriculum/m17";
+import { KO_M18_LESSONS } from "../curriculum/m18";
+import { KO_M19_LESSONS } from "../curriculum/m19";
+import { KO_M20_LESSONS } from "../curriculum/m20";
+import { KO_M21_LESSONS } from "../curriculum/m21";
+import { KO_M22_LESSONS } from "../curriculum/m22";
+import { KO_M23_LESSONS } from "../curriculum/m23";
+import { KO_M24_LESSONS } from "../curriculum/m24";
+import { KO_M25_LESSONS } from "../curriculum/m25";
+import { KO_M26_LESSONS } from "../curriculum/m26";
+import { KO_M27_LESSONS } from "../curriculum/m27";
 import { KO_COURSE_ATOMS } from "../courseAtoms";
 
 const MODULE_LESSONS: ReadonlyArray<[moduleId: string, lessons: LessonContent[]]> = [
@@ -50,6 +62,18 @@ const MODULE_LESSONS: ReadonlyArray<[moduleId: string, lessons: LessonContent[]]
   ["m13", KO_M13_LESSONS],
   ["m14", KO_M14_LESSONS],
   ["m15", KO_M15_LESSONS],
+  ["m16", KO_M16_LESSONS],
+  ["m17", KO_M17_LESSONS],
+  ["m18", KO_M18_LESSONS],
+  ["m19", KO_M19_LESSONS],
+  ["m20", KO_M20_LESSONS],
+  ["m21", KO_M21_LESSONS],
+  ["m22", KO_M22_LESSONS],
+  ["m23", KO_M23_LESSONS],
+  ["m24", KO_M24_LESSONS],
+  ["m25", KO_M25_LESSONS],
+  ["m26", KO_M26_LESSONS],
+  ["m27", KO_M27_LESSONS],
 ];
 
 const INTRO_TYPES = new Set(["phrase_card", "word_image_mcq"]);

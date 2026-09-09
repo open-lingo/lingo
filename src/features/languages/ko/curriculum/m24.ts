@@ -34,6 +34,7 @@
  * adverbs (자주/가끔, M13), 일주일 implied. NATIVE-REVIEW flags inline.
  */
 import type { LessonContent } from "@/features/lesson/types";
+import { withReviewInterleave } from "./_reviewInterleave";
 import {
   build,
   cloze,
@@ -303,7 +304,7 @@ const M24_5: LessonContent = {
       "한 번 운동해요",
       "에",
       ["에", "에서", "을", "보다"],
-      "I exercise once a day.",
+      "I exercise once a day. (time)",
       "하루에 한 번 운동해요",
       "에 marks 'per': 하루에 = 'per day'.",
     ),
@@ -497,7 +498,7 @@ const M24_8: LessonContent = {
   ],
 };
 
-export const KO_M24_LESSONS: LessonContent[] = [
+export const KO_M24_LESSONS: LessonContent[] = withReviewInterleave("m24", [
   M24_1,
   M24_2,
   M24_3,
@@ -506,4 +507,4 @@ export const KO_M24_LESSONS: LessonContent[] = [
   M24_6,
   M24_7,
   M24_8,
-];
+]);

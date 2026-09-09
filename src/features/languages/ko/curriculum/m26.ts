@@ -39,6 +39,7 @@
  *   그래서 (M13), 병원 (M6), 먹다/가다 (M7). NATIVE-REVIEW flags inline.
  */
 import type { LessonContent } from "@/features/lesson/types";
+import { withReviewInterleave } from "./_reviewInterleave";
 import {
   build,
   cloze,
@@ -213,13 +214,6 @@ const M26_3: LessonContent = {
       explanation: "Past 갔 + 거든요 = 'you see, I went'. 그래서 can't attach to a stem.",
       exercisedAtomSurfaces: ["병원"],
     }),
-    listeningCompSentence({
-      id: "ko-m26-3-lc-tiredbecause",
-      audioText: "오늘 너무 피곤하거든요",
-      correctMeaningEn: "It's because I'm so tired today",
-      distractorsEn: ["I'm not tired today", "I was tired but I'm fine now", "I'll be tired today"],
-      exercisedAtomSurfaces: ["피곤하다", "너무"],
-    }),
     speaking("ko-m26-3-speak-tiredbecause", "피곤하거든요", "You see, I'm tired", ["피곤하다"]),
   ],
 };
@@ -243,6 +237,13 @@ const M26_4: LessonContent = {
       "grammar",
     ),
     phrase("ko-m26-4-p-too", "too / excessively", "neomu", "너무"),
+    listeningCompSentence({
+      id: "ko-m26-4-lc-tiredbecause",
+      audioText: "오늘 너무 피곤하거든요",
+      correctMeaningEn: "It's because I'm so tired today",
+      distractorsEn: ["I'm not tired today", "I was tired but I'm fine now", "I'll be tired today"],
+      exercisedAtomSurfaces: ["피곤하다", "너무"],
+    }),
     sentenceMcq({
       id: "ko-m26-4-q-tootired",
       prompt: "'I'm too tired.' —",
@@ -518,7 +519,7 @@ const M26_8: LessonContent = {
   ],
 };
 
-export const KO_M26_LESSONS: LessonContent[] = [
+export const KO_M26_LESSONS: LessonContent[] = withReviewInterleave("m26", [
   M26_1,
   M26_2,
   M26_3,
@@ -527,4 +528,4 @@ export const KO_M26_LESSONS: LessonContent[] = [
   M26_6,
   M26_7,
   M26_8,
-];
+]);
