@@ -276,11 +276,11 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
           take the sentence-build tier (text-xl, py-2 ≈ 48px) and the ghost
           floor is capped at two rows; from `sm` up nothing changes. */}
       <div className="grid min-h-[64px] rounded-2xl border-2 border-dashed border-border bg-surface-muted px-4 py-3 sm:min-h-[80px] sm:py-4">
-        <div aria-hidden className="[grid-area:1/1] invisible flex max-h-[108px] flex-wrap gap-2 overflow-hidden sm:max-h-none sm:gap-2.5">
+        <div aria-hidden className="[grid-area:1/1] invisible flex max-h-[108px] flex-wrap items-stretch gap-2 overflow-hidden sm:max-h-none sm:gap-2.5">
           {step.correctOrder.map((tile, i) => (
             <span
               key={`ghost-${i}`}
-              className="rounded-xl border-2 px-4 py-2 text-xl font-bold leading-tight sm:px-5 sm:py-2.5 sm:text-3xl"
+              className="flex flex-col items-center justify-end rounded-xl border-2 px-4 py-2 text-xl font-bold leading-tight sm:px-5 sm:py-2.5 sm:text-3xl"
             >
               {/* Ghost sizing MUST use the same glyphs (kanji + rt) as the
                   real tiles or the tray mis-sizes. */}
@@ -288,7 +288,7 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
             </span>
           ))}
         </div>
-        <div className="[grid-area:1/1] flex flex-wrap content-start gap-2 sm:gap-2.5">
+        <div className="[grid-area:1/1] flex flex-wrap content-start items-stretch gap-2 sm:gap-2.5">
           {placed.length === 0 ? (
             <span className="self-center text-base text-text-muted">
               Tap tiles to build what you hear
@@ -305,15 +305,15 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
               onTileHoverStart={peek.hoverStart}
               onTileHoverEnd={peek.hoverEnd}
               forceHelperFor={(id) => peek.revealed.has(id)}
-              className="flex flex-wrap content-start gap-2.5"
-              tileClassName="rounded-xl border-2 border-accent bg-accent-muted px-4 py-2 text-xl font-bold leading-tight text-accent sm:px-5 sm:py-2.5 sm:text-3xl transition-colors duration-150 hover:bg-accent hover:text-white"
+              className="flex flex-wrap content-start items-stretch gap-2.5"
+              tileClassName="flex flex-col items-center justify-end rounded-xl border-2 border-accent bg-accent-muted px-4 py-2 text-xl font-bold leading-tight text-accent sm:px-5 sm:py-2.5 sm:text-3xl transition-colors duration-150 hover:bg-accent hover:text-white"
             />
           )}
         </div>
       </div>
 
       {/* Tile bank — buttons ~50% bigger font + matching padding. */}
-      <div className="relative flex flex-wrap gap-3">
+      <div className="relative flex flex-wrap items-stretch gap-3">
         {bankTiles.map((tile, i) => {
           const used = tileUsedFlags[i];
           return (
@@ -327,8 +327,8 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
               aria-pressed={used}
               className={
                 used
-                  ? "rounded-xl border-2 border-border bg-surface-muted px-4 py-2 text-xl font-bold leading-tight text-text-muted opacity-40 sm:px-5 sm:py-4 sm:text-3xl"
-                  : "rounded-xl border-2 border-border bg-surface px-4 py-2 text-xl font-bold leading-tight text-text-primary transition-colors duration-150 hover:border-accent disabled:opacity-50 sm:px-5 sm:py-4 sm:text-3xl"
+                  ? "flex flex-col items-center justify-end rounded-xl border-2 border-border bg-surface-muted px-4 py-2 text-xl font-bold leading-tight text-text-muted opacity-40 sm:px-5 sm:py-4 sm:text-3xl"
+                  : "flex flex-col items-center justify-end rounded-xl border-2 border-border bg-surface px-4 py-2 text-xl font-bold leading-tight text-text-primary transition-colors duration-150 hover:border-accent disabled:opacity-50 sm:px-5 sm:py-4 sm:text-3xl"
               }
             >
               <BuildTileSurface

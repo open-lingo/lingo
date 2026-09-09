@@ -274,9 +274,22 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   // their OWN tier — on the 2xl tier it measured 0→87 at 1280×700, and even
   // sm:text-xl with sm:py-2 left 3px. Zero regression at every viewport.
   const hugeBank = !bigTiles && step.tiles.length >= 12;
+  // Duolingo-style per-row alignment (Spencer 2026-09-09): a ruby tile
+  // (12px furigana band above the word) and a plain kana tile land on the
+  // SAME flex-wrap line and already get equal BOX heights — `align-items:
+  // stretch` is the flex default and the browser was already applying it
+  // per line (measured: two siblings on one line both landed at 52.5px).
+  // The raggedness was never box height; it was the WORD's vertical anchor
+  // inside that box. A plain tile's word sits centred in its (now-taller,
+  // stretched) box, while a ruby tile's word sits low, under its reading —
+  // two different baselines in one row. `flex flex-col items-center
+  // justify-end` re-anchors every tile's word to the BOTTOM of its box,
+  // centred horizontally, so the words share one baseline across a row and
+  // any reading floats above it — the ghost/slot spans share this string
+  // too (`placedTileClass`), so their sizing floor matches.
   const denseTileClass = hugeBank
-    ? "px-3.5 py-1.5 text-base font-bold leading-tight sm:px-4 sm:text-xl"
-    : "px-3.5 py-1.5 text-base font-bold leading-tight sm:px-4 sm:py-2 sm:text-2xl";
+    ? "flex flex-col items-center justify-end px-3.5 py-1.5 text-base font-bold leading-tight sm:px-4 sm:text-xl"
+    : "flex flex-col items-center justify-end px-3.5 py-1.5 text-base font-bold leading-tight sm:px-4 sm:py-2 sm:text-2xl";
   const bankTileClass = bigTiles
     ? "px-5 py-3 text-[clamp(1.5rem,3.4cqh,2.25rem)] font-bold"
     : denseTileClass;
@@ -591,7 +604,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
            max(ghost, actual) and the box grows instead of overflowing.
            Left-aligned (reading order). */
         <div className="grid min-h-[56px] sm:min-h-[72px] rounded-2xl border-[1.5px] border-dashed border-border bg-surface-muted px-4 py-2.5">
-          <div aria-hidden className="[grid-area:1/1] invisible flex flex-wrap gap-2 sm:gap-2.5">
+          <div aria-hidden className="[grid-area:1/1] invisible flex flex-wrap items-stretch gap-2 sm:gap-2.5">
             {step.correctOrder.map((tile, i) => (
               <span
                 key={`ghost-${i}`}
@@ -603,7 +616,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
               </span>
             ))}
           </div>
-          <div className="[grid-area:1/1] flex flex-wrap content-start gap-2 sm:gap-2.5">
+          <div className="[grid-area:1/1] flex flex-wrap content-start items-stretch gap-2 sm:gap-2.5">
             {placed.length === 0 ? (
               <span className="self-center text-base text-text-muted">
                 {step.correctOrder.length === 1
@@ -619,7 +632,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
                 onRemove={removeTile}
                 onReorder={setPlacedIdx}
                 strategy="wrap"
-                className="flex flex-wrap content-start gap-2 sm:gap-2.5"
+                className="flex flex-wrap content-start items-stretch gap-2 sm:gap-2.5"
                 tileClassName={`rounded-xl border-[1.5px] transition-colors duration-150 ${placedStateClass} ${placedTileClass}`}
               />
             )}
@@ -628,7 +641,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
       )}
 
       {!isSingleAnswerPicker && (
-      <div className={`relative flex flex-wrap gap-2 sm:gap-2.5 ${isWordBuild ? "justify-center" : ""}`}>
+      <div className={`relative flex flex-wrap items-stretch gap-2 sm:gap-2.5 ${isWordBuild ? "justify-center" : ""}`}>
         {bankTiles.map((tile, i) => {
           const used = tileUsedFlags[i];
           return (
