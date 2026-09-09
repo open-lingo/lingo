@@ -1,0 +1,23 @@
+placement:
+  screener:
+    - id: "es-m18-scr-1"
+      prompt: "'We live in Mexico.' — which one?"
+      correct: "vivimos en México"
+      distractors: ["vivo en México", "viven en México", "vives en México"]
+  byModule:
+    - id: "es-m18-pl-1"
+      prompt: "They eat pizza."
+      correct: "ellos comen pizza"
+      distractors: ["ellos come pizza", "ellos comemos pizza", "ellos comes pizza"]
+    - id: "es-m18-pl-2"
+      prompt: "We are students."
+      correct: "somos estudiantes"
+      distractors: ["son estudiantes", "soy estudiantes", "estamos estudiantes"]
+    - id: "es-m18-pl-3"
+      prompt: "Do you all have the tickets?"
+      correct: "¿ustedes tienen los boletos?"
+      distractors: ["¿ustedes tenemos los boletos?", "¿ustedes tienes los boletos?", "¿ustedes tiene los boletos?"]
+    - id: "es-m18-pl-4"
+      prompt: "We go to the restaurant together."
+      correct: "vamos al restaurante juntos"
+      distractors: ["van al restaurante juntos", "voy al restaurante juntos", "vas al restaurante juntos"]

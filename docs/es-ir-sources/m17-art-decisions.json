@@ -1,0 +1,5 @@
+[
+  { "id": "es:levantarse", "action": "art", "artPrompt": "a cheerful person sitting up in bed and stretching both arms up, just woke up, sunlight through a small window" },
+  { "id": "es:acostarse", "action": "art", "artPrompt": "a person lying down in a bed under a blue blanket with eyes closed, head on a pillow, a crescent moon in a small window" },
+  { "id": "es:despertarse", "action": "art", "artPrompt": "a person in bed opening their eyes wide, a ringing alarm clock on a small bedside table, morning" }
+]

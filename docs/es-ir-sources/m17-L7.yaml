@@ -1,0 +1,172 @@
+  # ── L7 · «Me quiero levantar» — two new atoms, «levantar» and «duchar»:
+  #    the BARE verb after «quiero». The rule is m16 L7's, on pointers: the
+  #    pointer goes in front of the verb that carries the person («me
+  #    quiero levantar»), the second verb stays bare, «no» / «siempre» /
+  #    «nunca» stay outside the pair. Debuts: l7-sp-mequierolevantar
+  #    (speakLit), l7-b-mequieroducharahora (buildLit) — both intro-capable.
+  #    ⚠️ «acostar» / «despertar» / «lavar» are NOT registered: the wanting
+  #    is drilled on levantar / duchar only. No fused form («levantarme»)
+  #    is printed anywhere, not even as a distractor.
+  - n: 7
+    template: free
+    title: "Me quiero levantar"
+    description: "Wanting to do one of these things. The pointer moves to the verb that carries the person — the same move «lo» made last module — and the second verb stays bare."
+    steps:
+      - kind: map
+        id: l7-map-nomequierolevantar
+        tokens: ["no", "me", "quiero", "levantar"]
+        pairs:
+          - { en: "not", tokenIndex: 0 }
+          - { en: "myself", tokenIndex: 1 }
+          - { en: "I want", tokenIndex: 2 }
+          - { en: "to get up", tokenIndex: 3 }
+        audioText: "no me quiero levantar"
+        revealNote: "Look at where the pointer went. Not on «levantar» — on «quiero», the verb that carries the person. «levantar» is the bare verb, with nothing on the end. And «no» sits outside the whole thing, as always."
+      - kind: speakLit
+        id: l7-sp-mequierolevantar
+        es: "me quiero levantar"
+        en: "I want to get up"
+        atoms: ["quiero", "levantar"]
+      - kind: buildLit
+        id: l7-b-nomequierolevantarhoy
+        also: ["hoy no me quiero levantar"]
+        es: "no me quiero levantar hoy"
+        en: "I don't want to get up today"
+        atoms: ["quiero", "levantar", "hoy"]
+        tiles: ["se", "levanto"]
+      - kind: info
+        id: l7-info-dosverbos
+        title: "Two verbs, one pointer — in front of the first"
+        body: "«me quiero levantar» — I want to get up. Two verbs: «quiero» carries the person, its -o says I; «levantar» is bare, the plain name of the action. The pointer goes with the verb that carries the person, so it stands in front of «quiero». That is exactly what «lo» did in «lo quiero ver». Same for showering: «me quiero duchar», and with «no» outside: «no me quiero duchar». The bare verb never takes a pointer of its own here, and the pointer never sits between the two verbs."
+      - kind: clozeLit
+        id: l7-c-anasequierelevantar
+        es: "Ana se quiere levantar tarde"
+        en: "Ana wants to get up late"
+        blank: "se"
+        options: ["se", "me", "te"]
+        atoms: ["quiere", "levantar", "tarde"]
+        why: "Ana is a she, so «se» — and it goes in front of «quiere», the verb that says who wants. «levantar» stays bare."
+      - kind: buildLit
+        id: l7-b-mequieroducharahora
+        also: ["ahora me quiero duchar"]
+        es: "me quiero duchar ahora"
+        en: "I want to shower now"
+        atoms: ["quiero", "duchar", "ahora"]
+        tiles: ["ducho", "se"]
+      - kind: listenCompLit
+        id: l7-lc-nomequieroducharhoy
+        es: "no me quiero duchar hoy"
+        en: "I don't want to shower today."
+        atoms: ["quiero", "duchar", "hoy"]
+        distractorsEn:
+          - "I want to shower today."
+          - "I don't want to get up today."
+          - "She doesn't want to shower today."
+      # The ghosts: pointer between the verbs, pointer after, person carried
+      # twice. Distractor slots only; correct option is three tokens.
+      - kind: mcq
+        id: l7-q-mequierolevantar
+        prompt: "Which one means 'I want to get up'?"
+        correct: "me quiero levantar"
+        distractors: ["quiero me levantar", "me quiero levanto", "me levantar quiero"]
+        atoms: ["quiero", "levantar"]
+        why: "Pointer, then the verb that carries the person, then the bare verb: «me quiero levantar». «quiero me» puts the pointer between the verbs; «me quiero levanto» carries the person twice; the last one scrambles the order."
+      # Printed non-recall at m14 (no trabajo el domingo, duermo tarde).
+      - kind: speakLit
+        id: l7-sp-recall-notrabajoeldomingo
+        es: "no trabajo el domingo, duermo tarde"
+        en: "I don't work on Sunday, I sleep late"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l7-ear-levantarse
+        target: { surface: "levantarse", emoji: "🧍" }
+        distractors:
+          - { surface: "acostarse", emoji: "😴" }
+          - { surface: "ducharse", emoji: "🚿" }
+      - kind: agreementLit
+        id: l7-agr-yoana
+        en: "I want to get up, but Ana doesn't want to get up"
+        audioText: "me quiero levantar, pero Ana no se quiere levantar"
+        atoms: ["quiero", "levantar", "quiere"]
+        segments:
+          - { blank: { id: "p1", answer: "me", options: ["me", "se"] } }
+          - { text: " quiero levantar, pero Ana no " }
+          - { blank: { id: "p2", answer: "se", options: ["se", "me"] } }
+          - { text: " quiere levantar" }
+      - kind: listenBuildLit
+        id: l7-lb-diegosequiereduchar
+        es: "Diego se quiere duchar ahora"
+        en: "Diego wants to shower now"
+        atoms: ["quiere", "duchar", "ahora"]
+        tiles: ["me", "ducha"]
+      - kind: textMcq
+        id: l7-tm-despierta
+        target: "despierta"
+        distractors: ["despierto", "despertarse", "acuesta"]
+      - kind: speakLit
+        id: l7-sp-siempreperohoy
+        es: "siempre me levanto temprano, pero hoy no me quiero levantar"
+        en: "I always get up early, but today I don't want to get up"
+        atoms: ["siempre", "levanto", "temprano", "hoy", "quiero", "levantar"]
+      - kind: buildLit
+        id: l7-b-nuncamequierolevantar
+        es: "nunca me quiero levantar temprano"
+        en: "I never want to get up early"
+        atoms: ["nunca", "quiero", "levantar", "temprano"]
+        tiles: ["se", "levanto"]
+      - kind: sim
+        id: l7-sim-ana-domingo
+        scene: { emoji: "🛏️", title: "Sunday, and nobody wants to move", setting: "Ana is on the phone from her bed. It is nearly noon." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "No me quiero levantar. ¿Y tú?", audioText: "no me quiero levantar. ¿y tú?", gloss: "I don't want to get up. And you?" }
+            goal: "Say you don't want to get up either."
+            reply:
+              mode: build
+              tiles: ["no", "me", "quiero", "levantar", "se", "levanto"]
+              answer: "no me quiero levantar"
+            replyGloss: "I don't want to get up."
+            explanation: "Same words as Ana, about yourself: «no» outside, «me» in front of «quiero», «levantar» bare. The bank's «se» and «levanto» are traps — one is the wrong person, the other would carry the person twice."
+          - id: t2
+            npc: { speaker: "Ana", es: "Yo me quiero duchar tarde hoy.", audioText: "yo me quiero duchar tarde hoy", gloss: "I want to shower late today." }
+            goal: "Say you want to shower now."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "me quiero duchar ahora" }
+                - { id: "wrong1", text: "quiero me duchar ahora" }
+                - { id: "wrong2", text: "me quiero ducho ahora" }
+              correctOptionId: "right"
+              audioText: "me quiero duchar ahora"
+            replyGloss: "I want to shower now."
+            explanation: "Pointer in front of «quiero», the verb that carries the person; «duchar» stays bare. «quiero me» splits them; «ducho» after «quiero» says I twice."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Te acuestas temprano hoy?", audioText: "¿te acuestas temprano hoy?", gloss: "Are you going to bed early today?" }
+            goal: "Say no, you always go to bed late."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, siempre me acuesto tarde" }
+                - { id: "wrong1", text: "no, me siempre acuesto tarde" }
+                - { id: "wrong2", text: "no, siempre se acuesta tarde" }
+              correctOptionId: "right"
+              audioText: "no, siempre me acuesto tarde"
+            replyGloss: "No, I always go to bed late."
+            explanation: "«siempre» outside, the pair intact: «siempre me acuesto». «se acuesta» would be about somebody else."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "me quiero levantar", target: "I want to get up" }
+          - { source: "no me quiero duchar", target: "I don't want to shower" }
+          - { source: "se quiere levantar", target: "he or she wants to get up" }
+          - { source: "levantar", target: "to get up (the bare verb)" }
+          - { source: "duchar", target: "to shower (the bare verb)" }
+          - { source: "siempre", target: "always" }
+          - { source: "ahora", target: "now" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "no me quiero levantar, pero me quiero duchar"
+        en: "I don't want to get up, but I want to shower"
+        atoms: ["quiero", "levantar", "duchar"]
+

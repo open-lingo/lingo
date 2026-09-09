@@ -1,0 +1,186 @@
+  # ── L10 · MASTERY — every step graded, zero cards, zero maps, zero new
+  #    atoms. The payoff sim: María takes the whole table's order at the
+  #    restaurant — «comemos», «tenemos hambre», «somos estudiantes»,
+  #    «ellos son mis amigos y viven aquí», «vamos al cine». The last A1
+  #    module ends with the group at one table. Cloze 3/19; recalls 3
+  #    (L5 win, L7 win, m16). Selection runs ≤2.
+  - n: 10
+    template: free
+    title: "Una mesa para cinco"
+    description: "The whole table at one table. María takes the order, and every person of the verb gets used before dessert."
+    steps:
+      - kind: clozeLit
+        id: m-c-vamos
+        es: "nosotros vamos al restaurante"
+        en: "We go to the restaurant"
+        blank: "vamos"
+        options: ["vamos", "van", "voy"]
+        atoms: ["nosotros", "vamos", "restaurante"]
+        why: "«nosotros» — -mos: «vamos»."
+      - kind: buildLit
+        id: m-b-tenemoshambre
+        es: "tenemos hambre y ellos tienen sed"
+        en: "We are hungry and they are thirsty"
+        atoms: ["tenemos", "ellos", "tienen"]
+        tiles: ["tengo", "tiene"]
+      - kind: audioWimcq
+        id: m-ear-restaurante
+        target: { surface: "el restaurante", emoji: "🍴" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "la casa", emoji: "🏠" }
+      - kind: listenBuildLit
+        id: m-lb-somosestudiantes
+        es: "somos estudiantes y vivimos juntos"
+        en: "We are students and we live together"
+        atoms: ["somos", "estudiante", "vivimos", "juntos"]
+        tiles: ["son", "viven"]
+      - kind: clozeLit
+        id: m-c-ellascomen
+        es: "ellas comen en casa hoy"
+        en: "They eat at home today"
+        blank: "comen"
+        options: ["comen", "comemos", "come"]
+        atoms: ["ellas", "comen", "casa", "hoy"]
+        why: "«ellas» — the -n: «comen»."
+      # Printed non-recall at L5 (es-m18-5-l5-sp-win).
+      - kind: speakLit
+        id: m-sp-recall-tenemoslosboletos
+        es: "tenemos los boletos y tenemos hambre"
+        en: "We have the tickets and we are hungry"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: m-tm-son
+        target: "son"
+        distractors: ["somos", "están", "es"]
+      - kind: buildLit
+        id: m-b-ustedeshablan
+        also: ["ustedes hablan español muy bien"]
+        es: "ustedes hablan muy bien español"
+        en: "You all speak Spanish very well"
+        atoms: ["ustedes", "hablan", "bien", "español"]
+        tiles: ["hablamos", "hablas"]
+      - kind: audioWimcq
+        id: m-ear-carne
+        target: { surface: "la carne", emoji: "🥩" }
+        distractors:
+          - { surface: "el pollo", emoji: "🍗" }
+          - { surface: "la sopa", emoji: "🍲" }
+      - kind: listenCompLit
+        id: m-lc-ustedesvan
+        es: "¿ustedes van al cine con Ana?"
+        en: "Are you all going to the cinema with Ana?"
+        atoms: ["ustedes", "van", "cine"]
+        distractorsEn:
+          - "Are they going to the cinema with Ana?"
+          - "Are you all going to the market with Ana?"
+          - "Are you going to the cinema with Ana?"
+      # Printed non-recall at L7 (es-m18-7-l7-sp-win).
+      - kind: speakLit
+        id: m-sp-recall-estamosbien
+        es: "estamos bien y estamos juntos"
+        en: "We are well and we are together"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: m-c-estan
+        es: "mis amigos están en el parque"
+        en: "My friends are at the park"
+        blank: "están"
+        options: ["están", "estamos", "son"]
+        atoms: ["están", "parque"]
+        why: "A they, somewhere: «están»."
+      - kind: listenBuildLit
+        id: m-lb-ellosvivenaqui
+        es: "ellos son mis amigos y viven aquí"
+        en: "They are my friends and they live here"
+        atoms: ["ellos", "son", "amigo", "viven", "aquí"]
+        tiles: ["somos", "vivimos"]
+      # Printed non-recall at m16 (es-m16 L1 win: el libro es bueno y lo quiero).
+      - kind: speakLit
+        id: m-sp-recall-ellibroesbueno
+        es: "el libro es bueno y lo quiero"
+        en: "The book is good and I want it"
+        atoms: []
+        cue: recall
+      - kind: mcq
+        id: m-q-somosestamos
+        prompt: "Which one means 'we are at home'?"
+        correct: "estamos en casa"
+        distractors: ["somos en casa", "están en casa", "estamos casa"]
+        atoms: ["estamos", "casa"]
+        why: "Where we are is «estar»: «estamos en casa»."
+      - kind: buildLit
+        id: m-b-vamosjuntos
+        also: ["vamos al cine juntos hoy"]
+        es: "hoy vamos al cine juntos"
+        en: "Today we go to the cinema together"
+        atoms: ["hoy", "vamos", "cine", "juntos"]
+        tiles: ["van", "voy"]
+      - kind: matchLit
+        id: m-match
+        pairs:
+          - { source: "nosotros", target: "we" }
+          - { source: "ustedes", target: "you all" }
+          - { source: "ellos", target: "they" }
+          - { source: "comemos", target: "we eat" }
+          - { source: "tienen", target: "they have" }
+          - { source: "somos", target: "we are (what)" }
+          - { source: "estamos", target: "we are (where)" }
+      - kind: speakLit
+        id: m-sp-latabla
+        es: "somos amigos, vivimos juntos y hoy comemos en el restaurante"
+        en: "We are friends, we live together and today we eat at the restaurant"
+        atoms: ["somos", "amigo", "vivimos", "juntos", "hoy", "comemos", "restaurante"]
+      - kind: sim
+        id: m-sim-maria-mesa
+        scene: { emoji: "🍴", title: "María takes the table's order", setting: "Five of you at one table. María has her notebook out and is asking the whole group at once." }
+        turns:
+          - id: t1
+            npc: { speaker: "María", es: "¿Ustedes tienen hambre?", audioText: "¿ustedes tienen hambre?", gloss: "Are you all hungry?" }
+            goal: "Say yes, you are all very hungry."
+            reply:
+              mode: build
+              tiles: ["sí", "tenemos", "mucha", "hambre", "tienen", "tengo"]
+              answer: "sí tenemos hambre"
+              alsoAccepted: ["sí tenemos mucha hambre"]
+            replyGloss: "Yes, we are very hungry."
+            explanation: "María said «ustedes tienen»; the table answers «tenemos». Add «mucha» — a lot of — in front of «hambre» if you like; it is a la-word, so «mucha»."
+          - id: t2
+            npc: { speaker: "María", es: "¿Qué comen hoy?", audioText: "¿qué comen hoy?", gloss: "What are you all eating today?" }
+            goal: "Say you all eat meat and pizza."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "comemos carne y pizza" }
+                - { id: "wrong1", text: "comen carne y pizza" }
+                - { id: "wrong2", text: "como carne y pizza" }
+              correctOptionId: "right"
+              audioText: "comemos carne y pizza"
+            replyGloss: "We eat meat and pizza."
+            explanation: "The whole table: «comemos». «comen» is María's word for you; «como» is you alone."
+          - id: t3
+            npc: { speaker: "María", es: "¿Son estudiantes?", audioText: "¿son estudiantes?", gloss: "Are you students?" }
+            goal: "Say yes, you are students."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, somos estudiantes" }
+                - { id: "wrong1", text: "sí, son estudiantes" }
+                - { id: "wrong2", text: "sí, estamos estudiantes" }
+              correctOptionId: "right"
+              audioText: "sí, somos estudiantes"
+            replyGloss: "Yes, we are students."
+            explanation: "What you are: «somos». «estamos» is for where or how."
+          - id: t4
+            npc: { speaker: "María", es: "¿Y ellos? ¿Viven aquí?", audioText: "¿y ellos? ¿viven aquí?", gloss: "And them? Do they live here?" }
+            goal: "Say yes, your friends, and they live here."
+            reply:
+              mode: build
+              tiles: ["sí", "son", "mis", "amigos", "y", "viven", "aquí", "somos", "vivimos"]
+              answer: "sí son mis amigos y viven aquí"
+              alsoAccepted: ["sí viven aquí y son mis amigos"]
+            replyGloss: "Yes, they are my friends and they live here."
+            explanation: "A they, twice: «son» and «viven». «somos» / «vivimos» would put you in the group."
+

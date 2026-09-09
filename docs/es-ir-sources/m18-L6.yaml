@@ -1,0 +1,157 @@
+  # ── L6 · «Vamos, van» — vamos, van. ir's plural, and «¡vamos!» as
+  #    "let's go". Both debut on the card, cashed on the speakLit after.
+  #    ⚠️ «va» (he/she goes) was never registered (m9 taught voy / vas
+  #    only) and is NOT printed in any billed slot. NO estamos / están (L7).
+  - n: 6
+    template: free
+    title: "Vamos, van"
+    description: "«voy», «vas» — and now the two forms that get a whole group out of the house. One of them is also the word for 'let's go'."
+    steps:
+      - kind: map
+        id: l6-map-vamosalcine
+        tokens: ["nosotros", "vamos", "al", "cine"]
+        pairs:
+          - { en: "we", tokenIndex: 0 }
+          - { en: "go", tokenIndex: 1 }
+          - { en: "to the", tokenIndex: 2 }
+          - { en: "cinema", tokenIndex: 3 }
+        audioText: "nosotros vamos al cine"
+        revealNote: "«voy al cine» — I go to the cinema. For we: «vamos». Short, and it ends in the -mos you have been hearing all module. «al» is still «a» + «el», one word."
+      - kind: info
+        id: l6-info-vamos
+        title: "«ir» in the plural — and «¡vamos!»"
+        body: "«voy», «vas» — I go, you go. The plural: «vamos», we go; «van», they go, you all go. «vamos al cine» — we go to the cinema. «ellos van a la playa» — they go to the beach. «¿ustedes van al mercado?» — are you all going to the market? And «vamos» on its own is what Spanish says for 'let's go' — «¡vamos!» — the we form doing the inviting."
+      - kind: speakLit
+        id: l6-sp-vamosalcine
+        es: "vamos al cine"
+        en: "We go to the cinema"
+        atoms: ["vamos", "al", "cine"]
+      - kind: buildLit
+        id: l6-b-ellosvanalaplaya
+        es: "ellos van a la playa"
+        en: "They go to the beach"
+        atoms: ["ellos", "van", "a", "playa"]
+        tiles: ["vamos", "voy"]
+      - kind: clozeLit
+        id: l6-c-ustedesvanalmercado
+        es: "ustedes van al mercado"
+        en: "You all go to the market"
+        blank: "van"
+        options: ["van", "vamos", "vas"]
+        atoms: ["ustedes", "van", "mercado"]
+        why: "«ustedes» takes the -n: «van». «vamos» is we, «vas» is one you."
+      - kind: listenCompLit
+        id: l6-lc-vamosalrestaurantejuntos
+        es: "vamos al restaurante juntos"
+        en: "We go to the restaurant together."
+        atoms: ["vamos", "restaurante", "juntos"]
+        distractorsEn:
+          - "They go to the restaurant together."
+          - "We go to the cinema together."
+          - "We eat at the restaurant together."
+      - kind: buildLit
+        id: l6-b-misamigosvanalaescuela
+        es: "mis amigos van a la escuela"
+        en: "My friends go to school"
+        atoms: ["van", "a", "escuela"]
+        tiles: ["vamos", "vas"]
+      - kind: mcq
+        id: l6-q-vamos
+        prompt: "Which one means 'we go'?"
+        correct: "vamos"
+        distractors: ["van", "voy", "vas"]
+        atoms: ["vamos"]
+        why: "«vamos» — the we form of «ir». «van» is they, «voy» is I, «vas» is you."
+      - kind: audioWimcq
+        id: l6-ear-cine
+        target: { surface: "el cine", emoji: "🎬" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el parque", emoji: "🌳" }
+      # Printed non-recall at m14 (Ana quiere un café).
+      - kind: speakLit
+        id: l6-sp-recall-anaquiereuncafe
+        es: "Ana quiere un café"
+        en: "Ana wants a coffee"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l6-agr-vamosvan
+        en: "We go to the cinema and they go to the beach"
+        audioText: "vamos al cine y ellos van a la playa"
+        atoms: ["vamos", "cine", "ellos", "van", "playa"]
+        segments:
+          - { blank: { id: "p1", answer: "vamos", options: ["vamos", "van"] } }
+          - { text: " al cine y ellos " }
+          - { blank: { id: "p2", answer: "van", options: ["van", "vamos"] } }
+          - { text: " a la playa" }
+      - kind: listenBuildLit
+        id: l6-lb-vamosalparquehoy
+        es: "nosotros vamos al parque hoy"
+        en: "We go to the park today"
+        atoms: ["nosotros", "vamos", "parque", "hoy"]
+        tiles: ["van", "voy"]
+      - kind: textMcq
+        id: l6-tm-van
+        target: "van"
+        distractors: ["vamos", "voy", "vas"]
+      - kind: speakLit
+        id: l6-sp-vamosyvan
+        es: "vamos al cine y ellos van al parque"
+        en: "We go to the cinema and they go to the park"
+        atoms: ["vamos", "cine", "ellos", "van", "parque"]
+      - kind: sim
+        id: l6-sim-ana-plan
+        scene: { emoji: "🎬", title: "Ana makes a plan", setting: "Saturday afternoon. Ana wants everyone out of the house." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Vamos al cine hoy?", audioText: "¿vamos al cine hoy?", gloss: "Shall we go to the cinema today?" }
+            goal: "Say yes, let's go to the cinema."
+            reply:
+              mode: build
+              tiles: ["sí", "vamos", "al", "cine", "van", "voy"]
+              answer: "sí vamos al cine"
+            replyGloss: "Yes, let's go to the cinema."
+            explanation: "«vamos» is both we go and let's go. «voy» would leave Ana behind."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego y Sofía?", audioText: "¿y diego y sofía?", gloss: "And Diego and Sofía?" }
+            goal: "Say they go to the beach."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "van a la playa" }
+                - { id: "wrong1", text: "vamos a la playa" }
+                - { id: "wrong2", text: "vas a la playa" }
+              correctOptionId: "right"
+              audioText: "van a la playa"
+            replyGloss: "They go to the beach."
+            explanation: "Diego and Sofía are a they: «van». «vamos» would include you and Ana."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Ustedes van al restaurante hoy?", audioText: "¿ustedes van al restaurante hoy?", gloss: "Are you all going to the restaurant today?" }
+            goal: "Say yes, you all go together."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, vamos juntos" }
+                - { id: "wrong1", text: "sí, van juntos" }
+                - { id: "wrong2", text: "sí, voy juntos" }
+              correctOptionId: "right"
+              audioText: "sí, vamos juntos"
+            replyGloss: "Yes, we go together."
+            explanation: "Ana said «ustedes van»; the group answers «vamos». «juntos» — together — follows a we naturally."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "vamos", target: "we go / let's go" }
+          - { source: "van", target: "they go, you all go" }
+          - { source: "vamos al cine", target: "we go to the cinema" }
+          - { source: "van a la playa", target: "they go to the beach" }
+          - { source: "tenemos", target: "we have" }
+          - { source: "el parque", target: "the park" }
+          - { source: "juntos", target: "together" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "hoy vamos al cine juntos"
+        en: "Today we go to the cinema together"
+        atoms: ["hoy", "vamos", "cine", "juntos"]
+

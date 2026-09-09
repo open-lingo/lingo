@@ -1,0 +1,158 @@
+  # ── L8 · CHECKPOINT — graded only. Every registered preterite form,
+  #    every marker, the minimal pair on live blanks, «no» and questions.
+  #    ── TRANSFER: cp-transfer-cocine — «cocinar» (m13) handed over cold as
+  #    "I cooked chicken last night — cocinar"; the bank holds «cocinar»
+  #    and «comí» as foils (both registered). Exactly one step.
+  #    Cloze share 2/20; recalls 2 (L2 win, L6 win). Selection runs ≤2.
+  - n: 8
+    template: free
+    title: "L8 ✓ Checkpoint · The past, regular"
+    description: "Every ending, every day-word, nothing to lean on — and one verb you have never put in the past."
+    steps:
+      - kind: listenCompLit
+        id: cp-lc-1
+        es: "ayer compré una camisa y hablé con Ana"
+        en: "Yesterday I bought a shirt and spoke with Ana."
+        atoms: ["ayer", "compré", "camisa", "hablé"]
+        distractorsEn:
+          - "Yesterday she bought a shirt and spoke with Ana."
+          - "Today I buy a shirt and speak with Ana."
+          - "Yesterday I bought a skirt and spoke with Ana."
+      - kind: audioWimcq
+        id: cp-ear-1
+        target: { surface: "la camisa", emoji: "👕" }
+        distractors:
+          - { surface: "la falda", emoji: "👗" }
+          - { surface: "el zapato", emoji: "👟" }
+      - kind: buildLit
+        id: cp-build-1
+        es: "Diego salió anoche con Sofía"
+        en: "Diego went out last night with Sofía"
+        atoms: ["salió", "anoche"]
+        tiles: ["salí", "sale"]
+      - kind: clozeLit
+        id: cp-cloze-1
+        es: "ayer Ana trabajó mucho"
+        en: "Yesterday Ana worked a lot"
+        blank: "trabajó"
+        options: ["trabajó", "trabajo"]
+        atoms: ["ayer", "trabajó", "mucho"]
+        why: "«ayer» and Ana: «trabajó», with the accent."
+      - kind: listenBuildLit
+        id: cp-lb-1
+        es: "la semana pasada comí pizza"
+        en: "Last week I ate pizza"
+        atoms: ["la semana pasada", "comí", "pizza"]
+        tiles: ["como", "comió"]
+      - kind: mcq
+        id: cp-q-1
+        prompt: "Which one means 'you ate'?"
+        correct: "comiste"
+        distractors: ["comí", "comió", "comes"]
+        atoms: ["comiste"]
+        why: "-iste is the you ending of the past."
+      # Printed non-recall at L2 (es-m19-2-l2-sp-win).
+      - kind: speakLit
+        id: cp-sp-recall-1
+        es: "ayer trabajé y compré un regalo"
+        en: "Yesterday I worked and bought a gift"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: cp-agr-1
+        en: "Yesterday I ate at home and Ana ate at the restaurant"
+        audioText: "ayer comí en casa y Ana comió en el restaurante"
+        atoms: ["ayer", "comí", "casa", "comió", "restaurante"]
+        segments:
+          - { text: "ayer " }
+          - { blank: { id: "p1", answer: "comí", options: ["comí", "comió"] } }
+          - { text: " en casa y Ana " }
+          - { blank: { id: "p2", answer: "comió", options: ["comió", "comí"] } }
+          - { text: " en el restaurante" }
+      # ── THE TRANSFER: a verb the module never put in the past, glossed in the prompt.
+      - kind: buildLit
+        id: cp-transfer-cocine
+        es: "cociné pollo anoche"
+        en: "I cooked chicken last night — cocinar"
+        atoms: ["cociné", "pollo", "anoche"]
+        tiles: ["cocinar", "comí"]
+      - kind: audioWimcq
+        id: cp-ear-2
+        target: { surface: "el pollo", emoji: "🍗" }
+        distractors:
+          - { surface: "la sopa", emoji: "🍲" }
+          - { surface: "el queso", emoji: "🧀" }
+      - kind: clozeLit
+        id: cp-cloze-2
+        es: "el fin de semana escribí un mensaje"
+        en: "On the weekend I wrote a message"
+        blank: "escribí"
+        options: ["escribí", "escribo"]
+        atoms: ["el fin de semana", "escribí", "mensaje"]
+        why: "«el fin de semana» in front of a verb says then: «escribí»."
+      - kind: listenBuildLit
+        id: cp-lb-2
+        es: "¿saliste con Ana la semana pasada?"
+        en: "Did you go out with Ana last week?"
+        atoms: ["saliste", "la semana pasada"]
+        tiles: ["salí", "salió"]
+      - kind: mcq
+        id: cp-q-2
+        prompt: "Which one means 'he lived'?"
+        correct: "él vivió"
+        distractors: ["él vive", "él viví", "él vivo"]
+        atoms: ["vivió"]
+        why: "«vivió» — past, he or she."
+      - kind: buildLit
+        id: cp-build-2
+        es: "hoy estudio, pero anoche no estudié"
+        en: "Today I study, but last night I didn't study"
+        atoms: ["hoy", "estudio", "anoche", "estudié"]
+        tiles: ["estudió", "estudias"]
+      - kind: listenCompLit
+        id: cp-lc-2
+        es: "¿hablaste con el maestro ayer?"
+        en: "Did you speak with the teacher yesterday?"
+        atoms: ["hablaste", "maestro", "ayer"]
+        distractorsEn:
+          - "Did you speak with the teacher today?"
+          - "Did she speak with the teacher yesterday?"
+          - "Did you speak with the student yesterday?"
+      - kind: buildLit
+        id: cp-build-3
+        es: "Ana no compró el regalo"
+        en: "Ana didn't buy the gift"
+        atoms: ["compró", "regalo"]
+        tiles: ["compré", "compra"]
+      # Printed non-recall at L6 (es-m19-6-l6-sp-win).
+      - kind: speakLit
+        id: cp-sp-recall-2
+        es: "el fin de semana escribí un mensaje y salí con Ana"
+        en: "On the weekend I wrote a message and went out with Ana"
+        atoms: []
+        cue: recall
+      - kind: listenCompLit
+        id: cp-lc-3
+        es: "mi abuela vivió en México"
+        en: "My grandmother lived in Mexico."
+        atoms: ["abuela", "vivió", "México"]
+        distractorsEn:
+          - "My grandmother lives in Mexico."
+          - "My grandmother lived in Spain."
+          - "I lived in Mexico."
+      - kind: matchLit
+        id: cp-match
+        pairs:
+          - { source: "hablé", target: "I spoke" }
+          - { source: "compraste", target: "you bought" }
+          - { source: "trabajó", target: "he or she worked" }
+          - { source: "comí", target: "I ate" }
+          - { source: "salió", target: "he or she went out" }
+          - { source: "anoche", target: "last night" }
+          - { source: "la semana pasada", target: "last week" }
+      - kind: speakLit
+        id: cp-sp-final
+        es: "ayer trabajé, comí en casa y escribí un mensaje"
+        en: "Yesterday I worked, ate at home and wrote a message"
+        atoms: ["ayer", "trabajé", "comí", "casa", "escribí", "mensaje"]
+

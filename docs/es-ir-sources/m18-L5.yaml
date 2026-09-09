@@ -1,0 +1,157 @@
+  # ── L5 · «Tenemos, tienen» — tenemos, tienen. tener's plural is regular;
+  #    the g of «tengo» is yo-only. Both forms debut on the card and are
+  #    cashed on the speakLit / buildLit after it. «hambre» / «sed» are
+  #    owned by m7's phrases («tengo hambre», «tengo sed») at word level.
+  #    ⚠️ NO «vamos» / «van» (L6), NO «estamos» / «están» (L7).
+  - n: 5
+    template: free
+    title: "Tenemos, tienen"
+    description: "The verb with the odd «tengo» turns out to be perfectly ordinary in the plural — and now a whole group can be hungry."
+    steps:
+      - kind: map
+        id: l5-map-tenemoshambre
+        tokens: ["nosotros", "tenemos", "hambre"]
+        pairs:
+          - { en: "we", tokenIndex: 0 }
+          - { en: "have", tokenIndex: 1 }
+          - { en: "hunger", tokenIndex: 2 }
+        audioText: "nosotros tenemos hambre"
+        revealNote: "«tengo hambre» has meant I'm hungry since module seven. For we: «tenemos hambre». No g anywhere — the g was a yo-only thing. -mos on the -e- of «tener», exactly like «comemos»."
+      - kind: info
+        id: l5-info-tenemos
+        title: "«tener» in the plural — no surprises"
+        body: "«tengo», «tienes», «tiene» — the yo form had that strange g, and the other two changed their e into ie. The plural forgets both tricks: «tenemos», we have; «tienen», they have, you all have. «tenemos los boletos» — we have the tickets. «ellos tienen sed» — they are thirsty. «¿ustedes tienen dinero?» — do you all have money? Same two endings as every verb this module: -mos and -n."
+      - kind: speakLit
+        id: l5-sp-tenemoshambre
+        es: "tenemos hambre"
+        en: "We are hungry"
+        atoms: ["tenemos"]
+      - kind: buildLit
+        id: l5-b-tenemoslosboletos
+        es: "tenemos los boletos"
+        en: "We have the tickets"
+        atoms: ["tenemos", "boleto"]
+        tiles: ["tengo", "tienen"]
+      - kind: clozeLit
+        id: l5-c-ellostienensed
+        es: "ellos tienen sed"
+        en: "They are thirsty"
+        blank: "tienen"
+        options: ["tienen", "tenemos", "tiene"]
+        atoms: ["ellos", "tienen"]
+        why: "«ellos» — they — so the -n: «tienen». «tenemos» is we, «tiene» is one person."
+      - kind: listenCompLit
+        id: l5-lc-ustedestienendinero
+        es: "¿ustedes tienen dinero?"
+        en: "Do you all have money?"
+        atoms: ["ustedes", "tienen", "dinero"]
+        distractorsEn:
+          - "Do you have money?"
+          - "Do they have money?"
+          - "Do you all have the tickets?"
+      - kind: buildLit
+        id: l5-b-misamigostienenunperro
+        es: "mis amigos tienen un perro"
+        en: "My friends have a dog"
+        atoms: ["tienen", "perro"]
+        tiles: ["tenemos", "tiene"]
+      - kind: mcq
+        id: l5-q-tenemos
+        prompt: "Which one means 'we have'?"
+        correct: "tenemos"
+        distractors: ["tienen", "tengo", "tiene"]
+        atoms: ["tenemos"]
+        why: "-mos is we: «tenemos». «tienen» is they, «tengo» is I, «tiene» is he or she."
+      - kind: audioWimcq
+        id: l5-ear-boleto
+        target: { surface: "el boleto", emoji: "🎟️" }
+        distractors:
+          - { surface: "el regalo", emoji: "🎁" }
+          - { surface: "el dinero", emoji: "💰" }
+      # Printed non-recall at m14 (quiero un café).
+      - kind: speakLit
+        id: l5-sp-recall-quierouncafe
+        es: "quiero un café"
+        en: "I want a coffee"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l5-agr-tenemostienen
+        en: "We have the tickets and they have the money"
+        audioText: "tenemos los boletos y ellos tienen el dinero"
+        atoms: ["tenemos", "boleto", "ellos", "tienen", "dinero"]
+        segments:
+          - { blank: { id: "p1", answer: "tenemos", options: ["tenemos", "tienen"] } }
+          - { text: " los boletos y ellos " }
+          - { blank: { id: "p2", answer: "tienen", options: ["tienen", "tenemos"] } }
+          - { text: " el dinero" }
+      - kind: listenBuildLit
+        id: l5-lb-tenemosunacasagrande
+        es: "nosotros tenemos una casa grande"
+        en: "We have a big house"
+        atoms: ["nosotros", "tenemos", "casa", "grande"]
+        tiles: ["tengo", "tienen"]
+      - kind: textMcq
+        id: l5-tm-tienen
+        target: "tienen"
+        distractors: ["tenemos", "tiene", "tienes"]
+      - kind: speakLit
+        id: l5-sp-hambreysed
+        es: "tenemos hambre y ellos tienen sed"
+        en: "We are hungry and they are thirsty"
+        atoms: ["tenemos", "ellos", "tienen"]
+      - kind: sim
+        id: l5-sim-diego-boletos
+        scene: { emoji: "🎟️", title: "Diego counts the tickets", setting: "Four of you at the cinema door, and Diego is checking who has what." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Ustedes tienen los boletos?", audioText: "¿ustedes tienen los boletos?", gloss: "Do you all have the tickets?" }
+            goal: "Say yes, you have the tickets."
+            reply:
+              mode: build
+              tiles: ["sí", "tenemos", "los", "boletos", "tienen", "tengo"]
+              answer: "sí tenemos los boletos"
+            replyGloss: "Yes, we have the tickets."
+            explanation: "Diego asked the group with «tienen»; the group answers «tenemos». «tengo» would be you alone."
+          - id: t2
+            npc: { speaker: "Diego", es: "Ana y Sofía no tienen dinero.", audioText: "ana y sofía no tienen dinero", gloss: "Ana and Sofía don't have money." }
+            goal: "Say you two have money."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "nosotros tenemos dinero" }
+                - { id: "wrong1", text: "nosotros tienen dinero" }
+                - { id: "wrong2", text: "nosotros tiene dinero" }
+              correctOptionId: "right"
+              audioText: "nosotros tenemos dinero"
+            replyGloss: "We have money."
+            explanation: "«nosotros» goes with -mos: «tenemos». The other two hang a they or a he ending on a we."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿Tienen hambre?", audioText: "¿tienen hambre?", gloss: "Are you all hungry?" }
+            goal: "Say yes, you are all hungry."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tenemos hambre" }
+                - { id: "wrong1", text: "sí, tienen hambre" }
+                - { id: "wrong2", text: "sí, tengo hambres" }
+              correctOptionId: "right"
+              audioText: "sí, tenemos hambre"
+            replyGloss: "Yes, we are hungry."
+            explanation: "The group answers as a we: «tenemos hambre». «tienen» is Diego's word for you, not yours."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "tenemos", target: "we have" }
+          - { source: "tienen", target: "they have, you all have" }
+          - { source: "tenemos hambre", target: "we are hungry" }
+          - { source: "tienen sed", target: "they are thirsty" }
+          - { source: "el boleto", target: "the ticket" }
+          - { source: "el dinero", target: "the money" }
+          - { source: "somos", target: "we are" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "tenemos los boletos y tenemos hambre"
+        en: "We have the tickets and we are hungry"
+        atoms: ["tenemos", "boleto"]
+

@@ -1,0 +1,169 @@
+  # ── L1 · «Ayer hablé» — ayer, hablé, hablaste, habló. The -ar preterite
+  #    in the three singular persons, and the first past-tense sentence of
+  #    the course. Every form debuts on a printed, intro-capable step after
+  #    the card. The stress moves to the end: the card says so, the
+  #    speakLits make the learner hear it.
+  #    ⚠️ NO other verb's preterite here (L2+). NO «hoy» in a past sentence.
+  #    ⚠️ inv 24: «ayer hablé con Ana» appears ≤3 times (map, speak, sim).
+  - n: 1
+    template: free
+    title: "Ayer hablé"
+    description: "Eighteen modules in the present. This is the first sentence about yesterday — and the stress moves to the end of the verb to say so."
+    steps:
+      - kind: map
+        id: l1-map-ayerhable
+        tokens: ["ayer", "hablé", "con", "Ana"]
+        pairs:
+          - { en: "yesterday", tokenIndex: 0 }
+          - { en: "I spoke", tokenIndex: 1 }
+          - { en: "with", tokenIndex: 2 }
+          - { en: "Ana", tokenIndex: 3 }
+        audioText: "ayer hablé con Ana"
+        revealNote: "«hablo» is I speak. «hablé» — one letter changed, an accent added — is I spoke. Listen to where the voice lands: on the end. That accent is the past tense. «ayer» is yesterday, and it tells you which ending to expect before the verb even arrives."
+      - kind: info
+        id: l1-info-preterito
+        title: "The past, for -ar verbs"
+        body: "A thing that happened and is over gets its own endings. For -ar verbs: «hablé», I spoke; «hablaste», you spoke; «habló», he spoke, she spoke. Look at the accents on «hablé» and «habló»: they move the stress to the last syllable, and that is what tells the ear this is the past. «hablo» — stress on the a — is I speak, now. «habló» — stress on the o — is he spoke, then. Same stem you have used since module ten; only the ending changes. And a word that goes with it: «ayer», yesterday. «ayer hablé con Ana» — yesterday I spoke with Ana."
+      - kind: speakLit
+        id: l1-sp-hable
+        es: "ayer hablé con Ana"
+        en: "Yesterday I spoke with Ana"
+        atoms: ["ayer", "hablé"]
+      - kind: buildLit
+        id: l1-b-anahabloconmimadre
+        also: ["ayer Ana habló con mi madre"]
+        es: "Ana habló con mi madre ayer"
+        en: "Ana spoke with my mother yesterday"
+        atoms: ["habló", "madre", "ayer"]
+        tiles: ["hablé", "habla"]
+      - kind: speakLit
+        id: l1-sp-hablaste
+        es: "hablaste con Diego ayer"
+        en: "You spoke with Diego yesterday"
+        atoms: ["hablaste", "ayer"]
+      - kind: clozeLit
+        id: l1-c-diegohablo
+        es: "Diego habló con mi hermano"
+        en: "Diego spoke with my brother"
+        blank: "habló"
+        options: ["habló", "hablé", "hablaste"]
+        atoms: ["habló", "hermano"]
+        why: "Diego did the speaking, so the he-or-she ending of the past: «habló», stress on the o. «hablé» is I, «hablaste» is you."
+      - kind: listenCompLit
+        id: l1-lc-ayerhableconmiabuela
+        es: "ayer hablé con mi abuela"
+        en: "Yesterday I spoke with my grandmother."
+        atoms: ["ayer", "hablé", "abuela"]
+        distractorsEn:
+          - "Yesterday she spoke with my grandmother."
+          - "Today I speak with my grandmother."
+          - "Yesterday I spoke with my mother."
+      - kind: buildLit
+        id: l1-b-hablasteconelmaestro
+        also: ["ayer hablaste con el maestro"]
+        es: "hablaste con el maestro ayer"
+        en: "You spoke with the teacher yesterday"
+        atoms: ["hablaste", "maestro", "ayer"]
+        tiles: ["hablé", "hablas"]
+      # THE ACCENT BEAT: «hablo» (now) is the ghost; it lives in a
+      # distractor slot. Correct option is two tokens.
+      - kind: mcq
+        id: l1-q-hablo
+        prompt: "Which one means 'she spoke'?"
+        correct: "ella habló"
+        distractors: ["ella hablo", "ella hablé", "ella habla"]
+        atoms: ["habló"]
+        why: "«habló», with the accent — the stress on the end says past. «hablo» without it is I speak; «habla» is she speaks, now."
+      - kind: audioWimcq
+        id: l1-ear-abuela
+        target: { surface: "la abuela", emoji: "👵" }
+        distractors:
+          - { surface: "la madre", emoji: "👩‍👧" }
+          - { surface: "la hermana", emoji: "👧" }
+      # Printed non-recall at m18 (es-m18-1-l1-sp-win).
+      - kind: speakLit
+        id: l1-sp-recall-vivimosaqui
+        es: "nosotros vivimos aquí y hablamos español"
+        en: "We live here and we speak Spanish"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l1-agr-hableyhablo
+        en: "I spoke with Ana and Ana spoke with Diego"
+        audioText: "hablé con Ana y Ana habló con Diego"
+        atoms: ["hablé", "habló"]
+        segments:
+          - { blank: { id: "p1", answer: "hablé", options: ["hablé", "habló"] } }
+          - { text: " con Ana y Ana " }
+          - { blank: { id: "p2", answer: "habló", options: ["habló", "hablé"] } }
+          - { text: " con Diego" }
+      - kind: listenBuildLit
+        id: l1-lb-ayerhableespanol
+        es: "ayer hablé español en la escuela"
+        en: "Yesterday I spoke Spanish at school"
+        atoms: ["ayer", "hablé", "español", "escuela"]
+        tiles: ["hablo", "habló"]
+      - kind: textMcq
+        id: l1-tm-hable
+        target: "hablé"
+        distractors: ["hablo", "habló", "hablaste"]
+      - kind: speakLit
+        id: l1-sp-anahablo
+        es: "Ana habló con mi hermana ayer"
+        en: "Ana spoke with my sister yesterday"
+        atoms: ["habló", "hermana", "ayer"]
+      - kind: sim
+        id: l1-sim-diego-ayer
+        scene: { emoji: "📱", title: "Diego wants to know about yesterday", setting: "Diego missed everything yesterday and is asking who talked to whom." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Hablaste con Ana ayer?", audioText: "¿hablaste con ana ayer?", gloss: "Did you speak with Ana yesterday?" }
+            goal: "Say yes, you spoke with Ana."
+            reply:
+              mode: build
+              tiles: ["sí", "hablé", "con", "Ana", "hablo", "habló"]
+              answer: "sí hablé con Ana"
+            replyGloss: "Yes, I spoke with Ana."
+            explanation: "Diego asked with «hablaste»; you answer about yourself in the past: «hablé». «hablo» would be now; «habló» is somebody else."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y Ana habló con Sofía?", audioText: "¿y ana habló con sofía?", gloss: "And did Ana speak with Sofía?" }
+            goal: "Say yes, she spoke with Sofía."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, habló con Sofía" }
+                - { id: "wrong1", text: "sí, hablé con Sofía" }
+                - { id: "wrong2", text: "sí, habla con Sofía" }
+              correctOptionId: "right"
+              audioText: "sí, habló con Sofía"
+            replyGloss: "Yes, she spoke with Sofía."
+            explanation: "Ana, in the past: «habló». «hablé» is you; «habla» is now."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿Hablaste con mi hermano también?", audioText: "¿hablaste con mi hermano también?", gloss: "Did you speak with my brother too?" }
+            goal: "Say no, you didn't speak with him."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, no hablé con tu hermano" }
+                - { id: "wrong1", text: "no, no hablo con tu hermano" }
+                - { id: "wrong2", text: "no, no habló con tu hermano" }
+              correctOptionId: "right"
+              audioText: "no, no hablé con tu hermano"
+            replyGloss: "No, I didn't speak with your brother."
+            explanation: "«no» in front, then the past-tense «hablé». «hablo» slips back into the present; «habló» hands it to somebody else."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "ayer", target: "yesterday" }
+          - { source: "hablé", target: "I spoke" }
+          - { source: "hablaste", target: "you spoke" }
+          - { source: "habló", target: "he or she spoke" }
+          - { source: "hablo", target: "I speak (now)" }
+          - { source: "con", target: "with" }
+          - { source: "la abuela", target: "the grandmother" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "ayer hablé con Ana y Ana habló con Diego"
+        en: "Yesterday I spoke with Ana and Ana spoke with Diego"
+        atoms: ["ayer", "hablé", "habló"]
+

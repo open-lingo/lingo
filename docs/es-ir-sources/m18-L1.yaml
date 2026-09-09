@@ -1,0 +1,160 @@
+  # ── L1 · «Nosotros hablamos» — nosotros, hablamos, comemos, vivimos. ONE
+  #    claim: -mos is "we", hung on the vowel the verb already showed you.
+  #    «nosotros» debuts on the card (guillemets billed), cashed on the
+  #    printed speakLit right after; the map before it bills nothing.
+  #    ⚠️ NO «hablan» / «comen» / «viven» / «ellos» / «ustedes» ANYWHERE
+  #    in a billed slot — L2 / L4 property. NO «tenemos» / «vamos» / «somos».
+  - n: 1
+    template: free
+    title: "Nosotros hablamos"
+    description: "Seventeen modules of I, you, he and she. Today the verb learns to say 'we' — one ending, and you already know the vowel that goes in front of it."
+    steps:
+      - kind: map
+        id: l1-map-nosotroshablamos
+        tokens: ["nosotros", "hablamos", "español"]
+        pairs:
+          - { en: "we", tokenIndex: 0 }
+          - { en: "speak", tokenIndex: 1 }
+          - { en: "Spanish", tokenIndex: 2 }
+        audioText: "nosotros hablamos español"
+        revealNote: "«hablo» is I speak. Look at the ending here: «hablamos». The -a- is the one «hablar» always had; the new piece is -mos, and -mos means we. The word in front, «nosotros», is the we itself — and you will often drop it, because -mos already says it."
+      - kind: info
+        id: l1-info-nosotros
+        title: "We — one ending for the whole group"
+        body: "Every verb you know ends in -o when it is you. For we, the ending is -mos, and it sits on the verb's own vowel: «hablar» → «hablamos», we speak; «comer» → «comemos», we eat; «vivir» → «vivimos», we live. The word for we is «nosotros» — «nosotros hablamos español». You can leave it off, the way you leave off «yo»: «hablamos español» says the same thing. That is the whole lesson: -mos, on the vowel the verb already showed you."
+      - kind: speakLit
+        id: l1-sp-nosotroshablamos
+        es: "nosotros hablamos español"
+        en: "We speak Spanish"
+        atoms: ["nosotros", "hablamos", "español"]
+      - kind: buildLit
+        id: l1-b-hablamosencasa
+        also: ["en casa hablamos español"]
+        es: "hablamos español en casa"
+        en: "We speak Spanish at home"
+        atoms: ["hablamos", "español", "casa"]
+        tiles: ["hablo", "habla"]
+      - kind: clozeLit
+        id: l1-c-nosotroscomemos
+        es: "nosotros comemos pizza"
+        en: "We eat pizza"
+        blank: "comemos"
+        options: ["comemos", "como", "come"]
+        atoms: ["nosotros", "comemos", "pizza"]
+        why: "«nosotros» is we, so the -mos ending on the -e- of «comer»: «comemos». «como» is I, «come» is he or she."
+      - kind: listenCompLit
+        id: l1-lc-vivimosenmexico
+        es: "vivimos en México"
+        en: "We live in Mexico."
+        atoms: ["vivimos", "México"]
+        distractorsEn:
+          - "I live in Mexico."
+          - "We live in Spain."
+          - "She lives in Mexico."
+      - kind: buildLit
+        id: l1-b-nosotrosvivimosaqui
+        es: "nosotros vivimos aquí"
+        en: "We live here"
+        atoms: ["nosotros", "vivimos", "aquí"]
+        tiles: ["vivo", "vives"]
+      - kind: mcq
+        id: l1-q-comemos
+        prompt: "Which one means 'we eat'?"
+        correct: "comemos"
+        distractors: ["como", "comes", "come"]
+        atoms: ["comemos"]
+        why: "-mos is we: «comemos». The others are I, you, and he or she."
+      - kind: audioWimcq
+        id: l1-ear-pizza
+        target: { surface: "la pizza", emoji: "🍕" }
+        distractors:
+          - { surface: "el pan", emoji: "🍞" }
+          - { surface: "la carne", emoji: "🥩" }
+      # Printed non-recall at m15 (hago la tarea todos los días).
+      - kind: speakLit
+        id: l1-sp-recall-hagolatarea
+        es: "hago la tarea todos los días"
+        en: "I do the homework every day"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l1-agr-yonosotros
+        en: "I speak Spanish and at home we speak Spanish"
+        audioText: "hablo español y en casa hablamos español"
+        atoms: ["hablo", "hablamos", "español", "casa"]
+        segments:
+          - { blank: { id: "p1", answer: "hablo", options: ["hablo", "hablamos"] } }
+          - { text: " español y en casa " }
+          - { blank: { id: "p2", answer: "hablamos", options: ["hablamos", "hablo"] } }
+          - { text: " español" }
+      - kind: listenBuildLit
+        id: l1-lb-comemospanycarne
+        es: "comemos pan y carne"
+        en: "We eat bread and meat"
+        atoms: ["comemos", "pan", "carne"]
+        tiles: ["como", "comes"]
+      - kind: textMcq
+        id: l1-tm-vivimos
+        target: "vivimos"
+        distractors: ["vivo", "vives", "vive"]
+      - kind: speakLit
+        id: l1-sp-comemosencasa
+        es: "nosotros comemos en casa todos los días"
+        en: "We eat at home every day"
+        atoms: ["nosotros", "comemos", "casa", "todos los días"]
+      - kind: sim
+        id: l1-sim-ana-encasa
+        scene: { emoji: "🏠", title: "Ana asks about your house", setting: "Ana knows you live with your brother Luis and wants to know how the two of you do things." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "Yo hablo español en casa. ¿Y tú y Luis?", audioText: "yo hablo español en casa. ¿y tú y luis?", gloss: "I speak Spanish at home. And you and Luis?" }
+            goal: "Say you two speak Spanish at home."
+            reply:
+              mode: build
+              tiles: ["hablamos", "español", "en", "casa", "hablo", "habla"]
+              answer: "hablamos español en casa"
+              alsoAccepted: ["en casa hablamos español"]
+            replyGloss: "We speak Spanish at home."
+            explanation: "You and Luis are a we, so -mos: «hablamos». «hablo» would leave Luis out; «habla» is one other person."
+          - id: t2
+            npc: { speaker: "Ana", es: "Yo como pizza los sábados.", audioText: "yo como pizza los sábados", gloss: "I eat pizza on Saturdays." }
+            goal: "Say you two eat pizza too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "comemos pizza también" }
+                - { id: "wrong1", text: "como pizza también" }
+                - { id: "wrong2", text: "come pizza también" }
+              correctOptionId: "right"
+              audioText: "comemos pizza también"
+            replyGloss: "We eat pizza too."
+            explanation: "We — -mos on the -e- of «comer»: «comemos»."
+          - id: t3
+            npc: { speaker: "Ana", es: "Yo vivo aquí, en México.", audioText: "yo vivo aquí, en méxico", gloss: "I live here, in Mexico." }
+            goal: "Say you two live here too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "vivimos aquí también" }
+                - { id: "wrong1", text: "vivo aquí también" }
+                - { id: "wrong2", text: "vive aquí también" }
+              correctOptionId: "right"
+              audioText: "vivimos aquí también"
+            replyGloss: "We live here too."
+            explanation: "-mos on the -i- of «vivir»: «vivimos». «vivo» is you alone."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "nosotros", target: "we" }
+          - { source: "hablamos", target: "we speak" }
+          - { source: "comemos", target: "we eat" }
+          - { source: "vivimos", target: "we live" }
+          - { source: "español", target: "Spanish" }
+          - { source: "en casa", target: "at home" }
+          - { source: "la pizza", target: "the pizza" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "nosotros vivimos aquí y hablamos español"
+        en: "We live here and we speak Spanish"
+        atoms: ["nosotros", "vivimos", "aquí", "hablamos", "español"]
+

@@ -1,0 +1,210 @@
+  # ── L9 · «Mi semana» — ZERO new atoms. Consolidation: every marker,
+  #    every verb, present against past, two sims, no card. Recalls
+  #    licensed by L3 / L5 wins. Cloze share 3/19; selection runs ≤2.
+  - n: 9
+    template: free
+    title: "Mi semana"
+    description: "A whole week told in the past — and Sofía and Diego both want the details."
+    steps:
+      - kind: map
+        id: l9-map-lasemanapasada
+        tokens: ["la", "semana", "pasada", "trabajé", "y", "estudié"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "week", tokenIndex: 1 }
+          - { en: "past", tokenIndex: 2 }
+          - { en: "I worked", tokenIndex: 3 }
+          - { en: "and", tokenIndex: 4 }
+          - { en: "I studied", tokenIndex: 5 }
+        audioText: "la semana pasada trabajé y estudié"
+        revealNote: "Two -ar verbs, one marker, both endings on -é: everything the module has taught, in one line."
+        tokenGenders: { 0: "f", 1: "f", 2: "f" }
+      - kind: speakLit
+        id: l9-sp-lasemanapasada
+        es: "la semana pasada trabajé y estudié"
+        en: "Last week I worked and studied"
+        atoms: ["la semana pasada", "trabajé", "estudié"]
+      - kind: clozeLit
+        id: l9-c-anochecomio
+        es: "anoche Diego comió en casa"
+        en: "Last night Diego ate at home"
+        blank: "comió"
+        options: ["comió", "come"]
+        atoms: ["anoche", "comió", "casa"]
+        why: "«anoche» says then: «comió»."
+      - kind: audioWimcq
+        id: l9-ear-tienda
+        target: { surface: "la tienda", emoji: "🏪" }
+        distractors:
+          - { surface: "el mercado", emoji: "🛒" }
+          - { surface: "el restaurante", emoji: "🍴" }
+      - kind: buildLit
+        id: l9-b-ayercompreysali
+        also: ["ayer salí y compré un regalo"]
+        es: "ayer compré un regalo y salí"
+        en: "Yesterday I bought a gift and went out"
+        atoms: ["ayer", "compré", "regalo", "salí"]
+        tiles: ["compro", "salgo"]
+      - kind: sim
+        id: l9-sim-sofia-semana
+        scene: { emoji: "📆", title: "Sofía wants the whole week", setting: "Sofía has been away all week and is catching up, one day at a time." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Trabajaste la semana pasada?", audioText: "¿trabajaste la semana pasada?", gloss: "Did you work last week?" }
+            goal: "Say yes, you worked a lot."
+            reply:
+              mode: build
+              tiles: ["sí", "trabajé", "mucho", "trabajo", "trabajó"]
+              answer: "sí trabajé mucho"
+            replyGloss: "Yes, I worked a lot."
+            explanation: "«trabajaste» in the question, «trabajé» in the answer."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y Ana? ¿Salió el fin de semana?", audioText: "¿y ana? ¿salió el fin de semana?", gloss: "And Ana? Did she go out on the weekend?" }
+            goal: "Say yes, she went out with Diego."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, salió con Diego" }
+                - { id: "wrong1", text: "sí, salí con Diego" }
+                - { id: "wrong2", text: "sí, sale con Diego" }
+              correctOptionId: "right"
+              audioText: "sí, salió con Diego"
+            replyGloss: "Yes, she went out with Diego."
+            explanation: "Ana, on the weekend: «salió»."
+          - id: t3
+            npc: { speaker: "Sofía", es: "¿Comiste pizza anoche?", audioText: "¿comiste pizza anoche?", gloss: "Did you eat pizza last night?" }
+            goal: "Say no, you ate soup."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, comí sopa" }
+                - { id: "wrong1", text: "no, como sopa" }
+                - { id: "wrong2", text: "no, comió sopa" }
+              correctOptionId: "right"
+              audioText: "no, comí sopa"
+            replyGloss: "No, I ate soup."
+            explanation: "Last night, about yourself: «comí»."
+      # Printed non-recall at L3 (es-m19-3-l3-sp-win).
+      - kind: speakLit
+        id: l9-sp-recall-anochecomi
+        es: "anoche comí en casa y hablé con mi madre"
+        en: "Last night I ate at home and spoke with my mother"
+        atoms: []
+        cue: recall
+      - kind: listenCompLit
+        id: l9-lc-hoytrabajoayer
+        es: "hoy trabajo en la tienda, pero ayer trabajé en casa"
+        en: "Today I work at the shop, but yesterday I worked at home."
+        atoms: ["hoy", "trabajo", "tienda", "ayer", "trabajé", "casa"]
+        distractorsEn:
+          - "Today I work at home, but yesterday I worked at the shop."
+          - "Today I work at the shop, but yesterday she worked at home."
+          - "Every day I work at the shop and at home."
+      - kind: clozeLit
+        id: l9-c-viviste
+        es: "mi madre vivió en España la semana pasada"
+        en: "My mother lived in Spain last week"
+        blank: "vivió"
+        options: ["vivió", "viví", "vive"]
+        atoms: ["madre", "vivió", "España", "la semana pasada"]
+        why: "Your mother, last week: «vivió»."
+      - kind: listenBuildLit
+        id: l9-lb-elfindesemanahable
+        es: "el fin de semana hablé con mi abuela"
+        en: "On the weekend I spoke with my grandmother"
+        atoms: ["el fin de semana", "hablé", "abuela"]
+        tiles: ["hablo", "habló"]
+      - kind: textMcq
+        id: l9-tm-sali
+        target: "salí"
+        distractors: ["salgo", "salió", "saliste"]
+      - kind: speakLit
+        id: l9-sp-noestudie
+        es: "no estudié anoche, salí con mis amigos"
+        en: "I didn't study last night, I went out with my friends"
+        atoms: ["estudié", "anoche", "salí", "amigo"]
+      - kind: buildLit
+        id: l9-b-diegoescribio
+        es: "Diego escribió un mensaje y compró los boletos"
+        en: "Diego wrote a message and bought the tickets"
+        atoms: ["escribió", "mensaje", "compró", "boleto"]
+        tiles: ["escribí", "compré"]
+      - kind: mcq
+        id: l9-q-hablaste
+        prompt: "Which one means 'you spoke'?"
+        correct: "hablaste"
+        distractors: ["hablé", "habló", "hablas"]
+        atoms: ["hablaste"]
+        why: "-aste is you, in the past."
+      - kind: audioWimcq
+        id: l9-ear-sopa
+        target: { surface: "la sopa", emoji: "🍲" }
+        distractors:
+          - { surface: "el pollo", emoji: "🍗" }
+          - { surface: "el pan", emoji: "🍞" }
+      # Printed non-recall at L5 (es-m19-5-l5-sp-win).
+      - kind: speakLit
+        id: l9-sp-recall-hoyestudio
+        es: "hoy estudio, pero ayer no estudié"
+        en: "Today I study, but yesterday I didn't study"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: l9-c-compraste
+        es: "tú compraste la camisa ayer"
+        en: "You bought the shirt yesterday"
+        blank: "compraste"
+        options: ["compraste", "compré", "compró"]
+        atoms: ["compraste", "camisa", "ayer"]
+        why: "«tú» and the past: «compraste»."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "trabajé", target: "I worked" }
+          - { source: "estudié", target: "I studied" }
+          - { source: "comió", target: "he or she ate" }
+          - { source: "saliste", target: "you went out" }
+          - { source: "escribió", target: "he or she wrote" }
+          - { source: "el fin de semana", target: "the weekend" }
+          - { source: "ayer", target: "yesterday" }
+      - kind: sim
+        id: l9-sim-diego-regalo
+        scene: { emoji: "🎁", title: "Diego and the missing gift", setting: "The party is tonight and nobody can find the gift. Diego is asking everyone what they did." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Compraste el regalo la semana pasada?", audioText: "¿compraste el regalo la semana pasada?", gloss: "Did you buy the gift last week?" }
+            goal: "Say yes, you bought it last week."
+            reply:
+              mode: build
+              tiles: ["sí", "lo", "compré", "la", "semana", "pasada", "compro", "compró"]
+              answer: "sí lo compré la semana pasada"
+              alsoAccepted: ["sí la semana pasada lo compré"]
+            replyGloss: "Yes, I bought it last week."
+            explanation: "«lo» stands in for the gift and sits in front of «compré»."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y Ana? ¿Habló con Sofía?", audioText: "¿y ana? ¿habló con sofía?", gloss: "And Ana? Did she speak with Sofía?" }
+            goal: "Say yes, she spoke with her yesterday."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, habló con Sofía ayer" }
+                - { id: "wrong1", text: "sí, hablé con Sofía ayer" }
+                - { id: "wrong2", text: "sí, habla con Sofía ayer" }
+              correctOptionId: "right"
+              audioText: "sí, habló con sofía ayer"
+            replyGloss: "Yes, she spoke with Sofía yesterday."
+            explanation: "Ana, yesterday: «habló»."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿Saliste con el regalo anoche?", audioText: "¿saliste con el regalo anoche?", gloss: "Did you go out with the gift last night?" }
+            goal: "Say no, you didn't go out last night."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, no salí anoche" }
+                - { id: "wrong1", text: "no, no salgo anoche" }
+                - { id: "wrong2", text: "no, no salió anoche" }
+              correctOptionId: "right"
+              audioText: "no, no salí anoche"
+            replyGloss: "No, I didn't go out last night."
+            explanation: "«no» in front, the past kept: «no salí»."
+

@@ -1,0 +1,175 @@
+  # ── L5 · «Me despierto temprano» — despertarse / despierto / despierta.
+  #    Two claims: m14's e→ie change happens INSIDE a pointer verb (the
+  #    infinitive keeps its e), and «no» goes in front of the pointer —
+  #    «no me despierto», the m16 «no lo veo» shape. Debut:
+  #    l5-im-despertarse (imageMcq); «despiertas» on l5-sp-tedespiertas.
+  #    NOT HERE: acostarse.
+  - n: 5
+    template: free
+    title: "Me despierto temprano"
+    description: "A pointer verb whose middle changes shape — you did this in module fourteen — and the word «no» finds its place in front of the pointer."
+    steps:
+      - kind: map
+        id: l5-map-medespierto
+        tokens: ["me", "despierto", "temprano"]
+        pairs:
+          - { en: "myself", tokenIndex: 0 }
+          - { en: "I wake up", tokenIndex: 1 }
+          - { en: "early", tokenIndex: 2 }
+        audioText: "me despierto temprano"
+        revealNote: "The verb is «despertarse», to wake up — and look at its middle: the e has turned into ie, «despierto». You watched «empezar» become «empieza» and «entender» become «entiendo» in module fourteen. Same machine, now with a pointer in front."
+      - kind: imageMcq
+        id: l5-im-despertarse
+        target: { surface: "despertarse", meaningEn: "to wake up", emoji: "⏰" }
+        distractors:
+          - { surface: "ducharse", emoji: "🚿" }
+          - { surface: "levantarse", emoji: "🧍" }
+          - { surface: "bailar", emoji: "💃" }
+      - kind: speakLit
+        id: l5-sp-despertarse
+        es: "despertarse"
+        en: "to wake up"
+        atoms: ["despertarse"]
+      - kind: buildLit
+        id: l5-b-medespiertotemprano
+        also: ["temprano me despierto"]
+        es: "me despierto temprano"
+        en: "I wake up early"
+        atoms: ["despierto", "temprano"]
+        tiles: ["se", "despierta"]
+      - kind: info
+        id: l5-info-eie
+        title: "The e that becomes ie — and where «no» goes"
+        body: "«despertarse» keeps its e while it is the name of the verb. The moment you use it for a person, the stressed e opens into ie: «me despierto», «se despierta». Exactly what «empezar» did in «empieza». Now the second thing this lesson adds. To say you do NOT wake up early, «no» goes in front of the whole pair — «no me despierto temprano» — the same slot it took in «no lo veo». Never between the pointer and the verb: «me no despierto» is not Spanish."
+      # «despiertas» debuts here, printed and spoken, so Carmen may ask with
+      # it later and the sims may use it.
+      - kind: speakLit
+        id: l5-sp-tedespiertas
+        es: "¿te despiertas temprano?"
+        en: "Do you wake up early?"
+        atoms: ["despiertas", "temprano"]
+      - kind: clozeLit
+        id: l5-c-anasedespierta
+        es: "Ana se despierta tarde"
+        en: "Ana wakes up late"
+        blank: "despierta"
+        options: ["despierta", "despierto", "despertarse"]
+        atoms: ["despierta", "tarde"]
+        why: "«se» is in the sentence, so the ending is -a: «despierta». «despierto» travels with «me», and «despertarse» is the name of the verb, not something a person does."
+      - kind: listenCompLit
+        id: l5-lc-nomedespierto
+        es: "no me despierto temprano"
+        en: "I don't wake up early."
+        atoms: ["despierto", "temprano"]
+        distractorsEn:
+          - "I wake up early."
+          - "I don't get up early."
+          - "She doesn't wake up early."
+      - kind: buildLit
+        id: l5-b-diegonosedespierta
+        es: "Diego no se despierta temprano"
+        en: "Diego doesn't wake up early"
+        atoms: ["despierta", "temprano"]
+        tiles: ["me", "despierto"]
+      # THE «no» BEAT. The ghosts («me no despierto», «no despierto me») live
+      # only in distractor slots. Correct option is three tokens (inv 28).
+      - kind: mcq
+        id: l5-q-nomedespierto
+        prompt: "Which one means 'I don't wake up'?"
+        correct: "no me despierto"
+        distractors: ["me no despierto", "no despierto me", "no se despierto"]
+        atoms: ["despierto"]
+        why: "«no», then the pointer, then the verb — «no me despierto». «no» never splits the pair, and the pointer never trails the verb."
+      - kind: audioWimcq
+        id: l5-ear-despertarse
+        target: { surface: "despertarse", emoji: "⏰" }
+        distractors:
+          - { surface: "ducharse", emoji: "🚿" }
+          - { surface: "levantarse", emoji: "🧍" }
+      # Printed non-recall at m14 (quiero empezar temprano).
+      - kind: speakLit
+        id: l5-sp-recall-quieroempezar
+        es: "quiero empezar temprano"
+        en: "I want to start early"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l5-agr-yoana
+        en: "I wake up early, but Ana wakes up late"
+        audioText: "me despierto temprano, pero Ana se despierta tarde"
+        atoms: ["despierto", "temprano", "despierta", "tarde"]
+        segments:
+          - { blank: { id: "p1", answer: "me", options: ["me", "se"] } }
+          - { text: " despierto temprano, pero Ana " }
+          - { blank: { id: "p2", answer: "se", options: ["se", "me"] } }
+          - { text: " despierta tarde" }
+      - kind: listenBuildLit
+        id: l5-lb-medespiertoymelevanto
+        es: "me despierto y me levanto"
+        en: "I wake up and I get up"
+        atoms: ["despierto", "levanto"]
+        tiles: ["se", "despierta"]
+      - kind: textMcq
+        id: l5-tm-despierto
+        target: "despierto"
+        distractors: ["despierta", "despertarse", "ducho"]
+      - kind: speakLit
+        id: l5-sp-peronomelevanto
+        es: "me despierto, pero no me levanto"
+        en: "I wake up, but I don't get up"
+        atoms: ["despierto", "levanto"]
+      - kind: sim
+        id: l5-sim-carmen-manana
+        scene: { emoji: "⏰", title: "Carmen is up before everyone", setting: "Your grandmother Carmen has been awake for hours and finds this very funny." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "Yo me despierto muy temprano. ¿Y tú?", audioText: "yo me despierto muy temprano. ¿y tú?", gloss: "I wake up very early. And you?" }
+            goal: "Say you wake up late."
+            reply:
+              mode: build
+              tiles: ["me", "despierto", "tarde", "se", "despierta", "temprano"]
+              answer: "me despierto tarde"
+            replyGloss: "I wake up late."
+            explanation: "About yourself: «me despierto». The bank's «se despierta» is somebody else's pair, and «temprano» would be Carmen's answer, not yours."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Y Luis?", audioText: "¿y luis?", gloss: "And Luis?" }
+            goal: "Say he wakes up late too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "se despierta tarde también" }
+                - { id: "wrong1", text: "me despierto tarde también" }
+                - { id: "wrong2", text: "se despierto tarde también" }
+              correctOptionId: "right"
+              audioText: "se despierta tarde también"
+            replyGloss: "He wakes up late too."
+            explanation: "Luis is a he: «se despierta». «me despierto» is about you; «se despierto» breaks the pair."
+          - id: t3
+            npc: { speaker: "Carmen", es: "¿Te levantas temprano hoy?", audioText: "¿te levantas temprano hoy?", gloss: "Are you getting up early today?" }
+            goal: "Say no — you don't get up early."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, no me levanto temprano" }
+                - { id: "wrong1", text: "no, me no levanto temprano" }
+                - { id: "wrong2", text: "no, no se levanta temprano" }
+              correctOptionId: "right"
+              audioText: "no, no me levanto temprano"
+            replyGloss: "No, I don't get up early."
+            explanation: "«no» in front of the pair, never inside it: «no me levanto». «se levanta» would be about somebody else."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "despertarse", target: "to wake up" }
+          - { source: "me despierto", target: "I wake up" }
+          - { source: "se despierta", target: "he or she wakes up" }
+          - { source: "no me despierto", target: "I don't wake up" }
+          - { source: "me levanto", target: "I get up" }
+          - { source: "temprano", target: "early" }
+          - { source: "tarde", target: "late" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "me despierto temprano, pero no me levanto"
+        en: "I wake up early, but I don't get up"
+        atoms: ["despierto", "temprano", "levanto"]
+

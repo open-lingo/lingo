@@ -1,0 +1,159 @@
+  # ── L2 · «Ellos hablan» — ellos, ellas, hablan, comen, viven. The other
+  #    plural ending, -n, and the two words for they. «ellos» / «ellas»
+  #    debut on the card, cashed on the speakLit after it.
+  #    ⚠️ NO «ustedes» (L4), NO «son» / «somos» (L3). «amigos» folds to
+  #    «amigo» (m15) through the plural canon.
+  - n: 2
+    template: free
+    title: "Ellos hablan"
+    description: "The last ending in the table: -n, for they. Two words for they, because Spanish cares whether the group has a he in it."
+    steps:
+      - kind: map
+        id: l2-map-elloshablan
+        tokens: ["ellos", "hablan", "español"]
+        pairs:
+          - { en: "they", tokenIndex: 0 }
+          - { en: "speak", tokenIndex: 1 }
+          - { en: "Spanish", tokenIndex: 2 }
+        audioText: "ellos hablan español"
+        revealNote: "«habla» is he speaks, she speaks. Add one letter — «hablan» — and it is they speak. The -n is the whole difference. «ellos» is «él» with an -os: a group with a he in it."
+      - kind: info
+        id: l2-info-ellos
+        title: "They — add an -n"
+        body: "Take the he-or-she form and put -n on the end: «habla» → «hablan», they speak; «come» → «comen», they eat; «vive» → «viven», they live. That is the last ending in the table. Two words for they: «ellos» for a group with at least one he in it — «Diego y Ana», «mis amigos» — and «ellas» when everyone in it is a she — «Ana y Sofía». Both take the same -n: «ellos hablan», «ellas hablan». And as with «nosotros», you can drop the word: «hablan español» already says they."
+      - kind: speakLit
+        id: l2-sp-elloshablan
+        es: "ellos hablan español"
+        en: "They speak Spanish"
+        atoms: ["ellos", "hablan", "español"]
+      - kind: buildLit
+        id: l2-b-anaysofiaviven
+        es: "Ana y Sofía viven en México"
+        en: "Ana and Sofía live in Mexico"
+        atoms: ["viven", "México"]
+        tiles: ["vive", "vivimos"]
+      - kind: clozeLit
+        id: l2-c-elloscomen
+        es: "ellos comen pizza"
+        en: "They eat pizza"
+        blank: "comen"
+        options: ["comen", "come", "comemos"]
+        atoms: ["ellos", "comen", "pizza"]
+        why: "«ellos» is they, so the -n: «comen». «come» is one person, «comemos» is we."
+      - kind: listenCompLit
+        id: l2-lc-misamigoshablanmucho
+        es: "mis amigos hablan mucho"
+        en: "My friends talk a lot."
+        atoms: ["hablan", "mucho"]
+        distractorsEn:
+          - "My friend talks a lot."
+          - "My friends eat a lot."
+          - "We talk a lot."
+      - kind: buildLit
+        id: l2-b-ellashablanencasa
+        also: ["en casa ellas hablan español"]
+        es: "ellas hablan español en casa"
+        en: "They speak Spanish at home"
+        atoms: ["ellas", "hablan", "español", "casa"]
+        tiles: ["hablamos", "habla"]
+      - kind: mcq
+        id: l2-q-comen
+        prompt: "Which one means 'they eat'?"
+        correct: "comen"
+        distractors: ["come", "comemos", "comes"]
+        atoms: ["comen"]
+        why: "-n on the he-or-she form: «comen». «come» is one person, «comemos» is we, «comes» is you."
+      - kind: audioWimcq
+        id: l2-ear-amigo
+        target: { surface: "el amigo", emoji: "🧑‍🤝‍🧑" }
+        distractors:
+          - { surface: "el hermano", emoji: "👦" }
+          - { surface: "la maestra", emoji: "👩‍🏫" }
+      # Printed non-recall at m15 (vengo a la fiesta).
+      - kind: speakLit
+        id: l2-sp-recall-vengoalafiesta
+        es: "vengo a la fiesta"
+        en: "I'm coming to the party"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l2-agr-nosotrosellos
+        en: "We live here and they live in Spain"
+        audioText: "vivimos aquí y ellos viven en España"
+        atoms: ["vivimos", "aquí", "ellos", "viven", "España"]
+        segments:
+          - { blank: { id: "p1", answer: "vivimos", options: ["vivimos", "viven"] } }
+          - { text: " aquí y ellos " }
+          - { blank: { id: "p2", answer: "viven", options: ["viven", "vivimos"] } }
+          - { text: " en España" }
+      - kind: listenBuildLit
+        id: l2-lb-elloscomenencasa
+        es: "ellos comen en casa"
+        en: "They eat at home"
+        atoms: ["ellos", "comen", "casa"]
+        tiles: ["comemos", "come"]
+      - kind: textMcq
+        id: l2-tm-viven
+        target: "viven"
+        distractors: ["vive", "vivimos", "vivo"]
+      - kind: speakLit
+        id: l2-sp-misamigosviven
+        es: "mis amigos viven aquí y hablan español"
+        en: "My friends live here and speak Spanish"
+        atoms: ["viven", "aquí", "hablan", "español"]
+      - kind: sim
+        id: l2-sim-diego-amigas
+        scene: { emoji: "☕", title: "Diego watches Ana and Sofía", setting: "Diego is at the next table, and Ana and Sofía have not stopped talking for an hour." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "Ana y Sofía hablan mucho, ¿no?", audioText: "ana y sofía hablan mucho, ¿no?", gloss: "Ana and Sofía talk a lot, don't they?" }
+            goal: "Say yes, they talk a lot."
+            reply:
+              mode: build
+              tiles: ["sí", "ellas", "hablan", "mucho", "ellos", "habla"]
+              answer: "sí ellas hablan mucho"
+              alsoAccepted: ["sí hablan mucho"]
+            replyGloss: "Yes, they talk a lot."
+            explanation: "Two shes, so «ellas» — and the -n: «hablan». «ellos» would put a he in the group; «habla» is one person."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y dónde viven?", audioText: "¿y dónde viven?", gloss: "And where do they live?" }
+            goal: "Say they live here."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "viven aquí" }
+                - { id: "wrong1", text: "vive aquí" }
+                - { id: "wrong2", text: "vivimos aquí" }
+              correctOptionId: "right"
+              audioText: "viven aquí"
+            replyGloss: "They live here."
+            explanation: "They: -n. «vive» is one of them; «vivimos» would include you."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿Comen pizza?", audioText: "¿comen pizza?", gloss: "Do they eat pizza?" }
+            goal: "Say yes, they eat pizza every day."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, comen pizza todos los días" }
+                - { id: "wrong1", text: "sí, come pizza todos los días" }
+                - { id: "wrong2", text: "sí, comemos pizza todos los días" }
+              correctOptionId: "right"
+              audioText: "sí, comen pizza todos los días"
+            replyGloss: "Yes, they eat pizza every day."
+            explanation: "«comen» — the -n is the two of them."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "ellos", target: "they (with a he in the group)" }
+          - { source: "ellas", target: "they (all shes)" }
+          - { source: "hablan", target: "they speak" }
+          - { source: "comen", target: "they eat" }
+          - { source: "viven", target: "they live" }
+          - { source: "hablamos", target: "we speak" }
+          - { source: "mucho", target: "a lot" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "ellos viven aquí y hablan español"
+        en: "They live here and they speak Spanish"
+        atoms: ["ellos", "viven", "aquí", "hablan", "español"]
+

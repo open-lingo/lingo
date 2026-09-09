@@ -1,0 +1,170 @@
+  # ── L4 · «Me lavo los dientes» — lavarse / lavo / lava / dientes. The
+  #    claim: a pointer verb can take an object, and the pointer is what
+  #    says whose («me lavo los dientes» — never «mis dientes»); take the
+  #    pointer away and you are washing something else («lavo el carro»).
+  #    Debut: l4-im-dientes (imageMcq). «lavas» is NOT registered and is
+  #    never printed, not even by an NPC. NOT HERE: the stem-changers.
+  - n: 4
+    template: free
+    title: "Me lavo los dientes"
+    description: "A pointer verb with something after it. Spanish says 'I wash myself the teeth' — and the pointer, not a 'my', is what says whose teeth."
+    steps:
+      - kind: map
+        id: l4-map-melavolosdientes
+        tokens: ["me", "lavo", "los", "dientes"]
+        pairs:
+          - { en: "myself", tokenIndex: 0 }
+          - { en: "I wash", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "teeth", tokenIndex: 3 }
+        audioText: "me lavo los dientes"
+        revealNote: "No word for 'my' anywhere — and none is needed. «me» already says the washing lands on you, so «los dientes» can only be yours. That is how Spanish handles teeth, hands, hair: pointer plus «the», never «my»."
+        tokenGenders: { 2: "m", 3: "m" }
+      - kind: imageMcq
+        id: l4-im-dientes
+        target: { surface: "los dientes", meaningEn: "the teeth", emoji: "🦷" }
+        distractors:
+          - { surface: "la cama", emoji: "🛏️" }
+          - { surface: "el agua", emoji: "💧" }
+          - { surface: "la llave", emoji: "🔑" }
+      - kind: speakLit
+        id: l4-sp-lavarse
+        es: "lavarse"
+        en: "to wash oneself"
+        atoms: ["lavarse"]
+      - kind: buildLit
+        id: l4-b-melavolosdientes
+        es: "me lavo los dientes"
+        en: "I brush my teeth"
+        atoms: ["lavo", "dientes"]
+        tiles: ["se", "mis"]
+      - kind: info
+        id: l4-info-dequien
+        title: "Whose teeth? The pointer says."
+        body: "«me lavo los dientes» — word for word, I wash myself the teeth. English says 'I brush my teeth'; Spanish never puts a 'my' there, because «me» has already said whose they are. «Ana se lava los dientes» — Ana washes herself the teeth: hers. Now take the pointer away: «lavo el carro» — I wash the car. No pointer, because the washing lands on the car, not on you. That is the whole difference between «lavo» and «me lavo»: the pointer says the action comes back to the person doing it."
+      - kind: clozeLit
+        id: l4-c-anaselava
+        es: "Ana se lava los dientes"
+        en: "Ana brushes her teeth"
+        blank: "lava"
+        options: ["lava", "lavo"]
+        atoms: ["lava", "dientes"]
+        why: "«se» is in the sentence, so the ending that travels with it: -a. «lavo» belongs with «me»."
+      - kind: listenCompLit
+        id: l4-lc-melavotemprano
+        es: "me lavo los dientes temprano"
+        en: "I brush my teeth early."
+        atoms: ["lavo", "dientes", "temprano"]
+        distractorsEn:
+          - "I brush my teeth late."
+          - "She brushes her teeth early."
+          - "I wash the car early."
+      - kind: buildLit
+        id: l4-b-diegoselava
+        es: "Diego se lava los dientes"
+        en: "Diego brushes his teeth"
+        atoms: ["lava", "dientes"]
+        tiles: ["me", "lavo"]
+      # THE CONTRAST BEAT: no pointer when the washing lands elsewhere. The
+      # correct option is three tokens (inv 28).
+      - kind: mcq
+        id: l4-q-lavoelcarro
+        prompt: "Which one means 'I wash the car'?"
+        correct: "lavo el carro"
+        distractors: ["me lavo el carro", "se lava el carro", "lavo me el carro"]
+        atoms: ["lavo", "carro"]
+        why: "The washing lands on the car, not on you — so no pointer: «lavo el carro». «me lavo el carro» would say you wash yourself with a car in the way; «se lava» is somebody else."
+      - kind: audioWimcq
+        id: l4-ear-dientes
+        target: { surface: "los dientes", emoji: "🦷" }
+        distractors:
+          - { surface: "la cama", emoji: "🛏️" }
+          - { surface: "el agua", emoji: "💧" }
+      # Printed non-recall at m14 (el perro duerme en la cama).
+      - kind: speakLit
+        id: l4-sp-recall-elperroduerme
+        es: "el perro duerme en la cama"
+        en: "The dog sleeps on the bed"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l4-agr-yoana
+        en: "I brush my teeth and Ana brushes her teeth"
+        audioText: "me lavo los dientes y Ana se lava los dientes"
+        atoms: ["lavo", "lava", "dientes"]
+        segments:
+          - { blank: { id: "p1", answer: "me", options: ["me", "se"] } }
+          - { text: " lavo los dientes y Ana " }
+          - { blank: { id: "p2", answer: "se", options: ["se", "me"] } }
+          - { text: " lava los dientes" }
+      - kind: listenBuildLit
+        id: l4-lb-melavotarde
+        es: "me lavo los dientes tarde"
+        en: "I brush my teeth late"
+        atoms: ["lavo", "dientes", "tarde"]
+        tiles: ["se", "lava"]
+      - kind: textMcq
+        id: l4-tm-lavo
+        target: "lavo"
+        distractors: ["lava", "lavarse", "levanto"]
+      - kind: speakLit
+        id: l4-sp-rutina
+        es: "me levanto, me ducho y me lavo los dientes"
+        en: "I get up, I shower and I brush my teeth"
+        atoms: ["levanto", "ducho", "lavo", "dientes"]
+      - kind: sim
+        id: l4-sim-maria-bano
+        scene: { emoji: "🦷", title: "María and the bathroom queue", setting: "One bathroom, three people, and María is keeping track of who is doing what." }
+        turns:
+          - id: t1
+            npc: { speaker: "María", es: "Yo me lavo los dientes ahora. ¿Y tú?", audioText: "yo me lavo los dientes ahora. ¿y tú?", gloss: "I'm brushing my teeth now. And you?" }
+            goal: "Say you brush your teeth too."
+            reply:
+              mode: build
+              tiles: ["me", "lavo", "los", "dientes", "también", "se", "lava"]
+              answer: "me lavo los dientes también"
+              alsoAccepted: ["también me lavo los dientes"]
+            replyGloss: "I brush my teeth too."
+            explanation: "About yourself: «me lavo». The bank also holds «se lava» — that pair belongs to somebody else."
+          - id: t2
+            npc: { speaker: "María", es: "¿Diego se lava los dientes?", audioText: "¿diego se lava los dientes?", gloss: "Does Diego brush his teeth?" }
+            goal: "Say yes — he brushes his teeth early."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, se lava los dientes temprano" }
+                - { id: "wrong1", text: "sí, me lavo los dientes temprano" }
+                - { id: "wrong2", text: "sí, se lavo los dientes temprano" }
+              correctOptionId: "right"
+              audioText: "sí, se lava los dientes temprano"
+            replyGloss: "Yes, he brushes his teeth early."
+            explanation: "Diego — a he — so «se lava». «me lavo» would be you; «se lavo» mixes the pointer and the ending."
+          - id: t3
+            npc: { speaker: "María", es: "¿Y el carro?", audioText: "¿y el carro?", gloss: "And the car?" }
+            goal: "Say you wash the car today."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "lavo el carro hoy" }
+                - { id: "wrong1", text: "me lavo el carro hoy" }
+                - { id: "wrong2", text: "se lava el carro hoy" }
+              correctOptionId: "right"
+              audioText: "lavo el carro hoy"
+            replyGloss: "I wash the car today."
+            explanation: "The washing lands on the car, so there is no pointer: «lavo el carro». Add «me» and you are washing yourself."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "lavarse", target: "to wash oneself" }
+          - { source: "me lavo los dientes", target: "I brush my teeth" }
+          - { source: "se lava", target: "he or she washes (himself, herself)" }
+          - { source: "los dientes", target: "the teeth" }
+          - { source: "lavo el carro", target: "I wash the car" }
+          - { source: "me ducho", target: "I shower" }
+          - { source: "me levanto", target: "I get up" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "me lavo los dientes y me ducho temprano"
+        en: "I brush my teeth and I shower early"
+        atoms: ["lavo", "dientes", "ducho", "temprano"]
+

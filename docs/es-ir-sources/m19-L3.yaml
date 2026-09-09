@@ -1,0 +1,163 @@
+  # ── L3 · «Anoche comí» — anoche, comí, comiste, comió. The -er preterite:
+  #    -í / -iste / -ió. «anoche» debuts with it. Every form debuts on a
+  #    printed intro-capable step after the card.
+  #    ⚠️ NO -ir verb yet (L4). «pollo» / «sopa» / «queso» are m7 carriers.
+  - n: 3
+    template: free
+    title: "Anoche comí"
+    description: "The other table. -er verbs take -í, -iste, -ió — and «anoche», last night, tells you it is coming."
+    steps:
+      - kind: map
+        id: l3-map-anochecomi
+        tokens: ["anoche", "comí", "pizza"]
+        pairs:
+          - { en: "last night", tokenIndex: 0 }
+          - { en: "I ate", tokenIndex: 1 }
+          - { en: "pizza", tokenIndex: 2 }
+        audioText: "anoche comí pizza"
+        revealNote: "«como» is I eat. «comí» — accent on the í, stress on the end — is I ate. A different vowel from «hablé», because «comer» is an -er verb, but the same idea: the weight goes to the last syllable and the thing is over. «anoche» is last night."
+      - kind: info
+        id: l3-info-er
+        title: "The past, for -er verbs"
+        body: "-ar verbs took -é, -aste, -ó. -er verbs take -í, -iste, -ió: «comí», I ate; «comiste», you ate; «comió», he ate, she ate. Same stress on the end, same accent doing the work: «comió» is then, «come» is now. And a second marker to go with «ayer»: «anoche», last night. «anoche comí pizza» — last night I ate pizza."
+      - kind: speakLit
+        id: l3-sp-comi
+        es: "anoche comí pizza"
+        en: "Last night I ate pizza"
+        atoms: ["anoche", "comí", "pizza"]
+      - kind: buildLit
+        id: l3-b-anacomiopollo
+        also: ["anoche Ana comió pollo"]
+        es: "Ana comió pollo anoche"
+        en: "Ana ate chicken last night"
+        atoms: ["comió", "pollo", "anoche"]
+        tiles: ["comí", "come"]
+      - kind: speakLit
+        id: l3-sp-comiste
+        es: "comiste mucho anoche"
+        en: "You ate a lot last night"
+        atoms: ["comiste", "mucho", "anoche"]
+      - kind: clozeLit
+        id: l3-c-diegocomio
+        es: "Diego comió en el restaurante"
+        en: "Diego ate at the restaurant"
+        blank: "comió"
+        options: ["comió", "comí", "comiste"]
+        atoms: ["comió", "restaurante"]
+        why: "Diego did the eating: «comió», the he-or-she ending with the stress on the end. «comí» is I, «comiste» is you."
+      - kind: listenCompLit
+        id: l3-lc-anochecomiencasa
+        es: "anoche comí en casa con mi familia"
+        en: "Last night I ate at home with my family."
+        atoms: ["anoche", "comí", "casa", "familia"]
+        distractorsEn:
+          - "Last night she ate at home with my family."
+          - "Today I eat at home with my family."
+          - "Last night I ate at the restaurant with my family."
+      - kind: buildLit
+        id: l3-b-comistepanyqueso
+        es: "comiste pan y queso"
+        en: "You ate bread and cheese"
+        atoms: ["comiste", "pan", "queso"]
+        tiles: ["comí", "comes"]
+      - kind: mcq
+        id: l3-q-comio
+        prompt: "Which one means 'she ate'?"
+        correct: "ella comió"
+        distractors: ["ella come", "ella comí", "ella comiste"]
+        atoms: ["comió"]
+        why: "«comió» — past, he or she. «come» is now; «comí» is I; «comiste» is you."
+      - kind: audioWimcq
+        id: l3-ear-pollo
+        target: { surface: "el pollo", emoji: "🍗" }
+        distractors:
+          - { surface: "la carne", emoji: "🥩" }
+          - { surface: "la sopa", emoji: "🍲" }
+      # Printed non-recall at m18 (es-m18-3-l3-sp-win).
+      - kind: speakLit
+        id: l3-sp-recall-somosamigos
+        es: "somos amigos y vivimos juntos"
+        en: "We are friends and we live together"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l3-agr-comiycomio
+        en: "I ate pizza and Ana ate soup"
+        audioText: "comí pizza y Ana comió sopa"
+        atoms: ["comí", "pizza", "comió", "sopa"]
+        segments:
+          - { blank: { id: "p1", answer: "comí", options: ["comí", "comió"] } }
+          - { text: " pizza y Ana " }
+          - { blank: { id: "p2", answer: "comió", options: ["comió", "comí"] } }
+          - { text: " sopa" }
+      - kind: listenBuildLit
+        id: l3-lb-anochecomisopa
+        es: "anoche comí sopa"
+        en: "Last night I ate soup"
+        atoms: ["anoche", "comí", "sopa"]
+        tiles: ["como", "comió"]
+      - kind: textMcq
+        id: l3-tm-comio
+        target: "comió"
+        distractors: ["come", "comí", "comiste"]
+      - kind: speakLit
+        id: l3-sp-comiyhable
+        es: "anoche comí pizza y hablé con Ana"
+        en: "Last night I ate pizza and spoke with Ana"
+        atoms: ["anoche", "comí", "pizza", "hablé"]
+      - kind: sim
+        id: l3-sim-sofia-anoche
+        scene: { emoji: "🍕", title: "Sofía asks about last night", setting: "Sofía missed dinner and wants every detail." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Qué comiste anoche?", audioText: "¿qué comiste anoche?", gloss: "What did you eat last night?" }
+            goal: "Say you ate pizza last night."
+            reply:
+              mode: build
+              tiles: ["comí", "pizza", "anoche", "como", "comió"]
+              answer: "comí pizza anoche"
+              alsoAccepted: ["anoche comí pizza"]
+            replyGloss: "I ate pizza last night."
+            explanation: "Sofía asked with «comiste»; you answer «comí». «como» is now; «comió» is somebody else."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y Diego?", audioText: "¿y diego?", gloss: "And Diego?" }
+            goal: "Say he ate chicken."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "comió pollo" }
+                - { id: "wrong1", text: "comí pollo" }
+                - { id: "wrong2", text: "come pollo" }
+              correctOptionId: "right"
+              audioText: "comió pollo"
+            replyGloss: "He ate chicken."
+            explanation: "Diego, last night: «comió»."
+          - id: t3
+            npc: { speaker: "Sofía", es: "¿Comiste en casa?", audioText: "¿comiste en casa?", gloss: "Did you eat at home?" }
+            goal: "Say no, you ate at the restaurant."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, comí en el restaurante" }
+                - { id: "wrong1", text: "no, como en el restaurante" }
+                - { id: "wrong2", text: "no, comió en el restaurante" }
+              correctOptionId: "right"
+              audioText: "no, comí en el restaurante"
+            replyGloss: "No, I ate at the restaurant."
+            explanation: "About yourself, in the past: «comí»."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "anoche", target: "last night" }
+          - { source: "comí", target: "I ate" }
+          - { source: "comiste", target: "you ate" }
+          - { source: "comió", target: "he or she ate" }
+          - { source: "como", target: "I eat (now)" }
+          - { source: "hablé", target: "I spoke" }
+          - { source: "el pollo", target: "the chicken" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "anoche comí en casa y hablé con mi madre"
+        en: "Last night I ate at home and spoke with my mother"
+        atoms: ["anoche", "comí", "casa", "hablé", "madre"]
+

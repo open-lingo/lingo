@@ -1,0 +1,167 @@
+  # ── L4 · «Ustedes» — ustedes, restaurante. The you-all pronoun, which
+  #    takes the ellos ending (pin E3: «vosotros» is never printed).
+  #    Debuts: «restaurante» on l4-im-restaurante (imageMcq, first
+  #    exposure); «ustedes» on the card, cashed on the speakLit after.
+  - n: 4
+    template: free
+    title: "Ustedes"
+    description: "Talking TO a group. Spanish gives the group its own word — and lets it borrow the ending you learned two lessons ago."
+    steps:
+      - kind: map
+        id: l4-map-ustedescomen
+        tokens: ["ustedes", "comen", "en", "el", "restaurante"]
+        pairs:
+          - { en: "you all", tokenIndex: 0 }
+          - { en: "eat", tokenIndex: 1 }
+          - { en: "in", tokenIndex: 2 }
+          - { en: "the", tokenIndex: 3 }
+          - { en: "restaurant", tokenIndex: 4 }
+        audioText: "ustedes comen en el restaurante"
+        revealNote: "«comen» — the they ending from lesson two. But the word in front is new: «ustedes», you all. When you talk TO a group, the verb takes exactly the ending it takes for they. And «el restaurante» is a word you can read already."
+        tokenGenders: { 3: "m", 4: "m" }
+      - kind: imageMcq
+        id: l4-im-restaurante
+        target: { surface: "el restaurante", meaningEn: "the restaurant", emoji: "🍴" }
+        distractors:
+          - { surface: "la tienda", emoji: "🏪" }
+          - { surface: "el mercado", emoji: "🛒" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: info
+        id: l4-info-ustedes
+        title: "You all — «ustedes»"
+        body: "«tú» is one person in front of you. For a group in front of you, the word is «ustedes», and the verb takes the -n ending — the same one «ellos» takes: «¿ustedes hablan español?» — do you all speak Spanish?; «ustedes son mis amigos» — you all are my friends; «ustedes comen en el restaurante» — you all eat at the restaurant. So -n does two jobs: they, and you all. The pronoun is what tells them apart, which is why «ustedes» is usually said out loud."
+      - kind: speakLit
+        id: l4-sp-ustedeshablan
+        es: "¿ustedes hablan español?"
+        en: "Do you all speak Spanish?"
+        atoms: ["ustedes", "hablan", "español"]
+      - kind: buildLit
+        id: l4-b-ustedescomenenelrestaurante
+        es: "ustedes comen en el restaurante"
+        en: "You all eat at the restaurant"
+        atoms: ["ustedes", "comen", "restaurante"]
+        tiles: ["comemos", "come"]
+      - kind: clozeLit
+        id: l4-c-ustedesviven
+        es: "ustedes viven aquí"
+        en: "You all live here"
+        blank: "viven"
+        options: ["viven", "vivimos", "vives"]
+        atoms: ["ustedes", "viven", "aquí"]
+        why: "«ustedes» takes the -n ending: «viven». «vivimos» is we, «vives» is one you."
+      - kind: listenCompLit
+        id: l4-lc-ustedessonestudiantes
+        es: "¿ustedes son estudiantes?"
+        en: "Are you all students?"
+        atoms: ["ustedes", "son", "estudiante"]
+        distractorsEn:
+          - "Are you a student?"
+          - "Are they students?"
+          - "Are you all teachers?"
+      - kind: buildLit
+        id: l4-b-ustedessonmisamigos
+        es: "ustedes son mis amigos"
+        en: "You all are my friends"
+        atoms: ["ustedes", "son", "amigo"]
+        tiles: ["somos", "eres"]
+      - kind: mcq
+        id: l4-q-ustedeshablan
+        prompt: "Which one means 'you all speak'?"
+        correct: "ustedes hablan"
+        distractors: ["ustedes hablamos", "ustedes hablas", "ustedes habla"]
+        atoms: ["ustedes", "hablan"]
+        why: "«ustedes» borrows the they ending: «hablan». -mos is we, -as is one you, -a is he or she."
+      - kind: audioWimcq
+        id: l4-ear-restaurante
+        target: { surface: "el restaurante", emoji: "🍴" }
+        distractors:
+          - { surface: "el mercado", emoji: "🛒" }
+          - { surface: "la tienda", emoji: "🏪" }
+      # Printed non-recall at m15 (Ana hace la tarea).
+      - kind: speakLit
+        id: l4-sp-recall-anahacelatarea
+        es: "Ana hace la tarea"
+        en: "Ana does the homework"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l4-agr-ustedesnosotros
+        en: "You all eat here and we eat at the restaurant"
+        audioText: "ustedes comen aquí y nosotros comemos en el restaurante"
+        atoms: ["ustedes", "comen", "aquí", "nosotros", "comemos", "restaurante"]
+        segments:
+          - { text: "ustedes " }
+          - { blank: { id: "p1", answer: "comen", options: ["comen", "comemos"] } }
+          - { text: " aquí y nosotros " }
+          - { blank: { id: "p2", answer: "comemos", options: ["comemos", "comen"] } }
+          - { text: " en el restaurante" }
+      - kind: listenBuildLit
+        id: l4-lb-ustedesvivenenespana
+        es: "ustedes viven en España"
+        en: "You all live in Spain"
+        atoms: ["ustedes", "viven", "España"]
+        tiles: ["vivimos", "vive"]
+      - kind: textMcq
+        id: l4-tm-ustedes
+        target: "ustedes"
+        distractors: ["nosotros", "ellos", "ellas"]
+      - kind: speakLit
+        id: l4-sp-ustedesynosotros
+        es: "ustedes comen en el restaurante y nosotros comemos en casa"
+        en: "You all eat at the restaurant and we eat at home"
+        atoms: ["ustedes", "comen", "restaurante", "nosotros", "comemos", "casa"]
+      - kind: sim
+        id: l4-sim-maria-restaurante
+        scene: { emoji: "🍴", title: "María at the restaurant door", setting: "María works the door at the restaurant. You, Luis, Ana and Diego have just walked in." }
+        turns:
+          - id: t1
+            npc: { speaker: "María", es: "¿Ustedes comen aquí hoy?", audioText: "¿ustedes comen aquí hoy?", gloss: "Are you all eating here today?" }
+            goal: "Say yes, you all eat here."
+            reply:
+              mode: build
+              tiles: ["sí", "comemos", "aquí", "comen", "come"]
+              answer: "sí comemos aquí"
+            replyGloss: "Yes, we eat here."
+            explanation: "María said «ustedes» to the group; the group answers as a we: «comemos». «comen» would be about some other table."
+          - id: t2
+            npc: { speaker: "María", es: "¿Son estudiantes?", audioText: "¿son estudiantes?", gloss: "Are you students?" }
+            goal: "Say yes, you are students."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, somos estudiantes" }
+                - { id: "wrong1", text: "sí, son estudiantes" }
+                - { id: "wrong2", text: "sí, soy estudiantes" }
+              correctOptionId: "right"
+              audioText: "sí, somos estudiantes"
+            replyGloss: "Yes, we are students."
+            explanation: "«son» was María talking to the group; the group answers «somos»."
+          - id: t3
+            npc: { speaker: "María", es: "¿Y ellos? ¿Hablan español?", audioText: "¿y ellos? ¿hablan español?", gloss: "And them? Do they speak Spanish?" }
+            goal: "Say yes, they speak Spanish."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, hablan español" }
+                - { id: "wrong1", text: "sí, hablamos español" }
+                - { id: "wrong2", text: "sí, habla español" }
+              correctOptionId: "right"
+              audioText: "sí, hablan español"
+            replyGloss: "Yes, they speak Spanish."
+            explanation: "Ana and Diego are a they: «hablan». «hablamos» would be you and Luis; «habla» is one person."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "ustedes", target: "you all" }
+          - { source: "ustedes hablan", target: "you all speak" }
+          - { source: "ustedes son", target: "you all are" }
+          - { source: "el restaurante", target: "the restaurant" }
+          - { source: "comemos", target: "we eat" }
+          - { source: "nosotros", target: "we" }
+          - { source: "juntos", target: "together" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "ustedes son mis amigos y comemos juntos"
+        en: "You all are my friends and we eat together"
+        atoms: ["ustedes", "son", "amigo", "comemos", "juntos"]
+

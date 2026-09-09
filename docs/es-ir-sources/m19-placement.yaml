@@ -1,0 +1,23 @@
+placement:
+  screener:
+    - id: "es-m19-scr-1"
+      prompt: "'Yesterday I spoke with Ana.' — which one?"
+      correct: "ayer hablé con Ana"
+      distractors: ["ayer hablo con Ana", "ayer habló con Ana", "ayer hablaste con Ana"]
+  byModule:
+    - id: "es-m19-pl-1"
+      prompt: "She bought a shirt."
+      correct: "compró una camisa"
+      distractors: ["compro una camisa", "compré una camisa", "compraste una camisa"]
+    - id: "es-m19-pl-2"
+      prompt: "Last night I ate pizza."
+      correct: "anoche comí pizza"
+      distractors: ["anoche como pizza", "anoche comió pizza", "anoche comiste pizza"]
+    - id: "es-m19-pl-3"
+      prompt: "Did you go out last week?"
+      correct: "¿saliste la semana pasada?"
+      distractors: ["¿salió la semana pasada?", "¿salí la semana pasada?", "¿sales la semana pasada?"]
+    - id: "es-m19-pl-4"
+      prompt: "He wrote a message on the weekend."
+      correct: "escribió un mensaje el fin de semana"
+      distractors: ["escribí un mensaje el fin de semana", "escribe un mensaje el fin de semana", "escribiste un mensaje el fin de semana"]

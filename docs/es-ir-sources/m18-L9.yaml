@@ -1,0 +1,205 @@
+  # ── L9 · «Todos juntos» — ZERO new atoms. Consolidation: every person of
+  #    the table in one lesson, two sims, no card. Recalls licensed by
+  #    L3 / L6 wins and m16. Cloze share 3/19; selection runs ≤2.
+  - n: 9
+    template: free
+    title: "Todos juntos"
+    description: "I, you, he, she, we, you all, they — the whole table, in one afternoon with everybody."
+    steps:
+      - kind: map
+        id: l9-map-todosjuntos
+        tokens: ["hoy", "comemos", "todos", "juntos"]
+        pairs:
+          - { en: "today", tokenIndex: 0 }
+          - { en: "we eat", tokenIndex: 1 }
+          - { en: "all", tokenIndex: 2 }
+          - { en: "together", tokenIndex: 3 }
+        audioText: "hoy comemos todos juntos"
+        revealNote: "«todos juntos» — all together. «todos» is the one from «todos los días», standing on its own."
+      - kind: speakLit
+        id: l9-sp-comemostodosjuntos
+        es: "hoy comemos todos juntos"
+        en: "Today we all eat together"
+        atoms: ["hoy", "comemos", "juntos"]
+      - kind: clozeLit
+        id: l9-c-ellossonmisamigos
+        es: "ellos son mis amigos y viven aquí"
+        en: "They are my friends and they live here"
+        blank: "son"
+        options: ["son", "somos", "es"]
+        atoms: ["ellos", "son", "amigo", "viven", "aquí"]
+        why: "«ellos» — they — so «son»."
+      - kind: audioWimcq
+        id: l9-ear-mercado
+        target: { surface: "el mercado", emoji: "🛒" }
+        distractors:
+          - { surface: "el restaurante", emoji: "🍴" }
+          - { surface: "la tienda", emoji: "🏪" }
+      - kind: buildLit
+        id: l9-b-vamosalmercadoycompramos
+        es: "ustedes van al mercado y nosotros vamos al cine"
+        en: "You all go to the market and we go to the cinema"
+        atoms: ["ustedes", "van", "mercado", "nosotros", "vamos", "cine"]
+        tiles: ["voy", "vas"]
+      - kind: sim
+        id: l9-sim-sofia-fiesta
+        scene: { emoji: "🎉", title: "Sofía plans the party", setting: "Sofía has a list. Everyone is getting a job, and she wants to know who is where." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Ustedes tienen la música?", audioText: "¿ustedes tienen la música?", gloss: "Do you all have the music?" }
+            goal: "Say yes, you have the music."
+            reply:
+              mode: build
+              tiles: ["sí", "tenemos", "la", "música", "tienen", "tengo"]
+              answer: "sí tenemos la música"
+            replyGloss: "Yes, we have the music."
+            explanation: "Sofía asked the group; the group answers «tenemos»."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y Ana y Diego? ¿Dónde están?", audioText: "¿y ana y diego? ¿dónde están?", gloss: "And Ana and Diego? Where are they?" }
+            goal: "Say they are at the market."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "están en el mercado" }
+                - { id: "wrong1", text: "estamos en el mercado" }
+                - { id: "wrong2", text: "son en el mercado" }
+              correctOptionId: "right"
+              audioText: "están en el mercado"
+            replyGloss: "They are at the market."
+            explanation: "A they, somewhere: «están». «estamos» would include you; «son» is the wrong verb for a place."
+          - id: t3
+            npc: { speaker: "Sofía", es: "¿Comemos todos juntos a las ocho?", audioText: "¿comemos todos juntos a las ocho?", gloss: "Shall we all eat together at eight?" }
+            goal: "Say yes, you all eat together at eight."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, comemos juntos a las ocho" }
+                - { id: "wrong1", text: "sí, comen juntos a las ocho" }
+                - { id: "wrong2", text: "sí, como juntos a las ocho" }
+              correctOptionId: "right"
+              audioText: "sí, comemos juntos a las ocho"
+            replyGloss: "Yes, we eat together at eight."
+            explanation: "Everyone including you: «comemos»."
+      # Printed non-recall at L3 (es-m18-3-l3-sp-win).
+      - kind: speakLit
+        id: l9-sp-recall-somosamigos
+        es: "somos amigos y vivimos juntos"
+        en: "We are friends and we live together"
+        atoms: []
+        cue: recall
+      - kind: listenCompLit
+        id: l9-lc-ustedeshablanmucho
+        es: "ustedes hablan mucho y comen poco"
+        en: "You all talk a lot and eat little."
+        atoms: ["ustedes", "hablan", "mucho", "comen", "un poco"]
+        distractorsEn:
+          - "They talk a lot and eat little."
+          - "You all talk little and eat a lot."
+          - "We talk a lot and eat little."
+      - kind: clozeLit
+        id: l9-c-nosotrosestamos
+        es: "nosotros estamos en el restaurante"
+        en: "We are at the restaurant"
+        blank: "estamos"
+        options: ["estamos", "están", "somos"]
+        atoms: ["nosotros", "estamos", "restaurante"]
+        why: "We, somewhere: «estamos»."
+      - kind: listenBuildLit
+        id: l9-lb-ellastienenhambre
+        es: "ellas tienen hambre y van al restaurante"
+        en: "They are hungry and they go to the restaurant"
+        atoms: ["ellas", "tienen", "van", "restaurante"]
+        tiles: ["tenemos", "vamos"]
+      - kind: textMcq
+        id: l9-tm-hablamos
+        target: "hablamos"
+        distractors: ["hablan", "hablo", "habla"]
+      - kind: speakLit
+        id: l9-sp-vivimosjuntos
+        es: "mis amigos y yo vivimos juntos"
+        en: "My friends and I live together"
+        atoms: ["vivimos", "juntos"]
+      - kind: buildLit
+        id: l9-b-somosestudiantesyestamos
+        es: "somos estudiantes y estamos en la escuela"
+        en: "We are students and we are at school"
+        atoms: ["somos", "estudiante", "estamos", "escuela"]
+        tiles: ["son", "están"]
+      - kind: mcq
+        id: l9-q-ellasviven
+        prompt: "Which one means 'they live' — a group of shes?"
+        correct: "ellas viven"
+        distractors: ["ellos viven", "ellas vivimos", "ellas vive"]
+        atoms: ["ellas", "viven"]
+        why: "All shes: «ellas», with the -n: «viven»."
+      - kind: audioWimcq
+        id: l9-ear-musica
+        target: { surface: "la música", emoji: "🎵" }
+        distractors:
+          - { surface: "la película", emoji: "📽️" }
+          - { surface: "la fiesta", emoji: "🎉" }
+      # Printed non-recall at L6 (es-m18-6-l6-sp-win).
+      - kind: speakLit
+        id: l9-sp-recall-hoyvamosalcine
+        es: "hoy vamos al cine juntos"
+        en: "Today we go to the cinema together"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: l9-c-ustedescomen
+        es: "ustedes comen mucho"
+        en: "You all eat a lot"
+        blank: "comen"
+        options: ["comen", "comemos", "come"]
+        atoms: ["ustedes", "comen", "mucho"]
+        why: "«ustedes» — the -n: «comen»."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "todos juntos", target: "all together" }
+          - { source: "tenemos", target: "we have" }
+          - { source: "están", target: "they are (where)" }
+          - { source: "ustedes van", target: "you all go" }
+          - { source: "ellas viven", target: "they live (all shes)" }
+          - { source: "somos", target: "we are" }
+          - { source: "la música", target: "the music" }
+      - kind: sim
+        id: l9-sim-diego-mercado
+        scene: { emoji: "🛒", title: "Diego at the market with everyone", setting: "Diego is buying for the party and keeps asking who eats what." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Ustedes comen carne?", audioText: "¿ustedes comen carne?", gloss: "Do you all eat meat?" }
+            goal: "Say yes, you all eat meat."
+            reply:
+              mode: build
+              tiles: ["sí", "comemos", "carne", "comen", "como"]
+              answer: "sí comemos carne"
+            replyGloss: "Yes, we eat meat."
+            explanation: "The group answers as a we: «comemos»."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y Ana y Sofía?", audioText: "¿y ana y sofía?", gloss: "And Ana and Sofía?" }
+            goal: "Say they eat pizza."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "ellas comen pizza" }
+                - { id: "wrong1", text: "ellas comemos pizza" }
+                - { id: "wrong2", text: "ellos come pizza" }
+              correctOptionId: "right"
+              audioText: "ellas comen pizza"
+            replyGloss: "They eat pizza."
+            explanation: "Two shes: «ellas», and the -n: «comen»."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿Tienen dinero?", audioText: "¿tienen dinero?", gloss: "Do you all have money?" }
+            goal: "Say yes, you all have money."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tenemos dinero" }
+                - { id: "wrong1", text: "sí, tienen dinero" }
+                - { id: "wrong2", text: "sí, tiene dinero" }
+              correctOptionId: "right"
+              audioText: "sí, tenemos dinero"
+            replyGloss: "Yes, we have money."
+            explanation: "«tienen» was Diego's word for you; you answer «tenemos»."
+

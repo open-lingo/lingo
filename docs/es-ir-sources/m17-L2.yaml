@@ -1,0 +1,168 @@
+  # ── L2 · «Me ducho» — ducharse / ducho / duchas / ducha. The claim: the
+  #    pointer and the ending are ONE choice — «me» goes with -o, «te» with
+  #    -as, «se» with -a — and it works on a second verb exactly as on the
+  #    first. Debut: l2-im-ducharse (imageMcq, first exposure).
+  #    NOT HERE: «se llama» (L3), lavarse (L4), the stem-changers (L5/L6).
+  - n: 2
+    template: free
+    title: "Me ducho"
+    description: "A second verb that points back at you. The pointer and the ending are one decision, not two — and now you make it twice."
+    steps:
+      - kind: map
+        id: l2-map-diegoseducha
+        tokens: ["Diego", "se", "ducha", "temprano"]
+        pairs:
+          - { en: "Diego", tokenIndex: 0 }
+          - { en: "himself", tokenIndex: 1 }
+          - { en: "showers", tokenIndex: 2 }
+          - { en: "early", tokenIndex: 3 }
+        audioText: "Diego se ducha temprano"
+        revealNote: "A new verb, and you can already read the shape: «se» in front, -a on the end, a he doing it. «ducharse» is to shower, and it points back at the person like «levantarse» does. Say it about yourself and both pieces change at once: «me ducho»."
+      - kind: imageMcq
+        id: l2-im-ducharse
+        target: { surface: "ducharse", meaningEn: "to shower", emoji: "🚿" }
+        distractors:
+          - { surface: "levantarse", emoji: "🧍" }
+          - { surface: "bailar", emoji: "💃" }
+          - { surface: "cantar", emoji: "🎤" }
+      - kind: speakLit
+        id: l2-sp-ducharse
+        es: "ducharse"
+        en: "to shower"
+        atoms: ["ducharse"]
+      - kind: buildLit
+        id: l2-b-meduchotemprano
+        also: ["temprano me ducho"]
+        es: "me ducho temprano"
+        en: "I shower early"
+        atoms: ["ducho", "temprano"]
+        tiles: ["se", "ducha"]
+      - kind: info
+        id: l2-info-tres
+        title: "Three pointers, three endings — one choice"
+        body: "«me ducho», «te duchas», «se ducha». Look at the pairs: «me» always travels with -o, «te» with -as, «se» with -a. They are not two decisions, they are one — pick the person and both pieces follow. That is why «se ducho» and «me duchas» are not Spanish: each one changes the person halfway through the sentence. And the order never moves: pointer first, then the verb. «Diego se ducha temprano» — the pointer sits between the name and the verb, exactly where «lo» sat in «Diego lo tiene»."
+      - kind: clozeLit
+        id: l2-c-teduchastarde
+        es: "tú te duchas tarde"
+        en: "You shower late"
+        blank: "duchas"
+        options: ["duchas", "ducho", "ducha"]
+        atoms: ["duchas", "tarde"]
+        why: "«te» is already in the sentence, so the ending has to be the one that travels with it: -as. «ducho» belongs with «me», «ducha» with «se»."
+      - kind: listenCompLit
+        id: l2-lc-anaselevantayseducha
+        es: "Ana se levanta y se ducha temprano"
+        en: "Ana gets up and showers early."
+        atoms: ["levanta", "ducha", "temprano"]
+        distractorsEn:
+          - "Ana gets up and showers late."
+          - "I get up and shower early."
+          - "Ana gets up and eats early."
+      - kind: buildLit
+        id: l2-b-teduchashoy
+        also: ["hoy te duchas"]
+        es: "te duchas hoy"
+        en: "You shower today"
+        atoms: ["duchas", "hoy"]
+        tiles: ["me", "ducho"]
+      - kind: mcq
+        id: l2-q-seduchatarde
+        prompt: "'She showers late.' Which one is the Spanish?"
+        correct: "se ducha tarde"
+        distractors: ["se ducho tarde", "me ducha tarde", "ducha se tarde"]
+        atoms: ["ducha", "tarde"]
+        why: "She — so «se», and the ending that travels with «se» is -a: «se ducha». «se ducho» and «me ducha» each break the pair; «ducha se» puts the pointer after the verb, where Spanish never puts it."
+      - kind: audioWimcq
+        id: l2-ear-ducharse
+        target: { surface: "ducharse", emoji: "🚿" }
+        distractors:
+          - { surface: "levantarse", emoji: "🧍" }
+          - { surface: "escuchar", emoji: "👂" }
+      # Printed non-recall at m14 (no puedo dormir temprano).
+      - kind: speakLit
+        id: l2-sp-recall-nopuedodormir
+        es: "no puedo dormir temprano"
+        en: "I can't sleep early"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l2-agr-yotu
+        en: "I shower and you shower"
+        audioText: "me ducho y tú te duchas"
+        atoms: ["ducho", "duchas"]
+        segments:
+          - { blank: { id: "p1", answer: "me", options: ["me", "se"] } }
+          - { text: " ducho y tú " }
+          - { blank: { id: "p2", answer: "te", options: ["te", "se"] } }
+          - { text: " duchas" }
+      - kind: listenBuildLit
+        id: l2-lb-diegoseduchatarde
+        es: "Diego se ducha tarde"
+        en: "Diego showers late"
+        atoms: ["ducha", "tarde"]
+        tiles: ["me", "ducho"]
+      - kind: textMcq
+        id: l2-tm-ducha
+        target: "ducha"
+        distractors: ["ducho", "duchas", "ducharse"]
+      - kind: speakLit
+        id: l2-sp-melevantoymeducho
+        es: "me levanto y me ducho"
+        en: "I get up and I shower"
+        atoms: ["levanto", "ducho"]
+      - kind: sim
+        id: l2-sim-diego-manana
+        scene: { emoji: "🚿", title: "Diego compares mornings", setting: "Diego is convinced nobody in the house gets up as early as he does." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "Sam, ¿te duchas temprano?", audioText: "sam, ¿te duchas temprano?", gloss: "Sam, do you shower early?" }
+            goal: "Say yes — you shower early."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me ducho temprano" }
+                - { id: "wrong1", text: "sí, me duchas temprano" }
+                - { id: "wrong2", text: "sí, se ducho temprano" }
+              correctOptionId: "right"
+              audioText: "sí, me ducho temprano"
+            replyGloss: "Yes, I shower early."
+            explanation: "About yourself: «me» and -o together. The two wrong ones each change the person halfway through."
+          - id: t2
+            npc: { speaker: "Diego", es: "Ana se ducha tarde.", audioText: "ana se ducha tarde", gloss: "Ana showers late." }
+            goal: "Say you shower early."
+            reply:
+              mode: build
+              tiles: ["me", "ducho", "temprano", "se", "ducha"]
+              answer: "me ducho temprano"
+              alsoAccepted: ["temprano me ducho"]
+            replyGloss: "I shower early."
+            explanation: "Diego talked about Ana with «se ducha»; you talk about yourself with «me ducho». The bank also holds Ana's pair — leave it there."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿Y te levantas temprano también?", audioText: "¿y te levantas temprano también?", gloss: "And do you get up early too?" }
+            goal: "Say yes — you get up early too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me levanto temprano también" }
+                - { id: "wrong1", text: "sí, se levanta temprano también" }
+                - { id: "wrong2", text: "sí, levanto temprano también" }
+              correctOptionId: "right"
+              audioText: "sí, me levanto temprano también"
+            replyGloss: "Yes, I get up early too."
+            explanation: "Last lesson's verb, this lesson's rule: «me» with -o. «se levanta» would be about somebody else; bare «levanto» lifts things."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "ducharse", target: "to shower" }
+          - { source: "me ducho", target: "I shower" }
+          - { source: "te duchas", target: "you shower" }
+          - { source: "se ducha", target: "he or she showers" }
+          - { source: "me levanto", target: "I get up" }
+          - { source: "temprano", target: "early" }
+          - { source: "hoy", target: "today" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "me ducho temprano, pero Diego se ducha tarde"
+        en: "I shower early, but Diego showers late"
+        atoms: ["ducho", "temprano", "ducha", "tarde"]
+

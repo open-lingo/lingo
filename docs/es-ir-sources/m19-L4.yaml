@@ -1,0 +1,166 @@
+  # ── L4 · «Viví, salí» — viví, vivió, salí, saliste, salió, «la semana
+  #    pasada». -ir borrows the -er table wholesale. «vivir» registers yo /
+  #    él; «salir» all three (its tú cell carries the questions).
+  #    ⚠️ «viviste» is NOT registered and is never printed.
+  - n: 4
+    template: free
+    title: "Viví, salí"
+    description: "-ir verbs borrow the -er table wholesale, so there is nothing new to learn — just two verbs to run it on, and a way to say 'last week'."
+    steps:
+      - kind: map
+        id: l4-map-lasemanapasadasali
+        tokens: ["la", "semana", "pasada", "salí", "con", "Ana"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "week", tokenIndex: 1 }
+          - { en: "past", tokenIndex: 2 }
+          - { en: "I went out", tokenIndex: 3 }
+          - { en: "with", tokenIndex: 4 }
+          - { en: "Ana", tokenIndex: 5 }
+        audioText: "la semana pasada salí con Ana"
+        revealNote: "«la semana pasada» — the week that passed: last week. «salí» — I went out, from «salir». An -ir verb, and it takes exactly the endings «comer» took: -í, -iste, -ió."
+        tokenGenders: { 0: "f", 1: "f", 2: "f" }
+      - kind: info
+        id: l4-info-ir
+        title: "-ir borrows the -er table"
+        body: "«vivir», «salir», «escribir» — every -ir verb takes the endings you learned for «comer»: «viví», I lived; «vivió», he or she lived; «salí», I went out; «saliste», you went out; «salió», he or she went out. Nothing new to memorise. And a third time marker: «la semana pasada», last week — «la semana pasada salí con Ana»."
+      - kind: speakLit
+        id: l4-sp-sali
+        es: "la semana pasada salí con Ana"
+        en: "Last week I went out with Ana"
+        atoms: ["la semana pasada", "salí"]
+      - kind: buildLit
+        id: l4-b-diegosalioanoche
+        es: "Diego salió anoche"
+        en: "Diego went out last night"
+        atoms: ["salió", "anoche"]
+        tiles: ["salí", "sale"]
+      - kind: speakLit
+        id: l4-sp-vivi
+        es: "viví en México"
+        en: "I lived in Mexico"
+        atoms: ["viví", "México"]
+      - kind: clozeLit
+        id: l4-c-miabuelavivio
+        es: "mi abuela vivió en España"
+        en: "My grandmother lived in Spain"
+        blank: "vivió"
+        options: ["vivió", "viví", "vive"]
+        atoms: ["abuela", "vivió", "España"]
+        why: "Your grandmother, in the past: «vivió». «viví» is I; «vive» is now."
+      - kind: listenCompLit
+        id: l4-lc-salistelasemanapasada
+        es: "¿saliste la semana pasada?"
+        en: "Did you go out last week?"
+        atoms: ["saliste", "la semana pasada"]
+        distractorsEn:
+          - "Did you go out last night?"
+          - "Did she go out last week?"
+          - "Do you go out every week?"
+      - kind: buildLit
+        id: l4-b-saliconmisamigos
+        also: ["la semana pasada salí con mis amigos"]
+        es: "salí con mis amigos la semana pasada"
+        en: "I went out with my friends last week"
+        atoms: ["salí", "amigo", "la semana pasada"]
+        tiles: ["salió", "salgo"]
+      - kind: mcq
+        id: l4-q-salio
+        prompt: "Which one means 'he went out'?"
+        correct: "él salió"
+        distractors: ["él sale", "él salí", "él saliste"]
+        atoms: ["salió"]
+        why: "«salió» — past, he or she. «sale» is now; «salí» is I; «saliste» is you."
+      - kind: audioWimcq
+        id: l4-ear-parque
+        target: { surface: "el parque", emoji: "🌳" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "la playa", emoji: "🏖️" }
+      # Printed non-recall at m18 (es-m18-6-l6-sp-win).
+      - kind: speakLit
+        id: l4-sp-recall-hoyvamosalcine
+        es: "hoy vamos al cine juntos"
+        en: "Today we go to the cinema together"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l4-agr-saliysalio
+        en: "I went out with Ana and Ana went out with Diego"
+        audioText: "salí con Ana y Ana salió con Diego"
+        atoms: ["salí", "salió"]
+        segments:
+          - { blank: { id: "p1", answer: "salí", options: ["salí", "salió"] } }
+          - { text: " con Ana y Ana " }
+          - { blank: { id: "p2", answer: "salió", options: ["salió", "salí"] } }
+          - { text: " con Diego" }
+      - kind: listenBuildLit
+        id: l4-lb-vivienespana
+        es: "viví en España con mi abuela"
+        en: "I lived in Spain with my grandmother"
+        atoms: ["viví", "España", "abuela"]
+        tiles: ["vivió", "vivo"]
+      - kind: textMcq
+        id: l4-tm-salio
+        target: "salió"
+        distractors: ["sale", "salí", "saliste"]
+      - kind: speakLit
+        id: l4-sp-saliycomi
+        es: "la semana pasada salí y comí pizza"
+        en: "Last week I went out and ate pizza"
+        atoms: ["la semana pasada", "salí", "comí", "pizza"]
+      - kind: sim
+        id: l4-sim-diego-sabado
+        scene: { emoji: "🌳", title: "Diego wants the weekend news", setting: "Diego stayed home on Saturday and wants to know who went where." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Saliste el sábado?", audioText: "¿saliste el sábado?", gloss: "Did you go out on Saturday?" }
+            goal: "Say yes, you went out with Ana."
+            reply:
+              mode: build
+              tiles: ["sí", "salí", "con", "Ana", "salió", "salgo"]
+              answer: "sí salí con Ana"
+            replyGloss: "Yes, I went out with Ana."
+            explanation: "Diego asked with «saliste»; you answer «salí». «salgo» is now; «salió» is somebody else."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y Sofía salió también?", audioText: "¿y sofía salió también?", gloss: "And did Sofía go out too?" }
+            goal: "Say yes, she went out with you two."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, salió con nosotros" }
+                - { id: "wrong1", text: "sí, salí con nosotros" }
+                - { id: "wrong2", text: "sí, sale con nosotros" }
+              correctOptionId: "right"
+              audioText: "sí, salió con nosotros"
+            replyGloss: "Yes, she went out with us."
+            explanation: "Sofía, on Saturday: «salió». «salí» is you; «sale» is now."
+          - id: t3
+            npc: { speaker: "Diego", es: "Yo viví en España. ¿Y tú?", audioText: "yo viví en españa. ¿y tú?", gloss: "I lived in Spain. And you?" }
+            goal: "Say you lived in Mexico."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "viví en México" }
+                - { id: "wrong1", text: "vivió en México" }
+                - { id: "wrong2", text: "vivo en México" }
+              correctOptionId: "right"
+              audioText: "viví en México"
+            replyGloss: "I lived in Mexico."
+            explanation: "About yourself, in the past: «viví». «vivo» is now; «vivió» is somebody else."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "la semana pasada", target: "last week" }
+          - { source: "salí", target: "I went out" }
+          - { source: "saliste", target: "you went out" }
+          - { source: "salió", target: "he or she went out" }
+          - { source: "viví", target: "I lived" }
+          - { source: "vivió", target: "he or she lived" }
+          - { source: "comí", target: "I ate" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "la semana pasada salí con Ana y comí en el restaurante"
+        en: "Last week I went out with Ana and ate at the restaurant"
+        atoms: ["la semana pasada", "salí", "comí", "restaurante"]
+

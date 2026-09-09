@@ -1,0 +1,177 @@
+  # ── L1 · «Me levanto» — «se» debuts (info card → printed speakLit), then
+  #    levantarse / levanto / levantas / levanta. The map previews the
+  #    sentence (maps bill nothing); the imageMcq is the true first
+  #    exposure of «levantarse» (inv 44). «se» is a REGISTERED particle
+  #    atom, so inv 33 holds its debut order by machine: the card names it,
+  #    the speakLit «Ana se levanta temprano» is the first billed use.
+  #    NOT HERE: ducharse (L2), «se llama» (L3), any other m17 verb.
+  #    Selection runs peak at 2; one card; cloze share 1/18.
+  - n: 1
+    template: free
+    title: "Me levanto"
+    description: "Some verbs carry a small word that points back at the person doing them. You already own two of the three pointers — this lesson hands you the third."
+    steps:
+      - kind: map
+        id: l1-map-melevanto
+        tokens: ["me", "levanto", "temprano"]
+        pairs:
+          - { en: "myself", tokenIndex: 0 }
+          - { en: "I get up", tokenIndex: 1 }
+          - { en: "early", tokenIndex: 2 }
+        audioText: "me levanto temprano"
+        revealNote: "«levanto» on its own means I lift — a box, a hand. Put «me» in front and the lifting points back at you: you lift yourself, you get up. That little «me» is the one from «me gusta» and «me llamo», doing a job you have not seen it do yet. Watch where it sits: in front of the verb, exactly where «lo» sat last module."
+      - kind: imageMcq
+        id: l1-im-levantarse
+        target: { surface: "levantarse", meaningEn: "to get up", emoji: "🧍" }
+        distractors:
+          - { surface: "bailar", emoji: "💃" }
+          - { surface: "cantar", emoji: "🎤" }
+          - { surface: "escuchar", emoji: "👂" }
+      - kind: speakLit
+        id: l1-sp-levantarse
+        es: "levantarse"
+        en: "to get up"
+        atoms: ["levantarse"]
+      - kind: buildLit
+        id: l1-b-melevantotemprano
+        also: ["temprano me levanto"]
+        es: "me levanto temprano"
+        en: "I get up early"
+        atoms: ["levanto", "temprano"]
+        tiles: ["se", "levanta"]
+      # The lesson's one card, and the debut of «se».
+      - kind: info
+        id: l1-info-se
+        title: "The verb that points back at you"
+        body: "«me levanto» — I get up. The «me» is a pointer: it says the getting-up lands on the same person who does it. You have used it since «me llamo». Now the rule the whole module runs on: the pointer changes with the person, and it always matches the ending. «me levanto» — I; «te levantas» — you; and for he or she, a word you have not met: «se». «Ana se levanta» — Ana gets up. Three pointers, three endings, always in front of the verb: «me» with -o, «te» with -as, «se» with -a. Mix them and it is not Spanish: «se levanto» says nothing."
+      # THE FIRST CONTACT with «se» — printed, spoken, intro-capable.
+      - kind: speakLit
+        id: l1-sp-anaselevanta
+        es: "Ana se levanta temprano"
+        en: "Ana gets up early"
+        atoms: ["levanta", "temprano"]
+      - kind: clozeLit
+        id: l1-c-selevantatarde
+        es: "Diego se levanta tarde"
+        en: "Diego gets up late"
+        blank: "se"
+        options: ["se", "me", "te"]
+        atoms: ["levanta", "tarde"]
+        why: "Diego is the one getting up, and Diego is a he — so the pointer is «se», matching the -a on «levanta». «me» would make it you; «te» would make it the person you are talking to."
+      - kind: listenCompLit
+        id: l1-lc-televantasmuytemprano
+        es: "te levantas muy temprano"
+        en: "You get up very early."
+        atoms: ["levantas", "temprano"]
+        distractorsEn:
+          - "I get up very early."
+          - "You get up very late."
+          - "She gets up very early."
+      - kind: buildLit
+        id: l1-b-televantastardehoy
+        also: ["hoy te levantas tarde"]
+        es: "te levantas tarde hoy"
+        en: "You get up late today"
+        atoms: ["levantas", "tarde", "hoy"]
+        tiles: ["me", "levanto"]
+      # THE PLACEMENT BEAT. «levanto me» is English order; «se levanto» is a
+      # mismatched pointer; bare «levanto» is lifting something. All three
+      # live in distractor slots, which esSurfaces never reads.
+      - kind: mcq
+        id: l1-q-melevanto
+        prompt: "'I get up.' Which one is the Spanish?"
+        correct: "me levanto"
+        distractors: ["levanto me", "se levanto", "levanto"]
+        atoms: ["levanto"]
+        why: "«me levanto». The pointer goes in FRONT of the verb, and it matches the -o: «me». «se levanto» pairs a he-or-she pointer with an I ending. Bare «levanto» is lifting something else."
+      - kind: audioWimcq
+        id: l1-ear-levantarse
+        target: { surface: "levantarse", emoji: "🧍" }
+        distractors:
+          - { surface: "bailar", emoji: "💃" }
+          - { surface: "cantar", emoji: "🎤" }
+      # Printed non-recall at m14 (duermo tarde).
+      - kind: speakLit
+        id: l1-sp-recall-duermotarde
+        es: "duermo tarde"
+        en: "I sleep late"
+        atoms: []
+        cue: recall
+      # Both pointers live in one sentence (§13.9 law 4): the person is
+      # printed next to each blank, so the choice is honest.
+      - kind: agreementLit
+        id: l1-agr-yoana
+        en: "I get up early and Ana gets up late"
+        audioText: "me levanto temprano y Ana se levanta tarde"
+        atoms: ["levanto", "temprano", "levanta", "tarde"]
+        segments:
+          - { blank: { id: "p1", answer: "me", options: ["me", "se"] } }
+          - { text: " levanto temprano y Ana " }
+          - { blank: { id: "p2", answer: "se", options: ["se", "me"] } }
+          - { text: " levanta tarde" }
+      - kind: listenBuildLit
+        id: l1-lb-melevantotarde
+        es: "me levanto tarde"
+        en: "I get up late"
+        atoms: ["levanto", "tarde"]
+        tiles: ["te", "levantas"]
+      - kind: textMcq
+        id: l1-tm-levanto
+        target: "levanto"
+        distractors: ["levantas", "levanta", "levantarse"]
+      - kind: sim
+        id: l1-sim-ana-sabado
+        scene: { emoji: "🌅", title: "Ana on a Saturday morning", setting: "Ana has called early, and she wants to know whether you are up." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Te levantas temprano?", audioText: "¿te levantas temprano?", gloss: "Do you get up early?" }
+            goal: "Say yes — you get up early."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me levanto temprano" }
+                - { id: "wrong1", text: "sí, te levanto temprano" }
+                - { id: "wrong2", text: "sí, levanto temprano" }
+              correctOptionId: "right"
+              audioText: "sí, me levanto temprano"
+            replyGloss: "Yes, I get up early."
+            explanation: "Ana asked with «te levantas»; you answer about yourself, so the pointer flips to «me» and the ending to -o. Bare «levanto» lifts something, it does not get up."
+          - id: t2
+            npc: { speaker: "Ana", es: "Diego se levanta tarde.", audioText: "diego se levanta tarde", gloss: "Diego gets up late." }
+            goal: "Say you get up late too."
+            reply:
+              mode: build
+              tiles: ["me", "levanto", "tarde", "también", "se", "levanta"]
+              answer: "me levanto tarde también"
+              alsoAccepted: ["también me levanto tarde"]
+            replyGloss: "I get up late too."
+            explanation: "Ana said it about Diego with «se levanta»; you say it about yourself with «me levanto». Same verb, the pointer and the ending move together."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y hoy?", audioText: "¿y hoy?", gloss: "And today?" }
+            goal: "Say today you get up late."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hoy me levanto tarde" }
+                - { id: "wrong1", text: "hoy se levanto tarde" }
+                - { id: "wrong2", text: "hoy levanto tarde" }
+              correctOptionId: "right"
+              audioText: "hoy me levanto tarde"
+            replyGloss: "Today I get up late."
+            explanation: "«hoy» can sit up front; the pointer still goes right before the verb. «se levanto» mixes a he-or-she pointer with an I ending — never."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "levantarse", target: "to get up" }
+          - { source: "me levanto", target: "I get up" }
+          - { source: "te levantas", target: "you get up" }
+          - { source: "se levanta", target: "he or she gets up" }
+          - { source: "se", target: "the pointer for he or she" }
+          - { source: "temprano", target: "early" }
+          - { source: "tarde", target: "late" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "me levanto temprano, pero Ana se levanta tarde"
+        en: "I get up early, but Ana gets up late"
+        atoms: ["levanto", "temprano", "levanta", "tarde"]
+

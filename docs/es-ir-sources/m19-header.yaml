@@ -1,0 +1,100 @@
+module: m19
+title: "Ayer hablé — the past, regular"
+frame: none
+throughModule: m18
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m19 — the regular preterite. THE FIRST A2 MODULE.
+#
+#     -ar: hablé      hablaste     habló        -er/-ir: comí     comiste    comió
+#          compré     compraste    compró                viví     —          vivió
+#          trabajé    —            trabajó               salí     saliste    salió
+#          estudié    —            estudió               escribí  —          escribió
+#
+# ONE machine, the whole module: a finished action gets a new set of
+# endings on the same stem the learner has used since m10. -ar takes
+# -é / -aste / -ó; -er and -ir share one table, -í / -iste / -ió. The
+# STRESS moves to the ending, and the written accent on «hablé» / «habló»
+# / «comí» / «comió» is not decoration: it is the only thing that keeps
+# «hablo» (I speak, now) apart from «habló» (he spoke). L5 is that
+# minimal pair and nothing else.
+#
+# ── PERSONS ──────────────────────────────────────────────────────────────
+# yo / tú / él-ella only, as the whole course has done for every new form.
+# The plural preterite (-amos / -aron / -imos / -ieron) is NOT taught here
+# and is banned in every answer position — «hablamos» is deliberately
+# ambiguous between present and preterite and m18 just spent it as a
+# present. m20 may open the plural past.
+#
+# ── ONLY REGULAR VERBS ───────────────────────────────────────────────────
+# ser / ir / tener / estar / hacer / ver / venir have irregular preterites;
+# they are m20's and are banned here in every slot, even unbilled ones:
+# no «fui», «hice», «tuve», «estuve», «vi», «vine», not even in an NPC line.
+# NPCs ask with «¿y tú?», «¿y ayer?», «¿compraste …?» — regular verbs only.
+#
+# ── PIN E12: EVERY CELL COMES FROM conjugationTables.ts ───────────────────
+# hablar / comer / vivir were seeded with their preterite; trabajar /
+# estudiar / comprar / escribir / salir were ADDED to ES_VERB_ENTRIES on
+# 2026-09-09 for this module. m19.test.ts derives the legal preterite
+# surfaces from that file and fails on any form the table does not carry.
+# The bar guard deliberately does NOT expand preterite cells into PRIOR, so
+# each registered form is a real debut (intro-capable step).
+#
+# ── TIME MARKERS ─────────────────────────────────────────────────────────
+# «ayer» (L1), «anoche» (L3), «la semana pasada» (L4), «el fin de semana»
+# (L6). Each is a phrase / adverb atom; «pasada» and «fin» are owned by
+# their phrases at word level. «hoy» / «mañana» / «todos los días» stay
+# PRESENT markers and are never put in a preterite sentence, so the
+# contrast on L5 is honest: marker + accent decide the tense together.
+#
+# ── GLOSSES (pin E7) ─────────────────────────────────────────────────────
+# Preterite glosses as English simple past — "I spoke", "she bought" —
+# never "have spoken", never "was speaking" (that is the imperfect, not
+# taught). Present stays simple present.
+#
+# ── hacer / tener RULING (B112) ──────────────────────────────────────────
+# hago / haces / hace and tengo / tienes / tiene / tenemos / tienen are the
+# only forms of those verbs that may appear, and only in the PRESENT.
+#
+# ── TRANSFER CELL (L8 only): «cociné» ────────────────────────────────────
+# «cocinar» (m13) handed over cold as "I cooked — cocinar"; a buildLit whose
+# bank holds «cocinar» and «comí» as foils (both registered — «cocino» is
+# not an atom and may not be a tile). Appears in exactly one step.
+#
+# ── EMOJI ────────────────────────────────────────────────────────────────
+# None new. Every audioWimcq targets a prior noun.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # time markers
+  - { surface: "ayer", meaningEn: "yesterday", partOfSpeech: "adverb", kind: "vocab", hint: "a-YER" }
+  - { surface: "anoche", meaningEn: "last night", partOfSpeech: "adverb", kind: "vocab", hint: "a-NO-cheh — «noche» with an a in front" }
+  - { surface: "la semana pasada", meaningEn: "last week", partOfSpeech: "phrase", kind: "phrase", hint: "pa-SA-da — the week that passed" }
+  - { surface: "el fin de semana", meaningEn: "the weekend", partOfSpeech: "phrase", kind: "phrase", hint: "feen — the end of the week" }
+  # -ar preterite: hablar (all three), comprar (all three), trabajar, estudiar (yo / él)
+  - { surface: "hablé", meaningEn: "I spoke", partOfSpeech: "verb", kind: "vocab", hint: "the accent puts the stress on the end: ha-BLEH" }
+  - { surface: "hablaste", meaningEn: "you spoke", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "habló", meaningEn: "he/she spoke", partOfSpeech: "verb", kind: "vocab", hint: "ha-BLO — not «hablo» (I speak)" }
+  - { surface: "compré", meaningEn: "I bought", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "compraste", meaningEn: "you bought", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "compró", meaningEn: "he/she bought", partOfSpeech: "verb", kind: "vocab", hint: "com-PRO — not «compro» (I buy)" }
+  - { surface: "trabajé", meaningEn: "I worked", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "trabajaste", meaningEn: "you worked", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "trabajó", meaningEn: "he/she worked", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "estudié", meaningEn: "I studied", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "estudió", meaningEn: "he/she studied", partOfSpeech: "verb", kind: "vocab" }
+  # -er / -ir preterite (one shared table): comer (all three), vivir, salir, escribir
+  - { surface: "comí", meaningEn: "I ate", partOfSpeech: "verb", kind: "vocab", hint: "co-MEE" }
+  - { surface: "comiste", meaningEn: "you ate", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "comió", meaningEn: "he/she ate", partOfSpeech: "verb", kind: "vocab", hint: "co-MYO" }
+  - { surface: "viví", meaningEn: "I lived", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "vivió", meaningEn: "he/she lived", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "salí", meaningEn: "I went out", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "saliste", meaningEn: "you went out", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "salió", meaningEn: "he/she went out", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "escribí", meaningEn: "I wrote", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "escribió", meaningEn: "he/she wrote", partOfSpeech: "verb", kind: "vocab" }
+  # ── TRANSFER CELL (L8 only) — glossed in the prompt, met cold.
+  - { surface: "cociné", meaningEn: "I cooked", partOfSpeech: "verb", kind: "vocab" }
+
+lessons:

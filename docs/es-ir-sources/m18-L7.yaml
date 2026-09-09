@@ -1,0 +1,163 @@
+  # ── L7 · «Estamos, están» — estamos, están. estar's plural: where a
+  #    group is and how it is, and the ser/estar line drawn again in the
+  #    plural («somos estudiantes» / «estamos en la escuela»). Both debut
+  #    on the card, cashed on the speakLit after. «están» closes the second
+  #    function-word hole («son» was L3).
+  #    ⚠️ «estoy» is NOT registered and is never printed in a billed slot;
+  #    «estás» is owned by m2's «¿cómo estás?» at word level.
+  - n: 7
+    template: free
+    title: "Estamos, están"
+    description: "Where the group is, and how the group is doing. The last two forms of the table — and the line between «ser» and «estar», drawn one more time."
+    steps:
+      - kind: map
+        id: l7-map-estamosencasa
+        tokens: ["nosotros", "estamos", "en", "casa"]
+        pairs:
+          - { en: "we", tokenIndex: 0 }
+          - { en: "are (located)", tokenIndex: 1 }
+          - { en: "at", tokenIndex: 2 }
+          - { en: "home", tokenIndex: 3 }
+        audioText: "nosotros estamos en casa"
+        revealNote: "«está en casa» — she is at home, module four. For we: «estamos». -mos again, on the -a- of «estar». This is the where-and-how verb, not the what-you-are verb: «somos estudiantes», but «estamos en casa»."
+      - kind: info
+        id: l7-info-estamos
+        title: "«estar» in the plural — where, and how"
+        body: "«está» — he or she is, somewhere or somehow. The plural: «estamos», we are; «están», they are, you all are. Where: «estamos en el parque» — we are at the park; «ellos están en casa» — they are at home. How: «¿cómo están?» — how are you all?; «estamos bien» — we are well. And the line you drew in module seven holds: «somos estudiantes» says what we are, «estamos en la escuela» says where we are. Same we, two different verbs."
+      - kind: speakLit
+        id: l7-sp-estamosencasa
+        es: "estamos en casa"
+        en: "We are at home"
+        atoms: ["estamos", "casa"]
+      - kind: buildLit
+        id: l7-b-ellosestanenelparque
+        es: "ellos están en el parque"
+        en: "They are at the park"
+        atoms: ["ellos", "están", "parque"]
+        tiles: ["estamos", "está"]
+      - kind: clozeLit
+        id: l7-c-ustedesestanaqui
+        es: "ustedes están aquí"
+        en: "You all are here"
+        blank: "están"
+        options: ["están", "estamos", "está"]
+        atoms: ["ustedes", "están", "aquí"]
+        why: "«ustedes» takes the -n: «están». «estamos» is we, «está» is one person."
+      - kind: listenCompLit
+        id: l7-lc-comoestanustedes
+        es: "¿cómo están ustedes?"
+        en: "How are you all?"
+        atoms: ["están", "ustedes"]
+        distractorsEn:
+          - "How are you?"
+          - "Where are you all?"
+          - "How are they?"
+      - kind: buildLit
+        id: l7-b-estamosmuybienhoy
+        also: ["hoy estamos muy bien"]
+        es: "estamos muy bien hoy"
+        en: "We are very well today"
+        atoms: ["estamos", "bien", "hoy"]
+        tiles: ["están", "somos"]
+      - kind: mcq
+        id: l7-q-estamos
+        prompt: "Which one means 'we are' — where, or how?"
+        correct: "estamos"
+        distractors: ["somos", "están", "está"]
+        atoms: ["estamos"]
+        why: "Where or how is «estar»: «estamos». «somos» is what we are; «están» is they; «está» is one person."
+      - kind: audioWimcq
+        id: l7-ear-parque
+        target: { surface: "el parque", emoji: "🌳" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "la casa", emoji: "🏠" }
+      # Printed non-recall at m5 (tengo un perro y un gato).
+      - kind: speakLit
+        id: l7-sp-recall-tengounperro
+        es: "tengo un perro y un gato"
+        en: "I have a dog and a cat"
+        atoms: []
+        cue: recall
+      # ser / estar with both halves live (§13.9 law 4).
+      - kind: agreementLit
+        id: l7-agr-somosestamos
+        en: "We are students and we are at school"
+        audioText: "somos estudiantes y estamos en la escuela"
+        atoms: ["somos", "estudiante", "estamos", "escuela"]
+        segments:
+          - { blank: { id: "p1", answer: "somos", options: ["somos", "estamos"] } }
+          - { text: " estudiantes y " }
+          - { blank: { id: "p2", answer: "estamos", options: ["estamos", "somos"] } }
+          - { text: " en la escuela" }
+      - kind: listenBuildLit
+        id: l7-lb-misamigosestanenelrestaurante
+        es: "mis amigos están en el restaurante"
+        en: "My friends are at the restaurant"
+        atoms: ["están", "restaurante"]
+        tiles: ["estamos", "está"]
+      - kind: textMcq
+        id: l7-tm-estan
+        target: "están"
+        distractors: ["estamos", "está", "son"]
+      - kind: speakLit
+        id: l7-sp-estamosyestan
+        es: "estamos en el cine y ellos están en casa"
+        en: "We are at the cinema and they are at home"
+        atoms: ["estamos", "cine", "ellos", "están", "casa"]
+      - kind: sim
+        id: l7-sim-carmen-llama
+        scene: { emoji: "📱", title: "Carmen calls to check on everyone", setting: "Your grandmother Carmen wants to know where all of you are and whether you are all right." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Cómo están?", audioText: "¿cómo están?", gloss: "How are you all?" }
+            goal: "Say you are all very well."
+            reply:
+              mode: build
+              tiles: ["estamos", "muy", "bien", "están", "somos"]
+              answer: "estamos muy bien"
+              alsoAccepted: ["estamos bien"]
+            replyGloss: "We are very well."
+            explanation: "Carmen asked the group with «están»; the group answers «estamos». «somos» would say what you are, not how."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Y dónde están?", audioText: "¿y dónde están?", gloss: "And where are you?" }
+            goal: "Say you are at the restaurant."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "estamos en el restaurante" }
+                - { id: "wrong1", text: "están en el restaurante" }
+                - { id: "wrong2", text: "somos en el restaurante" }
+              correctOptionId: "right"
+              audioText: "estamos en el restaurante"
+            replyGloss: "We are at the restaurant."
+            explanation: "Where you are: «estamos». «están» is Carmen's word for you; «somos» is the wrong verb for a place."
+          - id: t3
+            npc: { speaker: "Carmen", es: "¿Y Ana y Diego?", audioText: "¿y ana y diego?", gloss: "And Ana and Diego?" }
+            goal: "Say they are at home."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "están en casa" }
+                - { id: "wrong1", text: "estamos en casa" }
+                - { id: "wrong2", text: "son en casa" }
+              correctOptionId: "right"
+              audioText: "están en casa"
+            replyGloss: "They are at home."
+            explanation: "Ana and Diego are a they: «están». «estamos» would put you at home too; «son» cannot say where."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "estamos", target: "we are (where, how)" }
+          - { source: "están", target: "they are, you all are (where, how)" }
+          - { source: "somos", target: "we are (what)" }
+          - { source: "estamos bien", target: "we are well" }
+          - { source: "están en casa", target: "they are at home" }
+          - { source: "¿cómo están?", target: "how are you all?" }
+          - { source: "el parque", target: "the park" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "estamos bien y estamos juntos"
+        en: "We are well and we are together"
+        atoms: ["estamos", "bien", "juntos"]
+

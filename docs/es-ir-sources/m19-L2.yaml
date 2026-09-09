@@ -1,0 +1,165 @@
+  # ── L2 · «Compré, trabajé» — compré, compraste, compró, trabajé,
+  #    trabajaste, trabajó. The same -ar machine on two more verbs, and
+  #    the second minimal pair: «compro» (now) vs «compró» (then).
+  #    ⚠️ NO -er / -ir preterite (L3+). NO «anoche» (L3).
+  - n: 2
+    template: free
+    title: "Compré, trabajé"
+    description: "Same endings, two more verbs — buying and working, yesterday. And the accent keeps doing its job: «compro» is now, «compró» is then."
+    steps:
+      - kind: map
+        id: l2-map-comprelacamisa
+        tokens: ["ayer", "compré", "la", "camisa"]
+        pairs:
+          - { en: "yesterday", tokenIndex: 0 }
+          - { en: "I bought", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "shirt", tokenIndex: 3 }
+        audioText: "ayer compré la camisa"
+        revealNote: "«compro» is I buy, from module sixteen. «compré» — accent, stress on the end — is I bought. Every -ar verb takes the endings «hablar» showed you: -é, -aste, -ó."
+        tokenGenders: { 2: "f", 3: "f" }
+      - kind: speakLit
+        id: l2-sp-compre
+        es: "ayer compré la camisa"
+        en: "Yesterday I bought the shirt"
+        atoms: ["ayer", "compré", "camisa"]
+      - kind: buildLit
+        id: l2-b-diegocomprounregalo
+        es: "Diego compró un regalo ayer"
+        en: "Diego bought a gift yesterday"
+        atoms: ["compró", "regalo", "ayer"]
+        tiles: ["compro", "compré"]
+      - kind: info
+        id: l2-info-mismamaquina
+        title: "One machine, every -ar verb"
+        body: "What «hablar» did, every -ar verb does. «comprar»: «compré», I bought; «compraste», you bought; «compró», he or she bought. «trabajar»: «trabajé», I worked; «trabajaste», you worked; «trabajó», he or she worked. The accent is still the whole story: «compro» is I buy, now; «compró» is he bought, then. Say them out loud and put the weight where the accent is."
+      - kind: speakLit
+        id: l2-sp-trabaje
+        es: "trabajé mucho ayer"
+        en: "I worked a lot yesterday"
+        atoms: ["trabajé", "mucho", "ayer"]
+      - kind: clozeLit
+        id: l2-c-anatrabajo
+        es: "Ana trabajó el sábado"
+        en: "Ana worked on Saturday"
+        blank: "trabajó"
+        options: ["trabajó", "trabajé", "trabajaste"]
+        atoms: ["trabajó", "sábado"]
+        why: "Ana did the working, so «trabajó» — the he-or-she ending, stress on the o."
+      - kind: listenCompLit
+        id: l2-lc-compraste
+        es: "¿compraste el regalo ayer?"
+        en: "Did you buy the gift yesterday?"
+        atoms: ["compraste", "regalo", "ayer"]
+        distractorsEn:
+          - "Did you buy the gift today?"
+          - "Did she buy the gift yesterday?"
+          - "Did you buy the shirt yesterday?"
+      - kind: buildLit
+        id: l2-b-trabajastemuchoayer
+        also: ["ayer trabajaste mucho"]
+        es: "trabajaste mucho ayer"
+        en: "You worked a lot yesterday"
+        atoms: ["trabajaste", "mucho", "ayer"]
+        tiles: ["trabajé", "trabajas"]
+      - kind: mcq
+        id: l2-q-compro
+        prompt: "Which one means 'he bought'?"
+        correct: "él compró"
+        distractors: ["él compro", "él compré", "él compra"]
+        atoms: ["compró"]
+        why: "«compró» — the accent moves the stress to the end: past. «compro» is I buy; «compra» is he buys, now."
+      - kind: audioWimcq
+        id: l2-ear-camisa
+        target: { surface: "la camisa", emoji: "👕" }
+        distractors:
+          - { surface: "la falda", emoji: "👗" }
+          - { surface: "el zapato", emoji: "👟" }
+      # Printed non-recall at m16 (es-m16-3: tengo el mensaje, pero el regalo, lo necesito hoy).
+      - kind: speakLit
+        id: l2-sp-recall-tengoelmensaje
+        es: "tengo el mensaje, pero el regalo, lo necesito hoy"
+        en: "I have the message, but the gift — I need it today"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l2-agr-compreycompro
+        en: "I bought the shirt and Ana bought the skirt"
+        audioText: "compré la camisa y Ana compró la falda"
+        atoms: ["compré", "camisa", "compró", "falda"]
+        segments:
+          - { blank: { id: "p1", answer: "compré", options: ["compré", "compró"] } }
+          - { text: " la camisa y Ana " }
+          - { blank: { id: "p2", answer: "compró", options: ["compró", "compré"] } }
+          - { text: " la falda" }
+      - kind: listenBuildLit
+        id: l2-lb-trabajeenlatienda
+        es: "ayer trabajé en la tienda"
+        en: "Yesterday I worked at the shop"
+        atoms: ["ayer", "trabajé", "tienda"]
+        tiles: ["trabajo", "trabajó"]
+      - kind: textMcq
+        id: l2-tm-compro
+        target: "compró"
+        distractors: ["compro", "compré", "compraste"]
+      - kind: speakLit
+        id: l2-sp-trabajoycompro
+        es: "Diego trabajó y compró un carro"
+        en: "Diego worked and bought a car"
+        atoms: ["trabajó", "compró", "carro"]
+      - kind: sim
+        id: l2-sim-ana-compras
+        scene: { emoji: "🛒", title: "Ana checks the shopping", setting: "The party is tomorrow. Ana wants to know what got bought and who did the work." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Compraste la pizza?", audioText: "¿compraste la pizza?", gloss: "Did you buy the pizza?" }
+            goal: "Say yes, you bought the pizza yesterday."
+            reply:
+              mode: build
+              tiles: ["sí", "compré", "la", "pizza", "ayer", "compro", "compró"]
+              answer: "sí compré la pizza ayer"
+              alsoAccepted: ["sí ayer compré la pizza"]
+            replyGloss: "Yes, I bought the pizza yesterday."
+            explanation: "Ana asked with «compraste»; you answer «compré». «compro» is now; «compró» is somebody else."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego? ¿Trabajó ayer?", audioText: "¿y diego? ¿trabajó ayer?", gloss: "And Diego? Did he work yesterday?" }
+            goal: "Say yes, he worked a lot."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, trabajó mucho" }
+                - { id: "wrong1", text: "sí, trabajé mucho" }
+                - { id: "wrong2", text: "sí, trabaja mucho" }
+              correctOptionId: "right"
+              audioText: "sí, trabajó mucho"
+            replyGloss: "Yes, he worked a lot."
+            explanation: "Diego, yesterday: «trabajó». «trabajé» is you; «trabaja» is now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Compraste el regalo también?", audioText: "¿compraste el regalo también?", gloss: "Did you buy the gift too?" }
+            goal: "Say no, Sofía bought the gift."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, Sofía compró el regalo" }
+                - { id: "wrong1", text: "no, Sofía compré el regalo" }
+                - { id: "wrong2", text: "no, Sofía compro el regalo" }
+              correctOptionId: "right"
+              audioText: "no, sofía compró el regalo"
+            replyGloss: "No, Sofía bought the gift."
+            explanation: "Sofía, in the past: «compró». Without the accent it would be I buy, now."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "compré", target: "I bought" }
+          - { source: "compraste", target: "you bought" }
+          - { source: "compró", target: "he or she bought" }
+          - { source: "trabajé", target: "I worked" }
+          - { source: "trabajó", target: "he or she worked" }
+          - { source: "compro", target: "I buy (now)" }
+          - { source: "la tienda", target: "the shop" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "ayer trabajé y compré un regalo"
+        en: "Yesterday I worked and bought a gift"
+        atoms: ["ayer", "trabajé", "compré", "regalo"]
+

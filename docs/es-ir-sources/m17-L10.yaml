@@ -1,0 +1,185 @@
+  # ── L10 · MASTERY — every step graded, zero cards, zero maps, zero new
+  #    atoms. The graded lane proves the pointer/ending pair, «no» and the
+  #    adverbs outside, the two-verb placement and «se llama»; the sim is
+  #    the payoff: Sofía asks about a whole day at Sam's house — who wakes
+  #    up when, who showers, who goes to bed late, what the brother is
+  #    called. Cloze runs 3/19 (mastery cap ⅓); recalls 3 (L6 win, L7 win,
+  #    m14). Selection runs peak at 2.
+  - n: 10
+    template: free
+    title: "Un día en casa"
+    description: "The whole day, out loud, without a card in sight — and then Sofía asks about everyone in your house."
+    steps:
+      - kind: clozeLit
+        id: m-c-selevanta
+        es: "mi hermano se levanta tarde"
+        en: "My brother gets up late"
+        blank: "se"
+        options: ["se", "me", "te"]
+        atoms: ["hermano", "levanta", "tarde"]
+        why: "Your brother — a he — so «se», with «levanta»."
+      - kind: buildLit
+        id: m-b-medespiertoymelevanto
+        es: "me despierto temprano y me levanto"
+        en: "I wake up early and I get up"
+        atoms: ["despierto", "temprano", "levanto"]
+        tiles: ["se", "despierta"]
+      - kind: audioWimcq
+        id: m-ear-levantarse
+        target: { surface: "levantarse", emoji: "🧍" }
+        distractors:
+          - { surface: "acostarse", emoji: "😴" }
+          - { surface: "ducharse", emoji: "🚿" }
+      - kind: listenBuildLit
+        id: m-lb-nomeducho
+        es: "hoy no me ducho"
+        en: "Today I don't shower"
+        atoms: ["hoy", "ducho"]
+        tiles: ["se", "ducha"]
+      - kind: clozeLit
+        id: m-c-teduchas
+        es: "tú te duchas todos los días"
+        en: "You shower every day"
+        blank: "te"
+        options: ["te", "me"]
+        atoms: ["duchas", "todos los días"]
+        why: "«tú» and «duchas» — you — so «te»."
+      # Printed non-recall at L6 (es-m17-6-l6-sp-win).
+      - kind: speakLit
+        id: m-sp-recall-meacuestotarde
+        es: "me acuesto tarde, pero me despierto temprano"
+        en: "I go to bed late, but I wake up early"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: m-tm-acuesta
+        target: "acuesta"
+        distractors: ["acuesto", "acostarse", "levanta"]
+      - kind: buildLit
+        id: m-b-nuncaselava
+        es: "Luis nunca se lava los dientes temprano"
+        en: "Luis never brushes his teeth early"
+        atoms: ["nunca", "lava", "dientes", "temprano"]
+        tiles: ["me", "lavo"]
+      - kind: audioWimcq
+        id: m-ear-dientes
+        target: { surface: "los dientes", emoji: "🦷" }
+        distractors:
+          - { surface: "la cama", emoji: "🛏️" }
+          - { surface: "el baño", emoji: "🚽" }
+      - kind: listenCompLit
+        id: m-lc-nomequierolevantar
+        es: "no me quiero levantar temprano el sábado"
+        en: "I don't want to get up early on Saturday."
+        atoms: ["quiero", "levantar", "temprano", "sábado"]
+        distractorsEn:
+          - "I want to get up early on Saturday."
+          - "I don't want to shower early on Saturday."
+          - "She doesn't want to get up early on Saturday."
+      # Printed non-recall at L7 (es-m17-7-l7-sp-win).
+      - kind: speakLit
+        id: m-sp-recall-nomequierolevantar
+        es: "no me quiero levantar, pero me quiero duchar"
+        en: "I don't want to get up, but I want to shower"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: m-c-sellama
+        es: "mi abuela se llama Carmen"
+        en: "My grandmother's name is Carmen"
+        blank: "se"
+        options: ["se", "me", "te"]
+        atoms: ["abuela", "se llama"]
+        why: "A she who is not you: «se llama»."
+      - kind: listenBuildLit
+        id: m-lb-siempremeacuesto
+        es: "siempre me acuesto temprano"
+        en: "I always go to bed early"
+        atoms: ["siempre", "acuesto", "temprano"]
+        tiles: ["se", "acuesta"]
+      # Printed non-recall at m14 (Ana puede cocinar muy bien).
+      - kind: speakLit
+        id: m-sp-recall-anapuedecocinar
+        es: "Ana puede cocinar muy bien"
+        en: "Ana can cook very well"
+        atoms: []
+        cue: recall
+      - kind: mcq
+        id: m-q-sequiereduchar
+        prompt: "Which one means 'she wants to shower'?"
+        correct: "se quiere duchar"
+        distractors: ["quiere se duchar", "se quiere ducha", "me quiere duchar"]
+        atoms: ["quiere", "duchar"]
+        why: "«se» in front of «quiere», the verb that carries the person; «duchar» bare."
+      - kind: buildLit
+        id: m-b-eldia
+        es: "me levanto, me ducho y me lavo los dientes"
+        en: "I get up, I shower and I brush my teeth"
+        atoms: ["levanto", "ducho", "lavo", "dientes"]
+        tiles: ["se", "te"]
+      - kind: matchLit
+        id: m-match
+        pairs:
+          - { source: "me despierto", target: "I wake up" }
+          - { source: "me levanto", target: "I get up" }
+          - { source: "me ducho", target: "I shower" }
+          - { source: "me lavo los dientes", target: "I brush my teeth" }
+          - { source: "me acuesto", target: "I go to bed" }
+          - { source: "se llama", target: "his or her name is" }
+          - { source: "me quiero levantar", target: "I want to get up" }
+      - kind: speakLit
+        id: m-sp-eldia
+        es: "todos los días me despierto temprano, me ducho y me acuesto tarde"
+        en: "Every day I wake up early, I shower and I go to bed late"
+        atoms: ["todos los días", "despierto", "temprano", "ducho", "acuesto", "tarde"]
+      - kind: sim
+        id: m-sim-sofia-encasa
+        scene: { emoji: "🏠", title: "Sofía asks about your house", setting: "Sofía is staying over tomorrow and wants to know how the mornings work at your place." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Te despiertas temprano?", audioText: "¿te despiertas temprano?", gloss: "Do you wake up early?" }
+            goal: "Say yes, you always wake up early."
+            reply:
+              mode: build
+              tiles: ["sí", "siempre", "me", "despierto", "temprano", "se", "despierta"]
+              answer: "sí siempre me despierto temprano"
+              alsoAccepted: ["sí me despierto temprano siempre", "siempre me despierto temprano"]
+            replyGloss: "Yes, I always wake up early."
+            explanation: "«siempre» outside, «me despierto» intact."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y tu hermano? ¿Cómo se llama?", audioText: "¿y tu hermano? ¿cómo se llama?", gloss: "And your brother? What is his name?" }
+            goal: "Say he is Luis, and gets up late."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "se llama Luis y se levanta tarde" }
+                - { id: "wrong1", text: "me llamo Luis y me levanto tarde" }
+                - { id: "wrong2", text: "se llama Luis y se levanto tarde" }
+              correctOptionId: "right"
+              audioText: "se llama Luis y se levanta tarde"
+            replyGloss: "His name is Luis and he gets up late."
+            explanation: "Both about your brother: «se llama», «se levanta». The first wrong one is about you; the second breaks the pair."
+          - id: t3
+            npc: { speaker: "Sofía", es: "¿Te duchas temprano?", audioText: "¿te duchas temprano?", gloss: "Do you shower early?" }
+            goal: "Say no, you don't want to shower early."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, no me quiero duchar temprano" }
+                - { id: "wrong1", text: "no, no quiero me duchar temprano" }
+                - { id: "wrong2", text: "no, no me quiero ducho temprano" }
+              correctOptionId: "right"
+              audioText: "no, no me quiero duchar temprano"
+            replyGloss: "No, I don't want to shower early."
+            explanation: "«me» in front of «quiero»; «duchar» stays bare."
+          - id: t4
+            npc: { speaker: "Sofía", es: "¿Y te acuestas tarde?", audioText: "¿y te acuestas tarde?", gloss: "And do you go to bed late?" }
+            goal: "Say yes, you go to bed late daily."
+            reply:
+              mode: build
+              tiles: ["sí", "me", "acuesto", "tarde", "todos", "los", "días", "se", "acuesta"]
+              answer: "sí me acuesto tarde todos los días"
+              alsoAccepted: ["sí todos los días me acuesto tarde", "me acuesto tarde todos los días"]
+            replyGloss: "Yes, I go to bed late every day."
+            explanation: "«todos los días» can go first or last; the pair «me acuesto» never splits."
+

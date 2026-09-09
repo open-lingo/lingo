@@ -1,0 +1,164 @@
+  # ── L5 · «¿Hablo o habló?» — estudié, estudió, and THE MINIMAL PAIR: the
+  #    accent is the only thing between «hablo» (now) and «habló» (then),
+  #    «compro» / «compró», «estudio» / «estudió». Every two-option cloze
+  #    here is that pair, with a time marker deciding it. Present markers
+  #    («hoy», «todos los días») never sit in a past sentence and vice
+  #    versa, so marker + accent always agree.
+  - n: 5
+    template: free
+    title: "¿Hablo o habló?"
+    description: "One accent, two tenses. This lesson does nothing but make you hear it — now against then, with the day-word deciding."
+    steps:
+      - kind: map
+        id: l5-map-hoyestudioayerestudie
+        tokens: ["hoy", "estudio", "y", "ayer", "estudié"]
+        pairs:
+          - { en: "today", tokenIndex: 0 }
+          - { en: "I study", tokenIndex: 1 }
+          - { en: "and", tokenIndex: 2 }
+          - { en: "yesterday", tokenIndex: 3 }
+          - { en: "I studied", tokenIndex: 4 }
+        audioText: "hoy estudio y ayer estudié"
+        revealNote: "Two words, one letter apart. «estudio» — stress on the u — today. «estudié» — stress on the end — yesterday. The day-word in front tells you which is coming, and the accent confirms it."
+      - kind: info
+        id: l5-info-acento
+        title: "The accent is the tense"
+        body: "«hablo» — I speak, now. «habló» — he spoke, then. «compro» — I buy. «compró» — she bought. «estudio» — I study. «estudió» — he studied. The letters are almost the same; the accent moves the stress to the last syllable, and that is the difference between now and then. Two habits keep you safe. Listen for where the weight falls. And look at the day-word: «hoy» and «todos los días» go with now; «ayer», «anoche», «la semana pasada» go with then. «hoy estudio, ayer estudié»."
+      - kind: speakLit
+        id: l5-sp-hoyestudio
+        es: "hoy estudio y ayer estudié"
+        en: "Today I study and yesterday I studied"
+        atoms: ["hoy", "estudio", "ayer", "estudié"]
+      - kind: buildLit
+        id: l5-b-anaestudiomucho
+        also: ["anoche Ana estudió mucho"]
+        es: "Ana estudió mucho anoche"
+        en: "Ana studied a lot last night"
+        atoms: ["estudió", "mucho", "anoche"]
+        tiles: ["estudia", "estudié"]
+      # The pair, live: two options, one accent apart, the marker decides.
+      - kind: clozeLit
+        id: l5-c-ayerdiegohablo
+        es: "ayer Diego habló con Ana"
+        en: "Yesterday Diego spoke with Ana"
+        blank: "habló"
+        options: ["habló", "hablo"]
+        atoms: ["ayer", "habló"]
+        why: "«ayer» says then, and Diego is a he — so «habló», with the accent. «hablo» without it is I speak, now."
+      - kind: listenCompLit
+        id: l5-lc-hoycomoanochecomi
+        es: "hoy como en casa, pero anoche comí en el restaurante"
+        en: "Today I eat at home, but last night I ate at the restaurant."
+        atoms: ["hoy", "como", "casa", "anoche", "comí", "restaurante"]
+        distractorsEn:
+          - "Today I eat at the restaurant, but last night I ate at home."
+          - "Today I eat at home, but last night she ate at the restaurant."
+          - "Every day I eat at home and at the restaurant."
+      - kind: buildLit
+        id: l5-b-todoslosdiastrabajo
+        es: "todos los días trabajo, pero ayer no trabajé"
+        en: "Every day I work, but yesterday I didn't work"
+        atoms: ["todos los días", "trabajo", "ayer", "trabajé"]
+        tiles: ["trabajó", "trabajas"]
+      - kind: mcq
+        id: l5-q-estudie
+        prompt: "Which one means 'I studied' — yesterday, not today?"
+        correct: "estudié"
+        distractors: ["estudio", "estudia", "estudió"]
+        atoms: ["estudié"]
+        why: "«estudié» — the accent on the end is the past, and the -é is I. «estudio» is now; «estudió» is he or she."
+      - kind: audioWimcq
+        id: l5-ear-estudiar
+        target: { surface: "estudiar", emoji: "📚" }
+        distractors:
+          - { surface: "trabajar", emoji: "👷" }
+          - { surface: "hablar", emoji: "🗣️" }
+      # Printed non-recall at m18 (es-m18-7-l7-sp-win).
+      - kind: speakLit
+        id: l5-sp-recall-estamosbien
+        es: "estamos bien y estamos juntos"
+        en: "We are well and we are together"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l5-agr-comprocompre
+        en: "Today I buy bread and yesterday I bought cheese"
+        audioText: "hoy compro pan y ayer compré queso"
+        atoms: ["hoy", "compro", "pan", "ayer", "compré", "queso"]
+        segments:
+          - { text: "hoy " }
+          - { blank: { id: "p1", answer: "compro", options: ["compro", "compré"] } }
+          - { text: " pan y ayer " }
+          - { blank: { id: "p2", answer: "compré", options: ["compré", "compro"] } }
+          - { text: " queso" }
+      - kind: listenBuildLit
+        id: l5-lb-anocheestudieyhoytrabajo
+        es: "anoche estudié y hoy trabajo"
+        en: "Last night I studied and today I work"
+        atoms: ["anoche", "estudié", "hoy", "trabajo"]
+        tiles: ["estudió", "trabajé"]
+      - kind: textMcq
+        id: l5-tm-estudio
+        target: "estudió"
+        distractors: ["estudia", "estudié", "estudio"]
+      - kind: speakLit
+        id: l5-sp-hoyhabloayerhable
+        es: "hoy hablo con Ana y ayer hablé con Diego"
+        en: "Today I speak with Ana and yesterday I spoke with Diego"
+        atoms: ["hoy", "hablo", "ayer", "hablé"]
+      - kind: sim
+        id: l5-sim-sofia-estudiar
+        scene: { emoji: "📚", title: "Sofía and the exam", setting: "Sofía is worried about tomorrow and wants to know who has studied." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Estudias hoy?", audioText: "¿estudias hoy?", gloss: "Are you studying today?" }
+            goal: "Say no, you studied yesterday."
+            reply:
+              mode: build
+              tiles: ["no", "estudié", "ayer", "estudio", "estudió"]
+              answer: "no estudié ayer"
+              alsoAccepted: ["no ayer estudié"]
+            replyGloss: "No, I studied yesterday."
+            explanation: "«ayer» pulls the verb into the past: «estudié». «estudio» would keep it today."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y Diego estudió?", audioText: "¿y diego estudió?", gloss: "And did Diego study?" }
+            goal: "Say yes, he studied last night."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, estudió anoche" }
+                - { id: "wrong1", text: "sí, estudia anoche" }
+                - { id: "wrong2", text: "sí, estudié anoche" }
+              correctOptionId: "right"
+              audioText: "sí, estudió anoche"
+            replyGloss: "Yes, he studied last night."
+            explanation: "«anoche» and Diego: «estudió». «estudia» is now; «estudié» is you."
+          - id: t3
+            npc: { speaker: "Sofía", es: "¿Hablaste con el maestro?", audioText: "¿hablaste con el maestro?", gloss: "Did you speak with the teacher?" }
+            goal: "Say yes, you spoke with him yesterday."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, hablé con el maestro ayer" }
+                - { id: "wrong1", text: "sí, hablo con el maestro ayer" }
+                - { id: "wrong2", text: "sí, habló con el maestro ayer" }
+              correctOptionId: "right"
+              audioText: "sí, hablé con el maestro ayer"
+            replyGloss: "Yes, I spoke with the teacher yesterday."
+            explanation: "«ayer» plus I: «hablé». «hablo ayer» contradicts itself; «habló» is somebody else."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "hablo", target: "I speak (now)" }
+          - { source: "habló", target: "he or she spoke (then)" }
+          - { source: "compro", target: "I buy (now)" }
+          - { source: "compró", target: "he or she bought (then)" }
+          - { source: "estudié", target: "I studied" }
+          - { source: "estudió", target: "he or she studied" }
+          - { source: "hoy", target: "today" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "hoy estudio, pero ayer no estudié"
+        en: "Today I study, but yesterday I didn't study"
+        atoms: ["hoy", "estudio", "ayer", "estudié"]
+

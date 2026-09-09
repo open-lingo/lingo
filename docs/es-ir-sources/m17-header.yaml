@@ -1,0 +1,113 @@
+module: m17
+title: "Me levanto — the verb that points back at you"
+frame: none
+throughModule: m16
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m17 — reflexive verbs: the daily routine.
+#
+#     me levanto      te levantas      se levanta
+#     me ducho        te duchas        se ducha
+#     me despierto    (e→ie, m14)      se despierta
+#     me acuesto      (o→ue, m14)      se acuesta
+#
+# ONE rule, the whole module: some verbs carry a small word that points
+# BACK at the person doing them — «me» for I, «te» for you, «se» for he or
+# she — and that word goes IN FRONT of the verb, exactly where «lo» stood
+# in m16. «levanto» alone is "I lift (something)"; «me levanto» is "I get
+# up". The learner has owned «me» and «te» since m13 («me gusta», «te
+# gusta») and «me llamo» / «te llamas» since m2, so the only NEW word in
+# the family is «se», and the new CLAIM is that the pointer changes with
+# the person: «me» ↔ -o, «te» ↔ -as, «se» ↔ -a.
+#
+# PLACEMENT carries over from m16 unchanged and is re-spent in L7: with a
+# verb + infinitive the pointer goes in front of the CONJUGATED verb —
+# «me quiero levantar», «no me quiero duchar». NOTHING in this module
+# attaches a pronoun to an infinitive («levantarme», «ducharte»). The
+# dictionary forms «levantarse» / «ducharse» / «despertarse» / «acostarse»
+# / «lavarse» are registered atoms and are printed ONLY as the NAME of the
+# verb — on a card, a speakLit, an imageMcq, a textMcq target, a match
+# source — never inside a sentence. Inside a sentence the bare verb is
+# «levantar» / «duchar» (registered separately, L7). m17.test.ts pins it.
+#
+# ── «se» IS REGISTERED (unlike m16's «lo») ────────────────────────────────
+# «se» sits in ES_FUNCTION_WORDS, so the shared gates would license it with
+# zero exposure — the m12 «son» hole, the m16 «lo» hole. m13 solved the
+# same problem for «me / te / le» by registering them as particle atoms,
+# which makes inv 33 (debut on an intro-capable step) and the atom-usage
+# pin bite. m17 does the same for «se». Consequence for clozes: a blank
+# answered by «se» is an m17 atom (any option count); a blank answered by
+# «me» or «te» resolves to m13 under pin E2 and survives ONLY as a
+# two-option trial whose other option is ALSO a registered surface
+# ([me, te], [te, se], [me, se] — all three are atoms now).
+#
+# ── STEM CHANGES ARE m14's, RE-SPENT ─────────────────────────────────────
+# «despertarse» (e→ie) and «acostarse» (o→ue) are registered in all three
+# singular cells; the tú cells «despiertas» / «acuestas» exist so the NPCs
+# can ASK («¿te acuestas tarde?») and each debuts on a printed speakLit
+# question before any NPC uses it. Every plural person is banned in every
+# answer position (m17.test.ts).
+#
+# ── hacer / tener RULING (B112) carries: hago / haces / hace, tengo / tienes / tiene only.
+#
+# ── FORM DISCIPLINE ──────────────────────────────────────────────────────
+# Present indicative only. yo / tú / él-ella only. No nosotros, no ustedes,
+# no preterite, no progressive, no imperative. «lavarse» registers yo and
+# él/ella (lavo / lava) — «lavas» is not registered and is never printed.
+#
+# ── TRANSFER CELL (L8 only): «peino» ─────────────────────────────────────
+# One unseen verb form, met cold in the checkpoint and glossed in the
+# English prompt only: "I comb my hair — peinarse" → «me peino». The
+# learner has to supply the pointer the gloss does not print. Registered
+# so the gate can track it; NEVER appears in L1–L7 or L9–L10.
+#
+# ── EMOJI ────────────────────────────────────────────────────────────────
+# ducharse 🚿 · dientes 🦷 · levantarse 🧍 · acostarse 😴 · despertarse ⏰.
+# The three routine verbs also carry generated custom art under
+# src/pub/lingo-art/vocab/es/ (keyed es:levantarse etc. in notoEmoji.ts);
+# the emoji is the fallback the integrity gate reads. None of the five is
+# bound to another word (🛏️ is «cama», 🌅 is «buenos días»).
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # the pointer for he / she — the one new word of the family
+  - { surface: "se", meaningEn: "himself, herself (the pointer for he or she)", partOfSpeech: "particle", kind: "particle", hint: "one syllable, no accent — «se levanta»" }
+  # levantarse — regular -ar, all three singular cells
+  - { surface: "levantarse", meaningEn: "to get up", partOfSpeech: "verb", kind: "vocab", emoji: "🧍", hint: "leh-van-TAR-seh — the «se» on the end is the pointer, waiting to move in front" }
+  - { surface: "levanto", meaningEn: "I get up (with «me»)", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "levantas", meaningEn: "you get up (with «te»)", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "levanta", meaningEn: "he/she gets up (with «se»)", partOfSpeech: "verb", kind: "vocab" }
+  # ducharse — regular -ar, all three singular cells
+  - { surface: "ducharse", meaningEn: "to shower", partOfSpeech: "verb", kind: "vocab", emoji: "🚿", hint: "doo-CHAR-seh" }
+  - { surface: "ducho", meaningEn: "I shower (with «me»)", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "duchas", meaningEn: "you shower (with «te»)", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "ducha", meaningEn: "he/she showers (with «se»)", partOfSpeech: "verb", kind: "vocab" }
+  # the first reflexive the learner ever met, now in the third person
+  - { surface: "se llama", meaningEn: "his/her name is (he/she calls himself/herself)", partOfSpeech: "phrase", kind: "phrase", hint: "«¿cómo se llama?» — what is his or her name?" }
+  # lavarse — yo and él/ella; the reflexive that takes an object
+  - { surface: "lavarse", meaningEn: "to wash (oneself)", partOfSpeech: "verb", kind: "vocab", hint: "la-VAR-seh — «me lavo los dientes»: the pointer says whose teeth" }
+  - { surface: "lavo", meaningEn: "I wash (with «me»: I wash myself)", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "lava", meaningEn: "he/she washes (with «se»)", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "dientes", meaningEn: "teeth", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🦷", hint: "DYEN-tes — always «los dientes» here" }
+  # despertarse — e→ie (m14's machine), yo and él/ella only
+  - { surface: "despertarse", meaningEn: "to wake up", partOfSpeech: "verb", kind: "vocab", emoji: "⏰", hint: "des-per-TAR-seh — e→ie when the stress lands on it: «me despierto»" }
+  - { surface: "despierto", meaningEn: "I wake up (with «me»)", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "despiertas", meaningEn: "you wake up (with «te»)", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "despierta", meaningEn: "he/she wakes up (with «se»)", partOfSpeech: "verb", kind: "vocab" }
+  # acostarse — o→ue (m14's machine), yo and él/ella only
+  - { surface: "acostarse", meaningEn: "to go to bed", partOfSpeech: "verb", kind: "vocab", emoji: "😴", hint: "a-kos-TAR-seh — o→ue: «me acuesto»" }
+  - { surface: "acuesto", meaningEn: "I go to bed (with «me»)", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "acuestas", meaningEn: "you go to bed (with «te»)", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "acuesta", meaningEn: "he/she goes to bed (with «se»)", partOfSpeech: "verb", kind: "vocab" }
+  # ── L7: the bare verb after «quiero» / «puedo». The registered dictionary
+  # form is «levantarse», so the bare «levantar» a learner must produce in
+  # «me quiero levantar» is a SEPARATE surface — untracked unless registered
+  # (the provenance lexicon folds plurals and -o/-a adjectives, never
+  # reflexive infinitives). Two are registered; the others (acostar, duchar's
+  # siblings) are never printed in a billed slot.
+  - { surface: "levantar", meaningEn: "to get up — the bare verb after «quiero»: «me quiero levantar»", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "duchar", meaningEn: "to shower — the bare verb after «quiero»: «me quiero duchar»", partOfSpeech: "verb", kind: "vocab" }
+  # ── TRANSFER CELL (L8 only) — glossed in the prompt, met cold.
+  - { surface: "peino", meaningEn: "I comb (my hair)", partOfSpeech: "verb", kind: "vocab" }
+
+lessons:

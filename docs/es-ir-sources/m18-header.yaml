@@ -1,0 +1,99 @@
+module: m18
+title: "Nosotros y ellos — the rest of the table"
+frame: none
+throughModule: m17
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m18 — the plural persons: nosotros / ellos, ellas / ustedes.
+#
+#     hablo   hablas   habla   │  hablamos   hablan
+#     como    comes    come    │  comemos    comen
+#     vivo    vives    vive    │  vivimos    viven
+#     tengo   tienes   tiene   │  tenemos    tienen
+#     voy     vas      va(*)   │  vamos      van
+#     soy     eres     es      │  somos      son
+#     estoy(*) estás(*) está   │  estamos    están
+#
+# Seventeen modules of Spanish and the learner has only ever said I, you,
+# he and she. This module closes the present tense: TWO endings, -mos for
+# "we" and -n for "they / you all", hung on the vowel each verb already
+# showed in its singular (-a- for -ar, -e- for -er, -i-/-e- for -ir). It is
+# the A1 breather the handoff asked for — no new grammar machine, the m10 /
+# m11 machine run to the end of the table — and it is the last A1 module:
+# m19 opens A2 with the preterite.
+#
+# ── THE FUNCTION-WORD HOLE, FOUR TIMES OVER ──────────────────────────────
+# nosotros, ellos, ellas, ustedes, somos, son, estamos, están ALL sit in
+# ES_FUNCTION_WORDS, so every shared gate licenses them with zero exposure
+# (the m12 «son» hole: verified — «son» has been printed in shipped lessons
+# without ever being taught). m18 REGISTERS every one of them as an atom,
+# exactly as m2 registered soy / eres / es and m4 registered está, so inv
+# 33 (debut on an intro-capable step) and the atom-usage pin bite. Each
+# pronoun debuts on its lesson's info card and is cashed on a printed
+# speakLit or buildLit right after.
+#
+# ── THE VERB TABLE MAKES EVERY PLURAL FORM "PRIOR" ───────────────────────
+# ES_VERB_ENTRIES carries hablar / comer / vivir / ser / estar / ir / tener /
+# querer / poder / hacer with introducedAtModule < 18, so the provenance
+# gate treats «hablamos», «queremos», «podemos», «hacemos» … as already
+# taught. They are NOT. m18 registers the twelve forms it actually teaches;
+# «queremos / quieren / podemos / pueden / hacemos / hacen / necesitamos» (see
+# transfer) are BANNED in every answer position — m18.test.ts pins it. Verbs
+# outside the table (trabajar, estudiar, comprar, necesitar, buscar …) have
+# NO plural form registered and none is ever printed in a billed slot; the
+# generalisation is shown on cards in words, never as a «guillemet» span.
+#
+# ── (*) CELLS THE COURSE NEVER TAUGHT ────────────────────────────────────
+# «va» (m9 registered voy / vas only), «estoy», «estás» are not atoms and
+# stay out of every billed slot. «ella va» is not written here.
+#
+# ── ustedes IS THE ONLY "you all" (pin E3) ───────────────────────────────
+# LatAm-neutral: «ustedes» takes the ellos ending. «vosotros» is never
+# printed. «nosotras» is real and is not taught (one form per card).
+#
+# ── hacer / tener RULING (B112) ──────────────────────────────────────────
+# tenemos / tienen are TAUGHT here (L5). hago / haces / hace stay the only
+# hacer forms; hacemos / hacen remain banned.
+#
+# ── TRANSFER CELL (L8 only): «necesitamos» ───────────────────────────────
+# «necesitar» was taught in the singular at m16. The checkpoint hands the
+# learner "we need — necesitar" and asks for the -mos form cold: a buildLit
+# whose bank holds «necesito» and «necesitan» as foils. Registered so the
+# gate can track it; NEVER appears in L1–L7 or L9–L10.
+#
+# ── EMOJI ────────────────────────────────────────────────────────────────
+# restaurante 🍴 (u1f37d, vendored). Pronouns and verb forms carry none.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # the four plural persons
+  - { surface: "nosotros", meaningEn: "we", partOfSpeech: "pronoun", kind: "vocab", hint: "no-SO-tros — the verb ends in -mos" }
+  - { surface: "ellos", meaningEn: "they (a group with at least one he)", partOfSpeech: "pronoun", kind: "vocab", hint: "EH-yos — «él» with an -os" }
+  - { surface: "ellas", meaningEn: "they (a group of shes)", partOfSpeech: "pronoun", kind: "vocab", hint: "EH-yas — «ella» with an -s" }
+  - { surface: "ustedes", meaningEn: "you all", partOfSpeech: "pronoun", kind: "vocab", hint: "oos-TEH-des — takes the same ending as «ellos»" }
+  # -mos: we
+  - { surface: "hablamos", meaningEn: "we speak", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "comemos", meaningEn: "we eat", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "vivimos", meaningEn: "we live", partOfSpeech: "verb", kind: "vocab" }
+  # -n: they / you all
+  - { surface: "hablan", meaningEn: "they speak, you all speak", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "comen", meaningEn: "they eat, you all eat", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "viven", meaningEn: "they live, you all live", partOfSpeech: "verb", kind: "vocab" }
+  # ser
+  - { surface: "somos", meaningEn: "we are (ser)", partOfSpeech: "verb", kind: "vocab", hint: "SO-mos — «soy» grown up" }
+  - { surface: "son", meaningEn: "they are, you all are (ser)", partOfSpeech: "verb", kind: "vocab", hint: "one syllable — «ellos son mis amigos»" }
+  - { surface: "juntos", meaningEn: "together", partOfSpeech: "adverb", kind: "vocab", hint: "HOON-tos" }
+  - { surface: "restaurante", meaningEn: "restaurant", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🍴", hint: "res-tau-RAN-teh — the same word, Spanish vowels" }
+  # tener
+  - { surface: "tenemos", meaningEn: "we have", partOfSpeech: "verb", kind: "vocab", hint: "regular in the plural — the g of «tengo» is yo-only" }
+  - { surface: "tienen", meaningEn: "they have, you all have", partOfSpeech: "verb", kind: "vocab" }
+  # ir
+  - { surface: "vamos", meaningEn: "we go", partOfSpeech: "verb", kind: "vocab", hint: "VA-mos — also 'let's go', on its own" }
+  - { surface: "van", meaningEn: "they go, you all go", partOfSpeech: "verb", kind: "vocab" }
+  # estar
+  - { surface: "estamos", meaningEn: "we are (estar — where, how)", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "están", meaningEn: "they are, you all are (estar — where, how)", partOfSpeech: "verb", kind: "vocab", hint: "es-TAN — the accent keeps the stress on the end" }
+  # ── TRANSFER CELL (L8 only) — glossed in the prompt, met cold.
+  - { surface: "necesitamos", meaningEn: "we need", partOfSpeech: "verb", kind: "vocab" }
+
+lessons:

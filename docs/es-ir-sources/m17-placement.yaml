@@ -1,0 +1,23 @@
+placement:
+  screener:
+    - id: "es-m17-scr-1"
+      prompt: "'I get up early.' — which one?"
+      correct: "me levanto temprano"
+      distractors: ["levanto temprano", "se levanto temprano", "levanto me temprano"]
+  byModule:
+    - id: "es-m17-pl-1"
+      prompt: "Ana showers early."
+      correct: "Ana se ducha temprano"
+      distractors: ["Ana me ducha temprano", "Ana ducha temprano", "Ana se ducho temprano"]
+    - id: "es-m17-pl-2"
+      prompt: "You wake up late."
+      correct: "te despiertas tarde"
+      distractors: ["te despierto tarde", "me despiertas tarde", "despiertas tarde"]
+    - id: "es-m17-pl-3"
+      prompt: "I don't go to bed early."
+      correct: "no me acuesto temprano"
+      distractors: ["me no acuesto temprano", "no acuesto temprano", "no se acuesto temprano"]
+    - id: "es-m17-pl-4"
+      prompt: "What is his name?"
+      correct: "¿cómo se llama?"
+      distractors: ["¿cómo te llamas?", "¿cómo me llamo?", "¿cómo llama?"]

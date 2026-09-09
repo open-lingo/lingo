@@ -1,0 +1,158 @@
+  # ── L3 · «Somos amigos» — somos, son, juntos. ser's plural, and the
+  #    course's oldest hole closed: «son» has been licensed as a function
+  #    word since m2 and printed in shipped lessons without ever being
+  #    taught. It debuts HERE, on the card, cashed on the speakLit after.
+  #    ⚠️ NO «ustedes» (L4). «amigos» / «estudiantes» / «maestros» /
+  #    «hermanos» fold to their singulars through the plural canon.
+  - n: 3
+    template: free
+    title: "Somos amigos"
+    description: "«soy», «eres», «es» — you have used them since module two. Here are the two that were missing, and a word for doing things together."
+    steps:
+      - kind: map
+        id: l3-map-nosotrossomos
+        tokens: ["nosotros", "somos", "estudiantes"]
+        pairs:
+          - { en: "we", tokenIndex: 0 }
+          - { en: "are", tokenIndex: 1 }
+          - { en: "students", tokenIndex: 2 }
+        audioText: "nosotros somos estudiantes"
+        revealNote: "«soy» is I am. For we, «ser» does not use -mos on a vowel — it has its own word, «somos». Short, and it still ends in -mos, so you can hear the we in it."
+      - kind: info
+        id: l3-info-somosson
+        title: "The two forms of «ser» you were missing"
+        body: "«soy», «eres», «es» — I am, you are, he or she is. The table finishes with two more: «somos», we are, and «son», they are. «somos estudiantes» — we are students. «ellos son mis amigos» — they are my friends. «Ana y Sofía son de México» — they are from Mexico. You have actually heard «son» before, in phrases like «son las diez»; now it is yours to use. And one word that loves to follow a we: «juntos», together — «vivimos juntos», we live together."
+      - kind: speakLit
+        id: l3-sp-somosamigos
+        es: "somos amigos"
+        en: "We are friends"
+        atoms: ["somos", "amigo"]
+      - kind: buildLit
+        id: l3-b-ellossonmisamigos
+        es: "ellos son mis amigos"
+        en: "They are my friends"
+        atoms: ["ellos", "son", "amigo"]
+        tiles: ["somos", "es"]
+      - kind: clozeLit
+        id: l3-c-anaydiegoson
+        es: "Ana y Diego son estudiantes"
+        en: "Ana and Diego are students"
+        blank: "son"
+        options: ["son", "somos", "es"]
+        atoms: ["son", "estudiante"]
+        why: "Two people who are not you: they — «son». «somos» would include you; «es» is one person."
+      - kind: listenCompLit
+        id: l3-lc-vivimosjuntos
+        es: "vivimos juntos en México"
+        en: "We live together in Mexico."
+        atoms: ["vivimos", "juntos", "México"]
+        distractorsEn:
+          - "They live together in Mexico."
+          - "We live together in Spain."
+          - "We work together in Mexico."
+      - kind: buildLit
+        id: l3-b-somosamigosyvivimosjuntos
+        es: "somos amigos y vivimos juntos"
+        en: "We are friends and we live together"
+        atoms: ["somos", "amigo", "vivimos", "juntos"]
+        tiles: ["son", "viven"]
+      - kind: mcq
+        id: l3-q-somos
+        prompt: "Which one means 'we are'?"
+        correct: "somos"
+        distractors: ["son", "soy", "es"]
+        atoms: ["somos"]
+        why: "«somos» — the we form of «ser». «son» is they, «soy» is I, «es» is he or she."
+      - kind: audioWimcq
+        id: l3-ear-estudiante
+        target: { surface: "el estudiante", emoji: "🧑‍🎓" }
+        distractors:
+          - { surface: "el maestro", emoji: "👨‍🏫" }
+          - { surface: "el amigo", emoji: "🧑‍🤝‍🧑" }
+      # Printed non-recall at m15 (yo tengo hambre y mi hermano tiene sed).
+      - kind: speakLit
+        id: l3-sp-recall-tengohambre
+        es: "yo tengo hambre y mi hermano tiene sed"
+        en: "I'm hungry and my brother is thirsty"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l3-agr-somosson
+        en: "We are students and they are teachers"
+        audioText: "somos estudiantes y ellos son maestros"
+        atoms: ["somos", "estudiante", "ellos", "son", "maestro"]
+        segments:
+          - { blank: { id: "p1", answer: "somos", options: ["somos", "son"] } }
+          - { text: " estudiantes y ellos " }
+          - { blank: { id: "p2", answer: "son", options: ["son", "somos"] } }
+          - { text: " maestros" }
+      - kind: listenBuildLit
+        id: l3-lb-ellassondeespana
+        es: "ellas son de España"
+        en: "They are from Spain"
+        atoms: ["ellas", "son", "España"]
+        tiles: ["somos", "es"]
+      - kind: textMcq
+        id: l3-tm-somos
+        target: "somos"
+        distractors: ["son", "soy", "eres"]
+      - kind: speakLit
+        id: l3-sp-misamigosson
+        es: "mis amigos son de México y viven aquí"
+        en: "My friends are from Mexico and live here"
+        atoms: ["son", "México", "viven", "aquí"]
+      - kind: sim
+        id: l3-sim-sofia-hermanos
+        scene: { emoji: "🧑‍🤝‍🧑", title: "Sofía gets the family wrong", setting: "Sofía has just met Luis and is trying to work out who is who." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Tú y Luis son amigos?", audioText: "¿tú y luis son amigos?", gloss: "Are you and Luis friends?" }
+            goal: "Say no, you two are brothers."
+            reply:
+              mode: build
+              tiles: ["no", "somos", "hermanos", "son", "amigos"]
+              answer: "no somos hermanos"
+            replyGloss: "No, we are brothers."
+            explanation: "You and Luis are a we: «somos». «son» would be about two other people."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y viven juntos?", audioText: "¿y viven juntos?", gloss: "And do you live together?" }
+            goal: "Say yes, you live together."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, vivimos juntos" }
+                - { id: "wrong1", text: "sí, viven juntos" }
+                - { id: "wrong2", text: "sí, vivo juntos" }
+              correctOptionId: "right"
+              audioText: "sí, vivimos juntos"
+            replyGloss: "Yes, we live together."
+            explanation: "Sofía asked with «viven» — you and Luis; you answer as a we: «vivimos juntos»."
+          - id: t3
+            npc: { speaker: "Sofía", es: "Ana y Diego son amigos, ¿no?", audioText: "ana y diego son amigos, ¿no?", gloss: "Ana and Diego are friends, aren't they?" }
+            goal: "Say yes, they are friends."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, son amigos" }
+                - { id: "wrong1", text: "sí, somos amigos" }
+                - { id: "wrong2", text: "sí, es amigos" }
+              correctOptionId: "right"
+              audioText: "sí, son amigos"
+            replyGloss: "Yes, they are friends."
+            explanation: "Two people who are not you: «son». «somos» would make you one of them."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "somos", target: "we are" }
+          - { source: "son", target: "they are" }
+          - { source: "juntos", target: "together" }
+          - { source: "somos amigos", target: "we are friends" }
+          - { source: "ellos son estudiantes", target: "they are students" }
+          - { source: "vivimos", target: "we live" }
+          - { source: "el maestro", target: "the teacher" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "somos amigos y vivimos juntos"
+        en: "We are friends and we live together"
+        atoms: ["somos", "amigo", "vivimos", "juntos"]
+

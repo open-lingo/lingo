@@ -1,0 +1,161 @@
+  # ── L3 · «¿Cómo se llama?» — ONE new atom, the phrase «se llama». The
+  #    lesson re-reads «me llamo» / «te llamas» (m2) as the first pointer
+  #    verb the learner ever met, and hands over the third person so a name
+  #    can be asked ABOUT somebody. Debut: l3-sp-comosellama (speakLit,
+  #    intro-capable) — the map before it bills nothing.
+  #    «llama» alone is registered only through the phrase; it is never
+  #    printed without «se» in front. NOT HERE: lavarse (L4), stem-changers.
+  - n: 3
+    template: free
+    title: "¿Cómo se llama?"
+    description: "You have been using a pointer verb since your very first module — «me llamo». Now you can ask about somebody else's name."
+    steps:
+      - kind: map
+        id: l3-map-mihermanosellama
+        tokens: ["mi", "hermano", "se", "llama", "Luis"]
+        pairs:
+          - { en: "my", tokenIndex: 0 }
+          - { en: "brother", tokenIndex: 1 }
+          - { en: "himself", tokenIndex: 2 }
+          - { en: "calls", tokenIndex: 3 }
+          - { en: "Luis", tokenIndex: 4 }
+        audioText: "mi hermano se llama Luis"
+        revealNote: "Read it the Spanish way: my brother calls himself Luis. That is what «me llamo» has meant all along — I call myself. The verb points back at the person, and for a he or a she the pointer is the one you met two lessons ago: «se»."
+      - kind: speakLit
+        id: l3-sp-comosellama
+        es: "¿cómo se llama?"
+        en: "What is his name?"
+        atoms: ["se llama"]
+      - kind: buildLit
+        id: l3-b-mihermanosellamaluis
+        es: "mi hermano se llama Luis"
+        en: "My brother's name is Luis"
+        atoms: ["hermano", "se llama"]
+        tiles: ["me", "llamo"]
+      - kind: info
+        id: l3-info-primerpuntero
+        title: "The first pointer you ever learned"
+        body: "«me llamo Sam» — you said it in module two, and it means I call myself Sam. «te llamas» — you call yourself. The same three pointers, the same three endings you have been using on «levantarse» and «ducharse»: «me llamo», «te llamas», «se llama». So a third person's name is «se llama»: «mi hermano se llama Luis» — my brother is called Luis. And to ask about somebody: «¿cómo se llama?» — how does he or she call himself, herself? — what is his name, what is her name. «¿cómo te llamas?» asks the person in front of you; «¿cómo se llama?» asks about somebody else."
+      - kind: clozeLit
+        id: l3-c-mihermanasellama
+        es: "mi hermana se llama Sofía"
+        en: "My sister's name is Sofía"
+        blank: "se"
+        options: ["se", "me", "te"]
+        atoms: ["hermana", "se llama"]
+        why: "Your sister is a she, so the pointer is «se», and it travels with «llama». «me llamo» would be your own name; «te llamas» is the person you are talking to."
+      - kind: listenCompLit
+        id: l3-lc-comosellamatuhermano
+        es: "¿cómo se llama tu hermano?"
+        en: "What is your brother's name?"
+        atoms: ["se llama", "hermano"]
+        distractorsEn:
+          - "What is your name?"
+          - "What is your sister's name?"
+          - "Where is your brother?"
+      - kind: buildLit
+        id: l3-b-miabuelasellamacarmen
+        es: "mi abuela se llama Carmen"
+        en: "My grandmother's name is Carmen"
+        atoms: ["abuela", "se llama"]
+        tiles: ["te", "llamas"]
+      - kind: mcq
+        id: l3-q-comosellama
+        prompt: "Which one means 'her name is'?"
+        correct: "se llama"
+        distractors: ["te llamas", "me llamo", "llama"]
+        atoms: ["se llama"]
+        why: "About somebody else — a she — so «se llama». «te llamas» is the person you are talking to, «me llamo» is your own name, and «llama» without a pointer is not a name at all."
+      - kind: audioWimcq
+        id: l3-ear-hermano
+        target: { surface: "el hermano", emoji: "👦" }
+        distractors:
+          - { surface: "la hermana", emoji: "👧" }
+          - { surface: "el abuelo", emoji: "👴" }
+      # Printed non-recall at m13 (me gusta mucho el helado).
+      - kind: speakLit
+        id: l3-sp-recall-megustaelhelado
+        es: "me gusta mucho el helado"
+        en: "I really like ice cream"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l3-agr-samana
+        en: "My name is Sam and my sister's name is Ana"
+        audioText: "me llamo Sam y mi hermana se llama Ana"
+        atoms: ["me llamo", "hermana", "se llama"]
+        segments:
+          - { blank: { id: "p1", answer: "me", options: ["me", "se"] } }
+          - { text: " llamo Sam y mi hermana " }
+          - { blank: { id: "p2", answer: "se", options: ["se", "me"] } }
+          - { text: " llama Ana" }
+      - kind: listenBuildLit
+        id: l3-lb-sellamadiego
+        es: "se llama Diego"
+        en: "His name is Diego"
+        atoms: ["se llama"]
+        tiles: ["me", "llamo"]
+      - kind: textMcq
+        id: l3-tm-levantas
+        target: "levantas"
+        distractors: ["levanto", "levanta", "duchas"]
+      - kind: speakLit
+        id: l3-sp-luisselevantatarde
+        es: "mi hermano se llama Luis y se levanta tarde"
+        en: "My brother's name is Luis and he gets up late"
+        atoms: ["hermano", "se llama", "levanta", "tarde"]
+      - kind: sim
+        id: l3-sim-sofia-familia
+        scene: { emoji: "👨‍👩‍👧‍👦", title: "Sofía asks about your family", setting: "Sofía has seen a photo on your phone and wants names for the faces." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Cómo se llama tu hermano?", audioText: "¿cómo se llama tu hermano?", gloss: "What is your brother's name?" }
+            goal: "Say his name is Luis."
+            reply:
+              mode: build
+              tiles: ["se", "llama", "Luis", "me", "llamo"]
+              answer: "se llama Luis"
+            replyGloss: "His name is Luis."
+            explanation: "About your brother, so «se llama». «me llamo» would hand him your own name."
+          - id: t2
+            npc: { speaker: "Sofía", es: "Yo me llamo Sofía. ¿Y tú?", audioText: "yo me llamo sofía. ¿y tú?", gloss: "My name is Sofía. And you?" }
+            goal: "Say your name is Sam."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "me llamo Sam" }
+                - { id: "wrong1", text: "se llama Sam" }
+                - { id: "wrong2", text: "te llamas Sam" }
+              correctOptionId: "right"
+              audioText: "me llamo Sam"
+            replyGloss: "My name is Sam."
+            explanation: "Your own name — the pointer that points at you: «me llamo». «se llama Sam» would be about somebody else called Sam."
+          - id: t3
+            npc: { speaker: "Sofía", es: "¿Y tu abuela? ¿Cómo se llama?", audioText: "¿y tu abuela? ¿cómo se llama?", gloss: "And your grandmother? What is her name?" }
+            goal: "Say her name is Carmen."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "se llama Carmen" }
+                - { id: "wrong1", text: "me llamo Carmen" }
+                - { id: "wrong2", text: "te llamas Carmen" }
+              correctOptionId: "right"
+              audioText: "se llama Carmen"
+            replyGloss: "Her name is Carmen."
+            explanation: "A she who is not you and not Sofía: «se llama». The other two would name yourself or Sofía."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "se llama", target: "his or her name is" }
+          - { source: "me llamo", target: "my name is" }
+          - { source: "te llamas", target: "your name is" }
+          - { source: "¿cómo se llama?", target: "what is his or her name?" }
+          - { source: "el hermano", target: "the brother" }
+          - { source: "la abuela", target: "the grandmother" }
+          - { source: "la hermana", target: "the sister" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "me llamo Sam y mi hermano se llama Luis"
+        en: "My name is Sam and my brother's name is Luis"
+        atoms: ["me llamo", "hermano", "se llama"]
+

@@ -1,0 +1,168 @@
+  # ── L7 · «¿Y tú?» — ZERO new atoms. Questions and «no» in the past,
+  #    every verb of the module mixed, dialogue-heavy. The tú cells that
+  #    carry the questions are the registered ones: hablaste, compraste,
+  #    trabajaste, comiste, saliste. No unregistered tú cell is printed.
+  - n: 7
+    template: free
+    title: "¿Y tú?"
+    description: "Asking about somebody's yesterday, and saying what you did not do. Every verb of the module, in questions and answers."
+    steps:
+      - kind: map
+        id: l7-map-nocompreelregalo
+        tokens: ["no", "compré", "el", "regalo", "ayer"]
+        pairs:
+          - { en: "not", tokenIndex: 0 }
+          - { en: "I bought", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "gift", tokenIndex: 3 }
+          - { en: "yesterday", tokenIndex: 4 }
+        audioText: "no compré el regalo ayer"
+        revealNote: "«no» goes where it always goes — in front of the verb — and the past-tense ending stays: «no compré». Nothing else changes."
+        tokenGenders: { 2: "m", 3: "m" }
+      - kind: info
+        id: l7-info-preguntas
+        title: "Asking about yesterday"
+        body: "A question in the past is the you-form with a question mark: «¿compraste el regalo?» — did you buy the gift?; «¿saliste anoche?» — did you go out last night?; «¿comiste?» — did you eat? And the answer that says no: «no, no compré el regalo» — «no» in front of the verb, the ending untouched. The first «no» answers, the second one belongs to the verb."
+      - kind: speakLit
+        id: l7-sp-compraste
+        es: "¿compraste el regalo?"
+        en: "Did you buy the gift?"
+        atoms: ["compraste", "regalo"]
+      - kind: buildLit
+        id: l7-b-nocompreelregalo
+        also: ["ayer no compré el regalo"]
+        es: "no compré el regalo ayer"
+        en: "I didn't buy the gift yesterday"
+        atoms: ["compré", "regalo", "ayer"]
+        tiles: ["compro", "compró"]
+      - kind: listenCompLit
+        id: l7-lc-comisteenelrestaurante
+        es: "¿comiste en el restaurante anoche?"
+        en: "Did you eat at the restaurant last night?"
+        atoms: ["comiste", "restaurante", "anoche"]
+        distractorsEn:
+          - "Did you eat at home last night?"
+          - "Did she eat at the restaurant last night?"
+          - "Do you eat at the restaurant every night?"
+      - kind: buildLit
+        id: l7-b-nosalilasemanapasada
+        also: ["la semana pasada no salí"]
+        es: "no salí la semana pasada"
+        en: "I didn't go out last week"
+        atoms: ["salí", "la semana pasada"]
+        tiles: ["salió", "salgo"]
+      - kind: clozeLit
+        id: l7-c-diegonohablo
+        es: "Diego no habló con Ana ayer"
+        en: "Diego didn't speak with Ana yesterday"
+        blank: "habló"
+        options: ["habló", "hablé"]
+        atoms: ["habló", "ayer"]
+        why: "Diego, yesterday: «habló». The «no» in front does not change the ending."
+      - kind: mcq
+        id: l7-q-trabajaste
+        prompt: "Which one means 'you worked'?"
+        correct: "trabajaste"
+        distractors: ["trabajé", "trabajó", "trabajas"]
+        atoms: ["trabajaste"]
+        why: "-aste is the you ending of the past: «trabajaste». «trabajas» is you, now."
+      - kind: audioWimcq
+        id: l7-ear-regalo
+        target: { surface: "el regalo", emoji: "🎁" }
+        distractors:
+          - { surface: "el boleto", emoji: "🎟️" }
+          - { surface: "la mochila", emoji: "🎒" }
+      # Printed non-recall at L1 (es-m19-1-l1-sp-win).
+      - kind: speakLit
+        id: l7-sp-recall-ayerhable
+        es: "ayer hablé con Ana y Ana habló con Diego"
+        en: "Yesterday I spoke with Ana and Ana spoke with Diego"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l7-agr-trabajetrabajo
+        en: "Yesterday I worked, but Diego didn't work"
+        audioText: "ayer trabajé, pero Diego no trabajó"
+        atoms: ["ayer", "trabajé", "trabajó"]
+        segments:
+          - { text: "ayer " }
+          - { blank: { id: "p1", answer: "trabajé", options: ["trabajé", "trabajó"] } }
+          - { text: ", pero Diego no " }
+          - { blank: { id: "p2", answer: "trabajó", options: ["trabajó", "trabajé"] } }
+      - kind: listenBuildLit
+        id: l7-lb-hablasteconDiego
+        es: "¿hablaste con Diego anoche?"
+        en: "Did you speak with Diego last night?"
+        atoms: ["hablaste", "anoche"]
+        tiles: ["hablé", "habló"]
+      - kind: textMcq
+        id: l7-tm-comiste
+        target: "comiste"
+        distractors: ["comí", "comió", "comes"]
+      - kind: speakLit
+        id: l7-sp-nocomipizza
+        es: "no comí pizza anoche, comí pollo"
+        en: "I didn't eat pizza last night, I ate chicken"
+        atoms: ["comí", "pizza", "anoche", "pollo"]
+      - kind: buildLit
+        id: l7-b-anaescribiopero
+        es: "Ana escribió la tarea, pero no estudió"
+        en: "Ana wrote the homework, but she didn't study"
+        atoms: ["escribió", "tarea", "estudió"]
+        tiles: ["escribí", "estudié"]
+      - kind: sim
+        id: l7-sim-carmen-anoche
+        scene: { emoji: "👵", title: "Carmen wants a full report", setting: "Your grandmother Carmen has three questions and expects three honest answers." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Comiste bien anoche?", audioText: "¿comiste bien anoche?", gloss: "Did you eat well last night?" }
+            goal: "Say yes, you ate very well."
+            reply:
+              mode: build
+              tiles: ["sí", "comí", "muy", "bien", "como", "comió"]
+              answer: "sí comí muy bien"
+              alsoAccepted: ["sí comí bien"]
+            replyGloss: "Yes, I ate very well."
+            explanation: "«comiste» in the question, «comí» in the answer."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Y la tarea?", audioText: "¿y la tarea?", gloss: "And the homework?" }
+            goal: "Say you didn't write the homework."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no escribí la tarea" }
+                - { id: "wrong1", text: "no escribo la tarea" }
+                - { id: "wrong2", text: "no escribió la tarea" }
+              correctOptionId: "right"
+              audioText: "no escribí la tarea"
+            replyGloss: "I didn't write the homework."
+            explanation: "«no» in front, the past ending kept: «no escribí»."
+          - id: t3
+            npc: { speaker: "Carmen", es: "¿Saliste con Ana?", audioText: "¿saliste con ana?", gloss: "Did you go out with Ana?" }
+            goal: "Say no, you didn't go out, you worked."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, no salí, trabajé" }
+                - { id: "wrong1", text: "no, no salgo, trabajo" }
+                - { id: "wrong2", text: "no, no salió, trabajó" }
+              correctOptionId: "right"
+              audioText: "no, no salí, trabajé"
+            replyGloss: "No, I didn't go out, I worked."
+            explanation: "Both verbs about you, both in the past: «salí», «trabajé»."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "¿compraste el regalo?", target: "did you buy the gift?" }
+          - { source: "no compré", target: "I didn't buy" }
+          - { source: "¿saliste anoche?", target: "did you go out last night?" }
+          - { source: "no salí", target: "I didn't go out" }
+          - { source: "trabajaste", target: "you worked" }
+          - { source: "comiste", target: "you ate" }
+          - { source: "hablaste", target: "you spoke" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "anoche no salí, comí en casa y escribí la tarea"
+        en: "Last night I didn't go out, I ate at home and wrote the homework"
+        atoms: ["anoche", "salí", "comí", "casa", "escribí", "tarea"]
+

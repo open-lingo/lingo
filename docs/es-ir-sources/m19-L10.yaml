@@ -1,0 +1,185 @@
+  # ── L10 · MASTERY — every step graded, zero cards, zero maps, zero new
+  #    atoms. The payoff sim: Ana asks about the whole week — yesterday,
+  #    last night, last week, the weekend — and Sam answers in the past
+  #    with every verb of the module, «lo» from m16 and «no» where needed.
+  #    Cloze 3/19 (mastery cap ⅓); recalls 3 (L7 win, L4 win, m17). ≤2 runs.
+  - n: 10
+    template: free
+    title: "Lo que pasó"
+    description: "The week, told back. Ana asks; you answer in the past, and nothing about it is new any more."
+    steps:
+      - kind: clozeLit
+        id: m-c-hable
+        es: "ayer hablé con mi abuela"
+        en: "Yesterday I spoke with my grandmother"
+        blank: "hablé"
+        options: ["hablé", "hablo"]
+        atoms: ["ayer", "hablé", "abuela"]
+        why: "«ayer» says then: «hablé»."
+      - kind: buildLit
+        id: m-b-anochecomiysali
+        also: ["anoche salí y comí pizza"]
+        es: "anoche comí pizza y salí"
+        en: "Last night I ate pizza and went out"
+        atoms: ["anoche", "comí", "pizza", "salí"]
+        tiles: ["como", "salió"]
+      - kind: audioWimcq
+        id: m-ear-mensaje
+        target: { surface: "el mensaje", emoji: "✉️" }
+        distractors:
+          - { surface: "el regalo", emoji: "🎁" }
+          - { surface: "la tarea", emoji: "📝" }
+      - kind: listenBuildLit
+        id: m-lb-anaescribio
+        es: "Ana escribió un mensaje la semana pasada"
+        en: "Ana wrote a message last week"
+        atoms: ["escribió", "mensaje", "la semana pasada"]
+        tiles: ["escribí", "escribe"]
+      - kind: clozeLit
+        id: m-c-compraste
+        es: "tú compraste los boletos"
+        en: "You bought the tickets"
+        blank: "compraste"
+        options: ["compraste", "compras", "compró"]
+        atoms: ["compraste", "boleto"]
+        why: "«tú», in the past: «compraste»."
+      # Printed non-recall at L7 (es-m19-7-l7-sp-win).
+      - kind: speakLit
+        id: m-sp-recall-anochenosali
+        es: "anoche no salí, comí en casa y escribí la tarea"
+        en: "Last night I didn't go out, I ate at home and wrote the homework"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: m-tm-trabajo
+        target: "trabajó"
+        distractors: ["trabajo", "trabajé", "trabajaste"]
+      - kind: buildLit
+        id: m-b-diegoestudioytrabajo
+        es: "Diego estudió y trabajó el fin de semana"
+        en: "Diego studied and worked on the weekend"
+        atoms: ["estudió", "trabajó", "el fin de semana"]
+        tiles: ["estudié", "trabajé"]
+      - kind: audioWimcq
+        id: m-ear-abuela
+        target: { surface: "la abuela", emoji: "👵" }
+        distractors:
+          - { surface: "el abuelo", emoji: "👴" }
+          - { surface: "la madre", emoji: "👩‍👧" }
+      - kind: listenCompLit
+        id: m-lc-hoycomoperoanoche
+        es: "hoy como en el restaurante, pero anoche comí en casa"
+        en: "Today I eat at the restaurant, but last night I ate at home."
+        atoms: ["hoy", "como", "restaurante", "anoche", "comí", "casa"]
+        distractorsEn:
+          - "Today I eat at home, but last night I ate at the restaurant."
+          - "Today I eat at the restaurant, but last night she ate at home."
+          - "Every day I eat at the restaurant and at home."
+      # Printed non-recall at L4 (es-m19-4-l4-sp-win).
+      - kind: speakLit
+        id: m-sp-recall-lasemanapasadasali
+        es: "la semana pasada salí con Ana y comí en el restaurante"
+        en: "Last week I went out with Ana and ate at the restaurant"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: m-c-vivio
+        es: "mi abuelo vivió en México"
+        en: "My grandfather lived in Mexico"
+        blank: "vivió"
+        options: ["vivió", "vive", "viví"]
+        atoms: ["abuelo", "vivió", "México"]
+        why: "Your grandfather, then: «vivió»."
+      - kind: listenBuildLit
+        id: m-lb-nocompreelregalo
+        es: "no compré el regalo ayer"
+        en: "I didn't buy the gift yesterday"
+        atoms: ["compré", "regalo", "ayer"]
+        tiles: ["compro", "compró"]
+      # Printed non-recall at m17 (es-m17-6-l6-sp-win).
+      - kind: speakLit
+        id: m-sp-recall-meacuestotarde
+        es: "me acuesto tarde, pero me despierto temprano"
+        en: "I go to bed late, but I wake up early"
+        atoms: []
+        cue: recall
+      - kind: mcq
+        id: m-q-salio
+        prompt: "Which one means 'she went out last night'?"
+        correct: "salió anoche"
+        distractors: ["sale anoche", "salí anoche", "saliste anoche"]
+        atoms: ["salió", "anoche"]
+        why: "«salió» — past, he or she — with «anoche»."
+      - kind: buildLit
+        id: m-b-hableycompre
+        also: ["el fin de semana hablé con Ana y compré un regalo"]
+        es: "hablé con Ana y compré un regalo el fin de semana"
+        en: "I spoke with Ana and bought a gift on the weekend"
+        atoms: ["hablé", "compré", "regalo", "el fin de semana"]
+        tiles: ["hablo", "compro"]
+      - kind: matchLit
+        id: m-match
+        pairs:
+          - { source: "hablé", target: "I spoke" }
+          - { source: "compraste", target: "you bought" }
+          - { source: "comió", target: "he or she ate" }
+          - { source: "salí", target: "I went out" }
+          - { source: "escribió", target: "he or she wrote" }
+          - { source: "vivió", target: "he or she lived" }
+          - { source: "anoche", target: "last night" }
+      - kind: speakLit
+        id: m-sp-lasemana
+        es: "la semana pasada trabajé, el fin de semana salí y anoche estudié"
+        en: "Last week I worked, on the weekend I went out and last night I studied"
+        atoms: ["la semana pasada", "trabajé", "el fin de semana", "salí", "anoche", "estudié"]
+      - kind: sim
+        id: m-sim-ana-semana
+        scene: { emoji: "📆", title: "Ana asks about your week", setting: "Friday night. Ana wants every day accounted for, and she is not letting you answer in the present." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Trabajaste la semana pasada?", audioText: "¿trabajaste la semana pasada?", gloss: "Did you work last week?" }
+            goal: "Say yes, you worked and studied."
+            reply:
+              mode: build
+              tiles: ["sí", "trabajé", "y", "estudié", "trabajo", "estudio"]
+              answer: "sí trabajé y estudié"
+              alsoAccepted: ["sí estudié y trabajé"]
+            replyGloss: "Yes, I worked and studied."
+            explanation: "Both in the past, both about you: «trabajé», «estudié»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y el fin de semana? ¿Saliste?", audioText: "¿y el fin de semana? ¿saliste?", gloss: "And the weekend? Did you go out?" }
+            goal: "Say yes, out with Diego, and ate pizza."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, salí con Diego y comí pizza" }
+                - { id: "wrong1", text: "sí, salgo con Diego y como pizza" }
+                - { id: "wrong2", text: "sí, salió con Diego y comió pizza" }
+              correctOptionId: "right"
+              audioText: "sí, salí con diego y comí pizza"
+            replyGloss: "Yes, I went out with Diego and ate pizza."
+            explanation: "Two past verbs, both yours: «salí», «comí»."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Compraste el regalo?", audioText: "¿compraste el regalo?", gloss: "Did you buy the gift?" }
+            goal: "Say yes, you bought it yesterday."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, lo compré ayer" }
+                - { id: "wrong1", text: "sí, lo compro ayer" }
+                - { id: "wrong2", text: "sí, lo compró ayer" }
+              correctOptionId: "right"
+              audioText: "sí, lo compré ayer"
+            replyGloss: "Yes, I bought it yesterday."
+            explanation: "«lo» for the gift, «compré» for yesterday."
+          - id: t4
+            npc: { speaker: "Ana", es: "¿Y anoche? ¿Escribiste el mensaje?", audioText: "¿y anoche? ¿escribiste el mensaje?", gloss: "And last night? Did you write the message?" }
+            goal: "Say no, you didn't write it, you studied."
+            reply:
+              mode: build
+              tiles: ["no", "lo", "escribí", "estudié", "escribo", "escribió"]
+              answer: "no lo escribí estudié"
+              alsoAccepted: ["no estudié"]
+            replyGloss: "No, I didn't write it, I studied."
+            explanation: "«no lo escribí» — «no», then «lo», then the past verb — and «estudié» to say what you did instead."
+

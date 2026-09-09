@@ -1,0 +1,163 @@
+  # ── L6 · «El fin de semana» — «el fin de semana», escribí, escribió.
+  #    The fourth time marker, one more -ir verb, and a recap of every
+  #    marker so far. «escribiste» is NOT registered and is never printed.
+  - n: 6
+    template: free
+    title: "El fin de semana"
+    description: "The weekend — Spanish says 'the end of the week', and drops it in front of a past verb the way it dropped «ayer»."
+    steps:
+      - kind: map
+        id: l6-map-elfindesemanaescribi
+        tokens: ["el", "fin", "de", "semana", "escribí", "un", "mensaje"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "end", tokenIndex: 1 }
+          - { en: "of", tokenIndex: 2 }
+          - { en: "week", tokenIndex: 3 }
+          - { en: "I wrote", tokenIndex: 4 }
+          - { en: "a", tokenIndex: 5 }
+          - { en: "message", tokenIndex: 6 }
+        audioText: "el fin de semana escribí un mensaje"
+        revealNote: "«el fin de semana» — the end of the week: the weekend. In front of a past verb it means last weekend. «escribí» — I wrote — is «escribir» on the -er/-ir table you already own."
+        tokenGenders: { 0: "m", 1: "m", 5: "m", 6: "m" }
+      - kind: info
+        id: l6-info-findesemana
+        title: "Four ways to say when"
+        body: "«ayer» — yesterday. «anoche» — last night. «la semana pasada» — last week. And «el fin de semana» — the weekend; with a past verb it reads as last weekend: «el fin de semana escribí un mensaje». One more -ir verb on the table you know: «escribí», I wrote; «escribió», he or she wrote. Any of the four markers can go first or last: «escribí un mensaje el fin de semana» says the same thing."
+      - kind: speakLit
+        id: l6-sp-escribi
+        es: "el fin de semana escribí un mensaje"
+        en: "On the weekend I wrote a message"
+        atoms: ["el fin de semana", "escribí", "mensaje"]
+      - kind: buildLit
+        id: l6-b-anaescribiounmensaje
+        also: ["ayer Ana escribió un mensaje"]
+        es: "Ana escribió un mensaje ayer"
+        en: "Ana wrote a message yesterday"
+        atoms: ["escribió", "mensaje", "ayer"]
+        tiles: ["escribí", "escribe"]
+      - kind: clozeLit
+        id: l6-c-mihermanoescribio
+        es: "mi hermano escribió la tarea anoche"
+        en: "My brother wrote the homework last night"
+        blank: "escribió"
+        options: ["escribió", "escribí", "escribe"]
+        atoms: ["hermano", "escribió", "tarea", "anoche"]
+        why: "Your brother, last night: «escribió». «escribí» is I; «escribe» is now."
+      - kind: listenCompLit
+        id: l6-lc-elfindesemanasali
+        es: "el fin de semana salí con mis amigos"
+        en: "On the weekend I went out with my friends."
+        atoms: ["el fin de semana", "salí", "amigo"]
+        distractorsEn:
+          - "Last night I went out with my friends."
+          - "On the weekend she went out with my friends."
+          - "On the weekend I ate with my friends."
+      - kind: buildLit
+        id: l6-b-escribiunmensajeaana
+        also: ["el fin de semana escribí un mensaje a Ana"]
+        es: "escribí un mensaje a Ana el fin de semana"
+        en: "I wrote a message to Ana on the weekend"
+        atoms: ["escribí", "mensaje", "el fin de semana"]
+        tiles: ["escribió", "escribo"]
+      - kind: mcq
+        id: l6-q-escribio
+        prompt: "Which one means 'she wrote'?"
+        correct: "ella escribió"
+        distractors: ["ella escribe", "ella escribí", "ella escribo"]
+        atoms: ["escribió"]
+        why: "«escribió» — past, he or she. «escribe» is now; the other two are I."
+      - kind: audioWimcq
+        id: l6-ear-mensaje
+        target: { surface: "el mensaje", emoji: "✉️" }
+        distractors:
+          - { surface: "la tarea", emoji: "📝" }
+          - { surface: "el libro", emoji: "📖" }
+      # Printed non-recall at m17 (es-m17-4-l4-sp-win).
+      - kind: speakLit
+        id: l6-sp-recall-melavolosdientes
+        es: "me lavo los dientes y me ducho temprano"
+        en: "I brush my teeth and I shower early"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l6-agr-escribiescribio
+        en: "On the weekend I wrote a message and Diego wrote the homework"
+        audioText: "el fin de semana escribí un mensaje y Diego escribió la tarea"
+        atoms: ["el fin de semana", "escribí", "mensaje", "escribió", "tarea"]
+        segments:
+          - { text: "el fin de semana " }
+          - { blank: { id: "p1", answer: "escribí", options: ["escribí", "escribió"] } }
+          - { text: " un mensaje y Diego " }
+          - { blank: { id: "p2", answer: "escribió", options: ["escribió", "escribí"] } }
+          - { text: " la tarea" }
+      - kind: listenBuildLit
+        id: l6-lb-elfindesemanacomi
+        es: "el fin de semana comí con mi familia"
+        en: "On the weekend I ate with my family"
+        atoms: ["el fin de semana", "comí", "familia"]
+        tiles: ["comió", "como"]
+      - kind: textMcq
+        id: l6-tm-escribio
+        target: "escribió"
+        distractors: ["escribe", "escribí", "escribo"]
+      - kind: speakLit
+        id: l6-sp-escribiestudieysali
+        es: "el fin de semana escribí, estudié y salí"
+        en: "On the weekend I wrote, studied and went out"
+        atoms: ["el fin de semana", "escribí", "estudié", "salí"]
+      - kind: sim
+        id: l6-sim-ana-findesemana
+        scene: { emoji: "✉️", title: "Ana and the weekend", setting: "Monday. Ana wants to know what happened while she was away." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Saliste el fin de semana?", audioText: "¿saliste el fin de semana?", gloss: "Did you go out on the weekend?" }
+            goal: "Say yes, you went out with Diego."
+            reply:
+              mode: build
+              tiles: ["sí", "salí", "con", "Diego", "salió", "salgo"]
+              answer: "sí salí con Diego"
+            replyGloss: "Yes, I went out with Diego."
+            explanation: "«saliste» in the question, «salí» in the answer."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y el mensaje?", audioText: "¿y el mensaje?", gloss: "And the message?" }
+            goal: "Say you wrote it on the weekend."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "lo escribí el fin de semana" }
+                - { id: "wrong1", text: "lo escribo el fin de semana" }
+                - { id: "wrong2", text: "lo escribió el fin de semana" }
+              correctOptionId: "right"
+              audioText: "lo escribí el fin de semana"
+            replyGloss: "I wrote it on the weekend."
+            explanation: "«lo» stands in for the message, and «escribí» puts the writing in the past. «escribo» is now; «escribió» is somebody else."
+          - id: t3
+            npc: { speaker: "Ana", es: "Diego no escribió la tarea.", audioText: "diego no escribió la tarea", gloss: "Diego didn't write the homework." }
+            goal: "Say you wrote the homework last night."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "anoche escribí la tarea" }
+                - { id: "wrong1", text: "anoche escribe la tarea" }
+                - { id: "wrong2", text: "anoche escribió la tarea" }
+              correctOptionId: "right"
+              audioText: "anoche escribí la tarea"
+            replyGloss: "Last night I wrote the homework."
+            explanation: "«anoche» and I: «escribí»."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "el fin de semana", target: "the weekend" }
+          - { source: "escribí", target: "I wrote" }
+          - { source: "escribió", target: "he or she wrote" }
+          - { source: "ayer", target: "yesterday" }
+          - { source: "anoche", target: "last night" }
+          - { source: "la semana pasada", target: "last week" }
+          - { source: "el mensaje", target: "the message" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "el fin de semana escribí un mensaje y salí con Ana"
+        en: "On the weekend I wrote a message and went out with Ana"
+        atoms: ["el fin de semana", "escribí", "mensaje", "salí"]
+

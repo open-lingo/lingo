@@ -1,0 +1,158 @@
+  # ── L8 · CHECKPOINT — graded only. Every plural form produced, every
+  #    pronoun, ser/estar in the plural, and the transfer:
+  #    cp-transfer-necesitamos — «necesitar» (m16, singular) handed over as
+  #    "we need — necesitar"; the bank holds «necesito» / «necesita» (m16
+  #    atoms) as foils, so the live decision is the -mos ending on a verb
+  #    the module never conjugated. Appears in exactly one step.
+  #    Cloze share 2/20; recalls 2 (L1 win, L4 win). Selection runs ≤2.
+  - n: 8
+    template: free
+    title: "L8 ✓ Checkpoint · The rest of the table"
+    description: "Every we and every they, nothing to lean on — and one verb you have to finish yourself."
+    steps:
+      - kind: listenCompLit
+        id: cp-lc-1
+        es: "nosotros comemos en el restaurante"
+        en: "We eat at the restaurant."
+        atoms: ["nosotros", "comemos", "restaurante"]
+        distractorsEn:
+          - "They eat at the restaurant."
+          - "We eat at home."
+          - "We live at the restaurant."
+      - kind: audioWimcq
+        id: cp-ear-1
+        target: { surface: "el restaurante", emoji: "🍴" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "el mercado", emoji: "🛒" }
+      - kind: buildLit
+        id: cp-build-1
+        es: "ellos hablan español en casa"
+        en: "They speak Spanish at home"
+        atoms: ["ellos", "hablan", "español", "casa"]
+        tiles: ["hablamos", "habla"]
+      - kind: clozeLit
+        id: cp-cloze-1
+        es: "ustedes tienen los boletos"
+        en: "You all have the tickets"
+        blank: "tienen"
+        options: ["tienen", "tenemos", "tiene"]
+        atoms: ["ustedes", "tienen", "boleto"]
+        why: "«ustedes» takes the -n: «tienen»."
+      - kind: listenBuildLit
+        id: cp-lb-1
+        es: "vamos a la playa hoy"
+        en: "We go to the beach today"
+        atoms: ["vamos", "playa", "hoy"]
+        tiles: ["van", "voy"]
+      - kind: mcq
+        id: cp-q-1
+        prompt: "Which one means 'they are' — what they are?"
+        correct: "son"
+        distractors: ["somos", "es", "están"]
+        atoms: ["son"]
+        why: "What they are is «ser»: «son»."
+      # Printed non-recall at L1 (es-m18-1-l1-sp-win).
+      - kind: speakLit
+        id: cp-sp-recall-1
+        es: "nosotros vivimos aquí y hablamos español"
+        en: "We live here and we speak Spanish"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: cp-agr-1
+        en: "We are friends and they are brothers"
+        audioText: "somos amigos y ellos son hermanos"
+        atoms: ["somos", "amigo", "ellos", "son", "hermano"]
+        segments:
+          - { blank: { id: "p1", answer: "somos", options: ["somos", "son"] } }
+          - { text: " amigos y ellos " }
+          - { blank: { id: "p2", answer: "son", options: ["son", "somos"] } }
+          - { text: " hermanos" }
+      # ── THE TRANSFER: a verb the module never conjugated, glossed in the prompt.
+      - kind: buildLit
+        id: cp-transfer-necesitamos
+        es: "necesitamos los boletos"
+        en: "We need the tickets — necesitar"
+        atoms: ["necesitamos", "boleto"]
+        tiles: ["necesito", "necesita"]
+      - kind: audioWimcq
+        id: cp-ear-2
+        target: { surface: "el boleto", emoji: "🎟️" }
+        distractors:
+          - { surface: "el regalo", emoji: "🎁" }
+          - { surface: "la mochila", emoji: "🎒" }
+      - kind: clozeLit
+        id: cp-cloze-2
+        es: "nosotros estamos en casa"
+        en: "We are at home"
+        blank: "estamos"
+        options: ["estamos", "están", "está"]
+        atoms: ["nosotros", "estamos", "casa"]
+        why: "«nosotros» — we — so -mos: «estamos»."
+      - kind: listenBuildLit
+        id: cp-lb-2
+        es: "mis amigos viven en España"
+        en: "My friends live in Spain"
+        atoms: ["viven", "España"]
+        tiles: ["vivimos", "vive"]
+      - kind: mcq
+        id: cp-q-2
+        prompt: "Which one means 'you all go'?"
+        correct: "ustedes van"
+        distractors: ["ustedes vamos", "ustedes vas", "ustedes voy"]
+        atoms: ["ustedes", "van"]
+        why: "«ustedes» borrows the they ending: «van»."
+      - kind: buildLit
+        id: cp-build-2
+        es: "tenemos hambre y vamos al restaurante"
+        en: "We are hungry and we go to the restaurant"
+        atoms: ["tenemos", "vamos", "restaurante"]
+        tiles: ["tienen", "van"]
+      - kind: listenCompLit
+        id: cp-lc-2
+        es: "¿ustedes están bien?"
+        en: "Are you all well?"
+        atoms: ["ustedes", "están", "bien"]
+        distractorsEn:
+          - "Are you well?"
+          - "Are they well?"
+          - "Are you all here?"
+      - kind: buildLit
+        id: cp-build-3
+        es: "Ana y Sofía están en la escuela"
+        en: "Ana and Sofía are at school"
+        atoms: ["están", "escuela"]
+        tiles: ["estamos", "está"]
+      # Printed non-recall at L4 (es-m18-4-l4-sp-win).
+      - kind: speakLit
+        id: cp-sp-recall-2
+        es: "ustedes son mis amigos y comemos juntos"
+        en: "You all are my friends and we eat together"
+        atoms: []
+        cue: recall
+      - kind: listenCompLit
+        id: cp-lc-3
+        es: "ellos no tienen dinero"
+        en: "They don't have money."
+        atoms: ["ellos", "tienen", "dinero"]
+        distractorsEn:
+          - "We don't have money."
+          - "They don't have the tickets."
+          - "They have money."
+      - kind: matchLit
+        id: cp-match
+        pairs:
+          - { source: "hablamos", target: "we speak" }
+          - { source: "comen", target: "they eat" }
+          - { source: "somos", target: "we are (what)" }
+          - { source: "están", target: "they are (where, how)" }
+          - { source: "tenemos", target: "we have" }
+          - { source: "van", target: "they go" }
+          - { source: "ustedes", target: "you all" }
+      - kind: speakLit
+        id: cp-sp-final
+        es: "somos amigos, vivimos juntos y comemos juntos"
+        en: "We are friends, we live together and we eat together"
+        atoms: ["somos", "amigo", "vivimos", "juntos", "comemos"]
+

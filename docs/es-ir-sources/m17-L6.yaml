@@ -1,0 +1,172 @@
+  # ── L6 · «Me acuesto tarde» — acostarse / acuesto / acuesta. m14's o→ue
+  #    inside a pointer verb («dormir» → «duermo» is the model), and the
+  #    whole routine in order: despierto → levanto → ducho → acuesto.
+  #    Debut: l6-im-acostarse (imageMcq); «acuestas» on l6-sp-teacuestas.
+  #    NOT HERE: verb + infinitive with a pointer (L7).
+  - n: 6
+    template: free
+    title: "Me acuesto tarde"
+    description: "The other shape-changer from module fourteen — o into ue — closes the day. Now you can say the whole routine, morning to night."
+    steps:
+      - kind: map
+        id: l6-map-meacuesto
+        tokens: ["me", "acuesto", "tarde"]
+        pairs:
+          - { en: "myself", tokenIndex: 0 }
+          - { en: "I go to bed", tokenIndex: 1 }
+          - { en: "late", tokenIndex: 2 }
+        audioText: "me acuesto tarde"
+        revealNote: "«acostarse» is to go to bed, and its o does what «dormir» did in «duermo»: it opens into ue when the stress lands on it. «me acuesto» — I go to bed. The pointer is the same «me» you put on every verb this module."
+      - kind: imageMcq
+        id: l6-im-acostarse
+        target: { surface: "acostarse", meaningEn: "to go to bed", emoji: "😴" }
+        distractors:
+          - { surface: "despertarse", emoji: "⏰" }
+          - { surface: "levantarse", emoji: "🧍" }
+          - { surface: "ducharse", emoji: "🚿" }
+      - kind: speakLit
+        id: l6-sp-acostarse
+        es: "acostarse"
+        en: "to go to bed"
+        atoms: ["acostarse"]
+      - kind: buildLit
+        id: l6-b-hoymeacuestotarde
+        also: ["me acuesto tarde hoy"]
+        es: "hoy me acuesto tarde"
+        en: "Today I go to bed late"
+        atoms: ["acuesto", "tarde", "hoy"]
+        tiles: ["se", "acuesta"]
+      - kind: info
+        id: l6-info-oue
+        title: "The o that becomes ue — and the day in order"
+        body: "«acostarse» keeps its o as the name of the verb; for a person the stressed o opens into ue: «me acuesto», «se acuesta». The same change that turned «dormir» into «duermo» and «volver» into «vuelve». That gives you a whole day in four pointer verbs: «me despierto» — I wake up; «me levanto» — I get up; «me ducho» — I shower; «me acuesto» — I go to bed. Every one of them: pointer first, then the verb, with «no» in front of the pair when you need it — «no me acuesto temprano»."
+      - kind: speakLit
+        id: l6-sp-teacuestas
+        es: "¿te acuestas tarde?"
+        en: "Do you go to bed late?"
+        atoms: ["acuestas", "tarde"]
+      - kind: clozeLit
+        id: l6-c-miabuelaseacuesta
+        es: "mi abuela se acuesta temprano"
+        en: "My grandmother goes to bed early"
+        blank: "acuesta"
+        options: ["acuesta", "acuesto", "acostarse"]
+        atoms: ["abuela", "acuesta", "temprano"]
+        why: "«se» is in the sentence, so the -a ending: «acuesta». «acuesto» travels with «me»; «acostarse» is the verb's name."
+      - kind: listenCompLit
+        id: l6-lc-nomeacuestotemprano
+        es: "no me acuesto temprano"
+        en: "I don't go to bed early."
+        atoms: ["acuesto", "temprano"]
+        distractorsEn:
+          - "I go to bed early."
+          - "I don't wake up early."
+          - "She doesn't go to bed early."
+      - kind: buildLit
+        id: l6-b-anaseacuestaysedespierta
+        es: "Ana se acuesta tarde y se despierta tarde"
+        en: "Ana goes to bed late and wakes up late"
+        atoms: ["acuesta", "tarde", "despierta"]
+        tiles: ["me", "acuesto"]
+      # «me acosto» is the ghost a learner who missed the o→ue builds; it
+      # lives in a distractor slot only.
+      - kind: mcq
+        id: l6-q-meacuesto
+        prompt: "Which one means 'I go to bed'?"
+        correct: "me acuesto"
+        distractors: ["me acosto", "se acuesto", "acuesto me"]
+        atoms: ["acuesto"]
+        why: "«me acuesto» — the o has opened into ue, the pointer matches the -o, and it sits in front. «me acosto» forgot the change; «se acuesto» breaks the pair; «acuesto me» is English order."
+      - kind: audioWimcq
+        id: l6-ear-acostarse
+        target: { surface: "acostarse", emoji: "😴" }
+        distractors:
+          - { surface: "despertarse", emoji: "⏰" }
+          - { surface: "ducharse", emoji: "🚿" }
+      # Printed non-recall at m14 (quiero dormir tarde, pero el trabajo empieza temprano).
+      - kind: speakLit
+        id: l6-sp-recall-quierodormirtarde
+        es: "quiero dormir tarde, pero el trabajo empieza temprano"
+        en: "I want to sleep late, but work starts early"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l6-agr-yodiego
+        en: "I go to bed late and Diego goes to bed early"
+        audioText: "me acuesto tarde y Diego se acuesta temprano"
+        atoms: ["acuesto", "tarde", "acuesta", "temprano"]
+        segments:
+          - { blank: { id: "p1", answer: "me", options: ["me", "se"] } }
+          - { text: " acuesto tarde y Diego " }
+          - { blank: { id: "p2", answer: "se", options: ["se", "me"] } }
+          - { text: " acuesta temprano" }
+      - kind: listenBuildLit
+        id: l6-lb-meacuestotempranohoy
+        es: "me acuesto temprano hoy"
+        en: "I go to bed early today"
+        atoms: ["acuesto", "temprano", "hoy"]
+        tiles: ["se", "acuesta"]
+      - kind: textMcq
+        id: l6-tm-acuesto
+        target: "acuesto"
+        distractors: ["acuesta", "acostarse", "despierto"]
+      - kind: speakLit
+        id: l6-sp-eldia
+        es: "me despierto temprano y me acuesto tarde"
+        en: "I wake up early and I go to bed late"
+        atoms: ["despierto", "temprano", "acuesto", "tarde"]
+      - kind: sim
+        id: l6-sim-diego-noche
+        scene: { emoji: "😴", title: "Diego, late at night", setting: "It is past midnight and Diego is still awake, texting." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "Yo me acuesto tarde. ¿Y tú?", audioText: "yo me acuesto tarde. ¿y tú?", gloss: "I go to bed late. And you?" }
+            goal: "Say you go to bed early."
+            reply:
+              mode: build
+              tiles: ["me", "acuesto", "temprano", "se", "acuesta", "tarde"]
+              answer: "me acuesto temprano"
+            replyGloss: "I go to bed early."
+            explanation: "About yourself: «me acuesto», with «temprano» — Diego's «tarde» is his answer, not yours."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y Ana?", audioText: "¿y ana?", gloss: "And Ana?" }
+            goal: "Say she goes to bed late."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "se acuesta tarde" }
+                - { id: "wrong1", text: "me acuesto tarde" }
+                - { id: "wrong2", text: "se acuesto tarde" }
+              correctOptionId: "right"
+              audioText: "se acuesta tarde"
+            replyGloss: "She goes to bed late."
+            explanation: "Ana is a she: «se acuesta». «me acuesto» would be you, and «se acuesto» breaks the pair."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿Te levantas temprano mañana?", audioText: "¿te levantas temprano mañana?", gloss: "Are you getting up early tomorrow?" }
+            goal: "Say yes — you get up early tomorrow."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me levanto temprano mañana" }
+                - { id: "wrong1", text: "sí, se levanta temprano mañana" }
+                - { id: "wrong2", text: "sí, levanto temprano mañana" }
+              correctOptionId: "right"
+              audioText: "sí, me levanto temprano mañana"
+            replyGloss: "Yes, I get up early tomorrow."
+            explanation: "Your own morning: «me levanto». Without the pointer, «levanto» lifts something; with «se», it is somebody else."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "acostarse", target: "to go to bed" }
+          - { source: "me acuesto", target: "I go to bed" }
+          - { source: "se acuesta", target: "he or she goes to bed" }
+          - { source: "me despierto", target: "I wake up" }
+          - { source: "me ducho", target: "I shower" }
+          - { source: "no me acuesto temprano", target: "I don't go to bed early" }
+          - { source: "mañana", target: "tomorrow" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "me acuesto tarde, pero me despierto temprano"
+        en: "I go to bed late, but I wake up early"
+        atoms: ["acuesto", "tarde", "despierto", "temprano"]
+
