@@ -1,8 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { seededShuffle } from "@/shared/utils/seededShuffle";
-import { expandAcceptedAnswers } from "./translateVariants";
-import { normalizeTypedAnswer } from "@/shared/speech";
+import { jaVariantSurfaces, alsoAcceptedSurfaces, isBuildCorrect } from "./buildAcceptance";
 import { getTrayOverride } from "../../data/devGates";
 import type { BuildSentenceStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
@@ -202,31 +201,14 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   // remaining sentence is correct Japanese). Word-granularity JA builds
   // only: character builds spell ONE word (exact by definition), and
   // listening builds stay exact — you build what you HEARD, は included.
-  const acceptedBuildSurfaces = useMemo(() => {
-    if (step.granularity !== "word") return null;
-    const target = step.correctOrder.join("");
-    if (!/[぀-ヿ]/.test(target)) return null;
-    // Seed from the AUTHORED sentence — its spacing carries the word
-    // grouping the variant regexes key on (きょうは, not きょう|は).
-    const seed = step.targetSentence?.trim() || step.correctOrder.join(" ");
-    // Author-listed alternatives (`alsoAccepted`) ride the same expansion.
-    const seeds = [seed, ...(step.alsoAccepted ?? [])];
-    return new Set(
-      expandAcceptedAnswers(seeds, { moduleIndex }).map((v) =>
-        normalizeTypedAnswer(v),
-      ),
-    );
-  }, [
-    step.correctOrder,
-    step.granularity,
-    step.targetSentence,
-    step.alsoAccepted,
-    moduleIndex,
-  ]);
-  const isCorrect =
-    JSON.stringify(placed) === JSON.stringify(step.correctOrder) ||
-    (acceptedBuildSurfaces !== null &&
-      acceptedBuildSurfaces.has(normalizeTypedAnswer(placed.join(""))));
+  // The three lanes live in buildAcceptance.ts (pure, snapshot-tested across
+  // every course): exact → JA variants → author-listed `alsoAccepted`.
+  const acceptedBuildSurfaces = useMemo(
+    () => jaVariantSurfaces(step, moduleIndex),
+    [step, moduleIndex],
+  );
+  const alsoAccepted = useMemo(() => alsoAcceptedSurfaces(step), [step]);
+  const isCorrect = isBuildCorrect(placed, step, acceptedBuildSurfaces, alsoAccepted);
 
   // DISPLAY-ONLY kanji-fication (Spencer 2026-07-17): once the lesson's
   // module unlocks a tile word's kanji, the tile shows the kanji form
@@ -292,19 +274,14 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   // their OWN tier — on the 2xl tier it measured 0→87 at 1280×700, and even
   // sm:text-xl with sm:py-2 left 3px. Zero regression at every viewport.
   const hugeBank = !bigTiles && step.tiles.length >= 12;
-  // `leading-tight` on every tile: a tile is one word, and a furigana band
-  // already rides above it, so the default 1.5 leading was pure height —
-  // 50px for a 16px word once any tile in the row carried a reading
-  // (TestFlight 2026-09-06 #50, しつもん). Measured on the iOS sim: 39→35px
-  // plain, 50→48px with furigana at text-base.
   const denseTileClass = hugeBank
-    ? "px-3.5 py-1.5 text-base font-bold leading-tight sm:px-4 sm:text-xl"
-    : "px-3.5 py-1.5 text-base font-bold leading-tight sm:px-4 sm:py-2 sm:text-2xl";
+    ? "px-3.5 py-1.5 text-base font-bold sm:px-4 sm:text-xl"
+    : "px-3.5 py-1.5 text-base font-bold sm:px-4 sm:py-2 sm:text-2xl";
   const bankTileClass = bigTiles
-    ? "px-5 py-3 text-[clamp(1.5rem,3.4cqh,2.25rem)] font-bold leading-tight"
+    ? "px-5 py-3 text-[clamp(1.5rem,3.4cqh,2.25rem)] font-bold"
     : denseTileClass;
   const placedTileClass = bigTiles
-    ? "px-5 py-3 text-[clamp(1.5rem,3.4cqh,2.25rem)] font-bold leading-tight"
+    ? "px-5 py-3 text-[clamp(1.5rem,3.4cqh,2.25rem)] font-bold"
     : denseTileClass;
 
   const handleEnter = useCallback(() => {
@@ -414,7 +391,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
           between the last tile and the CTA on a tall phone (Spencer QA
           2026-08-07). The action block below keeps `mt-auto`, so it stays
           bottom-anchored and the fixed action bar does not move. */}
-      <div className="flex min-h-0 flex-1 flex-col stage-center gap-4">
+      <div className="flex min-h-0 flex-1 flex-col justify-center gap-4">
       {step.audienceEmoji && (
         /* WHO you are speaking to, drawn rather than narrated. The label is
            the accessible name only — showing it as text would restore the
@@ -612,19 +589,9 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
            10 placed vs a 7-tile answer spilled out of the box). Ghost and
            tiles share one grid cell, so the tray height is
            max(ghost, actual) and the box grows instead of overflowing.
-           Left-aligned (reading order).
-
-           PHONE CAP (TestFlight 2026-09-05 #3/#5/#7/#24): below `sm` the
-           ghost's contribution is capped at two rows (2×42px + gap). A
-           12-tile answer wraps to four rows in a 398px tray, and a 212px
-           EMPTY box on a 15 Pro Max pushed the bank's last rows under the
-           sticky CTA — the learner saw dead space above and clipped tiles
-           below. The tray still grows past the cap as tiles are placed
-           (the floor rule, not a cap on content); only the reservation
-           shrinks. From `sm` up there is height to spend and the ghost
-           reserves the full answer as before. */
+           Left-aligned (reading order). */
         <div className="grid min-h-[56px] sm:min-h-[72px] rounded-2xl border-[1.5px] border-dashed border-border bg-surface-muted px-4 py-2.5">
-          <div aria-hidden className="[grid-area:1/1] invisible flex max-h-[92px] flex-wrap gap-2 overflow-hidden sm:max-h-none sm:gap-2.5">
+          <div aria-hidden className="[grid-area:1/1] invisible flex flex-wrap gap-2 sm:gap-2.5">
             {step.correctOrder.map((tile, i) => (
               <span
                 key={`ghost-${i}`}

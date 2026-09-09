@@ -32,7 +32,11 @@ registerEsDoctrinePins({
   lessons: ES_M14_LESSONS,
   checkpointIndex: ES_M14_CHECKPOINT_INDEX,
 });
-registerEsAtomUsagePin("m14", ES_M14_LESSONS, ES_M14_ATOMS);
+registerEsAtomUsagePin("m14", ES_M14_LESSONS, ES_M14_ATOMS, {
+  // «volver» is the L8 transfer cell's didn't-conjugate foil (see the
+  // bespoke "registered but never drilled" pin below).
+  neverProduced: ["volver"],
+});
 
 const getLesson = (n: number) => ES_M14_LESSONS[n - 1].steps;
 const LESSONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as const;

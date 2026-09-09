@@ -764,6 +764,7 @@ lessons:
         why: "cuenta ends in -a: la."
       - kind: buildLit
         id: b-cuentaporfavor
+        also: ["por favor la cuenta"]
         es: "la cuenta por favor"
         en: "the check, please"
         atoms: ["la", "cuenta", "por favor"]
@@ -775,7 +776,7 @@ lessons:
         atoms: ["la", "cuenta", "por favor"]
       - kind: audioWimcq
         id: ear-review7
-        target: { surface: "hasta luego", emoji: "👋" }
+        target: { surface: "hasta luego", emoji: "🚶" }
         distractors:
           - { surface: "buenos días", emoji: "🌅" }
           - { surface: "mucho gusto", emoji: "🤝" }
@@ -1320,6 +1321,7 @@ lessons:
           - { surface: "el pan", emoji: "🍞" }
       - kind: buildLit
         id: m-build-2
+        also: ["por favor la cuenta"]
         es: "la cuenta por favor"
         en: "the check, please"
         atoms: ["la", "cuenta", "por favor"]

@@ -32,7 +32,10 @@ registerEsDoctrinePins({
   lessons: ES_M15_LESSONS,
   checkpointIndex: ES_M15_CHECKPOINT_INDEX,
 });
-registerEsAtomUsagePin("m15", ES_M15_LESSONS, ES_M15_ATOMS);
+registerEsAtomUsagePin("m15", ES_M15_LESSONS, ES_M15_ATOMS, {
+  // «poner» is the transfer pair's didn't-conjugate foil; «pongo» is produced.
+  neverProduced: ["poner"],
+});
 
 const getLesson = (n: number) => ES_M15_LESSONS[n - 1].steps;
 const LESSONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as const;

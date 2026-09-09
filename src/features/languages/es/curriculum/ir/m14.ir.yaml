@@ -845,6 +845,7 @@ lessons:
       # verb is always an infinitive and never breaks.
       - kind: buildLit
         id: l4-b-quierodormir
+        also: ["ahora quiero dormir"]
         es: "quiero dormir ahora"
         en: "I want to sleep now"
         atoms: ["quiero", "dormir", "ahora"]
@@ -1711,6 +1712,7 @@ lessons:
           - { surface: "el cine", emoji: "🎬" }
       - kind: buildLit
         id: cp-build-1
+        also: ["hoy no puedo cocinar"]
         es: "no puedo cocinar hoy"
         en: "I can't cook today"
         atoms: ["puedo", "cocinar", "hoy"]
@@ -2027,6 +2029,7 @@ lessons:
         why: "Ana is the one who can't, so «puede». The ue is already there before the ending is chosen — «puedo», «puedes», «puede», one broken stem and three ordinary endings."
       - kind: buildLit
         id: l10-b-1
+        also: ["el domingo duermo tarde"]
         es: "duermo tarde el domingo"
         en: "I sleep late on Sunday"
         atoms: ["duermo", "tarde", "domingo"]
@@ -2102,6 +2105,7 @@ lessons:
         why: "One hat, so «cuesta». Now look at the stem you just picked: «costar» with its o pushed out into ue, the same break as «puedo». m12 drilled this verb for ten lessons a whole module before anybody gave the break a name."
       - kind: buildLit
         id: l10-b-3
+        also: ["ahora puedo escuchar música"]
         es: "puedo escuchar música ahora"
         en: "I can listen to music now"
         atoms: ["puedo", "escuchar", "música", "ahora"]

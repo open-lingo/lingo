@@ -786,6 +786,7 @@ const ES_M7_6: LessonContent = {
       ["la", "cuenta", "por", "favor", "el", "gracias"],
       ["la", "cuenta", "por", "favor"],
       ["la", "cuenta", "por favor"],
+      ["por favor la cuenta"],
     ),
     speaking("es-m7-6-sp-cuentaporfavor", "la cuenta por favor", "the check, please", ["la", "cuenta", "por favor"]),
     {
@@ -1546,6 +1547,7 @@ const ES_M7_10: LessonContent = {
       ["la", "cuenta", "por", "favor", "el", "gracias"],
       ["la", "cuenta", "por", "favor"],
       ["la", "cuenta", "por favor"],
+      ["por favor la cuenta"],
     ),
     cloze(
       "es-m7-10-m-cloze-3",

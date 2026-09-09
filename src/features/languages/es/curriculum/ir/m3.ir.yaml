@@ -551,6 +551,7 @@ lessons:
           - { surface: "el celular", emoji: "📱" }
       - kind: buildLit
         id: b-sillaaqui
+        also: ["aquí hay una silla"]
         es: "hay una silla aquí"
         en: "There's a chair here"
         atoms: ["hay", "una", "silla", "aquí"]
@@ -872,6 +873,7 @@ lessons:
           - { surface: "la casa", emoji: "🏠" }
       - kind: buildLit
         id: cp-b-cincollaves
+        also: ["aquí hay cinco llaves"]
         es: "hay cinco llaves aquí"
         en: "There are five keys here"
         atoms: ["hay", "cinco", "llave", "aquí"]
@@ -951,6 +953,7 @@ lessons:
         atoms: ["la", "pluma", "es", "de"]
       - kind: buildLit
         id: b-hayunlapiz
+        also: ["aquí hay un lápiz"]
         es: "hay un lápiz aquí"
         en: "There's a pencil here"
         atoms: ["hay", "un", "lápiz", "aquí"]
@@ -1106,6 +1109,7 @@ lessons:
         atoms: ["hay", "tres", "libro", "en", "la", "casa"]
       - kind: buildLit
         id: m-b-nohaydinero
+        also: ["aquí no hay dinero"]
         es: "no hay dinero aquí"
         en: "There's no money here"
         atoms: ["no", "hay", "dinero", "aquí"]

@@ -763,6 +763,7 @@ const ES_M14_4: LessonContent = {
       ["quiero", "dormir", "ahora", "duermo", "duerme"],
       ["quiero", "dormir", "ahora"],
       ["quiero", "dormir", "ahora"],
+      ["ahora quiero dormir"],
     ),
     {
       id: "es-m14-4-l4-ear-domingo",
@@ -1603,6 +1604,7 @@ const ES_M14_8: LessonContent = {
       ["no", "puedo", "cocinar", "hoy", "puedes", "dormir"],
       ["no", "puedo", "cocinar", "hoy"],
       ["puedo", "cocinar", "hoy"],
+      ["hoy no puedo cocinar"],
     ),
     cloze(
       "es-m14-8-cp-cloze-1",
@@ -1896,6 +1898,7 @@ const ES_M14_10: LessonContent = {
       ["duermo", "tarde", "el", "domingo", "duerme", "temprano"],
       ["duermo", "tarde", "el", "domingo"],
       ["duermo", "tarde", "domingo"],
+      ["el domingo duermo tarde"],
     ),
     {
       id: "es-m14-10-l10-ear-1",
@@ -1974,6 +1977,7 @@ const ES_M14_10: LessonContent = {
       ["puedo", "escuchar", "música", "ahora", "puedes", "poder"],
       ["puedo", "escuchar", "música", "ahora"],
       ["puedo", "escuchar", "música", "ahora"],
+      ["ahora puedo escuchar música"],
     ),
     listeningBuildSentence({
       id: "es-m14-10-l10-lb-2",

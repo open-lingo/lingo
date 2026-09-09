@@ -169,6 +169,11 @@ export function registerEsAtomUsagePin(
   moduleId: string,
   lessons: LessonContent[],
   atoms: EsAtom[],
+  opts: {
+    /** Atoms registered ONLY so the gate can track them (a transfer-test foil,
+     *  a never-conjugated infinitive). Each needs a reason at the call site. */
+    neverProduced?: string[];
+  } = {},
 ): void {
   describe(`ES ${moduleId} — atom usage`, () => {
     it("every declared atom appears in the module's own steps", () => {
@@ -177,6 +182,54 @@ export function registerEsAtomUsagePin(
         .map((a) => a.surface)
         .filter((surf) => !corpus.includes(surf.toLowerCase()));
       expect(missing, `atoms never used: ${missing.join(", ")}`).toEqual([]);
+    });
+
+    it("every declared atom earns an ANSWER position, not just a distractor slot", () => {
+      // The usage pin above counts appearances, and a distractor IS an
+      // appearance — so a word can be shown a dozen times and never once be
+      // the thing the learner commits to. Found in the m12 wave (estas: 8
+      // appearances, 0 answers); lifted course-wide 2026-09-06. Answer
+      // positions: build/listen-build targets, speaking phrases, cloze and
+      // agreement blanks, and dialogue_sim replies (the learner produces the
+      // reply, in pick or build mode).
+      const answers: string[] = [];
+      for (const l of lessons) {
+        for (const s of l.steps) {
+          const rec = s as unknown as Record<string, unknown>;
+          if (s.type === "build_sentence" || s.type === "listening_build") {
+            answers.push(String(rec.targetSentence ?? ""));
+          } else if (s.type === "speaking") {
+            answers.push(String(rec.targetPhrase ?? ""));
+          } else if (s.type === "particle_cloze") {
+            answers.push(String(rec.correctParticle ?? ""));
+          } else if (s.type === "agreement_cloze") {
+            for (const seg of s.segments) if ("blank" in seg) answers.push(seg.blank.correctAnswer);
+          } else if (s.type === "dialogue_sim") {
+            for (const t of s.turns) {
+              const r = t.reply;
+              if (r.mode === "build") answers.push(r.answer);
+              else answers.push(r.options.find((o) => o.id === r.correctOptionId)?.text ?? "");
+            }
+          }
+        }
+      }
+      expect(answers.length, "no answer positions found — the pin would be vacuous").toBeGreaterThan(0);
+      const norm = (x: string) => x.toLowerCase().replace(/[¿¡?!.,]/g, "").trim();
+      const phrases = answers.map(norm);
+      const words = new Set(phrases.flatMap((p) => p.split(/\s+/)));
+      const exempt = new Set((opts.neverProduced ?? []).map(norm));
+      const missing = atoms
+        .map((a) => norm(a.surface))
+        .filter((surf) => !exempt.has(surf))
+        .filter((surf) =>
+          surf.includes(" ") ? !phrases.some((p) => p.includes(surf)) : !words.has(surf),
+        );
+      expect(
+        missing,
+        `offered but never produced (no answer position): ${missing.join(", ")}`,
+      ).toEqual([]);
+      const staleExempt = [...exempt].filter((e) => !atoms.some((a) => norm(a.surface) === e));
+      expect(staleExempt, `neverProduced names a surface that is not an atom here`).toEqual([]);
     });
   });
 }

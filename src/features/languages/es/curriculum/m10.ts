@@ -26,9 +26,9 @@ import {
 const COURSE_ID = "mock-1";
 
 export const ES_M10_ATOMS: EsAtom[] = [
-  atom({ surface: "hablar", emoji: "🗣️", meaningEn: "to speak", partOfSpeech: "verb", fromModule: "m10", kind: "vocab" }),
-  atom({ surface: "trabajar", emoji: "👷", meaningEn: "to work", partOfSpeech: "verb", fromModule: "m10", kind: "vocab", hint: "j sounds like h — tra-ba-HAR" }),
-  atom({ surface: "estudiar", emoji: "📚", meaningEn: "to study", partOfSpeech: "verb", fromModule: "m10", kind: "vocab" }),
+  atom({ surface: "hablar", meaningEn: "to speak", partOfSpeech: "verb", fromModule: "m10", kind: "vocab", emoji: "🗣️" }),
+  atom({ surface: "trabajar", meaningEn: "to work", partOfSpeech: "verb", fromModule: "m10", kind: "vocab", emoji: "👷", hint: "j sounds like h — tra-ba-HAR" }),
+  atom({ surface: "estudiar", meaningEn: "to study", partOfSpeech: "verb", fromModule: "m10", kind: "vocab", emoji: "📚" }),
   atom({ surface: "hablo", meaningEn: "I speak", partOfSpeech: "verb", fromModule: "m10", kind: "vocab" }),
   atom({ surface: "hablas", meaningEn: "you speak", partOfSpeech: "verb", fromModule: "m10", kind: "vocab" }),
   atom({ surface: "habla", meaningEn: "he/she speaks", partOfSpeech: "verb", fromModule: "m10", kind: "vocab" }),
@@ -37,9 +37,9 @@ export const ES_M10_ATOMS: EsAtom[] = [
   atom({ surface: "estudio", meaningEn: "I study", partOfSpeech: "verb", fromModule: "m10", kind: "vocab" }),
   atom({ surface: "estudias", meaningEn: "you study", partOfSpeech: "verb", fromModule: "m10", kind: "vocab" }),
   atom({ surface: "estudia", meaningEn: "he/she studies", partOfSpeech: "verb", fromModule: "m10", kind: "vocab" }),
-  atom({ surface: "escuchar", emoji: "👂", meaningEn: "to listen", partOfSpeech: "verb", fromModule: "m10", kind: "vocab" }),
-  atom({ surface: "bailar", emoji: "💃", meaningEn: "to dance", partOfSpeech: "verb", fromModule: "m10", kind: "vocab" }),
-  atom({ surface: "cantar", emoji: "🎤", meaningEn: "to sing", partOfSpeech: "verb", fromModule: "m10", kind: "vocab" }),
+  atom({ surface: "escuchar", meaningEn: "to listen", partOfSpeech: "verb", fromModule: "m10", kind: "vocab", emoji: "👂" }),
+  atom({ surface: "bailar", meaningEn: "to dance", partOfSpeech: "verb", fromModule: "m10", kind: "vocab", emoji: "💃" }),
+  atom({ surface: "cantar", meaningEn: "to sing", partOfSpeech: "verb", fromModule: "m10", kind: "vocab", emoji: "🎤" }),
   atom({ surface: "siempre", meaningEn: "always", partOfSpeech: "adverb", fromModule: "m10", kind: "vocab", hint: "SYEM-preh" }),
   atom({ surface: "nunca", meaningEn: "never", partOfSpeech: "adverb", fromModule: "m10", kind: "vocab" }),
   atom({ surface: "todos los días", meaningEn: "every day", partOfSpeech: "phrase", fromModule: "m10", kind: "phrase" }),

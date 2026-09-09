@@ -90,8 +90,8 @@ newAtoms:
   - { surface: "mi", meaningEn: "my", partOfSpeech: "particle", kind: "particle" }
   - { surface: "tu", meaningEn: "your", partOfSpeech: "particle", kind: "particle", hint: "no accent — tú with the accent is 'you'" }
   - { surface: "familia", meaningEn: "family", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "👨‍👩‍👧‍👦" }
-  - { surface: "madre", meaningEn: "mother", partOfSpeech: "noun", kind: "vocab", gender: "f" }
-  - { surface: "padre", meaningEn: "father", partOfSpeech: "noun", kind: "vocab", gender: "m" }
+  - { surface: "madre", meaningEn: "mother", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "👩‍👧" }
+  - { surface: "padre", meaningEn: "father", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "👨‍👦" }
   - { surface: "hermano", meaningEn: "brother", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "👦" }
   - { surface: "hermana", meaningEn: "sister", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "👧" }
   - { surface: "abuelo", meaningEn: "grandfather", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "👴" }

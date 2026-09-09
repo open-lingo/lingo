@@ -50,11 +50,12 @@ These are logged; a tester hitting them is confirmation, not news.
 - **Speaking steps hide the answer**, so "Show answer" feels like a penalty.
 - **Gender agreement is drilled hard in build steps.** That one is deliberate —
   Spanish gender is the thing English speakers skip — but it does feel heavy.
-- **Build-sentence word order is strict.** A correct but differently-ordered
-  Spanish sentence («ahora voy a la playa») can grade wrong. Real bug, known,
-  mitigated for now by the English prompt pinning the expected order.
-- **A stray tile can appear in a build bank** that isn't part of any right
-  answer.
+- **Build-sentence word order is mostly strict.** Since 2026-09-06 each build
+  accepts up to three vetted alternative orders («voy a la playa ahora» as
+  well as «ahora voy a la playa»). If a correct order is still marked wrong,
+  paste the exact sentence — that is precisely how the list grows.
+- **Build banks hold extra tiles on purpose** (words from earlier modules
+  that belong in no right answer). That is the distractor floor, not a bug.
 
 ## Worth reporting
 

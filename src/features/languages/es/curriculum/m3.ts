@@ -583,6 +583,7 @@ const ES_M3_5: LessonContent = {
       ["hay", "una", "silla", "aquí", "en", "un"],
       ["hay", "una", "silla", "aquí"],
       ["hay", "una", "silla", "aquí"],
+      ["aquí hay una silla"],
     ),
     {
       id: "es-m3-5-sim-nodinero",
@@ -992,6 +993,7 @@ const ES_M3_8: LessonContent = {
       ["hay", "cinco", "llaves", "aquí", "tres", "en"],
       ["hay", "cinco", "llaves", "aquí"],
       ["hay", "cinco", "llave", "aquí"],
+      ["aquí hay cinco llaves"],
     ),
     cloze(
       "es-m3-8-cp-enlacasa",
@@ -1088,6 +1090,7 @@ const ES_M3_9: LessonContent = {
       ["hay", "un", "lápiz", "aquí", "una", "en"],
       ["hay", "un", "lápiz", "aquí"],
       ["hay", "un", "lápiz", "aquí"],
+      ["aquí hay un lápiz"],
     ),
     {
       id: "es-m3-9-ear-ventana",
@@ -1308,6 +1311,7 @@ const ES_M3_10: LessonContent = {
       ["no", "hay", "dinero", "aquí", "sí", "un"],
       ["no", "hay", "dinero", "aquí"],
       ["no", "hay", "dinero", "aquí"],
+      ["aquí no hay dinero"],
     ),
     {
       id: "es-m3-10-m-ear-puerta",

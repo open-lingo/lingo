@@ -186,17 +186,18 @@ export type BuildSentenceStep = StepBase & {
   targetSentence: string;
   tiles: string[];
   correctOrder: string[];
+  /**
+   * Whole alternative sentences the author has vetted as equally correct
+   * (a fronted adverb moved to the end, an optional subject pronoun…),
+   * max 3 (`MAX_ALSO_ACCEPTED`). ABSENT = exact grading; steps with nothing
+   * to list carry no line. Each must be buildable from `tiles`
+   * (`lintAlsoAccepted`). Language-agnostic; JA additionally has the
+   * rule-based variant generator. See buildAcceptance.ts.
+   */
+  alsoAccepted?: string[];
   audioKey?: string;
   granularity: "word" | "character";
   targetAnnotation?: JapaneseAnnotation[];
-  /**
-   * Additional CORRECT surfaces (authored `alsoAccept` in the IR), each
-   * expanded through the same variant machinery as `targetSentence`. A
-   * floor-drawn particle tile can make a second correct sentence (あさが
-   * いそがしいから beside あさ いそがしいから — TestFlight #21); the author
-   * lists it here and the build grades it right instead of "Not quite".
-   */
-  alsoAccepted?: string[];
   /**
    * TRANSFORM MODE (n4-scoping §3 "sentence_transform" verdict: parametrize,
    * don't fork the type). When set, the JA source sentence renders above the

@@ -557,6 +557,7 @@ lessons:
         why: "You drink it TOO — that is adding. «nunca» would say you never do."
       - kind: buildLit
         id: l4-b-comocarnetambien
+        also: ["también como carne"]
         es: "como carne también"
         en: "I eat meat too"
         atoms: ["como", "carne", "también"]
@@ -1421,6 +1422,7 @@ lessons:
         distractors: ["vive", "vivo", "hablas"]
       - kind: buildLit
         id: l9-b-2
+        also: ["sofía también come carne"]
         es: "Sofía come carne también"
         en: "Sofía eats meat too"
         atoms: ["come", "carne", "también"]

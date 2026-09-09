@@ -73,7 +73,7 @@ newAtoms:
   - { surface: "cama", meaningEn: "bed", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🛏️" }
   - { surface: "baño", meaningEn: "bathroom", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🚽", hint: "ny sound from ñ: BA-nyo" }
   - { surface: "cocina", meaningEn: "kitchen", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🍳", hint: "soft c, like cero: ko-SEE-na" }
-  - { surface: "cuarto", meaningEn: "room", partOfSpeech: "noun", kind: "vocab", gender: "m" }
+  - { surface: "cuarto", meaningEn: "room", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🛋️" }
   - { surface: "allí", meaningEn: "there", partOfSpeech: "adverb", kind: "vocab", hint: "ll sounds like y, just like llave: a-YEE" }
   - { surface: "los", meaningEn: "the (el-words, plural)", partOfSpeech: "particle", kind: "particle" }
   - { surface: "las", meaningEn: "the (la-words, plural)", partOfSpeech: "particle", kind: "particle" }
@@ -268,6 +268,7 @@ lessons:
         tokenGenders: { 1: "m", 2: "m" }
       - kind: buildLit
         id: b-hayunacocina
+        also: ["aquí hay una cocina"]
         es: "hay una cocina aquí"
         en: "There's a kitchen here"
         atoms: ["hay", "una", "cocina", "aquí"]
@@ -595,6 +596,7 @@ lessons:
           - { surface: "el celular", emoji: "📱" }
       - kind: buildLit
         id: b-tresfotos
+        also: ["aquí hay tres fotos"]
         es: "hay tres fotos aquí"
         en: "There are three photos here"
         atoms: ["hay", "tres", "foto", "aquí"]
@@ -827,6 +829,7 @@ lessons:
         why: "«¿qué es?» asks WHAT — «es» answers it, not «está»."
       - kind: buildLit
         id: b-nuevefotoscama
+        also: ["en la cama hay nueve fotos"]
         es: "hay nueve fotos en la cama"
         en: "There are nine photos on the bed"
         atoms: ["hay", "nueve", "foto", "en", "la", "cama"]
@@ -928,6 +931,7 @@ lessons:
         atoms: ["la", "mesa", "es", "de"]
       - kind: buildLit
         id: cp-build-1
+        also: ["en el baño hay ocho fotos"]
         es: "hay ocho fotos en el baño"
         en: "There are eight photos in the bathroom"
         atoms: ["hay", "ocho", "foto", "en", "el", "baño"]
@@ -994,6 +998,7 @@ lessons:
         why: "Still feminine, still «el» in the singular — the two a-sounds rule holds."
       - kind: buildLit
         id: cp-build-2
+        also: ["aquí hay diez llaves"]
         es: "hay diez llaves aquí"
         en: "There are ten keys here"
         atoms: ["hay", "diez", "llave", "aquí"]
@@ -1046,6 +1051,7 @@ lessons:
         atoms: ["la", "foto", "está", "en", "el", "cuarto"]
       - kind: buildLit
         id: b-nuevellavescasa
+        also: ["en la casa hay nueve llaves"]
         es: "hay nueve llaves en la casa"
         en: "There are nine keys in the house"
         atoms: ["hay", "nueve", "llave", "en", "la", "casa"]
@@ -1158,6 +1164,7 @@ lessons:
         atoms: ["la", "llave", "está", "en", "el", "cuarto"]
       - kind: buildLit
         id: m-build-1
+        also: ["en la casa hay diez llaves"]
         es: "hay diez llaves en la casa"
         en: "There are ten keys in the house"
         atoms: ["hay", "diez", "llave", "en", "la", "casa"]
@@ -1208,6 +1215,7 @@ lessons:
           - { surface: "el baño", emoji: "🚽" }
       - kind: buildLit
         id: m-build-2
+        also: ["en la cocina hay nueve fotos"]
         es: "hay nueve fotos en la cocina"
         en: "There are nine photos in the kitchen"
         atoms: ["hay", "nueve", "foto", "en", "la", "cocina"]

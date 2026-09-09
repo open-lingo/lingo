@@ -29,6 +29,7 @@ import {
 } from "@/shared/lessonAuthoring/curriculumAssertions";
 import { isGradedStep } from "@/features/lesson/data/_stepPredicates";
 import type { FrAtom } from "../courseAtoms";
+import { lintAlsoAccepted } from "@/features/lesson/components/steps/buildAcceptance";
 
 export function registerFrModuleContentLints(opts: {
   moduleId: string;
@@ -37,6 +38,9 @@ export function registerFrModuleContentLints(opts: {
   /** Explicit lesson count — pinned so a silently dropped lesson fails here.
    *  (Was a hardcoded 8 in the IR wave; §13 modules run 9–10.) */
   expectedLessonCount: number;
+  /** Atoms registered ONLY so a gate can track them (a transfer foil, a
+   *  never-conjugated infinitive). Each needs a reason at the call site. */
+  neverProduced?: string[];
 }): void {
   const { moduleId, lessons, atoms, expectedLessonCount } = opts;
 
@@ -60,6 +64,63 @@ export function registerFrModuleContentLints(opts: {
         expect(content, `pathway node '${lesson.id}' has no content`).not.toBeNull();
         expect(content?.steps.length ?? 0).toBeGreaterThan(0);
       }
+    });
+
+    it("every build alsoAccepted alternate is ≤3, distinct, and buildable from its bank", () => {
+      const problems: string[] = [];
+      for (const l of lessons) {
+        for (const s of l.steps) {
+          if (s.type !== "build_sentence" || !s.alsoAccepted) continue;
+          problems.push(...lintAlsoAccepted(s));
+        }
+      }
+      expect(problems).toEqual([]);
+    });
+
+    it("every declared atom earns an ANSWER position, not just a distractor slot", () => {
+      // Ported from ES (doctrinePins.ts, 2026-09-06): a usage count treats a
+      // distractor as an appearance, so a word can be shown a dozen times
+      // and never once be the thing the learner commits to. Answer positions:
+      // build/listen-build targets, speaking phrases, cloze and agreement
+      // blanks, dialogue_sim replies.
+      const answers: string[] = [];
+      for (const l of lessons) {
+        for (const s of l.steps) {
+          const rec = s as unknown as Record<string, unknown>;
+          if (s.type === "build_sentence" || s.type === "listening_build") {
+            answers.push(String(rec.targetSentence ?? ""));
+          } else if (s.type === "speaking") {
+            answers.push(String(rec.targetPhrase ?? ""));
+          } else if (s.type === "particle_cloze") {
+            answers.push(String(rec.correctParticle ?? ""));
+          } else if (s.type === "agreement_cloze") {
+            for (const seg of s.segments) if ("blank" in seg) answers.push(seg.blank.correctAnswer);
+          } else if (s.type === "dialogue_sim") {
+            for (const t of s.turns) {
+              const r = t.reply;
+              if (r.mode === "build") answers.push(r.answer);
+              else answers.push(r.options.find((o) => o.id === r.correctOptionId)?.text ?? "");
+            }
+          }
+        }
+      }
+      expect(answers.length, "no answer positions found — the pin would be vacuous").toBeGreaterThan(0);
+      const norm = (x: string) => x.toLowerCase().replace(/[?!.,;:]/g, "").replace(/’/g, "'").trim();
+      const phrases = answers.map(norm);
+      // Elision: «l'école» produces «école», so split on the apostrophe too.
+      const words = new Set(phrases.flatMap((p) => p.split(/[\s']+/)));
+      const exempt = new Set((opts.neverProduced ?? []).map(norm));
+      const missing = atoms
+        .map((a) => norm(a.surface))
+        .filter((surf) => !exempt.has(surf))
+        .filter((surf) =>
+          surf.includes(" ") || surf.includes("'")
+            ? !phrases.some((p) => p.includes(surf))
+            : !words.has(surf),
+        );
+      expect(missing, `offered but never produced (no answer position): ${missing.join(", ")}`).toEqual([]);
+      const stale = [...exempt].filter((e) => !atoms.some((a) => norm(a.surface) === e));
+      expect(stale, "neverProduced names a surface that is not an atom here").toEqual([]);
     });
 
     it("every step id within a lesson is unique", () => {

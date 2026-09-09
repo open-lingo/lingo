@@ -219,6 +219,10 @@ function lesson2(): LessonStep[] {
       correctMeaningEn: "Yes, please.",
       distractorsEn: ["No, thank you.", "Sorry!", "Good evening."],
     }),
+    // «café» was met only in Léa's offer and never produced — caught by the
+    // answer-position pin (ported from ES, 2026-09-06). Say it once, printed,
+    // before she offers it.
+    speaking("fr-m1v2-2-speak-uncafe", "un café", "a coffee", ["café"]),
     {
       // Self-cueing offer (§13.6) — and «un» plants next lesson's seed.
       id: "fr-m1v2-2-sim-cafe",
@@ -598,6 +602,9 @@ function lesson5(): LessonStep[] {
       revealNote:
         "A phone number's worth of French digits, read with your own eyes.",
     },
+    // «zéro» was heard, mapped and MCQ'd but never said — answer-position
+    // pin (2026-09-06). Printed first voicing; the same gap ES m1 had with «cero».
+    speaking("fr-m1v2-5-speak-zero", "zéro", "zero", ["zéro"]),
     {
       // Interleave break — a MIRROR exchange (§13.6): «enchanté» is
       // answered with itself. Hugo's proper debut.

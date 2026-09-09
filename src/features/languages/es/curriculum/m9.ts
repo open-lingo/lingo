@@ -106,6 +106,7 @@ const ES_M9_1: LessonContent = {
       ["hay", "un", "parque", "aquí", "el", "la"],
       ["hay", "un", "parque", "aquí"],
       ["hay", "un", "parque", "aquí"],
+      ["aquí hay un parque"],
     ),
     listeningCompSentence({
       id: "es-m9-1-lc-voyalaplaya",
@@ -596,6 +597,7 @@ const ES_M9_5: LessonContent = {
       ["hay", "un", "autobús", "allí", "el", "la"],
       ["hay", "un", "autobús", "allí"],
       ["hay", "un", "autobús", "allí"],
+      ["allí hay un autobús"],
     ),
     {
       id: "es-m9-5-ear-review5",
@@ -616,6 +618,7 @@ const ES_M9_5: LessonContent = {
       ["voy", "a", "la", "playa", "ahora", "al", "el"],
       ["voy", "a", "la", "playa", "ahora"],
       ["voy", "a", "la", "playa", "ahora"],
+      ["ahora voy a la playa"],
     ),
     cloze(
       "es-m9-5-c-alvsala3",
@@ -888,6 +891,7 @@ const ES_M9_7: LessonContent = {
       ["vas", "a", "la", "escuela", "mañana", "voy", "al"],
       ["vas", "a", "la", "escuela", "mañana"],
       ["vas", "a", "la", "escuela", "mañana"],
+      ["mañana vas a la escuela"],
     ),
     {
       id: "es-m9-7-ear-cinetienda3",
@@ -926,6 +930,7 @@ const ES_M9_7: LessonContent = {
       ["voy", "a", "casa", "mañana", "al", "el"],
       ["voy", "a", "casa", "mañana"],
       ["voy", "a", "casa", "mañana"],
+      ["mañana voy a casa"],
     ),
     cloze(
       "es-m9-7-c-workout3",
@@ -985,6 +990,7 @@ const ES_M9_7: LessonContent = {
       ["voy", "a", "la", "escuela", "hoy", "al", "el"],
       ["voy", "a", "la", "escuela", "hoy"],
       ["voy", "a", "la", "escuela", "hoy"],
+      ["hoy voy a la escuela"],
     ),
     {
       id: "es-m9-7-sim-ana-workout",
@@ -1148,6 +1154,7 @@ const ES_M9_8: LessonContent = {
       ["voy", "a", "casa", "ahora", "al", "el"],
       ["voy", "a", "casa", "ahora"],
       ["voy", "a", "casa", "ahora"],
+      ["ahora voy a casa"],
     ),
     {
       id: "es-m9-8-cp-ear-4",
@@ -1221,6 +1228,7 @@ const ES_M9_9: LessonContent = {
       ["vas", "a", "la", "tienda", "mañana", "voy", "al"],
       ["vas", "a", "la", "tienda", "mañana"],
       ["vas", "a", "la", "tienda", "mañana"],
+      ["mañana vas a la tienda"],
     ),
     {
       id: "es-m9-9-ear-summit1",
@@ -1395,9 +1403,10 @@ const ES_M9_10: LessonContent = {
       "es-m9-10-m-build-1",
       "Build: 'you're going to school'",
       "vas a la escuela",
-      ["vas", "a", "la", "escuela", "voy", "al"],
+      ["vas", "a", "la", "escuela", "voy", "al", "tú"],
       ["vas", "a", "la", "escuela"],
       ["vas", "a", "la", "escuela"],
+      ["tú vas a la escuela"],
     ),
     {
       id: "es-m9-10-m-ear-1",

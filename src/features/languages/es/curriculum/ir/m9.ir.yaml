@@ -179,6 +179,7 @@ lessons:
           - { surface: "la casa", emoji: "🏠" }
       - kind: buildLit
         id: b-hayunparque
+        also: ["aquí hay un parque"]
         es: "hay un parque aquí"
         en: "There's a park here"
         atoms: ["hay", "un", "parque", "aquí"]
@@ -635,6 +636,7 @@ lessons:
         why: "You're saying WHERE it is — «está», not «es»."
       - kind: buildLit
         id: b-hayunautobus
+        also: ["allí hay un autobús"]
         es: "hay un autobús allí"
         en: "There's a bus over there"
         atoms: ["hay", "un", "autobús", "allí"]
@@ -652,6 +654,7 @@ lessons:
         atoms: ["ahora"]
       - kind: buildLit
         id: b-voyahoraaltrabajo
+        also: ["ahora voy a la playa"]
         es: "voy a la playa ahora"
         en: "I'm going to the beach now"
         atoms: ["voy", "a", "la", "playa", "ahora"]
@@ -752,7 +755,7 @@ lessons:
         tiles: ["la", "aquí"]
       - kind: audioWimcq
         id: ear-review6
-        target: { surface: "hasta luego", emoji: "👋" }
+        target: { surface: "hasta luego", emoji: "🚶" }
         distractors:
           - { surface: "buenos días", emoji: "🌅" }
           - { surface: "mucho gusto", emoji: "🤝" }
@@ -855,6 +858,7 @@ lessons:
         why: "Your own plan — «voy»."
       - kind: buildLit
         id: b-workout1
+        also: ["mañana vas a la escuela"]
         es: "vas a la escuela mañana"
         en: "you're going to school tomorrow"
         atoms: ["vas", "a", "la", "escuela", "mañana"]
@@ -890,6 +894,7 @@ lessons:
         cue: recall
       - kind: buildLit
         id: b-workout2
+        also: ["mañana voy a casa"]
         es: "voy a casa mañana"
         en: "I'm going home tomorrow"
         atoms: ["voy", "a", "casa", "mañana"]
@@ -926,6 +931,7 @@ lessons:
             replyGloss: "I'm going to the store."
       - kind: buildLit
         id: b-workout3
+        also: ["hoy voy a la escuela"]
         es: "voy a la escuela hoy"
         en: "I'm going to school today"
         atoms: ["voy", "a", "la", "escuela", "hoy"]
@@ -1056,6 +1062,7 @@ lessons:
         atoms: ["vas", "a", "la", "escuela"]
       - kind: buildLit
         id: cp-build-2
+        also: ["ahora voy a casa"]
         es: "voy a casa ahora"
         en: "I'm going home now"
         atoms: ["voy", "a", "casa", "ahora"]
@@ -1111,6 +1118,7 @@ lessons:
         why: "mercado is an el-word — «al»."
       - kind: buildLit
         id: b-summit1
+        also: ["mañana vas a la tienda"]
         es: "vas a la tienda mañana"
         en: "you're going to the store tomorrow"
         atoms: ["vas", "a", "la", "tienda", "mañana"]
@@ -1232,10 +1240,11 @@ lessons:
         why: "Your own plan — «voy»."
       - kind: buildLit
         id: m-build-1
+        also: ["tú vas a la escuela"]
         es: "vas a la escuela"
         en: "you're going to school"
         atoms: ["vas", "a", "la", "escuela"]
-        tiles: ["voy", "al"]
+        tiles: ["voy", "al", "tú"]
       - kind: audioWimcq
         id: m-ear-1
         target: { surface: "el cine", emoji: "🎬" }

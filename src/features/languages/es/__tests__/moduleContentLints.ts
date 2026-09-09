@@ -29,6 +29,7 @@ import {
 } from "@/shared/lessonAuthoring/curriculumAssertions";
 import { isGradedStep } from "@/features/lesson/data/_stepPredicates";
 import type { EsAtom } from "../courseAtoms";
+import { lintAlsoAccepted } from "@/features/lesson/components/steps/buildAcceptance";
 
 export function registerEsModuleContentLints(opts: {
   moduleId: string;
@@ -60,6 +61,17 @@ export function registerEsModuleContentLints(opts: {
         expect(content, `pathway node '${lesson.id}' has no content`).not.toBeNull();
         expect(content?.steps.length ?? 0).toBeGreaterThan(0);
       }
+    });
+
+    it("every build alsoAccepted alternate is ≤3, distinct, and buildable from its bank", () => {
+      const problems: string[] = [];
+      for (const l of lessons) {
+        for (const s of l.steps) {
+          if (s.type !== "build_sentence" || !s.alsoAccepted) continue;
+          problems.push(...lintAlsoAccepted(s));
+        }
+      }
+      expect(problems).toEqual([]);
     });
 
     it("every step id within a lesson is unique", () => {

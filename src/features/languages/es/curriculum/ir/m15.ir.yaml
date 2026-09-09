@@ -374,6 +374,7 @@ lessons:
           - { surface: "la escuela", emoji: "🏫" }
       - kind: buildLit
         id: l2-b-yohagolatarea
+        also: ["hago la tarea"]
         es: "yo hago la tarea"
         en: "I do the homework"
         atoms: ["hago", "tarea"]
@@ -407,6 +408,7 @@ lessons:
         why: "Two yo-forms, both ending in -go, and that is not a coincidence — it is the family this module is about. The one you already owned is «tengo». This is the second. Here the English decides it: doing the homework, not having it."
       - kind: buildLit
         id: l2-b-haceseltrabajo
+        also: ["haces el trabajo"]
         es: "tú haces el trabajo"
         en: "You do the work"
         atoms: ["haces", "trabajo"]
@@ -927,6 +929,7 @@ lessons:
       # verb is always an infinitive and never grows anything.
       - kind: buildLit
         id: l4-b-quierosalir
+        also: ["hoy quiero salir"]
         es: "quiero salir hoy"
         en: "I want to go out today"
         atoms: ["quiero", "salir", "hoy"]
@@ -1366,6 +1369,7 @@ lessons:
           - { surface: "el hermano", emoji: "👦" }
       - kind: buildLit
         id: l6-b-hoynotengotarea
+        also: ["no tengo tarea hoy"]
         es: "hoy no tengo tarea"
         en: "today I don't have homework"
         atoms: ["tengo", "tarea"]
@@ -1645,6 +1649,7 @@ lessons:
           - { surface: "el perro", emoji: "🐶" }
       - kind: buildLit
         id: l7-b-veo
+        also: ["hoy veo a mi amigo"]
         es: "veo a mi amigo hoy"
         en: "I see my friend today"
         atoms: ["veo", "amigo"]
@@ -1838,6 +1843,7 @@ lessons:
           - { surface: "la escuela", emoji: "🏫" }
       - kind: buildLit
         id: cp-build-1
+        also: ["vengo a la fiesta temprano", "yo vengo temprano a la fiesta", "vengo temprano a la fiesta"]
         es: "yo vengo a la fiesta temprano"
         en: "I come to the party early"
         atoms: ["vengo", "fiesta", "temprano"]
@@ -1925,6 +1931,7 @@ lessons:
           - { text: " tarde" }
       - kind: buildLit
         id: cp-build-2
+        also: ["hoy ella ve la película"]
         es: "ella ve la película hoy"
         en: "she sees the movie today"
         atoms: ["ve", "película"]
@@ -2020,6 +2027,7 @@ lessons:
           - { surface: "el helado", emoji: "🍨" }
       - kind: buildLit
         id: l9-b-1
+        also: ["el sábado vengo a la fiesta"]
         es: "vengo a la fiesta el sábado"
         en: "I come to the party on Saturday"
         atoms: ["vengo", "fiesta", "sábado"]
@@ -2161,6 +2169,7 @@ lessons:
         why: "You are the one doing it, so «hago». «hace» would be somebody else and «hacer» is only the verb's name. Nothing in «hacer» predicts that g — you had to learn this word, not derive it, and that is the difference between this module and the last one."
       - kind: buildLit
         id: l10-b-1
+        also: ["mañana ana viene a mi casa", "ana viene mañana a mi casa"]
         es: "Ana viene a mi casa mañana"
         en: "Ana comes to my house tomorrow"
         atoms: ["viene", "casa"]

@@ -660,6 +660,8 @@ function lesson5(): LessonStep[] {
       "je vais au cinéma ce soir",
       ["je vais", "au", "cinéma", "ce soir", "à la"],
       ["je vais", "au", "cinéma", "ce soir"],
+      undefined,
+      ["ce soir je vais au cinéma"],
     ),
     listeningCompSentence({
       // TAIL: m2 lane — the où-family stays discriminated.
@@ -1308,6 +1310,8 @@ function lesson10(): LessonStep[] {
       "je vais à la gare demain",
       ["je vais", "à la", "gare", "demain", "au"],
       ["je vais", "à la", "gare", "demain"],
+      undefined,
+      ["demain je vais à la gare"],
     ),
     cloze(
       "fr-m5-10-cloze-au",

@@ -441,6 +441,8 @@ function lesson3(): LessonStep[] {
       "je vais à la gare dimanche",
       ["je vais", "à la", "gare", "dimanche", "samedi"],
       ["je vais", "à la", "gare", "dimanche"],
+      undefined,
+      ["dimanche je vais à la gare"],
     ),
     {
       id: "fr-m8-3-match",
@@ -1337,6 +1339,8 @@ function lesson10(): LessonStep[] {
       "je vais à l'école lundi",
       ["je vais", "à", "l'école", "lundi", "dimanche"],
       ["je vais", "à", "l'école", "lundi"],
+      undefined,
+      ["lundi je vais à l'école"],
     ),
     cloze(
       "fr-m8-10-cloze-seq5",
