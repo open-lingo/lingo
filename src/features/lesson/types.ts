@@ -195,6 +195,11 @@ export type BuildSentenceStep = StepBase & {
    * rule-based variant generator. See buildAcceptance.ts.
    */
   alsoAccepted?: string[];
+  /** Distractor tiles the bank MUST offer (authored trap, e.g. a に tile
+   *  beside あした いく — m11-neo-12). Kept OUT of `tiles` so the compiled
+   *  bank stays a partition of the target; `padBuildTileFloor` merges them
+   *  at load ahead of its pool fill, skipping any that are answer tokens. */
+  bankExtras?: string[];
   audioKey?: string;
   granularity: "word" | "character";
   targetAnnotation?: JapaneseAnnotation[];
