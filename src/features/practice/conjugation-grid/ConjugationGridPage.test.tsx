@@ -47,7 +47,7 @@ describe("ConjugationGridPage (happy path, real loader data)", () => {
     expect(screen.getByText("hablar")).toBeInTheDocument();
     expect(screen.getByText("ser")).toBeInTheDocument();
     // Ahead-of-path verbs wear an advisory module chip (never disabled).
-    expect(screen.getByText("M13")).toBeInTheDocument(); // poder
+    expect(screen.getAllByText("M13").length).toBeGreaterThan(0); // poder (cocinar shares M13 since 2026-09-09)
     expect(screen.getByText("hacer").closest("button")).toBeEnabled();
     // Person labels in the preview grid come from ES_CONJUGATION_FORM_LABELS.
     expect(screen.getByText("él / ella / usted")).toBeInTheDocument();
