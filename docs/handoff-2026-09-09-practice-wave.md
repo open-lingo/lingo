@@ -88,11 +88,12 @@ branches (`git merge` each onto origin/main) and re-run `npm run preflight`.
    quoting bug after the VALID poll).
 
 ## Spencer's calls still open
-- Tile follow-ups from the Duolingo comparison: **grey/light reading instead of
-  accent red** (needs code — the tray tile paints the reading in tile colour)
-  and **per-row stretch with centred word** (needs a wrapper change in the
-  sortable tray). Both agreed in principle 2026-09-09; not built.
-- Flat-vector backgrounds via local image gen: **WORKS.** `~/.local/bin/mflux-generate-z-image-turbo --steps 8 --seed 7 --width 1024 --height 1024 --prompt "flat vector illustration in a clean corporate app-marketing style: …"` produced a convincing Duolingo-style torii in one shot (`~/Desktop/torii-flat-vector-test-2026-09-09.png`, ~7 min incl. load; Z-Image-Turbo, 31 GB cached, 128 GB RAM). The generic `mflux-generate` entry points fail here (FLUX.1 caches are empty HF-gated stubs; FLUX.2 klein has no entry point in this install) — use the `-z-image-turbo` binary. Next: a prompt template + seed per course landmark, batch, then vectorise (vtracer) or render at 2048 for backgrounds. Spencer has not yet said go.
+- Tile follow-ups from the Duolingo comparison — Spencer (post-compaction,
+  2026-09-09): take Duolingo's **font sizing and alignment only, not its
+  colours**. So: grey/light reading is DROPPED; **per-row stretch with centred
+  word** is in flight on a Sonnet lane (worktree under `lingo/.claude/worktrees/`,
+  branch `worktree-agent-aca5d129a458f4c59`).
+- Flat-vector backgrounds via local image gen: **WORKS.** `~/.local/bin/mflux-generate-z-image-turbo --steps 8 --seed 7 --width 1024 --height 1024 --prompt "flat vector illustration in a clean corporate app-marketing style: …"` produced a convincing Duolingo-style torii in one shot (`~/Desktop/torii-flat-vector-test-2026-09-09.png`, ~7 min incl. load; Z-Image-Turbo, 31 GB cached, 128 GB RAM). The generic `mflux-generate` entry points fail here (FLUX.1 caches are empty HF-gated stubs; FLUX.2 klein has no entry point in this install) — use the `-z-image-turbo` binary. Next: a prompt template + seed per course landmark, batch, then vectorise (vtracer) or render at 2048 for backgrounds. Spencer said go (post-compaction): a Sonnet lane is generating the first 20-image set to `~/Desktop/openlingo-backgrounds-2026-09-09/` with a manifest + contact sheet, using OUR palette from the theme tokens.
 - #58 rule-card line (に with こたえる), furigana below 12px (decided: no),
   `scripts/asc/` untracked in the main tree, lingo-data TTS override files and
   deck JSONs uncommitted, the Android session's files uncommitted.
