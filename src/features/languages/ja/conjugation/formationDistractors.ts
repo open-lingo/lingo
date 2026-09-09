@@ -38,6 +38,19 @@ const U_TO_A_NAIVE: Record<string, string> = {
   る: "ら",
 };
 
+/** う-row → え-row, for the potential's double-conjugation slip (のめられる). */
+const U_TO_E_ROW: Record<string, string> = {
+  う: "え",
+  く: "け",
+  ぐ: "げ",
+  す: "せ",
+  つ: "て",
+  ぬ: "ね",
+  ぶ: "べ",
+  む: "め",
+  る: "れ",
+};
+
 /** The stacked members that share a target form's ending family. */
 function verbFamilyMembers(form: ChainForm): ChainForm[] {
   switch (form) {
@@ -62,6 +75,10 @@ function verbFamilyMembers(form: ChainForm): ChainForm[] {
       return ["volitional"];
     case "ba":
       return ["ba"];
+    case "potential":
+      return ["potential"];
+    case "tara":
+      return ["tara"];
   }
 }
 
@@ -86,6 +103,12 @@ const CHAIN_SUFFIX: Record<ChainForm, string> = {
   // Naive attach: ば bolted straight onto the dictionary form (のむば),
   // skipping the え-row shift entirely — same simplification as て/た/volitional.
   ba: "ば",
+  // Naive attach: られる bolted onto the dictionary form (のむられる) — the
+  // godan-as-ichidan error m24 L1 warns about; same simplification as ば.
+  potential: "られる",
+  // Naive attach: たら on the dictionary form (のむたら), skipping the た-form
+  // sound change entirely.
+  tara: "たら",
 };
 
 /** Wrong sound-change candidates (te/ta/nai/volitional families, godan/ichidan verbs). */
@@ -94,16 +117,44 @@ function wrongSoundChangeCandidates(
   group: VerbGroup,
   form: ChainForm,
 ): string[] {
-  // ba's irregular slips (きれば／くば／しば／すば) are hand-authored below —
-  // every other form has no irregular sound-change candidates today.
-  if (group === "irregular" && form !== "ba") return [];
+  // ba / potential / tara irregular slips are hand-authored below — every
+  // other form has no irregular sound-change candidates today.
+  if (group === "irregular" && form !== "ba" && form !== "potential" && form !== "tara") return [];
   const base = dictionary.slice(0, -1);
   const masuStem = conjugateVerb(dictionary, group, "masu").slice(0, -2); // drop ます
   const out: string[] = [];
-  if (form === "te" || form === "ta") {
-    const rows = form === "ta" ? ["った", "んだ", "いた", "いだ", "した"] : ["って", "んで", "いて", "いで", "して"];
-    for (const r of rows) out.push(base + r);
-    out.push(masuStem + (form === "ta" ? "た" : "て")); // のむ → のみて
+  if (form === "te" || form === "ta" || form === "tara") {
+    const tail = form === "tara" ? "ら" : "";
+    if (group === "irregular") {
+      // くる → きた／したら is suppletive; the slips keep the wrong stem.
+      const prefix = dictionary === "くる" ? "" : dictionary.slice(0, -2);
+      if (dictionary === "くる") out.push("くったら", "くたら", "こたら");
+      else out.push(prefix + "すったら", prefix + "すたら", prefix + "しったら");
+      return out;
+    }
+    const rows = form === "te" ? ["って", "んで", "いて", "いで", "して"] : ["った", "んだ", "いた", "いだ", "した"];
+    for (const r of rows) out.push(base + r + tail);
+    out.push(masuStem + (form === "te" ? "て" : "た") + tail); // のむ → のみて／のみたら
+  } else if (form === "potential") {
+    if (dictionary === "くる") {
+      out.push("これる"); // ら抜き — the れる shortcut applied to こ-
+      out.push("きられる"); // ます-stem confused for the potential stem
+      out.push("くられる"); // dictionary stem kept (godan-as-ichidan style)
+    } else if (group === "irregular") {
+      const prefix = dictionary.slice(0, -2);
+      out.push(prefix + "しられる"); // ます-stem + られる (する has no potential; it's できる)
+      out.push(prefix + "すれる"); // え-row slide applied to する as if godan
+      out.push(prefix + "される"); // passive confused for the potential
+    } else if (group === "godan") {
+      const last = dictionary.slice(-1);
+      out.push(base + (U_TO_E_ROW[last] ?? last) + "られる"); // のめられる — double-conjugated
+      out.push(masuStem + "れる"); // のみれる — ます-stem confused for the え-row stem
+      out.push(masuStem + "られる"); // のみられる — ます-stem + ichidan ending
+    } else {
+      out.push(base + "れる"); // たべれる — ら抜き (the え-row rule applied to a る-verb)
+      out.push(base + "られれる"); // たべられれる — double-conjugated
+      out.push(base + "える"); // たべえる — え-row bolted on after dropping る
+    }
   } else if (form === "nai" || form === "nai-past") {
     const tail = form === "nai-past" ? "なかった" : "ない";
     if (group === "godan") {

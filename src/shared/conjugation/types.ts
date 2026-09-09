@@ -130,10 +130,42 @@ export interface ConjFreeDrillCategory {
 export interface ConjFreeDrillQuestion {
   itemId: string;
   prompt: string;
+  /** Written (second-script) dictionary form for ruby rendering; absent → plain. */
+  written?: string;
   meaning: string;
+  /** Form key (matches `ConjFreeDrillForm.key`). Never shown; tests read it. */
+  form: string;
   formLabel: string;
   correct: string;
   options: string[];
+}
+
+/** One toggle in the free drill's form list. */
+export interface ConjFreeDrillForm {
+  key: string;
+  label: string;
+  /** One-word demo — a fixed example word conjugated to this form,
+   *  e.g. { dictionary: "たべる", form: "たべて" }. */
+  example: { dictionary: string; form: string };
+  /** Module that teaches the form. The surface hides the toggle while the
+   *  chosen level is below it, and `buildQuestion` never serves it either. */
+  unlockModule: number;
+}
+
+/** One row of the free drill's word browser. */
+export interface ConjFreeDrillItem {
+  id: string;
+  /** Dictionary form (plain phonetic). */
+  dictionary: string;
+  /** Written (second-script) dictionary form, when the word has one. */
+  written?: string;
+  meaning: string;
+  /** Short class chip text — JA: "る" / "う" / "irregular". */
+  classChip: string;
+  /** Provider word-class id, resolved via `wordClass(id)` for the a11y label. */
+  classId: string;
+  /** Renders the chip with the amber "irregular" standout. */
+  irregular?: boolean;
 }
 
 /** Optional free-play drill. When a provider omits this, the surface hides the
@@ -143,11 +175,32 @@ export interface ConjFreeDrillProvider {
   defaultForms: string[];
   /** Lowest module the free drill pool draws from (JA: 7). */
   minModule: number;
-  formsFor(categoryId: string): Array<{ key: string; label: string }>;
+  /** Module from which the browser + card show the written (kanji) form;
+   *  `undefined` → never. Gated on the CHOSEN level, which the surface caps
+   *  at the learner's reached module. */
+  secondScriptExposureModule?: number;
+  /** Every form the category can drill, in display order, UNGATED — the
+   *  surface filters by `unlockModule` against the chosen level. */
+  formsFor(categoryId: string): ConjFreeDrillForm[];
+  /** Every word the pool holds up to `maxModule` — the browser's rows. */
+  listItems(categoryId: string, maxModule: number): ConjFreeDrillItem[];
+  /** Split a surface into ruby segments using the item's written form. */
+  renderWritten(
+    dictionary: string,
+    written: string | undefined,
+    surface: string,
+  ): ConjRubySegment[];
+  /**
+   * Draw one question. `pinnedId` (an id from `listItems`) restricts the draw
+   * to that word; a pinned id outside the level's pool yields `null` (fail
+   * closed — the surface unpins on level/category change). Forms in
+   * `selectedForms` whose gate is above `maxModule` are never served.
+   */
   buildQuestion(
     categoryId: string,
     maxModule: number,
     selectedForms: ReadonlySet<string>,
+    pinnedId?: string | null,
   ): ConjFreeDrillQuestion | null;
   recordResult(categoryId: string, itemId: string, correct: boolean): void;
 }
