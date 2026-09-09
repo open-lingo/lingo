@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Usage: node scripts/shot.mjs <path-or-url> [width] [height] [--full] [--lang=<id>] [--no-lang] [--guest]
+// Usage: node scripts/shot.mjs <path-or-url> [width] [height] [--full] [--lang=<id>] [--no-lang] [--guest] [--touch] [--click=<selector>]
 // Examples:
 //   node scripts/shot.mjs /landing
 //   node scripts/shot.mjs /home 1440 900
@@ -7,12 +7,18 @@
 //   node scripts/shot.mjs /home --lang=ja
 //   node scripts/shot.mjs /home --no-lang        # see first-time language picker modal
 //   node scripts/shot.mjs /landing --guest       # see the page as a logged-out visitor
+//   node scripts/shot.mjs /ja/learn 390 844 --guest --touch --click=".lingo-node-disc"
 //
 // Loads .auth/user.json if present so authed pages render correctly.
 // Pass --guest to render as a logged-out visitor (skips storage state entirely).
 // Injects a learningLanguageId into localStorage before navigation so the
 // first-time LanguagePickerModal doesn't block authed home/lang pages.
 // Pass --no-lang to keep the modal (e.g. when debugging the picker itself).
+// Pass --touch to emulate a coarse-pointer/touch context (mobile UI branches
+// that key off `hasCoarsePointer()` render differently under plain desktop
+// Chromium emulation without this).
+// Pass --click=<selector> to click an element (after the extra wait) before
+// the screenshot is taken — e.g. to open a modal triggered by a tap.
 //
 // Output: /tmp/shot.png (overwritten each run).
 
@@ -37,6 +43,14 @@ const target = args[0];
 const full = args.includes("--full");
 const guest = args.includes("--guest");
 const noLang = args.includes("--no-lang");
+const touch = args.includes("--touch");
+// Repeatable: --click=<selector> may be passed more than once to click a
+// sequence of elements in order (e.g. dismiss a modal, then open another).
+// Each click gets its own timeout; a selector that never appears is skipped
+// with a warning rather than aborting the whole shot.
+const clickSelectors = args
+  .filter((a) => a.startsWith("--click="))
+  .map((a) => a.slice("--click=".length));
 const langArg = args.find((a) => a.startsWith("--lang="));
 const lang = noLang ? null : langArg ? langArg.slice("--lang=".length) : "ko";
 const numeric = args.filter((a) => /^\d+$/.test(a)).map(Number);
@@ -49,6 +63,7 @@ const url = target.startsWith("http")
 const browser = await chromium.launch();
 const ctx = await browser.newContext({
   viewport: { width, height },
+  ...(touch ? { hasTouch: true, isMobile: true } : {}),
   ...(!guest && fs.existsSync(AUTH) ? { storageState: AUTH } : {}),
 });
 const page = await ctx.newPage();
@@ -95,6 +110,14 @@ try {
   // so networkidle can fire while the shell still shows the loading mascot.
   const extraWait = Number(process.argv.find((a) => a.startsWith("--wait="))?.slice(7) ?? 500);
   await page.waitForTimeout(extraWait);
+  for (const sel of clickSelectors) {
+    try {
+      await page.click(sel, { timeout: 5000 });
+      await page.waitForTimeout(400);
+    } catch {
+      console.warn(`--click selector never appeared, skipping: ${sel}`);
+    }
+  }
   await page.screenshot({ path: OUT, fullPage: full });
   console.log(path.resolve(OUT));
 } finally {
