@@ -79,6 +79,14 @@ function verbFamilyMembers(form: ChainForm): ChainForm[] {
       return ["potential"];
     case "tara":
       return ["tara"];
+    case "imperative":
+      return ["imperative"];
+    case "prohibitive":
+      return ["prohibitive"];
+    case "causative":
+      return ["causative"];
+    case "passive":
+      return ["passive"];
   }
 }
 
@@ -109,6 +117,21 @@ const CHAIN_SUFFIX: Record<ChainForm, string> = {
   // Naive attach: たら on the dictionary form (のむたら), skipping the た-form
   // sound change entirely.
   tara: "たら",
+  // Naive attach: ろ bolted onto the dictionary form (のむろ) — the
+  // godan-as-ichidan error, same shape as potential's られる.
+  imperative: "ろ",
+  // The correct answer already IS "dictionary + な" for every class, so this
+  // naive-attach candidate always collides with `correct` and drops out —
+  // prohibitive's distractors come entirely from wrongSoundChangeCandidates'
+  // wrong-STEM (not wrong-suffix) slips below.
+  prohibitive: "な",
+  // Naive attach: させる bolted onto the dictionary form (のむさせる).
+  causative: "させる",
+  // Naive attach: られる bolted onto the dictionary form (のむられる) — same
+  // shape as potential's naive attach, and deliberately the same string (both
+  // are "skip the stem change, keep られる"); the two forms' distractor pools
+  // stay separate because this map is only ever read for its own `form` key.
+  passive: "られる",
 };
 
 /** Wrong sound-change candidates (te/ta/nai/volitional families, godan/ichidan verbs). */
@@ -117,9 +140,21 @@ function wrongSoundChangeCandidates(
   group: VerbGroup,
   form: ChainForm,
 ): string[] {
-  // ba / potential / tara irregular slips are hand-authored below — every
-  // other form has no irregular sound-change candidates today.
-  if (group === "irregular" && form !== "ba" && form !== "potential" && form !== "tara") return [];
+  // ba / potential / tara / prohibitive / passive irregular slips are
+  // hand-authored below. imperative/causative don't need a branch here —
+  // する/くる already get 3 distinct candidates from the wrong-class +
+  // attach-to-dictionary steps in generateFormationDistractors, so an early
+  // return for those two forms costs nothing. Every other form has no
+  // irregular sound-change candidates today.
+  if (
+    group === "irregular" &&
+    form !== "ba" &&
+    form !== "potential" &&
+    form !== "tara" &&
+    form !== "prohibitive" &&
+    form !== "passive"
+  )
+    return [];
   const base = dictionary.slice(0, -1);
   const masuStem = conjugateVerb(dictionary, group, "masu").slice(0, -2); // drop ます
   const out: string[] = [];
@@ -184,6 +219,60 @@ function wrongSoundChangeCandidates(
       // する family: even a plain-する compound keeps this shape (prefix + し／す).
       out.push(masuStem + "ば"); // する → しば (ます-stem naive attach)
       out.push(base + "ば"); // する → すば (drop る, skip the え-row change)
+    }
+  } else if (form === "imperative") {
+    // Wrong-class (godan/ichidan cross-application, in the caller) plus
+    // attach-to-dictionary already give irregular verbs 3 distinct
+    // candidates — nothing to hand-add here.
+    if (group === "godan") {
+      out.push(masuStem + "ろ"); // のみろ — ichidan's ろ bolted onto the ます-stem
+    } else if (group !== "irregular") {
+      // ichidan
+      out.push(base + "え"); // たべえ — bare え-row shift, missing the extra ろ
+    }
+  } else if (form === "prohibitive") {
+    // Correct = dictionary + な for every class, so wrong-class and
+    // attach-to-dictionary (both in the caller) always recompute the exact
+    // same string and drop out silently. Every candidate here is instead a
+    // wrong-STEM attach — な bolted onto a stem other than the plain
+    // dictionary form.
+    out.push(masuStem + "な"); // のみな／たべな — ます-stem + な
+    out.push(conjugateVerb(dictionary, group, "imperative") + "な"); // のめな／たべろな — imperative-stem + な
+    out.push(conjugateVerb(dictionary, group, "ta") + "な"); // のんだな／たべたな — た-stem + な
+  } else if (form === "causative") {
+    // Irregular (する family, くる) already gets 3 distinct candidates from
+    // wrong-class + attach-to-dictionary — nothing to hand-add here.
+    if (group === "godan") {
+      out.push(masuStem + "せる"); // のみせる — ます-stem confused for the causative stem
+      // Robust even for す-ending verbs (けす, かす), where the wrong-class
+      // candidate coincidentally EQUALS correct — さ + せる is literally the
+      // string "させる", so base+"させる" (wrong-class, ichidan-shaped) and
+      // base+U_TO_A["す"]+"せる" (correct) collide and drop out.
+      out.push(conjugateVerb(dictionary, "godan", "potential")); // けせる-shaped confusion
+    } else if (group !== "irregular") {
+      // ichidan
+      out.push(base + "せる"); // たべせる — godan's せる suffix wrongly applied, dropping さ
+    }
+  } else if (form === "passive") {
+    // Potential and passive are BYTE-IDENTICAL for ichidan verbs and for
+    // くる (both reduce to stem + られる) — pushing `potential`'s own value
+    // here is deliberate: when it differs (godan, する) it's a genuine
+    // formation-confusion distractor; when it's identical to `correct` the
+    // caller's dedupe (seen.has(correct)) drops it silently, so a passive
+    // question can never offer its own correct answer as a decoy, and the
+    // reverse holds for `generateFormationDistractors(..., "potential", ...)`
+    // — it never reaches for the passive value at all.
+    if (group === "irregular") {
+      out.push(masuStem + "られる"); // しられる／きられる — ます-stem + られる
+      out.push(conjugateVerb(dictionary, group, "potential")); // できる (real slip) / こられる (= correct, auto-dropped)
+    } else if (group === "godan") {
+      out.push(masuStem + "られる"); // のみられる — ます-stem + られる
+      out.push(conjugateVerb(dictionary, "godan", "potential")); // のめる-shaped confusion; always ≠ base+あ-row+られる
+    } else {
+      // ichidan: wrong-class (in the caller) collides with `correct` — both
+      // reduce to base + られる — so hand-add both slips directly.
+      out.push(base + "れる"); // たべれる — ら抜き
+      out.push(base + "える"); // たべえる — え-row bolted on after dropping る
     }
   }
   return out;

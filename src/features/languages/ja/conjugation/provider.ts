@@ -226,6 +226,24 @@ const WORD_CLASS: Record<string, ConjWordClassInfo> = {
  *                           tier); ir/m34.ir.yaml:2 title "Volitional: よう/おう".
  *  - ba ………………………………………… m37  no grammar point; ir/m37.ir.yaml:82 (ば rule
  *                           beat, "slide it to the E-ROW and add ば").
+ *  - imperative / prohibitive / causative / passive — UNTAUGHT (2026-09-09).
+ *                           The engine conjugates all four (godan/ichidan/
+ *                           irregular, plus the くれる imperative exception
+ *                           and the する suppletive causative/passive stem)
+ *                           and formationDistractors.ts has their families,
+ *                           but no shipped module (m1–m38) introduces them —
+ *                           grepping 命令/使役/受身/〜な across
+ *                           curriculum/ir/*.yaml and curriculum/m*.ts turns
+ *                           up nothing. Passive is explicitly planned for
+ *                           m40 and causative for m45 (m33-neo.ts:6-7,
+ *                           m38-neo.ts:10 — "placed immediately before
+ *                           passive (m40)"; "causative's を/に split is a
+ *                           transitivity fact (m45)"), neither authored yet.
+ *                           Imperative/prohibitive have no planned module at
+ *                           all. `Infinity` keeps these OUT of
+ *                           `FREE_DRILL_VERB_FORMS` (never rendered as a
+ *                           toggle, never served) without inventing a module
+ *                           number — freeDrill.test.ts pins this.
  */
 export const FREE_DRILL_VERB_FORM_MODULE: Record<ChainForm, number> = {
   masu: 7,
@@ -244,6 +262,10 @@ export const FREE_DRILL_VERB_FORM_MODULE: Record<ChainForm, number> = {
   tara: 32,
   volitional: 34,
   ba: 37,
+  imperative: Infinity,
+  prohibitive: Infinity,
+  causative: Infinity,
+  passive: Infinity,
 };
 
 /** Adjective cells — all Track B points (`i-adj-*` / `na-adj-*`, m10–m12). */
@@ -277,8 +299,12 @@ const VERB_CLASS_CHIP: Record<VerbGroup, string> = {
 };
 
 /** Verb forms the engine conjugates, in toggle-list order (ます family, plain
- *  family, たい family, then the N4 forms). */
-const FREE_DRILL_VERB_FORMS = Object.keys(FREE_DRILL_VERB_FORM_MODULE) as ChainForm[];
+ *  family, たい family, then the N4 forms). Excludes UNTAUGHT forms
+ *  (`Infinity` in the gate table) entirely — they never appear as a toggle,
+ *  gated-locked or otherwise, until a real module claims them. */
+const FREE_DRILL_VERB_FORMS = (Object.keys(FREE_DRILL_VERB_FORM_MODULE) as ChainForm[]).filter((f) =>
+  Number.isFinite(FREE_DRILL_VERB_FORM_MODULE[f]),
+);
 const FREE_DRILL_ADJ_FORMS: AdjForm[] = ["present", "negative", "past", "past-negative"];
 
 function adjExample(type: "i-adj" | "na-adj", form: AdjForm): { dictionary: string; form: string } {
