@@ -185,7 +185,7 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
           430x932). Reading order is unchanged; only the position moved. The
           action block below keeps `mt-auto`, so it stays bottom-anchored and
           the fixed action bar does not shift. */}
-      <div className="flex min-h-0 flex-1 flex-col justify-center gap-5 sm:gap-7">
+      <div className="flex min-h-0 flex-1 flex-col stage-center gap-5 sm:gap-7">
       {/* Prompt row — bigger play button + larger text. Quoted meanings
        *  get auto-bolded via PromptWithEmphasis. */}
       <div className="flex items-center gap-4">

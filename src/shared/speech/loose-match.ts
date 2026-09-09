@@ -497,6 +497,16 @@ const TYPED_EDGE_PUNCT_RE =
   /^[¿¡。．.、,;:!?！？«»"'‘’“”\-–—\s]+|[¿¡。．.、,;:!?！？«»"'‘’“”\-–—\s]+$/gu;
 
 /**
+ * The comparison key a typed answer is graded on: `normalizeTypedAnswer`
+ * plus the edge-punctuation strip above. Exported so a display of accepted
+ * answers can collapse variants that grade identically (TestFlight #61:
+ * `…みた。`, `…みた` and the unspaced form were all listed).
+ */
+export function typedAnswerKey(s: string): string {
+  return normalizeTypedAnswer(s).replace(TYPED_EDGE_PUNCT_RE, "");
+}
+
+/**
  * Fold accents/diacritics: NFD-decompose, strip combining diacritics
  * (except kana voicing — see FOLDABLE_DIACRITIC_RE), recompose. The
  * decomposition step is what folds ñ→n and ü→u alongside á→a.
@@ -636,7 +646,7 @@ export function gradeTypedAnswer(
   let kanaDisplay: string | null = null;
 
   for (const a of acceptedAnswers) {
-    const aNorm = normalizeTypedAnswer(a).replace(TYPED_EDGE_PUNCT_RE, "");
+    const aNorm = typedAnswerKey(a);
     if (aNorm === inputNorm) {
       exact = true;
       continue; // the learner typed this one — never a nudge source

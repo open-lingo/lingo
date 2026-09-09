@@ -101,7 +101,7 @@ export function SymbolRecognitionStepView({
           430x932). Reading order is unchanged; only the position moved. The
           action block below keeps `mt-auto`, so it stays bottom-anchored and
           the fixed action bar does not shift. */}
-      <div className="flex min-h-0 flex-1 flex-col justify-center gap-4">
+      <div className="flex min-h-0 flex-1 flex-col stage-center gap-4">
       <div className="flex flex-wrap items-center justify-center gap-3">
         {/* QA 2026-07-12: prompt bumped a size — "make the sentence of
             'pick the symbol' a little bigger". */}

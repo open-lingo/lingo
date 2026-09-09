@@ -205,7 +205,7 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
           2026-08-07: "the middle elements need to move down a bit"). The CTA
           below still carries `mt-auto`, so it stays bottom-anchored and the
           fixed action bar keeps its position on every device. */}
-      <div className="flex min-h-0 flex-1 flex-col justify-center gap-6">
+      <div className="flex min-h-0 flex-1 flex-col stage-center gap-6">
       {audioPrompt ? (
         <div className="flex items-center justify-center gap-4">
           <button

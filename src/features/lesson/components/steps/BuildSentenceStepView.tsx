@@ -414,7 +414,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
           between the last tile and the CTA on a tall phone (Spencer QA
           2026-08-07). The action block below keeps `mt-auto`, so it stays
           bottom-anchored and the fixed action bar does not move. */}
-      <div className="flex min-h-0 flex-1 flex-col justify-center gap-4">
+      <div className="flex min-h-0 flex-1 flex-col stage-center gap-4">
       {step.audienceEmoji && (
         /* WHO you are speaking to, drawn rather than narrated. The label is
            the accessible name only — showing it as text would restore the

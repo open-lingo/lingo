@@ -86,7 +86,7 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
           docs/issues/step-overflow-measured-2026-08-19.md) — and 375×667 is
           an IN-SUPPORT viewport, not a legacy one. The design above sm is
           unchanged. */}
-      <div className="flex min-h-0 flex-1 flex-col justify-center gap-4 sm:gap-6">
+      <div className="flex min-h-0 flex-1 flex-col stage-center gap-4 sm:gap-6">
       <div className="flex items-center gap-4">
         <button
           type="button"

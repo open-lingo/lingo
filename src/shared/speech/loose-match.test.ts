@@ -12,6 +12,7 @@
  */
 import { describe, it, expect } from "vitest";
 import {
+  typedAnswerKey,
   gradeTypedAnswer,
   isUtteranceCorrect,
   normalizeForCompare,
@@ -513,6 +514,16 @@ describe("gradeTypedAnswer — accentPolicy (F5, 2026-08-20)", () => {
     // the accepted answer carries a protected accented form the input never
     // typed. Reject rather than guess.
     expect(gradeTypedAnswer(["où est"], "ouest", FR_POLICY).correct).toBe(false);
+  });
+});
+
+describe("typedAnswerKey (TestFlight #61, 2026-09-09)", () => {
+  it("collapses spacing and edge-punctuation variants to one key", () => {
+    const variants = ["しつもんを して こたえを きいてみた。", "しつもんを して こたえを きいてみた", "しつもんをしてこたえをきいてみた"];
+    expect(new Set(variants.map(typedAnswerKey)).size).toBe(1);
+  });
+  it("keeps content differences distinct", () => {
+    expect(typedAnswerKey("¿Cómo estás?")).not.toBe(typedAnswerKey("¿Cómo está?"));
   });
 });
 

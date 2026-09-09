@@ -9,7 +9,7 @@ import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/Annotat
 import { ExplainButton } from "../ExplainButton";
 import { AccentBar } from "../AccentBar";
 import { normalizeTypedAnswer } from "@/shared/speech";
-import { gradeTypedAnswer } from "@/shared/speech/loose-match";
+import { gradeTypedAnswer, typedAnswerKey } from "@/shared/speech/loose-match";
 import { accentPolicyFor } from "@/shared/language/registry";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { expandAcceptedAnswers } from "./translateVariants";
@@ -46,6 +46,18 @@ type Props = {
   ) => void;
   onContinue: () => void;
 };
+
+/** One entry per grading key — variants differing only in spacing or edge
+ *  punctuation grade the same and read as noise when listed (#61). */
+function uniqueByKey(answers: string[]): string[] {
+  const seen = new Set<string>();
+  return answers.filter((a) => {
+    const k = typedAnswerKey(a);
+    if (seen.has(k)) return false;
+    seen.add(k);
+    return true;
+  });
+}
 
 export function TranslateStepView({ step, onComplete, onContinue }: Props) {
   const { t } = useTranslation();
@@ -301,7 +313,7 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
 
         {submitted && !isCorrect && (
           <p className="text-sm text-text-secondary">
-            Accepted answers: <span className="font-semibold text-text-primary">{step.acceptedAnswers.join(", ")}</span>
+            Accepted answers: <span className="font-semibold text-text-primary">{uniqueByKey(step.acceptedAnswers).join(", ")}</span>
           </p>
         )}
 

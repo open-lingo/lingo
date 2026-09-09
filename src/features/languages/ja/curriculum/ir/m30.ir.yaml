@@ -416,7 +416,7 @@ grammarPoints:
     examples:
       - { ja: "この りょうりを たべてみない？", en: "Won't you give this dish a try?" }
       - { ja: "とりあえず この コーヒーを のんでみない？", en: "Won't you give this coffee a try for a start?" }
-      - { ja: "ひまだから やままで あるいてみない？", en: "You're free, so won't you have a walk to the mountain?" }
+      - { ja: "ひまだから やままで あるいてみない？", en: "You're free, so won't you try walking to the mountain?" }
       - { ja: "この おんがくを きいてみない？", en: "Won't you give this music a listen?" }
       - { ja: "むずかしいから きょうは しらべてみない。", en: "It's difficult, so I'm not going to look it up today." }
     antiPattern: { ja: "この りょうりを たべてみるない。", why: "ない replaces the る of a る-verb and can never be tacked onto the dictionary form — みる becomes みない: この りょうりを たべてみない？" }
@@ -810,13 +810,13 @@ lessons:
       - { kind: rule, grammarPointId: nai-form }
       - { kind: sentence, ja: "この りょうりを たべてみない？", en: "Won't you give this dish a try", exercises: [nai-form, te-miru, wo-object], mode: build }
       - { kind: sentence, ja: "とりあえず この コーヒーを のんでみない？", en: "Won't you give this coffee a try for a start", exercises: [nai-form, te-miru, wo-object], mode: build }
-      - { kind: sentence, ja: "ひまだから やままで あるいてみない？", en: "You're free, so won't you have a walk to the mountain", exercises: [nai-form, te-miru, made-until], mode: build }
+      - { kind: sentence, ja: "ひまだから やままで あるいてみない？", en: "You're free, so won't you try walking to the mountain", exercises: [nai-form, te-miru, made-until], mode: build }
       - { kind: sentence, ja: "この おんがくを きいてみない？", en: "Won't you give this music a listen", exercises: [nai-form, te-miru, wo-object], mode: build }
       - { kind: sentence, ja: "むずかしいから きょうは しらべてみない。", en: "It's difficult, so I'm not going to look it up today", exercises: [nai-form, te-miru, kara-because], mode: listening }
       - { kind: sentence, ja: "しつもんに こたえてみない？", en: "Won't you have a go at answering the question", exercises: [nai-form, te-miru, ni-location], mode: build }
       - { kind: sentence, ja: "りょこうの まえに くつを みがいておく。", en: "I'll polish my shoes in advance, before the trip", exercises: [mae-ni, te-oku, no-possession], mode: build }
       - { kind: sentence, ja: "この コーヒーを のんでみない？", en: "Won't you give this coffee a try", exercises: [nai-form, te-miru], mode: translate }
-      - { kind: particle-cloze, stem: "ひまだから やままで ", tail: "？", answer: "あるいてみない", options: ["あるいてみない", "あるいてみた", "のってみない"], en: "You're free, so won't you have a walk to the mountain", explanation: "the sentence is an invitation, so the helper takes ない and the question contour. あるいてみた puts the walk in the past, and のってみない offers a ride instead of a walk." }
+      - { kind: particle-cloze, stem: "ひまだから やままで ", tail: "？", answer: "あるいてみない", options: ["あるいてみない", "あるいてみた", "のってみない"], en: "You're free, so won't you try walking to the mountain", explanation: "the sentence is an invitation, so the helper takes ない and the question contour. あるいてみた puts the walk in the past, and のってみない offers a ride instead of a walk." }
       - { kind: listening-comp, audio: "らいげつ りょこうに いくから きっぷを かっとく。", answer: "I'm going on a trip next month, so I'll buy the ticket in advance", distractors: ["I went on a trip last month, so I bought the ticket", "I'm going on a trip next month, so I'll give the ticket a try", "I'm going on a trip next month, so I'll book the hotel in advance"], exercises: [te-oku, kara-because] }
       - { kind: listening-comp, audio: "あした じゅぎょうが あるから じゅんびを しとく。", answer: "I've got a class tomorrow, so I'll get ready in advance", distractors: ["I had a class yesterday, so I got ready", "I've got a class tomorrow, so I'll have a go at getting ready", "I've got a trip tomorrow, so I'll get ready in advance"], exercises: [te-oku, kara-because] }
       - kind: dialogue
@@ -871,7 +871,7 @@ lessons:
       - { kind: sentence, ja: "せつめいを よんだ とき こたえが わかった。", en: "When I read the explanation I worked out the answer", exercises: [toki, ta-form, ga-existence], mode: build }
       - { kind: sentence, ja: "いそがしいけど まいにち れんしゅうを つづけてみる。", en: "I'm busy, but I'll keep the practice going every day and see", exercises: [te-miru, te-form, kedo, frequency-adverbs], mode: build }
       - { kind: sentence, ja: "うるさいから まどを しめておく。", en: "It's noisy, so I'll keep the window shut", exercises: [te-oku, kara-because, i-adj-present], mode: build }
-      - { kind: sentence, ja: "やままで あるいてみない？", en: "Won't you have a walk to the mountain", exercises: [nai-form, te-miru], mode: translate }
+      - { kind: sentence, ja: "やままで あるいてみない？", en: "Won't you try walking to the mountain", exercises: [nai-form, te-miru], mode: translate }
       - { kind: particle-cloze, stem: "らいげつ がいこくに いくから ことばを ", tail: "。", answer: "ならっておく", options: ["ならっておく", "ならってみる", "おくっておく"], en: "I'm going abroad next month, so I'll take lessons in the language in advance", explanation: "going abroad next month is a deadline, so the helper is おく. ならってみる would only be finding out what the lessons are like, and おくっておく sends the words somewhere instead of learning them." }
       - { kind: listening-comp, audio: "うるさいから かえる まえに まどを しめておく。", answer: "It's noisy, so I'll shut the window before I go home", distractors: ["It's noisy, so I'll open the window before I go home", "It's cold, so I'll shut the window before I go home", "It's noisy, so I shut the window after I went home"], exercises: [mae-ni, te-oku, kara-because] }
       - { kind: listening-comp, audio: "じてんしゃが やすかったから かっておいた。", answer: "The bicycle was cheap, so I bought it in advance", distractors: ["The bicycle was expensive, so I didn't buy it", "The bicycle was cheap, so I gave it a go", "The car was cheap, so I bought it in advance"], exercises: [te-oku, ta-form, kara-because] }

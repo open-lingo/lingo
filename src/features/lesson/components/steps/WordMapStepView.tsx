@@ -127,7 +127,7 @@ export function WordMapStepView({ step, onComplete, onContinue }: Props) {
 
   return (
     <div className="flex flex-1 flex-col gap-6">
-      <div className="flex min-h-0 flex-1 flex-col justify-center gap-7">
+      <div className="flex min-h-0 flex-1 flex-col stage-center gap-7">
         <h2 className="text-center text-lg font-medium leading-snug text-text-secondary sm:text-xl">
           {done === null
             ? "Tap the Spanish for the highlighted word."

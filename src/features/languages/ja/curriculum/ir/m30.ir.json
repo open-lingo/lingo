@@ -396,7 +396,7 @@
         },
         {
           "ja": "ひまだから やままで あるいてみない？",
-          "en": "You're free, so won't you have a walk to the mountain?"
+          "en": "You're free, so won't you try walking to the mountain?"
         },
         {
           "ja": "この おんがくを きいてみない？",
@@ -2794,7 +2794,7 @@
         {
           "kind": "sentence",
           "ja": "ひまだから やままで あるいてみない？",
-          "en": "You're free, so won't you have a walk to the mountain",
+          "en": "You're free, so won't you try walking to the mountain",
           "exercises": [
             "nai-form",
             "te-miru",
@@ -2866,7 +2866,7 @@
             "あるいてみた",
             "のってみない"
           ],
-          "en": "You're free, so won't you have a walk to the mountain",
+          "en": "You're free, so won't you try walking to the mountain",
           "explanation": "the sentence is an invitation, so the helper takes ない and the question contour. あるいてみた puts the walk in the past, and のってみない offers a ride instead of a walk."
         },
         {
@@ -3243,7 +3243,7 @@
         {
           "kind": "sentence",
           "ja": "やままで あるいてみない？",
-          "en": "Won't you have a walk to the mountain",
+          "en": "Won't you try walking to the mountain",
           "exercises": [
             "nai-form",
             "te-miru"

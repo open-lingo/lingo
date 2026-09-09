@@ -377,6 +377,18 @@ ruby {
   ruby-align: start;
 }
 
+/* Lesson-step content cluster: centred in the stage when it fits, but never
+   clipped at the top when it does not. Plain `center` distributes overflow
+   to BOTH ends, and the top half is unreachable by scrolling — TestFlight
+   #56 (build 8) lost the "Listen and answer" label and the first transcript
+   line behind the header on a 15 Pro Max. `safe center` falls back to
+   start alignment on overflow; measured supported on iOS 26 WebKit, and
+   the plain `center` line keeps older engines centred as before. */
+.stage-center {
+  justify-content: center;
+  justify-content: safe center;
+}
+
 /* Apply Noto Sans JP to every Japanese-language span so kana/kanji render in
    a consistent glyph rather than the OS default. AnnotatedJa always tags its
    wrapper with `lang="ja"`, so this catches every kana surface in the app. */

@@ -97,7 +97,7 @@ export function TapTheWordStepView({ step, onComplete, onContinue }: Props) {
 
   return (
     <div className="flex flex-1 flex-col gap-6">
-      <div className="flex min-h-0 flex-1 flex-col justify-center gap-6">
+      <div className="flex min-h-0 flex-1 flex-col stage-center gap-6">
         <div className="flex flex-col items-center gap-2">
           <h2 className="text-center text-xl font-medium leading-snug text-text-secondary sm:text-2xl">
             {step.prompt}
