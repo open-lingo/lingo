@@ -86,8 +86,9 @@ Status legend: `open` / `fixed <sha>` / `wontfix (reason)` / `discuss`.
 
 ## Build 8 — Spencer, 2026-09-06 evening (pulled 2026-09-07)
 
-20 more screenshot submissions on build 8 (all iPhone 15 Pro Max), items 36–55.
-Shots: `2026-09-05-testflight-shots/36.jpg` … `55.jpg`.
+20 more screenshot submissions on build 8 (all iPhone 15 Pro Max), items 36–55,
+plus 6 more on 2026-09-09 (items 56–61, pulled the same day).
+Shots: `2026-09-05-testflight-shots/36.jpg` … `61.jpg`.
 
 | # | Shot | Surface | Verbatim | Class | Status |
 |---|---|---|---|---|---|
@@ -111,6 +112,12 @@ Shots: `2026-09-05-testflight-shots/36.jpg` … `55.jpg`.
 | 53 | 53 | Cloze after answer | "Same comment on the play button … maybe a lock over the button or something until they answer?" | as 48 | fixed 3425933b (lock glyph, exactly that) |
 | 54 | 54 | Dialogue comprehension | "transcript box can move a bit higher maybe, or we move the transcript text and less vertical padding on the answer buttons?" | layout | open — SE-class crowding; revisit with the next fit pass |
 | 55 | 55 | Match (review) | "Still vertical crowding but better" | layout | monitor (0px overflow on 15 Pro Max; scrolls by design) |
+| 56 | 56 | Listen & answer, m30 「らいげつ りょこうに いくから きっぷを かっとく」 | "Is o being absorbed by to it kattoku correct?" | **layout**: the step centres its cluster in a fixed-height box; a 3-line transcript + long options overflowed and half the overflow went ABOVE the top edge, so the "Listen and answer" label and 「らいげつ 旅行に」 were cut off and the sentence read as starting at いくから. The Japanese is correct (を is 買う's object; かっとく = 買っておく) | fixed 2311d25c (`.stage-center` = `safe center`, 9 step views; SE content top −40..−70px → 0) |
+| 57 | 57 | Build ひまだから やままで あるいてみない | "English is incorrect here right?" | content: gloss "have a walk to the mountain" | fixed 2311d25c ("try walking to the mountain", 4 m30 IR lines, recompiled) |
+| 58 | 58 | Build しつもんに こたえてみない | "Is ni correct here? And why" | content — correct as authored: こたえる takes に (質問に答える); を is the foil | no change; worth a line on the 〜てみる rule card or a build-step explanation (not supported on build steps today) |
+| 59 | 59 | Kanji reveal 月 shows つ | "Still failure here, not sure if I just have the wrong version" | #12 class — the reading is wiped in left-to-right and the device stalled mid-paint | fixed d70128a9 on the branch; build 8 predates it — verify on build 9 |
+| 60 | 60 | Build tray tiles overlapping | "I know we fixed this somewhere, maybe old version again" | #46 | fixed 40612f16 on the branch; build 8 predates it — verify on build 9 |
+| 61 | 61 | Typed translate 「しつもんを して こたえを きいてみた」 | "Is my sentence technically right? Are we too strict here?" | grading: no — 「きって」 is 切って (cut), not 聞いて, and 「こたえをみた」 drops the てみた. Display bug: the three accepted answers differed only by spacing and 。 | fixed 2311d25c (accepted list deduped on the grading key); the strictness is right |
 
 ## Other channels
 
