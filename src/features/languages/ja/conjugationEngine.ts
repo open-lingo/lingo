@@ -28,7 +28,11 @@ export type ChainForm =
   | "volitional" // のもう／たべよう／しよう／こよう — "let's …"
   | "ba" // のめば／たべれば／すれば／くれば — "if …"
   | "potential" // のめる／たべられる／できる／こられる — "can …" (m24)
-  | "tara"; // のんだら／たべたら／したら／きたら — "if/when …" (m32)
+  | "tara" // のんだら／たべたら／したら／きたら — "if/when …" (m32)
+  | "imperative" // のめ／たべろ／しろ／こい — blunt command form (UNTAUGHT — see provider.ts FREE_DRILL_VERB_FORM_MODULE)
+  | "prohibitive" // のむな／たべるな／するな／くるな — "don't …" (UNTAUGHT)
+  | "causative" // のませる／たべさせる／させる／こさせる — "make/let …" (UNTAUGHT)
+  | "passive"; // のまれる／たべられる／される／こられる — "is …-ed" (UNTAUGHT)
 
 /** い-adjective conjugated forms (present is the dictionary form itself). */
 export type IAdjForm = "negative" | "past" | "past-negative" | "ba";
@@ -51,6 +55,10 @@ export const CHAIN_FORM_LABELS: Record<ChainForm, string> = {
   ba: "ば form (if)",
   potential: "potential form (can)",
   tara: "たら form (if/when)",
+  imperative: "imperative form (command)",
+  prohibitive: "prohibitive form (don't)",
+  causative: "causative form (make/let)",
+  passive: "passive form (is done to)",
 };
 
 /**
@@ -143,6 +151,27 @@ type Stems = {
   /** m24: う-verbs slide to the え-row + る; る-verbs attach られる; くる →
    *  こられる; する has no potential of its own and uses できる. */
   potential: string;
+  /** UNTAUGHT (no module teaches it yet — see provider.ts). う-verbs slide to
+   *  the え-row (no extra kana); る-verbs drop る + ろ; くる → こい; する →
+   *  しろ. くれる is the one hand-authored exception: くれ, not くれろ. */
+  imperative: string;
+  /** UNTAUGHT. あ-row (naiStem) + せる for う-verbs and る-verbs alike (the
+   *  ichidan case collapses to naiStem === dictionary-minus-る); くる → こさせる
+   *  (also naiStem + させる); する is the one suppletive exception — させる,
+   *  not "しさせる" — because causative/passive both use a さ-stem that
+   *  nothing else in this table exposes. */
+  causative: string;
+  /** UNTAUGHT. あ-row (naiStem) + れる, same shape as causative; くる →
+   *  こられる (naiStem + られる); する → される (suppletive さ-stem, same
+   *  exception as causative). Ichidan's naiStem + られる is BYTE-IDENTICAL to
+   *  potential for every ichidan verb and for くる — that's not a bug, it's
+   *  genuine Japanese (られる is ambiguous between the two
+   *  readings for those verbs). formationDistractors.ts relies on this: it
+   *  never hand-crafts "the other reading" as a wrong option, so the natural
+   *  dedupe (a distractor equal to `correct` is dropped) keeps a passive
+   *  question from ever offering its own correct answer as a decoy, and
+   *  vice versa for potential. */
+  passive: string;
 };
 
 function stemsOf(dictionary: string, group: VerbGroup): Stems {
@@ -156,6 +185,10 @@ function stemsOf(dictionary: string, group: VerbGroup): Stems {
       volitional: s + "よう",
       ba: s + "れば",
       potential: s + "られる",
+      // くれる is the one hand-authored exception: くれ, not the regular くれろ.
+      imperative: dictionary === "くれる" ? "くれ" : s + "ろ",
+      causative: s + "させる",
+      passive: s + "られる", // byte-identical to potential — see Stems.passive doc
     };
   }
   if (group === "irregular") {
@@ -168,6 +201,9 @@ function stemsOf(dictionary: string, group: VerbGroup): Stems {
         volitional: "こよう",
         ba: "くれば",
         potential: "こられる",
+        imperative: "こい",
+        causative: "こさせる",
+        passive: "こられる", // byte-identical to potential — see Stems.passive doc
       };
     // する family (する, べんきょうする, …): keep the prefix, swap する.
     const prefix = dictionary.slice(0, -2);
@@ -179,6 +215,12 @@ function stemsOf(dictionary: string, group: VerbGroup): Stems {
       volitional: prefix + "しよう",
       ba: prefix + "すれば",
       potential: prefix + "できる",
+      imperative: prefix + "しろ",
+      // Suppletive さ-stem — NOT prefix + naiStem + せる/れる (that would give
+      // "しせる"/"しれる", which are wrong). Causative/passive are the one
+      // place する's stem isn't し.
+      causative: prefix + "させる",
+      passive: prefix + "される",
     };
   }
   // godan
@@ -195,6 +237,10 @@ function stemsOf(dictionary: string, group: VerbGroup): Stems {
     volitional: base + (U_TO_O[last] ?? last) + "う",
     ba: base + (U_TO_E[last] ?? last) + "ば",
     potential: base + (U_TO_E[last] ?? last) + "る",
+    // え-row, no extra kana (行く → 行け, not 行けろ).
+    imperative: base + (U_TO_E[last] ?? last),
+    causative: naiStem + "せる",
+    passive: naiStem + "れる",
   };
 }
 
@@ -203,13 +249,24 @@ function stemsOf(dictionary: string, group: VerbGroup): Stems {
  * `group` disambiguates ichidan/godan homographs (きる, かえる, …).
  */
 export function conjugateVerb(dictionary: string, group: VerbGroup, form: ChainForm): string {
-  const { masuStem, naiStem, te, ta, volitional, ba, potential } = stemsOf(dictionary, group);
+  const { masuStem, naiStem, te, ta, volitional, ba, potential, imperative, causative, passive } =
+    stemsOf(dictionary, group);
   switch (form) {
     case "potential":
       return potential;
     case "tara":
       // たら = plain past + ら, every class (m32: "take たべた, add ら").
       return ta + "ら";
+    case "imperative":
+      return imperative;
+    case "prohibitive":
+      // 〜な attaches straight to the plain dictionary form for every class —
+      // no stem change, the one form in this file that needs none.
+      return dictionary + "な";
+    case "causative":
+      return causative;
+    case "passive":
+      return passive;
     case "masu":
       return masuStem + "ます";
     case "masu-neg":

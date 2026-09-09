@@ -121,6 +121,52 @@ describe("stacked chain forms — explicit expected values", () => {
     expect(conjugateVerb("いく", "godan", "tara")).toBe("いったら"); // いく exception carries over
   });
 
+  it("imperative (命令形, command) — all four classes (UNTAUGHT)", () => {
+    expect(conjugateVerb("たべる", "ichidan", "imperative")).toBe("たべろ");
+    expect(conjugateVerb("いく", "godan", "imperative")).toBe("いけ"); // regular here — no euphonic change
+    expect(conjugateVerb("する", "irregular", "imperative")).toBe("しろ");
+    expect(conjugateVerb("くる", "irregular", "imperative")).toBe("こい");
+    expect(conjugateVerb("べんきょうする", "irregular", "imperative")).toBe("べんきょうしろ");
+    expect(conjugateVerb("のむ", "godan", "imperative")).toBe("のめ");
+    expect(conjugateVerb("くれる", "ichidan", "imperative")).toBe("くれ"); // hand-authored exception, not くれろ
+    expect(conjugateVerb("みる", "ichidan", "imperative")).toBe("みろ"); // the regular rule くれる is an exception to
+  });
+
+  it("prohibitive (〜な, don't) — dictionary form + な, every class, no stem change (UNTAUGHT)", () => {
+    expect(conjugateVerb("たべる", "ichidan", "prohibitive")).toBe("たべるな");
+    expect(conjugateVerb("いく", "godan", "prohibitive")).toBe("いくな");
+    expect(conjugateVerb("する", "irregular", "prohibitive")).toBe("するな");
+    expect(conjugateVerb("くる", "irregular", "prohibitive")).toBe("くるな");
+    expect(conjugateVerb("べんきょうする", "irregular", "prohibitive")).toBe("べんきょうするな");
+  });
+
+  it("causative (使役形, make/let) — all four classes (UNTAUGHT)", () => {
+    expect(conjugateVerb("たべる", "ichidan", "causative")).toBe("たべさせる");
+    expect(conjugateVerb("いく", "godan", "causative")).toBe("いかせる");
+    expect(conjugateVerb("する", "irregular", "causative")).toBe("させる"); // suppletive さ-stem, not しせる
+    expect(conjugateVerb("くる", "irregular", "causative")).toBe("こさせる");
+    expect(conjugateVerb("べんきょうする", "irregular", "causative")).toBe("べんきょうさせる");
+    expect(conjugateVerb("かう", "godan", "causative")).toBe("かわせる"); // う → わ exception carries over from naiStem
+  });
+
+  it("passive (受身形, is done to) — all four classes (UNTAUGHT)", () => {
+    expect(conjugateVerb("たべる", "ichidan", "passive")).toBe("たべられる");
+    expect(conjugateVerb("いく", "godan", "passive")).toBe("いかれる");
+    expect(conjugateVerb("する", "irregular", "passive")).toBe("される"); // suppletive さ-stem, not しれる
+    expect(conjugateVerb("くる", "irregular", "passive")).toBe("こられる");
+    expect(conjugateVerb("べんきょうする", "irregular", "passive")).toBe("べんきょうされる");
+    expect(conjugateVerb("かう", "godan", "passive")).toBe("かわれる");
+  });
+
+  it("passive collides byte-for-byte with potential for ichidan verbs and くる — genuine Japanese, not a bug", () => {
+    expect(conjugateVerb("たべる", "ichidan", "passive")).toBe(conjugateVerb("たべる", "ichidan", "potential"));
+    expect(conjugateVerb("みる", "ichidan", "passive")).toBe(conjugateVerb("みる", "ichidan", "potential"));
+    expect(conjugateVerb("くる", "irregular", "passive")).toBe(conjugateVerb("くる", "irregular", "potential"));
+    // godan and する: the two forms are genuinely different.
+    expect(conjugateVerb("のむ", "godan", "passive")).not.toBe(conjugateVerb("のむ", "godan", "potential"));
+    expect(conjugateVerb("する", "irregular", "passive")).not.toBe(conjugateVerb("する", "irregular", "potential"));
+  });
+
   it("ba (if) — ichidan drops る, adds れば", () => {
     expect(conjugateVerb("たべる", "ichidan", "ba")).toBe("たべれば");
     expect(conjugateVerb("みる", "ichidan", "ba")).toBe("みれば");

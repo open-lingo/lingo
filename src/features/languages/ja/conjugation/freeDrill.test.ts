@@ -14,14 +14,29 @@ import { getVerbsUpToModule } from "../conjugationTables";
 const free = jaConjugationTrainer.freeDrill!;
 const ALL_VERB_FORMS = Object.keys(CHAIN_FORM_LABELS) as ChainForm[];
 
+const TAUGHT_VERB_FORMS = ALL_VERB_FORMS.filter((f) => Number.isFinite(FREE_DRILL_VERB_FORM_MODULE[f]));
+const UNTAUGHT_VERB_FORMS = ALL_VERB_FORMS.filter((f) => !Number.isFinite(FREE_DRILL_VERB_FORM_MODULE[f]));
+
 describe("free drill — forms", () => {
-  it("exposes every verb form the engine conjugates, with a たべる example", () => {
+  it("exposes every TAUGHT verb form the engine conjugates, with a たべる example", () => {
     const forms = free.formsFor("verbs");
-    expect(forms.map((f) => f.key).sort()).toEqual([...ALL_VERB_FORMS].sort());
+    expect(forms.map((f) => f.key).sort()).toEqual([...TAUGHT_VERB_FORMS].sort());
     for (const f of forms) {
       expect(f.example.dictionary).toBe("たべる");
       expect(f.example.form).toBe(conjugateVerb("たべる", "ichidan", f.key as ChainForm));
       expect(Number.isFinite(f.unlockModule), `${f.key} must have a finite gate`).toBe(true);
+    }
+  });
+
+  it("excludes UNTAUGHT forms from the toggle list entirely (never shown, even locked)", () => {
+    // imperative / prohibitive / causative / passive — the engine conjugates
+    // them (conjugationEngine.test.ts), but no shipped module (m1–m38)
+    // teaches them, so `Infinity` in the gate table keeps them out of the
+    // toggle list rather than inventing a module number.
+    expect(UNTAUGHT_VERB_FORMS.sort()).toEqual(["causative", "imperative", "passive", "prohibitive"]);
+    const forms = free.formsFor("verbs");
+    for (const f of UNTAUGHT_VERB_FORMS) {
+      expect(forms.some((x) => x.key === f), `${f} must not appear as a toggle`).toBe(false);
     }
   });
 

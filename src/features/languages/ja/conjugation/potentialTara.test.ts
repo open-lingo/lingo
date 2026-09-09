@@ -27,8 +27,15 @@ describe("the 14 pre-existing forms are byte-identical to the pre-change engine"
       }
     });
   }
-  it("the engine now has exactly 16 forms", () => {
-    expect(Object.keys(CHAIN_FORM_LABELS)).toHaveLength(16);
+  it("the engine now has at least 16 forms (potential/たら present)", () => {
+    // Not pinned to exactly 16 here — imperativeProhibitiveCausativePassive.test.ts
+    // added 4 more (imperative/prohibitive/causative/passive) and owns the
+    // exact-count assertion (20) so this file doesn't need editing every
+    // time a new UNTAUGHT engine form is added.
+    const forms = Object.keys(CHAIN_FORM_LABELS);
+    expect(forms.length).toBeGreaterThanOrEqual(16);
+    expect(forms).toContain("potential");
+    expect(forms).toContain("tara");
   });
 });
 
