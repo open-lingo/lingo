@@ -18,7 +18,7 @@ m20 was the first module done this way — see "What it cost" below.
 | m18 «Nosotros y ellos» | local green, NOT pushed | 880ce368 |
 | m19 «Ayer hablé» | local green (pins fixed, 13 extra clips) | e86e17d1 |
 | m20 «Fui, hice, tuve» | local green, ES suite 1425 tests, 224 clips | b8d3a613 |
-| preflight | started in background after the m20 commit — read `PREFLIGHT_EXIT=` in the scratchpad `preflight-m20.log`; re-run if in doubt | — |
+| preflight | GREEN (exit 0, 12808 tests, CI-semantics build) on 83b82650 after a one-line practice-test fix | 83b82650 |
 
 Local main is 8 commits ahead of origin/main. NOT pushed (Spencer decides; the
 mobile session asked to be told before any push so its practice-wave merge
