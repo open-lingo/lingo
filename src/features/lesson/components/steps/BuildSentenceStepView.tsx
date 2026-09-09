@@ -275,8 +275,8 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   // sm:text-xl with sm:py-2 left 3px. Zero regression at every viewport.
   const hugeBank = !bigTiles && step.tiles.length >= 12;
   const denseTileClass = hugeBank
-    ? "px-3.5 py-1.5 text-base font-bold sm:px-4 sm:text-xl"
-    : "px-3.5 py-1.5 text-base font-bold sm:px-4 sm:py-2 sm:text-2xl";
+    ? "px-3.5 py-1.5 text-base font-bold leading-tight sm:px-4 sm:text-xl"
+    : "px-3.5 py-1.5 text-base font-bold leading-tight sm:px-4 sm:py-2 sm:text-2xl";
   const bankTileClass = bigTiles
     ? "px-5 py-3 text-[clamp(1.5rem,3.4cqh,2.25rem)] font-bold"
     : denseTileClass;

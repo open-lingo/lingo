@@ -418,6 +418,13 @@ ruby {
      never a full line box. `.65em × 1.5` was adding ~5px of dead air between
      a reading and its kanji on every furigana line (TestFlight #47/#49/#52). */
   line-height: 1;
+  /* WebKit sizes the ruby-text box from the font's ascent+descent and ignores
+     line-height on it: a 12px reading gets a 17px band, 5px of dead air
+     between reading and word. A negative bottom margin IS honoured, so the
+     band is trimmed by 3px (measured on iOS 26 WebKit: build tile 57→54px,
+     a two-line listen sentence 57→54px; the reading stays clear of the
+     word — Spencer's "subtract from the spacing, keep 12px" call, 2026-09-09). */
+  margin-bottom: -3px;
   transition: opacity 200ms ease-out;
   opacity: 1;
 }
@@ -430,6 +437,7 @@ ruby {
      alongside opacity so the fade-out still reads as a fade. */
   font-size: 0;
   line-height: 0;
+  margin-bottom: 0;
   transition: opacity 200ms ease-out, font-size 200ms ease-out;
 }
 .dark .kana-helper {
