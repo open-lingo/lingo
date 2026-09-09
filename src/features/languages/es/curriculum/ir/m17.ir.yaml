@@ -1,0 +1,1901 @@
+module: m17
+title: "Me levanto — the verb that points back at you"
+frame: none
+throughModule: m16
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m17 — reflexive verbs: the daily routine.
+#
+#     me levanto      te levantas      se levanta
+#     me ducho        te duchas        se ducha
+#     me despierto    (e→ie, m14)      se despierta
+#     me acuesto      (o→ue, m14)      se acuesta
+#
+# ONE rule, the whole module: some verbs carry a small word that points
+# BACK at the person doing them — «me» for I, «te» for you, «se» for he or
+# she — and that word goes IN FRONT of the verb, exactly where «lo» stood
+# in m16. «levanto» alone is "I lift (something)"; «me levanto» is "I get
+# up". The learner has owned «me» and «te» since m13 («me gusta», «te
+# gusta») and «me llamo» / «te llamas» since m2, so the only NEW word in
+# the family is «se», and the new CLAIM is that the pointer changes with
+# the person: «me» ↔ -o, «te» ↔ -as, «se» ↔ -a.
+#
+# PLACEMENT carries over from m16 unchanged and is re-spent in L7: with a
+# verb + infinitive the pointer goes in front of the CONJUGATED verb —
+# «me quiero levantar», «no me quiero duchar». NOTHING in this module
+# attaches a pronoun to an infinitive («levantarme», «ducharte»). The
+# dictionary forms «levantarse» / «ducharse» / «despertarse» / «acostarse»
+# / «lavarse» are registered atoms and are printed ONLY as the NAME of the
+# verb — on a card, a speakLit, an imageMcq, a textMcq target, a match
+# source — never inside a sentence. Inside a sentence the bare verb is
+# «levantar» / «duchar» (registered separately, L7). m17.test.ts pins it.
+#
+# ── «se» IS REGISTERED (unlike m16's «lo») ────────────────────────────────
+# «se» sits in ES_FUNCTION_WORDS, so the shared gates would license it with
+# zero exposure — the m12 «son» hole, the m16 «lo» hole. m13 solved the
+# same problem for «me / te / le» by registering them as particle atoms,
+# which makes inv 33 (debut on an intro-capable step) and the atom-usage
+# pin bite. m17 does the same for «se». Consequence for clozes: a blank
+# answered by «se» is an m17 atom (any option count); a blank answered by
+# «me» or «te» resolves to m13 under pin E2 and survives ONLY as a
+# two-option trial whose other option is ALSO a registered surface
+# ([me, te], [te, se], [me, se] — all three are atoms now).
+#
+# ── STEM CHANGES ARE m14's, RE-SPENT ─────────────────────────────────────
+# «despertarse» (e→ie) and «acostarse» (o→ue) are registered in all three
+# singular cells; the tú cells «despiertas» / «acuestas» exist so the NPCs
+# can ASK («¿te acuestas tarde?») and each debuts on a printed speakLit
+# question before any NPC uses it. Every plural person is banned in every
+# answer position (m17.test.ts).
+#
+# ── hacer / tener RULING (B112) carries: hago / haces / hace, tengo / tienes / tiene only.
+#
+# ── FORM DISCIPLINE ──────────────────────────────────────────────────────
+# Present indicative only. yo / tú / él-ella only. No nosotros, no ustedes,
+# no preterite, no progressive, no imperative. «lavarse» registers yo and
+# él/ella (lavo / lava) — «lavas» is not registered and is never printed.
+#
+# ── TRANSFER CELL (L8 only): «peino» ─────────────────────────────────────
+# One unseen verb form, met cold in the checkpoint and glossed in the
+# English prompt only: "I comb my hair — peinarse" → «me peino». The
+# learner has to supply the pointer the gloss does not print. Registered
+# so the gate can track it; NEVER appears in L1–L7 or L9–L10.
+#
+# ── EMOJI ────────────────────────────────────────────────────────────────
+# ducharse 🚿 · dientes 🦷 · levantarse 🧍 · acostarse 😴 · despertarse ⏰.
+# The three routine verbs also carry generated custom art under
+# src/pub/lingo-art/vocab/es/ (keyed es:levantarse etc. in notoEmoji.ts);
+# the emoji is the fallback the integrity gate reads. None of the five is
+# bound to another word (🛏️ is «cama», 🌅 is «buenos días»).
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # the pointer for he / she — the one new word of the family
+  - { surface: "se", meaningEn: "himself, herself (the pointer for he or she)", partOfSpeech: "particle", kind: "particle", hint: "one syllable, no accent — «se levanta»" }
+  # levantarse — regular -ar, all three singular cells
+  - { surface: "levantarse", meaningEn: "to get up", partOfSpeech: "verb", kind: "vocab", emoji: "🧍", hint: "leh-van-TAR-seh — the «se» on the end is the pointer, waiting to move in front" }
+  - { surface: "levanto", meaningEn: "I get up (with «me»)", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "levantas", meaningEn: "you get up (with «te»)", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "levanta", meaningEn: "he/she gets up (with «se»)", partOfSpeech: "verb", kind: "vocab" }
+  # ducharse — regular -ar, all three singular cells
+  - { surface: "ducharse", meaningEn: "to shower", partOfSpeech: "verb", kind: "vocab", emoji: "🚿", hint: "doo-CHAR-seh" }
+  - { surface: "ducho", meaningEn: "I shower (with «me»)", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "duchas", meaningEn: "you shower (with «te»)", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "ducha", meaningEn: "he/she showers (with «se»)", partOfSpeech: "verb", kind: "vocab" }
+  # the first reflexive the learner ever met, now in the third person
+  - { surface: "se llama", meaningEn: "his/her name is (he/she calls himself/herself)", partOfSpeech: "phrase", kind: "phrase", hint: "«¿cómo se llama?» — what is his or her name?" }
+  # lavarse — yo and él/ella; the reflexive that takes an object
+  - { surface: "lavarse", meaningEn: "to wash (oneself)", partOfSpeech: "verb", kind: "vocab", hint: "la-VAR-seh — «me lavo los dientes»: the pointer says whose teeth" }
+  - { surface: "lavo", meaningEn: "I wash (with «me»: I wash myself)", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "lava", meaningEn: "he/she washes (with «se»)", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "dientes", meaningEn: "teeth", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🦷", hint: "DYEN-tes — always «los dientes» here" }
+  # despertarse — e→ie (m14's machine), yo and él/ella only
+  - { surface: "despertarse", meaningEn: "to wake up", partOfSpeech: "verb", kind: "vocab", emoji: "⏰", hint: "des-per-TAR-seh — e→ie when the stress lands on it: «me despierto»" }
+  - { surface: "despierto", meaningEn: "I wake up (with «me»)", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "despiertas", meaningEn: "you wake up (with «te»)", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "despierta", meaningEn: "he/she wakes up (with «se»)", partOfSpeech: "verb", kind: "vocab" }
+  # acostarse — o→ue (m14's machine), yo and él/ella only
+  - { surface: "acostarse", meaningEn: "to go to bed", partOfSpeech: "verb", kind: "vocab", emoji: "😴", hint: "a-kos-TAR-seh — o→ue: «me acuesto»" }
+  - { surface: "acuesto", meaningEn: "I go to bed (with «me»)", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "acuestas", meaningEn: "you go to bed (with «te»)", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "acuesta", meaningEn: "he/she goes to bed (with «se»)", partOfSpeech: "verb", kind: "vocab" }
+  # ── L7: the bare verb after «quiero» / «puedo». The registered dictionary
+  # form is «levantarse», so the bare «levantar» a learner must produce in
+  # «me quiero levantar» is a SEPARATE surface — untracked unless registered
+  # (the provenance lexicon folds plurals and -o/-a adjectives, never
+  # reflexive infinitives). Two are registered; the others (acostar, duchar's
+  # siblings) are never printed in a billed slot.
+  - { surface: "levantar", meaningEn: "to get up — the bare verb after «quiero»: «me quiero levantar»", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "duchar", meaningEn: "to shower — the bare verb after «quiero»: «me quiero duchar»", partOfSpeech: "verb", kind: "vocab" }
+  # ── TRANSFER CELL (L8 only) — glossed in the prompt, met cold.
+  - { surface: "peino", meaningEn: "I comb (my hair)", partOfSpeech: "verb", kind: "vocab" }
+
+lessons:
+  # ── L1 · «Me levanto» — «se» debuts (info card → printed speakLit), then
+  #    levantarse / levanto / levantas / levanta. The map previews the
+  #    sentence (maps bill nothing); the imageMcq is the true first
+  #    exposure of «levantarse» (inv 44). «se» is a REGISTERED particle
+  #    atom, so inv 33 holds its debut order by machine: the card names it,
+  #    the speakLit «Ana se levanta temprano» is the first billed use.
+  #    NOT HERE: ducharse (L2), «se llama» (L3), any other m17 verb.
+  #    Selection runs peak at 2; one card; cloze share 1/18.
+  - n: 1
+    template: free
+    title: "Me levanto"
+    description: "Some verbs carry a small word that points back at the person doing them. You already own two of the three pointers — this lesson hands you the third."
+    steps:
+      - kind: map
+        id: l1-map-melevanto
+        tokens: ["me", "levanto", "temprano"]
+        pairs:
+          - { en: "myself", tokenIndex: 0 }
+          - { en: "I get up", tokenIndex: 1 }
+          - { en: "early", tokenIndex: 2 }
+        audioText: "me levanto temprano"
+        revealNote: "«levanto» on its own means I lift — a box, a hand. Put «me» in front and the lifting points back at you: you lift yourself, you get up. That little «me» is the one from «me gusta» and «me llamo», doing a job you have not seen it do yet. Watch where it sits: in front of the verb, exactly where «lo» sat last module."
+      - kind: imageMcq
+        id: l1-im-levantarse
+        target: { surface: "levantarse", meaningEn: "to get up", emoji: "🧍" }
+        distractors:
+          - { surface: "bailar", emoji: "💃" }
+          - { surface: "cantar", emoji: "🎤" }
+          - { surface: "escuchar", emoji: "👂" }
+      - kind: speakLit
+        id: l1-sp-levantarse
+        es: "levantarse"
+        en: "to get up"
+        atoms: ["levantarse"]
+      - kind: buildLit
+        id: l1-b-melevantotemprano
+        also: ["temprano me levanto"]
+        es: "me levanto temprano"
+        en: "I get up early"
+        atoms: ["levanto", "temprano"]
+        tiles: ["se", "levanta"]
+      # The lesson's one card, and the debut of «se».
+      - kind: info
+        id: l1-info-se
+        title: "The verb that points back at you"
+        body: "«me levanto» — I get up. The «me» is a pointer: it says the getting-up lands on the same person who does it. You have used it since «me llamo». Now the rule the whole module runs on: the pointer changes with the person, and it always matches the ending. «me levanto» — I; «te levantas» — you; and for he or she, a word you have not met: «se». «Ana se levanta» — Ana gets up. Three pointers, three endings, always in front of the verb: «me» with -o, «te» with -as, «se» with -a. Mix them and it is not Spanish: «se levanto» says nothing."
+      # THE FIRST CONTACT with «se» — printed, spoken, intro-capable.
+      - kind: speakLit
+        id: l1-sp-anaselevanta
+        es: "Ana se levanta temprano"
+        en: "Ana gets up early"
+        atoms: ["levanta", "temprano"]
+      - kind: clozeLit
+        id: l1-c-selevantatarde
+        es: "Diego se levanta tarde"
+        en: "Diego gets up late"
+        blank: "se"
+        options: ["se", "me", "te"]
+        atoms: ["levanta", "tarde"]
+        why: "Diego is the one getting up, and Diego is a he — so the pointer is «se», matching the -a on «levanta». «me» would make it you; «te» would make it the person you are talking to."
+      - kind: listenCompLit
+        id: l1-lc-televantasmuytemprano
+        es: "te levantas muy temprano"
+        en: "You get up very early."
+        atoms: ["levantas", "temprano"]
+        distractorsEn:
+          - "I get up very early."
+          - "You get up very late."
+          - "She gets up very early."
+      - kind: buildLit
+        id: l1-b-televantastardehoy
+        also: ["hoy te levantas tarde"]
+        es: "te levantas tarde hoy"
+        en: "You get up late today"
+        atoms: ["levantas", "tarde", "hoy"]
+        tiles: ["me", "levanto"]
+      # THE PLACEMENT BEAT. «levanto me» is English order; «se levanto» is a
+      # mismatched pointer; bare «levanto» is lifting something. All three
+      # live in distractor slots, which esSurfaces never reads.
+      - kind: mcq
+        id: l1-q-melevanto
+        prompt: "'I get up.' Which one is the Spanish?"
+        correct: "me levanto"
+        distractors: ["levanto me", "se levanto", "levanto"]
+        atoms: ["levanto"]
+        why: "«me levanto». The pointer goes in FRONT of the verb, and it matches the -o: «me». «se levanto» pairs a he-or-she pointer with an I ending. Bare «levanto» is lifting something else."
+      - kind: audioWimcq
+        id: l1-ear-levantarse
+        target: { surface: "levantarse", emoji: "🧍" }
+        distractors:
+          - { surface: "bailar", emoji: "💃" }
+          - { surface: "cantar", emoji: "🎤" }
+      # Printed non-recall at m14 (duermo tarde).
+      - kind: speakLit
+        id: l1-sp-recall-duermotarde
+        es: "duermo tarde"
+        en: "I sleep late"
+        atoms: []
+        cue: recall
+      # Both pointers live in one sentence (§13.9 law 4): the person is
+      # printed next to each blank, so the choice is honest.
+      - kind: agreementLit
+        id: l1-agr-yoana
+        en: "I get up early and Ana gets up late"
+        audioText: "me levanto temprano y Ana se levanta tarde"
+        atoms: ["levanto", "temprano", "levanta", "tarde"]
+        segments:
+          - { blank: { id: "p1", answer: "me", options: ["me", "se"] } }
+          - { text: " levanto temprano y Ana " }
+          - { blank: { id: "p2", answer: "se", options: ["se", "me"] } }
+          - { text: " levanta tarde" }
+      - kind: listenBuildLit
+        id: l1-lb-melevantotarde
+        es: "me levanto tarde"
+        en: "I get up late"
+        atoms: ["levanto", "tarde"]
+        tiles: ["te", "levantas"]
+      - kind: textMcq
+        id: l1-tm-levanto
+        target: "levanto"
+        distractors: ["levantas", "levanta", "levantarse"]
+      - kind: sim
+        id: l1-sim-ana-sabado
+        scene: { emoji: "🌅", title: "Ana on a Saturday morning", setting: "Ana has called early, and she wants to know whether you are up." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Te levantas temprano?", audioText: "¿te levantas temprano?", gloss: "Do you get up early?" }
+            goal: "Say yes — you get up early."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me levanto temprano" }
+                - { id: "wrong1", text: "sí, te levanto temprano" }
+                - { id: "wrong2", text: "sí, levanto temprano" }
+              correctOptionId: "right"
+              audioText: "sí, me levanto temprano"
+            replyGloss: "Yes, I get up early."
+            explanation: "Ana asked with «te levantas»; you answer about yourself, so the pointer flips to «me» and the ending to -o. Bare «levanto» lifts something, it does not get up."
+          - id: t2
+            npc: { speaker: "Ana", es: "Diego se levanta tarde.", audioText: "diego se levanta tarde", gloss: "Diego gets up late." }
+            goal: "Say you get up late too."
+            reply:
+              mode: build
+              tiles: ["me", "levanto", "tarde", "también", "se", "levanta"]
+              answer: "me levanto tarde también"
+              alsoAccepted: ["también me levanto tarde"]
+            replyGloss: "I get up late too."
+            explanation: "Ana said it about Diego with «se levanta»; you say it about yourself with «me levanto». Same verb, the pointer and the ending move together."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y hoy?", audioText: "¿y hoy?", gloss: "And today?" }
+            goal: "Say today you get up late."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hoy me levanto tarde" }
+                - { id: "wrong1", text: "hoy se levanto tarde" }
+                - { id: "wrong2", text: "hoy levanto tarde" }
+              correctOptionId: "right"
+              audioText: "hoy me levanto tarde"
+            replyGloss: "Today I get up late."
+            explanation: "«hoy» can sit up front; the pointer still goes right before the verb. «se levanto» mixes a he-or-she pointer with an I ending — never."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "levantarse", target: "to get up" }
+          - { source: "me levanto", target: "I get up" }
+          - { source: "te levantas", target: "you get up" }
+          - { source: "se levanta", target: "he or she gets up" }
+          - { source: "se", target: "the pointer for he or she" }
+          - { source: "temprano", target: "early" }
+          - { source: "tarde", target: "late" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "me levanto temprano, pero Ana se levanta tarde"
+        en: "I get up early, but Ana gets up late"
+        atoms: ["levanto", "temprano", "levanta", "tarde"]
+
+
+  # ── L2 · «Me ducho» — ducharse / ducho / duchas / ducha. The claim: the
+  #    pointer and the ending are ONE choice — «me» goes with -o, «te» with
+  #    -as, «se» with -a — and it works on a second verb exactly as on the
+  #    first. Debut: l2-im-ducharse (imageMcq, first exposure).
+  #    NOT HERE: «se llama» (L3), lavarse (L4), the stem-changers (L5/L6).
+  - n: 2
+    template: free
+    title: "Me ducho"
+    description: "A second verb that points back at you. The pointer and the ending are one decision, not two — and now you make it twice."
+    steps:
+      - kind: map
+        id: l2-map-diegoseducha
+        tokens: ["Diego", "se", "ducha", "temprano"]
+        pairs:
+          - { en: "Diego", tokenIndex: 0 }
+          - { en: "himself", tokenIndex: 1 }
+          - { en: "showers", tokenIndex: 2 }
+          - { en: "early", tokenIndex: 3 }
+        audioText: "Diego se ducha temprano"
+        revealNote: "A new verb, and you can already read the shape: «se» in front, -a on the end, a he doing it. «ducharse» is to shower, and it points back at the person like «levantarse» does. Say it about yourself and both pieces change at once: «me ducho»."
+      - kind: imageMcq
+        id: l2-im-ducharse
+        target: { surface: "ducharse", meaningEn: "to shower", emoji: "🚿" }
+        distractors:
+          - { surface: "levantarse", emoji: "🧍" }
+          - { surface: "bailar", emoji: "💃" }
+          - { surface: "cantar", emoji: "🎤" }
+      - kind: speakLit
+        id: l2-sp-ducharse
+        es: "ducharse"
+        en: "to shower"
+        atoms: ["ducharse"]
+      - kind: buildLit
+        id: l2-b-meduchotemprano
+        also: ["temprano me ducho"]
+        es: "me ducho temprano"
+        en: "I shower early"
+        atoms: ["ducho", "temprano"]
+        tiles: ["se", "ducha"]
+      - kind: info
+        id: l2-info-tres
+        title: "Three pointers, three endings — one choice"
+        body: "«me ducho», «te duchas», «se ducha». Look at the pairs: «me» always travels with -o, «te» with -as, «se» with -a. They are not two decisions, they are one — pick the person and both pieces follow. That is why «se ducho» and «me duchas» are not Spanish: each one changes the person halfway through the sentence. And the order never moves: pointer first, then the verb. «Diego se ducha temprano» — the pointer sits between the name and the verb, exactly where «lo» sat in «Diego lo tiene»."
+      - kind: clozeLit
+        id: l2-c-teduchastarde
+        es: "tú te duchas tarde"
+        en: "You shower late"
+        blank: "duchas"
+        options: ["duchas", "ducho", "ducha"]
+        atoms: ["duchas", "tarde"]
+        why: "«te» is already in the sentence, so the ending has to be the one that travels with it: -as. «ducho» belongs with «me», «ducha» with «se»."
+      - kind: listenCompLit
+        id: l2-lc-anaselevantayseducha
+        es: "Ana se levanta y se ducha temprano"
+        en: "Ana gets up and showers early."
+        atoms: ["levanta", "ducha", "temprano"]
+        distractorsEn:
+          - "Ana gets up and showers late."
+          - "I get up and shower early."
+          - "Ana gets up and eats early."
+      - kind: buildLit
+        id: l2-b-teduchashoy
+        also: ["hoy te duchas"]
+        es: "te duchas hoy"
+        en: "You shower today"
+        atoms: ["duchas", "hoy"]
+        tiles: ["me", "ducho"]
+      - kind: mcq
+        id: l2-q-seduchatarde
+        prompt: "'She showers late.' Which one is the Spanish?"
+        correct: "se ducha tarde"
+        distractors: ["se ducho tarde", "me ducha tarde", "ducha se tarde"]
+        atoms: ["ducha", "tarde"]
+        why: "She — so «se», and the ending that travels with «se» is -a: «se ducha». «se ducho» and «me ducha» each break the pair; «ducha se» puts the pointer after the verb, where Spanish never puts it."
+      - kind: audioWimcq
+        id: l2-ear-ducharse
+        target: { surface: "ducharse", emoji: "🚿" }
+        distractors:
+          - { surface: "levantarse", emoji: "🧍" }
+          - { surface: "escuchar", emoji: "👂" }
+      # Printed non-recall at m14 (no puedo dormir temprano).
+      - kind: speakLit
+        id: l2-sp-recall-nopuedodormir
+        es: "no puedo dormir temprano"
+        en: "I can't sleep early"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l2-agr-yotu
+        en: "I shower and you shower"
+        audioText: "me ducho y tú te duchas"
+        atoms: ["ducho", "duchas"]
+        segments:
+          - { blank: { id: "p1", answer: "me", options: ["me", "se"] } }
+          - { text: " ducho y tú " }
+          - { blank: { id: "p2", answer: "te", options: ["te", "se"] } }
+          - { text: " duchas" }
+      - kind: listenBuildLit
+        id: l2-lb-diegoseduchatarde
+        es: "Diego se ducha tarde"
+        en: "Diego showers late"
+        atoms: ["ducha", "tarde"]
+        tiles: ["me", "ducho"]
+      - kind: textMcq
+        id: l2-tm-ducha
+        target: "ducha"
+        distractors: ["ducho", "duchas", "ducharse"]
+      - kind: speakLit
+        id: l2-sp-melevantoymeducho
+        es: "me levanto y me ducho"
+        en: "I get up and I shower"
+        atoms: ["levanto", "ducho"]
+      - kind: sim
+        id: l2-sim-diego-manana
+        scene: { emoji: "🚿", title: "Diego compares mornings", setting: "Diego is convinced nobody in the house gets up as early as he does." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "Sam, ¿te duchas temprano?", audioText: "sam, ¿te duchas temprano?", gloss: "Sam, do you shower early?" }
+            goal: "Say yes — you shower early."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me ducho temprano" }
+                - { id: "wrong1", text: "sí, me duchas temprano" }
+                - { id: "wrong2", text: "sí, se ducho temprano" }
+              correctOptionId: "right"
+              audioText: "sí, me ducho temprano"
+            replyGloss: "Yes, I shower early."
+            explanation: "About yourself: «me» and -o together. The two wrong ones each change the person halfway through."
+          - id: t2
+            npc: { speaker: "Diego", es: "Ana se ducha tarde.", audioText: "ana se ducha tarde", gloss: "Ana showers late." }
+            goal: "Say you shower early."
+            reply:
+              mode: build
+              tiles: ["me", "ducho", "temprano", "se", "ducha"]
+              answer: "me ducho temprano"
+              alsoAccepted: ["temprano me ducho"]
+            replyGloss: "I shower early."
+            explanation: "Diego talked about Ana with «se ducha»; you talk about yourself with «me ducho». The bank also holds Ana's pair — leave it there."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿Y te levantas temprano también?", audioText: "¿y te levantas temprano también?", gloss: "And do you get up early too?" }
+            goal: "Say yes — you get up early too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me levanto temprano también" }
+                - { id: "wrong1", text: "sí, se levanta temprano también" }
+                - { id: "wrong2", text: "sí, levanto temprano también" }
+              correctOptionId: "right"
+              audioText: "sí, me levanto temprano también"
+            replyGloss: "Yes, I get up early too."
+            explanation: "Last lesson's verb, this lesson's rule: «me» with -o. «se levanta» would be about somebody else; bare «levanto» lifts things."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "ducharse", target: "to shower" }
+          - { source: "me ducho", target: "I shower" }
+          - { source: "te duchas", target: "you shower" }
+          - { source: "se ducha", target: "he or she showers" }
+          - { source: "me levanto", target: "I get up" }
+          - { source: "temprano", target: "early" }
+          - { source: "hoy", target: "today" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "me ducho temprano, pero Diego se ducha tarde"
+        en: "I shower early, but Diego showers late"
+        atoms: ["ducho", "temprano", "ducha", "tarde"]
+
+
+  # ── L3 · «¿Cómo se llama?» — ONE new atom, the phrase «se llama». The
+  #    lesson re-reads «me llamo» / «te llamas» (m2) as the first pointer
+  #    verb the learner ever met, and hands over the third person so a name
+  #    can be asked ABOUT somebody. Debut: l3-sp-comosellama (speakLit,
+  #    intro-capable) — the map before it bills nothing.
+  #    «llama» alone is registered only through the phrase; it is never
+  #    printed without «se» in front. NOT HERE: lavarse (L4), stem-changers.
+  - n: 3
+    template: free
+    title: "¿Cómo se llama?"
+    description: "You have been using a pointer verb since your very first module — «me llamo». Now you can ask about somebody else's name."
+    steps:
+      - kind: map
+        id: l3-map-mihermanosellama
+        tokens: ["mi", "hermano", "se", "llama", "Luis"]
+        pairs:
+          - { en: "my", tokenIndex: 0 }
+          - { en: "brother", tokenIndex: 1 }
+          - { en: "himself", tokenIndex: 2 }
+          - { en: "calls", tokenIndex: 3 }
+          - { en: "Luis", tokenIndex: 4 }
+        audioText: "mi hermano se llama Luis"
+        revealNote: "Read it the Spanish way: my brother calls himself Luis. That is what «me llamo» has meant all along — I call myself. The verb points back at the person, and for a he or a she the pointer is the one you met two lessons ago: «se»."
+      - kind: speakLit
+        id: l3-sp-comosellama
+        es: "¿cómo se llama?"
+        en: "What is his name?"
+        atoms: ["se llama"]
+      - kind: buildLit
+        id: l3-b-mihermanosellamaluis
+        es: "mi hermano se llama Luis"
+        en: "My brother's name is Luis"
+        atoms: ["hermano", "se llama"]
+        tiles: ["me", "llamo"]
+      - kind: info
+        id: l3-info-primerpuntero
+        title: "The first pointer you ever learned"
+        body: "«me llamo Sam» — you said it in module two, and it means I call myself Sam. «te llamas» — you call yourself. The same three pointers, the same three endings you have been using on «levantarse» and «ducharse»: «me llamo», «te llamas», «se llama». So a third person's name is «se llama»: «mi hermano se llama Luis» — my brother is called Luis. And to ask about somebody: «¿cómo se llama?» — how does he or she call himself, herself? — what is his name, what is her name. «¿cómo te llamas?» asks the person in front of you; «¿cómo se llama?» asks about somebody else."
+      - kind: clozeLit
+        id: l3-c-mihermanasellama
+        es: "mi hermana se llama Sofía"
+        en: "My sister's name is Sofía"
+        blank: "se"
+        options: ["se", "me", "te"]
+        atoms: ["hermana", "se llama"]
+        why: "Your sister is a she, so the pointer is «se», and it travels with «llama». «me llamo» would be your own name; «te llamas» is the person you are talking to."
+      - kind: listenCompLit
+        id: l3-lc-comosellamatuhermano
+        es: "¿cómo se llama tu hermano?"
+        en: "What is your brother's name?"
+        atoms: ["se llama", "hermano"]
+        distractorsEn:
+          - "What is your name?"
+          - "What is your sister's name?"
+          - "Where is your brother?"
+      - kind: buildLit
+        id: l3-b-miabuelasellamacarmen
+        es: "mi abuela se llama Carmen"
+        en: "My grandmother's name is Carmen"
+        atoms: ["abuela", "se llama"]
+        tiles: ["te", "llamas"]
+      - kind: mcq
+        id: l3-q-comosellama
+        prompt: "Which one means 'her name is'?"
+        correct: "se llama"
+        distractors: ["te llamas", "me llamo", "llama"]
+        atoms: ["se llama"]
+        why: "About somebody else — a she — so «se llama». «te llamas» is the person you are talking to, «me llamo» is your own name, and «llama» without a pointer is not a name at all."
+      - kind: audioWimcq
+        id: l3-ear-hermano
+        target: { surface: "el hermano", emoji: "👦" }
+        distractors:
+          - { surface: "la hermana", emoji: "👧" }
+          - { surface: "el abuelo", emoji: "👴" }
+      # Printed non-recall at m13 (me gusta mucho el helado).
+      - kind: speakLit
+        id: l3-sp-recall-megustaelhelado
+        es: "me gusta mucho el helado"
+        en: "I really like ice cream"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l3-agr-samana
+        en: "My name is Sam and my sister's name is Ana"
+        audioText: "me llamo Sam y mi hermana se llama Ana"
+        atoms: ["me llamo", "hermana", "se llama"]
+        segments:
+          - { blank: { id: "p1", answer: "me", options: ["me", "se"] } }
+          - { text: " llamo Sam y mi hermana " }
+          - { blank: { id: "p2", answer: "se", options: ["se", "me"] } }
+          - { text: " llama Ana" }
+      - kind: listenBuildLit
+        id: l3-lb-sellamadiego
+        es: "se llama Diego"
+        en: "His name is Diego"
+        atoms: ["se llama"]
+        tiles: ["me", "llamo"]
+      - kind: textMcq
+        id: l3-tm-levantas
+        target: "levantas"
+        distractors: ["levanto", "levanta", "duchas"]
+      - kind: speakLit
+        id: l3-sp-luisselevantatarde
+        es: "mi hermano se llama Luis y se levanta tarde"
+        en: "My brother's name is Luis and he gets up late"
+        atoms: ["hermano", "se llama", "levanta", "tarde"]
+      - kind: sim
+        id: l3-sim-sofia-familia
+        scene: { emoji: "👨‍👩‍👧‍👦", title: "Sofía asks about your family", setting: "Sofía has seen a photo on your phone and wants names for the faces." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Cómo se llama tu hermano?", audioText: "¿cómo se llama tu hermano?", gloss: "What is your brother's name?" }
+            goal: "Say his name is Luis."
+            reply:
+              mode: build
+              tiles: ["se", "llama", "Luis", "me", "llamo"]
+              answer: "se llama Luis"
+            replyGloss: "His name is Luis."
+            explanation: "About your brother, so «se llama». «me llamo» would hand him your own name."
+          - id: t2
+            npc: { speaker: "Sofía", es: "Yo me llamo Sofía. ¿Y tú?", audioText: "yo me llamo sofía. ¿y tú?", gloss: "My name is Sofía. And you?" }
+            goal: "Say your name is Sam."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "me llamo Sam" }
+                - { id: "wrong1", text: "se llama Sam" }
+                - { id: "wrong2", text: "te llamas Sam" }
+              correctOptionId: "right"
+              audioText: "me llamo Sam"
+            replyGloss: "My name is Sam."
+            explanation: "Your own name — the pointer that points at you: «me llamo». «se llama Sam» would be about somebody else called Sam."
+          - id: t3
+            npc: { speaker: "Sofía", es: "¿Y tu abuela? ¿Cómo se llama?", audioText: "¿y tu abuela? ¿cómo se llama?", gloss: "And your grandmother? What is her name?" }
+            goal: "Say her name is Carmen."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "se llama Carmen" }
+                - { id: "wrong1", text: "me llamo Carmen" }
+                - { id: "wrong2", text: "te llamas Carmen" }
+              correctOptionId: "right"
+              audioText: "se llama Carmen"
+            replyGloss: "Her name is Carmen."
+            explanation: "A she who is not you and not Sofía: «se llama». The other two would name yourself or Sofía."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "se llama", target: "his or her name is" }
+          - { source: "me llamo", target: "my name is" }
+          - { source: "te llamas", target: "your name is" }
+          - { source: "¿cómo se llama?", target: "what is his or her name?" }
+          - { source: "el hermano", target: "the brother" }
+          - { source: "la abuela", target: "the grandmother" }
+          - { source: "la hermana", target: "the sister" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "me llamo Sam y mi hermano se llama Luis"
+        en: "My name is Sam and my brother's name is Luis"
+        atoms: ["me llamo", "hermano", "se llama"]
+
+
+  # ── L4 · «Me lavo los dientes» — lavarse / lavo / lava / dientes. The
+  #    claim: a pointer verb can take an object, and the pointer is what
+  #    says whose («me lavo los dientes» — never «mis dientes»); take the
+  #    pointer away and you are washing something else («lavo el carro»).
+  #    Debut: l4-im-dientes (imageMcq). «lavas» is NOT registered and is
+  #    never printed, not even by an NPC. NOT HERE: the stem-changers.
+  - n: 4
+    template: free
+    title: "Me lavo los dientes"
+    description: "A pointer verb with something after it. Spanish says 'I wash myself the teeth' — and the pointer, not a 'my', is what says whose teeth."
+    steps:
+      - kind: map
+        id: l4-map-melavolosdientes
+        tokens: ["me", "lavo", "los", "dientes"]
+        pairs:
+          - { en: "myself", tokenIndex: 0 }
+          - { en: "I wash", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "teeth", tokenIndex: 3 }
+        audioText: "me lavo los dientes"
+        revealNote: "No word for 'my' anywhere — and none is needed. «me» already says the washing lands on you, so «los dientes» can only be yours. That is how Spanish handles teeth, hands, hair: pointer plus «the», never «my»."
+        tokenGenders: { 2: "m", 3: "m" }
+      - kind: imageMcq
+        id: l4-im-dientes
+        target: { surface: "los dientes", meaningEn: "the teeth", emoji: "🦷" }
+        distractors:
+          - { surface: "la cama", emoji: "🛏️" }
+          - { surface: "el agua", emoji: "💧" }
+          - { surface: "la llave", emoji: "🔑" }
+      - kind: speakLit
+        id: l4-sp-lavarse
+        es: "lavarse"
+        en: "to wash oneself"
+        atoms: ["lavarse"]
+      - kind: buildLit
+        id: l4-b-melavolosdientes
+        es: "me lavo los dientes"
+        en: "I brush my teeth"
+        atoms: ["lavo", "dientes"]
+        tiles: ["se", "mis"]
+      - kind: info
+        id: l4-info-dequien
+        title: "Whose teeth? The pointer says."
+        body: "«me lavo los dientes» — word for word, I wash myself the teeth. English says 'I brush my teeth'; Spanish never puts a 'my' there, because «me» has already said whose they are. «Ana se lava los dientes» — Ana washes herself the teeth: hers. Now take the pointer away: «lavo el carro» — I wash the car. No pointer, because the washing lands on the car, not on you. That is the whole difference between «lavo» and «me lavo»: the pointer says the action comes back to the person doing it."
+      - kind: clozeLit
+        id: l4-c-anaselava
+        es: "Ana se lava los dientes"
+        en: "Ana brushes her teeth"
+        blank: "lava"
+        options: ["lava", "lavo"]
+        atoms: ["lava", "dientes"]
+        why: "«se» is in the sentence, so the ending that travels with it: -a. «lavo» belongs with «me»."
+      - kind: listenCompLit
+        id: l4-lc-melavotemprano
+        es: "me lavo los dientes temprano"
+        en: "I brush my teeth early."
+        atoms: ["lavo", "dientes", "temprano"]
+        distractorsEn:
+          - "I brush my teeth late."
+          - "She brushes her teeth early."
+          - "I wash the car early."
+      - kind: buildLit
+        id: l4-b-diegoselava
+        es: "Diego se lava los dientes"
+        en: "Diego brushes his teeth"
+        atoms: ["lava", "dientes"]
+        tiles: ["me", "lavo"]
+      # THE CONTRAST BEAT: no pointer when the washing lands elsewhere. The
+      # correct option is three tokens (inv 28).
+      - kind: mcq
+        id: l4-q-lavoelcarro
+        prompt: "Which one means 'I wash the car'?"
+        correct: "lavo el carro"
+        distractors: ["me lavo el carro", "se lava el carro", "lavo me el carro"]
+        atoms: ["lavo", "carro"]
+        why: "The washing lands on the car, not on you — so no pointer: «lavo el carro». «me lavo el carro» would say you wash yourself with a car in the way; «se lava» is somebody else."
+      - kind: audioWimcq
+        id: l4-ear-dientes
+        target: { surface: "los dientes", emoji: "🦷" }
+        distractors:
+          - { surface: "la cama", emoji: "🛏️" }
+          - { surface: "el agua", emoji: "💧" }
+      # Printed non-recall at m14 (el perro duerme en la cama).
+      - kind: speakLit
+        id: l4-sp-recall-elperroduerme
+        es: "el perro duerme en la cama"
+        en: "The dog sleeps on the bed"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l4-agr-yoana
+        en: "I brush my teeth and Ana brushes her teeth"
+        audioText: "me lavo los dientes y Ana se lava los dientes"
+        atoms: ["lavo", "lava", "dientes"]
+        segments:
+          - { blank: { id: "p1", answer: "me", options: ["me", "se"] } }
+          - { text: " lavo los dientes y Ana " }
+          - { blank: { id: "p2", answer: "se", options: ["se", "me"] } }
+          - { text: " lava los dientes" }
+      - kind: listenBuildLit
+        id: l4-lb-melavotarde
+        es: "me lavo los dientes tarde"
+        en: "I brush my teeth late"
+        atoms: ["lavo", "dientes", "tarde"]
+        tiles: ["se", "lava"]
+      - kind: textMcq
+        id: l4-tm-lavo
+        target: "lavo"
+        distractors: ["lava", "lavarse", "levanto"]
+      - kind: speakLit
+        id: l4-sp-rutina
+        es: "me levanto, me ducho y me lavo los dientes"
+        en: "I get up, I shower and I brush my teeth"
+        atoms: ["levanto", "ducho", "lavo", "dientes"]
+      - kind: sim
+        id: l4-sim-maria-bano
+        scene: { emoji: "🦷", title: "María and the bathroom queue", setting: "One bathroom, three people, and María is keeping track of who is doing what." }
+        turns:
+          - id: t1
+            npc: { speaker: "María", es: "Yo me lavo los dientes ahora. ¿Y tú?", audioText: "yo me lavo los dientes ahora. ¿y tú?", gloss: "I'm brushing my teeth now. And you?" }
+            goal: "Say you brush your teeth too."
+            reply:
+              mode: build
+              tiles: ["me", "lavo", "los", "dientes", "también", "se", "lava"]
+              answer: "me lavo los dientes también"
+              alsoAccepted: ["también me lavo los dientes"]
+            replyGloss: "I brush my teeth too."
+            explanation: "About yourself: «me lavo». The bank also holds «se lava» — that pair belongs to somebody else."
+          - id: t2
+            npc: { speaker: "María", es: "¿Diego se lava los dientes?", audioText: "¿diego se lava los dientes?", gloss: "Does Diego brush his teeth?" }
+            goal: "Say yes — he brushes his teeth early."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, se lava los dientes temprano" }
+                - { id: "wrong1", text: "sí, me lavo los dientes temprano" }
+                - { id: "wrong2", text: "sí, se lavo los dientes temprano" }
+              correctOptionId: "right"
+              audioText: "sí, se lava los dientes temprano"
+            replyGloss: "Yes, he brushes his teeth early."
+            explanation: "Diego — a he — so «se lava». «me lavo» would be you; «se lavo» mixes the pointer and the ending."
+          - id: t3
+            npc: { speaker: "María", es: "¿Y el carro?", audioText: "¿y el carro?", gloss: "And the car?" }
+            goal: "Say you wash the car today."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "lavo el carro hoy" }
+                - { id: "wrong1", text: "me lavo el carro hoy" }
+                - { id: "wrong2", text: "se lava el carro hoy" }
+              correctOptionId: "right"
+              audioText: "lavo el carro hoy"
+            replyGloss: "I wash the car today."
+            explanation: "The washing lands on the car, so there is no pointer: «lavo el carro». Add «me» and you are washing yourself."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "lavarse", target: "to wash oneself" }
+          - { source: "me lavo los dientes", target: "I brush my teeth" }
+          - { source: "se lava", target: "he or she washes (himself, herself)" }
+          - { source: "los dientes", target: "the teeth" }
+          - { source: "lavo el carro", target: "I wash the car" }
+          - { source: "me ducho", target: "I shower" }
+          - { source: "me levanto", target: "I get up" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "me lavo los dientes y me ducho temprano"
+        en: "I brush my teeth and I shower early"
+        atoms: ["lavo", "dientes", "ducho", "temprano"]
+
+
+  # ── L5 · «Me despierto temprano» — despertarse / despierto / despierta.
+  #    Two claims: m14's e→ie change happens INSIDE a pointer verb (the
+  #    infinitive keeps its e), and «no» goes in front of the pointer —
+  #    «no me despierto», the m16 «no lo veo» shape. Debut:
+  #    l5-im-despertarse (imageMcq); «despiertas» on l5-sp-tedespiertas.
+  #    NOT HERE: acostarse.
+  - n: 5
+    template: free
+    title: "Me despierto temprano"
+    description: "A pointer verb whose middle changes shape — you did this in module fourteen — and the word «no» finds its place in front of the pointer."
+    steps:
+      - kind: map
+        id: l5-map-medespierto
+        tokens: ["me", "despierto", "temprano"]
+        pairs:
+          - { en: "myself", tokenIndex: 0 }
+          - { en: "I wake up", tokenIndex: 1 }
+          - { en: "early", tokenIndex: 2 }
+        audioText: "me despierto temprano"
+        revealNote: "The verb is «despertarse», to wake up — and look at its middle: the e has turned into ie, «despierto». You watched «empezar» become «empieza» and «entender» become «entiendo» in module fourteen. Same machine, now with a pointer in front."
+      - kind: imageMcq
+        id: l5-im-despertarse
+        target: { surface: "despertarse", meaningEn: "to wake up", emoji: "⏰" }
+        distractors:
+          - { surface: "ducharse", emoji: "🚿" }
+          - { surface: "levantarse", emoji: "🧍" }
+          - { surface: "bailar", emoji: "💃" }
+      - kind: speakLit
+        id: l5-sp-despertarse
+        es: "despertarse"
+        en: "to wake up"
+        atoms: ["despertarse"]
+      - kind: buildLit
+        id: l5-b-medespiertotemprano
+        also: ["temprano me despierto"]
+        es: "me despierto temprano"
+        en: "I wake up early"
+        atoms: ["despierto", "temprano"]
+        tiles: ["se", "despierta"]
+      - kind: info
+        id: l5-info-eie
+        title: "The e that becomes ie — and where «no» goes"
+        body: "«despertarse» keeps its e while it is the name of the verb. The moment you use it for a person, the stressed e opens into ie: «me despierto», «se despierta». Exactly what «empezar» did in «empieza». Now the second thing this lesson adds. To say you do NOT wake up early, «no» goes in front of the whole pair — «no me despierto temprano» — the same slot it took in «no lo veo». Never between the pointer and the verb: «me no despierto» is not Spanish."
+      # «despiertas» debuts here, printed and spoken, so Carmen may ask with
+      # it later and the sims may use it.
+      - kind: speakLit
+        id: l5-sp-tedespiertas
+        es: "¿te despiertas temprano?"
+        en: "Do you wake up early?"
+        atoms: ["despiertas", "temprano"]
+      - kind: clozeLit
+        id: l5-c-anasedespierta
+        es: "Ana se despierta tarde"
+        en: "Ana wakes up late"
+        blank: "despierta"
+        options: ["despierta", "despierto", "despertarse"]
+        atoms: ["despierta", "tarde"]
+        why: "«se» is in the sentence, so the ending is -a: «despierta». «despierto» travels with «me», and «despertarse» is the name of the verb, not something a person does."
+      - kind: listenCompLit
+        id: l5-lc-nomedespierto
+        es: "no me despierto temprano"
+        en: "I don't wake up early."
+        atoms: ["despierto", "temprano"]
+        distractorsEn:
+          - "I wake up early."
+          - "I don't get up early."
+          - "She doesn't wake up early."
+      - kind: buildLit
+        id: l5-b-diegonosedespierta
+        es: "Diego no se despierta temprano"
+        en: "Diego doesn't wake up early"
+        atoms: ["despierta", "temprano"]
+        tiles: ["me", "despierto"]
+      # THE «no» BEAT. The ghosts («me no despierto», «no despierto me») live
+      # only in distractor slots. Correct option is three tokens (inv 28).
+      - kind: mcq
+        id: l5-q-nomedespierto
+        prompt: "Which one means 'I don't wake up'?"
+        correct: "no me despierto"
+        distractors: ["me no despierto", "no despierto me", "no se despierto"]
+        atoms: ["despierto"]
+        why: "«no», then the pointer, then the verb — «no me despierto». «no» never splits the pair, and the pointer never trails the verb."
+      - kind: audioWimcq
+        id: l5-ear-despertarse
+        target: { surface: "despertarse", emoji: "⏰" }
+        distractors:
+          - { surface: "ducharse", emoji: "🚿" }
+          - { surface: "levantarse", emoji: "🧍" }
+      # Printed non-recall at m14 (quiero empezar temprano).
+      - kind: speakLit
+        id: l5-sp-recall-quieroempezar
+        es: "quiero empezar temprano"
+        en: "I want to start early"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l5-agr-yoana
+        en: "I wake up early, but Ana wakes up late"
+        audioText: "me despierto temprano, pero Ana se despierta tarde"
+        atoms: ["despierto", "temprano", "despierta", "tarde"]
+        segments:
+          - { blank: { id: "p1", answer: "me", options: ["me", "se"] } }
+          - { text: " despierto temprano, pero Ana " }
+          - { blank: { id: "p2", answer: "se", options: ["se", "me"] } }
+          - { text: " despierta tarde" }
+      - kind: listenBuildLit
+        id: l5-lb-medespiertoymelevanto
+        es: "me despierto y me levanto"
+        en: "I wake up and I get up"
+        atoms: ["despierto", "levanto"]
+        tiles: ["se", "despierta"]
+      - kind: textMcq
+        id: l5-tm-despierto
+        target: "despierto"
+        distractors: ["despierta", "despertarse", "ducho"]
+      - kind: speakLit
+        id: l5-sp-peronomelevanto
+        es: "me despierto, pero no me levanto"
+        en: "I wake up, but I don't get up"
+        atoms: ["despierto", "levanto"]
+      - kind: sim
+        id: l5-sim-carmen-manana
+        scene: { emoji: "⏰", title: "Carmen is up before everyone", setting: "Your grandmother Carmen has been awake for hours and finds this very funny." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "Yo me despierto muy temprano. ¿Y tú?", audioText: "yo me despierto muy temprano. ¿y tú?", gloss: "I wake up very early. And you?" }
+            goal: "Say you wake up late."
+            reply:
+              mode: build
+              tiles: ["me", "despierto", "tarde", "se", "despierta", "temprano"]
+              answer: "me despierto tarde"
+            replyGloss: "I wake up late."
+            explanation: "About yourself: «me despierto». The bank's «se despierta» is somebody else's pair, and «temprano» would be Carmen's answer, not yours."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Y Luis?", audioText: "¿y luis?", gloss: "And Luis?" }
+            goal: "Say he wakes up late too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "se despierta tarde también" }
+                - { id: "wrong1", text: "me despierto tarde también" }
+                - { id: "wrong2", text: "se despierto tarde también" }
+              correctOptionId: "right"
+              audioText: "se despierta tarde también"
+            replyGloss: "He wakes up late too."
+            explanation: "Luis is a he: «se despierta». «me despierto» is about you; «se despierto» breaks the pair."
+          - id: t3
+            npc: { speaker: "Carmen", es: "¿Te levantas temprano hoy?", audioText: "¿te levantas temprano hoy?", gloss: "Are you getting up early today?" }
+            goal: "Say no — you don't get up early."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, no me levanto temprano" }
+                - { id: "wrong1", text: "no, me no levanto temprano" }
+                - { id: "wrong2", text: "no, no se levanta temprano" }
+              correctOptionId: "right"
+              audioText: "no, no me levanto temprano"
+            replyGloss: "No, I don't get up early."
+            explanation: "«no» in front of the pair, never inside it: «no me levanto». «se levanta» would be about somebody else."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "despertarse", target: "to wake up" }
+          - { source: "me despierto", target: "I wake up" }
+          - { source: "se despierta", target: "he or she wakes up" }
+          - { source: "no me despierto", target: "I don't wake up" }
+          - { source: "me levanto", target: "I get up" }
+          - { source: "temprano", target: "early" }
+          - { source: "tarde", target: "late" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "me despierto temprano, pero no me levanto"
+        en: "I wake up early, but I don't get up"
+        atoms: ["despierto", "temprano", "levanto"]
+
+
+  # ── L6 · «Me acuesto tarde» — acostarse / acuesto / acuesta. m14's o→ue
+  #    inside a pointer verb («dormir» → «duermo» is the model), and the
+  #    whole routine in order: despierto → levanto → ducho → acuesto.
+  #    Debut: l6-im-acostarse (imageMcq); «acuestas» on l6-sp-teacuestas.
+  #    NOT HERE: verb + infinitive with a pointer (L7).
+  - n: 6
+    template: free
+    title: "Me acuesto tarde"
+    description: "The other shape-changer from module fourteen — o into ue — closes the day. Now you can say the whole routine, morning to night."
+    steps:
+      - kind: map
+        id: l6-map-meacuesto
+        tokens: ["me", "acuesto", "tarde"]
+        pairs:
+          - { en: "myself", tokenIndex: 0 }
+          - { en: "I go to bed", tokenIndex: 1 }
+          - { en: "late", tokenIndex: 2 }
+        audioText: "me acuesto tarde"
+        revealNote: "«acostarse» is to go to bed, and its o does what «dormir» did in «duermo»: it opens into ue when the stress lands on it. «me acuesto» — I go to bed. The pointer is the same «me» you put on every verb this module."
+      - kind: imageMcq
+        id: l6-im-acostarse
+        target: { surface: "acostarse", meaningEn: "to go to bed", emoji: "😴" }
+        distractors:
+          - { surface: "despertarse", emoji: "⏰" }
+          - { surface: "levantarse", emoji: "🧍" }
+          - { surface: "ducharse", emoji: "🚿" }
+      - kind: speakLit
+        id: l6-sp-acostarse
+        es: "acostarse"
+        en: "to go to bed"
+        atoms: ["acostarse"]
+      - kind: buildLit
+        id: l6-b-hoymeacuestotarde
+        also: ["me acuesto tarde hoy"]
+        es: "hoy me acuesto tarde"
+        en: "Today I go to bed late"
+        atoms: ["acuesto", "tarde", "hoy"]
+        tiles: ["se", "acuesta"]
+      - kind: info
+        id: l6-info-oue
+        title: "The o that becomes ue — and the day in order"
+        body: "«acostarse» keeps its o as the name of the verb; for a person the stressed o opens into ue: «me acuesto», «se acuesta». The same change that turned «dormir» into «duermo» and «volver» into «vuelve». That gives you a whole day in four pointer verbs: «me despierto» — I wake up; «me levanto» — I get up; «me ducho» — I shower; «me acuesto» — I go to bed. Every one of them: pointer first, then the verb, with «no» in front of the pair when you need it — «no me acuesto temprano»."
+      - kind: speakLit
+        id: l6-sp-teacuestas
+        es: "¿te acuestas tarde?"
+        en: "Do you go to bed late?"
+        atoms: ["acuestas", "tarde"]
+      - kind: clozeLit
+        id: l6-c-miabuelaseacuesta
+        es: "mi abuela se acuesta temprano"
+        en: "My grandmother goes to bed early"
+        blank: "acuesta"
+        options: ["acuesta", "acuesto", "acostarse"]
+        atoms: ["abuela", "acuesta", "temprano"]
+        why: "«se» is in the sentence, so the -a ending: «acuesta». «acuesto» travels with «me»; «acostarse» is the verb's name."
+      - kind: listenCompLit
+        id: l6-lc-nomeacuestotemprano
+        es: "no me acuesto temprano"
+        en: "I don't go to bed early."
+        atoms: ["acuesto", "temprano"]
+        distractorsEn:
+          - "I go to bed early."
+          - "I don't wake up early."
+          - "She doesn't go to bed early."
+      - kind: buildLit
+        id: l6-b-anaseacuestaysedespierta
+        es: "Ana se acuesta tarde y se despierta tarde"
+        en: "Ana goes to bed late and wakes up late"
+        atoms: ["acuesta", "tarde", "despierta"]
+        tiles: ["me", "acuesto"]
+      # «me acosto» is the ghost a learner who missed the o→ue builds; it
+      # lives in a distractor slot only.
+      - kind: mcq
+        id: l6-q-meacuesto
+        prompt: "Which one means 'I go to bed'?"
+        correct: "me acuesto"
+        distractors: ["me acosto", "se acuesto", "acuesto me"]
+        atoms: ["acuesto"]
+        why: "«me acuesto» — the o has opened into ue, the pointer matches the -o, and it sits in front. «me acosto» forgot the change; «se acuesto» breaks the pair; «acuesto me» is English order."
+      - kind: audioWimcq
+        id: l6-ear-acostarse
+        target: { surface: "acostarse", emoji: "😴" }
+        distractors:
+          - { surface: "despertarse", emoji: "⏰" }
+          - { surface: "ducharse", emoji: "🚿" }
+      # Printed non-recall at m14 (quiero dormir tarde, pero el trabajo empieza temprano).
+      - kind: speakLit
+        id: l6-sp-recall-quierodormirtarde
+        es: "quiero dormir tarde, pero el trabajo empieza temprano"
+        en: "I want to sleep late, but work starts early"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l6-agr-yodiego
+        en: "I go to bed late and Diego goes to bed early"
+        audioText: "me acuesto tarde y Diego se acuesta temprano"
+        atoms: ["acuesto", "tarde", "acuesta", "temprano"]
+        segments:
+          - { blank: { id: "p1", answer: "me", options: ["me", "se"] } }
+          - { text: " acuesto tarde y Diego " }
+          - { blank: { id: "p2", answer: "se", options: ["se", "me"] } }
+          - { text: " acuesta temprano" }
+      - kind: listenBuildLit
+        id: l6-lb-meacuestotempranohoy
+        es: "me acuesto temprano hoy"
+        en: "I go to bed early today"
+        atoms: ["acuesto", "temprano", "hoy"]
+        tiles: ["se", "acuesta"]
+      - kind: textMcq
+        id: l6-tm-acuesto
+        target: "acuesto"
+        distractors: ["acuesta", "acostarse", "despierto"]
+      - kind: speakLit
+        id: l6-sp-eldia
+        es: "me despierto temprano y me acuesto tarde"
+        en: "I wake up early and I go to bed late"
+        atoms: ["despierto", "temprano", "acuesto", "tarde"]
+      - kind: sim
+        id: l6-sim-diego-noche
+        scene: { emoji: "😴", title: "Diego, late at night", setting: "It is past midnight and Diego is still awake, texting." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "Yo me acuesto tarde. ¿Y tú?", audioText: "yo me acuesto tarde. ¿y tú?", gloss: "I go to bed late. And you?" }
+            goal: "Say you go to bed early."
+            reply:
+              mode: build
+              tiles: ["me", "acuesto", "temprano", "se", "acuesta", "tarde"]
+              answer: "me acuesto temprano"
+            replyGloss: "I go to bed early."
+            explanation: "About yourself: «me acuesto», with «temprano» — Diego's «tarde» is his answer, not yours."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y Ana?", audioText: "¿y ana?", gloss: "And Ana?" }
+            goal: "Say she goes to bed late."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "se acuesta tarde" }
+                - { id: "wrong1", text: "me acuesto tarde" }
+                - { id: "wrong2", text: "se acuesto tarde" }
+              correctOptionId: "right"
+              audioText: "se acuesta tarde"
+            replyGloss: "She goes to bed late."
+            explanation: "Ana is a she: «se acuesta». «me acuesto» would be you, and «se acuesto» breaks the pair."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿Te levantas temprano mañana?", audioText: "¿te levantas temprano mañana?", gloss: "Are you getting up early tomorrow?" }
+            goal: "Say yes — you get up early tomorrow."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me levanto temprano mañana" }
+                - { id: "wrong1", text: "sí, se levanta temprano mañana" }
+                - { id: "wrong2", text: "sí, levanto temprano mañana" }
+              correctOptionId: "right"
+              audioText: "sí, me levanto temprano mañana"
+            replyGloss: "Yes, I get up early tomorrow."
+            explanation: "Your own morning: «me levanto». Without the pointer, «levanto» lifts something; with «se», it is somebody else."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "acostarse", target: "to go to bed" }
+          - { source: "me acuesto", target: "I go to bed" }
+          - { source: "se acuesta", target: "he or she goes to bed" }
+          - { source: "me despierto", target: "I wake up" }
+          - { source: "me ducho", target: "I shower" }
+          - { source: "no me acuesto temprano", target: "I don't go to bed early" }
+          - { source: "mañana", target: "tomorrow" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "me acuesto tarde, pero me despierto temprano"
+        en: "I go to bed late, but I wake up early"
+        atoms: ["acuesto", "tarde", "despierto", "temprano"]
+
+
+  # ── L7 · «Me quiero levantar» — two new atoms, «levantar» and «duchar»:
+  #    the BARE verb after «quiero». The rule is m16 L7's, on pointers: the
+  #    pointer goes in front of the verb that carries the person («me
+  #    quiero levantar»), the second verb stays bare, «no» / «siempre» /
+  #    «nunca» stay outside the pair. Debuts: l7-sp-mequierolevantar
+  #    (speakLit), l7-b-mequieroducharahora (buildLit) — both intro-capable.
+  #    ⚠️ «acostar» / «despertar» / «lavar» are NOT registered: the wanting
+  #    is drilled on levantar / duchar only. No fused form («levantarme»)
+  #    is printed anywhere, not even as a distractor.
+  - n: 7
+    template: free
+    title: "Me quiero levantar"
+    description: "Wanting to do one of these things. The pointer moves to the verb that carries the person — the same move «lo» made last module — and the second verb stays bare."
+    steps:
+      - kind: map
+        id: l7-map-nomequierolevantar
+        tokens: ["no", "me", "quiero", "levantar"]
+        pairs:
+          - { en: "not", tokenIndex: 0 }
+          - { en: "myself", tokenIndex: 1 }
+          - { en: "I want", tokenIndex: 2 }
+          - { en: "to get up", tokenIndex: 3 }
+        audioText: "no me quiero levantar"
+        revealNote: "Look at where the pointer went. Not on «levantar» — on «quiero», the verb that carries the person. «levantar» is the bare verb, with nothing on the end. And «no» sits outside the whole thing, as always."
+      - kind: speakLit
+        id: l7-sp-mequierolevantar
+        es: "me quiero levantar"
+        en: "I want to get up"
+        atoms: ["quiero", "levantar"]
+      - kind: buildLit
+        id: l7-b-nomequierolevantarhoy
+        also: ["hoy no me quiero levantar"]
+        es: "no me quiero levantar hoy"
+        en: "I don't want to get up today"
+        atoms: ["quiero", "levantar", "hoy"]
+        tiles: ["se", "levanto"]
+      - kind: info
+        id: l7-info-dosverbos
+        title: "Two verbs, one pointer — in front of the first"
+        body: "«me quiero levantar» — I want to get up. Two verbs: «quiero» carries the person, its -o says I; «levantar» is bare, the plain name of the action. The pointer goes with the verb that carries the person, so it stands in front of «quiero». That is exactly what «lo» did in «lo quiero ver». Same for showering: «me quiero duchar», and with «no» outside: «no me quiero duchar». The bare verb never takes a pointer of its own here, and the pointer never sits between the two verbs."
+      - kind: clozeLit
+        id: l7-c-anasequierelevantar
+        es: "Ana se quiere levantar tarde"
+        en: "Ana wants to get up late"
+        blank: "se"
+        options: ["se", "me", "te"]
+        atoms: ["quiere", "levantar", "tarde"]
+        why: "Ana is a she, so «se» — and it goes in front of «quiere», the verb that says who wants. «levantar» stays bare."
+      - kind: buildLit
+        id: l7-b-mequieroducharahora
+        also: ["ahora me quiero duchar"]
+        es: "me quiero duchar ahora"
+        en: "I want to shower now"
+        atoms: ["quiero", "duchar", "ahora"]
+        tiles: ["ducho", "se"]
+      - kind: listenCompLit
+        id: l7-lc-nomequieroducharhoy
+        es: "no me quiero duchar hoy"
+        en: "I don't want to shower today."
+        atoms: ["quiero", "duchar", "hoy"]
+        distractorsEn:
+          - "I want to shower today."
+          - "I don't want to get up today."
+          - "She doesn't want to shower today."
+      # The ghosts: pointer between the verbs, pointer after, person carried
+      # twice. Distractor slots only; correct option is three tokens.
+      - kind: mcq
+        id: l7-q-mequierolevantar
+        prompt: "Which one means 'I want to get up'?"
+        correct: "me quiero levantar"
+        distractors: ["quiero me levantar", "me quiero levanto", "me levantar quiero"]
+        atoms: ["quiero", "levantar"]
+        why: "Pointer, then the verb that carries the person, then the bare verb: «me quiero levantar». «quiero me» puts the pointer between the verbs; «me quiero levanto» carries the person twice; the last one scrambles the order."
+      # Printed non-recall at m14 (no trabajo el domingo, duermo tarde).
+      - kind: speakLit
+        id: l7-sp-recall-notrabajoeldomingo
+        es: "no trabajo el domingo, duermo tarde"
+        en: "I don't work on Sunday, I sleep late"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l7-ear-levantarse
+        target: { surface: "levantarse", emoji: "🧍" }
+        distractors:
+          - { surface: "acostarse", emoji: "😴" }
+          - { surface: "ducharse", emoji: "🚿" }
+      - kind: agreementLit
+        id: l7-agr-yoana
+        en: "I want to get up, but Ana doesn't want to get up"
+        audioText: "me quiero levantar, pero Ana no se quiere levantar"
+        atoms: ["quiero", "levantar", "quiere"]
+        segments:
+          - { blank: { id: "p1", answer: "me", options: ["me", "se"] } }
+          - { text: " quiero levantar, pero Ana no " }
+          - { blank: { id: "p2", answer: "se", options: ["se", "me"] } }
+          - { text: " quiere levantar" }
+      - kind: listenBuildLit
+        id: l7-lb-diegosequiereduchar
+        es: "Diego se quiere duchar ahora"
+        en: "Diego wants to shower now"
+        atoms: ["quiere", "duchar", "ahora"]
+        tiles: ["me", "ducha"]
+      - kind: textMcq
+        id: l7-tm-despierta
+        target: "despierta"
+        distractors: ["despierto", "despertarse", "acuesta"]
+      - kind: speakLit
+        id: l7-sp-siempreperohoy
+        es: "siempre me levanto temprano, pero hoy no me quiero levantar"
+        en: "I always get up early, but today I don't want to get up"
+        atoms: ["siempre", "levanto", "temprano", "hoy", "quiero", "levantar"]
+      - kind: buildLit
+        id: l7-b-nuncamequierolevantar
+        es: "nunca me quiero levantar temprano"
+        en: "I never want to get up early"
+        atoms: ["nunca", "quiero", "levantar", "temprano"]
+        tiles: ["se", "levanto"]
+      - kind: sim
+        id: l7-sim-ana-domingo
+        scene: { emoji: "🛏️", title: "Sunday, and nobody wants to move", setting: "Ana is on the phone from her bed. It is nearly noon." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "No me quiero levantar. ¿Y tú?", audioText: "no me quiero levantar. ¿y tú?", gloss: "I don't want to get up. And you?" }
+            goal: "Say you don't want to get up either."
+            reply:
+              mode: build
+              tiles: ["no", "me", "quiero", "levantar", "se", "levanto"]
+              answer: "no me quiero levantar"
+            replyGloss: "I don't want to get up."
+            explanation: "Same words as Ana, about yourself: «no» outside, «me» in front of «quiero», «levantar» bare. The bank's «se» and «levanto» are traps — one is the wrong person, the other would carry the person twice."
+          - id: t2
+            npc: { speaker: "Ana", es: "Yo me quiero duchar tarde hoy.", audioText: "yo me quiero duchar tarde hoy", gloss: "I want to shower late today." }
+            goal: "Say you want to shower now."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "me quiero duchar ahora" }
+                - { id: "wrong1", text: "quiero me duchar ahora" }
+                - { id: "wrong2", text: "me quiero ducho ahora" }
+              correctOptionId: "right"
+              audioText: "me quiero duchar ahora"
+            replyGloss: "I want to shower now."
+            explanation: "Pointer in front of «quiero», the verb that carries the person; «duchar» stays bare. «quiero me» splits them; «ducho» after «quiero» says I twice."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Te acuestas temprano hoy?", audioText: "¿te acuestas temprano hoy?", gloss: "Are you going to bed early today?" }
+            goal: "Say no, you always go to bed late."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, siempre me acuesto tarde" }
+                - { id: "wrong1", text: "no, me siempre acuesto tarde" }
+                - { id: "wrong2", text: "no, siempre se acuesta tarde" }
+              correctOptionId: "right"
+              audioText: "no, siempre me acuesto tarde"
+            replyGloss: "No, I always go to bed late."
+            explanation: "«siempre» outside, the pair intact: «siempre me acuesto». «se acuesta» would be about somebody else."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "me quiero levantar", target: "I want to get up" }
+          - { source: "no me quiero duchar", target: "I don't want to shower" }
+          - { source: "se quiere levantar", target: "he or she wants to get up" }
+          - { source: "levantar", target: "to get up (the bare verb)" }
+          - { source: "duchar", target: "to shower (the bare verb)" }
+          - { source: "siempre", target: "always" }
+          - { source: "ahora", target: "now" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "no me quiero levantar, pero me quiero duchar"
+        en: "I don't want to get up, but I want to shower"
+        atoms: ["quiero", "levantar", "duchar"]
+
+
+  # ── L8 · CHECKPOINT — graded only: no card, no map, no sim. Every pointer
+  #    produced, every verb of the module, «no» / «siempre» / «nunca» outside
+  #    the pair, the two-verb placement, «se llama», and the ghosts as MCQ
+  #    distractors only.
+  #    ── TRANSFER TEST: cp-transfer-peino — «peino» appears in exactly one
+  #    step in the whole module: a buildLit (intro-capable, bills its target
+  #    and tiles) whose English carries the gloss "I comb my hair — peinarse"
+  #    as one dashed clause (inv 29: no internal sentence period). The bank
+  #    holds «se» and «te» as foils, so the live decision is the pointer.
+  #    Cloze share 2/20 (cap ⅓); recalls 2, both licensed by this module's
+  #    own printed wins (L1, L4). Selection runs peak at 2.
+  - n: 8
+    template: free
+    title: "L8 ✓ Checkpoint · The verb that points back at you"
+    description: "Every pointer, every verb of the module, nothing to lean on — and one verb in the middle you have never seen."
+    steps:
+      - kind: listenCompLit
+        id: cp-lc-1
+        es: "me levanto temprano y me ducho"
+        en: "I get up early and I shower."
+        atoms: ["levanto", "temprano", "ducho"]
+        distractorsEn:
+          - "I get up late and I shower."
+          - "I wake up early and I shower."
+          - "She gets up early and showers."
+      - kind: audioWimcq
+        id: cp-ear-1
+        target: { surface: "despertarse", emoji: "⏰" }
+        distractors:
+          - { surface: "acostarse", emoji: "😴" }
+          - { surface: "ducharse", emoji: "🚿" }
+      - kind: buildLit
+        id: cp-build-1
+        es: "Ana se acuesta tarde"
+        en: "Ana goes to bed late"
+        atoms: ["acuesta", "tarde"]
+        tiles: ["me", "acuesto"]
+      - kind: clozeLit
+        id: cp-cloze-1
+        es: "Diego se lava los dientes"
+        en: "Diego brushes his teeth"
+        blank: "se"
+        options: ["se", "me", "te"]
+        atoms: ["lava", "dientes"]
+        why: "Diego — a he — so «se», travelling with «lava»."
+      - kind: listenBuildLit
+        id: cp-lb-1
+        es: "no me despierto temprano"
+        en: "I don't wake up early"
+        atoms: ["despierto", "temprano"]
+        tiles: ["se", "despierta"]
+      - kind: mcq
+        id: cp-q-1
+        prompt: "Which one means 'her name is Ana'?"
+        correct: "se llama Ana"
+        distractors: ["me llamo Ana", "te llamas Ana", "llama Ana"]
+        atoms: ["se llama"]
+        why: "About a she: «se llama». The others name yourself, the listener, or nobody."
+      # Printed non-recall at L1 (es-m17-1-l1-sp-win).
+      - kind: speakLit
+        id: cp-sp-recall-1
+        es: "me levanto temprano, pero Ana se levanta tarde"
+        en: "I get up early, but Ana gets up late"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: cp-agr-1
+        en: "I wake up early and Diego wakes up late"
+        audioText: "me despierto temprano y Diego se despierta tarde"
+        atoms: ["despierto", "temprano", "despierta", "tarde"]
+        segments:
+          - { blank: { id: "p1", answer: "me", options: ["me", "se"] } }
+          - { text: " despierto temprano y Diego " }
+          - { blank: { id: "p2", answer: "se", options: ["se", "te"] } }
+          - { text: " despierta tarde" }
+      # ── THE TRANSFER: an unseen verb, glossed in the prompt only.
+      - kind: buildLit
+        id: cp-transfer-peino
+        es: "me peino"
+        en: "I comb my hair — peinarse"
+        atoms: ["peino"]
+        tiles: ["se", "te"]
+      - kind: audioWimcq
+        id: cp-ear-2
+        target: { surface: "los dientes", emoji: "🦷" }
+        distractors:
+          - { surface: "la cama", emoji: "🛏️" }
+          - { surface: "el agua", emoji: "💧" }
+      # «te» is m13's — two options, both atoms (pin E2).
+      - kind: clozeLit
+        id: cp-cloze-2
+        es: "tú te duchas temprano"
+        en: "You shower early"
+        blank: "te"
+        options: ["te", "me"]
+        atoms: ["duchas", "temprano"]
+        why: "«tú» and «duchas» both say you, so the pointer is «te»."
+      - kind: listenBuildLit
+        id: cp-lb-2
+        es: "mi hermano se llama Luis"
+        en: "My brother's name is Luis"
+        atoms: ["hermano", "se llama"]
+        tiles: ["me", "llamo"]
+      - kind: mcq
+        id: cp-q-2
+        prompt: "Which one means 'I don't go to bed'?"
+        correct: "no me acuesto"
+        distractors: ["me no acuesto", "no acuesto me", "no se acuesto"]
+        atoms: ["acuesto"]
+        why: "«no» outside, then the pair: «no me acuesto»."
+      - kind: buildLit
+        id: cp-build-2
+        also: ["me lavo los dientes siempre"]
+        es: "siempre me lavo los dientes"
+        en: "I always brush my teeth"
+        atoms: ["siempre", "lavo", "dientes"]
+        tiles: ["se", "lava"]
+      - kind: listenCompLit
+        id: cp-lc-2
+        es: "Ana no se quiere levantar hoy"
+        en: "Ana doesn't want to get up today."
+        atoms: ["quiere", "levantar", "hoy"]
+        distractorsEn:
+          - "Ana wants to get up today."
+          - "Ana doesn't want to shower today."
+          - "I don't want to get up today."
+      - kind: buildLit
+        id: cp-build-3
+        es: "no me quiero levantar temprano"
+        en: "I don't want to get up early"
+        atoms: ["quiero", "levantar", "temprano"]
+        tiles: ["se", "levanto"]
+      # Printed non-recall at L4 (es-m17-4-l4-sp-win).
+      - kind: speakLit
+        id: cp-sp-recall-2
+        es: "me lavo los dientes y me ducho temprano"
+        en: "I brush my teeth and I shower early"
+        atoms: []
+        cue: recall
+      - kind: listenCompLit
+        id: cp-lc-3
+        es: "¿cómo se llama tu abuela?"
+        en: "What is your grandmother's name?"
+        atoms: ["se llama", "abuela"]
+        distractorsEn:
+          - "What is your name?"
+          - "What is your grandfather's name?"
+          - "Where is your grandmother?"
+      - kind: matchLit
+        id: cp-match
+        pairs:
+          - { source: "me despierto", target: "I wake up" }
+          - { source: "te levantas", target: "you get up" }
+          - { source: "se ducha", target: "he or she showers" }
+          - { source: "me acuesto", target: "I go to bed" }
+          - { source: "se llama", target: "his or her name is" }
+          - { source: "me quiero levantar", target: "I want to get up" }
+          - { source: "los dientes", target: "the teeth" }
+      - kind: speakLit
+        id: cp-sp-final
+        es: "me despierto, me levanto, me ducho y me lavo los dientes"
+        en: "I wake up, I get up, I shower and I brush my teeth"
+        atoms: ["despierto", "levanto", "ducho", "lavo", "dientes"]
+
+
+  # ── L9 · «Todos los días» — ZERO new atoms. Consolidation: mixed persons,
+  #    every verb, the pair in questions and answers, two sims. No card
+  #    (nothing new to say). Recalls licensed by L2/L5/L6 wins. Selection
+  #    runs peak at 2; cloze share 3/19.
+  - n: 9
+    template: free
+    title: "Todos los días"
+    description: "The routine, asked and answered. Ana wants the whole day from you; Diego wants to compare weekends."
+    steps:
+      - kind: map
+        id: l9-map-todoslosdias
+        tokens: ["todos", "los", "días", "me", "levanto", "temprano"]
+        pairs:
+          - { en: "every", tokenIndex: 0 }
+          - { en: "the", tokenIndex: 1 }
+          - { en: "days", tokenIndex: 2 }
+          - { en: "myself", tokenIndex: 3 }
+          - { en: "I get up", tokenIndex: 4 }
+          - { en: "early", tokenIndex: 5 }
+        audioText: "todos los días me levanto temprano"
+        revealNote: "«todos los días» — every day — from module ten, up front like «siempre». The pair behind it does not change."
+      - kind: speakLit
+        id: l9-sp-todoslosdias
+        es: "todos los días me levanto temprano"
+        en: "Every day I get up early"
+        atoms: ["todos los días", "levanto", "temprano"]
+      - kind: clozeLit
+        id: l9-c-anasedespierta
+        es: "todos los días Ana se despierta tarde"
+        en: "Every day Ana wakes up late"
+        blank: "despierta"
+        options: ["despierta", "despierto", "despertarse"]
+        atoms: ["todos los días", "despierta", "tarde"]
+        why: "«se» is there, so the -a ending: «despierta»."
+      - kind: audioWimcq
+        id: l9-ear-acostarse
+        target: { surface: "acostarse", emoji: "😴" }
+        distractors:
+          - { surface: "levantarse", emoji: "🧍" }
+          - { surface: "despertarse", emoji: "⏰" }
+      - kind: buildLit
+        id: l9-b-teduchasydespues
+        also: ["te duchas y te levantas temprano"]
+        es: "te levantas y te duchas temprano"
+        en: "You get up and you shower early"
+        atoms: ["levantas", "duchas", "temprano"]
+        tiles: ["me", "se"]
+      - kind: sim
+        id: l9-sim-ana-eldia
+        scene: { emoji: "📝", title: "Ana wants your whole day", setting: "Ana is writing something for class about how her friends live, and you are the friend." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Te despiertas temprano?", audioText: "¿te despiertas temprano?", gloss: "Do you wake up early?" }
+            goal: "Say you always wake up early."
+            reply:
+              mode: build
+              tiles: ["siempre", "me", "despierto", "temprano", "se", "despierta"]
+              answer: "siempre me despierto temprano"
+              alsoAccepted: ["me despierto temprano siempre"]
+            replyGloss: "I always wake up early."
+            explanation: "«siempre» outside, then «me despierto». The bank's «se despierta» is somebody else's morning."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y te duchas todos los días?", audioText: "¿y te duchas todos los días?", gloss: "And do you shower every day?" }
+            goal: "Say yes, you shower every day."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me ducho todos los días" }
+                - { id: "wrong1", text: "sí, te duchas todos los días" }
+                - { id: "wrong2", text: "sí, ducho todos los días" }
+              correctOptionId: "right"
+              audioText: "sí, me ducho todos los días"
+            replyGloss: "Yes, I shower every day."
+            explanation: "Ana asked with «te duchas»; you answer with «me ducho». Bare «ducho» has lost its pointer."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Te acuestas tarde?", audioText: "¿te acuestas tarde?", gloss: "Do you go to bed late?" }
+            goal: "Say no, you never go to bed late."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, nunca me acuesto tarde" }
+                - { id: "wrong1", text: "no, me nunca acuesto tarde" }
+                - { id: "wrong2", text: "no, nunca se acuesta tarde" }
+              correctOptionId: "right"
+              audioText: "no, nunca me acuesto tarde"
+            replyGloss: "No, I never go to bed late."
+            explanation: "«nunca» outside the pair, «me acuesto» intact."
+      # Printed non-recall at L2 (es-m17-2-l2-sp-win).
+      - kind: speakLit
+        id: l9-sp-recall-meduchotemprano
+        es: "me ducho temprano, pero Diego se ducha tarde"
+        en: "I shower early, but Diego showers late"
+        atoms: []
+        cue: recall
+      - kind: listenCompLit
+        id: l9-lc-luisnuncaselava
+        es: "Luis nunca se lava los dientes temprano"
+        en: "Luis never brushes his teeth early."
+        atoms: ["nunca", "lava", "dientes", "temprano"]
+        distractorsEn:
+          - "Luis always brushes his teeth early."
+          - "Luis never showers early."
+          - "I never brush my teeth early."
+      - kind: clozeLit
+        id: l9-c-mellamosam
+        es: "yo me llamo Sam"
+        en: "My name is Sam"
+        blank: "me"
+        options: ["me", "se"]
+        atoms: ["me llamo"]
+        why: "«yo» and «llamo» both say I, so the pointer is «me»."
+      - kind: listenBuildLit
+        id: l9-lb-sequiereacostar
+        es: "Ana se quiere levantar tarde hoy"
+        en: "Ana wants to get up late today"
+        atoms: ["quiere", "levantar", "tarde", "hoy"]
+        tiles: ["me", "quiero"]
+      - kind: textMcq
+        id: l9-tm-lava
+        target: "lava"
+        distractors: ["lavo", "lavarse", "levanta"]
+      - kind: speakLit
+        id: l9-sp-nomequieroduchar
+        es: "hoy no me quiero duchar"
+        en: "Today I don't want to shower"
+        atoms: ["hoy", "quiero", "duchar"]
+      - kind: buildLit
+        id: l9-b-miabuelaseacuesta
+        es: "mi abuela se acuesta temprano todos los días"
+        en: "My grandmother goes to bed early every day"
+        atoms: ["abuela", "acuesta", "temprano", "todos los días"]
+        tiles: ["me", "acuesto"]
+      - kind: mcq
+        id: l9-q-sellama
+        prompt: "Which one means 'he wants to get up'?"
+        correct: "se quiere levantar"
+        distractors: ["quiere se levantar", "se quiere levanta", "me quiere levantar"]
+        atoms: ["quiere", "levantar"]
+        why: "A he: «se», in front of «quiere», the verb that carries the person; «levantar» stays bare."
+      - kind: audioWimcq
+        id: l9-ear-ducharse
+        target: { surface: "ducharse", emoji: "🚿" }
+        distractors:
+          - { surface: "los dientes", emoji: "🦷" }
+          - { surface: "acostarse", emoji: "😴" }
+      # Printed non-recall at L5 (es-m17-5-l5-sp-win).
+      - kind: speakLit
+        id: l9-sp-recall-medespierto
+        es: "me despierto temprano, pero no me levanto"
+        en: "I wake up early, but I don't get up"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: l9-c-tetelevantas
+        es: "tú te levantas muy tarde"
+        en: "You get up very late"
+        blank: "te"
+        options: ["te", "se"]
+        atoms: ["levantas", "tarde"]
+        why: "«tú» and «levantas» say you, so «te»."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "todos los días", target: "every day" }
+          - { source: "me despierto", target: "I wake up" }
+          - { source: "te duchas", target: "you shower" }
+          - { source: "se acuesta", target: "he or she goes to bed" }
+          - { source: "nunca me acuesto tarde", target: "I never go to bed late" }
+          - { source: "se quiere levantar", target: "he or she wants to get up" }
+          - { source: "¿cómo se llama?", target: "what is his or her name?" }
+      - kind: sim
+        id: l9-sim-diego-findesemana
+        scene: { emoji: "🌳", title: "Diego on the weekend", setting: "Diego insists weekends are for sleeping. He wants to know if you agree." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "El sábado me levanto muy tarde. ¿Y tú?", audioText: "el sábado me levanto muy tarde. ¿y tú?", gloss: "On Saturday I get up very late. And you?" }
+            goal: "Say you get up late too."
+            reply:
+              mode: build
+              tiles: ["me", "levanto", "tarde", "también", "se", "levanta"]
+              answer: "me levanto tarde también"
+              alsoAccepted: ["también me levanto tarde"]
+            replyGloss: "I get up late too."
+            explanation: "Your Saturday: «me levanto». «también» goes outside the pair."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y te duchas el sábado?", audioText: "¿y te duchas el sábado?", gloss: "And do you shower on Saturday?" }
+            goal: "Say you don't want to shower on Saturday."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no me quiero duchar el sábado" }
+                - { id: "wrong1", text: "no quiero me duchar el sábado" }
+                - { id: "wrong2", text: "no me quiero ducho el sábado" }
+              correctOptionId: "right"
+              audioText: "no me quiero duchar el sábado"
+            replyGloss: "I don't want to shower on Saturday."
+            explanation: "«no» outside, «me» in front of «quiero», «duchar» bare."
+          - id: t3
+            npc: { speaker: "Diego", es: "Ana se acuesta a las diez. ¿Y tú?", audioText: "ana se acuesta a las diez. ¿y tú?", gloss: "Ana goes to bed at ten. And you?" }
+            goal: "Say you go to bed late."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "me acuesto tarde" }
+                - { id: "wrong1", text: "se acuesta tarde" }
+                - { id: "wrong2", text: "me acosto tarde" }
+              correctOptionId: "right"
+              audioText: "me acuesto tarde"
+            replyGloss: "I go to bed late."
+            explanation: "About yourself, with the o opened into ue: «me acuesto». «se acuesta» is Ana; «me acosto» forgot the change."
+
+
+  # ── L10 · MASTERY — every step graded, zero cards, zero maps, zero new
+  #    atoms. The graded lane proves the pointer/ending pair, «no» and the
+  #    adverbs outside, the two-verb placement and «se llama»; the sim is
+  #    the payoff: Sofía asks about a whole day at Sam's house — who wakes
+  #    up when, who showers, who goes to bed late, what the brother is
+  #    called. Cloze runs 3/19 (mastery cap ⅓); recalls 3 (L6 win, L7 win,
+  #    m14). Selection runs peak at 2.
+  - n: 10
+    template: free
+    title: "Un día en casa"
+    description: "The whole day, out loud, without a card in sight — and then Sofía asks about everyone in your house."
+    steps:
+      - kind: clozeLit
+        id: m-c-selevanta
+        es: "mi hermano se levanta tarde"
+        en: "My brother gets up late"
+        blank: "se"
+        options: ["se", "me", "te"]
+        atoms: ["hermano", "levanta", "tarde"]
+        why: "Your brother — a he — so «se», with «levanta»."
+      - kind: buildLit
+        id: m-b-medespiertoymelevanto
+        es: "me despierto temprano y me levanto"
+        en: "I wake up early and I get up"
+        atoms: ["despierto", "temprano", "levanto"]
+        tiles: ["se", "despierta"]
+      - kind: audioWimcq
+        id: m-ear-levantarse
+        target: { surface: "levantarse", emoji: "🧍" }
+        distractors:
+          - { surface: "acostarse", emoji: "😴" }
+          - { surface: "ducharse", emoji: "🚿" }
+      - kind: listenBuildLit
+        id: m-lb-nomeducho
+        es: "hoy no me ducho"
+        en: "Today I don't shower"
+        atoms: ["hoy", "ducho"]
+        tiles: ["se", "ducha"]
+      - kind: clozeLit
+        id: m-c-teduchas
+        es: "tú te duchas todos los días"
+        en: "You shower every day"
+        blank: "te"
+        options: ["te", "me"]
+        atoms: ["duchas", "todos los días"]
+        why: "«tú» and «duchas» — you — so «te»."
+      # Printed non-recall at L6 (es-m17-6-l6-sp-win).
+      - kind: speakLit
+        id: m-sp-recall-meacuestotarde
+        es: "me acuesto tarde, pero me despierto temprano"
+        en: "I go to bed late, but I wake up early"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: m-tm-acuesta
+        target: "acuesta"
+        distractors: ["acuesto", "acostarse", "levanta"]
+      - kind: buildLit
+        id: m-b-nuncaselava
+        es: "Luis nunca se lava los dientes temprano"
+        en: "Luis never brushes his teeth early"
+        atoms: ["nunca", "lava", "dientes", "temprano"]
+        tiles: ["me", "lavo"]
+      - kind: audioWimcq
+        id: m-ear-dientes
+        target: { surface: "los dientes", emoji: "🦷" }
+        distractors:
+          - { surface: "la cama", emoji: "🛏️" }
+          - { surface: "el baño", emoji: "🚽" }
+      - kind: listenCompLit
+        id: m-lc-nomequierolevantar
+        es: "no me quiero levantar temprano el sábado"
+        en: "I don't want to get up early on Saturday."
+        atoms: ["quiero", "levantar", "temprano", "sábado"]
+        distractorsEn:
+          - "I want to get up early on Saturday."
+          - "I don't want to shower early on Saturday."
+          - "She doesn't want to get up early on Saturday."
+      # Printed non-recall at L7 (es-m17-7-l7-sp-win).
+      - kind: speakLit
+        id: m-sp-recall-nomequierolevantar
+        es: "no me quiero levantar, pero me quiero duchar"
+        en: "I don't want to get up, but I want to shower"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: m-c-sellama
+        es: "mi abuela se llama Carmen"
+        en: "My grandmother's name is Carmen"
+        blank: "se"
+        options: ["se", "me", "te"]
+        atoms: ["abuela", "se llama"]
+        why: "A she who is not you: «se llama»."
+      - kind: listenBuildLit
+        id: m-lb-siempremeacuesto
+        es: "siempre me acuesto temprano"
+        en: "I always go to bed early"
+        atoms: ["siempre", "acuesto", "temprano"]
+        tiles: ["se", "acuesta"]
+      # Printed non-recall at m14 (Ana puede cocinar muy bien).
+      - kind: speakLit
+        id: m-sp-recall-anapuedecocinar
+        es: "Ana puede cocinar muy bien"
+        en: "Ana can cook very well"
+        atoms: []
+        cue: recall
+      - kind: mcq
+        id: m-q-sequiereduchar
+        prompt: "Which one means 'she wants to shower'?"
+        correct: "se quiere duchar"
+        distractors: ["quiere se duchar", "se quiere ducha", "me quiere duchar"]
+        atoms: ["quiere", "duchar"]
+        why: "«se» in front of «quiere», the verb that carries the person; «duchar» bare."
+      - kind: buildLit
+        id: m-b-eldia
+        es: "me levanto, me ducho y me lavo los dientes"
+        en: "I get up, I shower and I brush my teeth"
+        atoms: ["levanto", "ducho", "lavo", "dientes"]
+        tiles: ["se", "te"]
+      - kind: matchLit
+        id: m-match
+        pairs:
+          - { source: "me despierto", target: "I wake up" }
+          - { source: "me levanto", target: "I get up" }
+          - { source: "me ducho", target: "I shower" }
+          - { source: "me lavo los dientes", target: "I brush my teeth" }
+          - { source: "me acuesto", target: "I go to bed" }
+          - { source: "se llama", target: "his or her name is" }
+          - { source: "me quiero levantar", target: "I want to get up" }
+      - kind: speakLit
+        id: m-sp-eldia
+        es: "todos los días me despierto temprano, me ducho y me acuesto tarde"
+        en: "Every day I wake up early, I shower and I go to bed late"
+        atoms: ["todos los días", "despierto", "temprano", "ducho", "acuesto", "tarde"]
+      - kind: sim
+        id: m-sim-sofia-encasa
+        scene: { emoji: "🏠", title: "Sofía asks about your house", setting: "Sofía is staying over tomorrow and wants to know how the mornings work at your place." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Te despiertas temprano?", audioText: "¿te despiertas temprano?", gloss: "Do you wake up early?" }
+            goal: "Say yes, you always wake up early."
+            reply:
+              mode: build
+              tiles: ["sí", "siempre", "me", "despierto", "temprano", "se", "despierta"]
+              answer: "sí siempre me despierto temprano"
+              alsoAccepted: ["sí me despierto temprano siempre", "siempre me despierto temprano"]
+            replyGloss: "Yes, I always wake up early."
+            explanation: "«siempre» outside, «me despierto» intact."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y tu hermano? ¿Cómo se llama?", audioText: "¿y tu hermano? ¿cómo se llama?", gloss: "And your brother? What is his name?" }
+            goal: "Say he is Luis, and gets up late."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "se llama Luis y se levanta tarde" }
+                - { id: "wrong1", text: "me llamo Luis y me levanto tarde" }
+                - { id: "wrong2", text: "se llama Luis y se levanto tarde" }
+              correctOptionId: "right"
+              audioText: "se llama Luis y se levanta tarde"
+            replyGloss: "His name is Luis and he gets up late."
+            explanation: "Both about your brother: «se llama», «se levanta». The first wrong one is about you; the second breaks the pair."
+          - id: t3
+            npc: { speaker: "Sofía", es: "¿Te duchas temprano?", audioText: "¿te duchas temprano?", gloss: "Do you shower early?" }
+            goal: "Say no, you don't want to shower early."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, no me quiero duchar temprano" }
+                - { id: "wrong1", text: "no, no quiero me duchar temprano" }
+                - { id: "wrong2", text: "no, no me quiero ducho temprano" }
+              correctOptionId: "right"
+              audioText: "no, no me quiero duchar temprano"
+            replyGloss: "No, I don't want to shower early."
+            explanation: "«me» in front of «quiero»; «duchar» stays bare."
+          - id: t4
+            npc: { speaker: "Sofía", es: "¿Y te acuestas tarde?", audioText: "¿y te acuestas tarde?", gloss: "And do you go to bed late?" }
+            goal: "Say yes, you go to bed late daily."
+            reply:
+              mode: build
+              tiles: ["sí", "me", "acuesto", "tarde", "todos", "los", "días", "se", "acuesta"]
+              answer: "sí me acuesto tarde todos los días"
+              alsoAccepted: ["sí todos los días me acuesto tarde", "me acuesto tarde todos los días"]
+            replyGloss: "Yes, I go to bed late every day."
+            explanation: "«todos los días» can go first or last; the pair «me acuesto» never splits."
+
+
+placement:
+  screener:
+    - id: "es-m17-scr-1"
+      prompt: "'I get up early.' — which one?"
+      correct: "me levanto temprano"
+      distractors: ["levanto temprano", "se levanto temprano", "levanto me temprano"]
+  byModule:
+    - id: "es-m17-pl-1"
+      prompt: "Ana showers early."
+      correct: "Ana se ducha temprano"
+      distractors: ["Ana me ducha temprano", "Ana ducha temprano", "Ana se ducho temprano"]
+    - id: "es-m17-pl-2"
+      prompt: "You wake up late."
+      correct: "te despiertas tarde"
+      distractors: ["te despierto tarde", "me despiertas tarde", "despiertas tarde"]
+    - id: "es-m17-pl-3"
+      prompt: "I don't go to bed early."
+      correct: "no me acuesto temprano"
+      distractors: ["me no acuesto temprano", "no acuesto temprano", "no se acuesto temprano"]
+    - id: "es-m17-pl-4"
+      prompt: "What is his name?"
+      correct: "¿cómo se llama?"
+      distractors: ["¿cómo te llamas?", "¿cómo me llamo?", "¿cómo llama?"]

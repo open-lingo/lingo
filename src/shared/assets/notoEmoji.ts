@@ -103,6 +103,12 @@ const LINGO_CUSTOM_ART: Record<string, string> = {
   "ko:김치": "vocab/ko/김치.png",
   "ko:비빔밥": "vocab/ko/비빔밥.png",
   "es:mesa": "vocab/es/mesa.png",
+  // ES m17 reflexives (2026-09-09) — generated via scripts/emoji-refit/art.mjs
+  // from a decisions file in the session scratchpad; the atoms keep an
+  // honest Noto fallback (🧍 / 😴 / ⏰) for the integrity gate.
+  "es:levantarse": "vocab/es/levantarse.png",
+  "es:acostarse": "vocab/es/acostarse.png",
+  "es:despertarse": "vocab/es/despertarse.png",
 };
 
 /**

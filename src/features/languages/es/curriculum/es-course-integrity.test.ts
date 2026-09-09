@@ -87,6 +87,7 @@ describe("ES course integrity — cross-module", () => {
     // this list in the same change, with the module that debuts them).
     const ALLOWED = new Set([
       "Ana", "Diego", "Sofía", "María", "Carmen", "Sam",
+      "Luis", // m17: Sam's brother («mi hermano se llama Luis»), debuts L3
       "México", "España", "Estados", "Unidos",
     ]);
     const bad: string[] = [];
