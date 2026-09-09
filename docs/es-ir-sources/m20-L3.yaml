@@ -1,0 +1,164 @@
+  # ── L3 · «¿Qué hiciste?» — hice, hiciste, hizo. The past, for hacer: «hago»
+  #    (now) skips its usual ending in the past — a fresh stem, no accent, and
+  #    the c softens to z before o. The module's given win line for this
+  #    lesson is «anoche hice pizza»; every other sentence in the lesson
+  #    stays inside the confirmed PRIOR list, so «pizza» (PRIOR) closes it
+  #    once, at the very end, and is not credited as an exercised atom.
+  - n: 3
+    template: free
+    title: "¿Qué hiciste?"
+    description: "«hacer» skips its usual ending in the past: hice, hiciste, hizo — a new stem, no accent, and the c turns to z before o."
+    steps:
+      - kind: map
+        id: l3-map-anochehicelatarea
+        tokens: ["anoche", "hice", "la", "tarea"]
+        pairs:
+          - { en: "last night", tokenIndex: 0 }
+          - { en: "I did", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "homework", tokenIndex: 3 }
+        audioText: "anoche hice la tarea"
+        revealNote: "«hago» is I do, now. «hice» — no accent, the stress already sits on the stem — is I did or I made. «anoche» tells you it's coming."
+      - kind: info
+        id: l3-info-hacer
+        title: "The past, for hacer"
+        body: "«hago» is I do, now. In the past: «hice», I did or I made; «hiciste», you did; «hizo», he did, she did — no accent anywhere, the stem already carries the weight. And the c of «hacer» turns to z before o: «hace» now, «hizo» then. «anoche hice la tarea» — last night I did the homework."
+      - kind: speakLit
+        id: l3-sp-hice
+        es: "anoche hice la tarea"
+        en: "Last night I did the homework"
+        atoms: ["anoche", "hice", "tarea"]
+      - kind: buildLit
+        id: l3-b-anahizotrabajo
+        also: ["ayer Ana hizo mucho trabajo"]
+        es: "Ana hizo mucho trabajo ayer"
+        en: "Ana did a lot of work yesterday"
+        atoms: ["hizo", "mucho", "trabajo", "ayer"]
+        tiles: ["hice", "hace"]
+      - kind: speakLit
+        id: l3-sp-hiciste
+        es: "hiciste mucho trabajo ayer también"
+        en: "You did a lot of work yesterday too"
+        atoms: ["hiciste", "mucho", "trabajo", "ayer"]
+      - kind: clozeLit
+        id: l3-c-diegohizo
+        es: "Diego hizo la tarea anoche"
+        en: "Diego did the homework last night"
+        blank: "hizo"
+        options: ["hizo", "hice", "hiciste"]
+        atoms: ["hizo", "tarea", "anoche"]
+        why: "Diego did the doing: «hizo», the he-or-she ending. «hice» is I; «hiciste» is you."
+      - kind: listenCompLit
+        id: l3-lc-anochehicemuchotrabajo
+        es: "anoche hice mucho trabajo"
+        en: "Last night I did a lot of work."
+        atoms: ["anoche", "hice", "mucho", "trabajo"]
+        distractorsEn:
+          - "Last night she did a lot of work."
+          - "Today I do a lot of work."
+          - "Last night I did the homework."
+      - kind: buildLit
+        id: l3-b-quehiciste
+        es: "¿qué hiciste anoche?"
+        en: "What did you do last night?"
+        atoms: ["hiciste", "anoche"]
+        tiles: ["hice", "hizo"]
+      - kind: mcq
+        id: l3-q-hizo
+        prompt: "Which one means 'he made'?"
+        correct: "él hizo"
+        distractors: ["él hace", "él hice", "él hiciste"]
+        atoms: ["hizo"]
+        why: "«hizo» — past, he or she. «hace» is now; «hice» is I; «hiciste» is you."
+      - kind: audioWimcq
+        id: l3-ear-trabajo
+        target: { surface: "el trabajo", emoji: "💼" }
+        distractors:
+          - { surface: "la tienda", emoji: "🏪" }
+          - { surface: "el parque", emoji: "🌳" }
+      # Printed non-recall at L1 (es-m20-1-l1-sp-win).
+      - kind: speakLit
+        id: l3-sp-recall-ayerfuialmuseo
+        es: "ayer fui al museo con Ana"
+        en: "Yesterday I went to the museum with Ana"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l3-agr-hiceyhiciste
+        en: "I did the homework and you did the homework too"
+        audioText: "hice la tarea y tú hiciste la tarea también"
+        atoms: ["hice", "tarea", "hiciste"]
+        segments:
+          - { blank: { id: "p1", answer: "hice", options: ["hice", "hiciste"] } }
+          - { text: " la tarea y tú " }
+          - { blank: { id: "p2", answer: "hiciste", options: ["hiciste", "hice"] } }
+          - { text: " la tarea también" }
+      - kind: listenBuildLit
+        id: l3-lb-hicistetrabajosemana
+        es: "hiciste mucho trabajo la semana pasada"
+        en: "You did a lot of work last week"
+        atoms: ["hiciste", "mucho", "trabajo", "la semana pasada"]
+        tiles: ["hago", "hizo"]
+      - kind: textMcq
+        id: l3-tm-hizo
+        target: "hizo"
+        distractors: ["hace", "hice", "hiciste"]
+      - kind: speakLit
+        id: l3-sp-hiceyhable
+        es: "anoche hice la tarea y hablé con Ana"
+        en: "Last night I did homework and spoke with Ana"
+        atoms: ["anoche", "hice", "tarea", "hablé"]
+      - kind: sim
+        id: l3-sim-carmen-anoche
+        scene: { emoji: "📝", title: "Carmen asks about last night", setting: "Carmen wants to know what everyone got done." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Qué hiciste anoche?", audioText: "¿qué hiciste anoche?", gloss: "What did you do last night?" }
+            goal: "Say you did the homework."
+            reply:
+              mode: build
+              tiles: ["hice", "la", "tarea", "hago", "hizo"]
+              answer: "hice la tarea"
+            replyGloss: "I did the homework."
+            explanation: "Carmen asked with «hiciste»; you answer «hice». «hago» is now; «hizo» is somebody else."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Y Ana?", audioText: "¿y ana?", gloss: "And Ana?" }
+            goal: "Say she did a lot of work."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hizo mucho trabajo" }
+                - { id: "wrong1", text: "hice mucho trabajo" }
+                - { id: "wrong2", text: "hace mucho trabajo" }
+              correctOptionId: "right"
+              audioText: "hizo mucho trabajo"
+            replyGloss: "She did a lot of work."
+            explanation: "Ana, last night: «hizo»."
+          - id: t3
+            npc: { speaker: "Carmen", es: "¿Hiciste la tarea también?", audioText: "¿hiciste la tarea también?", gloss: "Did you do the homework too?" }
+            goal: "Say yes, you did the homework."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, hice la tarea" }
+                - { id: "wrong1", text: "sí, hiciste la tarea" }
+                - { id: "wrong2", text: "sí, hago la tarea" }
+              correctOptionId: "right"
+              audioText: "sí, hice la tarea"
+            replyGloss: "Yes, I did the homework."
+            explanation: "About yourself, in the past: «hice»."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "anoche", target: "last night" }
+          - { source: "hice", target: "I did / I made" }
+          - { source: "hiciste", target: "you did / you made" }
+          - { source: "hizo", target: "he or she did / made" }
+          - { source: "hago", target: "I do (now)" }
+          - { source: "tarea", target: "homework" }
+          - { source: "trabajo", target: "work" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "anoche hice pizza"
+        en: "Last night I made pizza"
+        atoms: ["anoche", "hice"]

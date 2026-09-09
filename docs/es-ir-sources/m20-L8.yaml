@@ -1,0 +1,168 @@
+  # ── L8 · CHECKPOINT — graded only. Every one of the 20 taught irregular-
+  #    preterite atoms (fui/fuiste/fue, hice/hiciste/hizo, tuve/tuviste/tuvo,
+  #    estuve/estuviste/estuvo, vi/viste/vio, vine/vino, el mes pasado, el
+  #    museo, el viaje) earns an answer position — ten paired build/listen-
+  #    build sentences (cp-build-1 … cp-lb-4), each carrying two forms via
+  #    «y», cover all 20 in ten steps. «fue» is cashed BOTH ways
+  #    (cp-build-2 = went, cp-build-3 = was).
+  #    ── TRANSFER: cp-transfer-viniste — «venir» handed over cold as "you
+  #    came ... — venir"; the bank holds «vine» and «vino» as foils (both
+  #    registered). Exactly one step.
+  #    Cloze share 1/20; recalls 2 (L1 win, L6 win); closes sim → match → win.
+  - n: 8
+    template: free
+    title: "L8 ✓ Checkpoint · Fui, hice, tuve"
+    description: "Every irregular past, both readings of «fue», and one verb you have never conjugated."
+    steps:
+      - kind: buildLit
+        id: cp-build-1
+        es: "ayer fui al parque y vi a Sofía"
+        en: "Yesterday I went to the park and saw Sofía"
+        atoms: ["ayer", "fui", "parque", "vi"]
+        tiles: ["fue", "vio"]
+      - kind: listenBuildLit
+        id: cp-lb-1
+        es: "¿fuiste al cine y viste la película?"
+        en: "Did you go to the movies and see the movie?"
+        atoms: ["fuiste", "viste", "película"]
+        tiles: ["fue", "vio"]
+      - kind: buildLit
+        id: cp-build-2
+        es: "Diego fue al mercado y vio a Carmen"
+        en: "Diego went to the market and saw Carmen"
+        atoms: ["fue", "vio"]
+        tiles: ["fui", "vi"]
+      - kind: audioWimcq
+        id: cp-ear-1
+        target: { surface: "la fiesta", emoji: "🎉" }
+        distractors:
+          - { surface: "el regalo", emoji: "🎁" }
+          - { surface: "el mensaje", emoji: "✉️" }
+      - kind: buildLit
+        id: cp-build-3
+        es: "el viaje fue muy bueno"
+        en: "The trip was very good"
+        atoms: ["el viaje", "fue"]
+        tiles: ["fui", "fuiste"]
+      - kind: listenBuildLit
+        id: cp-lb-2
+        es: "anoche hice la tarea y tuve mucho trabajo"
+        en: "Last night I did the homework and had a lot of work"
+        atoms: ["anoche", "hice", "tarea", "tuve", "trabajo"]
+        tiles: ["hizo", "tuvo"]
+      - kind: buildLit
+        id: cp-build-4
+        es: "¿hiciste la tarea y tuviste una fiesta?"
+        en: "Did you do the homework and have a party?"
+        atoms: ["hiciste", "tarea", "tuviste", "fiesta"]
+        tiles: ["hizo", "tuvo"]
+      - kind: listenBuildLit
+        id: cp-lb-3
+        es: "Ana hizo la tarea y tuvo una fiesta"
+        en: "Ana did the homework and had a party"
+        atoms: ["hizo", "tarea", "tuvo", "fiesta"]
+        tiles: ["hice", "tuve"]
+      # Printed non-recall at L1 (es-m20-1-l1-sp-win).
+      - kind: speakLit
+        id: cp-sp-recall-1
+        es: "ayer fui al museo con Ana"
+        en: "Yesterday I went to the museum with Ana"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: cp-build-5
+        es: "estuve en el museo y vine temprano"
+        en: "I was at the museum and came back early"
+        atoms: ["estuve", "el museo", "vine"]
+        tiles: ["estuvo", "vino"]
+      - kind: listenBuildLit
+        id: cp-lb-4
+        es: "estuviste en la fiesta y vino Sam"
+        en: "You were at the party and Sam came"
+        atoms: ["estuviste", "fiesta", "vino"]
+        tiles: ["estuvo", "viene"]
+      - kind: mcq
+        id: cp-q-1
+        prompt: "Which one means 'you saw'?"
+        correct: "viste"
+        distractors: ["vi", "vio", "veo"]
+        atoms: ["viste"]
+        why: "-iste is the you-ending of the past."
+      - kind: buildLit
+        id: cp-build-6
+        es: "el mes pasado Diego estuvo en México"
+        en: "Last month Diego was in Mexico"
+        atoms: ["el mes pasado", "estuvo"]
+        tiles: ["estuve", "estuviste"]
+      - kind: clozeLit
+        id: cp-cloze-1
+        es: "Diego estuvo en la fiesta anoche"
+        en: "Diego was at the party last night"
+        blank: "estuvo"
+        options: ["estuvo", "está"]
+        atoms: ["estuvo"]
+        why: "Diego, in the past: «estuvo»."
+      - kind: listenCompLit
+        id: cp-lc-1
+        es: "Carmen vio a Ana en el museo"
+        en: "Carmen saw Ana at the museum."
+        atoms: ["vio", "el museo"]
+        distractorsEn:
+          - "Carmen sees Ana at the museum."
+          - "Carmen saw Ana at the park."
+          - "Diego saw Ana at the museum."
+      # Printed non-recall at L6 (es-m20-6-l6-sp-win).
+      - kind: speakLit
+        id: cp-sp-recall-2
+        es: "el mes pasado fui a México"
+        en: "Last month I went to Mexico"
+        atoms: []
+        cue: recall
+      # ── THE TRANSFER: a verb form the module never conjugated, glossed cold.
+      - kind: buildLit
+        id: cp-transfer-viniste
+        es: "viniste a la fiesta ayer"
+        en: "You came to the party yesterday — venir"
+        atoms: ["viniste"]
+        tiles: ["vine", "vino"]
+      - kind: sim
+        id: cp-sim-ana
+        scene: { emoji: "✅", title: "One more check-in", setting: "Sunday night. Last questions before the week starts again." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Fuiste a la fiesta ayer?", audioText: "¿fuiste a la fiesta ayer?", gloss: "Did you go to the party yesterday?" }
+            goal: "Say yes, and you saw Sam there."
+            reply:
+              mode: build
+              tiles: ["sí", "fui", "y", "vi", "a", "Sam", "fue", "vio"]
+              answer: "sí fui y vi a Sam"
+            replyGloss: "Yes, and I saw Sam."
+            explanation: "«fui» and «vi» — both about you, in the past."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Tuviste un viaje muy bueno?", audioText: "¿tuviste un viaje muy bueno?", gloss: "Did you have a very good trip?" }
+            goal: "Say yes, you had a very good trip."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tuve un viaje muy bueno" }
+                - { id: "wrong1", text: "sí, tengo un viaje muy bueno" }
+                - { id: "wrong2", text: "sí, tuvo un viaje muy bueno" }
+              correctOptionId: "right"
+              audioText: "sí, tuve un viaje muy bueno"
+            replyGloss: "Yes, I had a very good trip."
+            explanation: "«tuve» — you, in the past."
+      - kind: matchLit
+        id: cp-match
+        pairs:
+          - { source: "fui", target: "I went" }
+          - { source: "hice", target: "I did / made" }
+          - { source: "tuve", target: "I had" }
+          - { source: "estuvo", target: "he or she was (somewhere)" }
+          - { source: "vi", target: "I saw" }
+          - { source: "vino", target: "he or she came" }
+          - { source: "el museo", target: "the museum" }
+      - kind: speakLit
+        id: cp-sp-final
+        es: "¿qué hiciste el fin de semana?"
+        en: "What did you do on the weekend?"
+        atoms: ["hiciste", "el fin de semana"]

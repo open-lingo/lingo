@@ -1,0 +1,94 @@
+module: m20
+title: "Fui, hice, tuve — the past, irregular"
+frame: none
+throughModule: m19
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m20 — the irregular preterite. Second A2 module.
+#
+#     ir / ser:  fui      fuiste     fue        hacer:  hice    hiciste    hizo
+#     tener:     tuve     tuviste    tuvo       estar:  estuve  estuviste  estuvo
+#     ver:       vi       viste      vio        venir:  vine    (viniste)  vino
+#
+# ONE idea, the whole module: a handful of the most-used verbs do not take
+# m19's endings. Each has its own past stem, and NONE of these forms carries
+# a written accent — «fui», «vi», «vio», «hizo» are stressed on the stem,
+# which is exactly why «fui» is not «*fuí». The tú ending -iste (fuiste,
+# hiciste, tuviste, estuviste, viste) is the one thread that survives from
+# m19, and L8 cashes it: «viniste» is handed over cold and is derivable.
+#
+# ── ser AND ir SHARE A PAST ──────────────────────────────────────────────
+# «fui / fuiste / fue» is both "I went" and "I was". The marker + the
+# complement decide: «fui al museo» = went (a place follows, with «a»);
+# «fue muy bueno», «fue mi profesor» = was (an adjective / noun follows).
+# L1 teaches «fui» as ir only; L2 opens the ser reading and drills the
+# ambiguity BOTH ways in answer positions. Never gloss «fue» as one only.
+#
+# ── PERSONS ──────────────────────────────────────────────────────────────
+# yo / tú / él-ella only, like m19. Plural preterites (fuimos, fueron,
+# hicimos, hicieron, tuvimos, tuvieron, estuvimos, estuvieron, vimos,
+# vieron, vinimos, vinieron) are NOT taught and are banned in every slot,
+# even unbilled NPC lines.
+#
+# ── PIN E12: EVERY CELL COMES FROM conjugationTables.ts ───────────────────
+# ser / ir / tener / estar / hacer already carried their preterite; ver and
+# venir were ADDED to ES_VERB_ENTRIES on 2026-09-09 for this module. That
+# also makes every PRESENT form of ver / venir PRIOR: only veo / ve / vengo
+# / viene were ever taught (m15, m16) — ves, vemos, ven, vienes, venimos,
+# vienen are banned in every answer position and every printed slot.
+#
+# ── m19 REGULARS ARE PRIOR AND GET RE-SPENT ──────────────────────────────
+# hablé / compré / comí / salí / trabajó … (all 26 m19 atoms) are PRIOR
+# here. L6, L7, L9 mix them with the irregulars so the learner has to
+# choose the machine, not just the ending. «ayer», «anoche», «la semana
+# pasada», «el fin de semana» are PRIOR markers; «el mes pasado» debuts L6.
+#
+# ── NO IMPERFECT, NO PROGRESSIVE (pins E7) ───────────────────────────────
+# Glosses are English simple past: "I went", "she had", "he saw". Never
+# "was going", "used to", "have gone". Present stays simple present.
+#
+# ── hacer / tener RULING (B112) ──────────────────────────────────────────
+# Present: only hago / haces / hace, tengo / tienes / tiene / tenemos /
+# tienen. Past: only the cells registered below.
+#
+# ── TRANSFER CELL (L8 only): «viniste» ───────────────────────────────────
+# Glossed cold in the prompt ("you came — venir"); derivable from «vine» /
+# «vino» + the -iste thread. A buildLit whose bank holds «vine» and «vino»
+# as foils. Appears in exactly one step.
+#
+# ── EMOJI ────────────────────────────────────────────────────────────────
+# «el museo» 🏛️ (L1) and «el viaje» 🧳 (L5) debut on imageMcq (inv 44:
+# first exposure only). Both Noto SVGs are vendored and unbound.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # ir / ser — one past
+  - { surface: "fui", meaningEn: "I went / I was", partOfSpeech: "verb", kind: "vocab", hint: "FWEE — no accent; ir and ser share this past" }
+  - { surface: "fuiste", meaningEn: "you went / you were", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "fue", meaningEn: "he/she went / it was", partOfSpeech: "verb", kind: "vocab", hint: "FWEH — a place after it: went; a noun or adjective after it: was" }
+  # hacer
+  - { surface: "hice", meaningEn: "I did / I made", partOfSpeech: "verb", kind: "vocab", hint: "EE-seh — stress on the stem, no accent" }
+  - { surface: "hiciste", meaningEn: "you did / you made", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "hizo", meaningEn: "he/she did / made", partOfSpeech: "verb", kind: "vocab", hint: "EE-so — the c becomes z before o" }
+  # tener / estar — the -uve twins
+  - { surface: "tuve", meaningEn: "I had", partOfSpeech: "verb", kind: "vocab", hint: "TOO-beh" }
+  - { surface: "tuviste", meaningEn: "you had", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "tuvo", meaningEn: "he/she had", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "estuve", meaningEn: "I was (somewhere)", partOfSpeech: "verb", kind: "vocab", hint: "es-TOO-beh — «tuve» with es- in front" }
+  - { surface: "estuviste", meaningEn: "you were (somewhere)", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "estuvo", meaningEn: "he/she was (somewhere)", partOfSpeech: "verb", kind: "vocab" }
+  # ver
+  - { surface: "vi", meaningEn: "I saw", partOfSpeech: "verb", kind: "vocab", hint: "BEE — one syllable, no accent" }
+  - { surface: "viste", meaningEn: "you saw", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "vio", meaningEn: "he/she saw", partOfSpeech: "verb", kind: "vocab", hint: "BYO — one syllable, no accent" }
+  # venir
+  - { surface: "vine", meaningEn: "I came", partOfSpeech: "verb", kind: "vocab", hint: "BEE-neh" }
+  - { surface: "vino", meaningEn: "he/she came", partOfSpeech: "verb", kind: "vocab", hint: "BEE-no — yes, it also means wine; the sentence decides" }
+  # marker + nouns
+  - { surface: "el mes pasado", meaningEn: "last month", partOfSpeech: "phrase", kind: "phrase", hint: "mess pa-SA-do — the month that passed" }
+  - { surface: "el museo", meaningEn: "the museum", partOfSpeech: "noun", kind: "vocab", emoji: "🏛️", hint: "moo-SEH-o" }
+  - { surface: "el viaje", meaningEn: "the trip", partOfSpeech: "noun", kind: "vocab", emoji: "🧳", hint: "BYA-heh — the j is a breathy h" }
+  # ── TRANSFER CELL (L8 only) — glossed in the prompt, met cold.
+  - { surface: "viniste", meaningEn: "you came", partOfSpeech: "verb", kind: "vocab" }
+
+lessons:

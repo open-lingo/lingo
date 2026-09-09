@@ -118,6 +118,14 @@ Don't trust `docs/tasks/*.md` as current state.
 - Add MUI, ESLint/Prettier configs, legacy redirects/back-compat shims, or AI
   attribution to commits.
 - Reference the `_archive/` course from any live code path.
+- **Author bulk content inline in the main session.** Lesson bodies, module
+  YAML, drill banks, clip lists — anything formulaic over ~100 lines — go to
+  Sonnet subagents (`Agent(model: "sonnet")`, one or two lessons each, run in
+  parallel, each iterating on `check-frag.sh` itself). The main session writes
+  the spine/header/placement/test pins, runs the gates, fixes ≤10-line
+  residuals, and ships. m17–m19 were drafted inline by Fable on 2026-09-09 and
+  Spencer called it "an expensive mistake": ~35 min and a compaction every 2–3
+  modules. Recipe + brief template: `docs/es-ir-sources/es-m20-brief.md`.
 
 ---
 

@@ -30,6 +30,7 @@ import { ES_M16_LESSONS } from "./m16";
 import { ES_M17_LESSONS } from "./m17";
 import { ES_M18_LESSONS } from "./m18";
 import { ES_M19_LESSONS } from "./m19";
+import { ES_M20_LESSONS } from "./m20";
 
 export type EsModuleMeta = {
   id: string;
@@ -169,7 +170,14 @@ export const ES_MODULE_META: EsModuleMeta[] = [
     eyebrow: "Module 19 · El pretérito",
     summary: "the first sentence about yesterday: a finished action takes new endings, and the accent that moves the stress is the tense. A2 opens here.",
     accent: { from: "#f59e0b", to: "#78350f" },
+  },  {
+    id: "m20",
+    title: "Fui, hice, tuve",
+    eyebrow: "Module 20 · El pasado irregular",
+    summary: "the verbs you use most do not take yesterday's endings — they change their whole shape, and «fui» is both went and was.",
+    accent: { from: "#c084fc", to: "#581c87" },
   },
+
 
 
 
@@ -195,6 +203,7 @@ const LESSONS_BY_MODULE: Record<string, LessonContent[]> = {
   m17: ES_M17_LESSONS,
   m18: ES_M18_LESSONS,
   m19: ES_M19_LESSONS,
+  m20: ES_M20_LESSONS,
 };
 
 /** Flat lesson list for the shared LESSONS content index (mockLessons.ts). */

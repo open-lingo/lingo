@@ -1,0 +1,163 @@
+  # ── L1 · «Ayer fui» — fui, fuiste, fue, the irregular past of «ir», WENT
+  #    only. No accent anywhere — the stress already sits on the stem, which
+  #    is the whole story: «fui» is not «*fuí». A place always follows, with
+  #    «a» or «al». «el museo» debuts on imageMcq (inv 44: first exposure).
+  #    ⚠️ NO ser reading here (L2). NO other new verb.
+  - n: 1
+    template: free
+    title: "Ayer fui"
+    description: "«ir» throws out every ending you know and hands you a brand-new past. This lesson teaches it doing one job only: saying where you went."
+    steps:
+      - kind: map
+        id: l1-map-ayerfui
+        tokens: ["ayer", "fui", "al", "museo"]
+        pairs:
+          - { en: "yesterday", tokenIndex: 0 }
+          - { en: "I went", tokenIndex: 1 }
+          - { en: "to the", tokenIndex: 2 }
+          - { en: "museum", tokenIndex: 3 }
+        audioText: "ayer fui al museo"
+        revealNote: "«voy» is I go, now — you have used it since module ten. «fui» is a completely different word for I went, then: one syllable, no accent, the stress already sitting where it needs to. «al» is «a» plus «el» — to the. «el museo» is new: the museum."
+      - kind: imageMcq
+        id: l1-im-museo
+        target: { surface: "el museo", meaningEn: "the museum", emoji: "🏛️" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: speakLit
+        id: l1-sp-fui
+        es: "fui al museo ayer"
+        en: "I went to the museum yesterday"
+        atoms: ["fui", "el museo", "ayer"]
+      - kind: info
+        id: l1-info-preteritoir
+        title: "Fui, fuiste, fue — the past of ir"
+        body: "A handful of very common verbs throw out the -é/-aste/-ó endings completely and use their own past instead. «ir», to go: «fui», I went; «fuiste», you went; «fue», he or she went. No accent anywhere — say them with the stress already on the one syllable: «fui», «fuiste», «fue». A place follows, with «a» or «al»: «fui al museo», «fuiste al mercado», «fue al parque»."
+      - kind: speakLit
+        id: l1-sp-fuiste
+        es: "fuiste al mercado ayer"
+        en: "You went to the market yesterday"
+        atoms: ["fuiste", "mercado", "ayer"]
+      - kind: buildLit
+        id: l1-b-anafuealparque
+        es: "Ana fue al parque ayer"
+        en: "Ana went to the park yesterday"
+        atoms: ["fue", "parque", "ayer"]
+        tiles: ["fui", "va"]
+      - kind: clozeLit
+        id: l1-c-fuialaplaya
+        es: "fui a la playa con mi hermano"
+        en: "I went to the beach with my brother"
+        blank: "fui"
+        options: ["fui", "fuiste", "fue"]
+        atoms: ["fui", "playa", "hermano"]
+        why: "You are the one who went, so «fui» — no accent, no ending like the -ar verbs. «fuiste» would be you; «fue» would be someone else."
+      - kind: listenCompLit
+        id: l1-lc-fuistealescuela
+        es: "fuiste a la escuela ayer"
+        en: "You went to school yesterday."
+        atoms: ["fuiste", "escuela", "ayer"]
+        distractorsEn:
+          - "You went to the store yesterday."
+          - "She went to school yesterday."
+          - "You go to school today."
+      - kind: buildLit
+        id: l1-b-fuialcineycondiego
+        also: ["con Diego fui al cine"]
+        es: "fui al cine con Diego"
+        en: "I went to the movies with Diego"
+        atoms: ["fui", "cine"]
+        tiles: ["fue", "voy"]
+      - kind: mcq
+        id: l1-q-ellafue
+        prompt: "Which one means 'she went'?"
+        correct: "ella fue"
+        distractors: ["ella fui", "ella va", "ella fuiste"]
+        atoms: ["fue"]
+        why: "«fue» is he or she — someone else went. «fui» is I; «fuiste» is you; «va» slips back into now."
+      - kind: audioWimcq
+        id: l1-ear-hermano
+        target: { surface: "el hermano", emoji: "👦" }
+        distractors:
+          - { surface: "la hermana", emoji: "👧" }
+          - { surface: "el amigo", emoji: "🧑‍🤝‍🧑" }
+      - kind: agreementLit
+        id: l1-agr-fuiyfuiste
+        en: "I went to the museum and you went to the market"
+        audioText: "fui al museo y fuiste al mercado"
+        atoms: ["fui", "el museo", "fuiste", "mercado"]
+        segments:
+          - { blank: { id: "p1", answer: "fui", options: ["fui", "fuiste"] } }
+          - { text: " al museo y " }
+          - { blank: { id: "p2", answer: "fuiste", options: ["fuiste", "fui"] } }
+          - { text: " al mercado" }
+      - kind: listenBuildLit
+        id: l1-lb-fuistealmuseo
+        es: "fuiste al museo ayer"
+        en: "You went to the museum yesterday"
+        atoms: ["fuiste", "el museo", "ayer"]
+        tiles: ["fue", "vas"]
+      - kind: textMcq
+        id: l1-tm-fue
+        target: "fue"
+        distractors: ["fui", "fuiste", "va"]
+      - kind: speakLit
+        id: l1-sp-fuialmuseoconamigo
+        es: "fui al museo con mi amigo"
+        en: "I went to the museum with my friend"
+        atoms: ["fui", "el museo", "amigo"]
+      - kind: sim
+        id: l1-sim-anaaskspast
+        scene: { emoji: "🏛️", title: "Ana asks about yesterday", setting: "Ana wants to know where everyone went yesterday." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Fuiste al museo ayer?", audioText: "¿fuiste al museo ayer?", gloss: "Did you go to the museum yesterday?" }
+            goal: "Say yes, you went to the museum."
+            reply:
+              mode: build
+              tiles: ["sí", "fui", "al", "museo", "fue", "voy"]
+              answer: "sí fui al museo"
+            replyGloss: "Yes, I went to the museum."
+            explanation: "Ana asked with «fuiste»; you answer about yourself: «fui». «fue» would be someone else; «voy» would be now."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego? ¿Fue al parque?", audioText: "¿y diego? ¿fue al parque?", gloss: "And Diego? Did he go to the park?" }
+            goal: "Say yes, he went to the park."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, él fue al parque" }
+                - { id: "wrong1", text: "sí, él fui al parque" }
+                - { id: "wrong2", text: "sí, él va al parque" }
+              correctOptionId: "right"
+              audioText: "sí, él fue al parque"
+            replyGloss: "Yes, he went to the park."
+            explanation: "Diego, in the past: «fue». «fui» is you talking about yourself; «va» slips into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Fuiste al cine también?", audioText: "¿fuiste al cine también?", gloss: "Did you go to the movies too?" }
+            goal: "Say no, you went to the market."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, fui al mercado" }
+                - { id: "wrong1", text: "no, fuiste al mercado" }
+                - { id: "wrong2", text: "no, fue al mercado" }
+              correctOptionId: "right"
+              audioText: "no, fui al mercado"
+            replyGloss: "No, I went to the market."
+            explanation: "Answering about yourself again: «fui». «fuiste» would ask Ana back; «fue» hands it to someone else."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "ayer", target: "yesterday" }
+          - { source: "fui", target: "I went" }
+          - { source: "fuiste", target: "you went" }
+          - { source: "fue", target: "he or she went" }
+          - { source: "el museo", target: "the museum" }
+          - { source: "el mercado", target: "the market" }
+          - { source: "el parque", target: "the park" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "ayer fui al museo con Ana"
+        en: "Yesterday I went to the museum with Ana"
+        atoms: ["ayer", "fui", "el museo"]

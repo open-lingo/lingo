@@ -1,0 +1,173 @@
+  # ── L5 · «Vi, vine» — vi, viste, vio (ver), vine, vino (venir), el viaje
+  #    🧳. Two more verbs that skip the -í/-iste/-ió table. «vino» also
+  #    means wine — the card says so and every printed sentence puts a
+  #    person or place after it so context always decides. «viniste» is
+  #    NOT registered and is never printed (L8 transfer cell only).
+  - n: 5
+    template: free
+    title: "Vi, vine"
+    description: "Two more verbs, two more shortcuts. «ver» and «venir» skip the regular past the same way «ir» and «hacer» already did — and one of them shares its name with a drink."
+    steps:
+      - kind: map
+        id: l5-map-vinealafiesta
+        tokens: ["vine", "a", "la", "fiesta", "anoche"]
+        pairs:
+          - { en: "I came", tokenIndex: 0 }
+          - { en: "to", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "party", tokenIndex: 3 }
+          - { en: "last night", tokenIndex: 4 }
+        audioText: "vine a la fiesta anoche"
+        revealNote: "«vine» — I came — another one-syllable stem with no accent, like «fui» and «hice». «venir» does not take the regular ending either."
+        tokenGenders: { 2: "f", 3: "f" }
+      - kind: imageMcq
+        id: l5-im-viaje
+        target: { surface: "el viaje", meaningEn: "the trip", emoji: "🧳" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el museo", emoji: "🏛️" }
+          - { surface: "la fiesta", emoji: "🎉" }
+      - kind: info
+        id: l5-info-veryvenir
+        title: "Vi, vine — two more irregular pasts"
+        body: "«ver» (to see) and «venir» (to come) skip the -í/-iste/-ió endings too, just like «ir», «ser», «hacer», «tener» and «estar» already did. ver: «vi», I saw; «viste», you saw; «vio», he or she saw — each one syllable, no accent. venir: «vine», I came; «vino», he or she came. «vino» is also the word for wine, but right after a person it can only mean came: «Diego vino a la fiesta» — Diego came to the party. The sentence always tells you which."
+      - kind: speakLit
+        id: l5-sp-vi
+        es: "vi a Diego en el parque"
+        en: "I saw Diego in the park"
+        atoms: ["vi", "parque"]
+      - kind: buildLit
+        id: l5-b-visteahermano
+        es: "viste a mi hermano en el parque"
+        en: "You saw my brother in the park"
+        atoms: ["viste", "hermano", "parque"]
+        tiles: ["vi", "vio"]
+      - kind: speakLit
+        id: l5-sp-vioyvine
+        es: "Ana vio la película y yo vine a casa"
+        en: "Ana saw the movie and I came home"
+        atoms: ["vio", "película", "vine"]
+      - kind: clozeLit
+        id: l5-c-diegoviotienda
+        es: "Diego vio a Ana en la tienda"
+        en: "Diego saw Ana at the store"
+        blank: "vio"
+        options: ["vio", "vi", "viste"]
+        atoms: ["vio", "tienda"]
+        why: "Diego did the seeing, so the he-or-she past: «vio». «vi» is I; «viste» is you."
+      - kind: listenCompLit
+        id: l5-lc-vinovine
+        es: "Diego vino a la fiesta pero yo no vine"
+        en: "Diego came to the party but I didn't come."
+        atoms: ["vino", "fiesta", "vine"]
+        distractorsEn:
+          - "Diego came to the party and I came too."
+          - "Diego didn't come to the party, but I did."
+          - "Diego came to the museum, but I didn't come."
+      - kind: buildLit
+        id: l5-b-vinedelviaje
+        also: ["ayer vine del viaje"]
+        es: "vine del viaje ayer"
+        en: "I came back from the trip yesterday"
+        atoms: ["vine", "el viaje", "ayer"]
+        tiles: ["vino", "voy"]
+      - kind: mcq
+        id: l5-q-vi
+        prompt: "Which one means 'I saw' — not you, not him?"
+        correct: "vi"
+        distractors: ["vio", "viste", "veo"]
+        atoms: ["vi"]
+        why: "«vi» — no accent, one syllable — is I saw. «vio» is he or she; «viste» is you; «veo» is I see, now."
+      - kind: audioWimcq
+        id: l5-ear-parque
+        target: { surface: "el parque", emoji: "🌳" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "la tienda", emoji: "🏪" }
+      # Printed non-recall at m20 L4 (es-m20-4-l4-sp-win).
+      - kind: speakLit
+        id: l5-sp-recall-tuve
+        es: "ayer tuve mucho trabajo"
+        en: "Yesterday I had a lot of work"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l5-agr-viyvio
+        en: "I saw the museum and Ana saw the trip"
+        audioText: "yo vi el museo y Ana vio el viaje"
+        atoms: ["vi", "el museo", "vio", "el viaje"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "vi", options: ["vi", "vio"] } }
+          - { text: " el museo y Ana " }
+          - { blank: { id: "p2", answer: "vio", options: ["vio", "vi"] } }
+          - { text: " el viaje" }
+      - kind: listenBuildLit
+        id: l5-lb-visteenlafiesta
+        es: "viste a Diego en la fiesta"
+        en: "You saw Diego at the party"
+        atoms: ["viste", "fiesta"]
+        tiles: ["vi", "vio"]
+      - kind: textMcq
+        id: l5-tm-vino
+        target: "vino"
+        distractors: ["viene", "vengo", "vine"]
+      - kind: speakLit
+        id: l5-sp-vineyvi
+        es: "vine a la fiesta y vi a mis amigos"
+        en: "I came to the party and saw my friends"
+        atoms: ["vine", "fiesta", "vi", "amigo"]
+      - kind: sim
+        id: l5-sim-sofia-viaje
+        scene: { emoji: "🧳", title: "Sofía and the trip", setting: "Sofía missed the weekend and wants to know who saw whom, and who came." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Viste a Diego ayer?", audioText: "¿viste a diego ayer?", gloss: "Did you see Diego yesterday?" }
+            goal: "Say yes, you saw him in the park."
+            reply:
+              mode: build
+              tiles: ["sí", "vi", "a", "Diego", "en", "el", "parque", "viste", "vio"]
+              answer: "sí vi a Diego en el parque"
+            replyGloss: "Yes, I saw him in the park."
+            explanation: "«viste» in the question, «vi» in the answer — the two ends of the same verb."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y vino Ana a la fiesta?", audioText: "¿y vino ana a la fiesta?", gloss: "And did Ana come to the party?" }
+            goal: "Say yes, she came last night."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, vino anoche" }
+                - { id: "wrong1", text: "sí, vine anoche" }
+                - { id: "wrong2", text: "sí, viene anoche" }
+              correctOptionId: "right"
+              audioText: "sí, vino anoche"
+            replyGloss: "Yes, she came last night."
+            explanation: "Ana, in the past: «vino». «vine» is I; «viene» is now."
+          - id: t3
+            npc: { speaker: "Sofía", es: "Diego no vio el museo.", audioText: "diego no vio el museo", gloss: "Diego didn't see the museum." }
+            goal: "Say you saw it on the trip."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "yo lo vi en el viaje" }
+                - { id: "wrong1", text: "yo lo vio en el viaje" }
+                - { id: "wrong2", text: "yo lo veo en el viaje" }
+              correctOptionId: "right"
+              audioText: "yo lo vi en el viaje"
+            replyGloss: "I saw it on the trip."
+            explanation: "About yourself, in the past: «vi». «vio» is somebody else; «veo» is now."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "vi", target: "I saw" }
+          - { source: "viste", target: "you saw" }
+          - { source: "vio", target: "he or she saw" }
+          - { source: "vine", target: "I came" }
+          - { source: "vino", target: "he or she came" }
+          - { source: "el viaje", target: "the trip" }
+          - { source: "el parque", target: "the park" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "vi a Diego en el parque"
+        en: "I saw Diego in the park"
+        atoms: ["vi", "parque"]

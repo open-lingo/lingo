@@ -1,0 +1,167 @@
+  # ── L7 · «¿Fuiste? No fui» — ZERO new atoms. Questions and negation
+  #    across every family of the module: ir/ser, hacer, tener, ver, venir.
+  #    Every form used here was debuted by L1–L6 and is PRIOR within the
+  #    module; each form spent as a cloze answer is still spoken (speakLit)
+  #    earlier in THIS lesson first. «viniste» (L8's transfer cell) never
+  #    appears here.
+  - n: 7
+    template: free
+    title: "¿Fuiste? No fui"
+    description: "Asking what somebody did, and saying what you did not do — every irregular family of the module, in questions and «no»."
+    steps:
+      - kind: map
+        id: l7-map-novi
+        tokens: ["no", "vi", "la", "película", "ayer"]
+        pairs:
+          - { en: "not", tokenIndex: 0 }
+          - { en: "I saw", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "movie", tokenIndex: 3 }
+          - { en: "yesterday", tokenIndex: 4 }
+        audioText: "no vi la película ayer"
+        revealNote: "«no» goes where it always goes — in front of the verb — and «vi» doesn't change at all. Same rule as every other past tense you've met."
+        tokenGenders: { 2: "f", 3: "f" }
+      - kind: info
+        id: l7-info-preguntasnegacion
+        title: "Asking about yesterday, and saying no"
+        body: "A question in the past just puts «¿…?» around the form you already know: «¿fuiste al museo?» — did you go to the museum?; «¿qué hiciste anoche?» — what did you do last night?; «¿tuviste mucho trabajo?» — did you have a lot of work?; «¿viste la película?» — did you see the movie? And «no» does what it always does — it sits in front of the verb, and the ending never changes: «no fui», «no hice», «no tuve», «no vi», «no vine»."
+      - kind: speakLit
+        id: l7-sp-fuistemuseo
+        es: "¿fuiste al museo el fin de semana?"
+        en: "Did you go to the museum this weekend?"
+        atoms: ["fuiste", "el museo", "el fin de semana"]
+      - kind: buildLit
+        id: l7-b-nofuifiesta
+        es: "no fui a la fiesta"
+        en: "I didn't go to the party"
+        atoms: ["fui", "fiesta"]
+        tiles: ["voy", "va"]
+      - kind: listenCompLit
+        id: l7-lc-quehiciste
+        es: "¿qué hiciste anoche?"
+        en: "What did you do last night?"
+        atoms: ["hiciste", "anoche"]
+        distractorsEn:
+          - "What did you do today?"
+          - "What did she do last night?"
+          - "What do you do every night?"
+      - kind: buildLit
+        id: l7-b-nohicetarea
+        es: "no hice la tarea"
+        en: "I didn't do the homework"
+        atoms: ["hice", "tarea"]
+        tiles: ["hago", "hizo"]
+      - kind: speakLit
+        id: l7-sp-tuvetrabajo
+        es: "tuve mucho trabajo la semana pasada"
+        en: "I had a lot of work last week"
+        atoms: ["tuve", "trabajo", "la semana pasada"]
+      - kind: clozeLit
+        id: l7-c-notuve
+        es: "el fin de semana no tuve mucho trabajo"
+        en: "On the weekend I didn't have much work"
+        blank: "tuve"
+        options: ["tuve", "tengo", "tuvo"]
+        atoms: ["el fin de semana", "tuve", "trabajo"]
+        why: "«no» in front, the past kept: «tuve»."
+      - kind: mcq
+        id: l7-q-tuviste
+        prompt: "Which one means 'you had'?"
+        correct: "tuviste"
+        distractors: ["tuve", "tuvo", "tienes"]
+        atoms: ["tuviste"]
+        why: "-iste is you, in the past: «tuviste»."
+      - kind: audioWimcq
+        id: l7-ear-fiesta
+        target: { surface: "la fiesta", emoji: "🎉" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "la tienda", emoji: "🏪" }
+      # Printed non-recall at L1 (es-m20-1-l1-sp-win).
+      - kind: speakLit
+        id: l7-sp-recall-ayerfuimuseo
+        es: "ayer fui al museo con Ana"
+        en: "Yesterday I went to the museum with Ana"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l7-agr-vistevio
+        en: "You saw the movie, and Diego saw it too"
+        audioText: "tú viste la película, y Diego también la vio"
+        atoms: ["viste", "película", "vio"]
+        segments:
+          - { text: "tú " }
+          - { blank: { id: "p1", answer: "viste", options: ["viste", "vio"] } }
+          - { text: " la película, y Diego también la " }
+          - { blank: { id: "p2", answer: "vio", options: ["vio", "viste"] } }
+      - kind: listenBuildLit
+        id: l7-lb-vimercado
+        es: "vi a Sofía en el mercado"
+        en: "I saw Sofía at the market"
+        atoms: ["vi", "mercado"]
+        tiles: ["veo", "vio"]
+      - kind: textMcq
+        id: l7-tm-vine
+        target: "vine"
+        distractors: ["vengo", "vino", "viene"]
+      - kind: speakLit
+        id: l7-sp-novine
+        es: "no vine a la fiesta anoche"
+        en: "I didn't come to the party last night"
+        atoms: ["vine", "fiesta", "anoche"]
+      - kind: buildLit
+        id: l7-b-diegofuemuseo
+        es: "Diego no fue al museo, tuvo mucho trabajo"
+        en: "Diego didn't go to the museum, he had a lot of work"
+        atoms: ["fue", "el museo", "tuvo", "trabajo"]
+        tiles: ["fui", "tuve"]
+      - kind: sim
+        id: l7-sim-diego-fiesta
+        scene: { emoji: "🎉", title: "Diego's party, the morning after", setting: "Diego's party was last night and he wants the full report." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Fuiste a la fiesta anoche?", audioText: "¿fuiste a la fiesta anoche?", gloss: "Did you go to the party last night?" }
+            goal: "Say no, you didn't go, you had work."
+            reply:
+              mode: build
+              tiles: ["no", "fui", "y", "tuve", "trabajo", "voy", "tuvo"]
+              answer: "no fui y tuve trabajo"
+            replyGloss: "No, I didn't go and I had work."
+            explanation: "«no» in front, the past kept: «no fui». Same pattern for the next clause: «tuve»."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Vio Sofía a Ana allí?", audioText: "¿vio sofía a ana allí?", gloss: "Did Sofía see Ana there?" }
+            goal: "Say no, Sofía didn't see her."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, Sofía no vio a Ana" }
+                - { id: "wrong1", text: "no, Sofía no vi a Ana" }
+                - { id: "wrong2", text: "no, Sofía no ve a Ana" }
+              correctOptionId: "right"
+              audioText: "no, sofía no vio a ana"
+            replyGloss: "No, Sofía didn't see her."
+            explanation: "Sofía, in the past: «vio». Not «vi» (that's you), not «ve» (that's now)."
+          - id: t3
+            npc: { speaker: "Diego", es: "Ana no vino a la fiesta.", audioText: "ana no vino a la fiesta.", gloss: "Ana didn't come to the party." }
+            goal: "Say no, you didn't come, you had work."
+            reply:
+              mode: build
+              tiles: ["no", "vine", "y", "tuve", "trabajo", "vengo", "vino"]
+              answer: "no vine y tuve trabajo"
+            replyGloss: "No, I didn't come and I had work."
+            explanation: "«vine» is the same shape as «vi» — no accent, stress on the stem."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "¿fuiste al museo?", target: "did you go to the museum?" }
+          - { source: "no fui", target: "I didn't go" }
+          - { source: "¿qué hiciste?", target: "what did you do?" }
+          - { source: "no hice", target: "I didn't do" }
+          - { source: "¿tuviste trabajo?", target: "did you have work?" }
+          - { source: "no tuve", target: "I didn't have" }
+          - { source: "no vine", target: "I didn't come" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "no fui a la fiesta anoche"
+        en: "I didn't go to the party last night"
+        atoms: ["fui", "fiesta", "anoche"]

@@ -1,0 +1,150 @@
+  # ── L2 · «Fue muy bueno» — no new atoms; opens the ser reading of
+  #    fui/fuiste/fue (WAS) and re-spends all three in answer positions
+  #    BOTH ways: went (a place, «a»/«al») and was (an adjective or noun).
+  #    ⚠️ Never gloss «fue» as only one. NO new verb, no new noun.
+  - n: 2
+    template: free
+    title: "Fue muy bueno"
+    description: "Same three words as last lesson — but with nothing about a place after them, «fui», «fuiste», «fue» do a second job: they're also the past of «ser», to be."
+    steps:
+      - kind: map
+        id: l2-map-lapeliculafuebuena
+        tokens: ["la", "película", "fue", "muy", "buena"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "movie", tokenIndex: 1 }
+          - { en: "was", tokenIndex: 2 }
+          - { en: "very", tokenIndex: 3 }
+          - { en: "good", tokenIndex: 4 }
+        audioText: "la película fue muy buena"
+        revealNote: "«fue» again — but this time no place follows it. An adjective does: «buena». That is the other job «fue» does: it is also the past of «ser», to be. «la película fue muy buena» — the movie was very good."
+      - kind: info
+        id: l2-info-serpasado
+        title: "Fue — went, or was"
+        body: "«fui», «fuiste», «fue» do double duty: they are also the past of «ser», to be. The marker gives it away. A place after them, with «a» or «al», means went: «fui al museo». An adjective or a noun after them means was: «fue muy buena», «fui estudiante», «fuiste muy bueno». Same three words, same no-accent stems — only what follows tells you which."
+      - kind: speakLit
+        id: l2-sp-fuemuybueno
+        es: "la película fue muy buena"
+        en: "The movie was very good"
+        atoms: ["fue", "película"]
+      - kind: buildLit
+        id: l2-b-fuiestudiante
+        es: "fui estudiante en la escuela"
+        en: "I was a student at the school"
+        atoms: ["fui", "estudiante", "escuela"]
+        tiles: ["fue", "soy"]
+      - kind: clozeLit
+        id: l2-c-fuistemuybueno
+        es: "fuiste muy bueno con mi hermano"
+        en: "You were very good to my brother"
+        blank: "fuiste"
+        options: ["fuiste", "fue", "fui"]
+        atoms: ["fuiste", "hermano"]
+        why: "You are the one being described, so «fuiste» — you were. «fue» would be someone else; «fui» would be you talking about yourself."
+      - kind: listenCompLit
+        id: l2-lc-fuimimaestro
+        es: "fue mi maestro"
+        en: "He was my teacher."
+        atoms: ["fue", "maestro"]
+        distractorsEn:
+          - "He is my teacher."
+          - "She was my teacher."
+          - "He was my friend."
+      - kind: buildLit
+        id: l2-b-fuialparqueconsofia
+        es: "fui al parque con Sofía"
+        en: "I went to the park with Sofía"
+        atoms: ["fui", "parque"]
+        tiles: ["fue", "voy"]
+      - kind: mcq
+        id: l2-q-tufuiste
+        prompt: "Which one means 'you went'?"
+        correct: "tú fuiste"
+        distractors: ["tú fue", "tú fui", "tú vas"]
+        atoms: ["fuiste"]
+        why: "«fuiste» — you, in the past. «fue» is someone else; «fui» is you talking about yourself; «vas» slips into now."
+      - kind: audioWimcq
+        id: l2-ear-carro
+        target: { surface: "el carro", emoji: "🚗" }
+        distractors:
+          - { surface: "el regalo", emoji: "🎁" }
+          - { surface: "la camisa", emoji: "👕" }
+      - kind: agreementLit
+        id: l2-agr-fuiyfuistewas
+        en: "I was your friend and you were my friend"
+        audioText: "fui tu amigo y tú fuiste mi amigo"
+        atoms: ["fui", "amigo", "fuiste"]
+        segments:
+          - { blank: { id: "p1", answer: "fui", options: ["fui", "fuiste"] } }
+          - { text: " tu amigo y tú " }
+          - { blank: { id: "p2", answer: "fuiste", options: ["fuiste", "fui"] } }
+          - { text: " mi amigo" }
+      - kind: listenBuildLit
+        id: l2-lb-fuemuygrande
+        es: "la fiesta fue muy grande"
+        en: "The party was very big"
+        atoms: ["fue", "fiesta"]
+        tiles: ["fui", "es"]
+      - kind: textMcq
+        id: l2-tm-fue
+        target: "fue"
+        distractors: ["fui", "fuiste", "va"]
+      - kind: speakLit
+        id: l2-sp-fuistealmercado
+        es: "fuiste al mercado ayer"
+        en: "You went to the market yesterday"
+        atoms: ["fuiste", "mercado", "ayer"]
+      - kind: sim
+        id: l2-sim-anaasksmovie
+        scene: { emoji: "🎬", title: "Ana asks about the weekend", setting: "Ana wants to know how the movie was, and who went where." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Cómo fue la película?", audioText: "¿cómo fue la película?", gloss: "How was the movie?" }
+            goal: "Say it was very good."
+            reply:
+              mode: build
+              tiles: ["fue", "muy", "buena", "fui", "bueno"]
+              answer: "fue muy buena"
+            replyGloss: "It was very good."
+            explanation: "No place follows «fue» here, so it means was — the movie, «buena» in the feminine. «fui» would be I."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Fuiste al cine también?", audioText: "¿fuiste al cine también?", gloss: "Did you go to the movies too?" }
+            goal: "Say yes, you went with Diego."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, fui con Diego" }
+                - { id: "wrong1", text: "sí, fue con Diego" }
+                - { id: "wrong2", text: "sí, fuiste con Diego" }
+              correctOptionId: "right"
+              audioText: "sí, fui con Diego"
+            replyGloss: "Yes, I went with Diego."
+            explanation: "Answering about yourself: «fui». «fue» would be someone else; «fuiste» would ask Ana back."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tu maestro? ¿Fue bueno?", audioText: "¿y tu maestro? ¿fue bueno?", gloss: "And your teacher? Was he good?" }
+            goal: "Say yes, he was very good."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, fue muy bueno" }
+                - { id: "wrong1", text: "sí, fui muy bueno" }
+                - { id: "wrong2", text: "sí, fuiste muy bueno" }
+              correctOptionId: "right"
+              audioText: "sí, fue muy bueno"
+            replyGloss: "Yes, he was very good."
+            explanation: "The teacher, in the past: «fue». «fui» would be I; «fuiste» would be you."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "fui", target: "I went / I was" }
+          - { source: "fuiste", target: "you went / you were" }
+          - { source: "fue", target: "he or she went / was" }
+          - { source: "la película", target: "the movie" }
+          - { source: "bueno", target: "good" }
+          - { source: "el maestro", target: "the teacher" }
+          - { source: "la fiesta", target: "the party" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "la película fue muy buena"
+        en: "The movie was very good"
+        atoms: ["fue", "película"]

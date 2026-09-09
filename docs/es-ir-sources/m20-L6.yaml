@@ -1,0 +1,162 @@
+  # ── L6 · «El mes pasado» — «el mes pasado» debuts, the fifth time
+  #    marker. No new verb forms: every sentence mixes an m19 regular
+  #    preterite (PRIOR since m19) with an m20 irregular (PRIOR since
+  #    L1–L5 of this module), so the learner has to pick the right
+  #    machine for the verb, not just toggle an accent. «viniste» stays
+  #    unprinted.
+  - n: 6
+    template: free
+    title: "El mes pasado"
+    description: "One more marker for when — and this time nothing new to learn about the verbs. Every sentence makes you choose: is this word's past regular, or does it have its own machine?"
+    steps:
+      - kind: map
+        id: l6-map-elmespasado
+        tokens: ["el", "mes", "pasado", "fui", "a", "México"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "month", tokenIndex: 1 }
+          - { en: "past", tokenIndex: 2 }
+          - { en: "I went", tokenIndex: 3 }
+          - { en: "to", tokenIndex: 4 }
+          - { en: "Mexico", tokenIndex: 5 }
+        audioText: "el mes pasado fui a México"
+        revealNote: "«el mes pasado» — the month that passed: last month. It works exactly like «la semana pasada» and «el fin de semana» — always in front of a past verb."
+        tokenGenders: { 0: "m", 1: "m", 2: "m" }
+      - kind: info
+        id: l6-info-elmespasado
+        title: "One more way to say when"
+        body: "«el mes pasado» — last month — joins «ayer», «anoche», «la semana pasada» and «el fin de semana» on the list of words that call for the past. This marker doesn't care which machine the verb uses: a regular one from thirty lessons ago, or one of this module's irregulars. «el mes pasado fui a México» — «fui», not «voy», because the marker says then. The marker decides the tense; the verb's own memory decides the form."
+      - kind: speakLit
+        id: l6-sp-mespasado
+        es: "el mes pasado tuve una fiesta"
+        en: "Last month I had a party"
+        atoms: ["el mes pasado", "tuve", "fiesta"]
+      - kind: buildLit
+        id: l6-b-trabajemucho
+        es: "el mes pasado trabajé mucho"
+        en: "Last month I worked a lot"
+        atoms: ["el mes pasado", "trabajé"]
+        tiles: ["trabajo", "trabajó"]
+      - kind: clozeLit
+        id: l6-c-diegotuvo
+        es: "el mes pasado Diego tuvo mucho trabajo"
+        en: "Last month Diego had a lot of work"
+        blank: "tuvo"
+        options: ["tuvo", "trabajó", "tiene"]
+        atoms: ["el mes pasado", "tuvo", "trabajo"]
+        why: "Diego HAD work — «tener», not «trabajar» — so «tuvo», the irregular past. «trabajó» is a different verb, he worked; «tiene» is now."
+      - kind: listenCompLit
+        id: l6-lc-escribi
+        es: "el mes pasado escribí un mensaje a mi hermano"
+        en: "Last month I wrote a message to my brother."
+        atoms: ["el mes pasado", "escribí", "mensaje", "hermano"]
+        distractorsEn:
+          - "Last month I wrote a message to my sister."
+          - "Last night I wrote a message to my brother."
+          - "Last month she wrote a message to my brother."
+      - kind: buildLit
+        id: l6-b-viamigos
+        es: "el mes pasado vi a mis amigos en la playa"
+        en: "Last month I saw my friends at the beach"
+        atoms: ["el mes pasado", "vi", "amigo", "playa"]
+        tiles: ["vio", "viste"]
+      - kind: mcq
+        id: l6-q-fue
+        prompt: "Last month Ana went to the party — which verb?"
+        correct: "fue"
+        distractors: ["fui", "va", "estuvo"]
+        atoms: ["fue", "fiesta"]
+        why: "«fue» — went, a place after it with «a» — is he or she, past. «fui» is I; «va» is now; «estuvo» would mean she WAS at the party, not that she went."
+      - kind: audioWimcq
+        id: l6-ear-playa
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "el mercado", emoji: "🛒" }
+      # Printed non-recall at m20 L3 (es-m20-3-l3-sp-win).
+      - kind: speakLit
+        id: l6-sp-recall-hice
+        es: "anoche hice pizza"
+        en: "Last night I made pizza"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l6-agr-fuihice
+        en: "Last month I went to the market and I did the homework"
+        audioText: "el mes pasado fui al mercado e hice la tarea"
+        atoms: ["el mes pasado", "fui", "mercado", "hice", "tarea"]
+        segments:
+          - { text: "el mes pasado " }
+          - { blank: { id: "p1", answer: "fui", options: ["fui", "voy"] } }
+          - { text: " al mercado e " }
+          - { blank: { id: "p2", answer: "hice", options: ["hice", "hago"] } }
+          - { text: " la tarea" }
+      - kind: listenBuildLit
+        id: l6-lb-estuveplaya
+        es: "el mes pasado estuve en la playa"
+        en: "Last month I was at the beach"
+        atoms: ["el mes pasado", "estuve", "playa"]
+        tiles: ["estuvo", "estoy"]
+      - kind: textMcq
+        id: l6-tm-tuvo
+        target: "tuvo"
+        distractors: ["tiene", "tuve", "trabajó"]
+      - kind: speakLit
+        id: l6-sp-vinofiesta
+        es: "el mes pasado Diego vino a la fiesta y comió pizza"
+        en: "Last month Diego came to the party and ate pizza"
+        atoms: ["el mes pasado", "vino", "fiesta", "comió", "pizza"]
+      - kind: sim
+        id: l6-sim-carmen-mespasado
+        scene: { emoji: "🗓️", title: "Carmen and last month", setting: "Carmen wants the whole story of last month, in order." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Qué hiciste el mes pasado?", audioText: "¿qué hiciste el mes pasado?", gloss: "What did you do last month?" }
+            goal: "Say you went to Mexico."
+            reply:
+              mode: build
+              tiles: ["el", "mes", "pasado", "fui", "a", "México", "fue", "voy"]
+              answer: "el mes pasado fui a México"
+            replyGloss: "Last month I went to Mexico."
+            explanation: "«hiciste» asks in general; «fui» answers with the specific verb — went, not did."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Y saliste con tus amigos?", audioText: "¿y saliste con tus amigos?", gloss: "And did you go out with your friends?" }
+            goal: "Say no, you had a lot of work."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, tuve mucho trabajo" }
+                - { id: "wrong1", text: "no, tengo mucho trabajo" }
+                - { id: "wrong2", text: "no, tuvo mucho trabajo" }
+              correctOptionId: "right"
+              audioText: "no, tuve mucho trabajo"
+            replyGloss: "No, I had a lot of work."
+            explanation: "About yourself, in the past: «tuve». «tengo» is now; «tuvo» is somebody else."
+          - id: t3
+            npc: { speaker: "Carmen", es: "Diego trabajó todo el mes.", audioText: "diego trabajó todo el mes", gloss: "Diego worked the whole month." }
+            goal: "Say you worked, but went to the museum."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "yo también trabajé, pero fui al museo" }
+                - { id: "wrong1", text: "yo también trabajé, pero voy al museo" }
+                - { id: "wrong2", text: "yo también trabajo, pero fui al museo" }
+              correctOptionId: "right"
+              audioText: "yo también trabajé, pero fui al museo"
+            replyGloss: "I worked too, but I went to the museum."
+            explanation: "Both halves need the past: «trabajé» ... «fui». «voy» breaks the second half's tense; «trabajo» breaks the first's."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "el mes pasado", target: "last month" }
+          - { source: "fui", target: "I went" }
+          - { source: "tuve", target: "I had" }
+          - { source: "hice", target: "I did / I made" }
+          - { source: "vi", target: "I saw" }
+          - { source: "vino", target: "he or she came" }
+          - { source: "trabajé", target: "I worked" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "el mes pasado fui a México"
+        en: "Last month I went to Mexico"
+        atoms: ["el mes pasado", "fui", "México"]

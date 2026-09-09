@@ -1,0 +1,170 @@
+  # ── L4 · «Tuve, estuve» — the -uve twins. tener's past skips its normal
+  #    ending: tuve, tuviste, tuvo. estar borrows the same shape with es- in
+  #    front: estuve, estuviste, estuvo. Six forms, so every credited step
+  #    below is spread one-form-per-slot — each of the six earns its 3 answer
+  #    positions from 3 DIFFERENT step kinds (matchLit gives all six one
+  #    baseline credit, then two more each from build/cloze/listen/mcq/
+  #    agreement/sim, never doubled inside a single step kind).
+  - n: 4
+    template: free
+    title: "Tuve, estuve"
+    description: "tener and estar share the same irregular past shape — the -uve twins. tuve, tuviste, tuvo for having; estuve, estuviste, estuvo for being somewhere."
+    steps:
+      - kind: map
+        id: l4-map-tuvemuchotrabajoayer
+        tokens: ["tuve", "mucho", "trabajo", "ayer"]
+        pairs:
+          - { en: "I had", tokenIndex: 0 }
+          - { en: "a lot of", tokenIndex: 1 }
+          - { en: "work", tokenIndex: 2 }
+          - { en: "yesterday", tokenIndex: 3 }
+        audioText: "tuve mucho trabajo ayer"
+        revealNote: "«tengo» is I have, now. «tuve» — no accent, stress already on the stem — is I had. «estar» takes the exact same shape with es- in front: «estuve» is I was, somewhere."
+      - kind: info
+        id: l4-info-uvetwins
+        title: "Tuve, estuve — the -uve twins"
+        body: "«tener»'s past skips its normal ending too: «tuve», I had; «tuviste», you had; «tuvo», he or she had. «estar» borrows the exact same shape with es- in front: «estuve», I was somewhere; «estuviste», you were; «estuvo», he or she was. Same six endings, twice, no accent on any of them. «tuve mucho trabajo ayer» — I had a lot of work yesterday; «estuve en el parque» — I was at the park."
+      - kind: speakLit
+        id: l4-sp-tuve
+        es: "tuve mucho trabajo ayer"
+        en: "I had a lot of work yesterday"
+        atoms: ["tuve", "mucho", "trabajo", "ayer"]
+      - kind: buildLit
+        id: l4-b-tuvistesemana
+        es: "tuviste mucho trabajo la semana pasada"
+        en: "You had a lot of work last week"
+        atoms: ["tuviste", "mucho", "trabajo", "la semana pasada"]
+        tiles: ["tuve", "tuvo"]
+      - kind: speakLit
+        id: l4-sp-estuve
+        es: "estuve en el parque"
+        en: "I was at the park"
+        atoms: ["estuve", "parque"]
+      - kind: buildLit
+        id: l4-b-estuvistefindesemana
+        es: "estuviste en la playa el fin de semana"
+        en: "You were at the beach over the weekend"
+        atoms: ["estuviste", "playa", "el fin de semana"]
+        tiles: ["estuvo", "estuve"]
+      - kind: speakLit
+        id: l4-sp-tuviste
+        es: "tuviste mucho trabajo el fin de semana"
+        en: "You had a lot of work over the weekend"
+        atoms: ["tuviste", "mucho", "trabajo", "el fin de semana"]
+      - kind: clozeLit
+        id: l4-c-tuvistetrabajoayer
+        es: "tuviste mucho trabajo ayer"
+        en: "You had a lot of work yesterday"
+        blank: "tuviste"
+        options: ["tuviste", "tuvo", "tuve"]
+        atoms: ["tuviste", "mucho", "trabajo", "ayer"]
+        why: "You, in the past: «tuviste». «tuvo» is he or she; «tuve» is I."
+      - kind: listenCompLit
+        id: l4-lc-tuvetrabajosemana
+        es: "tuve mucho trabajo la semana pasada"
+        en: "I had a lot of work last week."
+        atoms: ["tuve", "mucho", "trabajo", "la semana pasada"]
+        distractorsEn:
+          - "She had a lot of work last week."
+          - "I have a lot of work every week."
+          - "I had a lot of work last night."
+      - kind: listenBuildLit
+        id: l4-lb-estuvisteescuelaayer
+        es: "estuviste en la escuela ayer"
+        en: "You were at school yesterday"
+        atoms: ["estuviste", "escuela", "ayer"]
+        tiles: ["estuvo", "estoy"]
+      - kind: mcq
+        id: l4-q-tuvo
+        prompt: "Which one means 'he had'?"
+        correct: "él tuvo"
+        distractors: ["él tiene", "él tuve", "él tuviste"]
+        atoms: ["tuvo"]
+        why: "«tuvo» — past, he or she. «tiene» is now; «tuve» is I; «tuviste» is you."
+      - kind: audioWimcq
+        id: l4-ear-playa
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "el cine", emoji: "🎬" }
+      # Printed non-recall at L2 (es-m20-2-l2-sp-win).
+      - kind: speakLit
+        id: l4-sp-recall-lapeliculafuebuena
+        es: "la película fue muy buena"
+        en: "The movie was very good"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l4-agr-tuveyestuve
+        en: "I had a lot of work and I was at the park"
+        audioText: "tuve mucho trabajo y estuve en el parque"
+        atoms: ["tuve", "mucho", "trabajo", "estuve", "parque"]
+        segments:
+          - { blank: { id: "p1", answer: "tuve", options: ["tuve", "estuve"] } }
+          - { text: " mucho trabajo y " }
+          - { blank: { id: "p2", answer: "estuve", options: ["estuve", "tuve"] } }
+          - { text: " en el parque" }
+      - kind: textMcq
+        id: l4-tm-estuvo
+        target: "estuvo"
+        distractors: ["está", "estuve", "estuviste"]
+      - kind: speakLit
+        id: l4-sp-tuveyestuve
+        es: "la semana pasada estuve en la playa y tuve mucho trabajo"
+        en: "Last week I was at the beach and I had a lot of work"
+        atoms: ["la semana pasada", "estuve", "playa", "tuve", "mucho", "trabajo"]
+      - kind: sim
+        id: l4-sim-sofia-finde
+        scene: { emoji: "💼", title: "Sofía checks in on the weekend", setting: "Sofía wants to know what everyone had, and where they were." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Estuviste en la playa el fin de semana?", audioText: "¿estuviste en la playa el fin de semana?", gloss: "Were you at the beach over the weekend?" }
+            goal: "Say no, you were at school."
+            reply:
+              mode: build
+              tiles: ["no", "estuve", "en", "la", "escuela", "estuviste", "estuvo"]
+              answer: "no estuve en la escuela"
+            replyGloss: "No, I was at school."
+            explanation: "Sofía asked with «estuviste»; you answer «estuve». «estuvo» is somebody else."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y Diego?", audioText: "¿y diego?", gloss: "And Diego?" }
+            goal: "Say he had a lot of work."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "tuvo mucho trabajo" }
+                - { id: "wrong1", text: "tuve mucho trabajo" }
+                - { id: "wrong2", text: "tiene mucho trabajo" }
+              correctOptionId: "right"
+              audioText: "tuvo mucho trabajo"
+            replyGloss: "He had a lot of work."
+            explanation: "Diego, last week: «tuvo». «tiene» is now; «tuve» is I."
+          - id: t3
+            npc: { speaker: "Sofía", es: "¿Dónde estuvo Ana?", audioText: "¿dónde estuvo ana?", gloss: "Where was Ana?" }
+            goal: "Say she was at the beach."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "estuvo en la playa" }
+                - { id: "wrong1", text: "estuve en la playa" }
+                - { id: "wrong2", text: "está en la playa" }
+              correctOptionId: "right"
+              audioText: "estuvo en la playa"
+            replyGloss: "She was at the beach."
+            explanation: "Ana, last week: «estuvo». «está» is now; «estuve» is I."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "tuve", target: "I had" }
+          - { source: "tuviste", target: "you had" }
+          - { source: "tuvo", target: "he or she had" }
+          - { source: "estuve", target: "I was (somewhere)" }
+          - { source: "estuviste", target: "you were (somewhere)" }
+          - { source: "estuvo", target: "he or she was (somewhere)" }
+          - { source: "trabajo", target: "work" }
+          - { source: "playa", target: "the beach" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "ayer tuve mucho trabajo"
+        en: "Yesterday I had a lot of work"
+        atoms: ["ayer", "tuve", "mucho", "trabajo"]

@@ -1,0 +1,23 @@
+placement:
+  screener:
+    - id: "es-m20-scr-1"
+      prompt: "'Yesterday I went to the museum.' — which one?"
+      correct: "ayer fui al museo"
+      distractors: ["ayer voy al museo", "ayer fue al museo", "ayer fuiste al museo"]
+  byModule:
+    - id: "es-m20-pl-1"
+      prompt: "What did you do last night?"
+      correct: "¿qué hiciste anoche?"
+      distractors: ["¿qué hizo anoche?", "¿qué haces anoche?", "¿qué hice anoche?"]
+    - id: "es-m20-pl-2"
+      prompt: "She had a lot of work last week."
+      correct: "tuvo mucho trabajo la semana pasada"
+      distractors: ["tuve mucho trabajo la semana pasada", "tiene mucho trabajo la semana pasada", "tuviste mucho trabajo la semana pasada"]
+    - id: "es-m20-pl-3"
+      prompt: "I saw Ana at the park yesterday."
+      correct: "vi a Ana en el parque ayer"
+      distractors: ["veo a Ana en el parque ayer", "vio a Ana en el parque ayer", "viste a Ana en el parque ayer"]
+    - id: "es-m20-pl-4"
+      prompt: "The trip was very good."
+      correct: "el viaje fue muy bueno"
+      distractors: ["el viaje fui muy bueno", "el viaje es muy bueno", "el viaje fuiste muy bueno"]

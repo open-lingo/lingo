@@ -1,0 +1,182 @@
+  # ── L9 · «Hoy y ayer» — ZERO new atoms. Consolidation: all six irregular
+  #    families (ir/ser, hacer, tener, estar, ver, venir) side by side with
+  #    the m19 regulars, plus the now-vs-then hinge «hoy … pero ayer …».
+  #    One info card explains the hinge; every clause keeps its own marker
+  #    and tense (rule: hoy/mañana never with a preterite). Both cloze
+  #    answers are spoken earlier in this lesson first. Two recalls (L2,
+  #    L5). Ends sim → match → sp-win, like every other lesson.
+  - n: 9
+    template: free
+    title: "Hoy y ayer"
+    description: "Today against yesterday — every irregular the module taught, next to the regulars from m19, in one hinge: «pero»."
+    steps:
+      - kind: map
+        id: l9-map-hoyestudioayer
+        tokens: ["hoy", "estudio", "pero", "ayer", "trabajé"]
+        pairs:
+          - { en: "today", tokenIndex: 0 }
+          - { en: "I study", tokenIndex: 1 }
+          - { en: "but", tokenIndex: 2 }
+          - { en: "yesterday", tokenIndex: 3 }
+          - { en: "I worked", tokenIndex: 4 }
+        audioText: "hoy estudio, pero ayer trabajé"
+        revealNote: "«hoy» keeps the everyday form; «pero ayer» switches to the past. Same idea, one word decides which."
+      - kind: info
+        id: l9-info-hoyperoayer
+        title: "Today, but yesterday"
+        body: "«hoy» and «mañana» want the everyday form: «hoy estudio», «mañana trabajo». «pero ayer», «anoche», «la semana pasada» switch to the past — and that past can be a regular ending like «trabajé», or one of this module's own shapes: «fui», «hice», «tuve», «vi», «vine». «pero» is the hinge: one clause now, one clause then."
+      - kind: speakLit
+        id: l9-sp-fuimuseoayer
+        es: "ayer fui al museo, pero hoy estudio"
+        en: "Yesterday I went to the museum, but today I study"
+        atoms: ["fui", "el museo", "hoy", "estudio"]
+      - kind: buildLit
+        id: l9-b-anacomprovshice
+        es: "Ana compró el regalo, pero yo hice la tarea"
+        en: "Ana bought the gift, but I did the homework"
+        atoms: ["compró", "regalo", "hice", "tarea"]
+        tiles: ["compra", "hago"]
+      - kind: clozeLit
+        id: l9-c-fuiespana
+        es: "el mes pasado fui a España con mi familia"
+        en: "Last month I went to Spain with my family"
+        blank: "fui"
+        options: ["fui", "voy", "fue"]
+        atoms: ["el mes pasado", "fui", "España", "familia"]
+        why: "«el mes pasado» + I: «fui»."
+      - kind: mcq
+        id: l9-q-hiciste
+        prompt: "Which one means 'you did'?"
+        correct: "hiciste"
+        distractors: ["hice", "hizo", "haces"]
+        atoms: ["hiciste"]
+        why: "-iste is you, in the past: «hiciste»."
+      - kind: audioWimcq
+        id: l9-ear-carro
+        target: { surface: "el carro", emoji: "🚗" }
+        distractors:
+          - { surface: "la tienda", emoji: "🏪" }
+          - { surface: "el mercado", emoji: "🛒" }
+      # Printed non-recall at L2 (es-m20-2-l2-sp-win).
+      - kind: speakLit
+        id: l9-sp-recall-peliculafue
+        es: "la película fue muy buena"
+        en: "The movie was very good"
+        atoms: []
+        cue: recall
+      - kind: listenCompLit
+        id: l9-lc-tuvoperohoy
+        es: "Sofía tuvo mucho trabajo la semana pasada, pero hoy no trabaja"
+        en: "Sofía had a lot of work last week, but today she doesn't work"
+        atoms: ["tuvo", "trabajo", "la semana pasada", "hoy", "trabaja"]
+        distractorsEn:
+          - "Sofía has a lot of work this week, but yesterday she didn't work."
+          - "Sofía had a lot of work last week, and today she works too."
+          - "Diego had a lot of work last week, but today he doesn't work."
+      - kind: buildLit
+        id: l9-b-viplayavio
+        es: "vi a Sofía en la playa, y ella vio a Diego"
+        en: "I saw Sofía at the beach, and she saw Diego"
+        atoms: ["vi", "playa", "vio"]
+        tiles: ["veo", "ve"]
+      - kind: speakLit
+        id: l9-sp-vinofiesta
+        es: "Diego vino a la fiesta, pero Ana no vino"
+        en: "Diego came to the party, but Ana didn't come"
+        atoms: ["vino", "fiesta"]
+      - kind: clozeLit
+        id: l9-c-vinoanoche
+        es: "anoche Diego vino a la fiesta"
+        en: "Last night Diego came to the party"
+        blank: "vino"
+        options: ["vino", "vine", "viene"]
+        atoms: ["anoche", "vino", "fiesta"]
+        why: "Diego, then: «vino»."
+      - kind: textMcq
+        id: l9-tm-viste
+        target: "viste"
+        distractors: ["vi", "vio", "veo"]
+      - kind: listenBuildLit
+        id: l9-lb-hableycocine
+        es: "hablé con mi abuela y cociné pollo"
+        en: "I spoke with my grandmother and cooked chicken"
+        atoms: ["hablé", "abuela", "cociné", "pollo"]
+        tiles: ["hablo", "cocino"]
+      # Printed non-recall at L5 (es-m20-5-l5-sp-win).
+      - kind: speakLit
+        id: l9-sp-recall-viparque
+        es: "vi a Diego en el parque"
+        en: "I saw Diego at the park"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l9-agr-tuvetuvo
+        en: "On the weekend I had a lot of work, but Diego didn't have work"
+        audioText: "el fin de semana tuve mucho trabajo, pero Diego no tuvo trabajo"
+        atoms: ["el fin de semana", "tuve", "trabajo", "tuvo"]
+        segments:
+          - { text: "el fin de semana " }
+          - { blank: { id: "p1", answer: "tuve", options: ["tuve", "tuvo"] } }
+          - { text: " mucho trabajo, pero Diego no " }
+          - { blank: { id: "p2", answer: "tuvo", options: ["tuvo", "tuve"] } }
+      - kind: mcq
+        id: l9-q-estuviste
+        prompt: "Which one means 'you were (somewhere)'?"
+        correct: "estuviste"
+        distractors: ["estuve", "estuvo", "estás"]
+        atoms: ["estuviste"]
+        why: "es- + tuviste: «estuviste»."
+      - kind: sim
+        id: l9-sim-ana-hoyantes
+        scene: { emoji: "📅", title: "Ana wants the whole story", setting: "Ana missed the whole week and wants to know what happened, and what's different today." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Qué hiciste la semana pasada?", audioText: "¿qué hiciste la semana pasada?", gloss: "What did you do last week?" }
+            goal: "Say you went to the museum and worked."
+            reply:
+              mode: build
+              tiles: ["fui", "al", "museo", "y", "trabajé", "voy", "trabajo"]
+              answer: "fui al museo y trabajé"
+            replyGloss: "I went to the museum and worked."
+            explanation: "Two pasts, joined by «y»: «fui», «trabajé»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y hoy? ¿Tienes trabajo?", audioText: "¿y hoy? ¿tienes trabajo?", gloss: "And today? Do you have work?" }
+            goal: "Say no, today you don't have work."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, hoy no tengo trabajo" }
+                - { id: "wrong1", text: "no, ayer no tuve trabajo" }
+                - { id: "wrong2", text: "no, hoy no tuve trabajo" }
+              correctOptionId: "right"
+              audioText: "no, hoy no tengo trabajo"
+            replyGloss: "No, today I don't have work."
+            explanation: "«hoy» wants now: «tengo», not «tuve»."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Viste a Diego ayer?", audioText: "¿viste a diego ayer?", gloss: "Did you see Diego yesterday?" }
+            goal: "Say yes, you saw him at the park."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, lo vi en el parque" }
+                - { id: "wrong1", text: "sí, lo vio en el parque" }
+                - { id: "wrong2", text: "sí, lo veo en el parque" }
+              correctOptionId: "right"
+              audioText: "sí, lo vi en el parque"
+            replyGloss: "Yes, I saw him at the park."
+            explanation: "About you, in the past: «vi». «lo» stands for Diego."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "hoy estudio", target: "today I study" }
+          - { source: "ayer fui", target: "yesterday I went" }
+          - { source: "tuve trabajo", target: "I had work" }
+          - { source: "vi a Sofía", target: "I saw Sofía" }
+          - { source: "Diego vino", target: "Diego came" }
+          - { source: "hiciste", target: "you did" }
+          - { source: "estuviste", target: "you were (somewhere)" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "hoy estudio, pero ayer fui al cine"
+        en: "Today I study, but yesterday I went to the movies"
+        atoms: ["hoy", "estudio", "fui", "cine"]
