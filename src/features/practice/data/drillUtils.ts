@@ -4,6 +4,7 @@
  * normalization stay unit-testable.
  */
 import type { SpeakingPrompt } from "./ja-speaking-prompts";
+import { typedAnswerKey } from "@/shared/speech/loose-match";
 
 /** Fisher-Yates with injectable RNG for deterministic tests. */
 function shuffle<T>(arr: T[], rand: () => number): T[] {
@@ -38,15 +39,19 @@ export function buildListeningOptions(
 }
 
 /**
- * Normalize a typed answer for comparison: NFC, lowercase, all whitespace
- * (incl. full-width) removed, trailing sentence punctuation stripped.
- * JA prompt text carries didactic spaces ("みずを ください") the learner
+ * Normalize a typed answer for comparison: NFKC, lowercase, all whitespace
+ * (incl. full-width) removed, edge punctuation stripped on both ends. JA
+ * prompt text carries didactic spaces ("みずを ください") the learner
  * shouldn't be punished for omitting.
+ *
+ * Delegates to the shared `typedAnswerKey` (src/shared/speech/loose-match.ts)
+ * used by lesson grading and accepted-answer dedupe, rather than keeping a
+ * second, drill-only normaliser in sync by hand. `typedAnswerKey` is a
+ * strict superset of what this used to do: same NFC-vs-NFKC/whitespace/
+ * lowercase handling, a wider trailing-punctuation set, and it additionally
+ * strips leading edge punctuation — every case this function used to
+ * normalize still normalizes the same way, and a few more do too.
  */
 export function normalizeTypedAnswer(text: string): string {
-  return text
-    .normalize("NFC")
-    .toLowerCase()
-    .replace(/[\s　]+/g, "")
-    .replace(/[。．.!?！？]+$/u, "");
+  return typedAnswerKey(text);
 }
