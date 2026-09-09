@@ -33,15 +33,19 @@ import {
 } from "../conjugationEngine";
 import {
   ADJ_FORM_LABELS,
+  ADJ_ENTRIES,
   getVerbsUpToModule,
   getAdjsUpToModule,
   type AdjForm,
+  type VerbGroup,
 } from "../conjugationTables";
 import { writtenSegments } from "../writtenForms";
 import {
   CONJUGATION_TRAINER_TYPES,
   getTrainerType,
   unlockModuleForType,
+  formUnlockModule,
+  grammarPointModule,
   isTypeUnlocked,
   isSelectionAhead,
   effectivePoolModule,
@@ -192,11 +196,99 @@ const WORD_CLASS: Record<string, ConjWordClassInfo> = {
 
 // ─── Free drill ──────────────────────────────────────────────────────────
 
-const MASU_SUFFIX_FORMS: ReadonlySet<string> = new Set([
-  "masu-neg",
-  "masu-past",
-  "masu-past-neg",
-]);
+/**
+ * FORM → module that teaches it, for the free drill's "Up to M{n}" gate. One
+ * table, every verb form the engine conjugates (`ChainForm`), in the order
+ * the toggle list shows them.
+ *
+ * Sources (freeDrill.test.ts asserts each mapped row agrees with
+ * `formUnlockModule`, so the two can't drift):
+ *  - masu / masu-neg …… m7   n5-grammar-points.json `masu-present`,
+ *                           `masu-negative`; ir/m7.ir.yaml:65 (ません rule beat).
+ *  - masu-past ………………… m10  `masu-past`.
+ *  - masu-past-neg …………… m11  `masu-past-negative`; ir/m11.ir.yaml:96
+ *                           ("でした arrives beside ました").
+ *  - te …………………………………… m8   `te-form`; ir/m8.ir.yaml:177 `introduces: [たべて…]`.
+ *  - ta …………………………………… m11  `ta-form`; ir/m11.ir.yaml:369 `introduces: [たべた…]`.
+ *  - nai ………………………………… m6   `nai-form`; ir/m6.ir.yaml:259 `introduces: [たべない…]`.
+ *  - nai-past …………………… m11  stacked: max(nai, ta) — FORM_GATE_POINTS.
+ *  - tai / tai-* ……………… m13  `v-tai`; ir/m13.ir.yaml:357 `introduces: [たべたい…]`;
+ *                           the stacks max with nai (m6) / ta (m11) → still m13.
+ *  - volitional ………………… m34  NO grammar point in n5-grammar-points.json (N4
+ *                           tier); ir/m34.ir.yaml:2 title "Volitional: よう/おう".
+ *  - ba ………………………………………… m37  no grammar point; ir/m37.ir.yaml:82 (ば rule
+ *                           beat, "slide it to the E-ROW and add ば").
+ */
+export const FREE_DRILL_VERB_FORM_MODULE: Record<ChainForm, number> = {
+  masu: 7,
+  "masu-neg": 7,
+  "masu-past": 10,
+  "masu-past-neg": 11,
+  te: 8,
+  ta: 11,
+  nai: 6,
+  "nai-past": 11,
+  tai: 13,
+  "tai-neg": 13,
+  "tai-past": 13,
+  "tai-neg-past": 13,
+  volitional: 34,
+  ba: 37,
+};
+
+/** Adjective cells — all Track B points (`i-adj-*` / `na-adj-*`, m10–m12). */
+const FREE_DRILL_ADJ_FORM_MODULE: Record<"i-adj" | "na-adj", Record<AdjForm, number>> = {
+  "i-adj": {
+    present: grammarPointModule("i-adj-present"),
+    negative: formUnlockModule("negative"),
+    past: formUnlockModule("past"),
+    "past-negative": formUnlockModule("past-negative"),
+  },
+  "na-adj": {
+    present: grammarPointModule("na-adj-present"),
+    negative: grammarPointModule("na-adj-negative"),
+    past: grammarPointModule("na-adj-past"),
+    "past-negative": Math.max(
+      grammarPointModule("na-adj-negative"),
+      grammarPointModule("na-adj-past"),
+    ),
+  },
+};
+
+/** Fixed demo words for the toggle examples — real M7/M8/M9 table entries. */
+const FREE_DRILL_EXAMPLE_VERB = { dictionary: "たべる", group: "ichidan" as const };
+const FREE_DRILL_EXAMPLE_IADJ = "たかい";
+const FREE_DRILL_EXAMPLE_NAADJ_ID = "kirei";
+
+const VERB_CLASS_CHIP: Record<VerbGroup, string> = {
+  ichidan: "る",
+  godan: "う",
+  irregular: "irregular",
+};
+
+/** Verb forms the engine conjugates, in toggle-list order (ます family, plain
+ *  family, たい family, then the N4 forms). */
+const FREE_DRILL_VERB_FORMS = Object.keys(FREE_DRILL_VERB_FORM_MODULE) as ChainForm[];
+const FREE_DRILL_ADJ_FORMS: AdjForm[] = ["present", "negative", "past", "past-negative"];
+
+function adjExample(type: "i-adj" | "na-adj", form: AdjForm): { dictionary: string; form: string } {
+  if (type === "i-adj") {
+    return {
+      dictionary: FREE_DRILL_EXAMPLE_IADJ,
+      form: form === "present" ? FREE_DRILL_EXAMPLE_IADJ : conjugateIAdj(FREE_DRILL_EXAMPLE_IADJ, form),
+    };
+  }
+  const entry = ADJ_ENTRIES.find((a) => a.id === FREE_DRILL_EXAMPLE_NAADJ_ID);
+  return entry
+    ? { dictionary: entry.dictionary, form: entry.forms[form] }
+    : { dictionary: "", form: "" };
+}
+
+function adjPool(categoryId: string, maxModule: number) {
+  return getAdjsUpToModule(maxModule).filter((a) =>
+    categoryId === "i-adj" ? a.type === "i-adj" : a.type === "na-adj",
+  );
+}
 
 const jaFreeDrill: ConjFreeDrillProvider = {
   categories: [
@@ -206,47 +298,84 @@ const jaFreeDrill: ConjFreeDrillProvider = {
   ],
   defaultForms: ["masu", "nai", "te", "ta"],
   minModule: 7,
+  secondScriptExposureModule: KANJI_EXPOSURE_MODULE,
   formsFor(categoryId) {
     if (categoryId === "verbs") {
-      return (Object.keys(CHAIN_FORM_LABELS) as ChainForm[])
-        .filter((f) => !MASU_SUFFIX_FORMS.has(f))
-        .map((key) => ({ key, label: CHAIN_FORM_LABELS[key] }));
+      return FREE_DRILL_VERB_FORMS.map((key) => ({
+        key,
+        label: CHAIN_FORM_LABELS[key],
+        example: {
+          dictionary: FREE_DRILL_EXAMPLE_VERB.dictionary,
+          form: conjugateVerb(FREE_DRILL_EXAMPLE_VERB.dictionary, FREE_DRILL_EXAMPLE_VERB.group, key),
+        },
+        unlockModule: FREE_DRILL_VERB_FORM_MODULE[key],
+      }));
     }
-    return (Object.keys(ADJ_FORM_LABELS) as AdjForm[]).map((key) => ({
+    const type = categoryId === "i-adj" ? "i-adj" : "na-adj";
+    return FREE_DRILL_ADJ_FORMS.map((key) => ({
       key,
       label: ADJ_FORM_LABELS[key],
+      example: adjExample(type, key),
+      unlockModule: FREE_DRILL_ADJ_FORM_MODULE[type][key],
     }));
   },
-  buildQuestion(categoryId, maxModule, selectedForms) {
+  listItems(categoryId, maxModule) {
     if (categoryId === "verbs") {
-      const verbs = getVerbsUpToModule(maxModule);
+      return getVerbsUpToModule(maxModule).map((v) => ({
+        id: v.id,
+        dictionary: v.dictionary,
+        written: v.kanji,
+        meaning: v.meaning,
+        classChip: VERB_CLASS_CHIP[v.group],
+        classId: v.group,
+        irregular: v.group === "irregular",
+      }));
+    }
+    return adjPool(categoryId, maxModule).map((a) => ({
+      id: a.id,
+      dictionary: a.dictionary,
+      written: a.kanji,
+      meaning: a.meaning,
+      classChip: a.type === "i-adj" ? "い" : "な",
+      classId: a.type,
+    }));
+  },
+  renderWritten: (dictionary, written, surface) => writtenSegments(dictionary, written, surface),
+  buildQuestion(categoryId, maxModule, selectedForms, pinnedId = null) {
+    if (categoryId === "verbs") {
+      const pool = getVerbsUpToModule(maxModule);
+      const verbs = pinnedId ? pool.filter((v) => v.id === pinnedId) : pool;
       if (verbs.length === 0) return null;
-      const forms = (Object.keys(CHAIN_FORM_LABELS) as ChainForm[]).filter((f) =>
-        selectedForms.has(f),
+      // Gate here too: a checked toggle the level no longer reaches must
+      // never be served, whatever the surface's state holds.
+      const forms = FREE_DRILL_VERB_FORMS.filter(
+        (f) => selectedForms.has(f) && FREE_DRILL_VERB_FORM_MODULE[f] <= maxModule,
       );
       if (forms.length === 0) return null;
-      const verb = pickWeighted(verbs, (v) => v.id, "conjugation");
+      const verb = pinnedId ? verbs[0] : pickWeighted(verbs, (v) => v.id, "conjugation");
       const form = forms[Math.floor(Math.random() * forms.length)];
       const correct = conjugateVerb(verb.dictionary, verb.group, form);
       const distractors = generateFormationDistractors(verb.dictionary, verb.group, form, correct);
       return {
         itemId: `${verb.id}:${form}`,
         prompt: verb.dictionary,
+        written: verb.kanji,
         meaning: verb.meaning,
+        form,
         formLabel: CHAIN_FORM_LABELS[form],
         correct,
         options: shuffle([correct, ...distractors]),
       };
     }
-    const pool = getAdjsUpToModule(maxModule).filter((a) =>
-      categoryId === "i-adj" ? a.type === "i-adj" : a.type === "na-adj",
-    );
-    if (pool.length === 0) return null;
-    const forms = (["present", "negative", "past", "past-negative"] as AdjForm[]).filter((f) =>
-      selectedForms.has(f),
+    const type = categoryId === "i-adj" ? "i-adj" : "na-adj";
+    const pool = adjPool(categoryId, maxModule);
+    const adjs = pinnedId ? pool.filter((a) => a.id === pinnedId) : pool;
+    if (adjs.length === 0) return null;
+    const forms = FREE_DRILL_ADJ_FORMS.filter(
+      (f) => selectedForms.has(f) && FREE_DRILL_ADJ_FORM_MODULE[type][f] <= maxModule,
     );
     if (forms.length === 0) return null;
-    const adj = pickWeighted(pool, (a) => a.id, "conjugation");
+    const adj = pinnedId ? adjs[0] : pickWeighted(adjs, (a) => a.id, "conjugation");
     const form = forms[Math.floor(Math.random() * forms.length)];
     const correct = adj.forms[form];
     const distractors =
@@ -256,7 +385,9 @@ const jaFreeDrill: ConjFreeDrillProvider = {
     return {
       itemId: `${adj.id}:${form}`,
       prompt: adj.dictionary,
+      written: adj.kanji,
       meaning: adj.meaning,
+      form,
       formLabel: ADJ_FORM_LABELS[form],
       correct,
       options: shuffle([correct, ...distractors]),
