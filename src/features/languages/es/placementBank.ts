@@ -30,6 +30,7 @@ import { ES_M14_PLACEMENT } from "./curriculum/m14";
 import { ES_M15_PLACEMENT } from "./curriculum/m15";
 import { ES_M16_PLACEMENT } from "./curriculum/m16";
 import { ES_M17_PLACEMENT } from "./curriculum/m17";
+import { ES_M18_PLACEMENT } from "./curriculum/m18";
 
 type ModulePlacement = { screener: PlacementItem[]; byModule: PlacementItem[] };
 
@@ -52,6 +53,7 @@ const PER_MODULE: ReadonlyArray<readonly [string, ModulePlacement]> = [
   ["m15", ES_M15_PLACEMENT],
   ["m16", ES_M16_PLACEMENT],
   ["m17", ES_M17_PLACEMENT],
+  ["m18", ES_M18_PLACEMENT],
 ];
 
 export const ES_PLACEMENT_BANK: PlacementBank = {
