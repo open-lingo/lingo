@@ -103,3 +103,25 @@ Build lanes on **Sonnet**; screenshot review on **Opus** at most; Fable only
 for merge/review decisions. Crop screenshots to the region that matters; one
 playtest pass per lane. Today's three lanes ran on Fable by default and cost
 ≈1M subagent tokens.
+
+## Fan-out state at ~17:30 PT (second compaction, 2026-09-09)
+
+All lanes on Sonnet (hard rule: every Agent call passes `model`). Branches, none
+pushed, none merged; main untouched. Practice-wave merge + build 10 STILL
+awaits Spencer's explicit yes.
+
+| Lane | Branch / worktree | State |
+|---|---|---|
+| Tile per-row stretch + centred word (Duolingo alignment only, NO colours) | `worktree-agent-aca5d129a458f4c59` (`lingo/.claude/worktrees/agent-aca5d129…`), commits 2dd014bc + 76496486 | DONE. BuildSentence + ListeningBuild: tile = `flex flex-col items-center justify-end`, rows `items-stretch`. Box sizes byte-identical; words share one baseline. Crops in `artifacts/tile-align/`. Reviewed by Fable once (build step): good. |
+| #58 rule-card line + drill normaliser | `ja-polish-2026-09-09` (`.claude/worktrees/ja-polish`), f2b49063 + d1dd72b2 | DONE. こたえる takes に line in m30-neo-10 rule card; `drillUtils.normalizeTypedAnswer` → shared `typedAnswerKey`. Ledger row 58 cites a one-amend-stale hash — fix wording at merge. |
+| Conjugation engine: imperative / 〜な / causative / passive | `conj-forms-2026-09-09` (`.claude/worktrees/conj-forms`), branched from practice-wave | RUNNING at compaction. |
+| JA N4 repetition audit (Spencer: m30 sentences repeat too much, lessons feel long) | `rep-audit-2026-09-09` (`.claude/worktrees/rep-audit`), deliverable `docs/ja-n4-repetition-audit-2026-09-09.md` | RUNNING at compaction. Read-only; report ranks fixes (compiler exposure cap / ≥2 carriers per word / split lessons). |
+| Backgrounds | `~/Desktop/openlingo-backgrounds-2026-09-09/` (images/, manifest.json, README.md, contact-sheet.png, generate.py) | 20/20 generated (~21 min, ~63 s each warm); Fable reviewed the contact sheet: strong, on-palette (navy metro-map + brick-red accent, our tokens, not Duolingo). Re-roll of es-04-andes-market + ja-02-shibuya-crossing (white-card renders) RUNNING at compaction. FINDING: the app has NO background-image slot (learn map is procedural SVG) — placement is a design call for Spencer. Spencer's note: vectorise (vtracer, not installed) then re-render rather than placing PNGs. Hex codes in prompts leak as text — use colour words. |
+
+Merge order when Spencer says yes: practice-wave → conj-forms (stacked on it)
+→ tile branch → ja-polish, each `git merge` onto the integration branch, then
+`npm run preflight`, push, watch ci+deploy, build 10.
+
+Peer session lingle-42 (ES, `uds:/tmp/cc-socks/2235.sock`) received the KO
+queue (7 items, none kept by me) and my file-ownership list; it will warn
+before pushing ES to main.
