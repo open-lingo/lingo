@@ -14,10 +14,13 @@ export function PillarTile({
   pillar,
   to,
   badge,
+  meta,
 }: {
   pillar: Pillar;
   to: string;
   badge?: number;
+  /** One-line activity readout under the preview (e.g. "particles · 12 today"). */
+  meta?: string;
 }) {
   const { t } = useTranslation();
   const preview = pillar.activities
@@ -53,6 +56,9 @@ export function PillarTile({
         <p className="mt-1.5 truncate text-[0.6875rem] font-medium text-text-muted">
           {preview.join(" · ")}
         </p>
+        {meta && (
+          <p className="mt-1 truncate text-[0.6875rem] font-semibold text-accent">{meta}</p>
+        )}
       </div>
     </Link>
   );
