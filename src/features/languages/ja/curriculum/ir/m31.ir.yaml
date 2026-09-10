@@ -522,9 +522,9 @@ lessons:
       # needs one pole owned first — this is the "たら is the hub" shape from
       # spine-n4.md §3.1, not a return to one-verb-per-lesson.
       - { kind: rule, grammarPointId: ageru, variant: axis }
-      - { kind: sentence, ja: "てがみを かくから ともだちに プレゼントを あげる。", en: "I'll write a letter, so I'll give my friend a present", exercises: [ageru, ni-recipient, wo-object, kara-because], mode: build }
+      - { kind: sentence, ja: "りょこうに いくから ともだちに プレゼントを あげる。", en: "I'm going on a trip, so I'll give my friend a present", exercises: [ageru, ni-recipient, wo-object, kara-because], mode: build }
       - { kind: sentence, ja: "ははは せんせいに はなを あげる。", en: "My mother gives the teacher flowers", exercises: [ageru, ni-recipient, family-register], mode: build }
-      - { kind: sentence, ja: "だいがくに いく まえに あには がくせいに じしょを あげる。", en: "Before going to university, my older brother gives the student a dictionary", exercises: [ageru, ni-recipient, wo-object, mae-ni], mode: build }
+      - { kind: sentence, ja: "がくせいが だいがくに はいるから あには がくせいに じしょを あげる。", en: "Because the student is starting university, my older brother gives the student a dictionary", exercises: [ageru, ni-recipient, wo-object, kara-because], mode: build }
       # THE PIVOT — deliberately the SAME present and the SAME friend as beat 2,
       # so the only thing that moved is the direction.
       - { kind: sentence, ja: "ともだちが プレゼントを くれる。", en: "My friend gives me a present", exercises: [kureru, ga-existence, wo-object], mode: build }
@@ -532,10 +532,10 @@ lessons:
       - { kind: particle-cloze, stem: "ともだちが プレゼントを ", tail: "。", answer: "くれる", options: ["くれる", "あげる", "かう"], en: "My friend gives me a present", explanation: "the present is arriving at my side, and あげる can only send something away from it. かう would only mean my friend buys one." }
       - { kind: sentence, ja: "いもうとは えんぴつが すきだから あげる。", en: "My little sister likes pencils, so I'll give her one", exercises: [ageru, kara-because, suki-kirai-no], mode: build }
       - { kind: sentence, ja: "いしゃが ちちに くすりを くれる。", en: "The doctor gives my father medicine", exercises: [kureru, ni-recipient, ga-existence], mode: listening }
-      - { kind: sentence, ja: "いそぐから ともだちに はなたばを あげる。", en: "I'm in a hurry, so I'll give my friend a bouquet", exercises: [ageru, ni-recipient, wo-object, kara-because], mode: build }
+      - { kind: sentence, ja: "パーティーを するから ともだちに はなたばを あげる。", en: "Because we're having a party, I'll give my friend a bouquet", exercises: [ageru, ni-recipient, wo-object, kara-because], mode: build }
       - { kind: sentence, ja: "あねが おとうとに かさを くれる。", en: "My older sister gives my little brother an umbrella", exercises: [kureru, ni-recipient, family-register], mode: translate }
       - { kind: sentence, ja: "こどもは アメリカじんに しゃしんを あげる。", en: "The child gives the American a photograph", exercises: [ageru, ni-recipient, wa-topic], mode: listening }
-      - { kind: sentence, ja: "せんせいを まつ とき せんせいに おれいの てがみを あげる。", en: "While waiting for the teacher, I'll give the teacher a thank-you letter", exercises: [ageru, no-possession, ni-recipient, toki], mode: build }
+      - { kind: sentence, ja: "がっこうで おしえる せんせいに おれいの てがみを あげる。", en: "I give a thank-you letter to the teacher who teaches at school", exercises: [ageru, no-possession, ni-recipient, wo-object], mode: build }
       # Second carriers (rep-audit 2026-09-09): そと had ZERO real sentence
       # exposures — it was declared and used only as a diagram axis label.
       - { kind: sentence, ja: "こどもは そとで あそぶ。", en: "The child plays outside", exercises: [de-action, wa-topic], mode: build }
