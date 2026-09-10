@@ -1,0 +1,2485 @@
+{
+ "schema": 1,
+ "moduleId": "m13",
+ "lang": "ko",
+ "generatedAt": "2026-09-10",
+ "draftedBy": "qwen3.5:122b-a10b-q4_K_M",
+ "entryCount": 495,
+ "entries": [
+  {
+   "anchor": "m13/atom:あかい/gloss",
+   "text": "빨갛다",
+   "enSourceHash": "b1f51a511f1da0cd"
+  },
+  {
+   "anchor": "m13/atom:あらう/gloss",
+   "text": "씻다",
+   "enSourceHash": "357e5364ac7cb7af"
+  },
+  {
+   "anchor": "m13/atom:うたう/gloss",
+   "text": "노래하다",
+   "enSourceHash": "7b5697854fec8064"
+  },
+  {
+   "anchor": "m13/atom:おきる/gloss",
+   "text": "일어나다",
+   "enSourceHash": "a2085a76d11d5762"
+  },
+  {
+   "anchor": "m13/atom:きっさてん/gloss",
+   "text": "커피숍",
+   "enSourceHash": "35a565c0e987955f"
+  },
+  {
+   "anchor": "m13/atom:きらい/gloss",
+   "text": "싫어하다",
+   "enSourceHash": "f2e9a23ac36c4b22"
+  },
+  {
+   "anchor": "m13/atom:けさ/gloss",
+   "text": "오늘 아침",
+   "enSourceHash": "2af6349ecaa5d9bd"
+  },
+  {
+   "anchor": "m13/atom:し/gloss",
+   "text": "4",
+   "enSourceHash": "04efaf080f5a3e74"
+  },
+  {
+   "anchor": "m13/atom:すき/gloss",
+   "text": "좋아하다",
+   "enSourceHash": "d5c54cb9715df507"
+  },
+  {
+   "anchor": "m13/atom:せっけん/gloss",
+   "text": "비누",
+   "enSourceHash": "736bc2d4e0945110"
+  },
+  {
+   "anchor": "m13/atom:だいがく/gloss",
+   "text": "대학",
+   "enSourceHash": "adba6c0ec8a8d89e"
+  },
+  {
+   "anchor": "m13/atom:とりにく/gloss",
+   "text": "닭고기",
+   "enSourceHash": "02cd4b7a58d2c2fa"
+  },
+  {
+   "anchor": "m13/atom:なつやすみ/gloss",
+   "text": "여름방학",
+   "enSourceHash": "1ffd27eae56623a3"
+  },
+  {
+   "anchor": "m13/atom:はやい/gloss",
+   "text": "빠르다",
+   "enSourceHash": "f408830bcc7fab37"
+  },
+  {
+   "anchor": "m13/atom:ふく/gloss",
+   "text": "옷",
+   "enSourceHash": "5c5f9b87778cfb10"
+  },
+  {
+   "anchor": "m13/atom:ほしい/gloss",
+   "text": "갖고 싶다",
+   "enSourceHash": "8656aa55d393b032"
+  },
+  {
+   "anchor": "m13/atom:みがく/gloss",
+   "text": "닦다",
+   "enSourceHash": "60856ae40a93ddc4"
+  },
+  {
+   "anchor": "m13/atom:ゆうべ/gloss",
+   "text": "어젯밤",
+   "enSourceHash": "8b64be9d5997d5a8"
+  },
+  {
+   "anchor": "m13/atom:シャワー/gloss",
+   "text": "샤워",
+   "enSourceHash": "528159b45697166b"
+  },
+  {
+   "anchor": "m13/gp:asa-routine/ex:あさ かおを あらう。",
+   "text": "아침에 얼굴을 씻는다.",
+   "enSourceHash": "22f2ad5b71cd1642"
+  },
+  {
+   "anchor": "m13/gp:asa-routine/ex:あさの じゅぎょうは はやい。",
+   "text": "아침 수업은 빠르다.",
+   "enSourceHash": "d6bc230664e1ae83"
+  },
+  {
+   "anchor": "m13/gp:asa-routine/ex:あした ろくじに おきたい。",
+   "text": "내일 6 시에 일어나고 싶다.",
+   "enSourceHash": "5d6ee0fcb261062c"
+  },
+  {
+   "anchor": "m13/gp:asa-routine/ex:けさ ろくじに おきた。",
+   "text": "오늘 아침 6 시에 일어났다.",
+   "enSourceHash": "31762f71a11abecc"
+  },
+  {
+   "anchor": "m13/gp:asa-routine/ex:けさに ろくじに おきた。",
+   "text": "(틀림)",
+   "enSourceHash": "c49db083a23a80a0"
+  },
+  {
+   "anchor": "m13/gp:asa-routine/ex:にちようびは じゅうじに おきる。",
+   "text": "일요일은 10 시에 일어난다.",
+   "enSourceHash": "e5a4efefcbafcb9a"
+  },
+  {
+   "anchor": "m13/gp:asa-routine/ex:ゆうべ ふるい うたを きいた。",
+   "text": "어젯밤에 예쁜 노래를 들었다.",
+   "enSourceHash": "eec0f69482ece6a3"
+  },
+  {
+   "anchor": "m13/gp:ga-hoshii/ex:あたらしい じてんしゃが ほしい。",
+   "text": "새 자전거가 갖고 싶다.",
+   "enSourceHash": "dd1e43f9b2693fb6"
+  },
+  {
+   "anchor": "m13/gp:ga-hoshii/ex:なにが ほしい？",
+   "text": "무엇이 갖고 싶니?",
+   "enSourceHash": "3e17dbf90bd4ae6b"
+  },
+  {
+   "anchor": "m13/gp:ga-hoshii/ex:みずが のみたい。",
+   "text": "물이 마시고 싶다.",
+   "enSourceHash": "ecc026dd760ca20a"
+  },
+  {
+   "anchor": "m13/gp:ga-hoshii/ex:みずが ほしい。",
+   "text": "물이 갖고 싶다.",
+   "enSourceHash": "efcdfb7f6d7b266f"
+  },
+  {
+   "anchor": "m13/gp:ga-hoshii/ex:わたしは あたらしい めがねが ほしい。",
+   "text": "나는 새 안경이 갖고 싶다.",
+   "enSourceHash": "c36691e2f0b146f6"
+  },
+  {
+   "anchor": "m13/gp:ga-hoshii/ex:わたしは あたらしい めがねを ほしい。",
+   "text": "(틀림)",
+   "enSourceHash": "c49db083a23a80a0"
+  },
+  {
+   "anchor": "m13/gp:ga-hoshii/ex:ミカの ふるい じしょが ほしい。",
+   "text": "미카의 옛 사전이 갖고 싶다.",
+   "enSourceHash": "2901c05590e285ce"
+  },
+  {
+   "anchor": "m13/gp:i-adj-negative/ex:あさは ちゃが のみたくない。",
+   "text": "아침에는 차를 마시고 싶지 않다.",
+   "enSourceHash": "22dd3cfe49e2106d"
+  },
+  {
+   "anchor": "m13/gp:i-adj-negative/ex:きょうは ごはんが たべたいくない。",
+   "text": "(틀림)",
+   "enSourceHash": "c49db083a23a80a0"
+  },
+  {
+   "anchor": "m13/gp:i-adj-negative/ex:きょうは ごはんが たべたくない。",
+   "text": "오늘은 밥을 먹고 싶지 않다.",
+   "enSourceHash": "7b4056931ad83351"
+  },
+  {
+   "anchor": "m13/gp:i-adj-negative/ex:きょうは みせに いきたくない。",
+   "text": "오늘은 가게에 가고 싶지 않다.",
+   "enSourceHash": "2a719a95181b42cb"
+  },
+  {
+   "anchor": "m13/gp:i-adj-negative/ex:たかい かばんは かいたくない。",
+   "text": "비싼 가방은 사고 싶지 않다.",
+   "enSourceHash": "c33b3ac219c40256"
+  },
+  {
+   "anchor": "m13/gp:i-adj-negative/ex:ふるい しゃしんは みたくない。",
+   "text": "옛 사진은 보고 싶지 않다.",
+   "enSourceHash": "1052a6863c682834"
+  },
+  {
+   "anchor": "m13/gp:i-adj-past-negative/ex:きのうの あさは ちゃが のみたくなかった。",
+   "text": "어제 아침에는 차를 마시고 싶지 않았다.",
+   "enSourceHash": "565c987394de22df"
+  },
+  {
+   "anchor": "m13/gp:i-adj-past-negative/ex:きのうは ごはんが たべたくないでした。",
+   "text": "(틀림)",
+   "enSourceHash": "c49db083a23a80a0"
+  },
+  {
+   "anchor": "m13/gp:i-adj-past-negative/ex:きのうは ごはんが たべたくなかった。",
+   "text": "어제는 밥을 먹고 싶지 않았다.",
+   "enSourceHash": "ea3044834eb0787f"
+  },
+  {
+   "anchor": "m13/gp:i-adj-past-negative/ex:きのうは みせに いきたくなかった。",
+   "text": "어제는 가게에 가고 싶지 않았다.",
+   "enSourceHash": "c49801c3b8e967bc"
+  },
+  {
+   "anchor": "m13/gp:i-adj-past-negative/ex:たかい かばんは かいたくなかった。",
+   "text": "비싼 가방은 사고 싶지 않았다.",
+   "enSourceHash": "4d6d58ff82eddd81"
+  },
+  {
+   "anchor": "m13/gp:i-adj-past/ex:あたらしい ぼうしが かいたかった。",
+   "text": "새 모자를 사고 싶었다.",
+   "enSourceHash": "7bd6b973609c9eba"
+  },
+  {
+   "anchor": "m13/gp:i-adj-past/ex:きのう ともだちと うみに いきたかった。",
+   "text": "어제 친구와 바다에 가고 싶었다.",
+   "enSourceHash": "10baeadb0f21426e"
+  },
+  {
+   "anchor": "m13/gp:i-adj-past/ex:きのうは おいしい すしが たべたいだった。",
+   "text": "(틀림)",
+   "enSourceHash": "c49db083a23a80a0"
+  },
+  {
+   "anchor": "m13/gp:i-adj-past/ex:きのうは おいしい すしが たべたかった。",
+   "text": "어제는 맛있는 초밥을 먹고 싶었다.",
+   "enSourceHash": "cbf16c34090a5f59"
+  },
+  {
+   "anchor": "m13/gp:i-adj-past/ex:きのうは かいものが したかった。",
+   "text": "어제는 쇼핑을 하고 싶었다.",
+   "enSourceHash": "3f426c639f3377cf"
+  },
+  {
+   "anchor": "m13/gp:i-adj-past/ex:きのうは ちゃが のみたかった。",
+   "text": "어제는 차를 마시고 싶었다.",
+   "enSourceHash": "d4a3c75dfa96ab60"
+  },
+  {
+   "anchor": "m13/gp:no-ga-suki/ex:ともだちと あそぶのが すきだ。",
+   "text": "친구와 노는 것이 좋다.",
+   "enSourceHash": "d6923542399ad763"
+  },
+  {
+   "anchor": "m13/gp:no-ga-suki/ex:ふるい しゃしんを みるのが すきだ。",
+   "text": "오래된 사진을 보는 것이 좋다.",
+   "enSourceHash": "1100d0515b6664c5"
+  },
+  {
+   "anchor": "m13/gp:no-ga-suki/ex:わたしは ごはんを たべるが すきだ。",
+   "text": "(틀림)",
+   "enSourceHash": "c49db083a23a80a0"
+  },
+  {
+   "anchor": "m13/gp:no-ga-suki/ex:わたしは ごはんを たべるのが すきだ。",
+   "text": "나는 밥을 먹는 것이 좋다.",
+   "enSourceHash": "5ad8dd1820508949"
+  },
+  {
+   "anchor": "m13/gp:no-ga-suki/ex:わたしは みせに いくのが きらいだ。",
+   "text": "나는 가게에 가는 것이 싫다.",
+   "enSourceHash": "ae6ae9ebfa83d6eb"
+  },
+  {
+   "anchor": "m13/gp:no-ga-suki/ex:ミカは ちゃを のむのが すきだ。",
+   "text": "미카는 차를 마시는 것이 좋다.",
+   "enSourceHash": "628bf34e1f889585"
+  },
+  {
+   "anchor": "m13/gp:suki-kirai-no/ex:ちゃは すきじゃない。",
+   "text": "차는 좋아하지 않는다.",
+   "enSourceHash": "be6a70333a2ec936"
+  },
+  {
+   "anchor": "m13/gp:suki-kirai-no/ex:わたしの すきな みせは ちいさい。",
+   "text": "내가 좋아하는 가게는 작다.",
+   "enSourceHash": "bc8e39eb91ae229c"
+  },
+  {
+   "anchor": "m13/gp:suki-kirai-no/ex:わたしは きゅうりが きらいだ。",
+   "text": "나는 오이가 싫다.",
+   "enSourceHash": "08f9c747fd6f5d76"
+  },
+  {
+   "anchor": "m13/gp:suki-kirai-no/ex:わたしは ちいさい ねこが すきだ。",
+   "text": "나는 작은 고양이가 좋다.",
+   "enSourceHash": "66b77a195dcec1d4"
+  },
+  {
+   "anchor": "m13/gp:suki-kirai-no/ex:わたしは ちいさい ねこを すきだ。",
+   "text": "(틀림)",
+   "enSourceHash": "c49db083a23a80a0"
+  },
+  {
+   "anchor": "m13/gp:suki-kirai-no/ex:ミカは あたらしい うたが すきだ。",
+   "text": "미카는 새로운 노래가 좋다.",
+   "enSourceHash": "b389867c56a399a4"
+  },
+  {
+   "anchor": "m13/gp:v-tai/ex:あたらしい かさが かいたい。",
+   "text": "새 우산을 사고 싶다.",
+   "enSourceHash": "3954cf14392fd99d"
+  },
+  {
+   "anchor": "m13/gp:v-tai/ex:きょうは おいしい すしが たべたい。",
+   "text": "오늘은 맛있는 초밥을 먹고 싶다.",
+   "enSourceHash": "f583f3df31fcea4b"
+  },
+  {
+   "anchor": "m13/gp:v-tai/ex:きょうは ともだちと あそびたい。",
+   "text": "오늘은 친구와 놀고 싶다.",
+   "enSourceHash": "3d2fbfece3776b9b"
+  },
+  {
+   "anchor": "m13/gp:v-tai/ex:きょうは なにが したい？",
+   "text": "오늘은 무엇을 하고 싶니?",
+   "enSourceHash": "fc115aa077ec7aa7"
+  },
+  {
+   "anchor": "m13/gp:v-tai/ex:わたしは あさ みずが のみたい。",
+   "text": "나는 아침에 물을 마시고 싶다.",
+   "enSourceHash": "b04a163f212163d6"
+  },
+  {
+   "anchor": "m13/gp:v-tai/ex:トムと にほんに いきたい。",
+   "text": "톰과 일본에 가고 싶다.",
+   "enSourceHash": "55add6c4309c4872"
+  },
+  {
+   "anchor": "m13/gp:v-tai/ex:トムは にほんに いきたい。",
+   "text": "(틀림)",
+   "enSourceHash": "c49db083a23a80a0"
+  },
+  {
+   "anchor": "m13/gp:v-tai/ex:ミカの あたらしい しゃしんが みたい。",
+   "text": "미카의 새로운 사진을 보고 싶다.",
+   "enSourceHash": "962b75de77c973ea"
+  },
+  {
+   "anchor": "m13/gp:wo-object/ex:あたらしい じてんしゃが かいたい。",
+   "text": "새 자전거를 사고 싶다 — 자전거가 초점이다.",
+   "enSourceHash": "f31463e5773e77b2"
+  },
+  {
+   "anchor": "m13/gp:wo-object/ex:あたらしい じてんしゃを かいたい。",
+   "text": "새 자전거를 사고 싶다.",
+   "enSourceHash": "c2817b3805af4674"
+  },
+  {
+   "anchor": "m13/gp:wo-object/ex:きょうは おいしい すしが たべたい。",
+   "text": "오늘은 맛있는 초밥을 먹고 싶다 — 초밥이 초점이다.",
+   "enSourceHash": "4d2156524db11bfd"
+  },
+  {
+   "anchor": "m13/gp:wo-object/ex:きょうは おいしい すしに たべたい。",
+   "text": "(틀림)",
+   "enSourceHash": "c49db083a23a80a0"
+  },
+  {
+   "anchor": "m13/gp:wo-object/ex:きょうは おいしい すしを たべたい。",
+   "text": "오늘은 맛있는 초밥을 먹고 싶다.",
+   "enSourceHash": "f583f3df31fcea4b"
+  },
+  {
+   "anchor": "m13/gp:wo-object/ex:ミカの あたらしい しゃしんを みたい。",
+   "text": "미카의 새로운 사진을 보고 싶다.",
+   "enSourceHash": "962b75de77c973ea"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-1/en:0f4168490e38b844",
+   "text": "물",
+   "enSourceHash": "0f4168490e38b844"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-1/en:10479eaf5419506e",
+   "text": "가족과 바다에 가고 싶다",
+   "enSourceHash": "10479eaf5419506e"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-1/en:144008648645ea88",
+   "text": "새 모자를 샀다",
+   "enSourceHash": "144008648645ea88"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-1/en:168e82fc3103ca2b",
+   "text": "친구와 큰 바다에 가고 싶다",
+   "enSourceHash": "168e82fc3103ca2b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-1/en:2974744982f08b20",
+   "text": "우산",
+   "enSourceHash": "2974744982f08b20"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-1/en:2a8fe39ae31d897e",
+   "text": "친구와 큰 바다에 갔다",
+   "enSourceHash": "2a8fe39ae31d897e"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-1/en:31d1c1e79bf76cac",
+   "text": "새 가방을 사고 싶다",
+   "enSourceHash": "31d1c1e79bf76cac"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-1/en:571e44ed12d32d9b",
+   "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+   "enSourceHash": "571e44ed12d32d9b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-1/en:647294383b2cbc24",
+   "text": "일본",
+   "enSourceHash": "647294383b2cbc24"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-1/en:670bd9ced0c6bc3f",
+   "text": "초밥",
+   "enSourceHash": "670bd9ced0c6bc3f"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-1/en:7482d5802c3c2798",
+   "text": "사진",
+   "enSourceHash": "7482d5802c3c2798"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-1/en:82066c2103fe5474",
+   "text": "큰 모자를 사고 싶다",
+   "enSourceHash": "82066c2103fe5474"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-1/en:cd48ed143374bb50",
+   "text": "친구와 큰 산에 가고 싶다",
+   "enSourceHash": "cd48ed143374bb50"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-1/en:cde48537ca2c2808",
+   "text": "친구",
+   "enSourceHash": "cde48537ca2c2808"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-1/en:e17fd512011d5842",
+   "text": "새 모자를 사고 싶다",
+   "enSourceHash": "e17fd512011d5842"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-1/ja:あたらしい かさが かいたい",
+   "text": "만들기: 새 우산을 사고 싶다",
+   "enSourceHash": "f2a6a7823c6c1513"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-1/ja:きょうは おいしい すしが たべたい",
+   "text": "만들기: 오늘 맛있는 초밥을 먹고 싶다",
+   "enSourceHash": "579f2c38468ea918"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-1/ja:きょうは ともだちと あそびたい",
+   "text": "만들기: 오늘 친구와 놀고 싶다",
+   "enSourceHash": "5e1a32f0497b1e1a"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-1/ja:きょうは にぎやかな みせに いきたい",
+   "text": "들리는 대로 만들어 보세요.",
+   "enSourceHash": "b28d903ef295627a"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-1/ja:きょうは ミカの あたらしい みせで おいしい すしが たべたい",
+   "text": "만들기: 오늘 미카의 새 가게에서 맛있는 초밥을 먹고 싶다",
+   "enSourceHash": "7e29189bdad04bd1"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-1/ja:ともだちと にほんに いきたい",
+   "text": "만들기: 친구와 일본에 가고 싶다",
+   "enSourceHash": "3f810015628bc01a"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-1/ja:わたしは あさ みずが のみたい",
+   "text": "만들기: 아침에 물을 마시고 싶다",
+   "enSourceHash": "f6217f97fb223d84"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-1/ja:ミカの あたらしい しゃしんが みたい",
+   "text": "들리는 대로 만들어 보세요.",
+   "enSourceHash": "b28d903ef295627a"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-1/ja:ミカの ふるい じしょが みたい",
+   "text": "만들기: 미카의 오래된 사전을 보고 싶다",
+   "enSourceHash": "a5191c1d7cf36ab3"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/en:0282d9b79f42c74c",
+   "text": "얼굴",
+   "enSourceHash": "0282d9b79f42c74c"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/en:0889113e04d3203f",
+   "text": "수업",
+   "enSourceHash": "0889113e04d3203f"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/en:0b7641998a0a44c0",
+   "text": "일요일에도 차를 씻는다",
+   "enSourceHash": "0b7641998a0a44c0"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/en:144008648645ea88",
+   "text": "새 모자를 샀다",
+   "enSourceHash": "144008648645ea88"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/en:1d554d3ed6348253",
+   "text": "일요일에도 차를 닦는다",
+   "enSourceHash": "1d554d3ed6348253"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/en:2b2961a431b23c90",
+   "text": "차",
+   "enSourceHash": "2b2961a431b23c90"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/en:4bdf40d0d1ae3611",
+   "text": "밥/식사",
+   "enSourceHash": "4bdf40d0d1ae3611"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/en:57136d4060bcd009",
+   "text": "일요일에도 차를 씻었다",
+   "enSourceHash": "57136d4060bcd009"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/en:571e44ed12d32d9b",
+   "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+   "enSourceHash": "571e44ed12d32d9b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/en:63f75c890b05405e",
+   "text": "노래",
+   "enSourceHash": "63f75c890b05405e"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/en:78000bd1daec512e",
+   "text": "새 샤워기가 갖고 싶지 않다",
+   "enSourceHash": "78000bd1daec512e"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/en:7b3f5637ebaa0f54",
+   "text": "토요일에도 차를 씻는다",
+   "enSourceHash": "7b3f5637ebaa0f54"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/en:90d25e01ef7f2c7b",
+   "text": "월요일 수업은 빠르다",
+   "enSourceHash": "90d25e01ef7f2c7b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/en:9aa4e834ae0b3e2d",
+   "text": "새 샤워기를 샀다",
+   "enSourceHash": "9aa4e834ae0b3e2d"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/en:a8b6cc392701e647",
+   "text": "새 비누를 샀다",
+   "enSourceHash": "a8b6cc392701e647"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/en:a9f74d1ec36ebdeb",
+   "text": "차",
+   "enSourceHash": "a9f74d1ec36ebdeb"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/en:adea88e252a5518c",
+   "text": "새 시계가 갖고 싶다",
+   "enSourceHash": "adea88e252a5518c"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/en:bd7c6d29fd93733c",
+   "text": "새 비누를 사고 싶다",
+   "enSourceHash": "bd7c6d29fd93733c"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/en:cd64941fb2a764f4",
+   "text": "새 샤워기가 갖고 싶다",
+   "enSourceHash": "cd64941fb2a764f4"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/en:d0d1ffa8280e68eb",
+   "text": "오래된 비누를 샀다",
+   "enSourceHash": "d0d1ffa8280e68eb"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/en:d8bff708e63f251f",
+   "text": "화요일 수업은 빠르다",
+   "enSourceHash": "d8bff708e63f251f"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/en:f6369f93f3f16b25",
+   "text": "월요일 수업은 빨랐다",
+   "enSourceHash": "f6369f93f3f16b25"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/en:f70f2c248ceabfde",
+   "text": "월요일 수업은 조용하다",
+   "enSourceHash": "f70f2c248ceabfde"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/ja:あさ せっけんで かおを あらう",
+   "text": "만들기: 아침에 비누로 얼굴을 씻는다",
+   "enSourceHash": "016a544f124d2c7d"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/ja:あさの シャワーが すきだ",
+   "text": "만들기: 아침 샤워가 좋다",
+   "enSourceHash": "c8094e578d88386c"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/ja:あしたの じゅぎょうは はやい",
+   "text": "들리는 대로 만들어 보세요.",
+   "enSourceHash": "b28d903ef295627a"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/ja:けさ しちじに おきた",
+   "text": "만들기: 오늘 아침 일곱 시에 일어났다",
+   "enSourceHash": "0e6cc00c84126ce5"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/ja:けさ ミカの あたらしい せっけんで かおを あらった",
+   "text": "만들기: 오늘 아침 미카의 새 비누로 얼굴을 씻었다",
+   "enSourceHash": "8801b485f0c60b70"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/ja:けさは ちゃが のみたくなかった",
+   "text": "만들기: 오늘 아침은 차를 마시고 싶지 않았다",
+   "enSourceHash": "6d9aabf6d21d9c20"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/ja:どようびに くるまを みがく",
+   "text": "만들기: 토요일에 차를 닦는다",
+   "enSourceHash": "609ffb3e6f964cc9"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/ja:にちようびに くるまが みがきたい",
+   "text": "만들기: 일요일에 차를 광내고 싶다",
+   "enSourceHash": "b9a8182544924a47"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-10/ja:ゆうべ ともだちと ごはんを たべた",
+   "text": "들리는 대로 만들어 보세요.",
+   "enSourceHash": "b28d903ef295627a"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-2/en:15db6900c965acd7",
+   "text": "아침에 차를 마시고 싶지 않다",
+   "enSourceHash": "15db6900c965acd7"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-2/en:2b2961a431b23c90",
+   "text": "차",
+   "enSourceHash": "2b2961a431b23c90"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-2/en:401b86bc798fefc8",
+   "text": "새 차를 사지 않았다",
+   "enSourceHash": "401b86bc798fefc8"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-2/en:4bdf40d0d1ae3611",
+   "text": "밥/식사",
+   "enSourceHash": "4bdf40d0d1ae3611"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-2/en:571e44ed12d32d9b",
+   "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+   "enSourceHash": "571e44ed12d32d9b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-2/en:7482d5802c3c2798",
+   "text": "사진",
+   "enSourceHash": "7482d5802c3c2798"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-2/en:768d1ad4d81355b8",
+   "text": "오늘은 먹고 싶지 않다",
+   "enSourceHash": "768d1ad4d81355b8"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-2/en:8281f347943ecce9",
+   "text": "오늘은 대학에 가고 싶지 않다",
+   "enSourceHash": "8281f347943ecce9"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-2/en:8648922533740ecb",
+   "text": "낡은 차는 사고 싶지 않다",
+   "enSourceHash": "8648922533740ecb"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-2/en:870a059d67670a8c",
+   "text": "새 차는 사고 싶지 않다",
+   "enSourceHash": "870a059d67670a8c"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-2/en:8d9001d32c6a703d",
+   "text": "가게",
+   "enSourceHash": "8d9001d32c6a703d"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-2/en:9124653d65f3a45a",
+   "text": "새 차를 사고 싶다",
+   "enSourceHash": "9124653d65f3a45a"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-2/en:a9f74d1ec36ebdeb",
+   "text": "차",
+   "enSourceHash": "a9f74d1ec36ebdeb"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-2/en:c018019b6a8b01ab",
+   "text": "가방",
+   "enSourceHash": "c018019b6a8b01ab"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-2/en:d5f48b0ccc01fd15",
+   "text": "낡은 사진은 보고 싶지 않다",
+   "enSourceHash": "d5f48b0ccc01fd15"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-2/ja:あさは ちゃが のみたくない",
+   "text": "만들기: 아침은 차가 마시고 싶지 않다",
+   "enSourceHash": "43f8f85f274c99c4"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-2/ja:きょうは ごはんが たべたくない",
+   "text": "만들기: 오늘은 밥이 먹고 싶지 않다",
+   "enSourceHash": "a1642f387f24e73e"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-2/ja:きょうは だいがくに いきたくない",
+   "text": "만들기: 오늘은 대학에 가고 싶지 않다",
+   "enSourceHash": "e716d0c664387945"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-2/ja:きょうは にぎやかな みせに いきたくない",
+   "text": "만들기: 오늘은 활기찬 가게에 가고 싶지 않다",
+   "enSourceHash": "472bc6038f93a1e1"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-2/ja:きょうは ミカの あたらしい みせに いきたくない",
+   "text": "만들기: 오늘은 미카의 새로운 가게에 가고 싶지 않다",
+   "enSourceHash": "1b0c3a4963c8fdbd"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-2/ja:たかい かばんは かいたくない",
+   "text": "만들기: 비싼 가방은 사고 싶지 않다",
+   "enSourceHash": "23aa603bb757db0a"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-2/ja:ふるい しゃしんは みたくない",
+   "text": "들리는 대로 만들어 보세요.",
+   "enSourceHash": "b28d903ef295627a"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-3/en:1007c73c18a39dad",
+   "text": "어제 대학에 갔다",
+   "enSourceHash": "1007c73c18a39dad"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-3/en:1018eb6c11339a39",
+   "text": "어제 대학에 가고 싶었다",
+   "enSourceHash": "1018eb6c11339a39"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-3/en:1180412af43d7860",
+   "text": "쇼핑",
+   "enSourceHash": "1180412af43d7860"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-3/en:18e1dd392168f601",
+   "text": "모자",
+   "enSourceHash": "18e1dd392168f601"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-3/en:3fd9e82138ced08c",
+   "text": "어제 차를 마시고 싶었다",
+   "enSourceHash": "3fd9e82138ced08c"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-3/en:4a69f19c8c264850",
+   "text": "바다",
+   "enSourceHash": "4a69f19c8c264850"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-3/en:571e44ed12d32d9b",
+   "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+   "enSourceHash": "571e44ed12d32d9b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-3/en:64a0dbac98f48e18",
+   "text": "어제 맛있는 초밥을 먹고 싶었다",
+   "enSourceHash": "64a0dbac98f48e18"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-3/en:670bd9ced0c6bc3f",
+   "text": "초밥",
+   "enSourceHash": "670bd9ced0c6bc3f"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-3/en:68ef12ab3d12face",
+   "text": "어제 친구와 바다에 가고 싶었다",
+   "enSourceHash": "68ef12ab3d12face"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-3/en:777a38698ce57816",
+   "text": "새 모자를 사고 싶었다",
+   "enSourceHash": "777a38698ce57816"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-3/en:8281f347943ecce9",
+   "text": "오늘은 대학에 가고 싶지 않다",
+   "enSourceHash": "8281f347943ecce9"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-3/en:99edf8a67e2481fe",
+   "text": "어제 가게에 가고 싶었다",
+   "enSourceHash": "99edf8a67e2481fe"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-3/en:a9f74d1ec36ebdeb",
+   "text": "차",
+   "enSourceHash": "a9f74d1ec36ebdeb"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-3/en:d6e21286621a8586",
+   "text": "집",
+   "enSourceHash": "d6e21286621a8586"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-3/en:e8b455340e57a236",
+   "text": "\"배\"에 해당하는 단어를 고르세요",
+   "enSourceHash": "e8b455340e57a236"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-3/ja:あたらしい ぼうしが かいたかった",
+   "text": "들리는 대로 만들어 보세요.",
+   "enSourceHash": "b28d903ef295627a"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-3/ja:きのう ともだちと うみに いきたかった",
+   "text": "만들기: 어제 친구와 바다에 가고 싶었다",
+   "enSourceHash": "6fc8d3839b35a6b5"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-3/ja:きのう ミカと にぎやかな えきで かいものが したかった",
+   "text": "만들기: 어제 미카와 활기찬 역에서 쇼핑을 하고 싶었다",
+   "enSourceHash": "3e44931f5ac0dec9"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-3/ja:きのう ミカの あたらしい いえに いきたかった",
+   "text": "만들기: 어제 미카의 새로운 집에 가고 싶었다",
+   "enSourceHash": "cc8ffa9ecd7b9877"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-3/ja:きのうは おいしい すしが たべたかった",
+   "text": "만들기: 어제는 맛있는 초밥이 먹고 싶었다",
+   "enSourceHash": "691812f60e6828bf"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-3/ja:きのうは かいものが したかった",
+   "text": "만들기: 어제는 쇼핑을 하고 싶었다",
+   "enSourceHash": "18dd01848fedbfc9"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-3/ja:きのうは ちゃが のみたかった",
+   "text": "만들기: 어제는 차가 마시고 싶었다",
+   "enSourceHash": "f10265d1e9182111"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-4/en:1d33cbf9c8f233de",
+   "text": "어제 역에 가고 싶었다",
+   "enSourceHash": "1d33cbf9c8f233de"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-4/en:26c27838861f031c",
+   "text": "비싼 가방은 사고 싶지 않았다",
+   "enSourceHash": "26c27838861f031c"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-4/en:2b2961a431b23c90",
+   "text": "자동차",
+   "enSourceHash": "2b2961a431b23c90"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-4/en:2b79eaa084ccc5ff",
+   "text": "어제 역에 갔다",
+   "enSourceHash": "2b79eaa084ccc5ff"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-4/en:4bdf40d0d1ae3611",
+   "text": "밥",
+   "enSourceHash": "4bdf40d0d1ae3611"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-4/en:571e44ed12d32d9b",
+   "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+   "enSourceHash": "571e44ed12d32d9b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-4/en:574e35910d6f6346",
+   "text": "어제 대학에 가고 싶지 않았다",
+   "enSourceHash": "574e35910d6f6346"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-4/en:6096f4b6bcb347ec",
+   "text": "어제 아침 차를 마시고 싶지 않았다",
+   "enSourceHash": "6096f4b6bcb347ec"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-4/en:75848fba6e441bcc",
+   "text": "어제 역에 가고 싶지 않았다",
+   "enSourceHash": "75848fba6e441bcc"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-4/en:7ccc76ae5f2939fb",
+   "text": "오늘 역에 가고 싶지 않다",
+   "enSourceHash": "7ccc76ae5f2939fb"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-4/en:8d9001d32c6a703d",
+   "text": "가게",
+   "enSourceHash": "8d9001d32c6a703d"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-4/en:a9f74d1ec36ebdeb",
+   "text": "차",
+   "enSourceHash": "a9f74d1ec36ebdeb"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-4/en:adba6c0ec8a8d89e",
+   "text": "대학",
+   "enSourceHash": "adba6c0ec8a8d89e"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-4/en:c018019b6a8b01ab",
+   "text": "가방",
+   "enSourceHash": "c018019b6a8b01ab"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-4/en:c62fd8f339fcaf91",
+   "text": "어제 먹고 싶지 않았다",
+   "enSourceHash": "c62fd8f339fcaf91"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-4/en:e8b455340e57a236",
+   "text": "\"배\"에 해당하는 단어를 고르세요",
+   "enSourceHash": "e8b455340e57a236"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-4/ja:あたらしい くるまは かいたくなかった",
+   "text": "만들기: 새로운 자동차는 사고 싶지 않았다",
+   "enSourceHash": "42c3e722bcbc8bb0"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-4/ja:きのう ミカの ふるい みせで ぼうしが かいたくなかった",
+   "text": "만들기: 어제 미카의 낡은 가게에서 모자를 사고 싶지 않았다",
+   "enSourceHash": "fc41674ba7700a36"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-4/ja:きのうの あさは ちゃが のみたくなかった",
+   "text": "만들기: 어제 아침은 차를 마시고 싶지 않았다",
+   "enSourceHash": "eee07e5c80487e8b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-4/ja:きのうは ごはんが たべたくなかった",
+   "text": "만들기: 어제는 밥을 먹고 싶지 않았다",
+   "enSourceHash": "4305163fadd19d58"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-4/ja:きのうは だいがくに いきたくなかった",
+   "text": "만들기: 어제는 대학에 가고 싶지 않았다",
+   "enSourceHash": "c864b666deb857ad"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-4/ja:きのうは にぎやかな みせに いきたくなかった",
+   "text": "만들기: 어제는 시끄러운 가게에 가고 싶지 않았다",
+   "enSourceHash": "e9b592989bee391f"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-4/ja:たかい かばんは かいたくなかった",
+   "text": "들리는 대로 만들어 보세요.",
+   "enSourceHash": "b28d903ef295627a"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-5/en:0f4168490e38b844",
+   "text": "물",
+   "enSourceHash": "0f4168490e38b844"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-5/en:1e1cc3909a49adea",
+   "text": "\"산\"에 해당하는 단어를 고르세요",
+   "enSourceHash": "1e1cc3909a49adea"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-5/en:25cdb46d8d2115a2",
+   "text": "배",
+   "enSourceHash": "25cdb46d8d2115a2"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-5/en:4201e4e6fdd6d5a0",
+   "text": "오늘 일본 음식을 먹고 싶다",
+   "enSourceHash": "4201e4e6fdd6d5a0"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-5/en:571e44ed12d32d9b",
+   "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+   "enSourceHash": "571e44ed12d32d9b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-5/en:5e9d2e6a26650f90",
+   "text": "미카의 새로운 사진을 보고 싶다",
+   "enSourceHash": "5e9d2e6a26650f90"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-5/en:6131810b7e639aea",
+   "text": "일본 음식을 먹고 싶지 않다",
+   "enSourceHash": "6131810b7e639aea"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-5/en:6674f1450c572d92",
+   "text": "새로운 자전거를 사고 싶다, 자전거 먼저",
+   "enSourceHash": "6674f1450c572d92"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-5/en:670bd9ced0c6bc3f",
+   "text": "초밥",
+   "enSourceHash": "670bd9ced0c6bc3f"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-5/en:7482d5802c3c2798",
+   "text": "사진",
+   "enSourceHash": "7482d5802c3c2798"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-5/en:7b453aa74e1dace0",
+   "text": "오늘 맛있는 초밥을 먹고 싶다",
+   "enSourceHash": "7b453aa74e1dace0"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-5/en:96e359097ccbba9e",
+   "text": "일본 음식을 사고 싶다",
+   "enSourceHash": "96e359097ccbba9e"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-5/en:9d2b013344487a94",
+   "text": "오늘 일본 음식을 먹었다",
+   "enSourceHash": "9d2b013344487a94"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-5/en:a9f74d1ec36ebdeb",
+   "text": "차",
+   "enSourceHash": "a9f74d1ec36ebdeb"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-5/en:d29af8a2e160dd86",
+   "text": "자전거",
+   "enSourceHash": "d29af8a2e160dd86"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-5/en:e8985677c84df783",
+   "text": "새로운 자전거를 사고 싶다",
+   "enSourceHash": "e8985677c84df783"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-5/en:e8b455340e57a236",
+   "text": "\"배\"에 해당하는 단어를 고르세요",
+   "enSourceHash": "e8b455340e57a236"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-5/ja:あたらしい じてんしゃが かいたい",
+   "text": "만들기: 새로운 자전거를 사고 싶다, 자전거 먼저",
+   "enSourceHash": "a70f912d02bce3a9"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-5/ja:あたらしい じてんしゃを かいたい",
+   "text": "만들기: 새로운 자전거를 사고 싶다",
+   "enSourceHash": "5956ea21ce8c074e"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-5/ja:きょうは おいしい すしを たべたい",
+   "text": "만들기: 오늘 맛있는 초밥을 먹고 싶다",
+   "enSourceHash": "579f2c38468ea918"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-5/ja:きょうは おおきい ふねが みたい",
+   "text": "만들기: 오늘 큰 배를 보고 싶다",
+   "enSourceHash": "4417547ed75e7e30"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-5/ja:きょうは ちゃを のみたい",
+   "text": "만들기: 오늘 차를 마시고 싶다",
+   "enSourceHash": "850c3f61d58e039f"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-5/ja:きょうは ともだちと ゆうめいな みせで おいしい ごはんが たべたい",
+   "text": "만들기: 오늘 친구와 유명한 가게에서 맛있는 밥을 먹고 싶다",
+   "enSourceHash": "21d3724911dbd689"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-5/ja:ミカの あたらしい しゃしんを みたい",
+   "text": "들리는 대로 만들어 보세요.",
+   "enSourceHash": "b28d903ef295627a"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-6/en:089ca4c897874e0d",
+   "text": "미카의 오래된 사전이 갖고 싶다",
+   "enSourceHash": "089ca4c897874e0d"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-6/en:097bd171954538e5",
+   "text": "오래된 가방이 갖고 싶다",
+   "enSourceHash": "097bd171954538e5"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-6/en:0cbbf9be7b0c8b5b",
+   "text": "새 가방이 갖고 싶다",
+   "enSourceHash": "0cbbf9be7b0c8b5b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-6/en:0f4168490e38b844",
+   "text": "물",
+   "enSourceHash": "0f4168490e38b844"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-6/en:177ca70f42def123",
+   "text": "사전",
+   "enSourceHash": "177ca70f42def123"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-6/en:266550babbb7bd39",
+   "text": "안경",
+   "enSourceHash": "266550babbb7bd39"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-6/en:31d1c1e79bf76cac",
+   "text": "새 가방을 사고 싶다",
+   "enSourceHash": "31d1c1e79bf76cac"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-6/en:571e44ed12d32d9b",
+   "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+   "enSourceHash": "571e44ed12d32d9b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-6/en:5f34ba999d399fdc",
+   "text": "새 자전거가 갖고 싶다",
+   "enSourceHash": "5f34ba999d399fdc"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-6/en:873ff8cd10431eb6",
+   "text": "새 안경이 갖고 싶다",
+   "enSourceHash": "873ff8cd10431eb6"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-6/en:a2d15c6ac0cac042",
+   "text": "새 옷이 갖고 싶다",
+   "enSourceHash": "a2d15c6ac0cac042"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-6/en:ba967c5eb4e62def",
+   "text": "새 가방은 갖고 싶지 않다",
+   "enSourceHash": "ba967c5eb4e62def"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-6/en:baed831623943be3",
+   "text": "시계",
+   "enSourceHash": "baed831623943be3"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-6/en:c018019b6a8b01ab",
+   "text": "가방",
+   "enSourceHash": "c018019b6a8b01ab"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-6/en:d29af8a2e160dd86",
+   "text": "자전거",
+   "enSourceHash": "d29af8a2e160dd86"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-6/en:e8b455340e57a236",
+   "text": "\"배\"에 해당하는 단어를 고르세요",
+   "enSourceHash": "e8b455340e57a236"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-6/ja:あたらしい じてんしゃが ほしい",
+   "text": "들리는 대로 만들어 보세요.",
+   "enSourceHash": "b28d903ef295627a"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-6/ja:あたらしい とけいが ほしい",
+   "text": "만들기: 새 시계가 갖고 싶다",
+   "enSourceHash": "e2cf4c01bfacc471"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-6/ja:あたらしい ふくが かいたい",
+   "text": "만들기: 새 옷을 사고 싶다",
+   "enSourceHash": "ec8e745751c8afe4"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-6/ja:あたらしい ふくが ほしい",
+   "text": "만들기: 새 옷이 갖고 싶다",
+   "enSourceHash": "eaa17b5879c0a8aa"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-6/ja:きょうは おおきい かばんが ほしい",
+   "text": "만들기: 오늘은 큰 가방이 갖고 싶다",
+   "enSourceHash": "242b39a705d92edf"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-6/ja:きょうは ミカの ゆうめいな みせで あたらしい ふくが ほしい",
+   "text": "만들기: 오늘은 미카의 유명한 가게에서 새 옷이 갖고 싶다",
+   "enSourceHash": "a4554ee7d5c3f451"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-6/ja:わたしは あたらしい めがねが ほしい",
+   "text": "만들기: 나는 새 안경이 갖고 싶다",
+   "enSourceHash": "93d458c5e7619e6d"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-6/ja:ミカの ふるい じしょが ほしい",
+   "text": "만들기: 미카의 오래된 사전이 갖고 싶다",
+   "enSourceHash": "1642d032e1280fbe"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-7/en:3af7887cd44f4821",
+   "text": "미카는 새로운 노래를 좋아한다",
+   "enSourceHash": "3af7887cd44f4821"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-7/en:4bdf40d0d1ae3611",
+   "text": "밥",
+   "enSourceHash": "4bdf40d0d1ae3611"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-7/en:571e44ed12d32d9b",
+   "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+   "enSourceHash": "571e44ed12d32d9b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-7/en:63f75c890b05405e",
+   "text": "노래",
+   "enSourceHash": "63f75c890b05405e"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-7/en:7042a6272e4b0db8",
+   "text": "미카는 오래된 책을 좋아한다",
+   "enSourceHash": "7042a6272e4b0db8"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-7/en:77af778b51abd4a3",
+   "text": "고양이",
+   "enSourceHash": "77af778b51abd4a3"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-7/en:8d9001d32c6a703d",
+   "text": "가게",
+   "enSourceHash": "8d9001d32c6a703d"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-7/en:92719fe0cf8cd515",
+   "text": "책",
+   "enSourceHash": "92719fe0cf8cd515"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-7/en:b2954014e770d530",
+   "text": "미카는 오래된 노래를 좋아하지 않는다",
+   "enSourceHash": "b2954014e770d530"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-7/en:b574c0e8fae23b44",
+   "text": "여름방학을 좋아한다",
+   "enSourceHash": "b574c0e8fae23b44"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-7/en:c648d7f47e3841d4",
+   "text": "미카는 오래된 노래를 좋아한다",
+   "enSourceHash": "c648d7f47e3841d4"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-7/en:c6f96f755fe3829e",
+   "text": "오이를 좋아하지 않는다",
+   "enSourceHash": "c6f96f755fe3829e"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-7/en:cd6357efdd966de8",
+   "text": "개",
+   "enSourceHash": "cd6357efdd966de8"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-7/en:d627c76f5e0daea2",
+   "text": "작은 고양이를 좋아한다",
+   "enSourceHash": "d627c76f5e0daea2"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-7/ja:とりにくは すきじゃない",
+   "text": "만들기: 닭고기는 좋아하지 않는다",
+   "enSourceHash": "158740baff8fd661"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-7/ja:わたしの すきな いろは あかい",
+   "text": "만들기: 내가 좋아하는 색은 빨간색이야",
+   "enSourceHash": "8f0bf0c4f405f59f"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-7/ja:わたしは きゅうりが きらいだ",
+   "text": "들리는 대로 만들어 보세요.",
+   "enSourceHash": "b28d903ef295627a"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-7/ja:わたしは しずかな みせの おいしい ごはんが すきだ",
+   "text": "만들기: 나는 조용한 가게의 맛있는 밥을 좋아한다",
+   "enSourceHash": "b9b04e7425c0ce75"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-7/ja:わたしは ちいさい ねこが すきだ",
+   "text": "만들기: 나는 작은 고양이를 좋아한다",
+   "enSourceHash": "b2d9381ab1d3a120"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-7/ja:わたしは なつやすみが すきだ",
+   "text": "만들기: 나는 여름방학이 좋다.",
+   "enSourceHash": "5b0d019513a7aff8"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-7/ja:ケンは にぎやかな みせが きらいだ",
+   "text": "만들기: 켄은 시끄러운 가게가 싫다",
+   "enSourceHash": "0d0524bf5bc165d5"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-7/ja:ミカは あたらしい うたが すきだ",
+   "text": "만들기: 미카는 새로운 노래가 좋다.",
+   "enSourceHash": "62b519db9c0efbd2"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/en:01174db4fb1ba409",
+   "text": "오래된 사진을 보는 게 좋다",
+   "enSourceHash": "01174db4fb1ba409"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/en:1180412af43d7860",
+   "text": "쇼핑하다",
+   "enSourceHash": "1180412af43d7860"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/en:15e4999fc8555ac2",
+   "text": "오래된 노래를 듣는 게 싫다",
+   "enSourceHash": "15e4999fc8555ac2"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/en:1e8025b6f2201c8c",
+   "text": "먹는 게 좋다",
+   "enSourceHash": "1e8025b6f2201c8c"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/en:39af01c207864789",
+   "text": "미카는 쇼핑하는 게 싫다",
+   "enSourceHash": "39af01c207864789"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/en:39e13e50517a214d",
+   "text": "새로운 노래를 듣는 게 좋다",
+   "enSourceHash": "39e13e50517a214d"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/en:4100c91557d22a18",
+   "text": "오래된 노래를 듣는 게 좋다",
+   "enSourceHash": "4100c91557d22a18"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/en:4bdf40d0d1ae3611",
+   "text": "밥/식사",
+   "enSourceHash": "4bdf40d0d1ae3611"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/en:571e44ed12d32d9b",
+   "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+   "enSourceHash": "571e44ed12d32d9b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/en:63f75c890b05405e",
+   "text": "노래",
+   "enSourceHash": "63f75c890b05405e"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/en:6aeb15878fadcd5d",
+   "text": "미카는 역에 가는 게 좋다",
+   "enSourceHash": "6aeb15878fadcd5d"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/en:727a73e699b1a9d2",
+   "text": "오래된 노래를 부르는 게 좋다",
+   "enSourceHash": "727a73e699b1a9d2"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/en:7482d5802c3c2798",
+   "text": "사진",
+   "enSourceHash": "7482d5802c3c2798"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/en:8d9001d32c6a703d",
+   "text": "가게",
+   "enSourceHash": "8d9001d32c6a703d"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/en:9a3ccf0bca9d09ff",
+   "text": "미카는 요리하는 게 좋다",
+   "enSourceHash": "9a3ccf0bca9d09ff"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/en:a9a1e39a17d09601",
+   "text": "미카는 쇼핑하는 게 좋다",
+   "enSourceHash": "a9a1e39a17d09601"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/en:adba6c0ec8a8d89e",
+   "text": "대학",
+   "enSourceHash": "adba6c0ec8a8d89e"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/en:b431314109f9793b",
+   "text": "친구와 노는 게 좋다",
+   "enSourceHash": "b431314109f9793b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/en:d31d999b598087c6",
+   "text": "미카는 노래 부르는 게 좋다",
+   "enSourceHash": "d31d999b598087c6"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/en:e8b455340e57a236",
+   "text": "\"배\"에 해당하는 단어를 고르세요",
+   "enSourceHash": "e8b455340e57a236"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/ja:あさ ちゃを のむのが すきだ",
+   "text": "만들기: 아침에 차를 마시는 게 좋다.",
+   "enSourceHash": "b66105d0197b3c10"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/ja:きゅうりを たべるのが きらいだ",
+   "text": "만들기: 오이를 먹는 게 싫다.",
+   "enSourceHash": "e964b070716f82d0"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/ja:ともだちと あそぶのが すきだ",
+   "text": "들리는 대로 만들어 보세요.",
+   "enSourceHash": "b28d903ef295627a"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/ja:にぎやかな みせで かいものを するのが すきだ",
+   "text": "만들기: 시끄러운 가게에서 쇼핑하는 게 좋다.",
+   "enSourceHash": "6e3043c1d42d506b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/ja:ふるい しゃしんを みるのが すきだ",
+   "text": "만들기: 오래된 사진을 보는 게 좋다.",
+   "enSourceHash": "af6c10447676f3fb"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/ja:わたしは ごはんを たべるのが すきだ",
+   "text": "만들기: 나는 밥을 먹는 게 좋다.",
+   "enSourceHash": "1bbeffd27a92718a"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/ja:わたしは だいがくに いくのが きらいだ",
+   "text": "만들기: 나는 대학에 가는 게 싫다.",
+   "enSourceHash": "1402c0883ee5a91d"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/ja:ミカは うたを うたうのが すきだ",
+   "text": "만들기: 미카는 노래를 부르는 게 좋다.",
+   "enSourceHash": "dbe8346c1ece6eb0"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-8/ja:ミカは しずかな いえで ふるい ほんを みるのが すきだ",
+   "text": "만들기: 미카는 조용한 집에서 오래된 책을 보는 게 좋다.",
+   "enSourceHash": "dac79c29cae826f9"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/en:23bde62f98307b93",
+   "text": "오늘 어디 가고 싶니?",
+   "enSourceHash": "23bde62f98307b93"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/en:2833ddf1f073ab59",
+   "text": "미카는 차를 싫어한다",
+   "enSourceHash": "2833ddf1f073ab59"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/en:2b2961a431b23c90",
+   "text": "자동차",
+   "enSourceHash": "2b2961a431b23c90"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/en:2e28e1738240dade",
+   "text": "새 옷을 샀니?",
+   "enSourceHash": "2e28e1738240dade"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/en:3246f57fad328b84",
+   "text": "미카는 집에서 차를 마시는 걸 좋아한다",
+   "enSourceHash": "3246f57fad328b84"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/en:507b4ab7047b5c3a",
+   "text": "오늘 카페에 가고 싶다",
+   "enSourceHash": "507b4ab7047b5c3a"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/en:571e44ed12d32d9b",
+   "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+   "enSourceHash": "571e44ed12d32d9b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/en:634140a528fa2c3b",
+   "text": "미카는 카페에서 차를 마시고 싶다",
+   "enSourceHash": "634140a528fa2c3b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/en:63f75c890b05405e",
+   "text": "노래",
+   "enSourceHash": "63f75c890b05405e"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/en:72595795c5c89472",
+   "text": "옷을 사고 싶니?",
+   "enSourceHash": "72595795c5c89472"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/en:8d9001d32c6a703d",
+   "text": "가게",
+   "enSourceHash": "8d9001d32c6a703d"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/en:92719fe0cf8cd515",
+   "text": "책",
+   "enSourceHash": "92719fe0cf8cd515"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/en:9b4ef3e5b7b4d175",
+   "text": "역",
+   "enSourceHash": "9b4ef3e5b7b4d175"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/en:a3fad678c17b7430",
+   "text": "새 옷이 갖고 싶니?",
+   "enSourceHash": "a3fad678c17b7430"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/en:a9f74d1ec36ebdeb",
+   "text": "차",
+   "enSourceHash": "a9f74d1ec36ebdeb"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/en:d8356b15a62e3b9e",
+   "text": "조용한 카페에서 차를 마시고 싶다",
+   "enSourceHash": "d8356b15a62e3b9e"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/en:dc1a82da941df014",
+   "text": "새 옷을 좋아하니?",
+   "enSourceHash": "dc1a82da941df014"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/en:e0c817c471ff6cd8",
+   "text": "미카는 카페에서 차를 마시는 것을 좋아한다",
+   "enSourceHash": "e0c817c471ff6cd8"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/en:e8b455340e57a236",
+   "text": "\"배\"에 해당하는 단어를 고르세요",
+   "enSourceHash": "e8b455340e57a236"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/en:fc115aa077ec7aa7",
+   "text": "오늘 무엇을 하고 싶니?",
+   "enSourceHash": "fc115aa077ec7aa7"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/ja:あたらしい きっさてんに いきたい",
+   "text": "만들기: 새 카페에 가고 싶다",
+   "enSourceHash": "79ecc4e2fbc473b3"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/ja:きっさてんで ほんを みるのが すきだ",
+   "text": "만들기: 카페에서 책을 보는 것이 좋다",
+   "enSourceHash": "33f6796d3b844132"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/ja:きょうは きっさてんに いきたい",
+   "text": "만들기: 오늘 카페에 가고 싶다",
+   "enSourceHash": "395dd523d1e2fcb8"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/ja:きょうは どこに いきたい？",
+   "text": "만들기: 오늘 어디에 가고 싶니?",
+   "enSourceHash": "355f13c70f170af4"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/ja:きょうは なにが したい？",
+   "text": "만들기: 오늘 무엇을 하고 싶니?",
+   "enSourceHash": "5a8dd3e857d55242"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/ja:きょうは ミカと しずかな きっさてんで おいしい ちゃが のみたい",
+   "text": "만들기: 오늘 미카와 조용한 카페에서 맛있는 차를 마시고 싶다",
+   "enSourceHash": "e498108faf431628"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/ja:しずかな きっさてんで ちゃが のみたい",
+   "text": "들리는 대로 만들어 보세요.",
+   "enSourceHash": "b28d903ef295627a"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/ja:なにが ほしい？",
+   "text": "만들기: 무엇이 갖고 싶니?",
+   "enSourceHash": "3b153d2d5bebb186"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-9/ja:ミカは あたらしい うたが すき？",
+   "text": "만들기: 미카는 새로운 노래를 좋아하니?",
+   "enSourceHash": "e09b3086e522e214"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/en:06362510ba04d7af",
+   "text": "낡은 자전거가 갖고 싶다",
+   "enSourceHash": "06362510ba04d7af"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/en:0e3a42efce6ba6a8",
+   "text": "새 자전거는 갖고 싶지 않다",
+   "enSourceHash": "0e3a42efce6ba6a8"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/en:2753cb15f1d6d34c",
+   "text": "요리",
+   "enSourceHash": "2753cb15f1d6d34c"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/en:571e44ed12d32d9b",
+   "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+   "enSourceHash": "571e44ed12d32d9b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/en:5c36a896d42db160",
+   "text": "조용한 집에서 책을 보는 것을 좋아한다",
+   "enSourceHash": "5c36a896d42db160"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/en:5c5f9b87778cfb10",
+   "text": "옷",
+   "enSourceHash": "5c5f9b87778cfb10"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/en:5f34ba999d399fdc",
+   "text": "새 자전거가 갖고 싶다",
+   "enSourceHash": "5f34ba999d399fdc"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/en:64b3562dc00b6b14",
+   "text": "미카는 조용한 카페를 좋아하지 않는다",
+   "enSourceHash": "64b3562dc00b6b14"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/en:7bd8cd84235da610",
+   "text": "미카는 활기찬 카페를 좋아하지 않는다",
+   "enSourceHash": "7bd8cd84235da610"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/en:92719fe0cf8cd515",
+   "text": "책",
+   "enSourceHash": "92719fe0cf8cd515"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/en:9b4ef3e5b7b4d175",
+   "text": "역",
+   "enSourceHash": "9b4ef3e5b7b4d175"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/en:a8fec533367c06e8",
+   "text": "미카의 유명한 가게에서 음식을 먹고 싶다",
+   "enSourceHash": "a8fec533367c06e8"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/en:a9f74d1ec36ebdeb",
+   "text": "차",
+   "enSourceHash": "a9f74d1ec36ebdeb"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/en:be01cf4fad9854c2",
+   "text": "도전 — 무엇을 원하는지 말하고, 무엇을 좋아하는지 말하세요",
+   "enSourceHash": "be01cf4fad9854c2"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/en:c798e5b18ed876ef",
+   "text": "카페",
+   "enSourceHash": "c798e5b18ed876ef"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/en:dfe96eae8968e0bc",
+   "text": "오늘 미카와 유명한 카페에서 맛있는 차를 마시고 싶다",
+   "enSourceHash": "dfe96eae8968e0bc"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/en:e37acae962b12cde",
+   "text": "미카는 활기찬 가게를 좋아하지 않는다",
+   "enSourceHash": "e37acae962b12cde"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/en:e8985677c84df783",
+   "text": "새 자전거를 사고 싶다",
+   "enSourceHash": "e8985677c84df783"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/en:e8b455340e57a236",
+   "text": "\"배\"에 해당하는 단어를 고르세요",
+   "enSourceHash": "e8b455340e57a236"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/en:f6457eca9626a99b",
+   "text": "미카는 활기찬 카페를 좋아한다",
+   "enSourceHash": "f6457eca9626a99b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/en:fd09098a193a6ed2",
+   "text": "어제 새 옷을 사고 싶지 않았다",
+   "enSourceHash": "fd09098a193a6ed2"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/ja:きのう ケンと にぎやかな えきで かいものが したかった",
+   "text": "만들기: 어제 켄과 활기찬 역에서 쇼핑을 하고 싶었다",
+   "enSourceHash": "002f5442fd109fd9"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/ja:きのうは あたらしい ふくが かいたくなかった",
+   "text": "만들기: 어제는 새 옷을 사고 싶지 않았다",
+   "enSourceHash": "cb29fe7b1b5e418b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/ja:きょうは ミカと ゆうめいな きっさてんで おいしい ちゃが のみたい",
+   "text": "만들기: 오늘 미카와 유명한 카페에서 맛있는 차를 마시고 싶다",
+   "enSourceHash": "a501d94a86230142"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/ja:なつやすみに ともだちと うみに いきたい",
+   "text": "만들기: 여름 방학에 친구와 바다에 가고 싶다",
+   "enSourceHash": "c1259b768f222de5"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/ja:なつやすみに ミカと にほんの ゆうめいな みせで おいしい すしが たべたい",
+   "text": "만들기: 여름 방학에 미카와 일본의 유명한 가게에서 맛있는 초밥을 먹고 싶다",
+   "enSourceHash": "0a2d154effc8e7e5"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/ja:わたしは あさ ちゃを のむのが すきだ",
+   "text": "만들기: 나는 아침에 차를 마시는 것이 좋다",
+   "enSourceHash": "b66105d0197b3c10"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/ja:わたしは しずかな いえで ほんを みるのが すきだ",
+   "text": "들리는 대로 만들어 보세요.",
+   "enSourceHash": "b28d903ef295627a"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/ja:ミカの あたらしい ふくが みたい",
+   "text": "만들기: 미카의 새로운 옷을 보고 싶다",
+   "enSourceHash": "7ac09bdda5cb3bfa"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-challenge/ja:ミカの ゆうめいな みせの りょうりが たべたい",
+   "text": "만들기: 미카의 유명한 가게의 음식을 먹고 싶다",
+   "enSourceHash": "d808b30b4298591d"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/en:0ab8890d1942f721",
+   "text": "새 안경을 샀다",
+   "enSourceHash": "0ab8890d1942f721"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/en:15db6900c965acd7",
+   "text": "아침에 차를 마시고 싶지 않다",
+   "enSourceHash": "15db6900c965acd7"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/en:194c08c1bfbd4781",
+   "text": "새 안경을 사고 싶다",
+   "enSourceHash": "194c08c1bfbd4781"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/en:1b3c9a151dfee1f5",
+   "text": "오늘 친구와 놀고 싶지 않다",
+   "enSourceHash": "1b3c9a151dfee1f5"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/en:1ba2f27e343d8e30",
+   "text": "어제 차를 마셨다",
+   "enSourceHash": "1ba2f27e343d8e30"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/en:3b80d38f7686a8b5",
+   "text": "산",
+   "enSourceHash": "3b80d38f7686a8b5"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/en:3fd9e82138ced08c",
+   "text": "어제 차를 마시고 싶었다",
+   "enSourceHash": "3fd9e82138ced08c"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/en:42196cf716174765",
+   "text": "어제 차를 마시지 않았다",
+   "enSourceHash": "42196cf716174765"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/en:4d3f48766ad11515",
+   "text": "오늘 가족과 놀고 싶다",
+   "enSourceHash": "4d3f48766ad11515"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/en:571e44ed12d32d9b",
+   "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+   "enSourceHash": "571e44ed12d32d9b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/en:670bd9ced0c6bc3f",
+   "text": "초밥",
+   "enSourceHash": "670bd9ced0c6bc3f"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/en:7482d5802c3c2798",
+   "text": "사진",
+   "enSourceHash": "7482d5802c3c2798"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/en:81ce729aac89b925",
+   "text": "미카의 옛 사진을 보고 싶다",
+   "enSourceHash": "81ce729aac89b925"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/en:976527430ef1166b",
+   "text": "오늘 새 가방을 사고 싶다",
+   "enSourceHash": "976527430ef1166b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/en:9be0f3fdfd5a5844",
+   "text": "어제 산에 가고 싶었다",
+   "enSourceHash": "9be0f3fdfd5a5844"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/en:a9f74d1ec36ebdeb",
+   "text": "차",
+   "enSourceHash": "a9f74d1ec36ebdeb"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/en:adba6c0ec8a8d89e",
+   "text": "대학",
+   "enSourceHash": "adba6c0ec8a8d89e"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/en:b3d96e1feb8ac72b",
+   "text": "새 시계를 사고 싶다",
+   "enSourceHash": "b3d96e1feb8ac72b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/en:b94cbb8dd7160a92",
+   "text": "오늘 차를 마시고 싶다",
+   "enSourceHash": "b94cbb8dd7160a92"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/en:c018019b6a8b01ab",
+   "text": "가방",
+   "enSourceHash": "c018019b6a8b01ab"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/en:c89e084d6acf044f",
+   "text": "어제 친구와 놀았다",
+   "enSourceHash": "c89e084d6acf044f"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/en:e02b726c12a6e243",
+   "text": "오늘 친구와 놀고 싶다",
+   "enSourceHash": "e02b726c12a6e243"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/en:e8b455340e57a236",
+   "text": "\"배\"에 해당하는 단어를 고르세요",
+   "enSourceHash": "e8b455340e57a236"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/en:f33e736c5b1f3e9d",
+   "text": "새 안경이 갖고 싶지 않다",
+   "enSourceHash": "f33e736c5b1f3e9d"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/ja:あさは ちゃが のみたくない",
+   "text": "만들기: 아침에는 차를 마시고 싶지 않다",
+   "enSourceHash": "43f8f85f274c99c4"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/ja:きのう ともだちと えきに いきたかった",
+   "text": "만들기: 어제 친구와 역에 가고 싶었다",
+   "enSourceHash": "eae04bc463810bd9"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/ja:きのうは やまに いきたかった",
+   "text": "들리는 대로 만들어 보세요.",
+   "enSourceHash": "b28d903ef295627a"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/ja:きょうは あたらしい かばんが かいたい",
+   "text": "만들기: 오늘은 새 가방을 사고 싶다",
+   "enSourceHash": "f15fe4b6ddd05ffd"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/ja:きょうは おおきい みせで かいものが したい",
+   "text": "만들기: 오늘은 큰 가게에서 쇼핑을 하고 싶다",
+   "enSourceHash": "0cfbeb2af2180941"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/ja:きょうは しずかな いえで しゃしんが みたい",
+   "text": "만들기: 오늘은 조용한 집에서 사진을 보고 싶다",
+   "enSourceHash": "74d9de23e29c8642"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/ja:きょうは だいがくに いきたくない",
+   "text": "만들기: 오늘은 대학에 가고 싶지 않다",
+   "enSourceHash": "e716d0c664387945"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-1/ja:ミカの ふるい しゃしんが みたい",
+   "text": "만들기: 미카의 옛 사진을 보고 싶다",
+   "enSourceHash": "47fbf61a5c8410c5"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/en:0ba26eef80cefd1e",
+   "text": "어제 대학에 가지 않았다",
+   "enSourceHash": "0ba26eef80cefd1e"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/en:1018eb6c11339a39",
+   "text": "어제 대학에 가고 싶었다",
+   "enSourceHash": "1018eb6c11339a39"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/en:1ee0aa26357c544f",
+   "text": "어제 초밥을 먹고 싶지 않았다",
+   "enSourceHash": "1ee0aa26357c544f"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/en:3c8f16b58a5e30d6",
+   "text": "어제 쇼핑을 하고 싶었다",
+   "enSourceHash": "3c8f16b58a5e30d6"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/en:44be6e1b0bdb53f0",
+   "text": "오늘 쇼핑을 했다",
+   "enSourceHash": "44be6e1b0bdb53f0"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/en:571e44ed12d32d9b",
+   "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+   "enSourceHash": "571e44ed12d32d9b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/en:574e35910d6f6346",
+   "text": "어제 대학에 가고 싶지 않았다",
+   "enSourceHash": "574e35910d6f6346"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/en:5c5f9b87778cfb10",
+   "text": "옷",
+   "enSourceHash": "5c5f9b87778cfb10"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/en:670bd9ced0c6bc3f",
+   "text": "초밥",
+   "enSourceHash": "670bd9ced0c6bc3f"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/en:6e91443b6a86172e",
+   "text": "오늘 쇼핑에 가고 싶지 않다",
+   "enSourceHash": "6e91443b6a86172e"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/en:8281f347943ecce9",
+   "text": "오늘 대학에 가고 싶지 않다",
+   "enSourceHash": "8281f347943ecce9"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/en:99c07ff759ce9e41",
+   "text": "오늘 새 옷이 갖고 싶다",
+   "enSourceHash": "99c07ff759ce9e41"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/en:9b4ef3e5b7b4d175",
+   "text": "역",
+   "enSourceHash": "9b4ef3e5b7b4d175"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/en:a9f74d1ec36ebdeb",
+   "text": "차",
+   "enSourceHash": "a9f74d1ec36ebdeb"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/en:adea88e252a5518c",
+   "text": "새 시계가 갖고 싶다",
+   "enSourceHash": "adea88e252a5518c"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/en:b94cbb8dd7160a92",
+   "text": "오늘 차를 마시고 싶다",
+   "enSourceHash": "b94cbb8dd7160a92"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/en:baed831623943be3",
+   "text": "시계",
+   "enSourceHash": "baed831623943be3"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/en:bd3b6609ca9e1692",
+   "text": "오늘 쇼핑에 가고 싶다",
+   "enSourceHash": "bd3b6609ca9e1692"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/en:c018019b6a8b01ab",
+   "text": "가방",
+   "enSourceHash": "c018019b6a8b01ab"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/en:e8b455340e57a236",
+   "text": "\"배\"에 해당하는 단어를 고르세요",
+   "enSourceHash": "e8b455340e57a236"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/ja:あたらしい とけいが ほしい",
+   "text": "들리는 대로 만들어 보세요.",
+   "enSourceHash": "b28d903ef295627a"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/ja:きのう ミカと えきに いきたかった",
+   "text": "만들기: 어제 미카와 역에 가고 싶었다",
+   "enSourceHash": "b5bb827576f12eb1"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/ja:きのうは おおきい かさが かいたかった",
+   "text": "만들기: 어제는 큰 우산을 사고 싶었다",
+   "enSourceHash": "53697a63ac491c71"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/ja:きのうは すしが たべたくなかった",
+   "text": "만들기: 어제는 초밥을 먹고 싶지 않았다",
+   "enSourceHash": "62d29ee205a26a0d"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/ja:きょうは あたらしい ふくが ほしい",
+   "text": "만들기: 오늘은 새 옷이 갖고 싶다",
+   "enSourceHash": "cf0101eb748078f6"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/ja:きょうは しずかな みせに いきたい",
+   "text": "만들기: 오늘은 조용한 가게에 가고 싶다",
+   "enSourceHash": "fd683c36e213d802"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/ja:きょうは ちゃを のみたい",
+   "text": "만들기: 오늘은 차를 마시고 싶다",
+   "enSourceHash": "850c3f61d58e039f"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/ja:ふるい しゃしんは みたくない",
+   "text": "만들기: 오래된 사진은 보고 싶지 않다",
+   "enSourceHash": "80a68b09c52e19ea"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-2/ja:ミカの あたらしい じてんしゃが ほしい",
+   "text": "만들기: 미카의 새 자전거가 갖고 싶다",
+   "enSourceHash": "23d3e2e497c97dab"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/en:00eba0286396010a",
+   "text": "큰 가게는 싫다",
+   "enSourceHash": "00eba0286396010a"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/en:111bc78b5388e991",
+   "text": "오래된 사진을 보았다",
+   "enSourceHash": "111bc78b5388e991"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/en:16ff723dfa84c71e",
+   "text": "활기찬 가게는 좋다",
+   "enSourceHash": "16ff723dfa84c71e"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/en:266550babbb7bd39",
+   "text": "안경",
+   "enSourceHash": "266550babbb7bd39"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/en:485f4a80f301735e",
+   "text": "아침 샤워는 좋다",
+   "enSourceHash": "485f4a80f301735e"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/en:4a69f19c8c264850",
+   "text": "바다",
+   "enSourceHash": "4a69f19c8c264850"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/en:4bdf40d0d1ae3611",
+   "text": "밥/식사",
+   "enSourceHash": "4bdf40d0d1ae3611"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/en:4cfdcc9e15a1049b",
+   "text": "어제 시계를 닦았다",
+   "enSourceHash": "4cfdcc9e15a1049b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/en:54164740780a21dd",
+   "text": "아침 샤워는 싫다",
+   "enSourceHash": "54164740780a21dd"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/en:571e44ed12d32d9b",
+   "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+   "enSourceHash": "571e44ed12d32d9b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/en:77af778b51abd4a3",
+   "text": "고양이",
+   "enSourceHash": "77af778b51abd4a3"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/en:8d77998c2d325fa3",
+   "text": "복습 — 원하기, 좋아하기, 하기",
+   "enSourceHash": "8d77998c2d325fa3"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/en:8e107b6f37a2a454",
+   "text": "아침 차는 좋다",
+   "enSourceHash": "8e107b6f37a2a454"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/en:a3a173b0d585cb76",
+   "text": "새로운 사진은 보고 싶지 않다",
+   "enSourceHash": "a3a173b0d585cb76"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/en:a4904f021c13a3d1",
+   "text": "내일 시계를 살 것이다",
+   "enSourceHash": "a4904f021c13a3d1"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/en:a9f74d1ec36ebdeb",
+   "text": "차",
+   "enSourceHash": "a9f74d1ec36ebdeb"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/en:b5811a199b9443b2",
+   "text": "오래된 사진을 보고 싶다",
+   "enSourceHash": "b5811a199b9443b2"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/en:c798e5b18ed876ef",
+   "text": "카페",
+   "enSourceHash": "c798e5b18ed876ef"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/en:cd64941fb2a764f4",
+   "text": "새 샤워기가 갖고 싶다",
+   "enSourceHash": "cd64941fb2a764f4"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/en:ce9169832d72a811",
+   "text": "내일 차를 닦을 것이다",
+   "enSourceHash": "ce9169832d72a811"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/en:cf112efdc40177a5",
+   "text": "활기찬 가게는 싫다",
+   "enSourceHash": "cf112efdc40177a5"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/en:d15ba427f7664b7b",
+   "text": "조용한 가게는 싫다",
+   "enSourceHash": "d15ba427f7664b7b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/en:d5f48b0ccc01fd15",
+   "text": "오래된 사진을 보고 싶지 않다",
+   "enSourceHash": "d5f48b0ccc01fd15"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/en:f909f713b756fb5d",
+   "text": "내일 시계를 닦을 것이다",
+   "enSourceHash": "f909f713b756fb5d"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/ja:あしたは ろくじに おきる",
+   "text": "만들기: 내일 6 시에 일어난다",
+   "enSourceHash": "04f16f063e58f03a"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/ja:あたらしい めがねが ほしい",
+   "text": "만들기: 새 안경이 갖고 싶다",
+   "enSourceHash": "93d458c5e7619e6d"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/ja:きのう ミカと うみに いきたかった",
+   "text": "만들기: 어제 미카와 바다에 가고 싶었다",
+   "enSourceHash": "994be4c4f43088ef"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/ja:きのうは ちゃが のみたくなかった",
+   "text": "만들기: 어제는 차를 마시고 싶지 않았다",
+   "enSourceHash": "787466fa73fbe0dc"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/ja:きょうは おいしい りょうりが たべたい",
+   "text": "만들기: 오늘 맛있는 요리를 먹고 싶다",
+   "enSourceHash": "1aaa06dec142942b"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/ja:きょうは しずかな きっさてんに いきたい",
+   "text": "만들기: 오늘 조용한 커피숍에 가고 싶다",
+   "enSourceHash": "8db4a3012387f0ce"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/ja:けさ せっけんで かおを あらった",
+   "text": "들리는 대로 만들어 보세요.",
+   "enSourceHash": "b28d903ef295627a"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/ja:げつようびの じゅぎょうは はやい",
+   "text": "만들기: 월요일 수업은 빠르다",
+   "enSourceHash": "9b0214f6fd6e6f02"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/ja:ごはんを たべるのが すきだ",
+   "text": "들리는 대로 만들어 보세요.",
+   "enSourceHash": "b28d903ef295627a"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/ja:なつやすみに にほんに いきたい",
+   "text": "만들기: 여름방학에 일본에 가고 싶다",
+   "enSourceHash": "4f0a8e01ecc527c6"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/ja:にちようびに くるまも あらう",
+   "text": "만들기: 일요일에도 차를 씻는다",
+   "enSourceHash": "2a9ce3e4298f5c4f"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/ja:ゆうべ ふるい しゃしんを みた",
+   "text": "들리는 대로 만들어 보세요.",
+   "enSourceHash": "b28d903ef295627a"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/ja:わたしは きゅうりが きらいだ",
+   "text": "만들기: 나는 오이가 싫다",
+   "enSourceHash": "fda19692d7b0b825"
+  },
+  {
+   "anchor": "m13/ja-m13-neo-review-3/ja:ケンは しずかな いえが すきだ",
+   "text": "만들기: 케인은 조용한 집이 좋다",
+   "enSourceHash": "a845f9c67a0b5ca7"
+  },
+  {
+   "anchor": "m13/story:ja-m13-likes-and-wants/en:1b747a17f92be088",
+   "text": "좋아함과 욕구",
+   "enSourceHash": "1b747a17f92be088"
+  },
+  {
+   "anchor": "m13/story:ja-m13-likes-and-wants/en:d9c0e43c95a2fce7",
+   "text": "몇 가지 솔직한 선호.",
+   "enSourceHash": "d9c0e43c95a2fce7"
+  },
+  {
+   "anchor": "m13/story:ja-m13-likes-and-wants/ja:あたらしい ふくが ほしい。",
+   "text": "새 옷이 갖고 싶다.",
+   "enSourceHash": "50f6ff68199ead1e"
+  },
+  {
+   "anchor": "m13/story:ja-m13-likes-and-wants/ja:おちゃは あまり すきじゃない。",
+   "text": "차는 별로 좋아하지 않는다.",
+   "enSourceHash": "b4e8f29a8065e650"
+  },
+  {
+   "anchor": "m13/story:ja-m13-likes-and-wants/ja:きっさてんで コーヒーを のむ。",
+   "text": "커피숍에서 커피를 마신다.",
+   "enSourceHash": "edae328b717b2fca"
+  },
+  {
+   "anchor": "m13/story:ja-m13-likes-and-wants/ja:なつやすみが ほんとうに すきだ。",
+   "text": "여름방학이 정말 좋다.",
+   "enSourceHash": "0a490e11af004734"
+  },
+  {
+   "anchor": "m13/story:ja-m13-likes-and-wants/ja:なつやすみは そとで あそぶ。",
+   "text": "여름방학에는 밖에서 논다.",
+   "enSourceHash": "e7e174731320dae4"
+  },
+  {
+   "anchor": "m13/story:ja-m13-likes-and-wants/ja:ぼくは コーヒーが すきだ。",
+   "text": "나는 커피가 좋다.",
+   "enSourceHash": "5944ba2107aed19d"
+  },
+  {
+   "anchor": "m13/story:ja-m13-likes-and-wants/ja:まいにち きっさてんに いく。",
+   "text": "매일 커피숍에 간다.",
+   "enSourceHash": "cf94e408a58c3ae8"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/en:ad6dc701b5f4dc32",
+   "text": "분주한 아침, 그리고 아무도 없는 사무실.",
+   "enSourceHash": "ad6dc701b5f4dc32"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/en:c7490ddb91870866",
+   "text": "휴일",
+   "enSourceHash": "c7490ddb91870866"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/gloss:いそがしい",
+   "text": "바쁘다",
+   "enSourceHash": "c9bc072f4fa81894"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/gloss:けど",
+   "text": "하지만, 그렇지만",
+   "enSourceHash": "6a16848ebec13abc"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/gloss:はしる",
+   "text": "달리다",
+   "enSourceHash": "a3d78ca02f8b3a78"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/ja:「いいえ、きょうは にちようびです。」",
+   "text": "\"아니요, 오늘은 일요일이에요.\"",
+   "enSourceHash": "4fc778f62036be09"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/ja:「にちようびですか。きょうは げつようびです。」",
+   "text": "\"일요일이에요? 오늘은 월요일이에요.\"",
+   "enSourceHash": "fc95d027f6640515"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/ja:「ユミ、きょうは しごとです。」",
+   "text": "\"유미, 오늘은 일이에요.\"",
+   "enSourceHash": "75a542e9cb9b2aa1"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/ja:あさ、パンを たべない。",
+   "text": "아침, 빵을 먹지 않는다.",
+   "enSourceHash": "67258fa926b68ba4"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/ja:いまは ごぜん くじだ。",
+   "text": "지금은 오전 9 시다.",
+   "enSourceHash": "5de28e4e8b6bbb21"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/ja:かいしゃに ひとが いない。",
+   "text": "회사에 사람이 없다.",
+   "enSourceHash": "6e15f5c05cd59278"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/ja:きょうは げつようびだ。",
+   "text": "오늘은 월요일이다.",
+   "enSourceHash": "1c729b249b61a429"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/ja:きょうは しごとが ない。ほんとうに いい やすみだ。",
+   "text": "오늘은 일이 없다. 정말 좋은 휴일이다.",
+   "enSourceHash": "3a7332f16f70f0f6"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/ja:けさ、ぼくは しちじに おきる。",
+   "text": "오늘 아침, 나는 7 시에 일어난다.",
+   "enSourceHash": "a76a16fc9410b756"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/ja:けど、そとに ともだちの ユミが いる。",
+   "text": "하지만 밖에 친구 유미가 있다.",
+   "enSourceHash": "1ff375607f1043a6"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/ja:こんしゅうは とても いそがしい。",
+   "text": "이번 주는 매우 바쁘다.",
+   "enSourceHash": "9734d6fe82502246"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/ja:しごとは はちじだ。",
+   "text": "일은 8 시다.",
+   "enSourceHash": "1356fe439247769c"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/ja:それから、でんしゃで かいしゃに いく。",
+   "text": "그리고 전철로 회사에 간다.",
+   "enSourceHash": "74721e06e58c35a7"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/ja:それから、また テレビを みた。",
+   "text": "그리고 다시 텔레비전을 봤다.",
+   "enSourceHash": "e9358cdf39b87ea3"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/ja:つぎの でんしゃは はちじはんだ。",
+   "text": "다음 전철은 8 시 반이다.",
+   "enSourceHash": "331ad26dbe3a3d41"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/ja:でんしゃが ない。",
+   "text": "전철이 없다.",
+   "enSourceHash": "1ea47bc1fbe3a0b0"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/ja:ぼくは えきに はしる。",
+   "text": "나는 역으로 달린다.",
+   "enSourceHash": "2c53994aa9cb0f71"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/ja:ぼくは かおを あらう。",
+   "text": "나는 얼굴을 씻는다.",
+   "enSourceHash": "5b5b1e7549f145d4"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/ja:ぼくは きっさてんで コーヒーを のむ。",
+   "text": "나는 커피점에서 커피를 마신다.",
+   "enSourceHash": "1bce8f0b91d87429"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/ja:ぼくは わかった。",
+   "text": "나는 알았다.",
+   "enSourceHash": "65b83cba6ba4a00c"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/ja:ぼくは コンビニの パンを たべる。",
+   "text": "나는 편의점의 빵을 먹는다.",
+   "enSourceHash": "7a2fc329d1fa15aa"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/ja:ゆうべ、ぼくは テレビを みた。",
+   "text": "어제 밤, 나는 텔레비전을 봤다.",
+   "enSourceHash": "77f4f7f17a72c40f"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/ja:シャワーも おふろも ない。",
+   "text": "샤워도 목욕도 없다.",
+   "enSourceHash": "b19960bf027ca226"
+  },
+  {
+   "anchor": "m13/story:ja-m13-the-day-off/ja:パンは ふるいけど、おいしい。",
+   "text": "빵은 낡았지만 맛있다.",
+   "enSourceHash": "8bea05da6bd7c3e8"
+  }
+ ]
+}

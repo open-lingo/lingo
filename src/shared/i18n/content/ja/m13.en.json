@@ -1,0 +1,2979 @@
+{
+  "schema": 1,
+  "moduleId": "m13",
+  "lang": "ja",
+  "generatedAt": "2026-09-10",
+  "entryCount": 495,
+  "entries": [
+    {
+      "anchor": "m13/atom:あかい/gloss",
+      "en": "red",
+      "enSourceHash": "b1f51a511f1da0cd",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m13/atom:あらう/gloss",
+      "en": "to wash",
+      "enSourceHash": "357e5364ac7cb7af",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m13/atom:うたう/gloss",
+      "en": "to sing",
+      "enSourceHash": "7b5697854fec8064",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m13/atom:おきる/gloss",
+      "en": "to get up",
+      "enSourceHash": "a2085a76d11d5762",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m13/atom:きっさてん/gloss",
+      "en": "coffee lounge",
+      "enSourceHash": "35a565c0e987955f",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m13/atom:きらい/gloss",
+      "en": "hate",
+      "enSourceHash": "f2e9a23ac36c4b22",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m13/atom:けさ/gloss",
+      "en": "this morning",
+      "enSourceHash": "2af6349ecaa5d9bd",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m13/atom:し/gloss",
+      "en": "four",
+      "enSourceHash": "04efaf080f5a3e74",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m13/atom:すき/gloss",
+      "en": "likeable",
+      "enSourceHash": "d5c54cb9715df507",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m13/atom:せっけん/gloss",
+      "en": "soap",
+      "enSourceHash": "736bc2d4e0945110",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m13/atom:だいがく/gloss",
+      "en": "university",
+      "enSourceHash": "adba6c0ec8a8d89e",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m13/atom:とりにく/gloss",
+      "en": "chicken meat",
+      "enSourceHash": "02cd4b7a58d2c2fa",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m13/atom:なつやすみ/gloss",
+      "en": "summer vacation",
+      "enSourceHash": "1ffd27eae56623a3",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m13/atom:はやい/gloss",
+      "en": "early",
+      "enSourceHash": "f408830bcc7fab37",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m13/atom:ふく/gloss",
+      "en": "clothes",
+      "enSourceHash": "5c5f9b87778cfb10",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m13/atom:ほしい/gloss",
+      "en": "want",
+      "enSourceHash": "8656aa55d393b032",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m13/atom:みがく/gloss",
+      "en": "to brush teeth, to polish",
+      "enSourceHash": "60856ae40a93ddc4",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m13/atom:ゆうべ/gloss",
+      "en": "last night",
+      "enSourceHash": "8b64be9d5997d5a8",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m13/atom:シャワー/gloss",
+      "en": "shower",
+      "enSourceHash": "528159b45697166b",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m13/gp:asa-routine/ex:あさ かおを あらう。",
+      "en": "I wash my face in the morning.",
+      "enSourceHash": "22f2ad5b71cd1642",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:asa-routine/ex:あさの じゅぎょうは はやい。",
+      "en": "Morning classes are early.",
+      "enSourceHash": "d6bc230664e1ae83",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:asa-routine/ex:あした ろくじに おきたい。",
+      "en": "I want to get up at six tomorrow.",
+      "enSourceHash": "5d6ee0fcb261062c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:asa-routine/ex:けさ ろくじに おきた。",
+      "en": "I got up at six this morning.",
+      "enSourceHash": "31762f71a11abecc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:asa-routine/ex:けさに ろくじに おきた。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:asa-routine/ex:にちようびは じゅうじに おきる。",
+      "en": "On Sundays I get up at ten.",
+      "enSourceHash": "e5a4efefcbafcb9a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:asa-routine/ex:ゆうべ ふるい うたを きいた。",
+      "en": "I listened to an old song last night.",
+      "enSourceHash": "eec0f69482ece6a3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:ga-hoshii/ex:あたらしい じてんしゃが ほしい。",
+      "en": "I want a new bicycle.",
+      "enSourceHash": "dd1e43f9b2693fb6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:ga-hoshii/ex:なにが ほしい？",
+      "en": "What do you want?",
+      "enSourceHash": "3e17dbf90bd4ae6b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:ga-hoshii/ex:みずが のみたい。",
+      "en": "I want to drink water.",
+      "enSourceHash": "ecc026dd760ca20a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:ga-hoshii/ex:みずが ほしい。",
+      "en": "I want water.",
+      "enSourceHash": "efcdfb7f6d7b266f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:ga-hoshii/ex:わたしは あたらしい めがねが ほしい。",
+      "en": "I want new glasses.",
+      "enSourceHash": "c36691e2f0b146f6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:ga-hoshii/ex:わたしは あたらしい めがねを ほしい。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:ga-hoshii/ex:ミカの ふるい じしょが ほしい。",
+      "en": "I want Mika's old dictionary.",
+      "enSourceHash": "2901c05590e285ce",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:i-adj-negative/ex:あさは ちゃが のみたくない。",
+      "en": "I don't want to drink tea in the morning.",
+      "enSourceHash": "22dd3cfe49e2106d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:i-adj-negative/ex:きょうは ごはんが たべたいくない。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:i-adj-negative/ex:きょうは ごはんが たべたくない。",
+      "en": "I don't want to eat today.",
+      "enSourceHash": "7b4056931ad83351",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:i-adj-negative/ex:きょうは みせに いきたくない。",
+      "en": "I don't want to go to the shop today.",
+      "enSourceHash": "2a719a95181b42cb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:i-adj-negative/ex:たかい かばんは かいたくない。",
+      "en": "I don't want to buy an expensive bag.",
+      "enSourceHash": "c33b3ac219c40256",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:i-adj-negative/ex:ふるい しゃしんは みたくない。",
+      "en": "I don't want to look at old photos.",
+      "enSourceHash": "1052a6863c682834",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:i-adj-past-negative/ex:きのうの あさは ちゃが のみたくなかった。",
+      "en": "I didn't want to drink tea yesterday morning.",
+      "enSourceHash": "565c987394de22df",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:i-adj-past-negative/ex:きのうは ごはんが たべたくないでした。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:i-adj-past-negative/ex:きのうは ごはんが たべたくなかった。",
+      "en": "I didn't want to eat yesterday.",
+      "enSourceHash": "ea3044834eb0787f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:i-adj-past-negative/ex:きのうは みせに いきたくなかった。",
+      "en": "I didn't want to go to the shop yesterday.",
+      "enSourceHash": "c49801c3b8e967bc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:i-adj-past-negative/ex:たかい かばんは かいたくなかった。",
+      "en": "I didn't want to buy an expensive bag.",
+      "enSourceHash": "4d6d58ff82eddd81",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:i-adj-past/ex:あたらしい ぼうしが かいたかった。",
+      "en": "I wanted to buy a new hat.",
+      "enSourceHash": "7bd6b973609c9eba",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:i-adj-past/ex:きのう ともだちと うみに いきたかった。",
+      "en": "I wanted to go to the sea with a friend yesterday.",
+      "enSourceHash": "10baeadb0f21426e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:i-adj-past/ex:きのうは おいしい すしが たべたいだった。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:i-adj-past/ex:きのうは おいしい すしが たべたかった。",
+      "en": "I wanted to eat good sushi yesterday.",
+      "enSourceHash": "cbf16c34090a5f59",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:i-adj-past/ex:きのうは かいものが したかった。",
+      "en": "I wanted to go shopping yesterday.",
+      "enSourceHash": "3f426c639f3377cf",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:i-adj-past/ex:きのうは ちゃが のみたかった。",
+      "en": "I wanted to drink tea yesterday.",
+      "enSourceHash": "d4a3c75dfa96ab60",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:no-ga-suki/ex:ともだちと あそぶのが すきだ。",
+      "en": "I like hanging out with friends.",
+      "enSourceHash": "d6923542399ad763",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:no-ga-suki/ex:ふるい しゃしんを みるのが すきだ。",
+      "en": "I like looking at old photos.",
+      "enSourceHash": "1100d0515b6664c5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:no-ga-suki/ex:わたしは ごはんを たべるが すきだ。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:no-ga-suki/ex:わたしは ごはんを たべるのが すきだ。",
+      "en": "I like eating.",
+      "enSourceHash": "5ad8dd1820508949",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:no-ga-suki/ex:わたしは みせに いくのが きらいだ。",
+      "en": "I don't like going to the shop.",
+      "enSourceHash": "ae6ae9ebfa83d6eb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:no-ga-suki/ex:ミカは ちゃを のむのが すきだ。",
+      "en": "Mika likes drinking tea.",
+      "enSourceHash": "628bf34e1f889585",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:suki-kirai-no/ex:ちゃは すきじゃない。",
+      "en": "I don't like tea.",
+      "enSourceHash": "be6a70333a2ec936",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:suki-kirai-no/ex:わたしの すきな みせは ちいさい。",
+      "en": "The shop I like is small.",
+      "enSourceHash": "bc8e39eb91ae229c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:suki-kirai-no/ex:わたしは きゅうりが きらいだ。",
+      "en": "I don't like cucumber.",
+      "enSourceHash": "08f9c747fd6f5d76",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:suki-kirai-no/ex:わたしは ちいさい ねこが すきだ。",
+      "en": "I like small cats.",
+      "enSourceHash": "66b77a195dcec1d4",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:suki-kirai-no/ex:わたしは ちいさい ねこを すきだ。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:suki-kirai-no/ex:ミカは あたらしい うたが すきだ。",
+      "en": "Mika likes new songs.",
+      "enSourceHash": "b389867c56a399a4",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:v-tai/ex:あたらしい かさが かいたい。",
+      "en": "I want to buy a new umbrella.",
+      "enSourceHash": "3954cf14392fd99d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:v-tai/ex:きょうは おいしい すしが たべたい。",
+      "en": "I want to eat good sushi today.",
+      "enSourceHash": "f583f3df31fcea4b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:v-tai/ex:きょうは ともだちと あそびたい。",
+      "en": "I want to hang out with a friend today.",
+      "enSourceHash": "3d2fbfece3776b9b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:v-tai/ex:きょうは なにが したい？",
+      "en": "What do you want to do today?",
+      "enSourceHash": "fc115aa077ec7aa7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:v-tai/ex:わたしは あさ みずが のみたい。",
+      "en": "I want to drink water in the morning.",
+      "enSourceHash": "b04a163f212163d6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:v-tai/ex:トムと にほんに いきたい。",
+      "en": "I want to go to Japan with Tom.",
+      "enSourceHash": "55add6c4309c4872",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:v-tai/ex:トムは にほんに いきたい。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:v-tai/ex:ミカの あたらしい しゃしんが みたい。",
+      "en": "I want to see Mika's new photo.",
+      "enSourceHash": "962b75de77c973ea",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:wo-object/ex:あたらしい じてんしゃが かいたい。",
+      "en": "I want to buy a new bicycle — the bicycle in the spotlight.",
+      "enSourceHash": "f31463e5773e77b2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:wo-object/ex:あたらしい じてんしゃを かいたい。",
+      "en": "I want to buy a new bicycle.",
+      "enSourceHash": "c2817b3805af4674",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:wo-object/ex:きょうは おいしい すしが たべたい。",
+      "en": "I want to eat good sushi today — the sushi in the spotlight.",
+      "enSourceHash": "4d2156524db11bfd",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:wo-object/ex:きょうは おいしい すしに たべたい。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:wo-object/ex:きょうは おいしい すしを たべたい。",
+      "en": "I want to eat good sushi today.",
+      "enSourceHash": "f583f3df31fcea4b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/gp:wo-object/ex:ミカの あたらしい しゃしんを みたい。",
+      "en": "I want to see Mika's new photo.",
+      "enSourceHash": "962b75de77c973ea",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-1/en:0f4168490e38b844",
+      "en": "water",
+      "enSourceHash": "0f4168490e38b844",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-1/en:10479eaf5419506e",
+      "en": "I want to go to the sea with my family",
+      "enSourceHash": "10479eaf5419506e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-1/en:144008648645ea88",
+      "en": "I bought a new hat",
+      "enSourceHash": "144008648645ea88",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-1/en:168e82fc3103ca2b",
+      "en": "I want to go to the big sea with a friend",
+      "enSourceHash": "168e82fc3103ca2b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-1/en:2974744982f08b20",
+      "en": "umbrella",
+      "enSourceHash": "2974744982f08b20",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-1/en:2a8fe39ae31d897e",
+      "en": "I went to the big sea with a friend",
+      "enSourceHash": "2a8fe39ae31d897e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-1/en:31d1c1e79bf76cac",
+      "en": "I want to buy a new bag",
+      "enSourceHash": "31d1c1e79bf76cac",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-1/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-1/en:647294383b2cbc24",
+      "en": "Japan",
+      "enSourceHash": "647294383b2cbc24",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-1/en:670bd9ced0c6bc3f",
+      "en": "Sushi",
+      "enSourceHash": "670bd9ced0c6bc3f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-1/en:7482d5802c3c2798",
+      "en": "photograph",
+      "enSourceHash": "7482d5802c3c2798",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-1/en:82066c2103fe5474",
+      "en": "I want to buy a big hat",
+      "enSourceHash": "82066c2103fe5474",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-1/en:cd48ed143374bb50",
+      "en": "I want to go to the big mountain with a friend",
+      "enSourceHash": "cd48ed143374bb50",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-1/en:cde48537ca2c2808",
+      "en": "friend",
+      "enSourceHash": "cde48537ca2c2808",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-1/en:e17fd512011d5842",
+      "en": "I want to buy a new hat",
+      "enSourceHash": "e17fd512011d5842",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-1/ja:あたらしい かさが かいたい",
+      "en": "Build: I want to buy a new umbrella",
+      "enSourceHash": "f2a6a7823c6c1513",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-1/ja:きょうは おいしい すしが たべたい",
+      "en": "Build: I want to eat good sushi today",
+      "enSourceHash": "579f2c38468ea918",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-1/ja:きょうは ともだちと あそびたい",
+      "en": "Build: I want to hang out with a friend today",
+      "enSourceHash": "5e1a32f0497b1e1a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-1/ja:きょうは にぎやかな みせに いきたい",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-1/ja:きょうは ミカの あたらしい みせで おいしい すしが たべたい",
+      "en": "Build: I want to eat good sushi at Mika's new shop today",
+      "enSourceHash": "7e29189bdad04bd1",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-1/ja:ともだちと にほんに いきたい",
+      "en": "Build: I want to go to Japan with a friend",
+      "enSourceHash": "3f810015628bc01a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-1/ja:わたしは あさ みずが のみたい",
+      "en": "Build: I want to drink water in the morning",
+      "enSourceHash": "f6217f97fb223d84",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-1/ja:ミカの あたらしい しゃしんが みたい",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-1/ja:ミカの ふるい じしょが みたい",
+      "en": "Build: I want to look at Mika's old dictionary",
+      "enSourceHash": "a5191c1d7cf36ab3",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/en:0282d9b79f42c74c",
+      "en": "face",
+      "enSourceHash": "0282d9b79f42c74c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/en:0889113e04d3203f",
+      "en": "class",
+      "enSourceHash": "0889113e04d3203f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/en:0b7641998a0a44c0",
+      "en": "On Sunday I wash the car too",
+      "enSourceHash": "0b7641998a0a44c0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/en:144008648645ea88",
+      "en": "I bought a new hat",
+      "enSourceHash": "144008648645ea88",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/en:1d554d3ed6348253",
+      "en": "On Sunday I polish the car too",
+      "enSourceHash": "1d554d3ed6348253",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/en:2b2961a431b23c90",
+      "en": "car",
+      "enSourceHash": "2b2961a431b23c90",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/en:4bdf40d0d1ae3611",
+      "en": "rice/meal",
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/en:57136d4060bcd009",
+      "en": "On Sunday I washed the car too",
+      "enSourceHash": "57136d4060bcd009",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/en:63f75c890b05405e",
+      "en": "song",
+      "enSourceHash": "63f75c890b05405e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/en:78000bd1daec512e",
+      "en": "I don't want a new shower",
+      "enSourceHash": "78000bd1daec512e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/en:7b3f5637ebaa0f54",
+      "en": "On Saturday I wash the car too",
+      "enSourceHash": "7b3f5637ebaa0f54",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/en:90d25e01ef7f2c7b",
+      "en": "Monday's class is early",
+      "enSourceHash": "90d25e01ef7f2c7b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/en:9aa4e834ae0b3e2d",
+      "en": "I bought a new shower",
+      "enSourceHash": "9aa4e834ae0b3e2d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/en:a8b6cc392701e647",
+      "en": "I bought new soap",
+      "enSourceHash": "a8b6cc392701e647",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/en:adea88e252a5518c",
+      "en": "I want a new watch",
+      "enSourceHash": "adea88e252a5518c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/en:bd7c6d29fd93733c",
+      "en": "I want to buy new soap",
+      "enSourceHash": "bd7c6d29fd93733c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/en:cd64941fb2a764f4",
+      "en": "I want a new shower",
+      "enSourceHash": "cd64941fb2a764f4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/en:d0d1ffa8280e68eb",
+      "en": "I bought old soap",
+      "enSourceHash": "d0d1ffa8280e68eb",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/en:d8bff708e63f251f",
+      "en": "Tuesday's class is early",
+      "enSourceHash": "d8bff708e63f251f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/en:f6369f93f3f16b25",
+      "en": "Monday's class was early",
+      "enSourceHash": "f6369f93f3f16b25",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/en:f70f2c248ceabfde",
+      "en": "Monday's class is quiet",
+      "enSourceHash": "f70f2c248ceabfde",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/ja:あさ せっけんで かおを あらう",
+      "en": "Build: I wash my face with soap in the morning",
+      "enSourceHash": "016a544f124d2c7d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/ja:あさの シャワーが すきだ",
+      "en": "Build: I like my morning shower",
+      "enSourceHash": "c8094e578d88386c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/ja:あしたの じゅぎょうは はやい",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/ja:けさ しちじに おきた",
+      "en": "Build: I got up at seven this morning",
+      "enSourceHash": "0e6cc00c84126ce5",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/ja:けさ ミカの あたらしい せっけんで かおを あらった",
+      "en": "Build: I washed my face with Mika's new soap this morning",
+      "enSourceHash": "8801b485f0c60b70",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/ja:けさは ちゃが のみたくなかった",
+      "en": "Build: I didn't want to drink tea this morning",
+      "enSourceHash": "6d9aabf6d21d9c20",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/ja:どようびに くるまを みがく",
+      "en": "Build: I polish the car on Saturday",
+      "enSourceHash": "609ffb3e6f964cc9",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/ja:にちようびに くるまが みがきたい",
+      "en": "Build: I want to polish the car on Sunday",
+      "enSourceHash": "b9a8182544924a47",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-10/ja:ゆうべ ともだちと ごはんを たべた",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-2/en:15db6900c965acd7",
+      "en": "I don't want to drink tea in the morning",
+      "enSourceHash": "15db6900c965acd7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-2/en:2b2961a431b23c90",
+      "en": "car",
+      "enSourceHash": "2b2961a431b23c90",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-2/en:401b86bc798fefc8",
+      "en": "I didn't buy a new car",
+      "enSourceHash": "401b86bc798fefc8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-2/en:4bdf40d0d1ae3611",
+      "en": "rice/meal",
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-2/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-2/en:7482d5802c3c2798",
+      "en": "photograph",
+      "enSourceHash": "7482d5802c3c2798",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-2/en:768d1ad4d81355b8",
+      "en": "I don't want to eat today",
+      "enSourceHash": "768d1ad4d81355b8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-2/en:8281f347943ecce9",
+      "en": "I don't want to go to university today",
+      "enSourceHash": "8281f347943ecce9",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-2/en:8648922533740ecb",
+      "en": "I don't want to buy an old car",
+      "enSourceHash": "8648922533740ecb",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-2/en:870a059d67670a8c",
+      "en": "I don't want to buy a new car",
+      "enSourceHash": "870a059d67670a8c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-2/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-2/en:9124653d65f3a45a",
+      "en": "I want to buy a new car",
+      "enSourceHash": "9124653d65f3a45a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-2/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-2/en:c018019b6a8b01ab",
+      "en": "bag",
+      "enSourceHash": "c018019b6a8b01ab",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-2/en:d5f48b0ccc01fd15",
+      "en": "I don't want to look at old photos",
+      "enSourceHash": "d5f48b0ccc01fd15",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-2/ja:あさは ちゃが のみたくない",
+      "en": "Build: I don't want to drink tea in the morning",
+      "enSourceHash": "43f8f85f274c99c4",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-2/ja:きょうは ごはんが たべたくない",
+      "en": "Build: I don't want to eat today",
+      "enSourceHash": "a1642f387f24e73e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-2/ja:きょうは だいがくに いきたくない",
+      "en": "Build: I don't want to go to university today",
+      "enSourceHash": "e716d0c664387945",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-2/ja:きょうは にぎやかな みせに いきたくない",
+      "en": "Build: I don't want to go to a lively shop today",
+      "enSourceHash": "472bc6038f93a1e1",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-2/ja:きょうは ミカの あたらしい みせに いきたくない",
+      "en": "Build: I don't want to go to Mika's new shop today",
+      "enSourceHash": "1b0c3a4963c8fdbd",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-2/ja:たかい かばんは かいたくない",
+      "en": "Build: I don't want to buy an expensive bag",
+      "enSourceHash": "23aa603bb757db0a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-2/ja:ふるい しゃしんは みたくない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-3/en:1007c73c18a39dad",
+      "en": "I went to university yesterday",
+      "enSourceHash": "1007c73c18a39dad",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-3/en:1018eb6c11339a39",
+      "en": "I wanted to go to university yesterday",
+      "enSourceHash": "1018eb6c11339a39",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-3/en:1180412af43d7860",
+      "en": "shopping",
+      "enSourceHash": "1180412af43d7860",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-3/en:18e1dd392168f601",
+      "en": "hat",
+      "enSourceHash": "18e1dd392168f601",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-3/en:3fd9e82138ced08c",
+      "en": "I wanted to drink tea yesterday",
+      "enSourceHash": "3fd9e82138ced08c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-3/en:4a69f19c8c264850",
+      "en": "sea",
+      "enSourceHash": "4a69f19c8c264850",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-3/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-3/en:64a0dbac98f48e18",
+      "en": "I wanted to eat good sushi yesterday",
+      "enSourceHash": "64a0dbac98f48e18",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-3/en:670bd9ced0c6bc3f",
+      "en": "Sushi",
+      "enSourceHash": "670bd9ced0c6bc3f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-3/en:68ef12ab3d12face",
+      "en": "I wanted to go to the sea with a friend yesterday",
+      "enSourceHash": "68ef12ab3d12face",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-3/en:777a38698ce57816",
+      "en": "I wanted to buy a new hat",
+      "enSourceHash": "777a38698ce57816",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-3/en:8281f347943ecce9",
+      "en": "I don't want to go to university today",
+      "enSourceHash": "8281f347943ecce9",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-3/en:99edf8a67e2481fe",
+      "en": "I wanted to go to the shop yesterday",
+      "enSourceHash": "99edf8a67e2481fe",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-3/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-3/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-3/en:e8b455340e57a236",
+      "en": "Pick the word for \"boat\"",
+      "enSourceHash": "e8b455340e57a236",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-3/ja:あたらしい ぼうしが かいたかった",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-3/ja:きのう ともだちと うみに いきたかった",
+      "en": "Build: I wanted to go to the sea with a friend yesterday",
+      "enSourceHash": "6fc8d3839b35a6b5",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-3/ja:きのう ミカと にぎやかな えきで かいものが したかった",
+      "en": "Build: I wanted to go shopping with Mika at the lively station yesterday",
+      "enSourceHash": "3e44931f5ac0dec9",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-3/ja:きのう ミカの あたらしい いえに いきたかった",
+      "en": "Build: I wanted to go to Mika's new house yesterday",
+      "enSourceHash": "cc8ffa9ecd7b9877",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-3/ja:きのうは おいしい すしが たべたかった",
+      "en": "Build: I wanted to eat good sushi yesterday",
+      "enSourceHash": "691812f60e6828bf",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-3/ja:きのうは かいものが したかった",
+      "en": "Build: I wanted to go shopping yesterday",
+      "enSourceHash": "18dd01848fedbfc9",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-3/ja:きのうは ちゃが のみたかった",
+      "en": "Build: I wanted to drink tea yesterday",
+      "enSourceHash": "f10265d1e9182111",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-4/en:1d33cbf9c8f233de",
+      "en": "I wanted to go to the station yesterday",
+      "enSourceHash": "1d33cbf9c8f233de",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-4/en:26c27838861f031c",
+      "en": "I didn't want to buy an expensive bag",
+      "enSourceHash": "26c27838861f031c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-4/en:2b2961a431b23c90",
+      "en": "car",
+      "enSourceHash": "2b2961a431b23c90",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-4/en:2b79eaa084ccc5ff",
+      "en": "I went to the station yesterday",
+      "enSourceHash": "2b79eaa084ccc5ff",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-4/en:4bdf40d0d1ae3611",
+      "en": "rice/meal",
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-4/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-4/en:574e35910d6f6346",
+      "en": "I didn't want to go to university yesterday",
+      "enSourceHash": "574e35910d6f6346",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-4/en:6096f4b6bcb347ec",
+      "en": "I didn't want to drink tea yesterday morning",
+      "enSourceHash": "6096f4b6bcb347ec",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-4/en:75848fba6e441bcc",
+      "en": "I didn't want to go to the station yesterday",
+      "enSourceHash": "75848fba6e441bcc",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-4/en:7ccc76ae5f2939fb",
+      "en": "I don't want to go to the station today",
+      "enSourceHash": "7ccc76ae5f2939fb",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-4/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-4/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-4/en:adba6c0ec8a8d89e",
+      "en": "university",
+      "enSourceHash": "adba6c0ec8a8d89e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-4/en:c018019b6a8b01ab",
+      "en": "bag",
+      "enSourceHash": "c018019b6a8b01ab",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-4/en:c62fd8f339fcaf91",
+      "en": "I didn't want to eat yesterday",
+      "enSourceHash": "c62fd8f339fcaf91",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-4/en:e8b455340e57a236",
+      "en": "Pick the word for \"boat\"",
+      "enSourceHash": "e8b455340e57a236",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-4/ja:あたらしい くるまは かいたくなかった",
+      "en": "Build: I didn't want to buy a new car",
+      "enSourceHash": "42c3e722bcbc8bb0",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-4/ja:きのう ミカの ふるい みせで ぼうしが かいたくなかった",
+      "en": "Build: I didn't want to buy a hat at Mika's old shop yesterday",
+      "enSourceHash": "fc41674ba7700a36",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-4/ja:きのうの あさは ちゃが のみたくなかった",
+      "en": "Build: I didn't want to drink tea yesterday morning",
+      "enSourceHash": "eee07e5c80487e8b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-4/ja:きのうは ごはんが たべたくなかった",
+      "en": "Build: I didn't want to eat yesterday",
+      "enSourceHash": "4305163fadd19d58",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-4/ja:きのうは だいがくに いきたくなかった",
+      "en": "Build: I didn't want to go to university yesterday",
+      "enSourceHash": "c864b666deb857ad",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-4/ja:きのうは にぎやかな みせに いきたくなかった",
+      "en": "Build: I didn't want to go to a lively shop yesterday",
+      "enSourceHash": "e9b592989bee391f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-4/ja:たかい かばんは かいたくなかった",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-5/en:0f4168490e38b844",
+      "en": "water",
+      "enSourceHash": "0f4168490e38b844",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-5/en:1e1cc3909a49adea",
+      "en": "Pick the word for \"mountain\"",
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-5/en:25cdb46d8d2115a2",
+      "en": "boat",
+      "enSourceHash": "25cdb46d8d2115a2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-5/en:4201e4e6fdd6d5a0",
+      "en": "I want to eat Japanese food today",
+      "enSourceHash": "4201e4e6fdd6d5a0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-5/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-5/en:5e9d2e6a26650f90",
+      "en": "I want to see Mika's new photo",
+      "enSourceHash": "5e9d2e6a26650f90",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-5/en:6131810b7e639aea",
+      "en": "I don't want to eat Japanese food",
+      "enSourceHash": "6131810b7e639aea",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-5/en:6674f1450c572d92",
+      "en": "I want to buy a new bicycle, bicycle first",
+      "enSourceHash": "6674f1450c572d92",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-5/en:670bd9ced0c6bc3f",
+      "en": "Sushi",
+      "enSourceHash": "670bd9ced0c6bc3f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-5/en:7482d5802c3c2798",
+      "en": "photograph",
+      "enSourceHash": "7482d5802c3c2798",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-5/en:7b453aa74e1dace0",
+      "en": "I want to eat good sushi today",
+      "enSourceHash": "7b453aa74e1dace0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-5/en:96e359097ccbba9e",
+      "en": "I want to buy Japanese food",
+      "enSourceHash": "96e359097ccbba9e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-5/en:9d2b013344487a94",
+      "en": "I ate Japanese food today",
+      "enSourceHash": "9d2b013344487a94",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-5/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-5/en:d29af8a2e160dd86",
+      "en": "bicycle",
+      "enSourceHash": "d29af8a2e160dd86",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-5/en:e8985677c84df783",
+      "en": "I want to buy a new bicycle",
+      "enSourceHash": "e8985677c84df783",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-5/en:e8b455340e57a236",
+      "en": "Pick the word for \"boat\"",
+      "enSourceHash": "e8b455340e57a236",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-5/ja:あたらしい じてんしゃが かいたい",
+      "en": "Build: I want to buy a new bicycle, bicycle first",
+      "enSourceHash": "a70f912d02bce3a9",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-5/ja:あたらしい じてんしゃを かいたい",
+      "en": "Build: I want to buy a new bicycle",
+      "enSourceHash": "5956ea21ce8c074e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-5/ja:きょうは おいしい すしを たべたい",
+      "en": "Build: I want to eat good sushi today",
+      "enSourceHash": "579f2c38468ea918",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-5/ja:きょうは おおきい ふねが みたい",
+      "en": "Build: I want to see a big boat today",
+      "enSourceHash": "4417547ed75e7e30",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-5/ja:きょうは ちゃを のみたい",
+      "en": "Build: I want to drink tea today",
+      "enSourceHash": "850c3f61d58e039f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-5/ja:きょうは ともだちと ゆうめいな みせで おいしい ごはんが たべたい",
+      "en": "Build: I want to eat good food with a friend at a famous shop today",
+      "enSourceHash": "21d3724911dbd689",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-5/ja:ミカの あたらしい しゃしんを みたい",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-6/en:089ca4c897874e0d",
+      "en": "I want Mika's old dictionary",
+      "enSourceHash": "089ca4c897874e0d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-6/en:097bd171954538e5",
+      "en": "I want an old bag",
+      "enSourceHash": "097bd171954538e5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-6/en:0cbbf9be7b0c8b5b",
+      "en": "I want a new bag",
+      "enSourceHash": "0cbbf9be7b0c8b5b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-6/en:0f4168490e38b844",
+      "en": "water",
+      "enSourceHash": "0f4168490e38b844",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-6/en:177ca70f42def123",
+      "en": "dictionary",
+      "enSourceHash": "177ca70f42def123",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-6/en:266550babbb7bd39",
+      "en": "glasses",
+      "enSourceHash": "266550babbb7bd39",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-6/en:31d1c1e79bf76cac",
+      "en": "I want to buy a new bag",
+      "enSourceHash": "31d1c1e79bf76cac",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-6/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-6/en:5f34ba999d399fdc",
+      "en": "I want a new bicycle",
+      "enSourceHash": "5f34ba999d399fdc",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-6/en:873ff8cd10431eb6",
+      "en": "I want new glasses",
+      "enSourceHash": "873ff8cd10431eb6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-6/en:a2d15c6ac0cac042",
+      "en": "I want new clothes",
+      "enSourceHash": "a2d15c6ac0cac042",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-6/en:ba967c5eb4e62def",
+      "en": "I don't want a new bag",
+      "enSourceHash": "ba967c5eb4e62def",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-6/en:baed831623943be3",
+      "en": "watch",
+      "enSourceHash": "baed831623943be3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-6/en:c018019b6a8b01ab",
+      "en": "bag",
+      "enSourceHash": "c018019b6a8b01ab",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-6/en:d29af8a2e160dd86",
+      "en": "bicycle",
+      "enSourceHash": "d29af8a2e160dd86",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-6/en:e8b455340e57a236",
+      "en": "Pick the word for \"boat\"",
+      "enSourceHash": "e8b455340e57a236",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-6/ja:あたらしい じてんしゃが ほしい",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-6/ja:あたらしい とけいが ほしい",
+      "en": "Build: I want a new watch",
+      "enSourceHash": "e2cf4c01bfacc471",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-6/ja:あたらしい ふくが かいたい",
+      "en": "Build: I want to buy new clothes",
+      "enSourceHash": "ec8e745751c8afe4",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-6/ja:あたらしい ふくが ほしい",
+      "en": "Build: I want new clothes",
+      "enSourceHash": "eaa17b5879c0a8aa",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-6/ja:きょうは おおきい かばんが ほしい",
+      "en": "Build: I want a big bag today",
+      "enSourceHash": "242b39a705d92edf",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-6/ja:きょうは ミカの ゆうめいな みせで あたらしい ふくが ほしい",
+      "en": "Build: I want new clothes from Mika's famous shop today",
+      "enSourceHash": "a4554ee7d5c3f451",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-6/ja:わたしは あたらしい めがねが ほしい",
+      "en": "Build: I want new glasses",
+      "enSourceHash": "93d458c5e7619e6d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-6/ja:ミカの ふるい じしょが ほしい",
+      "en": "Build: I want Mika's old dictionary",
+      "enSourceHash": "1642d032e1280fbe",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-7/en:3af7887cd44f4821",
+      "en": "Mika likes new songs",
+      "enSourceHash": "3af7887cd44f4821",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-7/en:4bdf40d0d1ae3611",
+      "en": "rice/meal",
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-7/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-7/en:63f75c890b05405e",
+      "en": "song",
+      "enSourceHash": "63f75c890b05405e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-7/en:7042a6272e4b0db8",
+      "en": "Mika likes old books",
+      "enSourceHash": "7042a6272e4b0db8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-7/en:77af778b51abd4a3",
+      "en": "cat",
+      "enSourceHash": "77af778b51abd4a3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-7/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-7/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-7/en:b2954014e770d530",
+      "en": "Mika doesn't like old songs",
+      "enSourceHash": "b2954014e770d530",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-7/en:b574c0e8fae23b44",
+      "en": "I like the summer vacation",
+      "enSourceHash": "b574c0e8fae23b44",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-7/en:c648d7f47e3841d4",
+      "en": "Mika likes old songs",
+      "enSourceHash": "c648d7f47e3841d4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-7/en:c6f96f755fe3829e",
+      "en": "I don't like cucumber",
+      "enSourceHash": "c6f96f755fe3829e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-7/en:cd6357efdd966de8",
+      "en": "dog",
+      "enSourceHash": "cd6357efdd966de8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-7/en:d627c76f5e0daea2",
+      "en": "I like small cats",
+      "enSourceHash": "d627c76f5e0daea2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-7/ja:とりにくは すきじゃない",
+      "en": "Build: I don't like chicken",
+      "enSourceHash": "158740baff8fd661",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-7/ja:わたしの すきな いろは あかい",
+      "en": "Build: The color I like is red",
+      "enSourceHash": "8f0bf0c4f405f59f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-7/ja:わたしは きゅうりが きらいだ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-7/ja:わたしは しずかな みせの おいしい ごはんが すきだ",
+      "en": "Build: I like the good food at a quiet shop",
+      "enSourceHash": "b9b04e7425c0ce75",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-7/ja:わたしは ちいさい ねこが すきだ",
+      "en": "Build: I like small cats",
+      "enSourceHash": "b2d9381ab1d3a120",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-7/ja:わたしは なつやすみが すきだ",
+      "en": "Build: I like the summer vacation",
+      "enSourceHash": "5b0d019513a7aff8",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-7/ja:ケンは にぎやかな みせが きらいだ",
+      "en": "Build: Ken doesn't like lively shops",
+      "enSourceHash": "0d0524bf5bc165d5",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-7/ja:ミカは あたらしい うたが すきだ",
+      "en": "Build: Mika likes new songs",
+      "enSourceHash": "62b519db9c0efbd2",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/en:01174db4fb1ba409",
+      "en": "I like looking at old photos",
+      "enSourceHash": "01174db4fb1ba409",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/en:1180412af43d7860",
+      "en": "shopping",
+      "enSourceHash": "1180412af43d7860",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/en:15e4999fc8555ac2",
+      "en": "I don't like listening to old songs",
+      "enSourceHash": "15e4999fc8555ac2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/en:1e8025b6f2201c8c",
+      "en": "I like eating",
+      "enSourceHash": "1e8025b6f2201c8c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/en:39af01c207864789",
+      "en": "Mika doesn't like shopping",
+      "enSourceHash": "39af01c207864789",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/en:39e13e50517a214d",
+      "en": "I like listening to new songs",
+      "enSourceHash": "39e13e50517a214d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/en:4100c91557d22a18",
+      "en": "I like listening to old songs",
+      "enSourceHash": "4100c91557d22a18",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/en:4bdf40d0d1ae3611",
+      "en": "rice/meal",
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/en:63f75c890b05405e",
+      "en": "song",
+      "enSourceHash": "63f75c890b05405e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/en:6aeb15878fadcd5d",
+      "en": "Mika likes going to the station",
+      "enSourceHash": "6aeb15878fadcd5d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/en:727a73e699b1a9d2",
+      "en": "I like singing old songs",
+      "enSourceHash": "727a73e699b1a9d2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/en:7482d5802c3c2798",
+      "en": "photograph",
+      "enSourceHash": "7482d5802c3c2798",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/en:9a3ccf0bca9d09ff",
+      "en": "Mika likes cooking",
+      "enSourceHash": "9a3ccf0bca9d09ff",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/en:a9a1e39a17d09601",
+      "en": "Mika likes shopping",
+      "enSourceHash": "a9a1e39a17d09601",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/en:adba6c0ec8a8d89e",
+      "en": "university",
+      "enSourceHash": "adba6c0ec8a8d89e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/en:b431314109f9793b",
+      "en": "I like hanging out with friends",
+      "enSourceHash": "b431314109f9793b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/en:d31d999b598087c6",
+      "en": "Mika likes singing",
+      "enSourceHash": "d31d999b598087c6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/en:e8b455340e57a236",
+      "en": "Pick the word for \"boat\"",
+      "enSourceHash": "e8b455340e57a236",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/ja:あさ ちゃを のむのが すきだ",
+      "en": "Build: I like drinking tea in the morning",
+      "enSourceHash": "b66105d0197b3c10",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/ja:きゅうりを たべるのが きらいだ",
+      "en": "Build: I don't like eating cucumber",
+      "enSourceHash": "e964b070716f82d0",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/ja:ともだちと あそぶのが すきだ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/ja:にぎやかな みせで かいものを するのが すきだ",
+      "en": "Build: I like shopping at a lively shop",
+      "enSourceHash": "6e3043c1d42d506b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/ja:ふるい しゃしんを みるのが すきだ",
+      "en": "Build: I like looking at old photos",
+      "enSourceHash": "af6c10447676f3fb",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/ja:わたしは ごはんを たべるのが すきだ",
+      "en": "Build: I like eating",
+      "enSourceHash": "1bbeffd27a92718a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/ja:わたしは だいがくに いくのが きらいだ",
+      "en": "Build: I don't like going to university",
+      "enSourceHash": "1402c0883ee5a91d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/ja:ミカは うたを うたうのが すきだ",
+      "en": "Build: Mika likes singing",
+      "enSourceHash": "dbe8346c1ece6eb0",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-8/ja:ミカは しずかな いえで ふるい ほんを みるのが すきだ",
+      "en": "Build: Mika likes looking at old books in a quiet house",
+      "enSourceHash": "dac79c29cae826f9",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/en:23bde62f98307b93",
+      "en": "Where do you want to go today?",
+      "enSourceHash": "23bde62f98307b93",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/en:2833ddf1f073ab59",
+      "en": "Mika doesn't like tea",
+      "enSourceHash": "2833ddf1f073ab59",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/en:2b2961a431b23c90",
+      "en": "car",
+      "enSourceHash": "2b2961a431b23c90",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/en:2e28e1738240dade",
+      "en": "Did you buy new clothes?",
+      "enSourceHash": "2e28e1738240dade",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/en:3246f57fad328b84",
+      "en": "Mika likes drinking tea at home",
+      "enSourceHash": "3246f57fad328b84",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/en:507b4ab7047b5c3a",
+      "en": "I want to go to the coffee shop today",
+      "enSourceHash": "507b4ab7047b5c3a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/en:634140a528fa2c3b",
+      "en": "Mika wants to drink tea at the coffee shop",
+      "enSourceHash": "634140a528fa2c3b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/en:63f75c890b05405e",
+      "en": "song",
+      "enSourceHash": "63f75c890b05405e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/en:72595795c5c89472",
+      "en": "Do you want to buy clothes?",
+      "enSourceHash": "72595795c5c89472",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/en:9b4ef3e5b7b4d175",
+      "en": "station",
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/en:a3fad678c17b7430",
+      "en": "Do you want new clothes?",
+      "enSourceHash": "a3fad678c17b7430",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/en:d8356b15a62e3b9e",
+      "en": "I want to drink tea at a quiet coffee shop",
+      "enSourceHash": "d8356b15a62e3b9e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/en:dc1a82da941df014",
+      "en": "Do you like new clothes?",
+      "enSourceHash": "dc1a82da941df014",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/en:e0c817c471ff6cd8",
+      "en": "Mika likes drinking tea at the coffee shop",
+      "enSourceHash": "e0c817c471ff6cd8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/en:e8b455340e57a236",
+      "en": "Pick the word for \"boat\"",
+      "enSourceHash": "e8b455340e57a236",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/en:fc115aa077ec7aa7",
+      "en": "What do you want to do today?",
+      "enSourceHash": "fc115aa077ec7aa7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/ja:あたらしい きっさてんに いきたい",
+      "en": "Build: I want to go to the new coffee shop",
+      "enSourceHash": "79ecc4e2fbc473b3",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/ja:きっさてんで ほんを みるのが すきだ",
+      "en": "Build: I like looking at books at a coffee shop",
+      "enSourceHash": "33f6796d3b844132",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/ja:きょうは きっさてんに いきたい",
+      "en": "Build: I want to go to the coffee shop today",
+      "enSourceHash": "395dd523d1e2fcb8",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/ja:きょうは どこに いきたい？",
+      "en": "Build: Where do you want to go today?",
+      "enSourceHash": "355f13c70f170af4",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/ja:きょうは なにが したい？",
+      "en": "Build: What do you want to do today?",
+      "enSourceHash": "5a8dd3e857d55242",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/ja:きょうは ミカと しずかな きっさてんで おいしい ちゃが のみたい",
+      "en": "Build: I want to drink good tea with Mika at a quiet coffee shop today",
+      "enSourceHash": "e498108faf431628",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/ja:しずかな きっさてんで ちゃが のみたい",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/ja:なにが ほしい？",
+      "en": "Build: What do you want?",
+      "enSourceHash": "3b153d2d5bebb186",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-9/ja:ミカは あたらしい うたが すき？",
+      "en": "Build: Does Mika like new songs?",
+      "enSourceHash": "e09b3086e522e214",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/en:06362510ba04d7af",
+      "en": "I want an old bicycle",
+      "enSourceHash": "06362510ba04d7af",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/en:0e3a42efce6ba6a8",
+      "en": "I don't want a new bicycle",
+      "enSourceHash": "0e3a42efce6ba6a8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/en:2753cb15f1d6d34c",
+      "en": "cuisine",
+      "enSourceHash": "2753cb15f1d6d34c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/en:5c36a896d42db160",
+      "en": "I like looking at books in a quiet house",
+      "enSourceHash": "5c36a896d42db160",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/en:5c5f9b87778cfb10",
+      "en": "clothes",
+      "enSourceHash": "5c5f9b87778cfb10",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/en:5f34ba999d399fdc",
+      "en": "I want a new bicycle",
+      "enSourceHash": "5f34ba999d399fdc",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/en:64b3562dc00b6b14",
+      "en": "Mika doesn't like quiet coffee shops",
+      "enSourceHash": "64b3562dc00b6b14",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/en:7bd8cd84235da610",
+      "en": "Mika doesn't like lively coffee shops",
+      "enSourceHash": "7bd8cd84235da610",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/en:9b4ef3e5b7b4d175",
+      "en": "station",
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/en:a8fec533367c06e8",
+      "en": "I want to eat the food at Mika's famous shop",
+      "enSourceHash": "a8fec533367c06e8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/en:be01cf4fad9854c2",
+      "en": "Challenge — say what you want, then say what you like",
+      "enSourceHash": "be01cf4fad9854c2",
+      "kind": "title"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/en:c798e5b18ed876ef",
+      "en": "coffee shop",
+      "enSourceHash": "c798e5b18ed876ef",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/en:dfe96eae8968e0bc",
+      "en": "I want to drink good tea with Mika at a famous coffee shop today",
+      "enSourceHash": "dfe96eae8968e0bc",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/en:e37acae962b12cde",
+      "en": "Mika doesn't like lively shops",
+      "enSourceHash": "e37acae962b12cde",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/en:e8985677c84df783",
+      "en": "I want to buy a new bicycle",
+      "enSourceHash": "e8985677c84df783",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/en:e8b455340e57a236",
+      "en": "Pick the word for \"boat\"",
+      "enSourceHash": "e8b455340e57a236",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/en:f6457eca9626a99b",
+      "en": "Mika likes lively coffee shops",
+      "enSourceHash": "f6457eca9626a99b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/en:fd09098a193a6ed2",
+      "en": "I didn't want to buy new clothes yesterday",
+      "enSourceHash": "fd09098a193a6ed2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/ja:きのう ケンと にぎやかな えきで かいものが したかった",
+      "en": "Build: I wanted to go shopping with Ken at the lively station yesterday",
+      "enSourceHash": "002f5442fd109fd9",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/ja:きのうは あたらしい ふくが かいたくなかった",
+      "en": "Build: I didn't want to buy new clothes yesterday",
+      "enSourceHash": "cb29fe7b1b5e418b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/ja:きょうは ミカと ゆうめいな きっさてんで おいしい ちゃが のみたい",
+      "en": "Build: I want to drink good tea with Mika at a famous coffee shop today",
+      "enSourceHash": "a501d94a86230142",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/ja:なつやすみに ともだちと うみに いきたい",
+      "en": "Build: I want to go to the sea with a friend in the summer vacation",
+      "enSourceHash": "c1259b768f222de5",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/ja:なつやすみに ミカと にほんの ゆうめいな みせで おいしい すしが たべたい",
+      "en": "Build: I want to eat good sushi with Mika at a famous shop in Japan in the summer vacation",
+      "enSourceHash": "0a2d154effc8e7e5",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/ja:わたしは あさ ちゃを のむのが すきだ",
+      "en": "Build: I like drinking tea in the morning",
+      "enSourceHash": "b66105d0197b3c10",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/ja:わたしは しずかな いえで ほんを みるのが すきだ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/ja:ミカの あたらしい ふくが みたい",
+      "en": "Build: I want to see Mika's new clothes",
+      "enSourceHash": "7ac09bdda5cb3bfa",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-challenge/ja:ミカの ゆうめいな みせの りょうりが たべたい",
+      "en": "Build: I want to eat the food at Mika's famous shop",
+      "enSourceHash": "d808b30b4298591d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/en:0ab8890d1942f721",
+      "en": "I bought new glasses",
+      "enSourceHash": "0ab8890d1942f721",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/en:15db6900c965acd7",
+      "en": "I don't want to drink tea in the morning",
+      "enSourceHash": "15db6900c965acd7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/en:194c08c1bfbd4781",
+      "en": "I want to buy new glasses",
+      "enSourceHash": "194c08c1bfbd4781",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/en:1b3c9a151dfee1f5",
+      "en": "I don't want to hang out with a friend today",
+      "enSourceHash": "1b3c9a151dfee1f5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/en:1ba2f27e343d8e30",
+      "en": "I drank tea yesterday",
+      "enSourceHash": "1ba2f27e343d8e30",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/en:3b80d38f7686a8b5",
+      "en": "mountain",
+      "enSourceHash": "3b80d38f7686a8b5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/en:3fd9e82138ced08c",
+      "en": "I wanted to drink tea yesterday",
+      "enSourceHash": "3fd9e82138ced08c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/en:42196cf716174765",
+      "en": "I didn't drink tea yesterday",
+      "enSourceHash": "42196cf716174765",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/en:4d3f48766ad11515",
+      "en": "I want to hang out with my family today",
+      "enSourceHash": "4d3f48766ad11515",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/en:670bd9ced0c6bc3f",
+      "en": "Sushi",
+      "enSourceHash": "670bd9ced0c6bc3f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/en:7482d5802c3c2798",
+      "en": "photograph",
+      "enSourceHash": "7482d5802c3c2798",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/en:81ce729aac89b925",
+      "en": "I want to look at Mika's old photo",
+      "enSourceHash": "81ce729aac89b925",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/en:976527430ef1166b",
+      "en": "I want to buy a new bag today",
+      "enSourceHash": "976527430ef1166b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/en:9be0f3fdfd5a5844",
+      "en": "I wanted to go to the mountain yesterday",
+      "enSourceHash": "9be0f3fdfd5a5844",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/en:adba6c0ec8a8d89e",
+      "en": "university",
+      "enSourceHash": "adba6c0ec8a8d89e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/en:b3d96e1feb8ac72b",
+      "en": "I want to buy a new watch",
+      "enSourceHash": "b3d96e1feb8ac72b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/en:b94cbb8dd7160a92",
+      "en": "I want to drink tea today",
+      "enSourceHash": "b94cbb8dd7160a92",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/en:c018019b6a8b01ab",
+      "en": "bag",
+      "enSourceHash": "c018019b6a8b01ab",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/en:c89e084d6acf044f",
+      "en": "I hung out with a friend yesterday",
+      "enSourceHash": "c89e084d6acf044f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/en:e02b726c12a6e243",
+      "en": "I want to hang out with a friend today",
+      "enSourceHash": "e02b726c12a6e243",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/en:e8b455340e57a236",
+      "en": "Pick the word for \"boat\"",
+      "enSourceHash": "e8b455340e57a236",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/en:f33e736c5b1f3e9d",
+      "en": "I don't want new glasses",
+      "enSourceHash": "f33e736c5b1f3e9d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/ja:あさは ちゃが のみたくない",
+      "en": "Build: I don't want to drink tea in the morning",
+      "enSourceHash": "43f8f85f274c99c4",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/ja:きのう ともだちと えきに いきたかった",
+      "en": "Build: I wanted to go to the station with a friend yesterday",
+      "enSourceHash": "eae04bc463810bd9",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/ja:きのうは やまに いきたかった",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/ja:きょうは あたらしい かばんが かいたい",
+      "en": "Build: I want to buy a new bag today",
+      "enSourceHash": "f15fe4b6ddd05ffd",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/ja:きょうは おおきい みせで かいものが したい",
+      "en": "Build: I want to go shopping at a big shop today",
+      "enSourceHash": "0cfbeb2af2180941",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/ja:きょうは しずかな いえで しゃしんが みたい",
+      "en": "Build: I want to look at photos in a quiet house today",
+      "enSourceHash": "74d9de23e29c8642",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/ja:きょうは だいがくに いきたくない",
+      "en": "Build: I don't want to go to university today",
+      "enSourceHash": "e716d0c664387945",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-1/ja:ミカの ふるい しゃしんが みたい",
+      "en": "Build: I want to look at Mika's old photo",
+      "enSourceHash": "47fbf61a5c8410c5",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/en:0ba26eef80cefd1e",
+      "en": "I didn't go to university yesterday",
+      "enSourceHash": "0ba26eef80cefd1e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/en:1018eb6c11339a39",
+      "en": "I wanted to go to university yesterday",
+      "enSourceHash": "1018eb6c11339a39",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/en:1ee0aa26357c544f",
+      "en": "I didn't want to eat sushi yesterday",
+      "enSourceHash": "1ee0aa26357c544f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/en:3c8f16b58a5e30d6",
+      "en": "I wanted to go shopping yesterday",
+      "enSourceHash": "3c8f16b58a5e30d6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/en:44be6e1b0bdb53f0",
+      "en": "I went shopping today",
+      "enSourceHash": "44be6e1b0bdb53f0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/en:574e35910d6f6346",
+      "en": "I didn't want to go to university yesterday",
+      "enSourceHash": "574e35910d6f6346",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/en:5c5f9b87778cfb10",
+      "en": "clothes",
+      "enSourceHash": "5c5f9b87778cfb10",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/en:670bd9ced0c6bc3f",
+      "en": "Sushi",
+      "enSourceHash": "670bd9ced0c6bc3f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/en:6e91443b6a86172e",
+      "en": "I don't want to go shopping today",
+      "enSourceHash": "6e91443b6a86172e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/en:8281f347943ecce9",
+      "en": "I don't want to go to university today",
+      "enSourceHash": "8281f347943ecce9",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/en:99c07ff759ce9e41",
+      "en": "I want new clothes today",
+      "enSourceHash": "99c07ff759ce9e41",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/en:9b4ef3e5b7b4d175",
+      "en": "station",
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/en:adea88e252a5518c",
+      "en": "I want a new watch",
+      "enSourceHash": "adea88e252a5518c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/en:b94cbb8dd7160a92",
+      "en": "I want to drink tea today",
+      "enSourceHash": "b94cbb8dd7160a92",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/en:baed831623943be3",
+      "en": "watch",
+      "enSourceHash": "baed831623943be3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/en:bd3b6609ca9e1692",
+      "en": "I want to go shopping today",
+      "enSourceHash": "bd3b6609ca9e1692",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/en:c018019b6a8b01ab",
+      "en": "bag",
+      "enSourceHash": "c018019b6a8b01ab",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/en:e8b455340e57a236",
+      "en": "Pick the word for \"boat\"",
+      "enSourceHash": "e8b455340e57a236",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/ja:あたらしい とけいが ほしい",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/ja:きのう ミカと えきに いきたかった",
+      "en": "Build: I wanted to go to the station with Mika yesterday",
+      "enSourceHash": "b5bb827576f12eb1",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/ja:きのうは おおきい かさが かいたかった",
+      "en": "Build: I wanted to buy a big umbrella yesterday",
+      "enSourceHash": "53697a63ac491c71",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/ja:きのうは すしが たべたくなかった",
+      "en": "Build: I didn't want to eat sushi yesterday",
+      "enSourceHash": "62d29ee205a26a0d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/ja:きょうは あたらしい ふくが ほしい",
+      "en": "Build: I want new clothes today",
+      "enSourceHash": "cf0101eb748078f6",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/ja:きょうは しずかな みせに いきたい",
+      "en": "Build: I want to go to a quiet shop today",
+      "enSourceHash": "fd683c36e213d802",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/ja:きょうは ちゃを のみたい",
+      "en": "Build: I want to drink tea today",
+      "enSourceHash": "850c3f61d58e039f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/ja:ふるい しゃしんは みたくない",
+      "en": "Build: I don't want to look at old photos",
+      "enSourceHash": "80a68b09c52e19ea",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-2/ja:ミカの あたらしい じてんしゃが ほしい",
+      "en": "Build: I want Mika's new bicycle",
+      "enSourceHash": "23d3e2e497c97dab",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/en:00eba0286396010a",
+      "en": "I don't like big shops",
+      "enSourceHash": "00eba0286396010a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/en:111bc78b5388e991",
+      "en": "I looked at old photos",
+      "enSourceHash": "111bc78b5388e991",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/en:16ff723dfa84c71e",
+      "en": "I like lively shops",
+      "enSourceHash": "16ff723dfa84c71e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/en:266550babbb7bd39",
+      "en": "glasses",
+      "enSourceHash": "266550babbb7bd39",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/en:485f4a80f301735e",
+      "en": "I like my morning shower",
+      "enSourceHash": "485f4a80f301735e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/en:4a69f19c8c264850",
+      "en": "sea",
+      "enSourceHash": "4a69f19c8c264850",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/en:4bdf40d0d1ae3611",
+      "en": "rice/meal",
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/en:4cfdcc9e15a1049b",
+      "en": "I polished the watch yesterday",
+      "enSourceHash": "4cfdcc9e15a1049b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/en:54164740780a21dd",
+      "en": "I don't like my morning shower",
+      "enSourceHash": "54164740780a21dd",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/en:77af778b51abd4a3",
+      "en": "cat",
+      "enSourceHash": "77af778b51abd4a3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/en:8d77998c2d325fa3",
+      "en": "Review — wanting, liking, doing",
+      "enSourceHash": "8d77998c2d325fa3",
+      "kind": "title"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/en:8e107b6f37a2a454",
+      "en": "I like morning tea",
+      "enSourceHash": "8e107b6f37a2a454",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/en:a3a173b0d585cb76",
+      "en": "I don't want to look at new photos",
+      "enSourceHash": "a3a173b0d585cb76",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/en:a4904f021c13a3d1",
+      "en": "I'll buy a watch tomorrow",
+      "enSourceHash": "a4904f021c13a3d1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/en:b5811a199b9443b2",
+      "en": "I want to look at old photos",
+      "enSourceHash": "b5811a199b9443b2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/en:c798e5b18ed876ef",
+      "en": "coffee shop",
+      "enSourceHash": "c798e5b18ed876ef",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/en:cd64941fb2a764f4",
+      "en": "I want a new shower",
+      "enSourceHash": "cd64941fb2a764f4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/en:ce9169832d72a811",
+      "en": "I'll polish the car tomorrow",
+      "enSourceHash": "ce9169832d72a811",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/en:cf112efdc40177a5",
+      "en": "I don't like lively shops",
+      "enSourceHash": "cf112efdc40177a5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/en:d15ba427f7664b7b",
+      "en": "I don't like quiet shops",
+      "enSourceHash": "d15ba427f7664b7b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/en:d5f48b0ccc01fd15",
+      "en": "I don't want to look at old photos",
+      "enSourceHash": "d5f48b0ccc01fd15",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/en:f909f713b756fb5d",
+      "en": "I'll polish the watch tomorrow",
+      "enSourceHash": "f909f713b756fb5d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/ja:あしたは ろくじに おきる",
+      "en": "Build: I'll get up at six tomorrow",
+      "enSourceHash": "04f16f063e58f03a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/ja:あたらしい めがねが ほしい",
+      "en": "Build: I want new glasses",
+      "enSourceHash": "93d458c5e7619e6d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/ja:きのう ミカと うみに いきたかった",
+      "en": "Build: I wanted to go to the sea with Mika yesterday",
+      "enSourceHash": "994be4c4f43088ef",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/ja:きのうは ちゃが のみたくなかった",
+      "en": "Build: I didn't want to drink tea yesterday",
+      "enSourceHash": "787466fa73fbe0dc",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/ja:きょうは おいしい りょうりが たべたい",
+      "en": "Build: I want to eat good food today",
+      "enSourceHash": "1aaa06dec142942b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/ja:きょうは しずかな きっさてんに いきたい",
+      "en": "Build: I want to go to a quiet coffee shop today",
+      "enSourceHash": "8db4a3012387f0ce",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/ja:けさ せっけんで かおを あらった",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/ja:げつようびの じゅぎょうは はやい",
+      "en": "Build: Monday's class is early",
+      "enSourceHash": "9b0214f6fd6e6f02",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/ja:ごはんを たべるのが すきだ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/ja:なつやすみに にほんに いきたい",
+      "en": "Build: I want to go to Japan in the summer vacation",
+      "enSourceHash": "4f0a8e01ecc527c6",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/ja:にちようびに くるまも あらう",
+      "en": "Build: On Sunday I wash the car too",
+      "enSourceHash": "2a9ce3e4298f5c4f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/ja:ゆうべ ふるい しゃしんを みた",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/ja:わたしは きゅうりが きらいだ",
+      "en": "Build: I don't like cucumber",
+      "enSourceHash": "fda19692d7b0b825",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/ja-m13-neo-review-3/ja:ケンは しずかな いえが すきだ",
+      "en": "Build: Ken likes quiet houses",
+      "enSourceHash": "a845f9c67a0b5ca7",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m13/story:ja-m13-likes-and-wants/en:1b747a17f92be088",
+      "en": "Likes and wants",
+      "enSourceHash": "1b747a17f92be088",
+      "kind": "title"
+    },
+    {
+      "anchor": "m13/story:ja-m13-likes-and-wants/en:d9c0e43c95a2fce7",
+      "en": "A few honest preferences.",
+      "enSourceHash": "d9c0e43c95a2fce7",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m13/story:ja-m13-likes-and-wants/ja:あたらしい ふくが ほしい。",
+      "en": "I want new clothes.",
+      "enSourceHash": "50f6ff68199ead1e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-likes-and-wants/ja:おちゃは あまり すきじゃない。",
+      "en": "I don't like tea much.",
+      "enSourceHash": "b4e8f29a8065e650",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-likes-and-wants/ja:きっさてんで コーヒーを のむ。",
+      "en": "I drink coffee there.",
+      "enSourceHash": "edae328b717b2fca",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-likes-and-wants/ja:なつやすみが ほんとうに すきだ。",
+      "en": "I really like summer vacation.",
+      "enSourceHash": "0a490e11af004734",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-likes-and-wants/ja:なつやすみは そとで あそぶ。",
+      "en": "In summer vacation I play outside.",
+      "enSourceHash": "e7e174731320dae4",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-likes-and-wants/ja:ぼくは コーヒーが すきだ。",
+      "en": "I like coffee.",
+      "enSourceHash": "5944ba2107aed19d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-likes-and-wants/ja:まいにち きっさてんに いく。",
+      "en": "Every day I go to the coffee shop.",
+      "enSourceHash": "cf94e408a58c3ae8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/en:ad6dc701b5f4dc32",
+      "en": "A frantic morning, and an office with nobody in it.",
+      "enSourceHash": "ad6dc701b5f4dc32",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/en:c7490ddb91870866",
+      "en": "The day off",
+      "enSourceHash": "c7490ddb91870866",
+      "kind": "title"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/gloss:いそがしい",
+      "en": "busy",
+      "enSourceHash": "c9bc072f4fa81894",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/gloss:けど",
+      "en": "but, although",
+      "enSourceHash": "6a16848ebec13abc",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/gloss:はしる",
+      "en": "to run",
+      "enSourceHash": "a3d78ca02f8b3a78",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/ja:「いいえ、きょうは にちようびです。」",
+      "en": "\"No, today is Sunday.\"",
+      "enSourceHash": "4fc778f62036be09",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/ja:「にちようびですか。きょうは げつようびです。」",
+      "en": "\"Is it Sunday? Today is Monday.\"",
+      "enSourceHash": "fc95d027f6640515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/ja:「ユミ、きょうは しごとです。」",
+      "en": "\"Yumi, today is work.\"",
+      "enSourceHash": "75a542e9cb9b2aa1",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/ja:あさ、パンを たべない。",
+      "en": "I skip breakfast.",
+      "enSourceHash": "67258fa926b68ba4",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/ja:いまは ごぜん くじだ。",
+      "en": "It's nine in the morning.",
+      "enSourceHash": "5de28e4e8b6bbb21",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/ja:かいしゃに ひとが いない。",
+      "en": "There's nobody at the office.",
+      "enSourceHash": "6e15f5c05cd59278",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/ja:きょうは げつようびだ。",
+      "en": "Today is Monday.",
+      "enSourceHash": "1c729b249b61a429",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/ja:きょうは しごとが ない。ほんとうに いい やすみだ。",
+      "en": "No work today. A really good day off.",
+      "enSourceHash": "3a7332f16f70f0f6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/ja:けさ、ぼくは しちじに おきる。",
+      "en": "This morning I get up at seven.",
+      "enSourceHash": "a76a16fc9410b756",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/ja:けど、そとに ともだちの ユミが いる。",
+      "en": "But outside there's my friend Yumi.",
+      "enSourceHash": "1ff375607f1043a6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/ja:こんしゅうは とても いそがしい。",
+      "en": "This week is very busy.",
+      "enSourceHash": "9734d6fe82502246",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/ja:しごとは はちじだ。",
+      "en": "Work starts at eight.",
+      "enSourceHash": "1356fe439247769c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/ja:それから、でんしゃで かいしゃに いく。",
+      "en": "Then I take the train to the office.",
+      "enSourceHash": "74721e06e58c35a7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/ja:それから、また テレビを みた。",
+      "en": "And after that, more TV.",
+      "enSourceHash": "e9358cdf39b87ea3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/ja:つぎの でんしゃは はちじはんだ。",
+      "en": "The next one is half past eight.",
+      "enSourceHash": "331ad26dbe3a3d41",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/ja:でんしゃが ない。",
+      "en": "There's no train.",
+      "enSourceHash": "1ea47bc1fbe3a0b0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/ja:ぼくは えきに はしる。",
+      "en": "I run to the station.",
+      "enSourceHash": "2c53994aa9cb0f71",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/ja:ぼくは かおを あらう。",
+      "en": "I wash my face.",
+      "enSourceHash": "5b5b1e7549f145d4",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/ja:ぼくは きっさてんで コーヒーを のむ。",
+      "en": "I have a coffee at the coffee shop.",
+      "enSourceHash": "1bce8f0b91d87429",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/ja:ぼくは わかった。",
+      "en": "I got it.",
+      "enSourceHash": "65b83cba6ba4a00c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/ja:ぼくは コンビニの パンを たべる。",
+      "en": "I eat bread from the convenience store.",
+      "enSourceHash": "7a2fc329d1fa15aa",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/ja:ゆうべ、ぼくは テレビを みた。",
+      "en": "Last night I watched TV.",
+      "enSourceHash": "77f4f7f17a72c40f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/ja:シャワーも おふろも ない。",
+      "en": "No shower, no bath.",
+      "enSourceHash": "b19960bf027ca226",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m13/story:ja-m13-the-day-off/ja:パンは ふるいけど、おいしい。",
+      "en": "The bread is old, but good.",
+      "enSourceHash": "8bea05da6bd7c3e8",
+      "kind": "ja-gloss"
+    }
+  ]
+}
