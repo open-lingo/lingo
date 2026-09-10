@@ -153,9 +153,17 @@ before pushing ES to main.
     ja suite 8174 passed. **47 new sentences need TTS clips** before merge:
     emit deck → `python -m pipeline.tts.generate` in lingo-data → stage mp3s in
     `tts-publish/` (the に-lesson commit `fed7be85` is the pattern).
-  - m31 verb-slot re-author: `m31-recycle-2026-09-09` (stacked on n4-carriers
-    + recycle-rate) — RUNNING at compaction. Target ≥20% verb-recycle per
-    teaching lesson, module median ≥30%.
+  - m31 verb-slot re-author: `m31-recycle-2026-09-09` (worktree
+    `.claude/worktrees/m31-recycle`, = n4-carriers + recycle-rate merged at
+    `3b34bf89`) — PAUSED by Spencer 2026-09-09 ~20:05 PT before any content
+    edit; tree clean. RESUME = relaunch a Sonnet lane on that branch with this
+    brief: rewrite a few sentence sets per flagged m31 teaching lesson so each
+    reaches ≥20% verb-recycle (module median ≥30%) by framing give/receive
+    around earlier-module verbs (て+くれる/あげる/もらう if taught by then, else
+    two-clause から/ので/て-sequence from m30); no new atoms; ±2 steps per
+    lesson; keep くださる/いただく recognition-only; loop compile-ir m31 →
+    m31 tests → `scripts/ja-recycle-rate.ts --module m31`; commit per lesson;
+    finish with full ja suite + tsc + module-gate clip count (no upload).
   - Recycle-rate tool: `recycle-rate-2026-09-09` @ `e3d08dbb`,
     `scripts/ja-recycle-rate.ts` (+lib, +test, own vitest config), report
     `docs/ja-recycle-rate-2026-09-09.md`. Finding: literal ≥20% "any earlier
