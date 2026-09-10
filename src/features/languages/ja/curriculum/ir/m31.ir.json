@@ -3160,12 +3160,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "せんせいに はなたばを あげたい。",
-          "en": "I want to give the teacher a bouquet",
+          "ja": "カードを かくから せんせいに はなたばを あげたい。",
+          "en": "I'll write a card, so I want to give the teacher a bouquet",
           "exercises": [
             "v-tai",
             "ageru",
-            "ni-recipient"
+            "ni-recipient",
+            "kara-because"
           ],
           "mode": "build"
         },
@@ -3182,12 +3183,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "がくせいに ノートを あげたい。",
-          "en": "I want to give the student a notebook",
+          "ja": "じゅぎょうで はなす とき がくせいに ノートを あげたい。",
+          "en": "When talking in class, I want to give the student a notebook",
           "exercises": [
             "v-tai",
             "ageru",
-            "ni-recipient"
+            "ni-recipient",
+            "toki"
           ],
           "mode": "build"
         },
@@ -3217,23 +3219,25 @@
         },
         {
           "kind": "sentence",
-          "ja": "ともだちに おれいの カードを あげたい。",
-          "en": "I want to give my friend a thank-you card",
+          "ja": "ともだちを まつ とき ともだちに おれいの カードを あげたい。",
+          "en": "While waiting for my friend, I want to give my friend a thank-you card",
           "exercises": [
             "v-tai",
             "ageru",
-            "no-possession"
+            "no-possession",
+            "toki"
           ],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "こんど しんせつな いしゃに くすりを もらいたい。",
-          "en": "I want to get medicine from a kind doctor next time",
+          "ja": "いしゃを まつ とき こんど しんせつな いしゃに くすりを もらいたい。",
+          "en": "While waiting for the doctor, next time I want to get medicine from the kind doctor",
           "exercises": [
             "v-tai",
             "morau",
-            "na-adj-present"
+            "na-adj-present",
+            "toki"
           ],
           "mode": "build"
         },
