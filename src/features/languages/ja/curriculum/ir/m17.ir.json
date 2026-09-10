@@ -346,8 +346,8 @@
       "rule": "だれ asks WHO, and it is the plain, everyday word — fine with friends and family. Speaking to a stranger, a customer, or anyone you owe extra respect, Japanese reaches for どなた instead: same job, same slot だれ fills, more polite. Swap the word and nothing else changes — どなた never stacks on top of だれ, and it pairs with です the way だれ pairs with だ when the moment calls for it. の still works exactly the same after either one: だれの is 'whose', casually; どなたの is 'whose', politely. With more people around to describe now — おとな, おんな, おんなのこ, an おじいさんor an おばあさん — どなた is the word that lets you ask about any of them without sounding rude.",
       "examples": [
         {
-          "ja": "あの おんなは どなたですか。",
-          "en": "Who is that woman? (polite)"
+          "ja": "あの せんせいは どなたですか。",
+          "en": "Who is that teacher? (polite)"
         },
         {
           "ja": "あの おとなは どなたですか。",
@@ -2777,7 +2777,7 @@
         },
         {
           "kind": "particle-cloze",
-          "stem": "あの おんなは ",
+          "stem": "あの せんせいは ",
           "tail": "ですか。",
           "answer": "どなた",
           "options": [
@@ -2785,7 +2785,7 @@
             "だれ",
             "どの"
           ],
-          "en": "Who is that woman? (polite)",
+          "en": "Say politely: Who is that teacher?",
           "explanation": "どなた is the polite word for who; だれ is its plain twin, and どの needs a noun right behind it, not a question mark."
         },
         {

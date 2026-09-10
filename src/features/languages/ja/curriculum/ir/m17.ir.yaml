@@ -280,7 +280,7 @@ grammarPoints:
     variant: polite
     rule: "だれ asks WHO, and it is the plain, everyday word — fine with friends and family. Speaking to a stranger, a customer, or anyone you owe extra respect, Japanese reaches for どなた instead: same job, same slot だれ fills, more polite. Swap the word and nothing else changes — どなた never stacks on top of だれ, and it pairs with です the way だれ pairs with だ when the moment calls for it. の still works exactly the same after either one: だれの is 'whose', casually; どなたの is 'whose', politely. With more people around to describe now — おとな, おんな, おんなのこ, an おじいさんor an おばあさん — どなた is the word that lets you ask about any of them without sounding rude."
     examples:
-      - { ja: "あの おんなは どなたですか。", en: "Who is that woman? (polite)" }
+      - { ja: "あの せんせいは どなたですか。", en: "Who is that teacher? (polite)" }
       - { ja: "あの おとなは どなたですか。", en: "Who is that adult? (polite)" }
       - { ja: "あの おんなのこは どなたですか。", en: "Who is that girl? (polite)" }
       - { ja: "どなたの ほんですか。", en: "Whose book is this? (polite)" }
@@ -677,7 +677,7 @@ lessons:
       - { kind: sentence, ja: "あの おばあさんは にほんじんだ。", en: "That older woman over there is Japanese", exercises: [kono-sono-ano-dono, desu-copula], mode: build }
       - { kind: particle-cloze, stem: "あの ", tail: "は せんせいだ。", answer: "おじいさん", options: ["おじいさん", "おばあさん", "おとな"], en: "That older man over there is a teacher", explanation: "おじいさん is an older man; おばあさん is an older woman and おとな is any adult — only おじいさん fits an older man." }
       - { kind: sentence, ja: "あの ひとは どなたですか。", en: "Say politely: Who is that person over there?", exercises: [dare, kono-sono-ano-dono, desu-copula, ka-question], mode: build }
-      - { kind: particle-cloze, stem: "あの おんなは ", tail: "ですか。", answer: "どなた", options: ["どなた", "だれ", "どの"], en: "Who is that woman? (polite)", explanation: "どなた is the polite word for who; だれ is its plain twin, and どの needs a noun right behind it, not a question mark." }
+      - { kind: particle-cloze, stem: "あの せんせいは ", tail: "ですか。", answer: "どなた", options: ["どなた", "だれ", "どの"], en: "Say politely: Who is that teacher?", explanation: "どなた is the polite word for who; だれ is its plain twin, and どの needs a noun right behind it, not a question mark." }
       - { kind: listening-comp, audio: "あの おじいさんは せんせいだ。", answer: "That older man over there is a teacher", distractors: ["That older woman over there is a teacher", "That older man over there is a student", "That person over there is a teacher"], exercises: [kono-sono-ano-dono, desu-copula] }
       - { kind: listening-comp, audio: "あの おんなのこは にほんじんだ。", answer: "That girl over there is Japanese", distractors: ["That woman over there is Japanese", "That older woman over there is Japanese", "That adult over there is Japanese"], exercises: [kono-sono-ano-dono, desu-copula] }
       - { kind: sentence, ja: "あの おじいさんと おばあさんは ともだちだ。", en: "That older man and that older woman over there are friends", exercises: [kono-sono-ano-dono, to-and, desu-copula], mode: listening }
