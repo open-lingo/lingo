@@ -1,0 +1,184 @@
+  # ── L6 · «Todos fueron» — six new atoms in one lesson: «todos» (a new
+  #    quantifier that takes 3rd-person-plural agreement, just like «ellos»)
+  #    plus the ustedes/ellos preterite of ir/ser (fueron), -ar (hablaron),
+  #    -er (comieron), -ir (vivieron) — all unambiguous new surfaces — and
+  #    «comimos», the -er nosotros preterite (unlike «hablamos»/«vivimos»,
+  #    this one genuinely differs from the present «comemos»).
+  #    ⚠️ «todos» NEVER pairs with «fuimos»/«comimos» — always the -ieron/
+  #    -aron ending, like «ellos».
+  - n: 6
+    template: free
+    title: "Todos fueron"
+    description: "«todos» — everyone, all of them — takes the same ending as «ellos», never «nosotros»: «todos fueron», never «todos fuimos». And «comimos», we ate, is a genuinely new word — unlike «hablamos»/«vivimos», it doesn't double as the present."
+    steps:
+      - kind: map
+        id: l6-map-todosfueronmexico
+        tokens: ["el", "mes", "pasado", "todos", "fueron", "a", "México"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "month", tokenIndex: 1 }
+          - { en: "past", tokenIndex: 2 }
+          - { en: "everyone", tokenIndex: 3 }
+          - { en: "went", tokenIndex: 4 }
+          - { en: "to", tokenIndex: 5 }
+          - { en: "Mexico", tokenIndex: 6 }
+        audioText: "el mes pasado todos fueron a méxico"
+        revealNote: "«todos» — everyone, all of them — takes the same ending as «ellos»: «todos fueron», never «todos fuimos». «todos» is never you-and-me; it's always they."
+      - kind: info
+        id: l6-info-todosfueron
+        title: "Todos, fueron — everyone takes the they-ending"
+        body: "«todos» means everyone, all of them — and it takes the exact same verb ending as «ellos», never «nosotros»: «todos fueron», not «todos fuimos». The same rule holds for every verb this lesson: «todos comieron», «todos hablaron», «todos vivieron». And «comimos» (we ate) is a genuinely new word — unlike «hablamos»/«vivimos», it does not double as the present; «comemos» is a different word entirely."
+      - kind: speakLit
+        id: l6-sp-todosfueron
+        es: "todos fueron a México el mes pasado"
+        en: "Everyone went to Mexico last month"
+        atoms: ["todos", "fueron"]
+      - kind: buildLit
+        id: l6-b-todoscomieron
+        es: "todos comieron pizza juntos"
+        en: "Everyone ate pizza together"
+        atoms: ["todos", "comieron"]
+        tiles: ["comimos", "comen"]
+      - kind: speakLit
+        id: l6-sp-comimos
+        es: "comimos pizza juntos anoche"
+        en: "We ate pizza together last night"
+        atoms: ["comimos", "anoche"]
+      - kind: buildLit
+        id: l6-b-todosvivieron
+        es: "todos vivieron en México el mes pasado"
+        en: "Everyone lived in Mexico last month"
+        atoms: ["todos", "vivieron"]
+        tiles: ["vivimos", "viven"]
+      - kind: listenCompLit
+        id: l6-lc-todoshablaron
+        es: "todos hablaron mucho en la fiesta"
+        en: "Everyone talked a lot at the party."
+        atoms: ["todos", "hablaron"]
+        distractorsEn:
+          - "Everyone talks a lot at the party."
+          - "We talked a lot at the party."
+          - "Everyone talked a lot at school."
+      - kind: speakLit
+        id: l6-sp-diegosofiafueron
+        es: "Diego y Sofía fueron a la fiesta juntos"
+        en: "Diego and Sofía went to the party together"
+        atoms: ["fueron"]
+      - kind: clozeLit
+        id: l6-c-comimosfiesta
+        es: "comimos mucho en la fiesta"
+        en: "We ate a lot at the party"
+        blank: "comimos"
+        options: ["comimos", "comieron", "comí"]
+        atoms: ["comimos"]
+        why: "We, the group: «comimos». «comieron» would be someone else; «comí» would be just you."
+      - kind: listenBuildLit
+        id: l6-lb-samluiscomieron
+        es: "Sam y Luis comieron mucho ayer"
+        en: "Sam and Luis ate a lot yesterday"
+        atoms: ["comieron", "ayer"]
+        tiles: ["comimos", "come"]
+      - kind: clozeLit
+        id: l6-c-anacarmenvivieron
+        es: "Ana y Carmen vivieron juntos en México"
+        en: "Ana and Carmen lived together in Mexico"
+        blank: "vivieron"
+        options: ["vivieron", "vivimos", "vivió"]
+        atoms: ["vivieron"]
+        why: "They — more than one: «vivieron». «vivimos» would include you (we); «vivió» would be just one."
+      - kind: speakLit
+        id: l6-sp-todoshablaronsofia
+        es: "todos hablaron con Sofía ayer"
+        en: "Everyone talked with Sofía yesterday"
+        atoms: ["todos", "hablaron", "ayer"]
+      - kind: mcq
+        id: l6-q-todosfueron
+        prompt: "Which one is correct?"
+        correct: "todos fueron"
+        distractors: ["todos fuimos", "todos fue", "todos van"]
+        atoms: ["todos", "fueron"]
+        why: "«todos» takes the they-ending, just like «ellos»: «todos fueron». «todos fuimos» wrongly makes «todos» include you; that's not how «todos» works. «todos fue» would be just one; «van» slips into now."
+      - kind: audioWimcq
+        id: l6-ear-fiesta
+        target: { surface: "fiesta", emoji: "🎉" }
+        distractors:
+          - { surface: "el museo", emoji: "🏛️" }
+          - { surface: "parque", emoji: "🌳" }
+      # Printed non-recall at L4 (es-m21-4-l4-sp-win).
+      - kind: speakLit
+        id: l6-sp-recall-tuvimostrabajo
+        es: "tuvimos mucho trabajo la semana pasada"
+        en: "We had a lot of work last week"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l6-agr-comieroncomimos
+        en: "Everyone ate and we ate too"
+        audioText: "todos comieron y nosotros comimos también"
+        atoms: ["todos", "comieron", "comimos"]
+        segments:
+          - { text: "todos " }
+          - { blank: { id: "p1", answer: "comieron", options: ["comieron", "comimos"] } }
+          - { text: " y nosotros " }
+          - { blank: { id: "p2", answer: "comimos", options: ["comimos", "comieron"] } }
+          - { text: " también" }
+      - kind: textMcq
+        id: l6-tm-vivieron
+        target: "vivieron"
+        distractors: ["vivimos", "vivió", "viven"]
+      - kind: speakLit
+        id: l6-sp-consolidacion
+        es: "el mes pasado todos fueron, comieron, hablaron y vivieron juntos en México"
+        en: "Last month everyone went, ate, talked, and lived together in Mexico"
+        atoms: ["todos", "fueron", "comieron", "hablaron", "vivieron"]
+      - kind: sim
+        id: l6-sim-sofia-mespasado
+        scene: { emoji: "🎉", title: "Sofía tells Ana about last month", setting: "Sofía is recapping what everyone did together last month." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Fueron todos a México el mes pasado?", audioText: "¿fueron todos a méxico el mes pasado?", gloss: "Did everyone go to Mexico last month?" }
+            goal: "Say yes, everyone went together."
+            reply:
+              mode: build
+              tiles: ["sí", "todos", "fueron", "juntos", "fuimos", "fue"]
+              answer: "sí todos fueron juntos"
+            replyGloss: "Yes, everyone went together."
+            explanation: "«todos» takes the they-ending: «fueron». «fuimos» would wrongly include just you and me as we; «fue» would be just one person."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Comieron ustedes en la fiesta?", audioText: "¿comieron ustedes en la fiesta?", gloss: "Did you all eat at the party?" }
+            goal: "Say yes, you all ate together."
+            reply:
+              mode: build
+              tiles: ["sí", "comimos", "juntos", "comieron", "come"]
+              answer: "sí comimos juntos"
+            replyGloss: "Yes, we ate together."
+            explanation: "Sofía asked with «comieron»; the group answers with «comimos». «comieron» would hand it back to someone else."
+          - id: t3
+            npc: { speaker: "Sofía", es: "¿Y todos hablaron mucho?", audioText: "¿y todos hablaron mucho?", gloss: "And did everyone talk a lot?" }
+            goal: "Say yes, everyone talked a lot."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, todos hablaron mucho" }
+                - { id: "wrong1", text: "sí, todos hablamos mucho" }
+                - { id: "wrong2", text: "sí, todos habló mucho" }
+              correctOptionId: "right"
+              audioText: "sí, todos hablaron mucho"
+            replyGloss: "Yes, everyone talked a lot."
+            explanation: "«todos» always takes the they-ending: «hablaron». Never «hablamos» (that includes you); never «habló» (that's just one)."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "todos", target: "everyone / all of them" }
+          - { source: "fueron", target: "they went / were, you all went / were" }
+          - { source: "comimos", target: "we ate" }
+          - { source: "comieron", target: "they ate, you all ate" }
+          - { source: "hablaron", target: "they spoke, you all spoke" }
+          - { source: "vivieron", target: "they lived, you all lived" }
+          - { source: "fiesta", target: "the party" }
+          - { source: "México", target: "Mexico" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "el mes pasado todos fueron a México"
+        en: "Last month everyone went to Mexico"
+        atoms: ["todos", "fueron"]

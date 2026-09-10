@@ -1,0 +1,176 @@
+  # ── L4 · «Tuvimos, estuvimos» — tener and estar's -uve twins (PRIOR,
+  #    m20: tuve/tuviste/tuvo, estuve/estuviste/estuvo), now for the group:
+  #    «tuvimos»/«tuvieron» (had), «estuvimos»/«estuvieron» (were, somewhere).
+  #    Same irregular stem, no accent — nosotros -imos, ellos/ustedes -ieron.
+  - n: 4
+    template: free
+    title: "Tuvimos, estuvimos"
+    description: "«tuve»/«estuve» you already have for yourself. Now the group: «tuvimos» is we had, «tuvieron» is they had; «estuvimos» is we were somewhere, «estuvieron» is they were."
+    steps:
+      - kind: map
+        id: l4-map-tuvimosmuchotrabajo
+        tokens: ["tuvimos", "mucho", "trabajo", "la", "semana", "pasada"]
+        pairs:
+          - { en: "we had", tokenIndex: 0 }
+          - { en: "a lot of", tokenIndex: 1 }
+          - { en: "work", tokenIndex: 2 }
+          - { en: "the", tokenIndex: 3 }
+          - { en: "week", tokenIndex: 4 }
+          - { en: "past", tokenIndex: 5 }
+        audioText: "tuvimos mucho trabajo la semana pasada"
+        revealNote: "«tuve» is I had. «tuvimos» is we had — same stem, we-ending. «estar» does the same trick with es- in front: «estuvimos» is we were, somewhere."
+      - kind: info
+        id: l4-info-tuvimosestuvimos
+        title: "Tuvimos, estuvimos — tener and estar, for more than one"
+        body: "«tuve»/«estuve» you already have for yourself. Now the group: «tuvimos» is we had, «tuvieron» is they had or you all had; «estuvimos» is we were somewhere, «estuvieron» is they were, or you all were. Same -uve shape, no accent anywhere — just nosotros -imos and ellos/ustedes -ieron on top of it."
+      - kind: speakLit
+        id: l4-sp-tuvimos
+        es: "tuvimos mucho trabajo la semana pasada"
+        en: "We had a lot of work last week"
+        atoms: ["tuvimos", "mucho", "trabajo", "la semana pasada"]
+      - kind: buildLit
+        id: l4-b-diegosofiatuvieron
+        es: "Diego y Sofía tuvieron mucho trabajo también"
+        en: "Diego and Sofía had a lot of work too"
+        atoms: ["tuvieron", "mucho", "trabajo"]
+        tiles: ["tuvimos", "tuvo"]
+      - kind: speakLit
+        id: l4-sp-estuvimos
+        es: "estuvimos en el parque ayer"
+        en: "We were at the park yesterday"
+        atoms: ["estuvimos", "parque", "ayer"]
+      - kind: buildLit
+        id: l4-b-ustedesestuvieron
+        es: "ustedes estuvieron en la playa el fin de semana"
+        en: "You all were at the beach over the weekend"
+        atoms: ["estuvieron", "playa", "el fin de semana"]
+        tiles: ["estuvimos", "estuvo"]
+      - kind: speakLit
+        id: l4-sp-samluistuvieron
+        es: "Sam y Luis tuvieron mucho trabajo el fin de semana"
+        en: "Sam and Luis had a lot of work over the weekend"
+        atoms: ["tuvieron", "mucho", "trabajo", "el fin de semana"]
+      - kind: clozeLit
+        id: l4-c-tuvimosayer
+        es: "tuvimos mucho trabajo ayer"
+        en: "We had a lot of work yesterday"
+        blank: "tuvimos"
+        options: ["tuvimos", "tuvieron", "tuve"]
+        atoms: ["tuvimos", "mucho", "trabajo", "ayer"]
+        why: "We, the group: «tuvimos». «tuvieron» would be someone else; «tuve» would be just you."
+      - kind: listenCompLit
+        id: l4-lc-estuvimosescuela
+        es: "estuvimos en la escuela la semana pasada"
+        en: "We were at school last week."
+        atoms: ["estuvimos", "escuela", "la semana pasada"]
+        distractorsEn:
+          - "We are at school every week."
+          - "They were at school last week."
+          - "We were at school yesterday."
+      - kind: listenBuildLit
+        id: l4-lb-estuvieronescuela
+        es: "estuvieron en la escuela ayer"
+        en: "They were at school yesterday"
+        atoms: ["estuvieron", "escuela", "ayer"]
+        tiles: ["estuvimos", "estuvo"]
+      - kind: clozeLit
+        id: l4-c-estuvieronplaya
+        es: "estuvieron en la playa ayer"
+        en: "They were at the beach yesterday"
+        blank: "estuvieron"
+        options: ["estuvieron", "estuvimos", "estuvo"]
+        atoms: ["estuvieron", "playa", "ayer"]
+        why: "They — more than one: «estuvieron». «estuvimos» would include you (we); «estuvo» would be just one."
+      - kind: mcq
+        id: l4-q-ellostuvieron
+        prompt: "Which one means 'they had'?"
+        correct: "ellos tuvieron"
+        distractors: ["ellos tuvimos", "ellos tuvo", "ellos tienen"]
+        atoms: ["tuvieron"]
+        why: "«tuvieron» — they/you-all, past. «tuvimos» is we; «tuvo» is just one; «tienen» slips into now."
+      - kind: audioWimcq
+        id: l4-ear-playa
+        target: { surface: "playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "parque", emoji: "🌳" }
+          - { surface: "escuela", emoji: "🏫" }
+      # Printed non-recall at L2 (es-m21-2-l2-sp-win).
+      - kind: speakLit
+        id: l4-sp-recall-fiestafuehablamos
+        es: "la fiesta fue muy buena y hablamos mucho"
+        en: "The party was very good and we talked a lot"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l4-agr-tuvimosestuvimos
+        en: "We had a lot of work and we were at school"
+        audioText: "tuvimos mucho trabajo y estuvimos en la escuela"
+        atoms: ["tuvimos", "trabajo", "estuvimos", "escuela"]
+        segments:
+          - { blank: { id: "p1", answer: "tuvimos", options: ["tuvimos", "estuvimos"] } }
+          - { text: " mucho trabajo y " }
+          - { blank: { id: "p2", answer: "estuvimos", options: ["estuvimos", "tuvimos"] } }
+          - { text: " en la escuela" }
+      - kind: textMcq
+        id: l4-tm-estuvieron
+        target: "estuvieron"
+        distractors: ["estuvimos", "estuvo", "están"]
+      - kind: speakLit
+        id: l4-sp-tuvimosyestuvimos
+        es: "la semana pasada tuvimos mucho trabajo y estuvimos en la playa"
+        en: "Last week we had a lot of work and we were at the beach"
+        atoms: ["la semana pasada", "tuvimos", "trabajo", "estuvimos", "playa"]
+      - kind: sim
+        id: l4-sim-sofia-findesemana
+        scene: { emoji: "💼", title: "Sofía checks on the group", setting: "Sofía wants to know who had work, and where everyone was." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Estuvieron ustedes en la playa el fin de semana?", audioText: "¿estuvieron ustedes en la playa el fin de semana?", gloss: "Were you all at the beach over the weekend?" }
+            goal: "Say no, you all were at school."
+            reply:
+              mode: build
+              tiles: ["no", "estuvimos", "en", "la", "escuela", "estuvieron", "estuvo"]
+              answer: "no estuvimos en la escuela"
+            replyGloss: "No, we were at school."
+            explanation: "Sofía asked with «estuvieron»; the group answers with «estuvimos». «estuvieron» would hand it back to someone else."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y Diego y Luis?", audioText: "¿y diego y luis?", gloss: "And Diego and Luis?" }
+            goal: "Say they had a lot of work."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "tuvieron mucho trabajo" }
+                - { id: "wrong1", text: "tuvimos mucho trabajo" }
+                - { id: "wrong2", text: "tienen mucho trabajo" }
+              correctOptionId: "right"
+              audioText: "tuvieron mucho trabajo"
+            replyGloss: "They had a lot of work."
+            explanation: "Diego and Luis, last week: «tuvieron». «tienen» slips into now."
+          - id: t3
+            npc: { speaker: "Sofía", es: "¿Dónde estuvieron Sam y Ana?", audioText: "¿dónde estuvieron sam y ana?", gloss: "Where were Sam and Ana?" }
+            goal: "Say they were at the park."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "estuvieron en el parque" }
+                - { id: "wrong1", text: "estuvimos en el parque" }
+                - { id: "wrong2", text: "están en el parque" }
+              correctOptionId: "right"
+              audioText: "estuvieron en el parque"
+            replyGloss: "They were at the park."
+            explanation: "Sam and Ana: «estuvieron». «están» slips into now."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "tuvimos", target: "we had" }
+          - { source: "tuvieron", target: "they had, you all had" }
+          - { source: "estuvimos", target: "we were (somewhere)" }
+          - { source: "estuvieron", target: "they were, you all were (somewhere)" }
+          - { source: "trabajo", target: "work" }
+          - { source: "playa", target: "the beach" }
+          - { source: "escuela", target: "school" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "tuvimos mucho trabajo la semana pasada"
+        en: "We had a lot of work last week"
+        atoms: ["tuvimos", "mucho", "trabajo", "la semana pasada"]

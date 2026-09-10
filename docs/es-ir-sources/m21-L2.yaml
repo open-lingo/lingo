@@ -1,0 +1,141 @@
+  # ── L2 · «Fuimos, hablamos» — no new atoms. Two jobs: (1) re-spend
+  #    «fuimos» BOTH ways (went — a place follows; was — an adjective/noun
+  #    follows), exactly like m20 did for «fue»; (2) debut the PAST reading
+  #    of «hablamos»/«vivimos» — PRIOR m18 present-tense atoms, relicensed
+  #    here. Same surface, present or past; only the marker tells you which.
+  - n: 2
+    template: free
+    title: "Fuimos, hablamos"
+    description: "«fuimos» does the same double duty as «fui» — went, or was. And two words you already know, «hablamos» and «vivimos», turn out to have a past job too: the exact same word, then instead of now."
+    steps:
+      - kind: map
+        id: l2-map-fiestafuehablamos
+        tokens: ["la", "fiesta", "fue", "muy", "buena", "y", "hablamos", "mucho"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "party", tokenIndex: 1 }
+          - { en: "was", tokenIndex: 2 }
+          - { en: "very", tokenIndex: 3 }
+          - { en: "good", tokenIndex: 4 }
+          - { en: "and", tokenIndex: 5 }
+          - { en: "we talked", tokenIndex: 6 }
+          - { en: "a lot", tokenIndex: 7 }
+        audioText: "la fiesta fue muy buena y hablamos mucho"
+        revealNote: "«fue» again with no place after it — was, just like «la película fue muy buena». And «hablamos» here isn't now, it's then: we talked. Same word you've used since module eighteen — the story around it says which."
+      - kind: info
+        id: l2-info-hablamosvivimos
+        title: "Hablamos, vivimos — now, or then?"
+        body: "«hablamos» is both we speak (now) and we spoke (then) — the exact same word, no accent to tell them apart. «vivimos» works the same way: we live, or we lived. Looking at the word alone never tells you which. The marker does: «hoy hablamos» is now; «anoche hablamos» is then. Trust the marker, not the word."
+      - kind: speakLit
+        id: l2-sp-fuimosbuenos
+        es: "fuimos muy buenos en la fiesta"
+        en: "We were very good at the party"
+        atoms: ["fuimos", "fiesta"]
+      - kind: buildLit
+        id: l2-b-vivimosabuela
+        es: "la semana pasada vivimos en casa de mi abuela"
+        en: "Last week we lived at my grandmother's house"
+        atoms: ["vivimos", "abuela", "la semana pasada"]
+        tiles: ["viven", "vivo"]
+      - kind: listenBuildLit
+        id: l2-lb-hablamosanoche
+        es: "anoche hablamos mucho"
+        en: "Last night we talked a lot"
+        atoms: ["hablamos", "anoche"]
+        tiles: ["hablan", "hablas"]
+      - kind: listenCompLit
+        id: l2-lc-hablamosabuela
+        es: "hablamos con la abuela anoche"
+        en: "We talked to grandma last night."
+        atoms: ["hablamos", "abuela", "anoche"]
+        distractorsEn:
+          - "We talk to grandma every day."
+          - "They talked to grandma last night."
+          - "We talked to grandma today."
+      - kind: buildLit
+        id: l2-b-fuimosalparque
+        es: "fuimos al parque juntos ayer"
+        en: "We went to the park together yesterday"
+        atoms: ["fuimos", "parque", "juntos", "ayer"]
+        tiles: ["fue", "vamos"]
+      - kind: textMcq
+        id: l2-tm-vivimosanoche
+        target: "vivimos"
+        distractors: ["viven", "vivo", "vive"]
+      - kind: audioWimcq
+        id: l2-ear-abuela
+        target: { surface: "abuela", emoji: "👵" }
+        distractors:
+          - { surface: "casa", emoji: "🏠" }
+          - { surface: "fiesta", emoji: "🎉" }
+      - kind: agreementLit
+        id: l2-agr-fuimoshablamos
+        en: "We went to the party and we talked a lot"
+        audioText: "fuimos a la fiesta y hablamos mucho"
+        atoms: ["fuimos", "fiesta", "hablamos", "mucho"]
+        segments:
+          - { blank: { id: "p1", answer: "fuimos", options: ["fuimos", "fue"] } }
+          - { text: " a la fiesta y " }
+          - { blank: { id: "p2", answer: "hablamos", options: ["hablamos", "hablan"] } }
+          - { text: " mucho" }
+      - kind: listenBuildLit
+        id: l2-lb-vivimosaqui
+        es: "la semana pasada vivimos aquí"
+        en: "Last week we lived here"
+        atoms: ["vivimos", "la semana pasada", "aquí"]
+        tiles: ["viven", "vivo"]
+      - kind: textMcq
+        id: l2-tm-hablamos
+        target: "hablamos"
+        distractors: ["hablan", "hablas", "hablo"]
+      - kind: speakLit
+        id: l2-sp-fuimosamigos
+        es: "fuimos amigos en la escuela"
+        en: "We were friends at school"
+        atoms: ["fuimos", "escuela"]
+      - kind: sim
+        id: l2-sim-ana-fiesta
+        scene: { emoji: "🎉", title: "Ana asks about the party", setting: "Ana wants to know how the party was, and whether you talked to grandma." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Cómo fue la fiesta?", audioText: "¿cómo fue la fiesta?", gloss: "How was the party?" }
+            goal: "Say it was very good."
+            reply:
+              mode: build
+              tiles: ["fue", "muy", "buena", "fuimos", "fui"]
+              answer: "fue muy buena"
+            replyGloss: "It was very good."
+            explanation: "No place follows «fue» here, so it means was — the party, «buena» in the feminine. «fuimos» would be we; «fui» would be I."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Hablaste con tu abuela anoche?", audioText: "¿hablaste con tu abuela anoche?", gloss: "Did you talk to your grandma last night?" }
+            goal: "Say yes, you all talked a lot."
+            reply:
+              mode: build
+              tiles: ["sí", "hablamos", "mucho", "hablan", "hablo"]
+              answer: "sí hablamos mucho"
+            replyGloss: "Yes, we talked a lot."
+            explanation: "Ana asked about just you; answering for the group uses «hablamos» — her own marker «anoche» already set the past, so «hablamos» here means we talked, not we talk."
+          - id: t3
+            npc: { speaker: "Ana", es: "Mi abuela vivió en México.", audioText: "mi abuela vivió en méxico.", gloss: "My grandmother lived in Mexico." }
+            goal: "Say you all lived there too, last week."
+            reply:
+              mode: build
+              tiles: ["también", "vivimos", "en", "México", "la", "semana", "pasada", "viven", "vivo"]
+              answer: "también vivimos en México la semana pasada"
+            replyGloss: "We also lived in Mexico last week."
+            explanation: "«la semana pasada» is the marker that makes «vivimos» mean we lived, not we live."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "fuimos", target: "we went / we were" }
+          - { source: "hablamos", target: "we talk / we talked" }
+          - { source: "vivimos", target: "we live / we lived" }
+          - { source: "fue", target: "he or she went / was" }
+          - { source: "anoche", target: "last night" }
+          - { source: "la semana pasada", target: "last week" }
+          - { source: "fiesta", target: "the party" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "la fiesta fue muy buena y hablamos mucho"
+        en: "The party was very good and we talked a lot"
+        atoms: ["fue", "fiesta", "hablamos"]

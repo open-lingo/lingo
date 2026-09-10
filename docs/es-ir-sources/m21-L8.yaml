@@ -1,0 +1,181 @@
+  # ── L8 · CHECKPOINT — graded only. Every one of the 21 new plural-past
+  #    atoms (fuimos/fueron, hicimos/hicieron, tuvimos/tuvieron,
+  #    estuvimos/estuvieron, vimos/vieron, vinimos/vinieron, comimos/
+  #    comieron, vivieron, hablaron, todos, estudiaron, compraron,
+  #    trabajaron, escribieron) earns an answer position — paired build/
+  #    listen-build sentences carrying two or three forms via «y» cover all
+  #    21 in a handful of steps. «hablamos»/«vivimos» are cashed BOTH ways
+  #    (now — hoy, and then — anoche/el mes pasado) since they only differ
+  #    by the time-marker around them, never by spelling.
+  #    Cloze share 1/20-ish; recalls 2 (L1 win, L6 win); closes sim → match
+  #    → win.
+  - n: 8
+    template: free
+    title: "L8 ✓ Checkpoint · Fuimos, hicimos, tuvimos"
+    description: "Every plural past you have, all in one lesson — and «hablamos»/«vivimos» working both as now and as then."
+    steps:
+      - kind: buildLit
+        id: cp8-build-1
+        es: "fuimos al parque y vimos a Sofía"
+        en: "We went to the park and saw Sofía"
+        atoms: ["fuimos", "parque", "vimos"]
+        tiles: ["fueron", "vieron"]
+      - kind: listenBuildLit
+        id: cp8-lb-1
+        es: "hicimos la tarea y tuvimos mucho trabajo"
+        en: "We did the homework and had a lot of work"
+        atoms: ["hicimos", "tarea", "tuvimos", "trabajo"]
+        tiles: ["hicieron", "tuvieron"]
+      - kind: buildLit
+        id: cp8-build-2
+        es: "estuvimos en la playa y vinimos temprano"
+        en: "We were at the beach and came early"
+        atoms: ["estuvimos", "playa", "vinimos", "temprano"]
+        tiles: ["estuvieron", "vinieron"]
+      - kind: audioWimcq
+        id: cp8-ear-1
+        target: { surface: "fiesta", emoji: "🎉" }
+        distractors:
+          - { surface: "el museo", emoji: "🏛️" }
+          - { surface: "tienda", emoji: "🏪" }
+      - kind: buildLit
+        id: cp8-build-3
+        es: "todos fueron a la fiesta, comieron pizza y comimos también"
+        en: "Everyone went to the party, ate pizza, and we ate too"
+        atoms: ["todos", "fueron", "comieron", "comimos"]
+        tiles: ["fuimos", "comió"]
+      - kind: listenBuildLit
+        id: cp8-lb-2
+        es: "todos hicieron la tarea y tuvieron una fiesta"
+        en: "Everyone did the homework and had a party"
+        atoms: ["hicieron", "tuvieron", "fiesta"]
+        tiles: ["hicimos", "tuvimos"]
+      - kind: buildLit
+        id: cp8-build-4
+        es: "todos estuvieron en el mercado y vieron a Carmen"
+        en: "Everyone was at the market and saw Carmen"
+        atoms: ["estuvieron", "mercado", "vieron"]
+        tiles: ["estuvimos", "vimos"]
+      - kind: listenBuildLit
+        id: cp8-lb-3
+        es: "todos vinieron temprano y vivieron juntos en México"
+        en: "Everyone came early and lived together in Mexico"
+        atoms: ["vinieron", "temprano", "vivieron"]
+        tiles: ["vinimos", "viven"]
+      - kind: clozeLit
+        id: cp8-cloze-1
+        es: "todos hablaron mucho en la fiesta"
+        en: "Everyone talked a lot at the party"
+        blank: "hablaron"
+        options: ["hablaron", "hablamos", "habló"]
+        atoms: ["todos", "hablaron"]
+        why: "«todos» takes the they-ending: «hablaron», never «hablamos» — that would wrongly include you."
+      # Printed non-recall at L1 (es-m21-1-l1-sp-win).
+      - kind: speakLit
+        id: cp8-sp-recall-1
+        es: "ayer fuimos juntos al museo"
+        en: "Yesterday we went to the museum together"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: cp8-build-5
+        es: "estudiaron mucho y compraron un regalo en la tienda"
+        en: "They studied a lot and bought a gift at the store"
+        atoms: ["estudiaron", "compraron", "regalo", "tienda"]
+        tiles: ["estudié", "compré"]
+      - kind: listenBuildLit
+        id: cp8-lb-4
+        es: "trabajaron mucho y escribieron un mensaje anoche"
+        en: "They worked a lot and wrote a message last night"
+        atoms: ["trabajaron", "escribieron", "mensaje"]
+        tiles: ["trabajó", "escribió"]
+      - kind: mcq
+        id: cp8-q-hablamos
+        prompt: "Which one means 'we are talking' (right now, today)?"
+        correct: "hoy hablamos"
+        distractors: ["anoche hablamos", "ayer hablamos", "la semana pasada hablamos"]
+        atoms: ["hablamos"]
+        why: "«hablamos» looks the same in the present and the past — only the time-word around it says which: «hoy» is now, «anoche»/«ayer»/«la semana pasada» is then."
+      - kind: listenCompLit
+        id: cp8-lc-1
+        es: "hoy vivimos en casa de mi abuela"
+        en: "Today we live at my grandmother's house."
+        atoms: ["vivimos", "casa", "abuela"]
+        distractorsEn:
+          - "Yesterday we lived at my grandmother's house."
+          - "Today they live at my grandmother's house."
+          - "Today we live at the market."
+      - kind: buildLit
+        id: cp8-build-6
+        es: "el mes pasado vivimos en casa de mi abuela"
+        en: "Last month we lived at my grandmother's house"
+        atoms: ["el mes pasado", "vivimos", "casa"]
+        tiles: ["vivieron", "viven"]
+      # Printed non-recall at L6 (es-m21-6-l6-sp-win).
+      - kind: speakLit
+        id: cp8-sp-recall-2
+        es: "el mes pasado todos fueron a México"
+        en: "Last month everyone went to Mexico"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: cp8-tm-fueron
+        target: "fueron"
+        distractors: ["fuimos", "fue", "van"]
+      - kind: sim
+        id: cp8-sim-ana
+        scene: { emoji: "✅", title: "One more check-in", setting: "Sunday night. Last questions before the week starts again." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Fueron todos a la fiesta anoche?", audioText: "¿fueron todos a la fiesta anoche?", gloss: "Did everyone go to the party last night?" }
+            goal: "Say yes, and everyone ate pizza."
+            reply:
+              mode: build
+              tiles: ["sí", "y", "todos", "comieron", "pizza", "comimos", "comió"]
+              answer: "sí y todos comieron pizza"
+            replyGloss: "Yes, and everyone ate pizza."
+            explanation: "«todos» always takes the they-ending: «comieron», never «comimos»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Qué hicieron ustedes el fin de semana?", audioText: "¿qué hicieron ustedes el fin de semana?", gloss: "What did you all do on the weekend?" }
+            goal: "Say you had work, were at the market."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "tuvimos mucho trabajo y estuvimos en el mercado" }
+                - { id: "wrong1", text: "tenemos mucho trabajo y estamos en el mercado" }
+                - { id: "wrong2", text: "tuvieron mucho trabajo y estuvieron en el mercado" }
+              correctOptionId: "right"
+              audioText: "tuvimos mucho trabajo y estuvimos en el mercado"
+            replyGloss: "We had a lot of work and were at the market."
+            explanation: "About the group answering for itself: «tuvimos»/«estuvimos», not the present «tenemos»/«estamos», and not the they-form «tuvieron»/«estuvieron»."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Vinieron temprano Diego y Luis?", audioText: "¿vinieron temprano diego y luis?", gloss: "Did Diego and Luis come early?" }
+            goal: "Say yes, they saw the museum too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, y vieron el museo también" }
+                - { id: "wrong1", text: "sí, y vimos el museo también" }
+                - { id: "wrong2", text: "sí, y ve el museo también" }
+              correctOptionId: "right"
+              audioText: "sí, y vieron el museo también"
+            replyGloss: "Yes, and they saw the museum too."
+            explanation: "Diego and Luis — more than one: «vieron»."
+      - kind: matchLit
+        id: cp8-match
+        pairs:
+          - { source: "fuimos", target: "we went / were" }
+          - { source: "hicimos", target: "we did / made" }
+          - { source: "tuvimos", target: "we had" }
+          - { source: "estuvimos", target: "we were (somewhere)" }
+          - { source: "vimos", target: "we saw" }
+          - { source: "vinimos", target: "we came" }
+          - { source: "comimos", target: "we ate" }
+          - { source: "todos", target: "everyone / all of them" }
+          - { source: "hablaron", target: "they spoke, you all spoke" }
+          - { source: "estudiaron", target: "they studied, you all studied" }
+      - kind: speakLit
+        id: cp8-sp-final
+        es: "¿qué hicieron el fin de semana?"
+        en: "What did they do (did you all do) on the weekend?"
+        atoms: ["hicieron", "el fin de semana"]

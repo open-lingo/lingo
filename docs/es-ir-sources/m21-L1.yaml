@@ -1,0 +1,140 @@
+  # ── L1 · «Fuimos juntos» — fuimos, the plural past of «ir», WENT only.
+  #    No accent — same story as «fui»: the stress already sits on the stem.
+  #    A place always follows, with «a» or «al». ⚠️ NO ser reading here (L2).
+  #    NO other new verb.
+  - n: 1
+    template: free
+    title: "Fuimos juntos"
+    description: "You already know «fui» — I went. Now the same past, for «we»: «fuimos». One new word, one job: saying where you all went."
+    steps:
+      - kind: map
+        id: l1-map-ayerfuimos
+        tokens: ["ayer", "fuimos", "juntos", "al", "museo"]
+        pairs:
+          - { en: "yesterday", tokenIndex: 0 }
+          - { en: "we went", tokenIndex: 1 }
+          - { en: "together", tokenIndex: 2 }
+          - { en: "to the", tokenIndex: 3 }
+          - { en: "museum", tokenIndex: 4 }
+        audioText: "ayer fuimos juntos al museo"
+        revealNote: "«vamos» is we go, now — you have used it since module eighteen. «fuimos» is the past: we went. No accent, same shape as «fui», just the we-ending on it."
+      - kind: info
+        id: l1-info-fuimos
+        title: "Fuimos — the past of ir, for we"
+        body: "«vamos» is we go, now. «fuimos» is we went — no accent anywhere, the same irregular stem as «fui» with the we-ending on it. A place follows, with «a» or «al»: «fuimos al museo», «fuimos al parque». One word does the job that «fui» did for just you."
+      - kind: speakLit
+        id: l1-sp-fuimos
+        es: "fuimos al museo ayer"
+        en: "We went to the museum yesterday"
+        atoms: ["fuimos", "el museo", "ayer"]
+      - kind: clozeLit
+        id: l1-c-fuimosplaya
+        es: "fuimos a la playa juntos"
+        en: "We went to the beach together"
+        blank: "fuimos"
+        options: ["fuimos", "fui", "vamos"]
+        atoms: ["fuimos", "playa", "juntos"]
+        why: "More than one person went, together — «fuimos». «fui» would be just you; «vamos» slips back into now."
+      - kind: listenCompLit
+        id: l1-lc-fuimosmercado
+        es: "fuimos al mercado ayer"
+        en: "We went to the market yesterday."
+        atoms: ["fuimos", "mercado", "ayer"]
+        distractorsEn:
+          - "We go to the market every day."
+          - "They went to the market yesterday."
+          - "I went to the market yesterday."
+      - kind: mcq
+        id: l1-q-fuimos
+        prompt: "Which one means 'we went'?"
+        correct: "fuimos"
+        distractors: ["fui", "vamos", "van"]
+        atoms: ["fuimos"]
+        why: "«fuimos» — the we-ending on the past of ir. «fui» is just you talking about yourself; «vamos»/«van» slip back into now."
+      - kind: buildLit
+        id: l1-b-fuimosjuntosparque
+        es: "fuimos juntos al parque ayer"
+        en: "We went to the park together yesterday"
+        atoms: ["fuimos", "juntos", "parque", "ayer"]
+        tiles: ["fui", "vamos"]
+      - kind: audioWimcq
+        id: l1-ear-parque
+        target: { surface: "el parque", emoji: "🌳" }
+        distractors:
+          - { surface: "el museo", emoji: "🏛️" }
+          - { surface: "la playa", emoji: "🏖️" }
+      - kind: agreementLit
+        id: l1-agr-fuiyfuimos
+        en: "I went to the museum and we went to the park"
+        audioText: "fui al museo y fuimos al parque"
+        atoms: ["fui", "el museo", "fuimos", "parque"]
+        segments:
+          - { blank: { id: "p1", answer: "fui", options: ["fui", "fuimos"] } }
+          - { text: " al museo y " }
+          - { blank: { id: "p2", answer: "fuimos", options: ["fuimos", "fui"] } }
+          - { text: " al parque" }
+      - kind: listenBuildLit
+        id: l1-lb-fuimosjuntosfiesta
+        es: "fuimos juntos a la fiesta"
+        en: "We went to the party together"
+        atoms: ["fuimos", "juntos", "fiesta"]
+        tiles: ["fue", "vamos"]
+      - kind: textMcq
+        id: l1-tm-fuimos
+        target: "fuimos"
+        distractors: ["fui", "vamos", "van"]
+      - kind: speakLit
+        id: l1-sp-fuimosconDiego
+        es: "fuimos al museo con Diego"
+        en: "We went to the museum with Diego"
+        atoms: ["fuimos", "el museo"]
+      - kind: sim
+        id: l1-sim-ana-museo
+        scene: { emoji: "🏛️", title: "Ana asks about the museum", setting: "Ana wants to know who went where yesterday." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Fuiste al museo con Diego ayer?", audioText: "¿fuiste al museo con diego ayer?", gloss: "Did you go to the museum with Diego yesterday?" }
+            goal: "Say yes, you both went together."
+            reply:
+              mode: build
+              tiles: ["sí", "fuimos", "juntos", "fui", "vamos"]
+              answer: "sí fuimos juntos"
+            replyGloss: "Yes, we went together."
+            explanation: "Ana asked about you and Diego; the answer covers both of you at once: «fuimos». «fui» would be only you."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Fue bueno el museo?", audioText: "¿fue bueno el museo?", gloss: "Was the museum good?" }
+            goal: "Say yes, it was very good."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, fue muy bueno" }
+                - { id: "wrong1", text: "sí, fui muy bueno" }
+                - { id: "wrong2", text: "sí, fuiste muy bueno" }
+              correctOptionId: "right"
+              audioText: "sí, fue muy bueno"
+            replyGloss: "Yes, it was very good."
+            explanation: "«el museo» — he or she in grammar terms: «fue». «fui» would be I; «fuiste» would be you."
+          - id: t3
+            npc: { speaker: "Ana", es: "Diego no fue al parque.", audioText: "diego no fue al parque.", gloss: "Diego didn't go to the park." }
+            goal: "Say no, you went without Diego."
+            reply:
+              mode: build
+              tiles: ["no", "fuimos", "sin", "Diego", "fui", "fue"]
+              answer: "no fuimos sin Diego"
+            replyGloss: "No, we went without Diego."
+            explanation: "Still the group answering about itself: «fuimos». «fui» would be only you; «fue» would hand it to Diego."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "ayer", target: "yesterday" }
+          - { source: "fuimos", target: "we went" }
+          - { source: "fui", target: "I went" }
+          - { source: "vamos", target: "we go" }
+          - { source: "juntos", target: "together" }
+          - { source: "el museo", target: "the museum" }
+          - { source: "el parque", target: "the park" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "ayer fuimos juntos al museo"
+        en: "Yesterday we went to the museum together"
+        atoms: ["ayer", "fuimos", "juntos", "el museo"]

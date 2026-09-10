@@ -1,0 +1,175 @@
+  # ── L5 · «Vimos, vinimos» — ver and venir's irregular stems (PRIOR, m20:
+  #    vi/viste/vio, vine/viniste/vino), now for the group: «vimos»/«vieron»
+  #    (saw), «vinimos»/«vinieron» (came). No accent — nosotros -imos,
+  #    ellos/ustedes -ieron.
+  - n: 5
+    template: free
+    title: "Vimos, vinimos"
+    description: "«vi»/«vine» you already have for yourself. Now the group: «vimos» is we saw, «vieron» is they saw; «vinimos» is we came, «vinieron» is they came."
+    steps:
+      - kind: map
+        id: l5-map-vimosasofiavinimos
+        tokens: ["vimos", "a Sofía", "y", "vinimos", "temprano"]
+        pairs:
+          - { en: "we saw", tokenIndex: 0 }
+          - { en: "Sofía", tokenIndex: 1 }
+          - { en: "and", tokenIndex: 2 }
+          - { en: "we came", tokenIndex: 3 }
+          - { en: "early", tokenIndex: 4 }
+        audioText: "vimos a Sofía y vinimos temprano"
+        revealNote: "«vi» is I saw. «vimos» is we saw — same stem, we-ending. «venir» does the same for come: «vine» is I came, «vinimos» is we came."
+      - kind: info
+        id: l5-info-vimosvinimos
+        title: "Vimos, vinimos — ver and venir, for more than one"
+        body: "«vi»/«vine» you already have for yourself. Now the group: «vimos» is we saw, «vieron» is they saw or you all saw; «vinimos» is we came, «vinieron» is they came, or you all came. Same irregular stems, no accent anywhere — just nosotros -imos and ellos/ustedes -ieron on top of them."
+      - kind: speakLit
+        id: l5-sp-vimos
+        es: "vimos a Sofía en el parque"
+        en: "We saw Sofía at the park"
+        atoms: ["vimos", "parque"]
+      - kind: buildLit
+        id: l5-b-diegoluisvieron
+        es: "Diego y Luis vieron a Sofía ayer"
+        en: "Diego and Luis saw Sofía yesterday"
+        atoms: ["vieron", "ayer"]
+        tiles: ["vimos", "vio"]
+      - kind: speakLit
+        id: l5-sp-vinimos
+        es: "vinimos temprano al parque"
+        en: "We came to the park early"
+        atoms: ["vinimos", "parque", "temprano"]
+      - kind: buildLit
+        id: l5-b-ustedesvinieron
+        es: "ustedes vinieron temprano también"
+        en: "You all came early too"
+        atoms: ["vinieron", "temprano"]
+        tiles: ["vinimos", "vino"]
+      - kind: speakLit
+        id: l5-sp-samanavieron
+        es: "Sam y Ana vieron el museo ayer"
+        en: "Sam and Ana saw the museum yesterday"
+        atoms: ["vieron", "el museo", "ayer"]
+      - kind: clozeLit
+        id: l5-c-vimosmuseo
+        es: "vimos el museo la semana pasada"
+        en: "We saw the museum last week"
+        blank: "vimos"
+        options: ["vimos", "vieron", "vi"]
+        atoms: ["vimos", "el museo", "la semana pasada"]
+        why: "We, the group: «vimos». «vieron» would be someone else; «vi» would be just you."
+      - kind: listenCompLit
+        id: l5-lc-vinimosfiesta
+        es: "vinimos temprano a la fiesta"
+        en: "We came to the party early."
+        atoms: ["vinimos", "fiesta", "temprano"]
+        distractorsEn:
+          - "We come to the party early every day."
+          - "They came to the party early."
+          - "We came to the party yesterday."
+      - kind: listenBuildLit
+        id: l5-lb-vinieronmuseo
+        es: "vinieron temprano al museo"
+        en: "They came to the museum early"
+        atoms: ["vinieron", "el museo", "temprano"]
+        tiles: ["vinimos", "vino"]
+      - kind: clozeLit
+        id: l5-c-vieronparque
+        es: "vieron a Sofía en el parque"
+        en: "They saw Sofía at the park"
+        blank: "vieron"
+        options: ["vieron", "vimos", "vio"]
+        atoms: ["vieron", "parque"]
+        why: "They — more than one: «vieron». «vimos» would include you (we); «vio» would be just one."
+      - kind: mcq
+        id: l5-q-ellosvinieron
+        prompt: "Which one means 'they came'?"
+        correct: "ellos vinieron"
+        distractors: ["ellos vinimos", "ellos vino", "ellos viene"]
+        atoms: ["vinieron"]
+        why: "«vinieron» — they/you-all, past. «vinimos» is we; «vino» is just one; «viene» slips into now, and doesn't even fit «ellos»."
+      - kind: audioWimcq
+        id: l5-ear-parque
+        target: { surface: "parque", emoji: "🌳" }
+        distractors:
+          - { surface: "el museo", emoji: "🏛️" }
+          - { surface: "playa", emoji: "🏖️" }
+      # Printed non-recall at L3 (es-m21-3-l3-sp-win).
+      - kind: speakLit
+        id: l5-sp-recall-anochehicimos
+        es: "anoche hicimos la tarea juntos"
+        en: "Last night we did the homework together"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l5-agr-vimosvieron
+        en: "We saw Sofía and they saw Diego"
+        audioText: "vimos a Sofía y vieron a Diego"
+        atoms: ["vimos", "vieron"]
+        segments:
+          - { blank: { id: "p1", answer: "vimos", options: ["vimos", "vieron"] } }
+          - { text: " a Sofía y " }
+          - { blank: { id: "p2", answer: "vieron", options: ["vieron", "vimos"] } }
+          - { text: " a Diego" }
+      - kind: textMcq
+        id: l5-tm-vinieron
+        target: "vinieron"
+        distractors: ["vinimos", "vino", "viene"]
+      - kind: speakLit
+        id: l5-sp-vimosyvinimos
+        es: "la semana pasada vimos el museo y vinimos temprano"
+        en: "Last week we saw the museum and came early"
+        atoms: ["la semana pasada", "vimos", "el museo", "vinimos", "temprano"]
+      - kind: sim
+        id: l5-sim-sofia-parque
+        scene: { emoji: "🌳", title: "Sofía asks about the park", setting: "Sofía wants to know who came early, and who saw the museum." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Vinieron ustedes temprano al parque?", audioText: "¿vinieron ustedes temprano al parque?", gloss: "Did you all come to the park early?" }
+            goal: "Say yes, you all came together early."
+            reply:
+              mode: build
+              tiles: ["sí", "vinimos", "juntos", "temprano", "vinieron", "vino"]
+              answer: "sí vinimos juntos temprano"
+            replyGloss: "Yes, we came together early."
+            explanation: "Sofía asked with «vinieron»; the group answers with «vinimos». «vinieron» would hand it back to someone else."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y Diego y Luis? ¿Vieron el museo?", audioText: "¿y diego y luis? ¿vieron el museo?", gloss: "And Diego and Luis? Did they see the museum?" }
+            goal: "Say yes, they saw it yesterday."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, vieron el museo ayer" }
+                - { id: "wrong1", text: "sí, vimos el museo ayer" }
+                - { id: "wrong2", text: "sí, vio el museo ayer" }
+              correctOptionId: "right"
+              audioText: "sí, vieron el museo ayer"
+            replyGloss: "Yes, they saw it yesterday."
+            explanation: "Diego and Luis — more than one: «vieron»."
+          - id: t3
+            npc: { speaker: "Sofía", es: "¿Vino Sam también?", audioText: "¿vino sam también?", gloss: "Did Sam come too?" }
+            goal: "Say yes, he came with you all early."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, vino con nosotros temprano" }
+                - { id: "wrong1", text: "sí, vinimos con nosotros temprano" }
+                - { id: "wrong2", text: "sí, vinieron con nosotros temprano" }
+              correctOptionId: "right"
+              audioText: "sí, vino con nosotros temprano"
+            replyGloss: "Yes, he came with us early."
+            explanation: "Sam, just one person: «vino». «vinimos» would be we; «vinieron» would be more than one of them."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "vimos", target: "we saw" }
+          - { source: "vieron", target: "they saw, you all saw" }
+          - { source: "vinimos", target: "we came" }
+          - { source: "vinieron", target: "they came, you all came" }
+          - { source: "parque", target: "the park" }
+          - { source: "el museo", target: "the museum" }
+          - { source: "temprano", target: "early" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "vimos a Sofía y vinimos temprano"
+        en: "We saw Sofía and we came early"
+        atoms: ["vimos", "vinimos", "temprano"]

@@ -31,6 +31,7 @@ import { ES_M17_LESSONS } from "./m17";
 import { ES_M18_LESSONS } from "./m18";
 import { ES_M19_LESSONS } from "./m19";
 import { ES_M20_LESSONS } from "./m20";
+import { ES_M21_LESSONS } from "./m21";
 
 export type EsModuleMeta = {
   id: string;
@@ -176,7 +177,14 @@ export const ES_MODULE_META: EsModuleMeta[] = [
     eyebrow: "Module 20 · El pasado irregular",
     summary: "the verbs you use most do not take yesterday's endings — they change their whole shape, and «fui» is both went and was.",
     accent: { from: "#c084fc", to: "#581c87" },
+  },  {
+    id: "m21",
+    title: "Fuimos, fueron",
+    eyebrow: "Module 21 · El pretérito plural",
+    summary: "the same past you already own, said about more than one person — «hablamos» finally gets its other meaning, and «todos» brings the whole group into the sentence.",
+    accent: { from: "#38bdf8", to: "#0c4a6e" },
   },
+
 
 
 
@@ -204,6 +212,7 @@ const LESSONS_BY_MODULE: Record<string, LessonContent[]> = {
   m18: ES_M18_LESSONS,
   m19: ES_M19_LESSONS,
   m20: ES_M20_LESSONS,
+  m21: ES_M21_LESSONS,
 };
 
 /** Flat lesson list for the shared LESSONS content index (mockLessons.ts). */

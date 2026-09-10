@@ -1,0 +1,170 @@
+  # ── L7 · «¿Fueron? No fuimos» — four new they/you-all pasts, all regular,
+  #    all unambiguous new surfaces: estudiaron, compraron, trabajaron,
+  #    escribieron — same -aron/-ieron endings as «hablaron»/«comieron»
+  #    (L6). Plus negation: «no» right before the verb, nothing else changes.
+  #    ⚠️ «compramos»/«trabajamos»/«estudiamos»/«escribimos» (nosotros
+  #    preterite) are NOT taught this module — never print them.
+  - n: 7
+    template: free
+    title: "¿Fueron? No fuimos"
+    description: "Negating a past verb is just «no» in front of it: «no fuimos», we didn't go. And four more they/you-all pasts, all regular: estudiaron, compraron, trabajaron, escribieron."
+    steps:
+      - kind: map
+        id: l7-map-nofuimosfiesta
+        tokens: ["no", "fuimos", "a", "la", "fiesta", "anoche"]
+        pairs:
+          - { en: "not / didn't", tokenIndex: 0 }
+          - { en: "we went", tokenIndex: 1 }
+          - { en: "to", tokenIndex: 2 }
+          - { en: "the", tokenIndex: 3 }
+          - { en: "party", tokenIndex: 4 }
+          - { en: "last night", tokenIndex: 5 }
+        audioText: "no fuimos a la fiesta anoche"
+        revealNote: "«no» right before the verb negates it: «no fuimos», we didn't go. This lesson also gives four new they/you-all pasts: estudiaron, compraron, trabajaron, escribieron."
+      - kind: info
+        id: l7-info-negacion
+        title: "No fuimos — negating the past"
+        body: "Negating any past verb is just «no» in front of it: «no fuimos», we didn't go; «no hicimos», we didn't do. And four more they/you-all pasts, all regular, all new: «estudiaron» (studied), «compraron» (bought), «trabajaron» (worked), «escribieron» (wrote) — same -aron/-ieron endings as «hablaron»/«comieron»."
+      - kind: speakLit
+        id: l7-sp-estudiaron
+        es: "ustedes estudiaron mucho ayer"
+        en: "You all studied a lot yesterday"
+        atoms: ["estudiaron", "mucho", "ayer"]
+      - kind: buildLit
+        id: l7-b-diegosofiacompraron
+        es: "Diego y Sofía compraron un regalo en la tienda"
+        en: "Diego and Sofía bought a gift at the store"
+        atoms: ["compraron", "regalo", "tienda"]
+        tiles: ["compró", "compraste"]
+      - kind: speakLit
+        id: l7-sp-trabajaron
+        es: "Sam y Luis trabajaron en el mercado anoche"
+        en: "Sam and Luis worked at the market last night"
+        atoms: ["trabajaron", "mercado", "anoche"]
+      - kind: buildLit
+        id: l7-b-ellosescribieron
+        es: "ellos escribieron un mensaje anoche"
+        en: "They wrote a message last night"
+        atoms: ["escribieron", "mensaje", "anoche"]
+        tiles: ["escribió", "escribí"]
+      - kind: clozeLit
+        id: l7-c-anacarmenestudiaron
+        es: "Ana y Carmen estudiaron mucho la semana pasada"
+        en: "Ana and Carmen studied a lot last week"
+        blank: "estudiaron"
+        options: ["estudiaron", "estudió", "estudié"]
+        atoms: ["estudiaron", "la semana pasada"]
+        why: "Ana and Carmen — more than one: «estudiaron». «estudió» would be just one; «estudié» would be you."
+      - kind: listenCompLit
+        id: l7-lc-compraronmercado
+        es: "compraron mucho en el mercado"
+        en: "They bought a lot at the market."
+        atoms: ["compraron", "mercado"]
+        distractorsEn:
+          - "They buy a lot at the market."
+          - "We bought a lot at the market."
+          - "They bought a lot at the store."
+      - kind: listenBuildLit
+        id: l7-lb-trabajaronsemana
+        es: "trabajaron mucho la semana pasada"
+        en: "They worked a lot last week"
+        atoms: ["trabajaron", "mucho", "la semana pasada"]
+        tiles: ["trabajó", "trabajé"]
+      - kind: clozeLit
+        id: l7-c-sofiaanaescribieron
+        es: "Sofía y Ana escribieron la tarea juntos"
+        en: "Sofía and Ana wrote the homework together"
+        blank: "escribieron"
+        options: ["escribieron", "escribió", "escribí"]
+        atoms: ["escribieron", "tarea", "juntos"]
+        why: "Sofía and Ana — more than one: «escribieron». «escribió» would be just one; «escribí» would be you."
+      - kind: mcq
+        id: l7-q-fueronustedes
+        prompt: "Which one means 'Did you all go?'"
+        correct: "¿fueron ustedes?"
+        distractors: ["¿fuimos nosotros?", "no fueron", "¿van ustedes?"]
+        atoms: ["fueron"]
+        why: "A question just wraps question marks around the same past form: «¿fueron ustedes?» — did you all go? «fuimos» would ask about us; «van» slips into now."
+      - kind: audioWimcq
+        id: l7-ear-tienda
+        target: { surface: "tienda", emoji: "🏪" }
+        distractors:
+          - { surface: "mercado", emoji: "🛒" }
+          - { surface: "fiesta", emoji: "🎉" }
+      # Printed non-recall at L5 (es-m21-5-l5-sp-win).
+      - kind: speakLit
+        id: l7-sp-recall-vimosasofia
+        es: "vimos a Sofía y vinimos temprano"
+        en: "We saw Sofía and we came early"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l7-agr-comprarnescribieron
+        en: "They bought a gift and they wrote a message"
+        audioText: "compraron un regalo y escribieron un mensaje"
+        atoms: ["compraron", "regalo", "escribieron", "mensaje"]
+        segments:
+          - { blank: { id: "p1", answer: "compraron", options: ["compraron", "escribieron"] } }
+          - { text: " un regalo y " }
+          - { blank: { id: "p2", answer: "escribieron", options: ["escribieron", "compraron"] } }
+          - { text: " un mensaje" }
+      - kind: textMcq
+        id: l7-tm-trabajaron
+        target: "trabajaron"
+        distractors: ["trabajó", "trabajé", "trabajaste"]
+      - kind: speakLit
+        id: l7-sp-nofuimosmercado
+        es: "no fuimos al mercado, pero compraron mucho y trabajaron en la tienda"
+        en: "We didn't go to the market, but they bought a lot and worked at the store"
+        atoms: ["fuimos", "compraron", "trabajaron", "mercado", "tienda"]
+      - kind: sim
+        id: l7-sim-carmen-finde
+        scene: { emoji: "🏪", title: "Carmen asks about the weekend", setting: "Carmen wants to know who went where, and who got things done." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Fueron ustedes a la fiesta anoche?", audioText: "¿fueron ustedes a la fiesta anoche?", gloss: "Did you all go to the party last night?" }
+            goal: "Say no, you didn't go."
+            reply:
+              mode: build
+              tiles: ["no", "fuimos", "fueron", "fue"]
+              answer: "no fuimos"
+            replyGloss: "No, we didn't go."
+            explanation: "Negating: «no» before the verb. Carmen asked with «fueron»; you answer for yourselves with «fuimos»."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Estudiaron Ana y Carmen mucho?", audioText: "¿estudiaron ana y carmen mucho?", gloss: "Did Ana and Carmen study a lot?" }
+            goal: "Say yes, they studied a lot."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, estudiaron mucho" }
+                - { id: "wrong1", text: "sí, estudió mucho" }
+                - { id: "wrong2", text: "sí, estudié mucho" }
+              correctOptionId: "right"
+              audioText: "sí, estudiaron mucho"
+            replyGloss: "Yes, they studied a lot."
+            explanation: "Ana and Carmen — more than one: «estudiaron»."
+          - id: t3
+            npc: { speaker: "Carmen", es: "¿Escribieron ustedes un mensaje?", audioText: "¿escribieron ustedes un mensaje?", gloss: "Did you all write a message?" }
+            goal: "Say no, Diego wrote it."
+            reply:
+              mode: build
+              tiles: ["no", "Diego", "escribió", "escribieron", "escribí"]
+              answer: "no Diego escribió"
+            replyGloss: "No, Diego wrote it."
+            explanation: "Just Diego, one person: «escribió». «escribieron» would be more than one; «escribí» would be you."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "estudiaron", target: "they studied, you all studied" }
+          - { source: "compraron", target: "they bought, you all bought" }
+          - { source: "trabajaron", target: "they worked, you all worked" }
+          - { source: "escribieron", target: "they wrote, you all wrote" }
+          - { source: "tienda", target: "the store" }
+          - { source: "mercado", target: "the market" }
+          - { source: "regalo", target: "the gift" }
+          - { source: "mensaje", target: "the message" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "no fuimos a la fiesta anoche"
+        en: "We didn't go to the party last night"
+        atoms: ["fuimos"]

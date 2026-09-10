@@ -1,0 +1,158 @@
+  # ── L3 · «¿Qué hicimos?» — hicimos, hicieron. The past of hacer, now for
+  #    the group: «hicimos» (we), «hicieron» (they / you all) — same
+  #    irregular stem as hice/hiciste/hizo (PRIOR, m20), no accent, just the
+  #    plural endings on it.
+  - n: 3
+    template: free
+    title: "¿Qué hicimos?"
+    description: "«hice», «hiciste», «hizo» you already have. Now the group: «hicimos» is we did, «hicieron» is they did — or you all did."
+    steps:
+      - kind: map
+        id: l3-map-anochehicimoslatarea
+        tokens: ["anoche", "hicimos", "la", "tarea", "juntos"]
+        pairs:
+          - { en: "last night", tokenIndex: 0 }
+          - { en: "we did", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "homework", tokenIndex: 3 }
+          - { en: "together", tokenIndex: 4 }
+        audioText: "anoche hicimos la tarea juntos"
+        revealNote: "«hice» is I did. «hicimos» is we did — same stem, no accent, just the we-ending. «anoche» tells you it already happened."
+      - kind: info
+        id: l3-info-hicimoshicieron
+        title: "Hicimos, hicieron — hacer, for more than one"
+        body: "«hice», «hiciste», «hizo» you already have. Now the group: «hicimos» is we did or we made; «hicieron» is they did, or you all did. Same irregular stem, no accent anywhere — just the plural endings on top of it."
+      - kind: speakLit
+        id: l3-sp-hicimos
+        es: "anoche hicimos la tarea juntos"
+        en: "Last night we did the homework together"
+        atoms: ["anoche", "hicimos", "tarea", "juntos"]
+      - kind: buildLit
+        id: l3-b-diegosofiahicieron
+        es: "Diego y Sofía hicieron mucho trabajo ayer"
+        en: "Diego and Sofía did a lot of work yesterday"
+        atoms: ["hicieron", "mucho", "trabajo", "ayer"]
+        tiles: ["hizo", "hiciste"]
+      - kind: speakLit
+        id: l3-sp-ustedeshicieron
+        es: "ustedes hicieron la tarea también"
+        en: "You all did the homework too"
+        atoms: ["hicieron", "tarea"]
+      - kind: clozeLit
+        id: l3-c-samluishicieron
+        es: "Sam y Luis hicieron pizza anoche"
+        en: "Sam and Luis made pizza last night"
+        blank: "hicieron"
+        options: ["hicieron", "hicimos", "hizo"]
+        atoms: ["hicieron", "anoche"]
+        why: "Sam and Luis — more than one: «hicieron». «hicimos» would include you (we); «hizo» would be just one of them."
+      - kind: listenCompLit
+        id: l3-lc-hicimosjuntos
+        es: "hicimos la tarea juntos anoche"
+        en: "We did the homework together last night."
+        atoms: ["hicimos", "tarea", "juntos", "anoche"]
+        distractorsEn:
+          - "We do the homework together every day."
+          - "They did the homework together last night."
+          - "We did the homework alone last night."
+      - kind: buildLit
+        id: l3-b-quehicieron
+        es: "¿qué hicieron ustedes anoche?"
+        en: "What did you all do last night?"
+        atoms: ["hicieron", "anoche"]
+        tiles: ["hicimos", "hizo"]
+      - kind: mcq
+        id: l3-q-ellosicieron
+        prompt: "Which one means 'they made'?"
+        correct: "ellos hicieron"
+        distractors: ["ellos hizo", "ellos hiciste", "ellos hicimos"]
+        atoms: ["hicieron"]
+        why: "«hicieron» — the they/you-all ending. «hizo» is just one; «hiciste» is you; «hicimos» is we."
+      - kind: audioWimcq
+        id: l3-ear-tarea
+        target: { surface: "tarea", emoji: "📝" }
+        distractors:
+          - { surface: "trabajo", emoji: "💼" }
+          - { surface: "el museo", emoji: "🏛️" }
+      # Printed non-recall at L1 (es-m21-1-l1-sp-win).
+      - kind: speakLit
+        id: l3-sp-recall-ayerfuimos
+        es: "ayer fuimos juntos al museo"
+        en: "Yesterday we went to the museum together"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l3-agr-hicimoshicieron
+        en: "We did the homework and they did the homework too"
+        audioText: "hicimos la tarea y ellos hicieron la tarea también"
+        atoms: ["hicimos", "tarea", "hicieron"]
+        segments:
+          - { blank: { id: "p1", answer: "hicimos", options: ["hicimos", "hicieron"] } }
+          - { text: " la tarea y ellos " }
+          - { blank: { id: "p2", answer: "hicieron", options: ["hicieron", "hicimos"] } }
+          - { text: " la tarea también" }
+      - kind: listenBuildLit
+        id: l3-lb-hicieronsemana
+        es: "hicieron mucho trabajo la semana pasada"
+        en: "They did a lot of work last week"
+        atoms: ["hicieron", "mucho", "trabajo", "la semana pasada"]
+        tiles: ["hicimos", "hizo"]
+      - kind: textMcq
+        id: l3-tm-hicimos
+        target: "hicimos"
+        distractors: ["hicieron", "hizo", "hice"]
+      - kind: speakLit
+        id: l3-sp-hicimosyhablamos
+        es: "anoche hicimos la tarea y hablamos con Sofía"
+        en: "Last night we did homework and talked with Sofía"
+        atoms: ["anoche", "hicimos", "tarea", "hablamos"]
+      - kind: sim
+        id: l3-sim-sofia-tarea
+        scene: { emoji: "📝", title: "Sofía asks about homework", setting: "Sofía wants to know who got the homework done last night." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Hicieron ustedes la tarea anoche?", audioText: "¿hicieron ustedes la tarea anoche?", gloss: "Did you all do the homework last night?" }
+            goal: "Say yes, you did it together."
+            reply:
+              mode: build
+              tiles: ["sí", "hicimos", "juntos", "hicieron", "hizo"]
+              answer: "sí hicimos juntos"
+            replyGloss: "Yes, we did it together."
+            explanation: "Sofía asked about the group; answering for we: «hicimos». «hicieron» would hand it to someone else; «hizo» would be just one person."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y Diego y Luis?", audioText: "¿y diego y luis?", gloss: "And Diego and Luis?" }
+            goal: "Say they did a lot of work."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hicieron mucho trabajo" }
+                - { id: "wrong1", text: "hicimos mucho trabajo" }
+                - { id: "wrong2", text: "hizo mucho trabajo" }
+              correctOptionId: "right"
+              audioText: "hicieron mucho trabajo"
+            replyGloss: "They did a lot of work."
+            explanation: "Diego and Luis — more than one: «hicieron»."
+          - id: t3
+            npc: { speaker: "Sofía", es: "Yo hice pizza anoche.", audioText: "yo hice pizza anoche.", gloss: "I made pizza last night." }
+            goal: "Say you all made pizza too."
+            reply:
+              mode: build
+              tiles: ["nosotros", "también", "hicimos", "pizza", "hicieron", "hizo"]
+              answer: "nosotros también hicimos pizza"
+            replyGloss: "We also made pizza."
+            explanation: "About the group: «hicimos». «hicieron» would be someone else; «hizo» would be just one."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "anoche", target: "last night" }
+          - { source: "hicimos", target: "we did / we made" }
+          - { source: "hicieron", target: "they did / made, you all did / made" }
+          - { source: "hizo", target: "he or she did / made" }
+          - { source: "tarea", target: "homework" }
+          - { source: "trabajo", target: "work" }
+          - { source: "juntos", target: "together" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "anoche hicimos la tarea juntos"
+        en: "Last night we did the homework together"
+        atoms: ["anoche", "hicimos", "tarea", "juntos"]
