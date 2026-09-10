@@ -26,7 +26,7 @@
  * must decompose into atoms already taught by this point") makes no
  * exception for headings. This file is that check.
  *
- * WHAT THIS WALKS: every FR module m2–m20 (mirrors `frDistractorProvenance`/
+ * WHAT THIS WALKS: every FR module m2–m21 (mirrors `frDistractorProvenance`/
  * `frSimProvenance`'s inventory and import style — see `MODULES` below), two
  * fields:
  *   1. `LessonContent.title` — every lesson's own title, once per lesson;
@@ -146,7 +146,7 @@
  *     clause with fewer than 60% of its tokens resolving to the taught
  *     lexicon reads as "mostly English" and is skipped. Cheap to construct
  *     in theory (three obscure, atonal French words in a row); did not
- *     occur in the real m2–m20 corpus (verified by running this gate and
+ *     occur in the real m2–m21 corpus (verified by running this gate and
  *     manually spot-checking every title the classifier called English —
  *     see the FINAL REPORT).
  *   - FALSE NEGATIVE (by construction, in the fixes this gate's own first
@@ -255,8 +255,9 @@ import { FR_M17_MODULE } from "./m17";
 import { FR_M18_MODULE } from "./m18";
 import { FR_M19_MODULE } from "./m19";
 import { FR_M20_MODULE } from "./m20";
+import { FR_M21_MODULE } from "./m21";
 
-// ─── Module inventory (m2–m20; m1 is not in range, matches both siblings) ──
+// ─── Module inventory (m2–m21; m1 is not in range, matches both siblings) ──
 
 const MODULES: ReadonlyArray<{ id: string; n: number; lessons: LessonContent[] }> = [
   { id: "m2", n: 2, lessons: FR_M2_MODULE.lessons },
@@ -278,6 +279,7 @@ const MODULES: ReadonlyArray<{ id: string; n: number; lessons: LessonContent[] }
   { id: "m18", n: 18, lessons: FR_M18_MODULE.lessons },
   { id: "m19", n: 19, lessons: FR_M19_MODULE.lessons },
   { id: "m20", n: 20, lessons: FR_M20_MODULE.lessons },
+  { id: "m21", n: 21, lessons: FR_M21_MODULE.lessons },
   // EVERY new FR module must be added here when it lands (coordinator checklist).
 ];
 
@@ -446,7 +448,7 @@ function walk(): Hit[] {
   return hits;
 }
 
-describe("FR title vocab provenance (m2–m20)", () => {
+describe("FR title vocab provenance (m2–m21)", () => {
   it("every French token in every LessonContent.title / info.title / dialogue_sim scene.title resolves to an atom taught at or before this module", () => {
     const hits = walk();
     const fmt = hits.map(
