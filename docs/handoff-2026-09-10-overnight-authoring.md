@@ -163,3 +163,4 @@ fan-out; save small notes here after every step (auto-compaction is on).
 - 15:39 Dispatched: JA m43 reviewer, JA m44 brief, ES m31 reviewer, ES m32 brief (lexicon break), FR m21 reviewer, FR m22 brief. Also in flight: FR minimal-pair gate order-dependence fixer, KO m10 review.
 - 15:39 KO m10 LANDED 5c54f8ae: 369/0/0, 98 fixes. FOLLOW-ONS (drafter/extractor, KO engineering lane): (1) drafter prompt: 정중하게 cue → 해요체 not 합니다체; 친구에게 cue → spoken 해체 not -는다; ban 아니오; ううん = 아니; mnemonic template; (2) extractor anchor collision m10/ja-m10-neo-1/ja:はい (register stage-1 vs stage-3 — only first kept); (3) mcq-option anchors carry no JA context → drafter adds subjects (pro-drop). Dispatching KO drafter-prompt patch lane + m11.
 - 15:40 KO m11 dispatched (with ≤25-line drafter prompt patch for the m10 defect classes).
+- 15:44 ES m31 review CLEAN (no edits; 2271/1). Nit: index.ts m30/m31 META entries joined on one line (whitespace only). Waiting on m32 brief → author.
