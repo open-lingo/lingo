@@ -38,6 +38,7 @@ import { ES_M24_LESSONS } from "./m24";
 import { ES_M25_LESSONS } from "./m25";
 import { ES_M26_LESSONS } from "./m26";
 import { ES_M27_LESSONS } from "./m27";
+import { ES_M28_LESSONS } from "./m28";
 
 export type EsModuleMeta = {
   id: string;
@@ -225,7 +226,14 @@ export const ES_MODULE_META: EsModuleMeta[] = [
     eyebrow: "Module 27 · Hace sol, hace frío",
     summary: "seven new weather words — sun, rain, wind, snow, cloudy, heat, cold — slotting into sentence patterns you already own: «hace», «hay», «está», now describing the sky instead of a place.",
     accent: { from: "#eab308", to: "#a16207" },
+  },  {
+    id: "m28",
+    title: "Voy a nadar mañana",
+    eyebrow: "Module 28 · Voy a nadar mañana",
+    summary: "the near future — «voy a, vas a, va a, vamos a, van a» plus any infinitive you already know, turning the same «voy» that gets you to the beach into the verb that gets you to tomorrow.",
+    accent: { from: "#22c55e", to: "#15803d" },
   },
+
 
 
 
@@ -267,6 +275,7 @@ const LESSONS_BY_MODULE: Record<string, LessonContent[]> = {
   m25: ES_M25_LESSONS,
   m26: ES_M26_LESSONS,
   m27: ES_M27_LESSONS,
+  m28: ES_M28_LESSONS,
 };
 
 /** Flat lesson list for the shared LESSONS content index (mockLessons.ts). */

@@ -1,0 +1,135 @@
+  # ── L5 · «Van a cocinar juntos» — «van» (PRIOR m18) reused, ellos/ellas/
+  #    ustedes slot; the full 5-person paradigm (voy/vas/va/vamos/van) is
+  #    now complete. No new atom; ≥1 recall of L4's own win line.
+  - n: 5
+    template: free
+    title: "Van a cocinar juntos"
+    description: "«van» (m18) plus an infinitive — ellos, ellas, ustedes. The same pattern, the last person of the paradigm."
+    steps:
+      - kind: map
+        id: l5-map-vanacocinar
+        tokens: ["Sam", "y", "Luis", "van", "a", "cocinar", "juntos"]
+        pairs:
+          - { en: "are going to", tokenIndex: 3 }
+          - { en: "cook", tokenIndex: 5 }
+          - { en: "together", tokenIndex: 6 }
+        audioText: "Sam y Luis van a cocinar juntos"
+        revealNote: "«van» (m18) plus a bare infinitive — «cocinar» — ellos/ellas/ustedes, the last slot of the paradigm."
+      - kind: speakLit
+        id: l5-sp-vanaviajar
+        es: "Ana y Diego van a viajar"
+        en: "Ana and Diego are going to travel"
+        atoms: ["van", "viajar"]
+      - kind: buildLit
+        id: l5-b-vanacomerjuntos
+        es: "van a comer juntos hoy"
+        en: "They're going to eat together today"
+        atoms: ["van", "comer", "juntos", "hoy"]
+        tiles: ["va", "vamos"]
+      - kind: clozeLit
+        id: l5-c-vanaestudiar
+        es: "Sofía y María van a estudiar mañana"
+        en: "Sofía and María are going to study tomorrow"
+        blank: "van"
+        options: ["van", "va"]
+        atoms: ["van", "estudiar", "mañana"]
+        why: "«van» — more than one person, not yourself (m18). «va» would be only one of them."
+      - kind: listenCompLit
+        id: l5-lc-vananadarjuntos
+        es: "mañana Sam y Luis van a nadar juntos"
+        en: "Tomorrow Sam and Luis are going to swim together."
+        atoms: ["mañana", "van", "nadar", "juntos"]
+        distractorsEn:
+          - "Tomorrow Sam and Luis are going to swim alone."
+          - "Tomorrow Sam and Luis used to swim together."
+          - "Tomorrow Sam and Luis are going to eat together."
+      - kind: mcq
+        id: l5-q-van
+        prompt: "Which one means 'they're going to' — more than one person, not you?"
+        correct: "van a"
+        distractors: ["vamos a", "va a", "vas a"]
+        atoms: ["van"]
+        why: "«van» — ellos/ellas/ustedes (m18). «vamos» would include yourself; «va» is only one person."
+      # Printed non-recall at L4 (es-m28-4-l4-sp-win).
+      - kind: speakLit
+        id: l5-sp-recall-l4win
+        es: "vamos a viajar el fin de semana"
+        en: "We're going to travel this weekend"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l5-ear-parque
+        target: { surface: "el parque", emoji: "🌳" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el mercado", emoji: "🛒" }
+      - kind: agreementLit
+        id: l5-agr-vanvamos
+        en: "They're going to cook, and we're going to cook too"
+        audioText: "ellos van a cocinar, y nosotros vamos a cocinar también"
+        atoms: ["van", "cocinar", "vamos", "también"]
+        segments:
+          - { text: "ellos " }
+          - { blank: { id: "p1", answer: "van", options: ["van", "vamos"] } }
+          - { text: " a cocinar, y nosotros " }
+          - { blank: { id: "p2", answer: "vamos", options: ["vamos", "van"] } }
+          - { text: " a cocinar también" }
+      - kind: listenBuildLit
+        id: l5-lb-vanalparquejuntos
+        es: "van al parque juntos mañana"
+        en: "They're going to the park together tomorrow"
+        atoms: ["van", "parque", "juntos", "mañana"]
+        tiles: ["va", "vamos"]
+      - kind: textMcq
+        id: l5-tm-van
+        target: "van"
+        distractors: ["vamos", "va", "vas"]
+      - kind: sim
+        id: l5-sim-ana-grupo
+        scene: { emoji: "🍳", title: "Ana talks about the group", setting: "Ana tells you what Sam and Luis are planning." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "Sam y Luis van a cocinar juntos.", audioText: "Sam y Luis van a cocinar juntos.", gloss: "Sam and Luis are going to cook together." }
+            goal: "Ask if they're also going to eat together."
+            reply:
+              mode: build
+              tiles: ["¿van", "a", "comer", "juntos", "también?", "va"]
+              answer: "¿van a comer juntos también?"
+            replyGloss: "Are they also going to eat together?"
+            explanation: "«van» — Sam and Luis, more than one (m18). «va» would ask about only one of them."
+          - id: t2
+            npc: { speaker: "Ana", es: "Sí. ¿Y tú vas a cocinar hoy?", audioText: "sí. ¿y tú vas a cocinar hoy?", gloss: "Yes. And are you going to cook today?" }
+            goal: "Say no, you're going to eat with Ana."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, voy a comer con Diego" }
+                - { id: "wrong1", text: "no, vas a comer con Diego" }
+                - { id: "wrong2", text: "no, van a comer con Diego" }
+              correctOptionId: "right"
+              audioText: "no, voy a comer con Diego"
+            replyGloss: "No, I'm going to eat with Diego."
+            explanation: "«voy» — answering about yourself (m9), not «vas» (that asks about you) or «van» (more than one, not you)."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y Sofía va a viajar mañana?", audioText: "¿y Sofía va a viajar mañana?", gloss: "And is Sofía going to travel tomorrow?" }
+            goal: "Say yes, she's going to travel with Diego."
+            reply:
+              mode: build
+              tiles: ["sí", "va", "a", "viajar", "con", "Diego", "van"]
+              answer: "sí va a viajar con Diego"
+            replyGloss: "Yes, she's going to travel with Diego."
+            explanation: "«va» keeps the answer about Sofía, one person — «van» would wrongly say more than one."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "van", target: "they/you all are going, they go" }
+          - { source: "cocinar", target: "to cook" }
+          - { source: "juntos", target: "together" }
+          - { source: "parque", target: "park" }
+          - { source: "nadar", target: "to swim" }
+          - { source: "viajar", target: "to travel" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "Sam y Luis van a cocinar juntos"
+        en: "Sam and Luis are going to cook together"
+        atoms: ["van", "cocinar", "juntos"]

@@ -1,0 +1,146 @@
+  # ── L1 · «Voy a nadar mañana» — «ir» debuts via an info card (this
+  #    module's ONE general usage-note, ≤3 lines) explaining the «voy a» +
+  #    place (PRIOR, m9) vs «voy a» + infinitive (this module) contrast up
+  #    front, per hard rule 6. «voy» (m9) is immediately reused with a bare
+  #    infinitive instead of a place — «voy a nadar mañana». «ir» itself
+  #    (banned in the "voy a ir" combination pre-L10) gets its ≥3 debut
+  #    answer positions via PRIOR present-tense modals «quiero»/«necesito»/
+  #    «puedo» (m7/m16/m14) + bare «ir», the exact "conjugated verb, then an
+  #    untouched infinitive" shape m24's «quería ir»/«podía ir» already
+  #    used unregistered — now the infinitive itself is a real atom. No
+  #    recall (nothing earlier in this module).
+  - n: 1
+    template: free
+    title: "Voy a nadar mañana"
+    description: "«voy a» (m9) plus a bare infinitive instead of a place — a plan for later, not a place you're headed. «voy a nadar mañana»."
+    steps:
+      - kind: map
+        id: l1-map-mananavoyanadar
+        tokens: ["mañana", "voy", "a", "nadar"]
+        pairs:
+          - { en: "tomorrow", tokenIndex: 0 }
+          - { en: "I'm going to", tokenIndex: 1 }
+          - { en: "swim", tokenIndex: 3 }
+        audioText: "mañana voy a nadar"
+        revealNote: "«voy» (m9) plus a bare infinitive — «nadar» — instead of a place. Same «voy a» as «voy a la playa», a different job: a plan, not a destination."
+      - kind: info
+        id: l1-info-voyapatron
+        title: "Voy a — the near future"
+        body: "«voy a» (m9) + a place means \"I'm going to [place].\" «voy a» + an infinitive — a verb's plain dictionary form, «ir», «nadar», «trabajar» — means \"I'm going to [verb],\" a plan for later: «voy a nadar mañana»."
+      - kind: speakLit
+        id: l1-sp-voyanadar
+        es: "voy a nadar mañana"
+        en: "I'm going to swim tomorrow"
+        atoms: ["voy", "nadar", "mañana"]
+      - kind: buildLit
+        id: l1-b-voyatrabajarmanana
+        es: "voy a trabajar mañana"
+        en: "I'm going to work tomorrow"
+        atoms: ["voy", "trabajar", "mañana"]
+        tiles: ["vas", "vamos"]
+      - kind: clozeLit
+        id: l1-c-voyaestudiarhoy
+        es: "voy a estudiar hoy"
+        en: "I'm going to study today"
+        blank: "voy"
+        options: ["voy", "vas"]
+        atoms: ["voy", "estudiar", "hoy"]
+        why: "«voy» — talking about yourself (m9). «vas» would talk to you instead."
+      - kind: listenCompLit
+        id: l1-lc-quieroiraplaya
+        es: "quiero ir a la playa mañana"
+        en: "I want to go to the beach tomorrow."
+        atoms: ["quiero", "ir", "playa", "mañana"]
+        distractorsEn:
+          - "I want to go to the park tomorrow."
+          - "I wanted to go to the beach tomorrow."
+          - "I don't want to go to the beach tomorrow."
+      - kind: mcq
+        id: l1-q-ir
+        prompt: "Which one means 'to go' — the plain dictionary form?"
+        correct: "ir"
+        distractors: ["voy", "va", "fui"]
+        atoms: ["ir"]
+        why: "«ir» is the infinitive — «voy»/«vas»/«va»/«vamos»/«van» all come from it. «fui» is a different tense (preterite, m20)."
+      - kind: buildLit
+        id: l1-b-necesitoiraescuela
+        es: "necesito ir a la escuela hoy"
+        en: "I need to go to school today"
+        atoms: ["necesito", "ir", "escuela", "hoy"]
+        tiles: ["voy", "puedo"]
+      - kind: audioWimcq
+        id: l1-ear-playa
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: agreementLit
+        id: l1-agr-yovoytuvas
+        en: "I'm going to swim, and you're going to swim too"
+        audioText: "yo voy a nadar, y tú vas a nadar también"
+        atoms: ["voy", "nadar", "vas", "también"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "voy", options: ["voy", "vas"] } }
+          - { text: " a nadar, y tú " }
+          - { blank: { id: "p2", answer: "vas", options: ["vas", "voy"] } }
+          - { text: " a nadar también" }
+      - kind: listenBuildLit
+        id: l1-lb-puedoiralcine
+        es: "puedo ir al cine mañana"
+        en: "I can go to the movies tomorrow"
+        atoms: ["puedo", "ir", "cine", "mañana"]
+        tiles: ["voy", "necesito"]
+      - kind: textMcq
+        id: l1-tm-ir
+        target: "ir"
+        distractors: ["va", "voy", "fue"]
+      - kind: sim
+        id: l1-sim-ana-planes
+        scene: { emoji: "🏊", title: "Ana asks about tomorrow", setting: "Ana wants to know your plans for tomorrow." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Vas a nadar mañana?", audioText: "¿vas a nadar mañana?", gloss: "Are you going to swim tomorrow?" }
+            goal: "Say yes, you're going to swim tomorrow."
+            reply:
+              mode: build
+              tiles: ["sí", "voy", "a", "nadar", "mañana", "vas"]
+              answer: "sí voy a nadar mañana"
+            replyGloss: "Yes, I'm going to swim tomorrow."
+            explanation: "«voy» — answering about yourself (m9). «vas» would ask about you instead — the exact person-swap to watch for."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y vas a trabajar también?", audioText: "¿y vas a trabajar también?", gloss: "And are you going to work too?" }
+            goal: "Say no, you're going to study instead."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, voy a estudiar" }
+                - { id: "wrong1", text: "no, vas a estudiar" }
+                - { id: "wrong2", text: "no, voy a la escuela" }
+              correctOptionId: "right"
+              audioText: "no, voy a estudiar"
+            replyGloss: "No, I'm going to study."
+            explanation: "«voy» stays yours, not «vas». «voy a la escuela» (a place) says something different from «voy a estudiar» (a plan) — same «voy a», two jobs."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Puedes ir al cine mañana?", audioText: "¿puedes ir al cine mañana?", gloss: "Can you go to the movies tomorrow?" }
+            goal: "Say yes, you can go to the movies."
+            reply:
+              mode: build
+              tiles: ["sí", "puedo", "ir", "al", "cine", "mañana", "voy"]
+              answer: "sí puedo ir al cine mañana"
+            replyGloss: "Yes, I can go to the movies tomorrow."
+            explanation: "«puedo» (m14) plus the infinitive «ir» — the same shape as «voy a nadar», just a different verb in front."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "ir", target: "to go" }
+          - { source: "voy", target: "I'm going, I go" }
+          - { source: "nadar", target: "to swim" }
+          - { source: "mañana", target: "tomorrow" }
+          - { source: "hoy", target: "today" }
+          - { source: "quiero", target: "I want" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "mañana voy a nadar"
+        en: "Tomorrow I'm going to swim"
+        atoms: ["mañana", "voy", "nadar"]

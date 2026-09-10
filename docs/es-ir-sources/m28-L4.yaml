@@ -1,0 +1,134 @@
+  # ── L4 · «Vamos a viajar» — «vamos» (PRIOR m18) reused for the near
+  #    future, nosotros slot. No new atom; ≥1 recall of L3's own win line.
+  - n: 4
+    template: free
+    title: "Vamos a viajar"
+    description: "«vamos» (m18) plus an infinitive — nosotros, the same «voy a + infinitivo» pattern for we."
+    steps:
+      - kind: map
+        id: l4-map-vamosaviajar
+        tokens: ["vamos", "a", "viajar", "el", "fin", "de", "semana"]
+        pairs:
+          - { en: "we're going to", tokenIndex: 0 }
+          - { en: "travel", tokenIndex: 2 }
+          - { en: "the weekend", tokenIndex: 3 }
+        audioText: "vamos a viajar el fin de semana"
+        revealNote: "«vamos» (m18) plus a bare infinitive — «viajar» — the nosotros slot of the same pattern."
+      - kind: speakLit
+        id: l4-sp-vamosacomer
+        es: "vamos a comer con Ana"
+        en: "We're going to eat with Ana"
+        atoms: ["vamos", "comer"]
+      - kind: buildLit
+        id: l4-b-vamosanadarhoy
+        es: "vamos a nadar hoy"
+        en: "We're going to swim today"
+        atoms: ["vamos", "nadar", "hoy"]
+        tiles: ["va", "van"]
+      - kind: clozeLit
+        id: l4-c-vamosatrabajar
+        es: "vamos a trabajar mañana"
+        en: "We're going to work tomorrow"
+        blank: "vamos"
+        options: ["vamos", "va"]
+        atoms: ["vamos", "trabajar", "mañana"]
+        why: "«vamos» — nosotros, more than one person including yourself (m18). «va» would be someone else, not you."
+      - kind: listenCompLit
+        id: l4-lc-vamosacocinarjuntos
+        es: "vamos a cocinar juntos"
+        en: "We're going to cook together."
+        atoms: ["vamos", "cocinar", "juntos"]
+        distractorsEn:
+          - "We're going to eat together."
+          - "We used to cook together."
+          - "We're going to cook alone."
+      - kind: mcq
+        id: l4-q-vamos
+        prompt: "Which one means 'we're going to' — nosotros, including yourself?"
+        correct: "vamos a"
+        distractors: ["va a", "van a", "voy a"]
+        atoms: ["vamos"]
+        why: "«vamos» — nosotros (m18). «van» would be a different group, not including you; «va»/«voy» are one person."
+      # Printed non-recall at L3 (es-m28-3-l3-sp-win).
+      - kind: speakLit
+        id: l4-sp-recall-l3win
+        es: "Ana va a comer con Diego mañana"
+        en: "Ana is going to eat with Diego tomorrow"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l4-ear-museo
+        target: { surface: "el museo", emoji: "🏛️" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la tienda", emoji: "🏪" }
+      - kind: agreementLit
+        id: l4-agr-vamosva
+        en: "We're going to travel, and Diego is going to travel too"
+        audioText: "vamos a viajar, y Diego va a viajar también"
+        atoms: ["vamos", "viajar", "va", "también"]
+        segments:
+          - { text: "" }
+          - { blank: { id: "p1", answer: "vamos", options: ["vamos", "va"] } }
+          - { text: " a viajar, y Diego " }
+          - { blank: { id: "p2", answer: "va", options: ["va", "vamos"] } }
+          - { text: " a viajar también" }
+      - kind: listenBuildLit
+        id: l4-lb-vamosalmuseo
+        es: "vamos al museo el fin de semana"
+        en: "We're going to the museum this weekend"
+        atoms: ["vamos", "el fin de semana"]
+        tiles: ["va", "van"]
+      - kind: textMcq
+        id: l4-tm-vamos
+        target: "vamos"
+        distractors: ["va", "van", "voy"]
+      - kind: sim
+        id: l4-sim-sofia-viaje
+        scene: { emoji: "🧳", title: "Sofía plans a trip", setting: "Sofía wants you and her to travel together this weekend." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Vamos a viajar el fin de semana?", audioText: "¿vamos a viajar el fin de semana?", gloss: "Are we going to travel this weekend?" }
+            goal: "Say yes, you're both going to travel."
+            reply:
+              mode: build
+              tiles: ["sí", "vamos", "a", "viajar", "va"]
+              answer: "sí vamos a viajar"
+            replyGloss: "Yes, we're going to travel."
+            explanation: "«vamos» includes yourself and Sofía (m18) — «va» would leave you out."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y Diego va a viajar también?", audioText: "¿y Diego va a viajar también?", gloss: "And is Diego also going to travel?" }
+            goal: "Say no, he's going to work."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, va a trabajar" }
+                - { id: "wrong1", text: "no, vamos a trabajar" }
+                - { id: "wrong2", text: "no, va al trabajo" }
+              correctOptionId: "right"
+              audioText: "no, va a trabajar"
+            replyGloss: "No, he's going to work."
+            explanation: "«va» stays Diego's, one person, not «vamos». «va al trabajo» (a place) says something different from «va a trabajar» (a plan)."
+          - id: t3
+            npc: { speaker: "Sofía", es: "¿Vamos a nadar en el viaje?", audioText: "¿vamos a nadar en el viaje?", gloss: "Are we going to swim on the trip?" }
+            goal: "Say yes, and you'll cook together too."
+            reply:
+              mode: build
+              tiles: ["sí", "y", "vamos", "a", "cocinar", "juntos", "va"]
+              answer: "sí y vamos a cocinar juntos"
+            replyGloss: "Yes, and we're going to cook together."
+            explanation: "«vamos» keeps both plans about you and Sofía together — «va» would wrongly drop one of you out."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "vamos", target: "we're going, we go" }
+          - { source: "viajar", target: "to travel" }
+          - { source: "juntos", target: "together" }
+          - { source: "el fin de semana", target: "the weekend" }
+          - { source: "museo", target: "museum" }
+          - { source: "cocinar", target: "to cook" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "vamos a viajar el fin de semana"
+        en: "We're going to travel this weekend"
+        atoms: ["vamos", "viajar", "el fin de semana"]

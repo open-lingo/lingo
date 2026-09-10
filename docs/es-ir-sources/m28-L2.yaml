@@ -1,0 +1,136 @@
+  # ── L2 · «¿Vas a trabajar mañana?» — tú-form, plain yes/no inversion (no
+  #    new question word, matching m25/m27's own discipline). No new atom;
+  #    ≥1 recall (L1's own win line). «ir» stays live via one more
+  #    «necesito ir» line, disambiguated the same way as L1.
+  - n: 2
+    template: free
+    title: "¿Vas a trabajar mañana?"
+    description: "«vas a» (m9) plus an infinitive — a question about your own plans, answered with plain «sí»/«no», no new question word needed."
+    steps:
+      - kind: map
+        id: l2-map-vasatrabajar
+        tokens: ["¿vas", "a", "trabajar", "mañana?"]
+        pairs:
+          - { en: "are you going to", tokenIndex: 0 }
+          - { en: "work", tokenIndex: 2 }
+          - { en: "tomorrow?", tokenIndex: 3 }
+        audioText: "¿vas a trabajar mañana?"
+        revealNote: "«vas» (m9) plus the infinitive «trabajar» — a yes/no question, no new question word, just «¿» and «?»."
+      - kind: speakLit
+        id: l2-sp-noansayestudiar
+        es: "no, mañana voy a estudiar"
+        en: "No, tomorrow I'm going to study"
+        atoms: ["no", "mañana", "voy", "estudiar"]
+      - kind: buildLit
+        id: l2-b-vasabailarhoy
+        es: "¿vas a bailar hoy?"
+        en: "Are you going to dance today?"
+        atoms: ["vas", "bailar", "hoy"]
+        tiles: ["voy", "vamos"]
+      - kind: clozeLit
+        id: l2-c-vasacantar
+        es: "vas a cantar mañana"
+        en: "You (tú) are going to sing tomorrow"
+        blank: "vas"
+        options: ["vas", "voy"]
+        atoms: ["vas", "cantar", "mañana"]
+        why: "«vas» — asking about you (m9). «voy» would talk about yourself instead."
+      - kind: listenCompLit
+        id: l2-lc-necesitoirtienda
+        es: "necesito ir a la tienda mañana"
+        en: "I need to go to the store tomorrow."
+        atoms: ["necesito", "ir", "tienda", "mañana"]
+        distractorsEn:
+          - "I need to go to the market tomorrow."
+          - "I needed to go to the store tomorrow."
+          - "I don't need to go to the store tomorrow."
+      - kind: mcq
+        id: l2-q-vas
+        prompt: "Which one asks 'are you going to' — not 'am I going to'?"
+        correct: "vas a"
+        distractors: ["voy a", "va a", "iba a"]
+        atoms: ["vas"]
+        why: "«vas» — the tú-form (m9). «voy» would ask about yourself; «va» is a different person; «iba» is the imperfect (m22), a different tense."
+      # Printed non-recall at L1 (es-m28-1-l1-sp-win).
+      - kind: speakLit
+        id: l2-sp-recall-l1win
+        es: "mañana voy a nadar"
+        en: "Tomorrow I'm going to swim"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l2-ear-tienda
+        target: { surface: "la tienda", emoji: "🏪" }
+        distractors:
+          - { surface: "el mercado", emoji: "🛒" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: agreementLit
+        id: l2-agr-vasvoy
+        en: "You're going to work, and I'm going to study"
+        audioText: "tú vas a trabajar, y yo voy a estudiar"
+        atoms: ["vas", "trabajar", "voy", "estudiar"]
+        segments:
+          - { text: "tú " }
+          - { blank: { id: "p1", answer: "vas", options: ["vas", "voy"] } }
+          - { text: " a trabajar, y yo " }
+          - { blank: { id: "p2", answer: "voy", options: ["voy", "vas"] } }
+          - { text: " a estudiar" }
+      - kind: listenBuildLit
+        id: l2-lb-vasahablarmanana
+        es: "¿vas a hablar con Diego mañana?"
+        en: "Are you going to talk to Diego tomorrow?"
+        atoms: ["vas", "hablar", "mañana"]
+        tiles: ["voy", "vamos"]
+      - kind: textMcq
+        id: l2-tm-vas
+        target: "vas"
+        distractors: ["voy", "va", "iba"]
+      - kind: sim
+        id: l2-sim-ana-mananasí
+        scene: { emoji: "💼", title: "Ana asks about work", setting: "Ana wants to know your plans for tomorrow, work or not." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Vas a trabajar mañana?", audioText: "¿vas a trabajar mañana?", gloss: "Are you going to work tomorrow?" }
+            goal: "Say no, tomorrow you're going to study."
+            reply:
+              mode: build
+              tiles: ["no", "mañana", "voy", "a", "estudiar", "vas"]
+              answer: "no mañana voy a estudiar"
+            replyGloss: "No, tomorrow I'm going to study."
+            explanation: "Answering about yourself: «voy», never «vas» — that would ask about Ana instead."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y necesitas ir a la tienda hoy?", audioText: "¿y necesitas ir a la tienda hoy?", gloss: "And do you need to go to the store today?" }
+            goal: "Say yes, you need to go today."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, necesito ir hoy" }
+                - { id: "wrong1", text: "sí, necesitas ir hoy" }
+                - { id: "wrong2", text: "sí, voy a la tienda hoy" }
+              correctOptionId: "right"
+              audioText: "sí, necesito ir hoy"
+            replyGloss: "Yes, I need to go today."
+            explanation: "«necesito» — yourself (m16), not «necesitas» (that asks about you). «voy a la tienda» is also true, but doesn't answer what Ana asked."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Vas a bailar también mañana?", audioText: "¿vas a bailar también mañana?", gloss: "Are you going to dance too tomorrow?" }
+            goal: "Say no, you're going to sing."
+            reply:
+              mode: build
+              tiles: ["no", "voy", "a", "cantar", "vas"]
+              answer: "no voy a cantar"
+            replyGloss: "No, I'm going to sing."
+            explanation: "«voy» keeps the answer about yourself — «vas» would wrongly ask about Ana again."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "vas", target: "you (tú) are going, you go" }
+          - { source: "trabajar", target: "to work" }
+          - { source: "estudiar", target: "to study" }
+          - { source: "bailar", target: "to dance" }
+          - { source: "cantar", target: "to sing" }
+          - { source: "necesito", target: "I need" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "no, mañana voy a estudiar"
+        en: "No, tomorrow I'm going to study"
+        atoms: ["no", "mañana", "voy", "estudiar"]

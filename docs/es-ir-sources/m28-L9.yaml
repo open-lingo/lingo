@@ -1,0 +1,139 @@
+  # ── L9 · «Voy a la playa, voy a nadar» — the dedicated contrast lesson
+  #    (hard rule 7): «voy a» + PLACE (PRIOR movement, m9) side by side
+  #    with «voy a» + INFINITIVE (this module), same surface, two jobs.
+  #    Every individual sentence still disambiguates from its very next
+  #    word (hard rule 6) — the contrast is between sentences, not inside
+  #    one. Win line drops «otra vez» (grep-confirmed NOT PRIOR — see
+  #    brief's own safer default). Full paradigm on display; ≥1 recall.
+  - n: 9
+    template: free
+    title: "Voy a la playa, voy a nadar"
+    description: "Same «voy a», two jobs: a place (PRIOR, m9) or an infinitive (this module). The very next word always tells you which."
+    steps:
+      - kind: map
+        id: l9-map-voyalaplayavoyanadar
+        tokens: ["hoy", "voy", "a", "la", "playa,", "y", "mañana", "voy", "a", "nadar"]
+        pairs:
+          - { en: "today", tokenIndex: 0 }
+          - { en: "the beach", tokenIndex: 4 }
+          - { en: "tomorrow", tokenIndex: 6 }
+          - { en: "swim", tokenIndex: 9 }
+        audioText: "hoy voy a la playa, y mañana voy a nadar"
+        revealNote: "«voy a la playa» — a place follows «a» (PRIOR, m9). «voy a nadar» — an infinitive follows instead. Same «voy a», the next word decides."
+      - kind: speakLit
+        id: l9-sp-vasalparquevasabailar
+        es: "vas al parque, y vas a bailar"
+        en: "You're going to the park, and you're going to dance"
+        atoms: ["vas", "parque", "bailar"]
+      - kind: buildLit
+        id: l9-b-vaalmuseovaacomer
+        es: "Ana va al museo, y luego va a comer"
+        en: "Ana is going to the museum, and then she's going to eat"
+        atoms: ["va", "comer"]
+        tiles: ["voy", "vamos"]
+      - kind: clozeLit
+        id: l9-c-vamosalatiendavamosaviajar
+        es: "vamos a la tienda, y vamos a viajar mañana"
+        en: "We're going to the store, and we're going to travel tomorrow"
+        blank: "vamos"
+        options: ["vamos", "van"]
+        atoms: ["vamos", "tienda", "viajar", "mañana"]
+        why: "«vamos» — nosotros, both times (m18). «van» would be a different group entirely."
+      - kind: listenCompLit
+        id: l9-lc-vanalcinevanacocinar
+        es: "hoy Sam y Luis van al cine, y luego van a cocinar"
+        en: "Today Sam and Luis are going to the movies, and then they're going to cook."
+        atoms: ["hoy", "van", "cine", "cocinar"]
+        distractorsEn:
+          - "Today Sam and Luis are going to the movies, and then they're going to eat."
+          - "Today Sam and Luis went to the movies, and then they're going to cook."
+          - "Today Sam and Luis are going to the store, and then they're going to cook."
+      - kind: mcq
+        id: l9-q-placeword
+        prompt: "Which one continues «voy a» as a PLACE, not a plan?"
+        correct: "la playa"
+        distractors: ["nadar", "trabajar", "estudiar"]
+        atoms: ["playa"]
+        why: "«la playa» is a noun — a place (PRIOR, m9). «nadar»/«trabajar»/«estudiar» are all bare infinitives — a plan, not a place."
+      # Printed non-recall at L8 (es-m28-8-l8-sp-win).
+      - kind: speakLit
+        id: l9-sp-recall-l8win
+        es: "mañana va a hacer calor, por eso vamos a nadar juntos"
+        en: "Tomorrow it's going to be hot, that's why we're going to swim together"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l9-ear-mercado
+        target: { surface: "el mercado", emoji: "🛒" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "el trabajo", emoji: "💼" }
+      - kind: agreementLit
+        id: l9-agr-placevsverb
+        en: "I'm going to the beach, and I'm going to swim"
+        audioText: "voy a la playa, y voy a nadar"
+        atoms: ["voy", "playa", "nadar"]
+        segments:
+          - { text: "voy a " }
+          - { blank: { id: "p1", answer: "la playa", options: ["la playa", "nadar"] } }
+          - { text: ", y voy a " }
+          - { blank: { id: "p2", answer: "nadar", options: ["nadar", "la playa"] } }
+      - kind: listenBuildLit
+        id: l9-lb-vaaltrabajovaaestudiar
+        es: "Diego va al trabajo, pero va a estudiar hoy"
+        en: "Diego is going to work (the place), but he's going to study today"
+        atoms: ["va", "trabajo", "pero", "estudiar", "hoy"]
+        tiles: ["voy", "vamos"]
+      - kind: textMcq
+        id: l9-tm-playa
+        target: "playa"
+        distractors: ["nadar", "trabajar", "cocinar"]
+      - kind: sim
+        id: l9-sim-diego-doslugares
+        scene: { emoji: "🏖️", title: "Diego asks about your day", setting: "Diego wants to know where you're going and what you'll do there." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Vas a la playa hoy?", audioText: "¿vas a la playa hoy?", gloss: "Are you going to the beach today?" }
+            goal: "Say yes, and you're going to swim."
+            reply:
+              mode: build
+              tiles: ["sí", "y", "voy", "a", "nadar", "vas"]
+              answer: "sí y voy a nadar"
+            replyGloss: "Yes, and I'm going to swim."
+            explanation: "«a la playa» — a place (PRIOR, m9). «a nadar» — an infinitive right after, this module's own pattern. Same «voy a», two jobs."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y Ana va al parque o va a estudiar?", audioText: "¿y Ana va al parque o va a estudiar?", gloss: "And is Ana going to the park, or going to study?" }
+            goal: "Say not the park, she's studying."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no va al parque, va a estudiar" }
+                - { id: "wrong1", text: "no vas al parque, vas a estudiar" }
+                - { id: "wrong2", text: "no van al parque, van a estudiar" }
+              correctOptionId: "right"
+              audioText: "no va al parque, va a estudiar"
+            replyGloss: "No, she's not going to the park, she's going to study."
+            explanation: "«va» stays Ana's, one person (m9) — «vas» would ask about you, «van» would wrongly say more than one."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿Vamos al cine, o vamos a cocinar juntos?", audioText: "¿vamos al cine, o vamos a cocinar juntos?", gloss: "Are we going to the movies, or going to cook together?" }
+            goal: "Say the movies today, and cook tomorrow."
+            reply:
+              mode: build
+              tiles: ["vamos", "al", "cine", "hoy,", "y", "vamos", "a", "cocinar", "mañana", "van"]
+              answer: "vamos al cine hoy, y vamos a cocinar mañana"
+            replyGloss: "We're going to the movies today, and we're going to cook tomorrow."
+            explanation: "«al cine» — a place. «a cocinar» — an infinitive. Two sentences, two structures, both with «vamos»."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "la playa", target: "the beach" }
+          - { source: "nadar", target: "to swim" }
+          - { source: "el parque", target: "the park" }
+          - { source: "estudiar", target: "to study" }
+          - { source: "el trabajo", target: "work (the place)" }
+          - { source: "el mercado", target: "the market" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "hoy voy a la playa, y mañana voy a nadar"
+        en: "Today I'm going to the beach, and tomorrow I'm going to swim"
+        atoms: ["hoy", "voy", "playa", "mañana", "nadar"]

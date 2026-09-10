@@ -1,0 +1,136 @@
+  # ── L3 · «Ana va a comer con Diego» — «va» debuts as a real atom
+  #    (previously foil-only): él/ella/usted, the third slot of the same
+  #    paradigm L1/L2 already opened. ≥1 recall of L2's own win line.
+  #    «con» stays a PRIOR function word (never registered, m19+).
+  - n: 3
+    template: free
+    title: "Ana va a comer con Diego"
+    description: "«va» — he, she, or usted is going to [verb]. The same «voy a + infinitivo» pattern, a third person."
+    steps:
+      - kind: map
+        id: l3-map-anavaacomer
+        tokens: ["Ana", "va", "a", "comer", "con", "Diego"]
+        pairs:
+          - { en: "is going to", tokenIndex: 1 }
+          - { en: "eat", tokenIndex: 3 }
+          - { en: "with", tokenIndex: 4 }
+        audioText: "Ana va a comer con Diego"
+        revealNote: "«va» — he, she, or usted is going (new). Same pattern as «voy»/«vas», a different person."
+      - kind: speakLit
+        id: l3-sp-diegovaatrabajar
+        es: "Diego va a trabajar mañana"
+        en: "Diego is going to work tomorrow"
+        atoms: ["va", "trabajar", "mañana"]
+      - kind: buildLit
+        id: l3-b-sofiavaaviajar
+        es: "Sofía va a viajar el fin de semana"
+        en: "Sofía is going to travel this weekend"
+        atoms: ["va", "viajar", "el fin de semana"]
+        tiles: ["voy", "vas"]
+      - kind: clozeLit
+        id: l3-c-anavaaestudiar
+        es: "Ana va a estudiar hoy"
+        en: "Ana is going to study today"
+        blank: "va"
+        options: ["va", "van"]
+        atoms: ["va", "estudiar", "hoy"]
+        why: "«va» — Ana, one person (m9's own singular slot). «van» would be more than one person."
+      - kind: listenCompLit
+        id: l3-lc-mariavacocinar
+        es: "María va a cocinar mañana"
+        en: "María is going to cook tomorrow."
+        atoms: ["va", "cocinar", "mañana"]
+        distractorsEn:
+          - "María is going to cook today."
+          - "María used to cook tomorrow."
+          - "María is going to eat tomorrow."
+      - kind: mcq
+        id: l3-q-va
+        prompt: "Which one means 'he/she/it is going to' — talking about someone else?"
+        correct: "va a"
+        distractors: ["voy a", "vas a", "vamos a"]
+        atoms: ["va"]
+        why: "«va» — the third-person slot (m9). «voy» is yourself; «vas» is you; «vamos» is more than one."
+      # Printed non-recall at L2 (es-m28-2-l2-sp-win).
+      - kind: speakLit
+        id: l3-sp-recall-l2win
+        es: "no, mañana voy a estudiar"
+        en: "No, tomorrow I'm going to study"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l3-ear-fiesta
+        target: { surface: "la fiesta", emoji: "🎉" }
+        distractors:
+          - { surface: "el museo", emoji: "🏛️" }
+          - { surface: "el restaurante", emoji: "🍴" }
+      - kind: agreementLit
+        id: l3-agr-vavamos
+        en: "Diego is going to eat, and we're going to eat too"
+        audioText: "Diego va a comer, y nosotros vamos a comer también"
+        atoms: ["va", "comer", "vamos", "también"]
+        segments:
+          - { text: "Diego " }
+          - { blank: { id: "p1", answer: "va", options: ["va", "vamos"] } }
+          - { text: " a comer, y nosotros " }
+          - { blank: { id: "p2", answer: "vamos", options: ["vamos", "va"] } }
+          - { text: " a comer también" }
+      - kind: listenBuildLit
+        id: l3-lb-anavaalrestaurante
+        es: "Ana va al restaurante con Diego"
+        en: "Ana is going to the restaurant with Diego"
+        atoms: ["va", "restaurante"]
+        tiles: ["voy", "vas"]
+      - kind: textMcq
+        id: l3-tm-va
+        target: "va"
+        distractors: ["voy", "vas", "vamos"]
+      - kind: sim
+        id: l3-sim-diego-planes
+        scene: { emoji: "🍽️", title: "Diego talks about Ana", setting: "Diego tells you about Ana's plans for tomorrow." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "Ana va a comer con Sofía mañana.", audioText: "Ana va a comer con Sofía mañana.", gloss: "Ana is going to eat with Sofía tomorrow." }
+            goal: "Ask if Diego is also going to eat."
+            reply:
+              mode: build
+              tiles: ["¿vas", "a", "comer", "también?", "va"]
+              answer: "¿vas a comer también?"
+            replyGloss: "Are you also going to eat?"
+            explanation: "«vas» — asking Diego himself (m9). «va» would ask about someone else, not Diego."
+          - id: t2
+            npc: { speaker: "Diego", es: "No, yo voy a trabajar. Pero Ana va a comer.", audioText: "no, yo voy a trabajar. pero Ana va a comer.", gloss: "No, I'm going to work. But Ana is going to eat." }
+            goal: "Say Ana is eating, and you'll work too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "Ana va a comer, y yo también voy a trabajar" }
+                - { id: "wrong1", text: "Ana vas a comer, y yo también voy a trabajar" }
+                - { id: "wrong2", text: "Ana va a la fiesta, y yo también voy a trabajar" }
+              correctOptionId: "right"
+              audioText: "Ana va a comer, y yo también voy a trabajar"
+            replyGloss: "Ana is going to eat, and I'm also going to work."
+            explanation: "«va» stays Ana's, not «vas». «va a la fiesta» (a place) says something different from «va a comer» (a plan)."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿Y Sofía va a cocinar mañana?", audioText: "¿y Sofía va a cocinar mañana?", gloss: "And is Sofía going to cook tomorrow?" }
+            goal: "Say no, she's going to study."
+            reply:
+              mode: build
+              tiles: ["no", "va", "a", "estudiar", "vas"]
+              answer: "no va a estudiar"
+            replyGloss: "No, she's going to study."
+            explanation: "«va» keeps the answer about Sofía — «vas» would wrongly ask about Diego instead."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "va", target: "he/she/it is going, he/she/it goes" }
+          - { source: "comer", target: "to eat" }
+          - { source: "viajar", target: "to travel" }
+          - { source: "cocinar", target: "to cook" }
+          - { source: "el fin de semana", target: "the weekend" }
+          - { source: "con", target: "with" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "Ana va a comer con Diego mañana"
+        en: "Ana is going to eat with Diego tomorrow"
+        atoms: ["va", "comer", "mañana"]

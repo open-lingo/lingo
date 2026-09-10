@@ -1,0 +1,1598 @@
+module: m28
+title: "Voy a nadar mañana"
+frame: none
+throughModule: m27
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m28 — the near future, «ir a + infinitivo». Tenth A2 module.
+#
+#     ir (infinitive, NEW)         "to go" — the dictionary form voy/vas/
+#                                  va/vamos/van have always shared, never
+#                                  itself registered.
+#     va (NEW)                    3rd-person present — grep-confirmed used
+#                                  ONLY as a distractor (m20/m22/m23),
+#                                  never as an atom or an answer.
+#
+# ONE idea, the whole module: PRIOR «voy»/«vas» (m9) and «vamos»/«van»
+# (m18) — until now only "I'm going / you're going [somewhere]" — take a
+# bare infinitive instead of a place and become "I'm going to / you're
+# going to [verb]," the periphrastic near future. Two new atoms close the
+# «ir» paradigm (this module's own «va» plus the never-registered
+# infinitive «ir»); the entire infinitive complement slot is PRIOR
+# (bailar/cantar/estudiar/hablar/trabajar m10, comer/correr/escribir/
+# leer/vivir m11, comprar m12, cocinar/nadar/viajar m13, dormir m14,
+# salir/tener/ver/hacer m15) — the same "already met" condition m26's
+# header found in `conjugationTables.ts`.
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# Four lines of evidence:
+#   1. **The «ir»-infinitive follow-on is the oldest open, named,
+#      unaddressed item in the course, and it has been recorded THREE
+#      times without being resolved.** `docs/handoff-2026-09-10-overnight-
+#      authoring.md`'s 08:06 entry first named it (ES m24 COMMITTED: "'ir'
+#      infinitive is used as text in m11–m24 but is not a live atom (SRS
+#      credit silently dropped)"); `m26-header.yaml` carried it forward as
+#      a live warning; `m27-header.yaml`'s REJECTED ALTERNATIVE 2 named it
+#      again and explicitly declined to file it as a module ("no
+#      ten-lesson content shape, no new idea for a learner to reason
+#      through, no checkpoint... stays open for whichever module next
+#      touches ir in a build/cloze answer position"). This module IS that
+#      module — it resolves the follow-on by embedding «ir» inside real
+#      grammar content (the near-future construction) instead of a bare
+#      registry edit, exactly the resolution m27's own header pointed at.
+#   2. **It is the correct interleave beat.** m25 (causal connectives,
+#      break) → m26 (imperfect wave 3) → m27 (vocab, break) → m28 must be
+#      neither ANOTHER break-in-kind (a second vocabulary module or a
+#      second connective set) nor a return to the imperfect mechanic — all
+#      three would repeat a mechanic from one of the last three modules.
+#      «ir a + infinitivo» is a genuinely NEW sentence-building capability
+#      (a new construction, not new vocabulary and not a new past tense),
+#      satisfying [[interleave-dont-block-teach]] at the module level the
+#      same way m25 did before it, but this time by advancing the course's
+#      grammar range instead of taking a break from it.
+#   3. **Verified data floor, and it exposes a live minor defect worth
+#      closing as a side effect.** Grep-verified (`grep -o 'surface:
+#      "[^"]*"' src/features/languages/es/curriculum/m{1..27}.ts | sort
+#      -u`): «ir» — zero atom hits, despite being used as unatomized
+#      filler text 15+ times in m24 alone (quería/podía + ir
+#      complementation) and confirmed by `m26-L10.yaml`'s own comment as
+#      "a deliberately un-atomized filler word course-wide." «va» — zero
+#      atom hits; direct grep of every `distractorsText`/`options`/`tiles`
+#      array shows «va» used as a FOIL five separate times (m20 ×3, m22
+#      ×2, m23 ×1) against «fue»/«iba»/«voy», never as a correct answer or
+#      a registered atom — the course has been silently relying on an
+#      unregistered word as bait. Registering «va» formally (this module's
+#      job either way) closes that gap too.
+#   4. **Structural readiness: this is not a new complementation shape,
+#      it's a new verb filling a shape the course already has.** «quería
+#      ir»/«podía ir» (m24, modal + bare-infinitive complement) already
+#      works exactly like «voy a + infinitivo» will: a conjugated verb
+#      followed by an untouched infinitive. The only new mechanic is that
+#      the conjugated verb this time is «ir» itself, in the present tense,
+#      with the fixed linking «a» (a genuine periphrastic-future marker,
+#      not the "to [place]" «a» — see the ambiguity section below). Zero
+#      table work needed (`conjugationTables.ts:195-200` already carries
+#      the full ir-present paradigm including «va»); zero new complement
+#      vocabulary needed (18 PRIOR bare infinitives are ready, see above).
+#
+# ── REJECTED ALTERNATIVE 1: object pronouns (lo/la/los/las, me/te/le) ─────
+# Real, high-value A2 content, and a live open item (never mentioned in
+# m21–m27's own headers as "next," but a natural next grammar unit).
+# Rejected for m28 specifically, not forever: object-pronoun placement is
+# a genuinely NEW mechanic with no PRIOR shape to lean on (pre-verbal
+# before a single conjugated verb, but post-infinitive-attached when a
+# modal/near-future construction is present — "lo voy a comprar" vs "voy a
+# comprarlo," both correct) — exactly the kind of two-position rule this
+# course has never taught. Loading that onto a bare module with no
+# existing complement-taking construction to anchor the contrast against
+# would be harder to reason through than doing it AFTER m28 gives the
+# course a second verb (ir a + infinitivo, alongside querer/poder +
+# infinitivo) to place a pronoun against — a natural, well-motivated L9
+# contrast lesson for THAT future module ("lo voy a comprar" vs "voy a
+# comprarlo"). Named here explicitly as the strongest m29 candidate, not
+# manufactured in m28.
+#
+# ── REJECTED ALTERNATIVE 2: a second lexicon module (house vocabulary) ────
+# `m27-header.yaml`'s own "WHICH SEVEN WORDS" section already ruled out
+# clothing (PRIOR since m12/m16), food (PRIOR since m7/m11/m13), and body
+# parts (partially PRIOR since m17) as candidate domains — house
+# vocabulary is the one clean lexical gap left. Rejected for m28 anyway:
+# stacking a SECOND zero-new-grammar vocabulary module directly behind
+# m27 would be the identical same-mechanic-in-consecutive-modules pattern
+# m27's own header ruled out for a fourth imperfect wave, just one module
+# category over — and it would leave the course's sentence-building range
+# stalled for 20 straight lessons (ten of vocabulary, ten more of
+# vocabulary) with no new construction in between. This is an interleave
+# rejection, not a content-readiness one — house vocabulary remains fully
+# viable and is named here as a future module, the same courtesy m27 gave
+# seasons.
+#
+# ── REJECTED ALTERNATIVE 3: a third consolidation/narration module ────────
+# `m25-header.yaml`'s REJECTED ALTERNATIVE 2 rejected this once;
+# `m27-header.yaml`'s REJECTED ALTERNATIVE 3 rejected it again, on the
+# same ground both times: no backlog signal supports a whole module of
+# pure review (m19–m27 being unwalked is Spencer's own QA debt, not a
+# content gap a new module closes), and this course's consolidation
+# precedent has only ever been a single LESSON inside a content module
+# (m22-L9, m24-L9, m26-L9, and now this module's own L9), never a
+# module-sized unit. Naming it a third time does not change the
+# reasoning — not attempted.
+#
+# ── REJECTED ALTERNATIVE 4: register «ir» alone, as a one-line fix ────────
+# This is literally the alternative `m27-header.yaml` already rejected
+# about itself ("no ten-lesson content shape... stays open for whichever
+# module next touches ir"). Registering «ir» with no surrounding
+# construction would manufacture a lesson's worth of drilling around a
+# bookkeeping fix — the exact inversion `m27-header.yaml` warned against.
+# m28 resolves the SAME follow-on by giving «ir» (and «va») a real
+# grammatical job — this is the module that follow-on was always waiting
+# for, not a fifth deferral of it.
+#
+# ── THE «voy a» AMBIGUITY, NAMED EXPLICITLY: TWO STRUCTURES, ONE SURFACE ──
+# «voy a la playa» (PRIOR, m9) is "a" as the destination preposition
+# ("to") — a NOUN/place follows. «voy a nadar» (this module) is "a" as
+# the fixed periphrastic-future linking word — a bare INFINITIVE follows.
+# Same three characters, same verb «voy», two different structures decided
+# entirely by what comes next. NOT a homograph in the word-sense the
+# course usually flags (no lexical ambiguity — a native listener resolves
+# it instantly from the next word) but a genuine SYNTACTIC ambiguity risk
+# for a beginner course: drafting agents must never claim these "are the
+# same thing," and every sentence in this module must make the
+# noun-vs-infinitive distinction unambiguous from context (this is
+# exactly hard rule 6 below, and the reason for L9).
+#
+# ── THE «voy a ir» CAUTION (not banned, but named) ────────────────────────
+# «voy a ir a la fiesta» ("I'm going to go to the party") is grammatical
+# and, once both structures are well established, a legitimate flex of
+# the module's own idea — but it is also the single most likely
+# confusion point for a learner meeting «voy a + infinitivo» for the
+# first time ("wait, ir AND voy are both here?"). Not gated, but reserve
+# it for L10 (mastery) only, after every earlier lesson has drilled «voy
+# a + [a DIFFERENT verb's infinitive]» cleanly — never use «voy a ir» in
+# L1–L9.
+#
+# ── NO NEW EMOJI, NO NEW IMAGEABLE VOCABULARY (deliberate, matches
+# precedent) ────────────────────────────────────────────────────────────
+# Both new atoms are grammar/verb-morphology words (an infinitive and a
+# bare conjugated form), not concrete nouns — the identical category
+# `hacía`/`estaba` (m24) and `nublado` (m27) already fall into per the
+# authoring guide's §13.1 rubric ("blocked/abstract verbs... keep
+# build/LC intro," extended here to grammar-function verbs generally: no
+# PRIOR verb-morphology atom in this course — voy/vas/vamos/van included
+# — carries an emoji). This is a deliberate return to zero-new-emoji after
+# m27 broke a seven-module streak — NOT a repeat of that gap, since m27
+# already closed it; m28 is simply a grammar module, the category that
+# was never expected to carry vocab-card art in the first place.
+#
+# ── ACCENT: FRESH COLOUR — "GO" GREEN, VERIFIED UNUSED, THEMATIC ─────────
+# Checked every `accent:` pair in `curriculum/index.ts` (grep-verified:
+# zero hits for `#22c55e` and `#15803d`) against all 27 modules' pairs.
+# Green already appears three times in the course (m4-ish `#10b981`→
+# `#059669`, `#34d399`→`#047857`, `#2dd4bf`→`#0f766e`/`#115e59`) but never
+# at these exact values — and green-for-"go" is the obvious, load-bearing
+# thematic fit for a near-future/movement module built on «ir». `#22c55e`
+# reads distinctly from all three PRIOR greens at a glance (more saturated,
+# closer to true "traffic-light green" than any of the teal-leaning
+# PRIOR trio).
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # ir — the infinitive "to go." Never registered despite being the
+  # dictionary form of PRIOR voy/vas (m9) and vamos/van (m18), and despite
+  # 15+ unatomized uses as a filler complement after quería/podía (m24).
+  # No emoji — grammar/verb-morphology atom, same category as hacía/
+  # estaba (m24) and nublado (m27); no PRIOR verb-morphology atom in this
+  # course carries an emoji.
+  - { surface: "ir", meaningEn: "to go", partOfSpeech: "verb", kind: "vocab", hint: "ir — the infinitive behind voy/vas (m9) and vamos/van (m18). «voy a + [infinitive]» reuses this whole family for the near future." }
+  # va — 3rd-person singular present. Grep-confirmed used as a distractor
+  # only (m20, m22, m23) against fue/iba/voy — never a registered atom,
+  # never an answer. Completes the present-tense paradigm PRIOR voy/vas/
+  # vamos/van (m9/m18) left one person short.
+  - { surface: "va", meaningEn: "he/she/it goes, is going / (usted) you go", partOfSpeech: "verb", kind: "vocab", hint: "va — the missing 3rd-person present of ir; voy/vas (m9) and vamos/van (m18) already carry the rest. Never confuse with «iba» (imperfect, m22) or «fue» (preterite, m19–m21) — different tense, different word." }
+
+lessons:
+  # ── L1 · «Voy a nadar mañana» — «ir» debuts via an info card (this
+  #    module's ONE general usage-note, ≤3 lines) explaining the «voy a» +
+  #    place (PRIOR, m9) vs «voy a» + infinitive (this module) contrast up
+  #    front, per hard rule 6. «voy» (m9) is immediately reused with a bare
+  #    infinitive instead of a place — «voy a nadar mañana». «ir» itself
+  #    (banned in the "voy a ir" combination pre-L10) gets its ≥3 debut
+  #    answer positions via PRIOR present-tense modals «quiero»/«necesito»/
+  #    «puedo» (m7/m16/m14) + bare «ir», the exact "conjugated verb, then an
+  #    untouched infinitive" shape m24's «quería ir»/«podía ir» already
+  #    used unregistered — now the infinitive itself is a real atom. No
+  #    recall (nothing earlier in this module).
+  - n: 1
+    template: free
+    title: "Voy a nadar mañana"
+    description: "«voy a» (m9) plus a bare infinitive instead of a place — a plan for later, not a place you're headed. «voy a nadar mañana»."
+    steps:
+      - kind: map
+        id: l1-map-mananavoyanadar
+        tokens: ["mañana", "voy", "a", "nadar"]
+        pairs:
+          - { en: "tomorrow", tokenIndex: 0 }
+          - { en: "I'm going to", tokenIndex: 1 }
+          - { en: "swim", tokenIndex: 3 }
+        audioText: "mañana voy a nadar"
+        revealNote: "«voy» (m9) plus a bare infinitive — «nadar» — instead of a place. Same «voy a» as «voy a la playa», a different job: a plan, not a destination."
+      - kind: info
+        id: l1-info-voyapatron
+        title: "Voy a — the near future"
+        body: "«voy a» (m9) + a place means \"I'm going to [place].\" «voy a» + an infinitive — a verb's plain dictionary form, «ir», «nadar», «trabajar» — means \"I'm going to [verb],\" a plan for later: «voy a nadar mañana»."
+      - kind: speakLit
+        id: l1-sp-voyanadar
+        es: "voy a nadar mañana"
+        en: "I'm going to swim tomorrow"
+        atoms: ["voy", "nadar", "mañana"]
+      - kind: buildLit
+        id: l1-b-voyatrabajarmanana
+        es: "voy a trabajar mañana"
+        en: "I'm going to work tomorrow"
+        atoms: ["voy", "trabajar", "mañana"]
+        tiles: ["vas", "vamos"]
+      - kind: clozeLit
+        id: l1-c-voyaestudiarhoy
+        es: "voy a estudiar hoy"
+        en: "I'm going to study today"
+        blank: "voy"
+        options: ["voy", "vas"]
+        atoms: ["voy", "estudiar", "hoy"]
+        why: "«voy» — talking about yourself (m9). «vas» would talk to you instead."
+      - kind: listenCompLit
+        id: l1-lc-quieroiraplaya
+        es: "quiero ir a la playa mañana"
+        en: "I want to go to the beach tomorrow."
+        atoms: ["quiero", "ir", "playa", "mañana"]
+        distractorsEn:
+          - "I want to go to the park tomorrow."
+          - "I wanted to go to the beach tomorrow."
+          - "I don't want to go to the beach tomorrow."
+      - kind: mcq
+        id: l1-q-ir
+        prompt: "Which one means 'to go' — the plain dictionary form?"
+        correct: "ir"
+        distractors: ["voy", "va", "fui"]
+        atoms: ["ir"]
+        why: "«ir» is the infinitive — «voy»/«vas»/«va»/«vamos»/«van» all come from it. «fui» is a different tense (preterite, m20)."
+      - kind: buildLit
+        id: l1-b-necesitoiraescuela
+        es: "necesito ir a la escuela hoy"
+        en: "I need to go to school today"
+        atoms: ["necesito", "ir", "escuela", "hoy"]
+        tiles: ["voy", "puedo"]
+      - kind: audioWimcq
+        id: l1-ear-playa
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: agreementLit
+        id: l1-agr-yovoytuvas
+        en: "I'm going to swim, and you're going to swim too"
+        audioText: "yo voy a nadar, y tú vas a nadar también"
+        atoms: ["voy", "nadar", "vas", "también"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "voy", options: ["voy", "vas"] } }
+          - { text: " a nadar, y tú " }
+          - { blank: { id: "p2", answer: "vas", options: ["vas", "voy"] } }
+          - { text: " a nadar también" }
+      - kind: listenBuildLit
+        id: l1-lb-puedoiralcine
+        es: "puedo ir al cine mañana"
+        en: "I can go to the movies tomorrow"
+        atoms: ["puedo", "ir", "cine", "mañana"]
+        tiles: ["voy", "necesito"]
+      - kind: textMcq
+        id: l1-tm-ir
+        target: "ir"
+        distractors: ["va", "voy", "fue"]
+      - kind: sim
+        id: l1-sim-ana-planes
+        scene: { emoji: "🏊", title: "Ana asks about tomorrow", setting: "Ana wants to know your plans for tomorrow." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Vas a nadar mañana?", audioText: "¿vas a nadar mañana?", gloss: "Are you going to swim tomorrow?" }
+            goal: "Say yes, you're going to swim tomorrow."
+            reply:
+              mode: build
+              tiles: ["sí", "voy", "a", "nadar", "mañana", "vas"]
+              answer: "sí voy a nadar mañana"
+            replyGloss: "Yes, I'm going to swim tomorrow."
+            explanation: "«voy» — answering about yourself (m9). «vas» would ask about you instead — the exact person-swap to watch for."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y vas a trabajar también?", audioText: "¿y vas a trabajar también?", gloss: "And are you going to work too?" }
+            goal: "Say no, you're going to study instead."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, voy a estudiar" }
+                - { id: "wrong1", text: "no, vas a estudiar" }
+                - { id: "wrong2", text: "no, voy a la escuela" }
+              correctOptionId: "right"
+              audioText: "no, voy a estudiar"
+            replyGloss: "No, I'm going to study."
+            explanation: "«voy» stays yours, not «vas». «voy a la escuela» (a place) says something different from «voy a estudiar» (a plan) — same «voy a», two jobs."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Puedes ir al cine mañana?", audioText: "¿puedes ir al cine mañana?", gloss: "Can you go to the movies tomorrow?" }
+            goal: "Say yes, you can go to the movies."
+            reply:
+              mode: build
+              tiles: ["sí", "puedo", "ir", "al", "cine", "mañana", "voy"]
+              answer: "sí puedo ir al cine mañana"
+            replyGloss: "Yes, I can go to the movies tomorrow."
+            explanation: "«puedo» (m14) plus the infinitive «ir» — the same shape as «voy a nadar», just a different verb in front."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "ir", target: "to go" }
+          - { source: "voy", target: "I'm going, I go" }
+          - { source: "nadar", target: "to swim" }
+          - { source: "mañana", target: "tomorrow" }
+          - { source: "hoy", target: "today" }
+          - { source: "quiero", target: "I want" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "mañana voy a nadar"
+        en: "Tomorrow I'm going to swim"
+        atoms: ["mañana", "voy", "nadar"]
+
+  # ── L2 · «¿Vas a trabajar mañana?» — tú-form, plain yes/no inversion (no
+  #    new question word, matching m25/m27's own discipline). No new atom;
+  #    ≥1 recall (L1's own win line). «ir» stays live via one more
+  #    «necesito ir» line, disambiguated the same way as L1.
+  - n: 2
+    template: free
+    title: "¿Vas a trabajar mañana?"
+    description: "«vas a» (m9) plus an infinitive — a question about your own plans, answered with plain «sí»/«no», no new question word needed."
+    steps:
+      - kind: map
+        id: l2-map-vasatrabajar
+        tokens: ["¿vas", "a", "trabajar", "mañana?"]
+        pairs:
+          - { en: "are you going to", tokenIndex: 0 }
+          - { en: "work", tokenIndex: 2 }
+          - { en: "tomorrow?", tokenIndex: 3 }
+        audioText: "¿vas a trabajar mañana?"
+        revealNote: "«vas» (m9) plus the infinitive «trabajar» — a yes/no question, no new question word, just «¿» and «?»."
+      - kind: speakLit
+        id: l2-sp-noansayestudiar
+        es: "no, mañana voy a estudiar"
+        en: "No, tomorrow I'm going to study"
+        atoms: ["no", "mañana", "voy", "estudiar"]
+      - kind: buildLit
+        id: l2-b-vasabailarhoy
+        es: "¿vas a bailar hoy?"
+        en: "Are you going to dance today?"
+        atoms: ["vas", "bailar", "hoy"]
+        tiles: ["voy", "vamos"]
+      - kind: clozeLit
+        id: l2-c-vasacantar
+        es: "vas a cantar mañana"
+        en: "You (tú) are going to sing tomorrow"
+        blank: "vas"
+        options: ["vas", "voy"]
+        atoms: ["vas", "cantar", "mañana"]
+        why: "«vas» — asking about you (m9). «voy» would talk about yourself instead."
+      - kind: listenCompLit
+        id: l2-lc-necesitoirtienda
+        es: "necesito ir a la tienda mañana"
+        en: "I need to go to the store tomorrow."
+        atoms: ["necesito", "ir", "tienda", "mañana"]
+        distractorsEn:
+          - "I need to go to the market tomorrow."
+          - "I needed to go to the store tomorrow."
+          - "I don't need to go to the store tomorrow."
+      - kind: mcq
+        id: l2-q-vas
+        prompt: "Which one asks 'are you going to' — not 'am I going to'?"
+        correct: "vas a"
+        distractors: ["voy a", "va a", "iba a"]
+        atoms: ["vas"]
+        why: "«vas» — the tú-form (m9). «voy» would ask about yourself; «va» is a different person; «iba» is the imperfect (m22), a different tense."
+      # Printed non-recall at L1 (es-m28-1-l1-sp-win).
+      - kind: speakLit
+        id: l2-sp-recall-l1win
+        es: "mañana voy a nadar"
+        en: "Tomorrow I'm going to swim"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l2-ear-tienda
+        target: { surface: "la tienda", emoji: "🏪" }
+        distractors:
+          - { surface: "el mercado", emoji: "🛒" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: agreementLit
+        id: l2-agr-vasvoy
+        en: "You're going to work, and I'm going to study"
+        audioText: "tú vas a trabajar, y yo voy a estudiar"
+        atoms: ["vas", "trabajar", "voy", "estudiar"]
+        segments:
+          - { text: "tú " }
+          - { blank: { id: "p1", answer: "vas", options: ["vas", "voy"] } }
+          - { text: " a trabajar, y yo " }
+          - { blank: { id: "p2", answer: "voy", options: ["voy", "vas"] } }
+          - { text: " a estudiar" }
+      - kind: listenBuildLit
+        id: l2-lb-vasahablarmanana
+        es: "¿vas a hablar con Diego mañana?"
+        en: "Are you going to talk to Diego tomorrow?"
+        atoms: ["vas", "hablar", "mañana"]
+        tiles: ["voy", "vamos"]
+      - kind: textMcq
+        id: l2-tm-vas
+        target: "vas"
+        distractors: ["voy", "va", "iba"]
+      - kind: sim
+        id: l2-sim-ana-mananasí
+        scene: { emoji: "💼", title: "Ana asks about work", setting: "Ana wants to know your plans for tomorrow, work or not." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Vas a trabajar mañana?", audioText: "¿vas a trabajar mañana?", gloss: "Are you going to work tomorrow?" }
+            goal: "Say no, tomorrow you're going to study."
+            reply:
+              mode: build
+              tiles: ["no", "mañana", "voy", "a", "estudiar", "vas"]
+              answer: "no mañana voy a estudiar"
+            replyGloss: "No, tomorrow I'm going to study."
+            explanation: "Answering about yourself: «voy», never «vas» — that would ask about Ana instead."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y necesitas ir a la tienda hoy?", audioText: "¿y necesitas ir a la tienda hoy?", gloss: "And do you need to go to the store today?" }
+            goal: "Say yes, you need to go today."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, necesito ir hoy" }
+                - { id: "wrong1", text: "sí, necesitas ir hoy" }
+                - { id: "wrong2", text: "sí, voy a la tienda hoy" }
+              correctOptionId: "right"
+              audioText: "sí, necesito ir hoy"
+            replyGloss: "Yes, I need to go today."
+            explanation: "«necesito» — yourself (m16), not «necesitas» (that asks about you). «voy a la tienda» is also true, but doesn't answer what Ana asked."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Vas a bailar también mañana?", audioText: "¿vas a bailar también mañana?", gloss: "Are you going to dance too tomorrow?" }
+            goal: "Say no, you're going to sing."
+            reply:
+              mode: build
+              tiles: ["no", "voy", "a", "cantar", "vas"]
+              answer: "no voy a cantar"
+            replyGloss: "No, I'm going to sing."
+            explanation: "«voy» keeps the answer about yourself — «vas» would wrongly ask about Ana again."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "vas", target: "you (tú) are going, you go" }
+          - { source: "trabajar", target: "to work" }
+          - { source: "estudiar", target: "to study" }
+          - { source: "bailar", target: "to dance" }
+          - { source: "cantar", target: "to sing" }
+          - { source: "necesito", target: "I need" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "no, mañana voy a estudiar"
+        en: "No, tomorrow I'm going to study"
+        atoms: ["no", "mañana", "voy", "estudiar"]
+
+  # ── L3 · «Ana va a comer con Diego» — «va» debuts as a real atom
+  #    (previously foil-only): él/ella/usted, the third slot of the same
+  #    paradigm L1/L2 already opened. ≥1 recall of L2's own win line.
+  #    «con» stays a PRIOR function word (never registered, m19+).
+  - n: 3
+    template: free
+    title: "Ana va a comer con Diego"
+    description: "«va» — he, she, or usted is going to [verb]. The same «voy a + infinitivo» pattern, a third person."
+    steps:
+      - kind: map
+        id: l3-map-anavaacomer
+        tokens: ["Ana", "va", "a", "comer", "con", "Diego"]
+        pairs:
+          - { en: "is going to", tokenIndex: 1 }
+          - { en: "eat", tokenIndex: 3 }
+          - { en: "with", tokenIndex: 4 }
+        audioText: "Ana va a comer con Diego"
+        revealNote: "«va» — he, she, or usted is going (new). Same pattern as «voy»/«vas», a different person."
+      - kind: speakLit
+        id: l3-sp-diegovaatrabajar
+        es: "Diego va a trabajar mañana"
+        en: "Diego is going to work tomorrow"
+        atoms: ["va", "trabajar", "mañana"]
+      - kind: buildLit
+        id: l3-b-sofiavaaviajar
+        es: "Sofía va a viajar el fin de semana"
+        en: "Sofía is going to travel this weekend"
+        atoms: ["va", "viajar", "el fin de semana"]
+        tiles: ["voy", "vas"]
+      - kind: clozeLit
+        id: l3-c-anavaaestudiar
+        es: "Ana va a estudiar hoy"
+        en: "Ana is going to study today"
+        blank: "va"
+        options: ["va", "van"]
+        atoms: ["va", "estudiar", "hoy"]
+        why: "«va» — Ana, one person (m9's own singular slot). «van» would be more than one person."
+      - kind: listenCompLit
+        id: l3-lc-mariavacocinar
+        es: "María va a cocinar mañana"
+        en: "María is going to cook tomorrow."
+        atoms: ["va", "cocinar", "mañana"]
+        distractorsEn:
+          - "María is going to cook today."
+          - "María used to cook tomorrow."
+          - "María is going to eat tomorrow."
+      - kind: mcq
+        id: l3-q-va
+        prompt: "Which one means 'he/she/it is going to' — talking about someone else?"
+        correct: "va a"
+        distractors: ["voy a", "vas a", "vamos a"]
+        atoms: ["va"]
+        why: "«va» — the third-person slot (m9). «voy» is yourself; «vas» is you; «vamos» is more than one."
+      # Printed non-recall at L2 (es-m28-2-l2-sp-win).
+      - kind: speakLit
+        id: l3-sp-recall-l2win
+        es: "no, mañana voy a estudiar"
+        en: "No, tomorrow I'm going to study"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l3-ear-fiesta
+        target: { surface: "la fiesta", emoji: "🎉" }
+        distractors:
+          - { surface: "el museo", emoji: "🏛️" }
+          - { surface: "el restaurante", emoji: "🍴" }
+      - kind: agreementLit
+        id: l3-agr-vavamos
+        en: "Diego is going to eat, and we're going to eat too"
+        audioText: "Diego va a comer, y nosotros vamos a comer también"
+        atoms: ["va", "comer", "vamos", "también"]
+        segments:
+          - { text: "Diego " }
+          - { blank: { id: "p1", answer: "va", options: ["va", "vamos"] } }
+          - { text: " a comer, y nosotros " }
+          - { blank: { id: "p2", answer: "vamos", options: ["vamos", "va"] } }
+          - { text: " a comer también" }
+      - kind: listenBuildLit
+        id: l3-lb-anavaalrestaurante
+        es: "Ana va al restaurante con Diego"
+        en: "Ana is going to the restaurant with Diego"
+        atoms: ["va", "restaurante"]
+        tiles: ["voy", "vas"]
+      - kind: textMcq
+        id: l3-tm-va
+        target: "va"
+        distractors: ["voy", "vas", "vamos"]
+      - kind: sim
+        id: l3-sim-diego-planes
+        scene: { emoji: "🍽️", title: "Diego talks about Ana", setting: "Diego tells you about Ana's plans for tomorrow." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "Ana va a comer con Sofía mañana.", audioText: "Ana va a comer con Sofía mañana.", gloss: "Ana is going to eat with Sofía tomorrow." }
+            goal: "Ask if Diego is also going to eat."
+            reply:
+              mode: build
+              tiles: ["¿vas", "a", "comer", "también?", "va"]
+              answer: "¿vas a comer también?"
+            replyGloss: "Are you also going to eat?"
+            explanation: "«vas» — asking Diego himself (m9). «va» would ask about someone else, not Diego."
+          - id: t2
+            npc: { speaker: "Diego", es: "No, yo voy a trabajar. Pero Ana va a comer.", audioText: "no, yo voy a trabajar. pero Ana va a comer.", gloss: "No, I'm going to work. But Ana is going to eat." }
+            goal: "Say Ana is eating, and you'll work too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "Ana va a comer, y yo también voy a trabajar" }
+                - { id: "wrong1", text: "Ana vas a comer, y yo también voy a trabajar" }
+                - { id: "wrong2", text: "Ana va a la fiesta, y yo también voy a trabajar" }
+              correctOptionId: "right"
+              audioText: "Ana va a comer, y yo también voy a trabajar"
+            replyGloss: "Ana is going to eat, and I'm also going to work."
+            explanation: "«va» stays Ana's, not «vas». «va a la fiesta» (a place) says something different from «va a comer» (a plan)."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿Y Sofía va a cocinar mañana?", audioText: "¿y Sofía va a cocinar mañana?", gloss: "And is Sofía going to cook tomorrow?" }
+            goal: "Say no, she's going to study."
+            reply:
+              mode: build
+              tiles: ["no", "va", "a", "estudiar", "vas"]
+              answer: "no va a estudiar"
+            replyGloss: "No, she's going to study."
+            explanation: "«va» keeps the answer about Sofía — «vas» would wrongly ask about Diego instead."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "va", target: "he/she/it is going, he/she/it goes" }
+          - { source: "comer", target: "to eat" }
+          - { source: "viajar", target: "to travel" }
+          - { source: "cocinar", target: "to cook" }
+          - { source: "el fin de semana", target: "the weekend" }
+          - { source: "con", target: "with" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "Ana va a comer con Diego mañana"
+        en: "Ana is going to eat with Diego tomorrow"
+        atoms: ["va", "comer", "mañana"]
+
+  # ── L4 · «Vamos a viajar» — «vamos» (PRIOR m18) reused for the near
+  #    future, nosotros slot. No new atom; ≥1 recall of L3's own win line.
+  - n: 4
+    template: free
+    title: "Vamos a viajar"
+    description: "«vamos» (m18) plus an infinitive — nosotros, the same «voy a + infinitivo» pattern for we."
+    steps:
+      - kind: map
+        id: l4-map-vamosaviajar
+        tokens: ["vamos", "a", "viajar", "el", "fin", "de", "semana"]
+        pairs:
+          - { en: "we're going to", tokenIndex: 0 }
+          - { en: "travel", tokenIndex: 2 }
+          - { en: "the weekend", tokenIndex: 3 }
+        audioText: "vamos a viajar el fin de semana"
+        revealNote: "«vamos» (m18) plus a bare infinitive — «viajar» — the nosotros slot of the same pattern."
+      - kind: speakLit
+        id: l4-sp-vamosacomer
+        es: "vamos a comer con Ana"
+        en: "We're going to eat with Ana"
+        atoms: ["vamos", "comer"]
+      - kind: buildLit
+        id: l4-b-vamosanadarhoy
+        es: "vamos a nadar hoy"
+        en: "We're going to swim today"
+        atoms: ["vamos", "nadar", "hoy"]
+        tiles: ["va", "van"]
+      - kind: clozeLit
+        id: l4-c-vamosatrabajar
+        es: "vamos a trabajar mañana"
+        en: "We're going to work tomorrow"
+        blank: "vamos"
+        options: ["vamos", "va"]
+        atoms: ["vamos", "trabajar", "mañana"]
+        why: "«vamos» — nosotros, more than one person including yourself (m18). «va» would be someone else, not you."
+      - kind: listenCompLit
+        id: l4-lc-vamosacocinarjuntos
+        es: "vamos a cocinar juntos"
+        en: "We're going to cook together."
+        atoms: ["vamos", "cocinar", "juntos"]
+        distractorsEn:
+          - "We're going to eat together."
+          - "We used to cook together."
+          - "We're going to cook alone."
+      - kind: mcq
+        id: l4-q-vamos
+        prompt: "Which one means 'we're going to' — nosotros, including yourself?"
+        correct: "vamos a"
+        distractors: ["va a", "van a", "voy a"]
+        atoms: ["vamos"]
+        why: "«vamos» — nosotros (m18). «van» would be a different group, not including you; «va»/«voy» are one person."
+      # Printed non-recall at L3 (es-m28-3-l3-sp-win).
+      - kind: speakLit
+        id: l4-sp-recall-l3win
+        es: "Ana va a comer con Diego mañana"
+        en: "Ana is going to eat with Diego tomorrow"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l4-ear-museo
+        target: { surface: "el museo", emoji: "🏛️" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la tienda", emoji: "🏪" }
+      - kind: agreementLit
+        id: l4-agr-vamosva
+        en: "We're going to travel, and Diego is going to travel too"
+        audioText: "vamos a viajar, y Diego va a viajar también"
+        atoms: ["vamos", "viajar", "va", "también"]
+        segments:
+          - { text: "" }
+          - { blank: { id: "p1", answer: "vamos", options: ["vamos", "va"] } }
+          - { text: " a viajar, y Diego " }
+          - { blank: { id: "p2", answer: "va", options: ["va", "vamos"] } }
+          - { text: " a viajar también" }
+      - kind: listenBuildLit
+        id: l4-lb-vamosalmuseo
+        es: "vamos al museo el fin de semana"
+        en: "We're going to the museum this weekend"
+        atoms: ["vamos", "el fin de semana"]
+        tiles: ["va", "van"]
+      - kind: textMcq
+        id: l4-tm-vamos
+        target: "vamos"
+        distractors: ["va", "van", "voy"]
+      - kind: sim
+        id: l4-sim-sofia-viaje
+        scene: { emoji: "🧳", title: "Sofía plans a trip", setting: "Sofía wants you and her to travel together this weekend." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Vamos a viajar el fin de semana?", audioText: "¿vamos a viajar el fin de semana?", gloss: "Are we going to travel this weekend?" }
+            goal: "Say yes, you're both going to travel."
+            reply:
+              mode: build
+              tiles: ["sí", "vamos", "a", "viajar", "va"]
+              answer: "sí vamos a viajar"
+            replyGloss: "Yes, we're going to travel."
+            explanation: "«vamos» includes yourself and Sofía (m18) — «va» would leave you out."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y Diego va a viajar también?", audioText: "¿y Diego va a viajar también?", gloss: "And is Diego also going to travel?" }
+            goal: "Say no, he's going to work."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, va a trabajar" }
+                - { id: "wrong1", text: "no, vamos a trabajar" }
+                - { id: "wrong2", text: "no, va al trabajo" }
+              correctOptionId: "right"
+              audioText: "no, va a trabajar"
+            replyGloss: "No, he's going to work."
+            explanation: "«va» stays Diego's, one person, not «vamos». «va al trabajo» (a place) says something different from «va a trabajar» (a plan)."
+          - id: t3
+            npc: { speaker: "Sofía", es: "¿Vamos a nadar en el viaje?", audioText: "¿vamos a nadar en el viaje?", gloss: "Are we going to swim on the trip?" }
+            goal: "Say yes, and you'll cook together too."
+            reply:
+              mode: build
+              tiles: ["sí", "y", "vamos", "a", "cocinar", "juntos", "va"]
+              answer: "sí y vamos a cocinar juntos"
+            replyGloss: "Yes, and we're going to cook together."
+            explanation: "«vamos» keeps both plans about you and Sofía together — «va» would wrongly drop one of you out."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "vamos", target: "we're going, we go" }
+          - { source: "viajar", target: "to travel" }
+          - { source: "juntos", target: "together" }
+          - { source: "el fin de semana", target: "the weekend" }
+          - { source: "museo", target: "museum" }
+          - { source: "cocinar", target: "to cook" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "vamos a viajar el fin de semana"
+        en: "We're going to travel this weekend"
+        atoms: ["vamos", "viajar", "el fin de semana"]
+
+  # ── L5 · «Van a cocinar juntos» — «van» (PRIOR m18) reused, ellos/ellas/
+  #    ustedes slot; the full 5-person paradigm (voy/vas/va/vamos/van) is
+  #    now complete. No new atom; ≥1 recall of L4's own win line.
+  - n: 5
+    template: free
+    title: "Van a cocinar juntos"
+    description: "«van» (m18) plus an infinitive — ellos, ellas, ustedes. The same pattern, the last person of the paradigm."
+    steps:
+      - kind: map
+        id: l5-map-vanacocinar
+        tokens: ["Sam", "y", "Luis", "van", "a", "cocinar", "juntos"]
+        pairs:
+          - { en: "are going to", tokenIndex: 3 }
+          - { en: "cook", tokenIndex: 5 }
+          - { en: "together", tokenIndex: 6 }
+        audioText: "Sam y Luis van a cocinar juntos"
+        revealNote: "«van» (m18) plus a bare infinitive — «cocinar» — ellos/ellas/ustedes, the last slot of the paradigm."
+      - kind: speakLit
+        id: l5-sp-vanaviajar
+        es: "Ana y Diego van a viajar"
+        en: "Ana and Diego are going to travel"
+        atoms: ["van", "viajar"]
+      - kind: buildLit
+        id: l5-b-vanacomerjuntos
+        es: "van a comer juntos hoy"
+        en: "They're going to eat together today"
+        atoms: ["van", "comer", "juntos", "hoy"]
+        tiles: ["va", "vamos"]
+      - kind: clozeLit
+        id: l5-c-vanaestudiar
+        es: "Sofía y María van a estudiar mañana"
+        en: "Sofía and María are going to study tomorrow"
+        blank: "van"
+        options: ["van", "va"]
+        atoms: ["van", "estudiar", "mañana"]
+        why: "«van» — more than one person, not yourself (m18). «va» would be only one of them."
+      - kind: listenCompLit
+        id: l5-lc-vananadarjuntos
+        es: "mañana Sam y Luis van a nadar juntos"
+        en: "Tomorrow Sam and Luis are going to swim together."
+        atoms: ["mañana", "van", "nadar", "juntos"]
+        distractorsEn:
+          - "Tomorrow Sam and Luis are going to swim alone."
+          - "Tomorrow Sam and Luis used to swim together."
+          - "Tomorrow Sam and Luis are going to eat together."
+      - kind: mcq
+        id: l5-q-van
+        prompt: "Which one means 'they're going to' — more than one person, not you?"
+        correct: "van a"
+        distractors: ["vamos a", "va a", "vas a"]
+        atoms: ["van"]
+        why: "«van» — ellos/ellas/ustedes (m18). «vamos» would include yourself; «va» is only one person."
+      # Printed non-recall at L4 (es-m28-4-l4-sp-win).
+      - kind: speakLit
+        id: l5-sp-recall-l4win
+        es: "vamos a viajar el fin de semana"
+        en: "We're going to travel this weekend"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l5-ear-parque
+        target: { surface: "el parque", emoji: "🌳" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el mercado", emoji: "🛒" }
+      - kind: agreementLit
+        id: l5-agr-vanvamos
+        en: "They're going to cook, and we're going to cook too"
+        audioText: "ellos van a cocinar, y nosotros vamos a cocinar también"
+        atoms: ["van", "cocinar", "vamos", "también"]
+        segments:
+          - { text: "ellos " }
+          - { blank: { id: "p1", answer: "van", options: ["van", "vamos"] } }
+          - { text: " a cocinar, y nosotros " }
+          - { blank: { id: "p2", answer: "vamos", options: ["vamos", "van"] } }
+          - { text: " a cocinar también" }
+      - kind: listenBuildLit
+        id: l5-lb-vanalparquejuntos
+        es: "van al parque juntos mañana"
+        en: "They're going to the park together tomorrow"
+        atoms: ["van", "parque", "juntos", "mañana"]
+        tiles: ["va", "vamos"]
+      - kind: textMcq
+        id: l5-tm-van
+        target: "van"
+        distractors: ["vamos", "va", "vas"]
+      - kind: sim
+        id: l5-sim-ana-grupo
+        scene: { emoji: "🍳", title: "Ana talks about the group", setting: "Ana tells you what Sam and Luis are planning." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "Sam y Luis van a cocinar juntos.", audioText: "Sam y Luis van a cocinar juntos.", gloss: "Sam and Luis are going to cook together." }
+            goal: "Ask if they're also going to eat together."
+            reply:
+              mode: build
+              tiles: ["¿van", "a", "comer", "juntos", "también?", "va"]
+              answer: "¿van a comer juntos también?"
+            replyGloss: "Are they also going to eat together?"
+            explanation: "«van» — Sam and Luis, more than one (m18). «va» would ask about only one of them."
+          - id: t2
+            npc: { speaker: "Ana", es: "Sí. ¿Y tú vas a cocinar hoy?", audioText: "sí. ¿y tú vas a cocinar hoy?", gloss: "Yes. And are you going to cook today?" }
+            goal: "Say no, you're going to eat with Ana."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, voy a comer con Diego" }
+                - { id: "wrong1", text: "no, vas a comer con Diego" }
+                - { id: "wrong2", text: "no, van a comer con Diego" }
+              correctOptionId: "right"
+              audioText: "no, voy a comer con Diego"
+            replyGloss: "No, I'm going to eat with Diego."
+            explanation: "«voy» — answering about yourself (m9), not «vas» (that asks about you) or «van» (more than one, not you)."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y Sofía va a viajar mañana?", audioText: "¿y Sofía va a viajar mañana?", gloss: "And is Sofía going to travel tomorrow?" }
+            goal: "Say yes, she's going to travel with Diego."
+            reply:
+              mode: build
+              tiles: ["sí", "va", "a", "viajar", "con", "Diego", "van"]
+              answer: "sí va a viajar con Diego"
+            replyGloss: "Yes, she's going to travel with Diego."
+            explanation: "«va» keeps the answer about Sofía, one person — «van» would wrongly say more than one."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "van", target: "they/you all are going, they go" }
+          - { source: "cocinar", target: "to cook" }
+          - { source: "juntos", target: "together" }
+          - { source: "parque", target: "park" }
+          - { source: "nadar", target: "to swim" }
+          - { source: "viajar", target: "to travel" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "Sam y Luis van a cocinar juntos"
+        en: "Sam and Luis are going to cook together"
+        atoms: ["van", "cocinar", "juntos"]
+
+  # ── L6 · «Va a hacer frío» — recombination: this module's own «va a +
+  #    hacer» against PRIOR weather nouns (m27) and PRIOR causal
+  #    connective «por eso» (m25, doesn't force a tense collision — hard
+  #    rule 8). Impersonal, no subject — same shape as PRIOR «hace frío»
+  #    (m27). Stays on the «hacer»-pairing weather words only (frío/calor/
+  #    viento/sol) — «nublado» pairs with «estar» in PRIOR use, and «estar»
+  #    itself was never registered as a bare infinitive (only «está»/
+  #    «estamos»/«estaba» exist), so this module can't legally say «va a
+  #    estar nublado»; skip that word here rather than reach for an
+  #    unregistered infinitive. ≥2 recalls.
+  - n: 6
+    template: free
+    title: "Va a hacer frío"
+    description: "«va a hacer» — the impersonal weather pattern (m27), now in the near future. «mañana va a hacer frío»."
+    steps:
+      - kind: map
+        id: l6-map-vaahacerfrio
+        tokens: ["mañana", "va", "a", "hacer", "frío"]
+        pairs:
+          - { en: "tomorrow", tokenIndex: 0 }
+          - { en: "it's going to", tokenIndex: 1 }
+          - { en: "be", tokenIndex: 3 }
+          - { en: "cold", tokenIndex: 4 }
+        audioText: "mañana va a hacer frío"
+        revealNote: "«va» — impersonal, no subject (like PRIOR «hace frío», m27). «va a hacer frío» — it's going to be cold."
+      - kind: speakLit
+        id: l6-sp-vaahacercalor
+        es: "el fin de semana va a hacer calor"
+        en: "This weekend it's going to be hot"
+        atoms: ["el fin de semana", "va", "hacer", "el calor"]
+      - kind: buildLit
+        id: l6-b-vaahacersol
+        es: "el fin de semana va a hacer sol"
+        en: "This weekend it's going to be sunny"
+        atoms: ["el fin de semana", "va", "hacer", "el sol"]
+        tiles: ["voy", "vamos"]
+      - kind: clozeLit
+        id: l6-c-vaahacerviento
+        es: "hoy va a hacer viento"
+        en: "Today it's going to be windy"
+        blank: "va"
+        options: ["va", "voy"]
+        atoms: ["hoy", "va", "hacer", "el viento"]
+        why: "«va» — impersonal, no person (m27's own weather shape). «voy» would wrongly claim a subject."
+      - kind: listenCompLit
+        id: l6-lc-poresovamosanadar
+        es: "va a hacer calor, por eso vamos a nadar"
+        en: "It's going to be hot, that's why we're going to swim."
+        atoms: ["va", "hacer", "el calor", "por eso", "vamos", "nadar"]
+        distractorsEn:
+          - "It's going to be cold, that's why we're going to swim."
+          - "It was hot, that's why we're going to swim."
+          - "It's going to be hot, that's why we're not going to swim."
+      - kind: mcq
+        id: l6-q-poreso
+        prompt: "Which one means 'that's why' — a result, not a reason word?"
+        correct: "por eso"
+        distractors: ["porque", "también", "pero"]
+        atoms: ["por eso"]
+        why: "«por eso» (m25) — a result. «porque» gives a reason instead; «también»/«pero» aren't causal at all."
+      # Printed non-recall at L5 (es-m28-5-l5-sp-win).
+      - kind: speakLit
+        id: l6-sp-recall-l5win
+        es: "Sam y Luis van a cocinar juntos"
+        en: "Sam and Luis are going to cook together"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l6-ear-lluvia
+        target: { surface: "la lluvia", emoji: "🌧️" }
+        distractors:
+          - { surface: "la nieve", emoji: "❄️" }
+          - { surface: "el sol", emoji: "🌞" }
+      - kind: agreementLit
+        id: l6-agr-frioCalor
+        en: "Tomorrow it's going to be cold, and this weekend it's going to be hot"
+        audioText: "mañana va a hacer frío, y el fin de semana va a hacer calor"
+        atoms: ["mañana", "va", "hacer", "el frío", "el fin de semana", "el calor"]
+        segments:
+          - { text: "mañana va a hacer " }
+          - { blank: { id: "p1", answer: "frío", options: ["frío", "calor"] } }
+          - { text: ", y el fin de semana va a hacer " }
+          - { blank: { id: "p2", answer: "calor", options: ["calor", "frío"] } }
+      - kind: listenBuildLit
+        id: l6-lb-poresonovoyalaplaya
+        es: "mañana va a hacer frío, por eso no voy a la playa"
+        en: "Tomorrow it's going to be cold, that's why I'm not going to the beach"
+        atoms: ["mañana", "va", "hacer", "el frío", "por eso", "voy", "playa"]
+        tiles: ["porque", "también"]
+      - kind: textMcq
+        id: l6-tm-poreso
+        target: "por eso"
+        distractors: ["porque", "cuando", "mientras"]
+      - kind: sim
+        id: l6-sim-diego-clima
+        scene: { emoji: "🌦️", title: "Diego checks the weather", setting: "Diego wants to plan tomorrow around the weather." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Va a hacer frío mañana?", audioText: "¿va a hacer frío mañana?", gloss: "Is it going to be cold tomorrow?" }
+            goal: "Say yes, that's why you're going to cook."
+            reply:
+              mode: build
+              tiles: ["sí", "por", "eso", "voy", "a", "cocinar", "porque"]
+              answer: "sí por eso voy a cocinar"
+            replyGloss: "Yes, that's why I'm going to cook."
+            explanation: "«por eso» (m25) gives the result. «porque» would give a reason instead — the wrong direction here."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y va a hacer sol el fin de semana?", audioText: "¿y va a hacer sol el fin de semana?", gloss: "And is it going to be sunny this weekend?" }
+            goal: "Say no, it's going to be windy."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, va a hacer viento" }
+                - { id: "wrong1", text: "no, vas a hacer viento" }
+                - { id: "wrong2", text: "no, van a hacer viento" }
+              correctOptionId: "right"
+              audioText: "no, va a hacer viento"
+            replyGloss: "No, it's going to be windy."
+            explanation: "«va» stays impersonal, one weather statement — «vas»/«van» would wrongly attach a person to the weather."
+          - id: t3
+            npc: { speaker: "Diego", es: "Entonces, ¿vamos a nadar hoy o mañana?", audioText: "entonces, ¿vamos a nadar hoy o mañana?", gloss: "So, are we going to swim today or tomorrow?" }
+            goal: "Say today, that's why."
+            reply:
+              mode: build
+              tiles: ["hoy", "por", "eso", "vamos", "a", "nadar", "porque"]
+              answer: "hoy por eso vamos a nadar"
+            replyGloss: "Today, that's why we're going to swim."
+            explanation: "«por eso» keeps the cold/hot contrast as the cause — the whole reason today, not tomorrow, is the swim day."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "el frío", target: "the cold" }
+          - { source: "el calor", target: "the heat" }
+          - { source: "el sol", target: "the sun" }
+          - { source: "por eso", target: "that's why" }
+          - { source: "el viento", target: "the wind" }
+          - { source: "la lluvia", target: "the rain" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "mañana va a hacer frío, por eso no voy a nadar"
+        en: "Tomorrow it's going to be cold, that's why I'm not going to swim"
+        atoms: ["mañana", "va", "hacer", "el frío", "por eso", "voy", "nadar"]
+
+  # ── L7 · «No voy a trabajar mañana» — negation across the paradigm, PRIOR
+  #    «no» (m1) in front of the conjugated verb, same as any PRIOR
+  #    negation shape. No new atom, no new question form; ≥1 recall.
+  - n: 7
+    template: free
+    title: "No voy a trabajar mañana"
+    description: "«no» (m1) in front of «voy»/«vas»/«va»/«vamos»/«van» — negating a plan, same place «no» always goes."
+    steps:
+      - kind: map
+        id: l7-map-novoyatrabajar
+        tokens: ["no", "voy", "a", "trabajar", "mañana"]
+        pairs:
+          - { en: "not", tokenIndex: 0 }
+          - { en: "I'm going to", tokenIndex: 1 }
+          - { en: "work", tokenIndex: 3 }
+        audioText: "no voy a trabajar mañana"
+        revealNote: "«no» (m1) goes right before «voy» — same spot it always takes. No new atom, no new question form."
+      - kind: speakLit
+        id: l7-sp-novasaviajar
+        es: "no vas a viajar el fin de semana"
+        en: "You're not going to travel this weekend"
+        atoms: ["no", "vas", "viajar", "el fin de semana"]
+      - kind: buildLit
+        id: l7-b-novaacomer
+        es: "Ana no va a comer con Diego"
+        en: "Ana is not going to eat with Diego"
+        atoms: ["no", "va", "comer"]
+        tiles: ["voy", "vamos"]
+      - kind: clozeLit
+        id: l7-c-novamosanadar
+        es: "no vamos a nadar hoy"
+        en: "We're not going to swim today"
+        blank: "no"
+        options: ["no", "pero"]
+        atoms: ["no", "vamos", "nadar", "hoy"]
+        why: "«no» negates the plan (m1). «pero» would contrast two ideas instead — not the same job."
+      - kind: listenCompLit
+        id: l7-lc-novanacocinar
+        es: "Sam y Luis no van a cocinar juntos"
+        en: "Sam and Luis are not going to cook together."
+        atoms: ["no", "van", "cocinar", "juntos"]
+        distractorsEn:
+          - "Sam and Luis are going to cook together."
+          - "Sam and Luis are not going to eat together."
+          - "Sam and Luis didn't used to cook together."
+      - kind: mcq
+        id: l7-q-no
+        prompt: "Which word goes right before the verb to negate the plan?"
+        correct: "no"
+        distractors: ["pero", "también", "por eso"]
+        atoms: ["no"]
+        why: "«no» (m1) sits right before «voy»/«vas»/«va». «pero», «también», «por eso» don't negate anything."
+      # Printed non-recall at L6 (es-m28-6-l6-sp-win).
+      - kind: speakLit
+        id: l7-sp-recall-l6win
+        es: "mañana va a hacer frío, por eso no voy a nadar"
+        en: "Tomorrow it's going to be cold, that's why I'm not going to swim"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l7-ear-cine
+        target: { surface: "el cine", emoji: "🎬" }
+        distractors:
+          - { surface: "el restaurante", emoji: "🍴" }
+          - { surface: "la fiesta", emoji: "🎉" }
+      - kind: agreementLit
+        id: l7-agr-novoypero
+        en: "I'm not going to work, but I'm going to study"
+        audioText: "no voy a trabajar, pero voy a estudiar"
+        atoms: ["no", "voy", "trabajar", "pero", "estudiar"]
+        segments:
+          - { text: "" }
+          - { blank: { id: "p1", answer: "no", options: ["no", "pero"] } }
+          - { text: " voy a trabajar, " }
+          - { blank: { id: "p2", answer: "pero", options: ["pero", "no"] } }
+          - { text: " voy a estudiar" }
+      - kind: listenBuildLit
+        id: l7-lb-novaalcine
+        es: "Diego no va al cine, va a trabajar"
+        en: "Diego isn't going to the movies, he's going to work"
+        atoms: ["no", "va", "cine", "trabajar"]
+        tiles: ["voy", "vamos"]
+      - kind: textMcq
+        id: l7-tm-no
+        target: "no"
+        distractors: ["pero", "también", "porque"]
+      - kind: sim
+        id: l7-sim-ana-cambio
+        scene: { emoji: "🚫", title: "Ana's plans change", setting: "Ana checks whether your plans for tomorrow have changed." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Vas a trabajar mañana?", audioText: "¿vas a trabajar mañana?", gloss: "Are you going to work tomorrow?" }
+            goal: "Say no, not work, going to cook instead."
+            reply:
+              mode: build
+              tiles: ["no", "voy", "a", "trabajar,", "voy", "a", "cocinar", "vas"]
+              answer: "no voy a trabajar, voy a cocinar"
+            replyGloss: "No, I'm not going to work, I'm going to cook."
+            explanation: "«no» goes right before «voy», negating the first plan — the second clause states the real one."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego va a cocinar también?", audioText: "¿y Diego va a cocinar también?", gloss: "And is Diego also going to cook?" }
+            goal: "Say no, not cooking, going to eat."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, no va a cocinar, va a comer" }
+                - { id: "wrong1", text: "no, no vas a cocinar, vas a comer" }
+                - { id: "wrong2", text: "no, no van a cocinar, van a comer" }
+              correctOptionId: "right"
+              audioText: "no, no va a cocinar, va a comer"
+            replyGloss: "No, he's not going to cook, he's going to eat."
+            explanation: "«va» stays Diego's, one person — «vas» would ask about you instead, «van» would wrongly say more than one."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Vamos a nadar el fin de semana?", audioText: "¿vamos a nadar el fin de semana?", gloss: "Are we going to swim this weekend?" }
+            goal: "Say no, but you're going to travel together."
+            reply:
+              mode: build
+              tiles: ["no", "pero", "vamos", "a", "viajar", "juntos", "no"]
+              answer: "no pero vamos a viajar juntos"
+            replyGloss: "No, but we're going to travel together."
+            explanation: "«no» negates the swim plan; «pero» (m6) then contrasts it with the real one — two different jobs, one sentence."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "no", target: "not, no" }
+          - { source: "pero", target: "but" }
+          - { source: "trabajar", target: "to work" }
+          - { source: "cocinar", target: "to cook" }
+          - { source: "el cine", target: "the movies" }
+          - { source: "juntos", target: "together" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "no voy a trabajar mañana, voy a cocinar"
+        en: "I'm not going to work tomorrow, I'm going to cook"
+        atoms: ["no", "voy", "trabajar", "mañana", "cocinar"]
+
+  # ── L8 · Checkpoint — graded only (no info card), the full paradigm
+  #    (voy/vas/va/vamos/van + infinitive), «ir» reused, and L6's own
+  #    va-a-hacer/por-eso recombination recalled. ≥2 recalls.
+  - n: 8
+    template: free
+    title: "Checkpoint: voy a + infinitivo"
+    description: "Every person of «ir a + infinitivo», negation, and the weather recombination — all together."
+    steps:
+      - kind: buildLit
+        id: l8-b-voyanadarmanana
+        es: "voy a nadar mañana"
+        en: "I'm going to swim tomorrow"
+        atoms: ["voy", "nadar", "mañana"]
+        tiles: ["vas", "va"]
+      - kind: clozeLit
+        id: l8-c-vasatrabajarhoy
+        es: "vas a trabajar hoy"
+        en: "You're going to work today"
+        blank: "vas"
+        options: ["vas", "voy"]
+        atoms: ["vas", "trabajar", "hoy"]
+        why: "«vas» — talking about you (m9). «voy» would talk about yourself instead."
+      - kind: listenCompLit
+        id: l8-lc-vaacomer
+        es: "hoy Ana va a comer con Diego"
+        en: "Today Ana is going to eat with Diego."
+        atoms: ["hoy", "va", "comer"]
+        distractorsEn:
+          - "Today Ana is not going to eat with Diego."
+          - "Today Ana used to eat with Diego."
+          - "Today Ana is going to eat with Sofía."
+      - kind: mcq
+        id: l8-q-ir
+        prompt: "Which one is the plain dictionary form — 'to go'?"
+        correct: "ir"
+        distractors: ["voy", "iba", "fue"]
+        atoms: ["ir"]
+        why: "«ir» is the infinitive. «iba» is imperfect (m22); «fue» is preterite (m19–m21) — different tenses of the same verb."
+      - kind: buildLit
+        id: l8-b-vamosaviajar
+        es: "vamos a viajar el fin de semana"
+        en: "We're going to travel this weekend"
+        atoms: ["vamos", "viajar", "el fin de semana"]
+        tiles: ["va", "van"]
+      - kind: agreementLit
+        id: l8-agr-vanpuedeir
+        en: "Sam and Luis are going to cook, and Ana needs to go too"
+        audioText: "Sam y Luis van a cocinar, y Ana necesita ir también"
+        atoms: ["van", "cocinar", "necesita", "ir", "también"]
+        segments:
+          - { text: "Sam y Luis " }
+          - { blank: { id: "p1", answer: "van", options: ["van", "va"] } }
+          - { text: " a cocinar, y Ana necesita " }
+          - { blank: { id: "p2", answer: "ir", options: ["ir", "va"] } }
+          - { text: " también" }
+      # Printed non-recall at L6 (es-m28-6-l6-sp-win).
+      - kind: speakLit
+        id: l8-sp-recall-l6win
+        es: "mañana va a hacer frío, por eso no voy a nadar"
+        en: "Tomorrow it's going to be cold, that's why I'm not going to swim"
+        atoms: []
+        cue: recall
+      - kind: listenBuildLit
+        id: l8-lb-vaahacercalor
+        es: "el fin de semana va a hacer calor"
+        en: "This weekend it's going to be hot"
+        atoms: ["el fin de semana", "va", "hacer", "el calor"]
+        tiles: ["voy", "vamos"]
+      # Printed non-recall at L7 (es-m28-7-l7-sp-win).
+      - kind: speakLit
+        id: l8-sp-recall-l7win
+        es: "no voy a trabajar mañana, voy a cocinar"
+        en: "I'm not going to work tomorrow, I'm going to cook"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l8-tm-va
+        target: "va"
+        distractors: ["voy", "vas", "van"]
+      - kind: sim
+        id: l8-sim-ana-checkpoint
+        scene: { emoji: "📋", title: "Ana checks everyone's plans", setting: "Ana is confirming the weekend's weather and everyone's plans." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Va a hacer calor el fin de semana?", audioText: "¿va a hacer calor el fin de semana?", gloss: "Is it going to be hot this weekend?" }
+            goal: "Say yes, that's why swimming together."
+            reply:
+              mode: build
+              tiles: ["sí", "por", "eso", "vamos", "a", "nadar", "juntos", "porque"]
+              answer: "sí por eso vamos a nadar juntos"
+            replyGloss: "Yes, that's why we're going to swim together."
+            explanation: "«por eso» (m25) states the result — the heat is why the swim plan follows."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego va a trabajar o va a cocinar?", audioText: "¿y Diego va a trabajar o va a cocinar?", gloss: "And is Diego going to work or going to cook?" }
+            goal: "Say not work, he needs the store."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no va a trabajar, necesita ir a la tienda" }
+                - { id: "wrong1", text: "no vas a trabajar, necesitas ir a la tienda" }
+                - { id: "wrong2", text: "no va a la tienda, necesita trabajar" }
+              correctOptionId: "right"
+              audioText: "no va a trabajar, necesita ir a la tienda"
+            replyGloss: "No, he's not going to work, he needs to go to the store."
+            explanation: "«va»/«necesita» — Diego, one person (m9/m16); «necesitas»/«vas» would wrongly ask about you. The last option swaps which plan is which — read the whole sentence, not just the verbs."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo vamos a cocinar también?", audioText: "¿y tú y yo vamos a cocinar también?", gloss: "And are you and I also going to cook?" }
+            goal: "Say no, you're going to study instead."
+            reply:
+              mode: build
+              tiles: ["no", "voy", "a", "estudiar", "vamos"]
+              answer: "no voy a estudiar"
+            replyGloss: "No, I'm going to study."
+            explanation: "«voy» answers about yourself alone (m9) — «vamos» would wrongly include Ana in the study plan."
+      - kind: matchLit
+        id: l8-match
+        pairs:
+          - { source: "ir", target: "to go" }
+          - { source: "va", target: "he/she/it is going" }
+          - { source: "vamos", target: "we're going" }
+          - { source: "por eso", target: "that's why" }
+          - { source: "necesita", target: "he/she needs" }
+          - { source: "el calor", target: "the heat" }
+      - kind: speakLit
+        id: l8-sp-win
+        es: "mañana va a hacer calor, por eso vamos a nadar juntos"
+        en: "Tomorrow it's going to be hot, that's why we're going to swim together"
+        atoms: ["mañana", "va", "hacer", "el calor", "por eso", "vamos", "nadar", "juntos"]
+
+  # ── L9 · «Voy a la playa, voy a nadar» — the dedicated contrast lesson
+  #    (hard rule 7): «voy a» + PLACE (PRIOR movement, m9) side by side
+  #    with «voy a» + INFINITIVE (this module), same surface, two jobs.
+  #    Every individual sentence still disambiguates from its very next
+  #    word (hard rule 6) — the contrast is between sentences, not inside
+  #    one. Win line drops «otra vez» (grep-confirmed NOT PRIOR — see
+  #    brief's own safer default). Full paradigm on display; ≥1 recall.
+  - n: 9
+    template: free
+    title: "Voy a la playa, voy a nadar"
+    description: "Same «voy a», two jobs: a place (PRIOR, m9) or an infinitive (this module). The very next word always tells you which."
+    steps:
+      - kind: map
+        id: l9-map-voyalaplayavoyanadar
+        tokens: ["hoy", "voy", "a", "la", "playa,", "y", "mañana", "voy", "a", "nadar"]
+        pairs:
+          - { en: "today", tokenIndex: 0 }
+          - { en: "the beach", tokenIndex: 4 }
+          - { en: "tomorrow", tokenIndex: 6 }
+          - { en: "swim", tokenIndex: 9 }
+        audioText: "hoy voy a la playa, y mañana voy a nadar"
+        revealNote: "«voy a la playa» — a place follows «a» (PRIOR, m9). «voy a nadar» — an infinitive follows instead. Same «voy a», the next word decides."
+      - kind: speakLit
+        id: l9-sp-vasalparquevasabailar
+        es: "vas al parque, y vas a bailar"
+        en: "You're going to the park, and you're going to dance"
+        atoms: ["vas", "parque", "bailar"]
+      - kind: buildLit
+        id: l9-b-vaalmuseovaacomer
+        es: "Ana va al museo, y luego va a comer"
+        en: "Ana is going to the museum, and then she's going to eat"
+        atoms: ["va", "comer"]
+        tiles: ["voy", "vamos"]
+      - kind: clozeLit
+        id: l9-c-vamosalatiendavamosaviajar
+        es: "vamos a la tienda, y vamos a viajar mañana"
+        en: "We're going to the store, and we're going to travel tomorrow"
+        blank: "vamos"
+        options: ["vamos", "van"]
+        atoms: ["vamos", "tienda", "viajar", "mañana"]
+        why: "«vamos» — nosotros, both times (m18). «van» would be a different group entirely."
+      - kind: listenCompLit
+        id: l9-lc-vanalcinevanacocinar
+        es: "hoy Sam y Luis van al cine, y luego van a cocinar"
+        en: "Today Sam and Luis are going to the movies, and then they're going to cook."
+        atoms: ["hoy", "van", "cine", "cocinar"]
+        distractorsEn:
+          - "Today Sam and Luis are going to the movies, and then they're going to eat."
+          - "Today Sam and Luis went to the movies, and then they're going to cook."
+          - "Today Sam and Luis are going to the store, and then they're going to cook."
+      - kind: mcq
+        id: l9-q-placeword
+        prompt: "Which one continues «voy a» as a PLACE, not a plan?"
+        correct: "la playa"
+        distractors: ["nadar", "trabajar", "estudiar"]
+        atoms: ["playa"]
+        why: "«la playa» is a noun — a place (PRIOR, m9). «nadar»/«trabajar»/«estudiar» are all bare infinitives — a plan, not a place."
+      # Printed non-recall at L8 (es-m28-8-l8-sp-win).
+      - kind: speakLit
+        id: l9-sp-recall-l8win
+        es: "mañana va a hacer calor, por eso vamos a nadar juntos"
+        en: "Tomorrow it's going to be hot, that's why we're going to swim together"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l9-ear-mercado
+        target: { surface: "el mercado", emoji: "🛒" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "el trabajo", emoji: "💼" }
+      - kind: agreementLit
+        id: l9-agr-placevsverb
+        en: "I'm going to the beach, and I'm going to swim"
+        audioText: "voy a la playa, y voy a nadar"
+        atoms: ["voy", "playa", "nadar"]
+        segments:
+          - { text: "voy a " }
+          - { blank: { id: "p1", answer: "la playa", options: ["la playa", "nadar"] } }
+          - { text: ", y voy a " }
+          - { blank: { id: "p2", answer: "nadar", options: ["nadar", "la playa"] } }
+      - kind: listenBuildLit
+        id: l9-lb-vaaltrabajovaaestudiar
+        es: "Diego va al trabajo, pero va a estudiar hoy"
+        en: "Diego is going to work (the place), but he's going to study today"
+        atoms: ["va", "trabajo", "pero", "estudiar", "hoy"]
+        tiles: ["voy", "vamos"]
+      - kind: textMcq
+        id: l9-tm-playa
+        target: "playa"
+        distractors: ["nadar", "trabajar", "cocinar"]
+      - kind: sim
+        id: l9-sim-diego-doslugares
+        scene: { emoji: "🏖️", title: "Diego asks about your day", setting: "Diego wants to know where you're going and what you'll do there." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Vas a la playa hoy?", audioText: "¿vas a la playa hoy?", gloss: "Are you going to the beach today?" }
+            goal: "Say yes, and you're going to swim."
+            reply:
+              mode: build
+              tiles: ["sí", "y", "voy", "a", "nadar", "vas"]
+              answer: "sí y voy a nadar"
+            replyGloss: "Yes, and I'm going to swim."
+            explanation: "«a la playa» — a place (PRIOR, m9). «a nadar» — an infinitive right after, this module's own pattern. Same «voy a», two jobs."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y Ana va al parque o va a estudiar?", audioText: "¿y Ana va al parque o va a estudiar?", gloss: "And is Ana going to the park, or going to study?" }
+            goal: "Say not the park, she's studying."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no va al parque, va a estudiar" }
+                - { id: "wrong1", text: "no vas al parque, vas a estudiar" }
+                - { id: "wrong2", text: "no van al parque, van a estudiar" }
+              correctOptionId: "right"
+              audioText: "no va al parque, va a estudiar"
+            replyGloss: "No, she's not going to the park, she's going to study."
+            explanation: "«va» stays Ana's, one person (m9) — «vas» would ask about you, «van» would wrongly say more than one."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿Vamos al cine, o vamos a cocinar juntos?", audioText: "¿vamos al cine, o vamos a cocinar juntos?", gloss: "Are we going to the movies, or going to cook together?" }
+            goal: "Say the movies today, and cook tomorrow."
+            reply:
+              mode: build
+              tiles: ["vamos", "al", "cine", "hoy,", "y", "vamos", "a", "cocinar", "mañana", "van"]
+              answer: "vamos al cine hoy, y vamos a cocinar mañana"
+            replyGloss: "We're going to the movies today, and we're going to cook tomorrow."
+            explanation: "«al cine» — a place. «a cocinar» — an infinitive. Two sentences, two structures, both with «vamos»."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "la playa", target: "the beach" }
+          - { source: "nadar", target: "to swim" }
+          - { source: "el parque", target: "the park" }
+          - { source: "estudiar", target: "to study" }
+          - { source: "el trabajo", target: "work (the place)" }
+          - { source: "el mercado", target: "the market" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "hoy voy a la playa, y mañana voy a nadar"
+        en: "Today I'm going to the beach, and tomorrow I'm going to swim"
+        atoms: ["hoy", "voy", "playa", "mañana", "nadar"]
+
+  # ── L10 · Mastery — Ana asks the group about the weekend's plans. No
+  #    info card. «voy a ir» permitted here only (the header's own
+  #    caution). ≥2 recalls, ≥1 PRIOR m23 connective (mientras/entonces —
+  #    never cuando/de repente, hard rule 8), ≥1 PRIOR m25 connective
+  #    (porque/por eso). Mastery shape: matchLit BEFORE the sim; the
+  #    win line is delivered as the sim's own final turn reply, not a
+  #    separate closing speakLit (mirrors m26-L10/m27-L10).
+  - n: 10
+    template: free
+    title: "Los planes del fin de semana"
+    description: "Ana asks everyone what they're doing this weekend — every person, every connective, all in one conversation."
+    steps:
+      - kind: speakLit
+        id: l10-sp-esteFinDeSemana
+        es: "este fin de semana vamos a viajar juntos"
+        en: "This weekend we're going to travel together"
+        atoms: ["vamos", "viajar", "juntos"]
+      - kind: buildLit
+        id: l10-b-mientrasvoyestudia
+        es: "mientras yo estudio, Ana va a trabajar"
+        en: "While I study, Ana is going to work"
+        atoms: ["mientras", "va", "trabajar"]
+        tiles: ["voy", "vamos"]
+      - kind: clozeLit
+        id: l10-c-entoncesvamos
+        es: "va a hacer sol, entonces vamos a nadar"
+        en: "It's going to be sunny, so we're going to swim"
+        blank: "entonces"
+        options: ["entonces", "cuando"]
+        atoms: ["va", "el sol", "entonces", "vamos", "nadar"]
+        why: "«entonces» (m23) — a natural result, no tense collision. «cuando» would force a different clause shape here — a poor fit for this plan."
+      - kind: listenCompLit
+        id: l10-lc-porquevanacocinar
+        es: "van a cocinar porque tienen hambre"
+        en: "They're going to cook because they're hungry."
+        atoms: ["van", "cocinar", "porque", "tienen"]
+        distractorsEn:
+          - "They're going to cook because it's cold."
+          - "They cooked because they were hungry."
+          - "They're not going to cook because they're hungry."
+      - kind: mcq
+        id: l10-q-voyair
+        prompt: "Which one means 'I'm going to go' — the plan to go itself?"
+        correct: "voy a ir"
+        distractors: ["voy", "voy a la playa", "iba a ir"]
+        atoms: ["voy", "ir"]
+        why: "«voy a ir» — «voy a» plus the infinitive «ir» itself, a plan to go (rare, but legal — same shape as «voy a nadar»). «voy a la playa» names a place instead; «iba a ir» is a different tense (imperfect, m22)."
+      # Printed non-recall at L1 (es-m28-1-l1-sp-win).
+      - kind: speakLit
+        id: l10-sp-recall-l1win
+        es: "mañana voy a nadar"
+        en: "Tomorrow I'm going to swim"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l10-ear-escuela
+        target: { surface: "la escuela", emoji: "🏫" }
+        distractors:
+          - { surface: "el trabajo", emoji: "💼" }
+          - { surface: "el cine", emoji: "🎬" }
+      - kind: agreementLit
+        id: l10-agr-porquepor
+        en: "I'm going to cook because it's going to be cold, that's why I need the store"
+        audioText: "voy a cocinar porque va a hacer frío, por eso necesito ir a la tienda"
+        atoms: ["voy", "cocinar", "porque", "va", "hacer", "el frío", "por eso", "necesito", "ir", "tienda"]
+        segments:
+          - { text: "voy a cocinar " }
+          - { blank: { id: "p1", answer: "porque", options: ["porque", "por eso"] } }
+          - { text: " va a hacer frío, " }
+          - { blank: { id: "p2", answer: "por eso", options: ["por eso", "porque"] } }
+          - { text: " necesito ir a la tienda" }
+      # Printed non-recall at L9 (es-m28-9-l9-sp-win).
+      - kind: speakLit
+        id: l10-sp-recall-l9win
+        es: "hoy voy a la playa, y mañana voy a nadar"
+        en: "Today I'm going to the beach, and tomorrow I'm going to swim"
+        atoms: []
+        cue: recall
+      - kind: listenBuildLit
+        id: l10-lb-mientrasnado
+        es: "mientras Diego trabaja, vamos a nadar"
+        en: "While Diego works, we're going to swim"
+        atoms: ["mientras", "vamos", "nadar"]
+        tiles: ["va", "van"]
+      - kind: textMcq
+        id: l10-tm-entonces
+        target: "entonces"
+        distractors: ["cuando", "de repente", "mientras"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "mientras", target: "while" }
+          - { source: "entonces", target: "so, then" }
+          - { source: "porque", target: "because" }
+          - { source: "por eso", target: "that's why" }
+          - { source: "este fin de semana", target: "this weekend" }
+          - { source: "juntos", target: "together" }
+      - kind: sim
+        id: l10-sim-ana-fin-de-semana
+        scene: { emoji: "📅", title: "Ana plans the weekend", setting: "Ana is asking everyone what they're doing this weekend." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Qué van a hacer tú y Diego el fin de semana?", audioText: "¿qué van a hacer tú y Diego el fin de semana?", gloss: "What are you and Diego going to do this weekend?" }
+            goal: "Say you're going to travel together."
+            reply:
+              mode: build
+              tiles: ["vamos", "a", "viajar", "juntos", "van"]
+              answer: "vamos a viajar juntos"
+            replyGloss: "We're going to travel together."
+            explanation: "«vamos» — you and Diego together (m18), not «van» — that would leave you out of the group."
+          - id: t2
+            npc: { speaker: "Ana", es: "Mientras ustedes van a viajar, Sofía va a cocinar porque tiene hambre.", audioText: "mientras ustedes van a viajar, Sofía va a cocinar porque tiene hambre.", gloss: "While you all are going to travel, Sofía is going to cook because she's hungry." }
+            goal: "Ask if Sam is also going to cook."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "¿y Sam también va a cocinar?" }
+                - { id: "wrong1", text: "¿y Sam también vas a cocinar?" }
+                - { id: "wrong2", text: "¿y Sam también van a cocinar?" }
+              correctOptionId: "right"
+              audioText: "¿y Sam también va a cocinar?"
+            replyGloss: "And is Sam also going to cook?"
+            explanation: "«va» — Sam, one person (m9). «vas» would ask about yourself; «van» would wrongly say more than one."
+          - id: t3
+            npc: { speaker: "Ana", es: "No, va a hacer sol, entonces Sam va a ir a la playa.", audioText: "no, va a hacer sol, entonces Sam va a ir a la playa.", gloss: "No, it's going to be sunny, so Sam is going to go to the beach." }
+            goal: "Say that's why you're going too."
+            reply:
+              mode: build
+              tiles: ["por", "eso", "yo", "también", "voy", "porque"]
+              answer: "por eso yo también voy"
+            replyGloss: "That's why I'm also going."
+            explanation: "«por eso» (m25) states the result of the sunny weather — Sam's plan is why you're joining him."
+          - id: t4
+            npc: { speaker: "Ana", es: "¿Y qué vas a hacer tú exactamente?", audioText: "¿y qué vas a hacer tú exactamente?", gloss: "And what exactly are you going to do?" }
+            goal: "Say your full weekend plan."
+            reply:
+              mode: build
+              tiles: ["este", "fin", "de", "semana", "vamos", "a", "viajar", "juntos,", "y", "yo", "también", "voy", "a", "ir", "a", "la", "playa", "voy"]
+              answer: "este fin de semana vamos a viajar juntos, y yo también voy a ir a la playa"
+            replyGloss: "This weekend we're going to travel together, and I'm also going to go to the beach."
+            explanation: "«voy a ir» — «voy a» plus the infinitive «ir» itself, legal here (mastery only, the header's own caution) — the same plan shape as «voy a nadar», just naming «ir» directly."
+
+placement:
+  screener:
+    - id: "es-m28-scr-1"
+      prompt: "'Tomorrow I'm going to swim.' — which one?"
+      correct: "mañana voy a nadar"
+      distractors: ["mañana voy a la playa", "mañana voy nadar", "mañana vas a nadar"]
+  byModule:
+    - id: "es-m28-pl-1"
+      prompt: "I need to go to school today."
+      correct: "necesito ir a la escuela hoy"
+      distractors: ["necesito ir a la escuela ayer", "necesita ir a la escuela hoy", "necesito la escuela hoy"]
+    - id: "es-m28-pl-2"
+      prompt: "Ana is going to eat with Diego tomorrow."
+      correct: "Ana va a comer con Diego mañana"
+      distractors: ["Ana va comer con Diego mañana", "Ana voy a comer con Diego mañana", "Ana va a la fiesta con Diego mañana"]
+    - id: "es-m28-pl-3"
+      prompt: "It's going to be cold tomorrow, that's why we're not going to swim."
+      correct: "mañana va a hacer frío, por eso no vamos a nadar"
+      distractors: ["mañana va a hacer frío, porque no vamos a nadar", "mañana hace frío, por eso no vamos a nadar", "mañana va a hacer frío, por eso no vamos nadar"]
+    - id: "es-m28-pl-4"
+      prompt: "This weekend we're going to travel together, and I'm also going to go to the beach."
+      correct: "este fin de semana vamos a viajar juntos, y yo también voy a ir a la playa"
+      distractors: ["este fin de semana vamos a viajar juntos, y yo también voy a la playa", "este fin de semana vamos viajar juntos, y yo también voy a ir a la playa", "este fin de semana vamos a viajar juntos, y yo también iba a ir a la playa"]

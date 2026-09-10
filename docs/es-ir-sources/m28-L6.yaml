@@ -1,0 +1,142 @@
+  # ── L6 · «Va a hacer frío» — recombination: this module's own «va a +
+  #    hacer» against PRIOR weather nouns (m27) and PRIOR causal
+  #    connective «por eso» (m25, doesn't force a tense collision — hard
+  #    rule 8). Impersonal, no subject — same shape as PRIOR «hace frío»
+  #    (m27). Stays on the «hacer»-pairing weather words only (frío/calor/
+  #    viento/sol) — «nublado» pairs with «estar» in PRIOR use, and «estar»
+  #    itself was never registered as a bare infinitive (only «está»/
+  #    «estamos»/«estaba» exist), so this module can't legally say «va a
+  #    estar nublado»; skip that word here rather than reach for an
+  #    unregistered infinitive. ≥2 recalls.
+  - n: 6
+    template: free
+    title: "Va a hacer frío"
+    description: "«va a hacer» — the impersonal weather pattern (m27), now in the near future. «mañana va a hacer frío»."
+    steps:
+      - kind: map
+        id: l6-map-vaahacerfrio
+        tokens: ["mañana", "va", "a", "hacer", "frío"]
+        pairs:
+          - { en: "tomorrow", tokenIndex: 0 }
+          - { en: "it's going to", tokenIndex: 1 }
+          - { en: "be", tokenIndex: 3 }
+          - { en: "cold", tokenIndex: 4 }
+        audioText: "mañana va a hacer frío"
+        revealNote: "«va» — impersonal, no subject (like PRIOR «hace frío», m27). «va a hacer frío» — it's going to be cold."
+      - kind: speakLit
+        id: l6-sp-vaahacercalor
+        es: "el fin de semana va a hacer calor"
+        en: "This weekend it's going to be hot"
+        atoms: ["el fin de semana", "va", "hacer", "el calor"]
+      - kind: buildLit
+        id: l6-b-vaahacersol
+        es: "el fin de semana va a hacer sol"
+        en: "This weekend it's going to be sunny"
+        atoms: ["el fin de semana", "va", "hacer", "el sol"]
+        tiles: ["voy", "vamos"]
+      - kind: clozeLit
+        id: l6-c-vaahacerviento
+        es: "hoy va a hacer viento"
+        en: "Today it's going to be windy"
+        blank: "va"
+        options: ["va", "voy"]
+        atoms: ["hoy", "va", "hacer", "el viento"]
+        why: "«va» — impersonal, no person (m27's own weather shape). «voy» would wrongly claim a subject."
+      - kind: listenCompLit
+        id: l6-lc-poresovamosanadar
+        es: "va a hacer calor, por eso vamos a nadar"
+        en: "It's going to be hot, that's why we're going to swim."
+        atoms: ["va", "hacer", "el calor", "por eso", "vamos", "nadar"]
+        distractorsEn:
+          - "It's going to be cold, that's why we're going to swim."
+          - "It was hot, that's why we're going to swim."
+          - "It's going to be hot, that's why we're not going to swim."
+      - kind: mcq
+        id: l6-q-poreso
+        prompt: "Which one means 'that's why' — a result, not a reason word?"
+        correct: "por eso"
+        distractors: ["porque", "también", "pero"]
+        atoms: ["por eso"]
+        why: "«por eso» (m25) — a result. «porque» gives a reason instead; «también»/«pero» aren't causal at all."
+      # Printed non-recall at L5 (es-m28-5-l5-sp-win).
+      - kind: speakLit
+        id: l6-sp-recall-l5win
+        es: "Sam y Luis van a cocinar juntos"
+        en: "Sam and Luis are going to cook together"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l6-ear-lluvia
+        target: { surface: "la lluvia", emoji: "🌧️" }
+        distractors:
+          - { surface: "la nieve", emoji: "❄️" }
+          - { surface: "el sol", emoji: "🌞" }
+      - kind: agreementLit
+        id: l6-agr-frioCalor
+        en: "Tomorrow it's going to be cold, and this weekend it's going to be hot"
+        audioText: "mañana va a hacer frío, y el fin de semana va a hacer calor"
+        atoms: ["mañana", "va", "hacer", "el frío", "el fin de semana", "el calor"]
+        segments:
+          - { text: "mañana va a hacer " }
+          - { blank: { id: "p1", answer: "frío", options: ["frío", "calor"] } }
+          - { text: ", y el fin de semana va a hacer " }
+          - { blank: { id: "p2", answer: "calor", options: ["calor", "frío"] } }
+      - kind: listenBuildLit
+        id: l6-lb-poresonovoyalaplaya
+        es: "mañana va a hacer frío, por eso no voy a la playa"
+        en: "Tomorrow it's going to be cold, that's why I'm not going to the beach"
+        atoms: ["mañana", "va", "hacer", "el frío", "por eso", "voy", "playa"]
+        tiles: ["porque", "también"]
+      - kind: textMcq
+        id: l6-tm-poreso
+        target: "por eso"
+        distractors: ["porque", "cuando", "mientras"]
+      - kind: sim
+        id: l6-sim-diego-clima
+        scene: { emoji: "🌦️", title: "Diego checks the weather", setting: "Diego wants to plan tomorrow around the weather." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Va a hacer frío mañana?", audioText: "¿va a hacer frío mañana?", gloss: "Is it going to be cold tomorrow?" }
+            goal: "Say yes, that's why you're going to cook."
+            reply:
+              mode: build
+              tiles: ["sí", "por", "eso", "voy", "a", "cocinar", "porque"]
+              answer: "sí por eso voy a cocinar"
+            replyGloss: "Yes, that's why I'm going to cook."
+            explanation: "«por eso» (m25) gives the result. «porque» would give a reason instead — the wrong direction here."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y va a hacer sol el fin de semana?", audioText: "¿y va a hacer sol el fin de semana?", gloss: "And is it going to be sunny this weekend?" }
+            goal: "Say no, it's going to be windy."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, va a hacer viento" }
+                - { id: "wrong1", text: "no, vas a hacer viento" }
+                - { id: "wrong2", text: "no, van a hacer viento" }
+              correctOptionId: "right"
+              audioText: "no, va a hacer viento"
+            replyGloss: "No, it's going to be windy."
+            explanation: "«va» stays impersonal, one weather statement — «vas»/«van» would wrongly attach a person to the weather."
+          - id: t3
+            npc: { speaker: "Diego", es: "Entonces, ¿vamos a nadar hoy o mañana?", audioText: "entonces, ¿vamos a nadar hoy o mañana?", gloss: "So, are we going to swim today or tomorrow?" }
+            goal: "Say today, that's why."
+            reply:
+              mode: build
+              tiles: ["hoy", "por", "eso", "vamos", "a", "nadar", "porque"]
+              answer: "hoy por eso vamos a nadar"
+            replyGloss: "Today, that's why we're going to swim."
+            explanation: "«por eso» keeps the cold/hot contrast as the cause — the whole reason today, not tomorrow, is the swim day."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "el frío", target: "the cold" }
+          - { source: "el calor", target: "the heat" }
+          - { source: "el sol", target: "the sun" }
+          - { source: "por eso", target: "that's why" }
+          - { source: "el viento", target: "the wind" }
+          - { source: "la lluvia", target: "the rain" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "mañana va a hacer frío, por eso no voy a nadar"
+        en: "Tomorrow it's going to be cold, that's why I'm not going to swim"
+        atoms: ["mañana", "va", "hacer", "el frío", "por eso", "voy", "nadar"]

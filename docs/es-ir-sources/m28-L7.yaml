@@ -1,0 +1,135 @@
+  # ── L7 · «No voy a trabajar mañana» — negation across the paradigm, PRIOR
+  #    «no» (m1) in front of the conjugated verb, same as any PRIOR
+  #    negation shape. No new atom, no new question form; ≥1 recall.
+  - n: 7
+    template: free
+    title: "No voy a trabajar mañana"
+    description: "«no» (m1) in front of «voy»/«vas»/«va»/«vamos»/«van» — negating a plan, same place «no» always goes."
+    steps:
+      - kind: map
+        id: l7-map-novoyatrabajar
+        tokens: ["no", "voy", "a", "trabajar", "mañana"]
+        pairs:
+          - { en: "not", tokenIndex: 0 }
+          - { en: "I'm going to", tokenIndex: 1 }
+          - { en: "work", tokenIndex: 3 }
+        audioText: "no voy a trabajar mañana"
+        revealNote: "«no» (m1) goes right before «voy» — same spot it always takes. No new atom, no new question form."
+      - kind: speakLit
+        id: l7-sp-novasaviajar
+        es: "no vas a viajar el fin de semana"
+        en: "You're not going to travel this weekend"
+        atoms: ["no", "vas", "viajar", "el fin de semana"]
+      - kind: buildLit
+        id: l7-b-novaacomer
+        es: "Ana no va a comer con Diego"
+        en: "Ana is not going to eat with Diego"
+        atoms: ["no", "va", "comer"]
+        tiles: ["voy", "vamos"]
+      - kind: clozeLit
+        id: l7-c-novamosanadar
+        es: "no vamos a nadar hoy"
+        en: "We're not going to swim today"
+        blank: "no"
+        options: ["no", "pero"]
+        atoms: ["no", "vamos", "nadar", "hoy"]
+        why: "«no» negates the plan (m1). «pero» would contrast two ideas instead — not the same job."
+      - kind: listenCompLit
+        id: l7-lc-novanacocinar
+        es: "Sam y Luis no van a cocinar juntos"
+        en: "Sam and Luis are not going to cook together."
+        atoms: ["no", "van", "cocinar", "juntos"]
+        distractorsEn:
+          - "Sam and Luis are going to cook together."
+          - "Sam and Luis are not going to eat together."
+          - "Sam and Luis didn't used to cook together."
+      - kind: mcq
+        id: l7-q-no
+        prompt: "Which word goes right before the verb to negate the plan?"
+        correct: "no"
+        distractors: ["pero", "también", "por eso"]
+        atoms: ["no"]
+        why: "«no» (m1) sits right before «voy»/«vas»/«va». «pero», «también», «por eso» don't negate anything."
+      # Printed non-recall at L6 (es-m28-6-l6-sp-win).
+      - kind: speakLit
+        id: l7-sp-recall-l6win
+        es: "mañana va a hacer frío, por eso no voy a nadar"
+        en: "Tomorrow it's going to be cold, that's why I'm not going to swim"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l7-ear-cine
+        target: { surface: "el cine", emoji: "🎬" }
+        distractors:
+          - { surface: "el restaurante", emoji: "🍴" }
+          - { surface: "la fiesta", emoji: "🎉" }
+      - kind: agreementLit
+        id: l7-agr-novoypero
+        en: "I'm not going to work, but I'm going to study"
+        audioText: "no voy a trabajar, pero voy a estudiar"
+        atoms: ["no", "voy", "trabajar", "pero", "estudiar"]
+        segments:
+          - { text: "" }
+          - { blank: { id: "p1", answer: "no", options: ["no", "pero"] } }
+          - { text: " voy a trabajar, " }
+          - { blank: { id: "p2", answer: "pero", options: ["pero", "no"] } }
+          - { text: " voy a estudiar" }
+      - kind: listenBuildLit
+        id: l7-lb-novaalcine
+        es: "Diego no va al cine, va a trabajar"
+        en: "Diego isn't going to the movies, he's going to work"
+        atoms: ["no", "va", "cine", "trabajar"]
+        tiles: ["voy", "vamos"]
+      - kind: textMcq
+        id: l7-tm-no
+        target: "no"
+        distractors: ["pero", "también", "porque"]
+      - kind: sim
+        id: l7-sim-ana-cambio
+        scene: { emoji: "🚫", title: "Ana's plans change", setting: "Ana checks whether your plans for tomorrow have changed." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Vas a trabajar mañana?", audioText: "¿vas a trabajar mañana?", gloss: "Are you going to work tomorrow?" }
+            goal: "Say no, not work, going to cook instead."
+            reply:
+              mode: build
+              tiles: ["no", "voy", "a", "trabajar,", "voy", "a", "cocinar", "vas"]
+              answer: "no voy a trabajar, voy a cocinar"
+            replyGloss: "No, I'm not going to work, I'm going to cook."
+            explanation: "«no» goes right before «voy», negating the first plan — the second clause states the real one."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego va a cocinar también?", audioText: "¿y Diego va a cocinar también?", gloss: "And is Diego also going to cook?" }
+            goal: "Say no, not cooking, going to eat."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, no va a cocinar, va a comer" }
+                - { id: "wrong1", text: "no, no vas a cocinar, vas a comer" }
+                - { id: "wrong2", text: "no, no van a cocinar, van a comer" }
+              correctOptionId: "right"
+              audioText: "no, no va a cocinar, va a comer"
+            replyGloss: "No, he's not going to cook, he's going to eat."
+            explanation: "«va» stays Diego's, one person — «vas» would ask about you instead, «van» would wrongly say more than one."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Vamos a nadar el fin de semana?", audioText: "¿vamos a nadar el fin de semana?", gloss: "Are we going to swim this weekend?" }
+            goal: "Say no, but you're going to travel together."
+            reply:
+              mode: build
+              tiles: ["no", "pero", "vamos", "a", "viajar", "juntos", "no"]
+              answer: "no pero vamos a viajar juntos"
+            replyGloss: "No, but we're going to travel together."
+            explanation: "«no» negates the swim plan; «pero» (m6) then contrasts it with the real one — two different jobs, one sentence."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "no", target: "not, no" }
+          - { source: "pero", target: "but" }
+          - { source: "trabajar", target: "to work" }
+          - { source: "cocinar", target: "to cook" }
+          - { source: "el cine", target: "the movies" }
+          - { source: "juntos", target: "together" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "no voy a trabajar mañana, voy a cocinar"
+        en: "I'm not going to work tomorrow, I'm going to cook"
+        atoms: ["no", "voy", "trabajar", "mañana", "cocinar"]

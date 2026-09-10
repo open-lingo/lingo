@@ -1,0 +1,23 @@
+placement:
+  screener:
+    - id: "es-m28-scr-1"
+      prompt: "'Tomorrow I'm going to swim.' — which one?"
+      correct: "mañana voy a nadar"
+      distractors: ["mañana voy a la playa", "mañana voy nadar", "mañana vas a nadar"]
+  byModule:
+    - id: "es-m28-pl-1"
+      prompt: "I need to go to school today."
+      correct: "necesito ir a la escuela hoy"
+      distractors: ["necesito ir a la escuela ayer", "necesita ir a la escuela hoy", "necesito la escuela hoy"]
+    - id: "es-m28-pl-2"
+      prompt: "Ana is going to eat with Diego tomorrow."
+      correct: "Ana va a comer con Diego mañana"
+      distractors: ["Ana va comer con Diego mañana", "Ana voy a comer con Diego mañana", "Ana va a la fiesta con Diego mañana"]
+    - id: "es-m28-pl-3"
+      prompt: "It's going to be cold tomorrow, that's why we're not going to swim."
+      correct: "mañana va a hacer frío, por eso no vamos a nadar"
+      distractors: ["mañana va a hacer frío, porque no vamos a nadar", "mañana hace frío, por eso no vamos a nadar", "mañana va a hacer frío, por eso no vamos nadar"]
+    - id: "es-m28-pl-4"
+      prompt: "This weekend we're going to travel together, and I'm also going to go to the beach."
+      correct: "este fin de semana vamos a viajar juntos, y yo también voy a ir a la playa"
+      distractors: ["este fin de semana vamos a viajar juntos, y yo también voy a la playa", "este fin de semana vamos viajar juntos, y yo también voy a ir a la playa", "este fin de semana vamos a viajar juntos, y yo también iba a ir a la playa"]

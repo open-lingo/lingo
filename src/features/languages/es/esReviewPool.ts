@@ -498,4 +498,6 @@ export const ES_REVIEW_POOL: EsReviewEntry[] = [
   { surface: "nublado", gloss: "cloudy", kind: "vocab", fromModule: "m27", partOfSpeech: "adjective" },
   { surface: "el calor", gloss: "the heat", kind: "vocab", fromModule: "m27", partOfSpeech: "noun" },
   { surface: "el frío", gloss: "the cold", kind: "vocab", fromModule: "m27", partOfSpeech: "noun" },
+  { surface: "ir", gloss: "to go", kind: "vocab", fromModule: "m28", partOfSpeech: "verb" },
+  { surface: "va", gloss: "he/she/it goes, is going / (usted) you go", kind: "vocab", fromModule: "m28", partOfSpeech: "verb" },
 ];

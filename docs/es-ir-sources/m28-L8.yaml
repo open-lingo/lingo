@@ -1,0 +1,128 @@
+  # ── L8 · Checkpoint — graded only (no info card), the full paradigm
+  #    (voy/vas/va/vamos/van + infinitive), «ir» reused, and L6's own
+  #    va-a-hacer/por-eso recombination recalled. ≥2 recalls.
+  - n: 8
+    template: free
+    title: "Checkpoint: voy a + infinitivo"
+    description: "Every person of «ir a + infinitivo», negation, and the weather recombination — all together."
+    steps:
+      - kind: buildLit
+        id: l8-b-voyanadarmanana
+        es: "voy a nadar mañana"
+        en: "I'm going to swim tomorrow"
+        atoms: ["voy", "nadar", "mañana"]
+        tiles: ["vas", "va"]
+      - kind: clozeLit
+        id: l8-c-vasatrabajarhoy
+        es: "vas a trabajar hoy"
+        en: "You're going to work today"
+        blank: "vas"
+        options: ["vas", "voy"]
+        atoms: ["vas", "trabajar", "hoy"]
+        why: "«vas» — talking about you (m9). «voy» would talk about yourself instead."
+      - kind: listenCompLit
+        id: l8-lc-vaacomer
+        es: "hoy Ana va a comer con Diego"
+        en: "Today Ana is going to eat with Diego."
+        atoms: ["hoy", "va", "comer"]
+        distractorsEn:
+          - "Today Ana is not going to eat with Diego."
+          - "Today Ana used to eat with Diego."
+          - "Today Ana is going to eat with Sofía."
+      - kind: mcq
+        id: l8-q-ir
+        prompt: "Which one is the plain dictionary form — 'to go'?"
+        correct: "ir"
+        distractors: ["voy", "iba", "fue"]
+        atoms: ["ir"]
+        why: "«ir» is the infinitive. «iba» is imperfect (m22); «fue» is preterite (m19–m21) — different tenses of the same verb."
+      - kind: buildLit
+        id: l8-b-vamosaviajar
+        es: "vamos a viajar el fin de semana"
+        en: "We're going to travel this weekend"
+        atoms: ["vamos", "viajar", "el fin de semana"]
+        tiles: ["va", "van"]
+      - kind: agreementLit
+        id: l8-agr-vanpuedeir
+        en: "Sam and Luis are going to cook, and Ana needs to go too"
+        audioText: "Sam y Luis van a cocinar, y Ana necesita ir también"
+        atoms: ["van", "cocinar", "necesita", "ir", "también"]
+        segments:
+          - { text: "Sam y Luis " }
+          - { blank: { id: "p1", answer: "van", options: ["van", "va"] } }
+          - { text: " a cocinar, y Ana necesita " }
+          - { blank: { id: "p2", answer: "ir", options: ["ir", "va"] } }
+          - { text: " también" }
+      # Printed non-recall at L6 (es-m28-6-l6-sp-win).
+      - kind: speakLit
+        id: l8-sp-recall-l6win
+        es: "mañana va a hacer frío, por eso no voy a nadar"
+        en: "Tomorrow it's going to be cold, that's why I'm not going to swim"
+        atoms: []
+        cue: recall
+      - kind: listenBuildLit
+        id: l8-lb-vaahacercalor
+        es: "el fin de semana va a hacer calor"
+        en: "This weekend it's going to be hot"
+        atoms: ["el fin de semana", "va", "hacer", "el calor"]
+        tiles: ["voy", "vamos"]
+      # Printed non-recall at L7 (es-m28-7-l7-sp-win).
+      - kind: speakLit
+        id: l8-sp-recall-l7win
+        es: "no voy a trabajar mañana, voy a cocinar"
+        en: "I'm not going to work tomorrow, I'm going to cook"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l8-tm-va
+        target: "va"
+        distractors: ["voy", "vas", "van"]
+      - kind: sim
+        id: l8-sim-ana-checkpoint
+        scene: { emoji: "📋", title: "Ana checks everyone's plans", setting: "Ana is confirming the weekend's weather and everyone's plans." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Va a hacer calor el fin de semana?", audioText: "¿va a hacer calor el fin de semana?", gloss: "Is it going to be hot this weekend?" }
+            goal: "Say yes, that's why swimming together."
+            reply:
+              mode: build
+              tiles: ["sí", "por", "eso", "vamos", "a", "nadar", "juntos", "porque"]
+              answer: "sí por eso vamos a nadar juntos"
+            replyGloss: "Yes, that's why we're going to swim together."
+            explanation: "«por eso» (m25) states the result — the heat is why the swim plan follows."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego va a trabajar o va a cocinar?", audioText: "¿y Diego va a trabajar o va a cocinar?", gloss: "And is Diego going to work or going to cook?" }
+            goal: "Say not work, he needs the store."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no va a trabajar, necesita ir a la tienda" }
+                - { id: "wrong1", text: "no vas a trabajar, necesitas ir a la tienda" }
+                - { id: "wrong2", text: "no va a la tienda, necesita trabajar" }
+              correctOptionId: "right"
+              audioText: "no va a trabajar, necesita ir a la tienda"
+            replyGloss: "No, he's not going to work, he needs to go to the store."
+            explanation: "«va»/«necesita» — Diego, one person (m9/m16); «necesitas»/«vas» would wrongly ask about you. The last option swaps which plan is which — read the whole sentence, not just the verbs."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo vamos a cocinar también?", audioText: "¿y tú y yo vamos a cocinar también?", gloss: "And are you and I also going to cook?" }
+            goal: "Say no, you're going to study instead."
+            reply:
+              mode: build
+              tiles: ["no", "voy", "a", "estudiar", "vamos"]
+              answer: "no voy a estudiar"
+            replyGloss: "No, I'm going to study."
+            explanation: "«voy» answers about yourself alone (m9) — «vamos» would wrongly include Ana in the study plan."
+      - kind: matchLit
+        id: l8-match
+        pairs:
+          - { source: "ir", target: "to go" }
+          - { source: "va", target: "he/she/it is going" }
+          - { source: "vamos", target: "we're going" }
+          - { source: "por eso", target: "that's why" }
+          - { source: "necesita", target: "he/she needs" }
+          - { source: "el calor", target: "the heat" }
+      - kind: speakLit
+        id: l8-sp-win
+        es: "mañana va a hacer calor, por eso vamos a nadar juntos"
+        en: "Tomorrow it's going to be hot, that's why we're going to swim together"
+        atoms: ["mañana", "va", "hacer", "el calor", "por eso", "vamos", "nadar", "juntos"]

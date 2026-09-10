@@ -1,0 +1,141 @@
+  # ── L10 · Mastery — Ana asks the group about the weekend's plans. No
+  #    info card. «voy a ir» permitted here only (the header's own
+  #    caution). ≥2 recalls, ≥1 PRIOR m23 connective (mientras/entonces —
+  #    never cuando/de repente, hard rule 8), ≥1 PRIOR m25 connective
+  #    (porque/por eso). Mastery shape: matchLit BEFORE the sim; the
+  #    win line is delivered as the sim's own final turn reply, not a
+  #    separate closing speakLit (mirrors m26-L10/m27-L10).
+  - n: 10
+    template: free
+    title: "Los planes del fin de semana"
+    description: "Ana asks everyone what they're doing this weekend — every person, every connective, all in one conversation."
+    steps:
+      - kind: speakLit
+        id: l10-sp-esteFinDeSemana
+        es: "este fin de semana vamos a viajar juntos"
+        en: "This weekend we're going to travel together"
+        atoms: ["vamos", "viajar", "juntos"]
+      - kind: buildLit
+        id: l10-b-mientrasvoyestudia
+        es: "mientras yo estudio, Ana va a trabajar"
+        en: "While I study, Ana is going to work"
+        atoms: ["mientras", "va", "trabajar"]
+        tiles: ["voy", "vamos"]
+      - kind: clozeLit
+        id: l10-c-entoncesvamos
+        es: "va a hacer sol, entonces vamos a nadar"
+        en: "It's going to be sunny, so we're going to swim"
+        blank: "entonces"
+        options: ["entonces", "cuando"]
+        atoms: ["va", "el sol", "entonces", "vamos", "nadar"]
+        why: "«entonces» (m23) — a natural result, no tense collision. «cuando» would force a different clause shape here — a poor fit for this plan."
+      - kind: listenCompLit
+        id: l10-lc-porquevanacocinar
+        es: "van a cocinar porque tienen hambre"
+        en: "They're going to cook because they're hungry."
+        atoms: ["van", "cocinar", "porque", "tienen"]
+        distractorsEn:
+          - "They're going to cook because it's cold."
+          - "They cooked because they were hungry."
+          - "They're not going to cook because they're hungry."
+      - kind: mcq
+        id: l10-q-voyair
+        prompt: "Which one means 'I'm going to go' — the plan to go itself?"
+        correct: "voy a ir"
+        distractors: ["voy", "voy a la playa", "iba a ir"]
+        atoms: ["voy", "ir"]
+        why: "«voy a ir» — «voy a» plus the infinitive «ir» itself, a plan to go (rare, but legal — same shape as «voy a nadar»). «voy a la playa» names a place instead; «iba a ir» is a different tense (imperfect, m22)."
+      # Printed non-recall at L1 (es-m28-1-l1-sp-win).
+      - kind: speakLit
+        id: l10-sp-recall-l1win
+        es: "mañana voy a nadar"
+        en: "Tomorrow I'm going to swim"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l10-ear-escuela
+        target: { surface: "la escuela", emoji: "🏫" }
+        distractors:
+          - { surface: "el trabajo", emoji: "💼" }
+          - { surface: "el cine", emoji: "🎬" }
+      - kind: agreementLit
+        id: l10-agr-porquepor
+        en: "I'm going to cook because it's going to be cold, that's why I need the store"
+        audioText: "voy a cocinar porque va a hacer frío, por eso necesito ir a la tienda"
+        atoms: ["voy", "cocinar", "porque", "va", "hacer", "el frío", "por eso", "necesito", "ir", "tienda"]
+        segments:
+          - { text: "voy a cocinar " }
+          - { blank: { id: "p1", answer: "porque", options: ["porque", "por eso"] } }
+          - { text: " va a hacer frío, " }
+          - { blank: { id: "p2", answer: "por eso", options: ["por eso", "porque"] } }
+          - { text: " necesito ir a la tienda" }
+      # Printed non-recall at L9 (es-m28-9-l9-sp-win).
+      - kind: speakLit
+        id: l10-sp-recall-l9win
+        es: "hoy voy a la playa, y mañana voy a nadar"
+        en: "Today I'm going to the beach, and tomorrow I'm going to swim"
+        atoms: []
+        cue: recall
+      - kind: listenBuildLit
+        id: l10-lb-mientrasnado
+        es: "mientras Diego trabaja, vamos a nadar"
+        en: "While Diego works, we're going to swim"
+        atoms: ["mientras", "vamos", "nadar"]
+        tiles: ["va", "van"]
+      - kind: textMcq
+        id: l10-tm-entonces
+        target: "entonces"
+        distractors: ["cuando", "de repente", "mientras"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "mientras", target: "while" }
+          - { source: "entonces", target: "so, then" }
+          - { source: "porque", target: "because" }
+          - { source: "por eso", target: "that's why" }
+          - { source: "este fin de semana", target: "this weekend" }
+          - { source: "juntos", target: "together" }
+      - kind: sim
+        id: l10-sim-ana-fin-de-semana
+        scene: { emoji: "📅", title: "Ana plans the weekend", setting: "Ana is asking everyone what they're doing this weekend." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Qué van a hacer tú y Diego el fin de semana?", audioText: "¿qué van a hacer tú y Diego el fin de semana?", gloss: "What are you and Diego going to do this weekend?" }
+            goal: "Say you're going to travel together."
+            reply:
+              mode: build
+              tiles: ["vamos", "a", "viajar", "juntos", "van"]
+              answer: "vamos a viajar juntos"
+            replyGloss: "We're going to travel together."
+            explanation: "«vamos» — you and Diego together (m18), not «van» — that would leave you out of the group."
+          - id: t2
+            npc: { speaker: "Ana", es: "Mientras ustedes van a viajar, Sofía va a cocinar porque tiene hambre.", audioText: "mientras ustedes van a viajar, Sofía va a cocinar porque tiene hambre.", gloss: "While you all are going to travel, Sofía is going to cook because she's hungry." }
+            goal: "Ask if Sam is also going to cook."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "¿y Sam también va a cocinar?" }
+                - { id: "wrong1", text: "¿y Sam también vas a cocinar?" }
+                - { id: "wrong2", text: "¿y Sam también van a cocinar?" }
+              correctOptionId: "right"
+              audioText: "¿y Sam también va a cocinar?"
+            replyGloss: "And is Sam also going to cook?"
+            explanation: "«va» — Sam, one person (m9). «vas» would ask about yourself; «van» would wrongly say more than one."
+          - id: t3
+            npc: { speaker: "Ana", es: "No, va a hacer sol, entonces Sam va a ir a la playa.", audioText: "no, va a hacer sol, entonces Sam va a ir a la playa.", gloss: "No, it's going to be sunny, so Sam is going to go to the beach." }
+            goal: "Say that's why you're going too."
+            reply:
+              mode: build
+              tiles: ["por", "eso", "yo", "también", "voy", "porque"]
+              answer: "por eso yo también voy"
+            replyGloss: "That's why I'm also going."
+            explanation: "«por eso» (m25) states the result of the sunny weather — Sam's plan is why you're joining him."
+          - id: t4
+            npc: { speaker: "Ana", es: "¿Y qué vas a hacer tú exactamente?", audioText: "¿y qué vas a hacer tú exactamente?", gloss: "And what exactly are you going to do?" }
+            goal: "Say your full weekend plan."
+            reply:
+              mode: build
+              tiles: ["este", "fin", "de", "semana", "vamos", "a", "viajar", "juntos,", "y", "yo", "también", "voy", "a", "ir", "a", "la", "playa", "voy"]
+              answer: "este fin de semana vamos a viajar juntos, y yo también voy a ir a la playa"
+            replyGloss: "This weekend we're going to travel together, and I'm also going to go to the beach."
+            explanation: "«voy a ir» — «voy a» plus the infinitive «ir» itself, legal here (mastery only, the header's own caution) — the same plan shape as «voy a nadar», just naming «ir» directly."
