@@ -975,6 +975,20 @@
           "mode": "translate"
         },
         {
+          "kind": "listening-comp",
+          "audio": "うちに かえったら、テレビを みる。",
+          "answer": "When I get home, I'll watch television",
+          "distractors": [
+            "When I get home, I'll do my homework",
+            "When I've had dinner, I'll watch television",
+            "When I get home, I'll read a book"
+          ],
+          "exercises": [
+            "tara",
+            "ni-location"
+          ]
+        },
+        {
           "kind": "particle-cloze",
           "stem": "ごはんを ",
           "tail": "、ねる。",
@@ -2444,6 +2458,33 @@
           "mode": "build"
         },
         {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Ken",
+              "ja": "えきは どこ？",
+              "en": "Where's the station?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "この みちを わたったら、みえる。",
+              "en": "Cross this road, and you'll see it."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Mika say Ken will see after crossing the road?",
+              "options": [
+                "The station",
+                "The machine",
+                "The door",
+                "The sea"
+              ],
+              "answer": "The station"
+            }
+          ]
+        },
+        {
           "kind": "sentence",
           "ja": "きかいが とまると、おとが きこえない。",
           "en": "When the machine stops, you can't hear the sound",
@@ -2614,6 +2655,20 @@
             "ga-existence"
           ],
           "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "かぎを まわすと、きかいが うごいて、おとが きこえる。",
+          "answer": "If you turn the key, the machine starts and you hear a sound",
+          "distractors": [
+            "If you turn the key, the machine stops",
+            "If you press the button, the machine starts and you hear a sound",
+            "The machine started and I heard a sound"
+          ],
+          "exercises": [
+            "to-conditional",
+            "mieru-kikoeru"
+          ]
         },
         {
           "kind": "particle-cloze",
@@ -3057,6 +3112,16 @@
           "mode": "translate"
         },
         {
+          "kind": "sentence",
+          "ja": "じゅぎょうが しちじに おわる。",
+          "en": "Class ends at seven",
+          "exercises": [
+            "counter-ji",
+            "ga-existence"
+          ],
+          "mode": "build"
+        },
+        {
           "kind": "particle-cloze",
           "stem": "さんじ",
           "tail": " うちに かえる。",
@@ -3089,6 +3154,15 @@
             "to-conditional"
           ],
           "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "しごとが おわったら、いつも つかれる。",
+          "en": "When work finishes, I'm always tired",
+          "exercises": [
+            "tara"
+          ],
+          "mode": "listening"
         },
         {
           "kind": "sentence",
