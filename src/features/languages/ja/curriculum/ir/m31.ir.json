@@ -1406,23 +1406,25 @@
         },
         {
           "kind": "sentence",
-          "ja": "ともだちから おみやげを もらう。",
-          "en": "I get a souvenir from my friend",
+          "ja": "ともだちを まつ とき ともだちから おみやげを もらう。",
+          "en": "While waiting for my friend, I get a souvenir from my friend",
           "exercises": [
             "kara-origin",
             "morau",
-            "wo-object"
+            "wo-object",
+            "toki"
           ],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "かいしゃから きねんの とけいを もらう。",
-          "en": "I get a commemorative watch from the company",
+          "ja": "かいしゃで はたらくから かいしゃから きねんの とけいを もらう。",
+          "en": "Because I work at the company, I get a commemorative watch from the company",
           "exercises": [
             "kara-origin",
             "morau",
-            "no-possession"
+            "no-possession",
+            "kara-because"
           ],
           "mode": "build"
         },
@@ -1436,23 +1438,25 @@
         },
         {
           "kind": "sentence",
-          "ja": "せんせいから おいわいの カードを もらう。",
-          "en": "I get a congratulations card from the teacher",
+          "ja": "にほんに いく まえに せんせいから おいわいの カードを もらう。",
+          "en": "Before going to Japan, I get a congratulations card from the teacher",
           "exercises": [
             "kara-origin",
             "morau",
-            "no-possession"
+            "no-possession",
+            "mae-ni"
           ],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "あねから きっぷを もらう。",
-          "en": "I get a ticket from my older sister",
+          "ja": "いそぐから あねから きっぷを もらう。",
+          "en": "I'm in a hurry, so I get a ticket from my older sister",
           "exercises": [
             "kara-origin",
             "morau",
-            "family-register"
+            "family-register",
+            "kara-because"
           ],
           "mode": "build"
         },
@@ -1501,11 +1505,12 @@
         },
         {
           "kind": "sentence",
-          "ja": "がくせいから てがみを もらう。",
-          "en": "I get a letter from a student",
+          "ja": "しゃしんを みる とき がくせいから てがみを もらう。",
+          "en": "When I look at photos, I get a letter from a student",
           "exercises": [
             "kara-origin",
-            "morau"
+            "morau",
+            "toki"
           ],
           "mode": "translate"
         },
