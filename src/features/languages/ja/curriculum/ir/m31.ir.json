@@ -2704,12 +2704,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "しんせつな せんせいに ノートを もらった。",
-          "en": "I got a notebook from a kind teacher",
+          "ja": "じゅぎょうを まつ とき しんせつな せんせいに ノートを もらった。",
+          "en": "While waiting for class, I got a notebook from a kind teacher",
           "exercises": [
             "ta-form",
             "morau",
-            "na-adj-present"
+            "na-adj-present",
+            "toki"
           ],
           "mode": "build"
         },
@@ -2726,12 +2727,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "せんせいに おれいの てがみを あげるんです。",
-          "en": "The thing is, I'm giving the teacher a thank-you letter",
+          "ja": "てがみを かくから せんせいに おれいの てがみを あげるんです。",
+          "en": "I'm writing a letter, so the thing is, I'm giving the teacher a thank-you letter",
           "exercises": [
             "ageru",
             "n-desu",
-            "no-possession"
+            "no-possession",
+            "kara-because"
           ],
           "mode": "build"
         },
@@ -2748,19 +2750,20 @@
         },
         {
           "kind": "sentence",
-          "ja": "こんど しんせつな いしゃに くすりを もらう。",
-          "en": "I'll get medicine from a kind doctor next time",
+          "ja": "いしゃを まつ とき こんど しんせつな いしゃに くすりを もらう。",
+          "en": "While waiting for the doctor, next time I get medicine from the kind doctor",
           "exercises": [
             "morau",
             "na-adj-present",
-            "ni-recipient"
+            "ni-recipient",
+            "toki"
           ],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "かいしゃの ひとは しんせつだから きねんの カードを あげた。",
-          "en": "The people at the company are kind, so I gave them a commemorative card",
+          "ja": "かいしゃで はたらく ひとは しんせつだから きねんの カードを あげた。",
+          "en": "The people who work at the company are kind, so I gave them a commemorative card",
           "exercises": [
             "ageru",
             "ta-form",
@@ -2771,12 +2774,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "たんじょうびに ケーキを もらうんです。",
-          "en": "The thing is, I'm getting a cake for my birthday",
+          "ja": "プレゼントを かう まえに たんじょうびに ケーキを もらうんです。",
+          "en": "Before buying a present, the thing is, I'm getting a cake for my birthday",
           "exercises": [
             "morau",
             "n-desu",
-            "ni-time"
+            "ni-time",
+            "mae-ni"
           ],
           "mode": "build"
         },
