@@ -794,6 +794,30 @@ function checkpointLesson(): LessonStep[] {
       correctText: "pas",
       distractorsText: ["jamais", "rien", "plus"],
     }),
+    // Was a `speaking` step (fr-m19-8-speak-jenevaispasmanger) — retired
+    // 2026-09-10 (docs/fr-speech-negated-frames-2026-09-10.md): the fuzzy
+    // speech matcher cannot discriminate a negated target from its
+    // truth-flipped affirmative (or from a wrong-negator swap), so a
+    // negated-vs-affirmative contrast may never be graded via `speaking`.
+    // The sibling affirmative «il va manger une pizza» above stays the
+    // module's one graded speaking of this frame; this step now
+    // discriminates the SAME contrast (negated vs. affirmative, and
+    // which negator) via a build tile bank instead, which grades exact
+    // tile order and cannot pass on a dropped or swapped negator. Same
+    // target sentence, same audioKey text — no new voiced string.
+    // Placed right after the word-level negator MCQ above rather than at
+    // the old slot: a full-sentence multiple_choice is test-out-only
+    // (lintFullSentenceMcqs), and the old slot sat between two other
+    // build/cloze steps, so a straight in-place swap would have created
+    // an adjacent-same-type run either way.
+    build(
+      "fr-m19-8-build-jenevaispasmanger",
+      "Build: 'I'm not going to eat cake'",
+      "je ne vais pas manger de gâteau",
+      ["je ne vais pas", "manger", "de gâteau", "je vais", "je ne vais jamais"],
+      ["je ne vais pas", "manger", "de gâteau"],
+      ["je ne vais pas"],
+    ),
     cloze(
       "fr-m19-8-cloze-jaimange",
       "Hier, j'ai",
@@ -809,12 +833,6 @@ function checkpointLesson(): LessonStep[] {
       "demain, tu vas visiter la gare",
       ["demain", "tu vas", "visiter", "la gare", "visité"],
       ["demain", "tu vas", "visiter", "la gare"],
-    ),
-    speaking(
-      "fr-m19-8-speak-jenevaispasmanger",
-      "je ne vais pas manger de gâteau",
-      "I'm not going to eat cake",
-      ["je ne vais pas"],
     ),
     cloze(
       "fr-m19-8-cloze-tuvasvisiter",

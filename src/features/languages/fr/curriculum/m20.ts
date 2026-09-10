@@ -835,6 +835,36 @@ function checkpointLesson(): LessonStep[] {
       correctText: "pas",
       distractorsText: ["jamais", "rien", "plus"],
     }),
+    // Was a `speaking` step (fr-m20-8-speak-ilnevientpas) — retired
+    // 2026-09-10 (docs/fr-speech-negated-frames-2026-09-10.md): the fuzzy
+    // speech matcher cannot discriminate a negated target from its
+    // truth-flipped affirmative (or from a wrong-negator swap), so a
+    // negated-vs-affirmative contrast may never be graded via `speaking`.
+    // The sibling affirmative «elle vient de manger une pizza» (L6) stays
+    // a graded speaking of this frame; this step now discriminates the
+    // SAME contrast (negated vs. affirmative, and which negator) via a
+    // build tile bank instead, which grades exact tile order and cannot
+    // pass on a dropped or swapped negator. Same target sentence, same
+    // audioKey text — no new voiced string. Placed right after the
+    // word-level negator MCQ above rather than at the old slot: a
+    // full-sentence multiple_choice is test-out-only
+    // (lintFullSentenceMcqs), and the old slot sat between two other
+    // build/cloze steps, so a straight in-place swap would have created
+    // an adjacent-same-type run either way.
+    build(
+      "fr-m20-8-build-ilnevientpas",
+      "Build: 'he didn't just eat cake'",
+      "il ne vient pas de manger de gâteau",
+      [
+        "il ne vient pas de",
+        "manger",
+        "de gâteau",
+        "il vient de",
+        "il ne vient jamais de",
+      ],
+      ["il ne vient pas de", "manger", "de gâteau"],
+      ["il vient de"],
+    ),
     cloze(
       "fr-m20-8-cloze-amange",
       "Hier, j'ai",
@@ -850,12 +880,6 @@ function checkpointLesson(): LessonStep[] {
       "je viens de visiter la gare",
       ["je viens de", "visiter", "la gare", "visité"],
       ["je viens de", "visiter", "la gare"],
-    ),
-    speaking(
-      "fr-m20-8-speak-ilnevientpas",
-      "il ne vient pas de manger de gâteau",
-      "he didn't just eat cake",
-      ["il vient de"],
     ),
     cloze(
       "fr-m20-8-cloze-tuparle",
