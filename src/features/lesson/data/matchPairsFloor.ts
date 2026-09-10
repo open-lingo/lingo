@@ -62,6 +62,25 @@ export const MATCH_PAIRS_FLOOR = 6;
 type GridShape = "romaji" | "meaning" | "other";
 
 /**
+ * Script-agnostic "is this an instruction-language gloss" test (KO-source
+ * de-coupling, 2026-09-10). Replaces the earlier `/[a-zA-Z]/`-only check,
+ * which is really an "is this English" check spelled as a script test — a
+ * Korean gloss (선생님) has no Latin letters, so it always failed this and
+ * fell through to "other", silently opting every KO-glossed meaning grid out
+ * of the floor pad (`docs/reverse-teaching-readiness-2026-07-29.md` §1.E.2).
+ *
+ * True when the string carries at least one Unicode letter AND none of that
+ * text is Japanese script (hiragana/katakana/kanji). That admits English,
+ * Korean, or any other non-JA instruction language equally, while still
+ * correctly excluding: digit-only targets (いち→"1" — a number grid, "other"
+ * by design), and kana/kanji targets (a conjugation grid like たべる→たべます,
+ * or a JA-target course's own script — also correctly "other").
+ */
+function isGlossText(s: string): boolean {
+  return /\p{L}/u.test(s) && !/[぀-ヿ一-鿿]/.test(s);
+}
+
+/**
  * Infer a grid's relation from its existing pairs.
  *  - romaji: every source is a single kana unit from the romanization
  *    table AND every target is a short lowercase-latin sound. Structural,
@@ -71,9 +90,13 @@ type GridShape = "romaji" | "meaning" | "other";
  *    and padded vocab sentences into a "match the sounds" prompt
  *    (QA 2026-07-11). Vocab sources (うみ, multi-kana words) are never
  *    KANA_ROMAJI keys, so meaning grids with short glosses stay "meaning".
- *  - meaning: every target contains a latin letter (English gloss).
+ *    Romaji targets stay Latin-only regardless of instruction language —
+ *    that's the romanization scheme itself, not an English-gloss coupling —
+ *    so this leg is untouched by the KO-source de-coupling below.
+ *  - meaning: every target is instruction-language gloss text (script-
+ *    agnostic — see `isGlossText`, English or Korean alike).
  *  - other: anything else (number grids いち→1, conjugation たべる→たべます,
- *    Korean blocks, …) — left untouched.
+ *    …) — left untouched.
  */
 export function matchGridShape(pairs: readonly MatchPair[]): GridShape {
   if (pairs.length === 0) return "other";
@@ -84,7 +107,7 @@ export function matchGridShape(pairs: readonly MatchPair[]): GridShape {
     )
   )
     return "romaji";
-  if (pairs.every((p) => /[a-zA-Z]/.test(p.target))) return "meaning";
+  if (pairs.every((p) => isGlossText(p.target))) return "meaning";
   return "other";
 }
 
@@ -407,7 +430,10 @@ function buildMeaningFill(
       isSrsEligibleAtom(a) &&
       !present.has(a.kana) &&
       a.kana.split("/").some((v) => taughtBefore.has(v.trim())) &&
-      /[a-zA-Z]/.test(a.meaningEn) &&
+      // Script-agnostic gloss check (KO-source de-coupling, 2026-09-10) —
+      // was `/[a-zA-Z]/`, which silently excluded every atom whose
+      // `meaningEn` a KO-source course would hold in Korean.
+      isGlossText(a.meaningEn) &&
       a.kind !== "phrase" &&
       !/\s/.test(a.kana) &&
       // Kana-drill spellings (どあ/ぱん/ぺん/ぴあの) are not words — pairing
@@ -481,6 +507,11 @@ function buildEsMeaningFill(
       a.fromModule !== undefined &&
       taught.has(a.fromModule) &&
       !present.has(a.surface) &&
+      // Explicitly English-source-keyed (KO-source de-coupling audit,
+      // 2026-09-10): unlike the ja leg above, the ES course's instruction
+      // language is structurally fixed to English — `EsAtom.gloss` is not
+      // part of the KO-source pilot's scope, so this stays a Latin-script
+      // check rather than switching to `isGlossText`.
       /[a-zA-Z]/.test(a.gloss) &&
       a.kind !== "phrase",
   );

@@ -12,6 +12,7 @@ function atom(partial: Partial<CourseAtom> & Pick<CourseAtom, "kana" | "meaningE
     fromModule: partial.fromModule ?? "m7",
     kind: partial.kind ?? "vocab",
     pos: partial.pos ?? "noun",
+    conjugation: partial.conjugation,
   };
 }
 
@@ -22,8 +23,10 @@ describe("jaInflectedForms — regression cases (spec §match.ts)", () => {
     expect(forms).toContain("食べました");
   });
 
-  it("会いましょう / あいましょう ← あう (godan, gloss-inferred, not in tables)", () => {
-    const forms = jaInflectedForms(atom({ kana: "あう", kanji: "会う", meaningEn: "to meet" }));
+  it("会いましょう / あいましょう ← あう (godan, pos-inferred, not in tables)", () => {
+    const forms = jaInflectedForms(
+      atom({ kana: "あう", kanji: "会う", meaningEn: "to meet", pos: "verb" }),
+    );
     expect(forms).toContain("あいましょう");
     expect(forms).toContain("会いましょう");
   });
@@ -34,8 +37,10 @@ describe("jaInflectedForms — regression cases (spec §match.ts)", () => {
     expect(forms).toContain("住んでいる");
   });
 
-  it("話しました / はなしました ← はなす (godan, gloss-inferred)", () => {
-    const forms = jaInflectedForms(atom({ kana: "はなす", kanji: "話す", meaningEn: "to speak" }));
+  it("話しました / はなしました ← はなす (godan, pos-inferred)", () => {
+    const forms = jaInflectedForms(
+      atom({ kana: "はなす", kanji: "話す", meaningEn: "to speak", pos: "verb" }),
+    );
     expect(forms).toContain("はなしました");
     expect(forms).toContain("話しました");
   });
@@ -59,13 +64,45 @@ describe("jaInflectedForms — group resolution", () => {
     expect(kaeru).toContain("かえった");
   });
 
-  it("an unknown る-verb (no table entry) yields BOTH ichidan and godan forms", () => {
-    // Synthetic verb not in the tables; gloss marks it a verb, る is ambiguous.
-    const forms = jaInflectedForms(atom({ kana: "ためる", meaningEn: "to save up" }));
+  it("an unknown る-verb (no table entry, no conjugation link) yields BOTH ichidan and godan forms", () => {
+    // Synthetic verb not in the tables and with no `conjugation` link;
+    // `pos: "verb"` marks it a verb (structural, not gloss-shape), る is
+    // ambiguous without a table/conjugation-link tiebreak.
+    const forms = jaInflectedForms(atom({ kana: "ためる", meaningEn: "to save up", pos: "verb" }));
     expect(forms).toContain("ためた"); // ichidan reading
     expect(forms).toContain("ためた"); // present regardless
     // godan reading of a る-verb produces a ん-euphonic past
     expect(forms).toContain("ためます"); // ichidan masu
+  });
+
+  it("a `conjugation.class` link resolves an unambiguous group even with no table entry", () => {
+    // Real courseAtoms rows for verbs missing from VERB_ENTRIES carry a
+    // `conjugation.class` — more precise than the both-groups over-generation
+    // above, since the authoring data already knows the answer.
+    const forms = jaInflectedForms(
+      atom({
+        kana: "ためる",
+        meaningEn: "to save up",
+        pos: "verb",
+        conjugation: { class: "ichidan" },
+      }),
+    );
+    expect(forms).toContain("ためた");
+    expect(forms).toContain("ためます");
+    // godan euphonic past (ん) must NOT appear — the class link disambiguated.
+    expect(forms).not.toContain("ためんだ");
+  });
+
+  it("a Korean gloss does not corrupt verb-group resolution (KO-source de-coupling)", () => {
+    // 만나다 = "to meet" in Korean; the OLD `/^to /i.test(meaningEn)` gate
+    // would never fire on a non-English gloss, misclassifying every verb as
+    // a non-verb. Resolution here is via `pos`/`conjugation`, not the gloss
+    // string's shape or language.
+    const forms = jaInflectedForms(
+      atom({ kana: "あう", kanji: "会う", meaningEn: "만나다", pos: "verb" }),
+    );
+    expect(forms).toContain("あいましょう");
+    expect(forms).toContain("会いましょう");
   });
 
   it("returns [] for non-verb / non-adjective atoms", () => {

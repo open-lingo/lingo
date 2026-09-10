@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 import {
   politeSentenceVariants,
   plainSentenceVariant,
@@ -632,5 +632,84 @@ describe("clause-opening topics", () => {
     expect(expandAcceptedAnswers(["しごとは あしたは ない"])).not.toContain(
       "しごと あしたは ない",
     );
+  });
+});
+
+describe("NOMINALS classification is pos-driven, not gloss-shape (KO-source de-coupling)", () => {
+  // NOMINALS is a private Set built once, at import time, from JA_COURSE_ATOMS
+  // (see the ~line-185 comment on `jaAcceptedForms.ts`). There is no public
+  // API that takes an atom directly — politeSentenceVariants only sees the
+  // already-baked NOMINALS membership through its string-level behaviour —
+  // so the only way to prove the classification itself (not just today's
+  // curriculum data) is pos-driven is to swap in a synthetic JA_COURSE_ATOMS
+  // via vi.doMock and re-import the module fresh.
+  //
+  // The regression this guards: the OLD rule was
+  // `!/^to /i.test(a.meaningEn)` — "doesn't start with the English verb-gloss
+  // shape 'to …'". A Korean gloss never starts "to ", so under the old rule
+  // EVERY verb atom whose kana didn't already end in ない/ます/ません/です
+  // (e.g. a て-form like たべて, "eat (te-form)") was wrongly swept into
+  // NOMINALS and allowed to take a copula it can't grammatically carry.
+
+  beforeEach(() => {
+    vi.resetModules();
+  });
+  afterEach(() => {
+    vi.resetModules();
+    vi.doUnmock("./courseAtoms");
+  });
+
+  it("a Korean-glossed verb (te-form, not table-listed) is excluded from copula treatment", async () => {
+    vi.doMock("./courseAtoms", async () => {
+      const actual = await vi.importActual<typeof import("./courseAtoms")>(
+        "./courseAtoms",
+      );
+      const syntheticVerb: (typeof actual.JA_COURSE_ATOMS)[number] = {
+        id: "synthetic-ko-verb-te",
+        kana: "たべて",
+        romaji: "tabete",
+        // 먹고 = Korean te-form gloss for 食べる. Never starts "to " —
+        // exactly the shape that broke the old `!/^to /i.test(...)` rule.
+        meaningEn: "먹고",
+        fromModule: "m7",
+        kind: "vocab",
+        pos: "verb",
+      };
+      return {
+        ...actual,
+        JA_COURSE_ATOMS: [...actual.JA_COURSE_ATOMS, syntheticVerb],
+      };
+    });
+    const { politeSentenceVariants } = await import("./jaAcceptedForms");
+    // No table entry for たべて and no bare-nominal treatment either: a verb
+    // form is not eligible for the copula, so there is no polite rendering.
+    expect(politeSentenceVariants("これを たべて")).toEqual([]);
+  });
+
+  it("a Korean-glossed noun is still included as a nominal (copula-eligible)", async () => {
+    vi.doMock("./courseAtoms", async () => {
+      const actual = await vi.importActual<typeof import("./courseAtoms")>(
+        "./courseAtoms",
+      );
+      const syntheticNoun: (typeof actual.JA_COURSE_ATOMS)[number] = {
+        id: "synthetic-ko-noun",
+        kana: "せんせい",
+        romaji: "sensei",
+        // 선생님 = Korean gloss for "teacher". Structural pos, not gloss
+        // language, is what makes this a nominal.
+        meaningEn: "선생님",
+        fromModule: "m7",
+        kind: "vocab",
+        pos: "noun",
+      };
+      return {
+        ...actual,
+        JA_COURSE_ATOMS: [...actual.JA_COURSE_ATOMS, syntheticNoun],
+      };
+    });
+    const { politeSentenceVariants } = await import("./jaAcceptedForms");
+    expect(politeSentenceVariants("かれは せんせい")).toEqual([
+      "かれは せんせいです",
+    ]);
   });
 });

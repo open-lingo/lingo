@@ -1,0 +1,1709 @@
+{
+  "schema": 1,
+  "moduleId": "m7",
+  "lang": "ja",
+  "generatedAt": "2026-09-10",
+  "entryCount": 340,
+  "entries": [
+    {
+      "anchor": "m7/atom:あそびます/gloss",
+      "en": "play (polite)",
+      "enSourceHash": "6e6a77e5bfe3a4b7"
+    },
+    {
+      "anchor": "m7/atom:ありません/gloss",
+      "en": "doesn't have, isn't there (polite)",
+      "enSourceHash": "c119192a247e0d1a"
+    },
+    {
+      "anchor": "m7/atom:いきます/gloss",
+      "en": "go (polite)",
+      "enSourceHash": "581a74b3f1e048e5"
+    },
+    {
+      "anchor": "m7/atom:いきません/gloss",
+      "en": "don't go, not traveling (polite)",
+      "enSourceHash": "aa6f35b68ccfdd7d"
+    },
+    {
+      "anchor": "m7/atom:いらっしゃいませ/gloss",
+      "en": "Welcome (shop greeting)",
+      "enSourceHash": "575bef905c6d852e"
+    },
+    {
+      "anchor": "m7/atom:ええ/gloss",
+      "en": "yes",
+      "enSourceHash": "8a798890fe938171"
+    },
+    {
+      "anchor": "m7/atom:かいしゃ/gloss",
+      "en": "company",
+      "enSourceHash": "f168ccdd91548c5a"
+    },
+    {
+      "anchor": "m7/atom:かいます/gloss",
+      "en": "buy (polite)",
+      "enSourceHash": "e3bf114a6d45d0cb"
+    },
+    {
+      "anchor": "m7/atom:ききます/gloss",
+      "en": "listen, ask (polite)",
+      "enSourceHash": "afbb6e2e42867f90"
+    },
+    {
+      "anchor": "m7/atom:きます/gloss",
+      "en": "come (polite)",
+      "enSourceHash": "e38a550cd3a1dff1"
+    },
+    {
+      "anchor": "m7/atom:きません/gloss",
+      "en": "doesn't come (polite)",
+      "enSourceHash": "1030a21e089fc2dd"
+    },
+    {
+      "anchor": "m7/atom:くん/gloss",
+      "en": "-kun (familiar, usually boys)",
+      "enSourceHash": "1f6837a868d8294b"
+    },
+    {
+      "anchor": "m7/atom:くん/shortGloss",
+      "en": "-kun",
+      "enSourceHash": "df71cb8400e5e7f2"
+    },
+    {
+      "anchor": "m7/atom:さま/gloss",
+      "en": "-sama (respectful name suffix)",
+      "enSourceHash": "647ca3a47922bbb9"
+    },
+    {
+      "anchor": "m7/atom:さま/shortGloss",
+      "en": "-sama",
+      "enSourceHash": "8edd788a758f50f4"
+    },
+    {
+      "anchor": "m7/atom:します/gloss",
+      "en": "do, make (polite)",
+      "enSourceHash": "0b403af8232d1f69"
+    },
+    {
+      "anchor": "m7/atom:しません/gloss",
+      "en": "don't do, won't make (polite)",
+      "enSourceHash": "fd6e9775e812fd37"
+    },
+    {
+      "anchor": "m7/atom:じゅぎょう/gloss",
+      "en": "lesson, class work",
+      "enSourceHash": "ff154581bad93f0c"
+    },
+    {
+      "anchor": "m7/atom:たべます/gloss",
+      "en": "eat (polite)",
+      "enSourceHash": "5c9c41d23f624ebb"
+    },
+    {
+      "anchor": "m7/atom:たべません/gloss",
+      "en": "don't eat (polite)",
+      "enSourceHash": "c135f5d6cdd17777"
+    },
+    {
+      "anchor": "m7/atom:ちゃん/gloss",
+      "en": "-chan (affectionate)",
+      "enSourceHash": "471ec4befd968599"
+    },
+    {
+      "anchor": "m7/atom:ちゃん/shortGloss",
+      "en": "-chan",
+      "enSourceHash": "9f4e57bb53d29b47"
+    },
+    {
+      "anchor": "m7/atom:です/gloss",
+      "en": "is / are (polite copula)",
+      "enSourceHash": "a6b0533454781581"
+    },
+    {
+      "anchor": "m7/atom:のみます/gloss",
+      "en": "drink (polite)",
+      "enSourceHash": "0007afabd9869f76"
+    },
+    {
+      "anchor": "m7/atom:のみません/gloss",
+      "en": "don't drink (polite)",
+      "enSourceHash": "463d21bc0d75ef5d"
+    },
+    {
+      "anchor": "m7/atom:はい/gloss",
+      "en": "yes",
+      "enSourceHash": "8a798890fe938171"
+    },
+    {
+      "anchor": "m7/atom:はたらきます/gloss",
+      "en": "work (polite)",
+      "enSourceHash": "3ff72422520bd6c0"
+    },
+    {
+      "anchor": "m7/atom:はたらきません/gloss",
+      "en": "don't work (polite)",
+      "enSourceHash": "e92bcac28a7e6f82"
+    },
+    {
+      "anchor": "m7/atom:はたらく/gloss",
+      "en": "to work",
+      "enSourceHash": "1ce1c69da06f41e6"
+    },
+    {
+      "anchor": "m7/atom:みます/gloss",
+      "en": "watch (polite)",
+      "enSourceHash": "83c599c5478aaee8"
+    },
+    {
+      "anchor": "m7/atom:みません/gloss",
+      "en": "don't watch (polite)",
+      "enSourceHash": "b832951c125fd065"
+    },
+    {
+      "anchor": "m7/atom:を/gloss",
+      "en": "direct object marker",
+      "enSourceHash": "d0322005b64f2453"
+    },
+    {
+      "anchor": "m7/atom:ニュース/gloss",
+      "en": "news",
+      "enSourceHash": "19fba0e995b9794f"
+    },
+    {
+      "anchor": "m7/atom:ネクタイ/gloss",
+      "en": "tie, necktie",
+      "enSourceHash": "38b8b7ab00270b2a"
+    },
+    {
+      "anchor": "m7/gp:desu-copula/ex:がくせいです",
+      "en": "I'm a student. (polite)",
+      "enSourceHash": "8f624646dd13b155"
+    },
+    {
+      "anchor": "m7/gp:desu-copula/ex:たなかさんは せんせいです",
+      "en": "Tanaka is a teacher. (polite)",
+      "enSourceHash": "31d13a6d60e80d2b"
+    },
+    {
+      "anchor": "m7/gp:desu-copula/ex:たべるです",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m7/gp:ka-question/ex:たなかさんは せんせいですか",
+      "en": "Is Tanaka a teacher? (polite)",
+      "enSourceHash": "87f8179c1ef7d0aa"
+    },
+    {
+      "anchor": "m7/gp:ka-question/ex:たべるますか",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m7/gp:ka-question/ex:みずを のみますか",
+      "en": "Will you drink water? (polite)",
+      "enSourceHash": "8b7d69f70fd68e50"
+    },
+    {
+      "anchor": "m7/gp:masu-negative/ex:きょうは いきません",
+      "en": "I'm not going today. (polite)",
+      "enSourceHash": "0a48c8d55828132b"
+    },
+    {
+      "anchor": "m7/gp:masu-negative/ex:ごはんを たべません",
+      "en": "I don't eat rice. (polite)",
+      "enSourceHash": "9c7298a7f8709c84"
+    },
+    {
+      "anchor": "m7/gp:masu-negative/ex:しゃしんを みません",
+      "en": "I don't look at the photo. (polite)",
+      "enSourceHash": "9dd78754a1c4be6b"
+    },
+    {
+      "anchor": "m7/gp:masu-negative/ex:のみますない",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m7/gp:masu-negative/ex:のみません",
+      "en": "I don't drink. (polite)",
+      "enSourceHash": "2d485ca64bb74d61"
+    },
+    {
+      "anchor": "m7/gp:masu-present/ex:いえに いきます。",
+      "en": "I go home. (polite)",
+      "enSourceHash": "a8bda6c2cc74e0d6"
+    },
+    {
+      "anchor": "m7/gp:masu-present/ex:しゃしんを みます。",
+      "en": "I look at the photo. (polite)",
+      "enSourceHash": "7bc41f251b0fb196"
+    },
+    {
+      "anchor": "m7/gp:masu-present/ex:しゃしんを みるます。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m7/gp:masu-present/ex:たべます",
+      "en": "I eat. (polite)",
+      "enSourceHash": "5830c368d31e76c5"
+    },
+    {
+      "anchor": "m7/gp:masu-present/ex:たべるます",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m7/gp:masu-present/ex:ともだちが きます。",
+      "en": "A friend is coming. (polite)",
+      "enSourceHash": "485eea7a3a4c6d46"
+    },
+    {
+      "anchor": "m7/gp:masu-present/ex:ほんを かいます。",
+      "en": "I buy the book. (polite)",
+      "enSourceHash": "5405efdad1e4c6bd"
+    },
+    {
+      "anchor": "m7/gp:masu-present/ex:みずを のみます",
+      "en": "I drink water. (polite)",
+      "enSourceHash": "7f5a9e09328ba8cf"
+    },
+    {
+      "anchor": "m7/gp:register-audience/ex:たべます",
+      "en": "I'll eat. (to a teacher)",
+      "enSourceHash": "7c61d0c2dea7c2fa"
+    },
+    {
+      "anchor": "m7/gp:register-audience/ex:たべる",
+      "en": "I'll eat. (to a friend)",
+      "enSourceHash": "f9fe7b96b50e8751"
+    },
+    {
+      "anchor": "m7/gp:register-audience/ex:トムさんは わたしさんです。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m7/gp:register-audience/ex:トムさんは アメリカじんです。",
+      "en": "Tom is American. (polite)",
+      "enSourceHash": "8b4fd91f2d2e18d7"
+    },
+    {
+      "anchor": "m7/gp:register-audience/ex:ミカちゃんは がくせいです。",
+      "en": "Mika is a student. (affectionate)",
+      "enSourceHash": "b8deb1c561c86cd6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/en:0f4168490e38b844",
+      "en": "water",
+      "enSourceHash": "0f4168490e38b844"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/en:38a81e87e79631e6",
+      "en": "person",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/en:527af7c109a784d8",
+      "en": "to eat",
+      "enSourceHash": "527af7c109a784d8"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/en:8825e76530f87ff5",
+      "en": "milk",
+      "enSourceHash": "8825e76530f87ff5"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/en:e0f4f767ac88a930",
+      "en": "today",
+      "enSourceHash": "e0f4f767ac88a930"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/en:e62f640360d85af9",
+      "en": "to drink",
+      "enSourceHash": "e62f640360d85af9"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/ja:いえで たべます",
+      "en": "Say politely: I eat at home",
+      "enSourceHash": "da733246a7041511"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/ja:きょうは たべます",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/ja:ぎゅうにゅうを のみます",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/ja:たなかさんは たべます",
+      "en": "Say politely: Tanaka eats",
+      "enSourceHash": "6161289b8173d64c"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/ja:たなかさんは みずを のみます",
+      "en": "Say politely: Tanaka drinks water",
+      "enSourceHash": "a76ba131d4315508"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/ja:ともだちと たべます",
+      "en": "Say politely: I eat with a friend",
+      "enSourceHash": "aca696ef8900768e"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/ja:ともだちと のみます",
+      "en": "Say politely: I drink with a friend",
+      "enSourceHash": "1e78983a1935ecfb"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/ja:はい たべます",
+      "en": "Say politely: Yes, I'll eat",
+      "enSourceHash": "2f229f24c8b82001"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/ja:りょうりを たべます",
+      "en": "Say politely: I eat the food",
+      "enSourceHash": "55a9bad0381cad27"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/en:217655f48dde4e0a",
+      "en": "to do",
+      "enSourceHash": "217655f48dde4e0a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/en:227c7024de86036c",
+      "en": "to come",
+      "enSourceHash": "227c7024de86036c"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/en:3b80d38f7686a8b5",
+      "en": "mountain",
+      "enSourceHash": "3b80d38f7686a8b5"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/en:4a69f19c8c264850",
+      "en": "sea",
+      "enSourceHash": "4a69f19c8c264850"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/en:65f8ea722badb7ca",
+      "en": "to watch",
+      "enSourceHash": "65f8ea722badb7ca"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/en:80d33d6dc0d19f84",
+      "en": "to go",
+      "enSourceHash": "80d33d6dc0d19f84"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/en:d3ac79d5ddfea2f8",
+      "en": "Every verb, politely — the three classes",
+      "enSourceHash": "d3ac79d5ddfea2f8"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/ja:いえに いきます",
+      "en": "Say politely: I go home",
+      "enSourceHash": "a860c18778e7b8fc"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/ja:きょう ともだちが いえに きます",
+      "en": "Say politely: A friend is coming to the house today",
+      "enSourceHash": "7062fce20c1a277a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/ja:さんぽを します",
+      "en": "Say politely: I take a walk",
+      "enSourceHash": "33f7171286d6983b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/ja:しゃしんを みます",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/ja:そらを みます",
+      "en": "Say politely: I look at the sky",
+      "enSourceHash": "012eff3332222555"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/ja:ともだちが きます",
+      "en": "Say politely: A friend is coming",
+      "enSourceHash": "ed8cb52b34adce6d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/ja:ほんを かいます",
+      "en": "Say politely: I buy a book",
+      "enSourceHash": "7c0f3b0013efba3b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/ja:やまに いきます",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/en:0f4168490e38b844",
+      "en": "water",
+      "enSourceHash": "0f4168490e38b844"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/en:227c7024de86036c",
+      "en": "to come",
+      "enSourceHash": "227c7024de86036c"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/en:527af7c109a784d8",
+      "en": "to eat",
+      "enSourceHash": "527af7c109a784d8"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/en:65f8ea722badb7ca",
+      "en": "to watch",
+      "enSourceHash": "65f8ea722badb7ca"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/en:8825e76530f87ff5",
+      "en": "milk",
+      "enSourceHash": "8825e76530f87ff5"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/en:e62f640360d85af9",
+      "en": "to drink",
+      "enSourceHash": "e62f640360d85af9"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/ja:きょうは いきません",
+      "en": "Say politely: I'm not going today",
+      "enSourceHash": "01eab7931203821c"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/ja:きょうは たべません",
+      "en": "Say politely: I don't eat today",
+      "enSourceHash": "6ed176780cb5c348"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/ja:ぎゅうにゅうを のみません",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/ja:さんぽを しません",
+      "en": "Say politely: I don't take walks",
+      "enSourceHash": "5f8fce861611a3fb"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/ja:しゃしんを みません",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/ja:たなかさんは きません",
+      "en": "Say politely: Tanaka isn't coming",
+      "enSourceHash": "b0288fdfb032f40e"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/ja:みずを のみません",
+      "en": "Say politely: I don't drink water",
+      "enSourceHash": "9881cbba7bde7b8d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/ja:ミカさんは きょう いえに きません",
+      "en": "Say politely: Mika isn't coming to the house today",
+      "enSourceHash": "a1ecab2383aa4341"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/en:1057a9604e04b274",
+      "en": "teacher",
+      "enSourceHash": "1057a9604e04b274"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/en:18e1dd392168f601",
+      "en": "hat",
+      "enSourceHash": "18e1dd392168f601"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/en:264c8c381bf16c98",
+      "en": "student",
+      "enSourceHash": "264c8c381bf16c98"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/en:2c70e12b7a0646f9",
+      "en": "key",
+      "enSourceHash": "2c70e12b7a0646f9"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/en:5fe36e377a7e2137",
+      "en": "Pick the word for \"song\"",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/en:727ea55fc8ee1dc7",
+      "en": "Pick the word for \"pond\"",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/en:e9d9df24a68c1d7d",
+      "en": "Pick the word for \"river\"",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/ja:がくせいです",
+      "en": "Say politely: I'm a student",
+      "enSourceHash": "2e154338c25c302b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/ja:これは ほんです",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/ja:せんせいです",
+      "en": "Say politely: I'm a teacher",
+      "enSourceHash": "8888f178e3dfdf83"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/ja:それは かぎです",
+      "en": "Say politely: That's a key",
+      "enSourceHash": "3b6d541bf4f90273"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/ja:たなかさんの いえは あそこです",
+      "en": "Say politely: Tanaka's house is over there",
+      "enSourceHash": "ebb6d251021d53e5"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/ja:ともだちの ぼうしです",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/ja:トムさんは アメリカじんです",
+      "en": "Say politely: Tom is American",
+      "enSourceHash": "aaa22160c7a161d6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/ja:ミカさんは にほんじんです",
+      "en": "Say politely: Mika is Japanese",
+      "enSourceHash": "d22f5da3f0e24420"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/en:0f4168490e38b844",
+      "en": "water",
+      "enSourceHash": "0f4168490e38b844"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/en:2c70e12b7a0646f9",
+      "en": "key",
+      "enSourceHash": "2c70e12b7a0646f9"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/en:527af7c109a784d8",
+      "en": "to eat",
+      "enSourceHash": "527af7c109a784d8"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/en:5fe36e377a7e2137",
+      "en": "Pick the word for \"song\"",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/en:63f75c890b05405e",
+      "en": "song",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/en:727ea55fc8ee1dc7",
+      "en": "Pick the word for \"pond\"",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/en:80d33d6dc0d19f84",
+      "en": "to go",
+      "enSourceHash": "80d33d6dc0d19f84"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/en:8ea11bdf8389be46",
+      "en": "to hear",
+      "enSourceHash": "8ea11bdf8389be46"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/en:e9d9df24a68c1d7d",
+      "en": "Pick the word for \"river\"",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/ja:いきますか",
+      "en": "Say politely: Are you going?",
+      "enSourceHash": "f3fa5e77ded03921"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/ja:うたを ききますか",
+      "en": "Say politely: Will you listen to a song",
+      "enSourceHash": "702f9f57d291fcb1"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/ja:これは かぎですか",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/ja:たなかさんは きょう いえに いきますか",
+      "en": "Say politely: Is Tanaka going home today?",
+      "enSourceHash": "843194c46f61f394"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/ja:たなかさんは せんせいですか",
+      "en": "Say politely: Is Tanaka a teacher?",
+      "enSourceHash": "5796ad91221d8239"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/ja:たべますか",
+      "en": "Say politely: Will you eat?",
+      "enSourceHash": "842b23a3de400d65"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/ja:どこに いきますか",
+      "en": "Say politely: Where are you going?",
+      "enSourceHash": "05f4d79cdb4b3417"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/ja:なにを たべますか",
+      "en": "Say politely: What will you eat?",
+      "enSourceHash": "17efb753a27d5542"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/ja:みずを のみますか",
+      "en": "Say politely: Will you drink water?",
+      "enSourceHash": "90ee6041d1a9961a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/en:0f4168490e38b844",
+      "en": "water",
+      "enSourceHash": "0f4168490e38b844"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/en:527af7c109a784d8",
+      "en": "to eat",
+      "enSourceHash": "527af7c109a784d8"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/en:5fe36e377a7e2137",
+      "en": "Pick the word for \"song\"",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/en:727ea55fc8ee1dc7",
+      "en": "Pick the word for \"pond\"",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/en:7e2ed393d525d7e2",
+      "en": "to buy",
+      "enSourceHash": "7e2ed393d525d7e2"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/en:80d33d6dc0d19f84",
+      "en": "to go",
+      "enSourceHash": "80d33d6dc0d19f84"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/en:c43123194ae46a70",
+      "en": "Who are you talking to?",
+      "enSourceHash": "c43123194ae46a70"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/en:e62f640360d85af9",
+      "en": "to drink",
+      "enSourceHash": "e62f640360d85af9"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/en:e9d9df24a68c1d7d",
+      "en": "Pick the word for \"river\"",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/ja:うみに いく？",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/ja:うん そう",
+      "en": "Say to a friend: Yeah, that's right",
+      "enSourceHash": "5cdcc278af4a7546"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/ja:ええ そうです",
+      "en": "Say politely: Yes, that's right",
+      "enSourceHash": "e4ce3543a04310f1"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/ja:きょう たべます",
+      "en": "Say to a teacher: I'll eat today",
+      "enSourceHash": "e6af79b1c4ed8d51"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/ja:きょう たべる",
+      "en": "Say to a friend: I'll eat today",
+      "enSourceHash": "f5860a5f9302da4e"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/ja:ともだちは がくせいですか",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/ja:ほんを かいます",
+      "en": "Say to a teacher: I'll buy a book",
+      "enSourceHash": "b33c83cf5f3aeb1c"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/ja:みずを のみますか",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/en:0c01f76515cfaa03",
+      "en": "There's a class today",
+      "enSourceHash": "0c01f76515cfaa03"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/en:1057a9604e04b274",
+      "en": "teacher",
+      "enSourceHash": "1057a9604e04b274"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/en:217655f48dde4e0a",
+      "en": "to do",
+      "enSourceHash": "217655f48dde4e0a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/en:25ee7988acb10d21",
+      "en": "Work and school",
+      "enSourceHash": "25ee7988acb10d21"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/en:264c8c381bf16c98",
+      "en": "student",
+      "enSourceHash": "264c8c381bf16c98"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/en:37b92f2baf8d5aab",
+      "en": "Does Tanaka work at a company?",
+      "enSourceHash": "37b92f2baf8d5aab"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/en:38a81e87e79631e6",
+      "en": "person",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/en:7e07739573df03b2",
+      "en": "There's no class today",
+      "enSourceHash": "7e07739573df03b2"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/en:80d33d6dc0d19f84",
+      "en": "to go",
+      "enSourceHash": "80d33d6dc0d19f84"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/en:9a403f516d566cbc",
+      "en": "Mika isn't working at the company today",
+      "enSourceHash": "9a403f516d566cbc"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/en:e0f4f767ac88a930",
+      "en": "today",
+      "enSourceHash": "e0f4f767ac88a930"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/ja:かいしゃで はたらく",
+      "en": "Say to a friend: I work at the company",
+      "enSourceHash": "3690cd11134377cf"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/ja:かいしゃに いく",
+      "en": "Say to a friend: I go to the company",
+      "enSourceHash": "39ba51402dd4d814"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/ja:きょう じゅぎょうが あります",
+      "en": "Say politely: There's a class today",
+      "enSourceHash": "59396011ad699bc6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/ja:きょう じゅぎょうが ありません",
+      "en": "Say politely: There's no class today",
+      "enSourceHash": "99ada17b41c04d4b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/ja:きょう はたらきます",
+      "en": "Say politely: I work today",
+      "enSourceHash": "4f1cd88161cb4e44"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/ja:じゅぎょうに いきます",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/ja:じゅぎょうは あそこです",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/ja:たなかさんは かいしゃで はたらきますか",
+      "en": "Say politely: Does Tanaka work at a company?",
+      "enSourceHash": "9b15fd0a6f233228"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/ja:ミカさんは きょう かいしゃで はたらきません",
+      "en": "Say politely: Mika isn't working at the company today",
+      "enSourceHash": "e9f4d35810071e40"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/en:1057a9604e04b274",
+      "en": "teacher",
+      "enSourceHash": "1057a9604e04b274"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/en:264c8c381bf16c98",
+      "en": "student",
+      "enSourceHash": "264c8c381bf16c98"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/en:5fe36e377a7e2137",
+      "en": "Pick the word for \"song\"",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/en:727ea55fc8ee1dc7",
+      "en": "Pick the word for \"pond\"",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/en:77af778b51abd4a3",
+      "en": "cat",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/en:cde48537ca2c2808",
+      "en": "friend",
+      "enSourceHash": "cde48537ca2c2808"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/en:e0f4f767ac88a930",
+      "en": "today",
+      "enSourceHash": "e0f4f767ac88a930"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/en:e9d9df24a68c1d7d",
+      "en": "Pick the word for \"river\"",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/ja:たなかさま",
+      "en": "Say very politely: Tanaka-sama",
+      "enSourceHash": "e0f698d1f5058ef3"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/ja:たなかさまは せんせいです",
+      "en": "Say very politely: Tanaka is a teacher",
+      "enSourceHash": "f540e6508851508b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/ja:ケンくん",
+      "en": "Build: Ken-kun (familiar)",
+      "enSourceHash": "86f6bc927e7b8726"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/ja:トムくんも いきます",
+      "en": "Say politely: Tom is going too",
+      "enSourceHash": "0e6ef0a6af6c25df"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/ja:ミカちゃん",
+      "en": "Build: Mika-chan (affectionate)",
+      "enSourceHash": "59c5412138e50059"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/ja:ミカちゃんの ねこです",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/ja:ミカちゃんは きます",
+      "en": "Say politely: Mika will come",
+      "enSourceHash": "fe0439c29e57bc04"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/ja:ミカちゃんは きょう じゅぎょうに いきますか",
+      "en": "Say politely: Is Mika going to class today?",
+      "enSourceHash": "4349d4a4d5ad7b3b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/en:00e13ed7af55b276",
+      "en": "work",
+      "enSourceHash": "00e13ed7af55b276"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/en:24237e96e5183016",
+      "en": "to play",
+      "enSourceHash": "24237e96e5183016"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/en:4a69f19c8c264850",
+      "en": "sea",
+      "enSourceHash": "4a69f19c8c264850"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/en:5fe36e377a7e2137",
+      "en": "Pick the word for \"song\"",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/en:63f75c890b05405e",
+      "en": "song",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/en:727ea55fc8ee1dc7",
+      "en": "Pick the word for \"pond\"",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/en:80d33d6dc0d19f84",
+      "en": "to go",
+      "enSourceHash": "80d33d6dc0d19f84"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/en:8ea11bdf8389be46",
+      "en": "to hear",
+      "enSourceHash": "8ea11bdf8389be46"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/en:e9d9df24a68c1d7d",
+      "en": "Pick the word for \"river\"",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/en:ffa711409113833a",
+      "en": "Switching skins",
+      "enSourceHash": "ffa711409113833a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/ja:うたを ききますか",
+      "en": "Say to a teacher: Will you listen to a song?",
+      "enSourceHash": "1cb2734a7199756a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/ja:うたを きく？",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/ja:うみに いきます",
+      "en": "Say to a teacher: I'm going to the sea",
+      "enSourceHash": "eb2f6258e55ecae0"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/ja:うみに いく",
+      "en": "Say to a friend: I'm going to the sea",
+      "enSourceHash": "8b381da8cc561f2f"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/ja:きょうは はたらきません",
+      "en": "Say politely: I'm not working today",
+      "enSourceHash": "7b2442f111dbfa0a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/ja:これは ぼうしです",
+      "en": "Say to a teacher: This is a hat",
+      "enSourceHash": "28f9a148e697c321"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/ja:ケンくんと あそびます",
+      "en": "Say politely: I'll play with Ken",
+      "enSourceHash": "ba003c4cde5e3d57"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/ja:ミカさんは かいしゃで はたらきますか",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:00e13ed7af55b276",
+      "en": "work",
+      "enSourceHash": "00e13ed7af55b276"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:217655f48dde4e0a",
+      "en": "to do",
+      "enSourceHash": "217655f48dde4e0a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:227c7024de86036c",
+      "en": "to come",
+      "enSourceHash": "227c7024de86036c"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:4d83eae65eff9664",
+      "en": "Challenge — put it all together",
+      "enSourceHash": "4d83eae65eff9664"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:55f03a1b1a5c8af4",
+      "en": "Ken doesn't work at a company",
+      "enSourceHash": "55f03a1b1a5c8af4"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:727ea55fc8ee1dc7",
+      "en": "Pick the word for \"pond\"",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:72bdfaa601ef3ea8",
+      "en": "Isn't Mika coming to class?",
+      "enSourceHash": "72bdfaa601ef3ea8"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:80d33d6dc0d19f84",
+      "en": "to go",
+      "enSourceHash": "80d33d6dc0d19f84"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:830eae7f272b621c",
+      "en": "What do you do in class?",
+      "enSourceHash": "830eae7f272b621c"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:89cb24f14eab4c74",
+      "en": "Today I'm going to the sea with a friend",
+      "enSourceHash": "89cb24f14eab4c74"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:93fd5e165a357b34",
+      "en": "Tanaka isn't going to the company today",
+      "enSourceHash": "93fd5e165a357b34"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:c26a6737c08c4aed",
+      "en": "Is the person over there a teacher?",
+      "enSourceHash": "c26a6737c08c4aed"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:cc19597f9da7d2ab",
+      "en": "Are you going to Tanaka's house?",
+      "enSourceHash": "cc19597f9da7d2ab"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:db31a92df6198d46",
+      "en": "Is Mika's friend Japanese?",
+      "enSourceHash": "db31a92df6198d46"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:e62f640360d85af9",
+      "en": "to drink",
+      "enSourceHash": "e62f640360d85af9"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:e9d9df24a68c1d7d",
+      "en": "Pick the word for \"river\"",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:f168ccdd91548c5a",
+      "en": "company",
+      "enSourceHash": "f168ccdd91548c5a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/ja:あそこの ひとは せんせいですか",
+      "en": "Say politely: Is the person over there a teacher?",
+      "enSourceHash": "ff783e831014c830"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/ja:きょうは ともだちと うみに いきます",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/ja:きょうは みずを のみません",
+      "en": "Say politely: I don't drink water today",
+      "enSourceHash": "e9ce0f44c39d41ed"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/ja:じゅぎょうで なにを しますか",
+      "en": "Say politely: What do you do in class?",
+      "enSourceHash": "31052422510a3d65"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/ja:たなかさまは きょう かいしゃに いきません",
+      "en": "Say very politely: Tanaka isn't going to the company today",
+      "enSourceHash": "6aebc3d07d9ce349"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/ja:たなかさんの いえに いきますか",
+      "en": "Say politely: Are you going to Tanaka's house?",
+      "enSourceHash": "80c6a5fec6728144"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/ja:ケンくんは かいしゃで はたらきません",
+      "en": "Say politely: Ken doesn't work at a company",
+      "enSourceHash": "0d6aa40149d52121"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/ja:ミカさんは じゅぎょうに きませんか",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/ja:ミカちゃんも かいしゃで はたらきますか",
+      "en": "Say politely: Does Mika work at a company too?",
+      "enSourceHash": "183d9c13dc41238d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-a/en:0bfe935e70c321c7",
+      "en": "u",
+      "enSourceHash": "0bfe935e70c321c7"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-a/en:3f79bb7b435b0532",
+      "en": "e",
+      "enSourceHash": "3f79bb7b435b0532"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-a/en:65c74c15a686187b",
+      "en": "o",
+      "enSourceHash": "65c74c15a686187b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-a/en:a7187294bd6b3646",
+      "en": "Match the katakana to their sounds",
+      "enSourceHash": "a7187294bd6b3646"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-a/en:ca978112ca1bbdca",
+      "en": "a",
+      "enSourceHash": "ca978112ca1bbdca"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-a/en:de7d1b721a1e0632",
+      "en": "i",
+      "enSourceHash": "de7d1b721a1e0632"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-a/en:e7a00e53bd04bf48",
+      "en": "nya",
+      "enSourceHash": "e7a00e53bd04bf48"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-ka/en:1fdbc74ccfd68d07",
+      "en": "ko",
+      "enSourceHash": "1fdbc74ccfd68d07"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-ka/en:2b84b2a9020f8b08",
+      "en": "ki",
+      "enSourceHash": "2b84b2a9020f8b08"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-ka/en:3ebb1c99b12b7746",
+      "en": "ka",
+      "enSourceHash": "3ebb1c99b12b7746"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-ka/en:663ea1bfffe5038f",
+      "en": "to",
+      "enSourceHash": "663ea1bfffe5038f"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-ka/en:88d178d728e8394f",
+      "en": "ku",
+      "enSourceHash": "88d178d728e8394f"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-ka/en:8e5202705183bd3a",
+      "en": "ke",
+      "enSourceHash": "8e5202705183bd3a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-ka/en:a7187294bd6b3646",
+      "en": "Match the katakana to their sounds",
+      "enSourceHash": "a7187294bd6b3646"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/en:24237e96e5183016",
+      "en": "to play",
+      "enSourceHash": "24237e96e5183016"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/en:5fe36e377a7e2137",
+      "en": "Pick the word for \"song\"",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/en:63f75c890b05405e",
+      "en": "song",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/en:727ea55fc8ee1dc7",
+      "en": "Pick the word for \"pond\"",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/en:7e2ed393d525d7e2",
+      "en": "to buy",
+      "enSourceHash": "7e2ed393d525d7e2"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/en:8ea11bdf8389be46",
+      "en": "to hear",
+      "enSourceHash": "8ea11bdf8389be46"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/en:c132a70ac38052fd",
+      "en": "Review — polite verbs",
+      "enSourceHash": "c132a70ac38052fd"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/en:cd6357efdd966de8",
+      "en": "dog",
+      "enSourceHash": "cd6357efdd966de8"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/en:e9d9df24a68c1d7d",
+      "en": "Pick the word for \"river\"",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/ja:いぬが きます",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/ja:うたを ききます",
+      "en": "Say politely: I listen to a song",
+      "enSourceHash": "34fd7f156d69c301"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/ja:かわで あそびます",
+      "en": "Say politely: I play at the river",
+      "enSourceHash": "900666d3f173cb15"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/ja:きょうは しません",
+      "en": "Say politely: I won't do it today",
+      "enSourceHash": "9fb56f3728599bf5"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/ja:そこに いきません",
+      "en": "Say politely: I'm not going there",
+      "enSourceHash": "5fce1184385db894"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/ja:ともだちと いきます",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/ja:ねこを みます",
+      "en": "Say politely: I look at the cat",
+      "enSourceHash": "c544d305932ef18b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/ja:みずを のみません",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/en:05f514fae7ca5710",
+      "en": "sky",
+      "enSourceHash": "05f514fae7ca5710"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/en:13809668fb436386",
+      "en": "pencil",
+      "enSourceHash": "13809668fb436386"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/en:14069429150abcbf",
+      "en": "ticket",
+      "enSourceHash": "14069429150abcbf"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/en:266550babbb7bd39",
+      "en": "glasses",
+      "enSourceHash": "266550babbb7bd39"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/en:44ff7b02c80d38b2",
+      "en": "window",
+      "enSourceHash": "44ff7b02c80d38b2"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/en:5fe36e377a7e2137",
+      "en": "Pick the word for \"song\"",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/en:727ea55fc8ee1dc7",
+      "en": "Pick the word for \"pond\"",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/en:7339725159893c57",
+      "en": "telephone",
+      "enSourceHash": "7339725159893c57"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/en:e9d9df24a68c1d7d",
+      "en": "Pick the word for \"river\"",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/ja:あれは まどです",
+      "en": "Say politely: That's a window",
+      "enSourceHash": "7502c8af9243c490"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/ja:えんぴつを かいますか",
+      "en": "Say politely: Will you buy a pencil?",
+      "enSourceHash": "4d3e55e79ed61864"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/ja:かぞくと いきます",
+      "en": "Say politely: I'm going with my family",
+      "enSourceHash": "c6f158847798ce40"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/ja:きっぷを かいます",
+      "en": "Say politely: I'll buy a ticket",
+      "enSourceHash": "ea885968946640f0"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/ja:きょうは いきません",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/ja:そらを みますか",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/ja:でんわは そこです",
+      "en": "Say politely: The phone is there",
+      "enSourceHash": "d0113dd15fd32757"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/ja:なにを かいますか",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/en:336074805fc85398",
+      "en": "time",
+      "enSourceHash": "336074805fc85398"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/en:4e7914b0df8068b7",
+      "en": "pond",
+      "enSourceHash": "4e7914b0df8068b7"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/en:5fe36e377a7e2137",
+      "en": "Pick the word for \"song\"",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/en:62484e22a6a5ade1",
+      "en": "health",
+      "enSourceHash": "62484e22a6a5ade1"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/en:727ea55fc8ee1dc7",
+      "en": "Pick the word for \"pond\"",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/en:7a6c4fac6c5cd720",
+      "en": "walk",
+      "enSourceHash": "7a6c4fac6c5cd720"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/en:98d9e96dc524003f",
+      "en": "Review — the whole polite layer",
+      "enSourceHash": "98d9e96dc524003f"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/en:a746222f09d85605",
+      "en": "snow",
+      "enSourceHash": "a746222f09d85605"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/en:c06b0cfe0cc5e900",
+      "en": "flower",
+      "enSourceHash": "c06b0cfe0cc5e900"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/en:e9d9df24a68c1d7d",
+      "en": "Pick the word for \"river\"",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/ja:いけに いきません",
+      "en": "Say politely: I'm not going to the pond",
+      "enSourceHash": "1b2f154948d7d98c"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/ja:かぜが あります",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/ja:からだは げんきです",
+      "en": "Say politely: I'm in good health",
+      "enSourceHash": "d00b70787158f353"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/ja:さくらを みます",
+      "en": "Say politely: I'll look at the cherry blossoms",
+      "enSourceHash": "d644d47c6edd53fc"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/ja:じかんが ありません",
+      "en": "Say politely: There's no time",
+      "enSourceHash": "6415eb41b45ed487"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/ja:じゅぎょうは あさです",
+      "en": "Say politely: The class is in the morning",
+      "enSourceHash": "943a51d0bf361f09"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/ja:はなを かいます",
+      "en": "Say politely: I'll buy flowers",
+      "enSourceHash": "37dcc397c5bebaf9"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/ja:ケンくんは きません",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    }
+  ]
+}

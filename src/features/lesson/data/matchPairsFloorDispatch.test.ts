@@ -5,6 +5,7 @@ import type { LessonContent, MatchPair, MatchPairsStep } from "../types";
 import {
   MATCH_PAIRS_FLOOR,
   __resetMatchPadIndexes,
+  matchGridShape,
   padMatchPairsFloor,
   type MatchPadContext,
 } from "./matchPairsFloor";
@@ -106,5 +107,65 @@ describe("padMatchPairsFloor language dispatch", () => {
     const result = padMatchPairsFloor(lesson, ctxFor("ko"));
     expect(result).toBe(lesson); // identity — not even a dedupe rewrite
     expect((result.steps[0] as MatchPairsStep).pairs.length).toBe(4);
+  });
+});
+
+describe("matchGridShape — script-agnostic gloss detection (KO-source de-coupling)", () => {
+  // The pre-fix check was `/[a-zA-Z]/.test(target)` — really an "is this
+  // English" test spelled as a script test. A JA-target course authored
+  // with Korean glosses (the KO→JA pilot) would have every one of its
+  // meaning grids silently misclassified "other" and skipped by the floor
+  // pad (docs/reverse-teaching-readiness-2026-07-29.md §1.E.2).
+
+  it("classifies an English meaning grid as 'meaning' (unchanged for English)", () => {
+    const pairs: MatchPair[] = [
+      { id: "p1", source: "みず", target: "water" },
+      { id: "p2", source: "ひ", target: "fire" },
+    ];
+    expect(matchGridShape(pairs)).toBe("meaning");
+  });
+
+  it("classifies a KOREAN-glossed meaning grid as 'meaning', not 'other'", () => {
+    const pairs: MatchPair[] = [
+      { id: "p1", source: "みず", target: "물" }, // water
+      { id: "p2", source: "ひ", target: "불" }, // fire
+    ];
+    expect(matchGridShape(pairs)).toBe("meaning");
+  });
+
+  it("still classifies a romaji grid as 'romaji' regardless — romaji targets stay Latin by design", () => {
+    const pairs: MatchPair[] = [
+      { id: "p1", source: "き", target: "ki" },
+      { id: "p2", source: "さ", target: "sa" },
+    ];
+    expect(matchGridShape(pairs)).toBe("romaji");
+  });
+
+  it("still exempts a digit-target grid ('other') for either gloss language", () => {
+    const english: MatchPair[] = [
+      { id: "p1", source: "いち", target: "1" },
+      { id: "p2", source: "に", target: "2" },
+    ];
+    const korean: MatchPair[] = [
+      { id: "p1", source: "いち", target: "1" },
+      { id: "p2", source: "に", target: "2" },
+    ];
+    expect(matchGridShape(english)).toBe("other");
+    expect(matchGridShape(korean)).toBe("other");
+  });
+
+  it("still exempts a kana/kanji-target grid ('other') — e.g. a dictionary→ます conjugation grid", () => {
+    const pairs: MatchPair[] = [
+      { id: "p1", source: "たべる", target: "たべます" },
+      { id: "p2", source: "のむ", target: "のみます" },
+    ];
+    expect(matchGridShape(pairs)).toBe("other");
+  });
+
+  it("mixed Korean+kana in one target still reads as 'other' (JA script present disqualifies)", () => {
+    // A gloss that embeds a kana/kanji fragment (e.g. an annotation) must
+    // not be treated as pure instruction-language text.
+    const pairs: MatchPair[] = [{ id: "p1", source: "みず", target: "물(水)" }];
+    expect(matchGridShape(pairs)).toBe("other");
   });
 });

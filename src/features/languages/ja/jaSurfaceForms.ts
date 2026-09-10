@@ -87,19 +87,45 @@ export function firstKanji(kanji: string | undefined): string | undefined {
   return first || undefined;
 }
 
-function glossLooksLikeVerb(atom: CourseAtom): boolean {
-  return atom.meaningEn.trim().toLowerCase().startsWith("to ");
+const VERB_GROUPS: ReadonlySet<string> = new Set<VerbGroup>([
+  "ichidan",
+  "godan",
+  "irregular",
+]);
+
+function isVerbGroup(value: string): value is VerbGroup {
+  return VERB_GROUPS.has(value);
 }
 
 /**
  * Resolve which verb group(s) to conjugate the atom as. Returns [] when the
  * atom is not a (dictionary-form) verb. An ambiguous る-ending verb with no
- * table entry yields both groups so the matcher over-generates safely.
+ * table entry and no `conjugation` link yields both groups so the matcher
+ * over-generates safely.
+ *
+ * Structural signal, not English gloss shape (KO-source de-coupling,
+ * 2026-09-10): a Korean-glossed atom table would never say "to eat", so
+ * gating on `/^to /.test(meaningEn)` misclassified every verb as a
+ * non-verb — see `docs/reverse-teaching-readiness-2026-07-29.md` §1.E.3.
+ * Two data-driven signals now stand in for the gloss check, checked in
+ * order of authority:
+ *  1. `atom.conjugation.class` — set on every curriculum verb lemma whose
+ *     class is already known (`courseAtoms.ts` rows carry it precisely
+ *     because a る-ending verb's ichidan/godan split can't be inferred from
+ *     spelling alone); this is MORE precise than the old kana-ending guess,
+ *     which always over-generated both groups for any る-final verb.
+ *  2. `atom.pos === "verb"` + kana-ending inference — the same fallback the
+ *     old code used, now gated on the structural `pos` field instead of an
+ *     English string, for the rare atom with neither a table entry nor a
+ *     `conjugation` link yet.
  */
 function verbGroupsFor(atom: CourseAtom): VerbGroup[] {
   const entry = findVerbEntry(atom);
   if (entry) return [entry.group];
-  if (!glossLooksLikeVerb(atom)) return [];
+  if (atom.conjugation && isVerbGroup(atom.conjugation.class)) {
+    return [atom.conjugation.class];
+  }
+  if (atom.pos !== "verb") return [];
   const last = atom.kana.slice(-1);
   if (GODAN_ENDINGS.has(last)) return ["godan"];
   if (last === "る") return ["ichidan", "godan"];

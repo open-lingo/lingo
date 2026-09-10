@@ -169,14 +169,25 @@ export const REGISTER_GRADED_FROM_MODULE = 20;
  * casual copula-DROP (かめは そこ) before です exists, so かめは そこです is the
  * same sentence one register up — it must pass. Verb forms are excluded:
  * たべないです is not the polite of たべない (たべません is).
+ *
+ * Excludes verbs via `pos !== "verb"` (KO-source de-coupling, 2026-09-10),
+ * not the former `!/^to /i.test(a.meaningEn)` gloss-shape check — a Korean
+ * gloss never starts "to ", which would have classified every verb as a
+ * nominal and let the grader accept `たべないです`-class junk
+ * (`docs/reverse-teaching-readiness-2026-07-29.md` §1.E.1). `pos` is the
+ * structural field the course already carries on every atom
+ * (`courseAtoms.ts`), so this is also strictly more precise than the old
+ * gloss check for English: it correctly excludes verb forms whose gloss
+ * doesn't read "to …" (te-forms, potential forms, past copulas — e.g.
+ * `たべて` "eat (te-form)"), which the gloss check let through as false
+ * nominals.
  */
 const NOMINALS: ReadonlySet<string> = new Set(
   JA_COURSE_ATOMS.filter(
     (a) =>
       a.kind === "vocab" &&
       !a.kanaDrillOnly &&
-      // "to eat" style glosses are dictionary-form verbs.
-      !/^to /i.test(a.meaningEn) &&
+      a.pos !== "verb" &&
       !/(ない|ます|ません|です)$/.test(a.kana),
   ).map((a) => a.kana),
 );

@@ -1,0 +1,1684 @@
+{
+  "schema": 1,
+  "moduleId": "m6",
+  "lang": "ja",
+  "generatedAt": "2026-09-10",
+  "entryCount": 335,
+  "entries": [
+    {
+      "anchor": "m6/atom:あそこ/gloss",
+      "en": "over there",
+      "enSourceHash": "aa572b28f43faac6"
+    },
+    {
+      "anchor": "m6/atom:あそこ/shortGloss",
+      "en": "over there",
+      "enSourceHash": "aa572b28f43faac6"
+    },
+    {
+      "anchor": "m6/atom:あります/gloss",
+      "en": "exists (thing)",
+      "enSourceHash": "1b5152b41a3cc0ac"
+    },
+    {
+      "anchor": "m6/atom:ある/gloss",
+      "en": "to be, to have (used for inanimate objects)",
+      "enSourceHash": "3ab5892f3b63763d"
+    },
+    {
+      "anchor": "m6/atom:いかない/gloss",
+      "en": "won't go / isn't going",
+      "enSourceHash": "975f18141442d053"
+    },
+    {
+      "anchor": "m6/atom:いかない/shortGloss",
+      "en": "won't go",
+      "enSourceHash": "2f52e3bc049c9a5c"
+    },
+    {
+      "anchor": "m6/atom:いる/gloss",
+      "en": "to be, to have (used for people and animals)",
+      "enSourceHash": "5301ca5605de62fd"
+    },
+    {
+      "anchor": "m6/atom:かわない/gloss",
+      "en": "won't buy / don't buy",
+      "enSourceHash": "5dabf4abe79ef837"
+    },
+    {
+      "anchor": "m6/atom:かわない/shortGloss",
+      "en": "won't buy",
+      "enSourceHash": "157f0fdac5013e4e"
+    },
+    {
+      "anchor": "m6/atom:が/gloss",
+      "en": "subject marker",
+      "enSourceHash": "5f7987fd3dfc1456"
+    },
+    {
+      "anchor": "m6/atom:ここ/gloss",
+      "en": "here",
+      "enSourceHash": "fcec91509759ad99"
+    },
+    {
+      "anchor": "m6/atom:こない/gloss",
+      "en": "won't come / isn't coming",
+      "enSourceHash": "83b1c2c7491bfef5"
+    },
+    {
+      "anchor": "m6/atom:こない/shortGloss",
+      "en": "won't come",
+      "enSourceHash": "0144aff8683349b6"
+    },
+    {
+      "anchor": "m6/atom:しない/gloss",
+      "en": "won't do / don't do",
+      "enSourceHash": "e75317b7088c1f4a"
+    },
+    {
+      "anchor": "m6/atom:しない/shortGloss",
+      "en": "won't do",
+      "enSourceHash": "446baa245dafe788"
+    },
+    {
+      "anchor": "m6/atom:そこ/gloss",
+      "en": "that place",
+      "enSourceHash": "d3b92fa6aafa8aab"
+    },
+    {
+      "anchor": "m6/atom:たべない/gloss",
+      "en": "won't eat / don't eat",
+      "enSourceHash": "c2c821d55bbefc63"
+    },
+    {
+      "anchor": "m6/atom:たべない/shortGloss",
+      "en": "won't eat",
+      "enSourceHash": "3064e235b64a0cfe"
+    },
+    {
+      "anchor": "m6/atom:で/gloss",
+      "en": "at / by means of",
+      "enSourceHash": "0b9352a721e830bb"
+    },
+    {
+      "anchor": "m6/atom:どこ/gloss",
+      "en": "where",
+      "enSourceHash": "b48111c10c65fc11"
+    },
+    {
+      "anchor": "m6/atom:なか/gloss",
+      "en": "inside",
+      "enSourceHash": "106b086224a4d945"
+    },
+    {
+      "anchor": "m6/atom:に/gloss",
+      "en": "to / at / location",
+      "enSourceHash": "148a955815ccb1c8"
+    },
+    {
+      "anchor": "m6/atom:のまない/gloss",
+      "en": "won't drink / don't drink",
+      "enSourceHash": "6366955d6a9c5770"
+    },
+    {
+      "anchor": "m6/atom:のまない/shortGloss",
+      "en": "won't drink",
+      "enSourceHash": "35ea5ea6a41e24ed"
+    },
+    {
+      "anchor": "m6/atom:みない/gloss",
+      "en": "won't watch / don't watch",
+      "enSourceHash": "606a22926618bdda"
+    },
+    {
+      "anchor": "m6/atom:みない/shortGloss",
+      "en": "won't watch",
+      "enSourceHash": "2d6a886967937673"
+    },
+    {
+      "anchor": "m6/atom:わからない/gloss",
+      "en": "don't understand / don't get it",
+      "enSourceHash": "c9157dddb8a3ca6f"
+    },
+    {
+      "anchor": "m6/atom:わからない/shortGloss",
+      "en": "don't understand",
+      "enSourceHash": "18c6fae7a6a3837e"
+    },
+    {
+      "anchor": "m6/atom:コート/gloss",
+      "en": "coat, tennis court",
+      "enSourceHash": "99b639b360d66bcc"
+    },
+    {
+      "anchor": "m6/gp:arimasu/ex:かさが ある。",
+      "en": "There's an umbrella.",
+      "enSourceHash": "4d75c3e260ce60ec"
+    },
+    {
+      "anchor": "m6/gp:arimasu/ex:ほんが ある。",
+      "en": "There's a book.",
+      "enSourceHash": "4a43abe1883274ef"
+    },
+    {
+      "anchor": "m6/gp:arimasu/ex:ほんを ある。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m6/gp:de-action-action/ex:いえで たべる。",
+      "en": "I eat at home.",
+      "enSourceHash": "da35a6cc417c3573"
+    },
+    {
+      "anchor": "m6/gp:de-action-action/ex:いえに たべる。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m6/gp:de-action-action/ex:うみで あそぶ。",
+      "en": "I play at the sea.",
+      "enSourceHash": "762f8422ef75d40d"
+    },
+    {
+      "anchor": "m6/gp:imasu/ex:ねこが ある。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m6/gp:imasu/ex:ねこが いる。",
+      "en": "There's a cat.",
+      "enSourceHash": "d3941d22e7744027"
+    },
+    {
+      "anchor": "m6/gp:imasu/ex:ひとが いる。",
+      "en": "There's someone.",
+      "enSourceHash": "12daaf4516dcb6c0"
+    },
+    {
+      "anchor": "m6/gp:koko-soko-asoko/ex:かぎは ここ。",
+      "en": "The key's right here.",
+      "enSourceHash": "460f79c24db8c0ef"
+    },
+    {
+      "anchor": "m6/gp:koko-soko-asoko/ex:ねこは どこ？",
+      "en": "Where's the cat?",
+      "enSourceHash": "63315086b9dd6e6e"
+    },
+    {
+      "anchor": "m6/gp:koko-soko-asoko/ex:ほんは そこ。",
+      "en": "The book's there, by you.",
+      "enSourceHash": "486964ea020d0ec7"
+    },
+    {
+      "anchor": "m6/gp:location-qa/ex:かばんの なかに ある。",
+      "en": "It's in the bag.",
+      "enSourceHash": "35ee01060845442c"
+    },
+    {
+      "anchor": "m6/gp:location-qa/ex:ここに ない。",
+      "en": "It's not here.",
+      "enSourceHash": "2af518986afa1f31"
+    },
+    {
+      "anchor": "m6/gp:location-qa/ex:ねこは どこに ある？",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m6/gp:location-qa/ex:ねこは どこに いる？",
+      "en": "Where's the cat?",
+      "enSourceHash": "63315086b9dd6e6e"
+    },
+    {
+      "anchor": "m6/gp:nai-existence/ex:ねこが いない。",
+      "en": "There's no cat.",
+      "enSourceHash": "89062537076f7e76"
+    },
+    {
+      "anchor": "m6/gp:nai-existence/ex:ほんが あらない。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m6/gp:nai-existence/ex:ほんが ない。",
+      "en": "There's no book.",
+      "enSourceHash": "e4176f891d7a3c7e"
+    },
+    {
+      "anchor": "m6/gp:nai-form/ex:きょうは いかない。",
+      "en": "Today I'm not going.",
+      "enSourceHash": "b97f8636be283908"
+    },
+    {
+      "anchor": "m6/gp:nai-form/ex:こない。",
+      "en": "I'm not coming.",
+      "enSourceHash": "751585403054031f"
+    },
+    {
+      "anchor": "m6/gp:nai-form/ex:これを しない。",
+      "en": "I won't do this one.",
+      "enSourceHash": "b5e2bdf16ee0aba4"
+    },
+    {
+      "anchor": "m6/gp:nai-form/ex:これを するない。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m6/gp:nai-form/ex:ごはんを たべない。",
+      "en": "I don't eat rice.",
+      "enSourceHash": "ab2c8e9965fce77b"
+    },
+    {
+      "anchor": "m6/gp:nai-form/ex:ごはんを たべるない。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m6/gp:nai-form/ex:しない。",
+      "en": "I won't do it.",
+      "enSourceHash": "e56496e788b05845"
+    },
+    {
+      "anchor": "m6/gp:nai-form/ex:しゃしんを みない。",
+      "en": "I don't look at the photo.",
+      "enSourceHash": "79496ebeac70a049"
+    },
+    {
+      "anchor": "m6/gp:nai-form/ex:たべない。",
+      "en": "I won't eat.",
+      "enSourceHash": "22c14d36676aa614"
+    },
+    {
+      "anchor": "m6/gp:nai-form/ex:ほんを かわない。",
+      "en": "I won't buy the book.",
+      "enSourceHash": "456f3bb6ce4259ae"
+    },
+    {
+      "anchor": "m6/gp:nai-form/ex:みずを のまない。",
+      "en": "I don't drink water.",
+      "enSourceHash": "7e049b9bfe91fae3"
+    },
+    {
+      "anchor": "m6/gp:nai-form/ex:みずを のむない。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m6/gp:nai-form/ex:わからない。",
+      "en": "I don't get it.",
+      "enSourceHash": "d6c8901d7e6c15c1"
+    },
+    {
+      "anchor": "m6/gp:ni-location-location/ex:あそこに ねこが いる。",
+      "en": "There's a cat over there.",
+      "enSourceHash": "f49c6023c1ba98a6"
+    },
+    {
+      "anchor": "m6/gp:ni-location-location/ex:ここ ほんが ある。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m6/gp:ni-location-location/ex:ここに ほんが ある。",
+      "en": "There's a book here.",
+      "enSourceHash": "40a1d7e8cd26ab45"
+    },
+    {
+      "anchor": "m6/gp:spatial-relations/ex:かばんの なかに かぎが ある。",
+      "en": "There's a key in the bag.",
+      "enSourceHash": "c8c7d7d8244f58e7"
+    },
+    {
+      "anchor": "m6/gp:spatial-relations/ex:ほん うえに ねこが いる。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m6/gp:spatial-relations/ex:ほんの うえに ねこが いる。",
+      "en": "There's a cat on the book.",
+      "enSourceHash": "170b669b898820da"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/en:25cdb46d8d2115a2",
+      "en": "boat",
+      "enSourceHash": "25cdb46d8d2115a2"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/en:40f5c8214eeb195d",
+      "en": "cooked rice",
+      "enSourceHash": "40f5c8214eeb195d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/en:45411b53c3ee653e",
+      "en": "American (person)",
+      "enSourceHash": "45411b53c3ee653e"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/en:527af7c109a784d8",
+      "en": "to eat",
+      "enSourceHash": "527af7c109a784d8"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/en:65f8ea722badb7ca",
+      "en": "to watch",
+      "enSourceHash": "65f8ea722badb7ca"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/en:7482d5802c3c2798",
+      "en": "photograph",
+      "enSourceHash": "7482d5802c3c2798"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/en:a0f89b8e7c81efaa",
+      "en": "Pick the word for \"dog\"",
+      "enSourceHash": "a0f89b8e7c81efaa"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/en:e8b455340e57a236",
+      "en": "Pick the word for \"boat\"",
+      "enSourceHash": "e8b455340e57a236"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/en:e9d9df24a68c1d7d",
+      "en": "Pick the word for \"river\"",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/ja:きゅうりを たべない",
+      "en": "Build: I won't eat the cucumber.",
+      "enSourceHash": "ff37e5cad620ccb7"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/ja:きょうは たべない",
+      "en": "Build: Today I won't eat.",
+      "enSourceHash": "30ae34d008e2dc92"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/ja:ごはんを たべない",
+      "en": "Build: I don't eat rice.",
+      "enSourceHash": "a0737b0ebc38da55"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/ja:すしを たべない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/ja:それを みない",
+      "en": "Build: I don't look at that one.",
+      "enSourceHash": "2b805ffffeef2d98"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/ja:ふねを みない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/ja:ミカの ごはんを たべない",
+      "en": "Build: I won't eat Mika's rice.",
+      "enSourceHash": "7b6d7e1c40a3cf73"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:13598952c5069a3d",
+      "en": "There's a hat on the chair.",
+      "enSourceHash": "13598952c5069a3d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:170b669b898820da",
+      "en": "There's a cat on the book.",
+      "enSourceHash": "170b669b898820da"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:18e1dd392168f601",
+      "en": "hat",
+      "enSourceHash": "18e1dd392168f601"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:2cd3fba5ed9551d8",
+      "en": "There's a dog inside the house.",
+      "enSourceHash": "2cd3fba5ed9551d8"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:3d7eb3d3dab17ee5",
+      "en": "chair",
+      "enSourceHash": "3d7eb3d3dab17ee5"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:5f1dae660c257449",
+      "en": "There's a hat in the bag.",
+      "enSourceHash": "5f1dae660c257449"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:6e3bf34066729e64",
+      "en": "Pick the word for \"sea\"",
+      "enSourceHash": "6e3bf34066729e64"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:7c54cffcc3c6c09f",
+      "en": "There's a key on the book.",
+      "enSourceHash": "7c54cffcc3c6c09f"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:c018019b6a8b01ab",
+      "en": "bag",
+      "enSourceHash": "c018019b6a8b01ab"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:c73c060862f482e8",
+      "en": "The umbrella is on the book too.",
+      "enSourceHash": "c73c060862f482e8"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:c8c7d7d8244f58e7",
+      "en": "There's a key in the bag.",
+      "enSourceHash": "c8c7d7d8244f58e7"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:d07bf9e756ebbfe1",
+      "en": "there is (things)",
+      "enSourceHash": "d07bf9e756ebbfe1"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:e108d95e753fe120",
+      "en": "there is (living)",
+      "enSourceHash": "e108d95e753fe120"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:e9d9df24a68c1d7d",
+      "en": "Pick the word for \"river\"",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/ja:いえの なかに いぬが いる",
+      "en": "Build: There's a dog inside the house.",
+      "enSourceHash": "2c389f542b54a55b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/ja:かさも ほんの うえに ある",
+      "en": "Build: The umbrella is on the book too.",
+      "enSourceHash": "0f34ac0b87a3596e"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/ja:かばんの なかに かぎが ある",
+      "en": "Build: There's a key in the bag.",
+      "enSourceHash": "36deeacdbdcd30b5"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/ja:かばんの なかに ぼうしが ある",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/ja:ほんの うえに かぎが ある",
+      "en": "Build: There's a key on the book.",
+      "enSourceHash": "3fbe818b9a4a313b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/ja:ほんの うえに ねこが いる",
+      "en": "Build: There's a cat on the book.",
+      "enSourceHash": "5b6434267a9a98c6"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:2ee9444b6b67533b",
+      "en": "there isn't (things)",
+      "enSourceHash": "2ee9444b6b67533b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:3408b9f5006fb568",
+      "en": "there isn't (living)",
+      "enSourceHash": "3408b9f5006fb568"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:35ee01060845442c",
+      "en": "It's in the bag.",
+      "enSourceHash": "35ee01060845442c"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:3f6400d13f3365b3",
+      "en": "Pick the word for \"top, above\"",
+      "enSourceHash": "3f6400d13f3365b3"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:416c3094585d7d2b",
+      "en": "Where's Mika's cat?",
+      "enSourceHash": "416c3094585d7d2b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:50347e416bec25da",
+      "en": "Where's the key?",
+      "enSourceHash": "50347e416bec25da"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:63315086b9dd6e6e",
+      "en": "Where's the cat?",
+      "enSourceHash": "63315086b9dd6e6e"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:727ea55fc8ee1dc7",
+      "en": "Pick the word for \"pond\"",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:77af778b51abd4a3",
+      "en": "cat",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:a0f89b8e7c81efaa",
+      "en": "Pick the word for \"dog\"",
+      "enSourceHash": "a0f89b8e7c81efaa"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:b2b1f80c672eaa3c",
+      "en": "Where's the teacher?",
+      "enSourceHash": "b2b1f80c672eaa3c"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:b3ff3281c93573d4",
+      "en": "where?",
+      "enSourceHash": "b3ff3281c93573d4"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:d07bf9e756ebbfe1",
+      "en": "there is (things)",
+      "enSourceHash": "d07bf9e756ebbfe1"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:e108d95e753fe120",
+      "en": "there is (living)",
+      "enSourceHash": "e108d95e753fe120"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:e246ee10a900ac51",
+      "en": "The cat isn't here.",
+      "enSourceHash": "e246ee10a900ac51"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/ja:あそこに いる",
+      "en": "Build: He's over there.",
+      "enSourceHash": "c29c572a177ccf26"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/ja:かぎは どこに ある？",
+      "en": "Build: Where's the key?",
+      "enSourceHash": "51e1d8e00ab928c4"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/ja:ここに ない",
+      "en": "Build: It's not here.",
+      "enSourceHash": "f0741df34ed0b080"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/ja:せんせいは どこに いる？",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/ja:ねこは ここに いない",
+      "en": "Build: The cat isn't here.",
+      "enSourceHash": "a899e70ab2ed78a3"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/ja:ねこは どこに いる？",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/ja:ミカの ねこは どこに いる？",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/en:0f4168490e38b844",
+      "en": "water",
+      "enSourceHash": "0f4168490e38b844"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/en:25dc891a5ee480a2",
+      "en": "to understand",
+      "enSourceHash": "25dc891a5ee480a2"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/en:7e2ed393d525d7e2",
+      "en": "to buy",
+      "enSourceHash": "7e2ed393d525d7e2"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/en:80d33d6dc0d19f84",
+      "en": "to go",
+      "enSourceHash": "80d33d6dc0d19f84"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/en:8825e76530f87ff5",
+      "en": "milk",
+      "enSourceHash": "8825e76530f87ff5"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/en:e62f640360d85af9",
+      "en": "to drink",
+      "enSourceHash": "e62f640360d85af9"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/en:e8b455340e57a236",
+      "en": "Pick the word for \"boat\"",
+      "enSourceHash": "e8b455340e57a236"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/en:e9d9df24a68c1d7d",
+      "en": "Pick the word for \"river\"",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/ja:きょうは いかない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/ja:ぎゅうにゅうを のまない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/ja:それは わからない",
+      "en": "Build: I don't get that one.",
+      "enSourceHash": "a224c123b07b5d12"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/ja:ほんを かわない",
+      "en": "Build: I won't buy the book.",
+      "enSourceHash": "bac4a11e938c069c"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/ja:みずを のまない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/ja:わたしは のまない",
+      "en": "Build: I won't drink.",
+      "enSourceHash": "4d87b85b3a7a5135"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/ja:トムは わからない",
+      "en": "Build: Tom doesn't get it.",
+      "enSourceHash": "964be194f5f21349"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/ja:ミカは いかない",
+      "en": "Build: Mika isn't going.",
+      "enSourceHash": "c50055696ffa7a25"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/ja:ミカも みずを のまない",
+      "en": "Build: Mika won't drink water either.",
+      "enSourceHash": "c3dcad712db7e6b3"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/en:217655f48dde4e0a",
+      "en": "to do",
+      "enSourceHash": "217655f48dde4e0a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/en:227c7024de86036c",
+      "en": "to come",
+      "enSourceHash": "227c7024de86036c"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/en:3064e235b64a0cfe",
+      "en": "won't eat",
+      "enSourceHash": "3064e235b64a0cfe"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/en:45411b53c3ee653e",
+      "en": "American (person)",
+      "enSourceHash": "45411b53c3ee653e"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/en:755d07a8b350b42e",
+      "en": "this (by me)",
+      "enSourceHash": "755d07a8b350b42e"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/en:a0f89b8e7c81efaa",
+      "en": "Pick the word for \"dog\"",
+      "enSourceHash": "a0f89b8e7c81efaa"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/en:ddb7498edf9593e5",
+      "en": "that (by you)",
+      "enSourceHash": "ddb7498edf9593e5"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/en:e8b455340e57a236",
+      "en": "Pick the word for \"boat\"",
+      "enSourceHash": "e8b455340e57a236"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/en:e9d9df24a68c1d7d",
+      "en": "Pick the word for \"river\"",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/ja:きょう しない",
+      "en": "Build: Today I won't do it.",
+      "enSourceHash": "eee4eea116284e31"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/ja:きょうは これを しない",
+      "en": "Build: Today I won't do this one.",
+      "enSourceHash": "40593af93b36a250"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/ja:これを しない",
+      "en": "Build: I won't do this one.",
+      "enSourceHash": "6b20abb4b0603c0d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/ja:ごはんを たべない",
+      "en": "Build: I don't eat rice.",
+      "enSourceHash": "a0737b0ebc38da55"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/ja:それを しない",
+      "en": "Build: I won't do that one.",
+      "enSourceHash": "f50c686382288ccd"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/ja:みずを のまない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/ja:ケンは こない",
+      "en": "Build: Ken isn't coming.",
+      "enSourceHash": "3188b752b33bb7f8"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/en:25cdb46d8d2115a2",
+      "en": "boat",
+      "enSourceHash": "25cdb46d8d2115a2"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/en:2974744982f08b20",
+      "en": "umbrella",
+      "enSourceHash": "2974744982f08b20"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/en:2b2961a431b23c90",
+      "en": "car",
+      "enSourceHash": "2b2961a431b23c90"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/en:2c70e12b7a0646f9",
+      "en": "key",
+      "enSourceHash": "2c70e12b7a0646f9"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/en:45411b53c3ee653e",
+      "en": "American (person)",
+      "enSourceHash": "45411b53c3ee653e"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/en:72f75f5b53f57f53",
+      "en": "Pick the word for \"key\"",
+      "enSourceHash": "72f75f5b53f57f53"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/en:a0f89b8e7c81efaa",
+      "en": "Pick the word for \"dog\"",
+      "enSourceHash": "a0f89b8e7c81efaa"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/en:e8b455340e57a236",
+      "en": "Pick the word for \"boat\"",
+      "enSourceHash": "e8b455340e57a236"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/en:e9d9df24a68c1d7d",
+      "en": "Pick the word for \"river\"",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/ja:かぎが ある",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/ja:かさが ある",
+      "en": "Build: There's an umbrella.",
+      "enSourceHash": "26e2f069010b2e15"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/ja:くるまが ある",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/ja:だれの かさが ある？",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/ja:ふねが ある",
+      "en": "Build: There's a boat.",
+      "enSourceHash": "7a37bff564ed7efe"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/ja:ほんが ある",
+      "en": "Build: There's a book.",
+      "enSourceHash": "7a8367cf71b07ca9"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/en:0282d9b79f42c74c",
+      "en": "face",
+      "enSourceHash": "0282d9b79f42c74c"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/en:25cdb46d8d2115a2",
+      "en": "boat",
+      "enSourceHash": "25cdb46d8d2115a2"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/en:72f75f5b53f57f53",
+      "en": "Pick the word for \"key\"",
+      "enSourceHash": "72f75f5b53f57f53"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/en:77af778b51abd4a3",
+      "en": "cat",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/en:9e78b43ea00edcac",
+      "en": "moon",
+      "enSourceHash": "9e78b43ea00edcac"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/en:a0f89b8e7c81efaa",
+      "en": "Pick the word for \"dog\"",
+      "enSourceHash": "a0f89b8e7c81efaa"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/en:cd6357efdd966de8",
+      "en": "dog",
+      "enSourceHash": "cd6357efdd966de8"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/en:d07bf9e756ebbfe1",
+      "en": "there is (things)",
+      "enSourceHash": "d07bf9e756ebbfe1"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/en:e8b455340e57a236",
+      "en": "Pick the word for \"boat\"",
+      "enSourceHash": "e8b455340e57a236"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/en:e9d9df24a68c1d7d",
+      "en": "Pick the word for \"river\"",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/ja:いぬが いる",
+      "en": "Build: There's a dog.",
+      "enSourceHash": "e94ae3b298ce1f6d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/ja:かめが いる",
+      "en": "Build: There's a turtle.",
+      "enSourceHash": "12a6d3a7a625c826"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/ja:ねこが いる",
+      "en": "Build: There's a cat.",
+      "enSourceHash": "233584497c47541a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/ja:ひとが いる",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/ja:ぶたが いる",
+      "en": "Build: There's a pig.",
+      "enSourceHash": "3fcfbf1b42daff53"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/ja:ほんが ある",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/ja:ミカの ねこも いる",
+      "en": "Build: Mika's cat is here too.",
+      "enSourceHash": "89962054493e67ab"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:1aa138a41a322713",
+      "en": "Today Mika's dog isn't here.",
+      "enSourceHash": "1aa138a41a322713"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:45411b53c3ee653e",
+      "en": "American (person)",
+      "enSourceHash": "45411b53c3ee653e"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:56836e83cc21104a",
+      "en": "Today the teacher isn't here.",
+      "enSourceHash": "56836e83cc21104a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:6c15d8649c7bcf33",
+      "en": "Mika's umbrella is gone.",
+      "enSourceHash": "6c15d8649c7bcf33"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:72f75f5b53f57f53",
+      "en": "Pick the word for \"key\"",
+      "enSourceHash": "72f75f5b53f57f53"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:77af778b51abd4a3",
+      "en": "cat",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:84d22a81c0759e2f",
+      "en": "There's no rice today.",
+      "enSourceHash": "84d22a81c0759e2f"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:a0f89b8e7c81efaa",
+      "en": "Pick the word for \"dog\"",
+      "enSourceHash": "a0f89b8e7c81efaa"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:cd6357efdd966de8",
+      "en": "dog",
+      "enSourceHash": "cd6357efdd966de8"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:d07bf9e756ebbfe1",
+      "en": "there is (things)",
+      "enSourceHash": "d07bf9e756ebbfe1"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:e108d95e753fe120",
+      "en": "there is (living)",
+      "enSourceHash": "e108d95e753fe120"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:e9d9df24a68c1d7d",
+      "en": "Pick the word for \"river\"",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/ja:かぎが ない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/ja:きょうは ごはんが ない",
+      "en": "Build: There's no rice today.",
+      "enSourceHash": "3417e7dee0277a49"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/ja:きょうは せんせいが いない",
+      "en": "Build: Today the teacher isn't here.",
+      "enSourceHash": "931c167b1e9f995e"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/ja:きょうは ミカの いぬが いない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/ja:ねこが いない",
+      "en": "Build: There's no cat.",
+      "enSourceHash": "1c72e293d211a47f"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/ja:ひとが いない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/ja:ほんが ない",
+      "en": "Build: There's no book.",
+      "enSourceHash": "f84f53a0af1225d6"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/ja:ミカの かさが ない",
+      "en": "Build: Mika's umbrella is gone.",
+      "enSourceHash": "872ac1d20e65f978"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/en:1057a9604e04b274",
+      "en": "teacher",
+      "enSourceHash": "1057a9604e04b274"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/en:1fd8ea152601cb50",
+      "en": "which (of three or more)",
+      "enSourceHash": "1fd8ea152601cb50"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/en:4173b3e2b24a314a",
+      "en": "that (over there)",
+      "enSourceHash": "4173b3e2b24a314a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/en:45411b53c3ee653e",
+      "en": "American (person)",
+      "enSourceHash": "45411b53c3ee653e"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/en:72f75f5b53f57f53",
+      "en": "Pick the word for \"key\"",
+      "enSourceHash": "72f75f5b53f57f53"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/en:755d07a8b350b42e",
+      "en": "this (by me)",
+      "enSourceHash": "755d07a8b350b42e"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/en:a0f89b8e7c81efaa",
+      "en": "Pick the word for \"dog\"",
+      "enSourceHash": "a0f89b8e7c81efaa"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/en:ddb7498edf9593e5",
+      "en": "that (by you)",
+      "enSourceHash": "ddb7498edf9593e5"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/en:e8b455340e57a236",
+      "en": "Pick the word for \"boat\"",
+      "enSourceHash": "e8b455340e57a236"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/en:e9d9df24a68c1d7d",
+      "en": "Pick the word for \"river\"",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/ja:うまは そこ",
+      "en": "Build: The horse is there, by you.",
+      "enSourceHash": "2bf4766c17cea9bc"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/ja:かぎは ここ",
+      "en": "Build: The key's right here.",
+      "enSourceHash": "ff8e5afb98e92676"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/ja:かさは あそこ",
+      "en": "Build: The umbrella's over there.",
+      "enSourceHash": "8cc87bddfdb22b48"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/ja:せんせいは どこ？",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/ja:ねこは あそこ",
+      "en": "Build: The cat's over there.",
+      "enSourceHash": "dfc8dece9c01cbfc"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/ja:ねこは どこ？",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/ja:トムは どこ？",
+      "en": "Build: Where's Tom?",
+      "enSourceHash": "0473b31d7478f577"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/ja:ミカの かさは どこ？",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:24633ae5d25bf34b",
+      "en": "There's a turtle in the pond.",
+      "enSourceHash": "24633ae5d25bf34b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:40a1d7e8cd26ab45",
+      "en": "There's a book here.",
+      "enSourceHash": "40a1d7e8cd26ab45"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:65e29e191464b66d",
+      "en": "There's a dog at home.",
+      "enSourceHash": "65e29e191464b66d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:6cd4f89e2953ade0",
+      "en": "Mika's turtle is in the pond.",
+      "enSourceHash": "6cd4f89e2953ade0"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:72f75f5b53f57f53",
+      "en": "Pick the word for \"key\"",
+      "enSourceHash": "72f75f5b53f57f53"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:8dfd77f40c0e21f0",
+      "en": "There's a key there.",
+      "enSourceHash": "8dfd77f40c0e21f0"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:94c720237f4bd5fe",
+      "en": "There's a horse over there.",
+      "enSourceHash": "94c720237f4bd5fe"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:a0f89b8e7c81efaa",
+      "en": "Pick the word for \"dog\"",
+      "enSourceHash": "a0f89b8e7c81efaa"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:a6bcbe6c9727b897",
+      "en": "here (by me)",
+      "enSourceHash": "a6bcbe6c9727b897"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:b3ff3281c93573d4",
+      "en": "where?",
+      "enSourceHash": "b3ff3281c93573d4"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:c6df1a9f3828e7f3",
+      "en": "there (by you)",
+      "enSourceHash": "c6df1a9f3828e7f3"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:d07bf9e756ebbfe1",
+      "en": "there is (things)",
+      "enSourceHash": "d07bf9e756ebbfe1"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:e108d95e753fe120",
+      "en": "there is (living)",
+      "enSourceHash": "e108d95e753fe120"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:e115fde45c2ccef2",
+      "en": "over there (away from both)",
+      "enSourceHash": "e115fde45c2ccef2"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:e9d9df24a68c1d7d",
+      "en": "Pick the word for \"river\"",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:f49c6023c1ba98a6",
+      "en": "There's a cat over there.",
+      "enSourceHash": "f49c6023c1ba98a6"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/ja:あそこに うまが いる",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/ja:あそこに ねこが いる",
+      "en": "Build: There's a cat over there.",
+      "enSourceHash": "c6e3cfd2bebe0cf5"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/ja:いえに いぬが いる",
+      "en": "Build: There's a dog at home.",
+      "enSourceHash": "68d249f81d438321"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/ja:ここに ほんが ある",
+      "en": "Build: There's a book here.",
+      "enSourceHash": "a5753c69e15643d4"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/ja:そこに かぎが ある",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/ja:ミカの かめは いけに いる",
+      "en": "Build: Mika's turtle is in the pond.",
+      "enSourceHash": "5be5d86589296a15"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/en:24237e96e5183016",
+      "en": "to play",
+      "enSourceHash": "24237e96e5183016"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/en:4a69f19c8c264850",
+      "en": "sea",
+      "enSourceHash": "4a69f19c8c264850"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/en:527af7c109a784d8",
+      "en": "to eat",
+      "enSourceHash": "527af7c109a784d8"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/en:5f5a8ed8f139be6d",
+      "en": "river",
+      "enSourceHash": "5f5a8ed8f139be6d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/en:6e3bf34066729e64",
+      "en": "Pick the word for \"sea\"",
+      "enSourceHash": "6e3bf34066729e64"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/en:7e2ed393d525d7e2",
+      "en": "to buy",
+      "enSourceHash": "7e2ed393d525d7e2"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/en:a0f89b8e7c81efaa",
+      "en": "Pick the word for \"dog\"",
+      "enSourceHash": "a0f89b8e7c81efaa"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/en:e62f640360d85af9",
+      "en": "to drink",
+      "enSourceHash": "e62f640360d85af9"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/en:e8b455340e57a236",
+      "en": "Pick the word for \"boat\"",
+      "enSourceHash": "e8b455340e57a236"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/en:e9d9df24a68c1d7d",
+      "en": "Pick the word for \"river\"",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/ja:いえで たべる",
+      "en": "Build: I eat at home.",
+      "enSourceHash": "468276234a07711b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/ja:いえに ねこが いる",
+      "en": "Build: There's a cat at home.",
+      "enSourceHash": "44d25a208f147719"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/ja:いけで あそぶ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/ja:うみで あそぶ",
+      "en": "Build: I play at the sea.",
+      "enSourceHash": "361f261ca7dfa5c0"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/ja:えきで かう",
+      "en": "Build: I buy it at the station.",
+      "enSourceHash": "6e165369ce209fc0"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/ja:かわで あそぶ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/ja:ミカの いえで ごはんを たべる",
+      "en": "Build: I eat rice at Mika's house.",
+      "enSourceHash": "44af87815fa435b5"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/en:0144aff8683349b6",
+      "en": "won't come",
+      "enSourceHash": "0144aff8683349b6"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/en:11b15a34b5d75a81",
+      "en": "Today I won't eat rice at Mika's house.",
+      "enSourceHash": "11b15a34b5d75a81"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/en:2ee9444b6b67533b",
+      "en": "there isn't (things)",
+      "enSourceHash": "2ee9444b6b67533b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/en:3064e235b64a0cfe",
+      "en": "won't eat",
+      "enSourceHash": "3064e235b64a0cfe"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/en:3408b9f5006fb568",
+      "en": "there isn't (living)",
+      "enSourceHash": "3408b9f5006fb568"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/en:35ea5ea6a41e24ed",
+      "en": "won't drink",
+      "enSourceHash": "35ea5ea6a41e24ed"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/en:3f6400d13f3365b3",
+      "en": "Pick the word for \"top, above\"",
+      "enSourceHash": "3f6400d13f3365b3"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/en:446baa245dafe788",
+      "en": "won't do",
+      "enSourceHash": "446baa245dafe788"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/en:4d83eae65eff9664",
+      "en": "Challenge — put it all together",
+      "enSourceHash": "4d83eae65eff9664"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/en:557d52e623437b8f",
+      "en": "The teacher is over there.",
+      "enSourceHash": "557d52e623437b8f"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/en:6a1e027178993f1a",
+      "en": "There's no key in the bag.",
+      "enSourceHash": "6a1e027178993f1a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/en:d1f2ad4ec0ecbc98",
+      "en": "Ken's car isn't over there.",
+      "enSourceHash": "d1f2ad4ec0ecbc98"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/ja:いぬは いえに いない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/ja:うまは かわの なかに いない",
+      "en": "Build: The horse isn't in the river.",
+      "enSourceHash": "cd111ba8ec1a3b82"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/ja:きょうは あそこで かさを かわない",
+      "en": "Build: Today I won't buy an umbrella over there.",
+      "enSourceHash": "4c8089fe4f8002a9"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/ja:きょうは ミカの いえで ごはんを たべない",
+      "en": "Build: Today I won't eat rice at Mika's house.",
+      "enSourceHash": "0fc92f13bddd3ad4"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/ja:これは かわない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/ja:せんせいは あそこに いる",
+      "en": "Build: The teacher is over there.",
+      "enSourceHash": "5bbd0025d715b6b0"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/ja:だれの かさが いすの うえに ある？",
+      "en": "Build: Whose umbrella is on the chair?",
+      "enSourceHash": "1fce26a4816ae15b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/ja:ほんは いすの うえに ある",
+      "en": "Build: The book is on the chair.",
+      "enSourceHash": "10d6eab9bccdea64"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/ja:ケンの くるまは あそこに ない",
+      "en": "Build: Ken's car isn't over there.",
+      "enSourceHash": "11e0e692e96c3211"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/ja:ケンは きょう こない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/ja:ミカの ねこは いすの うえに いない",
+      "en": "Build: Mika's cat isn't on the chair.",
+      "enSourceHash": "e217cb41ef84f0b2"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:0144aff8683349b6",
+      "en": "won't come",
+      "enSourceHash": "0144aff8683349b6"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:157f0fdac5013e4e",
+      "en": "won't buy",
+      "enSourceHash": "157f0fdac5013e4e"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:1eb66dae6a263cab",
+      "en": "There's no hat in the bag.",
+      "enSourceHash": "1eb66dae6a263cab"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:27913fbee243d0d8",
+      "en": "There's a turtle in the river.",
+      "enSourceHash": "27913fbee243d0d8"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:3064e235b64a0cfe",
+      "en": "won't eat",
+      "enSourceHash": "3064e235b64a0cfe"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:35ea5ea6a41e24ed",
+      "en": "won't drink",
+      "enSourceHash": "35ea5ea6a41e24ed"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:3f6400d13f3365b3",
+      "en": "Pick the word for \"top, above\"",
+      "enSourceHash": "3f6400d13f3365b3"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:446baa245dafe788",
+      "en": "won't do",
+      "enSourceHash": "446baa245dafe788"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:67e45d81bba6fec7",
+      "en": "There are stars in the sky.",
+      "enSourceHash": "67e45d81bba6fec7"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:705e9ddb4613fb93",
+      "en": "I don't eat rice in the morning.",
+      "enSourceHash": "705e9ddb4613fb93"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:727ea55fc8ee1dc7",
+      "en": "Pick the word for \"pond\"",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:72fa7fe571493c6e",
+      "en": "m6 review — no's, there-is, and where",
+      "enSourceHash": "72fa7fe571493c6e"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:d07bf9e756ebbfe1",
+      "en": "there is (things)",
+      "enSourceHash": "d07bf9e756ebbfe1"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/ja:いえで みる",
+      "en": "Build: I watch (it) at home.",
+      "enSourceHash": "4647726527437b5e"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/ja:えびが ない",
+      "en": "Build: There's no shrimp.",
+      "enSourceHash": "24070f754d89dcf8"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/ja:かばんの なかに ぼうしが ない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/ja:かめは そこ",
+      "en": "Build: The turtle's there.",
+      "enSourceHash": "4247113f00b8eef0"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/ja:かわに かめが いる",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/ja:きゅうりを かわない",
+      "en": "Build: I won't buy cucumbers.",
+      "enSourceHash": "f2a575ee9d54627c"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/ja:さくらが ある",
+      "en": "Build: There are cherry blossoms.",
+      "enSourceHash": "026d04764e13bd26"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/ja:そらに ほしが ある",
+      "en": "Build: There are stars in the sky.",
+      "enSourceHash": "93ecfae7ff77dde2"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/ja:ぞうが いる",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a"
+    }
+  ]
+}
