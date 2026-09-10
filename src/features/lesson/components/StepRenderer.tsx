@@ -75,13 +75,20 @@ export function StepRenderer({
 }: Props) {
   switch (step.type) {
     case "info":
-      return <InfoStepView step={step} onContinue={onContinue} />;
+      return (
+        <InfoStepView
+          step={step}
+          onContinue={onContinue}
+          lessonId={lessonId ?? step.id}
+        />
+      );
     case "multiple_choice":
       return (
         <MultipleChoiceStepView
           step={step}
           onComplete={onComplete}
           onContinue={onContinue}
+          lessonId={lessonId ?? step.id}
         />
       );
     case "build_sentence":
@@ -91,6 +98,7 @@ export function StepRenderer({
           onComplete={onComplete}
           onContinue={onContinue}
           isReplayRun={isReplayRun}
+          lessonId={lessonId ?? step.id}
         />
       );
     case "match_pairs":
@@ -99,6 +107,7 @@ export function StepRenderer({
           step={step}
           onComplete={onComplete}
           onContinue={onContinue}
+          lessonId={lessonId ?? step.id}
         />
       );
     case "fill_blank":
@@ -107,6 +116,7 @@ export function StepRenderer({
           step={step}
           onComplete={onComplete}
           onContinue={onContinue}
+          lessonId={lessonId ?? step.id}
         />
       );
     case "translate":
@@ -191,7 +201,13 @@ export function StepRenderer({
         />
       );
     case "phrase_card":
-      return <PhraseCardStepView step={step} onContinue={onContinue} />;
+      return (
+        <PhraseCardStepView
+          step={step}
+          onContinue={onContinue}
+          lessonId={lessonId ?? step.id}
+        />
+      );
     case "pretest_mcq":
       return (
         <PretestMcqStepView
@@ -226,6 +242,7 @@ export function StepRenderer({
           // retired from the learner path (anti-pattern + culture are
           // delivered reactively / as flavor now).
           variant="compact"
+          lessonId={lessonId ?? step.id}
         />
       );
     case "particle_cloze":
@@ -235,6 +252,7 @@ export function StepRenderer({
           onComplete={onComplete}
           onContinue={onContinue}
           showMeaningPreAnswer={surface === "grammarReview"}
+          lessonId={lessonId ?? step.id}
         />
       );
     case "agreement_cloze":

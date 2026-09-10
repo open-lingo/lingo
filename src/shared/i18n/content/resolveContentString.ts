@@ -1,15 +1,16 @@
 /**
- * Runtime lookup stub for KO-source content strings (rung 1a — §3c of
+ * Runtime lookup for KO-source content strings (rung 1a — §3c of
  * `docs/reverse-teaching-readiness-2026-07-29.md`).
  *
- * This is NOT wired into any step view yet. Rung 1b's job is to call
- * `resolveContentString` from the step views listed at the bottom of this
- * file, once a translated `<moduleId>.<uiLocale>.json` sidecar actually
- * exists for at least one module (produced by the future MT wave — see
- * `docs/ko-source-rung1a-2026-09-10.md`). Today no translated catalogs
- * exist, so this always falls back to English; that is the correct,
- * intended behaviour, not a bug — it makes the stub safe to land ahead of
- * any translated content.
+ * WIRED into the step views listed at the bottom of this file as of rung 1b
+ * (`docs/ko-source-rung1b-2026-09-10.md`) via the shared
+ * `useContentString`/`useContentStrings` hooks
+ * (`src/features/lesson/hooks/useContentString.ts`) and the anchor-formula
+ * helpers in `./anchors.ts`. Still falls back to English for every module
+ * except `m6` (the rung 1b MT-wave pilot — `ja/m6.ko.json`), since no other
+ * translated `<moduleId>.<uiLocale>.json` sidecar exists yet; that is the
+ * correct, intended behaviour, not a bug — it makes this safe to call
+ * everywhere ahead of the rest of the MT wave landing.
  *
  * ## Contract
  *
@@ -157,33 +158,36 @@ export function resolveContentString(
 }
 
 /**
- * Rung 1b wiring plan (NOT done here — this file is deliberately unwired).
+ * Rung 1b wiring map — landed (see `docs/ko-source-rung1b-2026-09-10.md` for
+ * the full per-field table). Each view computes its anchor via a helper in
+ * `./anchors.ts` (mirroring the extractor's own derivation in
+ * `scripts/i18n/extract-content-catalog.mjs`) and calls
+ * `useContentString`/`useContentStrings`
+ * (`src/features/lesson/hooks/useContentString.ts`) in place of the raw
+ * string:
  *
- * Every one of these step views currently renders `en`/gloss/prose text
- * straight from `LessonContent` / `CourseAtom`. Rung 1b's job per view:
- * compute the step/atom's anchor (mirroring the extractor's own anchor
- * derivation in `scripts/i18n/extract-content-catalog.mjs`) and swap the
- * raw string for `resolveContentString(languageId, anchor, raw, uiLocale)`.
+ *   - `InfoStepView.tsx` — `title`, `body`.
+ *   - `MultipleChoiceStepView.tsx` — `prompt` (resolved BEFORE
+ *     `formatPrompt()`), `hint`, `explanation`, each `option.text`.
+ *   - `BuildSentenceStepView.tsx` — `prompt` (same formatPrompt ordering),
+ *     `hint`, `explanation`.
+ *   - `FillBlankStepView.tsx` — `explanation`, `hint`.
+ *   - `ParticleClozeStepView.tsx` — `explanation` (both render sites).
+ *   - `MatchPairsStepView.tsx` — `prompt`, each meaning-grid `pair.target`
+ *     (romaji-grid targets are never extracted in the first place —
+ *     `isGlossText` drops them at catalog-build time — so calling the
+ *     lookup unconditionally on every pair is safe by construction).
+ *   - `PhraseCardStepView.tsx` — `meaningEn`, resolved through the ATOM
+ *     catalog (`atomGlossAnchor`, keyed by `step.kana`) rather than a
+ *     step-shaped anchor, since the extractor's generic `extractStep()`
+ *     never captures this field — only its atom-gloss loop does.
+ *   - `GrammarRuleStepView.tsx` — `title`, `rule`, `examples[].en`,
+ *     `antiPattern.en`/`.why`, `cultureNote`. `readAloudText` deliberately
+ *     stays on raw English — `useSpeechReadAloud` hardcodes
+ *     `utterance.lang = "en-US"`, so speaking a translated string through a
+ *     pinned English voice would be doubly wrong.
  *
- *   - `src/features/lesson/components/steps/MultipleChoiceStep.tsx` —
- *     `prompt`, each `option.text`.
- *   - `src/features/lesson/components/steps/GrammarRuleStep.tsx` —
- *     `title`, `rule`, `examples[].en`, `antiPattern.en`/`.why`,
- *     `cultureNote`.
- *   - `src/features/lesson/components/steps/InfoStep.tsx` — `title`, `body`.
- *   - `src/features/lesson/components/steps/MatchPairsStep.tsx` — meaning-
- *     grid `pair.target` (romaji-grid targets stay untranslated by design,
- *     same "romaji vs meaning" mode split `matchGridShape` already makes).
- *   - Any step view rendering `atom.meaningEn` / `atom.shortGloss` as a
- *     gloss (vocab intro cards, flashcard reviewer, atom tooltips) —
- *     anchor `m<N>/atom:<kana>/gloss` (or `/shortGloss`).
- *   - `src/features/lesson/components/steps/BuildSentenceStep.tsx`,
- *     `FillBlankStep.tsx`, `ParticleClozeStep.tsx`, and the other
- *     `prompt`-bearing step components — same `prompt` treatment as MCQ.
- *
- * A shared `useContentString(languageId, anchor, enText)` hook (reading
- * `uiLocale` from the existing i18next instance via `useTranslation()`)
- * would be the natural call-site wrapper so individual step components
- * don't each re-derive `uiLocale` — left for rung 1b to add alongside the
- * first real wiring, rather than speculatively here.
+ * `story:ja-m<N>-*` lessons are OUT of scope for this wave — story content
+ * is a separate `StoryProse`/`StoryBlocks`/`StoryQuiz` pipeline, not
+ * `LessonContent`/step-shaped; see the rung 1b doc for the full reasoning.
  */

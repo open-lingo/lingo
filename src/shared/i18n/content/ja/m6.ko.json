@@ -1,0 +1,1685 @@
+{
+  "schema": 1,
+  "moduleId": "m6",
+  "lang": "ko",
+  "generatedAt": "2026-09-10",
+  "draftedBy": "qwen3.5:122b-a10b-q4_K_M",
+  "entryCount": 335,
+  "entries": [
+    {
+      "anchor": "m6/atom:あそこ/gloss",
+      "text": "저기",
+      "enSourceHash": "aa572b28f43faac6"
+    },
+    {
+      "anchor": "m6/atom:あそこ/shortGloss",
+      "text": "저기",
+      "enSourceHash": "aa572b28f43faac6"
+    },
+    {
+      "anchor": "m6/atom:あります/gloss",
+      "text": "있다 (사물)",
+      "enSourceHash": "1b5152b41a3cc0ac"
+    },
+    {
+      "anchor": "m6/atom:ある/gloss",
+      "text": "있다, 소유하다 (무생물)",
+      "enSourceHash": "3ab5892f3b63763d"
+    },
+    {
+      "anchor": "m6/atom:いかない/gloss",
+      "text": "가지 않다 / 가지 않을 것이다",
+      "enSourceHash": "975f18141442d053"
+    },
+    {
+      "anchor": "m6/atom:いかない/shortGloss",
+      "text": "가지 않다",
+      "enSourceHash": "2f52e3bc049c9a5c"
+    },
+    {
+      "anchor": "m6/atom:いる/gloss",
+      "text": "있다, 소유하다 (사람, 동물)",
+      "enSourceHash": "5301ca5605de62fd"
+    },
+    {
+      "anchor": "m6/atom:かわない/gloss",
+      "text": "사지 않다 / 사지 않을 것이다",
+      "enSourceHash": "5dabf4abe79ef837"
+    },
+    {
+      "anchor": "m6/atom:かわない/shortGloss",
+      "text": "사지 않다",
+      "enSourceHash": "157f0fdac5013e4e"
+    },
+    {
+      "anchor": "m6/atom:が/gloss",
+      "text": "주어 표시",
+      "enSourceHash": "5f7987fd3dfc1456"
+    },
+    {
+      "anchor": "m6/atom:ここ/gloss",
+      "text": "여기",
+      "enSourceHash": "fcec91509759ad99"
+    },
+    {
+      "anchor": "m6/atom:こない/gloss",
+      "text": "오지 않다 / 오지 않을 것이다",
+      "enSourceHash": "83b1c2c7491bfef5"
+    },
+    {
+      "anchor": "m6/atom:こない/shortGloss",
+      "text": "오지 않다",
+      "enSourceHash": "0144aff8683349b6"
+    },
+    {
+      "anchor": "m6/atom:しない/gloss",
+      "text": "하지 않다 / 하지 않을 것이다",
+      "enSourceHash": "e75317b7088c1f4a"
+    },
+    {
+      "anchor": "m6/atom:しない/shortGloss",
+      "text": "하지 않다",
+      "enSourceHash": "446baa245dafe788"
+    },
+    {
+      "anchor": "m6/atom:そこ/gloss",
+      "text": "그곳",
+      "enSourceHash": "d3b92fa6aafa8aab"
+    },
+    {
+      "anchor": "m6/atom:たべない/gloss",
+      "text": "먹지 않다 / 먹지 않을 것이다",
+      "enSourceHash": "c2c821d55bbefc63"
+    },
+    {
+      "anchor": "m6/atom:たべない/shortGloss",
+      "text": "먹지 않다",
+      "enSourceHash": "3064e235b64a0cfe"
+    },
+    {
+      "anchor": "m6/atom:で/gloss",
+      "text": "에서 / 수단으로",
+      "enSourceHash": "0b9352a721e830bb"
+    },
+    {
+      "anchor": "m6/atom:どこ/gloss",
+      "text": "어디",
+      "enSourceHash": "b48111c10c65fc11"
+    },
+    {
+      "anchor": "m6/atom:なか/gloss",
+      "text": "안",
+      "enSourceHash": "106b086224a4d945"
+    },
+    {
+      "anchor": "m6/atom:に/gloss",
+      "text": "에 / 장소",
+      "enSourceHash": "148a955815ccb1c8"
+    },
+    {
+      "anchor": "m6/atom:のまない/gloss",
+      "text": "마시지 않다 / 마시지 않을 것이다",
+      "enSourceHash": "6366955d6a9c5770"
+    },
+    {
+      "anchor": "m6/atom:のまない/shortGloss",
+      "text": "마시지 않다",
+      "enSourceHash": "35ea5ea6a41e24ed"
+    },
+    {
+      "anchor": "m6/atom:みない/gloss",
+      "text": "보지 않다 / 보지 않을 것이다",
+      "enSourceHash": "606a22926618bdda"
+    },
+    {
+      "anchor": "m6/atom:みない/shortGloss",
+      "text": "보지 않다",
+      "enSourceHash": "2d6a886967937673"
+    },
+    {
+      "anchor": "m6/atom:わからない/gloss",
+      "text": "이해하지 않다 / 모르다",
+      "enSourceHash": "c9157dddb8a3ca6f"
+    },
+    {
+      "anchor": "m6/atom:わからない/shortGloss",
+      "text": "이해하지 않다",
+      "enSourceHash": "18c6fae7a6a3837e"
+    },
+    {
+      "anchor": "m6/atom:コート/gloss",
+      "text": "코트, 테니스 코트",
+      "enSourceHash": "99b639b360d66bcc"
+    },
+    {
+      "anchor": "m6/gp:arimasu/ex:かさが ある。",
+      "text": "우산이 있다.",
+      "enSourceHash": "4d75c3e260ce60ec"
+    },
+    {
+      "anchor": "m6/gp:arimasu/ex:ほんが ある。",
+      "text": "책이 있다.",
+      "enSourceHash": "4a43abe1883274ef"
+    },
+    {
+      "anchor": "m6/gp:arimasu/ex:ほんを ある。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m6/gp:de-action-action/ex:いえで たべる。",
+      "text": "집에서 먹는다.",
+      "enSourceHash": "da35a6cc417c3573"
+    },
+    {
+      "anchor": "m6/gp:de-action-action/ex:いえに たべる。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m6/gp:de-action-action/ex:うみで あそぶ。",
+      "text": "바다에서 논다.",
+      "enSourceHash": "762f8422ef75d40d"
+    },
+    {
+      "anchor": "m6/gp:imasu/ex:ねこが ある。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m6/gp:imasu/ex:ねこが いる。",
+      "text": "고양이가 있다.",
+      "enSourceHash": "d3941d22e7744027"
+    },
+    {
+      "anchor": "m6/gp:imasu/ex:ひとが いる。",
+      "text": "사람이 있다.",
+      "enSourceHash": "12daaf4516dcb6c0"
+    },
+    {
+      "anchor": "m6/gp:koko-soko-asoko/ex:かぎは ここ。",
+      "text": "열쇠는 여기다.",
+      "enSourceHash": "460f79c24db8c0ef"
+    },
+    {
+      "anchor": "m6/gp:koko-soko-asoko/ex:ねこは どこ？",
+      "text": "고양이는 어디인가?",
+      "enSourceHash": "63315086b9dd6e6e"
+    },
+    {
+      "anchor": "m6/gp:koko-soko-asoko/ex:ほんは そこ。",
+      "text": "책은 거기 (당신 곁에) 있어요.",
+      "enSourceHash": "486964ea020d0ec7"
+    },
+    {
+      "anchor": "m6/gp:location-qa/ex:かばんの なかに ある。",
+      "text": "(그것은) 가방 안에 있어요.",
+      "enSourceHash": "35ee01060845442c"
+    },
+    {
+      "anchor": "m6/gp:location-qa/ex:ここに ない。",
+      "text": "(그것은) 여기에 없어요.",
+      "enSourceHash": "2af518986afa1f31"
+    },
+    {
+      "anchor": "m6/gp:location-qa/ex:ねこは どこに ある？",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m6/gp:location-qa/ex:ねこは どこに いる？",
+      "text": "고양이는 어디에 있어요?",
+      "enSourceHash": "63315086b9dd6e6e"
+    },
+    {
+      "anchor": "m6/gp:nai-existence/ex:ねこが いない。",
+      "text": "고양이가 없어요.",
+      "enSourceHash": "89062537076f7e76"
+    },
+    {
+      "anchor": "m6/gp:nai-existence/ex:ほんが あらない。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m6/gp:nai-existence/ex:ほんが ない。",
+      "text": "책이 없어요.",
+      "enSourceHash": "e4176f891d7a3c7e"
+    },
+    {
+      "anchor": "m6/gp:nai-form/ex:きょうは いかない。",
+      "text": "오늘은 가지 않아요.",
+      "enSourceHash": "b97f8636be283908"
+    },
+    {
+      "anchor": "m6/gp:nai-form/ex:こない。",
+      "text": "(저는) 오지 않아요.",
+      "enSourceHash": "751585403054031f"
+    },
+    {
+      "anchor": "m6/gp:nai-form/ex:これを しない。",
+      "text": "이것은 하지 않아요.",
+      "enSourceHash": "b5e2bdf16ee0aba4"
+    },
+    {
+      "anchor": "m6/gp:nai-form/ex:これを するない。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m6/gp:nai-form/ex:ごはんを たべない。",
+      "text": "밥을 먹지 않아요.",
+      "enSourceHash": "ab2c8e9965fce77b"
+    },
+    {
+      "anchor": "m6/gp:nai-form/ex:ごはんを たべるない。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m6/gp:nai-form/ex:しない。",
+      "text": "(저는) 하지 않아요.",
+      "enSourceHash": "e56496e788b05845"
+    },
+    {
+      "anchor": "m6/gp:nai-form/ex:しゃしんを みない。",
+      "text": "사진을 보지 않아요.",
+      "enSourceHash": "79496ebeac70a049"
+    },
+    {
+      "anchor": "m6/gp:nai-form/ex:たべない。",
+      "text": "(저는) 먹지 않아요.",
+      "enSourceHash": "22c14d36676aa614"
+    },
+    {
+      "anchor": "m6/gp:nai-form/ex:ほんを かわない。",
+      "text": "책을 사지 않아요.",
+      "enSourceHash": "456f3bb6ce4259ae"
+    },
+    {
+      "anchor": "m6/gp:nai-form/ex:みずを のまない。",
+      "text": "물을 마시지 않아요.",
+      "enSourceHash": "7e049b9bfe91fae3"
+    },
+    {
+      "anchor": "m6/gp:nai-form/ex:みずを のむない。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m6/gp:nai-form/ex:わからない。",
+      "text": "(저는) 알 수 없어요.",
+      "enSourceHash": "d6c8901d7e6c15c1"
+    },
+    {
+      "anchor": "m6/gp:ni-location-location/ex:あそこに ねこが いる。",
+      "text": "저기에 고양이가 있어요.",
+      "enSourceHash": "f49c6023c1ba98a6"
+    },
+    {
+      "anchor": "m6/gp:ni-location-location/ex:ここ ほんが ある。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m6/gp:ni-location-location/ex:ここに ほんが ある。",
+      "text": "여기에 책이 있어요.",
+      "enSourceHash": "40a1d7e8cd26ab45"
+    },
+    {
+      "anchor": "m6/gp:spatial-relations/ex:かばんの なかに かぎが ある。",
+      "text": "가방 안에 열쇠가 있어요.",
+      "enSourceHash": "c8c7d7d8244f58e7"
+    },
+    {
+      "anchor": "m6/gp:spatial-relations/ex:ほん うえに ねこが いる。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m6/gp:spatial-relations/ex:ほんの うえに ねこが いる。",
+      "text": "책 위에 고양이가 있어요.",
+      "enSourceHash": "170b669b898820da"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/en:25cdb46d8d2115a2",
+      "text": "배",
+      "enSourceHash": "25cdb46d8d2115a2"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/en:40f5c8214eeb195d",
+      "text": "밥",
+      "enSourceHash": "40f5c8214eeb195d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/en:45411b53c3ee653e",
+      "text": "미국인",
+      "enSourceHash": "45411b53c3ee653e"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/en:527af7c109a784d8",
+      "text": "먹다",
+      "enSourceHash": "527af7c109a784d8"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 그 뜻과 맞추세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/en:65f8ea722badb7ca",
+      "text": "보다",
+      "enSourceHash": "65f8ea722badb7ca"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/en:7482d5802c3c2798",
+      "text": "사진",
+      "enSourceHash": "7482d5802c3c2798"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/en:a0f89b8e7c81efaa",
+      "text": "\"개\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "a0f89b8e7c81efaa"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/en:ce14eb884880a070",
+      "text": "\"고양이\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "ce14eb884880a070"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/en:e8b455340e57a236",
+      "text": "\"배\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "e8b455340e57a236"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/en:e9d9df24a68c1d7d",
+      "text": "\"강\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/ja:きゅうりを たべない",
+      "text": "만들기: 오이를 먹지 않아요.",
+      "enSourceHash": "ff37e5cad620ccb7"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/ja:きょうは たべない",
+      "text": "만들기: 오늘은 먹지 않아요.",
+      "enSourceHash": "30ae34d008e2dc92"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/ja:ごはんを たべない",
+      "text": "빌드: 나는 밥을 먹지 않아.",
+      "enSourceHash": "a0737b0ebc38da55"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/ja:すしを たべない",
+      "text": "듣는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/ja:それを みない",
+      "text": "빌드: 나는 그것을 보지 않아.",
+      "enSourceHash": "2b805ffffeef2d98"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/ja:ふねを みない",
+      "text": "듣는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-1/ja:ミカの ごはんを たべない",
+      "text": "빌드: 나는 미카의 밥을 먹지 않을 거야.",
+      "enSourceHash": "7b6d7e1c40a3cf73"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:13598952c5069a3d",
+      "text": "의자에 모자가 있어요.",
+      "enSourceHash": "13598952c5069a3d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:170b669b898820da",
+      "text": "책 위에 고양이가 있어요.",
+      "enSourceHash": "170b669b898820da"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:18e1dd392168f601",
+      "text": "모자",
+      "enSourceHash": "18e1dd392168f601"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:2cd3fba5ed9551d8",
+      "text": "집 안에 개가 있어요.",
+      "enSourceHash": "2cd3fba5ed9551d8"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:3d7eb3d3dab17ee5",
+      "text": "의자",
+      "enSourceHash": "3d7eb3d3dab17ee5"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:5f1dae660c257449",
+      "text": "가방 안에 모자가 있어요.",
+      "enSourceHash": "5f1dae660c257449"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:6e3bf34066729e64",
+      "text": "\"바다\"를 뜻하는 단어를 고르세요",
+      "enSourceHash": "6e3bf34066729e64"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:7c54cffcc3c6c09f",
+      "text": "책 위에 열쇠가 있어요.",
+      "enSourceHash": "7c54cffcc3c6c09f"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:c018019b6a8b01ab",
+      "text": "가방",
+      "enSourceHash": "c018019b6a8b01ab"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:c73c060862f482e8",
+      "text": "우산도 책 위에 있어요.",
+      "enSourceHash": "c73c060862f482e8"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:c8c7d7d8244f58e7",
+      "text": "가방 안에 열쇠가 있어요.",
+      "enSourceHash": "c8c7d7d8244f58e7"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:ce14eb884880a070",
+      "text": "\"고양이\"를 뜻하는 단어를 고르세요",
+      "enSourceHash": "ce14eb884880a070"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:d07bf9e756ebbfe1",
+      "text": "있다 (사물)",
+      "enSourceHash": "d07bf9e756ebbfe1"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:e108d95e753fe120",
+      "text": "있다 (생명체)",
+      "enSourceHash": "e108d95e753fe120"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/en:e9d9df24a68c1d7d",
+      "text": "\"강\"을 뜻하는 단어를 고르세요",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/ja:いえの なかに いぬが いる",
+      "text": "빌드: 집 안에 개가 있어요.",
+      "enSourceHash": "2c389f542b54a55b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/ja:かさも ほんの うえに ある",
+      "text": "빌드: 우산도 책 위에 있어요.",
+      "enSourceHash": "0f34ac0b87a3596e"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/ja:かばんの なかに かぎが ある",
+      "text": "빌드: 가방 안에 열쇠가 있어요.",
+      "enSourceHash": "36deeacdbdcd30b5"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/ja:かばんの なかに ぼうしが ある",
+      "text": "듣는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/ja:ほんの うえに かぎが ある",
+      "text": "빌드: 책 위에 열쇠가 있어요.",
+      "enSourceHash": "3fbe818b9a4a313b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-10/ja:ほんの うえに ねこが いる",
+      "text": "빌드: 책 위에 고양이가 있어요.",
+      "enSourceHash": "5b6434267a9a98c6"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:2ee9444b6b67533b",
+      "text": "없다 (사물)",
+      "enSourceHash": "2ee9444b6b67533b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:3408b9f5006fb568",
+      "text": "없다 (생명체)",
+      "enSourceHash": "3408b9f5006fb568"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:35ee01060845442c",
+      "text": "그것은 가방 안에 있어요.",
+      "enSourceHash": "35ee01060845442c"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:3f6400d13f3365b3",
+      "text": "\"위, 윗부분\"을 뜻하는 단어를 고르세요",
+      "enSourceHash": "3f6400d13f3365b3"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:416c3094585d7d2b",
+      "text": "미카의 고양이는 어디에 있어요?",
+      "enSourceHash": "416c3094585d7d2b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:50347e416bec25da",
+      "text": "열쇠는 어디에 있어요?",
+      "enSourceHash": "50347e416bec25da"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:63315086b9dd6e6e",
+      "text": "고양이는 어디에 있어요?",
+      "enSourceHash": "63315086b9dd6e6e"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:727ea55fc8ee1dc7",
+      "text": "\"연못\"을 뜻하는 단어를 고르세요",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:77af778b51abd4a3",
+      "text": "고양이",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:a0f89b8e7c81efaa",
+      "text": "\"개\"를 뜻하는 단어를 고르세요",
+      "enSourceHash": "a0f89b8e7c81efaa"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:b2b1f80c672eaa3c",
+      "text": "선생님은 어디에 있어요?",
+      "enSourceHash": "b2b1f80c672eaa3c"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:b3ff3281c93573d4",
+      "text": "어디에?",
+      "enSourceHash": "b3ff3281c93573d4"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:d07bf9e756ebbfe1",
+      "text": "있다 (사물)",
+      "enSourceHash": "d07bf9e756ebbfe1"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:e108d95e753fe120",
+      "text": "있다 (생명체)",
+      "enSourceHash": "e108d95e753fe120"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/en:e246ee10a900ac51",
+      "text": "고양이가 여기에 없다.",
+      "enSourceHash": "e246ee10a900ac51"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/ja:あそこに いる",
+      "text": "만들기: 그는 저기에 있다.",
+      "enSourceHash": "c29c572a177ccf26"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/ja:かぎは どこに ある？",
+      "text": "만들기: 열쇠가 어디에 있니?",
+      "enSourceHash": "51e1d8e00ab928c4"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/ja:ここに ない",
+      "text": "만들기: 여기에 없다.",
+      "enSourceHash": "f0741df34ed0b080"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/ja:せんせいは どこに いる？",
+      "text": "듣는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/ja:ねこは ここに いない",
+      "text": "만들기: 고양이가 여기에 없다.",
+      "enSourceHash": "a899e70ab2ed78a3"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/ja:ねこは どこに いる？",
+      "text": "듣는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-11/ja:ミカの ねこは どこに いる？",
+      "text": "듣는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/en:0f4168490e38b844",
+      "text": "물",
+      "enSourceHash": "0f4168490e38b844"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/en:25dc891a5ee480a2",
+      "text": "이해하다",
+      "enSourceHash": "25dc891a5ee480a2"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 매칭하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/en:7e2ed393d525d7e2",
+      "text": "사다",
+      "enSourceHash": "7e2ed393d525d7e2"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/en:80d33d6dc0d19f84",
+      "text": "가다",
+      "enSourceHash": "80d33d6dc0d19f84"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/en:8825e76530f87ff5",
+      "text": "우유",
+      "enSourceHash": "8825e76530f87ff5"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/en:e62f640360d85af9",
+      "text": "마시다",
+      "enSourceHash": "e62f640360d85af9"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/en:e8b455340e57a236",
+      "text": "\"배\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "e8b455340e57a236"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/en:e9d9df24a68c1d7d",
+      "text": "\"강\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/ja:きょうは いかない",
+      "text": "듣는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/ja:ぎゅうにゅうを のまない",
+      "text": "듣는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/ja:それは わからない",
+      "text": "만들기: 나는 그건 이해하지 못해.",
+      "enSourceHash": "a224c123b07b5d12"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/ja:ほんを かわない",
+      "text": "만들기: 나는 책을 사지 않을 거야.",
+      "enSourceHash": "bac4a11e938c069c"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/ja:みずを のまない",
+      "text": "듣는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/ja:わたしは のまない",
+      "text": "만들기: 나는 마시지 않을 거야.",
+      "enSourceHash": "4d87b85b3a7a5135"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/ja:トムは わからない",
+      "text": "만들기: 톰은 이해하지 못해.",
+      "enSourceHash": "964be194f5f21349"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/ja:ミカは いかない",
+      "text": "만들기: 미카는 가지 않을 거야.",
+      "enSourceHash": "c50055696ffa7a25"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-2/ja:ミカも みずを のまない",
+      "text": "만들기: 미카도 물을 마시지 않을 거야.",
+      "enSourceHash": "c3dcad712db7e6b3"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/en:217655f48dde4e0a",
+      "text": "하다",
+      "enSourceHash": "217655f48dde4e0a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/en:227c7024de86036c",
+      "text": "오다",
+      "enSourceHash": "227c7024de86036c"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/en:3064e235b64a0cfe",
+      "text": "먹지 않다",
+      "enSourceHash": "3064e235b64a0cfe"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/en:45411b53c3ee653e",
+      "text": "미국 사람",
+      "enSourceHash": "45411b53c3ee653e"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 매칭하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/en:755d07a8b350b42e",
+      "text": "이것 (나 옆에)",
+      "enSourceHash": "755d07a8b350b42e"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/en:a0f89b8e7c81efaa",
+      "text": "\"개\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "a0f89b8e7c81efaa"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/en:ce14eb884880a070",
+      "text": "\"고양이\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "ce14eb884880a070"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/en:ddb7498edf9593e5",
+      "text": "그것 (너 옆에)",
+      "enSourceHash": "ddb7498edf9593e5"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/en:e8b455340e57a236",
+      "text": "\"배\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "e8b455340e57a236"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/en:e9d9df24a68c1d7d",
+      "text": "\"강\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/ja:きょう しない",
+      "text": "빌드: 오늘 하지 않겠다.",
+      "enSourceHash": "eee4eea116284e31"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/ja:きょうは これを しない",
+      "text": "빌드: 오늘은 이것을 하지 않겠다.",
+      "enSourceHash": "40593af93b36a250"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/ja:これを しない",
+      "text": "빌드: 이것을 하지 않겠다.",
+      "enSourceHash": "6b20abb4b0603c0d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/ja:ごはんを たべない",
+      "text": "빌드: 밥을 먹지 않는다.",
+      "enSourceHash": "a0737b0ebc38da55"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/ja:それを しない",
+      "text": "빌드: 그것을 하지 않겠다.",
+      "enSourceHash": "f50c686382288ccd"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/ja:みずを のまない",
+      "text": "듣고 만들어라.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-3/ja:ケンは こない",
+      "text": "빌드: 켄은 오지 않는다.",
+      "enSourceHash": "3188b752b33bb7f8"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/en:25cdb46d8d2115a2",
+      "text": "배",
+      "enSourceHash": "25cdb46d8d2115a2"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/en:2974744982f08b20",
+      "text": "우산",
+      "enSourceHash": "2974744982f08b20"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/en:2b2961a431b23c90",
+      "text": "자동차",
+      "enSourceHash": "2b2961a431b23c90"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/en:2c70e12b7a0646f9",
+      "text": "열쇠",
+      "enSourceHash": "2c70e12b7a0646f9"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/en:45411b53c3ee653e",
+      "text": "미국인",
+      "enSourceHash": "45411b53c3ee653e"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 그 뜻과 매칭하라 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/en:72f75f5b53f57f53",
+      "text": "\"열쇠\"에 해당하는 단어를 고르라",
+      "enSourceHash": "72f75f5b53f57f53"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/en:a0f89b8e7c81efaa",
+      "text": "\"개\"에 해당하는 단어를 고르라",
+      "enSourceHash": "a0f89b8e7c81efaa"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/en:ce14eb884880a070",
+      "text": "\"고양이\"에 해당하는 단어를 고르라",
+      "enSourceHash": "ce14eb884880a070"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/en:e8b455340e57a236",
+      "text": "\"배\"에 해당하는 단어를 고르라",
+      "enSourceHash": "e8b455340e57a236"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/en:e9d9df24a68c1d7d",
+      "text": "\"강\"에 해당하는 단어를 고르라",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/ja:かぎが ある",
+      "text": "듣고 만들어라.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/ja:かさが ある",
+      "text": "빌드: 우산이 있다.",
+      "enSourceHash": "26e2f069010b2e15"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/ja:くるまが ある",
+      "text": "듣고 만들어라.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/ja:だれの かさが ある？",
+      "text": "듣고 만들어라.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/ja:ふねが ある",
+      "text": "빌드: 배가 있다.",
+      "enSourceHash": "7a37bff564ed7efe"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-4/ja:ほんが ある",
+      "text": "빌드: 책이 있다.",
+      "enSourceHash": "7a8367cf71b07ca9"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/en:0282d9b79f42c74c",
+      "text": "얼굴",
+      "enSourceHash": "0282d9b79f42c74c"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/en:25cdb46d8d2115a2",
+      "text": "배",
+      "enSourceHash": "25cdb46d8d2115a2"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 그 뜻과 매칭하라 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/en:72f75f5b53f57f53",
+      "text": "\"열쇠\"에 해당하는 단어를 고르라",
+      "enSourceHash": "72f75f5b53f57f53"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/en:77af778b51abd4a3",
+      "text": "고양이",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/en:9e78b43ea00edcac",
+      "text": "달",
+      "enSourceHash": "9e78b43ea00edcac"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/en:a0f89b8e7c81efaa",
+      "text": "\"개\"에 해당하는 단어를 고르라",
+      "enSourceHash": "a0f89b8e7c81efaa"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/en:cd6357efdd966de8",
+      "text": "개",
+      "enSourceHash": "cd6357efdd966de8"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/en:ce14eb884880a070",
+      "text": "\"고양이\"에 해당하는 단어를 고르라",
+      "enSourceHash": "ce14eb884880a070"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/en:d07bf9e756ebbfe1",
+      "text": "있다 (사물)",
+      "enSourceHash": "d07bf9e756ebbfe1"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/en:e8b455340e57a236",
+      "text": "\"배\"에 해당하는 단어를 고르라",
+      "enSourceHash": "e8b455340e57a236"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/en:e9d9df24a68c1d7d",
+      "text": "\"강\"에 해당하는 단어를 고르라",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/ja:いぬが いる",
+      "text": "빌드: 개가 있다.",
+      "enSourceHash": "e94ae3b298ce1f6d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/ja:かめが いる",
+      "text": "빌드: 거북이가 있다.",
+      "enSourceHash": "12a6d3a7a625c826"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/ja:ねこが いる",
+      "text": "빌드: 고양이가 있다.",
+      "enSourceHash": "233584497c47541a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/ja:ひとが いる",
+      "text": "듣는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/ja:ぶたが いる",
+      "text": "만들기: 돼지가 있어요.",
+      "enSourceHash": "3fcfbf1b42daff53"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/ja:ほんが ある",
+      "text": "듣는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-5/ja:ミカの ねこも いる",
+      "text": "만들기: 미카의 고양이도 있어요.",
+      "enSourceHash": "89962054493e67ab"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:1aa138a41a322713",
+      "text": "오늘 미카의 개는 여기에 없어요.",
+      "enSourceHash": "1aa138a41a322713"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:45411b53c3ee653e",
+      "text": "미국인 (사람)",
+      "enSourceHash": "45411b53c3ee653e"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:56836e83cc21104a",
+      "text": "오늘 선생님은 여기에 없어요.",
+      "enSourceHash": "56836e83cc21104a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:6c15d8649c7bcf33",
+      "text": "미카의 우산이 없어요.",
+      "enSourceHash": "6c15d8649c7bcf33"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:72f75f5b53f57f53",
+      "text": "\"열쇠\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "72f75f5b53f57f53"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:77af778b51abd4a3",
+      "text": "고양이",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:84d22a81c0759e2f",
+      "text": "오늘 밥이 없어요.",
+      "enSourceHash": "84d22a81c0759e2f"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:a0f89b8e7c81efaa",
+      "text": "\"개\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "a0f89b8e7c81efaa"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:cd6357efdd966de8",
+      "text": "개",
+      "enSourceHash": "cd6357efdd966de8"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:d07bf9e756ebbfe1",
+      "text": "있다 (사물)",
+      "enSourceHash": "d07bf9e756ebbfe1"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:e108d95e753fe120",
+      "text": "있다 (생물)",
+      "enSourceHash": "e108d95e753fe120"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/en:e9d9df24a68c1d7d",
+      "text": "\"강\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/ja:かぎが ない",
+      "text": "듣는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/ja:きょうは ごはんが ない",
+      "text": "만들기: 오늘 밥이 없어요.",
+      "enSourceHash": "3417e7dee0277a49"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/ja:きょうは せんせいが いない",
+      "text": "만들기: 오늘 선생님은 여기에 없어요.",
+      "enSourceHash": "931c167b1e9f995e"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/ja:きょうは ミカの いぬが いない",
+      "text": "듣는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/ja:ねこが いない",
+      "text": "만들기: 고양이가 없어요.",
+      "enSourceHash": "1c72e293d211a47f"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/ja:ひとが いない",
+      "text": "듣는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/ja:ほんが ない",
+      "text": "만들기: 책이 없어요.",
+      "enSourceHash": "f84f53a0af1225d6"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-6/ja:ミカの かさが ない",
+      "text": "만들기: 미카의 우산이 없어요.",
+      "enSourceHash": "872ac1d20e65f978"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/en:1057a9604e04b274",
+      "text": "선생님",
+      "enSourceHash": "1057a9604e04b274"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/en:1fd8ea152601cb50",
+      "text": "어느 (세 개 이상 중)",
+      "enSourceHash": "1fd8ea152601cb50"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/en:4173b3e2b24a314a",
+      "text": "저것 (저기 있는 것)",
+      "enSourceHash": "4173b3e2b24a314a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/en:45411b53c3ee653e",
+      "text": "미국인 (사람)",
+      "enSourceHash": "45411b53c3ee653e"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/en:72f75f5b53f57f53",
+      "text": "\"열쇠\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "72f75f5b53f57f53"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/en:755d07a8b350b42e",
+      "text": "이것 (내 곁에 있는 것)",
+      "enSourceHash": "755d07a8b350b42e"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/en:a0f89b8e7c81efaa",
+      "text": "\"개\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "a0f89b8e7c81efaa"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/en:ce14eb884880a070",
+      "text": "\"고양이\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "ce14eb884880a070"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/en:ddb7498edf9593e5",
+      "text": "그것 (당신 곁에 있는 것)",
+      "enSourceHash": "ddb7498edf9593e5"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/en:e8b455340e57a236",
+      "text": "\"배\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "e8b455340e57a236"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/en:e9d9df24a68c1d7d",
+      "text": "\"강\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/ja:うまは そこ",
+      "text": "만들기: 말은 저기, 당신 곁에 있어요.",
+      "enSourceHash": "2bf4766c17cea9bc"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/ja:かぎは ここ",
+      "text": "만들기: 열쇠는 바로 여기에 있어요.",
+      "enSourceHash": "ff8e5afb98e92676"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/ja:かさは あそこ",
+      "text": "Build: 우산은 저기에 있어요.",
+      "enSourceHash": "8cc87bddfdb22b48"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/ja:せんせいは どこ？",
+      "text": "Build: 들은 내용을 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/ja:ねこは あそこ",
+      "text": "Build: 고양이는 저기에 있어요.",
+      "enSourceHash": "dfc8dece9c01cbfc"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/ja:ねこは どこ？",
+      "text": "Build: 들은 내용을 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/ja:トムは どこ？",
+      "text": "Build: 톰은 어디에 있어요?",
+      "enSourceHash": "0473b31d7478f577"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-7/ja:ミカの かさは どこ？",
+      "text": "Build: 들은 내용을 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:24633ae5d25bf34b",
+      "text": "연못에 거북이가 있어요.",
+      "enSourceHash": "24633ae5d25bf34b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:40a1d7e8cd26ab45",
+      "text": "여기에 책이 있어요.",
+      "enSourceHash": "40a1d7e8cd26ab45"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 그 의미와 매칭하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:65e29e191464b66d",
+      "text": "집에 개가 있어요.",
+      "enSourceHash": "65e29e191464b66d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:6cd4f89e2953ade0",
+      "text": "미카의 거북이는 연못에 있어요.",
+      "enSourceHash": "6cd4f89e2953ade0"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:72f75f5b53f57f53",
+      "text": "\"열쇠\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "72f75f5b53f57f53"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:8dfd77f40c0e21f0",
+      "text": "거기에 열쇠가 있어요.",
+      "enSourceHash": "8dfd77f40c0e21f0"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:94c720237f4bd5fe",
+      "text": "저기에 말이 있어요.",
+      "enSourceHash": "94c720237f4bd5fe"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:a0f89b8e7c81efaa",
+      "text": "\"개\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "a0f89b8e7c81efaa"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:a6bcbe6c9727b897",
+      "text": "여기 (나 근처)",
+      "enSourceHash": "a6bcbe6c9727b897"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:b3ff3281c93573d4",
+      "text": "어디?",
+      "enSourceHash": "b3ff3281c93573d4"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:c6df1a9f3828e7f3",
+      "text": "거기 (너 근처)",
+      "enSourceHash": "c6df1a9f3828e7f3"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:d07bf9e756ebbfe1",
+      "text": "있다 (사물)",
+      "enSourceHash": "d07bf9e756ebbfe1"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:e108d95e753fe120",
+      "text": "있다 (생명체)",
+      "enSourceHash": "e108d95e753fe120"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:e115fde45c2ccef2",
+      "text": "저기 (양쪽 모두에서 멀리)",
+      "enSourceHash": "e115fde45c2ccef2"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:e9d9df24a68c1d7d",
+      "text": "\"강\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/en:f49c6023c1ba98a6",
+      "text": "저기에 고양이가 있어요.",
+      "enSourceHash": "f49c6023c1ba98a6"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/ja:あそこに うまが いる",
+      "text": "Build: 들은 내용을 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/ja:あそこに ねこが いる",
+      "text": "Build: 저기에 고양이가 있어요.",
+      "enSourceHash": "c6e3cfd2bebe0cf5"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/ja:いえに いぬが いる",
+      "text": "Build: 집에 개가 있어요.",
+      "enSourceHash": "68d249f81d438321"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/ja:ここに ほんが ある",
+      "text": "Build: 여기에 책이 있어요.",
+      "enSourceHash": "a5753c69e15643d4"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/ja:そこに かぎが ある",
+      "text": "Build: 들은 내용을 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-8/ja:ミカの かめは いけに いる",
+      "text": "Build: 미카의 거북이는 연못에 있어요.",
+      "enSourceHash": "5be5d86589296a15"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/en:24237e96e5183016",
+      "text": "놀다",
+      "enSourceHash": "24237e96e5183016"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/en:4a69f19c8c264850",
+      "text": "바다",
+      "enSourceHash": "4a69f19c8c264850"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/en:527af7c109a784d8",
+      "text": "먹다",
+      "enSourceHash": "527af7c109a784d8"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 그 의미와 매칭하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/en:5f5a8ed8f139be6d",
+      "text": "강",
+      "enSourceHash": "5f5a8ed8f139be6d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/en:6e3bf34066729e64",
+      "text": "\"바다\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "6e3bf34066729e64"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/en:7e2ed393d525d7e2",
+      "text": "사다",
+      "enSourceHash": "7e2ed393d525d7e2"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/en:a0f89b8e7c81efaa",
+      "text": "\"개\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "a0f89b8e7c81efaa"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/en:ce14eb884880a070",
+      "text": "\"고양이\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "ce14eb884880a070"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/en:e62f640360d85af9",
+      "text": "마시다",
+      "enSourceHash": "e62f640360d85af9"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/en:e8b455340e57a236",
+      "text": "\"배\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "e8b455340e57a236"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/en:e9d9df24a68c1d7d",
+      "text": "\"강\"을 뜻하는 단어를 고르세요",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/ja:いえで たべる",
+      "text": "만들기: 집에서 먹는다.",
+      "enSourceHash": "468276234a07711b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/ja:いえに ねこが いる",
+      "text": "만들기: 집에 고양이가 있다.",
+      "enSourceHash": "44d25a208f147719"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/ja:いけで あそぶ",
+      "text": "듣고 만들기.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/ja:うみで あそぶ",
+      "text": "만들기: 바다에서 논다.",
+      "enSourceHash": "361f261ca7dfa5c0"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/ja:えきで かう",
+      "text": "만들기: 역에서 산다.",
+      "enSourceHash": "6e165369ce209fc0"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/ja:かわで あそぶ",
+      "text": "듣고 만들기.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-9/ja:ミカの いえで ごはんを たべる",
+      "text": "만들기: 미카의 집에서 밥을 먹는다.",
+      "enSourceHash": "44af87815fa435b5"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/en:0144aff8683349b6",
+      "text": "오지 않는다",
+      "enSourceHash": "0144aff8683349b6"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/en:11b15a34b5d75a81",
+      "text": "오늘 미카의 집에서 밥을 먹지 않는다.",
+      "enSourceHash": "11b15a34b5d75a81"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/en:2ee9444b6b67533b",
+      "text": "없다 (사물)",
+      "enSourceHash": "2ee9444b6b67533b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/en:3064e235b64a0cfe",
+      "text": "먹지 않는다",
+      "enSourceHash": "3064e235b64a0cfe"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/en:3408b9f5006fb568",
+      "text": "없다 (생명체)",
+      "enSourceHash": "3408b9f5006fb568"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/en:35ea5ea6a41e24ed",
+      "text": "마시지 않는다",
+      "enSourceHash": "35ea5ea6a41e24ed"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/en:3f6400d13f3365b3",
+      "text": "\"위, 윗부분\"을 뜻하는 단어를 고르세요",
+      "enSourceHash": "3f6400d13f3365b3"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/en:446baa245dafe788",
+      "text": "하지 않는다",
+      "enSourceHash": "446baa245dafe788"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/en:4d83eae65eff9664",
+      "text": "챌린지 — 모두 연결하기",
+      "enSourceHash": "4d83eae65eff9664"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/en:557d52e623437b8f",
+      "text": "선생님은 저기에 계신다.",
+      "enSourceHash": "557d52e623437b8f"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 그 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/en:6a1e027178993f1a",
+      "text": "가방에 열쇠가 없다.",
+      "enSourceHash": "6a1e027178993f1a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/en:d1f2ad4ec0ecbc98",
+      "text": "켄의 차는 저기에 없다.",
+      "enSourceHash": "d1f2ad4ec0ecbc98"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/ja:いぬは いえに いない",
+      "text": "듣고 만들기.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/ja:うまは かわの なかに いない",
+      "text": "만들기: 말은 강 안에 없다.",
+      "enSourceHash": "cd111ba8ec1a3b82"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/ja:きょうは あそこで かさを かわない",
+      "text": "만들기: 오늘은 저기서 우산을 사지 않는다.",
+      "enSourceHash": "4c8089fe4f8002a9"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/ja:きょうは ミカの いえで ごはんを たべない",
+      "text": "만들기: 오늘은 미카의 집에서 밥을 먹지 않는다.",
+      "enSourceHash": "0fc92f13bddd3ad4"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/ja:これは かわない",
+      "text": "듣고 만들기.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/ja:せんせいは あそこに いる",
+      "text": "만들기: 선생님은 저기에 계신다.",
+      "enSourceHash": "5bbd0025d715b6b0"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/ja:だれの かさが いすの うえに ある？",
+      "text": "만들기: 누구의 우산이 의자 위에 있는가?",
+      "enSourceHash": "1fce26a4816ae15b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/ja:ほんは いすの うえに ある",
+      "text": "만들기: 책은 의자 위에 있다.",
+      "enSourceHash": "10d6eab9bccdea64"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/ja:ケンの くるまは あそこに ない",
+      "text": "만들기: 켄의 차는 저기에 없다.",
+      "enSourceHash": "11e0e692e96c3211"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/ja:ケンは きょう こない",
+      "text": "듣고 만들기.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-challenge/ja:ミカの ねこは いすの うえに いない",
+      "text": "만들기: 미카의 고양이는 의자 위에 없다.",
+      "enSourceHash": "e217cb41ef84f0b2"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:0144aff8683349b6",
+      "text": "오지 않는다",
+      "enSourceHash": "0144aff8683349b6"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:157f0fdac5013e4e",
+      "text": "사지 않는다",
+      "enSourceHash": "157f0fdac5013e4e"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:1eb66dae6a263cab",
+      "text": "가방에 모자가 없다.",
+      "enSourceHash": "1eb66dae6a263cab"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:27913fbee243d0d8",
+      "text": "강에 거북이가 있다.",
+      "enSourceHash": "27913fbee243d0d8"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:3064e235b64a0cfe",
+      "text": "먹지 않는다",
+      "enSourceHash": "3064e235b64a0cfe"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:35ea5ea6a41e24ed",
+      "text": "마시지 않는다",
+      "enSourceHash": "35ea5ea6a41e24ed"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:3f6400d13f3365b3",
+      "text": "\"위, 윗부분\"을 뜻하는 단어를 고르세요",
+      "enSourceHash": "3f6400d13f3365b3"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:446baa245dafe788",
+      "text": "하지 않는다",
+      "enSourceHash": "446baa245dafe788"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 그 뜻과 매칭하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:67e45d81bba6fec7",
+      "text": "하늘에 별이 있다.",
+      "enSourceHash": "67e45d81bba6fec7"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:705e9ddb4613fb93",
+      "text": "아침에 밥을 먹지 않는다.",
+      "enSourceHash": "705e9ddb4613fb93"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:727ea55fc8ee1dc7",
+      "text": "\"연못\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:72fa7fe571493c6e",
+      "text": "m6 복습 — 부정, 존재, 그리고 어디",
+      "enSourceHash": "72fa7fe571493c6e"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/en:d07bf9e756ebbfe1",
+      "text": "있다 (사물)",
+      "enSourceHash": "d07bf9e756ebbfe1"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/ja:いえで みる",
+      "text": "만들기: 집에서 (그것을) 보다.",
+      "enSourceHash": "4647726527437b5e"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/ja:えびが ない",
+      "text": "만들기: 새우가 없다.",
+      "enSourceHash": "24070f754d89dcf8"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/ja:かばんの なかに ぼうしが ない",
+      "text": "듣는 대로 만드세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/ja:かめは そこ",
+      "text": "만들기: 거북이는 저기다.",
+      "enSourceHash": "4247113f00b8eef0"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/ja:かわに かめが いる",
+      "text": "듣는 대로 만드세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/ja:きゅうりを かわない",
+      "text": "만들기: 오이를 사지 않는다.",
+      "enSourceHash": "f2a575ee9d54627c"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/ja:さくらが ある",
+      "text": "만들기: 벚꽃이 있다.",
+      "enSourceHash": "026d04764e13bd26"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/ja:そらに ほしが ある",
+      "text": "만들기: 하늘에 별이 있다.",
+      "enSourceHash": "93ecfae7ff77dde2"
+    },
+    {
+      "anchor": "m6/ja-m6-neo-review/ja:ぞうが いる",
+      "text": "듣는 대로 만드세요.",
+      "enSourceHash": "b28d903ef295627a"
+    }
+  ]
+}

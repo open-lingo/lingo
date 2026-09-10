@@ -9,6 +9,8 @@ import { playJaAudio, getTtsUrl } from "@/shared/tts";
 import { ExplainButton } from "../ExplainButton";
 import { PromptAudioButton } from "./PromptAudioButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { useContentString } from "../../hooks/useContentString";
+import { courseIdsFromLessonId, explanationAnchor } from "@/shared/i18n/content/anchors";
 
 const CELEBRATE_MS = 1100;
 
@@ -37,6 +39,8 @@ type Props = {
    * Audio stays post-submit either way — it speaks the answer.
    */
   showMeaningPreAnswer?: boolean;
+  /** Owning lesson id — see `useContentString`. */
+  lessonId?: string;
 };
 
 /**
@@ -54,8 +58,16 @@ export function ParticleClozeStepView({
   onComplete,
   onContinue,
   showMeaningPreAnswer = false,
+  lessonId,
 }: Props) {
   const { t } = useTranslation();
+  const rid = lessonId ?? step.id;
+  const ids = courseIdsFromLessonId(rid);
+  const resolvedExplanation = useContentString(
+    rid,
+    ids && step.explanation ? explanationAnchor(ids.moduleId, rid, step.explanation) : null,
+    step.explanation ?? "",
+  );
   const [selected, setSelected] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [celebrating, setCelebrating] = useState(false);
@@ -140,7 +152,7 @@ export function ParticleClozeStepView({
   return (
     <div className="relative flex flex-1 flex-col gap-6">
       <ExplainButton
-        explanation={step.explanation}
+        explanation={resolvedExplanation}
         hasSubmittedWrong={hasSubmittedWrong}
       />
       {/* `mt-auto` HERE and on the action block below is what centres this
@@ -249,7 +261,7 @@ export function ParticleClozeStepView({
         {celebrating ? <CelebrationToast text={celebrationText} /> : null}
         {submitted && step.explanation ? (
           <p className="rounded-2xl border border-border bg-surface px-4 py-3 text-sm leading-relaxed text-text-secondary">
-            {step.explanation}
+            {resolvedExplanation}
           </p>
         ) : null}
         {submitted && !isCorrect && <Feedback correct={false} />}

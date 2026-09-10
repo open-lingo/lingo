@@ -7,15 +7,31 @@ import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/Annotat
 import { ExplainButton } from "../ExplainButton";
 import { stepHasSentenceContent } from "../../data/_stepPredicates";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { useContentString } from "../../hooks/useContentString";
+import { courseIdsFromLessonId, explanationAnchor, hintAnchor } from "@/shared/i18n/content/anchors";
 
 type Props = {
   step: FillBlankStep;
   onComplete: (stepId: string, correct: boolean) => void;
   onContinue: () => void;
+  /** Owning lesson id — see `useContentString`. */
+  lessonId?: string;
 };
 
-export function FillBlankStepView({ step, onComplete, onContinue }: Props) {
+export function FillBlankStepView({ step, onComplete, onContinue, lessonId }: Props) {
   const { t } = useTranslation();
+  const rid = lessonId ?? step.id;
+  const ids = courseIdsFromLessonId(rid);
+  const resolvedExplanation = useContentString(
+    rid,
+    ids && step.explanation ? explanationAnchor(ids.moduleId, rid, step.explanation) : null,
+    step.explanation ?? "",
+  );
+  const resolvedHint = useContentString(
+    rid,
+    ids && step.hint ? hintAnchor(ids.moduleId, rid, step.hint) : null,
+    step.hint ?? "",
+  );
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
 
@@ -55,7 +71,7 @@ export function FillBlankStepView({ step, onComplete, onContinue }: Props) {
     <div className="relative flex flex-1 flex-col gap-6">
       {showExplain && (
         <ExplainButton
-          explanation={step.explanation}
+          explanation={resolvedExplanation}
           hasSubmittedWrong={hasSubmittedWrong}
         />
       )}
@@ -64,7 +80,7 @@ export function FillBlankStepView({ step, onComplete, onContinue }: Props) {
       </h2>
 
       {step.hint && !submitted && (
-        <p className="text-sm text-text-muted">{step.hint}</p>
+        <p className="text-sm text-text-muted">{resolvedHint}</p>
       )}
 
       {/* 3xl, not 2xl (Spencer 2026-07-29: "make the tiles and sentence text

@@ -10,10 +10,14 @@ import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import { isRomanizationOn } from "@/shared/settings/types";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { useContentString } from "../../hooks/useContentString";
+import { atomGlossAnchor, courseIdsFromLessonId } from "@/shared/i18n/content/anchors";
 
 type Props = {
   step: PhraseCardStep;
   onContinue: () => void;
+  /** Owning lesson id — see `useContentString`. */
+  lessonId?: string;
 };
 
 /**
@@ -39,9 +43,20 @@ function useActiveLanguageOrJa(): string {
  * is a small subordinate reading aid beneath it. Over-reliance on
  * romanization hurts acquisition, so the native script always dominates.
  */
-export function PhraseCardStepView({ step, onContinue }: Props) {
+export function PhraseCardStepView({ step, onContinue, lessonId }: Props) {
   const { t } = useTranslation();
   const langId = useActiveLanguageOrJa();
+  // `step.kana` doubles as the atom's registered gloss key (§ rung 1b —
+  // `PhraseCardStep.kana` is the same string the atom-gloss anchor uses),
+  // so a phrase card's meaning resolves through the ATOM catalog entry
+  // rather than a step-shaped one — no separate extractor coverage needed.
+  const rid = lessonId ?? step.id;
+  const ids = courseIdsFromLessonId(rid);
+  const resolvedMeaningEn = useContentString(
+    rid,
+    ids ? atomGlossAnchor(ids.moduleId, step.kana) : null,
+    step.meaningEn,
+  );
   // Romanization is a reading aid, not the star. JA phrase cards have
   // historically always shown it (no per-card toggle); non-JA courses
   // (e.g. KO Revised Romanization) honor the language-neutral
@@ -105,7 +120,7 @@ export function PhraseCardStepView({ step, onContinue }: Props) {
           />
         )}
         <h2 className="text-3xl font-bold leading-tight tracking-tight text-text-primary sm:text-4xl">
-          {step.meaningEn}
+          {resolvedMeaningEn}
         </h2>
 
         {/* Target script — the visual hero. Large, accent-colored,

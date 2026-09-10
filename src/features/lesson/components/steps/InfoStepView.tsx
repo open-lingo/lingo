@@ -4,10 +4,15 @@ import { playSfx } from "@/shared/audio/sfx";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { Icon } from "@/shared/components/Icon";
 import type { IconName } from "@/shared/iconRegistry";
+import { useContentString } from "../../hooks/useContentString";
+import { bodyAnchor, courseIdsFromLessonId, titleAnchor } from "@/shared/i18n/content/anchors";
 
 type Props = {
   step: InfoStep;
   onContinue: () => void;
+  /** Owning lesson id — see `useContentString` for why this, not
+   *  `useLanguage()`, is how KO-source content wiring finds its module. */
+  lessonId?: string;
 };
 
 const variantConfig: Record<
@@ -56,10 +61,25 @@ const variantConfig: Record<
   },
 };
 
-export function InfoStepView({ step, onContinue }: Props) {
+export function InfoStepView({ step, onContinue, lessonId }: Props) {
   const v = variantConfig[step.variant ?? "default"];
   const variant = step.variant ?? "default";
   const isHero = variant === "culture" || variant === "win";
+
+  // KO-source content wiring (rung 1b) — anchors are `null` (no lookup) when
+  // there's no moduleId to key the catalog by, or the field isn't present.
+  const ids = courseIdsFromLessonId(lessonId ?? step.id);
+  const titleText = step.title ?? "";
+  const resolvedTitle = useContentString(
+    lessonId ?? step.id,
+    ids && step.title ? titleAnchor(ids.moduleId, lessonId ?? step.id, titleText) : null,
+    titleText,
+  );
+  const resolvedBody = useContentString(
+    lessonId ?? step.id,
+    ids ? bodyAnchor(ids.moduleId, lessonId ?? step.id, step.body) : null,
+    step.body,
+  );
 
   useLessonKeyboard({ onEnter: () => handleContinue() });
 
@@ -81,13 +101,13 @@ export function InfoStepView({ step, onContinue }: Props) {
           <Icon name={v.icon} size={48} aria-hidden className={v.iconColor} />
           {step.title && (
             <h2 className="mt-5 text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
-              {step.title}
+              {resolvedTitle}
             </h2>
           )}
           <p
             className={`mt-4 text-lg leading-relaxed ${v.text} sm:text-xl`}
           >
-            {step.body}
+            {resolvedBody}
           </p>
         </div>
         {/* mt-auto pins the CTA to the shell's bottom action slot — the
@@ -104,7 +124,7 @@ export function InfoStepView({ step, onContinue }: Props) {
     <div className="flex flex-1 flex-col gap-6">
       {step.title && (
         <h2 className="text-2xl font-bold tracking-tight text-text-primary">
-          {step.title}
+          {resolvedTitle}
         </h2>
       )}
 
@@ -113,7 +133,7 @@ export function InfoStepView({ step, onContinue }: Props) {
       >
         <div className="flex gap-4">
           <Icon name={v.icon} size={28} aria-hidden className={`mt-0.5 shrink-0 ${v.iconColor}`} />
-          <p className={`text-lg leading-relaxed ${v.text}`}>{step.body}</p>
+          <p className={`text-lg leading-relaxed ${v.text}`}>{resolvedBody}</p>
         </div>
       </div>
 

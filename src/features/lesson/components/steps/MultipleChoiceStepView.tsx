@@ -16,6 +16,14 @@ import { ExplainButton } from "../ExplainButton";
 import { stepHasSentenceContent } from "../../data/_stepPredicates";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { formatPrompt } from "../formatPrompt";
+import { useContentString, useContentStrings } from "../../hooks/useContentString";
+import {
+  courseIdsFromLessonId,
+  explanationAnchor,
+  hintAnchor,
+  optionAnchor,
+  promptAnchor,
+} from "@/shared/i18n/content/anchors";
 
 const CELEBRATE_MS = 1100;
 
@@ -23,10 +31,36 @@ type Props = {
   step: MultipleChoiceStep;
   onComplete: (stepId: string, correct: boolean) => void;
   onContinue: () => void;
+  /** Owning lesson id — see `useContentString`. */
+  lessonId?: string;
 };
 
-export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) {
+export function MultipleChoiceStepView({ step, onComplete, onContinue, lessonId }: Props) {
   const { t } = useTranslation();
+  const rid = lessonId ?? step.id;
+  const ids = courseIdsFromLessonId(rid);
+  const resolvedPromptRaw = useContentString(
+    rid,
+    ids ? promptAnchor(ids.moduleId, rid, step.prompt, undefined) : null,
+    step.prompt,
+  );
+  const resolvedHint = useContentString(
+    rid,
+    ids && step.hint ? hintAnchor(ids.moduleId, rid, step.hint) : null,
+    step.hint ?? "",
+  );
+  const resolvedExplanation = useContentString(
+    rid,
+    ids && step.explanation ? explanationAnchor(ids.moduleId, rid, step.explanation) : null,
+    step.explanation ?? "",
+  );
+  const resolvedOptionTexts = useContentStrings(
+    rid,
+    step.options.map((opt) => ({
+      anchor: ids ? optionAnchor(ids.moduleId, rid, opt.text) : null,
+      enText: opt.text,
+    })),
+  );
   const [selected, setSelected] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [celebrating, setCelebrating] = useState(false);
@@ -106,7 +140,7 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
     <div className="relative flex flex-1 flex-col gap-6">
       {showExplain && (
         <ExplainButton
-          explanation={step.explanation}
+          explanation={resolvedExplanation}
           hasSubmittedWrong={hasSubmittedWrong}
         />
       )}
@@ -138,7 +172,7 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
             {step.promptAnnotation ? (
               <AnnotatedJa segments={step.promptAnnotation} />
             ) : (
-              <AnnotatedJa text={formatPrompt(step.prompt)} />
+              <AnnotatedJa text={formatPrompt(resolvedPromptRaw)} />
             )}
           </h2>
           {ttsAvailable && (
@@ -159,7 +193,7 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
       )}
 
       {step.hint && !submitted && (
-        <p className="text-sm text-text-muted">{step.hint}</p>
+        <p className="text-sm text-text-muted">{resolvedHint}</p>
       )}
 
       {/* Container-relative min-height: cards grow into the free space of
@@ -177,6 +211,7 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
       >
         {order.map((idx) => {
           const opt = step.options[idx];
+          const optText = resolvedOptionTexts[idx];
           const isSelected = selected === opt.id;
           const isAnswer = opt.id === step.correctOptionId;
           const ann = step.optionAnnotations?.[idx];
@@ -242,7 +277,7 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
               {step.optionsHideRomaji ? (
                 // Test/quiz mode — render the kana raw so the romaji
                 // helper doesn't broadcast the answer.
-                <span className="font-japanese" lang="ja">{opt.text}</span>
+                <span className="font-japanese" lang="ja">{optText}</span>
               ) : (() => {
                 // Reveal-on-select: show romaji only on the currently-
                 // selected option (pre-submit). Once submitted, show it
@@ -253,7 +288,7 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
                 return ann ? (
                   <AnnotatedJa segments={ann} forceShowHelper={showRomaji} />
                 ) : (
-                  <AnnotatedJa text={opt.text} forceShowHelper={showRomaji} />
+                  <AnnotatedJa text={optText} forceShowHelper={showRomaji} />
                 );
               })()}
             </button>

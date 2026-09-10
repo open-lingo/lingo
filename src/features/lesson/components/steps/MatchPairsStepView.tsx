@@ -14,6 +14,8 @@ import type { JapaneseAnnotation } from "@/shared/japanese/types";
 import { playJaAudio, getTtsUrl } from "@/shared/tts";
 import { playSfx } from "@/shared/audio/sfx";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { useContentString, useContentStrings } from "../../hooks/useContentString";
+import { courseIdsFromLessonId, pairTargetAnchor, promptAnchor } from "@/shared/i18n/content/anchors";
 
 const CELEBRATE_MS = 1100;
 
@@ -41,6 +43,8 @@ type Props = {
   hideMistakeDots?: boolean;
   onComplete: (stepId: string, correct: boolean) => void;
   onContinue: () => void;
+  /** Owning lesson id — see `useContentString`. */
+  lessonId?: string;
 };
 
 /**
@@ -68,8 +72,32 @@ const MAX_MISTAKES = 3;
  * outlined muted once spent. No words; learners infer from the red flash
  * on miss + the dot dimming in sync.
  */
-export function MatchPairsStepView({ step, onComplete, onContinue, hideMistakeDots = false }: Props) {
+export function MatchPairsStepView({ step, onComplete, onContinue, hideMistakeDots = false, lessonId }: Props) {
   const { t } = useTranslation();
+
+  // KO-source content wiring (rung 1b). `pair.target` resolution is keyed
+  // by `pair.id` (not array position) since `sourceOrder`/`targetOrder`
+  // below are seeded-shuffled COPIES of `step.pairs` — a Map lets either
+  // render order look up the same resolved string.
+  const rid = lessonId ?? step.id;
+  const ids = courseIdsFromLessonId(rid);
+  const resolvedPrompt = useContentString(
+    rid,
+    ids ? promptAnchor(ids.moduleId, rid, step.prompt) : null,
+    step.prompt,
+  );
+  const resolvedTargetList = useContentStrings(
+    rid,
+    step.pairs.map((pair) => ({
+      anchor: ids ? pairTargetAnchor(ids.moduleId, rid, pair.target) : null,
+      enText: pair.target,
+    })),
+  );
+  const resolvedTargetsById = useMemo(() => {
+    const m = new Map<string, string>();
+    step.pairs.forEach((pair, i) => m.set(pair.id, resolvedTargetList[i]));
+    return m;
+  }, [step.pairs, resolvedTargetList]);
   const [matched, setMatched] = useState<Set<string>>(new Set());
   const [selected, setSelected] = useState<
     | { side: "source" | "target"; pairId: string }
@@ -203,7 +231,7 @@ export function MatchPairsStepView({ step, onComplete, onContinue, hideMistakeDo
       <div className="flex min-h-0 flex-1 flex-col gap-3">
       <div className="flex items-start justify-between gap-4">
         <h2 className="text-xl font-semibold text-text-primary">
-          {step.prompt}
+          {resolvedPrompt}
         </h2>
         {!hideMistakeDots && <MistakeDots used={mistakes} max={MAX_MISTAKES} />}
       </div>
@@ -239,6 +267,7 @@ export function MatchPairsStepView({ step, onComplete, onContinue, hideMistakeDo
           <TargetTile
             key={`t-${pair.id}`}
             pair={pair}
+            resolvedTarget={resolvedTargetsById.get(pair.id)}
             denseRows={rows >= 6}
             style={stateStyles[tileState("target", pair.id)]}
             disabled={matched.has(pair.id) || finished}
@@ -420,7 +449,16 @@ function AudioSelectSourceSurface({
   );
 }
 
-function TargetTile({ pair, style, disabled, onClick, row, denseRows, audioOnSelect }: SourceTileProps) {
+function TargetTile({
+  pair,
+  resolvedTarget,
+  style,
+  disabled,
+  onClick,
+  row,
+  denseRows,
+  audioOnSelect,
+}: SourceTileProps & { resolvedTarget?: string }) {
   const sizeClass = audioOnSelect
     ? denseRows
       ? "text-[clamp(1.125rem,3.2cqh,2.25rem)] font-semibold py-1.5"
@@ -436,7 +474,7 @@ function TargetTile({ pair, style, disabled, onClick, row, denseRows, audioOnSel
       style={{ gridColumn: 2, gridRow: row }}
       className={`flex w-full items-center justify-center rounded-xl border-[1.5px] px-4 transition-colors duration-150 ${sizeClass} ${style}`}
     >
-      {pair.target}
+      {resolvedTarget ?? pair.target}
     </button>
   );
 }

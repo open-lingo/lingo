@@ -11,6 +11,15 @@ import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
 import { TransformRuleTable } from "./TransformRuleTable";
 import { SceneView } from "./SceneView";
 import { HIRAGANA_ROMAJI_OFF_MODULE } from "@/shared/settings/romanizationAutoFlip";
+import { useContentString, useContentStrings } from "../../hooks/useContentString";
+import {
+  courseIdsFromLessonId,
+  cultureNoteAnchor,
+  grammarAntipatternWhyAnchor,
+  grammarExampleAnchor,
+  grammarRuleAnchor,
+  titleAnchor,
+} from "@/shared/i18n/content/anchors";
 
 /**
  * Rule-card example romaji follows the same ladder as every other romaji
@@ -78,6 +87,8 @@ type Props = {
    * as long-winded (Spencer, 2026-07-06).
    */
   variant?: "full" | "compact";
+  /** Owning lesson id — see `useContentString`. */
+  lessonId?: string;
 };
 
 // ---------------------------------------------------------------------------
@@ -292,11 +303,55 @@ export function GrammarRuleStepView({
   step,
   onContinue,
   variant = "full",
+  lessonId,
 }: Props) {
   const { t } = useTranslation();
   const showRomaji = useShowExampleRomaji();
   const { ready, fillStarted, durationMs } = useReadGate(step);
+  // KO-source content wiring (rung 1b). `readAloudText` deliberately stays
+  // on the RAW English (`step.title`/`step.rule`, not the resolved
+  // strings) — `useSpeechReadAloud` hardcodes `utterance.lang = "en-US"`,
+  // so speaking a translated string through an English voice would be
+  // wrong on two axes (mispronounced text, wrong voice). This read-aloud
+  // button is an English-prose convenience, not graded content; it isn't
+  // in scope for KO-source translation.
   const readAloudText = `${step.title}. ${step.rule}`;
+
+  const rid = lessonId ?? step.id;
+  const ids = courseIdsFromLessonId(rid);
+  const gp = step.grammarPointId ?? `step:${step.id}`;
+  const resolvedTitle = useContentString(
+    rid,
+    ids ? titleAnchor(ids.moduleId, rid, step.title) : null,
+    step.title,
+  );
+  const resolvedRule = useContentString(
+    rid,
+    ids ? grammarRuleAnchor(ids.moduleId, gp) : null,
+    step.rule,
+  );
+  const resolvedCultureNote = useContentString(
+    rid,
+    ids && step.cultureNote ? cultureNoteAnchor(ids.moduleId, rid, step.cultureNote) : null,
+    step.cultureNote ?? "",
+  );
+  const resolvedAntiPatternEn = useContentString(
+    rid,
+    ids && step.antiPattern ? grammarExampleAnchor(ids.moduleId, gp, step.antiPattern.ja) : null,
+    step.antiPattern?.en ?? "",
+  );
+  const resolvedAntiPatternWhy = useContentString(
+    rid,
+    ids && step.antiPattern?.why ? grammarAntipatternWhyAnchor(ids.moduleId, gp) : null,
+    step.antiPattern?.why ?? "",
+  );
+  const resolvedExampleTexts = useContentStrings(
+    rid,
+    step.examples.map((ex) => ({
+      anchor: ids ? grammarExampleAnchor(ids.moduleId, gp, ex.ja) : null,
+      enText: ex.en,
+    })),
+  );
 
   useLessonKeyboard({
     onEnter: () => {
@@ -319,7 +374,7 @@ export function GrammarRuleStepView({
           <div className="flex items-center gap-3">
             <Icon name="fileText" size={24} aria-hidden className="shrink-0 text-info" />
             <h2 className="flex-1 text-xl font-bold tracking-tight text-text-primary sm:text-2xl">
-              {step.title}
+              {resolvedTitle}
             </h2>
             <ReadAloudButton text={readAloudText} />
           </div>
@@ -334,7 +389,7 @@ export function GrammarRuleStepView({
               <SceneView spec={step.scene} scopeId={String(step.id)} />
             </div>
           ) : null}
-          <RuleBody rule={step.rule} className="text-base leading-relaxed text-text-secondary" />
+          <RuleBody rule={resolvedRule} className="text-base leading-relaxed text-text-secondary" />
         </div>
         {step.conjugationForm ? (
           <TransformRuleTable form={step.conjugationForm} />
@@ -344,12 +399,12 @@ export function GrammarRuleStepView({
             draws, with the particles called out — an example tile under it
             repeats the card's own picture in words. */}
         {step.examples[0] && !step.scene ? (
-          <ExampleTile example={step.examples[0]} />
+          <ExampleTile example={step.examples[0]} resolvedEn={resolvedExampleTexts[0]} />
         ) : null}
 
         {/* Workshop A (2026-07-12): culture is discoverable flavor, never
             required reading — a tap-to-expand chip, one disclosure level. */}
-        {step.cultureNote ? <CultureChip note={step.cultureNote} /> : null}
+        {step.cultureNote ? <CultureChip note={resolvedCultureNote} /> : null}
 
         {/* ⚠️ Deliberately does NOT carry the sticky-CTA hook (the primary-cta
           testid). That hook floats the CTA to the bottom edge of the stage
@@ -384,9 +439,9 @@ export function GrammarRuleStepView({
           <ReadAloudButton text={readAloudText} />
         </div>
         <h2 className="mt-5 text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
-          {step.title}
+          {resolvedTitle}
         </h2>
-        <RuleBody rule={step.rule} className="text-lg leading-relaxed text-text-secondary sm:text-xl" />
+        <RuleBody rule={resolvedRule} className="text-lg leading-relaxed text-text-secondary sm:text-xl" />
       </div>
 
       {/* Conjugation rule cards get the ending → result grid — the
@@ -398,7 +453,7 @@ export function GrammarRuleStepView({
 
       <div className="flex flex-col gap-3">
         {step.examples.map((ex, i) => (
-          <ExampleTile key={i} example={ex} />
+          <ExampleTile key={i} example={ex} resolvedEn={resolvedExampleTexts[i]} />
         ))}
       </div>
 
@@ -416,17 +471,17 @@ export function GrammarRuleStepView({
             </p>
           )}
           <p className="mt-1 text-sm text-text-secondary">
-            {step.antiPattern.en}
+            {resolvedAntiPatternEn}
           </p>
           <p className="mt-2 text-sm font-medium text-error">
-            ← {step.antiPattern.why}
+            ← {resolvedAntiPatternWhy}
           </p>
         </div>
       ) : null}
 
       {step.cultureNote ? (
         <p className="rounded-2xl border border-border bg-surface px-5 py-4 text-sm leading-relaxed text-text-secondary">
-          {step.cultureNote}
+          {resolvedCultureNote}
         </p>
       ) : null}
 
@@ -452,7 +507,15 @@ export function GrammarRuleStepView({
   );
 }
 
-function ExampleTile({ example }: { example: { ja: string; romaji: string; en: string } }) {
+function ExampleTile({
+  example,
+  resolvedEn,
+}: {
+  example: { ja: string; romaji: string; en: string };
+  /** KO-source resolved gloss (rung 1b) — falls back to `example.en` when
+   *  omitted (uiLocale === "en", or no lessonId to key the catalog by). */
+  resolvedEn?: string;
+}) {
   const { t } = useTranslation();
   const hasAudio = getTtsUrl(example.ja) !== null;
   const showRomaji = useShowExampleRomaji();
@@ -473,7 +536,7 @@ function ExampleTile({ example }: { example: { ja: string; romaji: string; en: s
             {example.romaji}
           </p>
         )}
-        <p className="mt-1 text-sm text-text-secondary">{example.en}</p>
+        <p className="mt-1 text-sm text-text-secondary">{resolvedEn ?? example.en}</p>
       </div>
       <button
         type="button"

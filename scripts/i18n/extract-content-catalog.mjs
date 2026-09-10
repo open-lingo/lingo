@@ -291,7 +291,16 @@ function extractStep(step, lessonId, add) {
     ]);
   }
   if (step.explanation) {
-    add(`${lessonId}/en:${sha256Hex16(step.explanation)}`, step.explanation, [
+    // NOTE (rung 1b, 2026-09-10): this anchor was missing the `${moduleId}/`
+    // prefix every sibling field carries, so it keyed on a bare `lessonId`
+    // — `resolveContentString`'s `moduleIdFromAnchor` would then treat the
+    // LESSON id as a module id and never find a real `<moduleId>.<lang>.json`
+    // catalog, silently dropping all `explanation` coverage forever. Fixed
+    // to match `hint`/`body`/`title`/etc. Anchors from a catalog generated
+    // before this fix won't match new runtime anchors (a fresh
+    // `--check`/extract run picks up the corrected shape automatically —
+    // no translated `explanation` entries existed yet to go stale).
+    add(`${moduleId}/${lessonId}/en:${sha256Hex16(step.explanation)}`, step.explanation, [
       lessonId,
       stepId,
       "explanation",

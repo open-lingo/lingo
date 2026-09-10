@@ -382,6 +382,45 @@ function matchTileGloss(a: { meaningEn: string; shortGloss?: string }): string {
   return a.shortGloss ?? a.meaningEn.split(/[/,;]/)[0].trim();
 }
 
+/**
+ * Strips a register-cue prefix ("Say politely: I work from nine") from a
+ * beat's `en` before re-presenting the sentence as its MEANING elsewhere in
+ * the lesson (filler `listening_comprehension`, etc. — see the doc comment
+ * at this function's one call site for the full "Inv 8" rationale: a beat's
+ * `en` IS its typed prompt, so it may open with a directive the SPEAKER
+ * needs, and re-showing that directive as the answer to "what does this
+ * sentence mean?" is both wrong and a giveaway).
+ *
+ * Rung 1b (KO-source de-coupling #4, docs/ko-source-rung1a-2026-09-10.md
+ * §2b / docs/ko-source-rung1b-2026-09-10.md): hoisted out of its enclosing
+ * closure (was a local `meaningOf` const, pure in `en` — no closure
+ * dependency) so it's directly unit-testable, and re-verified against a
+ * Korean input. The rung 1a doc's own conclusion stands: the CORRECT fix is
+ * a schema change — promote the cue out of the `en` string into a
+ * structured `cue?: string` field on whatever authors a beat, so this
+ * function becomes unconditional and needs no language-specific stripping
+ * at all. That touches the IR shape + curriculum beat-authoring helpers,
+ * which are off-limits this rung (concurrent JA authoring lanes editing
+ * `curriculum/m*.ts` / IR YAML), so it is NOT done here.
+ *
+ * What IS true today, verified by `moduleCompiler.stripRegisterCue.test.ts`:
+ * the regex is anchored on literal ASCII English cue verbs
+ * (Say/Ask/Answer/Reply/Tell), so it can only ever match/strip
+ * Latin-script text that starts with one of those five words — a
+ * Korean-language cue (Hangul, or any other script) can never match this
+ * pattern and always passes through completely unchanged, not stripped and
+ * not collapsed to empty by the `|| en` fallback. That is the safe,
+ * correct behaviour for content this function was never designed to
+ * handle — it fails CLOSED (leaves the text alone) rather than silently
+ * mis-stripping — but it means a Korean-authored cue convention gets ZERO
+ * stripping (the Inv-8 giveaway-answer risk reappears for KO, exactly as
+ * §2b describes) until the schema fix lands. Flagged as a known gap in
+ * `docs/ko-source-rung1b-2026-09-10.md`, not silently accepted.
+ */
+export function stripRegisterCue(en: string): string {
+  return en.replace(/^(?:Say|Ask|Answer|Reply|Tell)\b[^:]{0,40}:\s*/i, "").trim() || en;
+}
+
 // Kana-faithful romaji (Spencer ruling: は→ha, を→wo, へ→he — the particle's
 // spelling, not its pronunciation). Display-only, for grammar-card examples.
 const ROMAJI: Record<string, string> = {
@@ -1133,9 +1172,10 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
      *  which is both wrong and a giveaway (only the authored sentence carries
      *  a cue, so the cued option stands out). Strip the cue where the text
      *  changes job; the build prompt keeps it. A colon is required, so a
-     *  sentence that genuinely MEANS "Say it one more time." is untouched. */
-    const meaningOf = (en: string): string =>
-      en.replace(/^(?:Say|Ask|Answer|Reply|Tell)\b[^:]{0,40}:\s*/i, "").trim() || en;
+     *  sentence that genuinely MEANS "Say it one more time." is untouched.
+     *  (Hoisted to module scope as `stripRegisterCue` — see its doc comment
+     *  for the rung 1b KO-source de-coupling note.) */
+    const meaningOf = stripRegisterCue;
     const sentencePairs: { ja: string; en: string }[] = [];
     const ruleSteps: LessonStep[] = [];
     const body: LessonStep[] = [];
@@ -1944,14 +1984,26 @@ function reviewFiller(
    * slot index wrapped past the pool size — "Pick the word for 'person'" five
    * times in one m10 lesson, and twelve quieter ×2 repeats elsewhere.
    */
-  // Dedupe on the GLOSS as well as the kana: この and その both render as
-  // "Pick the word for "that"", so a kana-only check let m6-neo-7 ask the
-  // identical question twice with different right answers.
-  // Key on `meaningEn`, which is what the PROMPT renders — not on
-  // matchTileGloss, whose shortGloss can differ for two atoms that print the
-  // same question.
-  const usedKey = (tag: string, a: Atom) =>
-    `${tag}:${a.kana}|${tag}g:${a.meaningEn}`;
+  // Rung 1b (KO-source de-coupling #4, docs/ko-source-rung1a-2026-09-10.md
+  // §2a / docs/ko-source-rung1b-2026-09-10.md): this used to ALSO dedupe on
+  // `a.meaningEn` — この and その both render as "Pick the word for 'that'",
+  // so a kana-only check let m6-neo-7 ask the identical question twice with
+  // different right answers. But hashing `meaningEn` coupled dedup to
+  // whatever LANGUAGE that field happens to hold — a KO-glossed atom table
+  // would dedupe on Korean text coincidentally, and any English re-gloss
+  // would silently change what counts as a duplicate, for a rendered-text
+  // reason that has nothing to do with atom identity.
+  //
+  // Fixed to key on the atom's own identity instead: `a.kana`, which
+  // already IS this pipeline's atom identity — every pool/index built
+  // above is `Map<string, Atom>` keyed by kana (see `atomIndex()`), and the
+  // registry's own `CourseAtom.id` is itself just kebab-case-romaji(kana),
+  // so it disambiguates nothing kana doesn't already. This intentionally
+  // drops the cross-atom same-gloss catch (この vs その no longer collide)
+  // — `reviewFillerVariety.test.ts`'s "never repeats a filler prompt within
+  // one lesson" re-verifies against every compiled IR lesson that nothing
+  // currently relies on that catch; it stayed green after this change.
+  const usedKey = (tag: string, a: Atom) => `${tag}:${a.kana}`;
   const pickAtom = (tag: string): Atom | null => {
     for (const source of [usable, fallback]) {
       for (let k = 0; k < source.length; k++) {

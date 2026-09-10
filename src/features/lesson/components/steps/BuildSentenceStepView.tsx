@@ -22,6 +22,8 @@ import { notoEmojiUrl } from "@/shared/assets/notoEmoji";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { formatPrompt } from "../formatPrompt";
 import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
+import { useContentString } from "../../hooks/useContentString";
+import { courseIdsFromLessonId, hintAnchor, explanationAnchor, promptAnchor } from "@/shared/i18n/content/anchors";
 
 const CELEBRATE_MS = 1100;
 
@@ -136,10 +138,33 @@ type Props = {
    *  the answer-length slots (a scaffold for first encounters) and use
    *  the growing-pill tray instead. */
   isReplayRun?: boolean;
+  /** Owning lesson id — see `useContentString`. */
+  lessonId?: string;
 };
 
-export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRun = false }: Props) {
+export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRun = false, lessonId }: Props) {
   const { t } = useTranslation();
+
+  // KO-source content wiring (rung 1b). Resolve the RAW prompt first, then
+  // `formatPrompt()` sentence-cases the RESOLVED string at render — matches
+  // the pre-existing English behavior exactly under uiLocale === "en".
+  const rid = lessonId ?? step.id;
+  const ids = courseIdsFromLessonId(rid);
+  const resolvedPrompt = useContentString(
+    rid,
+    ids ? promptAnchor(ids.moduleId, rid, step.prompt, step.targetSentence) : null,
+    step.prompt,
+  );
+  const resolvedHint = useContentString(
+    rid,
+    ids && step.hint ? hintAnchor(ids.moduleId, rid, step.hint) : null,
+    step.hint ?? "",
+  );
+  const resolvedExplanation = useContentString(
+    rid,
+    ids && step.explanation ? explanationAnchor(ids.moduleId, rid, step.explanation) : null,
+    step.explanation ?? "",
+  );
   // Bank INDICES, not texts — with duplicate glyphs (いいえ has two い)
   // text-tracking ghosted the leftmost instance instead of the tile the
   // learner actually clicked (Spencer 2026-06-13).
@@ -394,7 +419,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
     // the recoverable space was the spacing, not the tiles.
     <div className="relative flex flex-1 flex-col gap-5">
       <ExplainButton
-        explanation={step.explanation}
+        explanation={resolvedExplanation}
         hasSubmittedWrong={hasSubmittedWrong}
       />
       {/* The cluster CENTRES in the space above the action block rather than
@@ -416,11 +441,11 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
         />
       )}
       <h2 className={`font-semibold text-text-primary ${bigTiles ? "text-xl sm:text-2xl" : "text-lg"} ${isWordBuild || step.audienceEmoji ? "text-center" : ""}`}>
-        {formatPrompt(step.prompt)}
+        {formatPrompt(resolvedPrompt)}
       </h2>
 
       {step.hint && !submitted && (
-        <p className="text-sm text-text-muted">{step.hint}</p>
+        <p className="text-sm text-text-muted">{resolvedHint}</p>
       )}
 
       {(step.frameBefore || step.frameAfter) && (
