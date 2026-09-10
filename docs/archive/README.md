@@ -19,6 +19,9 @@ any current doc, code, or test. Live docs live in `docs/`.
 | `m1-density-restructure-plan-2026-05-17.md` | 2026-05-17 | Completed (shipped) density restructure; refs repointed. |
 | `wave-4d-iteration-brief.md` | 2026-05-21 | Completed wave-4 iteration brief. |
 | `emoji-art-process-2026-05-18.md` | 2026-05-18 | Emoji vendoring process notes; superseded by CLAUDE.md rules. |
+| `handoff-2026-08-25-n4-authoring-wave.md` | 2026-08-25 | N4 m34–m38 authoring wave; self-declared HISTORICAL, wave shipped and live on prod same day. No references. |
+| `handoff-mcq-fit-2026-08-06.md` | 2026-08-06 | word_image_mcq mobile-overflow fix; self-declared SHIPPED/verified. Only referrer was its INDEX.md row (repoint owed). |
+| `authoring-session-state-2026-08-19.md` | 2026-08-19 | Raw pre-compaction resume notes for the ES/FR re-author session; the curated record is `handoff-course-reauthoring-2026-08-19.md`. Only referrer was its INDEX.md row (repoint owed). *(2026-09-09 sweep.)* |
 
 **Removed entirely** (superseded *and* factually wrong — recoverable in git history): `ARCHITECTURE_REVIEW.md` (frontend-only, "SRS is SM-2" wrong conclusions → superseded by `ARCHITECTURE_REVIEW_2026-06-14.md`), `architecture-review-2026-06-14.html` (dup of the .md), `FLASHCARD-DATA.md` (retired SM-2 schema → `dataformats/flashcards/`), `curriculum-roadmap-n5-2026-05-18.md` (kanji-start contradictions → `n5-content-spec-2026-05-25.md`). *(2026-06-30 context-rot sweep.)*
 

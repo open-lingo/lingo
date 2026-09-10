@@ -60,6 +60,18 @@ Nothing about the Korean text or the audio changed. No new clips.
   that no lesson teaches. Expected by design, but worth knowing when a
   flashcard shows a word you never met in a lesson.
 
+## Mobile pass (done 2026-09-09 late)
+Every step touched today was rendered at iPhone 17 Pro Max (440×956, safe-area
+62/34) and iPhone SE through the step-pass probe (tap targets, clipping, edge
+bleed, truncation, stage overflow, CTA fold) — 52 steps × 2 viewports = 104
+cells, all clean at Pro Max; the only SE finding is the known match-grid scroll
+(83px, by design). Two Sonnet reviewers read all 52 Pro Max screenshots: all 21
+cues visible on one line, 4 tiles each; all 24 grids show 12 tiles; the three
+image MCQs, the 담배 card, the moved m26 listening step and the two
+`ko-m2-bt-review` steps render with nothing under the notch or home indicator.
+The existing mobile gate (`tests/mobile`) is green on the KO routes at Pro Max.
+So layout is covered; what you walk is language, not pixels.
+
 ## How to report
 One row per finding: module, lesson number and step number (e.g. "m16
 lesson 1, step 5"), what you saw, what you expected. Screenshots help for layout; for
