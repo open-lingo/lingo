@@ -85,3 +85,4 @@ fan-out; save small notes here after every step (auto-compaction is on).
 - 11:05 FR m17 «De onze à cent» committed 409b3ce6 (93 clips, fr manifest 1419, FR 1246 passed). Reviewer dispatched; m18 brief writer dispatched (second FR stream).
 - 11:11 ES m27 «Hace sol, hace frío» committed d2d91a22 (159 clips, es manifest 6276, ES 1957 passed). Reviewer dispatched.
 - 11:12 JA m41 review committed 489ea6d1 (1 clip, ja manifest 14531). JA m42 author dispatched from docs/ja-m42-brief-2026-09-10.md.
+- 11:17 ES m27 review committed 0be21768 (1 IR fix, 1 clip). FOLLOW-ON: «de niños» plural has now recurred in m26 and m27 mastery sims — add a pin to the ES test template (UNREGISTERED scan should already catch it; check why it doesn't for sim NPC lines). Next ES: m28 brief writer.
