@@ -968,6 +968,16 @@
           "explanation": "こよう is くる's volitional — する and くる are the two irregulars, memorised as words rather than derived by rule."
         },
         {
+          "kind": "sentence",
+          "ja": "らいしゅう りょこうに いく つもりだ。",
+          "en": "I intend to go on a trip next week",
+          "exercises": [
+            "tsumori-desu",
+            "ni-location"
+          ],
+          "mode": "listening"
+        },
+        {
           "kind": "kanji",
           "kana": "まど",
           "kanji": "窓",
@@ -1112,6 +1122,17 @@
             "wo-object"
           ],
           "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あした ひまだったら、こうえんで あそぼう？",
+          "en": "If you're free tomorrow, want to hang out at the park?",
+          "exercises": [
+            "volitional",
+            "tara",
+            "de-action"
+          ],
+          "mode": "build"
         },
         {
           "kind": "listening-comp",
@@ -1425,6 +1446,33 @@
           "mode": "build"
         },
         {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "なにを さがす？",
+              "en": "What are you looking for?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "さいふを さがす。",
+              "en": "I'm looking for my wallet."
+            }
+          ],
+          "questions": [
+            {
+              "q": "What is Tom looking for?",
+              "options": [
+                "His wallet",
+                "His key",
+                "His job",
+                "His dream"
+              ],
+              "answer": "His wallet"
+            }
+          ]
+        },
+        {
           "kind": "sentence",
           "ja": "しごとを さがそうとおもう。",
           "en": "I think I'll look for a job",
@@ -1621,6 +1669,16 @@
           "mode": "build"
         },
         {
+          "kind": "sentence",
+          "ja": "えいごを れんしゅうすることにした。",
+          "en": "I decided to practise English",
+          "exercises": [
+            "koto-ni-suru",
+            "wo-object"
+          ],
+          "mode": "listening"
+        },
+        {
           "kind": "particle-cloze",
           "stem": "かいしゃを やめる",
           "tail": "。",
@@ -1674,6 +1732,16 @@
             "koto-ni-suru",
             "nai-form",
             "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "でんわを つかわないことにする。",
+          "en": "I'm deciding not to use the phone, starting now",
+          "exercises": [
+            "koto-ni-suru",
+            "nai-form"
           ],
           "mode": "build"
         },
@@ -2152,6 +2220,16 @@
         },
         {
           "kind": "sentence",
+          "ja": "エレベーターで さいふを おとした。",
+          "en": "I dropped my wallet in the elevator",
+          "exercises": [
+            "jidoushi-tadoushi",
+            "de-action"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
           "ja": "さいふを さがそう。",
           "en": "Let's look for the wallet",
           "exercises": [
@@ -2294,6 +2372,16 @@
             "dictionary-form"
           ],
           "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "しごとで がんばる。",
+          "en": "I do my best at work",
+          "exercises": [
+            "dictionary-form",
+            "de-action"
+          ],
+          "mode": "listening"
         },
         {
           "kind": "sentence",

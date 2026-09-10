@@ -354,6 +354,10 @@ lessons:
       - { kind: sentence, ja: "くうこうに ついたら、でんわを かける。", en: "When I get to the airport, I'll call", exercises: [tara, ni-location, wo-object], mode: listening }
       - { kind: sentence, ja: "ばんごはんを たべたら、テレビを みる。", en: "When I've had dinner, I'll watch television", exercises: [tara, wo-object], mode: build }
       - { kind: sentence, ja: "うちに かえったら、ほんを よむ。", en: "When I get home, I'll read a book", exercises: [tara, ni-location, wo-object], mode: translate }
+      # Second carrier (rep-audit 2026-09-09): テレビ had one distinct
+      # carrier, always paired with ばんごはんを たべたら — here the trigger
+      # clause is different (getting home, not finishing dinner).
+      - { kind: listening-comp, audio: "うちに かえったら、テレビを みる。", answer: "When I get home, I'll watch television", distractors: ["When I get home, I'll do my homework", "When I've had dinner, I'll watch television", "When I get home, I won't watch television"], exercises: [tara, ni-location] }
       - { kind: particle-cloze, stem: "ごはんを ", tail: "、ねる。", answer: "たべたら", options: ["たべたら", "たべる", "たべたり"], en: "When I've eaten, I'll sleep", explanation: "たべる is a る-verb, so its past is たべた and the conditional is たべたら. The dictionary form たべる cannot carry a condition, and たべたり is the ~たり~たり list form from module 23 — it lines up examples, it does not set one up." }
       - { kind: sentence, ja: "あめが ふったら、いかない。", en: "If it rains, I won't go", exercises: [tara, nai-form], mode: build }
       - { kind: sentence, ja: "ほんを よんだら、しごとに いく。", en: "When I've read my book, I'll go to work", exercises: [tara, wo-object, ni-location], mode: listening }
@@ -573,6 +577,15 @@ lessons:
       - { kind: sentence, ja: "はるに なると、はなが さく。", en: "Every spring, the flowers bloom", exercises: [to-conditional, ni-time], mode: build }
       - { kind: kanji, kana: でんわ, kanji: 電話, distractors: ["てんわ", "でんは", "でんき"], exercises: [to-conditional] }
       - { kind: sentence, ja: "この みちを わたったら、みぎに まがって ください。", en: "When you've crossed this road, please turn right", exercises: [tara, te-kudasai, ni-location], mode: build }
+      # Second carrier (rep-audit 2026-09-09): わたったら had one distinct
+      # carrier, always paired with a て-kudasai request — here it reports a
+      # fact (what you'll see) instead of asking for anything.
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "えきは どこ？", en: "Where's the station?" }
+          - { speaker: "Mika", ja: "この みちを わたったら、みえる。", en: "Cross this road, and you'll see it." }
+        questions:
+          - { q: "What does Mika say Ken will see after crossing the road?", options: ["The station", "The machine", "The door", "The sea"], answer: "The station" }
       - { kind: sentence, ja: "きかいが とまると、おとが きこえない。", en: "When the machine stops, you can't hear the sound", exercises: [to-conditional, mieru-kikoeru, nai-form], mode: translate }
       - { kind: particle-cloze, stem: "うちに ", tail: "、ねる つもりだ。", answer: "かえったら", options: ["かえったら", "かえると", "かえる"], en: "When I get home, I intend to sleep", explanation: "つもり is a plan, and a plan is the speaker's intention rather than a law of the world — so it needs たら. と would be claiming that getting home always puts this person to sleep." }
       - { kind: sentence, ja: "ふゆに なると、ゆきが ふる。", en: "Every winter, it snows", exercises: [to-conditional, ni-time], mode: listening }
@@ -604,6 +617,11 @@ lessons:
       - { kind: sentence, ja: "えきに ついたら、でんわを して ください。", en: "When you get to the station, please call", exercises: [tara, te-kudasai], mode: build }
       - { kind: sentence, ja: "この みちを まっすぐ いくと、えきが ある。", en: "If you go straight along this road, the station is there", exercises: [to-conditional, wo-object], mode: listening }
       - { kind: sentence, ja: "ボタンを おすと、きかいが うごく。", en: "If you press the button, the machine starts", exercises: [to-conditional, ga-existence], mode: build }
+      # Second carrier (rep-audit 2026-09-09): うごいて had exactly one real
+      # exposure, on m32-neo-5's own challenge beat — here the trigger is
+      # turning the key, not pressing the button, and it lands in review
+      # since m32-neo-5 is already at the lesson's step ceiling.
+      - { kind: listening-comp, audio: "かぎを まわすと、きかいが うごいて、おとが きこえる。", answer: "If you turn the key, the machine starts and you hear a sound", distractors: ["If you turn the key, the machine stops", "If you press the button, the machine starts and you hear a sound", "The machine started and I heard a sound"], exercises: [to-conditional, mieru-kikoeru] }
       - { kind: particle-cloze, stem: "しごとが ", tail: "、ごはんを たべに いきましょう。", answer: "おわったら", options: ["おわったら", "おわると", "おわる"], en: "When work finishes, let's go and eat", explanation: "ましょう is an invitation, and と cannot promise one — read the ending and pick たら." }
       - { kind: sentence, ja: "こうさてんを みぎに まがると、こうえんが ある。", en: "If you turn right at the intersection, there's a park", exercises: [to-conditional, ni-location], mode: build }
       - { kind: sentence, ja: "やすみに なったら、うみに いきたい。", en: "When vacation comes, I want to go to the sea", exercises: [tara, v-tai], mode: build }
@@ -669,9 +687,17 @@ lessons:
       - { kind: sentence, ja: "この ほんは せんえんぐらいだ。", en: "This book is about a thousand yen", exercises: [gurai-goro, ikura-price], mode: build }
       - { kind: sentence, ja: "しちじごろ ごはんを たべる。", en: "I eat around seven", exercises: [gurai-goro, counter-ji, wo-object], mode: listening }
       - { kind: sentence, ja: "くじごろ しごとが おわる。", en: "Work finishes around nine", exercises: [gurai-goro, counter-ji, ga-existence], mode: translate }
+      # Second carrier (rep-audit 2026-09-09): the BARE non-past おわる had
+      # only this one real exposure (its other appearances are cloze options
+      # / おわったら). Different subject and a precise, not approximate, time.
+      - { kind: sentence, ja: "じゅぎょうが しちじに おわる。", en: "Class ends at seven", exercises: [counter-ji, ga-existence], mode: build }
       - { kind: particle-cloze, stem: "さんじ", tail: " うちに かえる。", answer: "ごろ", options: ["ごろ", "ぐらい", "まで"], en: "I'll go home around three", explanation: "さんじ is a POINT on the clock, and points take ごろ. ぐらい is for amounts — じゅっぷんぐらい, about ten minutes, is a different claim entirely. The tell is whether you could ask how long about it." }
       - { kind: sentence, ja: "うちから こうえんまで ごふんぐらい かかる。", en: "It takes about five minutes from home to the park", exercises: [gurai-goro, kara-time, made-until], mode: build }
       - { kind: sentence, ja: "じゅっぷんぐらい あるくと、つかれる。", en: "If you walk for about ten minutes, you get tired", exercises: [gurai-goro, to-conditional], mode: build }
+      # Second carrier (rep-audit 2026-09-09): つかれる had one distinct
+      # carrier. おわったら (taught earlier in this module, L5) gives a
+      # genuinely different trigger — a finished workday, not a walk.
+      - { kind: sentence, ja: "しごとが おわったら、いつも つかれる。", en: "When work finishes, I'm always tired", exercises: [tara], mode: listening }
       - { kind: sentence, ja: "この くつは ごせんえんぐらいだ。", en: "These shoes are about five thousand yen", exercises: [gurai-goro, ikura-price], mode: translate }
       - { kind: particle-cloze, stem: "えきまで じゅっぷん", tail: " かかる。", answer: "ぐらい", options: ["ぐらい", "ごろ", "から"], en: "It takes about ten minutes to the station", explanation: "じゅっぷん here is a LENGTH of time, not a point on the clock — you could ask how long — so it takes ぐらい. ごろ would turn it into around ten past, which is not what the sentence is about." }
       - { kind: sentence, ja: "はちじごろ えきに ついたら、でんわを して ください。", en: "If you get to the station around eight, please call", exercises: [gurai-goro, tara, te-kudasai], mode: build }

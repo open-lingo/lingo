@@ -267,6 +267,9 @@ lessons:
       - { kind: sentence, ja: "りょうりを しよう。", en: "Let's cook", exercises: [volitional, wo-object], mode: build }
       - { kind: particle-cloze, stem: "りょうりを ", tail: "。", answer: "しよう", options: ["しよう", "すろう", "します"], en: "Let's cook", explanation: "する is irregular — its volitional しよう is a word to know, not a rule to apply. すろう wrongly treats する like a u-verb ending in す. します is the polite present, and it doesn't suggest anything." }
       - { kind: listening-comp, audio: "らいしゅう また こよう。", answer: "Let's come again next week", distractors: ["I came again last week", "Let's go there next week", "I won't come next week"], q: "What does this mean?", explanation: "こよう is くる's volitional — する and くる are the two irregulars, memorised as words rather than derived by rule." }
+      # Second carrier (rep-audit 2026-09-09): らいしゅう had one distinct
+      # carrier. This one states a plan (つもりだ) instead of an invitation.
+      - { kind: sentence, ja: "らいしゅう りょこうに いく つもりだ。", en: "I intend to go on a trip next week", exercises: [tsumori-desu, ni-location], mode: listening }
       - { kind: kanji, kana: まど, kanji: 窓, distractors: ["まと", "とう", "そう"], exercises: [jidoushi-tadoushi] }
       - kind: dialogue
         lines:
@@ -292,6 +295,12 @@ lessons:
       - { kind: sentence, ja: "コーヒーを のもう？", en: "Want to have a coffee?", exercises: [volitional, wo-object], mode: build }
       - { kind: particle-cloze, stem: "せんせいに、いっしょに ", tail: "。", answer: "いきませんか", options: ["いきませんか", "いこう？", "いきます"], en: "Say to your teacher: Won't you come along?", explanation: "いこう？ is the bare invitation, friend-register. To your teacher, the same invitation climbs the ladder to いきませんか. いきます is only a statement — it doesn't invite anybody." }
       - { kind: sentence, ja: "ぷりんを たべよう？", en: "Want to eat pudding?", exercises: [volitional, wo-object], mode: listening }
+      # Second carriers (rep-audit 2026-09-09): あそぼう had one distinct
+      # carrier (repeated verbatim 3x); だったら (registered but never listed
+      # in a lesson's `introduces`) had only the challenge beat below. One
+      # sentence covers both, with a different verb (あそぼう not いこう) and
+      # particle (で not に) than だったら's existing carrier.
+      - { kind: sentence, ja: "あした ひまだったら、こうえんで あそぼう？", en: "If you're free tomorrow, want to hang out at the park?", exercises: [volitional, tara, de-action], mode: build }
       - { kind: listening-comp, audio: "いっしょに としょかんに いこう？", answer: "A friend, not a teacher", distractors: ["A teacher, not a friend", "Either — register doesn't show here", "A shop clerk you don't know"], q: "Who is this line addressed to?", explanation: "いこう？ is the bare volitional rising into a question — friend-register. A teacher would hear いきませんか instead." }
       - kind: sim
         scene: { emoji: "🎬", title: "Saturday plans", setting: "Ken wants to do something this weekend." }
@@ -350,6 +359,14 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: you-to-omou }
       - { kind: sentence, ja: "かぎを さがす。", en: "I look for the key", exercises: [wo-object], mode: build }
+      # Second carrier (rep-audit 2026-09-09): bare さがす had one distinct
+      # carrier. This one is a question-answer exchange, not a statement.
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "なにを さがす？", en: "What are you looking for?" }
+          - { speaker: "Tom", ja: "さいふを さがす。", en: "I'm looking for my wallet." }
+        questions:
+          - { q: "What is Tom looking for?", options: ["His wallet", "His key", "His job", "His dream"], answer: "His wallet" }
       - { kind: sentence, ja: "しごとを さがそうとおもう。", en: "I think I'll look for a job", exercises: [you-to-omou, wo-object], mode: build }
       - { kind: sentence, ja: "しょうらい にほんで はたらこうとおもう。", en: "I think I'll work in Japan in the future", exercises: [you-to-omou, de-action], mode: build }
       - kind: dialogue
@@ -380,11 +397,17 @@ lessons:
       - { kind: sentence, ja: "かいしゃを やめる。", en: "I quit the company", exercises: [wo-object], mode: build }
       - { kind: sentence, ja: "かいしゃを やめることにした。", en: "I decided to quit the company", exercises: [koto-ni-suru, wo-object], mode: build }
       - { kind: sentence, ja: "まいにち れんしゅうすることにする。", en: "I'm deciding to practise every day, starting now", exercises: [koto-ni-suru], mode: build }
+      # Second carrier (rep-audit 2026-09-09): れんしゅうする had one
+      # distinct carrier (repeated verbatim elsewhere in the module).
+      - { kind: sentence, ja: "えいごを れんしゅうすることにした。", en: "I decided to practise English", exercises: [koto-ni-suru, wo-object], mode: listening }
       - { kind: particle-cloze, stem: "かいしゃを やめる", tail: "。", answer: "ことにした", options: ["ことにした", "にした", "だった"], en: "I decided to quit the company", explanation: "する needs a THING to decide on, and a bare verb isn't one yet — こと does that job first: やめることにした. にした skips こと entirely. だった just reports a past state, with no decision in it at all." }
       - { kind: sentence, ja: "ちょきんを はじめることにした。", en: "I decided to start saving", exercises: [koto-ni-suru, jidoushi-tadoushi], mode: build }
       - { kind: listening-comp, audio: "たばこを やめることにした。", answer: "I decided to quit smoking", distractors: ["I decided to start smoking", "I want to quit smoking", "I already quit smoking"], exercises: [koto-ni-suru] }
       - { kind: sentence, ja: "おさけを やめようとおもう。", en: "I think I'll quit alcohol", exercises: [you-to-omou, wo-object], mode: listening }
       - { kind: sentence, ja: "おかねを つかわないことにした。", en: "I decided not to spend money", exercises: [koto-ni-suru, nai-form, wo-object], mode: build }
+      # Second carrier (rep-audit 2026-09-09): つかわない had one distinct
+      # carrier. Different object and tense (ことにする, not ことにした).
+      - { kind: sentence, ja: "でんわを つかわないことにする。", en: "I'm deciding not to use the phone, starting now", exercises: [koto-ni-suru, nai-form], mode: build }
       - { kind: kanji, kana: おかね, kanji: お金, distractors: ["おきん", "おがね", "おかめ"], exercises: [koto-ni-suru] }
       - kind: dialogue
         lines:
@@ -465,6 +488,9 @@ lessons:
       - { kind: particle-cloze, stem: "りょうりを ", tail: "。", answer: "たべようとした", options: ["たべようとした", "たべてみた", "たべた"], en: "I tried to eat the dish", explanation: "ようとする is the attempt, with no promise it worked. たべてみた is the do-and-find-out from module 30 — you DID eat it. たべた is simply the plain past, with no attempt framing at all." }
       - { kind: sentence, ja: "かばんから さいふが おちた。", en: "The wallet fell out of my bag", exercises: [jidoushi-tadoushi], mode: build }
       - { kind: sentence, ja: "さいふを おとした。", en: "I dropped my wallet", exercises: [jidoushi-tadoushi], mode: build }
+      # Second carrier (rep-audit 2026-09-09): おとした had one distinct
+      # carrier. Same object, but a location added rather than a bare swap.
+      - { kind: sentence, ja: "エレベーターで さいふを おとした。", en: "I dropped my wallet in the elevator", exercises: [jidoushi-tadoushi, de-action], mode: listening }
       - { kind: sentence, ja: "さいふを さがそう。", en: "Let's look for the wallet", exercises: [volitional, wo-object], mode: build }
       - { kind: sentence, ja: "でんわを さがそう。", en: "Let's look for the phone", exercises: [volitional, wo-object], mode: build }
       - { kind: kanji, kana: でんわ, kanji: 電話, distractors: ["でんは", "てんわ", "でわ"], exercises: [volitional] }
@@ -489,6 +515,9 @@ lessons:
     beats:
       - { kind: sentence, ja: "ことしの もくひょうが ある。", en: "I have a goal this year", exercises: [no-possession, ga-existence], mode: build }
       - { kind: sentence, ja: "まいにち がんばる。", en: "I do my best every day", exercises: [dictionary-form], mode: build }
+      # Second carrier (rep-audit 2026-09-09): bare がんばる (non-past) had
+      # one distinct carrier. A domain (work), not a frequency adverb.
+      - { kind: sentence, ja: "しごとで がんばる。", en: "I do my best at work", exercises: [dictionary-form, de-action], mode: listening }
       - { kind: sentence, ja: "もくひょうが あるから、がんばろう。", en: "There's a goal, so let's do our best", exercises: [volitional, kara-because, ga-existence], mode: build }
       - { kind: sentence, ja: "まいにち あるくことにする。", en: "I'm deciding to walk every day, starting now", exercises: [koto-ni-suru], mode: build }
       - { kind: sentence, ja: "ちょきんすることにした。", en: "I decided to save money", exercises: [koto-ni-suru], mode: build }

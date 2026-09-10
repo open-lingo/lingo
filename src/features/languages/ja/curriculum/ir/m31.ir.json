@@ -870,12 +870,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "ともだちに プレゼントを あげる。",
-          "en": "I'll give my friend a present",
+          "ja": "りょこうに いくから ともだちに プレゼントを あげる。",
+          "en": "I'm going on a trip, so I'll give my friend a present",
           "exercises": [
             "ageru",
             "ni-recipient",
-            "wo-object"
+            "wo-object",
+            "kara-because"
           ],
           "mode": "build"
         },
@@ -892,12 +893,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "あには がくせいに じしょを あげる。",
-          "en": "My older brother gives the student a dictionary",
+          "ja": "がくせいが だいがくに はいるから あには がくせいに じしょを あげる。",
+          "en": "Because the student is starting university, my older brother gives the student a dictionary",
           "exercises": [
             "ageru",
             "ni-recipient",
-            "wo-object"
+            "wo-object",
+            "kara-because"
           ],
           "mode": "build"
         },
@@ -960,12 +962,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "ともだちに はなたばを あげる。",
-          "en": "I'll give my friend a bouquet",
+          "ja": "ともだちが りょこうから かえるから ともだちに はなたばを あげる。",
+          "en": "Because my friend is coming back from a trip, I'll give my friend a bouquet",
           "exercises": [
             "ageru",
             "ni-recipient",
-            "wo-object"
+            "wo-object",
+            "kara-because"
           ],
           "mode": "build"
         },
@@ -993,14 +996,35 @@
         },
         {
           "kind": "sentence",
-          "ja": "せんせいに おれいの てがみを あげる。",
-          "en": "I'll give the teacher a thank-you letter",
+          "ja": "がっこうで おしえる せんせいに おれいの てがみを あげる。",
+          "en": "I give a thank-you letter to the teacher who teaches at school",
           "exercises": [
             "ageru",
             "no-possession",
-            "ni-recipient"
+            "ni-recipient",
+            "wo-object"
           ],
           "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "こどもは そとで あそぶ。",
+          "en": "The child plays outside",
+          "exercises": [
+            "de-action",
+            "wa-topic"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あにが そとに いる。",
+          "en": "My older brother is outside",
+          "exercises": [
+            "ga-existence",
+            "ni-location"
+          ],
+          "mode": "listening"
         },
         {
           "kind": "sentence",
@@ -1134,23 +1158,25 @@
         },
         {
           "kind": "sentence",
-          "ja": "せんせいに じしょを もらう。",
-          "en": "I get a dictionary from the teacher",
+          "ja": "えいごの てがみを よむから せんせいに じしょを もらう。",
+          "en": "I'm reading a letter in English, so I get a dictionary from the teacher",
           "exercises": [
             "morau",
             "ni-recipient",
-            "wo-object"
+            "wo-object",
+            "kara-because"
           ],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "いしゃに くすりを もらう。",
-          "en": "I get medicine from the doctor",
+          "ja": "びょういんへ いくから いしゃに くすりを もらう。",
+          "en": "Because I'm going to the hospital, I get medicine from the doctor",
           "exercises": [
             "morau",
             "ni-recipient",
-            "wo-object"
+            "wo-object",
+            "kara-because"
           ],
           "mode": "build"
         },
@@ -1175,12 +1201,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "せんせいが じしょを くれる。",
-          "en": "The teacher gives me a dictionary",
+          "ja": "えいごを ならうから せんせいが じしょを くれる。",
+          "en": "Because I'm learning English, the teacher gives me a dictionary",
           "exercises": [
             "kureru",
             "ga-existence",
-            "wo-object"
+            "wo-object",
+            "kara-because"
           ],
           "mode": "build"
         },
@@ -1199,12 +1226,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "あねは ともだちに おみやげを もらう。",
-          "en": "My older sister gets a souvenir from her friend",
+          "ja": "にほんへ いく まえに あねは ともだちに おみやげを もらう。",
+          "en": "Before going to Japan, my older sister gets a souvenir from her friend",
           "exercises": [
             "morau",
             "wa-topic",
-            "ni-recipient"
+            "ni-recipient",
+            "mae-ni"
           ],
           "mode": "build"
         },
@@ -1382,23 +1410,25 @@
         },
         {
           "kind": "sentence",
-          "ja": "ともだちから おみやげを もらう。",
-          "en": "I get a souvenir from my friend",
+          "ja": "ともだちが かえるから ともだちから おみやげを もらう。",
+          "en": "Because my friend is coming back, I get a souvenir from my friend",
           "exercises": [
             "kara-origin",
             "morau",
-            "wo-object"
+            "wo-object",
+            "kara-because"
           ],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "かいしゃから きねんの とけいを もらう。",
-          "en": "I get a commemorative watch from the company",
+          "ja": "かいしゃで はたらくから かいしゃから きねんの とけいを もらう。",
+          "en": "Because I work at the company, I get a commemorative watch from the company",
           "exercises": [
             "kara-origin",
             "morau",
-            "no-possession"
+            "no-possession",
+            "kara-because"
           ],
           "mode": "build"
         },
@@ -1412,23 +1442,25 @@
         },
         {
           "kind": "sentence",
-          "ja": "せんせいから おいわいの カードを もらう。",
-          "en": "I get a congratulations card from the teacher",
+          "ja": "だいがくに はいる まえに せんせいから おいわいの カードを もらう。",
+          "en": "Before entering university, I get a congratulations card from the teacher",
           "exercises": [
             "kara-origin",
             "morau",
-            "no-possession"
+            "no-possession",
+            "mae-ni"
           ],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "あねから きっぷを もらう。",
-          "en": "I get a ticket from my older sister",
+          "ja": "えいがを みる まえに あねから きっぷを もらう。",
+          "en": "Before watching a movie, I get a ticket from my older sister",
           "exercises": [
             "kara-origin",
             "morau",
-            "family-register"
+            "family-register",
+            "mae-ni"
           ],
           "mode": "build"
         },
@@ -1477,13 +1509,40 @@
         },
         {
           "kind": "sentence",
-          "ja": "がくせいから てがみを もらう。",
-          "en": "I get a letter from a student",
+          "ja": "まいにち がっこうに くる がくせいから てがみを もらう。",
+          "en": "I get a letter from a student who comes to school every day",
           "exercises": [
             "kara-origin",
             "morau"
           ],
           "mode": "translate"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "たんじょうびに プレゼントを もらう！",
+              "en": "I'm getting a present for my birthday!"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "おめでとう！",
+              "en": "Congratulations!"
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Tom say to Mika?",
+              "options": [
+                "Congratulations",
+                "Thank you",
+                "You're welcome",
+                "I'm sorry"
+              ],
+              "answer": "Congratulations"
+            }
+          ]
         },
         {
           "kind": "particle-cloze",
@@ -1589,11 +1648,12 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "ともだちに プレゼントを あげる。",
-          "en": "I'll give my friend a present",
+          "ja": "おちゃを のむ とき ともだちに プレゼントを あげる。",
+          "en": "When we have tea, I give my friend a present",
           "exercises": [
             "ageru",
-            "ni-recipient"
+            "ni-recipient",
+            "toki"
           ],
           "mode": "build"
         },
@@ -1619,11 +1679,12 @@
         },
         {
           "kind": "sentence",
-          "ja": "ともだちから おみやげを もらう。",
-          "en": "I get a souvenir from my friend",
+          "ja": "しごとが あるけど ともだちから プレゼントを もらう。",
+          "en": "Even though I have work, I get a present from my friend",
           "exercises": [
             "kara-origin",
-            "morau"
+            "morau",
+            "kedo"
           ],
           "mode": "build"
         },
@@ -1652,11 +1713,12 @@
         },
         {
           "kind": "sentence",
-          "ja": "かいしゃから きねんの とけいを もらう。",
-          "en": "I get a commemorative watch from the company",
+          "ja": "しごとを つづけるから かいしゃから きねんの とけいを もらう。",
+          "en": "Because I keep working, I get a commemorative watch from the company",
           "exercises": [
             "kara-origin",
-            "no-possession"
+            "no-possession",
+            "kara-because"
           ],
           "mode": "build"
         },
@@ -1720,11 +1782,12 @@
         },
         {
           "kind": "sentence",
-          "ja": "たんじょうびに ちちに とけいを もらう。",
-          "en": "I get a watch from my father on my birthday",
+          "ja": "だいがくに はいる とき たんじょうびに ちちに とけいを もらう。",
+          "en": "When I start university, I get a watch from my father for my birthday",
           "exercises": [
             "morau",
-            "ni-time"
+            "ni-time",
+            "toki"
           ],
           "mode": "build"
         },
@@ -1786,12 +1849,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "ともだちが わたしに プレゼントを くれる。",
-          "en": "My friend gives me a present",
+          "ja": "ともだちの いえに つく とき ともだちが わたしに プレゼントを くれる。",
+          "en": "When I arrive at my friend's house, my friend gives me a present",
           "exercises": [
             "kureru",
             "ni-recipient",
-            "wa-topic"
+            "wa-topic",
+            "toki"
           ],
           "mode": "build"
         },
@@ -1807,12 +1871,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "せんせいが いもうとに おかしを くれる。",
-          "en": "The teacher gives my little sister candy",
+          "ja": "うたを うたうから せんせいが いもうとに おかしを くれる。",
+          "en": "Because she sings a song, the teacher gives my little sister candy",
           "exercises": [
             "kureru",
             "ni-recipient",
-            "family-register"
+            "family-register",
+            "kara-because"
           ],
           "mode": "listening"
         },
@@ -1842,8 +1907,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "その とけいは たかいから ともだちに あげない。",
-          "en": "That watch is expensive, so I'm not giving it to my friend",
+          "ja": "みせで うる とけいは たかいから ともだちに あげない。",
+          "en": "The watch that the store sells is expensive, so I'm not giving it to my friend",
           "exercises": [
             "ageru",
             "nai-form",
@@ -1853,12 +1918,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "あには わたしに なにも くれない。",
-          "en": "My older brother doesn't give me anything",
+          "ja": "おかねが あるけど あには わたしに なにも くれない。",
+          "en": "Even though he has money, my older brother doesn't give me anything",
           "exercises": [
             "kureru",
             "nai-form",
-            "family-register"
+            "family-register",
+            "kedo"
           ],
           "mode": "build"
         },
@@ -1875,8 +1941,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "がくせいに ノートを あげる。",
-          "en": "I'll give the student a notebook",
+          "ja": "まいにち がっこうに くる がくせいに ノートを あげる。",
+          "en": "I give a notebook to the student who comes to school every day",
           "exercises": [
             "ageru",
             "ni-recipient",
@@ -2008,12 +2074,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "たんじょうびに ちちに とけいを もらった。",
-          "en": "I got a watch from my father for my birthday",
+          "ja": "かぞくが うちに くる とき ちちに とけいを もらった。",
+          "en": "When my family came over, I got a watch from my father",
           "exercises": [
             "ta-form",
             "morau",
-            "ni-time"
+            "ni-recipient",
+            "toki"
           ],
           "mode": "build"
         },
@@ -2038,12 +2105,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "せんせいに はなたばを あげた。",
-          "en": "I gave the teacher a bouquet",
+          "ja": "たんじょうびに ケーキを たべたから せんせいに はなたばを あげた。",
+          "en": "Because we ate cake for the birthday, I gave the teacher a bouquet",
           "exercises": [
             "ta-form",
             "ageru",
-            "ni-recipient"
+            "ni-recipient",
+            "kara-because"
           ],
           "mode": "build"
         },
@@ -2643,12 +2711,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "しんせつな せんせいに ノートを もらった。",
-          "en": "I got a notebook from a kind teacher",
+          "ja": "じゅぎょうで きくから しんせつな せんせいに ノートを もらった。",
+          "en": "Because I ask questions in class, I got a notebook from a kind teacher",
           "exercises": [
             "ta-form",
             "morau",
-            "na-adj-present"
+            "na-adj-present",
+            "kara-because"
           ],
           "mode": "build"
         },
@@ -2665,12 +2734,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "せんせいに おれいの てがみを あげるんです。",
-          "en": "The thing is, I'm giving the teacher a thank-you letter",
+          "ja": "せんせいが しんせつに おしえるから せんせいに おれいの てがみを あげるんです。",
+          "en": "Because the teacher teaches so kindly, the thing is, I'm giving the teacher a thank-you letter",
           "exercises": [
             "ageru",
             "n-desu",
-            "no-possession"
+            "no-possession",
+            "kara-because"
           ],
           "mode": "build"
         },
@@ -2687,19 +2757,20 @@
         },
         {
           "kind": "sentence",
-          "ja": "こんど しんせつな いしゃに くすりを もらう。",
-          "en": "I'll get medicine from a kind doctor next time",
+          "ja": "びょういんに はいるから こんど しんせつな いしゃに くすりを もらう。",
+          "en": "Because I'll be admitted to the hospital, next time I'll get medicine from a kind doctor",
           "exercises": [
             "morau",
             "na-adj-present",
-            "ni-recipient"
+            "ni-recipient",
+            "kara-because"
           ],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "かいしゃの ひとは しんせつだから きねんの カードを あげた。",
-          "en": "The people at the company are kind, so I gave them a commemorative card",
+          "ja": "かいしゃで はたらく ひとは しんせつだから きねんの カードを あげた。",
+          "en": "The people who work at the company are kind, so I gave them a commemorative card",
           "exercises": [
             "ageru",
             "ta-form",
@@ -2710,12 +2781,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "たんじょうびに ケーキを もらうんです。",
-          "en": "The thing is, I'm getting a cake for my birthday",
+          "ja": "ともだちが うたを うたう とき たんじょうびに ケーキを もらうんです。",
+          "en": "When my friends sing, the thing is, I get a cake for my birthday",
           "exercises": [
             "morau",
             "n-desu",
-            "ni-time"
+            "ni-time",
+            "toki"
           ],
           "mode": "build"
         },
@@ -2771,6 +2843,33 @@
           ]
         },
         {
+          "kind": "listening-comp",
+          "audio": "せんせいが きねんの カードを くださる。",
+          "answer": "The teacher is kind enough to give me a commemorative card",
+          "distractors": [
+            "I give the teacher a commemorative card",
+            "The teacher is kind enough to give me a notebook",
+            "I receive a commemorative card from the teacher"
+          ],
+          "exercises": [
+            "kureru"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "せんせいから ノートを いただく。",
+          "answer": "I receive a notebook from the teacher",
+          "distractors": [
+            "I give the teacher a notebook",
+            "I receive a card from the teacher",
+            "The teacher receives a notebook from me"
+          ],
+          "exercises": [
+            "morau",
+            "kara-origin"
+          ]
+        },
+        {
           "kind": "dialogue",
           "lines": [
             {
@@ -2787,6 +2886,11 @@
               "speaker": "Tom",
               "ja": "ミカは せんせいに じしょを いただいたんです。",
               "en": "The thing is, Mika received a dictionary from the teacher."
+            },
+            {
+              "speaker": "Ken",
+              "ja": "せんせいは いつも いい プレゼントを くださる。",
+              "en": "The teacher always gives good presents."
             }
           ],
           "questions": [
@@ -2847,12 +2951,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "ちちに おかねを もらった。",
-          "en": "I got money from my father",
+          "ja": "がっこうから かえる とき ちちに おかねを もらった。",
+          "en": "When I got home from school, I got money from my father",
           "exercises": [
             "wa-topic",
             "morau",
-            "ta-form"
+            "ta-form",
+            "toki"
           ],
           "mode": "build"
         },
@@ -2899,12 +3004,24 @@
         },
         {
           "kind": "sentence",
-          "ja": "その ひとから なにも もらわない。",
-          "en": "I don't get anything from that person",
+          "ja": "しんせつな せんせいが ノートを くれるから がくせいは よろこぶ。",
+          "en": "The teacher is kind and gives a notebook, so the student is delighted",
+          "exercises": [
+            "kureru",
+            "na-adj-present",
+            "kara-because"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "いそぐから その ひとから なにも もらわない。",
+          "en": "I'm in a hurry, so I don't get anything from that person",
           "exercises": [
             "morau",
             "nai-form",
-            "kara-origin"
+            "kara-origin",
+            "kara-because"
           ],
           "mode": "build"
         },
@@ -2921,12 +3038,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "ともだちが けいたいを くれたから よろこんだ。",
-          "en": "My friend gave me a cell phone, so I was delighted",
+          "ja": "がっこうに はいる とき ともだちが けいたいを くれたから よろこんだ。",
+          "en": "When I started at school, my friend gave me a cell phone, so I was delighted",
           "exercises": [
             "kureru",
             "ta-form",
-            "kara-because"
+            "kara-because",
+            "toki"
           ],
           "mode": "build"
         },
@@ -3052,8 +3170,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "せんせいに はなたばを あげたい。",
-          "en": "I want to give the teacher a bouquet",
+          "ja": "いつも しんせつに おしえる せんせいに はなたばを あげたい。",
+          "en": "I want to give a bouquet to the teacher who always teaches so kindly",
           "exercises": [
             "v-tai",
             "ageru",
@@ -3074,8 +3192,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "がくせいに ノートを あげたい。",
-          "en": "I want to give the student a notebook",
+          "ja": "がっこうで ならう がくせいに ノートを あげたい。",
+          "en": "I want to give a notebook to the student who studies at school",
           "exercises": [
             "v-tai",
             "ageru",
@@ -3109,8 +3227,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ともだちに おれいの カードを あげたい。",
-          "en": "I want to give my friend a thank-you card",
+          "ja": "いつも ノートを かす ともだちに おれいの カードを あげたい。",
+          "en": "I want to give a thank-you card to the friend who always lends me notebooks",
           "exercises": [
             "v-tai",
             "ageru",
@@ -3120,12 +3238,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "こんど しんせつな いしゃに くすりを もらいたい。",
-          "en": "I want to get medicine from a kind doctor next time",
+          "ja": "まいにち くすりを のむから こんど しんせつな いしゃに くすりを もらいたい。",
+          "en": "I take medicine every day, so next time I want to get some from the kind doctor",
           "exercises": [
             "v-tai",
             "morau",
-            "na-adj-present"
+            "na-adj-present",
+            "kara-because"
           ],
           "mode": "build"
         },
@@ -3266,11 +3385,12 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "たんじょうびに ちちに とけいを もらった。",
-          "en": "I got a watch from my father for my birthday",
+          "ja": "かいしゃで はたらく ちちに たんじょうびに とけいを もらった。",
+          "en": "I got a watch for my birthday from my father, who works at the company",
           "exercises": [
             "ta-form",
-            "morau"
+            "morau",
+            "ni-time"
           ],
           "mode": "build"
         },
@@ -3286,11 +3406,12 @@
         },
         {
           "kind": "sentence",
-          "ja": "せんせいに はなたばを あげた。",
-          "en": "I gave the teacher a bouquet",
+          "ja": "おちゃを のむ とき せんせいに はなたばを あげた。",
+          "en": "When we had tea, I gave the teacher a bouquet",
           "exercises": [
             "ta-form",
-            "ageru"
+            "ageru",
+            "toki"
           ],
           "mode": "listening"
         },
@@ -3329,11 +3450,12 @@
         },
         {
           "kind": "sentence",
-          "ja": "しんせつな がくせいが かさを くれた。",
-          "en": "A kind student gave me an umbrella",
+          "ja": "がっこうに いく まえに しんせつな がくせいが かさを くれた。",
+          "en": "Before going to school, a kind student gave me an umbrella",
           "exercises": [
             "kureru",
-            "na-adj-present"
+            "na-adj-present",
+            "mae-ni"
           ],
           "mode": "build"
         },

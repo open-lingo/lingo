@@ -1891,6 +1891,16 @@
           "mode": "listening"
         },
         {
+          "kind": "sentence",
+          "ja": "テストは あした ある。",
+          "en": "The test is tomorrow",
+          "exercises": [
+            "ga-existence",
+            "wa-topic"
+          ],
+          "mode": "build"
+        },
+        {
           "kind": "kanji",
           "kana": "かいしゃ",
           "kanji": "会社",
@@ -3124,6 +3134,33 @@
             "kara-origin"
           ],
           "mode": "build"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "かぎは どこ？",
+              "en": "Where are the keys?"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "わからない。よく かぎを おとす。",
+              "en": "I don't know. I often drop my keys."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Why doesn't Tom know where his keys are?",
+              "options": [
+                "He often drops them",
+                "Mika took them",
+                "He left them at school",
+                "They're in his bag"
+              ],
+              "answer": "He often drops them"
+            }
+          ]
         },
         {
           "kind": "sentence",
