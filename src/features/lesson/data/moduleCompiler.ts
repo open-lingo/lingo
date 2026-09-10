@@ -1509,6 +1509,23 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
     // Filler used to index its pools with `i % length`, so once the slot index
     // wrapped it re-asked questions it had already asked.
     const usedFiller = new Set<string>();
+    // MODULE-WIDE FILLER POOL (rep-audit-2026-09-09 finding 2). Was: `pool`
+    // above — THIS LESSON's own declared `reviewPool` only, so an
+    // MCQ/speaking filler could only ever ask about the handful of words a
+    // lesson happened to list. `declaredPool.filter(usableHere)` — every
+    // module-new atom introduced in a STRICTLY EARLIER lesson (teach-order
+    // enforced, same as everywhere else) plus every prior-module word — was
+    // already computed one argument later as `reviewFiller`'s emergency
+    // `fallback` and never reached; passing it as the primary pool too lets
+    // every filler slot draw on the whole module's taught vocabulary.
+    // Measured (m6-m38, 33 IR modules, before/after step-surface diff):
+    // 1187/1550 (76.6%) filler steps' rendered text changed, 0/6369
+    // non-filler steps changed — `pickAtom`'s `source[(i+k) %
+    // source.length]` reindexes nearly every pick once `source.length`
+    // changes, so the number is expected, not a defect. Shipped 2026-09-09
+    // despite exceeding the build brief's original 15% blast-radius
+    // estimate — that estimate was a guess, not a measured constraint.
+    const modulePool = declaredPool.filter(usableHere);
     while (middle.length + fixed < 18 && fi < 60) {
       // (The <=15% translate budget that used to gate the filler's typed slot
       // went away with the slot itself — filler emits no translate steps now,
@@ -1516,8 +1533,8 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
       const f = reviewFiller(
         lid,
         fi,
-        pool,
-        declaredPool.filter(usableHere),
+        modulePool,
+        modulePool,
         noTyped,
         sentencePairs,
         usedFiller,
