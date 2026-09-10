@@ -22,7 +22,7 @@ m20 was the first module done this way — see "What it cost" below.
 | KO queue items 1–4 (below) | DONE locally — gates m3–m27, review grids m16–m27, particle-cue gate, R1–R4 audit fixes; preflight GREEN (exit 0, 13332 tests) after rebase onto 82d7a3b0 | 7f3aa520 |
 | KO handoff for Payton | `docs/ko-handoff-payton-2026-09-09.md` (what changed, what gates cover, what to walk, mobile pass) | a4f91cf3 |
 
-Local main is 11 commits ahead of origin/main (ES m18–m20 + KO). NOT pushed (Spencer decides; the
+**PUSHED 2026-09-09 late as 39fc9eec — ci + deploy success, prod fingerprint verified (entry index-DjvNBff7.js; m20 clips audio/mpeg).** Earlier text: Local main is 11 commits ahead of origin/main (ES m18–m20 + KO). NOT pushed (Spencer decides; the
 mobile session asked to be told before any push so its practice-wave merge
 fetches first — message "Mobile app feedback fixes [fbedc0]").
 

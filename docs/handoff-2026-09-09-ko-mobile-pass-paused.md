@@ -2,8 +2,8 @@
 
 > **STATUS 2026-09-09 ~19:30 MT: RESUMED AND FINISHED.** Pass ran 104/104 cells clean at
 > Pro Max (SE: known 83px match-grid scroll only); both Sonnet reviewers found no
-> defects; 3 docs archived (`docs/archive/README.md`); mobile session told. Only the
-> push remains (Spencer decides). Sections below are the resume notes as written.
+> defects; 3 docs archived (`docs/archive/README.md`); mobile session told. PUSHED as
+> 39fc9eec (ci 34432814487 + deploy 34432814493 success; prod entry index-DjvNBff7.js). Sections below are the resume notes as written.
 
 Supersedes the KO half of `docs/handoff-2026-09-09-es-m20-done-ko-next.md`
 (its KO queue is now marked 1–4 DONE / 5–7 PARKED; keep it for the ES state and
