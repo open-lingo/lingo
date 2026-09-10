@@ -44,7 +44,7 @@
         atoms: ["comíamos", "juntos", "casa"]
       - kind: clozeLit
         id: l2-c-todoscomiancasa
-        es: "de niño, todos comían en casa"
+        es: "de niños, todos comían en casa"
         en: "As children, everyone used to eat at home"
         blank: "comían"
         options: ["comían", "comíamos", "comía"]

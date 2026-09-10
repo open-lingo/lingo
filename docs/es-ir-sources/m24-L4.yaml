@@ -48,8 +48,8 @@
         atoms: ["queríamos", "podíamos", "fiesta"]
       - kind: clozeLit
         id: l4-c-todosquerianpodian
-        es: "de niño, todos querían ir, pero no podían"
-        en: "As a child, everyone wanted to go, but they couldn't"
+        es: "de niños, todos querían ir, pero no podían"
+        en: "As children, everyone wanted to go, but they couldn't"
         blank: "podían"
         options: ["podían", "podíamos", "podía"]
         atoms: ["de niño", "todos", "querían", "podían"]

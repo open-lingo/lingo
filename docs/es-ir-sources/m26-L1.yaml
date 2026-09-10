@@ -45,7 +45,7 @@
         atoms: ["vivíamos", "juntos", "México"]
       - kind: clozeLit
         id: l1-c-todosviviamexico
-        es: "de niño, todos vivían en México"
+        es: "de niños, todos vivían en México"
         en: "As children, everyone used to live in Mexico"
         blank: "vivían"
         options: ["vivían", "vivíamos", "vivía"]
@@ -92,7 +92,7 @@
           - { text: " también" }
       - kind: listenBuildLit
         id: l1-lb-samluisvivianmexico
-        es: "Sam y Luis vivían en México de niño"
+        es: "Sam y Luis vivían en México de niños"
         en: "Sam and Luis used to live in Mexico as children"
         atoms: ["vivían", "México", "de niño"]
         tiles: ["vivíamos", "vivía"]

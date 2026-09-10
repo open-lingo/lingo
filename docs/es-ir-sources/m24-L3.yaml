@@ -45,8 +45,8 @@
         atoms: ["queríamos", "juntos", "cine"]
       - kind: clozeLit
         id: l3-c-todosqueriancine
-        es: "de niño, todos querían ir al cine"
-        en: "As a child, everyone wanted to go to the movies"
+        es: "de niños, todos querían ir al cine"
+        en: "As children, everyone wanted to go to the movies"
         blank: "querían"
         options: ["querían", "queríamos", "quería"]
         atoms: ["de niño", "todos", "querían", "cine"]

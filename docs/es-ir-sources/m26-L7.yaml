@@ -106,7 +106,7 @@
         atoms: ["trabajabas", "mucho", "de niño"]
       - kind: buildLit
         id: l7-b-todostrabajaban
-        es: "de niño, todos trabajaban mucho"
+        es: "de niños, todos trabajaban mucho"
         en: "As children, everyone used to work a lot"
         atoms: ["de niño", "todos", "trabajaban", "mucho"]
       # Printed non-recall at L3 (es-m26-3-l3-sp-win).

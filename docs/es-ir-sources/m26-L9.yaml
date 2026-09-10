@@ -76,8 +76,8 @@
         why: "«hoy» = today, right now. «de niño»/«siempre»/«todos los días» all cue the habitual imperfect instead."
       - kind: buildLit
         id: l9-b-hoycomemosdeninocomiamos
-        es: "hoy comemos en casa, pero de niño comíamos en el restaurante"
-        en: "Today we eat at home, but as a child we used to eat at the restaurant"
+        es: "hoy comemos en casa, pero de niños comíamos en el restaurante"
+        en: "Today we eat at home, but as children we used to eat at the restaurant"
         atoms: ["comemos", "casa", "de niño", "comíamos", "restaurante"]
         tiles: ["comía", "comían"]
       - kind: audioWimcq

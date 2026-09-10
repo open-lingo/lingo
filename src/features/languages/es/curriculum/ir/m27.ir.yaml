@@ -1543,7 +1543,7 @@ lessons:
     steps:
       - kind: buildLit
         id: l10-b-deninoviviamosaquijuntos
-        es: "de niño, vivíamos aquí juntos"
+        es: "de niños, vivíamos aquí juntos"
         en: "As children, we used to live here together"
         atoms: ["de niño", "vivíamos", "aquí", "juntos"]
         tiles: ["vivían", "vive"]
@@ -1670,7 +1670,7 @@ lessons:
         scene: { emoji: "🥶", title: "Ana asks for the whole memory", setting: "Ana wants to hear the whole childhood weather story, start to finish, in one telling." }
         turns:
           - id: t1
-            npc: { speaker: "Ana", es: "¿Vivían todos aquí juntos de niño?", audioText: "¿vivían todos aquí juntos de niño?", gloss: "Did you all used to live here together as children?" }
+            npc: { speaker: "Ana", es: "¿Vivían todos aquí juntos de niños?", audioText: "¿vivían todos aquí juntos de niños?", gloss: "Did you all used to live here together as children?" }
             goal: "Say yes, you all lived here together."
             reply:
               mode: build
@@ -1714,9 +1714,9 @@ lessons:
             goal: "Narrate the whole memory, start to finish."
             reply:
               mode: build
-              tiles: ["de", "niño", "vivíamos", "aquí", "siempre", "hacía", "mucho", "frío", "por", "eso", "salíamos", "poco", "vivían", "salían"]
-              answer: "de niño vivíamos aquí siempre hacía mucho frío por eso salíamos poco"
-            replyGloss: "As a child, we used to live here; it was always very cold, that's why we didn't go out much."
+              tiles: ["de", "niños", "vivíamos", "aquí", "siempre", "hacía", "mucho", "frío", "por", "eso", "salíamos", "poco", "vivían", "salían"]
+              answer: "de niños vivíamos aquí siempre hacía mucho frío por eso salíamos poco"
+            replyGloss: "As children, we used to live here; it was always very cold, that's why we didn't go out much."
             explanation: "The whole module in one line: «vivíamos», «hacía frío», «salíamos» — three families, one voice — closed with PRIOR «por eso» (m25) giving the result."
 
 placement:

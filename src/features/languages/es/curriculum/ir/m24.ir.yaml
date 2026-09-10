@@ -269,8 +269,8 @@ lessons:
         atoms: ["estábamos", "casa", "juntos"]
       - kind: clozeLit
         id: l1-c-todosestabancasa
-        es: "de niño, todos estaban en casa"
-        en: "As a child, everyone was at home"
+        es: "de niños, todos estaban en casa"
+        en: "As children, everyone was at home"
         blank: "estaban"
         options: ["estaban", "estábamos", "estaba"]
         atoms: ["de niño", "todos", "estaban", "casa"]
@@ -419,8 +419,8 @@ lessons:
         atoms: ["hacíamos", "tarea", "juntos"]
       - kind: clozeLit
         id: l2-c-todoshaciantarea
-        es: "de niño, todos hacían la tarea"
-        en: "As a child, everyone used to do homework"
+        es: "de niños, todos hacían la tarea"
+        en: "As children, everyone used to do homework"
         blank: "hacían"
         options: ["hacían", "hacíamos", "hacía"]
         atoms: ["de niño", "todos", "hacían", "tarea"]
@@ -571,8 +571,8 @@ lessons:
         atoms: ["queríamos", "juntos", "cine"]
       - kind: clozeLit
         id: l3-c-todosqueriancine
-        es: "de niño, todos querían ir al cine"
-        en: "As a child, everyone wanted to go to the movies"
+        es: "de niños, todos querían ir al cine"
+        en: "As children, everyone wanted to go to the movies"
         blank: "querían"
         options: ["querían", "queríamos", "quería"]
         atoms: ["de niño", "todos", "querían", "cine"]
@@ -726,8 +726,8 @@ lessons:
         atoms: ["queríamos", "podíamos", "fiesta"]
       - kind: clozeLit
         id: l4-c-todosquerianpodian
-        es: "de niño, todos querían ir, pero no podían"
-        en: "As a child, everyone wanted to go, but they couldn't"
+        es: "de niños, todos querían ir, pero no podían"
+        en: "As children, everyone wanted to go, but they couldn't"
         blank: "podían"
         options: ["podían", "podíamos", "podía"]
         atoms: ["de niño", "todos", "querían", "podían"]
@@ -886,8 +886,8 @@ lessons:
         atoms: ["veníamos", "juntos", "escuela"]
       - kind: clozeLit
         id: l5-c-todosveniantemprano
-        es: "de niño, todos venían temprano"
-        en: "As a child, everyone used to come early"
+        es: "de niños, todos venían temprano"
+        en: "As children, everyone used to come early"
         blank: "venían"
         options: ["venían", "veníamos", "venía"]
         atoms: ["de niño", "todos", "venían", "temprano"]
@@ -1367,8 +1367,8 @@ lessons:
         tiles: ["venían", "hacía"]
       - kind: clozeLit
         id: l8-c-todosquerianvenirpodian
-        es: "de niño, todos querían venir, pero no podían"
-        en: "As a child, everyone wanted to come, but they couldn't"
+        es: "de niños, todos querían venir, pero no podían"
+        en: "As children, everyone wanted to come, but they couldn't"
         blank: "podían"
         options: ["podían", "podíamos", "podía"]
         atoms: ["de niño", "todos", "querían", "podían", "venir"]
@@ -1798,8 +1798,8 @@ lessons:
             goal: "Narrate the whole memory, start to finish."
             reply:
               mode: build
-              tiles: ["de", "niño,", "veníamos", "aquí", "juntos", "cuando,", "de", "repente,", "vino", "Diego,", "y", "entonces", "queríamos", "ir", "a", "la", "fiesta", "venían", "quería"]
-              answer: "de niño, veníamos aquí juntos cuando, de repente, vino Diego, y entonces queríamos ir a la fiesta"
+              tiles: ["de", "niños,", "veníamos", "aquí", "juntos", "cuando,", "de", "repente,", "vino", "Diego,", "y", "entonces", "queríamos", "ir", "a", "la", "fiesta", "venían", "quería"]
+              answer: "de niños, veníamos aquí juntos cuando, de repente, vino Diego, y entonces queríamos ir a la fiesta"
             replyGloss: "As children, we used to come here together when, suddenly, Diego came, and then we wanted to go to the party."
             explanation: "The whole module in one line: «veníamos» paints the ongoing scene; «vino» is the one surprise event inside it; «queríamos», with «entonces», closes it — every family, both tenses, doing its own job."
 

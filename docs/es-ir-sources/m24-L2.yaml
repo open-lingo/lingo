@@ -43,8 +43,8 @@
         atoms: ["hacíamos", "tarea", "juntos"]
       - kind: clozeLit
         id: l2-c-todoshaciantarea
-        es: "de niño, todos hacían la tarea"
-        en: "As a child, everyone used to do homework"
+        es: "de niños, todos hacían la tarea"
+        en: "As children, everyone used to do homework"
         blank: "hacían"
         options: ["hacían", "hacíamos", "hacía"]
         atoms: ["de niño", "todos", "hacían", "tarea"]

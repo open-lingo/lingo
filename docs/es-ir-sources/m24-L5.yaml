@@ -46,8 +46,8 @@
         atoms: ["veníamos", "juntos", "escuela"]
       - kind: clozeLit
         id: l5-c-todosveniantemprano
-        es: "de niño, todos venían temprano"
-        en: "As a child, everyone used to come early"
+        es: "de niños, todos venían temprano"
+        en: "As children, everyone used to come early"
         blank: "venían"
         options: ["venían", "veníamos", "venía"]
         atoms: ["de niño", "todos", "venían", "temprano"]

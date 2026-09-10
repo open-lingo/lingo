@@ -1837,8 +1837,8 @@ lessons:
             goal: "Describe growing up together, and talking a lot."
             reply:
               mode: build
-              tiles: ["de", "niño", "íbamos", "a", "la", "escuela", "juntos", "y", "siempre", "hablábamos", "mucho", "iban", "hablaban"]
-              answer: "de niño íbamos a la escuela juntos y siempre hablábamos mucho"
+              tiles: ["de", "niños", "íbamos", "a", "la", "escuela", "juntos", "y", "siempre", "hablábamos", "mucho", "iban", "hablaban"]
+              answer: "de niños íbamos a la escuela juntos y siempre hablábamos mucho"
             replyGloss: "As children, we used to go to school together, and we always used to talk a lot."
             explanation: "The whole group, together: «íbamos»/«hablábamos» — the accented nosotros forms this whole module builds toward."
 

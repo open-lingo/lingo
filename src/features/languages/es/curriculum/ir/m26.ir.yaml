@@ -324,7 +324,7 @@ lessons:
         atoms: ["vivíamos", "juntos", "México"]
       - kind: clozeLit
         id: l1-c-todosviviamexico
-        es: "de niño, todos vivían en México"
+        es: "de niños, todos vivían en México"
         en: "As children, everyone used to live in Mexico"
         blank: "vivían"
         options: ["vivían", "vivíamos", "vivía"]
@@ -371,7 +371,7 @@ lessons:
           - { text: " también" }
       - kind: listenBuildLit
         id: l1-lb-samluisvivianmexico
-        es: "Sam y Luis vivían en México de niño"
+        es: "Sam y Luis vivían en México de niños"
         en: "Sam and Luis used to live in Mexico as children"
         atoms: ["vivían", "México", "de niño"]
         tiles: ["vivíamos", "vivía"]
@@ -475,7 +475,7 @@ lessons:
         atoms: ["comíamos", "juntos", "casa"]
       - kind: clozeLit
         id: l2-c-todoscomiancasa
-        es: "de niño, todos comían en casa"
+        es: "de niños, todos comían en casa"
         en: "As children, everyone used to eat at home"
         blank: "comían"
         options: ["comían", "comíamos", "comía"]
@@ -626,7 +626,7 @@ lessons:
         atoms: ["estudiábamos", "juntos", "escuela"]
       - kind: clozeLit
         id: l3-c-todosestudiabanescuela
-        es: "de niño, todos estudiaban en la escuela"
+        es: "de niños, todos estudiaban en la escuela"
         en: "As children, everyone used to study at school"
         blank: "estudiaban"
         options: ["estudiaban", "estudiábamos", "estudiaba"]
@@ -930,7 +930,7 @@ lessons:
         atoms: ["salíamos", "juntos", "parque"]
       - kind: clozeLit
         id: l5-c-todossaliaparque
-        es: "de niño, todos salían al parque"
+        es: "de niños, todos salían al parque"
         en: "As children, everyone used to go out to the park"
         blank: "salían"
         options: ["salían", "salíamos", "salía"]
@@ -1326,7 +1326,7 @@ lessons:
         atoms: ["trabajabas", "mucho", "de niño"]
       - kind: buildLit
         id: l7-b-todostrabajaban
-        es: "de niño, todos trabajaban mucho"
+        es: "de niños, todos trabajaban mucho"
         en: "As children, everyone used to work a lot"
         atoms: ["de niño", "todos", "trabajaban", "mucho"]
       # Printed non-recall at L3 (es-m26-3-l3-sp-win).
@@ -1610,8 +1610,8 @@ lessons:
         why: "«hoy» = today, right now. «de niño»/«siempre»/«todos los días» all cue the habitual imperfect instead."
       - kind: buildLit
         id: l9-b-hoycomemosdeninocomiamos
-        es: "hoy comemos en casa, pero de niño comíamos en el restaurante"
-        en: "Today we eat at home, but as a child we used to eat at the restaurant"
+        es: "hoy comemos en casa, pero de niños comíamos en el restaurante"
+        en: "Today we eat at home, but as children we used to eat at the restaurant"
         atoms: ["comemos", "casa", "de niño", "comíamos", "restaurante"]
         tiles: ["comía", "comían"]
       - kind: audioWimcq
@@ -1717,14 +1717,20 @@ lessons:
   #    full-circle back to the very first win). ≥1 PRIOR m23 connective
   #    («cuando» and «mientras», both used). ≥1 PRIOR m25 connective
   #    («porque», used, carrying PRIOR querer's imperfect «queríamos»,
-  #    m24). NOTE: the brief's suggested win line used «de niños» (plural)
-  #    — zero grep hits anywhere in m1-m25 (only the singular «de niño» is
-  #    a registered atom, and this course already treats it as an
-  #    invariant time marker usable with plural subjects — L1-L3's own
-  #    «de niño, todos vivían/comían/estudiaban…» cloze sentences do
-  #    exactly this). This lesson's win line substitutes the registered
-  #    singular «de niño» for the brief's unregistered «de niños» —
-  #    otherwise verbatim. Context: every m26 family
+  #    m24). CORRECTED (2026-09-10, es-quality.test.ts fix): a prior version
+  #    of this comment forced the brief's plural win line «de niños» down to
+  #    the atom registry's singular surface «de niño», reasoning the plural
+  #    was "unregistered." That reasoning was wrong — «de niño» is a noun
+  #    phrase whose final noun agrees with its subject exactly like any
+  #    bare registered noun does; a nosotros-plural narration ("we used to
+  #    live... we used to eat... we used to study") takes «de niños», not
+  #    the singular. The gate now accepts the regular plural/gender
+  #    inflection of a phrase atom's final word (see es-quality.test.ts's
+  #    describe("ES quality — dialogue_sim...") header), so this lesson's
+  #    win line and its buildLit/sim companions were restored to «de
+  #    niños» to match the plural nosotros voice they're written in — no
+  #    grammar was changed, only the earlier forced substitution was
+  #    undone. Context: every m26 family
   #    (vivía/comía/estudiaba/trabajaba/salía) and PRIOR
   #    quería/podía (m24), all working together. Two extra single-tense
   #    buildLit/speakLit steps («vivías»/«salías», tú-form, speakLit-before-
@@ -1752,7 +1758,7 @@ lessons:
     steps:
       - kind: buildLit
         id: l10-b-deninoviviamosaquijuntos
-        es: "de niño, vivíamos aquí juntos"
+        es: "de niños, vivíamos aquí juntos"
         en: "As children, we used to live here together"
         atoms: ["de niño", "vivíamos", "aquí", "juntos"]
         tiles: ["vivían", "vive"]
@@ -1763,7 +1769,7 @@ lessons:
         atoms: ["comíamos", "casa", "todos los días"]
       - kind: buildLit
         id: l10-b-queriamosirescuela
-        es: "de niño, queríamos ir a la escuela"
+        es: "de niños, queríamos ir a la escuela"
         en: "As children, we wanted to go to school"
         atoms: ["de niño", "queríamos", "escuela"]
         tiles: ["querían", "quería"]
@@ -1818,7 +1824,7 @@ lessons:
           - { surface: "la fiesta", emoji: "🎉" }
       - kind: buildLit
         id: l10-b-deninosaliamosparque
-        es: "de niño, salíamos mucho al parque"
+        es: "de niños, salíamos mucho al parque"
         en: "As children, we used to go out a lot to the park"
         atoms: ["de niño", "salíamos", "mucho", "parque"]
         tiles: ["salían", "sale"]
@@ -1878,7 +1884,7 @@ lessons:
         scene: { emoji: "🇲🇽", title: "Ana asks for the whole memory", setting: "Ana wants to hear the whole childhood story, start to finish, in one telling." }
         turns:
           - id: t1
-            npc: { speaker: "Ana", es: "¿Vivían todos juntos de niño?", audioText: "¿vivían todos juntos de niño?", gloss: "Did you all used to live together as children?" }
+            npc: { speaker: "Ana", es: "¿Vivían todos juntos de niños?", audioText: "¿vivían todos juntos de niños?", gloss: "Did you all used to live together as children?" }
             goal: "Say yes, you all lived here together."
             reply:
               mode: build
@@ -1922,8 +1928,8 @@ lessons:
             goal: "Narrate the whole memory, start to finish."
             reply:
               mode: build
-              tiles: ["de", "niño", "vivíamos", "aquí", "juntos", "comíamos", "en", "casa", "todos", "los", "días", "y", "estudiábamos", "mucho", "porque", "queríamos", "ir", "a", "la", "escuela", "vivían", "querían"]
-              answer: "de niño vivíamos aquí juntos comíamos en casa todos los días y estudiábamos mucho porque queríamos ir a la escuela"
+              tiles: ["de", "niños", "vivíamos", "aquí", "juntos", "comíamos", "en", "casa", "todos", "los", "días", "y", "estudiábamos", "mucho", "porque", "queríamos", "ir", "a", "la", "escuela", "vivían", "querían"]
+              answer: "de niños vivíamos aquí juntos comíamos en casa todos los días y estudiábamos mucho porque queríamos ir a la escuela"
             replyGloss: "As children, we used to live here together; we used to eat at home every day, and we used to study a lot because we wanted to go to school."
             explanation: "The whole module in one line: «vivíamos», «comíamos», «estudiábamos» — three families, one voice — closed with PRIOR «porque queríamos» (m24/m25) giving the reason."
 

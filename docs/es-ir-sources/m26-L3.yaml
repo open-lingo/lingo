@@ -44,7 +44,7 @@
         atoms: ["estudiábamos", "juntos", "escuela"]
       - kind: clozeLit
         id: l3-c-todosestudiabanescuela
-        es: "de niño, todos estudiaban en la escuela"
+        es: "de niños, todos estudiaban en la escuela"
         en: "As children, everyone used to study at school"
         blank: "estudiaban"
         options: ["estudiaban", "estudiábamos", "estudiaba"]

@@ -47,8 +47,8 @@
         tiles: ["venían", "hacía"]
       - kind: clozeLit
         id: l8-c-todosquerianvenirpodian
-        es: "de niño, todos querían venir, pero no podían"
-        en: "As a child, everyone wanted to come, but they couldn't"
+        es: "de niños, todos querían venir, pero no podían"
+        en: "As children, everyone wanted to come, but they couldn't"
         blank: "podían"
         options: ["podían", "podíamos", "podía"]
         atoms: ["de niño", "todos", "querían", "podían", "venir"]

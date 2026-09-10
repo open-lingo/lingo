@@ -45,8 +45,8 @@
         atoms: ["estábamos", "casa", "juntos"]
       - kind: clozeLit
         id: l1-c-todosestabancasa
-        es: "de niño, todos estaban en casa"
-        en: "As a child, everyone was at home"
+        es: "de niños, todos estaban en casa"
+        en: "As children, everyone was at home"
         blank: "estaban"
         options: ["estaban", "estábamos", "estaba"]
         atoms: ["de niño", "todos", "estaban", "casa"]

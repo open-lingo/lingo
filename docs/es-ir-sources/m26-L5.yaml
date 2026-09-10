@@ -46,7 +46,7 @@
         atoms: ["salíamos", "juntos", "parque"]
       - kind: clozeLit
         id: l5-c-todossaliaparque
-        es: "de niño, todos salían al parque"
+        es: "de niños, todos salían al parque"
         en: "As children, everyone used to go out to the park"
         blank: "salían"
         options: ["salían", "salíamos", "salía"]

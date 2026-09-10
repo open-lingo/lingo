@@ -57,6 +57,7 @@ import { ES_M25_CHECKPOINT_INDEX } from "./m25";
 import { ES_M26_CHECKPOINT_INDEX } from "./m26";
 import { ES_M27_CHECKPOINT_INDEX } from "./m27";
 import { ES_M28_CHECKPOINT_INDEX } from "./m28";
+import { ES_M29_CHECKPOINT_INDEX } from "./m29";
 import { findEsAtomBySurface, getEsCourseAtoms, type EsAtom } from "../courseAtoms";
 import { ES_MODULE_ORDER } from "../grammarHelpers";
 import { isGradedStep } from "@/features/lesson/data/_stepPredicates";
@@ -102,6 +103,7 @@ const CHECKPOINT_INDEX: Record<string, number> = {
   m26: ES_M26_CHECKPOINT_INDEX,
   m27: ES_M27_CHECKPOINT_INDEX,
   m28: ES_M28_CHECKPOINT_INDEX,
+  m29: ES_M29_CHECKPOINT_INDEX,
 };
 
 const SELECTION_TYPES = new Set<LessonStep["type"]>([
@@ -321,15 +323,24 @@ describe("ES quality — compounding review", () => {
  *  (1) MULTI-WORD ATOM INFLECTION INTEGRITY — the exact defect class,
  *      checked over NPC lines AND accepted replies (the original bug was
  *      an NPC line). A registered multi-word atom ("de niño") may appear
- *      as its exact surface, or with the one inflection its own authoring
- *      convention sanctions course-wide (the regular -o→-a gender swap on
- *      the last word — the atom registry's own comment on "de niño"
- *      spells this out: "«de niña» is the feminine … not a separate
- *      atom"). ANY other inflection detected in the vicinity of the
- *      atom's word sequence (plural -s/-es on any word, e.g. «de niños»)
- *      fails, UNLESS that exact inflected string is itself a separately
- *      registered atom surface (a real, different, registered word — not
- *      a stray bend of this one).
+ *      as its exact surface, or with a REGULAR plural/gender inflection of
+ *      its final word — the SAME `getEsPluralCanon`/`getEsGenderCanon`
+ *      canon exemption 2 below already applies to single-word nouns
+ *      course-wide ("los libros" drills libro, "bonita" drills bonito).
+ *      Agreement is grammar, not new vocabulary: a phrase atom's trailing
+ *      noun still inflects for the sentence's number and gender the way a
+ *      bare noun does — «de niño» with a plural subject IS «de niños»
+ *      («Sam y Luis vivían en México de niños», «¿Cómo eran ustedes de
+ *      niños?»), exactly as «el libro» pluralizes to «los libros» without
+ *      minting a new atom. The m26/m27 precedent (a3580612, 0be21768) of
+ *      mechanically forcing the atom's exact singular surface onto
+ *      plural-subject sentences was the mistake this check now corrects —
+ *      it produced ungrammatical Spanish to satisfy a registry that never
+ *      modeled agreement in the first place. ANY inflection the canon
+ *      doesn't recognize as regular (an invented form, an irregular bend)
+ *      still fails, UNLESS that exact inflected string is itself a
+ *      separately registered atom surface (a real, different, registered
+ *      word — not a stray bend of this one).
  *  (2) WORD-LEVEL PROVENANCE — checked over ACCEPTED REPLIES ONLY (NPC
  *      lines are deliberately excluded — see below). Every content word
  *      resolves to a function word, a proper name, a registered atom
@@ -478,8 +489,8 @@ describe("ES quality — dialogue_sim content resolves to registered atoms", () 
   /** Loosely matches ANY plausible inflection near a multi-word atom's word
    *  sequence (regular plural -s/-es on any word; the sanctioned -o/-a
    *  gender swap on the last word) so check (1) can judge the CAPTURED text
-   *  narrowly against the sanctioned set below — deliberately broad on the
-   *  capture side, narrow on the judgment side. */
+   *  narrowly against `isSanctionedMultiWordVariant` below — deliberately
+   *  broad on the capture side, narrow on the judgment side. */
   function multiWordAtomVariantRegex(surface: string): RegExp {
     const words = surface.toLowerCase().split(/\s+/);
     const last = words.length - 1;
@@ -493,23 +504,60 @@ describe("ES quality — dialogue_sim content resolves to registered atoms", () 
     return new RegExp(`\\b${parts.join("\\s+")}\\b`, "giu");
   }
 
-  /** The surfaces a registered multi-word atom is allowed to appear as
-   *  course-wide: its exact registered surface, plus the regular -o→-a
-   *  gender swap on the last word (the atom registry's own sanctioned
-   *  inflection — see "de niño" / "de niña"). Plural is NOT sanctioned by
-   *  default — an idiom like «de niño» ("as a child") does not inflect for
-   *  the subject's number in this course's register; a module that
-   *  legitimately needs the plural must register it as its own atom. */
-  function sanctionedVariants(surface: string): Set<string> {
-    const words = surface.toLowerCase().split(/\s+/);
-    const last = words.length - 1;
-    const out = new Set<string>([surface.toLowerCase()]);
-    if (/o$/.test(words[last])) {
-      const swapped = [...words];
-      swapped[last] = `${swapped[last].slice(0, -1)}a`;
-      out.add(swapped.join(" "));
+  /** Mirrors moduleBarGuards.ts's private `esRegularPlurals` suffix rules
+   *  (vowel-ending → +s, z → -z+ces, -ón → -ón+ones, consonant → +es,
+   *  already-s invariant). Applied directly to a multi-word atom's OWN
+   *  final word rather than through `getEsPluralCanon`'s registered-word
+   *  lookup: that map only knows a plural for a word that is ITSELF an
+   *  independently registered atom surface (course-wide, e.g. "niño" is,
+   *  because "de niño" registers it) — it has no entry for a derived
+   *  gender-swap that nothing separately registers (e.g. "niña"). A
+   *  compound inflection (gender THEN number — "niñas") needs the same
+   *  regular rule applied to the swapped candidate, not a second map hit.
+   *  Same rule, applied where the coverage gap actually is. */
+  function regularPluralsOf(word: string): string[] {
+    if (word.length < 2) return [];
+    if (/s$/.test(word)) return [word];
+    if (/z$/.test(word)) return [`${word.slice(0, -1)}ces`];
+    if (/ón$/.test(word)) return [`${word.slice(0, -2)}ones`];
+    if (/[aeiouáéíóú]$/.test(word)) return [`${word}s`];
+    return [`${word}es`];
+  }
+
+  /** Whether `matched` (lowercased, split) is a legal appearance of a
+   *  registered multi-word atom (lowercased, split): the exact registered
+   *  surface, OR a REGULAR plural and/or gender inflection of its final
+   *  word only — every other word in the phrase must match exactly.
+   *  Agreement is grammar, not new vocabulary: a phrase atom's trailing
+   *  noun inflects for number/gender exactly as a bare registered noun
+   *  does (`getEsPluralCanon`/`getEsGenderCanon`'s own course-wide
+   *  exemption, applied below to single-word nouns/adjectives in check
+   *  (2)) — "de niño" pluralizes to "de niños" the same way "el libro"
+   *  pluralizes to "los libros" without minting a new atom. A fabricated
+   *  or irregular bend (e.g. «de niñes») is NOT in the regular set below
+   *  and still fails. */
+  function isSanctionedMultiWordVariant(matched: string, atomSurface: string): boolean {
+    const atomWords = atomSurface.toLowerCase().split(/\s+/);
+    const matchedWords = matched.toLowerCase().split(/\s+/);
+    if (atomWords.length !== matchedWords.length) return false;
+    const last = atomWords.length - 1;
+    for (let i = 0; i < last; i++) {
+      if (matchedWords[i] !== atomWords[i]) return false;
     }
-    return out;
+    const lastAtom = atomWords[last];
+    const lastMatched = matchedWords[last];
+    if (lastMatched === lastAtom) return true;
+    const candidates = new Set<string>([lastAtom]);
+    if (/o$/.test(lastAtom)) candidates.add(`${lastAtom.slice(0, -1)}a`);
+    for (const c of [...candidates]) {
+      for (const p of regularPluralsOf(c)) candidates.add(p);
+    }
+    // Cross-check against the course-wide canon too, in case the matched
+    // form is independently registered/derivable there (belt-and-braces;
+    // doesn't change the outcome for words the canon has no entry for).
+    if (pluralCanon.get(lastMatched) === lastAtom) return true;
+    if (genderCanon.get(lastMatched) === lastAtom) return true;
+    return candidates.has(lastMatched);
   }
 
   it(
@@ -527,10 +575,9 @@ describe("ES quality — dialogue_sim content resolves to registered atoms", () 
           for (const { id, text } of dialogueSimCheckedTexts(step as DialogueSimStep, lesson.id)) {
             const lower = text.toLowerCase();
             for (const atom of carriers) {
-              const sanctioned = sanctionedVariants(atom.surface);
               for (const m of lower.matchAll(multiWordAtomVariantRegex(atom.surface))) {
                 const matched = m[0].replace(/\s+/g, " ").trim();
-                if (sanctioned.has(matched)) continue;
+                if (isSanctionedMultiWordVariant(matched, atom.surface)) continue;
                 // A separately, genuinely registered atom surface that
                 // happens to match the loose capture (a real different
                 // word) is not a stray inflection of THIS atom.
