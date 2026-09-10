@@ -1158,8 +1158,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "てがみを よむから せんせいに じしょを もらう。",
-          "en": "Because I read letters, I get a dictionary from the teacher",
+          "ja": "えいごの てがみを よむから せんせいに じしょを もらう。",
+          "en": "I'm reading a letter in English, so I get a dictionary from the teacher",
           "exercises": [
             "morau",
             "ni-recipient",
@@ -1201,8 +1201,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ノートを かうから せんせいが じしょを くれる。",
-          "en": "Because I'm buying notebooks, the teacher gives me a dictionary",
+          "ja": "えいごを ならうから せんせいが じしょを くれる。",
+          "en": "Because I'm learning English, the teacher gives me a dictionary",
           "exercises": [
             "kureru",
             "ga-existence",

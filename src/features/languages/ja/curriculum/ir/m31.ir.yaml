@@ -565,12 +565,12 @@ lessons:
       # only learnable AGAINST くれる, because the two report the identical
       # event and differ only in what the sentence is about.
       - { kind: rule, grammarPointId: morau }
-      - { kind: sentence, ja: "てがみを よむから せんせいに じしょを もらう。", en: "Because I read letters, I get a dictionary from the teacher", exercises: [morau, ni-recipient, wo-object, kara-because], mode: build }
+      - { kind: sentence, ja: "えいごの てがみを よむから せんせいに じしょを もらう。", en: "I'm reading a letter in English, so I get a dictionary from the teacher", exercises: [morau, ni-recipient, wo-object, kara-because], mode: build }
       - { kind: sentence, ja: "びょういんへ いくから いしゃに くすりを もらう。", en: "Because I'm going to the hospital, I get medicine from the doctor", exercises: [morau, ni-recipient, wo-object, kara-because], mode: build }
       - { kind: sentence, ja: "たんじょうびに ちちに とけいを もらう。", en: "I get a watch from my father on my birthday", exercises: [morau, ni-time, family-register], mode: build }
       - { kind: kanji, kana: ともだち, kanji: 友達, exercises: [morau] }
       # The SAME dictionary as beat 2, told from the other end.
-      - { kind: sentence, ja: "ノートを かうから せんせいが じしょを くれる。", en: "Because I'm buying notebooks, the teacher gives me a dictionary", exercises: [kureru, ga-existence, wo-object, kara-because], mode: build }
+      - { kind: sentence, ja: "えいごを ならうから せんせいが じしょを くれる。", en: "Because I'm learning English, the teacher gives me a dictionary", exercises: [kureru, ga-existence, wo-object, kara-because], mode: build }
       - { kind: particle-cloze, stem: "せんせいに じしょを ", tail: "。", answer: "もらう", options: ["もらう", "くれる", "あげる"], en: "I get a dictionary from the teacher", explanation: "the teacher is marked with に, so the sentence is about ME and what I ended up with — that is もらう. くれる would need the teacher marked が and would make the sentence about the teacher instead." }
       - { kind: sentence, ja: "にほんへ いく まえに あねは ともだちに おみやげを もらう。", en: "Before going to Japan, my older sister gets a souvenir from her friend", exercises: [morau, wa-topic, ni-recipient, mae-ni], mode: build }
       - { kind: sentence, ja: "かいしゃの ひとに おかしを もらう。", en: "I get candy from the people at the company", exercises: [morau, no-possession, ni-recipient], mode: build }
