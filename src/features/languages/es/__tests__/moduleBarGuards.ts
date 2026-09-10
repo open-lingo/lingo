@@ -73,7 +73,12 @@ export const ES_FUNCTION_WORDS = new Set(
   (
     "el la los las un una unos unas lo al del " +
     "yo tú tu usted él ella ellos ellas nosotros nosotras ustedes " +
-    "me te se le les nos mi mis su sus nuestro nuestra " +
+    // "tus" (plural of "tu") was a genuine gap here — every OTHER
+    // possessive in this closed class has both numbers (mi/mis, su/sus,
+    // nuestro/nuestra) but "tu" had no plural pair (found 2026-09-10 by
+    // esSimNpcProvenance.test.ts, e.g. m20/m26 dialogue_sim NPC "¿y tus
+    // amigos?"). Not a new vocabulary item — the same closed class.
+    "me te se le les nos mi mis su sus tus nuestro nuestra " +
     "de a en con por para sin sobre entre desde hasta " +
     "y e o u pero que si no sí ni como más menos muy también solo " +
     "qué quién quiénes cuál cuáles cómo dónde cuándo cuánto cuánta cuántos cuántas " +
@@ -104,7 +109,22 @@ function looksSpanish(text: string): boolean {
   const toks = esTokens(text);
   if (toks.length === 0) return false;
   const lex = getEsRealFormLexicon();
-  const hits = toks.filter((t) => lex.has(t) || ES_PROPER_NAMES.has(t)).length;
+  // A token doesn't need to be the exact registered surface — a REGULAR
+  // plural/gender inflection of a registered noun/adjective still counts
+  // (the same `getEsPluralCanon`/`getEsGenderCanon` fold the vocab-
+  // provenance lint below already applies): "los ojos azules" is 4/4 real
+  // Spanish words even though only "ojo" and "azul", not their plural
+  // "ojos"/"azules", are literal lexicon entries. Without this fold a
+  // genuine 4-word Spanish sentence like «tengo los ojos azules» scored
+  // 2/4 (only "tengo"/"los" hit) — under the 0.6 threshold — and
+  // `lintFullSentenceMcqs` never saw it as Spanish at all, so inv 28
+  // never got a chance to flag it (m30 review, 2026-09-10).
+  const isHit = (t: string): boolean =>
+    lex.has(t) ||
+    ES_PROPER_NAMES.has(t) ||
+    lex.has(getEsPluralCanon().get(t) ?? "\0") ||
+    lex.has(getEsGenderCanon().get(t) ?? "\0");
+  const hits = toks.filter(isHit).length;
   return hits / toks.length >= 0.6;
 }
 
