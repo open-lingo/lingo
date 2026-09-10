@@ -1,10 +1,18 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import { cn } from "@/shared/components/ui/cn";
 import { Icon } from "@/shared/components/Icon";
 import { stringsFor } from "@/features/learn/transitStrings";
 import type { Layout, Zone } from "@/features/learn/transitTypes";
 import type { SideQuest } from "@/shared/domain/course";
 import type { LearnTier } from "@/features/learn/learnTier";
+import vnmBgJaTorii from "@/assets/learn/vnm-bg-ja-torii.jpg";
+
+/** Background art per language — a design-call prototype (2026-09-09). Only
+ *  JA has art today; other languages render the plain `--vnm-bg` navy panel
+ *  (no `--vnm-bg-image` set, so `.vnm-bg-photo` paints nothing). */
+const VNM_BACKGROUNDS: Record<string, string> = {
+  ja: vnmBgJaTorii,
+};
 
 /** Same three quest hues as the horizontal map, assigned in interchange order. */
 const QUEST_COLORS = ["var(--tmc-q0)", "var(--tmc-q1)", "var(--tmc-q2)"];
@@ -55,6 +63,42 @@ export function VerticalNetworkMap({
   const strings = stringsFor(lang);
   const { stations, zones } = layout;
   const last = stations.length - 1;
+  const bgImage = VNM_BACKGROUNDS[lang];
+
+  // Auto-scroll to the current station on load — the vertical counterpart of
+  // the horizontal map's `scroller.scrollLeft = current.x*s - clientWidth*0.45`
+  // (TransitLearnPage's `NetworkMap`). There's no bounded internal scroll
+  // region here (the page itself scrolls, per LearnMapScrollArea's mobile
+  // note), so this positions the whole document instead of a container.
+  // Retries briefly in case the current station hasn't mounted yet (progress
+  // hydration can land a tick after first paint, same reason
+  // LearnMapScrollArea polls).
+  const currentLiRef = useRef<HTMLLIElement | null>(null);
+  const didAutoScroll = useRef(false);
+  useEffect(() => {
+    let timer: number | undefined;
+    let tries = 0;
+    const tick = () => {
+      if (didAutoScroll.current) return;
+      const target = currentLiRef.current;
+      if (target) {
+        didAutoScroll.current = true;
+        try {
+          const rect = target.getBoundingClientRect();
+          const top = rect.top + window.scrollY - window.innerHeight * 0.4;
+          window.scrollTo({ top: Math.max(0, top), behavior: "auto" });
+        } catch {
+          /* jsdom/happy-dom in tests may not implement scrollTo */
+        }
+      } else if (++tries < 20) {
+        timer = window.setTimeout(tick, 150);
+      }
+    };
+    timer = window.setTimeout(tick, 0);
+    return () => window.clearTimeout(timer);
+    // Once per mount only — this positions the INITIAL view, it must not
+    // re-fire and yank the learner's scroll after they've moved around.
+  }, []);
 
   const zoneOf = (x: number): Zone | undefined =>
     zones.find((z) => x >= z.x0 && x < z.x1) ?? zones.find((z) => x >= z.x0 && x <= z.x1);
@@ -68,7 +112,23 @@ export function VerticalNetworkMap({
   let lastZoneLabel: string | null = null;
 
   return (
-    <div className="vnm-root" role="navigation" aria-label={strings.lineName}>
+    <div
+      className="vnm-root"
+      role="navigation"
+      aria-label={strings.lineName}
+      style={bgImage ? { ["--vnm-bg-image" as string]: `url(${bgImage})` } : undefined}
+    >
+      {bgImage && (
+        <>
+          {/* `background-attachment: fixed` pins the art to the viewport, not
+              the (page-length-tall) panel box, so it reads as a slow-parallax
+              layer as the learner scrolls the stations over it — no JS scroll
+              handler needed since the page itself is the scroll container on
+              mobile (see the auto-scroll effect above). */}
+          <div className="vnm-bg-photo" aria-hidden />
+          <div className="vnm-bg-overlay" aria-hidden />
+        </>
+      )}
       <header className="vnm-header">
         <span className="vnm-header-badge" aria-hidden>
           M
@@ -114,7 +174,12 @@ export function VerticalNetworkMap({
                   <span className="vnm-zone-label">{zone.label}</span>
                 </li>
               )}
-              <li className="vnm-row" data-testid="vnm-station" data-state={s.status}>
+              <li
+                className="vnm-row"
+                data-testid="vnm-station"
+                data-state={s.status}
+                ref={s.index === currentIdx ? currentLiRef : undefined}
+              >
                 <button
                   type="button"
                   className="vnm-station-btn"
@@ -129,7 +194,7 @@ export function VerticalNetworkMap({
                           {strings.seal}
                         </span>
                       )}
-                      {s.status === "current" && <Icon name="mapPin" size={14} />}
+                      {s.status === "current" && <Icon name="mapPin" size={17} />}
                     </span>
                     {i < last && <span className={cn("vnm-seg vnm-seg-bot", i >= currentIdx && "is-ahead")} />}
                   </span>
