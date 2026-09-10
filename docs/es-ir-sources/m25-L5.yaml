@@ -1,0 +1,157 @@
+  # ── L5 · «Por eso venía temprano» — «por eso»'s first reuse lesson: same
+  #    job, new pair of PRIOR facts. Recombines PRIOR quería/querías/
+  #    queríamos/querían with PRIOR venía/venías/veníamos/venían (both m24,
+  #    yo=él collision). Carries a recall of L2's own win line («porque»).
+  #    «ir» never appears in an atoms: credit array (not a live atom).
+  - n: 5
+    template: free
+    title: "Por eso venía temprano"
+    description: "«por eso» does the same job again, on a new pair of PRIOR facts. «quería ir a la escuela, por eso venía temprano» pairs PRIOR quería (m24) and venía (m24)."
+    steps:
+      - kind: map
+        id: l5-map-queriaescuelaporesovenia
+        tokens: ["quería", "ir", "a", "la", "escuela", "por eso", "venía", "temprano"]
+        pairs:
+          - { en: "I wanted", tokenIndex: 0 }
+          - { en: "to go", tokenIndex: 1 }
+          - { en: "to", tokenIndex: 2 }
+          - { en: "the", tokenIndex: 3 }
+          - { en: "school", tokenIndex: 4 }
+          - { en: "that's why", tokenIndex: 5 }
+          - { en: "I was coming", tokenIndex: 6 }
+          - { en: "early", tokenIndex: 7 }
+        audioText: "quería ir a la escuela, por eso venía temprano"
+        revealNote: "«por eso» reused — same result job, new pair of PRIOR facts: «quería» and «venía», both from m24."
+      - kind: info
+        id: l5-info-poresoreuse
+        title: "Por eso — same job, new facts"
+        body: "«por eso» keeps doing the same job: result after the fact it explains. «quería ir a la escuela, por eso venía temprano» — I wanted to go to school, that's why I was coming early. Two words, same as L4."
+      - kind: speakLit
+        id: l5-sp-diegoqueriavenia
+        es: "Diego quería ir a la escuela, por eso venía temprano"
+        en: "Diego wanted to go to school, that's why he was coming early"
+        atoms: ["quería", "escuela", "por eso", "venía", "temprano"]
+      - kind: buildLit
+        id: l5-b-tuqueriasvenias
+        es: "tú querías ir a la escuela, por eso venías temprano"
+        en: "You (tú) wanted to go to school, that's why you were coming early"
+        atoms: ["querías", "escuela", "por eso", "venías", "temprano"]
+        tiles: ["querían", "quería"]
+      - kind: speakLit
+        id: l5-sp-queriamosveniamos
+        es: "nosotros queríamos ir a la escuela, por eso veníamos temprano"
+        en: "We wanted to go to school, that's why we were coming early"
+        atoms: ["queríamos", "escuela", "por eso", "veníamos", "temprano"]
+      - kind: clozeLit
+        id: l5-c-todosquerianvenian
+        es: "todos querían ir a la escuela, por eso venían temprano"
+        en: "Everyone wanted to go to school, that's why they were coming early"
+        blank: "querían"
+        options: ["querían", "queríamos"]
+        atoms: ["todos", "querían", "escuela", "por eso", "venían", "temprano"]
+        why: "«todos» takes the they-ending: «querían», never «queríamos» (we)."
+      - kind: listenCompLit
+        id: l5-lc-anaqueriavenia
+        es: "Ana quería ir a la escuela, por eso venía temprano"
+        en: "Ana wanted to go to school, that's why she was coming early."
+        atoms: ["quería", "escuela", "por eso", "venía", "temprano"]
+        distractorsEn:
+          - "Ana wants to go to school, that's why she was coming early."
+          - "Ana wanted to go to school, that's why she was coming late."
+          - "Ana didn't want to go to school, that's why she was coming early."
+      - kind: mcq
+        id: l5-q-poreso
+        prompt: "Which one means 'that's why' — states a result?"
+        correct: "por eso"
+        distractors: ["porque", "mientras", "pero"]
+        atoms: ["por eso"]
+        why: "«por eso» states a result — 'that's why.' «porque» flips direction (it introduces a reason, not a result). «mientras» = while, «pero» = but — different meanings entirely."
+      - kind: buildLit
+        id: l5-b-samluisquerianvenian
+        es: "Sam y Luis querían ir a la escuela, por eso venían temprano"
+        en: "Sam and Luis wanted to go to school, that's why they were coming early"
+        atoms: ["querían", "escuela", "por eso", "venían", "temprano"]
+        tiles: ["quería", "queríamos"]
+      - kind: audioWimcq
+        id: l5-ear-escuela
+        target: { surface: "la escuela", emoji: "🏫" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el parque", emoji: "🌳" }
+      - kind: agreementLit
+        id: l5-agr-yoelqueria
+        en: "I wanted to go to school, and he did too"
+        audioText: "yo quería ir a la escuela, y él quería también"
+        atoms: ["quería", "escuela"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "quería", options: ["quería", "querías"] } }
+          - { text: " ir a la escuela, y él " }
+          - { blank: { id: "p2", answer: "quería", options: ["quería", "queríamos"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l5-lb-ustedesquerianvenian
+        es: "ustedes querían ir a la escuela, por eso venían temprano"
+        en: "You all wanted to go to school, that's why you all were coming early"
+        atoms: ["querían", "escuela", "por eso", "venían", "temprano"]
+        tiles: ["queríamos", "quería"]
+      - kind: textMcq
+        id: l5-tm-poreso
+        target: "por eso"
+        distractors: ["porque", "mientras", "pero"]
+      # Printed non-recall at L2 (es-m25-2-l2-sp-win).
+      - kind: speakLit
+        id: l5-sp-recall-haciatareaporque
+        es: "hacía la tarea porque quería ir al cine"
+        en: "I was doing homework because I wanted to go to the movies"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l5-sim-ana-escuela
+        scene: { emoji: "🏫", title: "Ana asks about school", setting: "Ana wants to know who wanted to go to school, and why they were coming early." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Diego quería ir a la escuela?", audioText: "¿diego quería ir a la escuela?", gloss: "Did Diego want to go to school?" }
+            goal: "Say yes — he was coming early."
+            reply:
+              mode: build
+              tiles: ["sí", "diego", "quería", "ir", "a", "la", "escuela", "por", "eso", "venía", "temprano", "querían"]
+              answer: "sí diego quería ir a la escuela por eso venía temprano"
+            replyGloss: "Yes, Diego wanted to go to school, that's why he was coming early."
+            explanation: "«quería» and «venía» are both the yo=él shape — «Diego» is what tells you who. «por eso» always follows the reason, never leads it."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tú? ¿Querías ir a la escuela también?", audioText: "¿y tú? ¿querías ir a la escuela también?", gloss: "And you? Did you want to go to school too?" }
+            goal: "Say yes, you were coming early too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, quería ir a la escuela, por eso venía temprano" }
+                - { id: "wrong1", text: "sí, quería ir a la escuela, por eso venías temprano" }
+                - { id: "wrong2", text: "sí, quería ir a la escuela, porque venía temprano" }
+              correctOptionId: "right"
+              audioText: "sí, quería ir a la escuela, por eso venía temprano"
+            replyGloss: "Yes, I wanted to go to school, that's why I was coming early."
+            explanation: "Answering about yourself: «venía», not «venías» — that would wrongly describe someone else. «porque» here would flip direction — «quería ir a la escuela» is already the reason; «por eso» is what should follow it."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Ustedes querían ir a la escuela?", audioText: "¿ustedes querían ir a la escuela?", gloss: "Did you two want to go to school?" }
+            goal: "Say yes, you both were coming early."
+            reply:
+              mode: build
+              tiles: ["sí", "queríamos", "ir", "a", "la", "escuela", "por", "eso", "veníamos", "temprano", "querían", "venían"]
+              answer: "sí queríamos ir a la escuela por eso veníamos temprano"
+            replyGloss: "Yes, we wanted to go to school, that's why we were coming early."
+            explanation: "Replying as «nosotros»: «queríamos»/«veníamos», the we-endings — not «querían»/«venían» (they/you all)."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "por eso", target: "that's why, so" }
+          - { source: "quería", target: "I wanted, he/she/you wanted" }
+          - { source: "venía", target: "I was coming, he/she/you was coming" }
+          - { source: "escuela", target: "school" }
+          - { source: "temprano", target: "early" }
+          - { source: "todos", target: "everyone" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "quería ir a la escuela, por eso venía temprano"
+        en: "I wanted to go to school, that's why I was coming early"
+        atoms: ["quería", "escuela", "por eso", "venía", "temprano"]

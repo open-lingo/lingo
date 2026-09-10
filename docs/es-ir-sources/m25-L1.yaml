@@ -1,0 +1,153 @@
+  # ── L1 · «Porque tenía trabajo» — «porque» debuts whole, one word, no
+  #    accent, states a reason directly after the fact it explains. Carries
+  #    the module's ONE general rule card. Recombines PRIOR fui/fuiste/
+  #    fue/fuimos/fueron (m20/m21) with PRIOR tenía/tenías/teníamos/tenían
+  #    (m22, yo=él collision) — every person of both paradigms is already
+  #    taught, so «porque» is the only new thing a learner has to reason
+  #    through. No recall (nothing earlier in this module to recall).
+  - n: 1
+    template: free
+    title: "Porque tenía trabajo"
+    description: "«porque» states a reason, one word, no accent — never confuse it with the untaught «¿por qué?». «no fui a la fiesta porque tenía mucho trabajo» pairs it with PRIOR fui (m20) and tenía (m22)."
+    steps:
+      - kind: map
+        id: l1-map-nofuifiestaporquetenia
+        tokens: ["no", "fui", "a", "la", "fiesta", "porque", "tenía", "mucho", "trabajo"]
+        pairs:
+          - { en: "not", tokenIndex: 0 }
+          - { en: "I went", tokenIndex: 1 }
+          - { en: "to", tokenIndex: 2 }
+          - { en: "the", tokenIndex: 3 }
+          - { en: "party", tokenIndex: 4 }
+          - { en: "because", tokenIndex: 5 }
+          - { en: "I had", tokenIndex: 6 }
+          - { en: "a lot of", tokenIndex: 7 }
+          - { en: "work", tokenIndex: 8 }
+        audioText: "no fui a la fiesta porque tenía mucho trabajo"
+        revealNote: "«porque» states a reason — one word, no accent. Not the same as the untaught «¿por qué?» (why, two words, accented)."
+      - kind: info
+        id: l1-info-porque
+        title: "Porque — giving a reason"
+        body: "«porque» links two facts: what happened, then «porque» plus why. «no fui a la fiesta porque tenía mucho trabajo» — I didn't go to the party because I had a lot of work. One word, no accent — never the untaught «¿por qué?»."
+      - kind: speakLit
+        id: l1-sp-diegofuetenia
+        es: "Diego no fue a la fiesta porque tenía mucho trabajo"
+        en: "Diego didn't go to the party because he had a lot of work"
+        atoms: ["fue", "fiesta", "porque", "tenía", "mucho", "trabajo"]
+      - kind: buildLit
+        id: l1-b-tufuistetenias
+        es: "tú no fuiste a la fiesta porque tenías mucho trabajo"
+        en: "You (tú) didn't go to the party because you had a lot of work"
+        atoms: ["fuiste", "fiesta", "porque", "tenías", "mucho", "trabajo"]
+        tiles: ["fueron", "fue"]
+      - kind: speakLit
+        id: l1-sp-fuimosteniamos
+        es: "nosotros no fuimos a la fiesta porque teníamos mucho trabajo"
+        en: "We didn't go to the party because we had a lot of work"
+        atoms: ["fuimos", "fiesta", "porque", "teníamos", "mucho", "trabajo"]
+      - kind: clozeLit
+        id: l1-c-ellosfuerontenian
+        es: "ellos no fueron a la fiesta porque tenían mucho trabajo"
+        en: "They didn't go to the party because they had a lot of work"
+        blank: "fueron"
+        options: ["fueron", "fuimos"]
+        atoms: ["fueron", "fiesta", "porque", "tenían", "mucho", "trabajo"]
+        why: "«ellos» takes the they-ending: «fueron», never «fuimos» (we)."
+      - kind: listenCompLit
+        id: l1-lc-anafuetenia
+        es: "Ana no fue a la fiesta porque tenía mucho trabajo"
+        en: "Ana didn't go to the party because she had a lot of work."
+        atoms: ["fue", "fiesta", "porque", "tenía", "mucho", "trabajo"]
+        distractorsEn:
+          - "Ana didn't go to the party because she has a lot of work."
+          - "Ana went to the party because she had a lot of work."
+          - "Ana didn't go to the party because she had a little work."
+      - kind: mcq
+        id: l1-q-porque
+        prompt: "Which one means 'because' — states a reason?"
+        correct: "porque"
+        distractors: ["mientras", "entonces", "pero"]
+        atoms: ["porque"]
+        why: "«porque» states a reason. «mientras» = while (m23), «entonces» = then/so (m23), «pero» = but (m6) — real connectives, wrong meaning here."
+      - kind: buildLit
+        id: l1-b-samluisfuerontenian
+        es: "Sam y Luis no fueron a la fiesta porque tenían mucho trabajo"
+        en: "Sam and Luis didn't go to the party because they had a lot of work"
+        atoms: ["fueron", "fiesta", "porque", "tenían", "mucho", "trabajo"]
+        tiles: ["fue", "fuimos"]
+      - kind: audioWimcq
+        id: l1-ear-fiesta
+        target: { surface: "la fiesta", emoji: "🎉" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el parque", emoji: "🌳" }
+      - kind: agreementLit
+        id: l1-agr-yoeltenia
+        en: "I had a lot of work, and he did too"
+        audioText: "yo tenía mucho trabajo, y él tenía también"
+        atoms: ["tenía", "mucho", "trabajo"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "tenía", options: ["tenía", "tenías"] } }
+          - { text: " mucho trabajo, y él " }
+          - { blank: { id: "p2", answer: "tenía", options: ["tenía", "teníamos"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l1-lb-ustedesfuerontenian
+        es: "ustedes no fueron a la fiesta porque tenían mucho trabajo"
+        en: "You all didn't go to the party because you all had a lot of work"
+        atoms: ["fueron", "fiesta", "porque", "tenían", "mucho", "trabajo"]
+        tiles: ["fuimos", "fue"]
+      - kind: textMcq
+        id: l1-tm-porque
+        target: "porque"
+        distractors: ["mientras", "entonces", "pero"]
+      - kind: sim
+        id: l1-sim-ana-fiesta
+        scene: { emoji: "🎉", title: "Ana asks about the party", setting: "Ana wants to know who went to the party, and why some didn't." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Diego fue a la fiesta?", audioText: "¿diego fue a la fiesta?", gloss: "Did Diego go to the party?" }
+            goal: "Say no, he had too much work."
+            reply:
+              mode: build
+              tiles: ["no", "fue", "a", "la", "fiesta", "porque", "tenía", "mucho", "trabajo", "fui", "tenías"]
+              answer: "no fue a la fiesta porque tenía mucho trabajo"
+            replyGloss: "No, he didn't go to the party because he had a lot of work."
+            explanation: "«fue» and «tenía» are both the yo=él shape — «Diego» from Ana's question is what tells you who."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tú? ¿Tenías mucho trabajo también?", audioText: "¿y tú? ¿tenías mucho trabajo también?", gloss: "And you? Did you have a lot of work too?" }
+            goal: "Say yes, you had too much work too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, no fui porque tenía mucho trabajo" }
+                - { id: "wrong1", text: "sí, no fui porque tenías mucho trabajo" }
+                - { id: "wrong2", text: "sí, no fui mientras tenía mucho trabajo" }
+              correctOptionId: "right"
+              audioText: "sí, no fui porque tenía mucho trabajo"
+            replyGloss: "Yes, I also didn't go because I had a lot of work."
+            explanation: "Answering about yourself: «tenía», not «tenías» — that would wrongly describe someone else. «mientras» (while) isn't a reason — «porque» is what states one."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Ustedes fueron a la fiesta?", audioText: "¿ustedes fueron a la fiesta?", gloss: "Did you two go to the party?" }
+            goal: "Say no, you both had too much work."
+            reply:
+              mode: build
+              tiles: ["no", "fuimos", "a", "la", "fiesta", "porque", "teníamos", "mucho", "trabajo", "fueron", "tenían"]
+              answer: "no fuimos a la fiesta porque teníamos mucho trabajo"
+            replyGloss: "No, we didn't go to the party because we had a lot of work."
+            explanation: "Replying as «nosotros»: «fuimos»/«teníamos», the we-endings — not «fueron» (they/you all)."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "porque", target: "because" }
+          - { source: "fui", target: "I went" }
+          - { source: "tenía", target: "I had, he/she/you had" }
+          - { source: "mucho", target: "a lot" }
+          - { source: "fiesta", target: "party" }
+          - { source: "trabajo", target: "work" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "no fui a la fiesta porque tenía mucho trabajo"
+        en: "I didn't go to the party because I had a lot of work"
+        atoms: ["fui", "fiesta", "porque", "tenía", "mucho", "trabajo"]

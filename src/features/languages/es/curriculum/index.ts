@@ -35,6 +35,7 @@ import { ES_M21_LESSONS } from "./m21";
 import { ES_M22_LESSONS } from "./m22";
 import { ES_M23_LESSONS } from "./m23";
 import { ES_M24_LESSONS } from "./m24";
+import { ES_M25_LESSONS } from "./m25";
 
 export type EsModuleMeta = {
   id: string;
@@ -204,7 +205,14 @@ export const ES_MODULE_META: EsModuleMeta[] = [
     eyebrow: "Module 24 · Regular en el imperfecto",
     summary: "the imperfect's trick generalizes — estar, hacer, querer, poder, and venir are irregular everywhere else you've met them, but here they're perfectly regular, just like «tenía» already showed you.",
     accent: { from: "#d946ef", to: "#86198f" },
+  },  {
+    id: "m25",
+    title: "Porque, por eso",
+    eyebrow: "Module 25 · Porque, por eso",
+    summary: "two clauses you can already build, causally linked — «porque» gives the reason, «por eso» gives the result, same two facts either direction.",
+    accent: { from: "#3b82f6", to: "#1d4ed8" },
   },
+
 
 
 
@@ -240,6 +248,7 @@ const LESSONS_BY_MODULE: Record<string, LessonContent[]> = {
   m22: ES_M22_LESSONS,
   m23: ES_M23_LESSONS,
   m24: ES_M24_LESSONS,
+  m25: ES_M25_LESSONS,
 };
 
 /** Flat lesson list for the shared LESSONS content index (mockLessons.ts). */

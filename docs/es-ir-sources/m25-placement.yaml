@@ -1,0 +1,23 @@
+placement:
+  screener:
+    - id: "es-m25-scr-1"
+      prompt: "'I didn't go to the party because I had a lot of work.'"
+      correct: "no fui a la fiesta porque tenía mucho trabajo"
+      distractors: ["no fui a la fiesta por eso tenía mucho trabajo", "no fui a la fiesta porque tenían mucho trabajo", "no fui a la fiesta porque tenía mucho trabajo y quería"]
+  byModule:
+    - id: "es-m25-pl-1"
+      prompt: "I was doing homework because I wanted to go to the movies."
+      correct: "hacía la tarea porque quería ir al cine"
+      distractors: ["hacía la tarea por eso quería ir al cine", "hacía la tarea porque querían ir al cine", "hacía la tarea porque queríamos ir al cine"]
+    - id: "es-m25-pl-2"
+      prompt: "I had a lot of work, that's why I didn't go to the party."
+      correct: "tenía mucho trabajo, por eso no fui a la fiesta"
+      distractors: ["tenía mucho trabajo, porque no fui a la fiesta", "tenían mucho trabajo, por eso no fui a la fiesta", "tenía mucho trabajo, por eso no fue a la fiesta"]
+    - id: "es-m25-pl-3"
+      prompt: "I wanted to go to school, that's why I was coming early."
+      correct: "quería ir a la escuela, por eso venía temprano"
+      distractors: ["quería ir a la escuela, porque venía temprano", "quería ir a la escuela, por eso venían temprano", "quería ir a la escuela, por eso venía tarde"]
+    - id: "es-m25-pl-4"
+      prompt: "I didn't leave because I didn't want to."
+      correct: "no salí porque no quería"
+      distractors: ["no salí por eso no quería", "no saliste porque no quería", "no salió porque no quería"]

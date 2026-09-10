@@ -1,0 +1,159 @@
+  # ── L3 · «Porque no podía ir» — «porque»'s second reuse lesson (satisfies
+  #    the ≥2-later-lessons rule) and its first negated reason: «no podía».
+  #    Recombines PRIOR estaba/estabas/estábamos/estaban with PRIOR podía/
+  #    podías/podíamos/podían (both m24, yo=él collision). Carries the
+  #    module's floor-opening recall — L1's own win line, verbatim.
+  - n: 3
+    template: free
+    title: "Porque no podía ir"
+    description: "The reason after «porque» can be negated too: «no podía» = couldn't. «estaba en casa porque no podía ir a la playa» pairs PRIOR estaba (m24) and podía (m24)."
+    steps:
+      - kind: map
+        id: l3-map-estabacasaporquepodia
+        tokens: ["estaba", "en", "casa", "porque", "no", "podía", "ir", "a", "la", "playa"]
+        pairs:
+          - { en: "I was", tokenIndex: 0 }
+          - { en: "at", tokenIndex: 1 }
+          - { en: "home", tokenIndex: 2 }
+          - { en: "because", tokenIndex: 3 }
+          - { en: "not", tokenIndex: 4 }
+          - { en: "I could", tokenIndex: 5 }
+          - { en: "go", tokenIndex: 6 }
+          - { en: "to", tokenIndex: 7 }
+          - { en: "the", tokenIndex: 8 }
+          - { en: "beach", tokenIndex: 9 }
+        audioText: "estaba en casa porque no podía ir a la playa"
+        revealNote: "«porque» reused again — this time the reason clause is negated: «no podía» = couldn't."
+      - kind: info
+        id: l3-info-porquenegado
+        title: "Porque — a negated reason"
+        body: "The reason after «porque» can be negated too: «no podía» = couldn't. «estaba en casa porque no podía ir a la playa» — I was home because I couldn't go to the beach."
+      - kind: speakLit
+        id: l3-sp-diegoestabapodia
+        es: "Diego estaba en casa porque no podía ir a la playa"
+        en: "Diego was at home because he couldn't go to the beach"
+        atoms: ["estaba", "casa", "porque", "podía", "playa"]
+      - kind: buildLit
+        id: l3-b-tuestabaspodias
+        es: "tú estabas en casa porque no podías ir a la playa"
+        en: "You (tú) were at home because you couldn't go to the beach"
+        atoms: ["estabas", "casa", "porque", "podías", "playa"]
+        tiles: ["podían", "podía"]
+      - kind: speakLit
+        id: l3-sp-estabamospodiamos
+        es: "nosotros estábamos en casa porque no podíamos ir a la playa"
+        en: "We were at home because we couldn't go to the beach"
+        atoms: ["estábamos", "casa", "porque", "podíamos", "playa"]
+      - kind: clozeLit
+        id: l3-c-todosestabanpodian
+        es: "todos estaban en casa porque no podían ir a la playa"
+        en: "Everyone was at home because they couldn't go to the beach"
+        blank: "estaban"
+        options: ["estaban", "estábamos"]
+        atoms: ["todos", "estaban", "casa", "porque", "podían", "playa"]
+        why: "«todos» takes the they-ending: «estaban», never «estábamos» (we)."
+      - kind: listenCompLit
+        id: l3-lc-anaestabapodia
+        es: "Ana estaba en casa porque no podía ir a la playa"
+        en: "Ana was at home because she couldn't go to the beach."
+        atoms: ["estaba", "casa", "porque", "podía", "playa"]
+        distractorsEn:
+          - "Ana is at home because she can't go to the beach."
+          - "Ana went to the beach because she couldn't stay home."
+          - "Ana was at home because she didn't want to go to the beach."
+      - kind: mcq
+        id: l3-q-porque
+        prompt: "Which one means 'because' — states a reason?"
+        correct: "porque"
+        distractors: ["mientras", "entonces", "pero"]
+        atoms: ["porque"]
+        why: "«porque» states a reason. «mientras» = while (m23), «entonces» = then/so (m23), «pero» = but (m6) — real connectives, wrong meaning here."
+      - kind: buildLit
+        id: l3-b-samluisestabanpodian
+        es: "Sam y Luis estaban en casa porque no podían ir a la playa"
+        en: "Sam and Luis were at home because they couldn't go to the beach"
+        atoms: ["estaban", "casa", "porque", "podían", "playa"]
+        tiles: ["estaba", "estábamos"]
+      - kind: audioWimcq
+        id: l3-ear-playa
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "el parque", emoji: "🌳" }
+      - kind: agreementLit
+        id: l3-agr-yoelpodia
+        en: "I could go to the beach, and he could too"
+        audioText: "yo podía ir a la playa, y él podía también"
+        atoms: ["podía", "playa"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "podía", options: ["podía", "podías"] } }
+          - { text: " ir a la playa, y él " }
+          - { blank: { id: "p2", answer: "podía", options: ["podía", "podíamos"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l3-lb-ustedesestabanpodian
+        es: "ustedes estaban en casa porque no podían ir a la playa"
+        en: "You all were at home because you all couldn't go to the beach"
+        atoms: ["estaban", "casa", "porque", "podían", "playa"]
+        tiles: ["estábamos", "estaba"]
+      - kind: textMcq
+        id: l3-tm-porque
+        target: "porque"
+        distractors: ["mientras", "entonces", "pero"]
+      # Printed non-recall at L1 (es-m25-1-l1-sp-win).
+      - kind: speakLit
+        id: l3-sp-recall-nofuifiesta
+        es: "no fui a la fiesta porque tenía mucho trabajo"
+        en: "I didn't go to the party because I had a lot of work"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l3-sim-ana-playa
+        scene: { emoji: "🏖️", title: "Ana asks about the beach", setting: "Ana wants to know who stayed home, and why they couldn't go to the beach." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Diego estaba en casa?", audioText: "¿diego estaba en casa?", gloss: "Was Diego at home?" }
+            goal: "Say yes — he couldn't go."
+            reply:
+              mode: build
+              tiles: ["sí", "diego", "estaba", "en", "casa", "porque", "no", "podía", "ir", "a", "la", "playa", "podían"]
+              answer: "sí diego estaba en casa porque no podía ir a la playa"
+            replyGloss: "Yes, Diego was at home because he couldn't go to the beach."
+            explanation: "«estaba» and «podía» are both the yo=él shape — «Diego» is what tells you who."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tú? ¿Podías ir a la playa?", audioText: "¿y tú? ¿podías ir a la playa?", gloss: "And you? Could you go to the beach?" }
+            goal: "Say no, you were home too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, estaba en casa porque no podía ir" }
+                - { id: "wrong1", text: "no, estaba en casa porque no podías ir" }
+                - { id: "wrong2", text: "no, estaba en casa pero no podía ir" }
+              correctOptionId: "right"
+              audioText: "no, estaba en casa porque no podía ir"
+            replyGloss: "No, I was at home because I couldn't go."
+            explanation: "Answering about yourself: «podía», not «podías» — that would wrongly describe someone else. «pero» (but) isn't a reason — «porque» is."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Ustedes estaban en casa juntos?", audioText: "¿ustedes estaban en casa juntos?", gloss: "Were you two at home together?" }
+            goal: "Say yes, you both couldn't go."
+            reply:
+              mode: build
+              tiles: ["sí", "estábamos", "en", "casa", "porque", "no", "podíamos", "ir", "a", "la", "playa", "estaban", "podían"]
+              answer: "sí estábamos en casa porque no podíamos ir a la playa"
+            replyGloss: "Yes, we were at home because we couldn't go to the beach."
+            explanation: "Replying as «nosotros»: «estábamos»/«podíamos», the we-endings — not «estaban»/«podían» (they/you all)."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "porque", target: "because" }
+          - { source: "estaba", target: "I was, he/she/you was (located/state)" }
+          - { source: "podía", target: "I could, he/she/you could" }
+          - { source: "casa", target: "house, home" }
+          - { source: "playa", target: "beach" }
+          - { source: "todos", target: "everyone" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "estaba en casa porque no podía ir a la playa"
+        en: "I was at home because I couldn't go to the beach"
+        atoms: ["estaba", "casa", "porque", "podía", "playa"]

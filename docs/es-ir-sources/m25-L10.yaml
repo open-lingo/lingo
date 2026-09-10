@@ -1,0 +1,175 @@
+  # ── L10 · MASTERY — zero new atoms, zero info cards, every step graded.
+  #    Longest sim in the module (Ana asks for the whole memory, 5 turns) —
+  #    the module's law that the mastery lesson must END on the sim means
+  #    the verbatim closing win line is delivered as the sim's final (5th)
+  #    turn reply, not a separate speakLit step; matchLit sits just before
+  #    the sim instead of after it. ≥2 recalls (L9, L1 — full-circle back to
+  #    the very first win). ≥1 PRIOR m23 connective («cuando» and
+  #    «de repente», both used, plus «entonces» in NPC dialogue). Context:
+  #    every m25 family (fui/tenía/hacía/quería/estaba/podía/venía/salí) and
+  #    both porque/por eso, all working together.
+  - n: 10
+    template: free
+    title: "Cuando vino Sofía"
+    description: "Everything from this module, one last time, fully graded — both connectives, PRIOR m23 connectives, and every recombined family, all working together."
+    steps:
+      - kind: buildLit
+        id: l10-b-cuandovinoanatenia
+        es: "cuando vino Ana, tenía mucho trabajo"
+        en: "When Ana came, I had a lot of work"
+        atoms: ["cuando", "vino", "tenía", "mucho", "trabajo"]
+        tiles: ["tenías", "tenían"]
+      - kind: speakLit
+        id: l10-sp-anateniaporesofue
+        es: "Ana tenía mucho trabajo, por eso no fue a la fiesta"
+        en: "Ana had a lot of work, that's why she didn't go to the party"
+        atoms: ["tenía", "mucho", "trabajo", "por eso", "fue", "fiesta"]
+      - kind: listenBuildLit
+        id: l10-lb-mientrashaciaqueria
+        es: "mientras hacía la tarea, quería ir al cine"
+        en: "While I was doing homework, I wanted to go to the movies"
+        atoms: ["mientras", "hacía", "tarea", "quería", "cine"]
+        tiles: ["hacían", "querían"]
+      - kind: clozeLit
+        id: l10-c-entoncesnofuiporquetenia
+        es: "entonces no fui, porque tenía mucho trabajo"
+        en: "Then I didn't go, because I had a lot of work"
+        blank: "tenía"
+        options: ["tenía", "teníamos"]
+        atoms: ["entonces", "fui", "porque", "tenía", "mucho", "trabajo"]
+        why: "«yo» keeps «tenía» — the yo=él shape; «teníamos» would wrongly include others."
+      - kind: mcq
+        id: l10-q-entonces
+        prompt: "Which one chains a NEXT step, not a reason?"
+        correct: "entonces"
+        distractors: ["porque", "por eso", "mientras"]
+        atoms: ["entonces"]
+        why: "«entonces» (then/so) chains what happened next — a sequence, not a reason («porque»), a result («por eso»), or simultaneity («mientras»)."
+      - kind: agreementLit
+        id: l10-agr-yoelisali
+        en: "I left, and he did too"
+        audioText: "yo salí, y él salió también"
+        atoms: ["salí", "salió"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "salí", options: ["salí", "saliste"] } }
+          - { text: ", y él " }
+          - { blank: { id: "p2", answer: "salió", options: ["salió", "salí"] } }
+          - { text: " también" }
+      # Printed non-recall at L9 (es-m25-9-l9-sp-win).
+      - kind: speakLit
+        id: l10-sp-recall-l9win
+        es: "quería ir al cine, por eso hacía la tarea"
+        en: "I wanted to go to the movies, that's why I was doing homework"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l10-tm-entonces
+        target: "entonces"
+        distractors: ["porque", "por eso", "mientras"]
+      - kind: audioWimcq
+        id: l10-ear-fiesta
+        target: { surface: "la fiesta", emoji: "🎉" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el cine", emoji: "🎬" }
+      - kind: buildLit
+        id: l10-b-derepentevinoanamientras
+        es: "de repente vino Ana, mientras yo hacía la tarea"
+        en: "Suddenly Ana came, while I was doing homework"
+        atoms: ["de repente", "vino", "mientras", "hacía", "tarea"]
+        tiles: ["vine", "venía"]
+      - kind: listenBuildLit
+        id: l10-lb-cuandoteniapodiaplaya
+        es: "cuando tenía mucho trabajo, no podía ir a la playa"
+        en: "When I had a lot of work, I couldn't go to the beach"
+        atoms: ["cuando", "tenía", "mucho", "trabajo", "podía", "playa"]
+        tiles: ["tenías", "podías"]
+      - kind: clozeLit
+        id: l10-c-todosquerianpodian
+        es: "todos querían ir a la fiesta, pero no podían"
+        en: "Everyone wanted to go to the party, but they couldn't"
+        blank: "podían"
+        options: ["podían", "podíamos"]
+        atoms: ["todos", "querían", "fiesta", "pero", "podían"]
+        why: "«todos» takes the they-ending throughout: «querían»/«podían», never «podíamos» (we)."
+      - kind: mcq
+        id: l10-q-teniaporesofui
+        prompt: "'I had a lot of work, that's why I didn't go' — which one?"
+        correct: "tenía mucho trabajo, por eso no fui"
+        distractors: ["tenía mucho trabajo, porque no fui", "tenían mucho trabajo, por eso no fui", "tenía mucho trabajo, por eso no fue"]
+        atoms: ["tenía", "mucho", "trabajo", "por eso", "fui"]
+        why: "«por eso» gives the result — 'that's why.' «porque» flips direction; «tenían» wrongly shifts to they; «fue» wrongly shifts to he/she."
+      # Printed non-recall at L1 (es-m25-1-l1-sp-win).
+      - kind: speakLit
+        id: l10-sp-recall-l1win
+        es: "no fui a la fiesta porque tenía mucho trabajo"
+        en: "I didn't go to the party because I had a lot of work"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l10-tm-poreso
+        target: "por eso"
+        distractors: ["porque", "entonces", "mientras"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "porque", target: "because" }
+          - { source: "por eso", target: "that's why, so" }
+          - { source: "cuando", target: "when" }
+          - { source: "entonces", target: "then, so" }
+          - { source: "mientras", target: "while" }
+          - { source: "de repente", target: "suddenly" }
+      - kind: sim
+        id: l10-sim-ana-memoria
+        scene: { emoji: "🎉", title: "Ana asks for the whole memory", setting: "Ana wants to hear the whole story, start to finish, in one telling." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Diego quería ir a la fiesta?", audioText: "¿diego quería ir a la fiesta?", gloss: "Did Diego want to go to the party?" }
+            goal: "Say yes, but too much work."
+            reply:
+              mode: build
+              tiles: ["sí", "quería", "pero", "tenía", "mucho", "trabajo", "querían", "tenían"]
+              answer: "sí quería pero tenía mucho trabajo"
+            replyGloss: "Yes, he wanted to, but he had a lot of work."
+            explanation: "«quería»/«tenía» both carry the yo=él collision — «Diego» from Ana's question tells you who."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Entonces no fue?", audioText: "¿entonces no fue?", gloss: "So he didn't go?" }
+            goal: "Say no — that's why he didn't go."
+            reply:
+              mode: build
+              tiles: ["no", "no", "por", "eso", "fue", "fueron"]
+              answer: "no por eso no fue"
+            replyGloss: "No, that's why he didn't go."
+            explanation: "«por eso» gives the result directly — 'that's why' he didn't go, following from having too much work."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Vino Ana de repente mientras Diego hacía la tarea?", audioText: "¿vino ana de repente mientras diego hacía la tarea?", gloss: "Did Ana come suddenly while Diego was doing homework?" }
+            goal: "Say yes, that's exactly what happened."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, vino de repente mientras hacía la tarea" }
+                - { id: "wrong1", text: "sí, vino de repente porque hacía la tarea" }
+                - { id: "wrong2", text: "sí, vino de repente, pero no hacía la tarea" }
+              correctOptionId: "right"
+              audioText: "sí, vino de repente mientras hacía la tarea"
+            replyGloss: "Yes, she came suddenly while he was doing homework."
+            explanation: "«de repente» flags the surprise arrival; «mientras» marks what was already going on — «porque» would wrongly claim it as a reason, and «pero» would wrongly contrast rather than describe simultaneity."
+          - id: t4
+            npc: { speaker: "Ana", es: "¿Podía ir al cine?", audioText: "¿podía ir al cine?", gloss: "Could he go to the movies?" }
+            goal: "Say no, he couldn't."
+            reply:
+              mode: build
+              tiles: ["no", "no", "podía", "podían"]
+              answer: "no no podía"
+            replyGloss: "No, he couldn't."
+            explanation: "«podía» — the yo=él shape, still talking about Diego."
+          - id: t5
+            npc: { speaker: "Ana", es: "Cuéntamelo todo, de principio a fin.", audioText: "cuéntamelo todo, de principio a fin.", gloss: "Tell me the whole thing, start to finish." }
+            goal: "Narrate the whole memory, start to finish."
+            reply:
+              mode: build
+              tiles: ["quería", "ir", "a", "la", "la", "fiesta,", "pero", "tenía", "mucho", "trabajo,", "por", "eso", "no", "fui,", "y", "cuando", "hacía", "tarea,", "vino", "Sofía", "querían", "vinieron"]
+              answer: "quería ir a la fiesta, pero tenía mucho trabajo, por eso no fui, y cuando hacía la tarea, vino Sofía"
+            replyGloss: "I wanted to go to the party, but I had a lot of work, that's why I didn't go, and when I was doing homework, Sofía came."
+            explanation: "The whole module in one line: «quería» sets the want, «tenía» gives the reason, «por eso» delivers the result, and «cuando» ... «hacía» ... «vino» closes it with a bounded event landing inside the ongoing scene — every family, both connectives, doing its own job."

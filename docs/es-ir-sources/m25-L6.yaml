@@ -1,0 +1,168 @@
+  # ── L6 · «Mientras hacía la tarea» — zero new atoms. Recombines PRIOR
+  #    mientras (m23) with PRIOR hacía/fui/tenía/fiesta/tarea/trabajo (L1/L2)
+  #    to contrast a temporal connective against the causal pair. Carries
+  #    two recalls — one per new atom (por eso from L5, porque from L3).
+  - n: 6
+    template: free
+    title: "Mientras hacía la tarea"
+    description: "Zero new atoms. «mientras» (m23, while) marks two things at once; «porque» still gives its own reason inside the sentence — different jobs, easy to combine. «mientras hacía la tarea, no fui a la fiesta porque tenía mucho trabajo»."
+    steps:
+      - kind: map
+        id: l6-map-mientrashaciatareaporque
+        tokens: ["mientras", "hacía", "la", "tarea,", "no", "fui", "a", "la", "fiesta", "porque", "tenía", "mucho", "trabajo"]
+        pairs:
+          - { en: "while", tokenIndex: 0 }
+          - { en: "I was doing", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "homework,", tokenIndex: 3 }
+          - { en: "not", tokenIndex: 4 }
+          - { en: "I went", tokenIndex: 5 }
+          - { en: "to", tokenIndex: 6 }
+          - { en: "the", tokenIndex: 7 }
+          - { en: "party", tokenIndex: 8 }
+          - { en: "because", tokenIndex: 9 }
+          - { en: "I had", tokenIndex: 10 }
+          - { en: "a lot of", tokenIndex: 11 }
+          - { en: "work", tokenIndex: 12 }
+        audioText: "mientras hacía la tarea, no fui a la fiesta porque tenía mucho trabajo"
+        revealNote: "«mientras» (while, m23) marks two things happening at once; «porque» (because) still gives its own reason inside the sentence — different jobs, easy to combine."
+      - kind: info
+        id: l6-info-fiveconnectives
+        title: "Five connectives, five jobs"
+        body: "«mientras» = while (same time), «entonces» = then/so (sequence), «pero» = but (contrast) — all m23. «porque» = because (reason first) and «por eso» = that's why (result first) — both m25. Same sentence, five different jobs."
+      - kind: speakLit
+        id: l6-sp-diegohaciafuetenia
+        es: "mientras Diego hacía la tarea, no fue a la fiesta porque tenía mucho trabajo"
+        en: "While Diego was doing homework, he didn't go to the party because he had a lot of work"
+        atoms: ["mientras", "hacía", "tarea", "fue", "fiesta", "porque", "tenía", "mucho", "trabajo"]
+      - kind: buildLit
+        id: l6-b-tuhaciasfuistetenias
+        es: "mientras tú hacías la tarea, no fuiste a la fiesta porque tenías mucho trabajo"
+        en: "While you (tú) were doing homework, you didn't go to the party because you had a lot of work"
+        atoms: ["mientras", "hacías", "tarea", "fuiste", "fiesta", "porque", "tenías", "mucho", "trabajo"]
+        tiles: ["hacían", "hacía"]
+      - kind: speakLit
+        id: l6-sp-haciamosfuimosteniamos
+        es: "mientras hacíamos la tarea, no fuimos a la fiesta porque teníamos mucho trabajo"
+        en: "While we were doing homework, we didn't go to the party because we had a lot of work"
+        atoms: ["mientras", "hacíamos", "tarea", "fuimos", "fiesta", "porque", "teníamos", "mucho", "trabajo"]
+      - kind: clozeLit
+        id: l6-c-todoshacianfuerontenian
+        es: "mientras todos hacían la tarea, no fueron a la fiesta porque tenían mucho trabajo"
+        en: "While everyone was doing homework, they didn't go to the party because they had a lot of work"
+        blank: "hacían"
+        options: ["hacían", "hacíamos"]
+        atoms: ["mientras", "todos", "hacían", "tarea", "fueron", "fiesta", "porque", "tenían", "mucho", "trabajo"]
+        why: "«todos» takes the they-ending: «hacían», never «hacíamos» (we)."
+      - kind: listenCompLit
+        id: l6-lc-anahaciafuetenia
+        es: "mientras Ana hacía la tarea, no fue a la fiesta porque tenía mucho trabajo"
+        en: "While Ana was doing homework, she didn't go to the party because she had a lot of work."
+        atoms: ["mientras", "hacía", "tarea", "fue", "fiesta", "porque", "tenía", "mucho", "trabajo"]
+        distractorsEn:
+          - "While Ana was doing homework, she went to the party because she had a lot of work."
+          - "While Ana does homework, she didn't go to the party because she had a lot of work."
+          - "While Ana was doing homework, she didn't go to the party because she had a little work."
+      - kind: mcq
+        id: l6-q-mientras
+        prompt: "Which one links two things happening at the same time?"
+        correct: "mientras"
+        distractors: ["porque", "por eso", "entonces"]
+        atoms: ["mientras"]
+        why: "«mientras» = while, marking simultaneity. «porque» gives a reason, «por eso» gives a result, «entonces» chains a next step — different jobs."
+      - kind: buildLit
+        id: l6-b-samluishacianfuerontenian
+        es: "mientras Sam y Luis hacían la tarea, no fueron a la fiesta porque tenían mucho trabajo"
+        en: "While Sam and Luis were doing homework, they didn't go to the party because they had a lot of work"
+        atoms: ["mientras", "hacían", "tarea", "fueron", "fiesta", "porque", "tenían", "mucho", "trabajo"]
+        tiles: ["hacía", "hacíamos"]
+      - kind: audioWimcq
+        id: l6-ear-tarea
+        target: { surface: "la tarea", emoji: "📝" }
+        distractors:
+          - { surface: "la fiesta", emoji: "🎉" }
+          - { surface: "el cine", emoji: "🎬" }
+      - kind: agreementLit
+        id: l6-agr-yoelhacia
+        en: "I was doing homework, and he was too"
+        audioText: "yo hacía la tarea, y él hacía también"
+        atoms: ["hacía", "tarea"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "hacía", options: ["hacía", "hacías"] } }
+          - { text: " la tarea, y él " }
+          - { blank: { id: "p2", answer: "hacía", options: ["hacía", "hacíamos"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l6-lb-ustedeshacianfuerontenian
+        es: "mientras ustedes hacían la tarea, no fueron a la fiesta porque tenían mucho trabajo"
+        en: "While you all were doing homework, you all didn't go to the party because you all had a lot of work"
+        atoms: ["mientras", "hacían", "tarea", "fueron", "fiesta", "porque", "tenían", "mucho", "trabajo"]
+        tiles: ["hacíamos", "hacía"]
+      # Printed non-recall at L5 (es-m25-5-l5-sp-win).
+      - kind: speakLit
+        id: l6-sp-recall-poreso
+        es: "quería ir a la escuela, por eso venía temprano"
+        en: "I wanted to go to school, that's why I was coming early"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l6-tm-mientras
+        target: "mientras"
+        distractors: ["porque", "por eso", "entonces"]
+      # Printed non-recall at L3 (es-m25-3-l3-sp-win).
+      - kind: speakLit
+        id: l6-sp-recall-porque
+        es: "estaba en casa porque no podía ir a la playa"
+        en: "I was at home because I couldn't go to the beach"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l6-sim-ana-tarea
+        scene: { emoji: "📝", title: "Ana asks about the busy day", setting: "Ana wants to know who was doing homework while also having too much work." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Diego hacía la tarea mientras tenía mucho trabajo?", audioText: "¿diego hacía la tarea mientras tenía mucho trabajo?", gloss: "Was Diego doing homework while he had a lot of work?" }
+            goal: "Say yes — that's why he didn't go."
+            reply:
+              mode: build
+              tiles: ["sí", "diego", "hacía", "la", "tarea", "por", "eso", "no", "fue", "a", "la", "fiesta", "hacían"]
+              answer: "sí diego hacía la tarea por eso no fue a la fiesta"
+            replyGloss: "Yes, Diego was doing homework, that's why he didn't go to the party."
+            explanation: "«hacía» is the yo=él shape — «Diego» tells you who. «por eso» gives the result of having lots of work; «mientras» would just mark simultaneity, not a result."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tú? ¿Tenías mucho trabajo mientras hacías la tarea?", audioText: "¿y tú? ¿tenías mucho trabajo mientras hacías la tarea?", gloss: "And you? Did you have a lot of work while you were doing homework?" }
+            goal: "Say yes, that's why you didn't go either."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tenía mucho trabajo, por eso no fui" }
+                - { id: "wrong1", text: "sí, tenía mucho trabajo, mientras no fui" }
+                - { id: "wrong2", text: "sí, tenía mucho trabajo, porque no fui" }
+              correctOptionId: "right"
+              audioText: "sí, tenía mucho trabajo, por eso no fui"
+            replyGloss: "Yes, I had a lot of work, that's why I didn't go."
+            explanation: "«por eso» gives the result — 'that's why.' «mientras» (while) doesn't state a result, and «porque» here would flip direction since «tenía mucho trabajo» is already the reason."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Ustedes tenían mucho trabajo mientras hacían la tarea?", audioText: "¿ustedes tenían mucho trabajo mientras hacían la tarea?", gloss: "Did you two have a lot of work while you were doing homework?" }
+            goal: "Say yes, that's why you both didn't go."
+            reply:
+              mode: build
+              tiles: ["sí", "teníamos", "mucho", "trabajo", "por", "eso", "no", "fuimos", "a", "la", "fiesta", "tenían", "fueron"]
+              answer: "sí teníamos mucho trabajo por eso no fuimos a la fiesta"
+            replyGloss: "Yes, we had a lot of work, that's why we didn't go to the party."
+            explanation: "Replying as «nosotros»: «teníamos»/«fuimos», the we-endings — not «tenían»/«fueron» (they/you all)."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "mientras", target: "while" }
+          - { source: "porque", target: "because" }
+          - { source: "por eso", target: "that's why, so" }
+          - { source: "hacía", target: "I was doing, he/she/you was doing" }
+          - { source: "tenía", target: "I had, he/she/you had" }
+          - { source: "tarea", target: "homework" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "mientras hacía la tarea, no fui a la fiesta porque tenía mucho trabajo"
+        en: "While I was doing homework, I didn't go to the party because I had a lot of work"
+        atoms: ["mientras", "hacía", "tarea", "fui", "fiesta", "porque", "tenía", "mucho", "trabajo"]

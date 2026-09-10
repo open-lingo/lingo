@@ -1,0 +1,151 @@
+  # ── L4 · «Por eso no fui» — «por eso» debuts whole, the mirror of
+  #    «porque»: same two facts, reason first, then «por eso» gives the
+  #    result. A direct flip of L1's own sentence. Carries the module's
+  #    mirror rule card. No recall (por eso's debut lesson, same as
+  #    porque's L1).
+  - n: 4
+    template: free
+    title: "Por eso no fui"
+    description: "«por eso» is «porque» flipped: state the reason first, then «por eso» gives the result. «tenía mucho trabajo, por eso no fui a la fiesta» is L1's own sentence, cause first."
+    steps:
+      - kind: map
+        id: l4-map-teniaporesofui
+        tokens: ["tenía", "mucho", "trabajo", "por eso", "no", "fui", "a", "la", "fiesta"]
+        pairs:
+          - { en: "I had", tokenIndex: 0 }
+          - { en: "a lot of", tokenIndex: 1 }
+          - { en: "work,", tokenIndex: 2 }
+          - { en: "that's why", tokenIndex: 3 }
+          - { en: "not", tokenIndex: 4 }
+          - { en: "I went", tokenIndex: 5 }
+          - { en: "to", tokenIndex: 6 }
+          - { en: "the", tokenIndex: 7 }
+          - { en: "party", tokenIndex: 8 }
+        audioText: "tenía mucho trabajo, por eso no fui a la fiesta"
+        revealNote: "«por eso» is the mirror of «porque»: same two facts, but flipped — the reason comes first, then «por eso» ('that's why') gives the result."
+      - kind: info
+        id: l4-info-poreso
+        title: "Por eso — the mirror of porque"
+        body: "«por eso» flips «porque»: reason first, then «por eso» gives the result. «tenía mucho trabajo, por eso no fui a la fiesta» — I had a lot of work, that's why I didn't go to the party. Same two facts as L1's «no fui a la fiesta porque tenía mucho trabajo», either direction."
+      - kind: speakLit
+        id: l4-sp-diegoteniafue
+        es: "Diego tenía mucho trabajo, por eso no fue a la fiesta"
+        en: "Diego had a lot of work, that's why he didn't go to the party"
+        atoms: ["tenía", "mucho", "trabajo", "por eso", "fue", "fiesta"]
+      - kind: buildLit
+        id: l4-b-tuteniasfuiste
+        es: "tú tenías mucho trabajo, por eso no fuiste a la fiesta"
+        en: "You (tú) had a lot of work, that's why you didn't go to the party"
+        atoms: ["tenías", "mucho", "trabajo", "por eso", "fuiste", "fiesta"]
+        tiles: ["tenían", "tenía"]
+      - kind: speakLit
+        id: l4-sp-teniamosfuimos
+        es: "nosotros teníamos mucho trabajo, por eso no fuimos a la fiesta"
+        en: "We had a lot of work, that's why we didn't go to the party"
+        atoms: ["teníamos", "mucho", "trabajo", "por eso", "fuimos", "fiesta"]
+      - kind: clozeLit
+        id: l4-c-todostenianfueron
+        es: "todos tenían mucho trabajo, por eso no fueron a la fiesta"
+        en: "Everyone had a lot of work, that's why they didn't go to the party"
+        blank: "tenían"
+        options: ["tenían", "teníamos"]
+        atoms: ["todos", "tenían", "mucho", "trabajo", "por eso", "fueron", "fiesta"]
+        why: "«todos» takes the they-ending: «tenían», never «teníamos» (we)."
+      - kind: listenCompLit
+        id: l4-lc-anateniafue
+        es: "Ana tenía mucho trabajo, por eso no fue a la fiesta"
+        en: "Ana had a lot of work, that's why she didn't go to the party."
+        atoms: ["tenía", "mucho", "trabajo", "por eso", "fue", "fiesta"]
+        distractorsEn:
+          - "Ana has a lot of work, that's why she didn't go to the party."
+          - "Ana had a lot of work, that's why she went to the party."
+          - "Ana had a little work, that's why she didn't go to the party."
+      - kind: mcq
+        id: l4-q-poreso
+        prompt: "Which one means 'that's why' — states a result?"
+        correct: "por eso"
+        distractors: ["porque", "mientras", "pero"]
+        atoms: ["por eso"]
+        why: "«por eso» states a result — 'that's why.' «porque» flips direction (it introduces a reason, not a result). «mientras» = while, «pero» = but — different meanings entirely."
+      - kind: buildLit
+        id: l4-b-samluistenianfueron
+        es: "Sam y Luis tenían mucho trabajo, por eso no fueron a la fiesta"
+        en: "Sam and Luis had a lot of work, that's why they didn't go to the party"
+        atoms: ["tenían", "mucho", "trabajo", "por eso", "fueron", "fiesta"]
+        tiles: ["tenía", "teníamos"]
+      - kind: audioWimcq
+        id: l4-ear-fiesta
+        target: { surface: "la fiesta", emoji: "🎉" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el parque", emoji: "🌳" }
+      - kind: agreementLit
+        id: l4-agr-yoellatenia
+        en: "I had a lot of work, and she did too"
+        audioText: "yo tenía mucho trabajo, y ella tenía también"
+        atoms: ["tenía", "mucho", "trabajo"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "tenía", options: ["tenía", "tenías"] } }
+          - { text: " mucho trabajo, y ella " }
+          - { blank: { id: "p2", answer: "tenía", options: ["tenía", "teníamos"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l4-lb-ustedestenianfueron
+        es: "ustedes tenían mucho trabajo, por eso no fueron a la fiesta"
+        en: "You all had a lot of work, that's why you all didn't go to the party"
+        atoms: ["tenían", "mucho", "trabajo", "por eso", "fueron", "fiesta"]
+        tiles: ["teníamos", "tenía"]
+      - kind: textMcq
+        id: l4-tm-poreso
+        target: "por eso"
+        distractors: ["porque", "mientras", "pero"]
+      - kind: sim
+        id: l4-sim-ana-trabajo
+        scene: { emoji: "💼", title: "Ana asks about the work", setting: "Ana wants to know who had a lot of work, and why they missed the party." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Diego tenía mucho trabajo?", audioText: "¿diego tenía mucho trabajo?", gloss: "Did Diego have a lot of work?" }
+            goal: "Say yes — that's why he didn't go."
+            reply:
+              mode: build
+              tiles: ["sí", "diego", "tenía", "mucho", "trabajo", "por", "eso", "no", "fue", "a", "la", "fiesta", "tenían"]
+              answer: "sí diego tenía mucho trabajo por eso no fue a la fiesta"
+            replyGloss: "Yes, Diego had a lot of work, that's why he didn't go to the party."
+            explanation: "«tenía» and «fue» are both the yo=él shape — «Diego» is what tells you who. «por eso» always follows the reason, never leads it."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tú? ¿Tenías mucho trabajo también?", audioText: "¿y tú? ¿tenías mucho trabajo también?", gloss: "And you? Did you have a lot of work too?" }
+            goal: "Say yes, that's why you didn't go either."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tenía mucho trabajo, por eso no fui" }
+                - { id: "wrong1", text: "sí, tenía mucho trabajo, por eso no fuiste" }
+                - { id: "wrong2", text: "sí, tenía mucho trabajo, porque no fui" }
+              correctOptionId: "right"
+              audioText: "sí, tenía mucho trabajo, por eso no fui"
+            replyGloss: "Yes, I had a lot of work, that's why I didn't go."
+            explanation: "Answering about yourself: «fui», not «fuiste» — that would wrongly describe someone else. «porque» here would flip direction — «tenía mucho trabajo» is already the reason; «por eso» is what should follow it."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Ustedes tenían mucho trabajo?", audioText: "¿ustedes tenían mucho trabajo?", gloss: "Did you two have a lot of work?" }
+            goal: "Say yes, that's why you both didn't go."
+            reply:
+              mode: build
+              tiles: ["sí", "teníamos", "mucho", "trabajo", "por", "eso", "no", "fuimos", "a", "la", "fiesta", "tenían", "fueron"]
+              answer: "sí teníamos mucho trabajo por eso no fuimos a la fiesta"
+            replyGloss: "Yes, we had a lot of work, that's why we didn't go to the party."
+            explanation: "Replying as «nosotros»: «teníamos»/«fuimos», the we-endings — not «tenían»/«fueron» (they/you all)."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "por eso", target: "that's why, so" }
+          - { source: "tenía", target: "I had, he/she/you had" }
+          - { source: "fui", target: "I went" }
+          - { source: "mucho", target: "a lot" }
+          - { source: "trabajo", target: "work" }
+          - { source: "fiesta", target: "party" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "tenía mucho trabajo, por eso no fui a la fiesta"
+        en: "I had a lot of work, that's why I didn't go to the party"
+        atoms: ["tenía", "mucho", "trabajo", "por eso", "fui", "fiesta"]

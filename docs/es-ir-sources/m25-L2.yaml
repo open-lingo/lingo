@@ -1,0 +1,150 @@
+  # ── L2 · «Porque quería ir al cine» — «porque»'s first reuse lesson: same
+  #    job, new pair of PRIOR facts. Recombines PRIOR hacía/hacías/hacíamos/
+  #    hacían with PRIOR quería/querías/queríamos/querían (both m24, yo=él
+  #    collision) — «ir» never appears in an atoms: credit array (not a
+  #    live atom). No formal recall (the floor starts at L3).
+  - n: 2
+    template: free
+    title: "Porque quería ir al cine"
+    description: "«porque» does the same job again, on a new pair of PRIOR facts. «hacía la tarea porque quería ir al cine» pairs PRIOR hacía (m24) and quería (m24)."
+    steps:
+      - kind: map
+        id: l2-map-haciatareaporqueria
+        tokens: ["hacía", "la", "tarea", "porque", "quería", "ir", "al", "cine"]
+        pairs:
+          - { en: "I was doing", tokenIndex: 0 }
+          - { en: "the", tokenIndex: 1 }
+          - { en: "homework", tokenIndex: 2 }
+          - { en: "because", tokenIndex: 3 }
+          - { en: "I wanted", tokenIndex: 4 }
+          - { en: "to go", tokenIndex: 5 }
+          - { en: "to the", tokenIndex: 6 }
+          - { en: "movies", tokenIndex: 7 }
+        audioText: "hacía la tarea porque quería ir al cine"
+        revealNote: "«porque» reused — same reason job, new pair of PRIOR facts: «hacía» and «quería ir», both from m24."
+      - kind: info
+        id: l2-info-porquereuse
+        title: "Porque — same job, new facts"
+        body: "«porque» keeps doing the same job: reason after the fact it explains. «hacía la tarea porque quería ir al cine» — I was doing homework because I wanted to go to the movies. One word, no accent, same as L1."
+      - kind: speakLit
+        id: l2-sp-diegohaciaqueria
+        es: "Diego hacía la tarea porque quería ir al cine"
+        en: "Diego was doing homework because he wanted to go to the movies"
+        atoms: ["hacía", "tarea", "porque", "quería", "cine"]
+      - kind: buildLit
+        id: l2-b-tuhaciasquerias
+        es: "tú hacías la tarea porque querías ir al cine"
+        en: "You (tú) were doing homework because you wanted to go to the movies"
+        atoms: ["hacías", "tarea", "porque", "querías", "cine"]
+        tiles: ["hacían", "hacía"]
+      - kind: speakLit
+        id: l2-sp-haciamosqueriamos
+        es: "nosotros hacíamos la tarea porque queríamos ir al cine"
+        en: "We were doing homework because we wanted to go to the movies"
+        atoms: ["hacíamos", "tarea", "porque", "queríamos", "cine"]
+      - kind: clozeLit
+        id: l2-c-todoshacianquerian
+        es: "todos hacían la tarea porque querían ir al cine"
+        en: "Everyone was doing homework because they wanted to go to the movies"
+        blank: "hacían"
+        options: ["hacían", "hacíamos"]
+        atoms: ["todos", "hacían", "tarea", "porque", "querían", "cine"]
+        why: "«todos» takes the they-ending: «hacían», never «hacíamos» (we)."
+      - kind: listenCompLit
+        id: l2-lc-anahaciaqueria
+        es: "Ana hacía la tarea porque quería ir al cine"
+        en: "Ana was doing homework because she wanted to go to the movies."
+        atoms: ["hacía", "tarea", "porque", "quería", "cine"]
+        distractorsEn:
+          - "Ana does homework because she wants to go to the movies."
+          - "Ana wasn't doing homework because she wanted to go to the movies."
+          - "Ana was doing homework because she wanted to go to the beach."
+      - kind: mcq
+        id: l2-q-porque
+        prompt: "Which one means 'because' — states a reason?"
+        correct: "porque"
+        distractors: ["mientras", "entonces", "pero"]
+        atoms: ["porque"]
+        why: "«porque» states a reason. «mientras» = while (m23), «entonces» = then/so (m23), «pero» = but (m6) — real connectives, wrong meaning here."
+      - kind: buildLit
+        id: l2-b-samluishacianquerian
+        es: "Sam y Luis hacían la tarea porque querían ir al cine"
+        en: "Sam and Luis were doing homework because they wanted to go to the movies"
+        atoms: ["hacían", "tarea", "porque", "querían", "cine"]
+        tiles: ["hacía", "hacíamos"]
+      - kind: audioWimcq
+        id: l2-ear-tarea
+        target: { surface: "la tarea", emoji: "📝" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "el libro", emoji: "📖" }
+      - kind: agreementLit
+        id: l2-agr-yoelqueria
+        en: "I wanted to go to the movies, and he did too"
+        audioText: "yo quería ir al cine, y él quería también"
+        atoms: ["quería", "cine"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "quería", options: ["quería", "querías"] } }
+          - { text: " ir al cine, y él " }
+          - { blank: { id: "p2", answer: "quería", options: ["quería", "queríamos"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l2-lb-ustedeshacianquerian
+        es: "ustedes hacían la tarea porque querían ir al cine"
+        en: "You all were doing homework because you all wanted to go to the movies"
+        atoms: ["hacían", "tarea", "porque", "querían", "cine"]
+        tiles: ["hacíamos", "hacía"]
+      - kind: textMcq
+        id: l2-tm-porque
+        target: "porque"
+        distractors: ["mientras", "entonces", "pero"]
+      - kind: sim
+        id: l2-sim-ana-tarea
+        scene: { emoji: "📝", title: "Ana asks about homework", setting: "Ana wants to know who was doing homework, and why they wanted to go out instead." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Diego hacía la tarea?", audioText: "¿diego hacía la tarea?", gloss: "Was Diego doing homework?" }
+            goal: "Say yes — he wanted the movies."
+            reply:
+              mode: build
+              tiles: ["sí", "diego", "hacía", "la", "tarea", "porque", "quería", "ir", "al", "cine", "hacían"]
+              answer: "sí diego hacía la tarea porque quería ir al cine"
+            replyGloss: "Yes, Diego was doing homework because he wanted to go to the movies."
+            explanation: "«hacía» and «quería» are both the yo=él shape — «Diego» is what tells you who, same trick as L1's «tenía»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tú? ¿Querías ir al cine también?", audioText: "¿y tú? ¿querías ir al cine también?", gloss: "And you? Did you want to go to the movies too?" }
+            goal: "Say yes, you did homework too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, hacía la tarea porque quería ir al cine" }
+                - { id: "wrong1", text: "sí, hacía la tarea porque querías ir al cine" }
+                - { id: "wrong2", text: "sí, hacía la tarea entonces quería ir al cine" }
+              correctOptionId: "right"
+              audioText: "sí, hacía la tarea porque quería ir al cine"
+            replyGloss: "Yes, I was doing homework because I wanted to go to the movies."
+            explanation: "Answering about yourself: «quería», not «querías» — that would wrongly describe someone else. «entonces» (then/so) isn't a reason — «porque» is."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Ustedes hacían la tarea juntos?", audioText: "¿ustedes hacían la tarea juntos?", gloss: "Were you two doing homework together?" }
+            goal: "Say no, you both wanted the movies."
+            reply:
+              mode: build
+              tiles: ["no", "hacíamos", "la", "tarea", "porque", "queríamos", "ir", "al", "cine", "hacían", "querían"]
+              answer: "no hacíamos la tarea porque queríamos ir al cine"
+            replyGloss: "No, we weren't doing homework because we wanted to go to the movies."
+            explanation: "Replying as «nosotros»: «hacíamos»/«queríamos», the we-endings — not «hacían»/«querían» (they/you all)."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "porque", target: "because" }
+          - { source: "hacía", target: "I was doing, he/she/you was doing" }
+          - { source: "quería", target: "I wanted, he/she/you wanted" }
+          - { source: "tarea", target: "homework" }
+          - { source: "cine", target: "movies" }
+          - { source: "todos", target: "everyone" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "hacía la tarea porque quería ir al cine"
+        en: "I was doing homework because I wanted to go to the movies"
+        atoms: ["hacía", "tarea", "porque", "quería", "cine"]

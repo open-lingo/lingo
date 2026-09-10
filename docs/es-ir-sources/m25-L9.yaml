@@ -1,0 +1,156 @@
+  # ── L9 · «Porque y por eso, la misma historia» — the mirror made explicit:
+  #    the SAME two PRIOR facts (hacía/tarea from L2, quería/cine from L2),
+  #    told both directions side by side across the lesson. Carries a recall
+  #    of L8's checkpoint win (first time recalled).
+  - n: 9
+    template: free
+    title: "Porque y por eso, la misma historia"
+    description: "Same two facts, either direction: «porque» leads with what happened, then the reason. «por eso» leads with the reason, then what happened. «hacía la tarea porque quería ir al cine» = «quería ir al cine, por eso hacía la tarea»."
+    steps:
+      - kind: map
+        id: l9-map-queriacineporesohacia
+        tokens: ["quería", "ir", "al", "cine,", "por eso", "hacía", "la", "tarea"]
+        pairs:
+          - { en: "I wanted", tokenIndex: 0 }
+          - { en: "to go", tokenIndex: 1 }
+          - { en: "to the", tokenIndex: 2 }
+          - { en: "movies,", tokenIndex: 3 }
+          - { en: "that's why", tokenIndex: 4 }
+          - { en: "I was doing", tokenIndex: 5 }
+          - { en: "the", tokenIndex: 6 }
+          - { en: "homework", tokenIndex: 7 }
+        audioText: "quería ir al cine, por eso hacía la tarea"
+        revealNote: "Same two facts as L2, flipped: «por eso» leads with the want, then gives the result — homework. Either direction works from the same two facts."
+      - kind: info
+        id: l9-info-samestory
+        title: "The same story, either direction"
+        body: "«porque» leads with what happened, then the reason. «por eso» leads with the reason, then what happened. Same two facts, either order: «hacía la tarea porque quería ir al cine» = «quería ir al cine, por eso hacía la tarea»."
+      - kind: speakLit
+        id: l9-sp-anahaciaqueria
+        es: "Ana hacía la tarea porque quería ir al cine"
+        en: "Ana was doing homework because she wanted to go to the movies"
+        atoms: ["hacía", "tarea", "porque", "quería", "cine"]
+      - kind: buildLit
+        id: l9-b-tuqueriasporesohacias
+        es: "tú querías ir al cine, por eso hacías la tarea"
+        en: "You (tú) wanted to go to the movies, that's why you were doing homework"
+        atoms: ["querías", "cine", "por eso", "hacías", "tarea"]
+        tiles: ["querían", "quería"]
+      - kind: speakLit
+        id: l9-sp-haciamosqueriamos
+        es: "nosotros hacíamos la tarea porque queríamos ir al cine"
+        en: "We were doing homework because we wanted to go to the movies"
+        atoms: ["hacíamos", "tarea", "porque", "queríamos", "cine"]
+      - kind: clozeLit
+        id: l9-c-todosquerianporesohacian
+        es: "todos querían ir al cine, por eso hacían la tarea"
+        en: "Everyone wanted to go to the movies, that's why they were doing homework"
+        blank: "querían"
+        options: ["querían", "queríamos"]
+        atoms: ["todos", "querían", "cine", "por eso", "hacían", "tarea"]
+        why: "«todos» takes the they-ending: «querían», never «queríamos» (we)."
+      - kind: listenCompLit
+        id: l9-lc-anahaciaqueria
+        es: "Ana hacía la tarea porque quería ir al cine"
+        en: "Ana was doing homework because she wanted to go to the movies."
+        atoms: ["hacía", "tarea", "porque", "quería", "cine"]
+        distractorsEn:
+          - "Ana does homework because she wants to go to the movies."
+          - "Ana wasn't doing homework because she wanted to go to the movies."
+          - "Ana was doing homework because she wanted to go to the beach."
+      - kind: mcq
+        id: l9-q-leadswithresult
+        prompt: "Same two facts — which one leads with the RESULT?"
+        correct: "por eso"
+        distractors: ["porque", "mientras", "entonces"]
+        atoms: ["por eso"]
+        why: "«por eso» leads with the reason, then states the result. «porque» flips it — result first, reason after. «mientras» (while) and «entonces» (then/so) are different connectives from m23."
+      - kind: buildLit
+        id: l9-b-samluisqueriaporesohacian
+        es: "Sam y Luis querían ir al cine, por eso hacían la tarea"
+        en: "Sam and Luis wanted to go to the movies, that's why they were doing homework"
+        atoms: ["querían", "cine", "por eso", "hacían", "tarea"]
+        tiles: ["quería", "queríamos"]
+      - kind: audioWimcq
+        id: l9-ear-cine
+        target: { surface: "el cine", emoji: "🎬" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "la playa", emoji: "🏖️" }
+      - kind: agreementLit
+        id: l9-agr-yoelvenia
+        en: "I was coming early, and he was too"
+        audioText: "yo venía temprano, y él venía también"
+        atoms: ["venía", "temprano"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "venía", options: ["venía", "venías"] } }
+          - { text: " temprano, y él " }
+          - { blank: { id: "p2", answer: "venía", options: ["venía", "veníamos"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l9-lb-ustedeshacianquerian
+        es: "ustedes hacían la tarea porque querían ir al cine"
+        en: "You all were doing homework because you all wanted to go to the movies"
+        atoms: ["hacían", "tarea", "porque", "querían", "cine"]
+        tiles: ["hacía", "hacíamos"]
+      - kind: textMcq
+        id: l9-tm-porque
+        target: "porque"
+        distractors: ["por eso", "mientras", "pero"]
+      # Printed non-recall at L8 (es-m25-8-l8-sp-win).
+      - kind: speakLit
+        id: l9-sp-recall-l8win
+        es: "quería ir a la playa, por eso no hacía la tarea"
+        en: "I wanted to go to the beach, that's why I wasn't doing homework"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l9-sim-ana-pattern
+        scene: { emoji: "🔄", title: "Ana notices the pattern", setting: "Ana realizes porque and por eso tell the same story, backwards and forwards." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Diego hacía la tarea porque quería ir al cine?", audioText: "¿diego hacía la tarea porque quería ir al cine?", gloss: "Was Diego doing homework because he wanted to go to the movies?" }
+            goal: "Say the same thing with por eso."
+            reply:
+              mode: build
+              tiles: ["diego", "quería", "ir", "al", "cine", "por", "eso", "hacía", "la", "tarea", "querían", "hacían"]
+              answer: "diego quería ir al cine por eso hacía la tarea"
+            replyGloss: "Diego wanted to go to the movies, that's why he was doing homework."
+            explanation: "Same two facts as the question, flipped: reason first («quería»), then «por eso» gives the result («hacía la tarea»)."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tú? ¿Querías ir al cine también?", audioText: "¿y tú? ¿querías ir al cine también?", gloss: "And you? Did you want to go to the movies too?" }
+            goal: "Say yes, that's why you were doing homework."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, quería ir al cine, por eso hacía la tarea" }
+                - { id: "wrong1", text: "sí, quería ir al cine, porque hacía la tarea" }
+                - { id: "wrong2", text: "sí, quería ir al cine, mientras hacía la tarea" }
+              correctOptionId: "right"
+              audioText: "sí, quería ir al cine, por eso hacía la tarea"
+            replyGloss: "Yes, I wanted to go to the movies, that's why I was doing homework."
+            explanation: "«por eso» keeps the reason first — «porque» here would flip direction, and «mientras» (while) doesn't state a result at all."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Ustedes hacían la tarea porque querían ir al cine?", audioText: "¿ustedes hacían la tarea porque querían ir al cine?", gloss: "Were you two doing homework because you wanted to go to the movies?" }
+            goal: "Say yes, same story, told backwards."
+            reply:
+              mode: build
+              tiles: ["sí", "queríamos", "ir", "al", "cine", "por", "eso", "hacíamos", "la", "tarea", "querían", "hacían"]
+              answer: "sí queríamos ir al cine por eso hacíamos la tarea"
+            replyGloss: "Yes, we wanted to go to the movies, that's why we were doing homework."
+            explanation: "Replying as «nosotros»: «queríamos»/«hacíamos», the we-endings — not «querían»/«hacían» (they/you all)."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "porque", target: "because" }
+          - { source: "por eso", target: "that's why, so" }
+          - { source: "quería", target: "I wanted, he/she/you wanted" }
+          - { source: "hacía", target: "I was doing, he/she/you was doing" }
+          - { source: "cine", target: "movies" }
+          - { source: "tarea", target: "homework" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "quería ir al cine, por eso hacía la tarea"
+        en: "I wanted to go to the movies, that's why I was doing homework"
+        atoms: ["quería", "cine", "por eso", "hacía", "tarea"]

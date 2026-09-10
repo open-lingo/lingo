@@ -1,0 +1,155 @@
+  # ── L7 · «No salí porque no quería» — zero new atoms. Negation stacks on
+  #    both clauses: «no salí» ... «porque no quería». Recombines PRIOR salí
+  #    (m19, yo/tú/él only — no nosotros/ellos preterite of salir is
+  #    registered) with PRIOR quería (m24); plural persons fall back on the
+  #    fuller PRIOR fui+quería pairing. Carries a recall of L4's own win
+  #    line (por eso).
+  - n: 7
+    template: free
+    title: "No salí porque no quería"
+    description: "Zero new atoms. Negation can stack on both clauses: «no salí» (I didn't leave) — «porque no quería» (because I didn't want to). Two independent negations, each doing its own job."
+    steps:
+      - kind: map
+        id: l7-map-nosaliporquenoqueria
+        tokens: ["no", "salí", "porque", "no", "quería"]
+        pairs:
+          - { en: "not", tokenIndex: 0 }
+          - { en: "I went out", tokenIndex: 1 }
+          - { en: "because", tokenIndex: 2 }
+          - { en: "not", tokenIndex: 3 }
+          - { en: "I wanted", tokenIndex: 4 }
+        audioText: "no salí porque no quería"
+        revealNote: "Negation stacks on both clauses: «no salí» (I didn't leave) — «porque no quería» (because I didn't want to). Two independent negations, each doing its own job."
+      - kind: info
+        id: l7-info-doblenegacion
+        title: "Porque — a negated reason, twice"
+        body: "Negation can appear in both clauses: «no salí porque no quería» — I didn't leave because I didn't want to. Two independent negations, each doing its own job."
+      - kind: speakLit
+        id: l7-sp-tusalistequerias
+        es: "no saliste porque no querías"
+        en: "You (tú) didn't leave because you didn't want to"
+        atoms: ["saliste", "porque", "querías"]
+      - kind: buildLit
+        id: l7-b-fuimosfiestaqueriamos
+        es: "no fuimos a la fiesta porque no queríamos"
+        en: "We didn't go to the party because we didn't want to"
+        atoms: ["fuimos", "fiesta", "porque", "queríamos"]
+        tiles: ["fueron", "fue"]
+      - kind: speakLit
+        id: l7-sp-diegosalioqueria
+        es: "Diego no salió porque no quería"
+        en: "Diego didn't leave because he didn't want to"
+        atoms: ["salió", "porque", "quería"]
+      - kind: clozeLit
+        id: l7-c-ellosfueronquerian
+        es: "ellos no fueron a la fiesta porque no querían"
+        en: "They didn't go to the party because they didn't want to"
+        blank: "fueron"
+        options: ["fueron", "fuimos"]
+        atoms: ["fueron", "fiesta", "porque", "querían"]
+        why: "«ellos» takes the they-ending: «fueron», never «fuimos» (we)."
+      - kind: listenCompLit
+        id: l7-lc-anafuequeria
+        es: "Ana no fue a la fiesta porque no quería"
+        en: "Ana didn't go to the party because she didn't want to."
+        atoms: ["fue", "fiesta", "porque", "quería"]
+        distractorsEn:
+          - "Ana went to the party because she didn't want to."
+          - "Ana didn't go to the party because she wanted to."
+          - "Ana didn't go to the party because she had a lot of work."
+      - kind: mcq
+        id: l7-q-porque
+        prompt: "Which one means 'because' — states a reason?"
+        correct: "porque"
+        distractors: ["mientras", "entonces", "pero"]
+        atoms: ["porque"]
+        why: "«porque» states a reason. «mientras» = while (m23), «entonces» = then/so (m23), «pero» = but (m6) — real connectives, wrong meaning here."
+      - kind: buildLit
+        id: l7-b-samluisfueronquerian
+        es: "Sam y Luis no fueron a la fiesta porque no querían"
+        en: "Sam and Luis didn't go to the party because they didn't want to"
+        atoms: ["fueron", "fiesta", "porque", "querían"]
+        tiles: ["fue", "fuimos"]
+      - kind: audioWimcq
+        id: l7-ear-fiesta
+        target: { surface: "la fiesta", emoji: "🎉" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el parque", emoji: "🌳" }
+      - kind: agreementLit
+        id: l7-agr-yoelqueriasalir
+        en: "I wanted to leave, and he did too"
+        audioText: "yo quería salir, y él quería también"
+        atoms: ["quería", "salir"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "quería", options: ["quería", "querías"] } }
+          - { text: " salir, y él " }
+          - { blank: { id: "p2", answer: "quería", options: ["quería", "queríamos"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l7-lb-ustedesfueronquerian
+        es: "ustedes no fueron a la fiesta porque no querían"
+        en: "You all didn't go to the party because you all didn't want to"
+        atoms: ["fueron", "fiesta", "porque", "querían"]
+        tiles: ["fuimos", "fue"]
+      - kind: textMcq
+        id: l7-tm-porque
+        target: "porque"
+        distractors: ["mientras", "entonces", "pero"]
+      # Printed non-recall at L4 (es-m25-4-l4-sp-win).
+      - kind: speakLit
+        id: l7-sp-recall-poreso
+        es: "tenía mucho trabajo, por eso no fui a la fiesta"
+        en: "I had a lot of work, that's why I didn't go to the party"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l7-sim-ana-saliste
+        scene: { emoji: "🚪", title: "Ana asks who went out", setting: "Ana wants to know who left last night, and who didn't want to." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Diego salió?", audioText: "¿diego salió?", gloss: "Did Diego go out?" }
+            goal: "Say he didn't — he didn't want to."
+            reply:
+              mode: build
+              tiles: ["diego", "no", "no", "salió", "porque", "quería", "salí"]
+              answer: "diego no salió porque no quería"
+            replyGloss: "Diego didn't leave, because he didn't want to."
+            explanation: "«salió» and «quería» are both the yo=él shape — «Diego» tells you who. Negation stacks: «no salió» ... «no quería», each independent."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tú? ¿Saliste también?", audioText: "¿y tú? ¿saliste también?", gloss: "And you? Did you go out too?" }
+            goal: "Say no, you didn't want to either."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, no salí porque no quería" }
+                - { id: "wrong1", text: "no, no saliste porque no quería" }
+                - { id: "wrong2", text: "no, no salí pero no quería" }
+              correctOptionId: "right"
+              audioText: "no, no salí porque no quería"
+            replyGloss: "No, I didn't leave because I didn't want to."
+            explanation: "Answering about yourself: «salí», not «saliste» — that would wrongly describe someone else. «pero» (but) isn't a reason — «porque» is."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Ustedes fueron a la fiesta?", audioText: "¿ustedes fueron a la fiesta?", gloss: "Did you two go to the party?" }
+            goal: "Say no, you both didn't want to."
+            reply:
+              mode: build
+              tiles: ["no", "fuimos", "a", "la", "fiesta", "porque", "no", "queríamos", "fueron", "querían"]
+              answer: "no fuimos a la fiesta porque no queríamos"
+            replyGloss: "No, we didn't go to the party because we didn't want to."
+            explanation: "«salir» only has singular past forms taught so far — for «nosotros» we fall back on the fuller «ir» paradigm: «fuimos»/«queríamos», the we-endings."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "salí", target: "I went out, I left" }
+          - { source: "quería", target: "I wanted, he/she/you wanted" }
+          - { source: "porque", target: "because" }
+          - { source: "no", target: "not" }
+          - { source: "fui", target: "I went" }
+          - { source: "fiesta", target: "party" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "no salí porque no quería"
+        en: "I didn't leave because I didn't want to"
+        atoms: ["salí", "porque", "quería"]

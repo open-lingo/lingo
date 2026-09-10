@@ -1,0 +1,149 @@
+  # ── L8 · CHECKPOINT — graded only, zero info/map cards. Exercises both
+  #    porque and por eso across fresh cross-family combinations of PRIOR
+  #    m20-m24 vocabulary. ≥2 recalls: m24's own signature win («quería ...
+  #    pero ... no podía») and L7's win (first time recalled). Ends
+  #    sim → matchLit → speakLit-win, the standard ending.
+  - n: 8
+    template: free
+    title: "Checkpoint: porque, por eso"
+    description: "Both connectives, fresh combinations, all graded — no new teaching, just proof you've got it."
+    steps:
+      - kind: buildLit
+        id: l8-b-haciatareapodiaplaya
+        es: "hacía la tarea porque no podía ir a la playa"
+        en: "I was doing homework because I couldn't go to the beach"
+        atoms: ["hacía", "tarea", "porque", "podía", "playa"]
+        tiles: ["hacían", "hacíamos"]
+      - kind: listenBuildLit
+        id: l8-lb-estabacasaqueriacine
+        es: "estaba en casa, por eso no quería ir al cine"
+        en: "I was home, that's why I didn't want to go to the movies"
+        atoms: ["estaba", "casa", "por eso", "quería", "cine"]
+        tiles: ["estaban", "estábamos"]
+      - kind: buildLit
+        id: l8-b-diegoveniateniatrabajo
+        es: "Diego venía temprano porque tenía mucho trabajo"
+        en: "Diego was coming early because he had a lot of work"
+        atoms: ["venía", "temprano", "porque", "tenía", "mucho", "trabajo"]
+        tiles: ["venían", "veníamos"]
+      - kind: listenBuildLit
+        id: l8-lb-nosalipodiafiesta
+        es: "no salí porque no podía ir a la fiesta"
+        en: "I didn't leave because I couldn't go to the party"
+        atoms: ["salí", "porque", "podía", "fiesta"]
+        tiles: ["saliste", "salió"]
+      - kind: buildLit
+        id: l8-b-podiairporesofui
+        es: "no podía ir, por eso no fui a la fiesta"
+        en: "I couldn't go, that's why I didn't go to the party"
+        atoms: ["podía", "por eso", "fui", "fiesta"]
+        tiles: ["podían", "podíamos"]
+      - kind: listenBuildLit
+        id: l8-lb-todosqueriancineharacian
+        es: "todos querían ir al cine, por eso no hacían la tarea"
+        en: "Everyone wanted to go to the movies, that's why they weren't doing homework"
+        atoms: ["todos", "querían", "cine", "por eso", "hacían", "tarea"]
+        tiles: ["quería", "queríamos"]
+      - kind: clozeLit
+        id: l8-c-tuestabaspodiasplaya
+        es: "tú estabas en casa porque no podías ir a la playa"
+        en: "You (tú) were at home because you couldn't go to the beach"
+        blank: "estabas"
+        options: ["estabas", "estaba"]
+        atoms: ["estabas", "casa", "porque", "podías", "playa"]
+        why: "«tú» takes the tú-ending: «estabas», never «estaba» (I/he)."
+      - kind: speakLit
+        id: l8-sp-veniamosharaciamosjuntos
+        es: "nosotros veníamos temprano, por eso hacíamos la tarea juntos"
+        en: "We were coming early, that's why we were doing homework together"
+        atoms: ["veníamos", "temprano", "por eso", "hacíamos", "tarea", "juntos"]
+      - kind: mcq
+        id: l8-q-poresocheck
+        prompt: "Which one gives the RESULT, not the reason?"
+        correct: "por eso"
+        distractors: ["porque", "mientras", "entonces"]
+        atoms: ["por eso"]
+        why: "«por eso» states a result. «porque» flips direction — it gives the reason. «mientras» (while) and «entonces» (then/so) are different connectives from m23."
+      # Printed non-recall (m24, es-m24-8-l8-sp-win).
+      - kind: speakLit
+        id: l8-sp-recall-m24win
+        es: "quería ir a la fiesta, pero tenía mucho trabajo y no podía"
+        en: "I wanted to go to the party, but I had a lot of work and couldn't"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l8-agr-todosqueriamientraspodia
+        en: "Everyone wanted to come, while I couldn't"
+        audioText: "todos querían venir, mientras yo no podía"
+        atoms: ["querían", "mientras", "podía"]
+        segments:
+          - { text: "todos " }
+          - { blank: { id: "p1", answer: "querían", options: ["querían", "quería"] } }
+          - { text: " venir, mientras yo no " }
+          - { blank: { id: "p2", answer: "podía", options: ["podía", "podías"] } }
+      - kind: textMcq
+        id: l8-tm-poreso
+        target: "por eso"
+        distractors: ["porque", "entonces", "pero"]
+      - kind: audioWimcq
+        id: l8-ear-playa
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "el cine", emoji: "🎬" }
+      # Printed non-recall at L7 (es-m25-7-l7-sp-win).
+      - kind: speakLit
+        id: l8-sp-recall-l7win
+        es: "no salí porque no quería"
+        en: "I didn't leave because I didn't want to"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l8-sim-ana-checkpoint
+        scene: { emoji: "🎯", title: "Checkpoint: Ana's questions", setting: "Ana runs through everything — reasons and results." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Fuiste a la fiesta?", audioText: "¿fuiste a la fiesta?", gloss: "Did you go to the party?" }
+            goal: "Say no — you had too much work."
+            reply:
+              mode: build
+              tiles: ["no", "fui", "porque", "tenía", "mucho", "trabajo", "fuiste", "tenías"]
+              answer: "no fui porque tenía mucho trabajo"
+            replyGloss: "No, I didn't go because I had a lot of work."
+            explanation: "«porque» gives the reason directly after the fact — «tenía mucho trabajo» explains why you didn't go."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Diego quería ir al cine?", audioText: "¿diego quería ir al cine?", gloss: "Did Diego want to go to the movies?" }
+            goal: "Say yes, that's why he was coming early."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, quería ir al cine, por eso venía temprano" }
+                - { id: "wrong1", text: "sí, quería ir al cine, porque venía temprano" }
+                - { id: "wrong2", text: "sí, quería ir al cine, pero venía temprano" }
+              correctOptionId: "right"
+              audioText: "sí, quería ir al cine, por eso venía temprano"
+            replyGloss: "Yes, he wanted to go to the movies, that's why he was coming early."
+            explanation: "«por eso» gives the result — 'that's why.' «porque» would flip direction here, and «pero» (but) isn't a result at all."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Ustedes podían ir a la playa?", audioText: "¿ustedes podían ir a la playa?", gloss: "Could you two go to the beach?" }
+            goal: "Say no, that's why you stayed home."
+            reply:
+              mode: build
+              tiles: ["no", "podíamos", "por", "eso", "estábamos", "en", "casa", "podían", "estaban"]
+              answer: "no podíamos por eso estábamos en casa"
+            replyGloss: "No, we couldn't, that's why we were at home."
+            explanation: "«podíamos»/«estábamos», the we-endings — not «podían»/«estaban» (they/you all)."
+      - kind: matchLit
+        id: l8-match
+        pairs:
+          - { source: "porque", target: "because" }
+          - { source: "por eso", target: "that's why, so" }
+          - { source: "quería", target: "I wanted, he/she/you wanted" }
+          - { source: "podía", target: "I could, he/she/you could" }
+          - { source: "tenía", target: "I had, he/she/you had" }
+          - { source: "venía", target: "I was coming, he/she/you was coming" }
+      - kind: speakLit
+        id: l8-sp-win
+        es: "quería ir a la playa, por eso no hacía la tarea"
+        en: "I wanted to go to the beach, that's why I wasn't doing homework"
+        atoms: ["quería", "playa", "por eso", "hacía", "tarea"]
