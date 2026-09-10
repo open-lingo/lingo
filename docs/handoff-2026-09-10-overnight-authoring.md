@@ -191,3 +191,4 @@ fan-out; save small notes here after every step (auto-compaction is on).
 - 17:38 JA m45 brief committed (causative させる, ~14 atoms; そうじする stub cash-in; REQUIRES a new `causative` TRANSFORM_RULESETS entry — first module since m42 needing a code deliverable; author lane will own transformRulesets.ts). Author dispatch waits for the m44 review to land (shared courseAtoms.ts).
 - 17:41 ES m34 brief committed (lexicon break: 5 place nouns, 0 emoji to vendor; corrects m33's false 'Carlos not allowed' claim). ES m34 author dispatching (m33 review landed).
 - 17:43 FR m23 review landed: 2 header/title fixes, no voiced text changed (no TTS). Gate gaps noted: title↔content correspondence, header-ledger prose drift. FR suite 1815/1. FR m24 author dispatches once the m24 brief lands.
+- 17:47 FR m24 brief committed (10 registrations, 3 emoji to vendor, fermé/fermée homophoneKey). FR m24 author dispatched.
