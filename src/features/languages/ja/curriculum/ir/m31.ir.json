@@ -870,12 +870,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "ともだちに プレゼントを あげる。",
-          "en": "I'll give my friend a present",
+          "ja": "てがみを かくから ともだちに プレゼントを あげる。",
+          "en": "I'll write a letter, so I'll give my friend a present",
           "exercises": [
             "ageru",
             "ni-recipient",
-            "wo-object"
+            "wo-object",
+            "kara-because"
           ],
           "mode": "build"
         },
@@ -892,12 +893,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "あには がくせいに じしょを あげる。",
-          "en": "My older brother gives the student a dictionary",
+          "ja": "だいがくに いく まえに あには がくせいに じしょを あげる。",
+          "en": "Before going to university, my older brother gives the student a dictionary",
           "exercises": [
             "ageru",
             "ni-recipient",
-            "wo-object"
+            "wo-object",
+            "mae-ni"
           ],
           "mode": "build"
         },
@@ -960,12 +962,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "ともだちに はなたばを あげる。",
-          "en": "I'll give my friend a bouquet",
+          "ja": "いそぐから ともだちに はなたばを あげる。",
+          "en": "I'm in a hurry, so I'll give my friend a bouquet",
           "exercises": [
             "ageru",
             "ni-recipient",
-            "wo-object"
+            "wo-object",
+            "kara-because"
           ],
           "mode": "build"
         },
@@ -993,12 +996,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "せんせいに おれいの てがみを あげる。",
-          "en": "I'll give the teacher a thank-you letter",
+          "ja": "せんせいを まつ とき せんせいに おれいの てがみを あげる。",
+          "en": "While waiting for the teacher, I'll give the teacher a thank-you letter",
           "exercises": [
             "ageru",
             "no-possession",
-            "ni-recipient"
+            "ni-recipient",
+            "toki"
           ],
           "mode": "build"
         },
