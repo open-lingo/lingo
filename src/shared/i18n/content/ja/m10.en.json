@@ -1,0 +1,2223 @@
+{
+  "schema": 1,
+  "moduleId": "m10",
+  "lang": "ja",
+  "generatedAt": "2026-09-10",
+  "entryCount": 369,
+  "entries": [
+    {
+      "anchor": "m10/atom:いま/gloss",
+      "en": "now",
+      "enSourceHash": "ed5eb9a37e2d8231",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m10/atom:ううん/gloss",
+      "en": "nope (casual no)",
+      "enSourceHash": "210cb5a5056bfe44",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m10/atom:ううん/shortGloss",
+      "en": "nope",
+      "enSourceHash": "ca3704aa0b06f595",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m10/atom:おれ/gloss",
+      "en": "I (rough, masculine)",
+      "enSourceHash": "d13b43ddbbdecfaa",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m10/atom:けっこう/gloss",
+      "en": "splendid, enough",
+      "enSourceHash": "301e6fa85e77cd12",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m10/atom:こちら/gloss",
+      "en": "this person or way",
+      "enSourceHash": "e812195efad72aef",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m10/atom:しります/gloss",
+      "en": "know (polite)",
+      "enSourceHash": "1a85158095309323",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m10/atom:しりません/gloss",
+      "en": "don't know (polite)",
+      "enSourceHash": "4f775a8b32709225",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m10/atom:しる/gloss",
+      "en": "to know",
+      "enSourceHash": "564ec6e5a463b8c5",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m10/atom:だめ/gloss",
+      "en": "no good, not allowed",
+      "enSourceHash": "f87ff743e6a30a74",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m10/atom:だめ/shortGloss",
+      "en": "no good",
+      "enSourceHash": "b4031fe58e6d325d",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m10/atom:ちがいます/gloss",
+      "en": "that's not right (polite)",
+      "enSourceHash": "4a8aa12aa095a05f",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m10/atom:ちがう/gloss",
+      "en": "to differ",
+      "enSourceHash": "d7fe59cda9243566",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m10/atom:ちょっと/gloss",
+      "en": "somewhat",
+      "enSourceHash": "8d8c872204eed624",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m10/atom:ぼく/gloss",
+      "en": "I, me (casual, usually male)",
+      "enSourceHash": "3e78edd19c8fb3ad",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m10/atom:ぼく/shortGloss",
+      "en": "I (casual)",
+      "enSourceHash": "93055d510d4c9400",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m10/atom:まあ/gloss",
+      "en": "well, sort of",
+      "enSourceHash": "5d7e750f4f7b73b3",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m10/atom:まあ/shortGloss",
+      "en": "well…",
+      "enSourceHash": "7d54e62102f7a058",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m10/atom:よく/gloss",
+      "en": "often, well",
+      "enSourceHash": "665e52e6d87f1723",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m10/atom:わかります/gloss",
+      "en": "understand (polite)",
+      "enSourceHash": "7b5ff2ba5ca7e086",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m10/gp:aizuchi/ex:はい、いきます。",
+      "en": "Yes, I'll go.",
+      "enSourceHash": "9f7a822563f43558",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/gp:aizuchi/ex:はい、はい。",
+      "en": "Mm-hm, go on.",
+      "enSourceHash": "1ae5e25e1272437a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/gp:chotto-softener/ex:きょうは ちょっと。",
+      "en": "Today is… a bit difficult (trailing off = a polite no).",
+      "enSourceHash": "e68cfce3b8e7f81b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/gp:chotto-softener/ex:ちょっと、たかいです。",
+      "en": "It's a little expensive.",
+      "enSourceHash": "10a9c9af4ac33808",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/gp:chotto-softener/ex:まあ、いく。",
+      "en": "Well, I'll go.",
+      "enSourceHash": "0a6ce1d6d43399ec",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/gp:chotto-softener/ex:よく たべる。",
+      "en": "I eat it often.",
+      "enSourceHash": "cd8b272425045929",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/gp:kore-sore-are-dore/ex:こちらです。",
+      "en": "It's this way.",
+      "enSourceHash": "888d7d270785231a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/gp:kore-sore-are-dore/ex:こちらは せんせいです。",
+      "en": "This is the teacher.",
+      "enSourceHash": "3a529e9de39811d5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/gp:kore-sore-are-dore/ex:これは せんせいです。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/gp:masu-negative/ex:ぼくは しらない。",
+      "en": "I don't know. (to a friend)",
+      "enSourceHash": "36acb67593d93cf0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/gp:masu-negative/ex:わたしは しりません。",
+      "en": "I don't know. (polite)",
+      "enSourceHash": "c2fef3268f6581a1",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/gp:masu-negative/ex:わたしは しるません。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/gp:register-audience/ex:ぼくは いく。",
+      "en": "I'm going. (to a friend)",
+      "enSourceHash": "a1ee003c94f68c8a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/gp:register-audience/ex:わたしは がくせいです。",
+      "en": "I'm a student.",
+      "enSourceHash": "6b657556a0442c4e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/gp:yes-no-register/ex:ううん、たべない。",
+      "en": "No, I won't eat.",
+      "enSourceHash": "3c1531f0c157c866",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/gp:yes-no-register/ex:うん",
+      "en": "Yeah. (to a friend)",
+      "enSourceHash": "fb904aa26d6a6223",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/gp:yes-no-register/ex:けっこうです。",
+      "en": "No thank you.",
+      "enSourceHash": "89048733046e3de2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/gp:yes-no-register/ex:せんせい、うん。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/gp:yes-no-register/ex:それは だめ。",
+      "en": "That's no good.",
+      "enSourceHash": "302787099649fcf7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/gp:yes-no-register/ex:ちがう、ミカの ほんだ。",
+      "en": "No — it's Mika's book.",
+      "enSourceHash": "ab15a1d43ade00d0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/gp:yes-no-register/ex:はい",
+      "en": "Yes. (to a teacher)",
+      "enSourceHash": "74fb79cbf1d3adfa",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-1/en:1057a9604e04b274",
+      "en": "teacher",
+      "enSourceHash": "1057a9604e04b274",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-1/en:31a5089af947f380",
+      "en": "Pick the word for \"hat\"",
+      "enSourceHash": "31a5089af947f380",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-1/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-1/en:527af7c109a784d8",
+      "en": "to eat",
+      "enSourceHash": "527af7c109a784d8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-1/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-1/en:80d33d6dc0d19f84",
+      "en": "to go",
+      "enSourceHash": "80d33d6dc0d19f84",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-1/en:a161048804912889",
+      "en": "Pick the word for \"glasses\"",
+      "enSourceHash": "a161048804912889",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-1/en:c6c241bbd8729d62",
+      "en": "Pick the word for \"teacher, doctor\"",
+      "enSourceHash": "c6c241bbd8729d62",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-1/en:cde48537ca2c2808",
+      "en": "friend",
+      "enSourceHash": "cde48537ca2c2808",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-1/en:d15121e8807115e7",
+      "en": "Three ways to say yes",
+      "enSourceHash": "d15121e8807115e7",
+      "kind": "title"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-1/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-1/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-1/en:e0f4f767ac88a930",
+      "en": "today",
+      "enSourceHash": "e0f4f767ac88a930",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-1/ja:うん",
+      "en": "Say yes.",
+      "enSourceHash": "f3d692b459be0482",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-1/ja:うん たべる",
+      "en": "Say to a friend: Yeah, I'll eat",
+      "enSourceHash": "d4d56e5d99861db3",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-1/ja:ええ",
+      "en": "Say yes.",
+      "enSourceHash": "f3d692b459be0482",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-1/ja:ええ ごはんを たべます",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-1/ja:はい",
+      "en": "Say yes.",
+      "enSourceHash": "f3d692b459be0482",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-1/ja:はい いきます",
+      "en": "Say to a teacher: Yes, I'll go",
+      "enSourceHash": "d0cadf2e7923ccdb",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-1/ja:はい せんせいの いえに いきます",
+      "en": "Say to a teacher: Yes, I'll go to the teacher's house",
+      "enSourceHash": "74e4c17b9f390716",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-2/en:069a1fe268db7a69",
+      "en": "Someone you just met",
+      "enSourceHash": "069a1fe268db7a69",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-2/en:0ef9f58dcc61bc8a",
+      "en": "A close friend",
+      "enSourceHash": "0ef9f58dcc61bc8a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-2/en:170a8fc7a252569e",
+      "en": "Your teacher",
+      "enSourceHash": "170a8fc7a252569e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-2/en:181509afc52d17e2",
+      "en": "Saying no — and correcting",
+      "enSourceHash": "181509afc52d17e2",
+      "kind": "title"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-2/en:2974744982f08b20",
+      "en": "umbrella",
+      "enSourceHash": "2974744982f08b20",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-2/en:31a5089af947f380",
+      "en": "Pick the word for \"hat\"",
+      "enSourceHash": "31a5089af947f380",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-2/en:3d6b67f3bfe20a34",
+      "en": "A shop clerk",
+      "enSourceHash": "3d6b67f3bfe20a34",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-2/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-2/en:527af7c109a784d8",
+      "en": "to eat",
+      "enSourceHash": "527af7c109a784d8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-2/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-2/en:80d33d6dc0d19f84",
+      "en": "to go",
+      "enSourceHash": "80d33d6dc0d19f84",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-2/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-2/en:cde48537ca2c2808",
+      "en": "friend",
+      "enSourceHash": "cde48537ca2c2808",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-2/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-2/ja:いいえ",
+      "en": "Say no.",
+      "enSourceHash": "ce4d3f59f5dc108b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-2/ja:いいえ ちがいます",
+      "en": "Say to a teacher: No, that's not right",
+      "enSourceHash": "c2b4970c215c76d9",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-2/ja:ううん",
+      "en": "Say no.",
+      "enSourceHash": "ce4d3f59f5dc108b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-2/ja:ううん いかない",
+      "en": "Say to a friend: Nope, I'm not going",
+      "enSourceHash": "14547ff6da6db331",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-2/ja:ううん ごはんを たべない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-2/ja:ううん しない",
+      "en": "Say to a friend: Nope, I won't",
+      "enSourceHash": "8de7844873731ce3",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-2/ja:ううん ミカの かさは ない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-2/ja:ちがう ねこだ",
+      "en": "Say to a friend: That's not it, it's a cat",
+      "enSourceHash": "289d0efb15dcb37a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-2/ja:ちがう ミカの ほんだ",
+      "en": "Say to a friend: That's not it, it's Mika's book",
+      "enSourceHash": "517f3dadb8b307eb",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-3/en:1057a9604e04b274",
+      "en": "teacher",
+      "enSourceHash": "1057a9604e04b274",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-3/en:25dc891a5ee480a2",
+      "en": "to understand",
+      "enSourceHash": "25dc891a5ee480a2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-3/en:31a5089af947f380",
+      "en": "Pick the word for \"hat\"",
+      "enSourceHash": "31a5089af947f380",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-3/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-3/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-3/en:65f8ea722badb7ca",
+      "en": "to watch",
+      "enSourceHash": "65f8ea722badb7ca",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-3/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-3/en:985604c2b6024312",
+      "en": "bread",
+      "enSourceHash": "985604c2b6024312",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-3/en:a161048804912889",
+      "en": "Pick the word for \"glasses\"",
+      "enSourceHash": "a161048804912889",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-3/en:a19374e3fcfab7e9",
+      "en": "Pick the word for \"student\"",
+      "enSourceHash": "a19374e3fcfab7e9",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-3/en:c6c241bbd8729d62",
+      "en": "Pick the word for \"teacher, doctor\"",
+      "enSourceHash": "c6c241bbd8729d62",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-3/en:c6f556046e0c0046",
+      "en": "cheap",
+      "enSourceHash": "c6f556046e0c0046",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-3/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-3/ja:うん ミカの ほんだ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-3/ja:はい そうです",
+      "en": "Say politely: Yes, that's right",
+      "enSourceHash": "e4ce3543a04310f1",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-3/ja:はい ともだちの みせに いきます",
+      "en": "Say politely: Yes, I'll go to my friend's shop",
+      "enSourceHash": "99c373a29cd41cfb",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-3/ja:はい はい",
+      "en": "Say politely: Mm-hm, go on",
+      "enSourceHash": "328b36bf6c44b754",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-3/ja:はい みせに いきます",
+      "en": "Say politely: Yes, I'll go to the shop",
+      "enSourceHash": "deabc4daeed33595",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-3/ja:はい わかります",
+      "en": "Say politely: Yes, I understand",
+      "enSourceHash": "1b336755ec57e5b3",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-4/en:31a5089af947f380",
+      "en": "Pick the word for \"hat\"",
+      "enSourceHash": "31a5089af947f380",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-4/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-4/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-4/en:65f8ea722badb7ca",
+      "en": "to watch",
+      "enSourceHash": "65f8ea722badb7ca",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-4/en:80d33d6dc0d19f84",
+      "en": "to go",
+      "enSourceHash": "80d33d6dc0d19f84",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-4/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-4/en:a161048804912889",
+      "en": "Pick the word for \"glasses\"",
+      "enSourceHash": "a161048804912889",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-4/en:c6c241bbd8729d62",
+      "en": "Pick the word for \"teacher, doctor\"",
+      "enSourceHash": "c6c241bbd8729d62",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-4/en:c6f556046e0c0046",
+      "en": "cheap",
+      "enSourceHash": "c6f556046e0c0046",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-4/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-4/en:e0ca449589b67a58",
+      "en": "yen",
+      "enSourceHash": "e0ca449589b67a58",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-4/en:f3cca575ff7e90bd",
+      "en": "expensive",
+      "enSourceHash": "f3cca575ff7e90bd",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-4/ja:きょうは ちょっと",
+      "en": "Say politely: Today is a bit difficult",
+      "enSourceHash": "15162c52c5cee286",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-4/ja:それは ちょっと ちがう",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-4/ja:ちょっと たかいです",
+      "en": "Say politely: It's a little expensive",
+      "enSourceHash": "2a488400d395acab",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-4/ja:ちょっと たかいです。かいません",
+      "en": "Say politely: It's a bit expensive so I won't buy it",
+      "enSourceHash": "7a1ea42fc9bf1dff",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-4/ja:ちょっと みてください",
+      "en": "Say politely: Please take a quick look",
+      "enSourceHash": "062b68b9c93f2837",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-4/ja:ちょっと みる",
+      "en": "Say to a friend: I'll take a quick look",
+      "enSourceHash": "1183232eec644cc7",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-5/en:0f4168490e38b844",
+      "en": "water",
+      "enSourceHash": "0f4168490e38b844",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-5/en:31a5089af947f380",
+      "en": "Pick the word for \"hat\"",
+      "enSourceHash": "31a5089af947f380",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-5/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-5/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-5/en:a161048804912889",
+      "en": "Pick the word for \"glasses\"",
+      "enSourceHash": "a161048804912889",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-5/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-5/en:c6c241bbd8729d62",
+      "en": "Pick the word for \"teacher, doctor\"",
+      "enSourceHash": "c6c241bbd8729d62",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-5/en:c6f556046e0c0046",
+      "en": "cheap",
+      "enSourceHash": "c6f556046e0c0046",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-5/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-5/en:ddb7498edf9593e5",
+      "en": "that (by you)",
+      "enSourceHash": "ddb7498edf9593e5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-5/en:e0f4f767ac88a930",
+      "en": "today",
+      "enSourceHash": "e0f4f767ac88a930",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-5/en:f3cca575ff7e90bd",
+      "en": "expensive",
+      "enSourceHash": "f3cca575ff7e90bd",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-5/ja:いいえ けっこうです",
+      "en": "Say politely: No, thank you",
+      "enSourceHash": "549364151e14eb17",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-5/ja:いいえ けっこうです。ちゃは のみません",
+      "en": "Say politely: No thank you — I don't drink tea",
+      "enSourceHash": "51cec4377205baa3",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-5/ja:きょうは だめ",
+      "en": "Say to a friend: Today's no good",
+      "enSourceHash": "9da9854913c4cd5d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-5/ja:それは だめ",
+      "en": "Say to a friend: That's no good",
+      "enSourceHash": "4091882931523e17",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-5/ja:それは だめです",
+      "en": "Say politely: That's not allowed",
+      "enSourceHash": "d262c73b0cb455a2",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-5/ja:ちゃは けっこうです",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-5/ja:みずは けっこうです",
+      "en": "Say politely: No water, thank you",
+      "enSourceHash": "a00c225d5228f481",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-6/en:264c8c381bf16c98",
+      "en": "student",
+      "enSourceHash": "264c8c381bf16c98",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-6/en:2974744982f08b20",
+      "en": "umbrella",
+      "enSourceHash": "2974744982f08b20",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-6/en:31a5089af947f380",
+      "en": "Pick the word for \"hat\"",
+      "enSourceHash": "31a5089af947f380",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-6/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-6/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-6/en:80d33d6dc0d19f84",
+      "en": "to go",
+      "enSourceHash": "80d33d6dc0d19f84",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-6/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-6/en:a161048804912889",
+      "en": "Pick the word for \"glasses\"",
+      "enSourceHash": "a161048804912889",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-6/en:c6c241bbd8729d62",
+      "en": "Pick the word for \"teacher, doctor\"",
+      "enSourceHash": "c6c241bbd8729d62",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-6/en:cde48537ca2c2808",
+      "en": "friend",
+      "enSourceHash": "cde48537ca2c2808",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-6/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-6/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-6/ja:ぼくの ほんだ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-6/ja:ぼくは いかない",
+      "en": "Say to a friend: I'm not going",
+      "enSourceHash": "f61b9ef540e4ff7f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-6/ja:ぼくは たべる",
+      "en": "Say to a friend: I'll eat",
+      "enSourceHash": "0e787b0fd7da9399",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-6/ja:わたしの かさです",
+      "en": "Say politely: It's my umbrella",
+      "enSourceHash": "87d8068567e653cd",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-6/ja:わたしは いく",
+      "en": "Say to a friend: I'm going",
+      "enSourceHash": "787067758de3f421",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-6/ja:わたしは しりません",
+      "en": "Say politely: I don't know",
+      "enSourceHash": "8c67e781c9dcdec0",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-6/ja:わたしは ミカの ともだちです",
+      "en": "Say politely: I'm Mika's friend",
+      "enSourceHash": "32f14f7015c370b1",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-7/en:31a5089af947f380",
+      "en": "Pick the word for \"hat\"",
+      "enSourceHash": "31a5089af947f380",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-7/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-7/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-7/en:65f8ea722badb7ca",
+      "en": "to watch",
+      "enSourceHash": "65f8ea722badb7ca",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-7/en:80d33d6dc0d19f84",
+      "en": "to go",
+      "enSourceHash": "80d33d6dc0d19f84",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-7/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-7/en:a161048804912889",
+      "en": "Pick the word for \"glasses\"",
+      "enSourceHash": "a161048804912889",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-7/en:c6c241bbd8729d62",
+      "en": "Pick the word for \"teacher, doctor\"",
+      "enSourceHash": "c6c241bbd8729d62",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-7/en:cde48537ca2c2808",
+      "en": "friend",
+      "enSourceHash": "cde48537ca2c2808",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-7/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-7/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-7/en:e0f4f767ac88a930",
+      "en": "today",
+      "enSourceHash": "e0f4f767ac88a930",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-7/ja:いま いく",
+      "en": "Say to a friend: I'm going now",
+      "enSourceHash": "7e449177465ae78f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-7/ja:いま みせに いきます",
+      "en": "Say politely: I'm going to the shop now",
+      "enSourceHash": "4236924949390b95",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-7/ja:いま ミカの いえに いきます",
+      "en": "Say politely: I'm going to Mika's house now",
+      "enSourceHash": "d3cd6b57ae42d744",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-7/ja:せんせいを しりますか",
+      "en": "Say politely: Do you know the teacher",
+      "enSourceHash": "cbf3669dc0708ce1",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-7/ja:ともだちを しる",
+      "en": "Build: I know the friend",
+      "enSourceHash": "b5fa9b3cb750e004",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-7/ja:ぼくは しらない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-7/ja:わたしは しりません",
+      "en": "Say politely: I don't know",
+      "enSourceHash": "8c67e781c9dcdec0",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-8/en:1f37ab7e3d801aee",
+      "en": "I often go to the shop",
+      "enSourceHash": "1f37ab7e3d801aee",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-8/en:25dc891a5ee480a2",
+      "en": "to understand",
+      "enSourceHash": "25dc891a5ee480a2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-8/en:31a5089af947f380",
+      "en": "Pick the word for \"hat\"",
+      "enSourceHash": "31a5089af947f380",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-8/en:3fdc91ce7457a00b",
+      "en": "Well, it's a bit pricey",
+      "enSourceHash": "3fdc91ce7457a00b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-8/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-8/en:80d33d6dc0d19f84",
+      "en": "to go",
+      "enSourceHash": "80d33d6dc0d19f84",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-8/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-8/en:985604c2b6024312",
+      "en": "bread",
+      "enSourceHash": "985604c2b6024312",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-8/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-8/en:c6c241bbd8729d62",
+      "en": "Pick the word for \"teacher, doctor\"",
+      "enSourceHash": "c6c241bbd8729d62",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-8/en:cf04767b19e448c7",
+      "en": "I often drink tea",
+      "enSourceHash": "cf04767b19e448c7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-8/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-8/en:e62f640360d85af9",
+      "en": "to drink",
+      "enSourceHash": "e62f640360d85af9",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-8/en:f7f42f888577dbf1",
+      "en": "I often buy bread at Mika's shop",
+      "enSourceHash": "f7f42f888577dbf1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-8/ja:まあ いく",
+      "en": "Say to a friend: Well, I'll go",
+      "enSourceHash": "fb902c4d7410ffc6",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-8/ja:まあ たべる",
+      "en": "Say to a friend: Well, I'll eat",
+      "enSourceHash": "056ea3606b059a36",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-8/ja:まあ ちょっと たかい",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-8/ja:よく たべる",
+      "en": "Say to a friend: I eat it often",
+      "enSourceHash": "d6c9deee85d7ea27",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-8/ja:よく ちゃを のみます",
+      "en": "Say politely: I often drink tea",
+      "enSourceHash": "eb0a33a0ef7080ac",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-8/ja:よく わかります",
+      "en": "Say politely: I understand well",
+      "enSourceHash": "213f131a3aa900fb",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-8/ja:よく ミカの みせで パンを かいます",
+      "en": "Say politely: I often buy bread at Mika's shop",
+      "enSourceHash": "39299c87e5890d98",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-9/en:100e207eefc84177",
+      "en": "Yes, this is my shop",
+      "enSourceHash": "100e207eefc84177",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-9/en:31a5089af947f380",
+      "en": "Pick the word for \"hat\"",
+      "enSourceHash": "31a5089af947f380",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-9/en:40483dd51c350614",
+      "en": "A conversation that sounds real",
+      "enSourceHash": "40483dd51c350614",
+      "kind": "title"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-9/en:509e55e99f941e15",
+      "en": "Yes, I'm going now",
+      "enSourceHash": "509e55e99f941e15",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-9/en:564ec6e5a463b8c5",
+      "en": "to know",
+      "enSourceHash": "564ec6e5a463b8c5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-9/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-9/en:6224cb54b3c11390",
+      "en": "Yeah, well, I'll go",
+      "enSourceHash": "6224cb54b3c11390",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-9/en:80d33d6dc0d19f84",
+      "en": "to go",
+      "enSourceHash": "80d33d6dc0d19f84",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-9/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-9/en:a19374e3fcfab7e9",
+      "en": "Pick the word for \"student\"",
+      "enSourceHash": "a19374e3fcfab7e9",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-9/en:b9edbd7287480f73",
+      "en": "Nope, I don't really know",
+      "enSourceHash": "b9edbd7287480f73",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-9/en:c6c241bbd8729d62",
+      "en": "Pick the word for \"teacher, doctor\"",
+      "enSourceHash": "c6c241bbd8729d62",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-9/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-9/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-9/en:ed5eb9a37e2d8231",
+      "en": "now",
+      "enSourceHash": "ed5eb9a37e2d8231",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-9/ja:ううん よく しらない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-9/ja:こちらです",
+      "en": "Say politely: It's this way",
+      "enSourceHash": "809b207257669723",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-9/ja:こちらは せんせいです",
+      "en": "Say politely: This is the teacher",
+      "enSourceHash": "2ff5f73999b2e203",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-9/ja:ちょっと しりません",
+      "en": "Say politely: Sorry, I don't know",
+      "enSourceHash": "664215bbbdd80220",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-9/ja:はい いま いきます",
+      "en": "Say politely: Yes, I'm going now",
+      "enSourceHash": "52f48fc74258d27d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-9/ja:はい こちらが わたしの みせです",
+      "en": "Say politely: Yes, this is my shop",
+      "enSourceHash": "f148b8b016cb5c03",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-challenge/en:0751105af976cafe",
+      "en": "I (neutral)",
+      "enSourceHash": "0751105af976cafe",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-challenge/en:1840d2bfb95a697e",
+      "en": "No, I'm not going to the shop now",
+      "enSourceHash": "1840d2bfb95a697e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-challenge/en:31a5089af947f380",
+      "en": "Pick the word for \"hat\"",
+      "enSourceHash": "31a5089af947f380",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-challenge/en:4d83eae65eff9664",
+      "en": "Challenge — put it all together",
+      "enSourceHash": "4d83eae65eff9664",
+      "kind": "title"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-challenge/en:564ec6e5a463b8c5",
+      "en": "to know",
+      "enSourceHash": "564ec6e5a463b8c5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-challenge/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-challenge/en:5c26b3a0fc9d6c14",
+      "en": "no thanks",
+      "enSourceHash": "5c26b3a0fc9d6c14",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-challenge/en:7bc9faeffd581d1e",
+      "en": "Well, today is a bit difficult",
+      "enSourceHash": "7bc9faeffd581d1e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-challenge/en:93c68148f4acfe0d",
+      "en": "often",
+      "enSourceHash": "93c68148f4acfe0d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-challenge/en:9abe0fce365bc56a",
+      "en": "a little",
+      "enSourceHash": "9abe0fce365bc56a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-challenge/en:a1acbc935cbe0f91",
+      "en": "No, I don't know Mika's friend",
+      "enSourceHash": "a1acbc935cbe0f91",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-challenge/en:b9edbd7287480f73",
+      "en": "Nope, I don't really know",
+      "enSourceHash": "b9edbd7287480f73",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-challenge/en:c6c241bbd8729d62",
+      "en": "Pick the word for \"teacher, doctor\"",
+      "enSourceHash": "c6c241bbd8729d62",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-challenge/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-challenge/en:d8d0f81d648d3b5e",
+      "en": "I often buy at Mika's shop",
+      "enSourceHash": "d8d0f81d648d3b5e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-challenge/en:e546607fd8b62472",
+      "en": "No, that's my umbrella",
+      "enSourceHash": "e546607fd8b62472",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-challenge/en:ed5eb9a37e2d8231",
+      "en": "now",
+      "enSourceHash": "ed5eb9a37e2d8231",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-challenge/en:ef0585ee8498b603",
+      "en": "Yes, I'm heading this way now",
+      "enSourceHash": "ef0585ee8498b603",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-challenge/en:f46aea6d9131a4f9",
+      "en": "Yes, I'll buy two breads",
+      "enSourceHash": "f46aea6d9131a4f9",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-challenge/ja:いいえ わたしは いま みせに いきません",
+      "en": "Say politely: No, I'm not going to the shop now",
+      "enSourceHash": "26a278e3ba61da9d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-challenge/ja:いいえ わたしは ミカの ともだちを しりません",
+      "en": "Say politely: No, I don't know Mika's friend",
+      "enSourceHash": "cc2db910b479387d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-challenge/ja:ううん ぼくは よく しらない",
+      "en": "Say to a friend: Nope, I don't really know",
+      "enSourceHash": "6ea117e69260e35f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-challenge/ja:ちがう それは ぼくの かさだ",
+      "en": "Say to a friend: No, that's my umbrella",
+      "enSourceHash": "ff01849d372d6480",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-challenge/ja:ちょっと たかいです。けっこうです",
+      "en": "Say politely: It's a bit pricey so no thank you",
+      "enSourceHash": "a457530bc7fcbb9f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-challenge/ja:はい パンを ふたつ かいます",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-challenge/ja:まあ きょうは ちょっと だめです",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-challenge/ja:わたしは よく ミカの みせで かいます",
+      "en": "Say politely: I often buy at Mika's shop",
+      "enSourceHash": "bd4ec30a8e627bfa",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-kata-ma/en:19503ea6785ee124",
+      "en": "mu",
+      "enSourceHash": "19503ea6785ee124",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-kata-ma/en:2744ccd10c7533bd",
+      "en": "me",
+      "enSourceHash": "2744ccd10c7533bd",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-kata-ma/en:3c44c3e1b8b78447",
+      "en": "ma",
+      "enSourceHash": "3c44c3e1b8b78447",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-kata-ma/en:3d9fc4bde7ceef05",
+      "en": "na",
+      "enSourceHash": "3d9fc4bde7ceef05",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-kata-ma/en:a7187294bd6b3646",
+      "en": "Match the katakana to their sounds",
+      "enSourceHash": "a7187294bd6b3646",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-kata-ma/en:ca978112ca1bbdca",
+      "en": "a",
+      "enSourceHash": "ca978112ca1bbdca",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-kata-ma/en:eee1c1ade6525d24",
+      "en": "mi",
+      "enSourceHash": "eee1c1ade6525d24",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-kata-ma/en:f4a4ce5fa6340a35",
+      "en": "mo",
+      "enSourceHash": "f4a4ce5fa6340a35",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-kata-ya/en:1fdbc74ccfd68d07",
+      "en": "ko",
+      "enSourceHash": "1fdbc74ccfd68d07",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-kata-ya/en:3086cf468ccca87c",
+      "en": "nu",
+      "enSourceHash": "3086cf468ccca87c",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-kata-ya/en:3c44c3e1b8b78447",
+      "en": "ma",
+      "enSourceHash": "3c44c3e1b8b78447",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-kata-ya/en:5109f6dc636d7068",
+      "en": "yu",
+      "enSourceHash": "5109f6dc636d7068",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-kata-ya/en:65c74c15a686187b",
+      "en": "o",
+      "enSourceHash": "65c74c15a686187b",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-kata-ya/en:6663103a3e47efc8",
+      "en": "ya",
+      "enSourceHash": "6663103a3e47efc8",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-kata-ya/en:a7187294bd6b3646",
+      "en": "Match the katakana to their sounds",
+      "enSourceHash": "a7187294bd6b3646",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-kata-ya/en:ca978112ca1bbdca",
+      "en": "a",
+      "enSourceHash": "ca978112ca1bbdca",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-kata-ya/en:e9058ab198f6908f",
+      "en": "yo",
+      "enSourceHash": "e9058ab198f6908f",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-1/en:217655f48dde4e0a",
+      "en": "to do",
+      "enSourceHash": "217655f48dde4e0a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-1/en:224126fb9f667957",
+      "en": "Review — yes and no by audience",
+      "enSourceHash": "224126fb9f667957",
+      "kind": "title"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-1/en:297b881f3fe99bee",
+      "en": "Nope, I don't drink tea",
+      "enSourceHash": "297b881f3fe99bee",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-1/en:31a5089af947f380",
+      "en": "Pick the word for \"hat\"",
+      "enSourceHash": "31a5089af947f380",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-1/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-1/en:63d263ac0abb4bcd",
+      "en": "Yes, I'll drink tea",
+      "enSourceHash": "63d263ac0abb4bcd",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-1/en:6953321344ec4b23",
+      "en": "Yeah, I'm going to the shop",
+      "enSourceHash": "6953321344ec4b23",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-1/en:7e2ed393d525d7e2",
+      "en": "to buy",
+      "enSourceHash": "7e2ed393d525d7e2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-1/en:80d33d6dc0d19f84",
+      "en": "to go",
+      "enSourceHash": "80d33d6dc0d19f84",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-1/en:985604c2b6024312",
+      "en": "bread",
+      "enSourceHash": "985604c2b6024312",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-1/en:a2476c084bbe76f5",
+      "en": "No, there's no hat",
+      "enSourceHash": "a2476c084bbe76f5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-1/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-1/en:c6c241bbd8729d62",
+      "en": "Pick the word for \"teacher, doctor\"",
+      "enSourceHash": "c6c241bbd8729d62",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-1/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-1/en:e62f640360d85af9",
+      "en": "to drink",
+      "enSourceHash": "e62f640360d85af9",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-1/en:e8435301573fa7a8",
+      "en": "No, I won't do the shopping",
+      "enSourceHash": "e8435301573fa7a8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-1/en:eb91dc000aa8e3e5",
+      "en": "Yes, I'll buy two",
+      "enSourceHash": "eb91dc000aa8e3e5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-1/ja:いいえ かいものを しません",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-1/ja:ううん かわない",
+      "en": "Say to a friend: Nope, I won't buy it",
+      "enSourceHash": "92111e6d9e8ee727",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-1/ja:ううん ちゃは のまない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-1/ja:うん かう",
+      "en": "Say to a friend: Yeah, I'll buy it",
+      "enSourceHash": "9d6ceb854ba1b991",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-1/ja:うん みせに いく",
+      "en": "Say to a friend: Yeah, I'm going to the shop",
+      "enSourceHash": "9c0a047858753a14",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-1/ja:ええ ちゃを のみます",
+      "en": "Say politely: Yes, I'll drink tea",
+      "enSourceHash": "8d94b5f21737bbc4",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-1/ja:ちがう ぼうしは ない",
+      "en": "Say to a friend: No, there's no hat",
+      "enSourceHash": "6cbee712deb03265",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-1/ja:はい ふたつ かいます",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-2/en:266550babbb7bd39",
+      "en": "glasses",
+      "enSourceHash": "266550babbb7bd39",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-2/en:31a5089af947f380",
+      "en": "Pick the word for \"hat\"",
+      "enSourceHash": "31a5089af947f380",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-2/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-2/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-2/en:65f8ea722badb7ca",
+      "en": "to watch",
+      "enSourceHash": "65f8ea722badb7ca",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-2/en:7e2ed393d525d7e2",
+      "en": "to buy",
+      "enSourceHash": "7e2ed393d525d7e2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-2/en:a161048804912889",
+      "en": "Pick the word for \"glasses\"",
+      "enSourceHash": "a161048804912889",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-2/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-2/en:c6c241bbd8729d62",
+      "en": "Pick the word for \"teacher, doctor\"",
+      "enSourceHash": "c6c241bbd8729d62",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-2/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-2/en:ddb7498edf9593e5",
+      "en": "that (by you)",
+      "enSourceHash": "ddb7498edf9593e5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-2/en:e8d50940be530415",
+      "en": "Review — softening and refusing",
+      "enSourceHash": "e8d50940be530415",
+      "kind": "title"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-2/en:f3cca575ff7e90bd",
+      "en": "expensive",
+      "enSourceHash": "f3cca575ff7e90bd",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-2/ja:うん ちょっと たかい",
+      "en": "Say to a friend: Yeah, it's a bit pricey",
+      "enSourceHash": "4f568a3b4bbf9562",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-2/ja:それは だめです",
+      "en": "Say politely: That's not allowed",
+      "enSourceHash": "d262c73b0cb455a2",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-2/ja:ちゃは けっこうです",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-2/ja:ちょっと たかいです",
+      "en": "Say politely: It's a little expensive",
+      "enSourceHash": "2a488400d395acab",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-2/ja:ちょっと みてください",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-2/ja:ぼくは しらない",
+      "en": "Say to a friend: I don't know",
+      "enSourceHash": "85d2c0b013051dcd",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-2/ja:ぼくは ちゃを のまない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-2/ja:わたしの めがねです",
+      "en": "Say politely: They're my glasses",
+      "enSourceHash": "5cec4dcceeda79a4",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-3/en:31a5089af947f380",
+      "en": "Pick the word for \"hat\"",
+      "enSourceHash": "31a5089af947f380",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-3/en:564ec6e5a463b8c5",
+      "en": "to know",
+      "enSourceHash": "564ec6e5a463b8c5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-3/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-3/en:78d1d1d2844bbc9c",
+      "en": "Yes, I'll buy it now",
+      "enSourceHash": "78d1d1d2844bbc9c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-3/en:7d54e62102f7a058",
+      "en": "well…",
+      "enSourceHash": "7d54e62102f7a058",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-3/en:902ca40e818c618c",
+      "en": "I play a lot",
+      "enSourceHash": "902ca40e818c618c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-3/en:93c68148f4acfe0d",
+      "en": "often",
+      "enSourceHash": "93c68148f4acfe0d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-3/en:9abe0fce365bc56a",
+      "en": "a little",
+      "enSourceHash": "9abe0fce365bc56a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-3/en:9c2c4bd297b1193f",
+      "en": "That's a bit off right now",
+      "enSourceHash": "9c2c4bd297b1193f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-3/en:b4031fe58e6d325d",
+      "en": "no good",
+      "enSourceHash": "b4031fe58e6d325d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-3/en:b9822bf1cbfb2004",
+      "en": "Review — the whole register kit",
+      "enSourceHash": "b9822bf1cbfb2004",
+      "kind": "title"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-3/en:c6c241bbd8729d62",
+      "en": "Pick the word for \"teacher, doctor\"",
+      "enSourceHash": "c6c241bbd8729d62",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-3/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-3/en:eae27878ef9627fc",
+      "en": "Nope, I don't go often",
+      "enSourceHash": "eae27878ef9627fc",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-3/en:ed5eb9a37e2d8231",
+      "en": "now",
+      "enSourceHash": "ed5eb9a37e2d8231",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-3/ja:いま ちょっと ちがう",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-3/ja:こちらは ミカさんです",
+      "en": "Say politely: This is Mika",
+      "enSourceHash": "a07836b8e4b54ac3",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-3/ja:ちょっと だめです",
+      "en": "Say politely: That's a bit difficult",
+      "enSourceHash": "36b8e1521d621fa8",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-3/ja:はい いま かいます",
+      "en": "Say politely: Yes, I'll buy it now",
+      "enSourceHash": "6236c4d0b33e249f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-3/ja:ぼくは よく あそぶ",
+      "en": "Say to a friend: I play a lot",
+      "enSourceHash": "976861fba1a45bae",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-3/ja:まあ やすいです",
+      "en": "Say politely: Well, it's cheap",
+      "enSourceHash": "8f624bdba4d0f3b6",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-3/ja:みずは けっこうです",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/ja-m10-neo-review-3/ja:わたしは しりません",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m10/story:ja-m10-back-to-school/en:518257124f80ccf8",
+      "en": "Back to school",
+      "enSourceHash": "518257124f80ccf8",
+      "kind": "title"
+    },
+    {
+      "anchor": "m10/story:ja-m10-back-to-school/en:f2b1b45c785b7d51",
+      "en": "The first day after a break.",
+      "enSourceHash": "f2b1b45c785b7d51",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m10/story:ja-m10-back-to-school/ja:えいごも すこし わかります。",
+      "en": "I understand a little English too.",
+      "enSourceHash": "18cc7eb0a8cd2da9",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/story:ja-m10-back-to-school/ja:きのうは やすみでした。",
+      "en": "Yesterday was a day off.",
+      "enSourceHash": "af04d2fc90e77a94",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/story:ja-m10-back-to-school/ja:きょうは がっこうに いきます。",
+      "en": "Today I go to school.",
+      "enSourceHash": "6039718cf6a4a577",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/story:ja-m10-back-to-school/ja:じゅぎょうは むずかしいです。",
+      "en": "The class is hard.",
+      "enSourceHash": "999d2487f5d58aad",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/story:ja-m10-back-to-school/ja:それから としょかんに いきます。",
+      "en": "After that I go to the library.",
+      "enSourceHash": "48b226c3b61d060d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/story:ja-m10-back-to-school/ja:としょかんで ほんを よみます。",
+      "en": "I read a book at the library.",
+      "enSourceHash": "942b8b0ed5886fc8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/story:ja-m10-back-to-school/ja:ぼくは がくせいです。",
+      "en": "I'm a student.",
+      "enSourceHash": "6b657556a0442c4e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/story:ja-m10-the-wrong-train/en:45ba985a71eab8f7",
+      "en": "A day off, a friend at the park, and a train going the other way.",
+      "enSourceHash": "45ba985a71eab8f7",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m10/story:ja-m10-the-wrong-train/en:785e7f2c45b230ab",
+      "en": "The wrong train",
+      "enSourceHash": "785e7f2c45b230ab",
+      "kind": "title"
+    },
+    {
+      "anchor": "m10/story:ja-m10-the-wrong-train/gloss:けど",
+      "en": "but, although",
+      "enSourceHash": "6a16848ebec13abc",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m10/story:ja-m10-the-wrong-train/ja:きょうは たいへんでした。",
+      "en": "Today was rough.",
+      "enSourceHash": "c85a0d902966f914",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/story:ja-m10-the-wrong-train/ja:きょうは やすみです。",
+      "en": "Today is a day off.",
+      "enSourceHash": "3f94acf083a69d2c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/story:ja-m10-the-wrong-train/ja:けど、その でんしゃは ちがいます。",
+      "en": "But that train is the wrong one.",
+      "enSourceHash": "6d929d469bfc1731",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/story:ja-m10-the-wrong-train/ja:けど、ふたりで こうえんで あそびます。",
+      "en": "But the two of us have our day in the park.",
+      "enSourceHash": "11d089acb15ab2eb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/story:ja-m10-the-wrong-train/ja:ここは どこですか。",
+      "en": "Where am I?",
+      "enSourceHash": "4575d199b2825396",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/story:ja-m10-the-wrong-train/ja:それから、あたらしい でんしゃで こうえんに いきます。",
+      "en": "After that I take another train to the park.",
+      "enSourceHash": "eec6d9bf713be1d2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/story:ja-m10-the-wrong-train/ja:でんしゃは とおい とうきょうに いきます。",
+      "en": "The train goes to far-off Tokyo.",
+      "enSourceHash": "8cf4245ee329fb25",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/story:ja-m10-the-wrong-train/ja:わたしは えきに いきます。",
+      "en": "I go to the station.",
+      "enSourceHash": "a21a737d97a39601",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/story:ja-m10-the-wrong-train/ja:わたしは えきの ひとに ききます。",
+      "en": "I ask someone at the station.",
+      "enSourceHash": "dc754215f264d85a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/story:ja-m10-the-wrong-train/ja:わたしは しりません。",
+      "en": "I don't realise it.",
+      "enSourceHash": "1f88153bc91153ba",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/story:ja-m10-the-wrong-train/ja:わたしは ちょっと おそいです。",
+      "en": "I'm a little late.",
+      "enSourceHash": "36aed7e2a9c7196f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/story:ja-m10-the-wrong-train/ja:わたしは でんしゃで こうえんに いきます。",
+      "en": "I take the train towards the park.",
+      "enSourceHash": "69d4fd8982eb0b82",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/story:ja-m10-the-wrong-train/ja:わたしは ともだちの ユミと こうえんに いきます。",
+      "en": "I'm going to the park with my friend Yumi.",
+      "enSourceHash": "1f3d9d838038fe91",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/story:ja-m10-the-wrong-train/ja:わたしは わかりました。",
+      "en": "Now I understand.",
+      "enSourceHash": "712518006b0b94c3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/story:ja-m10-the-wrong-train/ja:ユミは こうえんで ほんを よみます。",
+      "en": "Yumi is reading a book at the park.",
+      "enSourceHash": "fd88344c503f60cf",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/story:ja-m10-the-wrong-train/ja:ユミは こうえんに います。",
+      "en": "Yumi is at the park.",
+      "enSourceHash": "932999bc2862ce74",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m10/symbolIntro:マ/hint",
+      "en": "like 'ma' in 'mama'",
+      "enSourceHash": "6016aca3077ba30a",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m10/symbolIntro:ミ/hint",
+      "en": "like 'mee' in 'meet'",
+      "enSourceHash": "e1985c392993de79",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m10/symbolIntro:ム/hint",
+      "en": "like 'moo' in 'moon'",
+      "enSourceHash": "fe93af57b670a123",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m10/symbolIntro:メ/hint",
+      "en": "like 'me' in 'met'",
+      "enSourceHash": "0a989a560cb6da0e",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m10/symbolIntro:モ/hint",
+      "en": "like 'mo' in 'more'",
+      "enSourceHash": "46d2371144375260",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m10/symbolIntro:ヤ/hint",
+      "en": "like 'ya' in 'yard'",
+      "enSourceHash": "f51d173f71cf02d6",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m10/symbolIntro:ユ/hint",
+      "en": "like 'you'",
+      "enSourceHash": "7b343565717c4b01",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m10/symbolIntro:ヨ/hint",
+      "en": "like 'yo' in 'yogurt'",
+      "enSourceHash": "b887839d198aec53",
+      "kind": "mnemonic"
+    }
+  ]
+}
