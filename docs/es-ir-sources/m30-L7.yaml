@@ -1,0 +1,135 @@
+  # ── L7 · «Tengo una nariz pequeña» — la nariz debuts on imageMcq. Feminine,
+  #    IRREGULAR plural («narices», z→c) — per the header's own conservative
+  #    choice, this lesson stays SINGULAR ONLY; «nariz» is never pluralized
+  #    anywhere in this module's content. Closes the singular lexicon set
+  #    (L1-L7); L8 is the checkpoint. PRIOR: «tengo» (m5), «grande»/
+  #    «pequeño» (m6). One recall (L6's win line).
+  - n: 7
+    template: free
+    title: "Tengo una nariz pequeña"
+    description: "«nariz» — the nose. Feminine, and its plural is irregular (z→c) — this lesson keeps it singular only."
+    steps:
+      - kind: map
+        id: l7-map-tengounanariz
+        tokens: ["tengo", "una", "nariz"]
+        pairs:
+          - { en: "I have", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "nose", tokenIndex: 2 }
+        audioText: "tengo una nariz"
+        revealNote: "«nariz» — the nose. Feminine — «una», not «un». (Its plural is irregular, not covered here.)"
+      - kind: speakLit
+        id: l7-sp-recall-l6win
+        es: "tengo una boca grande"
+        en: "I have a big mouth"
+        atoms: []
+        cue: recall
+      - kind: imageMcq
+        id: l7-im-nariz
+        target: { surface: "nariz", meaningEn: "nose", emoji: "👃" }
+        distractors:
+          - { surface: "regalo", emoji: "🎁" }
+          - { surface: "parque", emoji: "🌳" }
+          - { surface: "zapato", emoji: "👟" }
+      - kind: buildLit
+        id: l7-b-tengounanarizpequena
+        es: "tengo una nariz pequeña"
+        en: "I have a small nose"
+        atoms: ["tengo", "nariz", "pequeño"]
+        tiles: ["tienes", "grande"]
+      - kind: clozeLit
+        id: l7-c-narizgrande
+        es: "tiene una nariz grande"
+        en: "He/she has a big nose"
+        blank: "una"
+        options: ["una", "un"]
+        atoms: ["tiene", "nariz", "grande"]
+        why: "«nariz» is feminine — «una», not «un» — the same exception class as «mano», «pierna», and «boca»."
+      - kind: listenCompLit
+        id: l7-lc-tengolanarizpequena
+        es: "tengo la nariz pequeña"
+        en: "I have the small nose."
+        atoms: ["tengo", "nariz", "pequeño"]
+        distractorsEn:
+          - "I have the big nose."
+          - "You have the small nose."
+          - "He/she has the small nose."
+      - kind: mcq
+        id: l7-q-nariz
+        prompt: "Which one means 'I have a nose'?"
+        correct: "tengo una nariz"
+        distractors: ["tengo un nariz", "tengo nariz", "tiene una nariz"]
+        atoms: ["tengo", "nariz"]
+        why: "«nariz» is feminine — «una», not «un». Spanish never drops the article."
+      - kind: buildLit
+        id: l7-b-mihermananarizgrande
+        es: "mi hermana tiene una nariz grande"
+        en: "My sister has a big nose"
+        atoms: ["mi", "hermana", "tiene", "nariz", "grande"]
+        tiles: ["tengo", "pequeño"]
+      - kind: audioWimcq
+        id: l7-ear-regalo
+        target: { surface: "regalo", emoji: "🎁" }
+        distractors:
+          - { surface: "parque", emoji: "🌳" }
+          - { surface: "zapato", emoji: "👟" }
+      - kind: agreementLit
+        id: l7-agr-narizgrandepequena
+        en: "I have a big nose, and you have a small nose"
+        audioText: "tengo una nariz grande, y tienes una nariz pequeña"
+        atoms: ["tengo", "nariz", "grande", "tienes", "pequeño"]
+        segments:
+          - { text: "tengo una nariz " }
+          - { blank: { id: "p1", answer: "grande", options: ["grande", "pequeña"] } }
+          - { text: ", y tienes una nariz " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "grande"] } }
+      - kind: listenBuildLit
+        id: l7-lb-anatieneunanarizpequena
+        es: "Ana tiene una nariz pequeña"
+        en: "Ana has a small nose"
+        atoms: ["tiene", "nariz", "pequeño"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l7-tm-nariz
+        target: "nariz"
+        distractors: ["feliz", "otro", "poco"]
+      - kind: sim
+        id: l7-sim-ana-nariz
+        scene: { emoji: "👃", title: "Ana asks about your nose", setting: "Ana is drawing a cartoon of you." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes una nariz grande?", audioText: "¿tienes una nariz grande?", gloss: "Do you have a big nose?" }
+            goal: "Say no, you have a small nose."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, tengo una nariz pequeña" }
+                - { id: "wrong1", text: "no, tengo un nariz pequeña" }
+                - { id: "wrong2", text: "no, tienes una nariz pequeña" }
+              correctOptionId: "right"
+              audioText: "no, tengo una nariz pequeña"
+            replyGloss: "No, I have a small nose."
+            explanation: "«nariz» is feminine — «una», not «un». And «tengo» is your own word, not «tienes»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermana? ¿Tiene una nariz grande?", audioText: "¿y tu hermana? ¿tiene una nariz grande?", gloss: "And your sister? Does she have a big nose?" }
+            goal: "Say yes, she has a big nose."
+            reply:
+              mode: build
+              tiles: ["sí", "tiene", "una", "nariz", "grande", "pequeña"]
+              answer: "sí tiene una nariz grande"
+            replyGloss: "Yes, she has a big nose."
+            explanation: "«tiene», third person, feminine agreement stays: «una nariz grande»."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "nariz", target: "nose" }
+          - { source: "boca", target: "mouth" }
+          - { source: "ojo", target: "eye" }
+          - { source: "mano", target: "hand" }
+          - { source: "grande", target: "big" }
+          - { source: "pequeño", target: "small" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "tengo una nariz pequeña"
+        en: "I have a small nose"
+        atoms: ["tengo", "nariz", "pequeño"]

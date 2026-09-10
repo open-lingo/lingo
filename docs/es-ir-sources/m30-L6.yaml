@@ -1,0 +1,134 @@
+  # ── L6 · «Tengo una boca grande» — la boca debuts on imageMcq. Regular
+  #    feminine — the other noun (with «pierna», L4) flagged in the
+  #    header's «verla» trap section: pre-verbal pronoun placement only,
+  #    never a fused pronoun-on-verb, later (L9). PRIOR: «tengo» (m5),
+  #    «grande»/«pequeño» (m6). One recall (L5's win line).
+  - n: 6
+    template: free
+    title: "Tengo una boca grande"
+    description: "«boca» — the mouth. Regular feminine, regular plural — the other feminine noun (with «pierna») that always takes a pre-verbal pronoun, never a fused one."
+    steps:
+      - kind: map
+        id: l6-map-tengounaboca
+        tokens: ["tengo", "una", "boca"]
+        pairs:
+          - { en: "I have", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "mouth", tokenIndex: 2 }
+        audioText: "tengo una boca"
+        revealNote: "«boca» — the mouth. Regular feminine, regular plural «las bocas»."
+      - kind: speakLit
+        id: l6-sp-recall-l5win
+        es: "tengo los ojos azules"
+        en: "I have blue eyes"
+        atoms: []
+        cue: recall
+      - kind: imageMcq
+        id: l6-im-boca
+        target: { surface: "boca", meaningEn: "mouth", emoji: "👄" }
+        distractors:
+          - { surface: "casa", emoji: "🏠" }
+          - { surface: "tienda", emoji: "🏪" }
+          - { surface: "mochila", emoji: "🎒" }
+      - kind: buildLit
+        id: l6-b-tengounabocagrande
+        es: "tengo una boca grande"
+        en: "I have a big mouth"
+        atoms: ["tengo", "boca", "grande"]
+        tiles: ["tienes", "pequeño"]
+      - kind: clozeLit
+        id: l6-c-bocapequena
+        es: "tiene una boca pequeña"
+        en: "He/she has a small mouth"
+        blank: "pequeña"
+        options: ["pequeña", "pequeño"]
+        atoms: ["tiene", "boca"]
+        why: "«boca» is feminine, so its adjective takes -a: «pequeña», not «pequeño» — the same agreement «pierna» and «mano» take."
+      - kind: listenCompLit
+        id: l6-lc-tengolabocagrande
+        es: "tengo la boca grande"
+        en: "I have the big mouth."
+        atoms: ["tengo", "boca", "grande"]
+        distractorsEn:
+          - "I have the small mouth."
+          - "You have the big mouth."
+          - "He/she has the big mouth."
+      - kind: mcq
+        id: l6-q-boca
+        prompt: "Which one means 'I have a mouth'?"
+        correct: "tengo una boca"
+        distractors: ["tengo un boca", "tengo una bocas", "tengo boca"]
+        atoms: ["tengo", "boca"]
+        why: "«boca» is feminine — «una», not «un». Spanish never drops the article."
+      - kind: buildLit
+        id: l6-b-mihermanobocapequena
+        es: "mi hermano tiene una boca pequeña"
+        en: "My brother has a small mouth"
+        atoms: ["mi", "hermano", "tiene", "boca", "pequeño"]
+        tiles: ["tengo", "grande"]
+      - kind: audioWimcq
+        id: l6-ear-casa
+        target: { surface: "casa", emoji: "🏠" }
+        distractors:
+          - { surface: "tienda", emoji: "🏪" }
+          - { surface: "mochila", emoji: "🎒" }
+      - kind: agreementLit
+        id: l6-agr-bocagrandepequena
+        en: "I have a big mouth, and you have a small mouth"
+        audioText: "tengo una boca grande, y tienes una boca pequeña"
+        atoms: ["tengo", "boca", "grande", "tienes", "pequeño"]
+        segments:
+          - { text: "tengo una boca " }
+          - { blank: { id: "p1", answer: "grande", options: ["grande", "pequeña"] } }
+          - { text: ", y tienes una boca " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "grande"] } }
+      - kind: listenBuildLit
+        id: l6-lb-anatieneunabocagrande
+        es: "Ana tiene una boca grande"
+        en: "Ana has a big mouth"
+        atoms: ["tiene", "boca", "grande"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l6-tm-boca
+        target: "boca"
+        distractors: ["poco", "como", "otro"]
+      - kind: sim
+        id: l6-sim-ana-boca
+        scene: { emoji: "👄", title: "Ana asks about your mouth", setting: "Ana is describing you for a police sketch, as a joke." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes una boca grande?", audioText: "¿tienes una boca grande?", gloss: "Do you have a big mouth?" }
+            goal: "Say yes, you have a big mouth."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo una boca grande" }
+                - { id: "wrong1", text: "sí, tengo un boca grande" }
+                - { id: "wrong2", text: "sí, tienes una boca grande" }
+              correctOptionId: "right"
+              audioText: "sí, tengo una boca grande"
+            replyGloss: "Yes, I have a big mouth."
+            explanation: "«boca» is feminine — «una», not «un». And «tengo» is your own word, not «tienes»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermano? ¿Tiene una boca pequeña?", audioText: "¿y tu hermano? ¿tiene una boca pequeña?", gloss: "And your brother? Does he have a small mouth?" }
+            goal: "Say yes, he has a small mouth."
+            reply:
+              mode: build
+              tiles: ["sí", "tiene", "una", "boca", "pequeña", "grande"]
+              answer: "sí tiene una boca pequeña"
+            replyGloss: "Yes, he has a small mouth."
+            explanation: "«tiene», third person, feminine agreement: «boca pequeña»."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "boca", target: "mouth" }
+          - { source: "ojo", target: "eye" }
+          - { source: "pierna", target: "leg" }
+          - { source: "brazo", target: "arm" }
+          - { source: "grande", target: "big" }
+          - { source: "pequeño", target: "small" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "tengo una boca grande"
+        en: "I have a big mouth"
+        atoms: ["tengo", "boca", "grande"]

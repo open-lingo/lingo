@@ -1,0 +1,139 @@
+  # ── L1 · «Tengo una mano» — la mano debuts on imageMcq (§13.2 "the image
+  #    IS the introduction"). Irregular gender flagged directly: «mano»
+  #    ends in -o but is feminine, the same exception class as «foto»
+  #    (m4). PRIOR context only: «tengo» (m5), «una»/«un» (m3), «grande»/
+  #    «pequeño» (m6). Carries this module's ONE general usage-note card
+  #    (≤3 lines, CLAUDE.md budget), explaining the «tengo» + body-part
+  #    pattern itself. No recall (nothing earlier in this module).
+  - n: 1
+    template: free
+    title: "Tengo una mano"
+    description: "Seven new body words, zero new grammar — every sentence frame is already yours. «tengo una mano» — «tengo» (m5) plus this module's own «mano»."
+    steps:
+      - kind: map
+        id: l1-map-tengounamano
+        tokens: ["tengo", "una", "mano"]
+        pairs:
+          - { en: "I have", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "hand", tokenIndex: 2 }
+        audioText: "tengo una mano"
+        revealNote: "«mano» — the hand. Notice it ends in -o but takes «una», not «un»: this is a feminine noun despite the -o, the same exception you already know from «la foto» (m4)."
+      - kind: imageMcq
+        id: l1-im-mano
+        target: { surface: "mano", meaningEn: "hand", emoji: "✋" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "libro", emoji: "📖" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: info
+        id: l1-info-tengocuerpo
+        title: "Tengo — describing your body"
+        body: "Spanish describes your body with «tengo» — the exact verb you've used since day one for a dog, for hunger, for your age (m5). «tengo una mano» — I have a hand. Size and color will work on every body part exactly the way they already work on everything else: no new grammar, only new nouns."
+      - kind: speakLit
+        id: l1-sp-tengounamanogrande
+        es: "tengo una mano grande"
+        en: "I have a big hand"
+        atoms: ["tengo", "mano", "grande"]
+      - kind: buildLit
+        id: l1-b-tengodosmanos
+        es: "tengo dos manos"
+        en: "I have two hands"
+        atoms: ["tengo", "dos", "mano"]
+        tiles: ["tienes", "una"]
+      - kind: clozeLit
+        id: l1-c-manopequena
+        es: "tengo una mano pequeña"
+        en: "I have a small hand"
+        blank: "pequeña"
+        options: ["pequeña", "pequeño"]
+        atoms: ["tengo", "mano", "pequeño"]
+        why: "«mano» is feminine even though it ends in -o (like «foto», m4) — so its adjective takes the feminine -a: «pequeña», not «pequeño»."
+      - kind: listenCompLit
+        id: l1-lc-tengolasmanosgrandes
+        es: "tengo las manos grandes"
+        en: "I have big hands."
+        atoms: ["tengo", "mano", "grande"]
+        distractorsEn:
+          - "I have small hands."
+          - "I have a big hand."
+          - "You have big hands."
+      - kind: mcq
+        id: l1-q-mano
+        prompt: "Which one means 'I have a hand'?"
+        correct: "tengo una mano"
+        distractors: ["tengo un mano", "tengo una manos", "tengo mano"]
+        atoms: ["tengo", "mano"]
+        why: "«mano» is feminine, so «una», not «un» — the classic -o exception (like «foto», m4). And Spanish never drops the article the way «tengo mano» does."
+      - kind: buildLit
+        id: l1-b-mihermanatieneunamano
+        es: "mi hermana tiene una mano pequeña"
+        en: "My sister has a small hand"
+        atoms: ["mi", "hermana", "tiene", "mano", "pequeño"]
+        tiles: ["tengo", "grande"]
+      - kind: audioWimcq
+        id: l1-ear-perro
+        target: { surface: "perro", emoji: "🐶" }
+        distractors:
+          - { surface: "libro", emoji: "📖" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: agreementLit
+        id: l1-agr-manograndepequena
+        en: "I have a big hand, and you have a small hand"
+        audioText: "tengo una mano grande, y tienes una mano pequeña"
+        atoms: ["tengo", "mano", "grande", "tienes", "pequeño"]
+        segments:
+          - { text: "tengo una mano " }
+          - { blank: { id: "p1", answer: "grande", options: ["grande", "pequeña"] } }
+          - { text: ", y tienes una mano " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "grande"] } }
+      - kind: listenBuildLit
+        id: l1-lb-anatieneunamanogrande
+        es: "Ana tiene una mano grande"
+        en: "Ana has a big hand"
+        atoms: ["tiene", "mano", "grande"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l1-tm-mano
+        target: "mano"
+        distractors: ["mono", "mucho", "mismo"]
+      - kind: sim
+        id: l1-sim-ana-mano
+        scene: { emoji: "✋", title: "Ana asks about your hand", setting: "Ana is looking at a photo you sent her." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes una mano grande?", audioText: "¿tienes una mano grande?", gloss: "Do you have a big hand?" }
+            goal: "Say yes, you have a big hand."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo una mano grande" }
+                - { id: "wrong1", text: "sí, tengo un mano grande" }
+                - { id: "wrong2", text: "sí, tienes una mano grande" }
+              correctOptionId: "right"
+              audioText: "sí, tengo una mano grande"
+            replyGloss: "Yes, I have a big hand."
+            explanation: "«un mano» drops the feminine article «mano» needs — the classic -o exception (like «foto», m4). And «tienes» is Ana's word for you, not your word for yourself."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermana? ¿Tiene una mano pequeña?", audioText: "¿y tu hermana? ¿tiene una mano pequeña?", gloss: "And your sister? Does she have a small hand?" }
+            goal: "Say yes, she has a small hand."
+            reply:
+              mode: build
+              tiles: ["sí", "tiene", "una", "mano", "pequeña", "grande"]
+              answer: "sí tiene una mano pequeña"
+            replyGloss: "Yes, she has a small hand."
+            explanation: "«tiene» — the same PRIOR verb (m5), third person. «mano pequeña», feminine agreement, not «pequeño»."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "mano", target: "hand" }
+          - { source: "tengo", target: "I have" }
+          - { source: "tienes", target: "you have" }
+          - { source: "tiene", target: "he/she has" }
+          - { source: "grande", target: "big" }
+          - { source: "pequeño", target: "small" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "tengo una mano"
+        en: "I have a hand"
+        atoms: ["tengo", "mano"]

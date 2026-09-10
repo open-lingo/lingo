@@ -1,0 +1,120 @@
+  # ── L8 · Checkpoint — graded only (no map, no info card, no new atom).
+  #    Recombines PRIOR m17 «lavarse»-family conjugated forms («lavo»/
+  #    «lava», with PRIOR m13 pronouns «me»/«se») against this module's
+  #    own «las manos» (L1). Never uses bare «lavarse» — only the already-
+  #    conjugated forms, and never a person («lavas»/«nos») that isn't
+  #    registered. ≥2 recalls (L6, L7).
+  - n: 8
+    template: free
+    title: "Checkpoint: me lavo las manos"
+    description: "PRIOR «lavo»/«lava» (m17) plus this module's own «las manos» — no new word, just recombination."
+    steps:
+      - kind: buildLit
+        id: l8-b-melavolasmanos
+        es: "me lavo las manos"
+        en: "I wash my hands"
+        atoms: ["me", "lavo", "mano"]
+        tiles: ["se", "lava"]
+      - kind: clozeLit
+        id: l8-c-selavalasmanos
+        es: "Ana se lava las manos"
+        en: "Ana washes her hands"
+        blank: "se"
+        options: ["se", "me"]
+        atoms: ["lava", "mano"]
+        why: "Ana washes HER OWN hands, third person — «se», not «me», the pointer for yourself."
+      - kind: listenCompLit
+        id: l8-lc-melavolasmanostemprano
+        es: "me lavo las manos temprano"
+        en: "I wash my hands early."
+        atoms: ["me", "lavo", "mano", "temprano"]
+        distractorsEn:
+          - "I wash my hands late."
+          - "He/she washes his/her hands early."
+          - "I wash my face early."
+      - kind: mcq
+        id: l8-q-checkpoint
+        prompt: "Which one means 'He washes himself'?"
+        correct: "se lava"
+        distractors: ["me lava", "se lavo", "lavo"]
+        atoms: ["lava"]
+        why: "Third person: «se lava», not «me lava» (that's yourself) or «se lavo» (wrong person on the verb). Spanish never drops the pointer."
+      - kind: buildLit
+        id: l8-b-mihermanasemanos
+        es: "mi hermana se lava las manos"
+        en: "My sister washes her hands"
+        atoms: ["mi", "hermana", "se", "lava", "mano"]
+        tiles: ["me", "lavo"]
+      - kind: agreementLit
+        id: l8-agr-checkpoint
+        en: "I wash my hands, and Ana washes her hands"
+        audioText: "me lavo las manos, y Ana se lava las manos"
+        atoms: ["me", "lavo", "se", "lava", "mano"]
+        segments:
+          - { text: "" }
+          - { blank: { id: "p1", answer: "me", options: ["me", "se"] } }
+          - { text: " lavo las manos, y Ana " }
+          - { blank: { id: "p2", answer: "se", options: ["se", "me"] } }
+          - { text: " lava las manos" }
+      - kind: speakLit
+        id: l8-sp-recall-l6win
+        es: "tengo una boca grande"
+        en: "I have a big mouth"
+        atoms: []
+        cue: recall
+      - kind: listenBuildLit
+        id: l8-lb-analavalasmanostarde
+        es: "Ana se lava las manos tarde"
+        en: "Ana washes her hands late"
+        atoms: ["se", "lava", "mano", "tarde"]
+        tiles: ["me", "lavo"]
+      - kind: speakLit
+        id: l8-sp-recall-l7win
+        es: "tengo una nariz pequeña"
+        en: "I have a small nose"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l8-tm-mano
+        target: "mano"
+        distractors: ["menos", "mismo", "mucho"]
+      - kind: sim
+        id: l8-sim-checkpoint
+        scene: { emoji: "🧼", title: "Ana checks the morning routine", setting: "Ana is confirming everyone washed up before breakfast." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Te lavas las manos?", audioText: "¿te lavas las manos?", gloss: "Do you wash your hands?" }
+            goal: "Say yes, you wash your hands."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me lavo las manos" }
+                - { id: "wrong1", text: "sí, se lavo las manos" }
+                - { id: "wrong2", text: "sí, me lava las manos" }
+              correctOptionId: "right"
+              audioText: "sí, me lavo las manos"
+            replyGloss: "Yes, I wash my hands."
+            explanation: "Yourself: «me lavo» — the pointer «me» with the «yo» form «lavo». Not «se lavo» (wrong pointer) or «me lava» (wrong person)."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermana? ¿Se lava las manos también?", audioText: "¿y tu hermana? ¿se lava las manos también?", gloss: "And your sister? Does she wash her hands too?" }
+            goal: "Say yes, she washes her hands too."
+            reply:
+              mode: build
+              tiles: ["sí", "se", "lava", "las", "manos", "también", "me"]
+              answer: "sí se lava las manos también"
+            replyGloss: "Yes, she washes her hands too."
+            explanation: "Third person keeps «se lava», not «me lavo» — the pointer matches the person doing the washing."
+      - kind: matchLit
+        id: l8-match
+        pairs:
+          - { source: "lavo", target: "I wash" }
+          - { source: "lava", target: "he/she washes" }
+          - { source: "mano", target: "hand" }
+          - { source: "boca", target: "mouth" }
+          - { source: "nariz", target: "nose" }
+          - { source: "también", target: "also" }
+      - kind: speakLit
+        id: l8-sp-win
+        es: "me lavo las manos"
+        en: "I wash my hands"
+        atoms: ["me", "lavo", "mano"]

@@ -1,0 +1,134 @@
+  # ── L2 · «Tengo dos pies» — el pie debuts on imageMcq. Regular gender
+  #    (masculine, ordinary -o noun) — the deliberate CONTRAST lesson
+  #    against L1's «mano» exception: this cloze/sim pair drills «un pie»
+  #    vs «una mano» side by side. PRIOR: «tengo» (m5), «dos» (m1),
+  #    «grande»/«pequeño» (m6). One recall (L1's win line).
+  - n: 2
+    template: free
+    title: "Tengo dos pies"
+    description: "«pie» — the foot. Regular masculine, regular plural: the ordinary case, right after «mano» broke the rule."
+    steps:
+      - kind: map
+        id: l2-map-tengodospies
+        tokens: ["tengo", "dos", "pies"]
+        pairs:
+          - { en: "I have", tokenIndex: 0 }
+          - { en: "two", tokenIndex: 1 }
+          - { en: "feet", tokenIndex: 2 }
+        audioText: "tengo dos pies"
+        revealNote: "«pie» — the foot. Regular masculine, regular plural «los pies» — unlike «mano», this one follows the ordinary pattern."
+      - kind: speakLit
+        id: l2-sp-recall-l1win
+        es: "tengo una mano"
+        en: "I have a hand"
+        atoms: []
+        cue: recall
+      - kind: imageMcq
+        id: l2-im-pie
+        target: { surface: "pie", meaningEn: "foot", emoji: "🦶" }
+        distractors:
+          - { surface: "zapato", emoji: "👟" }
+          - { surface: "carro", emoji: "🚗" }
+          - { surface: "gato", emoji: "🐱" }
+      - kind: buildLit
+        id: l2-b-tengodospiesgrandes
+        es: "tengo dos pies grandes"
+        en: "I have two big feet"
+        atoms: ["tengo", "dos", "pie", "grande"]
+        tiles: ["tienes", "una"]
+      - kind: clozeLit
+        id: l2-c-unpiepequeno
+        es: "tengo un pie pequeño"
+        en: "I have a small foot"
+        blank: "un"
+        options: ["un", "una"]
+        atoms: ["tengo", "pie", "pequeño"]
+        why: "«pie» is masculine and regular — «un», not «una» (unlike «mano», which took the odd one)."
+      - kind: listenCompLit
+        id: l2-lc-piespequenos
+        es: "tengo los pies pequeños"
+        en: "I have small feet."
+        atoms: ["tengo", "pie", "pequeño"]
+        distractorsEn:
+          - "I have big feet."
+          - "I have a small foot."
+          - "You have small feet."
+      - kind: mcq
+        id: l2-q-pie
+        prompt: "Which one means 'I have two feet'?"
+        correct: "tengo dos pies"
+        distractors: ["tengo dos pie", "tengo dos manos", "tengo un pie"]
+        atoms: ["tengo", "dos", "pie"]
+        why: "Two of something plural takes the -s: «pies», not «pie». «manos» is the wrong noun, and «un pie» is only one foot."
+      - kind: buildLit
+        id: l2-b-mihermanotieneunpiegrande
+        es: "mi hermano tiene un pie grande"
+        en: "My brother has a big foot"
+        atoms: ["mi", "hermano", "tiene", "pie", "grande"]
+        tiles: ["tengo", "pequeño"]
+      - kind: audioWimcq
+        id: l2-ear-zapato
+        target: { surface: "zapato", emoji: "👟" }
+        distractors:
+          - { surface: "carro", emoji: "🚗" }
+          - { surface: "gato", emoji: "🐱" }
+      - kind: agreementLit
+        id: l2-agr-piesgrandespequenos
+        en: "I have big feet, and you have small feet"
+        audioText: "tengo los pies grandes, y tienes los pies pequeños"
+        atoms: ["tengo", "pie", "grande", "tienes", "pequeño"]
+        segments:
+          - { text: "tengo los pies " }
+          - { blank: { id: "p1", answer: "grandes", options: ["grandes", "pequeños"] } }
+          - { text: ", y tienes los pies " }
+          - { blank: { id: "p2", answer: "pequeños", options: ["pequeños", "grandes"] } }
+      - kind: listenBuildLit
+        id: l2-lb-anatieneunpiepequeno
+        es: "Ana tiene un pie pequeño"
+        en: "Ana has a small foot"
+        atoms: ["tiene", "pie", "pequeño"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l2-tm-pie
+        target: "pie"
+        distractors: ["dos", "los", "una"]
+      - kind: sim
+        id: l2-sim-ana-pie
+        scene: { emoji: "🦶", title: "Ana asks about your feet", setting: "Ana is picking out shoes online and wants to know your size." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes los pies grandes?", audioText: "¿tienes los pies grandes?", gloss: "Do you have big feet?" }
+            goal: "Say yes, you have big feet."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo los pies grandes" }
+                - { id: "wrong1", text: "sí, tengo el pie grandes" }
+                - { id: "wrong2", text: "sí, tienes los pies grandes" }
+              correctOptionId: "right"
+              audioText: "sí, tengo los pies grandes"
+            replyGloss: "Yes, I have big feet."
+            explanation: "«los pies», plural, for two of them — not «el pie». And «tengo» is your own word, not «tienes»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermano? ¿Tiene un pie pequeño?", audioText: "¿y tu hermano? ¿tiene un pie pequeño?", gloss: "And your brother? Does he have a small foot?" }
+            goal: "Say yes, he has a small foot."
+            reply:
+              mode: build
+              tiles: ["sí", "tiene", "un", "pie", "pequeño", "grande"]
+              answer: "sí tiene un pie pequeño"
+            replyGloss: "Yes, he has a small foot."
+            explanation: "«pie» is masculine and regular — «un pie», not «una pie» (unlike «mano»)."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "pie", target: "foot" }
+          - { source: "mano", target: "hand" }
+          - { source: "dos", target: "two" }
+          - { source: "grande", target: "big" }
+          - { source: "pequeño", target: "small" }
+          - { source: "tengo", target: "I have" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "tengo dos pies"
+        en: "I have two feet"
+        atoms: ["tengo", "dos", "pie"]

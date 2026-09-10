@@ -1,0 +1,23 @@
+placement:
+  screener:
+    - id: "es-m30-scr-1"
+      prompt: "'I have blue eyes.' — which one?"
+      correct: "tengo los ojos azules"
+      distractors: ["tengo los ojos azul", "tengo el ojo azules", "tengo las ojos azules"]
+  byModule:
+    - id: "es-m30-pl-1"
+      prompt: "I have a big arm."
+      correct: "tengo un brazo grande"
+      distractors: ["tengo un brazo grandes", "tengo una brazo grande", "tengo un brazo pequeño"]
+    - id: "es-m30-pl-2"
+      prompt: "She has small hands."
+      correct: "tiene las manos pequeñas"
+      distractors: ["tiene los manos pequeñas", "tiene las manos pequeños", "tiene las mano pequeñas"]
+    - id: "es-m30-pl-3"
+      prompt: "I wash my hands."
+      correct: "me lavo las manos"
+      distractors: ["me lavo los manos", "te lavas las manos", "me lavo la mano"]
+    - id: "es-m30-pl-4"
+      prompt: "I can see it (the arm)."
+      correct: "puedo verlo"
+      distractors: ["puedo verla", "puedo lo ver", "puedo ver"]

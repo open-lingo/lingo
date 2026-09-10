@@ -58,6 +58,7 @@ import { ES_M26_CHECKPOINT_INDEX } from "./m26";
 import { ES_M27_CHECKPOINT_INDEX } from "./m27";
 import { ES_M28_CHECKPOINT_INDEX } from "./m28";
 import { ES_M29_CHECKPOINT_INDEX } from "./m29";
+import { ES_M30_CHECKPOINT_INDEX } from "./m30";
 import { findEsAtomBySurface, getEsCourseAtoms, type EsAtom } from "../courseAtoms";
 import { ES_MODULE_ORDER } from "../grammarHelpers";
 import { isGradedStep } from "@/features/lesson/data/_stepPredicates";
@@ -104,6 +105,7 @@ const CHECKPOINT_INDEX: Record<string, number> = {
   m27: ES_M27_CHECKPOINT_INDEX,
   m28: ES_M28_CHECKPOINT_INDEX,
   m29: ES_M29_CHECKPOINT_INDEX,
+  m30: ES_M30_CHECKPOINT_INDEX,
 };
 
 const SELECTION_TYPES = new Set<LessonStep["type"]>([

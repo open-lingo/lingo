@@ -1,0 +1,136 @@
+  # ── L4 · «Tengo una pierna pequeña» — la pierna debuts on imageMcq.
+  #    Regular feminine, regular plural — the deliberate CONTRAST against
+  #    L3's masculine «brazo», same shape as L1/L2's mano/pie pair. This
+  #    is one of the two feminine nouns (with «boca») flagged in the
+  #    header's «verla» trap section: never fuse a pronoun onto it later
+  #    (L9) — pre-verbal placement only. PRIOR: «tengo» (m5), «pequeño»
+  #    (m6). One recall (L3's win line).
+  - n: 4
+    template: free
+    title: "Tengo una pierna pequeña"
+    description: "«pierna» — the leg. Regular feminine, regular plural — same shape as «mano»/«pie», opposite gender from «brazo»."
+    steps:
+      - kind: map
+        id: l4-map-tengounapierna
+        tokens: ["tengo", "una", "pierna"]
+        pairs:
+          - { en: "I have", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "leg", tokenIndex: 2 }
+        audioText: "tengo una pierna"
+        revealNote: "«pierna» — the leg. Regular feminine, regular plural «las piernas» — «una», matching «pierna», the way it should."
+      - kind: speakLit
+        id: l4-sp-recall-l3win
+        es: "tengo un brazo grande"
+        en: "I have a big arm"
+        atoms: []
+        cue: recall
+      - kind: imageMcq
+        id: l4-im-pierna
+        target: { surface: "pierna", meaningEn: "leg", emoji: "🦵" }
+        distractors:
+          - { surface: "camisa", emoji: "👕" }
+          - { surface: "parque", emoji: "🌳" }
+          - { surface: "tienda", emoji: "🏪" }
+      - kind: buildLit
+        id: l4-b-tengounapiernapequena
+        es: "tengo una pierna pequeña"
+        en: "I have a small leg"
+        atoms: ["tengo", "pierna", "pequeño"]
+        tiles: ["tienes", "grande"]
+      - kind: clozeLit
+        id: l4-c-piernaspequenas
+        es: "tengo las piernas pequeñas"
+        en: "I have small legs"
+        blank: "pequeñas"
+        options: ["pequeñas", "pequeños"]
+        atoms: ["tengo", "pierna"]
+        why: "«pierna» is feminine, so its adjective takes the feminine -a: «pequeñas», not «pequeños» — the same agreement «mano» took in L1."
+      - kind: listenCompLit
+        id: l4-lc-tienelapiernagrande
+        es: "tiene la pierna grande"
+        en: "He/she has the big leg."
+        atoms: ["tiene", "pierna", "grande"]
+        distractorsEn:
+          - "He/she has the small leg."
+          - "I have the big leg."
+          - "You have the big leg."
+      - kind: mcq
+        id: l4-q-pierna
+        prompt: "Which one means 'I have a leg'?"
+        correct: "tengo una pierna"
+        distractors: ["tengo un pierna", "tengo una piernas", "tengo pierna"]
+        atoms: ["tengo", "pierna"]
+        why: "«pierna» is feminine — «una», not «un». Spanish never drops the article."
+      - kind: buildLit
+        id: l4-b-mihermanopiernagrande
+        es: "mi hermano tiene una pierna grande"
+        en: "My brother has a big leg"
+        atoms: ["mi", "hermano", "tiene", "pierna", "grande"]
+        tiles: ["tengo", "pequeño"]
+      - kind: audioWimcq
+        id: l4-ear-camisa
+        target: { surface: "camisa", emoji: "👕" }
+        distractors:
+          - { surface: "parque", emoji: "🌳" }
+          - { surface: "tienda", emoji: "🏪" }
+      - kind: agreementLit
+        id: l4-agr-piernagrandepequena
+        en: "I have a big leg, and you have a small leg"
+        audioText: "tengo una pierna grande, y tienes una pierna pequeña"
+        atoms: ["tengo", "pierna", "grande", "tienes", "pequeño"]
+        segments:
+          - { text: "tengo una pierna " }
+          - { blank: { id: "p1", answer: "grande", options: ["grande", "pequeña"] } }
+          - { text: ", y tienes una pierna " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "grande"] } }
+      - kind: listenBuildLit
+        id: l4-lb-anatieneunapiernapequena
+        es: "Ana tiene una pierna pequeña"
+        en: "Ana has a small leg"
+        atoms: ["tiene", "pierna", "pequeño"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l4-tm-pierna
+        target: "pierna"
+        distractors: ["pero", "buena", "primera"]
+      - kind: sim
+        id: l4-sim-ana-pierna
+        scene: { emoji: "🦵", title: "Ana asks about your leg", setting: "Ana is asking about a running injury." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes una pierna pequeña?", audioText: "¿tienes una pierna pequeña?", gloss: "Do you have a small leg?" }
+            goal: "Say no, you have a big leg."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, tengo una pierna grande" }
+                - { id: "wrong1", text: "no, tengo un pierna grande" }
+                - { id: "wrong2", text: "no, tienes una pierna grande" }
+              correctOptionId: "right"
+              audioText: "no, tengo una pierna grande"
+            replyGloss: "No, I have a big leg."
+            explanation: "«pierna» is feminine — «una», not «un». And «tengo» is your own word, not «tienes»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermano? ¿Tiene las piernas pequeñas?", audioText: "¿y tu hermano? ¿tiene las piernas pequeñas?", gloss: "And your brother? Does he have small legs?" }
+            goal: "Say yes, he has small legs."
+            reply:
+              mode: build
+              tiles: ["sí", "tiene", "las", "piernas", "pequeñas", "grande"]
+              answer: "sí tiene las piernas pequeñas"
+            replyGloss: "Yes, he has small legs."
+            explanation: "Two legs, feminine plural: «las piernas», «pequeñas»."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "pierna", target: "leg" }
+          - { source: "brazo", target: "arm" }
+          - { source: "pie", target: "foot" }
+          - { source: "mano", target: "hand" }
+          - { source: "grande", target: "big" }
+          - { source: "pequeño", target: "small" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "tengo una pierna pequeña"
+        en: "I have a small leg"
+        atoms: ["tengo", "pierna", "pequeño"]

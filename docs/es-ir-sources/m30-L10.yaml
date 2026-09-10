@@ -1,0 +1,159 @@
+  # ── L10 · Mastery — Ana checks in on everyone's body-description photos.
+  #    No map, no info card (L8-checkpoint convention), no new atom — all
+  #    seven debuted L1-L7. Recombines every noun against color (m6),
+  #    size (m6), «me lavo»/«se lava» (m17, this module's L8), and the
+  #    verlo/pre-verbal-la contrast (L9) in one conversation. ≥2 recalls
+  #    (L8, L9). The lesson ENDS on the sim (§13.9 law 7 — mastery must
+  #    end on a conversation, not a grid); the header's own verbatim win
+  #    line — corrected to drop the unregistered «pelo» clause —
+  #    "tengo los ojos azules y las manos grandes" is delivered as the
+  #    sim's own final-turn reply (t5), mirroring m29-L10's own pattern,
+  #    rather than a separate closing speakLit. «verla»/«ves» are never
+  #    printed anywhere in this lesson, including inside the sim (wrong
+  #    sim options use only registered forms: missing-pronoun or
+  #    wrong-pointer «lo», never a fabricated «verla»).
+  - n: 10
+    template: free
+    title: "Tengo los ojos azules y las manos grandes"
+    description: "Ana checks in with everyone's photos — every body word this module taught, recombined against color, size, «me lavo», and «verlo», one conversation."
+    steps:
+      - kind: buildLit
+        id: l10-b-tengoelpiegrandeylamanopequena
+        es: "tengo el pie grande y la mano pequeña"
+        en: "I have a big foot and a small hand"
+        atoms: ["tengo", "pie", "grande", "mano", "pequeño", "y"]
+        tiles: ["tienes", "tiene"]
+      - kind: clozeLit
+        id: l10-c-brazograndepiernapequena
+        es: "tengo el brazo grande y la pierna pequeña"
+        en: "I have a big arm and a small leg"
+        blank: "pequeña"
+        options: ["pequeña", "pequeño"]
+        atoms: ["tengo", "brazo", "grande", "pierna"]
+        why: "«pierna» is feminine, so «pequeña», not «pequeño» — even though «brazo» right before it took the masculine «grande»."
+      - kind: listenCompLit
+        id: l10-lc-ojosverdesbocagrande
+        es: "tengo los ojos verdes y la boca grande"
+        en: "I have green eyes and a big mouth."
+        atoms: ["tengo", "ojo", "verde", "boca", "grande"]
+        distractorsEn:
+          - "I have green eyes and a small mouth."
+          - "I have black eyes and a big mouth."
+          - "You have green eyes and a big mouth."
+      - kind: mcq
+        id: l10-q-ojosazulesmanospequenas
+        prompt: "Which one means 'I have blue eyes and small hands'?"
+        correct: "tengo los ojos azules y las manos pequeñas"
+        distractors: ["tengo los ojos azules y las manos pequeños", "tengo el ojo azules y las manos pequeñas", "tengo los ojos azul y las manos pequeñas"]
+        atoms: ["tengo", "ojo", "azul", "mano", "pequeño", "y"]
+        why: "Both nouns are plural and feminine — «azules» and «pequeñas» both need the -s, and both need the feminine -a. «el ojo» is singular; «azul» alone drops the plural -s."
+      - kind: buildLit
+        id: l10-b-veolapiernapuedoverelbrazo
+        es: "veo la pierna, y puedo ver el brazo también"
+        en: "I see the leg, and I can also see the arm"
+        atoms: ["veo", "pierna", "puedo", "ver", "brazo", "también"]
+        tiles: ["verlo", "lo"]
+      - kind: speakLit
+        id: l10-sp-recall-l8win
+        es: "me lavo las manos"
+        en: "I wash my hands"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l10-ear-regalo
+        target: { surface: "regalo", emoji: "🎁" }
+        distractors:
+          - { surface: "parque", emoji: "🌳" }
+          - { surface: "tienda", emoji: "🏪" }
+      - kind: speakLit
+        id: l10-sp-recall-l9win
+        es: "sí, puedo verlo"
+        en: "Yes, I can see it"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l10-agr-brazopierna
+        en: "I have a big arm, and you have a small leg"
+        audioText: "tengo el brazo grande, y tienes la pierna pequeña"
+        atoms: ["tengo", "brazo", "grande", "tienes", "pierna", "pequeño"]
+        segments:
+          - { text: "tengo el brazo " }
+          - { blank: { id: "p1", answer: "grande", options: ["grande", "pequeña"] } }
+          - { text: ", y tienes la pierna " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "grande"] } }
+      - kind: listenBuildLit
+        id: l10-lb-anatieneojosnegrosnarizpequena
+        es: "Ana tiene los ojos negros y la nariz pequeña"
+        en: "Ana has black eyes and a small nose"
+        atoms: ["tiene", "ojo", "negro", "nariz", "pequeño", "y"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l10-tm-pierna
+        target: "pierna"
+        distractors: ["primera", "buena", "tercera"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "mano", target: "hand" }
+          - { source: "pie", target: "foot" }
+          - { source: "brazo", target: "arm" }
+          - { source: "pierna", target: "leg" }
+          - { source: "ojo", target: "eye" }
+          - { source: "boca", target: "mouth" }
+      - kind: sim
+        id: l10-sim-ana-fotos
+        scene: { emoji: "📸", title: "Ana checks everyone's photos", setting: "Ana is going through photos, asking about everyone's description one at a time." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes los ojos azules?", audioText: "¿tienes los ojos azules?", gloss: "Do you have blue eyes?" }
+            goal: "Say yes, you have blue eyes."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo los ojos azules" }
+                - { id: "wrong1", text: "sí, tengo el ojo azules" }
+                - { id: "wrong2", text: "sí, tienes los ojos azules" }
+              correctOptionId: "right"
+              audioText: "sí, tengo los ojos azules"
+            replyGloss: "Yes, I have blue eyes."
+            explanation: "Two eyes: «los ojos», plural, «azules» with the -s. «tengo» is your own word, not «tienes»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermana? ¿Tiene una nariz pequeña?", audioText: "¿y tu hermana? ¿tiene una nariz pequeña?", gloss: "And your sister? Does she have a small nose?" }
+            goal: "Say yes, and she washes her hands too."
+            reply:
+              mode: build
+              tiles: ["sí", "tiene", "una", "nariz", "pequeña", "y", "se", "lava", "las", "manos", "también"]
+              answer: "sí tiene una nariz pequeña y se lava las manos también"
+            replyGloss: "Yes, she has a small nose, and she washes her hands too."
+            explanation: "Two clauses, both third person: «tiene» for the nose, «se lava» for washing — same pointer, same person, throughout."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Puedes ver el brazo en la foto?", audioText: "¿puedes ver el brazo en la foto?", gloss: "Can you see the arm in the photo?" }
+            goal: "Say yes, you can see it."
+            reply:
+              mode: build
+              tiles: ["sí", "puedo", "verlo", "lo"]
+              answer: "sí puedo verlo"
+            replyGloss: "Yes, I can see it."
+            explanation: "«el brazo» is masculine — the fused pointer «verlo» is legal here."
+          - id: t4
+            npc: { speaker: "Ana", es: "¿Y la pierna? ¿La puedes ver también?", audioText: "¿y la pierna? ¿la puedes ver también?", gloss: "And the leg? Can you see it too?" }
+            goal: "Say yes, you can see it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, la veo" }
+                - { id: "wrong1", text: "sí, puedo ver" }
+                - { id: "wrong2", text: "sí, lo veo" }
+              correctOptionId: "right"
+              audioText: "sí, la veo"
+            replyGloss: "Yes, I see it."
+            explanation: "«pierna» is feminine — the pointer is «la», never fused onto the verb. «lo veo» is the wrong pointer, for masculine things."
+          - id: t5
+            npc: { speaker: "Ana", es: "¿Tienes los ojos azules y las manos grandes?", audioText: "¿tienes los ojos azules y las manos grandes?", gloss: "Do you have blue eyes and big hands?" }
+            goal: "Say you have blue eyes, big hands."
+            reply:
+              mode: build
+              tiles: ["tengo", "los", "ojos", "azules", "y", "las", "manos", "grandes", "pequeñas"]
+              answer: "tengo los ojos azules y las manos grandes"
+            replyGloss: "I have blue eyes and big hands."
+            explanation: "The module's own flagship recombination, closing the lesson: «tengo» (m5) plus this module's own «ojo»/«mano», plus PRIOR color and size (m6), joined with «y» (m1)."

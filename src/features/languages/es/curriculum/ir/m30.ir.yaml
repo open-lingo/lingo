@@ -1,0 +1,1679 @@
+module: m30
+title: "Tengo los ojos azules"
+frame: none
+throughModule: m29
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m30 — the body. Twelfth A2 module.
+#
+#     la mano    ✋   el pie      🦶
+#     el brazo   💪   la pierna   🦵
+#     el ojo     👁️   la boca    👄
+#     la nariz   👃
+#
+# ONE idea, the whole module: SEVEN new imageable body-part words, zero
+# new verb morphology. Every sentence frame this module needs is already
+# registered — «tengo»/«tienes»/«tiene» (m5), «tenemos»/«tienen» (m18,
+# "I/you/we/they have" — reused for physical description: «tengo los ojos
+# azules»), «rojo»/«azul»/«verde»/«negro»/«blanco» (m6, colors), «grande»/
+# «pequeño» (m6, size), «me lavo»/PRIOR reflexive bare infinitives (m17
+# L7 — «lavar», reused on a body part instead of the whole self: «me lavo
+# las manos»), «lo»/«la» + «veo»/«puedo verlo» (m16/m29). This is the
+# second lexicon-break module since m19 (after m27's weather) and the
+# first since m19 whose new idea is imageable body-part NOUN vocabulary.
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# Four lines of evidence:
+#   1. **m29 named its own deferral by name, and the interleave rhythm
+#      calls for a break.** m29-header.yaml's own "WHY THIS MODULE, NOW"
+#      section closed with: "House vocabulary (the clean lexical gap m28
+#      already identified) is named below as the strong m30
+#      candidate... guaranteeing the very next module IS the break this
+#      module itself declines to be." m26 (grammar) → m27 (break) → m28
+#      (grammar) → m29 (grammar) has now run TWO grammar modules back to
+#      back (m28, m29) with no break since m27 — a vocabulary module is
+#      due, on m29's own reasoning and on the same interleave discipline
+#      m27's own header used against a fourth imperfect wave.
+#   2. **The candidate body actually delivers is BODY, not HOUSE — a
+#      correction to m28/m29's own stale framing, verified by grep, not
+#      assumed.** m27-header.yaml's "WHICH SEVEN WORDS" section and
+#      m28-header.yaml's REJECTED ALTERNATIVE 2 both call house vocabulary
+#      "the one clean lexical gap left," ruling out clothing/food/body as
+#      already partially spent. That claim does NOT survive a grep against
+#      the actual registry (`grep -n 'atom({' curriculum/m{1..29}.ts`):
+#      «casa», «cuarto», «cocina», «baño», «cama», «mesa», «silla»,
+#      «puerta», «ventana», «llave», «libro», «lápiz», «papel», «celular»,
+#      «pluma», «foto» are ALL already PRIOR — every core house noun a
+#      learner would reach for first was registered at **m3/m4**, the very
+#      first content modules. See the "CORRECTING THE RECORD" section
+#      below for the full accounting and why this kills a house module for
+#      m30 specifically. Body is the domain that is actually still
+#      virgin: grep-verified zero hits for mano, pie, brazo, pierna, ojo,
+#      boca, nariz anywhere in m1–m29 (only «dientes», m17, and the m17 L7
+#      reflexive-routine VERBS «lavar»/«peinar»/etc. touch the body at
+#      all, and none of those are nouns for a body PART).
+#   3. **Structural readiness: this module's atoms recombine with THREE
+#      separate PRIOR systems, including m29 itself, at zero grammar
+#      cost.** «tengo»/«tienes»/«tiene» (m5) + «tenemos»/«tienen» (m18) is
+#      the single earliest-registered, most-drilled verb paradigm in the
+#      whole course — full person coverage from m5/m18, nothing to teach.
+#      Colors (m6: rojo/azul/verde/negro/blanco) and size (m6:
+#      grande/pequeño) give immediate descriptive range («tengo los ojos
+#      azules», «tengo las manos grandes») with zero new adjectives. The
+#      m17 L7 reflexive daily-routine bare infinitives (levantar, duchar,
+#      despertar, acostar, lavar, peinar — registered as BARE forms,
+#      distinct from their «-se» dictionary-name cards per m17's own
+#      rule) were written for a reflexive subject, but idiomatic Spanish
+#      routinely takes a body-part OBJECT on the same verb («me lavo las
+#      manos», "I wash my hands") — a natural, well-precedented extension
+#      this course has never had vocabulary to build until now. And m29's
+#      own flagship fused atom, «verlo» (one of its exact 7 registered
+#      fused surfaces), recombines cleanly with any of this module's
+#      MASCULINE nouns («el ojo», «el brazo», «el pie») — "¿ves mi brazo?
+#      sí, puedo verlo" reuses an m29 atom verbatim, no new fused-clitic
+#      registration needed. Three independent recombination hooks (tener,
+#      m17 reflexives, m29's own «verlo») is a stronger structural-
+#      readiness case than m27's own three sentence-frame reuses (hace/
+#      está/hay) had.
+#   4. **Verified data floor, and it is clean in both directions.** Grep-
+#      verified zero hits for mano/pie/brazo/pierna/ojo/boca/nariz
+#      anywhere in m1–m29 (surfaces AND emoji, both checked). All 7 target
+#      emoji (✋ 🦶 💪 🦵 👁️ 👄 👃) are ALSO grep-verified zero prior hits
+#      against every `emoji:` field in m1–m29 — genuinely clean, no
+#      collision-avoidance juggling needed (contrast the house domain,
+#      where the remaining unregistered nouns collide directly with
+#      ALREADY-PRIOR house-object emoji — see below). And unlike every
+#      PRIOR new-emoji module (m20, m27), **all 7 target SVGs are ALREADY
+#      VENDORED** — confirmed by `ls src/pub/noto-emoji/svg/` matching
+#      `emoji_u270b.svg` (✋), `emoji_u1f9b6.svg` (🦶), `emoji_u1f4aa.svg`
+#      (💪), `emoji_u1f9b5.svg` (🦵), `emoji_u1f441.svg` (👁️),
+#      `emoji_u1f444.svg` (👄), `emoji_u1f443.svg` (👃), all present on
+#      disk at the time of writing. Zero vendoring work needed — a first
+#      for a new-emoji ES module.
+#
+# ── CORRECTING THE RECORD: HOUSE VOCABULARY IS NOT THE CLEAN GAP m27/m28
+#    CALLED IT (verified by grep, not assumed) ────────────────────────────
+# m27-header.yaml's "WHICH SEVEN WORDS" section states plainly: "clothing
+# is already PRIOR since m12/m16; food is heavily PRIOR since m7/m11/m13;
+# body parts partially PRIOR since m17" and implies house is untouched.
+# m28-header.yaml's REJECTED ALTERNATIVE 2 repeats it: "house vocabulary
+# is the one clean lexical gap left." Neither claim was grep-verified
+# against the actual atom registry at the time it was written (both cite
+# m27's own reasoning, not a fresh grep). It does not hold: `casa`,
+# `cuarto`, `cocina`, `baño`, `cama`, `mesa`, `silla`, `puerta`, `ventana`
+# were all registered as bare-noun atoms at **m3** and **m4** (the
+# classroom/house-objects modules), each already carrying its own gender
+# and emoji (`el baño` 🚽, `la cocina` 🍳, `el cuarto` 🛋️, `la cama` 🛏️,
+# `la puerta` 🚪, `la ventana` 🪟, `la casa` 🏠). A "house vocabulary"
+# module would either re-teach words a learner met in their first two
+# weeks, or reach for the REMAINING unregistered house words — and most
+# of those collide directly with the emoji this course already spent on
+# m3/m4's house nouns: «el sofá» has no image but 🛋️ (already «cuarto»);
+# «el armario»/«el clóset» has no image but 🚪 (already «puerta»); «el
+# garaje» has no image but 🚗 (already «carro», m6); «el inodoro» has no
+# alternative to 🚽 (already «baño») at all — Unicode simply doesn't offer
+# a second toilet glyph, an UNRESOLVABLE trap, not a "pick a different
+# emoji" one like m27's ☀️/🌞 case. Genuinely clean remaining house nouns
+# — «el espejo» 🪞, «el jabón» 🧼, «la lámpara» 💡 — total THREE, not
+# seven, well under this course's own seven-word precedent and thin
+# enough to make a ten-lesson house module feel manufactured around a
+# short list, the exact "content shape" objection m27's own REJECTED
+# ALTERNATIVE 2 used against a bare «ir»-registration module. House
+# vocabulary is not abandoned — it is correctly-sized as a future THREE-
+# TO-FIVE-atom recombination lesson (inside a later module, alongside
+# something else), not a ten-lesson module of its own. Named here
+# explicitly so a future author doesn't re-open it expecting seven words.
+#
+# ── REJECTED ALTERNATIVE 1: house vocabulary (rooms/furniture) ────────────
+# The alternative m28/m29's own headers pointed at by name. Rejected for
+# the reason above: grep-verified thin (3 clean new atoms: espejo, jabón,
+# lámpara — not the assumed 7), and the two richest-seeming remaining
+# words (sofá, armario) are blocked by an UNRESOLVABLE emoji collision
+# with PRIOR m3/m4 house-object atoms, not a pick-a-different-glyph fix.
+# «voy a limpiarla» (the recombination this thread's own brief prompt
+# suggested) would additionally require a brand-new verb, «limpiar» — not
+# yet PRIOR anywhere in m1–m29 (grep-verified, zero hits) — which is a
+# real, addable vocabulary item but weakens the "zero new grammar-
+# adjacent risk" case a break module should have, compared to reusing
+# «tengo»/colors/m17-reflexives, all fully PRIOR, for body. Not abandoned
+# — correctly resized to a future small recombination lesson, see above.
+#
+# ── REJECTED ALTERNATIVE 2: clothing, round two (pantalón, chaqueta,
+#    calcetines, guantes, bufanda) ────────────────────────────────────────
+# Real, viable, and genuinely still open: `camisa`/`falda`/`zapato`/
+# `sombrero` are PRIOR (m12), but `pantalón` 👖, `chaqueta`/`abrigo` 🧥,
+# `calcetines` 🧦, `guantes` 🧤, `bufanda` 🧣 are grep-verified unregistered
+# and all have clean, zero-collision emoji (grep-verified against every
+# PRIOR `emoji:` field) — 5-6 atoms, thinner than body's 7 but real.
+# Carries one live trap worth flagging for whenever this IS drafted:
+# «vestido» (dress) would need 👗, which is ALREADY «falda»'s emoji
+# (m12) — the identical "borrow a PRIOR atom's own image" mistake the
+# m27 ☀️ trap warned against; skip «vestido» when this module is drafted.
+# Rejected for m30 specifically because body is a fully virgin domain (no
+# partial-spend correction needed) with a stronger three-way recombination
+# story (tener + colors + m17 reflexives + m29's own «verlo»), while
+# clothing's own recombination is thinner (mostly re-running m12's own
+# "me gusta esta camisa" frame on new nouns, no new verb-family hook).
+# Left open as a real, well-scoped future module.
+#
+# ── REJECTED ALTERNATIVE 3: city and directions (la calle, la ciudad, a
+#    la derecha/izquierda, el semáforo) ───────────────────────────────────
+# The ONLY domain of the four that is FULLY unregistered end to end
+# (grep-verified zero hits for calle, ciudad, esquina, derecha, izquierda,
+# recto, dirección, semáforo, avenida, edificio anywhere in m1–m29) — a
+# genuinely richer virgin domain than body, on paper. Rejected for m30
+# specifically because the core content a "giving directions" lesson
+# needs — «a la derecha»/«a la izquierda» as fixed directional phrases,
+# and ideally an imperative («gira», «sigue») to DO something with them —
+# is not simply new NOUNS the way this module's body-part words are; it
+# is new PHRASE-ATOM and likely new-verb-mood territory, a heavier
+# grammar footprint than a "zero new grammar" break module should carry
+# (the same "second new idea competing with the first" argument
+# m29-header.yaml's REJECTED ALTERNATIVE 3 used to defer «estar +
+# gerundio»). «la calle» 🛣️, «la ciudad» 🏙️, «el semáforo» 🚦 alone (as
+# static nouns, «está en la calle») would work as a THIN break, but body
+# gives 7 solid atoms against city's realistic 3-4 before reaching for
+# directional grammar. Not abandoned — the richest fully-virgin domain
+# left in the course, reserved for whenever a module wants to pair
+# vocabulary with a new imperative/command form.
+#
+# ── REJECTED ALTERNATIVE 4: «doler» (impersonal "hurts," health/wellness)
+#    ───────────────────────────────────────────────────────────────────
+# The natural next step after body-part nouns exist ("me duele la
+# cabeza," "I have a headache") and genuinely A2 content. Rejected for
+# THIS module: «doler» is a new VERB with «gustar»'s own irregular
+# impersonal-object word order (back-of-clause subject, front-of-clause
+# indirect object) — a second new grammar idea layered onto a module
+# whose entire framing is "zero new verb morphology, recombine PRIOR
+# systems only." Reserve «doler» for a future module that can give it the
+# same dedicated care m7/m13 gave «gustar» itself. Not used anywhere in
+# this module, foil or answer.
+#
+# ── THE «VERLA» TRAP — READ BEFORE DRAFTING L9 ────────────────────────────
+# m29 registered exactly 7 fused-clitic surfaces as its own newAtoms:
+# verlo, comprarlo, comprarla, comprarlos, levantarme, hacerlo, verlos.
+# **«verla» is NOT one of them** — despite «ver» (m15) and «la» (m3/m16)
+# both being independently PRIOR, the FUSED STRING «verla» was never
+# registered, and per m29-header.yaml's own hard-won correction (its
+# "CORRECTION TO NEW ATOMS: 0" section), any fused surface that is not
+# itself a registered atom is an unconditional "untracked word" failure
+# the moment it appears in a graded-answer position — `esTokens()` never
+# decomposes it back into «ver» + «la». This module's feminine body-part
+# nouns (la mano, la pierna, la boca, la nariz) must therefore NEVER use
+# a fused pronoun («verla») — only the PRE-VERBAL position («la veo»,
+# «puedo verla» — wait, that fused form is banned too; use «la puedo
+# ver»/«la veo», both pre-verbal, both need no new atom at all). The
+# MASCULINE nouns this module owns (el ojo, el brazo, el pie) MAY use
+# the fused «verlo» — it is already one of m29's own 7 registered
+# surfaces, reused verbatim, zero new registration. Do not manufacture
+# «verla» to make a "parallel" masculine/feminine fused pair — the
+# parallel does not exist in this course's registry yet, and inventing it
+# would spend one of this module's own thin atom slots on a pronoun form,
+# not a body-part noun. Pre-verbal placement is always safe and always
+# available for every noun regardless of gender.
+#
+# ── AGREEMENT IS NOT A NEW ATOM — REGULAR PLURALS ONLY, NARIZ FLAGGED ─────
+# Per `authoring-rules.md`'s "Agreement is not a new atom" paragraph: a
+# registered singular noun atom pluralizes via the regular Spanish
+# inflection rule with no separate atom needed — the identical mechanism
+# already exercising course-wide (`los zapatos`, m13, off PRIOR singular
+# `zapato`, m12). «mano»→«manos», «pie»→«pies», «brazo»→«brazos»,
+# «pierna»→«piernas», «ojo»→«ojos», «boca»→«bocas» are all REGULAR -s
+# plurals — safe to use freely. **«nariz»→«narices» is NOT a regular -s
+# plural** (Spanish z→c before -es) — whether the course's
+# `getEsPluralCanon`/regular-inflection engine recognizes this
+# orthographic rule was NOT verified while writing this brief (flagged
+# below, UNVERIFIED). Default to singular «la nariz» only in this
+# module's sentences (natural anyway — most physical-description
+# sentences reference one nose) until a drafting agent grep-confirms the
+# plural is accepted.
+#
+# ── NO NEW EMOJI COLLISION, ALL 7 SVGs ALREADY VENDORED (verified,
+#    not assumed) ─────────────────────────────────────────────────────
+# `grep -o 'emoji: "[^"]*"' curriculum/m{1..29}.ts | sort -u` — zero hits
+# for ✋ 🦶 💪 🦵 👁️ 👄 👃, checked individually, including against
+# near-miss PRIOR glyphs that might tempt reuse (👂 is already «escuchar»,
+# m10 — a real trap if a future companion module reaches for «oreja»,
+# named here for that future author). Unlike every PRIOR new-vocabulary
+# module, this one needs **zero vendoring work**: `ls src/pub/noto-emoji/
+# svg/` at the time of writing already contains `emoji_u270b.svg`,
+# `emoji_u1f9b6.svg`, `emoji_u1f4aa.svg`, `emoji_u1f9b5.svg`,
+# `emoji_u1f441.svg`, `emoji_u1f444.svg`, `emoji_u1f443.svg` — all 7
+# present on disk. Re-verify at ship time (a concurrent lane could in
+# principle touch this directory) but treat as a non-issue by default.
+#
+# ── SIM NPC-LINE PROVENANCE: LIVE, CARRY FORWARD FROM m29 ────────────────
+# `es-quality.test.ts`'s dialogue_sim provenance gate (confirmed LIVE as
+# of m29) applies unchanged here. This module has an easier case than
+# m29's: every graded surface is either a PRIOR whole word or one of
+# THIS module's own 7 new whole-word atoms — no fused-string
+# decomposition risk (the «verla» trap above is about NOT creating a new
+# fused string, so this module never exercises that decomposition path
+# at all). Still: manually grep every sim `npc:` line before shipping,
+# the same discipline every prior module's brief has required.
+#
+# ── ACCENT: FRESH COLOUR — TEAL, VERIFIED UNUSED, THEMATIC ────────────────
+# Checked every `accent:` pair in `curriculum/index.ts` (grep-verified:
+# zero hits for `#14b8a6` and `#0d9488`) against all 29 modules' pairs,
+# including the four most recent — m26 cyan (`#22d3ee`→`#0891b2`), m27
+# warm yellow (`#eab308`→`#a16207`), m28 "go" green (`#22c55e`→`#15803d`),
+# m29 slate (`#64748b`→`#334155`). Teal/mint reads distinctly from all
+# four (cooler and more saturated than m26's cyan, nowhere near m27's
+# yellow or m28's green, warmer and more present than m29's deliberately
+# neutral slate) and carries a light "wellness/body" association without
+# forcing a heavier medical metaphor onto a plain vocabulary module.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # la mano — hand. Irregular gender: ends in -o but is feminine (the
+  # same exception class as «foto», m4, and «el agua», m4 — a learner
+  # will want to guess «el mano»; the hint corrects it directly).
+  - { surface: "mano", meaningEn: "hand", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "✋", hint: "la mano — ends in -o but is FEMININE, the classic exception (same pattern as «la foto», m4). «tengo dos manos»." }
+  # el pie — foot. Regular gender/plural.
+  - { surface: "pie", meaningEn: "foot", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🦶", hint: "el pie — regular masculine, regular plural «los pies». «tengo dos pies»." }
+  # el brazo — arm. Regular gender/plural.
+  - { surface: "brazo", meaningEn: "arm", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "💪", hint: "el brazo — «tengo un brazo grande» (I have a big arm). Masculine noun — this module's own «verlo» recombination target (m29's own fused atom, reused verbatim)." }
+  # la pierna — leg. Regular gender/plural.
+  - { surface: "pierna", meaningEn: "leg", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🦵", hint: "la pierna — regular feminine. Feminine — NEVER fuse a pronoun onto a verb for this noun («verla» is not registered); use pre-verbal «la veo» instead." }
+  # el ojo — eye. Regular gender/plural. This module's other masculine
+  # «verlo»-eligible noun besides «brazo»/«pie».
+  - { surface: "ojo", meaningEn: "eye", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "👁️", hint: "el ojo — «tengo los ojos azules» (I have blue eyes), reusing PRIOR «azul» (m6). Masculine — «lo veo»/«puedo verlo» (m29's own registered atom) both legal." }
+  # la boca — mouth. Regular gender/plural.
+  - { surface: "boca", meaningEn: "mouth", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "👄", hint: "la boca — regular feminine. Feminine — pre-verbal pronoun only, same as «pierna»." }
+  # la nariz — nose. Irregular plural (z→c: narices) — UNVERIFIED against
+  # the regular-inflection engine, see header note above. Singular only
+  # in this module's own sentences.
+  - { surface: "nariz", meaningEn: "nose", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "👃", hint: "la nariz — plural is «narices» (z→c), NOT a plain -s plural — do not pluralize in this module until grep-confirmed against the inflection engine; use «la nariz» singular." }
+
+lessons:
+  # ── L1 · «Tengo una mano» — la mano debuts on imageMcq (§13.2 "the image
+  #    IS the introduction"). Irregular gender flagged directly: «mano»
+  #    ends in -o but is feminine, the same exception class as «foto»
+  #    (m4). PRIOR context only: «tengo» (m5), «una»/«un» (m3), «grande»/
+  #    «pequeño» (m6). Carries this module's ONE general usage-note card
+  #    (≤3 lines, CLAUDE.md budget), explaining the «tengo» + body-part
+  #    pattern itself. No recall (nothing earlier in this module).
+  - n: 1
+    template: free
+    title: "Tengo una mano"
+    description: "Seven new body words, zero new grammar — every sentence frame is already yours. «tengo una mano» — «tengo» (m5) plus this module's own «mano»."
+    steps:
+      - kind: map
+        id: l1-map-tengounamano
+        tokens: ["tengo", "una", "mano"]
+        pairs:
+          - { en: "I have", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "hand", tokenIndex: 2 }
+        audioText: "tengo una mano"
+        revealNote: "«mano» — the hand. Notice it ends in -o but takes «una», not «un»: this is a feminine noun despite the -o, the same exception you already know from «la foto» (m4)."
+      - kind: imageMcq
+        id: l1-im-mano
+        target: { surface: "mano", meaningEn: "hand", emoji: "✋" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "libro", emoji: "📖" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: info
+        id: l1-info-tengocuerpo
+        title: "Tengo — describing your body"
+        body: "Spanish describes your body with «tengo» — the exact verb you've used since day one for a dog, for hunger, for your age (m5). «tengo una mano» — I have a hand. Size and color will work on every body part exactly the way they already work on everything else: no new grammar, only new nouns."
+      - kind: speakLit
+        id: l1-sp-tengounamanogrande
+        es: "tengo una mano grande"
+        en: "I have a big hand"
+        atoms: ["tengo", "mano", "grande"]
+      - kind: buildLit
+        id: l1-b-tengodosmanos
+        es: "tengo dos manos"
+        en: "I have two hands"
+        atoms: ["tengo", "dos", "mano"]
+        tiles: ["tienes", "una"]
+      - kind: clozeLit
+        id: l1-c-manopequena
+        es: "tengo una mano pequeña"
+        en: "I have a small hand"
+        blank: "pequeña"
+        options: ["pequeña", "pequeño"]
+        atoms: ["tengo", "mano", "pequeño"]
+        why: "«mano» is feminine even though it ends in -o (like «foto», m4) — so its adjective takes the feminine -a: «pequeña», not «pequeño»."
+      - kind: listenCompLit
+        id: l1-lc-tengolasmanosgrandes
+        es: "tengo las manos grandes"
+        en: "I have big hands."
+        atoms: ["tengo", "mano", "grande"]
+        distractorsEn:
+          - "I have small hands."
+          - "I have a big hand."
+          - "You have big hands."
+      - kind: mcq
+        id: l1-q-mano
+        prompt: "Which one means 'I have a hand'?"
+        correct: "tengo una mano"
+        distractors: ["tengo un mano", "tengo una manos", "tengo mano"]
+        atoms: ["tengo", "mano"]
+        why: "«mano» is feminine, so «una», not «un» — the classic -o exception (like «foto», m4). And Spanish never drops the article the way «tengo mano» does."
+      - kind: buildLit
+        id: l1-b-mihermanatieneunamano
+        es: "mi hermana tiene una mano pequeña"
+        en: "My sister has a small hand"
+        atoms: ["mi", "hermana", "tiene", "mano", "pequeño"]
+        tiles: ["tengo", "grande"]
+      - kind: audioWimcq
+        id: l1-ear-perro
+        target: { surface: "perro", emoji: "🐶" }
+        distractors:
+          - { surface: "libro", emoji: "📖" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: agreementLit
+        id: l1-agr-manograndepequena
+        en: "I have a big hand, and you have a small hand"
+        audioText: "tengo una mano grande, y tienes una mano pequeña"
+        atoms: ["tengo", "mano", "grande", "tienes", "pequeño"]
+        segments:
+          - { text: "tengo una mano " }
+          - { blank: { id: "p1", answer: "grande", options: ["grande", "pequeña"] } }
+          - { text: ", y tienes una mano " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "grande"] } }
+      - kind: listenBuildLit
+        id: l1-lb-anatieneunamanogrande
+        es: "Ana tiene una mano grande"
+        en: "Ana has a big hand"
+        atoms: ["tiene", "mano", "grande"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l1-tm-mano
+        target: "mano"
+        distractors: ["mono", "mucho", "mismo"]
+      - kind: sim
+        id: l1-sim-ana-mano
+        scene: { emoji: "✋", title: "Ana asks about your hand", setting: "Ana is looking at a photo you sent her." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes una mano grande?", audioText: "¿tienes una mano grande?", gloss: "Do you have a big hand?" }
+            goal: "Say yes, you have a big hand."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo una mano grande" }
+                - { id: "wrong1", text: "sí, tengo un mano grande" }
+                - { id: "wrong2", text: "sí, tienes una mano grande" }
+              correctOptionId: "right"
+              audioText: "sí, tengo una mano grande"
+            replyGloss: "Yes, I have a big hand."
+            explanation: "«un mano» drops the feminine article «mano» needs — the classic -o exception (like «foto», m4). And «tienes» is Ana's word for you, not your word for yourself."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermana? ¿Tiene una mano pequeña?", audioText: "¿y tu hermana? ¿tiene una mano pequeña?", gloss: "And your sister? Does she have a small hand?" }
+            goal: "Say yes, she has a small hand."
+            reply:
+              mode: build
+              tiles: ["sí", "tiene", "una", "mano", "pequeña", "grande"]
+              answer: "sí tiene una mano pequeña"
+            replyGloss: "Yes, she has a small hand."
+            explanation: "«tiene» — the same PRIOR verb (m5), third person. «mano pequeña», feminine agreement, not «pequeño»."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "mano", target: "hand" }
+          - { source: "tengo", target: "I have" }
+          - { source: "tienes", target: "you have" }
+          - { source: "tiene", target: "he/she has" }
+          - { source: "grande", target: "big" }
+          - { source: "pequeño", target: "small" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "tengo una mano"
+        en: "I have a hand"
+        atoms: ["tengo", "mano"]
+
+  # ── L2 · «Tengo dos pies» — el pie debuts on imageMcq. Regular gender
+  #    (masculine, ordinary -o noun) — the deliberate CONTRAST lesson
+  #    against L1's «mano» exception: this cloze/sim pair drills «un pie»
+  #    vs «una mano» side by side. PRIOR: «tengo» (m5), «dos» (m1),
+  #    «grande»/«pequeño» (m6). One recall (L1's win line).
+  - n: 2
+    template: free
+    title: "Tengo dos pies"
+    description: "«pie» — the foot. Regular masculine, regular plural: the ordinary case, right after «mano» broke the rule."
+    steps:
+      - kind: map
+        id: l2-map-tengodospies
+        tokens: ["tengo", "dos", "pies"]
+        pairs:
+          - { en: "I have", tokenIndex: 0 }
+          - { en: "two", tokenIndex: 1 }
+          - { en: "feet", tokenIndex: 2 }
+        audioText: "tengo dos pies"
+        revealNote: "«pie» — the foot. Regular masculine, regular plural «los pies» — unlike «mano», this one follows the ordinary pattern."
+      - kind: speakLit
+        id: l2-sp-recall-l1win
+        es: "tengo una mano"
+        en: "I have a hand"
+        atoms: []
+        cue: recall
+      - kind: imageMcq
+        id: l2-im-pie
+        target: { surface: "pie", meaningEn: "foot", emoji: "🦶" }
+        distractors:
+          - { surface: "zapato", emoji: "👟" }
+          - { surface: "carro", emoji: "🚗" }
+          - { surface: "gato", emoji: "🐱" }
+      - kind: buildLit
+        id: l2-b-tengodospiesgrandes
+        es: "tengo dos pies grandes"
+        en: "I have two big feet"
+        atoms: ["tengo", "dos", "pie", "grande"]
+        tiles: ["tienes", "una"]
+      - kind: clozeLit
+        id: l2-c-unpiepequeno
+        es: "tengo un pie pequeño"
+        en: "I have a small foot"
+        blank: "un"
+        options: ["un", "una"]
+        atoms: ["tengo", "pie", "pequeño"]
+        why: "«pie» is masculine and regular — «un», not «una» (unlike «mano», which took the odd one)."
+      - kind: listenCompLit
+        id: l2-lc-piespequenos
+        es: "tengo los pies pequeños"
+        en: "I have small feet."
+        atoms: ["tengo", "pie", "pequeño"]
+        distractorsEn:
+          - "I have big feet."
+          - "I have a small foot."
+          - "You have small feet."
+      - kind: mcq
+        id: l2-q-pie
+        prompt: "Which one means 'I have two feet'?"
+        correct: "tengo dos pies"
+        distractors: ["tengo dos pie", "tengo dos manos", "tengo un pie"]
+        atoms: ["tengo", "dos", "pie"]
+        why: "Two of something plural takes the -s: «pies», not «pie». «manos» is the wrong noun, and «un pie» is only one foot."
+      - kind: buildLit
+        id: l2-b-mihermanotieneunpiegrande
+        es: "mi hermano tiene un pie grande"
+        en: "My brother has a big foot"
+        atoms: ["mi", "hermano", "tiene", "pie", "grande"]
+        tiles: ["tengo", "pequeño"]
+      - kind: audioWimcq
+        id: l2-ear-zapato
+        target: { surface: "zapato", emoji: "👟" }
+        distractors:
+          - { surface: "carro", emoji: "🚗" }
+          - { surface: "gato", emoji: "🐱" }
+      - kind: agreementLit
+        id: l2-agr-piesgrandespequenos
+        en: "I have big feet, and you have small feet"
+        audioText: "tengo los pies grandes, y tienes los pies pequeños"
+        atoms: ["tengo", "pie", "grande", "tienes", "pequeño"]
+        segments:
+          - { text: "tengo los pies " }
+          - { blank: { id: "p1", answer: "grandes", options: ["grandes", "pequeños"] } }
+          - { text: ", y tienes los pies " }
+          - { blank: { id: "p2", answer: "pequeños", options: ["pequeños", "grandes"] } }
+      - kind: listenBuildLit
+        id: l2-lb-anatieneunpiepequeno
+        es: "Ana tiene un pie pequeño"
+        en: "Ana has a small foot"
+        atoms: ["tiene", "pie", "pequeño"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l2-tm-pie
+        target: "pie"
+        distractors: ["dos", "los", "una"]
+      - kind: sim
+        id: l2-sim-ana-pie
+        scene: { emoji: "🦶", title: "Ana asks about your feet", setting: "Ana is picking out shoes online and wants to know your size." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes los pies grandes?", audioText: "¿tienes los pies grandes?", gloss: "Do you have big feet?" }
+            goal: "Say yes, you have big feet."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo los pies grandes" }
+                - { id: "wrong1", text: "sí, tengo el pie grandes" }
+                - { id: "wrong2", text: "sí, tienes los pies grandes" }
+              correctOptionId: "right"
+              audioText: "sí, tengo los pies grandes"
+            replyGloss: "Yes, I have big feet."
+            explanation: "«los pies», plural, for two of them — not «el pie». And «tengo» is your own word, not «tienes»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermano? ¿Tiene un pie pequeño?", audioText: "¿y tu hermano? ¿tiene un pie pequeño?", gloss: "And your brother? Does he have a small foot?" }
+            goal: "Say yes, he has a small foot."
+            reply:
+              mode: build
+              tiles: ["sí", "tiene", "un", "pie", "pequeño", "grande"]
+              answer: "sí tiene un pie pequeño"
+            replyGloss: "Yes, he has a small foot."
+            explanation: "«pie» is masculine and regular — «un pie», not «una pie» (unlike «mano»)."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "pie", target: "foot" }
+          - { source: "mano", target: "hand" }
+          - { source: "dos", target: "two" }
+          - { source: "grande", target: "big" }
+          - { source: "pequeño", target: "small" }
+          - { source: "tengo", target: "I have" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "tengo dos pies"
+        en: "I have two feet"
+        atoms: ["tengo", "dos", "pie"]
+
+  # ── L3 · «Tengo un brazo grande» — el brazo debuts on imageMcq. Regular
+  #    masculine, regular plural. This is the noun that pairs with the
+  #    module's «verlo» recombination in L9 (masculine, so the PRIOR m29
+  #    fused atom applies verbatim — flagged here, spent there). PRIOR:
+  #    «tengo» (m5), «grande»/«pequeño» (m6). One recall (L2's win line).
+  - n: 3
+    template: free
+    title: "Tengo un brazo grande"
+    description: "«brazo» — the arm. Regular masculine, and this module's own «verlo»-eligible noun (m29's fused atom, spent later)."
+    steps:
+      - kind: map
+        id: l3-map-tengounbrazo
+        tokens: ["tengo", "un", "brazo"]
+        pairs:
+          - { en: "I have", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "arm", tokenIndex: 2 }
+        audioText: "tengo un brazo"
+        revealNote: "«brazo» — the arm. Regular masculine, regular plural «los brazos»."
+      - kind: speakLit
+        id: l3-sp-recall-l2win
+        es: "tengo dos pies"
+        en: "I have two feet"
+        atoms: []
+        cue: recall
+      - kind: imageMcq
+        id: l3-im-brazo
+        target: { surface: "brazo", meaningEn: "arm", emoji: "💪" }
+        distractors:
+          - { surface: "silla", emoji: "🪑" }
+          - { surface: "mochila", emoji: "🎒" }
+          - { surface: "regalo", emoji: "🎁" }
+      - kind: buildLit
+        id: l3-b-tengounbrazogrande
+        es: "tengo un brazo grande"
+        en: "I have a big arm"
+        atoms: ["tengo", "brazo", "grande"]
+        tiles: ["tienes", "pequeño"]
+      - kind: clozeLit
+        id: l3-c-brazosgrandes
+        es: "tengo los brazos grandes"
+        en: "I have big arms"
+        blank: "brazos"
+        options: ["brazos", "brazo"]
+        atoms: ["tengo", "grande"]
+        why: "Two arms takes the plural -s: «brazos», not «brazo»."
+      - kind: listenCompLit
+        id: l3-lc-tieneunbrazopequeno
+        es: "tiene un brazo pequeño"
+        en: "He/she has a small arm."
+        atoms: ["tiene", "brazo", "pequeño"]
+        distractorsEn:
+          - "He/she has a big arm."
+          - "I have a small arm."
+          - "You have a small arm."
+      - kind: mcq
+        id: l3-q-brazo
+        prompt: "Which one means 'I have an arm'?"
+        correct: "tengo un brazo"
+        distractors: ["tengo una brazo", "tengo un brazos", "tengo brazo"]
+        atoms: ["tengo", "brazo"]
+        why: "«brazo» is masculine — «un», not «una». One arm stays singular, «brazo» with no -s. And Spanish never drops the article."
+      - kind: buildLit
+        id: l3-b-mihermanabrazospequenos
+        es: "mi hermana tiene los brazos pequeños"
+        en: "My sister has small arms"
+        atoms: ["mi", "hermana", "tiene", "brazo", "pequeño"]
+        tiles: ["tengo", "grande"]
+      - kind: audioWimcq
+        id: l3-ear-silla
+        target: { surface: "silla", emoji: "🪑" }
+        distractors:
+          - { surface: "mochila", emoji: "🎒" }
+          - { surface: "regalo", emoji: "🎁" }
+      - kind: agreementLit
+        id: l3-agr-brazograndepequeno
+        en: "I have a big arm, and you have a small arm"
+        audioText: "tengo un brazo grande, y tienes un brazo pequeño"
+        atoms: ["tengo", "brazo", "grande", "tienes", "pequeño"]
+        segments:
+          - { text: "tengo un brazo " }
+          - { blank: { id: "p1", answer: "grande", options: ["grande", "pequeño"] } }
+          - { text: ", y tienes un brazo " }
+          - { blank: { id: "p2", answer: "pequeño", options: ["pequeño", "grande"] } }
+      - kind: listenBuildLit
+        id: l3-lb-anatieneunbrazogrande
+        es: "Ana tiene un brazo grande"
+        en: "Ana has a big arm"
+        atoms: ["tiene", "brazo", "grande"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l3-tm-brazo
+        target: "brazo"
+        distractors: ["mucho", "pero", "dos"]
+      - kind: sim
+        id: l3-sim-ana-brazo
+        scene: { emoji: "💪", title: "Ana asks about your arm", setting: "Ana is comparing gym photos." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes un brazo grande?", audioText: "¿tienes un brazo grande?", gloss: "Do you have a big arm?" }
+            goal: "Say yes, you have a big arm."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo un brazo grande" }
+                - { id: "wrong1", text: "sí, tengo una brazo grande" }
+                - { id: "wrong2", text: "sí, tienes un brazo grande" }
+              correctOptionId: "right"
+              audioText: "sí, tengo un brazo grande"
+            replyGloss: "Yes, I have a big arm."
+            explanation: "«brazo» is masculine — «un», not «una». And «tengo» is your own word, not «tienes»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermana? ¿Tiene los brazos pequeños?", audioText: "¿y tu hermana? ¿tiene los brazos pequeños?", gloss: "And your sister? Does she have small arms?" }
+            goal: "Say yes, she has small arms."
+            reply:
+              mode: build
+              tiles: ["sí", "tiene", "los", "brazos", "pequeños", "grande"]
+              answer: "sí tiene los brazos pequeños"
+            replyGloss: "Yes, she has small arms."
+            explanation: "Two arms, so the plural: «los brazos», «pequeños»."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "brazo", target: "arm" }
+          - { source: "pie", target: "foot" }
+          - { source: "mano", target: "hand" }
+          - { source: "grande", target: "big" }
+          - { source: "pequeño", target: "small" }
+          - { source: "tengo", target: "I have" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "tengo un brazo grande"
+        en: "I have a big arm"
+        atoms: ["tengo", "brazo", "grande"]
+
+  # ── L4 · «Tengo una pierna pequeña» — la pierna debuts on imageMcq.
+  #    Regular feminine, regular plural — the deliberate CONTRAST against
+  #    L3's masculine «brazo», same shape as L1/L2's mano/pie pair. This
+  #    is one of the two feminine nouns (with «boca») flagged in the
+  #    header's «verla» trap section: never fuse a pronoun onto it later
+  #    (L9) — pre-verbal placement only. PRIOR: «tengo» (m5), «pequeño»
+  #    (m6). One recall (L3's win line).
+  - n: 4
+    template: free
+    title: "Tengo una pierna pequeña"
+    description: "«pierna» — the leg. Regular feminine, regular plural — same shape as «mano»/«pie», opposite gender from «brazo»."
+    steps:
+      - kind: map
+        id: l4-map-tengounapierna
+        tokens: ["tengo", "una", "pierna"]
+        pairs:
+          - { en: "I have", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "leg", tokenIndex: 2 }
+        audioText: "tengo una pierna"
+        revealNote: "«pierna» — the leg. Regular feminine, regular plural «las piernas» — «una», matching «pierna», the way it should."
+      - kind: speakLit
+        id: l4-sp-recall-l3win
+        es: "tengo un brazo grande"
+        en: "I have a big arm"
+        atoms: []
+        cue: recall
+      - kind: imageMcq
+        id: l4-im-pierna
+        target: { surface: "pierna", meaningEn: "leg", emoji: "🦵" }
+        distractors:
+          - { surface: "camisa", emoji: "👕" }
+          - { surface: "parque", emoji: "🌳" }
+          - { surface: "tienda", emoji: "🏪" }
+      - kind: buildLit
+        id: l4-b-tengounapiernapequena
+        es: "tengo una pierna pequeña"
+        en: "I have a small leg"
+        atoms: ["tengo", "pierna", "pequeño"]
+        tiles: ["tienes", "grande"]
+      - kind: clozeLit
+        id: l4-c-piernaspequenas
+        es: "tengo las piernas pequeñas"
+        en: "I have small legs"
+        blank: "pequeñas"
+        options: ["pequeñas", "pequeños"]
+        atoms: ["tengo", "pierna"]
+        why: "«pierna» is feminine, so its adjective takes the feminine -a: «pequeñas», not «pequeños» — the same agreement «mano» took in L1."
+      - kind: listenCompLit
+        id: l4-lc-tienelapiernagrande
+        es: "tiene la pierna grande"
+        en: "He/she has the big leg."
+        atoms: ["tiene", "pierna", "grande"]
+        distractorsEn:
+          - "He/she has the small leg."
+          - "I have the big leg."
+          - "You have the big leg."
+      - kind: mcq
+        id: l4-q-pierna
+        prompt: "Which one means 'I have a leg'?"
+        correct: "tengo una pierna"
+        distractors: ["tengo un pierna", "tengo una piernas", "tengo pierna"]
+        atoms: ["tengo", "pierna"]
+        why: "«pierna» is feminine — «una», not «un». Spanish never drops the article."
+      - kind: buildLit
+        id: l4-b-mihermanopiernagrande
+        es: "mi hermano tiene una pierna grande"
+        en: "My brother has a big leg"
+        atoms: ["mi", "hermano", "tiene", "pierna", "grande"]
+        tiles: ["tengo", "pequeño"]
+      - kind: audioWimcq
+        id: l4-ear-camisa
+        target: { surface: "camisa", emoji: "👕" }
+        distractors:
+          - { surface: "parque", emoji: "🌳" }
+          - { surface: "tienda", emoji: "🏪" }
+      - kind: agreementLit
+        id: l4-agr-piernagrandepequena
+        en: "I have a big leg, and you have a small leg"
+        audioText: "tengo una pierna grande, y tienes una pierna pequeña"
+        atoms: ["tengo", "pierna", "grande", "tienes", "pequeño"]
+        segments:
+          - { text: "tengo una pierna " }
+          - { blank: { id: "p1", answer: "grande", options: ["grande", "pequeña"] } }
+          - { text: ", y tienes una pierna " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "grande"] } }
+      - kind: listenBuildLit
+        id: l4-lb-anatieneunapiernapequena
+        es: "Ana tiene una pierna pequeña"
+        en: "Ana has a small leg"
+        atoms: ["tiene", "pierna", "pequeño"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l4-tm-pierna
+        target: "pierna"
+        distractors: ["pero", "buena", "primera"]
+      - kind: sim
+        id: l4-sim-ana-pierna
+        scene: { emoji: "🦵", title: "Ana asks about your leg", setting: "Ana is asking about a running injury." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes una pierna pequeña?", audioText: "¿tienes una pierna pequeña?", gloss: "Do you have a small leg?" }
+            goal: "Say no, you have a big leg."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, tengo una pierna grande" }
+                - { id: "wrong1", text: "no, tengo un pierna grande" }
+                - { id: "wrong2", text: "no, tienes una pierna grande" }
+              correctOptionId: "right"
+              audioText: "no, tengo una pierna grande"
+            replyGloss: "No, I have a big leg."
+            explanation: "«pierna» is feminine — «una», not «un». And «tengo» is your own word, not «tienes»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermano? ¿Tiene las piernas pequeñas?", audioText: "¿y tu hermano? ¿tiene las piernas pequeñas?", gloss: "And your brother? Does he have small legs?" }
+            goal: "Say yes, he has small legs."
+            reply:
+              mode: build
+              tiles: ["sí", "tiene", "las", "piernas", "pequeñas", "grande"]
+              answer: "sí tiene las piernas pequeñas"
+            replyGloss: "Yes, he has small legs."
+            explanation: "Two legs, feminine plural: «las piernas», «pequeñas»."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "pierna", target: "leg" }
+          - { source: "brazo", target: "arm" }
+          - { source: "pie", target: "foot" }
+          - { source: "mano", target: "hand" }
+          - { source: "grande", target: "big" }
+          - { source: "pequeño", target: "small" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "tengo una pierna pequeña"
+        en: "I have a small leg"
+        atoms: ["tengo", "pierna", "pequeño"]
+
+  # ── L5 · «Tengo los ojos azules» — el ojo debuts on imageMcq. Regular
+  #    masculine, and the noun that carries this module's whole color
+  #    recombination: PRIOR «azul»/«rojo»/«verde»/«negro»/«blanco» (m6)
+  #    now describe a body part with zero new grammar. This lesson's
+  #    win line is also the header's own module title. One recall (L4's
+  #    win line).
+  - n: 5
+    template: free
+    title: "Tengo los ojos azules"
+    description: "«ojo» — the eye. Color works on a body part exactly like it works on everything else: «tengo los ojos azules», reusing PRIOR «azul» (m6)."
+    steps:
+      - kind: map
+        id: l5-map-tengounojo
+        tokens: ["tengo", "un", "ojo"]
+        pairs:
+          - { en: "I have", tokenIndex: 0 }
+          - { en: "an", tokenIndex: 1 }
+          - { en: "eye", tokenIndex: 2 }
+        audioText: "tengo un ojo"
+        revealNote: "«ojo» — the eye. Regular masculine, regular plural «los ojos» — the noun that carries color: «tengo los ojos azules» (I have blue eyes), reusing PRIOR «azul» (m6)."
+      - kind: speakLit
+        id: l5-sp-recall-l4win
+        es: "tengo una pierna pequeña"
+        en: "I have a small leg"
+        atoms: []
+        cue: recall
+      - kind: imageMcq
+        id: l5-im-ojo
+        target: { surface: "ojo", meaningEn: "eye", emoji: "👁️" }
+        distractors:
+          - { surface: "playa", emoji: "🏖️" }
+          - { surface: "escuela", emoji: "🏫" }
+          - { surface: "libro", emoji: "📖" }
+      - kind: buildLit
+        id: l5-b-tengolosojosazules
+        es: "tengo los ojos azules"
+        en: "I have blue eyes"
+        atoms: ["tengo", "ojo", "azul"]
+        tiles: ["tienes", "tiene"]
+      - kind: clozeLit
+        id: l5-c-ojosverdes
+        es: "tengo los ojos verdes"
+        en: "I have green eyes"
+        blank: "verdes"
+        options: ["verdes", "verde"]
+        atoms: ["tengo", "ojo"]
+        why: "Two eyes takes the plural: «verdes», not «verde» — the same -s «brazos» took in L3."
+      - kind: listenCompLit
+        id: l5-lc-tienelosojosnegros
+        es: "tiene los ojos negros"
+        en: "He/she has black eyes."
+        atoms: ["tiene", "ojo", "negro"]
+        distractorsEn:
+          - "He/she has blue eyes."
+          - "I have black eyes."
+          - "You have black eyes."
+      - kind: mcq
+        id: l5-q-ojo
+        prompt: "Which one means 'I have blue eyes'?"
+        correct: "tengo los ojos azules"
+        distractors: ["tengo el ojo azules", "tengo los ojos azul", "tengo los ojo azules"]
+        atoms: ["tengo", "ojo", "azul"]
+        why: "Two eyes: «los ojos», plural noun, and «azules» agrees with the -s. «el ojo azules» mismatches singular noun with plural color."
+      - kind: buildLit
+        id: l5-b-mihermanaojosnegros
+        es: "mi hermana tiene los ojos negros"
+        en: "My sister has black eyes"
+        atoms: ["mi", "hermana", "tiene", "ojo", "negro"]
+        tiles: ["tengo", "azul"]
+      - kind: audioWimcq
+        id: l5-ear-playa
+        target: { surface: "playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "escuela", emoji: "🏫" }
+          - { surface: "libro", emoji: "📖" }
+      - kind: agreementLit
+        id: l5-agr-ojosazulesverdes
+        en: "I have blue eyes, and you have green eyes"
+        audioText: "tengo los ojos azules, y tienes los ojos verdes"
+        atoms: ["tengo", "ojo", "azul", "tienes", "verde"]
+        segments:
+          - { text: "tengo los ojos " }
+          - { blank: { id: "p1", answer: "azules", options: ["azules", "verdes"] } }
+          - { text: ", y tienes los ojos " }
+          - { blank: { id: "p2", answer: "verdes", options: ["verdes", "azules"] } }
+      - kind: listenBuildLit
+        id: l5-lb-anatieneojosazules
+        es: "Ana tiene los ojos azules"
+        en: "Ana has blue eyes"
+        atoms: ["tiene", "ojo", "azul"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l5-tm-ojo
+        target: "ojo"
+        distractors: ["rojo", "poco", "como"]
+      - kind: sim
+        id: l5-sim-ana-ojo
+        scene: { emoji: "👁️", title: "Ana asks about your eyes", setting: "Ana is filling out an ID form for you." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes los ojos azules?", audioText: "¿tienes los ojos azules?", gloss: "Do you have blue eyes?" }
+            goal: "Say yes, you have blue eyes."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo los ojos azules" }
+                - { id: "wrong1", text: "sí, tengo el ojo azules" }
+                - { id: "wrong2", text: "sí, tienes los ojos azules" }
+              correctOptionId: "right"
+              audioText: "sí, tengo los ojos azules"
+            replyGloss: "Yes, I have blue eyes."
+            explanation: "Two eyes: «los ojos», plural, «azules» with the -s. «tengo» is your own word, not «tienes»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermana? ¿Tiene los ojos negros?", audioText: "¿y tu hermana? ¿tiene los ojos negros?", gloss: "And your sister? Does she have black eyes?" }
+            goal: "Say yes, she has black eyes."
+            reply:
+              mode: build
+              tiles: ["sí", "tiene", "los", "ojos", "negros", "azules"]
+              answer: "sí tiene los ojos negros"
+            replyGloss: "Yes, she has black eyes."
+            explanation: "Same plural pattern, third person: «tiene los ojos negros»."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "ojo", target: "eye" }
+          - { source: "pierna", target: "leg" }
+          - { source: "brazo", target: "arm" }
+          - { source: "azul", target: "blue" }
+          - { source: "verde", target: "green" }
+          - { source: "negro", target: "black" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "tengo los ojos azules"
+        en: "I have blue eyes"
+        atoms: ["tengo", "ojo", "azul"]
+
+  # ── L6 · «Tengo una boca grande» — la boca debuts on imageMcq. Regular
+  #    feminine — the other noun (with «pierna», L4) flagged in the
+  #    header's «verla» trap section: pre-verbal pronoun placement only,
+  #    never a fused pronoun-on-verb, later (L9). PRIOR: «tengo» (m5),
+  #    «grande»/«pequeño» (m6). One recall (L5's win line).
+  - n: 6
+    template: free
+    title: "Tengo una boca grande"
+    description: "«boca» — the mouth. Regular feminine, regular plural — the other feminine noun (with «pierna») that always takes a pre-verbal pronoun, never a fused one."
+    steps:
+      - kind: map
+        id: l6-map-tengounaboca
+        tokens: ["tengo", "una", "boca"]
+        pairs:
+          - { en: "I have", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "mouth", tokenIndex: 2 }
+        audioText: "tengo una boca"
+        revealNote: "«boca» — the mouth. Regular feminine, regular plural «las bocas»."
+      - kind: speakLit
+        id: l6-sp-recall-l5win
+        es: "tengo los ojos azules"
+        en: "I have blue eyes"
+        atoms: []
+        cue: recall
+      - kind: imageMcq
+        id: l6-im-boca
+        target: { surface: "boca", meaningEn: "mouth", emoji: "👄" }
+        distractors:
+          - { surface: "casa", emoji: "🏠" }
+          - { surface: "tienda", emoji: "🏪" }
+          - { surface: "mochila", emoji: "🎒" }
+      - kind: buildLit
+        id: l6-b-tengounabocagrande
+        es: "tengo una boca grande"
+        en: "I have a big mouth"
+        atoms: ["tengo", "boca", "grande"]
+        tiles: ["tienes", "pequeño"]
+      - kind: clozeLit
+        id: l6-c-bocapequena
+        es: "tiene una boca pequeña"
+        en: "He/she has a small mouth"
+        blank: "pequeña"
+        options: ["pequeña", "pequeño"]
+        atoms: ["tiene", "boca"]
+        why: "«boca» is feminine, so its adjective takes -a: «pequeña», not «pequeño» — the same agreement «pierna» and «mano» take."
+      - kind: listenCompLit
+        id: l6-lc-tengolabocagrande
+        es: "tengo la boca grande"
+        en: "I have the big mouth."
+        atoms: ["tengo", "boca", "grande"]
+        distractorsEn:
+          - "I have the small mouth."
+          - "You have the big mouth."
+          - "He/she has the big mouth."
+      - kind: mcq
+        id: l6-q-boca
+        prompt: "Which one means 'I have a mouth'?"
+        correct: "tengo una boca"
+        distractors: ["tengo un boca", "tengo una bocas", "tengo boca"]
+        atoms: ["tengo", "boca"]
+        why: "«boca» is feminine — «una», not «un». Spanish never drops the article."
+      - kind: buildLit
+        id: l6-b-mihermanobocapequena
+        es: "mi hermano tiene una boca pequeña"
+        en: "My brother has a small mouth"
+        atoms: ["mi", "hermano", "tiene", "boca", "pequeño"]
+        tiles: ["tengo", "grande"]
+      - kind: audioWimcq
+        id: l6-ear-casa
+        target: { surface: "casa", emoji: "🏠" }
+        distractors:
+          - { surface: "tienda", emoji: "🏪" }
+          - { surface: "mochila", emoji: "🎒" }
+      - kind: agreementLit
+        id: l6-agr-bocagrandepequena
+        en: "I have a big mouth, and you have a small mouth"
+        audioText: "tengo una boca grande, y tienes una boca pequeña"
+        atoms: ["tengo", "boca", "grande", "tienes", "pequeño"]
+        segments:
+          - { text: "tengo una boca " }
+          - { blank: { id: "p1", answer: "grande", options: ["grande", "pequeña"] } }
+          - { text: ", y tienes una boca " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "grande"] } }
+      - kind: listenBuildLit
+        id: l6-lb-anatieneunabocagrande
+        es: "Ana tiene una boca grande"
+        en: "Ana has a big mouth"
+        atoms: ["tiene", "boca", "grande"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l6-tm-boca
+        target: "boca"
+        distractors: ["poco", "como", "otro"]
+      - kind: sim
+        id: l6-sim-ana-boca
+        scene: { emoji: "👄", title: "Ana asks about your mouth", setting: "Ana is describing you for a police sketch, as a joke." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes una boca grande?", audioText: "¿tienes una boca grande?", gloss: "Do you have a big mouth?" }
+            goal: "Say yes, you have a big mouth."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo una boca grande" }
+                - { id: "wrong1", text: "sí, tengo un boca grande" }
+                - { id: "wrong2", text: "sí, tienes una boca grande" }
+              correctOptionId: "right"
+              audioText: "sí, tengo una boca grande"
+            replyGloss: "Yes, I have a big mouth."
+            explanation: "«boca» is feminine — «una», not «un». And «tengo» is your own word, not «tienes»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermano? ¿Tiene una boca pequeña?", audioText: "¿y tu hermano? ¿tiene una boca pequeña?", gloss: "And your brother? Does he have a small mouth?" }
+            goal: "Say yes, he has a small mouth."
+            reply:
+              mode: build
+              tiles: ["sí", "tiene", "una", "boca", "pequeña", "grande"]
+              answer: "sí tiene una boca pequeña"
+            replyGloss: "Yes, he has a small mouth."
+            explanation: "«tiene», third person, feminine agreement: «boca pequeña»."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "boca", target: "mouth" }
+          - { source: "ojo", target: "eye" }
+          - { source: "pierna", target: "leg" }
+          - { source: "brazo", target: "arm" }
+          - { source: "grande", target: "big" }
+          - { source: "pequeño", target: "small" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "tengo una boca grande"
+        en: "I have a big mouth"
+        atoms: ["tengo", "boca", "grande"]
+
+  # ── L7 · «Tengo una nariz pequeña» — la nariz debuts on imageMcq. Feminine,
+  #    IRREGULAR plural («narices», z→c) — per the header's own conservative
+  #    choice, this lesson stays SINGULAR ONLY; «nariz» is never pluralized
+  #    anywhere in this module's content. Closes the singular lexicon set
+  #    (L1-L7); L8 is the checkpoint. PRIOR: «tengo» (m5), «grande»/
+  #    «pequeño» (m6). One recall (L6's win line).
+  - n: 7
+    template: free
+    title: "Tengo una nariz pequeña"
+    description: "«nariz» — the nose. Feminine, and its plural is irregular (z→c) — this lesson keeps it singular only."
+    steps:
+      - kind: map
+        id: l7-map-tengounanariz
+        tokens: ["tengo", "una", "nariz"]
+        pairs:
+          - { en: "I have", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "nose", tokenIndex: 2 }
+        audioText: "tengo una nariz"
+        revealNote: "«nariz» — the nose. Feminine — «una», not «un». (Its plural is irregular, not covered here.)"
+      - kind: speakLit
+        id: l7-sp-recall-l6win
+        es: "tengo una boca grande"
+        en: "I have a big mouth"
+        atoms: []
+        cue: recall
+      - kind: imageMcq
+        id: l7-im-nariz
+        target: { surface: "nariz", meaningEn: "nose", emoji: "👃" }
+        distractors:
+          - { surface: "regalo", emoji: "🎁" }
+          - { surface: "parque", emoji: "🌳" }
+          - { surface: "zapato", emoji: "👟" }
+      - kind: buildLit
+        id: l7-b-tengounanarizpequena
+        es: "tengo una nariz pequeña"
+        en: "I have a small nose"
+        atoms: ["tengo", "nariz", "pequeño"]
+        tiles: ["tienes", "grande"]
+      - kind: clozeLit
+        id: l7-c-narizgrande
+        es: "tiene una nariz grande"
+        en: "He/she has a big nose"
+        blank: "una"
+        options: ["una", "un"]
+        atoms: ["tiene", "nariz", "grande"]
+        why: "«nariz» is feminine — «una», not «un» — the same exception class as «mano», «pierna», and «boca»."
+      - kind: listenCompLit
+        id: l7-lc-tengolanarizpequena
+        es: "tengo la nariz pequeña"
+        en: "I have the small nose."
+        atoms: ["tengo", "nariz", "pequeño"]
+        distractorsEn:
+          - "I have the big nose."
+          - "You have the small nose."
+          - "He/she has the small nose."
+      - kind: mcq
+        id: l7-q-nariz
+        prompt: "Which one means 'I have a nose'?"
+        correct: "tengo una nariz"
+        distractors: ["tengo un nariz", "tengo nariz", "tiene una nariz"]
+        atoms: ["tengo", "nariz"]
+        why: "«nariz» is feminine — «una», not «un». Spanish never drops the article."
+      - kind: buildLit
+        id: l7-b-mihermananarizgrande
+        es: "mi hermana tiene una nariz grande"
+        en: "My sister has a big nose"
+        atoms: ["mi", "hermana", "tiene", "nariz", "grande"]
+        tiles: ["tengo", "pequeño"]
+      - kind: audioWimcq
+        id: l7-ear-regalo
+        target: { surface: "regalo", emoji: "🎁" }
+        distractors:
+          - { surface: "parque", emoji: "🌳" }
+          - { surface: "zapato", emoji: "👟" }
+      - kind: agreementLit
+        id: l7-agr-narizgrandepequena
+        en: "I have a big nose, and you have a small nose"
+        audioText: "tengo una nariz grande, y tienes una nariz pequeña"
+        atoms: ["tengo", "nariz", "grande", "tienes", "pequeño"]
+        segments:
+          - { text: "tengo una nariz " }
+          - { blank: { id: "p1", answer: "grande", options: ["grande", "pequeña"] } }
+          - { text: ", y tienes una nariz " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "grande"] } }
+      - kind: listenBuildLit
+        id: l7-lb-anatieneunanarizpequena
+        es: "Ana tiene una nariz pequeña"
+        en: "Ana has a small nose"
+        atoms: ["tiene", "nariz", "pequeño"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l7-tm-nariz
+        target: "nariz"
+        distractors: ["feliz", "otro", "poco"]
+      - kind: sim
+        id: l7-sim-ana-nariz
+        scene: { emoji: "👃", title: "Ana asks about your nose", setting: "Ana is drawing a cartoon of you." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes una nariz grande?", audioText: "¿tienes una nariz grande?", gloss: "Do you have a big nose?" }
+            goal: "Say no, you have a small nose."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, tengo una nariz pequeña" }
+                - { id: "wrong1", text: "no, tengo un nariz pequeña" }
+                - { id: "wrong2", text: "no, tienes una nariz pequeña" }
+              correctOptionId: "right"
+              audioText: "no, tengo una nariz pequeña"
+            replyGloss: "No, I have a small nose."
+            explanation: "«nariz» is feminine — «una», not «un». And «tengo» is your own word, not «tienes»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermana? ¿Tiene una nariz grande?", audioText: "¿y tu hermana? ¿tiene una nariz grande?", gloss: "And your sister? Does she have a big nose?" }
+            goal: "Say yes, she has a big nose."
+            reply:
+              mode: build
+              tiles: ["sí", "tiene", "una", "nariz", "grande", "pequeña"]
+              answer: "sí tiene una nariz grande"
+            replyGloss: "Yes, she has a big nose."
+            explanation: "«tiene», third person, feminine agreement stays: «una nariz grande»."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "nariz", target: "nose" }
+          - { source: "boca", target: "mouth" }
+          - { source: "ojo", target: "eye" }
+          - { source: "mano", target: "hand" }
+          - { source: "grande", target: "big" }
+          - { source: "pequeño", target: "small" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "tengo una nariz pequeña"
+        en: "I have a small nose"
+        atoms: ["tengo", "nariz", "pequeño"]
+
+  # ── L8 · Checkpoint — graded only (no map, no info card, no new atom).
+  #    Recombines PRIOR m17 «lavarse»-family conjugated forms («lavo»/
+  #    «lava», with PRIOR m13 pronouns «me»/«se») against this module's
+  #    own «las manos» (L1). Never uses bare «lavarse» — only the already-
+  #    conjugated forms, and never a person («lavas»/«nos») that isn't
+  #    registered. ≥2 recalls (L6, L7).
+  - n: 8
+    template: free
+    title: "Checkpoint: me lavo las manos"
+    description: "PRIOR «lavo»/«lava» (m17) plus this module's own «las manos» — no new word, just recombination."
+    steps:
+      - kind: buildLit
+        id: l8-b-melavolasmanos
+        es: "me lavo las manos"
+        en: "I wash my hands"
+        atoms: ["me", "lavo", "mano"]
+        tiles: ["se", "lava"]
+      - kind: clozeLit
+        id: l8-c-selavalasmanos
+        es: "Ana se lava las manos"
+        en: "Ana washes her hands"
+        blank: "se"
+        options: ["se", "me"]
+        atoms: ["lava", "mano"]
+        why: "Ana washes HER OWN hands, third person — «se», not «me», the pointer for yourself."
+      - kind: listenCompLit
+        id: l8-lc-melavolasmanostemprano
+        es: "me lavo las manos temprano"
+        en: "I wash my hands early."
+        atoms: ["me", "lavo", "mano", "temprano"]
+        distractorsEn:
+          - "I wash my hands late."
+          - "He/she washes his/her hands early."
+          - "I wash my face early."
+      - kind: mcq
+        id: l8-q-checkpoint
+        prompt: "Which one means 'He washes himself'?"
+        correct: "se lava"
+        distractors: ["me lava", "se lavo", "lavo"]
+        atoms: ["lava"]
+        why: "Third person: «se lava», not «me lava» (that's yourself) or «se lavo» (wrong person on the verb). Spanish never drops the pointer."
+      - kind: buildLit
+        id: l8-b-mihermanasemanos
+        es: "mi hermana se lava las manos"
+        en: "My sister washes her hands"
+        atoms: ["mi", "hermana", "se", "lava", "mano"]
+        tiles: ["me", "lavo"]
+      - kind: agreementLit
+        id: l8-agr-checkpoint
+        en: "I wash my hands, and Ana washes her hands"
+        audioText: "me lavo las manos, y Ana se lava las manos"
+        atoms: ["me", "lavo", "se", "lava", "mano"]
+        segments:
+          - { text: "" }
+          - { blank: { id: "p1", answer: "me", options: ["me", "se"] } }
+          - { text: " lavo las manos, y Ana " }
+          - { blank: { id: "p2", answer: "se", options: ["se", "me"] } }
+          - { text: " lava las manos" }
+      - kind: speakLit
+        id: l8-sp-recall-l6win
+        es: "tengo una boca grande"
+        en: "I have a big mouth"
+        atoms: []
+        cue: recall
+      - kind: listenBuildLit
+        id: l8-lb-analavalasmanostarde
+        es: "Ana se lava las manos tarde"
+        en: "Ana washes her hands late"
+        atoms: ["se", "lava", "mano", "tarde"]
+        tiles: ["me", "lavo"]
+      - kind: speakLit
+        id: l8-sp-recall-l7win
+        es: "tengo una nariz pequeña"
+        en: "I have a small nose"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l8-tm-mano
+        target: "mano"
+        distractors: ["menos", "mismo", "mucho"]
+      - kind: sim
+        id: l8-sim-checkpoint
+        scene: { emoji: "🧼", title: "Ana checks the morning routine", setting: "Ana is confirming everyone washed up before breakfast." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Te lavas las manos?", audioText: "¿te lavas las manos?", gloss: "Do you wash your hands?" }
+            goal: "Say yes, you wash your hands."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me lavo las manos" }
+                - { id: "wrong1", text: "sí, se lavo las manos" }
+                - { id: "wrong2", text: "sí, me lava las manos" }
+              correctOptionId: "right"
+              audioText: "sí, me lavo las manos"
+            replyGloss: "Yes, I wash my hands."
+            explanation: "Yourself: «me lavo» — the pointer «me» with the «yo» form «lavo». Not «se lavo» (wrong pointer) or «me lava» (wrong person)."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermana? ¿Se lava las manos también?", audioText: "¿y tu hermana? ¿se lava las manos también?", gloss: "And your sister? Does she wash her hands too?" }
+            goal: "Say yes, she washes her hands too."
+            reply:
+              mode: build
+              tiles: ["sí", "se", "lava", "las", "manos", "también", "me"]
+              answer: "sí se lava las manos también"
+            replyGloss: "Yes, she washes her hands too."
+            explanation: "Third person keeps «se lava», not «me lavo» — the pointer matches the person doing the washing."
+      - kind: matchLit
+        id: l8-match
+        pairs:
+          - { source: "lavo", target: "I wash" }
+          - { source: "lava", target: "he/she washes" }
+          - { source: "mano", target: "hand" }
+          - { source: "boca", target: "mouth" }
+          - { source: "nariz", target: "nose" }
+          - { source: "también", target: "also" }
+      - kind: speakLit
+        id: l8-sp-win
+        es: "me lavo las manos"
+        en: "I wash my hands"
+        atoms: ["me", "lavo", "mano"]
+
+  # ── L9 · «Sí, puedo verlo» — the verlo/pre-verbal-la contrast. No new
+  #    atom. Masculine nouns (brazo/ojo/pie) get BOTH legal positions —
+  #    pre-verbal «lo veo» and fused «puedo verlo» (PRIOR m29 atom,
+  #    verbatim) — mean exactly the same thing. Feminine nouns (mano/
+  #    pierna/boca/nariz) get ONLY the pre-verbal «la veo»/«la puedo
+  #    ver» — there is no fused second form; «verla» is never registered
+  #    and is never printed as Spanish text in this lesson (only ever
+  #    named descriptively in an explanation, in English, without the
+  #    guillemet-wrapped form) except as one unscanned mcq distractor,
+  #    mirroring m29.ts's own established precedent. «ves» (unregistered)
+  #    is avoided everywhere — only «veo»/«ve»/«puedo ver» are used. ≥1
+  #    recall (L8's win line).
+  - n: 9
+    template: free
+    title: "Sí, puedo verlo"
+    description: "Masculine things get two homes for the pointer — «lo veo», «puedo verlo», same meaning. Feminine things get only one: «la veo», always pre-verbal, never fused."
+    steps:
+      - kind: map
+        id: l9-map-loveopuedoverlo
+        tokens: ["lo", "veo,", "puedo", "verlo"]
+        pairs:
+          - { en: "it", tokenIndex: 0 }
+          - { en: "I see it", tokenIndex: 1 }
+          - { en: "same meaning, other position", tokenIndex: 3 }
+        audioText: "lo veo, puedo verlo"
+        revealNote: "«lo veo» and «puedo verlo» mean exactly the same thing — masculine things get both homes for the pointer. Feminine things (mano, pierna, boca, nariz) only ever get the first kind: «la veo», never a fused second form."
+      - kind: speakLit
+        id: l9-sp-recall-l8win
+        es: "me lavo las manos"
+        en: "I wash my hands"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l9-b-veoelbrazopuedoverlo
+        es: "veo el brazo, puedo verlo"
+        en: "I see the arm, I can see it"
+        atoms: ["veo", "brazo", "puedo", "verlo"]
+        tiles: ["ojo", "pie"]
+      - kind: listenCompLit
+        id: l9-lc-veolabocalaveo
+        es: "veo la boca, la veo"
+        en: "I see the mouth, I see it."
+        atoms: ["veo", "boca"]
+        distractorsEn:
+          - "I see the mouth, I don't see it."
+          - "I saw the mouth."
+          - "You see the mouth, you see it."
+      - kind: buildLit
+        id: l9-b-veolapiernalaveo
+        es: "veo la pierna, la veo"
+        en: "I see the leg, I see it"
+        atoms: ["veo", "pierna", "la"]
+        tiles: ["lo", "el"]
+      - kind: mcq
+        id: l9-q-piernaver
+        prompt: "Which one means 'I can see it' (talking about la pierna)?"
+        correct: "la puedo ver"
+        distractors: ["puedo verla", "lo puedo ver", "puedo ver la"]
+        atoms: ["puedo", "ver"]
+        why: "«pierna» is feminine, so the pointer is «la», always in front of the verb: «la puedo ver». There is no fused second form for feminine things — that would need a pointer that doesn't exist. «lo puedo ver» is the wrong pointer, for masculine things."
+      - kind: buildLit
+        id: l9-b-veoelojopuedoverlo
+        es: "veo el ojo, puedo verlo"
+        en: "I see the eye, I can see it"
+        atoms: ["veo", "ojo", "puedo", "verlo"]
+        tiles: ["pie", "brazo"]
+      - kind: audioWimcq
+        id: l9-ear-libro
+        target: { surface: "libro", emoji: "📖" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "gato", emoji: "🐱" }
+      - kind: agreementLit
+        id: l9-agr-ojobocacontraste
+        en: "I see a big eye, and I see a small mouth"
+        audioText: "veo un ojo grande, y veo una boca pequeña"
+        atoms: ["veo", "ojo", "grande", "boca", "pequeño"]
+        segments:
+          - { text: "veo un ojo " }
+          - { blank: { id: "p1", answer: "grande", options: ["grande", "pequeña"] } }
+          - { text: ", y veo una boca " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "grande"] } }
+      - kind: listenBuildLit
+        id: l9-lb-anaveelbrazopuedeverlo
+        es: "Ana ve el brazo, puede verlo"
+        en: "Ana sees the arm, she can see it"
+        atoms: ["ve", "brazo", "puede", "verlo"]
+        tiles: ["veo", "puedo"]
+      - kind: textMcq
+        id: l9-tm-verlo
+        target: "verlo"
+        distractors: ["pero", "cielo", "mismo"]
+      - kind: sim
+        id: l9-sim-ana-ver
+        scene: { emoji: "👁️", title: "Ana checks what you can see", setting: "Ana is testing a video call connection with you." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Puedes ver el brazo?", audioText: "¿puedes ver el brazo?", gloss: "Can you see the arm?" }
+            goal: "Say yes, you can see it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, puedo verlo" }
+                - { id: "wrong1", text: "sí, puedo ver" }
+                - { id: "wrong2", text: "sí, puedes verlo" }
+              correctOptionId: "right"
+              audioText: "sí, puedo verlo"
+            replyGloss: "Yes, I can see it."
+            explanation: "«el brazo» is masculine — the fused pointer «verlo» is legal here. «puedo ver» alone drops the pointer, and «puedes» is Ana's word for you, not your word for yourself."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Puedes ver la pierna?", audioText: "¿puedes ver la pierna?", gloss: "Can you see the leg?" }
+            goal: "Say yes, you can see it."
+            reply:
+              mode: build
+              tiles: ["sí", "la", "puedo", "ver", "lo"]
+              answer: "sí la puedo ver"
+            replyGloss: "Yes, I can see it."
+            explanation: "«pierna» is feminine — the pointer is «la», never fused onto the verb; it goes in front of «puedo ver», the same slot «lo» takes for masculine things."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "veo", target: "I see" }
+          - { source: "ve", target: "he/she sees" }
+          - { source: "puedo", target: "I can" }
+          - { source: "verlo", target: "to see it (masculine)" }
+          - { source: "brazo", target: "arm" }
+          - { source: "pierna", target: "leg" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "sí, puedo verlo"
+        en: "Yes, I can see it"
+        atoms: ["puedo", "verlo"]
+
+  # ── L10 · Mastery — Ana checks in on everyone's body-description photos.
+  #    No map, no info card (L8-checkpoint convention), no new atom — all
+  #    seven debuted L1-L7. Recombines every noun against color (m6),
+  #    size (m6), «me lavo»/«se lava» (m17, this module's L8), and the
+  #    verlo/pre-verbal-la contrast (L9) in one conversation. ≥2 recalls
+  #    (L8, L9). The lesson ENDS on the sim (§13.9 law 7 — mastery must
+  #    end on a conversation, not a grid); the header's own verbatim win
+  #    line — corrected to drop the unregistered «pelo» clause —
+  #    "tengo los ojos azules y las manos grandes" is delivered as the
+  #    sim's own final-turn reply (t5), mirroring m29-L10's own pattern,
+  #    rather than a separate closing speakLit. «verla»/«ves» are never
+  #    printed anywhere in this lesson, including inside the sim (wrong
+  #    sim options use only registered forms: missing-pronoun or
+  #    wrong-pointer «lo», never a fabricated «verla»).
+  - n: 10
+    template: free
+    title: "Tengo los ojos azules y las manos grandes"
+    description: "Ana checks in with everyone's photos — every body word this module taught, recombined against color, size, «me lavo», and «verlo», one conversation."
+    steps:
+      - kind: buildLit
+        id: l10-b-tengoelpiegrandeylamanopequena
+        es: "tengo el pie grande y la mano pequeña"
+        en: "I have a big foot and a small hand"
+        atoms: ["tengo", "pie", "grande", "mano", "pequeño", "y"]
+        tiles: ["tienes", "tiene"]
+      - kind: clozeLit
+        id: l10-c-brazograndepiernapequena
+        es: "tengo el brazo grande y la pierna pequeña"
+        en: "I have a big arm and a small leg"
+        blank: "pequeña"
+        options: ["pequeña", "pequeño"]
+        atoms: ["tengo", "brazo", "grande", "pierna"]
+        why: "«pierna» is feminine, so «pequeña», not «pequeño» — even though «brazo» right before it took the masculine «grande»."
+      - kind: listenCompLit
+        id: l10-lc-ojosverdesbocagrande
+        es: "tengo los ojos verdes y la boca grande"
+        en: "I have green eyes and a big mouth."
+        atoms: ["tengo", "ojo", "verde", "boca", "grande"]
+        distractorsEn:
+          - "I have green eyes and a small mouth."
+          - "I have black eyes and a big mouth."
+          - "You have green eyes and a big mouth."
+      - kind: mcq
+        id: l10-q-ojosazulesmanospequenas
+        prompt: "Which one means 'I have blue eyes and small hands'?"
+        correct: "tengo los ojos azules y las manos pequeñas"
+        distractors: ["tengo los ojos azules y las manos pequeños", "tengo el ojo azules y las manos pequeñas", "tengo los ojos azul y las manos pequeñas"]
+        atoms: ["tengo", "ojo", "azul", "mano", "pequeño", "y"]
+        why: "Both nouns are plural and feminine — «azules» and «pequeñas» both need the -s, and both need the feminine -a. «el ojo» is singular; «azul» alone drops the plural -s."
+      - kind: buildLit
+        id: l10-b-veolapiernapuedoverelbrazo
+        es: "veo la pierna, y puedo ver el brazo también"
+        en: "I see the leg, and I can also see the arm"
+        atoms: ["veo", "pierna", "puedo", "ver", "brazo", "también"]
+        tiles: ["verlo", "lo"]
+      - kind: speakLit
+        id: l10-sp-recall-l8win
+        es: "me lavo las manos"
+        en: "I wash my hands"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l10-ear-regalo
+        target: { surface: "regalo", emoji: "🎁" }
+        distractors:
+          - { surface: "parque", emoji: "🌳" }
+          - { surface: "tienda", emoji: "🏪" }
+      - kind: speakLit
+        id: l10-sp-recall-l9win
+        es: "sí, puedo verlo"
+        en: "Yes, I can see it"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l10-agr-brazopierna
+        en: "I have a big arm, and you have a small leg"
+        audioText: "tengo el brazo grande, y tienes la pierna pequeña"
+        atoms: ["tengo", "brazo", "grande", "tienes", "pierna", "pequeño"]
+        segments:
+          - { text: "tengo el brazo " }
+          - { blank: { id: "p1", answer: "grande", options: ["grande", "pequeña"] } }
+          - { text: ", y tienes la pierna " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "grande"] } }
+      - kind: listenBuildLit
+        id: l10-lb-anatieneojosnegrosnarizpequena
+        es: "Ana tiene los ojos negros y la nariz pequeña"
+        en: "Ana has black eyes and a small nose"
+        atoms: ["tiene", "ojo", "negro", "nariz", "pequeño", "y"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l10-tm-pierna
+        target: "pierna"
+        distractors: ["primera", "buena", "tercera"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "mano", target: "hand" }
+          - { source: "pie", target: "foot" }
+          - { source: "brazo", target: "arm" }
+          - { source: "pierna", target: "leg" }
+          - { source: "ojo", target: "eye" }
+          - { source: "boca", target: "mouth" }
+      - kind: sim
+        id: l10-sim-ana-fotos
+        scene: { emoji: "📸", title: "Ana checks everyone's photos", setting: "Ana is going through photos, asking about everyone's description one at a time." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes los ojos azules?", audioText: "¿tienes los ojos azules?", gloss: "Do you have blue eyes?" }
+            goal: "Say yes, you have blue eyes."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo los ojos azules" }
+                - { id: "wrong1", text: "sí, tengo el ojo azules" }
+                - { id: "wrong2", text: "sí, tienes los ojos azules" }
+              correctOptionId: "right"
+              audioText: "sí, tengo los ojos azules"
+            replyGloss: "Yes, I have blue eyes."
+            explanation: "Two eyes: «los ojos», plural, «azules» with the -s. «tengo» is your own word, not «tienes»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermana? ¿Tiene una nariz pequeña?", audioText: "¿y tu hermana? ¿tiene una nariz pequeña?", gloss: "And your sister? Does she have a small nose?" }
+            goal: "Say yes, and she washes her hands too."
+            reply:
+              mode: build
+              tiles: ["sí", "tiene", "una", "nariz", "pequeña", "y", "se", "lava", "las", "manos", "también"]
+              answer: "sí tiene una nariz pequeña y se lava las manos también"
+            replyGloss: "Yes, she has a small nose, and she washes her hands too."
+            explanation: "Two clauses, both third person: «tiene» for the nose, «se lava» for washing — same pointer, same person, throughout."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Puedes ver el brazo en la foto?", audioText: "¿puedes ver el brazo en la foto?", gloss: "Can you see the arm in the photo?" }
+            goal: "Say yes, you can see it."
+            reply:
+              mode: build
+              tiles: ["sí", "puedo", "verlo", "lo"]
+              answer: "sí puedo verlo"
+            replyGloss: "Yes, I can see it."
+            explanation: "«el brazo» is masculine — the fused pointer «verlo» is legal here."
+          - id: t4
+            npc: { speaker: "Ana", es: "¿Y la pierna? ¿La puedes ver también?", audioText: "¿y la pierna? ¿la puedes ver también?", gloss: "And the leg? Can you see it too?" }
+            goal: "Say yes, you can see it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, la veo" }
+                - { id: "wrong1", text: "sí, puedo ver" }
+                - { id: "wrong2", text: "sí, lo veo" }
+              correctOptionId: "right"
+              audioText: "sí, la veo"
+            replyGloss: "Yes, I see it."
+            explanation: "«pierna» is feminine — the pointer is «la», never fused onto the verb. «lo veo» is the wrong pointer, for masculine things."
+          - id: t5
+            npc: { speaker: "Ana", es: "¿Tienes los ojos azules y las manos grandes?", audioText: "¿tienes los ojos azules y las manos grandes?", gloss: "Do you have blue eyes and big hands?" }
+            goal: "Say you have blue eyes, big hands."
+            reply:
+              mode: build
+              tiles: ["tengo", "los", "ojos", "azules", "y", "las", "manos", "grandes", "pequeñas"]
+              answer: "tengo los ojos azules y las manos grandes"
+            replyGloss: "I have blue eyes and big hands."
+            explanation: "The module's own flagship recombination, closing the lesson: «tengo» (m5) plus this module's own «ojo»/«mano», plus PRIOR color and size (m6), joined with «y» (m1)."
+
+placement:
+  screener:
+    - id: "es-m30-scr-1"
+      prompt: "'I have blue eyes.' — which one?"
+      correct: "tengo los ojos azules"
+      distractors: ["tengo los ojos azul", "tengo el ojo azules", "tengo las ojos azules"]
+  byModule:
+    - id: "es-m30-pl-1"
+      prompt: "I have a big arm."
+      correct: "tengo un brazo grande"
+      distractors: ["tengo un brazo grandes", "tengo una brazo grande", "tengo un brazo pequeño"]
+    - id: "es-m30-pl-2"
+      prompt: "She has small hands."
+      correct: "tiene las manos pequeñas"
+      distractors: ["tiene los manos pequeñas", "tiene las manos pequeños", "tiene las mano pequeñas"]
+    - id: "es-m30-pl-3"
+      prompt: "I wash my hands."
+      correct: "me lavo las manos"
+      distractors: ["me lavo los manos", "te lavas las manos", "me lavo la mano"]
+    - id: "es-m30-pl-4"
+      prompt: "I can see it (the arm)."
+      correct: "puedo verlo"
+      distractors: ["puedo verla", "puedo lo ver", "puedo ver"]

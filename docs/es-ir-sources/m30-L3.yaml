@@ -1,0 +1,134 @@
+  # ── L3 · «Tengo un brazo grande» — el brazo debuts on imageMcq. Regular
+  #    masculine, regular plural. This is the noun that pairs with the
+  #    module's «verlo» recombination in L9 (masculine, so the PRIOR m29
+  #    fused atom applies verbatim — flagged here, spent there). PRIOR:
+  #    «tengo» (m5), «grande»/«pequeño» (m6). One recall (L2's win line).
+  - n: 3
+    template: free
+    title: "Tengo un brazo grande"
+    description: "«brazo» — the arm. Regular masculine, and this module's own «verlo»-eligible noun (m29's fused atom, spent later)."
+    steps:
+      - kind: map
+        id: l3-map-tengounbrazo
+        tokens: ["tengo", "un", "brazo"]
+        pairs:
+          - { en: "I have", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "arm", tokenIndex: 2 }
+        audioText: "tengo un brazo"
+        revealNote: "«brazo» — the arm. Regular masculine, regular plural «los brazos»."
+      - kind: speakLit
+        id: l3-sp-recall-l2win
+        es: "tengo dos pies"
+        en: "I have two feet"
+        atoms: []
+        cue: recall
+      - kind: imageMcq
+        id: l3-im-brazo
+        target: { surface: "brazo", meaningEn: "arm", emoji: "💪" }
+        distractors:
+          - { surface: "silla", emoji: "🪑" }
+          - { surface: "mochila", emoji: "🎒" }
+          - { surface: "regalo", emoji: "🎁" }
+      - kind: buildLit
+        id: l3-b-tengounbrazogrande
+        es: "tengo un brazo grande"
+        en: "I have a big arm"
+        atoms: ["tengo", "brazo", "grande"]
+        tiles: ["tienes", "pequeño"]
+      - kind: clozeLit
+        id: l3-c-brazosgrandes
+        es: "tengo los brazos grandes"
+        en: "I have big arms"
+        blank: "brazos"
+        options: ["brazos", "brazo"]
+        atoms: ["tengo", "grande"]
+        why: "Two arms takes the plural -s: «brazos», not «brazo»."
+      - kind: listenCompLit
+        id: l3-lc-tieneunbrazopequeno
+        es: "tiene un brazo pequeño"
+        en: "He/she has a small arm."
+        atoms: ["tiene", "brazo", "pequeño"]
+        distractorsEn:
+          - "He/she has a big arm."
+          - "I have a small arm."
+          - "You have a small arm."
+      - kind: mcq
+        id: l3-q-brazo
+        prompt: "Which one means 'I have an arm'?"
+        correct: "tengo un brazo"
+        distractors: ["tengo una brazo", "tengo un brazos", "tengo brazo"]
+        atoms: ["tengo", "brazo"]
+        why: "«brazo» is masculine — «un», not «una». One arm stays singular, «brazo» with no -s. And Spanish never drops the article."
+      - kind: buildLit
+        id: l3-b-mihermanabrazospequenos
+        es: "mi hermana tiene los brazos pequeños"
+        en: "My sister has small arms"
+        atoms: ["mi", "hermana", "tiene", "brazo", "pequeño"]
+        tiles: ["tengo", "grande"]
+      - kind: audioWimcq
+        id: l3-ear-silla
+        target: { surface: "silla", emoji: "🪑" }
+        distractors:
+          - { surface: "mochila", emoji: "🎒" }
+          - { surface: "regalo", emoji: "🎁" }
+      - kind: agreementLit
+        id: l3-agr-brazograndepequeno
+        en: "I have a big arm, and you have a small arm"
+        audioText: "tengo un brazo grande, y tienes un brazo pequeño"
+        atoms: ["tengo", "brazo", "grande", "tienes", "pequeño"]
+        segments:
+          - { text: "tengo un brazo " }
+          - { blank: { id: "p1", answer: "grande", options: ["grande", "pequeño"] } }
+          - { text: ", y tienes un brazo " }
+          - { blank: { id: "p2", answer: "pequeño", options: ["pequeño", "grande"] } }
+      - kind: listenBuildLit
+        id: l3-lb-anatieneunbrazogrande
+        es: "Ana tiene un brazo grande"
+        en: "Ana has a big arm"
+        atoms: ["tiene", "brazo", "grande"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l3-tm-brazo
+        target: "brazo"
+        distractors: ["mucho", "pero", "dos"]
+      - kind: sim
+        id: l3-sim-ana-brazo
+        scene: { emoji: "💪", title: "Ana asks about your arm", setting: "Ana is comparing gym photos." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes un brazo grande?", audioText: "¿tienes un brazo grande?", gloss: "Do you have a big arm?" }
+            goal: "Say yes, you have a big arm."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo un brazo grande" }
+                - { id: "wrong1", text: "sí, tengo una brazo grande" }
+                - { id: "wrong2", text: "sí, tienes un brazo grande" }
+              correctOptionId: "right"
+              audioText: "sí, tengo un brazo grande"
+            replyGloss: "Yes, I have a big arm."
+            explanation: "«brazo» is masculine — «un», not «una». And «tengo» is your own word, not «tienes»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermana? ¿Tiene los brazos pequeños?", audioText: "¿y tu hermana? ¿tiene los brazos pequeños?", gloss: "And your sister? Does she have small arms?" }
+            goal: "Say yes, she has small arms."
+            reply:
+              mode: build
+              tiles: ["sí", "tiene", "los", "brazos", "pequeños", "grande"]
+              answer: "sí tiene los brazos pequeños"
+            replyGloss: "Yes, she has small arms."
+            explanation: "Two arms, so the plural: «los brazos», «pequeños»."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "brazo", target: "arm" }
+          - { source: "pie", target: "foot" }
+          - { source: "mano", target: "hand" }
+          - { source: "grande", target: "big" }
+          - { source: "pequeño", target: "small" }
+          - { source: "tengo", target: "I have" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "tengo un brazo grande"
+        en: "I have a big arm"
+        atoms: ["tengo", "brazo", "grande"]

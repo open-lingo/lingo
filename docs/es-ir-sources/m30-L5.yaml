@@ -1,0 +1,135 @@
+  # ── L5 · «Tengo los ojos azules» — el ojo debuts on imageMcq. Regular
+  #    masculine, and the noun that carries this module's whole color
+  #    recombination: PRIOR «azul»/«rojo»/«verde»/«negro»/«blanco» (m6)
+  #    now describe a body part with zero new grammar. This lesson's
+  #    win line is also the header's own module title. One recall (L4's
+  #    win line).
+  - n: 5
+    template: free
+    title: "Tengo los ojos azules"
+    description: "«ojo» — the eye. Color works on a body part exactly like it works on everything else: «tengo los ojos azules», reusing PRIOR «azul» (m6)."
+    steps:
+      - kind: map
+        id: l5-map-tengounojo
+        tokens: ["tengo", "un", "ojo"]
+        pairs:
+          - { en: "I have", tokenIndex: 0 }
+          - { en: "an", tokenIndex: 1 }
+          - { en: "eye", tokenIndex: 2 }
+        audioText: "tengo un ojo"
+        revealNote: "«ojo» — the eye. Regular masculine, regular plural «los ojos» — the noun that carries color: «tengo los ojos azules» (I have blue eyes), reusing PRIOR «azul» (m6)."
+      - kind: speakLit
+        id: l5-sp-recall-l4win
+        es: "tengo una pierna pequeña"
+        en: "I have a small leg"
+        atoms: []
+        cue: recall
+      - kind: imageMcq
+        id: l5-im-ojo
+        target: { surface: "ojo", meaningEn: "eye", emoji: "👁️" }
+        distractors:
+          - { surface: "playa", emoji: "🏖️" }
+          - { surface: "escuela", emoji: "🏫" }
+          - { surface: "libro", emoji: "📖" }
+      - kind: buildLit
+        id: l5-b-tengolosojosazules
+        es: "tengo los ojos azules"
+        en: "I have blue eyes"
+        atoms: ["tengo", "ojo", "azul"]
+        tiles: ["tienes", "tiene"]
+      - kind: clozeLit
+        id: l5-c-ojosverdes
+        es: "tengo los ojos verdes"
+        en: "I have green eyes"
+        blank: "verdes"
+        options: ["verdes", "verde"]
+        atoms: ["tengo", "ojo"]
+        why: "Two eyes takes the plural: «verdes», not «verde» — the same -s «brazos» took in L3."
+      - kind: listenCompLit
+        id: l5-lc-tienelosojosnegros
+        es: "tiene los ojos negros"
+        en: "He/she has black eyes."
+        atoms: ["tiene", "ojo", "negro"]
+        distractorsEn:
+          - "He/she has blue eyes."
+          - "I have black eyes."
+          - "You have black eyes."
+      - kind: mcq
+        id: l5-q-ojo
+        prompt: "Which one means 'I have blue eyes'?"
+        correct: "tengo los ojos azules"
+        distractors: ["tengo el ojo azules", "tengo los ojos azul", "tengo los ojo azules"]
+        atoms: ["tengo", "ojo", "azul"]
+        why: "Two eyes: «los ojos», plural noun, and «azules» agrees with the -s. «el ojo azules» mismatches singular noun with plural color."
+      - kind: buildLit
+        id: l5-b-mihermanaojosnegros
+        es: "mi hermana tiene los ojos negros"
+        en: "My sister has black eyes"
+        atoms: ["mi", "hermana", "tiene", "ojo", "negro"]
+        tiles: ["tengo", "azul"]
+      - kind: audioWimcq
+        id: l5-ear-playa
+        target: { surface: "playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "escuela", emoji: "🏫" }
+          - { surface: "libro", emoji: "📖" }
+      - kind: agreementLit
+        id: l5-agr-ojosazulesverdes
+        en: "I have blue eyes, and you have green eyes"
+        audioText: "tengo los ojos azules, y tienes los ojos verdes"
+        atoms: ["tengo", "ojo", "azul", "tienes", "verde"]
+        segments:
+          - { text: "tengo los ojos " }
+          - { blank: { id: "p1", answer: "azules", options: ["azules", "verdes"] } }
+          - { text: ", y tienes los ojos " }
+          - { blank: { id: "p2", answer: "verdes", options: ["verdes", "azules"] } }
+      - kind: listenBuildLit
+        id: l5-lb-anatieneojosazules
+        es: "Ana tiene los ojos azules"
+        en: "Ana has blue eyes"
+        atoms: ["tiene", "ojo", "azul"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l5-tm-ojo
+        target: "ojo"
+        distractors: ["rojo", "poco", "como"]
+      - kind: sim
+        id: l5-sim-ana-ojo
+        scene: { emoji: "👁️", title: "Ana asks about your eyes", setting: "Ana is filling out an ID form for you." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes los ojos azules?", audioText: "¿tienes los ojos azules?", gloss: "Do you have blue eyes?" }
+            goal: "Say yes, you have blue eyes."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo los ojos azules" }
+                - { id: "wrong1", text: "sí, tengo el ojo azules" }
+                - { id: "wrong2", text: "sí, tienes los ojos azules" }
+              correctOptionId: "right"
+              audioText: "sí, tengo los ojos azules"
+            replyGloss: "Yes, I have blue eyes."
+            explanation: "Two eyes: «los ojos», plural, «azules» with the -s. «tengo» is your own word, not «tienes»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermana? ¿Tiene los ojos negros?", audioText: "¿y tu hermana? ¿tiene los ojos negros?", gloss: "And your sister? Does she have black eyes?" }
+            goal: "Say yes, she has black eyes."
+            reply:
+              mode: build
+              tiles: ["sí", "tiene", "los", "ojos", "negros", "azules"]
+              answer: "sí tiene los ojos negros"
+            replyGloss: "Yes, she has black eyes."
+            explanation: "Same plural pattern, third person: «tiene los ojos negros»."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "ojo", target: "eye" }
+          - { source: "pierna", target: "leg" }
+          - { source: "brazo", target: "arm" }
+          - { source: "azul", target: "blue" }
+          - { source: "verde", target: "green" }
+          - { source: "negro", target: "black" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "tengo los ojos azules"
+        en: "I have blue eyes"
+        atoms: ["tengo", "ojo", "azul"]

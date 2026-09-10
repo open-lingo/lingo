@@ -507,4 +507,11 @@ export const ES_REVIEW_POOL: EsReviewEntry[] = [
   { surface: "levantarme", gloss: "to get myself up", kind: "vocab", fromModule: "m29", partOfSpeech: "verb" },
   { surface: "hacerlo", gloss: "to do it", kind: "vocab", fromModule: "m29", partOfSpeech: "verb" },
   { surface: "verlos", gloss: "to see them (masc.)", kind: "vocab", fromModule: "m29", partOfSpeech: "verb" },
+  { surface: "mano", gloss: "hand", kind: "vocab", fromModule: "m30", partOfSpeech: "noun" },
+  { surface: "pie", gloss: "foot", kind: "vocab", fromModule: "m30", partOfSpeech: "noun" },
+  { surface: "brazo", gloss: "arm", kind: "vocab", fromModule: "m30", partOfSpeech: "noun" },
+  { surface: "pierna", gloss: "leg", kind: "vocab", fromModule: "m30", partOfSpeech: "noun" },
+  { surface: "ojo", gloss: "eye", kind: "vocab", fromModule: "m30", partOfSpeech: "noun" },
+  { surface: "boca", gloss: "mouth", kind: "vocab", fromModule: "m30", partOfSpeech: "noun" },
+  { surface: "nariz", gloss: "nose", kind: "vocab", fromModule: "m30", partOfSpeech: "noun" },
 ];

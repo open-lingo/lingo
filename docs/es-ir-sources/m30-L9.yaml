@@ -1,0 +1,132 @@
+  # ── L9 · «Sí, puedo verlo» — the verlo/pre-verbal-la contrast. No new
+  #    atom. Masculine nouns (brazo/ojo/pie) get BOTH legal positions —
+  #    pre-verbal «lo veo» and fused «puedo verlo» (PRIOR m29 atom,
+  #    verbatim) — mean exactly the same thing. Feminine nouns (mano/
+  #    pierna/boca/nariz) get ONLY the pre-verbal «la veo»/«la puedo
+  #    ver» — there is no fused second form; «verla» is never registered
+  #    and is never printed as Spanish text in this lesson (only ever
+  #    named descriptively in an explanation, in English, without the
+  #    guillemet-wrapped form) except as one unscanned mcq distractor,
+  #    mirroring m29.ts's own established precedent. «ves» (unregistered)
+  #    is avoided everywhere — only «veo»/«ve»/«puedo ver» are used. ≥1
+  #    recall (L8's win line).
+  - n: 9
+    template: free
+    title: "Sí, puedo verlo"
+    description: "Masculine things get two homes for the pointer — «lo veo», «puedo verlo», same meaning. Feminine things get only one: «la veo», always pre-verbal, never fused."
+    steps:
+      - kind: map
+        id: l9-map-loveopuedoverlo
+        tokens: ["lo", "veo,", "puedo", "verlo"]
+        pairs:
+          - { en: "it", tokenIndex: 0 }
+          - { en: "I see it", tokenIndex: 1 }
+          - { en: "same meaning, other position", tokenIndex: 3 }
+        audioText: "lo veo, puedo verlo"
+        revealNote: "«lo veo» and «puedo verlo» mean exactly the same thing — masculine things get both homes for the pointer. Feminine things (mano, pierna, boca, nariz) only ever get the first kind: «la veo», never a fused second form."
+      - kind: speakLit
+        id: l9-sp-recall-l8win
+        es: "me lavo las manos"
+        en: "I wash my hands"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l9-b-veoelbrazopuedoverlo
+        es: "veo el brazo, puedo verlo"
+        en: "I see the arm, I can see it"
+        atoms: ["veo", "brazo", "puedo", "verlo"]
+        tiles: ["ojo", "pie"]
+      - kind: listenCompLit
+        id: l9-lc-veolabocalaveo
+        es: "veo la boca, la veo"
+        en: "I see the mouth, I see it."
+        atoms: ["veo", "boca"]
+        distractorsEn:
+          - "I see the mouth, I don't see it."
+          - "I saw the mouth."
+          - "You see the mouth, you see it."
+      - kind: buildLit
+        id: l9-b-veolapiernalaveo
+        es: "veo la pierna, la veo"
+        en: "I see the leg, I see it"
+        atoms: ["veo", "pierna", "la"]
+        tiles: ["lo", "el"]
+      - kind: mcq
+        id: l9-q-piernaver
+        prompt: "Which one means 'I can see it' (talking about la pierna)?"
+        correct: "la puedo ver"
+        distractors: ["puedo verla", "lo puedo ver", "puedo ver la"]
+        atoms: ["puedo", "ver"]
+        why: "«pierna» is feminine, so the pointer is «la», always in front of the verb: «la puedo ver». There is no fused second form for feminine things — that would need a pointer that doesn't exist. «lo puedo ver» is the wrong pointer, for masculine things."
+      - kind: buildLit
+        id: l9-b-veoelojopuedoverlo
+        es: "veo el ojo, puedo verlo"
+        en: "I see the eye, I can see it"
+        atoms: ["veo", "ojo", "puedo", "verlo"]
+        tiles: ["pie", "brazo"]
+      - kind: audioWimcq
+        id: l9-ear-libro
+        target: { surface: "libro", emoji: "📖" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "gato", emoji: "🐱" }
+      - kind: agreementLit
+        id: l9-agr-ojobocacontraste
+        en: "I see a big eye, and I see a small mouth"
+        audioText: "veo un ojo grande, y veo una boca pequeña"
+        atoms: ["veo", "ojo", "grande", "boca", "pequeño"]
+        segments:
+          - { text: "veo un ojo " }
+          - { blank: { id: "p1", answer: "grande", options: ["grande", "pequeña"] } }
+          - { text: ", y veo una boca " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "grande"] } }
+      - kind: listenBuildLit
+        id: l9-lb-anaveelbrazopuedeverlo
+        es: "Ana ve el brazo, puede verlo"
+        en: "Ana sees the arm, she can see it"
+        atoms: ["ve", "brazo", "puede", "verlo"]
+        tiles: ["veo", "puedo"]
+      - kind: textMcq
+        id: l9-tm-verlo
+        target: "verlo"
+        distractors: ["pero", "cielo", "mismo"]
+      - kind: sim
+        id: l9-sim-ana-ver
+        scene: { emoji: "👁️", title: "Ana checks what you can see", setting: "Ana is testing a video call connection with you." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Puedes ver el brazo?", audioText: "¿puedes ver el brazo?", gloss: "Can you see the arm?" }
+            goal: "Say yes, you can see it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, puedo verlo" }
+                - { id: "wrong1", text: "sí, puedo ver" }
+                - { id: "wrong2", text: "sí, puedes verlo" }
+              correctOptionId: "right"
+              audioText: "sí, puedo verlo"
+            replyGloss: "Yes, I can see it."
+            explanation: "«el brazo» is masculine — the fused pointer «verlo» is legal here. «puedo ver» alone drops the pointer, and «puedes» is Ana's word for you, not your word for yourself."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Puedes ver la pierna?", audioText: "¿puedes ver la pierna?", gloss: "Can you see the leg?" }
+            goal: "Say yes, you can see it."
+            reply:
+              mode: build
+              tiles: ["sí", "la", "puedo", "ver", "lo"]
+              answer: "sí la puedo ver"
+            replyGloss: "Yes, I can see it."
+            explanation: "«pierna» is feminine — the pointer is «la», never fused onto the verb; it goes in front of «puedo ver», the same slot «lo» takes for masculine things."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "veo", target: "I see" }
+          - { source: "ve", target: "he/she sees" }
+          - { source: "puedo", target: "I can" }
+          - { source: "verlo", target: "to see it (masculine)" }
+          - { source: "brazo", target: "arm" }
+          - { source: "pierna", target: "leg" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "sí, puedo verlo"
+        en: "Yes, I can see it"
+        atoms: ["puedo", "verlo"]
