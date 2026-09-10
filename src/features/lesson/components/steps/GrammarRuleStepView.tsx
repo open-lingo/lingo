@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { GrammarRuleStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
@@ -251,6 +252,7 @@ function useSpeechReadAloud(text: string) {
 /** Small speaker button — reads `text` aloud via browser speechSynthesis.
  *  Renders nothing when the capability isn't there (no dead button). */
 function ReadAloudButton({ text }: { text: string }) {
+  const { t } = useTranslation();
   const { supported, speaking, toggle } = useSpeechReadAloud(text);
   if (!supported) return null;
   return (
@@ -258,8 +260,16 @@ function ReadAloudButton({ text }: { text: string }) {
       type="button"
       onClick={toggle}
       aria-pressed={speaking}
-      aria-label={speaking ? "Stop reading aloud" : "Read this card aloud"}
-      title={speaking ? "Stop reading aloud" : "Read aloud"}
+      aria-label={
+        speaking
+          ? t("lesson.grammarRule.stopReadingAloud", "Stop reading aloud")
+          : t("lesson.grammarRule.readCardAloud", "Read this card aloud")
+      }
+      title={
+        speaking
+          ? t("lesson.grammarRule.stopReadingAloud", "Stop reading aloud")
+          : t("lesson.grammarRule.readAloud", "Read aloud")
+      }
       className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-[1.5px] border-info/40 bg-surface text-info transition-colors hover:bg-info/10"
     >
       <Icon name={speaking ? "pause" : "volume"} size={14} />
@@ -283,6 +293,7 @@ export function GrammarRuleStepView({
   onContinue,
   variant = "full",
 }: Props) {
+  const { t } = useTranslation();
   const showRomaji = useShowExampleRomaji();
   const { ready, fillStarted, durationMs } = useReadGate(step);
   const readAloudText = `${step.title}. ${step.rule}`;
@@ -354,7 +365,7 @@ export function GrammarRuleStepView({
               onContinue();
             }}
             disabled={!ready}
-            label={ready ? "Got it" : "Reading…"}
+            label={ready ? t("lesson.gotIt", "Got it") : t("lesson.reading", "Reading…")}
           />
         </div>
       </div>
@@ -364,7 +375,7 @@ export function GrammarRuleStepView({
   return (
     <div className="flex flex-1 flex-col gap-6">
       <p className="text-xs font-bold uppercase tracking-[0.1em] text-text-muted">
-        Grammar
+        {t("lesson.grammarRule.grammarLabel", "Grammar")}
       </p>
 
       <div className="relative overflow-hidden rounded-3xl border-2 border-info/40 bg-gradient-to-br from-info/15 via-info/10 to-accent/10 px-7 py-9 shadow-[var(--shadow-card)]">
@@ -394,7 +405,7 @@ export function GrammarRuleStepView({
       {step.antiPattern ? (
         <div className="rounded-2xl border-2 border-error/40 bg-error/10 px-5 py-4">
           <p className="mb-2 text-xs font-bold uppercase tracking-wider text-error">
-            Don't do this
+            {t("lesson.grammarRule.dontDoThis", "Don't do this")}
           </p>
           <p className="font-japanese text-lg text-text-primary line-through decoration-error/60 decoration-2">
             <AnnotatedJa text={step.antiPattern.ja} />
@@ -434,7 +445,7 @@ export function GrammarRuleStepView({
             onContinue();
           }}
           disabled={!ready}
-          label={ready ? "Got it" : "Reading…"}
+          label={ready ? t("lesson.gotIt", "Got it") : t("lesson.reading", "Reading…")}
         />
       </div>
     </div>
@@ -442,6 +453,7 @@ export function GrammarRuleStepView({
 }
 
 function ExampleTile({ example }: { example: { ja: string; romaji: string; en: string } }) {
+  const { t } = useTranslation();
   const hasAudio = getTtsUrl(example.ja) !== null;
   const showRomaji = useShowExampleRomaji();
 
@@ -468,7 +480,7 @@ function ExampleTile({ example }: { example: { ja: string; romaji: string; en: s
         onClick={handlePlay}
         disabled={!hasAudio}
         className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_2px_0_0_rgb(var(--color-accent-hover))] transition-all hover:-translate-y-px hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-40"
-        aria-label="Play example"
+        aria-label={t("lesson.grammarRule.playExample", "Play example")}
       >
         <Icon name="play" size={14} />
       </button>

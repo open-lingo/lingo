@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   correct: boolean;
@@ -67,6 +68,7 @@ export function Feedback({
   soClose = false,
   soCloseNote,
 }: Props) {
+  const { t } = useTranslation();
   const isFlagged = !soClose && correct && flagged;
   const showNote = !soClose && correct && !isFlagged && note !== undefined;
   // On a WIN the explanation is optional reading — collapse it behind a
@@ -120,7 +122,11 @@ export function Feedback({
           )}
         </svg>
         <span className="text-base font-bold">
-          {soClose ? "So close" : correct ? "Correct!" : "Not quite"}
+          {soClose
+            ? t("lesson.feedback.soClose", "So close")
+            : correct
+              ? t("lesson.feedback.correct", "Correct!")
+              : t("lesson.feedback.notQuite", "Not quite")}
         </span>
       </div>
       {soClose && soCloseNote !== undefined && (
@@ -132,7 +138,7 @@ export function Feedback({
       {showNote && <p className="mt-2 text-base leading-relaxed">{note}</p>}
       {!soClose && !correct && correctAnswer !== undefined && (
         <p className="mt-2 text-base leading-relaxed">
-          <span className="opacity-80">Correct answer: </span>
+          <span className="opacity-80">{t("lesson.feedback.correctAnswerLabel", "Correct answer: ")}</span>
           <span className="text-lg font-semibold text-text-primary">{correctAnswer}</span>
         </p>
       )}
@@ -143,7 +149,7 @@ export function Feedback({
             onClick={() => setExplanationShown(true)}
             className="mt-1.5 block text-sm font-semibold underline underline-offset-2 opacity-80 hover:opacity-100"
           >
-            View explanation
+            {t("lesson.feedback.viewExplanation", "View explanation")}
           </button>
         ) : (
           <p className="mt-1.5 leading-relaxed opacity-90">{explanation}</p>

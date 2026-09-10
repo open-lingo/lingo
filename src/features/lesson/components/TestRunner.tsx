@@ -18,6 +18,7 @@
  */
 const MAX_TEST_MISTAKES = 3;
 import { useMemo, useState, useCallback, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import type { RowTestStep, RowTestItem } from "../types";
 import { Button } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
@@ -51,6 +52,7 @@ type ItemState = {
 type TestPhase = "running" | "passed" | "failed" | "skipped";
 
 export function TestRunner({ step, onComplete, onContinue }: Props) {
+  const { t } = useTranslation();
   // Initial queue: each unique item once.
   const initialQueue: ItemState[] = useMemo(
     () =>
@@ -164,12 +166,14 @@ export function TestRunner({ step, onComplete, onContinue }: Props) {
         <div className="flex h-16 w-16 items-center justify-center rounded-full bg-success/20 text-success">
           <Icon name="check" size={40} />
         </div>
-        <h2 className="text-2xl font-bold text-text-primary">Row complete!</h2>
+        <h2 className="text-2xl font-bold text-text-primary">
+          {t("lesson.rowTest.complete", "Row complete!")}
+        </h2>
         <p className="text-sm text-text-muted">
-          {correct}/{total} answered correctly · no items left
+          {t("lesson.rowTest.answeredCorrectly", "{{correct}}/{{total}} answered correctly · no items left", { correct, total })}
         </p>
         <Button variant="primary-3d" onClick={onContinue}>
-          Continue
+          {t("lesson.continue", "Continue")}
         </Button>
       </div>
     );
@@ -181,13 +185,17 @@ export function TestRunner({ step, onComplete, onContinue }: Props) {
         <div className="text-text-muted" aria-hidden>
           <Icon name="skipForward" size={48} />
         </div>
-        <h2 className="text-xl font-bold text-text-primary">Test skipped</h2>
+        <h2 className="text-xl font-bold text-text-primary">
+          {t("lesson.rowTest.skippedTitle", "Test skipped")}
+        </h2>
         <p className="text-sm text-text-muted">
-          You can come back any time — tap the row's test slot to earn the
-          mastery ★.
+          {t(
+            "lesson.rowTest.skippedBody",
+            "You can come back any time — tap the row's test slot to earn the mastery ★.",
+          )}
         </p>
         <Button variant="primary-3d" onClick={onContinue}>
-          Continue
+          {t("lesson.continue", "Continue")}
         </Button>
       </div>
     );
@@ -199,13 +207,18 @@ export function TestRunner({ step, onComplete, onContinue }: Props) {
         <div className="text-error" aria-hidden>
           <Icon name="heartCrack" size={48} />
         </div>
-        <h2 className="text-2xl font-bold text-text-primary">Out of attempts</h2>
+        <h2 className="text-2xl font-bold text-text-primary">
+          {t("lesson.rowTest.failedTitle", "Out of attempts")}
+        </h2>
         <p className="max-w-sm text-center text-sm text-text-muted">
-          {correct}/{total} answered correctly before missing 3. Come back
-          when the row feels solid — the ★ is still up for grabs.
+          {t(
+            "lesson.rowTest.failedBody",
+            "{{correct}}/{{total}} answered correctly before missing 3. Come back when the row feels solid — the ★ is still up for grabs.",
+            { correct, total },
+          )}
         </p>
         <Button variant="primary-3d" onClick={onContinue}>
-          Continue
+          {t("lesson.continue", "Continue")}
         </Button>
       </div>
     );
@@ -222,7 +235,7 @@ export function TestRunner({ step, onComplete, onContinue }: Props) {
         <div className="flex items-center gap-3">
           <span
             className="flex items-center gap-1.5"
-            aria-label={`${MAX_TEST_MISTAKES - mistakes} attempts left`}
+            aria-label={t("lesson.rowTest.attemptsLeft", "{{n}} attempts left", { n: MAX_TEST_MISTAKES - mistakes })}
           >
             {Array.from({ length: MAX_TEST_MISTAKES }, (_, i) => {
               const spent = i < mistakes;
@@ -245,7 +258,7 @@ export function TestRunner({ step, onComplete, onContinue }: Props) {
           onClick={() => setConfirmSkip(true)}
           className="rounded-full border border-border px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-text-secondary transition hover:border-accent"
         >
-          Skip
+          {t("lesson.rowTest.skip", "Skip")}
         </button>
       </div>
       <TestItemView
@@ -327,6 +340,7 @@ function SkipConfirm({
   onCancel: () => void;
   onConfirm: () => void;
 }) {
+  const { t } = useTranslation();
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
@@ -335,11 +349,13 @@ function SkipConfirm({
     >
       <div className="w-full max-w-sm rounded-xl border border-border bg-surface p-6 shadow-xl">
         <h2 className="text-lg font-semibold text-text-primary">
-          Skip the row test?
+          {t("lesson.rowTest.skipConfirmTitle", "Skip the row test?")}
         </h2>
         <p className="mt-2 text-sm text-text-secondary">
-          You won't lose progress on the sub-lessons, but you won't earn
-          the row's mastery ★ until you complete the test.
+          {t(
+            "lesson.rowTest.skipConfirmBody",
+            "You won't lose progress on the sub-lessons, but you won't earn the row's mastery ★ until you complete the test.",
+          )}
         </p>
         <div className="mt-6 flex justify-end gap-3">
           <button
@@ -347,14 +363,14 @@ function SkipConfirm({
             onClick={onCancel}
             className="rounded-lg px-4 py-2 text-sm font-medium text-text-secondary hover:bg-surface-muted"
           >
-            Keep going
+            {t("lesson.rowTest.keepGoing", "Keep going")}
           </button>
           <button
             type="button"
             onClick={onConfirm}
             className="rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium text-text-secondary hover:border-accent"
           >
-            Skip
+            {t("lesson.rowTest.skip", "Skip")}
           </button>
         </div>
       </div>

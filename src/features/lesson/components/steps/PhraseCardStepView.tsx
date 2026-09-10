@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import type { PhraseCardStep } from "../../types";
 import { Icon } from "@/shared/components/Icon";
 import { playJaAudio, useAutoPlayJaAudio, hasTtsAudio } from "@/shared/tts";
@@ -39,6 +40,7 @@ function useActiveLanguageOrJa(): string {
  * romanization hurts acquisition, so the native script always dominates.
  */
 export function PhraseCardStepView({ step, onContinue }: Props) {
+  const { t } = useTranslation();
   const langId = useActiveLanguageOrJa();
   // Romanization is a reading aid, not the star. JA phrase cards have
   // historically always shown it (no per-card toggle); non-JA courses
@@ -131,10 +133,10 @@ export function PhraseCardStepView({ step, onContinue }: Props) {
           onClick={handlePlay}
           disabled={!hasAudio}
           className="mt-6 inline-flex items-center gap-2 rounded-full border-[1.5px] border-accent/50 bg-surface px-5 py-2.5 text-sm font-semibold text-accent transition hover:bg-accent-muted disabled:cursor-not-allowed disabled:opacity-40"
-          aria-label="Replay audio"
+          aria-label={t("lesson.phraseCard.replayAudio", "Replay audio")}
         >
           <Icon name="play" size={16} aria-hidden />
-          Play again
+          {t("lesson.phraseCard.playAgain", "Play again")}
         </button>
 
         {step.cultureNote ? (
@@ -152,7 +154,7 @@ export function PhraseCardStepView({ step, onContinue }: Props) {
             playSfx("passive-advance");
             onContinue();
           }}
-          label="Got it"
+          label={t("lesson.gotIt", "Got it")}
         />
       </div>
     </div>

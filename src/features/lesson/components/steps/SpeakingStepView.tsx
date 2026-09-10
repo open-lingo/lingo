@@ -173,13 +173,14 @@ export function SpeakingStepView({ step, onComplete, onContinue }: Props) {
  *  Rendered in the eyebrow row of both branches so it never displaces the
  *  reference card, mic block, or CTA (fixed-shell rule). */
 function SilentSwapButton({ onSwap }: { onSwap: () => void }) {
+  const { t } = useTranslation();
   return (
     <button
       type="button"
       onClick={onSwap}
       className="rounded-full border border-border bg-surface px-3 py-1 text-xs font-bold uppercase tracking-wider text-text-secondary transition hover:bg-surface-muted"
     >
-      Can&apos;t speak now
+      {t("lesson.speaking.cantSpeakNow", "Can't speak now")}
     </button>
   );
 }
@@ -195,6 +196,7 @@ function SpeakingStepPlaceholder({
   onContinue: () => void;
   onSilentSwap?: () => void;
 }) {
+  const { t } = useTranslation();
   const audioUrl = getTtsUrl(step.targetPhrase);
   const silentMode = useSettings().settings.audio.silentMode;
   // Cued recall (step.cue === "recall"): no autoplay — the clip IS the
@@ -221,7 +223,7 @@ function SpeakingStepPlaceholder({
           it renders less than the main one, so it strands more. */}
       <div className="mt-auto flex items-center justify-between">
         <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
-          Speaking practice
+          {t("lesson.speaking.practiceLabel", "Speaking practice")}
         </p>
         {onSilentSwap && <SilentSwapButton onSwap={onSilentSwap} />}
       </div>
@@ -240,7 +242,10 @@ function SpeakingStepPlaceholder({
         <span className="mr-1.5 inline-flex align-text-bottom" aria-hidden>
           <Icon name="mic" size={16} />
         </span>
-        Speech recognition is not yet available. Practice saying the phrase aloud, then continue.
+        {t(
+          "lesson.speaking.notAvailable",
+          "Speech recognition is not yet available. Practice saying the phrase aloud, then continue.",
+        )}
       </div>
 
       <div className="mt-auto pt-6" data-testid="primary-cta">
@@ -254,18 +259,18 @@ function SpeakingStepPlaceholder({
             onComplete?.(step.id, true);
             onContinue();
           }}
-          label="I said it!"
+          label={t("lesson.speaking.saidIt", "I said it!")}
         />
       </div>
     </div>
   );
 }
 
-const CUE_LANGUAGE_NAMES: Record<string, string> = {
-  ja: "Japanese",
-  ko: "Korean",
-  es: "Spanish",
-  fr: "French",
+const CUE_LANGUAGE_KEYS: Record<string, string> = {
+  ja: "lesson.speaking.lang.ja",
+  ko: "lesson.speaking.lang.ko",
+  es: "lesson.speaking.lang.es",
+  fr: "lesson.speaking.lang.fr",
 };
 
 function ReferenceCard({
@@ -282,13 +287,17 @@ function ReferenceCard({
   hidden?: boolean;
   onReveal?: () => void;
 }) {
+  const { t } = useTranslation();
   const lang = useLang();
   if (hidden) {
-    const langName = CUE_LANGUAGE_NAMES[lang];
+    const langKey = CUE_LANGUAGE_KEYS[lang];
+    const langName = langKey ? t(langKey) : undefined;
     return (
       <div className="flex flex-col items-center gap-5 rounded-2xl border-[1.5px] border-border bg-surface px-6 py-10 shadow-[var(--shadow-card)]">
         <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
-          {langName ? `Say it in ${langName}` : "Say it out loud"}
+          {langName
+            ? t("lesson.speaking.sayItIn", "Say it in {{lang}}", { lang: langName })
+            : t("lesson.speaking.sayItOutLoud", "Say it out loud")}
         </p>
         <p className="text-center text-3xl font-bold tracking-tight text-text-primary">
           {step.translation}
@@ -298,7 +307,7 @@ function ReferenceCard({
           onClick={onReveal}
           className="rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-text-secondary transition hover:bg-surface-muted"
         >
-          Show answer
+          {t("lesson.speaking.showAnswer", "Show answer")}
         </button>
       </div>
     );
@@ -309,7 +318,7 @@ function ReferenceCard({
         type="button"
         onClick={onPlay}
         className="flex h-16 w-16 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_4px_0_0_rgb(var(--color-accent-hover))] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_5px_0_0_rgb(var(--color-accent-hover))] active:translate-y-px active:shadow-[0_2px_0_0_rgb(var(--color-accent-hover))]"
-        aria-label="Play audio"
+        aria-label={t("lesson.play", "Play audio")}
       >
         <Icon name="play" size={28} />
       </button>
@@ -773,53 +782,93 @@ function SpeakingStepRecognized({
 
   const helperText = (() => {
     if (!supported) {
-      return "Pronunciation isn't supported in this browser — Chrome, Edge, or Safari recommended.";
+      return t(
+        "lesson.speaking.helper.unsupported",
+        "Pronunciation isn't supported in this browser — Chrome, Edge, or Safari recommended.",
+      );
     }
     if (whisperLoading) {
       const pct =
         whisperProgress !== null ? Math.round(whisperProgress * 100) : null;
       if (slowLoad) {
         return pct !== null
-          ? `Speech model still loading (${pct}%) — slow connection? You can skip this step.`
-          : "Speech model still loading — slow connection? You can skip this step.";
+          ? t(
+              "lesson.speaking.helper.loadingPct",
+              "Speech model still loading ({{pct}}%) — slow connection? You can skip this step.",
+              { pct },
+            )
+          : t(
+              "lesson.speaking.helper.loading",
+              "Speech model still loading — slow connection? You can skip this step.",
+            );
       }
       return pct !== null
-        ? `Loading speech model (one-time download)… ${pct}%`
-        : "Loading speech model (one-time download)…";
+        ? t(
+            "lesson.speaking.helper.downloadingPct",
+            "Loading speech model (one-time download)… {{pct}}%",
+            { pct },
+          )
+        : t(
+            "lesson.speaking.helper.downloading",
+            "Loading speech model (one-time download)…",
+          );
     }
-    if (whisperTranscribing) return "Transcribing…";
+    if (whisperTranscribing) return t("lesson.speaking.helper.transcribing", "Transcribing…");
     if (stuckSession && verdict === "idle") {
-      return "We're not hearing anything back — your mic may be blocked. You can skip this step.";
+      return t(
+        "lesson.speaking.helper.noResponse",
+        "We're not hearing anything back — your mic may be blocked. You can skip this step.",
+      );
     }
     if (recog.error === "no-mic") {
-      return "Microphone access blocked. Tap the mic icon in your browser's address bar, allow it, then try again.";
+      return t(
+        "lesson.speaking.helper.noMic",
+        "Microphone access blocked. Tap the mic icon in your browser's address bar, allow it, then try again.",
+      );
     }
     if (recog.error === "no-speech") {
-      return "We didn't hear anything — speak louder, move closer, or check your mic isn't muted.";
+      return t(
+        "lesson.speaking.helper.noSpeech",
+        "We didn't hear anything — speak louder, move closer, or check your mic isn't muted.",
+      );
     }
     if (recog.error === "audio-capture") {
-      return "Couldn't access your mic — check it isn't being used by another app and try again.";
+      return t(
+        "lesson.speaking.helper.audioCapture",
+        "Couldn't access your mic — check it isn't being used by another app and try again.",
+      );
     }
     if (recog.error === "not-supported") {
-      return "Your browser blocked speech recognition. Skip this step or try Chrome / Edge / Safari.";
+      return t(
+        "lesson.speaking.helper.notSupported",
+        "Your browser blocked speech recognition. Skip this step or try Chrome / Edge / Safari.",
+      );
     }
     if (recog.error && recog.error !== "aborted") {
-      return "Speech recognition hit an error. Try again, or skip to keep moving.";
+      return t(
+        "lesson.speaking.helper.genericError",
+        "Speech recognition hit an error. Try again, or skip to keep moving.",
+      );
     }
-    if (recog.listening) return "Listening…";
-    if (verdict === "perfect") return "Perfect!";
+    if (recog.listening) return t("lesson.speaking.helper.listening", "Listening…");
+    if (verdict === "perfect") return t("lesson.speaking.helper.perfect", "Perfect!");
     if (verdict === "close") {
       return bestAltText
-        ? `Close — sounded like “${bestAltText}”.`
-        : "Close — you can continue.";
+        ? t("lesson.speaking.helper.closeWithText", "Close — sounded like \u201c{{text}}\u201d.", {
+            text: bestAltText,
+          })
+        : t("lesson.speaking.helper.close", "Close — you can continue.");
     }
     if (verdict === "try-again" && attempts >= 2) {
-      return "Still not quite — keep trying, or continue if you'd like to move on.";
+      return t(
+        "lesson.speaking.helper.stillNotQuite",
+        "Still not quite — keep trying, or continue if you'd like to move on.",
+      );
     }
     if (verdict === "try-again" && attempts > 0) {
-      return "Not quite — give it one more go.";
+      return t("lesson.speaking.helper.notQuiteOneMore", "Not quite — give it one more go.");
     }
-    return "Tap the mic and say the phrase aloud.";
+    return t("lesson.speaking.helper.tapMicPrompt", "Tap the mic and say the phrase aloud.");
   })();
 
   const helperToneClass = (() => {
@@ -891,7 +940,7 @@ function SpeakingStepRecognized({
           215px void on a 430x932 phone (Spencer QA 2026-08-07). */}
       <div className="mt-auto flex items-center justify-between">
         <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
-          Speaking practice
+          {t("lesson.speaking.practiceLabel", "Speaking practice")}
         </p>
         {/* Past the katakana cutoff the module-position gate suppresses
             ALL romaji regardless of this toggle — a dead control that
@@ -906,7 +955,9 @@ function SpeakingStepRecognized({
               className="rounded-full border border-border bg-surface px-3 py-1 text-xs font-bold uppercase tracking-wider text-text-secondary transition hover:bg-surface-muted"
               aria-pressed={showRomaji}
             >
-              {showRomaji ? "Hide romaji" : "Show romaji"}
+              {showRomaji
+                ? t("lesson.speaking.hideRomaji", "Hide romaji")
+                : t("lesson.speaking.showRomaji", "Show romaji")}
             </button>
           )}
         </div>
@@ -945,13 +996,19 @@ function SpeakingStepRecognized({
               ? "border-error bg-error motion-safe:animate-pulse"
               : "border-accent-hover bg-accent"
           }`}
-          aria-label={recog.listening ? "Stop recording" : "Tap to speak"}
+          aria-label={
+            recog.listening
+              ? t("lesson.speaking.stopRecording", "Stop recording")
+              : t("lesson.speaking.tapToSpeak", "Tap to speak")
+          }
         >
           {/* QA 2026-07-12: full-width bar instead of the small circle —
               "fill a little more space". */}
           <Icon name="mic" size={24} aria-hidden />
           <span className="text-base font-bold">
-            {recog.listening ? "Listening — tap to stop" : "Tap to speak"}
+            {recog.listening
+              ? t("lesson.speaking.listeningTapToStop", "Listening — tap to stop")
+              : t("lesson.speaking.tapToSpeak", "Tap to speak")}
           </span>
         </button>
 
@@ -964,7 +1021,7 @@ function SpeakingStepRecognized({
         {recog.transcript && verdict === "idle" && (
           <p className="rounded-xl bg-surface-muted px-4 py-2 text-base text-text-primary">
             <span className="mr-2 text-xs font-bold uppercase tracking-wider text-text-muted">
-              Heard
+              {t("lesson.speaking.heard", "Heard")}
             </span>
             <span className={isJa ? "font-japanese" : undefined} lang={isJa ? "ja" : lang}>
               {recog.transcript}
@@ -997,7 +1054,9 @@ function SpeakingStepRecognized({
               onClick={handleRecord}
               className="rounded-xl border-[1.5px] border-border bg-surface px-4 py-2 text-sm font-bold uppercase tracking-wide text-text-secondary transition hover:bg-surface-muted"
             >
-              {attempts >= 2 ? "Keep trying" : "Try again"}
+              {attempts >= 2
+                ? t("lesson.speaking.keepTrying", "Keep trying")
+                : t("lesson.speaking.tryAgain", "Try again")}
             </button>
           )}
 
@@ -1012,7 +1071,7 @@ function SpeakingStepRecognized({
             onClick={handleRecord}
             className="rounded-xl border-[1.5px] border-danger/40 bg-surface px-4 py-2 text-sm font-bold uppercase tracking-wide text-danger transition hover:bg-danger/10"
           >
-            Retry mic permission
+            {t("lesson.speaking.retryMicPermission", "Retry mic permission")}
           </button>
         )}
 
@@ -1033,7 +1092,7 @@ function SpeakingStepRecognized({
         <ContinueButton
           onClick={onContinue}
           variant={verdict === "perfect" ? "correct" : undefined}
-          label={verdict === "close" ? "Continue anyway" : undefined}
+          label={verdict === "close" ? t("lesson.speaking.continueAnyway", "Continue anyway") : undefined}
         />
       ) : canSkipAfterTry ? (
         // After 2 fails OR a persistent error: explicit opt-out. Not
@@ -1045,7 +1104,9 @@ function SpeakingStepRecognized({
           onClick={handleSkip}
           className="w-full rounded-xl border-[1.5px] border-border bg-surface px-6 py-3.5 text-base font-bold uppercase tracking-wide text-text-secondary transition hover:bg-surface-muted"
         >
-          {recognitionUnusable ? "Skip this step" : "Continue without passing"}
+          {recognitionUnusable
+            ? t("lesson.speaking.skipStep", "Skip this step")
+            : t("lesson.speaking.continueWithoutPassing", "Continue without passing")}
         </button>
       ) : fallbackContinue ? (
         // Unsupported browser → ungraded continue. Distinct from the
@@ -1056,7 +1117,7 @@ function SpeakingStepRecognized({
           onClick={onContinue}
           className="w-full rounded-xl border-[1.5px] border-border bg-surface px-6 py-3.5 text-base font-bold uppercase tracking-wide text-text-secondary transition hover:bg-surface-muted"
         >
-          Continue
+          {t("lesson.continue", "Continue")}
         </button>
       ) : null}
       </div>
@@ -1070,6 +1131,7 @@ function SpeakingStepRecognized({
 /* -------------------------------------------------------------------------- */
 
 function SilentModeNotice() {
+  const { t } = useTranslation();
   return (
     <div
       className="rounded-xl border border-border bg-surface-muted px-4 py-2.5 text-xs text-text-secondary"
@@ -1078,7 +1140,7 @@ function SilentModeNotice() {
       <span className="mr-1.5 inline-flex align-text-bottom" aria-hidden>
         <Icon name="volumeX" size={14} />
       </span>
-      Audio silenced — tap the speaker to hear it.
+      {t("lesson.speaking.silentAudioHint", "Audio silenced — tap the speaker to hear it.")}
     </div>
   );
 }
@@ -1102,6 +1164,7 @@ function TranscriptCard({
   isJa: boolean;
   lang: string;
 }) {
+  const { t } = useTranslation();
   const passed = verdict === "perfect" || verdict === "close";
   // After a fail, show the target side-by-side so the learner can compare
   // what they said to what was wanted. ("auto-pass" was retired
@@ -1125,7 +1188,7 @@ function TranscriptCard({
         </span>
         <div className="flex-1">
           <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
-            You said
+            {t("lesson.speaking.youSaid", "You said")}
           </p>
           <p className={`${scriptClass}text-xl text-text-primary`} lang={scriptLang}>
             {transcriptKana || "—"}
@@ -1141,7 +1204,7 @@ function TranscriptCard({
           <Icon name="target" size={18} aria-hidden className="shrink-0 text-text-muted" />
           <div className="flex-1">
             <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
-              Target
+              {t("lesson.speaking.target", "Target")}
             </p>
             <p className={`${scriptClass}text-xl text-text-primary`} lang={scriptLang}>
               {targetKana}

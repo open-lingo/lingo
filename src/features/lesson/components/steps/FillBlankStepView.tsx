@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import type { FillBlankStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
@@ -14,6 +15,7 @@ type Props = {
 };
 
 export function FillBlankStepView({ step, onComplete, onContinue }: Props) {
+  const { t } = useTranslation();
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
 
@@ -150,7 +152,7 @@ export function FillBlankStepView({ step, onComplete, onContinue }: Props) {
         )}
 
         {!submitted ? (
-          <ContinueButton onClick={handleSubmit} label="Check" disabled={!allFilled} />
+          <ContinueButton onClick={handleSubmit} label={t("lesson.check", "Check")} disabled={!allFilled} />
         ) : (
           <ContinueButton
             onClick={onContinue}

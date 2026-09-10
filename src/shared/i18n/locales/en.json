@@ -330,7 +330,27 @@
     "compoundVowelsTitle": "Compound vowels (복합 모음)",
     "compoundVowelsBody": "These vowels combine two sounds, like ㅘ (wa), ㅙ (wae), or ㅚ (oe). You’ll practice distinguishing similar‑sounding pairs (ㅐ/ㅔ, ㅙ/ㅚ, etc.) and keeping each complex shape consistent when you write it.",
     "yoonCombosTitle": "Small ゃ/ゅ/ょ combinations (拗音)",
-    "yoonCombosBody": "These combinations use a normal consonant kana followed by a smaller ゃ/ゅ/ょ (or ャ/ュ/ョ) to make new sounds like rya, ryu, ryo. You’ll practice writing them as a single unit and listening for the difference between り + や (riya) and りゃ (rya)."
+    "yoonCombosBody": "These combinations use a normal consonant kana followed by a smaller ゃ/ゅ/ょ (or ャ/ュ/ョ) to make new sounds like rya, ryu, ryo. You’ll practice writing them as a single unit and listening for the difference between り + や (riya) and りゃ (rya).",
+    "attemptOf": "Attempt {{current}} of {{total}}",
+    "celebrate": {
+      "oneMoreTime": "Nice! One more time.",
+      "nice": "Nice!",
+      "great": "Great!",
+      "gotIt": "Got it!",
+      "wellDone": "Well done!",
+      "perfect": "Perfect!"
+    },
+    "clear": "Clear",
+    "clearCanvas": "Clear canvas",
+    "play": "Play",
+    "progressAria": "{{count}} of {{total}} correct",
+    "replayStrokeOrder": "Replay stroke order",
+    "skipLetter": "Skip this letter",
+    "taskDrawSymbolFor": "Draw the symbol for",
+    "taskPickSymbol": "Pick the symbol for",
+    "taskTrace": "Trace",
+    "watchStrokes": "Watch the strokes…",
+    "tapToHear": "Tap a sound to hear it. Pick the one that matches."
   },
   "practice": {
     "intro": "Review flashcards, run skill trainers, and open grammar drills—all from one place.",
@@ -2997,5 +3017,204 @@
     "noBankTitle": "No test-out questions yet",
     "noBankDesc": "The placement engine doesn't have any test-out items for {{module}} on this course yet. Each course needs its own question bank before test-out can probe a module.",
     "backToLearn": "Back to Learn"
+  },
+  "lesson": {
+    "resumed": "Resumed from step {{n}} of {{total}}",
+    "notFound": "Lesson not found",
+    "backToLearn": "Back to Learn",
+    "nextLesson": "Next lesson →",
+    "stepContainer": "Lesson step",
+    "exit": "Exit lesson",
+    "kbdHintEnter": "check / continue",
+    "kbdHintNumbers": "choose an option",
+    "xpRewardLabel": "{{n}} XP reward on completion",
+    "xpShort": "+{{n}} XP",
+    "estimatedMinutesLabel": "Estimated {{n}} minute lesson",
+    "minutesShort": "{{n}} min",
+    "testNotPassed": "Not this time",
+    "reviewComplete": "Review Complete!",
+    "complete": "Lesson Complete!",
+    "perfectRun": "Perfect run!",
+    "accuracy": "Accuracy",
+    "xpEarned": "XP earned",
+    "score": "Score",
+    "streakMilestone": "{{n}} days — milestone!",
+    "streakDays": "{{n}} day streak",
+    "levelLabel": "Level {{n}}",
+    "moduleMastered": "Module mastered — {{module}}",
+    "masteryProgressLabel": "Mastery progress",
+    "masteryProgress": "{{passed}}/{{total}} row tests done in {{module}}",
+    "drillMissed": "Drill what you missed ({{n}})",
+    "reviewWords": "Review your words →",
+    "saveAndExit": "I'm done — save my XP",
+    "saveAndExitHint": "Locked in — see you tomorrow.",
+    "passForXpHint": "Score 70%+ to earn XP — drill your misses and replay.",
+    "testRetryHint": "Out of attempts — replay the test any time to master this row.",
+    "combo": "🔥 {{n}} in a row",
+    "continue": "Continue",
+    "dialogueListen": {
+      "transcript": "Transcript",
+      "qProgress": "{{n}} of {{total}}",
+      "nextQuestion": "Next question"
+    },
+    "play": "Play audio",
+    "check": "Check",
+    "audioLocked": "Answer to unlock audio",
+    "stressPattern": {
+      "instruction": "Which syllable is stressed?",
+      "syllableLabel": "Syllable {{n}}: {{syllable}}"
+    },
+    "selfExplain": {
+      "anchorTag": "You answered",
+      "ruleReveal": "The rule",
+      "surfaceMiss": "Close — that's the surface pattern, but the rule is deeper.",
+      "distractorMiss": "Not quite — that's unrelated to why this answer is correct."
+    },
+    "whichKanaStarts": "Which kana starts the word?",
+    "agreementChain": {
+      "instruction": "Make every word agree",
+      "slotLabel": "Slot: {{role}}",
+      "optionsFor": "Choose the word for the highlighted blank"
+    },
+    "kanjiReading": {
+      "instruction": "How do you read this?"
+    },
+    "agreementCloze": {
+      "instruction": "Complete the sentence — everything must agree",
+      "blankLabel": "Blank {{n}}"
+    },
+    "transform": {
+      "tryIt": "BONUS · TRY TYPING IT",
+      "stage1": "STAGE 1 · LEARN",
+      "stage2": "STAGE 2 · KNOW",
+      "stage3": "STAGE 3 · OWN",
+      "peek": "the rule",
+      "peekCost": "costs half the flame",
+      "typePlaceholder": "type it — kana or romaji",
+      "shielded": "Streak shielded — misses are free until this form has {{n}} reps",
+      "rulesCollapse": "just this rule",
+      "rulesExpand": "all {{n}} rules"
+    },
+    "pickParticle": "Pick what fits the blank",
+    "completeSentence": "Complete the sentence",
+    "youPicked": "You picked",
+    "genderSort": {
+      "coachHeld": "Now tap {{a}} or {{b}}",
+      "coachIdle": "Tap a word, then tap its article",
+      "instruction": "Sort every word into its group",
+      "bucketLabel": "Put in {{label}}",
+      "trayEmpty": "Everything is placed."
+    },
+    "silentLetter": {
+      "instruction": "Tap every letter you do NOT hear",
+      "graphemeLabel": "Letter {{n}}: {{grapheme}}"
+    },
+    "conjugationCloze": {
+      "instruction": "Complete with the right form"
+    },
+    "dialogueSim": {
+      "turnProgress": "Turn {{n}} of {{total}}",
+      "showText": "🔊 Listen · show text",
+      "you": "You",
+      "nextTurn": "Next"
+    },
+    "liaison": {
+      "junctionLabel": "Link {{a}} to {{b}}?",
+      "listenFirst": "Listen first"
+    },
+    "aspectChoice": {
+      "blankLabel": "Choose the form of {{lemma}}"
+    },
+    "feedback": {
+      "soClose": "So close",
+      "correct": "Correct!",
+      "notQuite": "Not quite",
+      "correctAnswerLabel": "Correct answer: ",
+      "viewExplanation": "View explanation"
+    },
+    "speaking": {
+      "practiceLabel": "Speaking practice",
+      "cantSpeakNow": "Can't speak now",
+      "notAvailable": "Speech recognition is not yet available. Practice saying the phrase aloud, then continue.",
+      "saidIt": "I said it!",
+      "sayItIn": "Say it in {{lang}}",
+      "sayItOutLoud": "Say it out loud",
+      "showAnswer": "Show answer",
+      "showRomaji": "Show romaji",
+      "hideRomaji": "Hide romaji",
+      "listeningTapToStop": "Listening — tap to stop",
+      "tapToSpeak": "Tap to speak",
+      "stopRecording": "Stop recording",
+      "heard": "Heard",
+      "target": "Target",
+      "youSaid": "You said",
+      "keepTrying": "Keep trying",
+      "tryAgain": "Try again",
+      "retryMicPermission": "Retry mic permission",
+      "continueAnyway": "Continue anyway",
+      "skipStep": "Skip this step",
+      "continueWithoutPassing": "Continue without passing",
+      "silentAudioHint": "Audio silenced — tap the speaker to hear it.",
+      "lang": {
+        "ja": "Japanese",
+        "ko": "Korean",
+        "es": "Spanish",
+        "fr": "French"
+      },
+      "helper": {
+        "unsupported": "Pronunciation isn't supported in this browser — Chrome, Edge, or Safari recommended.",
+        "loadingPct": "Speech model still loading ({{pct}}%) — slow connection? You can skip this step.",
+        "loading": "Speech model still loading — slow connection? You can skip this step.",
+        "downloadingPct": "Loading speech model (one-time download)… {{pct}}%",
+        "downloading": "Loading speech model (one-time download)…",
+        "transcribing": "Transcribing…",
+        "noResponse": "We're not hearing anything back — your mic may be blocked. You can skip this step.",
+        "noMic": "Microphone access blocked. Tap the mic icon in your browser's address bar, allow it, then try again.",
+        "noSpeech": "We didn't hear anything — speak louder, move closer, or check your mic isn't muted.",
+        "audioCapture": "Couldn't access your mic — check it isn't being used by another app and try again.",
+        "notSupported": "Your browser blocked speech recognition. Skip this step or try Chrome / Edge / Safari.",
+        "genericError": "Speech recognition hit an error. Try again, or skip to keep moving.",
+        "listening": "Listening…",
+        "perfect": "Perfect!",
+        "closeWithText": "Close — sounded like “{{text}}”.",
+        "close": "Close — you can continue.",
+        "stillNotQuite": "Still not quite — keep trying, or continue if you'd like to move on.",
+        "notQuiteOneMore": "Not quite — give it one more go.",
+        "tapMicPrompt": "Tap the mic and say the phrase aloud."
+      }
+    },
+    "grammarRule": {
+      "stopReadingAloud": "Stop reading aloud",
+      "readCardAloud": "Read this card aloud",
+      "readAloud": "Read aloud",
+      "playExample": "Play example",
+      "grammarLabel": "Grammar",
+      "dontDoThis": "Don't do this",
+      "grammarRefresher": "Grammar refresher"
+    },
+    "phraseCard": {
+      "replayAudio": "Replay audio",
+      "playAgain": "Play again"
+    },
+    "gotIt": "Got it",
+    "reading": "Reading…",
+    "explainQuestion": "Explain this question",
+    "accentBar": {
+      "label": "Accented characters",
+      "insertChar": "Insert {{ch}}"
+    },
+    "rowTest": {
+      "complete": "Row complete!",
+      "answeredCorrectly": "{{correct}}/{{total}} answered correctly · no items left",
+      "skippedTitle": "Test skipped",
+      "skippedBody": "You can come back any time — tap the row's test slot to earn the mastery ★.",
+      "failedTitle": "Out of attempts",
+      "failedBody": "{{correct}}/{{total}} answered correctly before missing 3. Come back when the row feels solid — the ★ is still up for grabs.",
+      "attemptsLeft": "{{n}} attempts left",
+      "skip": "Skip",
+      "skipConfirmTitle": "Skip the row test?",
+      "skipConfirmBody": "You won't lose progress on the sub-lessons, but you won't earn the row's mastery ★ until you complete the test.",
+      "keepGoing": "Keep going"
+    }
   }
 }

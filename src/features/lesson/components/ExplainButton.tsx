@@ -11,6 +11,7 @@
  * is language-agnostic and reads no language-specific helpers.
  */
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
 
 type Props = {
@@ -24,12 +25,13 @@ export function ExplainButton({
   hasSubmittedWrong,
   dwellMsThreshold = 15_000,
 }: Props) {
+  const { t } = useTranslation();
   const [dwellElapsed, setDwellElapsed] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const t = setTimeout(() => setDwellElapsed(true), dwellMsThreshold);
-    return () => clearTimeout(t);
+    const timer = setTimeout(() => setDwellElapsed(true), dwellMsThreshold);
+    return () => clearTimeout(timer);
   }, [dwellMsThreshold]);
 
   if (!explanation) return null;
@@ -39,11 +41,11 @@ export function ExplainButton({
     <>
       <button
         type="button"
-        aria-label="Explain this question"
+        aria-label={t("lesson.explainQuestion", "Explain this question")}
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
         className="absolute right-2 top-2 inline-flex h-7 w-7 items-center justify-center rounded-full border border-text-muted/30 text-text-muted transition-colors hover:bg-surface-hover hover:text-text-primary"
-        title="Explain this question"
+        title={t("lesson.explainQuestion", "Explain this question")}
       >
         <Icon name="help" size={14} aria-hidden />
       </button>

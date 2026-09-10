@@ -330,7 +330,27 @@
     "compoundVowelsTitle": "합성 모음 (복합 모음)",
     "compoundVowelsBody": "이 모음들은 ㅘ(wa), ㅙ(wae), ㅚ(oe)처럼 두 소리를 결합합니다. 비슷하게 들리는 쌍(ㅐ/ㅔ, ㅙ/ㅚ 등)을 구별하고 복잡한 모양을 일관되게 쓰는 연습을 합니다.",
     "yoonCombosTitle": "작은 ゃ/ゅ/ょ 조합 (拗音)",
-    "yoonCombosBody": "이 조합은 보통의 자음 kana 뒤에 작은 ゃ/ゅ/ょ(또는 ャ/ュ/ョ)를 붙여 rya, ryu, ryo 같은 새 소리를 만듭니다. 이를 하나의 단위로 쓰고 り + や(riya)와 りゃ(rya)의 차이를 듣는 연습을 합니다."
+    "yoonCombosBody": "이 조합은 보통의 자음 kana 뒤에 작은 ゃ/ゅ/ょ(또는 ャ/ュ/ョ)를 붙여 rya, ryu, ryo 같은 새 소리를 만듭니다. 이를 하나의 단위로 쓰고 り + や(riya)와 りゃ(rya)의 차이를 듣는 연습을 합니다.",
+    "attemptOf": "시도 {{total}} 중 {{current}}번째",
+    "celebrate": {
+      "oneMoreTime": "좋아요! 한 번 더요.",
+      "nice": "좋아요!",
+      "great": "잘했어요!",
+      "gotIt": "맞았어요!",
+      "wellDone": "아주 잘했어요!",
+      "perfect": "완벽해요!"
+    },
+    "clear": "지우기",
+    "clearCanvas": "캔버스 지우기",
+    "play": "재생",
+    "progressAria": "{{total}} 중 {{count}}개 정답",
+    "replayStrokeOrder": "획순 다시 보기",
+    "skipLetter": "이 글자 건너뛰기",
+    "taskDrawSymbolFor": "다음 기호를 그리세요",
+    "taskPickSymbol": "다음 기호를 고르세요",
+    "taskTrace": "따라 쓰기",
+    "watchStrokes": "획순을 지켜보세요…",
+    "tapToHear": "소리를 눌러 들어보세요. 일치하는 것을 고르세요."
   },
   "practice": {
     "intro": "플래시카드 복습, 스킬 트레이너, 문법 드릴까지 한곳에서 시작하세요.",
@@ -497,7 +517,17 @@
       "koClassL": "ㄹ 어간",
       "koClassLExplain": "ㄹ은 -ㅂ니다/-ㄴ 앞에서 탈락합니다 — 살다 → 삽니다 — 그 외에는 유지됩니다(살아요).",
       "koClassEu": "으 불규칙",
-      "koClassEuExplain": "받침 없는 ㅡ는 모음 앞에서 탈락합니다 — 쓰다 → 써요, 바쁘다 → 바빠요."
+      "koClassEuExplain": "받침 없는 ㅡ는 모음 앞에서 탈락합니다 — 쓰다 → 써요, 바쁘다 → 바빠요.",
+      "freeForms": "형태 ({{checked}}/{{total}})",
+      "freeFormsHidden": "M{{module}}에서 {{count}}개 더",
+      "freeNoForms": "시작하려면 형태를 하나 이상 선택하세요.",
+      "freeNoMatch": "일치하는 항목 없음",
+      "freeNoWords": "이 레벨에서는 아직 연습할 항목이 없습니다 — 레벨을 올려보세요.",
+      "freePinnedOnly": "고정된 단어",
+      "freeSearch": "단어 검색",
+      "freeUnpin": "고정 해제",
+      "freeVerbsInRange": "이 범위의 동사 ({{count}})",
+      "freeWordsInRange": "이 범위의 단어 ({{count}})"
     },
     "alphabetHub": {
       "title": "알파벳·문자",
@@ -2986,6 +3016,205 @@
     "noMatches": {
       "title": "단어를 찾을 수 없음",
       "body": "다른 검색어를 시도하거나 필터를 지워 보세요."
+    }
+  },
+  "lesson": {
+    "resumed": "{{total}}단계 중 {{n}}단계에서 이어서 시작",
+    "notFound": "레슨을 찾을 수 없습니다",
+    "backToLearn": "학습으로 돌아가기",
+    "nextLesson": "다음 레슨 →",
+    "stepContainer": "레슨 단계",
+    "exit": "레슨 나가기",
+    "kbdHintEnter": "확인 / 계속",
+    "kbdHintNumbers": "보기 선택",
+    "xpRewardLabel": "완료 시 {{n}} XP 보상",
+    "xpShort": "+{{n}} XP",
+    "estimatedMinutesLabel": "예상 {{n}}분 레슨",
+    "minutesShort": "{{n}}분",
+    "testNotPassed": "이번엔 아쉬워요",
+    "reviewComplete": "복습 완료!",
+    "complete": "레슨 완료!",
+    "perfectRun": "퍼펙트!",
+    "accuracy": "정확도",
+    "xpEarned": "획득 XP",
+    "score": "점수",
+    "streakMilestone": "{{n}}일 — 마일스톤 달성!",
+    "streakDays": "{{n}}일 연속",
+    "levelLabel": "레벨 {{n}}",
+    "moduleMastered": "모듈 마스터 — {{module}}",
+    "masteryProgressLabel": "마스터 진행도",
+    "masteryProgress": "{{module}}에서 로우 테스트 {{passed}}/{{total}} 완료",
+    "drillMissed": "틀린 문제 다시 풀기 ({{n}})",
+    "reviewWords": "내 단어 복습하기 →",
+    "saveAndExit": "여기까지 — XP 저장하고 종료",
+    "saveAndExitHint": "저장 완료 — 내일 또 만나요.",
+    "passForXpHint": "XP를 받으려면 70% 이상 맞혀야 해요 — 틀린 문제를 다시 풀고 재도전하세요.",
+    "testRetryHint": "시도 횟수를 모두 사용했어요 — 이 로우를 마스터하려면 테스트를 언제든 다시 풀 수 있어요.",
+    "combo": "🔥 {{n}}연속 정답",
+    "continue": "계속하기",
+    "dialogueListen": {
+      "transcript": "대본",
+      "qProgress": "{{total}} 중 {{n}}",
+      "nextQuestion": "다음 질문"
+    },
+    "play": "오디오 재생",
+    "check": "확인",
+    "audioLocked": "답을 선택하면 오디오 잠금이 해제돼요",
+    "stressPattern": {
+      "instruction": "어느 음절에 강세가 있나요?",
+      "syllableLabel": "음절 {{n}}: {{syllable}}"
+    },
+    "selfExplain": {
+      "anchorTag": "선택한 답",
+      "ruleReveal": "규칙",
+      "surfaceMiss": "아깝네요 — 그건 표면적인 패턴이에요. 규칙은 더 깊은 곳에 있어요.",
+      "distractorMiss": "아니에요 — 이 답이 맞는 이유와는 관련이 없어요."
+    },
+    "whichKanaStarts": "이 단어는 어느 가나로 시작하나요?",
+    "agreementChain": {
+      "instruction": "모든 단어를 일치시키세요",
+      "slotLabel": "빈칸: {{role}}",
+      "optionsFor": "강조된 빈칸에 들어갈 단어를 고르세요"
+    },
+    "kanjiReading": {
+      "instruction": "이 글자는 어떻게 읽나요?"
+    },
+    "agreementCloze": {
+      "instruction": "문장을 완성하세요 — 모든 것이 일치해야 해요",
+      "blankLabel": "빈칸 {{n}}"
+    },
+    "transform": {
+      "tryIt": "보너스 · 직접 입력해 보기",
+      "stage1": "1단계 · 배우기",
+      "stage2": "2단계 · 익히기",
+      "stage3": "3단계 · 완전히 내 것으로",
+      "peek": "규칙 보기",
+      "peekCost": "불꽃 절반이 소모돼요",
+      "typePlaceholder": "입력하세요 — 가나 또는 로마자",
+      "shielded": "연속 기록 보호 중 — 이 형태를 {{n}}번 연습할 때까지 틀려도 괜찮아요",
+      "rulesCollapse": "이 규칙만",
+      "rulesExpand": "전체 {{n}}개 규칙"
+    },
+    "pickParticle": "빈칸에 맞는 것을 고르세요",
+    "completeSentence": "문장을 완성하세요",
+    "youPicked": "선택한 답",
+    "genderSort": {
+      "coachHeld": "이제 {{a}} 또는 {{b}}를 탭하세요",
+      "coachIdle": "단어를 탭한 다음, 관사를 탭하세요",
+      "instruction": "모든 단어를 알맞은 그룹으로 분류하세요",
+      "bucketLabel": "{{label}}에 넣기",
+      "trayEmpty": "모두 배치했어요."
+    },
+    "silentLetter": {
+      "instruction": "들리지 않는 글자를 모두 탭하세요",
+      "graphemeLabel": "글자 {{n}}: {{grapheme}}"
+    },
+    "conjugationCloze": {
+      "instruction": "알맞은 형태로 완성하세요"
+    },
+    "dialogueSim": {
+      "turnProgress": "{{total}} 중 {{n}}번째 순서",
+      "showText": "🔊 듣기 · 텍스트 보기",
+      "you": "나",
+      "nextTurn": "다음"
+    },
+    "liaison": {
+      "junctionLabel": "{{a}}와 {{b}}를 연결할까요?",
+      "listenFirst": "먼저 들어보세요"
+    },
+    "aspectChoice": {
+      "blankLabel": "{{lemma}}의 형태를 고르세요"
+    },
+    "feedback": {
+      "soClose": "거의 다 왔어요",
+      "correct": "정답이에요!",
+      "notQuite": "아쉬워요",
+      "correctAnswerLabel": "정답: ",
+      "viewExplanation": "설명 보기"
+    },
+    "speaking": {
+      "practiceLabel": "말하기 연습",
+      "cantSpeakNow": "지금은 말할 수 없어요",
+      "notAvailable": "음성 인식을 아직 사용할 수 없어요. 소리 내어 연습한 뒤 계속하세요.",
+      "saidIt": "말했어요!",
+      "sayItIn": "{{lang}}로 말해보세요",
+      "sayItOutLoud": "소리 내어 말해보세요",
+      "showAnswer": "답 보기",
+      "showRomaji": "로마자 표시",
+      "hideRomaji": "로마자 숨기기",
+      "listeningTapToStop": "듣는 중 — 탭하여 멈추기",
+      "tapToSpeak": "탭하여 말하기",
+      "stopRecording": "녹음 멈추기",
+      "heard": "인식된 발음",
+      "target": "목표",
+      "youSaid": "내가 말한 것",
+      "keepTrying": "계속 도전",
+      "tryAgain": "다시 시도",
+      "retryMicPermission": "마이크 권한 다시 요청",
+      "continueAnyway": "그래도 계속하기",
+      "skipStep": "이 단계 건너뛰기",
+      "continueWithoutPassing": "통과 없이 계속하기",
+      "silentAudioHint": "오디오가 꺼져 있어요 — 스피커를 탭하면 들을 수 있어요.",
+      "lang": {
+        "ja": "일본어",
+        "ko": "한국어",
+        "es": "스페인어",
+        "fr": "프랑스어"
+      },
+      "helper": {
+        "unsupported": "이 브라우저는 발음 인식을 지원하지 않아요 — Chrome, Edge, Safari를 권장해요.",
+        "loadingPct": "음성 모델을 불러오는 중이에요({{pct}}%) — 연결이 느린가요? 이 단계를 건너뛸 수 있어요.",
+        "loading": "음성 모델을 불러오는 중이에요 — 연결이 느린가요? 이 단계를 건너뛸 수 있어요.",
+        "downloadingPct": "음성 모델 로딩 중(최초 1회)… {{pct}}%",
+        "downloading": "음성 모델 로딩 중(최초 1회)…",
+        "transcribing": "변환 중…",
+        "noResponse": "아무 소리도 들리지 않아요 — 마이크가 차단되었을 수 있어요. 이 단계를 건너뛸 수 있어요.",
+        "noMic": "마이크 접근이 차단되었어요. 주소창의 마이크 아이콘을 탭해 허용한 뒤 다시 시도하세요.",
+        "noSpeech": "아무 소리도 들리지 않았어요 — 더 크게 말하거나 가까이서 말해보세요. 마이크가 음소거되지 않았는지 확인하세요.",
+        "audioCapture": "마이크에 접근할 수 없어요 — 다른 앱이 사용 중이지 않은지 확인하고 다시 시도하세요.",
+        "notSupported": "브라우저가 음성 인식을 차단했어요. 이 단계를 건너뛰거나 Chrome / Edge / Safari를 사용해보세요.",
+        "genericError": "음성 인식 중 오류가 발생했어요. 다시 시도하거나 건너뛰고 계속하세요.",
+        "listening": "듣는 중…",
+        "perfect": "완벽해요!",
+        "closeWithText": "아쉬워요 — “{{text}}”처럼 들렸어요.",
+        "close": "아쉬워요 — 계속할 수 있어요.",
+        "stillNotQuite": "아직 아쉬워요 — 계속 도전하거나, 넘어가고 싶다면 계속하세요.",
+        "notQuiteOneMore": "아쉬워요 — 한 번만 더 해보세요.",
+        "tapMicPrompt": "마이크를 탭하고 문장을 소리 내어 말해보세요."
+      }
+    },
+    "grammarRule": {
+      "stopReadingAloud": "낭독 멈추기",
+      "readCardAloud": "이 카드 소리 내어 읽기",
+      "readAloud": "소리 내어 읽기",
+      "playExample": "예시 재생",
+      "grammarLabel": "문법",
+      "dontDoThis": "이렇게 쓰지 마세요",
+      "grammarRefresher": "문법 복습"
+    },
+    "phraseCard": {
+      "replayAudio": "오디오 다시 재생",
+      "playAgain": "다시 재생"
+    },
+    "gotIt": "알겠어요",
+    "reading": "읽는 중…",
+    "explainQuestion": "이 문제 설명 보기",
+    "accentBar": {
+      "label": "악센트 문자",
+      "insertChar": "{{ch}} 삽입"
+    },
+    "rowTest": {
+      "complete": "로우 완료!",
+      "answeredCorrectly": "{{correct}}/{{total}} 정답 · 남은 문제 없음",
+      "skippedTitle": "테스트 건너뜀",
+      "skippedBody": "언제든 다시 돌아와 로우의 테스트 슬롯을 눌러 마스터 ★을 획득할 수 있어요.",
+      "failedTitle": "시도 횟수 소진",
+      "failedBody": "3번 틀리기 전까지 {{correct}}/{{total}} 정답을 맞혔어요. 이 로우가 익숙해지면 다시 도전하세요 — ★은 여전히 획득할 수 있어요.",
+      "attemptsLeft": "{{n}}번의 기회가 남았어요",
+      "skip": "건너뛰기",
+      "skipConfirmTitle": "로우 테스트를 건너뛸까요?",
+      "skipConfirmBody": "하위 레슨의 진행 상황은 유지돼요. 다만 테스트를 완료해야 이 로우의 마스터 ★을 획득할 수 있어요.",
+      "keepGoing": "계속 진행"
     }
   }
 }

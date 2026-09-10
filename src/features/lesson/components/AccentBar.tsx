@@ -1,4 +1,5 @@
 import type { RefObject } from "react";
+import { useTranslation } from "react-i18next";
 
 /** Spanish orthography chips — the full accent row plus the inverted
  *  openers. Order mirrors the vowel row learners expect (á…ü), specials
@@ -24,6 +25,7 @@ type Props = {
  * the field so typing continues uninterrupted.
  */
 export function AccentBar({ inputRef, disabled = false, onInsert }: Props) {
+  const { t } = useTranslation();
   function insert(ch: string) {
     const el = inputRef.current;
     if (!el || el.disabled) return;
@@ -38,7 +40,7 @@ export function AccentBar({ inputRef, disabled = false, onInsert }: Props) {
   return (
     <div
       role="toolbar"
-      aria-label="Accented characters"
+      aria-label={t("lesson.accentBar.label", "Accented characters")}
       className="flex flex-wrap gap-1.5"
     >
       {ACCENT_CHARS.map((ch) => (
@@ -53,7 +55,7 @@ export function AccentBar({ inputRef, disabled = false, onInsert }: Props) {
           onMouseDown={(e) => e.preventDefault()}
           onClick={() => insert(ch)}
           className="min-w-9 rounded-lg border-[1.5px] border-border bg-surface px-2.5 py-1 text-base font-medium text-text-primary transition-colors duration-150 hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-border disabled:hover:text-text-primary"
-          aria-label={`Insert ${ch}`}
+          aria-label={t("lesson.accentBar.insertChar", "Insert {{ch}}", { ch })}
         >
           {ch}
         </button>
