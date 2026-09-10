@@ -1154,23 +1154,25 @@
         },
         {
           "kind": "sentence",
-          "ja": "せんせいに じしょを もらう。",
-          "en": "I get a dictionary from the teacher",
+          "ja": "てがみを よむ とき せんせいに じしょを もらう。",
+          "en": "When I read a letter, I get a dictionary from the teacher",
           "exercises": [
             "morau",
             "ni-recipient",
-            "wo-object"
+            "wo-object",
+            "toki"
           ],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "いしゃに くすりを もらう。",
-          "en": "I get medicine from the doctor",
+          "ja": "いそぐから いしゃに くすりを もらう。",
+          "en": "I'm in a hurry, so I get medicine from the doctor",
           "exercises": [
             "morau",
             "ni-recipient",
-            "wo-object"
+            "wo-object",
+            "kara-because"
           ],
           "mode": "build"
         },
@@ -1195,12 +1197,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "せんせいが じしょを くれる。",
-          "en": "The teacher gives me a dictionary",
+          "ja": "がっこうに いく まえに せんせいが じしょを くれる。",
+          "en": "Before I go to school, the teacher gives me a dictionary",
           "exercises": [
             "kureru",
             "ga-existence",
-            "wo-object"
+            "wo-object",
+            "mae-ni"
           ],
           "mode": "build"
         },
@@ -1219,12 +1222,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "あねは ともだちに おみやげを もらう。",
-          "en": "My older sister gets a souvenir from her friend",
+          "ja": "にほんへ いく まえに あねは ともだちに おみやげを もらう。",
+          "en": "Before going to Japan, my older sister gets a souvenir from her friend",
           "exercises": [
             "morau",
             "wa-topic",
-            "ni-recipient"
+            "ni-recipient",
+            "mae-ni"
           ],
           "mode": "build"
         },

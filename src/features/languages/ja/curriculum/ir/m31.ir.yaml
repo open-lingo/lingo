@@ -565,14 +565,14 @@ lessons:
       # only learnable AGAINST くれる, because the two report the identical
       # event and differ only in what the sentence is about.
       - { kind: rule, grammarPointId: morau }
-      - { kind: sentence, ja: "せんせいに じしょを もらう。", en: "I get a dictionary from the teacher", exercises: [morau, ni-recipient, wo-object], mode: build }
-      - { kind: sentence, ja: "いしゃに くすりを もらう。", en: "I get medicine from the doctor", exercises: [morau, ni-recipient, wo-object], mode: build }
+      - { kind: sentence, ja: "てがみを よむ とき せんせいに じしょを もらう。", en: "When I read a letter, I get a dictionary from the teacher", exercises: [morau, ni-recipient, wo-object, toki], mode: build }
+      - { kind: sentence, ja: "いそぐから いしゃに くすりを もらう。", en: "I'm in a hurry, so I get medicine from the doctor", exercises: [morau, ni-recipient, wo-object, kara-because], mode: build }
       - { kind: sentence, ja: "たんじょうびに ちちに とけいを もらう。", en: "I get a watch from my father on my birthday", exercises: [morau, ni-time, family-register], mode: build }
       - { kind: kanji, kana: ともだち, kanji: 友達, exercises: [morau] }
       # The SAME dictionary as beat 2, told from the other end.
-      - { kind: sentence, ja: "せんせいが じしょを くれる。", en: "The teacher gives me a dictionary", exercises: [kureru, ga-existence, wo-object], mode: build }
+      - { kind: sentence, ja: "がっこうに いく まえに せんせいが じしょを くれる。", en: "Before I go to school, the teacher gives me a dictionary", exercises: [kureru, ga-existence, wo-object, mae-ni], mode: build }
       - { kind: particle-cloze, stem: "せんせいに じしょを ", tail: "。", answer: "もらう", options: ["もらう", "くれる", "あげる"], en: "I get a dictionary from the teacher", explanation: "the teacher is marked with に, so the sentence is about ME and what I ended up with — that is もらう. くれる would need the teacher marked が and would make the sentence about the teacher instead." }
-      - { kind: sentence, ja: "あねは ともだちに おみやげを もらう。", en: "My older sister gets a souvenir from her friend", exercises: [morau, wa-topic, ni-recipient], mode: build }
+      - { kind: sentence, ja: "にほんへ いく まえに あねは ともだちに おみやげを もらう。", en: "Before going to Japan, my older sister gets a souvenir from her friend", exercises: [morau, wa-topic, ni-recipient, mae-ni], mode: build }
       - { kind: sentence, ja: "かいしゃの ひとに おかしを もらう。", en: "I get candy from the people at the company", exercises: [morau, no-possession, ni-recipient], mode: build }
       - { kind: sentence, ja: "おかしが すきだから ともだちが ケーキを くれる。", en: "I like candy, so my friend gives me a cake", exercises: [kureru, kara-because, suki-kirai-no], mode: build }
       - { kind: sentence, ja: "たんじょうびに おおきい ケーキを もらう。", en: "I get a big cake for my birthday", exercises: [morau, ni-time, i-adj-present], mode: build }
