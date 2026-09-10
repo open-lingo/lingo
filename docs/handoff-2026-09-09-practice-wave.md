@@ -134,12 +134,12 @@ before pushing ES to main.
   entry `assets/index-B39znCZv.js`.
 - **TestFlight build 10:** delivery `d4648c03-7a0b-4447-bc88-928766270a58`,
   VALID, What to Test set, attached to External Beta, beta review
-  WAITING_FOR_REVIEW (check `/v1/builds/{id}/betaAppReviewSubmission`).
+  APPROVED for external beta (~21:00 PT, betaReviewState=APPROVED).
   Release script: `<scratchpad>/release-b10.sh` (sed of b9). ASC lesson:
   `asc.mjs` prints `HTTP 200` on line 1 — strip it before JSON-parsing, and
   call it via a shell function, not a `$ASC` variable (zsh doesn't word-split).
 - **Repetition audit → fixes (Spencer: "go with your changes"):**
-  - Filler pool module-wide: `filler-pool-2026-09-09` @ `deb4d5b1`
+  - Filler pool module-wide: `filler-pool-2026-09-09` @ `c98bca11` (amended msg typo)
     (moduleCompiler.ts + fillerPoolWidth.test.ts + 2 blast-radius scripts).
     Blast radius: 1187/1550 filler steps (76.6%) re-name a taught word,
     0/6369 non-filler steps changed, step counts identical in all 435 lessons,
@@ -153,17 +153,25 @@ before pushing ES to main.
     ja suite 8174 passed. **47 new sentences need TTS clips** before merge:
     emit deck → `python -m pipeline.tts.generate` in lingo-data → stage mp3s in
     `tts-publish/` (the に-lesson commit `fed7be85` is the pattern).
-  - m31 verb-slot re-author: `m31-recycle-2026-09-09` (worktree
-    `.claude/worktrees/m31-recycle`, = n4-carriers + recycle-rate merged at
-    `3b34bf89`) — PAUSED by Spencer 2026-09-09 ~20:05 PT before any content
-    edit; tree clean. RESUME = relaunch a Sonnet lane on that branch with this
-    brief: rewrite a few sentence sets per flagged m31 teaching lesson so each
-    reaches ≥20% verb-recycle (module median ≥30%) by framing give/receive
-    around earlier-module verbs (て+くれる/あげる/もらう if taught by then, else
-    two-clause から/ので/て-sequence from m30); no new atoms; ±2 steps per
-    lesson; keep くださる/いただく recognition-only; loop compile-ir m31 →
-    m31 tests → `scripts/ja-recycle-rate.ts --module m31`; commit per lesson;
-    finish with full ja suite + tsc + module-gate clip count (no upload).
+  - m31 verb-slot re-author: `m31-recycle-2026-09-09` @ `6a8bd0b6` (worktree
+    `.claude/worktrees/m31-recycle`; = n4-carriers + recycle-rate + 25 commits)
+    — DONE 2026-09-09 ~21:30 PT, Sonnet lane, Fable-gated twice. 39 existing
+    beats across 10 lessons rewritten in place (0 steps added/removed) so the
+    give/receive event sits inside a から / まえに / とき / けど / relative
+    clause carrying an earlier-module verb (17 distinct verbs; no frame used
+    >2× module-wide). ZERO て-forms (the spine rule the module's test enforces —
+    the て+くれる idea in the old brief was wrong for m31; that is m35). No new
+    atoms; パーティー dropped (was `fromModule: "future"`, would have moved the
+    fromModuleDrift ratchet); にほんご is not an atom → えいご used. Verb-recycle
+    per lesson: 1 11.1→31.6, 2 0→26.7, 3 0→35.7, r1 0→30.8, 5 0→35.7, 6 18.2→27.3,
+    9 0→31.3, 10 7.7→30.8, 11 0→30.8, r3 13.3→33.3; 7/r2/challenge untouched.
+    Module median 7.7% → 31.3%. Full JA suite 77 files / 6888 passed, tsc clean.
+    First pass was numerically green but semantically hollow ("I'm in a hurry,
+    so I get medicine from the doctor") — the coherence gate is Fable reading
+    every sentence, not the tool. **TTS: 86 cards missing clips module-gate-wide
+    on this branch (47 carriers + 39 here)** — generate once for m30–m34 before
+    merging (same recipe as carriers). Merge order: this branch supersedes
+    n4-carriers (contains it).
   - Recycle-rate tool: `recycle-rate-2026-09-09` @ `e3d08dbb`,
     `scripts/ja-recycle-rate.ts` (+lib, +test, own vitest config), report
     `docs/ja-recycle-rate-2026-09-09.md`. Finding: literal ≥20% "any earlier
