@@ -1097,9 +1097,9 @@ function lesson10(): LessonStep[] {
           id: "t1-appelles",
           npc: {
             speaker: "Théo",
-            kana: "Salut ! Comment tu t'appelles ?",
-            audioText: "salut ! comment tu t'appelles ?",
-            gloss: "Hi! What's your name?",
+            kana: "Salut ! Tu habites où ?",
+            audioText: "salut ! tu habites où ?",
+            gloss: "Hi! Where do you live?",
           },
           goal: "Say you live in Paris.",
           reply: {
