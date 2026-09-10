@@ -1,0 +1,242 @@
+module: m29
+title: "Quiero verlo"
+frame: none
+throughModule: m28
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m29 — the SECOND clitic position: lo/la/los/las (m16) and me/te/se
+# (m17) may now fuse onto the end of an infinitive, instead of sitting
+# only before the conjugated verb.
+#
+#     lo quiero ver         quiero verlo          (both correct, m7/m14 "quiero")
+#     la puedo comprar      puedo comprarla        (both correct, m14 "puedo")
+#     lo voy a hacer        voy a hacerlo          (both correct, m28 "voy a")
+#     me quiero levantar    quiero levantarme      (both correct, m17 pair)
+#
+# ONE rule, the whole module: when a conjugated verb (querer/poder/ir a)
+# is followed by a bare infinitive, the pronoun that would normally sit
+# in front of the conjugated verb has a SECOND legal home — fused onto
+# the end of that infinitive. Nothing else changes: the pronoun is
+# always PRIOR (m16's lo/la/los/las, m17's me/te/se), the host verbs are
+# always PRIOR (querer m7/m14, poder m14, ir a m28), and the infinitives
+# it fuses onto are the same PRIOR bare-verb set m10–m17 already built.
+# This is a placement rule, not a vocabulary module — see "NEW ATOMS: 0"
+# below.
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# Four lines of evidence:
+#   1. **This exact gap has been named and deferred THREE times by the
+#      course's own authoring lineage, more than any other open item.**
+#      `m16.ir.yaml`'s header states the ban explicitly and hands it
+#      forward by name: "NOTHING in this module attaches a pronoun to an
+#      infinitive («verlo», «comprarlo»)... Do not mention them. m17
+#      may." `m17.ir.yaml` restates the identical ban for its own
+#      pronouns («levantarme», «ducharte») and does not resolve it
+#      either — carrying it forward a second time without naming a
+#      target module. `m28-header.yaml`'s REJECTED ALTERNATIVE 1 named
+#      it a third time, this time explicitly as "the strongest m29
+#      candidate": "a natural, well-motivated L9 contrast lesson for
+#      THAT future module ('lo voy a comprar' vs 'voy a comprarlo')."
+#      Three consecutive modules punting the same item is the strongest
+#      "resolve it now" signal anywhere in this course's history — the
+#      m27/m28 precedent for a single-deferral item (the bare «ir»
+#      infinitive) was itself treated as urgent after only two
+#      mentions (m26, m27) before m28 closed it.
+#   2. **Correcting the record: m28's own framing of this item was
+#      stale.** m28-header.yaml describes the target as "object
+#      pronoun placement... a genuinely NEW mechanic with no PRIOR
+#      shape to lean on." That is not accurate as of m29: object
+#      pronouns themselves are NOT new — direct-object lo/la/los/las
+#      shipped at m16 ("Lo veo," LIVE 2026-09-09) and reflexive me/te/se
+#      shipped at m17 ("Me levanto," LIVE 2026-09-09), both fully on
+#      prod with their own machine-enforced placement gates. What is
+#      genuinely new, and the only thing m29 teaches, is the SECOND
+#      POSITION for a pronoun the learner already owns — a narrower,
+#      more precise, and better-evidenced claim than "introduce object
+#      pronouns," which this brief does NOT re-teach. (This correction
+#      matters for anyone reading m28's brief after this one: treat
+#      m28's REJECTED ALTERNATIVE 1 as directionally right but
+#      imprecise about what was actually missing.)
+#   3. **Structural readiness: zero new vocabulary, two host
+#      constructions already in place.** `querer`/`poder` + bare
+#      infinitive has been live since m14 (`quiero`/`quieres`/`quiere`,
+#      m7/m14; `puedo`/`puedes`/`puede`, m14; bare infinitives `querer`/
+#      `poder`, m14) and drilled again at m24 (imperfect `quería`/
+#      `podía`). `ir a` + bare infinitive is m28. That is TWO
+#      independent, well-drilled "conjugated verb + bare infinitive"
+#      shapes to hang the second-position rule on — exactly the
+#      "second complement-taking verb to contrast against" m28's own
+#      header asked for, just arriving one module later than that
+#      header assumed the pronouns themselves would need to.
+#   4. **The interleave rhythm, examined and accepted, not silently
+#      violated.** m26 (grammar: imperfect) → m27 (vocab, break) → m28
+#      (grammar: near future) would put m29 back-to-back with a second
+#      grammar module if m29 is also grammar. Named here explicitly
+#      rather than defaulting to a third break in four modules: m28
+#      taught verb PERIPHRASIS (how to build a new tense-like meaning
+#      from ir + a + infinitive); m29 teaches PRONOUN SYNTAX (where a
+#      already-known word may stand in a sentence) — different
+#      grammatical subsystems that happen to compose, not a repeat of
+#      m28's own mechanic the way back-to-back imperfect waves would
+#      be. Weighed against a third vocabulary break: `m28-header.yaml`
+#      REJECTED ALTERNATIVE 2 already ruled out stacking a second
+#      zero-new-grammar module directly behind a break-in-kind (m27)
+#      for the identical reason it would apply here in reverse — two
+#      consecutive breaks (m27, then a vocab m29) would stall the
+#      course's own sentence-building range for 20 lessons. Given a
+#      three-times-deferred, precisely-scoped, zero-new-vocabulary item
+#      sitting ready, resolving it now outweighs rhythm-purity for its
+#      own sake. House vocabulary (the clean lexical gap m28 already
+#      identified) is named below as the strong m30 candidate instead —
+#      guaranteeing the very next module IS the break this module
+#      itself declines to be.
+#
+# ── REJECTED ALTERNATIVE 1: a lexicon break (house vocabulary) ────────────
+# Real, viable, and already named as the one clean lexical domain left
+# by `m27-header.yaml`'s "WHICH SEVEN WORDS" section (clothing PRIOR
+# since m12/m16, food PRIOR since m7/m11/m13, body partially PRIOR since
+# m17). Rejected for m29, not for the course: seeing evidence point 1
+# above, three consecutive deferrals of the same named, well-evidenced
+# gap outweighs the interleave-rhythm argument for a break here — see
+# point 4. Named explicitly as m30, paying forward the same courtesy
+# m27 and m28 extended to their own deferred items, so the very next
+# module IS the break m29 is not.
+#
+# ── REJECTED ALTERNATIVE 2: «tener que» / «hay que» + infinitivo
+#    (obligation) ───────────────────────────────────────────────────────
+# Real A2 content and, like m29's own theme, zero new vocabulary in
+# principle (`tener` is PRIOR since m15; only the fixed link «que» and
+# the phrase shape would be new). Grep-verified
+# (`grep -rn "tener que\|hay que" curriculum/*.ts curriculum/ir/*.ir.yaml`
+# — zero hits) — genuinely unspent. Rejected: it is the SAME shape the
+# course already has (a conjugated verb followed by a bare-infinitive
+# complement — querer/poder m14, ir a m28, now tener que) with no new
+# capability for a learner to reason through beyond "here is a fourth
+# verb that takes this same complement," exactly the "more of the same
+# mechanic, not a new idea" trap `m27-header.yaml`'s REJECTED
+# ALTERNATIVE 3 named for a third consolidation module. m29's
+# second-position rule is a structurally different claim (pronoun
+# placement, not complement-taking), which is why it wins over this.
+# Left open as a plausible future module — reserve it for whenever the
+# course next wants a fourth "verb + bare infinitive" host without a
+# new syntax rule attached.
+#
+# ── REJECTED ALTERNATIVE 3: «estar + gerundio» (present progressive) ──────
+# Real, high-value A2 content, and — correcting an easy
+# misconception — NOT structurally banned: pin E7
+# (`moduleBarGuards.ts:467-491,648-649`) only forbids glossing a
+# Spanish SIMPLE present as an English progressive ("como" ≠ "I am
+# eating") to stop the course silently priming a construction it
+# hasn't taught; the pin's own comment says outright that "estar +
+# gerundio LICENSES the progressive gloss" once it exists
+# (`esBarNegativeControls.test.ts:192`). So this is a real future
+# module, not a gate fight. Rejected for m29 specifically: it needs its
+# own new morphology (the -ando/-iendo gerund form, across however many
+# PRIOR verbs it touches) and would be a second new idea competing with
+# the second-position rule for the same ten lessons — this course's own
+# "one idea, the whole module" discipline (every header m21-m28 opens
+# with exactly one) argues against merging them. Reserve as its own
+# module; it composes cleanly with m29's rule later (a pronoun fused
+# onto a gerund is NOT standard and is out of scope even then — that
+# would be a different, riskier claim to verify).
+#
+# ── REJECTED ALTERNATIVE 4: comparatives (más/menos... que, tan... como) ──
+# Real content, deprioritized on a genuine homograph risk this course
+# already flags carefully elsewhere (see m28's own "voy a" ambiguity
+# section): «como» is a PRIOR, actively-used atom from m11 meaning "I
+# eat" (1st person singular of «comer», grep-confirmed:
+# `curriculum/m11.ts` carries `surface: "como"`). The comparative «como»
+# ("as/like," tan alto como...) is a different word with the identical
+# surface form — a genuine lexical homograph, not merely a syntactic
+# ambiguity like "voy a" was. Safely teaching it needs its own careful
+# ambiguity section and sentence-level disambiguation discipline, which
+# is more authoring risk than this module's budget should absorb
+# alongside a new placement rule. Reserved as a future module that can
+# give the «como» collision the dedicated attention m28 gave "voy a."
+#
+# ── THE «NO THIRD POSITION» RULE, NAMED EXPLICITLY (inherited from
+#    m16/m17, now load-bearing across TWO verbs) ─────────────────────────
+# m16.test.ts and m17.test.ts already ban a pronoun between the two
+# verbs within their own modules ("no pointer... between the two
+# verbs" — the exact language m17.ts's own lesson prose already uses:
+# "the pointer never sits between the two verbs"). m29 re-spends that
+# same rule as its core discrimination: exactly two positions are legal
+# (immediately before the conjugated verb, OR fused onto the end of the
+# infinitive) and a third slot — between «quiero» and «ver», e.g. "*quiero
+# lo ver" — is not just untaught, it is WRONG, the same way "*verlo" was
+# wrong to print in m16. Every discrimination step in this module
+# (agreementCloze / textMcq distractors) must include this exact
+# mid-position foil, not only a gender/number foil, or the module's
+# central claim goes untested.
+#
+# ── FUSED-INFINITIVE ACCENTUATION: A WRITTEN-FORM DETAIL, NOT A NEW
+#    RULE FOR THE LEARNER TO REASON THROUGH ───────────────────────────────
+# «dármelo», two pronouns stacked (double object), and any fused form
+# needing a written accent to keep the original stressed syllable
+# (e.g. a two-pronoun stack) are OUT OF SCOPE — this module fuses
+# exactly ONE pronoun onto an infinitive that never needed a written
+# accent to begin with («verlo», «comprarla», «hacerlo», «levantarme»,
+# «ducharte» — none gain a diacritic), so no accentuation rule needs to
+# be taught. Do not introduce a two-pronoun stack anywhere in m29;
+# that is real Spanish and a strictly harder claim, left for whichever
+# future module handles indirect objects (le/les — also out of scope
+# here, deferred to avoid leísmo confusion until its own module can
+# give it the care m16 gave lo/la/los/las).
+#
+# ── NEW ATOMS: 0 (deliberate, verified against 27 modules of
+#    precedent) ────────────────────────────────────────────────────────
+# Every surface this module needs is PRIOR: lo (m16, ES_FUNCTION_WORDS,
+# already debuted), la/los/las (m3/m4 articles, m16 carriers), me/te
+# (m13 particles), se (m17 atom), quiero/quieres/quiere (m7/m14),
+# puedo/puedes/puede (m14), querer/poder (bare infinitives, m14),
+# voy/vas/va/vamos/van/ir (m9/m18/m28), and the bare (non-reflexive)
+# infinitives levantar/duchar/despertar/acostar/lavar/peinar (m17 L7,
+# registered separately from their «-se» dictionary-name atoms) plus
+# the full m10-m17 bare-infinitive set (bailar/cantar/estudiar/hablar/
+# trabajar/comer/correr/escribir/leer/vivir/comprar/cocinar/nadar/
+# viajar/dormir/salir/tener/ver/hacer). This is a placement RULE over
+# entirely PRIOR vocabulary, not a vocabulary module — a thinner
+# newAtoms count than m25 (2) or m28 (2), consistent with
+# [[drafting-coverage-not-volume]]: thin newAtoms is precedented and
+# preferred over inventing surfaces when PRIOR vocabulary already
+# covers the content. Grep-verified no ATOMS.length-nonzero or
+# newAtoms.length-nonzero assumption exists anywhere in the gate suite
+# or `compile-ir-es.mjs` (checked before committing to this count).
+#
+# ── NO NEW EMOJI, NO NEW IMAGEABLE VOCABULARY (matches m28 precedent) ────
+# Zero new atoms means zero new vocab cards — nothing to illustrate.
+# Every emoji this module's lessons reuse (for the PRIOR nouns/verbs
+# carried in its example sentences) is already vendored from m1-m28;
+# no new SVG needs adding to `src/pub/noto-emoji/svg/`.
+#
+# ── SIM NPC-LINE PROVENANCE: NOW MACHINE-ENFORCED, NOT AN OPEN GAP ───────
+# `docs/es-ir-sources/authoring-rules.md`'s dialogue_sim rule is LIVE as
+# of this module (`es-quality.test.ts` → describe("ES quality —
+# dialogue_sim content resolves to registered atoms"), confirmed
+# present at the time of writing). m28's brief still described the
+# analogous sim-scan gap as unresolved; it has since closed. Every NPC
+# line in this module's sims — not just graded replies — must resolve
+# to atoms/function-words this module or a PRIOR module owns, including
+# the fused-infinitive forms («verlo», «comprarla», «levantarme», etc.)
+# themselves, which the gate must be able to decompose back to their
+# PRIOR bare-infinitive + PRIOR-pronoun parts. Verify this decomposition
+# by hand on every sim line before shipping — the gate checks
+# provenance, not that the specific FUSED surface parses correctly.
+#
+# ── ACCENT: SLATE, VERIFIED UNUSED, DELIBERATELY NEUTRAL ─────────────────
+# Checked every `accent:` pair in `curriculum/index.ts` (grep-verified,
+# all 28 pairs read in full): zero hits for `#64748b` or `#334155`.
+# Deliberately NOT thematic the way m28's green was — this module
+# teaches a placement RULE, not a concrete domain, so a neutral
+# structural slate (cool grey-blue, reads as "mechanism" rather than
+# any single referent) fits better than forcing a color story onto
+# grammar the way `hacía`/`estaba` and `nublado`-style modules already
+# don't try to. Distinct at a glance from every PRIOR blue (`#0ea5e9`,
+# `#38bdf8` ×3, `#3b82f6`) and every PRIOR indigo/violet (`#6366f1`,
+# `#818cf8`, `#a78bfa`, `#a855f7`, `#c084fc`) — slate reads distinctly
+# desaturated next to all of them.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms: []
+
+lessons:
