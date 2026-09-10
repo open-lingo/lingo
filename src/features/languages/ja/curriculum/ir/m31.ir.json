@@ -3170,8 +3170,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "カードを かくから せんせいに はなたばを あげたい。",
-          "en": "I'll write a card, so I want to give the teacher a bouquet",
+          "ja": "うたを うたうから せんせいに はなたばを あげたい。",
+          "en": "Because we sing a song, I want to give the teacher a bouquet",
           "exercises": [
             "v-tai",
             "ageru",
@@ -3193,13 +3193,12 @@
         },
         {
           "kind": "sentence",
-          "ja": "じゅぎょうで はなす とき がくせいに ノートを あげたい。",
-          "en": "When talking in class, I want to give the student a notebook",
+          "ja": "がっこうで ならう がくせいに ノートを あげたい。",
+          "en": "I want to give a notebook to the student who studies at school",
           "exercises": [
             "v-tai",
             "ageru",
-            "ni-recipient",
-            "toki"
+            "ni-recipient"
           ],
           "mode": "build"
         },
@@ -3229,25 +3228,24 @@
         },
         {
           "kind": "sentence",
-          "ja": "ともだちを まつ とき ともだちに おれいの カードを あげたい。",
-          "en": "While waiting for my friend, I want to give my friend a thank-you card",
+          "ja": "いつも ノートを かす ともだちに おれいの カードを あげたい。",
+          "en": "I want to give a thank-you card to the friend who always lends me notebooks",
           "exercises": [
             "v-tai",
             "ageru",
-            "no-possession",
-            "toki"
+            "no-possession"
           ],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "いしゃを まつ とき こんど しんせつな いしゃに くすりを もらいたい。",
-          "en": "While waiting for the doctor, next time I want to get medicine from the kind doctor",
+          "ja": "びょういんに つくから こんど しんせつな いしゃに くすりを もらいたい。",
+          "en": "Because I'll arrive at the hospital, next time I want to get medicine from a kind doctor",
           "exercises": [
             "v-tai",
             "morau",
             "na-adj-present",
-            "toki"
+            "kara-because"
           ],
           "mode": "build"
         },
