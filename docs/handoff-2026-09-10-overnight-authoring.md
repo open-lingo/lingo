@@ -75,3 +75,4 @@ fan-out; save small notes here after every step (auto-compaction is on).
 - 10:13 FR conjugation grid committed 19000d72 (second FR stream item 1 done). Running: FR m16, ES m26, JA m41 authors; KO rung 1a.
 - 10:13 FR speech-elision verification lane dispatched (second FR stream item 2). Running: FR m16, ES m26, JA m41 authors; KO rung 1a; FR elision.
 - 10:21 ES m26 committed a5ff3730 (1879 ES green, 170 clips, es manifest 6114). m26 reviewer dispatched; ES m27 brief writer dispatched.
+- 10:22 FR elision lane committed 35e5acdb. Note: that agent used git stash to prove failure (stack verified clean, only another session's practice-wave entry remains). Running: FR m16, JA m41 authors; ES m26 reviewer; ES m27 brief; KO rung 1a.
