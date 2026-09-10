@@ -100,13 +100,13 @@
         scene: { emoji: "📅", title: "Ana plans the weekend", setting: "Ana is asking everyone what they're doing this weekend." }
         turns:
           - id: t1
-            npc: { speaker: "Ana", es: "¿Qué van a hacer tú y Diego el fin de semana?", audioText: "¿qué van a hacer tú y Diego el fin de semana?", gloss: "What are you and Diego going to do this weekend?" }
-            goal: "Say you're going to travel together."
+            npc: { speaker: "Ana", es: "¿Van a viajar tú y Diego el fin de semana?", audioText: "¿van a viajar tú y Diego el fin de semana?", gloss: "Are you and Diego going to travel this weekend?" }
+            goal: "Say yes, you're going to travel together."
             reply:
               mode: build
-              tiles: ["vamos", "a", "viajar", "juntos", "van"]
-              answer: "vamos a viajar juntos"
-            replyGloss: "We're going to travel together."
+              tiles: ["sí", "vamos", "a", "viajar", "juntos", "van"]
+              answer: "sí vamos a viajar juntos"
+            replyGloss: "Yes, we're going to travel together."
             explanation: "«vamos» — you and Diego together (m18), not «van» — that would leave you out of the group."
           - id: t2
             npc: { speaker: "Ana", es: "Mientras ustedes van a viajar, Sofía va a cocinar porque tiene hambre.", audioText: "mientras ustedes van a viajar, Sofía va a cocinar porque tiene hambre.", gloss: "While you all are going to travel, Sofía is going to cook because she's hungry." }
@@ -131,7 +131,7 @@
             replyGloss: "That's why I'm also going."
             explanation: "«por eso» (m25) states the result of the sunny weather — Sam's plan is why you're joining him."
           - id: t4
-            npc: { speaker: "Ana", es: "¿Y qué vas a hacer tú exactamente?", audioText: "¿y qué vas a hacer tú exactamente?", gloss: "And what exactly are you going to do?" }
+            npc: { speaker: "Ana", es: "Cuéntamelo todo, de principio a fin.", audioText: "cuéntamelo todo, de principio a fin.", gloss: "Tell the whole story, start to finish." }
             goal: "Say your full weekend plan."
             reply:
               mode: build

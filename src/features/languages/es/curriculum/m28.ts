@@ -853,7 +853,7 @@ const ES_M28_5: LessonContent = {
             audioText: "sí. ¿y tú vas a cocinar hoy?",
             gloss: "Yes. And are you going to cook today?",
           },
-          goal: "Say no, you're going to eat with Ana.",
+          goal: "Say no, you're going to eat with Diego.",
           reply: {
             mode: "choice",
             options: [
@@ -1679,17 +1679,17 @@ const ES_M28_10: LessonContent = {
           id: "t1",
           npc: {
             speaker: "Ana",
-            kana: "¿Qué van a hacer tú y Diego el fin de semana?",
-            audioText: "¿qué van a hacer tú y Diego el fin de semana?",
-            gloss: "What are you and Diego going to do this weekend?",
+            kana: "¿Van a viajar tú y Diego el fin de semana?",
+            audioText: "¿van a viajar tú y Diego el fin de semana?",
+            gloss: "Are you and Diego going to travel this weekend?",
           },
-          goal: "Say you're going to travel together.",
+          goal: "Say yes, you're going to travel together.",
           reply: {
             mode: "build",
-            tiles: ["vamos", "a", "viajar", "juntos", "van"],
-            answer: "vamos a viajar juntos",
+            tiles: ["sí", "vamos", "a", "viajar", "juntos", "van"],
+            answer: "sí vamos a viajar juntos",
           },
-          replyGloss: "We're going to travel together.",
+          replyGloss: "Yes, we're going to travel together.",
           explanation: "«vamos» — you and Diego together (m18), not «van» — that would leave you out of the group.",
         },
         {
@@ -1735,9 +1735,9 @@ const ES_M28_10: LessonContent = {
           id: "t4",
           npc: {
             speaker: "Ana",
-            kana: "¿Y qué vas a hacer tú exactamente?",
-            audioText: "¿y qué vas a hacer tú exactamente?",
-            gloss: "And what exactly are you going to do?",
+            kana: "Cuéntamelo todo, de principio a fin.",
+            audioText: "cuéntamelo todo, de principio a fin.",
+            gloss: "Tell the whole story, start to finish.",
           },
           goal: "Say your full weekend plan.",
           reply: {

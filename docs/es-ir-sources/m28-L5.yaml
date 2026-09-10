@@ -99,7 +99,7 @@
             explanation: "«van» — Sam and Luis, more than one (m18). «va» would ask about only one of them."
           - id: t2
             npc: { speaker: "Ana", es: "Sí. ¿Y tú vas a cocinar hoy?", audioText: "sí. ¿y tú vas a cocinar hoy?", gloss: "Yes. And are you going to cook today?" }
-            goal: "Say no, you're going to eat with Ana."
+            goal: "Say no, you're going to eat with Diego."
             reply:
               mode: choice
               options:
