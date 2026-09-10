@@ -77,3 +77,4 @@ fan-out; save small notes here after every step (auto-compaction is on).
 - 10:21 ES m26 committed a5ff3730 (1879 ES green, 170 clips, es manifest 6114). m26 reviewer dispatched; ES m27 brief writer dispatched.
 - 10:22 FR elision lane committed 35e5acdb. Note: that agent used git stash to prove failure (stack verified clean, only another session's practice-wave entry remains). Running: FR m16, JA m41 authors; ES m26 reviewer; ES m27 brief; KO rung 1a.
 - 10:28 FR m16 «Allé, allée» committed f998dc3f (147 clips, fr manifest 1320, FR 1185 passed). Reviewer + m17 author dispatched.
+- 10:30 ES m26 review committed a3580612 (3 IR fixes: de niños→de niño ×2, comíais tile; 3 clips, es manifest 6117). Borderline left: L6/L7 lack m23/m25 connectives (header-comment intent only, not a gate).
