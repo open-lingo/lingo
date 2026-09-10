@@ -238,6 +238,8 @@ CONVENTIONS (docs/ko-content-conventions-2026-09-10.md — follow exactly):
   - YES/NO WORDS: ううん (dispreferred "no") → 아니, NEVER 응; はい/うん ("yes") → 네/응 respectively; "아니오" is not a word — use 아니요 (polite) or 아니 (plain) — e.g. ううん、ちがう。→ 아니, 아니야.
   - MNEMONIC TEMPLATE: a "kana mnemonic" item's Korean text is exactly the template 한국어 '<hangul>'와 비슷한 소리 (문화체육관광부 transliteration), never an English-pun explanation — e.g. あ → 한국어 '아'와 비슷한 소리.
   - EN-ANCHORED, NO JA SUBJECT: an item with no "ja" field (e.g. "multiple-choice option text") carries no JA subject to mirror — never add 저는/나는/저/나 unless the "en" text itself has an explicit subject pronoun AND the missing JA would mark it; default to subject-less Korean, e.g. EN "Cold" (mcq-option) → 추워요, not 저는 추워요.
+  - SENTENCE FORMS: a full sentence is never left in the bare dictionary form (-다 stem); conjugate it to the register the item's register rule selects (해요체 → 놀아요, 해체 → 놀아, plain written → 논다, 합니다체 → 놉니다) — e.g. EN "I play with a friend on Thursday" (plain) → 목요일에 친구와 논다, not 놀다.
+  - RELATIVE-TIME NOUNS: 올해/작년/다음 달 and similar bare JA time nouns take NO 에 particle when the JA itself has none — mirror the bare noun, don't add 에.
 
 Categories in this batch, and how to handle each:
   - "grammar-point rule/example" / "explanation": explains or exemplifies a JA grammar point (existence verbs ある/いる, negation via ～ない, location questions, spatial relations こ/そ/あ demonstratives). Keep terminology consistent with how a Korean-language JA-grammar course would name these forms. An "en" of exactly "(incorrect)" marks a deliberately WRONG example sentence — translate it as a short Korean equivalent marker (e.g. "(틀림)"), never as a full sentence.

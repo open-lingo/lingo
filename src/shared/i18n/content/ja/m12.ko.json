@@ -1,0 +1,2050 @@
+{
+  "schema": 1,
+  "moduleId": "m12",
+  "lang": "ko",
+  "generatedAt": "2026-09-10",
+  "draftedBy": "qwen3.5:122b-a10b-q4_K_M",
+  "entryCount": 408,
+  "entries": [
+    {
+      "anchor": "m12/atom:あたらしい/gloss",
+      "text": "새롭다",
+      "enSourceHash": "11507a0e2f5e69d5"
+    },
+    {
+      "anchor": "m12/atom:いい / よい/gloss",
+      "text": "좋다",
+      "enSourceHash": "770e607624d68926"
+    },
+    {
+      "anchor": "m12/atom:いい/gloss",
+      "text": "좋다, 괜찮다",
+      "enSourceHash": "c6dd090efd742468"
+    },
+    {
+      "anchor": "m12/atom:いい/shortGloss",
+      "text": "좋다",
+      "enSourceHash": "770e607624d68926"
+    },
+    {
+      "anchor": "m12/atom:おいしい/gloss",
+      "text": "맛있다",
+      "enSourceHash": "3c29fc3464377a28"
+    },
+    {
+      "anchor": "m12/atom:おおきい/gloss",
+      "text": "크다",
+      "enSourceHash": "2a21fe6d592a19b7"
+    },
+    {
+      "anchor": "m12/atom:おもしろい/gloss",
+      "text": "재미있다",
+      "enSourceHash": "637ab2808704d851"
+    },
+    {
+      "anchor": "m12/atom:きれい/gloss",
+      "text": "예쁘다, 깨끗하다",
+      "enSourceHash": "6372dd9694a787c7"
+    },
+    {
+      "anchor": "m12/atom:しずか/gloss",
+      "text": "조용하다",
+      "enSourceHash": "008f0747f4e27c84"
+    },
+    {
+      "anchor": "m12/atom:じゃない/shortGloss",
+      "text": "아니다",
+      "enSourceHash": "2dd6dad08f7ece24"
+    },
+    {
+      "anchor": "m12/atom:じゃなかった/shortGloss",
+      "text": "아니었다",
+      "enSourceHash": "5a391cbcec65c132"
+    },
+    {
+      "anchor": "m12/atom:ちいさい/gloss",
+      "text": "작다",
+      "enSourceHash": "180ca01b95f0dfdd"
+    },
+    {
+      "anchor": "m12/atom:どう/gloss",
+      "text": "어떻게, 어떤 방식으로",
+      "enSourceHash": "b3e961f4f43439f7"
+    },
+    {
+      "anchor": "m12/atom:にぎやか/gloss",
+      "text": "활기차다, 붐비다",
+      "enSourceHash": "9a0880592b4b27e2"
+    },
+    {
+      "anchor": "m12/atom:ばん/gloss",
+      "text": "저녁",
+      "enSourceHash": "e5bd0801d10e5965"
+    },
+    {
+      "anchor": "m12/atom:ふるい/gloss",
+      "text": "오래되다 (사람에게 쓰이지 않음)",
+      "enSourceHash": "8f6ae714cba3340d"
+    },
+    {
+      "anchor": "m12/atom:ゆうめい/gloss",
+      "text": "유명하다",
+      "enSourceHash": "79b1bc81314de30f"
+    },
+    {
+      "anchor": "m12/atom:ペン/gloss",
+      "text": "펜",
+      "enSourceHash": "e21a6b0cb193057e"
+    },
+    {
+      "anchor": "m12/atom:ラーメン/gloss",
+      "text": "라멘",
+      "enSourceHash": "8930b1916b28f31f"
+    },
+    {
+      "anchor": "m12/atom:レストラン/gloss",
+      "text": "레스토랑",
+      "enSourceHash": "ee275d64dafcd283"
+    },
+    {
+      "anchor": "m12/gp:i-adj-negative/ex:うたは おもしろくない。",
+      "text": "노래는 재미없다.",
+      "enSourceHash": "9b9635311b73e49b"
+    },
+    {
+      "anchor": "m12/gp:i-adj-negative/ex:くるまは あたらしくない。",
+      "text": "차는 새롭지 않다.",
+      "enSourceHash": "4d24417a2e90e11e"
+    },
+    {
+      "anchor": "m12/gp:i-adj-negative/ex:ごはんは おいしくない。",
+      "text": "밥은 맛없다.",
+      "enSourceHash": "1ac6a2933c8652fe"
+    },
+    {
+      "anchor": "m12/gp:i-adj-negative/ex:ほんは たかいじゃない。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m12/gp:i-adj-negative/ex:ほんは たかくない。",
+      "text": "책은 비싸지 않다.",
+      "enSourceHash": "1f7c02d305ff00f5"
+    },
+    {
+      "anchor": "m12/gp:i-adj-negative/ex:みせは よくない。",
+      "text": "가게는 좋지 않다.",
+      "enSourceHash": "9d7a944b7468e040"
+    },
+    {
+      "anchor": "m12/gp:i-adj-negative/ex:やまは おおきくない。",
+      "text": "산은 크지 않다.",
+      "enSourceHash": "54c9bc8da51eedbb"
+    },
+    {
+      "anchor": "m12/gp:i-adj-past-negative/ex:うたは おもしろくなかった。",
+      "text": "노래는 재미없었다.",
+      "enSourceHash": "0f4b4bf083b700cd"
+    },
+    {
+      "anchor": "m12/gp:i-adj-past-negative/ex:きのうは よくなかった。",
+      "text": "어제는 좋지 않았다.",
+      "enSourceHash": "f78186f0803ecb7f"
+    },
+    {
+      "anchor": "m12/gp:i-adj-past-negative/ex:ごはんは おいしくなかった。",
+      "text": "밥은 맛없었다.",
+      "enSourceHash": "b0513fbc1d096d3c"
+    },
+    {
+      "anchor": "m12/gp:i-adj-past-negative/ex:ほんは たかくないでした。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m12/gp:i-adj-past-negative/ex:ほんは たかくなかった。",
+      "text": "책은 비싸지 않았다.",
+      "enSourceHash": "3903282aa5a81163"
+    },
+    {
+      "anchor": "m12/gp:i-adj-past-negative/ex:やまは おおきくなかった。",
+      "text": "산은 크지 않았다.",
+      "enSourceHash": "1c7fdaa8e2f38860"
+    },
+    {
+      "anchor": "m12/gp:i-adj-past/ex:いえは ふるかった。",
+      "text": "집은 오래되었다.",
+      "enSourceHash": "60d176992c027c50"
+    },
+    {
+      "anchor": "m12/gp:i-adj-past/ex:かさは やすかった。",
+      "text": "우산은 쌌다.",
+      "enSourceHash": "7a9b749d81ccfe99"
+    },
+    {
+      "anchor": "m12/gp:i-adj-past/ex:きのうは よかった。",
+      "text": "어제는 좋았다.",
+      "enSourceHash": "19596ab424b12907"
+    },
+    {
+      "anchor": "m12/gp:i-adj-past/ex:ごはんは おいしかった。",
+      "text": "밥은 맛있었다.",
+      "enSourceHash": "95d1294df44fd87c"
+    },
+    {
+      "anchor": "m12/gp:i-adj-past/ex:ほんは たかいだった。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m12/gp:i-adj-past/ex:ほんは たかかった。",
+      "text": "책은 비쌌다.",
+      "enSourceHash": "971ea98d89946080"
+    },
+    {
+      "anchor": "m12/gp:i-adj-past/ex:やまは おおきかった。",
+      "text": "산은 컸다.",
+      "enSourceHash": "6d01fcdb8de8c9c2"
+    },
+    {
+      "anchor": "m12/gp:i-adj-present/ex:いい ひと",
+      "text": "좋은 사람",
+      "enSourceHash": "819d2c634f434fc6"
+    },
+    {
+      "anchor": "m12/gp:i-adj-present/ex:ごはんは どうに？",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m12/gp:i-adj-present/ex:ごはんは どう？",
+      "text": "밥은 어때?",
+      "enSourceHash": "ff49a539b873dfe5"
+    },
+    {
+      "anchor": "m12/gp:i-adj-present/ex:ちいさい ねこ",
+      "text": "작은 고양이",
+      "enSourceHash": "80be2ca64eef1f7a"
+    },
+    {
+      "anchor": "m12/gp:i-adj-present/ex:にほんは どうですか。",
+      "text": "일본은 어때요?",
+      "enSourceHash": "aa4c78246dc60590"
+    },
+    {
+      "anchor": "m12/gp:i-adj-present/ex:ねこは ちいさい。",
+      "text": "고양이는 작다.",
+      "enSourceHash": "0cc98169cf191a64"
+    },
+    {
+      "anchor": "m12/gp:i-adj-present/ex:ほんは たかい。",
+      "text": "책은 비싸다.",
+      "enSourceHash": "e94c0490bdb30e2d"
+    },
+    {
+      "anchor": "m12/gp:i-adj-present/ex:ほんは たかいだ。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m12/gp:i-adj-present/ex:ほんは たかいでした。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m12/gp:i-adj-present/ex:ほんは たかいです。",
+      "text": "책은 비싸요.",
+      "enSourceHash": "fe018420ac2539ae"
+    },
+    {
+      "anchor": "m12/gp:i-adj-present/ex:ほんは たかくないです。",
+      "text": "책은 비싸지 않아요.",
+      "enSourceHash": "41d54e094bbf7eb6"
+    },
+    {
+      "anchor": "m12/gp:i-adj-present/ex:パンは やすい。",
+      "text": "빵은 싸다.",
+      "enSourceHash": "eb7cb1cb1b376ed8"
+    },
+    {
+      "anchor": "m12/gp:na-adj-negative/ex:いえは しずかくない。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m12/gp:na-adj-negative/ex:いえは しずかじゃない。",
+      "text": "집은 조용하지 않다.",
+      "enSourceHash": "84cd69817e5a075d"
+    },
+    {
+      "anchor": "m12/gp:na-adj-negative/ex:えきは にぎやかじゃない。",
+      "text": "역은 활기차지 않다.",
+      "enSourceHash": "b05024223b4420be"
+    },
+    {
+      "anchor": "m12/gp:na-adj-negative/ex:それは ねこじゃない。",
+      "text": "그것은 고양이가 아니다.",
+      "enSourceHash": "f818567e38c4bcc3"
+    },
+    {
+      "anchor": "m12/gp:na-adj-negative/ex:はなは きれいじゃない。",
+      "text": "꽃은 예쁘지 않다.",
+      "enSourceHash": "941a3fe983d21200"
+    },
+    {
+      "anchor": "m12/gp:na-adj-past/ex:いえは きれいじゃなかった。",
+      "text": "집은 깨끗하지 않았다.",
+      "enSourceHash": "a10e5167fd60a59c"
+    },
+    {
+      "anchor": "m12/gp:na-adj-past/ex:えきは にぎやかだった。",
+      "text": "역은 활기찼다.",
+      "enSourceHash": "9ab1bc5322e9f7fb"
+    },
+    {
+      "anchor": "m12/gp:na-adj-past/ex:きのうは ひまじゃなかった。",
+      "text": "어제는 한가하지 않았다.",
+      "enSourceHash": "635a29c1ca62fb9e"
+    },
+    {
+      "anchor": "m12/gp:na-adj-past/ex:みせは しずかかった。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m12/gp:na-adj-past/ex:みせは しずかだった。",
+      "text": "가게는 조용했다.",
+      "enSourceHash": "3ee5db278196e318"
+    },
+    {
+      "anchor": "m12/gp:na-adj-present/ex:おおきい いえ",
+      "text": "큰 집",
+      "enSourceHash": "d3cd4e35b2b7d2c6"
+    },
+    {
+      "anchor": "m12/gp:na-adj-present/ex:きょうは ひまだ。",
+      "text": "오늘은 한가하다.",
+      "enSourceHash": "8058e2f34cd85421"
+    },
+    {
+      "anchor": "m12/gp:na-adj-present/ex:げんきな ひと",
+      "text": "건강한 사람",
+      "enSourceHash": "f929b8a213c01ea7"
+    },
+    {
+      "anchor": "m12/gp:na-adj-present/ex:ミカは げんきだ。",
+      "text": "미카는 건강하다.",
+      "enSourceHash": "9b22a3242651b95e"
+    },
+    {
+      "anchor": "m12/gp:na-adj-present/ex:ミカは げんきな。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/en:2974744982f08b20",
+      "text": "우산",
+      "enSourceHash": "2974744982f08b20"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/en:2b2961a431b23c90",
+      "text": "자동차",
+      "enSourceHash": "2b2961a431b23c90"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/en:3b80d38f7686a8b5",
+      "text": "산",
+      "enSourceHash": "3b80d38f7686a8b5"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/en:4bdf40d0d1ae3611",
+      "text": "밥/식사",
+      "enSourceHash": "4bdf40d0d1ae3611"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/en:77af778b51abd4a3",
+      "text": "고양이",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/en:bd8594d0ac72b819",
+      "text": "큰 배가 있다",
+      "enSourceHash": "bd8594d0ac72b819"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/en:d6e21286621a8586",
+      "text": "집",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/en:e8bd94238e087a91",
+      "text": "작은 배가 있다",
+      "enSourceHash": "e8bd94238e087a91"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/en:eb6e3c27ba794768",
+      "text": "배는 낡다",
+      "enSourceHash": "eb6e3c27ba794768"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/en:f576a63f2b8d49a6",
+      "text": "새로운 자동차가 있다",
+      "enSourceHash": "f576a63f2b8d49a6"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/ja:いい ともだちが いる",
+      "text": "친구에게 말하세요: 좋은 친구가 있어",
+      "enSourceHash": "3ec7d807191643a8"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/ja:おおきい かさを かう",
+      "text": "친구에게 말하세요: 큰 우산을 사",
+      "enSourceHash": "45453d641b53cc9f"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/ja:くるまは あたらしい",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/ja:ごはんは おいしい",
+      "text": "친구에게 말하세요: 밥은 맛있어",
+      "enSourceHash": "f761e0976592a30e"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/ja:ねこは ちいさい",
+      "text": "친구에게 말하세요: 고양이는 작아",
+      "enSourceHash": "8b1f3c0805189a26"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/ja:ふるい いえに いく",
+      "text": "친구에게 말하세요: 낡은 집으로 가",
+      "enSourceHash": "62313384d9ad82d5"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/ja:ほんは おもしろい",
+      "text": "친구에게 말하세요: 책은 재미있어",
+      "enSourceHash": "388756ec7917007e"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/ja:やまは おおきい",
+      "text": "친구에게 말하세요: 산은 커",
+      "enSourceHash": "e428c1a563b908a8"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/ja:ミカの あたらしい じてんしゃは おおきい",
+      "text": "친구에게 말하세요: 미카의 새로운 자전거는 커",
+      "enSourceHash": "f2c07a177be3b515"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/en:1498618ee4b6d1c1",
+      "text": "고양이는 크지 않다",
+      "enSourceHash": "1498618ee4b6d1c1"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/en:2974744982f08b20",
+      "text": "우산",
+      "enSourceHash": "2974744982f08b20"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/en:3b80d38f7686a8b5",
+      "text": "산",
+      "enSourceHash": "3b80d38f7686a8b5"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/en:63f75c890b05405e",
+      "text": "노래",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/en:a9f74d1ec36ebdeb",
+      "text": "차",
+      "enSourceHash": "a9f74d1ec36ebdeb"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/en:da0dca81907ab4d7",
+      "text": "개는 새롭지 않다",
+      "enSourceHash": "da0dca81907ab4d7"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/en:dcc8f36731129ac9",
+      "text": "개는 크다",
+      "enSourceHash": "dcc8f36731129ac9"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/en:e8b455340e57a236",
+      "text": "\"배\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "e8b455340e57a236"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/en:edb6e379fb0443f1",
+      "text": "개는 크지 않다",
+      "enSourceHash": "edb6e379fb0443f1"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/ja:うたは おもしろくない",
+      "text": "친구에게 말하세요: 노래는 재미없어",
+      "enSourceHash": "be882c566b8d0f09"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/ja:じてんしゃは あたらしくない",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/ja:ちゃは おいしくない",
+      "text": "친구에게 말하세요: 차는 맛없어",
+      "enSourceHash": "a5d68ead7e76a635"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/ja:ほんは たかくない",
+      "text": "친구에게 말하세요: 책은 비싸지 않아",
+      "enSourceHash": "e20bcbf0d9f3bc7b"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/ja:みせは よくない",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/ja:やすい かさは おおきくない",
+      "text": "친구에게 말하세요: 싼 우산은 크지 않아",
+      "enSourceHash": "bab1cea4ab7323ee"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/ja:やまは おおきくない",
+      "text": "친구에게 말하세요: 산은 크지 않아",
+      "enSourceHash": "ad671f973b1b82df"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/ja:ミカの あたらしい かさは たかくない",
+      "text": "친구에게 말하세요: 미카의 새 우산은 비싸지 않아",
+      "enSourceHash": "0bb09c19a557ade8"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/en:2974744982f08b20",
+      "text": "우산",
+      "enSourceHash": "2974744982f08b20"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/en:3b80d38f7686a8b5",
+      "text": "산",
+      "enSourceHash": "3b80d38f7686a8b5"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/en:4bdf40d0d1ae3611",
+      "text": "밥",
+      "enSourceHash": "4bdf40d0d1ae3611"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/en:5e84775270706fc6",
+      "text": "어제 밥은 맛있었다",
+      "enSourceHash": "5e84775270706fc6"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/en:9523d9fbe79bcf3e",
+      "text": "어제",
+      "enSourceHash": "9523d9fbe79bcf3e"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/en:bfa4efc1bf599aac",
+      "text": "미카의 집은 낡았다",
+      "enSourceHash": "bfa4efc1bf599aac"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/en:c2e39e6bc6b5fe44",
+      "text": "어제 친구와 맛있는 밥을 먹었다",
+      "enSourceHash": "c2e39e6bc6b5fe44"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/en:d6e21286621a8586",
+      "text": "집",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/en:ee48eaeecc741b68",
+      "text": "어제 우산은 쌌다",
+      "enSourceHash": "ee48eaeecc741b68"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/ja:いえは ふるかった",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/ja:うたは おもしろかった",
+      "text": "친구에게 말하세요: 노래는 재미있었어",
+      "enSourceHash": "951d47108705ac7e"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/ja:きのう ごはんは おいしかった",
+      "text": "친구에게 말하세요: 어제 밥은 맛있었어",
+      "enSourceHash": "4c1bf8bfa13f44f8"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/ja:きのう ともだちと おいしい ごはんを たべた",
+      "text": "친구에게 말하세요: 어제 친구와 맛있는 밥을 먹었어",
+      "enSourceHash": "fbaa9a02a671ab01"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/ja:きのうは よかった",
+      "text": "친구에게 말하세요: 어제는 좋았어",
+      "enSourceHash": "f310097becfbcf3e"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/ja:ほんは たかかった",
+      "text": "친구에게 말하세요: 책은 비쌌어",
+      "enSourceHash": "0ace53ed4809e98d"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/ja:やまは おおきかった",
+      "text": "친구에게 말하세요: 산은 컸어",
+      "enSourceHash": "0df96fbefb51f74c"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/ja:ミカの いえは ふるかった",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/en:24d7a4415b6824e3",
+      "text": "어제 가게는 좋지 않았다",
+      "enSourceHash": "24d7a4415b6824e3"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/en:3b80d38f7686a8b5",
+      "text": "산",
+      "enSourceHash": "3b80d38f7686a8b5"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/en:4bdf40d0d1ae3611",
+      "text": "밥",
+      "enSourceHash": "4bdf40d0d1ae3611"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/en:63f75c890b05405e",
+      "text": "노래",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/en:8c71a92c5a354280",
+      "text": "어제 가게는 컸다",
+      "enSourceHash": "8c71a92c5a354280"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/en:9dc86644c04927df",
+      "text": "오늘 가게는 크지 않다",
+      "enSourceHash": "9dc86644c04927df"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/en:baed831623943be3",
+      "text": "시계",
+      "enSourceHash": "baed831623943be3"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/en:c1cc23fc9fed7efd",
+      "text": "어제는 가게가 크지 않았다",
+      "enSourceHash": "c1cc23fc9fed7efd"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/en:d6e21286621a8586",
+      "text": "집",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/en:e8b455340e57a236",
+      "text": "\"배\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "e8b455340e57a236"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/ja:うたは おもしろくなかった",
+      "text": "친구에게 말하세요: 노래는 재미없었어",
+      "enSourceHash": "3a7fd98da2d41101"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/ja:きのう ごはんは おいしくなかった",
+      "text": "친구에게 말하세요: 어제는 밥이 맛있지 않았어",
+      "enSourceHash": "19c1e2e3b4783542"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/ja:とけいは たかくなかった",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/ja:ふるい いえは おおきくなかった",
+      "text": "친구에게 말하세요: 오래된 집은 크지 않았어",
+      "enSourceHash": "f3301c64bd86bb36"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/ja:ほんは たかくなかった",
+      "text": "친구에게 말하세요: 책은 비싸지 않았어",
+      "enSourceHash": "6e2bc40e66d30d2c"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/ja:やまは おおきくなかった",
+      "text": "친구에게 말하세요: 산은 크지 않았어",
+      "enSourceHash": "dea56151119d2fab"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/ja:ミカの ふるい くるまは たかくなかった",
+      "text": "친구에게 말하세요: 미카의 오래된 차는 비싸지 않았어",
+      "enSourceHash": "501f360b88b92093"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/en:3b80d38f7686a8b5",
+      "text": "산",
+      "enSourceHash": "3b80d38f7686a8b5"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/en:7482d5802c3c2798",
+      "text": "사진",
+      "enSourceHash": "7482d5802c3c2798"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/en:9b4ef3e5b7b4d175",
+      "text": "역",
+      "enSourceHash": "9b4ef3e5b7b4d175"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/en:c06b0cfe0cc5e900",
+      "text": "꽃",
+      "enSourceHash": "c06b0cfe0cc5e900"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/en:d6e21286621a8586",
+      "text": "집",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/en:e0f4f767ac88a930",
+      "text": "오늘",
+      "enSourceHash": "e0f4f767ac88a930"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/en:e8b455340e57a236",
+      "text": "\"배\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "e8b455340e57a236"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/ja:いえは しずかだ",
+      "text": "친구에게 말하세요: 집은 조용해",
+      "enSourceHash": "ba29095ba8d6d79b"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/ja:えきは にぎやかだ",
+      "text": "친구에게 말하세요: 역은 활기차",
+      "enSourceHash": "0f9b57778a9ecf4b"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/ja:きょうは ひまだ",
+      "text": "친구에게 말하세요: 오늘은 한가해",
+      "enSourceHash": "ac6ff072b5753f8f"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/ja:きれいな しゃしんを みた",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/ja:しずかな いえに いく",
+      "text": "친구에게 말하세요: 조용한 집에 가",
+      "enSourceHash": "484aa68af597eb58"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/ja:はなは きれいだ",
+      "text": "친구에게 말하세요: 꽃은 예뻐",
+      "enSourceHash": "14a2677ae98e9717"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/ja:やまは ゆうめいだ",
+      "text": "친구에게 말하세요: 산은 유명해",
+      "enSourceHash": "cae39765c3bef962"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/ja:ミカの あたらしい いえは しずかだ",
+      "text": "친구에게 말하세요: 미카의 새로운 집은 조용해",
+      "enSourceHash": "d47157ec6e9b08bb"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:1244348e0f6bfeee",
+      "text": "창문이 새롭지 않다",
+      "enSourceHash": "1244348e0f6bfeee"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:1e1cc3909a49adea",
+      "text": "\"산\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "1e1cc3909a49adea"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:3b80d38f7686a8b5",
+      "text": "산",
+      "enSourceHash": "3b80d38f7686a8b5"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:5fe36e377a7e2137",
+      "text": "\"노래\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:727ea55fc8ee1dc7",
+      "text": "\"연못\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:77af778b51abd4a3",
+      "text": "고양이",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:9a7d3e31fac06374",
+      "text": "창문이 깨끗하지 않다",
+      "enSourceHash": "9a7d3e31fac06374"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:9b4ef3e5b7b4d175",
+      "text": "역",
+      "enSourceHash": "9b4ef3e5b7b4d175"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:9f4435ef4d51e4b6",
+      "text": "창문이 깨끗하다",
+      "enSourceHash": "9f4435ef4d51e4b6"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:a1c4e4876e930cea",
+      "text": "문이 깨끗하지 않다",
+      "enSourceHash": "a1c4e4876e930cea"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:c06b0cfe0cc5e900",
+      "text": "꽃",
+      "enSourceHash": "c06b0cfe0cc5e900"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:d6e21286621a8586",
+      "text": "집",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:e0f4f767ac88a930",
+      "text": "오늘",
+      "enSourceHash": "e0f4f767ac88a930"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:e8b455340e57a236",
+      "text": "\"배\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "e8b455340e57a236"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/ja:いえは しずかじゃない",
+      "text": "친구에게 말하세요: 집은 조용하지 않아",
+      "enSourceHash": "977343a0b9bd5c2e"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/ja:えきは にぎやかじゃない",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/ja:きょうは ひまじゃない",
+      "text": "친구에게 말하세요: 오늘은 한가하지 않아",
+      "enSourceHash": "1f0485d3d4f22b8f"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/ja:しずかな みせは にぎやかじゃない",
+      "text": "친구에게 말하세요: 조용한 가게는 활기차지 않아",
+      "enSourceHash": "d9827fbcc8b9199b"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/ja:それは ねこじゃない",
+      "text": "친구에게 말하세요: 그것은 고양이가 아니야",
+      "enSourceHash": "57855053db42035e"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/ja:はなは きれいじゃない",
+      "text": "친구에게 말하세요: 꽃은 예쁘지 않아",
+      "enSourceHash": "333cbc9b76165df9"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/ja:やまは ゆうめいじゃない",
+      "text": "친구에게 말하세요: 산은 유명하지 않아",
+      "enSourceHash": "7a8cf669d0f48240"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/ja:ミカの おおきい いえは しずかじゃない",
+      "text": "친구에게 말하세요: 미카의 큰 집은 조용하지 않아",
+      "enSourceHash": "46178966e8a8592e"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:1e1cc3909a49adea",
+      "text": "\"산\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "1e1cc3909a49adea"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:3b80d38f7686a8b5",
+      "text": "산",
+      "enSourceHash": "3b80d38f7686a8b5"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:5fe36e377a7e2137",
+      "text": "\"노래\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:727ea55fc8ee1dc7",
+      "text": "\"연못\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:9523d9fbe79bcf3e",
+      "text": "어제",
+      "enSourceHash": "9523d9fbe79bcf3e"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:9726e7eca05f5dbb",
+      "text": "어제 역은 조용했다",
+      "enSourceHash": "9726e7eca05f5dbb"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:9b4ef3e5b7b4d175",
+      "text": "역",
+      "enSourceHash": "9b4ef3e5b7b4d175"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:c06b0cfe0cc5e900",
+      "text": "꽃",
+      "enSourceHash": "c06b0cfe0cc5e900"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:c1e4913ab7b7bfdc",
+      "text": "어제 역은 조용하지 않았다",
+      "enSourceHash": "c1e4913ab7b7bfdc"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:d6e21286621a8586",
+      "text": "집",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:e7633f897bc76d79",
+      "text": "어제 역은 활기찼다",
+      "enSourceHash": "e7633f897bc76d79"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:e8b455340e57a236",
+      "text": "\"배\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "e8b455340e57a236"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:f8ff56a4a08365f9",
+      "text": "오늘 역은 조용하다",
+      "enSourceHash": "f8ff56a4a08365f9"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/ja:いえは きれいじゃなかった",
+      "text": "친구에게 말하세요: 집은 깨끗하지 않았어",
+      "enSourceHash": "96d116c7b3bd8466"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/ja:えきは にぎやかだった",
+      "text": "친구에게 말하세요: 역은 활기찼어",
+      "enSourceHash": "f6fe23aaa97023f7"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/ja:きのう ミカの みせは にぎやかだった",
+      "text": "친구에게 말하세요: 어제 미카의 가게는 활기찼어",
+      "enSourceHash": "455c2889fdab6104"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/ja:きのうは ひまじゃなかった",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/ja:しずかな いえは ふるかった",
+      "text": "친구에게 말하세요: 조용한 집은 낡았어",
+      "enSourceHash": "88871624312a8f8c"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/ja:はなは きれいだった",
+      "text": "친구에게 말하세요: 꽃은 예뻤어",
+      "enSourceHash": "5d3d90e8161edfb5"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/ja:みせは しずかだった",
+      "text": "친구에게 말하세요: 가게는 조용했어",
+      "enSourceHash": "7e733f2e2898ce89"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/ja:やまは ゆうめいだった",
+      "text": "친구에게 말하세요: 산은 유명했어",
+      "enSourceHash": "e93f43bba07c994f"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/en:1e1cc3909a49adea",
+      "text": "\"산\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "1e1cc3909a49adea"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/en:3b80d38f7686a8b5",
+      "text": "산",
+      "enSourceHash": "3b80d38f7686a8b5"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/en:4bdf40d0d1ae3611",
+      "text": "밥/식사",
+      "enSourceHash": "4bdf40d0d1ae3611"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/en:5fe36e377a7e2137",
+      "text": "\"노래\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/en:727ea55fc8ee1dc7",
+      "text": "\"연못\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/en:9b4ef3e5b7b4d175",
+      "text": "역",
+      "enSourceHash": "9b4ef3e5b7b4d175"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/en:d6e21286621a8586",
+      "text": "집",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/en:e8b455340e57a236",
+      "text": "\"배\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "e8b455340e57a236"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/ja:いえは しずかです",
+      "text": "정중하게 말하세요: 집은 조용해요",
+      "enSourceHash": "d001081e15112d67"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/ja:えきは にぎやかでした",
+      "text": "정중하게 말하세요: 역은 활기찼어요",
+      "enSourceHash": "e3a7a8446a0d8088"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/ja:ごはんは おいしいです",
+      "text": "정중하게 말하세요: 밥은 맛있어요",
+      "enSourceHash": "df39d79f1c6c6f0f"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/ja:ごはんは おいしかったです",
+      "text": "정중하게 말하세요: 밥은 맛있었어요",
+      "enSourceHash": "4794d6e8e343ec33"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/ja:ほんは たかくないです",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/ja:みせは きれいです",
+      "text": "정중하게 말하세요: 가게는 깨끗해요",
+      "enSourceHash": "c89ba0845531f06c"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/ja:やまは たかいです",
+      "text": "정중하게 말하세요: 산은 높아요",
+      "enSourceHash": "3dc21f132ade22f8"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/ja:ミカの みせは しずかでしたか",
+      "text": "정중하게 말하세요: 미카의 가게는 조용했나요",
+      "enSourceHash": "70a937a8fd71a1a8"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:0889113e04d3203f",
+      "text": "수업",
+      "enSourceHash": "0889113e04d3203f"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:1e1cc3909a49adea",
+      "text": "\"산\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "1e1cc3909a49adea"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:4bdf40d0d1ae3611",
+      "text": "밥/식사",
+      "enSourceHash": "4bdf40d0d1ae3611"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:5fe36e377a7e2137",
+      "text": "\"노래\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:647294383b2cbc24",
+      "text": "일본",
+      "enSourceHash": "647294383b2cbc24"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:6af77e364201d5e5",
+      "text": "어제 어디에서 먹었나요?",
+      "enSourceHash": "6af77e364201d5e5"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:90a8c0ca5bc27e24",
+      "text": "음식이 비쌌나요?",
+      "enSourceHash": "90a8c0ca5bc27e24"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:9b4ef3e5b7b4d175",
+      "text": "역",
+      "enSourceHash": "9b4ef3e5b7b4d175"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:a256ef6d45ace255",
+      "text": "오늘 음식은 어때요?",
+      "enSourceHash": "a256ef6d45ace255"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:a9f74d1ec36ebdeb",
+      "text": "차",
+      "enSourceHash": "a9f74d1ec36ebdeb"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:e8b455340e57a236",
+      "text": "\"배\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "e8b455340e57a236"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:f76336a4ec17b271",
+      "text": "어제 음식은 어땠나요?",
+      "enSourceHash": "f76336a4ec17b271"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/ja:えきは どう？",
+      "text": "역은 어때?",
+      "enSourceHash": "a19605589bc94960"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/ja:きのうの じゅぎょうは どうだった？",
+      "text": "어제 수업은 어땠어?",
+      "enSourceHash": "fb917f5bba45947e"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/ja:ごはんは どう？",
+      "text": "밥은 어때?",
+      "enSourceHash": "0fb8503f6e830a41"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/ja:ちゃは おいしいです",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/ja:にほんは きれいだ",
+      "text": "친구에게 말하세요: 일본은 예뻐",
+      "enSourceHash": "504a9b9270386237"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/ja:にほんは どうですか",
+      "text": "정중하게 말하세요: 일본은 어때요",
+      "enSourceHash": "6d53c65a6881d10d"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/ja:ほんは おもしろくなかった",
+      "text": "친구에게 말하세요: 책은 재미없었어",
+      "enSourceHash": "99a0f3b12b2a65d4"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/ja:ゆうめいな みせは にぎやかだ",
+      "text": "친구에게 말하세요: 유명한 가게는 활기차",
+      "enSourceHash": "b29d47a0c191297c"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/ja:ミカの あたらしい いえは しずかですか",
+      "text": "정중하게 말하세요: 미카의 새로운 집은 조용한가요",
+      "enSourceHash": "15f74b8619aefdcb"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:06d2e9e4133a99c3",
+      "text": "새로운 책은 재미있었다",
+      "enSourceHash": "06d2e9e4133a99c3"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:0e3c54f45f68dbd4",
+      "text": "아침 9시의 역은 활기찼다",
+      "enSourceHash": "0e3c54f45f68dbd4"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:1e1cc3909a49adea",
+      "text": "\"산\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "1e1cc3909a49adea"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:2b2961a431b23c90",
+      "text": "차",
+      "enSourceHash": "2b2961a431b23c90"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:39660f9555d18bbe",
+      "text": "미카의 옛 집은 어제 조용했다",
+      "enSourceHash": "39660f9555d18bbe"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:4a69f19c8c264850",
+      "text": "바다",
+      "enSourceHash": "4a69f19c8c264850"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:4bdf40d0d1ae3611",
+      "text": "밥/식사",
+      "enSourceHash": "4bdf40d0d1ae3611"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:51c77b2cb15eeffb",
+      "text": "조용한 집은 새것이 아니다",
+      "enSourceHash": "51c77b2cb15eeffb"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:727ea55fc8ee1dc7",
+      "text": "\"연못\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:86d7cd81dc416384",
+      "text": "다나카의 수업은 좋았다",
+      "enSourceHash": "86d7cd81dc416384"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:927b648a68bf5205",
+      "text": "도전 — 설명한 다음, 과거형으로 설명하세요",
+      "enSourceHash": "927b648a68bf5205"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:9a2ffd2050cbbecf",
+      "text": "유명한 가게의 음식은 비싸지 않았어요",
+      "enSourceHash": "9a2ffd2050cbbecf"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:9b4ef3e5b7b4d175",
+      "text": "역",
+      "enSourceHash": "9b4ef3e5b7b4d175"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:aa5335562ed7922a",
+      "text": "다나카씨의 새 차는 커요",
+      "enSourceHash": "aa5335562ed7922a"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:c032d0d05c34ccf1",
+      "text": "어제 친구와 예쁜 바다에 갔어요",
+      "enSourceHash": "c032d0d05c34ccf1"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:d6e21286621a8586",
+      "text": "집",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/ja:あたらしい ほんは おもしろかった",
+      "text": "친구에게 말하세요: 새 책은 재미있었어",
+      "enSourceHash": "0d46e0fbc25eeef5"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/ja:きのう ともだちと きれいな うみに いった",
+      "text": "친구에게 말하세요: 어제 친구와 예쁜 바다에 갔어",
+      "enSourceHash": "116cc3ce69a8e94d"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/ja:きのう ミカの ふるい いえは しずかだった",
+      "text": "친구에게 말하세요: 어제 미카의 낡은 집은 조용했어",
+      "enSourceHash": "409f09cd0e838fcd"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/ja:きのう ミカの ゆうめいな みせで おいしい ごはんを たべた",
+      "text": "친구에게 말하세요: 어제 미카의 유명한 가게에서 맛있는 밥을 먹었어",
+      "enSourceHash": "db29f73d410cbc81"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/ja:ごぜん くじの えきは にぎやかだった",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/ja:しずかな いえは あたらしくない",
+      "text": "친구에게 말하세요: 조용한 집은 새 것이 아니야",
+      "enSourceHash": "bfbfb0127105421f"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/ja:たなかさんの あたらしい くるまは おおきいです",
+      "text": "정중하게 말하세요: 다나카씨의 새 차는 커요",
+      "enSourceHash": "931d553d625053c1"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/ja:たなかさんの じゅぎょうは よかったです",
+      "text": "정중하게 말하세요: 다나카씨의 수업은 좋았어요",
+      "enSourceHash": "1ca512432413ed4e"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/ja:ゆうめいな みせの ごはんは たかくなかった",
+      "text": "친구에게 말하세요: 유명한 가게의 음식은 비싸지 않았어",
+      "enSourceHash": "322ece2a5170b708"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:1e1cc3909a49adea",
+      "text": "\"산\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "1e1cc3909a49adea"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:24d7a4415b6824e3",
+      "text": "가게는 어제 좋지 않았어요",
+      "enSourceHash": "24d7a4415b6824e3"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:2b2961a431b23c90",
+      "text": "차",
+      "enSourceHash": "2b2961a431b23c90"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:4f1bb93845f94d05",
+      "text": "미카의 휴대전화는 크지 않아요",
+      "enSourceHash": "4f1bb93845f94d05"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:59cbd58e0c233cfd",
+      "text": "스시는 어제 맛있었어요",
+      "enSourceHash": "59cbd58e0c233cfd"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:63f75c890b05405e",
+      "text": "노래",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:670bd9ced0c6bc3f",
+      "text": "스시",
+      "enSourceHash": "670bd9ced0c6bc3f"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:727ea55fc8ee1dc7",
+      "text": "\"연못\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:7c6f00297338f544",
+      "text": "낡은 시계는 비싸지 않아요",
+      "enSourceHash": "7c6f00297338f544"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:8c71a92c5a354280",
+      "text": "가게는 어제 컸어요",
+      "enSourceHash": "8c71a92c5a354280"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:9b4ef3e5b7b4d175",
+      "text": "역",
+      "enSourceHash": "9b4ef3e5b7b4d175"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:b2fc05152d28de44",
+      "text": "가게는 오늘 좋아요",
+      "enSourceHash": "b2fc05152d28de44"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:baed831623943be3",
+      "text": "시계",
+      "enSourceHash": "baed831623943be3"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:c1332c90f73ca14f",
+      "text": "가게는 어제 좋았어요",
+      "enSourceHash": "c1332c90f73ca14f"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:cd6357efdd966de8",
+      "text": "개",
+      "enSourceHash": "cd6357efdd966de8"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:ea97a1806dd10c62",
+      "text": "작은 개가 있어요",
+      "enSourceHash": "ea97a1806dd10c62"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:f576a63f2b8d49a6",
+      "text": "새 차가 있어요",
+      "enSourceHash": "f576a63f2b8d49a6"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/ja:あたらしい くるまが ある",
+      "text": "친구에게 말하세요: 새 차가 있어",
+      "enSourceHash": "ac8d48b2680e2ea5"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/ja:うたは よくない",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/ja:えきは おおきい",
+      "text": "친구에게 말하세요: 역은 커",
+      "enSourceHash": "44e88e0eefaabd36"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/ja:きのう すしは おいしかった",
+      "text": "친구에게 말하세요: 스시는 어제 맛있었어",
+      "enSourceHash": "8b287924e2e2f5a8"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/ja:ちいさい いぬが いる",
+      "text": "친구에게 말하세요: 작은 개가 있어",
+      "enSourceHash": "8a3bd2a75512203b"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/ja:とけいは やすかった",
+      "text": "친구에게 말하세요: 시계는 쌌어",
+      "enSourceHash": "24b69837505a933b"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/ja:ふるい とけいは たかくない",
+      "text": "친구에게 말하세요: 낡은 시계는 비싸지 않아",
+      "enSourceHash": "541e16c601118b94"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/ja:ミカの けいたいは おおきくない",
+      "text": "친구에게 말하세요: 미카의 휴대전화는 크지 않아",
+      "enSourceHash": "30711f8a82faa9d1"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:05aebff2ce905a2b",
+      "text": "새 집은 조용해요",
+      "enSourceHash": "05aebff2ce905a2b"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:1e1cc3909a49adea",
+      "text": "\"산\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "1e1cc3909a49adea"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:5fe36e377a7e2137",
+      "text": "\"노래\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:63f75c890b05405e",
+      "text": "노래",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:727ea55fc8ee1dc7",
+      "text": "\"연못\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:8cf218c5f12b2092",
+      "text": "새집은 활기차다",
+      "enSourceHash": "8cf218c5f12b2092"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:9b4ef3e5b7b4d175",
+      "text": "역",
+      "enSourceHash": "9b4ef3e5b7b4d175"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:b6fcf3252454daa0",
+      "text": "오래된 집은 조용하다",
+      "enSourceHash": "b6fcf3252454daa0"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:c06b0cfe0cc5e900",
+      "text": "꽃",
+      "enSourceHash": "c06b0cfe0cc5e900"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:d6e21286621a8586",
+      "text": "집",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:e8b455340e57a236",
+      "text": "\"배\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "e8b455340e57a236"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:ed374e836b66c031",
+      "text": "새집은 크다",
+      "enSourceHash": "ed374e836b66c031"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/ja:えきは にぎやかじゃない",
+      "text": "친구에게 말하세요: 역은 활기차지 않아",
+      "enSourceHash": "c3499b22ac271bc2"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/ja:きょうは ひまじゃない",
+      "text": "친구에게 말하세요: 오늘은 한가하지 않아",
+      "enSourceHash": "1f0485d3d4f22b8f"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/ja:ごはんは おいしくなかった",
+      "text": "친구에게 말하세요: 밥은 맛있지 않았어",
+      "enSourceHash": "01b4e89827743706"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/ja:しずかな いえで ほんを みた",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/ja:ほんは おもしろくない",
+      "text": "친구에게 말하세요: 책은 재미없어",
+      "enSourceHash": "2807e759a87fe291"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/ja:みせは きれいだ",
+      "text": "친구에게 말하세요: 가게는 깨끗해",
+      "enSourceHash": "7f18e7143bce50d9"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/ja:ゆうめいな みせは たかい",
+      "text": "친구에게 말하세요: 유명한 가게는 비싸",
+      "enSourceHash": "98530fba82e6b791"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:1e1cc3909a49adea",
+      "text": "\"산\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "1e1cc3909a49adea"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:2753cb15f1d6d34c",
+      "text": "요리",
+      "enSourceHash": "2753cb15f1d6d34c"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:38a81e87e79631e6",
+      "text": "사람",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:4a69f19c8c264850",
+      "text": "바다",
+      "enSourceHash": "4a69f19c8c264850"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:4af9718e4f0433aa",
+      "text": "고양이는 작지 않다",
+      "enSourceHash": "4af9718e4f0433aa"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:4e7914b0df8068b7",
+      "text": "연못",
+      "enSourceHash": "4e7914b0df8068b7"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:5077491822a8cb96",
+      "text": "어제 바다는 예뻤다",
+      "enSourceHash": "5077491822a8cb96"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:6e5ccb4e4ff41ddd",
+      "text": "오래된 자전거는 좋지 않다",
+      "enSourceHash": "6e5ccb4e4ff41ddd"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:727ea55fc8ee1dc7",
+      "text": "\"연못\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:928757f88a92f08d",
+      "text": "고양이도 작다",
+      "enSourceHash": "928757f88a92f08d"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:b164d607a1f538b6",
+      "text": "어제 창문은 깨끗하지 않았다",
+      "enSourceHash": "b164d607a1f538b6"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:cbfea95841914b4f",
+      "text": "새 휴대폰은 비싸다",
+      "enSourceHash": "cbfea95841914b4f"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:ce76c83d572667e0",
+      "text": "유명한 사람이 왔다",
+      "enSourceHash": "ce76c83d572667e0"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:d77ce64ff96ddc41",
+      "text": "복습 — 두 클래스, 네 칸 모두",
+      "enSourceHash": "d77ce64ff96ddc41"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:e9e3b8d8ba864fa9",
+      "text": "휴대폰",
+      "enSourceHash": "e9e3b8d8ba864fa9"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:f19e3c20f9a02355",
+      "text": "고양이도 크다",
+      "enSourceHash": "f19e3c20f9a02355"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:f80105efab6d863f",
+      "text": "편지",
+      "enSourceHash": "f80105efab6d863f"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:f88ab2ea275e5ac6",
+      "text": "개도 작다",
+      "enSourceHash": "f88ab2ea275e5ac6"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/ja:あたらしい けいたいは たかいです",
+      "text": "정중하게 말하세요: 새 휴대폰은 비싸요",
+      "enSourceHash": "5321e3f07e8c765d"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/ja:いけは しずかじゃなかった",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/ja:きのう うみは きれいだった",
+      "text": "친구에게 말하세요: 어제는 바다가 예뻤어",
+      "enSourceHash": "3515fbda23ce0c85"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/ja:てがみは おもしろかった",
+      "text": "친구에게 말하세요: 편지는 재미있었어",
+      "enSourceHash": "f9251d0da3fafcda"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/ja:ふるい じてんしゃは よくない",
+      "text": "친구에게 말하세요: 낡은 자전거는 좋지 않아",
+      "enSourceHash": "633a73f62985440b"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/ja:ゆうめいな ひとが きた",
+      "text": "친구에게 말하세요: 유명한 사람이 왔어",
+      "enSourceHash": "7162792549dce11e"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/ja:りょうりは おいしくなかった",
+      "text": "친구에게 말하세요: 요리는 맛있지 않았어",
+      "enSourceHash": "8ab8473353aa0908"
+    },
+    {
+      "anchor": "m12/story:ja-m12-a-workday/en:32bd0862c97ddd04",
+      "text": "근무일",
+      "enSourceHash": "32bd0862c97ddd04"
+    },
+    {
+      "anchor": "m12/story:ja-m12-a-workday/en:72b9dc3438a2870b",
+      "text": "아침부터 밤까지, 시간순으로.",
+      "enSourceHash": "72b9dc3438a2870b"
+    },
+    {
+      "anchor": "m12/story:ja-m12-a-workday/ja:いまは ばんです。",
+      "text": "지금은 밤이에요.",
+      "enSourceHash": "9fbb3b5772be7ca6"
+    },
+    {
+      "anchor": "m12/story:ja-m12-a-workday/ja:きょうは しごとが あります。",
+      "text": "오늘은 일이 있어요.",
+      "enSourceHash": "55a36d0b1ad2a10e"
+    },
+    {
+      "anchor": "m12/story:ja-m12-a-workday/ja:ごごも しごとを します。",
+      "text": "오후에도 일을 해요.",
+      "enSourceHash": "7b989fccf30aa911"
+    },
+    {
+      "anchor": "m12/story:ja-m12-a-workday/ja:ごぜんは かいしゃに いきます。",
+      "text": "아침에는 회사에 가요.",
+      "enSourceHash": "646a505afecdf1b0"
+    },
+    {
+      "anchor": "m12/story:ja-m12-a-workday/ja:ひるは レストランで ラーメンを たべます。",
+      "text": "점심에는 레스토랑에서 라멘을 먹어요.",
+      "enSourceHash": "1bca9300c5235ee8"
+    },
+    {
+      "anchor": "m12/story:ja-m12-a-workday/ja:ゆうがたに コーヒーを のみます。",
+      "text": "저녁에는 커피를 마셔요.",
+      "enSourceHash": "0c42a379206fafb6"
+    },
+    {
+      "anchor": "m12/story:ja-m12-a-workday/ja:よるは うちで テレビを みます。",
+      "text": "밤에는 집에서 TV를 봐요.",
+      "enSourceHash": "3eb5221a5df79b36"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/en:08b49aa63320b528",
+      "text": "심야 가게",
+      "enSourceHash": "08b49aa63320b528"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/en:becde097e5e277dd",
+      "text": "밤 11 시, 빈 부엌, 그리고 편의점을 처음 보는 방문자.",
+      "enSourceHash": "becde097e5e277dd"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/gloss:おにぎり",
+      "text": "오니기리",
+      "enSourceHash": "5af073a645c2973a"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:あした、トムは また コンビニに いきます。",
+      "text": "내일 톰은 다시 편의점에 가요.",
+      "enSourceHash": "59316b0296300fe8"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:いまは よる じゅういちじです。",
+      "text": "지금은 밤 11 시예요.",
+      "enSourceHash": "1bfa204f57a88e84"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:うちに ごはんが ありません。",
+      "text": "집에 밥이 없어요.",
+      "enSourceHash": "dc47364f77c1799c"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:おにぎりは ひゃくごじゅうえんです。",
+      "text": "오니기리는 150 엔이에요.",
+      "enSourceHash": "f695e3ddfdb725ca"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:こんしゅう、アメリカの ともだちの トムが にほんに きます。",
+      "text": "이번 주에 미국 친구 톰이 일본에 와요.",
+      "enSourceHash": "462be773e73e8971"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:ふたりで コンビニに いきます。",
+      "text": "둘이서 편의점에 가요.",
+      "enSourceHash": "3efa1f9a7105f75b"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:また、コンビニに トイレも あります。",
+      "text": "그리고 편의점에도 화장실이 있어요.",
+      "enSourceHash": "5a17ee2386656acc"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:よるの コンビニにも ひとが います。",
+      "text": "밤의 편의점에도 사람이 있어요.",
+      "enSourceHash": "e4acae38addbbfb9"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:わたしは ラーメンと コーヒーを かいます。",
+      "text": "저는 라멘과 커피를 사요.",
+      "enSourceHash": "9c8ede78c2b6be88"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:コンビニに パンも おにぎりも あります。",
+      "text": "편의점에 빵도 오니기리도 있어요.",
+      "enSourceHash": "64aa51ae600230a2"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:コンビニは うちに ちかいです。",
+      "text": "편의점은 집에 가까워요.",
+      "enSourceHash": "b8199c876e898068"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:コンビニは ほんとうに べんりです。",
+      "text": "편의점은 정말 편리해요.",
+      "enSourceHash": "f9fa59e1dbddf393"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:トムは えきの ホテルに います。",
+      "text": "톰은 역의 호텔에 있어요.",
+      "enSourceHash": "cb99e4a3b9064f9c"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:トムは おにぎりを かいます。",
+      "text": "톰은 오니기리를 사요.",
+      "enSourceHash": "dafd37104e8e759c"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:トムは この みせを しりません。",
+      "text": "톰은 이 가게를 몰라요.",
+      "enSourceHash": "af17dea8d42dc908"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:ラーメンも コーヒーも ビールも あります。",
+      "text": "라멘도 커피도 맥주도 있어요.",
+      "enSourceHash": "13be8beca166d699"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/en:72cd99fb0b79885d",
+      "text": "시내 나들이가 수색으로 변하다.",
+      "enSourceHash": "72cd99fb0b79885d"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/en:bc9b1bf7e58f1ce5",
+      "text": "잃어버린 열쇠",
+      "enSourceHash": "bc9b1bf7e58f1ce5"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/gloss:けど",
+      "text": "하지만, 비록",
+      "enSourceHash": "6a16848ebec13abc"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/gloss:さがす",
+      "text": "찾다",
+      "enSourceHash": "af169d40f1964b10"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:いまは だいじょうぶだ。",
+      "text": "지금은 괜찮다.",
+      "enSourceHash": "6cb7b2a131dc00ae"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:かばんに うちの かぎが ある。",
+      "text": "가방에 집 열쇠가 있다.",
+      "enSourceHash": "3be334a8bb10e68f"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:きょうは ほんとうに たのしかった。",
+      "text": "오늘은 정말 즐거웠다.",
+      "enSourceHash": "87907f09b834245c"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:きょうは やすみだ。",
+      "text": "오늘은 휴식이다.",
+      "enSourceHash": "3f94acf083a69d2c"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:それから レストランで おいしい ラーメンを たべる。",
+      "text": "그리고 레스토랑에서 맛있는 라멘을 먹는다.",
+      "enSourceHash": "f27389999842cea4"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:とても たいへんだ。",
+      "text": "매우 힘들다.",
+      "enSourceHash": "3bd30e5125083ff1"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:ふたりで かぎを さがす。",
+      "text": "둘이서 열쇠를 찾는다.",
+      "enSourceHash": "a03f6b4b74232015"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:ふたりで みせに いく。",
+      "text": "둘이서 가게로 간다.",
+      "enSourceHash": "c6eff844c01af6d5"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:また みせに いく。",
+      "text": "다시 가게로 간다.",
+      "enSourceHash": "828eab7c2c7f0d1b"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:みせに かぎが ある。",
+      "text": "가게에 열쇠가 있다.",
+      "enSourceHash": "ae1b1f5f715e824a"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:みせの ぼうしは あたらしいけど、とても たかい。",
+      "text": "가게의 모자는 새롭지만, 매우 비싸다.",
+      "enSourceHash": "f9d510ba84d5bad8"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:ゆうがた、かばんに かぎが ない。",
+      "text": "저녁에 가방에 열쇠가 없다.",
+      "enSourceHash": "2a817d34f93696d5"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:わたしは ともだちと まちに いく。",
+      "text": "나는 친구와 시가지로 간다.",
+      "enSourceHash": "8f33fa44912163ba"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:わたしは ぼうしを かわない。",
+      "text": "나는 모자를 사지 않는다.",
+      "enSourceHash": "ae0b51792564385c"
+    }
+  ]
+}

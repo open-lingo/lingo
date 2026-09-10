@@ -1,0 +1,2457 @@
+{
+  "schema": 1,
+  "moduleId": "m12",
+  "lang": "ja",
+  "generatedAt": "2026-09-10",
+  "entryCount": 408,
+  "entries": [
+    {
+      "anchor": "m12/atom:あたらしい/gloss",
+      "en": "new",
+      "enSourceHash": "11507a0e2f5e69d5",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m12/atom:いい / よい/gloss",
+      "en": "good",
+      "enSourceHash": "770e607624d68926",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m12/atom:いい/gloss",
+      "en": "good, fine, OK",
+      "enSourceHash": "c6dd090efd742468",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m12/atom:いい/shortGloss",
+      "en": "good",
+      "enSourceHash": "770e607624d68926",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m12/atom:おいしい/gloss",
+      "en": "delicious",
+      "enSourceHash": "3c29fc3464377a28",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m12/atom:おおきい/gloss",
+      "en": "big",
+      "enSourceHash": "2a21fe6d592a19b7",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m12/atom:おもしろい/gloss",
+      "en": "interesting",
+      "enSourceHash": "637ab2808704d851",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m12/atom:きれい/gloss",
+      "en": "pretty, clean",
+      "enSourceHash": "6372dd9694a787c7",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m12/atom:しずか/gloss",
+      "en": "quiet",
+      "enSourceHash": "008f0747f4e27c84",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m12/atom:じゃない/shortGloss",
+      "en": "isn't",
+      "enSourceHash": "2dd6dad08f7ece24",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m12/atom:じゃなかった/shortGloss",
+      "en": "wasn't",
+      "enSourceHash": "5a391cbcec65c132",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m12/atom:ちいさい/gloss",
+      "en": "little",
+      "enSourceHash": "180ca01b95f0dfdd",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m12/atom:どう/gloss",
+      "en": "how, in what way",
+      "enSourceHash": "b3e961f4f43439f7",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m12/atom:にぎやか/gloss",
+      "en": "bustling, busy",
+      "enSourceHash": "9a0880592b4b27e2",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m12/atom:ばん/gloss",
+      "en": "evening",
+      "enSourceHash": "e5bd0801d10e5965",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m12/atom:ふるい/gloss",
+      "en": "old (not used for people)",
+      "enSourceHash": "8f6ae714cba3340d",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m12/atom:ゆうめい/gloss",
+      "en": "famous",
+      "enSourceHash": "79b1bc81314de30f",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m12/atom:ペン/gloss",
+      "en": "pen",
+      "enSourceHash": "e21a6b0cb193057e",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m12/atom:ラーメン/gloss",
+      "en": "Ramen",
+      "enSourceHash": "8930b1916b28f31f",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m12/atom:レストラン/gloss",
+      "en": "restaurant",
+      "enSourceHash": "ee275d64dafcd283",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-negative/ex:うたは おもしろくない。",
+      "en": "The song isn't interesting.",
+      "enSourceHash": "9b9635311b73e49b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-negative/ex:くるまは あたらしくない。",
+      "en": "The car isn't new.",
+      "enSourceHash": "4d24417a2e90e11e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-negative/ex:ごはんは おいしくない。",
+      "en": "The rice isn't delicious.",
+      "enSourceHash": "1ac6a2933c8652fe",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-negative/ex:ほんは たかいじゃない。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-negative/ex:ほんは たかくない。",
+      "en": "The book isn't expensive.",
+      "enSourceHash": "1f7c02d305ff00f5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-negative/ex:みせは よくない。",
+      "en": "The shop isn't good.",
+      "enSourceHash": "9d7a944b7468e040",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-negative/ex:やまは おおきくない。",
+      "en": "The mountain isn't big.",
+      "enSourceHash": "54c9bc8da51eedbb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-past-negative/ex:うたは おもしろくなかった。",
+      "en": "The song wasn't interesting.",
+      "enSourceHash": "0f4b4bf083b700cd",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-past-negative/ex:きのうは よくなかった。",
+      "en": "Yesterday wasn't good.",
+      "enSourceHash": "f78186f0803ecb7f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-past-negative/ex:ごはんは おいしくなかった。",
+      "en": "The rice wasn't delicious.",
+      "enSourceHash": "b0513fbc1d096d3c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-past-negative/ex:ほんは たかくないでした。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-past-negative/ex:ほんは たかくなかった。",
+      "en": "The book wasn't expensive.",
+      "enSourceHash": "3903282aa5a81163",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-past-negative/ex:やまは おおきくなかった。",
+      "en": "The mountain wasn't big.",
+      "enSourceHash": "1c7fdaa8e2f38860",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-past/ex:いえは ふるかった。",
+      "en": "The house was old.",
+      "enSourceHash": "60d176992c027c50",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-past/ex:かさは やすかった。",
+      "en": "The umbrella was cheap.",
+      "enSourceHash": "7a9b749d81ccfe99",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-past/ex:きのうは よかった。",
+      "en": "Yesterday was good.",
+      "enSourceHash": "19596ab424b12907",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-past/ex:ごはんは おいしかった。",
+      "en": "The rice was delicious.",
+      "enSourceHash": "95d1294df44fd87c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-past/ex:ほんは たかいだった。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-past/ex:ほんは たかかった。",
+      "en": "The book was expensive.",
+      "enSourceHash": "971ea98d89946080",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-past/ex:やまは おおきかった。",
+      "en": "The mountain was big.",
+      "enSourceHash": "6d01fcdb8de8c9c2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-present/ex:いい ひと",
+      "en": "a good person",
+      "enSourceHash": "819d2c634f434fc6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-present/ex:ごはんは どうに？",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-present/ex:ごはんは どう？",
+      "en": "How's the rice?",
+      "enSourceHash": "ff49a539b873dfe5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-present/ex:ちいさい ねこ",
+      "en": "a small cat",
+      "enSourceHash": "80be2ca64eef1f7a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-present/ex:にほんは どうですか。",
+      "en": "What is Japan like? (polite)",
+      "enSourceHash": "aa4c78246dc60590",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-present/ex:ねこは ちいさい。",
+      "en": "The cat is small.",
+      "enSourceHash": "0cc98169cf191a64",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-present/ex:ほんは たかい。",
+      "en": "The book is expensive.",
+      "enSourceHash": "e94c0490bdb30e2d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-present/ex:ほんは たかいだ。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-present/ex:ほんは たかいでした。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-present/ex:ほんは たかいです。",
+      "en": "The book is expensive. (polite)",
+      "enSourceHash": "fe018420ac2539ae",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-present/ex:ほんは たかくないです。",
+      "en": "The book isn't expensive. (polite)",
+      "enSourceHash": "41d54e094bbf7eb6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:i-adj-present/ex:パンは やすい。",
+      "en": "The bread is cheap.",
+      "enSourceHash": "eb7cb1cb1b376ed8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:na-adj-negative/ex:いえは しずかくない。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:na-adj-negative/ex:いえは しずかじゃない。",
+      "en": "The house isn't quiet.",
+      "enSourceHash": "84cd69817e5a075d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:na-adj-negative/ex:えきは にぎやかじゃない。",
+      "en": "The station isn't lively.",
+      "enSourceHash": "b05024223b4420be",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:na-adj-negative/ex:それは ねこじゃない。",
+      "en": "That isn't a cat.",
+      "enSourceHash": "f818567e38c4bcc3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:na-adj-negative/ex:はなは きれいじゃない。",
+      "en": "The flowers aren't pretty.",
+      "enSourceHash": "941a3fe983d21200",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:na-adj-past/ex:いえは きれいじゃなかった。",
+      "en": "The house wasn't clean.",
+      "enSourceHash": "a10e5167fd60a59c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:na-adj-past/ex:えきは にぎやかだった。",
+      "en": "The station was lively.",
+      "enSourceHash": "9ab1bc5322e9f7fb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:na-adj-past/ex:きのうは ひまじゃなかった。",
+      "en": "Yesterday wasn't a free day.",
+      "enSourceHash": "635a29c1ca62fb9e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:na-adj-past/ex:みせは しずかかった。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:na-adj-past/ex:みせは しずかだった。",
+      "en": "The shop was quiet.",
+      "enSourceHash": "3ee5db278196e318",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:na-adj-present/ex:おおきい いえ",
+      "en": "a big house",
+      "enSourceHash": "d3cd4e35b2b7d2c6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:na-adj-present/ex:きょうは ひまだ。",
+      "en": "Today is a free day.",
+      "enSourceHash": "8058e2f34cd85421",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:na-adj-present/ex:げんきな ひと",
+      "en": "a healthy person",
+      "enSourceHash": "f929b8a213c01ea7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:na-adj-present/ex:ミカは げんきだ。",
+      "en": "Mika is well.",
+      "enSourceHash": "9b22a3242651b95e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/gp:na-adj-present/ex:ミカは げんきな。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/en:2974744982f08b20",
+      "en": "umbrella",
+      "enSourceHash": "2974744982f08b20",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/en:2b2961a431b23c90",
+      "en": "car",
+      "enSourceHash": "2b2961a431b23c90",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/en:3b80d38f7686a8b5",
+      "en": "mountain",
+      "enSourceHash": "3b80d38f7686a8b5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/en:4bdf40d0d1ae3611",
+      "en": "rice/meal",
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/en:77af778b51abd4a3",
+      "en": "cat",
+      "enSourceHash": "77af778b51abd4a3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/en:bd8594d0ac72b819",
+      "en": "There's a big boat",
+      "enSourceHash": "bd8594d0ac72b819",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/en:e8bd94238e087a91",
+      "en": "There's a small boat",
+      "enSourceHash": "e8bd94238e087a91",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/en:eb6e3c27ba794768",
+      "en": "The boat is old",
+      "enSourceHash": "eb6e3c27ba794768",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/en:f576a63f2b8d49a6",
+      "en": "There's a new car",
+      "enSourceHash": "f576a63f2b8d49a6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/ja:いい ともだちが いる",
+      "en": "Say to a friend: I have a good friend",
+      "enSourceHash": "3ec7d807191643a8",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/ja:おおきい かさを かう",
+      "en": "Say to a friend: I'll buy a big umbrella",
+      "enSourceHash": "45453d641b53cc9f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/ja:くるまは あたらしい",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/ja:ごはんは おいしい",
+      "en": "Say to a friend: The rice is delicious",
+      "enSourceHash": "f761e0976592a30e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/ja:ねこは ちいさい",
+      "en": "Say to a friend: The cat is small",
+      "enSourceHash": "8b1f3c0805189a26",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/ja:ふるい いえに いく",
+      "en": "Say to a friend: I'm going to an old house",
+      "enSourceHash": "62313384d9ad82d5",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/ja:ほんは おもしろい",
+      "en": "Say to a friend: The book is interesting",
+      "enSourceHash": "388756ec7917007e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/ja:やまは おおきい",
+      "en": "Say to a friend: The mountain is big",
+      "enSourceHash": "e428c1a563b908a8",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-1/ja:ミカの あたらしい じてんしゃは おおきい",
+      "en": "Say to a friend: Mika's new bicycle is big",
+      "enSourceHash": "f2c07a177be3b515",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/en:1498618ee4b6d1c1",
+      "en": "The cat isn't big",
+      "enSourceHash": "1498618ee4b6d1c1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/en:2974744982f08b20",
+      "en": "umbrella",
+      "enSourceHash": "2974744982f08b20",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/en:3b80d38f7686a8b5",
+      "en": "mountain",
+      "enSourceHash": "3b80d38f7686a8b5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/en:63f75c890b05405e",
+      "en": "song",
+      "enSourceHash": "63f75c890b05405e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/en:da0dca81907ab4d7",
+      "en": "The dog isn't new",
+      "enSourceHash": "da0dca81907ab4d7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/en:dcc8f36731129ac9",
+      "en": "The dog is big",
+      "enSourceHash": "dcc8f36731129ac9",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/en:e8b455340e57a236",
+      "en": "Pick the word for \"boat\"",
+      "enSourceHash": "e8b455340e57a236",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/en:edb6e379fb0443f1",
+      "en": "The dog isn't big",
+      "enSourceHash": "edb6e379fb0443f1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/ja:うたは おもしろくない",
+      "en": "Say to a friend: The song isn't interesting",
+      "enSourceHash": "be882c566b8d0f09",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/ja:じてんしゃは あたらしくない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/ja:ちゃは おいしくない",
+      "en": "Say to a friend: The tea isn't delicious",
+      "enSourceHash": "a5d68ead7e76a635",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/ja:ほんは たかくない",
+      "en": "Say to a friend: The book isn't expensive",
+      "enSourceHash": "e20bcbf0d9f3bc7b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/ja:みせは よくない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/ja:やすい かさは おおきくない",
+      "en": "Say to a friend: The cheap umbrella isn't big",
+      "enSourceHash": "bab1cea4ab7323ee",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/ja:やまは おおきくない",
+      "en": "Say to a friend: The mountain isn't big",
+      "enSourceHash": "ad671f973b1b82df",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-2/ja:ミカの あたらしい かさは たかくない",
+      "en": "Say to a friend: Mika's new umbrella isn't expensive",
+      "enSourceHash": "0bb09c19a557ade8",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/en:2974744982f08b20",
+      "en": "umbrella",
+      "enSourceHash": "2974744982f08b20",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/en:3b80d38f7686a8b5",
+      "en": "mountain",
+      "enSourceHash": "3b80d38f7686a8b5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/en:4bdf40d0d1ae3611",
+      "en": "rice/meal",
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/en:5e84775270706fc6",
+      "en": "The rice was delicious yesterday",
+      "enSourceHash": "5e84775270706fc6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/en:9523d9fbe79bcf3e",
+      "en": "yesterday",
+      "enSourceHash": "9523d9fbe79bcf3e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/en:bfa4efc1bf599aac",
+      "en": "Mika's house was old",
+      "enSourceHash": "bfa4efc1bf599aac",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/en:c2e39e6bc6b5fe44",
+      "en": "I ate delicious rice with a friend yesterday",
+      "enSourceHash": "c2e39e6bc6b5fe44",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/en:ee48eaeecc741b68",
+      "en": "The umbrella was cheap yesterday",
+      "enSourceHash": "ee48eaeecc741b68",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/ja:いえは ふるかった",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/ja:うたは おもしろかった",
+      "en": "Say to a friend: The song was interesting",
+      "enSourceHash": "951d47108705ac7e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/ja:きのう ごはんは おいしかった",
+      "en": "Say to a friend: The rice was delicious yesterday",
+      "enSourceHash": "4c1bf8bfa13f44f8",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/ja:きのう ともだちと おいしい ごはんを たべた",
+      "en": "Say to a friend: I ate delicious rice with a friend yesterday",
+      "enSourceHash": "fbaa9a02a671ab01",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/ja:きのうは よかった",
+      "en": "Say to a friend: Yesterday was good",
+      "enSourceHash": "f310097becfbcf3e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/ja:ほんは たかかった",
+      "en": "Say to a friend: The book was expensive",
+      "enSourceHash": "0ace53ed4809e98d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/ja:やまは おおきかった",
+      "en": "Say to a friend: The mountain was big",
+      "enSourceHash": "0df96fbefb51f74c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-3/ja:ミカの いえは ふるかった",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/en:24d7a4415b6824e3",
+      "en": "The shop wasn't good yesterday",
+      "enSourceHash": "24d7a4415b6824e3",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/en:3b80d38f7686a8b5",
+      "en": "mountain",
+      "enSourceHash": "3b80d38f7686a8b5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/en:4bdf40d0d1ae3611",
+      "en": "rice/meal",
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/en:63f75c890b05405e",
+      "en": "song",
+      "enSourceHash": "63f75c890b05405e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/en:8c71a92c5a354280",
+      "en": "The shop was big yesterday",
+      "enSourceHash": "8c71a92c5a354280",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/en:9dc86644c04927df",
+      "en": "The shop isn't big today",
+      "enSourceHash": "9dc86644c04927df",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/en:baed831623943be3",
+      "en": "watch",
+      "enSourceHash": "baed831623943be3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/en:c1cc23fc9fed7efd",
+      "en": "The shop wasn't big yesterday",
+      "enSourceHash": "c1cc23fc9fed7efd",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/en:e8b455340e57a236",
+      "en": "Pick the word for \"boat\"",
+      "enSourceHash": "e8b455340e57a236",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/ja:うたは おもしろくなかった",
+      "en": "Say to a friend: The song wasn't interesting",
+      "enSourceHash": "3a7fd98da2d41101",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/ja:きのう ごはんは おいしくなかった",
+      "en": "Say to a friend: The rice wasn't delicious yesterday",
+      "enSourceHash": "19c1e2e3b4783542",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/ja:とけいは たかくなかった",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/ja:ふるい いえは おおきくなかった",
+      "en": "Say to a friend: The old house wasn't big",
+      "enSourceHash": "f3301c64bd86bb36",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/ja:ほんは たかくなかった",
+      "en": "Say to a friend: The book wasn't expensive",
+      "enSourceHash": "6e2bc40e66d30d2c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/ja:やまは おおきくなかった",
+      "en": "Say to a friend: The mountain wasn't big",
+      "enSourceHash": "dea56151119d2fab",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-4/ja:ミカの ふるい くるまは たかくなかった",
+      "en": "Say to a friend: Mika's old car wasn't expensive",
+      "enSourceHash": "501f360b88b92093",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/en:3b80d38f7686a8b5",
+      "en": "mountain",
+      "enSourceHash": "3b80d38f7686a8b5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/en:7482d5802c3c2798",
+      "en": "photograph",
+      "enSourceHash": "7482d5802c3c2798",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/en:9b4ef3e5b7b4d175",
+      "en": "station",
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/en:c06b0cfe0cc5e900",
+      "en": "flower",
+      "enSourceHash": "c06b0cfe0cc5e900",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/en:e0f4f767ac88a930",
+      "en": "today",
+      "enSourceHash": "e0f4f767ac88a930",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/en:e8b455340e57a236",
+      "en": "Pick the word for \"boat\"",
+      "enSourceHash": "e8b455340e57a236",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/ja:いえは しずかだ",
+      "en": "Say to a friend: The house is quiet",
+      "enSourceHash": "ba29095ba8d6d79b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/ja:えきは にぎやかだ",
+      "en": "Say to a friend: The station is lively",
+      "enSourceHash": "0f9b57778a9ecf4b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/ja:きょうは ひまだ",
+      "en": "Say to a friend: Today is a free day",
+      "enSourceHash": "ac6ff072b5753f8f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/ja:きれいな しゃしんを みた",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/ja:しずかな いえに いく",
+      "en": "Say to a friend: I'm going to a quiet house",
+      "enSourceHash": "484aa68af597eb58",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/ja:はなは きれいだ",
+      "en": "Say to a friend: The flowers are pretty",
+      "enSourceHash": "14a2677ae98e9717",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/ja:やまは ゆうめいだ",
+      "en": "Say to a friend: The mountain is famous",
+      "enSourceHash": "cae39765c3bef962",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-5/ja:ミカの あたらしい いえは しずかだ",
+      "en": "Say to a friend: Mika's new house is quiet",
+      "enSourceHash": "d47157ec6e9b08bb",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:1244348e0f6bfeee",
+      "en": "The window isn't new",
+      "enSourceHash": "1244348e0f6bfeee",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:1e1cc3909a49adea",
+      "en": "Pick the word for \"mountain\"",
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:3b80d38f7686a8b5",
+      "en": "mountain",
+      "enSourceHash": "3b80d38f7686a8b5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:5fe36e377a7e2137",
+      "en": "Pick the word for \"song\"",
+      "enSourceHash": "5fe36e377a7e2137",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:727ea55fc8ee1dc7",
+      "en": "Pick the word for \"pond\"",
+      "enSourceHash": "727ea55fc8ee1dc7",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:77af778b51abd4a3",
+      "en": "cat",
+      "enSourceHash": "77af778b51abd4a3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:9a7d3e31fac06374",
+      "en": "The window isn't clean",
+      "enSourceHash": "9a7d3e31fac06374",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:9b4ef3e5b7b4d175",
+      "en": "station",
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:9f4435ef4d51e4b6",
+      "en": "The window is clean",
+      "enSourceHash": "9f4435ef4d51e4b6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:a1c4e4876e930cea",
+      "en": "The door isn't clean",
+      "enSourceHash": "a1c4e4876e930cea",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:c06b0cfe0cc5e900",
+      "en": "flower",
+      "enSourceHash": "c06b0cfe0cc5e900",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:e0f4f767ac88a930",
+      "en": "today",
+      "enSourceHash": "e0f4f767ac88a930",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/en:e8b455340e57a236",
+      "en": "Pick the word for \"boat\"",
+      "enSourceHash": "e8b455340e57a236",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/ja:いえは しずかじゃない",
+      "en": "Say to a friend: The house isn't quiet",
+      "enSourceHash": "977343a0b9bd5c2e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/ja:えきは にぎやかじゃない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/ja:きょうは ひまじゃない",
+      "en": "Say to a friend: Today isn't a free day",
+      "enSourceHash": "1f0485d3d4f22b8f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/ja:しずかな みせは にぎやかじゃない",
+      "en": "Say to a friend: A quiet shop isn't lively",
+      "enSourceHash": "d9827fbcc8b9199b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/ja:それは ねこじゃない",
+      "en": "Say to a friend: That isn't a cat",
+      "enSourceHash": "57855053db42035e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/ja:はなは きれいじゃない",
+      "en": "Say to a friend: The flowers aren't pretty",
+      "enSourceHash": "333cbc9b76165df9",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/ja:やまは ゆうめいじゃない",
+      "en": "Say to a friend: The mountain isn't famous",
+      "enSourceHash": "7a8cf669d0f48240",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-6/ja:ミカの おおきい いえは しずかじゃない",
+      "en": "Say to a friend: Mika's big house isn't quiet",
+      "enSourceHash": "46178966e8a8592e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:1e1cc3909a49adea",
+      "en": "Pick the word for \"mountain\"",
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:3b80d38f7686a8b5",
+      "en": "mountain",
+      "enSourceHash": "3b80d38f7686a8b5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:5fe36e377a7e2137",
+      "en": "Pick the word for \"song\"",
+      "enSourceHash": "5fe36e377a7e2137",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:727ea55fc8ee1dc7",
+      "en": "Pick the word for \"pond\"",
+      "enSourceHash": "727ea55fc8ee1dc7",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:9523d9fbe79bcf3e",
+      "en": "yesterday",
+      "enSourceHash": "9523d9fbe79bcf3e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:9726e7eca05f5dbb",
+      "en": "The station was quiet yesterday",
+      "enSourceHash": "9726e7eca05f5dbb",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:9b4ef3e5b7b4d175",
+      "en": "station",
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:c06b0cfe0cc5e900",
+      "en": "flower",
+      "enSourceHash": "c06b0cfe0cc5e900",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:c1e4913ab7b7bfdc",
+      "en": "The station wasn't quiet yesterday",
+      "enSourceHash": "c1e4913ab7b7bfdc",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:e7633f897bc76d79",
+      "en": "The station was lively yesterday",
+      "enSourceHash": "e7633f897bc76d79",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:e8b455340e57a236",
+      "en": "Pick the word for \"boat\"",
+      "enSourceHash": "e8b455340e57a236",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/en:f8ff56a4a08365f9",
+      "en": "The station is quiet today",
+      "enSourceHash": "f8ff56a4a08365f9",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/ja:いえは きれいじゃなかった",
+      "en": "Say to a friend: The house wasn't clean",
+      "enSourceHash": "96d116c7b3bd8466",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/ja:えきは にぎやかだった",
+      "en": "Say to a friend: The station was lively",
+      "enSourceHash": "f6fe23aaa97023f7",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/ja:きのう ミカの みせは にぎやかだった",
+      "en": "Say to a friend: Mika's shop was lively yesterday",
+      "enSourceHash": "455c2889fdab6104",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/ja:きのうは ひまじゃなかった",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/ja:しずかな いえは ふるかった",
+      "en": "Say to a friend: The quiet house was old",
+      "enSourceHash": "88871624312a8f8c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/ja:はなは きれいだった",
+      "en": "Say to a friend: The flowers were pretty",
+      "enSourceHash": "5d3d90e8161edfb5",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/ja:みせは しずかだった",
+      "en": "Say to a friend: The shop was quiet",
+      "enSourceHash": "7e733f2e2898ce89",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-7/ja:やまは ゆうめいだった",
+      "en": "Say to a friend: The mountain was famous",
+      "enSourceHash": "e93f43bba07c994f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/en:1e1cc3909a49adea",
+      "en": "Pick the word for \"mountain\"",
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/en:3b80d38f7686a8b5",
+      "en": "mountain",
+      "enSourceHash": "3b80d38f7686a8b5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/en:4bdf40d0d1ae3611",
+      "en": "rice/meal",
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/en:5fe36e377a7e2137",
+      "en": "Pick the word for \"song\"",
+      "enSourceHash": "5fe36e377a7e2137",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/en:727ea55fc8ee1dc7",
+      "en": "Pick the word for \"pond\"",
+      "enSourceHash": "727ea55fc8ee1dc7",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/en:9b4ef3e5b7b4d175",
+      "en": "station",
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/en:e8b455340e57a236",
+      "en": "Pick the word for \"boat\"",
+      "enSourceHash": "e8b455340e57a236",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/ja:いえは しずかです",
+      "en": "Say politely: The house is quiet",
+      "enSourceHash": "d001081e15112d67",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/ja:えきは にぎやかでした",
+      "en": "Say politely: The station was lively",
+      "enSourceHash": "e3a7a8446a0d8088",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/ja:ごはんは おいしいです",
+      "en": "Say politely: The rice is delicious",
+      "enSourceHash": "df39d79f1c6c6f0f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/ja:ごはんは おいしかったです",
+      "en": "Say politely: The rice was delicious",
+      "enSourceHash": "4794d6e8e343ec33",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/ja:ほんは たかくないです",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/ja:みせは きれいです",
+      "en": "Say politely: The shop is clean",
+      "enSourceHash": "c89ba0845531f06c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/ja:やまは たかいです",
+      "en": "Say politely: The mountain is tall",
+      "enSourceHash": "3dc21f132ade22f8",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-8/ja:ミカの みせは しずかでしたか",
+      "en": "Say politely: Was Mika's shop quiet",
+      "enSourceHash": "70a937a8fd71a1a8",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:0889113e04d3203f",
+      "en": "class",
+      "enSourceHash": "0889113e04d3203f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:1e1cc3909a49adea",
+      "en": "Pick the word for \"mountain\"",
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:4bdf40d0d1ae3611",
+      "en": "rice/meal",
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:5fe36e377a7e2137",
+      "en": "Pick the word for \"song\"",
+      "enSourceHash": "5fe36e377a7e2137",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:647294383b2cbc24",
+      "en": "Japan",
+      "enSourceHash": "647294383b2cbc24",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:6af77e364201d5e5",
+      "en": "Where did you eat yesterday?",
+      "enSourceHash": "6af77e364201d5e5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:90a8c0ca5bc27e24",
+      "en": "Was the food expensive?",
+      "enSourceHash": "90a8c0ca5bc27e24",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:9b4ef3e5b7b4d175",
+      "en": "station",
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:a256ef6d45ace255",
+      "en": "How's the food today?",
+      "enSourceHash": "a256ef6d45ace255",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:e8b455340e57a236",
+      "en": "Pick the word for \"boat\"",
+      "enSourceHash": "e8b455340e57a236",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/en:f76336a4ec17b271",
+      "en": "How was the food yesterday?",
+      "enSourceHash": "f76336a4ec17b271",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/ja:えきは どう？",
+      "en": "Ask a friend: What's the station like",
+      "enSourceHash": "a19605589bc94960",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/ja:きのうの じゅぎょうは どうだった？",
+      "en": "Ask a friend: How was yesterday's class",
+      "enSourceHash": "fb917f5bba45947e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/ja:ごはんは どう？",
+      "en": "Ask a friend: How's the rice",
+      "enSourceHash": "0fb8503f6e830a41",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/ja:ちゃは おいしいです",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/ja:にほんは きれいだ",
+      "en": "Say to a friend: Japan is pretty",
+      "enSourceHash": "504a9b9270386237",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/ja:にほんは どうですか",
+      "en": "Say politely: What is Japan like",
+      "enSourceHash": "6d53c65a6881d10d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/ja:ほんは おもしろくなかった",
+      "en": "Say to a friend: The book wasn't interesting",
+      "enSourceHash": "99a0f3b12b2a65d4",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/ja:ゆうめいな みせは にぎやかだ",
+      "en": "Say to a friend: A famous shop is lively",
+      "enSourceHash": "b29d47a0c191297c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-9/ja:ミカの あたらしい いえは しずかですか",
+      "en": "Say politely: Is Mika's new house quiet",
+      "enSourceHash": "15f74b8619aefdcb",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:06d2e9e4133a99c3",
+      "en": "The new book was interesting",
+      "enSourceHash": "06d2e9e4133a99c3",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:0e3c54f45f68dbd4",
+      "en": "The station at nine in the morning was lively",
+      "enSourceHash": "0e3c54f45f68dbd4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:1e1cc3909a49adea",
+      "en": "Pick the word for \"mountain\"",
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:2b2961a431b23c90",
+      "en": "car",
+      "enSourceHash": "2b2961a431b23c90",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:39660f9555d18bbe",
+      "en": "Mika's old house was quiet yesterday",
+      "enSourceHash": "39660f9555d18bbe",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:4a69f19c8c264850",
+      "en": "sea",
+      "enSourceHash": "4a69f19c8c264850",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:4bdf40d0d1ae3611",
+      "en": "rice/meal",
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:51c77b2cb15eeffb",
+      "en": "The quiet house isn't new",
+      "enSourceHash": "51c77b2cb15eeffb",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:727ea55fc8ee1dc7",
+      "en": "Pick the word for \"pond\"",
+      "enSourceHash": "727ea55fc8ee1dc7",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:86d7cd81dc416384",
+      "en": "Tanaka's class was good",
+      "enSourceHash": "86d7cd81dc416384",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:927b648a68bf5205",
+      "en": "Challenge — describe it, then describe it in the past",
+      "enSourceHash": "927b648a68bf5205",
+      "kind": "title"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:9a2ffd2050cbbecf",
+      "en": "The food at the famous shop wasn't expensive",
+      "enSourceHash": "9a2ffd2050cbbecf",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:9b4ef3e5b7b4d175",
+      "en": "station",
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:aa5335562ed7922a",
+      "en": "Tanaka's new car is big",
+      "enSourceHash": "aa5335562ed7922a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:c032d0d05c34ccf1",
+      "en": "I went to a pretty sea with a friend yesterday",
+      "enSourceHash": "c032d0d05c34ccf1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/ja:あたらしい ほんは おもしろかった",
+      "en": "Say to a friend: The new book was interesting",
+      "enSourceHash": "0d46e0fbc25eeef5",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/ja:きのう ともだちと きれいな うみに いった",
+      "en": "Say to a friend: I went to a pretty sea with a friend yesterday",
+      "enSourceHash": "116cc3ce69a8e94d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/ja:きのう ミカの ふるい いえは しずかだった",
+      "en": "Say to a friend: Mika's old house was quiet yesterday",
+      "enSourceHash": "409f09cd0e838fcd",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/ja:きのう ミカの ゆうめいな みせで おいしい ごはんを たべた",
+      "en": "Say to a friend: I ate delicious food at Mika's famous shop yesterday",
+      "enSourceHash": "db29f73d410cbc81",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/ja:ごぜん くじの えきは にぎやかだった",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/ja:しずかな いえは あたらしくない",
+      "en": "Say to a friend: The quiet house isn't new",
+      "enSourceHash": "bfbfb0127105421f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/ja:たなかさんの あたらしい くるまは おおきいです",
+      "en": "Say politely: Tanaka's new car is big",
+      "enSourceHash": "931d553d625053c1",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/ja:たなかさんの じゅぎょうは よかったです",
+      "en": "Say politely: Tanaka's class was good",
+      "enSourceHash": "1ca512432413ed4e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-challenge/ja:ゆうめいな みせの ごはんは たかくなかった",
+      "en": "Say to a friend: The food at the famous shop wasn't expensive",
+      "enSourceHash": "322ece2a5170b708",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:1e1cc3909a49adea",
+      "en": "Pick the word for \"mountain\"",
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:24d7a4415b6824e3",
+      "en": "The shop wasn't good yesterday",
+      "enSourceHash": "24d7a4415b6824e3",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:2b2961a431b23c90",
+      "en": "car",
+      "enSourceHash": "2b2961a431b23c90",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:4f1bb93845f94d05",
+      "en": "Mika's cell phone isn't big",
+      "enSourceHash": "4f1bb93845f94d05",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:59cbd58e0c233cfd",
+      "en": "The sushi was delicious yesterday",
+      "enSourceHash": "59cbd58e0c233cfd",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:63f75c890b05405e",
+      "en": "song",
+      "enSourceHash": "63f75c890b05405e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:670bd9ced0c6bc3f",
+      "en": "Sushi",
+      "enSourceHash": "670bd9ced0c6bc3f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:727ea55fc8ee1dc7",
+      "en": "Pick the word for \"pond\"",
+      "enSourceHash": "727ea55fc8ee1dc7",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:7c6f00297338f544",
+      "en": "The old clock isn't expensive",
+      "enSourceHash": "7c6f00297338f544",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:8c71a92c5a354280",
+      "en": "The shop was big yesterday",
+      "enSourceHash": "8c71a92c5a354280",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:9b4ef3e5b7b4d175",
+      "en": "station",
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:b2fc05152d28de44",
+      "en": "The shop is good today",
+      "enSourceHash": "b2fc05152d28de44",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:baed831623943be3",
+      "en": "watch",
+      "enSourceHash": "baed831623943be3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:c1332c90f73ca14f",
+      "en": "The shop was good yesterday",
+      "enSourceHash": "c1332c90f73ca14f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:cd6357efdd966de8",
+      "en": "dog",
+      "enSourceHash": "cd6357efdd966de8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:ea97a1806dd10c62",
+      "en": "There's a small dog",
+      "enSourceHash": "ea97a1806dd10c62",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/en:f576a63f2b8d49a6",
+      "en": "There's a new car",
+      "enSourceHash": "f576a63f2b8d49a6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/ja:あたらしい くるまが ある",
+      "en": "Say to a friend: There's a new car",
+      "enSourceHash": "ac8d48b2680e2ea5",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/ja:うたは よくない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/ja:えきは おおきい",
+      "en": "Say to a friend: The station is big",
+      "enSourceHash": "44e88e0eefaabd36",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/ja:きのう すしは おいしかった",
+      "en": "Say to a friend: The sushi was delicious yesterday",
+      "enSourceHash": "8b287924e2e2f5a8",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/ja:ちいさい いぬが いる",
+      "en": "Say to a friend: There's a small dog",
+      "enSourceHash": "8a3bd2a75512203b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/ja:とけいは やすかった",
+      "en": "Say to a friend: The clock was cheap",
+      "enSourceHash": "24b69837505a933b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/ja:ふるい とけいは たかくない",
+      "en": "Say to a friend: The old clock isn't expensive",
+      "enSourceHash": "541e16c601118b94",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-1/ja:ミカの けいたいは おおきくない",
+      "en": "Say to a friend: Mika's cell phone isn't big",
+      "enSourceHash": "30711f8a82faa9d1",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:05aebff2ce905a2b",
+      "en": "The new house is quiet",
+      "enSourceHash": "05aebff2ce905a2b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:1e1cc3909a49adea",
+      "en": "Pick the word for \"mountain\"",
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:5fe36e377a7e2137",
+      "en": "Pick the word for \"song\"",
+      "enSourceHash": "5fe36e377a7e2137",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:63f75c890b05405e",
+      "en": "song",
+      "enSourceHash": "63f75c890b05405e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:727ea55fc8ee1dc7",
+      "en": "Pick the word for \"pond\"",
+      "enSourceHash": "727ea55fc8ee1dc7",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:8cf218c5f12b2092",
+      "en": "The new house is lively",
+      "enSourceHash": "8cf218c5f12b2092",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:9b4ef3e5b7b4d175",
+      "en": "station",
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:b6fcf3252454daa0",
+      "en": "The old house is quiet",
+      "enSourceHash": "b6fcf3252454daa0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:c06b0cfe0cc5e900",
+      "en": "flower",
+      "enSourceHash": "c06b0cfe0cc5e900",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:e8b455340e57a236",
+      "en": "Pick the word for \"boat\"",
+      "enSourceHash": "e8b455340e57a236",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/en:ed374e836b66c031",
+      "en": "The new house is big",
+      "enSourceHash": "ed374e836b66c031",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/ja:えきは にぎやかじゃない",
+      "en": "Say to a friend: The station isn't lively",
+      "enSourceHash": "c3499b22ac271bc2",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/ja:きょうは ひまじゃない",
+      "en": "Say to a friend: Today isn't a free day",
+      "enSourceHash": "1f0485d3d4f22b8f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/ja:ごはんは おいしくなかった",
+      "en": "Say to a friend: The rice wasn't delicious",
+      "enSourceHash": "01b4e89827743706",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/ja:しずかな いえで ほんを みた",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/ja:ほんは おもしろくない",
+      "en": "Say to a friend: The book isn't interesting",
+      "enSourceHash": "2807e759a87fe291",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/ja:みせは きれいだ",
+      "en": "Say to a friend: The shop is clean",
+      "enSourceHash": "7f18e7143bce50d9",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-2/ja:ゆうめいな みせは たかい",
+      "en": "Say to a friend: A famous shop is expensive",
+      "enSourceHash": "98530fba82e6b791",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:1e1cc3909a49adea",
+      "en": "Pick the word for \"mountain\"",
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:2753cb15f1d6d34c",
+      "en": "cuisine",
+      "enSourceHash": "2753cb15f1d6d34c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:38a81e87e79631e6",
+      "en": "person",
+      "enSourceHash": "38a81e87e79631e6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:4a69f19c8c264850",
+      "en": "sea",
+      "enSourceHash": "4a69f19c8c264850",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:4af9718e4f0433aa",
+      "en": "The cat isn't small",
+      "enSourceHash": "4af9718e4f0433aa",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:4e7914b0df8068b7",
+      "en": "pond",
+      "enSourceHash": "4e7914b0df8068b7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:5077491822a8cb96",
+      "en": "The sea was pretty yesterday",
+      "enSourceHash": "5077491822a8cb96",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:6e5ccb4e4ff41ddd",
+      "en": "An old bicycle isn't good",
+      "enSourceHash": "6e5ccb4e4ff41ddd",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:727ea55fc8ee1dc7",
+      "en": "Pick the word for \"pond\"",
+      "enSourceHash": "727ea55fc8ee1dc7",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:928757f88a92f08d",
+      "en": "The cat is small too",
+      "enSourceHash": "928757f88a92f08d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:b164d607a1f538b6",
+      "en": "The window wasn't clean yesterday",
+      "enSourceHash": "b164d607a1f538b6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:cbfea95841914b4f",
+      "en": "The new cell phone is expensive",
+      "enSourceHash": "cbfea95841914b4f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:ce76c83d572667e0",
+      "en": "A famous person came",
+      "enSourceHash": "ce76c83d572667e0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:d77ce64ff96ddc41",
+      "en": "Review — both classes, all four cells",
+      "enSourceHash": "d77ce64ff96ddc41",
+      "kind": "title"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:e9e3b8d8ba864fa9",
+      "en": "Cell phone",
+      "enSourceHash": "e9e3b8d8ba864fa9",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:f19e3c20f9a02355",
+      "en": "The cat is big too",
+      "enSourceHash": "f19e3c20f9a02355",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:f80105efab6d863f",
+      "en": "letter",
+      "enSourceHash": "f80105efab6d863f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/en:f88ab2ea275e5ac6",
+      "en": "The dog is small too",
+      "enSourceHash": "f88ab2ea275e5ac6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/ja:あたらしい けいたいは たかいです",
+      "en": "Say politely: The new cell phone is expensive",
+      "enSourceHash": "5321e3f07e8c765d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/ja:いけは しずかじゃなかった",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/ja:きのう うみは きれいだった",
+      "en": "Say to a friend: The sea was pretty yesterday",
+      "enSourceHash": "3515fbda23ce0c85",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/ja:てがみは おもしろかった",
+      "en": "Say to a friend: The letter was interesting",
+      "enSourceHash": "f9251d0da3fafcda",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/ja:ふるい じてんしゃは よくない",
+      "en": "Say to a friend: An old bicycle isn't good",
+      "enSourceHash": "633a73f62985440b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/ja:ゆうめいな ひとが きた",
+      "en": "Say to a friend: A famous person came",
+      "enSourceHash": "7162792549dce11e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/ja-m12-neo-review-3/ja:りょうりは おいしくなかった",
+      "en": "Say to a friend: The food wasn't delicious",
+      "enSourceHash": "8ab8473353aa0908",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m12/story:ja-m12-a-workday/en:32bd0862c97ddd04",
+      "en": "A workday",
+      "enSourceHash": "32bd0862c97ddd04",
+      "kind": "title"
+    },
+    {
+      "anchor": "m12/story:ja-m12-a-workday/en:72b9dc3438a2870b",
+      "en": "Morning to night, hour by hour.",
+      "enSourceHash": "72b9dc3438a2870b",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m12/story:ja-m12-a-workday/ja:いまは ばんです。",
+      "en": "It's night now.",
+      "enSourceHash": "9fbb3b5772be7ca6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-a-workday/ja:きょうは しごとが あります。",
+      "en": "I have work today.",
+      "enSourceHash": "55a36d0b1ad2a10e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-a-workday/ja:ごごも しごとを します。",
+      "en": "I work in the afternoon too.",
+      "enSourceHash": "7b989fccf30aa911",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-a-workday/ja:ごぜんは かいしゃに いきます。",
+      "en": "In the morning I go to the office.",
+      "enSourceHash": "646a505afecdf1b0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-a-workday/ja:ひるは レストランで ラーメンを たべます。",
+      "en": "At noon I eat ramen at a restaurant.",
+      "enSourceHash": "1bca9300c5235ee8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-a-workday/ja:ゆうがたに コーヒーを のみます。",
+      "en": "In the evening I drink coffee.",
+      "enSourceHash": "0c42a379206fafb6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-a-workday/ja:よるは うちで テレビを みます。",
+      "en": "At night I watch TV at home.",
+      "enSourceHash": "3eb5221a5df79b36",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/en:08b49aa63320b528",
+      "en": "The late-night shop",
+      "enSourceHash": "08b49aa63320b528",
+      "kind": "title"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/en:becde097e5e277dd",
+      "en": "Eleven at night, an empty kitchen, and a visitor who has never seen a konbini.",
+      "enSourceHash": "becde097e5e277dd",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/gloss:おにぎり",
+      "en": "rice ball wrapped in seaweed",
+      "enSourceHash": "5af073a645c2973a",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:あした、トムは また コンビニに いきます。",
+      "en": "Tomorrow Tom goes to the convenience store again.",
+      "enSourceHash": "59316b0296300fe8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:いまは よる じゅういちじです。",
+      "en": "It is eleven at night now.",
+      "enSourceHash": "1bfa204f57a88e84",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:うちに ごはんが ありません。",
+      "en": "There is no food at my house.",
+      "enSourceHash": "dc47364f77c1799c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:おにぎりは ひゃくごじゅうえんです。",
+      "en": "The onigiri is a hundred and fifty yen.",
+      "enSourceHash": "f695e3ddfdb725ca",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:こんしゅう、アメリカの ともだちの トムが にほんに きます。",
+      "en": "This week my American friend Tom is coming to Japan.",
+      "enSourceHash": "462be773e73e8971",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:ふたりで コンビニに いきます。",
+      "en": "The two of us go to the convenience store.",
+      "enSourceHash": "3efa1f9a7105f75b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:また、コンビニに トイレも あります。",
+      "en": "The convenience store also has a toilet.",
+      "enSourceHash": "5a17ee2386656acc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:よるの コンビニにも ひとが います。",
+      "en": "There are people in the convenience store at night too.",
+      "enSourceHash": "e4acae38addbbfb9",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:わたしは ラーメンと コーヒーを かいます。",
+      "en": "I buy ramen and a coffee.",
+      "enSourceHash": "9c8ede78c2b6be88",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:コンビニに パンも おにぎりも あります。",
+      "en": "The convenience store has bread and onigiri.",
+      "enSourceHash": "64aa51ae600230a2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:コンビニは うちに ちかいです。",
+      "en": "The convenience store is close to my house.",
+      "enSourceHash": "b8199c876e898068",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:コンビニは ほんとうに べんりです。",
+      "en": "The convenience store really is convenient.",
+      "enSourceHash": "f9fa59e1dbddf393",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:トムは えきの ホテルに います。",
+      "en": "Tom is at the hotel by the station.",
+      "enSourceHash": "cb99e4a3b9064f9c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:トムは おにぎりを かいます。",
+      "en": "Tom buys an onigiri.",
+      "enSourceHash": "dafd37104e8e759c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:トムは この みせを しりません。",
+      "en": "Tom does not know this shop.",
+      "enSourceHash": "af17dea8d42dc908",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-late-night-shop/ja:ラーメンも コーヒーも ビールも あります。",
+      "en": "It has ramen, coffee and beer too.",
+      "enSourceHash": "13be8beca166d699",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/en:72cd99fb0b79885d",
+      "en": "A day out in town turns into a search.",
+      "enSourceHash": "72cd99fb0b79885d",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/en:bc9b1bf7e58f1ce5",
+      "en": "The lost key",
+      "enSourceHash": "bc9b1bf7e58f1ce5",
+      "kind": "title"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/gloss:けど",
+      "en": "but, although",
+      "enSourceHash": "6a16848ebec13abc",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/gloss:さがす",
+      "en": "to look for, to search",
+      "enSourceHash": "af169d40f1964b10",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:いまは だいじょうぶだ。",
+      "en": "Now everything's fine.",
+      "enSourceHash": "6cb7b2a131dc00ae",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:かばんに うちの かぎが ある。",
+      "en": "My house key is in my bag.",
+      "enSourceHash": "3be334a8bb10e68f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:きょうは ほんとうに たのしかった。",
+      "en": "Today really was fun.",
+      "enSourceHash": "87907f09b834245c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:きょうは やすみだ。",
+      "en": "Today is a day off.",
+      "enSourceHash": "3f94acf083a69d2c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:それから レストランで おいしい ラーメンを たべる。",
+      "en": "After that we eat delicious ramen at a restaurant.",
+      "enSourceHash": "f27389999842cea4",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:とても たいへんだ。",
+      "en": "This is really bad.",
+      "enSourceHash": "3bd30e5125083ff1",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:ふたりで かぎを さがす。",
+      "en": "The two of us look for the key.",
+      "enSourceHash": "a03f6b4b74232015",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:ふたりで みせに いく。",
+      "en": "The two of us go into a shop.",
+      "enSourceHash": "c6eff844c01af6d5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:また みせに いく。",
+      "en": "We go back to the shop.",
+      "enSourceHash": "828eab7c2c7f0d1b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:みせに かぎが ある。",
+      "en": "The key is at the shop.",
+      "enSourceHash": "ae1b1f5f715e824a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:みせの ぼうしは あたらしいけど、とても たかい。",
+      "en": "The shop's hat is new, but it's very expensive.",
+      "enSourceHash": "f9d510ba84d5bad8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:ゆうがた、かばんに かぎが ない。",
+      "en": "In the evening, the key isn't in my bag.",
+      "enSourceHash": "2a817d34f93696d5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:わたしは ともだちと まちに いく。",
+      "en": "I go into town with a friend.",
+      "enSourceHash": "8f33fa44912163ba",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m12/story:ja-m12-the-lost-key/ja:わたしは ぼうしを かわない。",
+      "en": "I don't buy the hat.",
+      "enSourceHash": "ae0b51792564385c",
+      "kind": "ja-gloss"
+    }
+  ]
+}
