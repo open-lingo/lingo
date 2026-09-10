@@ -1259,7 +1259,7 @@ export const FR_M19_PLACEMENT: PlacementItem[] = [
         id: "pt-fr-m19-3",
         prompt: "'We're going to eat a pizza' — pick the French.",
         correctText: "on va manger une pizza",
-        distractorsText: ["on mange une pizza", "on a mangé une pizza", "on va mangé une pizza"],
+        distractorsText: ["on a une pizza", "on a mangé une pizza", "on va mangé une pizza"],
       }),
   },
   {
@@ -1271,7 +1271,7 @@ export const FR_M19_PLACEMENT: PlacementItem[] = [
         prompt: "'I'm not going to eat cake' — pick the French.",
         correctText: "je ne vais pas manger de gâteau",
         distractorsText: [
-          "je ne mange pas de gâteau",
+          "je n'ai pas de gâteau",
           "je n'ai pas mangé de gâteau",
           "je ne vais pas mangé de gâteau",
         ],
