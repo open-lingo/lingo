@@ -18,7 +18,7 @@
     },
     {
       "anchor": "m5/atom:いくら/gloss",
-      "text": "얼마인가?",
+      "text": "얼마",
       "enSourceHash": "b27a767eb17070a1"
     },
     {
@@ -43,12 +43,12 @@
     },
     {
       "anchor": "m5/atom:から/gloss",
-      "text": "~로부터 (출신)",
+      "text": "~로부터 (기점)",
       "enSourceHash": "efc38194e5d7fab2"
     },
     {
       "anchor": "m5/atom:きく/gloss",
-      "text": "듣다, 경청하다, 묻다",
+      "text": "듣다, 묻다",
       "enSourceHash": "ed5d8a169b8bf41d"
     },
     {
@@ -78,7 +78,7 @@
     },
     {
       "anchor": "m5/atom:みる/gloss",
-      "text": "보다, 바라보다",
+      "text": "보다",
       "enSourceHash": "01b717c1232040e3"
     },
     {
@@ -98,7 +98,7 @@
     },
     {
       "anchor": "m5/gp:step:ja-m5-neo-1-rule-dict/ex:たべる？",
-      "text": "먹을 거니? (목소리 톤 상승)",
+      "text": "먹니? (목소리 톤 상승)",
       "enSourceHash": "d97bdba94f4b365a"
     },
     {
@@ -128,12 +128,12 @@
     },
     {
       "anchor": "m5/gp:step:ja-m5-neo-4-rule-iku-kuru/ex:うん、くる。",
-      "text": "응, 간다.",
+      "text": "응, 온다.",
       "enSourceHash": "06658a22854d110e"
     },
     {
       "anchor": "m5/gp:step:ja-m5-neo-4-rule-iku-kuru/ex:くる？",
-      "text": "갈 거니? (목소리 톤 상승)",
+      "text": "오니? (목소리 톤 상승)",
       "enSourceHash": "554af809f3819555"
     },
     {
@@ -148,7 +148,7 @@
     },
     {
       "anchor": "m5/gp:step:ja-m5-neo-5-rule-suru-yaru/ex:なにを する？",
-      "text": "뭐 할 거니?",
+      "text": "뭐 하니?",
       "enSourceHash": "e0a0b0b07854c8c1"
     },
     {
@@ -158,7 +158,7 @@
     },
     {
       "anchor": "m5/gp:step:ja-m5-neo-7-rule-kiku/ex:きく？",
-      "text": "들을 거니?",
+      "text": "듣니?",
       "enSourceHash": "1c296d2f20e717c2"
     },
     {
@@ -178,7 +178,7 @@
     },
     {
       "anchor": "m5/gp:step:ja-m5-neo-9-rule-mono/ex:のみもの？",
-      "text": "음료인가?",
+      "text": "음료니?",
       "enSourceHash": "9b5cf5e46c7b98c9"
     },
     {
@@ -213,12 +213,12 @@
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:59c7f68b924a58d1",
-      "text": "볼 거니?",
+      "text": "보니?",
       "enSourceHash": "59c7f68b924a58d1"
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:5e8ca8480cb3d6b8",
-      "text": "'볼 거니?'를 묻는 것은 어느 것입니까?",
+      "text": "'보니?'라고 묻는 것을 고르세요",
       "enSourceHash": "5e8ca8480cb3d6b8"
     },
     {
@@ -233,7 +233,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:760000213386f0ea",
-      "text": "볼게.",
+      "text": "본다.",
       "enSourceHash": "760000213386f0ea"
     },
     {
@@ -273,7 +273,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:ce89a09fd6172bd6",
-      "text": "응 — 볼게.",
+      "text": "응 — 본다.",
       "enSourceHash": "ce89a09fd6172bd6"
     },
     {
@@ -283,7 +283,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:d6412edcce16d3df",
-      "text": "누가 먹어? 순간이 가리키는 사람이야 — 평평하게 말하면 보통 너고, 친구에게 높임으로 가리키면 그 사람이야. 일본어는 상황을 믿지, '나'나 '너'가 필요 없어.",
+      "text": "누가 먹니? 순간이 가리키는 사람이야 — 평평하게 말하면 보통 너고, 친구에게 높임으로 가리키면 그 사람이야. 일본어는 상황을 믿지, '나'나 '너'가 필요 없어.",
       "enSourceHash": "d6412edcce16d3df"
     },
     {
@@ -303,17 +303,17 @@
     },
     {
       "anchor": "m5/ja-m5-neo-1/ja:わたしも たべる",
-      "text": "이 문장을 만들어 보세요: 나도 먹을게.",
+      "text": "만들기: 나도 먹는다.",
       "enSourceHash": "ac1373272fffed81"
     },
     {
       "anchor": "m5/ja-m5-neo-1/ja:ミカも みる",
-      "text": "이 문장을 만들어 보세요: 미카도 볼 거야.",
+      "text": "만들기: 미카도 본다.",
       "enSourceHash": "fb75bc0ce8f37501"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:05068c9198dcacad",
-      "text": "누가 할 거야?",
+      "text": "누가 하니?",
       "enSourceHash": "05068c9198dcacad"
     },
     {
@@ -333,17 +333,17 @@
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:18447167429e3ce1",
-      "text": "누구의 사진이야?",
+      "text": "누구의 사진이니?",
       "enSourceHash": "18447167429e3ce1"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:20e67c762b2fc959",
-      "text": "무엇을 먹을 거야?",
+      "text": "무엇을 먹니?",
       "enSourceHash": "20e67c762b2fc959"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:2218bd002dae38aa",
-      "text": "저기 있는 거 들을 거야?",
+      "text": "저기 있는 걸 듣니?",
       "enSourceHash": "2218bd002dae38aa"
     },
     {
@@ -368,7 +368,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:75b119b0168484c2",
-      "text": "밥 먹을 거야?",
+      "text": "밥을 사니?",
       "enSourceHash": "75b119b0168484c2"
     },
     {
@@ -383,12 +383,12 @@
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:7fa365e3d8ac704e",
-      "text": "이거 마실 거야?",
+      "text": "이거 마시니?",
       "enSourceHash": "7fa365e3d8ac704e"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:84262ebadfa91a0e",
-      "text": "사진 찍을 거야?",
+      "text": "사진 찍니?",
       "enSourceHash": "84262ebadfa91a0e"
     },
     {
@@ -403,17 +403,17 @@
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:b09e727865358b70",
-      "text": "이것도 살 거야?",
+      "text": "이것도 사니?",
       "enSourceHash": "b09e727865358b70"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:be9857fe2dc68b91",
-      "text": "사진을 볼까?",
+      "text": "사진을 보니?",
       "enSourceHash": "be9857fe2dc68b91"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:c1ae0eb7b2bb263a",
-      "text": "무엇을 마실까?",
+      "text": "무엇을 마시니?",
       "enSourceHash": "c1ae0eb7b2bb263a"
     },
     {
@@ -428,12 +428,12 @@
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:d351bd940e3c43f9",
-      "text": "누구의 음료수인가?",
+      "text": "누구 음료수니?",
       "enSourceHash": "d351bd940e3c43f9"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:e0a0b0b07854c8c1",
-      "text": "무엇을 할까?",
+      "text": "무엇을 하니?",
       "enSourceHash": "e0a0b0b07854c8c1"
     },
     {
@@ -443,27 +443,27 @@
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:e8d3b3544dd10dbd",
-      "text": "이것도 들을까?",
+      "text": "이것도 듣니?",
       "enSourceHash": "e8d3b3544dd10dbd"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:ec89c9f9fcf9ee9d",
-      "text": "차를 볼까?",
+      "text": "차를 보니?",
       "enSourceHash": "ec89c9f9fcf9ee9d"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:edc44cc35587b926",
-      "text": "먹을까?",
+      "text": "먹니?",
       "enSourceHash": "edc44cc35587b926"
     },
     {
       "anchor": "m5/ja-m5-neo-10/ja:ぎゅうにゅうを のむ",
-      "text": "이 문장을 만들어 보세요: 우유를 마신다.",
+      "text": "만들기: 우유를 마신다.",
       "enSourceHash": "2de1a05f4724ef0c"
     },
     {
       "anchor": "m5/ja-m5-neo-10/ja:ごはんを たべる",
-      "text": "이 문장을 만들어 보세요: 밥을 먹는다.",
+      "text": "만들기: 밥을 먹는다.",
       "enSourceHash": "e3f3ba7f87cced24"
     },
     {
@@ -473,22 +473,22 @@
     },
     {
       "anchor": "m5/ja-m5-neo-10/ja:それを やる",
-      "text": "이 문장을 만들어 보세요: 그것을 한다.",
+      "text": "만들기: 그것을 한다.",
       "enSourceHash": "ef3add6b3555f4f7"
     },
     {
       "anchor": "m5/ja-m5-neo-11/en:0a0bf0640026a6bd",
-      "text": "내 음료수다.",
+      "text": "제 음료수예요.",
       "enSourceHash": "0a0bf0640026a6bd"
     },
     {
       "anchor": "m5/ja-m5-neo-11/en:1d3aaf802a34293d",
-      "text": "먹을까?",
+      "text": "먹니?",
       "enSourceHash": "1d3aaf802a34293d"
     },
     {
       "anchor": "m5/ja-m5-neo-11/en:20e67c762b2fc959",
-      "text": "무엇을 먹을까?",
+      "text": "무엇을 먹니?",
       "enSourceHash": "20e67c762b2fc959"
     },
     {
@@ -528,12 +528,12 @@
     },
     {
       "anchor": "m5/ja-m5-neo-11/en:741308081783ec6b",
-      "text": "다나카의 음료수다.",
+      "text": "다나카의 음료수예요.",
       "enSourceHash": "741308081783ec6b"
     },
     {
       "anchor": "m5/ja-m5-neo-11/en:98286b6369ea4196",
-      "text": "다나카의 식사다.",
+      "text": "다나카의 식사예요.",
       "enSourceHash": "98286b6369ea4196"
     },
     {
@@ -543,7 +543,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-11/en:c1ae0eb7b2bb263a",
-      "text": "무엇을 마실까?",
+      "text": "무엇을 마시니?",
       "enSourceHash": "c1ae0eb7b2bb263a"
     },
     {
@@ -558,7 +558,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-11/en:f4863dfa52568153",
-      "text": "다나카의 음료수인가?",
+      "text": "다나카의 음료수예요?",
       "enSourceHash": "f4863dfa52568153"
     },
     {
@@ -568,7 +568,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-11/ja:すしを たべる",
-      "text": "이 문장을 만들어 보세요: 초밥을 먹는다.",
+      "text": "만들기: 초밥을 먹는다.",
       "enSourceHash": "6c2c76d0e81a3e48"
     },
     {
@@ -578,7 +578,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-11/ja:ケンも たべる",
-      "text": "이 문장을 만들어 보세요: 켄도 먹는다.",
+      "text": "만들기: 켄도 먹는다.",
       "enSourceHash": "ff951db9e5735d52"
     },
     {
@@ -603,7 +603,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-2/en:1d3aaf802a34293d",
-      "text": "먹을까?",
+      "text": "먹니?",
       "enSourceHash": "1d3aaf802a34293d"
     },
     {
@@ -638,17 +638,17 @@
     },
     {
       "anchor": "m5/ja-m5-neo-2/en:a7d6acaf4dd5eb3c",
-      "text": "가방 볼까?",
+      "text": "가방을 보니?",
       "enSourceHash": "a7d6acaf4dd5eb3c"
     },
     {
       "anchor": "m5/ja-m5-neo-2/en:ba659b323b7699b6",
-      "text": "모자 볼까?",
+      "text": "모자를 보니?",
       "enSourceHash": "ba659b323b7699b6"
     },
     {
       "anchor": "m5/ja-m5-neo-2/en:baaeafb6378327dd",
-      "text": "모자 먹을까?",
+      "text": "모자를 먹니?",
       "enSourceHash": "baaeafb6378327dd"
     },
     {
@@ -668,27 +668,27 @@
     },
     {
       "anchor": "m5/ja-m5-neo-2/ja:うみを みる",
-      "text": "이 문장을 만들어 보세요: 바다를 보다.",
+      "text": "만들기: 바다를 본다.",
       "enSourceHash": "df295ffea4daa31a"
     },
     {
       "anchor": "m5/ja-m5-neo-2/ja:ごはんを たべる",
-      "text": "이 문장을 만들어 보세요: 밥을 먹는다.",
+      "text": "만들기: 밥을 먹는다.",
       "enSourceHash": "e3f3ba7f87cced24"
     },
     {
       "anchor": "m5/ja-m5-neo-2/ja:しゃしんを みる",
-      "text": "사진을 보다.",
+      "text": "사진을 본다.",
       "enSourceHash": "b9fc9cdc8143af93"
     },
     {
       "anchor": "m5/ja-m5-neo-2/ja:すしを たべる",
-      "text": "이 문장을 만들어 보세요: 스시를 먹는다.",
+      "text": "만들기: 스시를 먹는다.",
       "enSourceHash": "f1d2735e30fa9231"
     },
     {
       "anchor": "m5/ja-m5-neo-2/ja:たなかの くるまを みる",
-      "text": "이 문장을 만들어 보세요: 다나카의 차를 보다.",
+      "text": "만들기: 다나카의 차를 본다.",
       "enSourceHash": "48c8184c9075143f"
     },
     {
@@ -728,12 +728,12 @@
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:38d0e3070bd1ac90",
-      "text": "사진을 볼 것이다.",
+      "text": "사진을 본다.",
       "enSourceHash": "38d0e3070bd1ac90"
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:3adc5f9fe055ac59",
-      "text": "이것 살 건가?",
+      "text": "이걸 사니?",
       "enSourceHash": "3adc5f9fe055ac59"
     },
     {
@@ -748,7 +748,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:6088bca56d4987d0",
-      "text": "책을 살 것이다.",
+      "text": "책을 산다.",
       "enSourceHash": "6088bca56d4987d0"
     },
     {
@@ -763,7 +763,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:7fa365e3d8ac704e",
-      "text": "이것 마실 건가?",
+      "text": "이걸 마시니?",
       "enSourceHash": "7fa365e3d8ac704e"
     },
     {
@@ -773,7 +773,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:8592f94e305a14bc",
-      "text": "먹을 것이다.",
+      "text": "먹는다.",
       "enSourceHash": "8592f94e305a14bc"
     },
     {
@@ -803,32 +803,32 @@
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:fa44ba60d877249a",
-      "text": "책을 볼 것이다.",
+      "text": "책을 본다.",
       "enSourceHash": "fa44ba60d877249a"
     },
     {
       "anchor": "m5/ja-m5-neo-3/ja:かばんを かう",
-      "text": "만들기: 가방을 사다.",
+      "text": "만들기: 가방을 산다.",
       "enSourceHash": "9dff647b603c46c4"
     },
     {
       "anchor": "m5/ja-m5-neo-3/ja:きっぷ",
-      "text": "'표'에 해당하는 단어를 듣고 만들어 보세요.",
+      "text": "'표'에 해당하는 단어를 듣고 만들어 보세요",
       "enSourceHash": "2e051b88decbf702"
     },
     {
       "anchor": "m5/ja-m5-neo-3/ja:これを かう",
-      "text": "만들기: 이것을 사다.",
+      "text": "만들기: 이것을 산다.",
       "enSourceHash": "5a430f0ca4ba7ab4"
     },
     {
       "anchor": "m5/ja-m5-neo-3/ja:ほんを かう",
-      "text": "만들기: 책을 사다.",
+      "text": "만들기: 책을 산다.",
       "enSourceHash": "a0e458217e6238ab"
     },
     {
       "anchor": "m5/ja-m5-neo-3/ja:ミカの ほんを かう",
-      "text": "만들기: 미카의 책을 사다.",
+      "text": "만들기: 미카의 책을 산다.",
       "enSourceHash": "859865e8c98e8113"
     },
     {
@@ -853,7 +853,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:351b596445238ac3",
-      "text": "의자 살 거다.",
+      "text": "의자를 산다.",
       "enSourceHash": "351b596445238ac3"
     },
     {
@@ -883,7 +883,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:5b86090a84df0c32",
-      "text": "'오냐?'라고 묻는 것은 어느 것입니까?",
+      "text": "'오니?'라고 묻는 것을 고르세요",
       "enSourceHash": "5b86090a84df0c32"
     },
     {
@@ -898,7 +898,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:8a3a7dedefa7df85",
-      "text": "책상 살 거다.",
+      "text": "책상을 산다.",
       "enSourceHash": "8a3a7dedefa7df85"
     },
     {
@@ -913,7 +913,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:a1f8120e98e11fd1",
-      "text": "의자 볼 거다.",
+      "text": "의자를 본다.",
       "enSourceHash": "a1f8120e98e11fd1"
     },
     {
@@ -938,7 +938,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:ca1a94f97e33ea16",
-      "text": "의자 만들 거다.",
+      "text": "의자를 만든다.",
       "enSourceHash": "ca1a94f97e33ea16"
     },
     {
@@ -953,7 +953,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-4/ja:でんわ",
-      "text": "'전화'에 해당하는 단어를 듣고 만들어 보세요.",
+      "text": "'전화'에 해당하는 단어를 듣고 만들어 보세요",
       "enSourceHash": "96fe056013f801a3"
     },
     {
@@ -1008,22 +1008,22 @@
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:5aa351dbb25a7889",
-      "text": "그것 할게.",
+      "text": "그걸 한다.",
       "enSourceHash": "5aa351dbb25a7889"
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:675143eca751594f",
-      "text": "누가 할 거야?",
+      "text": "누가 하니?",
       "enSourceHash": "675143eca751594f"
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:77c973ec1174385d",
-      "text": "별 볼 거야?",
+      "text": "별을 보니?",
       "enSourceHash": "77c973ec1174385d"
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:7b9217d372e07ce1",
-      "text": "무엇 살 거야?",
+      "text": "무엇을 사니?",
       "enSourceHash": "7b9217d372e07ce1"
     },
     {
@@ -1033,22 +1033,22 @@
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:a8f094401c023a5f",
-      "text": "달 살 거야?",
+      "text": "달을 사니?",
       "enSourceHash": "a8f094401c023a5f"
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:c423d751ec78b05e",
-      "text": "달 볼 거야?",
+      "text": "달을 보니?",
       "enSourceHash": "c423d751ec78b05e"
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:cbf18cff3ade25b2",
-      "text": "무엇 할 거야?",
+      "text": "무엇을 하니?",
       "enSourceHash": "cbf18cff3ade25b2"
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:e0a0b0b07854c8c1",
-      "text": "무엇 할 거야?",
+      "text": "무엇을 하니?",
       "enSourceHash": "e0a0b0b07854c8c1"
     },
     {
@@ -1058,37 +1058,37 @@
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:ef6113deff24129b",
-      "text": "이것 할게.",
+      "text": "이걸 한다.",
       "enSourceHash": "ef6113deff24129b"
     },
     {
       "anchor": "m5/ja-m5-neo-5/ja:あれも やる",
-      "text": "만들기: 그것도 할게.",
+      "text": "만들기: 그것도 한다.",
       "enSourceHash": "446dd378f17572fb"
     },
     {
       "anchor": "m5/ja-m5-neo-5/ja:かぞく",
-      "text": "'가족'에 해당하는 단어를 듣고 만들어 보세요.",
+      "text": "'가족'에 해당하는 단어를 듣고 만들어 보세요",
       "enSourceHash": "5c51ac013e1de094"
     },
     {
       "anchor": "m5/ja-m5-neo-5/ja:これを する",
-      "text": "만들기: 이것 할게.",
+      "text": "만들기: 이걸 한다.",
       "enSourceHash": "a46eca70efa97e92"
     },
     {
       "anchor": "m5/ja-m5-neo-5/ja:これを やる",
-      "text": "이것 할게. (casual)",
+      "text": "이걸 한다. (구어체)",
       "enSourceHash": "31ec7a1496ec042a"
     },
     {
       "anchor": "m5/ja-m5-neo-5/ja:それを やる",
-      "text": "만들기: 그것 할게.",
+      "text": "만들기: 그걸 한다.",
       "enSourceHash": "ef3add6b3555f4f7"
     },
     {
       "anchor": "m5/ja-m5-neo-5/ja:なにを する",
-      "text": "만들기: 무엇을 할 거야?",
+      "text": "만들기: 무엇을 하니?",
       "enSourceHash": "a517e8b99f79b860"
     },
     {
@@ -1098,7 +1098,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:0306c24f7408891f",
-      "text": "이것 살게.",
+      "text": "이걸 산다.",
       "enSourceHash": "0306c24f7408891f"
     },
     {
@@ -1118,7 +1118,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:283dfb76cca10d1e",
-      "text": "가게 문에서 손님을 맞이하는 인사말은 무엇일까?",
+      "text": "가게 문에서 손님을 맞이하는 인사말은 무엇일까요?",
       "enSourceHash": "283dfb76cca10d1e"
     },
     {
@@ -1158,17 +1158,17 @@
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:71718960d243b056",
-      "text": "100 엔이야.",
+      "text": "100 엔이에요.",
       "enSourceHash": "71718960d243b056"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:7391f91c01f7fea2",
-      "text": "이게 누구 거야?",
+      "text": "이게 누구 거니?",
       "enSourceHash": "7391f91c01f7fea2"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:7489a6421ba0ab86",
-      "text": "무료야.",
+      "text": "무료예요.",
       "enSourceHash": "7489a6421ba0ab86"
     },
     {
@@ -1178,12 +1178,12 @@
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:76517e3354df5193",
-      "text": "밥 먹을 거야.",
+      "text": "밥 먹는다.",
       "enSourceHash": "76517e3354df5193"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:7e19f97f579e375e",
-      "text": "다 끝났어.",
+      "text": "다 끝났어요.",
       "enSourceHash": "7e19f97f579e375e"
     },
     {
@@ -1193,17 +1193,17 @@
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:8ada8a1184d4a12a",
-      "text": "초밥 만들 거야.",
+      "text": "초밥을 만든다.",
       "enSourceHash": "8ada8a1184d4a12a"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:8eaba1d371b557f4",
-      "text": "가게 직원의 인사말 — 모든 손님을 향해 말하며, 당신은 절대 답하지 않는다. 고개 끄덕임만으로도 충분하다.",
+      "text": "가게 직원의 인사말 — 모든 손님을 향해 흘러가듯 하는 말이라, 절대 답하지 않는다. 고개 끄덕임만으로도 충분하다.",
       "enSourceHash": "8eaba1d371b557f4"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:b0cf18e2ced45c08",
-      "text": "1,000 엔이야.",
+      "text": "1,000 엔이에요.",
       "enSourceHash": "b0cf18e2ced45c08"
     },
     {
@@ -1213,7 +1213,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:c02ef346b18649c0",
-      "text": "스시 살 거야.",
+      "text": "스시를 산다.",
       "enSourceHash": "c02ef346b18649c0"
     },
     {
@@ -1233,27 +1233,27 @@
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:f5be39c4f2ae76ab",
-      "text": "스시 먹을 거야.",
+      "text": "스시 먹는다.",
       "enSourceHash": "f5be39c4f2ae76ab"
     },
     {
       "anchor": "m5/ja-m5-neo-6/ja:これも かう",
-      "text": "이것도 사.",
+      "text": "이것도 산다.",
       "enSourceHash": "67e4cdd100772628"
     },
     {
       "anchor": "m5/ja-m5-neo-6/ja:これを かう",
-      "text": "만들기: 이거 사.",
+      "text": "만들기: 이걸 산다.",
       "enSourceHash": "5a430f0ca4ba7ab4"
     },
     {
       "anchor": "m5/ja-m5-neo-6/ja:ゆきを みる",
-      "text": "눈 볼 거야.",
+      "text": "눈을 본다.",
       "enSourceHash": "12d9735e0f238527"
     },
     {
       "anchor": "m5/ja-m5-neo-6/ja:わたしも これを かう",
-      "text": "만들기: 나도 이거 사.",
+      "text": "만들기: 나도 이걸 산다.",
       "enSourceHash": "3b96cb2e89836f7a"
     },
     {
@@ -1263,7 +1263,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:1c296d2f20e717c2",
-      "text": "들을 거야?",
+      "text": "듣니?",
       "enSourceHash": "1c296d2f20e717c2"
     },
     {
@@ -1303,7 +1303,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:59c83a920d1d8469",
-      "text": "노래 부를 거야?",
+      "text": "노래를 부르니?",
       "enSourceHash": "59c83a920d1d8469"
     },
     {
@@ -1358,7 +1358,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:cd684567450895a3",
-      "text": "노래 들을 거야?",
+      "text": "노래를 듣니?",
       "enSourceHash": "cd684567450895a3"
     },
     {
@@ -1368,7 +1368,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:e5fe269f01252e96",
-      "text": "노래 살 거야?",
+      "text": "노래를 사니?",
       "enSourceHash": "e5fe269f01252e96"
     },
     {
@@ -1378,17 +1378,17 @@
     },
     {
       "anchor": "m5/ja-m5-neo-7/ja:うたを きく",
-      "text": "만들기: 노래 들어.",
+      "text": "만들기: 노래를 듣는다.",
       "enSourceHash": "b970ba6ea40bca82"
     },
     {
       "anchor": "m5/ja-m5-neo-7/ja:まどを みる",
-      "text": "만들기: 창문 봐.",
+      "text": "만들기: 창문을 본다.",
       "enSourceHash": "1f9ece06ea4ebfa5"
     },
     {
       "anchor": "m5/ja-m5-neo-7/ja:ケンの うたも きく",
-      "text": "만들기: 켄의 노래도 들어.",
+      "text": "만들기: 켄의 노래도 듣는다.",
       "enSourceHash": "e61437bcda302e4b"
     },
     {
@@ -1413,7 +1413,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:34a2cec5fcceb420",
-      "text": "들리나요?",
+      "text": "들리니?",
       "enSourceHash": "34a2cec5fcceb420"
     },
     {
@@ -1438,7 +1438,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:4891e4a962633cd4",
-      "text": "그렇게 말하나요?",
+      "text": "그렇게 말하니?",
       "enSourceHash": "4891e4a962633cd4"
     },
     {
@@ -1453,12 +1453,12 @@
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:5f0cccd49c328e87",
-      "text": "그렇게 생각하나요?",
+      "text": "그렇게 생각하니?",
       "enSourceHash": "5f0cccd49c328e87"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:61cdd8b363ad43e5",
-      "text": "잘 지내나요?",
+      "text": "잘 지내니?",
       "enSourceHash": "61cdd8b363ad43e5"
     },
     {
@@ -1508,12 +1508,12 @@
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:9eb8cd756595cf24",
-      "text": "정말인가요?",
+      "text": "정말이니?",
       "enSourceHash": "9eb8cd756595cf24"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:bbff7b98d6da7061",
-      "text": "무엇인가요?",
+      "text": "무엇이니?",
       "enSourceHash": "bbff7b98d6da7061"
     },
     {
@@ -1543,7 +1543,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:ff8e27fb93abb1c6",
-      "text": "그렇게 생각하나요?",
+      "text": "그렇게 생각하니?",
       "enSourceHash": "ff8e27fb93abb1c6"
     },
     {
@@ -1553,22 +1553,22 @@
     },
     {
       "anchor": "m5/ja-m5-neo-8/ja:そう おもう",
-      "text": "이 문장을 만들어 보세요: 그렇게 생각한다.",
+      "text": "만들기: 그렇게 생각한다.",
       "enSourceHash": "905ef87644617d75"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:1d3aaf802a34293d",
-      "text": "먹을 건가요?",
+      "text": "먹니?",
       "enSourceHash": "1d3aaf802a34293d"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:234efcddd7c5c28b",
-      "text": "우산을 살 건가요?",
+      "text": "우산을 사니?",
       "enSourceHash": "234efcddd7c5c28b"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:3d4557eae88508e6",
-      "text": "음식을 먹을 건가요?",
+      "text": "음식을 먹니?",
       "enSourceHash": "3d4557eae88508e6"
     },
     {
@@ -1583,7 +1583,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:5e6328aa77c66156",
-      "text": "음식을 살 건가요?",
+      "text": "음식을 사니?",
       "enSourceHash": "5e6328aa77c66156"
     },
     {
@@ -1593,17 +1593,17 @@
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:6cbf9346d12dadf9",
-      "text": "이걸 살 건가요?",
+      "text": "이걸 사니?",
       "enSourceHash": "6cbf9346d12dadf9"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:8aa75d34f798eec0",
-      "text": "음료를 살 건가요?",
+      "text": "음료를 사니?",
       "enSourceHash": "8aa75d34f798eec0"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:98528c5a7601602a",
-      "text": "그건 물건인가요?",
+      "text": "그거 물건이니?",
       "enSourceHash": "98528c5a7601602a"
     },
     {
@@ -1613,17 +1613,17 @@
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:9b5cf5e46c7b98c9",
-      "text": "음료수인가요?",
+      "text": "음료수니?",
       "enSourceHash": "9b5cf5e46c7b98c9"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:a7d6acaf4dd5eb3c",
-      "text": "가방을 볼 건가요?",
+      "text": "가방을 보니?",
       "enSourceHash": "a7d6acaf4dd5eb3c"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:b4a503f6db924e83",
-      "text": "음식인가요?",
+      "text": "음식이니?",
       "enSourceHash": "b4a503f6db924e83"
     },
     {
@@ -1643,57 +1643,57 @@
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:e19f8cbb73508b42",
-      "text": "가방을 살 건가요?",
+      "text": "가방을 사니?",
       "enSourceHash": "e19f8cbb73508b42"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:e6bf10a0eaa9da57",
-      "text": "집에 가는 건가요?",
+      "text": "집에 가니?",
       "enSourceHash": "e6bf10a0eaa9da57"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:e77adadad77ecf8f",
-      "text": "쇼핑하러 가는 건가요?",
+      "text": "쇼핑이니?",
       "enSourceHash": "e77adadad77ecf8f"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:f2903f1002646445",
-      "text": "가방을 잃어버릴 건가요?",
+      "text": "가방을 잃어버리니?",
       "enSourceHash": "f2903f1002646445"
     },
     {
       "anchor": "m5/ja-m5-neo-9/ja:かおを みる",
-      "text": "이 문장을 만드세요: 얼굴을 보다.",
+      "text": "만들기: 얼굴을 본다.",
       "enSourceHash": "416aa2e30f07fe09"
     },
     {
       "anchor": "m5/ja-m5-neo-9/ja:これも ミカの たべものだ",
-      "text": "이 문장을 만드세요: 이것도 미카의 음식이다.",
+      "text": "만들기: 이것도 미카의 음식이다.",
       "enSourceHash": "17014f96543bb81b"
     },
     {
       "anchor": "m5/ja-m5-neo-9/ja:たべものを かう",
-      "text": "이 문장을 만드세요: 음식을 사다.",
+      "text": "만들기: 음식을 산다.",
       "enSourceHash": "ad823425f74047d6"
     },
     {
       "anchor": "m5/ja-m5-neo-9/ja:のみものだ",
-      "text": "이 문장을 만드세요: 음료수이다.",
+      "text": "만들기: 음료수다.",
       "enSourceHash": "c03dfe34a79f8a0a"
     },
     {
       "anchor": "m5/ja-m5-neo-9/ja:ケンの たべものだ",
-      "text": "이 문장을 만드세요: 켄의 음식이다.",
+      "text": "만들기: 켄의 음식이다.",
       "enSourceHash": "269e9e39b46e54d2"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:0268680e38296778",
-      "text": "하늘인가요?",
+      "text": "하늘이니?",
       "enSourceHash": "0268680e38296778"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:03cc6c8fda4ffaee",
-      "text": "복숭아를 살 건가요?",
+      "text": "복숭아를 사니?",
       "enSourceHash": "03cc6c8fda4ffaee"
     },
     {
@@ -1708,17 +1708,17 @@
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:15690aaaa40fd589",
-      "text": "이게 미카의 음식인가요?",
+      "text": "이게 미카 음식이니?",
       "enSourceHash": "15690aaaa40fd589"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:1b91adff1b2f4b08",
-      "text": "물을 살 건가요?",
+      "text": "물을 사니?",
       "enSourceHash": "1b91adff1b2f4b08"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:21bcfa9b76dab5e0",
-      "text": "복숭아를 먹을 건가요?",
+      "text": "복숭아를 먹니?",
       "enSourceHash": "21bcfa9b76dab5e0"
     },
     {
@@ -1728,27 +1728,27 @@
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:28083e9b16220af2",
-      "text": "이것도 음료수인가요?",
+      "text": "이것도 음료수니?",
       "enSourceHash": "28083e9b16220af2"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:28bd95c64abbcfd9",
-      "text": "하늘을 볼 건가요?",
+      "text": "하늘을 보니?",
       "enSourceHash": "28bd95c64abbcfd9"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:41c6b68b78a8231d",
-      "text": "강물을 마실 건가요?",
+      "text": "강물을 마시니?",
       "enSourceHash": "41c6b68b78a8231d"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:4533faa09d2ae10b",
-      "text": "누군가가 당신에게 사과하고 당신이 괜찮다고 했을 때 — 어떤 것이 맞나요?",
+      "text": "누군가 사과했는데 괜찮다고 할 때 — 어떤 것이 맞나요?",
       "enSourceHash": "4533faa09d2ae10b"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:4dd64eaadc606d71",
-      "text": "바다를 볼 건가요?",
+      "text": "바다를 보니?",
       "enSourceHash": "4dd64eaadc606d71"
     },
     {
@@ -1758,7 +1758,7 @@
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:5ce3b56760c62b6a",
-      "text": "빵을 먹을 건가요?",
+      "text": "빵을 먹니?",
       "enSourceHash": "5ce3b56760c62b6a"
     },
     {
@@ -1768,17 +1768,17 @@
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:6b7d50d410647e95",
-      "text": "강물인가요?",
+      "text": "강물이니?",
       "enSourceHash": "6b7d50d410647e95"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:81616d86aac5d3c7",
-      "text": "이것도 음식인가요?",
+      "text": "이것도 음식이니?",
       "enSourceHash": "81616d86aac5d3c7"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:8f32e6f3c0b2a23e",
-      "text": "복숭아인가요?",
+      "text": "복숭아니?",
       "enSourceHash": "8f32e6f3c0b2a23e"
     },
     {
@@ -1788,12 +1788,12 @@
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:b0288a75f8e39967",
-      "text": "강을 볼 건가요?",
+      "text": "강을 보니?",
       "enSourceHash": "b0288a75f8e39967"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:bb236fe4c675f806",
-      "text": "별을 볼 건가요?",
+      "text": "별을 보니?",
       "enSourceHash": "bb236fe4c675f806"
     },
     {
@@ -1808,32 +1808,32 @@
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:da9ee4f295e085b9",
-      "text": "저것이 음식인가요?",
+      "text": "저거 음식이니?",
       "enSourceHash": "da9ee4f295e085b9"
     },
     {
       "anchor": "m5/ja-m5-neo-review/ja:うみを きく",
-      "text": "이 문장을 만들어 보세요: 바다를 듣는다.",
+      "text": "만들기: 바다를 듣는다.",
       "enSourceHash": "a91b3c9de8c70519"
     },
     {
       "anchor": "m5/ja-m5-neo-review/ja:かわの しゃしんを みる",
-      "text": "이 문장을 만들어 보세요: 강 사진을 본다.",
+      "text": "만들기: 강의 사진을 본다.",
       "enSourceHash": "274a32129fcbdbba"
     },
     {
       "anchor": "m5/ja-m5-neo-review/ja:さんぽ",
-      "text": "'산책하다'에 해당하는 단어를 듣고 만들어 보세요",
+      "text": "'산책'에 해당하는 단어를 듣고 만들어 보세요",
       "enSourceHash": "4e9e97ec5048fad3"
     },
     {
       "anchor": "m5/ja-m5-neo-review/ja:めがねを かう",
-      "text": "이 문장을 만들어 보세요: 안경을 산다.",
+      "text": "만들기: 안경을 산다.",
       "enSourceHash": "e4b92b9d9ce0eaf1"
     },
     {
       "anchor": "m5/ja-m5-neo-review/ja:ゆきを みる",
-      "text": "이 문장을 만들어 보세요: 눈을 본다.",
+      "text": "만들기: 눈을 본다.",
       "enSourceHash": "b6563ea0e5ac5894"
     }
   ]
