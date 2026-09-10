@@ -366,7 +366,7 @@ lessons:
       - { kind: sentence, ja: "ニュースで じこの きじを よんだ。", en: "I read an article about the accident, in the news.", exercises: [de-action, wo-object, ta-form], mode: build }
       - { kind: sentence, ja: "たいふうは たいへんだ。", en: "A typhoon is a serious thing.", exercises: [wa-topic, na-adj-present], mode: listening }
       - { kind: particle-cloze, stem: "きのう ", tail: "が あった。", answer: "じこ", options: ["じこ", "じしん", "たいふう"], en: "There was an accident yesterday.", explanation: "'accident' is じこ. じしん is an earthquake and たいふう is a typhoon — both real news words, but neither means 'accident.'" }
-      - { kind: listening-comp, audio: "ニュースで じしんが あった。", answer: "There was an earthquake, on the news.", distractors: ["There was an accident, on the news.", "A typhoon is coming, on the news.", "There is no news today."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "ニュースで じこが あった。", answer: "There was an accident, on the news.", distractors: ["There was an earthquake, on the news.", "A typhoon is coming, on the news.", "There is no news today."], q: "What does this mean?" }
       - { kind: listening-comp, audio: "たいふうが くる。", answer: "A typhoon is coming.", distractors: ["A typhoon came yesterday.", "There was no typhoon.", "An earthquake is coming."], q: "What does this mean?" }
       - { kind: kanji, kana: じしん, kanji: 地震, distractors: ["じかん", "じてん", "じぶん"], exercises: [ga-existence] }
       - kind: dialogue
@@ -466,7 +466,7 @@ lessons:
       - { kind: sentence, ja: "きしゃは わたしに じしんを つたえた。", en: "The reporter conveyed news of the earthquake to me.", exercises: [ni-recipient, wo-object, ta-form], mode: build }
       - { kind: sentence, ja: "きしゃは ニュースを つたえる。", en: "The reporter conveys the news.", exercises: [wo-object], mode: build }
       - { kind: sentence, ja: "せんせいは がくせいに じしんを しらせる。", en: "The teacher informs the students about the earthquake.", exercises: [ni-recipient, wo-object], mode: build }
-      - { kind: particle-cloze, stem: "ケンは いそがしい", tail: "いっていた。", answer: "と", options: ["と", "を", "が"], en: "Ken said he was busy.", explanation: "A quoted whole sentence is handed over with と, never を or が — those mark a thing or a subject, and 'Ken is busy' is a whole clause, not either of those: いそがしいと いっていた。" }
+      - { kind: particle-cloze, stem: "ケンは いそがしいと ", tail: "。", answer: "いっていた", options: ["いっていた", "いう", "いっている"], en: "Ken said he was busy.", explanation: "Reporting what Ken SAID, in the past, needs this lesson's fused carrier いっていた — ケンは いそがしいと いっていた。 Bare いう drops the past/report framing to a plain 'say', and いっている shifts it to right now ('is saying') — neither actually reports what he said earlier." }
       - { kind: listening-comp, audio: "せんせいは がくせいに じしんを しらせた。", answer: "The teacher informed the students about the earthquake.", distractors: ["The students informed the teacher.", "The teacher forgot to tell the students.", "Nobody told the students anything."], q: "What does this mean?" }
       - { kind: kanji, kana: つたえる, kanji: 伝える, distractors: ["つかれる", "つづける", "つくる"], exercises: [to-itte-ita] }
       - kind: dialogue
@@ -588,7 +588,7 @@ lessons:
     beats:
       - { kind: sentence, ja: "ニュースで じしんが あったと いっていたから、きじを よんだ。", en: "Since the news said there was an earthquake, I read the article.", exercises: [to-itte-ita, kara-because, wo-object, ta-form], mode: build }
       - { kind: sentence, ja: "たいふうが くるそうだし、あめも ふるらしいから、きょうは うちに いる。", en: "I heard a typhoon is coming, and what's more apparently it will rain too, so I'll stay home today.", exercises: [sou-hearsay, shi-listing, rashii-hearsay, kara-because], mode: build }
-      - { kind: sentence, ja: "きしゃは ほうそうで じこを つたえたが、はっぴょうは まだ ないって いっていた。", en: "The reporter conveyed news of the accident on the broadcast, but said there's no announcement yet.", exercises: [de-action, wo-object, tte-quotative, nai-existence], mode: listening }
+      - { kind: sentence, ja: "きしゃは じこが あったって いっていたが、たいふうは こないらしい。", en: "The reporter said there was an accident, but apparently the typhoon isn't coming.", exercises: [tte-quotative, rashii-hearsay, nai-form], mode: listening }
       - { kind: particle-cloze, stem: "たいふうが くる", tail: "し、あめも ふるらしいから、きょうは うちに いる。", answer: "そうだ", options: ["そうだ", "らしい", "って"], en: "I heard a typhoon is coming, and what's more apparently it will rain too, so I'll stay home today.", explanation: "The sentence already uses らしい for the rain half — repeating it for the typhoon half would flatten two different sources into one. そうだ marks this first half as a direct report, distinct from the second half's more distanced らしい." }
       - { kind: listening-comp, audio: "きしゃは ほうそうで じこを つたえたが、はっぴょうは まだ ないって いっていた。", answer: "The reporter conveyed news of the accident on the broadcast, but said there's no announcement yet.", distractors: ["The reporter said there was already an official announcement.", "The reporter refused to talk about the accident.", "There was no accident at all."], q: "What does this mean?" }
       - kind: dialogue

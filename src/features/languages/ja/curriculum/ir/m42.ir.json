@@ -526,10 +526,10 @@
         },
         {
           "kind": "listening-comp",
-          "audio": "ニュースで じしんが あった。",
-          "answer": "There was an earthquake, on the news.",
+          "audio": "ニュースで じこが あった。",
+          "answer": "There was an accident, on the news.",
           "distractors": [
-            "There was an accident, on the news.",
+            "There was an earthquake, on the news.",
             "A typhoon is coming, on the news.",
             "There is no news today."
           ],
@@ -1093,16 +1093,16 @@
         },
         {
           "kind": "particle-cloze",
-          "stem": "ケンは いそがしい",
-          "tail": "いっていた。",
-          "answer": "と",
+          "stem": "ケンは いそがしいと ",
+          "tail": "。",
+          "answer": "いっていた",
           "options": [
-            "と",
-            "を",
-            "が"
+            "いっていた",
+            "いう",
+            "いっている"
           ],
           "en": "Ken said he was busy.",
-          "explanation": "A quoted whole sentence is handed over with と, never を or が — those mark a thing or a subject, and 'Ken is busy' is a whole clause, not either of those: いそがしいと いっていた。"
+          "explanation": "Reporting what Ken SAID, in the past, needs this lesson's fused carrier いっていた — ケンは いそがしいと いっていた。 Bare いう drops the past/report framing to a plain 'say', and いっている shifts it to right now ('is saying') — neither actually reports what he said earlier."
         },
         {
           "kind": "listening-comp",
@@ -1761,13 +1761,12 @@
         },
         {
           "kind": "sentence",
-          "ja": "きしゃは ほうそうで じこを つたえたが、はっぴょうは まだ ないって いっていた。",
-          "en": "The reporter conveyed news of the accident on the broadcast, but said there's no announcement yet.",
+          "ja": "きしゃは じこが あったって いっていたが、たいふうは こないらしい。",
+          "en": "The reporter said there was an accident, but apparently the typhoon isn't coming.",
           "exercises": [
-            "de-action",
-            "wo-object",
             "tte-quotative",
-            "nai-existence"
+            "rashii-hearsay",
+            "nai-form"
           ],
           "mode": "listening"
         },
