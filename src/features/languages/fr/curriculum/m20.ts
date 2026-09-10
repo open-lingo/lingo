@@ -627,7 +627,7 @@ function lesson6(): LessonStep[] {
     infoStep(
       "fr-m20-6-info-contrast",
       "«A mangé» vs «vient de manger»",
-      "«Elle a mangé» (passé composé) and «elle vient de manger» (recent past) both describe something that just happened — «vient de» puts extra emphasis on JUST NOW. Same event, two ways to say it.",
+      "«Elle a mangé» (passé composé) is the general past — she ate, at some point. «Elle vient de manger» means she just ate, right now. When it really did just happen, either works — but only «vient de» spells out JUST NOW.",
     ),
     cloze(
       "fr-m20-6-cloze-amange",
@@ -877,7 +877,7 @@ function checkpointLesson(): LessonStep[] {
   ];
 }
 
-/** L9 — integration: «Hugo vient d'arriver» dialogue_sim, manually
+/** L9 — integration: «Tu viens de manger ?» dialogue_sim, manually
  *  vocabulary-audited (dialogue_sim is invisible to the automated vocab-
  *  provenance gate — frSurfaces() has no case for it — and machine-gated
  *  by frSimProvenance.test.ts once this module lands in its MODULES
@@ -955,7 +955,7 @@ function lesson9(): LessonStep[] {
     {
       id: "fr-m20-9-sim-arrivee",
       type: "dialogue_sim",
-      scene: { emoji: "🚉", title: "Hugo vient d'arriver" },
+      scene: { emoji: "🚉", title: "Hugo checks in" },
       exercisedAtomIds: [],
       turns: [
         {
@@ -1069,7 +1069,7 @@ function lesson10(): LessonStep[] {
     {
       id: "fr-m20-10-sim-projets",
       type: "dialogue_sim",
-      scene: { emoji: "🍰", title: "Camille vient de finir" },
+      scene: { emoji: "🍰", title: "Camille's snack break" },
       exercisedAtomIds: [],
       turns: [
         {
@@ -1212,7 +1212,7 @@ const FR_M20_9: LessonContent = {
   moduleId: "m20",
   courseId: COURSE_ID,
   languageId: "fr",
-  title: "Hugo vient d'arriver",
+  title: "Tu viens de manger ?",
   estimatedMinutes: 8,
   xpReward: 20,
   steps: lesson9(),
@@ -1223,7 +1223,7 @@ const FR_M20_10: LessonContent = {
   moduleId: "m20",
   courseId: COURSE_ID,
   languageId: "fr",
-  title: "Camille vient de finir",
+  title: "Je viens de manger, et toi ?",
   estimatedMinutes: 8,
   xpReward: 20,
   steps: lesson10(),
