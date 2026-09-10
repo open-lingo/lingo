@@ -63,3 +63,17 @@ to prove the pipeline, backfill m1–m5 second.
 
 Related: `reverse-teaching-readiness-2026-07-29.md` (measurements, §3c architecture,
 §4 D1–D8 authoring rules already binding), `LOCALIZATION.md`, `ko-handoff-payton-2026-09-09.md`.
+
+## Decisions inferred 2026-09-10 (Spencer: "fulfill the goal of korean to other language support")
+Per the standing rule (infer from the project goal + docs, record, proceed), the five
+decisions above are resolved as follows until Spencer overrides:
+1. **Profile:** unknown → build rung 0 first regardless (shared debt, every course benefits),
+   then rung 1. Rung 0 lane dispatched 2026-09-10 (`docs/ko-source-rung0-2026-09-10.md`).
+2. **Pilot range:** m1–m8 (the doc's own recommendation; the learner starts at the beginning).
+3. **Readings:** romaji in v1; hangul ruby as a later setting (schema-compatible, product call).
+4. **QA:** Sonnet reviewer per module + a Payton sample; the friend reads when available.
+5. **Rule prose:** pilot keeps grammar rules in English; translate glosses/prompts/cues
+   only (cheapest reversible slice; re-anchoring "like English X" comparisons is a
+   separate pass once the pilot proves the catalog mechanism).
+Order: rung 0 → extractor + 4 grading de-couplings (one PR, after the JA authoring lane
+is quiet because `moduleCompiler.ts` is shared) → MT wave one module at a time.
