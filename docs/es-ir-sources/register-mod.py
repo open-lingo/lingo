@@ -3,7 +3,7 @@
 import sys
 prev, new, title, eyebrow, summary, cfrom, cto = sys.argv[1:8]
 P, N = prev.upper(), new.upper()
-R = "/Users/lichfield/Documents/projects/lingle/lingo/src/features/languages/es/"
+import os; R = os.environ.get("LINGO_ROOT", "/Users/lichfield/Documents/projects/lingle/lingo") + "/src/features/languages/es/"
 def edit(p, old, newtxt, count=1):
     s = open(p).read()
     assert s.count(old) == count, (p, old[:70], s.count(old))
