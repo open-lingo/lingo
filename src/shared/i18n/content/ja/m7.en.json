@@ -3,7 +3,7 @@
   "moduleId": "m7",
   "lang": "ja",
   "generatedAt": "2026-09-10",
-  "entryCount": 350,
+  "entryCount": 378,
   "entries": [
     {
       "anchor": "m7/atom:あそびます/gloss",
@@ -2044,6 +2044,174 @@
       "en": "Build what you hear.",
       "enSourceHash": "b28d903ef295627a",
       "kind": "build-prompt"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/en:74f95d332599e5c5",
+      "en": "Waiting for a friend who doesn't get off the first plane.",
+      "enSourceHash": "74f95d332599e5c5",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/en:f74eb7b4b48dc3a6",
+      "en": "At the airport",
+      "enSourceHash": "f74eb7b4b48dc3a6",
+      "kind": "title"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/gloss:おいしい",
+      "en": "delicious",
+      "enSourceHash": "3c29fc3464377a28",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/gloss:まだ",
+      "en": "still, not yet",
+      "enSourceHash": "305811dd6b387ba7",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/gloss:まちます",
+      "en": "to wait (polite)",
+      "enSourceHash": "e1a90fbfdb3a9c9c",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:きょう、ともだちが アメリカから きます。",
+      "en": "Today a friend is coming from America.",
+      "enSourceHash": "7bfaa9cbf8eb99bc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:くうこうで トムを まちます。",
+      "en": "I wait for Tom at the airport.",
+      "enSourceHash": "36523b0d23b56314",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:すしは おいしいです。",
+      "en": "The sushi is delicious.",
+      "enSourceHash": "9964fc2d7a5c797f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:それから、おちゃを のみます。",
+      "en": "After that I drink some tea.",
+      "enSourceHash": "78e33d69e26bb013",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:それから、ふたりで うちに いきます。",
+      "en": "And then the two of us head home.",
+      "enSourceHash": "9f17e184f984021b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:ともだちの なまえは トムです。",
+      "en": "My friend's name is Tom.",
+      "enSourceHash": "b6e6ea1c7005c4c1",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:ふたりで すしを たべます。",
+      "en": "The two of us eat sushi.",
+      "enSourceHash": "c3089679837ee5e4",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:わたしは かばんの ほんを よみます。",
+      "en": "I read the book in my bag.",
+      "enSourceHash": "c1e17a4b5f51b411",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:わたしは くうこうで ごはんを たべます。",
+      "en": "I eat a meal at the airport.",
+      "enSourceHash": "0c12d20931212ab7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:わたしは でんしゃで くうこうに いきます。",
+      "en": "I take the train to the airport.",
+      "enSourceHash": "3309611ff1031c23",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:トムが きます。",
+      "en": "Tom arrives.",
+      "enSourceHash": "342381f3f8277ce9",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:トムは きません。",
+      "en": "Tom doesn't come.",
+      "enSourceHash": "527998353dd6f1e2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:トムは まだ きません。",
+      "en": "Tom still isn't here.",
+      "enSourceHash": "ddb4147c9e4da3f0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:ニュースも みます。",
+      "en": "I watch the news too.",
+      "enSourceHash": "abc952d7b0f2900e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m7/story:ja-m7-my-day/en:1b2fffea95f777bf",
+      "en": "My day",
+      "enSourceHash": "1b2fffea95f777bf",
+      "kind": "title"
+    },
+    {
+      "anchor": "m7/story:ja-m7-my-day/en:4ed80a556280198b",
+      "en": "A simple run through a day.",
+      "enSourceHash": "4ed80a556280198b",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m7/story:ja-m7-my-day/ja:うちで ニュースを みます。",
+      "en": "I watch the news at home.",
+      "enSourceHash": "5360085a5693d86f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m7/story:ja-m7-my-day/ja:おちゃを のみます。",
+      "en": "I drink green tea.",
+      "enSourceHash": "13979f4f3c101527",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m7/story:ja-m7-my-day/ja:がっこうに いきます。",
+      "en": "I go to school.",
+      "enSourceHash": "400eb2f777be5946",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m7/story:ja-m7-my-day/ja:ごはんを たべます。",
+      "en": "I eat a meal.",
+      "enSourceHash": "c096162389929a82",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m7/story:ja-m7-my-day/ja:としょかんで ほんを よみます。",
+      "en": "I read a book at the library.",
+      "enSourceHash": "942b8b0ed5886fc8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m7/story:ja-m7-my-day/ja:ともだちも きます。",
+      "en": "My friend comes too.",
+      "enSourceHash": "d8343f7338a66f75",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m7/story:ja-m7-my-day/ja:わたしは がくせいです。",
+      "en": "I'm a student.",
+      "enSourceHash": "6b657556a0442c4e",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m7/symbolIntro:ア/hint",

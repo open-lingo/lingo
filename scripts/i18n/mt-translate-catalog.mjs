@@ -179,6 +179,8 @@ const KIND_CATEGORY = {
   explanation: "grammar-teaching prose (rule/example/anti-pattern explanation)",
   title: "lesson or step title",
   "mcq-option": "multiple-choice option text",
+  "story-theme": "story-mode one-line synopsis (under the story title) — no JA sentence to mirror, translate the English meaning naturally",
+  "story-gloss": "story-mode above-level word gloss (Story.glosses[].meaning) — short, dictionary-style like a vocabulary gloss, citation -다 form",
 };
 
 function anchorCategory(e) {
@@ -204,6 +206,8 @@ function jaSurfaceFromAnchor(anchor) {
   if (atomMatch) return atomMatch[1];
   const symMatch = anchor.match(/\/symbolIntro:([^/]+)\//);
   if (symMatch) return symMatch[1];
+  const glossMatch = anchor.match(/\/gloss:(.+)$/);
+  if (glossMatch) return glossMatch[1];
   return null;
 }
 
@@ -235,6 +239,8 @@ Categories in this batch, and how to handle each:
   - "gloss keyed to a Japanese sentence" / "build-sentence instruction remainder": instructional or gloss text tied to one JA sentence. Give a structure-true Korean rendering of the meaning; if this item's "note" says its instruction prefix is already pinned, translate ONLY the sentence content, no prefix of your own.
   - "kana mnemonic": see MNEMONIC RE-ANCHORING above.
   - "plain UI instruction text" / "lesson or step title" / "multiple-choice option text": UI chrome. Translate naturally; these are not grammar-teaching content.
+  - "story-mode one-line synopsis": a short scene-setting line under a story title (e.g. "A cold" or "Ken gets sick and stays home"). Translate the English meaning naturally into Korean prose; there is no JA sentence to mirror.
+  - "story-mode above-level word gloss": a single word/phrase meaning for a word used in a story before the learner has formally studied it — treat exactly like "vocabulary gloss (atom)" (short, dictionary-style, citation -다 form).
 
 Return ONLY a JSON array, one object per input item, in the SAME ORDER, each shaped exactly {"anchor": "<the input anchor, verbatim>", "text": "<Korean translation>"}. Do not add, drop, reorder, or merge items — the array must have exactly ${items.length} objects, one per input anchor below.
 

@@ -4,7 +4,7 @@
   "lang": "ko",
   "generatedAt": "2026-09-10",
   "draftedBy": "qwen3.5:122b-a10b-q4_K_M",
-  "entryCount": 256,
+  "entryCount": 278,
   "entries": [
     {
       "anchor": "m3/atom:ありがとう/gloss",
@@ -1285,6 +1285,116 @@
       "anchor": "m3/ja-m3-neo-review/ja:ミカも にほんじんだ",
       "text": "이 문장을 만들어 보세요: 미카도 일본인이다.",
       "enSourceHash": "e75ed64952c8ad75"
+    },
+    {
+      "anchor": "m3/story:ja-m3-a-cold/en:289262c370595657",
+      "text": "아침엔 괜찮았지만, 오후엔 아니었다.",
+      "enSourceHash": "289262c370595657"
+    },
+    {
+      "anchor": "m3/story:ja-m3-a-cold/en:df64b34bfdc429de",
+      "text": "감기",
+      "enSourceHash": "df64b34bfdc429de"
+    },
+    {
+      "anchor": "m3/story:ja-m3-a-cold/gloss:あした",
+      "text": "내일",
+      "enSourceHash": "bafd151a86f9a573"
+    },
+    {
+      "anchor": "m3/story:ja-m3-a-cold/ja:あさは げんきでした。",
+      "text": "아침은 건강했어요.",
+      "enSourceHash": "bb2aaa6e0d541f33"
+    },
+    {
+      "anchor": "m3/story:ja-m3-a-cold/ja:あしたは げんきです。",
+      "text": "내일은 건강해요.",
+      "enSourceHash": "43a959be8e4d3437"
+    },
+    {
+      "anchor": "m3/story:ja-m3-a-cold/ja:いいえ、ユミも たなかせんせいも げんきです。",
+      "text": "아니요, 유미도 다나카 선생님도 건강해요.",
+      "enSourceHash": "78c1d8a52cdd79d9"
+    },
+    {
+      "anchor": "m3/story:ja-m3-a-cold/ja:きょうは いえです。",
+      "text": "오늘은 집이에요.",
+      "enSourceHash": "addcc7adec5104a2"
+    },
+    {
+      "anchor": "m3/story:ja-m3-a-cold/ja:きょうは かぜです。",
+      "text": "오늘은 감기예요.",
+      "enSourceHash": "0425dcecd2ea1ae0"
+    },
+    {
+      "anchor": "m3/story:ja-m3-a-cold/ja:げんきじゃないです。",
+      "text": "건강하지 않아요.",
+      "enSourceHash": "c0f0bcef65732726"
+    },
+    {
+      "anchor": "m3/story:ja-m3-a-cold/ja:こんにちは。わたしは ケンです。",
+      "text": "안녕하세요. 저는 켄이에요.",
+      "enSourceHash": "e859fec36d6a07fb"
+    },
+    {
+      "anchor": "m3/story:ja-m3-a-cold/ja:ともだちは ユミです。",
+      "text": "친구는 유미예요.",
+      "enSourceHash": "9c5e727174977d1b"
+    },
+    {
+      "anchor": "m3/story:ja-m3-a-cold/ja:わたしは がくせいです。",
+      "text": "저는 학생이에요.",
+      "enSourceHash": "6b657556a0442c4e"
+    },
+    {
+      "anchor": "m3/story:ja-m3-a-cold/ja:ユミも かぜですか。",
+      "text": "유미도 감기예요?",
+      "enSourceHash": "9c0459efbb823973"
+    },
+    {
+      "anchor": "m3/story:ja-m3-about-me/en:1359ec883b211e72",
+      "text": "나에 관하여",
+      "enSourceHash": "1359ec883b211e72"
+    },
+    {
+      "anchor": "m3/story:ja-m3-about-me/en:55850fdfbc73cc3f",
+      "text": "짧은 자기소개.",
+      "enSourceHash": "55850fdfbc73cc3f"
+    },
+    {
+      "anchor": "m3/story:ja-m3-about-me/ja:がくせいです。",
+      "text": "학생이에요.",
+      "enSourceHash": "6b657556a0442c4e"
+    },
+    {
+      "anchor": "m3/story:ja-m3-about-me/ja:たなかせんせいは にほんじんです。",
+      "text": "다나카 선생님은 일본인이에요.",
+      "enSourceHash": "490c890b88cfdfad"
+    },
+    {
+      "anchor": "m3/story:ja-m3-about-me/ja:はじめまして。",
+      "text": "처음 뵙겠습니다.",
+      "enSourceHash": "39954823f73a76e3"
+    },
+    {
+      "anchor": "m3/story:ja-m3-about-me/ja:アメリカじんです。",
+      "text": "미국인이에요.",
+      "enSourceHash": "24c943c3f4e2f5b2"
+    },
+    {
+      "anchor": "m3/story:ja-m3-about-me/ja:トムです。",
+      "text": "톰이에요.",
+      "enSourceHash": "485853bd0dae81b9"
+    },
+    {
+      "anchor": "m3/story:ja-m3-about-me/ja:ミカは ともだちです。",
+      "text": "미카는 친구예요.",
+      "enSourceHash": "685b1e60635ad599"
+    },
+    {
+      "anchor": "m3/story:ja-m3-about-me/ja:ミカも がくせいです。",
+      "text": "미카도 학생이에요.",
+      "enSourceHash": "573ac199d37e6cf7"
     }
   ]
 }

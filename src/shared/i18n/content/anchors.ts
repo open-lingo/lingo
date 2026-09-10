@@ -147,3 +147,38 @@ export function atomShortGlossAnchor(moduleId: string, kana: string): string {
 export function symbolIntroHintAnchor(moduleId: string, symbol: string): string {
   return `${moduleId}/symbolIntro:${symbol}/hint`;
 }
+
+// ── Story mode (rung 1b, 2026-09-10) ───────────────────────────────────────
+// `Story` (src/features/practice/content/types.ts) is a SEPARATE content
+// pipeline from compiled `LessonContent` — no lesson id, so these key on
+// `story.id` instead. Mirror `scripts/i18n/extract-content-catalog.mjs`'s
+// "── 3. Story content for this module ──" section EXACTLY, field-by-field.
+// `story.id` (e.g. "ja-m3-about-me") also happens to satisfy
+// `courseIdsFromLessonId`'s `<languageId>-m<N>-...` regex directly, so
+// callers can recover `{languageId, moduleId}` from it the same way step
+// views do from a lesson id.
+
+/** `Story.title`. */
+export function storyTitleAnchor(moduleId: string, storyId: string, title: string): string {
+  return `${moduleId}/story:${storyId}/en:${sha256Hex16(title)}`;
+}
+
+/** `Story.theme` — the one-line synopsis under the title. No JA sentence to
+ *  key off (unlike a sentence gloss), so always en-hash-keyed. */
+export function storyThemeAnchor(moduleId: string, storyId: string, theme: string): string {
+  return `${moduleId}/story:${storyId}/en:${sha256Hex16(theme)}`;
+}
+
+/** `StorySentence.translation`, keyed on the JA sentence's own `text`
+ *  (mirrors every other JA-sentence gloss anchor in this file — register
+ *  mirrors the JA line at review time, same rule). */
+export function storySentenceAnchor(moduleId: string, storyId: string, jaText: string): string {
+  return `${moduleId}/story:${storyId}/ja:${jaText}`;
+}
+
+/** `StoryGloss.meaning`, keyed on the JA `surface` being glossed. Distinct
+ *  from `atomGlossAnchor` — story glosses are story-authored, not sourced
+ *  from the `JA_COURSE_ATOMS` registry. */
+export function storyGlossAnchor(moduleId: string, storyId: string, surface: string): string {
+  return `${moduleId}/story:${storyId}/gloss:${surface}`;
+}

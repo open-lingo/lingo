@@ -4,7 +4,7 @@
   "lang": "ko",
   "generatedAt": "2026-09-10",
   "draftedBy": "qwen3.5:122b-a10b-q4_K_M",
-  "entryCount": 350,
+  "entryCount": 378,
   "entries": [
     {
       "anchor": "m7/atom:あそびます/gloss",
@@ -1755,6 +1755,146 @@
       "anchor": "m7/symbolIntro:コ/hint",
       "text": "한국어 '코'와 비슷한 소리",
       "enSourceHash": "7575a12bd9853338"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/en:74f95d332599e5c5",
+      "text": "첫 비행기를 타고 내리지 않는 친구를 기다리고 있다.",
+      "enSourceHash": "74f95d332599e5c5"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/en:f74eb7b4b48dc3a6",
+      "text": "공항에서",
+      "enSourceHash": "f74eb7b4b48dc3a6"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/gloss:おいしい",
+      "text": "맛있다",
+      "enSourceHash": "3c29fc3464377a28"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/gloss:まだ",
+      "text": "아직",
+      "enSourceHash": "305811dd6b387ba7"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/gloss:まちます",
+      "text": "기다리다",
+      "enSourceHash": "e1a90fbfdb3a9c9c"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:きょう、ともだちが アメリカから きます。",
+      "text": "오늘, 친구가 미국에서 와요.",
+      "enSourceHash": "7bfaa9cbf8eb99bc"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:くうこうで トムを まちます。",
+      "text": "공항에서 톰을 기다려요.",
+      "enSourceHash": "36523b0d23b56314"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:すしは おいしいです。",
+      "text": "초밥은 맛있어요.",
+      "enSourceHash": "9964fc2d7a5c797f"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:それから、おちゃを のみます。",
+      "text": "그리고 녹차를 마셔요.",
+      "enSourceHash": "78e33d69e26bb013"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:それから、ふたりで うちに いきます。",
+      "text": "그리고 둘이서 집에 가요.",
+      "enSourceHash": "9f17e184f984021b"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:ともだちの なまえは トムです。",
+      "text": "친구의 이름은 톰이에요.",
+      "enSourceHash": "b6e6ea1c7005c4c1"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:ふたりで すしを たべます。",
+      "text": "둘이서 초밥을 먹어요.",
+      "enSourceHash": "c3089679837ee5e4"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:わたしは かばんの ほんを よみます。",
+      "text": "저는 가방의 책을 읽어요.",
+      "enSourceHash": "c1e17a4b5f51b411"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:わたしは くうこうで ごはんを たべます。",
+      "text": "저는 공항에서 밥을 먹어요.",
+      "enSourceHash": "0c12d20931212ab7"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:わたしは でんしゃで くうこうに いきます。",
+      "text": "저는 전철로 공항에 가요.",
+      "enSourceHash": "3309611ff1031c23"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:トムが きます。",
+      "text": "톰이 와요.",
+      "enSourceHash": "342381f3f8277ce9"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:トムは きません。",
+      "text": "톰은 오지 않아요.",
+      "enSourceHash": "527998353dd6f1e2"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:トムは まだ きません。",
+      "text": "톰은 아직 오지 않아요.",
+      "enSourceHash": "ddb4147c9e4da3f0"
+    },
+    {
+      "anchor": "m7/story:ja-m7-at-the-airport/ja:ニュースも みます。",
+      "text": "뉴스도 봐요.",
+      "enSourceHash": "abc952d7b0f2900e"
+    },
+    {
+      "anchor": "m7/story:ja-m7-my-day/en:1b2fffea95f777bf",
+      "text": "나의 하루",
+      "enSourceHash": "1b2fffea95f777bf"
+    },
+    {
+      "anchor": "m7/story:ja-m7-my-day/en:4ed80a556280198b",
+      "text": "하루를 간단히 훑어보다.",
+      "enSourceHash": "4ed80a556280198b"
+    },
+    {
+      "anchor": "m7/story:ja-m7-my-day/ja:うちで ニュースを みます。",
+      "text": "집에서 뉴스를 봐요.",
+      "enSourceHash": "5360085a5693d86f"
+    },
+    {
+      "anchor": "m7/story:ja-m7-my-day/ja:おちゃを のみます。",
+      "text": "녹차를 마셔요.",
+      "enSourceHash": "13979f4f3c101527"
+    },
+    {
+      "anchor": "m7/story:ja-m7-my-day/ja:がっこうに いきます。",
+      "text": "학교에 가요.",
+      "enSourceHash": "400eb2f777be5946"
+    },
+    {
+      "anchor": "m7/story:ja-m7-my-day/ja:ごはんを たべます。",
+      "text": "밥을 먹어요.",
+      "enSourceHash": "c096162389929a82"
+    },
+    {
+      "anchor": "m7/story:ja-m7-my-day/ja:としょかんで ほんを よみます。",
+      "text": "도서관에서 책을 읽어요.",
+      "enSourceHash": "942b8b0ed5886fc8"
+    },
+    {
+      "anchor": "m7/story:ja-m7-my-day/ja:ともだちも きます。",
+      "text": "친구도 와요.",
+      "enSourceHash": "d8343f7338a66f75"
+    },
+    {
+      "anchor": "m7/story:ja-m7-my-day/ja:わたしは がくせいです。",
+      "text": "저는 학생이에요.",
+      "enSourceHash": "6b657556a0442c4e"
     }
   ]
 }

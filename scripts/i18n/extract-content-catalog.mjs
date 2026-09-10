@@ -109,6 +109,16 @@ const KINDS = new Set([
   "explanation",
   "title",
   "mcq-option",
+  // Story mode (rung 1b, 2026-09-10 — see docs/ko-source-rung1b-2026-09-10.md
+  // §3/§7 item 4). `story-theme`: the one-line synopsis under a story title,
+  // no JA counterpart to key off (unlike `ja-gloss`, which mirrors a JA
+  // sentence's own register). `story-gloss`: a story-declared above-level
+  // word meaning (`Story.glosses[].meaning`) — distinct from `atom-gloss`
+  // because it comes from the story's own bespoke gloss list, not the
+  // `JA_COURSE_ATOMS` registry (a story can gloss a word that isn't yet a
+  // taught atom).
+  "story-theme",
+  "story-gloss",
 ]);
 
 // ── Browser shims (mirrors scripts/restamp-from-module.mjs) ───────────────
@@ -197,11 +207,19 @@ try {
   const kanaTableMod = await server.ssrLoadModule(
     "/src/shared/japanese/kanaTable.ts",
   );
+  // Story mode (rung 1b): entirely separate pipeline from compiled
+  // `LessonContent` — `Story`/`allStories()` from
+  // `src/features/practice/content/index.ts`, pure data, SSR-safe (only
+  // imports types + per-language story files).
+  const storyContentMod = await server.ssrLoadModule(
+    "/src/features/practice/content/index.ts",
+  );
   entries = extract({
     getMockLessonContent: mockLessons.getMockLessonContent,
     getMockCourse: mockCourse.getMockCourse,
     JA_COURSE_ATOMS: courseAtomsMod.JA_COURSE_ATOMS,
     KANA_ROMAJI: kanaTableMod.KANA_ROMAJI,
+    allStories: storyContentMod.allStories,
   });
 } finally {
   console.log = realLog;
@@ -214,7 +232,7 @@ try {
 // Extraction
 // ═══════════════════════════════════════════════════════════════════════════
 
-function extract({ getMockLessonContent, getMockCourse, JA_COURSE_ATOMS, KANA_ROMAJI }) {
+function extract({ getMockLessonContent, getMockCourse, JA_COURSE_ATOMS, KANA_ROMAJI, allStories }) {
   /** @type {Map<string, {anchor:string, en:string, enSourceHash:string, kind:string, source:string[]}>} */
   const out = new Map();
 
@@ -296,6 +314,98 @@ function extract({ getMockLessonContent, getMockCourse, JA_COURSE_ATOMS, KANA_RO
 
     for (const step of lesson.steps ?? []) {
       extractStep(step, lessonId, add, KANA_ROMAJI);
+    }
+  }
+
+  // ── 3. Story content for this module ─────────────────────────────────
+  // Story mode is a SEPARATE pipeline from compiled `LessonContent` (`Story`
+  // type in `src/features/practice/content/types.ts`, rendered by
+  // `StoryReaderPage`/`StoryProse`/`StoryQuiz`/`StoryWordSheet` — no
+  // `getMockLessonContent` involved), so it isn't reached by the lesson walk
+  // above and needs its own section. Scoped by `Story.module` (the
+  // authoritative "which module owns this content" field), NOT by whether a
+  // `mockCourse.ts` tile happens to register the story — a module can carry
+  // more than one `Story` row (e.g. m3 has both `ja-m3-about-me` and
+  // `ja-m3-a-cold`) and every one of them belongs to this module's catalog.
+  //
+  // Anchor shape: `${moduleId}/story:${storyId}/...`, module-scoped like
+  // every other anchor family here but keyed on the story id (unique per
+  // story, stable — `Story.id` is a hand-authored literal, never
+  // repositioned) rather than a lesson id, since a story has no lesson.
+  // `story.id` also happens to match `courseIdsFromLessonId`'s
+  // `<languageId>-m<N>-...` regex directly (confirmed: e.g.
+  // "ja-m3-about-me"), but that's incidental — the runtime side calls
+  // `courseIdsFromLessonId(story.id)` only to recover `{languageId,
+  // moduleId}`, not to reuse it as a lesson-scoped anchor segment.
+  //
+  // Enumerated learner-facing English fields (everything else on `Story` is
+  // either target-language already — `sentences[].text`,
+  // `questions[].prompt/options`, `speaker`, per `storyQuestions.ts`'s
+  // target-language-keyed `DETAIL_PROMPT` — or non-prose ids/tags):
+  //   - `title`      → kind "title" (mirrors lesson/step titles)
+  //   - `theme`      → kind "story-theme" (no JA counterpart to key off)
+  //   - `sentences[].translation` → kind "ja-gloss", JA-surface-keyed on
+  //     `sentence.text` (mirrors every other JA-sentence gloss in this
+  //     extractor — same register-mirroring rule applies at review time)
+  //   - `glosses[].meaning` → kind "story-gloss", keyed on `gloss.surface`
+  //     (the JA word being glossed — stable, unique within a story; no
+  //     duplicate JA sentence text was found within any in-scope story
+  //     either, so `sentences[].translation`'s JA-surface key is collision-
+  //     free too)
+  //
+  // Deliberately NOT wired here: `StoryWordInfo` entries sourced from
+  // `getKnownAtomsByPos` in `src/features/practice/stories/unknownWords.ts`
+  // (the "atom"-source half of `resolveStoryWords`) — those meanings already
+  // have a catalog home via the atom-gloss anchors in section 1 above
+  // (`KnownAtom.meaningEn` traces back to the same `JA_COURSE_ATOMS` entries
+  // walked there), and `KnownAtom` itself carries no `fromModule` field, so
+  // there is no more-precise anchor to build without threading module
+  // attribution into a deliberately language-agnostic runtime file. Only
+  // story-authored `glosses[].meaning` (a distinct, non-atom source) is new
+  // extractable content.
+  for (const story of allStories("ja")) {
+    if (`m${story.module}` !== moduleId) continue;
+    const storyId = story.id;
+
+    if (typeof story.title === "string") {
+      add(
+        `${moduleId}/story:${storyId}/en:${sha256Hex16(story.title)}`,
+        story.title,
+        [storyId, "title"],
+        "title",
+      );
+    }
+    if (typeof story.theme === "string") {
+      add(
+        `${moduleId}/story:${storyId}/en:${sha256Hex16(story.theme)}`,
+        story.theme,
+        [storyId, "theme"],
+        "story-theme",
+      );
+    }
+    for (const sentence of story.sentences ?? []) {
+      if (
+        typeof sentence.text === "string" &&
+        hasJaScript(sentence.text) &&
+        typeof sentence.translation === "string"
+      ) {
+        add(
+          `${moduleId}/story:${storyId}/ja:${sentence.text}`,
+          sentence.translation,
+          [storyId, "sentences[].translation"],
+          "ja-gloss",
+        );
+      }
+    }
+    for (const gloss of story.glosses ?? []) {
+      if (typeof gloss.surface === "string" && typeof gloss.meaning === "string") {
+        add(
+          `${moduleId}/story:${storyId}/gloss:${gloss.surface}`,
+          gloss.meaning,
+          [storyId, "glosses[].meaning"],
+          "story-gloss",
+        );
+      }
     }
   }
 

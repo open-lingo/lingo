@@ -173,6 +173,18 @@ Reasoning:
   translated and reviewed, prioritizing m3/m7's story rows specifically
   rather than building general story-pipeline i18n speculatively.
 
+### Update 2026-09-10 — Story mode shipped for m3 + m7
+
+Extended the extractor with a `Story`-keyed section (scoped by `story.module`,
+not tile ids — m3 has 2 stories, m7 has 2). Anchors: `en:<hash>` title/theme,
+`ja:<sentence>` translation, `gloss:<surface>` word gloss; new kinds
+`story-theme`/`story-gloss`. Wired via `useContentString(s)` in
+`StoryReaderPage.tsx` only. m3 256→278, m7 350→378 anchors, 0 stale m1–m8.
+Drafter got all 38 sentence-glosses' register wrong (plain, should be 해요체
+since JA is 100% です/ます) — hand-corrected all 38 + 1 vocab fix (おちゃ→녹차,
+matching `m2/atom`). m6/m8 also now show story anchors ("missing", 0 stale) —
+drafting those is future-rung scope.
+
 ---
 
 ## 4. MT-wave pilot — m6

@@ -20,6 +20,14 @@ import { Icon } from "@/shared/components/Icon";
 import { useLang, useLangPath } from "@/shared/hooks/useLangPath";
 import { playJaAudio, playJaAudioToEnd, stopAllAudio } from "@/shared/tts";
 import { allStories } from "@/features/practice/content";
+import { useContentString, useContentStrings } from "@/features/lesson/hooks/useContentString";
+import {
+  courseIdsFromLessonId,
+  storyGlossAnchor,
+  storySentenceAnchor,
+  storyThemeAnchor,
+  storyTitleAnchor,
+} from "@/shared/i18n/content/anchors";
 import { getKnownAtomsByPos } from "@/features/practice/engine";
 import { getCardState, setCardState, gradeFromLesson } from "@/features/flashcards/engine";
 import { getStoryProgress, recordStoryRead, type StoryScore } from "@/shared/storyProgress";
@@ -79,19 +87,82 @@ export function StoryReaderPage({ storyId }: StoryReaderPageProps) {
     [langId, storyId],
   );
 
+  // KO-source content strings (rung 1b — story mode wiring). `story.id`
+  // (e.g. "ja-m3-about-me") satisfies `courseIdsFromLessonId`'s
+  // `<languageId>-m<N>-...` convention directly, same as a lesson id.
+  const storyIds = useMemo(() => courseIdsFromLessonId(story?.id), [story]);
+  const resolvedTitle = useContentString(
+    story?.id,
+    story && storyIds ? storyTitleAnchor(storyIds.moduleId, story.id, story.title) : null,
+    story?.title ?? "",
+  );
+  const resolvedTheme = useContentString(
+    story?.id,
+    story && storyIds ? storyThemeAnchor(storyIds.moduleId, story.id, story.theme) : null,
+    story?.theme ?? "",
+  );
+  const sentenceTranslationItems = useMemo(
+    () =>
+      (story?.sentences ?? []).map((s) => ({
+        anchor:
+          story && storyIds ? storySentenceAnchor(storyIds.moduleId, story.id, s.text) : null,
+        enText: s.translation,
+      })),
+    [story, storyIds],
+  );
+  const resolvedTranslations = useContentStrings(story?.id, sentenceTranslationItems);
+  // Same sentences, translations swapped for the resolved (possibly
+  // translated) text — everything else (JA `text`, `speaker`, `reading`)
+  // passes through unchanged, so audio/highlight/SRS keep keying on the
+  // story's own ordering exactly as before.
+  const resolvedSentences = useMemo(
+    () =>
+      (story?.sentences ?? []).map((s, i) => ({
+        ...s,
+        translation: resolvedTranslations[i] ?? s.translation,
+      })),
+    [story, resolvedTranslations],
+  );
+  const glossMeaningItems = useMemo(
+    () =>
+      (story?.glosses ?? []).map((g) => ({
+        anchor:
+          story && storyIds ? storyGlossAnchor(storyIds.moduleId, story.id, g.surface) : null,
+        enText: g.meaning,
+      })),
+    [story, storyIds],
+  );
+  const resolvedGlossMeanings = useContentStrings(story?.id, glossMeaningItems);
+  // surface -> resolved meaning, for the "gloss"-source entries only (see
+  // `resolveStoryWords` below — only `story.glosses[]` has a catalog anchor;
+  // "atom"-source entries already resolve through the atom-gloss catalog via
+  // `KnownAtom.meaningEn`'s own upstream source, which this file has no
+  // module attribution to re-anchor against).
+  const resolvedGlossBySurface = useMemo(() => {
+    const m = new Map<string, string>();
+    (story?.glosses ?? []).forEach((g, i) => m.set(g.surface, resolvedGlossMeanings[i] ?? g.meaning));
+    return m;
+  }, [story, resolvedGlossMeanings]);
+
   // Live SRS reads — deliberately keyed on the story + language only, so two
   // learners (or the same learner after adding words) get different highlights.
-  const words = useMemo(
-    () => (story ? resolveStoryWords(story, langId) : new Map<string, StoryWordInfo>()),
-    [story, langId],
-  );
+  const words = useMemo(() => {
+    const base = story ? resolveStoryWords(story, langId) : new Map<string, StoryWordInfo>();
+    if (resolvedGlossBySurface.size === 0) return base;
+    const out = new Map<string, StoryWordInfo>();
+    for (const [surface, info] of base) {
+      const resolved = info.source === "gloss" ? resolvedGlossBySurface.get(surface) : undefined;
+      out.set(surface, resolved !== undefined ? { ...info, meaning: resolved } : info);
+    }
+    return out;
+  }, [story, langId, resolvedGlossBySurface]);
   const surfaces = useMemo(() => [...words.keys()], [words]);
   const highlight = useMemo(() => new Set(surfaces), [surfaces]);
 
   // Narration paragraphs + inset dialogue runs. Purely a layout grouping —
   // sentence indices are preserved so audio, highlight and SRS still key on
   // the story's own ordering.
-  const blocks = useMemo(() => groupStoryBlocks(story?.sentences ?? []), [story]);
+  const blocks = useMemo(() => groupStoryBlocks(resolvedSentences), [resolvedSentences]);
 
   // The cast rides in the header beside the story info rather than as a strip
   // above the prose — same names, same order, so the chips and the transcript
@@ -289,7 +360,7 @@ export function StoryReaderPage({ storyId }: StoryReaderPageProps) {
       <div className="space-y-4">
         {backLink}
         <StoryQuiz
-          title={story.title}
+          title={resolvedTitle}
           questions={questions}
           langId={langId}
           onReadAgain={() => setPhase("read")}
@@ -332,8 +403,8 @@ export function StoryReaderPage({ storyId }: StoryReaderPageProps) {
           first line of the story down the page on every dialogue story. */}
       <div className={hasCast(cast) ? "grid gap-3 sm:grid-cols-2" : ""}>
         <Card padding="md" data-story-header-card="info" className="space-y-1">
-          <h1 className="text-lg font-semibold text-text-primary">{story.title}</h1>
-          <p className="text-sm text-text-secondary">{story.theme}</p>
+          <h1 className="text-lg font-semibold text-text-primary">{resolvedTitle}</h1>
+          <p className="text-sm text-text-secondary">{resolvedTheme}</p>
           {/* LINES, not words. Nothing in the app tokenizes JA/KO into words
               reliably — the dictionary scan behind `TappableText` only spans
               surfaces it knows, so counting its hits would undercount every

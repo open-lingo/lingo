@@ -3,7 +3,7 @@
   "moduleId": "m3",
   "lang": "ja",
   "generatedAt": "2026-09-10",
-  "entryCount": 256,
+  "entryCount": 278,
   "entries": [
     {
       "anchor": "m3/atom:ありがとう/gloss",
@@ -1540,6 +1540,138 @@
       "en": "Build this sentence: Mika is Japanese too.",
       "enSourceHash": "e75ed64952c8ad75",
       "kind": "build-prompt"
+    },
+    {
+      "anchor": "m3/story:ja-m3-a-cold/en:289262c370595657",
+      "en": "Fine in the morning, not by the afternoon.",
+      "enSourceHash": "289262c370595657",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m3/story:ja-m3-a-cold/en:df64b34bfdc429de",
+      "en": "A cold",
+      "enSourceHash": "df64b34bfdc429de",
+      "kind": "title"
+    },
+    {
+      "anchor": "m3/story:ja-m3-a-cold/gloss:あした",
+      "en": "tomorrow",
+      "enSourceHash": "bafd151a86f9a573",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m3/story:ja-m3-a-cold/ja:あさは げんきでした。",
+      "en": "This morning I was fine.",
+      "enSourceHash": "bb2aaa6e0d541f33",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m3/story:ja-m3-a-cold/ja:あしたは げんきです。",
+      "en": "Tomorrow I'll be fine.",
+      "enSourceHash": "43a959be8e4d3437",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m3/story:ja-m3-a-cold/ja:いいえ、ユミも たなかせんせいも げんきです。",
+      "en": "No — Yumi and Mr. Tanaka are both fine.",
+      "enSourceHash": "78c1d8a52cdd79d9",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m3/story:ja-m3-a-cold/ja:きょうは いえです。",
+      "en": "Today I'm at home.",
+      "enSourceHash": "addcc7adec5104a2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m3/story:ja-m3-a-cold/ja:きょうは かぜです。",
+      "en": "Today I have a cold.",
+      "enSourceHash": "0425dcecd2ea1ae0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m3/story:ja-m3-a-cold/ja:げんきじゃないです。",
+      "en": "I'm not well.",
+      "enSourceHash": "c0f0bcef65732726",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m3/story:ja-m3-a-cold/ja:こんにちは。わたしは ケンです。",
+      "en": "Hello. I'm Ken.",
+      "enSourceHash": "e859fec36d6a07fb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m3/story:ja-m3-a-cold/ja:ともだちは ユミです。",
+      "en": "My friend is Yumi.",
+      "enSourceHash": "9c5e727174977d1b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m3/story:ja-m3-a-cold/ja:わたしは がくせいです。",
+      "en": "I'm a student.",
+      "enSourceHash": "6b657556a0442c4e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m3/story:ja-m3-a-cold/ja:ユミも かぜですか。",
+      "en": "Does Yumi have a cold too?",
+      "enSourceHash": "9c0459efbb823973",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m3/story:ja-m3-about-me/en:1359ec883b211e72",
+      "en": "About me",
+      "enSourceHash": "1359ec883b211e72",
+      "kind": "title"
+    },
+    {
+      "anchor": "m3/story:ja-m3-about-me/en:55850fdfbc73cc3f",
+      "en": "A short self-introduction.",
+      "enSourceHash": "55850fdfbc73cc3f",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m3/story:ja-m3-about-me/ja:がくせいです。",
+      "en": "I'm a student.",
+      "enSourceHash": "6b657556a0442c4e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m3/story:ja-m3-about-me/ja:たなかせんせいは にほんじんです。",
+      "en": "Mr. Tanaka is Japanese.",
+      "enSourceHash": "490c890b88cfdfad",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m3/story:ja-m3-about-me/ja:はじめまして。",
+      "en": "Nice to meet you.",
+      "enSourceHash": "39954823f73a76e3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m3/story:ja-m3-about-me/ja:アメリカじんです。",
+      "en": "I'm American.",
+      "enSourceHash": "24c943c3f4e2f5b2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m3/story:ja-m3-about-me/ja:トムです。",
+      "en": "I'm Tom.",
+      "enSourceHash": "485853bd0dae81b9",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m3/story:ja-m3-about-me/ja:ミカは ともだちです。",
+      "en": "Mika is my friend.",
+      "enSourceHash": "685b1e60635ad599",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m3/story:ja-m3-about-me/ja:ミカも がくせいです。",
+      "en": "Mika is a student too.",
+      "enSourceHash": "573ac199d37e6cf7",
+      "kind": "ja-gloss"
     }
   ]
 }

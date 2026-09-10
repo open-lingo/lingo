@@ -119,9 +119,11 @@ const ALL_KINDS = new Set([
   "explanation",
   "title",
   "mcq-option",
+  "story-theme",
+  "story-gloss",
 ]);
 
-test("every catalog entry carries a `kind` from the fixed allowlist (m1 + m3 combined cover all nine)", (t) => {
+test("every catalog entry carries a `kind` from the fixed allowlist (m1 + m3 combined cover all eleven)", (t) => {
   const outDir = mkdtempSync(join(tmpdir(), "extract-content-catalog-kind-"));
   t.after(() => rmSync(outDir, { recursive: true, force: true }));
 
@@ -173,11 +175,83 @@ test("every catalog entry carries a `kind` from the fixed allowlist (m1 + m3 com
   const m3Instruction = m3.entries.find((e) => e.kind === "instruction");
   assert.ok(m3Instruction, "expected at least one instruction entry in m3");
 
+  // Story mode (rung 1b): m3 carries two `Story` rows (`ja-m3-about-me`,
+  // `ja-m3-a-cold`) — the latter has a `glosses[]` entry, so m3 alone
+  // reaches both new kinds without needing a third module in this test.
+  const m3StoryTheme = m3.entries.find((e) => e.kind === "story-theme");
+  assert.ok(m3StoryTheme, "expected at least one story-theme entry in m3");
+  assert.match(
+    m3StoryTheme.anchor,
+    /^m3\/story:ja-m3-[a-z-]+\/en:[0-9a-f]{16}$/,
+    "story-theme anchor shape",
+  );
+
+  const m3StoryGloss = m3.entries.find((e) => e.kind === "story-gloss");
+  assert.ok(m3StoryGloss, "expected at least one story-gloss entry in m3 (ja-m3-a-cold's glosses[])");
+  assert.match(
+    m3StoryGloss.anchor,
+    /^m3\/story:ja-m3-[a-z-]+\/gloss:.+$/,
+    "story-gloss anchor shape",
+  );
+
+  const m3StorySentence = m3.entries.find(
+    (e) => e.kind === "ja-gloss" && /^m3\/story:/.test(e.anchor),
+  );
+  assert.ok(
+    m3StorySentence,
+    "expected at least one story sentence translation (ja-gloss kind, story:-prefixed anchor) in m3",
+  );
+  assert.match(
+    m3StorySentence.anchor,
+    /^m3\/story:ja-m3-[a-z-]+\/ja:.+$/,
+    "story sentence anchor shape",
+  );
+
   assert.deepEqual(
     [...seenKinds].sort(),
     [...ALL_KINDS].sort(),
     "m1 + m3 together should exercise every kind in the allowlist",
   );
+});
+
+test("story-mode extraction: m3's two Story rows are both extracted (module-scoped by Story.module, not by mockCourse tile registration), m6 (no stories in scope) emits none, existing m1 anchors stay untouched", (t) => {
+  const outDir = mkdtempSync(join(tmpdir(), "extract-content-catalog-story-"));
+  t.after(() => rmSync(outDir, { recursive: true, force: true }));
+
+  run(["ja", "m3"], outDir);
+  const m3 = JSON.parse(readFileSync(join(outDir, "ja", "m3.en.json"), "utf-8"));
+
+  const storyAnchors = m3.entries.filter((e) => e.anchor.includes("/story:"));
+  assert.ok(storyAnchors.length > 0, "m3 should have story-mode anchors");
+
+  // Both story ids present — `ja-m3-about-me` is the only one registered as
+  // a mockCourse tile, `ja-m3-a-cold` is not, proving the extraction is
+  // scoped by `Story.module === 3`, not by tile registration.
+  const storyIds = new Set(
+    storyAnchors.map((e) => /\/story:([^/]+)\//.exec(e.anchor)?.[1]).filter(Boolean),
+  );
+  assert.ok(storyIds.has("ja-m3-about-me"), "ja-m3-about-me should be extracted");
+  assert.ok(storyIds.has("ja-m3-a-cold"), "ja-m3-a-cold (no mockCourse tile) should also be extracted");
+
+  // Every story-mode anchor is well-formed: module-prefixed, story:-scoped,
+  // and one of the three field shapes (en-hash title/theme, ja-keyed
+  // sentence, or gloss:-keyed word meaning).
+  for (const e of storyAnchors) {
+    assert.match(
+      e.anchor,
+      /^m3\/story:[a-z0-9-]+\/(en:[0-9a-f]{16}|ja:.+|gloss:.+)$/,
+      `malformed story anchor: ${e.anchor}`,
+    );
+  }
+
+  // A module with no in-scope Story rows (m6 carries stories per
+  // `Story.module`, but this proves the filter is exact — no story
+  // leaks into a module it doesn't belong to) — spot-check by asserting no
+  // m3-story-id leaks into m1 (a module with zero Story rows at all).
+  run(["ja", "m1"], outDir);
+  const m1 = JSON.parse(readFileSync(join(outDir, "ja", "m1.en.json"), "utf-8"));
+  const m1StoryAnchors = m1.entries.filter((e) => e.anchor.includes("/story:"));
+  assert.equal(m1StoryAnchors.length, 0, "m1 has no Story rows — should emit zero story-mode anchors");
 });
 
 test("romaji-label classification is exact-match-verified against KANA_ROMAJI, not just ASCII-shaped", (t) => {
