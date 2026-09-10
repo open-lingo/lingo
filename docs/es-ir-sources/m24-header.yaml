@@ -1,0 +1,224 @@
+module: m24
+title: "Estaba, hacía, quería"
+frame: none
+throughModule: m23
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m24 — the imperfect, second wave. Sixth A2 module.
+#
+#     estar:  estaba*  estabas  estábamos  estaban   (irregular present/preterite; REGULAR here)
+#     hacer:  hacía*   hacías   hacíamos   hacían    (irregular present/preterite; REGULAR here)
+#     querer: quería*  querías  queríamos  querían   (stem-change present, irregular preterite; REGULAR here)
+#     poder:  podía*   podías   podíamos   podían    (stem-change present, irregular preterite; REGULAR here)
+#     venir:  venía*   venías   veníamos   venían    (irregular present/preterite; REGULAR here)
+#
+#     (* = yo AND él/ella/usted share this exact surface — the yo=él
+#     collision, TAUGHT in m22, not re-taught here — see "NO RE-TEACH"
+#     below. Every "first slot" atom below still carries both readings.)
+#
+# ONE idea, the whole module: the imperfect's "easy tense" trick — m22
+# proved it once with «tenía» (regular in the imperfect despite being
+# irregular in every other tense the learner had met) — GENERALIZES. Every
+# one of these five verbs is irregular somewhere else in the course
+# (estar/hacer/venir: irregular present AND preterite; querer/poder:
+# stem-changing present, irregular preterite) and every one of them is
+# perfectly regular here: -ar → -aba (estar only), -er/-ir → -ía (the
+# other four). No new grammar, no new mechanic — five more everyday verbs
+# slot into a pattern the learner already owns cold from m22.
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# Three independent lines of evidence converge on "expand the imperfect's
+# verb range" over any other candidate:
+#   1. `m23-header.yaml`'s "NO NEW VERB PARADIGMS" section bans exactly
+#      thirteen surfaces from appearing anywhere in m23: estaba, hacía,
+#      vivía, trabajaba, quería, podía, comía, salía, cocinaba, escribía,
+#      compraba, estudiaba, venía. Grep-verified
+#      (`grep -o 'surface: "[^"]*"' src/features/languages/es/curriculum/
+#      m{1..23}.ts | sort -u`): NONE of the 20 forms this module registers
+#      (four persons × the five verbs below) exist anywhere in m1–m23. That
+#      ban was a deferral, not a permanent rule — this module cashes it for
+#      the five verbs judged most useful (see "WHICH FIVE" below); the
+#      other eight (vivir, trabajar, comer... wait, comer/salir/cocinar/
+#      escribir/comprar/estudiar/vivir) remain banned and are a candidate
+#      for a THIRD wave, not manufactured here.
+#   2. `m22-header.yaml`'s own PIN E12 note: "conjugationTables.ts already
+#      carries a full imperfect paradigm for all eighteen A1–A2 verbs the
+#      course has ever taught — nothing new to add to the table." Verified
+#      directly (`sed -n '1,540p' src/features/languages/es/
+#      conjugationTables.ts`): all 18 verb entries (hablar, comer, vivir,
+#      ser, estar, ir, tener, querer, poder, hacer, trabajar, estudiar,
+#      comprar, escribir, salir, cocinar, ver, venir) carry a complete
+#      `imperfect.*` row. m22 spent 5 of the 18 (hablar, tener, ser, ir,
+#      ver); this module is data-ready with zero table work, exactly the
+#      condition m22's header flagged as already met.
+#   3. `docs/handoff-2026-09-09-es-m20-done-ko-next.md`'s "Backlog carried"
+#      line named the open direction explicitly: "m21+ unplanned (A2
+#      continues: plural preterite, or imperfect)." m21 took the plural-
+#      preterite fork, m22 took the imperfect fork, m23 combined them —
+#      the note is now fully cashed EXCEPT for imperfect's verb coverage,
+#      which m22 explicitly narrowed to 5 of 18 to keep that module's one
+#      new mechanic (yo=él) from sharing space with a second new idea. That
+#      is precisely the situation this module exists to close.
+#
+# ── WHICH FIVE, AND WHY NOT THE OTHER EIGHT (decision) ────────────────────
+# m23's ban list had 13 candidates: estaba, hacía, vivía, trabajaba,
+# quería, podía, comía, salía, cocinaba, escribía, compraba, estudiaba,
+# venía. This module takes exactly 5 — estar, hacer, querer, poder, venir —
+# not all 13, on two grounds:
+#   1. Atom-budget precedent. m22 shipped 20 verb atoms (5 verbs × 4
+#      persons) plus 1 time-frame atom — the established size for an
+#      imperfect-wave module. 13 verbs × 4 persons = 52 atoms would blow
+#      every prior module's budget (m19: 26, m20: 21, m21: 21, m22: 21) by
+#      more than double and re-invites the "hollow card" failure mode
+#      ([[drafting-coverage-not-volume]]: "pin the cell per request instead
+#      of adding rounds").
+#   2. These five are the SHOWCASE set for this module's one idea. All five
+#      are irregular in the present tense the learner already owns
+#      (estoy/estás/está..., hago/haces/hace..., quiero/quieres/quiere...,
+#      puedo/puedes/puede..., vengo/vienes/viene...) and four of the five
+#      (estar, hacer, venir plus tener already done) are ALSO irregular in
+#      the preterite (estuve, hice, vine vs. regular -é/-í endings) — the
+#      biggest possible contrast with "perfectly regular here." The other
+#      eight banned verbs (vivir, trabajar, comer, salir, cocinar,
+#      escribir, comprar, estudiar) are regular or near-regular in every
+#      tense they've been taught — spending this module's slots on them
+#      would teach the SAME pattern with a weaker payoff (no "surprise").
+#      Left for a plausible third wave, not manufactured here.
+#
+# ── REJECTED ALTERNATIVE: «porque» / causal subordination ─────────────────
+# `es-m23-brief.md`'s "Decisions inferred" flagged «porque» as "a natural
+# narrative fit and unregistered... left for a future module." It is
+# rejected for m24 specifically (not forever) on two grounds: (a) it is a
+# NEW grammar idea (subordinating a reason clause), and stacking a new
+# connective on top of an already-planned module would repeat the exact
+# "two new ideas at once" failure m22's header named for itself; (b) it
+# does not address the sharper gap — right now a learner can only narrate
+# a mixed-past scene using FIVE imperfect verbs total (hablar/tener/ser/
+# ir/ver), which caps how much of a real memory m23's «cuando/mientras/de
+# repente/entonces» toolkit can actually express. Widening the verb palette
+# pays off every future narrative module, including a future «porque» one;
+# «porque» alone would not. «porque» remains open for m25 or later.
+#
+# ── NO RE-TEACH: THE YO=ÉL COLLISION IS ALREADY OWNED ──────────────────────
+# m22 taught the general fact once (hablar's L1 card) specifically so later
+# families — inside m22 AND in any future module — would not need to
+# re-teach it, "one line shorter, pointing back to it" (m22-header's own
+# words). This module's L1 card does NOT re-explain the collision; it
+# states THIS module's one idea (the pattern generalizes to irregular-
+# elsewhere verbs) and may reference the collision in one clause, not a
+# card. Every "first slot" atom below still must not stand subjectless in
+# an answer position — the mechanism is unchanged, just not re-taught.
+#
+# ── PERSONS: ALL FIVE, FROM L1 (same as m22, unchanged reasoning) ─────────
+# No person-staging. vosotros still never drilled (m18's rule, LatAm-
+# neutral course).
+#
+# ── ACCENTS: SAME RULE AS m22, VERIFIED PER-VERB AGAINST conjugationTables.ts
+# (pin E12 — every cell below is copied verbatim from the table, not
+# reconstructed from memory):
+#   - estar (-ar family): accent ONLY on nosotros — estábamos. estaba/
+#     estabas/estaban carry none.
+#   - hacer, querer, poder, venir (-er/-ir family): accent on EVERY form's
+#     í — hacía/hacías/hacíamos/hacían, quería/querías/queríamos/querían,
+#     podía/podías/podíamos/podían, venía/venías/veníamos/venían. No
+#     exceptions, same as tener/ver in m22.
+#
+# ── NO NEW PRETERITE, NO PROGRESSIVE (unchanged bans, restated) ───────────
+# No preterite form — new or PRIOR — anywhere in this module, same hard
+# ban as m22 (the sanctioned contrast against the imperfect here is
+# PRESENT, in L9, exactly like m22's L9). Progressive («estaba
+# trabajando» etc.) is still banned by pin E7 — note the irony risk:
+# «estaba» is this module's own new atom AND the auxiliary of the
+# construction it must never form; drafting agents must not build any
+# estar-imperfect + -ndo periphrasis, including with estar itself.
+#
+# ── SER VS. ESTAR NOW BOTH HAVE AN IMPERFECT — do not blur the two
+# "was"-es ─────────────────────────────────────────────────────────────────
+# The course has taught ser (identity/description: soy/eres/es, m2; era,
+# m22) and estar (location/state: está, m4; estamos/están, m18; estuve,
+# m20) as separately-glossed verbs since m2/m4. This module's «estaba»
+# adds a THIRD "was" surface alongside «era» (m22) and «estuve»/«fue»
+# (m20/m23's own fue-vs-era collision). Glosses must keep the jobs
+# separate: «estaba» = was LOCATED or in a STATE ("estaba en casa," "estaba
+# cansado" — note: no PRIOR word for "tired," do not invent one); «era» =
+# was, as identity/description ("era simpático"); the fue-vs-era distinction
+# from m23 is unchanged and does not involve «estaba» at all. Never gloss
+# «estaba» and «era» as interchangeable "was" in the same info card.
+#
+# ── «hace» (time-ago idiom) IS NOT TAUGHT — do not manufacture it ─────────
+# grep-verified: no "hace + time + ago" construction exists anywhere in
+# m1–m23 (hago/haces/hace/hacemos/hacen are only the "to do/make" present
+# forms, m15–m18). This module's «hacía» is ONLY the imperfect of "to do/
+# make" — never build a "how long ago" sentence with it.
+#
+# ── «quería, pero no podía» — this module's signature payoff sentence ─────
+# Once both querer and poder have an imperfect, the classic "I wanted to
+# but I couldn't" pairing becomes sayable for the first time — cash it
+# within ~2 steps of poder's debut (13.9's rule), not just once: use it as
+# L4's own win and recall it again at the checkpoint (L8).
+#
+# ── REUSE m23's CONNECTIVES — do not let them go quiet for a module ───────
+# «cuando», «mientras», «de repente», «entonces» are all PRIOR (m23) and
+# legal from L1. This module does not owe them a new debut, but doctrine
+# ([[interleave-dont-block-teach]]: split repetitive families across
+# lessons; review after) argues for keeping them alive rather than letting
+# five debut-heavy lessons (L1–L5) run with zero recombination: L6 is a
+# dedicated zero-new-atom recombination lesson pairing this module's new
+# imperfect verbs against PRIOR preterite (m19–m21) using m23's
+# connectives, exactly the shape m23 itself used for its own L5–L7. L9's
+# consolidation and L10's mastery keep at least one m23 connective live
+# each, spacing their retrieval one more module out.
+#
+# ── PRIOR MOVEMENT MINIMAL PAIR: iba (m22) / venía (this module) ──────────
+# «ir» = go (away from the speaker's frame); «venir» = come (toward it).
+# m22's L5 win was «de niño, iba a la escuela temprano»; this module's
+# venir-family lesson intentionally mirrors that exact sentence shape
+# («de niño, venía a la escuela temprano») as a free minimal-pair callback
+# — not a new rule to state, just a parallel construction a careful learner
+# will notice on their own. No info card needed for it.
+#
+# ── NO NEW EMOJI, NO NEW NOUN THIS MODULE ──────────────────────────────────
+# Same precedent as m19/m21/m22/m23 (pure-grammar / paradigm-expansion
+# modules ship zero). All five new atom families are verb forms; narrative
+# color comes from PRIOR nouns-with-emoji (la escuela 🏫, el parque 🌳, la
+# playa 🏖️, el cine 🎬, la fiesta 🎉, el mercado 🛒, la tienda 🏪, casa 🏠,
+# el trabajo 💼, el museo 🏛️) plus PRIOR non-emoji nouns (la tarea, m15)
+# and the fixed cast, not from new vocabulary.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # estar — irregular present (estoy/estás/está...) AND irregular preterite
+  # (estuve, m20); REGULAR in the imperfect. Location/state carrier — keep
+  # its gloss separate from «era» (identity/description, m22).
+  - { surface: "estaba", meaningEn: "I was, he/she/you (usted) was/were (location or state)", partOfSpeech: "verb", kind: "vocab", hint: "ess-TAH-bah — no accent. Regular -aba, unlike «estoy»/«estuve». Same yo=él surface you met in m22 (hablaba, tenía…) — only the subject tells you who." }
+  - { surface: "estabas", meaningEn: "you (tú) were (location or state)", partOfSpeech: "verb", kind: "vocab", hint: "ess-TAH-bahs" }
+  - { surface: "estábamos", meaningEn: "we were (location or state)", partOfSpeech: "verb", kind: "vocab", hint: "ess-TAH-bah-mos — the ONE -ar form that carries an accent" }
+  - { surface: "estaban", meaningEn: "they were, you all were (location or state)", partOfSpeech: "verb", kind: "vocab", hint: "ess-TAH-bahn" }
+  # hacer — irregular present (hago) AND irregular preterite (hice, m20);
+  # REGULAR in the imperfect. "To do/make" only — no time-ago idiom.
+  - { surface: "hacía", meaningEn: "I was doing/making, he/she/you (usted) was doing/making", partOfSpeech: "verb", kind: "vocab", hint: "ah-SEE-ah — accent on every form, unlike «hago»/«hice»" }
+  - { surface: "hacías", meaningEn: "you (tú) were doing/making", partOfSpeech: "verb", kind: "vocab", hint: "ah-SEE-ahs" }
+  - { surface: "hacíamos", meaningEn: "we were doing/making", partOfSpeech: "verb", kind: "vocab", hint: "ah-see-AH-mos" }
+  - { surface: "hacían", meaningEn: "they were doing/making, you all were doing/making", partOfSpeech: "verb", kind: "vocab", hint: "ah-SEE-ahn" }
+  # querer — stem-changing present (quiero) and irregular preterite (quise,
+  # UNTAUGHT — do not use it); REGULAR in the imperfect. Desire-in-the-past.
+  - { surface: "quería", meaningEn: "I wanted, he/she/you (usted) wanted", partOfSpeech: "verb", kind: "vocab", hint: "keh-REE-ah — accent on every form, unlike «quiero»" }
+  - { surface: "querías", meaningEn: "you (tú) wanted", partOfSpeech: "verb", kind: "vocab", hint: "keh-REE-ahs" }
+  - { surface: "queríamos", meaningEn: "we wanted", partOfSpeech: "verb", kind: "vocab", hint: "keh-ree-AH-mos" }
+  - { surface: "querían", meaningEn: "they wanted, you all wanted", partOfSpeech: "verb", kind: "vocab", hint: "keh-REE-ahn" }
+  # poder — stem-changing present (puedo) and irregular preterite (pude,
+  # UNTAUGHT — do not use it); REGULAR in the imperfect. Ability-in-the-past;
+  # pairs with «quería» for the "wanted to but couldn't" payoff sentence.
+  - { surface: "podía", meaningEn: "I could/was able to, he/she/you (usted) could/was able to", partOfSpeech: "verb", kind: "vocab", hint: "poh-DEE-ah — accent on every form, unlike «puedo»" }
+  - { surface: "podías", meaningEn: "you (tú) could/were able to", partOfSpeech: "verb", kind: "vocab", hint: "poh-DEE-ahs" }
+  - { surface: "podíamos", meaningEn: "we could/were able to", partOfSpeech: "verb", kind: "vocab", hint: "poh-dee-AH-mos" }
+  - { surface: "podían", meaningEn: "they could/were able to, you all could/were able to", partOfSpeech: "verb", kind: "vocab", hint: "poh-DEE-ahn" }
+  # venir — irregular present (vengo) AND irregular preterite (vine/vino,
+  # m20); REGULAR in the imperfect. Movement TOWARD the speaker's frame —
+  # a free minimal pair against «iba» (m22, away from it).
+  - { surface: "venía", meaningEn: "I was coming, he/she/you (usted) was coming", partOfSpeech: "verb", kind: "vocab", hint: "beh-NEE-ah — accent on every form, unlike «vengo»/«vino»" }
+  - { surface: "venías", meaningEn: "you (tú) were coming", partOfSpeech: "verb", kind: "vocab", hint: "beh-NEE-ahs" }
+  - { surface: "veníamos", meaningEn: "we were coming", partOfSpeech: "verb", kind: "vocab", hint: "beh-nee-AH-mos" }
+  - { surface: "venían", meaningEn: "they were coming, you all were coming", partOfSpeech: "verb", kind: "vocab", hint: "beh-NEE-ahn" }
+
+lessons:
