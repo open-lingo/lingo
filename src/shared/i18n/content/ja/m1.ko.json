@@ -23,7 +23,7 @@
     },
     {
       "anchor": "m1/atom:いいえ/gloss",
-      "text": "아니오",
+      "text": "아니요",
       "enSourceHash": "9390298f3fb0c5b1"
     },
     {
@@ -108,7 +108,7 @@
     },
     {
       "anchor": "m1/atom:これ/shortGloss",
-      "text": "이것 (내 것)",
+      "text": "이것 (나와 가까이 있는 것)",
       "enSourceHash": "755d07a8b350b42e"
     },
     {
@@ -198,27 +198,27 @@
     },
     {
       "anchor": "m1/gp:step:ja-ka3-info-desu-ka/ex:かお です",
-      "text": "얼굴이다.",
+      "text": "얼굴이에요.",
       "enSourceHash": "868dd53d0aae43dc"
     },
     {
       "anchor": "m1/gp:step:ja-ka3-info-desu-ka/ex:かお ですか",
-      "text": "얼굴이니?",
+      "text": "얼굴이에요?",
       "enSourceHash": "d74e2c7e05b62153"
     },
     {
       "anchor": "m1/gp:step:ja-wa2-info-0/ex:みず を のむ",
-      "text": "물을 마시다.",
+      "text": "물을 마신다.",
       "enSourceHash": "4e3c12d2882c7209"
     },
     {
       "anchor": "m1/gp:step:ja-wa2-info-0/ex:パン を たべる",
-      "text": "빵을 먹다.",
+      "text": "빵을 먹는다.",
       "enSourceHash": "711bbf6bca1eaf7b"
     },
     {
       "anchor": "m1/ja-m1-ha-1/en:372f7e2fd2d01ce2",
-      "text": "그 (남성)",
+      "text": "he",
       "enSourceHash": "372f7e2fd2d01ce2"
     },
     {
@@ -228,22 +228,22 @@
     },
     {
       "anchor": "m1/ja-m1-ha-1/en:8693873cd8f8a2d9",
-      "text": "하",
+      "text": "ha",
       "enSourceHash": "8693873cd8f8a2d9"
     },
     {
       "anchor": "m1/ja-m1-ha-1/en:8f434346648f6b96",
-      "text": "히",
+      "text": "hi",
       "enSourceHash": "8f434346648f6b96"
     },
     {
       "anchor": "m1/ja-m1-ha-1/en:a4d0ef23161b5b7c",
-      "text": "후",
+      "text": "fu",
       "enSourceHash": "a4d0ef23161b5b7c"
     },
     {
       "anchor": "m1/ja-m1-ha-1/en:a821c62e8104f851",
-      "text": "호",
+      "text": "ho",
       "enSourceHash": "a821c62e8104f851"
     },
     {
@@ -263,7 +263,7 @@
     },
     {
       "anchor": "m1/ja-m1-ha-2/en:372f7e2fd2d01ce2",
-      "text": "그 (남성)",
+      "text": "he",
       "enSourceHash": "372f7e2fd2d01ce2"
     },
     {
@@ -288,17 +288,17 @@
     },
     {
       "anchor": "m1/ja-m1-ha-2/en:8693873cd8f8a2d9",
-      "text": "하",
+      "text": "ha",
       "enSourceHash": "8693873cd8f8a2d9"
     },
     {
       "anchor": "m1/ja-m1-ha-2/en:88d178d728e8394f",
-      "text": "쿠",
+      "text": "ku",
       "enSourceHash": "88d178d728e8394f"
     },
     {
       "anchor": "m1/ja-m1-ha-2/en:8f434346648f6b96",
-      "text": "히",
+      "text": "hi",
       "enSourceHash": "8f434346648f6b96"
     },
     {
@@ -308,7 +308,7 @@
     },
     {
       "anchor": "m1/ja-m1-ha-2/en:a4d0ef23161b5b7c",
-      "text": "후",
+      "text": "fu",
       "enSourceHash": "a4d0ef23161b5b7c"
     },
     {
@@ -318,7 +318,7 @@
     },
     {
       "anchor": "m1/ja-m1-ha-3/en:0a64ce10853f25cb",
-      "text": "스",
+      "text": "su",
       "enSourceHash": "0a64ce10853f25cb"
     },
     {
@@ -348,17 +348,17 @@
     },
     {
       "anchor": "m1/ja-m1-ha-3/en:8e5202705183bd3a",
-      "text": "케",
+      "text": "ke",
       "enSourceHash": "8e5202705183bd3a"
     },
     {
       "anchor": "m1/ja-m1-ha-3/en:9390298f3fb0c5b1",
-      "text": "노",
+      "text": "no",
       "enSourceHash": "9390298f3fb0c5b1"
     },
     {
       "anchor": "m1/ja-m1-ha-3/en:ca978112ca1bbdca",
-      "text": "아",
+      "text": "a",
       "enSourceHash": "ca978112ca1bbdca"
     },
     {
@@ -373,32 +373,32 @@
     },
     {
       "anchor": "m1/ja-m1-ha-3/ja:ほし です",
-      "text": "만들기: '별입니다.'",
+      "text": "만들기: '별이에요.'",
       "enSourceHash": "bf32f8daa4b2c036"
     },
     {
       "anchor": "m1/ja-m1-ka-1/en:2b84b2a9020f8b08",
-      "text": "키",
+      "text": "ki",
       "enSourceHash": "2b84b2a9020f8b08"
     },
     {
       "anchor": "m1/ja-m1-ka-1/en:3ebb1c99b12b7746",
-      "text": "카",
+      "text": "ka",
       "enSourceHash": "3ebb1c99b12b7746"
     },
     {
       "anchor": "m1/ja-m1-ka-1/en:70a5771f00ddf754",
-      "text": "카행 — 소개 1",
+      "text": "가행 — 소개 1",
       "enSourceHash": "70a5771f00ddf754"
     },
     {
       "anchor": "m1/ja-m1-ka-1/en:88d178d728e8394f",
-      "text": "쿠",
+      "text": "ku",
       "enSourceHash": "88d178d728e8394f"
     },
     {
       "anchor": "m1/ja-m1-ka-1/en:8e5202705183bd3a",
-      "text": "케",
+      "text": "ke",
       "enSourceHash": "8e5202705183bd3a"
     },
     {
@@ -418,12 +418,12 @@
     },
     {
       "anchor": "m1/ja-m1-ka-2/en:2b84b2a9020f8b08",
-      "text": "키",
+      "text": "ki",
       "enSourceHash": "2b84b2a9020f8b08"
     },
     {
       "anchor": "m1/ja-m1-ka-2/en:3ebb1c99b12b7746",
-      "text": "카",
+      "text": "ka",
       "enSourceHash": "3ebb1c99b12b7746"
     },
     {
@@ -433,12 +433,12 @@
     },
     {
       "anchor": "m1/ja-m1-ka-2/en:88d178d728e8394f",
-      "text": "쿠",
+      "text": "ku",
       "enSourceHash": "88d178d728e8394f"
     },
     {
       "anchor": "m1/ja-m1-ka-2/en:8e5202705183bd3a",
-      "text": "케",
+      "text": "ke",
       "enSourceHash": "8e5202705183bd3a"
     },
     {
@@ -453,7 +453,7 @@
     },
     {
       "anchor": "m1/ja-m1-ka-2/en:ce635c4eabff5e4f",
-      "text": "조개껍질",
+      "text": "조개",
       "enSourceHash": "ce635c4eabff5e4f"
     },
     {
@@ -473,7 +473,7 @@
     },
     {
       "anchor": "m1/ja-m1-ka-3/en:3f79bb7b435b0532",
-      "text": "에",
+      "text": "e",
       "enSourceHash": "3f79bb7b435b0532"
     },
     {
@@ -483,7 +483,7 @@
     },
     {
       "anchor": "m1/ja-m1-ka-3/en:65c74c15a686187b",
-      "text": "오",
+      "text": "o",
       "enSourceHash": "65c74c15a686187b"
     },
     {
@@ -493,12 +493,12 @@
     },
     {
       "anchor": "m1/ja-m1-ka-3/en:ca978112ca1bbdca",
-      "text": "아",
+      "text": "a",
       "enSourceHash": "ca978112ca1bbdca"
     },
     {
       "anchor": "m1/ja-m1-ka-3/en:ce635c4eabff5e4f",
-      "text": "조개껍질",
+      "text": "조개",
       "enSourceHash": "ce635c4eabff5e4f"
     },
     {
@@ -508,7 +508,7 @@
     },
     {
       "anchor": "m1/ja-m1-ka-3/en:de7d1b721a1e0632",
-      "text": "이",
+      "text": "i",
       "enSourceHash": "de7d1b721a1e0632"
     },
     {
@@ -518,7 +518,7 @@
     },
     {
       "anchor": "m1/ja-m1-ka-3/ja:かお です",
-      "text": "만들기: '얼굴이다.'",
+      "text": "만들기: '얼굴이에요.'",
       "enSourceHash": "ce0c9555970302ff"
     },
     {
@@ -563,7 +563,7 @@
     },
     {
       "anchor": "m1/ja-m1-l1-2/en:0bfe935e70c321c7",
-      "text": "우",
+      "text": "u",
       "enSourceHash": "0bfe935e70c321c7"
     },
     {
@@ -573,7 +573,7 @@
     },
     {
       "anchor": "m1/ja-m1-l1-2/en:65c74c15a686187b",
-      "text": "오",
+      "text": "o",
       "enSourceHash": "65c74c15a686187b"
     },
     {
@@ -588,7 +588,7 @@
     },
     {
       "anchor": "m1/ja-m1-l1-2/en:ca978112ca1bbdca",
-      "text": "아",
+      "text": "a",
       "enSourceHash": "ca978112ca1bbdca"
     },
     {
@@ -598,7 +598,7 @@
     },
     {
       "anchor": "m1/ja-m1-l1-2/en:de7d1b721a1e0632",
-      "text": "이",
+      "text": "i",
       "enSourceHash": "de7d1b721a1e0632"
     },
     {
@@ -728,7 +728,7 @@
     },
     {
       "anchor": "m1/ja-m1-ma-1/en:f9650a4bde3f1885",
-      "text": "Ma 행 — 도입 1",
+      "text": "마행 — 소개 1",
       "enSourceHash": "f9650a4bde3f1885"
     },
     {
@@ -788,12 +788,12 @@
     },
     {
       "anchor": "m1/ja-m1-ma-2/en:870288c8799bfb67",
-      "text": "Ma 행 — 도입 2",
+      "text": "마행 — 소개 2",
       "enSourceHash": "870288c8799bfb67"
     },
     {
       "anchor": "m1/ja-m1-ma-2/en:9390298f3fb0c5b1",
-      "text": "아니요",
+      "text": "no",
       "enSourceHash": "9390298f3fb0c5b1"
     },
     {
@@ -813,27 +813,27 @@
     },
     {
       "anchor": "m1/ja-m1-ma-2/ja:かめ",
-      "text": "'거북'에 해당하는 단어를 듣고 만들어 보세요.",
+      "text": "'거북'에 해당하는 단어를 듣고 만들어 보세요",
       "enSourceHash": "48e3c34607a7d847"
     },
     {
       "anchor": "m1/ja-m1-ma-3/en:2d6c9a90dd38f685",
-      "text": "테",
+      "text": "te",
       "enSourceHash": "2d6c9a90dd38f685"
     },
     {
       "anchor": "m1/ja-m1-ma-3/en:4db03a277cfb9ef4",
-      "text": "니",
+      "text": "ni",
       "enSourceHash": "4db03a277cfb9ef4"
     },
     {
       "anchor": "m1/ja-m1-ma-3/en:9390298f3fb0c5b1",
-      "text": "노",
+      "text": "no",
       "enSourceHash": "9390298f3fb0c5b1"
     },
     {
       "anchor": "m1/ja-m1-ma-3/en:a821c62e8104f851",
-      "text": "호",
+      "text": "ho",
       "enSourceHash": "a821c62e8104f851"
     },
     {
@@ -843,32 +843,32 @@
     },
     {
       "anchor": "m1/ja-m1-ma-3/ja:うま ですか",
-      "text": "'말입니까?'라는 질문을 만들어 보세요.",
+      "text": "만들기: '말이에요?'",
       "enSourceHash": "8585dc14db638fd0"
     },
     {
       "anchor": "m1/ja-m1-ma-3/ja:ひと",
-      "text": "'사람'에 해당하는 단어를 만들어 보세요.",
+      "text": "'사람'에 해당하는 단어를 만들어 보세요",
       "enSourceHash": "ae781c7c7d94720a"
     },
     {
       "anchor": "m1/ja-m1-ma-3/ja:もも",
-      "text": "'복숭아'에 해당하는 단어를 듣고 만들어 보세요.",
+      "text": "'복숭아'에 해당하는 단어를 듣고 만들어 보세요",
       "enSourceHash": "42c4481f0534764a"
     },
     {
       "anchor": "m1/ja-m1-na-1/en:1fdbc74ccfd68d07",
-      "text": "코",
+      "text": "ko",
       "enSourceHash": "1fdbc74ccfd68d07"
     },
     {
       "anchor": "m1/ja-m1-na-1/en:3086cf468ccca87c",
-      "text": "누",
+      "text": "nu",
       "enSourceHash": "3086cf468ccca87c"
     },
     {
       "anchor": "m1/ja-m1-na-1/en:3d9fc4bde7ceef05",
-      "text": "나",
+      "text": "na",
       "enSourceHash": "3d9fc4bde7ceef05"
     },
     {
@@ -878,27 +878,27 @@
     },
     {
       "anchor": "m1/ja-m1-na-1/en:4db03a277cfb9ef4",
-      "text": "니",
+      "text": "ni",
       "enSourceHash": "4db03a277cfb9ef4"
     },
     {
       "anchor": "m1/ja-m1-na-1/en:76592b9de6d38238",
-      "text": "타",
+      "text": "ta",
       "enSourceHash": "76592b9de6d38238"
     },
     {
       "anchor": "m1/ja-m1-na-1/ja:なに",
-      "text": "'무엇'에 해당하는 단어를 듣고 만들어 보세요.",
+      "text": "'무엇'에 해당하는 단어를 듣고 만들어 보세요",
       "enSourceHash": "efd6e44334ff5a62"
     },
     {
       "anchor": "m1/ja-m1-na-2/en:3086cf468ccca87c",
-      "text": "누",
+      "text": "nu",
       "enSourceHash": "3086cf468ccca87c"
     },
     {
       "anchor": "m1/ja-m1-na-2/en:3d9fc4bde7ceef05",
-      "text": "나",
+      "text": "na",
       "enSourceHash": "3d9fc4bde7ceef05"
     },
     {
@@ -908,7 +908,7 @@
     },
     {
       "anchor": "m1/ja-m1-na-2/en:4db03a277cfb9ef4",
-      "text": "니",
+      "text": "ni",
       "enSourceHash": "4db03a277cfb9ef4"
     },
     {
@@ -938,12 +938,12 @@
     },
     {
       "anchor": "m1/ja-m1-na-2/en:ca978112ca1bbdca",
-      "text": "아",
+      "text": "a",
       "enSourceHash": "ca978112ca1bbdca"
     },
     {
       "anchor": "m1/ja-m1-na-2/en:cb58e4600bf0142c",
-      "text": "네",
+      "text": "ne",
       "enSourceHash": "cb58e4600bf0142c"
     },
     {
@@ -953,7 +953,7 @@
     },
     {
       "anchor": "m1/ja-m1-na-2/ja:ねこ",
-      "text": "'고양이'에 해당하는 단어를 듣고 만들어 보세요.",
+      "text": "'고양이'에 해당하는 단어를 듣고 만들어 보세요",
       "enSourceHash": "cfc0f106841d3c94"
     },
     {
@@ -968,7 +968,7 @@
     },
     {
       "anchor": "m1/ja-m1-na-3/en:65c74c15a686187b",
-      "text": "오",
+      "text": "o",
       "enSourceHash": "65c74c15a686187b"
     },
     {
@@ -988,22 +988,22 @@
     },
     {
       "anchor": "m1/ja-m1-na-3/en:ad9a67fefa847de8",
-      "text": "세",
+      "text": "se",
       "enSourceHash": "ad9a67fefa847de8"
     },
     {
       "anchor": "m1/ja-m1-na-3/en:ca978112ca1bbdca",
-      "text": "아",
+      "text": "a",
       "enSourceHash": "ca978112ca1bbdca"
     },
     {
       "anchor": "m1/ja-m1-na-3/en:de7d1b721a1e0632",
-      "text": "이",
+      "text": "i",
       "enSourceHash": "de7d1b721a1e0632"
     },
     {
       "anchor": "m1/ja-m1-na-3/ja:うた",
-      "text": "'노래'에 해당하는 단어를 만들어 보세요.",
+      "text": "'노래'에 해당하는 단어를 만들어 보세요",
       "enSourceHash": "faf7ad277ae7d29a"
     },
     {
@@ -1013,7 +1013,7 @@
     },
     {
       "anchor": "m1/ja-m1-na-3/ja:ねこ ですか",
-      "text": "'고양이입니까?'라는 질문을 만들어 보세요",
+      "text": "만들기: '고양이예요?'",
       "enSourceHash": "eb3567f4f1b0b628"
     },
     {
@@ -1038,7 +1038,7 @@
     },
     {
       "anchor": "m1/ja-m1-ra-1/en:c7454b8592f22050",
-      "text": "Ra 행 — 소개 1",
+      "text": "라행 — 소개 1",
       "enSourceHash": "c7454b8592f22050"
     },
     {
@@ -1058,7 +1058,7 @@
     },
     {
       "anchor": "m1/ja-m1-ra-2/en:14c1a4a5d970f7da",
-      "text": "Ra 행 — 소개 2",
+      "text": "라행 — 소개 2",
       "enSourceHash": "14c1a4a5d970f7da"
     },
     {
@@ -1153,7 +1153,7 @@
     },
     {
       "anchor": "m1/ja-m1-ra-3/en:a4a4301bf5d5cddf",
-      "text": "Ra 행 — 복습",
+      "text": "라행 — 복습",
       "enSourceHash": "a4a4301bf5d5cddf"
     },
     {
@@ -1173,7 +1173,7 @@
     },
     {
       "anchor": "m1/ja-m1-recap/en:efab9871954dbac0",
-      "text": "1 모듈 · 히라가나 — 복습",
+      "text": "모듈 1 · 히라가나 — 복습",
       "enSourceHash": "efab9871954dbac0"
     },
     {
@@ -1193,7 +1193,7 @@
     },
     {
       "anchor": "m1/ja-m1-sa-1/en:d3ec195c40b2d2db",
-      "text": "Sa 행 — 소개 1",
+      "text": "사행 — 소개 1",
       "enSourceHash": "d3ec195c40b2d2db"
     },
     {
@@ -1218,7 +1218,7 @@
     },
     {
       "anchor": "m1/ja-m1-sa-2/en:4342c375f8b8c3f1",
-      "text": "Sa 행 — 소개 2",
+      "text": "사행 — 소개 2",
       "enSourceHash": "4342c375f8b8c3f1"
     },
     {
@@ -1238,7 +1238,7 @@
     },
     {
       "anchor": "m1/ja-m1-sa-2/en:ce635c4eabff5e4f",
-      "text": "껍데기",
+      "text": "조개",
       "enSourceHash": "ce635c4eabff5e4f"
     },
     {
@@ -1268,7 +1268,7 @@
     },
     {
       "anchor": "m1/ja-m1-sa-3/en:31162c018431abc8",
-      "text": "Sa 행 — 복습",
+      "text": "사행 — 복습",
       "enSourceHash": "31162c018431abc8"
     },
     {
@@ -1293,7 +1293,7 @@
     },
     {
       "anchor": "m1/ja-m1-sa-3/en:ce635c4eabff5e4f",
-      "text": "껍데기",
+      "text": "조개",
       "enSourceHash": "ce635c4eabff5e4f"
     },
     {
@@ -1308,7 +1308,7 @@
     },
     {
       "anchor": "m1/ja-m1-sa-3/ja:すし です",
-      "text": "만들기: '초밥입니다.'",
+      "text": "만들기: '초밥이에요.'",
       "enSourceHash": "32fa3f01bbe05dba"
     },
     {
@@ -1348,7 +1348,7 @@
     },
     {
       "anchor": "m1/ja-m1-ta-1/en:e2861368db60cc7e",
-      "text": "Ta 행 — 소개 1",
+      "text": "타행 — 소개 1",
       "enSourceHash": "e2861368db60cc7e"
     },
     {
@@ -1398,12 +1398,12 @@
     },
     {
       "anchor": "m1/ja-m1-ta-2/en:c6bf8be0051a22c2",
-      "text": "Ta 행 — 소개 2",
+      "text": "타행 — 소개 2",
       "enSourceHash": "c6bf8be0051a22c2"
     },
     {
       "anchor": "m1/ja-m1-ta-2/en:ce635c4eabff5e4f",
-      "text": "껍데기",
+      "text": "조개",
       "enSourceHash": "ce635c4eabff5e4f"
     },
     {
@@ -1413,12 +1413,12 @@
     },
     {
       "anchor": "m1/ja-m1-ta-2/en:ded9c2181fd7ea46",
-      "text": "시",
+      "text": "shi",
       "enSourceHash": "ded9c2181fd7ea46"
     },
     {
       "anchor": "m1/ja-m1-ta-2/en:dffe602cd1e0bfa9",
-      "text": "치",
+      "text": "chi",
       "enSourceHash": "dffe602cd1e0bfa9"
     },
     {
@@ -1428,27 +1428,27 @@
     },
     {
       "anchor": "m1/ja-m1-ta-3/en:0a64ce10853f25cb",
-      "text": "스",
+      "text": "su",
       "enSourceHash": "0a64ce10853f25cb"
     },
     {
       "anchor": "m1/ja-m1-ta-3/en:0bfe935e70c321c7",
-      "text": "우",
+      "text": "u",
       "enSourceHash": "0bfe935e70c321c7"
     },
     {
       "anchor": "m1/ja-m1-ta-3/en:2b84b2a9020f8b08",
-      "text": "키",
+      "text": "ki",
       "enSourceHash": "2b84b2a9020f8b08"
     },
     {
       "anchor": "m1/ja-m1-ta-3/en:2d6c9a90dd38f685",
-      "text": "테",
+      "text": "te",
       "enSourceHash": "2d6c9a90dd38f685"
     },
     {
       "anchor": "m1/ja-m1-ta-3/en:3ebb1c99b12b7746",
-      "text": "카",
+      "text": "ka",
       "enSourceHash": "3ebb1c99b12b7746"
     },
     {
@@ -1458,7 +1458,7 @@
     },
     {
       "anchor": "m1/ja-m1-ta-3/en:58af96d547380ed6",
-      "text": "츠",
+      "text": "tsu",
       "enSourceHash": "58af96d547380ed6"
     },
     {
@@ -1468,12 +1468,12 @@
     },
     {
       "anchor": "m1/ja-m1-ta-3/en:663ea1bfffe5038f",
-      "text": "토",
+      "text": "to",
       "enSourceHash": "663ea1bfffe5038f"
     },
     {
       "anchor": "m1/ja-m1-ta-3/en:76592b9de6d38238",
-      "text": "타",
+      "text": "ta",
       "enSourceHash": "76592b9de6d38238"
     },
     {
@@ -1483,7 +1483,7 @@
     },
     {
       "anchor": "m1/ja-m1-ta-3/en:ad9a67fefa847de8",
-      "text": "세",
+      "text": "se",
       "enSourceHash": "ad9a67fefa847de8"
     },
     {
@@ -1493,7 +1493,7 @@
     },
     {
       "anchor": "m1/ja-m1-ta-3/en:cf98f59c0c003582",
-      "text": "스시",
+      "text": "초밥",
       "enSourceHash": "cf98f59c0c003582"
     },
     {
@@ -1503,7 +1503,7 @@
     },
     {
       "anchor": "m1/ja-m1-ta-3/en:dffe602cd1e0bfa9",
-      "text": "치",
+      "text": "chi",
       "enSourceHash": "dffe602cd1e0bfa9"
     },
     {
@@ -1513,7 +1513,7 @@
     },
     {
       "anchor": "m1/ja-m1-ta-3/ja:つき です",
-      "text": "만들기: '달입니다.'",
+      "text": "만들기: '달이에요.'",
       "enSourceHash": "07e197b36457ab8b"
     },
     {
@@ -1528,22 +1528,22 @@
     },
     {
       "anchor": "m1/ja-m1-wa-1/en:3ac1ecbd2220c675",
-      "text": "레",
+      "text": "re",
       "enSourceHash": "3ac1ecbd2220c675"
     },
     {
       "anchor": "m1/ja-m1-wa-1/en:65c74c15a686187b",
-      "text": "오",
+      "text": "o",
       "enSourceHash": "65c74c15a686187b"
     },
     {
       "anchor": "m1/ja-m1-wa-1/en:87b810070b7c7396",
-      "text": "와",
+      "text": "wa",
       "enSourceHash": "87b810070b7c7396"
     },
     {
       "anchor": "m1/ja-m1-wa-1/en:cb58e4600bf0142c",
-      "text": "네",
+      "text": "ne",
       "enSourceHash": "cb58e4600bf0142c"
     },
     {
@@ -1553,7 +1553,7 @@
     },
     {
       "anchor": "m1/ja-m1-wa-2/en:1b16b1df538ba12d",
-      "text": "ん",
+      "text": "n",
       "enSourceHash": "1b16b1df538ba12d"
     },
     {
@@ -1573,7 +1573,7 @@
     },
     {
       "anchor": "m1/ja-m1-wa-2/en:65c74c15a686187b",
-      "text": "오",
+      "text": "o",
       "enSourceHash": "65c74c15a686187b"
     },
     {
@@ -1583,7 +1583,7 @@
     },
     {
       "anchor": "m1/ja-m1-wa-2/en:87b810070b7c7396",
-      "text": "와",
+      "text": "wa",
       "enSourceHash": "87b810070b7c7396"
     },
     {
@@ -1608,12 +1608,12 @@
     },
     {
       "anchor": "m1/ja-m1-wa-3/en:2b84b2a9020f8b08",
-      "text": "키",
+      "text": "ki",
       "enSourceHash": "2b84b2a9020f8b08"
     },
     {
       "anchor": "m1/ja-m1-wa-3/en:3086cf468ccca87c",
-      "text": "누",
+      "text": "nu",
       "enSourceHash": "3086cf468ccca87c"
     },
     {
@@ -1623,7 +1623,7 @@
     },
     {
       "anchor": "m1/ja-m1-wa-3/en:4db03a277cfb9ef4",
-      "text": "니",
+      "text": "ni",
       "enSourceHash": "4db03a277cfb9ef4"
     },
     {
@@ -1638,12 +1638,12 @@
     },
     {
       "anchor": "m1/ja-m1-wa-3/en:9c1b2cdd13698da9",
-      "text": "와 행 — 복습",
+      "text": "와행 — 복습",
       "enSourceHash": "9c1b2cdd13698da9"
     },
     {
       "anchor": "m1/ja-m1-wa-3/en:a4d0ef23161b5b7c",
-      "text": "후",
+      "text": "fu",
       "enSourceHash": "a4d0ef23161b5b7c"
     },
     {
@@ -1663,37 +1663,37 @@
     },
     {
       "anchor": "m1/ja-m1-wa-3/ja:ほん",
-      "text": "듣고 '책'에 해당하는 단어를 만들어 보세요",
+      "text": "'책'에 해당하는 단어를 듣고 만들어 보세요",
       "enSourceHash": "2a23fe8c8813a4f7"
     },
     {
       "anchor": "m1/ja-m1-ya-1/en:3ebb1c99b12b7746",
-      "text": "카",
+      "text": "ka",
       "enSourceHash": "3ebb1c99b12b7746"
     },
     {
       "anchor": "m1/ja-m1-ya-1/en:5109f6dc636d7068",
-      "text": "유",
+      "text": "yu",
       "enSourceHash": "5109f6dc636d7068"
     },
     {
       "anchor": "m1/ja-m1-ya-1/en:5b76e8f908297f3f",
-      "text": "야 행 — 소개 1",
+      "text": "야행 — 소개 1",
       "enSourceHash": "5b76e8f908297f3f"
     },
     {
       "anchor": "m1/ja-m1-ya-1/en:6663103a3e47efc8",
-      "text": "야",
+      "text": "ya",
       "enSourceHash": "6663103a3e47efc8"
     },
     {
       "anchor": "m1/ja-m1-ya-1/en:e9058ab198f6908f",
-      "text": "요",
+      "text": "yo",
       "enSourceHash": "e9058ab198f6908f"
     },
     {
       "anchor": "m1/ja-m1-ya-1/ja:やま",
-      "text": "듣고 '산'에 해당하는 단어를 만들어 보세요",
+      "text": "'산'에 해당하는 단어를 듣고 만들어 보세요",
       "enSourceHash": "fd48e985fb48e429"
     },
     {
@@ -1713,17 +1713,17 @@
     },
     {
       "anchor": "m1/ja-m1-ya-2/en:45902cd5d4a9aee6",
-      "text": "야 행 — 소개 2",
+      "text": "야행 — 소개 2",
       "enSourceHash": "45902cd5d4a9aee6"
     },
     {
       "anchor": "m1/ja-m1-ya-2/en:5109f6dc636d7068",
-      "text": "유",
+      "text": "yu",
       "enSourceHash": "5109f6dc636d7068"
     },
     {
       "anchor": "m1/ja-m1-ya-2/en:6663103a3e47efc8",
-      "text": "야",
+      "text": "ya",
       "enSourceHash": "6663103a3e47efc8"
     },
     {
@@ -1743,27 +1743,27 @@
     },
     {
       "anchor": "m1/ja-m1-ya-2/en:e9058ab198f6908f",
-      "text": "요",
+      "text": "yo",
       "enSourceHash": "e9058ab198f6908f"
     },
     {
       "anchor": "m1/ja-m1-ya-2/en:eee1c1ade6525d24",
-      "text": "미",
+      "text": "mi",
       "enSourceHash": "eee1c1ade6525d24"
     },
     {
       "anchor": "m1/ja-m1-ya-2/ja:ゆき",
-      "text": "듣고 '눈'에 해당하는 단어를 만들어 보세요",
+      "text": "'눈'에 해당하는 단어를 듣고 만들어 보세요",
       "enSourceHash": "112b4f70cab128f1"
     },
     {
       "anchor": "m1/ja-m1-ya-3/en:1fdbc74ccfd68d07",
-      "text": "코",
+      "text": "ko",
       "enSourceHash": "1fdbc74ccfd68d07"
     },
     {
       "anchor": "m1/ja-m1-ya-3/en:2b84b2a9020f8b08",
-      "text": "키",
+      "text": "ki",
       "enSourceHash": "2b84b2a9020f8b08"
     },
     {
@@ -1778,7 +1778,7 @@
     },
     {
       "anchor": "m1/ja-m1-ya-3/en:538dda9c8dc55919",
-      "text": "야 행 — 복습",
+      "text": "야행 — 복습",
       "enSourceHash": "538dda9c8dc55919"
     },
     {
@@ -1788,7 +1788,7 @@
     },
     {
       "anchor": "m1/ja-m1-ya-3/en:a4d0ef23161b5b7c",
-      "text": "후",
+      "text": "fu",
       "enSourceHash": "a4d0ef23161b5b7c"
     },
     {
@@ -1798,7 +1798,7 @@
     },
     {
       "anchor": "m1/ja-m1-ya-3/en:ca978112ca1bbdca",
-      "text": "아",
+      "text": "a",
       "enSourceHash": "ca978112ca1bbdca"
     },
     {
@@ -1808,7 +1808,7 @@
     },
     {
       "anchor": "m1/ja-m1-ya-3/ja:よむ",
-      "text": "'읽다'에 해당하는 단어를 듣고 만들어 보세요.",
+      "text": "'읽다'에 해당하는 단어를 듣고 만들어 보세요",
       "enSourceHash": "56854b4df971dc6f"
     }
   ]
