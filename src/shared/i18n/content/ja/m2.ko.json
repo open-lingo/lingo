@@ -163,32 +163,32 @@
     },
     {
       "anchor": "m2/gp:step:ja-b1-info-open/ex:は → ば",
-      "text": "유성 h 가 b 로",
+      "text": "유성 h 가 b 가 됨",
       "enSourceHash": "f1afa30650e19c7d"
     },
     {
       "anchor": "m2/gp:step:ja-b1-info-open/ex:ふ → ぶ",
-      "text": "유성 h 가 b 로",
+      "text": "유성 h 가 b 가 됨",
       "enSourceHash": "f1afa30650e19c7d"
     },
     {
       "anchor": "m2/gp:step:ja-d1-info-open/ex:た → だ",
-      "text": "유성 t 가 d 로",
+      "text": "유성 t 가 d 가 됨",
       "enSourceHash": "1d85c176eb5eed32"
     },
     {
       "anchor": "m2/gp:step:ja-d1-info-open/ex:と → ど",
-      "text": "유성 t 가 d 로",
+      "text": "유성 t 가 d 가 됨",
       "enSourceHash": "1d85c176eb5eed32"
     },
     {
       "anchor": "m2/gp:step:ja-g1-info-open/ex:か → が",
-      "text": "유성 k 가 g 로",
+      "text": "유성 k 가 g 가 됨",
       "enSourceHash": "55e99b1a4999a7e7"
     },
     {
       "anchor": "m2/gp:step:ja-g1-info-open/ex:き → ぎ",
-      "text": "유성 k 가 g 로",
+      "text": "유성 k 가 g 가 됨",
       "enSourceHash": "55e99b1a4999a7e7"
     },
     {
@@ -208,7 +208,7 @@
     },
     {
       "anchor": "m2/gp:step:ja-yr3-info-katakana-ahead/ex:ミカ",
-      "text": "이름 — 히라가가 아닌 가타가나",
+      "text": "이름 — 히라가나가 아닌 가타카나",
       "enSourceHash": "403e1de943bd94d5"
     },
     {
@@ -283,7 +283,7 @@
     },
     {
       "anchor": "m2/ja-m1-b-2/en:18e1dd392168f601",
-      "text": "hat",
+      "text": "모자",
       "enSourceHash": "18e1dd392168f601"
     },
     {
@@ -298,7 +298,7 @@
     },
     {
       "anchor": "m2/ja-m1-b-2/en:42a73cf9f258b8e4",
-      "text": "shrimp",
+      "text": "새우",
       "enSourceHash": "42a73cf9f258b8e4"
     },
     {
@@ -333,7 +333,7 @@
     },
     {
       "anchor": "m2/ja-m1-b-2/en:c018019b6a8b01ab",
-      "text": "bag",
+      "text": "가방",
       "enSourceHash": "c018019b6a8b01ab"
     },
     {
@@ -343,7 +343,7 @@
     },
     {
       "anchor": "m2/ja-m1-b-2/en:f0b8c9d84dd2b877",
-      "text": "pig",
+      "text": "돼지",
       "enSourceHash": "f0b8c9d84dd2b877"
     },
     {
@@ -413,32 +413,32 @@
     },
     {
       "anchor": "m2/ja-m1-b-3/en:d9065d6da185ec28",
-      "text": "비",
+      "text": "bi",
       "enSourceHash": "d9065d6da185ec28"
     },
     {
       "anchor": "m2/ja-m1-d-1/en:76592b9de6d38238",
-      "text": "타",
+      "text": "ta",
       "enSourceHash": "76592b9de6d38238"
     },
     {
       "anchor": "m2/ja-m1-d-1/en:959a45d44e6fcf58",
-      "text": "데",
+      "text": "de",
       "enSourceHash": "959a45d44e6fcf58"
     },
     {
       "anchor": "m2/ja-m1-d-1/en:aa58b21b01d6b8a9",
-      "text": "다",
+      "text": "da",
       "enSourceHash": "aa58b21b01d6b8a9"
     },
     {
       "anchor": "m2/ja-m1-d-1/en:ac0b52a2ae6ef999",
-      "text": "도",
+      "text": "do",
       "enSourceHash": "ac0b52a2ae6ef999"
     },
     {
       "anchor": "m2/ja-m1-d-1/en:b5f45336b9547bb4",
-      "text": "T → D (유성음 두 개)",
+      "text": "T → D (유령 두 마리)",
       "enSourceHash": "b5f45336b9547bb4"
     },
     {
@@ -468,7 +468,7 @@
     },
     {
       "anchor": "m2/ja-m1-d-2/en:3ac1ecbd2220c675",
-      "text": "레",
+      "text": "re",
       "enSourceHash": "3ac1ecbd2220c675"
     },
     {
@@ -478,7 +478,7 @@
     },
     {
       "anchor": "m2/ja-m1-d-2/en:58af96d547380ed6",
-      "text": "츠",
+      "text": "tsu",
       "enSourceHash": "58af96d547380ed6"
     },
     {
@@ -488,12 +488,12 @@
     },
     {
       "anchor": "m2/ja-m1-d-2/en:7ef9ec0cf2c4faca",
-      "text": "로",
+      "text": "ro",
       "enSourceHash": "7ef9ec0cf2c4faca"
     },
     {
       "anchor": "m2/ja-m1-d-2/en:959a45d44e6fcf58",
-      "text": "데",
+      "text": "de",
       "enSourceHash": "959a45d44e6fcf58"
     },
     {
@@ -503,22 +503,22 @@
     },
     {
       "anchor": "m2/ja-m1-d-2/en:9de6f20353443697",
-      "text": "'전화'는 일본어로 어떻게 하나요?",
+      "text": "\"전화\"를 일본어로 어떻게 말하나요?",
       "enSourceHash": "9de6f20353443697"
     },
     {
       "anchor": "m2/ja-m1-d-2/en:aa58b21b01d6b8a9",
-      "text": "다",
+      "text": "da",
       "enSourceHash": "aa58b21b01d6b8a9"
     },
     {
       "anchor": "m2/ja-m1-d-2/en:ac0b52a2ae6ef999",
-      "text": "도",
+      "text": "do",
       "enSourceHash": "ac0b52a2ae6ef999"
     },
     {
       "anchor": "m2/ja-m1-d-2/en:ca978112ca1bbdca",
-      "text": "아",
+      "text": "a",
       "enSourceHash": "ca978112ca1bbdca"
     },
     {
@@ -528,7 +528,7 @@
     },
     {
       "anchor": "m2/ja-m1-d-2/en:d7d86195ce9a53a2",
-      "text": "'문'은 일본어로 어떻게 하나요?",
+      "text": "\"문\"을 일본어로 어떻게 말하나요?",
       "enSourceHash": "d7d86195ce9a53a2"
     },
     {
@@ -543,7 +543,7 @@
     },
     {
       "anchor": "m2/ja-m1-d-3/en:3ac1ecbd2220c675",
-      "text": "레",
+      "text": "re",
       "enSourceHash": "3ac1ecbd2220c675"
     },
     {
@@ -553,12 +553,12 @@
     },
     {
       "anchor": "m2/ja-m1-d-3/en:58af96d547380ed6",
-      "text": "츠",
+      "text": "tsu",
       "enSourceHash": "58af96d547380ed6"
     },
     {
       "anchor": "m2/ja-m1-d-3/en:62cc478cb422c06f",
-      "text": "'하늘'은 일본어로 어떻게 하나요?",
+      "text": "\"하늘\"을 일본어로 어떻게 말하나요?",
       "enSourceHash": "62cc478cb422c06f"
     },
     {
@@ -568,42 +568,42 @@
     },
     {
       "anchor": "m2/ja-m1-d-3/en:7ef9ec0cf2c4faca",
-      "text": "로",
+      "text": "ro",
       "enSourceHash": "7ef9ec0cf2c4faca"
     },
     {
       "anchor": "m2/ja-m1-d-3/en:959a45d44e6fcf58",
-      "text": "데",
+      "text": "de",
       "enSourceHash": "959a45d44e6fcf58"
     },
     {
       "anchor": "m2/ja-m1-d-3/en:9de6f20353443697",
-      "text": "'전화'는 일본어로 어떻게 하나요?",
+      "text": "\"전화\"를 일본어로 어떻게 말하나요?",
       "enSourceHash": "9de6f20353443697"
     },
     {
       "anchor": "m2/ja-m1-d-3/en:aa58b21b01d6b8a9",
-      "text": "다",
+      "text": "da",
       "enSourceHash": "aa58b21b01d6b8a9"
     },
     {
       "anchor": "m2/ja-m1-d-3/en:ac0b52a2ae6ef999",
-      "text": "도",
+      "text": "do",
       "enSourceHash": "ac0b52a2ae6ef999"
     },
     {
       "anchor": "m2/ja-m1-d-3/en:ca978112ca1bbdca",
-      "text": "아",
+      "text": "a",
       "enSourceHash": "ca978112ca1bbdca"
     },
     {
       "anchor": "m2/ja-m1-d-3/en:d7d86195ce9a53a2",
-      "text": "'문'은 일본어로 어떻게 하나요?",
+      "text": "\"문\"을 일본어로 어떻게 말하나요?",
       "enSourceHash": "d7d86195ce9a53a2"
     },
     {
       "anchor": "m2/ja-m1-d-3/en:f3806c270fd98bf1",
-      "text": "'나무'는 일본어로 어떻게 하나요?",
+      "text": "\"나무\"를 일본어로 어떻게 말하나요?",
       "enSourceHash": "f3806c270fd98bf1"
     },
     {
@@ -613,7 +613,7 @@
     },
     {
       "anchor": "m2/ja-m1-g-1/en:1917d730c88ed0f6",
-      "text": "기",
+      "text": "gi",
       "enSourceHash": "1917d730c88ed0f6"
     },
     {
@@ -623,12 +623,12 @@
     },
     {
       "anchor": "m2/ja-m1-g-1/en:309d20864f274b09",
-      "text": "게",
+      "text": "ge",
       "enSourceHash": "309d20864f274b09"
     },
     {
       "anchor": "m2/ja-m1-g-1/en:6152d43caa491abe",
-      "text": "구",
+      "text": "gu",
       "enSourceHash": "6152d43caa491abe"
     },
     {
@@ -638,7 +638,7 @@
     },
     {
       "anchor": "m2/ja-m1-g-1/en:f52d63231eb0dbaa",
-      "text": "가",
+      "text": "ga",
       "enSourceHash": "f52d63231eb0dbaa"
     },
     {
@@ -648,12 +648,12 @@
     },
     {
       "anchor": "m2/ja-m1-g-2/en:1917d730c88ed0f6",
-      "text": "기",
+      "text": "gi",
       "enSourceHash": "1917d730c88ed0f6"
     },
     {
       "anchor": "m2/ja-m1-g-2/en:1fdbc74ccfd68d07",
-      "text": "코",
+      "text": "ko",
       "enSourceHash": "1fdbc74ccfd68d07"
     },
     {
@@ -668,7 +668,7 @@
     },
     {
       "anchor": "m2/ja-m1-g-2/en:309d20864f274b09",
-      "text": "게",
+      "text": "ge",
       "enSourceHash": "309d20864f274b09"
     },
     {
@@ -683,7 +683,7 @@
     },
     {
       "anchor": "m2/ja-m1-g-2/en:4cd0e21a9a0795a1",
-      "text": "고",
+      "text": "go",
       "enSourceHash": "4cd0e21a9a0795a1"
     },
     {
@@ -693,7 +693,7 @@
     },
     {
       "anchor": "m2/ja-m1-g-2/en:6152d43caa491abe",
-      "text": "구",
+      "text": "gu",
       "enSourceHash": "6152d43caa491abe"
     },
     {
@@ -713,7 +713,7 @@
     },
     {
       "anchor": "m2/ja-m1-g-2/en:f52d63231eb0dbaa",
-      "text": "가",
+      "text": "ga",
       "enSourceHash": "f52d63231eb0dbaa"
     },
     {
@@ -723,17 +723,17 @@
     },
     {
       "anchor": "m2/ja-m1-g-3/en:1917d730c88ed0f6",
-      "text": "기",
+      "text": "gi",
       "enSourceHash": "1917d730c88ed0f6"
     },
     {
       "anchor": "m2/ja-m1-g-3/en:1fdbc74ccfd68d07",
-      "text": "코",
+      "text": "ko",
       "enSourceHash": "1fdbc74ccfd68d07"
     },
     {
       "anchor": "m2/ja-m1-g-3/en:309d20864f274b09",
-      "text": "게",
+      "text": "ge",
       "enSourceHash": "309d20864f274b09"
     },
     {
@@ -748,12 +748,12 @@
     },
     {
       "anchor": "m2/ja-m1-g-3/en:4cd0e21a9a0795a1",
-      "text": "고",
+      "text": "go",
       "enSourceHash": "4cd0e21a9a0795a1"
     },
     {
       "anchor": "m2/ja-m1-g-3/en:6152d43caa491abe",
-      "text": "구",
+      "text": "gu",
       "enSourceHash": "6152d43caa491abe"
     },
     {
@@ -778,7 +778,7 @@
     },
     {
       "anchor": "m2/ja-m1-g-3/en:f52d63231eb0dbaa",
-      "text": "가",
+      "text": "ga",
       "enSourceHash": "f52d63231eb0dbaa"
     },
     {
@@ -793,17 +793,17 @@
     },
     {
       "anchor": "m2/ja-m1-p-1/en:4b4d5589e12d32d5",
-      "text": "푸",
+      "text": "pu",
       "enSourceHash": "4b4d5589e12d32d5"
     },
     {
       "anchor": "m2/ja-m1-p-1/en:85b42e1702877c85",
-      "text": "피",
+      "text": "pi",
       "enSourceHash": "85b42e1702877c85"
     },
     {
       "anchor": "m2/ja-m1-p-1/en:9513229d43597826",
-      "text": "파",
+      "text": "pa",
       "enSourceHash": "9513229d43597826"
     },
     {
@@ -813,7 +813,7 @@
     },
     {
       "anchor": "m2/ja-m1-p-1/en:cdf69b25a417e257",
-      "text": "페",
+      "text": "pe",
       "enSourceHash": "cdf69b25a417e257"
     },
     {
@@ -823,7 +823,7 @@
     },
     {
       "anchor": "m2/ja-m1-p-2/en:1917d730c88ed0f6",
-      "text": "기",
+      "text": "gi",
       "enSourceHash": "1917d730c88ed0f6"
     },
     {
@@ -843,17 +843,17 @@
     },
     {
       "anchor": "m2/ja-m1-p-2/en:4b4d5589e12d32d5",
-      "text": "푸",
+      "text": "pu",
       "enSourceHash": "4b4d5589e12d32d5"
     },
     {
       "anchor": "m2/ja-m1-p-2/en:6199aecf23aba7e8",
-      "text": "포",
+      "text": "po",
       "enSourceHash": "6199aecf23aba7e8"
     },
     {
       "anchor": "m2/ja-m1-p-2/en:85b42e1702877c85",
-      "text": "피",
+      "text": "pi",
       "enSourceHash": "85b42e1702877c85"
     },
     {
@@ -863,7 +863,7 @@
     },
     {
       "anchor": "m2/ja-m1-p-2/en:9513229d43597826",
-      "text": "파",
+      "text": "pa",
       "enSourceHash": "9513229d43597826"
     },
     {
@@ -873,7 +873,7 @@
     },
     {
       "anchor": "m2/ja-m1-p-2/en:cdf69b25a417e257",
-      "text": "페",
+      "text": "pe",
       "enSourceHash": "cdf69b25a417e257"
     },
     {
@@ -898,7 +898,7 @@
     },
     {
       "anchor": "m2/ja-m1-p-3/en:1917d730c88ed0f6",
-      "text": "기",
+      "text": "gi",
       "enSourceHash": "1917d730c88ed0f6"
     },
     {
@@ -913,12 +913,12 @@
     },
     {
       "anchor": "m2/ja-m1-p-3/en:4b4d5589e12d32d5",
-      "text": "푸",
+      "text": "pu",
       "enSourceHash": "4b4d5589e12d32d5"
     },
     {
       "anchor": "m2/ja-m1-p-3/en:6199aecf23aba7e8",
-      "text": "포",
+      "text": "po",
       "enSourceHash": "6199aecf23aba7e8"
     },
     {
@@ -928,17 +928,17 @@
     },
     {
       "anchor": "m2/ja-m1-p-3/en:85b42e1702877c85",
-      "text": "피",
+      "text": "pi",
       "enSourceHash": "85b42e1702877c85"
     },
     {
       "anchor": "m2/ja-m1-p-3/en:9513229d43597826",
-      "text": "파",
+      "text": "pa",
       "enSourceHash": "9513229d43597826"
     },
     {
       "anchor": "m2/ja-m1-p-3/en:cdf69b25a417e257",
-      "text": "페",
+      "text": "pe",
       "enSourceHash": "cdf69b25a417e257"
     },
     {
@@ -963,32 +963,32 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-intro-1/en:1534d8691a23c33b",
-      "text": "きゃ",
+      "text": "kya",
       "enSourceHash": "1534d8691a23c33b"
     },
     {
       "anchor": "m2/ja-m1-yoon-intro-1/en:2b84b2a9020f8b08",
-      "text": "키",
+      "text": "ki",
       "enSourceHash": "2b84b2a9020f8b08"
     },
     {
       "anchor": "m2/ja-m1-yoon-intro-1/en:4721e286c56125d4",
-      "text": "요온 — 소개",
+      "text": "요음 — 소개",
       "enSourceHash": "4721e286c56125d4"
     },
     {
       "anchor": "m2/ja-m1-yoon-intro-1/en:9183c674889ff274",
-      "text": "きゅ",
+      "text": "kyu",
       "enSourceHash": "9183c674889ff274"
     },
     {
       "anchor": "m2/ja-m1-yoon-intro-1/en:ee84d89558d58111",
-      "text": "요온 — 작은 가나 조합",
+      "text": "요음 — 작은 가나 조합",
       "enSourceHash": "ee84d89558d58111"
     },
     {
       "anchor": "m2/ja-m1-yoon-intro-1/en:f19313755ae13a4a",
-      "text": "きょ",
+      "text": "kyo",
       "enSourceHash": "f19313755ae13a4a"
     },
     {
@@ -998,7 +998,7 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-intro-2/en:1534d8691a23c33b",
-      "text": "きゃ",
+      "text": "kya",
       "enSourceHash": "1534d8691a23c33b"
     },
     {
@@ -1008,12 +1008,12 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-intro-2/en:19503ea6785ee124",
-      "text": "무",
+      "text": "mu",
       "enSourceHash": "19503ea6785ee124"
     },
     {
       "anchor": "m2/ja-m1-yoon-intro-2/en:1fdbc74ccfd68d07",
-      "text": "코",
+      "text": "ko",
       "enSourceHash": "1fdbc74ccfd68d07"
     },
     {
@@ -1023,7 +1023,7 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-intro-2/en:3f79bb7b435b0532",
-      "text": "에",
+      "text": "e",
       "enSourceHash": "3f79bb7b435b0532"
     },
     {
@@ -1038,7 +1038,7 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-intro-2/en:9183c674889ff274",
-      "text": "큐",
+      "text": "kyu",
       "enSourceHash": "9183c674889ff274"
     },
     {
@@ -1048,7 +1048,7 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-intro-2/en:ca978112ca1bbdca",
-      "text": "아",
+      "text": "a",
       "enSourceHash": "ca978112ca1bbdca"
     },
     {
@@ -1063,12 +1063,12 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-intro-2/en:e4432baa90819aae",
-      "text": "텐",
+      "text": "열",
       "enSourceHash": "e4432baa90819aae"
     },
     {
       "anchor": "m2/ja-m1-yoon-intro-2/en:f19313755ae13a4a",
-      "text": "쿄",
+      "text": "kyo",
       "enSourceHash": "f19313755ae13a4a"
     },
     {
@@ -1083,7 +1083,7 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-intro-3/en:1534d8691a23c33b",
-      "text": "챠",
+      "text": "kya",
       "enSourceHash": "1534d8691a23c33b"
     },
     {
@@ -1093,17 +1093,17 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-intro-3/en:19503ea6785ee124",
-      "text": "무",
+      "text": "mu",
       "enSourceHash": "19503ea6785ee124"
     },
     {
       "anchor": "m2/ja-m1-yoon-intro-3/en:1fdbc74ccfd68d07",
-      "text": "코",
+      "text": "ko",
       "enSourceHash": "1fdbc74ccfd68d07"
     },
     {
       "anchor": "m2/ja-m1-yoon-intro-3/en:3f79bb7b435b0532",
-      "text": "에",
+      "text": "e",
       "enSourceHash": "3f79bb7b435b0532"
     },
     {
@@ -1118,17 +1118,17 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-intro-3/en:9183c674889ff274",
-      "text": "큐",
+      "text": "kyu",
       "enSourceHash": "9183c674889ff274"
     },
     {
       "anchor": "m2/ja-m1-yoon-intro-3/en:ca978112ca1bbdca",
-      "text": "아",
+      "text": "a",
       "enSourceHash": "ca978112ca1bbdca"
     },
     {
       "anchor": "m2/ja-m1-yoon-intro-3/en:f19313755ae13a4a",
-      "text": "쿄",
+      "text": "kyo",
       "enSourceHash": "f19313755ae13a4a"
     },
     {
@@ -1143,12 +1143,12 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-rare-1/en:0183e8d454c42f72",
-      "text": "햐",
+      "text": "hya",
       "enSourceHash": "0183e8d454c42f72"
     },
     {
       "anchor": "m2/ja-m1-yoon-rare-1/en:1becc4cf4b858dda",
-      "text": "효",
+      "text": "hyo",
       "enSourceHash": "1becc4cf4b858dda"
     },
     {
@@ -1158,12 +1158,12 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-rare-1/en:979feed25bd3bf18",
-      "text": "휴",
+      "text": "hyu",
       "enSourceHash": "979feed25bd3bf18"
     },
     {
       "anchor": "m2/ja-m1-yoon-rare-1/en:b5dcec23df8d9d66",
-      "text": "랴",
+      "text": "rya",
       "enSourceHash": "b5dcec23df8d9d66"
     },
     {
@@ -1173,12 +1173,12 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-rare-2/en:0183e8d454c42f72",
-      "text": "햐",
+      "text": "hya",
       "enSourceHash": "0183e8d454c42f72"
     },
     {
       "anchor": "m2/ja-m1-yoon-rare-2/en:1becc4cf4b858dda",
-      "text": "효",
+      "text": "hyo",
       "enSourceHash": "1becc4cf4b858dda"
     },
     {
@@ -1188,7 +1188,7 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-rare-2/en:53b2946160fcd21c",
-      "text": "료",
+      "text": "ryo",
       "enSourceHash": "53b2946160fcd21c"
     },
     {
@@ -1203,7 +1203,7 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-rare-2/en:88d178d728e8394f",
-      "text": "쿠",
+      "text": "ku",
       "enSourceHash": "88d178d728e8394f"
     },
     {
@@ -1213,7 +1213,7 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-rare-2/en:a691b6bc04f1996c",
-      "text": "뉴",
+      "text": "nyu",
       "enSourceHash": "a691b6bc04f1996c"
     },
     {
@@ -1223,12 +1223,12 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-rare-2/en:b57b4a310c318d76",
-      "text": "류",
+      "text": "ryu",
       "enSourceHash": "b57b4a310c318d76"
     },
     {
       "anchor": "m2/ja-m1-yoon-rare-2/en:b5dcec23df8d9d66",
-      "text": "랴",
+      "text": "rya",
       "enSourceHash": "b5dcec23df8d9d66"
     },
     {
@@ -1238,7 +1238,7 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-rare-2/en:d18b0f124bf881ae",
-      "text": "뇨",
+      "text": "nyo",
       "enSourceHash": "d18b0f124bf881ae"
     },
     {
@@ -1248,12 +1248,12 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-rare-2/en:e4432baa90819aae",
-      "text": "십",
+      "text": "열",
       "enSourceHash": "e4432baa90819aae"
     },
     {
       "anchor": "m2/ja-m1-yoon-rare-2/en:e7a00e53bd04bf48",
-      "text": "냐",
+      "text": "nya",
       "enSourceHash": "e7a00e53bd04bf48"
     },
     {
@@ -1263,17 +1263,17 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-rare-3/en:0183e8d454c42f72",
-      "text": "효",
+      "text": "hya",
       "enSourceHash": "0183e8d454c42f72"
     },
     {
       "anchor": "m2/ja-m1-yoon-rare-3/en:1becc4cf4b858dda",
-      "text": "효",
+      "text": "hyo",
       "enSourceHash": "1becc4cf4b858dda"
     },
     {
       "anchor": "m2/ja-m1-yoon-rare-3/en:2b9b5345eee88c1f",
-      "text": "요음 rare — 복습",
+      "text": "희귀 요음 — 복습",
       "enSourceHash": "2b9b5345eee88c1f"
     },
     {
@@ -1288,12 +1288,12 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-rare-3/en:5109f6dc636d7068",
-      "text": "유",
+      "text": "yu",
       "enSourceHash": "5109f6dc636d7068"
     },
     {
       "anchor": "m2/ja-m1-yoon-rare-3/en:53b2946160fcd21c",
-      "text": "료",
+      "text": "ryo",
       "enSourceHash": "53b2946160fcd21c"
     },
     {
@@ -1313,17 +1313,17 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-rare-3/en:a691b6bc04f1996c",
-      "text": "뉴",
+      "text": "nyu",
       "enSourceHash": "a691b6bc04f1996c"
     },
     {
       "anchor": "m2/ja-m1-yoon-rare-3/en:b57b4a310c318d76",
-      "text": "류",
+      "text": "ryu",
       "enSourceHash": "b57b4a310c318d76"
     },
     {
       "anchor": "m2/ja-m1-yoon-rare-3/en:b5dcec23df8d9d66",
-      "text": "랴",
+      "text": "rya",
       "enSourceHash": "b5dcec23df8d9d66"
     },
     {
@@ -1333,7 +1333,7 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-rare-3/en:d18b0f124bf881ae",
-      "text": "뇨",
+      "text": "nyo",
       "enSourceHash": "d18b0f124bf881ae"
     },
     {
@@ -1343,12 +1343,12 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-rare-3/en:e7a00e53bd04bf48",
-      "text": "냐",
+      "text": "nya",
       "enSourceHash": "e7a00e53bd04bf48"
     },
     {
       "anchor": "m2/ja-m1-yoon-sh-ch-1/en:1f3aec7c35c1441c",
-      "text": "쇼",
+      "text": "sho",
       "enSourceHash": "1f3aec7c35c1441c"
     },
     {
@@ -1363,17 +1363,17 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-sh-ch-1/en:bef9a0ab123c0575",
-      "text": "슈",
+      "text": "shu",
       "enSourceHash": "bef9a0ab123c0575"
     },
     {
       "anchor": "m2/ja-m1-yoon-sh-ch-1/en:d600474b1b8e50d3",
-      "text": "샤",
+      "text": "sha",
       "enSourceHash": "d600474b1b8e50d3"
     },
     {
       "anchor": "m2/ja-m1-yoon-sh-ch-1/en:d602c74b86c96b8e",
-      "text": "차",
+      "text": "cha",
       "enSourceHash": "d602c74b86c96b8e"
     },
     {
@@ -1383,7 +1383,7 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-sh-ch-2/en:1f3aec7c35c1441c",
-      "text": "쇼",
+      "text": "sho",
       "enSourceHash": "1f3aec7c35c1441c"
     },
     {
@@ -1398,12 +1398,12 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-sh-ch-2/en:560c48d6c73e72bd",
-      "text": "초",
+      "text": "cho",
       "enSourceHash": "560c48d6c73e72bd"
     },
     {
       "anchor": "m2/ja-m1-yoon-sh-ch-2/en:6eff9efbe9ec4716",
-      "text": "추",
+      "text": "chu",
       "enSourceHash": "6eff9efbe9ec4716"
     },
     {
@@ -1423,17 +1423,17 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-sh-ch-2/en:bef9a0ab123c0575",
-      "text": "슈",
+      "text": "shu",
       "enSourceHash": "bef9a0ab123c0575"
     },
     {
       "anchor": "m2/ja-m1-yoon-sh-ch-2/en:d600474b1b8e50d3",
-      "text": "샤",
+      "text": "sha",
       "enSourceHash": "d600474b1b8e50d3"
     },
     {
       "anchor": "m2/ja-m1-yoon-sh-ch-2/en:d602c74b86c96b8e",
-      "text": "차",
+      "text": "cha",
       "enSourceHash": "d602c74b86c96b8e"
     },
     {
@@ -1458,7 +1458,7 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-sh-ch-3/en:1f3aec7c35c1441c",
-      "text": "쇼",
+      "text": "sho",
       "enSourceHash": "1f3aec7c35c1441c"
     },
     {
@@ -1468,7 +1468,7 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-sh-ch-3/en:4728bedb58571632",
-      "text": "가나를 소리와 연결하세요",
+      "text": "가나와 소리를 연결하세요",
       "enSourceHash": "4728bedb58571632"
     },
     {
@@ -1478,12 +1478,12 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-sh-ch-3/en:560c48d6c73e72bd",
-      "text": "초",
+      "text": "cho",
       "enSourceHash": "560c48d6c73e72bd"
     },
     {
       "anchor": "m2/ja-m1-yoon-sh-ch-3/en:6eff9efbe9ec4716",
-      "text": "추",
+      "text": "chu",
       "enSourceHash": "6eff9efbe9ec4716"
     },
     {
@@ -1498,17 +1498,17 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-sh-ch-3/en:bef9a0ab123c0575",
-      "text": "슈",
+      "text": "shu",
       "enSourceHash": "bef9a0ab123c0575"
     },
     {
       "anchor": "m2/ja-m1-yoon-sh-ch-3/en:d600474b1b8e50d3",
-      "text": "샤",
+      "text": "sha",
       "enSourceHash": "d600474b1b8e50d3"
     },
     {
       "anchor": "m2/ja-m1-yoon-sh-ch-3/en:d602c74b86c96b8e",
-      "text": "차",
+      "text": "cha",
       "enSourceHash": "d602c74b86c96b8e"
     },
     {
@@ -1518,122 +1518,122 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-1/en:22a35d01dbca353a",
-      "text": "갸",
+      "text": "gya",
       "enSourceHash": "22a35d01dbca353a"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-1/en:27c47b28fb5f4545",
-      "text": "주",
+      "text": "ju",
       "enSourceHash": "27c47b28fb5f4545"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-1/en:3702fc1866630796",
-      "text": "자",
+      "text": "ja",
       "enSourceHash": "3702fc1866630796"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-1/en:b657429fa1bd79e4",
-      "text": "유음 유성음 — 소개",
+      "text": "요음 유성음 — 소개",
       "enSourceHash": "b657429fa1bd79e4"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-1/en:c278ec5a69c34aac",
-      "text": "조",
+      "text": "jo",
       "enSourceHash": "c278ec5a69c34aac"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-1/ja:じゅう",
-      "text": "'십'에 해당하는 단어를 듣고 만들어 보세요",
+      "text": "'열'에 해당하는 단어를 듣고 만들어 보세요",
       "enSourceHash": "7399800086d0a845"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-2/en:22a35d01dbca353a",
-      "text": "갸",
+      "text": "gya",
       "enSourceHash": "22a35d01dbca353a"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-2/en:2335b0321dcf1ad9",
-      "text": "퍄",
+      "text": "pya",
       "enSourceHash": "2335b0321dcf1ad9"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-2/en:3702fc1866630796",
-      "text": "자",
+      "text": "ja",
       "enSourceHash": "3702fc1866630796"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-2/en:4728bedb58571632",
-      "text": "가나를 소리와 연결하세요",
+      "text": "가나와 소리를 연결하세요",
       "enSourceHash": "4728bedb58571632"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-2/en:5109f6dc636d7068",
-      "text": "유",
+      "text": "yu",
       "enSourceHash": "5109f6dc636d7068"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-2/en:5e3a77bef903ece6",
-      "text": "퓌",
+      "text": "pyu",
       "enSourceHash": "5e3a77bef903ece6"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-2/en:6152d43caa491abe",
-      "text": "구",
+      "text": "gu",
       "enSourceHash": "6152d43caa491abe"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-2/en:6f104e256a1b16cc",
-      "text": "유음 유성음 — 연습",
+      "text": "요음 유성음 — 연습",
       "enSourceHash": "6f104e256a1b16cc"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-2/en:7ddddb977a416215",
-      "text": "뱌",
+      "text": "bya",
       "enSourceHash": "7ddddb977a416215"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-2/en:97f869a4bab9eda4",
-      "text": "규",
+      "text": "gyu",
       "enSourceHash": "97f869a4bab9eda4"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-2/en:a69f2e1e798a8580",
-      "text": "교",
+      "text": "gyo",
       "enSourceHash": "a69f2e1e798a8580"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-2/en:d2c404bd20ded1a3",
-      "text": "뱌",
+      "text": "byu",
       "enSourceHash": "d2c404bd20ded1a3"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-2/ja:じゅう",
-      "text": "'십'에 해당하는 단어를 듣고 만들어 보세요",
+      "text": "'열'에 해당하는 단어를 듣고 만들어 보세요",
       "enSourceHash": "7399800086d0a845"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-3/en:15d2f99c1b9b7f5c",
-      "text": "일본어로 '십'은 어떻게 하나요?",
+      "text": "\"열\"을 일본어로 어떻게 말하나요?",
       "enSourceHash": "15d2f99c1b9b7f5c"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-3/en:22a35d01dbca353a",
-      "text": "갸",
+      "text": "gya",
       "enSourceHash": "22a35d01dbca353a"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-3/en:2335b0321dcf1ad9",
-      "text": "뺘",
+      "text": "pya",
       "enSourceHash": "2335b0321dcf1ad9"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-3/en:27c47b28fb5f4545",
-      "text": "주",
+      "text": "ju",
       "enSourceHash": "27c47b28fb5f4545"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-3/en:3702fc1866630796",
-      "text": "자",
+      "text": "ja",
       "enSourceHash": "3702fc1866630796"
     },
     {
@@ -1643,47 +1643,47 @@
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-3/en:62cc478cb422c06f",
-      "text": "일본어로 '하늘'은 어떻게 하나요?",
+      "text": "\"하늘\"을 일본어로 어떻게 말하나요?",
       "enSourceHash": "62cc478cb422c06f"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-3/en:7ddddb977a416215",
-      "text": "뱌",
+      "text": "bya",
       "enSourceHash": "7ddddb977a416215"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-3/en:97f869a4bab9eda4",
-      "text": "규",
+      "text": "gyu",
       "enSourceHash": "97f869a4bab9eda4"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-3/en:a4cc6440777fe0db",
-      "text": "유온 유성음 — 복습",
+      "text": "요음 유성음 — 복습",
       "enSourceHash": "a4cc6440777fe0db"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-3/en:a69f2e1e798a8580",
-      "text": "교",
+      "text": "gyo",
       "enSourceHash": "a69f2e1e798a8580"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-3/en:c278ec5a69c34aac",
-      "text": "조",
+      "text": "jo",
       "enSourceHash": "c278ec5a69c34aac"
     },
     {
       "anchor": "m2/ja-m1-yoon-voiced-3/en:f6f28b350bedc8e6",
-      "text": "일본어로 '별'은 어떻게 하나요?",
+      "text": "\"별\"을 일본어로 어떻게 말하나요?",
       "enSourceHash": "f6f28b350bedc8e6"
     },
     {
       "anchor": "m2/ja-m1-z-1/en:33129567e0bd787e",
-      "text": "제",
+      "text": "ze",
       "enSourceHash": "33129567e0bd787e"
     },
     {
       "anchor": "m2/ja-m1-z-1/en:3c42d9ac9807bbf9",
-      "text": "자",
+      "text": "za",
       "enSourceHash": "3c42d9ac9807bbf9"
     },
     {
@@ -1693,12 +1693,12 @@
     },
     {
       "anchor": "m2/ja-m1-z-1/en:82cefa8283d30fda",
-      "text": "즈",
+      "text": "zu",
       "enSourceHash": "82cefa8283d30fda"
     },
     {
       "anchor": "m2/ja-m1-z-1/en:bddf2d2528c7bbf5",
-      "text": "지",
+      "text": "ji",
       "enSourceHash": "bddf2d2528c7bbf5"
     },
     {
@@ -1718,7 +1718,7 @@
     },
     {
       "anchor": "m2/ja-m1-z-2/en:33129567e0bd787e",
-      "text": "제",
+      "text": "ze",
       "enSourceHash": "33129567e0bd787e"
     },
     {
@@ -1728,7 +1728,7 @@
     },
     {
       "anchor": "m2/ja-m1-z-2/en:3c42d9ac9807bbf9",
-      "text": "자",
+      "text": "za",
       "enSourceHash": "3c42d9ac9807bbf9"
     },
     {
@@ -1738,17 +1738,17 @@
     },
     {
       "anchor": "m2/ja-m1-z-2/en:4917e75f2b24614d",
-      "text": "일본어로 '바람'은 어떻게 하나요?",
+      "text": "\"바람\"을 일본어로 어떻게 말하나요?",
       "enSourceHash": "4917e75f2b24614d"
     },
     {
       "anchor": "m2/ja-m1-z-2/en:6663103a3e47efc8",
-      "text": "야",
+      "text": "ya",
       "enSourceHash": "6663103a3e47efc8"
     },
     {
       "anchor": "m2/ja-m1-z-2/en:82cefa8283d30fda",
-      "text": "즈",
+      "text": "zu",
       "enSourceHash": "82cefa8283d30fda"
     },
     {
@@ -1763,12 +1763,12 @@
     },
     {
       "anchor": "m2/ja-m1-z-2/en:bddf2d2528c7bbf5",
-      "text": "지",
+      "text": "ji",
       "enSourceHash": "bddf2d2528c7bbf5"
     },
     {
       "anchor": "m2/ja-m1-z-2/en:bf5ee7cc61e1dae3",
-      "text": "일본어로 '물'은 어떻게 하나요?",
+      "text": "\"물\"을 일본어로 어떻게 말하나요?",
       "enSourceHash": "bf5ee7cc61e1dae3"
     },
     {
@@ -1778,7 +1778,7 @@
     },
     {
       "anchor": "m2/ja-m1-z-2/en:ed4771b3e3a8fe6f",
-      "text": "조",
+      "text": "zo",
       "enSourceHash": "ed4771b3e3a8fe6f"
     },
     {
@@ -1788,17 +1788,17 @@
     },
     {
       "anchor": "m2/ja-m1-z-3/en:33129567e0bd787e",
-      "text": "제",
+      "text": "ze",
       "enSourceHash": "33129567e0bd787e"
     },
     {
       "anchor": "m2/ja-m1-z-3/en:3b7bc11d91b54d33",
-      "text": "일본어로 '시간'은 어떻게 하나요?",
+      "text": "\"시간\"을 일본어로 어떻게 말하나요?",
       "enSourceHash": "3b7bc11d91b54d33"
     },
     {
       "anchor": "m2/ja-m1-z-3/en:3c42d9ac9807bbf9",
-      "text": "자",
+      "text": "za",
       "enSourceHash": "3c42d9ac9807bbf9"
     },
     {
@@ -1813,7 +1813,7 @@
     },
     {
       "anchor": "m2/ja-m1-z-3/en:6663103a3e47efc8",
-      "text": "야",
+      "text": "ya",
       "enSourceHash": "6663103a3e47efc8"
     },
     {
@@ -1828,12 +1828,12 @@
     },
     {
       "anchor": "m2/ja-m1-z-3/en:82cefa8283d30fda",
-      "text": "즈",
+      "text": "zu",
       "enSourceHash": "82cefa8283d30fda"
     },
     {
       "anchor": "m2/ja-m1-z-3/en:bddf2d2528c7bbf5",
-      "text": "지",
+      "text": "ji",
       "enSourceHash": "bddf2d2528c7bbf5"
     },
     {
@@ -1848,7 +1848,7 @@
     },
     {
       "anchor": "m2/ja-m1-z-3/en:ed4771b3e3a8fe6f",
-      "text": "조",
+      "text": "zo",
       "enSourceHash": "ed4771b3e3a8fe6f"
     },
     {
