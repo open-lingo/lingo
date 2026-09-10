@@ -786,7 +786,7 @@ function lesson7(): LessonStep[] {
   return [
     infoStep(
       "fr-m13-7-info-registre",
-      "En français parlé…",
+      "In spoken French…",
       "In written French you always keep «ne»: «je ne sais pas». In SPOKEN, casual French, the «ne» usually disappears: «je sais pas». Same meaning — different register. Writing always keeps «ne».",
     ),
     listeningCompSentence({
@@ -1337,7 +1337,7 @@ const FR_M13_8: LessonContent = {
   moduleId: "m13",
   courseId: COURSE_ID,
   languageId: "fr",
-  title: "✓ Checkpoint · La négation",
+  title: "✓ Checkpoint · Negation",
   estimatedMinutes: 8,
   xpReward: 20,
   steps: checkpointLesson(),
@@ -1359,7 +1359,7 @@ const FR_M13_10: LessonContent = {
   moduleId: "m13",
   courseId: COURSE_ID,
   languageId: "fr",
-  title: "Une soirée compliquée",
+  title: "A Complicated Evening",
   estimatedMinutes: 8,
   xpReward: 20,
   steps: lesson10(),

@@ -447,7 +447,7 @@ function lesson3(): LessonStep[] {
   return [
     infoStep(
       "fr-m14-3-info-recap",
-      "On révise",
+      "Quick Review",
       "«J'ai mangé», «tu as mangé» — the same machine works with any food and any time you already know. Keep building.",
     ),
     {
@@ -1387,7 +1387,7 @@ const FR_M14_3: LessonContent = {
   moduleId: "m14",
   courseId: COURSE_ID,
   languageId: "fr",
-  title: "On révise",
+  title: "Quick Review",
   estimatedMinutes: 8,
   xpReward: 20,
   steps: lesson3(),

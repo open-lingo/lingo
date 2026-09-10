@@ -161,7 +161,7 @@ export const FR_M11_ATOMS: FrAtom[] = [
   atom({ surface: "à Montréal", meaningEn: "in Montreal", partOfSpeech: "phrase", fromModule: "m11", kind: "phrase", hint: "ah mohn-ray-AL — same à + city frame" }),
 ];
 
-/** L1 — «Le même moteur»: il/elle/on aime, one silent ending, three subjects. */
+/** L1 — "The Same Engine": il/elle/on aime, one silent ending, three subjects. */
 function lesson1(): LessonStep[] {
   return [
     infoStep(
@@ -1035,7 +1035,7 @@ function lesson9(): LessonStep[] {
   ];
 }
 
-/** L10 — «Présentation complète»: full self-intro, ends on a sim. */
+/** L10 — "Full Introduction": full self-intro, ends on a sim. */
 function lesson10(): LessonStep[] {
   return [
     speaking(
@@ -1169,7 +1169,7 @@ const FR_M11_1: LessonContent = {
   moduleId: "m11",
   courseId: COURSE_ID,
   languageId: "fr",
-  title: "Le même moteur",
+  title: "The Same Engine",
   estimatedMinutes: 8,
   xpReward: 20,
   steps: lesson1(),
@@ -1268,7 +1268,7 @@ const FR_M11_10: LessonContent = {
   moduleId: "m11",
   courseId: COURSE_ID,
   languageId: "fr",
-  title: "Présentation complète",
+  title: "Full Introduction",
   estimatedMinutes: 8,
   xpReward: 20,
   steps: lesson10(),

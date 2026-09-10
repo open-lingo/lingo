@@ -1200,7 +1200,7 @@ function checkpointLesson(): LessonStep[] {
   ];
 }
 
-/** L9 — «Le déjeuner»: the gang lunches, Léa treats, and the register
+/** L9 — Lunch: the gang lunches, Léa treats, and the register
  *  earns its keep. */
 function lesson9(): LessonStep[] {
   return [
@@ -1209,7 +1209,7 @@ function lesson9(): LessonStep[] {
       type: "dialogue_sim",
       scene: {
         emoji: "🍽️",
-        title: "Le déjeuner — the whole gang",
+        title: "Lunch — the whole gang",
         setting: "The madame serves; Léa's in a generous mood.",
       },
       exercisedAtomIds: [],
@@ -1376,7 +1376,7 @@ function lesson9(): LessonStep[] {
   ];
 }
 
-/** L10 — Mastery. Graded only; every item; ends on «Le dîner» — you
+/** L10 — Mastery. Graded only; every item; ends on dinner — you
  *  order for two, registers flipped live. */
 function lesson10(): LessonStep[] {
   return [
@@ -1488,7 +1488,7 @@ function lesson10(): LessonStep[] {
       type: "dialogue_sim",
       scene: {
         emoji: "🍽️",
-        title: "Le dîner — you order for two",
+        title: "Dinner — you order for two",
         setting: "Chloé beside you; the madame waits.",
       },
       exercisedAtomIds: [],
@@ -1686,7 +1686,7 @@ const FR_M6_9: LessonContent = {
   moduleId: "m6",
   courseId: COURSE_ID,
   languageId: "fr",
-  title: "Le déjeuner",
+  title: "Lunch",
   estimatedMinutes: 8,
   xpReward: 20,
   steps: lesson9(),

@@ -1277,8 +1277,8 @@ function lesson9(): LessonStep[] {
   ];
 }
 
-/** L10 — Mastery. Graded only; every item; ends on «Le dîner en
- *  famille» — both worlds at one table. */
+/** L10 — Mastery. Graded only; every item; ends on family dinner —
+ *  both worlds at one table. */
 function lesson10(): LessonStep[] {
   return [
     {
@@ -1387,7 +1387,7 @@ function lesson10(): LessonStep[] {
       type: "dialogue_sim",
       scene: {
         emoji: "👨‍👩‍👧‍👦",
-        title: "Le dîner en famille",
+        title: "Family dinner",
         setting: "Your family hosts; the gang arrives.",
       },
       exercisedAtomIds: [],

@@ -970,7 +970,7 @@ function lesson9(): LessonStep[] {
     {
       id: "fr-m18-9-sim-cafe",
       type: "dialogue_sim",
-      scene: { emoji: "☕", title: "Un café refusé" },
+      scene: { emoji: "☕", title: "A Refused Coffee" },
       exercisedAtomIds: [],
       turns: [
         {
@@ -1246,7 +1246,7 @@ const FR_M18_9: LessonContent = {
   moduleId: "m18",
   courseId: COURSE_ID,
   languageId: "fr",
-  title: "Un café refusé",
+  title: "A Refused Coffee",
   estimatedMinutes: 8,
   xpReward: 20,
   steps: lesson9(),

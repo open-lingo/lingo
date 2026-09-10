@@ -1455,7 +1455,7 @@ function lesson10(): LessonStep[] {
       type: "dialogue_sim",
       scene: {
         emoji: "🏙️",
-        title: "Le grand tour",
+        title: "The Grand Tour",
         setting: "Chloé wants the full picture of your world.",
       },
       exercisedAtomIds: [],

@@ -441,7 +441,7 @@ function lesson3(): LessonStep[] {
   return [
     infoStep(
       "fr-m16-3-info-recap",
-      "On révise",
+      "Quick Review",
       "«Allé», «allée» — same trick, any subject. Keep matching the spelling to who's speaking.",
     ),
     {
@@ -1416,7 +1416,7 @@ const FR_M16_3: LessonContent = {
   moduleId: "m16",
   courseId: COURSE_ID,
   languageId: "fr",
-  title: "On révise",
+  title: "Quick Review",
   estimatedMinutes: 8,
   xpReward: 20,
   steps: lesson3(),

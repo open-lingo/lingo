@@ -770,7 +770,7 @@ function lesson5(): LessonStep[] {
   ];
 }
 
-/** L6 — «La semaine de Sam»: your week, narrated and asked. Zero new. */
+/** L6 — "Sam's Week": your week, narrated and asked. Zero new. */
 function lesson6(): LessonStep[] {
   return [
     {
@@ -1157,7 +1157,7 @@ function checkpointLesson(): LessonStep[] {
   ];
 }
 
-/** L9 — «Le grand plan»: the gang books the whole week, then the tail. */
+/** L9 — "The Grand Plan": the gang books the whole week, then the tail. */
 function lesson9(): LessonStep[] {
   return [
     {
@@ -1165,7 +1165,7 @@ function lesson9(): LessonStep[] {
       type: "dialogue_sim",
       scene: {
         emoji: "📅",
-        title: "Le grand plan",
+        title: "The Grand Plan",
         setting: "One calendar, four friends, zero mercy.",
       },
       exercisedAtomIds: [],
@@ -1576,7 +1576,7 @@ const FR_M8_6: LessonContent = {
   moduleId: "m8",
   courseId: COURSE_ID,
   languageId: "fr",
-  title: "La semaine de Sam",
+  title: "Sam's Week",
   estimatedMinutes: 8,
   xpReward: 20,
   steps: lesson6(),
@@ -1609,7 +1609,7 @@ const FR_M8_9: LessonContent = {
   moduleId: "m8",
   courseId: COURSE_ID,
   languageId: "fr",
-  title: "Le grand plan",
+  title: "The Grand Plan",
   estimatedMinutes: 8,
   xpReward: 20,
   steps: lesson9(),

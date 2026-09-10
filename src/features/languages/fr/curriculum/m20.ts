@@ -202,7 +202,7 @@ function lesson1(): LessonStep[] {
   return [
     infoStep(
       "fr-m20-1-info-bridge",
-      "Venir de... + un verbe",
+      "Venir de + any verb",
       "«Il est venu de Lyon» means he came FROM Lyon (a place). Front a verb instead — «je viens de manger» — and it means I JUST ate. Same «venir», new job: just-happened, not a place.",
     ),
     {
@@ -1201,7 +1201,7 @@ const FR_M20_8: LessonContent = {
   moduleId: "m20",
   courseId: COURSE_ID,
   languageId: "fr",
-  title: "✓ Checkpoint · Venir de + infinitif",
+  title: "✓ Checkpoint · Venir de + any verb",
   estimatedMinutes: 8,
   xpReward: 20,
   steps: checkpointLesson(),

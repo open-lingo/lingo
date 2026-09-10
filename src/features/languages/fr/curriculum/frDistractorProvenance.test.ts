@@ -42,7 +42,7 @@
  * make room for it, and do not add a THIRD such exemption without an
  * equally specific, content-grounded justification.
  *
- * WHAT THIS WALKS: every FR module m2–m19, both:
+ * WHAT THIS WALKS: every FR module m2–m20, both:
  *   - every step in `lessons[].steps`;
  *   - every placement item in `FR_M{n}_PLACEMENT` — `.build()`'d, since a
  *     `PlacementItem` is a lazy factory, not itself a step (this is where
@@ -74,7 +74,7 @@
  *     of pure false positives, not a stricter check).
  *   - `self_explanation_mcq` (`selfExplain()`) and `dialogue_listen`: both
  *     are option-bearing step types in the shared type system, but FR
- *     authors NEITHER anywhere in m2–m19 (verified via a census of every
+ *     authors NEITHER anywhere in m2–m20 (verified via a census of every
  *     `step.type` across all 18 modules' lessons + placement items — zero
  *     occurrences of either). Left OUT of `SCANNED_TYPES` rather than
  *     speculatively included: whether their option text is French or
@@ -168,7 +168,7 @@ import { FR_M18_MODULE, FR_M18_PLACEMENT } from "./m18";
 import { FR_M19_MODULE, FR_M19_PLACEMENT } from "./m19";
 import { FR_M20_MODULE, FR_M20_PLACEMENT } from "./m20";
 
-// ─── Module inventory (m2–m19; m1 is not in range, matches frSimProvenance) ─
+// ─── Module inventory (m2–m20; m1 is not in range, matches frSimProvenance) ─
 
 const MODULES: ReadonlyArray<{
   id: string;
@@ -344,7 +344,7 @@ function walk(): Hit[] {
   return hits;
 }
 
-describe("FR MCQ/cloze distractor vocab provenance (m2–m19)", () => {
+describe("FR MCQ/cloze distractor vocab provenance (m2–m20)", () => {
   it("every distractor token in every multiple_choice/word_image_mcq/particle_cloze step (lessons + placement) resolves to an atom taught at or before this module", () => {
     const hits = walk();
     const fmt = hits.map(

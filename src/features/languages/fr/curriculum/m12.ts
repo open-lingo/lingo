@@ -108,7 +108,7 @@ function lesson1(): LessonStep[] {
   return [
     infoStep(
       "fr-m12-1-info-vingt",
-      "Après dix, vingt",
+      "After ten, twenty",
       "You already count to ten. «Vingt» is the next round number — twenty. To build the numbers between tens, French adds «et un» for X1 (vingt et un = 21) and a hyphen for X2–X9 (vingt-deux = 22). Every later ten — trente, quarante… — follows this exact same pattern.",
     ),
     {
@@ -1198,7 +1198,7 @@ const FR_M12_5: LessonContent = {
   moduleId: "m12",
   courseId: COURSE_ID,
   languageId: "fr",
-  title: "Révision des nombres",
+  title: "Number Review",
   estimatedMinutes: 8,
   xpReward: 20,
   steps: lesson5(),

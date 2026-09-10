@@ -233,7 +233,7 @@ function lesson1(): LessonStep[] {
   return [
     infoStep(
       "fr-m17-1-info-onze",
-      "Après dix, onze",
+      "After ten, eleven",
       "«Onze» — eleven — starts like a consonant, not a vowel. Always «le onze», never \"l'onze\" — the same exception as «huit» (le huit, not \"l'huit\"). «Douze» — twelve — is regular.",
     ),
     {
@@ -1191,7 +1191,7 @@ const FR_M17_9: LessonContent = {
   moduleId: "m17",
   courseId: COURSE_ID,
   languageId: "fr",
-  title: "Le marché, encore",
+  title: "The Market, Again",
   estimatedMinutes: 8,
   xpReward: 20,
   steps: lesson9(),
@@ -1202,7 +1202,7 @@ const FR_M17_10: LessonContent = {
   moduleId: "m17",
   courseId: COURSE_ID,
   languageId: "fr",
-  title: "L'épicerie",
+  title: "The Grocery Store",
   estimatedMinutes: 8,
   xpReward: 20,
   steps: lesson10(),

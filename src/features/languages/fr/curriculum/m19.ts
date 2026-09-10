@@ -194,7 +194,7 @@ function lesson1(): LessonStep[] {
   return [
     infoStep(
       "fr-m19-1-info-bridge",
-      "Je vais... + un verbe",
+      "Je vais + any verb",
       "You know «je vais au cinéma» (I'm going to the cinema). Front a verb instead of a place — «je vais parler» — and it means I'm going to speak. Same «je vais», new job.",
     ),
     {
@@ -1030,7 +1030,7 @@ function lesson10(): LessonStep[] {
     {
       id: "fr-m19-10-sim-projets",
       type: "dialogue_sim",
-      scene: { emoji: "🗓️", title: "Les projets de Camille" },
+      scene: { emoji: "🗓️", title: "Camille's Plans" },
       exercisedAtomIds: [],
       turns: [
         {
@@ -1184,7 +1184,7 @@ const FR_M19_10: LessonContent = {
   moduleId: "m19",
   courseId: COURSE_ID,
   languageId: "fr",
-  title: "Les projets de Camille",
+  title: "Camille's Plans",
   estimatedMinutes: 8,
   xpReward: 20,
   steps: lesson10(),

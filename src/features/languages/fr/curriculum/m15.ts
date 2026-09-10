@@ -404,7 +404,7 @@ function lesson3(): LessonStep[] {
   return [
     infoStep(
       "fr-m15-3-info-recap",
-      "On révise",
+      "Quick Review",
       "«Visiter», «visité», «en ville», «la halle» — the same words, any place you already know. Keep building.",
     ),
     {
@@ -1349,7 +1349,7 @@ const FR_M15_3: LessonContent = {
   moduleId: "m15",
   courseId: COURSE_ID,
   languageId: "fr",
-  title: "On révise",
+  title: "Quick Review",
   estimatedMinutes: 8,
   xpReward: 20,
   steps: lesson3(),
