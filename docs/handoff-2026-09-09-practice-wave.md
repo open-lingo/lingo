@@ -219,10 +219,33 @@ merge-tree clean, zero conflicts. Then:
 - Preflight → push → ci/deploy CONCLUSIONS → served entry check → build 11
   (release-b11.sh in scratchpad, points at the ship worktree) → recorded below.
 
+### PUSHED wave 2 — 2026-09-09 22:05 PT
+- origin/main = **`d96c7b30`** (ship branch: 57c87543 + 497d32ef merged + the
+  three branches + `dce85ef1` clips + `7b4c77a0` docs/build-11 + gloss fix
+  `m31: gloss はいる as enter` + `d96c7b30` INDEX row). Preflight #1 failed on
+  `glossFidelity.test.ts` (app project — the JA-only suite the lane ran does
+  not include it; two m31 glosses said "start" for はいる); fixed, preflight #2
+  green: 529 files / 13327 tests, tsc clean, CI-mode build OK.
+- Runs on d96c7b30: red-main SUCCESS (34435411838); **ci 34435296128 and
+  deploy 34435296179 were IN PROGRESS at 22:10 PT when Spencer compacted** —
+  verify with `gh run view <id> --json conclusion` and that
+  app.openlingoapp.com serves an entry chunk from this build (deploy's "verify
+  site serves THIS deploy" step), then curl one new clip, e.g.
+  `https://app.openlingoapp.com/tts/v1/ja/0c2f58d1247af8e5.mp3` → audio/mpeg.
+- **TestFlight build 11**: delivery/build id `0ef29214-8cb8-43b7-bb2c-2529dd76d222`,
+  VALID after 5 polls, What to Test set, attached to External Beta, beta review
+  WAITING_FOR_REVIEW. ipa 28.1 MB; script `<scratchpad>/release-b11.sh`
+  (points at `.claude/worktrees/ship`).
+- Main tree fast-forwarded to d96c7b30; INDEX.md diff dropped (it is committed).
+  Remaining dirty files there are the Android session's (android/, capacitor
+  config, package*.json, useNativeSpeechRecognition*).
+- Peer lingle-42 pushed KO/ES (39fc9eec, 57c87543, 497d32ef) earlier tonight;
+  its to-do for INDEX: 58 unlisted top-level docs (docs/hygiene/LEDGER.md on
+  branch doc-hygiene-2026-09-10).
+
 ### Open items needing Spencer (unchanged + new)
-Device pass on build 9/10; background opacity/placement call; station-line
-go/no-go; merge+push of `mobile-map-wave` and `filler-pool` (+carriers, +m31
-re-author) — each needs `npm run preflight` then push; `scripts/asc/` still
+Device pass on builds 10/11 (11 = mobile map wave); background opacity/placement
+call (0.34 shipped; 0.22 suggested); station-line go/no-go (dev route only); `scripts/asc/` still
 untracked in the main tree; lingo-data TTS override files + deck JSONs
 uncommitted; Android session files uncommitted; FR m3–m10 walks + m10 liaison
 listen; KO unaudited delta (Payton); vtracer not installed for the
