@@ -69,3 +69,4 @@ fan-out; save small notes here after every step (auto-compaction is on).
 - 09:46 Dispatched second FR stream (FR conjugationTables + grid config engineering; FR m17 brief) and KO-source rung 0 (lesson i18n) — decisions inferred appended to docs/ko-source-learner-scope-2026-09-10.md. Rung 1 (extractor + 4 de-couplings) queued behind JA m41 landing (moduleCompiler.ts shared). Running: FR m16, ES m26, JA m41 authors.
 - 09:51 JA m40 author stopped (was idling on module-gate visual-QA; work already committed cbfd61eb + cab10fd4). Killed stray module-gate/vite 5273 processes.
 - 09:51 Discarded the stopped m40 author's residual re-add of よ+'you know' cues (reviewer's cleaner reverted version stays).
+- 09:52 FR m17 brief landed («De onze à cent», teens 11–19 + 70–99, 6 atoms; ready once m16 lands).
