@@ -962,8 +962,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "パーティーを するから ともだちに はなたばを あげる。",
-          "en": "Because we're having a party, I'll give my friend a bouquet",
+          "ja": "ともだちが りょこうから かえるから ともだちに はなたばを あげる。",
+          "en": "Because my friend is coming back from a trip, I'll give my friend a bouquet",
           "exercises": [
             "ageru",
             "ni-recipient",
@@ -1648,8 +1648,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "パーティーに つく とき ともだちに プレゼントを あげる。",
-          "en": "When I arrive at the party, I give my friend a present",
+          "ja": "おちゃを のむ とき ともだちに プレゼントを あげる。",
+          "en": "When we have tea, I give my friend a present",
           "exercises": [
             "ageru",
             "ni-recipient",
@@ -1782,8 +1782,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "いえで パーティーを する とき たんじょうびに ちちに とけいを もらう。",
-          "en": "When we have a party at home, I get a watch from my father for my birthday",
+          "ja": "だいがくに はいる とき たんじょうびに ちちに とけいを もらう。",
+          "en": "When I start university, I get a watch from my father for my birthday",
           "exercises": [
             "morau",
             "ni-time",
@@ -2074,8 +2074,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "たんじょうびの パーティーを する とき ちちに とけいを もらった。",
-          "en": "When we had the birthday party, I got a watch from my father",
+          "ja": "かぞくが うちに くる とき ちちに とけいを もらった。",
+          "en": "When my family comes to the house, I got a watch from my father",
           "exercises": [
             "ta-form",
             "morau",
@@ -2105,8 +2105,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "パーティーで ケーキを たべたから せんせいに はなたばを あげた。",
-          "en": "We ate cake at the party, so I gave the teacher a bouquet",
+          "ja": "たんじょうびに ケーキを たべたから せんせいに はなたばを あげた。",
+          "en": "Because we ate cake for the birthday, I gave the teacher a bouquet",
           "exercises": [
             "ta-form",
             "ageru",
