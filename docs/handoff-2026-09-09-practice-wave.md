@@ -146,7 +146,16 @@ before pushing ES to main.
     TTS 9182/9182 on m6/m11/m20/m30/m34/m38. Cross-lesson filler picks 3→706.
     NOT merged/pushed yet.
   - ≥2 carrier sentences per new N4 atom (m30–m34): `n4-carriers-2026-09-09`
-    (`.claude/worktrees/n4-carriers`) — RUNNING at compaction; see memory.
+    (`.claude/worktrees/n4-carriers`), 7 commits, last `194cadab` (+ `24160374`
+    exposure-audit ceiling 56→58). CORRECTION: the audit's "116 one-carrier
+    words" was a raw-text heuristic (word+particle counted as one token); the
+    real tokenizer finds **28** — all 28 fixed, 29 sentences added, 0 new atoms,
+    ja suite 8174 passed. **47 new sentences need TTS clips** before merge:
+    emit deck → `python -m pipeline.tts.generate` in lingo-data → stage mp3s in
+    `tts-publish/` (the に-lesson commit `fed7be85` is the pattern).
+  - m31 verb-slot re-author: `m31-recycle-2026-09-09` (stacked on n4-carriers
+    + recycle-rate) — RUNNING at compaction. Target ≥20% verb-recycle per
+    teaching lesson, module median ≥30%.
   - Recycle-rate tool: `recycle-rate-2026-09-09` @ `e3d08dbb`,
     `scripts/ja-recycle-rate.ts` (+lib, +test, own vitest config), report
     `docs/ja-recycle-rate-2026-09-09.md`. Finding: literal ≥20% "any earlier
