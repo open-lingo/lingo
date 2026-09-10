@@ -1,0 +1,308 @@
+module: m32
+title: "Necesito una chaqueta nueva"
+frame: none
+throughModule: m31
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m32 — clothing, round two: la chaqueta, el pantalón, los calcetines,
+# los guantes, la bufanda. Thirteenth A2 module.
+#
+#     el pantalón   👖   la chaqueta   🧥
+#     los calcetines 🧦  los guantes   🧤
+#     la bufanda     🧣
+#
+# ONE idea, the whole module: FIVE new imageable clothing nouns, zero new
+# verb morphology, zero new grammar. Every sentence frame this module
+# needs is already registered — «tengo»/«tienes»/«tiene» (m5),
+# «necesito»/«necesitas»/«necesita» (m16), «rojo»/«azul»/«verde»/«negro»/
+# «blanco» (m6, colors), «grande»/«pequeño»/«nuevo»/«viejo»/«bonito»
+# (m6, size + descriptive), «cuánto»/«cuesta»/«cuestan» (m12, the
+# shopping-price frame this module's own domain was FIRST taught under),
+# «voy a» + infinitivo (m28) and the fused clitics «comprarlo»/
+# «comprarla»/«comprarlos» (m29, all THREE reused verbatim — no «verla»-
+# class trap this time, see below), and «duele»/«duelen» + m30's body
+# nouns (m31, the dedicated L9 contrast). This is the third lexicon-break
+# module since m19 (after m27's weather and m30's body) and a direct
+# sequel to m12's own clothing debut (camisa/falda/zapato/sombrero) —
+# same domain, new words, now with a shopping-and-pain recombination
+# story m12 itself couldn't have built (m28/m29/m30/m31 didn't exist yet).
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# Four lines of evidence:
+#   1. **Rhythm calls for a break, and m31 already named a break as
+#      correct next.** m28 (grammar) → m29 (grammar) → m30 (break, body)
+#      → m31 (grammar, one beat, riding m30's own nouns) — a single
+#      grammar module after a break is followed by a return to break, per
+#      every prior module's own interleave reasoning (m30's header used
+#      the identical two-grammar-then-break logic for m28→m29→m30; m31
+#      itself is only one grammar beat, so the break due now is not
+#      overdue, just on schedule).
+#   2. **Five honest domains were weighed against the actual registry, not
+#      assumed from a prior brief's framing — the m30 lesson applied
+#      forward.** `grep -o 'surface: "[^"]*"' curriculum/m{1..31}.ts | sort
+#      -u | grep -iE "<word>"` was run against every candidate below
+#      (clothing, household, food, family, places-in-town, animals)
+#      before picking one. Two of the six were disqualified outright by
+#      the grep, not by inherited assumption — see REJECTED ALTERNATIVE 2
+#      (places-in-town: NOT a fresh domain, already fully spent at m9) and
+#      the household note (already correctly resized to 3 atoms by m30's
+#      own header, unchanged since). Clothing round two survives: `camisa`
+#      /`falda`/`zapato`/`sombrero` are PRIOR (m12), but `pantalón`,
+#      `chaqueta`, `calcetines`, `guantes`, `bufanda` are grep-verified
+#      zero hits anywhere in m1–m31.
+#   3. **Highest recombination value of any candidate against the FOUR
+#      most recent modules' own frames, verified atom by atom, not
+#      asserted.** `voy a` + infinitivo (m28) + the fused clitics `comprarlo`
+#      /`comprarla`/`comprarlos` (m29, this module's own new nouns split
+#      cleanly across all three: masc-singular `pantalón`→comprarlo,
+#      fem-singular `chaqueta`/`bufanda`→comprarla, masc-plural
+#      `calcetines`/`guantes`→comprarlos — a FULL set, unlike m30's own
+#      m29 recombination which could only reach `verlo`, never `verla`)
+#      gives a natural "shopping intention" frame every one of this
+#      module's five atoms can sit in. `duele`/`duelen` + m30's body nouns
+#      (m31) gives a second, independent recombination axis this module's
+#      own atoms were chosen specifically to support: `calcetines`↔`pies`,
+#      `guantes`↔`manos` are direct item-covers-body-part pairs (see the
+#      dedicated L9 section below) — no other candidate domain (food,
+#      family, animals) has an equivalent PRIOR pain-frame partner. `cuánto`
+#      /`cuesta`/`cuestan` (m12) gives this module its own PRIOR shopping
+#      question frame, reused verbatim rather than reinvented. No other
+#      candidate reaches three independent PRIOR recombination hooks.
+#   4. **Verified data floor, both directions, and the vendoring streak
+#      breaks once (named, not hidden).** `grep -o 'surface: "[^"]*"'
+#      curriculum/m{1..31}.ts | sort -u | grep -iE
+#      "pantalón|chaqueta|calcetines|guantes|bufanda"` returns zero hits.
+#      All 5 target emoji (👖🧥🧦🧤🧣) are grep-verified zero prior hits
+#      against every `emoji:` field in m1–m31 (checked individually,
+#      including against the one near-miss that matters: `falda`'s own
+#      👗, m12 — `vestido` is deliberately excluded from this module's
+#      atom list for exactly that collision, see below). Vendoring status
+#      checked file by file, not assumed from m30/m31's "zero vendoring"
+#      precedent: `ls src/pub/noto-emoji/svg/ | grep -iE
+#      "^emoji_u(1f456|1f9e5|1f9e6|1f9e4|1f9e3)"` returns
+#      `emoji_u1f456.svg` (👖), `emoji_u1f9e5.svg` (🧥), `emoji_u1f9e6.svg`
+#      (🧦), and `emoji_u1f9e3.svg` (🧣) already on disk — but
+#      `emoji_u1f9e4.svg` (🧤, guantes) is ABSENT. One vendoring task this
+#      module, breaking m30/m31's two-module zero-vendoring streak. Named
+#      explicitly in "Vocab card art" below rather than assumed away.
+#
+# ── REJECTED WITHIN-DOMAIN: «vestido» (dress) — same trap m30 already
+#    named, now actually live ─────────────────────────────────────────────
+# «vestido» is grep-verified fully unregistered and a natural sixth
+# clothing atom to reach for. Excluded deliberately: its only clean
+# single-referent emoji, 👗, is ALREADY «falda»'s (m12, confirmed by
+# reading `curriculum/m12.ts:39`) — the identical "borrow a PRIOR atom's
+# own image" mistake m27's ☀️/🌞 trap and m30's own REJECTED ALTERNATIVE 2
+# note both warned a future clothing author against. This module is that
+# future author; the trap is now paid down, not just flagged again.
+#
+# ── REJECTED: a "wearing" verb («ponerse», «llevar») to carry these nouns
+#    ───────────────────────────────────────────────────────────────────
+# The single most natural verb for clothing ("me pongo la chaqueta" / "llevo
+# los guantes") is NOT PRIOR — `poner`/`pongo` (m15) is registered but only
+# as the bare transitive "to put," never the reflexive `ponerse` ("to put
+# on oneself"); `llevar`/`llevo` (to wear/carry) is grep-verified zero hits
+# anywhere in m1–m31. Rejected for the same reason m30 rejected `limpiar`
+# for its own house-vocabulary alternative: a new verb is new grammar-
+# adjacent vocabulary a "zero new grammar" break module should not need,
+# and this module's five nouns already have three fully-PRIOR verb hosts
+# (`tengo`, `necesito`, `voy a comprarlo/la/los`) that cover possession,
+# need, and shopping intention without inventing a fourth verb. `ponerse`
+# is real, well-scoped future content (a reflexive-verb module, pairing
+# naturally with m17's own reflexive-routine precedent) — left open, not
+# exhausted.
+#
+# ── REJECTED ALTERNATIVE 1: household rooms/furniture ─────────────────────
+# m30-header.yaml already ran this grep and the finding is unchanged:
+# `casa`/`cuarto`/`cocina`/`baño`/`cama`/`mesa`/`silla`/`puerta`/`ventana`
+# are all PRIOR since m3/m4; the only genuinely clean remainder is
+# `espejo`/`jabón`/`lámpara` — THREE atoms, not enough for a ten-lesson
+# module on its own, and the richer-seeming remaining nouns (`sofá`,
+# `armario`, `inodoro`) still collide with PRIOR m3/m4 house-object emoji,
+# one collision (`inodoro`/🚽) still unresolvable. Re-checked here rather
+# than trusted from m30's own brief (`grep -o 'surface: "[^"]*"'
+# curriculum/m{1..31}.ts | sort -u | grep -iE
+# "espejo|jabón|lámpara|sofá|armario|inodoro"` returns zero hits for all
+# six — nothing has changed since m30 shipped). Correctly resized, per
+# m30's own precedent, to a future THREE-atom recombination lesson inside
+# a later module, not a module of its own.
+#
+# ── REJECTED ALTERNATIVE 2: places in town (la calle, el cine, el
+#    mercado, la playa, la tienda, el trabajo, el autobús) ────────────────
+# The task's own suggested candidate list named this domain, and it is
+# the one most different from the other five on inspection: it is NOT a
+# fresh lexical gap at all. `grep -o 'surface: "[^"]*"'
+# curriculum/m{1..31}.ts | sort -u | grep -iE
+# "cine|mercado|playa|tienda|trabajo|autobús|escuela|parque"` shows every
+# one of these already PRIOR since **m9** — the very module that also
+# registered `voy`/`vas` (present-tense "to go") for exactly this
+# vocabulary. There is no "places in town" module left to write with the
+# common, useful words; what remains fully virgin is the CITY/DIRECTIONS
+# subset already named and reserved by m30-header.yaml's own REJECTED
+# ALTERNATIVE 3 — `calle`, `ciudad`, `esquina`, `derecha`/`izquierda`,
+# `semáforo` — and that subset's own useful content (direction-giving)
+# needs new phrase atoms and likely a new imperative mood, the same
+# "second new idea competing with the first" cost m30's header already
+# used to defer it. Not a candidate for a zero-new-grammar break module;
+# unchanged from m30's own assessment.
+#
+# ── REJECTED ALTERNATIVE 3: food beyond m9/m10/m11/m13 (huevo, arroz,
+#    ensalada, pescado, fruta, jugo, naranja) ─────────────────────────────
+# Genuinely virgin — `grep -o 'surface: "[^"]*"' curriculum/m{1..31}.ts |
+# sort -u | grep -iE "huevo|arroz|ensalada|pescado|fruta|jugo|naranja|
+# plátano"` returns zero hits, and `quiero`/`me gusta` (m7/m13) plus
+# `como` (m11, present "I eat") give an immediate sentence frame. Rejected
+# for m32 specifically on recombination grounds: it has only ONE PRIOR
+# hook this module's own strongest candidates share (`quiero`/`gusta`),
+# no natural tie to `voy a` + `comprarlo`-family (the food domain's own
+# fused-clitic target would be `comerlo`/`comerla`, NEITHER of which is
+# one of m29's 7 registered fused surfaces — reaching for either would
+# hit the identical "verla"-class untracked-word trap m30's own header
+# named, just with a different verb), and no tie at all to `duele`/
+# `duelen` (the natural food-adjacent pain word is «me duele el
+# estómago», and `estómago` is one of the five body nouns m30's own
+# header explicitly deferred, not this module's to add). Clothing's own
+# three-hook recombination story (shopping frame, full comprarlo/la/los
+# set, body-pain L9) is stronger. Left open as a real future module.
+#
+# ── REJECTED ALTERNATIVE 4: family members beyond m5 (mamá/papá, hijo/
+#    hija, esposo/esposa, primo/prima, tío/tía) ───────────────────────────
+# Also genuinely partially virgin, but LESS than it first appears:
+# `abuelo`/`abuela`/`hermano`/`hermana`/`familia` are ALL already PRIOR
+# since **m5** (confirmed by reading `curriculum/m5.ts` directly, not
+# inferred) — a "family module" would spend roughly half its content
+# re-teaching m5's own words before reaching the 5-6 genuinely new ones.
+# Recombination against the four most recent modules is also the
+# weakest of the five domains considered: no natural tie to `comprarlo`/
+# `comprarla`/`comprarlos` (buying a person makes no sense), no tie to
+# `duele`/`duelen` (a family member doesn't hurt the way a body part
+# does), only a thin tie to `voy a` + `visitar` (PRIOR, m10 — "voy a
+# visitar a mi hermano"). Left open as a real future module with a
+# cleaner recombination story once one exists (a "gifts for family"
+# shopping module, pairing family nouns with this module's own
+# `comprarlo`-family reuse, is one candidate for whoever drafts it).
+#
+# ── REJECTED ALTERNATIVE 5: animals beyond perro/gato (m5/m6) ─────────────
+# `grep -o 'surface: "[^"]*"' curriculum/m{1..31}.ts | sort -u | grep -iE
+# "pájaro|pez|caballo|vaca"` returns zero hits — a real, virgin, easily-
+# imageable domain. Rejected for m32 because it shares NONE of the three
+# recombination hooks clothing has: no shopping-frame tie (`voy a
+# comprarlo` reads oddly for a live animal as the object of a routine
+# purchase-intention sentence), no `duele`/`duelen` tie, and only the
+# same thin `tengo` frame m30's body module already spent this course's
+# richest "tengo + new noun" recombination on. The weakest recombination
+# story of any candidate considered. Left open as a real, low-risk future
+# module whenever the course wants a pure "tengo un perro nuevo"-style
+# beat with no dependency chain.
+#
+# ── THE «comprarlo»/«comprarla»/«comprarlos» FIT — READ BEFORE DRAFTING
+#    L7 (no «verla»-class trap this time, verified not assumed) ──────────
+# m29 registered exactly 7 fused-clitic surfaces: `verlo`, `comprarlo`,
+# `comprarla`, `comprarlos`, `levantarme`, `hacerlo`, `verlos`. Unlike
+# m30's own module (whose masculine/feminine split could only legally use
+# `verlo`, never a matching `verla`), THIS module's five nouns split
+# cleanly across all three `comprar`-family surfaces with no gap:
+# `pantalón` (m, sg) → `comprarlo`; `chaqueta`/`bufanda` (f, sg) →
+# `comprarla`; `calcetines`/`guantes` (m, pl) → `comprarlos`. All three
+# are grep-confirmed already registered by m29 — zero new fused-clitic
+# registration needed, and unlike m30's brief, there is no gender gap to
+# route around with pre-verbal placement (pre-verbal `la compro`/`los
+# compro` remains legal too, and is the right choice whenever a drafting
+# agent wants variety, but is not REQUIRED here as a workaround the way
+# it was for m30's feminine nouns). Do not invent a fourth fused surface
+# (there is no `comprarme`/`comprarte` registered, and this module has no
+# reason to need one).
+#
+# ── SCOPE: no new wear-verb, no «unos»/«unas», no «color»/«cuál» ─────────
+# Three deliberate exclusions, all grep-verified NOT PRIOR: (1) `ponerse`/
+# `llevar` — see the dedicated rejected-verb section above. (2) `unos`/
+# `unas` (indefinite plural article) — only `un`/`una` (m3) are PRIOR;
+# this module's two plural-only nouns (`calcetines`, `guantes`) use the
+# DEFINITE article (`los calcetines`, `los guantes`) or bare-noun
+# possession (`tengo calcetines negros`, no article at all — natural
+# Spanish, the same bare-plural pattern m17's own `dientes` sentences
+# already use) instead of manufacturing an unregistered indefinite
+# plural. (3) `color`/`de qué color`/`cuál` — none are PRIOR (grep-
+# verified zero hits); this module's colors stay adjectives modifying the
+# noun directly (`la chaqueta azul`), never the noun "color" itself or a
+# "which one" question. NPC shopping questions use `qué`/`necesitas`/
+# `cuánto`/`cuesta` — all independently resolvable to PRIOR atom words
+# (see "SIM NPC lines" below) — never `color` or `cuál`.
+#
+# ── AGREEMENT IS NOT A NEW ATOM — TWO PLURAL-ONLY NOUNS, SAME PATTERN AS
+#    «dientes» (m17), THREE REGULAR NOUNS PLURALIZE FREELY ───────────────
+# `calcetines` and `guantes` are registered AS their plural surface
+# directly (kind: "vocab", no singular card), the identical convention
+# m17's `dientes` already established and `es-quality.test.ts`/authoring-
+# rules.md's "Agreement is not a new atom" paragraph both sanction — a
+# registered plural noun does not need a paired singular registration
+# when the singular is pedagogically pointless (nobody buys or wears one
+# sock). `pantalón`, `chaqueta`, `bufanda` are all REGULAR nouns and
+# pluralize via the course-wide regular -s/-es inflection rule
+# (`pantalones`, `chaquetas`, `bufandas`) with no separate registration
+# needed if a drafting agent wants a plural sentence — though this
+# module's own lesson plan below defaults each to singular-first per its
+# `-sp-win` column, matching m30's own "singular is the natural default"
+# choice for its irregular `nariz`.
+#
+# ── NO NEW EMOJI COLLISION; ONE VENDORING TASK (verified, not assumed —
+#    breaks the m30/m31 zero-vendoring streak, named not hidden) ────────
+# `grep -o 'emoji: "[^"]*"' curriculum/m{1..31}.ts | sort -u` — zero hits
+# for 👖🧥🧦🧤🧣, checked individually, including the one near-miss that
+# matters (👗 is already `falda`'s, m12 — see the `vestido` rejection
+# above). `ls src/pub/noto-emoji/svg/` confirms `emoji_u1f456.svg` (👖),
+# `emoji_u1f9e5.svg` (🧥), `emoji_u1f9e6.svg` (🧦), and `emoji_u1f9e3.svg`
+# (🧣) already present on disk — but `emoji_u1f9e4.svg` (🧤, guantes) is
+# ABSENT. A drafting agent must vendor this ONE SVG before `guantes`'
+# imageMcq debut (L4) ships; see "Vocab card art" in the brief for the
+# exact source and steps. Re-verify all five at ship time regardless (a
+# concurrent lane could in principle touch this directory).
+#
+# ── SIM NPC-LINE PROVENANCE: LIVE AND UNFORGIVING FOR NEW MODULES — READ
+#    THE GATE FILE, NOT JUST THIS COMMENT ────────────────────────────────
+# Two gates now cover dialogue_sim, not one. `es-quality.test.ts`'s own
+# check (reply-only) still applies unchanged. NEW since m31:
+# `esSimNpcProvenance.test.ts` closes the NPC-line half course-wide, and
+# its `KNOWN_LEGACY` allowlist is SHRINK-ONLY, scoped to modules m1–m10,
+# m20, m22–m28 — **m29, m30, m31, and this module are NOT in that list
+# and get NO allowance** for reaction words like «genial»/«perfecto»/
+# «mira». Every NPC word in this module's own sim(s) must resolve to a
+# registered atom (this module's 5, or any PRIOR one), a taught verb
+# conjugation, a function word, or a proper name — word-level, via
+# `esTokens`, so a word inside a multi-word PRIOR phrase atom (e.g. `qué`
+# inside m3's `¿qué es?`) still counts as known. Grep every `npc:` line by
+# hand before shipping; do not trust the reply-only gate to catch it.
+#
+# ── ACCENT: DENIM INDIGO, VERIFIED UNUSED, THEMATIC ───────────────────────
+# Checked every `accent:` pair in `curriculum/index.ts` (grep-verified,
+# all 31 pairs read in full): zero hits for `#4f46e5` or `#312e81`.
+# Distinct from the four most recent modules specifically (m28 "go" green,
+# m29 slate, m30 teal, m31 rose) and from every existing blue/indigo/
+# violet pair already spent (`#0ea5e9`→`#0284c7`, `#6366f1`→`#8b5cf6`,
+# `#38bdf8`→`#0369a1` ×2, `#38bdf8`→`#0c4a6e`, `#a78bfa`→`#6d28d9`,
+# `#c084fc`→`#581c87`, `#818cf8`→`#3730a3`, `#3b82f6`→`#1d4ed8`,
+# `#22d3ee`→`#0891b2`) — checked side by side, this pair sits darker,
+# more saturated, and more "denim blue" than all of them, a light
+# thematic nod to the clothing domain without forcing a heavy costume
+# metaphor onto what is still fundamentally a vocabulary module, the same
+# restraint m30's teal and m31's rose both used.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # el pantalón — pants/trousers. Registered SINGULAR (Spanish default);
+  # English-transfer trap flagged directly in the hint (a learner will
+  # reach for a plural the way English "pants" always is).
+  - { surface: "pantalón", meaningEn: "pants, trousers", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "👖", hint: "el pantalón — SINGULAR in Spanish, even though English 'pants' is always plural. «tengo un pantalón azul»." }
+  # la chaqueta — jacket. Regular feminine noun; this module's own
+  # «comprarla» recombination target alongside «bufanda».
+  - { surface: "chaqueta", meaningEn: "jacket", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🧥", hint: "la chaqueta — regular feminine. «necesito una chaqueta nueva» (m16's «necesito» + m6's «nueva»)." }
+  # los calcetines — socks. Plural-only, same pattern as «dientes» (m17):
+  # no singular card, masculine plural agreement.
+  - { surface: "calcetines", meaningEn: "socks", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🧦", hint: "los calcetines — always plural, like «dientes» (m17). No singular card. This module's own «duele»/«duelen» (m31) L9 pair: los calcetines ↔ los pies (m30)." }
+  # los guantes — gloves. Plural-only, same pattern as «dientes»/
+  # «calcetines». Needs SVG vendoring — see header note and brief.
+  - { surface: "guantes", meaningEn: "gloves", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🧤", hint: "los guantes — always plural, same pattern as «calcetines» and «dientes» (m17). This module's own «duele»/«duelen» (m31) L9 pair: los guantes ↔ las manos (m30). SVG not yet vendored — see brief." }
+  # la bufanda — scarf. Regular feminine noun.
+  - { surface: "bufanda", meaningEn: "scarf", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🧣", hint: "la bufanda — regular feminine. «tengo una bufanda bonita»." }
+
+lessons:
