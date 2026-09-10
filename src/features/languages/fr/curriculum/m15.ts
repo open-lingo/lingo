@@ -205,19 +205,19 @@ function lesson1(): LessonStep[] {
     ),
     listeningCompSentence({
       id: "fr-m15-1-lc-enville",
-      audioText: "aujourd'hui, on visite en ville",
-      correctMeaningEn: "Today, we're visiting around town.",
-      distractorsEn: ["Yesterday, we visited around town.", "Today, we're eating in town.", "Today, we live in town."],
+      audioText: "aujourd'hui, on visite la ville",
+      correctMeaningEn: "Today, we're visiting the town.",
+      distractorsEn: ["Yesterday, we visited the town.", "Today, we're eating in town.", "Today, we live in town."],
     }),
-    speaking("fr-m15-1-speak-onvisite", "on visite la ville", "we visit the town", ["visite", "en ville"]),
+    speaking("fr-m15-1-speak-onvisite", "on visite la ville", "we visit the town", ["visite"]),
     cloze(
       "fr-m15-1-cloze-visiter",
       "j'aime",
-      "en ville",
+      "la ville",
       "visiter",
       ["visiter", "visite"],
-      "I like to visit around town",
-      "j'aime visiter en ville",
+      "I like to visit the town",
+      "j'aime visiter la ville",
       "«j'aime visiter» — after «aime», the verb stays in its bare infinitive form, «visiter».",
     ),
     build(
@@ -231,7 +231,7 @@ function lesson1(): LessonStep[] {
       id: "fr-m15-1-smcq-visiter",
       prompt: "'To visit' — pick the French.",
       correctText: "visiter",
-      distractorsText: ["visite", "visité", "habiter"],
+      distractorsText: ["visite", "parler", "habiter"],
     }),
     speaking("fr-m15-1-speak-recall-mange", "j'ai mangé un croissant hier", "I ate a croissant yesterday", [], "recall"),
     {
@@ -254,7 +254,7 @@ function lesson1(): LessonStep[] {
             options: [
               { id: "correct", text: "oui, en ville" },
               { id: "wrong-no", text: "non, à la maison" },
-              { id: "wrong-tense", text: "oui, j'ai visité" },
+              { id: "wrong-echo", text: "oui, on visite" },
             ],
             correctOptionId: "correct",
             audioText: "oui, en ville",
@@ -438,11 +438,11 @@ function lesson3(): LessonStep[] {
     cloze(
       "fr-m15-3-cloze-tuas",
       "",
-      "as visité en ville hier",
+      "as visité la ville hier",
       "tu",
       ["tu", "je"],
-      "you visited around town yesterday",
-      "tu as visité en ville hier",
+      "you visited the town yesterday",
+      "tu as visité la ville hier",
       "«tu as visité» — the subject decides which auxiliary you use.",
     ),
     build(
@@ -1083,7 +1083,7 @@ function lesson9(): LessonStep[] {
       correctMeaningEn: "You visited the hotel last night.",
       distractorsEn: ["You visited the hotel this morning.", "I visited the hotel last night.", "You visited the covered market last night."],
     }),
-    speaking("fr-m15-9-speak-jaivisite", "j'ai visité en ville hier soir", "I visited around town last night", ["visité", "en ville", "hier soir"]),
+    speaking("fr-m15-9-speak-jaivisite", "j'ai visité la ville hier soir", "I visited the town last night", ["visité", "hier soir"]),
     cloze(
       "fr-m15-9-cloze-visite",
       "il a déjà",
@@ -1133,9 +1133,9 @@ function lesson9(): LessonStep[] {
           id: "t1-onvisite",
           npc: {
             speaker: "Chloé",
-            kana: "On visite en ville aujourd'hui ?",
-            audioText: "on visite en ville aujourd'hui ?",
-            gloss: "Are we visiting around town today?",
+            kana: "On visite la ville aujourd'hui ?",
+            audioText: "on visite la ville aujourd'hui ?",
+            gloss: "Are we visiting the town today?",
           },
           goal: "Say yes, you already visited the market.",
           reply: {
@@ -1238,7 +1238,7 @@ function lesson10(): LessonStep[] {
       correctMeaningEn: "My brother visited the covered market last night.",
       distractorsEn: ["My sister visited the covered market last night.", "My brother visited the covered market this morning.", "My brother hasn't visited the covered market."],
     }),
-    speaking("fr-m15-10-speak-fresh", "j'ai déjà visité en ville ce matin", "I already visited around town this morning", ["déjà", "visité", "en ville", "ce matin"]),
+    speaking("fr-m15-10-speak-fresh", "j'ai déjà visité la ville ce matin", "I already visited the town this morning", ["déjà", "visité", "ce matin"]),
     vocabTextMcq("fr-m15-10-mcq-visite", "visite", ["visité", "visiter", "mangé"], 'Which word means "visit(s)"?'),
     build(
       "fr-m15-10-build-2",
