@@ -1,0 +1,143 @@
+module: m21
+title: "Fuimos, fueron — the past, plural"
+frame: none
+throughModule: m20
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m21 — the plural preterite. Third A2 module; closes the paradigm.
+#
+#     ir/ser: fuimos    fueron       hacer:  hicimos    hicieron
+#     tener:  tuvimos   tuvieron     estar:  estuvimos  estuvieron
+#     ver:    vimos     vieron       venir:  vinimos    vinieron
+#     -ar:    hablamos* hablaron     -er:    comimos    comieron
+#     -ir:    vivimos*  vivieron
+#
+#     (* = the exact same surface as the present tense. m19 said so and
+#     held the line: "«hablamos» is deliberately ambiguous between present
+#     and preterite and m18 just spent it as a present. m20 may open the
+#     plural past." — m19-header.yaml. m20 opened the irregular singular
+#     instead; this module is the plural past m19 was pointing at.)
+#
+# ONE idea, the whole module: the learner already has yo/tú/él for every
+# verb (m19 regular, m20 irregular) and already has nosotros/ustedes/ellos
+# as SUBJECTS and PRESENT-tense speakers (m18, "Nosotros hablamos"). This
+# module is not a new tense and not new people — it is handing the past
+# tense to the two persons the learner has been using in the present the
+# whole time. Nothing here is drilled that was not already half-taught.
+#
+# ── WHY THIS MODULE, NOT THE IMPERFECT (decision, 2026-09-10) ────────────
+# The backlog line at docs/handoff-2026-09-09-es-m20-done-ko-next.md:76
+# left "m21+ unplanned (A2 continues: plural preterite, or imperfect)" as
+# an open choice. Resolved: plural preterite. Evidence, not preference —
+#   1. m19-header.yaml already named this module ("m20 may open the plural
+#      past") and explicitly reserved «hablamos» for it — the course's own
+#      prior authoring intended this to come before anything else.
+#   2. m20.test.ts's own bespoke pin is titled "singular persons only: no
+#      plural preterite, no vosotros" — m20 deliberately fenced plural
+#      preterite OFF, not out.
+#   3. The paradigm is half-built: every verb the learner has met has a
+#      past tense for yo/tú/él only. nosotros/ustedes/ellos have been
+#      PRESENT-only since m18. CLAUDE.md's contract is "every new word or
+#      structure is introduced before it's tested" — teaching a SECOND
+#      past tense (imperfect) while the FIRST one (preterite) is still
+#      missing two of five persons violates that before it teaches
+#      anything new about aspect. Finish the shape already in progress.
+#   4. Machinery is not the constraint either way: `conjugationTables.ts`
+#      already carries preterite.nosotros / preterite.ustedes for every
+#      verb this module needs (grep-verified below) AND imperfect for the
+#      ten A1 verbs (pin E12, es-authoring-invariants-pinned.md §1) — so
+#      "which data exists" does not decide this; "what the learner can
+#      already reason about" does, and that is the plural preterite.
+#   Imperfect (with a preterite-vs-imperfect contrast module after it) is
+#   the natural m22+, once this module closes the preterite paradigm.
+#
+# ── PERSONS ──────────────────────────────────────────────────────────────
+# nosotros AND ustedes/ellos, past tense, for the verbs already met in
+# m18/m19/m20. yo/tú/él forms are PRIOR (m19/m20) and get re-spent, never
+# re-taught. vosotros is NEVER drilled (LatAm-neutral course, m18's own
+# rule carries).
+#
+# ── «hablamos» / «vivimos» — REUSED SURFACE, NOT A NEW ATOM ──────────────
+# -ar and -ir verbs have IDENTICAL nosotros forms in the present and the
+# preterite. «hablamos» and «vivimos» are already registered atoms
+# (m18, present "we speak" / "we live") — do NOT re-register them; the
+# surface-dedupe in courseAtoms.ts would reject a second atom on the same
+# surface anyway. Debut their PAST reading explicitly in L2 (info card +
+# speakLit), the same way m20 drilled «fue» both ways — this is the
+# module's own version of that ambiguity, and the gate for it is a bespoke
+# m21.test.ts pin (see brief), not the newAtoms list.
+#
+# ── -er IS DIFFERENT ───────────────────────────────────────────────────
+# «comimos» (we ate) is NOT «comemos» (we eat) — -er verbs' nosotros
+# preterite is a genuinely new surface, unlike -ar/-ir. It is a normal new
+# atom, no ambiguity to teach.
+#
+# ── ustedes/ellos IS ALWAYS A NEW SURFACE ─────────────────────────────────
+# -aron/-ieron never collides with a present form (present is -an/-en), so
+# every ustedes/ellos preterite atom this module registers is unambiguous,
+# glossed the m18 way: "they/you-all ___" (see m18's «son»).
+#
+# ── PIN E12: EVERY CELL COMES FROM conjugationTables.ts ───────────────────
+# preterite.nosotros / preterite.ustedes already exist in ES_VERB_ENTRIES
+# for every verb this module touches (hablar, comer, vivir, ser, estar,
+# ir, tener, hacer, ver, venir, estudiar, comprar, trabajar, escribir) —
+# nothing new to add to the table this time. Derive every cell from it;
+# never hand-write a form.
+#
+# ── hacer/tener RULING, EXTENDED (B112) ───────────────────────────────────
+# Still true and now ALSO covers the plural present: «hacemos», «hacen»,
+# «queremos», «quieren», «podemos», «pueden», «trabajamos», «trabajan»,
+# «estudiamos», «estudian», «compramos», «compran», «escribimos» (present
+# reading), «escriben», «salimos», «salen», «cocinamos», «cocinan»,
+# «vemos», «ven», «venimos», «vienen» are NOT PRIOR — none of these verbs'
+# nosotros/ustedes PRESENT forms were ever registered as atoms (grep-
+# verified: only hablar/comer/vivir/ser/estar/ir/tener have m18 nosotros/
+# ustedes present atoms). They stay banned in every slot, present or past
+# reading, exactly like m19/m20's bans. Only the 21 atoms below (plus the
+# reused «hablamos»/«vivimos») carry a new PAST reading this module.
+#
+# ── «todos» ─────────────────────────────────────────────────────────────
+# New quantifier, debuts L6. Takes 3rd-person-plural agreement like any
+# other "todos" subject — «todos fueron», never «todos fuimos». Pairs with
+# ustedes/ellos forms, not nosotros.
+#
+# ── NO IMPERFECT, NO PROGRESSIVE (pins E7) ────────────────────────────────
+# Still simple past only. The imperfect is the NEXT module's job, not this
+# one's — see the decision note above.
+#
+# ── NO NEW EMOJI THIS MODULE ──────────────────────────────────────────────
+# No new imageable noun; «todos» is abstract. m19 shipped with zero new
+# emoji too (pure verb-focus module) — precedent, not a gap. audioWimcq
+# still drills PRIOR nouns with their existing emoji as usual.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # ir/ser — plural past
+  - { surface: "fuimos", meaningEn: "we went / we were", partOfSpeech: "verb", kind: "vocab", hint: "FWEE-mos — same word for went and was, just like «fui»" }
+  - { surface: "fueron", meaningEn: "they went / they were, you all went / were", partOfSpeech: "verb", kind: "vocab", hint: "FWEH-ron — «fue» with -ron" }
+  # hacer
+  - { surface: "hicimos", meaningEn: "we did / we made", partOfSpeech: "verb", kind: "vocab", hint: "ee-SEE-mos" }
+  - { surface: "hicieron", meaningEn: "they did / made, you all did / made", partOfSpeech: "verb", kind: "vocab", hint: "ee-see-EH-ron" }
+  # tener / estar
+  - { surface: "tuvimos", meaningEn: "we had", partOfSpeech: "verb", kind: "vocab", hint: "too-BEE-mos" }
+  - { surface: "tuvieron", meaningEn: "they had, you all had", partOfSpeech: "verb", kind: "vocab", hint: "too-BYEH-ron" }
+  - { surface: "estuvimos", meaningEn: "we were (somewhere)", partOfSpeech: "verb", kind: "vocab", hint: "es-too-BEE-mos" }
+  - { surface: "estuvieron", meaningEn: "they were, you all were (somewhere)", partOfSpeech: "verb", kind: "vocab", hint: "es-too-BYEH-ron" }
+  # ver / venir
+  - { surface: "vimos", meaningEn: "we saw", partOfSpeech: "verb", kind: "vocab", hint: "BEE-mos" }
+  - { surface: "vieron", meaningEn: "they saw, you all saw", partOfSpeech: "verb", kind: "vocab", hint: "BYEH-ron" }
+  - { surface: "vinimos", meaningEn: "we came", partOfSpeech: "verb", kind: "vocab", hint: "bee-NEE-mos" }
+  - { surface: "vinieron", meaningEn: "they came, you all came", partOfSpeech: "verb", kind: "vocab", hint: "bee-NYEH-ron" }
+  # regular -ar / -er / -ir, ustedes-ellos (always new) and the -er nosotros form (new; -ar/-ir nosotros are the reused «hablamos»/«vivimos», not registered here)
+  - { surface: "hablaron", meaningEn: "they spoke, you all spoke", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "comimos", meaningEn: "we ate", partOfSpeech: "verb", kind: "vocab", hint: "unlike «hablamos»/«vivimos», this does NOT double as the present — «comemos» is the present, a different word" }
+  - { surface: "comieron", meaningEn: "they ate, you all ate", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "vivieron", meaningEn: "they lived, you all lived", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "estudiaron", meaningEn: "they studied, you all studied", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "compraron", meaningEn: "they bought, you all bought", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "trabajaron", meaningEn: "they worked, you all worked", partOfSpeech: "verb", kind: "vocab" }
+  - { surface: "escribieron", meaningEn: "they wrote, you all wrote", partOfSpeech: "verb", kind: "vocab" }
+  # quantifier
+  - { surface: "todos", meaningEn: "everyone / all of them", partOfSpeech: "pronoun", kind: "vocab", hint: "TOH-dos — takes the same verb ending as «ellos»" }
+
+lessons:
