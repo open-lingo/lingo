@@ -1,0 +1,152 @@
+  # ── L9 · Consolidation — every connective and both tenses side by side,
+  #    ZERO new atoms. Last teaching lesson before the mastery sim; free-mix
+  #    review that stacks all four connectives against the imperfect/
+  #    preterite split one more time. ≥1 recall (table floor).
+  - n: 9
+    template: free
+    title: "Todo junto"
+    description: "One last pass: cuando, mientras, de repente, entonces, fue, era, iba — all four connectives, both tenses, side by side."
+    steps:
+      - kind: map
+        id: l9-map-ibaescuelavisamhablesofia
+        tokens: ["cuando", "iba", "a", "la", "escuela,", "vi", "a", "Sam,", "y", "hablé", "con", "Sofía"]
+        pairs:
+          - { en: "when", tokenIndex: 0 }
+          - { en: "I was going", tokenIndex: 1 }
+          - { en: "to", tokenIndex: 2 }
+          - { en: "the", tokenIndex: 3 }
+          - { en: "school,", tokenIndex: 4 }
+          - { en: "I saw", tokenIndex: 5 }
+          - { en: "", tokenIndex: 6 }
+          - { en: "Sam,", tokenIndex: 7 }
+          - { en: "and", tokenIndex: 8 }
+          - { en: "I talked", tokenIndex: 9 }
+          - { en: "with", tokenIndex: 10 }
+          - { en: "Sofía", tokenIndex: 11 }
+        audioText: "cuando iba a la escuela, vi a Sam, y hablé con Sofía"
+        revealNote: "«iba» paints the ongoing scene; «vi» and «hablé» are the two bounded events that happened inside it."
+      - kind: info
+        id: l9-info-todojunto
+        title: "All four, one more time"
+        body: "«cuando»/«mientras» open a scene; «de repente» flags a surprise inside it; «entonces» chains what happened next. The imperfect always paints the scene; the preterite always reports the bounded thing. «Cuando iba a la escuela, vi a Sam, y hablé con Sofía» — one scene, two events."
+      - kind: speakLit
+        id: l9-sp-ibaescuelavisamhablesofia
+        es: "cuando iba a la escuela, vi a Sam, y hablé con Sofía"
+        en: "When I was going to school, I saw Sam, and I talked with Sofía"
+        atoms: ["cuando", "iba", "vi", "hablé", "escuela"]
+      - kind: buildLit
+        id: l9-b-mientrasveiamosderepentevinoanaentonceshablamos
+        es: "mientras veíamos la película, de repente vino Ana, entonces hablamos"
+        en: "While we were watching the movie, suddenly Ana came, so we talked"
+        atoms: ["mientras", "veíamos", "de repente", "vino", "entonces", "hablamos", "película"]
+        tiles: ["veían", "viene"]
+      - kind: speakLit
+        id: l9-sp-erabuenocuandoibaescuela
+        es: "era muy bueno cuando iba a la escuela"
+        en: "I was very good when I was going to school"
+        atoms: ["cuando", "era", "iba", "bueno", "escuela"]
+      - kind: clozeLit
+        id: l9-c-todosfuerontiendaentonceshable
+        es: "todos fueron a la tienda, entonces hablé con ellos"
+        en: "Everyone went to the store, so I talked with them"
+        blank: "entonces"
+        options: ["entonces", "cuando", "mientras"]
+        atoms: ["entonces", "fueron", "hablé", "todos", "tienda"]
+        why: "«entonces» chains the two finished events — their trip, then your talk. «cuando»/«mientras» would open a scene instead, changing the shape."
+      - kind: listenCompLit
+        id: l9-lc-cuandoveiamosderepentevinoluis
+        es: "cuando veíamos la película, de repente vino Luis"
+        en: "When we were watching the movie, suddenly Luis came."
+        atoms: ["cuando", "veíamos", "de repente", "vino", "película"]
+        distractorsEn:
+          - "When we watch the movie, suddenly Luis comes."
+          - "When we were watching the movie, then Luis came."
+          - "When we were watching the movie, suddenly Luis left."
+      - kind: mcq
+        id: l9-q-fourconnectivesreview
+        prompt: "Which one flags a surprise interruption?"
+        correct: "de repente"
+        distractors: ["entonces", "cuando", "mientras"]
+        atoms: ["de repente"]
+        why: "«de repente» flags the surprise interruption. «entonces» would chain a next step; «cuando»/«mientras» would open a scene, not flag a surprise."
+      - kind: listenBuildLit
+        id: l9-lb-todosibanplayacuandofuivi
+        es: "todos iban a la playa cuando fui también"
+        en: "Everyone was going to the beach when I went too"
+        atoms: ["cuando", "iban", "fui", "todos", "playa"]
+        tiles: ["fueron", "iba"]
+      - kind: agreementLit
+        id: l9-agr-hablabamosentoncesfuimos
+        en: "We were talking, so then we went to the party"
+        audioText: "hablábamos, entonces fuimos a la fiesta"
+        atoms: ["entonces", "hablábamos", "fuimos"]
+        segments:
+          - { blank: { id: "p1", answer: "hablábamos", options: ["hablábamos", "hablamos"] } }
+          - { text: ", entonces " }
+          - { blank: { id: "p2", answer: "fuimos", options: ["fuimos", "íbamos"] } }
+          - { text: " a la fiesta" }
+      - kind: audioWimcq
+        id: l9-ear-cine
+        target: { surface: "el cine", emoji: "🎬" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "el mercado", emoji: "🛒" }
+      - kind: textMcq
+        id: l9-tm-mientras
+        target: "mientras"
+        distractors: ["cuando", "entonces", "de repente"]
+      - kind: speakLit
+        id: l9-sp-recall-nomientoncesnofuimos
+        es: "no vino Ana, entonces no fuimos a la fiesta"
+        en: "Ana didn't come, so we didn't go to the party"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l9-sim-carmen-todojunto
+        scene: { emoji: "🧩", title: "Carmen wants the full story", setting: "Carmen is piecing together everything that happened that day." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Adónde ibas cuando viste a Sam?", audioText: "¿adónde ibas cuando viste a sam?", gloss: "Where were you going when you saw Sam?" }
+            goal: "Say you were going to school."
+            reply:
+              mode: build
+              tiles: ["iba", "a", "la", "escuela", "voy", "fui"]
+              answer: "iba a la escuela"
+            replyGloss: "I was going to school."
+            explanation: "«iba» — the ongoing scene his sighting landed inside. «voy» slips into now; «fui» would make the going one bounded trip."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Y entonces hablaste con Sofía?", audioText: "¿y entonces hablaste con sofía?", gloss: "And then did you talk with Sofía?" }
+            goal: "Say yes, then you talked with her."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, entonces hablé con ella" }
+                - { id: "wrong1", text: "sí, entonces hablaba con ella" }
+                - { id: "wrong2", text: "sí, mientras hablé con ella" }
+              correctOptionId: "right"
+              audioText: "sí, entonces hablé con ella"
+            replyGloss: "Yes, then I talked with her."
+            explanation: "«entonces hablé» — the next bounded event, chained. «hablaba» would make it an ongoing scene; «mientras» would claim simultaneity instead of sequence."
+          - id: t3
+            npc: { speaker: "Carmen", es: "Mientras hablabas con Ana, ¿vinieron todos a la fiesta después?", audioText: "mientras hablabas con ana, ¿vinieron todos a la fiesta después?", gloss: "While you were talking with Ana, did everyone come to the party afterward?" }
+            goal: "Say yes, suddenly everyone came."
+            reply:
+              mode: build
+              tiles: ["sí,", "de", "repente", "vinieron", "todos", "viene", "vino"]
+              answer: "sí, de repente vinieron todos"
+            replyGloss: "Yes, suddenly everyone came."
+            explanation: "«todos» keeps the they-ending: «vinieron», the one bounded arrival, with «de repente» flagging the surprise."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "cuando", target: "when" }
+          - { source: "mientras", target: "while" }
+          - { source: "de repente", target: "suddenly" }
+          - { source: "entonces", target: "then, so" }
+          - { source: "iba", target: "was going, the ongoing scene" }
+          - { source: "vi", target: "I saw, one bounded event" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "cuando iba a la escuela, vi a Sam, y hablé con Sofía"
+        en: "When I was going to school, I saw Sam, and I talked with Sofía"
+        atoms: ["cuando", "iba", "vi", "hablé", "escuela"]

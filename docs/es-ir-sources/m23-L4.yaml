@@ -1,0 +1,150 @@
+  # ── L4 · «Entonces fuimos» — «entonces» debuts: then/so, CHAINS what
+  #    happened next. Unlike «cuando»/«mientras»/«de repente» it never opens
+  #    a subordinate clause — it links two finished (preterite) events in
+  #    sequence. Recall floor: recalls L3's win line. ZERO new verb
+  #    morphology.
+  - n: 4
+    template: free
+    title: "Entonces fuimos"
+    description: "«entonces» — then, so — chains what happened next. Unlike the other three connectives, it links two finished events in sequence — it doesn't open a scene."
+    steps:
+      - kind: map
+        id: l4-map-derepentevinodiegoentoncesfuimos
+        tokens: ["de", "repente", "vino", "Diego,", "entonces", "fuimos", "al", "parque"]
+        pairs:
+          - { en: "suddenly", tokenIndex: 0 }
+          - { en: "(suddenly)", tokenIndex: 1 }
+          - { en: "came", tokenIndex: 2 }
+          - { en: "Diego,", tokenIndex: 3 }
+          - { en: "so", tokenIndex: 4 }
+          - { en: "we went", tokenIndex: 5 }
+          - { en: "to the", tokenIndex: 6 }
+          - { en: "park", tokenIndex: 7 }
+        audioText: "de repente vino Diego, entonces fuimos al parque"
+        revealNote: "«entonces» — then, so — is new: it chains what happened next. «vino» is the first finished event; «entonces» links it to «fuimos», the next one."
+      - kind: info
+        id: l4-info-entoncescadena
+        title: "Entonces — then, chaining what happened next"
+        body: "«entonces» means then, so — it chains two finished events in sequence. It doesn't open a scene like «cuando»/«mientras»/«de repente» do — both sides stay preterite. «De repente vino Diego, entonces fuimos al parque» — vino happened, then fuimos happened next."
+      - kind: speakLit
+        id: l4-sp-derepentevinodiegoentoncesfuimos
+        es: "de repente vino Diego, entonces fuimos al parque"
+        en: "Suddenly Diego came, so we went to the park"
+        atoms: ["de repente", "vino", "entonces", "fuimos"]
+      - kind: buildLit
+        id: l4-b-vifiestaentonceshable
+        es: "vi a Sofía en la fiesta, entonces hablé con ella"
+        en: "I saw Sofía at the party, so I talked with her"
+        atoms: ["vi", "entonces", "hablé", "fiesta"]
+        tiles: ["veo", "hablo"]
+      - kind: speakLit
+        id: l4-sp-vinotodosentoncesfueronmercado
+        es: "vino Carmen, entonces todos fueron al mercado"
+        en: "Carmen came, so everyone went to the market"
+        atoms: ["vino", "entonces", "fueron", "todos"]
+      - kind: clozeLit
+        id: l4-c-viluisentonceshableconel
+        es: "vi a Luis en la escuela, entonces hablé con él"
+        en: "I saw Luis at school, so I talked with him"
+        blank: "entonces"
+        options: ["entonces", "cuando", "mientras"]
+        atoms: ["entonces", "vi", "hablé"]
+        why: "«entonces» chains the two finished events — seeing Luis, then talking with him. «cuando» would open a clause and change the shape; «mientras» would claim they happened at once, not one after the other."
+      - kind: listenCompLit
+        id: l4-lc-vinoanaentoncesfuimosparque
+        es: "vino Ana, entonces fuimos al parque"
+        en: "Ana came, so we went to the park."
+        atoms: ["vino", "entonces", "fuimos", "parque"]
+        distractorsEn:
+          - "Ana comes, so we go to the park."
+          - "Ana came, and we were going to the park."
+          - "Ana came, so we went to the market."
+      - kind: mcq
+        id: l4-q-entoncesvscuandomientras
+        prompt: "Which one chains two finished events — 'then, so'?"
+        correct: "entonces"
+        distractors: ["cuando", "mientras", "de repente"]
+        atoms: ["entonces"]
+        why: "«entonces» links what happened next. «cuando» and «mientras» open a scene; «de repente» flags a surprise interruption, not a plain next step."
+      - kind: listenBuildLit
+        id: l4-lb-hablamosentoncesfuimosescuela
+        es: "hablamos con Sam, entonces fuimos a la escuela"
+        en: "We talked with Sam, so we went to school"
+        atoms: ["hablamos", "entonces", "fuimos", "escuela"]
+        tiles: ["hablábamos", "íbamos"]
+      - kind: agreementLit
+        id: l4-agr-vientoncesfueron
+        en: "I saw them, so they went to the beach"
+        audioText: "yo los vi, entonces fueron a la playa"
+        atoms: ["entonces", "vi", "fueron"]
+        segments:
+          - { text: "yo los " }
+          - { blank: { id: "p1", answer: "vi", options: ["vi", "veía"] } }
+          - { text: ", entonces " }
+          - { blank: { id: "p2", answer: "fueron", options: ["fueron", "iban"] } }
+          - { text: " a la playa" }
+      - kind: audioWimcq
+        id: l4-ear-parque
+        target: { surface: "el parque", emoji: "🌳" }
+        distractors:
+          - { surface: "la tienda", emoji: "🏪" }
+          - { surface: "el mercado", emoji: "🛒" }
+      - kind: textMcq
+        id: l4-tm-entonces
+        target: "entonces"
+        distractors: ["cuando", "mientras", "de repente"]
+      - kind: speakLit
+        id: l4-sp-recall-veiamospeliculaderepentevino
+        es: "veíamos una película, y de repente vino Sofía"
+        en: "We were watching a movie, and suddenly Sofía came"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l4-sim-ana-entonces
+        scene: { emoji: "🌳", title: "Ana asks what happened next", setting: "Ana wants to know what you all did after Diego showed up." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Qué pasó cuando vino Diego?", audioText: "¿qué pasó cuando vino diego?", gloss: "What happened when Diego came?" }
+            goal: "Say Diego came, so you went there"
+            reply:
+              mode: build
+              tiles: ["vino", "Diego,", "entonces", "fuimos", "al", "parque", "viene", "íbamos"]
+              answer: "vino Diego, entonces fuimos al parque"
+            replyGloss: "Diego came, so we went to the park."
+            explanation: "«vino» is the first finished event; «entonces» chains it to «fuimos», the next one. «viene» slips into now; «íbamos» would make it a repeated habit, not a one-time trip."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Hablaste con él en el parque?", audioText: "¿hablaste con él en el parque?", gloss: "Did you talk with him at the park?" }
+            goal: "Say yes, you talked with him."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, hablé con él" }
+                - { id: "wrong1", text: "sí, hablaba con él" }
+                - { id: "wrong2", text: "sí, hablo con él" }
+              correctOptionId: "right"
+              audioText: "sí, hablé con él"
+            replyGloss: "Yes, I talked with him."
+            explanation: "«hablé» is the one bounded conversation. «hablaba» would make it an ongoing scene; «hablo» slips into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y entonces? ¿Vieron a Sam también?", audioText: "¿y entonces? ¿vieron a sam también?", gloss: "And then? Did you all see Sam too?" }
+            goal: "Say yes, you saw him too."
+            reply:
+              mode: build
+              tiles: ["sí,", "lo", "vimos", "también", "veíamos", "vi"]
+              answer: "sí, lo vimos también"
+            replyGloss: "Yes, we saw him too."
+            explanation: "«vimos» — the we-form preterite: the one sighting. «veíamos» would make it an ongoing habit; «vi» would drop back to just I."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "entonces", target: "then, so" }
+          - { source: "vino", target: "he/she/you came" }
+          - { source: "fuimos", target: "we went" }
+          - { source: "hablé", target: "I talked" }
+          - { source: "el parque", target: "the park" }
+          - { source: "la escuela", target: "the school" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "de repente vino Diego, entonces fuimos al parque"
+        en: "Suddenly Diego came, so we went to the park"
+        atoms: ["de repente", "vino", "entonces", "fuimos"]

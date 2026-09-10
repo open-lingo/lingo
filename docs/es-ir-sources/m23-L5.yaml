@@ -1,0 +1,152 @@
+  # ── L5 · «Todos, cuando y mientras» — ZERO new atoms. Pure recombination:
+  #    «todos» takes the 3rd-plural ending in BOTH tenses (fueron/iban), and
+  #    «cuando»/«mientras» recombine freely with it. Builds directly toward
+  #    the win line's fue/era-adjacent pairing («fueron»/«iba») ahead of L6's
+  #    dedicated disambiguation lesson. ≥1 recall (table floor).
+  - n: 5
+    template: free
+    title: "Todos, cuando y mientras"
+    description: "«todos» — everyone — always takes the they-ending, in both tenses: «fueron», «iban». «cuando» and «mientras» recombine with it freely."
+    steps:
+      - kind: map
+        id: l5-map-cuandotodosfueronplayaibaparque
+        tokens: ["cuando", "todos", "fueron", "a", "la", "playa,", "yo", "iba", "al", "parque"]
+        pairs:
+          - { en: "when", tokenIndex: 0 }
+          - { en: "everyone", tokenIndex: 1 }
+          - { en: "went", tokenIndex: 2 }
+          - { en: "to", tokenIndex: 3 }
+          - { en: "the", tokenIndex: 4 }
+          - { en: "beach,", tokenIndex: 5 }
+          - { en: "I", tokenIndex: 6 }
+          - { en: "was going", tokenIndex: 7 }
+          - { en: "to the", tokenIndex: 8 }
+          - { en: "park", tokenIndex: 9 }
+        audioText: "cuando todos fueron a la playa, yo iba al parque"
+        revealNote: "«todos» takes the they-ending in both tenses: «fueron» here, the one bounded trip. «iba» is your own ongoing habit it lands inside."
+      - kind: info
+        id: l5-info-todosagreement
+        title: "Todos — always the they-ending"
+        body: "«todos» (everyone) always takes the they-ending, whichever tense: preterite «fueron», imperfect «iban». «Cuando todos fueron a la playa, yo iba al parque» — fueron is their one trip; iba is your ongoing habit."
+      - kind: speakLit
+        id: l5-sp-cuandotodosfueronplayaibaparque
+        es: "cuando todos fueron a la playa, yo iba al parque"
+        en: "When everyone went to the beach, I was going to the park"
+        atoms: ["cuando", "fueron", "iba", "todos"]
+      - kind: buildLit
+        id: l5-b-mientrastodosveianhablabas
+        es: "mientras todos veían la película, tú hablabas con Sofía"
+        en: "While everyone was watching the movie, you were talking with Sofía"
+        atoms: ["mientras", "veían", "hablabas", "todos"]
+        tiles: ["ven", "hablas"]
+      - kind: speakLit
+        id: l5-sp-cuandotodosibanescuelayo
+        es: "cuando todos iban a la escuela, yo hablaba con Ana"
+        en: "When everyone was going to school, I was talking with Ana"
+        atoms: ["cuando", "iban", "hablaba", "todos"]
+      - kind: clozeLit
+        id: l5-c-mientrastodosfueronmercadoyoveia
+        es: "mientras yo veía la tienda, todos fueron al mercado"
+        en: "While I was watching the store, everyone went to the market"
+        blank: "fueron"
+        options: ["fueron", "iban"]
+        atoms: ["mientras", "fueron", "veía", "todos"]
+        why: "«todos» takes the they-ending: «fueron», the one bounded trip. «iban» would make it a repeated habit."
+      - kind: listenCompLit
+        id: l5-lc-cuandotodoshablabanvinosam
+        es: "cuando todos hablaban, vino Sam"
+        en: "When everyone was talking, Sam came."
+        atoms: ["cuando", "hablaban", "vino", "todos"]
+        distractorsEn:
+          - "When everyone talks, Sam comes."
+          - "When everyone was talking, Sam left."
+          - "When everyone talked, Sam was coming."
+      - kind: mcq
+        id: l5-q-todosending
+        prompt: "'Everyone went to the beach' — which verb ending does «todos» take?"
+        correct: "fueron"
+        distractors: ["fue", "fui", "va"]
+        atoms: ["todos", "fueron"]
+        why: "«todos» is a they-subject, so it always takes the they-ending: «fueron». «fue»/«fui» drop the agreement; «va» is present."
+      - kind: listenBuildLit
+        id: l5-lb-mientrastodosfueronescuelavinodiego
+        es: "mientras todos fueron a la escuela, vino Diego"
+        en: "While everyone went to school, Diego came"
+        atoms: ["mientras", "fueron", "vino", "todos", "escuela"]
+        tiles: ["iban", "viene"]
+      - kind: agreementLit
+        id: l5-agr-todosibancuandofueron
+        en: "Everyone was going to the party when I went too"
+        audioText: "todos iban a la fiesta cuando yo fui también"
+        atoms: ["cuando", "iban", "fui", "todos"]
+        segments:
+          - { text: "todos " }
+          - { blank: { id: "p1", answer: "iban", options: ["iban", "iba"] } }
+          - { text: " a la fiesta cuando yo " }
+          - { blank: { id: "p2", answer: "fui", options: ["fui", "fue"] } }
+          - { text: " también" }
+      - kind: audioWimcq
+        id: l5-ear-playa
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la fiesta", emoji: "🎉" }
+      - kind: textMcq
+        id: l5-tm-todos
+        target: "todos"
+        distractors: ["cuando", "mientras", "entonces"]
+      - kind: speakLit
+        id: l5-sp-recall-derepentevinodiegoentoncesfuimos
+        es: "de repente vino Diego, entonces fuimos al parque"
+        en: "Suddenly Diego came, so we went to the park"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l5-sim-ana-todos
+        scene: { emoji: "🏖️", title: "Ana asks about the group trip", setting: "Ana wants to know what everyone did during the beach trip." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Adónde iban todos cuando fuiste a la playa?", audioText: "¿adónde iban todos cuando fuiste a la playa?", gloss: "Where was everyone going when you went to the beach?" }
+            goal: "Say everyone was going to the park."
+            reply:
+              mode: build
+              tiles: ["todos", "iban", "al", "parque", "va", "fueron"]
+              answer: "todos iban al parque"
+            replyGloss: "Everyone was going to the park."
+            explanation: "«todos» takes the they-ending: «iban», the ongoing habit. «va» drops both the they-agreement and the past; «fueron» would make it one bounded trip, not a habit."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tú? ¿Fuiste con ellos?", audioText: "¿y tú? ¿fuiste con ellos?", gloss: "And you? Did you go with them?" }
+            goal: "Say yes, you went with them."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, fui con ellos" }
+                - { id: "wrong1", text: "sí, iba con ellos" }
+                - { id: "wrong2", text: "sí, voy con ellos" }
+              correctOptionId: "right"
+              audioText: "sí, fui con ellos"
+            replyGloss: "Yes, I went with them."
+            explanation: "«fui» — the one bounded trip, your own I-ending. «iba» would make it repeated; «voy» slips into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Hablaban todos mientras caminaban?", audioText: "¿hablaban todos mientras caminaban?", gloss: "Were they all talking while they walked?" }
+            goal: "Say yes, they were talking."
+            reply:
+              mode: build
+              tiles: ["sí,", "hablaban", "hablan", "hablaron"]
+              answer: "sí, hablaban"
+            replyGloss: "Yes, they were talking."
+            explanation: "«todos» stays the they-ending in the ongoing scene too: «hablaban». «hablan» slips into now; «hablaron» would make it one bounded burst, not the scene."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "todos", target: "everyone" }
+          - { source: "fueron", target: "they went" }
+          - { source: "iban", target: "they used to go" }
+          - { source: "iba", target: "I/he/she/you used to go" }
+          - { source: "la playa", target: "the beach" }
+          - { source: "el mercado", target: "the market" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "cuando todos fueron a la playa, yo iba al parque"
+        en: "When everyone went to the beach, I was going to the park"
+        atoms: ["cuando", "fueron", "iba", "todos"]

@@ -1,0 +1,148 @@
+  # ── L3 · «De repente» — «de repente» debuts: suddenly, marks the preterite
+  #    clause as an INTERRUPTION into an ongoing (imperfect) scene — sharper
+  #    than a plain «cuando», which can read as merely sequential. Invariable,
+  #    two-word atom (owns "de"/"repente" the way "de niño" does). ZERO new
+  #    verb morphology. ≥1 recall this lesson (table floor): recalls L2.
+  - n: 3
+    template: free
+    title: "De repente"
+    description: "«de repente» — suddenly — marks the moment something just happened, breaking into an ongoing scene. Sharper than «cuando»: it says the event was a surprise, not just a next step."
+    steps:
+      - kind: map
+        id: l3-map-veiamospeliculaderepentevinosofia
+        tokens: ["veíamos", "una", "película,", "y", "de repente", "vino", "Sofía"]
+        pairs:
+          - { en: "we were watching", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "movie,", tokenIndex: 2 }
+          - { en: "and", tokenIndex: 3 }
+          - { en: "suddenly", tokenIndex: 4 }
+          - { en: "came", tokenIndex: 5 }
+          - { en: "Sofía", tokenIndex: 6 }
+        audioText: "veíamos una película, y de repente vino Sofía"
+        revealNote: "«de repente» — suddenly — is new: it flags the clause where something just happened, breaking into the ongoing scene «veíamos»."
+      - kind: info
+        id: l3-info-derepenteinterrupcion
+        title: "De repente — suddenly, breaking into the scene"
+        body: "«de repente» means suddenly — it marks the clause where something just happened, breaking into an ongoing scene. «veíamos una película, y de repente vino Sofía» — veíamos is the scene; de repente flags that vino is the interruption."
+      - kind: speakLit
+        id: l3-sp-veiamospeliculaderepentevinosofia
+        es: "veíamos una película, y de repente vino Sofía"
+        en: "We were watching a movie, and suddenly Sofía came"
+        atoms: ["veíamos", "de repente", "vino", "película"]
+      - kind: buildLit
+        id: l3-b-hablabamosparquederepentevinodiego
+        es: "hablábamos en el parque, y de repente vino Diego"
+        en: "We were talking in the park, and suddenly Diego came"
+        atoms: ["hablábamos", "de repente", "vino", "parque"]
+        tiles: ["habla", "viene"]
+      - kind: speakLit
+        id: l3-sp-derepenteviCarmentienda
+        es: "de repente, vi a Carmen en la tienda"
+        en: "Suddenly, I saw Carmen at the store"
+        atoms: ["de repente", "vi", "tienda"]
+      - kind: clozeLit
+        id: l3-c-hablabaanaderepentevinoluis
+        es: "yo hablaba con Ana, y de repente vino Luis"
+        en: "I was talking with Ana, and suddenly Luis came"
+        blank: "vino"
+        options: ["vino", "viene"]
+        atoms: ["de repente", "hablaba", "vino"]
+        why: "«de repente» flags the interruption — the verb it pairs with is the one bounded event: «vino». «viene» slips into now."
+      - kind: listenCompLit
+        id: l3-lc-todoshablabanderepentevinosam
+        es: "todos hablaban, y de repente vino Sam"
+        en: "Everyone was talking, and suddenly Sam came."
+        atoms: ["de repente", "vino", "hablaban", "todos"]
+        distractorsEn:
+          - "Everyone talks, and suddenly Sam comes."
+          - "Everyone was talking, and then Sam came."
+          - "Everyone was talking, and suddenly Sam left."
+      - kind: mcq
+        id: l3-q-derepentevsentoncesmientras
+        prompt: "Which one means 'suddenly' — breaking into a scene?"
+        correct: "de repente"
+        distractors: ["entonces", "mientras", "cuando"]
+        atoms: ["de repente"]
+        why: "«de repente» flags an interruption. «entonces» chains a next step; «mientras» frames simultaneity; «cuando» is a plainer «when»."
+      - kind: listenBuildLit
+        id: l3-lb-todoshablabanfiestaderepentevinoana
+        es: "todos hablaban en la fiesta, y de repente vino Ana"
+        en: "Everyone was talking at the party, and suddenly Ana came"
+        atoms: ["hablaban", "de repente", "vino", "todos", "fiesta"]
+        tiles: ["habla", "viene"]
+      - kind: agreementLit
+        id: l3-agr-veiaderepentevino
+        en: "I was watching, and suddenly she came"
+        audioText: "yo veía, y de repente ella vino"
+        atoms: ["de repente", "veía", "vino"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "veía", options: ["veía", "veo"] } }
+          - { text: ", y de repente ella " }
+          - { blank: { id: "p2", answer: "vino", options: ["vino", "viene"] } }
+      - kind: audioWimcq
+        id: l3-ear-tienda
+        target: { surface: "la tienda", emoji: "🏪" }
+        distractors:
+          - { surface: "el mercado", emoji: "🛒" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: textMcq
+        id: l3-tm-derepente
+        target: "de repente"
+        distractors: ["entonces", "mientras", "cuando"]
+      - kind: speakLit
+        id: l3-sp-recall-mientrashablabamosvino
+        es: "mientras hablábamos, vino Diego"
+        en: "While we were talking, Diego came"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l3-sim-ana-derepente
+        scene: { emoji: "🎬", title: "Ana asks about the movie night", setting: "Ana wants to know what happened while everyone was watching the movie." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Qué pasó mientras veían la película?", audioText: "¿qué pasó mientras veían la película?", gloss: "What happened while you all were watching the movie?" }
+            goal: "Say suddenly, Sofía came."
+            reply:
+              mode: build
+              tiles: ["de", "repente,", "vino", "Sofía", "viene", "vinieron"]
+              answer: "de repente, vino Sofía"
+            replyGloss: "Suddenly, Sofía came."
+            explanation: "«de repente» flags the surprise break-in; «vino» is the one event. «viene» slips into now."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Hablaban ustedes cuando ella vino?", audioText: "¿hablaban ustedes cuando ella vino?", gloss: "Were you all talking when she came?" }
+            goal: "Say yes, you were talking."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, hablábamos" }
+                - { id: "wrong1", text: "sí, hablan" }
+                - { id: "wrong2", text: "sí, hablaban" }
+              correctOptionId: "right"
+              audioText: "sí, hablábamos"
+            replyGloss: "Yes, we were talking."
+            explanation: "Answering as we: «hablábamos» — the accented nosotros imperfect. «hablan» slips into now; «hablaban» would be them, not you-and-I."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y Diego? ¿Vino él también de repente?", audioText: "¿y diego? ¿vino él también de repente?", gloss: "And Diego? Did he also come suddenly?" }
+            goal: "Say yes, he came suddenly too."
+            reply:
+              mode: build
+              tiles: ["sí,", "de", "repente", "vino", "él", "también", "viene"]
+              answer: "sí, de repente vino él también"
+            replyGloss: "Yes, suddenly he came too."
+            explanation: "«de repente» plus «vino» — the same interruption shape, now for Diego."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "de repente", target: "suddenly" }
+          - { source: "veíamos", target: "we were watching" }
+          - { source: "hablábamos", target: "we were talking" }
+          - { source: "vino", target: "he/she/you came" }
+          - { source: "la tienda", target: "the store" }
+          - { source: "la película", target: "the movie" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "veíamos una película, y de repente vino Sofía"
+        en: "We were watching a movie, and suddenly Sofía came"
+        atoms: ["veíamos", "de repente", "vino", "película"]

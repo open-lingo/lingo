@@ -1,0 +1,141 @@
+  # ── L2 · «Mientras hablábamos» — «mientras» debuts: while, frames
+  #    SIMULTANEITY. Two shapes taught: imperfect-imperfect (two ongoing
+  #    scenes at once, «mientras yo hablaba, tú veías la película») and
+  #    imperfect + a preterite event landing inside it (the win line,
+  #    «mientras hablábamos, vino Diego» — same shape as L1's core pattern).
+  #    ZERO new verb morphology. No recall required this lesson (table).
+  - n: 2
+    template: free
+    title: "Mientras hablábamos"
+    description: "«mientras» — while — is the second connective: it frames two things happening at once, whether that's two ongoing scenes together, or one event breaking into an ongoing scene."
+    steps:
+      - kind: map
+        id: l2-map-mientrashablabamosvinodiego
+        tokens: ["mientras", "hablábamos,", "vino", "Diego"]
+        pairs:
+          - { en: "while", tokenIndex: 0 }
+          - { en: "we were talking,", tokenIndex: 1 }
+          - { en: "came", tokenIndex: 2 }
+          - { en: "Diego", tokenIndex: 3 }
+        audioText: "mientras hablábamos, vino Diego"
+        revealNote: "«mientras» — while — is new: it frames two things at once. «hablábamos» is the ongoing scene; «vino» is the one thing that broke into it."
+      - kind: info
+        id: l2-info-mientrasalavez
+        title: "Mientras — while, at the same time"
+        body: "«mientras» means while — it frames two things happening at once. Most often it joins two ongoing scenes, both imperfect: «mientras yo hablaba, tú veías la película». Or it frames one event landing inside an ongoing scene: «mientras hablábamos, vino Diego» — hablábamos is the scene, vino is what happened."
+      - kind: speakLit
+        id: l2-sp-mientrashablabamosvinodiego
+        es: "mientras hablábamos, vino Diego"
+        en: "While we were talking, Diego came"
+        atoms: ["mientras", "hablábamos", "vino"]
+      - kind: buildLit
+        id: l2-b-mientrashablabaveias
+        es: "mientras yo hablaba, tú veías la película"
+        en: "While I was talking, you were watching the movie"
+        atoms: ["mientras", "hablaba", "veías", "película"]
+        tiles: ["hablo", "ves"]
+      - kind: speakLit
+        id: l2-sp-mientrasibaescuelavisofia
+        es: "mientras iba a la escuela, vi a Sofía"
+        en: "While I was going to school, I saw Sofía"
+        atoms: ["mientras", "iba", "vi", "escuela"]
+      - kind: clozeLit
+        id: l2-c-mientrastodoshablabanvinosam
+        es: "mientras todos hablaban, Sam vino a la fiesta"
+        en: "While everyone was talking, Sam came to the party"
+        blank: "mientras"
+        options: ["mientras", "cuando"]
+        atoms: ["mientras", "hablaban", "vino", "todos"]
+        why: "«mientras» frames the talking and Sam's arrival as happening at once. «cuando» is a plainer «when», losing the at-the-same-time flavor."
+      - kind: listenCompLit
+        id: l2-lc-mientrasveiamoshablosofia
+        es: "mientras veíamos la película, Sofía habló con Ana"
+        en: "While we were watching the movie, Sofía talked with Ana."
+        atoms: ["mientras", "veíamos", "habló", "película"]
+        distractorsEn:
+          - "While we watch the movie, Sofía talks with Ana."
+          - "While they were watching the movie, Sofía talked with Ana."
+          - "While we were watching the movie, Sofía talked with Diego."
+      - kind: mcq
+        id: l2-q-mientrasvscuandoentonces
+        prompt: "Which one means 'while' — two things at once?"
+        correct: "mientras"
+        distractors: ["cuando", "entonces", "¿cuándo?"]
+        atoms: ["mientras"]
+        why: "«mientras» frames simultaneity. «cuando» is a plainer «when»; «entonces» chains what happens next; «¿cuándo?» only ever asks."
+      - kind: listenBuildLit
+        id: l2-lb-mientrastodosveianvinocarmen
+        es: "mientras todos veían la película, vino Carmen"
+        en: "While everyone was watching the movie, Carmen came"
+        atoms: ["mientras", "veían", "vino", "todos", "película"]
+        tiles: ["ven", "vienen"]
+      - kind: agreementLit
+        id: l2-agr-mientrashablabaveia
+        en: "While I was talking, he was watching too"
+        audioText: "mientras yo hablaba, él veía también"
+        atoms: ["mientras", "hablaba", "veía"]
+        segments:
+          - { text: "mientras yo " }
+          - { blank: { id: "p1", answer: "hablaba", options: ["hablaba", "hablo"] } }
+          - { text: ", él " }
+          - { blank: { id: "p2", answer: "veía", options: ["veía", "ve"] } }
+          - { text: " también" }
+      - kind: audioWimcq
+        id: l2-ear-fiesta
+        target: { surface: "la fiesta", emoji: "🎉" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "el parque", emoji: "🌳" }
+      - kind: textMcq
+        id: l2-tm-mientras
+        target: "mientras"
+        distractors: ["cuando", "entonces", "¿cuándo?"]
+      - kind: sim
+        id: l2-sim-ana-mientras
+        scene: { emoji: "🗣️", title: "Ana asks what happened", setting: "Ana wants to know what was going on while everyone was talking." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Qué pasó mientras hablaban ustedes?", audioText: "¿qué pasó mientras hablaban ustedes?", gloss: "What happened while you all were talking?" }
+            goal: "Say Diego came while you talked."
+            reply:
+              mode: build
+              tiles: ["mientras", "hablábamos,", "vino", "Diego", "viene", "hablamos"]
+              answer: "mientras hablábamos, vino Diego"
+            replyGloss: "While we were talking, Diego came."
+            explanation: "«hablábamos» is the ongoing scene; «vino» is the one thing that broke into it. «viene» would slip into now."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Veían la película mientras yo hablaba?", audioText: "¿veían la película mientras yo hablaba?", gloss: "Were you watching the movie while I was talking?" }
+            goal: "Say yes, you were watching it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, veíamos mientras hablabas" }
+                - { id: "wrong1", text: "sí, veíamos mientras hablas" }
+                - { id: "wrong2", text: "sí, vimos mientras hablabas" }
+              correctOptionId: "right"
+              audioText: "sí, veíamos mientras hablabas"
+            replyGloss: "Yes, we were watching while you were talking."
+            explanation: "Both ongoing at once: «veíamos»/«hablabas», both imperfect. «hablas» slips into now; «vimos» would make the watching one bounded event, not the scene."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y Sofía? ¿Vino ella también mientras hablaban?", audioText: "¿y sofía? ¿vino ella también mientras hablaban?", gloss: "And Sofía? Did she also come while you all were talking?" }
+            goal: "Say yes, she came while you talked."
+            reply:
+              mode: build
+              tiles: ["sí,", "vino", "mientras", "hablábamos", "viene", "habló"]
+              answer: "sí, vino mientras hablábamos"
+            replyGloss: "Yes, she came while we were talking."
+            explanation: "«vino» is the one event; «hablábamos» is the ongoing scene it landed in. «viene» would slip into now."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "mientras", target: "while" }
+          - { source: "hablábamos", target: "we were talking" }
+          - { source: "veíamos", target: "we were watching" }
+          - { source: "vino", target: "he/she/you came" }
+          - { source: "la fiesta", target: "the party" }
+          - { source: "la película", target: "the movie" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "mientras hablábamos, vino Diego"
+        en: "While we were talking, Diego came"
+        atoms: ["mientras", "hablábamos", "vino"]

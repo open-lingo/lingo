@@ -1,0 +1,173 @@
+  # ── L10 · MASTERY — zero new atoms, zero info cards, every step graded.
+  #    Longest sim in the module (Ana asks the whole group to narrate a
+  #    memory, 5 turns) — the module's law that the mastery lesson must END
+  #    on the sim (§13.9 law 7, confirmed generic/code-enforced via
+  #    doctrinePins.ts — this is a deliberate departure from the brief's
+  #    general "every lesson ends sim → matchLit → -sp-win speakLit" wording,
+  #    which m22/m21's own L10s also depart from) means the verbatim closing
+  #    win line is delivered as the sim's final (5th) turn reply, not a
+  #    separate speakLit step; matchLit sits just before the sim instead of
+  #    after it. ≥2 recalls (L9, L1 — full-circle back to the very first
+  #    win). Context: «de niños» (plural), «juntos», «siempre», all already
+  #    demonstrated safe in earlier m23/m22 lessons. Every sim turn from L6
+  #    on (this included) carries ≥1 imperfect and ≥1 preterite form across
+  #    NPC lines + reply tiles/options combined.
+  - n: 10
+    template: free
+    title: "De niños, íbamos juntos"
+    description: "Everything from this module, one last time, fully graded — all four connectives, fue/era/iba, and «todos», all working together."
+    steps:
+      - kind: buildLit
+        id: l10-b-deninosibamosescuelacuandovino
+        es: "de niños, íbamos a la escuela juntos, cuando vino Sofía"
+        en: "As children, we used to go to school together, when Sofía came"
+        atoms: ["de niño", "íbamos", "cuando", "vino", "escuela", "juntos"]
+        tiles: ["iban", "viene"]
+      - kind: listenBuildLit
+        id: l10-lb-mientrasibamosderepentevinodiego
+        es: "mientras íbamos a la escuela, de repente vino Diego"
+        en: "While we were going to school, suddenly Diego came"
+        atoms: ["mientras", "íbamos", "de repente", "vino", "escuela"]
+        tiles: ["iban", "viene"]
+      - kind: clozeLit
+        id: l10-c-entoncestodosfueronparque
+        es: "entonces todos fueron al parque"
+        en: "So everyone went to the park"
+        blank: "fueron"
+        options: ["fueron", "iban"]
+        atoms: ["entonces", "fueron", "todos", "parque"]
+        why: "«entonces» chains the next bounded event, and «todos» keeps the they-ending: «fueron». «iban» would make it a repeated habit, not the one trip."
+      - kind: mcq
+        id: l10-q-todosending
+        prompt: "'Everyone came suddenly' — which one?"
+        correct: "de repente vinieron todos"
+        distractors: ["de repente venían todos", "entonces vinieron todos", "de repente vino todos"]
+        atoms: ["de repente", "vinieron", "todos"]
+        why: "«de repente» flags the surprise, and «todos» takes the they-ending: «vinieron». «venían» would make it repeated; «entonces» would chain a next step, not a surprise; «vino» drops the they-agreement."
+      - kind: agreementLit
+        id: l10-agr-ibamoscuandofuimos
+        en: "We were going to the beach when we went to the park"
+        audioText: "íbamos a la playa cuando fuimos al parque"
+        atoms: ["cuando", "íbamos", "fuimos"]
+        segments:
+          - { blank: { id: "p1", answer: "íbamos", options: ["íbamos", "fuimos"] } }
+          - { text: " a la playa cuando " }
+          - { blank: { id: "p2", answer: "fuimos", options: ["fuimos", "íbamos"] } }
+          - { text: " al parque" }
+      # Printed non-recall at L9 (es-m23-9-l9-sp-win).
+      - kind: speakLit
+        id: l10-sp-recall-ibaescuelavisamhablesofia
+        es: "cuando iba a la escuela, vi a Sam, y hablé con Sofía"
+        en: "When I was going to school, I saw Sam, and I talked with Sofía"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l10-tm-fueron
+        target: "fueron"
+        distractors: ["iban", "fuimos", "van"]
+      - kind: audioWimcq
+        id: l10-ear-parque
+        target: { surface: "el parque", emoji: "🌳" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "el cine", emoji: "🎬" }
+      - kind: buildLit
+        id: l10-b-fiestafuebuenacuandotodosveian
+        es: "la fiesta fue muy buena, cuando todos veían la película"
+        en: "The party was very good, when everyone was watching the movie"
+        atoms: ["cuando", "fue", "veían", "fiesta", "bueno", "todos", "película"]
+        tiles: ["era", "vieron"]
+      - kind: listenBuildLit
+        id: l10-lb-derepentevinoluisentonceshablamos
+        es: "de repente vino Luis, entonces hablamos mucho"
+        en: "Suddenly Luis came, so we talked a lot"
+        atoms: ["de repente", "vino", "entonces", "hablamos", "mucho"]
+        tiles: ["viene", "hablábamos"]
+      - kind: clozeLit
+        id: l10-c-eramosninoscuandoibamos
+        es: "éramos niños cuando íbamos a la escuela juntos"
+        en: "We were children when we used to go to school together"
+        blank: "éramos"
+        options: ["éramos", "eran"]
+        atoms: ["cuando", "éramos", "íbamos", "escuela", "juntos"]
+        why: "We, the group, the ongoing scene: «éramos» — the accented nosotros ser form. «eran» would leave you out."
+      - kind: mcq
+        id: l10-q-vinieron
+        prompt: "Which one means 'they came' — the group?"
+        correct: "vinieron"
+        distractors: ["venían", "vino", "vienen"]
+        atoms: ["vinieron"]
+        why: "«vinieron» — the they-preterite, one bounded arrival. «venían» would make it repeated; «vino» drops the they-agreement; «vienen» slips into now."
+      # Printed non-recall at L1 (es-m23-1-l1-sp-win).
+      - kind: speakLit
+        id: l10-sp-recall-cuandoerafuimexico
+        es: "cuando era niño, fui a méxico"
+        en: "When I was a child, I went to Mexico"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l10-tm-ibamos
+        target: "íbamos"
+        distractors: ["iban", "fuimos", "vamos"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "cuando", target: "when" }
+          - { source: "mientras", target: "while" }
+          - { source: "de repente", target: "suddenly" }
+          - { source: "entonces", target: "then, so" }
+          - { source: "íbamos", target: "we used to go" }
+          - { source: "de niños", target: "as children" }
+      - kind: sim
+        id: l10-sim-ana-grupo
+        scene: { emoji: "👨‍👩‍👧‍👦", title: "Ana asks for the whole memory", setting: "Ana wants to hear the whole group's memory, start to finish, in one telling." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Iban todos a la escuela juntos?", audioText: "¿iban todos a la escuela juntos?", gloss: "Did everyone use to go to school together?" }
+            goal: "Say yes, you were all going together."
+            reply:
+              mode: build
+              tiles: ["sí,", "íbamos", "juntos", "iban", "fuimos"]
+              answer: "sí, íbamos juntos"
+            replyGloss: "Yes, we were going together."
+            explanation: "The whole group, you included: «íbamos» — the accented nosotros form. «iban» would leave you out; «fuimos» would make it one bounded trip, not the ongoing habit."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y qué pasó un día, de repente?", audioText: "¿y qué pasó un día, de repente?", gloss: "And what happened one day, suddenly?" }
+            goal: "Say Sofía came suddenly, while you talked."
+            reply:
+              mode: build
+              tiles: ["de", "repente,", "vino", "Sofía", "mientras", "hablábamos", "viene"]
+              answer: "de repente, vino Sofía mientras hablábamos"
+            replyGloss: "Suddenly, Sofía came while we were talking."
+            explanation: "«de repente» flags the surprise break-in; «vino» is the one bounded event landing inside «hablábamos», the ongoing scene. «viene» slips into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Entonces qué hicieron todos?", audioText: "¿entonces qué hicieron todos?", gloss: "So what did everyone do then?" }
+            goal: "Say then everyone went to the park."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "entonces fueron todos al parque" }
+                - { id: "wrong1", text: "entonces iban todos al parque" }
+                - { id: "wrong2", text: "mientras fueron todos al parque" }
+              correctOptionId: "right"
+              audioText: "entonces fueron todos al parque"
+            replyGloss: "Then everyone went to the park."
+            explanation: "«entonces» chains the next bounded event, and «todos» keeps the they-ending: «fueron», the one trip. «iban» would make it repeated; «mientras» would claim simultaneity, not sequence."
+          - id: t4
+            npc: { speaker: "Ana", es: "¿Hablaban ustedes mientras caminaban?", audioText: "¿hablaban ustedes mientras caminaban?", gloss: "Were you all talking while you walked?" }
+            goal: "Say yes, you were always talking a lot."
+            reply:
+              mode: build
+              tiles: ["sí,", "siempre", "hablábamos", "mucho", "hablaban", "hablamos"]
+              answer: "sí, siempre hablábamos mucho"
+            replyGloss: "Yes, we were always talking a lot."
+            explanation: "You and the group, the ongoing scene: «hablábamos» — the accented nosotros imperfect. «hablaban» would leave you out; «hablamos» would collapse into the ambiguous preterite/present surface."
+          - id: t5
+            npc: { speaker: "Ana", es: "Cuéntamelo todo, de principio a fin.", audioText: "cuéntamelo todo, de principio a fin.", gloss: "Tell me the whole thing, start to finish." }
+            goal: "Narrate the whole memory, start to finish."
+            reply:
+              mode: build
+              tiles: ["de", "niños,", "íbamos", "a", "la", "escuela", "juntos", "cuando,", "de", "repente,", "vino", "Sofía,", "y", "entonces", "todos", "fueron", "al", "parque", "iban", "vino"]
+              answer: "de niños, íbamos a la escuela juntos cuando, de repente, vino Sofía, y entonces todos fueron al parque"
+            replyGloss: "As children, we used to go to school together when, suddenly, Sofía came, and then everyone went to the park."
+            explanation: "The whole module in one line: «íbamos» paints the ongoing scene; «vino» is the one surprise event inside it; «fueron», with «todos», is what happened next. Every connective, both tenses, doing their own job."

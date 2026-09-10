@@ -1,0 +1,148 @@
+  # ── L7 · «¿Qué veías cuando…?» — ZERO new atoms. Questions and negation,
+  #    both tenses, inside cuando/mientras clauses. Builds toward the win
+  #    line's negated preterite («no vi a Diego») paired with an imperfect
+  #    clause («mientras hablaba con Sofía»). ≥1 recall (table floor).
+  - n: 7
+    template: free
+    title: "¿Qué veías cuando...?"
+    description: "Questions and negation work the same way inside a two-clause sentence — each verb still picks its own job, scene or event, question or not."
+    steps:
+      - kind: map
+        id: l7-map-novidiegomientrashablabasofia
+        tokens: ["no", "vi", "a", "Diego,", "mientras", "hablaba", "con", "Sofía"]
+        pairs:
+          - { en: "I didn't", tokenIndex: 0 }
+          - { en: "see", tokenIndex: 1 }
+          - { en: "", tokenIndex: 2 }
+          - { en: "Diego,", tokenIndex: 3 }
+          - { en: "while", tokenIndex: 4 }
+          - { en: "I was talking", tokenIndex: 5 }
+          - { en: "with", tokenIndex: 6 }
+          - { en: "Sofía", tokenIndex: 7 }
+        audioText: "no vi a Diego, mientras hablaba con Sofía"
+        revealNote: "Negation just adds «no» in front — the tense choice doesn't change. «vi» is still the one bounded event (a miss, this time); «hablaba» is still the ongoing scene."
+      - kind: info
+        id: l7-info-negacionpreguntas
+        title: "No, and questions — same tense logic"
+        body: "Negation just adds «no» in front; the tense choice doesn't change. Questions work the same way too: «¿Qué veías cuando eras niño?» asks about the ongoing scene; «¿Vino Diego?» asks about the one event. «No vi a Diego, mientras hablaba con Sofía» — a miss, inside an ongoing scene."
+      - kind: speakLit
+        id: l7-sp-novidiegomientrashablabasofia
+        es: "no vi a Diego, mientras hablaba con Sofía"
+        en: "I didn't see Diego, while I was talking with Sofía"
+        atoms: ["mientras", "vi", "hablaba"]
+      - kind: buildLit
+        id: l7-b-quevefascuandoerasnino
+        es: "¿qué veías cuando eras niño?"
+        en: "What did you use to watch when you were a child?"
+        atoms: ["cuando", "veías", "eras"]
+        tiles: ["ves", "eres"]
+      - kind: speakLit
+        id: l7-sp-novinoanaentoncesnofuimos
+        es: "no vino Ana, entonces no fuimos a la fiesta"
+        en: "Ana didn't come, so we didn't go to the party"
+        atoms: ["entonces", "vino", "fuimos", "fiesta"]
+      - kind: clozeLit
+        id: l7-c-quehacianyodocuandohablabas
+        es: "ellos veían la película cuando tú hablabas con Ana"
+        en: "They were watching the movie when you were talking with Ana"
+        blank: "hablabas"
+        options: ["hablabas", "hablas"]
+        atoms: ["cuando", "veían", "hablabas"]
+        why: "The clause asks about the ongoing scene while it was happening: «hablabas», imperfect. «hablas» slips into now."
+      - kind: listenCompLit
+        id: l7-lc-novimosaluisenlaescuela
+        es: "no vimos a Luis en la escuela"
+        en: "We didn't see Luis at school."
+        atoms: ["vimos", "escuela"]
+        distractorsEn:
+          - "We don't see Luis at school."
+          - "We didn't see Luis at the market."
+          - "We weren't seeing Luis at school."
+      - kind: mcq
+        id: l7-q-whatwereyouwatching
+        prompt: "Which one means 'you used to watch' — the ongoing habit?"
+        correct: "veías"
+        distractors: ["viste", "ves", "vio"]
+        atoms: ["veías"]
+        why: "«veías» is the ongoing habit, imperfect. «viste» would make the watching one bounded event; «ves» slips into now; «vio» drops the you-agreement."
+      - kind: listenBuildLit
+        id: l7-lb-quehacianustedescuandofui
+        es: "¿qué veían ustedes cuando fui a la tienda?"
+        en: "What were you all watching when I went to the store?"
+        atoms: ["cuando", "fui", "veían", "tienda"]
+        tiles: ["iba", "ven"]
+      - kind: agreementLit
+        id: l7-agr-novinieronmientrashablabamos
+        en: "They didn't come while we were talking"
+        audioText: "no vinieron, mientras hablábamos"
+        atoms: ["mientras", "vinieron", "hablábamos"]
+        segments:
+          - { text: "no " }
+          - { blank: { id: "p1", answer: "vinieron", options: ["vinieron", "venían"] } }
+          - { text: ", mientras " }
+          - { blank: { id: "p2", answer: "hablábamos", options: ["hablábamos", "hablamos"] } }
+      - kind: audioWimcq
+        id: l7-ear-escuela-l7
+        target: { surface: "la escuela", emoji: "🏫" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la playa", emoji: "🏖️" }
+      - kind: textMcq
+        id: l7-tm-hablabas
+        target: "hablabas"
+        distractors: ["hablaste", "hablas", "habló"]
+      - kind: speakLit
+        id: l7-sp-recall-cuandoerafiestafuebuena
+        es: "cuando era niño, la fiesta fue muy buena"
+        en: "When I was a child, the party was very good"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l7-sim-ana-preguntas
+        scene: { emoji: "❓", title: "Ana asks what you were up to", setting: "Ana wants to know what you were watching, and whether Diego showed up." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Qué veías cuando eras niño?", audioText: "¿qué veías cuando eras niño?", gloss: "What did you use to watch when you were a child?" }
+            goal: "Say you didn't see Diego."
+            reply:
+              mode: build
+              tiles: ["no", "vi", "a", "Diego", "veo", "vi"]
+              answer: "no vi a Diego"
+            replyGloss: "I didn't see Diego."
+            explanation: "«no» plus the one bounded event: «vi», a miss. «veo» would slip into now."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Hablabas con Sofía cuando él vino?", audioText: "¿hablabas con sofía cuando él vino?", gloss: "Were you talking with Sofía when he came?" }
+            goal: "Say yes, you were talking with her."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, hablaba con ella" }
+                - { id: "wrong1", text: "sí, hablé con ella" }
+                - { id: "wrong2", text: "sí, hablo con ella" }
+              correctOptionId: "right"
+              audioText: "sí, hablaba con ella"
+            replyGloss: "Yes, I was talking with her."
+            explanation: "«hablaba» — the ongoing scene his arrival landed inside. «hablé» would make it one bounded burst; «hablo» slips into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Entonces no vino Diego, mientras todos hablaban?", audioText: "¿entonces no vino diego, mientras todos hablaban?", gloss: "So Diego didn't come, while everyone was talking?" }
+            goal: "Say no, he didn't come."
+            reply:
+              mode: build
+              tiles: ["no,", "no", "vino", "viene", "vinieron"]
+              answer: "no, no vino"
+            replyGloss: "No, he didn't come."
+            explanation: "«no vino» — negated one bounded event, the plain answer to a yes/no question about what happened. «hablaban» is the ongoing scene it would have landed inside."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "no vi", target: "I didn't see" }
+          - { source: "veías", target: "you used to watch" }
+          - { source: "hablaba", target: "I/he/she/you was talking" }
+          - { source: "vino", target: "he/she/you came" }
+          - { source: "la escuela", target: "the school" }
+          - { source: "la tienda", target: "the store" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "no vi a Diego, mientras hablaba con Sofía"
+        en: "I didn't see Diego, while I was talking with Sofía"
+        atoms: ["mientras", "vi", "hablaba"]

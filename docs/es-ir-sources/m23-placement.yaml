@@ -1,0 +1,23 @@
+placement:
+  screener:
+    - id: "es-m23-scr-1"
+      prompt: "'When I was a child, I went to Mexico.' — which one?"
+      correct: "cuando era niño, fui a méxico"
+      distractors: ["cuando soy niño, fui a méxico", "cuando era niño, iba a méxico", "cuando eran niño, fui a méxico"]
+  byModule:
+    - id: "es-m23-pl-1"
+      prompt: "While we were talking, Diego came."
+      correct: "mientras hablábamos, vino Diego"
+      distractors: ["mientras hablamos, vino Diego", "mientras hablábamos, viene Diego", "mientras hablaban, vino Diego"]
+    - id: "es-m23-pl-2"
+      prompt: "Suddenly Sofía came."
+      correct: "de repente vino Sofía"
+      distractors: ["entonces vino Sofía", "mientras vino Sofía", "de repente viene Sofía"]
+    - id: "es-m23-pl-3"
+      prompt: "Then we went to the park."
+      correct: "entonces fuimos al parque"
+      distractors: ["cuando fuimos al parque", "entonces vamos al parque", "entonces fue al parque"]
+    - id: "es-m23-pl-4"
+      prompt: "When everyone went to the beach, I was going to the park."
+      correct: "cuando todos fueron a la playa, yo iba al parque"
+      distractors: ["cuando todos iban a la playa, yo iba al parque", "cuando todos fueron a la playa, yo fui al parque", "cuando todo fue a la playa, yo iba al parque"]

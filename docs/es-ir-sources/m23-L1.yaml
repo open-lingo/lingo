@@ -1,0 +1,148 @@
+  # ── L1 · «Cuando era niño» — «cuando» debuts, the module's title word and
+  #    its first new atom. NO accent (never confuse with PRIOR m8 «¿cuándo?»,
+  #    the question form). Also carries the module's ONE general rule card:
+  #    two pasts share a sentence because they do different jobs — imperfect
+  #    paints the ongoing scene, preterite reports the one bounded thing that
+  #    happened inside it. «cuando» can introduce either clause (both
+  #    patterns are taught here: cuando+imperfect scene as a life-stage
+  #    frame — the win line itself — and cuando+preterite event landing in
+  #    an imperfect scene, the pattern later lessons lean on more). ZERO new
+  #    verb morphology: era/fui/iba/vino/vi/hablaba/hablábamos/fueron/hablaban
+  #    are all PRIOR (m19–m22). No recall (nothing earlier to recall).
+  - n: 1
+    template: free
+    title: "Cuando era niño"
+    description: "Two pasts can share a sentence — «cuando» (when) is the first word that connects them. One clause paints the ongoing scene; the other reports the one thing that happened."
+    steps:
+      - kind: map
+        id: l1-map-cuandoerafuimexico
+        tokens: ["cuando", "era", "niño,", "fui", "a", "méxico"]
+        pairs:
+          - { en: "when", tokenIndex: 0 }
+          - { en: "I was", tokenIndex: 1 }
+          - { en: "a child,", tokenIndex: 2 }
+          - { en: "I went", tokenIndex: 3 }
+          - { en: "to", tokenIndex: 4 }
+          - { en: "Mexico", tokenIndex: 5 }
+        audioText: "cuando era niño, fui a méxico"
+        revealNote: "«cuando» — when — is new: it connects two pasts that do different jobs. «era» paints the ongoing scene (I was a child); «fui» reports the one thing that happened (I went)."
+      - kind: info
+        id: l1-info-cuandodospasados
+        title: "Cuando — two pasts, two jobs"
+        body: "Two pasts, two jobs: the ongoing one is imperfect — the scene; the one thing that happened in it is preterite — the event. «cuando» (when, no accent) is the word that connects them — never confuse it with the question «¿cuándo?». «Cuando era niño, fui a México» — era sets the scene, fui is what happened."
+      - kind: speakLit
+        id: l1-sp-cuandoerafuimexico
+        es: "cuando era niño, fui a méxico"
+        en: "When I was a child, I went to Mexico"
+        atoms: ["cuando", "era", "fui"]
+      - kind: buildLit
+        id: l1-b-cuandovinodiegohablabamos
+        es: "cuando vino Diego, hablábamos en el parque"
+        en: "When Diego came, we were talking in the park"
+        atoms: ["cuando", "vino", "hablábamos", "parque"]
+        tiles: ["viene", "vinieron"]
+      - kind: speakLit
+        id: l1-sp-cuandoibaescuelavisam
+        es: "cuando iba a la escuela, vi a Sam"
+        en: "When I was going to school, I saw Sam"
+        atoms: ["cuando", "iba", "vi", "escuela"]
+      - kind: clozeLit
+        id: l1-c-cuandovinodiegohablaba
+        es: "cuando vino Diego, yo hablaba con Ana"
+        en: "When Diego came, I was talking with Ana"
+        blank: "cuando"
+        options: ["cuando", "¿cuándo?"]
+        atoms: ["cuando", "vino", "hablaba"]
+        why: "«cuando» (no accent) just connects — it isn't asking anything. «¿cuándo?» only ever asks a question."
+      - kind: listenCompLit
+        id: l1-lc-cuandoerabuenoescuela
+        es: "cuando era niño, era muy bueno en la escuela"
+        en: "When I was a child, I was very good at school."
+        atoms: ["cuando", "era", "bueno", "escuela"]
+        distractorsEn:
+          - "When I am a child, I am very good at school."
+          - "When he was a child, he was very good at school."
+          - "When I was a child, I was very good at home."
+      - kind: mcq
+        id: l1-q-cuandovscuestion
+        prompt: "Which one means 'when' as a connector — never a question?"
+        correct: "cuando"
+        distractors: ["¿cuándo?", "mientras", "entonces"]
+        atoms: ["cuando"]
+        why: "«cuando» (no accent) connects two clauses. «¿cuándo?» (accented) only ever asks. «mientras»/«entonces» are this module's other connectives — different jobs."
+      - kind: listenBuildLit
+        id: l1-lb-cuandotodosfueronhablaban
+        es: "cuando todos fueron al mercado, hablaban de la fiesta"
+        en: "When everyone went to the market, they were talking about the party"
+        atoms: ["cuando", "fueron", "hablaban", "todos"]
+        tiles: ["van", "habla"]
+      - kind: agreementLit
+        id: l1-agr-cuandoibaiban
+        en: "When I used to go to the park, they used to go too"
+        audioText: "cuando yo iba al parque, ellos iban también"
+        atoms: ["cuando", "iba", "iban"]
+        segments:
+          - { text: "cuando yo " }
+          - { blank: { id: "p1", answer: "iba", options: ["iba", "iban"] } }
+          - { text: " al parque, ellos " }
+          - { blank: { id: "p2", answer: "iban", options: ["iban", "iba"] } }
+          - { text: " también" }
+      - kind: audioWimcq
+        id: l1-ear-mercado
+        target: { surface: "el mercado", emoji: "🛒" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: textMcq
+        id: l1-tm-cuando
+        target: "cuando"
+        distractors: ["¿cuándo?", "mientras", "entonces"]
+      - kind: sim
+        id: l1-sim-ana-cuando
+        scene: { emoji: "🕰️", title: "Ana asks about back then", setting: "Ana wants to hear what happened when you were growing up." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Adónde ibas cuando eras niño?", audioText: "¿adónde ibas cuando eras niño?", gloss: "Where were you going when you were a child?" }
+            goal: "Say you went to Mexico as a child."
+            reply:
+              mode: build
+              tiles: ["cuando", "era", "niño,", "fui", "a", "méxico", "soy", "iba"]
+              answer: "cuando era niño, fui a méxico"
+            replyGloss: "When I was a child, I went to Mexico."
+            explanation: "«era» sets the scene — a child, ongoing; «fui» is the one trip that happened. «soy» would slip into now; «iba» would make the trip repeated, not a one-time event."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego? ¿Vino cuando hablabas con él?", audioText: "¿y diego? ¿vino cuando hablabas con él?", gloss: "And Diego? Did he come while you were talking with him?" }
+            goal: "Say yes, he came when you were talking."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, vino cuando yo hablaba" }
+                - { id: "wrong1", text: "sí, viene cuando yo hablaba" }
+                - { id: "wrong2", text: "sí, vino cuando yo hablo" }
+              correctOptionId: "right"
+              audioText: "sí, vino cuando yo hablaba"
+            replyGloss: "Yes, he came when I was talking."
+            explanation: "«vino» is the one thing that happened, inside the ongoing scene «hablaba». «viene» and «hablo» both slip into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Fueron todos a la playa alguna vez?", audioText: "¿fueron todos a la playa alguna vez?", gloss: "Did everyone go to the beach once?" }
+            goal: "Say yes, you were going to the park."
+            reply:
+              mode: build
+              tiles: ["sí,", "cuando", "fueron,", "yo", "iba", "al", "parque", "fue", "iban"]
+              answer: "sí, cuando fueron, yo iba al parque"
+            replyGloss: "Yes, when they went, I was going to the park."
+            explanation: "«todos» takes the they-ending: «fueron», the one bounded trip. Your own «iba» is the ongoing habit it lands inside."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "cuando", target: "when" }
+          - { source: "era", target: "I/he/she/you was, the scene" }
+          - { source: "fui", target: "I went/was, the event" }
+          - { source: "iba", target: "I/he/she/you used to go" }
+          - { source: "vino", target: "he/she/you came" }
+          - { source: "el mercado", target: "the market" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "cuando era niño, fui a méxico"
+        en: "When I was a child, I went to Mexico"
+        atoms: ["cuando", "era", "fui"]

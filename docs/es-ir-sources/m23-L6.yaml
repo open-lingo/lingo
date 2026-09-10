@@ -1,0 +1,150 @@
+  # ── L6 · «Fue o era» — THE dedicated fue/era/iba disambiguation lesson.
+  #    ZERO new atoms. «fue» = the one bounded event (ser preterite OR ir
+  #    preterite — both collapse to the same form); «era» = the ongoing
+  #    scene (ser imperfect); «iba» = the ongoing scene (ir imperfect).
+  #    Every answer position pairing fue/era/iba carries disambiguating
+  #    context per the header's collision warning. ≥1 recall (table floor).
+  - n: 6
+    template: free
+    title: "Fue o era"
+    description: "«fue» is the one bounded event — it can mean was (ser) or went (ir). «era» is the ongoing scene — always was. «iba» is the ongoing scene — always was going. Context tells them apart."
+    steps:
+      - kind: map
+        id: l6-map-cuandoerafiestafuebuena
+        tokens: ["cuando", "era", "niño,", "la", "fiesta", "fue", "muy", "buena"]
+        pairs:
+          - { en: "when", tokenIndex: 0 }
+          - { en: "I was", tokenIndex: 1 }
+          - { en: "a child,", tokenIndex: 2 }
+          - { en: "the", tokenIndex: 3 }
+          - { en: "party", tokenIndex: 4 }
+          - { en: "was", tokenIndex: 5 }
+          - { en: "very", tokenIndex: 6 }
+          - { en: "good", tokenIndex: 7 }
+        audioText: "cuando era niño, la fiesta fue muy buena"
+        revealNote: "Two different jobs: «era» paints the ongoing scene (being a child); «fue» reports the one bounded thing — how the party turned out."
+      - kind: info
+        id: l6-info-fueeraiba
+        title: "Fue, era, iba — three shapes, one collision"
+        body: "«fue» is the one bounded event — it can mean was (from ser) or went (from ir); context tells them apart. «era» is the ongoing scene, always was (ser). «iba» is the ongoing scene, always was going (ir). «La fiesta fue muy buena» — one verdict, bounded. «Cuando era niño» — an ongoing state."
+      - kind: speakLit
+        id: l6-sp-cuandoerafiestafuebuena
+        es: "cuando era niño, la fiesta fue muy buena"
+        en: "When I was a child, the party was very good"
+        atoms: ["cuando", "era", "fue", "fiesta", "bueno"]
+      - kind: buildLit
+        id: l6-b-fuiplayaeramuybuena
+        es: "fui a la playa, y la fiesta era muy buena"
+        en: "I went to the beach, and the party was very good"
+        atoms: ["fui", "era", "playa", "bueno"]
+        tiles: ["voy", "es"]
+      - kind: speakLit
+        id: l6-sp-cuandoibaescuelaerabueno
+        es: "cuando iba a la escuela, era muy bueno"
+        en: "When I was going to school, I was very good"
+        atoms: ["cuando", "iba", "era", "bueno", "escuela"]
+      - kind: clozeLit
+        id: l6-c-lafiestafuebuenacuandovinodiego
+        es: "la fiesta fue buena, cuando vino Diego"
+        en: "The party was good, when Diego came"
+        blank: "fue"
+        options: ["fue", "era"]
+        atoms: ["fue", "vino"]
+        why: "«fue» reports the one bounded verdict — how the party turned out. «era» would make it an ongoing description with no endpoint."
+      - kind: listenCompLit
+        id: l6-lc-diegofuebuenoenlaescuela
+        es: "Diego fue muy bueno en la escuela"
+        en: "Diego was very good at school."
+        atoms: ["fue", "bueno", "escuela"]
+        distractorsEn:
+          - "Diego is very good at school."
+          - "Diego was going to school very well."
+          - "Diego was very good at home."
+      - kind: mcq
+        id: l6-q-fuevseraiba
+        prompt: "Which one reports the one bounded verdict — how something turned out?"
+        correct: "fue"
+        distractors: ["era", "iba", "fui"]
+        atoms: ["fue"]
+        why: "«fue» reports the bounded verdict — how it turned out. «era» would make it an ongoing description; «iba» never pairs with an adjective this way; «fui» is the I-form, not the it-form."
+      - kind: listenBuildLit
+        id: l6-lb-todosfueronbuenosenlaescuela
+        es: "todos fueron muy buenos en la escuela"
+        en: "Everyone was very good at school"
+        atoms: ["fueron", "bueno", "todos", "escuela"]
+        tiles: ["eran", "iban"]
+      - kind: agreementLit
+        id: l6-agr-eraninosfueronplaya
+        en: "We were children when we went to the beach"
+        audioText: "éramos niños cuando fuimos a la playa"
+        atoms: ["cuando", "fuimos", "éramos"]
+        segments:
+          - { blank: { id: "p1", answer: "éramos", options: ["éramos", "fuimos"] } }
+          - { text: " niños cuando " }
+          - { blank: { id: "p2", answer: "fuimos", options: ["fuimos", "íbamos"] } }
+          - { text: " a la playa" }
+      - kind: audioWimcq
+        id: l6-ear-fiesta-l6
+        target: { surface: "la fiesta", emoji: "🎉" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el mercado", emoji: "🛒" }
+      - kind: textMcq
+        id: l6-tm-fue
+        target: "fue"
+        distractors: ["era", "iba", "fui"]
+      - kind: speakLit
+        id: l6-sp-recall-cuandotodosfueronplayaiba
+        es: "cuando todos fueron a la playa, yo iba al parque"
+        en: "When everyone went to the beach, I was going to the park"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l6-sim-ana-fueera
+        scene: { emoji: "🎉", title: "Ana asks how the party went", setting: "Ana wants the verdict on the party, and what things were like back then." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Cómo fue la fiesta?", audioText: "¿cómo fue la fiesta?", gloss: "How was the party?" }
+            goal: "Say the party was very good."
+            reply:
+              mode: build
+              tiles: ["la", "fiesta", "fue", "muy", "buena", "era"]
+              answer: "la fiesta fue muy buena"
+            replyGloss: "The party was very good."
+            explanation: "«fue» reports the one bounded verdict — how it turned out. «era» would make it an ongoing description, no endpoint."
+          - id: t2
+            npc: { speaker: "Ana", es: "Cuando eras niño, ¿ibas mucho a fiestas?", audioText: "cuando eras niño, ¿ibas mucho a fiestas?", gloss: "When you were a child, did you go to parties a lot?" }
+            goal: "Say yes, you were going a lot."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, iba mucho" }
+                - { id: "wrong1", text: "sí, fui mucho" }
+                - { id: "wrong2", text: "sí, era mucho" }
+              correctOptionId: "right"
+              audioText: "sí, iba mucho"
+            replyGloss: "Yes, I was going a lot."
+            explanation: "«iba» — the ongoing habit, always was going. «fui» would make it one bounded trip; «era» never pairs with going, only with was."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y esta fiesta? ¿Fuiste con Diego?", audioText: "¿y esta fiesta? ¿fuiste con diego?", gloss: "And this party? Did you go with Diego?" }
+            goal: "Say yes, you went with him."
+            reply:
+              mode: build
+              tiles: ["sí,", "fui", "con", "él", "iba", "era"]
+              answer: "sí, fui con él"
+            replyGloss: "Yes, I went with him."
+            explanation: "«fui» here means went (from ir) — the one bounded trip. Same shape as «fue», different person; context (con él, a place) always tells was from went."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "fue", target: "was / went, one bounded event" }
+          - { source: "era", target: "was, the ongoing scene" }
+          - { source: "iba", target: "was going, the ongoing scene" }
+          - { source: "fui", target: "I was / I went, one bounded event" }
+          - { source: "la fiesta", target: "the party" }
+          - { source: "bueno", target: "good" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "cuando era niño, la fiesta fue muy buena"
+        en: "When I was a child, the party was very good"
+        atoms: ["cuando", "era", "fue", "fiesta", "bueno"]

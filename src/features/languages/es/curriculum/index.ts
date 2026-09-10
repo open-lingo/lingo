@@ -33,6 +33,7 @@ import { ES_M19_LESSONS } from "./m19";
 import { ES_M20_LESSONS } from "./m20";
 import { ES_M21_LESSONS } from "./m21";
 import { ES_M22_LESSONS } from "./m22";
+import { ES_M23_LESSONS } from "./m23";
 
 export type EsModuleMeta = {
   id: string;
@@ -190,7 +191,14 @@ export const ES_MODULE_META: EsModuleMeta[] = [
     eyebrow: "Module 22 · El imperfecto",
     summary: "a past tense for things that kept happening or were just true — and for the first time, «I» and «he, she, you» say it with the exact same word.",
     accent: { from: "#818cf8", to: "#3730a3" },
+  },  {
+    id: "m23",
+    title: "Cuando, mientras, de repente",
+    eyebrow: "Module 23 · Pretérito vs. imperfecto",
+    summary: "two pasts finally share a sentence — «cuando», «mientras», «de repente», and «entonces» say which clause is the ongoing scene and which is the one moment that happened inside it.",
+    accent: { from: "#ef4444", to: "#991b1b" },
   },
+
 
 
 
@@ -222,6 +230,7 @@ const LESSONS_BY_MODULE: Record<string, LessonContent[]> = {
   m20: ES_M20_LESSONS,
   m21: ES_M21_LESSONS,
   m22: ES_M22_LESSONS,
+  m23: ES_M23_LESSONS,
 };
 
 /** Flat lesson list for the shared LESSONS content index (mockLessons.ts). */
