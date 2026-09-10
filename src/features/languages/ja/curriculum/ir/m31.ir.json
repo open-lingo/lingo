@@ -1645,11 +1645,12 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "ともだちに プレゼントを あげる。",
-          "en": "I'll give my friend a present",
+          "ja": "カードを かくから ともだちに プレゼントを あげる。",
+          "en": "I'll write a card, so I'll give my friend a present",
           "exercises": [
             "ageru",
-            "ni-recipient"
+            "ni-recipient",
+            "kara-because"
           ],
           "mode": "build"
         },
@@ -1675,11 +1676,12 @@
         },
         {
           "kind": "sentence",
-          "ja": "ともだちから おみやげを もらう。",
-          "en": "I get a souvenir from my friend",
+          "ja": "いそぐから ともだちから おみやげを もらう。",
+          "en": "I'm in a hurry, so I get a souvenir from my friend",
           "exercises": [
             "kara-origin",
-            "morau"
+            "morau",
+            "kara-because"
           ],
           "mode": "build"
         },
@@ -1708,11 +1710,12 @@
         },
         {
           "kind": "sentence",
-          "ja": "かいしゃから きねんの とけいを もらう。",
-          "en": "I get a commemorative watch from the company",
+          "ja": "はたらくから かいしゃから きねんの とけいを もらう。",
+          "en": "Because I work, I get a commemorative watch from the company",
           "exercises": [
             "kara-origin",
-            "no-possession"
+            "no-possession",
+            "kara-because"
           ],
           "mode": "build"
         },
@@ -1776,11 +1779,12 @@
         },
         {
           "kind": "sentence",
-          "ja": "たんじょうびに ちちに とけいを もらう。",
-          "en": "I get a watch from my father on my birthday",
+          "ja": "プレゼントを かう まえに たんじょうびに ちちに とけいを もらう。",
+          "en": "Before buying a present, I get a watch from my father for my birthday",
           "exercises": [
             "morau",
-            "ni-time"
+            "ni-time",
+            "mae-ni"
           ],
           "mode": "build"
         },
