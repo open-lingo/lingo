@@ -200,10 +200,6 @@
         {
           "ja": "いそがしくても てつだう。",
           "en": "Even though I'm busy, I'll help."
-        },
-        {
-          "ja": "じゅうぶんだ。",
-          "en": "That's enough."
         }
       ],
       "antiPattern": {
@@ -759,8 +755,8 @@
             },
             {
               "speaker": "Ken",
-              "ja": "むりしないでね。",
-              "en": "Don't overdo it, okay."
+              "ja": "むりだよ。",
+              "en": "That's unreasonable, you know."
             }
           ],
           "questions": [
@@ -1581,7 +1577,7 @@
         "いえ",
         "あめ",
         "ケーキ",
-        "カフェ",
+        "レストラン",
         "がっこう",
         "しごと"
       ]
@@ -1657,7 +1653,7 @@
           "lines": [
             {
               "speaker": "Mika",
-              "ja": "あの みせ しってる？",
+              "ja": "あの みせ しっている？",
               "en": "Do you know that shop?"
             },
             {
@@ -2034,8 +2030,8 @@
             {
               "npc": {
                 "speaker": "Ken",
-                "ja": "つかれてるのに、いくの？",
-                "en": "You're tired, and yet you're going?"
+                "ja": "つかれたのに、いくの？",
+                "en": "You got tired, and yet you're going?"
               },
               "goal": "Concede you're tired, but will go anyway.",
               "reply": {
@@ -2054,7 +2050,7 @@
             {
               "npc": {
                 "speaker": "Ken",
-                "ja": "なんで いくの？",
+                "ja": "どうして いくの？",
                 "en": "Why are you going?"
               },
               "goal": "List reasons: it's cheap, and what's more it's convenient.",

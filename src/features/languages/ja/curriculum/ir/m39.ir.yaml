@@ -200,7 +200,6 @@ grammarPoints:
       - { ja: "たかくても かう。", en: "Even if it's expensive, I'll buy it." }
       - { ja: "あめが ふっても いく。", en: "Even if it rains, I'll go." }
       - { ja: "いそがしくても てつだう。", en: "Even though I'm busy, I'll help." }
-      - { ja: "じゅうぶんだ。", en: "That's enough." }
     antiPattern: { ja: "たかいも かう。", why: "ても needs the て-form underneath it — たかい bends to たかくて first. Bare たかい plus も skips that step and isn't a word: たかくても かう。" }
   - id: demo-concession
     rule: "でも does for nouns and な-adjectives what ても does for verbs and い-adjectives: concession, 'even'. Attach で (the copula's connecting shape) plus も directly to the noun or な-adjective: 「がくせいでも わかる」 = even a student understands; 「ひまでも いかない」 = even though I'm free, I won't go. One warning, mechanical not semantic: this でも is NOT the sentence-starting でも you already know ('but', its own sentence). Same two kana, different job — that one opens a brand-new sentence; this one glues onto a word inside one clause."
@@ -335,7 +334,7 @@ lessons:
         lines:
           - { speaker: "Ken", ja: "だいじょうぶ？ ねつが あるんでしょう？", en: "Are you okay? You have a fever, don't you?" }
           - { speaker: "Tom", ja: "うん、でも ねつが あるのに がっこうに いった。", en: "Yeah, but even though I had a fever, I went to school." }
-          - { speaker: "Ken", ja: "むりしないでね。", en: "Don't overdo it, okay." }
+          - { speaker: "Ken", ja: "むりだよ。", en: "That's unreasonable, you know." }
         questions:
           - { q: "What did Tom do even though he had a fever?", options: ["He went to school", "He stayed home", "He saw a doctor", "He slept all day"], answer: "He went to school" }
       - { kind: challenge, ja: "ねつが あるのに がっこうに いったのは、むりだった。", en: "Going to school despite having a fever was unreasonable.", combines: [noni-concession, na-adj-present, ta-form], mode: build }
@@ -481,7 +480,7 @@ lessons:
         questions:
           - { q: "What does Mika say about the shop?", options: ["It's cheap and tasty", "It's expensive but tasty", "It's cheap but not tasty", "It's far away"], answer: "It's cheap and tasty" }
       - { kind: challenge, ja: "やすいし、べんりだから、かおうと おもう。", en: "It's cheap, and what's more it's convenient, so I think I'll buy it.", combines: [shi-listing, kara-because, to-omoimasu], mode: build }
-    reviewPool: [みせ, テスト, いえ, あめ, ケーキ, カフェ, がっこう, しごと]
+    reviewPool: [みせ, テスト, いえ, あめ, ケーキ, レストラン, がっこう, しごと]
 
   # ═══════════════════════════════════════════════════════════════════════
   - id: m39-neo-review-2
@@ -498,7 +497,7 @@ lessons:
       - { kind: sentence, ja: "きたないのに すきだ。", en: "It's dirty, and yet I like it.", exercises: [noni-concession], mode: listening }
       - kind: dialogue
         lines:
-          - { speaker: "Mika", ja: "あの みせ しってる？", en: "Do you know that shop?" }
+          - { speaker: "Mika", ja: "あの みせ しっている？", en: "Do you know that shop?" }
           - { speaker: "Tom", ja: "うん。やすいし、べんりだし、すきだよ。", en: "Yeah. It's cheap, and what's more it's convenient, so I like it." }
           - { speaker: "Mika", ja: "こんど いこう。", en: "Let's go next time." }
         questions:
@@ -561,12 +560,12 @@ lessons:
       - kind: sim
         scene: { emoji: "🏪", title: "The errand that won't wait", setting: "It's late and Ken is tired, but the shop closes soon." }
         turns:
-          - npc: { speaker: "Ken", ja: "つかれてるのに、いくの？", en: "You're tired, and yet you're going?" }
+          - npc: { speaker: "Ken", ja: "つかれたのに、いくの？", en: "You got tired, and yet you're going?" }
             goal: "Concede you're tired, but will go anyway."
             reply: { mode: build, tiles: ["つかれても", "いく", "つかれたから", "いかない"], answer: "つかれても いく。" }
             replyGloss: "Even though I'm tired, I'll go."
             explanation: "ても holds firm regardless of being tired — the trip doesn't change. つかれたから いかない would flip the whole plan into an excuse to stay home, the opposite commitment."
-          - npc: { speaker: "Ken", ja: "なんで いくの？", en: "Why are you going?" }
+          - npc: { speaker: "Ken", ja: "どうして いくの？", en: "Why are you going?" }
             goal: "List reasons: it's cheap, and what's more it's convenient."
             reply: { mode: build, tiles: ["やすいし", "べんりだし", "いく", "やすいから", "べんりだから"], answer: "やすいし、べんりだし、いく。" }
             replyGloss: "It's cheap, and what's more it's convenient, so I'll go."
