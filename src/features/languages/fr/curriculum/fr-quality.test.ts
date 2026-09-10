@@ -39,6 +39,7 @@ import { FR_M7_CHECKPOINT_INDEX } from "./m7";
 import { FR_M8_CHECKPOINT_INDEX } from "./m8";
 import { FR_M9_CHECKPOINT_INDEX } from "./m9";
 import { FR_M10_CHECKPOINT_INDEX } from "./m10";
+import { FR_M11_CHECKPOINT_INDEX } from "./m11";
 import { getFrCourseAtoms } from "../courseAtoms";
 import { isGradedStep } from "@/features/lesson/data/_stepPredicates";
 
@@ -60,6 +61,7 @@ const CHECKPOINT_INDEX: Record<string, number> = {
   m8: FR_M8_CHECKPOINT_INDEX,
   m9: FR_M9_CHECKPOINT_INDEX,
   m10: FR_M10_CHECKPOINT_INDEX,
+  m11: FR_M11_CHECKPOINT_INDEX,
 };
 
 const SELECTION_TYPES = new Set<LessonStep["type"]>([

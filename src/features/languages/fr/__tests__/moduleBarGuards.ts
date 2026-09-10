@@ -115,9 +115,21 @@ export function getFrRealFormLexicon(): Set<string> {
     // rightly keeps the clitic attached, so the elided token must be a
     // known word. Derive it through the ONE elision source rather than
     // registering elided duplicates as atoms.
+    // m11 (2026-09-10, the conjugation checkpoint) extends the same
+    // derivation to the other elidable clitic pronouns/particles — a
+    // vowel-onset VERB elides after «je» exactly as a vowel-onset NOUN
+    // elides after «le/la» («j'habite», not «je habite»), and the
+    // tokenizer keeps that clitic attached too. Only the single-letter
+    // clitics that actually precede a verb or noun in course content are
+    // derived here; this is a token-recognition fix, not new taught
+    // content — no new elision rule is introduced or exercised.
     if (elidesBefore(a)) {
       const first = frTokens(a.surface)[0];
-      if (first) lex.add(`l'${first}`);
+      if (first) {
+        for (const clitic of ["l", "j", "n", "m", "t", "s", "qu"]) {
+          lex.add(`${clitic}'${first}`);
+        }
+      }
     }
   }
   for (const w of FR_FUNCTION_WORDS) lex.add(w);
