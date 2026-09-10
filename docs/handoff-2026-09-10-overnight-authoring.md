@@ -192,3 +192,4 @@ fan-out; save small notes here after every step (auto-compaction is on).
 - 17:41 ES m34 brief committed (lexicon break: 5 place nouns, 0 emoji to vendor; corrects m33's false 'Carlos not allowed' claim). ES m34 author dispatching (m33 review landed).
 - 17:43 FR m23 review landed: 2 header/title fixes, no voiced text changed (no TTS). Gate gaps noted: title↔content correspondence, header-ledger prose drift. FR suite 1815/1. FR m24 author dispatches once the m24 brief lands.
 - 17:47 FR m24 brief committed (10 registrations, 3 emoji to vendor, fermé/fermée homophoneKey). FR m24 author dispatched.
+- 17:51 JA m44 review landed: 2 fixes (aspect of にる; untaught adnominal みたいな), 4 clips, ja manifest 15329. Dormant tokenizer landmines noted in dialogue lines only (からだ/だけど mis-splits) — follow-on. JA m45 author (causative) dispatched.
