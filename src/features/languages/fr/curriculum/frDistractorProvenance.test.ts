@@ -166,6 +166,7 @@ import { FR_M16_MODULE, FR_M16_PLACEMENT } from "./m16";
 import { FR_M17_MODULE, FR_M17_PLACEMENT } from "./m17";
 import { FR_M18_MODULE, FR_M18_PLACEMENT } from "./m18";
 import { FR_M19_MODULE, FR_M19_PLACEMENT } from "./m19";
+import { FR_M20_MODULE, FR_M20_PLACEMENT } from "./m20";
 
 // ─── Module inventory (m2–m19; m1 is not in range, matches frSimProvenance) ─
 
@@ -193,6 +194,7 @@ const MODULES: ReadonlyArray<{
   { id: "m17", n: 17, lessons: FR_M17_MODULE.lessons, placement: FR_M17_PLACEMENT },
   { id: "m18", n: 18, lessons: FR_M18_MODULE.lessons, placement: FR_M18_PLACEMENT },
   { id: "m19", n: 19, lessons: FR_M19_MODULE.lessons, placement: FR_M19_PLACEMENT },
+  { id: "m20", n: 20, lessons: FR_M20_MODULE.lessons, placement: FR_M20_PLACEMENT },
   // EVERY new FR module must be added here when it lands (coordinator checklist).
 ];
 
