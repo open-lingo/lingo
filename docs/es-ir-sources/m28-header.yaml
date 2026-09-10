@@ -1,0 +1,193 @@
+module: m28
+title: "Voy a nadar mañana"
+frame: none
+throughModule: m27
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m28 — the near future, «ir a + infinitivo». Tenth A2 module.
+#
+#     ir (infinitive, NEW)         "to go" — the dictionary form voy/vas/
+#                                  va/vamos/van have always shared, never
+#                                  itself registered.
+#     va (NEW)                    3rd-person present — grep-confirmed used
+#                                  ONLY as a distractor (m20/m22/m23),
+#                                  never as an atom or an answer.
+#
+# ONE idea, the whole module: PRIOR «voy»/«vas» (m9) and «vamos»/«van»
+# (m18) — until now only "I'm going / you're going [somewhere]" — take a
+# bare infinitive instead of a place and become "I'm going to / you're
+# going to [verb]," the periphrastic near future. Two new atoms close the
+# «ir» paradigm (this module's own «va» plus the never-registered
+# infinitive «ir»); the entire infinitive complement slot is PRIOR
+# (bailar/cantar/estudiar/hablar/trabajar m10, comer/correr/escribir/
+# leer/vivir m11, comprar m12, cocinar/nadar/viajar m13, dormir m14,
+# salir/tener/ver/hacer m15) — the same "already met" condition m26's
+# header found in `conjugationTables.ts`.
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# Four lines of evidence:
+#   1. **The «ir»-infinitive follow-on is the oldest open, named,
+#      unaddressed item in the course, and it has been recorded THREE
+#      times without being resolved.** `docs/handoff-2026-09-10-overnight-
+#      authoring.md`'s 08:06 entry first named it (ES m24 COMMITTED: "'ir'
+#      infinitive is used as text in m11–m24 but is not a live atom (SRS
+#      credit silently dropped)"); `m26-header.yaml` carried it forward as
+#      a live warning; `m27-header.yaml`'s REJECTED ALTERNATIVE 2 named it
+#      again and explicitly declined to file it as a module ("no
+#      ten-lesson content shape, no new idea for a learner to reason
+#      through, no checkpoint... stays open for whichever module next
+#      touches ir in a build/cloze answer position"). This module IS that
+#      module — it resolves the follow-on by embedding «ir» inside real
+#      grammar content (the near-future construction) instead of a bare
+#      registry edit, exactly the resolution m27's own header pointed at.
+#   2. **It is the correct interleave beat.** m25 (causal connectives,
+#      break) → m26 (imperfect wave 3) → m27 (vocab, break) → m28 must be
+#      neither ANOTHER break-in-kind (a second vocabulary module or a
+#      second connective set) nor a return to the imperfect mechanic — all
+#      three would repeat a mechanic from one of the last three modules.
+#      «ir a + infinitivo» is a genuinely NEW sentence-building capability
+#      (a new construction, not new vocabulary and not a new past tense),
+#      satisfying [[interleave-dont-block-teach]] at the module level the
+#      same way m25 did before it, but this time by advancing the course's
+#      grammar range instead of taking a break from it.
+#   3. **Verified data floor, and it exposes a live minor defect worth
+#      closing as a side effect.** Grep-verified (`grep -o 'surface:
+#      "[^"]*"' src/features/languages/es/curriculum/m{1..27}.ts | sort
+#      -u`): «ir» — zero atom hits, despite being used as unatomized
+#      filler text 15+ times in m24 alone (quería/podía + ir
+#      complementation) and confirmed by `m26-L10.yaml`'s own comment as
+#      "a deliberately un-atomized filler word course-wide." «va» — zero
+#      atom hits; direct grep of every `distractorsText`/`options`/`tiles`
+#      array shows «va» used as a FOIL five separate times (m20 ×3, m22
+#      ×2, m23 ×1) against «fue»/«iba»/«voy», never as a correct answer or
+#      a registered atom — the course has been silently relying on an
+#      unregistered word as bait. Registering «va» formally (this module's
+#      job either way) closes that gap too.
+#   4. **Structural readiness: this is not a new complementation shape,
+#      it's a new verb filling a shape the course already has.** «quería
+#      ir»/«podía ir» (m24, modal + bare-infinitive complement) already
+#      works exactly like «voy a + infinitivo» will: a conjugated verb
+#      followed by an untouched infinitive. The only new mechanic is that
+#      the conjugated verb this time is «ir» itself, in the present tense,
+#      with the fixed linking «a» (a genuine periphrastic-future marker,
+#      not the "to [place]" «a» — see the ambiguity section below). Zero
+#      table work needed (`conjugationTables.ts:195-200` already carries
+#      the full ir-present paradigm including «va»); zero new complement
+#      vocabulary needed (18 PRIOR bare infinitives are ready, see above).
+#
+# ── REJECTED ALTERNATIVE 1: object pronouns (lo/la/los/las, me/te/le) ─────
+# Real, high-value A2 content, and a live open item (never mentioned in
+# m21–m27's own headers as "next," but a natural next grammar unit).
+# Rejected for m28 specifically, not forever: object-pronoun placement is
+# a genuinely NEW mechanic with no PRIOR shape to lean on (pre-verbal
+# before a single conjugated verb, but post-infinitive-attached when a
+# modal/near-future construction is present — "lo voy a comprar" vs "voy a
+# comprarlo," both correct) — exactly the kind of two-position rule this
+# course has never taught. Loading that onto a bare module with no
+# existing complement-taking construction to anchor the contrast against
+# would be harder to reason through than doing it AFTER m28 gives the
+# course a second verb (ir a + infinitivo, alongside querer/poder +
+# infinitivo) to place a pronoun against — a natural, well-motivated L9
+# contrast lesson for THAT future module ("lo voy a comprar" vs "voy a
+# comprarlo"). Named here explicitly as the strongest m29 candidate, not
+# manufactured in m28.
+#
+# ── REJECTED ALTERNATIVE 2: a second lexicon module (house vocabulary) ────
+# `m27-header.yaml`'s own "WHICH SEVEN WORDS" section already ruled out
+# clothing (PRIOR since m12/m16), food (PRIOR since m7/m11/m13), and body
+# parts (partially PRIOR since m17) as candidate domains — house
+# vocabulary is the one clean lexical gap left. Rejected for m28 anyway:
+# stacking a SECOND zero-new-grammar vocabulary module directly behind
+# m27 would be the identical same-mechanic-in-consecutive-modules pattern
+# m27's own header ruled out for a fourth imperfect wave, just one module
+# category over — and it would leave the course's sentence-building range
+# stalled for 20 straight lessons (ten of vocabulary, ten more of
+# vocabulary) with no new construction in between. This is an interleave
+# rejection, not a content-readiness one — house vocabulary remains fully
+# viable and is named here as a future module, the same courtesy m27 gave
+# seasons.
+#
+# ── REJECTED ALTERNATIVE 3: a third consolidation/narration module ────────
+# `m25-header.yaml`'s REJECTED ALTERNATIVE 2 rejected this once;
+# `m27-header.yaml`'s REJECTED ALTERNATIVE 3 rejected it again, on the
+# same ground both times: no backlog signal supports a whole module of
+# pure review (m19–m27 being unwalked is Spencer's own QA debt, not a
+# content gap a new module closes), and this course's consolidation
+# precedent has only ever been a single LESSON inside a content module
+# (m22-L9, m24-L9, m26-L9, and now this module's own L9), never a
+# module-sized unit. Naming it a third time does not change the
+# reasoning — not attempted.
+#
+# ── REJECTED ALTERNATIVE 4: register «ir» alone, as a one-line fix ────────
+# This is literally the alternative `m27-header.yaml` already rejected
+# about itself ("no ten-lesson content shape... stays open for whichever
+# module next touches ir"). Registering «ir» with no surrounding
+# construction would manufacture a lesson's worth of drilling around a
+# bookkeeping fix — the exact inversion `m27-header.yaml` warned against.
+# m28 resolves the SAME follow-on by giving «ir» (and «va») a real
+# grammatical job — this is the module that follow-on was always waiting
+# for, not a fifth deferral of it.
+#
+# ── THE «voy a» AMBIGUITY, NAMED EXPLICITLY: TWO STRUCTURES, ONE SURFACE ──
+# «voy a la playa» (PRIOR, m9) is "a" as the destination preposition
+# ("to") — a NOUN/place follows. «voy a nadar» (this module) is "a" as
+# the fixed periphrastic-future linking word — a bare INFINITIVE follows.
+# Same three characters, same verb «voy», two different structures decided
+# entirely by what comes next. NOT a homograph in the word-sense the
+# course usually flags (no lexical ambiguity — a native listener resolves
+# it instantly from the next word) but a genuine SYNTACTIC ambiguity risk
+# for a beginner course: drafting agents must never claim these "are the
+# same thing," and every sentence in this module must make the
+# noun-vs-infinitive distinction unambiguous from context (this is
+# exactly hard rule 6 below, and the reason for L9).
+#
+# ── THE «voy a ir» CAUTION (not banned, but named) ────────────────────────
+# «voy a ir a la fiesta» ("I'm going to go to the party") is grammatical
+# and, once both structures are well established, a legitimate flex of
+# the module's own idea — but it is also the single most likely
+# confusion point for a learner meeting «voy a + infinitivo» for the
+# first time ("wait, ir AND voy are both here?"). Not gated, but reserve
+# it for L10 (mastery) only, after every earlier lesson has drilled «voy
+# a + [a DIFFERENT verb's infinitive]» cleanly — never use «voy a ir» in
+# L1–L9.
+#
+# ── NO NEW EMOJI, NO NEW IMAGEABLE VOCABULARY (deliberate, matches
+# precedent) ────────────────────────────────────────────────────────────
+# Both new atoms are grammar/verb-morphology words (an infinitive and a
+# bare conjugated form), not concrete nouns — the identical category
+# `hacía`/`estaba` (m24) and `nublado` (m27) already fall into per the
+# authoring guide's §13.1 rubric ("blocked/abstract verbs... keep
+# build/LC intro," extended here to grammar-function verbs generally: no
+# PRIOR verb-morphology atom in this course — voy/vas/vamos/van included
+# — carries an emoji). This is a deliberate return to zero-new-emoji after
+# m27 broke a seven-module streak — NOT a repeat of that gap, since m27
+# already closed it; m28 is simply a grammar module, the category that
+# was never expected to carry vocab-card art in the first place.
+#
+# ── ACCENT: FRESH COLOUR — "GO" GREEN, VERIFIED UNUSED, THEMATIC ─────────
+# Checked every `accent:` pair in `curriculum/index.ts` (grep-verified:
+# zero hits for `#22c55e` and `#15803d`) against all 27 modules' pairs.
+# Green already appears three times in the course (m4-ish `#10b981`→
+# `#059669`, `#34d399`→`#047857`, `#2dd4bf`→`#0f766e`/`#115e59`) but never
+# at these exact values — and green-for-"go" is the obvious, load-bearing
+# thematic fit for a near-future/movement module built on «ir». `#22c55e`
+# reads distinctly from all three PRIOR greens at a glance (more saturated,
+# closer to true "traffic-light green" than any of the teal-leaning
+# PRIOR trio).
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # ir — the infinitive "to go." Never registered despite being the
+  # dictionary form of PRIOR voy/vas (m9) and vamos/van (m18), and despite
+  # 15+ unatomized uses as a filler complement after quería/podía (m24).
+  # No emoji — grammar/verb-morphology atom, same category as hacía/
+  # estaba (m24) and nublado (m27); no PRIOR verb-morphology atom in this
+  # course carries an emoji.
+  - { surface: "ir", meaningEn: "to go", partOfSpeech: "verb", kind: "vocab", hint: "ir — the infinitive behind voy/vas (m9) and vamos/van (m18). «voy a + [infinitive]» reuses this whole family for the near future." }
+  # va — 3rd-person singular present. Grep-confirmed used as a distractor
+  # only (m20, m22, m23) against fue/iba/voy — never a registered atom,
+  # never an answer. Completes the present-tense paradigm PRIOR voy/vas/
+  # vamos/van (m9/m18) left one person short.
+  - { surface: "va", meaningEn: "he/she/it goes, is going / (usted) you go", partOfSpeech: "verb", kind: "vocab", hint: "va — the missing 3rd-person present of ir; voy/vas (m9) and vamos/van (m18) already carry the rest. Never confuse with «iba» (imperfect, m22) or «fue» (preterite, m19–m21) — different tense, different word." }
+
+lessons:
