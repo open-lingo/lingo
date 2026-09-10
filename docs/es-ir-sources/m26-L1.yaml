@@ -92,7 +92,7 @@
           - { text: " también" }
       - kind: listenBuildLit
         id: l1-lb-samluisvivianmexico
-        es: "Sam y Luis vivían en México de niños"
+        es: "Sam y Luis vivían en México de niño"
         en: "Sam and Luis used to live in Mexico as children"
         atoms: ["vivían", "México", "de niño"]
         tiles: ["vivíamos", "vivía"]

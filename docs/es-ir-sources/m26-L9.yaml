@@ -79,7 +79,7 @@
         es: "hoy comemos en casa, pero de niño comíamos en el restaurante"
         en: "Today we eat at home, but as a child we used to eat at the restaurant"
         atoms: ["comemos", "casa", "de niño", "comíamos", "restaurante"]
-        tiles: ["comíais", "comían"]
+        tiles: ["comía", "comían"]
       - kind: audioWimcq
         id: l9-ear-cine
         target: { surface: "el cine", emoji: "🎬" }
