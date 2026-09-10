@@ -643,19 +643,19 @@ lessons:
       # THREE verbs. It used to drill あげる and くれる only, because もらう was
       # still two lessons away — N-way contrast belongs exactly here, on review
       # (RUN-PLAN standing decision 5).
-      - { kind: sentence, ja: "カードを かくから ともだちに プレゼントを あげる。", en: "I'll write a card, so I'll give my friend a present", exercises: [ageru, ni-recipient, kara-because], mode: build }
+      - { kind: sentence, ja: "パーティーに つく とき ともだちに プレゼントを あげる。", en: "When I arrive at the party, I give my friend a present", exercises: [ageru, ni-recipient, toki], mode: build }
       - { kind: sentence, ja: "ともだちが プレゼントを くれる。", en: "My friend gives me a present", exercises: [kureru, ga-existence], mode: build }
       - { kind: sentence, ja: "せんせいに じしょを もらう。", en: "I get a dictionary from the teacher", exercises: [morau, ni-recipient], mode: listening }
-      - { kind: sentence, ja: "いそぐから ともだちから おみやげを もらう。", en: "I'm in a hurry, so I get a souvenir from my friend", exercises: [kara-origin, morau, kara-because], mode: build }
+      - { kind: sentence, ja: "しごとが あるけど ともだちから プレゼントを もらう。", en: "Even though I have work, I get a present from my friend", exercises: [kara-origin, morau, kedo], mode: build }
       - { kind: particle-cloze, stem: "ちちが おおきい とけいを ", tail: "。", answer: "くれる", options: ["くれる", "もらう", "あげる"], en: "My father gives me a big watch", explanation: "my father is marked が, so he is what the sentence is about and the watch comes to me — that is くれる. もらう would need ME as the subject and my father marked に." }
       - { kind: sentence, ja: "ははは せんせいに はなを あげる。", en: "My mother gives the teacher flowers", exercises: [ageru, family-register], mode: build }
-      - { kind: sentence, ja: "はたらくから かいしゃから きねんの とけいを もらう。", en: "Because I work, I get a commemorative watch from the company", exercises: [kara-origin, no-possession, kara-because], mode: build }
+      - { kind: sentence, ja: "しごとを つづけるから かいしゃから きねんの とけいを もらう。", en: "Because I keep working, I get a commemorative watch from the company", exercises: [kara-origin, no-possession, kara-because], mode: build }
       - { kind: listening-comp, audio: "いしゃが ちちに くすりを くれる。", answer: "The doctor gives my father medicine", distractors: ["My father gives the doctor medicine", "The doctor gives my mother medicine", "The doctor gives my father a letter"], exercises: [kureru, ni-recipient] }
       - { kind: sentence, ja: "あねは ともだちに おみやげを もらう。", en: "My older sister gets a souvenir from her friend", exercises: [morau, family-register], mode: build }
       - { kind: sentence, ja: "こんど いしゃから くすりを もらう。", en: "I'll get medicine from the doctor next time", exercises: [kara-origin, morau], mode: translate }
       - { kind: listening-comp, audio: "せんせいから おいわいの カードを もらう。", answer: "I get a congratulations card from the teacher", distractors: ["I give the teacher a congratulations card", "I get a thank-you card from the teacher", "I get a congratulations card from a student"], exercises: [kara-origin, morau] }
       - { kind: sentence, ja: "おかしが すきだから ともだちが ケーキを くれる。", en: "I like candy, so my friend gives me a cake", exercises: [kureru, kara-because], mode: build }
-      - { kind: sentence, ja: "プレゼントを かう まえに たんじょうびに ちちに とけいを もらう。", en: "Before buying a present, I get a watch from my father for my birthday", exercises: [morau, ni-time, mae-ni], mode: build }
+      - { kind: sentence, ja: "いえで パーティーを する とき たんじょうびに ちちに とけいを もらう。", en: "When we have a party at home, I get a watch from my father for my birthday", exercises: [morau, ni-time, toki], mode: build }
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "あした ともだちの たんじょうびだ。", en: "It's my friend's birthday tomorrow." }
