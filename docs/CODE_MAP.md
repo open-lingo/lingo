@@ -3,6 +3,20 @@
 - cn (function)
 ### src/shared/components/Icon.tsx
 - Icon (function)
+### src/shared/tts/index.ts
+- setDefaultTtsLang (function)
+- getTtsUrl (function)
+- hasTtsAudio (function)
+- resumeAudioPlayback (function)
+- prefetchTtsAudio (function)
+- isTtsAudioReady (function)
+- stopAllAudio (function)
+- PlaybackResult (type)
+- playJaAudio (function)
+- VoiceColor (type)
+- playJaAudioToEnd (function)
+- autoPlayJaAudio (function)
+- useAutoPlayJaAudio (function)
 ### src/features/languages/ko/grammarHelpers.ts
 - slotFor (function)
 - phrase (function)
@@ -16,6 +30,10 @@
 - speaking (function)
 - infoStep (function)
 - vocabMcq (function)
+- KoReviewEntry (type)
+- pickReviewEntries (function)
+- pickReviewSurfaces (function)
+- reviewMatchPairs (function)
 ### src/shared/api/provider.tsx
 - ApiProvider (function)
 - useApi (function)
@@ -28,21 +46,15 @@
 - ModuleIR (type)
 - Diagnostic (type)
 - JA_COURSE_FURNITURE_KANA (const)
+- makeGlobalTokenizer (function)
 - compileModule (function)
 - diagnoseModule (function)
-### src/shared/tts/index.ts
-- setDefaultTtsLang (function)
-- getTtsUrl (function)
-- hasTtsAudio (function)
-- prefetchTtsAudio (function)
-- isTtsAudioReady (function)
-- stopAllAudio (function)
-- PlaybackResult (type)
-- playJaAudio (function)
-- VoiceColor (type)
-- playJaAudioToEnd (function)
-- autoPlayJaAudio (function)
-- useAutoPlayJaAudio (function)
+### src/shared/contexts/SettingsContext.tsx
+- toBackendPatch (function)
+- fromBackendResponse (function)
+- mergeWithDefaults (function)
+- SettingsProvider (function)
+- useSettings (function)
 ### src/shared/api/bootCache.ts
 - BootData (interface)
 - registerBootFetcher (function)
@@ -69,12 +81,12 @@
 - getAlphabetDisplaySections (function)
 - getAlphabetsForLanguage (function)
 - alphabetPracticePath (function)
-### src/shared/contexts/SettingsContext.tsx
-- toBackendPatch (function)
-- fromBackendResponse (function)
-- mergeWithDefaults (function)
-- SettingsProvider (function)
-- useSettings (function)
+### src/shared/audio/volume.ts
+- getAudioVolume (function)
+- setAudioVolume (function)
+- subscribeAudioVolume (function)
+- playLocalAudio (function)
+- stopLocalAudio (function)
 ### src/shared/components/ui/Button.tsx
 - ButtonVariant (type)
 - ButtonSize (type)
@@ -85,12 +97,6 @@
 - useLangPath (function)
 ### src/shared/auth/useAuth.ts
 - useAuth (function)
-### src/shared/audio/volume.ts
-- getAudioVolume (function)
-- setAudioVolume (function)
-- subscribeAudioVolume (function)
-- playLocalAudio (function)
-- stopLocalAudio (function)
 ### src/features/flashcards/engine/srsStorage.ts
 - canonicalize (function)
 - canonicalizeCardId (const)
@@ -105,6 +111,18 @@
 - setLastSrsSyncAt (function)
 - getNextSrsSyncAt (function)
 - setNextSrsSyncAt (function)
+### src/features/languages/fr/courseAtoms.ts
+- FrAtomKind (type)
+- FrAtomSource (type)
+- FrAtom (type)
+- isConsonantOnset (function)
+- elidesBefore (function)
+- atom (function)
+- findFrAtomBySurface (function)
+- getRegisteredFrAtoms (function)
+- getFrCourseAtoms (function)
+- collectFrAtomExports (function)
+- FR_ATOMS_BY_SURFACE (const)
 ### src/shared/symbolMastery/storage.ts
 - DEFAULT_KEY_PREFIX (const)
 - storageKey (function)
@@ -112,9 +130,34 @@
 - setStore (function)
 - updateState (function)
 - clearStore (function)
+### src/features/languages/ko/curriculum/_reviewInterleave.ts
+- reviewSpliceIndexes (function)
+- withReviewInterleave (function)
 ### src/shared/components/ui/Card.tsx
 - CARD_SURFACE_CLASSES (const)
 - Card (const)
+### src/shared/tts/manifest.ts
+- TtsManifest (type)
+- assetUrl (function)
+- availableTtsLangs (function)
+- getTtsManifest (function)
+- preloadTtsManifest (function)
+- preloadTtsManifests (function)
+- resolveTtsPath (function)
+### src/features/languages/ko/curriculum/_hangulRowHelpers.ts
+- SyllableEntry (type)
+- RowWord (type)
+- KoRowContext (type)
+- correctSlot (function)
+- symbolIntro (function)
+- traceTwice (function)
+- recognition (function)
+- symbolToSound (function)
+- wordImageMcq (function)
+- listeningBuild (function)
+- speaking (function)
+- listeningComp (function)
+- matchBlocksToRomaji (function)
 ### src/shared/domain/mockProgress.ts
 - LessonCompletion (type)
 - subscribeLessonProgress (function)
@@ -138,20 +181,27 @@
 - ESTIMATED_MINUTES_PER_LESSON (const)
 - getWeekPracticeMinutes (function)
 - getMockProgressSummary (function)
-### src/features/languages/ko/curriculum/_hangulRowHelpers.ts
-- SyllableEntry (type)
-- RowWord (type)
-- KoRowContext (type)
-- correctSlot (function)
-- symbolIntro (function)
-- traceTwice (function)
-- recognition (function)
-- symbolToSound (function)
-- wordImageMcq (function)
-- listeningBuild (function)
-- speaking (function)
-- listeningComp (function)
-- matchBlocksToRomaji (function)
+### src/shared/utils/seededShuffle.ts
+- seededShuffle (function)
+### src/shared/platform/nativeHttp.ts
+- fetchBinaryNative (function)
+### src/shared/tts/clipStore.ts
+- ClipRecord (type)
+- ClipStoreAdapter (type)
+- ClipStore (type)
+- idbAdapter (function)
+- getClipStore (function)
+- memoryAdapter (function)
+- CreateClipStoreOptions (type)
+- createClipStore (function)
+### src/features/settings/storage.ts
+- LAST_USER_KEY (const)
+- getActiveUserStorageId (function)
+- migrateToSingleKey (function)
+- ensureUserConsistency (function)
+- getStoredSettings (function)
+- setStoredSettings (function)
+- clearAllLocalAppData (function)
 ### src/shared/config/featureFlags.ts
 - FeatureFlags (type)
 - DEFAULT_FEATURE_FLAGS (const)
@@ -161,16 +211,6 @@
 - isCommunityEnabled (function)
 - isTransitLearnHome (function)
 - fetchFeatureFlags (function)
-### src/shared/utils/seededShuffle.ts
-- seededShuffle (function)
-### src/features/settings/storage.ts
-- LAST_USER_KEY (const)
-- getActiveUserStorageId (function)
-- migrateToSingleKey (function)
-- ensureUserConsistency (function)
-- getStoredSettings (function)
-- setStoredSettings (function)
-- clearAllLocalAppData (function)
 ### src/shared/japanese/kanaTable.ts
 - KANA_ROMAJI (const)
 - isKana (function)
@@ -178,31 +218,6 @@
 - containsKanji (function)
 - JaToken (type)
 - tokenizeJapanese (function)
-### src/shared/assets/notoEmoji.ts
-- lingoArtUrl (function)
-- emojiCodepoints (function)
-- notoEmojiUrl (function)
-- notoFlagUrl (function)
-- JA_KANA_EMOJI_MAP (const)
-- lookupKanaEmoji (function)
-### src/shared/utils/storageQuota.ts
-- STORAGE_QUOTA_EVENT (const)
-- NEAR_QUOTA_RATIO (const)
-- StorageQuotaReason (type)
-- StorageQuotaDetail (type)
-- __resetStorageQuotaThrottle (function)
-- safeLocalStorageWrite (function)
-### src/shared/config/marketing.ts
-- MARKETING_ORIGIN (const)
-- marketingUrl (function)
-- goToMarketing (function)
-### src/features/languages/ja/conjugationEngine.ts
-- ChainForm (type)
-- IAdjForm (type)
-- CHAIN_FORM_LABELS (const)
-- IADJ_FORM_LABELS (const)
-- conjugateVerb (function)
-- conjugateIAdj (function)
 ### src/features/flashcards/engine/srs.ts
 - TARGET_RETENTION (const)
 - PRODUCTION_STAGGER_DAYS (const)
@@ -231,6 +246,57 @@
 - cardEarliestDueDate (function)
 - cardLastReviewDate (function)
 - cardLastReviewedAt (function)
+### src/shared/assets/notoEmoji.ts
+- lingoArtUrl (function)
+- emojiCodepoints (function)
+- notoEmojiUrl (function)
+- notoFlagUrl (function)
+- JA_KANA_EMOJI_MAP (const)
+- lookupKanaEmoji (function)
+### src/shared/tts/sha256.ts
+- sha256Hex16 (function)
+### src/features/languages/fr/grammarHelpers.ts
+- silentLetter (function)
+- liaisonListen (function)
+- agreementChain (function)
+- genderSort (function)
+- aspectChoiceCloze (function)
+- slotFor (function)
+- mustElide (function)
+- phrase (function)
+- vocab (const)
+- cloze (function)
+- sentenceMcq (function)
+- build (function)
+- translateStep (function)
+- listeningBuildSentence (function)
+- listeningCompSentence (function)
+- matchPairs (function)
+- dialogueListen (function)
+- speaking (function)
+- infoStep (function)
+- withArticle (function)
+- vocabMcq (function)
+- vocabTextMcq (function)
+- selfExplain (function)
+### src/shared/utils/storageQuota.ts
+- STORAGE_QUOTA_EVENT (const)
+- NEAR_QUOTA_RATIO (const)
+- StorageQuotaReason (type)
+- StorageQuotaDetail (type)
+- __resetStorageQuotaThrottle (function)
+- safeLocalStorageWrite (function)
+### src/shared/config/marketing.ts
+- MARKETING_ORIGIN (const)
+- marketingUrl (function)
+- goToMarketing (function)
+### src/features/languages/ja/conjugationEngine.ts
+- ChainForm (type)
+- IAdjForm (type)
+- CHAIN_FORM_LABELS (const)
+- IADJ_FORM_LABELS (const)
+- conjugateVerb (function)
+- conjugateIAdj (function)
 ### src/features/lesson/data/mockLessons.ts
 - isSunsetModuleForBuildSentence (function)
 - getMockLessonContent (function)
@@ -247,18 +313,6 @@
 ### src/shared/domain/mockCourse.ts
 - ALPHABET_LESSON_ID (const)
 - getMockCourse (function)
-### src/features/languages/fr/courseAtoms.ts
-- FrAtomKind (type)
-- FrAtomSource (type)
-- FrAtom (type)
-- isConsonantOnset (function)
-- elidesBefore (function)
-- atom (function)
-- findFrAtomBySurface (function)
-- getRegisteredFrAtoms (function)
-- getFrCourseAtoms (function)
-- collectFrAtomExports (function)
-- FR_ATOMS_BY_SURFACE (const)
 ### src/shared/language/registry.ts
 - getLanguageModule (function)
 - tryGetLanguageModule (function)
@@ -269,10 +323,19 @@
 - findAtom (function)
 - findAtomBySurface (function)
 - __resetAtomIndexForTests (function)
+### src/features/flashcards/SRSStoreRevisionContext.tsx
+- SRSStoreRevisionProvider (function)
+- useSRSStoreRevision (function)
+- notifySRSStoreChanged (function)
 ### src/features/flashcards/engine/srsMigration.ts
 - LegacyFlatFsrsState (type)
 - isLegacyFlatFsrsState (function)
 - migrateFlatToModal (function)
+### src/shared/audio/sfx.ts
+- SfxName (type)
+- setSfxEnabled (function)
+- getSfxEnabled (function)
+- playSfx (function)
 ### src/features/languages/ja/courseAtoms.ts
 - CourseAtomKind (type)
 - JaConjugationClass (type)
@@ -286,11 +349,9 @@
 - canonicalAtomId (function)
 - courseAtomToFlashcard (function)
 - isSrsEligibleAtom (function)
+- isInflectedVerbFormAtom (function)
+- isFlashcardEligibleAtom (function)
 - buildJaCourseDeck (function)
-### src/features/flashcards/SRSStoreRevisionContext.tsx
-- SRSStoreRevisionProvider (function)
-- useSRSStoreRevision (function)
-- notifySRSStoreChanged (function)
 ### src/features/languages/ja/curriculum/_consonantRowHelpers.ts
 - KanaScriptId (type)
 - KanaEntry (type)
@@ -317,23 +378,10 @@
 - priorRowReviewTail (function)
 - matchKanaToRomaji (function)
 - listeningComp (function)
-### src/shared/tts/manifest.ts
-- TtsManifest (type)
-- assetUrl (function)
-- availableTtsLangs (function)
-- getTtsManifest (function)
-- preloadTtsManifest (function)
-- preloadTtsManifests (function)
-- resolveTtsPath (function)
 ### src/shared/platform/native.ts
 - IS_NATIVE (const)
 - NATIVE_APP_ID (const)
 - nativeCallbackUrl (function)
-### src/shared/audio/sfx.ts
-- SfxName (type)
-- setSfxEnabled (function)
-- getSfxEnabled (function)
-- playSfx (function)
 ### src/features/languages/ja/grammarHelpers.ts
 - resolveAtom (function)
 - resolveEligibleKanjiAtomId (function)
@@ -379,25 +427,23 @@
 - EXAMPLE_DIALOGUE_LISTEN_CAFE (const)
 ### src/features/lesson/components/StepRenderer.tsx
 - StepRenderer (function)
-### src/shared/tts/sha256.ts
-- sha256Hex16 (function)
-### src/shared/contexts/FeatureFlagsContext.tsx
-- FeatureFlagsProvider (function)
-- useFeatureFlags (function)
-- useFeatureFlagsOptional (function)
 ### src/features/lesson/data/normalizedAtoms.ts
 - NormalizedAtomKind (type)
 - NormalizedAtom (type)
 - getNormalizedCourseAtoms (function)
 - getNormalizedAtomIndex (function)
 - __resetNormalizedAtoms (function)
-### src/features/flashcards/data/loadDeck.ts
-- getParticlesForLanguage (function)
-- getDeckImageUrl (function)
+### src/shared/contexts/FeatureFlagsContext.tsx
+- FeatureFlagsProvider (function)
+- useFeatureFlags (function)
+- useFeatureFlagsOptional (function)
 ### src/shared/components/ui/Portal.tsx
 - Portal (function)
-### src/shared/platform/nativeHttp.ts
-- fetchBinaryNative (function)
+### src/shared/hooks/useUserSettings.ts
+- USER_SETTINGS_STALE_MS (const)
+- RawUserSettings (type)
+- userSettingsQueryKey (function)
+- useUserSettings (function)
 ### src/shared/vocabGraduation/storage.ts
 - loadStore (function)
 - saveStore (function)
@@ -408,6 +454,8 @@
 - markModuleGraduated (function)
 - clearStorage (function)
 - STORAGE_KEYS (const)
+### src/features/lesson/hooks/useLessonKeyboard.ts
+- useLessonKeyboard (function)
 ### src/features/lesson/data/_stepPredicates.ts
 - PASSIVE_STEP_KINDS (const)
 - isPassiveStep (function)
@@ -418,18 +466,14 @@
 - computeGradedProgress (function)
 - getLessonProgressBarCounts (function)
 - getStepAtomIds (function)
-### src/features/lesson/hooks/useLessonKeyboard.ts
-- useLessonKeyboard (function)
 ### src/shared/components/ModalBase.tsx
 - ModalBaseMaxWidth (type)
 - ModalBase (function)
+### src/features/flashcards/data/loadDeck.ts
+- getParticlesForLanguage (function)
+- getDeckImageUrl (function)
 ### src/features/lesson/components/ContinueButton.tsx
 - ContinueButton (function)
-### src/shared/hooks/useUserSettings.ts
-- USER_SETTINGS_STALE_MS (const)
-- RawUserSettings (type)
-- userSettingsQueryKey (function)
-- useUserSettings (function)
 ### src/features/lesson/data/stepTaxonomy.ts
 - SELECTION_TYPES (const)
 - INTRO_TYPES (const)
@@ -468,30 +512,6 @@
 - nextGrammarDue (function)
 - devForceAllGrammarDue (function)
 - clearGrammarStore (function)
-### src/features/languages/fr/grammarHelpers.ts
-- silentLetter (function)
-- liaisonListen (function)
-- agreementChain (function)
-- genderSort (function)
-- aspectChoiceCloze (function)
-- slotFor (function)
-- mustElide (function)
-- phrase (function)
-- vocab (const)
-- cloze (function)
-- sentenceMcq (function)
-- build (function)
-- translateStep (function)
-- listeningBuildSentence (function)
-- listeningCompSentence (function)
-- matchPairs (function)
-- dialogueListen (function)
-- speaking (function)
-- infoStep (function)
-- withArticle (function)
-- vocabMcq (function)
-- vocabTextMcq (function)
-- selfExplain (function)
 ### src/features/languages/ja/registerAudiences.ts
 - PolitenessLevel (type)
 - RegisterAudience (type)
@@ -502,13 +522,6 @@
 - IrRegisterSpec (type)
 - IrSceneSpec (type)
 - resolveScene (function)
-### src/shared/components/ui/Badge.tsx
-- BadgeVariant (type)
-- BadgeSize (type)
-- BadgeProps (type)
-- Badge (function)
-- Tag (function)
-- Pill (function)
 ### src/shared/settings/types.ts
 - SETTINGS_VERSION (const)
 - StudyOption (type)
@@ -516,29 +529,6 @@
 - UserSettings (type)
 - DEFAULT_SETTINGS (const)
 - isRomanizationOn (function)
-### src/features/lesson/components/CelebrationToast.tsx
-- CelebrationToast (function)
-- pickCelebrationText (function)
-### src/shared/components/ui/Modal.tsx
-- ModalSize (type)
-- ModalProps (type)
-- Modal (function)
-### src/shared/auth/impersonation.ts
-- ImpersonationState (interface)
-- getImpersonation (function)
-- getImpersonationTargetId (function)
-- setImpersonation (function)
-- clearImpersonation (function)
-- subscribeImpersonation (function)
-### src/features/lesson/components/steps/sceneArt.tsx
-- OUTLINE (const)
-- PARTICLE (const)
-- SceneChips (function)
-### src/features/lesson/components/Feedback.tsx
-- Feedback (function)
-### src/shared/contexts/LessonModuleContext.tsx
-- LessonModuleProvider (function)
-- useLessonModuleIndex (function)
 ### src/features/languages/es/courseAtoms.ts
 - EsAtomKind (type)
 - EsAtomSource (type)
@@ -548,6 +538,63 @@
 - getRegisteredEsAtoms (function)
 - getEsCourseAtoms (function)
 - ES_ATOMS_BY_SURFACE (const)
+### src/shared/components/ui/Badge.tsx
+- BadgeVariant (type)
+- BadgeSize (type)
+- BadgeProps (type)
+- Badge (function)
+- Tag (function)
+- Pill (function)
+### src/shared/auth/impersonation.ts
+- ImpersonationState (interface)
+- getImpersonation (function)
+- getImpersonationTargetId (function)
+- setImpersonation (function)
+- clearImpersonation (function)
+- subscribeImpersonation (function)
+### src/features/lesson/components/CelebrationToast.tsx
+- CelebrationToast (function)
+- pickCelebrationText (function)
+### src/shared/speech/loose-match.ts
+- numbersToKana (function)
+- numbersToKorean (function)
+- numbersToRomance (function)
+- normalizeForCompare (function)
+- normalizeTarget (function)
+- normalizeJa (function)
+- normalizeTypedAnswer (function)
+- typedAnswerKey (function)
+- accentFold (function)
+- TypedAnswerGrade (type)
+- AccentPolicy (type)
+- gradeTypedAnswer (function)
+- charOverlap (function)
+- Verdict (type)
+- MatchTiers (type)
+- DEFAULT_TIERS (const)
+- AlternativeScore (type)
+- MatchResult (type)
+- substringScore (function)
+- scoreAlternatives (function)
+- normalizeGeneric (function)
+- scoreAlternativesGeneric (function)
+- isUtteranceCorrect (function)
+### src/shared/components/ui/Modal.tsx
+- ModalSize (type)
+- ModalProps (type)
+- Modal (function)
+### src/features/lesson/components/steps/sceneArt.tsx
+- OUTLINE (const)
+- PARTICLE (const)
+- SceneChips (function)
+### src/features/lesson/components/Feedback.tsx
+- Feedback (function)
+### src/shared/contexts/LessonModuleContext.tsx
+- LessonModuleProvider (function)
+- useLessonModuleIndex (function)
+### src/features/lesson/data/lessonAtomIndex.ts
+- getAtomsForLesson (function)
+- getAtomsUpToModule (function)
 ### src/features/adFree/storage.ts
 - LingotEvent (type)
 - AdFreePurchase (type)
@@ -560,23 +607,11 @@
 - readAdFreePurchases (function)
 - writeAdFreePurchases (function)
 - appendAdFreePurchase (function)
-### src/features/lesson/data/lessonAtomIndex.ts
-- getAtomsForLesson (function)
-- getAtomsUpToModule (function)
-### src/shared/conjugation/session.ts
-- shuffle (function)
-- clamp (function)
-- QuestionCredit (type)
-- credit (const)
-- sessionRating (function)
-- QuestionFactory (interface)
-- roundRobinBuild (function)
-### src/shared/hooks/useUserStats.ts
-- UserStats (interface)
-- useUserStats (function)
 ### src/shared/settings/romanizationAutoFlip.ts
 - HIRAGANA_ROMAJI_OFF_MODULE (const)
 - KATAKANA_ROMAJI_OFF_MODULE (const)
+- ROMANIZED_SCRIPT_LANGS (const)
+- languageHasRomanization (function)
 - BUILD_TILE_ROMAJI_FADE_MODULE (const)
 - shouldAutoFadeBuildTileRomaji (function)
 - KanaScript (type)
@@ -584,6 +619,9 @@
 - romajiVisibleForScript (function)
 - todayLocalDate (function)
 - parseModuleIndex (function)
+### src/shared/hooks/useUserStats.ts
+- UserStats (interface)
+- useUserStats (function)
 ### src/features/ads/config.ts
 - getAdSenseClient (function)
 - isAdsFeatureEnabled (function)
@@ -605,6 +643,14 @@
 - unlockAtomIds (function)
 - isAtomUnlocked (function)
 - getUnlockedAtomIds (function)
+### src/shared/conjugation/session.ts
+- shuffle (function)
+- clamp (function)
+- QuestionCredit (type)
+- credit (const)
+- sessionRating (function)
+- QuestionFactory (interface)
+- roundRobinBuild (function)
 ### src/features/admin/user-detail/useAdminUserDetail.ts
 - adminUserKeys (const)
 - useAdminUser (function)
@@ -624,28 +670,6 @@
 - useAcceptFriendRequest (function)
 - useDeclineFriendRequest (function)
 - useStartImpersonation (function)
-### src/shared/speech/loose-match.ts
-- numbersToKana (function)
-- numbersToKorean (function)
-- numbersToRomance (function)
-- normalizeForCompare (function)
-- normalizeTarget (function)
-- normalizeJa (function)
-- normalizeTypedAnswer (function)
-- accentFold (function)
-- TypedAnswerGrade (type)
-- AccentPolicy (type)
-- gradeTypedAnswer (function)
-- charOverlap (function)
-- Verdict (type)
-- MatchTiers (type)
-- DEFAULT_TIERS (const)
-- AlternativeScore (type)
-- MatchResult (type)
-- scoreAlternatives (function)
-- normalizeGeneric (function)
-- scoreAlternativesGeneric (function)
-- isUtteranceCorrect (function)
 ### src/features/learn/moduleProgress.ts
 - ModuleStatus (type)
 - ModuleDisplay (type)
@@ -658,13 +682,35 @@
 - isKatakanaPracticeComplete (function)
 ### src/features/lesson/components/ExplainButton.tsx
 - ExplainButton (function)
+### src/features/languages/es/grammarHelpers.ts
+- slotFor (function)
+- phrase (function)
+- vocab (const)
+- cloze (function)
+- agreementCloze (function)
+- sentenceMcq (function)
+- build (function)
+- translateStep (function)
+- listeningBuildSentence (function)
+- listeningCompSentence (function)
+- matchPairs (function)
+- capstoneMatchPairs (function)
+- dialogueListen (function)
+- speaking (function)
+- infoStep (function)
+- vocabMcq (function)
+- vocabTextMcq (function)
+- selfExplain (function)
+- ES_MODULE_ORDER (const)
+- pickReviewSurfaces (function)
+- reviewMatchPairs (function)
 ### src/shared/hooks/useMediaQuery.ts
 - useMediaQuery (function)
+### src/shared/hooks/useEscapeKey.ts
+- useEscapeKey (function)
 ### src/features/languages/ko/romanization/hangulRomanize.ts
 - romanizeKorean (function)
 - annotateKorean (function)
-### src/shared/hooks/useEscapeKey.ts
-- useEscapeKey (function)
 ### src/features/shop/useEquippedCosmetic.ts
 - useEquippedCosmetic (function)
 ### src/features/languages/es/curriculum/index.ts
@@ -677,14 +723,23 @@
 - collectFrModules (function)
 - buildFrenchCourse (function)
 - FR_ALL_LESSONS (const)
+### src/features/practice/useCourseLevel.ts
+- useCourseLevel (function)
 ### src/shared/hooks/useProgressMe.ts
 - useProgressMe (function)
 ### src/features/languages/ja/romajiLexicon.ts
 - annotateJapaneseText (function)
 - isPastKanaPhase (function)
 - __resetRomajiLexiconCachesForTest (function)
+### src/features/admin/impersonation/ImpersonationContext.tsx
+- ImpersonationProvider (function)
+- useImpersonation (function)
 ### src/features/picker-test/LanguagePickerGrid.tsx
 - LanguagePickerGrid (function)
+### src/shared/hooks/useViewport.ts
+- Viewport (type)
+- useViewport (function)
+- useBreakpoint (function)
 ### src/features/lesson/data/moduleReviewSchedule.ts
 - GRADUATED_STAGE (const)
 - ReviewState (type)
@@ -699,27 +754,8 @@
 - reviewModuleIdFor (function)
 - sourceModuleIdOf (function)
 - clearAllReviewSchedules (function)
-### src/features/languages/ja/secondScript/kanjiSwitchoverLatch.ts
-- isKanjiLatched (function)
-- kanjiLatchedAt (function)
-- latchKanji (function)
-- getLatchedKanjiIds (function)
-- switchoverMisses (function)
-- recordSwitchoverMiss (function)
-- resetKanjiLatchStore (function)
-- withinFuriganaLatchWindow (function)
-### src/features/lesson/engine/lessonSync.ts
-- subscribeLessonBuffer (function)
-- DRAFT_ATTEMPT_PREFIX (const)
-- isDraftAttemptId (function)
-- isPendingAttemptDirty (function)
-- getLessonDirtyCount (function)
-- RecordAttemptInput (interface)
-- recordStepEvent (function)
-- minDurationSecForAttempt (function)
-- recordAttempt (function)
-- buildBatchPayload (function)
-- performLessonSync (function)
+### src/shared/components/PlainText.tsx
+- PlainText (function)
 ### src/shared/symbolMastery/struggleStore.ts
 - SymbolStruggleEntry (type)
 - SymbolStruggleStore (type)
@@ -734,8 +770,54 @@
 - recordKanaStruggle (const)
 - topStruggleKana (const)
 - clearKanaStruggleStore (const)
-### src/features/flashcards/useDeckSubscriptions.ts
-- useDeckSubscriptions (function)
+### src/features/lesson/engine/lessonSync.ts
+- subscribeLessonBuffer (function)
+- DRAFT_ATTEMPT_PREFIX (const)
+- isDraftAttemptId (function)
+- isPendingAttemptDirty (function)
+- getLessonDirtyCount (function)
+- RecordAttemptInput (interface)
+- recordStepEvent (function)
+- minDurationSecForAttempt (function)
+- recordAttempt (function)
+- buildBatchPayload (function)
+- performLessonSync (function)
+### src/features/languages/ja/jaAcceptedForms.ts
+- JA_PLAIN_TO_POLITE (const)
+- REGISTER_GRADED_FROM_MODULE (const)
+- politeSentenceVariants (function)
+- plainSentenceVariant (function)
+- plainSentenceVariants (function)
+- registerPairFor (function)
+- scrambleVariants (function)
+- listOrderVariants (function)
+- copulaVariants (function)
+- teRequestVariants (function)
+- longMustFormVariants (function)
+- nDesuVariants (function)
+- dewaVariants (function)
+- mustFormVariants (function)
+- homeReturnVariants (function)
+### src/features/flashcards/CardPreview.tsx
+- CardImage (function)
+- CardPreview (function)
+### src/shared/components/ui/Sheet.tsx
+- SheetSide (type)
+- SheetProps (type)
+- Sheet (function)
+- Drawer (const)
+- DrawerProps (type)
+### src/features/languages/ja/secondScript/kanjiSwitchoverLatch.ts
+- isKanjiLatched (function)
+- kanjiLatchedAt (function)
+- latchKanji (function)
+- getLatchedKanjiIds (function)
+- switchoverMisses (function)
+- recordSwitchoverMiss (function)
+- resetKanjiLatchStore (function)
+- withinFuriganaLatchWindow (function)
+### src/features/flashcards/components/CardFront.tsx
+- CardFront (function)
 ### src/features/community/contribute/_deckEditorHelpers.ts
 - generateId (function)
 - parseDefaultEase (function)
@@ -748,11 +830,8 @@
 - EMPTY_CARD (const)
 - BuildDeckPayloadArgs (interface)
 - buildDeckPayload (function)
-### src/features/practice/useCourseLevel.ts
-- useCourseLevel (function)
-### src/features/admin/impersonation/ImpersonationContext.tsx
-- ImpersonationProvider (function)
-- useImpersonation (function)
+### src/features/flashcards/useDeckSubscriptions.ts
+- useDeckSubscriptions (function)
 ### src/features/lesson/components/steps/castArt.tsx
 - bowDegrees (function)
 - CastFigure (function)
@@ -764,38 +843,47 @@
 - buildKanaRecognitionExplanation (function)
 - buildRowLesson (function)
 - buildRowSubLessons (function)
-### src/shared/hooks/useViewport.ts
-- Viewport (type)
-- useViewport (function)
-- useBreakpoint (function)
+### src/features/lesson/components/steps/kanjiReveal/revealKeyframes.tsx
+- useRevealKeyframes (function)
+- useRevealPhase (function)
 ### src/shared/contexts/ModalContext.tsx
 - ModalId (type)
 - ModalEntry (type)
 - ModalProvider (function)
 - useModal (function)
-### src/features/lesson/components/steps/kanjiReveal/revealKeyframes.tsx
-- useRevealKeyframes (function)
-- useRevealPhase (function)
-### src/features/flashcards/CardPreview.tsx
-- CardImage (function)
-- CardPreview (function)
+### src/shared/hooks/useFocusTrap.ts
+- useFocusTrap (function)
 ### src/shared/components/ui/Avatar.tsx
 - AvatarSize (type)
 - AvatarProps (type)
 - Avatar (function)
-### src/shared/lessonAuthoring/imageMcqBlocklist.ts
-- BlocklistableAtom (interface)
-- withoutMcqBlocked (function)
+### src/features/flashcards/engine/reviewQueue.ts
+- adaptiveNewCardsPerDay (function)
+- ReviewQueue (type)
+- DeckSubscription (type)
+- DeckWithCards (type)
+- buildReviewQueue (function)
+- buildQueueFromSubscriptions (function)
+- countCardsDue (function)
+- getEffectiveState (function)
+- countRemainingNewCards (function)
+- countRemainingDueCards (function)
+- countRemainingDueReviews (function)
+- dueModalityBreakdown (function)
 ### src/shared/components/UserAvatar.tsx
 - UserAvatarStatus (type)
 - UserAvatarProps (type)
 - UserAvatar (function)
 ### src/features/lesson/dev/DevStageFrame.tsx
 - DevStageFrame (function)
+### src/shared/lessonAuthoring/imageMcqBlocklist.ts
+- BlocklistableAtom (interface)
+- withoutMcqBlocked (function)
+### src/shared/japanese/okurigana.ts
+- AlignedFurigana (type)
+- alignFurigana (function)
 ### src/routes/MarketingRedirect.tsx
 - MarketingRedirect (function)
-### src/shared/hooks/useFocusTrap.ts
-- useFocusTrap (function)
 ### src/features/lesson/engine/lessonStorage.ts
 - StepEvent (type)
 - getStepEvents (function)
@@ -844,22 +932,6 @@
 - MarketplaceItem (type)
 - MarketplaceContent (type)
 - useMarketplaceContent (function)
-### src/features/languages/ja/jaAcceptedForms.ts
-- JA_PLAIN_TO_POLITE (const)
-- REGISTER_GRADED_FROM_MODULE (const)
-- politeSentenceVariants (function)
-- plainSentenceVariant (function)
-- plainSentenceVariants (function)
-- registerPairFor (function)
-- scrambleVariants (function)
-- listOrderVariants (function)
-- copulaVariants (function)
-- teRequestVariants (function)
-- longMustFormVariants (function)
-- nDesuVariants (function)
-- dewaVariants (function)
-- mustFormVariants (function)
-- homeReturnVariants (function)
 ### src/shared/theme/fonts.ts
 - FONT_PRESETS (const)
 - DEFAULT_FONT_ID (const)
@@ -871,12 +943,6 @@
 - Field (function)
 - FieldsetProps (type)
 - Fieldset (function)
-### src/shared/components/ui/Sheet.tsx
-- SheetSide (type)
-- SheetProps (type)
-- Sheet (function)
-- Drawer (const)
-- DrawerProps (type)
 ### src/features/placement/tiers.ts
 - SkillTier (type)
 - getSkillTiers (function)
@@ -899,8 +965,6 @@
 - KoFormKey (type)
 - conjugateKo (function)
 - generateKoDistractors (function)
-### src/shared/components/PlainText.tsx
-- PlainText (function)
 ### src/shared/utils/seededRng.ts
 - mulberry32 (function)
 ### src/shared/components/data/DataTable.tsx
@@ -931,9 +995,6 @@
 - CreatorSummary (type)
 - CreatorDirectory (type)
 - useCreatorDirectory (function)
-### src/shared/japanese/okurigana.ts
-- AlignedFurigana (type)
-- alignFurigana (function)
 ### src/features/ads/adFree.ts
 - AD_FREE_STORAGE_KEY (const)
 - AD_FREE_CHANGE_EVENT (const)
@@ -989,12 +1050,22 @@
 ### src/features/settings/profileStorage.ts
 - getStoredProfile (function)
 - setStoredProfile (function)
+### src/shared/components/ui/SegmentedControl.tsx
+- SegmentedOption (type)
+- SegmentedControlProps (type)
+- SegmentedControl (function)
 ### src/features/languages/ja/secondScript/kanjiDistractorPool.ts
 - PoolWord (type)
 - getKanjiWordPool (function)
 - DistractorOptions (type)
 - hasShareGlyphOption (function)
 - buildKanjiDistractors (function)
+### src/features/lesson/components/steps/BuildTileSurface.tsx
+- HOVER_REVEAL_MS (const)
+- useTileRomajiPeek (function)
+- BuildTileDisplay (type)
+- useBuildTileKanji (function)
+- BuildTileSurface (function)
 ### src/features/languages/ja/conjugation/transformRulesets.ts
 - RuleChip (type)
 - RulesetRow (type)
@@ -1006,12 +1077,8 @@
 ### src/features/community/CommunityDiscoveryLayout.tsx
 - CommunityDiscoveryLayoutProps (type)
 - CommunityDiscoveryLayout (function)
-### src/features/lesson/components/steps/BuildTileSurface.tsx
-- HOVER_REVEAL_MS (const)
-- useTileRomajiPeek (function)
-- BuildTileDisplay (type)
-- useBuildTileKanji (function)
-- BuildTileSurface (function)
+### src/features/lesson/components/steps/translateVariants.ts
+- expandAcceptedAnswers (function)
 ### src/shared/components/ConfirmModal.tsx
 - ConfirmModalProps (type)
 - ConfirmModal (function)
@@ -1019,34 +1086,18 @@
 - SpinnerSize (type)
 - SpinnerProps (type)
 - Spinner (function)
-### src/features/flashcards/engine/reviewQueue.ts
-- adaptiveNewCardsPerDay (function)
-- ReviewQueue (type)
-- DeckSubscription (type)
-- DeckWithCards (type)
-- buildReviewQueue (function)
-- buildQueueFromSubscriptions (function)
-- countCardsDue (function)
-- getEffectiveState (function)
-- countRemainingNewCards (function)
-- countRemainingDueCards (function)
-- countRemainingDueReviews (function)
-- dueModalityBreakdown (function)
-### src/features/flashcards/useFlashcardDueSummary.ts
-- computeWeekReviews (function)
-- useFlashcardDueSummary (function)
 ### src/shared/components/ui/CenteredLoader.tsx
 - CenteredLoaderProps (type)
 - CenteredLoader (function)
+### src/features/practice/components/characters/CharacterCard.tsx
+- CharacterCard (function)
+### src/features/lesson/components/formatPrompt.ts
+- formatPrompt (function)
 ### src/features/quests/useQuests.ts
 - QUESTS_QUERY_KEY (const)
 - QuestsSummary (type)
 - UseQuestsResult (type)
 - useQuests (function)
-### src/features/practice/components/characters/CharacterCard.tsx
-- CharacterCard (function)
-### src/features/lesson/components/formatPrompt.ts
-- formatPrompt (function)
 ### src/features/lesson/components/steps/SceneView.tsx
 - SceneView (function)
 ### src/shared/glyphs/strokeRender.ts
@@ -1056,6 +1107,9 @@
 - StrokeAnimationFrame (type)
 - StrokeProgressiveStyle (type)
 - renderStrokesProgressive (function)
+### src/features/flashcards/useFlashcardDueSummary.ts
+- computeWeekReviews (function)
+- useFlashcardDueSummary (function)
 ### src/shared/components/ui/Popover.tsx
 - PopoverPlacement (type)
 - PopoverProps (type)
@@ -1072,10 +1126,6 @@
 - pushAdSenseSlot (function)
 ### src/shared/components/RichMarkdownEditor.tsx
 - RichMarkdownEditor (function)
-### src/shared/components/ui/SegmentedControl.tsx
-- SegmentedOption (type)
-- SegmentedControlProps (type)
-- SegmentedControl (function)
 ### src/features/home/HomeNavCard.tsx
 - HomeNavCardProps (type)
 - HomeNavCard (function)
@@ -1084,15 +1134,6 @@
 - ParsedSegment (type)
 - parseStoryBody (function)
 - getCardIdsFromBody (function)
-### src/features/flashcards/data/courseDeck.ts
-- FrequencyDeckOptions (type)
-- buildEnrichedJaCourseDeck (function)
-- buildEnrichedCourseDeck (function)
-- __resetCourseDeckMine (function)
-### src/features/practice/stories/speakerColor.ts
-- SpeakerColor (interface)
-- speakerColorAt (function)
-- buildSpeakerColors (function)
 ### src/shared/dictionary/index.ts
 - lookupWordSenses (function)
 - lookupWord (function)
@@ -1100,6 +1141,15 @@
 - getDictionaryEntries (function)
 - getDictionaryLanguageIds (function)
 - __resetDictionaryForTests (function)
+### src/features/practice/stories/speakerColor.ts
+- SpeakerColor (interface)
+- speakerColorAt (function)
+- buildSpeakerColors (function)
+### src/features/flashcards/data/courseDeck.ts
+- FrequencyDeckOptions (type)
+- buildEnrichedJaCourseDeck (function)
+- buildEnrichedCourseDeck (function)
+- __resetCourseDeckMine (function)
 ### src/shared/api/users.ts
 - User (interface)
 - CreateUserPayload (interface)
@@ -1157,6 +1207,8 @@
 - RewardedAdModal (function)
 ### src/features/community/contribute/components/SortableCardItem.tsx
 - SortableCardItem (function)
+### src/shared/readingAnnotation/KanjiRuby.tsx
+- KanjiRuby (function)
 ### src/shared/japanese/mora.ts
 - countMora (function)
 ### src/shared/platform/nativeAuth.ts
@@ -1164,6 +1216,10 @@
 - closeSystemBrowser (function)
 ### src/features/social/userSlug.ts
 - userSlug (function)
+### src/features/dictionary/TappableText.tsx
+- TappableTextProps (interface)
+- TappableText (function)
+- __resetTappableTextCaches (function)
 ### src/features/shop/bannerStyles.ts
 - BannerStyle (type)
 - BANNER_STYLES (const)
@@ -1194,16 +1250,6 @@
 - DECORATOR_STYLES (const)
 - getDecoratorStyle (function)
 - DECORATOR_IDS (const)
-### src/features/vocab/vocabData.ts
-- VocabTier (type)
-- VocabKind (type)
-- VocabRow (type)
-- moduleLabel (function)
-- moduleOrder (function)
-- buildVocabRows (function)
-- VocabSelections (type)
-- filterVocab (function)
-- sortVocab (function)
 ### src/features/dictionary/DictionaryModalContext.tsx
 - DictionaryModalProvider (function)
 - useDictionaryModal (function)
@@ -1216,6 +1262,8 @@
 ### src/features/lesson/data/deriveGrammarMicroSteps.ts
 - hintFromRule (function)
 - deriveGrammarMicroSteps (function)
+### src/features/learn/hooks/useCompletedLessonIds.ts
+- useCompletedLessonIds (function)
 ### src/features/practice/data/practiceDataLoader.ts
 - getSpeakingPrompts (function)
 - getCounterDefs (function)
@@ -1224,18 +1272,19 @@
 - hasConjugationData (function)
 - getConjugationVerbEntries (function)
 - hasKanjiData (function)
-### src/features/dictionary/TappableText.tsx
-- TappableTextProps (interface)
-- TappableText (function)
-- __resetTappableTextCaches (function)
+### src/features/vocab/vocabData.ts
+- VocabTier (type)
+- VocabKind (type)
+- VocabRow (type)
+- moduleLabel (function)
+- moduleOrder (function)
+- buildVocabRows (function)
+- VocabSelections (type)
+- filterVocab (function)
+- sortVocab (function)
 ### src/features/quests/components/QuestProgressBar.tsx
 - QuestProgressBarProps (type)
 - QuestProgressBar (function)
-### src/features/flashcards/useCardsDueCount.ts
-- CardsDueResult (type)
-- useCardsDueCount (function)
-### src/features/learn/hooks/useCompletedLessonIds.ts
-- useCompletedLessonIds (function)
 ### src/shared/settings/storyFontSize.ts
 - StoryFontStep (interface)
 - STORY_FONT_STEPS (const)
@@ -1243,12 +1292,9 @@
 - storyFontStepIndex (function)
 - StoryFontSize (interface)
 - useStoryFontSize (function)
-### src/shared/lessonAuthoring/curriculumAssertions.ts
-- LintFailure (type)
-- checkPassiveCardFollowup (function)
-- assertPassiveCardsHaveFollowup (function)
-- assertNoExplanationOnPassive (function)
-- assertExplanationDoesntLeakAnswer (function)
+### src/features/flashcards/useCardsDueCount.ts
+- CardsDueResult (type)
+- useCardsDueCount (function)
 ### src/features/placement/questionBank.ts
 - PlacementItemConfig (type)
 - instantiateItem (function)
@@ -1262,6 +1308,10 @@
 - moduleNumber (function)
 - pickSuggestion (function)
 - buildQuickStarts (function)
+### src/features/lesson/components/steps/PromptAudioButton.tsx
+- PromptAudioButton (function)
+### src/shared/utils/lazyRetry.ts
+- lazyRetry (function)
 ### src/features/practice/conversation/conversationAudio.ts
 - playConversationLine (function)
 - conversationLineHasAudio (function)
@@ -1271,20 +1321,21 @@
 - getDueOrStruggling (function)
 - getReachedModule (function)
 - getReachedGrammarPointIds (function)
-### src/shared/utils/lazyRetry.ts
-- lazyRetry (function)
 ### src/features/dictionary/DictionaryModal.tsx
 - DictionaryModal (function)
+### src/features/languages/ja/curriculum/taughtVocab.ts
+- getJaTaughtKanaBeforeModule (function)
+- getAllJaTaughtKana (function)
+### src/shared/dictionary/normalize.ts
+- foldText (function)
 ### src/features/quests/useQuestsModalUrl.ts
 - QuestsTab (type)
 - useQuestsModalUrl (function)
-### src/shared/dictionary/normalize.ts
-- foldText (function)
+### src/features/languages/ja/secondScript/readingDistractors.ts
+- readingDistractors (function)
 ### src/features/lesson/engine/progressSync.ts
 - hydrateLessonProgressFromServer (function)
 - syncLessonProgressWithServer (function)
-### src/features/languages/ja/secondScript/readingDistractors.ts
-- readingDistractors (function)
 ### src/features/lesson/engine/sessionStreak.ts
 - shouldCheckStreakOnNextSync (function)
 - markStreakCheckedToday (function)
@@ -1294,6 +1345,12 @@
 - allConversations (function)
 - getStories (function)
 - getConversations (function)
+### src/shared/lessonAuthoring/curriculumAssertions.ts
+- LintFailure (type)
+- checkPassiveCardFollowup (function)
+- assertPassiveCardsHaveFollowup (function)
+- assertNoExplanationOnPassive (function)
+- assertExplanationDoesntLeakAnswer (function)
 ### src/shared/components/ui/SearchInput.tsx
 - SearchInputProps (type)
 - SearchInput (const)
@@ -1328,6 +1385,18 @@
 - ModalBackdrop (function)
 ### src/shared/components/Chevron.tsx
 - Chevron (function)
+### src/features/practice/practiceStats.ts
+- PracticeFeatureKey (type)
+- ItemStats (type)
+- FeatureStats (type)
+- recordPracticeResult (function)
+- getTodayCount (function)
+- recordSessionEnd (function)
+- getFeatureStats (function)
+- getItemAccuracy (function)
+- getWeakItems (function)
+- getAtomSrsDifficulty (function)
+- pickWeighted (function)
 ### src/shared/components/PageShell.tsx
 - PageShell (function)
 ### src/features/languages/siblingResolver.ts
@@ -1388,8 +1457,6 @@
 - TransitStrings (type)
 - stringsFor (const)
 - LEARN_HEADER_SUBTITLE (const)
-### src/features/lesson/components/steps/translateVariants.ts
-- expandAcceptedAnswers (function)
 ### src/features/practice/reading/readingBuilders.ts
 - CLOZE_POS (const)
 - SentenceSource (interface)
@@ -1401,10 +1468,6 @@
 - CLOZE_DISTRACTORS (const)
 - buildClozeCards (function)
 - storyExercisedAtomIds (function)
-### src/features/quests/components/QuestsCard.tsx
-- QuestsCardProps (type)
-- QuestsCard (function)
-- QuestsCardBody (function)
 ### src/features/social/components/UserPreviewPopover.tsx
 - UserPreviewPopoverProps (type)
 - UserPreviewPopover (function)
@@ -1418,12 +1481,14 @@
 ### src/features/community/CommunityContentContext.tsx
 - CommunityContentProvider (function)
 - useCommunityContent (function)
-### src/features/lesson/data/grammarReviewIndex.ts
-- getGrammarReviewIndex (function)
-- getUncoveredGrammarPoints (function)
-- sentenceVocabAtomIds (function)
-- clozeStepSentence (function)
-- __resetGrammarReviewIndex (function)
+### src/features/practice/engine/prng.ts
+- Rng (type)
+- mulberry32 (function)
+- hashStringToSeed (function)
+- makeRng (function)
+- seededShuffle (function)
+- pick (function)
+- weightedPick (function)
 ### src/features/progress/journey.ts
 - HeatCell (type)
 - HeatmapRange (type)
@@ -1439,10 +1504,19 @@
 ### src/shared/components/progress/ProgressBar.tsx
 - ProgressTone (type)
 - ProgressBar (function)
+### src/shared/hooks/progressSnapshotCache.ts
+- readProgressSnapshot (function)
+- writeProgressSnapshot (function)
 ### src/shared/components/ui/Select.tsx
 - SelectSize (type)
 - SelectProps (type)
 - Select (const)
+### src/features/lesson/data/grammarReviewIndex.ts
+- getGrammarReviewIndex (function)
+- getUncoveredGrammarPoints (function)
+- sentenceVocabAtomIds (function)
+- clozeStepSentence (function)
+- __resetGrammarReviewIndex (function)
 ### src/features/lesson/components/steps/RegisterScene.tsx
 - RegisterScene (function)
 ### src/features/lesson/components/steps/ScaleScene.tsx
@@ -1457,6 +1531,10 @@
 - getGrammarRuleStepForPoint (function)
 - __resetGrammarRuleIndex (function)
 - pointsBelowMinPool (function)
+### src/features/quests/components/QuestsCard.tsx
+- QuestsCardProps (type)
+- QuestsCard (function)
+- QuestsCardBody (function)
 ### src/shared/conjugation/registry.ts
 - registerConjugationTrainer (function)
 - getRegisteredTrainer (function)
@@ -1488,11 +1566,6 @@
 - padMatchPairsFloor (function)
 - pickNonColliding (function)
 - __resetMatchPadIndexes (function)
-### src/features/practice/readingCrumb.tsx
-- ReadingItemKind (type)
-- ReadingCrumbProvider (function)
-- useReadingItemKind (function)
-- usePublishReadingItemKind (function)
 ### src/features/practice/practiceTypeRoutes.ts
 - PRACTICE_TYPE_LABELS (const)
 - getPracticeRoute (function)
@@ -1512,46 +1585,10 @@
 ### src/shared/theme/web-adapter.ts
 - hexToRgbChannels (function)
 - applyThemeToDOM (function)
-### src/features/practice/practiceStats.ts
-- PracticeFeatureKey (type)
-- ItemStats (type)
-- FeatureStats (type)
-- recordPracticeResult (function)
-- recordSessionEnd (function)
-- getFeatureStats (function)
-- getItemAccuracy (function)
-- getWeakItems (function)
-- getAtomSrsDifficulty (function)
-- pickWeighted (function)
 ### src/features/flashcards/import/match.ts
 - ImportMatch (interface)
 - MatchResult (interface)
 - matchKnownItems (function)
-### src/shared/glyphs/KanjiStrokeDraw.tsx
-- KanjiStrokeDrawProps (type)
-- strokeDrawDurationMs (function)
-- KanjiStrokeDraw (function)
-- KanjiWordStrokeDraw (function)
-- wordStrokeDrawDurationMs (function)
-### src/shared/readingAnnotation/KanjiRuby.tsx
-- KanjiRuby (function)
-### src/features/practice/engine/prng.ts
-- Rng (type)
-- mulberry32 (function)
-- hashStringToSeed (function)
-- makeRng (function)
-- seededShuffle (function)
-- pick (function)
-- weightedPick (function)
-### src/features/flashcards/components/FlashcardsInfoModal.tsx
-- FlashcardsInfoModalMode (type)
-- FlashcardsInfoModal (function)
-### src/shared/components/ui/Checkbox.tsx
-- CheckboxProps (type)
-- Checkbox (const)
-### src/shared/audio/alphabetAudio.ts
-- getAlphabetAudioUrl (function)
-- autoPlayAlphabetAudio (function)
 ### src/shared/telemetry/sessionLog.ts
 - SessionEventType (type)
 - SessionEvent (type)
@@ -1565,12 +1602,25 @@
 - downloadSessionLogIfTester (function)
 - SessionSummary (type)
 - summarizeSessionLog (function)
-### src/features/lesson/data/minedSentences.ts
-- MinedSentence (type)
-- MinedTranslatedSentence (type)
-- getMinedSentences (function)
-- getMinedTranslatedSentences (function)
-- __resetMinedSentences (function)
+### src/shared/glyphs/KanjiStrokeDraw.tsx
+- KanjiStrokeDrawProps (type)
+- strokeDrawDurationMs (function)
+- KanjiStrokeDraw (function)
+- KanjiWordStrokeDraw (function)
+- wordStrokeDrawDurationMs (function)
+### src/shared/components/ui/Checkbox.tsx
+- CheckboxProps (type)
+- Checkbox (const)
+### src/shared/audio/alphabetAudio.ts
+- getAlphabetAudioUrl (function)
+- autoPlayAlphabetAudio (function)
+### src/features/flashcards/components/FlashcardDetailSidebar.tsx
+- hasSidebarContent (function)
+- FlashcardDetailBody (function)
+- FlashcardDetailSidebar (function)
+### src/features/flashcards/components/FlashcardsInfoModal.tsx
+- FlashcardsInfoModalMode (type)
+- FlashcardsInfoModal (function)
 ### src/features/admin/user-detail/SubscriptionsTab.tsx
 - SubscriptionsTab (function)
 ### src/features/admin/lessons/editor/stepCatalog.ts
@@ -1582,11 +1632,20 @@
 - storyIcon (function)
 ### src/shared/components/GitHubBadge.tsx
 - GitHubBadge (function)
+### src/features/lesson/data/minedSentences.ts
+- MinedSentence (type)
+- MinedTranslatedSentence (type)
+- getMinedSentences (function)
+- getMinedTranslatedSentences (function)
+- __resetMinedSentences (function)
 ### src/features/lesson/components/steps/MatchPairsStepView.tsx
 - MatchPairsStepView (function)
 - MistakeDots (function)
-### src/features/languages/ja/curriculum/taughtVocab.ts
-- getJaTaughtKanaBeforeModule (function)
+### src/features/practice/readingCrumb.tsx
+- ReadingItemKind (type)
+- ReadingCrumbProvider (function)
+- useReadingItemKind (function)
+- usePublishReadingItemKind (function)
 ### src/features/languages/frequencyResolver.ts
 - AnyFrequencyAtom (type)
 - getFrequencyAtoms (function)
@@ -1643,13 +1702,6 @@
 - castView (function)
 ### src/features/lesson/data/buildRecapLesson.ts
 - buildRecapLesson (function)
-### src/features/home/variants/homeVariantContent.ts
-- LanguageTip (type)
-- questRewardText (function)
-- dayIndex (function)
-- tipOfDay (function)
-- WordOfDay (type)
-- pickWordOfDay (function)
 ### src/features/settings/settingsSections.ts
 - SettingsGlobalSectionId (type)
 - SettingsLanguageSectionId (type)
@@ -1661,6 +1713,16 @@
 - collectAudioTexts (function)
 - prefetchTtsTexts (function)
 - usePrefetchAudio (function)
+### src/features/lesson/components/steps/buildAcceptance.ts
+- MAX_ALSO_ACCEPTED (const)
+- BuildGradable (type)
+- jaVariantSurfaces (function)
+- normalizeBuildAnswer (function)
+- alsoAcceptedSurfaces (function)
+- isBuildCorrect (function)
+- acceptedBuildSurfaces (function)
+- lintAlsoAccepted (function)
+- coverWithTiles (function)
 ### src/features/social/sections/LeaderboardsSection.tsx
 - LeaderboardsSection (function)
 - UnifiedLeaderboardCard (function)
@@ -1669,12 +1731,6 @@
 - AlertVariant (type)
 - AlertBannerProps (type)
 - AlertBanner (function)
-### src/features/practice/pillars.ts
-- PillarId (type)
-- PillarActivity (type)
-- Pillar (type)
-- getPillarsForLanguage (function)
-- getPillar (function)
 ### src/features/progress/leveling.ts
 - xpForLevel (function)
 - totalXpToReachLevel (function)
@@ -1685,21 +1741,27 @@
 - DropdownMenuItem (type)
 - DropdownMenuProps (type)
 - DropdownMenu (function)
-### src/features/quests/components/QuestRow.tsx
-- QuestRowProps (type)
-- QuestRow (function)
+### src/features/practice/pillars.ts
+- PillarId (type)
+- PillarActivity (type)
+- Pillar (type)
+- getPillarsForLanguage (function)
+- getPillar (function)
 ### src/features/community/hooks/useDeckVote.ts
 - UseDeckVoteResult (type)
 - useDeckVote (function)
+### src/features/quests/components/QuestRow.tsx
+- QuestRowProps (type)
+- QuestRow (function)
+### src/features/community/components/CardCover.tsx
+- CardCoverProps (type)
+- CardCover (function)
 ### src/shared/theme/storage.ts
 - StoredThemes (type)
 - loadStoredThemes (function)
 - saveStoredThemes (function)
 - loadStarredThemeIds (function)
 - saveStarredThemeIds (function)
-### src/features/community/components/CardCover.tsx
-- CardCoverProps (type)
-- CardCover (function)
 ### src/features/lesson/components/steps/BuildSentenceStepView.tsx
 - missingOneTileIndex (function)
 - BuildSentenceStepView (function)
@@ -1711,6 +1773,13 @@
 - SettingsNav (function)
 ### src/features/settings/SettingsSectionPanel.tsx
 - SettingsSectionPanel (function)
+### src/features/home/variants/homeVariantContent.ts
+- LanguageTip (type)
+- questRewardText (function)
+- dayIndex (function)
+- tipOfDay (function)
+- WordOfDay (type)
+- pickWordOfDay (function)
 ### src/features/shop/useShopState.ts
 - ShopState (type)
 - useShopState (function)
@@ -1746,10 +1815,6 @@
 - __resetDensityWarnings (function)
 ### src/shared/symbolMastery/LanguageSymbolMasteryProvider.tsx
 - LanguageSymbolMasteryProvider (function)
-### src/shared/components/ui/Tooltip.tsx
-- TooltipSide (type)
-- TooltipProps (type)
-- Tooltip (function)
 ### src/features/placement/hooks/usePlacementDismissed.ts
 - isPlacementDismissed (function)
 - dismissPlacement (function)
@@ -1771,6 +1836,10 @@
 - isSelectionAhead (function)
 - effectivePoolModule (function)
 - dueGrammarPointCount (function)
+### src/shared/components/ui/Tooltip.tsx
+- TooltipSide (type)
+- TooltipProps (type)
+- Tooltip (function)
 ### src/features/lesson/components/steps/MultipleChoiceStepView.tsx
 - MultipleChoiceStepView (function)
 ### src/features/flashcards/useSRSSyncSource.ts
@@ -1780,10 +1849,6 @@
 ### src/shared/components/sync/SyncManager.tsx
 - SyncManagerProps (type)
 - SyncManager (function)
-### src/features/social/components/AddFriendButton.tsx
-- AddFriendButtonProps (type)
-- AddFriendButton (function)
-- useFriendState (function)
 ### src/features/learn/components/PathwayNode.tsx
 - PathwayNodeState (type)
 - PathwayNodePos (type)
@@ -1791,6 +1856,10 @@
 - MasterySlotState (type)
 - PathwayNodeProps (type)
 - PathwayNode (function)
+### src/features/social/components/AddFriendButton.tsx
+- AddFriendButtonProps (type)
+- AddFriendButton (function)
+- useFriendState (function)
 ### src/features/home/restructured/planHelpers.ts
 - isQuestDone (function)
 - summarizeDailyPlan (function)
@@ -1798,85 +1867,26 @@
 - RevealWord (type)
 - RevealProps (type)
 - RevealChoreo (function)
-### src/features/vocab/VocabArt.tsx
-- VocabArt (function)
 ### src/features/social/data/leagueTiers.ts
 - LeagueTier (type)
 - LEAGUE_TIERS (const)
 - LEAGUE_TIER_TOTAL (const)
 - getLeagueTier (function)
+### src/features/lesson/data/jaWordSpan.ts
+- findWordSpan (function)
+- usesWord (function)
 ### src/shared/auth/resolveUserAvatarUrl.ts
 - resolveUserAvatarUrl (function)
 ### src/features/ads/AdSlot.tsx
 - AdSlot (function)
 ### src/features/settings/SettingsContent.tsx
 - SettingsContent (function)
-### src/shared/components/ui/FacetSidebar.tsx
-- FacetOption (type)
-- Facet (type)
-- FacetSidebarProps (type)
-- FacetSidebar (function)
 ### src/features/admin/AdminOperationsPage.tsx
 - CostRevenueTab (function)
 - SubscriptionsTab (function)
 - AdsTab (function)
 - JobsTab (function)
 - AdminOperationsPage (function)
-### src/features/admin/components/UserPicker.tsx
-- UserPicker (function)
-### src/features/admin/PlatformXpRatesPanel.tsx
-- PlatformXpRatesPanelProps (interface)
-- PlatformXpRatesPanel (function)
-### src/features/community/CommunityLibraryLayout.tsx
-- LibraryTabId (type)
-- CommunityLibraryLayoutProps (type)
-- CommunityLibraryLayout (function)
 ### src/features/community/MyDecksPage.tsx
 - MyDecksBody (function)
-### src/features/community/SubscribedPage.tsx
-- SubscribedBody (function)
-### src/features/home/HomePage.tsx
-- HomePage (function)
-### src/features/lesson/dev/transferDiagram/TransferDiagram.tsx
-- TransferDiagram (function)
-### src/features/onboarding/FirstSessionArc.tsx
-- shouldShowFirstSessionArc (function)
-- shouldSkipMotivationStep (function)
-- FirstSessionArc (function)
-### src/features/lesson/juice.ts
-- resetLessonJuice (function)
-- getCombo (function)
-- reportGradedAnswer (function)
-### src/features/languages/ja/__tests__/moduleContentLints.ts
-- getJaModuleLessons (function)
-- moduleGrammarPointIds (function)
-- moduleCorpus (function)
-- getRealFormLexicon (function)
-- getInventedFormBlocklist (function)
-- LintFailure (type)
-- lintMcqDistractors (function)
-- charOverlapRatio (function)
-- lintAntiPatternMinimalPairs (function)
-- COMPLEXITY_FLOORS (const)
-- isComplexSentence (function)
-- productionPool (function)
-- complexityShare (function)
-- GATE8_PROGRESSIVE_GLOSS_ALLOWLIST (const)
-- lintPlainNonPastProgressiveGloss (function)
-- registerJaModuleContentLints (function)
-### src/shared/components/progress/ProgressBarWithCheckpoints.tsx
-- ProgressBarWithCheckpoints (function)
-### src/shared/components/DecoratedAvatar.tsx
-- DecoratedAvatarProps (type)
-- DecoratedAvatar (function)
-### src/features/languages/ja/secondScript/buildTileKanji.ts
-- BuildTileKanji (type)
-- resolveBuildTileKanji (function)
-- auxiliarySuppressedTiles (function)
-### src/features/lesson/useLessonSyncStatus.ts
-- useLessonSyncStatus (function)
-### src/features/flashcards/useSubscribedDecks.ts
-- useSubscribedDecks (function)
-### src/features/social/components/ProfilePreviewPopover.tsx
-- ProfilePreviewPopover (function)
-_… 776 more files omitted (budget)._
+_… 824 more files omitted (budget)._

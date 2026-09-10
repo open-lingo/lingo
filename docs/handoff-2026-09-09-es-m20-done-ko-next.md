@@ -1,5 +1,11 @@
 # Handoff 2026-09-09 (evening) — ES m17–m20 done locally; KO audit queue next
 
+> **Update 2026-09-09 ~21:50 MT:** all of the below is PUSHED. Commit 39fc9eec
+> (ES m18–m20 + KO gates/grids/particle-cue/R1–R4 m2 fixes) is on origin/main;
+> ci 34432814487 and deploy 34432814493 both concluded success; prod entry
+> `index-DjvNBff7.js` serves all three ES module titles. Nothing here is
+> local/unpushed any more.
+
 Supersedes the m19/m20 sections of `docs/handoff-2026-09-09-es-m17-m20.md`
 (keep that file for the recipe, gate lessons and optimizations list).
 
@@ -15,11 +21,11 @@ m20 was the first module done this way — see "What it cost" below.
 | item | state | commit |
 |---|---|---|
 | m17 «Me levanto» | ON PROD (verified: bundle index-BKyRxjjN.js serves "Me levanto"/es-m17-8); red-main issue #5 CLOSED with that evidence | 290035db |
-| m18 «Nosotros y ellos» | local green, NOT pushed | 880ce368 |
-| m19 «Ayer hablé» | local green (pins fixed, 13 extra clips) | e86e17d1 |
-| m20 «Fui, hice, tuve» | local green, ES suite 1425 tests, 224 clips | b8d3a613 |
+| m18 «Nosotros y ellos» | ON PROD (39fc9eec) | 880ce368 |
+| m19 «Ayer hablé» | ON PROD (pins fixed, 13 extra clips; 39fc9eec) | e86e17d1 |
+| m20 «Fui, hice, tuve» | ON PROD, ES suite 1425 tests, 224 clips (39fc9eec) | b8d3a613 |
 | preflight | GREEN (exit 0, 12808 tests, CI-semantics build) on 83b82650 after a one-line practice-test fix | 83b82650 |
-| KO queue items 1–4 (below) | DONE locally — gates m3–m27, review grids m16–m27, particle-cue gate, R1–R4 audit fixes; preflight GREEN (exit 0, 13332 tests) after rebase onto 82d7a3b0 | 7f3aa520 |
+| KO queue items 1–4 (below) | DONE, ON PROD — gates m3–m27, review grids m16–m27, particle-cue gate, R1–R4 audit fixes; preflight GREEN (exit 0, 13332 tests) after rebase onto 82d7a3b0 | 7f3aa520 → 39fc9eec |
 | KO handoff for Payton | `docs/ko-handoff-payton-2026-09-09.md` (what changed, what gates cover, what to walk, mobile pass) | a4f91cf3 |
 
 **PUSHED 2026-09-09 late as 39fc9eec — ci + deploy success, prod fingerprint verified (entry index-DjvNBff7.js; m20 clips audio/mpeg).** Earlier text: Local main is 11 commits ahead of origin/main (ES m18–m20 + KO). NOT pushed (Spencer decides; the
