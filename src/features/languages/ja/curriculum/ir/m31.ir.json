@@ -1872,7 +1872,7 @@
         {
           "kind": "sentence",
           "ja": "うたを うたうから せんせいが いもうとに おかしを くれる。",
-          "en": "Because she sang a song, the teacher gives my little sister candy",
+          "en": "Because she sings a song, the teacher gives my little sister candy",
           "exercises": [
             "kureru",
             "ni-recipient",
@@ -1918,8 +1918,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "じかんが あるけど あには わたしに なにも くれない。",
-          "en": "Even though he has time, my older brother doesn't give me anything",
+          "ja": "おかねが あるけど あには わたしに なにも くれない。",
+          "en": "Even though he has money, my older brother doesn't give me anything",
           "exercises": [
             "kureru",
             "nai-form",
