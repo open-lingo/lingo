@@ -867,9 +867,9 @@ function lesson7(): LessonStep[] {
           id: "t2-nonplus",
           npc: {
             speaker: "Hugo",
-            kana: "Ah, moi non plus, je ne sais pas.",
-            audioText: "ah, moi non plus, je ne sais pas",
-            gloss: "Ah, me neither, I don't know.",
+            kana: "Moi non plus, je ne sais pas.",
+            audioText: "moi non plus, je ne sais pas",
+            gloss: "Me neither, I don't know.",
           },
           goal: "Agree with him.",
           reply: {
@@ -1089,9 +1089,9 @@ function lesson9(): LessonStep[] {
           id: "t2-pourquoi",
           npc: {
             speaker: "Chloé",
-            kana: "Pourquoi ? Je sais pas, franchement.",
-            audioText: "pourquoi ? je sais pas, franchement",
-            gloss: "Why? I don't know, honestly.",
+            kana: "Pourquoi ? Je sais pas.",
+            audioText: "pourquoi ? je sais pas",
+            gloss: "Why? I don't know.",
           },
           goal: "Say you don't know either.",
           reply: {
@@ -1211,9 +1211,9 @@ function lesson10(): LessonStep[] {
           id: "t2-hugo",
           npc: {
             speaker: "Marie",
-            kana: "D'accord. Tu sais où est Hugo, alors ?",
-            audioText: "d'accord, tu sais où est hugo, alors ?",
-            gloss: "Okay. Do you know where Hugo is, then?",
+            kana: "D'accord. Tu sais où est Hugo ?",
+            audioText: "d'accord, tu sais où est hugo ?",
+            gloss: "Okay. Do you know where Hugo is?",
           },
           goal: "Say you don't know, casually.",
           reply: {
@@ -1233,9 +1233,9 @@ function lesson10(): LessonStep[] {
           id: "t3-tease",
           npc: {
             speaker: "Marie",
-            kana: "Bon, hier ? On parle demain ?",
-            audioText: "bon, hier ? on parle demain ?",
-            gloss: "Okay, yesterday? We'll talk tomorrow?",
+            kana: "Bon. On parle demain ?",
+            audioText: "bon, on parle demain ?",
+            gloss: "Okay. We'll talk tomorrow?",
           },
           goal: "Agree.",
           reply: {

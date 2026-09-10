@@ -922,9 +922,9 @@ function lesson9(): LessonStep[] {
           id: "t1-voudrais",
           npc: {
             speaker: "Théo",
-            kana: "Bonjour ! Je peux vous aider ?",
-            audioText: "bonjour ! je peux vous aider ?",
-            gloss: "Hello! Can I help you?",
+            kana: "Bonjour !",
+            audioText: "bonjour",
+            gloss: "Hello!",
           },
           goal: "Say you would like a sandwich.",
           reply: {
@@ -964,8 +964,8 @@ function lesson9(): LessonStep[] {
           id: "t3-alt",
           npc: {
             speaker: "Théo",
-            kana: "D'accord — et ce sandwich-ci, vingt euros ?",
-            audioText: "d'accord — et ce sandwich-ci, vingt euros ?",
+            kana: "D'accord — et ce sandwich, vingt euros ?",
+            audioText: "d'accord — et ce sandwich, vingt euros ?",
             gloss: "Okay — and this sandwich, twenty euros?",
           },
           goal: "Say okay, that's not expensive.",
@@ -1085,9 +1085,9 @@ function lesson10(): LessonStep[] {
           id: "t1-price",
           npc: {
             speaker: "Léa",
-            kana: "J'ai trouvé un cadeau — ça coûte trente euros !",
-            audioText: "j'ai trouvé un cadeau — ça coûte trente euros !",
-            gloss: "I found a gift — it costs thirty euros!",
+            kana: "Le gâteau — ça coûte trente euros !",
+            audioText: "le gâteau — ça coûte trente euros !",
+            gloss: "The cake — it costs thirty euros!",
           },
           goal: "Say okay, that's not expensive.",
           reply: {
@@ -1106,9 +1106,9 @@ function lesson10(): LessonStep[] {
           id: "t2-cent",
           npc: {
             speaker: "Léa",
-            kana: "Et le deuxième cadeau coûte cent euros…",
-            audioText: "et le deuxième cadeau coûte cent euros",
-            gloss: "And the second gift costs a hundred euros…",
+            kana: "Et le sandwich coûte cent euros…",
+            audioText: "et le sandwich coûte cent euros",
+            gloss: "And the sandwich costs a hundred euros…",
           },
           goal: "React — that's expensive!",
           reply: {
@@ -1127,9 +1127,9 @@ function lesson10(): LessonStep[] {
           id: "t3-tease",
           npc: {
             speaker: "Léa",
-            kana: "Ah, oui — c'est très cher !",
-            audioText: "ah, oui — c'est très cher !",
-            gloss: "Ah, yes — it's very expensive!",
+            kana: "Oui — c'est très cher !",
+            audioText: "oui — c'est très cher !",
+            gloss: "Yes — it's very expensive!",
           },
           goal: "Agree — it's very expensive.",
           reply: {

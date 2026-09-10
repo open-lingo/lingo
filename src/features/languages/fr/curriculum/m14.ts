@@ -968,9 +968,9 @@ function lesson7(): LessonStep[] {
           id: "t2-moinonplus",
           npc: {
             speaker: "Hugo",
-            kana: "Ah, moi non plus, j'ai pas encore mangé ce matin.",
-            audioText: "ah, moi non plus, j'ai pas encore mangé ce matin",
-            gloss: "Ah, me neither, I haven't eaten this morning.",
+            kana: "Moi non plus, j'ai pas encore mangé ce matin.",
+            audioText: "moi non plus, j'ai pas encore mangé ce matin",
+            gloss: "Me neither, I haven't eaten this morning.",
           },
           goal: "Agree.",
           reply: {

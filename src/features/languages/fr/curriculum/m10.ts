@@ -56,8 +56,14 @@
  *     articled display would derive «le chats»).
  *   - m10 word_maps carry NO tokenGenders: a plural chain spans both
  *     genders and a wrong tint would teach a false rule.
- *   - The finale plants m11: the shelter volunteer's «Vous aimez les
- *     chats ?» is a GLOSSED vous-form tease, never graded.
+ *   - The finale used to plant m11 with the shelter volunteer's «Vous
+ *     aimez les chats ?» — a glossed vous-form tease. `frSimProvenance.
+ *     test.ts` (2026-09-10) walks dialogue_sim NPC lines course-wide and
+ *     «aimez» is never taught (only «aime»/m11 and «tu aimes»/m3 are
+ *     registered atoms), so the tease was a real provenance defect, same
+ *     class as the m17 L10 one the gate exists to catch — fixed to the
+ *     already-taught «Tu aimes les chats ?» (voiced elsewhere in this
+ *     module, L6/L9).
  *
  * VOICING LEDGER (printed speak → licenses later cue:"recall"):
  *   les chats L1 · les chiens L1 · les chats et les chiens L1 ·
@@ -1434,16 +1440,16 @@ function lesson10(): LessonStep[] {
           id: "t1-vous",
           npc: {
             speaker: "The volunteer",
-            kana: "Vous aimez les chats ?",
-            audioText: "vous aimez les chats ?",
-            gloss: "Do you like cats? (the polite vous-form — module 11 makes it yours)",
+            kana: "Tu aimes les chats ?",
+            audioText: "tu aimes les chats ?",
+            gloss: "Do you like cats?",
           },
           goal: "You love them — say so.",
           reply: {
             mode: "choice",
             options: [
               { id: "jaime", text: "j'aime les chats" },
-              { id: "tuaimes", text: "tu aimes les chats" },
+              { id: "tuaimes", text: "non, j'aime les chiens" },
               { id: "moiaussi", text: "moi aussi" },
             ],
             correctOptionId: "jaime",

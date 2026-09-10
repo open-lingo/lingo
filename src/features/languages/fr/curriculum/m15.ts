@@ -932,9 +932,9 @@ function lesson7(): LessonStep[] {
           id: "t2-moinonplus",
           npc: {
             speaker: "Marie",
-            kana: "Ah, moi non plus, j'ai pas encore visité l'hôtel.",
-            audioText: "ah, moi non plus, j'ai pas encore visité l'hôtel",
-            gloss: "Ah, me neither, I haven't visited the hotel.",
+            kana: "Moi non plus, j'ai pas encore visité l'hôtel.",
+            audioText: "moi non plus, j'ai pas encore visité l'hôtel",
+            gloss: "Me neither, I haven't visited the hotel.",
           },
           goal: "Agree.",
           reply: {

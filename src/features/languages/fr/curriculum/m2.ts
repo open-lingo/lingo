@@ -840,9 +840,9 @@ function lesson6(): LessonStep[] {
           id: "t1-dou",
           npc: {
             speaker: "Léa",
-            kana: "Tu es d'où ?",
+            kana: "Enchantée. Tu es d'où ?",
             audioText: "tu es d'où ?",
-            gloss: "Where are you from?",
+            gloss: "Nice to meet you. Where are you from?",
           },
           goal: "Tell her.",
           reply: {
@@ -1554,9 +1554,9 @@ function lesson10(): LessonStep[] {
           id: "t2-origine",
           npc: {
             speaker: "Chloé",
-            kana: "Enchantée. Tu es d'où ?",
+            kana: "Tu es d'où ?",
             audioText: "tu es d'où ?",
-            gloss: "Nice to meet you. Where are you from?",
+            gloss: "Where are you from?",
           },
           goal: "Tell her that too.",
           reply: {

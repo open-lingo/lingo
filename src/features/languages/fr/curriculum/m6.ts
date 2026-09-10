@@ -29,6 +29,14 @@
  *   - Untaught server lines carried with glosses (house sim pattern):
  *     «Vous désirez ?», «Et pour vous ?», «Voilà !», «une salade pour
  *     moi !» — heard, glossed, never graded as learner surfaces.
+ *     `frSimProvenance.test.ts` (2026-09-10) walks every dialogue_sim NPC
+ *     line course-wide; «Vous désirez ?» / «Enchanté(e)»-class formulas are
+ *     a stated, generic exemption there (`FR_NPC_FORMULAS`) — never graded,
+ *     always glossed, NPC-surface-only — so this pattern is intentional,
+ *     not a defect the gate should flag. (2026-09-10 briefly replaced this
+ *     line with «Bonjour !» on the theory that «désirez» was an undertaught
+ *     word; coordinator ruling restored it — «Bonjour !» doesn't cue an
+ *     order, and this module is live on prod with this exact line.)
  *
  * VOICING LEDGER (printed speak → licenses later cue:"recall"):
  *   je voudrais un croissant L1 · je voudrais un café s'il vous plaît L1 ·

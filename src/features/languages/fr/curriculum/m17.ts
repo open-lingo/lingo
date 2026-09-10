@@ -904,9 +904,9 @@ function lesson9(): LessonStep[] {
           id: "t1-combien",
           npc: {
             speaker: "Nadia",
-            kana: "Bonjour ! C'est le panier de fruits — vous désirez ?",
-            audioText: "bonjour ! c'est le panier de fruits — vous désirez ?",
-            gloss: "Hello! It's the fruit basket — what would you like?",
+            kana: "Bonjour ! Vous désirez ?",
+            audioText: "bonjour ! vous désirez ?",
+            gloss: "Hello! What would you like?",
           },
           goal: "Ask how much it costs.",
           reply: {

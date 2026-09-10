@@ -370,9 +370,9 @@ function lesson3(): LessonStep[] {
           id: "t1-quoi",
           npc: {
             speaker: "Léa",
-            kana: "Une surprise !",
-            audioText: "une surprise !",
-            gloss: "A surprise!",
+            kana: "Voilà !",
+            audioText: "voilà !",
+            gloss: "Here!",
           },
           goal: "Ask what it is.",
           reply: {

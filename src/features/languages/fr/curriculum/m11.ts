@@ -2,8 +2,11 @@
  * m11.ts — La machine à verbes — the §13-doctrine hand-authored module.
  *
  * AUTHORED 2026-09-10 per docs/fr-m11-brief-2026-09-10.md: the conjugation
- * checkpoint the arc has been pausing at since m10 (the shelter volunteer's
- * glossed «Vous aimez les chats ?» tease). This module cracks open the verb
+ * checkpoint the arc has been pausing at since m10 (the shelter volunteer
+ * originally teased this with a glossed «Vous aimez les chats ?» — fixed to
+ * «Tu aimes les chats ?» the same day «aimez» was never a taught atom, a
+ * provenance defect frSimProvenance.test.ts now catches). This module
+ * cracks open the verb
  * machine: -er present-tense conjugation for the SINGULAR persons only
  * (je/tu/il/elle/on), using the two verbs the course already half-knows
  * (aimer, from j'aime/tu aimes in m3) plus one brand-new one (habiter).
@@ -953,9 +956,9 @@ function lesson9(): LessonStep[] {
           id: "t2-habites",
           npc: {
             speaker: "Léa",
-            kana: "Super ! Tu habites où ?",
-            audioText: "super ! tu habites où ?",
-            gloss: "Great! Where do you live?",
+            kana: "Tu habites où ?",
+            audioText: "tu habites où ?",
+            gloss: "Where do you live?",
           },
           goal: "Say you live in Montreal.",
           reply: {
@@ -1118,9 +1121,9 @@ function lesson10(): LessonStep[] {
           id: "t2-parlesanglais",
           npc: {
             speaker: "Théo",
-            kana: "Ah, tu habites à Paris ! Tu parles anglais ?",
-            audioText: "ah, tu habites à Paris ! tu parles anglais ?",
-            gloss: "Ah, you live in Paris! Do you speak English?",
+            kana: "Tu habites à Paris ! Tu parles anglais ?",
+            audioText: "tu habites à Paris ! tu parles anglais ?",
+            gloss: "You live in Paris! Do you speak English?",
           },
           goal: "Say yes, you speak English and French.",
           reply: {
