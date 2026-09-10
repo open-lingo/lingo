@@ -22,6 +22,8 @@ import {
   type SymbolReference,
 } from "@/shared/glyphs";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { useContentString } from "../../hooks/useContentString";
+import { courseIdsFromLessonId, symbolIntroHintAnchor } from "@/shared/i18n/content/anchors";
 
 type Props = {
   step: SymbolIntroStep;
@@ -30,6 +32,10 @@ type Props = {
   /** Replay runs skip the watch-the-strokes Continue lock — the learner
    *  has already completed this lesson at least once. */
   skipAnimationGate?: boolean;
+  /** Owning lesson id — see `useContentString`. Used only to derive
+   *  languageId/moduleId for the KO-source `payload.hint` mnemonic lookup
+   *  (rung-1b wiring, `symbolIntroHintAnchor`); never rendered. */
+  lessonId?: string;
 };
 
 const INTRO_CANVAS_MAX = 340;
@@ -47,9 +53,21 @@ export function SymbolIntroStepView({
   onComplete,
   onContinue,
   skipAnimationGate = false,
+  lessonId,
 }: Props) {
   const { t } = useTranslation();
   const { payload } = step;
+
+  // KO-source content wiring (rung 1b, m1/m2 mnemonic-hint follow-up).
+  // Module-scoped anchor (not lesson-scoped) — same kana carries the same
+  // mnemonic wherever it's introduced.
+  const rid = lessonId ?? step.id;
+  const ids = courseIdsFromLessonId(rid);
+  const resolvedHint = useContentString(
+    rid,
+    ids && payload.hint ? symbolIntroHintAnchor(ids.moduleId, payload.symbol) : null,
+    payload.hint ?? "",
+  );
 
   const handleContinue = useCallback(() => {
     onComplete(step.id, true);
@@ -158,7 +176,7 @@ export function SymbolIntroStepView({
           </span>
         </button>
         {payload.hint && payload.hint !== payload.romanization && (
-          <p className="text-base text-text-secondary">{payload.hint}</p>
+          <p className="text-base text-text-secondary">{resolvedHint}</p>
         )}
         {payload.note && (
           <p className="text-sm text-text-muted">{payload.note}</p>

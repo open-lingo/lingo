@@ -92,6 +92,25 @@ function hasJaScript(s) {
   return typeof s === "string" && /[぀-ヿ一-鿿]/.test(s);
 }
 
+// The full `kind` enum this extractor emits. Kept as an explicit allowlist
+// (rather than inferring the set from usage) so a typo'd kind string at a
+// call site fails loudly at extraction time instead of silently shipping a
+// bogus classification into the catalog. Declared here (before the SSR
+// boot section below, which calls `extract()`) — a `const` declared after
+// the call site would throw a TDZ ReferenceError even though it's still
+// "before" the function definition lexically.
+const KINDS = new Set([
+  "atom-gloss",
+  "romaji-label",
+  "mnemonic",
+  "build-prompt",
+  "ja-gloss",
+  "instruction",
+  "explanation",
+  "title",
+  "mcq-option",
+]);
+
 // ── Browser shims (mirrors scripts/restamp-from-module.mjs) ───────────────
 const mem = new Map();
 globalThis.localStorage = {
@@ -175,10 +194,14 @@ try {
   const courseAtomsMod = await server.ssrLoadModule(
     "/src/features/languages/ja/courseAtoms.ts",
   );
+  const kanaTableMod = await server.ssrLoadModule(
+    "/src/shared/japanese/kanaTable.ts",
+  );
   entries = extract({
     getMockLessonContent: mockLessons.getMockLessonContent,
     getMockCourse: mockCourse.getMockCourse,
     JA_COURSE_ATOMS: courseAtomsMod.JA_COURSE_ATOMS,
+    KANA_ROMAJI: kanaTableMod.KANA_ROMAJI,
   });
 } finally {
   console.log = realLog;
@@ -191,14 +214,19 @@ try {
 // Extraction
 // ═══════════════════════════════════════════════════════════════════════════
 
-function extract({ getMockLessonContent, getMockCourse, JA_COURSE_ATOMS }) {
-  /** @type {Map<string, {anchor:string, en:string, enSourceHash:string, source:string[]}>} */
+function extract({ getMockLessonContent, getMockCourse, JA_COURSE_ATOMS, KANA_ROMAJI }) {
+  /** @type {Map<string, {anchor:string, en:string, enSourceHash:string, kind:string, source:string[]}>} */
   const out = new Map();
 
-  const add = (anchor, en, source) => {
+  const add = (anchor, en, source, kind) => {
     if (!isGlossText(en)) return;
     const text = en.trim();
     if (!text) return;
+    if (!KINDS.has(kind)) {
+      throw new Error(
+        `[extract-content-catalog] unknown kind "${kind}" for anchor "${anchor}" (source: ${source.join("/")}) — add it to KINDS or fix the call site.`,
+      );
+    }
     const existing = out.get(anchor);
     if (existing) {
       // Same anchor, different text is a real collision — surface it loudly
@@ -215,6 +243,7 @@ function extract({ getMockLessonContent, getMockCourse, JA_COURSE_ATOMS }) {
       anchor,
       en: text,
       enSourceHash: sha256Hex16(text),
+      kind,
       source: [source.join("/")],
     });
   };
@@ -222,17 +251,19 @@ function extract({ getMockLessonContent, getMockCourse, JA_COURSE_ATOMS }) {
   // ── 1. Atom glosses — every atom this module introduces ─────────────
   for (const atom of JA_COURSE_ATOMS) {
     if (atom.fromModule !== moduleId) continue;
-    add(`${moduleId}/atom:${atom.kana}/gloss`, atom.meaningEn, [
-      "atom",
-      atom.kana,
-      "meaningEn",
-    ]);
+    add(
+      `${moduleId}/atom:${atom.kana}/gloss`,
+      atom.meaningEn,
+      ["atom", atom.kana, "meaningEn"],
+      "atom-gloss",
+    );
     if (atom.shortGloss) {
-      add(`${moduleId}/atom:${atom.kana}/shortGloss`, atom.shortGloss, [
-        "atom",
-        atom.kana,
-        "shortGloss",
-      ]);
+      add(
+        `${moduleId}/atom:${atom.kana}/shortGloss`,
+        atom.shortGloss,
+        ["atom", atom.kana, "shortGloss"],
+        "atom-gloss",
+      );
     }
   }
 
@@ -255,14 +286,16 @@ function extract({ getMockLessonContent, getMockCourse, JA_COURSE_ATOMS }) {
     }
 
     if (lesson.title) {
-      add(`${moduleId}/${lessonId}/en:${sha256Hex16(lesson.title)}`, lesson.title, [
-        lessonId,
+      add(
+        `${moduleId}/${lessonId}/en:${sha256Hex16(lesson.title)}`,
+        lesson.title,
+        [lessonId, "title"],
         "title",
-      ]);
+      );
     }
 
     for (const step of lesson.steps ?? []) {
-      extractStep(step, lessonId, add);
+      extractStep(step, lessonId, add, KANA_ROMAJI);
     }
   }
 
@@ -279,16 +312,18 @@ function isExampleShape(v) {
   );
 }
 
-function extractStep(step, lessonId, add) {
+function extractStep(step, lessonId, add, KANA_ROMAJI) {
   const stepId = step.id ?? "?";
 
   // Common StepBase fields.
   if (step.hint) {
-    add(`${moduleId}/${lessonId}/en:${sha256Hex16(step.hint)}`, step.hint, [
-      lessonId,
-      stepId,
-      "hint",
-    ]);
+    // Generic pre-answer nudge — UI chrome, not content being glossed.
+    add(
+      `${moduleId}/${lessonId}/en:${sha256Hex16(step.hint)}`,
+      step.hint,
+      [lessonId, stepId, "hint"],
+      "instruction",
+    );
   }
   if (step.explanation) {
     // NOTE (rung 1b, 2026-09-10): this anchor was missing the `${moduleId}/`
@@ -300,11 +335,12 @@ function extractStep(step, lessonId, add) {
     // before this fix won't match new runtime anchors (a fresh
     // `--check`/extract run picks up the corrected shape automatically —
     // no translated `explanation` entries existed yet to go stale).
-    add(`${moduleId}/${lessonId}/en:${sha256Hex16(step.explanation)}`, step.explanation, [
-      lessonId,
-      stepId,
+    add(
+      `${moduleId}/${lessonId}/en:${sha256Hex16(step.explanation)}`,
+      step.explanation,
+      [lessonId, stepId, "explanation"],
       "explanation",
-    ]);
+    );
   }
 
   // A `prompt` string sitting directly on the step is the most common
@@ -313,36 +349,66 @@ function extractStep(step, lessonId, add) {
   // prompt is about (targetSentence / correctKana / audioText / ja), key
   // off that JA surface per §3c bullet 3; otherwise fall back to the
   // en-string hash per §3c bullet 4.
+  //
+  // Kind: a `build_sentence`/`listening_build` prompt is a "build" drill
+  // instruction (gets the pinned "Build:"/"Build what you hear." drafter
+  // treatment) → `build-prompt`. Any other JA-anchored prompt is a gloss of
+  // that JA sentence → `ja-gloss` (mirrors the JA sentence's own register
+  // per docs/ko-content-conventions-2026-09-10.md §1). A prompt with no JA
+  // backing (pure UI instruction, e.g. "Pick the word for X") →
+  // `instruction`.
   if (typeof step.prompt === "string") {
     const jaAnchor =
       step.targetSentence ?? step.correctKana ?? step.audioText ?? step.ja;
-    const anchor =
-      typeof jaAnchor === "string" && hasJaScript(jaAnchor)
-        ? `${moduleId}/${lessonId}/ja:${jaAnchor}`
-        : `${moduleId}/${lessonId}/en:${sha256Hex16(step.prompt)}`;
-    add(anchor, step.prompt, [lessonId, stepId, "prompt"]);
+    const jaBacked = typeof jaAnchor === "string" && hasJaScript(jaAnchor);
+    const anchor = jaBacked
+      ? `${moduleId}/${lessonId}/ja:${jaAnchor}`
+      : `${moduleId}/${lessonId}/en:${sha256Hex16(step.prompt)}`;
+    const isBuildPrompt = step.type === "build_sentence" || step.type === "listening_build";
+    const kind = isBuildPrompt ? "build-prompt" : jaBacked ? "ja-gloss" : "instruction";
+    add(anchor, step.prompt, [lessonId, stepId, "prompt"], kind);
   }
 
   if (typeof step.body === "string") {
-    add(`${moduleId}/${lessonId}/en:${sha256Hex16(step.body)}`, step.body, [
-      lessonId,
-      stepId,
-      "body",
-    ]);
+    // Info-step prose — explanatory body copy.
+    add(
+      `${moduleId}/${lessonId}/en:${sha256Hex16(step.body)}`,
+      step.body,
+      [lessonId, stepId, "body"],
+      "explanation",
+    );
   }
   if (typeof step.cultureNote === "string") {
     add(
       `${moduleId}/${lessonId}/en:${sha256Hex16(step.cultureNote)}`,
       step.cultureNote,
       [lessonId, stepId, "cultureNote"],
+      "explanation",
     );
   }
   if (typeof step.title === "string") {
-    add(`${moduleId}/${lessonId}/en:${sha256Hex16(step.title)}`, step.title, [
-      lessonId,
-      stepId,
+    add(
+      `${moduleId}/${lessonId}/en:${sha256Hex16(step.title)}`,
+      step.title,
+      [lessonId, stepId, "title"],
       "title",
-    ]);
+    );
+  }
+
+  // symbol_intro: kana mnemonic hint ("looks like a wave…"). Module-scoped
+  // anchor (not lesson-scoped) mirroring the atom-gloss shape — see
+  // `symbolIntroHintAnchor` in `src/shared/i18n/content/anchors.ts`, which
+  // this MUST stay byte-identical to.
+  if (step.type === "symbol_intro" && step.payload && typeof step.payload.hint === "string") {
+    const symbol = step.payload.symbol;
+    if (typeof symbol === "string" && symbol) {
+      add(
+        `${moduleId}/symbolIntro:${symbol}/hint`,
+        step.payload.hint,
+        [lessonId, stepId, "payload.hint"],
+        "mnemonic",
+      );
+    }
   }
 
   // grammar_rule: rule prose + examples + antiPattern, keyed by
@@ -353,52 +419,79 @@ function extractStep(step, lessonId, add) {
   if (step.type === "grammar_rule") {
     const gp = step.grammarPointId ?? `step:${stepId}`;
     if (typeof step.rule === "string") {
-      add(`${moduleId}/gp:${gp}/rule`, step.rule, [lessonId, stepId, "rule"]);
+      add(`${moduleId}/gp:${gp}/rule`, step.rule, [lessonId, stepId, "rule"], "explanation");
     }
     for (const ex of step.examples ?? []) {
       if (isExampleShape(ex)) {
-        add(`${moduleId}/gp:${gp}/ex:${ex.ja}`, ex.en, [lessonId, stepId, "examples[].en"]);
+        add(
+          `${moduleId}/gp:${gp}/ex:${ex.ja}`,
+          ex.en,
+          [lessonId, stepId, "examples[].en"],
+          "ja-gloss",
+        );
       }
     }
     if (isExampleShape(step.antiPattern)) {
-      add(`${moduleId}/gp:${gp}/ex:${step.antiPattern.ja}`, step.antiPattern.en, [
-        lessonId,
-        stepId,
-        "antiPattern.en",
-      ]);
+      add(
+        `${moduleId}/gp:${gp}/ex:${step.antiPattern.ja}`,
+        step.antiPattern.en,
+        [lessonId, stepId, "antiPattern.en"],
+        "ja-gloss",
+      );
       if (typeof step.antiPattern.why === "string") {
-        add(`${moduleId}/gp:${gp}/antipattern-why`, step.antiPattern.why, [
-          lessonId,
-          stepId,
-          "antiPattern.why",
-        ]);
+        add(
+          `${moduleId}/gp:${gp}/antipattern-why`,
+          step.antiPattern.why,
+          [lessonId, stepId, "antiPattern.why"],
+          "explanation",
+        );
       }
     }
   }
 
   // MCQ-family option text (multiple_choice, self_explanation_mcq, …).
+  // `symbol_to_sound`'s options are ALWAYS romaji labels for its 2x2 kana
+  // grid by that step type's own construction (docstring in
+  // SymbolToSoundStepView.tsx) — unconditional `romaji-label`, no lookup
+  // needed. Every other MCQ-family option is `mcq-option`.
   if (Array.isArray(step.options)) {
     for (const opt of step.options) {
       if (opt && typeof opt.text === "string") {
-        add(`${moduleId}/${lessonId}/en:${sha256Hex16(opt.text)}`, opt.text, [
-          lessonId,
-          stepId,
-          `options[${opt.id ?? "?"}].text`,
-        ]);
+        const kind = step.type === "symbol_to_sound" ? "romaji-label" : "mcq-option";
+        add(
+          `${moduleId}/${lessonId}/en:${sha256Hex16(opt.text)}`,
+          opt.text,
+          [lessonId, stepId, `options[${opt.id ?? "?"}].text`],
+          kind,
+        );
       }
     }
   }
 
   // match_pairs meaning-grid targets (romaji/kana targets are skipped by
-  // `add`'s isGlossText guard).
+  // `add`'s isGlossText guard for romaji-vs-target mismatches, but a
+  // romaji-mode pair — `pair.target` IS the exact romaji reading of
+  // `pair.source` per KANA_ROMAJI — is NOT skipped by isGlossText (romaji is
+  // Latin script), so it must be classified explicitly here. `m3-neo.ts`
+  // proves `playAudioOnSelect` alone can't be used as the signal (it also
+  // flags kana→English-MEANING match steps like "Squeezing past someone"),
+  // so this does an exact case-insensitive KANA_ROMAJI[pair.source] vs
+  // pair.target check instead. A match → `romaji-label` (verbatim-copy,
+  // no-model-call territory for the drafter); anything else is treated as
+  // a gloss of the JA source → `ja-gloss`.
   if (Array.isArray(step.pairs)) {
     for (const pair of step.pairs) {
       if (pair && typeof pair.target === "string") {
-        add(`${moduleId}/${lessonId}/en:${sha256Hex16(pair.target)}`, pair.target, [
-          lessonId,
-          stepId,
-          `pairs[${pair.id ?? "?"}].target`,
-        ]);
+        const romaji =
+          KANA_ROMAJI && typeof pair.source === "string" ? KANA_ROMAJI[pair.source] : undefined;
+        const isRomajiLabel =
+          typeof romaji === "string" && romaji.toLowerCase() === pair.target.trim().toLowerCase();
+        add(
+          `${moduleId}/${lessonId}/en:${sha256Hex16(pair.target)}`,
+          pair.target,
+          [lessonId, stepId, `pairs[${pair.id ?? "?"}].target`],
+          isRomajiLabel ? "romaji-label" : "ja-gloss",
+        );
       }
     }
   }
@@ -418,10 +511,11 @@ const catalog = {
   lang,
   generatedAt: new Date().toISOString().slice(0, 10),
   entryCount: sortedEntries.length,
-  entries: sortedEntries.map(({ anchor, en, enSourceHash }) => ({
+  entries: sortedEntries.map(({ anchor, en, enSourceHash, kind }) => ({
     anchor,
     en,
     enSourceHash,
+    kind,
   })),
 };
 

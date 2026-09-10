@@ -138,3 +138,12 @@ export function atomGlossAnchor(moduleId: string, kana: string): string {
 export function atomShortGlossAnchor(moduleId: string, kana: string): string {
   return `${moduleId}/atom:${kana}/shortGloss`;
 }
+
+/** `symbol_intro` step's `payload.hint` (kana mnemonic, e.g. "looks like a
+ *  wave"). Module-scoped (not lesson-scoped) — the same kana carries the
+ *  same mnemonic wherever it's introduced, mirroring the atom-gloss anchor
+ *  shape rather than the lesson-scoped `en:`/`ja:` shape. `symbol` is
+ *  `step.payload.symbol` (the kana character itself, e.g. "あ"). */
+export function symbolIntroHintAnchor(moduleId: string, symbol: string): string {
+  return `${moduleId}/symbolIntro:${symbol}/hint`;
+}

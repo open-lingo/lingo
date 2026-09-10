@@ -14,6 +14,7 @@
  * Usage:
  *   node scripts/i18n/mt-translate-catalog.mjs ja m6
  *   node scripts/i18n/mt-translate-catalog.mjs ja m6 --model qwen3.5:122b-a10b-q4_K_M --batch 40
+ *   node scripts/i18n/mt-translate-catalog.mjs ja m1 --missing-only   # only anchors absent from the existing .ko.json
  *
  * Model: pinned to the NON-mlx tag explicitly (`local-model-stack.md`'s
  * `ollama/ollama#16563` trap — the `-mlx` variant silently ignores the
@@ -23,6 +24,25 @@
  * before being accepted; a batch that fails either check is retried once
  * with a smaller batch size, then reported as failed (never silently
  * dropped or silently miscounted).
+ *
+ * DEFECT-CLASS FIXES (rung 1c, 2026-09-10 — see the report for the full
+ * corpus evidence behind each):
+ *   1. `kind === "romaji-label"` entries bypass the model entirely — the
+ *      "en" IS the correct Korean output (a romaji label like "a" or "ka"
+ *      is not translated, it's copied), so any model call on these can only
+ *      introduce drift (e.g. transliterating "a" into "아").
+ *   2. PINNED instruction prefixes (below) bypass the model for the fixed
+ *      portion and send only the variable remainder — the confirmed
+ *      "Build this sentence:" 3-way drift (m3/m4/m5 each used a different
+ *      Korean rendering in the reviewed corpus; independently named in
+ *      `docs/handoff-2026-09-10-overnight-authoring.md:122`) is exactly
+ *      this failure mode.
+ *   3. Register/pro-drop/mnemonic/names guidance strengthened in the prompt
+ *      text itself (docs/ko-content-conventions-2026-09-10.md + its m7
+ *      addendum), including a concrete negative example for each rule drawn
+ *      from a real drift found in the m1-m8 reviewed corpus this session
+ *      (m8's "말하기:" vs m7/canonical "말하세요:"; m8's "타나카" vs the
+ *      mandated "다나카").
  */
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -42,9 +62,10 @@ const flag = (n, d) => {
 const MODEL = flag("model", "qwen3.5:122b-a10b-q4_K_M");
 const BATCH_SIZE = Number(flag("batch", "40"));
 const OUT_DIR = resolve(ROOT, flag("out", "src/shared/i18n/content"));
+const MISSING_ONLY = argv.includes("--missing-only");
 
 if (!lang || !moduleId) {
-  console.error("Usage: node scripts/i18n/mt-translate-catalog.mjs <lang> <moduleId> [--model <tag>] [--batch <n>] [--out <dir>]");
+  console.error("Usage: node scripts/i18n/mt-translate-catalog.mjs <lang> <moduleId> [--model <tag>] [--batch <n>] [--out <dir>] [--missing-only]");
   process.exit(2);
 }
 
@@ -54,13 +75,115 @@ if (!existsSync(enPath)) {
   process.exit(1);
 }
 const enCatalog = JSON.parse(readFileSync(enPath, "utf-8"));
-const LIMIT = flag("limit", null);
-const entries = LIMIT ? enCatalog.entries.slice(0, Number(LIMIT)) : enCatalog.entries;
+const outPath = join(OUT_DIR, lang, `${moduleId}.ko.json`);
 
-// ── Category guidance (stated in the PROMPT TEXT, not just the schema —
-// the memory doc's 08-20 finding: enum-only labeling let this model emit
-// consecutive-run garbage; stating categories in prose fixed 81→25 errors). ──
-function anchorCategory(anchor) {
+let existingKo = null;
+if (MISSING_ONLY) {
+  if (!existsSync(outPath)) {
+    console.error(`[mt] --missing-only requested but no existing ${outPath} to merge into`);
+    process.exit(1);
+  }
+  existingKo = JSON.parse(readFileSync(outPath, "utf-8"));
+}
+const existingAnchors = existingKo ? new Set(existingKo.entries.map((e) => e.anchor)) : null;
+
+const LIMIT = flag("limit", null);
+const allEntries = LIMIT ? enCatalog.entries.slice(0, Number(LIMIT)) : enCatalog.entries;
+const entries = MISSING_ONLY
+  ? allEntries.filter((e) => !existingAnchors.has(e.anchor))
+  : allEntries;
+
+if (MISSING_ONLY && entries.length === 0) {
+  console.log(`[mt] ${moduleId} (${lang}): --missing-only found 0 anchors absent from ${outPath} — nothing to draft`);
+  process.exit(0);
+}
+
+// ── Pinned-prefix / full-pin table (Deliverable C, docs/ko-content-conventions-2026-09-10.md
+// §2 + its m7-review addendum + this session's corpus audit against the
+// reviewed m1-m8 .ko.json files). Checked in order, first match wins. `full`
+// pins need no model call. `prefix` pins send only the remainder to the
+// model and reassemble `pin + translated-remainder`. `template` pins pull a
+// single quoted/word remainder, translate THAT, and splice it into a fixed
+// Korean sentence frame (the frame itself never touches the model). ──
+const FULL_PINS = [
+  { re: /^Build what you hear\.$/, ko: "들리는 대로 만들어 보세요." },
+  { re: /^\(incorrect\)$/, ko: "(틀림)" },
+  { re: /^Match each Japanese word to its meaning \(review\)$/, ko: "각 일본어 단어를 뜻과 연결하세요 (복습)" },
+];
+
+const PREFIX_PINS = [
+  // Audience-register cues — conventions-doc addendum, canonical form
+  // confirmed against the m7 review. m8 drifted to the noun form
+  // "...말하기:" instead of the imperative "...말하세요:"; this pin kills
+  // that drift regardless of which form the model would otherwise favor.
+  { re: /^Say very politely:\s*/, pin: "매우 정중하게 말하세요: " },
+  { re: /^Say politely:\s*/, pin: "정중하게 말하세요: " },
+  { re: /^Say to a friend:\s*/, pin: "친구에게 말하세요: " },
+  { re: /^Say to a teacher:\s*/, pin: "선생님께 말하세요: " },
+  // "Build this sentence:" — CONFIRMED 3-way drift in the reviewed corpus
+  // (m3: "이 문장을 만들어 보세요:", m4: BOTH that AND "이 문장을 만드세요:"
+  // inconsistently, m5: bare "만들기:"). Also named directly in
+  // docs/handoff-2026-09-10-overnight-authoring.md:122. Pinned to the
+  // conventions doc pin `만들기: <gloss>` (coordinator override of the
+  // drafter's 이 문장을 만드세요 pick — the reviewed m5 corpus is the ground truth).
+  { re: /^Build this sentence:\s*/, pin: "만들기: " },
+  { re: /^Build:\s*/, pin: "만들기: " },
+  { re: /^Challenge\s*—\s*/, pin: "도전 — " },
+  { re: /^m(\d+) review\s*—\s*/, pin: (m) => `m${m[1]} 복습 — ` },
+];
+
+const TEMPLATE_PINS = [
+  {
+    re: /^Pick the word for "(.+)"$/,
+    assemble: (x) => `"${x}"에 해당하는 단어를 고르세요`,
+  },
+  {
+    // Majority form across the reviewed m1-m5 corpus (m1: 33/33, m5: 8/8);
+    // minority drift in m2 (3×) and m4 (3×) reordered/re-worded this same
+    // instruction — not documented in the conventions doc, added as a new
+    // inferred pin from this session's corpus evidence.
+    re: /^Listen and build the word for '(.+)'$/,
+    assemble: (x) => `'${x}'에 해당하는 단어를 듣고 만들어 보세요`,
+  },
+];
+
+function classifyPin(en) {
+  for (const { re, ko } of FULL_PINS) {
+    if (re.test(en)) return { type: "full", ko };
+  }
+  for (const { re, pin } of PREFIX_PINS) {
+    const m = re.exec(en);
+    if (m) {
+      const prefix = typeof pin === "function" ? pin(m) : pin;
+      return { type: "prefix", prefix, remainder: en.slice(m[0].length) };
+    }
+  }
+  for (const { re, assemble } of TEMPLATE_PINS) {
+    const m = re.exec(en);
+    if (m) return { type: "template", remainder: m[1], assemble };
+  }
+  return { type: "none" };
+}
+
+// ── Category guidance keyed on the extractor's `kind` field (Deliverable A)
+// when present — far more reliable than sniffing the anchor shape, which is
+// all the old anchorCategory() below could do. Falls back to the anchor
+// heuristic for any catalog that predates the `kind` field. ──
+const KIND_CATEGORY = {
+  "atom-gloss": "vocabulary gloss (atom) — short, dictionary-style, citation -다 form",
+  "romaji-label": "romaji label (should not reach the model — bypassed upstream)",
+  mnemonic: "kana mnemonic — RE-ANCHOR the imagery for a Korean reader, don't translate the English visual metaphor word-for-word",
+  "build-prompt": "build-sentence instruction remainder (its instruction prefix is already pinned separately — translate ONLY the sentence meaning that follows it)",
+  "ja-gloss": "gloss keyed to a Japanese sentence — mirror the JA sentence's structure AND register exactly",
+  instruction: "plain UI instruction text",
+  explanation: "grammar-teaching prose (rule/example/anti-pattern explanation)",
+  title: "lesson or step title",
+  "mcq-option": "multiple-choice option text",
+};
+
+function anchorCategory(e) {
+  if (e.kind && KIND_CATEGORY[e.kind]) return KIND_CATEGORY[e.kind];
+  const anchor = e.anchor;
   if (anchor.includes("/gp:")) return "grammar-point rule/example";
   if (anchor.includes("/atom:")) return "vocabulary gloss";
   if (/\/[^/]+\/ja:/.test(anchor)) return "step prompt/gloss keyed to a Japanese sentence";
@@ -68,9 +191,10 @@ function anchorCategory(anchor) {
   return "other";
 }
 
-// Pull the Japanese surface out of an anchor when present, so the model has
-// the actual JA sentence/word to translate STRUCTURE-TRUE to, not just the
-// (often idiomatically-smoothed) English gloss.
+// Pull the Japanese surface (or, for a kana mnemonic, the kana symbol
+// itself) out of an anchor when present, so the model has the actual JA
+// sentence/word/kana to translate STRUCTURE-TRUE to, not just the (often
+// idiomatically-smoothed) English gloss.
 function jaSurfaceFromAnchor(anchor) {
   const exMatch = anchor.match(/\/ex:(.+)$/);
   if (exMatch) return exMatch[1];
@@ -78,6 +202,8 @@ function jaSurfaceFromAnchor(anchor) {
   if (jaMatch) return jaMatch[1];
   const atomMatch = anchor.match(/\/atom:([^/]+)\//);
   if (atomMatch) return atomMatch[1];
+  const symMatch = anchor.match(/\/symbolIntro:([^/]+)\//);
+  if (symMatch) return symMatch[1];
   return null;
 }
 
@@ -86,9 +212,10 @@ function buildPrompt(batch) {
     const ja = jaSurfaceFromAnchor(e.anchor);
     return {
       anchor: e.anchor,
-      category: anchorCategory(e.anchor),
+      category: anchorCategory(e),
       ja: ja ?? undefined,
       en: e.en,
+      ...(e.note ? { note: e.note } : {}),
     };
   });
   return `You are translating English learner-facing UI strings from a JAPANESE course into KOREAN, for KOREAN-speaking learners of Japanese.
@@ -96,15 +223,18 @@ function buildPrompt(batch) {
 CRITICAL: translate each "en" string to Korean so it is STRUCTURE-TRUE TO THE JAPANESE ("ja" field, when present), NOT to the English wording. Japanese and Korean share SOV word order and a near 1:1 particle system (が/은/는, を/를, に/에, で/에서, の/의 …), so a structure-true Korean gloss is also natural Korean — do not smooth back toward the loose English phrasing (e.g. English "There's a book" for ほんが ある should become a Korean gloss that mirrors "book-SUBJECT exist(inanimate)", not just a free "책이 있어요" only if that itself is what a Korean speaker would say to parse the JA sentence's structure — prefer the reading that teaches the JA grammar point, matching this course's existing register).
 
 CONVENTIONS (docs/ko-content-conventions-2026-09-10.md — follow exactly):
-  - REGISTER: an "Instruction/UI-directive" (Pick/Build/Match, markers) is 해요체 imperative ("~을 고르세요"). A "gloss of a JA sentence" MIRRORS the JA sentence's own register — plain-form JA (だ/る/ない, no です/ます) becomes plain Korean statements (-다/-는다/-ㄴ다, questions -니?), never -어요/-ㅂ니까. A "vocab/atom gloss" uses citation -다 form.
-  - PREFIX TABLE: "Build: <s>" → "만들기: <gloss>" (never "빌드:"/bare "Build:"). "Build what you hear." → "들리는 대로 만들어 보세요." "Pick the word for X" → 'the exact form "X"에 해당하는 단어를 고르세요' every time. "Match each Japanese word to its meaning (review)" → "각 일본어 단어를 뜻과 연결하세요 (복습)". "(incorrect)" → "(틀림)".
-  - PRO-DROP: mirror JA subject presence exactly — never add 나는/저는/그는/당신 where the JA has no は/が-marked subject.
+  - REGISTER: an "Instruction/UI-directive" (Pick/Build/Match, markers) is 해요체 imperative ("~을 고르세요"). A "gloss of a JA sentence" MIRRORS the JA sentence's own register — plain-form JA (だ/る/ない, no です/ます) becomes plain Korean statements (-다/-는다/-ㄴ다, questions -니?), never -어요/-ㅂ니까. A "vocab/atom gloss" uses citation -다 form. An audience-register-cue remainder (item carries a "note" about a pinned "Say ...:" prefix) is the sentence to be SAID at that register — translate it plainly; the register cue itself is already pinned onto the front, do not add your own honorific marker on top of it.
+  - PRO-DROP: mirror JA subject presence exactly — never add 나는/저는/그는/당신 where the JA has no は/が-marked subject. This applies even inside a pinned remainder (e.g. after "정중하게 말하세요:" — translate only the content, still no inserted subject the JA doesn't have).
+  - NAMES: transliterate Japanese personal names using this course's FIXED Korean spellings, never ad hoc — たなか/タナカ/Tanaka → 다나카 (NEVER 타나카; a "타나카" spelling was found in the m8 corpus this session and is a confirmed defect, not a valid alternate). Reuse the identical spelling for the same name across every item in this batch.
+  - MNEMONIC RE-ANCHORING: an item with category "kana mnemonic" is an English memory hook for a kana's SHAPE or SOUND (e.g. "looks like a wave"). A literal translation of the English visual metaphor often does not land for a Korean reader — prefer a Korean-natural mnemonic that evokes the same shape/sound connection over a word-for-word translation of the English phrase.
+  - Instruction prefixes ("Build:", "Pick the word for...", audience-register cues, etc.) are handled OUTSIDE this prompt by a pinned-prefix table — you will only ever see the variable remainder for those, never the fixed instruction wording itself. Do not re-add an instruction prefix of your own.
 
 Categories in this batch, and how to handle each:
-  - "grammar-point rule/example": explains or exemplifies a JA grammar point (existence verbs ある/いる, negation via ～ない, location questions, spatial relations こ/そ/あ demonstratives). Keep terminology consistent with how a Korean-language JA-grammar course would name these forms. An "en" of exactly "(incorrect)" marks a deliberately WRONG example sentence — translate it as a short Korean equivalent marker (e.g. "(틀림)"), never as a full sentence.
-  - "vocabulary gloss": a single word/phrase meaning — keep it short, dictionary-style, matching the English's register (a "shortGloss" entry pairs with a longer "gloss" entry for the same word; keep the short one shorter).
-  - "step prompt/gloss keyed to a Japanese sentence": instructional text tied to one JA sentence (e.g. "Build: I won't eat the cucumber." for きゅうりを たべない). Preserve any leading instruction word (e.g. "Build:") translated naturally, then give a structure-true Korean rendering of the meaning.
-  - "generic step text": UI chrome (titles, instructions like "Pick the word for X", hints). Translate naturally; these are not grammar-teaching content.
+  - "grammar-point rule/example" / "explanation": explains or exemplifies a JA grammar point (existence verbs ある/いる, negation via ～ない, location questions, spatial relations こ/そ/あ demonstratives). Keep terminology consistent with how a Korean-language JA-grammar course would name these forms. An "en" of exactly "(incorrect)" marks a deliberately WRONG example sentence — translate it as a short Korean equivalent marker (e.g. "(틀림)"), never as a full sentence.
+  - "vocabulary gloss (atom)": a single word/phrase meaning — keep it short, dictionary-style, matching the English's register (a "shortGloss" entry pairs with a longer "gloss" entry for the same word; keep the short one shorter).
+  - "gloss keyed to a Japanese sentence" / "build-sentence instruction remainder": instructional or gloss text tied to one JA sentence. Give a structure-true Korean rendering of the meaning; if this item's "note" says its instruction prefix is already pinned, translate ONLY the sentence content, no prefix of your own.
+  - "kana mnemonic": see MNEMONIC RE-ANCHORING above.
+  - "plain UI instruction text" / "lesson or step title" / "multiple-choice option text": UI chrome. Translate naturally; these are not grammar-teaching content.
 
 Return ONLY a JSON array, one object per input item, in the SAME ORDER, each shaped exactly {"anchor": "<the input anchor, verbatim>", "text": "<Korean translation>"}. Do not add, drop, reorder, or merge items — the array must have exactly ${items.length} objects, one per input anchor below.
 
@@ -155,11 +285,52 @@ function chunk(arr, size) {
   return out;
 }
 
-const gov = makeGovernor({ duty: 0.85, label: "mt-translate" });
-const batches = chunk(entries, BATCH_SIZE);
-console.log(`[mt] ${moduleId} (${lang}): ${entries.length} entries in ${batches.length} batches of up to ${BATCH_SIZE}, model=${MODEL}`);
+// ── Split entries into: resolved without a model call (romaji-label copy,
+// full pins) vs. needing a model call (everything else — with prefix/
+// template-pin entries substituting their REMAINDER for `en` so the model
+// never sees the fixed instruction wording). ──
+const verbatimByAnchor = new Map(); // final text, no model call
+const pinPost = new Map(); // anchor -> (modelText) => finalText, for prefix/template entries
+const modelEntries = [];
 
-const byAnchor = new Map();
+for (const e of entries) {
+  if (e.kind === "romaji-label") {
+    verbatimByAnchor.set(e.anchor, e.en);
+    continue;
+  }
+  const pin = classifyPin(e.en);
+  if (pin.type === "full") {
+    verbatimByAnchor.set(e.anchor, pin.ko);
+    continue;
+  }
+  if (pin.type === "prefix") {
+    if (pin.remainder.trim().length === 0) {
+      // Pure-prefix string with nothing left to translate (rare, but a
+      // fixed pin covers the whole en text) — no model call needed.
+      verbatimByAnchor.set(e.anchor, pin.prefix.trimEnd());
+      continue;
+    }
+    pinPost.set(e.anchor, (modelText) => pin.prefix + modelText);
+    modelEntries.push({ ...e, en: pin.remainder, note: "prefix already pinned; translate ONLY this remainder" });
+    continue;
+  }
+  if (pin.type === "template") {
+    pinPost.set(e.anchor, (modelText) => pin.assemble(modelText));
+    modelEntries.push({ ...e, en: pin.remainder, note: "this is a single word/phrase to translate, which will be spliced into a fixed Korean sentence frame" });
+    continue;
+  }
+  modelEntries.push(e);
+}
+
+const gov = makeGovernor({ duty: 0.85, label: "mt-translate" });
+const batches = chunk(modelEntries, BATCH_SIZE);
+console.log(
+  `[mt] ${moduleId} (${lang}): ${entries.length} entries` +
+    (MISSING_ONLY ? ` (missing-only, ${allEntries.length} total)` : "") +
+    ` — ${verbatimByAnchor.size} resolved without a model call (romaji-label/pinned), ${modelEntries.length} to the model in ${batches.length} batches of up to ${BATCH_SIZE}, model=${MODEL}`,
+);
+
+const byAnchor = new Map(); // raw model output, keyed by anchor
 let failedBatches = 0;
 
 async function translateAttempt(attemptBatch, label) {
@@ -204,11 +375,26 @@ for (let i = 0; i < batches.length; i++) {
   }
 }
 
-const koEntries = entries
-  .filter((e) => byAnchor.has(e.anchor))
-  .map((e) => ({ anchor: e.anchor, text: byAnchor.get(e.anchor), enSourceHash: e.enSourceHash }));
+// ── Final assembly: verbatim resolutions + pin reassembly over raw model
+// output + anything sent to the model unpinned. ──
+const finalByAnchor = new Map(verbatimByAnchor);
+for (const e of entries) {
+  if (finalByAnchor.has(e.anchor)) continue;
+  if (!byAnchor.has(e.anchor)) continue;
+  const raw = byAnchor.get(e.anchor);
+  const post = pinPost.get(e.anchor);
+  finalByAnchor.set(e.anchor, post ? post(raw) : raw);
+}
 
-const missing = entries.filter((e) => !byAnchor.has(e.anchor)).map((e) => e.anchor);
+const newKoEntries = entries
+  .filter((e) => finalByAnchor.has(e.anchor))
+  .map((e) => ({ anchor: e.anchor, text: finalByAnchor.get(e.anchor), enSourceHash: e.enSourceHash }));
+
+const missing = entries.filter((e) => !finalByAnchor.has(e.anchor)).map((e) => e.anchor);
+
+// --missing-only preserves every existing entry byte-for-byte; new anchors
+// are appended (never re-translates or reorders what's already there).
+const koEntries = MISSING_ONLY ? [...existingKo.entries, ...newKoEntries] : newKoEntries;
 
 const koCatalog = {
   schema: 1,
@@ -220,11 +406,10 @@ const koCatalog = {
   entries: koEntries,
 };
 
-const outPath = join(OUT_DIR, lang, `${moduleId}.ko.json`);
 mkdirSync(dirname(outPath), { recursive: true });
 writeFileSync(outPath, JSON.stringify(koCatalog, null, 2) + "\n");
 
-console.log(`[mt] wrote ${koEntries.length}/${entries.length} entries → ${outPath}`);
+console.log(`[mt] wrote ${koEntries.length}${MISSING_ONLY ? ` (${newKoEntries.length} new + ${existingKo.entries.length} preserved)` : ""}/${MISSING_ONLY ? allEntries.length : entries.length} entries → ${outPath}`);
 if (missing.length) {
   console.log(`[mt] MISSING (${missing.length}):`);
   for (const a of missing) console.log(`  - ${a}`);

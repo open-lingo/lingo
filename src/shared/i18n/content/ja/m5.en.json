@@ -8,1832 +8,2198 @@
     {
       "anchor": "m5/atom:いう/gloss",
       "en": "to say",
-      "enSourceHash": "2a51c800506c91b8"
+      "enSourceHash": "2a51c800506c91b8",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m5/atom:いく/gloss",
       "en": "to go, to travel",
-      "enSourceHash": "be912fdcc7cb873f"
+      "enSourceHash": "be912fdcc7cb873f",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m5/atom:いくら/gloss",
       "en": "how much?",
-      "enSourceHash": "b27a767eb17070a1"
+      "enSourceHash": "b27a767eb17070a1",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m5/atom:えん/gloss",
       "en": "Yen",
-      "enSourceHash": "264705511825497c"
+      "enSourceHash": "264705511825497c",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m5/atom:おもう/gloss",
       "en": "to think",
-      "enSourceHash": "722e657c7f247549"
+      "enSourceHash": "722e657c7f247549",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m5/atom:かいもの/gloss",
       "en": "shopping",
-      "enSourceHash": "1180412af43d7860"
+      "enSourceHash": "1180412af43d7860",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m5/atom:かう/gloss",
       "en": "to buy",
-      "enSourceHash": "7e2ed393d525d7e2"
+      "enSourceHash": "7e2ed393d525d7e2",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m5/atom:から/gloss",
       "en": "from (origin)",
-      "enSourceHash": "efc38194e5d7fab2"
+      "enSourceHash": "efc38194e5d7fab2",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m5/atom:きく/gloss",
       "en": "to hear, to listen to, to ask",
-      "enSourceHash": "ed5d8a169b8bf41d"
+      "enSourceHash": "ed5d8a169b8bf41d",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m5/atom:ぎゅうにゅう/gloss",
       "en": "milk",
-      "enSourceHash": "8825e76530f87ff5"
+      "enSourceHash": "8825e76530f87ff5",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m5/atom:さんぽ/gloss",
       "en": "walk/stroll",
-      "enSourceHash": "30c621421ef9ebc9"
+      "enSourceHash": "30c621421ef9ebc9",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m5/atom:たべもの/gloss",
       "en": "food",
-      "enSourceHash": "c1f026582fe6e8cb"
+      "enSourceHash": "c1f026582fe6e8cb",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m5/atom:のみもの/gloss",
       "en": "a drink",
-      "enSourceHash": "34f0b8f4482abb69"
+      "enSourceHash": "34f0b8f4482abb69",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m5/atom:のむ/gloss",
       "en": "to drink",
-      "enSourceHash": "e62f640360d85af9"
+      "enSourceHash": "e62f640360d85af9",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m5/atom:みる/gloss",
       "en": "to watch, to look at",
-      "enSourceHash": "01b717c1232040e3"
+      "enSourceHash": "01b717c1232040e3",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m5/atom:みる/shortGloss",
       "en": "to watch",
-      "enSourceHash": "65f8ea722badb7ca"
+      "enSourceHash": "65f8ea722badb7ca",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m5/atom:ジュース/gloss",
       "en": "Juice",
-      "enSourceHash": "c0e34454138b3b0b"
+      "enSourceHash": "c0e34454138b3b0b",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m5/gp:step:ja-m5-neo-1-rule-dict/ex:たべる。",
       "en": "I'll eat.",
-      "enSourceHash": "18639b537c0aad8d"
+      "enSourceHash": "18639b537c0aad8d",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/gp:step:ja-m5-neo-1-rule-dict/ex:たべる？",
       "en": "Gonna eat? (voice rises)",
-      "enSourceHash": "d97bdba94f4b365a"
+      "enSourceHash": "d97bdba94f4b365a",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/gp:step:ja-m5-neo-2-rule-wo/ex:ごはんを たべる。",
       "en": "I'll eat the rice.",
-      "enSourceHash": "bb2ae003cdc25a1c"
+      "enSourceHash": "bb2ae003cdc25a1c",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/gp:step:ja-m5-neo-2-rule-wo/ex:しゃしんを みる。",
       "en": "I'll look at the photo.",
-      "enSourceHash": "b9fc9cdc8143af93"
+      "enSourceHash": "b9fc9cdc8143af93",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/gp:step:ja-m5-neo-3-rule-nomu-kau/ex:ほんを かう。",
       "en": "I'll buy the book.",
-      "enSourceHash": "0a2bc5e3bba18a3e"
+      "enSourceHash": "0a2bc5e3bba18a3e",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/gp:step:ja-m5-neo-3-rule-nomu-kau/ex:みずを のむ。",
       "en": "I'll drink the water.",
-      "enSourceHash": "6e4c5658ddf8591c"
+      "enSourceHash": "6e4c5658ddf8591c",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/gp:step:ja-m5-neo-4-rule-iku-kuru/ex:いく。",
       "en": "I'm off.",
-      "enSourceHash": "7ee54b384d3a314c"
+      "enSourceHash": "7ee54b384d3a314c",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/gp:step:ja-m5-neo-4-rule-iku-kuru/ex:うん、くる。",
       "en": "Yeah — I'm coming.",
-      "enSourceHash": "06658a22854d110e"
+      "enSourceHash": "06658a22854d110e",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/gp:step:ja-m5-neo-4-rule-iku-kuru/ex:くる？",
       "en": "You coming? (voice rises)",
-      "enSourceHash": "554af809f3819555"
+      "enSourceHash": "554af809f3819555",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/gp:step:ja-m5-neo-5-rule-suru-yaru/ex:これを する。",
       "en": "I'll do this one.",
-      "enSourceHash": "ef6113deff24129b"
+      "enSourceHash": "ef6113deff24129b",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/gp:step:ja-m5-neo-5-rule-suru-yaru/ex:これを やる。",
       "en": "I'll do this one. (casual)",
-      "enSourceHash": "31ec7a1496ec042a"
+      "enSourceHash": "31ec7a1496ec042a",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/gp:step:ja-m5-neo-5-rule-suru-yaru/ex:なにを する？",
       "en": "What are you gonna do?",
-      "enSourceHash": "e0a0b0b07854c8c1"
+      "enSourceHash": "e0a0b0b07854c8c1",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/gp:step:ja-m5-neo-7-rule-kiku/ex:うたを きく。",
       "en": "I'll listen to the song.",
-      "enSourceHash": "8f7cc9b8ee192814"
+      "enSourceHash": "8f7cc9b8ee192814",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/gp:step:ja-m5-neo-7-rule-kiku/ex:きく？",
       "en": "Gonna listen?",
-      "enSourceHash": "1c296d2f20e717c2"
+      "enSourceHash": "1c296d2f20e717c2",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/gp:step:ja-m5-neo-7-rule-wakaru/ex:うん、わかる。",
       "en": "Yeah, I get it.",
-      "enSourceHash": "3cf3d8b896782fa2"
+      "enSourceHash": "3cf3d8b896782fa2",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/gp:step:ja-m5-neo-7-rule-wakaru/ex:これ、わかる？",
       "en": "This — do you get it?",
-      "enSourceHash": "20eee2b175263779"
+      "enSourceHash": "20eee2b175263779",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/gp:step:ja-m5-neo-9-rule-mono/ex:たべものだ。",
       "en": "It's food.",
-      "enSourceHash": "61ac9078d5d3ba8e"
+      "enSourceHash": "61ac9078d5d3ba8e",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/gp:step:ja-m5-neo-9-rule-mono/ex:のみもの？",
       "en": "Is it a drink?",
-      "enSourceHash": "9b5cf5e46c7b98c9"
+      "enSourceHash": "9b5cf5e46c7b98c9",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:05f514fae7ca5710",
       "en": "sky",
-      "enSourceHash": "05f514fae7ca5710"
+      "enSourceHash": "05f514fae7ca5710",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:2e1d302ad969dd8a",
       "en": "It's the sky.",
-      "enSourceHash": "2e1d302ad969dd8a"
+      "enSourceHash": "2e1d302ad969dd8a",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:474057e9abe14571",
       "en": "No — I'll eat.",
-      "enSourceHash": "474057e9abe14571"
+      "enSourceHash": "474057e9abe14571",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:4a69f19c8c264850",
       "en": "sea",
-      "enSourceHash": "4a69f19c8c264850"
+      "enSourceHash": "4a69f19c8c264850",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:525eca1d5089dbdc",
       "en": "star",
-      "enSourceHash": "525eca1d5089dbdc"
+      "enSourceHash": "525eca1d5089dbdc",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:59c7f68b924a58d1",
       "en": "Gonna watch?",
-      "enSourceHash": "59c7f68b924a58d1"
+      "enSourceHash": "59c7f68b924a58d1",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:5e8ca8480cb3d6b8",
       "en": "Which one asks 'Gonna watch?'",
-      "enSourceHash": "5e8ca8480cb3d6b8"
+      "enSourceHash": "5e8ca8480cb3d6b8",
+      "kind": "instruction"
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:6733cc7e460cfd11",
       "en": "I already watched it.",
-      "enSourceHash": "6733cc7e460cfd11"
+      "enSourceHash": "6733cc7e460cfd11",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:6a7b4b503db50efd",
       "en": "It's the sea.",
-      "enSourceHash": "6a7b4b503db50efd"
+      "enSourceHash": "6a7b4b503db50efd",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:760000213386f0ea",
       "en": "I'll watch.",
-      "enSourceHash": "760000213386f0ea"
+      "enSourceHash": "760000213386f0ea",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:8126d6d01af1dd19",
       "en": "Did you see it?",
-      "enSourceHash": "8126d6d01af1dd19"
+      "enSourceHash": "8126d6d01af1dd19",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:9b4ef3e5b7b4d175",
       "en": "station",
-      "enSourceHash": "9b4ef3e5b7b4d175"
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:a14115b6cff0ebc6",
       "en": "It's a star.",
-      "enSourceHash": "a14115b6cff0ebc6"
+      "enSourceHash": "a14115b6cff0ebc6",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:a746222f09d85605",
       "en": "snow",
-      "enSourceHash": "a746222f09d85605"
+      "enSourceHash": "a746222f09d85605",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:bf216eea0fe5fb31",
       "en": "Yeah — I'll eat.",
-      "enSourceHash": "bf216eea0fe5fb31"
+      "enSourceHash": "bf216eea0fe5fb31",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:c7ac71542004397b",
       "en": "Same word, different tune — the rise IS the question mark.",
-      "enSourceHash": "c7ac71542004397b"
+      "enSourceHash": "c7ac71542004397b",
+      "kind": "explanation"
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:cd6357efdd966de8",
       "en": "dog",
-      "enSourceHash": "cd6357efdd966de8"
+      "enSourceHash": "cd6357efdd966de8",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:ce89a09fd6172bd6",
       "en": "Yeah — I'll watch.",
-      "enSourceHash": "ce89a09fd6172bd6"
+      "enSourceHash": "ce89a09fd6172bd6",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:d61259269b75dec9",
       "en": "What's that?",
-      "enSourceHash": "d61259269b75dec9"
+      "enSourceHash": "d61259269b75dec9",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:d6412edcce16d3df",
       "en": "Who eats? Whoever the moment points at — say it flat and it's usually you; aim it at a friend with a rise and it's them. Japanese trusts the room; no 'I' or 'you' needed.",
-      "enSourceHash": "d6412edcce16d3df"
+      "enSourceHash": "d6412edcce16d3df",
+      "kind": "explanation"
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:de55c3b6a333e594",
       "en": "It's the moon.",
-      "enSourceHash": "de55c3b6a333e594"
+      "enSourceHash": "de55c3b6a333e594",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-1/en:eababe1f504c0ed2",
       "en": "The dictionary form IS the verb",
-      "enSourceHash": "eababe1f504c0ed2"
+      "enSourceHash": "eababe1f504c0ed2",
+      "kind": "title"
     },
     {
       "anchor": "m5/ja-m5-neo-1/ja:ぼうし",
       "en": "Listen and build the word for 'hat'",
-      "enSourceHash": "c17f3762d53cfae3"
+      "enSourceHash": "c17f3762d53cfae3",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-1/ja:わたしも たべる",
       "en": "Build this sentence: I'll eat too.",
-      "enSourceHash": "ac1373272fffed81"
+      "enSourceHash": "ac1373272fffed81",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-1/ja:ミカも みる",
       "en": "Build this sentence: Mika will watch too.",
-      "enSourceHash": "fb75bc0ce8f37501"
+      "enSourceHash": "fb75bc0ce8f37501",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:05068c9198dcacad",
       "en": "Who'll do it?",
-      "enSourceHash": "05068c9198dcacad"
+      "enSourceHash": "05068c9198dcacad",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:0805df22c9539100",
       "en": "What is that?",
-      "enSourceHash": "0805df22c9539100"
+      "enSourceHash": "0805df22c9539100",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:0a62d107be36c331",
       "en": "It's my book.",
-      "enSourceHash": "0a62d107be36c331"
+      "enSourceHash": "0a62d107be36c331",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:1057a9604e04b274",
       "en": "teacher",
-      "enSourceHash": "1057a9604e04b274"
+      "enSourceHash": "1057a9604e04b274",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:18447167429e3ce1",
       "en": "Whose photo is it?",
-      "enSourceHash": "18447167429e3ce1"
+      "enSourceHash": "18447167429e3ce1",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:20e67c762b2fc959",
       "en": "What'll you eat?",
-      "enSourceHash": "20e67c762b2fc959"
+      "enSourceHash": "20e67c762b2fc959",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:2218bd002dae38aa",
       "en": "Gonna listen to that one over there?",
-      "enSourceHash": "2218bd002dae38aa"
+      "enSourceHash": "2218bd002dae38aa",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:3b80d38f7686a8b5",
       "en": "mountain",
-      "enSourceHash": "3b80d38f7686a8b5"
+      "enSourceHash": "3b80d38f7686a8b5",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:44ff7b02c80d38b2",
       "en": "window",
-      "enSourceHash": "44ff7b02c80d38b2"
+      "enSourceHash": "44ff7b02c80d38b2",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:729b98b7ec6f91be",
       "en": "It's the teacher's bag.",
-      "enSourceHash": "729b98b7ec6f91be"
+      "enSourceHash": "729b98b7ec6f91be",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:75b119b0168484c2",
       "en": "Gonna buy the meal?",
-      "enSourceHash": "75b119b0168484c2"
+      "enSourceHash": "75b119b0168484c2",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:76e53566337840e1",
       "en": "Do you get this one?",
-      "enSourceHash": "76e53566337840e1"
+      "enSourceHash": "76e53566337840e1",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:7b69051656029389",
       "en": "It's the teacher's book.",
-      "enSourceHash": "7b69051656029389"
+      "enSourceHash": "7b69051656029389",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:7fa365e3d8ac704e",
       "en": "Gonna drink this?",
-      "enSourceHash": "7fa365e3d8ac704e"
+      "enSourceHash": "7fa365e3d8ac704e",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:84262ebadfa91a0e",
       "en": "Gonna take a photo?",
-      "enSourceHash": "84262ebadfa91a0e"
+      "enSourceHash": "84262ebadfa91a0e",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:85356064d03872ac",
       "en": "peach",
-      "enSourceHash": "85356064d03872ac"
+      "enSourceHash": "85356064d03872ac",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:a30671c9aa3e7779",
       "en": "It's the student's book.",
-      "enSourceHash": "a30671c9aa3e7779"
+      "enSourceHash": "a30671c9aa3e7779",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:b09e727865358b70",
       "en": "Gonna buy this one too?",
-      "enSourceHash": "b09e727865358b70"
+      "enSourceHash": "b09e727865358b70",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:be9857fe2dc68b91",
       "en": "Gonna look at the photos?",
-      "enSourceHash": "be9857fe2dc68b91"
+      "enSourceHash": "be9857fe2dc68b91",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:c1ae0eb7b2bb263a",
       "en": "What'll you drink?",
-      "enSourceHash": "c1ae0eb7b2bb263a"
+      "enSourceHash": "c1ae0eb7b2bb263a",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:c339fb7706a7edcf",
       "en": "mobile phone",
-      "enSourceHash": "c339fb7706a7edcf"
+      "enSourceHash": "c339fb7706a7edcf",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:ce635c4eabff5e4f",
       "en": "shell",
-      "enSourceHash": "ce635c4eabff5e4f"
+      "enSourceHash": "ce635c4eabff5e4f",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:d351bd940e3c43f9",
       "en": "Whose drink is it?",
-      "enSourceHash": "d351bd940e3c43f9"
+      "enSourceHash": "d351bd940e3c43f9",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:e0a0b0b07854c8c1",
       "en": "What are you gonna do?",
-      "enSourceHash": "e0a0b0b07854c8c1"
+      "enSourceHash": "e0a0b0b07854c8c1",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:e0c55dd3135c731d",
       "en": "Did you already eat?",
-      "enSourceHash": "e0c55dd3135c731d"
+      "enSourceHash": "e0c55dd3135c731d",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:e8d3b3544dd10dbd",
       "en": "Gonna listen to this one too?",
-      "enSourceHash": "e8d3b3544dd10dbd"
+      "enSourceHash": "e8d3b3544dd10dbd",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:ec89c9f9fcf9ee9d",
       "en": "Gonna look at the car?",
-      "enSourceHash": "ec89c9f9fcf9ee9d"
+      "enSourceHash": "ec89c9f9fcf9ee9d",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-10/en:edc44cc35587b926",
       "en": "Gonna eat (the meal)?",
-      "enSourceHash": "edc44cc35587b926"
+      "enSourceHash": "edc44cc35587b926",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-10/ja:ぎゅうにゅうを のむ",
       "en": "Build this sentence: I'll drink milk.",
-      "enSourceHash": "2de1a05f4724ef0c"
+      "enSourceHash": "2de1a05f4724ef0c",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-10/ja:ごはんを たべる",
       "en": "Build this sentence: I'll eat the rice.",
-      "enSourceHash": "e3f3ba7f87cced24"
+      "enSourceHash": "e3f3ba7f87cced24",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-10/ja:じかん",
       "en": "Listen and build the word for 'time'",
-      "enSourceHash": "60f1cc68104d5a01"
+      "enSourceHash": "60f1cc68104d5a01",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-10/ja:それを やる",
       "en": "Build this sentence: I'll do that one.",
-      "enSourceHash": "ef3add6b3555f4f7"
+      "enSourceHash": "ef3add6b3555f4f7",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-11/en:0a0bf0640026a6bd",
       "en": "It's my drink.",
-      "enSourceHash": "0a0bf0640026a6bd"
+      "enSourceHash": "0a0bf0640026a6bd",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-11/en:1d3aaf802a34293d",
       "en": "Gonna eat?",
-      "enSourceHash": "1d3aaf802a34293d"
+      "enSourceHash": "1d3aaf802a34293d",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-11/en:20e67c762b2fc959",
       "en": "What'll you eat?",
-      "enSourceHash": "20e67c762b2fc959"
+      "enSourceHash": "20e67c762b2fc959",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-11/en:266550babbb7bd39",
       "en": "glasses",
-      "enSourceHash": "266550babbb7bd39"
+      "enSourceHash": "266550babbb7bd39",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-11/en:3b80d38f7686a8b5",
       "en": "mountain",
-      "enSourceHash": "3b80d38f7686a8b5"
+      "enSourceHash": "3b80d38f7686a8b5",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-11/en:3d7eb3d3dab17ee5",
       "en": "chair",
-      "enSourceHash": "3d7eb3d3dab17ee5"
+      "enSourceHash": "3d7eb3d3dab17ee5",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-11/en:4dd242e3fdfe1f86",
       "en": "You knock over Ken's cup — what do you say?",
-      "enSourceHash": "4dd242e3fdfe1f86"
+      "enSourceHash": "4dd242e3fdfe1f86",
+      "kind": "instruction"
     },
     {
       "anchor": "m5/ja-m5-neo-11/en:554023d7af6b9387",
       "en": "Story: dinner plans",
-      "enSourceHash": "554023d7af6b9387"
+      "enSourceHash": "554023d7af6b9387",
+      "kind": "title"
     },
     {
       "anchor": "m5/ja-m5-neo-11/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m5/ja-m5-neo-11/en:63f75c890b05405e",
       "en": "song",
-      "enSourceHash": "63f75c890b05405e"
+      "enSourceHash": "63f75c890b05405e",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-11/en:741308081783ec6b",
       "en": "It's Tanaka's drink.",
-      "enSourceHash": "741308081783ec6b"
+      "enSourceHash": "741308081783ec6b",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-11/en:98286b6369ea4196",
       "en": "It's Tanaka's meal.",
-      "enSourceHash": "98286b6369ea4196"
+      "enSourceHash": "98286b6369ea4196",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-11/en:c018019b6a8b01ab",
       "en": "bag",
-      "enSourceHash": "c018019b6a8b01ab"
+      "enSourceHash": "c018019b6a8b01ab",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-11/en:c1ae0eb7b2bb263a",
       "en": "What'll you drink?",
-      "enSourceHash": "c1ae0eb7b2bb263a"
+      "enSourceHash": "c1ae0eb7b2bb263a",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-11/en:ccbdf122f0f6bd95",
       "en": "Who's eating?",
-      "enSourceHash": "ccbdf122f0f6bd95"
+      "enSourceHash": "ccbdf122f0f6bd95",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-11/en:cde48537ca2c2808",
       "en": "friend",
-      "enSourceHash": "cde48537ca2c2808"
+      "enSourceHash": "cde48537ca2c2808",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-11/en:f4863dfa52568153",
       "en": "Is it Tanaka's drink?",
-      "enSourceHash": "f4863dfa52568153"
+      "enSourceHash": "f4863dfa52568153",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-11/ja:あそぶ",
       "en": "Listen and build the word for 'play'",
-      "enSourceHash": "a35db66228b9df58"
+      "enSourceHash": "a35db66228b9df58",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-11/ja:すしを たべる",
       "en": "Build this sentence: I'll eat sushi.",
-      "enSourceHash": "6c2c76d0e81a3e48"
+      "enSourceHash": "6c2c76d0e81a3e48",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-11/ja:ケンの ごはんも たべる",
       "en": "I'll eat Ken's rice too.",
-      "enSourceHash": "0a68d6a9d9da5b2d"
+      "enSourceHash": "0a68d6a9d9da5b2d",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-11/ja:ケンも たべる",
       "en": "Build this sentence: Ken's gonna eat too.",
-      "enSourceHash": "ff951db9e5735d52"
+      "enSourceHash": "ff951db9e5735d52",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-2/en:0113a93a2fc1c3fa",
       "en": "I'll eat the peach.",
-      "enSourceHash": "0113a93a2fc1c3fa"
+      "enSourceHash": "0113a93a2fc1c3fa",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-2/en:13809668fb436386",
       "en": "pencil",
-      "enSourceHash": "13809668fb436386"
+      "enSourceHash": "13809668fb436386",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-2/en:14069429150abcbf",
       "en": "ticket",
-      "enSourceHash": "14069429150abcbf"
+      "enSourceHash": "14069429150abcbf",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-2/en:18e1dd392168f601",
       "en": "hat",
-      "enSourceHash": "18e1dd392168f601"
+      "enSourceHash": "18e1dd392168f601",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-2/en:1d3aaf802a34293d",
       "en": "Gonna eat?",
-      "enSourceHash": "1d3aaf802a34293d"
+      "enSourceHash": "1d3aaf802a34293d",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-2/en:30c621421ef9ebc9",
       "en": "walk/stroll",
-      "enSourceHash": "30c621421ef9ebc9"
+      "enSourceHash": "30c621421ef9ebc9",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-2/en:44ff7b02c80d38b2",
       "en": "window",
-      "enSourceHash": "44ff7b02c80d38b2"
+      "enSourceHash": "44ff7b02c80d38b2",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-2/en:55c64d0fcd6f9d5f",
       "en": "photo",
-      "enSourceHash": "55c64d0fcd6f9d5f"
+      "enSourceHash": "55c64d0fcd6f9d5f",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-2/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m5/ja-m5-neo-2/en:6727779933938388",
       "en": "I'll eat the sushi.",
-      "enSourceHash": "6727779933938388"
+      "enSourceHash": "6727779933938388",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-2/en:83df56517cb31a12",
       "en": "This is rice.",
-      "enSourceHash": "83df56517cb31a12"
+      "enSourceHash": "83df56517cb31a12",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-2/en:a7d6acaf4dd5eb3c",
       "en": "Gonna look at the bag?",
-      "enSourceHash": "a7d6acaf4dd5eb3c"
+      "enSourceHash": "a7d6acaf4dd5eb3c",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-2/en:ba659b323b7699b6",
       "en": "Gonna look at the hat?",
-      "enSourceHash": "ba659b323b7699b6"
+      "enSourceHash": "ba659b323b7699b6",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-2/en:baaeafb6378327dd",
       "en": "Gonna eat the hat?",
-      "enSourceHash": "baaeafb6378327dd"
+      "enSourceHash": "baaeafb6378327dd",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-2/en:bb2ae003cdc25a1c",
       "en": "I'll eat the rice.",
-      "enSourceHash": "bb2ae003cdc25a1c"
+      "enSourceHash": "bb2ae003cdc25a1c",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-2/en:fa20f94dc5ce850d",
       "en": "Wearing the hat?",
-      "enSourceHash": "fa20f94dc5ce850d"
+      "enSourceHash": "fa20f94dc5ce850d",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-2/en:fd953877933a4432",
       "en": "This is sushi.",
-      "enSourceHash": "fd953877933a4432"
+      "enSourceHash": "fd953877933a4432",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-2/ja:うみを みる",
       "en": "Build this sentence: I'll look at the sea.",
-      "enSourceHash": "df295ffea4daa31a"
+      "enSourceHash": "df295ffea4daa31a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-2/ja:ごはんを たべる",
       "en": "Build this sentence: I'll eat the rice.",
-      "enSourceHash": "e3f3ba7f87cced24"
+      "enSourceHash": "e3f3ba7f87cced24",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-2/ja:しゃしんを みる",
       "en": "I'll look at the photo.",
-      "enSourceHash": "b9fc9cdc8143af93"
+      "enSourceHash": "b9fc9cdc8143af93",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-2/ja:すしを たべる",
       "en": "Build this sentence: I'll eat the sushi.",
-      "enSourceHash": "f1d2735e30fa9231"
+      "enSourceHash": "f1d2735e30fa9231",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-2/ja:たなかの くるまを みる",
       "en": "Build this sentence: I'll look at Tanaka's car.",
-      "enSourceHash": "48c8184c9075143f"
+      "enSourceHash": "48c8184c9075143f",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-2/ja:めがね",
       "en": "Listen and build the word for 'glasses'",
-      "enSourceHash": "b684d5e91a852beb"
+      "enSourceHash": "b684d5e91a852beb",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:0306c24f7408891f",
       "en": "I'll buy this.",
-      "enSourceHash": "0306c24f7408891f"
+      "enSourceHash": "0306c24f7408891f",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:0f4168490e38b844",
       "en": "water",
-      "enSourceHash": "0f4168490e38b844"
+      "enSourceHash": "0f4168490e38b844",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:1057a9604e04b274",
       "en": "teacher",
-      "enSourceHash": "1057a9604e04b274"
+      "enSourceHash": "1057a9604e04b274",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:140cc82a04bd7883",
       "en": "This is water.",
-      "enSourceHash": "140cc82a04bd7883"
+      "enSourceHash": "140cc82a04bd7883",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:264c8c381bf16c98",
       "en": "student",
-      "enSourceHash": "264c8c381bf16c98"
+      "enSourceHash": "264c8c381bf16c98",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:27abc9b19ea7de96",
       "en": "I'll buy the milk.",
-      "enSourceHash": "27abc9b19ea7de96"
+      "enSourceHash": "27abc9b19ea7de96",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:38d0e3070bd1ac90",
       "en": "Gonna look at the photo.",
-      "enSourceHash": "38d0e3070bd1ac90"
+      "enSourceHash": "38d0e3070bd1ac90",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:3adc5f9fe055ac59",
       "en": "You gonna buy this?",
-      "enSourceHash": "3adc5f9fe055ac59"
+      "enSourceHash": "3adc5f9fe055ac59",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:46c115f4ccee0d57",
       "en": "This is milk.",
-      "enSourceHash": "46c115f4ccee0d57"
+      "enSourceHash": "46c115f4ccee0d57",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:6088bca56d4987d0",
       "en": "Gonna buy the book.",
-      "enSourceHash": "6088bca56d4987d0"
+      "enSourceHash": "6088bca56d4987d0",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:6312babaaaaf0347",
       "en": "Is this yours?",
-      "enSourceHash": "6312babaaaaf0347"
+      "enSourceHash": "6312babaaaaf0347",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:6e4c5658ddf8591c",
       "en": "I'll drink the water.",
-      "enSourceHash": "6e4c5658ddf8591c"
+      "enSourceHash": "6e4c5658ddf8591c",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:7fa365e3d8ac704e",
       "en": "Gonna drink this?",
-      "enSourceHash": "7fa365e3d8ac704e"
+      "enSourceHash": "7fa365e3d8ac704e",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:82a3537ff0dbce7e",
       "en": "name",
-      "enSourceHash": "82a3537ff0dbce7e"
+      "enSourceHash": "82a3537ff0dbce7e",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:8592f94e305a14bc",
       "en": "Gonna eat.",
-      "enSourceHash": "8592f94e305a14bc"
+      "enSourceHash": "8592f94e305a14bc",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:92719fe0cf8cd515",
       "en": "book",
-      "enSourceHash": "92719fe0cf8cd515"
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:a6874c07938c18b8",
       "en": "I'll drink the milk.",
-      "enSourceHash": "a6874c07938c18b8"
+      "enSourceHash": "a6874c07938c18b8",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:b5cdf588daa4303a",
       "en": "I'll buy the water.",
-      "enSourceHash": "b5cdf588daa4303a"
+      "enSourceHash": "b5cdf588daa4303a",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:bb2ae003cdc25a1c",
       "en": "I'll eat the rice.",
-      "enSourceHash": "bb2ae003cdc25a1c"
+      "enSourceHash": "bb2ae003cdc25a1c",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:cde48537ca2c2808",
       "en": "friend",
-      "enSourceHash": "cde48537ca2c2808"
+      "enSourceHash": "cde48537ca2c2808",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-3/en:fa44ba60d877249a",
       "en": "Gonna look at the book.",
-      "enSourceHash": "fa44ba60d877249a"
+      "enSourceHash": "fa44ba60d877249a",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-3/ja:かばんを かう",
       "en": "Build this sentence: I'll buy the bag.",
-      "enSourceHash": "9dff647b603c46c4"
+      "enSourceHash": "9dff647b603c46c4",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-3/ja:きっぷ",
       "en": "Listen and build the word for 'ticket'",
-      "enSourceHash": "2e051b88decbf702"
+      "enSourceHash": "2e051b88decbf702",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-3/ja:これを かう",
       "en": "Build this sentence: I'll buy this one.",
-      "enSourceHash": "5a430f0ca4ba7ab4"
+      "enSourceHash": "5a430f0ca4ba7ab4",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-3/ja:ほんを かう",
       "en": "Build this sentence: I'll buy the book.",
-      "enSourceHash": "a0e458217e6238ab"
+      "enSourceHash": "a0e458217e6238ab",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-3/ja:ミカの ほんを かう",
       "en": "Build this sentence: I'll buy Mika's book.",
-      "enSourceHash": "859865e8c98e8113"
+      "enSourceHash": "859865e8c98e8113",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:177ca70f42def123",
       "en": "dictionary",
-      "enSourceHash": "177ca70f42def123"
+      "enSourceHash": "177ca70f42def123",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:25904985fb5143b3",
       "en": "I'm here.",
-      "enSourceHash": "25904985fb5143b3"
+      "enSourceHash": "25904985fb5143b3",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:2974744982f08b20",
       "en": "umbrella",
-      "enSourceHash": "2974744982f08b20"
+      "enSourceHash": "2974744982f08b20",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:2e45d7525f7dbae2",
       "en": "Yeah — I'm going.",
-      "enSourceHash": "2e45d7525f7dbae2"
+      "enSourceHash": "2e45d7525f7dbae2",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:351b596445238ac3",
       "en": "Gonna buy a chair.",
-      "enSourceHash": "351b596445238ac3"
+      "enSourceHash": "351b596445238ac3",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:3d7eb3d3dab17ee5",
       "en": "chair",
-      "enSourceHash": "3d7eb3d3dab17ee5"
+      "enSourceHash": "3d7eb3d3dab17ee5",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:457c4be228ee06c9",
       "en": "Are you here?",
-      "enSourceHash": "457c4be228ee06c9"
+      "enSourceHash": "457c4be228ee06c9",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:49a7e5010b2301e1",
       "en": "No — I'm staying.",
-      "enSourceHash": "49a7e5010b2301e1"
+      "enSourceHash": "49a7e5010b2301e1",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:4c799b44c4fe4061",
       "en": "Who is it?",
-      "enSourceHash": "4c799b44c4fe4061"
+      "enSourceHash": "4c799b44c4fe4061",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:5b86090a84df0c32",
       "en": "Which one asks 'You coming?'",
-      "enSourceHash": "5b86090a84df0c32"
+      "enSourceHash": "5b86090a84df0c32",
+      "kind": "instruction"
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:7ee54b384d3a314c",
       "en": "I'm off.",
-      "enSourceHash": "7ee54b384d3a314c"
+      "enSourceHash": "7ee54b384d3a314c",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:82ea307c59ef46d9",
       "en": "I'll buy it.",
-      "enSourceHash": "82ea307c59ef46d9"
+      "enSourceHash": "82ea307c59ef46d9",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:8a3a7dedefa7df85",
       "en": "Gonna buy a desk.",
-      "enSourceHash": "8a3a7dedefa7df85"
+      "enSourceHash": "8a3a7dedefa7df85",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:8b37296234f541a9",
       "en": "I already went.",
-      "enSourceHash": "8b37296234f541a9"
+      "enSourceHash": "8b37296234f541a9",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:9f75d4929fea1378",
       "en": "Come in.",
-      "enSourceHash": "9f75d4929fea1378"
+      "enSourceHash": "9f75d4929fea1378",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:a1f8120e98e11fd1",
       "en": "Gonna look at a chair.",
-      "enSourceHash": "a1f8120e98e11fd1"
+      "enSourceHash": "a1f8120e98e11fd1",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:a40f1a3d0f26d4a3",
       "en": "You going?",
-      "enSourceHash": "a40f1a3d0f26d4a3"
+      "enSourceHash": "a40f1a3d0f26d4a3",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:a76ae1c87eb6fb94",
       "en": "Yeah — I'm coming to you.",
-      "enSourceHash": "a76ae1c87eb6fb94"
+      "enSourceHash": "a76ae1c87eb6fb94",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:c339fb7706a7edcf",
       "en": "mobile phone",
-      "enSourceHash": "c339fb7706a7edcf"
+      "enSourceHash": "c339fb7706a7edcf",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:c3bb79a24ca8cf20",
       "en": "letter (postal)",
-      "enSourceHash": "c3bb79a24ca8cf20"
+      "enSourceHash": "c3bb79a24ca8cf20",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:ca1a94f97e33ea16",
       "en": "Gonna make a chair.",
-      "enSourceHash": "ca1a94f97e33ea16"
+      "enSourceHash": "ca1a94f97e33ea16",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:d29af8a2e160dd86",
       "en": "bicycle",
-      "enSourceHash": "d29af8a2e160dd86"
+      "enSourceHash": "d29af8a2e160dd86",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-4/en:e5c0a90993e5f990",
       "en": "You coming (over)?",
-      "enSourceHash": "e5c0a90993e5f990"
+      "enSourceHash": "e5c0a90993e5f990",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-4/ja:でんわ",
       "en": "Listen and build the word for 'telephone'",
-      "enSourceHash": "96fe056013f801a3"
+      "enSourceHash": "96fe056013f801a3",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-4/ja:トムも いく",
       "en": "Build this sentence: Tom's going too.",
-      "enSourceHash": "9eb535b5969a992f"
+      "enSourceHash": "9eb535b5969a992f",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-4/ja:ミカも くる",
       "en": "Build this sentence: Mika's coming too.",
-      "enSourceHash": "ffe043f9d457eba5"
+      "enSourceHash": "ffe043f9d457eba5",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:0352405413b9f974",
       "en": "That one's done.",
-      "enSourceHash": "0352405413b9f974"
+      "enSourceHash": "0352405413b9f974",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:05f514fae7ca5710",
       "en": "sky",
-      "enSourceHash": "05f514fae7ca5710"
+      "enSourceHash": "05f514fae7ca5710",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:0b12ba39ab4d0851",
       "en": "What is this?",
-      "enSourceHash": "0b12ba39ab4d0851"
+      "enSourceHash": "0b12ba39ab4d0851",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:25cdb46d8d2115a2",
       "en": "boat",
-      "enSourceHash": "25cdb46d8d2115a2"
+      "enSourceHash": "25cdb46d8d2115a2",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:3d7eb3d3dab17ee5",
       "en": "chair",
-      "enSourceHash": "3d7eb3d3dab17ee5"
+      "enSourceHash": "3d7eb3d3dab17ee5",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:44ff7b02c80d38b2",
       "en": "window",
-      "enSourceHash": "44ff7b02c80d38b2"
+      "enSourceHash": "44ff7b02c80d38b2",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:56aa6b77c760f710",
       "en": "well/energy",
-      "enSourceHash": "56aa6b77c760f710"
+      "enSourceHash": "56aa6b77c760f710",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:5aa351dbb25a7889",
       "en": "I'll do that one.",
-      "enSourceHash": "5aa351dbb25a7889"
+      "enSourceHash": "5aa351dbb25a7889",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:675143eca751594f",
       "en": "Who's doing it?",
-      "enSourceHash": "675143eca751594f"
+      "enSourceHash": "675143eca751594f",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:77c973ec1174385d",
       "en": "Gonna look at a star?",
-      "enSourceHash": "77c973ec1174385d"
+      "enSourceHash": "77c973ec1174385d",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:7b9217d372e07ce1",
       "en": "What'll you buy?",
-      "enSourceHash": "7b9217d372e07ce1"
+      "enSourceHash": "7b9217d372e07ce1",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:9e78b43ea00edcac",
       "en": "moon",
-      "enSourceHash": "9e78b43ea00edcac"
+      "enSourceHash": "9e78b43ea00edcac",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:a8f094401c023a5f",
       "en": "Gonna buy the moon?",
-      "enSourceHash": "a8f094401c023a5f"
+      "enSourceHash": "a8f094401c023a5f",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:c423d751ec78b05e",
       "en": "Gonna look at the moon?",
-      "enSourceHash": "c423d751ec78b05e"
+      "enSourceHash": "c423d751ec78b05e",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:cbf18cff3ade25b2",
       "en": "What'll you do?",
-      "enSourceHash": "cbf18cff3ade25b2"
+      "enSourceHash": "cbf18cff3ade25b2",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:e0a0b0b07854c8c1",
       "en": "What are you gonna do?",
-      "enSourceHash": "e0a0b0b07854c8c1"
+      "enSourceHash": "e0a0b0b07854c8c1",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:e21bc96636cf2b5e",
       "en": "Is the moon out?",
-      "enSourceHash": "e21bc96636cf2b5e"
+      "enSourceHash": "e21bc96636cf2b5e",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-5/en:ef6113deff24129b",
       "en": "I'll do this one.",
-      "enSourceHash": "ef6113deff24129b"
+      "enSourceHash": "ef6113deff24129b",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-5/ja:あれも やる",
       "en": "Build this sentence: I'll do that one too.",
-      "enSourceHash": "446dd378f17572fb"
+      "enSourceHash": "446dd378f17572fb",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-5/ja:かぞく",
       "en": "Listen and build the word for 'family'",
-      "enSourceHash": "5c51ac013e1de094"
+      "enSourceHash": "5c51ac013e1de094",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-5/ja:これを する",
       "en": "Build this sentence: I'll do this one.",
-      "enSourceHash": "a46eca70efa97e92"
+      "enSourceHash": "a46eca70efa97e92",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-5/ja:これを やる",
       "en": "I'll do this one. (casual)",
-      "enSourceHash": "31ec7a1496ec042a"
+      "enSourceHash": "31ec7a1496ec042a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-5/ja:それを やる",
       "en": "Build this sentence: I'll do that one.",
-      "enSourceHash": "ef3add6b3555f4f7"
+      "enSourceHash": "ef3add6b3555f4f7",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-5/ja:なにを する",
       "en": "Build this sentence: What are you gonna do?",
-      "enSourceHash": "a517e8b99f79b860"
+      "enSourceHash": "a517e8b99f79b860",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:01ded3fbc9ba4b98",
       "en": "Here you go.",
-      "enSourceHash": "01ded3fbc9ba4b98"
+      "enSourceHash": "01ded3fbc9ba4b98",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:0306c24f7408891f",
       "en": "I'll buy this.",
-      "enSourceHash": "0306c24f7408891f"
+      "enSourceHash": "0306c24f7408891f",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:05f514fae7ca5710",
       "en": "sky",
-      "enSourceHash": "05f514fae7ca5710"
+      "enSourceHash": "05f514fae7ca5710",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:0b12ba39ab4d0851",
       "en": "What is this?",
-      "enSourceHash": "0b12ba39ab4d0851"
+      "enSourceHash": "0b12ba39ab4d0851",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:14069429150abcbf",
       "en": "ticket",
-      "enSourceHash": "14069429150abcbf"
+      "enSourceHash": "14069429150abcbf",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:283dfb76cca10d1e",
       "en": "Which greeting meets you at the shop door?",
-      "enSourceHash": "283dfb76cca10d1e"
+      "enSourceHash": "283dfb76cca10d1e",
+      "kind": "instruction"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:3afdda2c098fc834",
       "en": "Thank you!",
-      "enSourceHash": "3afdda2c098fc834"
+      "enSourceHash": "3afdda2c098fc834",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:3d7eb3d3dab17ee5",
       "en": "chair",
-      "enSourceHash": "3d7eb3d3dab17ee5"
+      "enSourceHash": "3d7eb3d3dab17ee5",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:4a598b55a292b9c4",
       "en": "Thank you (polite).",
-      "enSourceHash": "4a598b55a292b9c4"
+      "enSourceHash": "4a598b55a292b9c4",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:4bfdfe5e7e5f8cd7",
       "en": "Welcome in!",
-      "enSourceHash": "4bfdfe5e7e5f8cd7"
+      "enSourceHash": "4bfdfe5e7e5f8cd7",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:5beca2faa0ed00b2",
       "en": "Come again.",
-      "enSourceHash": "5beca2faa0ed00b2"
+      "enSourceHash": "5beca2faa0ed00b2",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:5f5a8ed8f139be6d",
       "en": "river",
-      "enSourceHash": "5f5a8ed8f139be6d"
+      "enSourceHash": "5f5a8ed8f139be6d",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:71718960d243b056",
       "en": "It's 100 yen.",
-      "enSourceHash": "71718960d243b056"
+      "enSourceHash": "71718960d243b056",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:7391f91c01f7fea2",
       "en": "Whose is this?",
-      "enSourceHash": "7391f91c01f7fea2"
+      "enSourceHash": "7391f91c01f7fea2",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:7489a6421ba0ab86",
       "en": "It's free.",
-      "enSourceHash": "7489a6421ba0ab86"
+      "enSourceHash": "7489a6421ba0ab86",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:74ae25929363651f",
       "en": "Excuse me!",
-      "enSourceHash": "74ae25929363651f"
+      "enSourceHash": "74ae25929363651f",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:76517e3354df5193",
       "en": "Gonna eat rice.",
-      "enSourceHash": "76517e3354df5193"
+      "enSourceHash": "76517e3354df5193",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:7e19f97f579e375e",
       "en": "That's everything.",
-      "enSourceHash": "7e19f97f579e375e"
+      "enSourceHash": "7e19f97f579e375e",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:8825e76530f87ff5",
       "en": "milk",
-      "enSourceHash": "8825e76530f87ff5"
+      "enSourceHash": "8825e76530f87ff5",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:8ada8a1184d4a12a",
       "en": "Gonna make sushi.",
-      "enSourceHash": "8ada8a1184d4a12a"
+      "enSourceHash": "8ada8a1184d4a12a",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:8eaba1d371b557f4",
       "en": "The shop-staff greeting — it washes over every customer, and you never say it back. A nod is plenty.",
-      "enSourceHash": "8eaba1d371b557f4"
+      "enSourceHash": "8eaba1d371b557f4",
+      "kind": "explanation"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:b0cf18e2ced45c08",
       "en": "It's 1,000 yen.",
-      "enSourceHash": "b0cf18e2ced45c08"
+      "enSourceHash": "b0cf18e2ced45c08",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:b85e335c228acb92",
       "en": "See you!",
-      "enSourceHash": "b85e335c228acb92"
+      "enSourceHash": "b85e335c228acb92",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:c02ef346b18649c0",
       "en": "Gonna buy sushi.",
-      "enSourceHash": "c02ef346b18649c0"
+      "enSourceHash": "c02ef346b18649c0",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:c71b1e6dc0159c83",
       "en": "How much is this?",
-      "enSourceHash": "c71b1e6dc0159c83"
+      "enSourceHash": "c71b1e6dc0159c83",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:cf98f59c0c003582",
       "en": "sushi",
-      "enSourceHash": "cf98f59c0c003582"
+      "enSourceHash": "cf98f59c0c003582",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:f53576923dbe672e",
       "en": "Story: at the shop",
-      "enSourceHash": "f53576923dbe672e"
+      "enSourceHash": "f53576923dbe672e",
+      "kind": "title"
     },
     {
       "anchor": "m5/ja-m5-neo-6/en:f5be39c4f2ae76ab",
       "en": "Gonna eat sushi.",
-      "enSourceHash": "f5be39c4f2ae76ab"
+      "enSourceHash": "f5be39c4f2ae76ab",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-6/ja:これも かう",
       "en": "I'm buying this one too.",
-      "enSourceHash": "67e4cdd100772628"
+      "enSourceHash": "67e4cdd100772628",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-6/ja:これを かう",
       "en": "Build this sentence: I'll buy this one.",
-      "enSourceHash": "5a430f0ca4ba7ab4"
+      "enSourceHash": "5a430f0ca4ba7ab4",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-6/ja:ゆきを みる",
       "en": "Gonna watch the snow.",
-      "enSourceHash": "12d9735e0f238527"
+      "enSourceHash": "12d9735e0f238527",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-6/ja:わたしも これを かう",
       "en": "Build this sentence: I'll buy this one too.",
-      "enSourceHash": "3b96cb2e89836f7a"
+      "enSourceHash": "3b96cb2e89836f7a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:177ca70f42def123",
       "en": "dictionary",
-      "enSourceHash": "177ca70f42def123"
+      "enSourceHash": "177ca70f42def123",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:1c296d2f20e717c2",
       "en": "Gonna listen?",
-      "enSourceHash": "1c296d2f20e717c2"
+      "enSourceHash": "1c296d2f20e717c2",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:20eee2b175263779",
       "en": "This — do you get it?",
-      "enSourceHash": "20eee2b175263779"
+      "enSourceHash": "20eee2b175263779",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:22ac27fa1fcbdc75",
       "en": "Is the dog going too?",
-      "enSourceHash": "22ac27fa1fcbdc75"
+      "enSourceHash": "22ac27fa1fcbdc75",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:2974744982f08b20",
       "en": "umbrella",
-      "enSourceHash": "2974744982f08b20"
+      "enSourceHash": "2974744982f08b20",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:2c70e12b7a0646f9",
       "en": "key",
-      "enSourceHash": "2c70e12b7a0646f9"
+      "enSourceHash": "2c70e12b7a0646f9",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:39156e5eb7735069",
       "en": "Is the dog coming too?",
-      "enSourceHash": "39156e5eb7735069"
+      "enSourceHash": "39156e5eb7735069",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:3cf3d8b896782fa2",
       "en": "Yeah, I get it.",
-      "enSourceHash": "3cf3d8b896782fa2"
+      "enSourceHash": "3cf3d8b896782fa2",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:59c83a920d1d8469",
       "en": "Gonna sing the song?",
-      "enSourceHash": "59c83a920d1d8469"
+      "enSourceHash": "59c83a920d1d8469",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:647294383b2cbc24",
       "en": "Japan",
-      "enSourceHash": "647294383b2cbc24"
+      "enSourceHash": "647294383b2cbc24",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:68e7789cd56e9190",
       "en": "Get it?",
-      "enSourceHash": "68e7789cd56e9190"
+      "enSourceHash": "68e7789cd56e9190",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:71cbd811e5491eba",
       "en": "Did the dog eat?",
-      "enSourceHash": "71cbd811e5491eba"
+      "enSourceHash": "71cbd811e5491eba",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:8585736db96c324c",
       "en": "I get it.",
-      "enSourceHash": "8585736db96c324c"
+      "enSourceHash": "8585736db96c324c",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:86785a34892e6096",
       "en": "Is the cat coming too?",
-      "enSourceHash": "86785a34892e6096"
+      "enSourceHash": "86785a34892e6096",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:b0aebd7052b12e37",
       "en": "Pick the casual 'get it?'",
-      "enSourceHash": "b0aebd7052b12e37"
+      "enSourceHash": "b0aebd7052b12e37",
+      "kind": "instruction"
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:b119ce135efff2a4",
       "en": "Do you get that one over there?",
-      "enSourceHash": "b119ce135efff2a4"
+      "enSourceHash": "b119ce135efff2a4",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:c25e16d1263792a4",
       "en": "Is it a song?",
-      "enSourceHash": "c25e16d1263792a4"
+      "enSourceHash": "c25e16d1263792a4",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:c339fb7706a7edcf",
       "en": "mobile phone",
-      "enSourceHash": "c339fb7706a7edcf"
+      "enSourceHash": "c339fb7706a7edcf",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:cd6357efdd966de8",
       "en": "dog",
-      "enSourceHash": "cd6357efdd966de8"
+      "enSourceHash": "cd6357efdd966de8",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:cd684567450895a3",
       "en": "Gonna listen to the song?",
-      "enSourceHash": "cd684567450895a3"
+      "enSourceHash": "cd684567450895a3",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:d086af3194353681",
       "en": "This — are you listening?",
-      "enSourceHash": "d086af3194353681"
+      "enSourceHash": "d086af3194353681",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:e5fe269f01252e96",
       "en": "Gonna buy the song?",
-      "enSourceHash": "e5fe269f01252e96"
+      "enSourceHash": "e5fe269f01252e96",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-7/en:ff8e27fb93abb1c6",
       "en": "You think so?",
-      "enSourceHash": "ff8e27fb93abb1c6"
+      "enSourceHash": "ff8e27fb93abb1c6",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-7/ja:うたを きく",
       "en": "Build this sentence: I'll listen to the song.",
-      "enSourceHash": "b970ba6ea40bca82"
+      "enSourceHash": "b970ba6ea40bca82",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-7/ja:まどを みる",
       "en": "Build this sentence: I'll look at the window.",
-      "enSourceHash": "1f9ece06ea4ebfa5"
+      "enSourceHash": "1f9ece06ea4ebfa5",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-7/ja:ケンの うたも きく",
       "en": "Build this sentence: I'll listen to Ken's song too.",
-      "enSourceHash": "e61437bcda302e4b"
+      "enSourceHash": "e61437bcda302e4b",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:18e1dd392168f601",
       "en": "hat",
-      "enSourceHash": "18e1dd392168f601"
+      "enSourceHash": "18e1dd392168f601",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:266550babbb7bd39",
       "en": "glasses",
-      "enSourceHash": "266550babbb7bd39"
+      "enSourceHash": "266550babbb7bd39",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:2a331cb6ffad0463",
       "en": "No — you don't say that.",
-      "enSourceHash": "2a331cb6ffad0463"
+      "enSourceHash": "2a331cb6ffad0463",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:336074805fc85398",
       "en": "time",
-      "enSourceHash": "336074805fc85398"
+      "enSourceHash": "336074805fc85398",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:34a2cec5fcceb420",
       "en": "Can you hear it?",
-      "enSourceHash": "34a2cec5fcceb420"
+      "enSourceHash": "34a2cec5fcceb420",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:39954823f73a76e3",
       "en": "Nice to meet you.",
-      "enSourceHash": "39954823f73a76e3"
+      "enSourceHash": "39954823f73a76e3",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:3b80d38f7686a8b5",
       "en": "mountain",
-      "enSourceHash": "3b80d38f7686a8b5"
+      "enSourceHash": "3b80d38f7686a8b5",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:41e39bd16337ce46",
       "en": "Yeah — that's how you say it.",
-      "enSourceHash": "41e39bd16337ce46"
+      "enSourceHash": "41e39bd16337ce46",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:45411b53c3ee653e",
       "en": "American (person)",
-      "enSourceHash": "45411b53c3ee653e"
+      "enSourceHash": "45411b53c3ee653e",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:4891e4a962633cd4",
       "en": "Do you say it like that?",
-      "enSourceHash": "4891e4a962633cd4"
+      "enSourceHash": "4891e4a962633cd4",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:56aa6b77c760f710",
       "en": "well/energy",
-      "enSourceHash": "56aa6b77c760f710"
+      "enSourceHash": "56aa6b77c760f710",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:5f0cccd49c328e87",
       "en": "Do you think so?",
-      "enSourceHash": "5f0cccd49c328e87"
+      "enSourceHash": "5f0cccd49c328e87",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:61cdd8b363ad43e5",
       "en": "Doing okay?",
-      "enSourceHash": "61cdd8b363ad43e5"
+      "enSourceHash": "61cdd8b363ad43e5",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:644e298d89f966a7",
       "en": "That's right.",
-      "enSourceHash": "644e298d89f966a7"
+      "enSourceHash": "644e298d89f966a7",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:647294383b2cbc24",
       "en": "Japan",
-      "enSourceHash": "647294383b2cbc24"
+      "enSourceHash": "647294383b2cbc24",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:69c0bd5adac736f3",
       "en": "I think so.",
-      "enSourceHash": "69c0bd5adac736f3"
+      "enSourceHash": "69c0bd5adac736f3",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:7339725159893c57",
       "en": "telephone",
-      "enSourceHash": "7339725159893c57"
+      "enSourceHash": "7339725159893c57",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:80ef8cb951cb1ede",
       "en": "Say it one more time.",
-      "enSourceHash": "80ef8cb951cb1ede"
+      "enSourceHash": "80ef8cb951cb1ede",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:92a7c896100de861",
       "en": "Yeah — I think so.",
-      "enSourceHash": "92a7c896100de861"
+      "enSourceHash": "92a7c896100de861",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:94e57a32a54ccad3",
       "en": "That's how you say it.",
-      "enSourceHash": "94e57a32a54ccad3"
+      "enSourceHash": "94e57a32a54ccad3",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:9b4ef3e5b7b4d175",
       "en": "station",
-      "enSourceHash": "9b4ef3e5b7b4d175"
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:9e78b43ea00edcac",
       "en": "moon",
-      "enSourceHash": "9e78b43ea00edcac"
+      "enSourceHash": "9e78b43ea00edcac",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:9eb8cd756595cf24",
       "en": "Really?",
-      "enSourceHash": "9eb8cd756595cf24"
+      "enSourceHash": "9eb8cd756595cf24",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:bbff7b98d6da7061",
       "en": "What is it?",
-      "enSourceHash": "bbff7b98d6da7061"
+      "enSourceHash": "bbff7b98d6da7061",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:c1c969c374db5f49",
       "en": "What did you say?",
-      "enSourceHash": "c1c969c374db5f49"
+      "enSourceHash": "c1c969c374db5f49",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:c30b55f6c04ebd74",
       "en": "No chance.",
-      "enSourceHash": "c30b55f6c04ebd74"
+      "enSourceHash": "c30b55f6c04ebd74",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:c339fb7706a7edcf",
       "en": "mobile phone",
-      "enSourceHash": "c339fb7706a7edcf"
+      "enSourceHash": "c339fb7706a7edcf",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:cde48537ca2c2808",
       "en": "friend",
-      "enSourceHash": "cde48537ca2c2808"
+      "enSourceHash": "cde48537ca2c2808",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:d5c7b14892d2d639",
       "en": "I know so.",
-      "enSourceHash": "d5c7b14892d2d639"
+      "enSourceHash": "d5c7b14892d2d639",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-8/en:ff8e27fb93abb1c6",
       "en": "You think so?",
-      "enSourceHash": "ff8e27fb93abb1c6"
+      "enSourceHash": "ff8e27fb93abb1c6",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-8/ja:こえを きく",
       "en": "Gonna listen for the voice.",
-      "enSourceHash": "1374e294a76fa60a"
+      "enSourceHash": "1374e294a76fa60a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-8/ja:そう おもう",
       "en": "Build this sentence: I think so.",
-      "enSourceHash": "905ef87644617d75"
+      "enSourceHash": "905ef87644617d75",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:1d3aaf802a34293d",
       "en": "Gonna eat?",
-      "enSourceHash": "1d3aaf802a34293d"
+      "enSourceHash": "1d3aaf802a34293d",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:234efcddd7c5c28b",
       "en": "Gonna buy the umbrella?",
-      "enSourceHash": "234efcddd7c5c28b"
+      "enSourceHash": "234efcddd7c5c28b",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:3d4557eae88508e6",
       "en": "Gonna eat the food?",
-      "enSourceHash": "3d4557eae88508e6"
+      "enSourceHash": "3d4557eae88508e6",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:4bdf40d0d1ae3611",
       "en": "rice/meal",
-      "enSourceHash": "4bdf40d0d1ae3611"
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:5e6328aa77c66156",
       "en": "Gonna buy food?",
-      "enSourceHash": "5e6328aa77c66156"
+      "enSourceHash": "5e6328aa77c66156",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:63f75c890b05405e",
       "en": "song",
-      "enSourceHash": "63f75c890b05405e"
+      "enSourceHash": "63f75c890b05405e",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:6cbf9346d12dadf9",
       "en": "Gonna buy this one?",
-      "enSourceHash": "6cbf9346d12dadf9"
+      "enSourceHash": "6cbf9346d12dadf9",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:8aa75d34f798eec0",
       "en": "Gonna buy a drink?",
-      "enSourceHash": "8aa75d34f798eec0"
+      "enSourceHash": "8aa75d34f798eec0",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:98528c5a7601602a",
       "en": "Is it a thing?",
-      "enSourceHash": "98528c5a7601602a"
+      "enSourceHash": "98528c5a7601602a",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:9b4ef3e5b7b4d175",
       "en": "station",
-      "enSourceHash": "9b4ef3e5b7b4d175"
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:9b5cf5e46c7b98c9",
       "en": "Is it a drink?",
-      "enSourceHash": "9b5cf5e46c7b98c9"
+      "enSourceHash": "9b5cf5e46c7b98c9",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:a7d6acaf4dd5eb3c",
       "en": "Gonna look at the bag?",
-      "enSourceHash": "a7d6acaf4dd5eb3c"
+      "enSourceHash": "a7d6acaf4dd5eb3c",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:b4a503f6db924e83",
       "en": "Is it food?",
-      "enSourceHash": "b4a503f6db924e83"
+      "enSourceHash": "b4a503f6db924e83",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:c018019b6a8b01ab",
       "en": "bag",
-      "enSourceHash": "c018019b6a8b01ab"
+      "enSourceHash": "c018019b6a8b01ab",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:c06b0cfe0cc5e900",
       "en": "flower",
-      "enSourceHash": "c06b0cfe0cc5e900"
+      "enSourceHash": "c06b0cfe0cc5e900",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:c3bb79a24ca8cf20",
       "en": "letter (postal)",
-      "enSourceHash": "c3bb79a24ca8cf20"
+      "enSourceHash": "c3bb79a24ca8cf20",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:e19f8cbb73508b42",
       "en": "Gonna buy the bag?",
-      "enSourceHash": "e19f8cbb73508b42"
+      "enSourceHash": "e19f8cbb73508b42",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:e6bf10a0eaa9da57",
       "en": "Going home?",
-      "enSourceHash": "e6bf10a0eaa9da57"
+      "enSourceHash": "e6bf10a0eaa9da57",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:e77adadad77ecf8f",
       "en": "Going shopping?",
-      "enSourceHash": "e77adadad77ecf8f"
+      "enSourceHash": "e77adadad77ecf8f",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-9/en:f2903f1002646445",
       "en": "Gonna lose the bag?",
-      "enSourceHash": "f2903f1002646445"
+      "enSourceHash": "f2903f1002646445",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-9/ja:かおを みる",
       "en": "Build this sentence: I'll look at their face.",
-      "enSourceHash": "416aa2e30f07fe09"
+      "enSourceHash": "416aa2e30f07fe09",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-9/ja:これも ミカの たべものだ",
       "en": "Build this sentence: This one is Mika's food too.",
-      "enSourceHash": "17014f96543bb81b"
+      "enSourceHash": "17014f96543bb81b",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-9/ja:たべものを かう",
       "en": "Build this sentence: I'll buy food.",
-      "enSourceHash": "ad823425f74047d6"
+      "enSourceHash": "ad823425f74047d6",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-9/ja:のみものだ",
       "en": "Build this sentence: It's a drink.",
-      "enSourceHash": "c03dfe34a79f8a0a"
+      "enSourceHash": "c03dfe34a79f8a0a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-9/ja:ケンの たべものだ",
       "en": "Build this sentence: It's Ken's food.",
-      "enSourceHash": "269e9e39b46e54d2"
+      "enSourceHash": "269e9e39b46e54d2",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:0268680e38296778",
       "en": "Is it the sky?",
-      "enSourceHash": "0268680e38296778"
+      "enSourceHash": "0268680e38296778",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:03cc6c8fda4ffaee",
       "en": "Gonna buy the peach?",
-      "enSourceHash": "03cc6c8fda4ffaee"
+      "enSourceHash": "03cc6c8fda4ffaee",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:1057a9604e04b274",
       "en": "teacher",
-      "enSourceHash": "1057a9604e04b274"
+      "enSourceHash": "1057a9604e04b274",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:14069429150abcbf",
       "en": "ticket",
-      "enSourceHash": "14069429150abcbf"
+      "enSourceHash": "14069429150abcbf",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:15690aaaa40fd589",
       "en": "Is this Mika's food?",
-      "enSourceHash": "15690aaaa40fd589"
+      "enSourceHash": "15690aaaa40fd589",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:1b91adff1b2f4b08",
       "en": "Gonna buy water?",
-      "enSourceHash": "1b91adff1b2f4b08"
+      "enSourceHash": "1b91adff1b2f4b08",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:21bcfa9b76dab5e0",
       "en": "Gonna eat the peach?",
-      "enSourceHash": "21bcfa9b76dab5e0"
+      "enSourceHash": "21bcfa9b76dab5e0",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:266550babbb7bd39",
       "en": "glasses",
-      "enSourceHash": "266550babbb7bd39"
+      "enSourceHash": "266550babbb7bd39",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:28083e9b16220af2",
       "en": "Is this one a drink too?",
-      "enSourceHash": "28083e9b16220af2"
+      "enSourceHash": "28083e9b16220af2",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:28bd95c64abbcfd9",
       "en": "Gonna look at the sky?",
-      "enSourceHash": "28bd95c64abbcfd9"
+      "enSourceHash": "28bd95c64abbcfd9",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:41c6b68b78a8231d",
       "en": "You're gonna drink river water?",
-      "enSourceHash": "41c6b68b78a8231d"
+      "enSourceHash": "41c6b68b78a8231d",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:4533faa09d2ae10b",
       "en": "Someone apologizes to you and you're fine — which fits?",
-      "enSourceHash": "4533faa09d2ae10b"
+      "enSourceHash": "4533faa09d2ae10b",
+      "kind": "instruction"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:4dd64eaadc606d71",
       "en": "Gonna look at the sea?",
-      "enSourceHash": "4dd64eaadc606d71"
+      "enSourceHash": "4dd64eaadc606d71",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:5ce3b56760c62b6a",
       "en": "Gonna eat the bread?",
-      "enSourceHash": "5ce3b56760c62b6a"
+      "enSourceHash": "5ce3b56760c62b6a",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:647294383b2cbc24",
       "en": "Japan",
-      "enSourceHash": "647294383b2cbc24"
+      "enSourceHash": "647294383b2cbc24",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:6b7d50d410647e95",
       "en": "Is the river water?",
-      "enSourceHash": "6b7d50d410647e95"
+      "enSourceHash": "6b7d50d410647e95",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:81616d86aac5d3c7",
       "en": "Is this one food too?",
-      "enSourceHash": "81616d86aac5d3c7"
+      "enSourceHash": "81616d86aac5d3c7",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:8f32e6f3c0b2a23e",
       "en": "Is it a peach?",
-      "enSourceHash": "8f32e6f3c0b2a23e"
+      "enSourceHash": "8f32e6f3c0b2a23e",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:981c4e27436144c0",
       "en": "Verbs I — review",
-      "enSourceHash": "981c4e27436144c0"
+      "enSourceHash": "981c4e27436144c0",
+      "kind": "title"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:b0288a75f8e39967",
       "en": "You're gonna look at the river?",
-      "enSourceHash": "b0288a75f8e39967"
+      "enSourceHash": "b0288a75f8e39967",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:bb236fe4c675f806",
       "en": "Gonna look at the stars?",
-      "enSourceHash": "bb236fe4c675f806"
+      "enSourceHash": "bb236fe4c675f806",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:c06b0cfe0cc5e900",
       "en": "flower",
-      "enSourceHash": "c06b0cfe0cc5e900"
+      "enSourceHash": "c06b0cfe0cc5e900",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:cf98f59c0c003582",
       "en": "sushi",
-      "enSourceHash": "cf98f59c0c003582"
+      "enSourceHash": "cf98f59c0c003582",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m5/ja-m5-neo-review/en:da9ee4f295e085b9",
       "en": "Is that one food?",
-      "enSourceHash": "da9ee4f295e085b9"
+      "enSourceHash": "da9ee4f295e085b9",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m5/ja-m5-neo-review/ja:うみを きく",
       "en": "Build this sentence: I'll listen to the sea.",
-      "enSourceHash": "a91b3c9de8c70519"
+      "enSourceHash": "a91b3c9de8c70519",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-review/ja:かわの しゃしんを みる",
       "en": "Build this sentence: I'll look at the river photos.",
-      "enSourceHash": "274a32129fcbdbba"
+      "enSourceHash": "274a32129fcbdbba",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-review/ja:さんぽ",
       "en": "Listen and build the word for 'walk/stroll'",
-      "enSourceHash": "4e9e97ec5048fad3"
+      "enSourceHash": "4e9e97ec5048fad3",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-review/ja:めがねを かう",
       "en": "Build this sentence: I'll buy glasses.",
-      "enSourceHash": "e4b92b9d9ce0eaf1"
+      "enSourceHash": "e4b92b9d9ce0eaf1",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m5/ja-m5-neo-review/ja:ゆきを みる",
       "en": "Build this sentence: I'll watch the snow.",
-      "enSourceHash": "b6563ea0e5ac5894"
+      "enSourceHash": "b6563ea0e5ac5894",
+      "kind": "build-prompt"
     }
   ]
 }

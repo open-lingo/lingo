@@ -3,1807 +3,2227 @@
   "moduleId": "m8",
   "lang": "ja",
   "generatedAt": "2026-09-10",
-  "entryCount": 360,
+  "entryCount": 370,
   "entries": [
     {
       "anchor": "m8/atom:あそんで/gloss",
       "en": "play (te-form)",
-      "enSourceHash": "0aac73b14157d3c6"
+      "enSourceHash": "0aac73b14157d3c6",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:いそいで/gloss",
       "en": "hurry (te-form)",
-      "enSourceHash": "9b63b3dfad22d3bd"
+      "enSourceHash": "9b63b3dfad22d3bd",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:いそいで/shortGloss",
       "en": "hurry (te)",
-      "enSourceHash": "8279eef3862e0d7e"
+      "enSourceHash": "8279eef3862e0d7e",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:いそぐ/gloss",
       "en": "to hurry",
-      "enSourceHash": "87ebc609e5ec76d1"
+      "enSourceHash": "87ebc609e5ec76d1",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:いって/gloss",
       "en": "go, travel (te-form)",
-      "enSourceHash": "ef0313f6602cdd40"
+      "enSourceHash": "ef0313f6602cdd40",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:おしえて/gloss",
       "en": "teach, tell (te-form)",
-      "enSourceHash": "7eb474950ca493be"
+      "enSourceHash": "7eb474950ca493be",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:おしえる/gloss",
       "en": "to teach, to tell",
-      "enSourceHash": "f5327c3e745d00d3"
+      "enSourceHash": "f5327c3e745d00d3",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:かして/gloss",
       "en": "lend (te-form)",
-      "enSourceHash": "c7048566a970b47d"
+      "enSourceHash": "c7048566a970b47d",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:かして/shortGloss",
       "en": "lend (te)",
-      "enSourceHash": "2a24b10828775a9a"
+      "enSourceHash": "2a24b10828775a9a",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:かす/gloss",
       "en": "to lend",
-      "enSourceHash": "b8c1e36ef9b6228b"
+      "enSourceHash": "b8c1e36ef9b6228b",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:かって/gloss",
       "en": "buy (te-form)",
-      "enSourceHash": "f1f5989a903edf53"
+      "enSourceHash": "f1f5989a903edf53",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:きいて/gloss",
       "en": "listen, ask (te-form)",
-      "enSourceHash": "b9541b4eef38181f"
+      "enSourceHash": "b9541b4eef38181f",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:きて/gloss",
       "en": "come (te-form)",
-      "enSourceHash": "e276584ad8f94388"
+      "enSourceHash": "e276584ad8f94388",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:ください/gloss",
       "en": "please",
-      "enSourceHash": "56ccc4dcfc96534b"
+      "enSourceHash": "56ccc4dcfc96534b",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:こめ/gloss",
       "en": "rice (uncooked)",
-      "enSourceHash": "62edd06bb57649f1"
+      "enSourceHash": "62edd06bb57649f1",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:こめ/shortGloss",
       "en": "rice (raw)",
-      "enSourceHash": "94425d7f6198e5b2"
+      "enSourceHash": "94425d7f6198e5b2",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:して/gloss",
       "en": "do, make (te-form)",
-      "enSourceHash": "70ff026ee5b1a0e8"
+      "enSourceHash": "70ff026ee5b1a0e8",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:しょくじ/gloss",
       "en": "a meal",
-      "enSourceHash": "6755ed612d132457"
+      "enSourceHash": "6755ed612d132457",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:たって/gloss",
       "en": "stand (te-form)",
-      "enSourceHash": "b7e31f71ccf9c618"
+      "enSourceHash": "b7e31f71ccf9c618",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:たって/shortGloss",
       "en": "stand (te)",
-      "enSourceHash": "cd563f8292d6ac44"
+      "enSourceHash": "cd563f8292d6ac44",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:たつ/gloss",
       "en": "to stand",
-      "enSourceHash": "3394e02a1ea02c76"
+      "enSourceHash": "3394e02a1ea02c76",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:たべて/gloss",
       "en": "eat (te-form)",
-      "enSourceHash": "702bd18611678b04"
+      "enSourceHash": "702bd18611678b04",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:ちゃ/gloss",
       "en": "tea",
-      "enSourceHash": "a9f74d1ec36ebdeb"
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:のんで/gloss",
       "en": "drink (te-form)",
-      "enSourceHash": "99f8223169120343"
+      "enSourceHash": "99f8223169120343",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:みせ/gloss",
       "en": "shop",
-      "enSourceHash": "8d9001d32c6a703d"
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:みて/gloss",
       "en": "watch, look (te-form)",
-      "enSourceHash": "a2dd218a2530d8b3"
+      "enSourceHash": "a2dd218a2530d8b3",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:やって/gloss",
       "en": "do (te-form)",
-      "enSourceHash": "8e5452c66f721ffb"
+      "enSourceHash": "8e5452c66f721ffb",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:やって/shortGloss",
       "en": "do (te)",
-      "enSourceHash": "9cc9838b173459b8"
+      "enSourceHash": "9cc9838b173459b8",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/atom:ナイフ/gloss",
       "en": "knife",
-      "enSourceHash": "3d4d101cd7ea9e5e"
+      "enSourceHash": "3d4d101cd7ea9e5e",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m8/gp:de-action/ex:いえで たべる。",
       "en": "I eat at home.",
-      "enSourceHash": "da35a6cc417c3573"
+      "enSourceHash": "da35a6cc417c3573",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/gp:de-action/ex:いえに たべる。",
       "en": "(incorrect)",
-      "enSourceHash": "c49db083a23a80a0"
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/gp:de-action/ex:こめを かう。",
       "en": "I buy rice.",
-      "enSourceHash": "e9bca8707c438ebd"
+      "enSourceHash": "e9bca8707c438ebd",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/gp:te-form/ex:いいて。",
       "en": "(incorrect)",
-      "enSourceHash": "c49db083a23a80a0"
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/gp:te-form/ex:いえに いそいで。",
       "en": "Hurry home.",
-      "enSourceHash": "5230c898e70cf322"
+      "enSourceHash": "5230c898e70cf322",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/gp:te-form/ex:いって。",
       "en": "Go on, go.",
-      "enSourceHash": "9eb1b2c2ee5fc36d"
+      "enSourceHash": "9eb1b2c2ee5fc36d",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/gp:te-form/ex:うたを きいて。",
       "en": "Listen to the song.",
-      "enSourceHash": "75bb587dde06da86"
+      "enSourceHash": "75bb587dde06da86",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/gp:te-form/ex:うたを きくて。",
       "en": "(incorrect)",
-      "enSourceHash": "c49db083a23a80a0"
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/gp:te-form/ex:かわで あそんで。",
       "en": "Play at the river.",
-      "enSourceHash": "9346e3e3e5a8648d"
+      "enSourceHash": "9346e3e3e5a8648d",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/gp:te-form/ex:きて。",
       "en": "Come here.",
-      "enSourceHash": "0c15f557d3b6f029"
+      "enSourceHash": "0c15f557d3b6f029",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/gp:te-form/ex:きょう やって。",
       "en": "Do it today.",
-      "enSourceHash": "8b175729a9dfc6dd"
+      "enSourceHash": "8b175729a9dfc6dd",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/gp:te-form/ex:ここに たって。",
       "en": "Stand here.",
-      "enSourceHash": "4d81566ff1ebc62f"
+      "enSourceHash": "4d81566ff1ebc62f",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/gp:te-form/ex:これを して。",
       "en": "Do this one.",
-      "enSourceHash": "026d9490fa2ef7bb"
+      "enSourceHash": "026d9490fa2ef7bb",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/gp:te-form/ex:しゃしんを みて。",
       "en": "Look at the photo.",
-      "enSourceHash": "a7e2aef86ff6ccb4"
+      "enSourceHash": "a7e2aef86ff6ccb4",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/gp:te-form/ex:しゃしんを みるて。",
       "en": "(incorrect)",
-      "enSourceHash": "c49db083a23a80a0"
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/gp:te-form/ex:たべて。",
       "en": "Go on, eat.",
-      "enSourceHash": "2a05379246da3cbf"
+      "enSourceHash": "2a05379246da3cbf",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/gp:te-form/ex:ほんを かうて。",
       "en": "(incorrect)",
-      "enSourceHash": "c49db083a23a80a0"
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/gp:te-form/ex:ほんを かして。",
       "en": "Lend me the book.",
-      "enSourceHash": "ac00614c3987e824"
+      "enSourceHash": "ac00614c3987e824",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/gp:te-form/ex:ほんを かって。",
       "en": "Buy the book.",
-      "enSourceHash": "af6a1e82109b7d2f"
+      "enSourceHash": "af6a1e82109b7d2f",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/gp:te-form/ex:みずを のみて。",
       "en": "(incorrect)",
-      "enSourceHash": "c49db083a23a80a0"
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/gp:te-form/ex:みずを のんで。",
       "en": "Drink the water.",
-      "enSourceHash": "3cd100b68ce5c226"
+      "enSourceHash": "3cd100b68ce5c226",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/gp:te-kudasai/ex:たべてください",
       "en": "Please eat.",
-      "enSourceHash": "740d506038fe1d30"
+      "enSourceHash": "740d506038fe1d30",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/gp:te-kudasai/ex:たべるください",
       "en": "(incorrect)",
-      "enSourceHash": "c49db083a23a80a0"
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/gp:te-kudasai/ex:みて。",
       "en": "Look. (to a friend)",
-      "enSourceHash": "b8fa4d78c13715f5"
+      "enSourceHash": "b8fa4d78c13715f5",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/gp:te-kudasai/ex:みてください",
       "en": "Please look.",
-      "enSourceHash": "80afb2cceb55021d"
+      "enSourceHash": "80afb2cceb55021d",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/gp:te-kudasai/ex:みてください。",
       "en": "Please look. (polite)",
-      "enSourceHash": "1a081e622243ac65"
+      "enSourceHash": "1a081e622243ac65",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/gp:wo-object/ex:しょくじを する。",
       "en": "I have a meal.",
-      "enSourceHash": "476618fa8db5722c"
+      "enSourceHash": "476618fa8db5722c",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/gp:wo-object/ex:ちゃを のむ。",
       "en": "I drink tea.",
-      "enSourceHash": "5c669a424c49d9ab"
+      "enSourceHash": "5c669a424c49d9ab",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-1/en:05f514fae7ca5710",
       "en": "sky",
-      "enSourceHash": "05f514fae7ca5710"
+      "enSourceHash": "05f514fae7ca5710",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-1/en:46bcff11a845ba3d",
       "en": "Pick the word for \"person\"",
-      "enSourceHash": "46bcff11a845ba3d"
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-1/en:525eca1d5089dbdc",
       "en": "star",
-      "enSourceHash": "525eca1d5089dbdc"
+      "enSourceHash": "525eca1d5089dbdc",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-1/en:527af7c109a784d8",
       "en": "to eat",
-      "enSourceHash": "527af7c109a784d8"
+      "enSourceHash": "527af7c109a784d8",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-1/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-1/en:63b14e9e3b6aaff4",
       "en": "Pick the word for \"star\"",
-      "enSourceHash": "63b14e9e3b6aaff4"
+      "enSourceHash": "63b14e9e3b6aaff4",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-1/en:65f8ea722badb7ca",
       "en": "to watch",
-      "enSourceHash": "65f8ea722badb7ca"
+      "enSourceHash": "65f8ea722badb7ca",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-1/en:7482d5802c3c2798",
       "en": "photograph",
-      "enSourceHash": "7482d5802c3c2798"
+      "enSourceHash": "7482d5802c3c2798",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-1/en:92719fe0cf8cd515",
       "en": "book",
-      "enSourceHash": "92719fe0cf8cd515"
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-1/ja:いえで たべて",
       "en": "Build: Eat at home",
-      "enSourceHash": "63e961a7b20895d3"
+      "enSourceHash": "63e961a7b20895d3",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-1/ja:きょうは たべて",
       "en": "Build: Eat today",
-      "enSourceHash": "2b9050d7436c773f"
+      "enSourceHash": "2b9050d7436c773f",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-1/ja:しゃしんを みて",
       "en": "Build: Look at the photo",
-      "enSourceHash": "a21dc73a92df5458"
+      "enSourceHash": "a21dc73a92df5458",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-1/ja:ねこを みて",
       "en": "Build: Look at the cat",
-      "enSourceHash": "8bc524fd4514961c"
+      "enSourceHash": "8bc524fd4514961c",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-1/ja:ほんを みて",
       "en": "Build what you hear.",
-      "enSourceHash": "b28d903ef295627a"
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-1/ja:みずを のむ",
       "en": "Build: I drink water",
-      "enSourceHash": "ee0e4635d24593e1"
+      "enSourceHash": "ee0e4635d24593e1",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-1/ja:りょうりを たべて",
       "en": "Build: Eat the cuisine",
-      "enSourceHash": "443a674ff7805ca6"
+      "enSourceHash": "443a674ff7805ca6",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-1/ja:ミカが たつ",
       "en": "Build what you hear.",
-      "enSourceHash": "b28d903ef295627a"
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-1/ja:ミカの しゃしんを みて",
       "en": "Build: Look at Mika's photo",
-      "enSourceHash": "31a3de4978c44cd1"
+      "enSourceHash": "31a3de4978c44cd1",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-10/en:0f4168490e38b844",
       "en": "water",
-      "enSourceHash": "0f4168490e38b844"
+      "enSourceHash": "0f4168490e38b844",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-10/en:24237e96e5183016",
       "en": "to play",
-      "enSourceHash": "24237e96e5183016"
+      "enSourceHash": "24237e96e5183016",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-10/en:46bcff11a845ba3d",
       "en": "Pick the word for \"person\"",
-      "enSourceHash": "46bcff11a845ba3d"
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-10/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-10/en:5f5a8ed8f139be6d",
       "en": "river",
-      "enSourceHash": "5f5a8ed8f139be6d"
+      "enSourceHash": "5f5a8ed8f139be6d",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-10/en:63b14e9e3b6aaff4",
       "en": "Pick the word for \"star\"",
-      "enSourceHash": "63b14e9e3b6aaff4"
+      "enSourceHash": "63b14e9e3b6aaff4",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-10/en:8825e76530f87ff5",
       "en": "milk",
-      "enSourceHash": "8825e76530f87ff5"
+      "enSourceHash": "8825e76530f87ff5",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-10/en:cde48537ca2c2808",
       "en": "friend",
-      "enSourceHash": "cde48537ca2c2808"
+      "enSourceHash": "cde48537ca2c2808",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-10/en:e62f640360d85af9",
       "en": "to drink",
-      "enSourceHash": "e62f640360d85af9"
+      "enSourceHash": "e62f640360d85af9",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-10/ja:いえで あそんで",
       "en": "Build: Play at home",
-      "enSourceHash": "7665a7809b811d33"
+      "enSourceHash": "7665a7809b811d33",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-10/ja:いえで のんで",
       "en": "Build: Drink at home",
-      "enSourceHash": "d106d18804b3ee9d"
+      "enSourceHash": "d106d18804b3ee9d",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-10/ja:かわで あそんで",
       "en": "Build what you hear.",
-      "enSourceHash": "b28d903ef295627a"
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-10/ja:ぎゅうにゅうを のんで",
       "en": "Build: Drink the milk",
-      "enSourceHash": "df02e052cc12e7d7"
+      "enSourceHash": "df02e052cc12e7d7",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-10/ja:ほんを かす",
       "en": "Build: I lend the book",
-      "enSourceHash": "9eec5c53bbc80944"
+      "enSourceHash": "9eec5c53bbc80944",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-10/ja:ミカが いそぐ",
       "en": "Build: Mika hurries",
-      "enSourceHash": "bac3117e53f07185"
+      "enSourceHash": "bac3117e53f07185",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-10/ja:ミカの いえで あそんで",
       "en": "Build: Play at Mika's house",
-      "enSourceHash": "d3d2a882eeff7c2f"
+      "enSourceHash": "d3d2a882eeff7c2f",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-11/en:13809668fb436386",
       "en": "pencil",
-      "enSourceHash": "13809668fb436386"
+      "enSourceHash": "13809668fb436386",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-11/en:1e1cc3909a49adea",
       "en": "Pick the word for \"mountain\"",
-      "enSourceHash": "1e1cc3909a49adea"
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-11/en:46bcff11a845ba3d",
       "en": "Pick the word for \"person\"",
-      "enSourceHash": "46bcff11a845ba3d"
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-11/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-11/en:5d59b2b96755e2c6",
       "en": "lend",
-      "enSourceHash": "5d59b2b96755e2c6"
+      "enSourceHash": "5d59b2b96755e2c6",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-11/en:63b14e9e3b6aaff4",
       "en": "Pick the word for \"star\"",
-      "enSourceHash": "63b14e9e3b6aaff4"
+      "enSourceHash": "63b14e9e3b6aaff4",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-11/en:63f75c890b05405e",
       "en": "song",
-      "enSourceHash": "63f75c890b05405e"
+      "enSourceHash": "63f75c890b05405e",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-11/en:8ea11bdf8389be46",
       "en": "to hear",
-      "enSourceHash": "8ea11bdf8389be46"
+      "enSourceHash": "8ea11bdf8389be46",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-11/en:92719fe0cf8cd515",
       "en": "book",
-      "enSourceHash": "92719fe0cf8cd515"
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-11/en:d3bf28da55f404a6",
       "en": "Pick the word for \"house\"",
-      "enSourceHash": "d3bf28da55f404a6"
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-11/en:f6002cbceb8c0327",
       "en": "hurry",
-      "enSourceHash": "f6002cbceb8c0327"
+      "enSourceHash": "f6002cbceb8c0327",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-11/ja:いえに いそいで",
       "en": "Build: Hurry home",
-      "enSourceHash": "0cc230d896ee507b"
+      "enSourceHash": "0cc230d896ee507b",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-11/ja:うたを きいて",
       "en": "Build: Listen to the song",
-      "enSourceHash": "0bb21205aa107f5f"
+      "enSourceHash": "0bb21205aa107f5f",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-11/ja:えんぴつを かして",
       "en": "Build what you hear.",
-      "enSourceHash": "b28d903ef295627a"
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-11/ja:きょうは うたを きいて",
       "en": "Build: Listen to a song today",
-      "enSourceHash": "d4cde769343003d7"
+      "enSourceHash": "d4cde769343003d7",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-11/ja:ともだちに きいて",
       "en": "Ask your friend",
-      "enSourceHash": "731810c34f0963a1"
+      "enSourceHash": "731810c34f0963a1",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-2/en:13809668fb436386",
       "en": "pencil",
-      "enSourceHash": "13809668fb436386"
+      "enSourceHash": "13809668fb436386",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-2/en:217655f48dde4e0a",
       "en": "to do",
-      "enSourceHash": "217655f48dde4e0a"
+      "enSourceHash": "217655f48dde4e0a",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-2/en:46bcff11a845ba3d",
       "en": "Pick the word for \"person\"",
-      "enSourceHash": "46bcff11a845ba3d"
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-2/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-2/en:63b14e9e3b6aaff4",
       "en": "Pick the word for \"star\"",
-      "enSourceHash": "63b14e9e3b6aaff4"
+      "enSourceHash": "63b14e9e3b6aaff4",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-2/en:7e2ed393d525d7e2",
       "en": "to buy",
-      "enSourceHash": "7e2ed393d525d7e2"
+      "enSourceHash": "7e2ed393d525d7e2",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-2/en:92719fe0cf8cd515",
       "en": "book",
-      "enSourceHash": "92719fe0cf8cd515"
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-2/en:a6bcbe6c9727b897",
       "en": "here (by me)",
-      "enSourceHash": "a6bcbe6c9727b897"
+      "enSourceHash": "a6bcbe6c9727b897",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-2/en:d37a24b801c6e2e3",
       "en": "stand",
-      "enSourceHash": "d37a24b801c6e2e3"
+      "enSourceHash": "d37a24b801c6e2e3",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-2/en:d3bf28da55f404a6",
       "en": "Pick the word for \"house\"",
-      "enSourceHash": "d3bf28da55f404a6"
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-2/ja:いえで やって",
       "en": "Build: Do it at home",
-      "enSourceHash": "898686993f7dd577"
+      "enSourceHash": "898686993f7dd577",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-2/ja:えんぴつを かって",
       "en": "Build: Buy a pencil",
-      "enSourceHash": "83ee5449ef690049"
+      "enSourceHash": "83ee5449ef690049",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-2/ja:きょう やって",
       "en": "Build: Do it today",
-      "enSourceHash": "4ca7c7c6b04c1e41"
+      "enSourceHash": "4ca7c7c6b04c1e41",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-2/ja:ここで ミカの ほんを かって",
       "en": "Build: Buy Mika's book here",
-      "enSourceHash": "26d490a0247494b9"
+      "enSourceHash": "26d490a0247494b9",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-2/ja:ここに たって",
       "en": "Build: Stand here",
-      "enSourceHash": "2d7544812f0fe29b"
+      "enSourceHash": "2d7544812f0fe29b",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-2/ja:ほんを かって",
       "en": "Build what you hear.",
-      "enSourceHash": "b28d903ef295627a"
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-3/en:217655f48dde4e0a",
       "en": "to do",
-      "enSourceHash": "217655f48dde4e0a"
+      "enSourceHash": "217655f48dde4e0a",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-3/en:227c7024de86036c",
       "en": "to come",
-      "enSourceHash": "227c7024de86036c"
+      "enSourceHash": "227c7024de86036c",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-3/en:3b80d38f7686a8b5",
       "en": "mountain",
-      "enSourceHash": "3b80d38f7686a8b5"
+      "enSourceHash": "3b80d38f7686a8b5",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-3/en:46bcff11a845ba3d",
       "en": "Pick the word for \"person\"",
-      "enSourceHash": "46bcff11a845ba3d"
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-3/en:4a69f19c8c264850",
       "en": "sea",
-      "enSourceHash": "4a69f19c8c264850"
+      "enSourceHash": "4a69f19c8c264850",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-3/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-3/en:63b14e9e3b6aaff4",
       "en": "Pick the word for \"star\"",
-      "enSourceHash": "63b14e9e3b6aaff4"
+      "enSourceHash": "63b14e9e3b6aaff4",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-3/en:80d33d6dc0d19f84",
       "en": "to go",
-      "enSourceHash": "80d33d6dc0d19f84"
+      "enSourceHash": "80d33d6dc0d19f84",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-3/en:d6e21286621a8586",
       "en": "house",
-      "enSourceHash": "d6e21286621a8586"
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-3/ja:うみに いって",
       "en": "Build: Go to the sea",
-      "enSourceHash": "a7488db673876eac"
+      "enSourceHash": "a7488db673876eac",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-3/ja:かわに いって",
       "en": "Build: Go to the river",
-      "enSourceHash": "494f36b92bf3ca86"
+      "enSourceHash": "494f36b92bf3ca86",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-3/ja:きょう いえに きて",
       "en": "Build: Come to the house today",
-      "enSourceHash": "ab830d415f90b216"
+      "enSourceHash": "ab830d415f90b216",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-3/ja:きょう きて",
       "en": "Build: Come today",
-      "enSourceHash": "01bf5cb82de29537"
+      "enSourceHash": "01bf5cb82de29537",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-3/ja:きょう して",
       "en": "Build: Do it today",
-      "enSourceHash": "4ca7c7c6b04c1e41"
+      "enSourceHash": "4ca7c7c6b04c1e41",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-3/ja:さんぽを して",
       "en": "Build what you hear.",
-      "enSourceHash": "b28d903ef295627a"
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-3/ja:ミカの いえに いって",
       "en": "Build: Go to Mika's house",
-      "enSourceHash": "b0b9674704cb0805"
+      "enSourceHash": "b0b9674704cb0805",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-4/en:0f4168490e38b844",
       "en": "water",
-      "enSourceHash": "0f4168490e38b844"
+      "enSourceHash": "0f4168490e38b844",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-4/en:1e1cc3909a49adea",
       "en": "Pick the word for \"mountain\"",
-      "enSourceHash": "1e1cc3909a49adea"
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-4/en:46bcff11a845ba3d",
       "en": "Pick the word for \"person\"",
-      "enSourceHash": "46bcff11a845ba3d"
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-4/en:527af7c109a784d8",
       "en": "to eat",
-      "enSourceHash": "527af7c109a784d8"
+      "enSourceHash": "527af7c109a784d8",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-4/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-4/en:63b14e9e3b6aaff4",
       "en": "Pick the word for \"star\"",
-      "enSourceHash": "63b14e9e3b6aaff4"
+      "enSourceHash": "63b14e9e3b6aaff4",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-4/en:65f8ea722badb7ca",
       "en": "to watch",
-      "enSourceHash": "65f8ea722badb7ca"
+      "enSourceHash": "65f8ea722badb7ca",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-4/en:8ea11bdf8389be46",
       "en": "to hear",
-      "enSourceHash": "8ea11bdf8389be46"
+      "enSourceHash": "8ea11bdf8389be46",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-4/en:d3bf28da55f404a6",
       "en": "Pick the word for \"house\"",
-      "enSourceHash": "d3bf28da55f404a6"
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-4/en:d6e21286621a8586",
       "en": "house",
-      "enSourceHash": "d6e21286621a8586"
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-4/en:e62f640360d85af9",
       "en": "to drink",
-      "enSourceHash": "e62f640360d85af9"
+      "enSourceHash": "e62f640360d85af9",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-4/en:e9d9df24a68c1d7d",
       "en": "Pick the word for \"river\"",
-      "enSourceHash": "e9d9df24a68c1d7d"
+      "enSourceHash": "e9d9df24a68c1d7d",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-4/ja:いえに きてください",
       "en": "Build what you hear.",
-      "enSourceHash": "b28d903ef295627a"
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-4/ja:うたを きいてください",
       "en": "Say politely: Please listen to the song",
-      "enSourceHash": "1e7c5813f957e1a3"
+      "enSourceHash": "1e7c5813f957e1a3",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-4/ja:きいてください",
       "en": "Say politely: Please listen",
-      "enSourceHash": "7ae581c8fba60782"
+      "enSourceHash": "7ae581c8fba60782",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-4/ja:しゃしんを みてください",
       "en": "Say politely: Please look at the photo",
-      "enSourceHash": "f069c3889deedfd8"
+      "enSourceHash": "f069c3889deedfd8",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-4/ja:たなかさんの しゃしんを みてください",
       "en": "Say politely: Please look at Tanaka's photo",
-      "enSourceHash": "557ab880d0d382ec"
+      "enSourceHash": "557ab880d0d382ec",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-4/ja:たべてください",
       "en": "Say politely: Please eat",
-      "enSourceHash": "cab015b933f8ea71"
+      "enSourceHash": "cab015b933f8ea71",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-4/ja:みてください",
       "en": "Say politely: Please look",
-      "enSourceHash": "0c6405a1e4516976"
+      "enSourceHash": "0c6405a1e4516976",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-5/en:0f4168490e38b844",
       "en": "water",
-      "enSourceHash": "0f4168490e38b844"
+      "enSourceHash": "0f4168490e38b844",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-5/en:1e1cc3909a49adea",
       "en": "Pick the word for \"mountain\"",
-      "enSourceHash": "1e1cc3909a49adea"
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-5/en:2753cb15f1d6d34c",
       "en": "cuisine",
-      "enSourceHash": "2753cb15f1d6d34c"
+      "enSourceHash": "2753cb15f1d6d34c",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-5/en:46bcff11a845ba3d",
       "en": "Pick the word for \"person\"",
-      "enSourceHash": "46bcff11a845ba3d"
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-5/en:527af7c109a784d8",
       "en": "to eat",
-      "enSourceHash": "527af7c109a784d8"
+      "enSourceHash": "527af7c109a784d8",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-5/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-5/en:63b14e9e3b6aaff4",
       "en": "Pick the word for \"star\"",
-      "enSourceHash": "63b14e9e3b6aaff4"
+      "enSourceHash": "63b14e9e3b6aaff4",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-5/en:727ea55fc8ee1dc7",
       "en": "Pick the word for \"pond\"",
-      "enSourceHash": "727ea55fc8ee1dc7"
+      "enSourceHash": "727ea55fc8ee1dc7",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-5/en:8825e76530f87ff5",
       "en": "milk",
-      "enSourceHash": "8825e76530f87ff5"
+      "enSourceHash": "8825e76530f87ff5",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-5/en:cbc50be86b187c87",
       "en": "Food and meals",
-      "enSourceHash": "cbc50be86b187c87"
+      "enSourceHash": "cbc50be86b187c87",
+      "kind": "title"
     },
     {
       "anchor": "m8/ja-m8-neo-5/en:d07bf9e756ebbfe1",
       "en": "there is (things)",
-      "enSourceHash": "d07bf9e756ebbfe1"
+      "enSourceHash": "d07bf9e756ebbfe1",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-5/en:d3bf28da55f404a6",
       "en": "Pick the word for \"house\"",
-      "enSourceHash": "d3bf28da55f404a6"
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-5/en:e62f640360d85af9",
       "en": "to drink",
-      "enSourceHash": "e62f640360d85af9"
+      "enSourceHash": "e62f640360d85af9",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-5/en:e9d9df24a68c1d7d",
       "en": "Pick the word for \"river\"",
-      "enSourceHash": "e9d9df24a68c1d7d"
+      "enSourceHash": "e9d9df24a68c1d7d",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-5/ja:しょくじを してください",
       "en": "Say politely: Please have a meal",
-      "enSourceHash": "e0ba5eb4c5588032"
+      "enSourceHash": "e0ba5eb4c5588032",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-5/ja:たべものが ある",
       "en": "Build what you hear.",
-      "enSourceHash": "b28d903ef295627a"
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-5/ja:ちゃを のんで",
       "en": "Build: Drink the tea",
-      "enSourceHash": "fc2c5fe3ac93d731"
+      "enSourceHash": "fc2c5fe3ac93d731",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-5/ja:ちゃを のんでください",
       "en": "Say politely: Please drink the tea",
-      "enSourceHash": "9362ead6cc138ba5"
+      "enSourceHash": "9362ead6cc138ba5",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-5/ja:ミカの たべものを たべないで",
       "en": "Build what you hear.",
-      "enSourceHash": "b28d903ef295627a"
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-6/en:1889856217d5f126",
       "en": "At the shop",
-      "enSourceHash": "1889856217d5f126"
+      "enSourceHash": "1889856217d5f126",
+      "kind": "title"
     },
     {
       "anchor": "m8/ja-m8-neo-6/en:1e1cc3909a49adea",
       "en": "Pick the word for \"mountain\"",
-      "enSourceHash": "1e1cc3909a49adea"
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-6/en:38a81e87e79631e6",
       "en": "person",
-      "enSourceHash": "38a81e87e79631e6"
+      "enSourceHash": "38a81e87e79631e6",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-6/en:46bcff11a845ba3d",
       "en": "Pick the word for \"person\"",
-      "enSourceHash": "46bcff11a845ba3d"
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-6/en:4bdf40d0d1ae3611",
       "en": "rice/meal",
-      "enSourceHash": "4bdf40d0d1ae3611"
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-6/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-6/en:63b14e9e3b6aaff4",
       "en": "Pick the word for \"star\"",
-      "enSourceHash": "63b14e9e3b6aaff4"
+      "enSourceHash": "63b14e9e3b6aaff4",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-6/en:7e2ed393d525d7e2",
       "en": "to buy",
-      "enSourceHash": "7e2ed393d525d7e2"
+      "enSourceHash": "7e2ed393d525d7e2",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-6/en:80d33d6dc0d19f84",
       "en": "to go",
-      "enSourceHash": "80d33d6dc0d19f84"
+      "enSourceHash": "80d33d6dc0d19f84",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-6/en:a9f74d1ec36ebdeb",
       "en": "tea",
-      "enSourceHash": "a9f74d1ec36ebdeb"
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-6/en:d3bf28da55f404a6",
       "en": "Pick the word for \"house\"",
-      "enSourceHash": "d3bf28da55f404a6"
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-6/en:d6e21286621a8586",
       "en": "house",
-      "enSourceHash": "d6e21286621a8586"
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-6/en:e9d9df24a68c1d7d",
       "en": "Pick the word for \"river\"",
-      "enSourceHash": "e9d9df24a68c1d7d"
+      "enSourceHash": "e9d9df24a68c1d7d",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-6/ja:こめを かってください",
       "en": "Say politely: Please buy rice",
-      "enSourceHash": "c4b13b7c68b50f6e"
+      "enSourceHash": "c4b13b7c68b50f6e",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-6/ja:みせで かう",
       "en": "Build: I buy it at the shop",
-      "enSourceHash": "a37d2952946f59dd"
+      "enSourceHash": "a37d2952946f59dd",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-6/ja:みせで こめを かってください",
       "en": "Say politely: Please buy rice at the shop",
-      "enSourceHash": "4d711f228c741d91"
+      "enSourceHash": "4d711f228c741d91",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-6/ja:みせで ちゃを かって",
       "en": "Build: Buy tea at the shop",
-      "enSourceHash": "5ffbf2fc97672528"
+      "enSourceHash": "5ffbf2fc97672528",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-6/ja:みせに いってください",
       "en": "Say politely: Please go to the shop",
-      "enSourceHash": "aae67b98d5f1fbe5"
+      "enSourceHash": "aae67b98d5f1fbe5",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-6/ja:みせは あそこです",
       "en": "Build what you hear.",
-      "enSourceHash": "b28d903ef295627a"
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-7/en:1057a9604e04b274",
       "en": "teacher",
-      "enSourceHash": "1057a9604e04b274"
+      "enSourceHash": "1057a9604e04b274",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-7/en:1e1cc3909a49adea",
       "en": "Pick the word for \"mountain\"",
-      "enSourceHash": "1e1cc3909a49adea"
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-7/en:38a81e87e79631e6",
       "en": "person",
-      "enSourceHash": "38a81e87e79631e6"
+      "enSourceHash": "38a81e87e79631e6",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-7/en:46bcff11a845ba3d",
       "en": "Pick the word for \"person\"",
-      "enSourceHash": "46bcff11a845ba3d"
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-7/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-7/en:63b14e9e3b6aaff4",
       "en": "Pick the word for \"star\"",
-      "enSourceHash": "63b14e9e3b6aaff4"
+      "enSourceHash": "63b14e9e3b6aaff4",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-7/en:8d9001d32c6a703d",
       "en": "shop",
-      "enSourceHash": "8d9001d32c6a703d"
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-7/en:cde48537ca2c2808",
       "en": "friend",
-      "enSourceHash": "cde48537ca2c2808"
+      "enSourceHash": "cde48537ca2c2808",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-7/en:d3bf28da55f404a6",
       "en": "Pick the word for \"house\"",
-      "enSourceHash": "d3bf28da55f404a6"
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-7/en:d6e21286621a8586",
       "en": "house",
-      "enSourceHash": "d6e21286621a8586"
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-7/en:e0f4f767ac88a930",
       "en": "today",
-      "enSourceHash": "e0f4f767ac88a930"
+      "enSourceHash": "e0f4f767ac88a930",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-7/en:e9d9df24a68c1d7d",
       "en": "Pick the word for \"river\"",
-      "enSourceHash": "e9d9df24a68c1d7d"
+      "enSourceHash": "e9d9df24a68c1d7d",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-7/ja:おしえて ください",
       "en": "Say politely: Please tell me",
-      "enSourceHash": "251ea9cd9e2a28ca"
+      "enSourceHash": "251ea9cd9e2a28ca",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-7/ja:せんせいが おしえる",
       "en": "Build: The teacher tells us",
-      "enSourceHash": "566fe3a83ced06f2"
+      "enSourceHash": "566fe3a83ced06f2",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-7/ja:たなかさんに おしえてください",
       "en": "Say politely: Please tell Tanaka",
-      "enSourceHash": "2fd82d07adac913c"
+      "enSourceHash": "2fd82d07adac913c",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-7/ja:たなかさんに ミカの みせを おしえてください",
       "en": "Say politely: Please tell Tanaka about Mika's shop",
-      "enSourceHash": "b64a9228e4546b71"
+      "enSourceHash": "b64a9228e4546b71",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-7/ja:ともだちに おしえて",
       "en": "Tell your friend",
-      "enSourceHash": "852818e5851b038f"
+      "enSourceHash": "852818e5851b038f",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-7/ja:なまえを おしえて",
       "en": "Build what you hear.",
-      "enSourceHash": "b28d903ef295627a"
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-7/ja:ミカに おしえて",
       "en": "Tell Mika",
-      "enSourceHash": "5e8fbd571709cd02"
+      "enSourceHash": "5e8fbd571709cd02",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-8/en:1e1cc3909a49adea",
       "en": "Pick the word for \"mountain\"",
-      "enSourceHash": "1e1cc3909a49adea"
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-8/en:46bcff11a845ba3d",
       "en": "Pick the word for \"person\"",
-      "enSourceHash": "46bcff11a845ba3d"
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-8/en:4bdf40d0d1ae3611",
       "en": "rice/meal",
-      "enSourceHash": "4bdf40d0d1ae3611"
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-8/en:527af7c109a784d8",
       "en": "to eat",
-      "enSourceHash": "527af7c109a784d8"
+      "enSourceHash": "527af7c109a784d8",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-8/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-8/en:63b14e9e3b6aaff4",
       "en": "Pick the word for \"star\"",
-      "enSourceHash": "63b14e9e3b6aaff4"
+      "enSourceHash": "63b14e9e3b6aaff4",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-8/en:65f8ea722badb7ca",
       "en": "to watch",
-      "enSourceHash": "65f8ea722badb7ca"
+      "enSourceHash": "65f8ea722badb7ca",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-8/en:8ea11bdf8389be46",
       "en": "to hear",
-      "enSourceHash": "8ea11bdf8389be46"
+      "enSourceHash": "8ea11bdf8389be46",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-8/en:a9f74d1ec36ebdeb",
       "en": "tea",
-      "enSourceHash": "a9f74d1ec36ebdeb"
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-8/en:d3bf28da55f404a6",
       "en": "Pick the word for \"house\"",
-      "enSourceHash": "d3bf28da55f404a6"
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-8/en:e62f640360d85af9",
       "en": "to drink",
-      "enSourceHash": "e62f640360d85af9"
+      "enSourceHash": "e62f640360d85af9",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-8/en:e9d9df24a68c1d7d",
       "en": "Pick the word for \"river\"",
-      "enSourceHash": "e9d9df24a68c1d7d"
+      "enSourceHash": "e9d9df24a68c1d7d",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-8/ja:うたを きいて ください",
       "en": "Say to a teacher: Please listen to the song",
-      "enSourceHash": "3634c4191e663c42"
+      "enSourceHash": "3634c4191e663c42",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-8/ja:これを みて",
       "en": "Say to a friend: Look at this",
-      "enSourceHash": "67fa747963df7cd8"
+      "enSourceHash": "67fa747963df7cd8",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-8/ja:これを みて ください",
       "en": "Say to a teacher: Please look at this",
-      "enSourceHash": "5bc334417477eb69"
+      "enSourceHash": "5bc334417477eb69",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-8/ja:ごはんを たべて",
       "en": "Build what you hear.",
-      "enSourceHash": "b28d903ef295627a"
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-8/ja:ごはんを たべてください",
       "en": "Say to a teacher: Please eat the rice",
-      "enSourceHash": "735e5ccd3efcf448"
+      "enSourceHash": "735e5ccd3efcf448",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-8/ja:たなかさんに ちゃを かってください",
       "en": "Say politely: Please buy tea for Tanaka",
-      "enSourceHash": "45da83ba3febad74"
+      "enSourceHash": "45da83ba3febad74",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-8/ja:みせに いって",
       "en": "Say to a friend: Go to the shop",
-      "enSourceHash": "9155d6764d19f1b3"
+      "enSourceHash": "9155d6764d19f1b3",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-9/en:0f4168490e38b844",
       "en": "water",
-      "enSourceHash": "0f4168490e38b844"
+      "enSourceHash": "0f4168490e38b844",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-9/en:1e1cc3909a49adea",
       "en": "Pick the word for \"mountain\"",
-      "enSourceHash": "1e1cc3909a49adea"
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-9/en:227c7024de86036c",
       "en": "to come",
-      "enSourceHash": "227c7024de86036c"
+      "enSourceHash": "227c7024de86036c",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-9/en:24237e96e5183016",
       "en": "to play",
-      "enSourceHash": "24237e96e5183016"
+      "enSourceHash": "24237e96e5183016",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-9/en:46bcff11a845ba3d",
       "en": "Pick the word for \"person\"",
-      "enSourceHash": "46bcff11a845ba3d"
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-9/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-9/en:63b14e9e3b6aaff4",
       "en": "Pick the word for \"star\"",
-      "enSourceHash": "63b14e9e3b6aaff4"
+      "enSourceHash": "63b14e9e3b6aaff4",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-9/en:7e2ed393d525d7e2",
       "en": "to buy",
-      "enSourceHash": "7e2ed393d525d7e2"
+      "enSourceHash": "7e2ed393d525d7e2",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-9/en:8ea11bdf8389be46",
       "en": "to hear",
-      "enSourceHash": "8ea11bdf8389be46"
+      "enSourceHash": "8ea11bdf8389be46",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-9/en:aabb474e3ee901c0",
       "en": "Asking your way through a day",
-      "enSourceHash": "aabb474e3ee901c0"
+      "enSourceHash": "aabb474e3ee901c0",
+      "kind": "title"
     },
     {
       "anchor": "m8/ja-m8-neo-9/en:d3bf28da55f404a6",
       "en": "Pick the word for \"house\"",
-      "enSourceHash": "d3bf28da55f404a6"
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-9/en:d6e21286621a8586",
       "en": "house",
-      "enSourceHash": "d6e21286621a8586"
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-9/en:e9d9df24a68c1d7d",
       "en": "Pick the word for \"river\"",
-      "enSourceHash": "e9d9df24a68c1d7d"
+      "enSourceHash": "e9d9df24a68c1d7d",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-9/ja:きょう みせに いってください",
       "en": "Say politely: Please go to the shop today",
-      "enSourceHash": "124e5eb16527fb73"
+      "enSourceHash": "124e5eb16527fb73",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-9/ja:しゃしんを みて",
       "en": "Build: Look at the photo",
-      "enSourceHash": "a21dc73a92df5458"
+      "enSourceHash": "a21dc73a92df5458",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-9/ja:せんせいに おしえてください",
       "en": "Say politely: Please tell the teacher",
-      "enSourceHash": "706c699f773c5fb5"
+      "enSourceHash": "706c699f773c5fb5",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-9/ja:ともだちと あそんで",
       "en": "Build: Play with your friend",
-      "enSourceHash": "247b57d2c25a6c9b"
+      "enSourceHash": "247b57d2c25a6c9b",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-9/ja:みずを かってください",
       "en": "Say politely: Please buy water",
-      "enSourceHash": "d9b16a65f682c982"
+      "enSourceHash": "d9b16a65f682c982",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-9/ja:みせで たべものを かって",
       "en": "Build what you hear.",
-      "enSourceHash": "b28d903ef295627a"
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-9/ja:みせで ミカの たべものを かってください",
       "en": "Say politely: Please buy Mika's food at the shop",
-      "enSourceHash": "d76dadccc0184527"
+      "enSourceHash": "d76dadccc0184527",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/en:19f305dd27e1f946",
       "en": "I'm not going to the shop today",
-      "enSourceHash": "19f305dd27e1f946"
+      "enSourceHash": "19f305dd27e1f946",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/en:2894641f561b7757",
       "en": "Is the shop over there",
-      "enSourceHash": "2894641f561b7757"
+      "enSourceHash": "2894641f561b7757",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/en:416c35989d8b6727",
       "en": "Please buy rice at Tanaka's shop",
-      "enSourceHash": "416c35989d8b6727"
+      "enSourceHash": "416c35989d8b6727",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/en:46bcff11a845ba3d",
       "en": "Pick the word for \"person\"",
-      "enSourceHash": "46bcff11a845ba3d"
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/en:4bdf40d0d1ae3611",
       "en": "rice/meal",
-      "enSourceHash": "4bdf40d0d1ae3611"
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/en:4d83eae65eff9664",
       "en": "Challenge — put it all together",
-      "enSourceHash": "4d83eae65eff9664"
+      "enSourceHash": "4d83eae65eff9664",
+      "kind": "title"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/en:536b4edb1e75a63d",
       "en": "Don't drink Mika's tea",
-      "enSourceHash": "536b4edb1e75a63d"
+      "enSourceHash": "536b4edb1e75a63d",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/en:6c54872077b7b24d",
       "en": "Today please buy tea at Mika's shop",
-      "enSourceHash": "6c54872077b7b24d"
+      "enSourceHash": "6c54872077b7b24d",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/en:7482d5802c3c2798",
       "en": "photograph",
-      "enSourceHash": "7482d5802c3c2798"
+      "enSourceHash": "7482d5802c3c2798",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/en:8d9001d32c6a703d",
       "en": "shop",
-      "enSourceHash": "8d9001d32c6a703d"
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/en:94425d7f6198e5b2",
       "en": "rice (raw)",
-      "enSourceHash": "94425d7f6198e5b2"
+      "enSourceHash": "94425d7f6198e5b2",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/en:a9f74d1ec36ebdeb",
       "en": "tea",
-      "enSourceHash": "a9f74d1ec36ebdeb"
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/en:aa622a956a01ebc9",
       "en": "Please tell the teacher about the photo",
-      "enSourceHash": "aa622a956a01ebc9"
+      "enSourceHash": "aa622a956a01ebc9",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/en:c1f026582fe6e8cb",
       "en": "food",
-      "enSourceHash": "c1f026582fe6e8cb"
+      "enSourceHash": "c1f026582fe6e8cb",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/en:d3bf28da55f404a6",
       "en": "Pick the word for \"house\"",
-      "enSourceHash": "d3bf28da55f404a6"
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/en:dfe87a0e2b9cabcc",
       "en": "Tell Mika about the food",
-      "enSourceHash": "dfe87a0e2b9cabcc"
+      "enSourceHash": "dfe87a0e2b9cabcc",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/en:e9d9df24a68c1d7d",
       "en": "Pick the word for \"river\"",
-      "enSourceHash": "e9d9df24a68c1d7d"
+      "enSourceHash": "e9d9df24a68c1d7d",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/en:febe01faed33aaf0",
       "en": "Eat rice at your friend's house",
-      "enSourceHash": "febe01faed33aaf0"
+      "enSourceHash": "febe01faed33aaf0",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/ja:きょうは みせに いかない",
       "en": "Build: I'm not going to the shop today",
-      "enSourceHash": "a8d5458a6ec05e92"
+      "enSourceHash": "a8d5458a6ec05e92",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/ja:きょうは ミカの みせで ちゃを かってください",
       "en": "Say politely: Today please buy tea at Mika's shop",
-      "enSourceHash": "57b7e91272942923"
+      "enSourceHash": "57b7e91272942923",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/ja:せんせいに しゃしんを おしえてください",
       "en": "Build what you hear.",
-      "enSourceHash": "b28d903ef295627a"
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/ja:たなかさんの みせで こめを かってください",
       "en": "Say politely: Please buy rice at Tanaka's shop",
-      "enSourceHash": "c4f6179e90638a2f"
+      "enSourceHash": "c4f6179e90638a2f",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/ja:ちゃが ありません。おしえてください",
       "en": "Say politely: There's no tea, please tell me",
-      "enSourceHash": "cf408903ac8b8d75"
+      "enSourceHash": "cf408903ac8b8d75",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/ja:ともだちの いえで ごはんを たべて",
       "en": "Build: Eat rice at your friend's house",
-      "enSourceHash": "5b6220d87808fa87"
+      "enSourceHash": "5b6220d87808fa87",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/ja:みせは あそこに ありますか",
       "en": "Build what you hear.",
-      "enSourceHash": "b28d903ef295627a"
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/ja:ミカの ちゃを のまないで",
       "en": "Build: Don't drink Mika's tea",
-      "enSourceHash": "062e5062e3730641"
+      "enSourceHash": "062e5062e3730641",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-kata-sa/en:0a64ce10853f25cb",
       "en": "su",
-      "enSourceHash": "0a64ce10853f25cb"
+      "enSourceHash": "0a64ce10853f25cb",
+      "kind": "romaji-label"
     },
     {
       "anchor": "m8/ja-m8-neo-kata-sa/en:27c47b28fb5f4545",
       "en": "ju",
-      "enSourceHash": "27c47b28fb5f4545"
+      "enSourceHash": "27c47b28fb5f4545",
+      "kind": "romaji-label"
     },
     {
       "anchor": "m8/ja-m8-neo-kata-sa/en:4cf6829aa93728e8",
       "en": "sa",
-      "enSourceHash": "4cf6829aa93728e8"
+      "enSourceHash": "4cf6829aa93728e8",
+      "kind": "romaji-label"
     },
     {
       "anchor": "m8/ja-m8-neo-kata-sa/en:a1d9890884c1b4b9",
       "en": "so",
-      "enSourceHash": "a1d9890884c1b4b9"
+      "enSourceHash": "a1d9890884c1b4b9",
+      "kind": "romaji-label"
     },
     {
       "anchor": "m8/ja-m8-neo-kata-sa/en:a7187294bd6b3646",
       "en": "Match the katakana to their sounds",
-      "enSourceHash": "a7187294bd6b3646"
+      "enSourceHash": "a7187294bd6b3646",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-kata-sa/en:ad9a67fefa847de8",
       "en": "se",
-      "enSourceHash": "ad9a67fefa847de8"
+      "enSourceHash": "ad9a67fefa847de8",
+      "kind": "romaji-label"
     },
     {
       "anchor": "m8/ja-m8-neo-kata-sa/en:ded9c2181fd7ea46",
       "en": "shi",
-      "enSourceHash": "ded9c2181fd7ea46"
+      "enSourceHash": "ded9c2181fd7ea46",
+      "kind": "romaji-label"
     },
     {
       "anchor": "m8/ja-m8-neo-kata-ta/en:2d6c9a90dd38f685",
       "en": "te",
-      "enSourceHash": "2d6c9a90dd38f685"
+      "enSourceHash": "2d6c9a90dd38f685",
+      "kind": "romaji-label"
     },
     {
       "anchor": "m8/ja-m8-neo-kata-ta/en:58af96d547380ed6",
       "en": "tsu",
-      "enSourceHash": "58af96d547380ed6"
+      "enSourceHash": "58af96d547380ed6",
+      "kind": "romaji-label"
     },
     {
       "anchor": "m8/ja-m8-neo-kata-ta/en:663ea1bfffe5038f",
       "en": "to",
-      "enSourceHash": "663ea1bfffe5038f"
+      "enSourceHash": "663ea1bfffe5038f",
+      "kind": "romaji-label"
     },
     {
       "anchor": "m8/ja-m8-neo-kata-ta/en:76592b9de6d38238",
       "en": "ta",
-      "enSourceHash": "76592b9de6d38238"
+      "enSourceHash": "76592b9de6d38238",
+      "kind": "romaji-label"
     },
     {
       "anchor": "m8/ja-m8-neo-kata-ta/en:88d178d728e8394f",
       "en": "ku",
-      "enSourceHash": "88d178d728e8394f"
+      "enSourceHash": "88d178d728e8394f",
+      "kind": "romaji-label"
     },
     {
       "anchor": "m8/ja-m8-neo-kata-ta/en:a1d9890884c1b4b9",
       "en": "so",
-      "enSourceHash": "a1d9890884c1b4b9"
+      "enSourceHash": "a1d9890884c1b4b9",
+      "kind": "romaji-label"
     },
     {
       "anchor": "m8/ja-m8-neo-kata-ta/en:a7187294bd6b3646",
       "en": "Match the katakana to their sounds",
-      "enSourceHash": "a7187294bd6b3646"
+      "enSourceHash": "a7187294bd6b3646",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-kata-ta/en:ad9a67fefa847de8",
       "en": "se",
-      "enSourceHash": "ad9a67fefa847de8"
+      "enSourceHash": "ad9a67fefa847de8",
+      "kind": "romaji-label"
     },
     {
       "anchor": "m8/ja-m8-neo-kata-ta/en:ded9c2181fd7ea46",
       "en": "shi",
-      "enSourceHash": "ded9c2181fd7ea46"
+      "enSourceHash": "ded9c2181fd7ea46",
+      "kind": "romaji-label"
     },
     {
       "anchor": "m8/ja-m8-neo-kata-ta/en:dffe602cd1e0bfa9",
       "en": "chi",
-      "enSourceHash": "dffe602cd1e0bfa9"
+      "enSourceHash": "dffe602cd1e0bfa9",
+      "kind": "romaji-label"
     },
     {
       "anchor": "m8/ja-m8-neo-kata-ta/en:f52d63231eb0dbaa",
       "en": "ga",
-      "enSourceHash": "f52d63231eb0dbaa"
+      "enSourceHash": "f52d63231eb0dbaa",
+      "kind": "romaji-label"
     },
     {
       "anchor": "m8/ja-m8-neo-review-1/en:18e1dd392168f601",
       "en": "hat",
-      "enSourceHash": "18e1dd392168f601"
+      "enSourceHash": "18e1dd392168f601",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-review-1/en:1e1cc3909a49adea",
       "en": "Pick the word for \"mountain\"",
-      "enSourceHash": "1e1cc3909a49adea"
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-review-1/en:2753cb15f1d6d34c",
       "en": "cuisine",
-      "enSourceHash": "2753cb15f1d6d34c"
+      "enSourceHash": "2753cb15f1d6d34c",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-review-1/en:2974744982f08b20",
       "en": "umbrella",
-      "enSourceHash": "2974744982f08b20"
+      "enSourceHash": "2974744982f08b20",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-review-1/en:46bcff11a845ba3d",
       "en": "Pick the word for \"person\"",
-      "enSourceHash": "46bcff11a845ba3d"
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-review-1/en:4e7914b0df8068b7",
       "en": "pond",
-      "enSourceHash": "4e7914b0df8068b7"
+      "enSourceHash": "4e7914b0df8068b7",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-review-1/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-review-1/en:63b14e9e3b6aaff4",
       "en": "Pick the word for \"star\"",
-      "enSourceHash": "63b14e9e3b6aaff4"
+      "enSourceHash": "63b14e9e3b6aaff4",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-review-1/en:727ea55fc8ee1dc7",
       "en": "Pick the word for \"pond\"",
-      "enSourceHash": "727ea55fc8ee1dc7"
+      "enSourceHash": "727ea55fc8ee1dc7",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-review-1/en:c06b0cfe0cc5e900",
       "en": "flower",
-      "enSourceHash": "c06b0cfe0cc5e900"
+      "enSourceHash": "c06b0cfe0cc5e900",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-review-1/en:c57d7e92019708b6",
       "en": "voice",
-      "enSourceHash": "c57d7e92019708b6"
+      "enSourceHash": "c57d7e92019708b6",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-review-1/en:d3bf28da55f404a6",
       "en": "Pick the word for \"house\"",
-      "enSourceHash": "d3bf28da55f404a6"
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-review-1/en:e9d9df24a68c1d7d",
       "en": "Pick the word for \"river\"",
-      "enSourceHash": "e9d9df24a68c1d7d"
+      "enSourceHash": "e9d9df24a68c1d7d",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-review-1/ja:かさを かって",
       "en": "Build: Buy an umbrella",
-      "enSourceHash": "49dbd1b89de7af96"
+      "enSourceHash": "49dbd1b89de7af96",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-review-1/ja:でんわを かって",
       "en": "Build what you hear.",
-      "enSourceHash": "b28d903ef295627a"
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-review-1/ja:ほしを みて",
       "en": "Build what you hear.",
-      "enSourceHash": "b28d903ef295627a"
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-review-1/ja:ぼうしを かって",
       "en": "Build: Buy a hat",
-      "enSourceHash": "a90e49373952f0e3"
+      "enSourceHash": "a90e49373952f0e3",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-review-1/ja:まどを みて",
       "en": "Build: Look at the window",
-      "enSourceHash": "1ee6dd179c069db3"
+      "enSourceHash": "1ee6dd179c069db3",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-review-1/ja:りょうりを たべて",
       "en": "Build: Eat the cuisine",
-      "enSourceHash": "443a674ff7805ca6"
+      "enSourceHash": "443a674ff7805ca6",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-review-2/en:1e1cc3909a49adea",
       "en": "Pick the word for \"mountain\"",
-      "enSourceHash": "1e1cc3909a49adea"
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-review-2/en:46bcff11a845ba3d",
       "en": "Pick the word for \"person\"",
-      "enSourceHash": "46bcff11a845ba3d"
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-review-2/en:4bdf40d0d1ae3611",
       "en": "rice/meal",
-      "enSourceHash": "4bdf40d0d1ae3611"
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-review-2/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-review-2/en:63b14e9e3b6aaff4",
       "en": "Pick the word for \"star\"",
-      "enSourceHash": "63b14e9e3b6aaff4"
+      "enSourceHash": "63b14e9e3b6aaff4",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-review-2/en:6755ed612d132457",
       "en": "a meal",
-      "enSourceHash": "6755ed612d132457"
+      "enSourceHash": "6755ed612d132457",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-review-2/en:8d9001d32c6a703d",
       "en": "shop",
-      "enSourceHash": "8d9001d32c6a703d"
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-review-2/en:94425d7f6198e5b2",
       "en": "rice (raw)",
-      "enSourceHash": "94425d7f6198e5b2"
+      "enSourceHash": "94425d7f6198e5b2",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-review-2/en:a9f74d1ec36ebdeb",
       "en": "tea",
-      "enSourceHash": "a9f74d1ec36ebdeb"
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-review-2/en:c1f026582fe6e8cb",
       "en": "food",
-      "enSourceHash": "c1f026582fe6e8cb"
+      "enSourceHash": "c1f026582fe6e8cb",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-review-2/en:c7571fdcd97cc8bc",
       "en": "Review — requests in context",
-      "enSourceHash": "c7571fdcd97cc8bc"
+      "enSourceHash": "c7571fdcd97cc8bc",
+      "kind": "title"
     },
     {
       "anchor": "m8/ja-m8-neo-review-2/en:d3bf28da55f404a6",
       "en": "Pick the word for \"house\"",
-      "enSourceHash": "d3bf28da55f404a6"
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-review-2/en:e9d9df24a68c1d7d",
       "en": "Pick the word for \"river\"",
-      "enSourceHash": "e9d9df24a68c1d7d"
+      "enSourceHash": "e9d9df24a68c1d7d",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-review-2/ja:ごはんが ない",
       "en": "Build what you hear.",
-      "enSourceHash": "b28d903ef295627a"
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-review-2/ja:ごはんを たべてください",
       "en": "Say politely: Please eat the rice",
-      "enSourceHash": "a7d13569203ad3b8"
+      "enSourceHash": "a7d13569203ad3b8",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-review-2/ja:しょくじを たべて",
       "en": "Build: Eat the meal",
-      "enSourceHash": "1339855dfc8c1b78"
+      "enSourceHash": "1339855dfc8c1b78",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-review-2/ja:たべものは そこです",
       "en": "Say politely: The food is there, by you",
-      "enSourceHash": "264fc25e0ef9343b"
+      "enSourceHash": "264fc25e0ef9343b",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-review-2/ja:たべものを かってください",
       "en": "Say politely: Please buy food",
-      "enSourceHash": "135899b2441bd55a"
+      "enSourceHash": "135899b2441bd55a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-review-2/ja:ちゃが ある",
       "en": "Build what you hear.",
-      "enSourceHash": "b28d903ef295627a"
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-review-2/ja:ちゃを のみますか",
       "en": "Build what you hear.",
-      "enSourceHash": "b28d903ef295627a"
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-review-2/ja:みせに いきます",
       "en": "Say politely: I'm going to the shop",
-      "enSourceHash": "b6570e9e04b2097d"
+      "enSourceHash": "b6570e9e04b2097d",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-review-3/en:1e1cc3909a49adea",
       "en": "Pick the word for \"mountain\"",
-      "enSourceHash": "1e1cc3909a49adea"
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-review-3/en:2974744982f08b20",
       "en": "umbrella",
-      "enSourceHash": "2974744982f08b20"
+      "enSourceHash": "2974744982f08b20",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-review-3/en:46bcff11a845ba3d",
       "en": "Pick the word for \"person\"",
-      "enSourceHash": "46bcff11a845ba3d"
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-review-3/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-review-3/en:63b14e9e3b6aaff4",
       "en": "Pick the word for \"star\"",
-      "enSourceHash": "63b14e9e3b6aaff4"
+      "enSourceHash": "63b14e9e3b6aaff4",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-review-3/en:6755ed612d132457",
       "en": "a meal",
-      "enSourceHash": "6755ed612d132457"
+      "enSourceHash": "6755ed612d132457",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-review-3/en:8198861762c24dd2",
       "en": "Review — the whole request kit",
-      "enSourceHash": "8198861762c24dd2"
+      "enSourceHash": "8198861762c24dd2",
+      "kind": "title"
     },
     {
       "anchor": "m8/ja-m8-neo-review-3/en:8d9001d32c6a703d",
       "en": "shop",
-      "enSourceHash": "8d9001d32c6a703d"
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-review-3/en:94425d7f6198e5b2",
       "en": "rice (raw)",
-      "enSourceHash": "94425d7f6198e5b2"
+      "enSourceHash": "94425d7f6198e5b2",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-review-3/en:a9f74d1ec36ebdeb",
       "en": "tea",
-      "enSourceHash": "a9f74d1ec36ebdeb"
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-review-3/en:c06b0cfe0cc5e900",
       "en": "flower",
-      "enSourceHash": "c06b0cfe0cc5e900"
+      "enSourceHash": "c06b0cfe0cc5e900",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m8/ja-m8-neo-review-3/en:d3bf28da55f404a6",
       "en": "Pick the word for \"house\"",
-      "enSourceHash": "d3bf28da55f404a6"
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-review-3/en:e9d9df24a68c1d7d",
       "en": "Pick the word for \"river\"",
-      "enSourceHash": "e9d9df24a68c1d7d"
+      "enSourceHash": "e9d9df24a68c1d7d",
+      "kind": "instruction"
     },
     {
       "anchor": "m8/ja-m8-neo-review-3/ja:かさを かってください",
       "en": "Say politely: Please buy an umbrella",
-      "enSourceHash": "506e00f5c86fd77d"
+      "enSourceHash": "506e00f5c86fd77d",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-review-3/ja:こめを かいます",
       "en": "Say politely: I'll buy rice",
-      "enSourceHash": "2afe4d44b2df59de"
+      "enSourceHash": "2afe4d44b2df59de",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-review-3/ja:ごはんを たべますか",
       "en": "Build what you hear.",
-      "enSourceHash": "b28d903ef295627a"
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-review-3/ja:しょくじは ここです",
       "en": "Build what you hear.",
-      "enSourceHash": "b28d903ef295627a"
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-review-3/ja:たべものが ありません",
       "en": "Say politely: There's no food",
-      "enSourceHash": "14e7f6347431a7e2"
+      "enSourceHash": "14e7f6347431a7e2",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-review-3/ja:ちゃを のんで",
       "en": "Build: Drink the tea",
-      "enSourceHash": "fc2c5fe3ac93d731"
+      "enSourceHash": "fc2c5fe3ac93d731",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-review-3/ja:みせに いきません",
       "en": "Say politely: I'm not going to the shop",
-      "enSourceHash": "e8a907af401d0ed7"
+      "enSourceHash": "e8a907af401d0ed7",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m8/ja-m8-neo-review-3/ja:みせを おしえてください",
       "en": "Build what you hear.",
-      "enSourceHash": "b28d903ef295627a"
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m8/symbolIntro:サ/hint",
+      "en": "like 'sa' in 'saw'",
+      "enSourceHash": "aae3c47015fb25d8",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m8/symbolIntro:シ/hint",
+      "en": "like 'she'",
+      "enSourceHash": "a34e6da0d2eb2072",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m8/symbolIntro:ス/hint",
+      "en": "like 'su' in 'super'",
+      "enSourceHash": "2ca2ea15c2129a44",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m8/symbolIntro:セ/hint",
+      "en": "like 'se' in 'set'",
+      "enSourceHash": "b4c3d673d71f4194",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m8/symbolIntro:ソ/hint",
+      "en": "like 'so' in 'sort'",
+      "enSourceHash": "a6d5a676122faa64",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m8/symbolIntro:タ/hint",
+      "en": "like 'ta' in 'tan'",
+      "enSourceHash": "6db33dbbaf9b0328",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m8/symbolIntro:チ/hint",
+      "en": "like 'chee' in 'cheese'",
+      "enSourceHash": "77f83fe7268c6aee",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m8/symbolIntro:ツ/hint",
+      "en": "like 'ts' in 'cats' + u",
+      "enSourceHash": "1bce797f5edb4b5f",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m8/symbolIntro:テ/hint",
+      "en": "like 'te' in 'ten'",
+      "enSourceHash": "a8f2bc4836a00938",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m8/symbolIntro:ト/hint",
+      "en": "like 'to' in 'tote'",
+      "enSourceHash": "94f4bca56281bff4",
+      "kind": "mnemonic"
     }
   ]
 }

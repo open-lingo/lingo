@@ -8,1282 +8,1538 @@
     {
       "anchor": "m3/atom:ありがとう/gloss",
       "en": "thanks (casual)",
-      "enSourceHash": "192544a158055333"
+      "enSourceHash": "192544a158055333",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m3/atom:ありがとうございます/gloss",
       "en": "Thank you (polite)",
-      "enSourceHash": "1706e22654c63abb"
+      "enSourceHash": "1706e22654c63abb",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m3/atom:うみ/gloss",
       "en": "sea",
-      "enSourceHash": "4a69f19c8c264850"
+      "enSourceHash": "4a69f19c8c264850",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m3/atom:うん/gloss",
       "en": "yeah (casual yes)",
-      "enSourceHash": "08d21cc00fb6efb0"
+      "enSourceHash": "08d21cc00fb6efb0",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m3/atom:か/gloss",
       "en": "question particle",
-      "enSourceHash": "1bf7c968b3290c3a"
+      "enSourceHash": "1bf7c968b3290c3a",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m3/atom:がくせい/gloss",
       "en": "student",
-      "enSourceHash": "264c8c381bf16c98"
+      "enSourceHash": "264c8c381bf16c98",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m3/atom:ごめんなさい/gloss",
       "en": "I'm sorry",
-      "enSourceHash": "678f0dfd1df31f9a"
+      "enSourceHash": "678f0dfd1df31f9a",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m3/atom:すみません/gloss",
       "en": "Excuse me",
-      "enSourceHash": "f868adba71dd145e"
+      "enSourceHash": "f868adba71dd145e",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m3/atom:せんせい/gloss",
       "en": "teacher, doctor",
-      "enSourceHash": "d0410a0a3b1faab7"
+      "enSourceHash": "d0410a0a3b1faab7",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m3/atom:そう/gloss",
       "en": "that's right",
-      "enSourceHash": "af565205531d050d"
+      "enSourceHash": "af565205531d050d",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m3/atom:だいじょうぶ/gloss",
       "en": "all right",
-      "enSourceHash": "dfbdd9492bec0b1c"
+      "enSourceHash": "dfbdd9492bec0b1c",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m3/atom:ともだち/gloss",
       "en": "friend",
-      "enSourceHash": "cde48537ca2c2808"
+      "enSourceHash": "cde48537ca2c2808",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m3/atom:にほんじん/gloss",
       "en": "Japanese (person)",
-      "enSourceHash": "ba6886e27add1f0d"
+      "enSourceHash": "ba6886e27add1f0d",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m3/atom:は/gloss",
       "en": "topic marker",
-      "enSourceHash": "8858bde5e8c50560"
+      "enSourceHash": "8858bde5e8c50560",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m3/atom:はじめまして/gloss",
       "en": "Nice to meet you",
-      "enSourceHash": "097e2b325aa24de7"
+      "enSourceHash": "097e2b325aa24de7",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m3/atom:も/gloss",
       "en": "also",
-      "enSourceHash": "bb8c8605c55dcc2d"
+      "enSourceHash": "bb8c8605c55dcc2d",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m3/atom:アメリカじん/gloss",
       "en": "American (person)",
-      "enSourceHash": "45411b53c3ee653e"
+      "enSourceHash": "45411b53c3ee653e",
+      "kind": "atom-gloss"
     },
     {
       "anchor": "m3/gp:step:ja-m3-neo-1-rule-da/ex:ねこだ。",
       "en": "It's a cat.",
-      "enSourceHash": "64814a3cefde95fe"
+      "enSourceHash": "64814a3cefde95fe",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/gp:step:ja-m3-neo-1-rule-da/ex:みずだ。",
       "en": "It's water.",
-      "enSourceHash": "b5dba4d2625e9142"
+      "enSourceHash": "b5dba4d2625e9142",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/gp:step:ja-m3-neo-1-rule-desu-preview/ex:そらだ。",
       "en": "It's the sky. (plain — friends)",
-      "enSourceHash": "0dd9c39711f8e94f"
+      "enSourceHash": "0dd9c39711f8e94f",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/gp:step:ja-m3-neo-1-rule-desu-preview/ex:そらです。",
       "en": "It's the sky. (polite — its own module comes soon)",
-      "enSourceHash": "eba1140c7aab13be"
+      "enSourceHash": "eba1140c7aab13be",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/gp:step:ja-m3-neo-2-rule-wa/ex:がくせいだ。",
       "en": "(I'm) a student. (no spotlight — natural when it's already obvious who you mean)",
-      "enSourceHash": "324389339c311116"
+      "enSourceHash": "324389339c311116",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/gp:step:ja-m3-neo-2-rule-wa/ex:たなかは せんせいだ。",
       "en": "Tanaka is a teacher. (the spotlight moves to Tanaka)",
-      "enSourceHash": "155fbe9eb2eda550"
+      "enSourceHash": "155fbe9eb2eda550",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/gp:step:ja-m3-neo-2-rule-wa/ex:わたしは がくせいだ。",
       "en": "I'm a student. (spotlight: me → comment: student)",
-      "enSourceHash": "6cdcc8d52e2527ed"
+      "enSourceHash": "6cdcc8d52e2527ed",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/gp:step:ja-m3-neo-3-rule-mo/ex:わたしも がくせいだ。",
       "en": "I'm a student too.",
-      "enSourceHash": "52c06fb8d352308f"
+      "enSourceHash": "52c06fb8d352308f",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/gp:step:ja-m3-neo-3-rule-mo/ex:トムはも がくせいだ。",
       "en": "(Tom is a student too — broken)",
-      "enSourceHash": "67e87ac5580c9232"
+      "enSourceHash": "67e87ac5580c9232",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/gp:step:ja-m3-neo-3-rule-mo/ex:トムも がくせいだ。",
       "en": "Tom is a student too.",
-      "enSourceHash": "a442324c53922f22"
+      "enSourceHash": "a442324c53922f22",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/gp:step:ja-m3-neo-4-rule-rise/ex:がくせい？",
       "en": "Are you a student?",
-      "enSourceHash": "3cade501ac6adf12"
+      "enSourceHash": "3cade501ac6adf12",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/gp:step:ja-m3-neo-4-rule-rise/ex:ねこ？",
       "en": "Is it a cat? (rising tone)",
-      "enSourceHash": "7041ebdbb2c75397"
+      "enSourceHash": "7041ebdbb2c75397",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:01c8728f571a2523",
       "en": "It's a dog.",
-      "enSourceHash": "01c8728f571a2523"
+      "enSourceHash": "01c8728f571a2523",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:2f2a2ef42c226e24",
       "en": "It's a hat.",
-      "enSourceHash": "2f2a2ef42c226e24"
+      "enSourceHash": "2f2a2ef42c226e24",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:38a81e87e79631e6",
       "en": "person",
-      "enSourceHash": "38a81e87e79631e6"
+      "enSourceHash": "38a81e87e79631e6",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:39495a637c66e322",
       "en": "Pick: 'It's a book.'",
-      "enSourceHash": "39495a637c66e322"
+      "enSourceHash": "39495a637c66e322",
+      "kind": "instruction"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:3b80d38f7686a8b5",
       "en": "mountain",
-      "enSourceHash": "3b80d38f7686a8b5"
+      "enSourceHash": "3b80d38f7686a8b5",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:4f76fc35345d66b1",
       "en": "It's a photo.",
-      "enSourceHash": "4f76fc35345d66b1"
+      "enSourceHash": "4f76fc35345d66b1",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:525eca1d5089dbdc",
       "en": "star",
-      "enSourceHash": "525eca1d5089dbdc"
+      "enSourceHash": "525eca1d5089dbdc",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:59fc5b4511aaa4a9",
       "en": "It's a peach.",
-      "enSourceHash": "59fc5b4511aaa4a9"
+      "enSourceHash": "59fc5b4511aaa4a9",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:64814a3cefde95fe",
       "en": "It's a cat.",
-      "enSourceHash": "64814a3cefde95fe"
+      "enSourceHash": "64814a3cefde95fe",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:6a7b4b503db50efd",
       "en": "It's the sea.",
-      "enSourceHash": "6a7b4b503db50efd"
+      "enSourceHash": "6a7b4b503db50efd",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:828e7c2f14b65535",
       "en": "It's a book.",
-      "enSourceHash": "828e7c2f14b65535"
+      "enSourceHash": "828e7c2f14b65535",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:9b4ef3e5b7b4d175",
       "en": "station",
-      "enSourceHash": "9b4ef3e5b7b4d175"
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:9e5d97c839d31782",
       "en": "It's a pencil.",
-      "enSourceHash": "9e5d97c839d31782"
+      "enSourceHash": "9e5d97c839d31782",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:a19889b23f0d8ab1",
       "en": "It's a flower.",
-      "enSourceHash": "a19889b23f0d8ab1"
+      "enSourceHash": "a19889b23f0d8ab1",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:b5dba4d2625e9142",
       "en": "It's water.",
-      "enSourceHash": "b5dba4d2625e9142"
+      "enSourceHash": "b5dba4d2625e9142",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:c06b0cfe0cc5e900",
       "en": "flower",
-      "enSourceHash": "c06b0cfe0cc5e900"
+      "enSourceHash": "c06b0cfe0cc5e900",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:ce635c4eabff5e4f",
       "en": "shell",
-      "enSourceHash": "ce635c4eabff5e4f"
+      "enSourceHash": "ce635c4eabff5e4f",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:d42fa5d9cb7d9813",
       "en": "It's a key.",
-      "enSourceHash": "d42fa5d9cb7d9813"
+      "enSourceHash": "d42fa5d9cb7d9813",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:eba31e1724d47d7a",
       "en": "Is it a cat?",
-      "enSourceHash": "eba31e1724d47d7a"
+      "enSourceHash": "eba31e1724d47d7a",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-1/ja:いぬだ",
       "en": "Build this sentence: It's a dog.",
-      "enSourceHash": "5b5bc845e7971f3b"
+      "enSourceHash": "5b5bc845e7971f3b",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-1/ja:うみだ",
       "en": "Build this sentence: It's the sea.",
-      "enSourceHash": "08fb71ddc179f064"
+      "enSourceHash": "08fb71ddc179f064",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-1/ja:そらだ",
       "en": "It's the sky.",
-      "enSourceHash": "2e1d302ad969dd8a"
+      "enSourceHash": "2e1d302ad969dd8a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-1/ja:ねこだ",
       "en": "Build this sentence: It's a cat.",
-      "enSourceHash": "3269fb7898ad5af3"
+      "enSourceHash": "3269fb7898ad5af3",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-1/ja:ほし",
       "en": "Listen and build the word for 'star'",
-      "enSourceHash": "3f60a3cdb985ceca"
+      "enSourceHash": "3f60a3cdb985ceca",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-1/ja:みずだ",
       "en": "Build this sentence: It's water.",
-      "enSourceHash": "a24e60cd90714408"
+      "enSourceHash": "a24e60cd90714408",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:04a9197dce436873",
       "en": "My friend is a student.",
-      "enSourceHash": "04a9197dce436873"
+      "enSourceHash": "04a9197dce436873",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:13809668fb436386",
       "en": "pencil",
-      "enSourceHash": "13809668fb436386"
+      "enSourceHash": "13809668fb436386",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:2ba084b85a6d148c",
       "en": "Tom is my teacher.",
-      "enSourceHash": "2ba084b85a6d148c"
+      "enSourceHash": "2ba084b85a6d148c",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:30eabdc1657b1c16",
       "en": "Mika is a teacher.",
-      "enSourceHash": "30eabdc1657b1c16"
+      "enSourceHash": "30eabdc1657b1c16",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:336074805fc85398",
       "en": "time",
-      "enSourceHash": "336074805fc85398"
+      "enSourceHash": "336074805fc85398",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:486c1594736e9f36",
       "en": "The river is big.",
-      "enSourceHash": "486c1594736e9f36"
+      "enSourceHash": "486c1594736e9f36",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:4bdf40d0d1ae3611",
       "en": "rice/meal",
-      "enSourceHash": "4bdf40d0d1ae3611"
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:4e3baf39a240eff8",
       "en": "I'm a friend.",
-      "enSourceHash": "4e3baf39a240eff8"
+      "enSourceHash": "4e3baf39a240eff8",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:5300757dd3f354ea",
       "en": "The river is water.",
-      "enSourceHash": "5300757dd3f354ea"
+      "enSourceHash": "5300757dd3f354ea",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:6b657556a0442c4e",
       "en": "I'm a student.",
-      "enSourceHash": "6b657556a0442c4e"
+      "enSourceHash": "6b657556a0442c4e",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:7aa9e24bfde2ffcc",
       "en": "Tom is my friend.",
-      "enSourceHash": "7aa9e24bfde2ffcc"
+      "enSourceHash": "7aa9e24bfde2ffcc",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:8825e76530f87ff5",
       "en": "milk",
-      "enSourceHash": "8825e76530f87ff5"
+      "enSourceHash": "8825e76530f87ff5",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:9a6e8637ddbd1d5a",
       "en": "Tom is a student.",
-      "enSourceHash": "9a6e8637ddbd1d5a"
+      "enSourceHash": "9a6e8637ddbd1d5a",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:aba4cc9b8af82df5",
       "en": "play",
-      "enSourceHash": "aba4cc9b8af82df5"
+      "enSourceHash": "aba4cc9b8af82df5",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:b5dba4d2625e9142",
       "en": "It's water.",
-      "enSourceHash": "b5dba4d2625e9142"
+      "enSourceHash": "b5dba4d2625e9142",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:bd218cf827abc681",
       "en": "Mika is a student.",
-      "enSourceHash": "bd218cf827abc681"
+      "enSourceHash": "bd218cf827abc681",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:c3ffe3c4d8aaefd6",
       "en": "Tom is a teacher.",
-      "enSourceHash": "c3ffe3c4d8aaefd6"
+      "enSourceHash": "c3ffe3c4d8aaefd6",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:c6545b89173c778f",
       "en": "The sea is water.",
-      "enSourceHash": "c6545b89173c778f"
+      "enSourceHash": "c6545b89173c778f",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:d34a569ab7aaa54d",
       "en": "family",
-      "enSourceHash": "d34a569ab7aaa54d"
+      "enSourceHash": "d34a569ab7aaa54d",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:f74ec475f9e84544",
       "en": "My friend is a teacher.",
-      "enSourceHash": "f74ec475f9e84544"
+      "enSourceHash": "f74ec475f9e84544",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:fdcb6568999dd217",
       "en": "The spotlight lands on sushi; the comment says what it is.",
-      "enSourceHash": "fdcb6568999dd217"
+      "enSourceHash": "fdcb6568999dd217",
+      "kind": "explanation"
     },
     {
       "anchor": "m3/ja-m3-neo-2/ja:たなかは せんせいだ",
       "en": "Build this sentence: Tanaka is a teacher.",
-      "enSourceHash": "4ba2c2c09b67add3"
+      "enSourceHash": "4ba2c2c09b67add3",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-2/ja:ともだちは がくせいだ",
       "en": "Build this sentence: My friend is a student.",
-      "enSourceHash": "a636522369e4d367"
+      "enSourceHash": "a636522369e4d367",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-2/ja:めがね",
       "en": "Listen and build the word for 'glasses'",
-      "enSourceHash": "b684d5e91a852beb"
+      "enSourceHash": "b684d5e91a852beb",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-2/ja:わたしは がくせいだ",
       "en": "Build this sentence: I'm a student.",
-      "enSourceHash": "eed4ba826d455b1e"
+      "enSourceHash": "eed4ba826d455b1e",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-2/ja:わたしは にほんじんだ",
       "en": "Build this sentence: I'm Japanese.",
-      "enSourceHash": "38601bf92e01baf1"
+      "enSourceHash": "38601bf92e01baf1",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-2/ja:トムは がくせいだ",
       "en": "Tom is a student.",
-      "enSourceHash": "9a6e8637ddbd1d5a"
+      "enSourceHash": "9a6e8637ddbd1d5a",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:05f514fae7ca5710",
       "en": "sky",
-      "enSourceHash": "05f514fae7ca5710"
+      "enSourceHash": "05f514fae7ca5710",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:20a469666345339c",
       "en": "Is Mika a friend?",
-      "enSourceHash": "20a469666345339c"
+      "enSourceHash": "20a469666345339c",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:36c6b6a5dd315082",
       "en": "Mika is my only friend.",
-      "enSourceHash": "36c6b6a5dd315082"
+      "enSourceHash": "36c6b6a5dd315082",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:38a81e87e79631e6",
       "en": "person",
-      "enSourceHash": "38a81e87e79631e6"
+      "enSourceHash": "38a81e87e79631e6",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:4a69f19c8c264850",
       "en": "sea",
-      "enSourceHash": "4a69f19c8c264850"
+      "enSourceHash": "4a69f19c8c264850",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:4fab0aa91839d789",
       "en": "Mika is a teacher too.",
-      "enSourceHash": "4fab0aa91839d789"
+      "enSourceHash": "4fab0aa91839d789",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:63f75c890b05405e",
       "en": "song",
-      "enSourceHash": "63f75c890b05405e"
+      "enSourceHash": "63f75c890b05405e",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:7329defd24fdf295",
       "en": "Is Tom a student?",
-      "enSourceHash": "7329defd24fdf295"
+      "enSourceHash": "7329defd24fdf295",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:78ffa235c02bfdc6",
       "en": "Different comments — Tom isn't joining Tanaka's group, so a fresh spotlight.",
-      "enSourceHash": "78ffa235c02bfdc6"
+      "enSourceHash": "78ffa235c02bfdc6",
+      "kind": "explanation"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:827ca27a6bd5b451",
       "en": "Too",
-      "enSourceHash": "827ca27a6bd5b451"
+      "enSourceHash": "827ca27a6bd5b451",
+      "kind": "title"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:95762b031b887f4d",
       "en": "Mika is a friend too.",
-      "enSourceHash": "95762b031b887f4d"
+      "enSourceHash": "95762b031b887f4d",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:9b4ef3e5b7b4d175",
       "en": "station",
-      "enSourceHash": "9b4ef3e5b7b4d175"
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:9ee962955998fbe0",
       "en": "Cats join the same club as dogs — same comment, so 'too.'",
-      "enSourceHash": "9ee962955998fbe0"
+      "enSourceHash": "9ee962955998fbe0",
+      "kind": "explanation"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:a442324c53922f22",
       "en": "Tom is a student too.",
-      "enSourceHash": "a442324c53922f22"
+      "enSourceHash": "a442324c53922f22",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:ce635c4eabff5e4f",
       "en": "shell",
-      "enSourceHash": "ce635c4eabff5e4f"
+      "enSourceHash": "ce635c4eabff5e4f",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:e4a0d4406a77abce",
       "en": "Mika does NOT join Tom's group — a new spotlight, not 'too.'",
-      "enSourceHash": "e4a0d4406a77abce"
+      "enSourceHash": "e4a0d4406a77abce",
+      "kind": "explanation"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:e934bbb1189479df",
       "en": "Tom joins something already said about the speaker — the context forces 'too.'",
-      "enSourceHash": "e934bbb1189479df"
+      "enSourceHash": "e934bbb1189479df",
+      "kind": "explanation"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:f604de45972af9ab",
       "en": "Tom is NOT a student.",
-      "enSourceHash": "f604de45972af9ab"
+      "enSourceHash": "f604de45972af9ab",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:f91fda97625dbce8",
       "en": "Tom is a teacher too.",
-      "enSourceHash": "f91fda97625dbce8"
+      "enSourceHash": "f91fda97625dbce8",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-3/ja:いぬも ともだちだ",
       "en": "Build this sentence: Dogs are friends too.",
-      "enSourceHash": "7ce7e92ed56145a8"
+      "enSourceHash": "7ce7e92ed56145a8",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-3/ja:かわ",
       "en": "Listen and build the word for 'river'",
-      "enSourceHash": "29efa6400ef028f4"
+      "enSourceHash": "29efa6400ef028f4",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-3/ja:わたしも がくせいだ",
       "en": "Build this sentence: I'm a student too.",
-      "enSourceHash": "022f4efac2a1c285"
+      "enSourceHash": "022f4efac2a1c285",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-3/ja:ケンも にほんじんだ",
       "en": "Build this sentence: Ken is Japanese too.",
-      "enSourceHash": "8d9a9933b020d40c"
+      "enSourceHash": "8d9a9933b020d40c",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-3/ja:トムも ともだちだ",
       "en": "Tom is a friend too.",
-      "enSourceHash": "49f02f21a4acb97b"
+      "enSourceHash": "49f02f21a4acb97b",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-3/ja:ミカも ともだちだ",
       "en": "Build this sentence: Mika is a friend too.",
-      "enSourceHash": "ad752bca349fcf4c"
+      "enSourceHash": "ad752bca349fcf4c",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:01c8728f571a2523",
       "en": "It's a dog.",
-      "enSourceHash": "01c8728f571a2523"
+      "enSourceHash": "01c8728f571a2523",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:13809668fb436386",
       "en": "pencil",
-      "enSourceHash": "13809668fb436386"
+      "enSourceHash": "13809668fb436386",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:14069429150abcbf",
       "en": "ticket",
-      "enSourceHash": "14069429150abcbf"
+      "enSourceHash": "14069429150abcbf",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:198204a460d9cb88",
       "en": "(I'm) a student.",
-      "enSourceHash": "198204a460d9cb88"
+      "enSourceHash": "198204a460d9cb88",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:25cdb46d8d2115a2",
       "en": "boat",
-      "enSourceHash": "25cdb46d8d2115a2"
+      "enSourceHash": "25cdb46d8d2115a2",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:38a81e87e79631e6",
       "en": "person",
-      "enSourceHash": "38a81e87e79631e6"
+      "enSourceHash": "38a81e87e79631e6",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:3b80d38f7686a8b5",
       "en": "mountain",
-      "enSourceHash": "3b80d38f7686a8b5"
+      "enSourceHash": "3b80d38f7686a8b5",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:3cade501ac6adf12",
       "en": "Are you a student?",
-      "enSourceHash": "3cade501ac6adf12"
+      "enSourceHash": "3cade501ac6adf12",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:3ff1917efaa0c24b",
       "en": "No, it's a dog.",
-      "enSourceHash": "3ff1917efaa0c24b"
+      "enSourceHash": "3ff1917efaa0c24b",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:4146e3d484da11f4",
       "en": "Ask your friend if it's a cat — voice rising.",
-      "enSourceHash": "4146e3d484da11f4"
+      "enSourceHash": "4146e3d484da11f4",
+      "kind": "instruction"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:55c64d0fcd6f9d5f",
       "en": "photo",
-      "enSourceHash": "55c64d0fcd6f9d5f"
+      "enSourceHash": "55c64d0fcd6f9d5f",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:5ad3cb1986ffedd4",
       "en": "They're asking a question back.",
-      "enSourceHash": "5ad3cb1986ffedd4"
+      "enSourceHash": "5ad3cb1986ffedd4",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:5eb755c0d2334123",
       "en": "I'm a teacher.",
-      "enSourceHash": "5eb755c0d2334123"
+      "enSourceHash": "5eb755c0d2334123",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:5f5a8ed8f139be6d",
       "en": "river",
-      "enSourceHash": "5f5a8ed8f139be6d"
+      "enSourceHash": "5f5a8ed8f139be6d",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:622e02363af63d86",
       "en": "They don't know.",
-      "enSourceHash": "622e02363af63d86"
+      "enSourceHash": "622e02363af63d86",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:63f75c890b05405e",
       "en": "song",
-      "enSourceHash": "63f75c890b05405e"
+      "enSourceHash": "63f75c890b05405e",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:64814a3cefde95fe",
       "en": "It's a cat.",
-      "enSourceHash": "64814a3cefde95fe"
+      "enSourceHash": "64814a3cefde95fe",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:6b657556a0442c4e",
       "en": "I'm a student.",
-      "enSourceHash": "6b657556a0442c4e"
+      "enSourceHash": "6b657556a0442c4e",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:7339725159893c57",
       "en": "telephone",
-      "enSourceHash": "7339725159893c57"
+      "enSourceHash": "7339725159893c57",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:7ab1d3f79098ef66",
       "en": "No — wrong.",
-      "enSourceHash": "7ab1d3f79098ef66"
+      "enSourceHash": "7ab1d3f79098ef66",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:8e61d28f1c077f97",
       "en": "Yeah, it's a cat.",
-      "enSourceHash": "8e61d28f1c077f97"
+      "enSourceHash": "8e61d28f1c077f97",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:91e5417ff96ec766",
       "en": "It's a cat, right?",
-      "enSourceHash": "91e5417ff96ec766"
+      "enSourceHash": "91e5417ff96ec766",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:a1ccffb07ebd625f",
       "en": "Are you a teacher?",
-      "enSourceHash": "a1ccffb07ebd625f"
+      "enSourceHash": "a1ccffb07ebd625f",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:a746222f09d85605",
       "en": "snow",
-      "enSourceHash": "a746222f09d85605"
+      "enSourceHash": "a746222f09d85605",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:af565205531d050d",
       "en": "that's right",
-      "enSourceHash": "af565205531d050d"
+      "enSourceHash": "af565205531d050d",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:b4a480c3227eb784",
       "en": "Is it a dog?",
-      "enSourceHash": "b4a480c3227eb784"
+      "enSourceHash": "b4a480c3227eb784",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:c23b31a0179b550f",
       "en": "morning",
-      "enSourceHash": "c23b31a0179b550f"
+      "enSourceHash": "c23b31a0179b550f",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:d60376e32d11c3ad",
       "en": "(I'm) a teacher.",
-      "enSourceHash": "d60376e32d11c3ad"
+      "enSourceHash": "d60376e32d11c3ad",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:eb52e962d1ef767b",
       "en": "That's right — it's a cat.",
-      "enSourceHash": "eb52e962d1ef767b"
+      "enSourceHash": "eb52e962d1ef767b",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:eba31e1724d47d7a",
       "en": "Is it a cat?",
-      "enSourceHash": "eba31e1724d47d7a"
+      "enSourceHash": "eba31e1724d47d7a",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-4/ja:がくせい",
       "en": "Listen and build the word for 'student'",
-      "enSourceHash": "61e8e61221a3ebfe"
+      "enSourceHash": "61e8e61221a3ebfe",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-4/ja:ごはん",
       "en": "Listen and build the word for 'rice/meal'",
-      "enSourceHash": "3dbbd0677394cfa4"
+      "enSourceHash": "3dbbd0677394cfa4",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-4/ja:たなかは せんせい？",
       "en": "Build this sentence: Is Tanaka a teacher?",
-      "enSourceHash": "1093b058e7310137"
+      "enSourceHash": "1093b058e7310137",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-4/ja:ねこ",
       "en": "Listen and build the word for 'cat'",
-      "enSourceHash": "cfc0f106841d3c94"
+      "enSourceHash": "cfc0f106841d3c94",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:097e2b325aa24de7",
       "en": "Nice to meet you",
-      "enSourceHash": "097e2b325aa24de7"
+      "enSourceHash": "097e2b325aa24de7",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:0eaa523b08690250",
       "en": "nice to meet you",
-      "enSourceHash": "0eaa523b08690250"
+      "enSourceHash": "0eaa523b08690250",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:132960c1dc2ccf06",
       "en": "it's okay / no problem",
-      "enSourceHash": "132960c1dc2ccf06"
+      "enSourceHash": "132960c1dc2ccf06",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:14069429150abcbf",
       "en": "ticket",
-      "enSourceHash": "14069429150abcbf"
+      "enSourceHash": "14069429150abcbf",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:15a421e4cf7651fe",
       "en": "Good evening",
-      "enSourceHash": "15a421e4cf7651fe"
+      "enSourceHash": "15a421e4cf7651fe",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:192544a158055333",
       "en": "thanks (casual)",
-      "enSourceHash": "192544a158055333"
+      "enSourceHash": "192544a158055333",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:1a75e97e326e42ed",
       "en": "Match each phrase to its meaning",
-      "enSourceHash": "1a75e97e326e42ed"
+      "enSourceHash": "1a75e97e326e42ed",
+      "kind": "instruction"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:25f7c6d07019b49b",
       "en": "excuse me / sorry (to a stranger)",
-      "enSourceHash": "25f7c6d07019b49b"
+      "enSourceHash": "25f7c6d07019b49b",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:268bc1833e83306f",
       "en": "Thank you",
-      "enSourceHash": "268bc1833e83306f"
+      "enSourceHash": "268bc1833e83306f",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:2d8e8bcf7c24ec7c",
       "en": "It's all right",
-      "enSourceHash": "2d8e8bcf7c24ec7c"
+      "enSourceHash": "2d8e8bcf7c24ec7c",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:30c621421ef9ebc9",
       "en": "walk/stroll",
-      "enSourceHash": "30c621421ef9ebc9"
+      "enSourceHash": "30c621421ef9ebc9",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:30ce1a1e9c0512d3",
       "en": "thank you very much",
-      "enSourceHash": "30ce1a1e9c0512d3"
+      "enSourceHash": "30ce1a1e9c0512d3",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:38a81e87e79631e6",
       "en": "person",
-      "enSourceHash": "38a81e87e79631e6"
+      "enSourceHash": "38a81e87e79631e6",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:39954823f73a76e3",
       "en": "Nice to meet you.",
-      "enSourceHash": "39954823f73a76e3"
+      "enSourceHash": "39954823f73a76e3",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:4345c6eddf033a0a",
       "en": "To squeeze past someone:",
-      "enSourceHash": "4345c6eddf033a0a"
+      "enSourceHash": "4345c6eddf033a0a",
+      "kind": "instruction"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:4f9baa5ecfd7da06",
       "en": "Watch out",
-      "enSourceHash": "4f9baa5ecfd7da06"
+      "enSourceHash": "4f9baa5ecfd7da06",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:5328f5d2356e7150",
       "en": "I'm sorry!",
-      "enSourceHash": "5328f5d2356e7150"
+      "enSourceHash": "5328f5d2356e7150",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:55c64d0fcd6f9d5f",
       "en": "photo",
-      "enSourceHash": "55c64d0fcd6f9d5f"
+      "enSourceHash": "55c64d0fcd6f9d5f",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:5d1b16b66af958fa",
       "en": "Squeezing past someone",
-      "enSourceHash": "5d1b16b66af958fa"
+      "enSourceHash": "5d1b16b66af958fa",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:5d47e07bb3fe49da",
       "en": "It's okay",
-      "enSourceHash": "5d47e07bb3fe49da"
+      "enSourceHash": "5d47e07bb3fe49da",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:62d20c227e019b86",
       "en": "It's okay — no problem",
-      "enSourceHash": "62d20c227e019b86"
+      "enSourceHash": "62d20c227e019b86",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:62d43d500746fad1",
       "en": "Meeting someone new",
-      "enSourceHash": "62d43d500746fad1"
+      "enSourceHash": "62d43d500746fad1",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:678f0dfd1df31f9a",
       "en": "I'm sorry",
-      "enSourceHash": "678f0dfd1df31f9a"
+      "enSourceHash": "678f0dfd1df31f9a",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:6eaf27ffcf2f8545",
       "en": "Thanking a stranger",
-      "enSourceHash": "6eaf27ffcf2f8545"
+      "enSourceHash": "6eaf27ffcf2f8545",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:9054b29d727561ec",
       "en": "Reassuring: 'it's fine'",
-      "enSourceHash": "9054b29d727561ec"
+      "enSourceHash": "9054b29d727561ec",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:90a90a48e23dcc51",
       "en": "Good morning",
-      "enSourceHash": "90a90a48e23dcc51"
+      "enSourceHash": "90a90a48e23dcc51",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:9317a84bd54abe32",
       "en": "Sorry!",
-      "enSourceHash": "9317a84bd54abe32"
+      "enSourceHash": "9317a84bd54abe32",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:9449af5b06db39ea",
       "en": "Thanks! (casual)",
-      "enSourceHash": "9449af5b06db39ea"
+      "enSourceHash": "9449af5b06db39ea",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:9ac90c1ed977d582",
       "en": "Thank you very much",
-      "enSourceHash": "9ac90c1ed977d582"
+      "enSourceHash": "9ac90c1ed977d582",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:9dc42d1e8b4f2d1d",
       "en": "Survival sounds",
-      "enSourceHash": "9dc42d1e8b4f2d1d"
+      "enSourceHash": "9dc42d1e8b4f2d1d",
+      "kind": "title"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:a807680e5ea57f0f",
       "en": "Match each phrase to its moment",
-      "enSourceHash": "a807680e5ea57f0f"
+      "enSourceHash": "a807680e5ea57f0f",
+      "kind": "instruction"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:a9f9bc56bef1cc48",
       "en": "Thanking a close friend",
-      "enSourceHash": "a9f9bc56bef1cc48"
+      "enSourceHash": "a9f9bc56bef1cc48",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:c015ad6ddaf8bb50",
       "en": "Goodbye",
-      "enSourceHash": "c015ad6ddaf8bb50"
+      "enSourceHash": "c015ad6ddaf8bb50",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:c894c674ace57aa8",
       "en": "You knock over your friend's cup. Apologize — casually:",
-      "enSourceHash": "c894c674ace57aa8"
+      "enSourceHash": "c894c674ace57aa8",
+      "kind": "instruction"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:ce9c38b3fcc00be3",
       "en": "Apologizing to a friend",
-      "enSourceHash": "ce9c38b3fcc00be3"
+      "enSourceHash": "ce9c38b3fcc00be3",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:d3aecc59f86baf8f",
       "en": "Sorry / excuse me",
-      "enSourceHash": "d3aecc59f86baf8f"
+      "enSourceHash": "d3aecc59f86baf8f",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:ddb19c6950a009c3",
       "en": "No thanks.",
-      "enSourceHash": "ddb19c6950a009c3"
+      "enSourceHash": "ddb19c6950a009c3",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:ec845eac1cf21293",
       "en": "Which thanks fits a stranger?",
-      "enSourceHash": "ec845eac1cf21293"
+      "enSourceHash": "ec845eac1cf21293",
+      "kind": "instruction"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:ed7a9987f2648122",
       "en": "Congratulations",
-      "enSourceHash": "ed7a9987f2648122"
+      "enSourceHash": "ed7a9987f2648122",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:f868adba71dd145e",
       "en": "Excuse me",
-      "enSourceHash": "f868adba71dd145e"
+      "enSourceHash": "f868adba71dd145e",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-5/ja:とけい",
       "en": "Listen and build the word for 'watch/clock'",
-      "enSourceHash": "8b8dc91af3d8a2af"
+      "enSourceHash": "8b8dc91af3d8a2af",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-5/ja:はじめまして",
       "en": "Listen and build the word for 'nice to meet you'",
-      "enSourceHash": "eb40d4342958ad7f"
+      "enSourceHash": "eb40d4342958ad7f",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:02a215c3b3124762",
       "en": "Yeah, he's a student.",
-      "enSourceHash": "02a215c3b3124762"
+      "enSourceHash": "02a215c3b3124762",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:15560971ac0a406d",
       "en": "No, he's a teacher.",
-      "enSourceHash": "15560971ac0a406d"
+      "enSourceHash": "15560971ac0a406d",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:18e1dd392168f601",
       "en": "hat",
-      "enSourceHash": "18e1dd392168f601"
+      "enSourceHash": "18e1dd392168f601",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:30c621421ef9ebc9",
       "en": "walk/stroll",
-      "enSourceHash": "30c621421ef9ebc9"
+      "enSourceHash": "30c621421ef9ebc9",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:336074805fc85398",
       "en": "time",
-      "enSourceHash": "336074805fc85398"
+      "enSourceHash": "336074805fc85398",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:3afdc90e57384b89",
       "en": "Only Mika is a student.",
-      "enSourceHash": "3afdc90e57384b89"
+      "enSourceHash": "3afdc90e57384b89",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:573ac199d37e6cf7",
       "en": "Mika is a student too.",
-      "enSourceHash": "573ac199d37e6cf7"
+      "enSourceHash": "573ac199d37e6cf7",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:5c004077d2e490f6",
       "en": "Story: meeting someone",
-      "enSourceHash": "5c004077d2e490f6"
+      "enSourceHash": "5c004077d2e490f6",
+      "kind": "title"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:6e2838beae6a2ca6",
       "en": "He's a student too.",
-      "enSourceHash": "6e2838beae6a2ca6"
+      "enSourceHash": "6e2838beae6a2ca6",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:77af778b51abd4a3",
       "en": "cat",
-      "enSourceHash": "77af778b51abd4a3"
+      "enSourceHash": "77af778b51abd4a3",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:77f17e8fd362cfb7",
       "en": "Is he a student?",
-      "enSourceHash": "77f17e8fd362cfb7"
+      "enSourceHash": "77f17e8fd362cfb7",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:87f9e028076ad2c9",
       "en": "Is (he) a teacher?",
-      "enSourceHash": "87f9e028076ad2c9"
+      "enSourceHash": "87f9e028076ad2c9",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:8825e76530f87ff5",
       "en": "milk",
-      "enSourceHash": "8825e76530f87ff5"
+      "enSourceHash": "8825e76530f87ff5",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:8fc2ec14e1f786a9",
       "en": "Mika is Tom's sister.",
-      "enSourceHash": "8fc2ec14e1f786a9"
+      "enSourceHash": "8fc2ec14e1f786a9",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:9f550b84dcf7714c",
       "en": "Mika is the teacher.",
-      "enSourceHash": "9f550b84dcf7714c"
+      "enSourceHash": "9f550b84dcf7714c",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:aba4cc9b8af82df5",
       "en": "play",
-      "enSourceHash": "aba4cc9b8af82df5"
+      "enSourceHash": "aba4cc9b8af82df5",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:b6302cfd3d7f7b68",
       "en": "Ken meets Tom for the first time. What does he say first?",
-      "enSourceHash": "b6302cfd3d7f7b68"
+      "enSourceHash": "b6302cfd3d7f7b68",
+      "kind": "instruction"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:d34a569ab7aaa54d",
       "en": "family",
-      "enSourceHash": "d34a569ab7aaa54d"
+      "enSourceHash": "d34a569ab7aaa54d",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:de114d488fe014eb",
       "en": "(I) am a student.",
-      "enSourceHash": "de114d488fe014eb"
+      "enSourceHash": "de114d488fe014eb",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:dfb68dca52614afe",
       "en": "(I) am a teacher.",
-      "enSourceHash": "dfb68dca52614afe"
+      "enSourceHash": "dfb68dca52614afe",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:e075adcfc3cc0f0d",
       "en": "(He) is a friend.",
-      "enSourceHash": "e075adcfc3cc0f0d"
+      "enSourceHash": "e075adcfc3cc0f0d",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-6/ja:せんせいは にほんじんだ",
       "en": "The teacher is Japanese.",
-      "enSourceHash": "a24296837a351a92"
+      "enSourceHash": "a24296837a351a92",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-6/ja:でんわ",
       "en": "Listen and build the word for 'telephone'",
-      "enSourceHash": "96fe056013f801a3"
+      "enSourceHash": "96fe056013f801a3",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-6/ja:わたしも がくせいだ",
       "en": "Build this sentence: I'm a student too.",
-      "enSourceHash": "022f4efac2a1c285"
+      "enSourceHash": "022f4efac2a1c285",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-6/ja:トムは がくせいだ",
       "en": "Build this sentence: Tom is a student.",
-      "enSourceHash": "bbf89098b7dc7102"
+      "enSourceHash": "bbf89098b7dc7102",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-6/ja:トムは がくせい？",
       "en": "Build this sentence: Is Tom a student?",
-      "enSourceHash": "d5a528bd496e14f0"
+      "enSourceHash": "d5a528bd496e14f0",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:0282d9b79f42c74c",
       "en": "face",
-      "enSourceHash": "0282d9b79f42c74c"
+      "enSourceHash": "0282d9b79f42c74c",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:05f514fae7ca5710",
       "en": "sky",
-      "enSourceHash": "05f514fae7ca5710"
+      "enSourceHash": "05f514fae7ca5710",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:0bd9a49819a03bdc",
       "en": "Yeah, (he's) a friend.",
-      "enSourceHash": "0bd9a49819a03bdc"
+      "enSourceHash": "0bd9a49819a03bdc",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:0bdc45f67a85046a",
       "en": "A friend (of yours)?",
-      "enSourceHash": "0bdc45f67a85046a"
+      "enSourceHash": "0bdc45f67a85046a",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:1766c3237c5860a8",
       "en": "It's snow.",
-      "enSourceHash": "1766c3237c5860a8"
+      "enSourceHash": "1766c3237c5860a8",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:1937617eff1b7645",
       "en": "(he's) a teacher.",
-      "enSourceHash": "1937617eff1b7645"
+      "enSourceHash": "1937617eff1b7645",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:198204a460d9cb88",
       "en": "(I'm) a student.",
-      "enSourceHash": "198204a460d9cb88"
+      "enSourceHash": "198204a460d9cb88",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:20acb542dc02f3ec",
       "en": "It's a boat.",
-      "enSourceHash": "20acb542dc02f3ec"
+      "enSourceHash": "20acb542dc02f3ec",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:24f5cf0cf382e29f",
       "en": "Ask your friend if it's snow — voice rising.",
-      "enSourceHash": "24f5cf0cf382e29f"
+      "enSourceHash": "24f5cf0cf382e29f",
+      "kind": "instruction"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:29e1c964a3729e14",
       "en": "It's a river.",
-      "enSourceHash": "29e1c964a3729e14"
+      "enSourceHash": "29e1c964a3729e14",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:2a8eb6243002fc30",
       "en": "You step on a stranger's foot on the bus. What do you say?",
-      "enSourceHash": "2a8eb6243002fc30"
+      "enSourceHash": "2a8eb6243002fc30",
+      "kind": "instruction"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:2e1d302ad969dd8a",
       "en": "It's the sky.",
-      "enSourceHash": "2e1d302ad969dd8a"
+      "enSourceHash": "2e1d302ad969dd8a",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:3cade501ac6adf12",
       "en": "Are you a student?",
-      "enSourceHash": "3cade501ac6adf12"
+      "enSourceHash": "3cade501ac6adf12",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:3d3638db478e02c9",
       "en": "Dogs join the same club as cats — same comment, so 'too.'",
-      "enSourceHash": "3d3638db478e02c9"
+      "enSourceHash": "3d3638db478e02c9",
+      "kind": "explanation"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:434f2f897448939e",
       "en": "Short form for people close to you; the long form keeps polite distance with strangers.",
-      "enSourceHash": "434f2f897448939e"
+      "enSourceHash": "434f2f897448939e",
+      "kind": "explanation"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:5040b2c14a301b10",
       "en": "(She's) a teacher too.",
-      "enSourceHash": "5040b2c14a301b10"
+      "enSourceHash": "5040b2c14a301b10",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:54efc235fbabe38c",
       "en": "A teacher?",
-      "enSourceHash": "54efc235fbabe38c"
+      "enSourceHash": "54efc235fbabe38c",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:571e44ed12d32d9b",
       "en": "Match each Japanese word to its meaning (review)",
-      "enSourceHash": "571e44ed12d32d9b"
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:6a7b4b503db50efd",
       "en": "It's the sea.",
-      "enSourceHash": "6a7b4b503db50efd"
+      "enSourceHash": "6a7b4b503db50efd",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:737f5722128dec11",
       "en": "Different comments — Ken isn't joining Tanaka's group, so a fresh spotlight.",
-      "enSourceHash": "737f5722128dec11"
+      "enSourceHash": "737f5722128dec11",
+      "kind": "explanation"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:75a01bf0c0a24458",
       "en": "(he's) a friend.",
-      "enSourceHash": "75a01bf0c0a24458"
+      "enSourceHash": "75a01bf0c0a24458",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:7c5cd26498ca7cda",
       "en": "Your close friend hands you their umbrella. Casual thanks?",
-      "enSourceHash": "7c5cd26498ca7cda"
+      "enSourceHash": "7c5cd26498ca7cda",
+      "kind": "instruction"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:82bd81ea4b030255",
       "en": "cooking",
-      "enSourceHash": "82bd81ea4b030255"
+      "enSourceHash": "82bd81ea4b030255",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:9435a4026038f173",
       "en": "Is he a friend?",
-      "enSourceHash": "9435a4026038f173"
+      "enSourceHash": "9435a4026038f173",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:972b0070d03e0cd8",
       "en": "No, (he's) a stranger.",
-      "enSourceHash": "972b0070d03e0cd8"
+      "enSourceHash": "972b0070d03e0cd8",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:9b9d7ed762e34d3e",
       "en": "That's my teacher.",
-      "enSourceHash": "9b9d7ed762e34d3e"
+      "enSourceHash": "9b9d7ed762e34d3e",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:9e78b43ea00edcac",
       "en": "moon",
-      "enSourceHash": "9e78b43ea00edcac"
+      "enSourceHash": "9e78b43ea00edcac",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:a14115b6cff0ebc6",
       "en": "It's a star.",
-      "enSourceHash": "a14115b6cff0ebc6"
+      "enSourceHash": "a14115b6cff0ebc6",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:a7fcfe14d8b5915e",
       "en": "Right — (she's) the teacher.",
-      "enSourceHash": "a7fcfe14d8b5915e"
+      "enSourceHash": "a7fcfe14d8b5915e",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:ac98fff5f274c84c",
       "en": "Who is the teacher?",
-      "enSourceHash": "ac98fff5f274c84c"
+      "enSourceHash": "ac98fff5f274c84c",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:b2ac32a415d7b9d9",
       "en": "One spotlight, one comment — a plain statement about snow.",
-      "enSourceHash": "b2ac32a415d7b9d9"
+      "enSourceHash": "b2ac32a415d7b9d9",
+      "kind": "explanation"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:bb4b1aaf1903d52a",
       "en": "(I'm) a friend.",
-      "enSourceHash": "bb4b1aaf1903d52a"
+      "enSourceHash": "bb4b1aaf1903d52a",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:cd6357efdd966de8",
       "en": "dog",
-      "enSourceHash": "cd6357efdd966de8"
+      "enSourceHash": "cd6357efdd966de8",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:d34a569ab7aaa54d",
       "en": "family",
-      "enSourceHash": "d34a569ab7aaa54d"
+      "enSourceHash": "d34a569ab7aaa54d",
+      "kind": "ja-gloss"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:d60376e32d11c3ad",
       "en": "(I'm) a teacher.",
-      "enSourceHash": "d60376e32d11c3ad"
+      "enSourceHash": "d60376e32d11c3ad",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:de55c3b6a333e594",
       "en": "It's the moon.",
-      "enSourceHash": "de55c3b6a333e594"
+      "enSourceHash": "de55c3b6a333e594",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:e60e0825c2329d41",
       "en": "Plain sentences — review",
-      "enSourceHash": "e60e0825c2329d41"
+      "enSourceHash": "e60e0825c2329d41",
+      "kind": "title"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:f0d20f957117d6c9",
       "en": "It's a mountain.",
-      "enSourceHash": "f0d20f957117d6c9"
+      "enSourceHash": "f0d20f957117d6c9",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:fde57653db1bbeaf",
       "en": "No — (she's) a student.",
-      "enSourceHash": "fde57653db1bbeaf"
+      "enSourceHash": "fde57653db1bbeaf",
+      "kind": "mcq-option"
     },
     {
       "anchor": "m3/ja-m3-neo-review/ja:うみは みずだ",
       "en": "The sea is water.",
-      "enSourceHash": "c6545b89173c778f"
+      "enSourceHash": "c6545b89173c778f",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-review/ja:つきだ",
       "en": "Build this sentence: It's the moon.",
-      "enSourceHash": "4b4f6688a0e38244"
+      "enSourceHash": "4b4f6688a0e38244",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-review/ja:ケンは ともだちだ",
       "en": "Build this sentence: Ken is a friend.",
-      "enSourceHash": "54bc070b1f9703e0"
+      "enSourceHash": "54bc070b1f9703e0",
+      "kind": "build-prompt"
     },
     {
       "anchor": "m3/ja-m3-neo-review/ja:ミカも にほんじんだ",
       "en": "Build this sentence: Mika is Japanese too.",
-      "enSourceHash": "e75ed64952c8ad75"
+      "enSourceHash": "e75ed64952c8ad75",
+      "kind": "build-prompt"
     }
   ]
 }

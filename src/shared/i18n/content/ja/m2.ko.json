@@ -4,7 +4,7 @@
   "lang": "ko",
   "generatedAt": "2026-09-10",
   "draftedBy": "qwen3.5:122b-a10b-q4_K_M",
-  "entryCount": 370,
+  "entryCount": 391,
   "entries": [
     {
       "anchor": "m2/atom:えび/gloss",
@@ -1855,6 +1855,111 @@
       "anchor": "m2/ja-m2-recap/en:d30f93bf2da43afe",
       "text": "모듈 2 · 유성음 — 복습",
       "enSourceHash": "d30f93bf2da43afe"
+    },
+    {
+      "anchor": "m2/symbolIntro:きゃ/hint",
+      "text": "키 + 작은 야 — 한 음절 '캬'",
+      "enSourceHash": "9367cbdaaafc72de"
+    },
+    {
+      "anchor": "m2/symbolIntro:きゅ/hint",
+      "text": "키 + 작은 유 — 한 음절 '큐'",
+      "enSourceHash": "1271dd038246809a"
+    },
+    {
+      "anchor": "m2/symbolIntro:きょ/hint",
+      "text": "키 + 작은 요 — 한 음절 '쿄'",
+      "enSourceHash": "8e8db4a9e18eaeb1"
+    },
+    {
+      "anchor": "m2/symbolIntro:ぎゃ/hint",
+      "text": "기 + 작은 야 — '갸'",
+      "enSourceHash": "0ea8df877a7e7cdd"
+    },
+    {
+      "anchor": "m2/symbolIntro:しゃ/hint",
+      "text": "시 + 작은 야 — '샤'",
+      "enSourceHash": "1612f48c67a45395"
+    },
+    {
+      "anchor": "m2/symbolIntro:しゅ/hint",
+      "text": "시 + 작은 유 — '슈'",
+      "enSourceHash": "c2aeb3c4c7041357"
+    },
+    {
+      "anchor": "m2/symbolIntro:しょ/hint",
+      "text": "시 + 작은 요 — '쇼'",
+      "enSourceHash": "0294b00f5258be81"
+    },
+    {
+      "anchor": "m2/symbolIntro:じゃ/hint",
+      "text": "지 + 작은 야 — '쟈'",
+      "enSourceHash": "cfd2417d9b046ebb"
+    },
+    {
+      "anchor": "m2/symbolIntro:じゅ/hint",
+      "text": "지 + 작은 유 — '쥬'",
+      "enSourceHash": "bd637328780678b2"
+    },
+    {
+      "anchor": "m2/symbolIntro:じょ/hint",
+      "text": "지 + 작은 요 — '죠'",
+      "enSourceHash": "9deb1cdf402c645b"
+    },
+    {
+      "anchor": "m2/symbolIntro:ちゃ/hint",
+      "text": "치 + 작은 야 — '차'",
+      "enSourceHash": "0072a8dc3bb7e6ad"
+    },
+    {
+      "anchor": "m2/symbolIntro:ちゅ/hint",
+      "text": "치 + 작은 유 — '추'",
+      "enSourceHash": "736ebd1b787ce005"
+    },
+    {
+      "anchor": "m2/symbolIntro:ちょ/hint",
+      "text": "치 + 작은 요 — '초'",
+      "enSourceHash": "069d6c4aaec21076"
+    },
+    {
+      "anchor": "m2/symbolIntro:ひゃ/hint",
+      "text": "히 + 작은 야 — '햐'",
+      "enSourceHash": "1b411f2ba391db2c"
+    },
+    {
+      "anchor": "m2/symbolIntro:ひゅ/hint",
+      "text": "히 + 작은 유 — '휴'",
+      "enSourceHash": "70479f2141d76c40"
+    },
+    {
+      "anchor": "m2/symbolIntro:ひょ/hint",
+      "text": "히 + 작은 요 — '효'",
+      "enSourceHash": "11308c933fb20098"
+    },
+    {
+      "anchor": "m2/symbolIntro:びゃ/hint",
+      "text": "비 + 작은 야 — '뱌'",
+      "enSourceHash": "8ac54c3ca82c202e"
+    },
+    {
+      "anchor": "m2/symbolIntro:ぴゃ/hint",
+      "text": "피 + 작은 야 — '뼈'",
+      "enSourceHash": "9080771ba917ba9c"
+    },
+    {
+      "anchor": "m2/symbolIntro:りゃ/hint",
+      "text": "리 + 작은 야 — '랴'",
+      "enSourceHash": "c2e02581f5a1291d"
+    },
+    {
+      "anchor": "m2/symbolIntro:りゅ/hint",
+      "text": "리 + 작은 유 — '류'",
+      "enSourceHash": "56e935e19c2ac5f5"
+    },
+    {
+      "anchor": "m2/symbolIntro:りょ/hint",
+      "text": "리 + 작은 요 — '료'",
+      "enSourceHash": "2b4a4b431f732036"
     }
   ]
 }

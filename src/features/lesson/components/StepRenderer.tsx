@@ -158,6 +158,7 @@ export function StepRenderer({
           onComplete={onComplete}
           onContinue={onContinue}
           skipAnimationGate={isReplayRun}
+          lessonId={lessonId ?? step.id}
         />
       );
     case "symbol_trace":

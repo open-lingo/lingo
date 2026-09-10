@@ -4,7 +4,7 @@
   "lang": "ko",
   "generatedAt": "2026-09-10",
   "draftedBy": "qwen3.5:122b-a10b-q4_K_M",
-  "entryCount": 361,
+  "entryCount": 407,
   "entries": [
     {
       "anchor": "m1/atom:あい/gloss",
@@ -1810,6 +1810,236 @@
       "anchor": "m1/ja-m1-ya-3/ja:よむ",
       "text": "'읽다'에 해당하는 단어를 듣고 만들어 보세요",
       "enSourceHash": "56854b4df971dc6f"
+    },
+    {
+      "anchor": "m1/symbolIntro:あ/hint",
+      "text": "'father'의 'a'와 비슷",
+      "enSourceHash": "a649bccef153bc5b"
+    },
+    {
+      "anchor": "m1/symbolIntro:い/hint",
+      "text": "'see'의 'ee'와 비슷",
+      "enSourceHash": "8b3dbee3f9327338"
+    },
+    {
+      "anchor": "m1/symbolIntro:う/hint",
+      "text": "'food'의 'oo'와 비슷, 입술을 둥글게 하지 않음",
+      "enSourceHash": "ce085c20646e1bc3"
+    },
+    {
+      "anchor": "m1/symbolIntro:え/hint",
+      "text": "'bed'의 'e'와 비슷",
+      "enSourceHash": "8fa127477acaa150"
+    },
+    {
+      "anchor": "m1/symbolIntro:お/hint",
+      "text": "'or'의 'o'와 비슷",
+      "enSourceHash": "b29d1db0c87c36a4"
+    },
+    {
+      "anchor": "m1/symbolIntro:か/hint",
+      "text": "'car'의 'ka'와 비슷",
+      "enSourceHash": "f1b62179af1ad25e"
+    },
+    {
+      "anchor": "m1/symbolIntro:き/hint",
+      "text": "'key'의 'kee'와 비슷",
+      "enSourceHash": "4e56adde8d611c33"
+    },
+    {
+      "anchor": "m1/symbolIntro:く/hint",
+      "text": "'cuckoo'의 'koo'와 비슷",
+      "enSourceHash": "2f7fd5fe80e240a7"
+    },
+    {
+      "anchor": "m1/symbolIntro:け/hint",
+      "text": "'kept'의 'ke'와 비슷",
+      "enSourceHash": "44bb33564fa80eb5"
+    },
+    {
+      "anchor": "m1/symbolIntro:こ/hint",
+      "text": "'koala'의 'ko'와 비슷",
+      "enSourceHash": "7575a12bd9853338"
+    },
+    {
+      "anchor": "m1/symbolIntro:さ/hint",
+      "text": "'salsa'의 'sa'와 비슷",
+      "enSourceHash": "6944200052819c0c"
+    },
+    {
+      "anchor": "m1/symbolIntro:し/hint",
+      "text": "'sheet'의 'she'와 비슷",
+      "enSourceHash": "7c9713e0e579ae27"
+    },
+    {
+      "anchor": "m1/symbolIntro:す/hint",
+      "text": "'sue'와 비슷 (약간 짧게)",
+      "enSourceHash": "ec5808629543f453"
+    },
+    {
+      "anchor": "m1/symbolIntro:せ/hint",
+      "text": "'sell'의 'se'와 비슷",
+      "enSourceHash": "3e730f3a5f1ba0f6"
+    },
+    {
+      "anchor": "m1/symbolIntro:そ/hint",
+      "text": "'sole'의 'so'와 비슷",
+      "enSourceHash": "3a683b6c249cb99c"
+    },
+    {
+      "anchor": "m1/symbolIntro:た/hint",
+      "text": "'taco'의 'ta'와 비슷",
+      "enSourceHash": "7c0c1bc0beaebd82"
+    },
+    {
+      "anchor": "m1/symbolIntro:ち/hint",
+      "text": "'cheese'의 'chee'와 비슷",
+      "enSourceHash": "77f83fe7268c6aee"
+    },
+    {
+      "anchor": "m1/symbolIntro:つ/hint",
+      "text": "'cats'의 'ts' + 'oo'",
+      "enSourceHash": "818a77991a5a05f6"
+    },
+    {
+      "anchor": "m1/symbolIntro:て/hint",
+      "text": "'ten'의 'te'와 비슷",
+      "enSourceHash": "a8f2bc4836a00938"
+    },
+    {
+      "anchor": "m1/symbolIntro:と/hint",
+      "text": "'toe'의 'to'와 비슷",
+      "enSourceHash": "73036823e33de7c3"
+    },
+    {
+      "anchor": "m1/symbolIntro:な/hint",
+      "text": "'nacho'의 'na'와 비슷",
+      "enSourceHash": "924b4e279ad28c65"
+    },
+    {
+      "anchor": "m1/symbolIntro:に/hint",
+      "text": "'knee'의 'nee'와 비슷",
+      "enSourceHash": "9604ab7806b072ed"
+    },
+    {
+      "anchor": "m1/symbolIntro:ぬ/hint",
+      "text": "'noo'와 비슷 (약간 짧게)",
+      "enSourceHash": "5a7dc82856306cba"
+    },
+    {
+      "anchor": "m1/symbolIntro:ね/hint",
+      "text": "'net'의 'ne'와 비슷",
+      "enSourceHash": "7f927d23656df551"
+    },
+    {
+      "anchor": "m1/symbolIntro:の/hint",
+      "text": "'note'의 'no'와 비슷",
+      "enSourceHash": "d7ca412a65a3d5cf"
+    },
+    {
+      "anchor": "m1/symbolIntro:は/hint",
+      "text": "'hot'의 'ha'와 비슷",
+      "enSourceHash": "c3e840b6f18ee159"
+    },
+    {
+      "anchor": "m1/symbolIntro:ひ/hint",
+      "text": "'heat'의 'hee'와 비슷",
+      "enSourceHash": "28f8d3185c2cd179"
+    },
+    {
+      "anchor": "m1/symbolIntro:ふ/hint",
+      "text": "부드러운 'foo' — 거의 속삭임",
+      "enSourceHash": "6ce7265d33762f35"
+    },
+    {
+      "anchor": "m1/symbolIntro:へ/hint",
+      "text": "'help'의 'he'와 비슷",
+      "enSourceHash": "9be64a0b36e093c4"
+    },
+    {
+      "anchor": "m1/symbolIntro:ほ/hint",
+      "text": "'hope'의 'ho'와 비슷",
+      "enSourceHash": "48156f6278aad92b"
+    },
+    {
+      "anchor": "m1/symbolIntro:ま/hint",
+      "text": "'mama'의 'ma'와 비슷",
+      "enSourceHash": "6016aca3077ba30a"
+    },
+    {
+      "anchor": "m1/symbolIntro:み/hint",
+      "text": "'meet'의 'mee'와 비슷",
+      "enSourceHash": "e1985c392993de79"
+    },
+    {
+      "anchor": "m1/symbolIntro:む/hint",
+      "text": "'moo'와 비슷 (짧게)",
+      "enSourceHash": "86910f9555427f59"
+    },
+    {
+      "anchor": "m1/symbolIntro:め/hint",
+      "text": "'met'의 'me'와 비슷",
+      "enSourceHash": "0a989a560cb6da0e"
+    },
+    {
+      "anchor": "m1/symbolIntro:も/hint",
+      "text": "'more'의 'mo'와 비슷",
+      "enSourceHash": "46d2371144375260"
+    },
+    {
+      "anchor": "m1/symbolIntro:や/hint",
+      "text": "'yard'의 'ya'와 비슷",
+      "enSourceHash": "f51d173f71cf02d6"
+    },
+    {
+      "anchor": "m1/symbolIntro:ゆ/hint",
+      "text": "'you'와 비슷 (짧게)",
+      "enSourceHash": "0a02257ebb273a80"
+    },
+    {
+      "anchor": "m1/symbolIntro:よ/hint",
+      "text": "'yoga'의 'yo'와 비슷",
+      "enSourceHash": "25a90fafeea74742"
+    },
+    {
+      "anchor": "m1/symbolIntro:ら/hint",
+      "text": "혀를 튕기는 소리 — 'la'와 'ra' 사이",
+      "enSourceHash": "bce92a8d9175fda7"
+    },
+    {
+      "anchor": "m1/symbolIntro:り/hint",
+      "text": "혀를 튕기는 'ri'처럼 — 부드럽게",
+      "enSourceHash": "5c154355bbc54e6c"
+    },
+    {
+      "anchor": "m1/symbolIntro:る/hint",
+      "text": "부드러운 '루' 소리",
+      "enSourceHash": "1039009df0be3842"
+    },
+    {
+      "anchor": "m1/symbolIntro:れ/hint",
+      "text": "부드러운 '레' 소리",
+      "enSourceHash": "c64ac4ed95e5d5a1"
+    },
+    {
+      "anchor": "m1/symbolIntro:ろ/hint",
+      "text": "부드러운 '로' 소리",
+      "enSourceHash": "976cadb57055fe88"
+    },
+    {
+      "anchor": "m1/symbolIntro:わ/hint",
+      "text": "'water'의 'wa'와 같은 소리",
+      "enSourceHash": "9e910808343bc4e6"
+    },
+    {
+      "anchor": "m1/symbolIntro:を/hint",
+      "text": "목적격 조사 (발음은 '오')",
+      "enSourceHash": "eb7b3c42a706349d"
+    },
+    {
+      "anchor": "m1/symbolIntro:ん/hint",
+      "text": "음절 끝 'ㄴ' — 음절을 끝내며, 단어 시작에는 쓰이지 않음",
+      "enSourceHash": "87635ceb0e680d26"
     }
   ]
 }
