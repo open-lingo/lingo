@@ -521,6 +521,10 @@ lessons:
       - { kind: sentence, ja: "ミカが みせを きめる。", en: "Mika decides on the shop", exercises: [jidoushi-tadoushi, wo-object], mode: build }
       - { kind: particle-cloze, stem: "かいぎの じかんを ", tail: "。", answer: "きめる", options: ["きめる", "きまる", "とめる"], en: "I decide the time of the meeting", explanation: "を says somebody is doing it, so the verb has to be the を-half, きめる. きまる is the same event with nobody named, and it takes が." }
       - { kind: sentence, ja: "あした テストの じかんが きまる。", en: "The time of the test will be settled tomorrow", exercises: [jidoushi-tadoushi, no-possession], mode: listening }
+      # Second carrier (rep-audit 2026-09-09): テスト had one distinct
+      # carrier. This one states the test's timing as a plain fact, not a
+      # jidoushi-tadoushi drill sentence.
+      - { kind: sentence, ja: "テストは あした ある。", en: "The test is tomorrow", exercises: [ga-existence, wa-topic], mode: build }
       - { kind: kanji, kana: かいしゃ, kanji: 会社, distractors: ["かいしゃく", "かいしゅ", "がいしゃ"], exercises: [jidoushi-tadoushi] }
       - { kind: sentence, ja: "かいしゃで かいぎの じかんを きめる。", en: "We decide the time of the meeting at the company", exercises: [jidoushi-tadoushi, wo-object, de-action], mode: build }
       - { kind: listening-comp, audio: "ミカが みせを きめる。", answer: "Mika decides on the shop", distractors: ["The shop is decided", "Mika closes the shop", "Mika asks about the shop"], exercises: [jidoushi-tadoushi, wo-object] }
@@ -699,6 +703,15 @@ lessons:
       - { kind: sentence, ja: "ミカが きょうしつを でる。", en: "Mika leaves the classroom", exercises: [jidoushi-tadoushi, wo-object], mode: build }
       - { kind: particle-cloze, stem: "ほんが ", tail: "。", answer: "おちる", options: ["おちる", "おとす", "でる"], en: "The book falls", explanation: "が is the tell: nothing is being done to ほん, so the verb has to be the が-half, おちる. おとす needs somebody doing it, and that comes with を. でる would also follow が — the English says falls, not comes out." }
       - { kind: sentence, ja: "つくえから ほんが おちる。", en: "The book falls off the desk", exercises: [jidoushi-tadoushi, kara-origin], mode: build }
+      # Second carrier (rep-audit 2026-09-09): おとす had one distinct
+      # carrier ("かぎを おとす。"). A habitual frame (よく, "often") rather
+      # than a same-object swap, in a dialogue for step-type variety.
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "かぎは どこ？", en: "Where are the keys?" }
+          - { speaker: "Tom", ja: "わからない。よく かぎを おとす。", en: "I don't know. I often drop my keys." }
+        questions:
+          - { q: "Why doesn't Tom know where his keys are?", options: ["He often drops them", "Mika took them", "He left them at school", "They're in his bag"], answer: "He often drops them" }
       - { kind: sentence, ja: "えきで でんしゃが とまる。", en: "The train stops at the station", exercises: [de-action, jidoushi-tadoushi], mode: translate, alsoAccept: ["でんしゃは えきに とまる。"] }
       - kind: dialogue
         lines:
