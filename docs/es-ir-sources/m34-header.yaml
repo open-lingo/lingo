@@ -1,0 +1,337 @@
+module: m34
+title: "Necesito ir al banco"
+frame: none
+throughModule: m33
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m34 — errands around town: el banco, la farmacia, el hospital, el
+# correo, el supermercado. Fifteenth A2 module.
+#
+#     el banco   🏦   la farmacia   💊
+#     el hospital 🏥   el correo     📮
+#     el supermercado 🏬
+#
+# ONE idea, the whole module: FIVE new imageable "places you have to go"
+# nouns, zero new verb morphology, zero new grammar. Every sentence frame
+# this module needs is already registered — «voy»/«vas»/«a»/«al» (m9, the
+# ORIGINAL places-in-town motion frame this module is a direct sequel to),
+# «necesito»/«necesitas»/«necesita» (m16), «ir» (m28, the bare infinitive
+# that lets «necesito»/«tengo que» reach a destination — «necesito IR al
+# banco», not «necesito el banco»), «tengo que» + the full bare-`tener`
+# paradigm (m33, THIS COURSE'S OWN IMMEDIATELY-PRIOR MODULE — the freshest
+# possible recombination target, unavailable to m33's own L10 because these
+# nouns didn't exist yet), the fused clitics «comprarlo»/«comprarla»/
+# «comprarlos» (m29, for a shopping-list object bought AT the new
+# «supermercado», not the destination noun itself — see the dedicated
+# section below), and «duele»/«duelen» + m30's body nouns (m31, a dedicated
+# L9 pain-frame lesson exactly mirroring m32's own L9 shape). This is the
+# fourth lexicon-break module since m19 (after m27's weather, m30's body,
+# m32's clothing round two) and a direct sequel to m9's own original
+# places-in-town debut (parque/tienda/escuela/cine/playa/mercado/trabajo/
+# autobús) — same domain, a genuinely fresh subset, now with an
+# obligation-and-need recombination story m9 itself couldn't have built
+# (m16/m28/m29/m30/m31/m33 didn't exist yet).
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# Four lines of evidence:
+#   1. **Rhythm calls for a break, and m33 is exactly one grammar beat past
+#      the last one.** m30 (break, body) → m31 (grammar, one beat, riding
+#      m30's own nouns) → m32 (break, clothing round two) → m33 (grammar,
+#      one beat, «tengo que») — the identical "one grammar beat, then a
+#      break" cadence m32's own header used to justify its own placement
+#      after m31, now applied forward: the break due after m33 is on
+#      schedule, not overdue.
+#   2. **Six honest domains were weighed against the actual registry, not
+#      assumed from a candidate list's framing.** `grep -o 'surface:
+#      "[^"]*"' curriculum/m{1..33}.ts | sort -u | grep -iE "<word>"` was
+#      run against every candidate the task named (house/rooms, kitchen/
+#      tableware, transport, places in town, school/office, nature/
+#      outdoors) before picking one. Two disqualify most of their own
+#      domain outright, not merely weaker — see REJECTED ALTERNATIVES
+#      below. "Places in town" itself is NOT a fresh domain in the
+#      aggregate (`cine`/`mercado`/`playa`/`tienda`/`trabajo`/`autobús`/
+#      `escuela`/`parque` all PRIOR since m9, confirmed again here, matching
+#      m32-header's own prior finding) — but the ERRANDS/SERVICES subset
+#      the task's own example sentence pointed at (`banco`, `farmacia`,
+#      `hospital`) was never actually checked by that finding and is
+#      grep-verified fully virgin, alongside `correo` and `supermercado`.
+#   3. **Highest recombination value of any candidate against the FOUR most
+#      recent modules' own frames, verified hook by hook, not asserted —
+#      and uniquely, a live hook into m33 itself, the freshest content this
+#      course has.** `necesito` + `ir` (m16+m28) and `tengo que` + `ir`
+#      (m33+m28) both give this module's five destination nouns a genuine
+#      "obligation to go somewhere" frame no other candidate domain shares
+#      with THREE prior grammar modules at once (m16, m28, m33). `duele`/
+#      `duelen` + m30's body nouns (m31) gives farmacia/hospital a second,
+#      independent, and thematically NATURAL recombination axis no other
+#      candidate had this cleanly: "me duele la mano, tengo que ir al
+#      hospital" is a real sentence an actual learner would say, not a
+#      forced pairing. `voy`/`vas`/`a`/`al` (m9) gives every noun its own
+#      simplest possible frame with zero new grammar. `comprarlo`/
+#      `comprarla`/`comprarlos` (m29) reaches this module once, cleanly,
+#      through `supermercado` as a shopping DESTINATION for an ALREADY-
+#      PRIOR object noun (e.g. `leche`, m11) — "necesito leche, voy al
+#      supermercado a comprarla" — not by fusing a clitic onto the
+#      destination noun itself (you cannot "comprarlo" a hospital). No
+#      other candidate domain considered reaches four independent PRIOR
+#      recombination hooks, and none reaches m33 AT ALL (m33 is one module
+#      old; only a module built immediately after it can recombine against
+#      it fresh).
+#   4. **Verified data floor, both directions, and a rare zero-vendoring
+#      module (checked, not assumed).** `grep -o 'surface: "[^"]*"'
+#      curriculum/m{1..33}.ts | sort -u | grep -iE
+#      "^banco$|^farmacia$|^hospital$|^correo$|^supermercado$"` returns
+#      zero hits for all five. All 5 target emoji (🏦💊🏥📮🏬) are grep-
+#      verified zero prior hits against every `emoji:` field in m1–m33
+#      (checked individually, including the two near-misses that matter:
+#      `mercado`'s own 🛒, m9 — `supermercado` deliberately targets 🏬
+#      instead, see below — and `estudiar`'s own 📚, m10 — `biblioteca`
+#      was considered and dropped for exactly this collision, see REJECTED
+#      WITHIN-DOMAIN below). Vendoring status checked file by file:
+#      `ls src/pub/noto-emoji/svg/ | grep -iE
+#      "^emoji_u(1f3e6|1f48a|1f3e5|1f4ee|1f3ec)"` returns all FIVE files
+#      already on disk (`emoji_u1f3e6.svg` 🏦, `emoji_u1f48a.svg` 💊,
+#      `emoji_u1f3e5.svg` 🏥, `emoji_u1f4ee.svg` 📮, `emoji_u1f3ec.svg` 🏬)
+#      — ZERO vendoring work this module, breaking m32's own one-vendoring-
+#      task precedent in the other direction (m30/m31 had zero, m32 had
+#      one, this module has zero again). Named explicitly, not assumed
+#      from m30/m31's streak.
+#
+# ── REJECTED WITHIN-DOMAIN: «biblioteca» (library) — the same emoji-
+#    collision trap m27/m30/m32 each already warned a future author
+#    against, now actually live for THIS domain ───────────────────────────
+# «biblioteca» is grep-verified fully unregistered and a natural sixth
+# "place in town" atom. Excluded deliberately: its only clean single-
+# referent emoji, 📚 (stack of books), is ALREADY «estudiar»'s (m10,
+# confirmed by reading `curriculum/m10.ts:31` — «estudiar» registers 📚 as
+# its own atom emoji). Reaching for it collides silently with a PRIOR
+# atom's image — the identical mistake m27's ☀️/🌞 trap, m30's own
+# REJECTED ALTERNATIVE 2 note, and m32's own «vestido»/👗 rejection all
+# warned a future author against. This module is that future author for
+# ITS OWN domain; the trap is named and paid down, not repeated.
+#
+# ── REJECTED WITHIN-DOMAIN: «oficina» (office) — real, virgin, but
+#    redundant against a PRIOR atom's own semantic territory ─────────────
+# `oficina` is grep-verified fully unregistered and has a clean, unspent
+# emoji (🏢, verified zero collision). Rejected anyway: `trabajo` (m9,
+# 💼) already covers "the place I have to go for work" in every sentence
+# this course has built so far ("voy al trabajo," "tengo que ir al
+# trabajo" both already fully legal PRIOR recombination with zero new
+# vocabulary) — adding `oficina` as a SEPARATE atom would teach a second
+# word for a concept `trabajo` already owns at this course's level, a
+# near-synonym distinction (workplace-in-general vs. a specific office
+# building) too fine-grained for an A2 "obligation to go somewhere"
+# lexicon break. Left open as real future content for a module that
+# actually needs the office/workplace distinction (e.g. a jobs/professions
+# module), not this one's job.
+#
+# ── REJECTED ALTERNATIVE 1: kitchen/tableware (plato, vaso, cuchara,
+#    tenedor, cuchillo, taza, olla, sartén, servilleta) ───────────────────
+# Genuinely, completely virgin — `grep -o 'surface: "[^"]*"'
+# curriculum/m{1..33}.ts | sort -u | grep -iE
+# "plato|vaso|cuchara|tenedor|cuchillo|taza|olla|sartén|servilleta"`
+# returns zero hits for all nine, the cleanest data floor of any candidate
+# considered. Rejected for m34 specifically on recombination grounds, not
+# viability: `tengo`/`necesito` give a bare-possession frame ("tengo un
+# plato"), but there is no clean tie to `voy a` + infinitivo (you don't
+# "go to" a fork), no tie to `duele`/`duelen` (a plate does not hurt), and
+# only a forced tie to `comprarlo`-family ("voy a comprarlo" needs a
+# SHOPPING DESTINATION noun to anchor the sentence, which this domain does
+# not supply on its own — it's a domain of objects, not places, and this
+# module specifically wanted a "somewhere to go" frame to ride m33's
+# obligation grammar while it's freshest). Errands/places reaches m16,
+# m28, m29 (indirectly, via `supermercado` as destination), m31, AND m33
+# — kitchen/tableware reaches only m16 directly. Left open as a strong,
+# well-scoped future break (a "setting the table" dialogue_sim writes
+# itself once this module exists).
+#
+# ── REJECTED ALTERNATIVE 2: transport (tren, coche, bicicleta, avión,
+#    barco, taxi, metro) ──────────────────────────────────────────────────
+# Also genuinely virgin (`autobús`/`carro` are the only PRIOR transport
+# words, m9/elsewhere; `tren`/`coche`/`bicicleta`/`avión`/`barco`/`taxi`/
+# `metro` are grep-verified zero hits). Rejected for m34 on two grounds:
+# (1) the natural verb this domain wants — "tomar el tren," "tomar el
+# autobús" — needs `tomar` (to take/catch), grep-verified NOT PRIOR
+# anywhere in m1–m33, a second new idea (a verb) competing with the
+# module's own "zero new grammar, ride PRIOR frames only" discipline the
+# task itself asked for; without `tomar`, the domain is stuck reusing
+# `voy en tren` (go BY train), a valid but noticeably thinner sentence
+# variety than "voy al banco"/"necesito ir a la farmacia." (2) weaker
+# recombination: no tie to `tengo que` + `ir` beyond the same thin `voy
+# en` frame, no tie to `duele`/`duelen`, no tie to `comprarlo`-family
+# (buying a mode of transport is not this course's beginner shopping
+# frame). Left open as real future content, cleanest once paired with a
+# `tomar` debut of its own.
+#
+# ── REJECTED ALTERNATIVE 3: house/rooms beyond m3/m4 (dormitorio, sala) ──
+# `cocina`/`baño` are BOTH already PRIOR (confirmed again here, matching
+# the task's own framing question) — only `dormitorio`/`sala`/`habitación`
+# are grep-verified virgin, TWO usable atoms at most (a third, `armario`,
+# collides with the identical furniture-emoji problem m30's own header
+# already priced out for the wider household domain). Two atoms is not
+# enough for a ten-lesson module on its own — the same "correctly resized
+# to a future recombination lesson inside another module" verdict m30's
+# header already reached for the wider household/furniture set, unchanged
+# and reconfirmed here for the rooms subset specifically.
+#
+# ── REJECTED ALTERNATIVE 4: school/office supplies beyond m5/m11
+#    (bolígrafo, cuaderno) ────────────────────────────────────────────────
+# `libro`/`mesa`/`silla`/`lápiz`/`mochila`/`papel` are ALL already PRIOR —
+# only `bolígrafo`/`cuaderno` are grep-verified virgin, again just TWO
+# atoms, the same under-sized-domain verdict as house/rooms above. Left
+# open as a recombination lesson inside a future module, not a module of
+# its own.
+#
+# ── REJECTED ALTERNATIVE 5: nature/outdoors (árbol, flor, sol, luna,
+#    estrella, montaña, río, lago, bosque, cielo) ─────────────────────────
+# Fully virgin (`grep -o 'surface: "[^"]*"' curriculum/m{1..33}.ts | sort
+# -u | grep -iE "árbol|flor|sol|luna|estrella|montaña|río|lago|bosque|
+# cielo"` returns zero hits for all ten — even `sol`, despite m27's own
+# weather module using the PHRASE "hace sol," never registers `sol` as its
+# own standalone atom, confirmed by direct read of `curriculum/m27.ts`).
+# Rejected for m34 because it shares NONE of errands/places' recombination
+# hooks: no `voy a`/`necesito ir a`/`tengo que ir a` obligation tie (you
+# don't have an obligation to go look at a tree), no `duele`/`duelen` tie,
+# no `comprarlo`-family tie. The weakest recombination story of any
+# candidate considered, despite the cleanest data floor. Left open as a
+# real, low-risk future break whenever the course wants a pure
+# description/scenery module with no dependency chain.
+#
+# ── THE «comprarlo»/«comprarla»/«comprarlos» FIT — READ BEFORE DRAFTING,
+#    the destination-not-object distinction (verified, not assumed) ──────
+# Unlike m32's clothing nouns (which WERE the direct object of `comprarlo`/
+# `comprarla`/`comprarlos`), none of this module's five nouns can
+# grammatically fill that slot — you cannot "comprarlo" a bank, pharmacy,
+# hospital, post office, or supermarket. The fused-clitic family still
+# reaches this module, correctly, through `supermercado` as the shopping
+# DESTINATION for an already-PRIOR object noun bought there: "necesito
+# leche (m11) — voy al supermercado a comprarla." Do not force a fused
+# clitic directly onto any of this module's own five atoms; that would be
+# a category error the gates will not catch (the surface itself is simply
+# never generated, not flagged), so this is a drafting-discipline note,
+# not a gate trap.
+#
+# ── THE «voy a» / «necesito» / «tengo que» THREE-FRAME RECOMBINATION —
+#    read before drafting any lesson ──────────────────────────────────────
+# Three independently PRIOR frames reach every one of this module's five
+# nouns with zero new grammar: (1) bare motion, m9 — «voy al banco» /
+# «vas a la farmacia» (simplest, best for L1–L5 debuts). (2) need + go,
+# m16 + m28 — «necesito ir al hospital» (uses `ir`, the bare infinitive
+# m28 already registered for exactly this "modal + infinitive" slot,
+# NEVER the conjugated `voy`/`va` after `necesito` — «necesito voy» is
+# ungrammatical). (3) obligation + go, m33 + m28 — «tengo que ir al
+# correo» (same `ir` infinitive, now after the freshest grammar this
+# course has). All three frames should appear across the module (see
+# lesson plan below); do not let (1) crowd out (2)/(3) — the whole point
+# of placing this break immediately after m33 is to recombine it while it
+# is freshest.
+#
+# ── ONE STRUCTURAL NOTE, NOT A NEW ATOM: «ir» after «necesito»/«tengo
+#    que», never a conjugated form ────────────────────────────────────────
+# `ir` (m28, bare infinitive) is the ONLY legal form after `necesito`/
+# `tengo que` in this module's own sentences — `voy`/`vas` (m9) are
+# CONJUGATED forms and may only follow a subject directly, never another
+# verb. A learner transfer error to guard against, structurally identical
+# to m33's own "dropped «que»" foil: reaching for *"necesito voy al banco"
+# or *"tengo que voy a la farmacia" (conjugating the second verb instead
+# of leaving it bare). This is not new content to teach from scratch —
+# m14's «puedo trabajar»/«quiero trabajar» and m28's own «voy a
+# trabajar» already established "the second verb never conjugates" as a
+# standing course rule — but it is the natural foil for this module's own
+# discrimination steps mixing `ir` in with five brand-new nouns. Include
+# at least one distractor of this shape in a mixed-review step (L6 or
+# L8), never as a correct answer.
+#
+# ── NO NEW EMOJI COLLISION; ZERO VENDORING TASKS (verified, not assumed)──
+# `grep -o 'emoji: "[^"]*"' curriculum/m{1..33}.ts | sort -u` — zero hits
+# for 🏦💊🏥📮🏬, checked individually, including the two near-misses that
+# matter (🛒 is already `mercado`'s, m9 — this module targets 🏬 for
+# `supermercado` instead, a visually distinct "department store" glyph;
+# 📚 is already `estudiar`'s, m10 — see the `biblioteca` rejection above).
+# `ls src/pub/noto-emoji/svg/` confirms all five target SVGs
+# (`emoji_u1f3e6.svg`, `emoji_u1f48a.svg`, `emoji_u1f3e5.svg`,
+# `emoji_u1f4ee.svg`, `emoji_u1f3ec.svg`) already present on disk. Zero
+# vendoring work this module — re-verify all five at ship time regardless
+# (a concurrent lane could in principle touch this directory).
+#
+# ── AGREEMENT IS NOT A NEW ATOM — ALL FIVE NOUNS REGULAR, PLURAL FOLD
+#    TRACED LINE-BY-LINE THIS TIME, NOT ASSUMED FROM THE GENERAL RULE ────
+# All five nouns are REGULAR and pluralize via the course-wide regular
+# inflection rule with ZERO exceptions — traced directly against
+# `esRegularPlurals()` (`moduleBarGuards.ts` ~166-174), not merely assumed
+# from precedent: `banco`/`correo`/`supermercado` end in a vowel → the
+# vowel→`+s` branch (`bancos`/`correos`/`supermercados`); `farmacia` same
+# branch (`farmacias`); `hospital` ends in a consonant that is neither
+# `z` nor `ón` → the consonant→`+es` branch (`hospitales`), the SAME
+# branch that already handles every other consonant-final noun this
+# course has registered. This resolves what m32's own header left
+# UNVERIFIED (whether the regular-plural canon fold "correctly derives" a
+# regular plural without special-casing) — it does, traced against the
+# actual function body this time, for all five of this module's nouns.
+# This fold applies ONLY to the bar-guard scope check (`looksSpanish` /
+# `lintFullSentenceMcqs`), per [[the m33 correction]] — NEVER to `atoms:`
+# credit, which stays zero-tolerance exact-surface (see Hard Rules below;
+# a plural sentence must still credit the registered SINGULAR surface,
+# e.g. «los bancos» credits `["banco"]`, never `["bancos"]`).
+#
+# ── SIM NPC-LINE PROVENANCE: LIVE AND UNFORGIVING — m29 IS THE START OF
+#    THE ZERO-LEGACY WINDOW, m34 IS WELL INSIDE IT ─────────────────────────
+# `esSimNpcProvenance.test.ts`'s `KNOWN_LEGACY` allowlist is SHRINK-ONLY
+# and scoped to m1-m10, m20, m22-m28 — m29 through this module get NO
+# reaction-word leniency (confirmed by direct read of the gate file's own
+# `KNOWN_LEGACY` object, current tail `m28: new Set([...])`, nothing for
+# m29+). Two words a drafting agent will be TEMPTED to reach for as NPC
+# filler are BOTH confirmed unregistered and NOT legacy-allowed for this
+# module: `algo` (only legacy-allowed at m7, `KNOWN_LEGACY.m7`, not usable
+# fresh here) and `pasa` (not legacy-allowed anywhere, grep-verified zero
+# hits as a registered surface course-wide — "¿qué pasa?" is NOT free
+# NPC filler for m34; do not use it). Every NPC word in this module's
+# dialogue_sim lessons must resolve to: this module's own 5 atoms, any
+# PRIOR atom (m1-m33), a taught verb conjugation, `ES_FUNCTION_WORDS`, or
+# `ES_PROPER_NAMES`. `ES_PROPER_NAMES` (`moduleBarGuards.ts` line 90) is:
+# ana, diego, carlos, maría/maria, sofía/sofia, luis, elena, pedro, juan,
+# rosa, miguel, carmen, lupita, jorge, marta — plus the learner persona
+# Sam (every sim reply speaks as Sam). Note for the record: `carlos` IS
+# in this set (confirmed by direct grep, `moduleBarGuards.ts:91`) — an
+# earlier assumption that "Carlos" is not an allowed NPC name does not
+# hold; `esTokens()` lowercases before matching (`moduleBarGuards.ts:64`),
+# so `Carlos`/`carlos` both resolve. Recent modules' own actually-used
+# cast (grep-verified against m28-m33's own `speaker:` fields): Ana (m30),
+# Diego (m28), Sofía (m28), Carmen (m31), Luis (m31) — Carlos is in the
+# allowed set but UNUSED so far; free to use, not a trap.
+#
+# ── ACCENT: TERRACOTTA/CLAY, VERIFIED UNUSED, THEMATICALLY RESTRAINED ────
+# Checked every `accent:` pair in `curriculum/index.ts` (grep-verified,
+# all 33 pairs read in full): zero hits for `#d97757` or `#92400e`.
+# Distinct from the four most recent modules specifically (m30 teal, m31
+# rose, m32 denim indigo, m33 warm graphite/stone) and from the three
+# existing orange/amber pairs already spent (`#f59e0b`→`#ea580c`,
+# `#f59e0b`→`#b45309`, `#f59e0b`→`#78350f`, `#fb923c`→`#c2410c`,
+# `#fb923c`→`#9a3412`) — checked side by side, this pair sits more
+# red-brown/clay than any of them, reading as "brick municipal buildings"
+# (bank, post office, hospital) without forcing a single-institution
+# metaphor onto a five-noun break, the same restraint every recent
+# module's own accent note has used.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # el banco — bank. Regular masculine noun; this module's own simplest
+  # «voy a» + place debut (L1).
+  - { surface: "banco", meaningEn: "bank", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🏦", hint: "el banco — regular masculine. «voy al banco» (m9's «voy» + «al»)." }
+  # la farmacia — pharmacy. Regular feminine noun; this module's own
+  # pain-frame (m31) recombination target alongside «hospital».
+  - { surface: "farmacia", meaningEn: "pharmacy", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "💊", hint: "la farmacia — regular feminine. «necesito ir a la farmacia» (m16's «necesito» + m28's «ir», never «necesito voy»)." }
+  # el hospital — hospital. Regular masculine noun despite the consonant
+  # ending (same pattern as «el hotel», not a new rule); this module's own
+  # flagship «tengo que» (m33) recombination target — the freshest grammar
+  # this course has.
+  - { surface: "hospital", meaningEn: "hospital", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🏥", hint: "el hospital — masculine, consonant ending (like «el hotel»). Regular plural «hospitales» (consonant → +es). «tengo que ir al hospital» (m33's «tengo que» + m28's «ir»)." }
+  # el correo — post office. Regular masculine noun.
+  - { surface: "correo", meaningEn: "post office", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "📮", hint: "el correo — regular masculine. «voy a ir al correo» (m28's «voy a» + infinitivo «ir», not «voy al correo a ir»)." }
+  # el supermercado — supermarket. Regular masculine noun; this module's
+  # own «comprarlo»-family (m29) recombination anchor — as a DESTINATION
+  # for an already-PRIOR shopping object, never as the fused clitic's own
+  # target (you cannot «comprarlo» a supermarket).
+  - { surface: "supermercado", meaningEn: "supermarket", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🏬", hint: "el supermercado — regular masculine. Not «mercado»'s 🛒 (m9) — a distinct building, distinct emoji. «necesito leche — voy al supermercado a comprarla» (m11's «leche» + m29's «comprarla»)." }
+
+lessons:
