@@ -536,6 +536,10 @@ lessons:
       - { kind: sentence, ja: "あねが おとうとに かさを くれる。", en: "My older sister gives my little brother an umbrella", exercises: [kureru, ni-recipient, family-register], mode: translate }
       - { kind: sentence, ja: "こどもは アメリカじんに しゃしんを あげる。", en: "The child gives the American a photograph", exercises: [ageru, ni-recipient, wa-topic], mode: listening }
       - { kind: sentence, ja: "せんせいに おれいの てがみを あげる。", en: "I'll give the teacher a thank-you letter", exercises: [ageru, no-possession, ni-recipient], mode: build }
+      # Second carriers (rep-audit 2026-09-09): そと had ZERO real sentence
+      # exposures — it was declared and used only as a diagram axis label.
+      - { kind: sentence, ja: "こどもは そとで あそぶ。", en: "The child plays outside", exercises: [de-action, wa-topic], mode: build }
+      - { kind: sentence, ja: "あにが そとに いる。", en: "My older brother is outside", exercises: [ga-existence, ni-location], mode: listening }
       - { kind: sentence, ja: "ともだちが プレゼントを くれる。", en: "My friend gives me a present", exercises: [kureru, ga-existence], mode: translate, alsoAccept: ["ともだちが わたしに プレゼントを くれる。"] }
       - { kind: particle-cloze, stem: "ははは せんせいに はなを ", tail: "。", answer: "あげる", options: ["あげる", "くれる", "かう"], en: "My mother gives the teacher flowers", explanation: "the flowers leave my mother's side, and my mother is inside my circle while the teacher is outside it — so the arrow points out and あげる is the verb. くれる would have to bring them back in." }
       - { kind: listening-comp, audio: "せんせいが いもうとに ノートを くれる。", answer: "The teacher gives my little sister a notebook", distractors: ["My little sister gives the teacher a notebook", "The teacher gives my little sister a dictionary", "My older sister gives the teacher a notebook"], exercises: [kureru, ni-recipient] }
@@ -607,6 +611,15 @@ lessons:
       - { kind: sentence, ja: "あねの たんじょうび おめでとう。", en: "Happy birthday to my older sister", exercises: [no-possession, family-register], mode: build }
       - { kind: sentence, ja: "こんど かいしゃから おいわいの きっぷを もらう。", en: "I'll get congratulatory tickets from the company next time", exercises: [kara-origin, morau, no-possession], mode: listening }
       - { kind: sentence, ja: "がくせいから てがみを もらう。", en: "I get a letter from a student", exercises: [kara-origin, morau], mode: translate }
+      # Second carrier (rep-audit 2026-09-09): おめでとう had one distinct
+      # carrier — a birthday greeting frame. Here it stands alone as a
+      # reaction to news, not attached to a たんじょうび noun phrase.
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "たんじょうびに プレゼントを もらう！", en: "I'm getting a present for my birthday!" }
+          - { speaker: "Tom", ja: "おめでとう！", en: "Congratulations!" }
+        questions:
+          - { q: "What does Tom say to Mika?", options: ["Congratulations", "Thank you", "You're welcome", "I'm sorry"], answer: "Congratulations" }
       - { kind: particle-cloze, stem: "かいしゃから きねんの とけいを ", tail: "。", answer: "もらう", options: ["もらう", "あげる", "くれる"], en: "I get a commemorative watch from the company", explanation: "から marks where a thing started out, and only もらう has a slot for that. あげる has no source to mark at all, and くれる would need the company marked が rather than から." }
       - { kind: listening-comp, audio: "ともだちから おいわいの カードを もらう。", answer: "I get a congratulations card from my friend", distractors: ["I give my friend a congratulations card", "I get a congratulations card from the teacher", "I get a thank-you card from my friend"], exercises: [kara-origin, morau] }
       - { kind: listening-comp, audio: "こんど いしゃから くすりを もらう。", answer: "I'll get medicine from the doctor next time", distractors: ["I got medicine from the doctor last time", "I'll give the doctor medicine next time", "I'll get a letter from the doctor next time"], exercises: [kara-origin, morau] }
@@ -803,11 +816,19 @@ lessons:
       - { kind: particle-cloze, stem: "しんせつな がくせいが かさを ", tail: "。", answer: "くれた", options: ["くれた", "あげた", "もらった"], en: "A kind student gave me an umbrella", explanation: "the student is marked が and the umbrella came in to my side, so the verb is くれる in the past. あげた would send it away from me, and もらった would make me the subject rather than the student." }
       - { kind: listening-comp, audio: "せんせいが じしょを くださった。", answer: "The teacher was kind enough to give me a dictionary", distractors: ["I gave the teacher a dictionary", "The teacher was kind enough to give me a notebook", "I received a dictionary from a student"], exercises: [kureru, ta-form] }
       - { kind: listening-comp, audio: "せんせいに じしょを いただいた。", answer: "I received a dictionary from the teacher", distractors: ["I gave the teacher a dictionary", "The teacher received a dictionary from me", "I received a letter from the teacher"], exercises: [morau, ta-form] }
+      # Second carriers (rep-audit 2026-09-09): the BARE non-past くださる had
+      # ZERO real sentence exposures (only くださった, the past, had one) —
+      # every card example uses the past or is a grammar-card example, not a
+      # step. くださる/いただく are recognition-only in this module, so both
+      # fixes stay non-production (listening-comp / dialogue), never build.
+      - { kind: listening-comp, audio: "せんせいが きねんの カードを くださる。", answer: "The teacher is kind enough to give me a commemorative card", distractors: ["I give the teacher a commemorative card", "The teacher is kind enough to give me a notebook", "I receive a commemorative card from the teacher"], exercises: [kureru] }
+      - { kind: listening-comp, audio: "せんせいから ノートを いただく。", answer: "I receive a notebook from the teacher", distractors: ["I give the teacher a notebook", "I receive a card from the teacher", "The teacher receives a notebook from me"], exercises: [morau, kara-origin] }
       - kind: dialogue
         lines:
           - { speaker: "Tanaka", ja: "この じしょを あげる。", en: "I'll give you this dictionary." }
           - { speaker: "Mika", ja: "せんせい、ありがとう。", en: "Thank you, sensei." }
           - { speaker: "Tom", ja: "ミカは せんせいに じしょを いただいたんです。", en: "The thing is, Mika received a dictionary from the teacher." }
+          - { speaker: "Ken", ja: "せんせいは いつも いい プレゼントを くださる。", en: "The teacher always gives good presents." }
         questions:
           - { q: "What does Tom say happened?", options: ["Mika received a dictionary from the teacher", "The teacher received a dictionary from Mika", "Mika bought a dictionary", "Tom received a dictionary"], answer: "Mika received a dictionary from the teacher" }
       - { kind: challenge, ja: "しんせつな せんせいに ノートを もらったから おれいの カードを あげた。", en: "A kind teacher gave me a notebook, so I gave her a thank-you card", combines: [ta-form, morau, ageru, kara-because, na-adj-present], mode: build }
@@ -826,6 +847,10 @@ lessons:
       - { kind: kanji, kana: おかね, kanji: お金, exercises: [wa-topic] }
       - { kind: sentence, ja: "いもうとが ケーキを くれたから よろこんだ。", en: "My little sister gave me a cake, so I was delighted", exercises: [kureru, ta-form, kara-because], mode: listening }
       - { kind: sentence, ja: "はなたばを あげたから ははは よろこぶ。", en: "I gave her a bouquet, so my mother is delighted", exercises: [ageru, ta-form, kara-because], mode: build }
+      # Second carrier (rep-audit 2026-09-09): よろこぶ (non-past) had one
+      # distinct carrier — different giver, gift and receiving verb (くれる
+      # non-past, not あげる past).
+      - { kind: sentence, ja: "しんせつな せんせいが ノートを くれるから がくせいは よろこぶ。", en: "The teacher is kind and gives a notebook, so the student is delighted", exercises: [kureru, na-adj-present, kara-because], mode: listening }
       - { kind: sentence, ja: "その ひとから なにも もらわない。", en: "I don't get anything from that person", exercises: [morau, nai-form, kara-origin], mode: build }
       - { kind: sentence, ja: "せんせいが きねんの カードを くれたんです。", en: "The thing is, the teacher gave me a commemorative card", exercises: [kureru, n-desu, ta-form], mode: build }
       - { kind: sentence, ja: "ともだちが けいたいを くれたから よろこんだ。", en: "My friend gave me a cell phone, so I was delighted", exercises: [kureru, ta-form, kara-because], mode: build }

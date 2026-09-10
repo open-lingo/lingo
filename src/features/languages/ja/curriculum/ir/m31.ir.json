@@ -1004,6 +1004,26 @@
         },
         {
           "kind": "sentence",
+          "ja": "こどもは そとで あそぶ。",
+          "en": "The child plays outside",
+          "exercises": [
+            "de-action",
+            "wa-topic"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あにが そとに いる。",
+          "en": "My older brother is outside",
+          "exercises": [
+            "ga-existence",
+            "ni-location"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
           "ja": "ともだちが プレゼントを くれる。",
           "en": "My friend gives me a present",
           "exercises": [
@@ -1484,6 +1504,33 @@
             "morau"
           ],
           "mode": "translate"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "たんじょうびに プレゼントを もらう！",
+              "en": "I'm getting a present for my birthday!"
+            },
+            {
+              "speaker": "Tom",
+              "ja": "おめでとう！",
+              "en": "Congratulations!"
+            }
+          ],
+          "questions": [
+            {
+              "q": "What does Tom say to Mika?",
+              "options": [
+                "Congratulations",
+                "Thank you",
+                "You're welcome",
+                "I'm sorry"
+              ],
+              "answer": "Congratulations"
+            }
+          ]
         },
         {
           "kind": "particle-cloze",
@@ -2771,6 +2818,33 @@
           ]
         },
         {
+          "kind": "listening-comp",
+          "audio": "せんせいが きねんの カードを くださる。",
+          "answer": "The teacher is kind enough to give me a commemorative card",
+          "distractors": [
+            "I give the teacher a commemorative card",
+            "The teacher is kind enough to give me a notebook",
+            "I receive a commemorative card from the teacher"
+          ],
+          "exercises": [
+            "kureru"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "せんせいから ノートを いただく。",
+          "answer": "I receive a notebook from the teacher",
+          "distractors": [
+            "I give the teacher a notebook",
+            "I receive a card from the teacher",
+            "The teacher receives a notebook from me"
+          ],
+          "exercises": [
+            "morau",
+            "kara-origin"
+          ]
+        },
+        {
           "kind": "dialogue",
           "lines": [
             {
@@ -2787,6 +2861,11 @@
               "speaker": "Tom",
               "ja": "ミカは せんせいに じしょを いただいたんです。",
               "en": "The thing is, Mika received a dictionary from the teacher."
+            },
+            {
+              "speaker": "Ken",
+              "ja": "せんせいは いつも いい プレゼントを くださる。",
+              "en": "The teacher always gives good presents."
             }
           ],
           "questions": [
@@ -2896,6 +2975,17 @@
             "kara-because"
           ],
           "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "しんせつな せんせいが ノートを くれるから がくせいは よろこぶ。",
+          "en": "The teacher is kind and gives a notebook, so the student is delighted",
+          "exercises": [
+            "kureru",
+            "na-adj-present",
+            "kara-because"
+          ],
+          "mode": "listening"
         },
         {
           "kind": "sentence",
