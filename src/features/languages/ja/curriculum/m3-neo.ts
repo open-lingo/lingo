@@ -1448,7 +1448,7 @@ export const M3_NEO_6: LessonContent = {
       id: "ja-m3-neo-6-mcq-first-words",
       prompt: "Ken meets Tom for the first time. What does he say first?",
       correctKana: "はじめまして",
-      distractorsKana: ["だいじょうぶ", "すみません", "そうだ。"],
+      distractorsKana: ["だいじょうぶ", "すみません", "ありがとう。"],
       exercisedAtomKanas: ["はじめまして"],
     }),
     speaking(

@@ -749,7 +749,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "あの ぼうし たかいじゃん。", en: "That hat's expensive, right?" }
-          - { speaker: "Tom", ja: "そうだね。たかいけど いい ぼうしだよ。", en: "Yeah. It's expensive, but it's a good hat." }
+          - { speaker: "Tom", ja: "そう だね。たかいけど いい ぼうしだよ。", en: "Yeah. It's expensive, but it's a good hat." }
           - { speaker: "Mika", ja: "かう？", en: "Buying it, then?" }
         questions:
           - { q: "What does Mika suggest at the end?", options: ["Buying it anyway", "Not buying it", "Looking for a cheaper one", "Asking the clerk"], answer: "Buying it anyway" }

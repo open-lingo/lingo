@@ -236,8 +236,23 @@ const MAX_NEVER_TOUCHED = 140;
  * ATOM-REGISTRATION-RIPPLE class the m36/m40 entries above describe —
  * verified the pre-existing 72 minus one ripple-fixed entry plus these six
  * nets to 77. They come OFF this list only when a later module grades them
- * (future Wave 1 authoring), not a fix to make here. */
-const MAX_GRADED_BUT_NEVER_WRITES = 77;
+ * (future Wave 1 authoring), not a fix to make here.
+ *
+ * 77 → 79, 2026-09-10 (Wave 1, m42 landing — n4-13 hearsay: そうだ/って/
+ * らしい): two of m42's own new atoms — つたえる, しらせる. Same D2/D4 shape
+ * as every entry above: every graded touch of each currently lives inside
+ * m42, the module that introduces them (both make their FIRST appearance in
+ * ja-m42-neo-4, and every later use in this same module still counts as
+ * same-module for D2's purposes) — the same-module gate blocks the write,
+ * D4 seed-on-unlock still schedules each due the next day. Net +2 exactly
+ * (no ripple offset this time — m42's other 17 new/re-stamped atoms, e.g.
+ * じしん/たいふう/じこ/ニュース/きしゃ/うわさ/きじ/ほうそう/はっぴょう, all
+ * pick up a genuine cross-step write within the module's own review/
+ * challenge lessons, or were already counted elsewhere; only these two
+ * verbs land exclusively on same-module-gated steps). They come OFF this
+ * list only when a later module grades them (future Wave 1 authoring), not
+ * a fix to make here. */
+const MAX_GRADED_BUT_NEVER_WRITES = 79;
 
 type Row = {
   atomId: string;

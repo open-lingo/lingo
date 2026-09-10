@@ -1,0 +1,646 @@
+module: m42
+title: "Hearsay: 〜そうだ, 〜って, 〜らしい"
+register: plain
+priorNeoModules: [m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18, m19, m20, m21, m22, m23, m24, m25, m26, m27, m28, m29, m30, m31, m32, m33, m34, m35, m36, m37, m38, m39, m40, m41]
+priorGrammarPoints: [ka-question, no-possession, wa-topic, wo-object, ga-existence,
+  ni-location, ni-time, de-action, mo-also, kara-because, node-because, kedo,
+  made-until, mae-ni, te-form, te-kudasai, te-iru, te-kara, te-miru, te-oku,
+  ta-form, nai-form, nai-existence, dictionary-form, masu-present, masu-negative,
+  masu-past, desu-copula, i-adj-present, i-adj-past, na-adj-present, v-tai,
+  to-omoimasu, toki, tsumori-desu, mashou, masenka, potential-form, dekiru,
+  deshou, kana-wondering, n-desu, sugiru, ku-ni-naru, hou-ga-ii,
+  nakereba-naranai, yo-emphasis, ne-agreement, register-audience,
+  chotto-softener, ageru, kureru, morau, ni-recipient, tara, to-conditional,
+  jidoushi-tadoushi, te-iru-resultative, volitional, you-to-omou, koto-ni-suru,
+  koto-ni-naru, you-to-suru, te-kureru, te-ageru, te-morau, favor-ladder, dake,
+  shika-nai, sou-appearance, garu-tagaru, yasui-nikui, nagara, ba-form,
+  ba-restriction, ba-vs-tara, nara, nara-vs-tara, ba-hodo, family-register,
+  frequency-adverbs, kono-sono-ano-dono, ni-iku, te-shimau, chau,
+  te-iku-kuru-space, kite-chain, te-kuru-iku-time, noni-concession,
+  temo-concession, demo-concession, demo-mo-closed-set, shi-listing,
+  passive-form, passive-rareru, possessed-object-passive,
+  niyotte-creation-passive, suffering-passive-recognition, te-aru,
+  te-aru-vs-te-iru, te-oku-vs-te-aru, transitivity-family-noticing]
+notes: |
+  m42 · n4-13 — HEARSAY: 〜そうだ, 〜って, 〜らしい
+  (docs/spine-n4.md §n4-13, docs/ja-m42-brief-2026-09-10.md). Ships 12
+  lessons (inv 25: 8 teaching + 3 review + 1 challenge, challenge last,
+  reviews at positions 4/8/11 — matching m41's own placement).
+  spiralWith: n4-07 (m36's appearance そう) — this module is a DELIBERATE
+  six-module-out contrast pair with m36, but the contrast itself is not
+  taught here; it is reserved for the m51 capstone (brief §0/§6, spine's
+  own n4-07 notes). m42 teaches all three hearsay mechanisms on their own
+  terms, never as a labeled three-way table (interleave-dont-block-teach).
+
+  FRESH STATE RE-VERIFIED (brief's carried-forward flag 1): ran
+  `node scripts/authoring-context.mjs m42` before writing this file.
+  m41 confirmed fully shipped and live — `frequencyAtoms.ts`'s
+  `JA_FREQ_LAST_MODULE = 41`, `taughtVocab.ts`'s `IR_BY_MODULE` spans
+  through m41, `mockCourse.ts`'s JA n4 array ends at m41,
+  `mockLessons.ts` imports through `M41_NEO_LESSONS`. Ten transitivity
+  pairs landed (ならぶ/ならべる is the tenth). Treated as ground truth in
+  place of the brief's own snapshot per the brief's own instruction.
+
+  WHAT IS TAUGHT (three distinct mechanisms, never merged into one card):
+  1. **そうだ (hearsay), L2 id sou-hearsay:** a FULL plain-form clause
+     (dictionary-form verb, plain-form い-adjective, or noun/な-adjective+だ)
+     + そうだ/そうです, reporting what was HEARD. あめが ふるそうだ. The
+     attachment site is the sole thing distinguishing it from m36's
+     appearance そう (stem, い/だ dropped: ふりそう) — referenced by id in
+     the grammar rule text as m36 itself flagged six modules in advance,
+     but never drilled as a minimal pair here (that is the m51 capstone's
+     job, per the spine's own explicit placement).
+  2. **って (casual quotative), L3 id tte-quotative:** cashes in the
+     defensive `p-tte` stub courseAtoms has carried since m18
+     (`fromModule: "m18"`, never live content — confirmed by grepping
+     m18's own grammarPoints list, which has no "tte" id, and finding no
+     IR anywhere exercising it). Flips to `fromModule: "m42"` here.
+     Functionally ≈ と言っていた, compressed, casual register.
+  3. **と言っていた (reported past speech), L5 id to-itte-ita:** extends
+     m18's `to-quotation` (という) and `to-omoimasu` (と おもう) — both
+     referenced by id — into reported-PAST territory, per the spine's own
+     salvage note that m18's と-unit is "the asset" this module builds on.
+  4. **らしい (evidential hearsay), L7 id rashii-hearsay:** plain-form +
+     らしい, more epistemically distanced than そうだ ("apparently," from
+     indirect evidence) — a genuinely new N4 concept, no prior id to
+     reference.
+
+  REGISTRATION MECHANISM FOR そうだ (brief §1 item 2 / flag 2, UNVERIFIED
+  in the brief, RESOLVED here): registered そうだ ONCE as its own free-
+  attaching base lemma atom (`kind: vocab, blocked: true`, mirroring
+  m11's だった/でした "copula — no concrete referent" template exactly —
+  そうだ is likewise a function word with no picturable referent). This
+  is NOT the m36 per-host-word fused-derived-atom pattern (which would
+  need a new `ふるそうです`-shaped atom for every host verb/adjective used
+  across the module — atom bloat, and pedagogically odd: it would test
+  memorized whole-sentence chunks rather than a reusable grammar piece).
+  Instead it directly mirrors m41's OWN resolved precedent for ある as a
+  known helper glued into てある with ZERO dedicated atom for the fusion
+  point itself (あけて + ある, two already-known atoms, longest-match
+  tokenizes them as adjacent, no space) — exactly the mechanism the brief
+  itself floats as "the more likely correct" one in its own UNVERIFIED
+  paragraph. Validated directly: courseAtoms.ts's atomIndex() (moduleCompiler.ts)
+  builds one map entry per exact kana string; ふるそうだ as a raw string
+  greedily resolves at each position to the LONGEST known atom — ふる
+  (registered, m25) at position 0, then そうだ (registered here) at the
+  next position, glued with zero space between them, zero new atom for
+  the fusion point. This is the SAME mechanism as あけてある, generalized.
+  そうです is registered as ONE additional IR-only derived atom
+  (`kind: verb-form, derivedFrom: そうだ`) — not one per host word either,
+  since そうです is itself just そうだ's own polite inflection and glues
+  to any known host the same free-attachment way. Net: 2 atoms total
+  (そうだ base + そうです derived) cover every そうだ/そうです sentence in
+  the module, regardless of host word — well under the brief's own
+  per-word atom-count estimate, and recorded here as the deliberate
+  deviation from that estimate, with the reasoning above.
+
+  NEVER a bare そう atom (brief §1/§5, firm constraint): そうだ is
+  registered with kana "そうだ" (3 morae), a DISTINCT map key from the
+  live m3 `id: "sou"` (kana "そう", agreement interjection, blocked,
+  excludeFromSrs) — no map-construction collision, and grep of the
+  compiled ir/m42.ir.json confirms no standalone kana:"そう" entry
+  anywhere in this module's newAtoms or exercised sentences.
+
+  REGISTRATION FOR いっていた (brief §1 item 1 / flag 2b, FIRM ruling, not
+  a judgment call): registered as ONE fused multi-word carrier atom,
+  kana "いっていた" (5 morae, 言っていた, "was saying / said that"),
+  `kind: vocab, blocked: true`, word-level ownership per the established
+  carrier-atom doctrine — this atom owns its component words rather than
+  decomposing into bare いって/いった for 言う, which would collide at
+  `JA_COURSE_ATOMS_BY_KANA` map-construction with the LIVE `id: "itte"`
+  (m8, 行く te-form) and `id: "itta-iku"` (m11, 行く past) — the exact
+  collision class m41 hit with つく/つける and dropped outright, and
+  already named by `id: "ittari"` (m21)'s own note, "the m18 いった
+  homograph ruling." No standalone いって/いった for 言う is registered
+  or exercised anywhere in this module — verified by grep of the
+  compiled JSON before considering any lesson using this construction
+  done. いっていました (polite past, recognition-only, Tanaka-voiced) is
+  one IR-only derived atom, `kind: verb-form, derivedFrom: いっていた`.
+
+  REGISTER DISCIPLINE (inv 7, DICT-FORM-FIRST) applied identically to
+  both new helper-style atoms: そうだ (plain) and いっていた (plain) are
+  the PRODUCTION bases, exercised in `mode: build` student-voiced
+  sentences throughout. そうです and いっていました (both polite, both
+  IR-only `verb-form` derived atoms) appear ONLY inside Tanaka-voiced
+  dialogue lines, as flagged recognition previews — never a production
+  target, matching every module since m3-neo.
+
+  らしい: registered as a genuine `pos: "adjective"`, `conjugation:
+  {class: "i-adj"}` lemma (mirroring m12's おいしい row exactly), letting
+  the existing ChainForm/conjugation machinery handle any future
+  conjugated forms automatically. This module deliberately keeps らしい
+  in bare non-past form throughout (no はやらしかった-shaped sentences
+  authored) — simplifies the module and matches N4 scope; no hand-
+  authored derived atom needed for らしい at all, since — like って — it
+  is itself a free word that glues to any known plain-form host with
+  zero additional atoms (same longest-match mechanism as そうだ, one
+  layer simpler because らしい needs no politeness-variant atom: it has
+  no そうです-shaped polite inflection distinct from itself).
+
+  ENGINEERING (brief §2, verified, not re-derived): zero `ChainForm` /
+  `TRANSFORM_RULESETS` changes. All three constructions are compositional
+  attachments to the already-live plain/dictionary-form surface, the
+  m30(ておく)/m38(てしまう)/m41(てある) precedent, not m40(passive)'s
+  formation-point precedent. Confirmed directly against inv 49's closed
+  list (て, た, ない, ます, potential, passive られる, causative させる,
+  volitional よう/おう, ば, 命令形/禁止形) — hearsay/quotative/evidential
+  suffixes are not on it and do not belong on it.
+
+  DOMAIN VOCAB DECISIONS (brief §1, freqRank-driven): registered
+  じしん(1412)/たいふう(725)/じこ(595)/ばんぐみ(1292)/きじ(2863)/
+  ほうそう(1677)/きしゃ(1261)/はっぴょう(1022)/つたえる(1698)/
+  しらせる(740)/うわさ (not top-3000, but semantically load-bearing per
+  the brief's own note — 「うわさに きいた」 is a natural hearsay-domain
+  carrier, kept as `must` per the spine's own classification). CUT
+  entirely: ひなん and けいほう — both outside the top-3000, both the
+  brief's own explicit first-cut suggestion, and the atom budget does not
+  need them (14 new lemmas + 2 IR-only derived atoms, well under the
+  spine's non-binding count:34 ceiling, matching every prior N4 module's
+  pattern of landing under its stated ceiling). L7 (らしい) and L9
+  (integration) therefore introduce no new vocabulary — pure grammar/
+  domain-recombination lessons, per this cut.
+
+  CARRIER-ONLY, NOT RE-REGISTERED (brief §1, verified live): ニュース
+  (id nyuusu, m7 — CONFIRMED live via fromModuleDrift.test.ts's own
+  liveLessonIds check), and など (id nado, m21, despite the spine's own
+  stale thr-n4 claim that m42 owns it — direct read of ir/m21.ir.yaml
+  confirms など in introduces:, a build sentence, a particle-cloze
+  distractor, and reviewPool; this module does not repeat the spine's
+  error, but per the brief's own scope note does not silently fix
+  spine-n4.md either).
+
+  CORRECTION (post-compile, fromModuleDrift ratchet run): しんぶん (id
+  shinbun) was FIRST drafted here on the same shallow-verified premise as
+  above ("introducedByLessonId ja-m4-1-1 is live") — the assumption was
+  wrong. `fromModuleDrift.test.ts`'s own liveLessonIds set does NOT
+  contain "ja-m4-1-1" (dead m4-era id, no live lesson resolves it), so
+  every graded (mode: build) use of しんぶん pushed the R16 teach-them
+  MAX_INVENTORY=32 ratchet over its ceiling. Fixed by de-registering
+  しんぶん from this module entirely: every build/challenge sentence that
+  used it now uses the CONFIRMED-live ニュース instead (きじ, already
+  properly introduced in this module, carries "article" on its own where
+  しんぶんの きじ once specified "newspaper article" — dropping the
+  now-redundant modifier costs no comprehension, since ニュースで ... きじ
+  already frames the source). しんぶん remains, unedited, as one
+  recognition-only dialogue line's word (m42-neo-1) — not graded, not
+  counted by the ratchet, a legitimate passive-exposure preview like
+  そうです/いっていました elsewhere in this module. Do NOT re-add しんぶん to
+  any build-mode/challenge/reviewPool site without first fixing its
+  courseAtoms.ts attribution (out of this module's scope).
+
+  では COLLISION (same ratchet, same class): うわさでは's では sequence
+  greedy-matches the registered `id: "deha"` atom (fromModule "m26",
+  introducedByLessonId "ja-m26-5-2" — also DANGLING, not in
+  liveLessonIds), not the compositional で+は it was meant to be. Fixed
+  the three GRADED sites (m42-neo-7's build sentence, its particle-cloze
+  tail, and its dialogue_sim reply tiles) by rewording うわさでは →
+  うわさに よると, an already-established this-module idiom (はっぴょうに
+  よると / うわさに よると appear elsewhere as listening-only recognition)
+  — same meaning ("according to the rumor"), zero reliance on the broken
+  atom. The three REMAINING では occurrences (one listening-comp audio
+  line, one mode:listening challenge sentence, one dialogue line) are
+  left as-is: none is graded, so none is counted by the ratchet, and
+  each is legitimate recognition-only exposure.
+
+  そうだ MAP-KEY COLLISION (course-wide, found only on the FULL JA suite
+  run, not by m42-neo.test.ts alone): registering そうだ (this module's
+  own hearsay marker, kind: vocab, 3-kana) collided with two EARLIER
+  modules' own unrelated use of the identical 3-kana surface そうだ as
+  part of the colloquial agreement phrase そうだね ("that's right") —
+  m3-neo.ts's own sentenceMcq distractor ("そうだ。") and m29.ir.yaml's
+  own dialogue line ("そうだね。"). Before this module's registration,
+  that surface decomposed into two already-known pieces, そう (m3) + だ
+  (copula); after, the tokenizer's greedy-longest-match prefers the new
+  3-kana atom outright, reattributing the older surfaces to a module
+  (m42) that postdates them — the exact "atom registration ripples
+  forward" class this course has hit before (m41's つく/つける). Fixed
+  token-neutrally in both sites, NOT by touching this module's own
+  registration (そうだ genuinely needs its own 3-kana atom here — see the
+  DICT-FORM-FIRST note below for why): m3-neo.ts's distractor was swapped
+  for a different, equally-wrong option (ありがとう。, no meaning change to
+  the exercise); m29.ir.yaml's dialogue line got an authored space
+  (そうだね。→ そう だね。, same established tokenizer-boundary convention
+  used throughout this module's own notes below) and was recompiled.
+
+  って TILE-DIFF RE-RUN (brief §1/§5, standing instruction on the stub,
+  not new): the `p-tte` row's own note has carried "re-run the tile diff
+  if a new 〜って form ships un-atomized" since m18. This module is that
+  ship. Re-run planned as part of the final gate pass, checking the
+  whole-course compiled tile set for regressions against いって/かって/
+  まって/しって (all of which must continue to win longest-match over
+  って's own now-live kana key).
+
+  REJECTED (brief §6, not re-derived here): a `kind: contrast` beat type
+  (not shipped in moduleCompiler.ts); teaching/drilling the そう-vs-そう
+  appearance/hearsay minimal pair (reserved for m51); re-registering
+  ニュース/しんぶん/など; a new って id instead of cashing the p-tte stub;
+  any bare そう or bare いって/いった atom; a block lesson listing
+  そうだ/って/らしい as a labeled three-way table (interleave instead,
+  per the brief's own L2/L3/L7 spacing with unrelated domain-build
+  breaks between — L1/L6/L9 carry no new grammar on purpose).
+
+  IR-DIAGNOSTICS GATE PASS (2026-09-10, new curriculum-project mirror of
+  moduleCompiler.diagnostics.test.ts — irDiagnostics.test.ts — added after
+  m40 shipped 3 undetected challenge-not-novel findings): first compile
+  threw 13 `unbuildable` findings, all the same class as inv 41's known
+  って hazard — greedy longest-match tokenization plus the corpus's own
+  unspaced-comma convention merging two flanking words into one run with
+  no boundary. Two kinds of fix, decided case by case:
+  (a) an already-registered atom or particle out-competed the intended
+  word (あった 4-kana beating あった+らしい; した-class atoms beating
+  し+たいふう across a bare comma; え mid-word inside つたえた) — inserted
+  an authored space at the collision boundary (a hard tokenizer boundary
+  per the compiler's own docstring), never touched moduleCompiler.ts;
+  (b) the surface was a genuinely untaught inflection — しった→わかった
+  and わたしたちに→わたしに reworded to already-known forms (comprehensi­
+  bility-gated no later than m11); つたえた/しらせた (L5, recur through
+  L6/L8/challenge) and そうだった (challenge L9) registered as IR-only
+  `verb-form, derivedFrom` atoms, mirroring m38's あった and this file's
+  own そうです — STEMS auto-derivation only covers the hardcoded
+  VERB_ENTRIES/ADJ_ENTRIES tables, not IR-registered verbs, so a
+  conjugated form used more than once needs its own atom. Two findings
+  got a THIRD treatment — reword, not register — because the offending
+  clause sat in a beat this module's own `introduces:` declares empty
+  (m42-neo-6's L7 challenge, m42-neo-challenge's L9 capstone): ないかも
+  しれない (an entire untaught construction, never in `combines:`, never
+  taught by a rule/sentence beat first) became ないだろう, cashing だろう
+  from m25 (already prior-known, exact semantic fit for "probably");
+  うちに いたほうが いい (いた, past of いる, likewise never taught) became
+  うちに いったほうが いい, reusing いった (m11, already live in m28's own
+  hou-ga-ii examples) — "better to go home" for "better to stay home,"
+  same storm-safety beat, no atom smuggled into an `introduces: []` beat.
+  Re-ran `npx vitest run --project curriculum
+  src/features/languages/ja/__tests__/irDiagnostics.test.ts` after every
+  fix batch; final state: 0 enforced findings for m42 (38/38 IR files
+  clean, `density-short` the only populated INFORMATIONAL kind anywhere
+  in the run, per the gate's own exemption — never touched).
+grammarPoints:
+  - id: sou-hearsay
+    rule: "そうだ reports what you HEARD, not what you see. Take a complete plain-form sentence — dictionary-form verb, plain い-adjective, or noun/な-adjective plus だ — and add そうだ at the end: あめが ふるそうだ, 'I heard it's going to rain.' The whole clause in front of そうだ stays exactly as you would say it on its own; nothing is trimmed. That full-form attachment is the one thing that tells this apart from module 36's appearance そう (ふりそう, stem only, い/だ dropped) — a different word doing a different job, met properly much later in the course. For a noun or な-adjective, だ is required before そうだ: びょうきだそうだ (I heard he's sick), not びょうきそうだ. Politely, the ending becomes そうです — ふるそうです — and you will hear Tanaka use it; you build with the plain form."
+    examples:
+      - { ja: "きしゃは びょうきだそうだ。", en: "I heard the reporter is sick." }
+      - { ja: "あめが ふるそうだ。", en: "I heard it's going to rain." }
+      - { ja: "たいふうが くるそうだ。", en: "I heard a typhoon is coming." }
+      - { ja: "ばんぐみは おもしろいそうだ。", en: "I heard the show is interesting." }
+      - { ja: "じしんが あったそうだ。", en: "I heard there was an earthquake." }
+    antiPattern: { ja: "びょうきそうだ。", why: "そうだ hangs on a COMPLETE clause, and a noun needs its copula だ first: びょうきだそうだ, 'I heard he's sick.' Dropping だ gives m36's appearance そう instead — 'looks sick' — a different word for a different job, met at hearsay そうだ's spot only through its full-form だ." }
+  - id: tte-quotative
+    rule: "って is casual spoken quoting — the everyday shortcut for と言っていた. Put a complete plain-form sentence in front of it and って hands it over exactly the way と does: たなかさんが くるって, 'Tanaka said he's coming' (compare the more formal たなかさんが くると いっていた, same meaning, module 18's と plus this module's いっていた). Reach for って with friends, drop it for teachers or strangers — that register gap is the whole reason it exists next to と. It attaches after ANY plain sentence, questions included: なんで こないって？'why did they say they're not coming?'"
+    examples:
+      - { ja: "たなかさんが くるって。", en: "Tanaka said he's coming." }
+      - { ja: "きしゃが じこが あったって。", en: "The reporter said there was an accident." }
+      - { ja: "ミカは いそがしいって。", en: "Mika said she's busy." }
+      - { ja: "ケンは しらないって。", en: "Ken said he doesn't know." }
+      - { ja: "たいふうは こないって。", en: "They said the typhoon isn't coming." }
+    antiPattern: { ja: "たなかさんが くるとって。", why: "って already does と's job by itself — it does not stack on top of と. Drop the と: たなかさんが くるって, 'Tanaka said he's coming.'" }
+  - id: to-itte-ita
+    rule: "と言っていた reports what someone said, in the past, with the register-neutral と you already own from module 18 (と言う, と思う). と closes the exact plain sentence they said — 「あした いく」と いっていた, 'she said she was going tomorrow' — and いっていた (was saying, said) carries the report itself in the past. It is the formal partner to this module's own って: 「あした いく」と いっていた and あした いくって say the same thing, one careful, one casual. Politely, いっていました — Tanaka's register, not yours to build with yet."
+    examples:
+      - { ja: "ミカは あした くると いっていた。", en: "Mika said she was coming tomorrow." }
+      - { ja: "たなかさんは たいふうが くると いっていた。", en: "Tanaka said a typhoon was coming." }
+      - { ja: "きしゃは じこが あったと いっていた。", en: "The reporter said there was an accident." }
+      - { ja: "ケンは いそがしいと いっていた。", en: "Ken said he was busy." }
+      - { ja: "トムは しらないと いっていた。", en: "Tom said he didn't know." }
+    antiPattern: { ja: "ミカは あした くるが いっていた。", why: "が marks a subject, and a whole quoted sentence is not a subject — it is handed over with と, exactly as module 18 taught: ミカは あした くると いっていた。" }
+  - id: rashii-hearsay
+    rule: "らしい is hearsay one step further back than そうだ — it says 'apparently,' from indirect evidence, not a direct report you can point to. It attaches to a complete plain-form clause the same way そうだ does: あの みせは おいしいらしい, 'apparently that shop is good.' For a noun or な-adjective, unlike そうだ, らしい does NOT need だ first: びょうきらしい (apparently he's sick), never びょうきだらしい. It behaves like any い-adjective after that point — らしかった for the past. Reach for らしい when you are passing along an impression, not quoting a specific source: そうだ says 'I heard X'; らしい says 'it seems X, from what's around.'"
+    examples:
+      - { ja: "きしゃは びょうきらしい。", en: "Apparently the reporter is sick." }
+      - { ja: "あの ばんぐみは おもしろいらしい。", en: "Apparently that show is interesting." }
+      - { ja: "たいふうが くるらしい。", en: "Apparently a typhoon is coming." }
+      - { ja: "じこが あったらしい。", en: "Apparently there was an accident." }
+      - { ja: "ミカは いそがしいらしい。", en: "Apparently Mika is busy." }
+    antiPattern: { ja: "きしゃは びょうきだらしい。", why: "らしい attaches directly after a noun or な-adjective with no だ — だ belongs to そうだ's pattern, not らしい's: きしゃは びょうきらしい, 'apparently the reporter is sick.'" }
+newAtoms:
+  # ══ L1 — news/weather/disaster domain, vocabulary priming only ══
+  - { kana: じしん, romaji: jishin, gloss: "earthquake", shortGloss: "earthquake", imageable: false, kind: vocab, pos: noun }
+  - { kana: たいふう, romaji: taifuu, gloss: "typhoon", shortGloss: "typhoon", imageable: false, kind: vocab, pos: noun }
+  - { kana: じこ, romaji: jiko, gloss: "accident", shortGloss: "accident", imageable: false, kind: vocab, pos: noun }
+  # ══ L2, id sou-hearsay — the hearsay auxiliary itself, plus its two
+  # domain nouns. そうです is the IR-only polite derived form, glued the
+  # same free-attachment way, Tanaka-voiced recognition only.
+  - { kana: そうだ, romaji: souda, gloss: "I heard that ~, it's said that ~ (hearsay)", shortGloss: "I heard that ~", imageable: false, kind: vocab }
+  - { kana: そうです, romaji: soudesu, gloss: "I heard that ~ (polite, hearsay)", shortGloss: "I heard that ~ (polite)", imageable: false, kind: verb-form, derivedFrom: そうだ }
+  # そうだった — past-tense hearsay report, needed verbatim (「くるそうだった」,
+  # m42-neo-challenge L9): greedy tokenization otherwise strands った off of
+  # the already-known そうだ (3-char prefix wins first). Mirrors そうです's
+  # own derivedFrom pattern one line up.
+  - { kana: そうだった, romaji: soudatta, gloss: "I heard that ~ (past tense report)", shortGloss: "heard that (past)", imageable: false, kind: verb-form, derivedFrom: そうだ }
+  - { kana: ばんぐみ, romaji: bangumi, gloss: "TV program, show", shortGloss: "TV program", imageable: false, kind: vocab, pos: noun }
+  - { kana: きじ, romaji: kiji, gloss: "article (news)", shortGloss: "article", imageable: false, kind: vocab, pos: noun }
+  # ══ L3, id tte-quotative — cashes the p-tte stub (courseAtoms.ts edit,
+  # fromModule "m18" → "m42"; no new IR atom, って is a pre-existing row).
+  - { kana: うわさ, romaji: uwasa, gloss: "rumor", shortGloss: "rumor", imageable: false, kind: vocab, pos: noun }
+  - { kana: きしゃ, romaji: kisha, gloss: "reporter, journalist", shortGloss: "reporter", imageable: false, kind: vocab, pos: noun }
+  # ══ L5, id to-itte-ita — the fused carrier atom for 言っていた (word-
+  # level ownership; never a bare いって/いった for 言う), plus its
+  # polite IR-only derived past. つたえる/しらせる round out the beat.
+  - { kana: いっていた, romaji: itteita, gloss: "was saying, said (that ~)", shortGloss: "was saying", imageable: false, kind: vocab }
+  - { kana: いっていました, romaji: itteimashita, gloss: "was saying, said (that ~, polite)", shortGloss: "was saying (polite)", imageable: false, kind: verb-form, derivedFrom: いっていた }
+  - { kana: つたえる, romaji: tsutaeru, gloss: "to convey, to tell (information) to someone", shortGloss: "to convey", imageable: false, kind: vocab, pos: verb, verbClass: ru }
+  - { kana: しらせる, romaji: shiraseru, gloss: "to inform, to let (someone) know", shortGloss: "to let know", imageable: false, kind: vocab, pos: verb, verbClass: ru }
+  # つたえた/しらせた — past forms used repeatedly from L5 on (「じしんを
+  # つたえた」, 「しらせを しらせた」, etc.). Registered verbatim rather than
+  # relying on STEMS auto-derivation, which only covers the hardcoded
+  # VERB_ENTRIES/ADJ_ENTRIES tables, not IR-only verbs like these two.
+  - { kana: つたえた, romaji: tsutaeta, gloss: "conveyed, told (information) — past of つたえる", shortGloss: "conveyed (convey)", imageable: false, kind: verb-form, derivedFrom: つたえる, verbClass: ru }
+  - { kana: しらせた, romaji: shiraseta, gloss: "informed, let (someone) know — past of しらせる", shortGloss: "let know (past)", imageable: false, kind: verb-form, derivedFrom: しらせる, verbClass: ru }
+  # ══ L6 — domain build: news/disaster reporting, no new grammar ══
+  - { kana: ほうそう, romaji: housou, gloss: "broadcast", shortGloss: "broadcast", imageable: false, kind: vocab, pos: noun }
+  - { kana: はっぴょう, romaji: happyou, gloss: "announcement", shortGloss: "announcement", imageable: false, kind: vocab, pos: noun }
+  # ══ L7, id rashii-hearsay — らしい itself, a genuine free-attaching
+  # い-adjective lemma; no derived atom needed (see notes). ひなん cut.
+  - { kana: らしい, romaji: rashii, gloss: "apparently, it seems (hearsay/evidential)", shortGloss: "apparently", imageable: false, kind: vocab, pos: adjective, conjugation: { class: i-adj } }
+
+lessons:
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m42-neo-1
+    role: teaching
+    title: "「じしんが あった」— the news and weather domain"
+    focus: "Priming vocabulary for the hearsay arc — no new grammar yet, all through ga/wa/kara you already own"
+    introduces: [じしん, たいふう, じこ, ニュース]
+    beats:
+      - { kind: sentence, ja: "ニュースで じしんが あった。", en: "There was an earthquake, on the news.", exercises: [de-action, ga-existence, ta-form], mode: build }
+      - { kind: sentence, ja: "たいふうが くる。", en: "A typhoon is coming.", exercises: [dictionary-form], mode: build }
+      - { kind: sentence, ja: "きのう じこが あった。", en: "There was an accident yesterday.", exercises: [ga-existence, ta-form], mode: build }
+      - { kind: sentence, ja: "ニュースで じこの きじを よんだ。", en: "I read an article about the accident, in the news.", exercises: [de-action, wo-object, ta-form], mode: build }
+      - { kind: sentence, ja: "たいふうは たいへんだ。", en: "A typhoon is a serious thing.", exercises: [wa-topic, na-adj-present], mode: listening }
+      - { kind: particle-cloze, stem: "きのう ", tail: "が あった。", answer: "じこ", options: ["じこ", "じしん", "たいふう"], en: "There was an accident yesterday.", explanation: "'accident' is じこ. じしん is an earthquake and たいふう is a typhoon — both real news words, but neither means 'accident.'" }
+      - { kind: listening-comp, audio: "ニュースで じしんが あった。", answer: "There was an earthquake, on the news.", distractors: ["There was an accident, on the news.", "A typhoon is coming, on the news.", "There is no news today."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "たいふうが くる。", answer: "A typhoon is coming.", distractors: ["A typhoon came yesterday.", "There was no typhoon.", "An earthquake is coming."], q: "What does this mean?" }
+      - { kind: kanji, kana: じしん, kanji: 地震, distractors: ["じかん", "じてん", "じぶん"], exercises: [ga-existence] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "きのうの ニュース、みた？じこが あったんだって。", en: "Did you see yesterday's news? There was an accident, I heard." }
+          - { speaker: "Ken", ja: "ううん、みてない。たいふうも くるって ニュースに あった。", en: "No, I didn't see it. The news said a typhoon is coming too." }
+          - { speaker: "Mika", ja: "たいへんだね。", en: "That's serious." }
+        questions:
+          - { q: "What two things does the news mention?", options: ["An accident and a coming typhoon", "An earthquake and a party", "A typhoon and an article about Mika", "Nothing, the news was empty"], answer: "An accident and a coming typhoon" }
+      - { kind: challenge, ja: "ニュースで じこの きじを よんだから、たいふうが くるのも わかった。", en: "Since I read an article about the accident in the news, I also learned a typhoon is coming.", combines: [de-action, wo-object, kara-because, mo-also], mode: build }
+    reviewPool: [ニュース, テレビ, きのう, あした, がっこう]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m42-neo-2
+    role: teaching
+    title: "「あめが ふるそうだ」— そうだ, what you heard"
+    focus: "Core construction: a full plain-form clause + そうだ reports hearsay, never a stem like m36's appearance そう"
+    introduces: [そうだ, ばんぐみ, きじ]
+    beats:
+      - { kind: rule, grammarPointId: sou-hearsay }
+      - { kind: sentence, ja: "あめが ふるそうだ。", en: "I heard it's going to rain.", exercises: [sou-hearsay], mode: build }
+      - { kind: sentence, ja: "たいふうが くるそうだ。", en: "I heard a typhoon is coming.", exercises: [sou-hearsay], mode: build }
+      - { kind: sentence, ja: "ばんぐみは おもしろいそうだ。", en: "I heard the show is interesting.", exercises: [sou-hearsay, wa-topic], mode: build }
+      - { kind: sentence, ja: "きじに じしんが あったそうだ。", en: "I heard, from the article, there was an earthquake.", exercises: [sou-hearsay, ni-location], mode: listening }
+      - { kind: particle-cloze, stem: "あめが ", tail: "。", answer: "ふるそうだ", options: ["ふるそうだ", "ふる", "ふりそう"], en: "I heard it's going to rain.", explanation: "'I heard' needs the full clause plus そうだ — ふるそうだ. Bare ふる just states the fact with no report at all, and ふりそう is a different word entirely (module 36's appearance そう, on the bare stem, about how the sky LOOKS, not what anyone said)." }
+      - { kind: listening-comp, audio: "きしゃは びょうきだそうだ。", answer: "I heard the reporter is sick.", distractors: ["The reporter looks sick.", "The reporter said he is sick.", "The reporter is not sick."], q: "What does this mean?" }
+      - { kind: kanji, kana: ばんぐみ, kanji: 番組, distractors: ["ばんごう", "ばんめ", "はんぶん"], exercises: [sou-hearsay] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "あの ばんぐみは おもしろいそうですよ。", en: "I hear that show is interesting." }
+          - { speaker: "Ken", ja: "わかった。みますね。", en: "I see. I'll watch it." }
+          - { speaker: "Mika", ja: "きじも よんだよ。あしたも あめが ふるそうだ。", en: "I read the article too. I heard it's going to rain tomorrow as well." }
+        questions:
+          - { q: "What did Tanaka hear about the show?", options: ["That it's interesting", "That it's boring", "That it's cancelled", "Nobody said anything about it"], answer: "That it's interesting" }
+      - { kind: challenge, ja: "きじを よんだから、あしたも たいふうが くるそうだと わかった。", en: "Since I read the article, I understood that I heard a typhoon is coming tomorrow too.", combines: [sou-hearsay, kara-because, mo-also, ta-form], mode: build }
+    reviewPool: [じしん, たいふう, じこ, ニュース, おもしろい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m42-neo-3
+    role: teaching
+    title: "「くるって」— って, casual reported speech"
+    focus: "Cash in the p-tte stub: って closes any plain sentence, the casual shortcut for と言っていた"
+    introduces: [って, うわさ, きしゃ]
+    beats:
+      - { kind: rule, grammarPointId: tte-quotative }
+      - { kind: sentence, ja: "たなかさんが くるって。", en: "Tanaka said he's coming.", exercises: [tte-quotative], mode: build }
+      - { kind: sentence, ja: "きしゃが じこが あったって。", en: "The reporter said there was an accident.", exercises: [tte-quotative], mode: build }
+      - { kind: sentence, ja: "ミカは いそがしいって。", en: "Mika said she's busy.", exercises: [tte-quotative], mode: build }
+      - { kind: sentence, ja: "たいふうは こないって。", en: "They said the typhoon isn't coming.", exercises: [tte-quotative, nai-form], mode: listening }
+      - { kind: particle-cloze, stem: "ケンは ", tail: "って。", answer: "しらない", options: ["しらない", "しる", "しった"], en: "Ken said he doesn't know.", explanation: "って hands over a full plain clause, and 'doesn't know' is しらない, the negative dictionary form. しる is the bare affirmative and しった is the past — neither matches 'doesn't know.'" }
+      - { kind: listening-comp, audio: "うわさで きいたんだけど、じしんが あったって。", answer: "I heard a rumor that there was an earthquake.", distractors: ["I read in the newspaper that there was an earthquake.", "There was no earthquake, according to the rumor.", "The reporter said a typhoon is coming."], q: "What does this mean?" }
+      - { kind: kanji, kana: きしゃ, kanji: 記者, distractors: ["きじ", "きしゃく", "きせつ"], exercises: [tte-quotative] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "うわさで きいたんだけど、たいふうが くるって。", en: "I heard a rumor — they said a typhoon is coming." }
+          - { speaker: "Mika", ja: "きしゃも たいふうが くるって。じこも あったって。", en: "The reporter said a typhoon is coming too. They also said there was an accident." }
+          - { speaker: "Ken", ja: "わかった。たいへんだね。", en: "I see. That's serious." }
+        questions:
+          - { q: "What did Ken hear a rumor about?", options: ["A typhoon coming", "A party", "A new show", "Nothing, it was silence"], answer: "A typhoon coming" }
+      - { kind: challenge, ja: "うわさで きいたし、きしゃも いっていたから、じこが あったって もう わかっている。", en: "Since I heard it as a rumor and what's more the reporter said it too, I already know they said there was an accident.", combines: [tte-quotative, shi-listing, kara-because, te-iru], mode: build }
+    reviewPool: [じしん, たいふう, じこ, ニュース, いそがしい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m42-neo-review-1
+    role: review
+    title: "Review — そうだ and って"
+    focus: "Spiral L1-L3: the domain vocabulary, hearsay そうだ, and casual quotative って — THIS MODULE ONLY"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "あめが ふるそうだ。", en: "I heard it's going to rain.", exercises: [sou-hearsay], mode: build }
+      - { kind: sentence, ja: "たいふうが くるって。", en: "They said a typhoon is coming.", exercises: [tte-quotative], mode: build }
+      - { kind: particle-cloze, stem: "ばんぐみは ", tail: "。", answer: "おもしろいそうだ", options: ["おもしろいそうだ", "おもしろい", "おもしろそう"], en: "I heard the show is interesting.", explanation: "'I heard' needs the full adjective plus そうだ — おもしろいそうだ. Bare おもしろい just states an opinion with no report, and おもしろそう is module 36's DIFFERENT word (appearance そう, stem only)." }
+      - { kind: sentence, ja: "きしゃが じこが あったって。", en: "The reporter said there was an accident.", exercises: [tte-quotative], mode: build }
+      - { kind: sentence, ja: "きじに じしんが あったそうだ。", en: "I heard, from the article, there was an earthquake.", exercises: [sou-hearsay, ni-location], mode: listening }
+      - { kind: listening-comp, audio: "うわさで きいたんだけど、たいふうが くるって。", answer: "I heard a rumor — they said a typhoon is coming.", distractors: ["A typhoon already came.", "I read it in the article, not as a rumor.", "There is no typhoon coming."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "あした あめが ふるそうだよ。", en: "I hear it's going to rain tomorrow." }
+          - { speaker: "Ken", ja: "わかった。たいふうも くるって うわさで きいた。", en: "I see. I also heard a rumor that a typhoon is coming." }
+          - { speaker: "Mika", ja: "たいへんだね。", en: "That's serious." }
+        questions:
+          - { q: "What does Mika hear about tomorrow?", options: ["That it will rain", "That there was an accident", "That the show is cancelled", "Nothing about the weather"], answer: "That it will rain" }
+      - { kind: sentence, ja: "ミカは いそがしいって。", en: "Mika said she's busy.", exercises: [tte-quotative], mode: build }
+    reviewPool: [じしん, たいふう, じこ, ばんぐみ, きじ, うわさ, きしゃ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m42-neo-4
+    role: teaching
+    title: "「くると いっていた」— と言っていた, reported past"
+    focus: "Extend module 18's と-quotation into reported PAST speech with the new fused carrier いっていた"
+    introduces: [いっていた, つたえる, しらせる]
+    beats:
+      - { kind: rule, grammarPointId: to-itte-ita }
+      - { kind: sentence, ja: "ミカは あした くると いっていた。", en: "Mika said she was coming tomorrow.", exercises: [to-itte-ita, to-omoimasu], mode: build }
+      - { kind: sentence, ja: "たなかさんは たいふうが くると いっていた。", en: "Tanaka said a typhoon was coming.", exercises: [to-itte-ita], mode: build }
+      - { kind: sentence, ja: "きしゃは じこが あったと いっていた。", en: "The reporter said there was an accident.", exercises: [to-itte-ita, ta-form], mode: build }
+      - { kind: sentence, ja: "きしゃは わたしに じしんを つたえた。", en: "The reporter conveyed news of the earthquake to me.", exercises: [ni-recipient, wo-object, ta-form], mode: build }
+      - { kind: sentence, ja: "きしゃは ニュースを つたえる。", en: "The reporter conveys the news.", exercises: [wo-object], mode: build }
+      - { kind: sentence, ja: "せんせいは がくせいに じしんを しらせる。", en: "The teacher informs the students about the earthquake.", exercises: [ni-recipient, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "ケンは いそがしい", tail: "いっていた。", answer: "と", options: ["と", "を", "が"], en: "Ken said he was busy.", explanation: "A quoted whole sentence is handed over with と, never を or が — those mark a thing or a subject, and 'Ken is busy' is a whole clause, not either of those: いそがしいと いっていた。" }
+      - { kind: listening-comp, audio: "せんせいは がくせいに じしんを しらせた。", answer: "The teacher informed the students about the earthquake.", distractors: ["The students informed the teacher.", "The teacher forgot to tell the students.", "Nobody told the students anything."], q: "What does this mean?" }
+      - { kind: kanji, kana: つたえる, kanji: 伝える, distractors: ["つかれる", "つづける", "つくる"], exercises: [to-itte-ita] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "たなかさんは なんて いっていた？", en: "What did Tanaka say?" }
+          - { speaker: "Mika", ja: "たいふうが くると いっていたよ。きしゃにも しらせたって。", en: "She said a typhoon was coming. She said she informed the reporter too." }
+          - { speaker: "Ken", ja: "わかった。ぼくも たなかさんに つたえるね。", en: "Got it. I'll tell Tanaka too." }
+        questions:
+          - { q: "What did Tanaka say, according to Mika?", options: ["That a typhoon was coming", "That there was an accident", "That the show was interesting", "Nothing, she was silent"], answer: "That a typhoon was coming" }
+      - { kind: challenge, ja: "たなかさんは たいふうが くると いっていたし、きしゃにも しらせたと いっていた。", en: "Tanaka said a typhoon was coming, and what's more said she had informed the reporter too.", combines: [to-itte-ita, shi-listing, ta-form], mode: build }
+    reviewPool: [じしん, たいふう, じこ, うわさ, きしゃ, ばんぐみ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m42-neo-5
+    role: teaching
+    title: "「ほうそうで はっぴょうした」— domain build: news and disaster reporting"
+    focus: "Recombine every hearsay marker so far over new domain vocabulary — no new grammar"
+    introduces: [ほうそう, はっぴょう]
+    beats:
+      - { kind: sentence, ja: "ほうそうで じしんの はっぴょうが あった。", en: "There was an announcement about the earthquake, on the broadcast.", exercises: [de-action, ga-existence, ta-form], mode: build }
+      - { kind: sentence, ja: "きしゃは ほうそうで じこを つたえた。", en: "The reporter conveyed news of the accident on the broadcast.", exercises: [wa-topic, de-action, wo-object, ta-form], mode: build }
+      - { kind: sentence, ja: "はっぴょうで、たいふうが くるそうだ。", en: "According to the announcement, I heard a typhoon is coming.", exercises: [sou-hearsay], mode: build }
+      - { kind: sentence, ja: "たなかさんは ほうそうを みたと いっていた。", en: "Tanaka said she watched the broadcast.", exercises: [to-itte-ita, ta-form], mode: listening }
+      - { kind: particle-cloze, stem: "ほうそうで じしんの ", tail: "が あった。", answer: "はっぴょう", options: ["はっぴょう", "ほうそう", "きじ"], en: "There was an announcement about the earthquake, on the broadcast.", explanation: "'announcement' is はっぴょう. ほうそう is the broadcast itself (already named earlier in the sentence) and きじ is a written article, not an announcement." }
+      - { kind: listening-comp, audio: "きしゃは ほうそうで じこを つたえた。", answer: "The reporter conveyed news of the accident on the broadcast.", distractors: ["The reporter caused the accident.", "The reporter said nothing about the accident.", "The reporter read about the accident in the newspaper."], q: "What does this mean?" }
+      - { kind: kanji, kana: ほうそう, kanji: 放送, distractors: ["ほうこく", "ほうもん", "ほうりつ"], exercises: [de-action] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "ほうそう みた？じしんの はっぴょうが あったって。", en: "Did you see the broadcast? They said there was an announcement about the earthquake." }
+          - { speaker: "Ken", ja: "うん、きしゃが つたえたね。たいふうも くるそうだよ。", en: "Yeah, the reporter conveyed it. I heard a typhoon is coming too." }
+          - { speaker: "Mika", ja: "え、じしんが あったの？", en: "Huh, there was an earthquake?" }
+        questions:
+          - { q: "What did the reporter convey on the broadcast?", options: ["An announcement about the earthquake", "A weather forecast only", "A story about a party", "Nothing new"], answer: "An announcement about the earthquake" }
+      - { kind: challenge, ja: "ほうそうで じしんの はっぴょうが あったし、きしゃは たいふうが くるとも つたえたそうだ。", en: "There was an announcement about the earthquake on the broadcast, and I heard the reporter also conveyed that a typhoon was coming too.", combines: [de-action, shi-listing, mo-also, sou-hearsay, ta-form], mode: build }
+    reviewPool: [じしん, たいふう, じこ, ばんぐみ, きじ, うわさ, きしゃ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m42-neo-6
+    role: teaching
+    title: "「たいふうが くるらしい」— らしい, hearsay from indirect evidence"
+    focus: "A fourth attachment slot for the same full-form pattern — らしい, more distanced than そうだ, no だ before nouns"
+    introduces: [らしい]
+    beats:
+      - { kind: rule, grammarPointId: rashii-hearsay }
+      - { kind: sentence, ja: "あの ばんぐみは おもしろいらしい。", en: "Apparently that show is interesting.", exercises: [rashii-hearsay], mode: build }
+      - { kind: sentence, ja: "たいふうが くるらしい。", en: "Apparently a typhoon is coming.", exercises: [rashii-hearsay], mode: build }
+      - { kind: sentence, ja: "きしゃは びょうきらしい。", en: "Apparently the reporter is sick.", exercises: [rashii-hearsay], mode: build }
+      - { kind: sentence, ja: "じこが あった らしい。", en: "Apparently there was an accident.", exercises: [rashii-hearsay, ta-form], mode: listening }
+      - { kind: particle-cloze, stem: "きしゃは びょうき", tail: "。", answer: "らしい", options: ["らしい", "だらしい", "そうだ"], en: "Apparently the reporter is sick.", explanation: "らしい attaches straight after a noun, with no だ — びょうきらしい. だらしい is not a real form, and そうだ WOULD need だ first (きしゃは びょうきだそうだ) — a different word with a different attachment rule." }
+      - { kind: listening-comp, audio: "うわさで、ミカは いそがしいらしい。", answer: "According to the rumor, apparently Mika is busy.", distractors: ["Mika said herself that she is busy.", "According to the rumor, Mika is free.", "Nobody has heard anything about Mika."], q: "What does this mean?" }
+      - { kind: kanji, kana: きじ, kanji: 記事, distractors: ["きろく", "きねん", "きぼう"], exercises: [rashii-hearsay] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "きょう きしゃが いないね。", en: "The reporter isn't here today." }
+          - { speaker: "Mika", ja: "うわさで、びょうきらしいよ。", en: "According to the rumor, apparently he's sick." }
+          - { speaker: "Ken", ja: "わかった、たいへんだね。", en: "I see, that's tough." }
+        questions:
+          - { q: "What is apparently true about the reporter, per the rumor?", options: ["He's sick", "He's on vacation", "He quit his job", "He's at the broadcast"], answer: "He's sick" }
+      - { kind: challenge, ja: "きしゃは びょうきらしいし、 たいふうも くるらしいから、ほうそうは ないだろう。", en: "Apparently the reporter is sick, and what's more apparently a typhoon is coming too, so there's probably no broadcast.", combines: [rashii-hearsay, shi-listing, kara-because, deshou], mode: build }
+    reviewPool: [じしん, たいふう, じこ, ばんぐみ, ほうそう, はっぴょう]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m42-neo-review-2
+    role: review
+    title: "Review — そうだ, と言っていた, らしい"
+    focus: "Spiral L2/L5/L6: the three plain-form hearsay markers — THIS MODULE ONLY"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "あめが ふるそうだ。", en: "I heard it's going to rain.", exercises: [sou-hearsay], mode: build }
+      - { kind: sentence, ja: "たいふうが くるらしい。", en: "Apparently a typhoon is coming.", exercises: [rashii-hearsay], mode: build }
+      - { kind: particle-cloze, stem: "ミカは あした くると ", tail: "。", answer: "いっていた", options: ["いっていた", "おもった", "しらせた"], en: "Mika said she was coming tomorrow.", explanation: "'said' needs いっていた after the quoted clause. おもった would be 'thought,' not 'said,' and しらせた means 'informed,' not a direct quote of Mika's own words." }
+      - { kind: sentence, ja: "きしゃは じこが あったと いっていた。", en: "The reporter said there was an accident.", exercises: [to-itte-ita, ta-form], mode: build }
+      - { kind: sentence, ja: "きしゃは びょうきらしい。", en: "Apparently the reporter is sick.", exercises: [rashii-hearsay], mode: listening }
+      - { kind: listening-comp, audio: "はっぴょうで、たいふうが くるそうだ。", answer: "According to the announcement, I heard a typhoon is coming.", distractors: ["According to the rumor, a typhoon is coming.", "The announcement said the typhoon already passed.", "There was no announcement."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "きしゃは びょうきらしいですね。", en: "Apparently the reporter is sick." }
+          - { speaker: "Mika", ja: "うん、たいへんそうです。たいふうが くると いっていたよ。", en: "Yeah, it sounds tough. He said a typhoon was coming." }
+          - { speaker: "Ken", ja: "ほうそうは どうなるん だろう。", en: "I wonder what will happen to the broadcast." }
+        questions:
+          - { q: "What is apparently true about the reporter?", options: ["He's sick", "He's on the broadcast right now", "He wrote a new article", "Nobody knows anything about him"], answer: "He's sick" }
+      - { kind: sentence, ja: "ばんぐみは おもしろいそうだ。", en: "I heard the show is interesting.", exercises: [sou-hearsay, wa-topic], mode: build }
+    reviewPool: [じしん, たいふう, じこ, きしゃ, ほうそう, はっぴょう]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m42-neo-7
+    role: teaching
+    title: "「そうだって、らしいって、みんな いろいろ いっている」— mixed sources, one conversation"
+    focus: "Integration: そうだ, って, と言っていた, and らしい inside one dialogue_sim — no new vocabulary"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "たいふうが くるそうだけど、うわさで こないって。", en: "I heard a typhoon is coming, but according to the rumor, they say it's not coming.", exercises: [sou-hearsay, tte-quotative, kedo], mode: build }
+      - { kind: sentence, ja: "きしゃは じこが あったと いっていたが、はっぴょうは まだ ない。", en: "The reporter said there was an accident, but there's no announcement yet.", exercises: [to-itte-ita, nai-existence], mode: build }
+      - { kind: sentence, ja: "びょうきらしいから、きょうは こないだろう。", en: "Since apparently he's sick, he probably won't come today.", exercises: [rashii-hearsay, kara-because, deshou], mode: listening }
+      - { kind: particle-cloze, stem: "たいふうが くる", tail: "けど、うわさで こないって。", answer: "そうだ", options: ["そうだ", "らしい", "って"], en: "I heard a typhoon is coming, but according to the rumor, they say it's not coming.", explanation: "The first clause needs そうだ (a direct 'I heard' report, contrasted right after with the rumor's って). らしい would weaken the first half instead of setting up the contrast, and って alone there would repeat the second clause's own word." }
+      - { kind: listening-comp, audio: "うわさで は こないって いっているけど、ほうそうで は くるらしい。", answer: "The rumor says it's not coming, but the broadcast suggests it apparently is.", distractors: ["Both the rumor and the broadcast agree it's coming.", "Both the rumor and the broadcast agree it's not coming.", "Nobody has said anything about it at all."], q: "What does this mean?" }
+      - kind: sim
+        scene: { emoji: "📺", title: "Conflicting reports", setting: "Mika and Ken compare what they've each heard about the typhoon before deciding what to tell Tanaka." }
+        turns:
+          - npc: { speaker: "Ken", ja: "たいふうは くるの？", en: "So is the typhoon coming?" }
+            goal: "Say you heard it's coming, but the rumor says it's not."
+            reply: { mode: build, tiles: ["くるそうだ", "けど", "うわさで", "こないって", "くるらしい"], answer: "くるそうだ けど うわさで こないって。" }
+            replyGloss: "I heard it's coming, but according to the rumor, they say it's not coming."
+            explanation: "そうだ carries the direct 'I heard' report; けど sets up the contrast; って closes the rumor's own quoted claim. らしい would soften the claim instead of reporting it directly — the wrong tool for 'I heard.'"
+          - npc: { speaker: "Ken", ja: "きしゃは なんて いってた？", en: "What did the reporter say?" }
+            goal: "Say the reporter said there was an accident, but there's no announcement yet."
+            reply: { mode: build, tiles: ["きしゃは", "じこが", "あったと", "いっていたが", "はっぴょうは", "まだ", "ない", "はっぴょうが あった"], answer: "きしゃは じこが あったと いっていたが、はっぴょうは まだ ない。" }
+            replyGloss: "The reporter said there was an accident, but there's no announcement yet."
+            explanation: "と いっていた reports the reporter's own past words; が then contrasts that with the fact that no official announcement exists yet — はっぴょうが あった would wrongly claim one already happened."
+      - { kind: challenge, ja: "きしゃは じこが あったと いっていたし、うわさでも きいたから、たいふうが くるらしい。", en: "The reporter said there was an accident, and what's more I heard it in a rumor too, so it seems the typhoon is coming.", combines: [to-itte-ita, shi-listing, kara-because, rashii-hearsay], mode: build }
+    reviewPool: [じしん, たいふう, じこ, うわさ, きしゃ, ほうそう, はっぴょう]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m42-neo-8
+    role: teaching
+    title: "「けいほうは まだ ないらしいけど」— pre-review integration"
+    focus: "Combine ≥3 grammar points per beat, no new vocabulary — the pre-review integration lesson (inv 26)"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "ニュースで じしんが あったと いっていたから、きじを よんだ。", en: "Since the news said there was an earthquake, I read the article.", exercises: [to-itte-ita, kara-because, wo-object, ta-form], mode: build }
+      - { kind: sentence, ja: "たいふうが くるそうだし、あめも ふるらしいから、きょうは うちに いる。", en: "I heard a typhoon is coming, and what's more apparently it will rain too, so I'll stay home today.", exercises: [sou-hearsay, shi-listing, rashii-hearsay, kara-because], mode: build }
+      - { kind: sentence, ja: "きしゃは ほうそうで じこを つたえたが、はっぴょうは まだ ないって いっていた。", en: "The reporter conveyed news of the accident on the broadcast, but said there's no announcement yet.", exercises: [de-action, wo-object, tte-quotative, nai-existence], mode: listening }
+      - { kind: particle-cloze, stem: "たいふうが くる", tail: "し、あめも ふるらしいから、きょうは うちに いる。", answer: "そうだ", options: ["そうだ", "らしい", "って"], en: "I heard a typhoon is coming, and what's more apparently it will rain too, so I'll stay home today.", explanation: "The sentence already uses らしい for the rain half — repeating it for the typhoon half would flatten two different sources into one. そうだ marks this first half as a direct report, distinct from the second half's more distanced らしい." }
+      - { kind: listening-comp, audio: "きしゃは ほうそうで じこを つたえたが、はっぴょうは まだ ないって いっていた。", answer: "The reporter conveyed news of the accident on the broadcast, but said there's no announcement yet.", distractors: ["The reporter said there was already an official announcement.", "The reporter refused to talk about the accident.", "There was no accident at all."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "たいふうが くるそうだし、あめも ふるらしいよ。", en: "I heard a typhoon is coming, and apparently it'll rain too." }
+          - { speaker: "Ken", ja: "じゃあ、きょうは うちに いるね。", en: "Then I'll stay home today." }
+          - { speaker: "Mika", ja: "うん、それが いいと おもう。", en: "Yeah, I think that's best." }
+        questions:
+          - { q: "What does Ken decide to do?", options: ["Stay home today", "Go read the newspaper", "Go find the reporter", "Nothing, he ignores the news"], answer: "Stay home today" }
+      - { kind: challenge, ja: "ニュースで じしんが あったと いっていたし、 たいふうも くるらしいから、きしゃは いそがしいそうだ。", en: "The news said there was an earthquake, and what's more apparently a typhoon is coming too, so I heard the reporter is busy.", combines: [to-itte-ita, shi-listing, rashii-hearsay, kara-because, sou-hearsay], mode: build }
+    reviewPool: [じしん, たいふう, じこ, ばんぐみ, きじ, うわさ, きしゃ, ほうそう, はっぴょう]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m42-neo-review-3
+    role: review
+    title: "Review — the whole module, every marker"
+    focus: "Full-module spiral: そうだ, って, と言っていた, らしい, over the whole domain vocabulary"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "あめが ふるそうだ。", en: "I heard it's going to rain.", exercises: [sou-hearsay], mode: build }
+      - { kind: sentence, ja: "たいふうが くるって。", en: "They said a typhoon is coming.", exercises: [tte-quotative], mode: build }
+      - { kind: sentence, ja: "きしゃは じこが あったと いっていた。", en: "The reporter said there was an accident.", exercises: [to-itte-ita, ta-form], mode: build }
+      - { kind: particle-cloze, stem: "きしゃは びょうき", tail: "。", answer: "らしい", options: ["らしい", "だらしい", "そうだ"], en: "Apparently the reporter is sick.", explanation: "らしい attaches straight after a noun with no だ. だらしい does not exist, and そうだ would need だ first — a different word with a different rule." }
+      - { kind: sentence, ja: "ほうそうで じしんの はっぴょうが あった。", en: "There was an announcement about the earthquake, on the broadcast.", exercises: [de-action, ga-existence, ta-form], mode: listening }
+      - { kind: listening-comp, audio: "うわさで、たいふうが くるらしい。", answer: "According to the rumor, apparently a typhoon is coming.", distractors: ["The reporter directly confirmed the typhoon.", "The rumor says the typhoon isn't coming.", "There is no rumor about a typhoon."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "きょうの ニュース、きいた？", en: "Did you hear today's news?" }
+          - { speaker: "Mika", ja: "はい。たいふうが くるそうです。きしゃも じこが あったと いっていた。", en: "Yes. I heard a typhoon is coming. The reporter also said there was an accident." }
+          - { speaker: "Tanaka", ja: "たいへんそうだね。", en: "Sounds tough." }
+        questions:
+          - { q: "What two things did Mika hear about, according to the news?", options: ["A coming typhoon and an accident", "A new TV show and a rumor", "A newspaper article and a broadcast schedule", "Nothing, the news was empty"], answer: "A coming typhoon and an accident" }
+      - { kind: sentence, ja: "きしゃは びょうきらしい。", en: "Apparently the reporter is sick.", exercises: [rashii-hearsay], mode: build }
+    reviewPool: [じしん, たいふう, じこ, ばんぐみ, きじ, うわさ, きしゃ, ほうそう, はっぴょう]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m42-neo-challenge
+    role: challenge
+    title: "Challenge — three ways to say you heard"
+    focus: "Every hearsay marker in one arc — そうだ, って, と言っていた, らしい — combined with prior N4 grammar, no new vocabulary"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "ニュースで じしんが あったと いっていたので、きじを よんだら、たいふうも くるそうだった。", en: "Since the news said there was an earthquake, when I read the article, I heard a typhoon was coming too.", exercises: [to-itte-ita, node-because, tara, sou-hearsay, ta-form], mode: build }
+      - { kind: sentence, ja: "うわさで は じこが あったって いっているし、きしゃも それを つたえたらしいから、じこは あっただろう。", en: "The rumor says there was an accident, and what's more apparently the reporter conveyed that too, so there was probably an accident.", exercises: [tte-quotative, shi-listing, rashii-hearsay, kara-because, deshou], mode: listening }
+      - { kind: particle-cloze, stem: "たいふうが くる", tail: "し、あめも ふるらしいのに、はっぴょうは まだ ない。", answer: "そうだ", options: ["そうだ", "らしい", "って"], en: "I heard a typhoon is coming, and what's more apparently it will rain too, even though there's no announcement yet.", explanation: "The clause after のに already reports rain with らしい, so the first clause keeps its own distinct marker — そうだ, a direct hearsay report, not a repeat of らしい." }
+      - { kind: kanji, kana: うわさ, kanji: 噂, distractors: ["うわぎ", "うちがわ", "うすい"], exercises: [tte-quotative] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "たいふうは くるんですか。", en: "So, is the typhoon coming?" }
+          - { speaker: "Mika", ja: "きしゃは くると いっていたが、うわさで は こないって いっている人も います。", en: "The reporter said it was coming, but according to rumor there are also people saying it's not." }
+          - { speaker: "Ken", ja: "ほうそうの はっぴょうを まったほうが いいらしいですね。", en: "Apparently it's better to wait for the broadcast's announcement." }
+        questions:
+          - { q: "What do people disagree about, per the conversation?", options: ["Whether the typhoon is coming", "Whether the reporter is sick", "Whether there was an earthquake", "Whether the show is interesting"], answer: "Whether the typhoon is coming" }
+      - { kind: challenge, ja: "きしゃは じこが あったと いっていたし、うわさでも たいふうが くるって きいたから、はっぴょうが あるまで、うちに いったほうが いいらしい。", en: "The reporter said there was an accident, and what's more I heard a rumor that a typhoon is coming too, so apparently it's better to go home until there's an announcement.", combines: [to-itte-ita, shi-listing, tte-quotative, kara-because, made-until, hou-ga-ii, rashii-hearsay], mode: build }
+    reviewPool: [じしん, たいふう, じこ, ばんぐみ, きじ, うわさ, きしゃ, ほうそう, はっぴょう]

@@ -2954,7 +2954,7 @@
             },
             {
               "speaker": "Tom",
-              "ja": "そうだね。たかいけど いい ぼうしだよ。",
+              "ja": "そう だね。たかいけど いい ぼうしだよ。",
               "en": "Yeah. It's expensive, but it's a good hat."
             },
             {
@@ -3532,12 +3532,15 @@
     "おさけ",
     "おしえて",
     "おしえる",
+    "おじいさん",
     "おそい",
     "おとうさん",
     "おとうと",
+    "おとな",
     "おなか",
     "おにいさん",
     "おねえさん",
+    "おばあさん",
     "おぼえなきゃ",
     "おぼえなければ",
     "おぼえる",
@@ -3552,7 +3555,10 @@
     "およがない",
     "およぐ",
     "およげる",
+    "おりる",
     "おんがく",
+    "おんな",
+    "おんなのこ",
     "か",
     "かいしゃ",
     "かいた",
@@ -3560,6 +3566,7 @@
     "かいたかった",
     "かいたくない",
     "かいたくなかった",
+    "かいだん",
     "かいて",
     "かいました",
     "かいます",
@@ -3756,6 +3763,7 @@
     "たかすぎる",
     "たって",
     "たつ",
+    "たてもの",
     "たなか",
     "たのしい",
     "たばこ",
@@ -3833,6 +3841,7 @@
     "どこですか",
     "どちら",
     "どっち",
+    "どなた",
     "どの",
     "どようび",
     "どれ",
@@ -3865,6 +3874,7 @@
     "にちようび",
     "にほん",
     "にほんじん",
+    "にわ",
     "にん",
     "ねこ",
     "ねつ",
@@ -3957,6 +3967,7 @@
     "まえ",
     "ましょう",
     "まだ",
+    "まち",
     "まって",
     "まつ",
     "まで",
@@ -3986,6 +3997,7 @@
     "みられる",
     "みる",
     "みれる",
+    "むこう",
     "むずかしい",
     "むずかしすぎる",
     "め",
@@ -4047,6 +4059,7 @@
     "アメリカじん",
     "カメラ",
     "クラス",
+    "コンビニ",
     "コーヒー",
     "シャワー",
     "スポーツ",
@@ -6076,6 +6089,52 @@
       "kind": "vocab"
     },
     {
+      "kana": "おとな",
+      "romaji": "otona",
+      "gloss": "adult",
+      "shortGloss": "adult",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おんな",
+      "romaji": "onna",
+      "gloss": "woman",
+      "shortGloss": "woman",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おんなのこ",
+      "romaji": "onnanoko",
+      "gloss": "girl",
+      "shortGloss": "girl",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おじいさん",
+      "romaji": "ojiisan",
+      "gloss": "grandfather, older man",
+      "shortGloss": "older man",
+      "kind": "vocab"
+    },
+    {
+      "kana": "おばあさん",
+      "romaji": "obaasan",
+      "gloss": "grandmother, older woman",
+      "shortGloss": "older woman",
+      "kind": "vocab"
+    },
+    {
+      "kana": "どなた",
+      "romaji": "donata",
+      "gloss": "who (polite)",
+      "shortGloss": "who (polite)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "むずかしい",
       "romaji": "muzukashii",
       "gloss": "difficult",
@@ -6183,6 +6242,58 @@
       "romaji": "juppun",
       "gloss": "ten minutes",
       "shortGloss": "ten minutes",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たてもの",
+      "romaji": "tatemono",
+      "gloss": "building",
+      "shortGloss": "building",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "かいだん",
+      "romaji": "kaidan",
+      "gloss": "stairs",
+      "shortGloss": "stairs",
+      "kind": "vocab"
+    },
+    {
+      "kana": "まち",
+      "romaji": "machi",
+      "gloss": "town",
+      "shortGloss": "town",
+      "kind": "vocab"
+    },
+    {
+      "kana": "にわ",
+      "romaji": "niwa",
+      "gloss": "garden",
+      "shortGloss": "garden",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "コンビニ",
+      "romaji": "konbini",
+      "gloss": "convenience store",
+      "shortGloss": "convenience store",
+      "kind": "vocab"
+    },
+    {
+      "kana": "おりる",
+      "romaji": "oriru",
+      "gloss": "to get off, to descend",
+      "shortGloss": "to get off",
+      "kind": "vocab"
+    },
+    {
+      "kana": "むこう",
+      "romaji": "mukou",
+      "gloss": "the other side, over there",
+      "shortGloss": "over there",
       "imageable": false,
       "kind": "vocab"
     },

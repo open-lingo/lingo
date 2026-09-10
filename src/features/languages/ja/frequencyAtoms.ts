@@ -40,7 +40,7 @@ import {
  * learner at m38 saw nothing new past m30). `frequencyAtoms.test.ts` ties
  * this to the live curriculum so it cannot silently go stale again.
  */
-export const JA_FREQ_LAST_MODULE = 41;
+export const JA_FREQ_LAST_MODULE = 42;
 
 function isFrequencyCandidate(atom: CourseAtom): boolean {
   return (
