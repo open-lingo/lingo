@@ -857,11 +857,30 @@ export function scoreAlternatives(
  * non-JA courses normalize generically instead: Unicode NFC-fold, drop
  * whitespace + shared punctuation, and lowercase (a harmless no-op for
  * scripts without case, e.g. Hangul).
+ *
+ * Apostrophe variants (curly `’`, `‘`, etc. — see {@link APOSTROPHE_VARIANTS_RE})
+ * are folded to the ASCII `'` BEFORE punctuation-stripping, same as the typed-
+ * answer path (`normalizeTypedAnswer`). Straight `'` was already in
+ * `GENERIC_PUNCT_RE` and dropped silently; a curly one from an ASR engine's
+ * own text normalizer (Whisper renders French elision with a typographic
+ * apostrophe) instead survived as a literal, uncompared character — never
+ * flipped a verdict on the m11–m15 targets measured 2026-09-10 (char-overlap
+ * absorbed the one stray char), but it cost real score margin and is a
+ * landmine for a future short elided target. This fold can only turn a
+ * closer-to-1.0 score into an exact match — it adds an equivalence, never
+ * removes one — so it's safe for every language that reaches this scorer
+ * (fr elision «j'ai»/«l'école»; harmless no-op for es/ko, which don't author
+ * apostrophes).
  */
 const GENERIC_PUNCT_RE = /[\s　.,!?。、！？·・「」『』（）()"'?!;:~-]+/g;
 
 export function normalizeGeneric(s: string): string {
-  return (s ?? "").normalize("NFC").replace(GENERIC_PUNCT_RE, "").toLowerCase().trim();
+  return (s ?? "")
+    .normalize("NFC")
+    .replace(APOSTROPHE_VARIANTS_RE, "'")
+    .replace(GENERIC_PUNCT_RE, "")
+    .toLowerCase()
+    .trim();
 }
 
 /**
