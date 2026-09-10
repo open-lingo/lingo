@@ -73,3 +73,4 @@ fan-out; save small notes here after every step (auto-compaction is on).
 - 10:09 KO rung 0 committed d81bf065 (lesson chrome in Korean; parity test 355 green; tsc clean). Rung 1 waits for JA m41 to land (moduleCompiler.ts shared).
 - 10:10 KO rung 1a dispatched (3 of 4 grading de-couplings, extraction pipeline script, runtime lookup stub; moduleCompiler.ts de-coupling deferred until JA m41 lands). Running: FR m16, ES m26, JA m41 authors; FR conjugation trainer; KO rung 1a.
 - 10:13 FR conjugation grid committed 19000d72 (second FR stream item 1 done). Running: FR m16, ES m26, JA m41 authors; KO rung 1a.
+- 10:13 FR speech-elision verification lane dispatched (second FR stream item 2). Running: FR m16, ES m26, JA m41 authors; KO rung 1a; FR elision.
