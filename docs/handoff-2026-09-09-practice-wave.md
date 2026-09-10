@@ -125,3 +125,86 @@ Merge order when Spencer says yes: practice-wave → conj-forms (stacked on it)
 Peer session lingle-42 (ES, `uds:/tmp/cc-socks/2235.sock`) received the KO
 queue (7 items, none kept by me) and my file-ownership list; it will warn
 before pushing ES to main.
+
+## SHIPPED ~19:30 PT (Spencer's yes, 2026-09-09) + second fan-out
+
+- **Prod:** origin/main = `82d7a3b0` (practice wave + conj-forms + tile
+  alignment + ja-polish + ledger #58) then `7b92d6ac` (iOS build 10 bump). Both:
+  ci ✅ deploy ✅ red-main ✅; deploy's own "serves THIS deploy" step confirmed
+  entry `assets/index-B39znCZv.js`.
+- **TestFlight build 10:** delivery `d4648c03-7a0b-4447-bc88-928766270a58`,
+  VALID, What to Test set, attached to External Beta, beta review
+  APPROVED for external beta (~21:00 PT, betaReviewState=APPROVED).
+  Release script: `<scratchpad>/release-b10.sh` (sed of b9). ASC lesson:
+  `asc.mjs` prints `HTTP 200` on line 1 — strip it before JSON-parsing, and
+  call it via a shell function, not a `$ASC` variable (zsh doesn't word-split).
+- **Repetition audit → fixes (Spencer: "go with your changes"):**
+  - Filler pool module-wide: `filler-pool-2026-09-09` @ `c98bca11` (amended msg typo)
+    (moduleCompiler.ts + fillerPoolWidth.test.ts + 2 blast-radius scripts).
+    Blast radius: 1187/1550 filler steps (76.6%) re-name a taught word,
+    0/6369 non-filler steps changed, step counts identical in all 435 lessons,
+    TTS 9182/9182 on m6/m11/m20/m30/m34/m38. Cross-lesson filler picks 3→706.
+    NOT merged/pushed yet.
+  - ≥2 carrier sentences per new N4 atom (m30–m34): `n4-carriers-2026-09-09`
+    (`.claude/worktrees/n4-carriers`), 7 commits, last `194cadab` (+ `24160374`
+    exposure-audit ceiling 56→58). CORRECTION: the audit's "116 one-carrier
+    words" was a raw-text heuristic (word+particle counted as one token); the
+    real tokenizer finds **28** — all 28 fixed, 29 sentences added, 0 new atoms,
+    ja suite 8174 passed. **47 new sentences need TTS clips** before merge:
+    emit deck → `python -m pipeline.tts.generate` in lingo-data → stage mp3s in
+    `tts-publish/` (the に-lesson commit `fed7be85` is the pattern).
+  - m31 verb-slot re-author: `m31-recycle-2026-09-09` @ `6a8bd0b6` (worktree
+    `.claude/worktrees/m31-recycle`; = n4-carriers + recycle-rate + 25 commits)
+    — DONE 2026-09-09 ~21:30 PT, Sonnet lane, Fable-gated twice. 39 existing
+    beats across 10 lessons rewritten in place (0 steps added/removed) so the
+    give/receive event sits inside a から / まえに / とき / けど / relative
+    clause carrying an earlier-module verb (17 distinct verbs; no frame used
+    >2× module-wide). ZERO て-forms (the spine rule the module's test enforces —
+    the て+くれる idea in the old brief was wrong for m31; that is m35). No new
+    atoms; パーティー dropped (was `fromModule: "future"`, would have moved the
+    fromModuleDrift ratchet); にほんご is not an atom → えいご used. Verb-recycle
+    per lesson: 1 11.1→31.6, 2 0→26.7, 3 0→35.7, r1 0→30.8, 5 0→35.7, 6 18.2→27.3,
+    9 0→31.3, 10 7.7→30.8, 11 0→30.8, r3 13.3→33.3; 7/r2/challenge untouched.
+    Module median 7.7% → 31.3%. Full JA suite 77 files / 6888 passed, tsc clean.
+    First pass was numerically green but semantically hollow ("I'm in a hurry,
+    so I get medicine from the doctor") — the coherence gate is Fable reading
+    every sentence, not the tool. **TTS: 86 cards missing clips module-gate-wide
+    on this branch (47 carriers + 39 here)** — generate once for m30–m34 before
+    merging (same recipe as carriers). Merge order: this branch supersedes
+    n4-carriers (contains it).
+  - Recycle-rate tool: `recycle-rate-2026-09-09` @ `e3d08dbb`,
+    `scripts/ja-recycle-rate.ts` (+lib, +test, own vitest config), report
+    `docs/ja-recycle-rate-2026-09-09.md`. Finding: literal ≥20% "any earlier
+    verb/noun/adj" is met in 379/380 lessons; the real signal is VERB recycle:
+    64/380 lessons <20%, m31 give/receive = 0% on 7/13 lessons. Next lane
+    (after carriers lands, stacked on it): re-author m31 verb slots using the
+    tool's candidate list, re-run tool to prove movement.
+- **Mobile UI wave** — integration branch `mobile-map-wave-2026-09-09`
+  (this worktree; merges clean, tsc clean, learn tests 23 files/132 green;
+  NOT pushed — background placement is Spencer's design call):
+  - `map-bg-2026-09-09` @ `de042877`: torii art (`src/assets/learn/vnm-bg-ja-torii.jpg`,
+    86 KB, JA only) as a `position:fixed` layer under the vertical map (NOT
+    `background-attachment:fixed` — iOS WebKit ignores it), navy overlay,
+    opacity 0.34 (Fable suggests ~0.22 — red beams sit behind M2's title);
+    auto-scroll to current station on mount; stops 1.3× (node 22→29px, title
+    13.5→17.5px, row tap target 340×76).
+  - `module-view-2026-09-09` @ `fa293521`: DistrictView modal on mobile —
+    lesson titles 13→16px, rows ≥44px, footer buttons 14px/44px, close 44px;
+    desktop pixel-identical. Also `scripts/shot.mjs --touch` and `--click=<sel>`.
+  - `station-line-2026-09-09` @ `4488e3bb` (NOT merged into the wave):
+    `StationLineMap.tsx` prototype (~80 px/station, level headers, reuses
+    ProgressRing/TrainMascotArt/DistrictView) on dev route
+    `/:lang/qa/station-line`; doc `docs/learn-station-line-view-2026-09-09.md`.
+    Parity gaps before it can replace the mobile map: side quests, N4/N5 tier,
+    BackToCurrent, resume bar, dev overlays. Spencer to decide.
+- **Backgrounds set:** 22 entries at `~/Desktop/openlingo-backgrounds-2026-09-09/`;
+  shibuya re-rolled OK (seed 208), andes-market still white-card (kept v1).
+
+### Open items needing Spencer (unchanged + new)
+Device pass on build 9/10; background opacity/placement call; station-line
+go/no-go; merge+push of `mobile-map-wave` and `filler-pool` (+carriers, +m31
+re-author) — each needs `npm run preflight` then push; `scripts/asc/` still
+untracked in the main tree; lingo-data TTS override files + deck JSONs
+uncommitted; Android session files uncommitted; FR m3–m10 walks + m10 liaison
+listen; KO unaudited delta (Payton); vtracer not installed for the
+generate→vectorise→re-render pipeline.

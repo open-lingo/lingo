@@ -88,13 +88,13 @@ export function DistrictView({
           <div className="min-w-0 flex-1">
             {mod.eyebrow && <div className="text-[10.5px] uppercase tracking-[0.14em] opacity-70">{mod.eyebrow}</div>}
             <div className="truncate text-[19px] font-bold leading-tight">{mod.title}</div>
-            <div className="text-[12px] opacity-75">
+            <div className="text-[15px] leading-snug opacity-75 md:text-[12px]">
               {mod.comingSoon
                 ? "Coming soon — lessons not yet authored"
                 : `${done}/${mod.lessons.length} lessons${status === "locked" ? " · locked — complete the previous station" : ""}`}
             </div>
           </div>
-          <button onClick={onClose} aria-label="Close district view" className="grid h-9 w-9 flex-none place-items-center rounded-full hover:opacity-75" style={{ border: "2px solid var(--tmc-signage-fg)" }}>
+          <button onClick={onClose} aria-label="Close district view" className="grid h-11 w-11 flex-none place-items-center rounded-full hover:opacity-75 md:h-9 md:w-9" style={{ border: "2px solid var(--tmc-signage-fg)" }}>
             <Icon name="close" size={16} aria-hidden />
           </button>
         </div>
@@ -116,28 +116,28 @@ export function DistrictView({
               const row = (
                 <div
                   className={cn(
-                    "tmc-board-row flex items-center gap-3 border-t border-white/10 px-4 py-2",
+                    "tmc-board-row flex min-h-11 items-center gap-3 border-t border-white/10 px-4 py-3 md:min-h-0 md:py-2",
                     s.isCurrent && "bg-white/5",
                     status !== "locked" && "hover:bg-white/10",
                   )}
                   style={{ "--i": Math.min(i, 10) } as CSSProperties}
                 >
                   <span
-                    className="grid h-[24px] w-[34px] flex-none place-items-center rounded-[5px] text-[11px] font-bold text-accent-foreground"
+                    className="grid h-[30px] w-[40px] flex-none place-items-center rounded-[5px] text-[12.5px] font-bold text-accent-foreground md:h-[24px] md:w-[34px] md:text-[11px]"
                     style={{ background: s.lesson.kind === "recap" ? "var(--tmc-q1)" : "var(--tmc-line-main)", opacity: s.isDone || s.isCurrent || status !== "locked" ? 1 : 0.45 }}
                   >
                     {s.lesson.kind === "recap" ? strings.recapBadge : `L${s.k + 1}`}
                   </span>
-                  <span className={cn("min-w-0 flex-1 truncate text-[13px] font-bold", !s.isDone && !s.isCurrent && "opacity-60")}>
+                  <span className={cn("min-w-0 flex-1 truncate text-[16px] font-bold md:text-[13px]", !s.isDone && !s.isCurrent && "opacity-60")}>
                     {s.lesson.title}
                     {s.k === stops.length - 1 && <span className="ml-2 inline-flex items-center gap-0.5 text-[10px] font-bold tracking-[0.14em] opacity-70"><Icon name="star" size={10} aria-hidden /> MASTERY</span>}
                   </span>
                   {s.isDone ? (
-                    <span className="grid h-[22px] w-[22px] flex-none -rotate-12 place-items-center rounded-full text-[10px] font-bold text-accent-foreground" style={{ background: "var(--tmc-seal)" }}>
+                    <span className="grid h-[26px] w-[26px] flex-none -rotate-12 place-items-center rounded-full text-[11px] font-bold text-accent-foreground md:h-[22px] md:w-[22px] md:text-[10px]" style={{ background: "var(--tmc-seal)" }}>
                       {strings.doneStamp}
                     </span>
                   ) : s.isCurrent ? (
-                    <span className="flex-none rounded-sm bg-accent px-2.5 py-0.5 text-[10.5px] font-bold text-accent-foreground">NEXT ▶</span>
+                    <span className="flex-none rounded-sm bg-accent px-2.5 py-1 text-[12px] font-bold text-accent-foreground md:py-0.5 md:text-[10.5px]">NEXT ▶</span>
                   ) : (
                     <span className="flex-none text-[11px] opacity-40">·····</span>
                   )}
@@ -210,22 +210,22 @@ export function DistrictView({
           </div>
         )}
 
-        <div className="flex flex-wrap items-center gap-2 border-t border-border px-4 py-3">
-          <button className="rounded-sm border border-border px-3 py-1.5 text-[12.5px] font-semibold text-text-secondary hover:bg-surface-muted disabled:opacity-40" disabled={index === 0} onClick={() => onNav(index - 1)}>
+        <div className="flex flex-wrap items-center gap-2.5 border-t border-border px-4 py-3 md:gap-2">
+          <button className="inline-flex min-h-11 items-center justify-center rounded-sm border border-border px-4 py-2.5 text-[14px] font-semibold text-text-secondary hover:bg-surface-muted disabled:opacity-40 md:min-h-0 md:px-3 md:py-1.5 md:text-[12.5px]" disabled={index === 0} onClick={() => onNav(index - 1)}>
             ← Previous station
           </button>
-          <button className="rounded-sm border border-border px-3 py-1.5 text-[12.5px] font-semibold text-text-secondary hover:bg-surface-muted disabled:opacity-40" disabled={index === course.modules.length - 1} onClick={() => onNav(index + 1)}>
+          <button className="inline-flex min-h-11 items-center justify-center rounded-sm border border-border px-4 py-2.5 text-[14px] font-semibold text-text-secondary hover:bg-surface-muted disabled:opacity-40 md:min-h-0 md:px-3 md:py-1.5 md:text-[12.5px]" disabled={index === course.modules.length - 1} onClick={() => onNav(index + 1)}>
             Next station →
           </button>
           <div className="flex-1" />
           {status !== "completed" && !mod.comingSoon && (
-            <Link to={p(`learn/test-out/${mod.id}`)} className="inline-flex items-center gap-1.5 rounded-sm border border-border px-3 py-1.5 text-[12.5px] font-semibold text-text-secondary hover:border-accent hover:text-text-primary">
+            <Link to={p(`learn/test-out/${mod.id}`)} className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-sm border border-border px-4 py-2.5 text-[14px] font-semibold text-text-secondary hover:border-accent hover:text-text-primary md:min-h-0 md:px-3 md:py-1.5 md:text-[12.5px]">
               <Icon name="graduationCap" size={14} aria-hidden />
               Test out
             </Link>
           )}
           {status !== "locked" && stops[nextIdx] && (
-            <Link to={lessonHref(stops[nextIdx].lesson)} className="rounded-sm bg-accent px-4 py-1.5 text-[12.5px] font-bold text-accent-foreground hover:bg-accent-hover">
+            <Link to={lessonHref(stops[nextIdx].lesson)} className="inline-flex min-h-11 items-center justify-center rounded-sm bg-accent px-5 py-2.5 text-[14.5px] font-bold text-accent-foreground hover:bg-accent-hover md:min-h-0 md:px-4 md:py-1.5 md:text-[12.5px]">
               Continue L{nextIdx + 1} →
             </Link>
           )}
