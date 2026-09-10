@@ -1,0 +1,145 @@
+  # ── L8 · CHECKPOINT — graded only, zero info cards. Exercises all five
+  #    families (vivía/comía/estudiaba/trabajaba/salía) at once, cashing
+  #    the module's signature payoff: each verb's habitual imperfect
+  #    against its OWN one-time preterite, «pero» between them. ≥2 recalls
+  #    (L6's own win — the module's signature contrast lesson, reused per
+  #    the safer fallback below — and L4's win). The brief's suggested win
+  #    line for this slot used «un día»/«volví», neither grep-confirmed
+  #    PRIOR anywhere in m1-m25; this checkpoint instead closes on an
+  #    original line built entirely from confirmed-PRIOR module material
+  #    (trabajaba/trabajé, m19; salí, m19; ayer/al parque, PRIOR) — the
+  #    brief's own recommended safer fallback. Ends sim → matchLit →
+  #    speakLit-win, the standard ending (NOT the L10 departure pattern).
+  - n: 8
+    template: free
+    title: "Checkpoint: vivía, comía, estudiaba, trabajaba, salía"
+    description: "All five families, all at once, all graded — no new teaching, just proof you've got it: the habitual imperfect against its own one-time preterite, «pero» between them."
+    steps:
+      - kind: buildLit
+        id: l8-b-viviamexicovivi
+        es: "vivía en México, pero viví en España la semana pasada"
+        en: "I used to live in Mexico, but I lived in Spain last week"
+        atoms: ["vivía", "México", "viví", "España", "la semana pasada"]
+        tiles: ["vivían", "vive"]
+      - kind: listenBuildLit
+        id: l8-lb-comiacasacomi
+        es: "comía en casa, pero comí en el restaurante ayer"
+        en: "I used to eat at home, but I ate at the restaurant yesterday"
+        atoms: ["comía", "casa", "comí", "restaurante", "ayer"]
+        tiles: ["comían", "come"]
+      - kind: buildLit
+        id: l8-b-estudiabaestudie
+        es: "estudiaba mucho, pero no estudié anoche"
+        en: "I used to study a lot, but I didn't study last night"
+        atoms: ["estudiaba", "mucho", "estudié", "anoche"]
+        tiles: ["estudiaban", "estudia"]
+      - kind: listenBuildLit
+        id: l8-lb-trabajabapadretrabajo
+        es: "mi padre trabajaba todos los días, pero ayer no trabajó"
+        en: "My father used to work every day, but yesterday he didn't work"
+        atoms: ["padre", "trabajaba", "todos los días", "ayer", "trabajó"]
+        tiles: ["trabajaban", "trabaja"]
+      - kind: clozeLit
+        id: l8-c-saliaparquesali
+        es: "de niño, salía mucho al parque, pero la semana pasada no salí"
+        en: "As a child, I used to go out a lot to the park, but last week I didn't go out"
+        blank: "salí"
+        options: ["salí", "salíamos"]
+        atoms: ["de niño", "salía", "mucho", "parque", "la semana pasada"]
+        why: "«la semana pasada» marks one bounded week for ME: «salí», not «salíamos» — that keeps the old habit AND wrongly shifts the subject to we."
+      - kind: speakLit
+        id: l8-sp-noviviaespana
+        es: "no vivía en España de niño"
+        en: "I didn't used to live in Spain as a child"
+        atoms: ["vivía", "España", "de niño"]
+      - kind: mcq
+        id: l8-q-collisioncheck
+        prompt: "Which one always means 'I / he / she / you (usted) used to work' — never tú, we, or they?"
+        correct: "trabajaba"
+        distractors: ["trabajabas", "trabajábamos", "trabajaban"]
+        atoms: ["trabajaba"]
+        why: "«trabajaba» collapses yo and él/ella/usted — never tú, nosotros, or ellos, which each keep their own accented form."
+      # Printed non-recall at L6 (es-m26-6-l6-sp-win).
+      - kind: speakLit
+        id: l8-sp-recall-comiaayercomicase
+        es: "siempre comía en casa, pero ayer comí en el restaurante"
+        en: "I always ate at home, but yesterday I ate at the restaurant"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l8-agr-yoelestudiaba
+        en: "I used to study a lot, and he did too"
+        audioText: "yo estudiaba mucho, y él estudiaba también"
+        atoms: ["estudiaba", "mucho"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "estudiaba", options: ["estudiaba", "estudia"] } }
+          - { text: " mucho, y él " }
+          - { blank: { id: "p2", answer: "estudiaba", options: ["estudiaba", "estudia"] } }
+          - { text: " también" }
+      - kind: textMcq
+        id: l8-tm-sali
+        target: "salí"
+        distractors: ["salía", "salías", "sale"]
+      - kind: audioWimcq
+        id: l8-ear-museo
+        target: { surface: "el museo", emoji: "🏛️" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "el mercado", emoji: "🛒" }
+      # Printed non-recall at L4 (es-m26-4-l4-sp-win).
+      - kind: speakLit
+        id: l8-sp-recall-trabajabadias
+        es: "mi padre trabajaba todos los días"
+        en: "My father used to work every day"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l8-sim-ana-checkpoint
+        scene: { emoji: "🇲🇽", title: "Ana checks in on everyone", setting: "Ana wants to know what people always did, and what changed." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Siempre vivías en México?", audioText: "¿siempre vivías en México?", gloss: "Did you always used to live in Mexico?" }
+            goal: "Say yes, but not last month."
+            reply:
+              mode: build
+              tiles: ["sí", "pero", "viví", "en", "España", "el", "mes", "pasado", "vivía"]
+              answer: "sí pero viví en España el mes pasado"
+            replyGloss: "Yes, but I lived in Spain last month."
+            explanation: "«viví» — one bounded month, marked by «el mes pasado» (PRIOR, m20) — not «vivía», which would wrongly reopen the habit."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu padre? ¿Trabajaba todos los días?", audioText: "¿y tu padre? ¿trabajaba todos los días?", gloss: "And your father? Did he used to work every day?" }
+            goal: "Say yes, but he didn't work yesterday."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, pero ayer no trabajó" }
+                - { id: "wrong1", text: "sí, pero ayer no trabajaba" }
+                - { id: "wrong2", text: "sí, pero ayer no trabaja" }
+              correctOptionId: "right"
+              audioText: "sí, pero ayer no trabajó"
+            replyGloss: "Yes, but he didn't work yesterday."
+            explanation: "«ayer» is one bounded day: «trabajó», not «trabajaba» (that would wrongly make it the habit again) or «trabaja» (that slips into now)."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Salías mucho al parque de niño?", audioText: "¿salías mucho al parque de niño?", gloss: "Did you used to go out a lot to the park as a child?" }
+            goal: "Say yes, and you went out yesterday too."
+            reply:
+              mode: build
+              tiles: ["sí", "y", "salí", "ayer", "también", "salía"]
+              answer: "sí y salí ayer también"
+            replyGloss: "Yes, and I went out yesterday too."
+            explanation: "«salí» — one bounded day, «ayer» — not «salía», which would wrongly claim it as the standing habit itself."
+      - kind: matchLit
+        id: l8-match
+        pairs:
+          - { source: "vivía", target: "used to live" }
+          - { source: "comía", target: "used to eat" }
+          - { source: "estudiaba", target: "used to study" }
+          - { source: "trabajaba", target: "used to work" }
+          - { source: "salía", target: "used to go out" }
+          - { source: "pero", target: "but" }
+      - kind: speakLit
+        id: l8-sp-win
+        es: "siempre trabajaba mucho, pero ayer no trabajé, y salí al parque"
+        en: "I always used to work a lot, but yesterday I didn't work, and I went out to the park"
+        atoms: ["siempre", "trabajaba", "mucho", "ayer", "trabajé", "salí", "parque"]

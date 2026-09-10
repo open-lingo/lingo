@@ -1,0 +1,150 @@
+  # ── L3 · «Estudiaba mucho en la escuela» — estudiar's imperfect debuts
+  #    whole: estudiaba (yo=él collision, PRIOR mechanism, not re-taught),
+  #    estudiabas (tú), estudiábamos (nosotros — the ONE -ar form that
+  #    carries an accent), estudiaban (ellos/ustedes). -ar family: accent
+  #    ONLY on nosotros, unlike vivir/comer (L1/L2). Regular here, same as
+  #    present «estudio»/preterite «estudié» (m19). Reuses estudiar's own
+  #    PRIOR emoji (📚, m10) — PRIOR reuse, not a new debut. NO progressive,
+  #    NO new preterite. No recall (L3 debuts a fresh family).
+  - n: 3
+    template: free
+    title: "Estudiaba mucho en la escuela"
+    description: "«estudiaba» is estudiar's imperfect — regular here, same as present «estudio» or preterite «estudié» (m19). -ar family: accent only on nosotros."
+    steps:
+      - kind: map
+        id: l3-map-deninoestudiabamuchoescuela
+        tokens: ["de niño", "estudiaba", "mucho", "en", "la escuela"]
+        pairs:
+          - { en: "as a child,", tokenIndex: 0 }
+          - { en: "I used to study", tokenIndex: 1 }
+          - { en: "a lot", tokenIndex: 2 }
+          - { en: "at", tokenIndex: 3 }
+          - { en: "school", tokenIndex: 4 }
+        audioText: "de niño, estudiaba mucho en la escuela"
+        revealNote: "«estudiaba» is estudiar's imperfect — regular here, no accent, same shape as present «estudio» or preterite «estudié». Same yo=él pattern as «vivía»/«comía» (L1/L2)."
+      - kind: info
+        id: l3-info-estudiabatercerverbo
+        title: "Estudiaba — the third verb"
+        body: "«estudiaba» is I used to study, he/she/you used to study — estudiar's imperfect. Unlike vivir/comer, the -ar family carries an accent ONLY on nosotros: «estudiábamos». «estudiaba», «estudiabas», «estudiaban» carry none."
+      - kind: speakLit
+        id: l3-sp-yoestudiabaescuela
+        es: "yo estudiaba mucho en la escuela"
+        en: "I used to study a lot at school"
+        atoms: ["estudiaba", "mucho", "escuela"]
+      - kind: buildLit
+        id: l3-b-tuestudiabasescuela
+        es: "tú estudiabas en la escuela de niño"
+        en: "You (tú) used to study at school as a child"
+        atoms: ["estudiabas", "escuela", "de niño"]
+        tiles: ["estudiaba", "estudiaban"]
+      - kind: speakLit
+        id: l3-sp-estudiabamosjuntosescuela
+        es: "estudiábamos juntos en la escuela"
+        en: "We used to study together at school"
+        atoms: ["estudiábamos", "juntos", "escuela"]
+      - kind: clozeLit
+        id: l3-c-todosestudiabanescuela
+        es: "de niño, todos estudiaban en la escuela"
+        en: "As children, everyone used to study at school"
+        blank: "estudiaban"
+        options: ["estudiaban", "estudiábamos", "estudiaba"]
+        atoms: ["de niño", "todos", "estudiaban", "escuela"]
+        why: "«todos» takes the they-ending: «estudiaban», never «estudiábamos» — that would wrongly include you."
+      - kind: listenCompLit
+        id: l3-lc-diegoestudiabaescuela
+        es: "Diego estudiaba mucho en la escuela"
+        en: "Diego used to study a lot at school."
+        atoms: ["estudiaba", "mucho", "escuela"]
+        distractorsEn:
+          - "Diego studies a lot at school."
+          - "Diego used to study a lot at home."
+          - "They used to study a lot at school."
+      - kind: mcq
+        id: l3-q-tuestudiabas
+        prompt: "Which one means 'you (tú) used to study' — no accent, the -ar rule?"
+        correct: "tú estudiabas"
+        distractors: ["tú estudiaba", "tú estudia", "tú estudiábamos"]
+        atoms: ["estudiabas"]
+        why: "«estudiabas» — the tú ending, no accent (the -ar rule). «estudiaba» collapses yo/él, not tú; «estudia» slips into now; «estudiábamos» would be we, the one accented form."
+      - kind: buildLit
+        id: l3-b-estudiabamossiemprejuntos
+        es: "estudiábamos siempre juntos en la escuela"
+        en: "We always used to study together at school"
+        atoms: ["estudiábamos", "siempre", "juntos", "escuela"]
+        tiles: ["estudiaban", "estudiaba"]
+      - kind: audioWimcq
+        id: l3-ear-museo
+        target: { surface: "el museo", emoji: "🏛️" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "la fiesta", emoji: "🎉" }
+      - kind: agreementLit
+        id: l3-agr-yoelestudiaba
+        en: "I used to study at school, and he did too"
+        audioText: "yo estudiaba en la escuela, y él estudiaba también"
+        atoms: ["estudiaba", "escuela"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "estudiaba", options: ["estudiaba", "estudia"] } }
+          - { text: " en la escuela, y él " }
+          - { blank: { id: "p2", answer: "estudiaba", options: ["estudiaba", "estudia"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l3-lb-samluisestudiabanescuela
+        es: "Sam y Luis estudiaban mucho en la escuela"
+        en: "Sam and Luis used to study a lot at school"
+        atoms: ["estudiaban", "mucho", "escuela"]
+        tiles: ["estudiábamos", "estudiaba"]
+      - kind: textMcq
+        id: l3-tm-estudiaba
+        target: "estudiaba"
+        distractors: ["estudiabas", "estudiaban", "estudia"]
+      - kind: sim
+        id: l3-sim-ana-escuela
+        scene: { emoji: "📚", title: "Ana asks about school", setting: "Ana wants to know who used to study a lot, and where, as kids." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Estudiabas mucho en la escuela de niño?", audioText: "¿estudiabas mucho en la escuela de niño?", gloss: "Did you used to study a lot at school as a child?" }
+            goal: "Say yes, you always studied a lot there."
+            reply:
+              mode: build
+              tiles: ["sí", "yo", "estudiaba", "siempre", "mucho", "en", "la", "escuela", "estudiaban"]
+              answer: "sí yo estudiaba siempre mucho en la escuela"
+            replyGloss: "Yes, I always studied a lot at school."
+            explanation: "Answering as yourself, «yo» keeps «estudiaba» unambiguous — it also means he/she/usted used to study. «estudiaban» would be more than one."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Estudiaban mucho también?", audioText: "¿y diego y sofía? ¿estudiaban mucho también?", gloss: "And Diego and Sofía? Did they used to study a lot too?" }
+            goal: "Say yes, they always studied a lot too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, estudiaban mucho también" }
+                - { id: "wrong1", text: "sí, estudiábamos mucho también" }
+                - { id: "wrong2", text: "sí, estudiaron mucho también" }
+              correctOptionId: "right"
+              audioText: "sí, estudiaban mucho también"
+            replyGloss: "Yes, they always studied a lot too."
+            explanation: "Diego and Sofía — them: «estudiaban», no accent, the ongoing habit. «estudiábamos» would wrongly include you; «estudiaron» (PRIOR preterite, m21) would wrongly make it one bounded event."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Estudiábamos juntos en la escuela?", audioText: "¿y tú y yo? ¿estudiábamos juntos en la escuela?", gloss: "And you and I? Did we used to study together at school?" }
+            goal: "Say yes, we always studied together there."
+            reply:
+              mode: build
+              tiles: ["sí", "estudiábamos", "siempre", "juntos", "en", "la", "escuela", "estudiaban", "estudiaba"]
+              answer: "sí estudiábamos siempre juntos en la escuela"
+            replyGloss: "Yes, we always studied together at school."
+            explanation: "You and Ana together: «estudiábamos» — the one accented estudiar imperfect form."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "estudiaba", target: "I used to study, he/she/you used to study" }
+          - { source: "estudiabas", target: "you (tú) used to study" }
+          - { source: "estudiábamos", target: "we used to study" }
+          - { source: "estudiaban", target: "they used to study, you all used to study" }
+          - { source: "la escuela", target: "the school" }
+          - { source: "mucho", target: "a lot" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "de niño, estudiaba mucho en la escuela"
+        en: "As a child, I used to study a lot at school"
+        atoms: ["de niño", "estudiaba", "mucho", "escuela"]

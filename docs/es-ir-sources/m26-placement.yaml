@@ -1,0 +1,23 @@
+placement:
+  screener:
+    - id: "es-m26-scr-1"
+      prompt: "'As a child, I used to live in Mexico.' — which one?"
+      correct: "de niño, vivía en México"
+      distractors: ["de niño, vivían en México", "de niño, viví en México", "de niño, vivíamos en México"]
+  byModule:
+    - id: "es-m26-pl-1"
+      prompt: "As a child, I used to eat a lot at home."
+      correct: "de niño, comía mucho en casa"
+      distractors: ["de niño, comían mucho en casa", "de niño, comí mucho en casa", "de niño, comíamos mucho en casa"]
+    - id: "es-m26-pl-2"
+      prompt: "My father used to work every day."
+      correct: "mi padre trabajaba todos los días"
+      distractors: ["mi padre trabajaban todos los días", "mi padre trabajó todos los días", "mi padre trabajábamos todos los días"]
+    - id: "es-m26-pl-3"
+      prompt: "As a child, I used to go out a lot to the park with Diego."
+      correct: "de niño, salía mucho al parque con Diego"
+      distractors: ["de niño, salían mucho al parque con Diego", "de niño, salí mucho al parque con Diego", "de niño, salíamos mucho al parque con Diego"]
+    - id: "es-m26-pl-4"
+      prompt: "I always ate at home, but yesterday I ate at the restaurant."
+      correct: "siempre comía en casa, pero ayer comí en el restaurante"
+      distractors: ["siempre comí en casa, pero ayer comía en el restaurante", "siempre comía en casa, pero ayer come en el restaurante", "siempre comían en casa, pero ayer comí en el restaurante"]

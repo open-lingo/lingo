@@ -1,0 +1,1952 @@
+module: m26
+title: "Vivía, comía, estudiaba"
+frame: none
+throughModule: m25
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m26 — the imperfect, THIRD wave. Eighth A2 module.
+#
+#     vivir:    vivía*     vivías     vivíamos     vivían      (regular present/preterite; REGULAR here too — vivir has no "surprise")
+#     comer:    comía*     comías     comíamos     comían      (regular present/preterite; REGULAR here too)
+#     estudiar: estudiaba* estudiabas estudiábamos estudiaban  (regular present/preterite; REGULAR here too)
+#     trabajar: trabajaba* trabajabas trabajábamos trabajaban  (regular present/preterite; REGULAR here too)
+#     salir:    salía*     salías     salíamos     salían      (yo-irregular present «salgo»; regular preterite; REGULAR here)
+#
+#     (* = yo AND él/ella/usted share this exact surface — the yo=él
+#     collision, TAUGHT in m22, not re-taught here — see "NO RE-TEACH"
+#     below. Every "first slot" atom below still carries both readings.)
+#
+# ONE idea, the whole module: the imperfect's "easy tense" trick, third
+# time now — m22 proved it with «tenía» (irregular present/preterite,
+# regular imperfect), m24 proved it again with five MORE verbs that are
+# irregular elsewhere. This module's five (vivir, comer, estudiar,
+# trabajar, salir) are almost entirely REGULAR everywhere already — the
+# "surprise" isn't the contrast anymore, it's completeness: these are the
+# five highest-utility everyday routine verbs left ungrammared in the past,
+# and now every one of them can narrate a memory. No new grammar, no new
+# mechanic.
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# Two lines of evidence:
+#   1. `m24-header.yaml`'s "WHICH FIVE" section named exactly these eight
+#      verbs — vivir, trabajar, comer, salir, cocinar, escribir, comprar,
+#      estudiar — as "a candidate for a THIRD wave, not manufactured here."
+#      `m25-header.yaml`'s "REJECTED ALTERNATIVE 1" confirmed the same
+#      eight are still fully data-ready and rejected THEM for m25
+#      specifically (not forever) on a "three imperfect modules in a row"
+#      fatigue argument (m22, m24, m25 back to back would all be the same
+#      mechanic) — but m25 was NOT an imperfect module (it was porque/por
+#      eso), so m26 taking the third wave now is NOT "three in a row": the
+#      sequence is m22 (wave 1) → m23 (contrast) → m24 (wave 2) → m25
+#      (causal connectives, a genuine break) → m26 (wave 3). Doctrine
+#      ([[interleave-dont-block-teach]]: split a repetitive family across
+#      lessons with unrelated breaks between) is satisfied at the
+#      MODULE level, not just the lesson level — m25 IS that break.
+#   2. Grep-verified fresh (`grep -o 'surface: "[^"]*"'
+#      src/features/languages/es/curriculum/m{1..25}.ts | sort -u`): NONE
+#      of the 20 forms this module registers exist anywhere in m1–m25.
+#      `conjugationTables.ts` carries complete imperfect rows for all eight
+#      remaining verbs (verified directly, `grep -n
+#      "vivir\|trabajar\|comer\|salir\|cocinar\|escribir\|comprar\|
+#      estudiar" conjugationTables.ts` then read each block) — zero table
+#      work needed, same "already met" condition m24's header flagged.
+#
+# ── WHICH FIVE OF THE EIGHT, AND WHY NOT THE OTHER THREE (decision) ───────
+# m24's ban list left eight: vivir, trabajar, comer, salir, cocinar,
+# escribir, comprar, estudiar. Unlike wave 1 (m22) and wave 2 (m24), the
+# "irregular everywhere else, regular here" showcase logic does NOT
+# distinguish among these eight — m24's own header already named them as
+# "regular or near-regular in every tense they've been taught," so there is
+# no per-verb contrast payoff to rank by. This module ranks by NARRATIVE
+# UTILITY instead, on two grounds:
+#   1. Atom-budget precedent, unchanged. m22 and m24 each shipped 20 verb
+#      atoms (5 verbs × 4 persons). Taking all eight (32 atoms) would blow
+#      that budget by 60% and force >1 family debut per lesson across
+#      L1–L5, thinning each family's card real estate exactly when
+#      [[drafting-coverage-not-volume]] says not to ("pin the cell per
+#      request instead of adding rounds"). Five keeps the established
+#      shape: one family, one debut lesson, L1–L5.
+#   2. vivir/comer/estudiar/trabajar/salir are the "life-stages backstory"
+#      cluster — where you lived, what you ate, what you studied, what you
+#      did for work, where you used to go out — the five predicates a
+#      personal-memory narration (this whole three-wave arc's throughline)
+#      actually needs most. cocinar/escribir/comprar are real but more
+#      SITUATIONAL/transactional (cook a specific meal, write a specific
+#      thing, buy a specific item) — lower narrative-backbone value for a
+#      "tell me about your childhood" scene, which is exactly the frame
+#      m22/m24/m26's own win sentences use. The three left over (cocinar,
+#      escribir, comprar) remain fully data-ready and are named here
+#      explicitly as a possible FOURTH wave — not manufactured in this
+#      module, same discipline m24 applied to its own leftover eight.
+#
+# ── REJECTED ALTERNATIVE 1: all eight verbs in one module ─────────────────
+# Rejected on the atom-budget and card-thinning grounds above. Also: eight
+# families across ten lessons leaves at most 5 clean debut slots (L1–L5)
+# before the checkpoint/consolidation/mastery block (L8–L10) and the
+# recombination/negation slots (L6–L7) that every wave has used since m22 —
+# fitting eight debuts into five slots means doubling up, which halves the
+# "≥3 answer positions at debut" room per family. Not attempted.
+#
+# ── REJECTED ALTERNATIVE 2: skip straight to a fourth new-idea module ─────
+# No backlog signal supports one. The eight-verb list has been named
+# "next" by name in TWO prior headers (m24's and m25's) with zero
+# competing candidate named anywhere for m26 — same reasoning m25's header
+# used to justify itself against a manufactured consolidation module.
+#
+# ── NO RE-TEACH: THE YO=ÉL COLLISION IS ALREADY OWNED ──────────────────────
+# Same as m24. This module's L1 card states THIS module's idea (five more
+# everyday verbs, this time the "completeness" framing rather than a
+# surprise-contrast framing) and does not re-explain the yo=él mechanism.
+# Every "first slot" atom below still must not stand subjectless in an
+# answer position.
+#
+# ── PERSONS: ALL FOUR, FROM L1 (same as m22/m24, unchanged reasoning) ─────
+# No person-staging. vosotros still never drilled (m18's rule, LatAm-
+# neutral course).
+#
+# ── ACCENTS: SAME RULE AS m22/m24, VERIFIED PER-VERB AGAINST
+# conjugationTables.ts (pin E12 — every cell below copied verbatim, not
+# reconstructed) ─────────────────────────────────────────────────────────
+#   - estudiar, trabajar (-ar family): accent ONLY on nosotros —
+#     estudiábamos, trabajábamos. The yo/tú/ellos forms carry none.
+#   - vivir, comer, salir (-er/-ir family): accent on EVERY form's í —
+#     vivía/vivías/vivíamos/vivían, comía/comías/comíamos/comían,
+#     salía/salías/salíamos/salían. No exceptions, same rule as
+#     hacer/querer/poder/venir in m24 and tener/ver in m22.
+#
+# ── NO NEW PRETERITE, NO PROGRESSIVE (unchanged bans, restated) ───────────
+# No preterite form — new or PRIOR-but-unregistered — is introduced here;
+# ALL FIVE of this module's verbs already have PRIOR preterite singular
+# forms (m19: comí/comiste/comió, viví/vivió, trabajé/trabajaste/trabajó,
+# salí/saliste/salió, estudié/estudió — grep-verified against
+# curriculum/m19.ts and m21.ts), which is exactly what makes this module's
+# own signature contrast possible (see "SIGNATURE CONTRAST" below) — but no
+# NEW preterite cell is registered. NOT PRIOR (zero hits, do not
+# manufacture): «viviste», the nosotros/ellos preterite of trabajar
+# (trabajamos/trabajaron already covers trabajaron — trabajamos-preterite
+# is unregistered), «salimos»/«salieron» (preterite), «estudiaste»/
+# «estudiamos»(preterite). Progressive is still banned by pin E7 — no
+# `-aba`/`-ía` + -ndo periphrasis with any of this module's own new atoms.
+#
+# ── SIGNATURE CONTRAST: SAME VERB, TWO PASTS, ONE «pero» ───────────────────
+# m24 could only show the "same verb, different tense, different job"
+# minimal pair for TWO of its five verbs (estaba/estuve, venía/vino) — the
+# other three (hacer/querer/poder) have no usable PRIOR preterite to pair
+# against (hizo exists but is thin, quise/pude are banned). This module is
+# the first wave where ALL FIVE new verbs already have a PRIOR preterite
+# counterpart in the SAME lemma. That is this module's own extra value,
+# not a new grammar idea: L6 pairs a HABITUAL imperfect clause against a
+# ONE-TIME preterite clause of the SAME verb, split by «pero» and two
+# different PRIOR time markers (siempre/todos los días vs. ayer/anoche/la
+# semana pasada) — «siempre comía en casa, pero ayer comí en el
+# restaurante». This is the exact marker-driven disambiguation technique
+# m21 already taught for «hablamos»/«vivimos» (see "HOMOGRAPH TRAP" below),
+# now generalized across five verbs and two genuinely different tenses
+# instead of one homograph. Not a new mechanic — m23 already owns
+# preterite-vs-imperfect contrast as a teaching point; this module reuses
+# it with fresh verbs, in L6 (recombination), not L9 (which stays
+# present-vs-imperfect only, per m22/m24's own L9 restriction, restated
+# below).
+#
+# ── HOMOGRAPH TRAP: «vivimos» ALREADY DOES DOUBLE DUTY — DO NOT CONFUSE
+# WITH «vivíamos» ──────────────────────────────────────────────────────────
+# «vivimos» (PRIOR, m18 present / m21 preterite) is a genuinely
+# tense-ambiguous PRIOR word — the exact same surface means "we live" AND
+# "we lived," disambiguated ONLY by a time marker, per m21's own
+# hablamos/vivimos pin (`m21.test.ts` lines ~174–208, "carry an explicit
+# past reading... disambiguated by context wherever produced" — a real,
+# gate-enforced pin, UNCHANGED and still in force, this module does not
+# touch it). «vivíamos» (this module, new) is NOT part of that ambiguity —
+# it has its own unmistakable -íamos ending and only ever means "we used to
+# live." Do not gloss «vivíamos» as if it resolves or replaces the
+# «vivimos» ambiguity; they are three readings on the same lemma (present
+# vivimos / preterite vivimos / imperfect vivíamos) and a careful drafting
+# agent should let the nosotros-family lesson (L1) make that explicit in
+# one clause, not a full card (budget is spent on the module's own idea).
+#
+# ── HOMOGRAPH TRAP: «ir» INFINITIVE IS NOT A LIVE ATOM — A GENERAL WARNING,
+# NOW VERIFIED SAFE FOR THIS MODULE'S OWN FIVE INFINITIVES ─────────────────
+# `docs/handoff-2026-09-10-overnight-authoring.md` (08:06 entry) records a
+# follow-on: the bare infinitive «ir» is used as printed TEXT throughout
+# m11–m24 but was never registered via `atom()` — so crediting it in an
+# `atoms:` field would reference a non-existent atom and silently drop SRS
+# credit (m24-L3's own fragments never put "ir" in an `atoms:` array even
+# though "ir" is printed in "quería ir al cine" — grep-verified,
+# `atoms: ["quería", "cine", "de niño"]` never includes "ir"). Checked
+# specifically for THIS module: «vivir» (m11), «comer» (m11), «estudiar»
+# (m10), «trabajar» (m10), «salir» (m15) are ALL registered via `atom()`
+# in their own curriculum files (grep-verified,
+# `grep -n 'surface: "vivir"' curriculum/m11.ts` etc.) — unlike «ir», this
+# module's own five infinitives ARE live atoms and MAY be credited in
+# `atoms:` when printed. Do not generalize the «ir» exception to every
+# infinitive in the course; check each one.
+#
+# ── NOT PRIOR present-tense forms — do not manufacture to fill a paradigm
+# (grep-verified zero hits m1–m25) ─────────────────────────────────────────
+# trabajamos, trabajan, sales, salimos, salen, estudiamos, estudian. (vivir
+# and comer have all six present persons PRIOR already; trabajar/salir/
+# estudiar are missing their nosotros and ellos present cells.)
+#
+# ── REUSE m23's AND m25's CONNECTIVES — do not let either set go quiet ────
+# «cuando», «mientras», «de repente», «entonces» (m23) AND «porque», «por
+# eso» (m25, now fully registered/shipped — courseAtoms.ts, index.ts,
+# grammarHelpers.ts, placementBank.ts, es-quality.test.ts all confirmed)
+# are all PRIOR and legal from L1. This is the first imperfect-wave module
+# that can pair EITHER toolkit with fresh verb material — «vivía en México
+# porque trabajaba en la tienda» cashes m25's causal connective against
+# brand-new verb range for the first time. Doctrine
+# ([[interleave-dont-block-teach]]) argues for keeping both alive rather
+# than five debut-heavy lessons running with zero recombination: L6 (the
+# same-verb imperfect/preterite contrast) and L7 (negation/questions) both
+# weave in at least one of each toolkit; L10's mastery keeps both alive one
+# more module out.
+#
+# ── CONCURRENT-EDIT CAVEAT ─────────────────────────────────────────────────
+# Per `docs/handoff-2026-09-10-overnight-authoring.md`'s 09:07 entry, an ES
+# m25 REVIEWER pass may still be running concurrently with this module's
+# drafting — m25 itself is fully committed and registered (verified
+# directly: courseAtoms.ts/index.ts/grammarHelpers.ts/placementBank.ts/
+# es-quality.test.ts all carry m25 entries, `m25.test.ts` exists), but a
+# reviewer fixing m25's content (foils, glosses, one audio string) could
+# still be landing small changes underneath a drafting agent. Re-grep any
+# m25-sourced surface (porque, por eso, and the m25 lesson context words)
+# before relying on it if this brief is used more than a few hours after
+# it was written.
+#
+# ── NO NEW EMOJI, NO NEW NOUN THIS MODULE ──────────────────────────────────
+# Same precedent as m19/m21/m22/m23/m24/m25. All five new atom families are
+# verb forms. Two of this module's five infinitives already carry a PRIOR
+# emoji from their own original teaching (trabajar 👷 m10, estudiar 📚
+# m10) — reusing those emoji is PRIOR reuse, not a new debut. Narrative
+# color otherwise comes from PRIOR nouns-with-emoji (la escuela 🏫, el
+# parque 🌳, la playa 🏖️, el cine 🎬, la fiesta 🎉, el mercado 🛒, la
+# tienda 🏪, casa 🏠, el trabajo 💼, el museo 🏛️) plus PRIOR non-emoji
+# nouns (la tarea m15, el amigo, restaurante m18, padre/madre/abuela/abuelo)
+# and the fixed cast.
+#
+# ── ACCENT: FRESH COLOUR — CYAN, VERIFIED UNUSED ────────────────────────
+# Checked every `accent:` pair in `curriculum/index.ts` (grep-verified:
+# zero hits for `#22d3ee` and `#0891b2`). Cyan reads as distinct at a
+# glance from m21 sky (`#38bdf8`→`#0c4a6e`), m22 indigo (`#818cf8`→
+# `#3730a3`), m23 red (`#ef4444`→`#991b1b`), m24 fuchsia (`#d946ef`→
+# `#86198f`), and m25 blue (`#3b82f6`→`#1d4ed8`) — the five most recent —
+# as well as every other module's accent pair (`#0ea5e9`, `#6366f1`,
+# `#f59e0b`, `#10b981`, `#f472b6`, `#a855f7`, `#34d399`, `#f43f5e`,
+# `#a78bfa`, `#fb923c`, `#2dd4bf`, `#a3e635`, `#c084fc`).
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # vivir — regular present (vivo) AND regular preterite (viví, m19);
+  # REGULAR in the imperfect too — no surprise, just completeness. «where
+  # you used to live» is the backbone of a memory narration. Nosotros form
+  # «vivíamos» sits beside the ALREADY-tense-ambiguous PRIOR «vivimos»
+  # (present/preterite, m18/m21) — see homograph trap above.
+  - { surface: "vivía", meaningEn: "I was living, he/she/you (usted) was living", partOfSpeech: "verb", kind: "vocab", hint: "vee-VEE-ah — accent on every form, unlike present «vivo» or preterite «viví». Same yo=él surface you met in m22/m24 (tenía, hacía…) — only the subject tells you who." }
+  - { surface: "vivías", meaningEn: "you (tú) were living", partOfSpeech: "verb", kind: "vocab", hint: "vee-VEE-ahs" }
+  - { surface: "vivíamos", meaningEn: "we were living, we used to live", partOfSpeech: "verb", kind: "vocab", hint: "vee-vee-AH-mos — NOT the same word as PRIOR «vivimos» (present OR preterite, disambiguated only by a marker, m18/m21); «vivíamos» always means the ongoing/habitual past." }
+  - { surface: "vivían", meaningEn: "they were living, you all were living", partOfSpeech: "verb", kind: "vocab", hint: "vee-VEE-ahn" }
+  # comer — regular present (como) AND regular preterite (comí, m19);
+  # REGULAR in the imperfect too.
+  - { surface: "comía", meaningEn: "I was eating, he/she/you (usted) was eating", partOfSpeech: "verb", kind: "vocab", hint: "koh-MEE-ah — accent on every form, unlike present «como» or preterite «comí»" }
+  - { surface: "comías", meaningEn: "you (tú) were eating", partOfSpeech: "verb", kind: "vocab", hint: "koh-MEE-ahs" }
+  - { surface: "comíamos", meaningEn: "we were eating, we used to eat", partOfSpeech: "verb", kind: "vocab", hint: "koh-mee-AH-mos" }
+  - { surface: "comían", meaningEn: "they were eating, you all were eating", partOfSpeech: "verb", kind: "vocab", hint: "koh-MEE-ahn" }
+  # estudiar — regular present (estudio) AND regular preterite (estudié,
+  # m19); REGULAR in the imperfect too. -ar family: accent only on
+  # nosotros.
+  - { surface: "estudiaba", meaningEn: "I was studying, he/she/you (usted) was studying", partOfSpeech: "verb", kind: "vocab", hint: "es-too-DYAH-bah — no accent. Regular -aba, same shape as «estaba» (m24)." }
+  - { surface: "estudiabas", meaningEn: "you (tú) were studying", partOfSpeech: "verb", kind: "vocab", hint: "es-too-DYAH-bahs" }
+  - { surface: "estudiábamos", meaningEn: "we were studying, we used to study", partOfSpeech: "verb", kind: "vocab", hint: "es-too-dyah-BAH-mos — the ONE -ar form that carries an accent" }
+  - { surface: "estudiaban", meaningEn: "they were studying, you all were studying", partOfSpeech: "verb", kind: "vocab", hint: "es-too-DYAH-bahn" }
+  # trabajar — regular present (trabajo) AND regular preterite (trabajé,
+  # m19); REGULAR in the imperfect too. -ar family: accent only on
+  # nosotros. NOT PRIOR present: trabajamos, trabajan — do not manufacture.
+  - { surface: "trabajaba", meaningEn: "I was working, he/she/you (usted) was working", partOfSpeech: "verb", kind: "vocab", hint: "tra-ba-HAH-bah — no accent. Regular -aba, same shape as «estaba»/«estudiaba»." }
+  - { surface: "trabajabas", meaningEn: "you (tú) were working", partOfSpeech: "verb", kind: "vocab", hint: "tra-ba-HAH-bahs" }
+  - { surface: "trabajábamos", meaningEn: "we were working, we used to work", partOfSpeech: "verb", kind: "vocab", hint: "tra-ba-hah-BAH-mos — the ONE -ar form that carries an accent" }
+  - { surface: "trabajaban", meaningEn: "they were working, you all were working", partOfSpeech: "verb", kind: "vocab", hint: "tra-ba-HAH-bahn" }
+  # salir — irregular-yo present (salgo) but regular preterite (salí,
+  # m19); REGULAR in the imperfect. Never stack «salía» with the bare
+  # infinitive «salir» in one clause (a same-verb double-verb error) — if a
+  # sentence needs "wanted to go out," pair «salía» with a DIFFERENT verb's
+  # infinitive slot or use «quería salir» only where «salir» itself is the
+  # infinitive object, never alongside a second conjugated form of salir.
+  - { surface: "salía", meaningEn: "I was leaving/going out, he/she/you (usted) was leaving/going out", partOfSpeech: "verb", kind: "vocab", hint: "sah-LEE-ah — accent on every form, regular here unlike irregular-yo present «salgo» or preterite «salí»" }
+  - { surface: "salías", meaningEn: "you (tú) were leaving/going out", partOfSpeech: "verb", kind: "vocab", hint: "sah-LEE-ahs" }
+  - { surface: "salíamos", meaningEn: "we were leaving/going out, we used to go out", partOfSpeech: "verb", kind: "vocab", hint: "sah-lee-AH-mos" }
+  - { surface: "salían", meaningEn: "they were leaving/going out, you all were leaving/going out", partOfSpeech: "verb", kind: "vocab", hint: "sah-LEE-ahn" }
+
+lessons:
+  # ── L1 · «Vivía en México» — vivir's imperfect debuts whole: vivía (a
+  #    "first slot" atom, yo=él collision — PRIOR mechanism, m22, not
+  #    re-taught here), vivías (tú), vivíamos (nosotros — sits beside the
+  #    ALREADY-tense-ambiguous PRIOR «vivimos», present/preterite, m18/m21;
+  #    «vivíamos» is a THIRD, unambiguous reading, not a resolution of that
+  #    ambiguity), vivían (ellos/ustedes). -er/-ir family: EVERY form keeps
+  #    the accent. Also carries the module's ONE general rule card: the
+  #    imperfect's "easy tense" trick, third wave now, five more everyday
+  #    verbs, all regular here too. NO progressive, NO new preterite. No
+  #    recall (nothing earlier to recall).
+  - n: 1
+    template: free
+    title: "Vivía en México"
+    description: "The imperfect's trick, a third time: «vivía» is vivir's imperfect — regular here, same as present «vivo» and preterite «viví». Third wave, five more everyday verbs."
+    steps:
+      - kind: map
+        id: l1-map-deninoviviamexico
+        tokens: ["de niño", "vivía", "en", "México"]
+        pairs:
+          - { en: "as a child,", tokenIndex: 0 }
+          - { en: "I used to live", tokenIndex: 1 }
+          - { en: "in", tokenIndex: 2 }
+          - { en: "Mexico", tokenIndex: 3 }
+        audioText: "de niño, vivía en México"
+        revealNote: "«vivía» is vivir's imperfect — regular here, same shape as present «vivo» or preterite «viví». Same yo=él pattern as «tenía»/«estaba» (m22/m24) — only the subject tells you who."
+      - kind: info
+        id: l1-info-viviatricegeneralizado
+        title: "Vivía — the trick, a third time"
+        body: "The imperfect keeps being the easy tense — third wave now. «tenía» (m22), «estaba» (m24) were regular despite irregular present/preterite forms; «vivía», «comía», «estudiaba», «trabajaba», «salía» are the same trick, five more times: «de niño, vivía en México»."
+      - kind: speakLit
+        id: l1-sp-yoviviamexico
+        es: "yo vivía en México de niño"
+        en: "I used to live in Mexico as a child"
+        atoms: ["vivía", "México", "de niño"]
+      - kind: buildLit
+        id: l1-b-tuviviasaqui
+        es: "tú vivías aquí de niño"
+        en: "You (tú) used to live here as a child"
+        atoms: ["vivías", "aquí", "de niño"]
+        tiles: ["vivía", "vivían"]
+      - kind: speakLit
+        id: l1-sp-viviamosjuntosmexico
+        es: "vivíamos juntos en México"
+        en: "We used to live together in Mexico"
+        atoms: ["vivíamos", "juntos", "México"]
+      - kind: clozeLit
+        id: l1-c-todosviviamexico
+        es: "de niño, todos vivían en México"
+        en: "As children, everyone used to live in Mexico"
+        blank: "vivían"
+        options: ["vivían", "vivíamos", "vivía"]
+        atoms: ["de niño", "todos", "vivían", "México"]
+        why: "«todos» takes the they-ending: «vivían», never «vivíamos» — that would wrongly include you."
+      - kind: listenCompLit
+        id: l1-lc-diegoviviamexico
+        es: "Diego vivía en México de niño"
+        en: "Diego used to live in Mexico as a child."
+        atoms: ["vivía", "México", "de niño"]
+        distractorsEn:
+          - "Diego lives in Mexico as a child."
+          - "Diego used to live in Spain as a child."
+          - "They used to live in Mexico as a child."
+      - kind: mcq
+        id: l1-q-tuvivias
+        prompt: "Which one means 'you (tú) used to live'?"
+        correct: "tú vivías"
+        distractors: ["tú vivía", "tú vive", "tú vivíamos"]
+        atoms: ["vivías"]
+        why: "«vivías» — the tú ending, accented like every vivir imperfect form. «vivía» collapses yo/él, not tú; «vive» slips into now; «vivíamos» would be we."
+      - kind: buildLit
+        id: l1-b-viviamossiemprejuntos
+        es: "vivíamos siempre juntos aquí"
+        en: "We always used to live together here"
+        atoms: ["vivíamos", "siempre", "juntos", "aquí"]
+        tiles: ["vivían", "vivimos"]
+      - kind: audioWimcq
+        id: l1-ear-escuela
+        target: { surface: "la escuela", emoji: "🏫" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el parque", emoji: "🌳" }
+      - kind: agreementLit
+        id: l1-agr-yoelvivia
+        en: "I used to live in Mexico, and he did too"
+        audioText: "yo vivía en México, y él vivía también"
+        atoms: ["vivía", "México"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "vivía", options: ["vivía", "vive"] } }
+          - { text: " en México, y él " }
+          - { blank: { id: "p2", answer: "vivía", options: ["vivía", "vive"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l1-lb-samluisvivianmexico
+        es: "Sam y Luis vivían en México de niños"
+        en: "Sam and Luis used to live in Mexico as children"
+        atoms: ["vivían", "México", "de niño"]
+        tiles: ["vivíamos", "vivía"]
+      - kind: textMcq
+        id: l1-tm-vivia
+        target: "vivía"
+        distractors: ["vivías", "vivían", "vive"]
+      - kind: sim
+        id: l1-sim-ana-mexico
+        scene: { emoji: "🇲🇽", title: "Ana asks about childhood", setting: "Ana wants to know where everyone used to live as kids." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Vivías en México de niño?", audioText: "¿vivías en México de niño?", gloss: "Did you used to live in Mexico as a child?" }
+            goal: "Say yes, you always lived there."
+            reply:
+              mode: build
+              tiles: ["sí", "yo", "vivía", "siempre", "en", "México", "vivían"]
+              answer: "sí yo vivía siempre en México"
+            replyGloss: "Yes, I always lived in Mexico."
+            explanation: "Answering as yourself, «yo» keeps «vivía» unambiguous — it also means he/she/usted used to live. «vivían» would be more than one."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Vivían en México también?", audioText: "¿y diego y sofía? ¿vivían en México también?", gloss: "And Diego and Sofía? Did they used to live in Mexico too?" }
+            goal: "Say yes, they always lived there too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, vivían en México también" }
+                - { id: "wrong1", text: "sí, vivíamos en México también" }
+                - { id: "wrong2", text: "sí, viven en México también" }
+              correctOptionId: "right"
+              audioText: "sí, vivían en México también"
+            replyGloss: "Yes, they always lived in Mexico too."
+            explanation: "Diego and Sofía — them: «vivían». «vivíamos» would wrongly include you; «viven» slips into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Vivíamos aquí juntos?", audioText: "¿y tú y yo? ¿vivíamos aquí juntos?", gloss: "And you and I? Did we used to live here together?" }
+            goal: "Say yes, we always lived here together."
+            reply:
+              mode: build
+              tiles: ["sí", "vivíamos", "siempre", "juntos", "aquí", "vivían", "vivía"]
+              answer: "sí vivíamos siempre juntos aquí"
+            replyGloss: "Yes, we always lived here together."
+            explanation: "You and Ana together: «vivíamos» — accented, the one vivir imperfect form that is nosotros."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "vivía", target: "I used to live, he/she/you used to live" }
+          - { source: "vivías", target: "you (tú) used to live" }
+          - { source: "vivíamos", target: "we used to live" }
+          - { source: "vivían", target: "they used to live, you all used to live" }
+          - { source: "México", target: "Mexico" }
+          - { source: "de niño", target: "as a child" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "de niño, vivía en México"
+        en: "As a child, I used to live in Mexico"
+        atoms: ["de niño", "vivía", "México"]
+
+  # ── L2 · «Comía mucho en casa» — comer's imperfect debuts whole: comía
+  #    (yo=él collision, PRIOR mechanism, not re-taught), comías (tú),
+  #    comíamos (nosotros), comían (ellos/ustedes). -er/-ir family: EVERY
+  #    form keeps the accent, same as vivir (L1). Regular here, same as
+  #    present «como»/preterite «comí». NO progressive, NO new preterite.
+  #    No recall (L1's own -sp-win is the only earlier line, and this
+  #    lesson debuts a fresh family — recall license starts at L3+ per the
+  #    brief).
+  - n: 2
+    template: free
+    title: "Comía mucho en casa"
+    description: "«comía» is comer's imperfect — regular here, same as present «como» or preterite «comí» (m19). Every form keeps the accent, same as vivir."
+    steps:
+      - kind: map
+        id: l2-map-deninocomiamuchocasa
+        tokens: ["de niño", "comía", "mucho", "en", "casa"]
+        pairs:
+          - { en: "as a child,", tokenIndex: 0 }
+          - { en: "I used to eat", tokenIndex: 1 }
+          - { en: "a lot", tokenIndex: 2 }
+          - { en: "at", tokenIndex: 3 }
+          - { en: "home", tokenIndex: 4 }
+        audioText: "de niño, comía mucho en casa"
+        revealNote: "«comía» is comer's imperfect — regular here, same shape as present «como» or preterite «comí». Same yo=él pattern as «vivía» (L1)."
+      - kind: info
+        id: l2-info-comiasegundaverbo
+        title: "Comía — the second verb"
+        body: "«comía» is I used to eat, he/she/you used to eat — comer's imperfect. Every form keeps the accent: «comía», «comías», «comíamos», «comían». Regular here, same as present «como» or preterite «comí»."
+      - kind: speakLit
+        id: l2-sp-yocomiacasa
+        es: "yo comía mucho en casa"
+        en: "I used to eat a lot at home"
+        atoms: ["comía", "mucho", "casa"]
+      - kind: buildLit
+        id: l2-b-tucomiascasa
+        es: "tú comías en casa de niño"
+        en: "You (tú) used to eat at home as a child"
+        atoms: ["comías", "casa", "de niño"]
+        tiles: ["comía", "comían"]
+      - kind: speakLit
+        id: l2-sp-comiamosjuntoscasa
+        es: "comíamos juntos en casa"
+        en: "We used to eat together at home"
+        atoms: ["comíamos", "juntos", "casa"]
+      - kind: clozeLit
+        id: l2-c-todoscomiancasa
+        es: "de niño, todos comían en casa"
+        en: "As children, everyone used to eat at home"
+        blank: "comían"
+        options: ["comían", "comíamos", "comía"]
+        atoms: ["de niño", "todos", "comían", "casa"]
+        why: "«todos» takes the they-ending: «comían», never «comíamos» — that would wrongly include you."
+      - kind: listenCompLit
+        id: l2-lc-diegocomiacasa
+        es: "Diego comía mucho en casa"
+        en: "Diego used to eat a lot at home."
+        atoms: ["comía", "mucho", "casa"]
+        distractorsEn:
+          - "Diego eats a lot at home."
+          - "Diego used to eat a lot at school."
+          - "They used to eat a lot at home."
+      - kind: mcq
+        id: l2-q-tucomias
+        prompt: "Which one means 'you (tú) used to eat'?"
+        correct: "tú comías"
+        distractors: ["tú comía", "tú come", "tú comíamos"]
+        atoms: ["comías"]
+        why: "«comías» — the tú ending, accented like every comer imperfect form. «comía» collapses yo/él, not tú; «come» slips into now; «comíamos» would be we."
+      - kind: buildLit
+        id: l2-b-comiamossiempremucho
+        es: "comíamos siempre mucho juntos"
+        en: "We always used to eat a lot together"
+        atoms: ["comíamos", "siempre", "mucho", "juntos"]
+        tiles: ["comían", "comemos"]
+      - kind: audioWimcq
+        id: l2-ear-mercado
+        target: { surface: "el mercado", emoji: "🛒" }
+        distractors:
+          - { surface: "la tienda", emoji: "🏪" }
+          - { surface: "el museo", emoji: "🏛️" }
+      - kind: agreementLit
+        id: l2-agr-yoelcomia
+        en: "I used to eat at home, and he did too"
+        audioText: "yo comía en casa, y él comía también"
+        atoms: ["comía", "casa"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "comía", options: ["comía", "come"] } }
+          - { text: " en casa, y él " }
+          - { blank: { id: "p2", answer: "comía", options: ["comía", "come"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l2-lb-samluiscomiancasa
+        es: "Sam y Luis comían mucho en casa"
+        en: "Sam and Luis used to eat a lot at home"
+        atoms: ["comían", "mucho", "casa"]
+        tiles: ["comíamos", "comía"]
+      - kind: textMcq
+        id: l2-tm-comia
+        target: "comía"
+        distractors: ["comías", "comían", "come"]
+      - kind: sim
+        id: l2-sim-ana-comida
+        scene: { emoji: "🏠", title: "Ana asks about family meals", setting: "Ana wants to know who used to eat where, and how much, as kids." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Comías mucho en casa de niño?", audioText: "¿comías mucho en casa de niño?", gloss: "Did you used to eat a lot at home as a child?" }
+            goal: "Say yes, you always ate a lot there."
+            reply:
+              mode: build
+              tiles: ["sí", "yo", "comía", "siempre", "mucho", "en", "casa", "comían"]
+              answer: "sí yo comía siempre mucho en casa"
+            replyGloss: "Yes, I always ate a lot at home."
+            explanation: "Answering as yourself, «yo» keeps «comía» unambiguous — it also means he/she/usted used to eat. «comían» would be more than one."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Comían mucho también?", audioText: "¿y diego y sofía? ¿comían mucho también?", gloss: "And Diego and Sofía? Did they used to eat a lot too?" }
+            goal: "Say yes, they always ate a lot too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, comían mucho también" }
+                - { id: "wrong1", text: "sí, comíamos mucho también" }
+                - { id: "wrong2", text: "sí, comen mucho también" }
+              correctOptionId: "right"
+              audioText: "sí, comían mucho también"
+            replyGloss: "Yes, they always ate a lot too."
+            explanation: "Diego and Sofía — them: «comían». «comíamos» would wrongly include you; «comen» slips into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Comíamos juntos en casa?", audioText: "¿y tú y yo? ¿comíamos juntos en casa?", gloss: "And you and I? Did we used to eat together at home?" }
+            goal: "Say yes, we always ate together at home."
+            reply:
+              mode: build
+              tiles: ["sí", "comíamos", "siempre", "juntos", "en", "casa", "comían", "comía"]
+              answer: "sí comíamos siempre juntos en casa"
+            replyGloss: "Yes, we always ate together at home."
+            explanation: "You and Ana together: «comíamos» — accented, the one comer imperfect form that is nosotros."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "comía", target: "I used to eat, he/she/you used to eat" }
+          - { source: "comías", target: "you (tú) used to eat" }
+          - { source: "comíamos", target: "we used to eat" }
+          - { source: "comían", target: "they used to eat, you all used to eat" }
+          - { source: "casa", target: "house, home" }
+          - { source: "mucho", target: "a lot" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "de niño, comía mucho en casa"
+        en: "As a child, I used to eat a lot at home"
+        atoms: ["de niño", "comía", "mucho", "casa"]
+
+  # ── L3 · «Estudiaba mucho en la escuela» — estudiar's imperfect debuts
+  #    whole: estudiaba (yo=él collision, PRIOR mechanism, not re-taught),
+  #    estudiabas (tú), estudiábamos (nosotros — the ONE -ar form that
+  #    carries an accent), estudiaban (ellos/ustedes). -ar family: accent
+  #    ONLY on nosotros, unlike vivir/comer (L1/L2). Regular here, same as
+  #    present «estudio»/preterite «estudié» (m19). Reuses estudiar's own
+  #    PRIOR emoji (📚, m10) — PRIOR reuse, not a new debut. NO progressive,
+  #    NO new preterite. No recall (L3 debuts a fresh family).
+  - n: 3
+    template: free
+    title: "Estudiaba mucho en la escuela"
+    description: "«estudiaba» is estudiar's imperfect — regular here, same as present «estudio» or preterite «estudié» (m19). -ar family: accent only on nosotros."
+    steps:
+      - kind: map
+        id: l3-map-deninoestudiabamuchoescuela
+        tokens: ["de niño", "estudiaba", "mucho", "en", "la escuela"]
+        pairs:
+          - { en: "as a child,", tokenIndex: 0 }
+          - { en: "I used to study", tokenIndex: 1 }
+          - { en: "a lot", tokenIndex: 2 }
+          - { en: "at", tokenIndex: 3 }
+          - { en: "school", tokenIndex: 4 }
+        audioText: "de niño, estudiaba mucho en la escuela"
+        revealNote: "«estudiaba» is estudiar's imperfect — regular here, no accent, same shape as present «estudio» or preterite «estudié». Same yo=él pattern as «vivía»/«comía» (L1/L2)."
+      - kind: info
+        id: l3-info-estudiabatercerverbo
+        title: "Estudiaba — the third verb"
+        body: "«estudiaba» is I used to study, he/she/you used to study — estudiar's imperfect. Unlike vivir/comer, the -ar family carries an accent ONLY on nosotros: «estudiábamos». «estudiaba», «estudiabas», «estudiaban» carry none."
+      - kind: speakLit
+        id: l3-sp-yoestudiabaescuela
+        es: "yo estudiaba mucho en la escuela"
+        en: "I used to study a lot at school"
+        atoms: ["estudiaba", "mucho", "escuela"]
+      - kind: buildLit
+        id: l3-b-tuestudiabasescuela
+        es: "tú estudiabas en la escuela de niño"
+        en: "You (tú) used to study at school as a child"
+        atoms: ["estudiabas", "escuela", "de niño"]
+        tiles: ["estudiaba", "estudiaban"]
+      - kind: speakLit
+        id: l3-sp-estudiabamosjuntosescuela
+        es: "estudiábamos juntos en la escuela"
+        en: "We used to study together at school"
+        atoms: ["estudiábamos", "juntos", "escuela"]
+      - kind: clozeLit
+        id: l3-c-todosestudiabanescuela
+        es: "de niño, todos estudiaban en la escuela"
+        en: "As children, everyone used to study at school"
+        blank: "estudiaban"
+        options: ["estudiaban", "estudiábamos", "estudiaba"]
+        atoms: ["de niño", "todos", "estudiaban", "escuela"]
+        why: "«todos» takes the they-ending: «estudiaban», never «estudiábamos» — that would wrongly include you."
+      - kind: listenCompLit
+        id: l3-lc-diegoestudiabaescuela
+        es: "Diego estudiaba mucho en la escuela"
+        en: "Diego used to study a lot at school."
+        atoms: ["estudiaba", "mucho", "escuela"]
+        distractorsEn:
+          - "Diego studies a lot at school."
+          - "Diego used to study a lot at home."
+          - "They used to study a lot at school."
+      - kind: mcq
+        id: l3-q-tuestudiabas
+        prompt: "Which one means 'you (tú) used to study' — no accent, the -ar rule?"
+        correct: "tú estudiabas"
+        distractors: ["tú estudiaba", "tú estudia", "tú estudiábamos"]
+        atoms: ["estudiabas"]
+        why: "«estudiabas» — the tú ending, no accent (the -ar rule). «estudiaba» collapses yo/él, not tú; «estudia» slips into now; «estudiábamos» would be we, the one accented form."
+      - kind: buildLit
+        id: l3-b-estudiabamossiemprejuntos
+        es: "estudiábamos siempre juntos en la escuela"
+        en: "We always used to study together at school"
+        atoms: ["estudiábamos", "siempre", "juntos", "escuela"]
+        tiles: ["estudiaban", "estudiaba"]
+      - kind: audioWimcq
+        id: l3-ear-museo
+        target: { surface: "el museo", emoji: "🏛️" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "la fiesta", emoji: "🎉" }
+      - kind: agreementLit
+        id: l3-agr-yoelestudiaba
+        en: "I used to study at school, and he did too"
+        audioText: "yo estudiaba en la escuela, y él estudiaba también"
+        atoms: ["estudiaba", "escuela"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "estudiaba", options: ["estudiaba", "estudia"] } }
+          - { text: " en la escuela, y él " }
+          - { blank: { id: "p2", answer: "estudiaba", options: ["estudiaba", "estudia"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l3-lb-samluisestudiabanescuela
+        es: "Sam y Luis estudiaban mucho en la escuela"
+        en: "Sam and Luis used to study a lot at school"
+        atoms: ["estudiaban", "mucho", "escuela"]
+        tiles: ["estudiábamos", "estudiaba"]
+      - kind: textMcq
+        id: l3-tm-estudiaba
+        target: "estudiaba"
+        distractors: ["estudiabas", "estudiaban", "estudia"]
+      - kind: sim
+        id: l3-sim-ana-escuela
+        scene: { emoji: "📚", title: "Ana asks about school", setting: "Ana wants to know who used to study a lot, and where, as kids." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Estudiabas mucho en la escuela de niño?", audioText: "¿estudiabas mucho en la escuela de niño?", gloss: "Did you used to study a lot at school as a child?" }
+            goal: "Say yes, you always studied a lot there."
+            reply:
+              mode: build
+              tiles: ["sí", "yo", "estudiaba", "siempre", "mucho", "en", "la", "escuela", "estudiaban"]
+              answer: "sí yo estudiaba siempre mucho en la escuela"
+            replyGloss: "Yes, I always studied a lot at school."
+            explanation: "Answering as yourself, «yo» keeps «estudiaba» unambiguous — it also means he/she/usted used to study. «estudiaban» would be more than one."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Estudiaban mucho también?", audioText: "¿y diego y sofía? ¿estudiaban mucho también?", gloss: "And Diego and Sofía? Did they used to study a lot too?" }
+            goal: "Say yes, they always studied a lot too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, estudiaban mucho también" }
+                - { id: "wrong1", text: "sí, estudiábamos mucho también" }
+                - { id: "wrong2", text: "sí, estudiaron mucho también" }
+              correctOptionId: "right"
+              audioText: "sí, estudiaban mucho también"
+            replyGloss: "Yes, they always studied a lot too."
+            explanation: "Diego and Sofía — them: «estudiaban», no accent, the ongoing habit. «estudiábamos» would wrongly include you; «estudiaron» (PRIOR preterite, m21) would wrongly make it one bounded event."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Estudiábamos juntos en la escuela?", audioText: "¿y tú y yo? ¿estudiábamos juntos en la escuela?", gloss: "And you and I? Did we used to study together at school?" }
+            goal: "Say yes, we always studied together there."
+            reply:
+              mode: build
+              tiles: ["sí", "estudiábamos", "siempre", "juntos", "en", "la", "escuela", "estudiaban", "estudiaba"]
+              answer: "sí estudiábamos siempre juntos en la escuela"
+            replyGloss: "Yes, we always studied together at school."
+            explanation: "You and Ana together: «estudiábamos» — the one accented estudiar imperfect form."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "estudiaba", target: "I used to study, he/she/you used to study" }
+          - { source: "estudiabas", target: "you (tú) used to study" }
+          - { source: "estudiábamos", target: "we used to study" }
+          - { source: "estudiaban", target: "they used to study, you all used to study" }
+          - { source: "la escuela", target: "the school" }
+          - { source: "mucho", target: "a lot" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "de niño, estudiaba mucho en la escuela"
+        en: "As a child, I used to study a lot at school"
+        atoms: ["de niño", "estudiaba", "mucho", "escuela"]
+
+  # ── L4 · «Mi padre trabajaba mucho» — trabajar's imperfect debuts whole:
+  #    trabajaba (yo=él collision, PRIOR mechanism, not re-taught),
+  #    trabajabas (tú), trabajábamos (nosotros — the ONE -ar form that
+  #    carries an accent), trabajaban (ellos/ustedes). -ar family: accent
+  #    ONLY on nosotros, same rule as estudiar (L3), unlike vivir/comer/
+  #    salir. Regular here, same as present «trabajo»/preterite «trabajé»
+  #    (m19). Reuses trabajar's own PRIOR emoji (👷, m10) — PRIOR reuse, not
+  #    a new debut. NO progressive, NO new preterite. No recall (L4 debuts a
+  #    fresh family).
+  - n: 4
+    template: free
+    title: "Mi padre trabajaba mucho"
+    description: "«trabajaba» is trabajar's imperfect — regular here, same as present «trabajo» or preterite «trabajé» (m19). -ar family: accent only on nosotros, like estudiar."
+    steps:
+      - kind: map
+        id: l4-map-mipadretrabajabamuchodias
+        tokens: ["mi padre", "trabajaba", "mucho", "todos los días"]
+        pairs:
+          - { en: "my father", tokenIndex: 0 }
+          - { en: "used to work", tokenIndex: 1 }
+          - { en: "a lot", tokenIndex: 2 }
+          - { en: "every day", tokenIndex: 3 }
+        audioText: "mi padre trabajaba mucho todos los días"
+        revealNote: "«trabajaba» is trabajar's imperfect — regular here, same shape as present «trabajo» or preterite «trabajé». Same yo=él pattern as «vivía»/«comía»/«estudiaba» (L1-L3)."
+      - kind: info
+        id: l4-info-trabajabacuartoverbo
+        title: "Trabajaba — the fourth verb"
+        body: "«trabajaba» is I used to work, he/she/you used to work — trabajar's imperfect. Like estudiar, the -ar family carries an accent ONLY on nosotros: «trabajábamos». «trabajaba», «trabajabas», «trabajaban» carry none."
+      - kind: speakLit
+        id: l4-sp-yotrabajabatrabajo
+        es: "yo trabajaba mucho en el trabajo"
+        en: "I used to work a lot at work"
+        atoms: ["trabajaba", "mucho", "trabajo"]
+      - kind: buildLit
+        id: l4-b-tutrabajabastrabajo
+        es: "tú trabajabas en el trabajo todos los días"
+        en: "You (tú) used to work at work every day"
+        atoms: ["trabajabas", "trabajo", "todos los días"]
+        tiles: ["trabajaba", "trabajaban"]
+      - kind: speakLit
+        id: l4-sp-trabajabamosjuntostrabajo
+        es: "trabajábamos juntos en el trabajo"
+        en: "We used to work together at work"
+        atoms: ["trabajábamos", "juntos", "trabajo"]
+      - kind: clozeLit
+        id: l4-c-todostrabajabantrabajo
+        es: "mi padre y mis amigos trabajaban en el trabajo"
+        en: "My father and my friends used to work at work"
+        blank: "trabajaban"
+        options: ["trabajaban", "trabajábamos", "trabajaba"]
+        atoms: ["padre", "trabajaban", "trabajo"]
+        why: "«mi padre y mis amigos» takes the they-ending: «trabajaban», never «trabajábamos» — that would wrongly include you."
+      - kind: listenCompLit
+        id: l4-lc-diegotrabajabatrabajo
+        es: "Diego trabajaba mucho en el trabajo"
+        en: "Diego used to work a lot at work."
+        atoms: ["trabajaba", "mucho", "trabajo"]
+        distractorsEn:
+          - "Diego works a lot at work."
+          - "Diego used to work a lot at home."
+          - "They used to work a lot at work."
+      - kind: mcq
+        id: l4-q-tutrabajabas
+        prompt: "Which one means 'you (tú) used to work' — no accent, the -ar rule?"
+        correct: "tú trabajabas"
+        distractors: ["tú trabajaba", "tú trabaja", "tú trabajábamos"]
+        atoms: ["trabajabas"]
+        why: "«trabajabas» — the tú ending, no accent (the -ar rule). «trabajaba» collapses yo/él, not tú; «trabaja» slips into now; «trabajábamos» would be we, the one accented form."
+      - kind: buildLit
+        id: l4-b-trabajabamossiempretrabajo
+        es: "trabajábamos siempre juntos en el trabajo"
+        en: "We always used to work together at work"
+        atoms: ["trabajábamos", "siempre", "juntos", "trabajo"]
+        tiles: ["trabajaban", "trabajaba"]
+      - kind: audioWimcq
+        id: l4-ear-restaurante
+        target: { surface: "el restaurante", emoji: "🍴" }
+        distractors:
+          - { surface: "el mercado", emoji: "🛒" }
+          - { surface: "el museo", emoji: "🏛️" }
+      - kind: agreementLit
+        id: l4-agr-yoeltrabajaba
+        en: "I used to work at work, and he did too"
+        audioText: "yo trabajaba en el trabajo, y él trabajaba también"
+        atoms: ["trabajaba", "trabajo"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "trabajaba", options: ["trabajaba", "trabaja"] } }
+          - { text: " en el trabajo, y él " }
+          - { blank: { id: "p2", answer: "trabajaba", options: ["trabajaba", "trabaja"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l4-lb-samluistrabajabantrabajo
+        es: "Sam y Luis trabajaban mucho en el trabajo"
+        en: "Sam and Luis used to work a lot at work"
+        atoms: ["trabajaban", "mucho", "trabajo"]
+        tiles: ["trabajábamos", "trabajaba"]
+      - kind: textMcq
+        id: l4-tm-trabajaba
+        target: "trabajaba"
+        distractors: ["trabajabas", "trabajaban", "trabaja"]
+      - kind: sim
+        id: l4-sim-ana-trabajo
+        scene: { emoji: "👷", title: "Ana asks about work", setting: "Ana wants to know who used to work a lot, and how often, in the family." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tu padre trabajaba mucho todos los días?", audioText: "¿tu padre trabajaba mucho todos los días?", gloss: "Did your father used to work a lot every day?" }
+            goal: "Say yes, your father always worked a lot."
+            reply:
+              mode: build
+              tiles: ["sí", "mi", "padre", "trabajaba", "siempre", "mucho", "todos", "los", "días", "trabajaban"]
+              answer: "sí mi padre trabajaba siempre mucho todos los días"
+            replyGloss: "Yes, my father always worked a lot every day."
+            explanation: "«mi padre» — he: «trabajaba» unambiguous, also means I/usted used to work. «trabajaban» would be more than one."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tus amigos? ¿Trabajaban mucho también?", audioText: "¿y tus amigos? ¿trabajaban mucho también?", gloss: "And your friends? Did they used to work a lot too?" }
+            goal: "Say yes, they always worked a lot too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, trabajaban mucho también" }
+                - { id: "wrong1", text: "sí, trabajábamos mucho también" }
+                - { id: "wrong2", text: "sí, trabajaron mucho también" }
+              correctOptionId: "right"
+              audioText: "sí, trabajaban mucho también"
+            replyGloss: "Yes, they always worked a lot too."
+            explanation: "Your friends — them: «trabajaban», no accent, the ongoing habit. «trabajábamos» would wrongly include you; «trabajaron» (PRIOR preterite, m21) would wrongly make it one bounded event."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Trabajábamos juntos en el trabajo?", audioText: "¿y tú y yo? ¿trabajábamos juntos en el trabajo?", gloss: "And you and I? Did we used to work together at work?" }
+            goal: "Say yes, we always worked together there."
+            reply:
+              mode: build
+              tiles: ["sí", "trabajábamos", "siempre", "juntos", "en", "el", "trabajo", "trabajaban", "trabajaba"]
+              answer: "sí trabajábamos siempre juntos en el trabajo"
+            replyGloss: "Yes, we always worked together at work."
+            explanation: "You and Ana together: «trabajábamos» — the one accented trabajar imperfect form."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "trabajaba", target: "I used to work, he/she/you used to work" }
+          - { source: "trabajabas", target: "you (tú) used to work" }
+          - { source: "trabajábamos", target: "we used to work" }
+          - { source: "trabajaban", target: "they used to work, you all used to work" }
+          - { source: "el trabajo", target: "the work, the job" }
+          - { source: "todos los días", target: "every day" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "mi padre trabajaba todos los días"
+        en: "My father used to work every day"
+        atoms: ["padre", "trabajaba", "todos los días"]
+
+  # ── L5 · «Salía al parque con Diego» — salir's imperfect debuts whole:
+  #    salía (yo=él collision, PRIOR mechanism, not re-taught), salías (tú),
+  #    salíamos (nosotros), salían (ellos/ustedes). -er/-ir family: EVERY
+  #    form keeps the accent, same as vivir/comer (L1/L2), unlike estudiar/
+  #    trabajar (L3/L4). Regular here despite irregular present «salgo»
+  #    (only the yo form; sale/PRIOR is otherwise regular) and regular
+  #    preterite «salí» (m19). Reuses salir's own PRIOR word (no emoji,
+  #    m15) — PRIOR reuse, not a new debut. NO progressive, NO new
+  #    preterite. Carries ≥1 recall (l1-sp-win, per the interleave rule —
+  #    this is the fifth and final new-atom family; recall license is open
+  #    from L3+).
+  - n: 5
+    template: free
+    title: "Salía al parque con Diego"
+    description: "«salía» is salir's imperfect — regular here, despite the irregular present «salgo» and regular preterite «salí» (m19). Every form keeps the accent, like vivir/comer."
+    steps:
+      - kind: map
+        id: l5-map-deninosaliaparquediego
+        tokens: ["de niño", "salía", "al parque", "con Diego"]
+        pairs:
+          - { en: "as a child,", tokenIndex: 0 }
+          - { en: "I used to go out", tokenIndex: 1 }
+          - { en: "to the park", tokenIndex: 2 }
+          - { en: "with Diego", tokenIndex: 3 }
+        audioText: "de niño, salía al parque con Diego"
+        revealNote: "«salía» is salir's imperfect — regular here, even though the present «salgo» is irregular. Same yo=él pattern as «vivía»/«comía»/«estudiaba»/«trabajaba» (L1-L4)."
+      - kind: info
+        id: l5-info-saliaquintoverbo
+        title: "Salía — the fifth verb"
+        body: "«salía» is I used to go out, he/she/you used to go out — salir's imperfect. Every form keeps the accent: «salía», «salías», «salíamos», «salían». Regular here, unlike the irregular present «salgo»."
+      - kind: speakLit
+        id: l5-sp-yosaliaparque
+        es: "yo salía mucho al parque"
+        en: "I used to go out a lot to the park"
+        atoms: ["salía", "mucho", "parque"]
+      - kind: buildLit
+        id: l5-b-tusaliasparque
+        es: "tú salías al parque de niño"
+        en: "You (tú) used to go out to the park as a child"
+        atoms: ["salías", "parque", "de niño"]
+        tiles: ["salía", "salían"]
+      - kind: speakLit
+        id: l5-sp-saliamosjuntosparque
+        es: "salíamos juntos al parque"
+        en: "We used to go out together to the park"
+        atoms: ["salíamos", "juntos", "parque"]
+      - kind: clozeLit
+        id: l5-c-todossaliaparque
+        es: "de niño, todos salían al parque"
+        en: "As children, everyone used to go out to the park"
+        blank: "salían"
+        options: ["salían", "salíamos", "salía"]
+        atoms: ["de niño", "todos", "salían", "parque"]
+        why: "«todos» takes the they-ending: «salían», never «salíamos» — that would wrongly include you."
+      - kind: listenCompLit
+        id: l5-lc-diegosaliaparque
+        es: "Diego salía mucho al parque de niño"
+        en: "Diego used to go out a lot to the park as a child."
+        atoms: ["salía", "mucho", "parque"]
+        distractorsEn:
+          - "Diego goes out a lot to the park."
+          - "Diego used to go out a lot to school."
+          - "They used to go out a lot to the park."
+      - kind: mcq
+        id: l5-q-tusalias
+        prompt: "Which one means 'you (tú) used to go out'?"
+        correct: "tú salías"
+        distractors: ["tú salía", "tú sale", "tú salíamos"]
+        atoms: ["salías"]
+        why: "«salías» — the tú ending, accented like every salir imperfect form. «salía» collapses yo/él, not tú; «sale» slips into now; «salíamos» would be we."
+      - kind: buildLit
+        id: l5-b-saliamossiempremucho
+        es: "salíamos siempre mucho juntos"
+        en: "We always used to go out a lot together"
+        atoms: ["salíamos", "siempre", "mucho", "juntos"]
+        tiles: ["salían", "sale"]
+      - kind: audioWimcq
+        id: l5-ear-playa
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "la fiesta", emoji: "🎉" }
+      - kind: agreementLit
+        id: l5-agr-yoelsalia
+        en: "I used to go out to the park, and he did too"
+        audioText: "yo salía al parque, y él salía también"
+        atoms: ["salía", "parque"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "salía", options: ["salía", "sale"] } }
+          - { text: " al parque, y él " }
+          - { blank: { id: "p2", answer: "salía", options: ["salía", "sale"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l5-lb-samluissalianparque
+        es: "Sam y Luis salían mucho al parque"
+        en: "Sam and Luis used to go out a lot to the park"
+        atoms: ["salían", "mucho", "parque"]
+        tiles: ["salíamos", "salía"]
+      - kind: textMcq
+        id: l5-tm-salia
+        target: "salía"
+        distractors: ["salías", "salían", "sale"]
+      # Printed non-recall at L1 (es-m26-1-l1-sp-win).
+      - kind: speakLit
+        id: l5-sp-recall-vivia
+        es: "de niño, vivía en México"
+        en: "As a child, I used to live in Mexico"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l5-sim-ana-parque
+        scene: { emoji: "🌳", title: "Ana asks about the park", setting: "Ana wants to know who used to go out to the park, and how much, as kids." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Salías mucho al parque con Diego de niño?", audioText: "¿salías mucho al parque con Diego de niño?", gloss: "Did you used to go out a lot to the park with Diego as a child?" }
+            goal: "Say yes, you always went out a lot."
+            reply:
+              mode: build
+              tiles: ["sí", "yo", "salía", "siempre", "mucho", "al", "parque", "con", "Diego", "salían"]
+              answer: "sí yo salía siempre mucho al parque con Diego"
+            replyGloss: "Yes, I always went out a lot to the park with Diego."
+            explanation: "Answering as yourself, «yo» keeps «salía» unambiguous — it also means he/she/usted used to go out. «salían» would be more than one."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Sofía y María? ¿Salían mucho también?", audioText: "¿y sofía y maría? ¿salían mucho también?", gloss: "And Sofía and María? Did they used to go out a lot too?" }
+            goal: "Say yes, they always went out a lot."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, salían mucho también" }
+                - { id: "wrong1", text: "sí, salíamos mucho también" }
+                - { id: "wrong2", text: "sí, sale mucho también" }
+              correctOptionId: "right"
+              audioText: "sí, salían mucho también"
+            replyGloss: "Yes, they always went out a lot too."
+            explanation: "Sofía and María — them: «salían». «salíamos» would wrongly include you; «sale» slips into the present, and is singular besides — «salimos»/«salieron» are not registered forms for salir."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Salíamos juntos al parque?", audioText: "¿y tú y yo? ¿salíamos juntos al parque?", gloss: "And you and I? Did we used to go out together to the park?" }
+            goal: "Say yes, we always went out together there."
+            reply:
+              mode: build
+              tiles: ["sí", "salíamos", "siempre", "juntos", "al", "parque", "salían", "salía"]
+              answer: "sí salíamos siempre juntos al parque"
+            replyGloss: "Yes, we always went out together to the park."
+            explanation: "You and Ana together: «salíamos» — accented, the one salir imperfect form that is nosotros."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "salía", target: "I used to go out, he/she/you used to go out" }
+          - { source: "salías", target: "you (tú) used to go out" }
+          - { source: "salíamos", target: "we used to go out" }
+          - { source: "salían", target: "they used to go out, you all used to go out" }
+          - { source: "el parque", target: "the park" }
+          - { source: "con Diego", target: "with Diego" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "de niño, salía mucho al parque con Diego"
+        en: "As a child, I used to go out a lot to the park with Diego"
+        atoms: ["de niño", "salía", "mucho", "parque"]
+
+  # ── L6 · «Siempre comía en casa, pero ayer comí en el restaurante» — the
+  #    module's signature contrast: ZERO new atoms. Unlike m24's L6 (which
+  #    paired a NEW imperfect verb against a DIFFERENT verb's PRIOR
+  #    preterite via m23 connectives), m26's L6 pairs each of the five new
+  #    imperfect verbs against its OWN PRIOR preterite — comía/comí,
+  #    vivía/viví, trabajaba/trabajé, salía/salí, estudiaba/estudié — using
+  #    «pero» plus marker discipline: siempre/todos los días/de niño on the
+  #    habitual (imperfect) side, ayer/anoche/la semana pasada on the
+  #    one-time (preterite) side. Preterite forms used are all
+  #    grep-confirmed PRIOR (m19/m21) and stay inside each verb's
+  #    registered cells — no «salimos»/«salieron» (not registered for
+  #    salir), no «viviste» (not registered for vivir), no «estudiaste»/
+  #    «estudiamos»-preterite (not registered for estudiar), no
+  #    «trabajamos»-preterite (not registered for trabajar). Carries ≥1
+  #    recall (L4's own win line). One extra single-tense buildLit
+  #    («trabajabas») appended near the end, added post-authoring to close
+  #    a production-floor gap (trabajabas was only 1x/1 lesson) — a plain
+  #    tú-form statement, not part of the pero-contrast, so the L6-scoped
+  #    marker-discipline pin does not apply to it.
+  - n: 6
+    template: free
+    title: "Siempre comía en casa, pero ayer comí en el restaurante"
+    description: "The imperfect and the preterite of the SAME verb, contrasted with «pero»: habitual vs. one-time. «siempre comía en casa, pero ayer comí en el restaurante» — the marker tells you which."
+    steps:
+      - kind: map
+        id: l6-map-siemprecomiaayercomi
+        tokens: ["siempre", "comía", "en casa,", "pero", "ayer", "comí", "en el restaurante"]
+        pairs:
+          - { en: "always", tokenIndex: 0 }
+          - { en: "I used to eat", tokenIndex: 1 }
+          - { en: "at home,", tokenIndex: 2 }
+          - { en: "but", tokenIndex: 3 }
+          - { en: "yesterday", tokenIndex: 4 }
+          - { en: "I ate", tokenIndex: 5 }
+          - { en: "at the restaurant", tokenIndex: 6 }
+        audioText: "siempre comía en casa, pero ayer comí en el restaurante"
+        revealNote: "Same verb, two tenses: «comía» (habitual, marked by «siempre») and «comí» (one time, marked by «ayer»). «pero» sets the two clauses against each other."
+      - kind: info
+        id: l6-info-mismoverbodostiempos
+        title: "Same verb, two tenses"
+        body: "«comía» is the habit; «comí» is the one time. The marker tells you which: «siempre»/«todos los días»/«de niño» take the imperfect, «ayer»/«anoche»/«la semana pasada» take the preterite. «pero» sets them against each other."
+      - kind: speakLit
+        id: l6-sp-vivia-vivi
+        es: "siempre vivía en México, pero la semana pasada viví en España"
+        en: "I always used to live in Mexico, but last week I lived in Spain"
+        atoms: ["siempre", "vivía", "México", "la semana pasada", "viví", "España"]
+      - kind: buildLit
+        id: l6-b-comias-comiste
+        es: "tú siempre comías en casa, pero ayer comiste en el restaurante"
+        en: "You (tú) always used to eat at home, but yesterday you ate at the restaurant"
+        atoms: ["comías", "casa", "ayer", "comiste", "restaurante"]
+        tiles: ["comía", "comí"]
+      - kind: speakLit
+        id: l6-sp-trabajaba-trabajo
+        es: "mi padre siempre trabajaba mucho, pero ayer no trabajó"
+        en: "My father always used to work a lot, but yesterday he didn't work"
+        atoms: ["padre", "siempre", "trabajaba", "mucho", "ayer", "trabajó"]
+      - kind: clozeLit
+        id: l6-c-estudiaba-estudie
+        es: "de niño, estudiaba mucho, pero anoche no estudié"
+        en: "As a child, I used to study a lot, but last night I didn't study"
+        blank: "estudié"
+        options: ["estudié", "estudiaban"]
+        atoms: ["de niño", "estudiaba", "mucho", "anoche", "estudié"]
+        why: "«anoche» marks one bounded night for ME: «estudié», not «estudiaban» — that keeps the old habit AND wrongly shifts the subject to they."
+      - kind: listenCompLit
+        id: l6-lc-salia-sali
+        es: "de niño, salía mucho al parque, pero la semana pasada no salí"
+        en: "As a child, I used to go out a lot to the park, but last week I didn't go out."
+        atoms: ["de niño", "salía", "mucho", "parque", "la semana pasada", "salí"]
+        distractorsEn:
+          - "As a child, I go out a lot to the park, but last week I didn't go out."
+          - "As a child, I used to go out a lot to the park, and last week I went out too."
+          - "As a child, we used to go out a lot to the park, but last week we didn't go out."
+      - kind: mcq
+        id: l6-q-marcadorunavez
+        prompt: "Which marker points to the ONE-TIME event, not the habit?"
+        correct: "ayer"
+        distractors: ["siempre", "todos los días", "mientras"]
+        atoms: ["ayer"]
+        why: "«ayer» = yesterday, one bounded day — the preterite. «siempre»/«todos los días» mark the habit; «mientras» (m23) sets up an ongoing background, not a one-time event."
+      - kind: buildLit
+        id: l6-b-vivia-vivimos
+        es: "siempre vivíamos en México, pero el mes pasado vivimos en España"
+        en: "We always used to live in Mexico, but last month we lived in Spain"
+        atoms: ["vivíamos", "México", "el mes pasado", "vivimos", "España"]
+        tiles: ["vivía", "viví"]
+      - kind: audioWimcq
+        id: l6-ear-tienda
+        target: { surface: "la tienda", emoji: "🏪" }
+        distractors:
+          - { surface: "el mercado", emoji: "🛒" }
+          - { surface: "el museo", emoji: "🏛️" }
+      - kind: agreementLit
+        id: l6-agr-comia-comi
+        en: "I always used to eat at home, but I ate at the restaurant yesterday"
+        audioText: "yo siempre comía en casa, pero comí en el restaurante ayer"
+        atoms: ["comía", "casa", "comí", "restaurante", "ayer"]
+        segments:
+          - { text: "yo siempre " }
+          - { blank: { id: "p1", answer: "comía", options: ["comía", "comí"] } }
+          - { text: " en casa, pero " }
+          - { blank: { id: "p2", answer: "comí", options: ["comí", "comía"] } }
+          - { text: " en el restaurante ayer" }
+      - kind: listenBuildLit
+        id: l6-lb-trabajaba-trabajo
+        es: "Sam siempre trabajaba mucho, pero ayer no trabajó"
+        en: "Sam always used to work a lot, but yesterday he didn't work"
+        atoms: ["trabajaba", "mucho", "ayer", "trabajó"]
+        tiles: ["trabajábamos", "trabajaron"]
+      - kind: textMcq
+        id: l6-tm-estudie
+        target: "estudié"
+        distractors: ["estudiaba", "estudiaron", "estudiaban"]
+      - kind: buildLit
+        id: l6-b-trabajabastrabajo
+        es: "tú siempre trabajabas mucho en el trabajo"
+        en: "You (tú) always used to work a lot at work"
+        atoms: ["trabajabas", "siempre", "mucho", "trabajo"]
+      # Printed non-recall at L4 (es-m26-4-l4-sp-win).
+      - kind: speakLit
+        id: l6-sp-recall-trabajabapadre
+        es: "mi padre trabajaba todos los días"
+        en: "My father used to work every day"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l6-sim-ana-contraste
+        scene: { emoji: "🍴", title: "Ana asks what changed", setting: "Ana wants to know what people always did — and what was different yesterday." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Siempre comías en casa?", audioText: "¿siempre comías en casa?", gloss: "Did you always used to eat at home?" }
+            goal: "Say yes, but you ate out yesterday."
+            reply:
+              mode: build
+              tiles: ["sí", "siempre", "comía", "en", "casa", "pero", "ayer", "comí", "en", "el", "restaurante", "comía"]
+              answer: "sí siempre comía en casa pero ayer comí en el restaurante"
+            replyGloss: "Yes, I always used to eat at home, but yesterday I ate at the restaurant."
+            explanation: "The habit («comía») and the one time («comí») sit side by side, «pero» between them — the marker («siempre» vs. «ayer») is what tells them apart."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego? ¿Siempre salía al parque?", audioText: "¿y diego? ¿siempre salía al parque?", gloss: "And Diego? Did he always used to go out to the park?" }
+            goal: "Say yes, but not last week."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, pero la semana pasada no salió" }
+                - { id: "wrong1", text: "sí, pero la semana pasada no salía" }
+                - { id: "wrong2", text: "sí, pero la semana pasada no sale" }
+              correctOptionId: "right"
+              audioText: "sí, pero la semana pasada no salió"
+            replyGloss: "Yes, but last week he didn't go out."
+            explanation: "«la semana pasada» is one bounded week: «salió», not «salía» (that would wrongly make it a habit) or «sale» (that slips into now)."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Tu padre trabajaba todos los días?", audioText: "¿tu padre trabajaba todos los días?", gloss: "Did your father used to work every day?" }
+            goal: "Say yes, but he didn't work yesterday."
+            reply:
+              mode: build
+              tiles: ["sí", "mi", "padre", "trabajaba", "todos", "los", "días", "pero", "ayer", "no", "trabajó", "trabajaba"]
+              answer: "sí mi padre trabajaba todos los días pero ayer no trabajó"
+            replyGloss: "Yes, my father used to work every day, but yesterday he didn't work."
+            explanation: "«todos los días» is the standing habit: «trabajaba». «ayer» flips it to the one bounded day: «trabajó», not «trabajaba»."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "siempre", target: "always" }
+          - { source: "ayer", target: "yesterday" }
+          - { source: "anoche", target: "last night" }
+          - { source: "la semana pasada", target: "last week" }
+          - { source: "comía", target: "I used to eat, he/she/you used to eat" }
+          - { source: "comí", target: "I ate" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "siempre comía en casa, pero ayer comí en el restaurante"
+        en: "I always ate at home, but yesterday I ate at the restaurant"
+        atoms: ["siempre", "comía", "casa", "ayer", "comí", "restaurante"]
+
+  # ── L7 · «¿Dónde vivías de niño?» — ZERO new atoms. Questions (yes/no
+  #    inversion, PRIOR since m1/m4; «dónde», m4) and negation («no» + the
+  #    imperfect, PRIOR mechanism from m1/m22/m24) across all five new
+  #    families. «¿cuándo?» stays a FIXED standalone phrase (per header) —
+  #    never used mid-sentence. Carries ≥1 recall (L3's own win line). Two
+  #    extra steps appended near the end, added post-authoring to close
+  #    production-floor gaps: a «trabajabas» question (fits this lesson's
+  #    own question theme) and a «todos trabajaban» statement (a second
+  #    lesson for trabajaban, which was 3x but only in L4).
+  - n: 7
+    template: free
+    title: "¿Dónde vivías de niño?"
+    description: "Questions and negation on the imperfect work exactly like they always have: «¿...?» inverts, «no» negates. «de niño, no trabajaba, pero estudiaba mucho» — the same «pero» contrast, now both sides imperfect."
+    steps:
+      - kind: map
+        id: l7-map-deninonotrabajabaestudiaba
+        tokens: ["de niño,", "no trabajaba,", "pero", "estudiaba", "mucho"]
+        pairs:
+          - { en: "as a child,", tokenIndex: 0 }
+          - { en: "I didn't used to work,", tokenIndex: 1 }
+          - { en: "but", tokenIndex: 2 }
+          - { en: "I used to study", tokenIndex: 3 }
+          - { en: "a lot", tokenIndex: 4 }
+        audioText: "de niño, no trabajaba, pero estudiaba mucho"
+        revealNote: "«no» negates the imperfect exactly like it negates anything else. Both sides here are imperfect — the contrast is what I didn't do vs. what I did do, not tense."
+      - kind: info
+        id: l7-info-preguntasnegacion
+        title: "Questions and «no» on the imperfect"
+        body: "«¿...?» inverts the same way it always has: «¿vivías...?», «¿trabajaba...?». «no» negates the same way: «no vivía», «no trabajaba». Nothing new — just the imperfect, asked and denied."
+      - kind: speakLit
+        id: l7-sp-dondeviviasdenino
+        es: "¿dónde vivías de niño?"
+        en: "Where did you used to live as a child?"
+        atoms: ["dónde", "vivías", "de niño"]
+      - kind: buildLit
+        id: l7-b-yonocomiacasa
+        es: "yo no comía mucho de niño"
+        en: "I didn't used to eat a lot as a child"
+        atoms: ["comía", "mucho", "de niño"]
+        tiles: ["comían", "come"]
+      - kind: speakLit
+        id: l7-sp-estudiabasmuchoescuela
+        es: "¿estudiabas mucho en la escuela?"
+        en: "Did you used to study a lot at school?"
+        atoms: ["estudiabas", "mucho", "escuela"]
+      - kind: clozeLit
+        id: l7-c-mipadrenotrabajaba
+        es: "mi padre no trabajaba todos los días"
+        en: "My father didn't used to work every day"
+        blank: "trabajaba"
+        options: ["trabajaba", "trabajaban"]
+        atoms: ["padre", "trabajaba", "todos los días"]
+        why: "«mi padre» — he: «trabajaba», not «trabajaban» — that would wrongly make it more than one person."
+      - kind: listenCompLit
+        id: l7-lc-dondesaliasparque
+        es: "¿dónde salías al parque de niño?"
+        en: "Where did you used to go out as a child?"
+        atoms: ["dónde", "salías", "de niño"]
+        distractorsEn:
+          - "Where do you go out as a child?"
+          - "Where did you go out yesterday?"
+          - "Where did they used to go out as children?"
+      - kind: mcq
+        id: l7-q-noviviamos
+        prompt: "Which one means 'we didn't used to live here'?"
+        correct: "no vivíamos aquí"
+        distractors: ["no vivimos aquí", "no vivíamos aquí ayer", "vivíamos aquí"]
+        atoms: ["vivíamos", "aquí"]
+        why: "«no vivíamos aquí» negates the habit. «no vivimos aquí» slips into the present; «vivíamos aquí» (no «no») is the wrong claim entirely."
+      - kind: buildLit
+        id: l7-b-dondetrabajabapadre
+        es: "¿dónde trabajaba tu padre de niño?"
+        en: "Where did your father used to work when you were a child?"
+        atoms: ["dónde", "trabajaba", "padre", "de niño"]
+        tiles: ["trabajaban", "trabajabas"]
+      - kind: audioWimcq
+        id: l7-ear-fiesta
+        target: { surface: "la fiesta", emoji: "🎉" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "la playa", emoji: "🏖️" }
+      - kind: agreementLit
+        id: l7-agr-noestudiaban
+        en: "They didn't used to study, and we didn't study either"
+        audioText: "ellos no estudiaban, y nosotros no estudiábamos"
+        atoms: ["estudiaban", "estudiábamos"]
+        segments:
+          - { text: "ellos no " }
+          - { blank: { id: "p1", answer: "estudiaban", options: ["estudiaban", "estudiaba"] } }
+          - { text: ", y nosotros no " }
+          - { blank: { id: "p2", answer: "estudiábamos", options: ["estudiábamos", "estudiaban"] } }
+      - kind: listenBuildLit
+        id: l7-lb-nosalianparque
+        es: "Sam y Luis no salían mucho al parque"
+        en: "Sam and Luis didn't used to go out a lot to the park"
+        atoms: ["salían", "mucho", "parque"]
+        tiles: ["salía", "sale"]
+      - kind: textMcq
+        id: l7-tm-comias
+        target: "comías"
+        distractors: ["comía", "comíamos", "comían"]
+      - kind: speakLit
+        id: l7-sp-trabajabasdenino
+        es: "¿trabajabas mucho de niño?"
+        en: "Did you (tú) used to work a lot as a child?"
+        atoms: ["trabajabas", "mucho", "de niño"]
+      - kind: buildLit
+        id: l7-b-todostrabajaban
+        es: "de niño, todos trabajaban mucho"
+        en: "As children, everyone used to work a lot"
+        atoms: ["de niño", "todos", "trabajaban", "mucho"]
+      # Printed non-recall at L3 (es-m26-3-l3-sp-win).
+      - kind: speakLit
+        id: l7-sp-recall-estudiabaescuela
+        es: "de niño, estudiaba mucho en la escuela"
+        en: "As a child, I used to study a lot at school"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l7-sim-ana-preguntas
+        scene: { emoji: "❓", title: "Ana asks about your childhood", setting: "Ana wants to know where you used to live, and what your father didn't do." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Dónde vivías de niño?", audioText: "¿dónde vivías de niño?", gloss: "Where did you used to live as a child?" }
+            goal: "Say you used to live in Mexico."
+            reply:
+              mode: build
+              tiles: ["yo", "vivía", "en", "México", "de", "niño", "vivías"]
+              answer: "yo vivía en México de niño"
+            replyGloss: "I used to live in Mexico as a child."
+            explanation: "Answering about yourself: «vivía», not «vivías» — that would wrongly ask the question back instead of answering it."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Tu padre trabajaba todos los días?", audioText: "¿tu padre trabajaba todos los días?", gloss: "Did your father used to work every day?" }
+            goal: "Say no, but he studied a lot."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, pero estudiaba mucho" }
+                - { id: "wrong1", text: "no, pero estudiaban mucho" }
+                - { id: "wrong2", text: "sí, pero estudiaba mucho" }
+              correctOptionId: "right"
+              audioText: "no, pero estudiaba mucho"
+            replyGloss: "No, but he used to study a lot."
+            explanation: "«no» answers the question; «estudiaba» keeps the same person as «trabajaba» — «estudiaban» would wrongly shift to they, and «sí» would wrongly reverse the answer."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Ustedes no salían mucho al parque?", audioText: "¿ustedes no salían mucho al parque?", gloss: "Didn't you two used to go out a lot to the park?" }
+            goal: "Say yes, you both always went out."
+            reply:
+              mode: build
+              tiles: ["sí", "salíamos", "siempre", "mucho", "al", "parque", "salían"]
+              answer: "sí salíamos siempre mucho al parque"
+            replyGloss: "Yes, we always used to go out a lot to the park."
+            explanation: "«ustedes» in the question, but «tú y yo» in the answer: «salíamos», not «salían» — that would wrongly leave you out."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "dónde", target: "where" }
+          - { source: "no", target: "not, don't" }
+          - { source: "trabajaba", target: "I used to work, he/she/you used to work" }
+          - { source: "estudiaba", target: "I used to study, he/she/you used to study" }
+          - { source: "pero", target: "but" }
+          - { source: "mucho", target: "a lot" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "de niño, no trabajaba, pero estudiaba mucho"
+        en: "As a child, I didn't used to work, but I used to study a lot"
+        atoms: ["de niño", "trabajaba", "pero", "estudiaba", "mucho"]
+
+  # ── L8 · CHECKPOINT — graded only, zero info cards. Exercises all five
+  #    families (vivía/comía/estudiaba/trabajaba/salía) at once, cashing
+  #    the module's signature payoff: each verb's habitual imperfect
+  #    against its OWN one-time preterite, «pero» between them. ≥2 recalls
+  #    (L6's own win — the module's signature contrast lesson, reused per
+  #    the safer fallback below — and L4's win). The brief's suggested win
+  #    line for this slot used «un día»/«volví», neither grep-confirmed
+  #    PRIOR anywhere in m1-m25; this checkpoint instead closes on an
+  #    original line built entirely from confirmed-PRIOR module material
+  #    (trabajaba/trabajé, m19; salí, m19; ayer/al parque, PRIOR) — the
+  #    brief's own recommended safer fallback. Ends sim → matchLit →
+  #    speakLit-win, the standard ending (NOT the L10 departure pattern).
+  - n: 8
+    template: free
+    title: "Checkpoint: vivía, comía, estudiaba, trabajaba, salía"
+    description: "All five families, all at once, all graded — no new teaching, just proof you've got it: the habitual imperfect against its own one-time preterite, «pero» between them."
+    steps:
+      - kind: buildLit
+        id: l8-b-viviamexicovivi
+        es: "vivía en México, pero viví en España la semana pasada"
+        en: "I used to live in Mexico, but I lived in Spain last week"
+        atoms: ["vivía", "México", "viví", "España", "la semana pasada"]
+        tiles: ["vivían", "vive"]
+      - kind: listenBuildLit
+        id: l8-lb-comiacasacomi
+        es: "comía en casa, pero comí en el restaurante ayer"
+        en: "I used to eat at home, but I ate at the restaurant yesterday"
+        atoms: ["comía", "casa", "comí", "restaurante", "ayer"]
+        tiles: ["comían", "come"]
+      - kind: buildLit
+        id: l8-b-estudiabaestudie
+        es: "estudiaba mucho, pero no estudié anoche"
+        en: "I used to study a lot, but I didn't study last night"
+        atoms: ["estudiaba", "mucho", "estudié", "anoche"]
+        tiles: ["estudiaban", "estudia"]
+      - kind: listenBuildLit
+        id: l8-lb-trabajabapadretrabajo
+        es: "mi padre trabajaba todos los días, pero ayer no trabajó"
+        en: "My father used to work every day, but yesterday he didn't work"
+        atoms: ["padre", "trabajaba", "todos los días", "ayer", "trabajó"]
+        tiles: ["trabajaban", "trabaja"]
+      - kind: clozeLit
+        id: l8-c-saliaparquesali
+        es: "de niño, salía mucho al parque, pero la semana pasada no salí"
+        en: "As a child, I used to go out a lot to the park, but last week I didn't go out"
+        blank: "salí"
+        options: ["salí", "salíamos"]
+        atoms: ["de niño", "salía", "mucho", "parque", "la semana pasada"]
+        why: "«la semana pasada» marks one bounded week for ME: «salí», not «salíamos» — that keeps the old habit AND wrongly shifts the subject to we."
+      - kind: speakLit
+        id: l8-sp-noviviaespana
+        es: "no vivía en España de niño"
+        en: "I didn't used to live in Spain as a child"
+        atoms: ["vivía", "España", "de niño"]
+      - kind: mcq
+        id: l8-q-collisioncheck
+        prompt: "Which one always means 'I / he / she / you (usted) used to work' — never tú, we, or they?"
+        correct: "trabajaba"
+        distractors: ["trabajabas", "trabajábamos", "trabajaban"]
+        atoms: ["trabajaba"]
+        why: "«trabajaba» collapses yo and él/ella/usted — never tú, nosotros, or ellos, which each keep their own accented form."
+      # Printed non-recall at L6 (es-m26-6-l6-sp-win).
+      - kind: speakLit
+        id: l8-sp-recall-comiaayercomicase
+        es: "siempre comía en casa, pero ayer comí en el restaurante"
+        en: "I always ate at home, but yesterday I ate at the restaurant"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l8-agr-yoelestudiaba
+        en: "I used to study a lot, and he did too"
+        audioText: "yo estudiaba mucho, y él estudiaba también"
+        atoms: ["estudiaba", "mucho"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "estudiaba", options: ["estudiaba", "estudia"] } }
+          - { text: " mucho, y él " }
+          - { blank: { id: "p2", answer: "estudiaba", options: ["estudiaba", "estudia"] } }
+          - { text: " también" }
+      - kind: textMcq
+        id: l8-tm-sali
+        target: "salí"
+        distractors: ["salía", "salías", "sale"]
+      - kind: audioWimcq
+        id: l8-ear-museo
+        target: { surface: "el museo", emoji: "🏛️" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "el mercado", emoji: "🛒" }
+      # Printed non-recall at L4 (es-m26-4-l4-sp-win).
+      - kind: speakLit
+        id: l8-sp-recall-trabajabadias
+        es: "mi padre trabajaba todos los días"
+        en: "My father used to work every day"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l8-sim-ana-checkpoint
+        scene: { emoji: "🇲🇽", title: "Ana checks in on everyone", setting: "Ana wants to know what people always did, and what changed." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Siempre vivías en México?", audioText: "¿siempre vivías en México?", gloss: "Did you always used to live in Mexico?" }
+            goal: "Say yes, but not last month."
+            reply:
+              mode: build
+              tiles: ["sí", "pero", "viví", "en", "España", "el", "mes", "pasado", "vivía"]
+              answer: "sí pero viví en España el mes pasado"
+            replyGloss: "Yes, but I lived in Spain last month."
+            explanation: "«viví» — one bounded month, marked by «el mes pasado» (PRIOR, m20) — not «vivía», which would wrongly reopen the habit."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu padre? ¿Trabajaba todos los días?", audioText: "¿y tu padre? ¿trabajaba todos los días?", gloss: "And your father? Did he used to work every day?" }
+            goal: "Say yes, but he didn't work yesterday."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, pero ayer no trabajó" }
+                - { id: "wrong1", text: "sí, pero ayer no trabajaba" }
+                - { id: "wrong2", text: "sí, pero ayer no trabaja" }
+              correctOptionId: "right"
+              audioText: "sí, pero ayer no trabajó"
+            replyGloss: "Yes, but he didn't work yesterday."
+            explanation: "«ayer» is one bounded day: «trabajó», not «trabajaba» (that would wrongly make it the habit again) or «trabaja» (that slips into now)."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Salías mucho al parque de niño?", audioText: "¿salías mucho al parque de niño?", gloss: "Did you used to go out a lot to the park as a child?" }
+            goal: "Say yes, and you went out yesterday too."
+            reply:
+              mode: build
+              tiles: ["sí", "y", "salí", "ayer", "también", "salía"]
+              answer: "sí y salí ayer también"
+            replyGloss: "Yes, and I went out yesterday too."
+            explanation: "«salí» — one bounded day, «ayer» — not «salía», which would wrongly claim it as the standing habit itself."
+      - kind: matchLit
+        id: l8-match
+        pairs:
+          - { source: "vivía", target: "used to live" }
+          - { source: "comía", target: "used to eat" }
+          - { source: "estudiaba", target: "used to study" }
+          - { source: "trabajaba", target: "used to work" }
+          - { source: "salía", target: "used to go out" }
+          - { source: "pero", target: "but" }
+      - kind: speakLit
+        id: l8-sp-win
+        es: "siempre trabajaba mucho, pero ayer no trabajé, y salí al parque"
+        en: "I always used to work a lot, but yesterday I didn't work, and I went out to the park"
+        atoms: ["siempre", "trabajaba", "mucho", "ayer", "trabajé", "salí", "parque"]
+
+  # ── L9 · «Hoy vivo en España, pero de niño vivía en México» —
+  #    consolidation: ZERO new atoms. Every family side by side, contrast
+  #    PRESENT vs IMPERFECT only — never preterite (m22/m24's L9 technique,
+  #    unchanged restriction: this lesson's whole point is "then vs. now,"
+  #    not "then vs. one bounded past moment"). Uses PRIOR present
+  #    vivo/como/estudio/trabajo/salgo alongside this module's imperfect.
+  #    Carries ≥1 recall (L2's own win line). Two extra single-tense
+  #    speakLit/buildLit steps («estudiabas»/«comías», tú-form,
+  #    speakLit-before-buildLit so the buildLit sits directly against the
+  #    recall speakLit — doctrinePins bans adjacent same-type steps)
+  #    appended near the end, added post-authoring to close a
+  #    production-floor gap (each was only 2x/2 lessons) — plain
+  #    statements, not part of the present-vs-imperfect contrast this
+  #    lesson otherwise restricts to.
+  - n: 9
+    template: free
+    title: "Hoy vivo en España, de niño vivía en México"
+    description: "«hoy» cues the present, «de niño» cues the imperfect — the same verb, then vs. now. «hoy vivo en España, pero de niño vivía en México» pairs PRIOR «vivo» with this module's «vivía»."
+    steps:
+      - kind: map
+        id: l9-map-hoyvivodeninovivia
+        tokens: ["hoy", "vivo", "en España,", "pero", "de niño", "vivía", "en México"]
+        pairs:
+          - { en: "today", tokenIndex: 0 }
+          - { en: "I live", tokenIndex: 1 }
+          - { en: "in Spain,", tokenIndex: 2 }
+          - { en: "but", tokenIndex: 3 }
+          - { en: "as a child,", tokenIndex: 4 }
+          - { en: "I used to live", tokenIndex: 5 }
+          - { en: "in Mexico", tokenIndex: 6 }
+        audioText: "hoy vivo en España, pero de niño vivía en México"
+        revealNote: "«vivo» (now, PRIOR) and «vivía» (then, this module) — same verb, two different times. «hoy» and «de niño» are the markers."
+      - kind: info
+        id: l9-info-hoydenino
+        title: "Hoy vs. de niño — now vs. then"
+        body: "«hoy» cues the present: «vivo», «como», «estudio». «de niño» cues the imperfect: «vivía», «comía», «estudiaba». Same verb, then vs. now — never the preterite here."
+      - kind: speakLit
+        id: l9-sp-hoycomodeninocomia
+        es: "hoy como en casa, pero de niño comía en el restaurante"
+        en: "Today I eat at home, but as a child I used to eat at the restaurant"
+        atoms: ["como", "casa", "de niño", "comía", "restaurante"]
+      - kind: buildLit
+        id: l9-b-hoyestudiodeninoestudiaba
+        es: "hoy estudio mucho, pero de niño estudiaba poco"
+        en: "Today I study a lot, but as a child I used to study little"
+        atoms: ["estudio", "mucho", "de niño", "estudiaba"]
+        tiles: ["estudia", "estudiaban"]
+      - kind: speakLit
+        id: l9-sp-hoytrabajodeninotrabajaba
+        es: "hoy trabajo mucho, pero de niño no trabajaba"
+        en: "Today I work a lot, but as a child I didn't used to work"
+        atoms: ["trabajo", "mucho", "de niño", "trabajaba"]
+      - kind: clozeLit
+        id: l9-c-hoysalgodeninosalia
+        es: "hoy salgo poco, pero de niño salía mucho al parque"
+        en: "Today I go out little, but as a child I used to go out a lot to the park"
+        blank: "salía"
+        options: ["salía", "sale"]
+        atoms: ["salgo", "de niño", "salía", "mucho", "parque"]
+        why: "«de niño» cues the imperfect: «salía», not «sale» — that would wrongly bring the sentence back into today, and shift the subject away from you."
+      - kind: listenCompLit
+        id: l9-lc-hoyvivedeninovivia
+        es: "hoy Diego vive en México, pero de niño vivía en España"
+        en: "Today Diego lives in Mexico, but as a child he used to live in Spain."
+        atoms: ["vive", "México", "de niño", "vivía", "España"]
+        distractorsEn:
+          - "Diego used to live in Mexico, but today he lives in Spain."
+          - "Today Diego lives in Mexico, and as a child he lived there too."
+          - "Diego lives in Mexico, but as a child he lived in Spain last year."
+      - kind: mcq
+        id: l9-q-marcadorpresente
+        prompt: "Which one cues the PRESENT, not the imperfect?"
+        correct: "hoy"
+        distractors: ["de niño", "siempre", "todos los días"]
+        atoms: ["hoy"]
+        why: "«hoy» = today, right now. «de niño»/«siempre»/«todos los días» all cue the habitual imperfect instead."
+      - kind: buildLit
+        id: l9-b-hoycomemosdeninocomiamos
+        es: "hoy comemos en casa, pero de niño comíamos en el restaurante"
+        en: "Today we eat at home, but as a child we used to eat at the restaurant"
+        atoms: ["comemos", "casa", "de niño", "comíamos", "restaurante"]
+        tiles: ["comíais", "comían"]
+      - kind: audioWimcq
+        id: l9-ear-cine
+        target: { surface: "el cine", emoji: "🎬" }
+        distractors:
+          - { surface: "la fiesta", emoji: "🎉" }
+          - { surface: "el museo", emoji: "🏛️" }
+      - kind: agreementLit
+        id: l9-agr-vivovivia
+        en: "I live in Spain today, but I used to live in Mexico as a child"
+        audioText: "hoy vivo en España, pero de niño vivía en México"
+        atoms: ["vivo", "España", "de niño", "vivía", "México"]
+        segments:
+          - { text: "hoy " }
+          - { blank: { id: "p1", answer: "vivo", options: ["vivo", "vivía"] } }
+          - { text: " en España, pero de niño " }
+          - { blank: { id: "p2", answer: "vivía", options: ["vivía", "vivo"] } }
+          - { text: " en México" }
+      - kind: listenBuildLit
+        id: l9-lb-hoytrabajadeninotrabajaba
+        es: "hoy mi padre trabaja mucho, pero de niño trabajaba poco"
+        en: "Today my father works a lot, but as a child he used to work little"
+        atoms: ["trabaja", "mucho", "de niño", "trabajaba"]
+        tiles: ["trabajó", "trabajaban"]
+      - kind: textMcq
+        id: l9-tm-devninosalia
+        target: "salía"
+        distractors: ["salgo", "salías", "salíamos"]
+      - kind: speakLit
+        id: l9-sp-tuestudiabasdenino
+        es: "tú siempre estudiabas mucho de niño"
+        en: "You (tú) always used to study a lot as a child"
+        atoms: ["estudiabas", "siempre", "mucho", "de niño"]
+      - kind: buildLit
+        id: l9-b-tucomiasdenino
+        es: "tú siempre comías mucho de niño"
+        en: "You (tú) always used to eat a lot as a child"
+        atoms: ["comías", "siempre", "mucho", "de niño"]
+      # Printed non-recall at L2 (es-m26-2-l2-sp-win).
+      - kind: speakLit
+        id: l9-sp-recall-comiacasa
+        es: "de niño, comía mucho en casa"
+        en: "As a child, I used to eat a lot at home"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l9-sim-ana-ahoraantes
+        scene: { emoji: "🕰️", title: "Ana asks then vs. now", setting: "Ana wants to know what's different today compared to childhood." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Dónde vives hoy?", audioText: "¿dónde vives hoy?", gloss: "Where do you live today?" }
+            goal: "Say where you live now, and used to."
+            reply:
+              mode: build
+              tiles: ["hoy", "vivo", "en", "España", "pero", "de", "niño", "vivía", "en", "México", "vive"]
+              answer: "hoy vivo en España pero de niño vivía en México"
+            replyGloss: "Today I live in Spain, but as a child I used to live in Mexico."
+            explanation: "«vivo» (now) and «vivía» (then) — same verb, «hoy» and «de niño» tell you which time."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y estudias mucho hoy?", audioText: "¿y estudias mucho hoy?", gloss: "And do you study a lot today?" }
+            goal: "Say yes, but not as a child."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, pero de niño no estudiaba mucho" }
+                - { id: "wrong1", text: "sí, pero de niño no estudio mucho" }
+                - { id: "wrong2", text: "sí, pero de niño no estudié mucho" }
+              correctOptionId: "right"
+              audioText: "sí, pero de niño no estudiaba mucho"
+            replyGloss: "Yes, but as a child I didn't study a lot."
+            explanation: "«de niño» calls for the imperfect: «estudiaba», not «estudio» (that stays in today) or «estudié» (a one-time preterite — this lesson keeps to present vs. imperfect only)."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Sale mucho hoy?", audioText: "¿sale mucho hoy?", gloss: "Do you (usted) go out a lot today?" }
+            goal: "Say no, but you always did."
+            reply:
+              mode: build
+              tiles: ["no", "pero", "de", "niño", "siempre", "salía", "salgo"]
+              answer: "no pero de niño siempre salía"
+            replyGloss: "No, but as a child I always used to go out."
+            explanation: "«siempre» plus «de niño» keeps the whole clause in the imperfect: «salía», not «salgo», which would slip the answer back into today."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "hoy", target: "today" }
+          - { source: "de niño", target: "as a child" }
+          - { source: "vivo", target: "I live (now)" }
+          - { source: "vivía", target: "I used to live (then)" }
+          - { source: "estudio", target: "I study (now)" }
+          - { source: "estudiaba", target: "I used to study (then)" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "hoy vivo en España, pero de niño vivía en México"
+        en: "Today I live in Spain, but as a child I used to live in Mexico"
+        atoms: ["hoy", "vivo", "España", "de niño", "vivía", "México"]
+
+  # ── L10 · MASTERY — zero new atoms, zero info cards, every step graded.
+  #    Longest sim in the module (Ana asks the group for the whole memory,
+  #    5 turns) — the module's law that the mastery lesson must END on the
+  #    sim means the verbatim closing win line is delivered as the sim's
+  #    final (5th) turn reply, not a separate speakLit step; matchLit sits
+  #    just before the sim instead of after it. ≥2 recalls (L9, L1 —
+  #    full-circle back to the very first win). ≥1 PRIOR m23 connective
+  #    («cuando» and «mientras», both used). ≥1 PRIOR m25 connective
+  #    («porque», used, carrying PRIOR querer's imperfect «queríamos»,
+  #    m24). NOTE: the brief's suggested win line used «de niños» (plural)
+  #    — zero grep hits anywhere in m1-m25 (only the singular «de niño» is
+  #    a registered atom, and this course already treats it as an
+  #    invariant time marker usable with plural subjects — L1-L3's own
+  #    «de niño, todos vivían/comían/estudiaban…» cloze sentences do
+  #    exactly this). This lesson's win line substitutes the registered
+  #    singular «de niño» for the brief's unregistered «de niños» —
+  #    otherwise verbatim. Context: every m26 family
+  #    (vivía/comía/estudiaba/trabajaba/salía) and PRIOR
+  #    quería/podía (m24), all working together. Two extra single-tense
+  #    buildLit/speakLit steps («vivías»/«salías», tú-form, speakLit-before-
+  #    buildLit so the buildLit sits directly against the recall speakLit —
+  #    doctrinePins bans adjacent same-type steps) inserted before the
+  #    L1-recall/matchLit/sim tail, added post-authoring to close a
+  #    production-floor gap (each was only 2x/2 lessons) — both graded,
+  #    consistent with this lesson's "every step graded" rule; inserted
+  #    before, not after, the sim so the module's law that L10 ends on the
+  #    sim still holds. One extra buildLit («de niño, queríamos ir a la
+  #    escuela») inserted before l10-lb-estudiabamosporquequeriamos: «ir»
+  #    is a deliberately un-atomized filler word course-wide (never a
+  #    registered atom — confirmed m25.test.ts), so moduleBarGuards' vocab-
+  #    provenance pin still requires its first SCANNED appearance in this
+  #    module to land on an intro-capable step type; the listenBuildLit was
+  #    that first appearance and listening_build isn't intro-capable. m24's
+  #    own precedent (L3: word_map → info → speaking, «ir» debuts on the
+  #    speaking step) is followed here: a small buildLit ahead of the
+  #    listenBuildLit gives «ir» an intro-capable debut, matching course
+  #    precedent rather than raising the debt.
+  - n: 10
+    template: free
+    title: "De niño, vivíamos aquí juntos"
+    description: "Everything from this module, one last time, fully graded — every family recombined, PRIOR m23/m25 connectives, all working together."
+    steps:
+      - kind: buildLit
+        id: l10-b-deninoviviamosaquijuntos
+        es: "de niño, vivíamos aquí juntos"
+        en: "As children, we used to live here together"
+        atoms: ["de niño", "vivíamos", "aquí", "juntos"]
+        tiles: ["vivían", "vive"]
+      - kind: speakLit
+        id: l10-sp-comiamoscasatodoslosdias
+        es: "comíamos en casa todos los días"
+        en: "We used to eat at home every day"
+        atoms: ["comíamos", "casa", "todos los días"]
+      - kind: buildLit
+        id: l10-b-queriamosirescuela
+        es: "de niño, queríamos ir a la escuela"
+        en: "As children, we wanted to go to school"
+        atoms: ["de niño", "queríamos", "escuela"]
+        tiles: ["querían", "quería"]
+      - kind: listenBuildLit
+        id: l10-lb-estudiabamosporquequeriamos
+        es: "estudiábamos mucho porque queríamos ir a la escuela"
+        en: "We used to study a lot because we wanted to go to school"
+        atoms: ["estudiábamos", "mucho", "porque", "queríamos", "escuela"]
+        tiles: ["estudiaban", "querían"]
+      - kind: clozeLit
+        id: l10-c-cuandotrabajabamosnopodiamos
+        es: "cuando trabajábamos mucho, no podíamos salir"
+        en: "When we used to work a lot, we couldn't go out"
+        blank: "trabajábamos"
+        options: ["trabajábamos", "trabajaban"]
+        atoms: ["cuando", "trabajábamos", "mucho", "podíamos"]
+        why: "«nosotros» keeps «trabajábamos» — the accented we-form; «trabajaban» would wrongly shift to they."
+      - kind: mcq
+        id: l10-q-cuando
+        prompt: "Which one sets up a WHEN, not a WHY?"
+        correct: "cuando"
+        distractors: ["porque", "por eso", "mientras"]
+        atoms: ["cuando"]
+        why: "«cuando» (when) frames a moment. «porque»/«por eso» (PRIOR, m25) give a reason; «mientras» marks simultaneity, close but not the same as a single «when»."
+      - kind: agreementLit
+        id: l10-agr-yoelsalia
+        en: "I used to go out to the park, and he did too"
+        audioText: "yo salía al parque, y él salía también"
+        atoms: ["salía", "parque"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "salía", options: ["salía", "salías"] } }
+          - { text: " al parque, y él " }
+          - { blank: { id: "p2", answer: "salía", options: ["salía", "salíamos"] } }
+          - { text: " también" }
+      # Printed non-recall at L9 (es-m26-9-l9-sp-win).
+      - kind: speakLit
+        id: l10-sp-recall-l9win
+        es: "hoy vivo en España, pero de niño vivía en México"
+        en: "Today I live in Spain, but as a child I used to live in Mexico"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l10-tm-cuando
+        target: "cuando"
+        distractors: ["porque", "por eso", "mientras"]
+      - kind: audioWimcq
+        id: l10-ear-playa
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "el museo", emoji: "🏛️" }
+          - { surface: "la fiesta", emoji: "🎉" }
+      - kind: buildLit
+        id: l10-b-deninosaliamosparque
+        es: "de niño, salíamos mucho al parque"
+        en: "As children, we used to go out a lot to the park"
+        atoms: ["de niño", "salíamos", "mucho", "parque"]
+        tiles: ["salían", "sale"]
+      - kind: listenBuildLit
+        id: l10-lb-mientrasestudiabamostrabajaba
+        es: "mientras estudiábamos, mi padre trabajaba"
+        en: "While we used to study, my father used to work"
+        atoms: ["mientras", "estudiábamos", "padre", "trabajaba"]
+        tiles: ["estudiaban", "trabajaban"]
+      - kind: clozeLit
+        id: l10-c-todosviviancomianescuela
+        es: "todos vivían aquí juntos y comían en casa"
+        en: "Everyone used to live here together and used to eat at home"
+        blank: "vivían"
+        options: ["vivían", "vivíamos"]
+        atoms: ["todos", "vivían", "aquí", "juntos", "comían", "casa"]
+        why: "«todos» takes the they-ending throughout: «vivían»/«comían», never «vivíamos» (we)."
+      - kind: mcq
+        id: l10-q-queriamosescuela
+        prompt: "'We used to want to go to school' — which one?"
+        correct: "queríamos ir a la escuela"
+        distractors: ["quería ir a la escuela", "queríamos ir a la fiesta", "querían ir a la escuela"]
+        atoms: ["queríamos", "escuela"]
+        why: "«queríamos» (PRIOR, m24) is the accented we-form — «quería» wrongly narrows to one person, «querían» wrongly shifts to they, and «la fiesta» is the wrong place."
+      - kind: speakLit
+        id: l10-sp-tuviviasdenino
+        es: "tú siempre vivías aquí de niño"
+        en: "You (tú) always used to live here as a child"
+        atoms: ["vivías", "siempre", "aquí", "de niño"]
+      - kind: buildLit
+        id: l10-b-tusaliasdenino
+        es: "tú siempre salías mucho al parque de niño"
+        en: "You (tú) always used to go out a lot to the park as a child"
+        atoms: ["salías", "siempre", "mucho", "parque", "de niño"]
+      # Printed non-recall at L1 (es-m26-1-l1-sp-win).
+      - kind: speakLit
+        id: l10-sp-recall-l1win
+        es: "de niño, vivía en México"
+        en: "As a child, I used to live in Mexico"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l10-tm-porque
+        target: "porque"
+        distractors: ["por eso", "cuando", "mientras"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "cuando", target: "when" }
+          - { source: "mientras", target: "while" }
+          - { source: "porque", target: "because" }
+          - { source: "vivíamos", target: "we used to live" }
+          - { source: "comíamos", target: "we used to eat" }
+          - { source: "estudiábamos", target: "we used to study" }
+      - kind: sim
+        id: l10-sim-ana-memoria
+        scene: { emoji: "🇲🇽", title: "Ana asks for the whole memory", setting: "Ana wants to hear the whole childhood story, start to finish, in one telling." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Vivían todos juntos de niños?", audioText: "¿vivían todos juntos de niños?", gloss: "Did you all used to live together as children?" }
+            goal: "Say yes, you all lived here together."
+            reply:
+              mode: build
+              tiles: ["sí", "vivíamos", "aquí", "juntos", "vivían"]
+              answer: "sí vivíamos aquí juntos"
+            replyGloss: "Yes, we used to live here together."
+            explanation: "«vivíamos» — the accented we-form, answering for the whole group."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Comían en casa todos los días?", audioText: "¿comían en casa todos los días?", gloss: "Did you all eat at home every day?" }
+            goal: "Say yes, every day."
+            reply:
+              mode: build
+              tiles: ["sí", "comíamos", "en", "casa", "todos", "los", "días", "comían"]
+              answer: "sí comíamos en casa todos los días"
+            replyGloss: "Yes, we used to eat at home every day."
+            explanation: "«comíamos» keeps the same we-voice as «vivíamos» — «comían» would wrongly shift to them."
+          - id: t3
+            npc: { speaker: "Ana", es: "Estudiaban tanto.", audioText: "estudiaban tanto.", gloss: "You all studied so much." }
+            goal: "Say because you wanted to go to school."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "porque queríamos ir a la escuela" }
+                - { id: "wrong1", text: "por eso queríamos ir a la escuela" }
+                - { id: "wrong2", text: "porque quería ir a la escuela" }
+              correctOptionId: "right"
+              audioText: "porque queríamos ir a la escuela"
+            replyGloss: "Because we wanted to go to school."
+            explanation: "«porque» answers a WHY directly; «por eso» would flip the direction backwards. «queríamos», not «quería» — the group, not just you."
+          - id: t4
+            npc: { speaker: "Ana", es: "¿Su padre trabajaba mientras ustedes estudiaban?", audioText: "¿su padre trabajaba mientras ustedes estudiaban?", gloss: "Did your father work while you all studied?" }
+            goal: "Say yes, he worked a lot."
+            reply:
+              mode: build
+              tiles: ["sí", "trabajaba", "mucho", "trabajaban"]
+              answer: "sí trabajaba mucho"
+            replyGloss: "Yes, he used to work a lot."
+            explanation: "«su padre» — he: «trabajaba», not «trabajaban», which would wrongly make it more than one father."
+          - id: t5
+            npc: { speaker: "Ana", es: "Cuéntamelo todo, de principio a fin.", audioText: "cuéntamelo todo, de principio a fin.", gloss: "Tell me the whole thing, start to finish." }
+            goal: "Narrate the whole memory, start to finish."
+            reply:
+              mode: build
+              tiles: ["de", "niño", "vivíamos", "aquí", "juntos", "comíamos", "en", "casa", "todos", "los", "días", "y", "estudiábamos", "mucho", "porque", "queríamos", "ir", "a", "la", "escuela", "vivían", "querían"]
+              answer: "de niño vivíamos aquí juntos comíamos en casa todos los días y estudiábamos mucho porque queríamos ir a la escuela"
+            replyGloss: "As children, we used to live here together; we used to eat at home every day, and we used to study a lot because we wanted to go to school."
+            explanation: "The whole module in one line: «vivíamos», «comíamos», «estudiábamos» — three families, one voice — closed with PRIOR «porque queríamos» (m24/m25) giving the reason."
+
+placement:
+  screener:
+    - id: "es-m26-scr-1"
+      prompt: "'As a child, I used to live in Mexico.' — which one?"
+      correct: "de niño, vivía en México"
+      distractors: ["de niño, vivían en México", "de niño, viví en México", "de niño, vivíamos en México"]
+  byModule:
+    - id: "es-m26-pl-1"
+      prompt: "As a child, I used to eat a lot at home."
+      correct: "de niño, comía mucho en casa"
+      distractors: ["de niño, comían mucho en casa", "de niño, comí mucho en casa", "de niño, comíamos mucho en casa"]
+    - id: "es-m26-pl-2"
+      prompt: "My father used to work every day."
+      correct: "mi padre trabajaba todos los días"
+      distractors: ["mi padre trabajaban todos los días", "mi padre trabajó todos los días", "mi padre trabajábamos todos los días"]
+    - id: "es-m26-pl-3"
+      prompt: "As a child, I used to go out a lot to the park with Diego."
+      correct: "de niño, salía mucho al parque con Diego"
+      distractors: ["de niño, salían mucho al parque con Diego", "de niño, salí mucho al parque con Diego", "de niño, salíamos mucho al parque con Diego"]
+    - id: "es-m26-pl-4"
+      prompt: "I always ate at home, but yesterday I ate at the restaurant."
+      correct: "siempre comía en casa, pero ayer comí en el restaurante"
+      distractors: ["siempre comí en casa, pero ayer comía en el restaurante", "siempre comía en casa, pero ayer come en el restaurante", "siempre comían en casa, pero ayer comí en el restaurante"]

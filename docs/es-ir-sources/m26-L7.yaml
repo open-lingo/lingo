@@ -1,0 +1,167 @@
+  # ── L7 · «¿Dónde vivías de niño?» — ZERO new atoms. Questions (yes/no
+  #    inversion, PRIOR since m1/m4; «dónde», m4) and negation («no» + the
+  #    imperfect, PRIOR mechanism from m1/m22/m24) across all five new
+  #    families. «¿cuándo?» stays a FIXED standalone phrase (per header) —
+  #    never used mid-sentence. Carries ≥1 recall (L3's own win line). Two
+  #    extra steps appended near the end, added post-authoring to close
+  #    production-floor gaps: a «trabajabas» question (fits this lesson's
+  #    own question theme) and a «todos trabajaban» statement (a second
+  #    lesson for trabajaban, which was 3x but only in L4).
+  - n: 7
+    template: free
+    title: "¿Dónde vivías de niño?"
+    description: "Questions and negation on the imperfect work exactly like they always have: «¿...?» inverts, «no» negates. «de niño, no trabajaba, pero estudiaba mucho» — the same «pero» contrast, now both sides imperfect."
+    steps:
+      - kind: map
+        id: l7-map-deninonotrabajabaestudiaba
+        tokens: ["de niño,", "no trabajaba,", "pero", "estudiaba", "mucho"]
+        pairs:
+          - { en: "as a child,", tokenIndex: 0 }
+          - { en: "I didn't used to work,", tokenIndex: 1 }
+          - { en: "but", tokenIndex: 2 }
+          - { en: "I used to study", tokenIndex: 3 }
+          - { en: "a lot", tokenIndex: 4 }
+        audioText: "de niño, no trabajaba, pero estudiaba mucho"
+        revealNote: "«no» negates the imperfect exactly like it negates anything else. Both sides here are imperfect — the contrast is what I didn't do vs. what I did do, not tense."
+      - kind: info
+        id: l7-info-preguntasnegacion
+        title: "Questions and «no» on the imperfect"
+        body: "«¿...?» inverts the same way it always has: «¿vivías...?», «¿trabajaba...?». «no» negates the same way: «no vivía», «no trabajaba». Nothing new — just the imperfect, asked and denied."
+      - kind: speakLit
+        id: l7-sp-dondeviviasdenino
+        es: "¿dónde vivías de niño?"
+        en: "Where did you used to live as a child?"
+        atoms: ["dónde", "vivías", "de niño"]
+      - kind: buildLit
+        id: l7-b-yonocomiacasa
+        es: "yo no comía mucho de niño"
+        en: "I didn't used to eat a lot as a child"
+        atoms: ["comía", "mucho", "de niño"]
+        tiles: ["comían", "come"]
+      - kind: speakLit
+        id: l7-sp-estudiabasmuchoescuela
+        es: "¿estudiabas mucho en la escuela?"
+        en: "Did you used to study a lot at school?"
+        atoms: ["estudiabas", "mucho", "escuela"]
+      - kind: clozeLit
+        id: l7-c-mipadrenotrabajaba
+        es: "mi padre no trabajaba todos los días"
+        en: "My father didn't used to work every day"
+        blank: "trabajaba"
+        options: ["trabajaba", "trabajaban"]
+        atoms: ["padre", "trabajaba", "todos los días"]
+        why: "«mi padre» — he: «trabajaba», not «trabajaban» — that would wrongly make it more than one person."
+      - kind: listenCompLit
+        id: l7-lc-dondesaliasparque
+        es: "¿dónde salías al parque de niño?"
+        en: "Where did you used to go out as a child?"
+        atoms: ["dónde", "salías", "de niño"]
+        distractorsEn:
+          - "Where do you go out as a child?"
+          - "Where did you go out yesterday?"
+          - "Where did they used to go out as children?"
+      - kind: mcq
+        id: l7-q-noviviamos
+        prompt: "Which one means 'we didn't used to live here'?"
+        correct: "no vivíamos aquí"
+        distractors: ["no vivimos aquí", "no vivíamos aquí ayer", "vivíamos aquí"]
+        atoms: ["vivíamos", "aquí"]
+        why: "«no vivíamos aquí» negates the habit. «no vivimos aquí» slips into the present; «vivíamos aquí» (no «no») is the wrong claim entirely."
+      - kind: buildLit
+        id: l7-b-dondetrabajabapadre
+        es: "¿dónde trabajaba tu padre de niño?"
+        en: "Where did your father used to work when you were a child?"
+        atoms: ["dónde", "trabajaba", "padre", "de niño"]
+        tiles: ["trabajaban", "trabajabas"]
+      - kind: audioWimcq
+        id: l7-ear-fiesta
+        target: { surface: "la fiesta", emoji: "🎉" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "la playa", emoji: "🏖️" }
+      - kind: agreementLit
+        id: l7-agr-noestudiaban
+        en: "They didn't used to study, and we didn't study either"
+        audioText: "ellos no estudiaban, y nosotros no estudiábamos"
+        atoms: ["estudiaban", "estudiábamos"]
+        segments:
+          - { text: "ellos no " }
+          - { blank: { id: "p1", answer: "estudiaban", options: ["estudiaban", "estudiaba"] } }
+          - { text: ", y nosotros no " }
+          - { blank: { id: "p2", answer: "estudiábamos", options: ["estudiábamos", "estudiaban"] } }
+      - kind: listenBuildLit
+        id: l7-lb-nosalianparque
+        es: "Sam y Luis no salían mucho al parque"
+        en: "Sam and Luis didn't used to go out a lot to the park"
+        atoms: ["salían", "mucho", "parque"]
+        tiles: ["salía", "sale"]
+      - kind: textMcq
+        id: l7-tm-comias
+        target: "comías"
+        distractors: ["comía", "comíamos", "comían"]
+      - kind: speakLit
+        id: l7-sp-trabajabasdenino
+        es: "¿trabajabas mucho de niño?"
+        en: "Did you (tú) used to work a lot as a child?"
+        atoms: ["trabajabas", "mucho", "de niño"]
+      - kind: buildLit
+        id: l7-b-todostrabajaban
+        es: "de niño, todos trabajaban mucho"
+        en: "As children, everyone used to work a lot"
+        atoms: ["de niño", "todos", "trabajaban", "mucho"]
+      # Printed non-recall at L3 (es-m26-3-l3-sp-win).
+      - kind: speakLit
+        id: l7-sp-recall-estudiabaescuela
+        es: "de niño, estudiaba mucho en la escuela"
+        en: "As a child, I used to study a lot at school"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l7-sim-ana-preguntas
+        scene: { emoji: "❓", title: "Ana asks about your childhood", setting: "Ana wants to know where you used to live, and what your father didn't do." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Dónde vivías de niño?", audioText: "¿dónde vivías de niño?", gloss: "Where did you used to live as a child?" }
+            goal: "Say you used to live in Mexico."
+            reply:
+              mode: build
+              tiles: ["yo", "vivía", "en", "México", "de", "niño", "vivías"]
+              answer: "yo vivía en México de niño"
+            replyGloss: "I used to live in Mexico as a child."
+            explanation: "Answering about yourself: «vivía», not «vivías» — that would wrongly ask the question back instead of answering it."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Tu padre trabajaba todos los días?", audioText: "¿tu padre trabajaba todos los días?", gloss: "Did your father used to work every day?" }
+            goal: "Say no, but he studied a lot."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, pero estudiaba mucho" }
+                - { id: "wrong1", text: "no, pero estudiaban mucho" }
+                - { id: "wrong2", text: "sí, pero estudiaba mucho" }
+              correctOptionId: "right"
+              audioText: "no, pero estudiaba mucho"
+            replyGloss: "No, but he used to study a lot."
+            explanation: "«no» answers the question; «estudiaba» keeps the same person as «trabajaba» — «estudiaban» would wrongly shift to they, and «sí» would wrongly reverse the answer."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Ustedes no salían mucho al parque?", audioText: "¿ustedes no salían mucho al parque?", gloss: "Didn't you two used to go out a lot to the park?" }
+            goal: "Say yes, you both always went out."
+            reply:
+              mode: build
+              tiles: ["sí", "salíamos", "siempre", "mucho", "al", "parque", "salían"]
+              answer: "sí salíamos siempre mucho al parque"
+            replyGloss: "Yes, we always used to go out a lot to the park."
+            explanation: "«ustedes» in the question, but «tú y yo» in the answer: «salíamos», not «salían» — that would wrongly leave you out."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "dónde", target: "where" }
+          - { source: "no", target: "not, don't" }
+          - { source: "trabajaba", target: "I used to work, he/she/you used to work" }
+          - { source: "estudiaba", target: "I used to study, he/she/you used to study" }
+          - { source: "pero", target: "but" }
+          - { source: "mucho", target: "a lot" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "de niño, no trabajaba, pero estudiaba mucho"
+        en: "As a child, I didn't used to work, but I used to study a lot"
+        atoms: ["de niño", "trabajaba", "pero", "estudiaba", "mucho"]

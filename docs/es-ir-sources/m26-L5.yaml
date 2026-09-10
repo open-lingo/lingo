@@ -1,0 +1,159 @@
+  # ── L5 · «Salía al parque con Diego» — salir's imperfect debuts whole:
+  #    salía (yo=él collision, PRIOR mechanism, not re-taught), salías (tú),
+  #    salíamos (nosotros), salían (ellos/ustedes). -er/-ir family: EVERY
+  #    form keeps the accent, same as vivir/comer (L1/L2), unlike estudiar/
+  #    trabajar (L3/L4). Regular here despite irregular present «salgo»
+  #    (only the yo form; sale/PRIOR is otherwise regular) and regular
+  #    preterite «salí» (m19). Reuses salir's own PRIOR word (no emoji,
+  #    m15) — PRIOR reuse, not a new debut. NO progressive, NO new
+  #    preterite. Carries ≥1 recall (l1-sp-win, per the interleave rule —
+  #    this is the fifth and final new-atom family; recall license is open
+  #    from L3+).
+  - n: 5
+    template: free
+    title: "Salía al parque con Diego"
+    description: "«salía» is salir's imperfect — regular here, despite the irregular present «salgo» and regular preterite «salí» (m19). Every form keeps the accent, like vivir/comer."
+    steps:
+      - kind: map
+        id: l5-map-deninosaliaparquediego
+        tokens: ["de niño", "salía", "al parque", "con Diego"]
+        pairs:
+          - { en: "as a child,", tokenIndex: 0 }
+          - { en: "I used to go out", tokenIndex: 1 }
+          - { en: "to the park", tokenIndex: 2 }
+          - { en: "with Diego", tokenIndex: 3 }
+        audioText: "de niño, salía al parque con Diego"
+        revealNote: "«salía» is salir's imperfect — regular here, even though the present «salgo» is irregular. Same yo=él pattern as «vivía»/«comía»/«estudiaba»/«trabajaba» (L1-L4)."
+      - kind: info
+        id: l5-info-saliaquintoverbo
+        title: "Salía — the fifth verb"
+        body: "«salía» is I used to go out, he/she/you used to go out — salir's imperfect. Every form keeps the accent: «salía», «salías», «salíamos», «salían». Regular here, unlike the irregular present «salgo»."
+      - kind: speakLit
+        id: l5-sp-yosaliaparque
+        es: "yo salía mucho al parque"
+        en: "I used to go out a lot to the park"
+        atoms: ["salía", "mucho", "parque"]
+      - kind: buildLit
+        id: l5-b-tusaliasparque
+        es: "tú salías al parque de niño"
+        en: "You (tú) used to go out to the park as a child"
+        atoms: ["salías", "parque", "de niño"]
+        tiles: ["salía", "salían"]
+      - kind: speakLit
+        id: l5-sp-saliamosjuntosparque
+        es: "salíamos juntos al parque"
+        en: "We used to go out together to the park"
+        atoms: ["salíamos", "juntos", "parque"]
+      - kind: clozeLit
+        id: l5-c-todossaliaparque
+        es: "de niño, todos salían al parque"
+        en: "As children, everyone used to go out to the park"
+        blank: "salían"
+        options: ["salían", "salíamos", "salía"]
+        atoms: ["de niño", "todos", "salían", "parque"]
+        why: "«todos» takes the they-ending: «salían», never «salíamos» — that would wrongly include you."
+      - kind: listenCompLit
+        id: l5-lc-diegosaliaparque
+        es: "Diego salía mucho al parque de niño"
+        en: "Diego used to go out a lot to the park as a child."
+        atoms: ["salía", "mucho", "parque"]
+        distractorsEn:
+          - "Diego goes out a lot to the park."
+          - "Diego used to go out a lot to school."
+          - "They used to go out a lot to the park."
+      - kind: mcq
+        id: l5-q-tusalias
+        prompt: "Which one means 'you (tú) used to go out'?"
+        correct: "tú salías"
+        distractors: ["tú salía", "tú sale", "tú salíamos"]
+        atoms: ["salías"]
+        why: "«salías» — the tú ending, accented like every salir imperfect form. «salía» collapses yo/él, not tú; «sale» slips into now; «salíamos» would be we."
+      - kind: buildLit
+        id: l5-b-saliamossiempremucho
+        es: "salíamos siempre mucho juntos"
+        en: "We always used to go out a lot together"
+        atoms: ["salíamos", "siempre", "mucho", "juntos"]
+        tiles: ["salían", "sale"]
+      - kind: audioWimcq
+        id: l5-ear-playa
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "la fiesta", emoji: "🎉" }
+      - kind: agreementLit
+        id: l5-agr-yoelsalia
+        en: "I used to go out to the park, and he did too"
+        audioText: "yo salía al parque, y él salía también"
+        atoms: ["salía", "parque"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "salía", options: ["salía", "sale"] } }
+          - { text: " al parque, y él " }
+          - { blank: { id: "p2", answer: "salía", options: ["salía", "sale"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l5-lb-samluissalianparque
+        es: "Sam y Luis salían mucho al parque"
+        en: "Sam and Luis used to go out a lot to the park"
+        atoms: ["salían", "mucho", "parque"]
+        tiles: ["salíamos", "salía"]
+      - kind: textMcq
+        id: l5-tm-salia
+        target: "salía"
+        distractors: ["salías", "salían", "sale"]
+      # Printed non-recall at L1 (es-m26-1-l1-sp-win).
+      - kind: speakLit
+        id: l5-sp-recall-vivia
+        es: "de niño, vivía en México"
+        en: "As a child, I used to live in Mexico"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l5-sim-ana-parque
+        scene: { emoji: "🌳", title: "Ana asks about the park", setting: "Ana wants to know who used to go out to the park, and how much, as kids." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Salías mucho al parque con Diego de niño?", audioText: "¿salías mucho al parque con Diego de niño?", gloss: "Did you used to go out a lot to the park with Diego as a child?" }
+            goal: "Say yes, you always went out a lot."
+            reply:
+              mode: build
+              tiles: ["sí", "yo", "salía", "siempre", "mucho", "al", "parque", "con", "Diego", "salían"]
+              answer: "sí yo salía siempre mucho al parque con Diego"
+            replyGloss: "Yes, I always went out a lot to the park with Diego."
+            explanation: "Answering as yourself, «yo» keeps «salía» unambiguous — it also means he/she/usted used to go out. «salían» would be more than one."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Sofía y María? ¿Salían mucho también?", audioText: "¿y sofía y maría? ¿salían mucho también?", gloss: "And Sofía and María? Did they used to go out a lot too?" }
+            goal: "Say yes, they always went out a lot."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, salían mucho también" }
+                - { id: "wrong1", text: "sí, salíamos mucho también" }
+                - { id: "wrong2", text: "sí, sale mucho también" }
+              correctOptionId: "right"
+              audioText: "sí, salían mucho también"
+            replyGloss: "Yes, they always went out a lot too."
+            explanation: "Sofía and María — them: «salían». «salíamos» would wrongly include you; «sale» slips into the present, and is singular besides — «salimos»/«salieron» are not registered forms for salir."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Salíamos juntos al parque?", audioText: "¿y tú y yo? ¿salíamos juntos al parque?", gloss: "And you and I? Did we used to go out together to the park?" }
+            goal: "Say yes, we always went out together there."
+            reply:
+              mode: build
+              tiles: ["sí", "salíamos", "siempre", "juntos", "al", "parque", "salían", "salía"]
+              answer: "sí salíamos siempre juntos al parque"
+            replyGloss: "Yes, we always went out together to the park."
+            explanation: "You and Ana together: «salíamos» — accented, the one salir imperfect form that is nosotros."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "salía", target: "I used to go out, he/she/you used to go out" }
+          - { source: "salías", target: "you (tú) used to go out" }
+          - { source: "salíamos", target: "we used to go out" }
+          - { source: "salían", target: "they used to go out, you all used to go out" }
+          - { source: "el parque", target: "the park" }
+          - { source: "con Diego", target: "with Diego" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "de niño, salía mucho al parque con Diego"
+        en: "As a child, I used to go out a lot to the park with Diego"
+        atoms: ["de niño", "salía", "mucho", "parque"]

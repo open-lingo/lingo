@@ -1,0 +1,218 @@
+  # ── L10 · MASTERY — zero new atoms, zero info cards, every step graded.
+  #    Longest sim in the module (Ana asks the group for the whole memory,
+  #    5 turns) — the module's law that the mastery lesson must END on the
+  #    sim means the verbatim closing win line is delivered as the sim's
+  #    final (5th) turn reply, not a separate speakLit step; matchLit sits
+  #    just before the sim instead of after it. ≥2 recalls (L9, L1 —
+  #    full-circle back to the very first win). ≥1 PRIOR m23 connective
+  #    («cuando» and «mientras», both used). ≥1 PRIOR m25 connective
+  #    («porque», used, carrying PRIOR querer's imperfect «queríamos»,
+  #    m24). NOTE: the brief's suggested win line used «de niños» (plural)
+  #    — zero grep hits anywhere in m1-m25 (only the singular «de niño» is
+  #    a registered atom, and this course already treats it as an
+  #    invariant time marker usable with plural subjects — L1-L3's own
+  #    «de niño, todos vivían/comían/estudiaban…» cloze sentences do
+  #    exactly this). This lesson's win line substitutes the registered
+  #    singular «de niño» for the brief's unregistered «de niños» —
+  #    otherwise verbatim. Context: every m26 family
+  #    (vivía/comía/estudiaba/trabajaba/salía) and PRIOR
+  #    quería/podía (m24), all working together. Two extra single-tense
+  #    buildLit/speakLit steps («vivías»/«salías», tú-form, speakLit-before-
+  #    buildLit so the buildLit sits directly against the recall speakLit —
+  #    doctrinePins bans adjacent same-type steps) inserted before the
+  #    L1-recall/matchLit/sim tail, added post-authoring to close a
+  #    production-floor gap (each was only 2x/2 lessons) — both graded,
+  #    consistent with this lesson's "every step graded" rule; inserted
+  #    before, not after, the sim so the module's law that L10 ends on the
+  #    sim still holds. One extra buildLit («de niño, queríamos ir a la
+  #    escuela») inserted before l10-lb-estudiabamosporquequeriamos: «ir»
+  #    is a deliberately un-atomized filler word course-wide (never a
+  #    registered atom — confirmed m25.test.ts), so moduleBarGuards' vocab-
+  #    provenance pin still requires its first SCANNED appearance in this
+  #    module to land on an intro-capable step type; the listenBuildLit was
+  #    that first appearance and listening_build isn't intro-capable. m24's
+  #    own precedent (L3: word_map → info → speaking, «ir» debuts on the
+  #    speaking step) is followed here: a small buildLit ahead of the
+  #    listenBuildLit gives «ir» an intro-capable debut, matching course
+  #    precedent rather than raising the debt.
+  - n: 10
+    template: free
+    title: "De niño, vivíamos aquí juntos"
+    description: "Everything from this module, one last time, fully graded — every family recombined, PRIOR m23/m25 connectives, all working together."
+    steps:
+      - kind: buildLit
+        id: l10-b-deninoviviamosaquijuntos
+        es: "de niño, vivíamos aquí juntos"
+        en: "As children, we used to live here together"
+        atoms: ["de niño", "vivíamos", "aquí", "juntos"]
+        tiles: ["vivían", "vive"]
+      - kind: speakLit
+        id: l10-sp-comiamoscasatodoslosdias
+        es: "comíamos en casa todos los días"
+        en: "We used to eat at home every day"
+        atoms: ["comíamos", "casa", "todos los días"]
+      - kind: buildLit
+        id: l10-b-queriamosirescuela
+        es: "de niño, queríamos ir a la escuela"
+        en: "As children, we wanted to go to school"
+        atoms: ["de niño", "queríamos", "escuela"]
+        tiles: ["querían", "quería"]
+      - kind: listenBuildLit
+        id: l10-lb-estudiabamosporquequeriamos
+        es: "estudiábamos mucho porque queríamos ir a la escuela"
+        en: "We used to study a lot because we wanted to go to school"
+        atoms: ["estudiábamos", "mucho", "porque", "queríamos", "escuela"]
+        tiles: ["estudiaban", "querían"]
+      - kind: clozeLit
+        id: l10-c-cuandotrabajabamosnopodiamos
+        es: "cuando trabajábamos mucho, no podíamos salir"
+        en: "When we used to work a lot, we couldn't go out"
+        blank: "trabajábamos"
+        options: ["trabajábamos", "trabajaban"]
+        atoms: ["cuando", "trabajábamos", "mucho", "podíamos"]
+        why: "«nosotros» keeps «trabajábamos» — the accented we-form; «trabajaban» would wrongly shift to they."
+      - kind: mcq
+        id: l10-q-cuando
+        prompt: "Which one sets up a WHEN, not a WHY?"
+        correct: "cuando"
+        distractors: ["porque", "por eso", "mientras"]
+        atoms: ["cuando"]
+        why: "«cuando» (when) frames a moment. «porque»/«por eso» (PRIOR, m25) give a reason; «mientras» marks simultaneity, close but not the same as a single «when»."
+      - kind: agreementLit
+        id: l10-agr-yoelsalia
+        en: "I used to go out to the park, and he did too"
+        audioText: "yo salía al parque, y él salía también"
+        atoms: ["salía", "parque"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "salía", options: ["salía", "salías"] } }
+          - { text: " al parque, y él " }
+          - { blank: { id: "p2", answer: "salía", options: ["salía", "salíamos"] } }
+          - { text: " también" }
+      # Printed non-recall at L9 (es-m26-9-l9-sp-win).
+      - kind: speakLit
+        id: l10-sp-recall-l9win
+        es: "hoy vivo en España, pero de niño vivía en México"
+        en: "Today I live in Spain, but as a child I used to live in Mexico"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l10-tm-cuando
+        target: "cuando"
+        distractors: ["porque", "por eso", "mientras"]
+      - kind: audioWimcq
+        id: l10-ear-playa
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "el museo", emoji: "🏛️" }
+          - { surface: "la fiesta", emoji: "🎉" }
+      - kind: buildLit
+        id: l10-b-deninosaliamosparque
+        es: "de niño, salíamos mucho al parque"
+        en: "As children, we used to go out a lot to the park"
+        atoms: ["de niño", "salíamos", "mucho", "parque"]
+        tiles: ["salían", "sale"]
+      - kind: listenBuildLit
+        id: l10-lb-mientrasestudiabamostrabajaba
+        es: "mientras estudiábamos, mi padre trabajaba"
+        en: "While we used to study, my father used to work"
+        atoms: ["mientras", "estudiábamos", "padre", "trabajaba"]
+        tiles: ["estudiaban", "trabajaban"]
+      - kind: clozeLit
+        id: l10-c-todosviviancomianescuela
+        es: "todos vivían aquí juntos y comían en casa"
+        en: "Everyone used to live here together and used to eat at home"
+        blank: "vivían"
+        options: ["vivían", "vivíamos"]
+        atoms: ["todos", "vivían", "aquí", "juntos", "comían", "casa"]
+        why: "«todos» takes the they-ending throughout: «vivían»/«comían», never «vivíamos» (we)."
+      - kind: mcq
+        id: l10-q-queriamosescuela
+        prompt: "'We used to want to go to school' — which one?"
+        correct: "queríamos ir a la escuela"
+        distractors: ["quería ir a la escuela", "queríamos ir a la fiesta", "querían ir a la escuela"]
+        atoms: ["queríamos", "escuela"]
+        why: "«queríamos» (PRIOR, m24) is the accented we-form — «quería» wrongly narrows to one person, «querían» wrongly shifts to they, and «la fiesta» is the wrong place."
+      - kind: speakLit
+        id: l10-sp-tuviviasdenino
+        es: "tú siempre vivías aquí de niño"
+        en: "You (tú) always used to live here as a child"
+        atoms: ["vivías", "siempre", "aquí", "de niño"]
+      - kind: buildLit
+        id: l10-b-tusaliasdenino
+        es: "tú siempre salías mucho al parque de niño"
+        en: "You (tú) always used to go out a lot to the park as a child"
+        atoms: ["salías", "siempre", "mucho", "parque", "de niño"]
+      # Printed non-recall at L1 (es-m26-1-l1-sp-win).
+      - kind: speakLit
+        id: l10-sp-recall-l1win
+        es: "de niño, vivía en México"
+        en: "As a child, I used to live in Mexico"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l10-tm-porque
+        target: "porque"
+        distractors: ["por eso", "cuando", "mientras"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "cuando", target: "when" }
+          - { source: "mientras", target: "while" }
+          - { source: "porque", target: "because" }
+          - { source: "vivíamos", target: "we used to live" }
+          - { source: "comíamos", target: "we used to eat" }
+          - { source: "estudiábamos", target: "we used to study" }
+      - kind: sim
+        id: l10-sim-ana-memoria
+        scene: { emoji: "🇲🇽", title: "Ana asks for the whole memory", setting: "Ana wants to hear the whole childhood story, start to finish, in one telling." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Vivían todos juntos de niños?", audioText: "¿vivían todos juntos de niños?", gloss: "Did you all used to live together as children?" }
+            goal: "Say yes, you all lived here together."
+            reply:
+              mode: build
+              tiles: ["sí", "vivíamos", "aquí", "juntos", "vivían"]
+              answer: "sí vivíamos aquí juntos"
+            replyGloss: "Yes, we used to live here together."
+            explanation: "«vivíamos» — the accented we-form, answering for the whole group."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Comían en casa todos los días?", audioText: "¿comían en casa todos los días?", gloss: "Did you all eat at home every day?" }
+            goal: "Say yes, every day."
+            reply:
+              mode: build
+              tiles: ["sí", "comíamos", "en", "casa", "todos", "los", "días", "comían"]
+              answer: "sí comíamos en casa todos los días"
+            replyGloss: "Yes, we used to eat at home every day."
+            explanation: "«comíamos» keeps the same we-voice as «vivíamos» — «comían» would wrongly shift to them."
+          - id: t3
+            npc: { speaker: "Ana", es: "Estudiaban tanto.", audioText: "estudiaban tanto.", gloss: "You all studied so much." }
+            goal: "Say because you wanted to go to school."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "porque queríamos ir a la escuela" }
+                - { id: "wrong1", text: "por eso queríamos ir a la escuela" }
+                - { id: "wrong2", text: "porque quería ir a la escuela" }
+              correctOptionId: "right"
+              audioText: "porque queríamos ir a la escuela"
+            replyGloss: "Because we wanted to go to school."
+            explanation: "«porque» answers a WHY directly; «por eso» would flip the direction backwards. «queríamos», not «quería» — the group, not just you."
+          - id: t4
+            npc: { speaker: "Ana", es: "¿Su padre trabajaba mientras ustedes estudiaban?", audioText: "¿su padre trabajaba mientras ustedes estudiaban?", gloss: "Did your father work while you all studied?" }
+            goal: "Say yes, he worked a lot."
+            reply:
+              mode: build
+              tiles: ["sí", "trabajaba", "mucho", "trabajaban"]
+              answer: "sí trabajaba mucho"
+            replyGloss: "Yes, he used to work a lot."
+            explanation: "«su padre» — he: «trabajaba», not «trabajaban», which would wrongly make it more than one father."
+          - id: t5
+            npc: { speaker: "Ana", es: "Cuéntamelo todo, de principio a fin.", audioText: "cuéntamelo todo, de principio a fin.", gloss: "Tell me the whole thing, start to finish." }
+            goal: "Narrate the whole memory, start to finish."
+            reply:
+              mode: build
+              tiles: ["de", "niño", "vivíamos", "aquí", "juntos", "comíamos", "en", "casa", "todos", "los", "días", "y", "estudiábamos", "mucho", "porque", "queríamos", "ir", "a", "la", "escuela", "vivían", "querían"]
+              answer: "de niño vivíamos aquí juntos comíamos en casa todos los días y estudiábamos mucho porque queríamos ir a la escuela"
+            replyGloss: "As children, we used to live here together; we used to eat at home every day, and we used to study a lot because we wanted to go to school."
+            explanation: "The whole module in one line: «vivíamos», «comíamos», «estudiábamos» — three families, one voice — closed with PRIOR «porque queríamos» (m24/m25) giving the reason."

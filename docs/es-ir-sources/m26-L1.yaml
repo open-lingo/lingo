@@ -1,0 +1,151 @@
+  # ── L1 · «Vivía en México» — vivir's imperfect debuts whole: vivía (a
+  #    "first slot" atom, yo=él collision — PRIOR mechanism, m22, not
+  #    re-taught here), vivías (tú), vivíamos (nosotros — sits beside the
+  #    ALREADY-tense-ambiguous PRIOR «vivimos», present/preterite, m18/m21;
+  #    «vivíamos» is a THIRD, unambiguous reading, not a resolution of that
+  #    ambiguity), vivían (ellos/ustedes). -er/-ir family: EVERY form keeps
+  #    the accent. Also carries the module's ONE general rule card: the
+  #    imperfect's "easy tense" trick, third wave now, five more everyday
+  #    verbs, all regular here too. NO progressive, NO new preterite. No
+  #    recall (nothing earlier to recall).
+  - n: 1
+    template: free
+    title: "Vivía en México"
+    description: "The imperfect's trick, a third time: «vivía» is vivir's imperfect — regular here, same as present «vivo» and preterite «viví». Third wave, five more everyday verbs."
+    steps:
+      - kind: map
+        id: l1-map-deninoviviamexico
+        tokens: ["de niño", "vivía", "en", "México"]
+        pairs:
+          - { en: "as a child,", tokenIndex: 0 }
+          - { en: "I used to live", tokenIndex: 1 }
+          - { en: "in", tokenIndex: 2 }
+          - { en: "Mexico", tokenIndex: 3 }
+        audioText: "de niño, vivía en México"
+        revealNote: "«vivía» is vivir's imperfect — regular here, same shape as present «vivo» or preterite «viví». Same yo=él pattern as «tenía»/«estaba» (m22/m24) — only the subject tells you who."
+      - kind: info
+        id: l1-info-viviatricegeneralizado
+        title: "Vivía — the trick, a third time"
+        body: "The imperfect keeps being the easy tense — third wave now. «tenía» (m22), «estaba» (m24) were regular despite irregular present/preterite forms; «vivía», «comía», «estudiaba», «trabajaba», «salía» are the same trick, five more times: «de niño, vivía en México»."
+      - kind: speakLit
+        id: l1-sp-yoviviamexico
+        es: "yo vivía en México de niño"
+        en: "I used to live in Mexico as a child"
+        atoms: ["vivía", "México", "de niño"]
+      - kind: buildLit
+        id: l1-b-tuviviasaqui
+        es: "tú vivías aquí de niño"
+        en: "You (tú) used to live here as a child"
+        atoms: ["vivías", "aquí", "de niño"]
+        tiles: ["vivía", "vivían"]
+      - kind: speakLit
+        id: l1-sp-viviamosjuntosmexico
+        es: "vivíamos juntos en México"
+        en: "We used to live together in Mexico"
+        atoms: ["vivíamos", "juntos", "México"]
+      - kind: clozeLit
+        id: l1-c-todosviviamexico
+        es: "de niño, todos vivían en México"
+        en: "As children, everyone used to live in Mexico"
+        blank: "vivían"
+        options: ["vivían", "vivíamos", "vivía"]
+        atoms: ["de niño", "todos", "vivían", "México"]
+        why: "«todos» takes the they-ending: «vivían», never «vivíamos» — that would wrongly include you."
+      - kind: listenCompLit
+        id: l1-lc-diegoviviamexico
+        es: "Diego vivía en México de niño"
+        en: "Diego used to live in Mexico as a child."
+        atoms: ["vivía", "México", "de niño"]
+        distractorsEn:
+          - "Diego lives in Mexico as a child."
+          - "Diego used to live in Spain as a child."
+          - "They used to live in Mexico as a child."
+      - kind: mcq
+        id: l1-q-tuvivias
+        prompt: "Which one means 'you (tú) used to live'?"
+        correct: "tú vivías"
+        distractors: ["tú vivía", "tú vive", "tú vivíamos"]
+        atoms: ["vivías"]
+        why: "«vivías» — the tú ending, accented like every vivir imperfect form. «vivía» collapses yo/él, not tú; «vive» slips into now; «vivíamos» would be we."
+      - kind: buildLit
+        id: l1-b-viviamossiemprejuntos
+        es: "vivíamos siempre juntos aquí"
+        en: "We always used to live together here"
+        atoms: ["vivíamos", "siempre", "juntos", "aquí"]
+        tiles: ["vivían", "vivimos"]
+      - kind: audioWimcq
+        id: l1-ear-escuela
+        target: { surface: "la escuela", emoji: "🏫" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el parque", emoji: "🌳" }
+      - kind: agreementLit
+        id: l1-agr-yoelvivia
+        en: "I used to live in Mexico, and he did too"
+        audioText: "yo vivía en México, y él vivía también"
+        atoms: ["vivía", "México"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "vivía", options: ["vivía", "vive"] } }
+          - { text: " en México, y él " }
+          - { blank: { id: "p2", answer: "vivía", options: ["vivía", "vive"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l1-lb-samluisvivianmexico
+        es: "Sam y Luis vivían en México de niños"
+        en: "Sam and Luis used to live in Mexico as children"
+        atoms: ["vivían", "México", "de niño"]
+        tiles: ["vivíamos", "vivía"]
+      - kind: textMcq
+        id: l1-tm-vivia
+        target: "vivía"
+        distractors: ["vivías", "vivían", "vive"]
+      - kind: sim
+        id: l1-sim-ana-mexico
+        scene: { emoji: "🇲🇽", title: "Ana asks about childhood", setting: "Ana wants to know where everyone used to live as kids." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Vivías en México de niño?", audioText: "¿vivías en México de niño?", gloss: "Did you used to live in Mexico as a child?" }
+            goal: "Say yes, you always lived there."
+            reply:
+              mode: build
+              tiles: ["sí", "yo", "vivía", "siempre", "en", "México", "vivían"]
+              answer: "sí yo vivía siempre en México"
+            replyGloss: "Yes, I always lived in Mexico."
+            explanation: "Answering as yourself, «yo» keeps «vivía» unambiguous — it also means he/she/usted used to live. «vivían» would be more than one."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Vivían en México también?", audioText: "¿y diego y sofía? ¿vivían en México también?", gloss: "And Diego and Sofía? Did they used to live in Mexico too?" }
+            goal: "Say yes, they always lived there too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, vivían en México también" }
+                - { id: "wrong1", text: "sí, vivíamos en México también" }
+                - { id: "wrong2", text: "sí, viven en México también" }
+              correctOptionId: "right"
+              audioText: "sí, vivían en México también"
+            replyGloss: "Yes, they always lived in Mexico too."
+            explanation: "Diego and Sofía — them: «vivían». «vivíamos» would wrongly include you; «viven» slips into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Vivíamos aquí juntos?", audioText: "¿y tú y yo? ¿vivíamos aquí juntos?", gloss: "And you and I? Did we used to live here together?" }
+            goal: "Say yes, we always lived here together."
+            reply:
+              mode: build
+              tiles: ["sí", "vivíamos", "siempre", "juntos", "aquí", "vivían", "vivía"]
+              answer: "sí vivíamos siempre juntos aquí"
+            replyGloss: "Yes, we always lived here together."
+            explanation: "You and Ana together: «vivíamos» — accented, the one vivir imperfect form that is nosotros."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "vivía", target: "I used to live, he/she/you used to live" }
+          - { source: "vivías", target: "you (tú) used to live" }
+          - { source: "vivíamos", target: "we used to live" }
+          - { source: "vivían", target: "they used to live, you all used to live" }
+          - { source: "México", target: "Mexico" }
+          - { source: "de niño", target: "as a child" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "de niño, vivía en México"
+        en: "As a child, I used to live in Mexico"
+        atoms: ["de niño", "vivía", "México"]

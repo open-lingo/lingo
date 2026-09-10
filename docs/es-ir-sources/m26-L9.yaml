@@ -1,0 +1,175 @@
+  # ── L9 · «Hoy vivo en España, pero de niño vivía en México» —
+  #    consolidation: ZERO new atoms. Every family side by side, contrast
+  #    PRESENT vs IMPERFECT only — never preterite (m22/m24's L9 technique,
+  #    unchanged restriction: this lesson's whole point is "then vs. now,"
+  #    not "then vs. one bounded past moment"). Uses PRIOR present
+  #    vivo/como/estudio/trabajo/salgo alongside this module's imperfect.
+  #    Carries ≥1 recall (L2's own win line). Two extra single-tense
+  #    speakLit/buildLit steps («estudiabas»/«comías», tú-form,
+  #    speakLit-before-buildLit so the buildLit sits directly against the
+  #    recall speakLit — doctrinePins bans adjacent same-type steps)
+  #    appended near the end, added post-authoring to close a
+  #    production-floor gap (each was only 2x/2 lessons) — plain
+  #    statements, not part of the present-vs-imperfect contrast this
+  #    lesson otherwise restricts to.
+  - n: 9
+    template: free
+    title: "Hoy vivo en España, de niño vivía en México"
+    description: "«hoy» cues the present, «de niño» cues the imperfect — the same verb, then vs. now. «hoy vivo en España, pero de niño vivía en México» pairs PRIOR «vivo» with this module's «vivía»."
+    steps:
+      - kind: map
+        id: l9-map-hoyvivodeninovivia
+        tokens: ["hoy", "vivo", "en España,", "pero", "de niño", "vivía", "en México"]
+        pairs:
+          - { en: "today", tokenIndex: 0 }
+          - { en: "I live", tokenIndex: 1 }
+          - { en: "in Spain,", tokenIndex: 2 }
+          - { en: "but", tokenIndex: 3 }
+          - { en: "as a child,", tokenIndex: 4 }
+          - { en: "I used to live", tokenIndex: 5 }
+          - { en: "in Mexico", tokenIndex: 6 }
+        audioText: "hoy vivo en España, pero de niño vivía en México"
+        revealNote: "«vivo» (now, PRIOR) and «vivía» (then, this module) — same verb, two different times. «hoy» and «de niño» are the markers."
+      - kind: info
+        id: l9-info-hoydenino
+        title: "Hoy vs. de niño — now vs. then"
+        body: "«hoy» cues the present: «vivo», «como», «estudio». «de niño» cues the imperfect: «vivía», «comía», «estudiaba». Same verb, then vs. now — never the preterite here."
+      - kind: speakLit
+        id: l9-sp-hoycomodeninocomia
+        es: "hoy como en casa, pero de niño comía en el restaurante"
+        en: "Today I eat at home, but as a child I used to eat at the restaurant"
+        atoms: ["como", "casa", "de niño", "comía", "restaurante"]
+      - kind: buildLit
+        id: l9-b-hoyestudiodeninoestudiaba
+        es: "hoy estudio mucho, pero de niño estudiaba poco"
+        en: "Today I study a lot, but as a child I used to study little"
+        atoms: ["estudio", "mucho", "de niño", "estudiaba"]
+        tiles: ["estudia", "estudiaban"]
+      - kind: speakLit
+        id: l9-sp-hoytrabajodeninotrabajaba
+        es: "hoy trabajo mucho, pero de niño no trabajaba"
+        en: "Today I work a lot, but as a child I didn't used to work"
+        atoms: ["trabajo", "mucho", "de niño", "trabajaba"]
+      - kind: clozeLit
+        id: l9-c-hoysalgodeninosalia
+        es: "hoy salgo poco, pero de niño salía mucho al parque"
+        en: "Today I go out little, but as a child I used to go out a lot to the park"
+        blank: "salía"
+        options: ["salía", "sale"]
+        atoms: ["salgo", "de niño", "salía", "mucho", "parque"]
+        why: "«de niño» cues the imperfect: «salía», not «sale» — that would wrongly bring the sentence back into today, and shift the subject away from you."
+      - kind: listenCompLit
+        id: l9-lc-hoyvivedeninovivia
+        es: "hoy Diego vive en México, pero de niño vivía en España"
+        en: "Today Diego lives in Mexico, but as a child he used to live in Spain."
+        atoms: ["vive", "México", "de niño", "vivía", "España"]
+        distractorsEn:
+          - "Diego used to live in Mexico, but today he lives in Spain."
+          - "Today Diego lives in Mexico, and as a child he lived there too."
+          - "Diego lives in Mexico, but as a child he lived in Spain last year."
+      - kind: mcq
+        id: l9-q-marcadorpresente
+        prompt: "Which one cues the PRESENT, not the imperfect?"
+        correct: "hoy"
+        distractors: ["de niño", "siempre", "todos los días"]
+        atoms: ["hoy"]
+        why: "«hoy» = today, right now. «de niño»/«siempre»/«todos los días» all cue the habitual imperfect instead."
+      - kind: buildLit
+        id: l9-b-hoycomemosdeninocomiamos
+        es: "hoy comemos en casa, pero de niño comíamos en el restaurante"
+        en: "Today we eat at home, but as a child we used to eat at the restaurant"
+        atoms: ["comemos", "casa", "de niño", "comíamos", "restaurante"]
+        tiles: ["comíais", "comían"]
+      - kind: audioWimcq
+        id: l9-ear-cine
+        target: { surface: "el cine", emoji: "🎬" }
+        distractors:
+          - { surface: "la fiesta", emoji: "🎉" }
+          - { surface: "el museo", emoji: "🏛️" }
+      - kind: agreementLit
+        id: l9-agr-vivovivia
+        en: "I live in Spain today, but I used to live in Mexico as a child"
+        audioText: "hoy vivo en España, pero de niño vivía en México"
+        atoms: ["vivo", "España", "de niño", "vivía", "México"]
+        segments:
+          - { text: "hoy " }
+          - { blank: { id: "p1", answer: "vivo", options: ["vivo", "vivía"] } }
+          - { text: " en España, pero de niño " }
+          - { blank: { id: "p2", answer: "vivía", options: ["vivía", "vivo"] } }
+          - { text: " en México" }
+      - kind: listenBuildLit
+        id: l9-lb-hoytrabajadeninotrabajaba
+        es: "hoy mi padre trabaja mucho, pero de niño trabajaba poco"
+        en: "Today my father works a lot, but as a child he used to work little"
+        atoms: ["trabaja", "mucho", "de niño", "trabajaba"]
+        tiles: ["trabajó", "trabajaban"]
+      - kind: textMcq
+        id: l9-tm-devninosalia
+        target: "salía"
+        distractors: ["salgo", "salías", "salíamos"]
+      - kind: speakLit
+        id: l9-sp-tuestudiabasdenino
+        es: "tú siempre estudiabas mucho de niño"
+        en: "You (tú) always used to study a lot as a child"
+        atoms: ["estudiabas", "siempre", "mucho", "de niño"]
+      - kind: buildLit
+        id: l9-b-tucomiasdenino
+        es: "tú siempre comías mucho de niño"
+        en: "You (tú) always used to eat a lot as a child"
+        atoms: ["comías", "siempre", "mucho", "de niño"]
+      # Printed non-recall at L2 (es-m26-2-l2-sp-win).
+      - kind: speakLit
+        id: l9-sp-recall-comiacasa
+        es: "de niño, comía mucho en casa"
+        en: "As a child, I used to eat a lot at home"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l9-sim-ana-ahoraantes
+        scene: { emoji: "🕰️", title: "Ana asks then vs. now", setting: "Ana wants to know what's different today compared to childhood." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Dónde vives hoy?", audioText: "¿dónde vives hoy?", gloss: "Where do you live today?" }
+            goal: "Say where you live now, and used to."
+            reply:
+              mode: build
+              tiles: ["hoy", "vivo", "en", "España", "pero", "de", "niño", "vivía", "en", "México", "vive"]
+              answer: "hoy vivo en España pero de niño vivía en México"
+            replyGloss: "Today I live in Spain, but as a child I used to live in Mexico."
+            explanation: "«vivo» (now) and «vivía» (then) — same verb, «hoy» and «de niño» tell you which time."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y estudias mucho hoy?", audioText: "¿y estudias mucho hoy?", gloss: "And do you study a lot today?" }
+            goal: "Say yes, but not as a child."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, pero de niño no estudiaba mucho" }
+                - { id: "wrong1", text: "sí, pero de niño no estudio mucho" }
+                - { id: "wrong2", text: "sí, pero de niño no estudié mucho" }
+              correctOptionId: "right"
+              audioText: "sí, pero de niño no estudiaba mucho"
+            replyGloss: "Yes, but as a child I didn't study a lot."
+            explanation: "«de niño» calls for the imperfect: «estudiaba», not «estudio» (that stays in today) or «estudié» (a one-time preterite — this lesson keeps to present vs. imperfect only)."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Sale mucho hoy?", audioText: "¿sale mucho hoy?", gloss: "Do you (usted) go out a lot today?" }
+            goal: "Say no, but you always did."
+            reply:
+              mode: build
+              tiles: ["no", "pero", "de", "niño", "siempre", "salía", "salgo"]
+              answer: "no pero de niño siempre salía"
+            replyGloss: "No, but as a child I always used to go out."
+            explanation: "«siempre» plus «de niño» keeps the whole clause in the imperfect: «salía», not «salgo», which would slip the answer back into today."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "hoy", target: "today" }
+          - { source: "de niño", target: "as a child" }
+          - { source: "vivo", target: "I live (now)" }
+          - { source: "vivía", target: "I used to live (then)" }
+          - { source: "estudio", target: "I study (now)" }
+          - { source: "estudiaba", target: "I used to study (then)" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "hoy vivo en España, pero de niño vivía en México"
+        en: "Today I live in Spain, but as a child I used to live in Mexico"
+        atoms: ["hoy", "vivo", "España", "de niño", "vivía", "México"]

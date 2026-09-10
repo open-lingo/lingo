@@ -1,0 +1,175 @@
+  # ── L6 · «Siempre comía en casa, pero ayer comí en el restaurante» — the
+  #    module's signature contrast: ZERO new atoms. Unlike m24's L6 (which
+  #    paired a NEW imperfect verb against a DIFFERENT verb's PRIOR
+  #    preterite via m23 connectives), m26's L6 pairs each of the five new
+  #    imperfect verbs against its OWN PRIOR preterite — comía/comí,
+  #    vivía/viví, trabajaba/trabajé, salía/salí, estudiaba/estudié — using
+  #    «pero» plus marker discipline: siempre/todos los días/de niño on the
+  #    habitual (imperfect) side, ayer/anoche/la semana pasada on the
+  #    one-time (preterite) side. Preterite forms used are all
+  #    grep-confirmed PRIOR (m19/m21) and stay inside each verb's
+  #    registered cells — no «salimos»/«salieron» (not registered for
+  #    salir), no «viviste» (not registered for vivir), no «estudiaste»/
+  #    «estudiamos»-preterite (not registered for estudiar), no
+  #    «trabajamos»-preterite (not registered for trabajar). Carries ≥1
+  #    recall (L4's own win line). One extra single-tense buildLit
+  #    («trabajabas») appended near the end, added post-authoring to close
+  #    a production-floor gap (trabajabas was only 1x/1 lesson) — a plain
+  #    tú-form statement, not part of the pero-contrast, so the L6-scoped
+  #    marker-discipline pin does not apply to it.
+  - n: 6
+    template: free
+    title: "Siempre comía en casa, pero ayer comí en el restaurante"
+    description: "The imperfect and the preterite of the SAME verb, contrasted with «pero»: habitual vs. one-time. «siempre comía en casa, pero ayer comí en el restaurante» — the marker tells you which."
+    steps:
+      - kind: map
+        id: l6-map-siemprecomiaayercomi
+        tokens: ["siempre", "comía", "en casa,", "pero", "ayer", "comí", "en el restaurante"]
+        pairs:
+          - { en: "always", tokenIndex: 0 }
+          - { en: "I used to eat", tokenIndex: 1 }
+          - { en: "at home,", tokenIndex: 2 }
+          - { en: "but", tokenIndex: 3 }
+          - { en: "yesterday", tokenIndex: 4 }
+          - { en: "I ate", tokenIndex: 5 }
+          - { en: "at the restaurant", tokenIndex: 6 }
+        audioText: "siempre comía en casa, pero ayer comí en el restaurante"
+        revealNote: "Same verb, two tenses: «comía» (habitual, marked by «siempre») and «comí» (one time, marked by «ayer»). «pero» sets the two clauses against each other."
+      - kind: info
+        id: l6-info-mismoverbodostiempos
+        title: "Same verb, two tenses"
+        body: "«comía» is the habit; «comí» is the one time. The marker tells you which: «siempre»/«todos los días»/«de niño» take the imperfect, «ayer»/«anoche»/«la semana pasada» take the preterite. «pero» sets them against each other."
+      - kind: speakLit
+        id: l6-sp-vivia-vivi
+        es: "siempre vivía en México, pero la semana pasada viví en España"
+        en: "I always used to live in Mexico, but last week I lived in Spain"
+        atoms: ["siempre", "vivía", "México", "la semana pasada", "viví", "España"]
+      - kind: buildLit
+        id: l6-b-comias-comiste
+        es: "tú siempre comías en casa, pero ayer comiste en el restaurante"
+        en: "You (tú) always used to eat at home, but yesterday you ate at the restaurant"
+        atoms: ["comías", "casa", "ayer", "comiste", "restaurante"]
+        tiles: ["comía", "comí"]
+      - kind: speakLit
+        id: l6-sp-trabajaba-trabajo
+        es: "mi padre siempre trabajaba mucho, pero ayer no trabajó"
+        en: "My father always used to work a lot, but yesterday he didn't work"
+        atoms: ["padre", "siempre", "trabajaba", "mucho", "ayer", "trabajó"]
+      - kind: clozeLit
+        id: l6-c-estudiaba-estudie
+        es: "de niño, estudiaba mucho, pero anoche no estudié"
+        en: "As a child, I used to study a lot, but last night I didn't study"
+        blank: "estudié"
+        options: ["estudié", "estudiaban"]
+        atoms: ["de niño", "estudiaba", "mucho", "anoche", "estudié"]
+        why: "«anoche» marks one bounded night for ME: «estudié», not «estudiaban» — that keeps the old habit AND wrongly shifts the subject to they."
+      - kind: listenCompLit
+        id: l6-lc-salia-sali
+        es: "de niño, salía mucho al parque, pero la semana pasada no salí"
+        en: "As a child, I used to go out a lot to the park, but last week I didn't go out."
+        atoms: ["de niño", "salía", "mucho", "parque", "la semana pasada", "salí"]
+        distractorsEn:
+          - "As a child, I go out a lot to the park, but last week I didn't go out."
+          - "As a child, I used to go out a lot to the park, and last week I went out too."
+          - "As a child, we used to go out a lot to the park, but last week we didn't go out."
+      - kind: mcq
+        id: l6-q-marcadorunavez
+        prompt: "Which marker points to the ONE-TIME event, not the habit?"
+        correct: "ayer"
+        distractors: ["siempre", "todos los días", "mientras"]
+        atoms: ["ayer"]
+        why: "«ayer» = yesterday, one bounded day — the preterite. «siempre»/«todos los días» mark the habit; «mientras» (m23) sets up an ongoing background, not a one-time event."
+      - kind: buildLit
+        id: l6-b-vivia-vivimos
+        es: "siempre vivíamos en México, pero el mes pasado vivimos en España"
+        en: "We always used to live in Mexico, but last month we lived in Spain"
+        atoms: ["vivíamos", "México", "el mes pasado", "vivimos", "España"]
+        tiles: ["vivía", "viví"]
+      - kind: audioWimcq
+        id: l6-ear-tienda
+        target: { surface: "la tienda", emoji: "🏪" }
+        distractors:
+          - { surface: "el mercado", emoji: "🛒" }
+          - { surface: "el museo", emoji: "🏛️" }
+      - kind: agreementLit
+        id: l6-agr-comia-comi
+        en: "I always used to eat at home, but I ate at the restaurant yesterday"
+        audioText: "yo siempre comía en casa, pero comí en el restaurante ayer"
+        atoms: ["comía", "casa", "comí", "restaurante", "ayer"]
+        segments:
+          - { text: "yo siempre " }
+          - { blank: { id: "p1", answer: "comía", options: ["comía", "comí"] } }
+          - { text: " en casa, pero " }
+          - { blank: { id: "p2", answer: "comí", options: ["comí", "comía"] } }
+          - { text: " en el restaurante ayer" }
+      - kind: listenBuildLit
+        id: l6-lb-trabajaba-trabajo
+        es: "Sam siempre trabajaba mucho, pero ayer no trabajó"
+        en: "Sam always used to work a lot, but yesterday he didn't work"
+        atoms: ["trabajaba", "mucho", "ayer", "trabajó"]
+        tiles: ["trabajábamos", "trabajaron"]
+      - kind: textMcq
+        id: l6-tm-estudie
+        target: "estudié"
+        distractors: ["estudiaba", "estudiaron", "estudiaban"]
+      - kind: buildLit
+        id: l6-b-trabajabastrabajo
+        es: "tú siempre trabajabas mucho en el trabajo"
+        en: "You (tú) always used to work a lot at work"
+        atoms: ["trabajabas", "siempre", "mucho", "trabajo"]
+      # Printed non-recall at L4 (es-m26-4-l4-sp-win).
+      - kind: speakLit
+        id: l6-sp-recall-trabajabapadre
+        es: "mi padre trabajaba todos los días"
+        en: "My father used to work every day"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l6-sim-ana-contraste
+        scene: { emoji: "🍴", title: "Ana asks what changed", setting: "Ana wants to know what people always did — and what was different yesterday." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Siempre comías en casa?", audioText: "¿siempre comías en casa?", gloss: "Did you always used to eat at home?" }
+            goal: "Say yes, but you ate out yesterday."
+            reply:
+              mode: build
+              tiles: ["sí", "siempre", "comía", "en", "casa", "pero", "ayer", "comí", "en", "el", "restaurante", "comía"]
+              answer: "sí siempre comía en casa pero ayer comí en el restaurante"
+            replyGloss: "Yes, I always used to eat at home, but yesterday I ate at the restaurant."
+            explanation: "The habit («comía») and the one time («comí») sit side by side, «pero» between them — the marker («siempre» vs. «ayer») is what tells them apart."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego? ¿Siempre salía al parque?", audioText: "¿y diego? ¿siempre salía al parque?", gloss: "And Diego? Did he always used to go out to the park?" }
+            goal: "Say yes, but not last week."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, pero la semana pasada no salió" }
+                - { id: "wrong1", text: "sí, pero la semana pasada no salía" }
+                - { id: "wrong2", text: "sí, pero la semana pasada no sale" }
+              correctOptionId: "right"
+              audioText: "sí, pero la semana pasada no salió"
+            replyGloss: "Yes, but last week he didn't go out."
+            explanation: "«la semana pasada» is one bounded week: «salió», not «salía» (that would wrongly make it a habit) or «sale» (that slips into now)."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Tu padre trabajaba todos los días?", audioText: "¿tu padre trabajaba todos los días?", gloss: "Did your father used to work every day?" }
+            goal: "Say yes, but he didn't work yesterday."
+            reply:
+              mode: build
+              tiles: ["sí", "mi", "padre", "trabajaba", "todos", "los", "días", "pero", "ayer", "no", "trabajó", "trabajaba"]
+              answer: "sí mi padre trabajaba todos los días pero ayer no trabajó"
+            replyGloss: "Yes, my father used to work every day, but yesterday he didn't work."
+            explanation: "«todos los días» is the standing habit: «trabajaba». «ayer» flips it to the one bounded day: «trabajó», not «trabajaba»."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "siempre", target: "always" }
+          - { source: "ayer", target: "yesterday" }
+          - { source: "anoche", target: "last night" }
+          - { source: "la semana pasada", target: "last week" }
+          - { source: "comía", target: "I used to eat, he/she/you used to eat" }
+          - { source: "comí", target: "I ate" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "siempre comía en casa, pero ayer comí en el restaurante"
+        en: "I always ate at home, but yesterday I ate at the restaurant"
+        atoms: ["siempre", "comía", "casa", "ayer", "comí", "restaurante"]

@@ -1,0 +1,150 @@
+  # ── L4 · «Mi padre trabajaba mucho» — trabajar's imperfect debuts whole:
+  #    trabajaba (yo=él collision, PRIOR mechanism, not re-taught),
+  #    trabajabas (tú), trabajábamos (nosotros — the ONE -ar form that
+  #    carries an accent), trabajaban (ellos/ustedes). -ar family: accent
+  #    ONLY on nosotros, same rule as estudiar (L3), unlike vivir/comer/
+  #    salir. Regular here, same as present «trabajo»/preterite «trabajé»
+  #    (m19). Reuses trabajar's own PRIOR emoji (👷, m10) — PRIOR reuse, not
+  #    a new debut. NO progressive, NO new preterite. No recall (L4 debuts a
+  #    fresh family).
+  - n: 4
+    template: free
+    title: "Mi padre trabajaba mucho"
+    description: "«trabajaba» is trabajar's imperfect — regular here, same as present «trabajo» or preterite «trabajé» (m19). -ar family: accent only on nosotros, like estudiar."
+    steps:
+      - kind: map
+        id: l4-map-mipadretrabajabamuchodias
+        tokens: ["mi padre", "trabajaba", "mucho", "todos los días"]
+        pairs:
+          - { en: "my father", tokenIndex: 0 }
+          - { en: "used to work", tokenIndex: 1 }
+          - { en: "a lot", tokenIndex: 2 }
+          - { en: "every day", tokenIndex: 3 }
+        audioText: "mi padre trabajaba mucho todos los días"
+        revealNote: "«trabajaba» is trabajar's imperfect — regular here, same shape as present «trabajo» or preterite «trabajé». Same yo=él pattern as «vivía»/«comía»/«estudiaba» (L1-L3)."
+      - kind: info
+        id: l4-info-trabajabacuartoverbo
+        title: "Trabajaba — the fourth verb"
+        body: "«trabajaba» is I used to work, he/she/you used to work — trabajar's imperfect. Like estudiar, the -ar family carries an accent ONLY on nosotros: «trabajábamos». «trabajaba», «trabajabas», «trabajaban» carry none."
+      - kind: speakLit
+        id: l4-sp-yotrabajabatrabajo
+        es: "yo trabajaba mucho en el trabajo"
+        en: "I used to work a lot at work"
+        atoms: ["trabajaba", "mucho", "trabajo"]
+      - kind: buildLit
+        id: l4-b-tutrabajabastrabajo
+        es: "tú trabajabas en el trabajo todos los días"
+        en: "You (tú) used to work at work every day"
+        atoms: ["trabajabas", "trabajo", "todos los días"]
+        tiles: ["trabajaba", "trabajaban"]
+      - kind: speakLit
+        id: l4-sp-trabajabamosjuntostrabajo
+        es: "trabajábamos juntos en el trabajo"
+        en: "We used to work together at work"
+        atoms: ["trabajábamos", "juntos", "trabajo"]
+      - kind: clozeLit
+        id: l4-c-todostrabajabantrabajo
+        es: "mi padre y mis amigos trabajaban en el trabajo"
+        en: "My father and my friends used to work at work"
+        blank: "trabajaban"
+        options: ["trabajaban", "trabajábamos", "trabajaba"]
+        atoms: ["padre", "trabajaban", "trabajo"]
+        why: "«mi padre y mis amigos» takes the they-ending: «trabajaban», never «trabajábamos» — that would wrongly include you."
+      - kind: listenCompLit
+        id: l4-lc-diegotrabajabatrabajo
+        es: "Diego trabajaba mucho en el trabajo"
+        en: "Diego used to work a lot at work."
+        atoms: ["trabajaba", "mucho", "trabajo"]
+        distractorsEn:
+          - "Diego works a lot at work."
+          - "Diego used to work a lot at home."
+          - "They used to work a lot at work."
+      - kind: mcq
+        id: l4-q-tutrabajabas
+        prompt: "Which one means 'you (tú) used to work' — no accent, the -ar rule?"
+        correct: "tú trabajabas"
+        distractors: ["tú trabajaba", "tú trabaja", "tú trabajábamos"]
+        atoms: ["trabajabas"]
+        why: "«trabajabas» — the tú ending, no accent (the -ar rule). «trabajaba» collapses yo/él, not tú; «trabaja» slips into now; «trabajábamos» would be we, the one accented form."
+      - kind: buildLit
+        id: l4-b-trabajabamossiempretrabajo
+        es: "trabajábamos siempre juntos en el trabajo"
+        en: "We always used to work together at work"
+        atoms: ["trabajábamos", "siempre", "juntos", "trabajo"]
+        tiles: ["trabajaban", "trabajaba"]
+      - kind: audioWimcq
+        id: l4-ear-restaurante
+        target: { surface: "el restaurante", emoji: "🍴" }
+        distractors:
+          - { surface: "el mercado", emoji: "🛒" }
+          - { surface: "el museo", emoji: "🏛️" }
+      - kind: agreementLit
+        id: l4-agr-yoeltrabajaba
+        en: "I used to work at work, and he did too"
+        audioText: "yo trabajaba en el trabajo, y él trabajaba también"
+        atoms: ["trabajaba", "trabajo"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "trabajaba", options: ["trabajaba", "trabaja"] } }
+          - { text: " en el trabajo, y él " }
+          - { blank: { id: "p2", answer: "trabajaba", options: ["trabajaba", "trabaja"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l4-lb-samluistrabajabantrabajo
+        es: "Sam y Luis trabajaban mucho en el trabajo"
+        en: "Sam and Luis used to work a lot at work"
+        atoms: ["trabajaban", "mucho", "trabajo"]
+        tiles: ["trabajábamos", "trabajaba"]
+      - kind: textMcq
+        id: l4-tm-trabajaba
+        target: "trabajaba"
+        distractors: ["trabajabas", "trabajaban", "trabaja"]
+      - kind: sim
+        id: l4-sim-ana-trabajo
+        scene: { emoji: "👷", title: "Ana asks about work", setting: "Ana wants to know who used to work a lot, and how often, in the family." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tu padre trabajaba mucho todos los días?", audioText: "¿tu padre trabajaba mucho todos los días?", gloss: "Did your father used to work a lot every day?" }
+            goal: "Say yes, your father always worked a lot."
+            reply:
+              mode: build
+              tiles: ["sí", "mi", "padre", "trabajaba", "siempre", "mucho", "todos", "los", "días", "trabajaban"]
+              answer: "sí mi padre trabajaba siempre mucho todos los días"
+            replyGloss: "Yes, my father always worked a lot every day."
+            explanation: "«mi padre» — he: «trabajaba» unambiguous, also means I/usted used to work. «trabajaban» would be more than one."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tus amigos? ¿Trabajaban mucho también?", audioText: "¿y tus amigos? ¿trabajaban mucho también?", gloss: "And your friends? Did they used to work a lot too?" }
+            goal: "Say yes, they always worked a lot too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, trabajaban mucho también" }
+                - { id: "wrong1", text: "sí, trabajábamos mucho también" }
+                - { id: "wrong2", text: "sí, trabajaron mucho también" }
+              correctOptionId: "right"
+              audioText: "sí, trabajaban mucho también"
+            replyGloss: "Yes, they always worked a lot too."
+            explanation: "Your friends — them: «trabajaban», no accent, the ongoing habit. «trabajábamos» would wrongly include you; «trabajaron» (PRIOR preterite, m21) would wrongly make it one bounded event."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Trabajábamos juntos en el trabajo?", audioText: "¿y tú y yo? ¿trabajábamos juntos en el trabajo?", gloss: "And you and I? Did we used to work together at work?" }
+            goal: "Say yes, we always worked together there."
+            reply:
+              mode: build
+              tiles: ["sí", "trabajábamos", "siempre", "juntos", "en", "el", "trabajo", "trabajaban", "trabajaba"]
+              answer: "sí trabajábamos siempre juntos en el trabajo"
+            replyGloss: "Yes, we always worked together at work."
+            explanation: "You and Ana together: «trabajábamos» — the one accented trabajar imperfect form."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "trabajaba", target: "I used to work, he/she/you used to work" }
+          - { source: "trabajabas", target: "you (tú) used to work" }
+          - { source: "trabajábamos", target: "we used to work" }
+          - { source: "trabajaban", target: "they used to work, you all used to work" }
+          - { source: "el trabajo", target: "the work, the job" }
+          - { source: "todos los días", target: "every day" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "mi padre trabajaba todos los días"
+        en: "My father used to work every day"
+        atoms: ["padre", "trabajaba", "todos los días"]

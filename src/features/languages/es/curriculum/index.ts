@@ -36,6 +36,7 @@ import { ES_M22_LESSONS } from "./m22";
 import { ES_M23_LESSONS } from "./m23";
 import { ES_M24_LESSONS } from "./m24";
 import { ES_M25_LESSONS } from "./m25";
+import { ES_M26_LESSONS } from "./m26";
 
 export type EsModuleMeta = {
   id: string;
@@ -211,7 +212,14 @@ export const ES_MODULE_META: EsModuleMeta[] = [
     eyebrow: "Module 25 · Porque, por eso",
     summary: "two clauses you can already build, causally linked — «porque» gives the reason, «por eso» gives the result, same two facts either direction.",
     accent: { from: "#3b82f6", to: "#1d4ed8" },
+  },  {
+    id: "m26",
+    title: "Vivía, comía, estudiaba",
+    eyebrow: "Module 26 · Vivía, comía, estudiaba",
+    summary: "the imperfect's trick, a third time — vivir, comer, estudiar, trabajar, and salir slot into the same -aba/-ía pattern «tenía» and «estaba» already taught you, and now, for the first time, every one of them has a matching preterite to contrast against.",
+    accent: { from: "#22d3ee", to: "#0891b2" },
   },
+
 
 
 
@@ -249,6 +257,7 @@ const LESSONS_BY_MODULE: Record<string, LessonContent[]> = {
   m23: ES_M23_LESSONS,
   m24: ES_M24_LESSONS,
   m25: ES_M25_LESSONS,
+  m26: ES_M26_LESSONS,
 };
 
 /** Flat lesson list for the shared LESSONS content index (mockLessons.ts). */

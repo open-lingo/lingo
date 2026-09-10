@@ -1,0 +1,150 @@
+  # ── L2 · «Comía mucho en casa» — comer's imperfect debuts whole: comía
+  #    (yo=él collision, PRIOR mechanism, not re-taught), comías (tú),
+  #    comíamos (nosotros), comían (ellos/ustedes). -er/-ir family: EVERY
+  #    form keeps the accent, same as vivir (L1). Regular here, same as
+  #    present «como»/preterite «comí». NO progressive, NO new preterite.
+  #    No recall (L1's own -sp-win is the only earlier line, and this
+  #    lesson debuts a fresh family — recall license starts at L3+ per the
+  #    brief).
+  - n: 2
+    template: free
+    title: "Comía mucho en casa"
+    description: "«comía» is comer's imperfect — regular here, same as present «como» or preterite «comí» (m19). Every form keeps the accent, same as vivir."
+    steps:
+      - kind: map
+        id: l2-map-deninocomiamuchocasa
+        tokens: ["de niño", "comía", "mucho", "en", "casa"]
+        pairs:
+          - { en: "as a child,", tokenIndex: 0 }
+          - { en: "I used to eat", tokenIndex: 1 }
+          - { en: "a lot", tokenIndex: 2 }
+          - { en: "at", tokenIndex: 3 }
+          - { en: "home", tokenIndex: 4 }
+        audioText: "de niño, comía mucho en casa"
+        revealNote: "«comía» is comer's imperfect — regular here, same shape as present «como» or preterite «comí». Same yo=él pattern as «vivía» (L1)."
+      - kind: info
+        id: l2-info-comiasegundaverbo
+        title: "Comía — the second verb"
+        body: "«comía» is I used to eat, he/she/you used to eat — comer's imperfect. Every form keeps the accent: «comía», «comías», «comíamos», «comían». Regular here, same as present «como» or preterite «comí»."
+      - kind: speakLit
+        id: l2-sp-yocomiacasa
+        es: "yo comía mucho en casa"
+        en: "I used to eat a lot at home"
+        atoms: ["comía", "mucho", "casa"]
+      - kind: buildLit
+        id: l2-b-tucomiascasa
+        es: "tú comías en casa de niño"
+        en: "You (tú) used to eat at home as a child"
+        atoms: ["comías", "casa", "de niño"]
+        tiles: ["comía", "comían"]
+      - kind: speakLit
+        id: l2-sp-comiamosjuntoscasa
+        es: "comíamos juntos en casa"
+        en: "We used to eat together at home"
+        atoms: ["comíamos", "juntos", "casa"]
+      - kind: clozeLit
+        id: l2-c-todoscomiancasa
+        es: "de niño, todos comían en casa"
+        en: "As children, everyone used to eat at home"
+        blank: "comían"
+        options: ["comían", "comíamos", "comía"]
+        atoms: ["de niño", "todos", "comían", "casa"]
+        why: "«todos» takes the they-ending: «comían», never «comíamos» — that would wrongly include you."
+      - kind: listenCompLit
+        id: l2-lc-diegocomiacasa
+        es: "Diego comía mucho en casa"
+        en: "Diego used to eat a lot at home."
+        atoms: ["comía", "mucho", "casa"]
+        distractorsEn:
+          - "Diego eats a lot at home."
+          - "Diego used to eat a lot at school."
+          - "They used to eat a lot at home."
+      - kind: mcq
+        id: l2-q-tucomias
+        prompt: "Which one means 'you (tú) used to eat'?"
+        correct: "tú comías"
+        distractors: ["tú comía", "tú come", "tú comíamos"]
+        atoms: ["comías"]
+        why: "«comías» — the tú ending, accented like every comer imperfect form. «comía» collapses yo/él, not tú; «come» slips into now; «comíamos» would be we."
+      - kind: buildLit
+        id: l2-b-comiamossiempremucho
+        es: "comíamos siempre mucho juntos"
+        en: "We always used to eat a lot together"
+        atoms: ["comíamos", "siempre", "mucho", "juntos"]
+        tiles: ["comían", "comemos"]
+      - kind: audioWimcq
+        id: l2-ear-mercado
+        target: { surface: "el mercado", emoji: "🛒" }
+        distractors:
+          - { surface: "la tienda", emoji: "🏪" }
+          - { surface: "el museo", emoji: "🏛️" }
+      - kind: agreementLit
+        id: l2-agr-yoelcomia
+        en: "I used to eat at home, and he did too"
+        audioText: "yo comía en casa, y él comía también"
+        atoms: ["comía", "casa"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "comía", options: ["comía", "come"] } }
+          - { text: " en casa, y él " }
+          - { blank: { id: "p2", answer: "comía", options: ["comía", "come"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l2-lb-samluiscomiancasa
+        es: "Sam y Luis comían mucho en casa"
+        en: "Sam and Luis used to eat a lot at home"
+        atoms: ["comían", "mucho", "casa"]
+        tiles: ["comíamos", "comía"]
+      - kind: textMcq
+        id: l2-tm-comia
+        target: "comía"
+        distractors: ["comías", "comían", "come"]
+      - kind: sim
+        id: l2-sim-ana-comida
+        scene: { emoji: "🏠", title: "Ana asks about family meals", setting: "Ana wants to know who used to eat where, and how much, as kids." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Comías mucho en casa de niño?", audioText: "¿comías mucho en casa de niño?", gloss: "Did you used to eat a lot at home as a child?" }
+            goal: "Say yes, you always ate a lot there."
+            reply:
+              mode: build
+              tiles: ["sí", "yo", "comía", "siempre", "mucho", "en", "casa", "comían"]
+              answer: "sí yo comía siempre mucho en casa"
+            replyGloss: "Yes, I always ate a lot at home."
+            explanation: "Answering as yourself, «yo» keeps «comía» unambiguous — it also means he/she/usted used to eat. «comían» would be more than one."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Comían mucho también?", audioText: "¿y diego y sofía? ¿comían mucho también?", gloss: "And Diego and Sofía? Did they used to eat a lot too?" }
+            goal: "Say yes, they always ate a lot too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, comían mucho también" }
+                - { id: "wrong1", text: "sí, comíamos mucho también" }
+                - { id: "wrong2", text: "sí, comen mucho también" }
+              correctOptionId: "right"
+              audioText: "sí, comían mucho también"
+            replyGloss: "Yes, they always ate a lot too."
+            explanation: "Diego and Sofía — them: «comían». «comíamos» would wrongly include you; «comen» slips into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Comíamos juntos en casa?", audioText: "¿y tú y yo? ¿comíamos juntos en casa?", gloss: "And you and I? Did we used to eat together at home?" }
+            goal: "Say yes, we always ate together at home."
+            reply:
+              mode: build
+              tiles: ["sí", "comíamos", "siempre", "juntos", "en", "casa", "comían", "comía"]
+              answer: "sí comíamos siempre juntos en casa"
+            replyGloss: "Yes, we always ate together at home."
+            explanation: "You and Ana together: «comíamos» — accented, the one comer imperfect form that is nosotros."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "comía", target: "I used to eat, he/she/you used to eat" }
+          - { source: "comías", target: "you (tú) used to eat" }
+          - { source: "comíamos", target: "we used to eat" }
+          - { source: "comían", target: "they used to eat, you all used to eat" }
+          - { source: "casa", target: "house, home" }
+          - { source: "mucho", target: "a lot" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "de niño, comía mucho en casa"
+        en: "As a child, I used to eat a lot at home"
+        atoms: ["de niño", "comía", "mucho", "casa"]
