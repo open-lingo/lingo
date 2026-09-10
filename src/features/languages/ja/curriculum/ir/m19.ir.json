@@ -2763,8 +2763,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "まちへ あるくから でんしゃを おりる。",
-          "en": "I'm walking into town, so I'm getting off the train",
+          "ja": "でんしゃを おりるから まちへ あるく。",
+          "en": "I'm getting off the train, so I'm walking into town",
           "exercises": [
             "e-direction",
             "kara-because"
@@ -2776,7 +2776,7 @@
           "kana": "きっぷ",
           "kanji": "切符",
           "exercises": [
-            "made-ni"
+            "ni-location"
           ]
         },
         {
@@ -2812,20 +2812,20 @@
             },
             {
               "speaker": "Ken",
-              "ja": "たてものの むこうに ある。かいだんの まえだ。",
-              "en": "It's on the other side of the building. It's in front of the stairs."
+              "ja": "たてものの むこうに ある。まえに かいだんが ある。",
+              "en": "It's on the other side of the building. There are stairs in front of it."
             }
           ],
           "questions": [
             {
               "q": "Where does Ken say the convenience store is?",
               "options": [
-                "On the other side of the building, in front of the stairs",
+                "On the other side of the building, with stairs in front of it",
                 "On the other side of the building, behind the stairs",
                 "In the town, in front of the school",
                 "Behind the building, far from the stairs"
               ],
-              "answer": "On the other side of the building, in front of the stairs"
+              "answer": "On the other side of the building, with stairs in front of it"
             }
           ]
         },

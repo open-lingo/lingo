@@ -751,16 +751,16 @@ lessons:
       - { kind: sentence, ja: "あさ まちの コンビニに いく。", en: "In the morning I go to the convenience store in town", exercises: [ni-location, ni-time], mode: build }
       - { kind: listening-comp, audio: "コンビニの まえに かいだんが ある。", answer: "There are stairs in front of the convenience store", distractors: ["There is a garden in front of the convenience store", "There are stairs behind the convenience store", "There is a convenience store in front of the stairs"], exercises: [spatial-relations, ga-existence] }
       - { kind: particle-cloze, stem: "たてものの まえに ", tail: "が ある。", answer: "にわ", options: ["にわ", "かいだん", "みせ"], en: "There's a garden in front of the building", explanation: "にわ is the garden; かいだん is stairs and みせ a shop — only にわ names a garden." }
-      - { kind: sentence, ja: "まちへ あるくから でんしゃを おりる。", en: "I'm walking into town, so I'm getting off the train", exercises: [e-direction, kara-because], mode: listening }
-      - { kind: kanji, kana: きっぷ, kanji: 切符, exercises: [made-ni] }
+      - { kind: sentence, ja: "でんしゃを おりるから まちへ あるく。", en: "I'm getting off the train, so I'm walking into town", exercises: [e-direction, kara-because], mode: listening }
+      - { kind: kanji, kana: きっぷ, kanji: 切符, exercises: [ni-location] }
       - { kind: particle-cloze, stem: "コンビニは たてものの ", tail: "に ある。", answer: "むこう", options: ["むこう", "まえ", "なか"], en: "The convenience store is on the other side of the building", explanation: "むこう is the far side; まえ is in front and なか is inside — only むこう names the other side." }
       - { kind: sentence, ja: "コンビニは たてものの むこうに ある。", en: "Say to a friend: The convenience store is on the other side of the building", exercises: [ni-location, arimasu], mode: translate }
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "コンビニは どこ？", en: "Where's the convenience store?" }
-          - { speaker: "Ken", ja: "たてものの むこうに ある。かいだんの まえだ。", en: "It's on the other side of the building. It's in front of the stairs." }
+          - { speaker: "Ken", ja: "たてものの むこうに ある。まえに かいだんが ある。", en: "It's on the other side of the building. There are stairs in front of it." }
         questions:
-          - { q: "Where does Ken say the convenience store is?", options: ["On the other side of the building, in front of the stairs", "On the other side of the building, behind the stairs", "In the town, in front of the school", "Behind the building, far from the stairs"], answer: "On the other side of the building, in front of the stairs" }
+          - { q: "Where does Ken say the convenience store is?", options: ["On the other side of the building, with stairs in front of it", "On the other side of the building, behind the stairs", "In the town, in front of the school", "Behind the building, far from the stairs"], answer: "On the other side of the building, with stairs in front of it" }
       - { kind: challenge, ja: "まちの コンビニで きっぷを かってから たてものの むこうに いく。", en: "After buying the ticket at the convenience store in town, I'm going to the other side of the building", combines: [de-action, te-kara, wo-object, ni-location], mode: build }
     reviewPool: [えき, がっこう, としょかん, だいがく, びょういん, でんしゃ, きっぷ, ともだち]
 
