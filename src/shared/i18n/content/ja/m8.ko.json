@@ -4,7 +4,7 @@
   "lang": "ko",
   "generatedAt": "2026-09-10",
   "draftedBy": "qwen3.5:122b-a10b-q4_K_M",
-  "entryCount": 360,
+  "entryCount": 370,
   "entries": [
     {
       "anchor": "m8/atom:あそんで/gloss",
@@ -1805,6 +1805,56 @@
       "anchor": "m8/ja-m8-neo-review-3/ja:みせを おしえてください",
       "text": "들리는 대로 만들어 보세요.",
       "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m8/symbolIntro:サ/hint",
+      "text": "한국어 '사'와 비슷한 소리",
+      "enSourceHash": "aae3c47015fb25d8"
+    },
+    {
+      "anchor": "m8/symbolIntro:シ/hint",
+      "text": "한국어 '시'와 비슷한 소리",
+      "enSourceHash": "a34e6da0d2eb2072"
+    },
+    {
+      "anchor": "m8/symbolIntro:ス/hint",
+      "text": "한국어 '스'와 비슷한 소리",
+      "enSourceHash": "2ca2ea15c2129a44"
+    },
+    {
+      "anchor": "m8/symbolIntro:セ/hint",
+      "text": "한국어 '세'와 비슷한 소리",
+      "enSourceHash": "b4c3d673d71f4194"
+    },
+    {
+      "anchor": "m8/symbolIntro:ソ/hint",
+      "text": "한국어 '소'와 비슷한 소리",
+      "enSourceHash": "a6d5a676122faa64"
+    },
+    {
+      "anchor": "m8/symbolIntro:タ/hint",
+      "text": "한국어 '타'와 비슷한 소리",
+      "enSourceHash": "6db33dbbaf9b0328"
+    },
+    {
+      "anchor": "m8/symbolIntro:チ/hint",
+      "text": "한국어 '치'와 비슷한 소리",
+      "enSourceHash": "77f83fe7268c6aee"
+    },
+    {
+      "anchor": "m8/symbolIntro:ツ/hint",
+      "text": "한국어 '쓰'와 비슷한 소리",
+      "enSourceHash": "1bce797f5edb4b5f"
+    },
+    {
+      "anchor": "m8/symbolIntro:テ/hint",
+      "text": "한국어 '테'와 비슷한 소리",
+      "enSourceHash": "a8f2bc4836a00938"
+    },
+    {
+      "anchor": "m8/symbolIntro:ト/hint",
+      "text": "한국어 '토'와 비슷한 소리",
+      "enSourceHash": "94f4bca56281bff4"
     }
   ]
 }

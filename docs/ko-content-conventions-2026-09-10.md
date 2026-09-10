@@ -46,3 +46,18 @@ Only `/ja:`-anchored entries render their EN cue to the learner, so only those g
 Korean cue prefix (정중하게 말하세요: / 친구에게 말하세요: / 선생님께 말하세요: / 매우 정중하게
 말하세요:); `en:`-anchored filler entries stay plain glosses. Names: 다나카, never 타나카.
 "Build what you hear." → 들리는 대로 만들어 보세요.
+
+## Mnemonics (`kind: "mnemonic"`, m1/m2/m7/m8 review, 2026-09-10)
+Despite the anchor name, every `symbolIntro:<kana>/hint` entry audited (87/87,
+m1+m2+m7+m8) is a **pronunciation** anchor ("like 'a' in 'father'"), not a
+glyph-shape description — check the curriculum source (`symbolIntro(...)`
+5th arg) before assuming otherwise. An English sound-alike word is a dead pun
+in Korean — **re-anchor to the standard 문화체육관광부 Japanese→Hangul
+transliteration** for that kana/mora (あ→아, す→스, つ→쓰, ら-row→ㄹ, …), not a
+literal translation of the English word. Template: `한국어 '<hangul>'와 비슷한
+소리`, ≤1 sentence. Preserve any articulatory nuance the English carries
+(unrounded lips, clipped, whisper, tapped) as a short trailing clause — don't
+drop it just because the pun is gone. Compositional hints with no English pun
+(m2's "ki + small ya" contracted-sound rows) translate directly — romaji stays
+verbatim, kana counterparts (키/야) may be Koreanized for readability. Never
+invent a mnemonic for a different glyph than the English names.

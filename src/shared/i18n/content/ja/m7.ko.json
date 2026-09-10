@@ -4,7 +4,7 @@
   "lang": "ko",
   "generatedAt": "2026-09-10",
   "draftedBy": "qwen3.5:122b-a10b-q4_K_M",
-  "entryCount": 340,
+  "entryCount": 350,
   "entries": [
     {
       "anchor": "m7/atom:あそびます/gloss",
@@ -1705,6 +1705,56 @@
       "anchor": "m7/ja-m7-neo-review-3/ja:ケンくんは きません",
       "text": "들리는 대로 만들어 보세요.",
       "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/symbolIntro:ア/hint",
+      "text": "한국어 '아'와 비슷한 소리",
+      "enSourceHash": "a649bccef153bc5b"
+    },
+    {
+      "anchor": "m7/symbolIntro:イ/hint",
+      "text": "한국어 '이'와 비슷한 소리",
+      "enSourceHash": "8b3dbee3f9327338"
+    },
+    {
+      "anchor": "m7/symbolIntro:ウ/hint",
+      "text": "한국어 '우'와 비슷한 소리",
+      "enSourceHash": "513a3276c8070ff0"
+    },
+    {
+      "anchor": "m7/symbolIntro:エ/hint",
+      "text": "한국어 '에'와 비슷한 소리",
+      "enSourceHash": "dafcc2a8dfdbeaaf"
+    },
+    {
+      "anchor": "m7/symbolIntro:オ/hint",
+      "text": "한국어 '오'와 비슷한 소리",
+      "enSourceHash": "c8fdf4f4066684a9"
+    },
+    {
+      "anchor": "m7/symbolIntro:カ/hint",
+      "text": "한국어 '카'와 비슷한 소리",
+      "enSourceHash": "f1b62179af1ad25e"
+    },
+    {
+      "anchor": "m7/symbolIntro:キ/hint",
+      "text": "한국어 '키'와 비슷한 소리",
+      "enSourceHash": "4e56adde8d611c33"
+    },
+    {
+      "anchor": "m7/symbolIntro:ク/hint",
+      "text": "한국어 '쿠'와 비슷한 소리",
+      "enSourceHash": "2f7fd5fe80e240a7"
+    },
+    {
+      "anchor": "m7/symbolIntro:ケ/hint",
+      "text": "한국어 '케'와 비슷한 소리",
+      "enSourceHash": "44bb33564fa80eb5"
+    },
+    {
+      "anchor": "m7/symbolIntro:コ/hint",
+      "text": "한국어 '코'와 비슷한 소리",
+      "enSourceHash": "7575a12bd9853338"
     }
   ]
 }
