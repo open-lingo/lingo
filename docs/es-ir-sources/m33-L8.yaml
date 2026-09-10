@@ -121,6 +121,6 @@
           - { source: "trabajar", target: "work" }
       - kind: speakLit
         id: l8-sp-win
-        es: "tengo que trabajar, y mis amigos tienen que comprar guantes"
-        en: "I have to work, and my friends have to buy gloves"
-        atoms: ["tengo que", "trabajar", "mi", "amigo", "tienen", "comprar", "guantes"]
+        es: "yo tengo que trabajar, pero mis amigos tienen que comprar guantes"
+        en: "I have to work, but my friends have to buy gloves"
+        atoms: ["yo", "tengo que", "trabajar", "mi", "amigo", "tienen", "comprar", "guantes"]

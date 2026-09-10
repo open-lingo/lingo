@@ -109,9 +109,9 @@
             reply:
               mode: build
               tiles: ["no", "puede", "tiene", "que", "estudiar", "también", "puedo", "tengo"]
-              answer: "no puede tiene que estudiar también"
+              answer: "tiene que estudiar también"
             replyGloss: "No, she has to study too."
-            explanation: "«puede»/«tiene» — talking about your sister (él/ella), not «puedo»/«tengo» (yourself)."
+            explanation: "«tiene» — talking about your sister (él/ella), not «tengo» (yourself). No leading «no» needed — the reason alone declines."
       - kind: matchLit
         id: l7-match
         pairs:

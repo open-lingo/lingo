@@ -1142,10 +1142,10 @@ const ES_M33_7: LessonContent = {
           reply: {
             mode: "build",
             tiles: ["no", "puede", "tiene", "que", "estudiar", "también", "puedo", "tengo"],
-            answer: "no puede tiene que estudiar también",
+            answer: "tiene que estudiar también",
           },
           replyGloss: "No, she has to study too.",
-          explanation: "«puede»/«tiene» — talking about your sister (él/ella), not «puedo»/«tengo» (yourself).",
+          explanation: "«tiene» — talking about your sister (él/ella), not «tengo» (yourself). No leading «no» needed — the reason alone declines.",
         },
       ],
     },
@@ -1312,7 +1312,7 @@ const ES_M33_8: LessonContent = {
         { id: "p6", source: "trabajar", target: "work" },
       ],
     },
-    speaking("es-m33-8-l8-sp-win", "tengo que trabajar, y mis amigos tienen que comprar guantes", "I have to work, and my friends have to buy gloves", ["tengo que", "trabajar", "mi", "amigo", "tienen", "comprar", "guantes"]),
+    speaking("es-m33-8-l8-sp-win", "yo tengo que trabajar, pero mis amigos tienen que comprar guantes", "I have to work, but my friends have to buy gloves", ["yo", "tengo que", "trabajar", "mi", "amigo", "tienen", "comprar", "guantes"]),
   ],
 };
 
@@ -1463,10 +1463,10 @@ const ES_M33_9: LessonContent = {
           reply: {
             mode: "build",
             tiles: ["no", "no", "puede", "pero", "tiene", "que", "trabajar", "puedo", "tengo"],
-            answer: "no puede pero no tiene que trabajar",
+            answer: "puede pero no tiene que trabajar",
           },
           replyGloss: "No, she can, but she doesn't have to work.",
-          explanation: "«puede»/«tiene» — about her, not yourself. The negation still needs «que»: «no tiene que», never «no tiene trabajar».",
+          explanation: "«puede»/«tiene» — about her, not yourself. No leading «no» — a bare «no puede» would read as 'she can't,' the opposite meaning; the negation belongs on «tiene que», never on «puede».",
         },
       ],
     },

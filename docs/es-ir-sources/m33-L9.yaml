@@ -119,9 +119,9 @@
             reply:
               mode: build
               tiles: ["no", "no", "puede", "pero", "tiene", "que", "trabajar", "puedo", "tengo"]
-              answer: "no puede pero no tiene que trabajar"
+              answer: "puede pero no tiene que trabajar"
             replyGloss: "No, she can, but she doesn't have to work."
-            explanation: "«puede»/«tiene» — about her, not yourself. The negation still needs «que»: «no tiene que», never «no tiene trabajar»."
+            explanation: "«puede»/«tiene» — about her, not yourself. No leading «no» — a bare «no puede» would read as 'she can't,' the opposite meaning; the negation belongs on «tiene que», never on «puede»."
       - kind: matchLit
         id: l9-match
         pairs:

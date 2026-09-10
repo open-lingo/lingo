@@ -1156,9 +1156,9 @@ lessons:
             reply:
               mode: build
               tiles: ["no", "puede", "tiene", "que", "estudiar", "también", "puedo", "tengo"]
-              answer: "no puede tiene que estudiar también"
+              answer: "tiene que estudiar también"
             replyGloss: "No, she has to study too."
-            explanation: "«puede»/«tiene» — talking about your sister (él/ella), not «puedo»/«tengo» (yourself)."
+            explanation: "«tiene» — talking about your sister (él/ella), not «tengo» (yourself). No leading «no» needed — the reason alone declines."
       - kind: matchLit
         id: l7-match
         pairs:
@@ -1297,9 +1297,9 @@ lessons:
           - { source: "trabajar", target: "work" }
       - kind: speakLit
         id: l8-sp-win
-        es: "tengo que trabajar, y mis amigos tienen que comprar guantes"
-        en: "I have to work, and my friends have to buy gloves"
-        atoms: ["tengo que", "trabajar", "mi", "amigo", "tienen", "comprar", "guantes"]
+        es: "yo tengo que trabajar, pero mis amigos tienen que comprar guantes"
+        en: "I have to work, but my friends have to buy gloves"
+        atoms: ["yo", "tengo que", "trabajar", "mi", "amigo", "tienen", "comprar", "guantes"]
 
   # ── L9 · «Puedo trabajar, pero no tengo que trabajar hoy» — the
   #    dedicated contrast lesson, same infinitive host, different
@@ -1422,9 +1422,9 @@ lessons:
             reply:
               mode: build
               tiles: ["no", "no", "puede", "pero", "tiene", "que", "trabajar", "puedo", "tengo"]
-              answer: "no puede pero no tiene que trabajar"
+              answer: "puede pero no tiene que trabajar"
             replyGloss: "No, she can, but she doesn't have to work."
-            explanation: "«puede»/«tiene» — about her, not yourself. The negation still needs «que»: «no tiene que», never «no tiene trabajar»."
+            explanation: "«puede»/«tiene» — about her, not yourself. No leading «no» — a bare «no puede» would read as 'she can't,' the opposite meaning; the negation belongs on «tiene que», never on «puede»."
       - kind: matchLit
         id: l9-match
         pairs:
