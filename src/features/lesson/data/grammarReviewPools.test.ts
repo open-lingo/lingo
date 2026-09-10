@@ -263,7 +263,9 @@ describe("grammarReviewPools — rotation, merge, gate, plumbing", () => {
         "ga-itai ja-gpool-ga-itai-3",
         "kara-because ja-gpool-kara-because-1",
         "kara-because ja-gpool-kara-because-3",
-        "ku-ni-naru ja-gpool-ku-ni-naru-2",
+        // ku-ni-naru ja-gpool-ku-ni-naru-2 removed 2026-09-10 (Pack 8): まち's
+        // fromModule moved future → m19, which made this step genuinely
+        // comprehensible at ku-ni-naru's point — the exemption went stale.
         "ku-ni-naru ja-gpool-ku-ni-naru-3",
       ]);
       const failures: string[] = [];

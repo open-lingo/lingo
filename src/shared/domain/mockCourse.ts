@@ -753,6 +753,7 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m19-neo-7", title: "「ごじまでに かえる」 — by five, not until five", status: "available" as const },
             { id: "ja-m19-neo-8", title: "「どこへ いく？」 — asking about a journey", status: "available" as const },
             { id: "ja-m19-neo-9", title: "「えきは どこですか」 — asking a stranger", status: "available" as const },
+            { id: "ja-m19-neo-10", title: "「たてものの むこうに」 — where things are in town", status: "available" as const },
             { id: "ja-m19-neo-review-3", title: "Review — getting around, start to finish", status: "available" as const },
             { id: "ja-m19-neo-challenge", title: "Challenge — plan the whole trip", status: "available" as const },
             { id: "story:ja-m19-my-family", title: "Read — My family", status: "available" as const,

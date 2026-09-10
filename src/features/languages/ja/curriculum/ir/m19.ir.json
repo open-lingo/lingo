@@ -83,6 +83,7 @@
   "grammarPoints": [
     {
       "id": "ni-location",
+      "variant": "base",
       "rule": "に marks the place you ARRIVE at. 「えきに いく」 = I'm going to the station. This is not a new particle — it is a third job for one you have had for a long time. You already use に for where something IS (「うちに いる」) and for WHEN something happens (「くじに いく」), and destination is the same idea once more: に pins the sentence to a point, and the point can be a place, a time, or the place you end up. The word order is the ordinary one, with the place before the verb and the verb last: 「あした きっさてんに いく」. Every verb of motion takes it — いく, くる, and かえる, which is the verb for going back where you belong: home, your own town, your country. かえる is not a formal 'return'; it is the everyday word, and Japanese reaches for it far more often than English reaches for 'go back'.",
       "examples": [
         {
@@ -109,6 +110,37 @@
       "antiPattern": {
         "ja": "えきで いく。",
         "why": "で marks where an action HAPPENS; the place you go TO is marked with に: えきに いく。"
+      }
+    },
+    {
+      "id": "ni-location",
+      "variant": "around-town",
+      "rule": "に's third job doesn't stop at naming a single building — it can also point you at a spot described relative to something else, and the word that does the describing is むこう, 'the other side, over there'. Attach の in front of it exactly the way you attach の to any noun that owns another: たてものの むこう is 'the other side of the building'. Put に on the end and you have an ordinary destination, no different from any place name you already know: 「たてものの むこうに いく」, I'm going to the other side of the building. むこう is not only a destination — it sits happily with ある too, the way any place does: 「にわの むこうに たてものが ある」, there's a building beyond the garden. None of this is a new に or a new ある; むこう is one more noun, like えき or だいがく, that they can both point at.",
+      "examples": [
+        {
+          "ja": "たてものの むこうに いく。",
+          "en": "I'm going to the other side of the building."
+        },
+        {
+          "ja": "たてものの むこうに にわが ある。",
+          "en": "There's a garden on the other side of the building."
+        },
+        {
+          "ja": "にわの むこうに たてものが ある。",
+          "en": "There's a building beyond the garden."
+        },
+        {
+          "ja": "むこうに いくから きっぷを かう。",
+          "en": "I'm heading over there, so I'll buy a ticket."
+        },
+        {
+          "ja": "たてものは にわの むこうだ。",
+          "en": "The building is beyond the garden."
+        }
+      ],
+      "antiPattern": {
+        "ja": "たてもの むこうに いく。",
+        "why": "むこう is a noun owned by another noun, so の belongs in front of it, never left out: たてものの むこうに いく。"
       }
     },
     {
@@ -469,6 +501,58 @@
       "shortGloss": "ten minutes",
       "imageable": false,
       "kind": "vocab"
+    },
+    {
+      "kana": "たてもの",
+      "romaji": "tatemono",
+      "gloss": "building",
+      "shortGloss": "building",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "かいだん",
+      "romaji": "kaidan",
+      "gloss": "stairs",
+      "shortGloss": "stairs",
+      "kind": "vocab"
+    },
+    {
+      "kana": "まち",
+      "romaji": "machi",
+      "gloss": "town",
+      "shortGloss": "town",
+      "kind": "vocab"
+    },
+    {
+      "kana": "にわ",
+      "romaji": "niwa",
+      "gloss": "garden",
+      "shortGloss": "garden",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "コンビニ",
+      "romaji": "konbini",
+      "gloss": "convenience store",
+      "shortGloss": "convenience store",
+      "kind": "vocab"
+    },
+    {
+      "kana": "おりる",
+      "romaji": "oriru",
+      "gloss": "to get off, to descend",
+      "shortGloss": "to get off",
+      "kind": "vocab"
+    },
+    {
+      "kana": "むこう",
+      "romaji": "mukou",
+      "gloss": "the other side, over there",
+      "shortGloss": "over there",
+      "imageable": false,
+      "kind": "vocab"
     }
   ],
   "lessons": [
@@ -485,7 +569,8 @@
       "beats": [
         {
           "kind": "rule",
-          "grammarPointId": "ni-location"
+          "grammarPointId": "ni-location",
+          "variant": "base"
         },
         {
           "kind": "sentence",
@@ -2546,6 +2631,229 @@
       ]
     },
     {
+      "id": "m19-neo-10",
+      "role": "teaching",
+      "title": "「たてものの むこうに」 — where things are in town",
+      "focus": "A new variant of に's destination job: むこう turns any noun into a landmark に can point at",
+      "introduces": [
+        "たてもの",
+        "かいだん",
+        "まち",
+        "にわ",
+        "コンビニ",
+        "おりる",
+        "むこう"
+      ],
+      "beats": [
+        {
+          "kind": "rule",
+          "grammarPointId": "ni-location",
+          "variant": "around-town"
+        },
+        {
+          "kind": "sentence",
+          "ja": "でんしゃを おりる。",
+          "en": "I'm getting off the train",
+          "exercises": [
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "まちに いく。",
+          "en": "I'm going into town",
+          "exercises": [
+            "ni-location"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "コンビニで きっぷを かう。",
+          "en": "I buy the ticket at the convenience store",
+          "exercises": [
+            "de-action",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "コンビニは ",
+          "tail": "の むこうに ある。",
+          "answer": "まち",
+          "options": [
+            "まち",
+            "がっこう",
+            "びょういん"
+          ],
+          "en": "The convenience store is on the other side of town",
+          "explanation": "まち is the town; がっこう is a school and びょういん a hospital — の むこうに ある would fit any of them, but only one names the whole town."
+        },
+        {
+          "kind": "sentence",
+          "ja": "にわの かいだんを おりる。",
+          "en": "I go down the stairs in the garden",
+          "exercises": [
+            "no-possession",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "コンビニの まえに かいだんが ある。",
+          "en": "There are stairs in front of the convenience store",
+          "exercises": [
+            "spatial-relations",
+            "ga-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "",
+          "tail": "の まえに にわが ある。",
+          "answer": "たてもの",
+          "options": [
+            "たてもの",
+            "がっこう",
+            "びょういん"
+          ],
+          "en": "There's a garden in front of the building",
+          "explanation": "たてもの is the building; がっこう is a school and びょういん a hospital — の まえに にわが ある could describe any of them, but only one directly names the building."
+        },
+        {
+          "kind": "sentence",
+          "ja": "あさ まちの コンビニに いく。",
+          "en": "In the morning I go to the convenience store in town",
+          "exercises": [
+            "ni-location",
+            "ni-time"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "コンビニの まえに かいだんが ある。",
+          "answer": "There are stairs in front of the convenience store",
+          "distractors": [
+            "There is a garden in front of the convenience store",
+            "There are stairs behind the convenience store",
+            "There is a convenience store in front of the stairs"
+          ],
+          "exercises": [
+            "spatial-relations",
+            "ga-existence"
+          ]
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "たてものの まえに ",
+          "tail": "が ある。",
+          "answer": "にわ",
+          "options": [
+            "にわ",
+            "かいだん",
+            "みせ"
+          ],
+          "en": "There's a garden in front of the building",
+          "explanation": "にわ is the garden; かいだん is stairs and みせ a shop — only にわ names a garden."
+        },
+        {
+          "kind": "sentence",
+          "ja": "まちへ あるくから でんしゃを おりる。",
+          "en": "I'm walking into town, so I'm getting off the train",
+          "exercises": [
+            "e-direction",
+            "kara-because"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "kanji",
+          "kana": "きっぷ",
+          "kanji": "切符",
+          "exercises": [
+            "made-ni"
+          ]
+        },
+        {
+          "kind": "particle-cloze",
+          "stem": "コンビニは たてものの ",
+          "tail": "に ある。",
+          "answer": "むこう",
+          "options": [
+            "むこう",
+            "まえ",
+            "なか"
+          ],
+          "en": "The convenience store is on the other side of the building",
+          "explanation": "むこう is the far side; まえ is in front and なか is inside — only むこう names the other side."
+        },
+        {
+          "kind": "sentence",
+          "ja": "コンビニは たてものの むこうに ある。",
+          "en": "Say to a friend: The convenience store is on the other side of the building",
+          "exercises": [
+            "ni-location",
+            "arimasu"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Mika",
+              "ja": "コンビニは どこ？",
+              "en": "Where's the convenience store?"
+            },
+            {
+              "speaker": "Ken",
+              "ja": "たてものの むこうに ある。かいだんの まえだ。",
+              "en": "It's on the other side of the building. It's in front of the stairs."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Where does Ken say the convenience store is?",
+              "options": [
+                "On the other side of the building, in front of the stairs",
+                "On the other side of the building, behind the stairs",
+                "In the town, in front of the school",
+                "Behind the building, far from the stairs"
+              ],
+              "answer": "On the other side of the building, in front of the stairs"
+            }
+          ]
+        },
+        {
+          "kind": "challenge",
+          "ja": "まちの コンビニで きっぷを かってから たてものの むこうに いく。",
+          "en": "After buying the ticket at the convenience store in town, I'm going to the other side of the building",
+          "combines": [
+            "de-action",
+            "te-kara",
+            "wo-object",
+            "ni-location"
+          ],
+          "mode": "build"
+        }
+      ],
+      "reviewPool": [
+        "えき",
+        "がっこう",
+        "としょかん",
+        "だいがく",
+        "びょういん",
+        "でんしゃ",
+        "きっぷ",
+        "ともだち"
+      ]
+    },
+    {
       "id": "m19-neo-review-3",
       "role": "review",
       "title": "Review — getting around, start to finish",
@@ -2681,6 +2989,35 @@
             "made-until"
           ],
           "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たてものの まえに にわが ある。",
+          "en": "There's a garden in front of the building",
+          "exercises": [
+            "spatial-relations",
+            "ga-existence"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "コンビニの かいだんで まつ。",
+          "en": "I'll wait on the convenience store's stairs",
+          "exercises": [
+            "de-action"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "でんしゃを おりるから まちの むこうへ あるく。",
+          "en": "Say to a friend: I'm getting off the train, so I'll walk to the other side of town",
+          "exercises": [
+            "kara-because",
+            "e-direction"
+          ],
+          "mode": "translate"
         },
         {
           "kind": "dialogue",

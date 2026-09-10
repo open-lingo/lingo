@@ -1,7 +1,9 @@
 /**
  * m19-neo module guards. Same 2026-07-26 module shape as m12-m18
- * (invariant 25): 9 teaching + 3 review + 1 challenge, reviews spread across
- * thirds, challenge lesson LAST.
+ * (invariant 25): 10 teaching + 3 review + 1 challenge, reviews spread
+ * across thirds, challenge lesson LAST. ja-m19-neo-10 is the 2026-09-10
+ * Pack 8 freq-gap insert ("m19 Around town" + Pack 7's おりる/むこう
+ * leftovers), slotted after L9 and before review-3.
  *
  * Like m12-m18 this module splices NOTHING in at module level — the katakana
  * programme ended at m11 — so the compiled lessons ARE the shipped lessons
@@ -65,13 +67,13 @@ registerModuleBarGuards({
 });
 
 describe("m19-neo module shape (invariant 25)", () => {
-  it("ships 13 lessons: 9 teaching + 3 review + 1 challenge", () => {
-    expect(M19_NEO_LESSONS).toHaveLength(13);
+  it("ships 14 lessons: 10 teaching + 3 review + 1 challenge", () => {
+    expect(M19_NEO_LESSONS).toHaveLength(14);
     const reviews = M19_NEO_LESSONS.filter((l) => /-review(-\d+)?$/.test(l.id));
     const challenge = M19_NEO_LESSONS.filter((l) => l.id.endsWith("-challenge"));
     expect(reviews, reviews.map((l) => l.id).join(", ")).toHaveLength(3);
     expect(challenge).toHaveLength(1);
-    expect(M19_NEO_LESSONS.length - reviews.length - challenge.length).toBe(9);
+    expect(M19_NEO_LESSONS.length - reviews.length - challenge.length).toBe(10);
   });
 
   it("the CHALLENGE lesson is last", () => {
@@ -233,15 +235,16 @@ describe("m19-neo pedagogy invariants", () => {
   });
 
   it("ships no untaught motion vocabulary", () => {
-    // The module's word list is deliberately twelve atoms. Everything else an
-    // author reaches for when writing journeys (のる, おりる, つく, でる,
-    // かかる, ひこうき, くうこう, こうえん, タクシー, まっすぐ, みぎ, ひだり)
-    // is taught in no NEO module, and the conjugated forms of かえる / あるく
-    // exist in no lexicon the compiler reads.
+    // The module's word list is deliberately nineteen atoms (おりる joined it
+    // in the 2026-09-10 Pack 8 insert — dictionary form only, no conjugated
+    // surface). Everything else an author reaches for when writing journeys
+    // (のる, つく, でる, かかる, ひこうき, くうこう, こうえん, タクシー,
+    // まっすぐ, みぎ, ひだり) is taught in no NEO module, and the conjugated
+    // forms of かえる / あるく / おりる exist in no lexicon the compiler reads.
     for (const w of [
-      "のる", "おりる", "つく", "でる", "かかる", "ひこうき", "くうこう",
+      "のる", "つく", "でる", "かかる", "ひこうき", "くうこう",
       "こうえん", "タクシー", "まっすぐ", "みぎ", "ひだり",
-      "あるいて", "あるきます", "かえります", "かえって",
+      "あるいて", "あるきます", "かえります", "かえって", "おりて", "おります",
     ])
       expect(corpus.includes(w), `${w} is not taught by m19 or any earlier module`).toBe(false);
   });

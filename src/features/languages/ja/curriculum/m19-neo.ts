@@ -19,8 +19,10 @@
  * (`node scripts/compile-ir.mjs m19`), laid out by `compileModule` at import.
  * DO NOT hand-edit lessons here — edit the IR and recompile.
  *
- * Shape (inv 25): 13 lessons = 9 teaching + 3 review + 1 challenge, challenge
- * LAST. NO katakana rows — the katakana programme ended at m11, so the
+ * Shape (inv 25): 14 lessons = 10 teaching + 3 review + 1 challenge, challenge
+ * LAST (ja-m19-neo-10 is the 2026-09-10 Pack 8 freq-gap insert — "around
+ * town" vocab + Pack 7's おりる/むこう leftovers — slotted after L9, before
+ * review-3). NO katakana rows — the katakana programme ended at m11, so the
  * compiled order IS the shipped order.
  */
 import type { LessonContent } from "@/features/lesson/types";
@@ -46,6 +48,7 @@ export const M19_NEO_LESSONS: LessonContent[] = [
   byId("ja-m19-neo-7"),
   byId("ja-m19-neo-8"),
   byId("ja-m19-neo-9"),
+  byId("ja-m19-neo-10"),
   byId("ja-m19-neo-review-3"),
   byId("ja-m19-neo-challenge"),
 ];
