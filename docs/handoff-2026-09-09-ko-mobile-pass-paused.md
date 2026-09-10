@@ -14,7 +14,7 @@ the m20 authoring template).
 |---|---|
 | KO queue 1–4 | DONE, committed 7f3aa520 (gates m3–m27, review grids m16–m27, particle-cue gate, R1–R4 m2 fixes); preflight GREEN exit 0 / 13332 tests on that head |
 | Payton handoff | `docs/ko-handoff-payton-2026-09-09.md` (a4f91cf3) — Spencer hands it to Payton himself |
-| local main | 13 commits ahead of origin/main (ES m18–m20 + KO); origin/main is now 7b92d6ac (mobile session's iOS build-number bump on 82d7a3b0, ci+deploy green). NOT pushed. Rebase again before push. |
+| local main | PUSHED 2026-09-09 ~21:50 MT as 39fc9eec (ES m18–m20 + KO); origin/main = 57c87543, ci 34432814487 + deploy 34432814493 both success. (Earlier text: was 13 commits ahead of origin/main, then 7b92d6ac, NOT pushed — resolved.) |
 | existing mobile gate, KO routes @ iphone-17-promax | GREEN — `npx playwright test --project=mobile --grep "iphone-17-promax.*ko-"` → 12 passed, 3 skipped (stage-fit on non-lesson surfaces, expected) |
 | new-step pass @ 17 Pro Max | DONE — 52 steps × {17 Pro Max, SE}: 0 flags at Pro Max; results in `artifacts/ux-loop/ko-pass/ko-pass/results.json` (gitignored) |
 | doc archive sweep | DONE — 3 archived (n4-authoring-wave handoff, mcq-fit handoff, authoring-session-state-2026-08-19); ~30 other candidates KEEP because src/tests still cite them; INDEX.md repoint owed by the mobile session (lines 58, 83) |

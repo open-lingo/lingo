@@ -1,6 +1,6 @@
 # CLAUDE.md — Open Lingo (`lingo` web app)
 
-**Status:** LIVE · **Last-verified:** 2026-08-21
+**Status:** LIVE · **Last-verified:** 2026-09-09
 
 This is your orientation doc. It says what we're building, the lenses we teach
 from, where everything lives (so you can find it fast), the boundaries to respect,
@@ -22,24 +22,23 @@ structure is introduced before it's tested, glosses tell the truth about structu
 and review is scheduled so things stick. Quality of the teaching sequence is the
 product; volume is not.
 
-**Course state (2026-08-21):**
-- **Japanese N5 — FULLY AUTHORED and live.** `mockCourse.ts` carries m1–m30 (m30
-  opens the N4 tier). The live map is the draft-4 spine: m1/m2 kana rows +
-  m3–m29 authored `ja-m*-neo-*` lessons compiled from YAML IR. The old course is
+**Course state (2026-09-09):**
+- **Japanese N5 + N4 — m1–m38 live.** m1/m2 kana rows + m3–m29 authored
+  `ja-m*-neo-*` lessons compiled from YAML IR; m30–m38 is the N4 tier
+  (dialogue_sim from m34; volitional/ba conjugation support). The old course is
   ARCHIVED under `features/languages/ja/curriculum/_archive/` (planning reference
   only — imported by nothing; authoring agents never see it).
-- **Spanish — m1–m10 LIVE (2026-08-25), the complete §13-doctrine beginner
-  tier** (frameless IR pipeline, learner-sim-hardened, silent-build Later
-  affordance on speaking steps). `/es/qa/m3`…`/es/qa/m10` walk the promoted
-  content through the real render pipeline. m11+ is GATED on Spencer's
-  personal walk (first-conjugation-module checkpoint law). The July/August
-  IR waves are ARCHIVED under `curriculum/_archive/` (spine/word-list
-  reference only).
-- **French — RESTARTED under the doctrine (guide §13, 2026-08-21).** Serves
-  the hand-authored m1/m2; FR is selectable (Denise voice passed). m3+
-  re-authoring follows the ES pattern ([[FR course state]]).
-- **Japanese N4 — m30–m38 authored and live** (dialogue_sim from m34;
-  volitional/ba conjugation support).
+- **Spanish — m1–m20 ON PROD (m18–m20 pushed 2026-09-09).** §13-doctrine
+  frameless IR pipeline; `/es/qa/mN` walks promoted content through the real
+  render pipeline. m20 was the first Sonnet-drafted module (template:
+  `docs/es-ir-sources/es-m20-brief.md`). m21+ is unplanned; walk debt on
+  m11–m20 is Spencer's (B111). July/August IR waves ARCHIVED under
+  `curriculum/_archive/`.
+- **Korean — m1–m27 live** (R1–R4 re-author on prod 2026-09-02; gates
+  intro-before-graded / compounding-review / particle-cue cover m3–m27 since
+  2026-09-09). Payton is the KO QA tester: `docs/ko-handoff-payton-2026-09-09.md`.
+- **French — m1–m10 live (2026-09-01)** under the doctrine; m3–m10 unwalked;
+  m11 is the conjugation checkpoint. Law: `docs/fr-authoring-playbook.md`.
 
 ---
 
