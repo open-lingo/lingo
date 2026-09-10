@@ -106,3 +106,4 @@ fan-out; save small notes here after every step (auto-compaction is on).
 - 12:18 FR QA sweep of the 11 gate-changed sim turns dispatched (naturalness + cue check).
 - 12:20 ES m28 review landed 00d9d860 (3 fixes, 2 clips, manifest 6419).
 - 12:26 FR QA sweep landed (497120bc): m2 L6/L10 Enchantée restored to Chloé (real first meeting), m12 L9 boutique opener back to «Vous désirez ?»; 17 other gate-changed turns reviewed OK; no new clips. FR suite 1318/1 skipped ex the in-flight m18 lane (frAudioCoverage 48 «jamais» strings + checkpoint count 17≠18 are m18's untracked file leaking via the glob collector; will clear when m18 lands).
+- 12:27 FR m20 brief writer dispatched (second FR stream; keeps one brief ahead of the m19 author). Running: FR m18 author, JA m42 author, ES sim-NPC gate, ES m29 brief, KO draft wave, FR m20 brief.
