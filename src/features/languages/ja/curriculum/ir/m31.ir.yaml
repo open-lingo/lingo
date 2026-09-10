@@ -702,7 +702,7 @@ lessons:
     introduces: [あげた, くれた, もらった, うれしかった]
     beats:
       - { kind: rule, grammarPointId: ta-form }
-      - { kind: sentence, ja: "かぞくが うちに くる とき ちちに とけいを もらった。", en: "When my family comes to the house, I got a watch from my father", exercises: [ta-form, morau, ni-recipient, toki], mode: build }
+      - { kind: sentence, ja: "かぞくが うちに くる とき ちちに とけいを もらった。", en: "When my family came over, I got a watch from my father", exercises: [ta-form, morau, ni-recipient, toki], mode: build }
       - { kind: sentence, ja: "ともだちが けいたいを くれた。", en: "My friend gave me a cell phone", exercises: [ta-form, kureru, ga-existence], mode: build }
       - { kind: kanji, kana: かぞく, kanji: 家族, exercises: [ta-form] }
       - { kind: sentence, ja: "たんじょうびに ケーキを たべたから せんせいに はなたばを あげた。", en: "Because we ate cake for the birthday, I gave the teacher a bouquet", exercises: [ta-form, ageru, ni-recipient, kara-because], mode: build }
