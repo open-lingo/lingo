@@ -1,0 +1,2730 @@
+{
+  "schema": 1,
+  "moduleId": "m11",
+  "lang": "ko",
+  "generatedAt": "2026-09-10",
+  "draftedBy": "qwen3.5:122b-a10b-q4_K_M",
+  "entryCount": 544,
+  "entries": [
+    {
+      "anchor": "m11/atom:あさって/gloss",
+      "text": "모레",
+      "enSourceHash": "31b8db7a756e6e81"
+    },
+    {
+      "anchor": "m11/atom:あした/gloss",
+      "text": "내일",
+      "enSourceHash": "bafd151a86f9a573"
+    },
+    {
+      "anchor": "m11/atom:あそんだ/gloss",
+      "text": "놀다 (과거)",
+      "enSourceHash": "a321e7399aaa0463"
+    },
+    {
+      "anchor": "m11/atom:いちじ/gloss",
+      "text": "1 시",
+      "enSourceHash": "db0348489d672b1c"
+    },
+    {
+      "anchor": "m11/atom:いった/gloss",
+      "text": "가다 (과거)",
+      "enSourceHash": "606a370e23986d90"
+    },
+    {
+      "anchor": "m11/atom:いつ/gloss",
+      "text": "언제",
+      "enSourceHash": "15eaa75240aed625"
+    },
+    {
+      "anchor": "m11/atom:おぼえる/gloss",
+      "text": "외우다, 배우다",
+      "enSourceHash": "f2bb67445975a794"
+    },
+    {
+      "anchor": "m11/atom:かった/gloss",
+      "text": "사다 (과거)",
+      "enSourceHash": "72a0f2ffe0c4979d"
+    },
+    {
+      "anchor": "m11/atom:かようび/gloss",
+      "text": "화요일",
+      "enSourceHash": "7d8af1de1262f150"
+    },
+    {
+      "anchor": "m11/atom:きいた/gloss",
+      "text": "듣다 (과거)",
+      "enSourceHash": "57524274dbaf4dc8"
+    },
+    {
+      "anchor": "m11/atom:きのう/gloss",
+      "text": "어제",
+      "enSourceHash": "9523d9fbe79bcf3e"
+    },
+    {
+      "anchor": "m11/atom:きょねん/gloss",
+      "text": "작년",
+      "enSourceHash": "2793b49185e3d647"
+    },
+    {
+      "anchor": "m11/atom:きんようび/gloss",
+      "text": "금요일",
+      "enSourceHash": "e21f3f372a46d4be"
+    },
+    {
+      "anchor": "m11/atom:くじ/gloss",
+      "text": "9 시",
+      "enSourceHash": "f8a208ee1c5dd036"
+    },
+    {
+      "anchor": "m11/atom:くる/gloss",
+      "text": "오다",
+      "enSourceHash": "227c7024de86036c"
+    },
+    {
+      "anchor": "m11/atom:げつようび/gloss",
+      "text": "월요일",
+      "enSourceHash": "6a00dfc1dc867e84"
+    },
+    {
+      "anchor": "m11/atom:ことし/gloss",
+      "text": "올해",
+      "enSourceHash": "ee7ca167efc7a256"
+    },
+    {
+      "anchor": "m11/atom:ごご/gloss",
+      "text": "오후",
+      "enSourceHash": "c8e07c1ac268eae0"
+    },
+    {
+      "anchor": "m11/atom:ごじ/gloss",
+      "text": "5 시",
+      "enSourceHash": "2497160bf4bc33f4"
+    },
+    {
+      "anchor": "m11/atom:ごじゅう/gloss",
+      "text": "50",
+      "enSourceHash": "f8d807ee15e983f8"
+    },
+    {
+      "anchor": "m11/atom:ごぜん/gloss",
+      "text": "오전",
+      "enSourceHash": "c23b31a0179b550f"
+    },
+    {
+      "anchor": "m11/atom:さんじ/gloss",
+      "text": "3 시",
+      "enSourceHash": "f829e9d4e350218f"
+    },
+    {
+      "anchor": "m11/atom:さんじゅう/gloss",
+      "text": "30",
+      "enSourceHash": "aca5fb59db69e5df"
+    },
+    {
+      "anchor": "m11/atom:しちじ/gloss",
+      "text": "7 시",
+      "enSourceHash": "9eabf78ee51d7ae9"
+    },
+    {
+      "anchor": "m11/atom:じゅうじ/gloss",
+      "text": "10 시",
+      "enSourceHash": "f91d34bb04e24296"
+    },
+    {
+      "anchor": "m11/atom:すいようび/gloss",
+      "text": "수요일",
+      "enSourceHash": "c0a6cc829cd08735"
+    },
+    {
+      "anchor": "m11/atom:する/gloss",
+      "text": "하다, 만들다",
+      "enSourceHash": "bfb2a7ebb89f9546"
+    },
+    {
+      "anchor": "m11/atom:せんげつ/gloss",
+      "text": "지난달",
+      "enSourceHash": "683173e8384f3dac"
+    },
+    {
+      "anchor": "m11/atom:せんしゅう/gloss",
+      "text": "지난주",
+      "enSourceHash": "a5393742a9cb9285"
+    },
+    {
+      "anchor": "m11/atom:たべた/gloss",
+      "text": "먹다 (과거)",
+      "enSourceHash": "94dd31fbd844a2f8"
+    },
+    {
+      "anchor": "m11/atom:だった/gloss",
+      "text": "이었다, ~였다 (평어)",
+      "enSourceHash": "9178c7a2b456ba55"
+    },
+    {
+      "anchor": "m11/atom:だった/shortGloss",
+      "text": "이었다 (평어)",
+      "enSourceHash": "9fd798bf6c3a439f"
+    },
+    {
+      "anchor": "m11/atom:でした/gloss",
+      "text": "이었어요, ~였어요 (정중)",
+      "enSourceHash": "28f02eb168e9f96e"
+    },
+    {
+      "anchor": "m11/atom:でした/shortGloss",
+      "text": "이었어요 (정중)",
+      "enSourceHash": "ea3c7bffb331787f"
+    },
+    {
+      "anchor": "m11/atom:どようび/gloss",
+      "text": "토요일",
+      "enSourceHash": "dbe35c7363c2f7ec"
+    },
+    {
+      "anchor": "m11/atom:ななじゅう/gloss",
+      "text": "70",
+      "enSourceHash": "ab0e4b1a7839571e"
+    },
+    {
+      "anchor": "m11/atom:なんじ/gloss",
+      "text": "몇 시",
+      "enSourceHash": "5a7715b14a22aa25"
+    },
+    {
+      "anchor": "m11/atom:にじ/gloss",
+      "text": "2 시",
+      "enSourceHash": "e8d75b3899d329b2"
+    },
+    {
+      "anchor": "m11/atom:にちようび/gloss",
+      "text": "일요일",
+      "enSourceHash": "873fef760e5d001b"
+    },
+    {
+      "anchor": "m11/atom:のんだ/gloss",
+      "text": "마시다 (과거)",
+      "enSourceHash": "6def9b958f1f1bbc"
+    },
+    {
+      "anchor": "m11/atom:はじめて/gloss",
+      "text": "처음으로",
+      "enSourceHash": "ed968eb1e1012c9e"
+    },
+    {
+      "anchor": "m11/atom:はちじ/gloss",
+      "text": "8 시",
+      "enSourceHash": "9e1675b33d23def1"
+    },
+    {
+      "anchor": "m11/atom:はん/gloss",
+      "text": "반",
+      "enSourceHash": "a11ae06469c63740"
+    },
+    {
+      "anchor": "m11/atom:まいとし/gloss",
+      "text": "매년",
+      "enSourceHash": "3a8420baae026b3a"
+    },
+    {
+      "anchor": "m11/atom:みた/gloss",
+      "text": "보다 (과거)",
+      "enSourceHash": "68ac5fe3c547b28d"
+    },
+    {
+      "anchor": "m11/atom:もくようび/gloss",
+      "text": "목요일",
+      "enSourceHash": "fc2662062ffdef96"
+    },
+    {
+      "anchor": "m11/atom:よじ/gloss",
+      "text": "4 시",
+      "enSourceHash": "4642222c58d1ae38"
+    },
+    {
+      "anchor": "m11/atom:よんじゅう/gloss",
+      "text": "40",
+      "enSourceHash": "9cee2304bd633d42"
+    },
+    {
+      "anchor": "m11/atom:らいげつ/gloss",
+      "text": "다음 달",
+      "enSourceHash": "9e15dcbeb49a6a1c"
+    },
+    {
+      "anchor": "m11/atom:ろくじ/gloss",
+      "text": "6 시",
+      "enSourceHash": "cb329e0fb13bb2b1"
+    },
+    {
+      "anchor": "m11/atom:ろくじゅう/gloss",
+      "text": "60",
+      "enSourceHash": "df41164e151227b3"
+    },
+    {
+      "anchor": "m11/atom:わかった/gloss",
+      "text": "이해됐다 (과거)",
+      "enSourceHash": "4d509409473d7d44"
+    },
+    {
+      "anchor": "m11/atom:トイレ/gloss",
+      "text": "화장실",
+      "enSourceHash": "74f7fd1cf08b145c"
+    },
+    {
+      "anchor": "m11/atom:ビール/gloss",
+      "text": "맥주",
+      "enSourceHash": "1d8b4cf854cd42f4"
+    },
+    {
+      "anchor": "m11/gp:counter-ji/ex:いちじ にじ さんじ よじ",
+      "text": "1 시 2 시 3 시 4 시",
+      "enSourceHash": "d670258fd3bedec1"
+    },
+    {
+      "anchor": "m11/gp:counter-ji/ex:くじ じゅうじ",
+      "text": "9 시 10 시",
+      "enSourceHash": "549ed06d4056caa9"
+    },
+    {
+      "anchor": "m11/gp:counter-ji/ex:ごじ ろくじ しちじ はちじ",
+      "text": "5 시 6 시 7 시 8 시",
+      "enSourceHash": "e1a2cc1aa7f7690d"
+    },
+    {
+      "anchor": "m11/gp:counter-ji/ex:よんじ",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m11/gp:desu-past/ex:きのうは じゅぎょうだった。",
+      "text": "어제는 수업이었다.",
+      "enSourceHash": "02b5f962d6066e2e"
+    },
+    {
+      "anchor": "m11/gp:desu-past/ex:それは ねこた。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m11/gp:desu-past/ex:それは ねこだった。",
+      "text": "그것은 고양이였다.",
+      "enSourceHash": "f72a9737ec14b907"
+    },
+    {
+      "anchor": "m11/gp:itsu-when/ex:いつ いく？",
+      "text": "언제 가니?",
+      "enSourceHash": "ce7e7f09784feb35"
+    },
+    {
+      "anchor": "m11/gp:itsu-when/ex:いつ たべる？",
+      "text": "언제 먹니?",
+      "enSourceHash": "7cb256b8e1233169"
+    },
+    {
+      "anchor": "m11/gp:itsu-when/ex:いつに いく？",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m11/gp:masu-past/ex:ごはんを たべました。",
+      "text": "밥을 먹었어요.",
+      "enSourceHash": "addcdc1f35a27ab5"
+    },
+    {
+      "anchor": "m11/gp:masu-past/ex:みずを のみました。",
+      "text": "물을 마셨어요.",
+      "enSourceHash": "4cfd6c6bf643af01"
+    },
+    {
+      "anchor": "m11/gp:masu-past/ex:みずを のみますた。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m11/gp:masu-past/ex:みせに いきました。",
+      "text": "가게에 갔어요.",
+      "enSourceHash": "fe044ac035a093b7"
+    },
+    {
+      "anchor": "m11/gp:ni-time-or-nothing/ex:あさって はたらく。",
+      "text": "모레 일한다",
+      "enSourceHash": "c51adb2cc5e0b5af"
+    },
+    {
+      "anchor": "m11/gp:ni-time-or-nothing/ex:あした いく。",
+      "text": "내일 간다",
+      "enSourceHash": "59e3f9f8f9c2aeac"
+    },
+    {
+      "anchor": "m11/gp:ni-time-or-nothing/ex:あしたに いく。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m11/gp:ni-time/ex:くじに たべる。",
+      "text": "9 시에 먹는다.",
+      "enSourceHash": "a4f637aa4d2fdb84"
+    },
+    {
+      "anchor": "m11/gp:ni-time/ex:さんじ いく。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m11/gp:ni-time/ex:さんじに いく。",
+      "text": "3 시에 간다.",
+      "enSourceHash": "63b10d48c9e08e2a"
+    },
+    {
+      "anchor": "m11/gp:numbers-11-99/ex:いちじゅう",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m11/gp:numbers-11-99/ex:さんじゅう",
+      "text": "30",
+      "enSourceHash": "aca5fb59db69e5df"
+    },
+    {
+      "anchor": "m11/gp:numbers-11-99/ex:じゅうご",
+      "text": "15",
+      "enSourceHash": "c463967e5708cab7"
+    },
+    {
+      "anchor": "m11/gp:numbers-11-99/ex:ろくじゅうご",
+      "text": "65",
+      "enSourceHash": "4a8692d5b7e3e44b"
+    },
+    {
+      "anchor": "m11/gp:ta-form/ex:いいた。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m11/gp:ta-form/ex:いった。",
+      "text": "갔다.",
+      "enSourceHash": "46d135a1ec59b811"
+    },
+    {
+      "anchor": "m11/gp:ta-form/ex:うたを きいた。",
+      "text": "노래를 들었다.",
+      "enSourceHash": "f58fe81501e6e568"
+    },
+    {
+      "anchor": "m11/gp:ta-form/ex:きのう した。",
+      "text": "어제 했다.",
+      "enSourceHash": "d8cb07acfad158d6"
+    },
+    {
+      "anchor": "m11/gp:ta-form/ex:ごはんを たべた。",
+      "text": "밥을 먹었다.",
+      "enSourceHash": "aac9fe220d60097f"
+    },
+    {
+      "anchor": "m11/gp:ta-form/ex:みずを のみた。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m11/gp:ta-form/ex:みずを のんだ。",
+      "text": "물을 마셨다.",
+      "enSourceHash": "b2170c9f36354cff"
+    },
+    {
+      "anchor": "m11/gp:ta-form/ex:みせに いった。",
+      "text": "가게에 갔다.",
+      "enSourceHash": "bb3a2aea80af253e"
+    },
+    {
+      "anchor": "m11/gp:time-spans/ex:きょねん にほんに いった。",
+      "text": "작년 일본에 갔다.",
+      "enSourceHash": "a3d61f15e0a4cc60"
+    },
+    {
+      "anchor": "m11/gp:time-spans/ex:きょねんに いった。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m11/gp:time-spans/ex:ことし らいげつ まいとし",
+      "text": "올해 다음 달 매년",
+      "enSourceHash": "f2de5bed896e2e7d"
+    },
+    {
+      "anchor": "m11/gp:time-spans/ex:せんしゅう せんげつ きょねん",
+      "text": "지난주 지난달 작년",
+      "enSourceHash": "23a3b275990927e7"
+    },
+    {
+      "anchor": "m11/gp:time-spans/ex:はじめて すしを たべた。",
+      "text": "처음으로 초밥을 먹었다.",
+      "enSourceHash": "136ad33a701dc9b5"
+    },
+    {
+      "anchor": "m11/gp:time-spans/ex:らいげつ アメリカに いく。",
+      "text": "다음 달 미국에 간다.",
+      "enSourceHash": "84a360de8badb806"
+    },
+    {
+      "anchor": "m11/gp:youbi-days/ex:あさって うみに いく。",
+      "text": "모레 바다에 간다.",
+      "enSourceHash": "55bf3781ace9d75c"
+    },
+    {
+      "anchor": "m11/gp:youbi-days/ex:あさってに いく。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m11/gp:youbi-days/ex:きんようび どようび にちようび",
+      "text": "금요일, 토요일, 일요일",
+      "enSourceHash": "3d9d66741ea21deb"
+    },
+    {
+      "anchor": "m11/gp:youbi-days/ex:げつようび かようび すいようび もくようび",
+      "text": "월요일, 화요일, 수요일, 목요일",
+      "enSourceHash": "ad82a38f7aac1d2a"
+    },
+    {
+      "anchor": "m11/gp:youbi-days/ex:げつようびと かようびに はたらく。",
+      "text": "월요일과 화요일에 일한다.",
+      "enSourceHash": "ff39a1f9f460078c"
+    },
+    {
+      "anchor": "m11/gp:youbi-days/ex:どようびに みせに いく。",
+      "text": "토요일에 가게에 간다.",
+      "enSourceHash": "9c19c0facbc6be61"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/en:0ee1f457703d763f",
+      "text": "\"목소리\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "0ee1f457703d763f"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/en:13809668fb436386",
+      "text": "연필",
+      "enSourceHash": "13809668fb436386"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/en:18e1dd392168f601",
+      "text": "모자",
+      "enSourceHash": "18e1dd392168f601"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/en:266550babbb7bd39",
+      "text": "안경",
+      "enSourceHash": "266550babbb7bd39"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/en:2974744982f08b20",
+      "text": "우산",
+      "enSourceHash": "2974744982f08b20"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/en:5fe36e377a7e2137",
+      "text": "\"노래\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/en:6e3bf34066729e64",
+      "text": "\"바다\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "6e3bf34066729e64"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/en:727ea55fc8ee1dc7",
+      "text": "\"연못\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/en:7c30506f7df1fa47",
+      "text": "11 에서 99",
+      "enSourceHash": "7c30506f7df1fa47"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/en:985604c2b6024312",
+      "text": "빵",
+      "enSourceHash": "985604c2b6024312"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/ja:かさは さんじゅうえんだ",
+      "text": "친구에게 말하세요: 우산은 30 엔이야.",
+      "enSourceHash": "2192c37a90f1b432"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/ja:これは ごじゅうえんです",
+      "text": "정중하게 말하세요: 이것은 50 엔이에요.",
+      "enSourceHash": "ee87ba8062478068"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/ja:ほんは じゅうごえんだ",
+      "text": "친구에게 말하세요: 책은 15 엔이야.",
+      "enSourceHash": "ff4b3d072a31b5c5"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/ja:ぼうしは よんじゅうえんだ",
+      "text": "친구에게 말하세요: 모자는 40 엔이야.",
+      "enSourceHash": "a3c048b6aeec0c3a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/ja:めがねは ななじゅうえんだ",
+      "text": "친구에게 말하세요: 안경은 70 엔이야.",
+      "enSourceHash": "9ce5c347fbc2a4fd"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/ja:パンは じゅうはちえんだ",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/ja:ミカの かさは ろくじゅうごえんだ",
+      "text": "친구에게 말하세요: 미카의 우산은 65 엔이야.",
+      "enSourceHash": "cda7735b4732e51f"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:0889113e04d3203f",
+      "text": "수업",
+      "enSourceHash": "0889113e04d3203f"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:1180412af43d7860",
+      "text": "쇼핑",
+      "enSourceHash": "1180412af43d7860"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:19aca36c1a99717e",
+      "text": "목요일에 노래를 듣는다",
+      "enSourceHash": "19aca36c1a99717e"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:1f77bd4dda3ddfa7",
+      "text": "목요일에 쇼핑을 한다",
+      "enSourceHash": "1f77bd4dda3ddfa7"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:21e6618af36a1542",
+      "text": "화요일에 바다에 간다",
+      "enSourceHash": "21e6618af36a1542"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:2e7ef23674b70aab",
+      "text": "일요일에 바다에 간다",
+      "enSourceHash": "2e7ef23674b70aab"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:3ded6282905dd6f4",
+      "text": "친구가 일요일에 온다",
+      "enSourceHash": "3ded6282905dd6f4"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:3f4a85d2176935dc",
+      "text": "수요일에 쇼핑을 한다",
+      "enSourceHash": "3f4a85d2176935dc"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:43004f0900a014a0",
+      "text": "목요일에 친구와 논다",
+      "enSourceHash": "43004f0900a014a0"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:4a69f19c8c264850",
+      "text": "바다",
+      "enSourceHash": "4a69f19c8c264850"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:52d9ee2dc02b6b19",
+      "text": "월요일에 노래를 듣는다",
+      "enSourceHash": "52d9ee2dc02b6b19"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:57b5a5b5640e022a",
+      "text": "화요일에 쇼핑을 한다",
+      "enSourceHash": "57b5a5b5640e022a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:5b20ac7488b4226e",
+      "text": "토요일에 바다에 간다",
+      "enSourceHash": "5b20ac7488b4226e"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:6752f21c7ddd3568",
+      "text": "월요일에 바다에 간다",
+      "enSourceHash": "6752f21c7ddd3568"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:9e0aad617a6a7d1a",
+      "text": "목요일에 노래를 산다",
+      "enSourceHash": "9e0aad617a6a7d1a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:acd98df829f26895",
+      "text": "친구가 금요일에 온다",
+      "enSourceHash": "acd98df829f26895"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:b4043d6cb6638ba5",
+      "text": "토요일에 장을 본다",
+      "enSourceHash": "b4043d6cb6638ba5"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:cdd3e0980a44c7fb",
+      "text": "친구가 화요일에 온다",
+      "enSourceHash": "cdd3e0980a44c7fb"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:cde48537ca2c2808",
+      "text": "친구",
+      "enSourceHash": "cde48537ca2c2808"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:d6e21286621a8586",
+      "text": "집",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:e38cb3f1934c6b35",
+      "text": "친구가 수요일에 온다",
+      "enSourceHash": "e38cb3f1934c6b35"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/ja:あさって みせに いく",
+      "text": "친구에게 말하세요: 모레 가게에 가",
+      "enSourceHash": "5c3e8271f02f85e5"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/ja:かようびに ともだちが くる",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/ja:きんようびに はたらく",
+      "text": "친구에게 말하세요: 금요일에 일해",
+      "enSourceHash": "6e3edb9b5614647d"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/ja:げつようびに じゅぎょうが あります",
+      "text": "정중하게 말하세요: 월요일에 수업이 있어요",
+      "enSourceHash": "235e38369eea9baa"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/ja:すいようびに かいものを する",
+      "text": "친구에게 말하세요: 수요일에 장을 봐",
+      "enSourceHash": "ad33bef4b205aa63"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/ja:どようびに さんぽを する",
+      "text": "친구에게 말하세요: 토요일에 산책해",
+      "enSourceHash": "d64c536a653c3d2e"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/ja:にちようびに うみに いく",
+      "text": "친구에게 말하세요: 일요일에 바다에 가",
+      "enSourceHash": "0df830aa8b5e20af"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/ja:にちようびに ミカの いえで ごはんを たべる",
+      "text": "친구에게 말하세요: 일요일에 미카의 집에서 밥 먹어",
+      "enSourceHash": "0e70ed0f274bdeed"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:1bc5fb618b173709",
+      "text": "처음으로 일본 노래를 불렀다",
+      "enSourceHash": "1bc5fb618b173709"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:3df1098b5070910e",
+      "text": "지난주에 노래를 들었다",
+      "enSourceHash": "3df1098b5070910e"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:44e2e15f6a685cd4",
+      "text": "미카의 이름을 기억할 거다",
+      "enSourceHash": "44e2e15f6a685cd4"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:4a69f19c8c264850",
+      "text": "바다",
+      "enSourceHash": "4a69f19c8c264850"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:5d106b3f5f793f67",
+      "text": "처음으로 초밥을 먹었다",
+      "enSourceHash": "5d106b3f5f793f67"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:63f75c890b05405e",
+      "text": "노래",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:647294383b2cbc24",
+      "text": "일본",
+      "enSourceHash": "647294383b2cbc24"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:670bd9ced0c6bc3f",
+      "text": "초밥",
+      "enSourceHash": "670bd9ced0c6bc3f"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:730b9a29484d4e49",
+      "text": "지난주에 일본 노래를 들었다",
+      "enSourceHash": "730b9a29484d4e49"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:798b516157629c3a",
+      "text": "일본 노래를 외웠다",
+      "enSourceHash": "798b516157629c3a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:7fe900c0f8bca07b",
+      "text": "작년에 바다에 갔다",
+      "enSourceHash": "7fe900c0f8bca07b"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:92c50b79b7f3b855",
+      "text": "올해, 작년 — 더 넓은 달력",
+      "enSourceHash": "92c50b79b7f3b855"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:adad3cc4ff830962",
+      "text": "처음으로 일본 노래를 들었다",
+      "enSourceHash": "adad3cc4ff830962"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:baed831623943be3",
+      "text": "시계",
+      "enSourceHash": "baed831623943be3"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:c018019b6a8b01ab",
+      "text": "가방",
+      "enSourceHash": "c018019b6a8b01ab"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/ja:きょねん うみに いった",
+      "text": "친구에게 말하세요: 작년에 바다에 갔어",
+      "enSourceHash": "ba2fa34f63747bff"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/ja:きょねん はじめて にほんに いきました",
+      "text": "정중하게 말하세요: 작년에 처음 일본에 갔어요",
+      "enSourceHash": "aae3b1f45e326f95"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/ja:ことし にほんの うたを おぼえる",
+      "text": "친구에게 말하세요: 올해 일본 노래를 외워",
+      "enSourceHash": "47cce254e0e0ed39"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/ja:せんげつ とけいを かいました",
+      "text": "정중하게 말하세요: 지난달에 시계를 샀어요.",
+      "enSourceHash": "236dd33a5f8839a4"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/ja:せんしゅう うたを きいた",
+      "text": "친구에게 말하세요: 지난주에 노래를 들었어",
+      "enSourceHash": "c7c8e8d200971ef0"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/ja:はじめて すしを たべた",
+      "text": "친구에게 말하세요: 처음으로 초밥을 먹었어",
+      "enSourceHash": "97d1c34cdae1a75d"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/ja:まいとし うみに いく",
+      "text": "친구에게 말하세요: 매년 바다에 가",
+      "enSourceHash": "da5d78b21cd503fa"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/ja:らいげつ にほんに いく",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/ja:ミカの なまえを おぼえる",
+      "text": "친구에게 말하세요: 미카의 이름을 기억해",
+      "enSourceHash": "ffc1b8e36a193a52"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:0ee1f457703d763f",
+      "text": "\"목소리\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "0ee1f457703d763f"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:1f77bd4dda3ddfa7",
+      "text": "목요일에 장을 볼 거예요",
+      "enSourceHash": "1f77bd4dda3ddfa7"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:3ded6282905dd6f4",
+      "text": "친구가 일요일에 오고 있어요",
+      "enSourceHash": "3ded6282905dd6f4"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:4642222c58d1ae38",
+      "text": "4 시",
+      "enSourceHash": "4642222c58d1ae38"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:57b5a5b5640e022a",
+      "text": "화요일에 장을 볼 거예요",
+      "enSourceHash": "57b5a5b5640e022a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:5fe36e377a7e2137",
+      "text": "\"노래\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:6a00dfc1dc867e84",
+      "text": "월요일",
+      "enSourceHash": "6a00dfc1dc867e84"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:6e3bf34066729e64",
+      "text": "\"바다\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "6e3bf34066729e64"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:727ea55fc8ee1dc7",
+      "text": "\"연못\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:784c6de95e589bb0",
+      "text": "친구가 오늘 오고 있어요",
+      "enSourceHash": "784c6de95e589bb0"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:873fef760e5d001b",
+      "text": "일요일",
+      "enSourceHash": "873fef760e5d001b"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:a2cbc7db4eae5e2a",
+      "text": "친구가 어제 왔어요",
+      "enSourceHash": "a2cbc7db4eae5e2a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:bafd151a86f9a573",
+      "text": "내일",
+      "enSourceHash": "bafd151a86f9a573"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:c0ba8abb159fd501",
+      "text": "내일 장을 볼 거예요",
+      "enSourceHash": "c0ba8abb159fd501"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:cdd3e0980a44c7fb",
+      "text": "친구가 화요일에 오고 있어요",
+      "enSourceHash": "cdd3e0980a44c7fb"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:d9ded20b702c8a57",
+      "text": "이번 주에 장을 볼 거예요",
+      "enSourceHash": "d9ded20b702c8a57"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:dbe35c7363c2f7ec",
+      "text": "토요일",
+      "enSourceHash": "dbe35c7363c2f7ec"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:f829e9d4e350218f",
+      "text": "3 시",
+      "enSourceHash": "f829e9d4e350218f"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/ja:あさって はたらく",
+      "text": "친구에게 말하세요: 모레 일해",
+      "enSourceHash": "4ef545454936c4cf"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/ja:あした いく",
+      "text": "친구에게 말하세요: 내일 가",
+      "enSourceHash": "666623767910c736"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/ja:あした よじに ミカの いえで ごはんを たべる",
+      "text": "친구에게 말하세요: 내일 4 시에 미카네 집에서 밥 먹어",
+      "enSourceHash": "79eb42121ee981b6"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/ja:げつようびに はたらく",
+      "text": "친구에게 말하세요: 월요일에 일해",
+      "enSourceHash": "3fb98d3e8e946d80"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/ja:さんじに いく",
+      "text": "친구에게 말하세요: 3 시에 가",
+      "enSourceHash": "13a7268020392a6b"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/ja:せんしゅう うみに いった",
+      "text": "친구에게 말하세요: 지난주에 바다에 갔어",
+      "enSourceHash": "24a4f123c22434bd"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/ja:にちようびに うみに いった",
+      "text": "친구에게 말하세요: 일요일에 바다에 갔어",
+      "enSourceHash": "a848e5748be7de13"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/en:0889113e04d3203f",
+      "text": "수업",
+      "enSourceHash": "0889113e04d3203f"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/en:0ee1f457703d763f",
+      "text": "\"목소리\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "0ee1f457703d763f"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/en:1057a9604e04b274",
+      "text": "선생님",
+      "enSourceHash": "1057a9604e04b274"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/en:336074805fc85398",
+      "text": "시간",
+      "enSourceHash": "336074805fc85398"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/en:5fe36e377a7e2137",
+      "text": "\"노래\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/en:6e3bf34066729e64",
+      "text": "\"바다\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "6e3bf34066729e64"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/en:727ea55fc8ee1dc7",
+      "text": "\"연못\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/en:baed831623943be3",
+      "text": "시계",
+      "enSourceHash": "baed831623943be3"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/en:e0f4f767ac88a930",
+      "text": "오늘",
+      "enSourceHash": "e0f4f767ac88a930"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/en:ed5eb9a37e2d8231",
+      "text": "지금",
+      "enSourceHash": "ed5eb9a37e2d8231"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/ja:いま ごじはんだ",
+      "text": "친구에게 말하세요: 지금 5 시 반이야",
+      "enSourceHash": "6a9bebcb70f18195"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/ja:いま さんじだ",
+      "text": "친구에게 말하세요: 지금 3 시야",
+      "enSourceHash": "5cf1fc309a20571f"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/ja:いま しちじはんだ",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/ja:いま なんじですか",
+      "text": "정중하게 말하세요: 지금 몇 시예요?",
+      "enSourceHash": "292fe53d134e61e9"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/ja:いま よじだ",
+      "text": "친구에게 말하세요: 지금 4 시야",
+      "enSourceHash": "63fa60c25728f257"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/ja:じゅぎょうは くじだ",
+      "text": "친구에게 말하세요: 수업은 9 시야",
+      "enSourceHash": "1375be2c5f858bdc"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/ja:とけいは じゅうじだ",
+      "text": "친구에게 말하세요: 시계는 열 시야",
+      "enSourceHash": "f423a47eab784274"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/ja:ミカの じゅぎょうは いちじはんだ",
+      "text": "친구에게 말하세요: 미카의 수업은 한 시 반이야",
+      "enSourceHash": "b54f367a9009a938"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:0889113e04d3203f",
+      "text": "수업",
+      "enSourceHash": "0889113e04d3203f"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:4307795bae762dde",
+      "text": "오늘 아홉 시에 가게에 간다",
+      "enSourceHash": "4307795bae762dde"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:4bdf40d0d1ae3611",
+      "text": "밥/식사",
+      "enSourceHash": "4bdf40d0d1ae3611"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:5fe36e377a7e2137",
+      "text": "\"노래\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:604ff0779743bca4",
+      "text": "내일 오후 네 시에 미카네 집에 간다",
+      "enSourceHash": "604ff0779743bca4"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:6869f15f846261f7",
+      "text": "오후 세 시에 간다",
+      "enSourceHash": "6869f15f846261f7"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:6e3bf34066729e64",
+      "text": "\"바다\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "6e3bf34066729e64"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:81135e9c16e5c4d3",
+      "text": "오후 여섯 시에 친구와 논다",
+      "enSourceHash": "81135e9c16e5c4d3"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:cde48537ca2c2808",
+      "text": "친구",
+      "enSourceHash": "cde48537ca2c2808"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:d6e21286621a8586",
+      "text": "집",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:e2dee2fa362c0867",
+      "text": "내일 수업이 있다",
+      "enSourceHash": "e2dee2fa362c0867"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:e32885ea7260fd92",
+      "text": "내일 다섯 시에 간다",
+      "enSourceHash": "e32885ea7260fd92"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:ed5eb9a37e2d8231",
+      "text": "지금",
+      "enSourceHash": "ed5eb9a37e2d8231"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:fbecca3910f25213",
+      "text": "아침 일곱 시에 먹는다",
+      "enSourceHash": "fbecca3910f25213"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:fd285a8c22234365",
+      "text": "아침 여덟 시에 밥을 먹는다",
+      "enSourceHash": "fd285a8c22234365"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/ja:あした ごご よじに ミカの いえに いく",
+      "text": "친구에게 말하세요: 내일 오후 네 시에 미카네 집에 가",
+      "enSourceHash": "6ea372fbbcc019ae"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/ja:あした ごじに いく",
+      "text": "친구에게 말하세요: 내일 다섯 시에 가",
+      "enSourceHash": "12e9d8164f19a0ee"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/ja:あした じゅぎょうが ある",
+      "text": "친구에게 말하세요: 내일 수업이 있어",
+      "enSourceHash": "ae76c9af8b4af296"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/ja:きょう くじに みせに いく",
+      "text": "친구에게 말하세요: 오늘 아홉 시에 가게에 가",
+      "enSourceHash": "5aacfea808ba7b90"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/ja:ごご さんじに いく",
+      "text": "친구에게 말하세요: 오후 세 시에 가",
+      "enSourceHash": "e207c060ea46a7f3"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/ja:ごご ろくじに ともだちと あそぶ",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/ja:ごぜん しちじに たべる",
+      "text": "친구에게 말하세요: 아침 일곱 시에 먹어",
+      "enSourceHash": "7e55ff80ba797f2d"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/ja:ごぜん はちじに ごはんを たべる",
+      "text": "친구에게 말하세요: 아침 여덟 시에 밥을 먹어",
+      "enSourceHash": "b04503a6ff291f4a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:0f4168490e38b844",
+      "text": "물",
+      "enSourceHash": "0f4168490e38b844"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:184c2f3d201a0ee7",
+      "text": "어제 물을 마셨다",
+      "enSourceHash": "184c2f3d201a0ee7"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:2bf9d70578e2f9dc",
+      "text": "어제 책을 보았다",
+      "enSourceHash": "2bf9d70578e2f9dc"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:434d4be01d3406aa",
+      "text": "어제 사진을 샀다",
+      "enSourceHash": "434d4be01d3406aa"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:4bdf40d0d1ae3611",
+      "text": "밥/식사",
+      "enSourceHash": "4bdf40d0d1ae3611"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:5f5a8ed8f139be6d",
+      "text": "강",
+      "enSourceHash": "5f5a8ed8f139be6d"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:5fe36e377a7e2137",
+      "text": "\"노래\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:63f75c890b05405e",
+      "text": "노래",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:7ce884c3b6e6d195",
+      "text": "어제 집에서 먹었다",
+      "enSourceHash": "7ce884c3b6e6d195"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:86d08c33259bb9fd",
+      "text": "어제 밥을 먹었다",
+      "enSourceHash": "86d08c33259bb9fd"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:985604c2b6024312",
+      "text": "빵",
+      "enSourceHash": "985604c2b6024312"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:b9047266a5e3d4fa",
+      "text": "어제 노래를 들었다",
+      "enSourceHash": "b9047266a5e3d4fa"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:ed5551b70a8f27e6",
+      "text": "어제 사진을 보았다",
+      "enSourceHash": "ed5551b70a8f27e6"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/ja:きのう うたを きいた",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/ja:きのう かわで あそんだ",
+      "text": "친구에게 말하세요: 어제 강에서 놀았어",
+      "enSourceHash": "4076f8a783f3f279"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/ja:きのう ごはんを たべた",
+      "text": "친구에게 말하세요: 어제 밥을 먹었어",
+      "enSourceHash": "7a408431154cd060"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/ja:きのう ほんを みた",
+      "text": "친구에게 말하세요: 어제 책을 봤어",
+      "enSourceHash": "600463fc925c10a1"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/ja:きのう みずを のんだ",
+      "text": "친구에게 말하세요: 어제 물을 마셨어",
+      "enSourceHash": "ed5f2378960acaf4"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/ja:きのう パンを かった",
+      "text": "친구에게 말하세요: 어제 빵을 샀어",
+      "enSourceHash": "5d7a9f880a27446f"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/ja:きのう ミカの いえで ごはんを たべた",
+      "text": "친구에게 말하세요: 어제 미카의 집에서 밥을 먹었어",
+      "enSourceHash": "ab89fcbedfa082e7"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:066efce65a87dad6",
+      "text": "어제 가게에 갔어요",
+      "enSourceHash": "066efce65a87dad6"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:1180412af43d7860",
+      "text": "쇼핑",
+      "enSourceHash": "1180412af43d7860"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:42da9ccc5de5a92d",
+      "text": "어제 바다에 갔어요",
+      "enSourceHash": "42da9ccc5de5a92d"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:4a69f19c8c264850",
+      "text": "바다",
+      "enSourceHash": "4a69f19c8c264850"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:562c8b1ad77036ef",
+      "text": "미카가 어제 왔어요",
+      "enSourceHash": "562c8b1ad77036ef"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:5c377efcd6e4a539",
+      "text": "어제 쇼핑을 했어요",
+      "enSourceHash": "5c377efcd6e4a539"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:5fe36e377a7e2137",
+      "text": "\"노래\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:66ccf31801ad9206",
+      "text": "미카의 목소리를 알아봤어요",
+      "enSourceHash": "66ccf31801ad9206"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:699c07ac8f00e58a",
+      "text": "어제 산책했어요",
+      "enSourceHash": "699c07ac8f00e58a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:6e3bf34066729e64",
+      "text": "\"바다\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "6e3bf34066729e64"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:7a6c4fac6c5cd720",
+      "text": "산책",
+      "enSourceHash": "7a6c4fac6c5cd720"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:a1f4b76ae0ae4e51",
+      "text": "켄이 어제 집에 왔어요",
+      "enSourceHash": "a1f4b76ae0ae4e51"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:c57d7e92019708b6",
+      "text": "목소리",
+      "enSourceHash": "c57d7e92019708b6"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:d6e21286621a8586",
+      "text": "집",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:e219bcb41cec2300",
+      "text": "다나카가 어제 미카의 집에 왔어요",
+      "enSourceHash": "e219bcb41cec2300"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/ja:きのう かいものを した",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/ja:きのう さんぽを した",
+      "text": "친구에게 말하세요: 어제 산책했어",
+      "enSourceHash": "b0c6dfb5d59f26c9"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/ja:きのう たなかさんが ミカの いえに きた",
+      "text": "친구에게 말하세요: 어제 다나카가 미카의 집에 왔어",
+      "enSourceHash": "f599427993ac3d63"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/ja:きのう みせに いった",
+      "text": "친구에게 말하세요: 어제 가게에 갔어",
+      "enSourceHash": "f1ebca100de69c97"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/ja:きのう ケンが いえに きた",
+      "text": "친구에게 말하세요: 어제 켄이 집에 왔어",
+      "enSourceHash": "5052a2ee4ce52943"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/ja:きのう ミカが きた",
+      "text": "친구에게 말하세요: 어제 미카가 왔어",
+      "enSourceHash": "6dd235bde8215b25"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/ja:ミカの こえが わかった",
+      "text": "친구에게 말하세요: 미카의 목소리가 이해됐어",
+      "enSourceHash": "6dc6a8fa520ab5c4"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:061cfb8d19dbcb1d",
+      "text": "저기 그건 내 모자였어요",
+      "enSourceHash": "061cfb8d19dbcb1d"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:11318376352e31f8",
+      "text": "그건 미카의 우산이었어요",
+      "enSourceHash": "11318376352e31f8"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:18e1dd392168f601",
+      "text": "모자",
+      "enSourceHash": "18e1dd392168f601"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:2974744982f08b20",
+      "text": "우산",
+      "enSourceHash": "2974744982f08b20"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:2b2961a431b23c90",
+      "text": "차",
+      "enSourceHash": "2b2961a431b23c90"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:5fe36e377a7e2137",
+      "text": "\"노래\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:6e3bf34066729e64",
+      "text": "\"바다\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "6e3bf34066729e64"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:8347289e87d153d1",
+      "text": "이건 미카의 책이었어요",
+      "enSourceHash": "8347289e87d153d1"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:8e7c75a8443a0910",
+      "text": "어제는 싼 빵이었어요",
+      "enSourceHash": "8e7c75a8443a0910"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:a6bd53a764d9ff4d",
+      "text": "어제 수업은 5 시 반이었어요",
+      "enSourceHash": "a6bd53a764d9ff4d"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:baed831623943be3",
+      "text": "시계",
+      "enSourceHash": "baed831623943be3"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:c018019b6a8b01ab",
+      "text": "가방",
+      "enSourceHash": "c018019b6a8b01ab"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/ja:あれは ぼくの ぼうしだった",
+      "text": "친구에게 말하세요: 저것은 내 모자였어",
+      "enSourceHash": "47771a1e2355f148"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/ja:きのうの じゅぎょうは ごじはんだった",
+      "text": "친구에게 말하세요: 어제 수업은 5 시 반이었어",
+      "enSourceHash": "a581998d3daab75e"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/ja:きのうは さんじゅうえんだった",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/ja:きのうは やすい パンだった",
+      "text": "친구에게 말하세요: 어제는 싼 빵이었어",
+      "enSourceHash": "b4c1715775ac4925"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/ja:これは ミカの ほんだった",
+      "text": "친구에게 말하세요: 이것은 미카의 책이었어",
+      "enSourceHash": "7a0baa928e0890a5"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/ja:それは ミカの かさだった",
+      "text": "친구에게 말하세요: 그것은 미카의 우산이었어",
+      "enSourceHash": "59dc7cd563cb2a34"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/ja:たなかさんの くるまだった",
+      "text": "친구에게 말하세요: 다나카 씨의 차였어",
+      "enSourceHash": "6f04be9a5e3befdf"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/ja:とけいは ごじだった",
+      "text": "친구에게 말하세요: 시계는 5 시였어",
+      "enSourceHash": "cc77bb16bb9effa8"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/en:066efce65a87dad6",
+      "text": "어제 가게에 갔어요",
+      "enSourceHash": "066efce65a87dad6"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/en:1180412af43d7860",
+      "text": "쇼핑",
+      "enSourceHash": "1180412af43d7860"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/en:1ba2f27e343d8e30",
+      "text": "어제 차를 마셨어요",
+      "enSourceHash": "1ba2f27e343d8e30"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/en:4bdf40d0d1ae3611",
+      "text": "밥/식사",
+      "enSourceHash": "4bdf40d0d1ae3611"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/en:5c377efcd6e4a539",
+      "text": "어제 쇼핑을 했어요",
+      "enSourceHash": "5c377efcd6e4a539"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/en:5fe36e377a7e2137",
+      "text": "\"노래\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/en:86d08c33259bb9fd",
+      "text": "어제 밥을 먹었어요",
+      "enSourceHash": "86d08c33259bb9fd"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/en:9523d9fbe79bcf3e",
+      "text": "어제",
+      "enSourceHash": "9523d9fbe79bcf3e"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/en:985604c2b6024312",
+      "text": "빵",
+      "enSourceHash": "985604c2b6024312"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/en:a9f74d1ec36ebdeb",
+      "text": "차",
+      "enSourceHash": "a9f74d1ec36ebdeb"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/ja:きのう かいものを しました",
+      "text": "정중하게 말하세요: 어제 쇼핑을 했어요",
+      "enSourceHash": "d4bf38b770d69802"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/ja:きのう ごはんを たべました",
+      "text": "정중하게 말하세요: 어제 밥을 먹었어요",
+      "enSourceHash": "0c854bffd45e809f"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/ja:きのう ちゃを のみました",
+      "text": "정중하게 말하세요: 어제 차를 마셨어요",
+      "enSourceHash": "fc7dab74e292644e"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/ja:きのう みせに いきました",
+      "text": "정중하게 말하세요: 어제 가게에 갔어요",
+      "enSourceHash": "af9ef1072a022e56"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/ja:きのう パンを かいました",
+      "text": "정중하게 말하세요: 어제 빵을 샀어요",
+      "enSourceHash": "0854c8167365b56f"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/ja:きのう ミカの みせで パンを かいました",
+      "text": "정중하게 말하세요: 어제 미카의 가게에서 빵을 샀어요",
+      "enSourceHash": "bcfde9f3e83c1787"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/ja:くじに いきました",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/en:0889113e04d3203f",
+      "text": "수업",
+      "enSourceHash": "0889113e04d3203f"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/en:0ee1f457703d763f",
+      "text": "\"목소리\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "0ee1f457703d763f"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/en:18e1dd392168f601",
+      "text": "모자",
+      "enSourceHash": "18e1dd392168f601"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/en:2974744982f08b20",
+      "text": "우산",
+      "enSourceHash": "2974744982f08b20"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/en:2b2961a431b23c90",
+      "text": "차",
+      "enSourceHash": "2b2961a431b23c90"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/en:5fe36e377a7e2137",
+      "text": "\"노래\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/en:6e3bf34066729e64",
+      "text": "\"바다\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "6e3bf34066729e64"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/en:727ea55fc8ee1dc7",
+      "text": "\"연못\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/en:baed831623943be3",
+      "text": "시계",
+      "enSourceHash": "baed831623943be3"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/ja:きのうは じゅぎょうでした",
+      "text": "정중하게 말하세요: 어제는 수업이었어요",
+      "enSourceHash": "c31eaec04e36f87b"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/ja:じゅぎょうは くじでした",
+      "text": "정중하게 말하세요: 수업은 9 시였어요",
+      "enSourceHash": "410b0868b24355a9"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/ja:それは ミカの かさでした",
+      "text": "정중하게 말하세요: 그것은 미카의 우산이었어요",
+      "enSourceHash": "c8f3203b8ef37d43"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/ja:たなかさんの くるまでした",
+      "text": "정중하게 말하세요: 다나카 씨의 차였어요",
+      "enSourceHash": "c9c11267cf6b9511"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/ja:たなかさんの ぼうしは ろくじゅうえんでした",
+      "text": "정중하게 말하세요: 다나카 씨의 모자는 60 엔이었어요",
+      "enSourceHash": "e153b5b243487bfd"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/ja:とけいは ろくじでした",
+      "text": "정중하게 말하세요: 시계는 6 시였어요",
+      "enSourceHash": "86c0cfbadc41afb4"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/ja:ひゃくえんでした",
+      "text": "정중하게 말하세요: 100 엔이었어요",
+      "enSourceHash": "9c4b39b1de82d9ce"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/ja:パンは じゅうごえんでした",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:078dd53bbd1b3b97",
+      "text": "언제 미카 씨 집에 갔어요",
+      "enSourceHash": "078dd53bbd1b3b97"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:36e11c186286bdb7",
+      "text": "오후",
+      "enSourceHash": "36e11c186286bdb7"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:389cc4f75335a198",
+      "text": "언제 가게에 갔어요",
+      "enSourceHash": "389cc4f75335a198"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:4a69f19c8c264850",
+      "text": "바다",
+      "enSourceHash": "4a69f19c8c264850"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:55038d2e12e4cafe",
+      "text": "아침 9 시에 갈 거예요",
+      "enSourceHash": "55038d2e12e4cafe"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:5fe36e377a7e2137",
+      "text": "\"노래\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:6e3bf34066729e64",
+      "text": "\"바다\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "6e3bf34066729e64"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:7b455f2dd791ffcc",
+      "text": "오전",
+      "enSourceHash": "7b455f2dd791ffcc"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:9523d9fbe79bcf3e",
+      "text": "어제",
+      "enSourceHash": "9523d9fbe79bcf3e"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:9db01334e3e4fa0e",
+      "text": "내일 오후에 가게에 갈 거예요",
+      "enSourceHash": "9db01334e3e4fa0e"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:b49e050db744985f",
+      "text": "어제 오후에 갔어요",
+      "enSourceHash": "b49e050db744985f"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:bafd151a86f9a573",
+      "text": "내일",
+      "enSourceHash": "bafd151a86f9a573"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:d17d5f1ed38855dc",
+      "text": "언제 먹었어요",
+      "enSourceHash": "d17d5f1ed38855dc"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/ja:いつ いきましたか",
+      "text": "정중하게 말하세요: 언제 갔어요",
+      "enSourceHash": "3aee1b2acba3d696"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/ja:いつ ごはんを たべた？",
+      "text": "친구에게 말하세요: 언제 밥을 먹었니",
+      "enSourceHash": "0f72d31d4a19ccab"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/ja:いつ みせに いった？",
+      "text": "친구에게 말하세요: 언제 가게에 갔니",
+      "enSourceHash": "c4fde527de945c3f"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/ja:いつ ミカの いえに いきましたか",
+      "text": "정중하게 말하세요: 언제 미카 씨 집에 갔어요",
+      "enSourceHash": "59b86dbcce92398c"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/ja:きのう ごご いった",
+      "text": "친구에게 말하세요: 어제 오후에 갔어",
+      "enSourceHash": "56bb8654e1c138ff"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/ja:ごぜん くじに いく",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:0d8c2745f518846e",
+      "text": "다나카 씨의 수업은 아침 9 시였어요",
+      "enSourceHash": "0d8c2745f518846e"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:15eaa75240aed625",
+      "text": "언제",
+      "enSourceHash": "15eaa75240aed625"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:1af298f030251a66",
+      "text": "언제 미카 씨 가게에서 빵을 샀어요",
+      "enSourceHash": "1af298f030251a66"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:1e8ca6ee2384f279",
+      "text": "다나카 씨는 오후 4 시에 갔어요",
+      "enSourceHash": "1e8ca6ee2384f279"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:25393f7ee990ecb6",
+      "text": "어제 오후 3 시에 미카 씨 집에 갔어요",
+      "enSourceHash": "25393f7ee990ecb6"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:36e11c186286bdb7",
+      "text": "오후",
+      "enSourceHash": "36e11c186286bdb7"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:3d0c1a0bdf7da1d6",
+      "text": "어제 친구와 먹었어요",
+      "enSourceHash": "3d0c1a0bdf7da1d6"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:4d83eae65eff9664",
+      "text": "도전 — 다 같이 합쳐서",
+      "enSourceHash": "4d83eae65eff9664"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:5a7715b14a22aa25",
+      "text": "몇 시",
+      "enSourceHash": "5a7715b14a22aa25"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:5fe36e377a7e2137",
+      "text": "\"노래\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:6e3bf34066729e64",
+      "text": "\"바다\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "6e3bf34066729e64"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:79cc4b03c3048b3c",
+      "text": "어제 오후 5 시에 미카 씨 가게에서 빵을 샀어요",
+      "enSourceHash": "79cc4b03c3048b3c"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:7b455f2dd791ffcc",
+      "text": "오전",
+      "enSourceHash": "7b455f2dd791ffcc"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/ja:ごぜん じゅうじに ともだちと さんぽを した",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/ja:たなかさんは ごご よじに いきました",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-ra/en:37e7702e5ce449c1",
+      "text": "ra",
+      "enSourceHash": "37e7702e5ce449c1"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-ra/en:396a14ab206e2b44",
+      "text": "ri",
+      "enSourceHash": "396a14ab206e2b44"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-ra/en:3ac1ecbd2220c675",
+      "text": "re",
+      "enSourceHash": "3ac1ecbd2220c675"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-ra/en:7ef9ec0cf2c4faca",
+      "text": "ro",
+      "enSourceHash": "7ef9ec0cf2c4faca"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-ra/en:de7d1b721a1e0632",
+      "text": "i",
+      "enSourceHash": "de7d1b721a1e0632"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-ra/en:ed5ad332c1060437",
+      "text": "ru",
+      "enSourceHash": "ed5ad332c1060437"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-wa/en:0183e8d454c42f72",
+      "text": "hya",
+      "enSourceHash": "0183e8d454c42f72"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-wa/en:0bfe935e70c321c7",
+      "text": "u",
+      "enSourceHash": "0bfe935e70c321c7"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-wa/en:1b16b1df538ba12d",
+      "text": "n",
+      "enSourceHash": "1b16b1df538ba12d"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-wa/en:87b810070b7c7396",
+      "text": "wa",
+      "enSourceHash": "87b810070b7c7396"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-wa/en:a1d9890884c1b4b9",
+      "text": "so",
+      "enSourceHash": "a1d9890884c1b4b9"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-wa/en:a4d0ef23161b5b7c",
+      "text": "fu",
+      "enSourceHash": "a4d0ef23161b5b7c"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-wa/en:a691b6bc04f1996c",
+      "text": "nyu",
+      "enSourceHash": "a691b6bc04f1996c"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-wa/en:ca978112ca1bbdca",
+      "text": "a",
+      "enSourceHash": "ca978112ca1bbdca"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-wa/en:d2c404bd20ded1a3",
+      "text": "byu",
+      "enSourceHash": "d2c404bd20ded1a3"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-wa/en:ded9c2181fd7ea46",
+      "text": "shi",
+      "enSourceHash": "ded9c2181fd7ea46"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-wa/en:f8f26225fd1d7a1c",
+      "text": "wo",
+      "enSourceHash": "f8f26225fd1d7a1c"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/en:ab34e39f187d0cd4",
+      "text": "친구가 6 시에 온다",
+      "enSourceHash": "ab34e39f187d0cd4"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/en:ba3f533147d3f67f",
+      "text": "아침 8 시에 먹는다",
+      "enSourceHash": "ba3f533147d3f67f"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/en:baed831623943be3",
+      "text": "보다",
+      "enSourceHash": "baed831623943be3"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/en:bafd151a86f9a573",
+      "text": "내일",
+      "enSourceHash": "bafd151a86f9a573"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/en:ed5eb9a37e2d8231",
+      "text": "지금",
+      "enSourceHash": "ed5eb9a37e2d8231"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/ja:あした ごご みせに いく",
+      "text": "친구에게 말하세요: 내일 오후에 가게에 가",
+      "enSourceHash": "7cb594c4b91ce9b4"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/ja:いま しちじだ",
+      "text": "친구에게 말하세요: 지금 7 시야",
+      "enSourceHash": "63a349755bd90b95"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/ja:かさは ごじゅうえんです",
+      "text": "정중하게 말하세요: 우산은 50 엔이에요.",
+      "enSourceHash": "4fda9b640c931c23"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/ja:きんようびと どようびに あそぶ",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/ja:くじに みせに いく",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/ja:げつようびと かようびに はたらく",
+      "text": "친구에게 말하세요: 월요일과 화요일에 일해",
+      "enSourceHash": "4a6a7a56f427a0b6"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/ja:ごぜん はちじに たべる",
+      "text": "친구에게 말하세요: 아침 8 시에 먹어",
+      "enSourceHash": "cd71b82d8c0b7a0a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/ja:じゅぎょうは ごじはんだ",
+      "text": "친구에게 말하세요: 수업은 5 시 반이야",
+      "enSourceHash": "fe89ab6948fd0a79"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/ja:すいようびと もくようびに じゅぎょうが ある",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/ja:なんじに いく？",
+      "text": "친구에게 말하세요: 몇 시에 가?",
+      "enSourceHash": "999f7c066d175a38"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/ja:にちようびに かわに いく。あさっても いく",
+      "text": "친구에게 말하세요: 일요일에 강에 가. 모레에도 가",
+      "enSourceHash": "b05d98af2b160a4e"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/ja:ほんは よんじゅうえんだ",
+      "text": "친구에게 말하세요: 책은 40 엔이야",
+      "enSourceHash": "4b4ae053e95a5b92"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/ja:ろくじに ともだちが くる",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:18e951de8ee4a56d",
+      "text": "그건 미카의 가방이다",
+      "enSourceHash": "18e951de8ee4a56d"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:2702e498028cdc98",
+      "text": "어제 빵을 샀다",
+      "enSourceHash": "2702e498028cdc98"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:3ab56e7acf128a70",
+      "text": "어제 우유를 마셨다",
+      "enSourceHash": "3ab56e7acf128a70"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:42da9ccc5de5a92d",
+      "text": "어제 바다에 갔다",
+      "enSourceHash": "42da9ccc5de5a92d"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:4a69f19c8c264850",
+      "text": "바다",
+      "enSourceHash": "4a69f19c8c264850"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:544b26f8f88bf222",
+      "text": "복습 — 친구에게 말하는 과거",
+      "enSourceHash": "544b26f8f88bf222"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:5fe36e377a7e2137",
+      "text": "\"노래\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:6e3bf34066729e64",
+      "text": "\"바다\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "6e3bf34066729e64"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:7482d5802c3c2798",
+      "text": "사진",
+      "enSourceHash": "7482d5802c3c2798"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:8825e76530f87ff5",
+      "text": "우유",
+      "enSourceHash": "8825e76530f87ff5"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:9523d9fbe79bcf3e",
+      "text": "어제",
+      "enSourceHash": "9523d9fbe79bcf3e"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:985604c2b6024312",
+      "text": "빵",
+      "enSourceHash": "985604c2b6024312"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:a2cbc7db4eae5e2a",
+      "text": "어제 친구가 왔어요",
+      "enSourceHash": "a2cbc7db4eae5e2a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:aa913e1beb597820",
+      "text": "어제 수업은 4 시였어요",
+      "enSourceHash": "aa913e1beb597820"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:afc955a025c2ff2b",
+      "text": "어제 연못에서 놀았어요",
+      "enSourceHash": "afc955a025c2ff2b"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:c018019b6a8b01ab",
+      "text": "가방",
+      "enSourceHash": "c018019b6a8b01ab"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:ed5551b70a8f27e6",
+      "text": "어제 사진을 봤어요",
+      "enSourceHash": "ed5551b70a8f27e6"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/ja:きのう いけで あそんだ",
+      "text": "친구에게 말하세요: 어제 연못에서 놀았어",
+      "enSourceHash": "814dcffc21d2c4bf"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/ja:きのう うみに いった",
+      "text": "친구에게 말하세요: 어제 바다에 갔어",
+      "enSourceHash": "b597be7eaddd375a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/ja:きのう ぎゅうにゅうを のんだ",
+      "text": "친구에게 말하세요: 어제 우유를 마셨어",
+      "enSourceHash": "01896fa83f340895"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/ja:きのう しゃしんを みた",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/ja:きのう ともだちが きた",
+      "text": "친구에게 말하세요: 어제 친구가 왔어",
+      "enSourceHash": "f4b726648ddf68da"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/ja:きのう パンを かった",
+      "text": "친구에게 말하세요: 어제 빵을 샀어",
+      "enSourceHash": "5d7a9f880a27446f"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/ja:きのうの じゅぎょうは よじだった",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/ja:きのうは じゅうごえんだった",
+      "text": "친구에게 말하세요: 어제는 15 엔이었어",
+      "enSourceHash": "31136c4ea823676b"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/ja:それは ミカの かばんだった",
+      "text": "친구에게 말하세요: 그것은 미카의 가방이었어",
+      "enSourceHash": "80cabbd59f10c20a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/en:071452bd5425a8b0",
+      "text": "복습 — 시계, 달력, 그리고 과거",
+      "enSourceHash": "071452bd5425a8b0"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/en:15eaa75240aed625",
+      "text": "언제",
+      "enSourceHash": "15eaa75240aed625"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/en:16b41c3888ea5879",
+      "text": "매년 미카 가게에 가요",
+      "enSourceHash": "16b41c3888ea5879"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/en:36e11c186286bdb7",
+      "text": "오후",
+      "enSourceHash": "36e11c186286bdb7"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/en:5a7715b14a22aa25",
+      "text": "몇 시",
+      "enSourceHash": "5a7715b14a22aa25"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/en:61f299bcab3f2b61",
+      "text": "작년 미카 집에 갔어요",
+      "enSourceHash": "61f299bcab3f2b61"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/en:681acfc92a5a3b3c",
+      "text": "매년 미카 집에 가요",
+      "enSourceHash": "681acfc92a5a3b3c"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/en:7b455f2dd791ffcc",
+      "text": "오전",
+      "enSourceHash": "7b455f2dd791ffcc"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/en:9523d9fbe79bcf3e",
+      "text": "어제",
+      "enSourceHash": "9523d9fbe79bcf3e"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/en:bafd151a86f9a573",
+      "text": "내일",
+      "enSourceHash": "bafd151a86f9a573"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/en:d717d9cacf07bbff",
+      "text": "내일 미카 집에 갈 거예요",
+      "enSourceHash": "d717d9cacf07bbff"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:あした ごぜん くじに いく",
+      "text": "친구에게 말하세요: 내일 오전 9 시에 가",
+      "enSourceHash": "163d6be37eb86997"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:いつ うたを きいた？",
+      "text": "친구에게 말하세요: 언제 노래를 들었니?",
+      "enSourceHash": "5f1d7412ca49ff57"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:いつ みせに いきましたか",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:きのう くじに いきました",
+      "text": "정중하게 말하세요: 어제 9 시에 갔어요.",
+      "enSourceHash": "d079058281fb8443"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:きのう たなかさんが きた",
+      "text": "친구에게 말하세요: 어제 다나카가 왔어",
+      "enSourceHash": "ec5e50ecd98ad0c9"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:きのう ミカの いえで あそんだ",
+      "text": "친구에게 말하세요: 어제 미카 집에서 놀았어",
+      "enSourceHash": "1271cbb58bc81f56"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:きょねんは がくせいだった",
+      "text": "친구에게 말하세요: 작년은 학생이었어",
+      "enSourceHash": "126bb7e71758f4d2"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:ことし うたを おぼえる",
+      "text": "친구에게 말하세요: 올해 노래를 외워",
+      "enSourceHash": "c0ab95f9e01354af"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:ごご さんじに かいものを した",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:じゅぎょうは しちじでした",
+      "text": "정중하게 말하세요: 수업은 7 시였어요.",
+      "enSourceHash": "deab773a0bedf2fb"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:せんげつ はじめて うみに いった",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:せんしゅう とけいを かった",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:らいげつ アメリカに いきます",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:パンは ななじゅうえんでした",
+      "text": "정중하게 말하세요: 빵은 70 엔이었어요.",
+      "enSourceHash": "c02a049238f69313"
+    },
+    {
+      "anchor": "m11/story:ja-m11-last-saturday/en:12dc7f68dc0d392c",
+      "text": "지난 토요일",
+      "enSourceHash": "12dc7f68dc0d392c"
+    },
+    {
+      "anchor": "m11/story:ja-m11-last-saturday/en:6c353431a9f28f49",
+      "text": "주말을 돌아보다.",
+      "enSourceHash": "6c353431a9f28f49"
+    },
+    {
+      "anchor": "m11/story:ja-m11-last-saturday/ja:あさ、コーヒーを のんだ。",
+      "text": "아침에 커피를 마셨다.",
+      "enSourceHash": "e7b8ed6428c5d4a8"
+    },
+    {
+      "anchor": "m11/story:ja-m11-last-saturday/ja:うたも きいた。",
+      "text": "노래도 들었다.",
+      "enSourceHash": "fdee4b6a61189d96"
+    },
+    {
+      "anchor": "m11/story:ja-m11-last-saturday/ja:せんしゅうの どようびは やすみだった。",
+      "text": "지난 토요일은 휴일이었다.",
+      "enSourceHash": "642201238b01c641"
+    },
+    {
+      "anchor": "m11/story:ja-m11-last-saturday/ja:ともだちと よく あそんだ。",
+      "text": "친구와 자주 놀았다.",
+      "enSourceHash": "2fa1fdd6b8352b09"
+    },
+    {
+      "anchor": "m11/story:ja-m11-last-saturday/ja:ともだちと テレビを みた。",
+      "text": "친구와 텔레비전을 봤다.",
+      "enSourceHash": "08279f4779c28b00"
+    },
+    {
+      "anchor": "m11/story:ja-m11-last-saturday/ja:ひるごはんを たべた。",
+      "text": "점심을 먹었다.",
+      "enSourceHash": "c664fabbc7cb60c8"
+    },
+    {
+      "anchor": "m11/story:ja-m11-last-saturday/ja:みせで ぼうしを かった。",
+      "text": "가게에서 모자를 샀다.",
+      "enSourceHash": "fda6265f5a232f4b"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/en:042c01bc431e5339",
+      "text": "역에서 두 시",
+      "enSourceHash": "042c01bc431e5339"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/en:b001771c8ae098df",
+      "text": "오지 않는 친구와 한 번 더 읽은 편지.",
+      "enSourceHash": "b001771c8ae098df"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/gloss:けど",
+      "text": "하지만, 비록",
+      "enSourceHash": "6a16848ebec13abc"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/gloss:まつ",
+      "text": "기다리다",
+      "enSourceHash": "838a69724224dd76"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:あさっては げつようびだ。げつようびは がっこうだ。",
+      "text": "모레는 월요일이다. 월요일은 학교다.",
+      "enSourceHash": "45359527ab56dbef"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:あした、また えきに いく。",
+      "text": "내일, 다시 역에 간다.",
+      "enSourceHash": "4029974587efacb6"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:あしたは にちようびだ。",
+      "text": "내일은 일요일이다.",
+      "enSourceHash": "8c6a9d2e09f8a16f"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:きょうは どようびだ。",
+      "text": "오늘은 토요일이다.",
+      "enSourceHash": "5ff7a62e3b3c1289"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:きょうは ほんとうに たいへんだった。",
+      "text": "오늘은 정말 힘들었다.",
+      "enSourceHash": "87dbc328aef7fb50"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:きょうは ユミと こうえんで あそぶ。",
+      "text": "오늘은 유미와 공원에서 논다.",
+      "enSourceHash": "9a2fc6ff39f44ae4"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:けど、ユミは いない。",
+      "text": "하지만 유미는 없다.",
+      "enSourceHash": "19f6099e4754addf"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:さんじ。ユミは まだ こない。",
+      "text": "3 시. 유미는 아직 오지 않는다.",
+      "enSourceHash": "43cfde82d6625fa4"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:てがみは にちようびだ。",
+      "text": "편지는 일요일이다.",
+      "enSourceHash": "daf1042b5c4af5d3"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:ぼくは えきで ユミを まつ。",
+      "text": "나는 역에서 유미를 기다린다.",
+      "enSourceHash": "780ab220c1d1d7a4"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:ぼくは にじに えきに いく。",
+      "text": "나는 2 시에 역에 간다.",
+      "enSourceHash": "b8f26d9a6ec47cb3"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:ぼくは わかった。",
+      "text": "나는 알았다.",
+      "enSourceHash": "1e5243b8a551cf77"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:ぼくは コーヒーを のむ。",
+      "text": "나는 커피를 마신다.",
+      "enSourceHash": "530e22772813de4f"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:ぼくは ニュースを みる。",
+      "text": "나는 뉴스를 본다.",
+      "enSourceHash": "f3609019bf9184c7"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:ぼくは ユミの てがみを もういちど みる。",
+      "text": "나는 유미의 편지를 한 번 더 본다.",
+      "enSourceHash": "69109e9254da5cb8"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:よじ。ユミは まだ こない。",
+      "text": "4 시. 유미는 아직 오지 않는다.",
+      "enSourceHash": "1c4c48e408ac933f"
+    },
+    {
+      "anchor": "m11/symbolIntro:ラ/hint",
+      "text": "한국어 ㄹ을 가볍게 굴린 '라' 소리",
+      "enSourceHash": "1edb56c1608ae5fd"
+    },
+    {
+      "anchor": "m11/symbolIntro:リ/hint",
+      "text": "한국어 ㄹ을 가볍게 굴린 '리' 소리",
+      "enSourceHash": "e6f33d6136cf2836"
+    },
+    {
+      "anchor": "m11/symbolIntro:ル/hint",
+      "text": "한국어 '루'와 비슷한 소리",
+      "enSourceHash": "0fa35e51ec000d3b"
+    },
+    {
+      "anchor": "m11/symbolIntro:レ/hint",
+      "text": "한국어 '레'와 비슷한 소리",
+      "enSourceHash": "dcebcdd27e3f3433"
+    },
+    {
+      "anchor": "m11/symbolIntro:ロ/hint",
+      "text": "한국어 '로'와 비슷한 소리",
+      "enSourceHash": "6c88ccbe34e64389"
+    },
+    {
+      "anchor": "m11/symbolIntro:ワ/hint",
+      "text": "한국어 '와'와 비슷한 소리",
+      "enSourceHash": "9e910808343bc4e6"
+    },
+    {
+      "anchor": "m11/symbolIntro:ン/hint",
+      "text": "코로 윙윙거리는 소리",
+      "enSourceHash": "adde7c66c3c48a80"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:865b6e032d4f1be4",
+      "text": "아침 10 시에 친구와 산책했어요",
+      "enSourceHash": "865b6e032d4f1be4"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:9523d9fbe79bcf3e",
+      "text": "어제",
+      "enSourceHash": "9523d9fbe79bcf3e"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:aee5e3d541babf4d",
+      "text": "어제는 60 엔이었는데 조금 비싸요",
+      "enSourceHash": "aee5e3d541babf4d"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/ja:いつ ミカの みせで パンを かいましたか",
+      "text": "정중하게 말하세요: 언제 미카의 가게에서 빵을 샀어요?",
+      "enSourceHash": "8a461e0c97fe1e99"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/ja:きのう ごご ごじに ミカの みせで パンを かいました",
+      "text": "정중하게 말하세요: 어제 오후 5 시에 미카의 가게에서 빵을 샀어요",
+      "enSourceHash": "f19b4096aaf6b397"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/ja:きのう ごご さんじに ミカの いえに いった",
+      "text": "친구에게 말하세요: 어제 오후 3 시에 미카의 집에 갔어",
+      "enSourceHash": "e88073a502404417"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/ja:きのう ともだちと ごはんを たべました",
+      "text": "정중하게 말하세요: 어제 친구와 밥을 먹었어요",
+      "enSourceHash": "e8d816475528ba50"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/ja:きのうは ろくじゅうえんだった。ちょっと たかい",
+      "text": "친구에게 말하세요: 어제는 60 엔이었어. 조금 비싸",
+      "enSourceHash": "447d7c3ec041c4f3"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/ja:たなかさんの じゅぎょうは ごぜん くじでした",
+      "text": "정중하게 말하세요: 다나카 씨의 수업은 오전 9 시였어요",
+      "enSourceHash": "37ba395ff1d88824"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/ja:なんじに きた？",
+      "text": "친구에게 말하세요: 몇 시에 왔어?",
+      "enSourceHash": "0bc8e4c4dcf80d4e"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-ra/en:a7187294bd6b3646",
+      "text": "가타카나를 소리에 맞게 맞추세요",
+      "enSourceHash": "a7187294bd6b3646"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-wa/en:a7187294bd6b3646",
+      "text": "가타카나를 소리에 맞게 맞추세요",
+      "enSourceHash": "a7187294bd6b3646"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/en:0889113e04d3203f",
+      "text": "수업",
+      "enSourceHash": "0889113e04d3203f"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/en:240b06df0bd7e2cc",
+      "text": "복습 — 숫자와 시계",
+      "enSourceHash": "240b06df0bd7e2cc"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/en:36e11c186286bdb7",
+      "text": "오후",
+      "enSourceHash": "36e11c186286bdb7"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/en:7b455f2dd791ffcc",
+      "text": "오전",
+      "enSourceHash": "7b455f2dd791ffcc"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/en:8702a85ac86379a4",
+      "text": "9 시에 가게에 갈 거예요",
+      "enSourceHash": "8702a85ac86379a4"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/en:9db01334e3e4fa0e",
+      "text": "내일 오후에 가게에 갈 거예요",
+      "enSourceHash": "9db01334e3e4fa0e"
+    }
+  ]
+}

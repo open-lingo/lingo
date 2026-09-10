@@ -1,0 +1,3273 @@
+{
+  "schema": 1,
+  "moduleId": "m11",
+  "lang": "ja",
+  "generatedAt": "2026-09-10",
+  "entryCount": 544,
+  "entries": [
+    {
+      "anchor": "m11/atom:あさって/gloss",
+      "en": "day after tomorrow",
+      "enSourceHash": "31b8db7a756e6e81",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:あした/gloss",
+      "en": "tomorrow",
+      "enSourceHash": "bafd151a86f9a573",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:あそんだ/gloss",
+      "en": "played (play, past)",
+      "enSourceHash": "a321e7399aaa0463",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:いちじ/gloss",
+      "en": "one o'clock",
+      "enSourceHash": "db0348489d672b1c",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:いった/gloss",
+      "en": "went (travel, past)",
+      "enSourceHash": "606a370e23986d90",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:いつ/gloss",
+      "en": "when",
+      "enSourceHash": "15eaa75240aed625",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:おぼえる/gloss",
+      "en": "to memorise, to learn",
+      "enSourceHash": "f2bb67445975a794",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:かった/gloss",
+      "en": "bought (buy, past)",
+      "enSourceHash": "72a0f2ffe0c4979d",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:かようび/gloss",
+      "en": "Tuesday",
+      "enSourceHash": "7d8af1de1262f150",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:きいた/gloss",
+      "en": "heard (hear, past)",
+      "enSourceHash": "57524274dbaf4dc8",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:きのう/gloss",
+      "en": "yesterday",
+      "enSourceHash": "9523d9fbe79bcf3e",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:きょねん/gloss",
+      "en": "last year",
+      "enSourceHash": "2793b49185e3d647",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:きんようび/gloss",
+      "en": "Friday",
+      "enSourceHash": "e21f3f372a46d4be",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:くじ/gloss",
+      "en": "nine o'clock",
+      "enSourceHash": "f8a208ee1c5dd036",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:くる/gloss",
+      "en": "to come",
+      "enSourceHash": "227c7024de86036c",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:げつようび/gloss",
+      "en": "Monday",
+      "enSourceHash": "6a00dfc1dc867e84",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:ことし/gloss",
+      "en": "this year",
+      "enSourceHash": "ee7ca167efc7a256",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:ごご/gloss",
+      "en": "afternoon",
+      "enSourceHash": "c8e07c1ac268eae0",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:ごじ/gloss",
+      "en": "five o'clock",
+      "enSourceHash": "2497160bf4bc33f4",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:ごじゅう/gloss",
+      "en": "fifty",
+      "enSourceHash": "f8d807ee15e983f8",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:ごぜん/gloss",
+      "en": "morning",
+      "enSourceHash": "c23b31a0179b550f",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:さんじ/gloss",
+      "en": "three o'clock",
+      "enSourceHash": "f829e9d4e350218f",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:さんじゅう/gloss",
+      "en": "thirty",
+      "enSourceHash": "aca5fb59db69e5df",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:しちじ/gloss",
+      "en": "seven o'clock",
+      "enSourceHash": "9eabf78ee51d7ae9",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:じゅうじ/gloss",
+      "en": "ten o'clock",
+      "enSourceHash": "f91d34bb04e24296",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:すいようび/gloss",
+      "en": "Wednesday",
+      "enSourceHash": "c0a6cc829cd08735",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:する/gloss",
+      "en": "to do, to make",
+      "enSourceHash": "bfb2a7ebb89f9546",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:せんげつ/gloss",
+      "en": "last month",
+      "enSourceHash": "683173e8384f3dac",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:せんしゅう/gloss",
+      "en": "last week",
+      "enSourceHash": "a5393742a9cb9285",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:たべた/gloss",
+      "en": "ate (eat, past)",
+      "enSourceHash": "94dd31fbd844a2f8",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:だった/gloss",
+      "en": "was, were (plain)",
+      "enSourceHash": "9178c7a2b456ba55",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:だった/shortGloss",
+      "en": "was (plain)",
+      "enSourceHash": "9fd798bf6c3a439f",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:でした/gloss",
+      "en": "was, were (polite)",
+      "enSourceHash": "28f02eb168e9f96e",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:でした/shortGloss",
+      "en": "was (polite)",
+      "enSourceHash": "ea3c7bffb331787f",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:どようび/gloss",
+      "en": "Saturday",
+      "enSourceHash": "dbe35c7363c2f7ec",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:ななじゅう/gloss",
+      "en": "seventy",
+      "enSourceHash": "ab0e4b1a7839571e",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:なんじ/gloss",
+      "en": "what time",
+      "enSourceHash": "5a7715b14a22aa25",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:にじ/gloss",
+      "en": "two o'clock",
+      "enSourceHash": "e8d75b3899d329b2",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:にちようび/gloss",
+      "en": "Sunday",
+      "enSourceHash": "873fef760e5d001b",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:のんだ/gloss",
+      "en": "drank (drink, past)",
+      "enSourceHash": "6def9b958f1f1bbc",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:はじめて/gloss",
+      "en": "for the first time",
+      "enSourceHash": "ed968eb1e1012c9e",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:はちじ/gloss",
+      "en": "eight o'clock",
+      "enSourceHash": "9e1675b33d23def1",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:はん/gloss",
+      "en": "half",
+      "enSourceHash": "a11ae06469c63740",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:まいとし/gloss",
+      "en": "every year",
+      "enSourceHash": "3a8420baae026b3a",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:みた/gloss",
+      "en": "watched (watch, past)",
+      "enSourceHash": "68ac5fe3c547b28d",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:もくようび/gloss",
+      "en": "Thursday",
+      "enSourceHash": "fc2662062ffdef96",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:よじ/gloss",
+      "en": "four o'clock",
+      "enSourceHash": "4642222c58d1ae38",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:よんじゅう/gloss",
+      "en": "forty",
+      "enSourceHash": "9cee2304bd633d42",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:らいげつ/gloss",
+      "en": "next month",
+      "enSourceHash": "9e15dcbeb49a6a1c",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:ろくじ/gloss",
+      "en": "six o'clock",
+      "enSourceHash": "cb329e0fb13bb2b1",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:ろくじゅう/gloss",
+      "en": "sixty",
+      "enSourceHash": "df41164e151227b3",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:わかった/gloss",
+      "en": "understood (past)",
+      "enSourceHash": "4d509409473d7d44",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:トイレ/gloss",
+      "en": "toilet",
+      "enSourceHash": "74f7fd1cf08b145c",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/atom:ビール/gloss",
+      "en": "beer",
+      "enSourceHash": "1d8b4cf854cd42f4",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m11/gp:counter-ji/ex:いちじ にじ さんじ よじ",
+      "en": "one, two, three, four o'clock",
+      "enSourceHash": "d670258fd3bedec1",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:counter-ji/ex:くじ じゅうじ",
+      "en": "nine, ten o'clock",
+      "enSourceHash": "549ed06d4056caa9",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:counter-ji/ex:ごじ ろくじ しちじ はちじ",
+      "en": "five, six, seven, eight o'clock",
+      "enSourceHash": "e1a2cc1aa7f7690d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:counter-ji/ex:よんじ",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:desu-past/ex:きのうは じゅぎょうだった。",
+      "en": "Yesterday was a class day.",
+      "enSourceHash": "02b5f962d6066e2e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:desu-past/ex:それは ねこた。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:desu-past/ex:それは ねこだった。",
+      "en": "That was a cat.",
+      "enSourceHash": "f72a9737ec14b907",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:itsu-when/ex:いつ いく？",
+      "en": "When are you going?",
+      "enSourceHash": "ce7e7f09784feb35",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:itsu-when/ex:いつ たべる？",
+      "en": "When do you eat?",
+      "enSourceHash": "7cb256b8e1233169",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:itsu-when/ex:いつに いく？",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:masu-past/ex:ごはんを たべました。",
+      "en": "I ate rice. (polite)",
+      "enSourceHash": "addcdc1f35a27ab5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:masu-past/ex:みずを のみました。",
+      "en": "I drank water. (polite)",
+      "enSourceHash": "4cfd6c6bf643af01",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:masu-past/ex:みずを のみますた。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:masu-past/ex:みせに いきました。",
+      "en": "I went to the shop. (polite)",
+      "enSourceHash": "fe044ac035a093b7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:ni-time-or-nothing/ex:あさって はたらく。",
+      "en": "I work the day after tomorrow — relative, so nothing",
+      "enSourceHash": "c51adb2cc5e0b5af",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:ni-time-or-nothing/ex:あした いく。",
+      "en": "I'll go tomorrow — relative, so nothing",
+      "enSourceHash": "59e3f9f8f9c2aeac",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:ni-time-or-nothing/ex:あしたに いく。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:ni-time/ex:くじに たべる。",
+      "en": "I eat at nine.",
+      "enSourceHash": "a4f637aa4d2fdb84",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:ni-time/ex:さんじ いく。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:ni-time/ex:さんじに いく。",
+      "en": "I'll go at three.",
+      "enSourceHash": "63b10d48c9e08e2a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:numbers-11-99/ex:いちじゅう",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:numbers-11-99/ex:さんじゅう",
+      "en": "thirty",
+      "enSourceHash": "aca5fb59db69e5df",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:numbers-11-99/ex:じゅうご",
+      "en": "fifteen",
+      "enSourceHash": "c463967e5708cab7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:numbers-11-99/ex:ろくじゅうご",
+      "en": "sixty-five",
+      "enSourceHash": "4a8692d5b7e3e44b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:ta-form/ex:いいた。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:ta-form/ex:いった。",
+      "en": "I went.",
+      "enSourceHash": "46d135a1ec59b811",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:ta-form/ex:うたを きいた。",
+      "en": "I listened to a song.",
+      "enSourceHash": "f58fe81501e6e568",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:ta-form/ex:きのう した。",
+      "en": "I did it yesterday.",
+      "enSourceHash": "d8cb07acfad158d6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:ta-form/ex:ごはんを たべた。",
+      "en": "I ate rice.",
+      "enSourceHash": "aac9fe220d60097f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:ta-form/ex:みずを のみた。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:ta-form/ex:みずを のんだ。",
+      "en": "I drank water.",
+      "enSourceHash": "b2170c9f36354cff",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:ta-form/ex:みせに いった。",
+      "en": "I went to the shop.",
+      "enSourceHash": "bb3a2aea80af253e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:time-spans/ex:きょねん にほんに いった。",
+      "en": "I went to Japan last year.",
+      "enSourceHash": "a3d61f15e0a4cc60",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:time-spans/ex:きょねんに いった。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:time-spans/ex:ことし らいげつ まいとし",
+      "en": "this year, next month, every year",
+      "enSourceHash": "f2de5bed896e2e7d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:time-spans/ex:せんしゅう せんげつ きょねん",
+      "en": "last week, last month, last year",
+      "enSourceHash": "23a3b275990927e7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:time-spans/ex:はじめて すしを たべた。",
+      "en": "I ate sushi for the first time.",
+      "enSourceHash": "136ad33a701dc9b5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:time-spans/ex:らいげつ アメリカに いく。",
+      "en": "I'm going to America next month.",
+      "enSourceHash": "84a360de8badb806",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:youbi-days/ex:あさって うみに いく。",
+      "en": "I'll go to the sea the day after tomorrow.",
+      "enSourceHash": "55bf3781ace9d75c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:youbi-days/ex:あさってに いく。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:youbi-days/ex:きんようび どようび にちようび",
+      "en": "Friday, Saturday, Sunday",
+      "enSourceHash": "3d9d66741ea21deb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:youbi-days/ex:げつようび かようび すいようび もくようび",
+      "en": "Monday, Tuesday, Wednesday, Thursday",
+      "enSourceHash": "ad82a38f7aac1d2a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:youbi-days/ex:げつようびと かようびに はたらく。",
+      "en": "I work on Monday and Tuesday.",
+      "enSourceHash": "ff39a1f9f460078c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/gp:youbi-days/ex:どようびに みせに いく。",
+      "en": "I'll go to the shop on Saturday.",
+      "enSourceHash": "9c19c0facbc6be61",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/en:0ee1f457703d763f",
+      "en": "Pick the word for \"voice\"",
+      "enSourceHash": "0ee1f457703d763f",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/en:13809668fb436386",
+      "en": "pencil",
+      "enSourceHash": "13809668fb436386",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/en:18e1dd392168f601",
+      "en": "hat",
+      "enSourceHash": "18e1dd392168f601",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/en:266550babbb7bd39",
+      "en": "glasses",
+      "enSourceHash": "266550babbb7bd39",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/en:2974744982f08b20",
+      "en": "umbrella",
+      "enSourceHash": "2974744982f08b20",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/en:5fe36e377a7e2137",
+      "en": "Pick the word for \"song\"",
+      "enSourceHash": "5fe36e377a7e2137",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/en:6e3bf34066729e64",
+      "en": "Pick the word for \"sea\"",
+      "enSourceHash": "6e3bf34066729e64",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/en:727ea55fc8ee1dc7",
+      "en": "Pick the word for \"pond\"",
+      "enSourceHash": "727ea55fc8ee1dc7",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/en:7c30506f7df1fa47",
+      "en": "Eleven to ninety-nine",
+      "enSourceHash": "7c30506f7df1fa47",
+      "kind": "title"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/en:985604c2b6024312",
+      "en": "bread",
+      "enSourceHash": "985604c2b6024312",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/ja:かさは さんじゅうえんだ",
+      "en": "Say to a friend: The umbrella is thirty yen",
+      "enSourceHash": "2192c37a90f1b432",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/ja:これは ごじゅうえんです",
+      "en": "Say politely: This is fifty yen",
+      "enSourceHash": "ee87ba8062478068",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/ja:ほんは じゅうごえんだ",
+      "en": "Say to a friend: The book is fifteen yen",
+      "enSourceHash": "ff4b3d072a31b5c5",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/ja:ぼうしは よんじゅうえんだ",
+      "en": "Say to a friend: The hat is forty yen",
+      "enSourceHash": "a3c048b6aeec0c3a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/ja:めがねは ななじゅうえんだ",
+      "en": "Say to a friend: The glasses are seventy yen",
+      "enSourceHash": "9ce5c347fbc2a4fd",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/ja:パンは じゅうはちえんだ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-1/ja:ミカの かさは ろくじゅうごえんだ",
+      "en": "Say to a friend: Mika's umbrella is sixty-five yen",
+      "enSourceHash": "cda7735b4732e51f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:0889113e04d3203f",
+      "en": "class",
+      "enSourceHash": "0889113e04d3203f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:1180412af43d7860",
+      "en": "shopping",
+      "enSourceHash": "1180412af43d7860",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:19aca36c1a99717e",
+      "en": "I listen to a song on Thursday",
+      "enSourceHash": "19aca36c1a99717e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:1f77bd4dda3ddfa7",
+      "en": "I'll do the shopping on Thursday",
+      "enSourceHash": "1f77bd4dda3ddfa7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:21e6618af36a1542",
+      "en": "I'm going to the sea on Tuesday",
+      "enSourceHash": "21e6618af36a1542",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:2e7ef23674b70aab",
+      "en": "I'm going to the sea on Sunday",
+      "enSourceHash": "2e7ef23674b70aab",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:3ded6282905dd6f4",
+      "en": "A friend is coming on Sunday",
+      "enSourceHash": "3ded6282905dd6f4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:3f4a85d2176935dc",
+      "en": "I'll do the shopping on Wednesday",
+      "enSourceHash": "3f4a85d2176935dc",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:43004f0900a014a0",
+      "en": "I play with a friend on Thursday",
+      "enSourceHash": "43004f0900a014a0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:4a69f19c8c264850",
+      "en": "sea",
+      "enSourceHash": "4a69f19c8c264850",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:52d9ee2dc02b6b19",
+      "en": "I listen to a song on Monday",
+      "enSourceHash": "52d9ee2dc02b6b19",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:57b5a5b5640e022a",
+      "en": "I'll do the shopping on Tuesday",
+      "enSourceHash": "57b5a5b5640e022a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:5b20ac7488b4226e",
+      "en": "I'm going to the sea on Saturday",
+      "enSourceHash": "5b20ac7488b4226e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:6752f21c7ddd3568",
+      "en": "I'm going to the sea on Monday",
+      "enSourceHash": "6752f21c7ddd3568",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:9e0aad617a6a7d1a",
+      "en": "I buy a song on Thursday",
+      "enSourceHash": "9e0aad617a6a7d1a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:acd98df829f26895",
+      "en": "A friend is coming on Friday",
+      "enSourceHash": "acd98df829f26895",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:b4043d6cb6638ba5",
+      "en": "I'll do the shopping on Saturday",
+      "enSourceHash": "b4043d6cb6638ba5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:cdd3e0980a44c7fb",
+      "en": "A friend is coming on Tuesday",
+      "enSourceHash": "cdd3e0980a44c7fb",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:cde48537ca2c2808",
+      "en": "friend",
+      "enSourceHash": "cde48537ca2c2808",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/en:e38cb3f1934c6b35",
+      "en": "A friend is coming on Wednesday",
+      "enSourceHash": "e38cb3f1934c6b35",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/ja:あさって みせに いく",
+      "en": "Say to a friend: I'm going to the shop the day after tomorrow",
+      "enSourceHash": "5c3e8271f02f85e5",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/ja:かようびに ともだちが くる",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/ja:きんようびに はたらく",
+      "en": "Say to a friend: I work on Friday",
+      "enSourceHash": "6e3edb9b5614647d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/ja:げつようびに じゅぎょうが あります",
+      "en": "Say politely: There's class on Monday",
+      "enSourceHash": "235e38369eea9baa",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/ja:すいようびに かいものを する",
+      "en": "Say to a friend: I'll do the shopping on Wednesday",
+      "enSourceHash": "ad33bef4b205aa63",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/ja:どようびに さんぽを する",
+      "en": "Say to a friend: I'll take a walk on Saturday",
+      "enSourceHash": "d64c536a653c3d2e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/ja:にちようびに うみに いく",
+      "en": "Say to a friend: I'm going to the sea on Sunday",
+      "enSourceHash": "0df830aa8b5e20af",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-10/ja:にちようびに ミカの いえで ごはんを たべる",
+      "en": "Say to a friend: I'm eating at Mika's house on Sunday",
+      "enSourceHash": "0e70ed0f274bdeed",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:1bc5fb618b173709",
+      "en": "I sang a Japanese song for the first time",
+      "enSourceHash": "1bc5fb618b173709",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:3df1098b5070910e",
+      "en": "I listened to a song last week",
+      "enSourceHash": "3df1098b5070910e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:44e2e15f6a685cd4",
+      "en": "I'll remember Mika's name",
+      "enSourceHash": "44e2e15f6a685cd4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:4a69f19c8c264850",
+      "en": "sea",
+      "enSourceHash": "4a69f19c8c264850",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:5d106b3f5f793f67",
+      "en": "I ate sushi for the first time",
+      "enSourceHash": "5d106b3f5f793f67",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:63f75c890b05405e",
+      "en": "song",
+      "enSourceHash": "63f75c890b05405e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:647294383b2cbc24",
+      "en": "Japan",
+      "enSourceHash": "647294383b2cbc24",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:670bd9ced0c6bc3f",
+      "en": "Sushi",
+      "enSourceHash": "670bd9ced0c6bc3f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:730b9a29484d4e49",
+      "en": "I listened to a Japanese song last week",
+      "enSourceHash": "730b9a29484d4e49",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:798b516157629c3a",
+      "en": "I memorised a Japanese song",
+      "enSourceHash": "798b516157629c3a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:7fe900c0f8bca07b",
+      "en": "I went to the sea last year",
+      "enSourceHash": "7fe900c0f8bca07b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:92c50b79b7f3b855",
+      "en": "This year, last year — the wider calendar",
+      "enSourceHash": "92c50b79b7f3b855",
+      "kind": "title"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:adad3cc4ff830962",
+      "en": "I listened to a Japanese song for the first time",
+      "enSourceHash": "adad3cc4ff830962",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:baed831623943be3",
+      "en": "watch",
+      "enSourceHash": "baed831623943be3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:c018019b6a8b01ab",
+      "en": "bag",
+      "enSourceHash": "c018019b6a8b01ab",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/ja:きょねん うみに いった",
+      "en": "Say to a friend: I went to the sea last year",
+      "enSourceHash": "ba2fa34f63747bff",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/ja:きょねん はじめて にほんに いきました",
+      "en": "Say politely: Last year I went to Japan for the first time",
+      "enSourceHash": "aae3b1f45e326f95",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/ja:ことし にほんの うたを おぼえる",
+      "en": "Say to a friend: I'll learn a Japanese song this year",
+      "enSourceHash": "47cce254e0e0ed39",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/ja:せんげつ とけいを かいました",
+      "en": "Say politely: I bought a watch last month",
+      "enSourceHash": "236dd33a5f8839a4",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/ja:せんしゅう うたを きいた",
+      "en": "Say to a friend: I listened to a song last week",
+      "enSourceHash": "c7c8e8d200971ef0",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/ja:はじめて すしを たべた",
+      "en": "Say to a friend: I ate sushi for the first time",
+      "enSourceHash": "97d1c34cdae1a75d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/ja:まいとし うみに いく",
+      "en": "Say to a friend: I go to the sea every year",
+      "enSourceHash": "da5d78b21cd503fa",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/ja:らいげつ にほんに いく",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-11/ja:ミカの なまえを おぼえる",
+      "en": "Say to a friend: I'll remember Mika's name",
+      "enSourceHash": "ffc1b8e36a193a52",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:0ee1f457703d763f",
+      "en": "Pick the word for \"voice\"",
+      "enSourceHash": "0ee1f457703d763f",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:1f77bd4dda3ddfa7",
+      "en": "I'll do the shopping on Thursday",
+      "enSourceHash": "1f77bd4dda3ddfa7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:3ded6282905dd6f4",
+      "en": "A friend is coming on Sunday",
+      "enSourceHash": "3ded6282905dd6f4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:4642222c58d1ae38",
+      "en": "four o'clock",
+      "enSourceHash": "4642222c58d1ae38",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:57b5a5b5640e022a",
+      "en": "I'll do the shopping on Tuesday",
+      "enSourceHash": "57b5a5b5640e022a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:5fe36e377a7e2137",
+      "en": "Pick the word for \"song\"",
+      "enSourceHash": "5fe36e377a7e2137",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:6a00dfc1dc867e84",
+      "en": "Monday",
+      "enSourceHash": "6a00dfc1dc867e84",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:6e3bf34066729e64",
+      "en": "Pick the word for \"sea\"",
+      "enSourceHash": "6e3bf34066729e64",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:727ea55fc8ee1dc7",
+      "en": "Pick the word for \"pond\"",
+      "enSourceHash": "727ea55fc8ee1dc7",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:784c6de95e589bb0",
+      "en": "A friend is coming today",
+      "enSourceHash": "784c6de95e589bb0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:873fef760e5d001b",
+      "en": "Sunday",
+      "enSourceHash": "873fef760e5d001b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:a2cbc7db4eae5e2a",
+      "en": "A friend came yesterday",
+      "enSourceHash": "a2cbc7db4eae5e2a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:bafd151a86f9a573",
+      "en": "tomorrow",
+      "enSourceHash": "bafd151a86f9a573",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:c0ba8abb159fd501",
+      "en": "I'll do the shopping tomorrow",
+      "enSourceHash": "c0ba8abb159fd501",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:cdd3e0980a44c7fb",
+      "en": "A friend is coming on Tuesday",
+      "enSourceHash": "cdd3e0980a44c7fb",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:d9ded20b702c8a57",
+      "en": "I'll do the shopping this week",
+      "enSourceHash": "d9ded20b702c8a57",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:dbe35c7363c2f7ec",
+      "en": "Saturday",
+      "enSourceHash": "dbe35c7363c2f7ec",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/en:f829e9d4e350218f",
+      "en": "three o'clock",
+      "enSourceHash": "f829e9d4e350218f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/ja:あさって はたらく",
+      "en": "Say to a friend: I work the day after tomorrow",
+      "enSourceHash": "4ef545454936c4cf",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/ja:あした いく",
+      "en": "Say to a friend: I'll go tomorrow",
+      "enSourceHash": "666623767910c736",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/ja:あした よじに ミカの いえで ごはんを たべる",
+      "en": "Say to a friend: I'm eating at Mika's house at four tomorrow",
+      "enSourceHash": "79eb42121ee981b6",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/ja:げつようびに はたらく",
+      "en": "Say to a friend: I work on Monday",
+      "enSourceHash": "3fb98d3e8e946d80",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/ja:さんじに いく",
+      "en": "Say to a friend: I'll go at three",
+      "enSourceHash": "13a7268020392a6b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/ja:せんしゅう うみに いった",
+      "en": "Say to a friend: I went to the sea last week",
+      "enSourceHash": "24a4f123c22434bd",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-12/ja:にちようびに うみに いった",
+      "en": "Say to a friend: I went to the sea on Sunday",
+      "enSourceHash": "a848e5748be7de13",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/en:0889113e04d3203f",
+      "en": "class",
+      "enSourceHash": "0889113e04d3203f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/en:0ee1f457703d763f",
+      "en": "Pick the word for \"voice\"",
+      "enSourceHash": "0ee1f457703d763f",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/en:1057a9604e04b274",
+      "en": "teacher",
+      "enSourceHash": "1057a9604e04b274",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/en:336074805fc85398",
+      "en": "time",
+      "enSourceHash": "336074805fc85398",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/en:5fe36e377a7e2137",
+      "en": "Pick the word for \"song\"",
+      "enSourceHash": "5fe36e377a7e2137",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/en:6e3bf34066729e64",
+      "en": "Pick the word for \"sea\"",
+      "enSourceHash": "6e3bf34066729e64",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/en:727ea55fc8ee1dc7",
+      "en": "Pick the word for \"pond\"",
+      "enSourceHash": "727ea55fc8ee1dc7",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/en:baed831623943be3",
+      "en": "watch",
+      "enSourceHash": "baed831623943be3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/en:e0f4f767ac88a930",
+      "en": "today",
+      "enSourceHash": "e0f4f767ac88a930",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/en:ed5eb9a37e2d8231",
+      "en": "now",
+      "enSourceHash": "ed5eb9a37e2d8231",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/ja:いま ごじはんだ",
+      "en": "Say to a friend: It's half past five now",
+      "enSourceHash": "6a9bebcb70f18195",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/ja:いま さんじだ",
+      "en": "Say to a friend: It's three o'clock now",
+      "enSourceHash": "5cf1fc309a20571f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/ja:いま しちじはんだ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/ja:いま なんじですか",
+      "en": "Say politely: What time is it now",
+      "enSourceHash": "292fe53d134e61e9",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/ja:いま よじだ",
+      "en": "Say to a friend: It's four o'clock now",
+      "enSourceHash": "63fa60c25728f257",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/ja:じゅぎょうは くじだ",
+      "en": "Say to a friend: Class is at nine",
+      "enSourceHash": "1375be2c5f858bdc",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/ja:とけいは じゅうじだ",
+      "en": "Say to a friend: The clock says ten",
+      "enSourceHash": "f423a47eab784274",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-2/ja:ミカの じゅぎょうは いちじはんだ",
+      "en": "Say to a friend: Mika's class is at half past one",
+      "enSourceHash": "b54f367a9009a938",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:0889113e04d3203f",
+      "en": "class",
+      "enSourceHash": "0889113e04d3203f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:4307795bae762dde",
+      "en": "I'm going to the shop at nine today",
+      "enSourceHash": "4307795bae762dde",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:4bdf40d0d1ae3611",
+      "en": "rice/meal",
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:5fe36e377a7e2137",
+      "en": "Pick the word for \"song\"",
+      "enSourceHash": "5fe36e377a7e2137",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:604ff0779743bca4",
+      "en": "I'm going to Mika's house at four tomorrow afternoon",
+      "enSourceHash": "604ff0779743bca4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:6869f15f846261f7",
+      "en": "I'm going at three in the afternoon",
+      "enSourceHash": "6869f15f846261f7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:6e3bf34066729e64",
+      "en": "Pick the word for \"sea\"",
+      "enSourceHash": "6e3bf34066729e64",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:81135e9c16e5c4d3",
+      "en": "I'm playing with a friend at six in the afternoon",
+      "enSourceHash": "81135e9c16e5c4d3",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:cde48537ca2c2808",
+      "en": "friend",
+      "enSourceHash": "cde48537ca2c2808",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:e2dee2fa362c0867",
+      "en": "There's class tomorrow",
+      "enSourceHash": "e2dee2fa362c0867",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:e32885ea7260fd92",
+      "en": "I'm going at five tomorrow",
+      "enSourceHash": "e32885ea7260fd92",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:ed5eb9a37e2d8231",
+      "en": "now",
+      "enSourceHash": "ed5eb9a37e2d8231",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:fbecca3910f25213",
+      "en": "I eat at seven in the morning",
+      "enSourceHash": "fbecca3910f25213",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/en:fd285a8c22234365",
+      "en": "I eat rice at eight in the morning",
+      "enSourceHash": "fd285a8c22234365",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/ja:あした ごご よじに ミカの いえに いく",
+      "en": "Say to a friend: I'm going to Mika's house at four tomorrow afternoon",
+      "enSourceHash": "6ea372fbbcc019ae",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/ja:あした ごじに いく",
+      "en": "Say to a friend: I'm going at five tomorrow",
+      "enSourceHash": "12e9d8164f19a0ee",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/ja:あした じゅぎょうが ある",
+      "en": "Say to a friend: There's class tomorrow",
+      "enSourceHash": "ae76c9af8b4af296",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/ja:きょう くじに みせに いく",
+      "en": "Say to a friend: I'm going to the shop at nine today",
+      "enSourceHash": "5aacfea808ba7b90",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/ja:ごご さんじに いく",
+      "en": "Say to a friend: I'm going at three in the afternoon",
+      "enSourceHash": "e207c060ea46a7f3",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/ja:ごご ろくじに ともだちと あそぶ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/ja:ごぜん しちじに たべる",
+      "en": "Say to a friend: I eat at seven in the morning",
+      "enSourceHash": "7e55ff80ba797f2d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-3/ja:ごぜん はちじに ごはんを たべる",
+      "en": "Say to a friend: I eat rice at eight in the morning",
+      "enSourceHash": "b04503a6ff291f4a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:0f4168490e38b844",
+      "en": "water",
+      "enSourceHash": "0f4168490e38b844",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:184c2f3d201a0ee7",
+      "en": "I drank water yesterday",
+      "enSourceHash": "184c2f3d201a0ee7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:2bf9d70578e2f9dc",
+      "en": "I looked at a book yesterday",
+      "enSourceHash": "2bf9d70578e2f9dc",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:434d4be01d3406aa",
+      "en": "I bought a photo yesterday",
+      "enSourceHash": "434d4be01d3406aa",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:4bdf40d0d1ae3611",
+      "en": "rice/meal",
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:5f5a8ed8f139be6d",
+      "en": "river",
+      "enSourceHash": "5f5a8ed8f139be6d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:5fe36e377a7e2137",
+      "en": "Pick the word for \"song\"",
+      "enSourceHash": "5fe36e377a7e2137",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:63f75c890b05405e",
+      "en": "song",
+      "enSourceHash": "63f75c890b05405e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:7ce884c3b6e6d195",
+      "en": "I ate at home yesterday",
+      "enSourceHash": "7ce884c3b6e6d195",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:86d08c33259bb9fd",
+      "en": "I ate rice yesterday",
+      "enSourceHash": "86d08c33259bb9fd",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:985604c2b6024312",
+      "en": "bread",
+      "enSourceHash": "985604c2b6024312",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:b9047266a5e3d4fa",
+      "en": "I listened to a song yesterday",
+      "enSourceHash": "b9047266a5e3d4fa",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/en:ed5551b70a8f27e6",
+      "en": "I looked at a photo yesterday",
+      "enSourceHash": "ed5551b70a8f27e6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/ja:きのう うたを きいた",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/ja:きのう かわで あそんだ",
+      "en": "Say to a friend: I played at the river yesterday",
+      "enSourceHash": "4076f8a783f3f279",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/ja:きのう ごはんを たべた",
+      "en": "Say to a friend: I ate rice yesterday",
+      "enSourceHash": "7a408431154cd060",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/ja:きのう ほんを みた",
+      "en": "Say to a friend: I looked at a book yesterday",
+      "enSourceHash": "600463fc925c10a1",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/ja:きのう みずを のんだ",
+      "en": "Say to a friend: I drank water yesterday",
+      "enSourceHash": "ed5f2378960acaf4",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/ja:きのう パンを かった",
+      "en": "Say to a friend: I bought bread yesterday",
+      "enSourceHash": "5d7a9f880a27446f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-4/ja:きのう ミカの いえで ごはんを たべた",
+      "en": "Say to a friend: I ate rice at Mika's house yesterday",
+      "enSourceHash": "ab89fcbedfa082e7",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:066efce65a87dad6",
+      "en": "I went to the shop yesterday",
+      "enSourceHash": "066efce65a87dad6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:1180412af43d7860",
+      "en": "shopping",
+      "enSourceHash": "1180412af43d7860",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:42da9ccc5de5a92d",
+      "en": "I went to the sea yesterday",
+      "enSourceHash": "42da9ccc5de5a92d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:4a69f19c8c264850",
+      "en": "sea",
+      "enSourceHash": "4a69f19c8c264850",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:562c8b1ad77036ef",
+      "en": "Mika came yesterday",
+      "enSourceHash": "562c8b1ad77036ef",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:5c377efcd6e4a539",
+      "en": "I did the shopping yesterday",
+      "enSourceHash": "5c377efcd6e4a539",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:5fe36e377a7e2137",
+      "en": "Pick the word for \"song\"",
+      "enSourceHash": "5fe36e377a7e2137",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:66ccf31801ad9206",
+      "en": "I recognised Mika's voice",
+      "enSourceHash": "66ccf31801ad9206",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:699c07ac8f00e58a",
+      "en": "I took a walk yesterday",
+      "enSourceHash": "699c07ac8f00e58a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:6e3bf34066729e64",
+      "en": "Pick the word for \"sea\"",
+      "enSourceHash": "6e3bf34066729e64",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:7a6c4fac6c5cd720",
+      "en": "walk",
+      "enSourceHash": "7a6c4fac6c5cd720",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:a1f4b76ae0ae4e51",
+      "en": "Ken came to the house yesterday",
+      "enSourceHash": "a1f4b76ae0ae4e51",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:c57d7e92019708b6",
+      "en": "voice",
+      "enSourceHash": "c57d7e92019708b6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/en:e219bcb41cec2300",
+      "en": "Tanaka came to Mika's house yesterday",
+      "enSourceHash": "e219bcb41cec2300",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/ja:きのう かいものを した",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/ja:きのう さんぽを した",
+      "en": "Say to a friend: I took a walk yesterday",
+      "enSourceHash": "b0c6dfb5d59f26c9",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/ja:きのう たなかさんが ミカの いえに きた",
+      "en": "Say to a friend: Tanaka came to Mika's house yesterday",
+      "enSourceHash": "f599427993ac3d63",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/ja:きのう みせに いった",
+      "en": "Say to a friend: I went to the shop yesterday",
+      "enSourceHash": "f1ebca100de69c97",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/ja:きのう ケンが いえに きた",
+      "en": "Say to a friend: Ken came to the house yesterday",
+      "enSourceHash": "5052a2ee4ce52943",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/ja:きのう ミカが きた",
+      "en": "Say to a friend: Mika came yesterday",
+      "enSourceHash": "6dd235bde8215b25",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-5/ja:ミカの こえが わかった",
+      "en": "Say to a friend: I recognised Mika's voice",
+      "enSourceHash": "6dc6a8fa520ab5c4",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:061cfb8d19dbcb1d",
+      "en": "That over there was my hat",
+      "enSourceHash": "061cfb8d19dbcb1d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:11318376352e31f8",
+      "en": "That was Mika's umbrella",
+      "enSourceHash": "11318376352e31f8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:18e1dd392168f601",
+      "en": "hat",
+      "enSourceHash": "18e1dd392168f601",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:2974744982f08b20",
+      "en": "umbrella",
+      "enSourceHash": "2974744982f08b20",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:2b2961a431b23c90",
+      "en": "car",
+      "enSourceHash": "2b2961a431b23c90",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:5fe36e377a7e2137",
+      "en": "Pick the word for \"song\"",
+      "enSourceHash": "5fe36e377a7e2137",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:6e3bf34066729e64",
+      "en": "Pick the word for \"sea\"",
+      "enSourceHash": "6e3bf34066729e64",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:8347289e87d153d1",
+      "en": "This was Mika's book",
+      "enSourceHash": "8347289e87d153d1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:8e7c75a8443a0910",
+      "en": "Yesterday it was cheap bread",
+      "enSourceHash": "8e7c75a8443a0910",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:a6bd53a764d9ff4d",
+      "en": "Yesterday's class was at half past five",
+      "enSourceHash": "a6bd53a764d9ff4d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:baed831623943be3",
+      "en": "watch",
+      "enSourceHash": "baed831623943be3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:c018019b6a8b01ab",
+      "en": "bag",
+      "enSourceHash": "c018019b6a8b01ab",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/ja:あれは ぼくの ぼうしだった",
+      "en": "Say to a friend: That over there was my hat",
+      "enSourceHash": "47771a1e2355f148",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/ja:きのうの じゅぎょうは ごじはんだった",
+      "en": "Say to a friend: Yesterday's class was at half past five",
+      "enSourceHash": "a581998d3daab75e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/ja:きのうは さんじゅうえんだった",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/ja:きのうは やすい パンだった",
+      "en": "Say to a friend: Yesterday it was cheap bread",
+      "enSourceHash": "b4c1715775ac4925",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/ja:これは ミカの ほんだった",
+      "en": "Say to a friend: This was Mika's book",
+      "enSourceHash": "7a0baa928e0890a5",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/ja:それは ミカの かさだった",
+      "en": "Say to a friend: That was Mika's umbrella",
+      "enSourceHash": "59dc7cd563cb2a34",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/ja:たなかさんの くるまだった",
+      "en": "Say to a friend: It was Tanaka's car",
+      "enSourceHash": "6f04be9a5e3befdf",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-6/ja:とけいは ごじだった",
+      "en": "Say to a friend: The clock said five",
+      "enSourceHash": "cc77bb16bb9effa8",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/en:066efce65a87dad6",
+      "en": "I went to the shop yesterday",
+      "enSourceHash": "066efce65a87dad6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/en:1180412af43d7860",
+      "en": "shopping",
+      "enSourceHash": "1180412af43d7860",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/en:1ba2f27e343d8e30",
+      "en": "I drank tea yesterday",
+      "enSourceHash": "1ba2f27e343d8e30",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/en:4bdf40d0d1ae3611",
+      "en": "rice/meal",
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/en:5c377efcd6e4a539",
+      "en": "I did the shopping yesterday",
+      "enSourceHash": "5c377efcd6e4a539",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/en:5fe36e377a7e2137",
+      "en": "Pick the word for \"song\"",
+      "enSourceHash": "5fe36e377a7e2137",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/en:86d08c33259bb9fd",
+      "en": "I ate rice yesterday",
+      "enSourceHash": "86d08c33259bb9fd",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/en:9523d9fbe79bcf3e",
+      "en": "yesterday",
+      "enSourceHash": "9523d9fbe79bcf3e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/en:985604c2b6024312",
+      "en": "bread",
+      "enSourceHash": "985604c2b6024312",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/ja:きのう かいものを しました",
+      "en": "Say politely: I did the shopping yesterday",
+      "enSourceHash": "d4bf38b770d69802",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/ja:きのう ごはんを たべました",
+      "en": "Say politely: I ate rice yesterday",
+      "enSourceHash": "0c854bffd45e809f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/ja:きのう ちゃを のみました",
+      "en": "Say politely: I drank tea yesterday",
+      "enSourceHash": "fc7dab74e292644e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/ja:きのう みせに いきました",
+      "en": "Say politely: I went to the shop yesterday",
+      "enSourceHash": "af9ef1072a022e56",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/ja:きのう パンを かいました",
+      "en": "Say politely: I bought bread yesterday",
+      "enSourceHash": "0854c8167365b56f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/ja:きのう ミカの みせで パンを かいました",
+      "en": "Say politely: I bought bread at Mika's shop yesterday",
+      "enSourceHash": "bcfde9f3e83c1787",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-7/ja:くじに いきました",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/en:0889113e04d3203f",
+      "en": "class",
+      "enSourceHash": "0889113e04d3203f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/en:0ee1f457703d763f",
+      "en": "Pick the word for \"voice\"",
+      "enSourceHash": "0ee1f457703d763f",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/en:18e1dd392168f601",
+      "en": "hat",
+      "enSourceHash": "18e1dd392168f601",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/en:2974744982f08b20",
+      "en": "umbrella",
+      "enSourceHash": "2974744982f08b20",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/en:2b2961a431b23c90",
+      "en": "car",
+      "enSourceHash": "2b2961a431b23c90",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/en:5fe36e377a7e2137",
+      "en": "Pick the word for \"song\"",
+      "enSourceHash": "5fe36e377a7e2137",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/en:6e3bf34066729e64",
+      "en": "Pick the word for \"sea\"",
+      "enSourceHash": "6e3bf34066729e64",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/en:727ea55fc8ee1dc7",
+      "en": "Pick the word for \"pond\"",
+      "enSourceHash": "727ea55fc8ee1dc7",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/en:baed831623943be3",
+      "en": "watch",
+      "enSourceHash": "baed831623943be3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/ja:きのうは じゅぎょうでした",
+      "en": "Say politely: Yesterday was a class day",
+      "enSourceHash": "c31eaec04e36f87b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/ja:じゅぎょうは くじでした",
+      "en": "Say politely: Class was at nine",
+      "enSourceHash": "410b0868b24355a9",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/ja:それは ミカの かさでした",
+      "en": "Say politely: That was Mika's umbrella",
+      "enSourceHash": "c8f3203b8ef37d43",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/ja:たなかさんの くるまでした",
+      "en": "Say politely: It was Tanaka's car",
+      "enSourceHash": "c9c11267cf6b9511",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/ja:たなかさんの ぼうしは ろくじゅうえんでした",
+      "en": "Say politely: Tanaka's hat was sixty yen",
+      "enSourceHash": "e153b5b243487bfd",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/ja:とけいは ろくじでした",
+      "en": "Say politely: The clock said six",
+      "enSourceHash": "86c0cfbadc41afb4",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/ja:ひゃくえんでした",
+      "en": "Say politely: It was a hundred yen",
+      "enSourceHash": "9c4b39b1de82d9ce",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-8/ja:パンは じゅうごえんでした",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:078dd53bbd1b3b97",
+      "en": "When did you go to Mika's house",
+      "enSourceHash": "078dd53bbd1b3b97",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:36e11c186286bdb7",
+      "en": "p.m.",
+      "enSourceHash": "36e11c186286bdb7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:389cc4f75335a198",
+      "en": "When did you go to the shop",
+      "enSourceHash": "389cc4f75335a198",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:4a69f19c8c264850",
+      "en": "sea",
+      "enSourceHash": "4a69f19c8c264850",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:55038d2e12e4cafe",
+      "en": "I'm going at nine in the morning",
+      "enSourceHash": "55038d2e12e4cafe",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:5fe36e377a7e2137",
+      "en": "Pick the word for \"song\"",
+      "enSourceHash": "5fe36e377a7e2137",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:6e3bf34066729e64",
+      "en": "Pick the word for \"sea\"",
+      "enSourceHash": "6e3bf34066729e64",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:7b455f2dd791ffcc",
+      "en": "a.m.",
+      "enSourceHash": "7b455f2dd791ffcc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:9523d9fbe79bcf3e",
+      "en": "yesterday",
+      "enSourceHash": "9523d9fbe79bcf3e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:9db01334e3e4fa0e",
+      "en": "I'm going to the shop tomorrow afternoon",
+      "enSourceHash": "9db01334e3e4fa0e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:b49e050db744985f",
+      "en": "I went yesterday afternoon",
+      "enSourceHash": "b49e050db744985f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:bafd151a86f9a573",
+      "en": "tomorrow",
+      "enSourceHash": "bafd151a86f9a573",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:d17d5f1ed38855dc",
+      "en": "When did you eat",
+      "enSourceHash": "d17d5f1ed38855dc",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/ja:いつ いきましたか",
+      "en": "Say politely: When did you go",
+      "enSourceHash": "3aee1b2acba3d696",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/ja:いつ ごはんを たべた？",
+      "en": "Say to a friend: When did you eat",
+      "enSourceHash": "0f72d31d4a19ccab",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/ja:いつ みせに いった？",
+      "en": "Say to a friend: When did you go to the shop",
+      "enSourceHash": "c4fde527de945c3f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/ja:いつ ミカの いえに いきましたか",
+      "en": "Say politely: When did you go to Mika's house",
+      "enSourceHash": "59b86dbcce92398c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/ja:きのう ごご いった",
+      "en": "Say to a friend: I went yesterday afternoon",
+      "enSourceHash": "56bb8654e1c138ff",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-9/ja:ごぜん くじに いく",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:0d8c2745f518846e",
+      "en": "Tanaka's class was at nine in the morning",
+      "enSourceHash": "0d8c2745f518846e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:15eaa75240aed625",
+      "en": "when",
+      "enSourceHash": "15eaa75240aed625",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:1af298f030251a66",
+      "en": "When did you buy bread at Mika's shop",
+      "enSourceHash": "1af298f030251a66",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:1e8ca6ee2384f279",
+      "en": "Tanaka went at four in the afternoon",
+      "enSourceHash": "1e8ca6ee2384f279",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:25393f7ee990ecb6",
+      "en": "I went to Mika's house at three yesterday afternoon",
+      "enSourceHash": "25393f7ee990ecb6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:36e11c186286bdb7",
+      "en": "p.m.",
+      "enSourceHash": "36e11c186286bdb7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:3d0c1a0bdf7da1d6",
+      "en": "I ate with a friend yesterday",
+      "enSourceHash": "3d0c1a0bdf7da1d6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:4d83eae65eff9664",
+      "en": "Challenge — put it all together",
+      "enSourceHash": "4d83eae65eff9664",
+      "kind": "title"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:5a7715b14a22aa25",
+      "en": "what time",
+      "enSourceHash": "5a7715b14a22aa25",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:5fe36e377a7e2137",
+      "en": "Pick the word for \"song\"",
+      "enSourceHash": "5fe36e377a7e2137",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:6e3bf34066729e64",
+      "en": "Pick the word for \"sea\"",
+      "enSourceHash": "6e3bf34066729e64",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:79cc4b03c3048b3c",
+      "en": "I bought bread at Mika's shop at five yesterday afternoon",
+      "enSourceHash": "79cc4b03c3048b3c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:7b455f2dd791ffcc",
+      "en": "a.m.",
+      "enSourceHash": "7b455f2dd791ffcc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:865b6e032d4f1be4",
+      "en": "I took a walk with a friend at ten in the morning",
+      "enSourceHash": "865b6e032d4f1be4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:9523d9fbe79bcf3e",
+      "en": "yesterday",
+      "enSourceHash": "9523d9fbe79bcf3e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:aee5e3d541babf4d",
+      "en": "Yesterday it was sixty yen — a bit pricey",
+      "enSourceHash": "aee5e3d541babf4d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/ja:いつ ミカの みせで パンを かいましたか",
+      "en": "Say politely: When did you buy bread at Mika's shop",
+      "enSourceHash": "8a461e0c97fe1e99",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/ja:きのう ごご ごじに ミカの みせで パンを かいました",
+      "en": "Say politely: I bought bread at Mika's shop at five yesterday afternoon",
+      "enSourceHash": "f19b4096aaf6b397",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/ja:きのう ごご さんじに ミカの いえに いった",
+      "en": "Say to a friend: I went to Mika's house at three yesterday afternoon",
+      "enSourceHash": "e88073a502404417",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/ja:きのう ともだちと ごはんを たべました",
+      "en": "Say politely: I ate with a friend yesterday",
+      "enSourceHash": "e8d816475528ba50",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/ja:きのうは ろくじゅうえんだった。ちょっと たかい",
+      "en": "Say to a friend: Yesterday it was sixty yen — a bit pricey",
+      "enSourceHash": "447d7c3ec041c4f3",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/ja:ごぜん じゅうじに ともだちと さんぽを した",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/ja:たなかさんの じゅぎょうは ごぜん くじでした",
+      "en": "Say politely: Tanaka's class was at nine in the morning",
+      "enSourceHash": "37ba395ff1d88824",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/ja:たなかさんは ごご よじに いきました",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-challenge/ja:なんじに きた？",
+      "en": "Say to a friend: What time did you come",
+      "enSourceHash": "0bc8e4c4dcf80d4e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-ra/en:37e7702e5ce449c1",
+      "en": "ra",
+      "enSourceHash": "37e7702e5ce449c1",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-ra/en:396a14ab206e2b44",
+      "en": "ri",
+      "enSourceHash": "396a14ab206e2b44",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-ra/en:3ac1ecbd2220c675",
+      "en": "re",
+      "enSourceHash": "3ac1ecbd2220c675",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-ra/en:7ef9ec0cf2c4faca",
+      "en": "ro",
+      "enSourceHash": "7ef9ec0cf2c4faca",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-ra/en:a7187294bd6b3646",
+      "en": "Match the katakana to their sounds",
+      "enSourceHash": "a7187294bd6b3646",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-ra/en:de7d1b721a1e0632",
+      "en": "i",
+      "enSourceHash": "de7d1b721a1e0632",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-ra/en:ed5ad332c1060437",
+      "en": "ru",
+      "enSourceHash": "ed5ad332c1060437",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-wa/en:0183e8d454c42f72",
+      "en": "hya",
+      "enSourceHash": "0183e8d454c42f72",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-wa/en:0bfe935e70c321c7",
+      "en": "u",
+      "enSourceHash": "0bfe935e70c321c7",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-wa/en:1b16b1df538ba12d",
+      "en": "n",
+      "enSourceHash": "1b16b1df538ba12d",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-wa/en:87b810070b7c7396",
+      "en": "wa",
+      "enSourceHash": "87b810070b7c7396",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-wa/en:a1d9890884c1b4b9",
+      "en": "so",
+      "enSourceHash": "a1d9890884c1b4b9",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-wa/en:a4d0ef23161b5b7c",
+      "en": "fu",
+      "enSourceHash": "a4d0ef23161b5b7c",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-wa/en:a691b6bc04f1996c",
+      "en": "nyu",
+      "enSourceHash": "a691b6bc04f1996c",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-wa/en:a7187294bd6b3646",
+      "en": "Match the katakana to their sounds",
+      "enSourceHash": "a7187294bd6b3646",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-wa/en:ca978112ca1bbdca",
+      "en": "a",
+      "enSourceHash": "ca978112ca1bbdca",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-wa/en:d2c404bd20ded1a3",
+      "en": "byu",
+      "enSourceHash": "d2c404bd20ded1a3",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-wa/en:ded9c2181fd7ea46",
+      "en": "shi",
+      "enSourceHash": "ded9c2181fd7ea46",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-kata-wa/en:f8f26225fd1d7a1c",
+      "en": "wo",
+      "enSourceHash": "f8f26225fd1d7a1c",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/en:0889113e04d3203f",
+      "en": "class",
+      "enSourceHash": "0889113e04d3203f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/en:240b06df0bd7e2cc",
+      "en": "Review — numbers and the clock",
+      "enSourceHash": "240b06df0bd7e2cc",
+      "kind": "title"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/en:36e11c186286bdb7",
+      "en": "p.m.",
+      "enSourceHash": "36e11c186286bdb7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/en:7b455f2dd791ffcc",
+      "en": "a.m.",
+      "enSourceHash": "7b455f2dd791ffcc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/en:8702a85ac86379a4",
+      "en": "I'm going to the shop at nine",
+      "enSourceHash": "8702a85ac86379a4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/en:9db01334e3e4fa0e",
+      "en": "I'm going to the shop tomorrow afternoon",
+      "enSourceHash": "9db01334e3e4fa0e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/en:ab34e39f187d0cd4",
+      "en": "A friend is coming at six",
+      "enSourceHash": "ab34e39f187d0cd4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/en:ba3f533147d3f67f",
+      "en": "I eat at eight in the morning",
+      "enSourceHash": "ba3f533147d3f67f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/en:baed831623943be3",
+      "en": "watch",
+      "enSourceHash": "baed831623943be3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/en:bafd151a86f9a573",
+      "en": "tomorrow",
+      "enSourceHash": "bafd151a86f9a573",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/en:ed5eb9a37e2d8231",
+      "en": "now",
+      "enSourceHash": "ed5eb9a37e2d8231",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/ja:あした ごご みせに いく",
+      "en": "Say to a friend: I'm going to the shop tomorrow afternoon",
+      "enSourceHash": "7cb594c4b91ce9b4",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/ja:いま しちじだ",
+      "en": "Say to a friend: It's seven o'clock now",
+      "enSourceHash": "63a349755bd90b95",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/ja:かさは ごじゅうえんです",
+      "en": "Say politely: The umbrella is fifty yen",
+      "enSourceHash": "4fda9b640c931c23",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/ja:きんようびと どようびに あそぶ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/ja:くじに みせに いく",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/ja:げつようびと かようびに はたらく",
+      "en": "Say to a friend: I work on Monday and Tuesday",
+      "enSourceHash": "4a6a7a56f427a0b6",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/ja:ごぜん はちじに たべる",
+      "en": "Say to a friend: I eat at eight in the morning",
+      "enSourceHash": "cd71b82d8c0b7a0a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/ja:じゅぎょうは ごじはんだ",
+      "en": "Say to a friend: Class is at half past five",
+      "enSourceHash": "fe89ab6948fd0a79",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/ja:すいようびと もくようびに じゅぎょうが ある",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/ja:なんじに いく？",
+      "en": "Say to a friend: What time are you going",
+      "enSourceHash": "999f7c066d175a38",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/ja:にちようびに かわに いく。あさっても いく",
+      "en": "Say to a friend: I'm going to the river on Sunday — the day after tomorrow too",
+      "enSourceHash": "b05d98af2b160a4e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/ja:ほんは よんじゅうえんだ",
+      "en": "Say to a friend: The book is forty yen",
+      "enSourceHash": "4b4ae053e95a5b92",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-1/ja:ろくじに ともだちが くる",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:18e951de8ee4a56d",
+      "en": "That was Mika's bag",
+      "enSourceHash": "18e951de8ee4a56d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:2702e498028cdc98",
+      "en": "I bought bread yesterday",
+      "enSourceHash": "2702e498028cdc98",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:3ab56e7acf128a70",
+      "en": "I drank milk yesterday",
+      "enSourceHash": "3ab56e7acf128a70",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:42da9ccc5de5a92d",
+      "en": "I went to the sea yesterday",
+      "enSourceHash": "42da9ccc5de5a92d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:4a69f19c8c264850",
+      "en": "sea",
+      "enSourceHash": "4a69f19c8c264850",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:544b26f8f88bf222",
+      "en": "Review — the past you speak to friends",
+      "enSourceHash": "544b26f8f88bf222",
+      "kind": "title"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:5fe36e377a7e2137",
+      "en": "Pick the word for \"song\"",
+      "enSourceHash": "5fe36e377a7e2137",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:6e3bf34066729e64",
+      "en": "Pick the word for \"sea\"",
+      "enSourceHash": "6e3bf34066729e64",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:7482d5802c3c2798",
+      "en": "photograph",
+      "enSourceHash": "7482d5802c3c2798",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:8825e76530f87ff5",
+      "en": "milk",
+      "enSourceHash": "8825e76530f87ff5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:9523d9fbe79bcf3e",
+      "en": "yesterday",
+      "enSourceHash": "9523d9fbe79bcf3e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:985604c2b6024312",
+      "en": "bread",
+      "enSourceHash": "985604c2b6024312",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:a2cbc7db4eae5e2a",
+      "en": "A friend came yesterday",
+      "enSourceHash": "a2cbc7db4eae5e2a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:aa913e1beb597820",
+      "en": "Yesterday's class was at four",
+      "enSourceHash": "aa913e1beb597820",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:afc955a025c2ff2b",
+      "en": "I played at the pond yesterday",
+      "enSourceHash": "afc955a025c2ff2b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:c018019b6a8b01ab",
+      "en": "bag",
+      "enSourceHash": "c018019b6a8b01ab",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/en:ed5551b70a8f27e6",
+      "en": "I looked at a photo yesterday",
+      "enSourceHash": "ed5551b70a8f27e6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/ja:きのう いけで あそんだ",
+      "en": "Say to a friend: I played at the pond yesterday",
+      "enSourceHash": "814dcffc21d2c4bf",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/ja:きのう うみに いった",
+      "en": "Say to a friend: I went to the sea yesterday",
+      "enSourceHash": "b597be7eaddd375a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/ja:きのう ぎゅうにゅうを のんだ",
+      "en": "Say to a friend: I drank milk yesterday",
+      "enSourceHash": "01896fa83f340895",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/ja:きのう しゃしんを みた",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/ja:きのう ともだちが きた",
+      "en": "Say to a friend: A friend came yesterday",
+      "enSourceHash": "f4b726648ddf68da",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/ja:きのう パンを かった",
+      "en": "Say to a friend: I bought bread yesterday",
+      "enSourceHash": "5d7a9f880a27446f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/ja:きのうの じゅぎょうは よじだった",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/ja:きのうは じゅうごえんだった",
+      "en": "Say to a friend: Yesterday it was fifteen yen",
+      "enSourceHash": "31136c4ea823676b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-2/ja:それは ミカの かばんだった",
+      "en": "Say to a friend: That was Mika's bag",
+      "enSourceHash": "80cabbd59f10c20a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/en:071452bd5425a8b0",
+      "en": "Review — clock, calendar and past",
+      "enSourceHash": "071452bd5425a8b0",
+      "kind": "title"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/en:15eaa75240aed625",
+      "en": "when",
+      "enSourceHash": "15eaa75240aed625",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/en:16b41c3888ea5879",
+      "en": "I go to Mika's shop every year",
+      "enSourceHash": "16b41c3888ea5879",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/en:36e11c186286bdb7",
+      "en": "p.m.",
+      "enSourceHash": "36e11c186286bdb7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/en:5a7715b14a22aa25",
+      "en": "what time",
+      "enSourceHash": "5a7715b14a22aa25",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/en:61f299bcab3f2b61",
+      "en": "I went to Mika's house last year",
+      "enSourceHash": "61f299bcab3f2b61",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/en:681acfc92a5a3b3c",
+      "en": "I go to Mika's house every year",
+      "enSourceHash": "681acfc92a5a3b3c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/en:7b455f2dd791ffcc",
+      "en": "a.m.",
+      "enSourceHash": "7b455f2dd791ffcc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/en:9523d9fbe79bcf3e",
+      "en": "yesterday",
+      "enSourceHash": "9523d9fbe79bcf3e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/en:bafd151a86f9a573",
+      "en": "tomorrow",
+      "enSourceHash": "bafd151a86f9a573",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/en:d717d9cacf07bbff",
+      "en": "I'm going to Mika's house tomorrow",
+      "enSourceHash": "d717d9cacf07bbff",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:あした ごぜん くじに いく",
+      "en": "Say to a friend: I'm going at nine tomorrow morning",
+      "enSourceHash": "163d6be37eb86997",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:いつ うたを きいた？",
+      "en": "Say to a friend: When did you listen to the song",
+      "enSourceHash": "5f1d7412ca49ff57",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:いつ みせに いきましたか",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:きのう くじに いきました",
+      "en": "Say politely: I went at nine yesterday",
+      "enSourceHash": "d079058281fb8443",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:きのう たなかさんが きた",
+      "en": "Say to a friend: Tanaka came yesterday",
+      "enSourceHash": "ec5e50ecd98ad0c9",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:きのう ミカの いえで あそんだ",
+      "en": "Say to a friend: I played at Mika's house yesterday",
+      "enSourceHash": "1271cbb58bc81f56",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:きょねんは がくせいだった",
+      "en": "Say to a friend: Last year I was a student",
+      "enSourceHash": "126bb7e71758f4d2",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:ことし うたを おぼえる",
+      "en": "Say to a friend: I'll learn a song this year",
+      "enSourceHash": "c0ab95f9e01354af",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:ごご さんじに かいものを した",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:じゅぎょうは しちじでした",
+      "en": "Say politely: Class was at seven",
+      "enSourceHash": "deab773a0bedf2fb",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:せんげつ はじめて うみに いった",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:せんしゅう とけいを かった",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:らいげつ アメリカに いきます",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/ja-m11-neo-review-3/ja:パンは ななじゅうえんでした",
+      "en": "Say politely: The bread was seventy yen",
+      "enSourceHash": "c02a049238f69313",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m11/story:ja-m11-last-saturday/en:12dc7f68dc0d392c",
+      "en": "Last Saturday",
+      "enSourceHash": "12dc7f68dc0d392c",
+      "kind": "title"
+    },
+    {
+      "anchor": "m11/story:ja-m11-last-saturday/en:6c353431a9f28f49",
+      "en": "Looking back on the weekend.",
+      "enSourceHash": "6c353431a9f28f49",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m11/story:ja-m11-last-saturday/ja:あさ、コーヒーを のんだ。",
+      "en": "In the morning I drank coffee.",
+      "enSourceHash": "e7b8ed6428c5d4a8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/story:ja-m11-last-saturday/ja:うたも きいた。",
+      "en": "I listened to music too.",
+      "enSourceHash": "fdee4b6a61189d96",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/story:ja-m11-last-saturday/ja:せんしゅうの どようびは やすみだった。",
+      "en": "Last Saturday was a day off.",
+      "enSourceHash": "642201238b01c641",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/story:ja-m11-last-saturday/ja:ともだちと よく あそんだ。",
+      "en": "I had a lot of fun with my friend.",
+      "enSourceHash": "2fa1fdd6b8352b09",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/story:ja-m11-last-saturday/ja:ともだちと テレビを みた。",
+      "en": "I watched TV with a friend.",
+      "enSourceHash": "08279f4779c28b00",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/story:ja-m11-last-saturday/ja:ひるごはんを たべた。",
+      "en": "I ate lunch.",
+      "enSourceHash": "c664fabbc7cb60c8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/story:ja-m11-last-saturday/ja:みせで ぼうしを かった。",
+      "en": "I bought a hat at the shop.",
+      "enSourceHash": "fda6265f5a232f4b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/en:042c01bc431e5339",
+      "en": "Two o'clock at the station",
+      "enSourceHash": "042c01bc431e5339",
+      "kind": "title"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/en:b001771c8ae098df",
+      "en": "A friend who never comes, and a letter read one more time.",
+      "enSourceHash": "b001771c8ae098df",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/gloss:けど",
+      "en": "but, although",
+      "enSourceHash": "6a16848ebec13abc",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/gloss:まつ",
+      "en": "to wait",
+      "enSourceHash": "838a69724224dd76",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:あさっては げつようびだ。げつようびは がっこうだ。",
+      "en": "The day after is Monday, and Monday is school.",
+      "enSourceHash": "45359527ab56dbef",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:あした、また えきに いく。",
+      "en": "Tomorrow I'll come to the station again.",
+      "enSourceHash": "4029974587efacb6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:あしたは にちようびだ。",
+      "en": "Tomorrow is Sunday.",
+      "enSourceHash": "8c6a9d2e09f8a16f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:きょうは どようびだ。",
+      "en": "Today is Saturday.",
+      "enSourceHash": "5ff7a62e3b3c1289",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:きょうは ほんとうに たいへんだった。",
+      "en": "Today really was something.",
+      "enSourceHash": "87dbc328aef7fb50",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:きょうは ユミと こうえんで あそぶ。",
+      "en": "Today Yumi and I are spending the day at the park.",
+      "enSourceHash": "9a2fc6ff39f44ae4",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:けど、ユミは いない。",
+      "en": "But Yumi isn't there.",
+      "enSourceHash": "19f6099e4754addf",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:さんじ。ユミは まだ こない。",
+      "en": "Three o'clock. Yumi still doesn't come.",
+      "enSourceHash": "43cfde82d6625fa4",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:てがみは にちようびだ。",
+      "en": "The letter says Sunday.",
+      "enSourceHash": "daf1042b5c4af5d3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:ぼくは えきで ユミを まつ。",
+      "en": "I wait for Yumi at the station.",
+      "enSourceHash": "780ab220c1d1d7a4",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:ぼくは にじに えきに いく。",
+      "en": "I go to the station at two.",
+      "enSourceHash": "b8f26d9a6ec47cb3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:ぼくは わかった。",
+      "en": "I understood.",
+      "enSourceHash": "1e5243b8a551cf77",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:ぼくは コーヒーを のむ。",
+      "en": "I drink a coffee.",
+      "enSourceHash": "530e22772813de4f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:ぼくは ニュースを みる。",
+      "en": "I watch the news.",
+      "enSourceHash": "f3609019bf9184c7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:ぼくは ユミの てがみを もういちど みる。",
+      "en": "I look at Yumi's letter one more time.",
+      "enSourceHash": "69109e9254da5cb8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/story:ja-m11-two-oclock-at-the-station/ja:よじ。ユミは まだ こない。",
+      "en": "Four o'clock. Yumi still doesn't come.",
+      "enSourceHash": "1c4c48e408ac933f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m11/symbolIntro:ラ/hint",
+      "en": "tap the roof of your mouth — between 'r' and 'l'",
+      "enSourceHash": "1edb56c1608ae5fd",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m11/symbolIntro:リ/hint",
+      "en": "tapped 'r' + ee",
+      "enSourceHash": "e6f33d6136cf2836",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m11/symbolIntro:ル/hint",
+      "en": "tapped 'r' + oo",
+      "enSourceHash": "0fa35e51ec000d3b",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m11/symbolIntro:レ/hint",
+      "en": "tapped 'r' + e",
+      "enSourceHash": "dcebcdd27e3f3433",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m11/symbolIntro:ロ/hint",
+      "en": "tapped 'r' + o",
+      "enSourceHash": "6c88ccbe34e64389",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m11/symbolIntro:ワ/hint",
+      "en": "like 'wa' in 'water'",
+      "enSourceHash": "9e910808343bc4e6",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m11/symbolIntro:ン/hint",
+      "en": "hum through your nose",
+      "enSourceHash": "adde7c66c3c48a80",
+      "kind": "mnemonic"
+    }
+  ]
+}
