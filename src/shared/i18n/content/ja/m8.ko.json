@@ -83,7 +83,7 @@
     },
     {
       "anchor": "m8/atom:こめ/shortGloss",
-      "text": "쌀 (원)",
+      "text": "쌀 (생)",
       "enSourceHash": "94425d7f6198e5b2"
     },
     {
@@ -133,7 +133,7 @@
     },
     {
       "anchor": "m8/atom:みて/gloss",
-      "text": "보다, 보다 (테형)",
+      "text": "보다 (테형)",
       "enSourceHash": "a2dd218a2530d8b3"
     },
     {
@@ -173,7 +173,7 @@
     },
     {
       "anchor": "m8/gp:te-form/ex:いえに いそいで。",
-      "text": "집으로 서두르다.",
+      "text": "집으로 서둘러라.",
       "enSourceHash": "5230c898e70cf322"
     },
     {
@@ -183,7 +183,7 @@
     },
     {
       "anchor": "m8/gp:te-form/ex:うたを きいて。",
-      "text": "노래를 듣다.",
+      "text": "노래를 들어라.",
       "enSourceHash": "75bb587dde06da86"
     },
     {
@@ -193,7 +193,7 @@
     },
     {
       "anchor": "m8/gp:te-form/ex:かわで あそんで。",
-      "text": "강에서 놀다.",
+      "text": "강에서 놀아라.",
       "enSourceHash": "9346e3e3e5a8648d"
     },
     {
@@ -283,12 +283,12 @@
     },
     {
       "anchor": "m8/gp:wo-object/ex:しょくじを する。",
-      "text": "식사하다.",
+      "text": "식사한다.",
       "enSourceHash": "476618fa8db5722c"
     },
     {
       "anchor": "m8/gp:wo-object/ex:ちゃを のむ。",
-      "text": "차를 마시다.",
+      "text": "차를 마신다.",
       "enSourceHash": "5c669a424c49d9ab"
     },
     {
@@ -343,7 +343,7 @@
     },
     {
       "anchor": "m8/ja-m8-neo-1/ja:きょうは たべて",
-      "text": "만들기: 오늘 먹어라",
+      "text": "만들기: 오늘은 먹어라",
       "enSourceHash": "2b9050d7436c773f"
     },
     {
@@ -363,7 +363,7 @@
     },
     {
       "anchor": "m8/ja-m8-neo-1/ja:みずを のむ",
-      "text": "만들기: 물을 마시다",
+      "text": "만들기: 물을 마신다",
       "enSourceHash": "ee0e4635d24593e1"
     },
     {
@@ -448,12 +448,12 @@
     },
     {
       "anchor": "m8/ja-m8-neo-10/ja:ほんを かす",
-      "text": "만들기: 책을 빌려주다",
+      "text": "만들기: 책을 빌려준다",
       "enSourceHash": "9eec5c53bbc80944"
     },
     {
       "anchor": "m8/ja-m8-neo-10/ja:ミカが いそぐ",
-      "text": "만들기: 미카가 서두르다",
+      "text": "만들기: 미카가 서두른다",
       "enSourceHash": "bac3117e53f07185"
     },
     {
@@ -533,7 +533,7 @@
     },
     {
       "anchor": "m8/ja-m8-neo-11/ja:きょうは うたを きいて",
-      "text": "만들기: 오늘 노래를 들어",
+      "text": "만들기: 오늘은 노래를 들어",
       "enSourceHash": "d4cde769343003d7"
     },
     {
@@ -608,12 +608,12 @@
     },
     {
       "anchor": "m8/ja-m8-neo-2/ja:ここで ミカの ほんを かって",
-      "text": "여기서 미카의 책을 사서",
+      "text": "만들기: 여기서 미카의 책을 사",
       "enSourceHash": "26d490a0247494b9"
     },
     {
       "anchor": "m8/ja-m8-neo-2/ja:ここに たって",
-      "text": "여기에 서서",
+      "text": "만들기: 여기에 서",
       "enSourceHash": "2d7544812f0fe29b"
     },
     {
@@ -668,27 +668,27 @@
     },
     {
       "anchor": "m8/ja-m8-neo-3/ja:うみに いって",
-      "text": "바다에 가서",
+      "text": "만들기: 바다에 가",
       "enSourceHash": "a7488db673876eac"
     },
     {
       "anchor": "m8/ja-m8-neo-3/ja:かわに いって",
-      "text": "강에 가서",
+      "text": "만들기: 강에 가",
       "enSourceHash": "494f36b92bf3ca86"
     },
     {
       "anchor": "m8/ja-m8-neo-3/ja:きょう いえに きて",
-      "text": "오늘 집에 와서",
+      "text": "만들기: 오늘 집에 와",
       "enSourceHash": "ab830d415f90b216"
     },
     {
       "anchor": "m8/ja-m8-neo-3/ja:きょう きて",
-      "text": "오늘 와서",
+      "text": "만들기: 오늘 와",
       "enSourceHash": "01bf5cb82de29537"
     },
     {
       "anchor": "m8/ja-m8-neo-3/ja:きょう して",
-      "text": "오늘 해서",
+      "text": "만들기: 오늘 해",
       "enSourceHash": "4ca7c7c6b04c1e41"
     },
     {
@@ -698,7 +698,7 @@
     },
     {
       "anchor": "m8/ja-m8-neo-3/ja:ミカの いえに いって",
-      "text": "미카의 집에 가서",
+      "text": "만들기: 미카의 집에 가",
       "enSourceHash": "b0b9674704cb0805"
     },
     {
@@ -963,7 +963,7 @@
     },
     {
       "anchor": "m8/ja-m8-neo-6/ja:みせで かう",
-      "text": "만들기: 가게에서 사다",
+      "text": "만들기: 가게에서 산다",
       "enSourceHash": "a37d2952946f59dd"
     },
     {
@@ -1053,7 +1053,7 @@
     },
     {
       "anchor": "m8/ja-m8-neo-7/ja:せんせいが おしえる",
-      "text": "만들기: 선생님이 알려 주다",
+      "text": "만들기: 선생님이 알려 준다",
       "enSourceHash": "566fe3a83ced06f2"
     },
     {
@@ -1068,7 +1068,7 @@
     },
     {
       "anchor": "m8/ja-m8-neo-7/ja:ともだちに おしえて",
-      "text": "친구에게 알려 주다",
+      "text": "친구에게 알려 줘",
       "enSourceHash": "852818e5851b038f"
     },
     {
@@ -1078,7 +1078,7 @@
     },
     {
       "anchor": "m8/ja-m8-neo-7/ja:ミカに おしえて",
-      "text": "미카에게 알려 주다",
+      "text": "미카에게 알려 줘",
       "enSourceHash": "5e8fbd571709cd02"
     },
     {
@@ -1168,7 +1168,7 @@
     },
     {
       "anchor": "m8/ja-m8-neo-8/ja:たなかさんに ちゃを かってください",
-      "text": "정중하게 말하기: 다나카 씨를 위해 차를 사 주세요",
+      "text": "정중하게 말하기: 다나카 씨에게 차를 사 주세요",
       "enSourceHash": "45da83ba3febad74"
     },
     {
@@ -1248,7 +1248,7 @@
     },
     {
       "anchor": "m8/ja-m8-neo-9/ja:しゃしんを みて",
-      "text": "만들기: 사진을 보세요",
+      "text": "만들기: 사진을 봐",
       "enSourceHash": "a21dc73a92df5458"
     },
     {
@@ -1258,7 +1258,7 @@
     },
     {
       "anchor": "m8/ja-m8-neo-9/ja:ともだちと あそんで",
-      "text": "만들기: 친구와 놀아 주세요",
+      "text": "만들기: 친구와 놀아",
       "enSourceHash": "247b57d2c25a6c9b"
     },
     {
@@ -1283,12 +1283,12 @@
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/en:2894641f561b7757",
-      "text": "가게는 저기에 있는가",
+      "text": "가게는 저기에 있습니까",
       "enSourceHash": "2894641f561b7757"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/en:416c35989d8b6727",
-      "text": "타나카 씨 가게에서 밥을 사 주세요",
+      "text": "타나카 씨 가게에서 쌀을 사 주세요",
       "enSourceHash": "416c35989d8b6727"
     },
     {
@@ -1303,12 +1303,12 @@
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/en:4d83eae65eff9664",
-      "text": "챌린지 — 모두 연결하기",
+      "text": "도전 — 모두 연결하기",
       "enSourceHash": "4d83eae65eff9664"
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/en:536b4edb1e75a63d",
-      "text": "미카의 차를 마시지 마라",
+      "text": "미카의 차를 마시지 마",
       "enSourceHash": "536b4edb1e75a63d"
     },
     {
@@ -1318,7 +1318,7 @@
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/en:6c54872077b7b24d",
-      "text": "오늘 미카 씨 가게에서 차를 사 주세요",
+      "text": "오늘은 미카 씨 가게에서 차를 사 주세요",
       "enSourceHash": "6c54872077b7b24d"
     },
     {
@@ -1343,7 +1343,7 @@
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/en:aa622a956a01ebc9",
-      "text": "선생님께 사진에 대해 말씀해 주세요",
+      "text": "선생님께 사진을 알려 주세요",
       "enSourceHash": "aa622a956a01ebc9"
     },
     {
@@ -1358,7 +1358,7 @@
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/en:dfe87a0e2b9cabcc",
-      "text": "미카에게 음식에 대해 말해 주세요",
+      "text": "미카에게 음식을 알려 주세요",
       "enSourceHash": "dfe87a0e2b9cabcc"
     },
     {
@@ -1408,7 +1408,7 @@
     },
     {
       "anchor": "m8/ja-m8-neo-challenge/ja:ミカの ちゃを のまないで",
-      "text": "미카의 차를 마시지 마",
+      "text": "만들기: 미카의 차를 마시지 마",
       "enSourceHash": "062e5062e3730641"
     },
     {
@@ -1568,7 +1568,7 @@
     },
     {
       "anchor": "m8/ja-m8-neo-review-1/ja:かさを かって",
-      "text": "우산을 사",
+      "text": "만들기: 우산을 사",
       "enSourceHash": "49dbd1b89de7af96"
     },
     {
@@ -1583,17 +1583,17 @@
     },
     {
       "anchor": "m8/ja-m8-neo-review-1/ja:ぼうしを かって",
-      "text": "모자를 사",
+      "text": "만들기: 모자를 사",
       "enSourceHash": "a90e49373952f0e3"
     },
     {
       "anchor": "m8/ja-m8-neo-review-1/ja:まどを みて",
-      "text": "창문을 봐",
+      "text": "만들기: 창문을 봐",
       "enSourceHash": "1ee6dd179c069db3"
     },
     {
       "anchor": "m8/ja-m8-neo-review-1/ja:りょうりを たべて",
-      "text": "요리를 먹어",
+      "text": "만들기: 요리를 먹어",
       "enSourceHash": "443a674ff7805ca6"
     },
     {
@@ -1618,7 +1618,7 @@
     },
     {
       "anchor": "m8/ja-m8-neo-review-2/en:63b14e9e3b6aaff4",
-      "text": "'별'에 해당하는 단어를 고르세요",
+      "text": "\"별\"에 해당하는 단어를 고르세요",
       "enSourceHash": "63b14e9e3b6aaff4"
     },
     {
@@ -1653,12 +1653,12 @@
     },
     {
       "anchor": "m8/ja-m8-neo-review-2/en:d3bf28da55f404a6",
-      "text": "'집'에 해당하는 단어를 고르세요",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
       "enSourceHash": "d3bf28da55f404a6"
     },
     {
       "anchor": "m8/ja-m8-neo-review-2/en:e9d9df24a68c1d7d",
-      "text": "'강'에 해당하는 단어를 고르세요",
+      "text": "\"강\"에 해당하는 단어를 고르세요",
       "enSourceHash": "e9d9df24a68c1d7d"
     },
     {
@@ -1673,12 +1673,12 @@
     },
     {
       "anchor": "m8/ja-m8-neo-review-2/ja:しょくじを たべて",
-      "text": "만들기: 식사를 드세요",
+      "text": "만들기: 식사를 먹어",
       "enSourceHash": "1339855dfc8c1b78"
     },
     {
       "anchor": "m8/ja-m8-neo-review-2/ja:たべものは そこです",
-      "text": "정중하게 말하기: 그 음식은 당신 곁에 있습니다",
+      "text": "정중하게 말하기: 음식은 거기에 있습니다",
       "enSourceHash": "264fc25e0ef9343b"
     },
     {
@@ -1703,7 +1703,7 @@
     },
     {
       "anchor": "m8/ja-m8-neo-review-3/en:1e1cc3909a49adea",
-      "text": "'산'에 해당하는 단어를 고르세요",
+      "text": "\"산\"에 해당하는 단어를 고르세요",
       "enSourceHash": "1e1cc3909a49adea"
     },
     {
@@ -1713,7 +1713,7 @@
     },
     {
       "anchor": "m8/ja-m8-neo-review-3/en:46bcff11a845ba3d",
-      "text": "'사람'에 해당하는 단어를 고르세요",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
       "enSourceHash": "46bcff11a845ba3d"
     },
     {
@@ -1723,7 +1723,7 @@
     },
     {
       "anchor": "m8/ja-m8-neo-review-3/en:63b14e9e3b6aaff4",
-      "text": "'별'에 해당하는 단어를 고르세요",
+      "text": "\"별\"에 해당하는 단어를 고르세요",
       "enSourceHash": "63b14e9e3b6aaff4"
     },
     {
@@ -1758,12 +1758,12 @@
     },
     {
       "anchor": "m8/ja-m8-neo-review-3/en:d3bf28da55f404a6",
-      "text": "'집'에 해당하는 단어를 고르세요",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
       "enSourceHash": "d3bf28da55f404a6"
     },
     {
       "anchor": "m8/ja-m8-neo-review-3/en:e9d9df24a68c1d7d",
-      "text": "'강'에 해당하는 단어를 고르세요",
+      "text": "\"강\"에 해당하는 단어를 고르세요",
       "enSourceHash": "e9d9df24a68c1d7d"
     },
     {
@@ -1793,7 +1793,7 @@
     },
     {
       "anchor": "m8/ja-m8-neo-review-3/ja:ちゃを のんで",
-      "text": "만들기: 차를 드세요",
+      "text": "만들기: 차를 마셔",
       "enSourceHash": "fc2c5fe3ac93d731"
     },
     {
