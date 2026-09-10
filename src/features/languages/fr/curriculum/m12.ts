@@ -922,9 +922,9 @@ function lesson9(): LessonStep[] {
           id: "t1-voudrais",
           npc: {
             speaker: "Théo",
-            kana: "Bonjour !",
-            audioText: "bonjour",
-            gloss: "Hello!",
+            kana: "Bonjour ! Vous désirez ?",
+            audioText: "bonjour ! vous désirez ?",
+            gloss: "Hello! What would you like?",
           },
           goal: "Say you would like a sandwich.",
           reply: {
