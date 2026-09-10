@@ -1,6 +1,6 @@
 /**
  * Conjugation Grid — session logic (pure, UI-independent). Builds the MCQ
- * rounds for the ES person×tense grid trainer.
+ * rounds for the person×tense grid trainer (ES, FR).
  *
  * Determinism: every builder takes a `seed` and is stable given it (options,
  * question order, mix cell choice all flow through `seededShuffle`). The UI
@@ -17,15 +17,16 @@
  * One pick from each tier when possible (so every question mixes confusion
  * kinds), then tiers refill in that order. Options are always 4, unique, and
  * include the correct form — Spanish's real syncretism (hablaba yo = hablaba
- * él; fui ser = fui ir) is handled by dedup, never by trusting cell identity.
+ * él; fui ser = fui ir) is handled by dedup, never by trusting cell identity
+ * (French has the same phenomenon: aime = je/il).
+ *
+ * Tense/person ids are plain `string` here (not e.g. `EsTenseId`/`EsPersonId`)
+ * — the builders are language-agnostic; `ConjugationGridConfig.formKey`'s
+ * method-shorthand bivariance is what lets each language's narrower config
+ * satisfy this file's calls (see gridConfig.ts header).
  */
-import type { EsVerbEntry } from "@/features/languages/es/conjugationTables";
 import { seededShuffle } from "@/shared/utils/seededShuffle";
-import type {
-  ConjugationGridConfig,
-  EsPersonId,
-  EsTenseId,
-} from "./gridConfig";
+import type { ConjugationGridConfig, GridVerbEntry } from "./gridConfig";
 
 export const OPTION_COUNT = 4;
 export const MIX_ROUND_SIZE = 6;
@@ -34,9 +35,9 @@ export type GridQuestion = {
   verbId: string;
   lemma: string;
   meaning: string;
-  group: EsVerbEntry["group"];
-  tense: EsTenseId;
-  person: EsPersonId;
+  group: GridVerbEntry["group"];
+  tense: string;
+  person: string;
   /** Full cell label from the language's labels map ("tú (preterite)"). */
   formLabel: string;
   /** Display labels resolved from the grid config (UI renders these as-is). */
@@ -60,10 +61,10 @@ export function makeRoundSeed(): string {
  * tables (the tests pin distractors to the strict adjacency set).
  */
 export function generateAdjacentDistractors(
-  verb: EsVerbEntry,
-  tense: EsTenseId,
-  person: EsPersonId,
-  others: EsVerbEntry[],
+  verb: GridVerbEntry,
+  tense: string,
+  person: string,
+  others: GridVerbEntry[],
   config: ConjugationGridConfig,
   seed: string,
 ): string[] {
@@ -111,10 +112,10 @@ export function generateAdjacentDistractors(
 
 /** One MCQ for a single grid cell — shared by verb and mix rounds. */
 export function makeGridQuestion(
-  verb: EsVerbEntry,
-  tense: EsTenseId,
-  person: EsPersonId,
-  others: EsVerbEntry[],
+  verb: GridVerbEntry,
+  tense: string,
+  person: string,
+  others: GridVerbEntry[],
   config: ConjugationGridConfig,
   seed: string,
 ): GridQuestion {
@@ -153,9 +154,9 @@ export function makeGridQuestion(
  * maps questions back to cells by person).
  */
 export function buildVerbRound(
-  verb: EsVerbEntry,
-  tense: EsTenseId,
-  pool: EsVerbEntry[],
+  verb: GridVerbEntry,
+  tense: string,
+  pool: GridVerbEntry[],
   config: ConjugationGridConfig,
   seed: string,
 ): GridQuestion[] {
@@ -172,8 +173,8 @@ export function buildVerbRound(
  * Cells are unique (verb, person) pairs; count clamps to what exists.
  */
 export function buildMixRound(
-  pool: EsVerbEntry[],
-  tense: EsTenseId,
+  pool: GridVerbEntry[],
+  tense: string,
   config: ConjugationGridConfig,
   seed: string,
   count: number = MIX_ROUND_SIZE,

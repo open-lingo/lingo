@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Card, cn } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { useLessonKeyboard } from "@/features/lesson/hooks/useLessonKeyboard";
-import type { EsVerbEntry } from "@/features/languages/es/conjugationTables";
+import type { GridVerbGroup } from "./gridConfig";
 import type { GridQuestion } from "./gridSession";
 
 /**
@@ -17,12 +17,15 @@ export function GridDrillCard({
   question,
   onResult,
   onNext,
+  lang,
 }: {
   question: GridQuestion;
   /** Called once when the learner answers — correctness plus the picked option
    *  (the board strikes wrong picks through under the corrected form). */
   onResult: (correct: boolean, picked: string) => void;
   onNext: () => void;
+  /** BCP-47 lang for the target-language text (lemma, pills, options). */
+  lang: string;
 }) {
   const { t } = useTranslation();
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -53,19 +56,19 @@ export function GridDrillCard({
       {/* Prompt block: class chip, lemma, meaning, target cell pills. */}
       <div className="flex flex-col items-center gap-1.5 text-center">
         <GroupChip group={question.group} />
-        <p lang="es" className="break-words text-4xl font-bold leading-snug text-text-primary">
+        <p lang={lang} className="break-words text-4xl font-bold leading-snug text-text-primary">
           {question.lemma}
         </p>
         <p className="text-sm text-text-muted">{question.meaning}</p>
         <div className="mt-1 flex flex-wrap items-center justify-center gap-1.5">
           <span
-            lang="es"
+            lang={lang}
             className="rounded-full bg-accent-muted px-2.5 py-0.5 text-sm font-bold text-accent"
           >
             {question.personLabel}
           </span>
           <span
-            lang="es"
+            lang={lang}
             className="rounded-full bg-surface-muted px-2.5 py-0.5 text-sm font-semibold text-text-secondary"
           >
             {question.tenseLabel}
@@ -104,7 +107,7 @@ export function GridDrillCard({
                 stateClass,
               )}
             >
-              <span lang="es" className="text-xl font-semibold leading-snug">
+              <span lang={lang} className="text-xl font-semibold leading-snug">
                 {opt}
               </span>
             </button>
@@ -133,7 +136,7 @@ export function GridDrillCard({
               <p className="text-center text-sm text-destructive">
                 <Icon name="close" size={16} className="mr-1 inline" />
                 {t("practice.conjugationGrid.answerWas", { defaultValue: "Answer:" })}{" "}
-                <span lang="es" className="font-semibold">
+                <span lang={lang} className="font-semibold">
                   {question.correct}
                 </span>
               </p>
@@ -154,9 +157,9 @@ export function GridDrillCard({
 
 /** Conjugation-class chip — irregulars stand out amber, like the ja trainer's
  *  WordClassChip, so learners absorb WHICH verbs don't follow the pattern. */
-export function GroupChip({ group }: { group: EsVerbEntry["group"] }) {
+export function GroupChip({ group }: { group: GridVerbGroup }) {
   const { t } = useTranslation();
-  const LABELS: Record<EsVerbEntry["group"], string> = {
+  const LABELS: Record<GridVerbGroup, string> = {
     ar: t("practice.conjugationGrid.classAr", { defaultValue: "-ar verb" }),
     er: t("practice.conjugationGrid.classEr", { defaultValue: "-er verb" }),
     ir: t("practice.conjugationGrid.classIr", { defaultValue: "-ir verb" }),

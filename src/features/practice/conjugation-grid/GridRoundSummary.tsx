@@ -15,6 +15,7 @@ export function GridRoundSummary({
   onRetry,
   retryLabel,
   onBack,
+  lang,
 }: {
   questions: GridQuestion[];
   results: boolean[];
@@ -24,6 +25,8 @@ export function GridRoundSummary({
   onRetry: () => void;
   retryLabel: string;
   onBack: () => void;
+  /** BCP-47 lang for the per-cell correct-answer text. */
+  lang: string;
 }) {
   const { t } = useTranslation();
   const total = results.length;
@@ -54,7 +57,7 @@ export function GridRoundSummary({
               {showLemma ? `${q.lemma} · ${q.personLabel}` : q.personLabel}
             </span>
             <span className="flex items-center gap-1.5 font-medium">
-              <span lang="es" className="text-text-primary">
+              <span lang={lang} className="text-text-primary">
                 {q.correct}
               </span>
               <Icon

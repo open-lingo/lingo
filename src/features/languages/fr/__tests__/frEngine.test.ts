@@ -27,6 +27,7 @@ import {
   aspectChoiceCloze,
 } from "../grammarHelpers";
 import { frModule } from "../module";
+import { FR_VERB_ENTRIES } from "../conjugationTables";
 import { getLanguageModule, getAllLanguageIds } from "@/shared/language/registry";
 import { AVAILABLE_LEARNING_LANGUAGE_IDS } from "@/shared/domain/languageConfig";
 import { getTtsManifest } from "@/shared/tts/manifest";
@@ -599,10 +600,21 @@ describe("fr module registration", () => {
     expect(getTtsManifest("es").count).toBeGreaterThan(0);
   });
 
-  it("omits conjugation rather than declaring it empty", () => {
-    // null = "no such capability, route around me"; empty = "capability
-    // present, no data", which renders an empty trainer.
-    expect(frModule.conjugation).toBeUndefined();
+  it("wires conjugation from FR_VERB_ENTRIES (fr pin §7 item 1, closed 2026-09-10)", () => {
+    // Was omitted (undefined) until the m1–m15 Conjugation Grid trainer wave
+    // landed fr/conjugationTables.ts — mirrors es/module.ts's esConjugation:
+    // one ConjugationTable per verb, `forms` carrying the whole FrVerbEntry
+    // forms map (taught + trainer-preview cells alike, see
+    // fr/conjugationTables.ts's header for which cells are which).
+    expect(frModule.conjugation).toBeDefined();
+    expect(frModule.conjugation!.tables.length).toBe(FR_VERB_ENTRIES.length);
+    for (const table of frModule.conjugation!.tables) {
+      expect(table.partOfSpeech).toBe("verb");
+      expect(String(table.lemmaAtomId)).toMatch(/^fr:/);
+      expect(Object.keys(table.forms).length).toBeGreaterThan(0);
+    }
+    // analyze stays omitted — populating it is content-design work, same as ES.
+    expect(frModule.conjugation!.analyze).toBeUndefined();
   });
 
   it("derives its atoms from the curriculum glob, in module order", () => {

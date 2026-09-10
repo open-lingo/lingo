@@ -29,14 +29,17 @@ export type GridBoardCell = {
 export function GridBoard({
   cells,
   columnMajor = false,
+  lang,
 }: {
   cells: GridBoardCell[];
   columnMajor?: boolean;
+  /** BCP-47 lang for cell text (label / value / picked). */
+  lang: string;
 }) {
   return (
     <div className={cn("grid grid-cols-2 gap-2", columnMajor && "grid-flow-col grid-rows-3")}>
       {cells.map((cell) => (
-        <BoardCell key={cell.key} cell={cell} />
+        <BoardCell key={cell.key} cell={cell} lang={lang} />
       ))}
     </div>
   );
@@ -49,7 +52,7 @@ const CELL_CLASS: Record<GridCellStatus, string> = {
   wrong: "border-error/60 bg-error/10",
 };
 
-function BoardCell({ cell }: { cell: GridBoardCell }) {
+function BoardCell({ cell, lang }: { cell: GridBoardCell; lang: string }) {
   const { label, note, status, value, picked } = cell;
   const answered = status === "correct" || status === "wrong";
 
@@ -61,7 +64,7 @@ function BoardCell({ cell }: { cell: GridBoardCell }) {
       )}
     >
       <div className="flex items-center justify-between gap-1">
-        <span lang="es" className="truncate text-[10px] font-semibold text-text-muted">
+        <span lang={lang} className="truncate text-[10px] font-semibold text-text-muted">
           {label}
           {note ? <span className="font-normal opacity-75"> — {note}</span> : null}
         </span>
@@ -84,7 +87,7 @@ function BoardCell({ cell }: { cell: GridBoardCell }) {
       </div>
       <div className="mt-0.5 flex items-baseline gap-1.5">
         <span
-          lang={answered ? "es" : undefined}
+          lang={answered ? lang : undefined}
           className={cn(
             "truncate text-sm font-semibold",
             status === "correct" && "text-success",
@@ -97,7 +100,7 @@ function BoardCell({ cell }: { cell: GridBoardCell }) {
         </span>
         {status === "wrong" && picked && picked !== value ? (
           <span
-            lang="es"
+            lang={lang}
             className="truncate text-[10px] text-error/70 line-through"
           >
             {picked}

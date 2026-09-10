@@ -3,10 +3,13 @@ import { useTranslation } from "react-i18next";
 import { Card, SegmentedControl } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { useLang } from "@/shared/hooks/useLangPath";
-import type { EsVerbEntry } from "@/features/languages/es/conjugationTables";
 import { getConjugationVerbEntries } from "../data/practiceDataLoader";
 import { useCourseLevel } from "../useCourseLevel";
-import { getConjugationGridConfig, type ConjugationGridConfig, type EsTenseId } from "./gridConfig";
+import {
+  getConjugationGridConfig,
+  type ConjugationGridConfig,
+  type GridVerbEntry,
+} from "./gridConfig";
 import {
   buildMixRound,
   buildVerbRound,
@@ -20,7 +23,7 @@ import { GridRoundSummary } from "./GridRoundSummary";
 
 type Round = {
   kind: "verb" | "mix";
-  tense: EsTenseId;
+  tense: string;
   /** Drilled verb — verb rounds only (mix draws across the pool). */
   verbId?: string;
   /** Round seed — also the session's remount key, so "Drill again" (same
@@ -30,12 +33,13 @@ type Round = {
 };
 
 /**
- * Conjugation Grid — the ES person×tense trainer (`practice/conjugation` for
- * languages with tabular verb data; App.tsx routes ja to its own hub). Pick a
- * verb (grouped by class, advisory module chips — never hard-blocked) and a
- * tense tab, then drill the 6-person paradigm one cell at a time; answered
- * cells fill into the visible grid. Rounds are seeded (gridSession.ts);
- * practice-only — no SRS writes, ES has no Track B conjugation points yet.
+ * Conjugation Grid — the person×tense trainer (`practice/conjugation` for
+ * languages with tabular verb data — ES, FR; App.tsx routes ja to its own
+ * hub). Pick a verb (grouped by class, advisory module chips — never
+ * hard-blocked) and a tense tab, then drill the paradigm one cell at a time;
+ * answered cells fill into the visible grid. Rounds are seeded
+ * (gridSession.ts); practice-only — no SRS writes, neither ES nor FR has
+ * Track B conjugation points yet.
  */
 export function ConjugationGridPage() {
   const { t } = useTranslation();
@@ -45,13 +49,13 @@ export function ConjugationGridPage() {
   const entries = useMemo(() => getConjugationVerbEntries(lang), [lang]);
   const config = useMemo(() => getConjugationGridConfig(lang), [lang]);
 
-  const [tense, setTense] = useState<EsTenseId>("present");
+  const [tense, setTense] = useState<string>("present");
   // Default verb: the most recently introduced verb the learner has reached —
   // "what you're learning now"; before any unlock, the earliest verb (ser, M2).
   const defaultVerbId = useMemo(() => {
     const unlocked = entries.filter((v) => v.introducedAtModule <= reachedModule);
-    const pick = (list: EsVerbEntry[], best: (a: number, b: number) => boolean) =>
-      list.reduce<EsVerbEntry | null>(
+    const pick = (list: GridVerbEntry[], best: (a: number, b: number) => boolean) =>
+      list.reduce<GridVerbEntry | null>(
         (acc, v) => (!acc || best(v.introducedAtModule, acc.introducedAtModule) ? v : acc),
         null,
       );
@@ -113,6 +117,7 @@ export function ConjugationGridPage() {
         key={round.seed}
         round={round}
         config={config}
+        lang={lang}
         title={
           round.kind === "verb"
             ? `${roundVerb?.lemma ?? ""} · ${tenseLabelOf(config, round.tense)}`
@@ -153,7 +158,7 @@ export function ConjugationGridPage() {
         ariaLabel={t("practice.conjugationGrid.tenseTabsAria", { defaultValue: "Tense" })}
         options={config.tenses.map((tn) => ({
           value: tn.id,
-          label: <span lang="es">{tn.label}</span>,
+          label: <span lang={lang}>{tn.label}</span>,
         }))}
       />
 
@@ -163,11 +168,13 @@ export function ConjugationGridPage() {
         reachedModule={reachedModule}
         selectedId={verbId}
         onSelect={setPickedVerbId}
+        lang={lang}
       />
 
       {/* Preview of the paradigm to be drilled — cells stay hidden until earned */}
       <GridBoard
         columnMajor
+        lang={lang}
         cells={config.persons.map((p) => ({
           key: p.id,
           label: p.label,
@@ -217,7 +224,7 @@ export function ConjugationGridPage() {
   );
 }
 
-function tenseLabelOf(config: ConjugationGridConfig, tense: EsTenseId): string {
+function tenseLabelOf(config: ConjugationGridConfig, tense: string): string {
   return config.tenses.find((tn) => tn.id === tense)?.label ?? tense;
 }
 
@@ -233,12 +240,14 @@ function GridDrillSession({
   round,
   config,
   title,
+  lang,
   onRetry,
   onExit,
 }: {
   round: Round;
   config: ConjugationGridConfig;
   title: string;
+  lang: string;
   onRetry: () => void;
   onExit: () => void;
 }) {
@@ -299,7 +308,7 @@ function GridDrillSession({
         >
           <Icon name="arrowLeft" size={16} />
         </button>
-        <h1 lang="es" className="text-xl font-bold text-text-primary">
+        <h1 lang={lang} className="text-xl font-bold text-text-primary">
           {title}
         </h1>
       </div>
@@ -316,6 +325,7 @@ function GridDrillSession({
               : t("practice.conjugationGrid.newMix", { defaultValue: "New mix" })
           }
           onBack={onExit}
+          lang={lang}
         />
       ) : (
         <>
@@ -327,7 +337,7 @@ function GridDrillSession({
             />
           </div>
 
-          <GridBoard cells={boardCells} columnMajor={round.kind === "verb"} />
+          <GridBoard cells={boardCells} columnMajor={round.kind === "verb"} lang={lang} />
 
           {current && (
             // key remounts the card per question — answer state resets by construction.
@@ -338,6 +348,7 @@ function GridDrillSession({
                 setAnswers((prev) => [...prev, { correct, picked }])
               }
               onNext={advance}
+              lang={lang}
             />
           )}
         </>

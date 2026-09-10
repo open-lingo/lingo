@@ -21,18 +21,23 @@
  * `getLanguageModule("fr")`. Direct imports of `getFrCourseAtoms` etc. from
  * outside `features/languages/fr/` are anti-patterns, same as JA/KO/ES.
  *
- * `conjugation` is omitted until `fr/conjugationTables.ts` exists (fr pin §7
- * item 1). An empty `tables: []` would be worse than absent: the generic
- * engines treat null as "this language has no conjugation capability" and route
- * around it, but treat an empty table set as "capability present, no data" and
- * render an empty trainer.
+ * `conjugation` is wired from `fr/conjugationTables.ts` (fr pin §7 item 1,
+ * closed 2026-09-10 — the m1–m15 Conjugation Grid trainer wave). Mirrors
+ * `es/module.ts`'s `esConjugation` exactly: `ConjugationTable.forms` takes
+ * the whole `FrVerbEntry.forms` map as-is (present + passé composé, taught
+ * and trainer-preview cells alike — see the header of
+ * `fr/conjugationTables.ts` for which cells are which). `analyze` stays
+ * omitted, same as ES — populating it is content-design work.
  */
 
 import type { LanguageModule } from "@/shared/language/LanguageModule";
 import type {
   Atom,
+  AtomId,
+  ConjugationCapability,
   CourseModule,
   ParticleSet,
+  PartOfSpeech,
   PlacementBank,
   TtsManifest,
   VocabArtResolver,
@@ -40,6 +45,7 @@ import type {
 
 import { findFrAtomBySurface, getFrCourseAtoms, type FrAtom } from "./courseAtoms";
 import * as grammarHelpers from "./grammarHelpers";
+import { FR_VERB_ENTRIES } from "./conjugationTables";
 import { FR_PLACEMENT_BANK } from "./placementBank";
 
 import { getMockCourse } from "@/shared/domain/mockCourse";
@@ -83,6 +89,17 @@ const frParticles: ParticleSet = {
   particles: getFrCourseAtoms()
     .filter((a) => a.kind === "particle")
     .map((a) => ({ id: a.id, form: a.surface, meaning: a.gloss })),
+};
+
+// ── Conjugation (from FR_VERB_ENTRIES — 7 verbs, m1–m15) ─────────────────
+
+const frConjugation: ConjugationCapability = {
+  tables: FR_VERB_ENTRIES.map((v) => ({
+    lemmaAtomId: `fr:${v.lemma}` as AtomId,
+    partOfSpeech: "verb" as PartOfSpeech,
+    forms: v.forms as Record<string, string>,
+  })),
+  // analyze: omitted — populating it is content-design work, same as ES.
 };
 
 // ── vocabArt (custom art first, then atom.emoji → Noto fallback) ────────
@@ -131,7 +148,7 @@ export const frModule: LanguageModule = {
 
   // alphabetConfig: omitted — Latin script, no trainer
   // secondScript / readingAnnotation / romanizer: omitted (ADR-011)
-  // conjugation: omitted until fr/conjugationTables.ts — see header
+  conjugation: frConjugation,
   // classifiers: omitted — French has no counter system
   particles: frParticles,
   // symbolMastery / reading / speaking: omitted — later waves

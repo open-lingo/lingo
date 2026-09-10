@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { cn } from "@/shared/components/ui";
-import type { EsVerbEntry } from "@/features/languages/es/conjugationTables";
+import type { GridVerbEntry, GridVerbGroup } from "./gridConfig";
 
-const GROUP_ORDER: Array<EsVerbEntry["group"]> = ["ar", "er", "ir", "irregular"];
+const GROUP_ORDER: GridVerbGroup[] = ["ar", "er", "ir", "irregular"];
 
 /**
  * Verb picker grouped by conjugation class. Locks are ADVISORY in the house
@@ -15,14 +15,17 @@ export function VerbPicker({
   reachedModule,
   selectedId,
   onSelect,
+  lang,
 }: {
-  entries: EsVerbEntry[];
+  entries: GridVerbEntry[];
   reachedModule: number;
   selectedId: string | null;
   onSelect: (verbId: string) => void;
+  /** BCP-47 lang for the verb-lemma text (drives correct hyphenation/voice). */
+  lang: string;
 }) {
   const { t } = useTranslation();
-  const GROUP_LABELS: Record<EsVerbEntry["group"], string> = {
+  const GROUP_LABELS: Record<GridVerbGroup, string> = {
     ar: t("practice.conjugationGrid.groupAr", { defaultValue: "-ar verbs" }),
     er: t("practice.conjugationGrid.groupEr", { defaultValue: "-er verbs" }),
     ir: t("practice.conjugationGrid.groupIr", { defaultValue: "-ir verbs" }),
@@ -47,6 +50,7 @@ export function VerbPicker({
                   ahead={verb.introducedAtModule > reachedModule}
                   selected={verb.id === selectedId}
                   onSelect={() => onSelect(verb.id)}
+                  lang={lang}
                 />
               ))}
             </div>
@@ -62,11 +66,13 @@ function VerbTile({
   ahead,
   selected,
   onSelect,
+  lang,
 }: {
-  verb: EsVerbEntry;
+  verb: GridVerbEntry;
   ahead: boolean;
   selected: boolean;
   onSelect: () => void;
+  lang: string;
 }) {
   const { t } = useTranslation();
   return (
@@ -83,7 +89,7 @@ function VerbTile({
       )}
     >
       <span
-        lang="es"
+        lang={lang}
         className={cn("text-base font-bold", selected ? "text-accent" : "text-text-primary")}
       >
         {verb.lemma}

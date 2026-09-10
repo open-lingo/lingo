@@ -4,7 +4,12 @@ import {
   ES_CONJUGATION_FORM_LABELS,
   type EsVerbEntry,
 } from "@/features/languages/es/conjugationTables";
-import { getConjugationGridConfig, type EsPersonId, type EsTenseId } from "./gridConfig";
+import {
+  FR_VERB_ENTRIES,
+  FR_CONJUGATION_FORM_LABELS,
+  type FrVerbEntry,
+} from "@/features/languages/fr/conjugationTables";
+import { getConjugationGridConfig } from "./gridConfig";
 import {
   buildMixRound,
   buildVerbRound,
@@ -22,8 +27,9 @@ const PERSONS = config.persons.map((p) => p.id);
 // ─── gridConfig ──────────────────────────────────────────────────────────
 
 describe("getConjugationGridConfig", () => {
-  it("exists for es only — ja keeps its engine-backed trainer", () => {
+  it("exists for es and fr — ja keeps its engine-backed trainer", () => {
     expect(getConjugationGridConfig("es")).not.toBeNull();
+    expect(getConjugationGridConfig("fr")).not.toBeNull();
     expect(getConjugationGridConfig("ja")).toBeNull();
     expect(getConjugationGridConfig("ko")).toBeNull();
   });
@@ -34,7 +40,9 @@ describe("getConjugationGridConfig", () => {
     for (const entry of ES_VERB_ENTRIES) {
       for (const tense of TENSES) {
         for (const person of PERSONS) {
-          expect(entry.forms[config.formKey(tense, person)]).toBeTruthy();
+          expect(
+            entry.forms[config.formKey(tense, person) as keyof typeof entry.forms],
+          ).toBeTruthy();
         }
       }
     }
@@ -42,7 +50,10 @@ describe("getConjugationGridConfig", () => {
 
   it("derives person labels from ES_CONJUGATION_FORM_LABELS, not hardcoded strings", () => {
     for (const p of config.persons) {
-      const raw = ES_CONJUGATION_FORM_LABELS[config.formKey("present", p.id)];
+      const raw =
+        ES_CONJUGATION_FORM_LABELS[
+          config.formKey("present", p.id) as keyof typeof ES_CONJUGATION_FORM_LABELS
+        ];
       expect(raw.startsWith(p.label)).toBe(true);
       // The parenthetical tense tag never leaks into the display label.
       expect(p.label).not.toMatch(/[()]/);
@@ -57,16 +68,19 @@ describe("getConjugationGridConfig", () => {
 
 /** Strict adjacency set for one cell: same-verb same-tense other persons,
  *  same-verb same-person other tenses, other-verb same cell. */
-function adjacentValues(verb: EsVerbEntry, tense: EsTenseId, person: EsPersonId): Set<string> {
+function adjacentValues(verb: EsVerbEntry, tense: string, person: string): Set<string> {
   const values = new Set<string>();
   for (const p of PERSONS) {
-    if (p !== person) values.add(verb.forms[config.formKey(tense, p)]);
+    if (p !== person)
+      values.add(verb.forms[config.formKey(tense, p) as keyof typeof verb.forms]);
   }
   for (const t of TENSES) {
-    if (t !== tense) values.add(verb.forms[config.formKey(t, person)]);
+    if (t !== tense)
+      values.add(verb.forms[config.formKey(t, person) as keyof typeof verb.forms]);
   }
   for (const other of ES_VERB_ENTRIES) {
-    if (other.id !== verb.id) values.add(other.forms[config.formKey(tense, person)]);
+    if (other.id !== verb.id)
+      values.add(other.forms[config.formKey(tense, person) as keyof typeof other.forms]);
   }
   return values;
 }
@@ -76,9 +90,15 @@ function expectValidQuestion(q: GridQuestion, verb: EsVerbEntry) {
   expect(q.options.length).toBe(OPTION_COUNT);
   expect(new Set(q.options).size).toBe(OPTION_COUNT);
   expect(q.options).toContain(q.correct);
-  expect(q.correct).toBe(verb.forms[config.formKey(q.tense, q.person)]);
+  expect(q.correct).toBe(
+    verb.forms[config.formKey(q.tense, q.person) as keyof typeof verb.forms],
+  );
   // Labels come from the language's labels map, not ad-hoc strings.
-  expect(q.formLabel).toBe(ES_CONJUGATION_FORM_LABELS[config.formKey(q.tense, q.person)]);
+  expect(q.formLabel).toBe(
+    ES_CONJUGATION_FORM_LABELS[
+      config.formKey(q.tense, q.person) as keyof typeof ES_CONJUGATION_FORM_LABELS
+    ],
+  );
 }
 
 describe("option generation — every verb × tense × person", () => {
@@ -175,5 +195,137 @@ describe("buildMixRound", () => {
     const a = buildMixRound(ES_VERB_ENTRIES, "present", config, "same");
     const b = buildMixRound(ES_VERB_ENTRIES, "present", config, "same");
     expect(a).toEqual(b);
+  });
+});
+
+// ─── French (fr case — 3 persons × 2 tenses, je/tu/il-elle-on) ────────────
+
+describe("getConjugationGridConfig (fr)", () => {
+  const frConfig = getConjugationGridConfig("fr")!;
+
+  it("spans 2 tenses × 3 persons whose form keys all exist on every entry", () => {
+    expect(frConfig.tenses.map((t) => t.id)).toEqual(["present", "passeCompose"]);
+    expect(frConfig.persons.map((p) => p.id)).toEqual(["je", "tu", "il"]);
+    for (const entry of FR_VERB_ENTRIES) {
+      for (const tense of frConfig.tenses) {
+        for (const person of frConfig.persons) {
+          expect(
+            entry.forms[frConfig.formKey(tense.id, person.id) as keyof typeof entry.forms],
+          ).toBeTruthy();
+        }
+      }
+    }
+  });
+
+  it("derives person labels from FR_CONJUGATION_FORM_LABELS, not hardcoded strings", () => {
+    for (const p of frConfig.persons) {
+      const raw = FR_CONJUGATION_FORM_LABELS[frConfig.formKey("present", p.id) as keyof typeof FR_CONJUGATION_FORM_LABELS];
+      expect(raw.startsWith(p.label)).toBe(true);
+      expect(p.label).not.toMatch(/[()]/);
+      // FR has no regional note (unlike ES's vosotros).
+      expect(p.note).toBeUndefined();
+    }
+    expect(frConfig.persons.find((p) => p.id === "il")!.label).toBe("il / elle / on");
+  });
+});
+
+describe("fr option generation — every verb × tense × person", () => {
+  const frConfig = getConjugationGridConfig("fr")!;
+  const FR_TENSES = frConfig.tenses.map((t) => t.id);
+  const FR_PERSONS = frConfig.persons.map((p) => p.id);
+
+  function frAdjacentValues(verb: FrVerbEntry, tense: string, person: string): Set<string> {
+    const values = new Set<string>();
+    for (const p of FR_PERSONS) {
+      if (p !== person) values.add(verb.forms[frConfig.formKey(tense, p) as keyof typeof verb.forms]);
+    }
+    for (const t of FR_TENSES) {
+      if (t !== tense) values.add(verb.forms[frConfig.formKey(t, person) as keyof typeof verb.forms]);
+    }
+    for (const other of FR_VERB_ENTRIES) {
+      if (other.id !== verb.id)
+        values.add(other.forms[frConfig.formKey(tense, person) as keyof typeof other.forms]);
+    }
+    return values;
+  }
+
+  for (const verb of FR_VERB_ENTRIES) {
+    it(`${verb.lemma}: 4 unique options incl. correct, distractors from adjacent cells`, () => {
+      for (const tense of FR_TENSES) {
+        for (const person of FR_PERSONS) {
+          const q = makeGridQuestion(verb, tense, person, FR_VERB_ENTRIES, frConfig, "seed");
+          expect(q.options.length).toBe(OPTION_COUNT);
+          expect(new Set(q.options).size).toBe(OPTION_COUNT);
+          expect(q.options).toContain(q.correct);
+          expect(q.correct).toBe(verb.forms[frConfig.formKey(tense, person) as keyof typeof verb.forms]);
+          const adjacent = frAdjacentValues(verb, tense, person);
+          for (const opt of q.options) {
+            if (opt === q.correct) continue;
+            expect(
+              adjacent.has(opt),
+              `${opt} adjacent to ${verb.lemma} ${tense}.${person}`,
+            ).toBe(true);
+          }
+        }
+      }
+    });
+  }
+
+  it("survives an empty other-verb pool (same-verb tiers still fill 3 distractors)", () => {
+    const verb = FR_VERB_ENTRIES[0]; // être
+    const d = generateAdjacentDistractors(verb, "present", "je", [], frConfig, "seed");
+    expect(d.length).toBe(OPTION_COUNT - 1);
+    expect(new Set(d).size).toBe(OPTION_COUNT - 1);
+    expect(d).not.toContain(verb.forms["present.je"]);
+  });
+
+  it("dedupes French syncretism (aime je = aime il) out of the options", () => {
+    const aimer = FR_VERB_ENTRIES.find((v) => v.id === "aimer")!;
+    for (const seed of ["a", "b", "c", "d", "e"]) {
+      const q = makeGridQuestion(aimer, "present", "je", FR_VERB_ENTRIES, frConfig, seed);
+      // "aime" is both the je AND the il/elle/on cell — must appear once.
+      expect(q.options.filter((o) => o === "aime").length).toBe(1);
+    }
+  });
+});
+
+describe("fr buildVerbRound", () => {
+  const frConfig = getConjugationGridConfig("fr")!;
+  const parler = FR_VERB_ENTRIES.find((v) => v.id === "parler")!;
+
+  it("asks all 3 persons of the chosen verb × tense exactly once", () => {
+    const round = buildVerbRound(parler, "passeCompose", FR_VERB_ENTRIES, frConfig, "seed-1");
+    expect(round.length).toBe(3);
+    expect(new Set(round.map((q) => q.person)).size).toBe(3);
+    for (const q of round) {
+      expect(q.verbId).toBe("parler");
+      expect(q.tense).toBe("passeCompose");
+    }
+  });
+
+  it("is stable given a seed", () => {
+    const a = buildVerbRound(parler, "present", FR_VERB_ENTRIES, frConfig, "stable-seed");
+    const b = buildVerbRound(parler, "present", FR_VERB_ENTRIES, frConfig, "stable-seed");
+    expect(a).toEqual(b);
+  });
+});
+
+describe("fr buildMixRound", () => {
+  const frConfig = getConjugationGridConfig("fr")!;
+
+  it("draws unique (verb, person) cells from the given pool and tense, clamped to what exists", () => {
+    const round = buildMixRound(FR_VERB_ENTRIES, "present", frConfig, "mix-seed");
+    // 7 verbs × 3 persons = 21 cells, well above MIX_ROUND_SIZE.
+    expect(round.length).toBe(MIX_ROUND_SIZE);
+    const pairs = round.map((q) => `${q.verbId}:${q.person}`);
+    expect(new Set(pairs).size).toBe(round.length);
+    for (const q of round) expect(q.tense).toBe("present");
+  });
+
+  it("clamps to the available cells when the pool is small", () => {
+    const one = FR_VERB_ENTRIES.slice(0, 1); // 1 verb → 3 cells
+    const round = buildMixRound(one, "present", frConfig, "seed", 10);
+    expect(round.length).toBe(3);
+    expect(new Set(round.map((q) => q.person)).size).toBe(3);
   });
 });
