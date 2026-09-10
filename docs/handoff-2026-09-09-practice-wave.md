@@ -125,3 +125,61 @@ Merge order when Spencer says yes: practice-wave → conj-forms (stacked on it)
 Peer session lingle-42 (ES, `uds:/tmp/cc-socks/2235.sock`) received the KO
 queue (7 items, none kept by me) and my file-ownership list; it will warn
 before pushing ES to main.
+
+## SHIPPED ~19:30 PT (Spencer's yes, 2026-09-09) + second fan-out
+
+- **Prod:** origin/main = `82d7a3b0` (practice wave + conj-forms + tile
+  alignment + ja-polish + ledger #58) then `7b92d6ac` (iOS build 10 bump). Both:
+  ci ✅ deploy ✅ red-main ✅; deploy's own "serves THIS deploy" step confirmed
+  entry `assets/index-B39znCZv.js`.
+- **TestFlight build 10:** delivery `d4648c03-7a0b-4447-bc88-928766270a58`,
+  VALID, What to Test set, attached to External Beta, beta review
+  WAITING_FOR_REVIEW (check `/v1/builds/{id}/betaAppReviewSubmission`).
+  Release script: `<scratchpad>/release-b10.sh` (sed of b9). ASC lesson:
+  `asc.mjs` prints `HTTP 200` on line 1 — strip it before JSON-parsing, and
+  call it via a shell function, not a `$ASC` variable (zsh doesn't word-split).
+- **Repetition audit → fixes (Spencer: "go with your changes"):**
+  - Filler pool module-wide: `filler-pool-2026-09-09` @ `deb4d5b1`
+    (moduleCompiler.ts + fillerPoolWidth.test.ts + 2 blast-radius scripts).
+    Blast radius: 1187/1550 filler steps (76.6%) re-name a taught word,
+    0/6369 non-filler steps changed, step counts identical in all 435 lessons,
+    TTS 9182/9182 on m6/m11/m20/m30/m34/m38. Cross-lesson filler picks 3→706.
+    NOT merged/pushed yet.
+  - ≥2 carrier sentences per new N4 atom (m30–m34): `n4-carriers-2026-09-09`
+    (`.claude/worktrees/n4-carriers`) — RUNNING at compaction; see memory.
+  - Recycle-rate tool: `recycle-rate-2026-09-09` @ `e3d08dbb`,
+    `scripts/ja-recycle-rate.ts` (+lib, +test, own vitest config), report
+    `docs/ja-recycle-rate-2026-09-09.md`. Finding: literal ≥20% "any earlier
+    verb/noun/adj" is met in 379/380 lessons; the real signal is VERB recycle:
+    64/380 lessons <20%, m31 give/receive = 0% on 7/13 lessons. Next lane
+    (after carriers lands, stacked on it): re-author m31 verb slots using the
+    tool's candidate list, re-run tool to prove movement.
+- **Mobile UI wave** — integration branch `mobile-map-wave-2026-09-09`
+  (this worktree; merges clean, tsc clean, learn tests 23 files/132 green;
+  NOT pushed — background placement is Spencer's design call):
+  - `map-bg-2026-09-09` @ `de042877`: torii art (`src/assets/learn/vnm-bg-ja-torii.jpg`,
+    86 KB, JA only) as a `position:fixed` layer under the vertical map (NOT
+    `background-attachment:fixed` — iOS WebKit ignores it), navy overlay,
+    opacity 0.34 (Fable suggests ~0.22 — red beams sit behind M2's title);
+    auto-scroll to current station on mount; stops 1.3× (node 22→29px, title
+    13.5→17.5px, row tap target 340×76).
+  - `module-view-2026-09-09` @ `fa293521`: DistrictView modal on mobile —
+    lesson titles 13→16px, rows ≥44px, footer buttons 14px/44px, close 44px;
+    desktop pixel-identical. Also `scripts/shot.mjs --touch` and `--click=<sel>`.
+  - `station-line-2026-09-09` @ `4488e3bb` (NOT merged into the wave):
+    `StationLineMap.tsx` prototype (~80 px/station, level headers, reuses
+    ProgressRing/TrainMascotArt/DistrictView) on dev route
+    `/:lang/qa/station-line`; doc `docs/learn-station-line-view-2026-09-09.md`.
+    Parity gaps before it can replace the mobile map: side quests, N4/N5 tier,
+    BackToCurrent, resume bar, dev overlays. Spencer to decide.
+- **Backgrounds set:** 22 entries at `~/Desktop/openlingo-backgrounds-2026-09-09/`;
+  shibuya re-rolled OK (seed 208), andes-market still white-card (kept v1).
+
+### Open items needing Spencer (unchanged + new)
+Device pass on build 9/10; background opacity/placement call; station-line
+go/no-go; merge+push of `mobile-map-wave` and `filler-pool` (+carriers, +m31
+re-author) — each needs `npm run preflight` then push; `scripts/asc/` still
+untracked in the main tree; lingo-data TTS override files + deck JSONs
+uncommitted; Android session files uncommitted; FR m3–m10 walks + m10 liaison
+listen; KO unaudited delta (Payton); vtracer not installed for the
+generate→vectorise→re-render pipeline.
