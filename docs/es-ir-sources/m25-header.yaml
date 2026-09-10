@@ -1,0 +1,175 @@
+module: m25
+title: "Porque, por eso"
+frame: none
+throughModule: m24
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m25 — causal subordination. Seventh A2 module.
+#
+#     porque  (because — states a REASON, joins a result clause to its cause)
+#     por eso (that's why / so — states a RESULT, joins a cause to its effect)
+#
+# ONE idea, the whole module: two clauses the learner can already build
+# (any tense, any PRIOR verb) can now be causally linked, in either
+# direction — cause-then-effect with «por eso», or effect-then-cause with
+# «porque». No new verb morphology, no new tense, no new person. The
+# clause-JOINING mechanism itself is not new either — m23 already taught
+# the learner that two clauses can share one sentence («cuando», «mientras»,
+# «de repente», «entonces»); this module adds a fifth and sixth connective
+# to that toolkit, the first two whose job is REASON rather than TIME.
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# Three lines of evidence, none contradicted by anything in m19–m24:
+#   1. **Named twice, by two different modules, as the explicit next step.**
+#      `es-m23-brief.md`'s "Decisions inferred" flagged «porque» as "a
+#      natural narrative fit and unregistered... left for a future module."
+#      `m24-header.yaml`'s "Rejected alternative" section rejected it for
+#      m24 specifically (not forever) and closed with: "«porque» remains
+#      open for m25 or later." No other candidate has been named for m25
+#      by name in either prior header.
+#   2. **The gap it closes is sharper than another verb-range module.**
+#      m22 gave the course 5 imperfect verbs, m24 gave it 10, m23 gave it
+#      four TIME connectives to narrate a mixed-past scene — but nothing in
+#      the course lets a learner say WHY anything happened, in any tense,
+#      ever. Every sentence the course can build through m24 is a bare
+#      assertion. Closing that gap pays off retroactively across the whole
+#      A2 arc (every PRIOR verb, any tense, becomes a candidate reason or
+#      result clause) in a way a further verb-range module would not.
+#   3. **Verified data floor.** No conjugation-table work is needed at all
+#      (grep-verified, see "WHY NOT ¿POR QUÉ?" below for what WOULD be
+#      needed for the question form, deliberately not built here) — this
+#      module needs exactly two new fixed-phrase atoms and zero new verb
+#      cells, the lightest module since m23.
+#
+# ── REJECTED ALTERNATIVE 1: the remaining 8 imperfect verbs ────────────────
+# `m24-header.yaml`'s "WHICH FIVE" section named vivir, trabajar, comer,
+# salir, cocinar, escribir, comprar, estudiar as a possible "third wave,"
+# fully data-ready (grep-verified again here: none of their imperfect
+# surfaces — vivía/trabajaba/comía/salía/cocinaba/escribía/compraba/
+# estudiaba — exist anywhere in m1–m24). Rejected for m25 on two grounds:
+#   1. It would be the SAME mechanic a third consecutive module in a row
+#      (m22, then m24, then m25) — the exact "coverage not volume" fatigue
+#      risk ([[drafting-coverage-not-volume]]) the m24 header itself used
+#      to justify capping ITS OWN scope at five verbs instead of thirteen.
+#   2. It is not named anywhere as "next" — m24's own header names porque,
+#      not this, as open for m25. The eight verbs remain fully data-ready
+#      and cost nothing by waiting; a fourth wave is still available
+#      whenever a future module wants it.
+#
+# ── REJECTED ALTERNATIVE 2: a consolidation module ──────────────────────
+# No backlog signal supports one. m19–m24 have not been walked by Spencer
+# yet (ES course state: m1–m20 on prod, m21+ unplanned) but that is a
+# review/QA gap, not a content gap a NEW module can close — consolidation
+# modules in this course (m22-L9, m24-L9) are single LESSONS embedded
+# inside a content module, not a module-sized unit on their own; there is
+# no precedent for a whole module of pure review, and manufacturing one
+# would not touch the actual open item (Spencer's QA walk).
+#
+# ── WHICH TWO ATOMS, AND WHY NOT ¿POR QUÉ? (decision) ──────────────────────
+# Spanish's "porque family" has four spellings with four different jobs:
+# «porque» (conjunction, because — one word, no accent), «¿por qué?»
+# (interrogative, why — two words, accent on qué), «por que» (relative,
+# "for which," rare, prepositional — two words, no accent), «el porqué»
+# (noun, "the reason" — one word, accent, takes an article). This module
+# teaches ONLY the first. «¿por qué?» is deliberately excluded:
+#   1. It would be a SECOND new idea (interrogatives), not a deeper version
+#      of this module's one idea (causal linking) — the same "two new
+#      ideas at once" failure m22's and m24's own headers named for
+#      themselves.
+#   2. It requires a genuinely new atom, not a free combination: «qué» has
+#      never been registered as a free-standing word (grep-verified —
+#      m3's «¿qué es?» is a fixed MULTI-word atom, not a decomposable
+#      «qué»), and «por» has never been registered as a free-standing
+#      preposition either (grep-verified, zero hits m1–m24). Teaching
+#      «¿por qué?» would mean minting two new function-word atoms plus an
+#      interrogative-punctuation pattern — real added surface area, not a
+#      one-line extension.
+#   3. The archived (pre-re-author) m9 taught porque/por qué together as
+#      a question-answer pair — UNVERIFIED whether that shape suits the
+#      current re-authored course's pacing; not reused here without
+#      re-deriving it, and doing so is exactly the second-idea problem in
+#      (1). «¿por qué?» stays open for a future module, same status
+#      «porque» itself held after m23.
+# The two atoms chosen — «porque» (reason) and «por eso» (result) — are a
+# deliberate minimal pair, cause told forwards and the same cause told
+# backwards, mirroring this module's own grammar-card sentence and m24's
+# «iba»/«venía» free-minimal-pair technique.
+#
+# ── HOMOGRAPH TRAP: «como» ALREADY MEANS "I EAT" — DO NOT USE IT AS
+# "AS/SINCE" ─────────────────────────────────────────────────────────────
+# Spanish also allows «como» and «ya que» as causal connectives ("since,"
+# "as"). Neither is usable here: «como» is PRIOR since m11 as the yo-form
+# of comer ("como pan" — I eat bread) and reusing it as a causal connective
+# in the SAME course would build a genuine, ungated homograph — the exact
+# failure mode [[vocab-gate-blind-to-fragments]] warns about, a residual
+# check would not catch a real word colliding with a real grammar function.
+# «ya que» is not registered at all and is not manufactured here either
+# (would be a third causal connective, out of this module's two-atom
+# scope). Only «porque»/«por eso» are legal causal markers in this module.
+#
+# ── SPELLING DISCIPLINE: «porque» IS ONE WORD, NO ACCENT — ALWAYS ─────────
+# Every answer position using the reason-conjunction must render it as the
+# single unaccented word «porque». Never «por qué» (two words, accented —
+# that is the UNTAUGHT interrogative), never «por que» (two words,
+# unaccented — the untaught relative), never «el porqué» (accented noun
+# with article — also untaught). Gate scan: any lesson JSON containing the
+# substring "por qué" or "por que" or "porqué" outside this comment block
+# fails, no exceptions.
+#
+# ── «por eso» IS ONE FIXED PHRASE ATOM, NOT DECOMPOSABLE ───────────────────
+# Same pattern as PRIOR «todos los días» (m10), «la semana pasada» / «el
+# fin de semana» (m19), «de niño» (m22) — a multi-word phrase atom the
+# learner acquires as one chunk. Do not exercise «eso» alone (it has never
+# been registered as a free-standing word — grep-verified, zero hits
+# m1–m24) and do not build a sentence relying on «eso» meaning "that" in
+# any other construction; its only legal appearance in this module is
+# inside the fixed phrase «por eso».
+#
+# ── NO TENSE RESTRICTION ON «porque»/«por eso» — UNLIKE m21–m23's TIME
+# MARKERS ─────────────────────────────────────────────────────────────────
+# «ayer», «hoy», «mañana» and the rest of m21/m22's marker set are TIME
+# words and must agree with the clause's tense (m21's rule, restated by
+# m22 and m23). «porque» and «por eso» are CAUSAL, not temporal — they
+# carry no tense commitment of their own and may freely join a present
+# clause to a preterite one, an imperfect one to a present one, or any
+# other combination, AS LONG AS each individual clause is internally
+# tense-consistent per the existing per-clause rules. Do not apply the
+# marker/tense-agreement rule to «porque»/«por eso» themselves — name this
+# explicitly to drafting agents so they don't over-constrain otherwise-
+# legal cause/result pairings across tenses.
+#
+# ── NO NEW VERB MORPHOLOGY, NO NEW TENSE, NO PROGRESSIVE ───────────────────
+# Zero new verb atoms this module. Every verb form used — present, PRIOR
+# preterite (m19–m21), PRIOR imperfect (m22, m24) — is already registered;
+# this module's only job is connecting clauses built from them. Pin E7
+# (no progressive, «estaba/hacía + -ndo») is still in force, unchanged,
+# and no more or less at risk here than in m24 (no new -ndo-adjacent
+# surface is introduced).
+#
+# ── NO NEW EMOJI, NO NEW NOUN, NO NEW IMAGEABLE VOCAB THIS MODULE ─────────
+# Same precedent as m19/m21/m22/m23/m24 (pure-grammar modules ship zero).
+# Both new atoms are function-word-shaped connectives; narrative color
+# comes entirely from PRIOR nouns-with-emoji (la fiesta 🎉, el cine 🎬, la
+# playa 🏖️, la escuela 🏫, el trabajo 💼, casa 🏠, el parque 🌳, el museo
+# 🏛️, el mercado 🛒, la tienda 🏪) and PRIOR non-emoji nouns (la tarea, m15;
+# el amigo, m-PRIOR per m24 header) and the fixed cast.
+#
+# ── ACCENT: FRESH COLOUR — BLUE, VERIFIED UNUSED ────────────────────────
+# Checked every `accent:` pair in `curriculum/index.ts` (grep-verified:
+# zero hits for `#3b82f6`, `#1d4ed8`, and — while checking — zero hits
+# also for a plain cyan or yellow pair, kept in reserve for a future
+# module). Blue reads as distinct at a glance from m21 sky (`#38bdf8`→
+# `#0c4a6e`), m22 indigo (`#818cf8`→`#3730a3`), m23 red (`#ef4444`→
+# `#991b1b`), and m24 fuchsia (`#d946ef`→`#86198f`).
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # porque — the reason connective. States WHY a clause is true. Never
+  # confused with the untaught «¿por qué?»/«por que»/«el porqué» — see
+  # spelling discipline above.
+  - { surface: "porque", meaningEn: "because", partOfSpeech: "conjunction", kind: "vocab", hint: "POR-keh — one word, no accent. States a reason. NOT the same as the untaught «¿por qué?» (why, two words, accented)." }
+  # por eso — the result connective, the reverse direction of porque. Fixed
+  # phrase, «eso» never exercised alone.
+  - { surface: "por eso", meaningEn: "that's why, so", partOfSpeech: "phrase", kind: "phrase", hint: "por EH-so — one fixed phrase, states a result. The mirror of «porque»: same two facts, cause first or effect first." }
+
+lessons:
