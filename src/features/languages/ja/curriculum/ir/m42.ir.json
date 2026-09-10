@@ -1368,8 +1368,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "じこが あった らしい。",
-          "en": "Apparently there was an accident.",
+          "ja": "たいふうが きたらしい。",
+          "en": "Apparently a typhoon came.",
           "exercises": [
             "rashii-hearsay",
             "ta-form"
@@ -1545,8 +1545,8 @@
             },
             {
               "speaker": "Mika",
-              "ja": "うん、たいへんそうです。たいふうが くると いっていたよ。",
-              "en": "Yeah, it sounds tough. He said a typhoon was coming."
+              "ja": "うん、たいへんだね。たいふうが くると いっていたよ。",
+              "en": "Yeah, that's tough. He said a typhoon was coming."
             },
             {
               "speaker": "Ken",
@@ -1938,8 +1938,8 @@
             },
             {
               "speaker": "Tanaka",
-              "ja": "たいへんそうだね。",
-              "en": "Sounds tough."
+              "ja": "たいへんだね。",
+              "en": "That's tough."
             }
           ],
           "questions": [

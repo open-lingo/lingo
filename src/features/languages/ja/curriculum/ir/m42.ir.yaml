@@ -514,7 +514,7 @@ lessons:
       - { kind: sentence, ja: "あの ばんぐみは おもしろいらしい。", en: "Apparently that show is interesting.", exercises: [rashii-hearsay], mode: build }
       - { kind: sentence, ja: "たいふうが くるらしい。", en: "Apparently a typhoon is coming.", exercises: [rashii-hearsay], mode: build }
       - { kind: sentence, ja: "きしゃは びょうきらしい。", en: "Apparently the reporter is sick.", exercises: [rashii-hearsay], mode: build }
-      - { kind: sentence, ja: "じこが あった らしい。", en: "Apparently there was an accident.", exercises: [rashii-hearsay, ta-form], mode: listening }
+      - { kind: sentence, ja: "たいふうが きたらしい。", en: "Apparently a typhoon came.", exercises: [rashii-hearsay, ta-form], mode: listening }
       - { kind: particle-cloze, stem: "きしゃは びょうき", tail: "。", answer: "らしい", options: ["らしい", "だらしい", "そうだ"], en: "Apparently the reporter is sick.", explanation: "らしい attaches straight after a noun, with no だ — びょうきらしい. だらしい is not a real form, and そうだ WOULD need だ first (きしゃは びょうきだそうだ) — a different word with a different attachment rule." }
       - { kind: listening-comp, audio: "うわさで、ミカは いそがしいらしい。", answer: "According to the rumor, apparently Mika is busy.", distractors: ["Mika said herself that she is busy.", "According to the rumor, Mika is free.", "Nobody has heard anything about Mika."], q: "What does this mean?" }
       - { kind: kanji, kana: きじ, kanji: 記事, distractors: ["きろく", "きねん", "きぼう"], exercises: [rashii-hearsay] }
@@ -544,7 +544,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Tanaka", ja: "きしゃは びょうきらしいですね。", en: "Apparently the reporter is sick." }
-          - { speaker: "Mika", ja: "うん、たいへんそうです。たいふうが くると いっていたよ。", en: "Yeah, it sounds tough. He said a typhoon was coming." }
+          - { speaker: "Mika", ja: "うん、たいへんだね。たいふうが くると いっていたよ。", en: "Yeah, that's tough. He said a typhoon was coming." }
           - { speaker: "Ken", ja: "ほうそうは どうなるん だろう。", en: "I wonder what will happen to the broadcast." }
         questions:
           - { q: "What is apparently true about the reporter?", options: ["He's sick", "He's on the broadcast right now", "He wrote a new article", "Nobody knows anything about him"], answer: "He's sick" }
@@ -618,7 +618,7 @@ lessons:
         lines:
           - { speaker: "Tanaka", ja: "きょうの ニュース、きいた？", en: "Did you hear today's news?" }
           - { speaker: "Mika", ja: "はい。たいふうが くるそうです。きしゃも じこが あったと いっていた。", en: "Yes. I heard a typhoon is coming. The reporter also said there was an accident." }
-          - { speaker: "Tanaka", ja: "たいへんそうだね。", en: "Sounds tough." }
+          - { speaker: "Tanaka", ja: "たいへんだね。", en: "That's tough." }
         questions:
           - { q: "What two things did Mika hear about, according to the news?", options: ["A coming typhoon and an accident", "A new TV show and a rumor", "A newspaper article and a broadcast schedule", "Nothing, the news was empty"], answer: "A coming typhoon and an accident" }
       - { kind: sentence, ja: "きしゃは びょうきらしい。", en: "Apparently the reporter is sick.", exercises: [rashii-hearsay], mode: build }
