@@ -42,7 +42,7 @@
         atoms: ["hablaba", "español"]
       - kind: clozeLit
         id: l9-c-teniaera
-        es: "de niño, tenía muchos amigos y era muy bueno"
+        es: "de niño, yo tenía muchos amigos y era muy bueno"
         en: "As a child, I used to have a lot of friends and was very good"
         blank: "era"
         options: ["era", "es", "eran"]
@@ -123,22 +123,22 @@
             reply:
               mode: choice
               options:
-                - { id: "right", text: "sí, iba siempre" }
+                - { id: "right", text: "sí, yo iba siempre" }
                 - { id: "wrong1", text: "sí, voy siempre" }
                 - { id: "wrong2", text: "sí, iban siempre" }
               correctOptionId: "right"
-              audioText: "sí, iba siempre"
+              audioText: "sí, yo iba siempre"
             replyGloss: "Yes, I always used to go."
-            explanation: "«de niño» points to the imperfect: «iba». «voy» would slip into today; «iban» would be more than one."
+            explanation: "«de niño» points to the imperfect: «iba», with «yo» to keep it unambiguous. «voy» would slip into today; «iban» would be more than one."
           - id: t3
             npc: { speaker: "Ana", es: "¿Eras bueno en la escuela de niño?", audioText: "¿eras bueno en la escuela de niño?", gloss: "Were you good at school as a child?" }
             goal: "Say yes, you were always very good."
             reply:
               mode: build
-              tiles: ["sí", "era", "siempre", "muy", "bueno", "eran", "soy"]
-              answer: "sí era siempre muy bueno"
+              tiles: ["sí", "yo", "era", "siempre", "muy", "bueno", "eran", "soy"]
+              answer: "sí yo era siempre muy bueno"
             replyGloss: "Yes, I was always very good."
-            explanation: "Still «de niño», still imperfect: «era». «eran» would be more than one; «soy» slips into now."
+            explanation: "Still «de niño», still imperfect: «era», with «yo» to keep it unambiguous. «eran» would be more than one; «soy» slips into now."
       - kind: matchLit
         id: l9-match
         pairs:

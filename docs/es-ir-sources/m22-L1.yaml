@@ -112,10 +112,10 @@
             goal: "Say yes, you used to speak it daily."
             reply:
               mode: build
-              tiles: ["sí", "hablaba", "todos", "los", "días", "habla", "hablan"]
-              answer: "sí hablaba todos los días"
+              tiles: ["sí", "yo", "hablaba", "todos", "los", "días", "habla", "hablan"]
+              answer: "sí yo hablaba todos los días"
             replyGloss: "Yes, I used to speak it every day."
-            explanation: "Ana asked with «usted» — formal you shares the exact same imperfect form as yo: «hablaba». The subject is already set by the question, so the answer can stay plain."
+            explanation: "Ana asked with «usted» — formal you shares the exact same imperfect form as yo: «hablaba». Answering with «yo» keeps it unambiguous, same rule as anywhere else — the verb ending never tells you who by itself."
           - id: t2
             npc: { speaker: "Ana", es: "¿Y Diego? ¿Hablaba español también?", audioText: "¿y diego? ¿hablaba español también?", gloss: "And Diego? Did he used to speak Spanish too?" }
             goal: "Say yes, he used to speak it too."
@@ -135,11 +135,11 @@
             reply:
               mode: choice
               options:
-                - { id: "right", text: "sí, hablaba siempre en la escuela" }
+                - { id: "right", text: "sí, yo hablaba siempre en la escuela" }
                 - { id: "wrong1", text: "sí, hablan siempre en la escuela" }
                 - { id: "wrong2", text: "sí, habla siempre en la escuela" }
               correctOptionId: "right"
-              audioText: "sí, hablaba siempre en la escuela"
+              audioText: "sí, yo hablaba siempre en la escuela"
             replyGloss: "Yes, I always used to speak it at school."
             explanation: "Still you, answering as «yo»: «hablaba». «habla»/«hablan» both slip into now — and «hablan» wrongly makes it more than one person."
       - kind: matchLit

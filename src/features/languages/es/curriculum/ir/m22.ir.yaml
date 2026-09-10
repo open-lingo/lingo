@@ -186,7 +186,7 @@ newAtoms:
   - { surface: "teníamos", meaningEn: "we had (age, possession, or state)", partOfSpeech: "verb", kind: "vocab", hint: "teh-nee-AH-mos" }
   - { surface: "tenían", meaningEn: "they had, you all had (age, possession, or state)", partOfSpeech: "verb", kind: "vocab", hint: "teh-NEE-ahn" }
   # ser — irregular #1 of exactly three. Description/identity in the past.
-  - { surface: "era", meaningEn: "I was, he/she/you (usted) was", partOfSpeech: "verb", kind: "vocab", hint: "EH-rah — no accent" }
+  - { surface: "era", meaningEn: "I was, he/she was, you (usted) were", partOfSpeech: "verb", kind: "vocab", hint: "EH-rah — no accent" }
   - { surface: "eras", meaningEn: "you (tú) were", partOfSpeech: "verb", kind: "vocab", hint: "EH-rahs" }
   - { surface: "éramos", meaningEn: "we were", partOfSpeech: "verb", kind: "vocab", hint: "EH-rah-mos — the ONE ser form that carries an accent" }
   - { surface: "eran", meaningEn: "they were, you all were", partOfSpeech: "verb", kind: "vocab", hint: "EH-rahn" }
@@ -318,10 +318,10 @@ lessons:
             goal: "Say yes, you used to speak it daily."
             reply:
               mode: build
-              tiles: ["sí", "hablaba", "todos", "los", "días", "habla", "hablan"]
-              answer: "sí hablaba todos los días"
+              tiles: ["sí", "yo", "hablaba", "todos", "los", "días", "habla", "hablan"]
+              answer: "sí yo hablaba todos los días"
             replyGloss: "Yes, I used to speak it every day."
-            explanation: "Ana asked with «usted» — formal you shares the exact same imperfect form as yo: «hablaba». The subject is already set by the question, so the answer can stay plain."
+            explanation: "Ana asked with «usted» — formal you shares the exact same imperfect form as yo: «hablaba». Answering with «yo» keeps it unambiguous, same rule as anywhere else — the verb ending never tells you who by itself."
           - id: t2
             npc: { speaker: "Ana", es: "¿Y Diego? ¿Hablaba español también?", audioText: "¿y diego? ¿hablaba español también?", gloss: "And Diego? Did he used to speak Spanish too?" }
             goal: "Say yes, he used to speak it too."
@@ -341,11 +341,11 @@ lessons:
             reply:
               mode: choice
               options:
-                - { id: "right", text: "sí, hablaba siempre en la escuela" }
+                - { id: "right", text: "sí, yo hablaba siempre en la escuela" }
                 - { id: "wrong1", text: "sí, hablan siempre en la escuela" }
                 - { id: "wrong2", text: "sí, habla siempre en la escuela" }
               correctOptionId: "right"
-              audioText: "sí, hablaba siempre en la escuela"
+              audioText: "sí, yo hablaba siempre en la escuela"
             replyGloss: "Yes, I always used to speak it at school."
             explanation: "Still you, answering as «yo»: «hablaba». «habla»/«hablan» both slip into now — and «hablan» wrongly makes it more than one person."
       - kind: matchLit
@@ -631,10 +631,10 @@ lessons:
             goal: "Say yes, you were always good."
             reply:
               mode: build
-              tiles: ["sí", "era", "siempre", "bueno", "eran", "es"]
-              answer: "sí era siempre bueno"
+              tiles: ["sí", "yo", "era", "siempre", "bueno", "eran", "es"]
+              answer: "sí yo era siempre bueno"
             replyGloss: "Yes, I was always good."
-            explanation: "Answering as yourself: «era». «eran» would be more than one; «es» slips into now."
+            explanation: "Answering as yourself, «yo» keeps «era» unambiguous — it also means he/she/usted was. «eran» would be more than one; «es» slips into now."
           - id: t2
             npc: { speaker: "Carmen", es: "¿Y Ana? ¿Era buena también?", audioText: "¿y ana? ¿era buena también?", gloss: "And Ana? Was she good too?" }
             goal: "Say yes, she was very good."
@@ -664,7 +664,7 @@ lessons:
       - kind: matchLit
         id: l3-match
         pairs:
-          - { source: "era", target: "I was, he/she/you was" }
+          - { source: "era", target: "I was, he/she was, you were" }
           - { source: "eras", target: "you (tú) were" }
           - { source: "bueno", target: "good" }
           - { source: "de niño", target: "as a child" }
@@ -949,10 +949,10 @@ lessons:
             goal: "Say yes, you always used to go early."
             reply:
               mode: build
-              tiles: ["sí", "iba", "siempre", "temprano", "iban", "voy"]
-              answer: "sí iba siempre temprano"
+              tiles: ["sí", "yo", "iba", "siempre", "temprano", "iban", "voy"]
+              answer: "sí yo iba siempre temprano"
             replyGloss: "Yes, I always used to go early."
-            explanation: "Answering as yourself: «iba». «iban» would be more than one; «voy» slips into now."
+            explanation: "Answering as yourself, «yo» keeps «iba» unambiguous — it also means he/she/usted used to go. «iban» would be more than one; «voy» slips into now."
           - id: t2
             npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Iban a la escuela también?", audioText: "¿y diego y sofía? ¿iban a la escuela también?", gloss: "And Diego and Sofía? Did they used to go to school too?" }
             goal: "Say yes, they always used to go together."
@@ -1107,10 +1107,10 @@ lessons:
             goal: "Say yes, you always used to watch them."
             reply:
               mode: build
-              tiles: ["sí", "veía", "siempre", "películas", "veían", "veo"]
-              answer: "sí veía siempre películas"
+              tiles: ["sí", "yo", "veía", "siempre", "películas", "veían", "veo"]
+              answer: "sí yo veía siempre películas"
             replyGloss: "Yes, I always used to watch movies."
-            explanation: "Answering as yourself: «veía». «veían» would be more than one; «veo» slips into now."
+            explanation: "Answering as yourself, «yo» keeps «veía» unambiguous — it also means he/she/usted used to watch. «veían» would be more than one; «veo» slips into now."
           - id: t2
             npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Veían películas también?", audioText: "¿y diego y sofía? ¿veían películas también?", gloss: "And Diego and Sofía? Did they used to watch movies too?" }
             goal: "Say yes, they always used to watch together."
@@ -1256,7 +1256,7 @@ lessons:
         distractors: ["tenías", "tenían", "tiene"]
       - kind: buildLit
         id: l7-b-nohablabamucho
-        es: "de niño, no hablaba mucho"
+        es: "de niño, yo no hablaba mucho"
         en: "As a child, I didn't used to speak much"
         atoms: ["hablaba", "mucho"]
         tiles: ["hablo", "hablaban"]
@@ -1271,7 +1271,7 @@ lessons:
         why: "«no» plus «era»: she wasn't — still the yo=él collision word, just negated."
       - kind: buildLit
         id: l7-b-noibaescuelatemprano
-        es: "de niño, no iba a la escuela temprano"
+        es: "de niño, yo no iba a la escuela temprano"
         en: "As a child, I didn't used to go to school early"
         atoms: ["iba", "escuela", "temprano"]
         tiles: ["voy", "iban"]
@@ -1299,34 +1299,34 @@ lessons:
         turns:
           - id: t1
             npc: { speaker: "Carmen", es: "¿Cuántos años tenías cuando ibas a la escuela?", audioText: "¿cuántos años tenías cuando ibas a la escuela?", gloss: "How old were you when you used to go to school?" }
-            goal: "Say you used to be about seven."
+            goal: "Say yes, you used to be seven."
             reply:
               mode: build
-              tiles: ["tenía", "siete", "años", "más", "o", "menos", "tenían", "tengo"]
-              answer: "tenía siete años más o menos"
-            replyGloss: "I used to be about seven years old."
-            explanation: "Answering as yourself: «tenía». «tenían» would be more than one; «tengo» slips into now."
+              tiles: ["sí", "yo", "tenía", "siete", "años", "tenían", "tengo"]
+              answer: "sí yo tenía siete años"
+            replyGloss: "Yes, I used to be seven years old."
+            explanation: "Answering as yourself, «yo» keeps «tenía» unambiguous — it also means he/she/usted used to have. «tenían» would be more than one; «tengo» slips into now."
           - id: t2
-            npc: { speaker: "Carmen", es: "¿Y Diego y Sofía? ¿No tenían la misma edad?", audioText: "¿y diego y sofía? ¿no tenían la misma edad?", gloss: "And Diego and Sofía? Didn't they used to be the same age?" }
-            goal: "Say no, they used to have different ages."
+            npc: { speaker: "Carmen", es: "¿Y Diego y Sofía? ¿Tenían siete años también?", audioText: "¿y diego y sofía? ¿tenían siete años también?", gloss: "And Diego and Sofía? Did they used to be seven too?" }
+            goal: "Say no, they used to have more years."
             reply:
               mode: choice
               options:
-                - { id: "right", text: "no, tenían edades diferentes" }
-                - { id: "wrong1", text: "no, teníamos edades diferentes" }
-                - { id: "wrong2", text: "no, tienen edades diferentes" }
+                - { id: "right", text: "no, tenían más años" }
+                - { id: "wrong1", text: "no, teníamos más años" }
+                - { id: "wrong2", text: "no, tienen más años" }
               correctOptionId: "right"
-              audioText: "no, tenían edades diferentes"
-            replyGloss: "No, they used to have different ages."
+              audioText: "no, tenían más años"
+            replyGloss: "No, they used to be older (more years)."
             explanation: "Diego and Sofía — them: «tenían». «teníamos» would wrongly include you; «tienen» slips into now."
           - id: t3
-            npc: { speaker: "Carmen", es: "¿Y tú y yo? ¿Teníamos la misma edad de niños?", audioText: "¿y tú y yo? ¿teníamos la misma edad de niños?", gloss: "And you and I? Did we used to be the same age as kids?" }
-            goal: "Say yes, always the same age as kids."
+            npc: { speaker: "Carmen", es: "¿Y tú y yo? ¿Teníamos siete años de niños?", audioText: "¿y tú y yo? ¿teníamos siete años de niños?", gloss: "And you and I? Did we used to be seven as kids?" }
+            goal: "Say yes, you used to be seven too."
             reply:
               mode: build
-              tiles: ["sí", "teníamos", "siempre", "la", "misma", "edad", "tenían", "tenía"]
-              answer: "sí teníamos siempre la misma edad"
-            replyGloss: "Yes, we always used to be the same age."
+              tiles: ["sí", "teníamos", "siete", "años", "también", "tenían", "tenía"]
+              answer: "sí teníamos siete años también"
+            replyGloss: "Yes, we used to be seven too."
             explanation: "You and Carmen together: «teníamos» — the nosotros form, accented like every tener imperfect form."
       - kind: matchLit
         id: l7-match
@@ -1358,7 +1358,7 @@ lessons:
     steps:
       - kind: buildLit
         id: l8-b-hablabatenia
-        es: "de niño, hablaba mucho y tenía muchos amigos"
+        es: "de niño, yo hablaba mucho y tenía muchos amigos"
         en: "As a child, I used to speak a lot and had a lot of friends"
         atoms: ["de niño", "hablaba", "tenía", "mucho"]
         tiles: ["hablo", "tengo"]
@@ -1382,7 +1382,7 @@ lessons:
         tiles: ["hablan", "tienen"]
       - kind: buildLit
         id: l8-b-eraveia
-        es: "de niño, era muy bueno y veía películas"
+        es: "de niño, yo era muy bueno y veía películas"
         en: "As a child, I was very good and used to watch movies"
         atoms: ["de niño", "era", "veía", "bueno", "película"]
         tiles: ["es", "veo"]
@@ -1475,10 +1475,10 @@ lessons:
             goal: "Say yes, you always used to go."
             reply:
               mode: build
-              tiles: ["sí", "iba", "siempre", "iban", "voy"]
-              answer: "sí iba siempre"
+              tiles: ["sí", "yo", "iba", "siempre", "iban", "voy"]
+              answer: "sí yo iba siempre"
             replyGloss: "Yes, I always used to go."
-            explanation: "Answering as yourself: «iba». «iban» would be more than one; «voy» slips into now."
+            explanation: "Answering as yourself, «yo» keeps «iba» unambiguous — it also means he/she/usted used to go. «iban» would be more than one; «voy» slips into now."
           - id: t2
             npc: { speaker: "Carmen", es: "¿Y todos tenían muchos amigos?", audioText: "¿y todos tenían muchos amigos?", gloss: "And did everyone used to have a lot of friends?" }
             goal: "Say yes, everyone always used to."
@@ -1494,13 +1494,13 @@ lessons:
             reply:
               mode: choice
               options:
-                - { id: "right", text: "sí, era siempre muy bueno" }
+                - { id: "right", text: "sí, yo era siempre muy bueno" }
                 - { id: "wrong1", text: "sí, eran siempre muy bueno" }
                 - { id: "wrong2", text: "sí, soy siempre muy bueno" }
               correctOptionId: "right"
-              audioText: "sí, era siempre muy bueno"
+              audioText: "sí, yo era siempre muy bueno"
             replyGloss: "Yes, I was always very good."
-            explanation: "Answering as yourself: «era». «eran» would be more than one; «soy» slips into now."
+            explanation: "Answering as yourself, «yo» keeps «era» unambiguous — it also means he/she/usted was. «eran» would be more than one; «soy» slips into now."
       - kind: matchLit
         id: l8-match
         pairs:
@@ -1560,7 +1560,7 @@ lessons:
         atoms: ["hablaba", "español"]
       - kind: clozeLit
         id: l9-c-teniaera
-        es: "de niño, tenía muchos amigos y era muy bueno"
+        es: "de niño, yo tenía muchos amigos y era muy bueno"
         en: "As a child, I used to have a lot of friends and was very good"
         blank: "era"
         options: ["era", "es", "eran"]
@@ -1641,22 +1641,22 @@ lessons:
             reply:
               mode: choice
               options:
-                - { id: "right", text: "sí, iba siempre" }
+                - { id: "right", text: "sí, yo iba siempre" }
                 - { id: "wrong1", text: "sí, voy siempre" }
                 - { id: "wrong2", text: "sí, iban siempre" }
               correctOptionId: "right"
-              audioText: "sí, iba siempre"
+              audioText: "sí, yo iba siempre"
             replyGloss: "Yes, I always used to go."
-            explanation: "«de niño» points to the imperfect: «iba». «voy» would slip into today; «iban» would be more than one."
+            explanation: "«de niño» points to the imperfect: «iba», with «yo» to keep it unambiguous. «voy» would slip into today; «iban» would be more than one."
           - id: t3
             npc: { speaker: "Ana", es: "¿Eras bueno en la escuela de niño?", audioText: "¿eras bueno en la escuela de niño?", gloss: "Were you good at school as a child?" }
             goal: "Say yes, you were always very good."
             reply:
               mode: build
-              tiles: ["sí", "era", "siempre", "muy", "bueno", "eran", "soy"]
-              answer: "sí era siempre muy bueno"
+              tiles: ["sí", "yo", "era", "siempre", "muy", "bueno", "eran", "soy"]
+              answer: "sí yo era siempre muy bueno"
             replyGloss: "Yes, I was always very good."
-            explanation: "Still «de niño», still imperfect: «era». «eran» would be more than one; «soy» slips into now."
+            explanation: "Still «de niño», still imperfect: «era», with «yo» to keep it unambiguous. «eran» would be more than one; «soy» slips into now."
       - kind: matchLit
         id: l9-match
         pairs:
@@ -1833,7 +1833,7 @@ lessons:
             replyGloss: "Yes, we always used to speak it."
             explanation: "You and the group: «hablábamos» — the nosotros ending, the one that carries an accent. «hablaban» would leave you out."
           - id: t5
-            npc: { speaker: "Ana", es: "¿Qué más recuerdas de niños?", audioText: "¿qué más recuerdas de niños?", gloss: "What else do you remember as children?" }
+            npc: { speaker: "Ana", es: "¿Y qué más?", audioText: "¿y qué más?", gloss: "And what else?" }
             goal: "Describe growing up together, and talking a lot."
             reply:
               mode: build

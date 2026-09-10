@@ -114,10 +114,10 @@
             goal: "Say yes, you always used to go early."
             reply:
               mode: build
-              tiles: ["sí", "iba", "siempre", "temprano", "iban", "voy"]
-              answer: "sí iba siempre temprano"
+              tiles: ["sí", "yo", "iba", "siempre", "temprano", "iban", "voy"]
+              answer: "sí yo iba siempre temprano"
             replyGloss: "Yes, I always used to go early."
-            explanation: "Answering as yourself: «iba». «iban» would be more than one; «voy» slips into now."
+            explanation: "Answering as yourself, «yo» keeps «iba» unambiguous — it also means he/she/usted used to go. «iban» would be more than one; «voy» slips into now."
           - id: t2
             npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Iban a la escuela también?", audioText: "¿y diego y sofía? ¿iban a la escuela también?", gloss: "And Diego and Sofía? Did they used to go to school too?" }
             goal: "Say yes, they always used to go together."

@@ -13,7 +13,7 @@
     steps:
       - kind: buildLit
         id: l8-b-hablabatenia
-        es: "de niño, hablaba mucho y tenía muchos amigos"
+        es: "de niño, yo hablaba mucho y tenía muchos amigos"
         en: "As a child, I used to speak a lot and had a lot of friends"
         atoms: ["de niño", "hablaba", "tenía", "mucho"]
         tiles: ["hablo", "tengo"]
@@ -37,7 +37,7 @@
         tiles: ["hablan", "tienen"]
       - kind: buildLit
         id: l8-b-eraveia
-        es: "de niño, era muy bueno y veía películas"
+        es: "de niño, yo era muy bueno y veía películas"
         en: "As a child, I was very good and used to watch movies"
         atoms: ["de niño", "era", "veía", "bueno", "película"]
         tiles: ["es", "veo"]
@@ -130,10 +130,10 @@
             goal: "Say yes, you always used to go."
             reply:
               mode: build
-              tiles: ["sí", "iba", "siempre", "iban", "voy"]
-              answer: "sí iba siempre"
+              tiles: ["sí", "yo", "iba", "siempre", "iban", "voy"]
+              answer: "sí yo iba siempre"
             replyGloss: "Yes, I always used to go."
-            explanation: "Answering as yourself: «iba». «iban» would be more than one; «voy» slips into now."
+            explanation: "Answering as yourself, «yo» keeps «iba» unambiguous — it also means he/she/usted used to go. «iban» would be more than one; «voy» slips into now."
           - id: t2
             npc: { speaker: "Carmen", es: "¿Y todos tenían muchos amigos?", audioText: "¿y todos tenían muchos amigos?", gloss: "And did everyone used to have a lot of friends?" }
             goal: "Say yes, everyone always used to."
@@ -149,13 +149,13 @@
             reply:
               mode: choice
               options:
-                - { id: "right", text: "sí, era siempre muy bueno" }
+                - { id: "right", text: "sí, yo era siempre muy bueno" }
                 - { id: "wrong1", text: "sí, eran siempre muy bueno" }
                 - { id: "wrong2", text: "sí, soy siempre muy bueno" }
               correctOptionId: "right"
-              audioText: "sí, era siempre muy bueno"
+              audioText: "sí, yo era siempre muy bueno"
             replyGloss: "Yes, I was always very good."
-            explanation: "Answering as yourself: «era». «eran» would be more than one; «soy» slips into now."
+            explanation: "Answering as yourself, «yo» keeps «era» unambiguous — it also means he/she/usted was. «eran» would be more than one; «soy» slips into now."
       - kind: matchLit
         id: l8-match
         pairs:

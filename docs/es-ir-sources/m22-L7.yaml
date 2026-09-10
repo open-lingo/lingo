@@ -106,7 +106,7 @@
         distractors: ["tenías", "tenían", "tiene"]
       - kind: buildLit
         id: l7-b-nohablabamucho
-        es: "de niño, no hablaba mucho"
+        es: "de niño, yo no hablaba mucho"
         en: "As a child, I didn't used to speak much"
         atoms: ["hablaba", "mucho"]
         tiles: ["hablo", "hablaban"]
@@ -121,7 +121,7 @@
         why: "«no» plus «era»: she wasn't — still the yo=él collision word, just negated."
       - kind: buildLit
         id: l7-b-noibaescuelatemprano
-        es: "de niño, no iba a la escuela temprano"
+        es: "de niño, yo no iba a la escuela temprano"
         en: "As a child, I didn't used to go to school early"
         atoms: ["iba", "escuela", "temprano"]
         tiles: ["voy", "iban"]
@@ -149,34 +149,34 @@
         turns:
           - id: t1
             npc: { speaker: "Carmen", es: "¿Cuántos años tenías cuando ibas a la escuela?", audioText: "¿cuántos años tenías cuando ibas a la escuela?", gloss: "How old were you when you used to go to school?" }
-            goal: "Say you used to be about seven."
+            goal: "Say yes, you used to be seven."
             reply:
               mode: build
-              tiles: ["tenía", "siete", "años", "más", "o", "menos", "tenían", "tengo"]
-              answer: "tenía siete años más o menos"
-            replyGloss: "I used to be about seven years old."
-            explanation: "Answering as yourself: «tenía». «tenían» would be more than one; «tengo» slips into now."
+              tiles: ["sí", "yo", "tenía", "siete", "años", "tenían", "tengo"]
+              answer: "sí yo tenía siete años"
+            replyGloss: "Yes, I used to be seven years old."
+            explanation: "Answering as yourself, «yo» keeps «tenía» unambiguous — it also means he/she/usted used to have. «tenían» would be more than one; «tengo» slips into now."
           - id: t2
-            npc: { speaker: "Carmen", es: "¿Y Diego y Sofía? ¿No tenían la misma edad?", audioText: "¿y diego y sofía? ¿no tenían la misma edad?", gloss: "And Diego and Sofía? Didn't they used to be the same age?" }
-            goal: "Say no, they used to have different ages."
+            npc: { speaker: "Carmen", es: "¿Y Diego y Sofía? ¿Tenían siete años también?", audioText: "¿y diego y sofía? ¿tenían siete años también?", gloss: "And Diego and Sofía? Did they used to be seven too?" }
+            goal: "Say no, they used to have more years."
             reply:
               mode: choice
               options:
-                - { id: "right", text: "no, tenían edades diferentes" }
-                - { id: "wrong1", text: "no, teníamos edades diferentes" }
-                - { id: "wrong2", text: "no, tienen edades diferentes" }
+                - { id: "right", text: "no, tenían más años" }
+                - { id: "wrong1", text: "no, teníamos más años" }
+                - { id: "wrong2", text: "no, tienen más años" }
               correctOptionId: "right"
-              audioText: "no, tenían edades diferentes"
-            replyGloss: "No, they used to have different ages."
+              audioText: "no, tenían más años"
+            replyGloss: "No, they used to be older (more years)."
             explanation: "Diego and Sofía — them: «tenían». «teníamos» would wrongly include you; «tienen» slips into now."
           - id: t3
-            npc: { speaker: "Carmen", es: "¿Y tú y yo? ¿Teníamos la misma edad de niños?", audioText: "¿y tú y yo? ¿teníamos la misma edad de niños?", gloss: "And you and I? Did we used to be the same age as kids?" }
-            goal: "Say yes, always the same age as kids."
+            npc: { speaker: "Carmen", es: "¿Y tú y yo? ¿Teníamos siete años de niños?", audioText: "¿y tú y yo? ¿teníamos siete años de niños?", gloss: "And you and I? Did we used to be seven as kids?" }
+            goal: "Say yes, you used to be seven too."
             reply:
               mode: build
-              tiles: ["sí", "teníamos", "siempre", "la", "misma", "edad", "tenían", "tenía"]
-              answer: "sí teníamos siempre la misma edad"
-            replyGloss: "Yes, we always used to be the same age."
+              tiles: ["sí", "teníamos", "siete", "años", "también", "tenían", "tenía"]
+              answer: "sí teníamos siete años también"
+            replyGloss: "Yes, we used to be seven too."
             explanation: "You and Carmen together: «teníamos» — the nosotros form, accented like every tener imperfect form."
       - kind: matchLit
         id: l7-match

@@ -186,7 +186,7 @@ newAtoms:
   - { surface: "teníamos", meaningEn: "we had (age, possession, or state)", partOfSpeech: "verb", kind: "vocab", hint: "teh-nee-AH-mos" }
   - { surface: "tenían", meaningEn: "they had, you all had (age, possession, or state)", partOfSpeech: "verb", kind: "vocab", hint: "teh-NEE-ahn" }
   # ser — irregular #1 of exactly three. Description/identity in the past.
-  - { surface: "era", meaningEn: "I was, he/she/you (usted) was", partOfSpeech: "verb", kind: "vocab", hint: "EH-rah — no accent" }
+  - { surface: "era", meaningEn: "I was, he/she was, you (usted) were", partOfSpeech: "verb", kind: "vocab", hint: "EH-rah — no accent" }
   - { surface: "eras", meaningEn: "you (tú) were", partOfSpeech: "verb", kind: "vocab", hint: "EH-rahs" }
   - { surface: "éramos", meaningEn: "we were", partOfSpeech: "verb", kind: "vocab", hint: "EH-rah-mos — the ONE ser form that carries an accent" }
   - { surface: "eran", meaningEn: "they were, you all were", partOfSpeech: "verb", kind: "vocab", hint: "EH-rahn" }

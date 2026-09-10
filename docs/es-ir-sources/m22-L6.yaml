@@ -115,10 +115,10 @@
             goal: "Say yes, you always used to watch them."
             reply:
               mode: build
-              tiles: ["sí", "veía", "siempre", "películas", "veían", "veo"]
-              answer: "sí veía siempre películas"
+              tiles: ["sí", "yo", "veía", "siempre", "películas", "veían", "veo"]
+              answer: "sí yo veía siempre películas"
             replyGloss: "Yes, I always used to watch movies."
-            explanation: "Answering as yourself: «veía». «veían» would be more than one; «veo» slips into now."
+            explanation: "Answering as yourself, «yo» keeps «veía» unambiguous — it also means he/she/usted used to watch. «veían» would be more than one; «veo» slips into now."
           - id: t2
             npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Veían películas también?", audioText: "¿y diego y sofía? ¿veían películas también?", gloss: "And Diego and Sofía? Did they used to watch movies too?" }
             goal: "Say yes, they always used to watch together."

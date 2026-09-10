@@ -113,10 +113,10 @@
             goal: "Say yes, you were always good."
             reply:
               mode: build
-              tiles: ["sí", "era", "siempre", "bueno", "eran", "es"]
-              answer: "sí era siempre bueno"
+              tiles: ["sí", "yo", "era", "siempre", "bueno", "eran", "es"]
+              answer: "sí yo era siempre bueno"
             replyGloss: "Yes, I was always good."
-            explanation: "Answering as yourself: «era». «eran» would be more than one; «es» slips into now."
+            explanation: "Answering as yourself, «yo» keeps «era» unambiguous — it also means he/she/usted was. «eran» would be more than one; «es» slips into now."
           - id: t2
             npc: { speaker: "Carmen", es: "¿Y Ana? ¿Era buena también?", audioText: "¿y ana? ¿era buena también?", gloss: "And Ana? Was she good too?" }
             goal: "Say yes, she was very good."
@@ -146,7 +146,7 @@
       - kind: matchLit
         id: l3-match
         pairs:
-          - { source: "era", target: "I was, he/she/you was" }
+          - { source: "era", target: "I was, he/she was, you were" }
           - { source: "eras", target: "you (tú) were" }
           - { source: "bueno", target: "good" }
           - { source: "de niño", target: "as a child" }

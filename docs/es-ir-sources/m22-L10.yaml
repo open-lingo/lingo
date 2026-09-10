@@ -159,7 +159,7 @@
             replyGloss: "Yes, we always used to speak it."
             explanation: "You and the group: «hablábamos» — the nosotros ending, the one that carries an accent. «hablaban» would leave you out."
           - id: t5
-            npc: { speaker: "Ana", es: "¿Qué más recuerdas de niños?", audioText: "¿qué más recuerdas de niños?", gloss: "What else do you remember as children?" }
+            npc: { speaker: "Ana", es: "¿Y qué más?", audioText: "¿y qué más?", gloss: "And what else?" }
             goal: "Describe growing up together, and talking a lot."
             reply:
               mode: build
