@@ -99,3 +99,4 @@ fan-out; save small notes here after every step (auto-compaction is on).
 - 11:39 FR near-future speech probe dispatched (second stream; settles the m19 brief's unverified claim before the m19 author starts).
 - 11:44 FR near-future speech probe landed 3fd390e6 (310 speech tests green; 5 constraints ready for the m19 dispatch).
 - 11:44 FR dialogue_sim provenance gate lane dispatched (class fix for the m17 tease-line escape; new frSimProvenance.test.ts, no fr-quality edits).
+- 11:53 KO m6 fidelity review landed 88ca54ab (conventions doc; 175/335 entries edited; drafter prompt carries the conventions). KO m1–m8 draft wave dispatched (sequential Ollama; m3,m7,m1,m2,m4,m5,m8). JA m42 author finished authoring and is waiting on the ES m28 registration to gate.
