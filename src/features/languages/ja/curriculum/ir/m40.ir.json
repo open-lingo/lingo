@@ -1540,7 +1540,8 @@
           "en": "Even though I was scolded by the teacher, I was fine.",
           "combines": [
             "passive-rareru",
-            "noni-concession"
+            "noni-concession",
+            "ta-form"
           ],
           "mode": "build"
         }
@@ -1687,7 +1688,8 @@
           "en": "Even though my bag was stolen by a thief, I was fine.",
           "combines": [
             "possessed-object-passive",
-            "noni-concession"
+            "noni-concession",
+            "ta-form"
           ],
           "mode": "build"
         }
@@ -2326,7 +2328,8 @@
           "combines": [
             "possessed-object-passive",
             "node-because",
-            "shi-listing"
+            "shi-listing",
+            "ta-form"
           ],
           "mode": "build"
         }

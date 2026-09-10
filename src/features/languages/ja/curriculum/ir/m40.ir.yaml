@@ -369,7 +369,7 @@ lessons:
           - { speaker: "Ken", ja: "あめに ふられたんだ。", en: "I got rained on." }
         questions:
           - { q: "What happened to Ken yesterday?", options: ["He got rained on", "He was praised", "His bag was stolen", "He invented a machine"], answer: "He got rained on" }
-      - { kind: challenge, ja: "せんせいに しかられたのに、げんきだった。", en: "Even though I was scolded by the teacher, I was fine.", combines: [passive-rareru, noni-concession], mode: build }
+      - { kind: challenge, ja: "せんせいに しかられたのに、げんきだった。", en: "Even though I was scolded by the teacher, I was fine.", combines: [passive-rareru, noni-concession, ta-form], mode: build }
     reviewPool: [けいさつ, どろぼう, きず, かばん, とけい, きかい, ちち, ともだち]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -394,7 +394,7 @@ lessons:
           - { speaker: "Mika", ja: "きずだけだよ。", en: "Just a scratch." }
         questions:
           - { q: "What did the police do to the thief?", options: ["Investigated him", "Praised him", "Invited him", "Asked him a question"], answer: "Investigated him" }
-      - { kind: challenge, ja: "どろぼうに かばんを ぬすまれたのに、げんきだった。", en: "Even though my bag was stolen by a thief, I was fine.", combines: [possessed-object-passive, noni-concession], mode: build }
+      - { kind: challenge, ja: "どろぼうに かばんを ぬすまれたのに、げんきだった。", en: "Even though my bag was stolen by a thief, I was fine.", combines: [possessed-object-passive, noni-concession, ta-form], mode: build }
     reviewPool: [けいさつ, どろぼう, いえ, かばん, きず, テスト, がっこう, ともだち]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -518,5 +518,5 @@ lessons:
           - { speaker: "Tanaka", ja: "たいへんだったね。", en: "That sounds tough." }
         questions:
           - { q: "Why did Mika call the police?", options: ["Her wallet was stolen", "She saw a thief run", "She was scolded", "She found a machine"], answer: "Her wallet was stolen" }
-      - { kind: challenge, ja: "どろぼうに さいふを ぬすまれたので、けいさつに でんわしたし、 たいへんだった。", en: "Since my wallet was stolen by a thief, I called the police, and what's more it was tough.", combines: [possessed-object-passive, node-because, shi-listing], mode: build }
+      - { kind: challenge, ja: "どろぼうに さいふを ぬすまれたので、けいさつに でんわしたし、 たいへんだった。", en: "Since my wallet was stolen by a thief, I called the police, and what's more it was tough.", combines: [possessed-object-passive, node-because, shi-listing, ta-form], mode: build }
     reviewPool: [けいさつ, どろぼう, さいふ, とけい, きかい, ちち, たいへん, いえ]
