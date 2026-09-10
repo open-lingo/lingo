@@ -148,3 +148,4 @@ fan-out; save small notes here after every step (auto-compaction is on).
 - 14:36 KO m9 draft+review lane dispatched (rung 2 starts; drafter です/ます→해요체 cue patch folded in).
 - 14:38 ES m31 brief committed 348e70fb; m31 author dispatched (brief fixed the m30 brief's wrong compile/review-pool script paths → scripts/).
 - 14:46 ES m30 review LANDED eeb3124b (5 edits, 2 clips, manifest 6722; suite 2191/1). ES gate gaps queued: (1) sim NPC-line provenance (includeNpc=false — «lavas» slipped); (2) looksSpanish inflected-form blind spot in the full-sentence MCQ lint. tsc currently red on ja/courseAtoms.ts 'verb-form' kind — m43 author in flight.
+- 14:47 ES gate lane dispatched (esSimNpcProvenance.test.ts + looksSpanish inflected-form fix, KNOWN_LEGACY ratchets if m1–m29 trip). KO m9 drafter finished (m9.ko.json written); agent resumed for review.
