@@ -61,3 +61,5 @@ fan-out; save small notes here after every step (auto-compaction is on).
 - 08:55 FR m15 committed 9443c1a2 (988 FR green, 113 clips all in fr.json). tsc/frequencyAtoms failures = JA m40 in flight. Next: m15 reviewer dispatched.
 - 08:55 FR m15 reviewer dispatched (Sonnet). JA m40 author + ES m25 author still running.
 - 09:06 ES m25 committed 3ccc2ff7 (1800 ES green, 150 clips, manifest_count=5944). m25 reviewer dispatched next.
+- 09:07 ES m25 reviewer + ES m26 brief writer (third imperfect wave, scope left to brief agent w/ reasoning) dispatched. Running: FR m15 reviewer, JA m40 author.
+- 09:17 FR m15 review committed de5a474d (7 visiter+en ville fixes, visité L1 leak, 5 clips, fr manifest 1173). ES m25 review: zero defects, nothing to commit. JA m40 author says done but waiting on module-gate bg (visual-QA port collision) — verifying gates myself.
