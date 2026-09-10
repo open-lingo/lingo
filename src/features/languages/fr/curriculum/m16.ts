@@ -457,7 +457,11 @@ function lesson3(): LessonStep[] {
       audioText: "Thomas est allé, Léa est allée, Hugo est allé, Chloé est allée",
       revealNote: "Match the ending to the name.",
     },
-    crossModuleVocabMcq("fr-m16-3-mcq-gare", "train station", "gare", ["musée", "école", "parc"]),
+    crossModuleVocabMcq("fr-m16-3-mcq-gare", "train station", "la gare", [
+      "le musée",
+      "l'école",
+      "le parc",
+    ]),
     build(
       "fr-m16-3-build-avecfrere",
       "Build: 'with my brother, I went to the park'",

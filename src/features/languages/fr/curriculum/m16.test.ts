@@ -20,6 +20,11 @@
  *       law as m13/m14/m15.
  */
 import { describe, it, expect } from "vitest";
+// Entry-point guard (2026-09-10, docs/fr-article-glob-race-2026-09-10.md):
+// this file must not become the curriculum-module import entry point, or
+// the numeric glob-order fix loses to a circular-import skip (see the fix
+// note in courseAtoms.ts).
+import "../courseAtoms";
 import { FR_M1_MODULE } from "./m1";
 import { FR_M2_MODULE } from "./m2";
 import { FR_M3_MODULE } from "./m3";

@@ -388,6 +388,26 @@ export function registerFrModuleBarGuards(opts: {
       }
       if (a.fromModule && priorSet.has(a.fromModule)) PRIOR.add(w);
     }
+    // (fr m15, 2026-09-10): mirror getFrRealFormLexicon()'s elision
+    // derivation here too. The tokenizer keeps an elided clitic attached
+    // to its word («l'école» is ONE token, distinct from «école»), so a
+    // vowel-onset atom whose bare surface is already prior-known must
+    // ALSO have its elided surface form marked prior-known — otherwise a
+    // later module that happens to show the ELIDED form first (rather
+    // than the bare atom surface) sees a token PRIOR has never heard of
+    // and wrongly treats it as a fresh, module-new debut. Without this,
+    // "l'école" (atom home m4) tripped a false non-intro-debut failure
+    // the first time a later module (m15) referenced it only in its
+    // elided form on a non-intro step — the word was already taught,
+    // just under a token PRIOR didn't recognize.
+    if (a.fromModule && priorSet.has(a.fromModule) && elidesBefore(a)) {
+      const first = frTokens(a.surface)[0];
+      if (first) {
+        for (const clitic of ["l", "j", "n", "m", "t", "s", "qu"]) {
+          PRIOR.add(`${clitic}'${first}`);
+        }
+      }
+    }
   }
   // (fr m5, 2026-09-01): an atom that IS a whole surface («au», «à la»)
   // is authoritative for its own intro module — token-derived attribution

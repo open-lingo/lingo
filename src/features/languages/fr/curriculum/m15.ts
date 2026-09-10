@@ -195,7 +195,11 @@ function lesson1(): LessonStep[] {
       audioText: "en ville, visiter, on visite, la ville",
       revealNote: "«visiter» — bare infinitive, consonant-onset, no elision.",
     },
-    crossModuleVocabMcq("fr-m15-1-mcq-musee", "museum", "musée", ["gare", "école", "restaurant"]),
+    crossModuleVocabMcq("fr-m15-1-mcq-musee", "museum", "le musée", [
+      "la gare",
+      "l'école",
+      "le restaurant",
+    ]),
     build(
       "fr-m15-1-build-onvisite",
       "Build: 'we visit the town'",
@@ -420,7 +424,11 @@ function lesson3(): LessonStep[] {
       audioText: "j'ai visité, tu as visité, en ville, la halle",
       revealNote: "Same machine, any place, any time.",
     },
-    crossModuleVocabMcq("fr-m15-3-mcq-ecole", "school", "école", ["gare", "musée", "restaurant"]),
+    crossModuleVocabMcq("fr-m15-3-mcq-ecole", "school", "l'école", [
+      "la gare",
+      "le musée",
+      "le restaurant",
+    ]),
     build(
       "fr-m15-3-build-tuasvisite",
       "Build: 'you visited the school this morning'",
@@ -521,7 +529,11 @@ function lesson4(): LessonStep[] {
       audioText: "il visite, il a visité, elle visite, elle a visité",
       revealNote: "«visite» (now) vs «a visité» (already happened).",
     },
-    crossModuleVocabMcq("fr-m15-4-mcq-gare", "train station", "gare", ["musée", "halle", "école"]),
+    crossModuleVocabMcq("fr-m15-4-mcq-gare", "train station", "la gare", [
+      "le musée",
+      "la halle",
+      "l'école",
+    ]),
     build(
       "fr-m15-4-build-ilvisitegare",
       "Build: 'he visits the train station'",
@@ -622,7 +634,11 @@ function lesson5(): LessonStep[] {
       audioText: "mon frère a visité, ma sœur a visité, il a visité, elle a visité",
       revealNote: "«a visité» works with any name, not just il/elle.",
     },
-    crossModuleVocabMcq("fr-m15-5-mcq-frere", "brother", "frère", ["sœur", "père", "mère"]),
+    crossModuleVocabMcq("fr-m15-5-mcq-frere", "brother", "le frère", [
+      "la sœur",
+      "le père",
+      "la mère",
+    ]),
     build(
       "fr-m15-5-build-monfrereparc",
       "Build: 'my brother visited the park'",

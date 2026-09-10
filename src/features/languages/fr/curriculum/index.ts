@@ -27,6 +27,27 @@
 import type { CourseModule } from "@/shared/domain/course";
 import type { LessonContent } from "@/features/lesson/types";
 
+// Entry-point guard (2026-09-10, docs/fr-article-glob-race-2026-09-10.md):
+// this file runs its OWN independent eager glob below, over the same
+// `./m*.ts` files `../courseAtoms.ts` globs — a second entry point into the
+// same cyclic module graph. Each `mN.ts` imports `atom` back from
+// `../courseAtoms.ts` (the load-bearing cycle documented there); when THIS
+// file's glob is the first thing to touch `m1.ts` (rather than
+// `../courseAtoms.ts`'s own glob), `m1.ts`'s import of `atom` triggers
+// `../courseAtoms.ts` to start evaluating for the first time — NESTED
+// inside `m1.ts`'s still-in-progress evaluation. `../courseAtoms.ts`'s own
+// glob then reaches back for `m1.ts`, finds it mid-evaluation (a cycle), and
+// is forced to accept its INCOMPLETE (pre-body) namespace — skipping m1's
+// `atom()` calls entirely — before moving on to fully evaluate m2..m21.
+// Those later modules run their `vocabMcq`/`vocabTextMcq` calls against a
+// registry that is missing every m1 atom, silently baking bare nouns (seen:
+// "café" baked bare in m3/m4/m6). Importing `../courseAtoms` FIRST here
+// forces it to be the one true entry: its own glob then reaches `m1.ts`
+// directly (no cycle on that edge), `m1.ts` fully registers before m2+
+// evaluate, and by the time control returns to this file's own (now
+// redundant but harmless) glob below, every module is already cached.
+import "../courseAtoms";
+
 /** Metadata + lessons for one FR module. The id is NOT a field — it derives
  *  from the file name, so there is nothing to fall out of sync. */
 export type FrModuleDef = {
@@ -44,10 +65,30 @@ export type FrModuleDef = {
 // The negative pattern matters: module TESTS live beside their modules
 // (`m1.test.ts`), and an eager glob that swallowed one would import it into
 // the collector's module graph — a cycle straight back through mockLessons.
-const CURRICULUM_MODULES = import.meta.glob<Record<string, unknown>>(
-  ["./m*.ts", "!./m*.test.ts"],
+//
+// Glob-order race (docs/fr-article-glob-race-2026-09-10.md): see the
+// matching comment in `../courseAtoms.ts` for the full mechanism. Same fix
+// here for the same reason — this file's own eager glob has the identical
+// lexicographic (not numeric) eager-IMPORT order, and any module whose
+// top-level code calls `withArticle()`/`vocabMcq`/`vocabTextMcq` is
+// sensitive to it regardless of which collector loads it first.
+const CURRICULUM_MODULES_1D = import.meta.glob<Record<string, unknown>>(
+  ["./m[1-9].ts", "!./m*.test.ts"],
   { eager: true },
 );
+const CURRICULUM_MODULES_2D = import.meta.glob<Record<string, unknown>>(
+  ["./m[1-9][0-9].ts", "!./m*.test.ts"],
+  { eager: true },
+);
+const CURRICULUM_MODULES_3D = import.meta.glob<Record<string, unknown>>(
+  ["./m[1-9][0-9][0-9].ts", "!./m*.test.ts"],
+  { eager: true },
+);
+const CURRICULUM_MODULES: Record<string, Record<string, unknown>> = {
+  ...CURRICULUM_MODULES_1D,
+  ...CURRICULUM_MODULES_2D,
+  ...CURRICULUM_MODULES_3D,
+};
 
 const MODULE_NO = /\/m(\d+)\.ts$/;
 const MODULE_EXPORT = /^FR_M(\d+)_MODULE$/;

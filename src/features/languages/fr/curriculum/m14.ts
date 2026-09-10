@@ -668,7 +668,11 @@ function lesson5(): LessonStep[] {
       audioText: "mon frère a mangé, ma sœur a mangé, il a mangé, elle a mangé",
       revealNote: "«a» works with any name, not just il/elle.",
     },
-    crossModuleVocabMcq("fr-m14-5-mcq-frere", "brother", "frère", ["sœur", "père", "mère"]),
+    crossModuleVocabMcq("fr-m14-5-mcq-frere", "brother", "le frère", [
+      "la sœur",
+      "le père",
+      "la mère",
+    ]),
     build(
       "fr-m14-5-build-monfrerecroissant",
       "Build: 'my brother ate a croissant'",

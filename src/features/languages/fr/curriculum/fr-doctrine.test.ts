@@ -8,6 +8,11 @@
  * walk runs ACROSS modules: m1's printed voicings license m2's recalls.
  */
 import { describe, it, expect } from "vitest";
+// Entry-point guard (2026-09-10, docs/fr-article-glob-race-2026-09-10.md):
+// this file must not become the curriculum-module import entry point, or
+// the numeric glob-order fix loses to a circular-import skip (see the fix
+// note in courseAtoms.ts).
+import "../courseAtoms";
 import { FR_M1_ATOMS, FR_M1_MODULE, FR_M1_CHECKPOINT_INDEX } from "./m1";
 import { FR_M2_ATOMS, FR_M2_MODULE, FR_M2_CHECKPOINT_INDEX } from "./m2";
 import { registerFrModuleContentLints } from "../__tests__/moduleContentLints";

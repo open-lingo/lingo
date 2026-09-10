@@ -203,10 +203,43 @@ export function getRegisteredFrAtoms(): FrAtom[] {
  */
 // Negative pattern: never eagerly import the module TESTS sitting beside
 // the modules (import-cycle back through mockLessons).
-const CURRICULUM_MODULES = import.meta.glob<Record<string, unknown>>(
-  ["./curriculum/m*.ts", "!./curriculum/m*.test.ts"],
+//
+// Glob-order race (docs/fr-article-glob-race-2026-09-10.md): Vite's
+// `import.meta.glob` transform unconditionally lexicographically-sorts the
+// COMBINED file list for a single call — "m10" < "m2" as strings — so a
+// single `["./curriculum/m*.ts"]` pattern produces the eager-IMPORT (module
+// evaluation) order m1, m10..m19, m2, m20.., m3..m9, not numeric order.
+// `withArticle()` (grammarHelpers.ts) reads the atom registry at
+// module-evaluation time, so under that order a later-numbered module can
+// evaluate — and bake a bare noun surface into its own singleton step data
+// — before an earlier module has registered the atom it references.
+// There is no glob option to control sort order, and merging multiple
+// patterns into ONE glob() call still sorts across all of them together
+// (verified against Vite's `transformGlobImport` source + empirical
+// probing). What DOES work: separate glob() calls, bucketed by digit-width,
+// each internally lexicographic == numeric (same string length), are
+// compiled into separate blocks of hoisted static imports; sibling static
+// imports with no cross-dependency between blocks evaluate in source order.
+// Splitting by width and listing narrowest-first therefore recovers true
+// numeric eager-evaluation order: m1..m9 fully evaluate before m10..m99,
+// which fully evaluate before m100+ (headroom past today's m22).
+const CURRICULUM_MODULES_1D = import.meta.glob<Record<string, unknown>>(
+  ["./curriculum/m[1-9].ts", "!./curriculum/m*.test.ts"],
   { eager: true },
 );
+const CURRICULUM_MODULES_2D = import.meta.glob<Record<string, unknown>>(
+  ["./curriculum/m[1-9][0-9].ts", "!./curriculum/m*.test.ts"],
+  { eager: true },
+);
+const CURRICULUM_MODULES_3D = import.meta.glob<Record<string, unknown>>(
+  ["./curriculum/m[1-9][0-9][0-9].ts", "!./curriculum/m*.test.ts"],
+  { eager: true },
+);
+const CURRICULUM_MODULES: Record<string, Record<string, unknown>> = {
+  ...CURRICULUM_MODULES_1D,
+  ...CURRICULUM_MODULES_2D,
+  ...CURRICULUM_MODULES_3D,
+};
 
 const MODULE_NO = /\/m(\d+)\.ts$/;
 const ATOMS_EXPORT = /^FR_M(\d+)_ATOMS$/;

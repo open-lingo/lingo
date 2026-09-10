@@ -331,10 +331,13 @@ function lesson2(): LessonStep[] {
     // anglais»); vocabTextMcq()'s automatic withArticle() wrap would debut
     // the fused token «l'anglais» here for the first time, on a step type
     // that isn't intro-capable. Keep the review on the form actually taught.
+    // Distractors "le chocolat"/"la musique" carry their article (m3-sourced,
+    // gendered nouns — F6); "français" stays bare, same class as the target
+    // "anglais" (a language name, legitimately bare — see the comment above).
     crossModuleVocabMcq("fr-m11-2-vmcq-anglais", "English", "anglais", [
       "français",
-      "chocolat",
-      "musique",
+      "le chocolat",
+      "la musique",
     ]),
     {
       id: "fr-m11-2-match",
