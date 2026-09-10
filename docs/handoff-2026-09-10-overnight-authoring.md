@@ -71,3 +71,4 @@ fan-out; save small notes here after every step (auto-compaction is on).
 - 09:51 Discarded the stopped m40 author's residual re-add of よ+'you know' cues (reviewer's cleaner reverted version stays).
 - 09:52 FR m17 brief landed («De onze à cent», teens 11–19 + 70–99, 6 atoms; ready once m16 lands).
 - 10:09 KO rung 0 committed d81bf065 (lesson chrome in Korean; parity test 355 green; tsc clean). Rung 1 waits for JA m41 to land (moduleCompiler.ts shared).
+- 10:10 KO rung 1a dispatched (3 of 4 grading de-couplings, extraction pipeline script, runtime lookup stub; moduleCompiler.ts de-coupling deferred until JA m41 lands). Running: FR m16, ES m26, JA m41 authors; FR conjugation trainer; KO rung 1a.
