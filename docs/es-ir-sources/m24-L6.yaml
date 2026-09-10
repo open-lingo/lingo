@@ -1,0 +1,159 @@
+  # ── L6 · «Mientras hacía la tarea, vino Diego» — ZERO new atoms. Dedicated
+  #    recombination lesson: the five new imperfect verbs (background/ongoing)
+  #    paired with PRIOR preterite (m23: vino, llegó, fue) via PRIOR m23
+  #    connectives (mientras, de repente, cuando, entonces) — the classic
+  #    "was doing X when Y happened" shape. Reinforces estaba/hacía/quería/
+  #    podía/venía all at once, each against a PRIOR preterite interruption.
+  #    NO new preterite forms beyond what m23 already shipped. ≥1 recall.
+  - n: 6
+    template: free
+    title: "Mientras hacía la tarea, vino Diego"
+    description: "The background/event shape: the imperfect sets the scene (mientras hacía la tarea...), a PRIOR preterite interrupts it (...vino Diego). No new grammar — just the five new verbs recombined with what m23 already taught."
+    steps:
+      - kind: map
+        id: l6-map-mientrashaciavinodiego
+        tokens: ["mientras", "yo", "hacía", "la", "tarea,", "de repente,", "vino", "Diego"]
+        pairs:
+          - { en: "while", tokenIndex: 0 }
+          - { en: "I", tokenIndex: 1 }
+          - { en: "was doing", tokenIndex: 2 }
+          - { en: "the", tokenIndex: 3 }
+          - { en: "homework,", tokenIndex: 4 }
+          - { en: "suddenly,", tokenIndex: 5 }
+          - { en: "came", tokenIndex: 6 }
+          - { en: "Diego", tokenIndex: 7 }
+        audioText: "mientras yo hacía la tarea, de repente, vino Diego"
+        revealNote: "«hacía» sets the scene (ongoing, imperfect) — «vino» interrupts it (one finished event, PRIOR preterite, m23). «mientras» and «de repente» are PRIOR connectives (m23) doing the same job they always did."
+      - kind: info
+        id: l6-info-recombination
+        title: "The background/event shape"
+        body: "«mientras yo hacía la tarea, de repente vino Diego» — the imperfect («hacía») paints the ongoing scene; the preterite («vino», PRIOR) is the one thing that happened and interrupted it. No new grammar: estaba/hacía/quería/podía/venía all work this way with PRIOR «vino», «fue»."
+      - kind: speakLit
+        id: l6-sp-estabacasavinodiego
+        es: "yo estaba en casa cuando vino Diego"
+        en: "I was at home when Diego came"
+        atoms: ["estaba", "casa", "vino"]
+      - kind: buildLit
+        id: l6-b-queriaircinevinosofia
+        es: "quería ir al cine cuando vino Sofía"
+        en: "I wanted to go to the movies when Sofía came"
+        atoms: ["quería", "cine", "vino"]
+        tiles: ["quiero", "quise"]
+      - kind: speakLit
+        id: l6-sp-mientrasveniallego
+        es: "mientras venía a la escuela, vino Ana"
+        en: "While I was coming to school, Ana came"
+        atoms: ["mientras", "venía", "escuela", "vino"]
+      - kind: clozeLit
+        id: l6-c-derepentepodiafue
+        es: "no podía ir, y de repente, fue Diego solo"
+        en: "I couldn't go, and suddenly, Diego went alone"
+        blank: "podía"
+        options: ["podía", "podían", "puedo"]
+        atoms: ["podía", "de repente", "fue"]
+        why: "One person, ongoing background: «podía». «podían» would be more than one; «puedo» slips into now."
+      - kind: listenCompLit
+        id: l6-lc-haciatareavinodiego
+        es: "mientras hacía la tarea, vino Diego"
+        en: "While I was doing homework, Diego came."
+        atoms: ["mientras", "hacía", "tarea", "vino"]
+        distractorsEn:
+          - "While I do homework, Diego comes."
+          - "I did homework, and then Diego did too."
+          - "While they were doing homework, Diego came."
+      - kind: mcq
+        id: l6-q-cuandovsmientras
+        prompt: "'While I was at home, Diego came' — which connective frames the ongoing part?"
+        correct: "mientras"
+        distractors: ["cuando", "de repente", "entonces"]
+        atoms: ["mientras"]
+        why: "«mientras» frames the ongoing background explicitly. «cuando» also works with imperfect, but here «mientras» is the cleaner fit for 'while'; «de repente» and «entonces» belong with the interrupting event, not the background."
+      - kind: buildLit
+        id: l6-b-entoncesqueriapero
+        es: "quería ir, pero entonces vino Sofía"
+        en: "I wanted to go, but then Sofía came"
+        atoms: ["quería", "entonces", "vino"]
+        tiles: ["querían", "quise"]
+      - kind: audioWimcq
+        id: l6-ear-parque
+        target: { surface: "el parque", emoji: "🌳" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el museo", emoji: "🏛️" }
+      - kind: agreementLit
+        id: l6-agr-mientrashaciavino
+        en: "While I was doing homework, Diego came; while he was doing homework, Sofía came"
+        audioText: "mientras yo hacía la tarea, vino Diego; mientras él hacía la tarea, vino Sofía"
+        atoms: ["hacía", "vino"]
+        segments:
+          - { text: "mientras yo " }
+          - { blank: { id: "p1", answer: "hacía", options: ["hacía", "hago"] } }
+          - { text: " la tarea, vino Diego; mientras él " }
+          - { blank: { id: "p2", answer: "hacía", options: ["hacía", "hace"] } }
+          - { text: " la tarea, vino Sofía" }
+      - kind: listenBuildLit
+        id: l6-lb-samluisestabanvino
+        es: "Sam y Luis estaban en casa cuando vino Diego"
+        en: "Sam and Luis were home when Diego came"
+        atoms: ["estaban", "casa", "vino"]
+        tiles: ["estábamos", "estaba"]
+      - kind: textMcq
+        id: l6-tm-mientras
+        target: "mientras"
+        distractors: ["cuando", "entonces", "de repente"]
+      # Printed non-recall at L3 (es-m24-3-l3-sp-win).
+      - kind: speakLit
+        id: l6-sp-recall-queriacine
+        es: "de niño, quería ir al cine"
+        en: "As a child, I wanted to go to the movies"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l6-sim-ana-diego
+        scene: { emoji: "🚪", title: "Ana asks what happened", setting: "Ana wants the story of what everyone was doing when Diego showed up." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Qué hacías cuando vino Diego?", audioText: "¿qué hacías cuando vino diego?", gloss: "What were you (tú) doing when Diego came?" }
+            goal: "Say you were doing homework when Diego came."
+            reply:
+              mode: build
+              tiles: ["hacía", "la", "tarea", "cuando", "vino", "Diego", "hice"]
+              answer: "hacía la tarea cuando vino Diego"
+            replyGloss: "I was doing homework when Diego came."
+            explanation: "«hacía» is the ongoing background; «vino» (PRIOR preterite) is the one thing that happened. «hice» would wrongly make the homework the interrupting event too."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Sofía? ¿Qué hacía ella?", audioText: "¿y sofía? ¿qué hacía ella?", gloss: "And Sofía? What was she doing?" }
+            goal: "Say she wanted to go, but couldn't."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "quería ir a la fiesta, pero no podía" }
+                - { id: "wrong1", text: "quería ir a la fiesta, pero no podían" }
+                - { id: "wrong2", text: "quiere ir a la fiesta, pero no puede" }
+              correctOptionId: "right"
+              audioText: "quería ir a la fiesta, pero no podía"
+            replyGloss: "She wanted to go to the party, but she couldn't."
+            explanation: "One person, the past: «quería»/«podía». «podían» would be more than one; present «quiere»/«puede» slips into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Estábamos en casa cuando vino?", audioText: "¿y tú y yo? ¿estábamos en casa cuando vino?", gloss: "And you and I? Were we home when he came?" }
+            goal: "Say yes, you were home when he came."
+            reply:
+              mode: build
+              tiles: ["sí,", "estábamos", "en", "casa", "juntos", "cuando", "vino", "estaban"]
+              answer: "sí, estábamos en casa juntos cuando vino"
+            replyGloss: "Yes, we were home together when he came."
+            explanation: "You and Ana together, ongoing: «estábamos» — accented, like every -ar imperfect nosotros form. «estaban» would be more than two."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "mientras", target: "while" }
+          - { source: "de repente", target: "suddenly" }
+          - { source: "cuando", target: "when" }
+          - { source: "entonces", target: "then, so" }
+          - { source: "vino", target: "he/she/you came (one finished event)" }
+          - { source: "hacía", target: "I was doing/making (ongoing background)" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "mientras yo hacía la tarea, de repente vino Diego"
+        en: "While I was doing homework, Diego suddenly came"
+        atoms: ["mientras", "hacía", "tarea", "de repente", "vino"]

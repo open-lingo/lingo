@@ -1,0 +1,159 @@
+  # ── L5 · «Venía a la escuela temprano» — venir's imperfect debuts whole:
+  #    venía (yo=él collision, PRIOR mechanism, not re-taught), venías (tú),
+  #    veníamos (nosotros), venían (ellos/ustedes). -ir family: EVERY form
+  #    keeps the accent, same rule as hacer/querer/poder. Regular here,
+  #    unlike present «vengo»/«viene» (stem-change+irregular yo, m16) or
+  #    preterite «vino» (PRIOR, m23 — strong preterite, unrelated shape).
+  #    Free minimal-pair callback to PRIOR «iba» (m22's imperfect of ir) —
+  #    no info card needed for that callback, just a distractor/agreement
+  #    contrast. NO progressive. ≥1 recall this lesson (recalls L2).
+  - n: 5
+    template: free
+    title: "Venía a la escuela temprano"
+    description: "«venía» is venir's imperfect — regular here, unlike present «vengo»/«viene» or preterite «vino» (m23). Every form keeps the accent, same as hacer/querer/poder."
+    steps:
+      - kind: map
+        id: l5-map-deninoveniaescuelatemprano
+        tokens: ["de niño", "venía", "a", "la", "escuela", "temprano"]
+        pairs:
+          - { en: "as a child,", tokenIndex: 0 }
+          - { en: "I came/used to come", tokenIndex: 1 }
+          - { en: "to", tokenIndex: 2 }
+          - { en: "the", tokenIndex: 3 }
+          - { en: "school", tokenIndex: 4 }
+          - { en: "early", tokenIndex: 5 }
+        audioText: "de niño, venía a la escuela temprano"
+        revealNote: "«venía» is venir's imperfect — regular here, unlike present «vengo»/«viene» or preterite «vino» (m23). Same yo=él pattern as «hacía»/«quería»/«podía»."
+      - kind: info
+        id: l5-info-venia
+        title: "Venía — the last of the five"
+        body: "«venía» is I came/used to come, he/she/you came — venir's imperfect. Every form keeps the accent: «venía», «venías», «veníamos», «venían». Regular here, unlike present «vengo»/«viene» or preterite «vino»."
+      - kind: speakLit
+        id: l5-sp-yoveniaescuela
+        es: "yo venía a la escuela temprano"
+        en: "I used to come to school early"
+        atoms: ["venía", "escuela", "temprano"]
+      - kind: buildLit
+        id: l5-b-tuveniasescuela
+        es: "tú venías mucho a la escuela"
+        en: "You (tú) used to come to school a lot"
+        atoms: ["venías", "mucho", "escuela"]
+        tiles: ["venía", "vienen"]
+      - kind: speakLit
+        id: l5-sp-veniamosjuntosescuela
+        es: "veníamos juntos a la escuela"
+        en: "We used to come to school together"
+        atoms: ["veníamos", "juntos", "escuela"]
+      - kind: clozeLit
+        id: l5-c-todosveniantemprano
+        es: "de niño, todos venían temprano"
+        en: "As a child, everyone used to come early"
+        blank: "venían"
+        options: ["venían", "veníamos", "venía"]
+        atoms: ["de niño", "todos", "venían", "temprano"]
+        why: "«todos» takes the they-ending: «venían», never «veníamos» — that would wrongly include you."
+      - kind: listenCompLit
+        id: l5-lc-diegoveniaescuela
+        es: "Diego venía a la escuela temprano"
+        en: "Diego used to come to school early."
+        atoms: ["venía", "escuela", "temprano"]
+        distractorsEn:
+          - "Diego comes to school early."
+          - "Diego came to school yesterday."
+          - "They used to come to school early."
+      - kind: mcq
+        id: l5-q-tuvenias
+        prompt: "Which one means 'you (tú) used to come'?"
+        correct: "tú venías"
+        distractors: ["tú venía", "tú vienes", "tú veníamos"]
+        atoms: ["venías"]
+        why: "«venías» — the tú ending, accented like every venir imperfect form. «venía» collapses yo/él, not tú; «vienes» slips into now; «veníamos» would be we."
+      - kind: buildLit
+        id: l5-b-ibaveniaescuela
+        es: "de niño, iba a la escuela, y venía temprano"
+        en: "As a child, I went to school, and I used to come (back) early"
+        atoms: ["iba", "escuela", "venía", "temprano"]
+        tiles: ["venían", "vengo"]
+      - kind: audioWimcq
+        id: l5-ear-playa
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la tienda", emoji: "🏪" }
+      - kind: agreementLit
+        id: l5-agr-yoelvenia
+        en: "I used to come early, and he used to come early too"
+        audioText: "yo venía temprano, y él venía también"
+        atoms: ["venía", "temprano"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "venía", options: ["venía", "iba"] } }
+          - { text: " temprano, y él " }
+          - { blank: { id: "p2", answer: "venía", options: ["venía", "viene"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l5-lb-samluisvenian
+        es: "Sam y Luis venían a la escuela juntos"
+        en: "Sam and Luis used to come to school together"
+        atoms: ["venían", "escuela", "juntos"]
+        tiles: ["veníamos", "venía"]
+      - kind: textMcq
+        id: l5-tm-venia
+        target: "venía"
+        distractors: ["venías", "venían", "viene"]
+      # Printed non-recall at L2 (es-m24-2-l2-sp-win).
+      - kind: speakLit
+        id: l5-sp-recall-haciatarea
+        es: "de niño, hacía la tarea en casa"
+        en: "As a child, I did homework at home"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l5-sim-ana-escuela
+        scene: { emoji: "🏫", title: "Ana asks about school", setting: "Ana wants to know who used to come to school early, and when, as kids." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Venías a la escuela temprano de niño?", audioText: "¿venías a la escuela temprano de niño?", gloss: "Did you (tú) used to come to school early as a child?" }
+            goal: "Say yes, you always came early."
+            reply:
+              mode: build
+              tiles: ["sí", "yo", "venía", "siempre", "temprano", "vienen"]
+              answer: "sí yo venía siempre temprano"
+            replyGloss: "Yes, I always came early."
+            explanation: "«yo» keeps «venía» unambiguous — it also means he/she/usted used to come. «vienen» slips into now, and into them."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Venían temprano también?", audioText: "¿y diego y sofía? ¿venían temprano también?", gloss: "And Diego and Sofía? Did they used to come early too?" }
+            goal: "Say yes, they always came early too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, venían temprano también" }
+                - { id: "wrong1", text: "sí, veníamos temprano también" }
+                - { id: "wrong2", text: "sí, vienen temprano también" }
+              correctOptionId: "right"
+              audioText: "sí, venían temprano también"
+            replyGloss: "Yes, they always came early too."
+            explanation: "Diego and Sofía — them: «venían». «veníamos» would wrongly include you; «vienen» slips into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Veníamos juntos?", audioText: "¿y tú y yo? ¿veníamos juntos?", gloss: "And you and I? Did we used to come together?" }
+            goal: "Say yes, we always came together."
+            reply:
+              mode: build
+              tiles: ["sí", "veníamos", "siempre", "juntos", "venían", "venía"]
+              answer: "sí veníamos siempre juntos"
+            replyGloss: "Yes, we always came together."
+            explanation: "You and Ana together: «veníamos» — accented, like every venir imperfect form."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "venía", target: "I came/used to come, he/she/you came" }
+          - { source: "venías", target: "you (tú) used to come" }
+          - { source: "veníamos", target: "we used to come" }
+          - { source: "venían", target: "they used to come, you all used to come" }
+          - { source: "escuela", target: "the school" }
+          - { source: "temprano", target: "early" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "de niño, venía a la escuela temprano"
+        en: "As a child, I used to come to school early"
+        atoms: ["de niño", "venía", "escuela", "temprano"]

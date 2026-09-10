@@ -1,0 +1,161 @@
+  # ── L4 · «Quería, pero no podía» — poder's imperfect debuts whole: podía
+  #    (yo=él collision, PRIOR mechanism, not re-taught), podías (tú),
+  #    podíamos (nosotros), podían (ellos/ustedes). -er family: EVERY form
+  #    keeps the accent, like «quería»/«hacía». Regular here, unlike present
+  #    «puedo» (stem-change, m14). The module's signature payoff — now that
+  #    both querer and poder have an imperfect, "wanted to but couldn't" is
+  #    sayable for the first time — is cashed within 1 step of the card and
+  #    recalled again at the checkpoint (L8). NO preterite (pude
+  #    unregistered — never used). ≥1 recall this lesson (recalls L1).
+  - n: 4
+    template: free
+    title: "Quería, pero no podía"
+    description: "«podía» is poder's imperfect — new. Paired with «quería» (L3), the module's signature line becomes sayable: wanted to but couldn't."
+    steps:
+      - kind: map
+        id: l4-map-queriafiestapodia
+        tokens: ["quería", "ir", "a", "la", "fiesta,", "pero", "no", "podía"]
+        pairs:
+          - { en: "I wanted", tokenIndex: 0 }
+          - { en: "to go", tokenIndex: 1 }
+          - { en: "to", tokenIndex: 2 }
+          - { en: "the", tokenIndex: 3 }
+          - { en: "party,", tokenIndex: 4 }
+          - { en: "but", tokenIndex: 5 }
+          - { en: "not", tokenIndex: 6 }
+          - { en: "I could", tokenIndex: 7 }
+        audioText: "quería ir a la fiesta, pero no podía"
+        revealNote: "«podía» is poder's imperfect — new. Paired with «quería» (L3): wanted to but couldn't, sayable for the first time. Regular here, unlike present «puedo»."
+      - kind: info
+        id: l4-info-podia
+        title: "Podía — the payoff: quería, pero no podía"
+        body: "«podía» is I could/was able to, he/she/you could — poder's imperfect, regular here unlike present «puedo». Every form keeps the accent, like «quería». Now that both exist: «quería ir a la fiesta, pero no podía» — wanted to but couldn't, sayable for the first time."
+      - kind: speakLit
+        id: l4-sp-yoqueriapodia
+        es: "yo quería ir a la fiesta, pero no podía"
+        en: "I wanted to go to the party, but I couldn't"
+        atoms: ["quería", "podía", "fiesta"]
+      - kind: buildLit
+        id: l4-b-tuqueriaspodias
+        es: "tú querías ir, pero no podías"
+        en: "You (tú) wanted to go, but you couldn't"
+        atoms: ["querías", "podías"]
+        tiles: ["podía", "podían"]
+      - kind: speakLit
+        id: l4-sp-queriamospodiamosfiesta
+        es: "queríamos ir a la fiesta, pero no podíamos"
+        en: "We wanted to go to the party, but we couldn't"
+        atoms: ["queríamos", "podíamos", "fiesta"]
+      - kind: clozeLit
+        id: l4-c-todosquerianpodian
+        es: "de niño, todos querían ir, pero no podían"
+        en: "As a child, everyone wanted to go, but they couldn't"
+        blank: "podían"
+        options: ["podían", "podíamos", "podía"]
+        atoms: ["de niño", "todos", "querían", "podían"]
+        why: "«todos» takes the they-ending: «podían», never «podíamos» — that would wrongly include you."
+      - kind: listenCompLit
+        id: l4-lc-diegoqueriapodia
+        es: "Diego quería ir, pero no podía"
+        en: "Diego wanted to go, but he couldn't."
+        atoms: ["quería", "podía"]
+        distractorsEn:
+          - "Diego wants to go, but he can't."
+          - "Diego wanted to go, and he could."
+          - "They wanted to go, but they couldn't."
+      - kind: mcq
+        id: l4-q-tupodias
+        prompt: "Which one means 'you (tú) could/were able to'?"
+        correct: "tú podías"
+        distractors: ["tú podía", "tú puedes", "tú podíamos"]
+        atoms: ["podías"]
+        why: "«podías» — the tú ending, accented like every poder imperfect form. «podía» collapses yo/él, not tú; «puedes» slips into now; «podíamos» would be we."
+      - kind: buildLit
+        id: l4-b-nopodiamosfiesta
+        es: "no podíamos ir a la fiesta"
+        en: "We couldn't go to the party"
+        atoms: ["podíamos", "fiesta"]
+        tiles: ["podían", "puedo"]
+      - kind: audioWimcq
+        id: l4-ear-museo
+        target: { surface: "el museo", emoji: "🏛️" }
+        distractors:
+          - { surface: "el mercado", emoji: "🛒" }
+          - { surface: "la tienda", emoji: "🏪" }
+      - kind: agreementLit
+        id: l4-agr-yoelnopodia
+        en: "I couldn't go, and he couldn't go either"
+        audioText: "yo no podía ir, y él no podía ir"
+        atoms: ["podía"]
+        segments:
+          - { text: "yo no " }
+          - { blank: { id: "p1", answer: "podía", options: ["podía", "puedo"] } }
+          - { text: " ir, y él no " }
+          - { blank: { id: "p2", answer: "podía", options: ["podía", "puede"] } }
+          - { text: " ir" }
+      - kind: listenBuildLit
+        id: l4-lb-samluisquerianpodian
+        es: "Sam y Luis querían ir, pero no podían"
+        en: "Sam and Luis wanted to go, but they couldn't"
+        atoms: ["querían", "podían"]
+        tiles: ["podíamos", "podía"]
+      - kind: textMcq
+        id: l4-tm-podia
+        target: "podía"
+        distractors: ["podías", "podían", "puede"]
+      # Printed non-recall at L1 (es-m24-1-l1-sp-win).
+      - kind: speakLit
+        id: l4-sp-recall-estabacasa
+        es: "de niño, estaba mucho en casa"
+        en: "As a child, I was home a lot"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l4-sim-ana-fiesta
+        scene: { emoji: "🎉", title: "Ana asks about the party", setting: "Ana wants to know who wanted to go to the party, and who couldn't." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Querías ir a la fiesta?", audioText: "¿querías ir a la fiesta?", gloss: "Did you want to go to the party?" }
+            goal: "Say yes, you wanted to, but couldn't."
+            reply:
+              mode: build
+              tiles: ["sí,", "quería", "ir,", "pero", "no", "podía", "podían"]
+              answer: "sí, quería ir, pero no podía"
+            replyGloss: "Yes, I wanted to go, but I couldn't."
+            explanation: "«quería»/«podía» both carry the yo=él collision — here you're clearly answering for yourself. «podían» would be more than one."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Querían ir también?", audioText: "¿y diego y sofía? ¿querían ir también?", gloss: "And Diego and Sofía? Did they want to go too?" }
+            goal: "Say yes, they wanted to, but couldn't."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, querían, pero no podían" }
+                - { id: "wrong1", text: "sí, queríamos, pero no podíamos" }
+                - { id: "wrong2", text: "sí, quería, pero no podía" }
+              correctOptionId: "right"
+              audioText: "sí, querían, pero no podían"
+            replyGloss: "Yes, they wanted to, but they couldn't."
+            explanation: "Diego and Sofía — them: «querían»/«podían». «queríamos» would wrongly include you; «quería»/«podía» would be just one person."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Queríamos ir juntos?", audioText: "¿y tú y yo? ¿queríamos ir juntos?", gloss: "And you and I? Did we want to go together?" }
+            goal: "Say yes, but say you two couldn't."
+            reply:
+              mode: build
+              tiles: ["sí,", "queríamos,", "pero", "no", "podíamos", "podían"]
+              answer: "sí, queríamos, pero no podíamos"
+            replyGloss: "Yes, but we couldn't."
+            explanation: "You and Ana together: «queríamos»/«podíamos» — accented, like every -ía family nosotros form."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "podía", target: "I could, he/she/you could (be able to)" }
+          - { source: "podías", target: "you (tú) could" }
+          - { source: "podíamos", target: "we could" }
+          - { source: "podían", target: "they could, you all could" }
+          - { source: "fiesta", target: "the party" }
+          - { source: "quería", target: "I wanted, he/she/you wanted" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "quería ir a la fiesta, pero no podía"
+        en: "I wanted to go to the party, but I couldn't"
+        atoms: ["quería", "podía", "fiesta"]

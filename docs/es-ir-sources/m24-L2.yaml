@@ -1,0 +1,149 @@
+  # ── L2 · «Hacía la tarea» — hacer's imperfect debuts whole: hacía (yo=él
+  #    collision, PRIOR mechanism, not re-taught), hacías (tú), hacíamos
+  #    (nosotros), hacían (ellos/ustedes). -er family: EVERY form keeps the
+  #    accent, same rule as «veía» (m22). «hacía» is only "to do/make" —
+  #    never the "ago" idiom (not taught anywhere). NO progressive, NO
+  #    preterite. No recall required this lesson (floor starts at L4).
+  - n: 2
+    template: free
+    title: "Hacía la tarea"
+    description: "«hacía» is hacer's imperfect — same trick, one more time. Regular here, unlike present «hago» or preterite «hice». Every form keeps the accent, same as «veía»."
+    steps:
+      - kind: map
+        id: l2-map-deninohaciatareacasa
+        tokens: ["de niño", "hacía", "la", "tarea", "en", "casa"]
+        pairs:
+          - { en: "as a child,", tokenIndex: 0 }
+          - { en: "I did/was doing", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "homework", tokenIndex: 3 }
+          - { en: "at", tokenIndex: 4 }
+          - { en: "home", tokenIndex: 5 }
+        audioText: "de niño, hacía la tarea en casa"
+        revealNote: "«hacía» is hacer's imperfect — regular here, unlike present «hago» or preterite «hice». Every form keeps the accent, same as «veía» (m22)."
+      - kind: info
+        id: l2-info-hacia
+        title: "Hacía — the same trick, one more time"
+        body: "«hacía» is I was doing/making, he/she/you was doing/making — hacer's imperfect. Every form keeps the accent, same as «veía»: «hacía», «hacías», «hacíamos», «hacían». Only to do/make in the past — never ago; that idiom isn't taught here."
+      - kind: speakLit
+        id: l2-sp-yohaciatarea
+        es: "yo hacía la tarea de niño"
+        en: "I used to do homework as a child"
+        atoms: ["hacía", "tarea", "de niño"]
+      - kind: buildLit
+        id: l2-b-tuhaciasmuchocasa
+        es: "tú hacías mucho en casa"
+        en: "You (tú) used to do a lot at home"
+        atoms: ["hacías", "mucho", "casa"]
+        tiles: ["hacía", "hacen"]
+      - kind: speakLit
+        id: l2-sp-haciamostareajuntos
+        es: "hacíamos la tarea juntos"
+        en: "We used to do homework together"
+        atoms: ["hacíamos", "tarea", "juntos"]
+      - kind: clozeLit
+        id: l2-c-todoshaciantarea
+        es: "de niño, todos hacían la tarea"
+        en: "As a child, everyone used to do homework"
+        blank: "hacían"
+        options: ["hacían", "hacíamos", "hacía"]
+        atoms: ["de niño", "todos", "hacían", "tarea"]
+        why: "«todos» takes the they-ending: «hacían», never «hacíamos» — that would wrongly include you."
+      - kind: listenCompLit
+        id: l2-lc-diegohaciatareacasa
+        es: "Diego hacía la tarea en casa"
+        en: "Diego used to do homework at home."
+        atoms: ["hacía", "tarea", "casa"]
+        distractorsEn:
+          - "Diego does homework at home."
+          - "Diego used to do homework at school."
+          - "They used to do homework at home."
+      - kind: mcq
+        id: l2-q-tuhacias
+        prompt: "Which one means 'you (tú) were doing/making'?"
+        correct: "tú hacías"
+        distractors: ["tú hacía", "tú haces", "tú hacíamos"]
+        atoms: ["hacías"]
+        why: "«hacías» — the tú ending, accented like every hacer imperfect form. «hacía» collapses yo/él, not tú; «haces» slips into now; «hacíamos» would be we."
+      - kind: buildLit
+        id: l2-b-haciamosmuchoescuela
+        es: "hacíamos mucho en la escuela"
+        en: "We used to do a lot at school"
+        atoms: ["hacíamos", "mucho", "escuela"]
+        tiles: ["hacían", "hacemos"]
+      - kind: audioWimcq
+        id: l2-ear-parque
+        target: { surface: "el parque", emoji: "🌳" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el mercado", emoji: "🛒" }
+      - kind: agreementLit
+        id: l2-agr-yoelhacia
+        en: "I was doing homework, and he was doing it too"
+        audioText: "yo hacía la tarea, y él hacía también"
+        atoms: ["hacía", "tarea"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "hacía", options: ["hacía", "hago"] } }
+          - { text: " la tarea, y él " }
+          - { blank: { id: "p2", answer: "hacía", options: ["hacía", "hace"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l2-lb-samluishacian
+        es: "Sam y Luis hacían la tarea juntos"
+        en: "Sam and Luis used to do homework together"
+        atoms: ["hacían", "tarea", "juntos"]
+        tiles: ["hacíamos", "hacía"]
+      - kind: textMcq
+        id: l2-tm-hacia
+        target: "hacía"
+        distractors: ["hacías", "hacían", "hace"]
+      - kind: sim
+        id: l2-sim-ana-tarea
+        scene: { emoji: "📝", title: "Ana asks about homework", setting: "Ana wants to know who used to do homework, and when, as kids." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Hacías la tarea de niño?", audioText: "¿hacías la tarea de niño?", gloss: "Did you (tú) used to do homework as a child?" }
+            goal: "Say yes, you always did it."
+            reply:
+              mode: build
+              tiles: ["sí", "yo", "hacía", "siempre", "la", "tarea", "hacen"]
+              answer: "sí yo hacía siempre la tarea"
+            replyGloss: "Yes, I always did it."
+            explanation: "«yo» keeps «hacía» unambiguous — it also means he/she/usted was doing. «hacen» slips into now, and into them."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Hacían la tarea también?", audioText: "¿y diego y sofía? ¿hacían la tarea también?", gloss: "And Diego and Sofía? Did they used to do homework too?" }
+            goal: "Say yes, they always did it too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, hacían la tarea también" }
+                - { id: "wrong1", text: "sí, hacíamos la tarea también" }
+                - { id: "wrong2", text: "sí, hacen la tarea también" }
+              correctOptionId: "right"
+              audioText: "sí, hacían la tarea también"
+            replyGloss: "Yes, they always did it too."
+            explanation: "Diego and Sofía — them: «hacían». «hacíamos» would wrongly include you; «hacen» slips into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Hacíamos la tarea juntos?", audioText: "¿y tú y yo? ¿hacíamos la tarea juntos?", gloss: "And you and I? Did we used to do homework together?" }
+            goal: "Say yes, we always did it together."
+            reply:
+              mode: build
+              tiles: ["sí", "hacíamos", "siempre", "juntos", "hacían", "hacía"]
+              answer: "sí hacíamos siempre juntos"
+            replyGloss: "Yes, we always did it together."
+            explanation: "You and Ana together: «hacíamos» — accented, like every hacer imperfect form."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "hacía", target: "I was doing/making, he/she/you was doing/making" }
+          - { source: "hacías", target: "you (tú) were doing/making" }
+          - { source: "hacíamos", target: "we were doing/making" }
+          - { source: "hacían", target: "they were doing/making, you all were doing/making" }
+          - { source: "tarea", target: "homework" }
+          - { source: "casa", target: "house, home" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "de niño, hacía la tarea en casa"
+        en: "As a child, I did homework at home"
+        atoms: ["de niño", "hacía", "tarea", "casa"]

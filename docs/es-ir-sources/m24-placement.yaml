@@ -1,0 +1,23 @@
+placement:
+  screener:
+    - id: "es-m24-scr-1"
+      prompt: "'As a child, I was at home a lot.' — which one?"
+      correct: "de niño, estaba mucho en casa"
+      distractors: ["de niño, estaban mucho en casa", "de niño, estuve mucho en casa", "de niño, era mucho en casa"]
+  byModule:
+    - id: "es-m24-pl-1"
+      prompt: "As a child, I did homework at home."
+      correct: "de niño, hacía la tarea en casa"
+      distractors: ["de niño, hacían la tarea en casa", "de niño, hice la tarea en casa", "de niño, hacíamos la tarea en casa"]
+    - id: "es-m24-pl-2"
+      prompt: "I wanted to go to the party, but I couldn't."
+      correct: "quería ir a la fiesta, pero no podía"
+      distractors: ["querías ir a la fiesta, pero no podías", "quería ir a la fiesta, pero no podían", "queríamos ir a la fiesta, pero no podíamos"]
+    - id: "es-m24-pl-3"
+      prompt: "As a child, I used to come to school early."
+      correct: "de niño, venía a la escuela temprano"
+      distractors: ["de niño, venían a la escuela temprano", "de niño, vine a la escuela temprano", "de niño, veníamos a la escuela temprano"]
+    - id: "es-m24-pl-4"
+      prompt: "Where were you when Sofía came?"
+      correct: "¿dónde estabas cuando vino Sofía?"
+      distractors: ["¿dónde estaban cuando vino Sofía?", "¿dónde estabas cuando venía Sofía?", "¿dónde estuviste cuando vino Sofía?"]

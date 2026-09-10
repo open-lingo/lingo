@@ -1,0 +1,151 @@
+  # ── L3 · «Quería ir» — querer's imperfect debuts whole: quería (yo=él
+  #    collision, PRIOR mechanism, not re-taught), querías (tú), queríamos
+  #    (nosotros), querían (ellos/ustedes). -er family: EVERY form keeps the
+  #    accent. Regular here, unlike present «quiero» (stem-change, m7/m10).
+  #    Desire only — never glossed as "loved" (querer's other sense stays
+  #    out of scope, matching PRIOR «quiero»). «quería ir» pairs the new
+  #    imperfect with the PRIOR infinitive, same shape as «quiero ir». NO
+  #    progressive, NO preterite (quise unregistered — never used). No
+  #    recall required this lesson (floor starts at L4).
+  - n: 3
+    template: free
+    title: "Quería ir"
+    description: "«quería» is querer's imperfect — regular here, unlike present «quiero», which stem-changes. Every form keeps the accent. Still just desire, same sense as PRIOR «quiero»."
+    steps:
+      - kind: map
+        id: l3-map-deninoqueriaircine
+        tokens: ["de niño", "quería", "ir", "al", "cine"]
+        pairs:
+          - { en: "as a child,", tokenIndex: 0 }
+          - { en: "I wanted", tokenIndex: 1 }
+          - { en: "to go", tokenIndex: 2 }
+          - { en: "to the", tokenIndex: 3 }
+          - { en: "movies", tokenIndex: 4 }
+        audioText: "de niño, quería ir al cine"
+        revealNote: "«quería» is querer's imperfect — regular here, unlike present «quiero», which stem-changes. Same yo=él pattern as «hacía»/«estaba» — only the subject tells you who."
+      - kind: info
+        id: l3-info-queria
+        title: "Quería — the same trick, one more time"
+        body: "«quería» is I wanted, he/she/you wanted — querer's imperfect. Every form keeps the accent: «quería», «querías», «queríamos», «querían». Still just desire, the same sense as PRIOR «quiero» (m7) — never loved."
+      - kind: speakLit
+        id: l3-sp-yoqueriaircine
+        es: "yo quería ir al cine de niño"
+        en: "I wanted to go to the movies as a child"
+        atoms: ["quería", "cine", "de niño"]
+      - kind: buildLit
+        id: l3-b-tuqueriasircine
+        es: "tú querías ir mucho al cine"
+        en: "You (tú) wanted to go to the movies a lot"
+        atoms: ["querías", "mucho", "cine"]
+        tiles: ["quería", "quiere"]
+      - kind: speakLit
+        id: l3-sp-queriamosirjuntoscine
+        es: "queríamos ir juntos al cine"
+        en: "We wanted to go to the movies together"
+        atoms: ["queríamos", "juntos", "cine"]
+      - kind: clozeLit
+        id: l3-c-todosqueriancine
+        es: "de niño, todos querían ir al cine"
+        en: "As a child, everyone wanted to go to the movies"
+        blank: "querían"
+        options: ["querían", "queríamos", "quería"]
+        atoms: ["de niño", "todos", "querían", "cine"]
+        why: "«todos» takes the they-ending: «querían», never «queríamos» — that would wrongly include you."
+      - kind: listenCompLit
+        id: l3-lc-diegoqueriacine
+        es: "Diego quería ir al cine"
+        en: "Diego wanted to go to the movies."
+        atoms: ["quería", "cine"]
+        distractorsEn:
+          - "Diego wants to go to the movies."
+          - "Diego wanted to go to the park."
+          - "They wanted to go to the movies."
+      - kind: mcq
+        id: l3-q-tuquerias
+        prompt: "Which one means 'you (tú) wanted'?"
+        correct: "tú querías"
+        distractors: ["tú quería", "tú quieres", "tú queríamos"]
+        atoms: ["querías"]
+        why: "«querías» — the tú ending, accented like every querer imperfect form. «quería» collapses yo/él, not tú; «quieres» slips into now; «queríamos» would be we."
+      - kind: buildLit
+        id: l3-b-queriamossiemprecine
+        es: "queríamos ir siempre al cine"
+        en: "We always wanted to go to the movies"
+        atoms: ["queríamos", "siempre", "cine"]
+        tiles: ["querían", "quiero"]
+      - kind: audioWimcq
+        id: l3-ear-tienda
+        target: { surface: "la tienda", emoji: "🏪" }
+        distractors:
+          - { surface: "el museo", emoji: "🏛️" }
+          - { surface: "el mercado", emoji: "🛒" }
+      - kind: agreementLit
+        id: l3-agr-yoelqueria
+        en: "I wanted to go, and he wanted to go too"
+        audioText: "yo quería ir, y él quería también"
+        atoms: ["quería"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "quería", options: ["quería", "quiero"] } }
+          - { text: " ir, y él " }
+          - { blank: { id: "p2", answer: "quería", options: ["quería", "quiere"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l3-lb-samluisquerian
+        es: "Sam y Luis querían ir al cine"
+        en: "Sam and Luis wanted to go to the movies"
+        atoms: ["querían", "cine"]
+        tiles: ["queríamos", "quería"]
+      - kind: textMcq
+        id: l3-tm-queria
+        target: "quería"
+        distractors: ["querías", "querían", "quiere"]
+      - kind: sim
+        id: l3-sim-ana-cine
+        scene: { emoji: "🎬", title: "Ana asks about the movies", setting: "Ana wants to know who used to want to go to the movies as kids." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Querías ir al cine de niño?", audioText: "¿querías ir al cine de niño?", gloss: "Did you (tú) want to go to the movies as a child?" }
+            goal: "Say yes, you always wanted to go."
+            reply:
+              mode: build
+              tiles: ["sí", "yo", "quería", "siempre", "ir", "al", "cine", "quieren"]
+              answer: "sí yo quería siempre ir al cine"
+            replyGloss: "Yes, I always wanted to go."
+            explanation: "«yo» keeps «quería» unambiguous — it also means he/she/usted wanted. «quieren» slips into now, and into them."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Querían ir también?", audioText: "¿y diego y sofía? ¿querían ir también?", gloss: "And Diego and Sofía? Did they want to go too?" }
+            goal: "Say yes, they always wanted to go too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, querían ir también" }
+                - { id: "wrong1", text: "sí, queríamos ir también" }
+                - { id: "wrong2", text: "sí, quieren ir también" }
+              correctOptionId: "right"
+              audioText: "sí, querían ir también"
+            replyGloss: "Yes, they always wanted to go too."
+            explanation: "Diego and Sofía — them: «querían». «queríamos» would wrongly include you; «quieren» slips into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Queríamos ir juntos?", audioText: "¿y tú y yo? ¿queríamos ir juntos?", gloss: "And you and I? Did we want to go together?" }
+            goal: "Say yes, we always wanted to go together."
+            reply:
+              mode: build
+              tiles: ["sí", "queríamos", "siempre", "juntos", "querían", "quería"]
+              answer: "sí queríamos siempre juntos"
+            replyGloss: "Yes, we always wanted to go together."
+            explanation: "You and Ana together: «queríamos» — accented, like every querer imperfect form."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "quería", target: "I wanted, he/she/you wanted" }
+          - { source: "querías", target: "you (tú) wanted" }
+          - { source: "queríamos", target: "we wanted" }
+          - { source: "querían", target: "they wanted, you all wanted" }
+          - { source: "cine", target: "the movies, cinema" }
+          - { source: "ir", target: "to go" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "de niño, quería ir al cine"
+        en: "As a child, I wanted to go to the movies"
+        atoms: ["de niño", "quería", "cine"]

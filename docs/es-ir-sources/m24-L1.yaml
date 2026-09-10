@@ -1,0 +1,151 @@
+  # ── L1 · «Estaba en casa» — estar's imperfect debuts whole: estaba (a
+  #    "first slot" atom, yo=él collision — PRIOR mechanism, m22, not
+  #    re-taught here), estabas (tú), estábamos (nosotros — the ONE -ar
+  #    form that carries an accent), estaban (ellos/ustedes). Also carries
+  #    the module's ONE general rule card: the imperfect's "easy tense"
+  #    trick generalizes to five more everyday verbs, all irregular
+  #    elsewhere. «estaba» = located/state, kept apart from «era» (identity,
+  #    m22) from its very first card. NO progressive, NO preterite. No
+  #    recall (nothing earlier to recall).
+  - n: 1
+    template: free
+    title: "Estaba en casa"
+    description: "The imperfect's trick generalizes: «estaba» is estar's imperfect — regular here, even though present «estoy» and preterite «estuve» are not. Located or in a state — never «era»'s identity."
+    steps:
+      - kind: map
+        id: l1-map-deninoestabamuchocasa
+        tokens: ["de niño", "estaba", "mucho", "en", "casa"]
+        pairs:
+          - { en: "as a child,", tokenIndex: 0 }
+          - { en: "I was", tokenIndex: 1 }
+          - { en: "a lot", tokenIndex: 2 }
+          - { en: "at", tokenIndex: 3 }
+          - { en: "home", tokenIndex: 4 }
+        audioText: "de niño, estaba mucho en casa"
+        revealNote: "«estaba» is estar's imperfect — regular here, unlike present «estoy» or preterite «estuve». Same yo=él pattern as «hablaba»/«tenía» (m22) — only the subject tells you who."
+      - kind: info
+        id: l1-info-estabatricegeneralizado
+        title: "Estaba — the imperfect trick, generalized"
+        body: "The imperfect keeps being the easy tense. «tenía» was regular even though «tengo»/«tuve» are not (m22) — «estaba», «hacía», «quería», «podía», «venía» are the same trick, five more times. «de niño, estaba mucho en casa» — estaba is located/state, never «era» (identity, m22)."
+      - kind: speakLit
+        id: l1-sp-yoestabacasa
+        es: "yo estaba en casa de niño"
+        en: "I was at home as a child"
+        atoms: ["estaba", "casa", "de niño"]
+      - kind: buildLit
+        id: l1-b-tuestabascasa
+        es: "tú estabas mucho en casa"
+        en: "You (tú) were home a lot"
+        atoms: ["estabas", "mucho", "casa"]
+        tiles: ["estaba", "estaban"]
+      - kind: speakLit
+        id: l1-sp-estabamosjuntoscasa
+        es: "estábamos en casa juntos"
+        en: "We were home together"
+        atoms: ["estábamos", "casa", "juntos"]
+      - kind: clozeLit
+        id: l1-c-todosestabancasa
+        es: "de niño, todos estaban en casa"
+        en: "As a child, everyone was at home"
+        blank: "estaban"
+        options: ["estaban", "estábamos", "estaba"]
+        atoms: ["de niño", "todos", "estaban", "casa"]
+        why: "«todos» takes the they-ending: «estaban», never «estábamos» — that would wrongly include you."
+      - kind: listenCompLit
+        id: l1-lc-diegoestabacasatemprano
+        es: "Diego estaba en casa temprano"
+        en: "Diego was at home early."
+        atoms: ["estaba", "casa", "temprano"]
+        distractorsEn:
+          - "Diego is at home early."
+          - "Diego was at school early."
+          - "They were at home early."
+      - kind: mcq
+        id: l1-q-tuestabas
+        prompt: "Which one means 'you (tú) were' — located, not identity?"
+        correct: "tú estabas"
+        distractors: ["tú estaba", "tú eras", "tú estábamos"]
+        atoms: ["estabas"]
+        why: "«estabas» — the tú ending, no accent. «estaba» collapses yo/él, not tú; «eras» would be identity (era, m22); «estábamos» would be we."
+      - kind: buildLit
+        id: l1-b-estabamossiemprecasa
+        es: "estábamos siempre juntos en casa"
+        en: "We were always home together"
+        atoms: ["estábamos", "siempre", "juntos", "casa"]
+        tiles: ["estaban", "estamos"]
+      - kind: audioWimcq
+        id: l1-ear-escuela
+        target: { surface: "la escuela", emoji: "🏫" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el parque", emoji: "🌳" }
+      - kind: agreementLit
+        id: l1-agr-yoelestaba
+        en: "I was at home, and he was too"
+        audioText: "yo estaba en casa, y él estaba también"
+        atoms: ["estaba", "casa"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "estaba", options: ["estaba", "está"] } }
+          - { text: " en casa, y él " }
+          - { blank: { id: "p2", answer: "estaba", options: ["estaba", "está"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l1-lb-samluisestabancasa
+        es: "Sam y Luis estaban en casa temprano"
+        en: "Sam and Luis were home early"
+        atoms: ["estaban", "casa", "temprano"]
+        tiles: ["estábamos", "estaba"]
+      - kind: textMcq
+        id: l1-tm-estaba
+        target: "estaba"
+        distractors: ["estabas", "estaban", "está"]
+      - kind: sim
+        id: l1-sim-ana-casa
+        scene: { emoji: "🏠", title: "Ana asks about home", setting: "Ana wants to know who used to be home, and when, as kids." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Estabas en casa de niño?", audioText: "¿estabas en casa de niño?", gloss: "Were you at home as a child?" }
+            goal: "Say yes, you were always home."
+            reply:
+              mode: build
+              tiles: ["sí", "yo", "estaba", "siempre", "en", "casa", "están"]
+              answer: "sí yo estaba siempre en casa"
+            replyGloss: "Yes, I was always at home."
+            explanation: "Answering as yourself, «yo» keeps «estaba» unambiguous — it also means he/she/usted was. «están» would be more than one."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Estaban en casa también?", audioText: "¿y diego y sofía? ¿estaban en casa también?", gloss: "And Diego and Sofía? Were they home too?" }
+            goal: "Say yes, they were always home too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, estaban en casa también" }
+                - { id: "wrong1", text: "sí, estábamos en casa también" }
+                - { id: "wrong2", text: "sí, están en casa también" }
+              correctOptionId: "right"
+              audioText: "sí, estaban en casa también"
+            replyGloss: "Yes, they were always home too."
+            explanation: "Diego and Sofía — them: «estaban». «estábamos» would wrongly include you; «están» slips into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Estábamos en casa juntos?", audioText: "¿y tú y yo? ¿estábamos en casa juntos?", gloss: "And you and I? Were we home together?" }
+            goal: "Say yes, we were always home together."
+            reply:
+              mode: build
+              tiles: ["sí", "estábamos", "siempre", "juntos", "estaban", "estaba"]
+              answer: "sí estábamos siempre juntos"
+            replyGloss: "Yes, we were always home together."
+            explanation: "You and Ana together: «estábamos» — the one accented estar imperfect form."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "estaba", target: "I was, he/she/you was (located/state)" }
+          - { source: "estabas", target: "you (tú) were (located/state)" }
+          - { source: "estábamos", target: "we were (located/state)" }
+          - { source: "estaban", target: "they were, you all were (located/state)" }
+          - { source: "casa", target: "house, home" }
+          - { source: "de niño", target: "as a child" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "de niño, estaba mucho en casa"
+        en: "As a child, I was home a lot"
+        atoms: ["de niño", "estaba", "mucho", "casa"]

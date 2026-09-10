@@ -1,0 +1,176 @@
+  # ── L10 · MASTERY — zero new atoms, zero info cards, every step graded.
+  #    Longest sim in the module (Ana asks the whole group to narrate a
+  #    memory, 5 turns) — the module's law that the mastery lesson must END
+  #    on the sim (§13.9 law 7, code-enforced via doctrinePins.ts — same
+  #    deliberate departure m23-L10/m22-L10 already take from the brief's
+  #    general "sim → matchLit → -sp-win" wording) means the verbatim
+  #    closing win line is delivered as the sim's final (5th) turn reply,
+  #    not a separate speakLit step; matchLit sits just before the sim
+  #    instead of after it. ≥2 recalls (L9, L1 — full-circle back to the
+  #    very first win). Context: «de niños» (plural), «aquí», «juntos» —
+  #    all already demonstrated safe in earlier m23/m24/m22 lessons. ≥1
+  #    PRIOR m23 connective (cuando/mientras/de repente/entonces, all used).
+  - n: 10
+    template: free
+    title: "De niños, veníamos aquí juntos"
+    description: "Everything from this module, one last time, fully graded — all five families, PRIOR connectives, «todos», and the quería/podía payoff, all working together."
+    steps:
+      - kind: buildLit
+        id: l10-b-deninosveniamosaquivinodiego
+        es: "de niños, veníamos aquí juntos, cuando vino Diego"
+        en: "As children, we used to come here together, when Diego came"
+        atoms: ["de niño", "veníamos", "aquí", "juntos", "cuando", "vino"]
+        tiles: ["venían", "viene"]
+      - kind: speakLit
+        id: l10-sp-tuveniasaqui
+        es: "tú venías aquí mucho de niño"
+        en: "You (tú) used to come here a lot as a child"
+        atoms: ["venías", "aquí", "de niño"]
+      - kind: listenBuildLit
+        id: l10-lb-mientrasestabamosaquiderepentevinosofia
+        es: "mientras estábamos aquí, de repente vino Sofía"
+        en: "While we were here, suddenly Sofía came"
+        atoms: ["mientras", "estábamos", "aquí", "de repente", "vino"]
+        tiles: ["estaban", "viene"]
+      - kind: clozeLit
+        id: l10-c-entoncestodosquerianfiesta
+        es: "entonces todos querían ir a la fiesta"
+        en: "So everyone wanted to go to the party"
+        blank: "querían"
+        options: ["querían", "queríamos", "quería"]
+        atoms: ["entonces", "querían", "todos", "fiesta"]
+        why: "«todos» takes the they-ending: «querían», never «queríamos» — that would wrongly include you."
+      - kind: mcq
+        id: l10-q-todosqueriapodian
+        prompt: "'Everyone wanted to go, but couldn't' — which one?"
+        correct: "todos querían ir, pero no podían"
+        distractors: ["todos quería ir, pero no podía", "todos querían ir, pero no puede", "todos queríamos ir, pero no podíamos"]
+        atoms: ["querían", "podían", "todos"]
+        why: "«todos» takes the they-ending throughout: «querían»/«podían». Swapping to «quería»/«podía» drops the agreement; «queríamos»/«podíamos» would wrongly include the speaker."
+      - kind: agreementLit
+        id: l10-agr-estabamosaquicuandovino
+        en: "We were here when Diego came"
+        audioText: "estábamos aquí cuando vino Diego"
+        atoms: ["estábamos", "cuando", "vino", "aquí"]
+        segments:
+          - { blank: { id: "p1", answer: "estábamos", options: ["estábamos", "estaban"] } }
+          - { text: " aquí cuando " }
+          - { blank: { id: "p2", answer: "vino", options: ["vino", "viene"] } }
+          - { text: " Diego" }
+      # Printed non-recall at L9 (es-m24-9-l9-sp-win).
+      - kind: speakLit
+        id: l10-sp-recall-hoyhagodeninohacia
+        es: "hoy hago la tarea, pero de niño hacía mucho trabajo"
+        en: "Today I do homework, but as a child I did a lot of work"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l10-tm-entonces
+        target: "entonces"
+        distractors: ["cuando", "mientras", "de repente"]
+      - kind: audioWimcq
+        id: l10-ear-fiesta
+        target: { surface: "la fiesta", emoji: "🎉" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: buildLit
+        id: l10-b-fiestafuebuenacuandotodosvenian
+        es: "la fiesta fue muy buena, cuando todos venían juntos"
+        en: "The party was very good, when everyone used to come together"
+        atoms: ["cuando", "fue", "venían", "fiesta", "todos", "juntos"]
+        tiles: ["era", "vino"]
+      - kind: listenBuildLit
+        id: l10-lb-derepentevinodiegoentonceshablamos
+        es: "de repente vino Diego, entonces hablamos mucho"
+        en: "Suddenly Diego came, so we talked a lot"
+        atoms: ["de repente", "vino", "entonces", "hablamos"]
+        tiles: ["viene", "hablábamos"]
+      - kind: clozeLit
+        id: l10-c-eramosninosveniamosaqui
+        es: "éramos niños cuando veníamos aquí juntos"
+        en: "We were children when we used to come here together"
+        blank: "éramos"
+        options: ["éramos", "eran"]
+        atoms: ["cuando", "éramos", "veníamos", "aquí", "juntos"]
+        why: "We, the group, the ongoing scene: «éramos» — the accented nosotros ser form. «eran» would leave you out."
+      - kind: mcq
+        id: l10-q-vinieron
+        prompt: "Which one means 'they came' — the group?"
+        correct: "vinieron"
+        distractors: ["venían", "vino", "vienen"]
+        atoms: ["vinieron"]
+        why: "«vinieron» — the they-preterite, one bounded arrival. «venían» would make it repeated; «vino» drops the they-agreement; «vienen» slips into now."
+      # Printed non-recall at L1 (es-m24-1-l1-sp-win).
+      - kind: speakLit
+        id: l10-sp-recall-estabacasa
+        es: "de niño, estaba mucho en casa"
+        en: "As a child, I was home a lot"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l10-tm-veniamos
+        target: "veníamos"
+        distractors: ["venían", "vinimos", "vamos"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "cuando", target: "when" }
+          - { source: "mientras", target: "while" }
+          - { source: "de repente", target: "suddenly" }
+          - { source: "entonces", target: "then, so" }
+          - { source: "veníamos", target: "we used to come" }
+          - { source: "de niños", target: "as children" }
+      - kind: sim
+        id: l10-sim-ana-grupo
+        scene: { emoji: "👨‍👩‍👧‍👦", title: "Ana asks for the whole memory", setting: "Ana wants to hear the whole group's memory, start to finish, in one telling." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Venían todos aquí juntos de niños?", audioText: "¿venían todos aquí juntos de niños?", gloss: "Did everyone use to come here together as children?" }
+            goal: "Say yes, you were all coming together."
+            reply:
+              mode: build
+              tiles: ["sí,", "veníamos", "juntos", "venían", "vinimos"]
+              answer: "sí, veníamos juntos"
+            replyGloss: "Yes, we were coming together."
+            explanation: "The whole group, you included: «veníamos» — the accented nosotros form. «venían» would leave you out."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y qué pasó de repente?", audioText: "¿y qué pasó de repente?", gloss: "And what happened suddenly?" }
+            goal: "Say Diego came suddenly, while you talked."
+            reply:
+              mode: build
+              tiles: ["de", "repente,", "vino", "Diego", "mientras", "hablábamos", "viene"]
+              answer: "de repente, vino Diego mientras hablábamos"
+            replyGloss: "Suddenly, Diego came while we were talking."
+            explanation: "«de repente» flags the surprise; «vino» is the one bounded event landing inside «hablábamos», the ongoing scene."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Entonces qué querían hacer todos?", audioText: "¿entonces qué querían hacer todos?", gloss: "So what did everyone want to do then?" }
+            goal: "Say then everyone wanted to go."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "entonces todos querían ir a la fiesta" }
+                - { id: "wrong1", text: "entonces todos quería ir a la fiesta" }
+                - { id: "wrong2", text: "mientras todos querían ir a la fiesta" }
+              correctOptionId: "right"
+              audioText: "entonces todos querían ir a la fiesta"
+            replyGloss: "Then everyone wanted to go to the party."
+            explanation: "«entonces» chains the next thing; «todos» keeps the they-ending: «querían». «quería» drops the agreement; «mientras» would claim simultaneity, not sequence."
+          - id: t4
+            npc: { speaker: "Ana", es: "¿Podían todos ir a la fiesta?", audioText: "¿podían todos ir a la fiesta?", gloss: "Could everyone go to the party?" }
+            goal: "Say no, you all couldn't go."
+            reply:
+              mode: build
+              tiles: ["no,", "no", "podíamos", "podían"]
+              answer: "no, no podíamos"
+            replyGloss: "No, we couldn't."
+            explanation: "You and the group together: «podíamos» — accented, the nosotros imperfect form. «podían» would leave you out."
+          - id: t5
+            npc: { speaker: "Ana", es: "Cuéntamelo todo, de principio a fin.", audioText: "cuéntamelo todo, de principio a fin.", gloss: "Tell me the whole thing, start to finish." }
+            goal: "Narrate the whole memory, start to finish."
+            reply:
+              mode: build
+              tiles: ["de", "niños,", "veníamos", "aquí", "juntos", "cuando,", "de", "repente,", "vino", "Diego,", "y", "entonces", "queríamos", "ir", "a", "la", "fiesta", "venían", "quería"]
+              answer: "de niños, veníamos aquí juntos cuando, de repente, vino Diego, y entonces queríamos ir a la fiesta"
+            replyGloss: "As children, we used to come here together when, suddenly, Diego came, and then we wanted to go to the party."
+            explanation: "The whole module in one line: «veníamos» paints the ongoing scene; «vino» is the one surprise event inside it; «queríamos», with «entonces», closes it — every family, both tenses, doing its own job."

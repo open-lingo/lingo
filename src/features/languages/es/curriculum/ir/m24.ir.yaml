@@ -1,0 +1,1828 @@
+module: m24
+title: "Estaba, hacía, quería"
+frame: none
+throughModule: m23
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m24 — the imperfect, second wave. Sixth A2 module.
+#
+#     estar:  estaba*  estabas  estábamos  estaban   (irregular present/preterite; REGULAR here)
+#     hacer:  hacía*   hacías   hacíamos   hacían    (irregular present/preterite; REGULAR here)
+#     querer: quería*  querías  queríamos  querían   (stem-change present, irregular preterite; REGULAR here)
+#     poder:  podía*   podías   podíamos   podían    (stem-change present, irregular preterite; REGULAR here)
+#     venir:  venía*   venías   veníamos   venían    (irregular present/preterite; REGULAR here)
+#
+#     (* = yo AND él/ella/usted share this exact surface — the yo=él
+#     collision, TAUGHT in m22, not re-taught here — see "NO RE-TEACH"
+#     below. Every "first slot" atom below still carries both readings.)
+#
+# ONE idea, the whole module: the imperfect's "easy tense" trick — m22
+# proved it once with «tenía» (regular in the imperfect despite being
+# irregular in every other tense the learner had met) — GENERALIZES. Every
+# one of these five verbs is irregular somewhere else in the course
+# (estar/hacer/venir: irregular present AND preterite; querer/poder:
+# stem-changing present, irregular preterite) and every one of them is
+# perfectly regular here: -ar → -aba (estar only), -er/-ir → -ía (the
+# other four). No new grammar, no new mechanic — five more everyday verbs
+# slot into a pattern the learner already owns cold from m22.
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# Three independent lines of evidence converge on "expand the imperfect's
+# verb range" over any other candidate:
+#   1. `m23-header.yaml`'s "NO NEW VERB PARADIGMS" section bans exactly
+#      thirteen surfaces from appearing anywhere in m23: estaba, hacía,
+#      vivía, trabajaba, quería, podía, comía, salía, cocinaba, escribía,
+#      compraba, estudiaba, venía. Grep-verified
+#      (`grep -o 'surface: "[^"]*"' src/features/languages/es/curriculum/
+#      m{1..23}.ts | sort -u`): NONE of the 20 forms this module registers
+#      (four persons × the five verbs below) exist anywhere in m1–m23. That
+#      ban was a deferral, not a permanent rule — this module cashes it for
+#      the five verbs judged most useful (see "WHICH FIVE" below); the
+#      other eight (vivir, trabajar, comer... wait, comer/salir/cocinar/
+#      escribir/comprar/estudiar/vivir) remain banned and are a candidate
+#      for a THIRD wave, not manufactured here.
+#   2. `m22-header.yaml`'s own PIN E12 note: "conjugationTables.ts already
+#      carries a full imperfect paradigm for all eighteen A1–A2 verbs the
+#      course has ever taught — nothing new to add to the table." Verified
+#      directly (`sed -n '1,540p' src/features/languages/es/
+#      conjugationTables.ts`): all 18 verb entries (hablar, comer, vivir,
+#      ser, estar, ir, tener, querer, poder, hacer, trabajar, estudiar,
+#      comprar, escribir, salir, cocinar, ver, venir) carry a complete
+#      `imperfect.*` row. m22 spent 5 of the 18 (hablar, tener, ser, ir,
+#      ver); this module is data-ready with zero table work, exactly the
+#      condition m22's header flagged as already met.
+#   3. `docs/handoff-2026-09-09-es-m20-done-ko-next.md`'s "Backlog carried"
+#      line named the open direction explicitly: "m21+ unplanned (A2
+#      continues: plural preterite, or imperfect)." m21 took the plural-
+#      preterite fork, m22 took the imperfect fork, m23 combined them —
+#      the note is now fully cashed EXCEPT for imperfect's verb coverage,
+#      which m22 explicitly narrowed to 5 of 18 to keep that module's one
+#      new mechanic (yo=él) from sharing space with a second new idea. That
+#      is precisely the situation this module exists to close.
+#
+# ── WHICH FIVE, AND WHY NOT THE OTHER EIGHT (decision) ────────────────────
+# m23's ban list had 13 candidates: estaba, hacía, vivía, trabajaba,
+# quería, podía, comía, salía, cocinaba, escribía, compraba, estudiaba,
+# venía. This module takes exactly 5 — estar, hacer, querer, poder, venir —
+# not all 13, on two grounds:
+#   1. Atom-budget precedent. m22 shipped 20 verb atoms (5 verbs × 4
+#      persons) plus 1 time-frame atom — the established size for an
+#      imperfect-wave module. 13 verbs × 4 persons = 52 atoms would blow
+#      every prior module's budget (m19: 26, m20: 21, m21: 21, m22: 21) by
+#      more than double and re-invites the "hollow card" failure mode
+#      ([[drafting-coverage-not-volume]]: "pin the cell per request instead
+#      of adding rounds").
+#   2. These five are the SHOWCASE set for this module's one idea. All five
+#      are irregular in the present tense the learner already owns
+#      (estoy/estás/está..., hago/haces/hace..., quiero/quieres/quiere...,
+#      puedo/puedes/puede..., vengo/vienes/viene...) and four of the five
+#      (estar, hacer, venir plus tener already done) are ALSO irregular in
+#      the preterite (estuve, hice, vine vs. regular -é/-í endings) — the
+#      biggest possible contrast with "perfectly regular here." The other
+#      eight banned verbs (vivir, trabajar, comer, salir, cocinar,
+#      escribir, comprar, estudiar) are regular or near-regular in every
+#      tense they've been taught — spending this module's slots on them
+#      would teach the SAME pattern with a weaker payoff (no "surprise").
+#      Left for a plausible third wave, not manufactured here.
+#
+# ── REJECTED ALTERNATIVE: «porque» / causal subordination ─────────────────
+# `es-m23-brief.md`'s "Decisions inferred" flagged «porque» as "a natural
+# narrative fit and unregistered... left for a future module." It is
+# rejected for m24 specifically (not forever) on two grounds: (a) it is a
+# NEW grammar idea (subordinating a reason clause), and stacking a new
+# connective on top of an already-planned module would repeat the exact
+# "two new ideas at once" failure m22's header named for itself; (b) it
+# does not address the sharper gap — right now a learner can only narrate
+# a mixed-past scene using FIVE imperfect verbs total (hablar/tener/ser/
+# ir/ver), which caps how much of a real memory m23's «cuando/mientras/de
+# repente/entonces» toolkit can actually express. Widening the verb palette
+# pays off every future narrative module, including a future «porque» one;
+# «porque» alone would not. «porque» remains open for m25 or later.
+#
+# ── NO RE-TEACH: THE YO=ÉL COLLISION IS ALREADY OWNED ──────────────────────
+# m22 taught the general fact once (hablar's L1 card) specifically so later
+# families — inside m22 AND in any future module — would not need to
+# re-teach it, "one line shorter, pointing back to it" (m22-header's own
+# words). This module's L1 card does NOT re-explain the collision; it
+# states THIS module's one idea (the pattern generalizes to irregular-
+# elsewhere verbs) and may reference the collision in one clause, not a
+# card. Every "first slot" atom below still must not stand subjectless in
+# an answer position — the mechanism is unchanged, just not re-taught.
+#
+# ── PERSONS: ALL FIVE, FROM L1 (same as m22, unchanged reasoning) ─────────
+# No person-staging. vosotros still never drilled (m18's rule, LatAm-
+# neutral course).
+#
+# ── ACCENTS: SAME RULE AS m22, VERIFIED PER-VERB AGAINST conjugationTables.ts
+# (pin E12 — every cell below is copied verbatim from the table, not
+# reconstructed from memory):
+#   - estar (-ar family): accent ONLY on nosotros — estábamos. estaba/
+#     estabas/estaban carry none.
+#   - hacer, querer, poder, venir (-er/-ir family): accent on EVERY form's
+#     í — hacía/hacías/hacíamos/hacían, quería/querías/queríamos/querían,
+#     podía/podías/podíamos/podían, venía/venías/veníamos/venían. No
+#     exceptions, same as tener/ver in m22.
+#
+# ── NO NEW PRETERITE, NO PROGRESSIVE (unchanged bans, restated) ───────────
+# No preterite form — new or PRIOR — anywhere in this module, same hard
+# ban as m22 (the sanctioned contrast against the imperfect here is
+# PRESENT, in L9, exactly like m22's L9). Progressive («estaba
+# trabajando» etc.) is still banned by pin E7 — note the irony risk:
+# «estaba» is this module's own new atom AND the auxiliary of the
+# construction it must never form; drafting agents must not build any
+# estar-imperfect + -ndo periphrasis, including with estar itself.
+#
+# ── SER VS. ESTAR NOW BOTH HAVE AN IMPERFECT — do not blur the two
+# "was"-es ─────────────────────────────────────────────────────────────────
+# The course has taught ser (identity/description: soy/eres/es, m2; era,
+# m22) and estar (location/state: está, m4; estamos/están, m18; estuve,
+# m20) as separately-glossed verbs since m2/m4. This module's «estaba»
+# adds a THIRD "was" surface alongside «era» (m22) and «estuve»/«fue»
+# (m20/m23's own fue-vs-era collision). Glosses must keep the jobs
+# separate: «estaba» = was LOCATED or in a STATE ("estaba en casa," "estaba
+# cansado" — note: no PRIOR word for "tired," do not invent one); «era» =
+# was, as identity/description ("era simpático"); the fue-vs-era distinction
+# from m23 is unchanged and does not involve «estaba» at all. Never gloss
+# «estaba» and «era» as interchangeable "was" in the same info card.
+#
+# ── «hace» (time-ago idiom) IS NOT TAUGHT — do not manufacture it ─────────
+# grep-verified: no "hace + time + ago" construction exists anywhere in
+# m1–m23 (hago/haces/hace/hacemos/hacen are only the "to do/make" present
+# forms, m15–m18). This module's «hacía» is ONLY the imperfect of "to do/
+# make" — never build a "how long ago" sentence with it.
+#
+# ── «quería, pero no podía» — this module's signature payoff sentence ─────
+# Once both querer and poder have an imperfect, the classic "I wanted to
+# but I couldn't" pairing becomes sayable for the first time — cash it
+# within ~2 steps of poder's debut (13.9's rule), not just once: use it as
+# L4's own win and recall it again at the checkpoint (L8).
+#
+# ── REUSE m23's CONNECTIVES — do not let them go quiet for a module ───────
+# «cuando», «mientras», «de repente», «entonces» are all PRIOR (m23) and
+# legal from L1. This module does not owe them a new debut, but doctrine
+# ([[interleave-dont-block-teach]]: split repetitive families across
+# lessons; review after) argues for keeping them alive rather than letting
+# five debut-heavy lessons (L1–L5) run with zero recombination: L6 is a
+# dedicated zero-new-atom recombination lesson pairing this module's new
+# imperfect verbs against PRIOR preterite (m19–m21) using m23's
+# connectives, exactly the shape m23 itself used for its own L5–L7. L9's
+# consolidation and L10's mastery keep at least one m23 connective live
+# each, spacing their retrieval one more module out.
+#
+# ── PRIOR MOVEMENT MINIMAL PAIR: iba (m22) / venía (this module) ──────────
+# «ir» = go (away from the speaker's frame); «venir» = come (toward it).
+# m22's L5 win was «de niño, iba a la escuela temprano»; this module's
+# venir-family lesson intentionally mirrors that exact sentence shape
+# («de niño, venía a la escuela temprano») as a free minimal-pair callback
+# — not a new rule to state, just a parallel construction a careful learner
+# will notice on their own. No info card needed for it.
+#
+# ── NO NEW EMOJI, NO NEW NOUN THIS MODULE ──────────────────────────────────
+# Same precedent as m19/m21/m22/m23 (pure-grammar / paradigm-expansion
+# modules ship zero). All five new atom families are verb forms; narrative
+# color comes from PRIOR nouns-with-emoji (la escuela 🏫, el parque 🌳, la
+# playa 🏖️, el cine 🎬, la fiesta 🎉, el mercado 🛒, la tienda 🏪, casa 🏠,
+# el trabajo 💼, el museo 🏛️) plus PRIOR non-emoji nouns (la tarea, m15)
+# and the fixed cast, not from new vocabulary.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # estar — irregular present (estoy/estás/está...) AND irregular preterite
+  # (estuve, m20); REGULAR in the imperfect. Location/state carrier — keep
+  # its gloss separate from «era» (identity/description, m22).
+  - { surface: "estaba", meaningEn: "I was, he/she/you (usted) was/were (location or state)", partOfSpeech: "verb", kind: "vocab", hint: "ess-TAH-bah — no accent. Regular -aba, unlike «estoy»/«estuve». Same yo=él surface you met in m22 (hablaba, tenía…) — only the subject tells you who." }
+  - { surface: "estabas", meaningEn: "you (tú) were (location or state)", partOfSpeech: "verb", kind: "vocab", hint: "ess-TAH-bahs" }
+  - { surface: "estábamos", meaningEn: "we were (location or state)", partOfSpeech: "verb", kind: "vocab", hint: "ess-TAH-bah-mos — the ONE -ar form that carries an accent" }
+  - { surface: "estaban", meaningEn: "they were, you all were (location or state)", partOfSpeech: "verb", kind: "vocab", hint: "ess-TAH-bahn" }
+  # hacer — irregular present (hago) AND irregular preterite (hice, m20);
+  # REGULAR in the imperfect. "To do/make" only — no time-ago idiom.
+  - { surface: "hacía", meaningEn: "I was doing/making, he/she/you (usted) was doing/making", partOfSpeech: "verb", kind: "vocab", hint: "ah-SEE-ah — accent on every form, unlike «hago»/«hice»" }
+  - { surface: "hacías", meaningEn: "you (tú) were doing/making", partOfSpeech: "verb", kind: "vocab", hint: "ah-SEE-ahs" }
+  - { surface: "hacíamos", meaningEn: "we were doing/making", partOfSpeech: "verb", kind: "vocab", hint: "ah-see-AH-mos" }
+  - { surface: "hacían", meaningEn: "they were doing/making, you all were doing/making", partOfSpeech: "verb", kind: "vocab", hint: "ah-SEE-ahn" }
+  # querer — stem-changing present (quiero) and irregular preterite (quise,
+  # UNTAUGHT — do not use it); REGULAR in the imperfect. Desire-in-the-past.
+  - { surface: "quería", meaningEn: "I wanted, he/she/you (usted) wanted", partOfSpeech: "verb", kind: "vocab", hint: "keh-REE-ah — accent on every form, unlike «quiero»" }
+  - { surface: "querías", meaningEn: "you (tú) wanted", partOfSpeech: "verb", kind: "vocab", hint: "keh-REE-ahs" }
+  - { surface: "queríamos", meaningEn: "we wanted", partOfSpeech: "verb", kind: "vocab", hint: "keh-ree-AH-mos" }
+  - { surface: "querían", meaningEn: "they wanted, you all wanted", partOfSpeech: "verb", kind: "vocab", hint: "keh-REE-ahn" }
+  # poder — stem-changing present (puedo) and irregular preterite (pude,
+  # UNTAUGHT — do not use it); REGULAR in the imperfect. Ability-in-the-past;
+  # pairs with «quería» for the "wanted to but couldn't" payoff sentence.
+  - { surface: "podía", meaningEn: "I could/was able to, he/she/you (usted) could/was able to", partOfSpeech: "verb", kind: "vocab", hint: "poh-DEE-ah — accent on every form, unlike «puedo»" }
+  - { surface: "podías", meaningEn: "you (tú) could/were able to", partOfSpeech: "verb", kind: "vocab", hint: "poh-DEE-ahs" }
+  - { surface: "podíamos", meaningEn: "we could/were able to", partOfSpeech: "verb", kind: "vocab", hint: "poh-dee-AH-mos" }
+  - { surface: "podían", meaningEn: "they could/were able to, you all could/were able to", partOfSpeech: "verb", kind: "vocab", hint: "poh-DEE-ahn" }
+  # venir — irregular present (vengo) AND irregular preterite (vine/vino,
+  # m20); REGULAR in the imperfect. Movement TOWARD the speaker's frame —
+  # a free minimal pair against «iba» (m22, away from it).
+  - { surface: "venía", meaningEn: "I was coming, he/she/you (usted) was coming", partOfSpeech: "verb", kind: "vocab", hint: "beh-NEE-ah — accent on every form, unlike «vengo»/«vino»" }
+  - { surface: "venías", meaningEn: "you (tú) were coming", partOfSpeech: "verb", kind: "vocab", hint: "beh-NEE-ahs" }
+  - { surface: "veníamos", meaningEn: "we were coming", partOfSpeech: "verb", kind: "vocab", hint: "beh-nee-AH-mos" }
+  - { surface: "venían", meaningEn: "they were coming, you all were coming", partOfSpeech: "verb", kind: "vocab", hint: "beh-NEE-ahn" }
+
+lessons:
+  # ── L1 · «Estaba en casa» — estar's imperfect debuts whole: estaba (a
+  #    "first slot" atom, yo=él collision — PRIOR mechanism, m22, not
+  #    re-taught here), estabas (tú), estábamos (nosotros — the ONE -ar
+  #    form that carries an accent), estaban (ellos/ustedes). Also carries
+  #    the module's ONE general rule card: the imperfect's "easy tense"
+  #    trick generalizes to five more everyday verbs, all irregular
+  #    elsewhere. «estaba» = located/state, kept apart from «era» (identity,
+  #    m22) from its very first card. NO progressive, NO preterite. No
+  #    recall (nothing earlier to recall).
+  - n: 1
+    template: free
+    title: "Estaba en casa"
+    description: "The imperfect's trick generalizes: «estaba» is estar's imperfect — regular here, even though present «estoy» and preterite «estuve» are not. Located or in a state — never «era»'s identity."
+    steps:
+      - kind: map
+        id: l1-map-deninoestabamuchocasa
+        tokens: ["de niño", "estaba", "mucho", "en", "casa"]
+        pairs:
+          - { en: "as a child,", tokenIndex: 0 }
+          - { en: "I was", tokenIndex: 1 }
+          - { en: "a lot", tokenIndex: 2 }
+          - { en: "at", tokenIndex: 3 }
+          - { en: "home", tokenIndex: 4 }
+        audioText: "de niño, estaba mucho en casa"
+        revealNote: "«estaba» is estar's imperfect — regular here, unlike present «estoy» or preterite «estuve». Same yo=él pattern as «hablaba»/«tenía» (m22) — only the subject tells you who."
+      - kind: info
+        id: l1-info-estabatricegeneralizado
+        title: "Estaba — the imperfect trick, generalized"
+        body: "The imperfect keeps being the easy tense. «tenía» was regular even though «tengo»/«tuve» are not (m22) — «estaba», «hacía», «quería», «podía», «venía» are the same trick, five more times. «de niño, estaba mucho en casa» — estaba is located/state, never «era» (identity, m22)."
+      - kind: speakLit
+        id: l1-sp-yoestabacasa
+        es: "yo estaba en casa de niño"
+        en: "I was at home as a child"
+        atoms: ["estaba", "casa", "de niño"]
+      - kind: buildLit
+        id: l1-b-tuestabascasa
+        es: "tú estabas mucho en casa"
+        en: "You (tú) were home a lot"
+        atoms: ["estabas", "mucho", "casa"]
+        tiles: ["estaba", "estaban"]
+      - kind: speakLit
+        id: l1-sp-estabamosjuntoscasa
+        es: "estábamos en casa juntos"
+        en: "We were home together"
+        atoms: ["estábamos", "casa", "juntos"]
+      - kind: clozeLit
+        id: l1-c-todosestabancasa
+        es: "de niño, todos estaban en casa"
+        en: "As a child, everyone was at home"
+        blank: "estaban"
+        options: ["estaban", "estábamos", "estaba"]
+        atoms: ["de niño", "todos", "estaban", "casa"]
+        why: "«todos» takes the they-ending: «estaban», never «estábamos» — that would wrongly include you."
+      - kind: listenCompLit
+        id: l1-lc-diegoestabacasatemprano
+        es: "Diego estaba en casa temprano"
+        en: "Diego was at home early."
+        atoms: ["estaba", "casa", "temprano"]
+        distractorsEn:
+          - "Diego is at home early."
+          - "Diego was at school early."
+          - "They were at home early."
+      - kind: mcq
+        id: l1-q-tuestabas
+        prompt: "Which one means 'you (tú) were' — located, not identity?"
+        correct: "tú estabas"
+        distractors: ["tú estaba", "tú eras", "tú estábamos"]
+        atoms: ["estabas"]
+        why: "«estabas» — the tú ending, no accent. «estaba» collapses yo/él, not tú; «eras» would be identity (era, m22); «estábamos» would be we."
+      - kind: buildLit
+        id: l1-b-estabamossiemprecasa
+        es: "estábamos siempre juntos en casa"
+        en: "We were always home together"
+        atoms: ["estábamos", "siempre", "juntos", "casa"]
+        tiles: ["estaban", "estamos"]
+      - kind: audioWimcq
+        id: l1-ear-escuela
+        target: { surface: "la escuela", emoji: "🏫" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el parque", emoji: "🌳" }
+      - kind: agreementLit
+        id: l1-agr-yoelestaba
+        en: "I was at home, and he was too"
+        audioText: "yo estaba en casa, y él estaba también"
+        atoms: ["estaba", "casa"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "estaba", options: ["estaba", "está"] } }
+          - { text: " en casa, y él " }
+          - { blank: { id: "p2", answer: "estaba", options: ["estaba", "está"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l1-lb-samluisestabancasa
+        es: "Sam y Luis estaban en casa temprano"
+        en: "Sam and Luis were home early"
+        atoms: ["estaban", "casa", "temprano"]
+        tiles: ["estábamos", "estaba"]
+      - kind: textMcq
+        id: l1-tm-estaba
+        target: "estaba"
+        distractors: ["estabas", "estaban", "está"]
+      - kind: sim
+        id: l1-sim-ana-casa
+        scene: { emoji: "🏠", title: "Ana asks about home", setting: "Ana wants to know who used to be home, and when, as kids." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Estabas en casa de niño?", audioText: "¿estabas en casa de niño?", gloss: "Were you at home as a child?" }
+            goal: "Say yes, you were always home."
+            reply:
+              mode: build
+              tiles: ["sí", "yo", "estaba", "siempre", "en", "casa", "están"]
+              answer: "sí yo estaba siempre en casa"
+            replyGloss: "Yes, I was always at home."
+            explanation: "Answering as yourself, «yo» keeps «estaba» unambiguous — it also means he/she/usted was. «están» would be more than one."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Estaban en casa también?", audioText: "¿y diego y sofía? ¿estaban en casa también?", gloss: "And Diego and Sofía? Were they home too?" }
+            goal: "Say yes, they were always home too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, estaban en casa también" }
+                - { id: "wrong1", text: "sí, estábamos en casa también" }
+                - { id: "wrong2", text: "sí, están en casa también" }
+              correctOptionId: "right"
+              audioText: "sí, estaban en casa también"
+            replyGloss: "Yes, they were always home too."
+            explanation: "Diego and Sofía — them: «estaban». «estábamos» would wrongly include you; «están» slips into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Estábamos en casa juntos?", audioText: "¿y tú y yo? ¿estábamos en casa juntos?", gloss: "And you and I? Were we home together?" }
+            goal: "Say yes, we were always home together."
+            reply:
+              mode: build
+              tiles: ["sí", "estábamos", "siempre", "juntos", "estaban", "estaba"]
+              answer: "sí estábamos siempre juntos"
+            replyGloss: "Yes, we were always home together."
+            explanation: "You and Ana together: «estábamos» — the one accented estar imperfect form."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "estaba", target: "I was, he/she/you was (located/state)" }
+          - { source: "estabas", target: "you (tú) were (located/state)" }
+          - { source: "estábamos", target: "we were (located/state)" }
+          - { source: "estaban", target: "they were, you all were (located/state)" }
+          - { source: "casa", target: "house, home" }
+          - { source: "de niño", target: "as a child" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "de niño, estaba mucho en casa"
+        en: "As a child, I was home a lot"
+        atoms: ["de niño", "estaba", "mucho", "casa"]
+
+  # ── L2 · «Hacía la tarea» — hacer's imperfect debuts whole: hacía (yo=él
+  #    collision, PRIOR mechanism, not re-taught), hacías (tú), hacíamos
+  #    (nosotros), hacían (ellos/ustedes). -er family: EVERY form keeps the
+  #    accent, same rule as «veía» (m22). «hacía» is only "to do/make" —
+  #    never the "ago" idiom (not taught anywhere). NO progressive, NO
+  #    preterite. No recall required this lesson (floor starts at L4).
+  - n: 2
+    template: free
+    title: "Hacía la tarea"
+    description: "«hacía» is hacer's imperfect — same trick, one more time. Regular here, unlike present «hago» or preterite «hice». Every form keeps the accent, same as «veía»."
+    steps:
+      - kind: map
+        id: l2-map-deninohaciatareacasa
+        tokens: ["de niño", "hacía", "la", "tarea", "en", "casa"]
+        pairs:
+          - { en: "as a child,", tokenIndex: 0 }
+          - { en: "I did/was doing", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "homework", tokenIndex: 3 }
+          - { en: "at", tokenIndex: 4 }
+          - { en: "home", tokenIndex: 5 }
+        audioText: "de niño, hacía la tarea en casa"
+        revealNote: "«hacía» is hacer's imperfect — regular here, unlike present «hago» or preterite «hice». Every form keeps the accent, same as «veía» (m22)."
+      - kind: info
+        id: l2-info-hacia
+        title: "Hacía — the same trick, one more time"
+        body: "«hacía» is I was doing/making, he/she/you was doing/making — hacer's imperfect. Every form keeps the accent, same as «veía»: «hacía», «hacías», «hacíamos», «hacían». Only to do/make in the past — never ago; that idiom isn't taught here."
+      - kind: speakLit
+        id: l2-sp-yohaciatarea
+        es: "yo hacía la tarea de niño"
+        en: "I used to do homework as a child"
+        atoms: ["hacía", "tarea", "de niño"]
+      - kind: buildLit
+        id: l2-b-tuhaciasmuchocasa
+        es: "tú hacías mucho en casa"
+        en: "You (tú) used to do a lot at home"
+        atoms: ["hacías", "mucho", "casa"]
+        tiles: ["hacía", "hacen"]
+      - kind: speakLit
+        id: l2-sp-haciamostareajuntos
+        es: "hacíamos la tarea juntos"
+        en: "We used to do homework together"
+        atoms: ["hacíamos", "tarea", "juntos"]
+      - kind: clozeLit
+        id: l2-c-todoshaciantarea
+        es: "de niño, todos hacían la tarea"
+        en: "As a child, everyone used to do homework"
+        blank: "hacían"
+        options: ["hacían", "hacíamos", "hacía"]
+        atoms: ["de niño", "todos", "hacían", "tarea"]
+        why: "«todos» takes the they-ending: «hacían», never «hacíamos» — that would wrongly include you."
+      - kind: listenCompLit
+        id: l2-lc-diegohaciatareacasa
+        es: "Diego hacía la tarea en casa"
+        en: "Diego used to do homework at home."
+        atoms: ["hacía", "tarea", "casa"]
+        distractorsEn:
+          - "Diego does homework at home."
+          - "Diego used to do homework at school."
+          - "They used to do homework at home."
+      - kind: mcq
+        id: l2-q-tuhacias
+        prompt: "Which one means 'you (tú) were doing/making'?"
+        correct: "tú hacías"
+        distractors: ["tú hacía", "tú haces", "tú hacíamos"]
+        atoms: ["hacías"]
+        why: "«hacías» — the tú ending, accented like every hacer imperfect form. «hacía» collapses yo/él, not tú; «haces» slips into now; «hacíamos» would be we."
+      - kind: buildLit
+        id: l2-b-haciamosmuchoescuela
+        es: "hacíamos mucho en la escuela"
+        en: "We used to do a lot at school"
+        atoms: ["hacíamos", "mucho", "escuela"]
+        tiles: ["hacían", "hacemos"]
+      - kind: audioWimcq
+        id: l2-ear-parque
+        target: { surface: "el parque", emoji: "🌳" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el mercado", emoji: "🛒" }
+      - kind: agreementLit
+        id: l2-agr-yoelhacia
+        en: "I was doing homework, and he was doing it too"
+        audioText: "yo hacía la tarea, y él hacía también"
+        atoms: ["hacía", "tarea"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "hacía", options: ["hacía", "hago"] } }
+          - { text: " la tarea, y él " }
+          - { blank: { id: "p2", answer: "hacía", options: ["hacía", "hace"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l2-lb-samluishacian
+        es: "Sam y Luis hacían la tarea juntos"
+        en: "Sam and Luis used to do homework together"
+        atoms: ["hacían", "tarea", "juntos"]
+        tiles: ["hacíamos", "hacía"]
+      - kind: textMcq
+        id: l2-tm-hacia
+        target: "hacía"
+        distractors: ["hacías", "hacían", "hace"]
+      - kind: sim
+        id: l2-sim-ana-tarea
+        scene: { emoji: "📝", title: "Ana asks about homework", setting: "Ana wants to know who used to do homework, and when, as kids." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Hacías la tarea de niño?", audioText: "¿hacías la tarea de niño?", gloss: "Did you (tú) used to do homework as a child?" }
+            goal: "Say yes, you always did it."
+            reply:
+              mode: build
+              tiles: ["sí", "yo", "hacía", "siempre", "la", "tarea", "hacen"]
+              answer: "sí yo hacía siempre la tarea"
+            replyGloss: "Yes, I always did it."
+            explanation: "«yo» keeps «hacía» unambiguous — it also means he/she/usted was doing. «hacen» slips into now, and into them."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Hacían la tarea también?", audioText: "¿y diego y sofía? ¿hacían la tarea también?", gloss: "And Diego and Sofía? Did they used to do homework too?" }
+            goal: "Say yes, they always did it too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, hacían la tarea también" }
+                - { id: "wrong1", text: "sí, hacíamos la tarea también" }
+                - { id: "wrong2", text: "sí, hacen la tarea también" }
+              correctOptionId: "right"
+              audioText: "sí, hacían la tarea también"
+            replyGloss: "Yes, they always did it too."
+            explanation: "Diego and Sofía — them: «hacían». «hacíamos» would wrongly include you; «hacen» slips into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Hacíamos la tarea juntos?", audioText: "¿y tú y yo? ¿hacíamos la tarea juntos?", gloss: "And you and I? Did we used to do homework together?" }
+            goal: "Say yes, we always did it together."
+            reply:
+              mode: build
+              tiles: ["sí", "hacíamos", "siempre", "juntos", "hacían", "hacía"]
+              answer: "sí hacíamos siempre juntos"
+            replyGloss: "Yes, we always did it together."
+            explanation: "You and Ana together: «hacíamos» — accented, like every hacer imperfect form."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "hacía", target: "I was doing/making, he/she/you was doing/making" }
+          - { source: "hacías", target: "you (tú) were doing/making" }
+          - { source: "hacíamos", target: "we were doing/making" }
+          - { source: "hacían", target: "they were doing/making, you all were doing/making" }
+          - { source: "tarea", target: "homework" }
+          - { source: "casa", target: "house, home" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "de niño, hacía la tarea en casa"
+        en: "As a child, I did homework at home"
+        atoms: ["de niño", "hacía", "tarea", "casa"]
+
+  # ── L3 · «Quería ir» — querer's imperfect debuts whole: quería (yo=él
+  #    collision, PRIOR mechanism, not re-taught), querías (tú), queríamos
+  #    (nosotros), querían (ellos/ustedes). -er family: EVERY form keeps the
+  #    accent. Regular here, unlike present «quiero» (stem-change, m7/m10).
+  #    Desire only — never glossed as "loved" (querer's other sense stays
+  #    out of scope, matching PRIOR «quiero»). «quería ir» pairs the new
+  #    imperfect with the PRIOR infinitive, same shape as «quiero ir». NO
+  #    progressive, NO preterite (quise unregistered — never used). No
+  #    recall required this lesson (floor starts at L4).
+  - n: 3
+    template: free
+    title: "Quería ir"
+    description: "«quería» is querer's imperfect — regular here, unlike present «quiero», which stem-changes. Every form keeps the accent. Still just desire, same sense as PRIOR «quiero»."
+    steps:
+      - kind: map
+        id: l3-map-deninoqueriaircine
+        tokens: ["de niño", "quería", "ir", "al", "cine"]
+        pairs:
+          - { en: "as a child,", tokenIndex: 0 }
+          - { en: "I wanted", tokenIndex: 1 }
+          - { en: "to go", tokenIndex: 2 }
+          - { en: "to the", tokenIndex: 3 }
+          - { en: "movies", tokenIndex: 4 }
+        audioText: "de niño, quería ir al cine"
+        revealNote: "«quería» is querer's imperfect — regular here, unlike present «quiero», which stem-changes. Same yo=él pattern as «hacía»/«estaba» — only the subject tells you who."
+      - kind: info
+        id: l3-info-queria
+        title: "Quería — the same trick, one more time"
+        body: "«quería» is I wanted, he/she/you wanted — querer's imperfect. Every form keeps the accent: «quería», «querías», «queríamos», «querían». Still just desire, the same sense as PRIOR «quiero» (m7) — never loved."
+      - kind: speakLit
+        id: l3-sp-yoqueriaircine
+        es: "yo quería ir al cine de niño"
+        en: "I wanted to go to the movies as a child"
+        atoms: ["quería", "cine", "de niño"]
+      - kind: buildLit
+        id: l3-b-tuqueriasircine
+        es: "tú querías ir mucho al cine"
+        en: "You (tú) wanted to go to the movies a lot"
+        atoms: ["querías", "mucho", "cine"]
+        tiles: ["quería", "quiere"]
+      - kind: speakLit
+        id: l3-sp-queriamosirjuntoscine
+        es: "queríamos ir juntos al cine"
+        en: "We wanted to go to the movies together"
+        atoms: ["queríamos", "juntos", "cine"]
+      - kind: clozeLit
+        id: l3-c-todosqueriancine
+        es: "de niño, todos querían ir al cine"
+        en: "As a child, everyone wanted to go to the movies"
+        blank: "querían"
+        options: ["querían", "queríamos", "quería"]
+        atoms: ["de niño", "todos", "querían", "cine"]
+        why: "«todos» takes the they-ending: «querían», never «queríamos» — that would wrongly include you."
+      - kind: listenCompLit
+        id: l3-lc-diegoqueriacine
+        es: "Diego quería ir al cine"
+        en: "Diego wanted to go to the movies."
+        atoms: ["quería", "cine"]
+        distractorsEn:
+          - "Diego wants to go to the movies."
+          - "Diego wanted to go to the park."
+          - "They wanted to go to the movies."
+      - kind: mcq
+        id: l3-q-tuquerias
+        prompt: "Which one means 'you (tú) wanted'?"
+        correct: "tú querías"
+        distractors: ["tú quería", "tú quieres", "tú queríamos"]
+        atoms: ["querías"]
+        why: "«querías» — the tú ending, accented like every querer imperfect form. «quería» collapses yo/él, not tú; «quieres» slips into now; «queríamos» would be we."
+      - kind: buildLit
+        id: l3-b-queriamossiemprecine
+        es: "queríamos ir siempre al cine"
+        en: "We always wanted to go to the movies"
+        atoms: ["queríamos", "siempre", "cine"]
+        tiles: ["querían", "quiero"]
+      - kind: audioWimcq
+        id: l3-ear-tienda
+        target: { surface: "la tienda", emoji: "🏪" }
+        distractors:
+          - { surface: "el museo", emoji: "🏛️" }
+          - { surface: "el mercado", emoji: "🛒" }
+      - kind: agreementLit
+        id: l3-agr-yoelqueria
+        en: "I wanted to go, and he wanted to go too"
+        audioText: "yo quería ir, y él quería también"
+        atoms: ["quería"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "quería", options: ["quería", "quiero"] } }
+          - { text: " ir, y él " }
+          - { blank: { id: "p2", answer: "quería", options: ["quería", "quiere"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l3-lb-samluisquerian
+        es: "Sam y Luis querían ir al cine"
+        en: "Sam and Luis wanted to go to the movies"
+        atoms: ["querían", "cine"]
+        tiles: ["queríamos", "quería"]
+      - kind: textMcq
+        id: l3-tm-queria
+        target: "quería"
+        distractors: ["querías", "querían", "quiere"]
+      - kind: sim
+        id: l3-sim-ana-cine
+        scene: { emoji: "🎬", title: "Ana asks about the movies", setting: "Ana wants to know who used to want to go to the movies as kids." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Querías ir al cine de niño?", audioText: "¿querías ir al cine de niño?", gloss: "Did you (tú) want to go to the movies as a child?" }
+            goal: "Say yes, you always wanted to go."
+            reply:
+              mode: build
+              tiles: ["sí", "yo", "quería", "siempre", "ir", "al", "cine", "quieren"]
+              answer: "sí yo quería siempre ir al cine"
+            replyGloss: "Yes, I always wanted to go."
+            explanation: "«yo» keeps «quería» unambiguous — it also means he/she/usted wanted. «quieren» slips into now, and into them."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Querían ir también?", audioText: "¿y diego y sofía? ¿querían ir también?", gloss: "And Diego and Sofía? Did they want to go too?" }
+            goal: "Say yes, they always wanted to go too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, querían ir también" }
+                - { id: "wrong1", text: "sí, queríamos ir también" }
+                - { id: "wrong2", text: "sí, quieren ir también" }
+              correctOptionId: "right"
+              audioText: "sí, querían ir también"
+            replyGloss: "Yes, they always wanted to go too."
+            explanation: "Diego and Sofía — them: «querían». «queríamos» would wrongly include you; «quieren» slips into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Queríamos ir juntos?", audioText: "¿y tú y yo? ¿queríamos ir juntos?", gloss: "And you and I? Did we want to go together?" }
+            goal: "Say yes, we always wanted to go together."
+            reply:
+              mode: build
+              tiles: ["sí", "queríamos", "siempre", "juntos", "querían", "quería"]
+              answer: "sí queríamos siempre juntos"
+            replyGloss: "Yes, we always wanted to go together."
+            explanation: "You and Ana together: «queríamos» — accented, like every querer imperfect form."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "quería", target: "I wanted, he/she/you wanted" }
+          - { source: "querías", target: "you (tú) wanted" }
+          - { source: "queríamos", target: "we wanted" }
+          - { source: "querían", target: "they wanted, you all wanted" }
+          - { source: "cine", target: "the movies, cinema" }
+          - { source: "ir", target: "to go" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "de niño, quería ir al cine"
+        en: "As a child, I wanted to go to the movies"
+        atoms: ["de niño", "quería", "cine"]
+
+  # ── L4 · «Quería, pero no podía» — poder's imperfect debuts whole: podía
+  #    (yo=él collision, PRIOR mechanism, not re-taught), podías (tú),
+  #    podíamos (nosotros), podían (ellos/ustedes). -er family: EVERY form
+  #    keeps the accent, like «quería»/«hacía». Regular here, unlike present
+  #    «puedo» (stem-change, m14). The module's signature payoff — now that
+  #    both querer and poder have an imperfect, "wanted to but couldn't" is
+  #    sayable for the first time — is cashed within 1 step of the card and
+  #    recalled again at the checkpoint (L8). NO preterite (pude
+  #    unregistered — never used). ≥1 recall this lesson (recalls L1).
+  - n: 4
+    template: free
+    title: "Quería, pero no podía"
+    description: "«podía» is poder's imperfect — new. Paired with «quería» (L3), the module's signature line becomes sayable: wanted to but couldn't."
+    steps:
+      - kind: map
+        id: l4-map-queriafiestapodia
+        tokens: ["quería", "ir", "a", "la", "fiesta,", "pero", "no", "podía"]
+        pairs:
+          - { en: "I wanted", tokenIndex: 0 }
+          - { en: "to go", tokenIndex: 1 }
+          - { en: "to", tokenIndex: 2 }
+          - { en: "the", tokenIndex: 3 }
+          - { en: "party,", tokenIndex: 4 }
+          - { en: "but", tokenIndex: 5 }
+          - { en: "not", tokenIndex: 6 }
+          - { en: "I could", tokenIndex: 7 }
+        audioText: "quería ir a la fiesta, pero no podía"
+        revealNote: "«podía» is poder's imperfect — new. Paired with «quería» (L3): wanted to but couldn't, sayable for the first time. Regular here, unlike present «puedo»."
+      - kind: info
+        id: l4-info-podia
+        title: "Podía — the payoff: quería, pero no podía"
+        body: "«podía» is I could/was able to, he/she/you could — poder's imperfect, regular here unlike present «puedo». Every form keeps the accent, like «quería». Now that both exist: «quería ir a la fiesta, pero no podía» — wanted to but couldn't, sayable for the first time."
+      - kind: speakLit
+        id: l4-sp-yoqueriapodia
+        es: "yo quería ir a la fiesta, pero no podía"
+        en: "I wanted to go to the party, but I couldn't"
+        atoms: ["quería", "podía", "fiesta"]
+      - kind: buildLit
+        id: l4-b-tuqueriaspodias
+        es: "tú querías ir, pero no podías"
+        en: "You (tú) wanted to go, but you couldn't"
+        atoms: ["querías", "podías"]
+        tiles: ["podía", "podían"]
+      - kind: speakLit
+        id: l4-sp-queriamospodiamosfiesta
+        es: "queríamos ir a la fiesta, pero no podíamos"
+        en: "We wanted to go to the party, but we couldn't"
+        atoms: ["queríamos", "podíamos", "fiesta"]
+      - kind: clozeLit
+        id: l4-c-todosquerianpodian
+        es: "de niño, todos querían ir, pero no podían"
+        en: "As a child, everyone wanted to go, but they couldn't"
+        blank: "podían"
+        options: ["podían", "podíamos", "podía"]
+        atoms: ["de niño", "todos", "querían", "podían"]
+        why: "«todos» takes the they-ending: «podían», never «podíamos» — that would wrongly include you."
+      - kind: listenCompLit
+        id: l4-lc-diegoqueriapodia
+        es: "Diego quería ir, pero no podía"
+        en: "Diego wanted to go, but he couldn't."
+        atoms: ["quería", "podía"]
+        distractorsEn:
+          - "Diego wants to go, but he can't."
+          - "Diego wanted to go, and he could."
+          - "They wanted to go, but they couldn't."
+      - kind: mcq
+        id: l4-q-tupodias
+        prompt: "Which one means 'you (tú) could/were able to'?"
+        correct: "tú podías"
+        distractors: ["tú podía", "tú puedes", "tú podíamos"]
+        atoms: ["podías"]
+        why: "«podías» — the tú ending, accented like every poder imperfect form. «podía» collapses yo/él, not tú; «puedes» slips into now; «podíamos» would be we."
+      - kind: buildLit
+        id: l4-b-nopodiamosfiesta
+        es: "no podíamos ir a la fiesta"
+        en: "We couldn't go to the party"
+        atoms: ["podíamos", "fiesta"]
+        tiles: ["podían", "puedo"]
+      - kind: audioWimcq
+        id: l4-ear-museo
+        target: { surface: "el museo", emoji: "🏛️" }
+        distractors:
+          - { surface: "el mercado", emoji: "🛒" }
+          - { surface: "la tienda", emoji: "🏪" }
+      - kind: agreementLit
+        id: l4-agr-yoelnopodia
+        en: "I couldn't go, and he couldn't go either"
+        audioText: "yo no podía ir, y él no podía ir"
+        atoms: ["podía"]
+        segments:
+          - { text: "yo no " }
+          - { blank: { id: "p1", answer: "podía", options: ["podía", "puedo"] } }
+          - { text: " ir, y él no " }
+          - { blank: { id: "p2", answer: "podía", options: ["podía", "puede"] } }
+          - { text: " ir" }
+      - kind: listenBuildLit
+        id: l4-lb-samluisquerianpodian
+        es: "Sam y Luis querían ir, pero no podían"
+        en: "Sam and Luis wanted to go, but they couldn't"
+        atoms: ["querían", "podían"]
+        tiles: ["podíamos", "podía"]
+      - kind: textMcq
+        id: l4-tm-podia
+        target: "podía"
+        distractors: ["podías", "podían", "puede"]
+      # Printed non-recall at L1 (es-m24-1-l1-sp-win).
+      - kind: speakLit
+        id: l4-sp-recall-estabacasa
+        es: "de niño, estaba mucho en casa"
+        en: "As a child, I was home a lot"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l4-sim-ana-fiesta
+        scene: { emoji: "🎉", title: "Ana asks about the party", setting: "Ana wants to know who wanted to go to the party, and who couldn't." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Querías ir a la fiesta?", audioText: "¿querías ir a la fiesta?", gloss: "Did you want to go to the party?" }
+            goal: "Say yes, you wanted to, but couldn't."
+            reply:
+              mode: build
+              tiles: ["sí,", "quería", "ir,", "pero", "no", "podía", "podían"]
+              answer: "sí, quería ir, pero no podía"
+            replyGloss: "Yes, I wanted to go, but I couldn't."
+            explanation: "«quería»/«podía» both carry the yo=él collision — here you're clearly answering for yourself. «podían» would be more than one."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Querían ir también?", audioText: "¿y diego y sofía? ¿querían ir también?", gloss: "And Diego and Sofía? Did they want to go too?" }
+            goal: "Say yes, they wanted to, but couldn't."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, querían, pero no podían" }
+                - { id: "wrong1", text: "sí, queríamos, pero no podíamos" }
+                - { id: "wrong2", text: "sí, quería, pero no podía" }
+              correctOptionId: "right"
+              audioText: "sí, querían, pero no podían"
+            replyGloss: "Yes, they wanted to, but they couldn't."
+            explanation: "Diego and Sofía — them: «querían»/«podían». «queríamos» would wrongly include you; «quería»/«podía» would be just one person."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Queríamos ir juntos?", audioText: "¿y tú y yo? ¿queríamos ir juntos?", gloss: "And you and I? Did we want to go together?" }
+            goal: "Say yes, but say you two couldn't."
+            reply:
+              mode: build
+              tiles: ["sí,", "queríamos,", "pero", "no", "podíamos", "podían"]
+              answer: "sí, queríamos, pero no podíamos"
+            replyGloss: "Yes, but we couldn't."
+            explanation: "You and Ana together: «queríamos»/«podíamos» — accented, like every -ía family nosotros form."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "podía", target: "I could, he/she/you could (be able to)" }
+          - { source: "podías", target: "you (tú) could" }
+          - { source: "podíamos", target: "we could" }
+          - { source: "podían", target: "they could, you all could" }
+          - { source: "fiesta", target: "the party" }
+          - { source: "quería", target: "I wanted, he/she/you wanted" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "quería ir a la fiesta, pero no podía"
+        en: "I wanted to go to the party, but I couldn't"
+        atoms: ["quería", "podía", "fiesta"]
+
+  # ── L5 · «Venía a la escuela temprano» — venir's imperfect debuts whole:
+  #    venía (yo=él collision, PRIOR mechanism, not re-taught), venías (tú),
+  #    veníamos (nosotros), venían (ellos/ustedes). -ir family: EVERY form
+  #    keeps the accent, same rule as hacer/querer/poder. Regular here,
+  #    unlike present «vengo»/«viene» (stem-change+irregular yo, m16) or
+  #    preterite «vino» (PRIOR, m23 — strong preterite, unrelated shape).
+  #    Free minimal-pair callback to PRIOR «iba» (m22's imperfect of ir) —
+  #    no info card needed for that callback, just a distractor/agreement
+  #    contrast. NO progressive. ≥1 recall this lesson (recalls L2).
+  - n: 5
+    template: free
+    title: "Venía a la escuela temprano"
+    description: "«venía» is venir's imperfect — regular here, unlike present «vengo»/«viene» or preterite «vino» (m23). Every form keeps the accent, same as hacer/querer/poder."
+    steps:
+      - kind: map
+        id: l5-map-deninoveniaescuelatemprano
+        tokens: ["de niño", "venía", "a", "la", "escuela", "temprano"]
+        pairs:
+          - { en: "as a child,", tokenIndex: 0 }
+          - { en: "I came/used to come", tokenIndex: 1 }
+          - { en: "to", tokenIndex: 2 }
+          - { en: "the", tokenIndex: 3 }
+          - { en: "school", tokenIndex: 4 }
+          - { en: "early", tokenIndex: 5 }
+        audioText: "de niño, venía a la escuela temprano"
+        revealNote: "«venía» is venir's imperfect — regular here, unlike present «vengo»/«viene» or preterite «vino» (m23). Same yo=él pattern as «hacía»/«quería»/«podía»."
+      - kind: info
+        id: l5-info-venia
+        title: "Venía — the last of the five"
+        body: "«venía» is I came/used to come, he/she/you came — venir's imperfect. Every form keeps the accent: «venía», «venías», «veníamos», «venían». Regular here, unlike present «vengo»/«viene» or preterite «vino»."
+      - kind: speakLit
+        id: l5-sp-yoveniaescuela
+        es: "yo venía a la escuela temprano"
+        en: "I used to come to school early"
+        atoms: ["venía", "escuela", "temprano"]
+      - kind: buildLit
+        id: l5-b-tuveniasescuela
+        es: "tú venías mucho a la escuela"
+        en: "You (tú) used to come to school a lot"
+        atoms: ["venías", "mucho", "escuela"]
+        tiles: ["venía", "vienen"]
+      - kind: speakLit
+        id: l5-sp-veniamosjuntosescuela
+        es: "veníamos juntos a la escuela"
+        en: "We used to come to school together"
+        atoms: ["veníamos", "juntos", "escuela"]
+      - kind: clozeLit
+        id: l5-c-todosveniantemprano
+        es: "de niño, todos venían temprano"
+        en: "As a child, everyone used to come early"
+        blank: "venían"
+        options: ["venían", "veníamos", "venía"]
+        atoms: ["de niño", "todos", "venían", "temprano"]
+        why: "«todos» takes the they-ending: «venían», never «veníamos» — that would wrongly include you."
+      - kind: listenCompLit
+        id: l5-lc-diegoveniaescuela
+        es: "Diego venía a la escuela temprano"
+        en: "Diego used to come to school early."
+        atoms: ["venía", "escuela", "temprano"]
+        distractorsEn:
+          - "Diego comes to school early."
+          - "Diego came to school yesterday."
+          - "They used to come to school early."
+      - kind: mcq
+        id: l5-q-tuvenias
+        prompt: "Which one means 'you (tú) used to come'?"
+        correct: "tú venías"
+        distractors: ["tú venía", "tú vienes", "tú veníamos"]
+        atoms: ["venías"]
+        why: "«venías» — the tú ending, accented like every venir imperfect form. «venía» collapses yo/él, not tú; «vienes» slips into now; «veníamos» would be we."
+      - kind: buildLit
+        id: l5-b-ibaveniaescuela
+        es: "de niño, iba a la escuela, y venía temprano"
+        en: "As a child, I went to school, and I used to come (back) early"
+        atoms: ["iba", "escuela", "venía", "temprano"]
+        tiles: ["venían", "vengo"]
+      - kind: audioWimcq
+        id: l5-ear-playa
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la tienda", emoji: "🏪" }
+      - kind: agreementLit
+        id: l5-agr-yoelvenia
+        en: "I used to come early, and he used to come early too"
+        audioText: "yo venía temprano, y él venía también"
+        atoms: ["venía", "temprano"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "venía", options: ["venía", "iba"] } }
+          - { text: " temprano, y él " }
+          - { blank: { id: "p2", answer: "venía", options: ["venía", "viene"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l5-lb-samluisvenian
+        es: "Sam y Luis venían a la escuela juntos"
+        en: "Sam and Luis used to come to school together"
+        atoms: ["venían", "escuela", "juntos"]
+        tiles: ["veníamos", "venía"]
+      - kind: textMcq
+        id: l5-tm-venia
+        target: "venía"
+        distractors: ["venías", "venían", "viene"]
+      # Printed non-recall at L2 (es-m24-2-l2-sp-win).
+      - kind: speakLit
+        id: l5-sp-recall-haciatarea
+        es: "de niño, hacía la tarea en casa"
+        en: "As a child, I did homework at home"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l5-sim-ana-escuela
+        scene: { emoji: "🏫", title: "Ana asks about school", setting: "Ana wants to know who used to come to school early, and when, as kids." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Venías a la escuela temprano de niño?", audioText: "¿venías a la escuela temprano de niño?", gloss: "Did you (tú) used to come to school early as a child?" }
+            goal: "Say yes, you always came early."
+            reply:
+              mode: build
+              tiles: ["sí", "yo", "venía", "siempre", "temprano", "vienen"]
+              answer: "sí yo venía siempre temprano"
+            replyGloss: "Yes, I always came early."
+            explanation: "«yo» keeps «venía» unambiguous — it also means he/she/usted used to come. «vienen» slips into now, and into them."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Venían temprano también?", audioText: "¿y diego y sofía? ¿venían temprano también?", gloss: "And Diego and Sofía? Did they used to come early too?" }
+            goal: "Say yes, they always came early too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, venían temprano también" }
+                - { id: "wrong1", text: "sí, veníamos temprano también" }
+                - { id: "wrong2", text: "sí, vienen temprano también" }
+              correctOptionId: "right"
+              audioText: "sí, venían temprano también"
+            replyGloss: "Yes, they always came early too."
+            explanation: "Diego and Sofía — them: «venían». «veníamos» would wrongly include you; «vienen» slips into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Veníamos juntos?", audioText: "¿y tú y yo? ¿veníamos juntos?", gloss: "And you and I? Did we used to come together?" }
+            goal: "Say yes, we always came together."
+            reply:
+              mode: build
+              tiles: ["sí", "veníamos", "siempre", "juntos", "venían", "venía"]
+              answer: "sí veníamos siempre juntos"
+            replyGloss: "Yes, we always came together."
+            explanation: "You and Ana together: «veníamos» — accented, like every venir imperfect form."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "venía", target: "I came/used to come, he/she/you came" }
+          - { source: "venías", target: "you (tú) used to come" }
+          - { source: "veníamos", target: "we used to come" }
+          - { source: "venían", target: "they used to come, you all used to come" }
+          - { source: "escuela", target: "the school" }
+          - { source: "temprano", target: "early" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "de niño, venía a la escuela temprano"
+        en: "As a child, I used to come to school early"
+        atoms: ["de niño", "venía", "escuela", "temprano"]
+
+  # ── L6 · «Mientras hacía la tarea, vino Diego» — ZERO new atoms. Dedicated
+  #    recombination lesson: the five new imperfect verbs (background/ongoing)
+  #    paired with PRIOR preterite (m23: vino, llegó, fue) via PRIOR m23
+  #    connectives (mientras, de repente, cuando, entonces) — the classic
+  #    "was doing X when Y happened" shape. Reinforces estaba/hacía/quería/
+  #    podía/venía all at once, each against a PRIOR preterite interruption.
+  #    NO new preterite forms beyond what m23 already shipped. ≥1 recall.
+  - n: 6
+    template: free
+    title: "Mientras hacía la tarea, vino Diego"
+    description: "The background/event shape: the imperfect sets the scene (mientras hacía la tarea...), a PRIOR preterite interrupts it (...vino Diego). No new grammar — just the five new verbs recombined with what m23 already taught."
+    steps:
+      - kind: map
+        id: l6-map-mientrashaciavinodiego
+        tokens: ["mientras", "yo", "hacía", "la", "tarea,", "de repente,", "vino", "Diego"]
+        pairs:
+          - { en: "while", tokenIndex: 0 }
+          - { en: "I", tokenIndex: 1 }
+          - { en: "was doing", tokenIndex: 2 }
+          - { en: "the", tokenIndex: 3 }
+          - { en: "homework,", tokenIndex: 4 }
+          - { en: "suddenly,", tokenIndex: 5 }
+          - { en: "came", tokenIndex: 6 }
+          - { en: "Diego", tokenIndex: 7 }
+        audioText: "mientras yo hacía la tarea, de repente, vino Diego"
+        revealNote: "«hacía» sets the scene (ongoing, imperfect) — «vino» interrupts it (one finished event, PRIOR preterite, m23). «mientras» and «de repente» are PRIOR connectives (m23) doing the same job they always did."
+      - kind: info
+        id: l6-info-recombination
+        title: "The background/event shape"
+        body: "«mientras yo hacía la tarea, de repente vino Diego» — the imperfect («hacía») paints the ongoing scene; the preterite («vino», PRIOR) is the one thing that happened and interrupted it. No new grammar: estaba/hacía/quería/podía/venía all work this way with PRIOR «vino», «fue»."
+      - kind: speakLit
+        id: l6-sp-estabacasavinodiego
+        es: "yo estaba en casa cuando vino Diego"
+        en: "I was at home when Diego came"
+        atoms: ["estaba", "casa", "vino"]
+      - kind: buildLit
+        id: l6-b-queriaircinevinosofia
+        es: "quería ir al cine cuando vino Sofía"
+        en: "I wanted to go to the movies when Sofía came"
+        atoms: ["quería", "cine", "vino"]
+        tiles: ["quiero", "quise"]
+      - kind: speakLit
+        id: l6-sp-mientrasveniallego
+        es: "mientras venía a la escuela, vino Ana"
+        en: "While I was coming to school, Ana came"
+        atoms: ["mientras", "venía", "escuela", "vino"]
+      - kind: clozeLit
+        id: l6-c-derepentepodiafue
+        es: "no podía ir, y de repente, fue Diego solo"
+        en: "I couldn't go, and suddenly, Diego went alone"
+        blank: "podía"
+        options: ["podía", "podían", "puedo"]
+        atoms: ["podía", "de repente", "fue"]
+        why: "One person, ongoing background: «podía». «podían» would be more than one; «puedo» slips into now."
+      - kind: listenCompLit
+        id: l6-lc-haciatareavinodiego
+        es: "mientras hacía la tarea, vino Diego"
+        en: "While I was doing homework, Diego came."
+        atoms: ["mientras", "hacía", "tarea", "vino"]
+        distractorsEn:
+          - "While I do homework, Diego comes."
+          - "I did homework, and then Diego did too."
+          - "While they were doing homework, Diego came."
+      - kind: mcq
+        id: l6-q-cuandovsmientras
+        prompt: "'While I was at home, Diego came' — which connective frames the ongoing part?"
+        correct: "mientras"
+        distractors: ["cuando", "de repente", "entonces"]
+        atoms: ["mientras"]
+        why: "«mientras» frames the ongoing background explicitly. «cuando» also works with imperfect, but here «mientras» is the cleaner fit for 'while'; «de repente» and «entonces» belong with the interrupting event, not the background."
+      - kind: buildLit
+        id: l6-b-entoncesqueriapero
+        es: "quería ir, pero entonces vino Sofía"
+        en: "I wanted to go, but then Sofía came"
+        atoms: ["quería", "entonces", "vino"]
+        tiles: ["querían", "quise"]
+      - kind: audioWimcq
+        id: l6-ear-parque
+        target: { surface: "el parque", emoji: "🌳" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el museo", emoji: "🏛️" }
+      - kind: agreementLit
+        id: l6-agr-mientrashaciavino
+        en: "While I was doing homework, Diego came; while he was doing homework, Sofía came"
+        audioText: "mientras yo hacía la tarea, vino Diego; mientras él hacía la tarea, vino Sofía"
+        atoms: ["hacía", "vino"]
+        segments:
+          - { text: "mientras yo " }
+          - { blank: { id: "p1", answer: "hacía", options: ["hacía", "hago"] } }
+          - { text: " la tarea, vino Diego; mientras él " }
+          - { blank: { id: "p2", answer: "hacía", options: ["hacía", "hace"] } }
+          - { text: " la tarea, vino Sofía" }
+      - kind: listenBuildLit
+        id: l6-lb-samluisestabanvino
+        es: "Sam y Luis estaban en casa cuando vino Diego"
+        en: "Sam and Luis were home when Diego came"
+        atoms: ["estaban", "casa", "vino"]
+        tiles: ["estábamos", "estaba"]
+      - kind: textMcq
+        id: l6-tm-mientras
+        target: "mientras"
+        distractors: ["cuando", "entonces", "de repente"]
+      # Printed non-recall at L3 (es-m24-3-l3-sp-win).
+      - kind: speakLit
+        id: l6-sp-recall-queriacine
+        es: "de niño, quería ir al cine"
+        en: "As a child, I wanted to go to the movies"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l6-sim-ana-diego
+        scene: { emoji: "🚪", title: "Ana asks what happened", setting: "Ana wants the story of what everyone was doing when Diego showed up." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Qué hacías cuando vino Diego?", audioText: "¿qué hacías cuando vino diego?", gloss: "What were you (tú) doing when Diego came?" }
+            goal: "Say you were doing homework when Diego came."
+            reply:
+              mode: build
+              tiles: ["hacía", "la", "tarea", "cuando", "vino", "Diego", "hice"]
+              answer: "hacía la tarea cuando vino Diego"
+            replyGloss: "I was doing homework when Diego came."
+            explanation: "«hacía» is the ongoing background; «vino» (PRIOR preterite) is the one thing that happened. «hice» would wrongly make the homework the interrupting event too."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Sofía? ¿Qué hacía ella?", audioText: "¿y sofía? ¿qué hacía ella?", gloss: "And Sofía? What was she doing?" }
+            goal: "Say she wanted to go, but couldn't."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "quería ir a la fiesta, pero no podía" }
+                - { id: "wrong1", text: "quería ir a la fiesta, pero no podían" }
+                - { id: "wrong2", text: "quiere ir a la fiesta, pero no puede" }
+              correctOptionId: "right"
+              audioText: "quería ir a la fiesta, pero no podía"
+            replyGloss: "She wanted to go to the party, but she couldn't."
+            explanation: "One person, the past: «quería»/«podía». «podían» would be more than one; present «quiere»/«puede» slips into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Estábamos en casa cuando vino?", audioText: "¿y tú y yo? ¿estábamos en casa cuando vino?", gloss: "And you and I? Were we home when he came?" }
+            goal: "Say yes, you were home when he came."
+            reply:
+              mode: build
+              tiles: ["sí,", "estábamos", "en", "casa", "juntos", "cuando", "vino", "estaban"]
+              answer: "sí, estábamos en casa juntos cuando vino"
+            replyGloss: "Yes, we were home together when he came."
+            explanation: "You and Ana together, ongoing: «estábamos» — accented, like every -ar imperfect nosotros form. «estaban» would be more than two."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "mientras", target: "while" }
+          - { source: "de repente", target: "suddenly" }
+          - { source: "cuando", target: "when" }
+          - { source: "entonces", target: "then, so" }
+          - { source: "vino", target: "he/she/you came (one finished event)" }
+          - { source: "hacía", target: "I was doing/making (ongoing background)" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "mientras yo hacía la tarea, de repente vino Diego"
+        en: "While I was doing homework, Diego suddenly came"
+        atoms: ["mientras", "hacía", "tarea", "de repente", "vino"]
+
+  # ── L7 · «¿Dónde estabas cuando vino Sofía?» — ZERO new atoms. Questions
+  #    and negation across all five families, combining PRIOR «dónde»
+  #    (interrogative) and «no» with estaba/hacía/quería/podía/venía, plus
+  #    PRIOR m23 «cuando»/«vino»/«fue». No new interrogative words. ≥1
+  #    recall (recalls L4's payoff line).
+  - n: 7
+    template: free
+    title: "¿Dónde estabas cuando vino Sofía?"
+    description: "Zero new grammar: PRIOR «dónde» and «no» combine with all five imperfect families exactly the way they already combine with any other verb."
+    steps:
+      - kind: map
+        id: l7-map-dondeestabascuandovino
+        tokens: ["¿dónde", "estabas", "cuando", "vino", "Sofía?"]
+        pairs:
+          - { en: "where", tokenIndex: 0 }
+          - { en: "were you", tokenIndex: 1 }
+          - { en: "when", tokenIndex: 2 }
+          - { en: "came", tokenIndex: 3 }
+          - { en: "Sofía?", tokenIndex: 4 }
+        audioText: "¿dónde estabas cuando vino Sofía?"
+        revealNote: "«dónde» (PRIOR) asks the question; «estabas» answers it — ongoing background, imperfect. «vino» (PRIOR, m23) is the one finished event. Same word order as any other PRIOR question."
+      - kind: info
+        id: l7-info-preguntasynegacion
+        title: "Questions and no — no new grammar"
+        body: "PRIOR «dónde» and «no» work with estaba/hacía/quería/podía/venía exactly like with any other verb: «¿dónde estabas...?», «no quería...». Combine freely with PRIOR «cuando» and preterite «vino»/«fue»."
+      - kind: speakLit
+        id: l7-sp-dondeestabasnino
+        es: "¿dónde estabas de niño?"
+        en: "Where were you as a child?"
+        atoms: ["estabas", "de niño"]
+      - kind: buildLit
+        id: l7-b-nohaciaqueria
+        es: "no hacía la tarea, pero quería"
+        en: "I wasn't doing homework, but I wanted to"
+        atoms: ["hacía", "quería", "tarea"]
+        tiles: ["hacían", "quiero"]
+      - kind: speakLit
+        id: l7-sp-nopodiaveniqueria
+        es: "no podía venir, pero quería"
+        en: "I couldn't come, but I wanted to"
+        atoms: ["podía", "quería", "venir"]
+      - kind: clozeLit
+        id: l7-c-dondeestabanustedesvino
+        es: "ustedes estaban en casa cuando vino Diego"
+        en: "You all were home when Diego came"
+        blank: "estaban"
+        options: ["estaban", "estábamos", "estaba"]
+        atoms: ["estaban", "vino"]
+        why: "«ustedes» takes the they-ending: «estaban», never «estábamos» — that would wrongly include the speaker."
+      - kind: listenCompLit
+        id: l7-lc-noqueriaperofue
+        es: "no quería ir, pero fue Diego solo"
+        en: "I didn't want to go, but Diego went alone."
+        atoms: ["quería", "fue"]
+        distractorsEn:
+          - "I want to go, but Diego went alone."
+          - "I wanted to go, and Diego wanted to go alone."
+          - "We didn't want to go, but Diego went alone."
+      - kind: mcq
+        id: l7-q-dondeestabascuandovino
+        prompt: "'Where were you when Sofía came?' — which form of estar fits (tú, ongoing background)?"
+        correct: "estabas"
+        distractors: ["estaba", "estaban", "estábamos"]
+        atoms: ["estabas"]
+        why: "«estabas» — the tú ending, ongoing background. «estaba» collapses yo/él, not tú; «estaban» would be more than one; «estábamos» would wrongly include the speaker."
+      - kind: buildLit
+        id: l7-b-noveniamosqueriamos
+        es: "no veníamos a la escuela, pero queríamos"
+        en: "We didn't come to school, but we wanted to"
+        atoms: ["veníamos", "queríamos", "escuela"]
+        tiles: ["venían", "quieren"]
+      - kind: speakLit
+        id: l7-sp-noveniasqueria
+        es: "tú no venías a la escuela, pero querías"
+        en: "You (tú) didn't used to come to school, but you wanted to"
+        atoms: ["venías", "querías"]
+      - kind: audioWimcq
+        id: l7-ear-tienda
+        target: { surface: "la tienda", emoji: "🏪" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el parque", emoji: "🌳" }
+      - kind: agreementLit
+        id: l7-agr-yoelnoqueria
+        en: "I didn't want to go, and he didn't want to go"
+        audioText: "yo no quería ir, y él no quería ir"
+        atoms: ["quería"]
+        segments:
+          - { text: "yo no " }
+          - { blank: { id: "p1", answer: "quería", options: ["quería", "quiero"] } }
+          - { text: " ir, y él no " }
+          - { blank: { id: "p2", answer: "quería", options: ["quería", "quiere"] } }
+          - { text: " ir" }
+      - kind: listenBuildLit
+        id: l7-lb-samluisnopodianquerian
+        es: "Sam y Luis no podían ir, pero querían"
+        en: "Sam and Luis couldn't go, but they wanted to"
+        atoms: ["podían", "querían"]
+        tiles: ["podíamos", "quería"]
+      - kind: textMcq
+        id: l7-tm-donde
+        target: "dónde"
+        distractors: ["cuando", "no", "todos"]
+      # Printed non-recall at L4 (es-m24-4-l4-sp-win).
+      - kind: speakLit
+        id: l7-sp-recall-queriafiestapodia
+        es: "quería ir a la fiesta, pero no podía"
+        en: "I wanted to go to the party, but I couldn't"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l7-sim-ana-donde
+        scene: { emoji: "🔍", title: "Ana asks where everyone was", setting: "Ana wants to know where everyone was when Diego showed up." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Dónde estabas cuando vino Sofía?", audioText: "¿dónde estabas cuando vino sofía?", gloss: "Where were you when Sofía came?" }
+            goal: "Say you were home, and you couldn't go."
+            reply:
+              mode: build
+              tiles: ["estaba", "en", "casa,", "y", "no", "podía", "ir", "estaban", "puedo"]
+              answer: "estaba en casa, y no podía ir"
+            replyGloss: "I was home, and I couldn't go."
+            explanation: "One person, ongoing: «estaba»/«podía». «estaban» would be more than one; «puedo» slips into now."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego? ¿Dónde estaba él?", audioText: "¿y diego? ¿dónde estaba él?", gloss: "And Diego? Where was he?" }
+            goal: "Say he was at school, wanted to come."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "estaba en la escuela, y quería venir" }
+                - { id: "wrong1", text: "estaban en la escuela, y querían venir" }
+                - { id: "wrong2", text: "está en la escuela, y quiere venir" }
+              correctOptionId: "right"
+              audioText: "estaba en la escuela, y quería venir"
+            replyGloss: "He was at school, and he wanted to come."
+            explanation: "Diego, one person: «estaba»/«quería». «estaban»/«querían» would be more than one; present «está»/«quiere» slips into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Estábamos en casa cuando vino Diego?", audioText: "¿y tú y yo? ¿estábamos en casa cuando vino diego?", gloss: "And you and I? Were we home when Diego came?" }
+            goal: "Say yes, you two were home together."
+            reply:
+              mode: build
+              tiles: ["sí,", "estábamos", "en", "casa", "juntos", "estaban", "estaba"]
+              answer: "sí, estábamos en casa juntos"
+            replyGloss: "Yes, we were home together."
+            explanation: "You and Ana together: «estábamos» — accented, the one estar imperfect form that is."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "dónde", target: "where" }
+          - { source: "cuando", target: "when (connecting a clause)" }
+          - { source: "no", target: "not, no" }
+          - { source: "vino", target: "he/she/you came (one finished event)" }
+          - { source: "quería", target: "I wanted, he/she/you wanted" }
+          - { source: "estaba", target: "I was, he/she/you was (located/state)" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "¿dónde estabas cuando vino Sofía?"
+        en: "Where were you when Sofía came?"
+        atoms: ["estabas", "vino"]
+
+  # ── L8 · CHECKPOINT — graded only, zero info cards. Exercises all five
+  #    families (estaba/hacía/quería/podía/venía) at once, plus PRIOR «tenía»
+  #    (m22) cashing the module's signature payoff: «quería, pero tenía mucho
+  #    trabajo y no podía». ≥2 recalls (L5, L6 — first time either is
+  #    recalled since its own lesson). Ends sim → matchLit → speakLit-win,
+  #    the standard ending (NOT the L10 departure pattern).
+  - n: 8
+    template: free
+    title: "Checkpoint: estaba, hacía, quería, podía, venía"
+    description: "All five families, and PRIOR «tenía», all at once, all graded — no new teaching, just proof you've got it."
+    steps:
+      - kind: buildLit
+        id: l8-b-estabacasavinodiego
+        es: "estaba en casa cuando vino Diego"
+        en: "I was at home when Diego came"
+        atoms: ["estaba", "casa", "vino"]
+        tiles: ["estaban", "está"]
+      - kind: listenBuildLit
+        id: l8-lb-haciatareamientrasveniasofia
+        es: "hacía la tarea mientras venía Sofía"
+        en: "I was doing homework while Sofía was coming"
+        atoms: ["hacía", "tarea", "mientras", "venía"]
+        tiles: ["hacían", "viene"]
+      - kind: buildLit
+        id: l8-b-queriaperoteniatrabajo
+        es: "quería ir, pero tenía mucho trabajo"
+        en: "I wanted to go, but I had a lot of work"
+        atoms: ["quería", "tenía", "mucho", "trabajo"]
+        tiles: ["querían", "tengo"]
+      - kind: listenBuildLit
+        id: l8-lb-nopodiavenirperoqueria
+        es: "no podía venir, pero quería"
+        en: "I couldn't come, but I wanted to"
+        atoms: ["podía", "venir", "quería"]
+        tiles: ["podían", "quiero"]
+      - kind: buildLit
+        id: l8-b-todosestabanyohacia
+        es: "todos estaban en casa, pero yo hacía la tarea"
+        en: "Everyone was home, but I was doing homework"
+        atoms: ["todos", "estaban", "casa", "hacía", "tarea"]
+        tiles: ["estábamos", "hago"]
+      - kind: listenBuildLit
+        id: l8-lb-veniamostempranohaciamosjuntos
+        es: "veníamos temprano, y hacíamos la tarea juntos"
+        en: "We used to come early, and we did homework together"
+        atoms: ["veníamos", "temprano", "hacíamos", "tarea", "juntos"]
+        tiles: ["venían", "hacía"]
+      - kind: clozeLit
+        id: l8-c-todosquerianvenirpodian
+        es: "de niño, todos querían venir, pero no podían"
+        en: "As a child, everyone wanted to come, but they couldn't"
+        blank: "podían"
+        options: ["podían", "podíamos", "podía"]
+        atoms: ["de niño", "todos", "querían", "podían", "venir"]
+        why: "«todos» takes the they-ending: «podían», never «podíamos» — that would wrongly include you."
+      - kind: speakLit
+        id: l8-sp-haciaspodiasvenir
+        es: "tú hacías mucho, pero no podías venir"
+        en: "You (tú) used to do a lot, but you couldn't come"
+        atoms: ["hacías", "podías", "venir"]
+      - kind: mcq
+        id: l8-q-podiacheck
+        prompt: "Which one always means 'I could / was able to' — never you, we, or they?"
+        correct: "podía"
+        distractors: ["podías", "podíamos", "podían"]
+        atoms: ["podía"]
+        why: "«podía» collapses yo and él/ella/usted — never tú, nosotros, or ellos, which each keep their own accented form."
+      # Printed non-recall at L5 (es-m24-5-l5-sp-win).
+      - kind: speakLit
+        id: l8-sp-recall-veniaescuela
+        es: "de niño, venía a la escuela temprano"
+        en: "As a child, I used to come to school early"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l8-agr-todoshacianyoestaba
+        en: "Everyone was doing homework while I was home"
+        audioText: "todos hacían la tarea mientras yo estaba en casa"
+        atoms: ["hacían", "estaba", "mientras", "todos"]
+        segments:
+          - { text: "todos " }
+          - { blank: { id: "p1", answer: "hacían", options: ["hacían", "hacía"] } }
+          - { text: " la tarea mientras yo " }
+          - { blank: { id: "p2", answer: "estaba", options: ["estaba", "estaban"] } }
+          - { text: " en casa" }
+      - kind: textMcq
+        id: l8-tm-podia
+        target: "podía"
+        distractors: ["podías", "podían", "puede"]
+      - kind: audioWimcq
+        id: l8-ear-fiesta
+        target: { surface: "la fiesta", emoji: "🎉" }
+        distractors:
+          - { surface: "el mercado", emoji: "🛒" }
+          - { surface: "la playa", emoji: "🏖️" }
+      # Printed non-recall at L6 (es-m24-6-l6-sp-win).
+      - kind: speakLit
+        id: l8-sp-recall-mientrashaciavino
+        es: "mientras yo hacía la tarea, de repente vino Diego"
+        en: "While I was doing homework, Diego suddenly came"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l8-sim-ana-semana
+        scene: { emoji: "💼", title: "Ana checks the whole week", setting: "Ana wants to know about work, the party, and who could make it." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tenías mucho trabajo esta semana?", audioText: "¿tenías mucho trabajo esta semana?", gloss: "Did you have a lot of work this week?" }
+            goal: "Say yes, you had a lot of work."
+            reply:
+              mode: build
+              tiles: ["sí,", "tenía", "mucho", "trabajo", "tenían"]
+              answer: "sí, tenía mucho trabajo"
+            replyGloss: "Yes, I had a lot of work."
+            explanation: "«tenía» is PRIOR (m22) — the same yo=él collision as this module's five verbs."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Querías ir a la fiesta?", audioText: "¿querías ir a la fiesta?", gloss: "Did you want to go to the party?" }
+            goal: "Say yes, you wanted to, but couldn't."
+            reply:
+              mode: build
+              tiles: ["sí,", "quería", "ir,", "pero", "no", "podía", "podían"]
+              answer: "sí, quería ir, pero no podía"
+            replyGloss: "Yes, I wanted to go, but I couldn't."
+            explanation: "«quería»/«podía» both carry the yo=él collision — here you're clearly answering for yourself."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Entonces querías ir a la fiesta?", audioText: "¿entonces querías ir a la fiesta?", gloss: "So you wanted to go to the party?" }
+            goal: "Say yes, but you had so much work."
+            reply:
+              mode: build
+              tiles: ["sí,", "quería", "ir,", "pero", "tenía", "mucho", "trabajo", "tenían"]
+              answer: "sí, quería ir, pero tenía mucho trabajo"
+            replyGloss: "Yes, but I had a lot of work."
+            explanation: "«tenía» (PRIOR, m22) carries the same yo=él collision as «quería» — «yo» is implied by context here, unambiguous since Ana is asking you directly."
+      - kind: matchLit
+        id: l8-match
+        pairs:
+          - { source: "estaba", target: "was (located/state)" }
+          - { source: "hacía", target: "was doing/making" }
+          - { source: "quería", target: "wanted" }
+          - { source: "podía", target: "could, was able to" }
+          - { source: "venía", target: "came/used to come" }
+          - { source: "tenía", target: "had" }
+      - kind: speakLit
+        id: l8-sp-win
+        es: "quería ir a la fiesta, pero tenía mucho trabajo y no podía"
+        en: "I wanted to go to the party, but I had a lot of work and couldn't"
+        atoms: ["quería", "tenía", "mucho", "trabajo", "podía"]
+
+  # ── L9 · «Hoy hago la tarea, pero de niño hacía mucho trabajo» — ZERO new
+  #    atoms. Consolidation: every family side by side, contrasted against
+  #    PRIOR present-tense forms — ONLY the legal cells confirmed by grep
+  #    against m1-m23 (está/estamos/están, hago/haces/hace, quiero/quieres/
+  #    quiere, puedo/puedes/puede, vengo/viene). NEVER estoy/hacemos/hacen/
+  #    queremos/quieren/podemos/pueden/vienes/venimos/vienen — unregistered,
+  #    never used, not even as a distractor. ≥1 recall (recalls L7).
+  - n: 9
+    template: free
+    title: "Hoy hago, pero de niño hacía"
+    description: "The five families, side by side with the present tense that's already PRIOR — «hoy» pulls present, «de niño» pulls imperfect. No new grammar, just the full contrast."
+    steps:
+      - kind: map
+        id: l9-map-hoyhagoperodeninohacia
+        tokens: ["hoy", "hago", "la", "tarea,", "pero", "de niño", "hacía", "mucho", "trabajo"]
+        pairs:
+          - { en: "today", tokenIndex: 0 }
+          - { en: "I do", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "homework,", tokenIndex: 3 }
+          - { en: "but", tokenIndex: 4 }
+          - { en: "as a child,", tokenIndex: 5 }
+          - { en: "I used to do", tokenIndex: 6 }
+          - { en: "a lot of", tokenIndex: 7 }
+          - { en: "work", tokenIndex: 8 }
+        audioText: "hoy hago la tarea, pero de niño hacía mucho trabajo"
+        revealNote: "«hoy» pulls the present, PRIOR «hago» (m15). «de niño» pulls the imperfect, this module's «hacía». Same verb, same person — only the time marker changes the form."
+      - kind: info
+        id: l9-info-hoyvsdenino
+        title: "Hoy vs. de niño — the whole contrast"
+        body: "«hoy» + present (PRIOR «hago», «quiero», «puedo», «viene»...) is now. «de niño» + imperfect («hacía», «quería», «podía», «venía»...) is the repeated past. «hoy hago la tarea, pero de niño hacía mucho trabajo» — same verb, only the time marker changes the form."
+      - kind: speakLit
+        id: l9-sp-hoyestadeninoestaba
+        es: "hoy está en casa, pero de niño estaba en la escuela"
+        en: "Today he's at home, but as a child he was at school"
+        atoms: ["está", "estaba", "casa", "escuela"]
+      - kind: buildLit
+        id: l9-b-hoyhacesdeninohacias
+        es: "hoy haces la tarea en casa, pero de niño la hacías en la escuela"
+        en: "Today you (tú) do homework at home, but as a child you did it at school"
+        atoms: ["haces", "hacías", "tarea", "casa", "escuela"]
+        tiles: ["hace", "hacía"]
+      - kind: speakLit
+        id: l9-sp-hoyquieredeninoqueria
+        es: "hoy quiere ir al cine, pero de niño no quería"
+        en: "Today he wants to go to the movies, but as a child he didn't"
+        atoms: ["quiere", "quería", "cine"]
+      - kind: clozeLit
+        id: l9-c-hoypuedodeninopodia
+        es: "hoy puedo venir, pero de niño no podía"
+        en: "Today I can come, but as a child I couldn't"
+        blank: "podía"
+        options: ["podía", "podíamos", "podían"]
+        atoms: ["puedo", "podía", "venir"]
+        why: "«de niño» flags the past habitual, one person: «podía». «podíamos» would wrongly include others; «podían» is the wrong person too."
+      - kind: listenCompLit
+        id: l9-lc-hoyvienedeninonovenia
+        es: "hoy viene a la escuela, pero de niño no venía"
+        en: "Today he comes to school, but as a child he didn't."
+        atoms: ["viene", "venía", "escuela"]
+        distractorsEn:
+          - "Today he came to school, but as a child he didn't."
+          - "Today he comes to school, and as a child he did too."
+          - "Today they come to school, but as a child they didn't."
+      - kind: mcq
+        id: l9-q-hoyvsdenino
+        prompt: "Which one pairs 'today' with the right tense?"
+        correct: "hoy quiere ir"
+        distractors: ["de niño quería ir", "de niño no quería", "hoy no quería"]
+        atoms: ["quiere"]
+        why: "«hoy» signals now — present «quiere». The others either use «de niño» (past) or wrongly pair «hoy» with the imperfect."
+      - kind: buildLit
+        id: l9-b-hoyquieresdeninoquerias
+        es: "hoy quieres ir, pero de niño no querías"
+        en: "Today you (tú) want to go, but as a child you didn't"
+        atoms: ["quieres", "querías"]
+        tiles: ["quiere", "quería"]
+      - kind: audioWimcq
+        id: l9-ear-mercado
+        target: { surface: "el mercado", emoji: "🛒" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el museo", emoji: "🏛️" }
+      - kind: agreementLit
+        id: l9-agr-hoyhacedeninohacia
+        en: "Today he does homework, and as a child he did too"
+        audioText: "hoy él hace la tarea, y de niño también la hacía"
+        atoms: ["hace", "hacía"]
+        segments:
+          - { text: "hoy él " }
+          - { blank: { id: "p1", answer: "hace", options: ["hace", "hacía"] } }
+          - { text: " la tarea, y de niño también la " }
+          - { blank: { id: "p2", answer: "hacía", options: ["hacía", "hace"] } }
+      - kind: listenBuildLit
+        id: l9-lb-hoypuedesdeninopodias
+        es: "hoy puedes venir, pero de niño no podías"
+        en: "Today you (tú) can come, but as a child you couldn't"
+        atoms: ["puedes", "podías", "venir"]
+        tiles: ["puede", "podía"]
+      - kind: textMcq
+        id: l9-tm-hoy
+        target: "hoy"
+        distractors: ["de niño", "mucho", "siempre"]
+      # Printed non-recall at L7 (es-m24-7-l7-sp-win).
+      - kind: speakLit
+        id: l9-sp-recall-dondeestabasvino
+        es: "¿dónde estabas cuando vino Sofía?"
+        en: "Where were you when Sofía came?"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l9-sim-ana-hoy
+        scene: { emoji: "📆", title: "Ana compares today and childhood", setting: "Ana wants to know what's the same today and what's different from when you were a kid." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Haces la tarea hoy?", audioText: "¿haces la tarea hoy?", gloss: "Do you do homework today?" }
+            goal: "Say yes, and as a child too."
+            reply:
+              mode: build
+              tiles: ["sí,", "y", "de", "niño", "también", "la", "hacía", "hace"]
+              answer: "sí, y de niño también la hacía"
+            replyGloss: "Yes, and as a child too."
+            explanation: "«de niño» flags the past habitual: «hacía». «hace» would wrongly pull it back to now."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y hoy quieres ir al cine?", audioText: "¿y hoy quieres ir al cine?", gloss: "And today, do you want to go to the movies?" }
+            goal: "Say yes, but as a child you didn't."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, pero de niño no quería" }
+                - { id: "wrong1", text: "sí, pero de niño no quiero" }
+                - { id: "wrong2", text: "sí, pero hoy no quería" }
+              correctOptionId: "right"
+              audioText: "sí, pero de niño no quería"
+            replyGloss: "Yes, but as a child I didn't."
+            explanation: "«de niño» pairs with past «quería». «quiero» would wrongly keep it in the present; swapping «de niño» for «hoy» loses the contrast."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Puedes venir a la fiesta hoy?", audioText: "¿puedes venir a la fiesta hoy?", gloss: "Can you come to the party today?" }
+            goal: "Say yes, but as a child, no."
+            reply:
+              mode: build
+              tiles: ["sí,", "pero", "de", "niño,", "no", "podía", "puedo"]
+              answer: "sí, pero de niño, no podía"
+            replyGloss: "Yes, but as a child, no."
+            explanation: "«de niño» + «podía» is the past habitual pattern once more. «puedo» would wrongly keep it now."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "hoy", target: "today (pulls the present)" }
+          - { source: "de niño", target: "as a child (pulls the imperfect)" }
+          - { source: "hago", target: "I do/make (now)" }
+          - { source: "hacía", target: "I was doing/making (used to)" }
+          - { source: "quiere", target: "he/she/you wants (now)" }
+          - { source: "quería", target: "he/she/you wanted (used to)" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "hoy hago la tarea, pero de niño hacía mucho trabajo"
+        en: "Today I do homework, but as a child I did a lot of work"
+        atoms: ["hago", "tarea", "hacía", "mucho", "trabajo"]
+
+  # ── L10 · MASTERY — zero new atoms, zero info cards, every step graded.
+  #    Longest sim in the module (Ana asks the whole group to narrate a
+  #    memory, 5 turns) — the module's law that the mastery lesson must END
+  #    on the sim (§13.9 law 7, code-enforced via doctrinePins.ts — same
+  #    deliberate departure m23-L10/m22-L10 already take from the brief's
+  #    general "sim → matchLit → -sp-win" wording) means the verbatim
+  #    closing win line is delivered as the sim's final (5th) turn reply,
+  #    not a separate speakLit step; matchLit sits just before the sim
+  #    instead of after it. ≥2 recalls (L9, L1 — full-circle back to the
+  #    very first win). Context: «de niños» (plural), «aquí», «juntos» —
+  #    all already demonstrated safe in earlier m23/m24/m22 lessons. ≥1
+  #    PRIOR m23 connective (cuando/mientras/de repente/entonces, all used).
+  - n: 10
+    template: free
+    title: "De niños, veníamos aquí juntos"
+    description: "Everything from this module, one last time, fully graded — all five families, PRIOR connectives, «todos», and the quería/podía payoff, all working together."
+    steps:
+      - kind: buildLit
+        id: l10-b-deninosveniamosaquivinodiego
+        es: "de niños, veníamos aquí juntos, cuando vino Diego"
+        en: "As children, we used to come here together, when Diego came"
+        atoms: ["de niño", "veníamos", "aquí", "juntos", "cuando", "vino"]
+        tiles: ["venían", "viene"]
+      - kind: speakLit
+        id: l10-sp-tuveniasaqui
+        es: "tú venías aquí mucho de niño"
+        en: "You (tú) used to come here a lot as a child"
+        atoms: ["venías", "aquí", "de niño"]
+      - kind: listenBuildLit
+        id: l10-lb-mientrasestabamosaquiderepentevinosofia
+        es: "mientras estábamos aquí, de repente vino Sofía"
+        en: "While we were here, suddenly Sofía came"
+        atoms: ["mientras", "estábamos", "aquí", "de repente", "vino"]
+        tiles: ["estaban", "viene"]
+      - kind: clozeLit
+        id: l10-c-entoncestodosquerianfiesta
+        es: "entonces todos querían ir a la fiesta"
+        en: "So everyone wanted to go to the party"
+        blank: "querían"
+        options: ["querían", "queríamos", "quería"]
+        atoms: ["entonces", "querían", "todos", "fiesta"]
+        why: "«todos» takes the they-ending: «querían», never «queríamos» — that would wrongly include you."
+      - kind: mcq
+        id: l10-q-todosqueriapodian
+        prompt: "'Everyone wanted to go, but couldn't' — which one?"
+        correct: "todos querían ir, pero no podían"
+        distractors: ["todos quería ir, pero no podía", "todos querían ir, pero no puede", "todos queríamos ir, pero no podíamos"]
+        atoms: ["querían", "podían", "todos"]
+        why: "«todos» takes the they-ending throughout: «querían»/«podían». Swapping to «quería»/«podía» drops the agreement; «queríamos»/«podíamos» would wrongly include the speaker."
+      - kind: agreementLit
+        id: l10-agr-estabamosaquicuandovino
+        en: "We were here when Diego came"
+        audioText: "estábamos aquí cuando vino Diego"
+        atoms: ["estábamos", "cuando", "vino", "aquí"]
+        segments:
+          - { blank: { id: "p1", answer: "estábamos", options: ["estábamos", "estaban"] } }
+          - { text: " aquí cuando " }
+          - { blank: { id: "p2", answer: "vino", options: ["vino", "viene"] } }
+          - { text: " Diego" }
+      # Printed non-recall at L9 (es-m24-9-l9-sp-win).
+      - kind: speakLit
+        id: l10-sp-recall-hoyhagodeninohacia
+        es: "hoy hago la tarea, pero de niño hacía mucho trabajo"
+        en: "Today I do homework, but as a child I did a lot of work"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l10-tm-entonces
+        target: "entonces"
+        distractors: ["cuando", "mientras", "de repente"]
+      - kind: audioWimcq
+        id: l10-ear-fiesta
+        target: { surface: "la fiesta", emoji: "🎉" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: buildLit
+        id: l10-b-fiestafuebuenacuandotodosvenian
+        es: "la fiesta fue muy buena, cuando todos venían juntos"
+        en: "The party was very good, when everyone used to come together"
+        atoms: ["cuando", "fue", "venían", "fiesta", "todos", "juntos"]
+        tiles: ["era", "vino"]
+      - kind: listenBuildLit
+        id: l10-lb-derepentevinodiegoentonceshablamos
+        es: "de repente vino Diego, entonces hablamos mucho"
+        en: "Suddenly Diego came, so we talked a lot"
+        atoms: ["de repente", "vino", "entonces", "hablamos"]
+        tiles: ["viene", "hablábamos"]
+      - kind: clozeLit
+        id: l10-c-eramosninosveniamosaqui
+        es: "éramos niños cuando veníamos aquí juntos"
+        en: "We were children when we used to come here together"
+        blank: "éramos"
+        options: ["éramos", "eran"]
+        atoms: ["cuando", "éramos", "veníamos", "aquí", "juntos"]
+        why: "We, the group, the ongoing scene: «éramos» — the accented nosotros ser form. «eran» would leave you out."
+      - kind: mcq
+        id: l10-q-vinieron
+        prompt: "Which one means 'they came' — the group?"
+        correct: "vinieron"
+        distractors: ["venían", "vino", "vienen"]
+        atoms: ["vinieron"]
+        why: "«vinieron» — the they-preterite, one bounded arrival. «venían» would make it repeated; «vino» drops the they-agreement; «vienen» slips into now."
+      # Printed non-recall at L1 (es-m24-1-l1-sp-win).
+      - kind: speakLit
+        id: l10-sp-recall-estabacasa
+        es: "de niño, estaba mucho en casa"
+        en: "As a child, I was home a lot"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l10-tm-veniamos
+        target: "veníamos"
+        distractors: ["venían", "vinimos", "vamos"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "cuando", target: "when" }
+          - { source: "mientras", target: "while" }
+          - { source: "de repente", target: "suddenly" }
+          - { source: "entonces", target: "then, so" }
+          - { source: "veníamos", target: "we used to come" }
+          - { source: "de niños", target: "as children" }
+      - kind: sim
+        id: l10-sim-ana-grupo
+        scene: { emoji: "👨‍👩‍👧‍👦", title: "Ana asks for the whole memory", setting: "Ana wants to hear the whole group's memory, start to finish, in one telling." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Venían todos aquí juntos de niños?", audioText: "¿venían todos aquí juntos de niños?", gloss: "Did everyone use to come here together as children?" }
+            goal: "Say yes, you were all coming together."
+            reply:
+              mode: build
+              tiles: ["sí,", "veníamos", "juntos", "venían", "vinimos"]
+              answer: "sí, veníamos juntos"
+            replyGloss: "Yes, we were coming together."
+            explanation: "The whole group, you included: «veníamos» — the accented nosotros form. «venían» would leave you out."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y qué pasó de repente?", audioText: "¿y qué pasó de repente?", gloss: "And what happened suddenly?" }
+            goal: "Say Diego came suddenly, while you talked."
+            reply:
+              mode: build
+              tiles: ["de", "repente,", "vino", "Diego", "mientras", "hablábamos", "viene"]
+              answer: "de repente, vino Diego mientras hablábamos"
+            replyGloss: "Suddenly, Diego came while we were talking."
+            explanation: "«de repente» flags the surprise; «vino» is the one bounded event landing inside «hablábamos», the ongoing scene."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Entonces qué querían hacer todos?", audioText: "¿entonces qué querían hacer todos?", gloss: "So what did everyone want to do then?" }
+            goal: "Say then everyone wanted to go."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "entonces todos querían ir a la fiesta" }
+                - { id: "wrong1", text: "entonces todos quería ir a la fiesta" }
+                - { id: "wrong2", text: "mientras todos querían ir a la fiesta" }
+              correctOptionId: "right"
+              audioText: "entonces todos querían ir a la fiesta"
+            replyGloss: "Then everyone wanted to go to the party."
+            explanation: "«entonces» chains the next thing; «todos» keeps the they-ending: «querían». «quería» drops the agreement; «mientras» would claim simultaneity, not sequence."
+          - id: t4
+            npc: { speaker: "Ana", es: "¿Podían todos ir a la fiesta?", audioText: "¿podían todos ir a la fiesta?", gloss: "Could everyone go to the party?" }
+            goal: "Say no, you all couldn't go."
+            reply:
+              mode: build
+              tiles: ["no,", "no", "podíamos", "podían"]
+              answer: "no, no podíamos"
+            replyGloss: "No, we couldn't."
+            explanation: "You and the group together: «podíamos» — accented, the nosotros imperfect form. «podían» would leave you out."
+          - id: t5
+            npc: { speaker: "Ana", es: "Cuéntamelo todo, de principio a fin.", audioText: "cuéntamelo todo, de principio a fin.", gloss: "Tell me the whole thing, start to finish." }
+            goal: "Narrate the whole memory, start to finish."
+            reply:
+              mode: build
+              tiles: ["de", "niños,", "veníamos", "aquí", "juntos", "cuando,", "de", "repente,", "vino", "Diego,", "y", "entonces", "queríamos", "ir", "a", "la", "fiesta", "venían", "quería"]
+              answer: "de niños, veníamos aquí juntos cuando, de repente, vino Diego, y entonces queríamos ir a la fiesta"
+            replyGloss: "As children, we used to come here together when, suddenly, Diego came, and then we wanted to go to the party."
+            explanation: "The whole module in one line: «veníamos» paints the ongoing scene; «vino» is the one surprise event inside it; «queríamos», with «entonces», closes it — every family, both tenses, doing its own job."
+
+placement:
+  screener:
+    - id: "es-m24-scr-1"
+      prompt: "'As a child, I was at home a lot.' — which one?"
+      correct: "de niño, estaba mucho en casa"
+      distractors: ["de niño, estaban mucho en casa", "de niño, estuve mucho en casa", "de niño, era mucho en casa"]
+  byModule:
+    - id: "es-m24-pl-1"
+      prompt: "As a child, I did homework at home."
+      correct: "de niño, hacía la tarea en casa"
+      distractors: ["de niño, hacían la tarea en casa", "de niño, hice la tarea en casa", "de niño, hacíamos la tarea en casa"]
+    - id: "es-m24-pl-2"
+      prompt: "I wanted to go to the party, but I couldn't."
+      correct: "quería ir a la fiesta, pero no podía"
+      distractors: ["querías ir a la fiesta, pero no podías", "quería ir a la fiesta, pero no podían", "queríamos ir a la fiesta, pero no podíamos"]
+    - id: "es-m24-pl-3"
+      prompt: "As a child, I used to come to school early."
+      correct: "de niño, venía a la escuela temprano"
+      distractors: ["de niño, venían a la escuela temprano", "de niño, vine a la escuela temprano", "de niño, veníamos a la escuela temprano"]
+    - id: "es-m24-pl-4"
+      prompt: "Where were you when Sofía came?"
+      correct: "¿dónde estabas cuando vino Sofía?"
+      distractors: ["¿dónde estaban cuando vino Sofía?", "¿dónde estabas cuando venía Sofía?", "¿dónde estuviste cuando vino Sofía?"]

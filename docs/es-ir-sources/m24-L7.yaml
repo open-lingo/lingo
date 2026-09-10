@@ -1,0 +1,159 @@
+  # ── L7 · «¿Dónde estabas cuando vino Sofía?» — ZERO new atoms. Questions
+  #    and negation across all five families, combining PRIOR «dónde»
+  #    (interrogative) and «no» with estaba/hacía/quería/podía/venía, plus
+  #    PRIOR m23 «cuando»/«vino»/«fue». No new interrogative words. ≥1
+  #    recall (recalls L4's payoff line).
+  - n: 7
+    template: free
+    title: "¿Dónde estabas cuando vino Sofía?"
+    description: "Zero new grammar: PRIOR «dónde» and «no» combine with all five imperfect families exactly the way they already combine with any other verb."
+    steps:
+      - kind: map
+        id: l7-map-dondeestabascuandovino
+        tokens: ["¿dónde", "estabas", "cuando", "vino", "Sofía?"]
+        pairs:
+          - { en: "where", tokenIndex: 0 }
+          - { en: "were you", tokenIndex: 1 }
+          - { en: "when", tokenIndex: 2 }
+          - { en: "came", tokenIndex: 3 }
+          - { en: "Sofía?", tokenIndex: 4 }
+        audioText: "¿dónde estabas cuando vino Sofía?"
+        revealNote: "«dónde» (PRIOR) asks the question; «estabas» answers it — ongoing background, imperfect. «vino» (PRIOR, m23) is the one finished event. Same word order as any other PRIOR question."
+      - kind: info
+        id: l7-info-preguntasynegacion
+        title: "Questions and no — no new grammar"
+        body: "PRIOR «dónde» and «no» work with estaba/hacía/quería/podía/venía exactly like with any other verb: «¿dónde estabas...?», «no quería...». Combine freely with PRIOR «cuando» and preterite «vino»/«fue»."
+      - kind: speakLit
+        id: l7-sp-dondeestabasnino
+        es: "¿dónde estabas de niño?"
+        en: "Where were you as a child?"
+        atoms: ["estabas", "de niño"]
+      - kind: buildLit
+        id: l7-b-nohaciaqueria
+        es: "no hacía la tarea, pero quería"
+        en: "I wasn't doing homework, but I wanted to"
+        atoms: ["hacía", "quería", "tarea"]
+        tiles: ["hacían", "quiero"]
+      - kind: speakLit
+        id: l7-sp-nopodiaveniqueria
+        es: "no podía venir, pero quería"
+        en: "I couldn't come, but I wanted to"
+        atoms: ["podía", "quería", "venir"]
+      - kind: clozeLit
+        id: l7-c-dondeestabanustedesvino
+        es: "ustedes estaban en casa cuando vino Diego"
+        en: "You all were home when Diego came"
+        blank: "estaban"
+        options: ["estaban", "estábamos", "estaba"]
+        atoms: ["estaban", "vino"]
+        why: "«ustedes» takes the they-ending: «estaban», never «estábamos» — that would wrongly include the speaker."
+      - kind: listenCompLit
+        id: l7-lc-noqueriaperofue
+        es: "no quería ir, pero fue Diego solo"
+        en: "I didn't want to go, but Diego went alone."
+        atoms: ["quería", "fue"]
+        distractorsEn:
+          - "I want to go, but Diego went alone."
+          - "I wanted to go, and Diego wanted to go alone."
+          - "We didn't want to go, but Diego went alone."
+      - kind: mcq
+        id: l7-q-dondeestabascuandovino
+        prompt: "'Where were you when Sofía came?' — which form of estar fits (tú, ongoing background)?"
+        correct: "estabas"
+        distractors: ["estaba", "estaban", "estábamos"]
+        atoms: ["estabas"]
+        why: "«estabas» — the tú ending, ongoing background. «estaba» collapses yo/él, not tú; «estaban» would be more than one; «estábamos» would wrongly include the speaker."
+      - kind: buildLit
+        id: l7-b-noveniamosqueriamos
+        es: "no veníamos a la escuela, pero queríamos"
+        en: "We didn't come to school, but we wanted to"
+        atoms: ["veníamos", "queríamos", "escuela"]
+        tiles: ["venían", "quieren"]
+      - kind: speakLit
+        id: l7-sp-noveniasqueria
+        es: "tú no venías a la escuela, pero querías"
+        en: "You (tú) didn't used to come to school, but you wanted to"
+        atoms: ["venías", "querías"]
+      - kind: audioWimcq
+        id: l7-ear-tienda
+        target: { surface: "la tienda", emoji: "🏪" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el parque", emoji: "🌳" }
+      - kind: agreementLit
+        id: l7-agr-yoelnoqueria
+        en: "I didn't want to go, and he didn't want to go"
+        audioText: "yo no quería ir, y él no quería ir"
+        atoms: ["quería"]
+        segments:
+          - { text: "yo no " }
+          - { blank: { id: "p1", answer: "quería", options: ["quería", "quiero"] } }
+          - { text: " ir, y él no " }
+          - { blank: { id: "p2", answer: "quería", options: ["quería", "quiere"] } }
+          - { text: " ir" }
+      - kind: listenBuildLit
+        id: l7-lb-samluisnopodianquerian
+        es: "Sam y Luis no podían ir, pero querían"
+        en: "Sam and Luis couldn't go, but they wanted to"
+        atoms: ["podían", "querían"]
+        tiles: ["podíamos", "quería"]
+      - kind: textMcq
+        id: l7-tm-donde
+        target: "dónde"
+        distractors: ["cuando", "no", "todos"]
+      # Printed non-recall at L4 (es-m24-4-l4-sp-win).
+      - kind: speakLit
+        id: l7-sp-recall-queriafiestapodia
+        es: "quería ir a la fiesta, pero no podía"
+        en: "I wanted to go to the party, but I couldn't"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l7-sim-ana-donde
+        scene: { emoji: "🔍", title: "Ana asks where everyone was", setting: "Ana wants to know where everyone was when Diego showed up." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Dónde estabas cuando vino Sofía?", audioText: "¿dónde estabas cuando vino sofía?", gloss: "Where were you when Sofía came?" }
+            goal: "Say you were home, and you couldn't go."
+            reply:
+              mode: build
+              tiles: ["estaba", "en", "casa,", "y", "no", "podía", "ir", "estaban", "puedo"]
+              answer: "estaba en casa, y no podía ir"
+            replyGloss: "I was home, and I couldn't go."
+            explanation: "One person, ongoing: «estaba»/«podía». «estaban» would be more than one; «puedo» slips into now."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego? ¿Dónde estaba él?", audioText: "¿y diego? ¿dónde estaba él?", gloss: "And Diego? Where was he?" }
+            goal: "Say he was at school, wanted to come."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "estaba en la escuela, y quería venir" }
+                - { id: "wrong1", text: "estaban en la escuela, y querían venir" }
+                - { id: "wrong2", text: "está en la escuela, y quiere venir" }
+              correctOptionId: "right"
+              audioText: "estaba en la escuela, y quería venir"
+            replyGloss: "He was at school, and he wanted to come."
+            explanation: "Diego, one person: «estaba»/«quería». «estaban»/«querían» would be more than one; present «está»/«quiere» slips into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Estábamos en casa cuando vino Diego?", audioText: "¿y tú y yo? ¿estábamos en casa cuando vino diego?", gloss: "And you and I? Were we home when Diego came?" }
+            goal: "Say yes, you two were home together."
+            reply:
+              mode: build
+              tiles: ["sí,", "estábamos", "en", "casa", "juntos", "estaban", "estaba"]
+              answer: "sí, estábamos en casa juntos"
+            replyGloss: "Yes, we were home together."
+            explanation: "You and Ana together: «estábamos» — accented, the one estar imperfect form that is."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "dónde", target: "where" }
+          - { source: "cuando", target: "when (connecting a clause)" }
+          - { source: "no", target: "not, no" }
+          - { source: "vino", target: "he/she/you came (one finished event)" }
+          - { source: "quería", target: "I wanted, he/she/you wanted" }
+          - { source: "estaba", target: "I was, he/she/you was (located/state)" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "¿dónde estabas cuando vino Sofía?"
+        en: "Where were you when Sofía came?"
+        atoms: ["estabas", "vino"]

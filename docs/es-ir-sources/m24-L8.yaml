@@ -1,0 +1,147 @@
+  # ── L8 · CHECKPOINT — graded only, zero info cards. Exercises all five
+  #    families (estaba/hacía/quería/podía/venía) at once, plus PRIOR «tenía»
+  #    (m22) cashing the module's signature payoff: «quería, pero tenía mucho
+  #    trabajo y no podía». ≥2 recalls (L5, L6 — first time either is
+  #    recalled since its own lesson). Ends sim → matchLit → speakLit-win,
+  #    the standard ending (NOT the L10 departure pattern).
+  - n: 8
+    template: free
+    title: "Checkpoint: estaba, hacía, quería, podía, venía"
+    description: "All five families, and PRIOR «tenía», all at once, all graded — no new teaching, just proof you've got it."
+    steps:
+      - kind: buildLit
+        id: l8-b-estabacasavinodiego
+        es: "estaba en casa cuando vino Diego"
+        en: "I was at home when Diego came"
+        atoms: ["estaba", "casa", "vino"]
+        tiles: ["estaban", "está"]
+      - kind: listenBuildLit
+        id: l8-lb-haciatareamientrasveniasofia
+        es: "hacía la tarea mientras venía Sofía"
+        en: "I was doing homework while Sofía was coming"
+        atoms: ["hacía", "tarea", "mientras", "venía"]
+        tiles: ["hacían", "viene"]
+      - kind: buildLit
+        id: l8-b-queriaperoteniatrabajo
+        es: "quería ir, pero tenía mucho trabajo"
+        en: "I wanted to go, but I had a lot of work"
+        atoms: ["quería", "tenía", "mucho", "trabajo"]
+        tiles: ["querían", "tengo"]
+      - kind: listenBuildLit
+        id: l8-lb-nopodiavenirperoqueria
+        es: "no podía venir, pero quería"
+        en: "I couldn't come, but I wanted to"
+        atoms: ["podía", "venir", "quería"]
+        tiles: ["podían", "quiero"]
+      - kind: buildLit
+        id: l8-b-todosestabanyohacia
+        es: "todos estaban en casa, pero yo hacía la tarea"
+        en: "Everyone was home, but I was doing homework"
+        atoms: ["todos", "estaban", "casa", "hacía", "tarea"]
+        tiles: ["estábamos", "hago"]
+      - kind: listenBuildLit
+        id: l8-lb-veniamostempranohaciamosjuntos
+        es: "veníamos temprano, y hacíamos la tarea juntos"
+        en: "We used to come early, and we did homework together"
+        atoms: ["veníamos", "temprano", "hacíamos", "tarea", "juntos"]
+        tiles: ["venían", "hacía"]
+      - kind: clozeLit
+        id: l8-c-todosquerianvenirpodian
+        es: "de niño, todos querían venir, pero no podían"
+        en: "As a child, everyone wanted to come, but they couldn't"
+        blank: "podían"
+        options: ["podían", "podíamos", "podía"]
+        atoms: ["de niño", "todos", "querían", "podían", "venir"]
+        why: "«todos» takes the they-ending: «podían», never «podíamos» — that would wrongly include you."
+      - kind: speakLit
+        id: l8-sp-haciaspodiasvenir
+        es: "tú hacías mucho, pero no podías venir"
+        en: "You (tú) used to do a lot, but you couldn't come"
+        atoms: ["hacías", "podías", "venir"]
+      - kind: mcq
+        id: l8-q-podiacheck
+        prompt: "Which one always means 'I could / was able to' — never you, we, or they?"
+        correct: "podía"
+        distractors: ["podías", "podíamos", "podían"]
+        atoms: ["podía"]
+        why: "«podía» collapses yo and él/ella/usted — never tú, nosotros, or ellos, which each keep their own accented form."
+      # Printed non-recall at L5 (es-m24-5-l5-sp-win).
+      - kind: speakLit
+        id: l8-sp-recall-veniaescuela
+        es: "de niño, venía a la escuela temprano"
+        en: "As a child, I used to come to school early"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l8-agr-todoshacianyoestaba
+        en: "Everyone was doing homework while I was home"
+        audioText: "todos hacían la tarea mientras yo estaba en casa"
+        atoms: ["hacían", "estaba", "mientras", "todos"]
+        segments:
+          - { text: "todos " }
+          - { blank: { id: "p1", answer: "hacían", options: ["hacían", "hacía"] } }
+          - { text: " la tarea mientras yo " }
+          - { blank: { id: "p2", answer: "estaba", options: ["estaba", "estaban"] } }
+          - { text: " en casa" }
+      - kind: textMcq
+        id: l8-tm-podia
+        target: "podía"
+        distractors: ["podías", "podían", "puede"]
+      - kind: audioWimcq
+        id: l8-ear-fiesta
+        target: { surface: "la fiesta", emoji: "🎉" }
+        distractors:
+          - { surface: "el mercado", emoji: "🛒" }
+          - { surface: "la playa", emoji: "🏖️" }
+      # Printed non-recall at L6 (es-m24-6-l6-sp-win).
+      - kind: speakLit
+        id: l8-sp-recall-mientrashaciavino
+        es: "mientras yo hacía la tarea, de repente vino Diego"
+        en: "While I was doing homework, Diego suddenly came"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l8-sim-ana-semana
+        scene: { emoji: "💼", title: "Ana checks the whole week", setting: "Ana wants to know about work, the party, and who could make it." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tenías mucho trabajo esta semana?", audioText: "¿tenías mucho trabajo esta semana?", gloss: "Did you have a lot of work this week?" }
+            goal: "Say yes, you had a lot of work."
+            reply:
+              mode: build
+              tiles: ["sí,", "tenía", "mucho", "trabajo", "tenían"]
+              answer: "sí, tenía mucho trabajo"
+            replyGloss: "Yes, I had a lot of work."
+            explanation: "«tenía» is PRIOR (m22) — the same yo=él collision as this module's five verbs."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Querías ir a la fiesta?", audioText: "¿querías ir a la fiesta?", gloss: "Did you want to go to the party?" }
+            goal: "Say yes, you wanted to, but couldn't."
+            reply:
+              mode: build
+              tiles: ["sí,", "quería", "ir,", "pero", "no", "podía", "podían"]
+              answer: "sí, quería ir, pero no podía"
+            replyGloss: "Yes, I wanted to go, but I couldn't."
+            explanation: "«quería»/«podía» both carry the yo=él collision — here you're clearly answering for yourself."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Entonces querías ir a la fiesta?", audioText: "¿entonces querías ir a la fiesta?", gloss: "So you wanted to go to the party?" }
+            goal: "Say yes, but you had so much work."
+            reply:
+              mode: build
+              tiles: ["sí,", "quería", "ir,", "pero", "tenía", "mucho", "trabajo", "tenían"]
+              answer: "sí, quería ir, pero tenía mucho trabajo"
+            replyGloss: "Yes, but I had a lot of work."
+            explanation: "«tenía» (PRIOR, m22) carries the same yo=él collision as «quería» — «yo» is implied by context here, unambiguous since Ana is asking you directly."
+      - kind: matchLit
+        id: l8-match
+        pairs:
+          - { source: "estaba", target: "was (located/state)" }
+          - { source: "hacía", target: "was doing/making" }
+          - { source: "quería", target: "wanted" }
+          - { source: "podía", target: "could, was able to" }
+          - { source: "venía", target: "came/used to come" }
+          - { source: "tenía", target: "had" }
+      - kind: speakLit
+        id: l8-sp-win
+        es: "quería ir a la fiesta, pero tenía mucho trabajo y no podía"
+        en: "I wanted to go to the party, but I had a lot of work and couldn't"
+        atoms: ["quería", "tenía", "mucho", "trabajo", "podía"]

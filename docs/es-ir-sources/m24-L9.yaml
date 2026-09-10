@@ -1,0 +1,159 @@
+  # ── L9 · «Hoy hago la tarea, pero de niño hacía mucho trabajo» — ZERO new
+  #    atoms. Consolidation: every family side by side, contrasted against
+  #    PRIOR present-tense forms — ONLY the legal cells confirmed by grep
+  #    against m1-m23 (está/estamos/están, hago/haces/hace, quiero/quieres/
+  #    quiere, puedo/puedes/puede, vengo/viene). NEVER estoy/hacemos/hacen/
+  #    queremos/quieren/podemos/pueden/vienes/venimos/vienen — unregistered,
+  #    never used, not even as a distractor. ≥1 recall (recalls L7).
+  - n: 9
+    template: free
+    title: "Hoy hago, pero de niño hacía"
+    description: "The five families, side by side with the present tense that's already PRIOR — «hoy» pulls present, «de niño» pulls imperfect. No new grammar, just the full contrast."
+    steps:
+      - kind: map
+        id: l9-map-hoyhagoperodeninohacia
+        tokens: ["hoy", "hago", "la", "tarea,", "pero", "de niño", "hacía", "mucho", "trabajo"]
+        pairs:
+          - { en: "today", tokenIndex: 0 }
+          - { en: "I do", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "homework,", tokenIndex: 3 }
+          - { en: "but", tokenIndex: 4 }
+          - { en: "as a child,", tokenIndex: 5 }
+          - { en: "I used to do", tokenIndex: 6 }
+          - { en: "a lot of", tokenIndex: 7 }
+          - { en: "work", tokenIndex: 8 }
+        audioText: "hoy hago la tarea, pero de niño hacía mucho trabajo"
+        revealNote: "«hoy» pulls the present, PRIOR «hago» (m15). «de niño» pulls the imperfect, this module's «hacía». Same verb, same person — only the time marker changes the form."
+      - kind: info
+        id: l9-info-hoyvsdenino
+        title: "Hoy vs. de niño — the whole contrast"
+        body: "«hoy» + present (PRIOR «hago», «quiero», «puedo», «viene»...) is now. «de niño» + imperfect («hacía», «quería», «podía», «venía»...) is the repeated past. «hoy hago la tarea, pero de niño hacía mucho trabajo» — same verb, only the time marker changes the form."
+      - kind: speakLit
+        id: l9-sp-hoyestadeninoestaba
+        es: "hoy está en casa, pero de niño estaba en la escuela"
+        en: "Today he's at home, but as a child he was at school"
+        atoms: ["está", "estaba", "casa", "escuela"]
+      - kind: buildLit
+        id: l9-b-hoyhacesdeninohacias
+        es: "hoy haces la tarea en casa, pero de niño la hacías en la escuela"
+        en: "Today you (tú) do homework at home, but as a child you did it at school"
+        atoms: ["haces", "hacías", "tarea", "casa", "escuela"]
+        tiles: ["hace", "hacía"]
+      - kind: speakLit
+        id: l9-sp-hoyquieredeninoqueria
+        es: "hoy quiere ir al cine, pero de niño no quería"
+        en: "Today he wants to go to the movies, but as a child he didn't"
+        atoms: ["quiere", "quería", "cine"]
+      - kind: clozeLit
+        id: l9-c-hoypuedodeninopodia
+        es: "hoy puedo venir, pero de niño no podía"
+        en: "Today I can come, but as a child I couldn't"
+        blank: "podía"
+        options: ["podía", "podíamos", "podían"]
+        atoms: ["puedo", "podía", "venir"]
+        why: "«de niño» flags the past habitual, one person: «podía». «podíamos» would wrongly include others; «podían» is the wrong person too."
+      - kind: listenCompLit
+        id: l9-lc-hoyvienedeninonovenia
+        es: "hoy viene a la escuela, pero de niño no venía"
+        en: "Today he comes to school, but as a child he didn't."
+        atoms: ["viene", "venía", "escuela"]
+        distractorsEn:
+          - "Today he came to school, but as a child he didn't."
+          - "Today he comes to school, and as a child he did too."
+          - "Today they come to school, but as a child they didn't."
+      - kind: mcq
+        id: l9-q-hoyvsdenino
+        prompt: "Which one pairs 'today' with the right tense?"
+        correct: "hoy quiere ir"
+        distractors: ["de niño quería ir", "de niño no quería", "hoy no quería"]
+        atoms: ["quiere"]
+        why: "«hoy» signals now — present «quiere». The others either use «de niño» (past) or wrongly pair «hoy» with the imperfect."
+      - kind: buildLit
+        id: l9-b-hoyquieresdeninoquerias
+        es: "hoy quieres ir, pero de niño no querías"
+        en: "Today you (tú) want to go, but as a child you didn't"
+        atoms: ["quieres", "querías"]
+        tiles: ["quiere", "quería"]
+      - kind: audioWimcq
+        id: l9-ear-mercado
+        target: { surface: "el mercado", emoji: "🛒" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el museo", emoji: "🏛️" }
+      - kind: agreementLit
+        id: l9-agr-hoyhacedeninohacia
+        en: "Today he does homework, and as a child he did too"
+        audioText: "hoy él hace la tarea, y de niño también la hacía"
+        atoms: ["hace", "hacía"]
+        segments:
+          - { text: "hoy él " }
+          - { blank: { id: "p1", answer: "hace", options: ["hace", "hacía"] } }
+          - { text: " la tarea, y de niño también la " }
+          - { blank: { id: "p2", answer: "hacía", options: ["hacía", "hace"] } }
+      - kind: listenBuildLit
+        id: l9-lb-hoypuedesdeninopodias
+        es: "hoy puedes venir, pero de niño no podías"
+        en: "Today you (tú) can come, but as a child you couldn't"
+        atoms: ["puedes", "podías", "venir"]
+        tiles: ["puede", "podía"]
+      - kind: textMcq
+        id: l9-tm-hoy
+        target: "hoy"
+        distractors: ["de niño", "mucho", "siempre"]
+      # Printed non-recall at L7 (es-m24-7-l7-sp-win).
+      - kind: speakLit
+        id: l9-sp-recall-dondeestabasvino
+        es: "¿dónde estabas cuando vino Sofía?"
+        en: "Where were you when Sofía came?"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l9-sim-ana-hoy
+        scene: { emoji: "📆", title: "Ana compares today and childhood", setting: "Ana wants to know what's the same today and what's different from when you were a kid." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Haces la tarea hoy?", audioText: "¿haces la tarea hoy?", gloss: "Do you do homework today?" }
+            goal: "Say yes, and as a child too."
+            reply:
+              mode: build
+              tiles: ["sí,", "y", "de", "niño", "también", "la", "hacía", "hace"]
+              answer: "sí, y de niño también la hacía"
+            replyGloss: "Yes, and as a child too."
+            explanation: "«de niño» flags the past habitual: «hacía». «hace» would wrongly pull it back to now."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y hoy quieres ir al cine?", audioText: "¿y hoy quieres ir al cine?", gloss: "And today, do you want to go to the movies?" }
+            goal: "Say yes, but as a child you didn't."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, pero de niño no quería" }
+                - { id: "wrong1", text: "sí, pero de niño no quiero" }
+                - { id: "wrong2", text: "sí, pero hoy no quería" }
+              correctOptionId: "right"
+              audioText: "sí, pero de niño no quería"
+            replyGloss: "Yes, but as a child I didn't."
+            explanation: "«de niño» pairs with past «quería». «quiero» would wrongly keep it in the present; swapping «de niño» for «hoy» loses the contrast."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Puedes venir a la fiesta hoy?", audioText: "¿puedes venir a la fiesta hoy?", gloss: "Can you come to the party today?" }
+            goal: "Say yes, but as a child, no."
+            reply:
+              mode: build
+              tiles: ["sí,", "pero", "de", "niño,", "no", "podía", "puedo"]
+              answer: "sí, pero de niño, no podía"
+            replyGloss: "Yes, but as a child, no."
+            explanation: "«de niño» + «podía» is the past habitual pattern once more. «puedo» would wrongly keep it now."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "hoy", target: "today (pulls the present)" }
+          - { source: "de niño", target: "as a child (pulls the imperfect)" }
+          - { source: "hago", target: "I do/make (now)" }
+          - { source: "hacía", target: "I was doing/making (used to)" }
+          - { source: "quiere", target: "he/she/you wants (now)" }
+          - { source: "quería", target: "he/she/you wanted (used to)" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "hoy hago la tarea, pero de niño hacía mucho trabajo"
+        en: "Today I do homework, but as a child I did a lot of work"
+        atoms: ["hago", "tarea", "hacía", "mucho", "trabajo"]
