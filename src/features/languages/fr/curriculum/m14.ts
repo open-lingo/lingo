@@ -5,22 +5,26 @@
  * already has «j'ai» and «tu as» (m7) — this module opens the door to
  * yesterday by adding ONE new piece, the past participle, and building the
  * avoir + participle passé composé MACHINE around it. manger/mangé is the
- * model -er→-é case; a bare, vowel-onset atom «a» (il/elle/on) lets the
- * course's elision lexicon free-derive «n'a» exactly the way m11's «aime»
- * free-derives «n'aime» — no new atom, no new rule, the SAME machine.
+ * model -er→-é case; a bare, vowel-onset atom «a» (il/elle/on) carries the
+ * il/elle/on auxiliary — its negative form «n'a» is registered as its OWN
+ * atom (see FR_M14_ATOMS) rather than free-derived, because `frTokens()`
+ * drops single-character tokens and the elision lexicon can't produce a
+ * first token from a bare one-letter surface.
  *
  * SCOPE DECISIONS (brief §7, executed not re-litigated):
  *   - être-auxiliary passé composé (allé/allée, …) is DEFERRED — it would
  *     overload je suis/tu es/il est's existing grammatical role, and
  *     allé/allée would be the course's FIRST audible-silent agreement pair
  *     (needs its own homophoneKey machinery day one, whenever it ships).
- *   - Atom «a» is registered BARE, not fused into «il a» — this is the
- *     architectural move that lets `getFrRealFormLexicon()` derive «n'a»
- *     (and l'a/j'a/m'a/t'a/s'a/qu'a) automatically from the SAME mechanism
- *     that already derives «n'aime» from m11's bare «aime». Verified live
- *     via L6's cloze (the correctParticle "n'a" is never itself registered
- *     as an atom — it only resolves through elision derivation) and via
- *     `npx vitest run` / `npx tsc --noEmit` at ship time.
+ *   - Atom «a» is registered BARE, not fused into «il a», matching m11's
+ *     bare «aime» — but unlike «aime», «a» is a single-letter surface, so
+ *     `getFrRealFormLexicon()` cannot free-derive its elided form:
+ *     `frTokens()` filters out length-1 tokens, so `frTokens("a")` is empty
+ *     and the elision-derivation loop never fires. «n'a» is therefore
+ *     registered as its OWN atom (see FR_M14_ATOMS below) — a deliberate
+ *     departure from the m11 precedent, verified live via the
+ *     vocab-provenance gate flagging "n'a" as untracked until it was added,
+ *     and via `npx vitest run` / `npx tsc --noEmit` at ship time.
  *   - manger is the sole new -er verb; «parlé» ships as the ONE optional
  *     stretch atom the brief flags (its bare infinitive «parler» is already
  *     registered from m11, unlike «aimé», whose infinitive is unregistered
@@ -32,8 +36,9 @@
  *     «j'ai»/«tu as» are CONSONANT-onset surfaces, so `elidesBefore()`
  *     never fires for them and "n'ai"/"n'as" never free-derive — the exact
  *     precedent m13 already set for the identical reason. «il n'a pas» /
- *     «elle n'a pas» are NEVER registered — they compose live from the bare
- *     `a` atom every time, the free-derivation claim in production use.
+ *     «elle n'a pas» are NEVER registered as their own chunk atoms — they
+ *     compose live from the separately-registered `il`/`elle` + `n'a` +
+ *     `pas` atoms every time.
  *   - manger/mangé [mɑ̃ʒe] are a PURE homophone — written-only distinction
  *     everywhere (particle_cloze correctParticle, build/speaking targets);
  *     never co-presented as options inside an audio-bearing/listening-
@@ -538,8 +543,9 @@ function lesson3(): LessonStep[] {
 }
 
 /** L4 — «Il a mangé»: debuts the bare atom «a» (il/elle/on), positive only
- *  — no negation yet. Vowel-onset by construction, ready for L6's free
- *  «n'a» derivation. */
+ *  — no negation yet. Vowel-onset by construction; L6 registers its
+ *  negative form «n'a» as its own atom (frTokens can't derive an elided
+ *  form from a single-letter surface). */
 function lesson4(): LessonStep[] {
   return [
     infoStep(
@@ -742,8 +748,11 @@ function lesson5(): LessonStep[] {
 }
 
 /** L6 — «Je n'ai pas mangé»: debuts the frozen chunks «je n'ai pas» / «tu
- *  n'as pas»; «il/elle n'a pas» composes FREE from the bare «a» atom via
- *  the elision lexicon — never itself registered. Full written register,
+ *  n'as pas», plus the standalone atom «n'a» (il/elle/on's negated form —
+ *  registered directly, not free-derived, since «a» is a single-letter
+ *  surface `frTokens()` can't produce an elision base from). «il/elle n'a
+ *  pas» itself is never registered as a chunk — it composes live from the
+ *  already-known `il`/`elle` + `n'a` + `pas` atoms. Full written register,
  *  no ne-drop yet. */
 function lesson6(): LessonStep[] {
   return [
@@ -967,14 +976,14 @@ function lesson7(): LessonStep[] {
           reply: {
             mode: "choice",
             options: [
-              { id: "correct", text: "moi aussi" },
-              { id: "wrong-non", text: "moi non plus" },
+              { id: "wrong-aussi", text: "moi aussi" },
+              { id: "correct", text: "moi non plus" },
               { id: "wrong-word", text: "déjà" },
             ],
             correctOptionId: "correct",
-            audioText: "moi aussi",
+            audioText: "moi non plus",
           },
-          replyGloss: "Me too.",
+          replyGloss: "Me neither.",
         },
       ],
     },
@@ -1025,11 +1034,11 @@ function checkpointLesson(): LessonStep[] {
     cloze(
       "fr-m14-8-cloze-2",
       "je n'ai pas",
-      "mangé hier soir",
+      "mangé",
       "encore",
       ["encore", "déjà"],
       "I haven't eaten yet",
-      "je n'ai pas encore mangé hier soir",
+      "je n'ai pas encore mangé",
     ),
     speaking("fr-m14-8-speak-recall-cestlundi", "c'est lundi", "it's Monday", [], "recall"),
     sentenceMcq({
