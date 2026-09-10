@@ -141,3 +141,4 @@ fan-out; save small notes here after every step (auto-compaction is on).
 - 14:29 ES m30 LANDED b55832f6 (138 clips, manifest 6720; suite 2191/1). Follow-on: nariz hint in m30-header.yaml still names «narices» (authoring metadata only, no UI consumer). Dispatching m30 reviewer + m31 brief writer.
 - 14:29 ES m30 reviewer + m31 brief writer dispatched. In flight: JA m43 author, KO story-mode, FR m20 reviewer, FR hundreds probe.
 - 14:30 FR m20 review LANDED 3004d96f (3 fixes, 0 clips). Gate gaps → second FR stream queue: (1) title provenance scan (scene.title + LessonContent.title, arriver/finir slipped through); (2) negated-frame speech probe (ne-drop vs un-negated target, m19+m20 checkpoints). Borderline: negated frame + un/du→de collapse follow m19 precedent.
+- 14:30 FR title-provenance gate lane dispatched (second FR stream). Negated-frame speech probe queued behind the hundreds probe (both touch loose-match/frSpeech*).
