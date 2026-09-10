@@ -54,7 +54,8 @@ if (!existsSync(enPath)) {
   process.exit(1);
 }
 const enCatalog = JSON.parse(readFileSync(enPath, "utf-8"));
-const entries = enCatalog.entries;
+const LIMIT = flag("limit", null);
+const entries = LIMIT ? enCatalog.entries.slice(0, Number(LIMIT)) : enCatalog.entries;
 
 // ── Category guidance (stated in the PROMPT TEXT, not just the schema —
 // the memory doc's 08-20 finding: enum-only labeling let this model emit
@@ -93,6 +94,11 @@ function buildPrompt(batch) {
   return `You are translating English learner-facing UI strings from a JAPANESE course into KOREAN, for KOREAN-speaking learners of Japanese.
 
 CRITICAL: translate each "en" string to Korean so it is STRUCTURE-TRUE TO THE JAPANESE ("ja" field, when present), NOT to the English wording. Japanese and Korean share SOV word order and a near 1:1 particle system (が/은/는, を/를, に/에, で/에서, の/의 …), so a structure-true Korean gloss is also natural Korean — do not smooth back toward the loose English phrasing (e.g. English "There's a book" for ほんが ある should become a Korean gloss that mirrors "book-SUBJECT exist(inanimate)", not just a free "책이 있어요" only if that itself is what a Korean speaker would say to parse the JA sentence's structure — prefer the reading that teaches the JA grammar point, matching this course's existing register).
+
+CONVENTIONS (docs/ko-content-conventions-2026-09-10.md — follow exactly):
+  - REGISTER: an "Instruction/UI-directive" (Pick/Build/Match, markers) is 해요체 imperative ("~을 고르세요"). A "gloss of a JA sentence" MIRRORS the JA sentence's own register — plain-form JA (だ/る/ない, no です/ます) becomes plain Korean statements (-다/-는다/-ㄴ다, questions -니?), never -어요/-ㅂ니까. A "vocab/atom gloss" uses citation -다 form.
+  - PREFIX TABLE: "Build: <s>" → "만들기: <gloss>" (never "빌드:"/bare "Build:"). "Build what you hear." → "들리는 대로 만들어 보세요." "Pick the word for X" → 'the exact form "X"에 해당하는 단어를 고르세요' every time. "Match each Japanese word to its meaning (review)" → "각 일본어 단어를 뜻과 연결하세요 (복습)". "(incorrect)" → "(틀림)".
+  - PRO-DROP: mirror JA subject presence exactly — never add 나는/저는/그는/당신 where the JA has no は/が-marked subject.
 
 Categories in this batch, and how to handle each:
   - "grammar-point rule/example": explains or exemplifies a JA grammar point (existence verbs ある/いる, negation via ～ない, location questions, spatial relations こ/そ/あ demonstratives). Keep terminology consistent with how a Korean-language JA-grammar course would name these forms. An "en" of exactly "(incorrect)" marks a deliberately WRONG example sentence — translate it as a short Korean equivalent marker (e.g. "(틀림)"), never as a full sentence.
