@@ -251,8 +251,24 @@ const MAX_NEVER_TOUCHED = 140;
  * challenge lessons, or were already counted elsewhere; only these two
  * verbs land exclusively on same-module-gated steps). They come OFF this
  * list only when a later module grades them (future Wave 1 authoring), not
- * a fix to make here. */
-const MAX_GRADED_BUT_NEVER_WRITES = 79;
+ * a fix to make here.
+ *
+ * 79 → 82, 2026-09-10 (Wave 1, m43 landing — n4-14 certainty ladder:
+ * かもしれない/はず/でしょう-deepen): three of m43's own new atoms — よそう,
+ * うたがう, しんじる. Same D2/D4 shape as every entry above: every graded
+ * touch of each currently lives inside m43, the module that introduces them
+ * (よそう debuts + is graded only in ja-m43-neo-4; うたがう/しんじる debut +
+ * are graded only in ja-m43-neo-5, and every later use of all three stays
+ * inside this same module) — the same-module gate blocks the write, D4
+ * seed-on-unlock still schedules each due the next day. Net +3, exactly
+ * matching the raw count of the three atoms (no ripple offset this time —
+ * confirmed via EXPOSURE_REPORT=1, the pre-existing 79-row report plus
+ * exactly these three new rows, nothing dropped off). The brief's own
+ * unverified "+2" estimate (docs/ja-m43-brief-2026-09-10.md) undercounted
+ * by one; measured, not assumed, per this file's own doctrine. They come
+ * OFF this list only when a later module grades them (future Wave 1
+ * authoring), not a fix to make here. */
+const MAX_GRADED_BUT_NEVER_WRITES = 82;
 
 type Row = {
   atomId: string;

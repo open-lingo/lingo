@@ -44,15 +44,16 @@ guide or the compiler, not the modules one at a time.**
 | m40 | 216 | 0.0% | 13 | — | 9 |
 | m41 | 216 | 0.0% | 11 | — | 1 |
 | m42 | 216 | 0.0% | 11 | — | 1 |
+| m43 | 216 | 0.0% | 11 | — | 2 |
 
 ## Systemic — fix upstream, not per module
 
 These are counted in the `systemic` column, NOT in `findings`, because no
 single module can fix them. `findings` = 0 means that module is clean.
 
-- **inv 35 build-tile-distractors** flagged in 37 modules
+- **inv 35 build-tile-distractors** flagged in 38 modules
   - 99 build steps are under the distractor floor AS AUTHORED. The central backfill in `buildTileFloor` repairs these at load, so nothing ships thin — this is AUTHORING DEBT, and inv 35 says to author the distractors anyway ("that backfill is exactly why authors stop noticing the bar").
-- **inv 30/33/37 debut-step-type** flagged in 5 modules
+- **inv 30/33/37 debut-step-type** flagged in 6 modules
   - "ねる" first appears on `listening_build` (ja-m32-neo-1-s-2)
 
 ## Findings by module

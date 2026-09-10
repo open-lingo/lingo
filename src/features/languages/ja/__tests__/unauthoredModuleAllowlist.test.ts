@@ -23,14 +23,14 @@ import { JA_COURSE_ATOMS } from "../courseAtoms";
  * atom id → the unauthored sentinel it is allowed to sit on.
  *
  * - `m49` (Keigo I, spine-n4.md): allocated vocabulary for an unbuilt module.
- * - `thr-n4` (glue-adverb drip): やっぱり/ぜったい retag to m25 (F13) and
+ * - `thr-n4` (glue-adverb drip): やっぱり retag to m25 (F13) and
  *   もちろん to m24 (pack 11) and べつに to m29 (F18) WITH their insert
  *   lessons — retagging ahead of the lesson would unlock them with no intro
- *   (docs/ja-freq-gap-plan-2026-08-26.md §4.1).
+ *   (docs/ja-freq-gap-plan-2026-08-26.md §4.1). ぜったい cashed in by m43
+ *   (docs/ja-m43-brief-2026-09-10.md §1) — removed from this allowlist.
  */
 const ALLOWED_UNAUTHORED: Readonly<Record<string, string>> = {
   mochiron: "thr-n4",
-  zettai: "thr-n4",
   betsuni: "thr-n4",
   yappari: "thr-n4",
   keigo: "m49",

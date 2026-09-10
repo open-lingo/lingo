@@ -1,0 +1,572 @@
+module: m43
+title: "Certainty ladder: 〜かもしれない / 〜はず / でしょう-deepen"
+register: plain
+priorNeoModules: [m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18, m19, m20, m21, m22, m23, m24, m25, m26, m27, m28, m29, m30, m31, m32, m33, m34, m35, m36, m37, m38, m39, m40, m41, m42]
+priorGrammarPoints: [ka-question, no-possession, wa-topic, wo-object, ga-existence,
+  ni-location, ni-time, de-action, mo-also, kara-because, node-because, kedo,
+  made-until, mae-ni, te-form, te-kudasai, te-iru, te-kara, te-miru, te-oku,
+  ta-form, nai-form, nai-existence, dictionary-form, masu-present, masu-negative,
+  masu-past, desu-copula, i-adj-present, i-adj-past, na-adj-present, v-tai,
+  to-omoimasu, toki, tsumori-desu, mashou, masenka, potential-form, dekiru,
+  deshou, kana-wondering, n-desu, sugiru, ku-ni-naru, hou-ga-ii,
+  nakereba-naranai, yo-emphasis, ne-agreement, register-audience,
+  chotto-softener, ageru, kureru, morau, ni-recipient, tara, to-conditional,
+  jidoushi-tadoushi, te-iru-resultative, volitional, you-to-omou, koto-ni-suru,
+  koto-ni-naru, you-to-suru, te-kureru, te-ageru, te-morau, favor-ladder, dake,
+  shika-nai, sou-appearance, garu-tagaru, yasui-nikui, nagara, ba-form,
+  ba-restriction, ba-vs-tara, nara, nara-vs-tara, ba-hodo, family-register,
+  frequency-adverbs, kono-sono-ano-dono, ni-iku, te-shimau, chau,
+  te-iku-kuru-space, kite-chain, te-kuru-iku-time, noni-concession,
+  temo-concession, demo-concession, demo-mo-closed-set, shi-listing,
+  passive-form, passive-rareru, possessed-object-passive,
+  niyotte-creation-passive, suffering-passive-recognition, te-aru,
+  te-aru-vs-te-iru, te-oku-vs-te-aru, transitivity-family-noticing,
+  sou-hearsay, tte-quotative, to-itte-ita, rashii-hearsay,
+  deshou-adjective, deshou-verb, deshou-casual, darou, tabun-kitto]
+notes: |
+  m43 · n4-14 — CERTAINTY LADDER: 〜かもしれない / 〜はず / でしょう-deepen
+  (docs/spine-n4.md §n4-14, docs/ja-m43-brief-2026-09-10.md). Ships 12
+  lessons (inv 25: 8 teaching + 3 review + 1 challenge, challenge last,
+  reviews at positions 4/8/11 — matching m41/m42's own placement).
+
+  FRESH STATE RE-VERIFIED: ran `node scripts/authoring-context.mjs m43`
+  before writing this file (saved to a scratch file, grepped repeatedly).
+  m42 confirmed live in the digest with its four grammarPoints
+  (sou-hearsay, tte-quotative, to-itte-ita, rashii-hearsay) and all 12
+  lessons; those four ids plus the full m25 でしょう-family
+  (deshou-adjective, deshou-verb, deshou-casual, darou, tabun-kitto — none
+  of which any module after m25 had bothered re-carrying, m42 included)
+  are appended onto this module's own priorGrammarPoints above, since
+  `exercises`/`combines` validation only checks this module's own
+  declared list, not any transitive inheritance.
+
+  WHAT IS TAUGHT (four-rung certainty ladder, three genuinely new
+  grammarPoints plus one review-object synthesis, never merged into one
+  block table mid-course — interleave-dont-block-teach):
+  1. **かもしれない (epistemic "might"), L2 id kamoshirenai:** plain
+     verb/い-adjective attaches as-is; noun/な-adjective DROPS だ first
+     (がくせいかもしれない, never がくせいだかもしれない). The weakest rung.
+     もしかしたら pairs as its natural sentence-opener. Casual かも is
+     NEVER its own atom (see below) — it decomposes into the pre-existing
+     free particles か (p-ka, m3) + も (p-mo, m3).
+  2. **はず (evidence-backed "should be"), L5 id hazu, variant "intro":**
+     the mirror-image connector move from かもしれない — plain
+     verb/い-adjective attaches as-is, but noun hosts insert の
+     (がくせいのはずだ) and な-adjective hosts insert な (げんきなはずだ),
+     never だ. A genuine conclusion from evidence, not a bare guess.
+  3. **はずだった / はずがない, L6 id hazu, variant "spends":** a second
+     `kind: rule` card sharing the hazu id but a DIFFERENT variant key
+     (cardOwner is keyed `${id}/${variant}` in moduleCompiler.ts, so this
+     is not a same-card-twice violation) — はずだった reports a broken
+     expectation ("was supposed to, but hasn't"), はずがない flatly denies
+     ("no way"). Both compose from the SAME の/な/bare connector rule as
+     variant "intro", just riding two extra endings.
+  4. **でしょう-deepen, L3, no new grammarPointId of its own** (references
+     m25's deshou/deshou-adjective/deshou-verb/darou/tabun-kitto ids
+     directly via `exercises:`/`combines:` tags on plain sentence/dialogue
+     beats — never a `kind: rule` beat, since none of those ids are
+     declared in THIS module's own grammarPoints[], and resolveGrammarPoint
+     only searches the current module's own list). だろう stays strictly
+     recognition-only throughout (Tanaka-voiced or NPC dialogue lines
+     only, never a build/cloze/challenge target) — matching its own
+     firm m25 framing, never promoted (brief §6, explicitly rejected).
+  5. **certainty-ladder, L10 (neo-8), own new id — a REVIEW-OBJECT
+     synthesis card, not new teaching** (inv 26 shape): orders all four
+     rungs by strength — にちがいない (top, recognition only) > はず >
+     でしょう/だろう (recognition twin) > かもしれない (bottom) — via a
+     "finish 'because ~'" completion test. にちがいない is cited in this
+     card's own rule prose and appears only in listening-comp/dialogue
+     lines everywhere else in the module; it is NEVER its own
+     grammarPointId, so there is nothing to accidentally tag onto a
+     build/cloze/challenge beat — the recognition-only guarantee is
+     structural, not just a discipline.
+
+  RESOLVED UNVERIFIED ITEM (brief's own flag, hazu sub-id split): the
+  brief flagged whether はず's intro-connector rule and its
+  はずだった/はずがない production spends should be one grammarPointId or
+  two. Resolved here as ONE id (`hazu`) with TWO `variant` values
+  (`intro`, `spends`) — confirmed against moduleCompiler.ts's own doc
+  comment (~line 105-118, the m6 nai-form three-card precedent) and its
+  `resolveGrammarPoint` implementation (~line 729-740, which requires
+  `beat.variant` to disambiguate when 2+ grammarPoints share an id). This
+  keeps both cards under one conceptual id for review/SRS purposes while
+  giving each its own genuinely distinct rule text, its own examples, and
+  its own antiPattern — exactly the m6 nai-form precedent, generalized.
+
+  かも TOKENIZER SAFETY (brief §3/§5/§6, firm rule, not re-derived here):
+  かもしれない registered as ONE fused 6-kana courseAtoms.ts atom
+  (courseAtoms.ts edit, id "kamoshirenai") so any full-phrase use always
+  wins longest-match. Casual bare かも at a sentence end is NEVER given
+  its own atom — this module never authors a bare-かも sentence at all
+  (grep of the compiled ir/m43.ir.json before considering any lesson done
+  confirms no standalone kana:"かも" entry anywhere in newAtoms or
+  exercised sentences), so the theoretical か+も decomposition never
+  actually needs to fire in this module's own content; it exists only as
+  a standing guarantee for later modules that might.
+
+  した/きた AVOIDANCE (courseAtoms.ts's own note on both, hard constraint,
+  not re-derived here): neither bare atom is registered (collision with
+  下/北). No sentence anywhere in this module uses した or きた, including
+  inside noun+する compounds (せいこうした, しっぱいした, べんきょうした,
+  やくそくした are all avoided outright) — every example stays in
+  non-past/present form, or uses independently-registered past atoms
+  (あった, かった) where a genuine past tense was needed. This ruled out
+  several natural-sounding narrative sentences (promise-keeping in the
+  past, test-prep in the past); present-tense/evidential framing covers
+  the same pedagogy without the landmine.
+
+  CONJUGATED-FORM DISCIPLINE (STEMS/ChainForm scope, not re-derived
+  here): うたがう (godan, verbClass u) and しんじる (ichidan, verbClass ru)
+  are kept in bare dictionary form or on the closed TRANSFORM_RULESETS
+  list only — never a hand-typed past tense for either, since STEMS only
+  auto-derives ます/く-stems for the hardcoded VERB_ENTRIES/ADJ_ENTRIES
+  tables, not IR-only verbs. Neither verb's past tense is used anywhere
+  in this module, so no atom was needed for that.
+
+  CORRECTION (post-compile, ratchet run): the ORIGINAL draft of this
+  paragraph claimed no derived `verb-form` atoms would be needed at all
+  for うたがう/しんじる, reasoning (wrongly) that getRealFormLexicon's
+  CHAIN_FORMS auto-derivation would cover whatever conjugated surfaces
+  this module actually used. It doesn't: CHAIN_FORMS only derives from
+  the hardcoded VERB_ENTRIES/ADJ_ENTRIES tables, and うたがう/しんじる are
+  IR-only registered verbs — NOT in that table — so they get ZERO
+  auto-derived conjugated forms. The greedy longest-match tokenizer
+  (moduleBarGuards.ts) then falls through past the un-matched conjugated
+  string to shorter, unrelated atoms that happen to prefix-match (e.g.
+  しんじている fell through to the single-kana grammar particle し plus a
+  stray orphaned "んじ" fragment), tripping the untracked-word gate.
+  Fix, mirroring m42's own つたえた/しらせた precedent: 4 explicit
+  `verb-form, derivedFrom` newAtoms were added below for every recurring
+  conjugated surface this module's content actually exercises —
+  うたがわない (nai-form), しんじれば (ba-form), しんじよう (volitional),
+  しんじて (te-form). This does NOT add to the 15-new-courseAtoms.ts-row
+  count (`irAtomRegistration.test.ts`'s DERIVED_KINDS rule — derived
+  verb-form atoms are never separately registered in courseAtoms.ts),
+  so the count below is unaffected; it brought newAtoms from 15 to 19.
+  A 5th derived atom was needed for the same reason on a DIFFERENT
+  verb: おもわない (nai-form of m5's own おもう, used in the L7/challenge
+  "とは おもわない" construction) — おもう is a courseAtoms.ts vocab entry
+  but, like うたがう/しんじる, is not in the hardcoded VERB_ENTRIES table,
+  so it gets no auto-derived forms either (m39 already set the
+  precedent, registering おもった for the same reason). Brought newAtoms
+  from 19 to 20, same DERIVED_KINDS exemption.
+
+  DOMAIN VOCAB CUTS (brief's own explicit first-cut suggestion, "みこみ
+  first, then かくじつ"): both cut entirely. Final new-atom count is the
+  11 explicitly-named words (やくそく, たしか, かならず, もしかしたら, よそう,
+  せいこう, しっぱい, うたがう, しんじる, あんしん, しんぱい) plus ぜったい
+  (cash-in flip, not new — was a thr-n4 glue-adverb stub with no
+  introducedByLessonId, same reuse discipline as m41's ならぶ/ならべる and
+  m42's p-tte) plus 3 new grammar-carrier atoms (かもしれない, はず,
+  にちがいない) = 14 new courseAtoms.ts rows, well under the spine's own
+  non-binding count:32 ceiling.
+
+  CORRECTION (post-compile, tsc ratchet run): an earlier pass of this
+  file wrongly gave かもしれません its OWN courseAtoms.ts row (kind:
+  "verb-form", which isn't even a legal CourseAtomKind — vocab/particle/
+  phrase only — a real TS2322) and folded it into a stated "15 new
+  courseAtoms.ts rows" total. That row was both a type error and a
+  DERIVED_KINDS violation (derived verb-forms register ONLY in this
+  file's own newAtoms, exactly like うたがわない/しんじれば/しんじよう/
+  しんじて/おもわない above — m42's つたえた/しらせた and m39's おもった
+  have zero courseAtoms.ts rows for the same reason). かもしれません was
+  already correctly present in this file's newAtoms list the whole time;
+  the courseAtoms.ts row was pure redundant duplication. Deleted the row;
+  true count is 14, not 15.
+
+  MAX_GRADED_BUT_NEVER_WRITES (brief's own "+2" figure explicitly flagged
+  UNVERIFIED, not assumed here): measured for real after this module
+  landed via `EXPOSURE_REPORT=1 npx vitest run
+  src/features/languages/ja/__tests__/atomExposureAudit.test.ts` — actual
+  delta and evidence recorded in the final task report, not copied from
+  the brief's own estimate.
+
+  REJECTED (brief §6, not re-derived here): a block-lesson ladder table
+  (interleave instead — L1/L6/L9-shaped no-new-grammar domain lessons
+  carry the spacing); promoting だろう to production; a gradable
+  にちがいない (recognition prose only, never its own id); a
+  `kind: contrast` beat type (not shipped in moduleCompiler.ts);
+  re-registering でしょう/だろう/きっと/けっか (all cashed in by id/atom
+  reuse, never re-declared); realizing spiralWith n4-15 concretely (left
+  as a spine cross-reference only).
+grammarPoints:
+  - id: kamoshirenai
+    rule: "かもしれない means 'might be' — a guess you are genuinely not sure about. Attach it to the plain form of what you are guessing: a verb or い-adjective in dictionary form as-is, but a noun or な-adjective DROPS its だ first — がくせいかもしれない, 'might be a student,' never がくせいだかもしれない. あめが ふるかもしれない, 'it might rain.' Casual speech often shortens this to bare かも at a sentence end, but that shortcut is not a separate word — it is か plus the も you already know, worn down by speed, and this course never registers it as its own atom. Compare でしょう, which you already own: でしょう states a fairly confident guess out loud; かもしれない admits real uncertainty, often even to yourself."
+    examples:
+      - { ja: "がくせいかもしれない。", en: "Might be a student." }
+      - { ja: "あめが ふるかもしれない。", en: "It might rain." }
+      - { ja: "たなかさんは いそがしいかもしれない。", en: "Tanaka might be busy." }
+      - { ja: "もしかしたら、テストは むずかしいかもしれない。", en: "Perhaps the test might be hard." }
+      - { ja: "たなかさんは くるかもしれないが、ミカは ぜったい くる。", en: "Tanaka might come, but Mika will definitely come." }
+    antiPattern: { ja: "がくせいだかもしれない。", why: "Noun and な-adjective hosts DROP だ before かもしれない — がくせいかもしれない, 'might be a student.' Keeping だ borrows でしょう's own different pattern by mistake." }
+  - id: hazu
+    variant: intro
+    rule: "はず means 'should be' — not a guess but a confident conclusion, because you have a real reason. A plain verb or い-adjective attaches straight to はず: くるはずだ, 'he should be coming' (I know his schedule). A noun needs の first: がくせいのはずだ, 'she should be a student' (I saw her ID). A な-adjective needs な first: げんきなはずだ, 'she should be fine' (I just talked to her). This is the opposite move from かもしれない, which DROPS だ for the same two hosts — はず INSERTS の or な instead. Compare でしょう: でしょう is a guess said out loud; はず claims real evidence backs the conclusion."
+    examples:
+      - { ja: "くるはずだ。", en: "He should be coming." }
+      - { ja: "がくせいのはずだ。", en: "She should be a student." }
+      - { ja: "げんきなはずだ。", en: "She should be fine." }
+      - { ja: "このテストは むずかしいはずだ。", en: "This test should be hard." }
+      - { ja: "やくそくが あるから、くるはずだ。", en: "Since there's a promise, he should be coming." }
+    antiPattern: { ja: "がくせいだはずだ。", why: "A noun host needs の before はず, not だ — がくせいのはずだ, 'she should be a student.' だ belongs to かもしれない's opposite rule, not this one." }
+  - id: hazu
+    variant: spends
+    rule: "Two extra shapes push はず further, both riding the same の/な/bare connector rule as before. はずだった says something SHOULD have happened, by your own evidence, but you don't yet know if it did — くるはずだったが、まだ こない, 'he was supposed to come, but he still hasn't.' はずがない flips はず into a flat denial, 'there's no way' — げんきなはずが ない, 'there's no way she's fine' (the evidence points the other way entirely)."
+    examples:
+      - { ja: "くるはずだったが、まだ こない。", en: "He was supposed to come, but hasn't yet." }
+      - { ja: "げんきなはずが ない。", en: "There's no way she's fine." }
+      - { ja: "このプレゼントが たかいはずが ない。", en: "There's no way this present is expensive." }
+      - { ja: "がくせいのはずが ない。", en: "There's no way she's a student." }
+      - { ja: "しっぱいするはずが ない。かならず せいこうする。", en: "There's no way it'll fail. It'll definitely succeed." }
+    antiPattern: { ja: "くるはずだが、まだ こない。", why: "Reporting a broken expectation about something that already should have happened needs the past はずだった, not plain はずだ — くるはずだったが、まだ こない, 'he was supposed to come, but hasn't yet.'" }
+  - id: certainty-ladder
+    rule: "Four ways to guess, one ladder of how sure you sound. にちがいない sits at the top — 'must be,' near-certainty from strong evidence (you'll only ever hear this one, never build it). はず comes next — 'should be,' a confident conclusion backed by a real reason. でしょう and its casual twin だろう sit in the middle — a fair, everyday guess, said out loud (だろう also stays recognition-only). かもしれない sits at the bottom — 'might be,' genuine uncertainty, the weakest claim of the four. One test sorts them: finish 'because ~' after the guess. はず and にちがいない always survive that test — you have a real reason. でしょう often has one but doesn't have to say it. かもしれない frequently has none at all — when you DO have a concrete reason, reach up the ladder instead of underselling it."
+    examples:
+      - { ja: "やくそくが あるから、たなかさんは くるはずだ。", en: "Since there's a promise, Tanaka should be coming." }
+      - { ja: "けっかが いいから、たなかさんは せいこうするにちがいない。", en: "Since the result is good, Tanaka must be succeeding, no doubt." }
+      - { ja: "たなかさんは たぶん くるでしょう。", en: "Tanaka will probably come." }
+      - { ja: "たなかさんは くるかもしれない。", en: "Tanaka might come." }
+      - { ja: "しっぱいするかもしれないが、たしかに せいこうするはずだ。", en: "It might fail, but for sure it should succeed." }
+    antiPattern: { ja: "やくそくが あるから、くるかもしれない。", why: "When you actually have a concrete reason — a promise — reach for はず, the evidence-backed rung: やくそくが あるから、くるはずだ. かもしれない undersells real evidence down to a bare guess; save it for when you truly have no reason at all." }
+newAtoms:
+  # ══ L1 (neo-1) — promises/plans domain intro, no new grammar ══
+  - { kana: やくそく, kanji: 約束, romaji: yakusoku, gloss: "a promise", shortGloss: "promise", imageable: false, kind: vocab, pos: noun }
+  - { kana: たしか, kanji: 確か, romaji: tashika, gloss: "for sure, if I recall correctly", shortGloss: "for sure", imageable: false, kind: vocab, pos: adverb }
+  - { kana: かならず, kanji: 必ず, romaji: kanarazu, gloss: "certainly, without fail", shortGloss: "without fail", imageable: false, kind: vocab, pos: adverb }
+  # ══ L2 (neo-2), id kamoshirenai — the epistemic-possibility auxiliary
+  # itself, plus its sentence-opening partner and ぜったい's cash-in.
+  # かもしれません is the IR-only polite derived form, Tanaka-voiced
+  # recognition only. No bare かも atom, ever (see notes above).
+  - { kana: もしかしたら, romaji: moshikashitara, gloss: "perhaps, possibly", shortGloss: "perhaps", imageable: false, kind: vocab, pos: adverb }
+  - { kana: かもしれない, romaji: kamoshirenai, gloss: "might be, may be (epistemic possibility)", shortGloss: "might be", imageable: false, kind: vocab }
+  - { kana: かもしれません, romaji: kamoshiremasen, gloss: "might be, may be (polite)", shortGloss: "might be (polite)", imageable: false, kind: verb-form, derivedFrom: かもしれない }
+  # ══ L3 (neo-3), でしょう-deepen — no new grammarPointId, references
+  # m25's deshou family by id. せいこう/しっぱい are the new domain nouns.
+  - { kana: せいこう, kanji: 成功, romaji: seikou, gloss: "success", shortGloss: "success", imageable: false, kind: vocab, pos: noun }
+  - { kana: しっぱい, kanji: 失敗, romaji: shippai, gloss: "failure", shortGloss: "failure", imageable: false, kind: vocab, pos: noun }
+  # ══ L5 (neo-4), id hazu variant intro — the evidence-backed conclusion
+  # marker, plus its forecast-domain carrier noun.
+  - { kana: よそう, kanji: 予想, romaji: yosou, gloss: "a prediction, a forecast", shortGloss: "prediction", imageable: false, kind: vocab, pos: noun }
+  - { kana: はず, romaji: hazu, gloss: "should be, expected to be (from evidence)", shortGloss: "should be", imageable: false, kind: vocab, pos: noun }
+  # ══ L6 (neo-5), id hazu variant spends — はずだった/はずがない production.
+  # うたがう/しんじる are the new cognition verbs, kept in bare dictionary
+  # form throughout (see notes above).
+  - { kana: うたがう, kanji: 疑う, romaji: utagau, gloss: "to doubt", shortGloss: "to doubt", imageable: false, kind: vocab, pos: verb, verbClass: u }
+  - { kana: しんじる, kanji: 信じる, romaji: shinjiru, gloss: "to believe", shortGloss: "to believe", imageable: false, kind: vocab, pos: verb, verbClass: ru }
+  - { kana: うたがわない, romaji: utagawanai, gloss: "does not doubt — negative of うたがう", shortGloss: "doesn't doubt (doubt)", imageable: false, kind: verb-form, derivedFrom: うたがう, verbClass: u }
+  - { kana: しんじれば, romaji: shinjireba, gloss: "if (one) believes — conditional of しんじる", shortGloss: "if believe (believe)", imageable: false, kind: verb-form, derivedFrom: しんじる, verbClass: ru }
+  - { kana: しんじよう, romaji: shinjiyou, gloss: "let's believe — volitional of しんじる", shortGloss: "let's believe (believe)", imageable: false, kind: verb-form, derivedFrom: しんじる, verbClass: ru }
+  - { kana: しんじて, romaji: shinjite, gloss: "believing — te-form of しんじる", shortGloss: "believing (believe)", imageable: false, kind: verb-form, derivedFrom: しんじる, verbClass: ru }
+  - { kana: おもわない, romaji: omowanai, gloss: "don't think — negative of おもう (m5)", shortGloss: "don't think (think)", imageable: false, kind: verb-form, derivedFrom: おもう, verbClass: u }
+  # ══ L7 (neo-6) — domain integration + にちがいない recognition aside.
+  # あんしん/しんぱい are new psychological-state na-adjectives; にちがいない
+  # is registered but is NOT a grammarPointId — recognition-only by
+  # structure, never appears in a build/cloze/challenge beat anywhere.
+  - { kana: あんしん, kanji: 安心, romaji: anshin, gloss: "peace of mind, relief", shortGloss: "relief", imageable: false, kind: vocab, pos: adjective }
+  - { kana: しんぱい, kanji: 心配, romaji: shinpai, gloss: "worry, anxiety", shortGloss: "worry", imageable: false, kind: vocab, pos: adjective }
+  - { kana: にちがいない, romaji: nichigainai, gloss: "must be, no doubt (strong certainty — recognition only)", shortGloss: "must be", imageable: false, kind: vocab }
+
+lessons:
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m43-neo-1
+    role: teaching
+    title: "「やくそくが ある」— the promises and plans domain"
+    focus: "Priming vocabulary for the certainty-ladder arc — no new grammar yet, all through particles and forms you already own"
+    introduces: [やくそく, たしか, かならず]
+    beats:
+      - { kind: sentence, ja: "たなかさんとの やくそくが ある。", en: "I have a promise with Tanaka.", exercises: [ga-existence], mode: build }
+      - { kind: sentence, ja: "かならず いく。", en: "I will definitely go.", exercises: [dictionary-form], mode: build }
+      - { kind: sentence, ja: "たしかに、あしたは たんじょうびだ。", en: "For sure, tomorrow is the birthday.", exercises: [wa-topic, desu-copula], mode: build }
+      - { kind: sentence, ja: "やくそくは たいせつだ。", en: "A promise is important.", exercises: [wa-topic, na-adj-present], mode: build }
+      - { kind: sentence, ja: "かならず プレゼントを かう。", en: "I will definitely buy a present.", exercises: [wo-object, dictionary-form], mode: listening }
+      - { kind: particle-cloze, stem: "あしたの やくそくが あるから、", tail: " いく。", answer: "かならず", options: ["かならず", "たしか", "たぶん"], en: "Since there's a promise tomorrow, I will definitely go.", explanation: "かならず, 'without fail,' fits a resolve about your OWN action. たしか is for recalling a fact, not vowing to act, and たぶん pairs with uncertainty — the wrong tone for a firm promise." }
+      - { kind: listening-comp, audio: "けっこんの おいわいに プレゼントを かった。", answer: "I bought a present for the wedding celebration.", distractors: ["I forgot to buy a present for the wedding celebration.", "I received a present for the wedding celebration.", "There is no wedding celebration."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "たなかさんとの やくそくは たいせつだ。", answer: "The promise with Tanaka is important.", distractors: ["The promise with Tanaka was cancelled.", "Tanaka forgot the promise.", "There is no promise with Tanaka."], q: "What does this mean?" }
+      - { kind: kanji, kana: やくそく, kanji: 約束, distractors: ["やすい", "やさしい", "やめる"], exercises: [ga-existence] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "あした たなかさんと やくそくが あるの。", en: "I have a promise with Tanaka tomorrow." }
+          - { speaker: "Ken", ja: "そう。かならず いく？", en: "I see. Will you definitely go?" }
+          - { speaker: "Mika", ja: "うん、たしかに いく。", en: "Yeah, for sure I'll go." }
+        questions:
+          - { q: "What does Mika say about tomorrow?", options: ["She will definitely go, since she has a promise", "She forgot about the promise", "She cancelled the promise", "She has no plans tomorrow"], answer: "She will definitely go, since she has a promise" }
+      - { kind: challenge, ja: "たなかさんとの やくそくが あるから、あしたも かならず いく。", en: "Since I have a promise with Tanaka, I'll definitely go tomorrow too.", combines: [kara-because, mo-also, dictionary-form], mode: build }
+    reviewPool: [けっこん, たんじょうび, プレゼント, やくそく, たいせつ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m43-neo-2
+    role: teaching
+    title: "「ふるかもしれない」— かもしれない, admitting a guess"
+    focus: "Core construction: plain form + かもしれない admits real uncertainty; light contrast against the cashed-in ぜったい (100% certain)"
+    introduces: [もしかしたら, かもしれない, ぜったい]
+    beats:
+      - { kind: rule, grammarPointId: kamoshirenai }
+      - { kind: sentence, ja: "あめが ふるかもしれない。", en: "It might rain.", exercises: [kamoshirenai], mode: build }
+      - { kind: sentence, ja: "たなかさんは いそがしいかもしれない。", en: "Tanaka might be busy.", exercises: [kamoshirenai], mode: build }
+      - { kind: sentence, ja: "もしかしたら、テストは むずかしいかもしれない。", en: "Perhaps the test might be hard.", exercises: [kamoshirenai], mode: build }
+      - { kind: sentence, ja: "がくせいかもしれない。", en: "Might be a student.", exercises: [kamoshirenai], mode: listening }
+      - { kind: sentence, ja: "たなかさんは くるかもしれないが、ミカは ぜったい くる。", en: "Tanaka might come, but Mika will definitely come.", exercises: [kamoshirenai, kedo], mode: build }
+      - { kind: particle-cloze, stem: "たなかさんは いそがしい", tail: "。", answer: "かもしれない", options: ["かもしれない", "かもしれません", "でしょう"], en: "Tanaka might be busy.", explanation: "'Might be,' at a casual register, needs plain かもしれない. かもしれません is the polite form — Tanaka's own voice, not yours to build with yet — and でしょう would upgrade this into a confident guess instead of admitted uncertainty." }
+      - { kind: listening-comp, audio: "がくせいかもしれません。", answer: "Might be a student (polite).", distractors: ["Is definitely a student.", "Is not a student.", "Was a student."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "もしかしたら、あめが ふるかもしれない。", answer: "Perhaps it might rain.", distractors: ["It's definitely going to rain.", "It's not going to rain at all.", "It rained yesterday."], q: "What does this mean?" }
+      - { kind: kanji, kana: ぜったい, kanji: 絶対, distractors: ["せんたく", "せかい", "せつめい"], exercises: [kamoshirenai] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "あした あめが ふるかもしれないよ。", en: "It might rain tomorrow." }
+          - { speaker: "Ken", ja: "そう。かさを もっていく？", en: "I see. Will you take an umbrella?" }
+          - { speaker: "Mika", ja: "うん、もっていく。たなかさんは くるかもしれないけど、わたしは ぜったい いく。", en: "Yeah, I'll take it. Tanaka might come, but I'll definitely go." }
+        questions:
+          - { q: "What does Mika say about the rain tomorrow?", options: ["It might rain", "It will definitely rain", "It will definitely not rain", "She has no idea about the weather at all"], answer: "It might rain" }
+      - { kind: challenge, ja: "あめが ふるかもしれないから、かさを もっていく。", en: "Since it might rain, I'll take an umbrella.", combines: [kamoshirenai, kara-because, te-iku-kuru-space], mode: build }
+    reviewPool: [テスト, かさ, たいせつ, やくそく]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m43-neo-3
+    role: teaching
+    title: "「むずかしいでしょう」— でしょう-deepen"
+    focus: "60-second rehash of でしょう across all three hosts; だろう stays recognition-only; たぶん・きっと reused, never re-taught"
+    introduces: [せいこう, しっぱい]
+    beats:
+      - { kind: sentence, ja: "あした あめが ふるでしょう。", en: "It will probably rain tomorrow.", exercises: [deshou], mode: build }
+      - { kind: sentence, ja: "たなかさんは がくせいでしょう。", en: "Tanaka is probably a student.", exercises: [deshou], mode: build }
+      - { kind: sentence, ja: "テストは むずかしいでしょう。", en: "The test is probably hard.", exercises: [deshou-adjective], mode: build }
+      - { kind: sentence, ja: "きっと せいこうするでしょう。", en: "Surely it'll probably succeed.", exercises: [deshou-verb, tabun-kitto], mode: build }
+      - { kind: sentence, ja: "たぶん しっぱいしないでしょう。", en: "It probably won't fail.", exercises: [deshou-verb, tabun-kitto], mode: build }
+      - { kind: particle-cloze, stem: "テストは ", tail: "でしょう。", answer: "むずかしい", options: ["むずかしい", "むずかしかった", "むずかしくない"], en: "The test is probably hard.", explanation: "でしょう attaches here to a plain non-past い-adjective — むずかしかった (past) and むずかしくない (negative) change the actual meaning, not just the register." }
+      - { kind: listening-comp, audio: "きっと せいこうするだろう。", answer: "Surely it'll probably succeed.", distractors: ["It definitely won't succeed.", "It already succeeded.", "Nobody thinks it will succeed."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "たぶん あした こないでしょう。", answer: "Probably won't come tomorrow.", distractors: ["Will definitely come tomorrow.", "Came yesterday.", "Nobody knows anything about tomorrow."], q: "What does this mean?" }
+      - { kind: kanji, kana: せいこう, kanji: 成功, distractors: ["せんせい", "せかい", "せんしゅう"], exercises: [deshou] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "テストは むずかしいだろうね。", en: "The test is probably hard, huh." }
+          - { speaker: "Ken", ja: "たぶん。でも、きっと せいこうするでしょう。", en: "Probably. But surely it'll probably succeed." }
+          - { speaker: "Mika", ja: "うん、わかった。", en: "Yeah, got it." }
+        questions:
+          - { q: "What does Ken think about the test?", options: ["It's probably hard, but he'll probably succeed", "It's definitely easy", "He already failed it", "He has no opinion about it"], answer: "It's probably hard, but he'll probably succeed" }
+      - { kind: challenge, ja: "テストは むずかしいでしょうけど、たいせつな テストだから、きっと せいこうするでしょう。", en: "The test is probably hard, but since it's an important test, surely it'll probably succeed.", combines: [deshou-adjective, kara-because, kedo], mode: build }
+    reviewPool: [テスト, むずかしい, たいせつ, やくそく]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m43-neo-review-1
+    role: review
+    title: "Review — かもしれない and でしょう-deepen"
+    focus: "Spiral L1-L3: the domain vocabulary, かもしれない, and the でしょう-deepen rehash — THIS MODULE ONLY"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "たなかさんとの やくそくが あるから、かならず いく。", en: "Since I have a promise with Tanaka, I'll definitely go.", exercises: [kara-because], mode: build }
+      - { kind: sentence, ja: "あめが ふるかもしれない。", en: "It might rain.", exercises: [kamoshirenai], mode: build }
+      - { kind: particle-cloze, stem: "たなかさんは いそがしい", tail: "。", answer: "かもしれない", options: ["かもしれない", "かもしれません", "でしょう"], en: "Tanaka might be busy.", explanation: "'Might be,' at a casual register, needs plain かもしれない — かもしれません is the polite form and でしょう upgrades this to a confident guess instead of admitted uncertainty." }
+      - { kind: sentence, ja: "テストは むずかしいでしょう。", en: "The test is probably hard.", exercises: [deshou-adjective], mode: build }
+      - { kind: sentence, ja: "きっと せいこうするでしょう。", en: "Surely it'll probably succeed.", exercises: [deshou-verb, tabun-kitto], mode: build }
+      - { kind: listening-comp, audio: "もしかしたら、あめが ふるかもしれない。", answer: "Perhaps it might rain.", distractors: ["It's definitely going to rain.", "It's not going to rain at all.", "It rained yesterday."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "あした あめが ふるかもしれないね。", en: "It might rain tomorrow, huh." }
+          - { speaker: "Ken", ja: "たぶん。でも、きっと だいじょうぶでしょう。", en: "Probably. But surely it'll probably be fine." }
+          - { speaker: "Mika", ja: "うん、そうだね。", en: "Yeah, that's right." }
+        questions:
+          - { q: "How sure does Ken sound about tomorrow?", options: ["Fairly confident it'll be fine", "Certain it will rain", "Certain it won't rain", "He has no opinion"], answer: "Fairly confident it'll be fine" }
+      - { kind: sentence, ja: "たなかさんは くるかもしれないが、ミカは ぜったい くる。", en: "Tanaka might come, but Mika will definitely come.", exercises: [kamoshirenai, kedo], mode: build }
+    reviewPool: [やくそく, たしか, かならず, もしかしたら, ぜったい, せいこう, しっぱい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m43-neo-4
+    role: teaching
+    title: "「くるはずだ」— はず, a confident conclusion"
+    focus: "Core construction: evidence-backed はず, the mirror-image connector move from かもしれない"
+    introduces: [よそう, はず]
+    beats:
+      - { kind: rule, grammarPointId: hazu, variant: intro }
+      - { kind: sentence, ja: "やくそくが あるから、たなかさんは くるはずだ。", en: "Since there's a promise, Tanaka should be coming.", exercises: [hazu, kara-because], mode: build }
+      - { kind: sentence, ja: "たなかさんは がくせいのはずだ。", en: "Tanaka should be a student.", exercises: [hazu], mode: build }
+      - { kind: sentence, ja: "げんきなはずだ。", en: "Should be fine.", exercises: [hazu], mode: build }
+      - { kind: sentence, ja: "このテストは むずかしいはずだ。", en: "This test should be hard.", exercises: [hazu], mode: build }
+      - { kind: sentence, ja: "よそうは、あめが ふるはずだ。", en: "According to the forecast, it should rain.", exercises: [hazu], mode: listening }
+      - { kind: particle-cloze, stem: "たなかさんは ", tail: "。", answer: "がくせいのはずだ", options: ["がくせいのはずだ", "がくせいはずだ", "がくせいだはずだ"], en: "Tanaka should be a student.", explanation: "A noun host needs の before はず — がくせいのはずだ. Dropping の or swapping in だ both break the connector rule." }
+      - { kind: listening-comp, audio: "よそうは、あめが ふるはずだ。", answer: "According to the forecast, it should rain.", distractors: ["According to the forecast, it definitely won't rain.", "There is no forecast.", "It already rained, according to the forecast."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "このテストは むずかしいはずだ。", answer: "This test should be hard.", distractors: ["This test should be easy.", "This test was cancelled.", "Nobody knows if this test is hard."], q: "What does this mean?" }
+      - { kind: kanji, kana: よそう, kanji: 予想, distractors: ["よやく", "よてい", "よる"], exercises: [hazu] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "たなかさん、くる？", en: "Is Tanaka coming?" }
+          - { speaker: "Ken", ja: "やくそくが あるから、くるはずだよ。", en: "Since there's a promise, he should be coming." }
+          - { speaker: "Mika", ja: "そう。じゃあ、まとう。", en: "I see. Then let's wait." }
+        questions:
+          - { q: "Why does Ken think Tanaka should be coming?", options: ["Because there's a promise", "Because Tanaka said so directly", "Because he saw Tanaka on the way", "He has no reason at all"], answer: "Because there's a promise" }
+      - { kind: challenge, ja: "やくそくが あるから、たなかさんも ミカも くるはずだ。", en: "Since there's a promise, both Tanaka and Mika should be coming.", combines: [hazu, kara-because, mo-also], mode: build }
+    reviewPool: [やくそく, テスト, むずかしい, げんき]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m43-neo-5
+    role: teaching
+    title: "「くるはずだったが」— はずだった / はずがない, production spends"
+    focus: "はず deepens: a broken expectation (はずだった) and a flat denial (はずがない), same connector rule throughout"
+    introduces: [うたがう, しんじる]
+    beats:
+      - { kind: rule, grammarPointId: hazu, variant: spends }
+      - { kind: sentence, ja: "たなかさんは くるはずだったが、まだ こない。", en: "Tanaka was supposed to come, but hasn't yet.", exercises: [hazu, kedo], mode: build }
+      - { kind: sentence, ja: "げんきなはずが ない。", en: "There's no way she's fine.", exercises: [hazu], mode: build }
+      - { kind: sentence, ja: "このテストが むずかしいはずが ない。", en: "There's no way this test is hard.", exercises: [hazu], mode: build }
+      - { kind: sentence, ja: "ミカは たなかさんを うたがう。", en: "Mika doubts Tanaka.", exercises: [wo-object, dictionary-form], mode: build }
+      - { kind: sentence, ja: "わたしは たなかさんを しんじる。", en: "I believe Tanaka.", exercises: [wo-object, dictionary-form], mode: build }
+      - { kind: sentence, ja: "しんじるほうが いいと おもう。", en: "I think it's better to believe.", exercises: [hou-ga-ii, to-omoimasu], mode: listening }
+      - { kind: particle-cloze, stem: "たなかさんは くる", tail: "が、まだ こない。", answer: "はずだった", options: ["はずだった", "はずだ", "はずがない"], en: "Tanaka was supposed to come, but hasn't yet.", explanation: "A broken expectation about something that already should have happened needs the past はずだった. Plain はずだ describes the present, and はずがない flatly denies the whole idea — neither fits 'hasn't come yet despite expecting.'" }
+      - { kind: listening-comp, audio: "げんきなはずが ない。", answer: "There's no way she's fine.", distractors: ["She's definitely fine.", "She was fine yesterday.", "Nobody knows how she's doing."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "たなかさんを しんじるか、 うたがうか。", answer: "Believe Tanaka, or doubt him?", distractors: ["Tanaka believes in himself.", "Tanaka doubts everyone.", "Nobody trusts or doubts Tanaka."], q: "What does this mean?" }
+      - { kind: kanji, kana: しんじる, kanji: 信じる, distractors: ["しんせつ", "しんぶん", "しんぱい"], exercises: [hazu] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "たなかさんは くるはずだったけど、まだ こないね。", en: "Tanaka was supposed to come, but he still hasn't." }
+          - { speaker: "Mika", ja: "しんじるよ。もうちょっと まとう。", en: "I'll believe him. Let's wait a bit more." }
+          - { speaker: "Ken", ja: "うん、そうだね。", en: "Yeah, that's right." }
+        questions:
+          - { q: "What does Mika decide to do?", options: ["Believe Tanaka and wait a bit longer", "Doubt Tanaka and leave", "Call Tanaka immediately", "Cancel the promise"], answer: "Believe Tanaka and wait a bit longer" }
+      - { kind: challenge, ja: "たなかさんは くるはずだったけど、わたしは うたがわない。", en: "Tanaka was supposed to come, but I won't doubt him.", combines: [hazu, kedo, nai-form], mode: build }
+    reviewPool: [はず, やくそく, たしか, テスト]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m43-neo-6
+    role: teaching
+    title: "「しんじれば あんしんだ」— domain integration + a recognition aside"
+    focus: "Combine かもしれない, はず, and でしょう naturally over feelings vocabulary; にちがいない previewed once, recognition only, never graded"
+    introduces: [あんしん, しんぱい, にちがいない]
+    beats:
+      - { kind: sentence, ja: "けっかを しんじているから、あんしんだ。", en: "Since I believe in the result, I'm at ease.", exercises: [kara-because], mode: build }
+      - { kind: sentence, ja: "しっぱいするかもしれないから、しんぱいだ。", en: "Since it might fail, I'm worried.", exercises: [kamoshirenai, kara-because], mode: build }
+      - { kind: sentence, ja: "せいこうするはずだから、あんしんだ。", en: "It should succeed, so I'm at ease.", exercises: [hazu, kara-because], mode: build }
+      - { kind: sentence, ja: "しんじれば、あんしんだ。", en: "If you believe, you'll be at ease.", exercises: [ba-form], mode: build }
+      - { kind: sentence, ja: "けっかは まだ わからないが、たぶん だいじょうぶでしょう。", en: "The result isn't known yet, but probably it'll be fine.", exercises: [deshou, tabun-kitto], mode: listening }
+      - { kind: particle-cloze, stem: "しっぱいするかもしれないから、", tail: "だ。", answer: "しんぱい", options: ["しんぱい", "あんしん", "たいせつ"], en: "Since it might fail, I'm worried.", explanation: "しんぱい, 'worry,' fits the fear of failing. あんしん is the opposite — relief — and たいせつ means 'important,' unrelated to the feeling here." }
+      - { kind: listening-comp, audio: "たなかさんは ぜったい せいこうするにちがいない。", answer: "Tanaka will absolutely succeed, no doubt.", distractors: ["Tanaka will absolutely fail.", "Tanaka might succeed or might fail.", "Nobody thinks Tanaka will succeed."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "けっかを しんじているから、あんしんしている。", answer: "Since I believe in the result, I'm at ease.", distractors: ["Since I doubt the result, I'm worried.", "I have no opinion about the result.", "I already know I failed."], q: "What does this mean?" }
+      - { kind: kanji, kana: あんしん, kanji: 安心, distractors: ["あんぜん", "あんな", "あんまり"], exercises: [kara-because] }
+      - { kind: sentence, ja: "だいじょうぶ、しんじよう。", en: "It's okay, let's believe it.", exercises: [volitional], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "テストの けっか、しんぱい？", en: "Are you worried about the test result?" }
+          - { speaker: "Mika", ja: "ちょっとね。でも、たなかさんは ぜったい せいこうするにちがいないよ。", en: "A little. But Tanaka will absolutely succeed, no doubt." }
+          - { speaker: "Ken", ja: "そうだね。しんじよう。", en: "That's right. Let's believe it." }
+        questions:
+          - { q: "What does Mika say about Tanaka's result?", options: ["He will absolutely succeed, no doubt", "He will absolutely fail", "She has no idea", "He already failed"], answer: "He will absolutely succeed, no doubt" }
+      - { kind: challenge, ja: "しっぱいするかもしれないから、たなかさんも しんぱいしているはずだ。", en: "Since it might fail, Tanaka must be worried too, I'd guess.", combines: [kamoshirenai, kara-because, hazu, mo-also], mode: build }
+    reviewPool: [あんしん, しんぱい, けっか, テスト]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m43-neo-review-2
+    role: review
+    title: "Review — かもしれない, でしょう-deepen, and はず"
+    focus: "Spiral L1-L6: every marker so far, over the feelings and promises domain — THIS MODULE ONLY"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "やくそくが あるから、たなかさんは くるはずだ。", en: "Since there's a promise, Tanaka should be coming.", exercises: [hazu, kara-because], mode: build }
+      - { kind: sentence, ja: "げんきなはずが ない。", en: "There's no way she's fine.", exercises: [hazu], mode: build }
+      - { kind: particle-cloze, stem: "たなかさんは くる", tail: "が、まだ こない。", answer: "はずだった", options: ["はずだった", "はずだ", "はずがない"], en: "Tanaka was supposed to come, but hasn't yet.", explanation: "A broken expectation about something that already should have happened needs the past はずだった, not plain はずだ or the flat denial はずがない." }
+      - { kind: sentence, ja: "しっぱいするかもしれないから、しんぱいだ。", en: "Since it might fail, I'm worried.", exercises: [kamoshirenai, kara-because], mode: build }
+      - { kind: sentence, ja: "けっかを しんじれば、あんしんだ。", en: "If you believe in the result, you'll be at ease.", exercises: [ba-form], mode: listening }
+      - { kind: listening-comp, audio: "たなかさんは ぜったい せいこうするにちがいない。", answer: "Tanaka will absolutely succeed, no doubt.", distractors: ["Tanaka will absolutely fail.", "Tanaka might succeed or might fail.", "Nobody thinks Tanaka will succeed."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "テストの けっか、しんぱい？", en: "Are you worried about the test result?" }
+          - { speaker: "Mika", ja: "ちょっとね。でも、せいこうするはずだよ。", en: "A little. But it should succeed." }
+          - { speaker: "Ken", ja: "うん、しんじよう。", en: "Yeah, let's believe it." }
+        questions:
+          - { q: "What does Mika say about the result?", options: ["It should succeed", "It will definitely fail", "She has no opinion", "It already failed"], answer: "It should succeed" }
+      - { kind: sentence, ja: "たなかさんは くるかもしれないが、やくそくが あるから、くるはずだ。", en: "Tanaka might come, but since there's a promise, he should be coming.", exercises: [kamoshirenai, hazu, kedo, kara-because], mode: build }
+    reviewPool: [はず, あんしん, しんぱい, けっか, やくそく]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m43-neo-7
+    role: teaching
+    title: "「くるかもしれないが、くるはずだ」— mixed certainty, one conversation"
+    focus: "Integration: かもしれない, はず, and でしょう-deepen inside one dialogue_sim — no new vocabulary"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "たなかさんは くるかもしれないが、やくそくが あるから、くるはずだ。", en: "Tanaka might come, but since there's a promise, he should be coming.", exercises: [kamoshirenai, hazu, kedo, kara-because], mode: build }
+      - { kind: sentence, ja: "せいこうするか しっぱいするか まだ わからないが、きっと だいじょうぶでしょう。", en: "It's not known yet whether it'll succeed or fail, but surely it'll probably be fine.", exercises: [deshou, tabun-kitto], mode: listening }
+      - { kind: sentence, ja: "せいこうするかもしれないし、しっぱいするかもしれない。", en: "It might succeed, and it might fail.", exercises: [kamoshirenai, shi-listing], mode: build }
+      - { kind: particle-cloze, stem: "たなかさんは くるかもしれないが、やくそくが あるから、", tail: "。", answer: "くるはずだ", options: ["くるはずだ", "くるかもしれない", "くるでしょう"], en: "Tanaka might come, but since there's a promise, he should be coming.", explanation: "はずだ fits once real evidence — the promise — is on the table, a step up from the bare guess かもしれない. Repeating かもしれない would ignore the promise entirely, and でしょう would undersell the concrete evidence into a vaguer guess." }
+      - { kind: kanji, kana: しっぱい, kanji: 失敗, distractors: ["しんぶん", "しつれい", "しあわせ"], exercises: [kamoshirenai] }
+      - kind: sim
+        scene: { emoji: "🤔", title: "Will Tanaka show up?", setting: "Mika and Ken compare how sure they are that Tanaka will come to the promised meeting." }
+        turns:
+          - npc: { speaker: "Ken", ja: "たなかさんは くると おもう？", en: "Do you think Tanaka will come?" }
+            goal: "Say he might come, but you're not sure."
+            reply: { mode: build, tiles: ["くるかもしれない", "くるはずだ", "くるでしょう", "ぜったい こない"], answer: "くるかもしれない。" }
+            replyGloss: "He might come."
+            explanation: "かもしれない admits real uncertainty — the honest answer to 'not sure,' unlike はずだ (claims a concrete reason) or でしょう (a more confident guess)."
+          - npc: { speaker: "Ken", ja: "でも、やくそくが あるよ。", en: "But there's a promise." }
+            goal: "Say that since there's a promise, he should come."
+            reply: { mode: build, tiles: ["やくそくが", "あるから", "くるはずだ", "くるかもしれない", "こないはずだ"], answer: "やくそくが あるから くるはずだ。" }
+            replyGloss: "Since there's a promise, he should come."
+            explanation: "はずだ fits once concrete evidence — the promise — is on the table, a step up from the bare guess かもしれない."
+      - { kind: listening-comp, audio: "テストは むずかしいかもしれないが、きっと せいこうするでしょう。", answer: "The test might be hard, but surely it'll probably succeed.", distractors: ["The test is definitely easy.", "The test will definitely fail.", "Nobody has any opinion about the test."], q: "What does this mean?" }
+      - { kind: challenge, ja: "テストは むずかしいでしょうが、じゅぎょうが あったから、せいこうするはずだと おもうし、しっぱいするかもしれないとは おもわない。", en: "The test is probably hard, but since there was class, I think it should succeed, and what's more I don't think it might fail.", combines: [deshou-adjective, kara-because, hazu, kamoshirenai, to-omoimasu, shi-listing], mode: build }
+    reviewPool: [やくそく, テスト, せいこう, しっぱい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m43-neo-8
+    role: teaching
+    title: "「はずと でしょうと かもしれない」— assembling the certainty ladder"
+    focus: "Pre-review integration: the four-rung ladder as a REVIEW OBJECT (inv 26 shape), no new teaching, no new vocabulary"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: certainty-ladder }
+      - { kind: sentence, ja: "たなかさんは くるはずだ。", en: "Tanaka should be coming.", exercises: [hazu], mode: build }
+      - { kind: sentence, ja: "たなかさんは くるでしょう。", en: "Tanaka will probably come.", exercises: [deshou], mode: build }
+      - { kind: sentence, ja: "たなかさんは くるかもしれない。", en: "Tanaka might come.", exercises: [kamoshirenai], mode: build }
+      - { kind: particle-cloze, stem: "やくそくが あるから、たなかさんは くる", tail: "。もしかしたら こないかもしれないけど。", answer: "はずだ", options: ["はずだ", "でしょう", "かもしれない"], en: "Since there's a promise, Tanaka should come. Although maybe he won't.", explanation: "はずだ fits the concrete evidence just given — the promise. でしょう would undersell that evidence into a vaguer guess, and かもしれない already covers the weaker possibility in the second clause on its own." }
+      - { kind: listening-comp, audio: "たなかさんは ぜったい せいこうするにちがいない。", answer: "Tanaka will absolutely succeed, no doubt.", distractors: ["Tanaka might succeed.", "Tanaka will absolutely fail.", "Nobody has an opinion about Tanaka."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "たなかさんは くるはずだが、こないかもしれない。", answer: "Tanaka should come, but he might not.", distractors: ["Tanaka will definitely come.", "Tanaka will definitely not come.", "Nobody knows anything about Tanaka's plans."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "たなかさん、くるかな。", en: "I wonder if Tanaka is coming." }
+          - { speaker: "Mika", ja: "やくそくが あるから、くるはずだよ。でも、もしかしたら こないかもしれない。", en: "Since there's a promise, he should be coming. But perhaps he might not." }
+          - { speaker: "Ken", ja: "たしかに。でも、きっと くるでしょう。", en: "True. But surely he'll probably come." }
+        questions:
+          - { q: "How sure does Mika sound about Tanaka coming, compared to a bare guess?", options: ["More sure — she has a concrete reason, the promise", "Less sure than a bare guess", "Completely certain, no doubt at all", "She has no opinion"], answer: "More sure — she has a concrete reason, the promise" }
+      - { kind: challenge, ja: "やくそくが あるから くるはずだが、もしかしたら こないかもしれない。", en: "Since there's a promise he should come, but perhaps he might not.", combines: [certainty-ladder, hazu, kamoshirenai, kara-because], mode: build }
+    reviewPool: [やくそく, テスト, けっか, あんしん, しんぱい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m43-neo-review-3
+    role: review
+    title: "Review — the whole module, every rung of the ladder"
+    focus: "Full-module spiral: かもしれない, でしょう-deepen, はず, and the certainty ladder over the whole domain vocabulary"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "たなかさんは くるかもしれない。", en: "Tanaka might come.", exercises: [kamoshirenai], mode: build }
+      - { kind: sentence, ja: "たなかさんは くるでしょう。", en: "Tanaka will probably come.", exercises: [deshou], mode: build }
+      - { kind: sentence, ja: "やくそくが あるから、たなかさんは くるはずだ。", en: "Since there's a promise, Tanaka should be coming.", exercises: [hazu, kara-because], mode: build }
+      - { kind: particle-cloze, stem: "やくそくが あるから、たなかさんは くる", tail: "。", answer: "はずだ", options: ["はずだ", "かもしれない", "でしょう"], en: "Since there's a promise, Tanaka should be coming.", explanation: "はずだ fits the concrete evidence — the promise — best; でしょう undersells it into a vaguer guess, and かもしれない would ignore the reason entirely." }
+      - { kind: sentence, ja: "せいこうするか しっぱいするか、まだ わからない。", en: "It's not known yet whether it'll succeed or fail.", exercises: [ka-question], mode: listening }
+      - { kind: listening-comp, audio: "たなかさんは ぜったい せいこうするにちがいない。", answer: "Tanaka will absolutely succeed, no doubt.", distractors: ["Tanaka might succeed.", "Tanaka will absolutely fail.", "Nobody has an opinion about Tanaka."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "テストは むずかしいでしょうね。", en: "The test is probably hard, huh." }
+          - { speaker: "Ken", ja: "たぶん。でも、じゅぎょうが あったから、せいこうするはずだ。", en: "Probably. But since there was class, it should succeed." }
+          - { speaker: "Mika", ja: "しっぱいするかもしれないけど、しんじよう。", en: "It might fail, but let's believe it." }
+        questions:
+          - { q: "What does Ken think about the test result?", options: ["It should succeed, since there was class", "It will definitely fail", "He has no opinion", "It already failed"], answer: "It should succeed, since there was class" }
+      - { kind: sentence, ja: "けっかを しんじれば、あんしんだ。", en: "If you believe in the result, you'll be at ease.", exercises: [ba-form], mode: build }
+    reviewPool: [やくそく, たしか, かならず, もしかしたら, ぜったい, せいこう, しっぱい, よそう, はず, うたがう, しんじる, あんしん, しんぱい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m43-neo-challenge
+    role: challenge
+    title: "Challenge — the whole certainty ladder, one conversation"
+    focus: "Every rung of the ladder in one arc — かもしれない, はず, でしょう-deepen, and the certainty-ladder synthesis — combined with prior N4 grammar, no new vocabulary"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "テストは むずかしいでしょうが、じゅぎょうが あったので、せいこうするはずだ。", en: "The test is probably hard, but since there was class, it should succeed.", exercises: [deshou-adjective, node-because, hazu], mode: build }
+      - { kind: sentence, ja: "やくそくが あるのに、たなかさんは くるかもしれないし、こないかもしれない。", en: "Even though there's a promise, Tanaka might come, and he might not come.", exercises: [noni-concession, kamoshirenai, shi-listing], mode: listening }
+      - { kind: particle-cloze, stem: "やくそくが あるから、たなかさんは くる", tail: "。もしかしたら こないかもしれないけど。", answer: "はずだ", options: ["はずだ", "でしょう", "かもしれない"], en: "Since there's a promise, Tanaka should come. Although maybe he won't.", explanation: "はずだ fits the concrete evidence — the promise — best of the three; でしょう would undersell that evidence into a vaguer guess, and かもしれない already covers the weaker possibility in the second clause on its own." }
+      - { kind: kanji, kana: かならず, kanji: 必ず, distractors: ["かなしい", "かない", "かようび"], exercises: [hazu] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "テストの けっか、きっと せいこうするにちがいないよ。", en: "The test result, surely it'll succeed, no doubt." }
+          - { speaker: "Ken", ja: "たぶん だいじょうぶだろう。でも、やくそくが あるから、たなかさんが くるはずだと おもう。", en: "Probably it'll be fine. But since there's a promise, I think Tanaka should be coming." }
+          - { speaker: "Mika", ja: "うん、もしかしたら ちょっと おくれるかもしれないけど、ぜったい くるでしょう。", en: "Yeah, perhaps he might be a little late, but surely he'll probably definitely come." }
+        questions:
+          - { q: "According to the conversation, who sounds MOST certain that things will go well?", options: ["Tanaka, using にちがいない", "Ken, using だろう", "Mika, using かもしれない", "Nobody sounds certain at all"], answer: "Tanaka, using にちがいない" }
+      - { kind: challenge, ja: "テストは むずかしいでしょうが、やくそくが あるから、たなかさんは くるはずだと おもうし、しっぱいするかもしれないとは おもわない。", en: "The test is probably hard, but since there's a promise, I think Tanaka should come, and what's more I don't think it might fail.", combines: [certainty-ladder, deshou-adjective, kara-because, hazu, kamoshirenai, to-omoimasu, shi-listing], mode: build }
+    reviewPool: [やくそく, たしか, かならず, もしかしたら, ぜったい, せいこう, しっぱい, よそう, はず, うたがう, しんじる, あんしん, しんぱい]
