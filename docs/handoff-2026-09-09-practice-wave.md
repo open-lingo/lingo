@@ -226,12 +226,15 @@ merge-tree clean, zero conflicts. Then:
   `glossFidelity.test.ts` (app project — the JA-only suite the lane ran does
   not include it; two m31 glosses said "start" for はいる); fixed, preflight #2
   green: 529 files / 13327 tests, tsc clean, CI-mode build OK.
-- Runs on d96c7b30: red-main SUCCESS (34435411838); **ci 34435296128 and
-  deploy 34435296179 were IN PROGRESS at 22:10 PT when Spencer compacted** —
-  verify with `gh run view <id> --json conclusion` and that
-  app.openlingoapp.com serves an entry chunk from this build (deploy's "verify
-  site serves THIS deploy" step), then curl one new clip, e.g.
-  `https://app.openlingoapp.com/tts/v1/ja/0c2f58d1247af8e5.mp3` → audio/mpeg.
+- Runs on d96c7b30 — VERIFIED 2026-09-09 21:15 PT (04:15Z): red-main SUCCESS
+  (34435411838), ci SUCCESS (34435296128), deploy SUCCESS (34435296179). The
+  deploy's "verify site serves THIS deploy" step saw built entry
+  `assets/index-CCMT7GYH.js` = served entry, HTTP 200; a fresh curl of
+  app.openlingoapp.com returned the same chunk, and
+  `/tts/v1/ja/0c2f58d1247af8e5.mp3` returned `content-type: audio/mpeg`.
+  Runs on 289a337f (docs-only): red-main ×5 SUCCESS; ci 34435711007 SUCCESS, deploy
+  34435711006 SUCCESS (04:18Z); served entry unchanged, `index-CCMT7GYH.js`.
+  Every run from wave 2 is green. Nothing left to verify.
 - **TestFlight build 11**: delivery/build id `0ef29214-8cb8-43b7-bb2c-2529dd76d222`,
   VALID after 5 polls, What to Test set, attached to External Beta, beta review
   WAITING_FOR_REVIEW. ipa 28.1 MB; script `<scratchpad>/release-b11.sh`
