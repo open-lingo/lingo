@@ -1,0 +1,261 @@
+module: m33
+title: "Tengo que trabajar"
+frame: none
+throughModule: m32
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m33 — obligation: «tengo que» + infinitivo, the fourth and final
+# member of this course's modal-verb constellation (querer/poder m14,
+# ir a m28, necesito m16 — now must). Fourteenth A2 module, and the
+# first GRAMMAR beat since m31 (m32 was the intervening lexicon break,
+# per interleave-don't-block-teach).
+#
+#     quiero trabajar     (want,   m14 — bare infinitive)
+#     puedo trabajar      (can,    m14 — bare infinitive)
+#     voy a trabajar      (plan,   m28 — «a» + infinitive)
+#     tengo que trabajar  (MUST,   m33 — «que» + infinitive, THIS module)
+#
+# ONE idea, the whole module: the linking word «que» is what makes an
+# obligation sentence different from every bare-infinitive modal this
+# course already teaches. «tengo»/«tienes»/«tiene» (m5), «tenemos»/
+# «tienen» (m18), and the bare infinitive «tener» itself (m15) are ALL
+# already fully PRIOR — every person of the paradigm exists with zero
+# conjugation gap, unlike m28's own «va» gap-fill. «que» is already a
+# free function word (`ES_FUNCTION_WORDS`, moduleBarGuards.ts line 83).
+# This module teaches a SYNTACTIC PATTERN, not new morphology: put «que»
+# between an already-known «tener» form and an already-known infinitive,
+# and the sentence means "must," not "want to" or "can." One new atom
+# only (the idiom anchor «tengo que» itself, see below) — this is as
+# thin a grammar module as the course has shipped since m29.
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# Four lines of evidence:
+#   1. **Rhythm calls for a grammar beat, and course shape supports it.**
+#      m27 (break) → m28 (grammar) → m29 (grammar) → m30 (break) → m31
+#      (grammar, one beat) → m32 (break) — the identical "single grammar
+#      beat between breaks" cadence m31's own header used for its own
+#      placement after m30. m32's own header called m32 "on schedule, not
+#      overdue" for a break; the same logic now calls m33 on schedule for
+#      the next grammar beat.
+#   2. **Every rival candidate the task asked to weigh was checked against
+#      the actual registry, not assumed — and two are DISQUALIFIED
+#      outright, not merely weaker.** `grep -o 'surface: "[^"]*"'
+#      curriculum/m{1..32}.ts | sort -u | grep -iE "pued|quier"` confirms
+#      «poder»/«puedo»/«puedes»/«puede» are FULLY taught at m14, including
+#      the negated form («no puedo cocinar hoy», m14 L2, read directly
+#      from `curriculum/m14.ts:306`) — "poder + infinitivo" is not new
+#      content, it would be pure recombination mislabeled as a grammar
+#      beat. Direct read of `curriculum/m13.ts:930-999` confirms «me
+#      gusta + infinitivo» (bare-infinitive complement of gustar, e.g.
+#      "me gusta nadar", "me gusta nadar y viajar") is ALSO already fully
+#      taught at m13 — extending gustar to infinitives or to m32's
+#      clothing nouns is recombination, not a new structure. Both
+#      candidates the task asked to weigh are, on inspection, already
+#      shipped. See REJECTED sections below for the other four.
+#   3. **Highest recombination value of any live candidate against
+#      m28–m32, verified hook by hook, not asserted.** «tengo que» sits in
+#      the exact same "modal + infinitive complement" slot as THREE prior
+#      constructions and creates a direct four-way minimal-pair set:
+#      «quiero»/«puedo» (m14, bare infinitive, no linker) vs «voy a» (m28,
+#      «a» linker, near-future) vs «tengo que» (m33, «que» linker,
+#      obligation) — the richest modal-contrast story this course has had
+#      any single module build. It also reaches m29's fused-clitic family
+#      directly: «tengo que comprarlo/comprarla/comprarlos» slots the
+#      obligation frame in front of m29's own flagship atoms with zero
+#      friction (the fused form is itself the bare-infinitive complement
+#      «que» requires). It reaches m32's clothing nouns and shopping frame
+#      («tengo que comprar una chaqueta», «tengo que trabajar, pero
+#      necesito una bufanda nueva») and m25's «porque» for justification
+#      sentences («no puedo ir, porque tengo que trabajar»). No other
+#      candidate considered (see REJECTED below) reaches more than one of
+#      m28/m29/m32's own frames.
+#   4. **Verified data floor, both directions.** `grep -rn "tener que|
+#      tengo que|tienes que|tiene que" curriculum/m{1..32}.ts` returns
+#      zero hits — the idiom has never been voiced. `grep -o 'surface:
+#      "[^"]*"' curriculum/m{1..32}.ts | sort -u | grep -iE "^.*\"(teng|
+#      tien)"` confirms tengo/tienes/tiene (m5) and tenemos/tienen (m18)
+#      are ALL prior — a complete paradigm, no gap. `grep -n
+#      'ES_FUNCTION_WORDS' -A16 __tests__/moduleBarGuards.ts` confirms
+#      "que" is listed among the free connectives (line 83, alongside
+#      «pero», «si», «como») — already ungated, no registration needed.
+#      No new emoji: this module's one new atom is a phrase/idiom kind
+#      (see below), carrying no `emoji:` field, matching the course's own
+#      convention for grammar-category atoms (m13's gusta/gustan, m28's
+#      va, m31's duele/duelen — none are imageable, none carry emoji).
+#      Zero vendoring work this module.
+#
+# ── REJECTED: «poder + infinitivo» — not new, already shipped ────────────
+# `curriculum/m14.ts:28-32` registers «poder»/«puedo»/«puedes»/«puede» as
+# full atoms; the module's own L2 (`curriculum/m14.ts:264-321`) teaches
+# the modal-plus-bare-infinitive construction end to end, including the
+# exact negated form the task's candidate list named ("no puedo cocinar
+# hoy," `curriculum/m14.ts:306`). Recombining «poder» against m28–m32
+# content is legitimate REVIEW, not a new grammar beat — disqualified,
+# not merely weaker than the field.
+#
+# ── REJECTED: «me gusta(n)» extended to infinitives or to m32's clothing
+#    nouns — not new, already shipped ─────────────────────────────────────
+# `curriculum/m13.ts:930-999` (L5) teaches «me gusta» + bare infinitive
+# to full coordination depth ("me gusta nadar y viajar," with an explicit
+# reveal note on why «gusta» never pluralizes for a list of activities).
+# Extending «me gusta» to m32's clothing nouns ("me gusta la chaqueta")
+# is straight noun-object recombination of a PRIOR pattern (m7/m13),
+# introducing no new syntax. Neither reading of this candidate is a
+# grammar beat.
+#
+# ── REJECTED: «ponerse»/«llevar» (wear/put on) — real, well-scoped future
+#    content, explicitly deferred TWICE already, not chosen here on
+#    atom-budget and recombination-breadth grounds ─────────────────────────
+# m30's header and m32's header (`m32-header.yaml`, the "REJECTED: a
+# 'wearing' verb" section) both name this pairing directly as clean
+# future content once a reflexive-verb module exists to carry it — and
+# m17 (`curriculum/m17.ts`) DOES already teach the full reflexive
+# paradigm (acostarse/despertarse/ducharse/lavarse/levantarse, «me»/«te»/
+# «se»), so «ponerse» would not need to teach reflexive morphology from
+# scratch. It was weighed honestly against «tener que» anyway, on the
+# task's own instruction, and loses on two counts: (a) atom budget —
+# `curriculum/m15.ts:47-48` shows only «poner»/«pongo» are prior; «pones»/
+# «pone» are NOT (grep-verified zero hits), so a minimally-honest
+# «ponerse» debut needs at least 2 new reflexive forms (me pongo, te
+# pones) PLUS an entirely new verb «llevar» (grep-verified zero hits
+# anywhere in m1–m32) for the "wear" half of the pairing — 3-4 new atoms
+# before any full-paradigm coverage, against this module's 1; (b)
+# recombination breadth — «ponerse»/«llevar» ties richly to m32 (clothing)
+# alone and has no natural tie to m28 («voy a»), m29 (fused clitics —
+# «ponérselo» would be a DOUBLE fusion, reflexive-plus-clitic, a bigger
+# leap than any fusion this course has taught), or m31 («duele»/«duelen»
+# has no clean semantic tie to putting on clothes). Left open, explicitly,
+# as the clean candidate for m34 or a nearby module — not re-deferred
+# silently a third time, decided against on the actual numbers this time.
+#
+# ── REJECTED: «hace frío/calor» + clothing recombination ─────────────────
+# `frío`/`calor`/`hace` are all PRIOR (m27, weather). Pairing weather with
+# clothing ("hace frío, necesito una chaqueta") is pure lexical
+# recombination of TWO already-taught modules — legitimate REVIEW content
+# for a future lesson inside another module, but zero new grammar; does
+# not answer "what does m33 teach" on its own.
+#
+# ── REJECTED: «estar + adjective» vs «ser» for states ─────────────────────
+# Genuinely unresolved as an EXPLICIT contrast rule — `curriculum/m2.ts`
+# (soy/eres/es), `curriculum/m4.ts` (está), and `curriculum/m18.ts`
+# (estamos/están/somos/son) each teach pieces of both paradigms, but no
+# module has ever drawn the ser-vs-estar line as a named rule. Rejected
+# for m33 specifically, not forever: formalizing it is a SUBSTANTIALLY
+# bigger lift than this module's "one linking word" idea — two irregular
+# verb paradigms plus a genuinely hard permanent/temporary usage
+# distinction, likely 4-6+ new atoms and its own dedicated multi-lesson
+# contrast arc, not a "≤3 atom, one deduction" beat. It also has no
+# natural tie to m28/m29/m31/m32's own recent content the way «tener que»
+# does. Left open as real future content, sized more like a future
+# module of its own than a recombination lesson.
+#
+# ── REJECTED: imperative tú (commands, for NPC sim frames) ────────────────
+# No imperative form is registered anywhere in m1-m32 (grep-verified).
+# Rejected on two grounds: (1) scope — a useful imperative needs several
+# verbs' command forms at once to carry real NPC dialogue, a bigger lift
+# than "≤3 atoms, one structure"; (2) motivation — per "lessons a learner
+# can reason through; real use" (CLAUDE.md's own aim), a course structure
+# should earn its place by what a LEARNER needs, not by what would make a
+# future sim-author's life easier. Serving dialogue-authoring convenience
+# is not, on its own, a content justification. Left open as real future
+# content once its own recombination case is made on learner-need
+# grounds.
+#
+# ── REJECTED: demonstratives (este/esta/estos/estas/ese/esa) with clothing
+#    ───────────────────────────────────────────────────────────────────
+# NOT a fresh gap — `curriculum/m12.ts` already registers este/esta/estos/
+# estas/ese/esa in full (confirmed by direct read, also independently
+# listed among ES_FUNCTION_WORDS' free demonstrative set). Pairing them
+# with m32's clothing nouns is pure recombination, not new grammar; zero
+# candidacy as this module's content.
+#
+# ── THE CENTRAL DISCRIMINATION — read before drafting any lesson ─────────
+# The linking word is everything. «quiero trabajar» / «puedo trabajar» /
+# «voy a trabajar» / «tengo que trabajar» share the SAME infinitive
+# complement and differ ONLY in what comes before it — bare infinitive
+# (querer, poder), «a» + infinitive (ir), «que» + infinitive (tener). The
+# transfer error to guard against: a learner who has internalized
+# «puedo»/«quiero»'s bare-infinitive pattern reaching for *"tengo
+# trabajar" (dropping «que») — the single most natural mistake this
+# module exists to prevent, the same structural role m29's third-position
+# foil and m31's "never conjugate to the person" foil played for their
+# own modules. Every discrimination step (`agreementCloze`/`textMcq`/
+# `sentenceMcq`) contrasting «tengo que» against «quiero»/«puedo» must
+# include a foil that DROPS «que» (never as a correct answer). A second,
+# lower-priority foil: inventing *"tengo a trabajar" (borrowing m28's
+# linker onto the wrong verb) — worth one distractor, not the module's
+# central rule.
+#
+# ── ONE NEW ATOM — «tengo que», the idiom anchor, mirroring m7's «tengo
+#    hambre»/«tengo sed» precedent, NOT a per-person registration ────────
+# `curriculum/m7.ts:43-44` registers «tengo hambre»/«tengo sed» as
+# `kind: "phrase"`, `partOfSpeech: "phrase"` atoms even though «tengo» is
+# separately a plain-verb atom (m5) — the established convention for a
+# lexicalized idiom whose MEANING isn't transparent from its parts, even
+# when every component word is independently prior. «tengo que» follows
+# the identical convention: ONE phrase atom, registered as the yo-form
+# anchor (this module's L1 debut), «meaningEn: "I have to."» Every OTHER
+# person's obligation sentence («tienes que», «tiene que», «tenemos que»,
+# «tienen que») is graded through the ALREADY-REGISTERED bare «tener»
+# conjugation (tienes/tiene/tenemos/tienen, all prior) plus the free word
+# «que» — NOT through a second registered "X que" surface. This is a live
+# gate trap, not a stylistic footnote: `irAtomResolution.test.ts` is
+# zero-tolerance on `atoms:` credit — crediting a step with `atoms:
+# ["tienes que"]` would be a SILENT miss (unregistered surface, exact
+# match required, no fold) unless a drafting agent adds a second phrase
+# atom for it, which this module deliberately does not. Credit L2+ steps
+# with `atoms: ["tienes"]` (etc.), never the two-word bigram. State this
+# rule explicitly in the drafting brief's hard rules (done, see below) so
+# no agent reaches for the intuitive-but-wrong credit array.
+#
+# ── NO NEW EMOJI, NO VENDORING ─────────────────────────────────────────────
+# «tengo que» is a phrase/idiom-kind atom with no honest single-referent
+# image (an obligation modal, same non-imageable category as m13's
+# gusta/gustan, m28's va, and m31's duele/duelen — none carry an `emoji:`
+# field). No `src/pub/noto-emoji/svg/` work applies this module.
+#
+# ── SIM NPC-LINE PROVENANCE: LIVE AND UNFORGIVING — m29 IS THE START OF
+#    THE ZERO-LEGACY WINDOW, m33 IS WELL INSIDE IT ─────────────────────────
+# `esSimNpcProvenance.test.ts`'s `KNOWN_LEGACY` allowlist is SHRINK-ONLY
+# and scoped to m1-m10, m20, m22-m28 — m29 through m33 get NO reaction-
+# word leniency (confirmed by direct read of the gate file's own
+# provenance-scope comment, same wording m32's brief already carried
+# forward). Every NPC word in this module's dialogue_sim lessons must
+# resolve to: this module's own atom («tengo que», yo-form only — an NPC
+# line asking a tú/3rd-person obligation question must be built from the
+# ALREADY-PRIOR bare «tener» forms + «que», never from this module's own
+# registered surface, which is yo-only), any PRIOR atom (m1-m32), a
+# taught verb conjugation, `ES_FUNCTION_WORDS`, or `ES_PROPER_NAMES`.
+# Natural scenario: a friend inviting the learner somewhere, the learner
+# declining with an obligation — NPC side stays entirely in PRIOR
+# invitation vocabulary («¿quieres…?», «vamos a…», m14/m18/m28), never
+# needing this module's own content at all. Grep every `npc:` line by
+# hand before shipping.
+#
+# ── ACCENT: WARM GRAPHITE/STONE, VERIFIED UNUSED, THEMATICALLY RESTRAINED
+#    ───────────────────────────────────────────────────────────────────
+# Checked every `accent:` pair in `curriculum/index.ts` (grep-verified,
+# all 32 pairs read in full): zero hits for `#78716c` or `#1c1917`.
+# Distinct from the four most recent modules specifically (m29 cool slate
+# `#64748b`/`#334155`, m30 teal, m31 rose, m32 denim indigo) and from
+# every existing gray/neutral pair already spent (none — this is the
+# course's first genuinely neutral, non-saturated accent). A warm
+# graphite reads as "weight/duty" without forcing a heavy metaphor onto a
+# module that is, underneath the theme, still a one-linking-word grammar
+# point — the same restraint m29's slate and m31's rose both used for
+# their own grammar modules.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # tengo que — I have to (idiom anchor, yo-form only). Mirrors m7's
+  # «tengo hambre»/«tengo sed» idiom-phrase convention: registered as its
+  # own phrase atom even though every component word (tengo m5, que
+  # ES_FUNCTION_WORDS) is independently prior, because the MEANING
+  # ("must," not "have that") is not transparent from the parts. Every
+  # other person's obligation sentence is graded via the already-
+  # registered bare tener conjugation + the free word «que» — see the
+  # dedicated header section above; do NOT register "tienes que" etc. as
+  # additional surfaces.
+  - { surface: "tengo que", meaningEn: "I have to", partOfSpeech: "phrase", kind: "phrase", hint: "tengo que — «tengo» (m5) plus «que», already a free word. Put «que» between «tengo» and any infinitive you already know and the meaning tips from having a thing to doing a thing: not «tengo trabajar» (ungrammatical — never drop «que»), «tengo que trabajar». Contrast with «quiero trabajar» / «puedo trabajar» (m14, no linker at all) and «voy a trabajar» (m28, «a» not «que»)." }
+
+lessons:
