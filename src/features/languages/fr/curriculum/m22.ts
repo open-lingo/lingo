@@ -467,10 +467,15 @@ function lesson3(): LessonStep[] {
     }),
     build(
       "fr-m22-3-build-chiendelouis",
-      "Build: 'it's Louis's dog'",
-      "c'est le chien de Louis",
-      ["c'est", "le chien de Louis", "le chien de Sam", "le chat de Louis"],
-      ["c'est", "le chien de Louis"],
+      "Build: 'it's Louis's dog, not the cat'",
+      "c'est le chien de Louis, pas le chat",
+      [
+        "c'est le chien de Louis",
+        "pas le chat",
+        "c'est le chat de Louis",
+        "pas le chien",
+      ],
+      ["c'est le chien de Louis", "pas le chat"],
     ),
     crossModuleMatchPairs("fr-m22-3", [
       ["sac", "bag"],
@@ -1241,9 +1246,9 @@ function lesson10(): LessonStep[] {
           id: "t3-close",
           npc: {
             speaker: "Théo",
-            kana: "Très bien — merci !",
-            audioText: "très bien — merci !",
-            gloss: "Very good — thanks!",
+            kana: "Très bien — merci ! Et voici un sac.",
+            audioText: "très bien — merci ! et voici un sac.",
+            gloss: "Very good — thanks! And here's a bag.",
           },
           goal: "Say okay, that's my bag.",
           reply: {
