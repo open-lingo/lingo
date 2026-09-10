@@ -1,0 +1,2409 @@
+{
+  "schema": 1,
+  "moduleId": "m9",
+  "lang": "ja",
+  "generatedAt": "2026-09-10",
+  "entryCount": 400,
+  "entries": [
+    {
+      "anchor": "m9/atom:いくらですか/gloss",
+      "en": "How much is it?",
+      "enSourceHash": "abdfbb3951b780a1",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m9/atom:いち/gloss",
+      "en": "one",
+      "enSourceHash": "7692c3ad3540bb80",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m9/atom:うる/gloss",
+      "en": "to sell",
+      "enSourceHash": "97a0a4581e77bc34",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m9/atom:かね/gloss",
+      "en": "money",
+      "enSourceHash": "8d2ac8b58ead9744",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m9/atom:きゅう/gloss",
+      "en": "nine",
+      "enSourceHash": "edcd8e701a2df0cd",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m9/atom:ご/gloss",
+      "en": "five",
+      "enSourceHash": "222b0bd51fcef7e6",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m9/atom:さん/gloss",
+      "en": "three",
+      "enSourceHash": "8b5b9db0c13db242",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m9/atom:たかい/gloss",
+      "en": "tall, expensive",
+      "enSourceHash": "43f164da8156eca8",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m9/atom:なな/gloss",
+      "en": "seven",
+      "enSourceHash": "3ba8d02b16fd2a01",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m9/atom:はち/gloss",
+      "en": "eight",
+      "enSourceHash": "c195d2d875623436",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m9/atom:ひとつ/gloss",
+      "en": "one",
+      "enSourceHash": "7692c3ad3540bb80",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m9/atom:ひま/gloss",
+      "en": "free time",
+      "enSourceHash": "7330059355c00520",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m9/atom:ふたつ/gloss",
+      "en": "two",
+      "enSourceHash": "3fc4ccfe745870e2",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m9/atom:みっつ/gloss",
+      "en": "three",
+      "enSourceHash": "8b5b9db0c13db242",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m9/atom:やすい/gloss",
+      "en": "cheap",
+      "enSourceHash": "c6f556046e0c0046",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m9/atom:よん/gloss",
+      "en": "four",
+      "enSourceHash": "04efaf080f5a3e74",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m9/atom:ろく/gloss",
+      "en": "six",
+      "enSourceHash": "44778d82365e4af6",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m9/atom:パン/gloss",
+      "en": "bread",
+      "enSourceHash": "985604c2b6024312",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m9/gp:counter-tsu/ex:いちつ",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/gp:counter-tsu/ex:ひとつ ください",
+      "en": "One, please.",
+      "enSourceHash": "36df9d517e4ae675",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/gp:counter-tsu/ex:ふたつ ある",
+      "en": "There are two.",
+      "enSourceHash": "6104fc9836500411",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/gp:ikura-price/ex:いくらですか",
+      "en": "How much is it?",
+      "enSourceHash": "abdfbb3951b780a1",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/gp:ikura-price/ex:かねが ない。",
+      "en": "I have no money.",
+      "enSourceHash": "8ef2c724060a335b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/gp:ikura-price/ex:これは たかいだ。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/gp:ikura-price/ex:これは たかいです。",
+      "en": "This is expensive.",
+      "enSourceHash": "aa8c746aa0e0e206",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/gp:ikura-price/ex:ひゃくえんです",
+      "en": "It's a hundred yen.",
+      "enSourceHash": "86ccfd3dd66e17ab",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/gp:numbers-1-10/ex:いち に さん",
+      "en": "one, two, three",
+      "enSourceHash": "47f1d513458c0f20",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/gp:numbers-1-10/ex:きゅう、じゅう。",
+      "en": "Nine, ten.",
+      "enSourceHash": "ad44569851da1ef1",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/gp:numbers-1-10/ex:なな はち きゅう じゅう",
+      "en": "seven, eight, nine, ten",
+      "enSourceHash": "ec764133df972d4a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/gp:numbers-1-10/ex:よん ご ろく",
+      "en": "four, five, six",
+      "enSourceHash": "f8dbe28a8e6e2476",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/gp:numbers-1-10/ex:ろく、なな、はち。",
+      "en": "Six, seven, eight.",
+      "enSourceHash": "d2d66f4e62ddf56e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:0f4168490e38b844",
+      "en": "water",
+      "enSourceHash": "0f4168490e38b844",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:31a5089af947f380",
+      "en": "Pick the word for \"hat\"",
+      "enSourceHash": "31a5089af947f380",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:38a81e87e79631e6",
+      "en": "person",
+      "enSourceHash": "38a81e87e79631e6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:53a9c9b1f737d15e",
+      "en": "Pick the word for \"window\"",
+      "enSourceHash": "53a9c9b1f737d15e",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:5f479faa84cb02ca",
+      "en": "Pick the word for \"pencil\"",
+      "enSourceHash": "5f479faa84cb02ca",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:77af778b51abd4a3",
+      "en": "cat",
+      "enSourceHash": "77af778b51abd4a3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:aaa78828da2f4554",
+      "en": "Pick the word for \"today\"",
+      "enSourceHash": "aaa78828da2f4554",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:cde48537ca2c2808",
+      "en": "friend",
+      "enSourceHash": "cde48537ca2c2808",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:f0a0e26c1fae6882",
+      "en": "One to five",
+      "enSourceHash": "f0a0e26c1fae6882",
+      "kind": "title"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/ja:いち さん よん ご",
+      "en": "Build: one, three, four, five",
+      "enSourceHash": "cf37b3f4ec89cfee",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/ja:えんぴつは いちえんだ",
+      "en": "Build: The pencil is one yen",
+      "enSourceHash": "9a21f12d34b6f206",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/ja:これは ごえんだ",
+      "en": "Build: This is five yen",
+      "enSourceHash": "116104e8aaa9634b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/ja:さん よん ご",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/ja:それは よんえんだ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/ja:ほんは さんえんだ",
+      "en": "Build: The book is three yen",
+      "enSourceHash": "cb113896ee39d9c7",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/ja:ミカの ぼうしは ごえんだ",
+      "en": "Build: Mika's hat is five yen",
+      "enSourceHash": "99fbcf4156a7cd54",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:31a5089af947f380",
+      "en": "Pick the word for \"hat\"",
+      "enSourceHash": "31a5089af947f380",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:38a81e87e79631e6",
+      "en": "person",
+      "enSourceHash": "38a81e87e79631e6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:3b74bfd093993baf",
+      "en": "Six to ten",
+      "enSourceHash": "3b74bfd093993baf",
+      "kind": "title"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:53a9c9b1f737d15e",
+      "en": "Pick the word for \"window\"",
+      "enSourceHash": "53a9c9b1f737d15e",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:77af778b51abd4a3",
+      "en": "cat",
+      "enSourceHash": "77af778b51abd4a3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:aaa78828da2f4554",
+      "en": "Pick the word for \"today\"",
+      "enSourceHash": "aaa78828da2f4554",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:cd6357efdd966de8",
+      "en": "dog",
+      "enSourceHash": "cd6357efdd966de8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:cde48537ca2c2808",
+      "en": "friend",
+      "enSourceHash": "cde48537ca2c2808",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/ja:あれは はちえんだ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/ja:かさは ろくえんだ",
+      "en": "Build: The umbrella is six yen",
+      "enSourceHash": "b31898a10b7e40f0",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/ja:これは じゅうえんだ",
+      "en": "Build: This is ten yen",
+      "enSourceHash": "c584ec1784b52305",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/ja:それも じゅうえんだ",
+      "en": "Build: That one is ten yen too",
+      "enSourceHash": "e1fdee9061635e8b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/ja:はち きゅう じゅう",
+      "en": "Build: eight, nine, ten",
+      "enSourceHash": "5c5b3612b14de412",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/ja:みずは ななえんだ",
+      "en": "Build: The water is seven yen",
+      "enSourceHash": "a1f1fff30fa8b644",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/ja:ろく なな はち",
+      "en": "Build: six, seven, eight",
+      "enSourceHash": "b5313ed54617f2d3",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:0f4168490e38b844",
+      "en": "water",
+      "enSourceHash": "0f4168490e38b844",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:18e1dd392168f601",
+      "en": "hat",
+      "enSourceHash": "18e1dd392168f601",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:2974744982f08b20",
+      "en": "umbrella",
+      "enSourceHash": "2974744982f08b20",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:31a5089af947f380",
+      "en": "Pick the word for \"hat\"",
+      "enSourceHash": "31a5089af947f380",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:359b020155dec7d6",
+      "en": "There is one hat",
+      "enSourceHash": "359b020155dec7d6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:77af778b51abd4a3",
+      "en": "cat",
+      "enSourceHash": "77af778b51abd4a3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:7f3782fdc7103cb0",
+      "en": "There are two pencils",
+      "enSourceHash": "7f3782fdc7103cb0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:c04210a62e830c25",
+      "en": "There are two books",
+      "enSourceHash": "c04210a62e830c25",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:dfb5ae333651122c",
+      "en": "Mika has two hats",
+      "enSourceHash": "dfb5ae333651122c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:e27beb718a7bc6a1",
+      "en": "There are three umbrellas",
+      "enSourceHash": "e27beb718a7bc6a1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/ja:えんぴつが ふたつ ある",
+      "en": "Build: There are two pencils",
+      "enSourceHash": "b2cb8994aaed346a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/ja:かさが みっつ ある",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/ja:ふたつ ください",
+      "en": "Say politely: Two, please",
+      "enSourceHash": "38509e792dae4bad",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/ja:ほんが ふたつ ある",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/ja:ぼうしが ひとつ ある",
+      "en": "Build: There is one hat",
+      "enSourceHash": "731b3aa71e911f52",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/ja:みっつ ある",
+      "en": "Build: There are three",
+      "enSourceHash": "5a3adf0dd9733b14",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/ja:ミカの ぼうしが ふたつ ある",
+      "en": "Build: Mika has two hats",
+      "enSourceHash": "33d324881d4bd62e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:18e1dd392168f601",
+      "en": "hat",
+      "enSourceHash": "18e1dd392168f601",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:266550babbb7bd39",
+      "en": "glasses",
+      "enSourceHash": "266550babbb7bd39",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:2974744982f08b20",
+      "en": "umbrella",
+      "enSourceHash": "2974744982f08b20",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:31a5089af947f380",
+      "en": "Pick the word for \"hat\"",
+      "enSourceHash": "31a5089af947f380",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:53a9c9b1f737d15e",
+      "en": "Pick the word for \"window\"",
+      "enSourceHash": "53a9c9b1f737d15e",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:741d0f72a573ed81",
+      "en": "Yen and how much",
+      "enSourceHash": "741d0f72a573ed81",
+      "kind": "title"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:755d07a8b350b42e",
+      "en": "this (by me)",
+      "enSourceHash": "755d07a8b350b42e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:aaa78828da2f4554",
+      "en": "Pick the word for \"today\"",
+      "enSourceHash": "aaa78828da2f4554",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:e0ca449589b67a58",
+      "en": "yen",
+      "enSourceHash": "e0ca449589b67a58",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/ja:これは いくらですか",
+      "en": "Say politely: How much is this",
+      "enSourceHash": "4bd05ea4bed4cf25",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/ja:これは いくら？",
+      "en": "Build: How much is this?",
+      "enSourceHash": "f4b10c8f4aba30b6",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/ja:ひゃくえんです",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/ja:ほんは いくらですか",
+      "en": "Say politely: How much is the book",
+      "enSourceHash": "906f23645f4f4424",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/ja:ほんは ごひゃくえんです",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/ja:ぼうしは ひゃくえんです",
+      "en": "Say politely: The hat is a hundred yen",
+      "enSourceHash": "cf797611ba675cfb",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/ja:ミカの かさは いくらですか",
+      "en": "Say politely: How much is Mika's umbrella",
+      "enSourceHash": "656538ad3140b9c6",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:18e1dd392168f601",
+      "en": "hat",
+      "enSourceHash": "18e1dd392168f601",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:266550babbb7bd39",
+      "en": "glasses",
+      "enSourceHash": "266550babbb7bd39",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:2974744982f08b20",
+      "en": "umbrella",
+      "enSourceHash": "2974744982f08b20",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:31a5089af947f380",
+      "en": "Pick the word for \"hat\"",
+      "enSourceHash": "31a5089af947f380",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:822e06e56c7223f7",
+      "en": "Cheap and expensive",
+      "enSourceHash": "822e06e56c7223f7",
+      "kind": "title"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:a161048804912889",
+      "en": "Pick the word for \"glasses\"",
+      "enSourceHash": "a161048804912889",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:aaa78828da2f4554",
+      "en": "Pick the word for \"today\"",
+      "enSourceHash": "aaa78828da2f4554",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:d07bf9e756ebbfe1",
+      "en": "there is (things)",
+      "enSourceHash": "d07bf9e756ebbfe1",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:e0ca449589b67a58",
+      "en": "yen",
+      "enSourceHash": "e0ca449589b67a58",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/ja:かさは やすいです",
+      "en": "Say politely: The umbrella is cheap",
+      "enSourceHash": "cc4fd4931746ba97",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/ja:かねが ない",
+      "en": "Build: I have no money",
+      "enSourceHash": "e2b6bfc33f573dd3",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/ja:これは たかいです",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/ja:これは やすいです",
+      "en": "Say politely: This is cheap",
+      "enSourceHash": "742530a892ef2d8d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/ja:ミカの めがねは たかいです",
+      "en": "Say politely: Mika's glasses are expensive",
+      "enSourceHash": "6fb21325950badf9",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/en:217655f48dde4e0a",
+      "en": "to do",
+      "enSourceHash": "217655f48dde4e0a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/en:31a5089af947f380",
+      "en": "Pick the word for \"hat\"",
+      "enSourceHash": "31a5089af947f380",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/en:4bdf40d0d1ae3611",
+      "en": "rice/meal",
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/en:7e2ed393d525d7e2",
+      "en": "to buy",
+      "enSourceHash": "7e2ed393d525d7e2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/en:85ec7682d8f91af0",
+      "en": "Buying and selling",
+      "enSourceHash": "85ec7682d8f91af0",
+      "kind": "title"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/en:aaa78828da2f4554",
+      "en": "Pick the word for \"today\"",
+      "enSourceHash": "aaa78828da2f4554",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/en:c1f026582fe6e8cb",
+      "en": "food",
+      "enSourceHash": "c1f026582fe6e8cb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/ja:かいものを する",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/ja:みせで パンを うる",
+      "en": "Build: They sell bread at the shop",
+      "enSourceHash": "5baa99548330cf2e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/ja:みせで パンを みっつ かってください",
+      "en": "Say politely: Please buy three breads at the shop",
+      "enSourceHash": "ea562d605ae1256d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/ja:パンは やすいです",
+      "en": "Say politely: The bread is cheap",
+      "enSourceHash": "eaa3c2cda68b2077",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/ja:パンを ふたつ ください",
+      "en": "Say politely: Two breads, please",
+      "enSourceHash": "63e15a66d3ceb3c2",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:0f4168490e38b844",
+      "en": "water",
+      "enSourceHash": "0f4168490e38b844",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:13809668fb436386",
+      "en": "pencil",
+      "enSourceHash": "13809668fb436386",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:18e1dd392168f601",
+      "en": "hat",
+      "enSourceHash": "18e1dd392168f601",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:2974744982f08b20",
+      "en": "umbrella",
+      "enSourceHash": "2974744982f08b20",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:31a5089af947f380",
+      "en": "Pick the word for \"hat\"",
+      "enSourceHash": "31a5089af947f380",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:5039f80b1441cfdf",
+      "en": "Buy one of Mika's breads at the shop",
+      "enSourceHash": "5039f80b1441cfdf",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:53373506133f8079",
+      "en": "I'll buy three hats",
+      "enSourceHash": "53373506133f8079",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:5d73392bfc799f64",
+      "en": "How many do you want?",
+      "enSourceHash": "5d73392bfc799f64",
+      "kind": "title"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:69cde238315fd883",
+      "en": "I buy one bread",
+      "enSourceHash": "69cde238315fd883",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:91b0a8254cb66fb4",
+      "en": "I sell one book",
+      "enSourceHash": "91b0a8254cb66fb4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:985604c2b6024312",
+      "en": "bread",
+      "enSourceHash": "985604c2b6024312",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:a161048804912889",
+      "en": "Pick the word for \"glasses\"",
+      "enSourceHash": "a161048804912889",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:b7b811a0f117f755",
+      "en": "There are three pencils",
+      "enSourceHash": "b7b811a0f117f755",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:bf45fe7fec3b0b82",
+      "en": "Two teas, please",
+      "enSourceHash": "bf45fe7fec3b0b82",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:e7d58ff4f8ebbebe",
+      "en": "One water, please",
+      "enSourceHash": "e7d58ff4f8ebbebe",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:ecf61ca5e88d9fee",
+      "en": "Please buy two umbrellas",
+      "enSourceHash": "ecf61ca5e88d9fee",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/ja:えんぴつが みっつ ある",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/ja:かさを ふたつ かってください",
+      "en": "Say politely: Please buy two umbrellas",
+      "enSourceHash": "e6a2dae505328d9c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/ja:ほんを ひとつ うる",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/ja:ぼうしを みっつ かいます",
+      "en": "Say politely: I'll buy three hats",
+      "enSourceHash": "ad10d15503909f04",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/ja:みずを ひとつ ください",
+      "en": "Say politely: One water, please",
+      "enSourceHash": "0bb6eeafba509dfe",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/ja:みせで ミカの パンを ひとつ かって",
+      "en": "Build: Buy one of Mika's breads at the shop",
+      "enSourceHash": "ca03c5b9b2e3c7e3",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/ja:パンを ひとつ かう",
+      "en": "Build: I buy one bread",
+      "enSourceHash": "aa049f7ef768f2b7",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:31a5089af947f380",
+      "en": "Pick the word for \"hat\"",
+      "enSourceHash": "31a5089af947f380",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:391badff403adb7a",
+      "en": "Too expensive",
+      "enSourceHash": "391badff403adb7a",
+      "kind": "title"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:8d2ac8b58ead9744",
+      "en": "money",
+      "enSourceHash": "8d2ac8b58ead9744",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:985604c2b6024312",
+      "en": "bread",
+      "enSourceHash": "985604c2b6024312",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:a161048804912889",
+      "en": "Pick the word for \"glasses\"",
+      "enSourceHash": "a161048804912889",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:aaa78828da2f4554",
+      "en": "Pick the word for \"today\"",
+      "enSourceHash": "aaa78828da2f4554",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:c6f556046e0c0046",
+      "en": "cheap",
+      "enSourceHash": "c6f556046e0c0046",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:e0ca449589b67a58",
+      "en": "yen",
+      "enSourceHash": "e0ca449589b67a58",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:f3cca575ff7e90bd",
+      "en": "expensive",
+      "enSourceHash": "f3cca575ff7e90bd",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/ja:かねが ないです",
+      "en": "Say politely: I don't have money",
+      "enSourceHash": "94a67c91cd7b7e46",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/ja:ごひゃくえんは たかいです",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/ja:たかい ほんは かわない",
+      "en": "Build: I don't buy expensive books",
+      "enSourceHash": "6346fcf1c6df3f57",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/ja:たかいです。かいません",
+      "en": "Say politely: It's expensive so I won't buy it",
+      "enSourceHash": "66bdb63d936fed6c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/ja:やすい パンを かう",
+      "en": "Build: I buy cheap bread",
+      "enSourceHash": "4bbfda0da3d1881b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/ja:パンは たかい",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/ja:ミカの みせの パンは たかいです",
+      "en": "Say politely: The bread at Mika's shop is expensive",
+      "enSourceHash": "cae4f14f6c604e15",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:1180412af43d7860",
+      "en": "shopping",
+      "enSourceHash": "1180412af43d7860",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:31a5089af947f380",
+      "en": "Pick the word for \"hat\"",
+      "enSourceHash": "31a5089af947f380",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:8d2ac8b58ead9744",
+      "en": "money",
+      "enSourceHash": "8d2ac8b58ead9744",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:985604c2b6024312",
+      "en": "bread",
+      "enSourceHash": "985604c2b6024312",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:a161048804912889",
+      "en": "Pick the word for \"glasses\"",
+      "enSourceHash": "a161048804912889",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:aaa78828da2f4554",
+      "en": "Pick the word for \"today\"",
+      "enSourceHash": "aaa78828da2f4554",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:e0ca449589b67a58",
+      "en": "yen",
+      "enSourceHash": "e0ca449589b67a58",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:ea73589f3da26761",
+      "en": "A whole purchase",
+      "enSourceHash": "ea73589f3da26761",
+      "kind": "title"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/ja:ありがとう。やすいです",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/ja:かねは ありません",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/ja:すみません。パンは いくらですか",
+      "en": "Say politely: Excuse me — how much is the bread",
+      "enSourceHash": "da0b69f0fdbfbabb",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/ja:すみません。パンを ふたつ ください",
+      "en": "Say politely: Excuse me — two breads, please",
+      "enSourceHash": "1a0d4edc03808964",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/ja:ちゃを みっつ かってください",
+      "en": "Say politely: Please buy three teas",
+      "enSourceHash": "903cea85a9ceabab",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/ja:ふたつ ください",
+      "en": "Say politely: Two, please",
+      "enSourceHash": "38509e792dae4bad",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/ja:みせで かいものを します",
+      "en": "Say politely: I do the shopping at the shop",
+      "enSourceHash": "45f7d2b26ddc7905",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:18e1dd392168f601",
+      "en": "hat",
+      "enSourceHash": "18e1dd392168f601",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:1d5903044819be64",
+      "en": "I have no money today",
+      "enSourceHash": "1d5903044819be64",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:266550babbb7bd39",
+      "en": "glasses",
+      "enSourceHash": "266550babbb7bd39",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:2974744982f08b20",
+      "en": "umbrella",
+      "enSourceHash": "2974744982f08b20",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:31a5089af947f380",
+      "en": "Pick the word for \"hat\"",
+      "enSourceHash": "31a5089af947f380",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:4d83eae65eff9664",
+      "en": "Challenge — put it all together",
+      "enSourceHash": "4d83eae65eff9664",
+      "kind": "title"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:6ed9ac509fc0245c",
+      "en": "They sell three teas at the shop",
+      "enSourceHash": "6ed9ac509fc0245c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:985604c2b6024312",
+      "en": "bread",
+      "enSourceHash": "985604c2b6024312",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:b1e8d03f2b4f991d",
+      "en": "Please buy one bread for Ken",
+      "enSourceHash": "b1e8d03f2b4f991d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:d647be9735575f85",
+      "en": "I won't buy an expensive umbrella",
+      "enSourceHash": "d647be9735575f85",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:e5f477c7d0541005",
+      "en": "I'll buy three cheap breads at the shop",
+      "enSourceHash": "e5f477c7d0541005",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:e62b715b40a891fa",
+      "en": "Please buy two breads at Mika's shop",
+      "enSourceHash": "e62b715b40a891fa",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:ec9f43f9d235331a",
+      "en": "How much is Tanaka's book",
+      "enSourceHash": "ec9f43f9d235331a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/ja:かいものに いきますか",
+      "en": "Say politely: Are you going shopping",
+      "enSourceHash": "6c9b9425394e9a2f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/ja:きょうは かねが ありません",
+      "en": "Say politely: I have no money today",
+      "enSourceHash": "da026dbb22d10076",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/ja:たなかさんの ほんは いくらですか",
+      "en": "Say politely: How much is Tanaka's book",
+      "enSourceHash": "1537550966d9bbd6",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/ja:みせで ちゃを みっつ うる",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/ja:みせで やすい パンを みっつ かいます",
+      "en": "Say politely: I'll buy three cheap breads at the shop",
+      "enSourceHash": "1ab24a56ef7e4557",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/ja:めがねは ごひゃくえんです",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/ja:ケンくんに パンを ひとつ かってください",
+      "en": "Say politely: Please buy one bread for Ken",
+      "enSourceHash": "9a57b3e2857f30bf",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/ja:ミカの みせで パンを ふたつ かってください",
+      "en": "Say politely: Please buy two breads at Mika's shop",
+      "enSourceHash": "98b16980385644bb",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-ha/en:372f7e2fd2d01ce2",
+      "en": "he",
+      "enSourceHash": "372f7e2fd2d01ce2",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-ha/en:37e7702e5ce449c1",
+      "en": "ra",
+      "enSourceHash": "37e7702e5ce449c1",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-ha/en:8693873cd8f8a2d9",
+      "en": "ha",
+      "enSourceHash": "8693873cd8f8a2d9",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-ha/en:8f434346648f6b96",
+      "en": "hi",
+      "enSourceHash": "8f434346648f6b96",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-ha/en:a4d0ef23161b5b7c",
+      "en": "fu",
+      "enSourceHash": "a4d0ef23161b5b7c",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-ha/en:a7187294bd6b3646",
+      "en": "Match the katakana to their sounds",
+      "enSourceHash": "a7187294bd6b3646",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-ha/en:a821c62e8104f851",
+      "en": "ho",
+      "enSourceHash": "a821c62e8104f851",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-na/en:0a64ce10853f25cb",
+      "en": "su",
+      "enSourceHash": "0a64ce10853f25cb",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-na/en:3086cf468ccca87c",
+      "en": "nu",
+      "enSourceHash": "3086cf468ccca87c",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-na/en:3d9fc4bde7ceef05",
+      "en": "na",
+      "enSourceHash": "3d9fc4bde7ceef05",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-na/en:4db03a277cfb9ef4",
+      "en": "ni",
+      "enSourceHash": "4db03a277cfb9ef4",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-na/en:9183c674889ff274",
+      "en": "kyu",
+      "enSourceHash": "9183c674889ff274",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-na/en:9390298f3fb0c5b1",
+      "en": "no",
+      "enSourceHash": "9390298f3fb0c5b1",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-na/en:a7187294bd6b3646",
+      "en": "Match the katakana to their sounds",
+      "enSourceHash": "a7187294bd6b3646",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-na/en:cb58e4600bf0142c",
+      "en": "ne",
+      "enSourceHash": "cb58e4600bf0142c",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-na/en:dffe602cd1e0bfa9",
+      "en": "chi",
+      "enSourceHash": "dffe602cd1e0bfa9",
+      "kind": "romaji-label"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:13809668fb436386",
+      "en": "pencil",
+      "enSourceHash": "13809668fb436386",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:266550babbb7bd39",
+      "en": "glasses",
+      "enSourceHash": "266550babbb7bd39",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:2974744982f08b20",
+      "en": "umbrella",
+      "enSourceHash": "2974744982f08b20",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:31a5089af947f380",
+      "en": "Pick the word for \"hat\"",
+      "enSourceHash": "31a5089af947f380",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:44ff7b02c80d38b2",
+      "en": "window",
+      "enSourceHash": "44ff7b02c80d38b2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:77af778b51abd4a3",
+      "en": "cat",
+      "enSourceHash": "77af778b51abd4a3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:7f3782fdc7103cb0",
+      "en": "There are two pencils",
+      "enSourceHash": "7f3782fdc7103cb0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:99fde0cfad8a078e",
+      "en": "Buy one pair of glasses",
+      "enSourceHash": "99fde0cfad8a078e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:a1c12d56c6f08b01",
+      "en": "Review — the number line",
+      "enSourceHash": "a1c12d56c6f08b01",
+      "kind": "title"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:c04210a62e830c25",
+      "en": "There are two books",
+      "enSourceHash": "c04210a62e830c25",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:cb7103d6f32d4205",
+      "en": "eight, nine, ten",
+      "enSourceHash": "cb7103d6f32d4205",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:cc679ddc8946e50a",
+      "en": "There are two windows",
+      "enSourceHash": "cc679ddc8946e50a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:e27beb718a7bc6a1",
+      "en": "There are three umbrellas",
+      "enSourceHash": "e27beb718a7bc6a1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/ja:えんぴつが ふたつ ある",
+      "en": "Build: There are two pencils",
+      "enSourceHash": "b2cb8994aaed346a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/ja:かさが みっつ ある",
+      "en": "Build: There are three umbrellas",
+      "enSourceHash": "e8cbb7a3e894e160",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/ja:かさは ごえんです",
+      "en": "Say politely: The umbrella is five yen",
+      "enSourceHash": "e99eb82164dd41f3",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/ja:これは ななえんだ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/ja:はち きゅう じゅう",
+      "en": "Build: eight, nine, ten",
+      "enSourceHash": "5c5b3612b14de412",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/ja:ほんが ふたつ ある",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/ja:まどが ふたつ ある",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/ja:めがねを ひとつ かって",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/en:037f050f38f40b97",
+      "en": "Review — the shop exchange",
+      "enSourceHash": "037f050f38f40b97",
+      "kind": "title"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/en:31a5089af947f380",
+      "en": "Pick the word for \"hat\"",
+      "enSourceHash": "31a5089af947f380",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/en:46bcff11a845ba3d",
+      "en": "Pick the word for \"person\"",
+      "enSourceHash": "46bcff11a845ba3d",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/en:4bdf40d0d1ae3611",
+      "en": "rice/meal",
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/en:8d2ac8b58ead9744",
+      "en": "money",
+      "enSourceHash": "8d2ac8b58ead9744",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/en:985604c2b6024312",
+      "en": "bread",
+      "enSourceHash": "985604c2b6024312",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/en:aaa78828da2f4554",
+      "en": "Pick the word for \"today\"",
+      "enSourceHash": "aaa78828da2f4554",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/en:e0ca449589b67a58",
+      "en": "yen",
+      "enSourceHash": "e0ca449589b67a58",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/ja:かいものを してください",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/ja:かねが ない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/ja:ごはんは やすいです",
+      "en": "Say politely: The rice is cheap",
+      "enSourceHash": "84fdb47b5492e1ac",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/ja:たかいです",
+      "en": "Say politely: It's expensive",
+      "enSourceHash": "ceae3f47b339298c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/ja:ひゃくえんです",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/ja:みせで ちゃを かう",
+      "en": "Build: I buy tea at the shop",
+      "enSourceHash": "fc56ea2d630000e8",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/ja:パンは いくらですか",
+      "en": "Say politely: How much is the bread",
+      "enSourceHash": "daaece0409887d7d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/ja:パンを かいます",
+      "en": "Say politely: I'll buy bread",
+      "enSourceHash": "aa88cea762fe0c68",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:13809668fb436386",
+      "en": "pencil",
+      "enSourceHash": "13809668fb436386",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:18e1dd392168f601",
+      "en": "hat",
+      "enSourceHash": "18e1dd392168f601",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:266550babbb7bd39",
+      "en": "glasses",
+      "enSourceHash": "266550babbb7bd39",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:2974744982f08b20",
+      "en": "umbrella",
+      "enSourceHash": "2974744982f08b20",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:31a5089af947f380",
+      "en": "Pick the word for \"hat\"",
+      "enSourceHash": "31a5089af947f380",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:6104602896a15d95",
+      "en": "I buy two loaves of bread",
+      "enSourceHash": "6104602896a15d95",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:697bcae30e2b0918",
+      "en": "Review — numbers, prices, purchases",
+      "enSourceHash": "697bcae30e2b0918",
+      "kind": "title"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:7b1325cc0e2a74eb",
+      "en": "I buy two pencils",
+      "enSourceHash": "7b1325cc0e2a74eb",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:8abe51f12dbb342d",
+      "en": "They sell bread at the shop",
+      "enSourceHash": "8abe51f12dbb342d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:985604c2b6024312",
+      "en": "bread",
+      "enSourceHash": "985604c2b6024312",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:c2d0fd96fb145861",
+      "en": "I have a hundred yen",
+      "enSourceHash": "c2d0fd96fb145861",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:ccf64396fe19fff5",
+      "en": "I don't buy expensive glasses",
+      "enSourceHash": "ccf64396fe19fff5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/ja:かいものを してください",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/ja:かさは やすいです",
+      "en": "Say politely: The umbrella is cheap",
+      "enSourceHash": "cc4fd4931746ba97",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/ja:かねが ひゃくえん ある",
+      "en": "Build: I have a hundred yen",
+      "enSourceHash": "9209076b587f79eb",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/ja:たかい めがねは かいません",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/ja:みせで パンを うる",
+      "en": "Build: They sell bread at the shop",
+      "enSourceHash": "5baa99548330cf2e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/ja:めがねは いくらですか",
+      "en": "Say politely: How much are the glasses",
+      "enSourceHash": "424cd56b1ac23f70",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/ja:ろく ななです",
+      "en": "Say politely: It's six, seven",
+      "enSourceHash": "cf5e544912fb5d60",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/ja:パンを ふたつ かう",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m9/story:ja-m5-shop-errand/en:1889856217d5f126",
+      "en": "At the shop",
+      "enSourceHash": "1889856217d5f126",
+      "kind": "title"
+    },
+    {
+      "anchor": "m9/story:ja-m5-shop-errand/en:39589b9a7014e9ed",
+      "en": "Asking prices on a quick errand.",
+      "enSourceHash": "39589b9a7014e9ed",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m9/story:ja-m5-shop-errand/ja:ありがとうございます。",
+      "en": "Thank you.",
+      "enSourceHash": "8569efc4ed5a6273",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m5-shop-errand/ja:あれは いくらですか。",
+      "en": "How much is that one over there?",
+      "enSourceHash": "964f14aa1a52d642",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m5-shop-errand/ja:これ、ください。",
+      "en": "This one, please.",
+      "enSourceHash": "ce0d10ba0ccd770c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m5-shop-errand/ja:これは いくらですか。",
+      "en": "How much is this?",
+      "enSourceHash": "c71b1e6dc0159c83",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m5-shop-errand/ja:ごひゃくえんです。",
+      "en": "It's 500 yen.",
+      "enSourceHash": "c1de9274674a51bc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m5-shop-errand/ja:すみません。",
+      "en": "Excuse me.",
+      "enSourceHash": "fa120587cef0d232",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m5-shop-errand/ja:ひゃくえんです。",
+      "en": "It's 100 yen.",
+      "enSourceHash": "71718960d243b056",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-a-lively-town/en:1b12534dd6a1404b",
+      "en": "First impressions of the neighborhood.",
+      "enSourceHash": "1b12534dd6a1404b",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m9/story:ja-m9-a-lively-town/en:596560a3c55d8837",
+      "en": "A lively town",
+      "enSourceHash": "596560a3c55d8837",
+      "kind": "title"
+    },
+    {
+      "anchor": "m9/story:ja-m9-a-lively-town/ja:えきは べんりです。",
+      "en": "The station is convenient.",
+      "enSourceHash": "bfa70efaa79c4f07",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-a-lively-town/ja:きょうは ひまです。",
+      "en": "I'm free today.",
+      "enSourceHash": "2f8787a4d2383f18",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-a-lively-town/ja:こうえんは しずかです。",
+      "en": "The park is quiet.",
+      "enSourceHash": "400a0677bb519521",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-a-lively-town/ja:ここは いいところです。",
+      "en": "This is a nice place.",
+      "enSourceHash": "691bf311e3d8795e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-a-lively-town/ja:このまちは とても にぎやかです。",
+      "en": "This town is very lively.",
+      "enSourceHash": "7d7be097a6fe5a05",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-a-lively-town/ja:わたしは えいごが じょうずです。",
+      "en": "I'm good at English.",
+      "enSourceHash": "463f1dbb58e046ca",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-a-lively-town/ja:コーヒーは とても おいしいです。",
+      "en": "The coffee is really delicious.",
+      "enSourceHash": "63a4de9fcc7ac685",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/en:c60f3642e4cb5954",
+      "en": "Under the cherry trees",
+      "enSourceHash": "c60f3642e4cb5954",
+      "kind": "title"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/en:c8a16760a2ad8b14",
+      "en": "A famous park on a spring afternoon, and a quieter corner of it.",
+      "enSourceHash": "c8a16760a2ad8b14",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/gloss:はなみ",
+      "en": "flower viewing — sitting under the cherry blossoms with food and drink",
+      "enSourceHash": "b7c607bea6cdeb77",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:あそこに いけが あります。",
+      "en": "There is a pond over there.",
+      "enSourceHash": "4614f5d86b968a35",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:あそこに ひとが すこし います。",
+      "en": "There are a few people over there.",
+      "enSourceHash": "481bbad263129906",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:あそこの はなみは とても おもしろいです。",
+      "en": "Hanami over there is very interesting.",
+      "enSourceHash": "83fa6ebd71a5ce82",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:あそこは しずかです。",
+      "en": "It is quiet over there.",
+      "enSourceHash": "01abd6118c765395",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:いけの みずに さくらの はなが あります。",
+      "en": "There are cherry blossoms on the pond's water.",
+      "enSourceHash": "40d17b954349b87f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:おちゃが ありません。",
+      "en": "There is no tea.",
+      "enSourceHash": "b332957f3744d46d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:おちゃは にひゃくえんです。",
+      "en": "The tea is two hundred yen.",
+      "enSourceHash": "8bc8d65f5e7f49eb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:きょう、わたしは ともだちと こうえんに いきます。",
+      "en": "Today I go to the park with a friend.",
+      "enSourceHash": "dd5c14fd6045261d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:こうえんは とても にぎやかです。",
+      "en": "The park is very lively.",
+      "enSourceHash": "37c38855bc7c950c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:ここは しずかじゃないです。",
+      "en": "It is not quiet here.",
+      "enSourceHash": "60829a16ae1cf175",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:この こうえんの さくらは とても ゆうめいです。",
+      "en": "This park's cherry blossoms are very famous.",
+      "enSourceHash": "bc87c28cbc48eb84",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:それから、わたしは みせで おちゃを かいます。",
+      "en": "After that I buy tea at the shop.",
+      "enSourceHash": "ec2179ac3dd78f5a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:ともだちは こうえんの あそこに いきます。",
+      "en": "My friend goes over there in the park.",
+      "enSourceHash": "81003597ee177130",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:ふたりで ごはんを たべます。",
+      "en": "The two of us eat a meal.",
+      "enSourceHash": "4945898983658f3d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:ふたりで はなみを します。",
+      "en": "The two of us do hanami.",
+      "enSourceHash": "9b2923ad413b6019",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:わたしも いきます。",
+      "en": "I go too.",
+      "enSourceHash": "5e6e2641ab0be4ae",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/en:43f9085f42307278",
+      "en": "Bad at English, with a test tomorrow and a friend who isn't.",
+      "enSourceHash": "43f9085f42307278",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/en:b9f6df9388c3313a",
+      "en": "The English test",
+      "enSourceHash": "b9f6df9388c3313a",
+      "kind": "title"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/gloss:あした",
+      "en": "tomorrow",
+      "enSourceHash": "bafd151a86f9a573",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/gloss:けど",
+      "en": "but, although",
+      "enSourceHash": "6a16848ebec13abc",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:あさ、テストです。",
+      "en": "Morning — the test.",
+      "enSourceHash": "c3f8d168e99a0626",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:あしたは えいごの テストです。",
+      "en": "Tomorrow is the English test.",
+      "enSourceHash": "94b52eccb11b5125",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:えいごは ちょっと むずかしいです。",
+      "en": "English is a bit hard.",
+      "enSourceHash": "1ae92240ebd0c4bd",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:けど、すこし わかりました。",
+      "en": "But I understood a little.",
+      "enSourceHash": "541c3d2391ffdad4",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:それから、えいごの ニュースも ききます。",
+      "en": "After that we listen to the English news too.",
+      "enSourceHash": "70254530a0a96277",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:ともだちの ユミは えいごが じょうずです。",
+      "en": "My friend Yumi is good at English.",
+      "enSourceHash": "3e7b0ccae6f5e3ef",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:ふたりで えいごの ほんを よみます。",
+      "en": "The two of us read an English book.",
+      "enSourceHash": "bda2f49f48c4b9b7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:わたしの えいごは すこし じょうずです。",
+      "en": "My English is a little better.",
+      "enSourceHash": "4ed7aa1482b6eeb2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:わたしは えいごが へたです。",
+      "en": "I'm bad at English.",
+      "enSourceHash": "3c39dea97e5b8078",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:テストは とても むずかしいです。",
+      "en": "The test is very hard.",
+      "enSourceHash": "1d16ae076df974b1",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:テストは むずかしいけど、だいじょうぶです。",
+      "en": "The test is hard, but I'm all right.",
+      "enSourceHash": "92c34d967d4b6a55",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:ユミ、ありがとうございます。",
+      "en": "Thank you, Yumi.",
+      "enSourceHash": "1f010b4f3eda8a6e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:ユミ、えいごを おしえて ください。",
+      "en": "Yumi, please teach me English.",
+      "enSourceHash": "78383806e459b030",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:ユミは としょかんに きます。",
+      "en": "Yumi comes to the library.",
+      "enSourceHash": "ccee9e9fc05cf55f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m9/symbolIntro:ナ/hint",
+      "en": "like 'na' in 'nap'",
+      "enSourceHash": "22894271a021368a",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m9/symbolIntro:ニ/hint",
+      "en": "like 'nee' in 'knee'",
+      "enSourceHash": "9604ab7806b072ed",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m9/symbolIntro:ヌ/hint",
+      "en": "like 'noo' in 'noodle'",
+      "enSourceHash": "11eb7a3c86a5ada5",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m9/symbolIntro:ネ/hint",
+      "en": "like 'ne' in 'net'",
+      "enSourceHash": "7f927d23656df551",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m9/symbolIntro:ノ/hint",
+      "en": "like 'no' in 'note'",
+      "enSourceHash": "d7ca412a65a3d5cf",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m9/symbolIntro:ハ/hint",
+      "en": "like 'ha' in 'haha'",
+      "enSourceHash": "8eeb94e07f977cdc",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m9/symbolIntro:ヒ/hint",
+      "en": "like 'hee' in 'heel'",
+      "enSourceHash": "53efee884ceee23d",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m9/symbolIntro:フ/hint",
+      "en": "soft 'f'/'h' — blow gently",
+      "enSourceHash": "53781bbf2406ac39",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m9/symbolIntro:ヘ/hint",
+      "en": "like 'he' in 'hem'",
+      "enSourceHash": "bf7fa3c545040c9b",
+      "kind": "mnemonic"
+    },
+    {
+      "anchor": "m9/symbolIntro:ホ/hint",
+      "en": "like 'ho' in 'hope'",
+      "enSourceHash": "48156f6278aad92b",
+      "kind": "mnemonic"
+    }
+  ]
+}

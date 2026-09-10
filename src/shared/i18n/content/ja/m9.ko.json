@@ -1,0 +1,2010 @@
+{
+  "schema": 1,
+  "moduleId": "m9",
+  "lang": "ko",
+  "generatedAt": "2026-09-10",
+  "draftedBy": "qwen3.5:122b-a10b-q4_K_M",
+  "entryCount": 400,
+  "entries": [
+    {
+      "anchor": "m9/atom:いくらですか/gloss",
+      "text": "얼마예요?",
+      "enSourceHash": "abdfbb3951b780a1"
+    },
+    {
+      "anchor": "m9/atom:いち/gloss",
+      "text": "하나",
+      "enSourceHash": "7692c3ad3540bb80"
+    },
+    {
+      "anchor": "m9/atom:うる/gloss",
+      "text": "팔다",
+      "enSourceHash": "97a0a4581e77bc34"
+    },
+    {
+      "anchor": "m9/atom:かね/gloss",
+      "text": "돈",
+      "enSourceHash": "8d2ac8b58ead9744"
+    },
+    {
+      "anchor": "m9/atom:きゅう/gloss",
+      "text": "아홉",
+      "enSourceHash": "edcd8e701a2df0cd"
+    },
+    {
+      "anchor": "m9/atom:ご/gloss",
+      "text": "다섯",
+      "enSourceHash": "222b0bd51fcef7e6"
+    },
+    {
+      "anchor": "m9/atom:さん/gloss",
+      "text": "셋",
+      "enSourceHash": "8b5b9db0c13db242"
+    },
+    {
+      "anchor": "m9/atom:たかい/gloss",
+      "text": "비싸다",
+      "enSourceHash": "43f164da8156eca8"
+    },
+    {
+      "anchor": "m9/atom:なな/gloss",
+      "text": "일곱",
+      "enSourceHash": "3ba8d02b16fd2a01"
+    },
+    {
+      "anchor": "m9/atom:はち/gloss",
+      "text": "여덟",
+      "enSourceHash": "c195d2d875623436"
+    },
+    {
+      "anchor": "m9/atom:ひとつ/gloss",
+      "text": "하나",
+      "enSourceHash": "7692c3ad3540bb80"
+    },
+    {
+      "anchor": "m9/atom:ひま/gloss",
+      "text": "여유",
+      "enSourceHash": "7330059355c00520"
+    },
+    {
+      "anchor": "m9/atom:ふたつ/gloss",
+      "text": "둘",
+      "enSourceHash": "3fc4ccfe745870e2"
+    },
+    {
+      "anchor": "m9/atom:みっつ/gloss",
+      "text": "셋",
+      "enSourceHash": "8b5b9db0c13db242"
+    },
+    {
+      "anchor": "m9/atom:やすい/gloss",
+      "text": "싸다",
+      "enSourceHash": "c6f556046e0c0046"
+    },
+    {
+      "anchor": "m9/atom:よん/gloss",
+      "text": "넷",
+      "enSourceHash": "04efaf080f5a3e74"
+    },
+    {
+      "anchor": "m9/atom:ろく/gloss",
+      "text": "여섯",
+      "enSourceHash": "44778d82365e4af6"
+    },
+    {
+      "anchor": "m9/atom:パン/gloss",
+      "text": "빵",
+      "enSourceHash": "985604c2b6024312"
+    },
+    {
+      "anchor": "m9/gp:counter-tsu/ex:いちつ",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m9/gp:counter-tsu/ex:ひとつ ください",
+      "text": "하나 주세요",
+      "enSourceHash": "36df9d517e4ae675"
+    },
+    {
+      "anchor": "m9/gp:counter-tsu/ex:ふたつ ある",
+      "text": "두 개 있다",
+      "enSourceHash": "6104fc9836500411"
+    },
+    {
+      "anchor": "m9/gp:ikura-price/ex:いくらですか",
+      "text": "얼마예요?",
+      "enSourceHash": "abdfbb3951b780a1"
+    },
+    {
+      "anchor": "m9/gp:ikura-price/ex:かねが ない。",
+      "text": "돈이 없다.",
+      "enSourceHash": "8ef2c724060a335b"
+    },
+    {
+      "anchor": "m9/gp:ikura-price/ex:これは たかいだ。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m9/gp:ikura-price/ex:これは たかいです。",
+      "text": "이것은 비싸요.",
+      "enSourceHash": "aa8c746aa0e0e206"
+    },
+    {
+      "anchor": "m9/gp:ikura-price/ex:ひゃくえんです",
+      "text": "100 엔이에요",
+      "enSourceHash": "86ccfd3dd66e17ab"
+    },
+    {
+      "anchor": "m9/gp:numbers-1-10/ex:いち に さん",
+      "text": "하나, 둘, 셋",
+      "enSourceHash": "47f1d513458c0f20"
+    },
+    {
+      "anchor": "m9/gp:numbers-1-10/ex:きゅう、じゅう。",
+      "text": "아홉, 열.",
+      "enSourceHash": "ad44569851da1ef1"
+    },
+    {
+      "anchor": "m9/gp:numbers-1-10/ex:なな はち きゅう じゅう",
+      "text": "일곱, 여덟, 아홉, 열",
+      "enSourceHash": "ec764133df972d4a"
+    },
+    {
+      "anchor": "m9/gp:numbers-1-10/ex:よん ご ろく",
+      "text": "넷, 다섯, 여섯",
+      "enSourceHash": "f8dbe28a8e6e2476"
+    },
+    {
+      "anchor": "m9/gp:numbers-1-10/ex:ろく、なな、はち。",
+      "text": "여섯, 일곱, 여덟.",
+      "enSourceHash": "d2d66f4e62ddf56e"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:0f4168490e38b844",
+      "text": "물",
+      "enSourceHash": "0f4168490e38b844"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:31a5089af947f380",
+      "text": "\"모자\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "31a5089af947f380"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:38a81e87e79631e6",
+      "text": "사람",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:53a9c9b1f737d15e",
+      "text": "\"창문\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "53a9c9b1f737d15e"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:5f479faa84cb02ca",
+      "text": "\"연필\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5f479faa84cb02ca"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:77af778b51abd4a3",
+      "text": "고양이",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:aaa78828da2f4554",
+      "text": "\"오늘\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "aaa78828da2f4554"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:cde48537ca2c2808",
+      "text": "친구",
+      "enSourceHash": "cde48537ca2c2808"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:ce14eb884880a070",
+      "text": "\"고양이\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "ce14eb884880a070"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:d6e21286621a8586",
+      "text": "집",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/en:f0a0e26c1fae6882",
+      "text": "1 에서 5",
+      "enSourceHash": "f0a0e26c1fae6882"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/ja:いち さん よん ご",
+      "text": "만들기: 하나, 셋, 넷, 다섯",
+      "enSourceHash": "cf37b3f4ec89cfee"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/ja:えんぴつは いちえんだ",
+      "text": "만들기: 연필은 1 엔이다",
+      "enSourceHash": "9a21f12d34b6f206"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/ja:これは ごえんだ",
+      "text": "만들기: 이것은 5 엔이다",
+      "enSourceHash": "116104e8aaa9634b"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/ja:さん よん ご",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/ja:それは よんえんだ",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/ja:ほんは さんえんだ",
+      "text": "만들기: 책은 3 엔이다",
+      "enSourceHash": "cb113896ee39d9c7"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-1/ja:ミカの ぼうしは ごえんだ",
+      "text": "만들기: 미카의 모자는 5 엔이다",
+      "enSourceHash": "99fbcf4156a7cd54"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:31a5089af947f380",
+      "text": "\"모자\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "31a5089af947f380"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:38a81e87e79631e6",
+      "text": "사람",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:3b74bfd093993baf",
+      "text": "6 에서 10",
+      "enSourceHash": "3b74bfd093993baf"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:53a9c9b1f737d15e",
+      "text": "\"창문\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "53a9c9b1f737d15e"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:77af778b51abd4a3",
+      "text": "고양이",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:aaa78828da2f4554",
+      "text": "\"오늘\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "aaa78828da2f4554"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:cd6357efdd966de8",
+      "text": "개",
+      "enSourceHash": "cd6357efdd966de8"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:cde48537ca2c2808",
+      "text": "친구",
+      "enSourceHash": "cde48537ca2c2808"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:ce14eb884880a070",
+      "text": "\"고양이\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "ce14eb884880a070"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/en:d6e21286621a8586",
+      "text": "집",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/ja:あれは はちえんだ",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/ja:かさは ろくえんだ",
+      "text": "만들기: 우산은 6 엔이다",
+      "enSourceHash": "b31898a10b7e40f0"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/ja:これは じゅうえんだ",
+      "text": "만들기: 이것은 10 엔이다",
+      "enSourceHash": "c584ec1784b52305"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/ja:それも じゅうえんだ",
+      "text": "만들기: 저것도 10 엔이다",
+      "enSourceHash": "e1fdee9061635e8b"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/ja:はち きゅう じゅう",
+      "text": "만들기: 여덟, 아홉, 열",
+      "enSourceHash": "5c5b3612b14de412"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/ja:みずは ななえんだ",
+      "text": "만들기: 물은 7 엔이다",
+      "enSourceHash": "a1f1fff30fa8b644"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-2/ja:ろく なな はち",
+      "text": "만들기: 여섯, 일곱, 여덟",
+      "enSourceHash": "b5313ed54617f2d3"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:0f4168490e38b844",
+      "text": "물",
+      "enSourceHash": "0f4168490e38b844"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:18e1dd392168f601",
+      "text": "모자",
+      "enSourceHash": "18e1dd392168f601"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:2974744982f08b20",
+      "text": "우산",
+      "enSourceHash": "2974744982f08b20"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:31a5089af947f380",
+      "text": "\"모자\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "31a5089af947f380"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:359b020155dec7d6",
+      "text": "모자가 하나 있다",
+      "enSourceHash": "359b020155dec7d6"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:77af778b51abd4a3",
+      "text": "고양이",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:7f3782fdc7103cb0",
+      "text": "연필이 두 개 있다",
+      "enSourceHash": "7f3782fdc7103cb0"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:c04210a62e830c25",
+      "text": "책이 두 권 있다",
+      "enSourceHash": "c04210a62e830c25"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:ce14eb884880a070",
+      "text": "\"고양이\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "ce14eb884880a070"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:d6e21286621a8586",
+      "text": "집",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:dfb5ae333651122c",
+      "text": "미카의 모자가 두 개 있다",
+      "enSourceHash": "dfb5ae333651122c"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/en:e27beb718a7bc6a1",
+      "text": "우산이 세 개 있다",
+      "enSourceHash": "e27beb718a7bc6a1"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/ja:えんぴつが ふたつ ある",
+      "text": "만들기: 연필이 두 개 있다",
+      "enSourceHash": "b2cb8994aaed346a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/ja:かさが みっつ ある",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/ja:ふたつ ください",
+      "text": "정중하게 말하세요: 두 개 주세요",
+      "enSourceHash": "38509e792dae4bad"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/ja:ほんが ふたつ ある",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/ja:ぼうしが ひとつ ある",
+      "text": "만들기: 모자가 하나 있다",
+      "enSourceHash": "731b3aa71e911f52"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/ja:みっつ ある",
+      "text": "만들기: 세 개 있다",
+      "enSourceHash": "5a3adf0dd9733b14"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-3/ja:ミカの ぼうしが ふたつ ある",
+      "text": "만들기: 미카의 모자가 두 개 있다",
+      "enSourceHash": "33d324881d4bd62e"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:18e1dd392168f601",
+      "text": "모자",
+      "enSourceHash": "18e1dd392168f601"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:266550babbb7bd39",
+      "text": "안경",
+      "enSourceHash": "266550babbb7bd39"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:2974744982f08b20",
+      "text": "우산",
+      "enSourceHash": "2974744982f08b20"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:31a5089af947f380",
+      "text": "\"모자\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "31a5089af947f380"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:53a9c9b1f737d15e",
+      "text": "\"창문\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "53a9c9b1f737d15e"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:741d0f72a573ed81",
+      "text": "엔화와 가격",
+      "enSourceHash": "741d0f72a573ed81"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:755d07a8b350b42e",
+      "text": "이것 (내가 가진)",
+      "enSourceHash": "755d07a8b350b42e"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:aaa78828da2f4554",
+      "text": "\"오늘\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "aaa78828da2f4554"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:ce14eb884880a070",
+      "text": "\"고양이\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "ce14eb884880a070"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/en:e0ca449589b67a58",
+      "text": "엔",
+      "enSourceHash": "e0ca449589b67a58"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/ja:これは いくらですか",
+      "text": "정중하게 말하세요: 이것은 얼마예요",
+      "enSourceHash": "4bd05ea4bed4cf25"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/ja:これは いくら？",
+      "text": "만들기: 이것은 얼마?",
+      "enSourceHash": "f4b10c8f4aba30b6"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/ja:ひゃくえんです",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/ja:ほんは いくらですか",
+      "text": "정중하게 말하세요: 책은 얼마예요",
+      "enSourceHash": "906f23645f4f4424"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/ja:ほんは ごひゃくえんです",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/ja:ぼうしは ひゃくえんです",
+      "text": "정중하게 말하세요: 모자는 100 엔이에요",
+      "enSourceHash": "cf797611ba675cfb"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-4/ja:ミカの かさは いくらですか",
+      "text": "정중하게 말하세요: 미카의 우산은 얼마예요",
+      "enSourceHash": "656538ad3140b9c6"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:18e1dd392168f601",
+      "text": "모자",
+      "enSourceHash": "18e1dd392168f601"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:266550babbb7bd39",
+      "text": "안경",
+      "enSourceHash": "266550babbb7bd39"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:2974744982f08b20",
+      "text": "우산",
+      "enSourceHash": "2974744982f08b20"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:31a5089af947f380",
+      "text": "\"모자\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "31a5089af947f380"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:822e06e56c7223f7",
+      "text": "싸고 비싸다",
+      "enSourceHash": "822e06e56c7223f7"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:a161048804912889",
+      "text": "\"안경\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "a161048804912889"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:aaa78828da2f4554",
+      "text": "\"오늘\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "aaa78828da2f4554"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:ce14eb884880a070",
+      "text": "\"고양이\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "ce14eb884880a070"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:d07bf9e756ebbfe1",
+      "text": "있다 (사물)",
+      "enSourceHash": "d07bf9e756ebbfe1"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/en:e0ca449589b67a58",
+      "text": "엔",
+      "enSourceHash": "e0ca449589b67a58"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/ja:かさは やすいです",
+      "text": "정중하게 말하세요: 우산은 싸요",
+      "enSourceHash": "cc4fd4931746ba97"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/ja:かねが ない",
+      "text": "만들기: 돈이 없다",
+      "enSourceHash": "e2b6bfc33f573dd3"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/ja:これは たかいです",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/ja:これは やすいです",
+      "text": "정중하게 말하세요: 이것은 싸요",
+      "enSourceHash": "742530a892ef2d8d"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-5/ja:ミカの めがねは たかいです",
+      "text": "정중하게 말하세요: 미카의 안경은 비싸요",
+      "enSourceHash": "6fb21325950badf9"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/en:217655f48dde4e0a",
+      "text": "하다",
+      "enSourceHash": "217655f48dde4e0a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/en:31a5089af947f380",
+      "text": "\"모자\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "31a5089af947f380"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/en:4bdf40d0d1ae3611",
+      "text": "밥/식사",
+      "enSourceHash": "4bdf40d0d1ae3611"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/en:7e2ed393d525d7e2",
+      "text": "사다",
+      "enSourceHash": "7e2ed393d525d7e2"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/en:85ec7682d8f91af0",
+      "text": "사고팔기",
+      "enSourceHash": "85ec7682d8f91af0"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/en:a9f74d1ec36ebdeb",
+      "text": "차",
+      "enSourceHash": "a9f74d1ec36ebdeb"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/en:aaa78828da2f4554",
+      "text": "\"오늘\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "aaa78828da2f4554"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/en:c1f026582fe6e8cb",
+      "text": "음식",
+      "enSourceHash": "c1f026582fe6e8cb"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/en:ce14eb884880a070",
+      "text": "\"고양이\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "ce14eb884880a070"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/ja:かいものを する",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/ja:みせで パンを うる",
+      "text": "만들기: 가게에서 빵을 판다",
+      "enSourceHash": "5baa99548330cf2e"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/ja:みせで パンを みっつ かってください",
+      "text": "정중하게 말하세요: 가게에서 빵을 세 개 사 주세요",
+      "enSourceHash": "ea562d605ae1256d"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/ja:パンは やすいです",
+      "text": "정중하게 말하세요: 빵은 싸요",
+      "enSourceHash": "eaa3c2cda68b2077"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-6/ja:パンを ふたつ ください",
+      "text": "정중하게 말하세요: 빵 두 개 주세요",
+      "enSourceHash": "63e15a66d3ceb3c2"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:0f4168490e38b844",
+      "text": "물",
+      "enSourceHash": "0f4168490e38b844"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:13809668fb436386",
+      "text": "연필",
+      "enSourceHash": "13809668fb436386"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:18e1dd392168f601",
+      "text": "모자",
+      "enSourceHash": "18e1dd392168f601"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:2974744982f08b20",
+      "text": "우산",
+      "enSourceHash": "2974744982f08b20"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:31a5089af947f380",
+      "text": "\"모자\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "31a5089af947f380"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:5039f80b1441cfdf",
+      "text": "가게에서 미카의 빵 하나를 사",
+      "enSourceHash": "5039f80b1441cfdf"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:53373506133f8079",
+      "text": "모자 세 개를 사요",
+      "enSourceHash": "53373506133f8079"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:5d73392bfc799f64",
+      "text": "몇 개 원하세요?",
+      "enSourceHash": "5d73392bfc799f64"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:69cde238315fd883",
+      "text": "빵 하나를 산다",
+      "enSourceHash": "69cde238315fd883"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:91b0a8254cb66fb4",
+      "text": "책 하나를 판다",
+      "enSourceHash": "91b0a8254cb66fb4"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:985604c2b6024312",
+      "text": "빵",
+      "enSourceHash": "985604c2b6024312"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:a161048804912889",
+      "text": "\"안경\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "a161048804912889"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:a9f74d1ec36ebdeb",
+      "text": "차",
+      "enSourceHash": "a9f74d1ec36ebdeb"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:b7b811a0f117f755",
+      "text": "연필이 세 개 있다",
+      "enSourceHash": "b7b811a0f117f755"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:bf45fe7fec3b0b82",
+      "text": "차 두 잔 주세요",
+      "enSourceHash": "bf45fe7fec3b0b82"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:ce14eb884880a070",
+      "text": "\"고양이\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "ce14eb884880a070"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:e7d58ff4f8ebbebe",
+      "text": "물 한 잔 주세요",
+      "enSourceHash": "e7d58ff4f8ebbebe"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/en:ecf61ca5e88d9fee",
+      "text": "우산 두 개 사 주세요",
+      "enSourceHash": "ecf61ca5e88d9fee"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/ja:えんぴつが みっつ ある",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/ja:かさを ふたつ かってください",
+      "text": "정중하게 말하세요: 우산 두 개 사 주세요",
+      "enSourceHash": "e6a2dae505328d9c"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/ja:ほんを ひとつ うる",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/ja:ぼうしを みっつ かいます",
+      "text": "정중하게 말하세요: 모자 세 개를 사요",
+      "enSourceHash": "ad10d15503909f04"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/ja:みずを ひとつ ください",
+      "text": "정중하게 말하세요: 물 한 잔 주세요",
+      "enSourceHash": "0bb6eeafba509dfe"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/ja:みせで ミカの パンを ひとつ かって",
+      "text": "만들기: 가게에서 미카의 빵 하나를 사",
+      "enSourceHash": "ca03c5b9b2e3c7e3"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-7/ja:パンを ひとつ かう",
+      "text": "만들기: 빵을 하나 산다",
+      "enSourceHash": "aa049f7ef768f2b7"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:31a5089af947f380",
+      "text": "\"모자\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "31a5089af947f380"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:391badff403adb7a",
+      "text": "너무 비싸다",
+      "enSourceHash": "391badff403adb7a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:8d2ac8b58ead9744",
+      "text": "돈",
+      "enSourceHash": "8d2ac8b58ead9744"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:985604c2b6024312",
+      "text": "빵",
+      "enSourceHash": "985604c2b6024312"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:a161048804912889",
+      "text": "\"안경\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "a161048804912889"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:aaa78828da2f4554",
+      "text": "\"오늘\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "aaa78828da2f4554"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:c6f556046e0c0046",
+      "text": "싸다",
+      "enSourceHash": "c6f556046e0c0046"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:ce14eb884880a070",
+      "text": "\"고양이\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "ce14eb884880a070"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:e0ca449589b67a58",
+      "text": "엔",
+      "enSourceHash": "e0ca449589b67a58"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/en:f3cca575ff7e90bd",
+      "text": "비싸다",
+      "enSourceHash": "f3cca575ff7e90bd"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/ja:かねが ないです",
+      "text": "정중하게 말하세요: 돈이 없어요",
+      "enSourceHash": "94a67c91cd7b7e46"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/ja:ごひゃくえんは たかいです",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/ja:たかい ほんは かわない",
+      "text": "만들기: 비싼 책은 사지 않는다",
+      "enSourceHash": "6346fcf1c6df3f57"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/ja:たかいです。かいません",
+      "text": "정중하게 말하세요: 비싸요. 사지 않아요",
+      "enSourceHash": "66bdb63d936fed6c"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/ja:やすい パンを かう",
+      "text": "만들기: 싼 빵을 산다",
+      "enSourceHash": "4bbfda0da3d1881b"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/ja:パンは たかい",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-8/ja:ミカの みせの パンは たかいです",
+      "text": "정중하게 말하세요: 미카의 가게의 빵은 비싸요",
+      "enSourceHash": "cae4f14f6c604e15"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:1180412af43d7860",
+      "text": "쇼핑",
+      "enSourceHash": "1180412af43d7860"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:31a5089af947f380",
+      "text": "\"모자\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "31a5089af947f380"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:8d2ac8b58ead9744",
+      "text": "돈",
+      "enSourceHash": "8d2ac8b58ead9744"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:985604c2b6024312",
+      "text": "빵",
+      "enSourceHash": "985604c2b6024312"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:a161048804912889",
+      "text": "\"안경\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "a161048804912889"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:a9f74d1ec36ebdeb",
+      "text": "차",
+      "enSourceHash": "a9f74d1ec36ebdeb"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:aaa78828da2f4554",
+      "text": "\"오늘\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "aaa78828da2f4554"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:ce14eb884880a070",
+      "text": "\"고양이\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "ce14eb884880a070"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:e0ca449589b67a58",
+      "text": "엔",
+      "enSourceHash": "e0ca449589b67a58"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/en:ea73589f3da26761",
+      "text": "한 번의 구매",
+      "enSourceHash": "ea73589f3da26761"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/ja:ありがとう。やすいです",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/ja:かねは ありません",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/ja:すみません。パンは いくらですか",
+      "text": "정중하게 말하세요: 실례해요. 빵은 얼마예요",
+      "enSourceHash": "da0b69f0fdbfbabb"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/ja:すみません。パンを ふたつ ください",
+      "text": "정중하게 말하세요: 실례해요. 빵을 두 개 주세요",
+      "enSourceHash": "1a0d4edc03808964"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/ja:ちゃを みっつ かってください",
+      "text": "정중하게 말하세요: 차를 세 개 사 주세요",
+      "enSourceHash": "903cea85a9ceabab"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/ja:ふたつ ください",
+      "text": "정중하게 말하세요: 두 개 주세요",
+      "enSourceHash": "38509e792dae4bad"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-9/ja:みせで かいものを します",
+      "text": "정중하게 말하세요: 가게에서 쇼핑을 해요",
+      "enSourceHash": "45f7d2b26ddc7905"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:18e1dd392168f601",
+      "text": "모자",
+      "enSourceHash": "18e1dd392168f601"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:1d5903044819be64",
+      "text": "오늘은 돈이 없어요",
+      "enSourceHash": "1d5903044819be64"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:266550babbb7bd39",
+      "text": "안경",
+      "enSourceHash": "266550babbb7bd39"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:2974744982f08b20",
+      "text": "우산",
+      "enSourceHash": "2974744982f08b20"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:31a5089af947f380",
+      "text": "\"모자\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "31a5089af947f380"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:4d83eae65eff9664",
+      "text": "도전 — 모두 합치기",
+      "enSourceHash": "4d83eae65eff9664"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:6ed9ac509fc0245c",
+      "text": "그 가게에서는 세 가지 차를 팝니다",
+      "enSourceHash": "6ed9ac509fc0245c"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:985604c2b6024312",
+      "text": "빵",
+      "enSourceHash": "985604c2b6024312"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:a9f74d1ec36ebdeb",
+      "text": "차",
+      "enSourceHash": "a9f74d1ec36ebdeb"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:b1e8d03f2b4f991d",
+      "text": "켄 군에게 빵을 하나 사 주세요",
+      "enSourceHash": "b1e8d03f2b4f991d"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:ce14eb884880a070",
+      "text": "\"고양이\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "ce14eb884880a070"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:d647be9735575f85",
+      "text": "비싼 우산은 사지 않을 것입니다",
+      "enSourceHash": "d647be9735575f85"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:e5f477c7d0541005",
+      "text": "가게에서 싼 빵을 세 개 사요",
+      "enSourceHash": "e5f477c7d0541005"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:e62b715b40a891fa",
+      "text": "미카의 가게에서 빵을 두 개 사 주세요",
+      "enSourceHash": "e62b715b40a891fa"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/en:ec9f43f9d235331a",
+      "text": "다나카 씨의 책은 얼마예요",
+      "enSourceHash": "ec9f43f9d235331a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/ja:かいものに いきますか",
+      "text": "정중하게 말하세요: 쇼핑하러 가요?",
+      "enSourceHash": "6c9b9425394e9a2f"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/ja:きょうは かねが ありません",
+      "text": "정중하게 말하세요: 오늘은 돈이 없어요",
+      "enSourceHash": "da026dbb22d10076"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/ja:たなかさんの ほんは いくらですか",
+      "text": "정중하게 말하세요: 다나카 씨의 책은 얼마예요",
+      "enSourceHash": "1537550966d9bbd6"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/ja:みせで ちゃを みっつ うる",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/ja:みせで やすい パンを みっつ かいます",
+      "text": "정중하게 말하세요: 가게에서 싼 빵을 세 개 사요",
+      "enSourceHash": "1ab24a56ef7e4557"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/ja:めがねは ごひゃくえんです",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/ja:ケンくんに パンを ひとつ かってください",
+      "text": "정중하게 말하세요: 켄 군에게 빵을 하나 사 주세요",
+      "enSourceHash": "9a57b3e2857f30bf"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-challenge/ja:ミカの みせで パンを ふたつ かってください",
+      "text": "정중하게 말하세요: 미카의 가게에서 빵을 두 개 사 주세요",
+      "enSourceHash": "98b16980385644bb"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-ha/en:372f7e2fd2d01ce2",
+      "text": "he",
+      "enSourceHash": "372f7e2fd2d01ce2"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-ha/en:37e7702e5ce449c1",
+      "text": "ra",
+      "enSourceHash": "37e7702e5ce449c1"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-ha/en:8693873cd8f8a2d9",
+      "text": "ha",
+      "enSourceHash": "8693873cd8f8a2d9"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-ha/en:8f434346648f6b96",
+      "text": "hi",
+      "enSourceHash": "8f434346648f6b96"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-ha/en:a4d0ef23161b5b7c",
+      "text": "fu",
+      "enSourceHash": "a4d0ef23161b5b7c"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-ha/en:a7187294bd6b3646",
+      "text": "가타카나를 소리와 연결하세요",
+      "enSourceHash": "a7187294bd6b3646"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-ha/en:a821c62e8104f851",
+      "text": "ho",
+      "enSourceHash": "a821c62e8104f851"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-na/en:0a64ce10853f25cb",
+      "text": "su",
+      "enSourceHash": "0a64ce10853f25cb"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-na/en:3086cf468ccca87c",
+      "text": "nu",
+      "enSourceHash": "3086cf468ccca87c"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-na/en:3d9fc4bde7ceef05",
+      "text": "na",
+      "enSourceHash": "3d9fc4bde7ceef05"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-na/en:4db03a277cfb9ef4",
+      "text": "ni",
+      "enSourceHash": "4db03a277cfb9ef4"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-na/en:9183c674889ff274",
+      "text": "kyu",
+      "enSourceHash": "9183c674889ff274"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-na/en:9390298f3fb0c5b1",
+      "text": "no",
+      "enSourceHash": "9390298f3fb0c5b1"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-na/en:a7187294bd6b3646",
+      "text": "가타카나를 소리와 연결하세요",
+      "enSourceHash": "a7187294bd6b3646"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-na/en:cb58e4600bf0142c",
+      "text": "ne",
+      "enSourceHash": "cb58e4600bf0142c"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-kata-na/en:dffe602cd1e0bfa9",
+      "text": "chi",
+      "enSourceHash": "dffe602cd1e0bfa9"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:13809668fb436386",
+      "text": "연필",
+      "enSourceHash": "13809668fb436386"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:266550babbb7bd39",
+      "text": "안경",
+      "enSourceHash": "266550babbb7bd39"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:2974744982f08b20",
+      "text": "우산",
+      "enSourceHash": "2974744982f08b20"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:31a5089af947f380",
+      "text": "\"모자\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "31a5089af947f380"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:44ff7b02c80d38b2",
+      "text": "창문",
+      "enSourceHash": "44ff7b02c80d38b2"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:77af778b51abd4a3",
+      "text": "고양이",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:7f3782fdc7103cb0",
+      "text": "연필이 두 개 있다",
+      "enSourceHash": "7f3782fdc7103cb0"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:99fde0cfad8a078e",
+      "text": "안경 한 켤레를 사세요",
+      "enSourceHash": "99fde0cfad8a078e"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:a1c12d56c6f08b01",
+      "text": "복습 — 숫자 선",
+      "enSourceHash": "a1c12d56c6f08b01"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:c04210a62e830c25",
+      "text": "책이 두 권 있다",
+      "enSourceHash": "c04210a62e830c25"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:cb7103d6f32d4205",
+      "text": "여덟, 아홉, 열",
+      "enSourceHash": "cb7103d6f32d4205"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:cc679ddc8946e50a",
+      "text": "창문이 두 개 있다",
+      "enSourceHash": "cc679ddc8946e50a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:ce14eb884880a070",
+      "text": "\"고양이\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "ce14eb884880a070"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/en:e27beb718a7bc6a1",
+      "text": "우산이 세 개 있다",
+      "enSourceHash": "e27beb718a7bc6a1"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/ja:えんぴつが ふたつ ある",
+      "text": "만들기: 연필이 두 개 있다",
+      "enSourceHash": "b2cb8994aaed346a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/ja:かさが みっつ ある",
+      "text": "만들기: 우산이 세 개 있다",
+      "enSourceHash": "e8cbb7a3e894e160"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/ja:かさは ごえんです",
+      "text": "정중하게 말하세요: 우산은 5 엔이에요",
+      "enSourceHash": "e99eb82164dd41f3"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/ja:これは ななえんだ",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/ja:はち きゅう じゅう",
+      "text": "만들기: 여덟, 아홉, 열",
+      "enSourceHash": "5c5b3612b14de412"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/ja:ほんが ふたつ ある",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/ja:まどが ふたつ ある",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-1/ja:めがねを ひとつ かって",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/en:037f050f38f40b97",
+      "text": "복습 — 가게 교환",
+      "enSourceHash": "037f050f38f40b97"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/en:31a5089af947f380",
+      "text": "\"모자\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "31a5089af947f380"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/en:4bdf40d0d1ae3611",
+      "text": "밥/식사",
+      "enSourceHash": "4bdf40d0d1ae3611"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/en:8d2ac8b58ead9744",
+      "text": "돈",
+      "enSourceHash": "8d2ac8b58ead9744"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/en:985604c2b6024312",
+      "text": "빵",
+      "enSourceHash": "985604c2b6024312"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/en:a9f74d1ec36ebdeb",
+      "text": "차",
+      "enSourceHash": "a9f74d1ec36ebdeb"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/en:aaa78828da2f4554",
+      "text": "\"오늘\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "aaa78828da2f4554"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/en:ce14eb884880a070",
+      "text": "\"고양이\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "ce14eb884880a070"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/en:e0ca449589b67a58",
+      "text": "엔",
+      "enSourceHash": "e0ca449589b67a58"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/ja:かいものを してください",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/ja:かねが ない",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/ja:ごはんは やすいです",
+      "text": "정중하게 말하세요: 밥은 싸요",
+      "enSourceHash": "84fdb47b5492e1ac"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/ja:たかいです",
+      "text": "정중하게 말하세요: 비싸요",
+      "enSourceHash": "ceae3f47b339298c"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/ja:ひゃくえんです",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/ja:みせで ちゃを かう",
+      "text": "만들기: 가게에서 차를 산다",
+      "enSourceHash": "fc56ea2d630000e8"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/ja:パンは いくらですか",
+      "text": "정중하게 말하세요: 빵은 얼마예요",
+      "enSourceHash": "daaece0409887d7d"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-2/ja:パンを かいます",
+      "text": "정중하게 말하세요: 빵을 사요",
+      "enSourceHash": "aa88cea762fe0c68"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:13809668fb436386",
+      "text": "연필",
+      "enSourceHash": "13809668fb436386"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:18e1dd392168f601",
+      "text": "모자",
+      "enSourceHash": "18e1dd392168f601"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:266550babbb7bd39",
+      "text": "안경",
+      "enSourceHash": "266550babbb7bd39"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:2974744982f08b20",
+      "text": "우산",
+      "enSourceHash": "2974744982f08b20"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:31a5089af947f380",
+      "text": "\"모자\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "31a5089af947f380"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:6104602896a15d95",
+      "text": "빵 두 개를 산다",
+      "enSourceHash": "6104602896a15d95"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:697bcae30e2b0918",
+      "text": "복습 — 숫자, 가격, 구매",
+      "enSourceHash": "697bcae30e2b0918"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:7b1325cc0e2a74eb",
+      "text": "연필 두 개를 산다",
+      "enSourceHash": "7b1325cc0e2a74eb"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:8abe51f12dbb342d",
+      "text": "가게에서 빵을 판다",
+      "enSourceHash": "8abe51f12dbb342d"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:985604c2b6024312",
+      "text": "빵",
+      "enSourceHash": "985604c2b6024312"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:c2d0fd96fb145861",
+      "text": "100 엔이 있다",
+      "enSourceHash": "c2d0fd96fb145861"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:ccf64396fe19fff5",
+      "text": "비싼 안경을 사지 않아요",
+      "enSourceHash": "ccf64396fe19fff5"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:ce14eb884880a070",
+      "text": "\"고양이\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "ce14eb884880a070"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/ja:かいものを してください",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/ja:かさは やすいです",
+      "text": "정중하게 말하세요: 우산은 싸요",
+      "enSourceHash": "cc4fd4931746ba97"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/ja:かねが ひゃくえん ある",
+      "text": "만들기: 100 엔이 있다",
+      "enSourceHash": "9209076b587f79eb"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/ja:たかい めがねは かいません",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/ja:みせで パンを うる",
+      "text": "만들기: 가게에서 빵을 판다",
+      "enSourceHash": "5baa99548330cf2e"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/ja:めがねは いくらですか",
+      "text": "정중하게 말하세요: 안경은 얼마예요",
+      "enSourceHash": "424cd56b1ac23f70"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/ja:ろく ななです",
+      "text": "정중하게 말하세요: 여섯, 일곱이에요",
+      "enSourceHash": "cf5e544912fb5d60"
+    },
+    {
+      "anchor": "m9/ja-m9-neo-review-3/ja:パンを ふたつ かう",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m9/story:ja-m5-shop-errand/en:1889856217d5f126",
+      "text": "가게에서",
+      "enSourceHash": "1889856217d5f126"
+    },
+    {
+      "anchor": "m9/story:ja-m5-shop-errand/en:39589b9a7014e9ed",
+      "text": "빠른 용건으로 가격 물어보기.",
+      "enSourceHash": "39589b9a7014e9ed"
+    },
+    {
+      "anchor": "m9/story:ja-m5-shop-errand/ja:ありがとうございます。",
+      "text": "고마워요.",
+      "enSourceHash": "8569efc4ed5a6273"
+    },
+    {
+      "anchor": "m9/story:ja-m5-shop-errand/ja:あれは いくらですか。",
+      "text": "저것은 얼마예요?",
+      "enSourceHash": "964f14aa1a52d642"
+    },
+    {
+      "anchor": "m9/story:ja-m5-shop-errand/ja:これ、ください。",
+      "text": "이것 주세요.",
+      "enSourceHash": "ce0d10ba0ccd770c"
+    },
+    {
+      "anchor": "m9/story:ja-m5-shop-errand/ja:これは いくらですか。",
+      "text": "이것은 얼마예요?",
+      "enSourceHash": "c71b1e6dc0159c83"
+    },
+    {
+      "anchor": "m9/story:ja-m5-shop-errand/ja:ごひゃくえんです。",
+      "text": "500 엔이에요.",
+      "enSourceHash": "c1de9274674a51bc"
+    },
+    {
+      "anchor": "m9/story:ja-m5-shop-errand/ja:すみません。",
+      "text": "실례해요.",
+      "enSourceHash": "fa120587cef0d232"
+    },
+    {
+      "anchor": "m9/story:ja-m5-shop-errand/ja:ひゃくえんです。",
+      "text": "100 엔이에요.",
+      "enSourceHash": "71718960d243b056"
+    },
+    {
+      "anchor": "m9/story:ja-m9-a-lively-town/en:1b12534dd6a1404b",
+      "text": "이웃에 대한 첫인상.",
+      "enSourceHash": "1b12534dd6a1404b"
+    },
+    {
+      "anchor": "m9/story:ja-m9-a-lively-town/en:596560a3c55d8837",
+      "text": "활기찬 마을",
+      "enSourceHash": "596560a3c55d8837"
+    },
+    {
+      "anchor": "m9/story:ja-m9-a-lively-town/ja:えきは べんりです。",
+      "text": "역은 편리해요.",
+      "enSourceHash": "bfa70efaa79c4f07"
+    },
+    {
+      "anchor": "m9/story:ja-m9-a-lively-town/ja:きょうは ひまです。",
+      "text": "오늘은 시간이 있어요.",
+      "enSourceHash": "2f8787a4d2383f18"
+    },
+    {
+      "anchor": "m9/story:ja-m9-a-lively-town/ja:こうえんは しずかです。",
+      "text": "공원은 조용해요.",
+      "enSourceHash": "400a0677bb519521"
+    },
+    {
+      "anchor": "m9/story:ja-m9-a-lively-town/ja:ここは いいところです。",
+      "text": "이곳은 좋은 곳이에요.",
+      "enSourceHash": "691bf311e3d8795e"
+    },
+    {
+      "anchor": "m9/story:ja-m9-a-lively-town/ja:このまちは とても にぎやかです。",
+      "text": "이 마을은 매우 활기차요.",
+      "enSourceHash": "7d7be097a6fe5a05"
+    },
+    {
+      "anchor": "m9/story:ja-m9-a-lively-town/ja:わたしは えいごが じょうずです。",
+      "text": "저는 영어를 잘해요.",
+      "enSourceHash": "463f1dbb58e046ca"
+    },
+    {
+      "anchor": "m9/story:ja-m9-a-lively-town/ja:コーヒーは とても おいしいです。",
+      "text": "커피는 매우 맛있어요.",
+      "enSourceHash": "63a4de9fcc7ac685"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/en:c60f3642e4cb5954",
+      "text": "벚나무 아래에서",
+      "enSourceHash": "c60f3642e4cb5954"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/en:c8a16760a2ad8b14",
+      "text": "봄 오후의 유명한 공원과 그 한적한 구석.",
+      "enSourceHash": "c8a16760a2ad8b14"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/gloss:はなみ",
+      "text": "꽃구경 — 음식과 음료를 가지고 벚꽃 아래에 앉는 것",
+      "enSourceHash": "b7c607bea6cdeb77"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:あそこに いけが あります。",
+      "text": "저기에 연못이 있어요.",
+      "enSourceHash": "4614f5d86b968a35"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:あそこに ひとが すこし います。",
+      "text": "저기에 사람이 조금 있어요.",
+      "enSourceHash": "481bbad263129906"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:あそこの はなみは とても おもしろいです。",
+      "text": "저기서 하는 꽃구경은 매우 재미있어요.",
+      "enSourceHash": "83fa6ebd71a5ce82"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:あそこは しずかです。",
+      "text": "저기는 조용해요.",
+      "enSourceHash": "01abd6118c765395"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:いけの みずに さくらの はなが あります。",
+      "text": "연못 물에 벚꽃이 있어요.",
+      "enSourceHash": "40d17b954349b87f"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:おちゃが ありません。",
+      "text": "차가 없어요.",
+      "enSourceHash": "b332957f3744d46d"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:おちゃは にひゃくえんです。",
+      "text": "차는 200 엔이에요.",
+      "enSourceHash": "8bc8d65f5e7f49eb"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:きょう、わたしは ともだちと こうえんに いきます。",
+      "text": "오늘 저는 친구와 공원에 가요.",
+      "enSourceHash": "dd5c14fd6045261d"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:こうえんは とても にぎやかです。",
+      "text": "공원은 매우 활기차요.",
+      "enSourceHash": "37c38855bc7c950c"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:ここは しずかじゃないです。",
+      "text": "여기는 조용하지 않아요.",
+      "enSourceHash": "60829a16ae1cf175"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:この こうえんの さくらは とても ゆうめいです。",
+      "text": "이 공원의 벚꽃은 매우 유명해요.",
+      "enSourceHash": "bc87c28cbc48eb84"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:それから、わたしは みせで おちゃを かいます。",
+      "text": "그리고 저는 가게에서 차를 사요.",
+      "enSourceHash": "ec2179ac3dd78f5a"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:ともだちは こうえんの あそこに いきます。",
+      "text": "친구는 공원의 저곳으로 가요.",
+      "enSourceHash": "81003597ee177130"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:ふたりで ごはんを たべます。",
+      "text": "둘이 식사를 해요.",
+      "enSourceHash": "4945898983658f3d"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:ふたりで はなみを します。",
+      "text": "둘이 꽃구경을 해요.",
+      "enSourceHash": "9b2923ad413b6019"
+    },
+    {
+      "anchor": "m9/story:ja-m9-hanami/ja:わたしも いきます。",
+      "text": "저도 가요.",
+      "enSourceHash": "5e6e2641ab0be4ae"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/en:43f9085f42307278",
+      "text": "영어는 못하지만, 내일 시험이 있고 영어를 잘하는 친구가 있다.",
+      "enSourceHash": "43f9085f42307278"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/en:b9f6df9388c3313a",
+      "text": "영어 시험",
+      "enSourceHash": "b9f6df9388c3313a"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/gloss:あした",
+      "text": "내일",
+      "enSourceHash": "bafd151a86f9a573"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/gloss:けど",
+      "text": "하지만, 비록",
+      "enSourceHash": "6a16848ebec13abc"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:あさ、テストです。",
+      "text": "아침, 시험이에요.",
+      "enSourceHash": "c3f8d168e99a0626"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:あしたは えいごの テストです。",
+      "text": "내일은 영어 시험이에요.",
+      "enSourceHash": "94b52eccb11b5125"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:えいごは ちょっと むずかしいです。",
+      "text": "영어는 조금 어려워요.",
+      "enSourceHash": "1ae92240ebd0c4bd"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:けど、すこし わかりました。",
+      "text": "하지만 조금 알았어요.",
+      "enSourceHash": "541c3d2391ffdad4"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:それから、えいごの ニュースも ききます。",
+      "text": "그리고 영어 뉴스도 들어요.",
+      "enSourceHash": "70254530a0a96277"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:ともだちの ユミは えいごが じょうずです。",
+      "text": "친구 유미는 영어를 잘해요.",
+      "enSourceHash": "3e7b0ccae6f5e3ef"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:ふたりで えいごの ほんを よみます。",
+      "text": "둘이서 영어 책을 읽어요.",
+      "enSourceHash": "bda2f49f48c4b9b7"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:わたしの えいごは すこし じょうずです。",
+      "text": "제 영어는 조금 잘해요.",
+      "enSourceHash": "4ed7aa1482b6eeb2"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:わたしは えいごが へたです。",
+      "text": "저는 영어를 못해요.",
+      "enSourceHash": "3c39dea97e5b8078"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:テストは とても むずかしいです。",
+      "text": "시험은 정말 어려워요.",
+      "enSourceHash": "1d16ae076df974b1"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:テストは むずかしいけど、だいじょうぶです。",
+      "text": "시험은 어렵지만 괜찮아요.",
+      "enSourceHash": "92c34d967d4b6a55"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:ユミ、ありがとうございます。",
+      "text": "유미, 고마워요.",
+      "enSourceHash": "1f010b4f3eda8a6e"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:ユミ、えいごを おしえて ください。",
+      "text": "유미, 영어를 가르쳐 주세요.",
+      "enSourceHash": "78383806e459b030"
+    },
+    {
+      "anchor": "m9/story:ja-m9-the-english-test/ja:ユミは としょかんに きます。",
+      "text": "유미는 도서관에 와요.",
+      "enSourceHash": "ccee9e9fc05cf55f"
+    },
+    {
+      "anchor": "m9/symbolIntro:ナ/hint",
+      "text": "한국어 '나'와 비슷한 소리",
+      "enSourceHash": "22894271a021368a"
+    },
+    {
+      "anchor": "m9/symbolIntro:ニ/hint",
+      "text": "한국어 '니'와 비슷한 소리",
+      "enSourceHash": "9604ab7806b072ed"
+    },
+    {
+      "anchor": "m9/symbolIntro:ヌ/hint",
+      "text": "한국어 '누'와 비슷한 소리",
+      "enSourceHash": "11eb7a3c86a5ada5"
+    },
+    {
+      "anchor": "m9/symbolIntro:ネ/hint",
+      "text": "한국어 '네'와 비슷한 소리",
+      "enSourceHash": "7f927d23656df551"
+    },
+    {
+      "anchor": "m9/symbolIntro:ノ/hint",
+      "text": "한국어 '노'와 비슷한 소리",
+      "enSourceHash": "d7ca412a65a3d5cf"
+    },
+    {
+      "anchor": "m9/symbolIntro:ハ/hint",
+      "text": "한국어 '하'와 비슷한 소리",
+      "enSourceHash": "8eeb94e07f977cdc"
+    },
+    {
+      "anchor": "m9/symbolIntro:ヒ/hint",
+      "text": "한국어 '히'와 비슷한 소리",
+      "enSourceHash": "53efee884ceee23d"
+    },
+    {
+      "anchor": "m9/symbolIntro:フ/hint",
+      "text": "한국어 '후'와 비슷한 소리 — 부드럽게, 가볍게 불듯이 발음해요.",
+      "enSourceHash": "53781bbf2406ac39"
+    },
+    {
+      "anchor": "m9/symbolIntro:ヘ/hint",
+      "text": "한국어 '헤'와 비슷한 소리",
+      "enSourceHash": "bf7fa3c545040c9b"
+    },
+    {
+      "anchor": "m9/symbolIntro:ホ/hint",
+      "text": "한국어 '호'와 비슷한 소리",
+      "enSourceHash": "48156f6278aad92b"
+    }
+  ]
+}
