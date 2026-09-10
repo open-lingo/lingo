@@ -70,3 +70,4 @@ fan-out; save small notes here after every step (auto-compaction is on).
 - 09:51 JA m40 author stopped (was idling on module-gate visual-QA; work already committed cbfd61eb + cab10fd4). Killed stray module-gate/vite 5273 processes.
 - 09:51 Discarded the stopped m40 author's residual re-add of よ+'you know' cues (reviewer's cleaner reverted version stays).
 - 09:52 FR m17 brief landed («De onze à cent», teens 11–19 + 70–99, 6 atoms; ready once m16 lands).
+- 10:09 KO rung 0 committed d81bf065 (lesson chrome in Korean; parity test 355 green; tsc clean). Rung 1 waits for JA m41 to land (moduleCompiler.ts shared).
