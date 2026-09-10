@@ -80,7 +80,7 @@
  *     reply OPTIONS, from L7 onward — same law m13/m14/m15 set, unchanged.
  *   - L10's tease is deliberately generic — the playbook §8 arc registry
  *     names no m17 thesis (brief §4 L10), so this module invents none: "et
- *     demain, tu es allé où ?" / "je ne sais pas encore" gestures at more
+ *     demain, tu vas où ?" / "je ne sais pas encore" gestures at more
  *     story using only already-taught forms (m13's «je ne sais pas»), the
  *     same technique m13→m14→m15 used at their own mastery closes.
  *
@@ -339,7 +339,7 @@ function lesson2(): LessonStep[] {
     infoStep(
       "fr-m16-2-info-allee",
       "Il est allé, elle est allée",
-      "«Il est allé» / «elle est allée» — same sound, [ale] either way. Only the spelling agrees, unlike «il est grand» / «elle est grande», which you can actually hear.",
+      "«Il est allé» / «elle est allée» — same sound, ah-LAY either way. Only the spelling agrees, unlike «il est grand» / «elle est grande», which you can actually hear.",
     ),
     {
       id: "fr-m16-2-map-allee",
@@ -380,7 +380,7 @@ function lesson2(): LessonStep[] {
         { kind: "fixed", text: "au musée" },
       ],
       meaningEn: "Léa went to the museum",
-      ruleNote: "Same sound, [ale] either way — only the spelling agrees, never the sound.",
+      ruleNote: "Same sound, ah-LAY either way — only the spelling agrees, never the sound.",
     }),
     build(
       "fr-m16-2-build-thomasecole",
@@ -676,7 +676,7 @@ function lesson5(): LessonStep[] {
     infoStep(
       "fr-m16-5-info-venue",
       "Elle est venue",
-      "«Elle est venue» — same trick, new verb: [vəny] either way, «venu» or «venue». «il est allé» / «elle est allée» taught you the pattern; this is the exact same move.",
+      "«Elle est venue» — same trick, new verb: vuh-NU either way, «venu» or «venue». «il est allé» / «elle est allée» taught you the pattern; this is the exact same move.",
     ),
     {
       id: "fr-m16-5-map-venue",
@@ -717,7 +717,7 @@ function lesson5(): LessonStep[] {
         { kind: "fixed", text: "de la gare" },
       ],
       meaningEn: "Chloé came from the train station",
-      ruleNote: "Same move as allé/allée — [vəny] either way, only the spelling agrees.",
+      ruleNote: "Same move as allé/allée — vuh-NU either way, only the spelling agrees.",
     }),
     build(
       "fr-m16-5-build-mariegare",
@@ -967,9 +967,9 @@ function lesson7(): LessonStep[] {
           id: "t1-tuallemusee",
           npc: {
             speaker: "Marie",
-            kana: "Tu es allé au musée hier ?",
-            audioText: "tu es allé au musée hier ?",
-            gloss: "Did you go to the museum yesterday?",
+            kana: "Tu es allé au musée ce matin ?",
+            audioText: "tu es allé au musée ce matin ?",
+            gloss: "Did you go to the museum this morning?",
           },
           goal: "Say yes, already this morning.",
           reply: {
@@ -1186,9 +1186,9 @@ function lesson9(): LessonStep[] {
           id: "t1-leaou",
           npc: {
             speaker: "Hugo",
-            kana: "Léa, tu es allée où hier ?",
-            audioText: "léa, tu es allée où hier ?",
-            gloss: "Léa, where did you go yesterday?",
+            kana: "Léa, tu es allée où ce matin ?",
+            audioText: "léa, tu es allée où ce matin ?",
+            gloss: "Léa, where did you go this morning?",
           },
           goal: "Say you already went to the museum.",
           reply: {
@@ -1367,9 +1367,9 @@ function lesson10(): LessonStep[] {
           id: "t3-demain",
           npc: {
             speaker: "Marie",
-            kana: "D'accord. Et demain, tu es allé où ?",
-            audioText: "d'accord, et demain, tu es allé où ?",
-            gloss: "Okay. And tomorrow, where did you go?",
+            kana: "D'accord. Et demain, tu vas où ?",
+            audioText: "d'accord, et demain, tu vas où ?",
+            gloss: "Okay. And tomorrow, where are you going?",
           },
           goal: "Say you don't know yet.",
           reply: {
