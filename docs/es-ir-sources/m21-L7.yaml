@@ -78,13 +78,12 @@
         options: ["escribieron", "escribió", "escribí"]
         atoms: ["escribieron", "tarea", "juntos"]
         why: "Sofía and Ana — more than one: «escribieron». «escribió» would be just one; «escribí» would be you."
-      - kind: mcq
-        id: l7-q-fueronustedes
-        prompt: "Which one means 'Did you all go?'"
-        correct: "¿fueron ustedes?"
-        distractors: ["¿fuimos nosotros?", "no fueron", "¿van ustedes?"]
+      - kind: buildLit
+        id: l7-b-fueronustedes
+        es: "¿fueron ustedes?"
+        en: "Did you all go?"
         atoms: ["fueron"]
-        why: "A question just wraps question marks around the same past form: «¿fueron ustedes?» — did you all go? «fuimos» would ask about us; «van» slips into now."
+        tiles: ["fuimos", "van"]
       - kind: audioWimcq
         id: l7-ear-tienda
         target: { surface: "tienda", emoji: "🏪" }

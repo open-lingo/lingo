@@ -143,10 +143,10 @@
         id: m10-match
         pairs:
           - { source: "fuimos", target: "we went / were" }
-          - { source: "hicieron", target: "they did / made" }
-          - { source: "tuvieron", target: "they had" }
+          - { source: "hicieron", target: "they did / made, you all did / made" }
+          - { source: "tuvieron", target: "they had, you all had" }
           - { source: "estuvimos", target: "we were (somewhere)" }
-          - { source: "vieron", target: "they saw" }
+          - { source: "vieron", target: "they saw, you all saw" }
           - { source: "vinimos", target: "we came" }
           - { source: "todos", target: "everyone / all of them" }
       - kind: speakLit
@@ -168,7 +168,7 @@
             replyGloss: "We went to the museum."
             explanation: "«fuimos» + «al museo»: went."
           - id: t2
-            npc: { speaker: "Ana", es: "¿Y vieron a algún amigo?", audioText: "¿y vieron a algún amigo?", gloss: "And did you all see a friend?" }
+            npc: { speaker: "Ana", es: "¿Y vieron a un amigo?", audioText: "¿y vieron a un amigo?", gloss: "And did you all see a friend?" }
             goal: "Say yes, you all saw Diego."
             reply:
               mode: choice
@@ -225,7 +225,7 @@
             replyGloss: "Yes, it was very good."
             explanation: "«fue» + an adjective, no place: was."
           - id: t7
-            npc: { speaker: "Ana", es: "¿Vino todo el mundo?", audioText: "¿vino todo el mundo?", gloss: "Did everyone come?" }
+            npc: { speaker: "Ana", es: "¿Vinieron todos?", audioText: "¿vinieron todos?", gloss: "Did everyone come?" }
             goal: "Say yes, and everyone ate together."
             reply:
               mode: build

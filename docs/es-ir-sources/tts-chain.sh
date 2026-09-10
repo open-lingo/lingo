@@ -2,7 +2,7 @@
 # zsh tts-chain.sh <tag>  — emit ES deck → edge TTS → manifest → copy manifest + new mp3s into tts-publish/es
 set -e
 S=${0:A:h}; TAG=$1
-L=/Users/lichfield/Documents/projects/lingle/lingo; D=/Users/lichfield/Documents/projects/lingle/lingo-data
+L=${LINGO_ROOT:-/Users/lichfield/Documents/projects/lingle/lingo}; D=/Users/lichfield/Documents/projects/lingle/lingo-data
 python3 -c "import json,re;h=json.load(open('$L/src/shared/tts/manifests/es.json'))['hashes'];print('\n'.join(re.findall('.{16}',h)))" | sort > $S/tts-old-$TAG.txt
 cd $L && EMIT_ES_TTS_DECK=1 npx vitest run src/features/languages/es/__tests__/emitTtsDeck.test.ts 2>&1 | grep -E "Tests |wrote|deck" | head -3
 cd $D && .venv/bin/python -m pipeline.tts.generate --provider edge --lang es 2>&1 | tail -3
