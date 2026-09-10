@@ -1002,6 +1002,37 @@
         },
         {
           "kind": "sentence",
+          "ja": "じかんが あるから いま しらべる。",
+          "en": "I've got time, so I'll look it up now",
+          "exercises": [
+            "dictionary-form",
+            "kara-because",
+            "ga-existence"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
+          "ja": "りょうりを きめる。",
+          "en": "I'll decide on the dish",
+          "exercises": [
+            "dictionary-form",
+            "wo-object"
+          ],
+          "mode": "translate"
+        },
+        {
+          "kind": "sentence",
+          "ja": "たのしいから りょこうを つづける。",
+          "en": "It's fun, so I'll continue the trip",
+          "exercises": [
+            "dictionary-form",
+            "kara-because"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
           "ja": "かわで およいでみた。",
           "en": "I gave the river a swim",
           "exercises": [
@@ -1794,6 +1825,16 @@
         },
         {
           "kind": "sentence",
+          "ja": "へやの でんきを つけておく。",
+          "en": "I'll leave the room's light on, in advance",
+          "exercises": [
+            "te-oku",
+            "no-possession"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "sentence",
           "ja": "りょこうの まえに くるまを あらっておいた。",
           "en": "I washed the car in advance, before the trip",
           "exercises": [
@@ -2023,6 +2064,43 @@
             "wo-object"
           ],
           "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "あした やすみを とる。",
+          "en": "I'll take tomorrow off",
+          "exercises": [
+            "dictionary-form",
+            "wo-object"
+          ],
+          "mode": "listening"
+        },
+        {
+          "kind": "dialogue",
+          "lines": [
+            {
+              "speaker": "Tom",
+              "ja": "だれに てがみを おくる？",
+              "en": "Who are you sending the letter to?"
+            },
+            {
+              "speaker": "Mika",
+              "ja": "せんせいに おくる。",
+              "en": "I'm sending it to the teacher."
+            }
+          ],
+          "questions": [
+            {
+              "q": "Who does Mika say she is sending the letter to?",
+              "options": [
+                "The teacher",
+                "Her older sister",
+                "Her friend",
+                "Her older brother"
+              ],
+              "answer": "The teacher"
+            }
+          ]
         },
         {
           "kind": "sentence",
@@ -2843,6 +2921,29 @@
             "mae-ni",
             "te-oku",
             "no-possession"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "せんせいの しつもんに こたえてみる。",
+          "answer": "I'll have a go at answering the teacher's question",
+          "distractors": [
+            "I'll have a go at asking the teacher a question",
+            "I won't answer the teacher's question",
+            "I've already answered the teacher's question"
+          ],
+          "exercises": [
+            "te-miru"
+          ]
+        },
+        {
+          "kind": "sentence",
+          "ja": "あさ くつを みがいておいた。",
+          "en": "I polished my shoes in advance this morning",
+          "exercises": [
+            "te-oku",
+            "ta-form"
           ],
           "mode": "build"
         },
