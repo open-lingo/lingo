@@ -48,12 +48,12 @@
       - kind: listenCompLit
         id: l7-lc-tengolanarizpequena
         es: "tengo la nariz pequeña"
-        en: "I have the small nose."
+        en: "I have a small nose."
         atoms: ["tengo", "nariz", "pequeño"]
         distractorsEn:
-          - "I have the big nose."
-          - "You have the small nose."
-          - "He/she has the small nose."
+          - "I have a big nose."
+          - "You have a small nose."
+          - "He/she has a small nose."
       - kind: mcq
         id: l7-q-nariz
         prompt: "Which one means 'I have a nose'?"

@@ -56,11 +56,11 @@
           - "You have black eyes."
       - kind: mcq
         id: l5-q-ojo
-        prompt: "Which one means 'I have blue eyes'?"
-        correct: "tengo los ojos azules"
-        distractors: ["tengo el ojo azules", "tengo los ojos azul", "tengo los ojo azules"]
-        atoms: ["tengo", "ojo", "azul"]
-        why: "Two eyes: «los ojos», plural noun, and «azules» agrees with the -s. «el ojo azules» mismatches singular noun with plural color."
+        prompt: "Which one means 'I have an eye'?"
+        correct: "tengo un ojo"
+        distractors: ["tengo una ojo", "tengo un ojos", "tengo ojo"]
+        atoms: ["tengo", "ojo"]
+        why: "«ojo» is masculine — «un», not «una». One eye stays singular, «ojo» with no -s. And Spanish never drops the article."
       - kind: buildLit
         id: l5-b-mihermanaojosnegros
         es: "mi hermana tiene los ojos negros"

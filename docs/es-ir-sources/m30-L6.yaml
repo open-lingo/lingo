@@ -47,12 +47,12 @@
       - kind: listenCompLit
         id: l6-lc-tengolabocagrande
         es: "tengo la boca grande"
-        en: "I have the big mouth."
+        en: "I have a big mouth."
         atoms: ["tengo", "boca", "grande"]
         distractorsEn:
-          - "I have the small mouth."
-          - "You have the big mouth."
-          - "He/she has the big mouth."
+          - "I have a small mouth."
+          - "You have a big mouth."
+          - "He/she has a big mouth."
       - kind: mcq
         id: l6-q-boca
         prompt: "Which one means 'I have a mouth'?"

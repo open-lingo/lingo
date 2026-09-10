@@ -574,8 +574,8 @@ const ES_M30_4: LessonContent = {
     listeningCompSentence({
       id: "es-m30-4-l4-lc-tienelapiernagrande",
       audioText: "tiene la pierna grande",
-      correctMeaningEn: "He/she has the big leg",
-      distractorsEn: ["He/she has the small leg", "I have the big leg", "You have the big leg"],
+      correctMeaningEn: "He/she has a big leg",
+      distractorsEn: ["He/she has a small leg", "I have a big leg", "You have a big leg"],
       exercisedAtomSurfaces: ["tiene", "pierna", "grande"],
     }),
     sentenceMcq({
@@ -742,11 +742,11 @@ const ES_M30_5: LessonContent = {
     }),
     sentenceMcq({
       id: "es-m30-5-l5-q-ojo",
-      prompt: "Which one means 'I have blue eyes'?",
-      correctText: "tengo los ojos azules",
-      distractorsText: ["tengo el ojo azules", "tengo los ojos azul", "tengo los ojo azules"],
-      explanation: "Two eyes: «los ojos», plural noun, and «azules» agrees with the -s. «el ojo azules» mismatches singular noun with plural color.",
-      exercisedAtomSurfaces: ["tengo", "ojo", "azul"],
+      prompt: "Which one means 'I have an eye'?",
+      correctText: "tengo un ojo",
+      distractorsText: ["tengo una ojo", "tengo un ojos", "tengo ojo"],
+      explanation: "«ojo» is masculine — «un», not «una». One eye stays singular, «ojo» with no -s. And Spanish never drops the article.",
+      exercisedAtomSurfaces: ["tengo", "ojo"],
     }),
     build(
       "es-m30-5-l5-b-mihermanaojosnegros",
@@ -898,8 +898,8 @@ const ES_M30_6: LessonContent = {
     listeningCompSentence({
       id: "es-m30-6-l6-lc-tengolabocagrande",
       audioText: "tengo la boca grande",
-      correctMeaningEn: "I have the big mouth",
-      distractorsEn: ["I have the small mouth", "You have the big mouth", "He/she has the big mouth"],
+      correctMeaningEn: "I have a big mouth",
+      distractorsEn: ["I have a small mouth", "You have a big mouth", "He/she has a big mouth"],
       exercisedAtomSurfaces: ["tengo", "boca", "grande"],
     }),
     sentenceMcq({
@@ -1060,8 +1060,8 @@ const ES_M30_7: LessonContent = {
     listeningCompSentence({
       id: "es-m30-7-l7-lc-tengolanarizpequena",
       audioText: "tengo la nariz pequeña",
-      correctMeaningEn: "I have the small nose",
-      distractorsEn: ["I have the big nose", "You have the small nose", "He/she has the small nose"],
+      correctMeaningEn: "I have a small nose",
+      distractorsEn: ["I have a big nose", "You have a small nose", "He/she has a small nose"],
       exercisedAtomSurfaces: ["tengo", "nariz", "pequeño"],
     }),
     sentenceMcq({
@@ -1262,9 +1262,9 @@ const ES_M30_8: LessonContent = {
           id: "t1",
           npc: {
             speaker: "Ana",
-            kana: "¿Te lavas las manos?",
-            audioText: "¿te lavas las manos?",
-            gloss: "Do you wash your hands?",
+            kana: "Yo me lavo las manos. ¿Y tú?",
+            audioText: "yo me lavo las manos. ¿y tú?",
+            gloss: "I wash my hands. What about you?",
           },
           goal: "Say yes, you wash your hands.",
           reply: {

@@ -83,7 +83,7 @@
         scene: { emoji: "🧼", title: "Ana checks the morning routine", setting: "Ana is confirming everyone washed up before breakfast." }
         turns:
           - id: t1
-            npc: { speaker: "Ana", es: "¿Te lavas las manos?", audioText: "¿te lavas las manos?", gloss: "Do you wash your hands?" }
+            npc: { speaker: "Ana", es: "Yo me lavo las manos. ¿Y tú?", audioText: "yo me lavo las manos. ¿y tú?", gloss: "I wash my hands. What about you?" }
             goal: "Say yes, you wash your hands."
             reply:
               mode: choice

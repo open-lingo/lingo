@@ -747,12 +747,12 @@ lessons:
       - kind: listenCompLit
         id: l4-lc-tienelapiernagrande
         es: "tiene la pierna grande"
-        en: "He/she has the big leg."
+        en: "He/she has a big leg."
         atoms: ["tiene", "pierna", "grande"]
         distractorsEn:
-          - "He/she has the small leg."
-          - "I have the big leg."
-          - "You have the big leg."
+          - "He/she has a small leg."
+          - "I have a big leg."
+          - "You have a big leg."
       - kind: mcq
         id: l4-q-pierna
         prompt: "Which one means 'I have a leg'?"
@@ -891,11 +891,11 @@ lessons:
           - "You have black eyes."
       - kind: mcq
         id: l5-q-ojo
-        prompt: "Which one means 'I have blue eyes'?"
-        correct: "tengo los ojos azules"
-        distractors: ["tengo el ojo azules", "tengo los ojos azul", "tengo los ojo azules"]
-        atoms: ["tengo", "ojo", "azul"]
-        why: "Two eyes: «los ojos», plural noun, and «azules» agrees with the -s. «el ojo azules» mismatches singular noun with plural color."
+        prompt: "Which one means 'I have an eye'?"
+        correct: "tengo un ojo"
+        distractors: ["tengo una ojo", "tengo un ojos", "tengo ojo"]
+        atoms: ["tengo", "ojo"]
+        why: "«ojo» is masculine — «un», not «una». One eye stays singular, «ojo» with no -s. And Spanish never drops the article."
       - kind: buildLit
         id: l5-b-mihermanaojosnegros
         es: "mi hermana tiene los ojos negros"
@@ -1018,12 +1018,12 @@ lessons:
       - kind: listenCompLit
         id: l6-lc-tengolabocagrande
         es: "tengo la boca grande"
-        en: "I have the big mouth."
+        en: "I have a big mouth."
         atoms: ["tengo", "boca", "grande"]
         distractorsEn:
-          - "I have the small mouth."
-          - "You have the big mouth."
-          - "He/she has the big mouth."
+          - "I have a small mouth."
+          - "You have a big mouth."
+          - "He/she has a big mouth."
       - kind: mcq
         id: l6-q-boca
         prompt: "Which one means 'I have a mouth'?"
@@ -1154,12 +1154,12 @@ lessons:
       - kind: listenCompLit
         id: l7-lc-tengolanarizpequena
         es: "tengo la nariz pequeña"
-        en: "I have the small nose."
+        en: "I have a small nose."
         atoms: ["tengo", "nariz", "pequeño"]
         distractorsEn:
-          - "I have the big nose."
-          - "You have the small nose."
-          - "He/she has the small nose."
+          - "I have a big nose."
+          - "You have a small nose."
+          - "He/she has a small nose."
       - kind: mcq
         id: l7-q-nariz
         prompt: "Which one means 'I have a nose'?"
@@ -1325,7 +1325,7 @@ lessons:
         scene: { emoji: "🧼", title: "Ana checks the morning routine", setting: "Ana is confirming everyone washed up before breakfast." }
         turns:
           - id: t1
-            npc: { speaker: "Ana", es: "¿Te lavas las manos?", audioText: "¿te lavas las manos?", gloss: "Do you wash your hands?" }
+            npc: { speaker: "Ana", es: "Yo me lavo las manos. ¿Y tú?", audioText: "yo me lavo las manos. ¿y tú?", gloss: "I wash my hands. What about you?" }
             goal: "Say yes, you wash your hands."
             reply:
               mode: choice

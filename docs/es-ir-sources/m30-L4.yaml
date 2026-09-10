@@ -49,12 +49,12 @@
       - kind: listenCompLit
         id: l4-lc-tienelapiernagrande
         es: "tiene la pierna grande"
-        en: "He/she has the big leg."
+        en: "He/she has a big leg."
         atoms: ["tiene", "pierna", "grande"]
         distractorsEn:
-          - "He/she has the small leg."
-          - "I have the big leg."
-          - "You have the big leg."
+          - "He/she has a small leg."
+          - "I have a big leg."
+          - "You have a big leg."
       - kind: mcq
         id: l4-q-pierna
         prompt: "Which one means 'I have a leg'?"
