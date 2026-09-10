@@ -100,3 +100,4 @@ fan-out; save small notes here after every step (auto-compaction is on).
 - 11:44 FR near-future speech probe landed 3fd390e6 (310 speech tests green; 5 constraints ready for the m19 dispatch).
 - 11:44 FR dialogue_sim provenance gate lane dispatched (class fix for the m17 tease-line escape; new frSimProvenance.test.ts, no fr-quality edits).
 - 11:53 KO m6 fidelity review landed 88ca54ab (conventions doc; 175/335 entries edited; drafter prompt carries the conventions). KO m1–m8 draft wave dispatched (sequential Ollama; m3,m7,m1,m2,m4,m5,m8). JA m42 author finished authoring and is waiting on the ES m28 registration to gate.
+- 12:09 ES m28 landed a7c73c1b (139 clips, es manifest 6417). es-quality.test.ts: only the m28 checkpoint hunks staged; the sim-NPC gate + m22/m23/m24 «de niños» fixes remain in the gate lane's working set. Dispatching m28 reviewer + m29 brief.
