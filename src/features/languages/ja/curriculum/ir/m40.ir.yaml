@@ -1,0 +1,520 @@
+module: m40
+title: "Passive I — direct passive られる"
+register: plain
+priorNeoModules: [m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18, m19, m20, m21, m22, m23, m24, m25, m26, m27, m28, m29, m30, m31, m32, m33, m34, m35, m36, m37, m38, m39]
+priorGrammarPoints: [ka-question, no-possession, wa-topic, wo-object, ga-existence,
+  ni-location, ni-time, de-action, mo-also, kara-because, node-because, kedo,
+  made-until, mae-ni, te-form, te-kudasai, te-iru, te-kara, te-miru, te-oku,
+  ta-form, nai-form, nai-existence, dictionary-form, masu-present, masu-negative,
+  masu-past, desu-copula, i-adj-present, i-adj-past, na-adj-present, v-tai,
+  to-omoimasu, toki, tsumori-desu, mashou, masenka, potential-form, dekiru,
+  deshou, kana-wondering, n-desu, sugiru, ku-ni-naru, hou-ga-ii,
+  nakereba-naranai, yo-emphasis, ne-agreement, register-audience,
+  chotto-softener, ageru, kureru, morau, ni-recipient, tara, to-conditional,
+  jidoushi-tadoushi, te-iru-resultative, volitional, you-to-omou, koto-ni-suru,
+  koto-ni-naru, you-to-suru, te-kureru, te-ageru, te-morau, favor-ladder, dake,
+  shika-nai, sou-appearance, garu-tagaru, yasui-nikui, nagara, ba-form,
+  ba-restriction, ba-vs-tara, nara, nara-vs-tara, ba-hodo, family-register,
+  frequency-adverbs, kono-sono-ano-dono, ni-iku, te-shimau, chau,
+  te-iku-kuru-space, kite-chain, te-kuru-iku-time, noni-concession,
+  temo-concession, demo-concession, demo-mo-closed-set, shi-listing]
+notes: |
+  m40 · n4-11 — PASSIVE I: DIRECT PASSIVE られる (docs/spine-n4.md §n4-11,
+  docs/ja-m40-brief-2026-09-10.md). Ships 12 lessons (inv 25: 8 teaching + 3
+  review + 1 challenge, challenge last).
+
+  WHAT IS TAUGHT:
+  1. **Mechanical formation (L2, id passive-form, one combined card):** godan/u
+     bends the dictionary form to its a-stem and adds れる (ぬすむ →
+     ぬすまれる); ichidan drops る and adds られる (ほめる → ほめられる);
+     irregulars are memorized whole (する → される, くる → こられる — only
+     される is ever drilled, see collision note below). Both classes ride ONE
+     rule card (not two variant cards) — density cap (moduleBarGuards.ts,
+     ≤2 consecutive grammar_rule steps) leaves no room for a 3rd card in the
+     same lesson alongside passive-rareru's own agent-marking card.
+  2. **Direct passive, person-as-subject (L2-L3, id passive-rareru):** the
+     one affected by the action becomes topic, the doer takes に. Taught
+     with DELIBERATE mixed valence — せんせいに ほめられた (good news) sits
+     beside がくせいは せんせいに しかられた (bad news) — so the grammar
+     itself is never taught as inherently negative, a common learner
+     misconception this module avoids on purpose.
+  3. **Possessed-object passive (L3, id possessed-object-passive):** when
+     what's affected is something OWNED, the owner becomes the (often
+     dropped) topic and the owned thing keeps を — どろぼうに さいふを
+     ぬすまれた, not さいふは ぬすまれた. The opposite promotion English
+     makes ("my wallet was stolen").
+  4. **Creation/authorship passive (L5, id niyotte-creation-passive):**
+     によって as the formal cousin of に for who MADE something — この
+     きかいは タナカさんに よって はつめいされた — alongside agentless
+     される for facts nobody needs a name attached to.
+  5. **Suffering passive (L6, id suffering-passive-recognition), RECOGNITION
+     ONLY:** 迷惑の受身 — intransitive verbs (ふる, はいる) turned passive
+     purely to mark the speaker was inconvenienced, with no English passive
+     to match (あめに ふられた = "I got rained on"). Ships via rule prose +
+     listening-comp + dialogue lines ONLY — never a `mode: build`/
+     `translate`/`listening` sentence, particle-cloze answer, or challenge
+     `combines`/`ja`. Production is a later module's job; this module's own
+     bespoke test ratchet (`m40-neo.test.ts`) enforces the boundary.
+
+  COLLISION GUARD (brief's own ratchet): たべられる／みられる／こられる are
+  byte-identical to m24's already-live POTENTIAL-form atoms (m24 teaches
+  たべられる/みられる as "can eat"/"can see", not as passive). This module
+  never drills any of the three as a graded answer — no `mode: build`,
+  `translate`, `listening` (tile production), particle-cloze answer, or
+  challenge `combines`/`ja`. たべられる appears exactly once, inside
+  passive-rareru's `rule` prose (a `examples` field is teach-copy, never
+  graded — see the grammar point below), to name the ambiguity honestly.
+  みられる/こられる do not appear anywhere in this module's own IR at all —
+  they surface only in the SHARED `TRANSFORM_RULESETS.passive` legend
+  (`transformRulesets.ts`), which is a non-graded reference table shown
+  beside the card, identical in kind to m24's own potential-form legend
+  already doing the same thing with the same strings.
+
+  RAMP SCHEDULING: only ぬすむ(u)/ほめる(ru)/する(irregular) are drilled via
+  the auto-ramp `conjugation_transform` mechanism (L2's rule beats), so only
+  they need an earlier-lesson plain-form debut — both ぬすむ and ほめる are
+  introduced in L1, strictly before L2's ramp; する is already known
+  course-wide, no earlier intro needed. Every OTHER new verb this module
+  teaches (しかる, たのむ, よぶ, さそう, たてる, はつめい, けんきゅう, そうさ)
+  is hand-authored via `sentence`/`dialogue` beats only, never auto-ramped,
+  so its plain form and passive form may debut in the SAME lesson — the
+  ramp's earlier-lesson constraint does not apply to the hand-authored path.
+
+  VOCABULARY VERIFIED AGAINST REAL priorVocab (not courseAtoms `fromModule`
+  tags, which are stale by construction — confirmed 2026-09-10 by grepping
+  every prior `mN.ir.yaml`'s `newAtoms`/lessons for four candidate carrier
+  words: パーティー, たくさん, もんだい, つくる. None appear in ANY prior
+  IR file's `newAtoms` or lesson body — despite carrying courseAtoms rows,
+  none has ever actually been taught by a live lesson. All four AVOIDED in
+  this module's content. Also avoided as unsafe/unverified: たいふう, じけん,
+  でんきゅう, だれか, おこなう, じしん, つかまる, にげる, あんしん, たすかる,
+  ゆうめい, すぐ, はなす, ぶつかる — none confirmed taught, none used.
+
+  Two courseAtoms stub rows repointed to this module (brief §1/§2 pattern,
+  same ruling as m38/m39's "future"-tagged repoints): たのむ (was
+  fromModule:"future") and よぶ (was fromModule:"future") both debut for
+  real in L3 (ja-m40-neo-3) — listed in `newAtoms` below only so
+  priorVocab/lesson.introduces machinery sees them as this module's own; the
+  courseAtoms.ts edit does the actual fromModule/introducedByLessonId flip.
+
+grammarPoints:
+  - id: passive-form
+    rule: "Two shapes, one job. An u-verb (godan) rides the same stem grid you already know from ば and volitional, but lands on the A-ROW: shift the dictionary form's final -u sound back to its -a partner, add れる — ぬすむ → ぬすま + れる = ぬすまれる, かう → かわ + れる = かわれる. An ichidan (ru) verb does what it always does — drop る, add the ending whole: ほめる → ほめ + られる = ほめられる. The two irregulars are two words to memorize outright: する → される, くる → こられる. Notice ichidan られる and godan れる are close cousins — both are 'the verb, plus something-reru' — but only ichidan gets the extra ら."
+    conjugation: { form: passive, classes: [u, ru, irregular] }
+    examples:
+      - { ja: "ぬすむ → ぬすまれる", en: "to steal → to be stolen" }
+      - { ja: "かう → かわれる", en: "to buy → to be bought" }
+      - { ja: "ほめる → ほめられる", en: "to praise → to be praised" }
+      - { ja: "する → される", en: "to do → to be done" }
+    antiPattern: { ja: "ぬすむられる", why: "られる only glues straight onto a verb that already ends in a vowel stem (ichidan) — an u-verb has to bend to its a-row FIRST: ぬすむ → ぬすま, then + れる. ぬすまれる." }
+  - id: passive-rareru
+    rule: "Turn the sentence around: the person something happens TO becomes the topic, marked は/が, and the person who DOES it takes に — the passive's agent marker. がくせいは せんせいに ほめられた: the student is the one it happened to; the teacher is who did it. This is not always bad news, despite what 'passive voice' might suggest — せんせいに ほめられた IS good news (I was praised), がくせいは せんせいに しかられた is bad news (was scolded) — the GRAMMAR carries no judgment either way; the verb's own meaning does all of that work. One quirk to file away: for an ichidan verb, られる is the exact same shape as the potential form (たべられる can mean 'is eaten' OR 'can eat') — context is what tells them apart, the same way English 'can' does double duty."
+    examples:
+      - { ja: "がくせいは せんせいに しかられた。", en: "The student was scolded by the teacher." }
+      - { ja: "せんせいに ほめられた。", en: "I was praised by the teacher." }
+      - { ja: "せんせいに しつもんされた。", en: "I was asked a question by the teacher." }
+    antiPattern: { ja: "がくせいは せんせいを しかられた。", why: "the AGENT of a passive — the one doing it — takes に, not を: を would mark it as a direct object, as if the student did the scolding. せんせいに しかられた。" }
+  - id: possessed-object-passive
+    rule: "When what got affected is something you OWN, Japanese keeps that thing marked を and makes the OWNER the topic instead — the opposite of English, which promotes the owned thing to subject ('my wallet was stolen'). どろぼうに さいふを ぬすまれた literally sits as '[I], by-a-thief, wallet, was-stolen' — わたしは is usually dropped because it's obvious, but さいふ keeps を the whole time. It never becomes さいふは ぬすまれた unless you're talking about the wallet itself, not about what happened to you."
+    examples:
+      - { ja: "どろぼうに さいふを ぬすまれた。", en: "My wallet was stolen (by a thief)." }
+      - { ja: "どろぼうに とけいを ぬすまれた。", en: "My watch was stolen (by a thief)." }
+    antiPattern: { ja: "さいふが どろぼうを ぬすまれた。", why: "the owned thing keeps を; it's the OWNER who becomes the topic, not the wallet: (わたしは) どろぼうに さいふを ぬすまれた。" }
+  - id: niyotte-creation-passive
+    rule: "For who MADE something — an invention, a building, a discovery — the agent often takes によって instead of plain に, especially in written or explanatory Japanese: この きかいは タナカさんに よって はつめいされた, this machine was invented by Mr. Tanaka. によって sits exactly where に would, marking the agent — it's a more formal cousin, reserved for creation and authorship. Plain に still works and is what you'll hear in conversation; agentless is common too, when the maker doesn't matter: この きかいは けんきゅうされた, this machine was researched (by nobody named)."
+    examples:
+      - { ja: "この きかいは タナカさんに よって はつめいされた。", en: "This machine was invented by Mr. Tanaka." }
+      - { ja: "この いえは ちちに よって たてられた。", en: "This house was built by my father." }
+      - { ja: "この きかいは けんきゅうされた。", en: "This machine was researched." }
+    antiPattern: { ja: "タナカさんは この きかいを はつめいされた。", why: "the CREATED THING is the topic of a creation-passive, not its maker — swap them: この きかいは タナカさんに よって はつめいされた。" }
+  - id: suffering-passive-recognition
+    rule: "Some Japanese passives have no English passive to match at all. あめに ふられた doesn't mean 'was rained' — it means something happened TO you and it was a nuisance: I got rained on. ふる (to fall, rain/snow) never takes an object in its plain form — nothing 'does' the raining to anyone — yet the passive still exists, purely to mark that the speaker was inconvenienced by it. どろぼうに はいられた works the same way: a burglar broke in (on me), and I'm the one who suffered for it. Recognize this shape for now — production comes later; for today, just hear the flavour it carries that plain sentences don't."
+    examples:
+      - { ja: "あめに ふられた。", en: "I got rained on (and it was a pain)." }
+      - { ja: "どろぼうに はいられた。", en: "I had a burglar break in on me." }
+    antiPattern: { ja: "あめが ふられた。", why: "this passive isn't about the rain — it's about the person it happened to, marked with に, same as every other passive agent: あめに ふられた。" }
+
+newAtoms:
+  # ══ L1 — new lemmas, plain-form only, no passive taught yet. ぬすむ and
+  # ほめる MUST be introduced here — strictly earlier than L2, which ramps
+  # their passive forms via the conjugation_transform auto-generator.
+  - { kana: けいさつ, romaji: keisatsu, gloss: "police", shortGloss: "police", imageable: true, kind: vocab }
+  - { kana: どろぼう, romaji: dorobou, gloss: "thief, burglar", shortGloss: "thief", imageable: true, kind: vocab }
+  - { kana: きず, romaji: kizu, gloss: "a wound, an injury, a scratch", shortGloss: "a wound", imageable: true, kind: vocab }
+  - { kana: しかる, romaji: shikaru, gloss: "to scold", shortGloss: "scold", imageable: true, kind: verb, verbClass: u }
+  - { kana: ほめる, romaji: homeru, gloss: "to praise", shortGloss: "praise", imageable: true, kind: verb, verbClass: ru }
+  - { kana: ぬすむ, romaji: nusumu, gloss: "to steal", shortGloss: "steal", imageable: true, kind: verb, verbClass: u }
+  # ══ L2 — passive-form's ramp output (ぬすまれる/ほめられる/される) plus
+  # しかられる (hand-authored, not ramped — しかる's plain form was already
+  # met in L1, so its passive may debut here freely) and こたえた (a plain
+  # past-tense surface of the already-known lemma こたえる, needed for one
+  # challenge sentence and never conjugated to past anywhere before m40).
+  - { kana: ぬすまれる, romaji: nusumareru, gloss: "to be stolen (passive of ぬすむ)", shortGloss: "be stolen", imageable: false, kind: verb-form, derivedFrom: ぬすむ, verbClass: u }
+  - { kana: ほめられる, romaji: homerareru, gloss: "to be praised (passive of ほめる)", shortGloss: "be praised", imageable: false, kind: verb-form, derivedFrom: ほめる, verbClass: ru }
+  - { kana: される, romaji: sareru, gloss: "to be done (passive of する)", shortGloss: "be done", imageable: false, kind: verb-form, derivedFrom: する, verbClass: irregular }
+  - { kana: しかられる, romaji: shikarareru, gloss: "to be scolded (passive of しかる)", shortGloss: "be scolded", imageable: false, kind: verb-form, derivedFrom: しかる, verbClass: u }
+  - { kana: こたえた, romaji: kotaeta, gloss: "answered (past of こたえる)", shortGloss: "answered", imageable: false, kind: verb-form, derivedFrom: こたえる, verbClass: ru }
+  # Past-tense passive surfaces — the tense actually drilled in every graded
+  # sentence/challenge/sim beat from here on (られる/される above are the
+  # dictionary-form cells the rule cards teach the MECHANICS from; られた/
+  # された is what a learner actually produces). Registered alongside their
+  # present-tense siblings rather than instead of them — both surfaces are
+  # legitimately presented (rule prose uses the dictionary form, everything
+  # graded uses past tense).
+  - { kana: ぬすまれた, romaji: nusumareta, gloss: "was stolen (passive of ぬすむ)", shortGloss: "was stolen", imageable: false, kind: verb-form, derivedFrom: ぬすむ, verbClass: u }
+  - { kana: ほめられた, romaji: homerareta, gloss: "was praised (passive of ほめる)", shortGloss: "was praised", imageable: false, kind: verb-form, derivedFrom: ほめる, verbClass: ru }
+  - { kana: された, romaji: sareta, gloss: "was done (passive of する)", shortGloss: "was done", imageable: false, kind: verb-form, derivedFrom: する, verbClass: irregular }
+  - { kana: しかられた, romaji: shikarareta, gloss: "was scolded (passive of しかる)", shortGloss: "was scolded", imageable: false, kind: verb-form, derivedFrom: しかる, verbClass: u }
+  # ══ L3 — たのむ/よぶ repointed from their courseAtoms "future" stub rows
+  # (courseAtoms.ts edit does the actual flip); さそう is a brand-new lemma.
+  # All three are hand-authored, never auto-ramped, so plain + passive debut
+  # in the same lesson.
+  - { kana: たのむ, romaji: tanomu, gloss: "to ask, to request", shortGloss: "ask", imageable: true, kind: verb, verbClass: u }
+  - { kana: よぶ, romaji: yobu, gloss: "to call out, to call in, to invite", shortGloss: "call", imageable: true, kind: verb, verbClass: u }
+  - { kana: さそう, romaji: sasou, gloss: "to invite", shortGloss: "invite", imageable: true, kind: verb, verbClass: u }
+  - { kana: たのまれる, romaji: tanomareru, gloss: "to be asked (passive of たのむ)", shortGloss: "be asked", imageable: false, kind: verb-form, derivedFrom: たのむ, verbClass: u }
+  - { kana: よばれる, romaji: yobareru, gloss: "to be called in (passive of よぶ)", shortGloss: "be called", imageable: false, kind: verb-form, derivedFrom: よぶ, verbClass: u }
+  - { kana: さそわれる, romaji: sasowareru, gloss: "to be invited (passive of さそう)", shortGloss: "be invited", imageable: false, kind: verb-form, derivedFrom: さそう, verbClass: u }
+  - { kana: たのまれた, romaji: tanomareta, gloss: "was asked (passive of たのむ)", shortGloss: "was asked", imageable: false, kind: verb-form, derivedFrom: たのむ, verbClass: u }
+  - { kana: よばれた, romaji: yobareta, gloss: "was called in (passive of よぶ)", shortGloss: "was called", imageable: false, kind: verb-form, derivedFrom: よぶ, verbClass: u }
+  - { kana: さそわれた, romaji: sasowareta, gloss: "was invited (passive of さそう)", shortGloss: "was invited", imageable: false, kind: verb-form, derivedFrom: さそう, verbClass: u }
+  # ══ L5 — creation/authorship passive: two suru-noun headwords plus a new
+  # ichidan lemma, all hand-authored.
+  - { kana: はつめい, romaji: hatsumei, gloss: "invention, discovery", shortGloss: "invention", imageable: false, kind: vocab }
+  - { kana: けんきゅう, romaji: kenkyuu, gloss: "research", shortGloss: "research", imageable: false, kind: vocab }
+  - { kana: たてる, romaji: tateru, gloss: "to build", shortGloss: "build", imageable: true, kind: verb, verbClass: ru }
+  - { kana: たてられる, romaji: taterareru, gloss: "to be built (passive of たてる)", shortGloss: "be built", imageable: false, kind: verb-form, derivedFrom: たてる, verbClass: ru }
+  - { kana: たてられた, romaji: taterareta, gloss: "was built (passive of たてる)", shortGloss: "was built", imageable: false, kind: verb-form, derivedFrom: たてる, verbClass: ru }
+  - { kana: はつめいされた, romaji: hatsumeisareta, gloss: "was invented (passive of はつめいする)", shortGloss: "was invented", imageable: false, kind: verb-form, derivedFrom: はつめい, verbClass: irregular }
+  - { kana: けんきゅうされた, romaji: kenkyuusareta, gloss: "was researched (passive of けんきゅうする)", shortGloss: "was researched", imageable: false, kind: verb-form, derivedFrom: けんきゅう, verbClass: irregular }
+  - { kana: よって, romaji: yotte, gloss: "by means of, due to (agent-marking connector in によって)", shortGloss: "by means of", imageable: false, kind: vocab }
+  # ══ L6 — suffering passive, RECOGNITION ONLY (see notes above and the
+  # module's bespoke test ratchet). ふる/はいる are both already-known
+  # lemmas; only their passive surfaces are new.
+  - { kana: ふられた, romaji: furareta, gloss: "got rained on (suffering passive of ふる)", shortGloss: "got rained on", imageable: false, kind: verb-form, derivedFrom: ふる, verbClass: u }
+  - { kana: はいられた, romaji: hairareta, gloss: "had (someone) enter, to one's misfortune (suffering passive of はいる)", shortGloss: "broken in on", imageable: false, kind: verb-form, derivedFrom: はいる, verbClass: u }
+  # ══ L7 — extends the けいさつ/どろぼう vocabulary family.
+  - { kana: ひがい, romaji: higai, gloss: "damage, harm", shortGloss: "damage", imageable: false, kind: vocab }
+  - { kana: そうさ, romaji: sousa, gloss: "(police) investigation", shortGloss: "investigation", imageable: false, kind: vocab }
+  - { kana: そうさされた, romaji: sousasareta, gloss: "was investigated (passive of そうさする)", shortGloss: "was investigated", imageable: false, kind: verb-form, derivedFrom: そうさ, verbClass: irregular }
+
+lessons:
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m40-neo-1
+    role: teaching
+    title: "「どろぼうが いる」 — the cast for this arc"
+    focus: "Priming vocabulary for the passive arc — no new grammar yet, all through は/が/を you already own"
+    introduces: [けいさつ, どろぼう, きず, しかる, ほめる, ぬすむ]
+    beats:
+      - { kind: sentence, ja: "どろぼうが いる。", en: "There is a thief.", exercises: [ga-existence], mode: build }
+      - { kind: sentence, ja: "けいさつが きた。", en: "The police came.", exercises: [ta-form], mode: build }
+      - { kind: sentence, ja: "きずが ある。", en: "There is a wound.", exercises: [ga-existence], mode: build }
+      - { kind: sentence, ja: "せんせいは がくせいを しかる。", en: "The teacher scolds the student.", exercises: [wo-object], mode: build }
+      - { kind: sentence, ja: "せんせいは がくせいを ほめる。", en: "The teacher praises the student.", exercises: [wo-object], mode: build }
+      - { kind: sentence, ja: "どろぼうは かばんを ぬすむ。", en: "The thief steals the bag.", exercises: [wo-object], mode: build }
+      - { kind: particle-cloze, stem: "どろぼう", tail: " いる。", answer: "が", options: ["が", "は", "を"], en: "There is a thief.", explanation: "が introduces something into existence/attention for the first time — いる needs its subject marked が, not は (which would presume the listener already knows which thief) or を (いる takes no object)." }
+      - { kind: listening-comp, audio: "せんせいは がくせいを ほめる。", answer: "The teacher praises the student.", distractors: ["The teacher scolds the student.", "The student praises the teacher.", "The student scolds the teacher."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "せんせいは がくせいを しかる。", answer: "The teacher scolds the student.", distractors: ["The teacher praises the student.", "The student scolds the teacher.", "The student praises the teacher."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "どろぼうは かばんを ぬすむ。", answer: "The thief steals the bag.", distractors: ["The thief hides the bag.", "Someone steals the thief's bag.", "The police found the bag."], q: "What does this mean?" }
+      - { kind: kanji, kana: けいさつ, kanji: 警察, distractors: ["けいけん", "さつえい", "けいび"], exercises: [wo-object] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "どろぼうが いるよ！", en: "There's a thief!" }
+          - { speaker: "Tom", ja: "えっ、けいさつを よんで！", en: "What, call the police!" }
+          - { speaker: "Ken", ja: "もう きたよ。", en: "They already came." }
+        questions:
+          - { q: "What does Ken say already happened?", options: ["The police already came", "The thief already left", "The student was scolded", "Nobody called anyone"], answer: "The police already came" }
+      - { kind: challenge, ja: "けいさつは どろぼうを みた。", en: "The police saw the thief.", combines: [wo-object, ta-form], mode: build }
+    reviewPool: [がっこう, せんせい, がくせい, いえ, ほん, ともだち, へや, まち]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m40-neo-2
+    role: teaching
+    title: "「せんせいに ほめられた」 — the passive, both classes at once"
+    focus: "Mechanical formation (u/godan and ru/irregular) plus the semantic turn: agent takes に, and the grammar itself carries no judgment"
+    introduces: [ぬすまれる, ほめられる, される, しかられる, こたえた]
+    beats:
+      - { kind: rule, grammarPointId: passive-form }
+      - { kind: rule, grammarPointId: passive-rareru }
+      - { kind: sentence, ja: "せんせいに ほめられた。", en: "I was praised by the teacher.", exercises: [passive-rareru], mode: build }
+      - { kind: sentence, ja: "がくせいは せんせいに しかられた。", en: "The student was scolded by the teacher.", exercises: [passive-rareru], mode: build }
+      - { kind: sentence, ja: "かばんが ぬすまれた。", en: "The bag was stolen.", exercises: [passive-form], mode: build }
+      - { kind: sentence, ja: "せんせいに しつもんされた。", en: "I was asked a question by the teacher.", exercises: [passive-rareru], mode: build }
+      - { kind: particle-cloze, stem: "がくせいは せんせい", tail: " しかられた。", answer: "に", options: ["に", "を", "が"], en: "The student was scolded by the teacher.", explanation: "The agent of a passive — who did it — takes に, not を: を would make the student the one doing the scolding." }
+      - { kind: listening-comp, audio: "せんせいに ほめられた。", answer: "I was praised by the teacher.", distractors: ["I praised the teacher.", "I was scolded by the teacher.", "The teacher was praised by me."], q: "What does this mean?" }
+      - { kind: kanji, kana: ほめる, kanji: 褒める, distractors: ["はめる", "ほめん", "ぼめる"], exercises: [passive-rareru] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "テストは どうだった？", en: "How was the test?" }
+          - { speaker: "Tom", ja: "せんせいに ほめられたよ！", en: "I was praised by the teacher!" }
+          - { speaker: "Ken", ja: "すごいね。", en: "That's great." }
+        questions:
+          - { q: "What happened to Tom?", options: ["He was praised by the teacher", "He was scolded by the teacher", "He scolded the teacher", "He failed the test"], answer: "He was praised by the teacher" }
+      - kind: sim
+        scene: { emoji: "👮", title: "After class", setting: "Ken wants to know how Tom's meeting with the teacher went." }
+        turns:
+          - npc: { speaker: "Ken", ja: "せんせいは どう だった？", en: "How did it go with the teacher?" }
+            goal: "Say you were praised by the teacher."
+            reply: { mode: build, tiles: ["せんせいに", "ほめられた", "しかられた", "けいさつに"], answer: "せんせいに ほめられた。" }
+            replyGloss: "I was praised by the teacher."
+            explanation: "The agent — who praised you — takes に: せんせいに. しかられた swaps the whole verb to the opposite outcome; けいさつに names the wrong agent entirely."
+          - npc: { speaker: "Ken", ja: "そう？ わたしは ちがうよ。", en: "Really? Mine is different." }
+            goal: "Say you were scolded by the teacher."
+            reply: { mode: build, tiles: ["せんせいに", "しかられた", "ほめられた", "がくせいに"], answer: "せんせいに しかられた。" }
+            replyGloss: "I was scolded by the teacher."
+            explanation: "Same agent marker に, opposite verb — しかられた, not ほめられた. がくせいに would make a student the one who scolded, which isn't the scene."
+      - { kind: challenge, ja: "せんせいに しつもんされたから、こたえた。", en: "Because I was asked a question by the teacher, I answered.", combines: [passive-rareru, kara-because], mode: build }
+    reviewPool: [せんせい, がくせい, しつもん, テスト, がっこう, ともだち, へや, とけい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m40-neo-3
+    role: teaching
+    title: "「どろぼうに さいふを ぬすまれた」 — when it's yours that's taken"
+    focus: "Possessed-object passive: the owner becomes topic, the owned thing keeps を — plus たのむ・よぶ・さそう join the direct-passive family"
+    introduces: [たのむ, よぶ, さそう, たのまれる, よばれる, さそわれる]
+    beats:
+      - { kind: rule, grammarPointId: possessed-object-passive }
+      - { kind: sentence, ja: "どろぼうに さいふを ぬすまれた。", en: "My wallet was stolen (by a thief).", exercises: [possessed-object-passive], mode: build }
+      - { kind: sentence, ja: "どろぼうに とけいを ぬすまれた。", en: "My watch was stolen (by a thief).", exercises: [possessed-object-passive], mode: build }
+      - { kind: sentence, ja: "せんせいに たのまれた。", en: "I was asked (a favor) by the teacher.", exercises: [passive-rareru], mode: build }
+      - { kind: sentence, ja: "けいさつに よばれた。", en: "I was called in by the police.", exercises: [passive-rareru], mode: build }
+      - { kind: listening-comp, audio: "ともだちを えいがに さそう。", answer: "I invite a friend to a movie.", distractors: ["I was invited to a movie by a friend.", "A friend invites me to a movie.", "I refuse a friend's invitation to a movie."], q: "What does this mean?" }
+      - { kind: sentence, ja: "ともだちに えいがに さそわれた。", en: "I was invited to a movie by a friend.", exercises: [passive-rareru], mode: build }
+      - { kind: particle-cloze, stem: "どろぼうに さいふ", tail: " ぬすまれた。", answer: "を", options: ["を", "は", "が"], en: "My wallet was stolen (by a thief).", explanation: "The owned thing keeps を even in the passive — it never becomes the topic here; the OWNER is the (dropped) topic. は would make the wallet itself the topic of a different kind of sentence." }
+      - { kind: listening-comp, audio: "どろぼうに とけいを ぬすまれた。", answer: "My watch was stolen by a thief.", distractors: ["I stole a thief's watch.", "My watch was found by a thief.", "A thief was stolen by my watch."], q: "What does this mean?" }
+      - { kind: kanji, kana: どろぼう, kanji: 泥棒, distractors: ["どろみず", "どろあし", "ぼうはん"], exercises: [possessed-object-passive] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "だいじょうぶ？", en: "Are you okay?" }
+          - { speaker: "Tom", ja: "どろぼうに さいふを ぬすまれたんだ。", en: "My wallet got stolen by a thief." }
+          - { speaker: "Mika", ja: "えっ、けいさつに でんわした？", en: "What, did you call the police?" }
+        questions:
+          - { q: "What happened to Tom?", options: ["His wallet was stolen", "He lost his wallet", "He found a wallet", "He called the police first"], answer: "His wallet was stolen" }
+      - { kind: challenge, ja: "どろぼうに さいふを ぬすまれたから、けいさつに でんわした。", en: "Because my wallet was stolen by a thief, I called the police.", combines: [possessed-object-passive, kara-because], mode: build }
+    reviewPool: [さいふ, とけい, かばん, けいさつ, えいが, ともだち, でんわ, がっこう]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m40-neo-review-1
+    role: review
+    title: "Review — who did it to whom"
+    focus: "Spiral L1-L3: vocab priming, mechanical passive formation, direct passive with に-agent, and possessed-object passive with を"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "どろぼうが いる。", en: "There is a thief.", exercises: [ga-existence], mode: build }
+      - { kind: sentence, ja: "せんせいに ほめられた。", en: "I was praised by the teacher.", exercises: [passive-rareru], mode: listening }
+      - { kind: particle-cloze, stem: "がくせいは せんせい", tail: " しかられた。", answer: "に", options: ["に", "を", "が"], en: "The student was scolded by the teacher.", explanation: "The passive agent takes に; を would make the student the scolder, not the one scolded." }
+      - { kind: sentence, ja: "どろぼうに さいふを ぬすまれた。", en: "My wallet was stolen (by a thief).", exercises: [possessed-object-passive], mode: build }
+      - { kind: listening-comp, audio: "けいさつに よばれた。", answer: "I was called in by the police.", distractors: ["I called the police.", "The police were called by me.", "I was scolded by the police."], q: "What does this mean?" }
+      - { kind: sentence, ja: "ともだちに えいがに さそわれた。", en: "I was invited to a movie by a friend.", exercises: [passive-rareru], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "きずは だいじょうぶ？", en: "Is the wound okay?" }
+          - { speaker: "Tom", ja: "うん、だいじょうぶ。", en: "Yeah, I'm fine." }
+          - { speaker: "Ken", ja: "よかった。", en: "Good." }
+        questions:
+          - { q: "How is Tom's wound?", options: ["He's fine", "It's serious", "He went to the hospital", "He doesn't know"], answer: "He's fine" }
+      - { kind: sentence, ja: "かばんが ぬすまれた。", en: "The bag was stolen.", exercises: [passive-form], mode: build }
+      - { kind: sentence, ja: "せんせいに たのまれた。", en: "I was asked (a favor) by the teacher.", exercises: [passive-rareru], mode: listening }
+    reviewPool: [けいさつ, どろぼう, きず, さいふ, とけい, えいが, ともだち, せんせい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m40-neo-5
+    role: teaching
+    title: "「タナカさんに よって はつめいされた」 — who made it"
+    focus: "によって for creation/formal-register agents, alongside plain agentless される for facts nobody needs a name attached to"
+    introduces: [はつめい, けんきゅう, たてる, たてられる, はつめいされた, けんきゅうされた, よって]
+    beats:
+      - { kind: rule, grammarPointId: niyotte-creation-passive }
+      - { kind: sentence, ja: "この きかいは タナカさんに よって はつめいされた。", en: "This machine was invented by Tanaka.", exercises: [niyotte-creation-passive], mode: build }
+      - { kind: sentence, ja: "この いえは ちちに よって たてられた。", en: "This house was built by my father.", exercises: [niyotte-creation-passive], mode: build }
+      - { kind: sentence, ja: "この きかいは けんきゅうされた。", en: "This machine was researched.", exercises: [niyotte-creation-passive], mode: build }
+      - { kind: sentence, ja: "ちちは いえを たてる。", en: "My father builds houses.", exercises: [wo-object], mode: build }
+      - { kind: particle-cloze, stem: "この きかいは タナカさん", tail: " よって はつめいされた。", answer: "に", options: ["に", "を", "で"], en: "This machine was invented by Mr. Tanaka.", explanation: "によって is に + よって — the agent-marker に leads it off, so the blank before よって is に, not を (which marks a direct object) or で (which marks means/location)." }
+      - { kind: listening-comp, audio: "この いえは ちちに よって たてられた。", answer: "This house was built by my father.", distractors: ["My father built a different house.", "This house was researched by my father.", "My father lives in this house."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "この きかいは けんきゅうされた。", answer: "This machine was researched.", distractors: ["This machine was invented.", "This machine researches things.", "The machine was built by hand."], q: "What does this mean?" }
+      - { kind: kanji, kana: はつめい, kanji: 発明, distractors: ["はつげん", "めいはつ", "はつばい"], exercises: [niyotte-creation-passive] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "この きかい なに？", en: "What's this machine?" }
+          - { speaker: "Ken", ja: "タナカさんに よって はつめいされたんだ。", en: "It was invented by Mr. Tanaka." }
+          - { speaker: "Mika", ja: "すごいね。", en: "That's amazing." }
+        questions:
+          - { q: "Who invented the machine?", options: ["Mr. Tanaka", "Mika", "Ken", "Nobody knows"], answer: "Mr. Tanaka" }
+      - { kind: challenge, ja: "この きかいは タナカさんに よって けんきゅうされて、はつめいされた。", en: "This machine was researched and then invented by Tanaka.", combines: [niyotte-creation-passive, te-form], mode: build }
+    reviewPool: [きかい, いえ, ちち, だいがく, てつだう, がっこう, なまえ, とけい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m40-neo-6
+    role: teaching
+    title: "「あめに ふられた」 — the passive that isn't about you doing anything"
+    focus: "Suffering passive, recognition only: intransitive verbs turned passive purely to mark the speaker was inconvenienced"
+    introduces: [ふられた, はいられた]
+    beats:
+      - { kind: rule, grammarPointId: suffering-passive-recognition }
+      - { kind: listening-comp, audio: "あめに ふられた。", answer: "I got rained on (and it was a pain).", distractors: ["I made it rain.", "I like the rain.", "It didn't rain after all."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "どろぼうに はいられた。", answer: "I had a burglar break in on me.", distractors: ["I broke into a house.", "A burglar was caught by me.", "I let a burglar in on purpose."], q: "What does this mean?" }
+      - { kind: sentence, ja: "せんせいに ほめられた。", en: "I was praised by the teacher.", exercises: [passive-rareru], mode: build }
+      - { kind: sentence, ja: "どろぼうに かばんを ぬすまれた。", en: "My bag was stolen (by a thief).", exercises: [possessed-object-passive], mode: build }
+      - { kind: particle-cloze, stem: "どろぼうに とけい", tail: " ぬすまれた。", answer: "を", options: ["を", "は", "が"], en: "My watch was stolen (by a thief).", explanation: "The owned thing keeps を even in the passive; the owner is the (dropped) topic, not the watch." }
+      - { kind: sentence, ja: "この きかいは タナカさんに よって はつめいされた。", en: "This machine was invented by Mr. Tanaka.", exercises: [niyotte-creation-passive], mode: listening }
+      - { kind: kanji, kana: きず, kanji: 傷, distractors: ["きずな", "いたみ", "けが"], exercises: [passive-rareru] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "きのう たいへんだったよ。", en: "Yesterday was rough." }
+          - { speaker: "Tom", ja: "だいじょうぶ？", en: "Are you okay?" }
+          - { speaker: "Ken", ja: "あめに ふられたんだ。", en: "I got rained on." }
+        questions:
+          - { q: "What happened to Ken yesterday?", options: ["He got rained on", "He was praised", "His bag was stolen", "He invented a machine"], answer: "He got rained on" }
+      - { kind: challenge, ja: "せんせいに しかられたのに、げんきだった。", en: "Even though I was scolded by the teacher, I was fine.", combines: [passive-rareru, noni-concession], mode: build }
+    reviewPool: [けいさつ, どろぼう, きず, かばん, とけい, きかい, ちち, ともだち]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m40-neo-7
+    role: teaching
+    title: "「ひがいが あった」 — discrimination: に、によって、を"
+    focus: "Production and discrimination across the three passive patterns learned so far, with けいさつ vocabulary extended: damage, investigation"
+    introduces: [ひがい, そうさ, そうさされた]
+    beats:
+      - { kind: sentence, ja: "いえに ひがいが あった。", en: "There was damage to the house.", exercises: [ga-existence], mode: build }
+      - { kind: sentence, ja: "どろぼうは けいさつに そうさされた。", en: "The thief was investigated by the police.", exercises: [passive-rareru], mode: build }
+      - { kind: particle-cloze, stem: "どろぼうは けいさつ", tail: " そうさされた。", answer: "に", options: ["に", "を", "によって"], en: "The thief was investigated by the police.", explanation: "A plain conversational direct passive takes に for its agent — によって is reserved for the more formal creation/authorship pattern; を would wrongly make the police the object, not the agent." }
+      - { kind: sentence, ja: "どろぼうに かばんを ぬすまれた。", en: "My bag was stolen (by a thief).", exercises: [possessed-object-passive], mode: listening }
+      - { kind: particle-cloze, stem: "この きかいは タナカさん", tail: " よって はつめいされた。", answer: "によって", options: ["によって", "に", "を"], en: "This machine was invented by Mr. Tanaka.", explanation: "Creation/authorship passives favor によって over plain に — the more formal cousin, reserved for who MADE something." }
+      - { kind: listening-comp, audio: "いえに ひがいが あった。", answer: "There was damage to the house.", distractors: ["The house was undamaged.", "A house was built.", "The house had a wound."], q: "What does this mean?" }
+      - { kind: kanji, kana: そうさ, kanji: 捜査, distractors: ["そうさく", "けんさ", "ちょうさ"], exercises: [passive-rareru] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "どろぼうは どうなった？", en: "What happened to the thief?" }
+          - { speaker: "Mika", ja: "けいさつに そうさされたよ。", en: "He was investigated by the police." }
+          - { speaker: "Tanaka", ja: "いえの ひがいは？", en: "What about the damage to the house?" }
+          - { speaker: "Mika", ja: "きずだけだよ。", en: "Just a scratch." }
+        questions:
+          - { q: "What did the police do to the thief?", options: ["Investigated him", "Praised him", "Invited him", "Asked him a question"], answer: "Investigated him" }
+      - { kind: challenge, ja: "どろぼうに かばんを ぬすまれたのに、げんきだった。", en: "Even though my bag was stolen by a thief, I was fine.", combines: [possessed-object-passive, noni-concession], mode: build }
+    reviewPool: [けいさつ, どろぼう, いえ, かばん, きず, テスト, がっこう, ともだち]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m40-neo-review-2
+    role: review
+    title: "Review — every agent marker so far"
+    focus: "Spiral に (direct passive), を (possessed-object), によって (creation) side by side"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "せんせいに しかられた。", en: "I was scolded by the teacher.", exercises: [passive-rareru], mode: build }
+      - { kind: particle-cloze, stem: "どろぼうに さいふ", tail: " ぬすまれた。", answer: "を", options: ["を", "に", "が"], en: "My wallet was stolen (by a thief).", explanation: "The owned thing keeps を in a possessed-object passive." }
+      - { kind: sentence, ja: "この いえは ちちに よって たてられた。", en: "This house was built by my father.", exercises: [niyotte-creation-passive], mode: listening }
+      - { kind: listening-comp, audio: "あめに ふられた。", answer: "I got rained on (and it was a pain).", distractors: ["I made it rain.", "It didn't rain.", "I like rain."], q: "What does this mean?" }
+      - { kind: sentence, ja: "どろぼうは けいさつに そうさされた。", en: "The thief was investigated by the police.", exercises: [passive-rareru], mode: build }
+      - { kind: particle-cloze, stem: "この きかいは タナカさん", tail: " よって はつめいされた。", answer: "に", options: ["に", "を", "で"], en: "This machine was invented by Mr. Tanaka.", explanation: "によって is に + よって — the agent-marker leads off." }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "いえに ひがいは あった？", en: "Was there damage to the house?" }
+          - { speaker: "Ken", ja: "うん、きずだけ。", en: "Yeah, just a scratch." }
+          - { speaker: "Mika", ja: "よかった。", en: "Good." }
+        questions:
+          - { q: "How much damage was there?", options: ["Just a scratch", "A lot", "None at all", "He doesn't know"], answer: "Just a scratch" }
+      - { kind: sentence, ja: "ともだちに えいがに さそわれた。", en: "I was invited to a movie by a friend.", exercises: [passive-rareru], mode: build }
+    reviewPool: [けいさつ, どろぼう, いえ, ちち, かばん, えいが, ともだち, きかい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m40-neo-9
+    role: teaching
+    title: "「ほめられたし、たのまれたし」 — combining passive with what you already own"
+    focus: "Passive sentences ride every grammar point already known — し listing, のに concession, て-から order — production capstone before the second sim"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "せんせいに ほめられたし、 たのまれたし、 うれしかった。", en: "I was praised and what's more asked (a favor) by the teacher, so I was happy.", exercises: [passive-rareru, shi-listing], mode: build }
+      - { kind: sentence, ja: "どろぼうに さいふを ぬすまれたのに、げんきだった。", en: "Even though my wallet was stolen by a thief, I was fine.", exercises: [possessed-object-passive, noni-concession], mode: build }
+      - { kind: particle-cloze, stem: "けいさつに よばれた", tail: "、たいへんだった。", answer: "ので", options: ["ので", "のに", "し"], en: "Since I was called in by the police, it was tough.", explanation: "ので states a plain reason — being called in explains the tough day directly, no clash. のに would need a contradiction; し would pile this in as one of several reasons, not state it alone as the cause." }
+      - { kind: sentence, ja: "この きかいは はつめいされてから、けんきゅうされた。", en: "After this machine was invented, it was researched.", exercises: [niyotte-creation-passive, te-kara], mode: build }
+      - { kind: listening-comp, audio: "せんせいに ほめられたし、 たのまれたし、 うれしかった。", answer: "I was praised and asked a favor by the teacher, so I was happy.", distractors: ["I was scolded and asked a favor, so I was sad.", "I praised and asked the teacher, so I was happy.", "I was praised but not asked anything."], q: "What does this mean?" }
+      - { kind: kanji, kana: きず, kanji: 傷, distractors: ["きずあと", "けが", "いたみ"], exercises: [passive-rareru] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "きょうは どうだった？", en: "How was today?" }
+          - { speaker: "Mika", ja: "せんせいに ほめられたし、 たのまれたし、 うれしかった。", en: "I was praised and asked a favor by the teacher, so I was happy." }
+          - { speaker: "Tom", ja: "よかったね。", en: "That's great." }
+        questions:
+          - { q: "Why was Mika happy?", options: ["She was praised and asked a favor by the teacher", "She scolded the teacher", "Her wallet was stolen", "She invented a machine"], answer: "She was praised and asked a favor by the teacher" }
+      - kind: sim
+        scene: { emoji: "🕵️", title: "The investigation", setting: "Tanaka is asking Mika what happened after the break-in." }
+        turns:
+          - npc: { speaker: "Tanaka", ja: "さいふは どう なった？", en: "What happened to the wallet?" }
+            goal: "Say it was stolen by a thief."
+            reply: { mode: build, tiles: ["どろぼうに", "さいふを", "ぬすまれた", "さいふが", "ぬすむ"], answer: "どろぼうに さいふを ぬすまれた。" }
+            replyGloss: "My wallet was stolen (by a thief)."
+            explanation: "The owned thing さいふ keeps を; さいふが would wrongly make the wallet itself the doer, and ぬすむ (plain 'steal') would claim you did the stealing, not the passive."
+          - npc: { speaker: "Tanaka", ja: "どろぼうは どう なった？", en: "What happened to the thief?" }
+            goal: "Say the thief was investigated by the police."
+            reply: { mode: build, tiles: ["けいさつに", "そうさされた", "けいさつを", "そうさした"], answer: "けいさつに そうさされた。" }
+            replyGloss: "He was investigated by the police."
+            explanation: "The passive agent (the police) takes に; けいさつを そうさした would flip it into the thief investigating the police."
+      - { kind: challenge, ja: "どろぼうに さいふを ぬすまれたので、けいさつに よばれたし、 たいへんだった。", en: "Since my wallet was stolen by a thief, I was called in by the police and what's more it was tough.", combines: [possessed-object-passive, node-because, shi-listing], mode: build }
+    reviewPool: [けいさつ, どろぼう, さいふ, きかい, せんせい, たいへん, ともだち, がっこう]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m40-neo-10
+    role: teaching
+    title: "「たてられたし、けんきゅうされた」 — every passive, one last time"
+    focus: "Full production sweep: direct, possessed-object, and creation passive combined with prior grammar, no new vocabulary"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "この いえは ちちに よって たてられたし、きれいだし、すきだ。", en: "This house was built by my father, and what's more it's pretty, so I like it.", exercises: [niyotte-creation-passive, shi-listing], mode: build }
+      - { kind: sentence, ja: "せんせいに たのまれたから、てつだう。", en: "Because I was asked by the teacher, I'll help.", exercises: [passive-rareru, kara-because], mode: build }
+      - { kind: sentence, ja: "どろぼうに とけいを ぬすまれたのに、げんきだった。", en: "Even though my watch was stolen by a thief, I was fine.", exercises: [possessed-object-passive, noni-concession], mode: build }
+      - { kind: particle-cloze, stem: "この きかいは タナカさん", tail: " よって はつめいされたし、けんきゅうされた。", answer: "に", options: ["に", "を", "で"], en: "This machine was invented and what's more researched by Mr. Tanaka.", explanation: "によって is に + よって — the agent-marker leads off." }
+      - { kind: listening-comp, audio: "どろぼうに とけいを ぬすまれたのに、げんきだった。", answer: "Even though my watch was stolen by a thief, I was fine.", distractors: ["My watch was stolen, so I was upset.", "Nobody stole my watch, so I was fine.", "I stole a watch, and I was fine."], q: "What does this mean?" }
+      - { kind: kanji, kana: たてる, kanji: 建てる, distractors: ["たつ", "けんちく", "たてもの"], exercises: [niyotte-creation-passive] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "この いえ すてきだね。", en: "This house is lovely." }
+          - { speaker: "Tom", ja: "うん、ちちに よって たてられたんだ。", en: "Yeah, my father built it." }
+          - { speaker: "Ken", ja: "すごいね。", en: "That's amazing." }
+        questions:
+          - { q: "Who built the house?", options: ["Tom's father", "Tom", "Ken", "A company"], answer: "Tom's father" }
+      - { kind: challenge, ja: "どろぼうに とけいを ぬすまれたのに、けいさつに よばれたし、 たいへんだった。", en: "Even though my watch was stolen by a thief, I was called in by the police and what's more it was tough.", combines: [possessed-object-passive, noni-concession, shi-listing], mode: build }
+    reviewPool: [いえ, ちち, きかい, とけい, けいさつ, どろぼう, たいへん, ともだち]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m40-neo-review-3
+    role: review
+    title: "Review — every passive, every marker"
+    focus: "Full-module spiral: mechanical formation, direct passive に, possessed-object を, creation によって, suffering (recognition only)"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "せんせいに ほめられた。", en: "I was praised by the teacher.", exercises: [passive-rareru], mode: build }
+      - { kind: sentence, ja: "どろぼうに かばんを ぬすまれた。", en: "My bag was stolen (by a thief).", exercises: [possessed-object-passive], mode: build }
+      - { kind: particle-cloze, stem: "この きかいは タナカさん", tail: " よって はつめいされた。", answer: "に", options: ["に", "を", "で"], en: "This machine was invented by Mr. Tanaka.", explanation: "によって is に + よって." }
+      - { kind: listening-comp, audio: "あめに ふられた。", answer: "I got rained on (and it was a pain).", distractors: ["I made it rain.", "It didn't rain.", "I like rain."], q: "What does this mean?" }
+      - { kind: sentence, ja: "この いえは ちちに よって たてられた。", en: "This house was built by my father.", exercises: [niyotte-creation-passive], mode: listening }
+      - { kind: particle-cloze, stem: "どろぼうに とけい", tail: " ぬすまれた。", answer: "を", options: ["を", "に", "が"], en: "My watch was stolen (by a thief).", explanation: "The owned thing keeps を." }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "けいさつに そうさされた？", en: "Were you investigated by the police?" }
+          - { speaker: "Ken", ja: "ううん、どろぼうが そうさされたよ。", en: "No, the thief was investigated." }
+          - { speaker: "Mika", ja: "よかった。", en: "Good." }
+        questions:
+          - { q: "Who was investigated?", options: ["The thief", "Ken", "Mika", "Nobody"], answer: "The thief" }
+      - { kind: sentence, ja: "けいさつに よばれた。", en: "I was called in by the police.", exercises: [passive-rareru], mode: build }
+    reviewPool: [けいさつ, どろぼう, さいふ, いえ, きかい, ちち, とけい, ともだち]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m40-neo-challenge
+    role: challenge
+    title: "Challenge — the day the police came"
+    focus: "Every passive pattern in one arc — mechanical formation, direct に, possessed-object を, creation によって — combined with prior N4 grammar, no new vocabulary"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "どろぼうに さいふを ぬすまれたので、けいさつに でんわした。", en: "Since my wallet was stolen by a thief, I called the police.", exercises: [possessed-object-passive, node-because], mode: build }
+      - { kind: sentence, ja: "どろぼうは けいさつに そうさされたし、きずも あった。", en: "The thief was investigated by the police, and what's more he had a wound.", exercises: [passive-rareru, shi-listing], mode: listening }
+      - { kind: particle-cloze, stem: "この きかいは タナカさん", tail: " よって はつめいされた。", answer: "に", options: ["に", "を", "で"], en: "This machine was invented by Mr. Tanaka.", explanation: "によって is に + よって — the agent marker leads off." }
+      - { kind: kanji, kana: けいさつ, kanji: 警察, distractors: ["けいび", "さつじん", "けいこく"], exercises: [passive-rareru] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "きょうは どうだった？", en: "How was today?" }
+          - { speaker: "Mika", ja: "どろぼうに さいふを ぬすまれたので、けいさつに でんわしたよ。", en: "Since my wallet was stolen by a thief, I called the police." }
+          - { speaker: "Tanaka", ja: "たいへんだったね。", en: "That sounds tough." }
+        questions:
+          - { q: "Why did Mika call the police?", options: ["Her wallet was stolen", "She saw a thief run", "She was scolded", "She found a machine"], answer: "Her wallet was stolen" }
+      - { kind: challenge, ja: "どろぼうに さいふを ぬすまれたので、けいさつに でんわしたし、 たいへんだった。", en: "Since my wallet was stolen by a thief, I called the police, and what's more it was tough.", combines: [possessed-object-passive, node-because, shi-listing], mode: build }
+    reviewPool: [けいさつ, どろぼう, さいふ, とけい, きかい, ちち, たいへん, いえ]

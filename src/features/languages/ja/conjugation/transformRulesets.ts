@@ -448,6 +448,62 @@ export const TRANSFORM_RULESETS: Record<string, TransformRuleset> = {
       },
     ],
   },
+
+  // passive (m40, id "passive") — られる. Ichidan drops る and adds られる;
+  // godan shifts the u-row to the a-row and adds れる; both irregulars are
+  // memorized whole. Canonical row examples per house convention (Spencer's
+  // ruling — たべる/のむ/する+くる always, regardless of what the module
+  // drills): the ichidan/irregular rows print たべられる/こられる, the exact
+  // strings m40's own ratchet forbids as a GRADED answer (collision with
+  // m24's potential-form られる) — safe here because this table is a
+  // non-graded reference legend shown beside the card, never the card's own
+  // production target (m40 never drills たべる/くる's passive as a ramp
+  // base; only する is, masked below).
+  passive: {
+    label: "られる form — the passive, every class",
+    rows: [
+      {
+        group: "ichidan",
+        label: "る-verbs",
+        examples: ["たべる"],
+        chips: [
+          { text: "たべ" },
+          { text: "る", kind: "out" },
+          sep("→"),
+          { text: "たべ" },
+          { text: "られる", kind: "add" },
+        ],
+      },
+      {
+        group: "godan",
+        label: "う-verbs",
+        examples: ["のむ"],
+        chips: [
+          { text: "の" },
+          { text: "む", kind: "out" },
+          sep("→"),
+          { text: "の" },
+          { text: "ま", kind: "in" },
+          sep("＋"),
+          { text: "れる", kind: "add" },
+        ],
+      },
+      {
+        group: "irregular",
+        label: "irregular",
+        examples: ["する", "くる"],
+        chips: [
+          { text: "する", kind: "out" },
+          sep("→"),
+          { text: "される", kind: "in" },
+          sep("·"),
+          { text: "くる", kind: "out" },
+          sep("→"),
+          { text: "こられる", kind: "in" },
+        ],
+      },
+    ],
+  },
 };
 
 /**
@@ -895,6 +951,69 @@ const RULESET_ALTERNATES: Record<string, Record<string, RulesetRow>> = {
         { text: "する", kind: "out" },
         sep("→"),
         { text: "すれば", kind: "in" },
+        sep("·"),
+        { text: "くる", kind: "out" },
+        sep("→"),
+        { text: "？", kind: "add" },
+      ],
+    },
+  },
+
+  // passive: m40's ramp drills only する (irregular) — たべる/のむ/くる are
+  // not drilled as passive bases (たべる/くる would print the exact
+  // collision strings the module avoids as graded targets). All four
+  // canonical examples get an alternate anyway, matching ba's full-coverage
+  // choice, so a later module's ramp reaching たべる/のむ/くる is covered
+  // without a second landing.
+  passive: {
+    のむ: {
+      group: "godan",
+      label: "う-verbs",
+      examples: ["かう"],
+      chips: [
+        { text: "か" },
+        { text: "う", kind: "out" },
+        sep("→"),
+        { text: "か" },
+        { text: "わ", kind: "in" },
+        sep("＋"),
+        { text: "れる", kind: "add" },
+      ],
+    },
+    たべる: {
+      group: "ichidan",
+      label: "る-verbs",
+      examples: ["みる"],
+      chips: [
+        { text: "み" },
+        { text: "る", kind: "out" },
+        sep("→"),
+        { text: "み" },
+        { text: "られる", kind: "add" },
+      ],
+    },
+    する: {
+      group: "irregular",
+      label: "irregular",
+      examples: ["くる"],
+      chips: [
+        { text: "くる", kind: "out" },
+        sep("→"),
+        { text: "こられる", kind: "in" },
+        sep("·"),
+        { text: "する", kind: "out" },
+        sep("→"),
+        { text: "？", kind: "add" },
+      ],
+    },
+    くる: {
+      group: "irregular",
+      label: "irregular",
+      examples: ["する"],
+      chips: [
+        { text: "する", kind: "out" },
+        sep("→"),
+        { text: "される", kind: "in" },
         sep("·"),
         { text: "くる", kind: "out" },
         sep("→"),

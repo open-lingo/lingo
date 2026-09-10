@@ -84,7 +84,7 @@ export type CourseAtomSource =
   | "m8" | "m9" | "m10" | "m11" | "m12" | "m13" | "m14" | "m15" | "m16" | "m17"
   | "m18" | "m19" | "m20" | "m21" | "m22" | "m23" | "m24" | "m25" | "m26" | "m27"
   | "m28" | "m29" | "m30" | "m31" | "m32" | "m33" | "m34" | "m35" | "m36" | "m37"
-  | "m38" | "m39"
+  | "m38" | "m39" | "m40"
   // Forward N4 attributions (2026-08-09 A2 re-home of the retired m30
   // pilot's atoms; spec 2026-08-06-n4-open-and-transform-teaching-design.md).
   // None of these modules is authored yet, so atoms tagged with them never
@@ -655,7 +655,7 @@ const JA_COURSE_ATOMS_PART1: readonly CourseAtom[] = [
   { id: "mukou", kana: "むこう", kanji: "向こう", romaji: "mukou", meaningEn: "over there", fromModule: "m19", kind: "vocab", blocked: true, note: "spatial demonstrative; taught m19 Pack 8 (2026-09-10) on the ni-location/around-town rule card — no emoji, so no image debut regardless", pos: "noun" },
   { id: "suu", kana: "すう", kanji: "吸う", romaji: "suu", meaningEn: "to smoke", emoji: "🚬", fromModule: "m16", kind: "vocab", blocked: true, note: "taught by m16 vocab pack 6 2026-07-30 (B067). Gloss trimmed to the one taught sense (D4; also 'to suck/sip'). blocked: 🚬 belongs to たばこ, taught in the same lesson", pos: "verb", conjugation: { class: "godan", entryId: "suu" } },
   { id: "fuku", kana: "ふく", kanji: "吹く", romaji: "fuku", meaningEn: "to blow", emoji: "💨", fromModule: "future", freqRank: 165, kind: "vocab", note: "wind-puff as blowing cue", pos: "verb", conjugation: { class: "godan" } },
-  { id: "yobu", kana: "よぶ", kanji: "呼ぶ", romaji: "yobu", meaningEn: "to call out, to invite", emoji: "📣", fromModule: "future", freqRank: 166, kind: "vocab", note: "megaphone as call-out cue", pos: "verb", conjugation: { class: "godan" } },
+  { id: "yobu", kana: "よぶ", kanji: "呼ぶ", romaji: "yobu", meaningEn: "to call out, to invite", emoji: "📣", fromModule: "m40", introducedByLessonId: "ja-m40-neo-3", kind: "vocab", note: "megaphone as call-out cue — re-stamped future → m40 (けいさつに よばれた, ja-m40-neo-3)", pos: "verb", conjugation: { class: "godan" } },
   { id: "saku", kana: "さく", kanji: "咲く", romaji: "saku", meaningEn: "to bloom", emoji: "🌷", fromModule: "m32", kind: "vocab", blocked: true, note: "tulip, avoiding 🌸 per rubric (cherry-blossom specific); blocked anyway — a tulip still reads as はな, which is met from m1", pos: "verb", conjugation: { class: "godan" } },
   { id: "mondai", kana: "もんだい", kanji: "問題", romaji: "mondai", meaningEn: "problem", emoji: "❓", fromModule: "future", freqRank: 167, kind: "vocab", note: "question mark as problem proxy", pos: "noun" },
   { id: "kissaten", kana: "きっさてん", kanji: "喫茶店", romaji: "kissaten", meaningEn: "coffee lounge", emoji: "☕", fromModule: "m13", kind: "vocab", note: "coffee cup; café", pos: "noun" },
@@ -942,7 +942,7 @@ const JA_COURSE_ATOMS_PART1: readonly CourseAtom[] = [
   { id: "kutsushita", kana: "くつした", kanji: "靴下", romaji: "kutsushita", meaningEn: "socks", emoji: "🧦", fromModule: "future", freqRank: 291, kind: "vocab", pos: "noun" },
   { id: "ongaku", kana: "おんがく", kanji: "音楽", romaji: "ongaku", meaningEn: "music", emoji: "🎵", fromModule: "m15", kind: "vocab", pos: "noun" },
   { id: "atama", kana: "あたま", kanji: "頭", romaji: "atama", meaningEn: "head", emoji: "🧠", fromModule: "m22", kind: "vocab", blocked: true, note: "brain reads as 'remember' (used for 覚える); no clean head-anatomy glyph", pos: "noun" },
-  { id: "tanomu", kana: "たのむ", kanji: "頼む", romaji: "tanomu", meaningEn: "to ask", emoji: "🙏", fromModule: "future", freqRank: 292, kind: "vocab", note: "request gesture", pos: "verb", conjugation: { class: "godan" } },
+  { id: "tanomu", kana: "たのむ", kanji: "頼む", romaji: "tanomu", meaningEn: "to ask", emoji: "🙏", fromModule: "m40", introducedByLessonId: "ja-m40-neo-3", kind: "vocab", note: "request gesture — re-stamped future → m40 (せんせいに たのまれた, ja-m40-neo-3)", pos: "verb", conjugation: { class: "godan" } },
   { id: "tobu", kana: "とぶ", kanji: "飛ぶ", romaji: "tobu", meaningEn: "to fly, to hop", emoji: "🕊️", fromModule: "future", freqRank: 293, kind: "vocab", note: "dove as flying proxy", pos: "verb", conjugation: { class: "godan" } },
   { id: "hikouki", kana: "ひこうき", kanji: "飛行機", romaji: "hikouki", meaningEn: "aeroplane", emoji: "✈️", fromModule: "m23", kind: "vocab", blocked: true, note: "blocked because ✈️ is already りょこう's emoji and りょこう is a met word — m23's ruling", pos: "noun" },
 ];
@@ -1714,7 +1714,28 @@ const JA_COURSE_ATOMS_PART2: readonly CourseAtom[] = [
   { id: "saiaku", kana: "さいあく", kanji: "最悪", romaji: "saiaku", meaningEn: "the worst", shortGloss: "the worst", fromModule: "m39", introducedByLessonId: "ja-m39-neo-10", kind: "vocab", blocked: true, note: "abstract superlative judgment, さいこう's pair; no honest single-frame picture", pos: "adjective", conjugation: { class: "na-adj" } },
   { id: "yamuwoenai", kana: "やむをえない", romaji: "yamuwoenai", meaningEn: "it can't be helped, unavoidable", shortGloss: "can't be helped", fromModule: "m39", introducedByLessonId: "ja-m39-neo-9", kind: "vocab", blocked: true, note: "idiom sidequest, no freqRank; abstract fixed phrase, no honest single-frame picture", pos: "adjective", conjugation: { class: "i-adj" } },
   { id: "shikatanai", kana: "しかたない", romaji: "shikatanai", meaningEn: "it can't be helped, oh well", shortGloss: "oh well", fromModule: "m39", introducedByLessonId: "ja-m39-neo-10", kind: "vocab", blocked: true, note: "idiom sidequest, no freqRank; abstract fixed phrase, no honest single-frame picture", pos: "adjective", conjugation: { class: "i-adj" } },
-
+  // m40 (Passive I — direct passive られる). 12 new headwords, all blocked:
+  // no vendored SVG at this wiring stage for the two clean-picture nouns
+  // (けいさつ, どろぼう), and every verb/abstract noun below has no honest
+  // single-frame picture regardless (an action like "scold" or "steal" reads
+  // as many things at once; はつめい/けんきゅう/ひがい/そうさ are abstract
+  // event nouns). IR carries imageable:true for the picture-worthy six
+  // (けいさつ, どろぼう, きず, しかる, ほめる, ぬすむ) — debut runs via
+  // context-build sentences instead of word_image_mcq, same ruling class as
+  // かなしい (m36) and ぜんぶ/なくす (m38).
+  { id: "keisatsu", kana: "けいさつ", kanji: "警察", romaji: "keisatsu", meaningEn: "police", shortGloss: "police", fromModule: "m40", introducedByLessonId: "ja-m40-neo-1", kind: "vocab", blocked: true, note: "no vendored SVG (🚓 would collide with courseAtoms' existing おまわりさん/けいかん 👮 stubs regardless) — debut via ga-existence build beat, not word_image_mcq", pos: "noun" },
+  { id: "dorobou", kana: "どろぼう", kanji: "泥棒", romaji: "dorobou", meaningEn: "thief, burglar", shortGloss: "thief", fromModule: "m40", introducedByLessonId: "ja-m40-neo-1", kind: "vocab", blocked: true, note: "no vendored SVG at this wiring stage — debut via ga-existence build beat", pos: "noun" },
+  { id: "kizu", kana: "きず", kanji: "傷", romaji: "kizu", meaningEn: "a wound, an injury, a scratch", shortGloss: "a wound", fromModule: "m40", introducedByLessonId: "ja-m40-neo-1", kind: "vocab", blocked: true, note: "no vendored SVG at this wiring stage — debut via ga-existence build beat", pos: "noun" },
+  { id: "shikaru", kana: "しかる", kanji: "叱る", romaji: "shikaru", meaningEn: "to scold", shortGloss: "scold", fromModule: "m40", introducedByLessonId: "ja-m40-neo-1", kind: "vocab", blocked: true, note: "abstract action verb; no honest single-frame picture. Godan despite the -る ending (exception class, same shape as かえる/はいる/きる) — a-stem しから, passive しかられる", pos: "verb", conjugation: { class: "godan" } },
+  { id: "homeru", kana: "ほめる", kanji: "褒める", romaji: "homeru", meaningEn: "to praise", shortGloss: "praise", fromModule: "m40", introducedByLessonId: "ja-m40-neo-1", kind: "vocab", blocked: true, note: "abstract action verb; no honest single-frame picture. Ichidan — drops る before an ending (ほめ+られる)", pos: "verb", conjugation: { class: "ichidan" } },
+  { id: "nusumu", kana: "ぬすむ", kanji: "盗む", romaji: "nusumu", meaningEn: "to steal", shortGloss: "steal", fromModule: "m40", introducedByLessonId: "ja-m40-neo-1", kind: "vocab", blocked: true, note: "abstract action verb; no honest single-frame picture. Godan — a-stem ぬすま, this module's own auto-ramped passive-form drill base alongside ほめる/する", pos: "verb", conjugation: { class: "godan" } },
+  { id: "sasou", kana: "さそう", kanji: "誘う", romaji: "sasou", meaningEn: "to invite", shortGloss: "invite", fromModule: "m40", introducedByLessonId: "ja-m40-neo-3", kind: "vocab", blocked: true, note: "abstract action verb; no honest single-frame picture. Godan う-verb — う shifts to わ before れる (さそわれる)", pos: "verb", conjugation: { class: "godan" } },
+  { id: "hatsumei", kana: "はつめい", kanji: "発明", romaji: "hatsumei", meaningEn: "invention, discovery", shortGloss: "invention", fromModule: "m40", introducedByLessonId: "ja-m40-neo-5", kind: "vocab", blocked: true, note: "abstract event noun; no honest single-frame picture. Suru-noun — conjugates as irregular (はつめいされる/はつめいされた)", pos: "noun" },
+  { id: "kenkyuu", kana: "けんきゅう", kanji: "研究", romaji: "kenkyuu", meaningEn: "research", shortGloss: "research", fromModule: "m40", introducedByLessonId: "ja-m40-neo-5", kind: "vocab", blocked: true, note: "abstract event noun; no honest single-frame picture. Suru-noun — conjugates as irregular (けんきゅうされる/けんきゅうされた)", pos: "noun" },
+  { id: "tateru", kana: "たてる", kanji: "建てる", romaji: "tateru", meaningEn: "to build", shortGloss: "build", fromModule: "m40", introducedByLessonId: "ja-m40-neo-5", kind: "vocab", blocked: true, note: "abstract action verb; no honest single-frame picture. Ichidan — drops る before an ending (たて+られる)", pos: "verb", conjugation: { class: "ichidan" } },
+  { id: "yotte", kana: "よって", romaji: "yotte", meaningEn: "by means of, due to (agent-marking connector in によって)", shortGloss: "by means of", fromModule: "m40", introducedByLessonId: "ja-m40-neo-5", kind: "vocab", blocked: true, note: "conjunctive connector, no concrete referent — によって is に + よって, the formal cousin of agent-marking に for creation/authorship passives", pos: "particle" },
+  { id: "higai", kana: "ひがい", kanji: "被害", romaji: "higai", meaningEn: "damage, harm", shortGloss: "damage", fromModule: "m40", introducedByLessonId: "ja-m40-neo-7", kind: "vocab", blocked: true, note: "abstract event noun; no honest single-frame picture", pos: "noun" },
+  { id: "sousa", kana: "そうさ", kanji: "捜査", romaji: "sousa", meaningEn: "(police) investigation", shortGloss: "investigation", fromModule: "m40", introducedByLessonId: "ja-m40-neo-7", kind: "vocab", blocked: true, note: "abstract event noun; no honest single-frame picture. Suru-noun — conjugates as irregular (そうさされる/そうさされた)", pos: "noun" },
 ];
 
 export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [

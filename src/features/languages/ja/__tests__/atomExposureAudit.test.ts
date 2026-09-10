@@ -205,8 +205,22 @@ const MAX_NEVER_TOUCHED = 140;
  * every graded touch of each lives inside m17, the module that introduces
  * them — D2 blocks same-module writes by design, D4 seed-on-unlock still
  * schedules them due the next day. They come OFF this list only when a
- * LATER module grades them (a later Wave 1 pack's job, not this one's). */
-const MAX_GRADED_BUT_NEVER_WRITES = 62;
+ * LATER module grades them (a later Wave 1 pack's job, not this one's).
+ *
+ * 62 → 72, 2026-09-10 (Wave 1, m40 landing — n4-11 direct passive): eleven
+ * of m40's own new/re-stamped atoms — よぶ, たのむ, しかる, ほめる, ぬすむ,
+ * さそう, はつめい, けんきゅう, たてる, ひがい, そうさ — every graded touch of
+ * each lives inside m40, the module that introduces them (their passive
+ * derived forms, e.g. よばれる/たのまれた/はつめいされた, are separate
+ * derived-form tokens and don't carry these lemma ids). Same D2/D4 shape as
+ * every entry above: the same-module gate blocks the write, D4 seed-on-unlock
+ * still schedules each due the next day. Net +10 (not +11) because
+ * registering m40's rows re-attributes some filler/review tokenization
+ * course-wide, the same ATOM-REGISTRATION-RIPPLE class the m36 entry above
+ * describes — verified the pre-existing 62 minus one ripple-fixed entry plus
+ * these eleven nets to 72. They come OFF this list only when a later module
+ * grades them (future Wave 1 authoring), not a fix to make here. */
+const MAX_GRADED_BUT_NEVER_WRITES = 72;
 
 type Row = {
   atomId: string;

@@ -46,7 +46,7 @@ export const COURSE_CANON: Record<string, Set<string>> = {
 };
 
 const STRUCTURAL = new Set([
-  "だ", "です", "は", "も", "の", "トム", "ミカ", "ケン", "たなか",
+  "だ", "です", "は", "も", "の", "トム", "ミカ", "ケン", "たなか", "タナカ",
   "、", "。", "？", "！",
 ]);
 

@@ -154,9 +154,9 @@ describe("curriculum lesson counts", () => {
     expect(byId.get("m29")!.title).toMatch(/capstone/i);
   });
 
-  it("N4 tier is m30 = n4-01 .. m39 = n4-10, all authored", () => {
+  it("N4 tier is m30 = n4-01 .. m40 = n4-11, all authored", () => {
     const n4 = course.modules.filter((m) => m.tier === "n4");
-    expect(n4.map((m) => m.id)).toEqual(["m30", "m31", "m32", "m33", "m34", "m35", "m36", "m37", "m38", "m39"]);
+    expect(n4.map((m) => m.id)).toEqual(["m30", "m31", "m32", "m33", "m34", "m35", "m36", "m37", "m38", "m39", "m40"]);
     // Spec A1 retired the July pilot and left a locked, lesson-less station;
     // spec A3 authored m30 = n4-01 「て + helper I: 〜てみる / 〜ておく」 in its
     // place (2026-08-14), m31 = n4-02 「Give & receive I:
@@ -169,15 +169,16 @@ describe("curriculum lesson counts", () => {
     // (registration landing 2026-08-25), m37 = n4-08
     // 「Conditionals II: ば + なら」 (registration landing 2026-08-25), and
     // m38 = n4-09 「て + helper II: 〜てしまう/ちゃう + 〜ていく/〜てくる」
-    // (registration landing 2026-08-25), and m39 = n4-10 「Concession &
+    // (registration landing 2026-08-25), m39 = n4-10 「Concession &
     // reasons: 〜のに vs 〜ので, 〜ても/〜でも, 〜し」 (registration landing
-    // 2026-09-10). Shape is inv 25 for all ten: 3 review lessons and
-    // challenge LAST. m30-m32 run 13 lessons (9 teaching); m33 runs 14 (10
-    // teaching) because nine transitivity pairs need a fourth teaching
-    // block; m34-m39 run 12 (8 teaching) — inv 25's ceiling is 15. A tile
-    // may also carry story rows (m32 does) — reading attachments, not
-    // lessons, so they are filtered out first.
-    const LESSON_COUNT: Record<string, number> = { m30: 13, m31: 13, m32: 13, m33: 14, m34: 12, m35: 12, m36: 12, m37: 12, m38: 12, m39: 12 };
+    // 2026-09-10), and m40 = n4-11 「Passive I: direct passive られる」
+    // (registration landing 2026-09-10). Shape is inv 25 for all eleven: 3
+    // review lessons and challenge LAST. m30-m32 run 13 lessons (9
+    // teaching); m33 runs 14 (10 teaching) because nine transitivity pairs
+    // need a fourth teaching block; m34-m40 run 12 (8 teaching) — inv 25's
+    // ceiling is 15. A tile may also carry story rows (m32 does) — reading
+    // attachments, not lessons, so they are filtered out first.
+    const LESSON_COUNT: Record<string, number> = { m30: 13, m31: 13, m32: 13, m33: 14, m34: 12, m35: 12, m36: 12, m37: 12, m38: 12, m39: 12, m40: 12 };
     for (const m of n4) {
       const lessons = m.lessons.filter((l) => l.kind !== "story");
       expect(m.comingSoon, `${m.id} is flagged comingSoon`).toBeUndefined();
