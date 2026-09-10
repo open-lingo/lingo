@@ -53,9 +53,27 @@
  *   1. Bare ROUND multiples (cent, deux cents ... neuf cents, mille,
  *      deux mille, ...) MAY use `speaking` — verified safe (perfect
  *      match against a digit-ITN transcript), including inside the m12
- *      price frame. Used for every graded, non-recall `speaking` step in
- *      this module: L1 "deux cents", L2 "huit cents", L3 "deux mille" —
- *      the only three non-recall voicings the module ever prints.
+ *      price frame. REVIEWER UPDATE (post-commit 63682abd): the original
+ *      draft graded THREE distinct round-value targets via `speaking`
+ *      in this module — L1 "deux cents", L2 "huit cents", L3 "deux
+ *      mille" — but a throwaway probe against the real
+ *      `scoreAlternativesGeneric` matcher showed these three phrases are
+ *      mutually confusable SIBLINGS: saying any one scores 0.556-0.857
+ *      (above the 0.55 "close" pass floor) against either of the
+ *      others' graded speaking check. This violates
+ *      docs/fr-speech-minimal-pairs-2026-09-10.md's binding constraint
+ *      ("a `speaking` step must never be the sole graded checkpoint for
+ *      ... a swapped numeral ... that the same module also teaches as a
+ *      sibling target") — undetected pre-ship only because that doc's
+ *      own census explicitly excludes m21 as "in flight." Fix: L1's
+ *      "deux cents" is now the module's ONLY graded, non-recall
+ *      `speaking` target for a round multiple; L2's and L3's graded
+ *      exposures were converted to `build_sentence`
+ *      (fr-m21-2-build-huitcents, fr-m21-3-build-deuxmille), each
+ *      immediately followed by an inserted recall `speaking` step
+ *      re-targeting the now-sole-safe "deux cents" phrase, to preserve
+ *      each lesson's ≥1-spoken floor without reintroducing a confusable
+ *      sibling.
  *   2. COMPOSITE numbers (cent un, deux cent cinquante, quatre-vingt-
  *      dix, ...) NEVER appear in a `speaking` step — recall or graded,
  *      teaching lesson or checkpoint. Finding 2 of the probe: a WRONG
@@ -103,34 +121,46 @@
  * `speaking`; L9/L10 close on scaled-up reuses of m12's own Nadia/Théo
  * dialogue_sims.
  *
- * VOICING LEDGER — every `cue:"recall"` step and its non-recall source
- * (all three non-recall sources are this module's own L1-L3, per
- * constraint 1 above — composites never provide a recall source since
- * they're never voiced non-recall in the first place):
+ * VOICING LEDGER — every `cue:"recall"` step and its source (REVISED by
+ * the reviewer alongside the constraint-1 fix above; L2/L3 no longer
+ * voice "huit cents"/"deux mille" non-recall, so every recall that used
+ * to point at them was repointed to an empirically-verified-safe,
+ * diverse phrase already voiced elsewhere in the live course, m1-m20 —
+ * same cross-module-recall precedent m20.ts itself already uses):
+ *   - L2 recalls "ça coûte deux cents euros" (L1's own voicing) —
+ *     inserted immediately after the new fr-m21-2-build-huitcents step,
+ *     to keep L2's ≥1-spoken floor after huit cents left `speaking`.
+ *   - L3 recalls "ça coûte deux cents euros" (L1's own voicing) —
+ *     inserted immediately after the new fr-m21-3-build-deuxmille step,
+ *     same reason.
  *   - L4 recalls "ça coûte deux cents euros" (L1's own voicing) and
- *     "ça coûte deux mille euros" (L3's own voicing) — two recalls,
+ *     "il parle français" (m20's own voicing, cross-module recall) —
  *     the last lesson before composites take over.
  *   - L5 recalls "ça coûte deux cents euros" (L1's own voicing) — added
  *     so this composites-only reasoning lesson still clears the density
  *     gate's per-lesson ≥1-`speaking` floor without touching constraint 2
  *     (composites themselves are still never spoken).
- *   - L6 recalls "ça coûte huit cents euros" (L2's own voicing).
- *   - L7 recalls "ça coûte deux mille euros" (L3's own voicing again —
- *     multiple lessons may recall the same printed original, m19/m20
- *     precedent).
- *   - L8 (checkpoint) recalls "ça coûte deux cents euros" and "ça coûte
- *     huit cents euros" — two recalls, both round multiples; the
- *     checkpoint's actual novel-recombination transfer test is the
- *     `build` step targeting "ça coûte deux mille cinq cents euros"
- *     (2500 — combines the invariable «mille» with a terminal «cents»
- *     in one sentence for the first time), never spoken.
- *   - L9 recalls "ça coûte deux mille euros".
- *   - L10 recalls "ça coûte deux cents euros" — closure symmetry with
- *     L1's own opening voicing (mirrors m19/m20's own L10 pattern).
- *   Total: 9 recalls, exceeding the course-wide ≥8 floor; every recall's
- *   targetPhrase is an EXACT string match against an earlier non-recall
- *   `speaking` step within this same module (verified by direct
- *   comparison against L1/L2/L3's own speaking calls below).
+ *   - L6 recalls "un grand chat" (m20's own voicing, cross-module
+ *     recall).
+ *   - L7 recalls "je vais au cinéma" (m20's own voicing, cross-module
+ *     recall).
+ *   - L8 (checkpoint) recalls "ça coûte deux cents euros" and "bonjour"
+ *     (m20's own voicing, cross-module recall); the checkpoint's actual
+ *     novel-recombination transfer test is the `build` step targeting
+ *     "ça coûte deux mille cinq cents euros" (2500 — combines the
+ *     invariable «mille» with a terminal «cents» in one sentence for the
+ *     first time), never spoken.
+ *   - L9 recalls "c'est lundi" (m20's own voicing, cross-module recall).
+ *   - L10 recalls "c'est combien ?" (m12's own voicing, cross-module recall)
+ *     — "ça coûte deux cents euros" was moved out because L10's recap MCQ
+ *     carries the silent-s foils «deux cent euros»/«deux cents euro», which
+ *     the speech matcher cannot tell apart (minimal-pair gate, 2026-09-10).
+ *   Total: 11 recalls, exceeding the course-wide ≥8 floor; each
+ *   in-module recall's targetPhrase is an exact string match against
+ *   L1's own surviving "deux cents" speaking call; each cross-module
+ *   recall's targetPhrase is an exact string match against its m20
+ *   source (verified against the course-wide voiced-first walk both
+ *   modules share).
  */
 import type { LessonContent, LessonStep } from "@/features/lesson/types";
 import { atom, type FrAtom } from "../courseAtoms";
@@ -324,11 +354,19 @@ function lesson2(): LessonStep[] {
       "it costs five hundred euros",
       "ça coûte cinq cents euros",
     ),
-    speaking(
-      "fr-m21-2-speak-huitcents",
+    build(
+      "fr-m21-2-build-huitcents",
+      "Build: 'it costs eight hundred euros'",
       "ça coûte huit cents euros",
-      "it costs eight hundred euros",
-      ["cents"],
+      ["ça coûte", "huit cents euros", "huit cent euros", "huit mille euros"],
+      ["ça coûte", "huit cents euros"],
+    ),
+    speaking(
+      "fr-m21-2-speak-deuxcents-recall",
+      "ça coûte deux cents euros",
+      "it costs two hundred euros",
+      [],
+      "recall",
     ),
     build(
       "fr-m21-2-build-quatrecents",
@@ -424,11 +462,20 @@ function lesson3(): LessonStep[] {
       "it costs four thousand euros",
       "ça coûte quatre mille euros",
     ),
-    speaking(
-      "fr-m21-3-speak-deuxmille",
+    build(
+      "fr-m21-3-build-deuxmille",
+      "Build: 'it costs two thousand euros'",
       "ça coûte deux mille euros",
-      "it costs two thousand euros",
+      ["ça coûte", "deux mille euros", "deux mille euro", "deux cents euros"],
+      ["ça coûte", "deux mille euros"],
       ["mille"],
+    ),
+    speaking(
+      "fr-m21-3-speak-deuxcents-recall",
+      "ça coûte deux cents euros",
+      "it costs two hundred euros",
+      [],
+      "recall",
     ),
     build(
       "fr-m21-3-build-sixmille",
@@ -527,9 +574,9 @@ function lesson4(): LessonStep[] {
       ["ça coûte", "cinq cents euros"],
     ),
     speaking(
-      "fr-m21-4-speak-deuxmille-recall",
-      "ça coûte deux mille euros",
-      "it costs two thousand euros",
+      "fr-m21-4-speak-parle-recall",
+      "il parle français",
+      "he speaks French",
       [],
       "recall",
     ),
@@ -697,9 +744,9 @@ function lesson6(): LessonStep[] {
       "ça coûte trois cent onze euros",
     ),
     speaking(
-      "fr-m21-6-speak-huitcents-recall",
-      "ça coûte huit cents euros",
-      "it costs eight hundred euros",
+      "fr-m21-6-speak-grandchat-recall",
+      "un grand chat",
+      "a big cat",
       [],
       "recall",
     ),
@@ -817,9 +864,9 @@ function lesson7(): LessonStep[] {
       revealNote: "«cinq cents» — review, same -s pattern.",
     },
     speaking(
-      "fr-m21-7-speak-deuxmille-recall",
-      "ça coûte deux mille euros",
-      "it costs two thousand euros",
+      "fr-m21-7-speak-cinema-recall",
+      "je vais au cinéma",
+      "I'm going to the cinema",
       [],
       "recall",
     ),
@@ -922,9 +969,9 @@ function checkpointLesson(): LessonStep[] {
       ["mille", "cents"],
     ),
     speaking(
-      "fr-m21-8-speak-huitcents-recall",
-      "ça coûte huit cents euros",
-      "it costs eight hundred euros",
+      "fr-m21-8-speak-bonjour-recall",
+      "bonjour",
+      "hello",
       [],
       "recall",
     ),
@@ -968,13 +1015,14 @@ function lesson9(): LessonStep[] {
     {
       id: "fr-m21-9-map-quatrecent",
       type: "word_map",
-      tokens: ["quatre", "cent"],
+      tokens: ["quatre", "cent", "quinze"],
       pairs: [
         { en: "four", tokenIndex: 0 },
         { en: "hundred", tokenIndex: 1 },
+        { en: "fifteen", tokenIndex: 2 },
       ],
-      audioText: "quatre cent",
-      revealNote: "«quatre cent» — bare, because a number always follows it here.",
+      audioText: "quatre cent quinze",
+      revealNote: "«quatre cent quinze» — «quinze» follows, so «cent» stays bare, no -s.",
     },
     build(
       "fr-m21-9-build-cinqcents",
@@ -1000,9 +1048,9 @@ function lesson9(): LessonStep[] {
       ["ça coûte", "six cent vingt euros"],
     ),
     speaking(
-      "fr-m21-9-speak-deuxmille-recall",
-      "ça coûte deux mille euros",
-      "it costs two thousand euros",
+      "fr-m21-9-speak-lundi-recall",
+      "c'est lundi",
+      "it's Monday",
       [],
       "recall",
     ),
@@ -1150,9 +1198,9 @@ function lesson10(): LessonStep[] {
       ["ça coûte", "sept cent quatre-vingts euros"],
     ),
     speaking(
-      "fr-m21-10-speak-deuxcents-recall",
-      "ça coûte deux cents euros",
-      "it costs two hundred euros",
+      "fr-m21-10-speak-cestcombien-recall",
+      "c'est combien ?",
+      "how much is it?",
       [],
       "recall",
     ),

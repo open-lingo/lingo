@@ -12,7 +12,7 @@
  * particle_cloze option, build_sentence distractor tile), scores every
  * found pair with the real matcher, and FAILS when the sibling/wrong
  * hearing scores at or above the 0.55 "close" pass floor for a target it
- * is not. m21 is excluded (in flight; the coordinator adds it once it
+ * is not. m21 was added at its review landing (2026-09-10); each new module
  * lands).
  *
  * MINIMAL-PAIR RULE (generic, defined once, here — no per-module cases):
@@ -142,8 +142,9 @@ import { FR_M17_MODULE } from "../curriculum/m17";
 import { FR_M18_MODULE } from "../curriculum/m18";
 import { FR_M19_MODULE } from "../curriculum/m19";
 import { FR_M20_MODULE } from "../curriculum/m20";
+import { FR_M21_MODULE } from "../curriculum/m21";
 
-// ─── Module inventory (m2–m20; m21 is in flight, excluded) ────────────────
+// ─── Module inventory (m2–m21; add each new module at landing) ────────────────
 
 const MODULES: ReadonlyArray<{ id: string; lessons: LessonContent[] }> = [
   { id: "m2", lessons: FR_M2_MODULE.lessons },
@@ -165,6 +166,7 @@ const MODULES: ReadonlyArray<{ id: string; lessons: LessonContent[] }> = [
   { id: "m18", lessons: FR_M18_MODULE.lessons },
   { id: "m19", lessons: FR_M19_MODULE.lessons },
   { id: "m20", lessons: FR_M20_MODULE.lessons },
+  { id: "m21", lessons: FR_M21_MODULE.lessons },
   // EVERY new FR module lands here when it ships (coordinator checklist,
   // mirrors frSimProvenance.test.ts's own inventory comment).
 ];
