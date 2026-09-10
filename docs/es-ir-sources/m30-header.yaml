@@ -1,0 +1,288 @@
+module: m30
+title: "Tengo los ojos azules"
+frame: none
+throughModule: m29
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m30 — the body. Twelfth A2 module.
+#
+#     la mano    ✋   el pie      🦶
+#     el brazo   💪   la pierna   🦵
+#     el ojo     👁️   la boca    👄
+#     la nariz   👃
+#
+# ONE idea, the whole module: SEVEN new imageable body-part words, zero
+# new verb morphology. Every sentence frame this module needs is already
+# registered — «tengo»/«tienes»/«tiene» (m5), «tenemos»/«tienen» (m18,
+# "I/you/we/they have" — reused for physical description: «tengo los ojos
+# azules»), «rojo»/«azul»/«verde»/«negro»/«blanco» (m6, colors), «grande»/
+# «pequeño» (m6, size), «me lavo»/PRIOR reflexive bare infinitives (m17
+# L7 — «lavar», reused on a body part instead of the whole self: «me lavo
+# las manos»), «lo»/«la» + «veo»/«puedo verlo» (m16/m29). This is the
+# second lexicon-break module since m19 (after m27's weather) and the
+# first since m19 whose new idea is imageable body-part NOUN vocabulary.
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# Four lines of evidence:
+#   1. **m29 named its own deferral by name, and the interleave rhythm
+#      calls for a break.** m29-header.yaml's own "WHY THIS MODULE, NOW"
+#      section closed with: "House vocabulary (the clean lexical gap m28
+#      already identified) is named below as the strong m30
+#      candidate... guaranteeing the very next module IS the break this
+#      module itself declines to be." m26 (grammar) → m27 (break) → m28
+#      (grammar) → m29 (grammar) has now run TWO grammar modules back to
+#      back (m28, m29) with no break since m27 — a vocabulary module is
+#      due, on m29's own reasoning and on the same interleave discipline
+#      m27's own header used against a fourth imperfect wave.
+#   2. **The candidate body actually delivers is BODY, not HOUSE — a
+#      correction to m28/m29's own stale framing, verified by grep, not
+#      assumed.** m27-header.yaml's "WHICH SEVEN WORDS" section and
+#      m28-header.yaml's REJECTED ALTERNATIVE 2 both call house vocabulary
+#      "the one clean lexical gap left," ruling out clothing/food/body as
+#      already partially spent. That claim does NOT survive a grep against
+#      the actual registry (`grep -n 'atom({' curriculum/m{1..29}.ts`):
+#      «casa», «cuarto», «cocina», «baño», «cama», «mesa», «silla»,
+#      «puerta», «ventana», «llave», «libro», «lápiz», «papel», «celular»,
+#      «pluma», «foto» are ALL already PRIOR — every core house noun a
+#      learner would reach for first was registered at **m3/m4**, the very
+#      first content modules. See the "CORRECTING THE RECORD" section
+#      below for the full accounting and why this kills a house module for
+#      m30 specifically. Body is the domain that is actually still
+#      virgin: grep-verified zero hits for mano, pie, brazo, pierna, ojo,
+#      boca, nariz anywhere in m1–m29 (only «dientes», m17, and the m17 L7
+#      reflexive-routine VERBS «lavar»/«peinar»/etc. touch the body at
+#      all, and none of those are nouns for a body PART).
+#   3. **Structural readiness: this module's atoms recombine with THREE
+#      separate PRIOR systems, including m29 itself, at zero grammar
+#      cost.** «tengo»/«tienes»/«tiene» (m5) + «tenemos»/«tienen» (m18) is
+#      the single earliest-registered, most-drilled verb paradigm in the
+#      whole course — full person coverage from m5/m18, nothing to teach.
+#      Colors (m6: rojo/azul/verde/negro/blanco) and size (m6:
+#      grande/pequeño) give immediate descriptive range («tengo los ojos
+#      azules», «tengo las manos grandes») with zero new adjectives. The
+#      m17 L7 reflexive daily-routine bare infinitives (levantar, duchar,
+#      despertar, acostar, lavar, peinar — registered as BARE forms,
+#      distinct from their «-se» dictionary-name cards per m17's own
+#      rule) were written for a reflexive subject, but idiomatic Spanish
+#      routinely takes a body-part OBJECT on the same verb («me lavo las
+#      manos», "I wash my hands") — a natural, well-precedented extension
+#      this course has never had vocabulary to build until now. And m29's
+#      own flagship fused atom, «verlo» (one of its exact 7 registered
+#      fused surfaces), recombines cleanly with any of this module's
+#      MASCULINE nouns («el ojo», «el brazo», «el pie») — "¿ves mi brazo?
+#      sí, puedo verlo" reuses an m29 atom verbatim, no new fused-clitic
+#      registration needed. Three independent recombination hooks (tener,
+#      m17 reflexives, m29's own «verlo») is a stronger structural-
+#      readiness case than m27's own three sentence-frame reuses (hace/
+#      está/hay) had.
+#   4. **Verified data floor, and it is clean in both directions.** Grep-
+#      verified zero hits for mano/pie/brazo/pierna/ojo/boca/nariz
+#      anywhere in m1–m29 (surfaces AND emoji, both checked). All 7 target
+#      emoji (✋ 🦶 💪 🦵 👁️ 👄 👃) are ALSO grep-verified zero prior hits
+#      against every `emoji:` field in m1–m29 — genuinely clean, no
+#      collision-avoidance juggling needed (contrast the house domain,
+#      where the remaining unregistered nouns collide directly with
+#      ALREADY-PRIOR house-object emoji — see below). And unlike every
+#      PRIOR new-emoji module (m20, m27), **all 7 target SVGs are ALREADY
+#      VENDORED** — confirmed by `ls src/pub/noto-emoji/svg/` matching
+#      `emoji_u270b.svg` (✋), `emoji_u1f9b6.svg` (🦶), `emoji_u1f4aa.svg`
+#      (💪), `emoji_u1f9b5.svg` (🦵), `emoji_u1f441.svg` (👁️),
+#      `emoji_u1f444.svg` (👄), `emoji_u1f443.svg` (👃), all present on
+#      disk at the time of writing. Zero vendoring work needed — a first
+#      for a new-emoji ES module.
+#
+# ── CORRECTING THE RECORD: HOUSE VOCABULARY IS NOT THE CLEAN GAP m27/m28
+#    CALLED IT (verified by grep, not assumed) ────────────────────────────
+# m27-header.yaml's "WHICH SEVEN WORDS" section states plainly: "clothing
+# is already PRIOR since m12/m16; food is heavily PRIOR since m7/m11/m13;
+# body parts partially PRIOR since m17" and implies house is untouched.
+# m28-header.yaml's REJECTED ALTERNATIVE 2 repeats it: "house vocabulary
+# is the one clean lexical gap left." Neither claim was grep-verified
+# against the actual atom registry at the time it was written (both cite
+# m27's own reasoning, not a fresh grep). It does not hold: `casa`,
+# `cuarto`, `cocina`, `baño`, `cama`, `mesa`, `silla`, `puerta`, `ventana`
+# were all registered as bare-noun atoms at **m3** and **m4** (the
+# classroom/house-objects modules), each already carrying its own gender
+# and emoji (`el baño` 🚽, `la cocina` 🍳, `el cuarto` 🛋️, `la cama` 🛏️,
+# `la puerta` 🚪, `la ventana` 🪟, `la casa` 🏠). A "house vocabulary"
+# module would either re-teach words a learner met in their first two
+# weeks, or reach for the REMAINING unregistered house words — and most
+# of those collide directly with the emoji this course already spent on
+# m3/m4's house nouns: «el sofá» has no image but 🛋️ (already «cuarto»);
+# «el armario»/«el clóset» has no image but 🚪 (already «puerta»); «el
+# garaje» has no image but 🚗 (already «carro», m6); «el inodoro» has no
+# alternative to 🚽 (already «baño») at all — Unicode simply doesn't offer
+# a second toilet glyph, an UNRESOLVABLE trap, not a "pick a different
+# emoji" one like m27's ☀️/🌞 case. Genuinely clean remaining house nouns
+# — «el espejo» 🪞, «el jabón» 🧼, «la lámpara» 💡 — total THREE, not
+# seven, well under this course's own seven-word precedent and thin
+# enough to make a ten-lesson house module feel manufactured around a
+# short list, the exact "content shape" objection m27's own REJECTED
+# ALTERNATIVE 2 used against a bare «ir»-registration module. House
+# vocabulary is not abandoned — it is correctly-sized as a future THREE-
+# TO-FIVE-atom recombination lesson (inside a later module, alongside
+# something else), not a ten-lesson module of its own. Named here
+# explicitly so a future author doesn't re-open it expecting seven words.
+#
+# ── REJECTED ALTERNATIVE 1: house vocabulary (rooms/furniture) ────────────
+# The alternative m28/m29's own headers pointed at by name. Rejected for
+# the reason above: grep-verified thin (3 clean new atoms: espejo, jabón,
+# lámpara — not the assumed 7), and the two richest-seeming remaining
+# words (sofá, armario) are blocked by an UNRESOLVABLE emoji collision
+# with PRIOR m3/m4 house-object atoms, not a pick-a-different-glyph fix.
+# «voy a limpiarla» (the recombination this thread's own brief prompt
+# suggested) would additionally require a brand-new verb, «limpiar» — not
+# yet PRIOR anywhere in m1–m29 (grep-verified, zero hits) — which is a
+# real, addable vocabulary item but weakens the "zero new grammar-
+# adjacent risk" case a break module should have, compared to reusing
+# «tengo»/colors/m17-reflexives, all fully PRIOR, for body. Not abandoned
+# — correctly resized to a future small recombination lesson, see above.
+#
+# ── REJECTED ALTERNATIVE 2: clothing, round two (pantalón, chaqueta,
+#    calcetines, guantes, bufanda) ────────────────────────────────────────
+# Real, viable, and genuinely still open: `camisa`/`falda`/`zapato`/
+# `sombrero` are PRIOR (m12), but `pantalón` 👖, `chaqueta`/`abrigo` 🧥,
+# `calcetines` 🧦, `guantes` 🧤, `bufanda` 🧣 are grep-verified unregistered
+# and all have clean, zero-collision emoji (grep-verified against every
+# PRIOR `emoji:` field) — 5-6 atoms, thinner than body's 7 but real.
+# Carries one live trap worth flagging for whenever this IS drafted:
+# «vestido» (dress) would need 👗, which is ALREADY «falda»'s emoji
+# (m12) — the identical "borrow a PRIOR atom's own image" mistake the
+# m27 ☀️ trap warned against; skip «vestido» when this module is drafted.
+# Rejected for m30 specifically because body is a fully virgin domain (no
+# partial-spend correction needed) with a stronger three-way recombination
+# story (tener + colors + m17 reflexives + m29's own «verlo»), while
+# clothing's own recombination is thinner (mostly re-running m12's own
+# "me gusta esta camisa" frame on new nouns, no new verb-family hook).
+# Left open as a real, well-scoped future module.
+#
+# ── REJECTED ALTERNATIVE 3: city and directions (la calle, la ciudad, a
+#    la derecha/izquierda, el semáforo) ───────────────────────────────────
+# The ONLY domain of the four that is FULLY unregistered end to end
+# (grep-verified zero hits for calle, ciudad, esquina, derecha, izquierda,
+# recto, dirección, semáforo, avenida, edificio anywhere in m1–m29) — a
+# genuinely richer virgin domain than body, on paper. Rejected for m30
+# specifically because the core content a "giving directions" lesson
+# needs — «a la derecha»/«a la izquierda» as fixed directional phrases,
+# and ideally an imperative («gira», «sigue») to DO something with them —
+# is not simply new NOUNS the way this module's body-part words are; it
+# is new PHRASE-ATOM and likely new-verb-mood territory, a heavier
+# grammar footprint than a "zero new grammar" break module should carry
+# (the same "second new idea competing with the first" argument
+# m29-header.yaml's REJECTED ALTERNATIVE 3 used to defer «estar +
+# gerundio»). «la calle» 🛣️, «la ciudad» 🏙️, «el semáforo» 🚦 alone (as
+# static nouns, «está en la calle») would work as a THIN break, but body
+# gives 7 solid atoms against city's realistic 3-4 before reaching for
+# directional grammar. Not abandoned — the richest fully-virgin domain
+# left in the course, reserved for whenever a module wants to pair
+# vocabulary with a new imperative/command form.
+#
+# ── REJECTED ALTERNATIVE 4: «doler» (impersonal "hurts," health/wellness)
+#    ───────────────────────────────────────────────────────────────────
+# The natural next step after body-part nouns exist ("me duele la
+# cabeza," "I have a headache") and genuinely A2 content. Rejected for
+# THIS module: «doler» is a new VERB with «gustar»'s own irregular
+# impersonal-object word order (back-of-clause subject, front-of-clause
+# indirect object) — a second new grammar idea layered onto a module
+# whose entire framing is "zero new verb morphology, recombine PRIOR
+# systems only." Reserve «doler» for a future module that can give it the
+# same dedicated care m7/m13 gave «gustar» itself. Not used anywhere in
+# this module, foil or answer.
+#
+# ── THE «VERLA» TRAP — READ BEFORE DRAFTING L9 ────────────────────────────
+# m29 registered exactly 7 fused-clitic surfaces as its own newAtoms:
+# verlo, comprarlo, comprarla, comprarlos, levantarme, hacerlo, verlos.
+# **«verla» is NOT one of them** — despite «ver» (m15) and «la» (m3/m16)
+# both being independently PRIOR, the FUSED STRING «verla» was never
+# registered, and per m29-header.yaml's own hard-won correction (its
+# "CORRECTION TO NEW ATOMS: 0" section), any fused surface that is not
+# itself a registered atom is an unconditional "untracked word" failure
+# the moment it appears in a graded-answer position — `esTokens()` never
+# decomposes it back into «ver» + «la». This module's feminine body-part
+# nouns (la mano, la pierna, la boca, la nariz) must therefore NEVER use
+# a fused pronoun («verla») — only the PRE-VERBAL position («la veo»,
+# «puedo verla» — wait, that fused form is banned too; use «la puedo
+# ver»/«la veo», both pre-verbal, both need no new atom at all). The
+# MASCULINE nouns this module owns (el ojo, el brazo, el pie) MAY use
+# the fused «verlo» — it is already one of m29's own 7 registered
+# surfaces, reused verbatim, zero new registration. Do not manufacture
+# «verla» to make a "parallel" masculine/feminine fused pair — the
+# parallel does not exist in this course's registry yet, and inventing it
+# would spend one of this module's own thin atom slots on a pronoun form,
+# not a body-part noun. Pre-verbal placement is always safe and always
+# available for every noun regardless of gender.
+#
+# ── AGREEMENT IS NOT A NEW ATOM — REGULAR PLURALS ONLY, NARIZ FLAGGED ─────
+# Per `authoring-rules.md`'s "Agreement is not a new atom" paragraph: a
+# registered singular noun atom pluralizes via the regular Spanish
+# inflection rule with no separate atom needed — the identical mechanism
+# already exercising course-wide (`los zapatos`, m13, off PRIOR singular
+# `zapato`, m12). «mano»→«manos», «pie»→«pies», «brazo»→«brazos»,
+# «pierna»→«piernas», «ojo»→«ojos», «boca»→«bocas» are all REGULAR -s
+# plurals — safe to use freely. **«nariz»→«narices» is NOT a regular -s
+# plural** (Spanish z→c before -es) — whether the course's
+# `getEsPluralCanon`/regular-inflection engine recognizes this
+# orthographic rule was NOT verified while writing this brief (flagged
+# below, UNVERIFIED). Default to singular «la nariz» only in this
+# module's sentences (natural anyway — most physical-description
+# sentences reference one nose) until a drafting agent grep-confirms the
+# plural is accepted.
+#
+# ── NO NEW EMOJI COLLISION, ALL 7 SVGs ALREADY VENDORED (verified,
+#    not assumed) ─────────────────────────────────────────────────────
+# `grep -o 'emoji: "[^"]*"' curriculum/m{1..29}.ts | sort -u` — zero hits
+# for ✋ 🦶 💪 🦵 👁️ 👄 👃, checked individually, including against
+# near-miss PRIOR glyphs that might tempt reuse (👂 is already «escuchar»,
+# m10 — a real trap if a future companion module reaches for «oreja»,
+# named here for that future author). Unlike every PRIOR new-vocabulary
+# module, this one needs **zero vendoring work**: `ls src/pub/noto-emoji/
+# svg/` at the time of writing already contains `emoji_u270b.svg`,
+# `emoji_u1f9b6.svg`, `emoji_u1f4aa.svg`, `emoji_u1f9b5.svg`,
+# `emoji_u1f441.svg`, `emoji_u1f444.svg`, `emoji_u1f443.svg` — all 7
+# present on disk. Re-verify at ship time (a concurrent lane could in
+# principle touch this directory) but treat as a non-issue by default.
+#
+# ── SIM NPC-LINE PROVENANCE: LIVE, CARRY FORWARD FROM m29 ────────────────
+# `es-quality.test.ts`'s dialogue_sim provenance gate (confirmed LIVE as
+# of m29) applies unchanged here. This module has an easier case than
+# m29's: every graded surface is either a PRIOR whole word or one of
+# THIS module's own 7 new whole-word atoms — no fused-string
+# decomposition risk (the «verla» trap above is about NOT creating a new
+# fused string, so this module never exercises that decomposition path
+# at all). Still: manually grep every sim `npc:` line before shipping,
+# the same discipline every prior module's brief has required.
+#
+# ── ACCENT: FRESH COLOUR — TEAL, VERIFIED UNUSED, THEMATIC ────────────────
+# Checked every `accent:` pair in `curriculum/index.ts` (grep-verified:
+# zero hits for `#14b8a6` and `#0d9488`) against all 29 modules' pairs,
+# including the four most recent — m26 cyan (`#22d3ee`→`#0891b2`), m27
+# warm yellow (`#eab308`→`#a16207`), m28 "go" green (`#22c55e`→`#15803d`),
+# m29 slate (`#64748b`→`#334155`). Teal/mint reads distinctly from all
+# four (cooler and more saturated than m26's cyan, nowhere near m27's
+# yellow or m28's green, warmer and more present than m29's deliberately
+# neutral slate) and carries a light "wellness/body" association without
+# forcing a heavier medical metaphor onto a plain vocabulary module.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # la mano — hand. Irregular gender: ends in -o but is feminine (the
+  # same exception class as «foto», m4, and «el agua», m4 — a learner
+  # will want to guess «el mano»; the hint corrects it directly).
+  - { surface: "mano", meaningEn: "hand", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "✋", hint: "la mano — ends in -o but is FEMININE, the classic exception (same pattern as «la foto», m4). «tengo dos manos»." }
+  # el pie — foot. Regular gender/plural.
+  - { surface: "pie", meaningEn: "foot", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🦶", hint: "el pie — regular masculine, regular plural «los pies». «tengo dos pies»." }
+  # el brazo — arm. Regular gender/plural.
+  - { surface: "brazo", meaningEn: "arm", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "💪", hint: "el brazo — «tengo un brazo grande» (I have a big arm). Masculine noun — this module's own «verlo» recombination target (m29's own fused atom, reused verbatim)." }
+  # la pierna — leg. Regular gender/plural.
+  - { surface: "pierna", meaningEn: "leg", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🦵", hint: "la pierna — regular feminine. Feminine — NEVER fuse a pronoun onto a verb for this noun («verla» is not registered); use pre-verbal «la veo» instead." }
+  # el ojo — eye. Regular gender/plural. This module's other masculine
+  # «verlo»-eligible noun besides «brazo»/«pie».
+  - { surface: "ojo", meaningEn: "eye", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "👁️", hint: "el ojo — «tengo los ojos azules» (I have blue eyes), reusing PRIOR «azul» (m6). Masculine — «lo veo»/«puedo verlo» (m29's own registered atom) both legal." }
+  # la boca — mouth. Regular gender/plural.
+  - { surface: "boca", meaningEn: "mouth", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "👄", hint: "la boca — regular feminine. Feminine — pre-verbal pronoun only, same as «pierna»." }
+  # la nariz — nose. Irregular plural (z→c: narices) — UNVERIFIED against
+  # the regular-inflection engine, see header note above. Singular only
+  # in this module's own sentences.
+  - { surface: "nariz", meaningEn: "nose", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "👃", hint: "la nariz — plural is «narices» (z→c), NOT a plain -s plural — do not pluralize in this module until grep-confirmed against the inflection engine; use «la nariz» singular." }
+
+lessons:
