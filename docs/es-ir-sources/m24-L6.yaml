@@ -38,7 +38,7 @@
         es: "quería ir al cine cuando vino Sofía"
         en: "I wanted to go to the movies when Sofía came"
         atoms: ["quería", "cine", "vino"]
-        tiles: ["quiero", "quise"]
+        tiles: ["quiero", "querían"]
       - kind: speakLit
         id: l6-sp-mientrasveniallego
         es: "mientras venía a la escuela, vino Ana"
@@ -73,7 +73,7 @@
         es: "quería ir, pero entonces vino Sofía"
         en: "I wanted to go, but then Sofía came"
         atoms: ["quería", "entonces", "vino"]
-        tiles: ["querían", "quise"]
+        tiles: ["querían", "quiero"]
       - kind: audioWimcq
         id: l6-ear-parque
         target: { surface: "el parque", emoji: "🌳" }

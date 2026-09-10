@@ -109,10 +109,10 @@
             goal: "Say yes, you always wanted to go."
             reply:
               mode: build
-              tiles: ["sí", "yo", "quería", "siempre", "ir", "al", "cine", "quieren"]
+              tiles: ["sí", "yo", "quería", "siempre", "ir", "al", "cine", "querían"]
               answer: "sí yo quería siempre ir al cine"
             replyGloss: "Yes, I always wanted to go."
-            explanation: "«yo» keeps «quería» unambiguous — it also means he/she/usted wanted. «quieren» slips into now, and into them."
+            explanation: "«yo» keeps «quería» unambiguous — it also means he/she/usted wanted. «querían» would be more than one."
           - id: t2
             npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Querían ir también?", audioText: "¿y diego y sofía? ¿querían ir también?", gloss: "And Diego and Sofía? Did they want to go too?" }
             goal: "Say yes, they always wanted to go too."
@@ -121,11 +121,11 @@
               options:
                 - { id: "right", text: "sí, querían ir también" }
                 - { id: "wrong1", text: "sí, queríamos ir también" }
-                - { id: "wrong2", text: "sí, quieren ir también" }
+                - { id: "wrong2", text: "sí, quería ir también" }
               correctOptionId: "right"
               audioText: "sí, querían ir también"
             replyGloss: "Yes, they always wanted to go too."
-            explanation: "Diego and Sofía — them: «querían». «queríamos» would wrongly include you; «quieren» slips into now."
+            explanation: "Diego and Sofía — them: «querían». «queríamos» would wrongly include you; «quería» would be just one person."
           - id: t3
             npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Queríamos ir juntos?", audioText: "¿y tú y yo? ¿queríamos ir juntos?", gloss: "And you and I? Did we want to go together?" }
             goal: "Say yes, we always wanted to go together."

@@ -411,7 +411,7 @@ lessons:
         es: "tú hacías mucho en casa"
         en: "You (tú) used to do a lot at home"
         atoms: ["hacías", "mucho", "casa"]
-        tiles: ["hacía", "hacen"]
+        tiles: ["hacía", "hace"]
       - kind: speakLit
         id: l2-sp-haciamostareajuntos
         es: "hacíamos la tarea juntos"
@@ -446,7 +446,7 @@ lessons:
         es: "hacíamos mucho en la escuela"
         en: "We used to do a lot at school"
         atoms: ["hacíamos", "mucho", "escuela"]
-        tiles: ["hacían", "hacemos"]
+        tiles: ["hacían", "hago"]
       - kind: audioWimcq
         id: l2-ear-parque
         target: { surface: "el parque", emoji: "🌳" }
@@ -483,10 +483,10 @@ lessons:
             goal: "Say yes, you always did it."
             reply:
               mode: build
-              tiles: ["sí", "yo", "hacía", "siempre", "la", "tarea", "hacen"]
+              tiles: ["sí", "yo", "hacía", "siempre", "la", "tarea", "hacían"]
               answer: "sí yo hacía siempre la tarea"
             replyGloss: "Yes, I always did it."
-            explanation: "«yo» keeps «hacía» unambiguous — it also means he/she/usted was doing. «hacen» slips into now, and into them."
+            explanation: "«yo» keeps «hacía» unambiguous — it also means he/she/usted was doing. «hacían» would be more than one."
           - id: t2
             npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Hacían la tarea también?", audioText: "¿y diego y sofía? ¿hacían la tarea también?", gloss: "And Diego and Sofía? Did they used to do homework too?" }
             goal: "Say yes, they always did it too."
@@ -495,11 +495,11 @@ lessons:
               options:
                 - { id: "right", text: "sí, hacían la tarea también" }
                 - { id: "wrong1", text: "sí, hacíamos la tarea también" }
-                - { id: "wrong2", text: "sí, hacen la tarea también" }
+                - { id: "wrong2", text: "sí, hacía la tarea también" }
               correctOptionId: "right"
               audioText: "sí, hacían la tarea también"
             replyGloss: "Yes, they always did it too."
-            explanation: "Diego and Sofía — them: «hacían». «hacíamos» would wrongly include you; «hacen» slips into now."
+            explanation: "Diego and Sofía — them: «hacían». «hacíamos» would wrongly include you; «hacía» would be just one person."
           - id: t3
             npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Hacíamos la tarea juntos?", audioText: "¿y tú y yo? ¿hacíamos la tarea juntos?", gloss: "And you and I? Did we used to do homework together?" }
             goal: "Say yes, we always did it together."
@@ -635,10 +635,10 @@ lessons:
             goal: "Say yes, you always wanted to go."
             reply:
               mode: build
-              tiles: ["sí", "yo", "quería", "siempre", "ir", "al", "cine", "quieren"]
+              tiles: ["sí", "yo", "quería", "siempre", "ir", "al", "cine", "querían"]
               answer: "sí yo quería siempre ir al cine"
             replyGloss: "Yes, I always wanted to go."
-            explanation: "«yo» keeps «quería» unambiguous — it also means he/she/usted wanted. «quieren» slips into now, and into them."
+            explanation: "«yo» keeps «quería» unambiguous — it also means he/she/usted wanted. «querían» would be more than one."
           - id: t2
             npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Querían ir también?", audioText: "¿y diego y sofía? ¿querían ir también?", gloss: "And Diego and Sofía? Did they want to go too?" }
             goal: "Say yes, they always wanted to go too."
@@ -647,11 +647,11 @@ lessons:
               options:
                 - { id: "right", text: "sí, querían ir también" }
                 - { id: "wrong1", text: "sí, queríamos ir también" }
-                - { id: "wrong2", text: "sí, quieren ir también" }
+                - { id: "wrong2", text: "sí, quería ir también" }
               correctOptionId: "right"
               audioText: "sí, querían ir también"
             replyGloss: "Yes, they always wanted to go too."
-            explanation: "Diego and Sofía — them: «querían». «queríamos» would wrongly include you; «quieren» slips into now."
+            explanation: "Diego and Sofía — them: «querían». «queríamos» would wrongly include you; «quería» would be just one person."
           - id: t3
             npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Queríamos ir juntos?", audioText: "¿y tú y yo? ¿queríamos ir juntos?", gloss: "And you and I? Did we want to go together?" }
             goal: "Say yes, we always wanted to go together."
@@ -878,7 +878,7 @@ lessons:
         es: "tú venías mucho a la escuela"
         en: "You (tú) used to come to school a lot"
         atoms: ["venías", "mucho", "escuela"]
-        tiles: ["venía", "vienen"]
+        tiles: ["venía", "viene"]
       - kind: speakLit
         id: l5-sp-veniamosjuntosescuela
         es: "veníamos juntos a la escuela"
@@ -905,9 +905,9 @@ lessons:
         id: l5-q-tuvenias
         prompt: "Which one means 'you (tú) used to come'?"
         correct: "tú venías"
-        distractors: ["tú venía", "tú vienes", "tú veníamos"]
+        distractors: ["tú venía", "tú viene", "tú veníamos"]
         atoms: ["venías"]
-        why: "«venías» — the tú ending, accented like every venir imperfect form. «venía» collapses yo/él, not tú; «vienes» slips into now; «veníamos» would be we."
+        why: "«venías» — the tú ending, accented like every venir imperfect form. «venía» collapses yo/él, not tú; «viene» slips into now, and isn't tú either; «veníamos» would be we."
       - kind: buildLit
         id: l5-b-ibaveniaescuela
         es: "de niño, iba a la escuela, y venía temprano"
@@ -957,10 +957,10 @@ lessons:
             goal: "Say yes, you always came early."
             reply:
               mode: build
-              tiles: ["sí", "yo", "venía", "siempre", "temprano", "vienen"]
+              tiles: ["sí", "yo", "venía", "siempre", "temprano", "venían"]
               answer: "sí yo venía siempre temprano"
             replyGloss: "Yes, I always came early."
-            explanation: "«yo» keeps «venía» unambiguous — it also means he/she/usted used to come. «vienen» slips into now, and into them."
+            explanation: "«yo» keeps «venía» unambiguous — it also means he/she/usted used to come. «venían» would be more than one."
           - id: t2
             npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Venían temprano también?", audioText: "¿y diego y sofía? ¿venían temprano también?", gloss: "And Diego and Sofía? Did they used to come early too?" }
             goal: "Say yes, they always came early too."
@@ -969,11 +969,11 @@ lessons:
               options:
                 - { id: "right", text: "sí, venían temprano también" }
                 - { id: "wrong1", text: "sí, veníamos temprano también" }
-                - { id: "wrong2", text: "sí, vienen temprano también" }
+                - { id: "wrong2", text: "sí, venía temprano también" }
               correctOptionId: "right"
               audioText: "sí, venían temprano también"
             replyGloss: "Yes, they always came early too."
-            explanation: "Diego and Sofía — them: «venían». «veníamos» would wrongly include you; «vienen» slips into now."
+            explanation: "Diego and Sofía — them: «venían». «veníamos» would wrongly include you; «venía» would be just one person."
           - id: t3
             npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Veníamos juntos?", audioText: "¿y tú y yo? ¿veníamos juntos?", gloss: "And you and I? Did we used to come together?" }
             goal: "Say yes, we always came together."
@@ -1038,7 +1038,7 @@ lessons:
         es: "quería ir al cine cuando vino Sofía"
         en: "I wanted to go to the movies when Sofía came"
         atoms: ["quería", "cine", "vino"]
-        tiles: ["quiero", "quise"]
+        tiles: ["quiero", "querían"]
       - kind: speakLit
         id: l6-sp-mientrasveniallego
         es: "mientras venía a la escuela, vino Ana"
@@ -1073,7 +1073,7 @@ lessons:
         es: "quería ir, pero entonces vino Sofía"
         en: "I wanted to go, but then Sofía came"
         atoms: ["quería", "entonces", "vino"]
-        tiles: ["querían", "quise"]
+        tiles: ["querían", "quiero"]
       - kind: audioWimcq
         id: l6-ear-parque
         target: { surface: "el parque", emoji: "🌳" }
@@ -1228,7 +1228,7 @@ lessons:
         es: "no veníamos a la escuela, pero queríamos"
         en: "We didn't come to school, but we wanted to"
         atoms: ["veníamos", "queríamos", "escuela"]
-        tiles: ["venían", "quieren"]
+        tiles: ["venían", "quiero"]
       - kind: speakLit
         id: l7-sp-noveniasqueria
         es: "tú no venías a la escuela, pero querías"
@@ -1726,9 +1726,9 @@ lessons:
         id: l10-q-vinieron
         prompt: "Which one means 'they came' — the group?"
         correct: "vinieron"
-        distractors: ["venían", "vino", "vienen"]
+        distractors: ["venían", "vino", "vinimos"]
         atoms: ["vinieron"]
-        why: "«vinieron» — the they-preterite, one bounded arrival. «venían» would make it repeated; «vino» drops the they-agreement; «vienen» slips into now."
+        why: "«vinieron» — the they-preterite, one bounded arrival. «venían» would make it repeated; «vino» drops the they-agreement; «vinimos» would be we, not they."
       # Printed non-recall at L1 (es-m24-1-l1-sp-win).
       - kind: speakLit
         id: l10-sp-recall-estabacasa

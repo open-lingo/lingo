@@ -38,7 +38,7 @@
         es: "tú venías mucho a la escuela"
         en: "You (tú) used to come to school a lot"
         atoms: ["venías", "mucho", "escuela"]
-        tiles: ["venía", "vienen"]
+        tiles: ["venía", "viene"]
       - kind: speakLit
         id: l5-sp-veniamosjuntosescuela
         es: "veníamos juntos a la escuela"
@@ -65,9 +65,9 @@
         id: l5-q-tuvenias
         prompt: "Which one means 'you (tú) used to come'?"
         correct: "tú venías"
-        distractors: ["tú venía", "tú vienes", "tú veníamos"]
+        distractors: ["tú venía", "tú viene", "tú veníamos"]
         atoms: ["venías"]
-        why: "«venías» — the tú ending, accented like every venir imperfect form. «venía» collapses yo/él, not tú; «vienes» slips into now; «veníamos» would be we."
+        why: "«venías» — the tú ending, accented like every venir imperfect form. «venía» collapses yo/él, not tú; «viene» slips into now, and isn't tú either; «veníamos» would be we."
       - kind: buildLit
         id: l5-b-ibaveniaescuela
         es: "de niño, iba a la escuela, y venía temprano"
@@ -117,10 +117,10 @@
             goal: "Say yes, you always came early."
             reply:
               mode: build
-              tiles: ["sí", "yo", "venía", "siempre", "temprano", "vienen"]
+              tiles: ["sí", "yo", "venía", "siempre", "temprano", "venían"]
               answer: "sí yo venía siempre temprano"
             replyGloss: "Yes, I always came early."
-            explanation: "«yo» keeps «venía» unambiguous — it also means he/she/usted used to come. «vienen» slips into now, and into them."
+            explanation: "«yo» keeps «venía» unambiguous — it also means he/she/usted used to come. «venían» would be more than one."
           - id: t2
             npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Venían temprano también?", audioText: "¿y diego y sofía? ¿venían temprano también?", gloss: "And Diego and Sofía? Did they used to come early too?" }
             goal: "Say yes, they always came early too."
@@ -129,11 +129,11 @@
               options:
                 - { id: "right", text: "sí, venían temprano también" }
                 - { id: "wrong1", text: "sí, veníamos temprano también" }
-                - { id: "wrong2", text: "sí, vienen temprano también" }
+                - { id: "wrong2", text: "sí, venía temprano también" }
               correctOptionId: "right"
               audioText: "sí, venían temprano también"
             replyGloss: "Yes, they always came early too."
-            explanation: "Diego and Sofía — them: «venían». «veníamos» would wrongly include you; «vienen» slips into now."
+            explanation: "Diego and Sofía — them: «venían». «veníamos» would wrongly include you; «venía» would be just one person."
           - id: t3
             npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Veníamos juntos?", audioText: "¿y tú y yo? ¿veníamos juntos?", gloss: "And you and I? Did we used to come together?" }
             goal: "Say yes, we always came together."

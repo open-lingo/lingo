@@ -68,7 +68,7 @@
         es: "no veníamos a la escuela, pero queríamos"
         en: "We didn't come to school, but we wanted to"
         atoms: ["veníamos", "queríamos", "escuela"]
-        tiles: ["venían", "quieren"]
+        tiles: ["venían", "quiero"]
       - kind: speakLit
         id: l7-sp-noveniasqueria
         es: "tú no venías a la escuela, pero querías"

@@ -98,9 +98,9 @@
         id: l10-q-vinieron
         prompt: "Which one means 'they came' — the group?"
         correct: "vinieron"
-        distractors: ["venían", "vino", "vienen"]
+        distractors: ["venían", "vino", "vinimos"]
         atoms: ["vinieron"]
-        why: "«vinieron» — the they-preterite, one bounded arrival. «venían» would make it repeated; «vino» drops the they-agreement; «vienen» slips into now."
+        why: "«vinieron» — the they-preterite, one bounded arrival. «venían» would make it repeated; «vino» drops the they-agreement; «vinimos» would be we, not they."
       # Printed non-recall at L1 (es-m24-1-l1-sp-win).
       - kind: speakLit
         id: l10-sp-recall-estabacasa

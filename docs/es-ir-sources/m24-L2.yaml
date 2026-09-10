@@ -35,7 +35,7 @@
         es: "tú hacías mucho en casa"
         en: "You (tú) used to do a lot at home"
         atoms: ["hacías", "mucho", "casa"]
-        tiles: ["hacía", "hacen"]
+        tiles: ["hacía", "hace"]
       - kind: speakLit
         id: l2-sp-haciamostareajuntos
         es: "hacíamos la tarea juntos"
@@ -70,7 +70,7 @@
         es: "hacíamos mucho en la escuela"
         en: "We used to do a lot at school"
         atoms: ["hacíamos", "mucho", "escuela"]
-        tiles: ["hacían", "hacemos"]
+        tiles: ["hacían", "hago"]
       - kind: audioWimcq
         id: l2-ear-parque
         target: { surface: "el parque", emoji: "🌳" }
@@ -107,10 +107,10 @@
             goal: "Say yes, you always did it."
             reply:
               mode: build
-              tiles: ["sí", "yo", "hacía", "siempre", "la", "tarea", "hacen"]
+              tiles: ["sí", "yo", "hacía", "siempre", "la", "tarea", "hacían"]
               answer: "sí yo hacía siempre la tarea"
             replyGloss: "Yes, I always did it."
-            explanation: "«yo» keeps «hacía» unambiguous — it also means he/she/usted was doing. «hacen» slips into now, and into them."
+            explanation: "«yo» keeps «hacía» unambiguous — it also means he/she/usted was doing. «hacían» would be more than one."
           - id: t2
             npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Hacían la tarea también?", audioText: "¿y diego y sofía? ¿hacían la tarea también?", gloss: "And Diego and Sofía? Did they used to do homework too?" }
             goal: "Say yes, they always did it too."
@@ -119,11 +119,11 @@
               options:
                 - { id: "right", text: "sí, hacían la tarea también" }
                 - { id: "wrong1", text: "sí, hacíamos la tarea también" }
-                - { id: "wrong2", text: "sí, hacen la tarea también" }
+                - { id: "wrong2", text: "sí, hacía la tarea también" }
               correctOptionId: "right"
               audioText: "sí, hacían la tarea también"
             replyGloss: "Yes, they always did it too."
-            explanation: "Diego and Sofía — them: «hacían». «hacíamos» would wrongly include you; «hacen» slips into now."
+            explanation: "Diego and Sofía — them: «hacían». «hacíamos» would wrongly include you; «hacía» would be just one person."
           - id: t3
             npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Hacíamos la tarea juntos?", audioText: "¿y tú y yo? ¿hacíamos la tarea juntos?", gloss: "And you and I? Did we used to do homework together?" }
             goal: "Say yes, we always did it together."
