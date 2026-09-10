@@ -1,0 +1,279 @@
+module: m26
+title: "Vivía, comía, estudiaba"
+frame: none
+throughModule: m25
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m26 — the imperfect, THIRD wave. Eighth A2 module.
+#
+#     vivir:    vivía*     vivías     vivíamos     vivían      (regular present/preterite; REGULAR here too — vivir has no "surprise")
+#     comer:    comía*     comías     comíamos     comían      (regular present/preterite; REGULAR here too)
+#     estudiar: estudiaba* estudiabas estudiábamos estudiaban  (regular present/preterite; REGULAR here too)
+#     trabajar: trabajaba* trabajabas trabajábamos trabajaban  (regular present/preterite; REGULAR here too)
+#     salir:    salía*     salías     salíamos     salían      (yo-irregular present «salgo»; regular preterite; REGULAR here)
+#
+#     (* = yo AND él/ella/usted share this exact surface — the yo=él
+#     collision, TAUGHT in m22, not re-taught here — see "NO RE-TEACH"
+#     below. Every "first slot" atom below still carries both readings.)
+#
+# ONE idea, the whole module: the imperfect's "easy tense" trick, third
+# time now — m22 proved it with «tenía» (irregular present/preterite,
+# regular imperfect), m24 proved it again with five MORE verbs that are
+# irregular elsewhere. This module's five (vivir, comer, estudiar,
+# trabajar, salir) are almost entirely REGULAR everywhere already — the
+# "surprise" isn't the contrast anymore, it's completeness: these are the
+# five highest-utility everyday routine verbs left ungrammared in the past,
+# and now every one of them can narrate a memory. No new grammar, no new
+# mechanic.
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# Two lines of evidence:
+#   1. `m24-header.yaml`'s "WHICH FIVE" section named exactly these eight
+#      verbs — vivir, trabajar, comer, salir, cocinar, escribir, comprar,
+#      estudiar — as "a candidate for a THIRD wave, not manufactured here."
+#      `m25-header.yaml`'s "REJECTED ALTERNATIVE 1" confirmed the same
+#      eight are still fully data-ready and rejected THEM for m25
+#      specifically (not forever) on a "three imperfect modules in a row"
+#      fatigue argument (m22, m24, m25 back to back would all be the same
+#      mechanic) — but m25 was NOT an imperfect module (it was porque/por
+#      eso), so m26 taking the third wave now is NOT "three in a row": the
+#      sequence is m22 (wave 1) → m23 (contrast) → m24 (wave 2) → m25
+#      (causal connectives, a genuine break) → m26 (wave 3). Doctrine
+#      ([[interleave-dont-block-teach]]: split a repetitive family across
+#      lessons with unrelated breaks between) is satisfied at the
+#      MODULE level, not just the lesson level — m25 IS that break.
+#   2. Grep-verified fresh (`grep -o 'surface: "[^"]*"'
+#      src/features/languages/es/curriculum/m{1..25}.ts | sort -u`): NONE
+#      of the 20 forms this module registers exist anywhere in m1–m25.
+#      `conjugationTables.ts` carries complete imperfect rows for all eight
+#      remaining verbs (verified directly, `grep -n
+#      "vivir\|trabajar\|comer\|salir\|cocinar\|escribir\|comprar\|
+#      estudiar" conjugationTables.ts` then read each block) — zero table
+#      work needed, same "already met" condition m24's header flagged.
+#
+# ── WHICH FIVE OF THE EIGHT, AND WHY NOT THE OTHER THREE (decision) ───────
+# m24's ban list left eight: vivir, trabajar, comer, salir, cocinar,
+# escribir, comprar, estudiar. Unlike wave 1 (m22) and wave 2 (m24), the
+# "irregular everywhere else, regular here" showcase logic does NOT
+# distinguish among these eight — m24's own header already named them as
+# "regular or near-regular in every tense they've been taught," so there is
+# no per-verb contrast payoff to rank by. This module ranks by NARRATIVE
+# UTILITY instead, on two grounds:
+#   1. Atom-budget precedent, unchanged. m22 and m24 each shipped 20 verb
+#      atoms (5 verbs × 4 persons). Taking all eight (32 atoms) would blow
+#      that budget by 60% and force >1 family debut per lesson across
+#      L1–L5, thinning each family's card real estate exactly when
+#      [[drafting-coverage-not-volume]] says not to ("pin the cell per
+#      request instead of adding rounds"). Five keeps the established
+#      shape: one family, one debut lesson, L1–L5.
+#   2. vivir/comer/estudiar/trabajar/salir are the "life-stages backstory"
+#      cluster — where you lived, what you ate, what you studied, what you
+#      did for work, where you used to go out — the five predicates a
+#      personal-memory narration (this whole three-wave arc's throughline)
+#      actually needs most. cocinar/escribir/comprar are real but more
+#      SITUATIONAL/transactional (cook a specific meal, write a specific
+#      thing, buy a specific item) — lower narrative-backbone value for a
+#      "tell me about your childhood" scene, which is exactly the frame
+#      m22/m24/m26's own win sentences use. The three left over (cocinar,
+#      escribir, comprar) remain fully data-ready and are named here
+#      explicitly as a possible FOURTH wave — not manufactured in this
+#      module, same discipline m24 applied to its own leftover eight.
+#
+# ── REJECTED ALTERNATIVE 1: all eight verbs in one module ─────────────────
+# Rejected on the atom-budget and card-thinning grounds above. Also: eight
+# families across ten lessons leaves at most 5 clean debut slots (L1–L5)
+# before the checkpoint/consolidation/mastery block (L8–L10) and the
+# recombination/negation slots (L6–L7) that every wave has used since m22 —
+# fitting eight debuts into five slots means doubling up, which halves the
+# "≥3 answer positions at debut" room per family. Not attempted.
+#
+# ── REJECTED ALTERNATIVE 2: skip straight to a fourth new-idea module ─────
+# No backlog signal supports one. The eight-verb list has been named
+# "next" by name in TWO prior headers (m24's and m25's) with zero
+# competing candidate named anywhere for m26 — same reasoning m25's header
+# used to justify itself against a manufactured consolidation module.
+#
+# ── NO RE-TEACH: THE YO=ÉL COLLISION IS ALREADY OWNED ──────────────────────
+# Same as m24. This module's L1 card states THIS module's idea (five more
+# everyday verbs, this time the "completeness" framing rather than a
+# surprise-contrast framing) and does not re-explain the yo=él mechanism.
+# Every "first slot" atom below still must not stand subjectless in an
+# answer position.
+#
+# ── PERSONS: ALL FOUR, FROM L1 (same as m22/m24, unchanged reasoning) ─────
+# No person-staging. vosotros still never drilled (m18's rule, LatAm-
+# neutral course).
+#
+# ── ACCENTS: SAME RULE AS m22/m24, VERIFIED PER-VERB AGAINST
+# conjugationTables.ts (pin E12 — every cell below copied verbatim, not
+# reconstructed) ─────────────────────────────────────────────────────────
+#   - estudiar, trabajar (-ar family): accent ONLY on nosotros —
+#     estudiábamos, trabajábamos. The yo/tú/ellos forms carry none.
+#   - vivir, comer, salir (-er/-ir family): accent on EVERY form's í —
+#     vivía/vivías/vivíamos/vivían, comía/comías/comíamos/comían,
+#     salía/salías/salíamos/salían. No exceptions, same rule as
+#     hacer/querer/poder/venir in m24 and tener/ver in m22.
+#
+# ── NO NEW PRETERITE, NO PROGRESSIVE (unchanged bans, restated) ───────────
+# No preterite form — new or PRIOR-but-unregistered — is introduced here;
+# ALL FIVE of this module's verbs already have PRIOR preterite singular
+# forms (m19: comí/comiste/comió, viví/vivió, trabajé/trabajaste/trabajó,
+# salí/saliste/salió, estudié/estudió — grep-verified against
+# curriculum/m19.ts and m21.ts), which is exactly what makes this module's
+# own signature contrast possible (see "SIGNATURE CONTRAST" below) — but no
+# NEW preterite cell is registered. NOT PRIOR (zero hits, do not
+# manufacture): «viviste», the nosotros/ellos preterite of trabajar
+# (trabajamos/trabajaron already covers trabajaron — trabajamos-preterite
+# is unregistered), «salimos»/«salieron» (preterite), «estudiaste»/
+# «estudiamos»(preterite). Progressive is still banned by pin E7 — no
+# `-aba`/`-ía` + -ndo periphrasis with any of this module's own new atoms.
+#
+# ── SIGNATURE CONTRAST: SAME VERB, TWO PASTS, ONE «pero» ───────────────────
+# m24 could only show the "same verb, different tense, different job"
+# minimal pair for TWO of its five verbs (estaba/estuve, venía/vino) — the
+# other three (hacer/querer/poder) have no usable PRIOR preterite to pair
+# against (hizo exists but is thin, quise/pude are banned). This module is
+# the first wave where ALL FIVE new verbs already have a PRIOR preterite
+# counterpart in the SAME lemma. That is this module's own extra value,
+# not a new grammar idea: L6 pairs a HABITUAL imperfect clause against a
+# ONE-TIME preterite clause of the SAME verb, split by «pero» and two
+# different PRIOR time markers (siempre/todos los días vs. ayer/anoche/la
+# semana pasada) — «siempre comía en casa, pero ayer comí en el
+# restaurante». This is the exact marker-driven disambiguation technique
+# m21 already taught for «hablamos»/«vivimos» (see "HOMOGRAPH TRAP" below),
+# now generalized across five verbs and two genuinely different tenses
+# instead of one homograph. Not a new mechanic — m23 already owns
+# preterite-vs-imperfect contrast as a teaching point; this module reuses
+# it with fresh verbs, in L6 (recombination), not L9 (which stays
+# present-vs-imperfect only, per m22/m24's own L9 restriction, restated
+# below).
+#
+# ── HOMOGRAPH TRAP: «vivimos» ALREADY DOES DOUBLE DUTY — DO NOT CONFUSE
+# WITH «vivíamos» ──────────────────────────────────────────────────────────
+# «vivimos» (PRIOR, m18 present / m21 preterite) is a genuinely
+# tense-ambiguous PRIOR word — the exact same surface means "we live" AND
+# "we lived," disambiguated ONLY by a time marker, per m21's own
+# hablamos/vivimos pin (`m21.test.ts` lines ~174–208, "carry an explicit
+# past reading... disambiguated by context wherever produced" — a real,
+# gate-enforced pin, UNCHANGED and still in force, this module does not
+# touch it). «vivíamos» (this module, new) is NOT part of that ambiguity —
+# it has its own unmistakable -íamos ending and only ever means "we used to
+# live." Do not gloss «vivíamos» as if it resolves or replaces the
+# «vivimos» ambiguity; they are three readings on the same lemma (present
+# vivimos / preterite vivimos / imperfect vivíamos) and a careful drafting
+# agent should let the nosotros-family lesson (L1) make that explicit in
+# one clause, not a full card (budget is spent on the module's own idea).
+#
+# ── HOMOGRAPH TRAP: «ir» INFINITIVE IS NOT A LIVE ATOM — A GENERAL WARNING,
+# NOW VERIFIED SAFE FOR THIS MODULE'S OWN FIVE INFINITIVES ─────────────────
+# `docs/handoff-2026-09-10-overnight-authoring.md` (08:06 entry) records a
+# follow-on: the bare infinitive «ir» is used as printed TEXT throughout
+# m11–m24 but was never registered via `atom()` — so crediting it in an
+# `atoms:` field would reference a non-existent atom and silently drop SRS
+# credit (m24-L3's own fragments never put "ir" in an `atoms:` array even
+# though "ir" is printed in "quería ir al cine" — grep-verified,
+# `atoms: ["quería", "cine", "de niño"]` never includes "ir"). Checked
+# specifically for THIS module: «vivir» (m11), «comer» (m11), «estudiar»
+# (m10), «trabajar» (m10), «salir» (m15) are ALL registered via `atom()`
+# in their own curriculum files (grep-verified,
+# `grep -n 'surface: "vivir"' curriculum/m11.ts` etc.) — unlike «ir», this
+# module's own five infinitives ARE live atoms and MAY be credited in
+# `atoms:` when printed. Do not generalize the «ir» exception to every
+# infinitive in the course; check each one.
+#
+# ── NOT PRIOR present-tense forms — do not manufacture to fill a paradigm
+# (grep-verified zero hits m1–m25) ─────────────────────────────────────────
+# trabajamos, trabajan, sales, salimos, salen, estudiamos, estudian. (vivir
+# and comer have all six present persons PRIOR already; trabajar/salir/
+# estudiar are missing their nosotros and ellos present cells.)
+#
+# ── REUSE m23's AND m25's CONNECTIVES — do not let either set go quiet ────
+# «cuando», «mientras», «de repente», «entonces» (m23) AND «porque», «por
+# eso» (m25, now fully registered/shipped — courseAtoms.ts, index.ts,
+# grammarHelpers.ts, placementBank.ts, es-quality.test.ts all confirmed)
+# are all PRIOR and legal from L1. This is the first imperfect-wave module
+# that can pair EITHER toolkit with fresh verb material — «vivía en México
+# porque trabajaba en la tienda» cashes m25's causal connective against
+# brand-new verb range for the first time. Doctrine
+# ([[interleave-dont-block-teach]]) argues for keeping both alive rather
+# than five debut-heavy lessons running with zero recombination: L6 (the
+# same-verb imperfect/preterite contrast) and L7 (negation/questions) both
+# weave in at least one of each toolkit; L10's mastery keeps both alive one
+# more module out.
+#
+# ── CONCURRENT-EDIT CAVEAT ─────────────────────────────────────────────────
+# Per `docs/handoff-2026-09-10-overnight-authoring.md`'s 09:07 entry, an ES
+# m25 REVIEWER pass may still be running concurrently with this module's
+# drafting — m25 itself is fully committed and registered (verified
+# directly: courseAtoms.ts/index.ts/grammarHelpers.ts/placementBank.ts/
+# es-quality.test.ts all carry m25 entries, `m25.test.ts` exists), but a
+# reviewer fixing m25's content (foils, glosses, one audio string) could
+# still be landing small changes underneath a drafting agent. Re-grep any
+# m25-sourced surface (porque, por eso, and the m25 lesson context words)
+# before relying on it if this brief is used more than a few hours after
+# it was written.
+#
+# ── NO NEW EMOJI, NO NEW NOUN THIS MODULE ──────────────────────────────────
+# Same precedent as m19/m21/m22/m23/m24/m25. All five new atom families are
+# verb forms. Two of this module's five infinitives already carry a PRIOR
+# emoji from their own original teaching (trabajar 👷 m10, estudiar 📚
+# m10) — reusing those emoji is PRIOR reuse, not a new debut. Narrative
+# color otherwise comes from PRIOR nouns-with-emoji (la escuela 🏫, el
+# parque 🌳, la playa 🏖️, el cine 🎬, la fiesta 🎉, el mercado 🛒, la
+# tienda 🏪, casa 🏠, el trabajo 💼, el museo 🏛️) plus PRIOR non-emoji
+# nouns (la tarea m15, el amigo, restaurante m18, padre/madre/abuela/abuelo)
+# and the fixed cast.
+#
+# ── ACCENT: FRESH COLOUR — CYAN, VERIFIED UNUSED ────────────────────────
+# Checked every `accent:` pair in `curriculum/index.ts` (grep-verified:
+# zero hits for `#22d3ee` and `#0891b2`). Cyan reads as distinct at a
+# glance from m21 sky (`#38bdf8`→`#0c4a6e`), m22 indigo (`#818cf8`→
+# `#3730a3`), m23 red (`#ef4444`→`#991b1b`), m24 fuchsia (`#d946ef`→
+# `#86198f`), and m25 blue (`#3b82f6`→`#1d4ed8`) — the five most recent —
+# as well as every other module's accent pair (`#0ea5e9`, `#6366f1`,
+# `#f59e0b`, `#10b981`, `#f472b6`, `#a855f7`, `#34d399`, `#f43f5e`,
+# `#a78bfa`, `#fb923c`, `#2dd4bf`, `#a3e635`, `#c084fc`).
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # vivir — regular present (vivo) AND regular preterite (viví, m19);
+  # REGULAR in the imperfect too — no surprise, just completeness. «where
+  # you used to live» is the backbone of a memory narration. Nosotros form
+  # «vivíamos» sits beside the ALREADY-tense-ambiguous PRIOR «vivimos»
+  # (present/preterite, m18/m21) — see homograph trap above.
+  - { surface: "vivía", meaningEn: "I was living, he/she/you (usted) was living", partOfSpeech: "verb", kind: "vocab", hint: "vee-VEE-ah — accent on every form, unlike present «vivo» or preterite «viví». Same yo=él surface you met in m22/m24 (tenía, hacía…) — only the subject tells you who." }
+  - { surface: "vivías", meaningEn: "you (tú) were living", partOfSpeech: "verb", kind: "vocab", hint: "vee-VEE-ahs" }
+  - { surface: "vivíamos", meaningEn: "we were living, we used to live", partOfSpeech: "verb", kind: "vocab", hint: "vee-vee-AH-mos — NOT the same word as PRIOR «vivimos» (present OR preterite, disambiguated only by a marker, m18/m21); «vivíamos» always means the ongoing/habitual past." }
+  - { surface: "vivían", meaningEn: "they were living, you all were living", partOfSpeech: "verb", kind: "vocab", hint: "vee-VEE-ahn" }
+  # comer — regular present (como) AND regular preterite (comí, m19);
+  # REGULAR in the imperfect too.
+  - { surface: "comía", meaningEn: "I was eating, he/she/you (usted) was eating", partOfSpeech: "verb", kind: "vocab", hint: "koh-MEE-ah — accent on every form, unlike present «como» or preterite «comí»" }
+  - { surface: "comías", meaningEn: "you (tú) were eating", partOfSpeech: "verb", kind: "vocab", hint: "koh-MEE-ahs" }
+  - { surface: "comíamos", meaningEn: "we were eating, we used to eat", partOfSpeech: "verb", kind: "vocab", hint: "koh-mee-AH-mos" }
+  - { surface: "comían", meaningEn: "they were eating, you all were eating", partOfSpeech: "verb", kind: "vocab", hint: "koh-MEE-ahn" }
+  # estudiar — regular present (estudio) AND regular preterite (estudié,
+  # m19); REGULAR in the imperfect too. -ar family: accent only on
+  # nosotros.
+  - { surface: "estudiaba", meaningEn: "I was studying, he/she/you (usted) was studying", partOfSpeech: "verb", kind: "vocab", hint: "es-too-DYAH-bah — no accent. Regular -aba, same shape as «estaba» (m24)." }
+  - { surface: "estudiabas", meaningEn: "you (tú) were studying", partOfSpeech: "verb", kind: "vocab", hint: "es-too-DYAH-bahs" }
+  - { surface: "estudiábamos", meaningEn: "we were studying, we used to study", partOfSpeech: "verb", kind: "vocab", hint: "es-too-dyah-BAH-mos — the ONE -ar form that carries an accent" }
+  - { surface: "estudiaban", meaningEn: "they were studying, you all were studying", partOfSpeech: "verb", kind: "vocab", hint: "es-too-DYAH-bahn" }
+  # trabajar — regular present (trabajo) AND regular preterite (trabajé,
+  # m19); REGULAR in the imperfect too. -ar family: accent only on
+  # nosotros. NOT PRIOR present: trabajamos, trabajan — do not manufacture.
+  - { surface: "trabajaba", meaningEn: "I was working, he/she/you (usted) was working", partOfSpeech: "verb", kind: "vocab", hint: "tra-ba-HAH-bah — no accent. Regular -aba, same shape as «estaba»/«estudiaba»." }
+  - { surface: "trabajabas", meaningEn: "you (tú) were working", partOfSpeech: "verb", kind: "vocab", hint: "tra-ba-HAH-bahs" }
+  - { surface: "trabajábamos", meaningEn: "we were working, we used to work", partOfSpeech: "verb", kind: "vocab", hint: "tra-ba-hah-BAH-mos — the ONE -ar form that carries an accent" }
+  - { surface: "trabajaban", meaningEn: "they were working, you all were working", partOfSpeech: "verb", kind: "vocab", hint: "tra-ba-HAH-bahn" }
+  # salir — irregular-yo present (salgo) but regular preterite (salí,
+  # m19); REGULAR in the imperfect. Never stack «salía» with the bare
+  # infinitive «salir» in one clause (a same-verb double-verb error) — if a
+  # sentence needs "wanted to go out," pair «salía» with a DIFFERENT verb's
+  # infinitive slot or use «quería salir» only where «salir» itself is the
+  # infinitive object, never alongside a second conjugated form of salir.
+  - { surface: "salía", meaningEn: "I was leaving/going out, he/she/you (usted) was leaving/going out", partOfSpeech: "verb", kind: "vocab", hint: "sah-LEE-ah — accent on every form, regular here unlike irregular-yo present «salgo» or preterite «salí»" }
+  - { surface: "salías", meaningEn: "you (tú) were leaving/going out", partOfSpeech: "verb", kind: "vocab", hint: "sah-LEE-ahs" }
+  - { surface: "salíamos", meaningEn: "we were leaving/going out, we used to go out", partOfSpeech: "verb", kind: "vocab", hint: "sah-lee-AH-mos" }
+  - { surface: "salían", meaningEn: "they were leaving/going out, you all were leaving/going out", partOfSpeech: "verb", kind: "vocab", hint: "sah-LEE-ahn" }
+
+lessons:
