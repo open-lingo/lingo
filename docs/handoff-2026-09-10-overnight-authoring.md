@@ -146,3 +146,4 @@ fan-out; save small notes here after every step (auto-compaction is on).
 - 14:33 Dispatched: JA m42 app-gate fixer (m42.ir.yaml only) + FR m21 author («De cent à mille», speaking only on round multiples). In flight: ES m30 reviewer, ES m31 brief, JA m43 author, KO story-mode, FR title gate. Queue: FR negated-frame speech probe (after m21 author, touches frSpeech*).
 - 14:35 KO story-mode extraction LANDED fc6f96ae (m3/m7 catalogs; i18n+stories 113 passed). FOLLOW-ON: drafter register cue failed on story ja-gloss (38/38 plain -다) — the m9 draft lane must check/patch the ja-gloss register cue before batch drafting; m6/m8 story rows (43) drafted in rung 2. Next KO: m9 draft.
 - 14:36 KO m9 draft+review lane dispatched (rung 2 starts; drafter です/ます→해요체 cue patch folded in).
+- 14:38 ES m31 brief committed 348e70fb; m31 author dispatched (brief fixed the m30 brief's wrong compile/review-pool script paths → scripts/).
