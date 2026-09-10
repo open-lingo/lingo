@@ -3170,13 +3170,12 @@
         },
         {
           "kind": "sentence",
-          "ja": "うたを うたうから せんせいに はなたばを あげたい。",
-          "en": "Because we sing a song, I want to give the teacher a bouquet",
+          "ja": "いつも しんせつに おしえる せんせいに はなたばを あげたい。",
+          "en": "I want to give a bouquet to the teacher who always teaches so kindly",
           "exercises": [
             "v-tai",
             "ageru",
-            "ni-recipient",
-            "kara-because"
+            "ni-recipient"
           ],
           "mode": "build"
         },
@@ -3239,8 +3238,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "びょういんに つくから こんど しんせつな いしゃに くすりを もらいたい。",
-          "en": "Because I'll arrive at the hospital, next time I want to get medicine from a kind doctor",
+          "ja": "まいにち くすりを のむから こんど しんせつな いしゃに くすりを もらいたい。",
+          "en": "I take medicine every day, so next time I want to get some from the kind doctor",
           "exercises": [
             "v-tai",
             "morau",

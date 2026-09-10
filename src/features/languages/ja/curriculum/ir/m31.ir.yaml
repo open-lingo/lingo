@@ -879,13 +879,13 @@ lessons:
       # module with no card of their own — the module used the form and never
       # taught it.
       - { kind: rule, grammarPointId: v-tai, variant: transfer }
-      - { kind: sentence, ja: "うたを うたうから せんせいに はなたばを あげたい。", en: "Because we sing a song, I want to give the teacher a bouquet", exercises: [v-tai, ageru, ni-recipient, kara-because], mode: build }
+      - { kind: sentence, ja: "いつも しんせつに おしえる せんせいに はなたばを あげたい。", en: "I want to give a bouquet to the teacher who always teaches so kindly", exercises: [v-tai, ageru, ni-recipient], mode: build }
       - { kind: sentence, ja: "たんじょうびに ケーキを もらいたい。", en: "I want to get a cake for my birthday", exercises: [v-tai, morau, ni-time], mode: build }
       - { kind: sentence, ja: "がっこうで ならう がくせいに ノートを あげたい。", en: "I want to give a notebook to the student who studies at school", exercises: [v-tai, ageru, ni-recipient], mode: build }
       - { kind: sentence, ja: "はなが すきだから はなたばを もらいたい。", en: "I like flowers, so I want to get a bouquet", exercises: [v-tai, morau, kara-because], mode: listening }
       - { kind: particle-cloze, stem: "せんせいに はなたばを ", tail: "。", answer: "あげたい", options: ["あげたい", "もらいたい", "くれない"], en: "I want to give the teacher a bouquet", explanation: "the bouquet is going out to the teacher, so the verb is あげる and 〜たい says I have not done it yet. もらいたい would have it coming to me instead, and くれない says somebody else is not giving." }
       - { kind: sentence, ja: "いつも ノートを かす ともだちに おれいの カードを あげたい。", en: "I want to give a thank-you card to the friend who always lends me notebooks", exercises: [v-tai, ageru, no-possession], mode: build }
-      - { kind: sentence, ja: "びょういんに つくから こんど しんせつな いしゃに くすりを もらいたい。", en: "Because I'll arrive at the hospital, next time I want to get medicine from a kind doctor", exercises: [v-tai, morau, na-adj-present, kara-because], mode: build }
+      - { kind: sentence, ja: "まいにち くすりを のむから こんど しんせつな いしゃに くすりを もらいたい。", en: "I take medicine every day, so next time I want to get some from the kind doctor", exercises: [v-tai, morau, na-adj-present, kara-because], mode: build }
       - { kind: sentence, ja: "その とけいは たかいけど あにの たんじょうびだから あげたい。", en: "That watch is expensive, but it's my older brother's birthday, so I want to give it to him", exercises: [v-tai, ageru, kedo, kara-because], mode: build }
       - { kind: sentence, ja: "たんじょうびに おおきい ケーキを もらいたいんです。", en: "The thing is, I want to get a big cake for my birthday", exercises: [v-tai, morau, n-desu], mode: build }
       - { kind: sentence, ja: "がくせいに ノートを あげたい。", en: "I want to give the student a notebook", exercises: [v-tai, ageru], mode: translate }
