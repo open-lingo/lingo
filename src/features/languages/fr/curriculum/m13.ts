@@ -60,20 +60,24 @@
  *     property that licenses the ne-drop debut licenses this: a
  *     dialogue_sim NPC line is flavor, not taught content, and introduces
  *     no new verb form (every word beside "hier" itself is already taught:
- *     "on", "parle", "de", "demain" all pre-date this module).
+ *     "bon", "on", "parle", "demain" all pre-date this module). The line
+ *     fronts "hier" as its own question ("Hier ? On parle demain ?")
+ *     rather than "on parle d'hier demain ?" specifically to avoid the
+ *     untaught d'-elision (de + vowel word) playbook §6 defers — flavor
+ *     text is not exempt from that ban either.
  *
  * VOICING LEDGER (printed speak → licenses later cue:"recall"):
- *   tu sais où est la gare ? L1 · je ne sais pas L1 · je n'aime pas le
- *   chocolat L3 · pourquoi tu ne vas pas au cinéma ? L4 · je n'ai pas de
- *   chat L5 · elle n'est pas grande L6 · tu sais où est Léa ? L7 ·
- *   c'est cher L9 (recall, m12) · moi aussi L9 (recall, m3).
- *   recalls: tu sais où est la gare ? L7 (internal) · où est le musée ?
- *   L2 (m4) · il parle français L2 (m11) · je n'aime pas le chocolat L8
- *   (internal) · c'est cher L4/L9 (m12) · je vais au cinéma L4 (m5) ·
- *   c'est lundi L8 (m8) · moi aussi L9 (m3) · je ne sais pas L10
- *   (internal) · moi non plus L10 (internal). Total 10 recalls, 4
- *   cross-module (m4/m11/m12/m5/m8/m3 — six distinct prior modules touched)
- *   — comfortably over the ≥8 floor.
+ *   je ne sais pas L1 · tu sais où est la gare ? L1 · il ne parle pas L2 ·
+ *   tu n'aimes pas la pizza L3 · parce que c'est cher L4 · je n'ai pas de
+ *   livre L5 · ce n'est pas un musée L6 · tu sais où est Léa ? L7 ·
+ *   je n'aime pas le chocolat L8 — 9 printed targets.
+ *   recalls: où est le musée ? L2 (m4) · il parle français L3 (m11) ·
+ *   c'est cher L4 (m12) · il ne parle pas L5 (internal, L2) · c'est lundi
+ *   L6 (m8) · tu sais où est la gare ? L7 (internal, L1) · c'est lundi L8
+ *   (internal, L6) · c'est cher L9 (internal, L4) · moi aussi L9 (m3) ·
+ *   je vais au cinéma L10 (m5) · je ne sais pas L10 (internal, L1). 11
+ *   recalls total, 6 tracing to a prior module (m3/m4/m5/m8/m11/m12) —
+ *   comfortably over the ≥8 floor.
  *
  * Cast: reused faces (Léa, Thomas, Hugo, Marie) asking where things are and
  * getting shrugged off; a L9 café scene mixing casual/negative register; a
@@ -245,7 +249,7 @@ function lesson2(): LessonStep[] {
   return [
     infoStep(
       "fr-m13-2-info-nepas",
-      "Ne … pas autour d'un verbe",
+      "Ne … pas around a verb",
       "You know «je ne comprends pas». The same frame wraps ANY verb you conjugate: «ne» before it, «pas» after — «je ne parle pas anglais». Before a vowel, «ne» shrinks to «n'» — that's next lesson.",
     ),
     {
@@ -1229,9 +1233,9 @@ function lesson10(): LessonStep[] {
           id: "t3-tease",
           npc: {
             speaker: "Marie",
-            kana: "Bon, on parle d'hier demain ?",
-            audioText: "bon, on parle d'hier demain ?",
-            gloss: "Okay, we'll talk about yesterday tomorrow?",
+            kana: "Bon, hier ? On parle demain ?",
+            audioText: "bon, hier ? on parle demain ?",
+            gloss: "Okay, yesterday? We'll talk tomorrow?",
           },
           goal: "Agree.",
           reply: {
