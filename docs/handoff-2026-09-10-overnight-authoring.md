@@ -57,3 +57,4 @@ fan-out; save small notes here after every step (auto-compaction is on).
 - 08:13 — FR m14 review COMMITTED (2 content fixes, no new audio). FR m15 author dispatched from docs/fr-m15-brief-2026-09-10.md.
 - 08:13 — FR m15 author + FR m16 brief writer dispatched. Active: JA m40 author, ES m24 reviewer, FR m15 author, FR m16 brief.
 - 08:17 — ES m24 review COMMITTED abc1b5bd (14 foil fixes, no audio; class finding: ILLEGAL_PRESENT_FORMS pins don't scan tiles/distractors — candidate gate extension, recorded as follow-on, not raised tonight). ES m25 author dispatched. Active: JA m40 author, FR m15 author, FR m16 brief, ES m25 author.
+- 08:21 — FR m16 brief committed (marked not-dispatchable until m15 lands; m15 author still writing — m15.ts not yet on disk at 08:21).
