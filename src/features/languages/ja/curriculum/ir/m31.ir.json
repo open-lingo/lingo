@@ -3389,11 +3389,12 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "たんじょうびに ちちに とけいを もらった。",
-          "en": "I got a watch from my father for my birthday",
+          "ja": "プレゼントを かう まえに たんじょうびに ちちに とけいを もらった。",
+          "en": "Before buying a present, I got a watch from my father for my birthday",
           "exercises": [
             "ta-form",
-            "morau"
+            "morau",
+            "mae-ni"
           ],
           "mode": "build"
         },
@@ -3409,11 +3410,12 @@
         },
         {
           "kind": "sentence",
-          "ja": "せんせいに はなたばを あげた。",
-          "en": "I gave the teacher a bouquet",
+          "ja": "せんせいを まつ とき せんせいに はなたばを あげた。",
+          "en": "While waiting for the teacher, I gave the teacher a bouquet",
           "exercises": [
             "ta-form",
-            "ageru"
+            "ageru",
+            "toki"
           ],
           "mode": "listening"
         },
@@ -3452,11 +3454,12 @@
         },
         {
           "kind": "sentence",
-          "ja": "しんせつな がくせいが かさを くれた。",
-          "en": "A kind student gave me an umbrella",
+          "ja": "がっこうに いく まえに しんせつな がくせいが かさを くれた。",
+          "en": "Before going to school, a kind student gave me an umbrella",
           "exercises": [
             "kureru",
-            "na-adj-present"
+            "na-adj-present",
+            "mae-ni"
           ],
           "mode": "build"
         },

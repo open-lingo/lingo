@@ -908,13 +908,13 @@ lessons:
     focus: "あげる, くれる and もらう across past and non-past, with the receiver said and unsaid"
     introduces: []
     beats:
-      - { kind: sentence, ja: "たんじょうびに ちちに とけいを もらった。", en: "I got a watch from my father for my birthday", exercises: [ta-form, morau], mode: build }
+      - { kind: sentence, ja: "プレゼントを かう まえに たんじょうびに ちちに とけいを もらった。", en: "Before buying a present, I got a watch from my father for my birthday", exercises: [ta-form, morau, mae-ni], mode: build }
       - { kind: sentence, ja: "ともだちが けいたいを くれた。", en: "My friend gave me a cell phone", exercises: [ta-form, kureru], mode: build }
-      - { kind: sentence, ja: "せんせいに はなたばを あげた。", en: "I gave the teacher a bouquet", exercises: [ta-form, ageru], mode: listening }
+      - { kind: sentence, ja: "せんせいを まつ とき せんせいに はなたばを あげた。", en: "While waiting for the teacher, I gave the teacher a bouquet", exercises: [ta-form, ageru, toki], mode: listening }
       - { kind: sentence, ja: "ともだちに かさを かりた。", en: "I borrowed an umbrella from my friend", exercises: [ta-form, ni-recipient], mode: build }
       - { kind: sentence, ja: "かいしゃから きねんの とけいを もらう。", en: "I get a commemorative watch from the company", exercises: [kara-origin, morau], mode: build }
       - { kind: particle-cloze, stem: "いもうとが ケーキを くれたから ", tail: "。", answer: "よろこんだ", options: ["よろこんだ", "あげた", "かした"], en: "My little sister gave me a cake, so I was delighted", explanation: "the cake arriving is a reason to be delighted, which is what よろこぶ says. あげた and かした are both things you do to somebody else, and neither is a reaction." }
-      - { kind: sentence, ja: "しんせつな がくせいが かさを くれた。", en: "A kind student gave me an umbrella", exercises: [kureru, na-adj-present], mode: build }
+      - { kind: sentence, ja: "がっこうに いく まえに しんせつな がくせいが かさを くれた。", en: "Before going to school, a kind student gave me an umbrella", exercises: [kureru, na-adj-present, mae-ni], mode: build }
       - { kind: listening-comp, audio: "せんせいが じしょを くださった。", answer: "The teacher was kind enough to give me a dictionary", distractors: ["I gave the teacher a dictionary", "A student was kind enough to give me a dictionary", "The teacher was kind enough to give me a notebook"], exercises: [kureru, ta-form] }
       - { kind: sentence, ja: "いもうとに おかねを かした。", en: "I lent my little sister money", exercises: [ta-form, ni-recipient], mode: build }
       - { kind: sentence, ja: "プレゼントを もらったから うれしかった。", en: "I got a present, so I was happy", exercises: [ta-form, kara-because], mode: translate }
