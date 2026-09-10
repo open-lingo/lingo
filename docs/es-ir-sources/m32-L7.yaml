@@ -1,0 +1,129 @@
+  # ── L7 · Shopping — «voy a comprarlo/la/los» (m29) + «cuánto
+  #    cuesta»/«cuestan» (m12), recombined against this module's own
+  #    nouns for the first time. No new atoms, no new comprarX surface
+  #    (only the 7 registered fused-clitic infinitives exist — no
+  #    «comprarlas» is invented here). No imageMcq/info — map's
+  #    revealNote refreshes the frame. One recall of L6's win line.
+  - n: 7
+    template: free
+    title: "Voy a comprarla"
+    description: "This module's nouns go shopping. «voy a comprarlo/la/los» (m29) and «¿cuánto cuesta?» (m12) — no new words, just the right pronoun for each noun's gender and number."
+    steps:
+      - kind: map
+        id: l7-map-voyacomprarla
+        tokens: ["voy", "a", "comprarla"]
+        pairs:
+          - { en: "I'm going", tokenIndex: 0 }
+          - { en: "to", tokenIndex: 1 }
+          - { en: "buy it", tokenIndex: 2 }
+        audioText: "voy a comprarla"
+        revealNote: "«voy a comprarla» — «voy» (m9) plus «comprarla» (m29), now working for this module's own nouns."
+      - kind: speakLit
+        id: l7-sp-recall
+        es: "la chaqueta verde es pequeña"
+        en: "The green jacket is small"
+        cue: recall
+        atoms: ["chaqueta", "verde", "es", "pequeño"]
+      - kind: buildLit
+        id: l7-b-cuantocuestalachaqueta
+        es: "¿cuánto cuesta la chaqueta?"
+        en: "How much does the jacket cost?"
+        atoms: ["cuánto", "cuesta", "chaqueta"]
+        tiles: ["cuestan", "los"]
+      - kind: clozeLit
+        id: l7-c-voyacomprarla
+        es: "voy a comprarla"
+        en: "I'm going to buy it"
+        blank: "comprarla"
+        options: ["comprarla", "comprarlo"]
+        atoms: ["voy", "comprarla"]
+        why: "«chaqueta» is feminine, so «comprarla», not «comprarlo»."
+      - kind: listenCompLit
+        id: l7-lc-cuantocuestanloscalcetines
+        es: "¿cuánto cuestan los calcetines?"
+        en: "How much do the socks cost?"
+        atoms: ["cuánto", "cuestan", "calcetines"]
+        distractorsEn:
+          - "How much does the jacket cost?"
+          - "How much do the gloves cost?"
+          - "How much is the scarf?"
+      - kind: mcq
+        id: l7-q-comprarlo
+        prompt: "Which one means 'I'm going to buy it' (the pants)?"
+        correct: "voy a comprarlo"
+        distractors: ["voy a comprarla", "voy a comprarlos", "voy a comprar"]
+        atoms: ["voy", "comprarlo"]
+        why: "«pantalón» is masculine singular, so «comprarlo», not «comprarla» or «comprarlos»."
+      - kind: buildLit
+        id: l7-b-voyacomprarlos
+        es: "voy a comprarlos"
+        en: "I'm going to buy them"
+        atoms: ["voy", "comprarlos"]
+        tiles: ["comprarla", "comprarlo"]
+      - kind: audioWimcq
+        id: l7-ear-libro
+        target: { surface: "libro", emoji: "📖" }
+        distractors:
+          - { surface: "casa", emoji: "🏠" }
+          - { surface: "perro", emoji: "🐶" }
+      - kind: agreementLit
+        id: l7-agr-cuestacuestan
+        en: "The scarf costs a lot, and the gloves cost a lot too"
+        audioText: "la bufanda cuesta mucho, y los guantes cuestan mucho también"
+        atoms: ["bufanda", "cuesta", "mucho", "guantes", "cuestan", "también"]
+        segments:
+          - { text: "la bufanda " }
+          - { blank: { id: "p1", answer: "cuesta", options: ["cuesta", "cuestan"] } }
+          - { text: " mucho, y los guantes " }
+          - { blank: { id: "p2", answer: "cuestan", options: ["cuestan", "cuesta"] } }
+          - { text: " mucho también" }
+      - kind: listenBuildLit
+        id: l7-lb-voyacomprarla
+        es: "voy a comprarla"
+        en: "I'm going to buy it"
+        atoms: ["voy", "comprarla"]
+        tiles: ["comprarlo", "comprarlos"]
+      - kind: textMcq
+        id: l7-tm-comprarla
+        target: "comprarla"
+        distractors: ["comparar", "comprender", "completar"]
+      - kind: sim
+        id: l7-sim-ana-compras
+        scene: { emoji: "🛍️", title: "Ana is shopping with you", setting: "You're at a clothing store together." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Cuánto cuesta la chaqueta verde?", audioText: "¿cuánto cuesta la chaqueta verde?", gloss: "How much does the green jacket cost?" }
+            goal: "Say you're going to buy it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "voy a comprarla" }
+                - { id: "wrong1", text: "voy a comprarlo" }
+                - { id: "wrong2", text: "vas a comprarla" }
+              correctOptionId: "right"
+              audioText: "voy a comprarla"
+            replyGloss: "I'm going to buy it."
+            explanation: "«chaqueta» is feminine, so «comprarla», not «comprarlo». And «voy», not «vas» — that's your own word for yourself."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y los calcetines? ¿Cuánto cuestan?", audioText: "¿y los calcetines? ¿cuánto cuestan?", gloss: "And the socks? How much do they cost?" }
+            goal: "Say you're going to buy them too."
+            reply:
+              mode: build
+              tiles: ["voy", "a", "comprarlos", "también", "comprarla", "comprarlo"]
+              answer: "voy a comprarlos también"
+            replyGloss: "I'm going to buy them too."
+            explanation: "«calcetines» is plural, so «comprarlos», not «comprarla» or «comprarlo»."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "voy", target: "I'm going" }
+          - { source: "comprarlo", target: "to buy it (masc.)" }
+          - { source: "comprarla", target: "to buy it (fem.)" }
+          - { source: "comprarlos", target: "to buy them" }
+          - { source: "cuánto", target: "how much" }
+          - { source: "cuesta", target: "it costs" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "voy a comprarla — ¿cuánto cuesta la chaqueta?"
+        en: "I'm going to buy it — how much does the jacket cost?"
+        atoms: ["voy", "comprarla", "cuánto", "cuesta", "chaqueta"]

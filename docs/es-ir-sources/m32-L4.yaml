@@ -1,0 +1,135 @@
+  # ── L4 · «¿Tienes guantes grandes?» — «guantes» debuts, same
+  #    plural-only pattern as «calcetines» (L3) and «dientes» (m17).
+  #    No dedicated info card (light context via revealNote only, per
+  #    m30-L2 precedent — the pattern was already taught in L3). SVG
+  #    emoji_u1f9e4.svg vendored before this lesson ships (4785 bytes).
+  #    One recall of L3's win line.
+  - n: 4
+    template: free
+    title: "¿Tienes guantes grandes?"
+    description: "«guantes» — plural-only, same pattern as «calcetines». This lesson asks about them, not just states them: «¿tienes guantes grandes?»"
+    steps:
+      - kind: map
+        id: l4-map-tienesguantesgrandes
+        tokens: ["tienes", "guantes", "grandes"]
+        pairs:
+          - { en: "you have", tokenIndex: 0 }
+          - { en: "gloves", tokenIndex: 1 }
+          - { en: "big", tokenIndex: 2 }
+        audioText: "¿tienes guantes grandes?"
+        revealNote: "«guantes» — plural-only, same pattern as «calcetines» (L3). No article needed: «tienes guantes grandes»."
+      - kind: speakLit
+        id: l4-sp-recall
+        es: "tengo calcetines negros"
+        en: "I have black socks"
+        cue: recall
+        atoms: ["tengo", "calcetines", "negro"]
+      - kind: imageMcq
+        id: l4-im-guantes
+        target: { surface: "guantes", meaningEn: "gloves", emoji: "🧤" }
+        distractors:
+          - { surface: "calcetines", emoji: "🧦" }
+          - { surface: "chaqueta", emoji: "🧥" }
+          - { surface: "pantalón", emoji: "👖" }
+      - kind: buildLit
+        id: l4-b-tengoguantesnegros
+        es: "tengo guantes negros"
+        en: "I have black gloves"
+        atoms: ["tengo", "guantes", "negro"]
+        tiles: ["tienes", "blancos"]
+      - kind: clozeLit
+        id: l4-c-guantesgrandes
+        es: "tengo guantes grandes"
+        en: "I have big gloves"
+        blank: "grandes"
+        options: ["grandes", "grande"]
+        atoms: ["tengo", "guantes", "grande"]
+        why: "«guantes» is plural, so its adjective takes the plural -s: «grandes», not «grande»."
+      - kind: listenCompLit
+        id: l4-lc-guantespequenos
+        es: "tengo guantes pequeños"
+        en: "I have small gloves."
+        atoms: ["tengo", "guantes", "pequeño"]
+        distractorsEn:
+          - "I have big gloves."
+          - "You have small gloves."
+          - "I have small socks."
+      - kind: mcq
+        id: l4-q-guantes
+        prompt: "Which one means 'you have big gloves'?"
+        correct: "tienes guantes grandes"
+        distractors: ["tienes guante grande", "tiene guantes grandes", "tienes guantes grande"]
+        atoms: ["tienes", "guantes", "grande"]
+        why: "«guantes» is always plural — never «guante» — and the adjective agrees: «grandes»."
+      - kind: buildLit
+        id: l4-b-mihermanotieneguantesrojos
+        es: "mi hermana tiene guantes rojos"
+        en: "My sister has red gloves"
+        atoms: ["mi", "hermana", "tiene", "guantes", "rojo"]
+        tiles: ["tengo", "verdes"]
+      - kind: audioWimcq
+        id: l4-ear-libro
+        target: { surface: "libro", emoji: "📖" }
+        distractors:
+          - { surface: "casa", emoji: "🏠" }
+          - { surface: "perro", emoji: "🐶" }
+      - kind: agreementLit
+        id: l4-agr-guantesnegrosblancos
+        en: "I have black gloves, and my sister has white gloves"
+        audioText: "tengo guantes negros, y mi hermana tiene guantes blancos"
+        atoms: ["tengo", "guantes", "negro", "hermana", "tiene", "blanco"]
+        segments:
+          - { text: "tengo guantes " }
+          - { blank: { id: "p1", answer: "negros", options: ["negros", "blancos"] } }
+          - { text: ", y mi hermana tiene guantes " }
+          - { blank: { id: "p2", answer: "blancos", options: ["blancos", "negros"] } }
+      - kind: listenBuildLit
+        id: l4-lb-anatieneguantesverdes
+        es: "Ana tiene guantes verdes"
+        en: "Ana has green gloves"
+        atoms: ["tiene", "guantes", "verde"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l4-tm-guantes
+        target: "guantes"
+        distractors: ["guisantes", "guardias", "guirnaldas"]
+      - kind: sim
+        id: l4-sim-ana-guantes
+        scene: { emoji: "🧤", title: "Ana asks about your gloves", setting: "It's snowing and Ana is checking what you're wearing." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes guantes grandes?", audioText: "¿tienes guantes grandes?", gloss: "Do you have big gloves?" }
+            goal: "Say yes, you have big gloves."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo guantes grandes" }
+                - { id: "wrong1", text: "sí, tengo guante grande" }
+                - { id: "wrong2", text: "sí, tienes guantes grandes" }
+              correctOptionId: "right"
+              audioText: "sí, tengo guantes grandes"
+            replyGloss: "Yes, I have big gloves."
+            explanation: "«guantes» — always plural, never «guante». And «tengo», not «tienes» — that's your own word for yourself."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermana? ¿Tiene guantes rojos?", audioText: "¿y tu hermana? ¿tiene guantes rojos?", gloss: "And your sister? Does she have red gloves?" }
+            goal: "Say yes, she has red gloves."
+            reply:
+              mode: build
+              tiles: ["sí", "tiene", "guantes", "rojos", "tengo", "yo"]
+              answer: "sí tiene guantes rojos"
+            replyGloss: "Yes, she has red gloves."
+            explanation: "«tiene», not «tengo» — this is about your sister, not you."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "guantes", target: "gloves" }
+          - { source: "tengo", target: "I have" }
+          - { source: "tienes", target: "you have" }
+          - { source: "tiene", target: "he/she has" }
+          - { source: "grande", target: "big" }
+          - { source: "pequeño", target: "small" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "¿tienes guantes grandes?"
+        en: "Do you have big gloves?"
+        atoms: ["tienes", "guantes", "grande"]

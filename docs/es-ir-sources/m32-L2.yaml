@@ -1,0 +1,135 @@
+  # ── L2 · «Necesito una chaqueta nueva» — «chaqueta» debuts. Regular
+  #    feminine noun, no exception worth an info card (per m30-L2
+  #    precedent: map's revealNote carries the light context instead).
+  #    Brings in «necesito» (m16) as the module's shopping-need frame,
+  #    recombined with size/color (m6). One recall of L1's win line.
+  - n: 2
+    template: free
+    title: "Necesito una chaqueta nueva"
+    description: "«chaqueta» — a regular feminine noun. «necesito una chaqueta nueva» puts m16's «necesito» to work on this module's clothing."
+    steps:
+      - kind: map
+        id: l2-map-necesitounachaqueta
+        tokens: ["necesito", "una", "chaqueta", "nueva"]
+        pairs:
+          - { en: "I need", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "jacket", tokenIndex: 2 }
+          - { en: "new", tokenIndex: 3 }
+        audioText: "necesito una chaqueta nueva"
+        revealNote: "«chaqueta» — regular feminine, like «camisa» (m12): «una», «nueva», no exceptions."
+      - kind: speakLit
+        id: l2-sp-recall
+        es: "tengo un pantalón azul"
+        en: "I have blue pants"
+        cue: recall
+        atoms: ["tengo", "pantalón", "azul"]
+      - kind: imageMcq
+        id: l2-im-chaqueta
+        target: { surface: "chaqueta", meaningEn: "jacket", emoji: "🧥" }
+        distractors:
+          - { surface: "pantalón", emoji: "👖" }
+          - { surface: "zapato", emoji: "👞" }
+          - { surface: "sombrero", emoji: "👒" }
+      - kind: buildLit
+        id: l2-b-necesitounachaquetanueva
+        es: "necesito una chaqueta nueva"
+        en: "I need a new jacket"
+        atoms: ["necesito", "chaqueta", "nuevo"]
+        tiles: ["necesitas", "un"]
+      - kind: clozeLit
+        id: l2-c-chaquetaverde
+        es: "necesito una chaqueta verde"
+        en: "I need a green jacket"
+        blank: "una"
+        options: ["una", "un"]
+        atoms: ["necesito", "chaqueta", "verde"]
+        why: "«chaqueta» is feminine, so «una», not «un»."
+      - kind: listenCompLit
+        id: l2-lc-chaquetagrande
+        es: "necesito una chaqueta grande"
+        en: "I need a big jacket."
+        atoms: ["necesito", "chaqueta", "grande"]
+        distractorsEn:
+          - "I need a small jacket."
+          - "You need a big jacket."
+          - "I have a big jacket."
+      - kind: mcq
+        id: l2-q-chaqueta
+        prompt: "Which one means 'I need a jacket'?"
+        correct: "necesito una chaqueta"
+        distractors: ["necesito un chaqueta", "necesita una chaqueta", "necesito chaqueta"]
+        atoms: ["necesito", "chaqueta"]
+        why: "«chaqueta» is feminine, so «una», not «un». «necesita» is about someone else, not you."
+      - kind: buildLit
+        id: l2-b-mihermananecesitaunachaqueta
+        es: "mi hermana necesita una chaqueta roja"
+        en: "My sister needs a red jacket"
+        atoms: ["mi", "hermana", "necesita", "chaqueta", "rojo"]
+        tiles: ["necesito", "negra"]
+      - kind: audioWimcq
+        id: l2-ear-libro
+        target: { surface: "libro", emoji: "📖" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: agreementLit
+        id: l2-agr-chaquetaverderojo
+        en: "I need a green jacket, and my sister needs a red jacket"
+        audioText: "necesito una chaqueta verde, y mi hermana necesita una chaqueta roja"
+        atoms: ["necesito", "chaqueta", "verde", "hermana", "necesita", "rojo"]
+        segments:
+          - { text: "necesito una chaqueta " }
+          - { blank: { id: "p1", answer: "verde", options: ["verde", "roja"] } }
+          - { text: ", y mi hermana necesita una chaqueta " }
+          - { blank: { id: "p2", answer: "roja", options: ["roja", "verde"] } }
+      - kind: listenBuildLit
+        id: l2-lb-anatieneunachaquetanegra
+        es: "Ana tiene una chaqueta negra"
+        en: "Ana has a black jacket"
+        atoms: ["tiene", "chaqueta", "negro"]
+        tiles: ["necesito", "necesita"]
+      - kind: textMcq
+        id: l2-tm-chaqueta
+        target: "chaqueta"
+        distractors: ["chocolate", "chimenea", "charla"]
+      - kind: sim
+        id: l2-sim-ana-chaqueta
+        scene: { emoji: "🧥", title: "Ana asks about your jacket", setting: "It's cold outside and Ana notices what you're wearing." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Necesitas una chaqueta nueva?", audioText: "¿necesitas una chaqueta nueva?", gloss: "Do you need a new jacket?" }
+            goal: "Say yes, you need a new jacket."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, necesito una chaqueta nueva" }
+                - { id: "wrong1", text: "sí, necesito un chaqueta nueva" }
+                - { id: "wrong2", text: "sí, necesitas una chaqueta nueva" }
+              correctOptionId: "right"
+              audioText: "sí, necesito una chaqueta nueva"
+            replyGloss: "Yes, I need a new jacket."
+            explanation: "«una chaqueta», not «un» — feminine noun. And «necesito», not «necesitas» — that's your own word for yourself."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermana? ¿Necesita una chaqueta verde?", audioText: "¿y tu hermana? ¿necesita una chaqueta verde?", gloss: "And your sister? Does she need a green jacket?" }
+            goal: "Say yes, she needs a green jacket."
+            reply:
+              mode: build
+              tiles: ["sí", "necesita", "una", "chaqueta", "verde", "necesito", "yo"]
+              answer: "sí necesita una chaqueta verde"
+            replyGloss: "Yes, she needs a green jacket."
+            explanation: "«necesita», not «necesito» — this is about your sister, not you."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "chaqueta", target: "jacket" }
+          - { source: "necesito", target: "I need" }
+          - { source: "necesitas", target: "you need" }
+          - { source: "necesita", target: "he/she needs" }
+          - { source: "verde", target: "green" }
+          - { source: "rojo", target: "red" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "necesito una chaqueta nueva"
+        en: "I need a new jacket"
+        atoms: ["necesito", "chaqueta", "nuevo"]

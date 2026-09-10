@@ -1,0 +1,1668 @@
+module: m32
+title: "Necesito una chaqueta nueva"
+frame: none
+throughModule: m31
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m32 — clothing, round two: la chaqueta, el pantalón, los calcetines,
+# los guantes, la bufanda. Thirteenth A2 module.
+#
+#     el pantalón   👖   la chaqueta   🧥
+#     los calcetines 🧦  los guantes   🧤
+#     la bufanda     🧣
+#
+# ONE idea, the whole module: FIVE new imageable clothing nouns, zero new
+# verb morphology, zero new grammar. Every sentence frame this module
+# needs is already registered — «tengo»/«tienes»/«tiene» (m5),
+# «necesito»/«necesitas»/«necesita» (m16), «rojo»/«azul»/«verde»/«negro»/
+# «blanco» (m6, colors), «grande»/«pequeño»/«nuevo»/«viejo»/«bonito»
+# (m6, size + descriptive), «cuánto»/«cuesta»/«cuestan» (m12, the
+# shopping-price frame this module's own domain was FIRST taught under),
+# «voy a» + infinitivo (m28) and the fused clitics «comprarlo»/
+# «comprarla»/«comprarlos» (m29, all THREE reused verbatim — no «verla»-
+# class trap this time, see below), and «duele»/«duelen» + m30's body
+# nouns (m31, the dedicated L9 contrast). This is the third lexicon-break
+# module since m19 (after m27's weather and m30's body) and a direct
+# sequel to m12's own clothing debut (camisa/falda/zapato/sombrero) —
+# same domain, new words, now with a shopping-and-pain recombination
+# story m12 itself couldn't have built (m28/m29/m30/m31 didn't exist yet).
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# Four lines of evidence:
+#   1. **Rhythm calls for a break, and m31 already named a break as
+#      correct next.** m28 (grammar) → m29 (grammar) → m30 (break, body)
+#      → m31 (grammar, one beat, riding m30's own nouns) — a single
+#      grammar module after a break is followed by a return to break, per
+#      every prior module's own interleave reasoning (m30's header used
+#      the identical two-grammar-then-break logic for m28→m29→m30; m31
+#      itself is only one grammar beat, so the break due now is not
+#      overdue, just on schedule).
+#   2. **Five honest domains were weighed against the actual registry, not
+#      assumed from a prior brief's framing — the m30 lesson applied
+#      forward.** `grep -o 'surface: "[^"]*"' curriculum/m{1..31}.ts | sort
+#      -u | grep -iE "<word>"` was run against every candidate below
+#      (clothing, household, food, family, places-in-town, animals)
+#      before picking one. Two of the six were disqualified outright by
+#      the grep, not by inherited assumption — see REJECTED ALTERNATIVE 2
+#      (places-in-town: NOT a fresh domain, already fully spent at m9) and
+#      the household note (already correctly resized to 3 atoms by m30's
+#      own header, unchanged since). Clothing round two survives: `camisa`
+#      /`falda`/`zapato`/`sombrero` are PRIOR (m12), but `pantalón`,
+#      `chaqueta`, `calcetines`, `guantes`, `bufanda` are grep-verified
+#      zero hits anywhere in m1–m31.
+#   3. **Highest recombination value of any candidate against the FOUR
+#      most recent modules' own frames, verified atom by atom, not
+#      asserted.** `voy a` + infinitivo (m28) + the fused clitics `comprarlo`
+#      /`comprarla`/`comprarlos` (m29, this module's own new nouns split
+#      cleanly across all three: masc-singular `pantalón`→comprarlo,
+#      fem-singular `chaqueta`/`bufanda`→comprarla, masc-plural
+#      `calcetines`/`guantes`→comprarlos — a FULL set, unlike m30's own
+#      m29 recombination which could only reach `verlo`, never `verla`)
+#      gives a natural "shopping intention" frame every one of this
+#      module's five atoms can sit in. `duele`/`duelen` + m30's body nouns
+#      (m31) gives a second, independent recombination axis this module's
+#      own atoms were chosen specifically to support: `calcetines`↔`pies`,
+#      `guantes`↔`manos` are direct item-covers-body-part pairs (see the
+#      dedicated L9 section below) — no other candidate domain (food,
+#      family, animals) has an equivalent PRIOR pain-frame partner. `cuánto`
+#      /`cuesta`/`cuestan` (m12) gives this module its own PRIOR shopping
+#      question frame, reused verbatim rather than reinvented. No other
+#      candidate reaches three independent PRIOR recombination hooks.
+#   4. **Verified data floor, both directions, and the vendoring streak
+#      breaks once (named, not hidden).** `grep -o 'surface: "[^"]*"'
+#      curriculum/m{1..31}.ts | sort -u | grep -iE
+#      "pantalón|chaqueta|calcetines|guantes|bufanda"` returns zero hits.
+#      All 5 target emoji (👖🧥🧦🧤🧣) are grep-verified zero prior hits
+#      against every `emoji:` field in m1–m31 (checked individually,
+#      including against the one near-miss that matters: `falda`'s own
+#      👗, m12 — `vestido` is deliberately excluded from this module's
+#      atom list for exactly that collision, see below). Vendoring status
+#      checked file by file, not assumed from m30/m31's "zero vendoring"
+#      precedent: `ls src/pub/noto-emoji/svg/ | grep -iE
+#      "^emoji_u(1f456|1f9e5|1f9e6|1f9e4|1f9e3)"` returns
+#      `emoji_u1f456.svg` (👖), `emoji_u1f9e5.svg` (🧥), `emoji_u1f9e6.svg`
+#      (🧦), and `emoji_u1f9e3.svg` (🧣) already on disk — but
+#      `emoji_u1f9e4.svg` (🧤, guantes) is ABSENT. One vendoring task this
+#      module, breaking m30/m31's two-module zero-vendoring streak. Named
+#      explicitly in "Vocab card art" below rather than assumed away.
+#
+# ── REJECTED WITHIN-DOMAIN: «vestido» (dress) — same trap m30 already
+#    named, now actually live ─────────────────────────────────────────────
+# «vestido» is grep-verified fully unregistered and a natural sixth
+# clothing atom to reach for. Excluded deliberately: its only clean
+# single-referent emoji, 👗, is ALREADY «falda»'s (m12, confirmed by
+# reading `curriculum/m12.ts:39`) — the identical "borrow a PRIOR atom's
+# own image" mistake m27's ☀️/🌞 trap and m30's own REJECTED ALTERNATIVE 2
+# note both warned a future clothing author against. This module is that
+# future author; the trap is now paid down, not just flagged again.
+#
+# ── REJECTED: a "wearing" verb («ponerse», «llevar») to carry these nouns
+#    ───────────────────────────────────────────────────────────────────
+# The single most natural verb for clothing ("me pongo la chaqueta" / "llevo
+# los guantes") is NOT PRIOR — `poner`/`pongo` (m15) is registered but only
+# as the bare transitive "to put," never the reflexive `ponerse` ("to put
+# on oneself"); `llevar`/`llevo` (to wear/carry) is grep-verified zero hits
+# anywhere in m1–m31. Rejected for the same reason m30 rejected `limpiar`
+# for its own house-vocabulary alternative: a new verb is new grammar-
+# adjacent vocabulary a "zero new grammar" break module should not need,
+# and this module's five nouns already have three fully-PRIOR verb hosts
+# (`tengo`, `necesito`, `voy a comprarlo/la/los`) that cover possession,
+# need, and shopping intention without inventing a fourth verb. `ponerse`
+# is real, well-scoped future content (a reflexive-verb module, pairing
+# naturally with m17's own reflexive-routine precedent) — left open, not
+# exhausted.
+#
+# ── REJECTED ALTERNATIVE 1: household rooms/furniture ─────────────────────
+# m30-header.yaml already ran this grep and the finding is unchanged:
+# `casa`/`cuarto`/`cocina`/`baño`/`cama`/`mesa`/`silla`/`puerta`/`ventana`
+# are all PRIOR since m3/m4; the only genuinely clean remainder is
+# `espejo`/`jabón`/`lámpara` — THREE atoms, not enough for a ten-lesson
+# module on its own, and the richer-seeming remaining nouns (`sofá`,
+# `armario`, `inodoro`) still collide with PRIOR m3/m4 house-object emoji,
+# one collision (`inodoro`/🚽) still unresolvable. Re-checked here rather
+# than trusted from m30's own brief (`grep -o 'surface: "[^"]*"'
+# curriculum/m{1..31}.ts | sort -u | grep -iE
+# "espejo|jabón|lámpara|sofá|armario|inodoro"` returns zero hits for all
+# six — nothing has changed since m30 shipped). Correctly resized, per
+# m30's own precedent, to a future THREE-atom recombination lesson inside
+# a later module, not a module of its own.
+#
+# ── REJECTED ALTERNATIVE 2: places in town (la calle, el cine, el
+#    mercado, la playa, la tienda, el trabajo, el autobús) ────────────────
+# The task's own suggested candidate list named this domain, and it is
+# the one most different from the other five on inspection: it is NOT a
+# fresh lexical gap at all. `grep -o 'surface: "[^"]*"'
+# curriculum/m{1..31}.ts | sort -u | grep -iE
+# "cine|mercado|playa|tienda|trabajo|autobús|escuela|parque"` shows every
+# one of these already PRIOR since **m9** — the very module that also
+# registered `voy`/`vas` (present-tense "to go") for exactly this
+# vocabulary. There is no "places in town" module left to write with the
+# common, useful words; what remains fully virgin is the CITY/DIRECTIONS
+# subset already named and reserved by m30-header.yaml's own REJECTED
+# ALTERNATIVE 3 — `calle`, `ciudad`, `esquina`, `derecha`/`izquierda`,
+# `semáforo` — and that subset's own useful content (direction-giving)
+# needs new phrase atoms and likely a new imperative mood, the same
+# "second new idea competing with the first" cost m30's header already
+# used to defer it. Not a candidate for a zero-new-grammar break module;
+# unchanged from m30's own assessment.
+#
+# ── REJECTED ALTERNATIVE 3: food beyond m9/m10/m11/m13 (huevo, arroz,
+#    ensalada, pescado, fruta, jugo, naranja) ─────────────────────────────
+# Genuinely virgin — `grep -o 'surface: "[^"]*"' curriculum/m{1..31}.ts |
+# sort -u | grep -iE "huevo|arroz|ensalada|pescado|fruta|jugo|naranja|
+# plátano"` returns zero hits, and `quiero`/`me gusta` (m7/m13) plus
+# `como` (m11, present "I eat") give an immediate sentence frame. Rejected
+# for m32 specifically on recombination grounds: it has only ONE PRIOR
+# hook this module's own strongest candidates share (`quiero`/`gusta`),
+# no natural tie to `voy a` + `comprarlo`-family (the food domain's own
+# fused-clitic target would be `comerlo`/`comerla`, NEITHER of which is
+# one of m29's 7 registered fused surfaces — reaching for either would
+# hit the identical "verla"-class untracked-word trap m30's own header
+# named, just with a different verb), and no tie at all to `duele`/
+# `duelen` (the natural food-adjacent pain word is «me duele el
+# estómago», and `estómago` is one of the five body nouns m30's own
+# header explicitly deferred, not this module's to add). Clothing's own
+# three-hook recombination story (shopping frame, full comprarlo/la/los
+# set, body-pain L9) is stronger. Left open as a real future module.
+#
+# ── REJECTED ALTERNATIVE 4: family members beyond m5 (mamá/papá, hijo/
+#    hija, esposo/esposa, primo/prima, tío/tía) ───────────────────────────
+# Also genuinely partially virgin, but LESS than it first appears:
+# `abuelo`/`abuela`/`hermano`/`hermana`/`familia` are ALL already PRIOR
+# since **m5** (confirmed by reading `curriculum/m5.ts` directly, not
+# inferred) — a "family module" would spend roughly half its content
+# re-teaching m5's own words before reaching the 5-6 genuinely new ones.
+# Recombination against the four most recent modules is also the
+# weakest of the five domains considered: no natural tie to `comprarlo`/
+# `comprarla`/`comprarlos` (buying a person makes no sense), no tie to
+# `duele`/`duelen` (a family member doesn't hurt the way a body part
+# does), only a thin tie to `voy a` + `visitar` (PRIOR, m10 — "voy a
+# visitar a mi hermano"). Left open as a real future module with a
+# cleaner recombination story once one exists (a "gifts for family"
+# shopping module, pairing family nouns with this module's own
+# `comprarlo`-family reuse, is one candidate for whoever drafts it).
+#
+# ── REJECTED ALTERNATIVE 5: animals beyond perro/gato (m5/m6) ─────────────
+# `grep -o 'surface: "[^"]*"' curriculum/m{1..31}.ts | sort -u | grep -iE
+# "pájaro|pez|caballo|vaca"` returns zero hits — a real, virgin, easily-
+# imageable domain. Rejected for m32 because it shares NONE of the three
+# recombination hooks clothing has: no shopping-frame tie (`voy a
+# comprarlo` reads oddly for a live animal as the object of a routine
+# purchase-intention sentence), no `duele`/`duelen` tie, and only the
+# same thin `tengo` frame m30's body module already spent this course's
+# richest "tengo + new noun" recombination on. The weakest recombination
+# story of any candidate considered. Left open as a real, low-risk future
+# module whenever the course wants a pure "tengo un perro nuevo"-style
+# beat with no dependency chain.
+#
+# ── THE «comprarlo»/«comprarla»/«comprarlos» FIT — READ BEFORE DRAFTING
+#    L7 (no «verla»-class trap this time, verified not assumed) ──────────
+# m29 registered exactly 7 fused-clitic surfaces: `verlo`, `comprarlo`,
+# `comprarla`, `comprarlos`, `levantarme`, `hacerlo`, `verlos`. Unlike
+# m30's own module (whose masculine/feminine split could only legally use
+# `verlo`, never a matching `verla`), THIS module's five nouns split
+# cleanly across all three `comprar`-family surfaces with no gap:
+# `pantalón` (m, sg) → `comprarlo`; `chaqueta`/`bufanda` (f, sg) →
+# `comprarla`; `calcetines`/`guantes` (m, pl) → `comprarlos`. All three
+# are grep-confirmed already registered by m29 — zero new fused-clitic
+# registration needed, and unlike m30's brief, there is no gender gap to
+# route around with pre-verbal placement (pre-verbal `la compro`/`los
+# compro` remains legal too, and is the right choice whenever a drafting
+# agent wants variety, but is not REQUIRED here as a workaround the way
+# it was for m30's feminine nouns). Do not invent a fourth fused surface
+# (there is no `comprarme`/`comprarte` registered, and this module has no
+# reason to need one).
+#
+# ── SCOPE: no new wear-verb, no «unos»/«unas», no «color»/«cuál» ─────────
+# Three deliberate exclusions, all grep-verified NOT PRIOR: (1) `ponerse`/
+# `llevar` — see the dedicated rejected-verb section above. (2) `unos`/
+# `unas` (indefinite plural article) — only `un`/`una` (m3) are PRIOR;
+# this module's two plural-only nouns (`calcetines`, `guantes`) use the
+# DEFINITE article (`los calcetines`, `los guantes`) or bare-noun
+# possession (`tengo calcetines negros`, no article at all — natural
+# Spanish, the same bare-plural pattern m17's own `dientes` sentences
+# already use) instead of manufacturing an unregistered indefinite
+# plural. (3) `color`/`de qué color`/`cuál` — none are PRIOR (grep-
+# verified zero hits); this module's colors stay adjectives modifying the
+# noun directly (`la chaqueta azul`), never the noun "color" itself or a
+# "which one" question. NPC shopping questions use `qué`/`necesitas`/
+# `cuánto`/`cuesta` — all independently resolvable to PRIOR atom words
+# (see "SIM NPC lines" below) — never `color` or `cuál`.
+#
+# ── AGREEMENT IS NOT A NEW ATOM — TWO PLURAL-ONLY NOUNS, SAME PATTERN AS
+#    «dientes» (m17), THREE REGULAR NOUNS PLURALIZE FREELY ───────────────
+# `calcetines` and `guantes` are registered AS their plural surface
+# directly (kind: "vocab", no singular card), the identical convention
+# m17's `dientes` already established and `es-quality.test.ts`/authoring-
+# rules.md's "Agreement is not a new atom" paragraph both sanction — a
+# registered plural noun does not need a paired singular registration
+# when the singular is pedagogically pointless (nobody buys or wears one
+# sock). `pantalón`, `chaqueta`, `bufanda` are all REGULAR nouns and
+# pluralize via the course-wide regular -s/-es inflection rule
+# (`pantalones`, `chaquetas`, `bufandas`) with no separate registration
+# needed if a drafting agent wants a plural sentence — though this
+# module's own lesson plan below defaults each to singular-first per its
+# `-sp-win` column, matching m30's own "singular is the natural default"
+# choice for its irregular `nariz`.
+#
+# ── NO NEW EMOJI COLLISION; ONE VENDORING TASK (verified, not assumed —
+#    breaks the m30/m31 zero-vendoring streak, named not hidden) ────────
+# `grep -o 'emoji: "[^"]*"' curriculum/m{1..31}.ts | sort -u` — zero hits
+# for 👖🧥🧦🧤🧣, checked individually, including the one near-miss that
+# matters (👗 is already `falda`'s, m12 — see the `vestido` rejection
+# above). `ls src/pub/noto-emoji/svg/` confirms `emoji_u1f456.svg` (👖),
+# `emoji_u1f9e5.svg` (🧥), `emoji_u1f9e6.svg` (🧦), and `emoji_u1f9e3.svg`
+# (🧣) already present on disk — but `emoji_u1f9e4.svg` (🧤, guantes) is
+# ABSENT. A drafting agent must vendor this ONE SVG before `guantes`'
+# imageMcq debut (L4) ships; see "Vocab card art" in the brief for the
+# exact source and steps. Re-verify all five at ship time regardless (a
+# concurrent lane could in principle touch this directory).
+#
+# ── SIM NPC-LINE PROVENANCE: LIVE AND UNFORGIVING FOR NEW MODULES — READ
+#    THE GATE FILE, NOT JUST THIS COMMENT ────────────────────────────────
+# Two gates now cover dialogue_sim, not one. `es-quality.test.ts`'s own
+# check (reply-only) still applies unchanged. NEW since m31:
+# `esSimNpcProvenance.test.ts` closes the NPC-line half course-wide, and
+# its `KNOWN_LEGACY` allowlist is SHRINK-ONLY, scoped to modules m1–m10,
+# m20, m22–m28 — **m29, m30, m31, and this module are NOT in that list
+# and get NO allowance** for reaction words like «genial»/«perfecto»/
+# «mira». Every NPC word in this module's own sim(s) must resolve to a
+# registered atom (this module's 5, or any PRIOR one), a taught verb
+# conjugation, a function word, or a proper name — word-level, via
+# `esTokens`, so a word inside a multi-word PRIOR phrase atom (e.g. `qué`
+# inside m3's `¿qué es?`) still counts as known. Grep every `npc:` line by
+# hand before shipping; do not trust the reply-only gate to catch it.
+#
+# ── ACCENT: DENIM INDIGO, VERIFIED UNUSED, THEMATIC ───────────────────────
+# Checked every `accent:` pair in `curriculum/index.ts` (grep-verified,
+# all 31 pairs read in full): zero hits for `#4f46e5` or `#312e81`.
+# Distinct from the four most recent modules specifically (m28 "go" green,
+# m29 slate, m30 teal, m31 rose) and from every existing blue/indigo/
+# violet pair already spent (`#0ea5e9`→`#0284c7`, `#6366f1`→`#8b5cf6`,
+# `#38bdf8`→`#0369a1` ×2, `#38bdf8`→`#0c4a6e`, `#a78bfa`→`#6d28d9`,
+# `#c084fc`→`#581c87`, `#818cf8`→`#3730a3`, `#3b82f6`→`#1d4ed8`,
+# `#22d3ee`→`#0891b2`) — checked side by side, this pair sits darker,
+# more saturated, and more "denim blue" than all of them, a light
+# thematic nod to the clothing domain without forcing a heavy costume
+# metaphor onto what is still fundamentally a vocabulary module, the same
+# restraint m30's teal and m31's rose both used.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # el pantalón — pants/trousers. Registered SINGULAR (Spanish default);
+  # English-transfer trap flagged directly in the hint (a learner will
+  # reach for a plural the way English "pants" always is).
+  - { surface: "pantalón", meaningEn: "pants, trousers", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "👖", hint: "el pantalón — SINGULAR in Spanish, even though English 'pants' is always plural. «tengo un pantalón azul»." }
+  # la chaqueta — jacket. Regular feminine noun; this module's own
+  # «comprarla» recombination target alongside «bufanda».
+  - { surface: "chaqueta", meaningEn: "jacket", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🧥", hint: "la chaqueta — regular feminine. «necesito una chaqueta nueva» (m16's «necesito» + m6's «nueva»)." }
+  # los calcetines — socks. Plural-only, same pattern as «dientes» (m17):
+  # no singular card, masculine plural agreement.
+  - { surface: "calcetines", meaningEn: "socks", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🧦", hint: "los calcetines — always plural, like «dientes» (m17). No singular card. This module's own «duele»/«duelen» (m31) L9 pair: los calcetines ↔ los pies (m30)." }
+  # los guantes — gloves. Plural-only, same pattern as «dientes»/
+  # «calcetines». Needs SVG vendoring — see header note and brief.
+  - { surface: "guantes", meaningEn: "gloves", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🧤", hint: "los guantes — always plural, same pattern as «calcetines» and «dientes» (m17). This module's own «duele»/«duelen» (m31) L9 pair: los guantes ↔ las manos (m30). SVG vendored 2026-09-10 (emoji_u1f9e4.svg)." }
+  # la bufanda — scarf. Regular feminine noun.
+  - { surface: "bufanda", meaningEn: "scarf", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🧣", hint: "la bufanda — regular feminine. «tengo una bufanda bonita»." }
+
+lessons:
+  # ── L1 · «Tengo un pantalón azul» — «pantalón» debuts. Singular in
+  #    Spanish even though English "pants" is always plural — this is
+  #    the one usage note this lesson carries (info card, ≤3 lines).
+  #    PRIOR context only: «tengo» (m5), «un»/«una» (m3), size/color
+  #    adjectives (m6), «hermana»/«camisa» (m8/m12) for recombination.
+  #    No «unos»/«unas» anywhere (hard ban) — singular framing only.
+  #    No recall — first lesson of the module.
+  - n: 1
+    template: free
+    title: "Tengo un pantalón azul"
+    description: "A new round of clothing words. First up: «pantalón» — always singular in Spanish, even though English says \"pants\". «tengo un pantalón azul» — «tengo» (m5) plus this module's own «pantalón»."
+    steps:
+      - kind: map
+        id: l1-map-tengounpantalon
+        tokens: ["tengo", "un", "pantalón", "azul"]
+        pairs:
+          - { en: "I have", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "pair of pants", tokenIndex: 2 }
+          - { en: "blue", tokenIndex: 3 }
+        audioText: "tengo un pantalón azul"
+        revealNote: "«pantalón» — singular, unlike English \"pants\" (always plural). One pair = «un pantalón»."
+      - kind: imageMcq
+        id: l1-im-pantalon
+        target: { surface: "pantalón", meaningEn: "pants, trousers", emoji: "👖" }
+        distractors:
+          - { surface: "camisa", emoji: "👕" }
+          - { surface: "zapato", emoji: "👞" }
+          - { surface: "sombrero", emoji: "👒" }
+      - kind: info
+        id: l1-info-pantalonsingular
+        title: "Pantalón — always singular"
+        body: "«pantalón» — always singular in Spanish, even though English says \"pants\" (plural). «tengo un pantalón azul» — I have blue pants, one word, one article."
+      - kind: speakLit
+        id: l1-sp-tengounpantalonnuevo
+        es: "tengo un pantalón nuevo"
+        en: "I have new pants"
+        atoms: ["tengo", "pantalón", "nuevo"]
+      - kind: buildLit
+        id: l1-b-tengounpantalonnuevo
+        es: "tengo un pantalón nuevo"
+        en: "I have new pants"
+        atoms: ["tengo", "pantalón", "nuevo"]
+        tiles: ["tienes", "una"]
+      - kind: clozeLit
+        id: l1-c-pantalonnuevo
+        es: "tengo un pantalón nuevo"
+        en: "I have new pants"
+        blank: "un"
+        options: ["un", "una"]
+        atoms: ["tengo", "pantalón", "nuevo"]
+        why: "«pantalón» is masculine, so «un», not «una»."
+      - kind: listenCompLit
+        id: l1-lc-pantalonviejo
+        es: "tengo un pantalón viejo"
+        en: "I have old pants."
+        atoms: ["tengo", "pantalón", "viejo"]
+        distractorsEn:
+          - "I have new pants."
+          - "You have old pants."
+          - "I have an old shirt."
+      - kind: mcq
+        id: l1-q-pantalon
+        prompt: "Which one means 'I have (a pair of) pants'?"
+        correct: "tengo un pantalón"
+        distractors: ["tengo una pantalón", "tengo el pantalón azul", "tengo pantalón"]
+        atoms: ["tengo", "pantalón"]
+        why: "«pantalón» is masculine, so «un», not «una» — and Spanish never drops the article the way «tengo pantalón» does."
+      - kind: buildLit
+        id: l1-b-mihermanatieneunpantalon
+        es: "mi hermana tiene un pantalón pequeño"
+        en: "My sister has small pants"
+        atoms: ["mi", "hermana", "tiene", "pantalón", "pequeño"]
+        tiles: ["tengo", "grande"]
+      - kind: audioWimcq
+        id: l1-ear-perro
+        target: { surface: "perro", emoji: "🐶" }
+        distractors:
+          - { surface: "libro", emoji: "📖" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: agreementLit
+        id: l1-agr-pantalonnuevocamisanueva
+        en: "I have new pants, and my sister has a new shirt"
+        audioText: "tengo un pantalón nuevo, y mi hermana tiene una camisa nueva"
+        atoms: ["tengo", "pantalón", "nuevo", "hermana", "tiene", "camisa"]
+        segments:
+          - { text: "tengo un pantalón " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y mi hermana tiene una camisa " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l1-lb-anatieneunpantalonazul
+        es: "Ana tiene un pantalón azul"
+        en: "Ana has blue pants"
+        atoms: ["tiene", "pantalón", "azul"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l1-tm-pantalon
+        target: "pantalón"
+        distractors: ["pastel", "cristal", "pantano"]
+      - kind: sim
+        id: l1-sim-ana-pantalon
+        scene: { emoji: "👖", title: "Ana shows you her new pants", setting: "Ana is holding up a shopping bag." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes un pantalón azul?", audioText: "¿tienes un pantalón azul?", gloss: "Do you have blue pants?" }
+            goal: "Say yes, you have blue pants."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo un pantalón azul" }
+                - { id: "wrong1", text: "sí, tengo una pantalón azul" }
+                - { id: "wrong2", text: "sí, tienes un pantalón azul" }
+              correctOptionId: "right"
+              audioText: "sí, tengo un pantalón azul"
+            replyGloss: "Yes, I have blue pants."
+            explanation: "«pantalón» is masculine, so «un», not «una». And «tengo», not «tienes» — that's your own word for yourself."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermana? ¿Tiene un pantalón nuevo también?", audioText: "¿y tu hermana? ¿tiene un pantalón nuevo también?", gloss: "And your sister? Does she have a new pair too?" }
+            goal: "Say yes, she has a new pair too."
+            reply:
+              mode: build
+              tiles: ["sí", "tiene", "un", "pantalón", "nuevo", "también", "tengo", "yo"]
+              answer: "sí tiene un pantalón nuevo también"
+            replyGloss: "Yes, she has a new pair too."
+            explanation: "«tiene», not «tengo» — this is about your sister, not you."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "pantalón", target: "pants" }
+          - { source: "tengo", target: "I have" }
+          - { source: "tienes", target: "you have" }
+          - { source: "tiene", target: "he/she has" }
+          - { source: "azul", target: "blue" }
+          - { source: "nuevo", target: "new" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "tengo un pantalón azul"
+        en: "I have blue pants"
+        atoms: ["tengo", "pantalón", "azul"]
+
+  # ── L2 · «Necesito una chaqueta nueva» — «chaqueta» debuts. Regular
+  #    feminine noun, no exception worth an info card (per m30-L2
+  #    precedent: map's revealNote carries the light context instead).
+  #    Brings in «necesito» (m16) as the module's shopping-need frame,
+  #    recombined with size/color (m6). One recall of L1's win line.
+  - n: 2
+    template: free
+    title: "Necesito una chaqueta nueva"
+    description: "«chaqueta» — a regular feminine noun. «necesito una chaqueta nueva» puts m16's «necesito» to work on this module's clothing."
+    steps:
+      - kind: map
+        id: l2-map-necesitounachaqueta
+        tokens: ["necesito", "una", "chaqueta", "nueva"]
+        pairs:
+          - { en: "I need", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "jacket", tokenIndex: 2 }
+          - { en: "new", tokenIndex: 3 }
+        audioText: "necesito una chaqueta nueva"
+        revealNote: "«chaqueta» — regular feminine, like «camisa» (m12): «una», «nueva», no exceptions."
+      - kind: speakLit
+        id: l2-sp-recall
+        es: "tengo un pantalón azul"
+        en: "I have blue pants"
+        cue: recall
+        atoms: ["tengo", "pantalón", "azul"]
+      - kind: imageMcq
+        id: l2-im-chaqueta
+        target: { surface: "chaqueta", meaningEn: "jacket", emoji: "🧥" }
+        distractors:
+          - { surface: "pantalón", emoji: "👖" }
+          - { surface: "zapato", emoji: "👞" }
+          - { surface: "sombrero", emoji: "👒" }
+      - kind: buildLit
+        id: l2-b-necesitounachaquetanueva
+        es: "necesito una chaqueta nueva"
+        en: "I need a new jacket"
+        atoms: ["necesito", "chaqueta", "nuevo"]
+        tiles: ["necesitas", "un"]
+      - kind: clozeLit
+        id: l2-c-chaquetaverde
+        es: "necesito una chaqueta verde"
+        en: "I need a green jacket"
+        blank: "una"
+        options: ["una", "un"]
+        atoms: ["necesito", "chaqueta", "verde"]
+        why: "«chaqueta» is feminine, so «una», not «un»."
+      - kind: listenCompLit
+        id: l2-lc-chaquetagrande
+        es: "necesito una chaqueta grande"
+        en: "I need a big jacket."
+        atoms: ["necesito", "chaqueta", "grande"]
+        distractorsEn:
+          - "I need a small jacket."
+          - "You need a big jacket."
+          - "I have a big jacket."
+      - kind: mcq
+        id: l2-q-chaqueta
+        prompt: "Which one means 'I need a jacket'?"
+        correct: "necesito una chaqueta"
+        distractors: ["necesito un chaqueta", "necesita una chaqueta", "necesito chaqueta"]
+        atoms: ["necesito", "chaqueta"]
+        why: "«chaqueta» is feminine, so «una», not «un». «necesita» is about someone else, not you."
+      - kind: buildLit
+        id: l2-b-mihermananecesitaunachaqueta
+        es: "mi hermana necesita una chaqueta roja"
+        en: "My sister needs a red jacket"
+        atoms: ["mi", "hermana", "necesita", "chaqueta", "rojo"]
+        tiles: ["necesito", "negra"]
+      - kind: audioWimcq
+        id: l2-ear-libro
+        target: { surface: "libro", emoji: "📖" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: agreementLit
+        id: l2-agr-chaquetaverderojo
+        en: "I need a green jacket, and my sister needs a red jacket"
+        audioText: "necesito una chaqueta verde, y mi hermana necesita una chaqueta roja"
+        atoms: ["necesito", "chaqueta", "verde", "hermana", "necesita", "rojo"]
+        segments:
+          - { text: "necesito una chaqueta " }
+          - { blank: { id: "p1", answer: "verde", options: ["verde", "roja"] } }
+          - { text: ", y mi hermana necesita una chaqueta " }
+          - { blank: { id: "p2", answer: "roja", options: ["roja", "verde"] } }
+      - kind: listenBuildLit
+        id: l2-lb-anatieneunachaquetanegra
+        es: "Ana tiene una chaqueta negra"
+        en: "Ana has a black jacket"
+        atoms: ["tiene", "chaqueta", "negro"]
+        tiles: ["necesito", "necesita"]
+      - kind: textMcq
+        id: l2-tm-chaqueta
+        target: "chaqueta"
+        distractors: ["chocolate", "chimenea", "charla"]
+      - kind: sim
+        id: l2-sim-ana-chaqueta
+        scene: { emoji: "🧥", title: "Ana asks about your jacket", setting: "It's cold outside and Ana notices what you're wearing." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Necesitas una chaqueta nueva?", audioText: "¿necesitas una chaqueta nueva?", gloss: "Do you need a new jacket?" }
+            goal: "Say yes, you need a new jacket."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, necesito una chaqueta nueva" }
+                - { id: "wrong1", text: "sí, necesito un chaqueta nueva" }
+                - { id: "wrong2", text: "sí, necesitas una chaqueta nueva" }
+              correctOptionId: "right"
+              audioText: "sí, necesito una chaqueta nueva"
+            replyGloss: "Yes, I need a new jacket."
+            explanation: "«una chaqueta», not «un» — feminine noun. And «necesito», not «necesitas» — that's your own word for yourself."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermana? ¿Necesita una chaqueta verde?", audioText: "¿y tu hermana? ¿necesita una chaqueta verde?", gloss: "And your sister? Does she need a green jacket?" }
+            goal: "Say yes, she needs a green jacket."
+            reply:
+              mode: build
+              tiles: ["sí", "necesita", "una", "chaqueta", "verde", "necesito", "yo"]
+              answer: "sí necesita una chaqueta verde"
+            replyGloss: "Yes, she needs a green jacket."
+            explanation: "«necesita», not «necesito» — this is about your sister, not you."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "chaqueta", target: "jacket" }
+          - { source: "necesito", target: "I need" }
+          - { source: "necesitas", target: "you need" }
+          - { source: "necesita", target: "he/she needs" }
+          - { source: "verde", target: "green" }
+          - { source: "rojo", target: "red" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "necesito una chaqueta nueva"
+        en: "I need a new jacket"
+        atoms: ["necesito", "chaqueta", "nuevo"]
+
+  # ── L3 · «Tengo calcetines negros» — «calcetines» debuts, registered
+  #    directly as its PLURAL surface, no singular card — same pattern
+  #    as «dientes» (m17). No «unos» (hard ban): bare-plural-noun
+  #    framing only, exactly like «tengo dientes blancos» would read.
+  #    Carries this module's second usage-note card (plural-only nouns).
+  #    One recall of L2's win line.
+  - n: 3
+    template: free
+    title: "Tengo calcetines negros"
+    description: "«calcetines» — always plural, like «dientes» (m17). No singular card: you'll never see «calcetín» in this course."
+    steps:
+      - kind: map
+        id: l3-map-tengocalcetinesnegros
+        tokens: ["tengo", "calcetines", "negros"]
+        pairs:
+          - { en: "I have", tokenIndex: 0 }
+          - { en: "socks", tokenIndex: 1 }
+          - { en: "black", tokenIndex: 2 }
+        audioText: "tengo calcetines negros"
+        revealNote: "«calcetines» — always plural, like «dientes» (m17). No article needed: «tengo calcetines negros»."
+      - kind: speakLit
+        id: l3-sp-recall
+        es: "necesito una chaqueta nueva"
+        en: "I need a new jacket"
+        cue: recall
+        atoms: ["necesito", "chaqueta", "nuevo"]
+      - kind: imageMcq
+        id: l3-im-calcetines
+        target: { surface: "calcetines", meaningEn: "socks", emoji: "🧦" }
+        distractors:
+          - { surface: "pantalón", emoji: "👖" }
+          - { surface: "chaqueta", emoji: "🧥" }
+          - { surface: "zapato", emoji: "👞" }
+      - kind: info
+        id: l3-info-calcetinesplural
+        title: "Calcetines — always plural"
+        body: "«calcetines» — always plural, like «dientes» (m17). There's no singular card in this course: socks come in pairs, and so does the word."
+      - kind: buildLit
+        id: l3-b-tengocalcetinesblancos
+        es: "tengo calcetines blancos"
+        en: "I have white socks"
+        atoms: ["tengo", "calcetines", "blanco"]
+        tiles: ["tienes", "negros"]
+      - kind: clozeLit
+        id: l3-c-calcetinesnegros
+        es: "tengo calcetines negros"
+        en: "I have black socks"
+        blank: "negros"
+        options: ["negros", "negro"]
+        atoms: ["tengo", "calcetines", "negro"]
+        why: "«calcetines» is plural, so its adjective takes the plural -s: «negros», not «negro»."
+      - kind: listenCompLit
+        id: l3-lc-calcetinesverdes
+        es: "tengo calcetines verdes"
+        en: "I have green socks."
+        atoms: ["tengo", "calcetines", "verde"]
+        distractorsEn:
+          - "I have black socks."
+          - "You have green socks."
+          - "I have a green jacket."
+      - kind: mcq
+        id: l3-q-calcetines
+        prompt: "Which one means 'I have black socks'?"
+        correct: "tengo calcetines negros"
+        distractors: ["tengo calcetín negro", "tengo calcetines negro", "tengo un calcetines negros"]
+        atoms: ["tengo", "calcetines", "negro"]
+        why: "«calcetines» is always plural — there's no «calcetín» in this course — and the adjective agrees: «negros»."
+      - kind: buildLit
+        id: l3-b-mihermanotienecalcetinesrojos
+        es: "mi hermana tiene calcetines rojos"
+        en: "My sister has red socks"
+        atoms: ["mi", "hermana", "tiene", "calcetines", "rojo"]
+        tiles: ["tengo", "azules"]
+      - kind: audioWimcq
+        id: l3-ear-casa
+        target: { surface: "casa", emoji: "🏠" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "libro", emoji: "📖" }
+      - kind: agreementLit
+        id: l3-agr-calcetinesblancosnegros
+        en: "I have white socks, and my sister has black socks"
+        audioText: "tengo calcetines blancos, y mi hermana tiene calcetines negros"
+        atoms: ["tengo", "calcetines", "blanco", "hermana", "tiene", "negro"]
+        segments:
+          - { text: "tengo calcetines " }
+          - { blank: { id: "p1", answer: "blancos", options: ["blancos", "negros"] } }
+          - { text: ", y mi hermana tiene calcetines " }
+          - { blank: { id: "p2", answer: "negros", options: ["negros", "blancos"] } }
+      - kind: listenBuildLit
+        id: l3-lb-anatienecalcetinesverdes
+        es: "Ana tiene calcetines verdes"
+        en: "Ana has green socks"
+        atoms: ["tiene", "calcetines", "verde"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l3-tm-calcetines
+        target: "calcetines"
+        distractors: ["caracoles", "calendario", "cascabeles"]
+      - kind: sim
+        id: l3-sim-ana-calcetines
+        scene: { emoji: "🧦", title: "Ana asks about your socks", setting: "Ana is doing laundry and sorting socks." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes calcetines negros?", audioText: "¿tienes calcetines negros?", gloss: "Do you have black socks?" }
+            goal: "Say yes, you have black socks."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo calcetines negros" }
+                - { id: "wrong1", text: "sí, tengo calcetín negro" }
+                - { id: "wrong2", text: "sí, tienes calcetines negros" }
+              correctOptionId: "right"
+              audioText: "sí, tengo calcetines negros"
+            replyGloss: "Yes, I have black socks."
+            explanation: "«calcetines» — always plural, never «calcetín». And «tengo», not «tienes» — that's your own word for yourself."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermana? ¿Tiene calcetines rojos?", audioText: "¿y tu hermana? ¿tiene calcetines rojos?", gloss: "And your sister? Does she have red socks?" }
+            goal: "Say yes, she has red socks."
+            reply:
+              mode: build
+              tiles: ["sí", "tiene", "calcetines", "rojos", "tengo", "yo"]
+              answer: "sí tiene calcetines rojos"
+            replyGloss: "Yes, she has red socks."
+            explanation: "«tiene», not «tengo» — this is about your sister, not you."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "calcetines", target: "socks" }
+          - { source: "tengo", target: "I have" }
+          - { source: "tienes", target: "you have" }
+          - { source: "tiene", target: "he/she has" }
+          - { source: "negro", target: "black" }
+          - { source: "blanco", target: "white" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "tengo calcetines negros"
+        en: "I have black socks"
+        atoms: ["tengo", "calcetines", "negro"]
+
+  # ── L4 · «¿Tienes guantes grandes?» — «guantes» debuts, same
+  #    plural-only pattern as «calcetines» (L3) and «dientes» (m17).
+  #    No dedicated info card (light context via revealNote only, per
+  #    m30-L2 precedent — the pattern was already taught in L3). SVG
+  #    emoji_u1f9e4.svg vendored before this lesson ships (4785 bytes).
+  #    One recall of L3's win line.
+  - n: 4
+    template: free
+    title: "¿Tienes guantes grandes?"
+    description: "«guantes» — plural-only, same pattern as «calcetines». This lesson asks about them, not just states them: «¿tienes guantes grandes?»"
+    steps:
+      - kind: map
+        id: l4-map-tienesguantesgrandes
+        tokens: ["tienes", "guantes", "grandes"]
+        pairs:
+          - { en: "you have", tokenIndex: 0 }
+          - { en: "gloves", tokenIndex: 1 }
+          - { en: "big", tokenIndex: 2 }
+        audioText: "¿tienes guantes grandes?"
+        revealNote: "«guantes» — plural-only, same pattern as «calcetines» (L3). No article needed: «tienes guantes grandes»."
+      - kind: speakLit
+        id: l4-sp-recall
+        es: "tengo calcetines negros"
+        en: "I have black socks"
+        cue: recall
+        atoms: ["tengo", "calcetines", "negro"]
+      - kind: imageMcq
+        id: l4-im-guantes
+        target: { surface: "guantes", meaningEn: "gloves", emoji: "🧤" }
+        distractors:
+          - { surface: "calcetines", emoji: "🧦" }
+          - { surface: "chaqueta", emoji: "🧥" }
+          - { surface: "pantalón", emoji: "👖" }
+      - kind: buildLit
+        id: l4-b-tengoguantesnegros
+        es: "tengo guantes negros"
+        en: "I have black gloves"
+        atoms: ["tengo", "guantes", "negro"]
+        tiles: ["tienes", "blancos"]
+      - kind: clozeLit
+        id: l4-c-guantesgrandes
+        es: "tengo guantes grandes"
+        en: "I have big gloves"
+        blank: "grandes"
+        options: ["grandes", "grande"]
+        atoms: ["tengo", "guantes", "grande"]
+        why: "«guantes» is plural, so its adjective takes the plural -s: «grandes», not «grande»."
+      - kind: listenCompLit
+        id: l4-lc-guantespequenos
+        es: "tengo guantes pequeños"
+        en: "I have small gloves."
+        atoms: ["tengo", "guantes", "pequeño"]
+        distractorsEn:
+          - "I have big gloves."
+          - "You have small gloves."
+          - "I have small socks."
+      - kind: mcq
+        id: l4-q-guantes
+        prompt: "Which one means 'you have big gloves'?"
+        correct: "tienes guantes grandes"
+        distractors: ["tienes guante grande", "tiene guantes grandes", "tienes guantes grande"]
+        atoms: ["tienes", "guantes", "grande"]
+        why: "«guantes» is always plural — never «guante» — and the adjective agrees: «grandes»."
+      - kind: buildLit
+        id: l4-b-mihermanotieneguantesrojos
+        es: "mi hermana tiene guantes rojos"
+        en: "My sister has red gloves"
+        atoms: ["mi", "hermana", "tiene", "guantes", "rojo"]
+        tiles: ["tengo", "verdes"]
+      - kind: audioWimcq
+        id: l4-ear-libro
+        target: { surface: "libro", emoji: "📖" }
+        distractors:
+          - { surface: "casa", emoji: "🏠" }
+          - { surface: "perro", emoji: "🐶" }
+      - kind: agreementLit
+        id: l4-agr-guantesnegrosblancos
+        en: "I have black gloves, and my sister has white gloves"
+        audioText: "tengo guantes negros, y mi hermana tiene guantes blancos"
+        atoms: ["tengo", "guantes", "negro", "hermana", "tiene", "blanco"]
+        segments:
+          - { text: "tengo guantes " }
+          - { blank: { id: "p1", answer: "negros", options: ["negros", "blancos"] } }
+          - { text: ", y mi hermana tiene guantes " }
+          - { blank: { id: "p2", answer: "blancos", options: ["blancos", "negros"] } }
+      - kind: listenBuildLit
+        id: l4-lb-anatieneguantesverdes
+        es: "Ana tiene guantes verdes"
+        en: "Ana has green gloves"
+        atoms: ["tiene", "guantes", "verde"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l4-tm-guantes
+        target: "guantes"
+        distractors: ["guisantes", "guardias", "guirnaldas"]
+      - kind: sim
+        id: l4-sim-ana-guantes
+        scene: { emoji: "🧤", title: "Ana asks about your gloves", setting: "It's snowing and Ana is checking what you're wearing." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes guantes grandes?", audioText: "¿tienes guantes grandes?", gloss: "Do you have big gloves?" }
+            goal: "Say yes, you have big gloves."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo guantes grandes" }
+                - { id: "wrong1", text: "sí, tengo guante grande" }
+                - { id: "wrong2", text: "sí, tienes guantes grandes" }
+              correctOptionId: "right"
+              audioText: "sí, tengo guantes grandes"
+            replyGloss: "Yes, I have big gloves."
+            explanation: "«guantes» — always plural, never «guante». And «tengo», not «tienes» — that's your own word for yourself."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermana? ¿Tiene guantes rojos?", audioText: "¿y tu hermana? ¿tiene guantes rojos?", gloss: "And your sister? Does she have red gloves?" }
+            goal: "Say yes, she has red gloves."
+            reply:
+              mode: build
+              tiles: ["sí", "tiene", "guantes", "rojos", "tengo", "yo"]
+              answer: "sí tiene guantes rojos"
+            replyGloss: "Yes, she has red gloves."
+            explanation: "«tiene», not «tengo» — this is about your sister, not you."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "guantes", target: "gloves" }
+          - { source: "tengo", target: "I have" }
+          - { source: "tienes", target: "you have" }
+          - { source: "tiene", target: "he/she has" }
+          - { source: "grande", target: "big" }
+          - { source: "pequeño", target: "small" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "¿tienes guantes grandes?"
+        en: "Do you have big gloves?"
+        atoms: ["tienes", "guantes", "grande"]
+
+  # ── L5 · «Mi bufanda es bonita» — «bufanda» debuts, regular feminine,
+  #    the fifth and final new atom of the module (no info card — light
+  #    context via revealNote only, per m30-L2 precedent). Introduces
+  #    «es» (m2) + «bonito»/«bonita» (m6, gender-fold via canon) as the
+  #    description frame, distinct from the tengo/necesito possession
+  #    frames used in L1-L4. One recall of L4's win line.
+  - n: 5
+    template: free
+    title: "Mi bufanda es bonita"
+    description: "«bufanda» — regular feminine, the last new word this module. «mi bufanda es bonita» puts «es» (m2) and «bonito» (m6) to work describing it."
+    steps:
+      - kind: map
+        id: l5-map-mibufandaesbonita
+        tokens: ["mi", "bufanda", "es", "bonita"]
+        pairs:
+          - { en: "my", tokenIndex: 0 }
+          - { en: "scarf", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "pretty", tokenIndex: 3 }
+        audioText: "mi bufanda es bonita"
+        revealNote: "«bufanda» — regular feminine, like «chaqueta» (L2). «bonita» — feminine of «bonito» (m6)."
+      - kind: speakLit
+        id: l5-sp-recall
+        es: "¿tienes guantes grandes?"
+        en: "Do you have big gloves?"
+        cue: recall
+        atoms: ["tienes", "guantes", "grande"]
+      - kind: imageMcq
+        id: l5-im-bufanda
+        target: { surface: "bufanda", meaningEn: "scarf", emoji: "🧣" }
+        distractors:
+          - { surface: "guantes", emoji: "🧤" }
+          - { surface: "calcetines", emoji: "🧦" }
+          - { surface: "chaqueta", emoji: "🧥" }
+      - kind: buildLit
+        id: l5-b-tengounabufandaazul
+        es: "tengo una bufanda azul"
+        en: "I have a blue scarf"
+        atoms: ["tengo", "bufanda", "azul"]
+        tiles: ["tienes", "un"]
+      - kind: clozeLit
+        id: l5-c-bufandabonita
+        es: "mi bufanda es bonita"
+        en: "My scarf is pretty"
+        blank: "bonita"
+        options: ["bonita", "bonito"]
+        atoms: ["mi", "bufanda", "es", "bonito"]
+        why: "«bufanda» is feminine, so its adjective takes «bonita», not «bonito»."
+      - kind: listenCompLit
+        id: l5-lc-bufandaverde
+        es: "necesito una bufanda verde"
+        en: "I need a green scarf."
+        atoms: ["necesito", "bufanda", "verde"]
+        distractorsEn:
+          - "I have a green scarf."
+          - "You need a green scarf."
+          - "I need a green jacket."
+      - kind: mcq
+        id: l5-q-bufanda
+        prompt: "Which one means 'the scarf is pretty'?"
+        correct: "bufanda es bonita"
+        distractors: ["bufanda es bonito", "bufanda eres bonita", "bufandas es bonita"]
+        atoms: ["bufanda", "es", "bonito"]
+        why: "«bufanda» is feminine, so «bonita», not «bonito» — and «es», not «eres», since we're talking about the scarf, not you."
+      - kind: buildLit
+        id: l5-b-mihermananecesitaunabufandaroja
+        es: "mi hermana necesita una bufanda roja"
+        en: "My sister needs a red scarf"
+        atoms: ["mi", "hermana", "necesita", "bufanda", "rojo"]
+        tiles: ["necesito", "negra"]
+      - kind: audioWimcq
+        id: l5-ear-perro
+        target: { surface: "perro", emoji: "🐶" }
+        distractors:
+          - { surface: "libro", emoji: "📖" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: agreementLit
+        id: l5-agr-bufandabonitagrande
+        en: "My scarf is pretty, and it is big"
+        audioText: "mi bufanda es bonita, y es grande"
+        atoms: ["mi", "bufanda", "es", "bonito", "grande"]
+        segments:
+          - { text: "mi bufanda es " }
+          - { blank: { id: "p1", answer: "bonita", options: ["bonita", "bonito"] } }
+          - { text: ", y es " }
+          - { blank: { id: "p2", answer: "grande", options: ["grande", "grandes"] } }
+      - kind: listenBuildLit
+        id: l5-lb-labufandaesnueva
+        es: "la bufanda es nueva"
+        en: "The scarf is new"
+        atoms: ["bufanda", "es", "nuevo"]
+        tiles: ["tengo", "necesito"]
+      - kind: textMcq
+        id: l5-tm-bufanda
+        target: "bufanda"
+        distractors: ["burbuja", "bandera", "butaca"]
+      - kind: sim
+        id: l5-sim-ana-bufanda
+        scene: { emoji: "🧣", title: "Ana admires your scarf", setting: "Ana notices what you're wearing on a cold day." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Es bonita tu bufanda?", audioText: "¿es bonita tu bufanda?", gloss: "Is your scarf pretty?" }
+            goal: "Say yes, your scarf is pretty."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, mi bufanda es bonita" }
+                - { id: "wrong1", text: "sí, mi bufanda es bonito" }
+                - { id: "wrong2", text: "sí, mi bufanda eres bonita" }
+              correctOptionId: "right"
+              audioText: "sí, mi bufanda es bonita"
+            replyGloss: "Yes, my scarf is pretty."
+            explanation: "«bufanda» is feminine, so «bonita», not «bonito». And «es», not «eres» — the scarf is doing the being, not you."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Necesitas una bufanda nueva también?", audioText: "¿necesitas una bufanda nueva también?", gloss: "Do you need a new scarf too?" }
+            goal: "Say yes, you need a new scarf too."
+            reply:
+              mode: build
+              tiles: ["sí", "necesito", "una", "bufanda", "nueva", "también", "necesitas", "tú"]
+              answer: "sí necesito una bufanda nueva también"
+            replyGloss: "Yes, I need a new scarf too."
+            explanation: "«necesito», not «necesitas» — that's your own word for yourself, not Ana's question word for you."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "bufanda", target: "scarf" }
+          - { source: "es", target: "is" }
+          - { source: "bonito", target: "pretty" }
+          - { source: "tengo", target: "I have" }
+          - { source: "necesito", target: "I need" }
+          - { source: "nuevo", target: "new" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "mi bufanda es bonita"
+        en: "My scarf is pretty"
+        atoms: ["mi", "bufanda", "es", "bonito"]
+
+  # ── L6 · «La chaqueta verde es pequeña» — pure recombination. No new
+  #    atoms: all five nouns from L1-L5 cycle through color + size +
+  #    «es»/«son» (m2/m18) agreement. No imageMcq (nothing debuts), no
+  #    info card (no new grammar) — map's revealNote carries the framing.
+  #    Two recalls this lesson: L5's win line, plus this lesson exercises
+  #    every new noun at least once (interleave floor).
+  - n: 6
+    template: free
+    title: "La chaqueta verde es pequeña"
+    description: "No new words this lesson — just recombination. All five new nouns cycle through color, size, and «es»/«son» (m2/m18)."
+    steps:
+      - kind: map
+        id: l6-map-lachaquetaverdeespequena
+        tokens: ["la", "chaqueta", "verde", "es", "pequeña"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "jacket", tokenIndex: 1 }
+          - { en: "green", tokenIndex: 2 }
+          - { en: "is", tokenIndex: 3 }
+          - { en: "small", tokenIndex: 4 }
+        audioText: "la chaqueta verde es pequeña"
+        revealNote: "Recombining this module's five nouns with color and size — «pequeña», not «pequeño» (chaqueta is feminine)."
+      - kind: speakLit
+        id: l6-sp-recall
+        es: "mi bufanda es bonita"
+        en: "My scarf is pretty"
+        cue: recall
+        atoms: ["mi", "bufanda", "es", "bonito"]
+      - kind: buildLit
+        id: l6-b-elpantalonazulesgrande
+        es: "el pantalón azul es grande"
+        en: "The blue pants are big"
+        atoms: ["pantalón", "azul", "es", "grande"]
+        tiles: ["la", "pequeña"]
+      - kind: clozeLit
+        id: l6-c-calcetinesviejos
+        es: "los calcetines negros son viejos"
+        en: "The black socks are old"
+        blank: "son"
+        options: ["son", "es"]
+        atoms: ["calcetines", "negro", "viejo"]
+        why: "«calcetines» is plural, so «son», not «es»."
+      - kind: listenCompLit
+        id: l6-lc-guantesverdesnuevos
+        es: "los guantes verdes son nuevos"
+        en: "The green gloves are new."
+        atoms: ["guantes", "verde", "nuevo"]
+        distractorsEn:
+          - "The green gloves are old."
+          - "The green socks are new."
+          - "The green jacket is new."
+      - kind: mcq
+        id: l6-q-chaquetapequena
+        prompt: "Which one means 'the jacket is small'?"
+        correct: "chaqueta es pequeña"
+        distractors: ["chaqueta es pequeño", "chaqueta eres pequeña", "chaquetas es pequeña"]
+        atoms: ["chaqueta", "es", "pequeño"]
+        why: "«chaqueta» is feminine singular, so «pequeña» (not «pequeño») and «es» (not «eres»)."
+      - kind: buildLit
+        id: l6-b-necesitounpantalonyunachaqueta
+        es: "necesito un pantalón nuevo y una chaqueta nueva"
+        en: "I need new pants and a new jacket"
+        atoms: ["necesito", "pantalón", "nuevo", "chaqueta"]
+        tiles: ["tengo", "necesitas"]
+      - kind: audioWimcq
+        id: l6-ear-casa
+        target: { surface: "casa", emoji: "🏠" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "libro", emoji: "📖" }
+      - kind: agreementLit
+        id: l6-agr-pantalonviejochaquetanueva
+        en: "The pants are old, and the jacket is new"
+        audioText: "el pantalón es viejo, y la chaqueta es nueva"
+        atoms: ["pantalón", "es", "viejo", "chaqueta", "nuevo"]
+        segments:
+          - { text: "el pantalón es " }
+          - { blank: { id: "p1", answer: "viejo", options: ["viejo", "vieja"] } }
+          - { text: ", y la chaqueta es " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l6-lb-guantessonpequenos
+        es: "los guantes son pequeños"
+        en: "The gloves are small"
+        atoms: ["guantes", "son", "pequeño"]
+        tiles: ["es", "grandes"]
+      - kind: textMcq
+        id: l6-tm-pequeno
+        target: "pequeño"
+        distractors: ["pantalla", "primavera", "pescado"]
+      - kind: sim
+        id: l6-sim-ana-recombinacion
+        scene: { emoji: "🧥", title: "Ana asks about your clothes", setting: "Ana is picking an outfit and comparing it to yours." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Es grande o pequeña tu chaqueta?", audioText: "¿es grande o pequeña tu chaqueta?", gloss: "Is your jacket big or small?" }
+            goal: "Say your jacket is small."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "mi chaqueta es pequeña" }
+                - { id: "wrong1", text: "mi chaqueta es pequeño" }
+                - { id: "wrong2", text: "mi chaqueta son pequeña" }
+              correctOptionId: "right"
+              audioText: "mi chaqueta es pequeña"
+            replyGloss: "My jacket is small."
+            explanation: "«chaqueta» is feminine singular, so «pequeña» (not «pequeño») and «es» (not «son»)."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tus calcetines? ¿Son negros?", audioText: "¿y tus calcetines? ¿son negros?", gloss: "And your socks? Are they black?" }
+            goal: "Say yes, they are black."
+            reply:
+              mode: build
+              tiles: ["sí", "son", "negros", "es", "negro"]
+              answer: "sí son negros"
+            replyGloss: "Yes, they are black."
+            explanation: "«calcetines» is plural, so «son», not «es»."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "chaqueta", target: "jacket" }
+          - { source: "pantalón", target: "pants" }
+          - { source: "calcetines", target: "socks" }
+          - { source: "guantes", target: "gloves" }
+          - { source: "bufanda", target: "scarf" }
+          - { source: "es", target: "is" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "la chaqueta verde es pequeña"
+        en: "The green jacket is small"
+        atoms: ["chaqueta", "verde", "es", "pequeño"]
+
+  # ── L7 · Shopping — «voy a comprarlo/la/los» (m29) + «cuánto
+  #    cuesta»/«cuestan» (m12), recombined against this module's own
+  #    nouns for the first time. No new atoms, no new comprarX surface
+  #    (only the 7 registered fused-clitic infinitives exist — no
+  #    «comprarlas» is invented here). No imageMcq/info — map's
+  #    revealNote refreshes the frame. One recall of L6's win line.
+  - n: 7
+    template: free
+    title: "Voy a comprarla"
+    description: "This module's nouns go shopping. «voy a comprarlo/la/los» (m29) and «¿cuánto cuesta?» (m12) — no new words, just the right pronoun for each noun's gender and number."
+    steps:
+      - kind: map
+        id: l7-map-voyacomprarla
+        tokens: ["voy", "a", "comprarla"]
+        pairs:
+          - { en: "I'm going", tokenIndex: 0 }
+          - { en: "to", tokenIndex: 1 }
+          - { en: "buy it", tokenIndex: 2 }
+        audioText: "voy a comprarla"
+        revealNote: "«voy a comprarla» — «voy» (m9) plus «comprarla» (m29), now working for this module's own nouns."
+      - kind: speakLit
+        id: l7-sp-recall
+        es: "la chaqueta verde es pequeña"
+        en: "The green jacket is small"
+        cue: recall
+        atoms: ["chaqueta", "verde", "es", "pequeño"]
+      - kind: buildLit
+        id: l7-b-cuantocuestalachaqueta
+        es: "¿cuánto cuesta la chaqueta?"
+        en: "How much does the jacket cost?"
+        atoms: ["cuánto", "cuesta", "chaqueta"]
+        tiles: ["cuestan", "los"]
+      - kind: clozeLit
+        id: l7-c-voyacomprarla
+        es: "voy a comprarla"
+        en: "I'm going to buy it"
+        blank: "comprarla"
+        options: ["comprarla", "comprarlo"]
+        atoms: ["voy", "comprarla"]
+        why: "«chaqueta» is feminine, so «comprarla», not «comprarlo»."
+      - kind: listenCompLit
+        id: l7-lc-cuantocuestanloscalcetines
+        es: "¿cuánto cuestan los calcetines?"
+        en: "How much do the socks cost?"
+        atoms: ["cuánto", "cuestan", "calcetines"]
+        distractorsEn:
+          - "How much does the jacket cost?"
+          - "How much do the gloves cost?"
+          - "How much is the scarf?"
+      - kind: mcq
+        id: l7-q-comprarlo
+        prompt: "Which one means 'I'm going to buy it' (the pants)?"
+        correct: "voy a comprarlo"
+        distractors: ["voy a comprarla", "voy a comprarlos", "voy a comprar"]
+        atoms: ["voy", "comprarlo"]
+        why: "«pantalón» is masculine singular, so «comprarlo», not «comprarla» or «comprarlos»."
+      - kind: buildLit
+        id: l7-b-voyacomprarlos
+        es: "voy a comprarlos"
+        en: "I'm going to buy them"
+        atoms: ["voy", "comprarlos"]
+        tiles: ["comprarla", "comprarlo"]
+      - kind: audioWimcq
+        id: l7-ear-libro
+        target: { surface: "libro", emoji: "📖" }
+        distractors:
+          - { surface: "casa", emoji: "🏠" }
+          - { surface: "perro", emoji: "🐶" }
+      - kind: agreementLit
+        id: l7-agr-cuestacuestan
+        en: "The scarf costs a lot, and the gloves cost a lot too"
+        audioText: "la bufanda cuesta mucho, y los guantes cuestan mucho también"
+        atoms: ["bufanda", "cuesta", "mucho", "guantes", "cuestan", "también"]
+        segments:
+          - { text: "la bufanda " }
+          - { blank: { id: "p1", answer: "cuesta", options: ["cuesta", "cuestan"] } }
+          - { text: " mucho, y los guantes " }
+          - { blank: { id: "p2", answer: "cuestan", options: ["cuestan", "cuesta"] } }
+          - { text: " mucho también" }
+      - kind: listenBuildLit
+        id: l7-lb-voyacomprarla
+        es: "voy a comprarla"
+        en: "I'm going to buy it"
+        atoms: ["voy", "comprarla"]
+        tiles: ["comprarlo", "comprarlos"]
+      - kind: textMcq
+        id: l7-tm-comprarla
+        target: "comprarla"
+        distractors: ["comparar", "comprender", "completar"]
+      - kind: sim
+        id: l7-sim-ana-compras
+        scene: { emoji: "🛍️", title: "Ana is shopping with you", setting: "You're at a clothing store together." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Cuánto cuesta la chaqueta verde?", audioText: "¿cuánto cuesta la chaqueta verde?", gloss: "How much does the green jacket cost?" }
+            goal: "Say you're going to buy it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "voy a comprarla" }
+                - { id: "wrong1", text: "voy a comprarlo" }
+                - { id: "wrong2", text: "vas a comprarla" }
+              correctOptionId: "right"
+              audioText: "voy a comprarla"
+            replyGloss: "I'm going to buy it."
+            explanation: "«chaqueta» is feminine, so «comprarla», not «comprarlo». And «voy», not «vas» — that's your own word for yourself."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y los calcetines? ¿Cuánto cuestan?", audioText: "¿y los calcetines? ¿cuánto cuestan?", gloss: "And the socks? How much do they cost?" }
+            goal: "Say you're going to buy them too."
+            reply:
+              mode: build
+              tiles: ["voy", "a", "comprarlos", "también", "comprarla", "comprarlo"]
+              answer: "voy a comprarlos también"
+            replyGloss: "I'm going to buy them too."
+            explanation: "«calcetines» is plural, so «comprarlos», not «comprarla» or «comprarlo»."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "voy", target: "I'm going" }
+          - { source: "comprarlo", target: "to buy it (masc.)" }
+          - { source: "comprarla", target: "to buy it (fem.)" }
+          - { source: "comprarlos", target: "to buy them" }
+          - { source: "cuánto", target: "how much" }
+          - { source: "cuesta", target: "it costs" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "voy a comprarla — ¿cuánto cuesta la chaqueta?"
+        en: "I'm going to buy it — how much does the jacket cost?"
+        atoms: ["voy", "comprarla", "cuánto", "cuesta", "chaqueta"]
+
+  # ── L8 · Checkpoint — all graded, no map/info (mirrors m30-L8/m31-L8's
+  #    own checkpoint shape). Pure recombination of L1-L7 content plus
+  #    PRIOR clothing (camisa/sombrero, m12): all five new nouns, «es»/
+  #    «son», size/color agreement, «voy a comprarlo/la/los» (m29),
+  #    «¿cuánto cuesta?» (m12). No «unos»/«unas» anywhere. Two recalls,
+  #    drawn from different earlier lessons' win lines (L7 and L3).
+  #    Ends sim → matchLit → speakLit-win, same closing shape as every
+  #    other lesson.
+  - n: 8
+    template: free
+    title: "Checkpoint: lo que necesito comprar"
+    description: "Everything so far, recombined — no new words, just this module's five nouns working with «es»/«son», size, color, and «voy a comprarlo/la/los»."
+    steps:
+      - kind: speakLit
+        id: l8-sp-recall-comprarla
+        es: "voy a comprarla — ¿cuánto cuesta la chaqueta?"
+        en: "I'm going to buy it — how much does the jacket cost?"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-tengopantalonycamisa
+        es: "tengo un pantalón viejo y una camisa nueva"
+        en: "I have old pants and a new shirt"
+        atoms: ["tengo", "pantalón", "viejo", "camisa", "nuevo"]
+        tiles: ["necesito", "tienes"]
+      - kind: clozeLit
+        id: l8-c-necesitocalcetinesnuevos
+        es: "necesito calcetines nuevos"
+        en: "I need new socks"
+        blank: "nuevos"
+        options: ["nuevos", "nueva"]
+        atoms: ["necesito", "calcetines", "nuevo"]
+        why: "«calcetines» is plural, so «nuevos», not «nueva»."
+      - kind: listenCompLit
+        id: l8-lc-necesitosombreronuevo
+        es: "necesito un sombrero nuevo"
+        en: "I need a new hat."
+        atoms: ["necesito", "sombrero", "nuevo"]
+        distractorsEn:
+          - "I have a new hat."
+          - "I need an old hat."
+          - "I need new pants."
+      - kind: mcq
+        id: l8-q-guantesnuevos
+        prompt: "Which one means 'gloves are new'?"
+        correct: "guantes son nuevos"
+        distractors: ["guantes es nuevos", "guante son nuevo", "guantes son nuevo"]
+        atoms: ["guantes", "son", "nuevo"]
+        why: "«guantes» is plural, so «son», not «es», and the adjective takes -s: «nuevos»."
+      - kind: speakLit
+        id: l8-sp-recall-calcetinesnegros
+        es: "tengo calcetines negros"
+        en: "I have black socks"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-mihermanavaacomprar
+        es: "mi hermana va a comprar una bufanda"
+        en: "My sister is going to buy a scarf"
+        atoms: ["hermana", "va", "comprar", "bufanda"]
+        tiles: ["voy", "necesito"]
+      - kind: audioWimcq
+        id: l8-ear-perro
+        target: { surface: "perro", emoji: "🐶" }
+        distractors:
+          - { surface: "libro", emoji: "📖" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: agreementLit
+        id: l8-agr-camisapantalonnuevos
+        en: "I need a new shirt, and I need new pants"
+        audioText: "necesito una camisa nueva, y necesito un pantalón nuevo"
+        atoms: ["necesito", "camisa", "nuevo", "pantalón"]
+        segments:
+          - { text: "necesito una camisa " }
+          - { blank: { id: "p1", answer: "nueva", options: ["nueva", "nuevo"] } }
+          - { text: ", y necesito un pantalón " }
+          - { blank: { id: "p2", answer: "nuevo", options: ["nuevo", "nueva"] } }
+      - kind: listenBuildLit
+        id: l8-lb-calcetinesguantesnegros
+        es: "los calcetines y los guantes son negros"
+        en: "The socks and the gloves are black"
+        atoms: ["calcetines", "guantes", "son", "negro"]
+        tiles: ["es", "negro"]
+      - kind: textMcq
+        id: l8-tm-chaqueta
+        target: "chaqueta"
+        distractors: ["chocolate", "chimenea", "charla"]
+      - kind: sim
+        id: l8-sim-checkpoint
+        scene: { emoji: "🏁", title: "Checkpoint check-in", setting: "Ana checks in on your shopping list before you head out." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Necesitas una chaqueta nueva?", audioText: "¿necesitas una chaqueta nueva?", gloss: "Do you need a new jacket?" }
+            goal: "Say you need a new jacket."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "necesito una chaqueta nueva" }
+                - { id: "wrong1", text: "necesito un chaqueta nueva" }
+                - { id: "wrong2", text: "necesita una chaqueta nueva" }
+              correctOptionId: "right"
+              audioText: "necesito una chaqueta nueva"
+            replyGloss: "I need a new jacket."
+            explanation: "«chaqueta» is feminine, so «una», not «un». And «necesito», not «necesitas» — your own word for yourself."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y los guantes? ¿Vas a comprarlos?", audioText: "¿y los guantes? ¿vas a comprarlos?", gloss: "And the gloves? Are you going to buy them?" }
+            goal: "Say yes, you're going to buy them too."
+            reply:
+              mode: build
+              tiles: ["sí", "voy", "a", "comprarlos", "también", "comprarla", "comprarlo"]
+              answer: "sí voy a comprarlos también"
+            replyGloss: "Yes, I'm going to buy them too."
+            explanation: "«guantes» is plural, so «comprarlos», not «comprarla» or «comprarlo»."
+      - kind: matchLit
+        id: l8-match
+        pairs:
+          - { source: "pantalón", target: "pants" }
+          - { source: "chaqueta", target: "jacket" }
+          - { source: "calcetines", target: "socks" }
+          - { source: "guantes", target: "gloves" }
+          - { source: "bufanda", target: "scarf" }
+          - { source: "comprarlos", target: "to buy them" }
+      - kind: speakLit
+        id: l8-sp-win
+        es: "necesito una chaqueta nueva, calcetines negros, y voy a comprarlos"
+        en: "I need a new jacket, black socks, and I'm going to buy them"
+        atoms: ["necesito", "chaqueta", "nuevo", "calcetines", "negro", "voy", "comprarlos"]
+
+  # ── L9 · «Me duelen los pies — necesito calcetines nuevos» — pain
+  #    (m31's «duele»/«duelen») chained with need (this module's
+  #    clothing nouns) for the first time. No new atoms, but a
+  #    genuinely new PATTERN (two familiar frames chained in one
+  #    sentence) earns this module's third and final usage-note card,
+  #    per the m31-L9 "dedicated contrast" precedent. One recall of
+  #    L8's win line.
+  - n: 9
+    template: free
+    title: "Me duelen los pies"
+    description: "Two frames you already know — «me duelen» (m31) and «necesito» (m16) — chained into one sentence: name the pain, then name what you need."
+    steps:
+      - kind: map
+        id: l9-map-meduelenlospies
+        tokens: ["me", "duelen", "los", "pies"]
+        pairs:
+          - { en: "to me", tokenIndex: 0 }
+          - { en: "hurt", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "feet", tokenIndex: 3 }
+        audioText: "me duelen los pies"
+        revealNote: "«duelen» — plural hurting (m31), now paired with this module's clothing need-frame."
+      - kind: info
+        id: l9-info-painplusneed
+        title: "Pain + need — chaining two frames"
+        body: "«me duelen los pies» (m31) and «necesito calcetines nuevos» (this module) chain into one sentence: «me duelen los pies — necesito calcetines nuevos». Two familiar frames, one new habit: naming the cause."
+      - kind: speakLit
+        id: l9-sp-recall
+        es: "necesito una chaqueta nueva, calcetines negros, y voy a comprarlos"
+        en: "I need a new jacket, black socks, and I'm going to buy them"
+        cue: recall
+        atoms: ["necesito", "chaqueta", "nuevo", "calcetines", "negro", "voy", "comprarlos"]
+      - kind: buildLit
+        id: l9-b-meduelelamanonecesitoguantes
+        es: "me duele la mano — necesito guantes nuevos"
+        en: "My hand hurts — I need new gloves"
+        atoms: ["me", "duele", "mano", "necesito", "guantes", "nuevo"]
+        tiles: ["duelen", "tengo"]
+      - kind: clozeLit
+        id: l9-c-meduelenlospies
+        es: "me duelen los pies"
+        en: "My feet hurt"
+        blank: "duelen"
+        options: ["duelen", "duele"]
+        atoms: ["me", "duelen", "pie"]
+        why: "«los pies» — plural — takes «duelen», not «duele»."
+      - kind: listenCompLit
+        id: l9-lc-meduelelamanoporque
+        es: "me duele la mano porque necesito guantes nuevos"
+        en: "My hand hurts because I need new gloves."
+        atoms: ["me", "duele", "mano", "porque", "necesito", "guantes", "nuevo"]
+        distractorsEn:
+          - "My hand hurts because I need a new jacket."
+          - "My hands hurt because I need new gloves."
+          - "I need new gloves."
+      - kind: mcq
+        id: l9-q-meduelenlospies
+        prompt: "Which one means 'hurt' for «los pies» (plural, about you)?"
+        correct: "me duelen"
+        distractors: ["me duele", "te duelen", "le duelen"]
+        atoms: ["me", "duelen"]
+        why: "«los pies» is plural, so «duelen», not «duele» — and «me», not «te»/«le», since it's about you."
+      - kind: buildLit
+        id: l9-b-amihermanaleduelenlasmanos
+        es: "a mi hermana le duelen las manos — necesita guantes nuevos"
+        en: "My sister's hands hurt — she needs new gloves"
+        atoms: ["hermana", "le", "duelen", "mano", "necesita", "guantes", "nuevo"]
+        tiles: ["me", "necesito"]
+      - kind: audioWimcq
+        id: l9-ear-casa
+        target: { surface: "casa", emoji: "🏠" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "libro", emoji: "📖" }
+      - kind: agreementLit
+        id: l9-agr-duelencalcetinesnuevos
+        en: "My feet hurt, and I need new socks"
+        audioText: "me duelen los pies, y necesito calcetines nuevos"
+        atoms: ["me", "duelen", "pie", "necesito", "calcetines", "nuevo"]
+        segments:
+          - { text: "me " }
+          - { blank: { id: "p1", answer: "duelen", options: ["duelen", "duele"] } }
+          - { text: " los pies, y necesito calcetines " }
+          - { blank: { id: "p2", answer: "nuevos", options: ["nuevos", "nueva"] } }
+      - kind: listenBuildLit
+        id: l9-lb-teduelelamanonecesitasguantes
+        es: "te duele la mano — ¿necesitas guantes?"
+        en: "Your hand hurts — do you need gloves?"
+        atoms: ["te", "duele", "mano", "necesitas", "guantes"]
+        tiles: ["duelen", "necesito"]
+      - kind: textMcq
+        id: l9-tm-duelen
+        target: "duelen"
+        distractors: ["duele", "duelemos", "dueles"]
+      - kind: sim
+        id: l9-sim-diego-dolor
+        scene: { emoji: "🤕", title: "Diego notices you wincing", setting: "Diego sees you limping around the store." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Te duelen los pies?", audioText: "¿te duelen los pies?", gloss: "Do your feet hurt?" }
+            goal: "Say yes, your feet hurt, you need socks."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me duelen los pies — necesito calcetines nuevos" }
+                - { id: "wrong1", text: "sí, te duelen los pies — necesito calcetines nuevos" }
+                - { id: "wrong2", text: "sí, me duele los pies — necesito calcetines nuevos" }
+              correctOptionId: "right"
+              audioText: "sí, me duelen los pies — necesito calcetines nuevos"
+            replyGloss: "Yes, my feet hurt — I need new socks."
+            explanation: "«me», not «te» — it's about you now. And «los pies» is plural, so «duelen», not «duele»."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y las manos? ¿Necesitas guantes también?", audioText: "¿y las manos? ¿necesitas guantes también?", gloss: "And your hands? Do you need gloves too?" }
+            goal: "Say yes — hands hurt, need gloves too."
+            reply:
+              mode: build
+              tiles: ["sí", "me", "duelen", "las", "manos", "necesito", "guantes", "también", "duele"]
+              answer: "sí me duelen las manos necesito guantes también"
+            replyGloss: "Yes, my hands hurt and I need gloves too."
+            explanation: "«las manos» is plural, so «duelen», not «duele»."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "duele", target: "hurts (one thing)" }
+          - { source: "duelen", target: "hurt (more than one)" }
+          - { source: "pie", target: "foot" }
+          - { source: "mano", target: "hand" }
+          - { source: "necesito", target: "I need" }
+          - { source: "guantes", target: "gloves" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "me duelen los pies — necesito calcetines nuevos"
+        en: "My feet hurt — I need new socks"
+        atoms: ["me", "duelen", "pie", "necesito", "calcetines", "nuevo"]
+
+  # ── L10 · Mastery — all graded, no map/info (mirrors m30-L10/m31-L10's
+  #    own mastery shape). Recombines every strand: all five nouns,
+  #    color/size agreement, «voy a comprarlo/la/los» (m29), «¿cuánto
+  #    cuesta?» (m12), and «duele»/«duelen» (m31) paired with need.
+  #    Two recalls (L9 and L6, different lessons). LAST step is the
+  #    sim — no matchLit/speakLit after it, matching doctrine's
+  #    mastery-ends-on-sim rule; the module's own title line is voiced
+  #    inside the sim's first reply.
+  - n: 10
+    template: free
+    title: "Mastery: necesito comprar, me duelen"
+    description: "Every strand, one last time — clothing, color, size, shopping, and pain, all in one pass. Ends where a shopping trip actually would: deciding what to buy."
+    steps:
+      - kind: speakLit
+        id: l10-sp-recall-l9win
+        es: "me duelen los pies — necesito calcetines nuevos"
+        en: "My feet hurt — I need new socks"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l10-b-voyacomprarguantes
+        es: "voy a comprar guantes porque me duelen las manos"
+        en: "I'm going to buy gloves because my hands hurt"
+        atoms: ["voy", "comprar", "guantes", "porque", "me", "duelen", "mano"]
+        tiles: ["necesito", "duele"]
+      - kind: clozeLit
+        id: l10-c-necesitocomprarcalcetines
+        es: "necesito comprar calcetines nuevos"
+        en: "I need to buy new socks"
+        blank: "nuevos"
+        options: ["nuevos", "nueva"]
+        atoms: ["necesito", "comprar", "calcetines", "nuevo"]
+        why: "«calcetines» is plural, so «nuevos», not «nueva»."
+      - kind: listenCompLit
+        id: l10-lc-voyacomprarlospies
+        es: "voy a comprarlos porque me duelen los pies"
+        en: "I'm going to buy them because my feet hurt."
+        atoms: ["voy", "comprarlos", "porque", "me", "duelen", "pie"]
+        distractorsEn:
+          - "I'm going to buy them because my hands hurt."
+          - "I bought them because my feet hurt."
+          - "My feet hurt."
+      - kind: mcq
+        id: l10-q-necesitocomprarbufanda
+        prompt: "Which one means 'I need to buy a new scarf'?"
+        correct: "necesito comprar una bufanda nueva"
+        distractors: ["necesito comprar un bufanda nueva", "necesito comprarla bufanda nueva", "necesita comprar una bufanda nueva"]
+        atoms: ["necesito", "comprar", "bufanda", "nuevo"]
+        why: "«bufanda» is feminine, so «una»/«nueva» — and «necesito», not «necesita», since it's about you."
+      - kind: speakLit
+        id: l10-sp-recall-l6win
+        es: "la chaqueta verde es pequeña"
+        en: "The green jacket is small"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l10-b-cuantocuestachaquetacomprarla
+        es: "voy a comprarla — ¿cuánto cuesta la chaqueta?"
+        en: "I'm going to buy it — how much does the jacket cost?"
+        atoms: ["voy", "comprarla", "cuánto", "cuesta", "chaqueta"]
+        tiles: ["cuestan", "comprarlo"]
+      - kind: audioWimcq
+        id: l10-ear-libro
+        target: { surface: "libro", emoji: "📖" }
+        distractors:
+          - { surface: "casa", emoji: "🏠" }
+          - { surface: "perro", emoji: "🐶" }
+      - kind: agreementLit
+        id: l10-agr-pantalonchaquetanueva
+        en: "I need new pants, and my sister needs a new jacket"
+        audioText: "necesito un pantalón nuevo, y mi hermana necesita una chaqueta nueva"
+        atoms: ["necesito", "pantalón", "nuevo", "hermana", "necesita", "chaqueta"]
+        segments:
+          - { text: "necesito un pantalón " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y mi hermana necesita una chaqueta " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l10-lb-meduelenlospiesporquezapatosviejos
+        es: "me duelen los pies porque los zapatos son viejos"
+        en: "My feet hurt because the shoes are old"
+        atoms: ["me", "duelen", "pie", "porque", "zapato", "son", "viejo"]
+        tiles: ["duele", "es"]
+      - kind: textMcq
+        id: l10-tm-guantesfinal
+        target: "guantes"
+        distractors: ["guisantes", "guardias", "guirnaldas"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "pantalón", target: "pants" }
+          - { source: "chaqueta", target: "jacket" }
+          - { source: "calcetines", target: "socks" }
+          - { source: "guantes", target: "gloves" }
+          - { source: "bufanda", target: "scarf" }
+          - { source: "duelen", target: "hurt (more than one)" }
+      - kind: sim
+        id: l10-sim-mastery
+        scene: { emoji: "🛍️", title: "One last shopping trip", setting: "Ana and Diego meet you at the store on your way out." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Qué necesitas comprar hoy?", audioText: "¿qué necesitas comprar hoy?", gloss: "What do you need to buy today?" }
+            goal: "Say you need gloves — your hands hurt."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "necesito comprar guantes — me duelen las manos" }
+                - { id: "wrong1", text: "necesito comprar guantes — me duele las manos" }
+                - { id: "wrong2", text: "necesitas comprar guantes — me duelen las manos" }
+              correctOptionId: "right"
+              audioText: "necesito comprar guantes — me duelen las manos"
+            replyGloss: "I need to buy gloves — my hands hurt."
+            explanation: "«las manos» is plural, so «duelen», not «duele». And «necesito», not «necesitas» — your own word for yourself."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y la chaqueta? ¿Vas a comprarla también?", audioText: "¿y la chaqueta? ¿vas a comprarla también?", gloss: "And the jacket? Are you going to buy it too?" }
+            goal: "Say yes, you're going to buy it too."
+            reply:
+              mode: build
+              tiles: ["sí", "voy", "a", "comprarla", "también", "comprarlo", "comprarlos"]
+              answer: "sí voy a comprarla también"
+            replyGloss: "Yes, I'm going to buy it too."
+            explanation: "«chaqueta» is feminine, so «comprarla», not «comprarlo» or «comprarlos»."
+
+placement:
+  screener:
+    - id: "es-m32-scr-1"
+      prompt: "'I need a new jacket.' — which one?"
+      correct: "necesito una chaqueta nueva"
+      distractors: ["necesito un chaqueta nueva", "necesito una chaqueta nuevo", "necesito una chaqueta"]
+  byModule:
+    - id: "es-m32-pl-1"
+      prompt: "I have blue pants."
+      correct: "tengo un pantalón azul"
+      distractors: ["tengo unos pantalones azul", "tengo una pantalón azul", "tengo un pantalón azules"]
+    - id: "es-m32-pl-2"
+      prompt: "I have black socks."
+      correct: "tengo calcetines negros"
+      distractors: ["tengo calcetín negro", "tengo calcetines negro", "tengo un calcetines negro"]
+    - id: "es-m32-pl-3"
+      prompt: "Do you have big gloves?"
+      correct: "¿tienes guantes grandes?"
+      distractors: ["¿tienes guante grande?", "¿tiene guantes grandes?", "¿tienes guantes grande?"]
+    - id: "es-m32-pl-4"
+      prompt: "My hands hurt — I need gloves."
+      correct: "me duelen las manos — necesito guantes"
+      distractors: ["me duele las manos — necesito guantes", "me duelen las manos — necesito guante", "me duelen la manos — necesito guantes"]

@@ -1,0 +1,134 @@
+  # ── L9 · «Me duelen los pies — necesito calcetines nuevos» — pain
+  #    (m31's «duele»/«duelen») chained with need (this module's
+  #    clothing nouns) for the first time. No new atoms, but a
+  #    genuinely new PATTERN (two familiar frames chained in one
+  #    sentence) earns this module's third and final usage-note card,
+  #    per the m31-L9 "dedicated contrast" precedent. One recall of
+  #    L8's win line.
+  - n: 9
+    template: free
+    title: "Me duelen los pies"
+    description: "Two frames you already know — «me duelen» (m31) and «necesito» (m16) — chained into one sentence: name the pain, then name what you need."
+    steps:
+      - kind: map
+        id: l9-map-meduelenlospies
+        tokens: ["me", "duelen", "los", "pies"]
+        pairs:
+          - { en: "to me", tokenIndex: 0 }
+          - { en: "hurt", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "feet", tokenIndex: 3 }
+        audioText: "me duelen los pies"
+        revealNote: "«duelen» — plural hurting (m31), now paired with this module's clothing need-frame."
+      - kind: info
+        id: l9-info-painplusneed
+        title: "Pain + need — chaining two frames"
+        body: "«me duelen los pies» (m31) and «necesito calcetines nuevos» (this module) chain into one sentence: «me duelen los pies — necesito calcetines nuevos». Two familiar frames, one new habit: naming the cause."
+      - kind: speakLit
+        id: l9-sp-recall
+        es: "necesito una chaqueta nueva, calcetines negros, y voy a comprarlos"
+        en: "I need a new jacket, black socks, and I'm going to buy them"
+        cue: recall
+        atoms: ["necesito", "chaqueta", "nuevo", "calcetines", "negro", "voy", "comprarlos"]
+      - kind: buildLit
+        id: l9-b-meduelelamanonecesitoguantes
+        es: "me duele la mano — necesito guantes nuevos"
+        en: "My hand hurts — I need new gloves"
+        atoms: ["me", "duele", "mano", "necesito", "guantes", "nuevo"]
+        tiles: ["duelen", "tengo"]
+      - kind: clozeLit
+        id: l9-c-meduelenlospies
+        es: "me duelen los pies"
+        en: "My feet hurt"
+        blank: "duelen"
+        options: ["duelen", "duele"]
+        atoms: ["me", "duelen", "pie"]
+        why: "«los pies» — plural — takes «duelen», not «duele»."
+      - kind: listenCompLit
+        id: l9-lc-meduelelamanoporque
+        es: "me duele la mano porque necesito guantes nuevos"
+        en: "My hand hurts because I need new gloves."
+        atoms: ["me", "duele", "mano", "porque", "necesito", "guantes", "nuevo"]
+        distractorsEn:
+          - "My hand hurts because I need a new jacket."
+          - "My hands hurt because I need new gloves."
+          - "I need new gloves."
+      - kind: mcq
+        id: l9-q-meduelenlospies
+        prompt: "Which one means 'hurt' for «los pies» (plural, about you)?"
+        correct: "me duelen"
+        distractors: ["me duele", "te duelen", "le duelen"]
+        atoms: ["me", "duelen"]
+        why: "«los pies» is plural, so «duelen», not «duele» — and «me», not «te»/«le», since it's about you."
+      - kind: buildLit
+        id: l9-b-amihermanaleduelenlasmanos
+        es: "a mi hermana le duelen las manos — necesita guantes nuevos"
+        en: "My sister's hands hurt — she needs new gloves"
+        atoms: ["hermana", "le", "duelen", "mano", "necesita", "guantes", "nuevo"]
+        tiles: ["me", "necesito"]
+      - kind: audioWimcq
+        id: l9-ear-casa
+        target: { surface: "casa", emoji: "🏠" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "libro", emoji: "📖" }
+      - kind: agreementLit
+        id: l9-agr-duelencalcetinesnuevos
+        en: "My feet hurt, and I need new socks"
+        audioText: "me duelen los pies, y necesito calcetines nuevos"
+        atoms: ["me", "duelen", "pie", "necesito", "calcetines", "nuevo"]
+        segments:
+          - { text: "me " }
+          - { blank: { id: "p1", answer: "duelen", options: ["duelen", "duele"] } }
+          - { text: " los pies, y necesito calcetines " }
+          - { blank: { id: "p2", answer: "nuevos", options: ["nuevos", "nueva"] } }
+      - kind: listenBuildLit
+        id: l9-lb-teduelelamanonecesitasguantes
+        es: "te duele la mano — ¿necesitas guantes?"
+        en: "Your hand hurts — do you need gloves?"
+        atoms: ["te", "duele", "mano", "necesitas", "guantes"]
+        tiles: ["duelen", "necesito"]
+      - kind: textMcq
+        id: l9-tm-duelen
+        target: "duelen"
+        distractors: ["duele", "duelemos", "dueles"]
+      - kind: sim
+        id: l9-sim-diego-dolor
+        scene: { emoji: "🤕", title: "Diego notices you wincing", setting: "Diego sees you limping around the store." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Te duelen los pies?", audioText: "¿te duelen los pies?", gloss: "Do your feet hurt?" }
+            goal: "Say yes, your feet hurt, you need socks."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me duelen los pies — necesito calcetines nuevos" }
+                - { id: "wrong1", text: "sí, te duelen los pies — necesito calcetines nuevos" }
+                - { id: "wrong2", text: "sí, me duele los pies — necesito calcetines nuevos" }
+              correctOptionId: "right"
+              audioText: "sí, me duelen los pies — necesito calcetines nuevos"
+            replyGloss: "Yes, my feet hurt — I need new socks."
+            explanation: "«me», not «te» — it's about you now. And «los pies» is plural, so «duelen», not «duele»."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y las manos? ¿Necesitas guantes también?", audioText: "¿y las manos? ¿necesitas guantes también?", gloss: "And your hands? Do you need gloves too?" }
+            goal: "Say yes — hands hurt, need gloves too."
+            reply:
+              mode: build
+              tiles: ["sí", "me", "duelen", "las", "manos", "necesito", "guantes", "también", "duele"]
+              answer: "sí me duelen las manos necesito guantes también"
+            replyGloss: "Yes, my hands hurt and I need gloves too."
+            explanation: "«las manos» is plural, so «duelen», not «duele»."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "duele", target: "hurts (one thing)" }
+          - { source: "duelen", target: "hurt (more than one)" }
+          - { source: "pie", target: "foot" }
+          - { source: "mano", target: "hand" }
+          - { source: "necesito", target: "I need" }
+          - { source: "guantes", target: "gloves" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "me duelen los pies — necesito calcetines nuevos"
+        en: "My feet hurt — I need new socks"
+        atoms: ["me", "duelen", "pie", "necesito", "calcetines", "nuevo"]

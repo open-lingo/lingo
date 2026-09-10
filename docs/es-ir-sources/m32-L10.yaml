@@ -1,0 +1,122 @@
+  # ── L10 · Mastery — all graded, no map/info (mirrors m30-L10/m31-L10's
+  #    own mastery shape). Recombines every strand: all five nouns,
+  #    color/size agreement, «voy a comprarlo/la/los» (m29), «¿cuánto
+  #    cuesta?» (m12), and «duele»/«duelen» (m31) paired with need.
+  #    Two recalls (L9 and L6, different lessons). LAST step is the
+  #    sim — no matchLit/speakLit after it, matching doctrine's
+  #    mastery-ends-on-sim rule; the module's own title line is voiced
+  #    inside the sim's first reply.
+  - n: 10
+    template: free
+    title: "Mastery: necesito comprar, me duelen"
+    description: "Every strand, one last time — clothing, color, size, shopping, and pain, all in one pass. Ends where a shopping trip actually would: deciding what to buy."
+    steps:
+      - kind: speakLit
+        id: l10-sp-recall-l9win
+        es: "me duelen los pies — necesito calcetines nuevos"
+        en: "My feet hurt — I need new socks"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l10-b-voyacomprarguantes
+        es: "voy a comprar guantes porque me duelen las manos"
+        en: "I'm going to buy gloves because my hands hurt"
+        atoms: ["voy", "comprar", "guantes", "porque", "me", "duelen", "mano"]
+        tiles: ["necesito", "duele"]
+      - kind: clozeLit
+        id: l10-c-necesitocomprarcalcetines
+        es: "necesito comprar calcetines nuevos"
+        en: "I need to buy new socks"
+        blank: "nuevos"
+        options: ["nuevos", "nueva"]
+        atoms: ["necesito", "comprar", "calcetines", "nuevo"]
+        why: "«calcetines» is plural, so «nuevos», not «nueva»."
+      - kind: listenCompLit
+        id: l10-lc-voyacomprarlospies
+        es: "voy a comprarlos porque me duelen los pies"
+        en: "I'm going to buy them because my feet hurt."
+        atoms: ["voy", "comprarlos", "porque", "me", "duelen", "pie"]
+        distractorsEn:
+          - "I'm going to buy them because my hands hurt."
+          - "I bought them because my feet hurt."
+          - "My feet hurt."
+      - kind: mcq
+        id: l10-q-necesitocomprarbufanda
+        prompt: "Which one means 'I need to buy a new scarf'?"
+        correct: "necesito comprar una bufanda nueva"
+        distractors: ["necesito comprar un bufanda nueva", "necesito comprarla bufanda nueva", "necesita comprar una bufanda nueva"]
+        atoms: ["necesito", "comprar", "bufanda", "nuevo"]
+        why: "«bufanda» is feminine, so «una»/«nueva» — and «necesito», not «necesita», since it's about you."
+      - kind: speakLit
+        id: l10-sp-recall-l6win
+        es: "la chaqueta verde es pequeña"
+        en: "The green jacket is small"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l10-b-cuantocuestachaquetacomprarla
+        es: "voy a comprarla — ¿cuánto cuesta la chaqueta?"
+        en: "I'm going to buy it — how much does the jacket cost?"
+        atoms: ["voy", "comprarla", "cuánto", "cuesta", "chaqueta"]
+        tiles: ["cuestan", "comprarlo"]
+      - kind: audioWimcq
+        id: l10-ear-libro
+        target: { surface: "libro", emoji: "📖" }
+        distractors:
+          - { surface: "casa", emoji: "🏠" }
+          - { surface: "perro", emoji: "🐶" }
+      - kind: agreementLit
+        id: l10-agr-pantalonchaquetanueva
+        en: "I need new pants, and my sister needs a new jacket"
+        audioText: "necesito un pantalón nuevo, y mi hermana necesita una chaqueta nueva"
+        atoms: ["necesito", "pantalón", "nuevo", "hermana", "necesita", "chaqueta"]
+        segments:
+          - { text: "necesito un pantalón " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y mi hermana necesita una chaqueta " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l10-lb-meduelenlospiesporquezapatosviejos
+        es: "me duelen los pies porque los zapatos son viejos"
+        en: "My feet hurt because the shoes are old"
+        atoms: ["me", "duelen", "pie", "porque", "zapato", "son", "viejo"]
+        tiles: ["duele", "es"]
+      - kind: textMcq
+        id: l10-tm-guantesfinal
+        target: "guantes"
+        distractors: ["guisantes", "guardias", "guirnaldas"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "pantalón", target: "pants" }
+          - { source: "chaqueta", target: "jacket" }
+          - { source: "calcetines", target: "socks" }
+          - { source: "guantes", target: "gloves" }
+          - { source: "bufanda", target: "scarf" }
+          - { source: "duelen", target: "hurt (more than one)" }
+      - kind: sim
+        id: l10-sim-mastery
+        scene: { emoji: "🛍️", title: "One last shopping trip", setting: "Ana and Diego meet you at the store on your way out." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Qué necesitas comprar hoy?", audioText: "¿qué necesitas comprar hoy?", gloss: "What do you need to buy today?" }
+            goal: "Say you need gloves — your hands hurt."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "necesito comprar guantes — me duelen las manos" }
+                - { id: "wrong1", text: "necesito comprar guantes — me duele las manos" }
+                - { id: "wrong2", text: "necesitas comprar guantes — me duelen las manos" }
+              correctOptionId: "right"
+              audioText: "necesito comprar guantes — me duelen las manos"
+            replyGloss: "I need to buy gloves — my hands hurt."
+            explanation: "«las manos» is plural, so «duelen», not «duele». And «necesito», not «necesitas» — your own word for yourself."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y la chaqueta? ¿Vas a comprarla también?", audioText: "¿y la chaqueta? ¿vas a comprarla también?", gloss: "And the jacket? Are you going to buy it too?" }
+            goal: "Say yes, you're going to buy it too."
+            reply:
+              mode: build
+              tiles: ["sí", "voy", "a", "comprarla", "también", "comprarlo", "comprarlos"]
+              answer: "sí voy a comprarla también"
+            replyGloss: "Yes, I'm going to buy it too."
+            explanation: "«chaqueta» is feminine, so «comprarla», not «comprarlo» or «comprarlos»."

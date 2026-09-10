@@ -301,7 +301,7 @@ newAtoms:
   - { surface: "calcetines", meaningEn: "socks", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🧦", hint: "los calcetines — always plural, like «dientes» (m17). No singular card. This module's own «duele»/«duelen» (m31) L9 pair: los calcetines ↔ los pies (m30)." }
   # los guantes — gloves. Plural-only, same pattern as «dientes»/
   # «calcetines». Needs SVG vendoring — see header note and brief.
-  - { surface: "guantes", meaningEn: "gloves", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🧤", hint: "los guantes — always plural, same pattern as «calcetines» and «dientes» (m17). This module's own «duele»/«duelen» (m31) L9 pair: los guantes ↔ las manos (m30). SVG not yet vendored — see brief." }
+  - { surface: "guantes", meaningEn: "gloves", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🧤", hint: "los guantes — always plural, same pattern as «calcetines» and «dientes» (m17). This module's own «duele»/«duelen» (m31) L9 pair: los guantes ↔ las manos (m30). SVG vendored 2026-09-10 (emoji_u1f9e4.svg)." }
   # la bufanda — scarf. Regular feminine noun.
   - { surface: "bufanda", meaningEn: "scarf", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🧣", hint: "la bufanda — regular feminine. «tengo una bufanda bonita»." }
 

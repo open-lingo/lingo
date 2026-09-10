@@ -1,0 +1,127 @@
+  # ── L8 · Checkpoint — all graded, no map/info (mirrors m30-L8/m31-L8's
+  #    own checkpoint shape). Pure recombination of L1-L7 content plus
+  #    PRIOR clothing (camisa/sombrero, m12): all five new nouns, «es»/
+  #    «son», size/color agreement, «voy a comprarlo/la/los» (m29),
+  #    «¿cuánto cuesta?» (m12). No «unos»/«unas» anywhere. Two recalls,
+  #    drawn from different earlier lessons' win lines (L7 and L3).
+  #    Ends sim → matchLit → speakLit-win, same closing shape as every
+  #    other lesson.
+  - n: 8
+    template: free
+    title: "Checkpoint: lo que necesito comprar"
+    description: "Everything so far, recombined — no new words, just this module's five nouns working with «es»/«son», size, color, and «voy a comprarlo/la/los»."
+    steps:
+      - kind: speakLit
+        id: l8-sp-recall-comprarla
+        es: "voy a comprarla — ¿cuánto cuesta la chaqueta?"
+        en: "I'm going to buy it — how much does the jacket cost?"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-tengopantalonycamisa
+        es: "tengo un pantalón viejo y una camisa nueva"
+        en: "I have old pants and a new shirt"
+        atoms: ["tengo", "pantalón", "viejo", "camisa", "nuevo"]
+        tiles: ["necesito", "tienes"]
+      - kind: clozeLit
+        id: l8-c-necesitocalcetinesnuevos
+        es: "necesito calcetines nuevos"
+        en: "I need new socks"
+        blank: "nuevos"
+        options: ["nuevos", "nueva"]
+        atoms: ["necesito", "calcetines", "nuevo"]
+        why: "«calcetines» is plural, so «nuevos», not «nueva»."
+      - kind: listenCompLit
+        id: l8-lc-necesitosombreronuevo
+        es: "necesito un sombrero nuevo"
+        en: "I need a new hat."
+        atoms: ["necesito", "sombrero", "nuevo"]
+        distractorsEn:
+          - "I have a new hat."
+          - "I need an old hat."
+          - "I need new pants."
+      - kind: mcq
+        id: l8-q-guantesnuevos
+        prompt: "Which one means 'gloves are new'?"
+        correct: "guantes son nuevos"
+        distractors: ["guantes es nuevos", "guante son nuevo", "guantes son nuevo"]
+        atoms: ["guantes", "son", "nuevo"]
+        why: "«guantes» is plural, so «son», not «es», and the adjective takes -s: «nuevos»."
+      - kind: speakLit
+        id: l8-sp-recall-calcetinesnegros
+        es: "tengo calcetines negros"
+        en: "I have black socks"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-mihermanavaacomprar
+        es: "mi hermana va a comprar una bufanda"
+        en: "My sister is going to buy a scarf"
+        atoms: ["hermana", "va", "comprar", "bufanda"]
+        tiles: ["voy", "necesito"]
+      - kind: audioWimcq
+        id: l8-ear-perro
+        target: { surface: "perro", emoji: "🐶" }
+        distractors:
+          - { surface: "libro", emoji: "📖" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: agreementLit
+        id: l8-agr-camisapantalonnuevos
+        en: "I need a new shirt, and I need new pants"
+        audioText: "necesito una camisa nueva, y necesito un pantalón nuevo"
+        atoms: ["necesito", "camisa", "nuevo", "pantalón"]
+        segments:
+          - { text: "necesito una camisa " }
+          - { blank: { id: "p1", answer: "nueva", options: ["nueva", "nuevo"] } }
+          - { text: ", y necesito un pantalón " }
+          - { blank: { id: "p2", answer: "nuevo", options: ["nuevo", "nueva"] } }
+      - kind: listenBuildLit
+        id: l8-lb-calcetinesguantesnegros
+        es: "los calcetines y los guantes son negros"
+        en: "The socks and the gloves are black"
+        atoms: ["calcetines", "guantes", "son", "negro"]
+        tiles: ["es", "negro"]
+      - kind: textMcq
+        id: l8-tm-chaqueta
+        target: "chaqueta"
+        distractors: ["chocolate", "chimenea", "charla"]
+      - kind: sim
+        id: l8-sim-checkpoint
+        scene: { emoji: "🏁", title: "Checkpoint check-in", setting: "Ana checks in on your shopping list before you head out." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Necesitas una chaqueta nueva?", audioText: "¿necesitas una chaqueta nueva?", gloss: "Do you need a new jacket?" }
+            goal: "Say you need a new jacket."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "necesito una chaqueta nueva" }
+                - { id: "wrong1", text: "necesito un chaqueta nueva" }
+                - { id: "wrong2", text: "necesita una chaqueta nueva" }
+              correctOptionId: "right"
+              audioText: "necesito una chaqueta nueva"
+            replyGloss: "I need a new jacket."
+            explanation: "«chaqueta» is feminine, so «una», not «un». And «necesito», not «necesitas» — your own word for yourself."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y los guantes? ¿Vas a comprarlos?", audioText: "¿y los guantes? ¿vas a comprarlos?", gloss: "And the gloves? Are you going to buy them?" }
+            goal: "Say yes, you're going to buy them too."
+            reply:
+              mode: build
+              tiles: ["sí", "voy", "a", "comprarlos", "también", "comprarla", "comprarlo"]
+              answer: "sí voy a comprarlos también"
+            replyGloss: "Yes, I'm going to buy them too."
+            explanation: "«guantes» is plural, so «comprarlos», not «comprarla» or «comprarlo»."
+      - kind: matchLit
+        id: l8-match
+        pairs:
+          - { source: "pantalón", target: "pants" }
+          - { source: "chaqueta", target: "jacket" }
+          - { source: "calcetines", target: "socks" }
+          - { source: "guantes", target: "gloves" }
+          - { source: "bufanda", target: "scarf" }
+          - { source: "comprarlos", target: "to buy them" }
+      - kind: speakLit
+        id: l8-sp-win
+        es: "necesito una chaqueta nueva, calcetines negros, y voy a comprarlos"
+        en: "I need a new jacket, black socks, and I'm going to buy them"
+        atoms: ["necesito", "chaqueta", "nuevo", "calcetines", "negro", "voy", "comprarlos"]

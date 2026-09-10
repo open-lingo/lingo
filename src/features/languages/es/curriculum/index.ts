@@ -42,6 +42,7 @@ import { ES_M28_LESSONS } from "./m28";
 import { ES_M29_LESSONS } from "./m29";
 import { ES_M30_LESSONS } from "./m30";
 import { ES_M31_LESSONS } from "./m31";
+import { ES_M32_LESSONS } from "./m32";
 
 export type EsModuleMeta = {
   id: string;
@@ -253,7 +254,14 @@ export const ES_MODULE_META: EsModuleMeta[] = [
     eyebrow: "Module 31 · The body, in pain",
     summary: "two new words, «duele» and «duelen», ride the exact word order «me gusta»/«me gustan» already taught back in module 13 — now the body parts you just learned in module 30 do the hurting instead of the liking.",
     accent: { from: "#fb7185", to: "#9f1239" },
+  },  {
+    id: "m32",
+    title: "Necesito una chaqueta nueva",
+    eyebrow: "Module 32 · Clothing round 2",
+    summary: "five more clothing words — el pantalón, la chaqueta, los calcetines, los guantes, la bufanda — put straight to work with everything you already know: «tengo», «necesito», size and color (m6), «voy a comprarlo/la/los» (m29), «¿cuánto cuesta?» (m12), and «me duele(n)» (m31).",
+    accent: { from: "#4f46e5", to: "#312e81" },
   },
+
 
 
 
@@ -303,6 +311,7 @@ const LESSONS_BY_MODULE: Record<string, LessonContent[]> = {
   m29: ES_M29_LESSONS,
   m30: ES_M30_LESSONS,
   m31: ES_M31_LESSONS,
+  m32: ES_M32_LESSONS,
 };
 
 /** Flat lesson list for the shared LESSONS content index (mockLessons.ts). */

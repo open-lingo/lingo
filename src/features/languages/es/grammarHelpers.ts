@@ -736,6 +736,7 @@ export const ES_MODULE_ORDER: EsAtomSource[] = [
   "m29",
   "m30",
   "m31",
+  "m32",
 ];
 
 function moduleIndex(m: EsAtomSource): number {

@@ -1,0 +1,139 @@
+  # ── L3 · «Tengo calcetines negros» — «calcetines» debuts, registered
+  #    directly as its PLURAL surface, no singular card — same pattern
+  #    as «dientes» (m17). No «unos» (hard ban): bare-plural-noun
+  #    framing only, exactly like «tengo dientes blancos» would read.
+  #    Carries this module's second usage-note card (plural-only nouns).
+  #    One recall of L2's win line.
+  - n: 3
+    template: free
+    title: "Tengo calcetines negros"
+    description: "«calcetines» — always plural, like «dientes» (m17). No singular card: you'll never see «calcetín» in this course."
+    steps:
+      - kind: map
+        id: l3-map-tengocalcetinesnegros
+        tokens: ["tengo", "calcetines", "negros"]
+        pairs:
+          - { en: "I have", tokenIndex: 0 }
+          - { en: "socks", tokenIndex: 1 }
+          - { en: "black", tokenIndex: 2 }
+        audioText: "tengo calcetines negros"
+        revealNote: "«calcetines» — always plural, like «dientes» (m17). No article needed: «tengo calcetines negros»."
+      - kind: speakLit
+        id: l3-sp-recall
+        es: "necesito una chaqueta nueva"
+        en: "I need a new jacket"
+        cue: recall
+        atoms: ["necesito", "chaqueta", "nuevo"]
+      - kind: imageMcq
+        id: l3-im-calcetines
+        target: { surface: "calcetines", meaningEn: "socks", emoji: "🧦" }
+        distractors:
+          - { surface: "pantalón", emoji: "👖" }
+          - { surface: "chaqueta", emoji: "🧥" }
+          - { surface: "zapato", emoji: "👞" }
+      - kind: info
+        id: l3-info-calcetinesplural
+        title: "Calcetines — always plural"
+        body: "«calcetines» — always plural, like «dientes» (m17). There's no singular card in this course: socks come in pairs, and so does the word."
+      - kind: buildLit
+        id: l3-b-tengocalcetinesblancos
+        es: "tengo calcetines blancos"
+        en: "I have white socks"
+        atoms: ["tengo", "calcetines", "blanco"]
+        tiles: ["tienes", "negros"]
+      - kind: clozeLit
+        id: l3-c-calcetinesnegros
+        es: "tengo calcetines negros"
+        en: "I have black socks"
+        blank: "negros"
+        options: ["negros", "negro"]
+        atoms: ["tengo", "calcetines", "negro"]
+        why: "«calcetines» is plural, so its adjective takes the plural -s: «negros», not «negro»."
+      - kind: listenCompLit
+        id: l3-lc-calcetinesverdes
+        es: "tengo calcetines verdes"
+        en: "I have green socks."
+        atoms: ["tengo", "calcetines", "verde"]
+        distractorsEn:
+          - "I have black socks."
+          - "You have green socks."
+          - "I have a green jacket."
+      - kind: mcq
+        id: l3-q-calcetines
+        prompt: "Which one means 'I have black socks'?"
+        correct: "tengo calcetines negros"
+        distractors: ["tengo calcetín negro", "tengo calcetines negro", "tengo un calcetines negros"]
+        atoms: ["tengo", "calcetines", "negro"]
+        why: "«calcetines» is always plural — there's no «calcetín» in this course — and the adjective agrees: «negros»."
+      - kind: buildLit
+        id: l3-b-mihermanotienecalcetinesrojos
+        es: "mi hermana tiene calcetines rojos"
+        en: "My sister has red socks"
+        atoms: ["mi", "hermana", "tiene", "calcetines", "rojo"]
+        tiles: ["tengo", "azules"]
+      - kind: audioWimcq
+        id: l3-ear-casa
+        target: { surface: "casa", emoji: "🏠" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "libro", emoji: "📖" }
+      - kind: agreementLit
+        id: l3-agr-calcetinesblancosnegros
+        en: "I have white socks, and my sister has black socks"
+        audioText: "tengo calcetines blancos, y mi hermana tiene calcetines negros"
+        atoms: ["tengo", "calcetines", "blanco", "hermana", "tiene", "negro"]
+        segments:
+          - { text: "tengo calcetines " }
+          - { blank: { id: "p1", answer: "blancos", options: ["blancos", "negros"] } }
+          - { text: ", y mi hermana tiene calcetines " }
+          - { blank: { id: "p2", answer: "negros", options: ["negros", "blancos"] } }
+      - kind: listenBuildLit
+        id: l3-lb-anatienecalcetinesverdes
+        es: "Ana tiene calcetines verdes"
+        en: "Ana has green socks"
+        atoms: ["tiene", "calcetines", "verde"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l3-tm-calcetines
+        target: "calcetines"
+        distractors: ["caracoles", "calendario", "cascabeles"]
+      - kind: sim
+        id: l3-sim-ana-calcetines
+        scene: { emoji: "🧦", title: "Ana asks about your socks", setting: "Ana is doing laundry and sorting socks." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes calcetines negros?", audioText: "¿tienes calcetines negros?", gloss: "Do you have black socks?" }
+            goal: "Say yes, you have black socks."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo calcetines negros" }
+                - { id: "wrong1", text: "sí, tengo calcetín negro" }
+                - { id: "wrong2", text: "sí, tienes calcetines negros" }
+              correctOptionId: "right"
+              audioText: "sí, tengo calcetines negros"
+            replyGloss: "Yes, I have black socks."
+            explanation: "«calcetines» — always plural, never «calcetín». And «tengo», not «tienes» — that's your own word for yourself."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermana? ¿Tiene calcetines rojos?", audioText: "¿y tu hermana? ¿tiene calcetines rojos?", gloss: "And your sister? Does she have red socks?" }
+            goal: "Say yes, she has red socks."
+            reply:
+              mode: build
+              tiles: ["sí", "tiene", "calcetines", "rojos", "tengo", "yo"]
+              answer: "sí tiene calcetines rojos"
+            replyGloss: "Yes, she has red socks."
+            explanation: "«tiene», not «tengo» — this is about your sister, not you."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "calcetines", target: "socks" }
+          - { source: "tengo", target: "I have" }
+          - { source: "tienes", target: "you have" }
+          - { source: "tiene", target: "he/she has" }
+          - { source: "negro", target: "black" }
+          - { source: "blanco", target: "white" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "tengo calcetines negros"
+        en: "I have black socks"
+        atoms: ["tengo", "calcetines", "negro"]

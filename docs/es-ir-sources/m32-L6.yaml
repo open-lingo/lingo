@@ -1,0 +1,130 @@
+  # ── L6 · «La chaqueta verde es pequeña» — pure recombination. No new
+  #    atoms: all five nouns from L1-L5 cycle through color + size +
+  #    «es»/«son» (m2/m18) agreement. No imageMcq (nothing debuts), no
+  #    info card (no new grammar) — map's revealNote carries the framing.
+  #    Two recalls this lesson: L5's win line, plus this lesson exercises
+  #    every new noun at least once (interleave floor).
+  - n: 6
+    template: free
+    title: "La chaqueta verde es pequeña"
+    description: "No new words this lesson — just recombination. All five new nouns cycle through color, size, and «es»/«son» (m2/m18)."
+    steps:
+      - kind: map
+        id: l6-map-lachaquetaverdeespequena
+        tokens: ["la", "chaqueta", "verde", "es", "pequeña"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "jacket", tokenIndex: 1 }
+          - { en: "green", tokenIndex: 2 }
+          - { en: "is", tokenIndex: 3 }
+          - { en: "small", tokenIndex: 4 }
+        audioText: "la chaqueta verde es pequeña"
+        revealNote: "Recombining this module's five nouns with color and size — «pequeña», not «pequeño» (chaqueta is feminine)."
+      - kind: speakLit
+        id: l6-sp-recall
+        es: "mi bufanda es bonita"
+        en: "My scarf is pretty"
+        cue: recall
+        atoms: ["mi", "bufanda", "es", "bonito"]
+      - kind: buildLit
+        id: l6-b-elpantalonazulesgrande
+        es: "el pantalón azul es grande"
+        en: "The blue pants are big"
+        atoms: ["pantalón", "azul", "es", "grande"]
+        tiles: ["la", "pequeña"]
+      - kind: clozeLit
+        id: l6-c-calcetinesviejos
+        es: "los calcetines negros son viejos"
+        en: "The black socks are old"
+        blank: "son"
+        options: ["son", "es"]
+        atoms: ["calcetines", "negro", "viejo"]
+        why: "«calcetines» is plural, so «son», not «es»."
+      - kind: listenCompLit
+        id: l6-lc-guantesverdesnuevos
+        es: "los guantes verdes son nuevos"
+        en: "The green gloves are new."
+        atoms: ["guantes", "verde", "nuevo"]
+        distractorsEn:
+          - "The green gloves are old."
+          - "The green socks are new."
+          - "The green jacket is new."
+      - kind: mcq
+        id: l6-q-chaquetapequena
+        prompt: "Which one means 'the jacket is small'?"
+        correct: "chaqueta es pequeña"
+        distractors: ["chaqueta es pequeño", "chaqueta eres pequeña", "chaquetas es pequeña"]
+        atoms: ["chaqueta", "es", "pequeño"]
+        why: "«chaqueta» is feminine singular, so «pequeña» (not «pequeño») and «es» (not «eres»)."
+      - kind: buildLit
+        id: l6-b-necesitounpantalonyunachaqueta
+        es: "necesito un pantalón nuevo y una chaqueta nueva"
+        en: "I need new pants and a new jacket"
+        atoms: ["necesito", "pantalón", "nuevo", "chaqueta"]
+        tiles: ["tengo", "necesitas"]
+      - kind: audioWimcq
+        id: l6-ear-casa
+        target: { surface: "casa", emoji: "🏠" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "libro", emoji: "📖" }
+      - kind: agreementLit
+        id: l6-agr-pantalonviejochaquetanueva
+        en: "The pants are old, and the jacket is new"
+        audioText: "el pantalón es viejo, y la chaqueta es nueva"
+        atoms: ["pantalón", "es", "viejo", "chaqueta", "nuevo"]
+        segments:
+          - { text: "el pantalón es " }
+          - { blank: { id: "p1", answer: "viejo", options: ["viejo", "vieja"] } }
+          - { text: ", y la chaqueta es " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l6-lb-guantessonpequenos
+        es: "los guantes son pequeños"
+        en: "The gloves are small"
+        atoms: ["guantes", "son", "pequeño"]
+        tiles: ["es", "grandes"]
+      - kind: textMcq
+        id: l6-tm-pequeno
+        target: "pequeño"
+        distractors: ["pantalla", "primavera", "pescado"]
+      - kind: sim
+        id: l6-sim-ana-recombinacion
+        scene: { emoji: "🧥", title: "Ana asks about your clothes", setting: "Ana is picking an outfit and comparing it to yours." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Es grande o pequeña tu chaqueta?", audioText: "¿es grande o pequeña tu chaqueta?", gloss: "Is your jacket big or small?" }
+            goal: "Say your jacket is small."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "mi chaqueta es pequeña" }
+                - { id: "wrong1", text: "mi chaqueta es pequeño" }
+                - { id: "wrong2", text: "mi chaqueta son pequeña" }
+              correctOptionId: "right"
+              audioText: "mi chaqueta es pequeña"
+            replyGloss: "My jacket is small."
+            explanation: "«chaqueta» is feminine singular, so «pequeña» (not «pequeño») and «es» (not «son»)."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tus calcetines? ¿Son negros?", audioText: "¿y tus calcetines? ¿son negros?", gloss: "And your socks? Are they black?" }
+            goal: "Say yes, they are black."
+            reply:
+              mode: build
+              tiles: ["sí", "son", "negros", "es", "negro"]
+              answer: "sí son negros"
+            replyGloss: "Yes, they are black."
+            explanation: "«calcetines» is plural, so «son», not «es»."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "chaqueta", target: "jacket" }
+          - { source: "pantalón", target: "pants" }
+          - { source: "calcetines", target: "socks" }
+          - { source: "guantes", target: "gloves" }
+          - { source: "bufanda", target: "scarf" }
+          - { source: "es", target: "is" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "la chaqueta verde es pequeña"
+        en: "The green jacket is small"
+        atoms: ["chaqueta", "verde", "es", "pequeño"]

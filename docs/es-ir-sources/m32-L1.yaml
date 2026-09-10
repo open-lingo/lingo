@@ -1,0 +1,140 @@
+  # ── L1 · «Tengo un pantalón azul» — «pantalón» debuts. Singular in
+  #    Spanish even though English "pants" is always plural — this is
+  #    the one usage note this lesson carries (info card, ≤3 lines).
+  #    PRIOR context only: «tengo» (m5), «un»/«una» (m3), size/color
+  #    adjectives (m6), «hermana»/«camisa» (m8/m12) for recombination.
+  #    No «unos»/«unas» anywhere (hard ban) — singular framing only.
+  #    No recall — first lesson of the module.
+  - n: 1
+    template: free
+    title: "Tengo un pantalón azul"
+    description: "A new round of clothing words. First up: «pantalón» — always singular in Spanish, even though English says \"pants\". «tengo un pantalón azul» — «tengo» (m5) plus this module's own «pantalón»."
+    steps:
+      - kind: map
+        id: l1-map-tengounpantalon
+        tokens: ["tengo", "un", "pantalón", "azul"]
+        pairs:
+          - { en: "I have", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "pair of pants", tokenIndex: 2 }
+          - { en: "blue", tokenIndex: 3 }
+        audioText: "tengo un pantalón azul"
+        revealNote: "«pantalón» — singular, unlike English \"pants\" (always plural). One pair = «un pantalón»."
+      - kind: imageMcq
+        id: l1-im-pantalon
+        target: { surface: "pantalón", meaningEn: "pants, trousers", emoji: "👖" }
+        distractors:
+          - { surface: "camisa", emoji: "👕" }
+          - { surface: "zapato", emoji: "👞" }
+          - { surface: "sombrero", emoji: "👒" }
+      - kind: info
+        id: l1-info-pantalonsingular
+        title: "Pantalón — always singular"
+        body: "«pantalón» — always singular in Spanish, even though English says \"pants\" (plural). «tengo un pantalón azul» — I have blue pants, one word, one article."
+      - kind: speakLit
+        id: l1-sp-tengounpantalonnuevo
+        es: "tengo un pantalón nuevo"
+        en: "I have new pants"
+        atoms: ["tengo", "pantalón", "nuevo"]
+      - kind: buildLit
+        id: l1-b-tengounpantalonnuevo
+        es: "tengo un pantalón nuevo"
+        en: "I have new pants"
+        atoms: ["tengo", "pantalón", "nuevo"]
+        tiles: ["tienes", "una"]
+      - kind: clozeLit
+        id: l1-c-pantalonnuevo
+        es: "tengo un pantalón nuevo"
+        en: "I have new pants"
+        blank: "un"
+        options: ["un", "una"]
+        atoms: ["tengo", "pantalón", "nuevo"]
+        why: "«pantalón» is masculine, so «un», not «una»."
+      - kind: listenCompLit
+        id: l1-lc-pantalonviejo
+        es: "tengo un pantalón viejo"
+        en: "I have old pants."
+        atoms: ["tengo", "pantalón", "viejo"]
+        distractorsEn:
+          - "I have new pants."
+          - "You have old pants."
+          - "I have an old shirt."
+      - kind: mcq
+        id: l1-q-pantalon
+        prompt: "Which one means 'I have (a pair of) pants'?"
+        correct: "tengo un pantalón"
+        distractors: ["tengo una pantalón", "tengo el pantalón azul", "tengo pantalón"]
+        atoms: ["tengo", "pantalón"]
+        why: "«pantalón» is masculine, so «un», not «una» — and Spanish never drops the article the way «tengo pantalón» does."
+      - kind: buildLit
+        id: l1-b-mihermanatieneunpantalon
+        es: "mi hermana tiene un pantalón pequeño"
+        en: "My sister has small pants"
+        atoms: ["mi", "hermana", "tiene", "pantalón", "pequeño"]
+        tiles: ["tengo", "grande"]
+      - kind: audioWimcq
+        id: l1-ear-perro
+        target: { surface: "perro", emoji: "🐶" }
+        distractors:
+          - { surface: "libro", emoji: "📖" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: agreementLit
+        id: l1-agr-pantalonnuevocamisanueva
+        en: "I have new pants, and my sister has a new shirt"
+        audioText: "tengo un pantalón nuevo, y mi hermana tiene una camisa nueva"
+        atoms: ["tengo", "pantalón", "nuevo", "hermana", "tiene", "camisa"]
+        segments:
+          - { text: "tengo un pantalón " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y mi hermana tiene una camisa " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l1-lb-anatieneunpantalonazul
+        es: "Ana tiene un pantalón azul"
+        en: "Ana has blue pants"
+        atoms: ["tiene", "pantalón", "azul"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l1-tm-pantalon
+        target: "pantalón"
+        distractors: ["pastel", "cristal", "pantano"]
+      - kind: sim
+        id: l1-sim-ana-pantalon
+        scene: { emoji: "👖", title: "Ana shows you her new pants", setting: "Ana is holding up a shopping bag." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes un pantalón azul?", audioText: "¿tienes un pantalón azul?", gloss: "Do you have blue pants?" }
+            goal: "Say yes, you have blue pants."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo un pantalón azul" }
+                - { id: "wrong1", text: "sí, tengo una pantalón azul" }
+                - { id: "wrong2", text: "sí, tienes un pantalón azul" }
+              correctOptionId: "right"
+              audioText: "sí, tengo un pantalón azul"
+            replyGloss: "Yes, I have blue pants."
+            explanation: "«pantalón» is masculine, so «un», not «una». And «tengo», not «tienes» — that's your own word for yourself."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermana? ¿Tiene un pantalón nuevo también?", audioText: "¿y tu hermana? ¿tiene un pantalón nuevo también?", gloss: "And your sister? Does she have a new pair too?" }
+            goal: "Say yes, she has a new pair too."
+            reply:
+              mode: build
+              tiles: ["sí", "tiene", "un", "pantalón", "nuevo", "también", "tengo", "yo"]
+              answer: "sí tiene un pantalón nuevo también"
+            replyGloss: "Yes, she has a new pair too."
+            explanation: "«tiene», not «tengo» — this is about your sister, not you."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "pantalón", target: "pants" }
+          - { source: "tengo", target: "I have" }
+          - { source: "tienes", target: "you have" }
+          - { source: "tiene", target: "he/she has" }
+          - { source: "azul", target: "blue" }
+          - { source: "nuevo", target: "new" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "tengo un pantalón azul"
+        en: "I have blue pants"
+        atoms: ["tengo", "pantalón", "azul"]

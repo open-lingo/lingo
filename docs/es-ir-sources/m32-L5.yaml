@@ -1,0 +1,136 @@
+  # ── L5 · «Mi bufanda es bonita» — «bufanda» debuts, regular feminine,
+  #    the fifth and final new atom of the module (no info card — light
+  #    context via revealNote only, per m30-L2 precedent). Introduces
+  #    «es» (m2) + «bonito»/«bonita» (m6, gender-fold via canon) as the
+  #    description frame, distinct from the tengo/necesito possession
+  #    frames used in L1-L4. One recall of L4's win line.
+  - n: 5
+    template: free
+    title: "Mi bufanda es bonita"
+    description: "«bufanda» — regular feminine, the last new word this module. «mi bufanda es bonita» puts «es» (m2) and «bonito» (m6) to work describing it."
+    steps:
+      - kind: map
+        id: l5-map-mibufandaesbonita
+        tokens: ["mi", "bufanda", "es", "bonita"]
+        pairs:
+          - { en: "my", tokenIndex: 0 }
+          - { en: "scarf", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "pretty", tokenIndex: 3 }
+        audioText: "mi bufanda es bonita"
+        revealNote: "«bufanda» — regular feminine, like «chaqueta» (L2). «bonita» — feminine of «bonito» (m6)."
+      - kind: speakLit
+        id: l5-sp-recall
+        es: "¿tienes guantes grandes?"
+        en: "Do you have big gloves?"
+        cue: recall
+        atoms: ["tienes", "guantes", "grande"]
+      - kind: imageMcq
+        id: l5-im-bufanda
+        target: { surface: "bufanda", meaningEn: "scarf", emoji: "🧣" }
+        distractors:
+          - { surface: "guantes", emoji: "🧤" }
+          - { surface: "calcetines", emoji: "🧦" }
+          - { surface: "chaqueta", emoji: "🧥" }
+      - kind: buildLit
+        id: l5-b-tengounabufandaazul
+        es: "tengo una bufanda azul"
+        en: "I have a blue scarf"
+        atoms: ["tengo", "bufanda", "azul"]
+        tiles: ["tienes", "un"]
+      - kind: clozeLit
+        id: l5-c-bufandabonita
+        es: "mi bufanda es bonita"
+        en: "My scarf is pretty"
+        blank: "bonita"
+        options: ["bonita", "bonito"]
+        atoms: ["mi", "bufanda", "es", "bonito"]
+        why: "«bufanda» is feminine, so its adjective takes «bonita», not «bonito»."
+      - kind: listenCompLit
+        id: l5-lc-bufandaverde
+        es: "necesito una bufanda verde"
+        en: "I need a green scarf."
+        atoms: ["necesito", "bufanda", "verde"]
+        distractorsEn:
+          - "I have a green scarf."
+          - "You need a green scarf."
+          - "I need a green jacket."
+      - kind: mcq
+        id: l5-q-bufanda
+        prompt: "Which one means 'the scarf is pretty'?"
+        correct: "bufanda es bonita"
+        distractors: ["bufanda es bonito", "bufanda eres bonita", "bufandas es bonita"]
+        atoms: ["bufanda", "es", "bonito"]
+        why: "«bufanda» is feminine, so «bonita», not «bonito» — and «es», not «eres», since we're talking about the scarf, not you."
+      - kind: buildLit
+        id: l5-b-mihermananecesitaunabufandaroja
+        es: "mi hermana necesita una bufanda roja"
+        en: "My sister needs a red scarf"
+        atoms: ["mi", "hermana", "necesita", "bufanda", "rojo"]
+        tiles: ["necesito", "negra"]
+      - kind: audioWimcq
+        id: l5-ear-perro
+        target: { surface: "perro", emoji: "🐶" }
+        distractors:
+          - { surface: "libro", emoji: "📖" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: agreementLit
+        id: l5-agr-bufandabonitagrande
+        en: "My scarf is pretty, and it is big"
+        audioText: "mi bufanda es bonita, y es grande"
+        atoms: ["mi", "bufanda", "es", "bonito", "grande"]
+        segments:
+          - { text: "mi bufanda es " }
+          - { blank: { id: "p1", answer: "bonita", options: ["bonita", "bonito"] } }
+          - { text: ", y es " }
+          - { blank: { id: "p2", answer: "grande", options: ["grande", "grandes"] } }
+      - kind: listenBuildLit
+        id: l5-lb-labufandaesnueva
+        es: "la bufanda es nueva"
+        en: "The scarf is new"
+        atoms: ["bufanda", "es", "nuevo"]
+        tiles: ["tengo", "necesito"]
+      - kind: textMcq
+        id: l5-tm-bufanda
+        target: "bufanda"
+        distractors: ["burbuja", "bandera", "butaca"]
+      - kind: sim
+        id: l5-sim-ana-bufanda
+        scene: { emoji: "🧣", title: "Ana admires your scarf", setting: "Ana notices what you're wearing on a cold day." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Es bonita tu bufanda?", audioText: "¿es bonita tu bufanda?", gloss: "Is your scarf pretty?" }
+            goal: "Say yes, your scarf is pretty."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, mi bufanda es bonita" }
+                - { id: "wrong1", text: "sí, mi bufanda es bonito" }
+                - { id: "wrong2", text: "sí, mi bufanda eres bonita" }
+              correctOptionId: "right"
+              audioText: "sí, mi bufanda es bonita"
+            replyGloss: "Yes, my scarf is pretty."
+            explanation: "«bufanda» is feminine, so «bonita», not «bonito». And «es», not «eres» — the scarf is doing the being, not you."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Necesitas una bufanda nueva también?", audioText: "¿necesitas una bufanda nueva también?", gloss: "Do you need a new scarf too?" }
+            goal: "Say yes, you need a new scarf too."
+            reply:
+              mode: build
+              tiles: ["sí", "necesito", "una", "bufanda", "nueva", "también", "necesitas", "tú"]
+              answer: "sí necesito una bufanda nueva también"
+            replyGloss: "Yes, I need a new scarf too."
+            explanation: "«necesito», not «necesitas» — that's your own word for yourself, not Ana's question word for you."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "bufanda", target: "scarf" }
+          - { source: "es", target: "is" }
+          - { source: "bonito", target: "pretty" }
+          - { source: "tengo", target: "I have" }
+          - { source: "necesito", target: "I need" }
+          - { source: "nuevo", target: "new" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "mi bufanda es bonita"
+        en: "My scarf is pretty"
+        atoms: ["mi", "bufanda", "es", "bonito"]
