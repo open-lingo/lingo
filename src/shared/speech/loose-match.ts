@@ -356,8 +356,57 @@ const ROMANCE_NUMBER_WORDS: ReadonlyArray<readonly string[]> = [
 
 const ROMANCE_DIGIT_RE = /[0-9]{1,2}/g;
 
+/**
+ * Round hundreds/thousands (100, 200, ..., 900, 1000, 2000, ..., 9000) that
+ * Whisper's ITN renders as a 3-4 digit run — longer than {@link ROMANCE_DIGIT_RE}
+ * consumes. Table-driven exactly like {@link ROMANCE_NUMBER_WORDS} above, and
+ * the same no-op-when-absent contract: fold ONLY when the target contains one
+ * of the candidate words, otherwise leave the run untouched for the 1-2 digit
+ * chunker below to try (unchanged fallback for everything else — composite
+ * values like 101/250/1250 are NOT covered here; those need real
+ * number-to-words composition with per-language agreement rules, out of
+ * scope for a lookup table — see docs/fr-speech-hundreds-2026-09-10.md).
+ */
+const ROMANCE_ROUND_HUNDREDS_WORDS: ReadonlyMap<number, readonly string[]> = new Map([
+  [100, ["ciento", "cien", "cent"]],
+  [200, ["doscientos", "deux cents"]],
+  [300, ["trescientos", "trois cents"]],
+  [400, ["cuatrocientos", "quatre cents"]],
+  [500, ["quinientos", "cinq cents"]],
+  [600, ["seiscientos", "six cents"]],
+  [700, ["setecientos", "sept cents"]],
+  [800, ["ochocientos", "huit cents"]],
+  [900, ["novecientos", "neuf cents"]],
+  [1000, ["mille", "mil"]],
+  [2000, ["dos mil", "deux mille"]],
+  [3000, ["tres mil", "trois mille"]],
+  [4000, ["cuatro mil", "quatre mille"]],
+  [5000, ["cinco mil", "cinq mille"]],
+  [6000, ["seis mil", "six mille"]],
+  [7000, ["siete mil", "sept mille"]],
+  [8000, ["ocho mil", "huit mille"]],
+  [9000, ["nueve mil", "neuf mille"]],
+]);
+
+/**
+ * Matches an EXACT round value (a leading 1-9 digit followed by exactly 2 or
+ * 3 zeros), never a substring of a longer/different run: the lookbehind and
+ * lookahead both require a non-digit (or string edge) on either side, so
+ * "100" inside "1000" or "1100" never matches on its own, and "10000" (no
+ * round value we cover) matches nothing at all — falls through untouched.
+ */
+const ROMANCE_ROUND_HUNDREDS_RE = /(?<![0-9])[1-9]0{2,3}(?![0-9])/g;
+
+function foldRoundHundreds(s: string, target: string): string {
+  return s.replace(ROMANCE_ROUND_HUNDREDS_RE, (tok) => {
+    const words = ROMANCE_ROUND_HUNDREDS_WORDS.get(Number(tok));
+    if (!words) return tok;
+    return words.find((w) => target.includes(w)) ?? tok;
+  });
+}
+
 export function numbersToRomance(s: string, target: string): string {
-  return s.replace(ROMANCE_DIGIT_RE, (tok) => {
+  return foldRoundHundreds(s, target).replace(ROMANCE_DIGIT_RE, (tok) => {
     const words = ROMANCE_NUMBER_WORDS[Number(tok)];
     if (!words) return tok;
     return words.find((w) => target.includes(w)) ?? tok;
