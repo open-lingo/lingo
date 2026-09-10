@@ -1,1288 +1,1289 @@
 {
   "schema": 1,
   "moduleId": "m3",
-  "lang": "ja",
+  "lang": "ko",
   "generatedAt": "2026-09-10",
+  "draftedBy": "qwen3.5:122b-a10b-q4_K_M",
   "entryCount": 256,
   "entries": [
     {
       "anchor": "m3/atom:ありがとう/gloss",
-      "en": "thanks (casual)",
+      "text": "고마워 (캐주얼)",
       "enSourceHash": "192544a158055333"
     },
     {
       "anchor": "m3/atom:ありがとうございます/gloss",
-      "en": "Thank you (polite)",
+      "text": "감사합니다 (정중한 표현)",
       "enSourceHash": "1706e22654c63abb"
     },
     {
       "anchor": "m3/atom:うみ/gloss",
-      "en": "sea",
+      "text": "바다",
       "enSourceHash": "4a69f19c8c264850"
     },
     {
       "anchor": "m3/atom:うん/gloss",
-      "en": "yeah (casual yes)",
+      "text": "응 (캐주얼한 긍정)",
       "enSourceHash": "08d21cc00fb6efb0"
     },
     {
       "anchor": "m3/atom:か/gloss",
-      "en": "question particle",
+      "text": "의문사",
       "enSourceHash": "1bf7c968b3290c3a"
     },
     {
       "anchor": "m3/atom:がくせい/gloss",
-      "en": "student",
+      "text": "학생",
       "enSourceHash": "264c8c381bf16c98"
     },
     {
       "anchor": "m3/atom:ごめんなさい/gloss",
-      "en": "I'm sorry",
+      "text": "미안합니다",
       "enSourceHash": "678f0dfd1df31f9a"
     },
     {
       "anchor": "m3/atom:すみません/gloss",
-      "en": "Excuse me",
+      "text": "실례합니다",
       "enSourceHash": "f868adba71dd145e"
     },
     {
       "anchor": "m3/atom:せんせい/gloss",
-      "en": "teacher, doctor",
+      "text": "선생님, 의사",
       "enSourceHash": "d0410a0a3b1faab7"
     },
     {
       "anchor": "m3/atom:そう/gloss",
-      "en": "that's right",
+      "text": "그렇다",
       "enSourceHash": "af565205531d050d"
     },
     {
       "anchor": "m3/atom:だいじょうぶ/gloss",
-      "en": "all right",
+      "text": "괜찮다",
       "enSourceHash": "dfbdd9492bec0b1c"
     },
     {
       "anchor": "m3/atom:ともだち/gloss",
-      "en": "friend",
+      "text": "친구",
       "enSourceHash": "cde48537ca2c2808"
     },
     {
       "anchor": "m3/atom:にほんじん/gloss",
-      "en": "Japanese (person)",
+      "text": "일본인 (사람)",
       "enSourceHash": "ba6886e27add1f0d"
     },
     {
       "anchor": "m3/atom:は/gloss",
-      "en": "topic marker",
+      "text": "주제 표시 조사",
       "enSourceHash": "8858bde5e8c50560"
     },
     {
       "anchor": "m3/atom:はじめまして/gloss",
-      "en": "Nice to meet you",
+      "text": "처음 뵙겠습니다",
       "enSourceHash": "097e2b325aa24de7"
     },
     {
       "anchor": "m3/atom:も/gloss",
-      "en": "also",
+      "text": "또한",
       "enSourceHash": "bb8c8605c55dcc2d"
     },
     {
       "anchor": "m3/atom:アメリカじん/gloss",
-      "en": "American (person)",
+      "text": "미국인 (사람)",
       "enSourceHash": "45411b53c3ee653e"
     },
     {
       "anchor": "m3/gp:step:ja-m3-neo-1-rule-da/ex:ねこだ。",
-      "en": "It's a cat.",
+      "text": "고양이다.",
       "enSourceHash": "64814a3cefde95fe"
     },
     {
       "anchor": "m3/gp:step:ja-m3-neo-1-rule-da/ex:みずだ。",
-      "en": "It's water.",
+      "text": "물이다.",
       "enSourceHash": "b5dba4d2625e9142"
     },
     {
       "anchor": "m3/gp:step:ja-m3-neo-1-rule-desu-preview/ex:そらだ。",
-      "en": "It's the sky. (plain — friends)",
+      "text": "하늘이다. (평서문 — 친구 사이)",
       "enSourceHash": "0dd9c39711f8e94f"
     },
     {
       "anchor": "m3/gp:step:ja-m3-neo-1-rule-desu-preview/ex:そらです。",
-      "en": "It's the sky. (polite — its own module comes soon)",
+      "text": "하늘입니다. (정중한 표현 — 해당 모듈은 곧 나옴)",
       "enSourceHash": "eba1140c7aab13be"
     },
     {
       "anchor": "m3/gp:step:ja-m3-neo-2-rule-wa/ex:がくせいだ。",
-      "en": "(I'm) a student. (no spotlight — natural when it's already obvious who you mean)",
+      "text": "(나는) 학생이다. (주목할 대상 없음 — 이미 누구를 말하는지 명확할 때 자연스럽게 사용됨)",
       "enSourceHash": "324389339c311116"
     },
     {
       "anchor": "m3/gp:step:ja-m3-neo-2-rule-wa/ex:たなかは せんせいだ。",
-      "en": "Tanaka is a teacher. (the spotlight moves to Tanaka)",
+      "text": "다나카는 선생님이다. (주목 대상이 다나카로 이동함)",
       "enSourceHash": "155fbe9eb2eda550"
     },
     {
       "anchor": "m3/gp:step:ja-m3-neo-2-rule-wa/ex:わたしは がくせいだ。",
-      "en": "I'm a student. (spotlight: me → comment: student)",
+      "text": "나는 학생이다. (주목: 나 → 설명: 학생)",
       "enSourceHash": "6cdcc8d52e2527ed"
     },
     {
       "anchor": "m3/gp:step:ja-m3-neo-3-rule-mo/ex:わたしも がくせいだ。",
-      "en": "I'm a student too.",
+      "text": "나도 학생이다.",
       "enSourceHash": "52c06fb8d352308f"
     },
     {
       "anchor": "m3/gp:step:ja-m3-neo-3-rule-mo/ex:トムはも がくせいだ。",
-      "en": "(Tom is a student too — broken)",
+      "text": "(톰도 학생이다 — 틀린 문장)",
       "enSourceHash": "67e87ac5580c9232"
     },
     {
       "anchor": "m3/gp:step:ja-m3-neo-3-rule-mo/ex:トムも がくせいだ。",
-      "en": "Tom is a student too.",
+      "text": "톰도 학생이다.",
       "enSourceHash": "a442324c53922f22"
     },
     {
       "anchor": "m3/gp:step:ja-m3-neo-4-rule-rise/ex:がくせい？",
-      "en": "Are you a student?",
+      "text": "학생이니?",
       "enSourceHash": "3cade501ac6adf12"
     },
     {
       "anchor": "m3/gp:step:ja-m3-neo-4-rule-rise/ex:ねこ？",
-      "en": "Is it a cat? (rising tone)",
+      "text": "고양이니? (높은 어조)",
       "enSourceHash": "7041ebdbb2c75397"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:01c8728f571a2523",
-      "en": "It's a dog.",
+      "text": "개다.",
       "enSourceHash": "01c8728f571a2523"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:2f2a2ef42c226e24",
-      "en": "It's a hat.",
+      "text": "모자다.",
       "enSourceHash": "2f2a2ef42c226e24"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:38a81e87e79631e6",
-      "en": "person",
+      "text": "사람",
       "enSourceHash": "38a81e87e79631e6"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:39495a637c66e322",
-      "en": "Pick: 'It's a book.'",
+      "text": "고르세요: '책이다.'",
       "enSourceHash": "39495a637c66e322"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:3b80d38f7686a8b5",
-      "en": "mountain",
+      "text": "산",
       "enSourceHash": "3b80d38f7686a8b5"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:4f76fc35345d66b1",
-      "en": "It's a photo.",
+      "text": "사진이다.",
       "enSourceHash": "4f76fc35345d66b1"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:525eca1d5089dbdc",
-      "en": "star",
+      "text": "별",
       "enSourceHash": "525eca1d5089dbdc"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:571e44ed12d32d9b",
-      "en": "Match each Japanese word to its meaning (review)",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
       "enSourceHash": "571e44ed12d32d9b"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:59fc5b4511aaa4a9",
-      "en": "It's a peach.",
+      "text": "복숭아다.",
       "enSourceHash": "59fc5b4511aaa4a9"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:64814a3cefde95fe",
-      "en": "It's a cat.",
+      "text": "고양이다.",
       "enSourceHash": "64814a3cefde95fe"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:6a7b4b503db50efd",
-      "en": "It's the sea.",
+      "text": "바다다.",
       "enSourceHash": "6a7b4b503db50efd"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:828e7c2f14b65535",
-      "en": "It's a book.",
+      "text": "그것은 책이다.",
       "enSourceHash": "828e7c2f14b65535"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:9b4ef3e5b7b4d175",
-      "en": "station",
+      "text": "역",
       "enSourceHash": "9b4ef3e5b7b4d175"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:9e5d97c839d31782",
-      "en": "It's a pencil.",
+      "text": "그것은 연필이다.",
       "enSourceHash": "9e5d97c839d31782"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:a19889b23f0d8ab1",
-      "en": "It's a flower.",
+      "text": "그것은 꽃이다.",
       "enSourceHash": "a19889b23f0d8ab1"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:b5dba4d2625e9142",
-      "en": "It's water.",
+      "text": "그것은 물이다.",
       "enSourceHash": "b5dba4d2625e9142"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:c06b0cfe0cc5e900",
-      "en": "flower",
+      "text": "꽃",
       "enSourceHash": "c06b0cfe0cc5e900"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:ce635c4eabff5e4f",
-      "en": "shell",
+      "text": "조개껍질",
       "enSourceHash": "ce635c4eabff5e4f"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:d42fa5d9cb7d9813",
-      "en": "It's a key.",
+      "text": "그것은 열쇠이다.",
       "enSourceHash": "d42fa5d9cb7d9813"
     },
     {
       "anchor": "m3/ja-m3-neo-1/en:eba31e1724d47d7a",
-      "en": "Is it a cat?",
+      "text": "그것은 고양이인가?",
       "enSourceHash": "eba31e1724d47d7a"
     },
     {
       "anchor": "m3/ja-m3-neo-1/ja:いぬだ",
-      "en": "Build this sentence: It's a dog.",
+      "text": "이 문장을 만들어 보세요: 그것은 개이다.",
       "enSourceHash": "5b5bc845e7971f3b"
     },
     {
       "anchor": "m3/ja-m3-neo-1/ja:うみだ",
-      "en": "Build this sentence: It's the sea.",
+      "text": "이 문장을 만들어 보세요: 그것은 바다이다.",
       "enSourceHash": "08fb71ddc179f064"
     },
     {
       "anchor": "m3/ja-m3-neo-1/ja:そらだ",
-      "en": "It's the sky.",
+      "text": "그것은 하늘이다.",
       "enSourceHash": "2e1d302ad969dd8a"
     },
     {
       "anchor": "m3/ja-m3-neo-1/ja:ねこだ",
-      "en": "Build this sentence: It's a cat.",
+      "text": "이 문장을 만들어 보세요: 그것은 고양이이다.",
       "enSourceHash": "3269fb7898ad5af3"
     },
     {
       "anchor": "m3/ja-m3-neo-1/ja:ほし",
-      "en": "Listen and build the word for 'star'",
+      "text": "'별'에 해당하는 단어를 듣고 만들어 보세요",
       "enSourceHash": "3f60a3cdb985ceca"
     },
     {
       "anchor": "m3/ja-m3-neo-1/ja:みずだ",
-      "en": "Build this sentence: It's water.",
+      "text": "이 문장을 만들어 보세요: 그것은 물이다.",
       "enSourceHash": "a24e60cd90714408"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:04a9197dce436873",
-      "en": "My friend is a student.",
+      "text": "내 친구는 학생이다.",
       "enSourceHash": "04a9197dce436873"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:13809668fb436386",
-      "en": "pencil",
+      "text": "연필",
       "enSourceHash": "13809668fb436386"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:2ba084b85a6d148c",
-      "en": "Tom is my teacher.",
+      "text": "톰은 내 선생님이다.",
       "enSourceHash": "2ba084b85a6d148c"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:30eabdc1657b1c16",
-      "en": "Mika is a teacher.",
+      "text": "미카는 선생님이다.",
       "enSourceHash": "30eabdc1657b1c16"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:336074805fc85398",
-      "en": "time",
+      "text": "시간",
       "enSourceHash": "336074805fc85398"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:486c1594736e9f36",
-      "en": "The river is big.",
+      "text": "강은 크다.",
       "enSourceHash": "486c1594736e9f36"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:4bdf40d0d1ae3611",
-      "en": "rice/meal",
+      "text": "밥/식사",
       "enSourceHash": "4bdf40d0d1ae3611"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:4e3baf39a240eff8",
-      "en": "I'm a friend.",
+      "text": "나는 친구이다.",
       "enSourceHash": "4e3baf39a240eff8"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:5300757dd3f354ea",
-      "en": "The river is water.",
+      "text": "강은 물이다.",
       "enSourceHash": "5300757dd3f354ea"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:571e44ed12d32d9b",
-      "en": "Match each Japanese word to its meaning (review)",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
       "enSourceHash": "571e44ed12d32d9b"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:6b657556a0442c4e",
-      "en": "I'm a student.",
+      "text": "나는 학생이다.",
       "enSourceHash": "6b657556a0442c4e"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:7aa9e24bfde2ffcc",
-      "en": "Tom is my friend.",
+      "text": "톰은 내 친구이다.",
       "enSourceHash": "7aa9e24bfde2ffcc"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:8825e76530f87ff5",
-      "en": "milk",
+      "text": "우유",
       "enSourceHash": "8825e76530f87ff5"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:9a6e8637ddbd1d5a",
-      "en": "Tom is a student.",
+      "text": "톰은 학생이다.",
       "enSourceHash": "9a6e8637ddbd1d5a"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:aba4cc9b8af82df5",
-      "en": "play",
+      "text": "놀다",
       "enSourceHash": "aba4cc9b8af82df5"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:b5dba4d2625e9142",
-      "en": "It's water.",
+      "text": "그것은 물이다.",
       "enSourceHash": "b5dba4d2625e9142"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:bd218cf827abc681",
-      "en": "Mika is a student.",
+      "text": "미카는 학생이다.",
       "enSourceHash": "bd218cf827abc681"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:c3ffe3c4d8aaefd6",
-      "en": "Tom is a teacher.",
+      "text": "톰은 선생님이다.",
       "enSourceHash": "c3ffe3c4d8aaefd6"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:c6545b89173c778f",
-      "en": "The sea is water.",
+      "text": "바다는 물이다.",
       "enSourceHash": "c6545b89173c778f"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:d34a569ab7aaa54d",
-      "en": "family",
+      "text": "가족",
       "enSourceHash": "d34a569ab7aaa54d"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:f74ec475f9e84544",
-      "en": "My friend is a teacher.",
+      "text": "내 친구는 선생님이다.",
       "enSourceHash": "f74ec475f9e84544"
     },
     {
       "anchor": "m3/ja-m3-neo-2/en:fdcb6568999dd217",
-      "en": "The spotlight lands on sushi; the comment says what it is.",
+      "text": "스포트라이트가 스시 위에 떨어진다; 코멘트는 그것이 무엇인지 말한다.",
       "enSourceHash": "fdcb6568999dd217"
     },
     {
       "anchor": "m3/ja-m3-neo-2/ja:たなかは せんせいだ",
-      "en": "Build this sentence: Tanaka is a teacher.",
+      "text": "이 문장을 만들어 보세요: 다나카는 선생님이다.",
       "enSourceHash": "4ba2c2c09b67add3"
     },
     {
       "anchor": "m3/ja-m3-neo-2/ja:ともだちは がくせいだ",
-      "en": "Build this sentence: My friend is a student.",
+      "text": "이 문장을 만들어 보세요: 내 친구는 학생이다.",
       "enSourceHash": "a636522369e4d367"
     },
     {
       "anchor": "m3/ja-m3-neo-2/ja:めがね",
-      "en": "Listen and build the word for 'glasses'",
+      "text": "'안경'에 해당하는 단어를 듣고 만들어 보세요",
       "enSourceHash": "b684d5e91a852beb"
     },
     {
       "anchor": "m3/ja-m3-neo-2/ja:わたしは がくせいだ",
-      "en": "Build this sentence: I'm a student.",
+      "text": "이 문장을 만들어 보세요: 나는 학생이다.",
       "enSourceHash": "eed4ba826d455b1e"
     },
     {
       "anchor": "m3/ja-m3-neo-2/ja:わたしは にほんじんだ",
-      "en": "Build this sentence: I'm Japanese.",
+      "text": "이 문장을 만들어 보세요: 나는 일본인이다.",
       "enSourceHash": "38601bf92e01baf1"
     },
     {
       "anchor": "m3/ja-m3-neo-2/ja:トムは がくせいだ",
-      "en": "Tom is a student.",
+      "text": "톰은 학생이다.",
       "enSourceHash": "9a6e8637ddbd1d5a"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:05f514fae7ca5710",
-      "en": "sky",
+      "text": "하늘",
       "enSourceHash": "05f514fae7ca5710"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:20a469666345339c",
-      "en": "Is Mika a friend?",
+      "text": "미카는 친구인가?",
       "enSourceHash": "20a469666345339c"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:36c6b6a5dd315082",
-      "en": "Mika is my only friend.",
+      "text": "미카는 나의 유일한 친구이다.",
       "enSourceHash": "36c6b6a5dd315082"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:38a81e87e79631e6",
-      "en": "person",
+      "text": "사람",
       "enSourceHash": "38a81e87e79631e6"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:4a69f19c8c264850",
-      "en": "sea",
+      "text": "바다",
       "enSourceHash": "4a69f19c8c264850"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:4fab0aa91839d789",
-      "en": "Mika is a teacher too.",
+      "text": "미카도 선생님이다.",
       "enSourceHash": "4fab0aa91839d789"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:571e44ed12d32d9b",
-      "en": "Match each Japanese word to its meaning (review)",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
       "enSourceHash": "571e44ed12d32d9b"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:63f75c890b05405e",
-      "en": "song",
+      "text": "노래",
       "enSourceHash": "63f75c890b05405e"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:7329defd24fdf295",
-      "en": "Is Tom a student?",
+      "text": "톰은 학생인가?",
       "enSourceHash": "7329defd24fdf295"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:78ffa235c02bfdc6",
-      "en": "Different comments — Tom isn't joining Tanaka's group, so a fresh spotlight.",
+      "text": "다른 댓글 — 톰은 타나카의 그룹에 합류하지 않으므로 새로운 초점.",
       "enSourceHash": "78ffa235c02bfdc6"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:827ca27a6bd5b451",
-      "en": "Too",
+      "text": "도",
       "enSourceHash": "827ca27a6bd5b451"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:95762b031b887f4d",
-      "en": "Mika is a friend too.",
+      "text": "미카도 친구이다.",
       "enSourceHash": "95762b031b887f4d"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:9b4ef3e5b7b4d175",
-      "en": "station",
+      "text": "역",
       "enSourceHash": "9b4ef3e5b7b4d175"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:9ee962955998fbe0",
-      "en": "Cats join the same club as dogs — same comment, so 'too.'",
+      "text": "개와 고양이는 같은 동아리에 합류한다 — 같은 댓글이므로 '도'.",
       "enSourceHash": "9ee962955998fbe0"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:a442324c53922f22",
-      "en": "Tom is a student too.",
+      "text": "톰도 학생이다.",
       "enSourceHash": "a442324c53922f22"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:ce635c4eabff5e4f",
-      "en": "shell",
+      "text": "조개",
       "enSourceHash": "ce635c4eabff5e4f"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:e4a0d4406a77abce",
-      "en": "Mika does NOT join Tom's group — a new spotlight, not 'too.'",
+      "text": "미카는 톰의 그룹에 합류하지 않는다 — 새로운 초점, '도'가 아님.",
       "enSourceHash": "e4a0d4406a77abce"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:e934bbb1189479df",
-      "en": "Tom joins something already said about the speaker — the context forces 'too.'",
+      "text": "톰은 화자에 대해 이미 언급된 것에 합류한다 — 문맥이 '도'를 강제한다.",
       "enSourceHash": "e934bbb1189479df"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:f604de45972af9ab",
-      "en": "Tom is NOT a student.",
+      "text": "톰은 학생이 아니다.",
       "enSourceHash": "f604de45972af9ab"
     },
     {
       "anchor": "m3/ja-m3-neo-3/en:f91fda97625dbce8",
-      "en": "Tom is a teacher too.",
+      "text": "톰도 선생님이다.",
       "enSourceHash": "f91fda97625dbce8"
     },
     {
       "anchor": "m3/ja-m3-neo-3/ja:いぬも ともだちだ",
-      "en": "Build this sentence: Dogs are friends too.",
+      "text": "이 문장을 만들어 보세요: 개도 친구이다.",
       "enSourceHash": "7ce7e92ed56145a8"
     },
     {
       "anchor": "m3/ja-m3-neo-3/ja:かわ",
-      "en": "Listen and build the word for 'river'",
+      "text": "'강'에 해당하는 단어를 듣고 만들어 보세요",
       "enSourceHash": "29efa6400ef028f4"
     },
     {
       "anchor": "m3/ja-m3-neo-3/ja:わたしも がくせいだ",
-      "en": "Build this sentence: I'm a student too.",
+      "text": "이 문장을 만들어 보세요: 나도 학생이다.",
       "enSourceHash": "022f4efac2a1c285"
     },
     {
       "anchor": "m3/ja-m3-neo-3/ja:ケンも にほんじんだ",
-      "en": "Build this sentence: Ken is Japanese too.",
+      "text": "이 문장을 만들어 보세요: 켄도 일본인이다.",
       "enSourceHash": "8d9a9933b020d40c"
     },
     {
       "anchor": "m3/ja-m3-neo-3/ja:トムも ともだちだ",
-      "en": "Tom is a friend too.",
+      "text": "톰도 친구이다.",
       "enSourceHash": "49f02f21a4acb97b"
     },
     {
       "anchor": "m3/ja-m3-neo-3/ja:ミカも ともだちだ",
-      "en": "Build this sentence: Mika is a friend too.",
+      "text": "이 문장을 만들어 보세요: 미카도 친구이다.",
       "enSourceHash": "ad752bca349fcf4c"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:01c8728f571a2523",
-      "en": "It's a dog.",
+      "text": "그것은 개이다.",
       "enSourceHash": "01c8728f571a2523"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:13809668fb436386",
-      "en": "pencil",
+      "text": "연필",
       "enSourceHash": "13809668fb436386"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:14069429150abcbf",
-      "en": "ticket",
+      "text": "표",
       "enSourceHash": "14069429150abcbf"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:198204a460d9cb88",
-      "en": "(I'm) a student.",
+      "text": "(나는) 학생이다.",
       "enSourceHash": "198204a460d9cb88"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:25cdb46d8d2115a2",
-      "en": "boat",
+      "text": "배",
       "enSourceHash": "25cdb46d8d2115a2"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:38a81e87e79631e6",
-      "en": "person",
+      "text": "사람",
       "enSourceHash": "38a81e87e79631e6"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:3b80d38f7686a8b5",
-      "en": "mountain",
+      "text": "산",
       "enSourceHash": "3b80d38f7686a8b5"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:3cade501ac6adf12",
-      "en": "Are you a student?",
+      "text": "너는 학생인가?",
       "enSourceHash": "3cade501ac6adf12"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:3ff1917efaa0c24b",
-      "en": "No, it's a dog.",
+      "text": "아니, 그것은 개이다.",
       "enSourceHash": "3ff1917efaa0c24b"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:4146e3d484da11f4",
-      "en": "Ask your friend if it's a cat — voice rising.",
+      "text": "그것이 고양이인지 친구에게 물어보세요 — 목소리를 올리세요.",
       "enSourceHash": "4146e3d484da11f4"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:55c64d0fcd6f9d5f",
-      "en": "photo",
+      "text": "사진",
       "enSourceHash": "55c64d0fcd6f9d5f"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:571e44ed12d32d9b",
-      "en": "Match each Japanese word to its meaning (review)",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
       "enSourceHash": "571e44ed12d32d9b"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:5ad3cb1986ffedd4",
-      "en": "They're asking a question back.",
+      "text": "그들은 질문을 되돌려 묻고 있다.",
       "enSourceHash": "5ad3cb1986ffedd4"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:5eb755c0d2334123",
-      "en": "I'm a teacher.",
+      "text": "나는 선생님이다.",
       "enSourceHash": "5eb755c0d2334123"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:5f5a8ed8f139be6d",
-      "en": "river",
+      "text": "강",
       "enSourceHash": "5f5a8ed8f139be6d"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:622e02363af63d86",
-      "en": "They don't know.",
+      "text": "그들은 모른다.",
       "enSourceHash": "622e02363af63d86"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:63f75c890b05405e",
-      "en": "song",
+      "text": "노래",
       "enSourceHash": "63f75c890b05405e"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:64814a3cefde95fe",
-      "en": "It's a cat.",
+      "text": "그것은 고양이이다.",
       "enSourceHash": "64814a3cefde95fe"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:6b657556a0442c4e",
-      "en": "I'm a student.",
+      "text": "나는 학생이다.",
       "enSourceHash": "6b657556a0442c4e"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:7339725159893c57",
-      "en": "telephone",
+      "text": "전화",
       "enSourceHash": "7339725159893c57"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:7ab1d3f79098ef66",
-      "en": "No — wrong.",
+      "text": "아니요 — 틀렸습니다.",
       "enSourceHash": "7ab1d3f79098ef66"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:8e61d28f1c077f97",
-      "en": "Yeah, it's a cat.",
+      "text": "네, 고양이입니다.",
       "enSourceHash": "8e61d28f1c077f97"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:91e5417ff96ec766",
-      "en": "It's a cat, right?",
+      "text": "고양이입니다, 맞죠?",
       "enSourceHash": "91e5417ff96ec766"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:a1ccffb07ebd625f",
-      "en": "Are you a teacher?",
+      "text": "선생님입니까?",
       "enSourceHash": "a1ccffb07ebd625f"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:a746222f09d85605",
-      "en": "snow",
+      "text": "눈",
       "enSourceHash": "a746222f09d85605"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:af565205531d050d",
-      "en": "that's right",
+      "text": "그렇습니다",
       "enSourceHash": "af565205531d050d"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:b4a480c3227eb784",
-      "en": "Is it a dog?",
+      "text": "그것은 개입니까?",
       "enSourceHash": "b4a480c3227eb784"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:c23b31a0179b550f",
-      "en": "morning",
+      "text": "아침",
       "enSourceHash": "c23b31a0179b550f"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:d60376e32d11c3ad",
-      "en": "(I'm) a teacher.",
+      "text": "(나는) 선생님이다.",
       "enSourceHash": "d60376e32d11c3ad"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:eb52e962d1ef767b",
-      "en": "That's right — it's a cat.",
+      "text": "그렇습니다 — 고양이입니다.",
       "enSourceHash": "eb52e962d1ef767b"
     },
     {
       "anchor": "m3/ja-m3-neo-4/en:eba31e1724d47d7a",
-      "en": "Is it a cat?",
+      "text": "그것은 고양이입니까?",
       "enSourceHash": "eba31e1724d47d7a"
     },
     {
       "anchor": "m3/ja-m3-neo-4/ja:がくせい",
-      "en": "Listen and build the word for 'student'",
+      "text": "'학생'에 해당하는 단어를 듣고 만들어 보세요",
       "enSourceHash": "61e8e61221a3ebfe"
     },
     {
       "anchor": "m3/ja-m3-neo-4/ja:ごはん",
-      "en": "Listen and build the word for 'rice/meal'",
+      "text": "'밥/식사'에 해당하는 단어를 듣고 만들어 보세요",
       "enSourceHash": "3dbbd0677394cfa4"
     },
     {
       "anchor": "m3/ja-m3-neo-4/ja:たなかは せんせい？",
-      "en": "Build this sentence: Is Tanaka a teacher?",
+      "text": "이 문장을 만들어 보세요: 다나카는 선생님입니까?",
       "enSourceHash": "1093b058e7310137"
     },
     {
       "anchor": "m3/ja-m3-neo-4/ja:ねこ",
-      "en": "Listen and build the word for 'cat'",
+      "text": "'고양이'에 해당하는 단어를 듣고 만들어 보세요",
       "enSourceHash": "cfc0f106841d3c94"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:097e2b325aa24de7",
-      "en": "Nice to meet you",
+      "text": "만나서 반갑습니다",
       "enSourceHash": "097e2b325aa24de7"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:0eaa523b08690250",
-      "en": "nice to meet you",
+      "text": "만나서 반갑습니다",
       "enSourceHash": "0eaa523b08690250"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:132960c1dc2ccf06",
-      "en": "it's okay / no problem",
+      "text": "괜찮습니다 / 문제없습니다",
       "enSourceHash": "132960c1dc2ccf06"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:14069429150abcbf",
-      "en": "ticket",
+      "text": "표",
       "enSourceHash": "14069429150abcbf"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:15a421e4cf7651fe",
-      "en": "Good evening",
+      "text": "좋은 저녁입니다",
       "enSourceHash": "15a421e4cf7651fe"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:192544a158055333",
-      "en": "thanks (casual)",
+      "text": "고맙습니다 (비공식적)",
       "enSourceHash": "192544a158055333"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:1a75e97e326e42ed",
-      "en": "Match each phrase to its meaning",
+      "text": "각 문구를 뜻과 연결하세요",
       "enSourceHash": "1a75e97e326e42ed"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:25f7c6d07019b49b",
-      "en": "excuse me / sorry (to a stranger)",
+      "text": "실례합니다 / 죄송합니다 (낯선 사람에게)",
       "enSourceHash": "25f7c6d07019b49b"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:268bc1833e83306f",
-      "en": "Thank you",
+      "text": "감사합니다",
       "enSourceHash": "268bc1833e83306f"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:2d8e8bcf7c24ec7c",
-      "en": "It's all right",
+      "text": "괜찮습니다",
       "enSourceHash": "2d8e8bcf7c24ec7c"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:30c621421ef9ebc9",
-      "en": "walk/stroll",
+      "text": "산책하다",
       "enSourceHash": "30c621421ef9ebc9"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:30ce1a1e9c0512d3",
-      "en": "thank you very much",
+      "text": "정말 감사합니다",
       "enSourceHash": "30ce1a1e9c0512d3"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:38a81e87e79631e6",
-      "en": "person",
+      "text": "사람",
       "enSourceHash": "38a81e87e79631e6"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:39954823f73a76e3",
-      "en": "Nice to meet you.",
+      "text": "만나서 반갑습니다.",
       "enSourceHash": "39954823f73a76e3"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:4345c6eddf033a0a",
-      "en": "To squeeze past someone:",
+      "text": "누군가 옆을 지나갈 때:",
       "enSourceHash": "4345c6eddf033a0a"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:4f9baa5ecfd7da06",
-      "en": "Watch out",
+      "text": "조심하세요",
       "enSourceHash": "4f9baa5ecfd7da06"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:5328f5d2356e7150",
-      "en": "I'm sorry!",
+      "text": "죄송합니다!",
       "enSourceHash": "5328f5d2356e7150"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:55c64d0fcd6f9d5f",
-      "en": "photo",
+      "text": "사진",
       "enSourceHash": "55c64d0fcd6f9d5f"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:5d1b16b66af958fa",
-      "en": "Squeezing past someone",
+      "text": "누군가 옆을 지나갈 때",
       "enSourceHash": "5d1b16b66af958fa"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:5d47e07bb3fe49da",
-      "en": "It's okay",
+      "text": "괜찮아요",
       "enSourceHash": "5d47e07bb3fe49da"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:62d20c227e019b86",
-      "en": "It's okay — no problem",
+      "text": "괜찮아요 — 문제없어요",
       "enSourceHash": "62d20c227e019b86"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:62d43d500746fad1",
-      "en": "Meeting someone new",
+      "text": "새로운 사람을 만날 때",
       "enSourceHash": "62d43d500746fad1"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:678f0dfd1df31f9a",
-      "en": "I'm sorry",
+      "text": "죄송해요",
       "enSourceHash": "678f0dfd1df31f9a"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:6eaf27ffcf2f8545",
-      "en": "Thanking a stranger",
+      "text": "낯선 사람에게 감사할 때",
       "enSourceHash": "6eaf27ffcf2f8545"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:9054b29d727561ec",
-      "en": "Reassuring: 'it's fine'",
+      "text": "위로: '괜찮아요'",
       "enSourceHash": "9054b29d727561ec"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:90a90a48e23dcc51",
-      "en": "Good morning",
+      "text": "좋은 아침이에요",
       "enSourceHash": "90a90a48e23dcc51"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:9317a84bd54abe32",
-      "en": "Sorry!",
+      "text": "미안해!",
       "enSourceHash": "9317a84bd54abe32"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:9449af5b06db39ea",
-      "en": "Thanks! (casual)",
+      "text": "고마워! (캐주얼)",
       "enSourceHash": "9449af5b06db39ea"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:9ac90c1ed977d582",
-      "en": "Thank you very much",
+      "text": "정말 감사합니다",
       "enSourceHash": "9ac90c1ed977d582"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:9dc42d1e8b4f2d1d",
-      "en": "Survival sounds",
+      "text": "생존을 위한 소리",
       "enSourceHash": "9dc42d1e8b4f2d1d"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:a807680e5ea57f0f",
-      "en": "Match each phrase to its moment",
+      "text": "각 문장을 그 상황에 맞게 연결하세요",
       "enSourceHash": "a807680e5ea57f0f"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:a9f9bc56bef1cc48",
-      "en": "Thanking a close friend",
+      "text": "친한 친구에게 감사할 때",
       "enSourceHash": "a9f9bc56bef1cc48"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:c015ad6ddaf8bb50",
-      "en": "Goodbye",
+      "text": "안녕히 가세요",
       "enSourceHash": "c015ad6ddaf8bb50"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:c894c674ace57aa8",
-      "en": "You knock over your friend's cup. Apologize — casually:",
+      "text": "친구의 컵을 엎질렀습니다. 캐주얼하게 사과하세요:",
       "enSourceHash": "c894c674ace57aa8"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:ce9c38b3fcc00be3",
-      "en": "Apologizing to a friend",
+      "text": "친구에게 사과할 때",
       "enSourceHash": "ce9c38b3fcc00be3"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:d3aecc59f86baf8f",
-      "en": "Sorry / excuse me",
+      "text": "미안해 / 실례해",
       "enSourceHash": "d3aecc59f86baf8f"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:ddb19c6950a009c3",
-      "en": "No thanks.",
+      "text": "괜찮아, 고마워.",
       "enSourceHash": "ddb19c6950a009c3"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:ec845eac1cf21293",
-      "en": "Which thanks fits a stranger?",
+      "text": "낯선 사람에게 어울리는 감사 표현은?",
       "enSourceHash": "ec845eac1cf21293"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:ed7a9987f2648122",
-      "en": "Congratulations",
+      "text": "축하합니다",
       "enSourceHash": "ed7a9987f2648122"
     },
     {
       "anchor": "m3/ja-m3-neo-5/en:f868adba71dd145e",
-      "en": "Excuse me",
+      "text": "실례합니다",
       "enSourceHash": "f868adba71dd145e"
     },
     {
       "anchor": "m3/ja-m3-neo-5/ja:とけい",
-      "en": "Listen and build the word for 'watch/clock'",
+      "text": "'시계'에 해당하는 단어를 듣고 만들어 보세요",
       "enSourceHash": "8b8dc91af3d8a2af"
     },
     {
       "anchor": "m3/ja-m3-neo-5/ja:はじめまして",
-      "en": "Listen and build the word for 'nice to meet you'",
+      "text": "'만나서 반갑습니다'에 해당하는 단어를 듣고 만들어 보세요",
       "enSourceHash": "eb40d4342958ad7f"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:02a215c3b3124762",
-      "en": "Yeah, he's a student.",
+      "text": "응, 걔는 학생이야.",
       "enSourceHash": "02a215c3b3124762"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:15560971ac0a406d",
-      "en": "No, he's a teacher.",
+      "text": "아니, 걔는 선생님이야.",
       "enSourceHash": "15560971ac0a406d"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:18e1dd392168f601",
-      "en": "hat",
+      "text": "모자",
       "enSourceHash": "18e1dd392168f601"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:30c621421ef9ebc9",
-      "en": "walk/stroll",
+      "text": "산책하다",
       "enSourceHash": "30c621421ef9ebc9"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:336074805fc85398",
-      "en": "time",
+      "text": "시간",
       "enSourceHash": "336074805fc85398"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:3afdc90e57384b89",
-      "en": "Only Mika is a student.",
+      "text": "미카만 학생이야.",
       "enSourceHash": "3afdc90e57384b89"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:571e44ed12d32d9b",
-      "en": "Match each Japanese word to its meaning (review)",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
       "enSourceHash": "571e44ed12d32d9b"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:573ac199d37e6cf7",
-      "en": "Mika is a student too.",
+      "text": "미카도 학생이야.",
       "enSourceHash": "573ac199d37e6cf7"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:5c004077d2e490f6",
-      "en": "Story: meeting someone",
+      "text": "이야기: 누군가를 만날 때",
       "enSourceHash": "5c004077d2e490f6"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:6e2838beae6a2ca6",
-      "en": "He's a student too.",
+      "text": "걔도 학생이야.",
       "enSourceHash": "6e2838beae6a2ca6"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:77af778b51abd4a3",
-      "en": "cat",
+      "text": "고양이",
       "enSourceHash": "77af778b51abd4a3"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:77f17e8fd362cfb7",
-      "en": "Is he a student?",
+      "text": "걔는 학생이야?",
       "enSourceHash": "77f17e8fd362cfb7"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:87f9e028076ad2c9",
-      "en": "Is (he) a teacher?",
+      "text": "(걔는) 선생님이야?",
       "enSourceHash": "87f9e028076ad2c9"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:8825e76530f87ff5",
-      "en": "milk",
+      "text": "우유",
       "enSourceHash": "8825e76530f87ff5"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:8fc2ec14e1f786a9",
-      "en": "Mika is Tom's sister.",
+      "text": "미카는 토미의 여동생이다.",
       "enSourceHash": "8fc2ec14e1f786a9"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:9f550b84dcf7714c",
-      "en": "Mika is the teacher.",
+      "text": "미카는 선생님이다.",
       "enSourceHash": "9f550b84dcf7714c"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:aba4cc9b8af82df5",
-      "en": "play",
+      "text": "놀다",
       "enSourceHash": "aba4cc9b8af82df5"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:b6302cfd3d7f7b68",
-      "en": "Ken meets Tom for the first time. What does he say first?",
+      "text": "켄이 토미와 처음 만난다. 그가 먼저 무엇을 말하나?",
       "enSourceHash": "b6302cfd3d7f7b68"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:d34a569ab7aaa54d",
-      "en": "family",
+      "text": "가족",
       "enSourceHash": "d34a569ab7aaa54d"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:de114d488fe014eb",
-      "en": "(I) am a student.",
+      "text": "(나는) 학생이다.",
       "enSourceHash": "de114d488fe014eb"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:dfb68dca52614afe",
-      "en": "(I) am a teacher.",
+      "text": "(나는) 선생님이다.",
       "enSourceHash": "dfb68dca52614afe"
     },
     {
       "anchor": "m3/ja-m3-neo-6/en:e075adcfc3cc0f0d",
-      "en": "(He) is a friend.",
+      "text": "(그는) 친구이다.",
       "enSourceHash": "e075adcfc3cc0f0d"
     },
     {
       "anchor": "m3/ja-m3-neo-6/ja:せんせいは にほんじんだ",
-      "en": "The teacher is Japanese.",
+      "text": "선생님은 일본인이다.",
       "enSourceHash": "a24296837a351a92"
     },
     {
       "anchor": "m3/ja-m3-neo-6/ja:でんわ",
-      "en": "Listen and build the word for 'telephone'",
+      "text": "'전화'에 해당하는 단어를 듣고 만들어 보세요.",
       "enSourceHash": "96fe056013f801a3"
     },
     {
       "anchor": "m3/ja-m3-neo-6/ja:わたしも がくせいだ",
-      "en": "Build this sentence: I'm a student too.",
+      "text": "이 문장을 만들어 보세요: 나도 학생이다.",
       "enSourceHash": "022f4efac2a1c285"
     },
     {
       "anchor": "m3/ja-m3-neo-6/ja:トムは がくせいだ",
-      "en": "Build this sentence: Tom is a student.",
+      "text": "이 문장을 만들어 보세요: 토미는 학생이다.",
       "enSourceHash": "bbf89098b7dc7102"
     },
     {
       "anchor": "m3/ja-m3-neo-6/ja:トムは がくせい？",
-      "en": "Build this sentence: Is Tom a student?",
+      "text": "이 문장을 만들어 보세요: 토미는 학생인가?",
       "enSourceHash": "d5a528bd496e14f0"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:0282d9b79f42c74c",
-      "en": "face",
+      "text": "얼굴",
       "enSourceHash": "0282d9b79f42c74c"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:05f514fae7ca5710",
-      "en": "sky",
+      "text": "하늘",
       "enSourceHash": "05f514fae7ca5710"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:0bd9a49819a03bdc",
-      "en": "Yeah, (he's) a friend.",
+      "text": "그래, (그는) 친구다.",
       "enSourceHash": "0bd9a49819a03bdc"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:0bdc45f67a85046a",
-      "en": "A friend (of yours)?",
+      "text": "(너의) 친구?",
       "enSourceHash": "0bdc45f67a85046a"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:1766c3237c5860a8",
-      "en": "It's snow.",
+      "text": "눈이다.",
       "enSourceHash": "1766c3237c5860a8"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:1937617eff1b7645",
-      "en": "(he's) a teacher.",
+      "text": "(그는) 선생님이다.",
       "enSourceHash": "1937617eff1b7645"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:198204a460d9cb88",
-      "en": "(I'm) a student.",
+      "text": "(나는) 학생이다.",
       "enSourceHash": "198204a460d9cb88"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:20acb542dc02f3ec",
-      "en": "It's a boat.",
+      "text": "배이다.",
       "enSourceHash": "20acb542dc02f3ec"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:24f5cf0cf382e29f",
-      "en": "Ask your friend if it's snow — voice rising.",
+      "text": "눈인가라고 친구에게 물어보세요 — 목소리를 올리세요.",
       "enSourceHash": "24f5cf0cf382e29f"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:29e1c964a3729e14",
-      "en": "It's a river.",
+      "text": "강이다.",
       "enSourceHash": "29e1c964a3729e14"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:2a8eb6243002fc30",
-      "en": "You step on a stranger's foot on the bus. What do you say?",
+      "text": "버스에서 낯선 사람의 발을 밟았다. 무엇을 말하나?",
       "enSourceHash": "2a8eb6243002fc30"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:2e1d302ad969dd8a",
-      "en": "It's the sky.",
+      "text": "하늘이다.",
       "enSourceHash": "2e1d302ad969dd8a"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:3cade501ac6adf12",
-      "en": "Are you a student?",
+      "text": "너는 학생인가?",
       "enSourceHash": "3cade501ac6adf12"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:3d3638db478e02c9",
-      "en": "Dogs join the same club as cats — same comment, so 'too.'",
+      "text": "개와 고양이가 같은 동아리에 합류한다 — 같은 평이므로 '도'를 쓴다.",
       "enSourceHash": "3d3638db478e02c9"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:434f2f897448939e",
-      "en": "Short form for people close to you; the long form keeps polite distance with strangers.",
+      "text": "가까운 사람에게는 짧은 형태를 쓴다; 긴 형태는 낯선 사람과 정중한 거리를 유지한다.",
       "enSourceHash": "434f2f897448939e"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:5040b2c14a301b10",
-      "en": "(She's) a teacher too.",
+      "text": "(그녀는) 선생님도이다.",
       "enSourceHash": "5040b2c14a301b10"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:54efc235fbabe38c",
-      "en": "A teacher?",
+      "text": "선생님?",
       "enSourceHash": "54efc235fbabe38c"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:571e44ed12d32d9b",
-      "en": "Match each Japanese word to its meaning (review)",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
       "enSourceHash": "571e44ed12d32d9b"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:6a7b4b503db50efd",
-      "en": "It's the sea.",
+      "text": "바다이다.",
       "enSourceHash": "6a7b4b503db50efd"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:737f5722128dec11",
-      "en": "Different comments — Ken isn't joining Tanaka's group, so a fresh spotlight.",
+      "text": "다른 평이다 — 켄은 다나카의 그룹에 합류하지 않으므로 새로운 초점이 필요하다.",
       "enSourceHash": "737f5722128dec11"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:75a01bf0c0a24458",
-      "en": "(he's) a friend.",
+      "text": "(그는) 친구이다.",
       "enSourceHash": "75a01bf0c0a24458"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:7c5cd26498ca7cda",
-      "en": "Your close friend hands you their umbrella. Casual thanks?",
+      "text": "가까운 친구가 우산을 건네준다. 친근한 감사 인사?",
       "enSourceHash": "7c5cd26498ca7cda"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:82bd81ea4b030255",
-      "en": "cooking",
+      "text": "요리",
       "enSourceHash": "82bd81ea4b030255"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:9435a4026038f173",
-      "en": "Is he a friend?",
+      "text": "그는 친구인가?",
       "enSourceHash": "9435a4026038f173"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:972b0070d03e0cd8",
-      "en": "No, (he's) a stranger.",
+      "text": "아니, (그는) 낯선 사람이다.",
       "enSourceHash": "972b0070d03e0cd8"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:9b9d7ed762e34d3e",
-      "en": "That's my teacher.",
+      "text": "그것은 나의 선생님이다.",
       "enSourceHash": "9b9d7ed762e34d3e"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:9e78b43ea00edcac",
-      "en": "moon",
+      "text": "달",
       "enSourceHash": "9e78b43ea00edcac"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:a14115b6cff0ebc6",
-      "en": "It's a star.",
+      "text": "별이다.",
       "enSourceHash": "a14115b6cff0ebc6"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:a7fcfe14d8b5915e",
-      "en": "Right — (she's) the teacher.",
+      "text": "맞다 — (그녀는) 선생님이다.",
       "enSourceHash": "a7fcfe14d8b5915e"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:ac98fff5f274c84c",
-      "en": "Who is the teacher?",
+      "text": "누가 선생님인가?",
       "enSourceHash": "ac98fff5f274c84c"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:b2ac32a415d7b9d9",
-      "en": "One spotlight, one comment — a plain statement about snow.",
+      "text": "한 개의 스포트라이트, 한 개의 코멘트 — 눈에 대한 평서문.",
       "enSourceHash": "b2ac32a415d7b9d9"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:bb4b1aaf1903d52a",
-      "en": "(I'm) a friend.",
+      "text": "(나는) 친구이다.",
       "enSourceHash": "bb4b1aaf1903d52a"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:cd6357efdd966de8",
-      "en": "dog",
+      "text": "개",
       "enSourceHash": "cd6357efdd966de8"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:d34a569ab7aaa54d",
-      "en": "family",
+      "text": "가족",
       "enSourceHash": "d34a569ab7aaa54d"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:d60376e32d11c3ad",
-      "en": "(I'm) a teacher.",
+      "text": "(나는) 선생님이다.",
       "enSourceHash": "d60376e32d11c3ad"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:de55c3b6a333e594",
-      "en": "It's the moon.",
+      "text": "달이다.",
       "enSourceHash": "de55c3b6a333e594"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:e60e0825c2329d41",
-      "en": "Plain sentences — review",
+      "text": "평서문 — 복습",
       "enSourceHash": "e60e0825c2329d41"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:f0d20f957117d6c9",
-      "en": "It's a mountain.",
+      "text": "산이다.",
       "enSourceHash": "f0d20f957117d6c9"
     },
     {
       "anchor": "m3/ja-m3-neo-review/en:fde57653db1bbeaf",
-      "en": "No — (she's) a student.",
+      "text": "아니다 — (그녀는) 학생이다.",
       "enSourceHash": "fde57653db1bbeaf"
     },
     {
       "anchor": "m3/ja-m3-neo-review/ja:うみは みずだ",
-      "en": "The sea is water.",
+      "text": "바다는 물이다.",
       "enSourceHash": "c6545b89173c778f"
     },
     {
       "anchor": "m3/ja-m3-neo-review/ja:つきだ",
-      "en": "Build this sentence: It's the moon.",
+      "text": "이 문장을 만들어 보세요: 달이다.",
       "enSourceHash": "4b4f6688a0e38244"
     },
     {
       "anchor": "m3/ja-m3-neo-review/ja:ケンは ともだちだ",
-      "en": "Build this sentence: Ken is a friend.",
+      "text": "이 문장을 만들어 보세요: 켄은 친구이다.",
       "enSourceHash": "54bc070b1f9703e0"
     },
     {
       "anchor": "m3/ja-m3-neo-review/ja:ミカも にほんじんだ",
-      "en": "Build this sentence: Mika is Japanese too.",
+      "text": "이 문장을 만들어 보세요: 미카도 일본인이다.",
       "enSourceHash": "e75ed64952c8ad75"
     }
   ]

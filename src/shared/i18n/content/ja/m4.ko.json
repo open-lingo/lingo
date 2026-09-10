@@ -1,0 +1,1880 @@
+{
+  "schema": 1,
+  "moduleId": "m4",
+  "lang": "ko",
+  "generatedAt": "2026-09-10",
+  "draftedBy": "qwen3.5:122b-a10b-q4_K_M",
+  "entryCount": 374,
+  "entries": [
+    {
+      "anchor": "m4/atom:あそぶ/gloss",
+      "text": "놀다",
+      "enSourceHash": "24237e96e5183016"
+    },
+    {
+      "anchor": "m4/atom:あれ/gloss",
+      "text": "저것",
+      "enSourceHash": "8e7fc0236af43df9"
+    },
+    {
+      "anchor": "m4/atom:あれ/shortGloss",
+      "text": "저것 (멀리)",
+      "enSourceHash": "4173b3e2b24a314a"
+    },
+    {
+      "anchor": "m4/atom:いす/gloss",
+      "text": "의자",
+      "enSourceHash": "3d7eb3d3dab17ee5"
+    },
+    {
+      "anchor": "m4/atom:かさ/gloss",
+      "text": "우산",
+      "enSourceHash": "2974744982f08b20"
+    },
+    {
+      "anchor": "m4/atom:くるま/gloss",
+      "text": "차, 차량",
+      "enSourceHash": "e4c92de232f30070"
+    },
+    {
+      "anchor": "m4/atom:けいたい/gloss",
+      "text": "휴대전화",
+      "enSourceHash": "e9e3b8d8ba864fa9"
+    },
+    {
+      "anchor": "m4/atom:じしょ/gloss",
+      "text": "사전",
+      "enSourceHash": "177ca70f42def123"
+    },
+    {
+      "anchor": "m4/atom:じてんしゃ/gloss",
+      "text": "자전거",
+      "enSourceHash": "d29af8a2e160dd86"
+    },
+    {
+      "anchor": "m4/atom:それ/gloss",
+      "text": "그것",
+      "enSourceHash": "8e7fc0236af43df9"
+    },
+    {
+      "anchor": "m4/atom:それ/shortGloss",
+      "text": "그것 (당신 근처)",
+      "enSourceHash": "ddb7498edf9593e5"
+    },
+    {
+      "anchor": "m4/atom:だれ/gloss",
+      "text": "누구",
+      "enSourceHash": "6ed0337140bd32b4"
+    },
+    {
+      "anchor": "m4/atom:てがみ/gloss",
+      "text": "편지",
+      "enSourceHash": "f80105efab6d863f"
+    },
+    {
+      "anchor": "m4/atom:と/gloss",
+      "text": "그리고 / 와 (과)",
+      "enSourceHash": "0e3204f33471e61d"
+    },
+    {
+      "anchor": "m4/atom:どれ/gloss",
+      "text": "어느 것 (세 개 이상 중)",
+      "enSourceHash": "1fd8ea152601cb50"
+    },
+    {
+      "anchor": "m4/atom:なまえ/gloss",
+      "text": "이름",
+      "enSourceHash": "82a3537ff0dbce7e"
+    },
+    {
+      "anchor": "m4/atom:なん/gloss",
+      "text": "무엇",
+      "enSourceHash": "749ab2c0d06c42ae"
+    },
+    {
+      "anchor": "m4/atom:にほん/gloss",
+      "text": "일본",
+      "enSourceHash": "647294383b2cbc24"
+    },
+    {
+      "anchor": "m4/atom:の/gloss",
+      "text": "소유",
+      "enSourceHash": "8b616aa60af2d358"
+    },
+    {
+      "anchor": "m4/atom:アメリカ/gloss",
+      "text": "미국",
+      "enSourceHash": "98d7f113aa13e672"
+    },
+    {
+      "anchor": "m4/gp:step:ja-m4-neo-1-rule-kore/ex:これは ねこだ。",
+      "text": "이것은 고양이이다.",
+      "enSourceHash": "5c8a08ae0d9ae336"
+    },
+    {
+      "anchor": "m4/gp:step:ja-m4-neo-1-rule-kore/ex:これは みずだ。",
+      "text": "이것은 물이다.",
+      "enSourceHash": "140cc82a04bd7883"
+    },
+    {
+      "anchor": "m4/gp:step:ja-m4-neo-2-rule-kosoa/ex:あれは ほんだ。",
+      "text": "저것은 책이다. (저 멀리)",
+      "enSourceHash": "ac0351bd2d74b19b"
+    },
+    {
+      "anchor": "m4/gp:step:ja-m4-neo-2-rule-kosoa/ex:これは ほんだ。",
+      "text": "이것은 책이다. (내 손에)",
+      "enSourceHash": "9b85217daa8b71ab"
+    },
+    {
+      "anchor": "m4/gp:step:ja-m4-neo-2-rule-kosoa/ex:それは ほんだ。",
+      "text": "그것은 책이다. (당신 근처)",
+      "enSourceHash": "3bdf44ae853e4ed7"
+    },
+    {
+      "anchor": "m4/gp:step:ja-m4-neo-3-rule-nani/ex:あれ、なに？",
+      "text": "저것, 무엇?",
+      "enSourceHash": "68ecfa857fd64631"
+    },
+    {
+      "anchor": "m4/gp:step:ja-m4-neo-3-rule-nani/ex:これ、なに？",
+      "text": "이것, 무엇? (목소리 높임)",
+      "enSourceHash": "b0d3d538aa6342a9"
+    },
+    {
+      "anchor": "m4/gp:step:ja-m4-neo-5-rule-no/ex:これは ほんの わたしだ。",
+      "text": "(틀림: '책의 나')",
+      "enSourceHash": "1f8fef979ce30ba7"
+    },
+    {
+      "anchor": "m4/gp:step:ja-m4-neo-5-rule-no/ex:これは わたしの ほんだ。",
+      "text": "이것은 내 책이다.",
+      "enSourceHash": "f89ad04ea6795bb3"
+    },
+    {
+      "anchor": "m4/gp:step:ja-m4-neo-5-rule-no/ex:それは トムの ねこだ。",
+      "text": "그것은 톰의 고양이이다.",
+      "enSourceHash": "23f6f488374357d6"
+    },
+    {
+      "anchor": "m4/gp:step:ja-m4-neo-5-rule-no/ex:ミカの かばんだ。",
+      "text": "(그것은) 미카의 가방이다.",
+      "enSourceHash": "3339cda9407db17d"
+    },
+    {
+      "anchor": "m4/gp:step:ja-m4-neo-6-rule-dare/ex:これ、だれ？",
+      "text": "이것, 누구?",
+      "enSourceHash": "f7fb3ce4f833b17e"
+    },
+    {
+      "anchor": "m4/gp:step:ja-m4-neo-6-rule-dare/ex:だれ かばん？",
+      "text": "(틀림: '누구 가방?')",
+      "enSourceHash": "e3a526f76d66b025"
+    },
+    {
+      "anchor": "m4/gp:step:ja-m4-neo-6-rule-dare/ex:だれの かばん？",
+      "text": "누구의 가방인가?",
+      "enSourceHash": "4ae2e0246ab24f91"
+    },
+    {
+      "anchor": "m4/gp:step:ja-m4-neo-8-rule-no-attr/ex:くるまの にほんだ。",
+      "text": "(틀림: 연결 방향이 잘못됨)",
+      "enSourceHash": "73a6079d074f94dd"
+    },
+    {
+      "anchor": "m4/gp:step:ja-m4-neo-8-rule-no-attr/ex:にほんの くるまだ。",
+      "text": "그것은 일본산 자동차이다.",
+      "enSourceHash": "45159fe5b0f34d71"
+    },
+    {
+      "anchor": "m4/gp:step:ja-m4-neo-8-rule-no-attr/ex:アメリカの けいたいだ。",
+      "text": "그것은 미국산 휴대전화이다.",
+      "enSourceHash": "f4bf74fc6ed09d38"
+    },
+    {
+      "anchor": "m4/gp:step:ja-m4-neo-9-rule-dore/ex:かばんは どれ？",
+      "text": "가방은 어느 것인가?",
+      "enSourceHash": "b32c6f9a1fc84eab"
+    },
+    {
+      "anchor": "m4/gp:step:ja-m4-neo-9-rule-dore/ex:これだ。",
+      "text": "이것이다.",
+      "enSourceHash": "8dd4bf333cdbeecb"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/en:05f514fae7ca5710",
+      "text": "하늘",
+      "enSourceHash": "05f514fae7ca5710"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/en:0beb959b1f564f3e",
+      "text": "이것은 열쇠입니다.",
+      "enSourceHash": "0beb959b1f564f3e"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/en:140cc82a04bd7883",
+      "text": "이것은 물입니다.",
+      "enSourceHash": "140cc82a04bd7883"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/en:1868e4858a8366bb",
+      "text": "이것은 자전거입니다.",
+      "enSourceHash": "1868e4858a8366bb"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/en:1b646ba3f548f0bf",
+      "text": "이것은 책입니까?",
+      "enSourceHash": "1b646ba3f548f0bf"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/en:25cdb46d8d2115a2",
+      "text": "배",
+      "enSourceHash": "25cdb46d8d2115a2"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/en:38a81e87e79631e6",
+      "text": "사람",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/en:4380c309e1bf0b96",
+      "text": "이것은 카메라입니다.",
+      "enSourceHash": "4380c309e1bf0b96"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/en:4f1da92769f3ecad",
+      "text": "이것은 자동차입니까?",
+      "enSourceHash": "4f1da92769f3ecad"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/en:5358b6a962c3e2a8",
+      "text": "이것은 바다입니다.",
+      "enSourceHash": "5358b6a962c3e2a8"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/en:5c8a08ae0d9ae336",
+      "text": "이것은 고양이입니다.",
+      "enSourceHash": "5c8a08ae0d9ae336"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/en:63f75c890b05405e",
+      "text": "노래",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/en:83a30d3fbd93cbb9",
+      "text": "이것은 책입니다.",
+      "enSourceHash": "83a30d3fbd93cbb9"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/en:9b62ae5d540dab2c",
+      "text": "이것은 물입니까?",
+      "enSourceHash": "9b62ae5d540dab2c"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/en:9dd0ff3ad5733b88",
+      "text": "이것은 배입니다.",
+      "enSourceHash": "9dd0ff3ad5733b88"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/en:9fcfcb10b10c570b",
+      "text": "이것은 가방입니다.",
+      "enSourceHash": "9fcfcb10b10c570b"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/en:ab204f4d9ec63e58",
+      "text": "이것은 가방입니까?",
+      "enSourceHash": "ab204f4d9ec63e58"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/en:b639bdcf4a1fff61",
+      "text": "이것은 전화기입니다.",
+      "enSourceHash": "b639bdcf4a1fff61"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/en:c23b31a0179b550f",
+      "text": "아침",
+      "enSourceHash": "c23b31a0179b550f"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/en:ce635c4eabff5e4f",
+      "text": "조개",
+      "enSourceHash": "ce635c4eabff5e4f"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/en:e1e95590b95bef3a",
+      "text": "이것은 자동차입니다.",
+      "enSourceHash": "e1e95590b95bef3a"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/en:ec80e6e79e722a7f",
+      "text": "이것은 모자입니다.",
+      "enSourceHash": "ec80e6e79e722a7f"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/ja:これは いぬだ",
+      "text": "이 문장을 만드세요: 이것은 개다.",
+      "enSourceHash": "5d3585958f4c534a"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/ja:これは かばんだ",
+      "text": "이 문장을 만드세요: 이것은 가방이다.",
+      "enSourceHash": "d279f3763740d7de"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/ja:これは くるまだ",
+      "text": "이 문장을 만드세요: 이것은 자동차다.",
+      "enSourceHash": "3e9a725ffeedb8ab"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/ja:これは けいたいだ",
+      "text": "이것은 전화기다.",
+      "enSourceHash": "b639bdcf4a1fff61"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/ja:これは ねこだ",
+      "text": "이 문장을 만드세요: 이것은 고양이이다.",
+      "enSourceHash": "773813b2a3cc377d"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-1/ja:はな",
+      "text": "'꽃'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "365b9a6c86ad89f6"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-10/en:1868e4858a8366bb",
+      "text": "이것은 자전거입니다.",
+      "enSourceHash": "1868e4858a8366bb"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-10/en:44ff7b02c80d38b2",
+      "text": "창문",
+      "enSourceHash": "44ff7b02c80d38b2"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-10/en:525eca1d5089dbdc",
+      "text": "별",
+      "enSourceHash": "525eca1d5089dbdc"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-10/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-10/en:613266c3f560a07a",
+      "text": "저것 (당신 곁에 있는) 은 자전거입니다.",
+      "enSourceHash": "613266c3f560a07a"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-10/en:69e2a040509d14c7",
+      "text": "자전거와 사전",
+      "enSourceHash": "69e2a040509d14c7"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-10/en:6c1871f9eb9867db",
+      "text": "어느 것이 자전거입니까?",
+      "enSourceHash": "6c1871f9eb9867db"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-10/en:7650b6e25946a911",
+      "text": "누구의 사전입니까?",
+      "enSourceHash": "7650b6e25946a911"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-10/en:82bd81ea4b030255",
+      "text": "요리",
+      "enSourceHash": "82bd81ea4b030255"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-10/en:8d838f08b4e4740b",
+      "text": "저것은 사전입니까?",
+      "enSourceHash": "8d838f08b4e4740b"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-10/en:92299bd25959fadf",
+      "text": "저것 (저쪽에 있는) 은 사전입니다.",
+      "enSourceHash": "92299bd25959fadf"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-10/en:9fcfcb10b10c570b",
+      "text": "이것은 가방입니다.",
+      "enSourceHash": "9fcfcb10b10c570b"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-10/en:c06b0cfe0cc5e900",
+      "text": "꽃",
+      "enSourceHash": "c06b0cfe0cc5e900"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-10/en:c23b31a0179b550f",
+      "text": "아침",
+      "enSourceHash": "c23b31a0179b550f"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-10/en:d34a569ab7aaa54d",
+      "text": "가족",
+      "enSourceHash": "d34a569ab7aaa54d"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-10/en:dec7a7d519ccaaa1",
+      "text": "어느 것이 사전입니까?",
+      "enSourceHash": "dec7a7d519ccaaa1"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-10/en:e1e95590b95bef3a",
+      "text": "이것은 자동차입니다.",
+      "enSourceHash": "e1e95590b95bef3a"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-10/en:f087797239625dfe",
+      "text": "이것 (내 근처) 은 사전입니다.",
+      "enSourceHash": "f087797239625dfe"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-10/en:f48374a859eebcfb",
+      "text": "저것 (당신 근처) 은 사전입니다.",
+      "enSourceHash": "f48374a859eebcfb"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-10/en:fba97841c69b2ee0",
+      "text": "저기 저것은 자전거입니다.",
+      "enSourceHash": "fba97841c69b2ee0"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-10/ja:あれは じてんしゃだ",
+      "text": "이 문장을 만들어 보세요: 저기 저것은 자전거다.",
+      "enSourceHash": "f7a3e91a99121681"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-10/ja:きっぷ",
+      "text": "'표'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "2e051b88decbf702"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-10/ja:これは じてんしゃだ",
+      "text": "이 문장을 만들어 보세요: 이것은 자전거다.",
+      "enSourceHash": "7b2c561d16407998"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-10/ja:これは トムの じしょだ",
+      "text": "이것은 톰의 사전이다.",
+      "enSourceHash": "145bf8690afaab11"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-10/ja:だれの じしょ",
+      "text": "이 문장을 만들어 보세요: 누구의 사전입니까?",
+      "enSourceHash": "7eeaa78d68a8bfc2"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-10/ja:トムの じてんしゃだ",
+      "text": "이 문장을 만들어 보세요: 그것은 톰의 자전거다.",
+      "enSourceHash": "734d834c5d18d6a4"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-11/en:0840d2349a0c11e5",
+      "text": "그것은 사전입니다.",
+      "enSourceHash": "0840d2349a0c11e5"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-11/en:163214f00ba2e0a5",
+      "text": "다나카가 여기에 있습니다.",
+      "enSourceHash": "163214f00ba2e0a5"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-11/en:23594cb59e96df05",
+      "text": "그것은 다나카의 것입니다.",
+      "enSourceHash": "23594cb59e96df05"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-11/en:336074805fc85398",
+      "text": "시간",
+      "enSourceHash": "336074805fc85398"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-11/en:38a81e87e79631e6",
+      "text": "사람",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-11/en:3d0503bba9da4437",
+      "text": "이것은 선생님의 전화입니다.",
+      "enSourceHash": "3d0503bba9da4437"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-11/en:4a69f19c8c264850",
+      "text": "바다",
+      "enSourceHash": "4a69f19c8c264850"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-11/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-11/en:634a06a12f8e0d90",
+      "text": "그것은 제 것입니다.",
+      "enSourceHash": "634a06a12f8e0d90"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-11/en:70204e367c5d8bb8",
+      "text": "이것은 선생님의 가방입니다.",
+      "enSourceHash": "70204e367c5d8bb8"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-11/en:7272dcdd5d5ca9bd",
+      "text": "그것은 학생의 가방입니다.",
+      "enSourceHash": "7272dcdd5d5ca9bd"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-11/en:729b98b7ec6f91be",
+      "text": "그것은 선생님의 가방입니다.",
+      "enSourceHash": "729b98b7ec6f91be"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-11/en:7339725159893c57",
+      "text": "전화",
+      "enSourceHash": "7339725159893c57"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-11/en:774b369b6a3eeba2",
+      "text": "이것은 제 전화입니다.",
+      "enSourceHash": "774b369b6a3eeba2"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-11/en:82a3537ff0dbce7e",
+      "text": "이름",
+      "enSourceHash": "82a3537ff0dbce7e"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-11/en:bea695b2e00df675",
+      "text": "그것은 선생님의 가방입니까?",
+      "enSourceHash": "bea695b2e00df675"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-11/en:cde48537ca2c2808",
+      "text": "친구",
+      "enSourceHash": "cde48537ca2c2808"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-11/en:f3e67ed2f250bf6f",
+      "text": "그것은 선생님의 우산입니다.",
+      "enSourceHash": "f3e67ed2f250bf6f"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-11/en:f8a673d3d74a20c5",
+      "text": "저것은 학생의 전화입니다.",
+      "enSourceHash": "f8a673d3d74a20c5"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-11/en:fa2c06b7e7376424",
+      "text": "이야기: 다나카의 교실에서",
+      "enSourceHash": "fa2c06b7e7376424"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-11/ja:あれは ミカの かさだ",
+      "text": "저기 저것은 미카의 우산이다.",
+      "enSourceHash": "ee32a2f38232aa1d"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-11/ja:これも せんせいのだ",
+      "text": "이 문장을 만들어 보세요: 이것도 선생님의 것이다.",
+      "enSourceHash": "fc50ede8edc387cd"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-11/ja:せんせいの じしょだ",
+      "text": "이 문장을 만들어 보세요: 그것은 선생님의 사전이다.",
+      "enSourceHash": "934a96aa7d749c93"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-11/ja:たなかの じしょだ",
+      "text": "이 문장을 만들어 보세요: 그것은 다나카의 사전이다.",
+      "enSourceHash": "dd6c0ba7e09476fa"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-11/ja:ふね",
+      "text": "'배'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "8d1dbeb6b6c9ef89"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-11/ja:ミカの かさだ",
+      "text": "이 문장을 만들어 보세요: 그것은 미카의 우산이다.",
+      "enSourceHash": "e6271eea92c5015f"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/en:13809668fb436386",
+      "text": "연필",
+      "enSourceHash": "13809668fb436386"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/en:30c621421ef9ebc9",
+      "text": "산책하다",
+      "enSourceHash": "30c621421ef9ebc9"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/en:336074805fc85398",
+      "text": "시간",
+      "enSourceHash": "336074805fc85398"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/en:36f02a4b6f1edd3b",
+      "text": "이것은 산이다.",
+      "enSourceHash": "36f02a4b6f1edd3b"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/en:456fd3d7b4724c9c",
+      "text": "저것은 자동차이다.",
+      "enSourceHash": "456fd3d7b4724c9c"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/en:511867c58a5c4c76",
+      "text": "저것은 산이다.",
+      "enSourceHash": "511867c58a5c4c76"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/en:55c64d0fcd6f9d5f",
+      "text": "사진",
+      "enSourceHash": "55c64d0fcd6f9d5f"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/en:5f67614f7f656dbb",
+      "text": "그것은 전화기이다.",
+      "enSourceHash": "5f67614f7f656dbb"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/en:6b8ebd4c55f8d3d7",
+      "text": "그것은 가방인가?",
+      "enSourceHash": "6b8ebd4c55f8d3d7"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/en:71012349a1b27264",
+      "text": "그것은 자동차인가?",
+      "enSourceHash": "71012349a1b27264"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/en:7339725159893c57",
+      "text": "전화기",
+      "enSourceHash": "7339725159893c57"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/en:9a215e44e0d5d4c8",
+      "text": "이것 (내 손에 있는) 은 가방이다.",
+      "enSourceHash": "9a215e44e0d5d4c8"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/en:9fcfcb10b10c570b",
+      "text": "이것은 가방이다.",
+      "enSourceHash": "9fcfcb10b10c570b"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/en:a41fd9237d50e9ac",
+      "text": "그것은 자동차이다.",
+      "enSourceHash": "a41fd9237d50e9ac"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/en:a5b902bf8d87a8c3",
+      "text": "저것은 강이다.",
+      "enSourceHash": "a5b902bf8d87a8c3"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/en:a85e6d6ef0b34ae7",
+      "text": "저것 (저쪽) 은 가방이다.",
+      "enSourceHash": "a85e6d6ef0b34ae7"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/en:aba4cc9b8af82df5",
+      "text": "놀다",
+      "enSourceHash": "aba4cc9b8af82df5"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/en:b0316d58c33a3e2a",
+      "text": "저것은 전화기이다.",
+      "enSourceHash": "b0316d58c33a3e2a"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/en:b639bdcf4a1fff61",
+      "text": "이것은 전화기이다.",
+      "enSourceHash": "b639bdcf4a1fff61"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/en:bd52a430aaf0cbd0",
+      "text": "그것은 가방이다.",
+      "enSourceHash": "bd52a430aaf0cbd0"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/en:ddad6c9976011252",
+      "text": "이것 (내 곁에 있는) 은 자동차이다.",
+      "enSourceHash": "ddad6c9976011252"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/en:e3b62d4d3df89151",
+      "text": "그것은 산이다.",
+      "enSourceHash": "e3b62d4d3df89151"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/ja:あれは いぬだ",
+      "text": "이 문장을 만들어 보세요: 저것은 개이다.",
+      "enSourceHash": "ed7a47779db5c0ff"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/ja:あれは くるまだ",
+      "text": "이 문장을 만들어 보세요: 저것은 자동차이다.",
+      "enSourceHash": "7c159f523490ae04"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/ja:あれは ふねだ",
+      "text": "저것은 배이다.",
+      "enSourceHash": "3b5fcb031b936eed"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/ja:これは かぎだ",
+      "text": "이 문장을 만들어 보세요: 이것은 열쇠이다.",
+      "enSourceHash": "885c531b44bf1d35"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/ja:これは かばんだ",
+      "text": "이 문장을 만들어 보세요: 이것은 가방이다.",
+      "enSourceHash": "d279f3763740d7de"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/ja:それは ねこだ",
+      "text": "이 문장을 만들어 보세요: 그것은 고양이이다.",
+      "enSourceHash": "2a4f4734be1dee44"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-2/ja:ぼうし",
+      "text": "'모자'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "c17f3762d53cfae3"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-3/en:0beb959b1f564f3e",
+      "text": "이것은 열쇠이다.",
+      "enSourceHash": "0beb959b1f564f3e"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-3/en:0f4168490e38b844",
+      "text": "물",
+      "enSourceHash": "0f4168490e38b844"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-3/en:1057a9604e04b274",
+      "text": "선생님",
+      "enSourceHash": "1057a9604e04b274"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-3/en:20ee9180ad3d0047",
+      "text": "그것은 전화기이다.",
+      "enSourceHash": "20ee9180ad3d0047"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-3/en:264c8c381bf16c98",
+      "text": "학생",
+      "enSourceHash": "264c8c381bf16c98"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-3/en:332f12df49473474",
+      "text": "친구가 들고 있는 것에 대해 물어보세요.",
+      "enSourceHash": "332f12df49473474"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-3/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-3/en:68ecfa857fd64631",
+      "text": "저것은 무엇인가?",
+      "enSourceHash": "68ecfa857fd64631"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-3/en:6b8ebd4c55f8d3d7",
+      "text": "그것은 가방인가?",
+      "enSourceHash": "6b8ebd4c55f8d3d7"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-3/en:7391f91c01f7fea2",
+      "text": "이것은 누구의 것인가?",
+      "enSourceHash": "7391f91c01f7fea2"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-3/en:7528ded0b4b586ab",
+      "text": "그것은 조개입니다.",
+      "enSourceHash": "7528ded0b4b586ab"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-3/en:801e7bc2387f4d97",
+      "text": "그것은 열쇠입니다.",
+      "enSourceHash": "801e7bc2387f4d97"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-3/en:82a3537ff0dbce7e",
+      "text": "이름",
+      "enSourceHash": "82a3537ff0dbce7e"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-3/en:83a30d3fbd93cbb9",
+      "text": "이것은 책입니다.",
+      "enSourceHash": "83a30d3fbd93cbb9"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-3/en:847353f0324a35ca",
+      "text": "그것 (당신이 가진 것) 은 무엇입니까?",
+      "enSourceHash": "847353f0324a35ca"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-3/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-3/en:ac531cfab83d7431",
+      "text": "그것 (당신 근처에 있는 것) 은 무엇입니까?",
+      "enSourceHash": "ac531cfab83d7431"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-3/en:cde48537ca2c2808",
+      "text": "친구",
+      "enSourceHash": "cde48537ca2c2808"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-3/en:dd18ff5f19a5db9e",
+      "text": "이것 (제가 가진 것) 은 무엇입니까?",
+      "enSourceHash": "dd18ff5f19a5db9e"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-3/en:ddfd032cce17828b",
+      "text": "이것은 무엇입니까?",
+      "enSourceHash": "ddfd032cce17828b"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-3/en:f0dcbfc8a4dc294a",
+      "text": "그것은 자동차입니다.",
+      "enSourceHash": "f0dcbfc8a4dc294a"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-3/ja:これは けいたいだ",
+      "text": "이 문장을 만드세요: 이것은 휴대전화다.",
+      "enSourceHash": "e4d4e6de4843799a"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-3/ja:すし",
+      "text": "'스시'에 해당하는 단어를 듣고 만들어 보세요.",
+      "enSourceHash": "be1df902c06cc016"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-3/ja:それは くるまだ",
+      "text": "그것은 자동차다.",
+      "enSourceHash": "f0dcbfc8a4dc294a"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-3/ja:それは しゃしんだ",
+      "text": "이 문장을 만드세요: 그것 (당신 근처에 있는 것) 은 사진이다.",
+      "enSourceHash": "ce829f5cb5cb43d6"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/en:03884df374e4fc16",
+      "text": "이것은 편지입니다.",
+      "enSourceHash": "03884df374e4fc16"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/en:0a6df2b59a1dadeb",
+      "text": "이것은 의자입니다.",
+      "enSourceHash": "0a6df2b59a1dadeb"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/en:0f4168490e38b844",
+      "text": "물",
+      "enSourceHash": "0f4168490e38b844"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/en:1057a9604e04b274",
+      "text": "선생님",
+      "enSourceHash": "1057a9604e04b274"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/en:1bfc44397c782c79",
+      "text": "이것은 우산입니다.",
+      "enSourceHash": "1bfc44397c782c79"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/en:266550babbb7bd39",
+      "text": "안경",
+      "enSourceHash": "266550babbb7bd39"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/en:3c224df1d242d8d4",
+      "text": "그것 (저쪽에 있는 것) 은 편지입니다.",
+      "enSourceHash": "3c224df1d242d8d4"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/en:45411b53c3ee653e",
+      "text": "미국 사람",
+      "enSourceHash": "45411b53c3ee653e"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/en:4a69f19c8c264850",
+      "text": "바다",
+      "enSourceHash": "4a69f19c8c264850"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/en:56aa6b77c760f710",
+      "text": "우물/에너지",
+      "enSourceHash": "56aa6b77c760f710"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/en:5f5a8ed8f139be6d",
+      "text": "강",
+      "enSourceHash": "5f5a8ed8f139be6d"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/en:63f75c890b05405e",
+      "text": "노래",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/en:6f6d66b4164287a2",
+      "text": "이것은 표입니다.",
+      "enSourceHash": "6f6d66b4164287a2"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/en:6f95f75c21e0d442",
+      "text": "그것 (당신 근처에 있는 것) 은 우산입니다.",
+      "enSourceHash": "6f95f75c21e0d442"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/en:74d826ffaf77895b",
+      "text": "그것 (저쪽에 있는 것) 은 우산입니다.",
+      "enSourceHash": "74d826ffaf77895b"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/en:86dcb9514d8c991d",
+      "text": "사물 II — 모든 것을 가리키기",
+      "enSourceHash": "86dcb9514d8c991d"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/en:8825e76530f87ff5",
+      "text": "우유",
+      "enSourceHash": "8825e76530f87ff5"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/en:a83028df07328e48",
+      "text": "이것은 사진입니다.",
+      "enSourceHash": "a83028df07328e48"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/en:aba4cc9b8af82df5",
+      "text": "연주하다",
+      "enSourceHash": "aba4cc9b8af82df5"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/en:b1e25490019d0426",
+      "text": "이것은 의자입니까?",
+      "enSourceHash": "b1e25490019d0426"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/en:cd70468cb5d9dfd2",
+      "text": "이것은 창문입니다.",
+      "enSourceHash": "cd70468cb5d9dfd2"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/en:cde48537ca2c2808",
+      "text": "친구",
+      "enSourceHash": "cde48537ca2c2808"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/en:cf98f59c0c003582",
+      "text": "스시",
+      "enSourceHash": "cf98f59c0c003582"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/en:d15a4f817dc7e687",
+      "text": "그것 (당신 근처에 있는 것) 은 연필입니다.",
+      "enSourceHash": "d15a4f817dc7e687"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/en:e92ed0b735c46697",
+      "text": "그것(당신 근처)은 의자다.",
+      "enSourceHash": "e92ed0b735c46697"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/ja:あれは いすだ",
+      "text": "이 문장을 만들어 보세요: 저것(저기)은 의자다.",
+      "enSourceHash": "314e22e417b59ea8"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/ja:あれは てがみだ",
+      "text": "이 문장을 만들어 보세요: 저것(저기)은 편지다.",
+      "enSourceHash": "16f98f1ac1d4b2cf"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/ja:えんぴつ",
+      "text": "'연필'에 해당하는 단어를 듣고 만들어 보세요.",
+      "enSourceHash": "d174559e2d7097ef"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/ja:これは かさだ",
+      "text": "이 문장을 만들어 보세요: 이것은 우산이다.",
+      "enSourceHash": "4afb5e0dfee4c249"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/ja:これは かばんだ",
+      "text": "이 문장을 만들어 보세요: 이것은 가방이다.",
+      "enSourceHash": "d279f3763740d7de"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/ja:それは いすだ",
+      "text": "이 문장을 만들어 보세요: 그것(당신 근처)은 의자다.",
+      "enSourceHash": "f857fea6c327fb50"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-4/ja:それは てがみだ",
+      "text": "그것은 편지다.",
+      "enSourceHash": "6171b3d3aa32573e"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/en:052fed75a7a56b82",
+      "text": "타나카는 저기에 있다.",
+      "enSourceHash": "052fed75a7a56b82"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/en:05f514fae7ca5710",
+      "text": "하늘",
+      "enSourceHash": "05f514fae7ca5710"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/en:0a41ae018b112071",
+      "text": "저것(저기)은 타나카의 차다.",
+      "enSourceHash": "0a41ae018b112071"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/en:19f0adf39d1360a9",
+      "text": "그것은 내 책이다.",
+      "enSourceHash": "19f0adf39d1360a9"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/en:2d94b56c00dbd44c",
+      "text": "(그것은) 켄의 고양이이다.",
+      "enSourceHash": "2d94b56c00dbd44c"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/en:38a81e87e79631e6",
+      "text": "사람",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/en:483b2b33f8d3e80c",
+      "text": "그것은 켄의 차다.",
+      "enSourceHash": "483b2b33f8d3e80c"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/en:63f75c890b05405e",
+      "text": "노래",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/en:6b9c727744af2eab",
+      "text": "(그것은) 켄의 개이다.",
+      "enSourceHash": "6b9c727744af2eab"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/en:7339725159893c57",
+      "text": "전화",
+      "enSourceHash": "7339725159893c57"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/en:774b369b6a3eeba2",
+      "text": "이것은 내 전화기다.",
+      "enSourceHash": "774b369b6a3eeba2"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/en:77af778b51abd4a3",
+      "text": "고양이",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/en:85356064d03872ac",
+      "text": "복숭아",
+      "enSourceHash": "85356064d03872ac"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/en:ac39685a9da51212",
+      "text": "그것은 미카의 가방이다.",
+      "enSourceHash": "ac39685a9da51212"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/en:b265a3175e55c3c8",
+      "text": "그것은 미카의 전화기다.",
+      "enSourceHash": "b265a3175e55c3c8"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/en:b85343ea14b2b590",
+      "text": "이것은 톰의 책이다.",
+      "enSourceHash": "b85343ea14b2b590"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/en:c2a0f5f7788dda1b",
+      "text": "저것(저기)은 타나카의 의자다.",
+      "enSourceHash": "c2a0f5f7788dda1b"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/en:ce6bd0b54ea5d687",
+      "text": "그것은 켄의 전화기다.",
+      "enSourceHash": "ce6bd0b54ea5d687"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/en:d2deb93c57d17c01",
+      "text": "(그것은) 내 고양이이다.",
+      "enSourceHash": "d2deb93c57d17c01"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/en:df63101fed847354",
+      "text": "이것은 내 가방이다.",
+      "enSourceHash": "df63101fed847354"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/en:dfd5a2ff53b86d5e",
+      "text": "(그것은) 톰의 고양이이다.",
+      "enSourceHash": "dfd5a2ff53b86d5e"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/en:f89ad04ea6795bb3",
+      "text": "이것은 내 책이다.",
+      "enSourceHash": "f89ad04ea6795bb3"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/ja:これは わたしの かばんだ",
+      "text": "이 문장을 만들어 보세요: 이것은 내 가방이다.",
+      "enSourceHash": "b5ff503b61354143"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/ja:それは わたしの かさだ",
+      "text": "이 문장을 만들어 보세요: 그것(당신 근처)은 내 우산이다.",
+      "enSourceHash": "d0f9fea4b71debcb"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/ja:それは ケンの いすだ",
+      "text": "이 문장을 만들어 보세요: 그것(당신 근처)은 켄의 의자다.",
+      "enSourceHash": "61659dec8358de58"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/ja:それは ミカの かばんだ",
+      "text": "이 문장을 만들어 보세요: 그것(당신 근처)은 미카의 가방이다.",
+      "enSourceHash": "d3e68aaacce4fa60"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/ja:まど",
+      "text": "'창문'에 해당하는 단어를 듣고 만들어 보세요.",
+      "enSourceHash": "beba26c7e687a72d"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-5/ja:トムの けいたいだ",
+      "text": "(그것은) 톰의 전화기다.",
+      "enSourceHash": "373be66c341467e4"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-6/en:0282d9b79f42c74c",
+      "text": "얼굴",
+      "enSourceHash": "0282d9b79f42c74c"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-6/en:109837cc291efb7a",
+      "text": "그것은 켄의 가방이다.",
+      "enSourceHash": "109837cc291efb7a"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-6/en:169c2543a3b6ac10",
+      "text": "그것은 켄의 것이다.",
+      "enSourceHash": "169c2543a3b6ac10"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-6/en:2b4331d79bb5bc95",
+      "text": "이것은 누구의 차입니까?",
+      "enSourceHash": "2b4331d79bb5bc95"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-6/en:310bae7ee4813c76",
+      "text": "미카가 여기에 있습니다.",
+      "enSourceHash": "310bae7ee4813c76"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-6/en:4ae2e0246ab24f91",
+      "text": "이것은 누구의 가방입니까?",
+      "enSourceHash": "4ae2e0246ab24f91"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-6/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-6/en:5c39d067343a9d3e",
+      "text": "그것은 다나카의 차입니다.",
+      "enSourceHash": "5c39d067343a9d3e"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-6/en:634a06a12f8e0d90",
+      "text": "제 것입니다.",
+      "enSourceHash": "634a06a12f8e0d90"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-6/en:7391f91c01f7fea2",
+      "text": "이것은 누구의 것입니까?",
+      "enSourceHash": "7391f91c01f7fea2"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-6/en:80495816f7f22157",
+      "text": "당신은 누구입니까?",
+      "enSourceHash": "80495816f7f22157"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-6/en:82a3537ff0dbce7e",
+      "text": "이름",
+      "enSourceHash": "82a3537ff0dbce7e"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-6/en:85356064d03872ac",
+      "text": "복숭아",
+      "enSourceHash": "85356064d03872ac"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-6/en:8750c93e9b8f492a",
+      "text": "저것은 누구의 차입니까?",
+      "enSourceHash": "8750c93e9b8f492a"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-6/en:8825e76530f87ff5",
+      "text": "우유",
+      "enSourceHash": "8825e76530f87ff5"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-6/en:8aa9716c920806d1",
+      "text": "이것은 누구의 전화입니까?",
+      "enSourceHash": "8aa9716c920806d1"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-6/en:8d423f5004b20545",
+      "text": "익숙하지 않은 얼굴입니다. 누구인지 물어보세요.",
+      "enSourceHash": "8d423f5004b20545"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-6/en:ab11611bf328dfac",
+      "text": "차는 어디에 있습니까?",
+      "enSourceHash": "ab11611bf328dfac"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-6/en:c06b0cfe0cc5e900",
+      "text": "꽃",
+      "enSourceHash": "c06b0cfe0cc5e900"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-6/en:d11ad93318ae1b18",
+      "text": "미카의 것입니다.",
+      "enSourceHash": "d11ad93318ae1b18"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-6/en:d34a569ab7aaa54d",
+      "text": "가족",
+      "enSourceHash": "d34a569ab7aaa54d"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-6/en:ddfd032cce17828b",
+      "text": "이것은 무엇입니까?",
+      "enSourceHash": "ddfd032cce17828b"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-6/en:f7fb3ce4f833b17e",
+      "text": "이 사람은 누구입니까?",
+      "enSourceHash": "f7fb3ce4f833b17e"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-6/ja:かお",
+      "text": "'얼굴'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "f8d250b5b80c6063"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-6/ja:それは わたしのだ",
+      "text": "이 문장을 만들어 보세요: 그것은 (당신 곁에 있는) 제 것입니다.",
+      "enSourceHash": "8b3ac00562dd0056"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-6/ja:たなかのだ",
+      "text": "이 문장을 만들어 보세요: 그것은 다나카의 것입니다.",
+      "enSourceHash": "73290a77d63113be"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-6/ja:ケンのだ",
+      "text": "이 문장을 만들어 보세요: 그것은 켄의 것입니다.",
+      "enSourceHash": "82a67b99c2ddbd9b"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-7/en:0013eca312f6e0ca",
+      "text": "이야기: 누구의 가방?",
+      "enSourceHash": "0013eca312f6e0ca"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-7/en:266550babbb7bd39",
+      "text": "안경",
+      "enSourceHash": "266550babbb7bd39"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-7/en:2c70e12b7a0646f9",
+      "text": "열쇠",
+      "enSourceHash": "2c70e12b7a0646f9"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-7/en:3b80d38f7686a8b5",
+      "text": "산",
+      "enSourceHash": "3b80d38f7686a8b5"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-7/en:463e39921e3c0a37",
+      "text": "제 것이 아닙니다.",
+      "enSourceHash": "463e39921e3c0a37"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-7/en:49916d566b5fc375",
+      "text": "누구의 것입니까?",
+      "enSourceHash": "49916d566b5fc375"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-7/en:4ca233a86c8662e3",
+      "text": "당신의 것입니다.",
+      "enSourceHash": "4ca233a86c8662e3"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-7/en:525eca1d5089dbdc",
+      "text": "별",
+      "enSourceHash": "525eca1d5089dbdc"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-7/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-7/en:58e84b77e63342e8",
+      "text": "친구가 누구의 가방인지 물어봅니다. 미카의 것입니다 — 짧은 대답:",
+      "enSourceHash": "58e84b77e63342e8"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-7/en:634a06a12f8e0d90",
+      "text": "제 것입니다.",
+      "enSourceHash": "634a06a12f8e0d90"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-7/en:7339725159893c57",
+      "text": "전화",
+      "enSourceHash": "7339725159893c57"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-7/en:82bd81ea4b030255",
+      "text": "요리",
+      "enSourceHash": "82bd81ea4b030255"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-7/en:acd27d6f90892b1b",
+      "text": "가방입니까?",
+      "enSourceHash": "acd27d6f90892b1b"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-7/en:b1f3ce3a4a65e60e",
+      "text": "어느 가방입니까?",
+      "enSourceHash": "b1f3ce3a4a65e60e"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-7/en:d18576ce287d2593",
+      "text": "누구의 가방입니까?",
+      "enSourceHash": "d18576ce287d2593"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-7/en:de259cfaddbcf1bd",
+      "text": "그 우산은 누구의 것입니까?",
+      "enSourceHash": "de259cfaddbcf1bd"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-7/ja:これは ケンの かばんだ",
+      "text": "이 문장을 만드세요: 이것은 켄의 가방이다.",
+      "enSourceHash": "90e9471ef2b28718"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-7/ja:それは ケンの かばんだ",
+      "text": "이 문장을 만드세요: 저것 (당신 곁) 은 켄의 가방이다.",
+      "enSourceHash": "6484e2ca92f33db4"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-7/ja:ぼうし",
+      "text": "'모자'에 해당하는 단어를 듣고 만드세요",
+      "enSourceHash": "c17f3762d53cfae3"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-7/ja:ケンの かばんだ",
+      "text": "켄의 가방이다.",
+      "enSourceHash": "109837cc291efb7a"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-7/ja:ケンのだ",
+      "text": "이 문장을 만드세요: 그것은 켄의 것이다.",
+      "enSourceHash": "82a67b99c2ddbd9b"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-8/en:0102c34e4f2bbfe4",
+      "text": "그 차는 미카의 것이다.",
+      "enSourceHash": "0102c34e4f2bbfe4"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-8/en:38a81e87e79631e6",
+      "text": "사람",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-8/en:3b80d38f7686a8b5",
+      "text": "산",
+      "enSourceHash": "3b80d38f7686a8b5"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-8/en:436720b28e4f5fbe",
+      "text": "그것은 미카의 전화기이다.",
+      "enSourceHash": "436720b28e4f5fbe"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-8/en:44ff7b02c80d38b2",
+      "text": "창문",
+      "enSourceHash": "44ff7b02c80d38b2"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-8/en:45159fe5b0f34d71",
+      "text": "그것은 일본산 자동차이다.",
+      "enSourceHash": "45159fe5b0f34d71"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-8/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-8/en:61f150a5c1ceb9b7",
+      "text": "내 전화기는 미국에 있다.",
+      "enSourceHash": "61f150a5c1ceb9b7"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-8/en:71291658dca7ed04",
+      "text": "그 전화기는 미국산이다.",
+      "enSourceHash": "71291658dca7ed04"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-8/en:72004de0100672b4",
+      "text": "그것은 미카의 자동차이다.",
+      "enSourceHash": "72004de0100672b4"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-8/en:8825e76530f87ff5",
+      "text": "우유",
+      "enSourceHash": "8825e76530f87ff5"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-8/en:aba4cc9b8af82df5",
+      "text": "놀다",
+      "enSourceHash": "aba4cc9b8af82df5"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-8/en:c06b0cfe0cc5e900",
+      "text": "꽃",
+      "enSourceHash": "c06b0cfe0cc5e900"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-8/en:c159acb2f315962d",
+      "text": "그 차는 미국산이다.",
+      "enSourceHash": "c159acb2f315962d"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-8/en:c686b5ef1632f220",
+      "text": "그것은 내 전화기이다.",
+      "enSourceHash": "c686b5ef1632f220"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-8/en:d23d2535ec3649c5",
+      "text": "그것은 미국산 자동차이다.",
+      "enSourceHash": "d23d2535ec3649c5"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-8/en:d41fa80e1c2af1f8",
+      "text": "그 차는 일본산이다.",
+      "enSourceHash": "d41fa80e1c2af1f8"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-8/en:e6c445bab2e152a5",
+      "text": "그것은 일본산 전화기이다.",
+      "enSourceHash": "e6c445bab2e152a5"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-8/en:eb8392af5bc92ddb",
+      "text": "그 차는 일본에 있다.",
+      "enSourceHash": "eb8392af5bc92ddb"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-8/en:f4bf74fc6ed09d38",
+      "text": "그것은 미국산 전화기이다.",
+      "enSourceHash": "f4bf74fc6ed09d38"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-8/ja:かぎ",
+      "text": "'열쇠'에 해당하는 단어를 듣고 만드세요",
+      "enSourceHash": "83160e1d90a08832"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-8/ja:くるまは にほんのだ",
+      "text": "그 차는 일본산이다.",
+      "enSourceHash": "d41fa80e1c2af1f8"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-8/ja:けいたいは ミカのだ",
+      "text": "이 문장을 만드세요: 그 전화기는 미카의 것이다.",
+      "enSourceHash": "46051efb5999cbf7"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-8/ja:にほんの くるまだ",
+      "text": "이 문장을 만드세요: 그것은 일본산 자동차이다.",
+      "enSourceHash": "3ff41c10ebbd7f39"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-8/ja:アメリカの くるまだ",
+      "text": "이 문장을 만드세요: 그것은 미국산 자동차이다.",
+      "enSourceHash": "1ec3fc5c5083101c"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-8/ja:アメリカの けいたいだ",
+      "text": "이 문장을 만드세요: 그것은 미국산 전화기이다.",
+      "enSourceHash": "71d481dd17d3cbe5"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-9/en:0c04170472d5ded2",
+      "text": "그 우산은 어디에 있습니까?",
+      "enSourceHash": "0c04170472d5ded2"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-9/en:0c32b0b420ca680d",
+      "text": "그 안경은 누구의 것입니까?",
+      "enSourceHash": "0c32b0b420ca680d"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-9/en:14069429150abcbf",
+      "text": "표",
+      "enSourceHash": "14069429150abcbf"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-9/en:17a27574cd223b14",
+      "text": "어느 것이 안경입니까?",
+      "enSourceHash": "17a27574cd223b14"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-9/en:31de73d75280fb06",
+      "text": "어느 것이습니까?",
+      "enSourceHash": "31de73d75280fb06"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-9/en:469cb1efbf850714",
+      "text": "그 안경은 어디에 있습니까?",
+      "enSourceHash": "469cb1efbf850714"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-9/en:4a49bca2099cefe1",
+      "text": "어느 것이 우산입니까?",
+      "enSourceHash": "4a49bca2099cefe1"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-9/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-9/en:5f5a8ed8f139be6d",
+      "text": "강",
+      "enSourceHash": "5f5a8ed8f139be6d"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-9/en:63f75c890b05405e",
+      "text": "노래",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-9/en:82a3537ff0dbce7e",
+      "text": "이름",
+      "enSourceHash": "82a3537ff0dbce7e"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-9/en:82bd81ea4b030255",
+      "text": "요리",
+      "enSourceHash": "82bd81ea4b030255"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-9/en:95638663b7c4b248",
+      "text": "찾는 대상을 강조한 뒤, '어느 것'인지 물어보세요.",
+      "enSourceHash": "95638663b7c4b248"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-9/en:a6ff633c78a90a09",
+      "text": "그게 바로 (당신이 들고 있는) 그것입니다.",
+      "enSourceHash": "a6ff633c78a90a09"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-9/en:aee8089619996a6a",
+      "text": "당신 옆에 있는 그 것.",
+      "enSourceHash": "aee8089619996a6a"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-9/en:b1212f9c8f1402f8",
+      "text": "저기 있는 그 것.",
+      "enSourceHash": "b1212f9c8f1402f8"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-9/en:b32c6f9a1fc84eab",
+      "text": "가방은 어느 것입니까?",
+      "enSourceHash": "b32c6f9a1fc84eab"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-9/en:cf98f59c0c003582",
+      "text": "초밥",
+      "enSourceHash": "cf98f59c0c003582"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-9/en:de259cfaddbcf1bd",
+      "text": "그 우산은 누구의 것입니까?",
+      "enSourceHash": "de259cfaddbcf1bd"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-9/en:dfc53d7e1cb39589",
+      "text": "여기 있는 이 것.",
+      "enSourceHash": "dfc53d7e1cb39589"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-9/en:f6b249e44418568e",
+      "text": "이 것 (내 근처에 있는).",
+      "enSourceHash": "f6b249e44418568e"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-9/ja:あれだ",
+      "text": "이 문장을 만드세요: 저기 있는 그 것입니다.",
+      "enSourceHash": "5eefdde3956abbe1"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-9/ja:えんぴつ",
+      "text": "들리는 대로 '연필'에 해당하는 단어를 만드세요",
+      "enSourceHash": "d174559e2d7097ef"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-9/ja:これだ",
+      "text": "이 문장을 만드세요: 이 것입니다.",
+      "enSourceHash": "4f3b0094f7cecf24"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-9/ja:これは ケンの くるまだ",
+      "text": "이 문장을 만드세요: 이것은 켄의 자동차입니다.",
+      "enSourceHash": "ade362eb8cf82e20"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-9/ja:それは ミカの かさだ",
+      "text": "그것은 미카의 우산이다.",
+      "enSourceHash": "1709f838a4c9b01b"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-9/ja:ケンの くるまは どれ",
+      "text": "이 문장을 만드세요: 켄의 자동차는 어느 것입니까?",
+      "enSourceHash": "f417020889a174e4"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:0297fa284485a747",
+      "text": "그것은 내 시계입니다.",
+      "enSourceHash": "0297fa284485a747"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:0680d3b9b0a6dbbf",
+      "text": "그것은 다나카의 전화기입니다.",
+      "enSourceHash": "0680d3b9b0a6dbbf"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:089f8fe82531b313",
+      "text": "그것은 일본산 자동차입니다.",
+      "enSourceHash": "089f8fe82531b313"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:116861e64717aec5",
+      "text": "그 모자는 누구의 것입니까?",
+      "enSourceHash": "116861e64717aec5"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:156d65a1c74b8740",
+      "text": "그것은 켄의 가방입니다.",
+      "enSourceHash": "156d65a1c74b8740"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:16ac7375382a83ac",
+      "text": "마지막 것과 같은 소유자 — '또한'이 강조 대상을 대신합니다.",
+      "enSourceHash": "16ac7375382a83ac"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:1a9012313066b6d3",
+      "text": "이것은 일본산 배입니다.",
+      "enSourceHash": "1a9012313066b6d3"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:2651039499e45076",
+      "text": "이것은 미국산 배입니다.",
+      "enSourceHash": "2651039499e45076"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:2888fa3fde7fd7b0",
+      "text": "친구의 열쇠가 책상에서 떨어졌습니다. 먼저 무엇을 말합니까?",
+      "enSourceHash": "2888fa3fde7fd7b0"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:3b80d38f7686a8b5",
+      "text": "산",
+      "enSourceHash": "3b80d38f7686a8b5"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:3f30de5d3d12e9f8",
+      "text": "그것은 미카의 모자입니다.",
+      "enSourceHash": "3f30de5d3d12e9f8"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:44ff7b02c80d38b2",
+      "text": "창문",
+      "enSourceHash": "44ff7b02c80d38b2"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:56aa6b77c760f710",
+      "text": "우물/에너지",
+      "enSourceHash": "56aa6b77c760f710"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:63f75c890b05405e",
+      "text": "노래",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:665c9d62014ee4fe",
+      "text": "이것은 켄의 모자입니다.",
+      "enSourceHash": "665c9d62014ee4fe"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:847a1d9b337ad0af",
+      "text": "가리키고 소유하기 — 복습",
+      "enSourceHash": "847a1d9b337ad0af"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:87f530440af9afaa",
+      "text": "모자는 어디에 있습니까?",
+      "enSourceHash": "87f530440af9afaa"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:8825e76530f87ff5",
+      "text": "우유",
+      "enSourceHash": "8825e76530f87ff5"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:8dca139a2eda0c31",
+      "text": "그것은 다나카의 시계입니까?",
+      "enSourceHash": "8dca139a2eda0c31"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:8f6f830c212d8089",
+      "text": "그것은 다나카의 시계입니다.",
+      "enSourceHash": "8f6f830c212d8089"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:9ffacc38a580b287",
+      "text": "저것은 누구의 모자입니까?",
+      "enSourceHash": "9ffacc38a580b287"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:a39b7291b75d1e91",
+      "text": "친구가 알아볼 수 없는 물건을 들어 보입니다. 그것이 무엇인지 물어보세요.",
+      "enSourceHash": "a39b7291b75d1e91"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:cea9c50a6ada9876",
+      "text": "어느 것이 열쇠입니까?",
+      "enSourceHash": "cea9c50a6ada9876"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:d3eece040dc0aa02",
+      "text": "어느 것이 모자입니까?",
+      "enSourceHash": "d3eece040dc0aa02"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:d8ae505ebdd6c885",
+      "text": "그것 (당신 근처) 은 케인의 모자입니다.",
+      "enSourceHash": "d8ae505ebdd6c885"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:dd1e6c8ffad7052f",
+      "text": "이것은 누구의 모자입니까?",
+      "enSourceHash": "dd1e6c8ffad7052f"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:eaca54646a642879",
+      "text": "이 배는 제 것입니다.",
+      "enSourceHash": "eaca54646a642879"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/en:f78df87294b049c0",
+      "text": "저것은 당신의 모자입니까?",
+      "enSourceHash": "f78df87294b049c0"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/ja:あれは せんせいのだ",
+      "text": "이 문장을 만드세요: 저것은 선생님의 것이다.",
+      "enSourceHash": "140291ea9d9ca3bd"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/ja:えき",
+      "text": "듣고 '역'에 해당하는 단어를 만드세요",
+      "enSourceHash": "ba0413c69a5c1965"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/ja:これは ともだちの ふねだ",
+      "text": "이것은 친구의 배이다.",
+      "enSourceHash": "82be10c22024a08f"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/ja:これは ミカの とけいだ",
+      "text": "이 문장을 만드세요: 이것은 미카의 시계이다.",
+      "enSourceHash": "88d07a67d0b77f05"
+    },
+    {
+      "anchor": "m4/ja-m4-neo-review/ja:アメリカの うただ",
+      "text": "이 문장을 만드세요: 그것은 미국의 노래이다.",
+      "enSourceHash": "98e07b8208d4ba86"
+    }
+  ]
+}

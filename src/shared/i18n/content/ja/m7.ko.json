@@ -1,0 +1,1710 @@
+{
+  "schema": 1,
+  "moduleId": "m7",
+  "lang": "ko",
+  "generatedAt": "2026-09-10",
+  "draftedBy": "qwen3.5:122b-a10b-q4_K_M",
+  "entryCount": 340,
+  "entries": [
+    {
+      "anchor": "m7/atom:あそびます/gloss",
+      "text": "놀다 (존댓말)",
+      "enSourceHash": "6e6a77e5bfe3a4b7"
+    },
+    {
+      "anchor": "m7/atom:ありません/gloss",
+      "text": "없다 (존댓말)",
+      "enSourceHash": "c119192a247e0d1a"
+    },
+    {
+      "anchor": "m7/atom:いきます/gloss",
+      "text": "가다 (존댓말)",
+      "enSourceHash": "581a74b3f1e048e5"
+    },
+    {
+      "anchor": "m7/atom:いきません/gloss",
+      "text": "안 가다 (존댓말)",
+      "enSourceHash": "aa6f35b68ccfdd7d"
+    },
+    {
+      "anchor": "m7/atom:いらっしゃいませ/gloss",
+      "text": "어서 오십시오 (가게 인사)",
+      "enSourceHash": "575bef905c6d852e"
+    },
+    {
+      "anchor": "m7/atom:ええ/gloss",
+      "text": "네",
+      "enSourceHash": "8a798890fe938171"
+    },
+    {
+      "anchor": "m7/atom:かいしゃ/gloss",
+      "text": "회사",
+      "enSourceHash": "f168ccdd91548c5a"
+    },
+    {
+      "anchor": "m7/atom:かいます/gloss",
+      "text": "사다 (존댓말)",
+      "enSourceHash": "e3bf114a6d45d0cb"
+    },
+    {
+      "anchor": "m7/atom:ききます/gloss",
+      "text": "듣다, 묻다 (존댓말)",
+      "enSourceHash": "afbb6e2e42867f90"
+    },
+    {
+      "anchor": "m7/atom:きます/gloss",
+      "text": "오다 (존댓말)",
+      "enSourceHash": "e38a550cd3a1dff1"
+    },
+    {
+      "anchor": "m7/atom:きません/gloss",
+      "text": "안 오다 (존댓말)",
+      "enSourceHash": "1030a21e089fc2dd"
+    },
+    {
+      "anchor": "m7/atom:くん/gloss",
+      "text": "-군 (친근함, 주로 남자)",
+      "enSourceHash": "1f6837a868d8294b"
+    },
+    {
+      "anchor": "m7/atom:くん/shortGloss",
+      "text": "-군",
+      "enSourceHash": "df71cb8400e5e7f2"
+    },
+    {
+      "anchor": "m7/atom:さま/gloss",
+      "text": "-님 (존칭 접미사)",
+      "enSourceHash": "647ca3a47922bbb9"
+    },
+    {
+      "anchor": "m7/atom:さま/shortGloss",
+      "text": "-님",
+      "enSourceHash": "8edd788a758f50f4"
+    },
+    {
+      "anchor": "m7/atom:します/gloss",
+      "text": "하다, 만들다 (존댓말)",
+      "enSourceHash": "0b403af8232d1f69"
+    },
+    {
+      "anchor": "m7/atom:しません/gloss",
+      "text": "안 하다, 만들지 않다 (존댓말)",
+      "enSourceHash": "fd6e9775e812fd37"
+    },
+    {
+      "anchor": "m7/atom:じゅぎょう/gloss",
+      "text": "수업, 과제",
+      "enSourceHash": "ff154581bad93f0c"
+    },
+    {
+      "anchor": "m7/atom:たべます/gloss",
+      "text": "먹다 (존댓말)",
+      "enSourceHash": "5c9c41d23f624ebb"
+    },
+    {
+      "anchor": "m7/atom:たべません/gloss",
+      "text": "안 먹다 (존댓말)",
+      "enSourceHash": "c135f5d6cdd17777"
+    },
+    {
+      "anchor": "m7/atom:ちゃん/gloss",
+      "text": "-짱 (친절함)",
+      "enSourceHash": "471ec4befd968599"
+    },
+    {
+      "anchor": "m7/atom:ちゃん/shortGloss",
+      "text": "-짱",
+      "enSourceHash": "9f4e57bb53d29b47"
+    },
+    {
+      "anchor": "m7/atom:です/gloss",
+      "text": "이다 (존댓말 서술어)",
+      "enSourceHash": "a6b0533454781581"
+    },
+    {
+      "anchor": "m7/atom:のみます/gloss",
+      "text": "마시다 (존댓말)",
+      "enSourceHash": "0007afabd9869f76"
+    },
+    {
+      "anchor": "m7/atom:のみません/gloss",
+      "text": "안 마시다 (존댓말)",
+      "enSourceHash": "463d21bc0d75ef5d"
+    },
+    {
+      "anchor": "m7/atom:はい/gloss",
+      "text": "네",
+      "enSourceHash": "8a798890fe938171"
+    },
+    {
+      "anchor": "m7/atom:はたらきます/gloss",
+      "text": "일하다 (존댓말)",
+      "enSourceHash": "3ff72422520bd6c0"
+    },
+    {
+      "anchor": "m7/atom:はたらきません/gloss",
+      "text": "안 일하다 (존댓말)",
+      "enSourceHash": "e92bcac28a7e6f82"
+    },
+    {
+      "anchor": "m7/atom:はたらく/gloss",
+      "text": "일하다",
+      "enSourceHash": "1ce1c69da06f41e6"
+    },
+    {
+      "anchor": "m7/atom:みます/gloss",
+      "text": "보다 (존댓말)",
+      "enSourceHash": "83c599c5478aaee8"
+    },
+    {
+      "anchor": "m7/atom:みません/gloss",
+      "text": "안 보다 (존댓말)",
+      "enSourceHash": "b832951c125fd065"
+    },
+    {
+      "anchor": "m7/atom:を/gloss",
+      "text": "목적격 조사",
+      "enSourceHash": "d0322005b64f2453"
+    },
+    {
+      "anchor": "m7/atom:ニュース/gloss",
+      "text": "뉴스",
+      "enSourceHash": "19fba0e995b9794f"
+    },
+    {
+      "anchor": "m7/atom:ネクタイ/gloss",
+      "text": "넥타이",
+      "enSourceHash": "38b8b7ab00270b2a"
+    },
+    {
+      "anchor": "m7/gp:desu-copula/ex:がくせいです",
+      "text": "학생이다 (존댓말)",
+      "enSourceHash": "8f624646dd13b155"
+    },
+    {
+      "anchor": "m7/gp:desu-copula/ex:たなかさんは せんせいです",
+      "text": "타나카 씨는 선생님이다 (존댓말)",
+      "enSourceHash": "31d13a6d60e80d2b"
+    },
+    {
+      "anchor": "m7/gp:desu-copula/ex:たべるです",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m7/gp:ka-question/ex:たなかさんは せんせいですか",
+      "text": "타나카 씨는 선생님입니까? (존댓말)",
+      "enSourceHash": "87f8179c1ef7d0aa"
+    },
+    {
+      "anchor": "m7/gp:ka-question/ex:たべるますか",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m7/gp:ka-question/ex:みずを のみますか",
+      "text": "물을 마십니까? (존댓말)",
+      "enSourceHash": "8b7d69f70fd68e50"
+    },
+    {
+      "anchor": "m7/gp:masu-negative/ex:きょうは いきません",
+      "text": "오늘은 가지 않습니다.",
+      "enSourceHash": "0a48c8d55828132b"
+    },
+    {
+      "anchor": "m7/gp:masu-negative/ex:ごはんを たべません",
+      "text": "밥을 먹지 않습니다.",
+      "enSourceHash": "9c7298a7f8709c84"
+    },
+    {
+      "anchor": "m7/gp:masu-negative/ex:しゃしんを みません",
+      "text": "사진을 보지 않습니다.",
+      "enSourceHash": "9dd78754a1c4be6b"
+    },
+    {
+      "anchor": "m7/gp:masu-negative/ex:のみますない",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m7/gp:masu-negative/ex:のみません",
+      "text": "마시지 않습니다.",
+      "enSourceHash": "2d485ca64bb74d61"
+    },
+    {
+      "anchor": "m7/gp:masu-present/ex:いえに いきます。",
+      "text": "집에 갑니다.",
+      "enSourceHash": "a8bda6c2cc74e0d6"
+    },
+    {
+      "anchor": "m7/gp:masu-present/ex:しゃしんを みます。",
+      "text": "사진을 봅니다.",
+      "enSourceHash": "7bc41f251b0fb196"
+    },
+    {
+      "anchor": "m7/gp:masu-present/ex:しゃしんを みるます。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m7/gp:masu-present/ex:たべます",
+      "text": "먹습니다.",
+      "enSourceHash": "5830c368d31e76c5"
+    },
+    {
+      "anchor": "m7/gp:masu-present/ex:たべるます",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m7/gp:masu-present/ex:ともだちが きます。",
+      "text": "친구가 옵니다.",
+      "enSourceHash": "485eea7a3a4c6d46"
+    },
+    {
+      "anchor": "m7/gp:masu-present/ex:ほんを かいます。",
+      "text": "책을 삽니다.",
+      "enSourceHash": "5405efdad1e4c6bd"
+    },
+    {
+      "anchor": "m7/gp:masu-present/ex:みずを のみます",
+      "text": "물을 마십니다.",
+      "enSourceHash": "7f5a9e09328ba8cf"
+    },
+    {
+      "anchor": "m7/gp:register-audience/ex:たべます",
+      "text": "선생님께: 먹겠습니다.",
+      "enSourceHash": "7c61d0c2dea7c2fa"
+    },
+    {
+      "anchor": "m7/gp:register-audience/ex:たべる",
+      "text": "친구에게: 먹을게.",
+      "enSourceHash": "f9fe7b96b50e8751"
+    },
+    {
+      "anchor": "m7/gp:register-audience/ex:トムさんは わたしさんです。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m7/gp:register-audience/ex:トムさんは アメリカじんです。",
+      "text": "톰은 미국 사람입니다.",
+      "enSourceHash": "8b4fd91f2d2e18d7"
+    },
+    {
+      "anchor": "m7/gp:register-audience/ex:ミカちゃんは がくせいです。",
+      "text": "미카는 학생이야.",
+      "enSourceHash": "b8deb1c561c86cd6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/en:0f4168490e38b844",
+      "text": "물",
+      "enSourceHash": "0f4168490e38b844"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/en:38a81e87e79631e6",
+      "text": "사람",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/en:527af7c109a784d8",
+      "text": "먹다",
+      "enSourceHash": "527af7c109a784d8"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/en:8825e76530f87ff5",
+      "text": "우유",
+      "enSourceHash": "8825e76530f87ff5"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/en:e0f4f767ac88a930",
+      "text": "오늘",
+      "enSourceHash": "e0f4f767ac88a930"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/en:e62f640360d85af9",
+      "text": "마시다",
+      "enSourceHash": "e62f640360d85af9"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/ja:いえで たべます",
+      "text": "집에서 먹습니다.",
+      "enSourceHash": "da733246a7041511"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/ja:きょうは たべます",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/ja:ぎゅうにゅうを のみます",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/ja:たなかさんは たべます",
+      "text": "다나카는 먹습니다.",
+      "enSourceHash": "6161289b8173d64c"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/ja:たなかさんは みずを のみます",
+      "text": "다나카는 물을 마십니다.",
+      "enSourceHash": "a76ba131d4315508"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/ja:ともだちと たべます",
+      "text": "친구와 먹습니다.",
+      "enSourceHash": "aca696ef8900768e"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/ja:ともだちと のみます",
+      "text": "친구와 마십니다.",
+      "enSourceHash": "1e78983a1935ecfb"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/ja:はい たべます",
+      "text": "네, 먹겠습니다.",
+      "enSourceHash": "2f229f24c8b82001"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-1/ja:りょうりを たべます",
+      "text": "요리를 먹습니다.",
+      "enSourceHash": "55a9bad0381cad27"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/en:217655f48dde4e0a",
+      "text": "하다",
+      "enSourceHash": "217655f48dde4e0a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/en:227c7024de86036c",
+      "text": "오다",
+      "enSourceHash": "227c7024de86036c"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/en:3b80d38f7686a8b5",
+      "text": "산",
+      "enSourceHash": "3b80d38f7686a8b5"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/en:4a69f19c8c264850",
+      "text": "바다",
+      "enSourceHash": "4a69f19c8c264850"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/en:65f8ea722badb7ca",
+      "text": "보다",
+      "enSourceHash": "65f8ea722badb7ca"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/en:80d33d6dc0d19f84",
+      "text": "가다",
+      "enSourceHash": "80d33d6dc0d19f84"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/en:d3ac79d5ddfea2f8",
+      "text": "모든 동사, 정중하게 — 세 가지 분류",
+      "enSourceHash": "d3ac79d5ddfea2f8"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/en:d3bf28da55f404a6",
+      "text": "'집'에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/ja:いえに いきます",
+      "text": "정중하게 말하기: 나는 집에 간다",
+      "enSourceHash": "a860c18778e7b8fc"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/ja:きょう ともだちが いえに きます",
+      "text": "정중하게 말하기: 친구가 오늘 집에 온다",
+      "enSourceHash": "7062fce20c1a277a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/ja:さんぽを します",
+      "text": "정중하게 말하기: 나는 산책한다",
+      "enSourceHash": "33f7171286d6983b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/ja:しゃしんを みます",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/ja:そらを みます",
+      "text": "정중하게 말하기: 나는 하늘을 본다",
+      "enSourceHash": "012eff3332222555"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/ja:ともだちが きます",
+      "text": "정중하게 말하기: 친구가 온다",
+      "enSourceHash": "ed8cb52b34adce6d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/ja:ほんを かいます",
+      "text": "정중하게 말하기: 나는 책을 산다",
+      "enSourceHash": "7c0f3b0013efba3b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-2/ja:やまに いきます",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/en:0f4168490e38b844",
+      "text": "물",
+      "enSourceHash": "0f4168490e38b844"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/en:227c7024de86036c",
+      "text": "오다",
+      "enSourceHash": "227c7024de86036c"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/en:46bcff11a845ba3d",
+      "text": "'사람'에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/en:527af7c109a784d8",
+      "text": "먹다",
+      "enSourceHash": "527af7c109a784d8"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/en:65f8ea722badb7ca",
+      "text": "보다",
+      "enSourceHash": "65f8ea722badb7ca"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/en:8825e76530f87ff5",
+      "text": "우유",
+      "enSourceHash": "8825e76530f87ff5"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/en:d3bf28da55f404a6",
+      "text": "'집'에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/en:e62f640360d85af9",
+      "text": "마시다",
+      "enSourceHash": "e62f640360d85af9"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/ja:きょうは いきません",
+      "text": "정중하게 말하기: 나는 오늘 가지 않는다",
+      "enSourceHash": "01eab7931203821c"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/ja:きょうは たべません",
+      "text": "정중하게 말하기: 나는 오늘 먹지 않는다",
+      "enSourceHash": "6ed176780cb5c348"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/ja:ぎゅうにゅうを のみません",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/ja:さんぽを しません",
+      "text": "정중하게 말하기: 나는 산책하지 않는다",
+      "enSourceHash": "5f8fce861611a3fb"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/ja:しゃしんを みません",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/ja:たなかさんは きません",
+      "text": "정중하게 말하기: 다나카는 오지 않는다",
+      "enSourceHash": "b0288fdfb032f40e"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/ja:みずを のみません",
+      "text": "정중하게 말하기: 나는 물을 마시지 않는다",
+      "enSourceHash": "9881cbba7bde7b8d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-3/ja:ミカさんは きょう いえに きません",
+      "text": "정중하게 말하기: 미카는 오늘 집에 오지 않는다",
+      "enSourceHash": "a1ecab2383aa4341"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/en:1057a9604e04b274",
+      "text": "선생님",
+      "enSourceHash": "1057a9604e04b274"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/en:18e1dd392168f601",
+      "text": "모자",
+      "enSourceHash": "18e1dd392168f601"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/en:264c8c381bf16c98",
+      "text": "학생",
+      "enSourceHash": "264c8c381bf16c98"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/en:2c70e12b7a0646f9",
+      "text": "열쇠",
+      "enSourceHash": "2c70e12b7a0646f9"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/en:46bcff11a845ba3d",
+      "text": "'사람'에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/en:5fe36e377a7e2137",
+      "text": "'노래'에 해당하는 단어를 고르세요",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/en:727ea55fc8ee1dc7",
+      "text": "'연못'에 해당하는 단어를 고르세요",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/en:d6e21286621a8586",
+      "text": "집",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/en:e9d9df24a68c1d7d",
+      "text": "\"강\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/ja:がくせいです",
+      "text": "정중하게 말하기: 나는 학생이다",
+      "enSourceHash": "2e154338c25c302b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/ja:これは ほんです",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/ja:せんせいです",
+      "text": "정중하게 말하기: 나는 선생님이다",
+      "enSourceHash": "8888f178e3dfdf83"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/ja:それは かぎです",
+      "text": "정중하게 말하기: 그것은 열쇠이다",
+      "enSourceHash": "3b6d541bf4f90273"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/ja:たなかさんの いえは あそこです",
+      "text": "정중하게 말하기: 다나카 씨의 집은 저기이다",
+      "enSourceHash": "ebb6d251021d53e5"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/ja:ともだちの ぼうしです",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/ja:トムさんは アメリカじんです",
+      "text": "정중하게 말하기: 톰은 미국인이다",
+      "enSourceHash": "aaa22160c7a161d6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-4/ja:ミカさんは にほんじんです",
+      "text": "정중하게 말하기: 미카는 일본인이다",
+      "enSourceHash": "d22f5da3f0e24420"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/en:0f4168490e38b844",
+      "text": "물",
+      "enSourceHash": "0f4168490e38b844"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/en:2c70e12b7a0646f9",
+      "text": "열쇠",
+      "enSourceHash": "2c70e12b7a0646f9"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/en:527af7c109a784d8",
+      "text": "먹다",
+      "enSourceHash": "527af7c109a784d8"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/en:5fe36e377a7e2137",
+      "text": "\"노래\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/en:63f75c890b05405e",
+      "text": "노래",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/en:727ea55fc8ee1dc7",
+      "text": "\"연못\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/en:80d33d6dc0d19f84",
+      "text": "가다",
+      "enSourceHash": "80d33d6dc0d19f84"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/en:8ea11bdf8389be46",
+      "text": "듣다",
+      "enSourceHash": "8ea11bdf8389be46"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/en:e9d9df24a68c1d7d",
+      "text": "\"강\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/ja:いきますか",
+      "text": "정중하게 말하기: 당신은 가십니까?",
+      "enSourceHash": "f3fa5e77ded03921"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/ja:うたを ききますか",
+      "text": "정중하게 말하기: 당신은 노래를 듣겠습니까?",
+      "enSourceHash": "702f9f57d291fcb1"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/ja:これは かぎですか",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/ja:たなかさんは きょう いえに いきますか",
+      "text": "정중하게 말하기: 다나카 씨는 오늘 집에 갑니까?",
+      "enSourceHash": "843194c46f61f394"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/ja:たなかさんは せんせいですか",
+      "text": "정중하게 말하기: 다나카 씨는 선생님입니까?",
+      "enSourceHash": "5796ad91221d8239"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/ja:たべますか",
+      "text": "정중하게 말하기: 당신은 먹겠습니까?",
+      "enSourceHash": "842b23a3de400d65"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/ja:どこに いきますか",
+      "text": "정중하게 말하기: 당신은 어디로 갑니까?",
+      "enSourceHash": "05f4d79cdb4b3417"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/ja:なにを たべますか",
+      "text": "정중하게 말하기: 당신은 무엇을 먹겠습니까?",
+      "enSourceHash": "17efb753a27d5542"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-5/ja:みずを のみますか",
+      "text": "정중하게 말하기: 당신은 물을 마시겠습니까?",
+      "enSourceHash": "90ee6041d1a9961a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/en:0f4168490e38b844",
+      "text": "물",
+      "enSourceHash": "0f4168490e38b844"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/en:527af7c109a784d8",
+      "text": "먹다",
+      "enSourceHash": "527af7c109a784d8"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/en:5fe36e377a7e2137",
+      "text": "\"노래\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/en:727ea55fc8ee1dc7",
+      "text": "\"연못\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/en:7e2ed393d525d7e2",
+      "text": "사다",
+      "enSourceHash": "7e2ed393d525d7e2"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/en:80d33d6dc0d19f84",
+      "text": "가다",
+      "enSourceHash": "80d33d6dc0d19f84"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/en:c43123194ae46a70",
+      "text": "누구에게 말하고 있는 거야?",
+      "enSourceHash": "c43123194ae46a70"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/en:e62f640360d85af9",
+      "text": "마시다",
+      "enSourceHash": "e62f640360d85af9"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/en:e9d9df24a68c1d7d",
+      "text": "\"강\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/ja:うみに いく？",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/ja:うん そう",
+      "text": "친구에게 말하기: 응, 맞아",
+      "enSourceHash": "5cdcc278af4a7546"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/ja:ええ そうです",
+      "text": "공손하게 말하기: 네, 그렇습니다",
+      "enSourceHash": "e4ce3543a04310f1"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/ja:きょう たべます",
+      "text": "선생님께 말하기: 오늘 먹겠습니다",
+      "enSourceHash": "e6af79b1c4ed8d51"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/ja:きょう たべる",
+      "text": "친구에게 말하기: 오늘 먹을 거야",
+      "enSourceHash": "f5860a5f9302da4e"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/ja:ともだちは がくせいですか",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/ja:ほんを かいます",
+      "text": "선생님께 말하기: 책을 살게요",
+      "enSourceHash": "b33c83cf5f3aeb1c"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-6/ja:みずを のみますか",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/en:0c01f76515cfaa03",
+      "text": "오늘 수업이 있다",
+      "enSourceHash": "0c01f76515cfaa03"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/en:1057a9604e04b274",
+      "text": "선생님",
+      "enSourceHash": "1057a9604e04b274"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/en:217655f48dde4e0a",
+      "text": "하다",
+      "enSourceHash": "217655f48dde4e0a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/en:25ee7988acb10d21",
+      "text": "일과 학교",
+      "enSourceHash": "25ee7988acb10d21"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/en:264c8c381bf16c98",
+      "text": "학생",
+      "enSourceHash": "264c8c381bf16c98"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/en:37b92f2baf8d5aab",
+      "text": "다나카 씨는 회사에서 일하나요?",
+      "enSourceHash": "37b92f2baf8d5aab"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/en:38a81e87e79631e6",
+      "text": "사람",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/en:7e07739573df03b2",
+      "text": "오늘 수업이 없다",
+      "enSourceHash": "7e07739573df03b2"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/en:80d33d6dc0d19f84",
+      "text": "가다",
+      "enSourceHash": "80d33d6dc0d19f84"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/en:9a403f516d566cbc",
+      "text": "미카 씨는 오늘 회사에서 일하지 않는다",
+      "enSourceHash": "9a403f516d566cbc"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/en:e0f4f767ac88a930",
+      "text": "오늘",
+      "enSourceHash": "e0f4f767ac88a930"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/ja:かいしゃで はたらく",
+      "text": "친구에게 말하기: 회사에서 일한다",
+      "enSourceHash": "3690cd11134377cf"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/ja:かいしゃに いく",
+      "text": "친구에게 말하기: 회사에 간다",
+      "enSourceHash": "39ba51402dd4d814"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/ja:きょう じゅぎょうが あります",
+      "text": "공손하게 말하기: 오늘 수업이 있습니다",
+      "enSourceHash": "59396011ad699bc6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/ja:きょう じゅぎょうが ありません",
+      "text": "공손하게 말하기: 오늘 수업이 없습니다",
+      "enSourceHash": "99ada17b41c04d4b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/ja:きょう はたらきます",
+      "text": "공손하게 말하기: 오늘 일합니다",
+      "enSourceHash": "4f1cd88161cb4e44"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/ja:じゅぎょうに いきます",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/ja:じゅぎょうは あそこです",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/ja:たなかさんは かいしゃで はたらきますか",
+      "text": "공손하게 말하기: 다나카 씨는 회사에서 일하십니까?",
+      "enSourceHash": "9b15fd0a6f233228"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-7/ja:ミカさんは きょう かいしゃで はたらきません",
+      "text": "공손하게 말하기: 미카 씨는 오늘 회사에서 일하지 않습니다",
+      "enSourceHash": "e9f4d35810071e40"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/en:1057a9604e04b274",
+      "text": "선생님",
+      "enSourceHash": "1057a9604e04b274"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/en:264c8c381bf16c98",
+      "text": "학생",
+      "enSourceHash": "264c8c381bf16c98"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/en:5fe36e377a7e2137",
+      "text": "\"노래\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/en:727ea55fc8ee1dc7",
+      "text": "\"연못\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/en:77af778b51abd4a3",
+      "text": "고양이",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/en:cde48537ca2c2808",
+      "text": "친구",
+      "enSourceHash": "cde48537ca2c2808"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/en:d6e21286621a8586",
+      "text": "집",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/en:e0f4f767ac88a930",
+      "text": "오늘",
+      "enSourceHash": "e0f4f767ac88a930"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/en:e9d9df24a68c1d7d",
+      "text": "\"강\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/ja:たなかさま",
+      "text": "매우 공손하게 말하기: 타나카 사마",
+      "enSourceHash": "e0f698d1f5058ef3"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/ja:たなかさまは せんせいです",
+      "text": "매우 공손하게 말하기: 타나카는 선생님이다",
+      "enSourceHash": "f540e6508851508b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/ja:ケンくん",
+      "text": "만들기: 켄 군 (친근한 호칭)",
+      "enSourceHash": "86f6bc927e7b8726"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/ja:トムくんも いきます",
+      "text": "공손하게 말하기: 톰도 간다",
+      "enSourceHash": "0e6ef0a6af6c25df"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/ja:ミカちゃん",
+      "text": "만들기: 미카 짱 (애칭)",
+      "enSourceHash": "59c5412138e50059"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/ja:ミカちゃんの ねこです",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/ja:ミカちゃんは きます",
+      "text": "공손하게 말하기: 미카는 온다",
+      "enSourceHash": "fe0439c29e57bc04"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-8/ja:ミカちゃんは きょう じゅぎょうに いきますか",
+      "text": "공손하게 말하기: 미카는 오늘 수업에 가는가?",
+      "enSourceHash": "4349d4a4d5ad7b3b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/en:00e13ed7af55b276",
+      "text": "일하다",
+      "enSourceHash": "00e13ed7af55b276"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/en:24237e96e5183016",
+      "text": "놀다",
+      "enSourceHash": "24237e96e5183016"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/en:4a69f19c8c264850",
+      "text": "바다",
+      "enSourceHash": "4a69f19c8c264850"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/en:5fe36e377a7e2137",
+      "text": "\"노래\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/en:63f75c890b05405e",
+      "text": "노래",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/en:727ea55fc8ee1dc7",
+      "text": "\"연못\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/en:80d33d6dc0d19f84",
+      "text": "가다",
+      "enSourceHash": "80d33d6dc0d19f84"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/en:8ea11bdf8389be46",
+      "text": "듣다",
+      "enSourceHash": "8ea11bdf8389be46"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/en:e9d9df24a68c1d7d",
+      "text": "\"강\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/en:ffa711409113833a",
+      "text": "스킨 전환 중",
+      "enSourceHash": "ffa711409113833a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/ja:うたを ききますか",
+      "text": "선생님께 말하기: 노래를 듣겠습니까?",
+      "enSourceHash": "1cb2734a7199756a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/ja:うたを きく？",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/ja:うみに いきます",
+      "text": "선생님께 말하기: 바다로 간다",
+      "enSourceHash": "eb2f6258e55ecae0"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/ja:うみに いく",
+      "text": "친구에게 말하기: 바다로 간다",
+      "enSourceHash": "8b381da8cc561f2f"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/ja:きょうは はたらきません",
+      "text": "공손하게 말하기: 오늘은 일하지 않는다",
+      "enSourceHash": "7b2442f111dbfa0a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/ja:これは ぼうしです",
+      "text": "선생님께 말하기: 이것은 모자이다",
+      "enSourceHash": "28f9a148e697c321"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/ja:ケンくんと あそびます",
+      "text": "공손하게 말하기: 켄과 놀겠다",
+      "enSourceHash": "ba003c4cde5e3d57"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-9/ja:ミカさんは かいしゃで はたらきますか",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:00e13ed7af55b276",
+      "text": "일하다",
+      "enSourceHash": "00e13ed7af55b276"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:217655f48dde4e0a",
+      "text": "하다",
+      "enSourceHash": "217655f48dde4e0a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:227c7024de86036c",
+      "text": "오다",
+      "enSourceHash": "227c7024de86036c"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:4d83eae65eff9664",
+      "text": "챌린지 — 모두 합치기",
+      "enSourceHash": "4d83eae65eff9664"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:55f03a1b1a5c8af4",
+      "text": "켄은 회사에서 일하지 않는다",
+      "enSourceHash": "55f03a1b1a5c8af4"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:727ea55fc8ee1dc7",
+      "text": "'연못'에 해당하는 단어를 고르세요",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:72bdfaa601ef3ea8",
+      "text": "미카는 수업에 오지 않니?",
+      "enSourceHash": "72bdfaa601ef3ea8"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:80d33d6dc0d19f84",
+      "text": "가다",
+      "enSourceHash": "80d33d6dc0d19f84"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:830eae7f272b621c",
+      "text": "수업에서 무엇을 하니?",
+      "enSourceHash": "830eae7f272b621c"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:89cb24f14eab4c74",
+      "text": "오늘은 친구와 바다에 간다",
+      "enSourceHash": "89cb24f14eab4c74"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:93fd5e165a357b34",
+      "text": "타나카는 오늘 회사에 가지 않는다",
+      "enSourceHash": "93fd5e165a357b34"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:c26a6737c08c4aed",
+      "text": "저쪽 사람은 선생님이니?",
+      "enSourceHash": "c26a6737c08c4aed"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:cc19597f9da7d2ab",
+      "text": "타나카 씨 집에 가니?",
+      "enSourceHash": "cc19597f9da7d2ab"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:d3bf28da55f404a6",
+      "text": "'집'에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:db31a92df6198d46",
+      "text": "미카의 친구는 일본인이니?",
+      "enSourceHash": "db31a92df6198d46"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:e62f640360d85af9",
+      "text": "마시다",
+      "enSourceHash": "e62f640360d85af9"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:e9d9df24a68c1d7d",
+      "text": "'강'에 해당하는 단어를 고르세요",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/en:f168ccdd91548c5a",
+      "text": "회사",
+      "enSourceHash": "f168ccdd91548c5a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/ja:あそこの ひとは せんせいですか",
+      "text": "저쪽 사람은 선생님입니까?",
+      "enSourceHash": "ff783e831014c830"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/ja:きょうは ともだちと うみに いきます",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/ja:きょうは みずを のみません",
+      "text": "오늘 저는 물을 마시지 않습니다",
+      "enSourceHash": "e9ce0f44c39d41ed"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/ja:じゅぎょうで なにを しますか",
+      "text": "수업에서 무엇을 합니까?",
+      "enSourceHash": "31052422510a3d65"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/ja:たなかさまは きょう かいしゃに いきません",
+      "text": "타나카 님은 오늘 회사에 가지 않습니다",
+      "enSourceHash": "6aebc3d07d9ce349"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/ja:たなかさんの いえに いきますか",
+      "text": "타나카 씨 집에 갑니까?",
+      "enSourceHash": "80c6a5fec6728144"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/ja:ケンくんは かいしゃで はたらきません",
+      "text": "켄 군은 회사에서 일하지 않습니다",
+      "enSourceHash": "0d6aa40149d52121"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/ja:ミカさんは じゅぎょうに きませんか",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-challenge/ja:ミカちゃんも かいしゃで はたらきますか",
+      "text": "미카 양도 회사에서 일합니까?",
+      "enSourceHash": "183d9c13dc41238d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-a/en:0bfe935e70c321c7",
+      "text": "우",
+      "enSourceHash": "0bfe935e70c321c7"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-a/en:3f79bb7b435b0532",
+      "text": "에",
+      "enSourceHash": "3f79bb7b435b0532"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-a/en:65c74c15a686187b",
+      "text": "오",
+      "enSourceHash": "65c74c15a686187b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-a/en:a7187294bd6b3646",
+      "text": "가타카나를 소리와 연결하세요",
+      "enSourceHash": "a7187294bd6b3646"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-a/en:ca978112ca1bbdca",
+      "text": "아",
+      "enSourceHash": "ca978112ca1bbdca"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-a/en:de7d1b721a1e0632",
+      "text": "이",
+      "enSourceHash": "de7d1b721a1e0632"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-a/en:e7a00e53bd04bf48",
+      "text": "냐",
+      "enSourceHash": "e7a00e53bd04bf48"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-ka/en:1fdbc74ccfd68d07",
+      "text": "코",
+      "enSourceHash": "1fdbc74ccfd68d07"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-ka/en:2b84b2a9020f8b08",
+      "text": "키",
+      "enSourceHash": "2b84b2a9020f8b08"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-ka/en:3ebb1c99b12b7746",
+      "text": "카",
+      "enSourceHash": "3ebb1c99b12b7746"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-ka/en:663ea1bfffe5038f",
+      "text": "토",
+      "enSourceHash": "663ea1bfffe5038f"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-ka/en:88d178d728e8394f",
+      "text": "쿠",
+      "enSourceHash": "88d178d728e8394f"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-ka/en:8e5202705183bd3a",
+      "text": "케",
+      "enSourceHash": "8e5202705183bd3a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-kata-ka/en:a7187294bd6b3646",
+      "text": "가타카나를 소리와 연결하세요",
+      "enSourceHash": "a7187294bd6b3646"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/en:24237e96e5183016",
+      "text": "놀다",
+      "enSourceHash": "24237e96e5183016"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/en:46bcff11a845ba3d",
+      "text": "'사람'에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/en:5fe36e377a7e2137",
+      "text": "\"노래\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/en:63f75c890b05405e",
+      "text": "노래",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/en:727ea55fc8ee1dc7",
+      "text": "\"연못\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/en:7e2ed393d525d7e2",
+      "text": "사다",
+      "enSourceHash": "7e2ed393d525d7e2"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/en:8ea11bdf8389be46",
+      "text": "듣다",
+      "enSourceHash": "8ea11bdf8389be46"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/en:c132a70ac38052fd",
+      "text": "복습 — 존댓말 동사",
+      "enSourceHash": "c132a70ac38052fd"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/en:cd6357efdd966de8",
+      "text": "개",
+      "enSourceHash": "cd6357efdd966de8"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/en:e9d9df24a68c1d7d",
+      "text": "\"강\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/ja:いぬが きます",
+      "text": "듣는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/ja:うたを ききます",
+      "text": "존댓말로 말하세요: 노래를 듣습니다",
+      "enSourceHash": "34fd7f156d69c301"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/ja:かわで あそびます",
+      "text": "존댓말로 말하세요: 강에서 놀겠습니다",
+      "enSourceHash": "900666d3f173cb15"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/ja:きょうは しません",
+      "text": "존댓말로 말하세요: 오늘은 하지 않겠습니다",
+      "enSourceHash": "9fb56f3728599bf5"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/ja:そこに いきません",
+      "text": "존댓말로 말하세요: 거기에 가지 않겠습니다",
+      "enSourceHash": "5fce1184385db894"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/ja:ともだちと いきます",
+      "text": "듣는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/ja:ねこを みます",
+      "text": "존댓말로 말하세요: 고양이를 봅니다",
+      "enSourceHash": "c544d305932ef18b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-1/ja:みずを のみません",
+      "text": "듣는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/en:05f514fae7ca5710",
+      "text": "하늘",
+      "enSourceHash": "05f514fae7ca5710"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/en:13809668fb436386",
+      "text": "연필",
+      "enSourceHash": "13809668fb436386"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/en:14069429150abcbf",
+      "text": "표",
+      "enSourceHash": "14069429150abcbf"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/en:266550babbb7bd39",
+      "text": "안경",
+      "enSourceHash": "266550babbb7bd39"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/en:44ff7b02c80d38b2",
+      "text": "창문",
+      "enSourceHash": "44ff7b02c80d38b2"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/en:5fe36e377a7e2137",
+      "text": "\"노래\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/en:727ea55fc8ee1dc7",
+      "text": "\"연못\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/en:7339725159893c57",
+      "text": "전화",
+      "enSourceHash": "7339725159893c57"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/en:e9d9df24a68c1d7d",
+      "text": "\"강\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/ja:あれは まどです",
+      "text": "존댓말로 말하세요: 그것은 창문입니다",
+      "enSourceHash": "7502c8af9243c490"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/ja:えんぴつを かいますか",
+      "text": "존댓말로 말하세요: 연필을 사시겠습니까?",
+      "enSourceHash": "4d3e55e79ed61864"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/ja:かぞくと いきます",
+      "text": "존댓말로 말하세요: 가족과 가겠습니다",
+      "enSourceHash": "c6f158847798ce40"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/ja:きっぷを かいます",
+      "text": "존댓말로 말하세요: 표를 사겠습니다",
+      "enSourceHash": "ea885968946640f0"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/ja:きょうは いきません",
+      "text": "듣는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/ja:そらを みますか",
+      "text": "듣는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/ja:でんわは そこです",
+      "text": "존댓말로 말하세요: 전화는 그곳입니다",
+      "enSourceHash": "d0113dd15fd32757"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-2/ja:なにを かいますか",
+      "text": "듣는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/en:336074805fc85398",
+      "text": "시간",
+      "enSourceHash": "336074805fc85398"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/en:46bcff11a845ba3d",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "46bcff11a845ba3d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/en:4e7914b0df8068b7",
+      "text": "연못",
+      "enSourceHash": "4e7914b0df8068b7"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/en:5fe36e377a7e2137",
+      "text": "\"노래\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/en:62484e22a6a5ade1",
+      "text": "건강",
+      "enSourceHash": "62484e22a6a5ade1"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/en:727ea55fc8ee1dc7",
+      "text": "\"연못\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "727ea55fc8ee1dc7"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/en:7a6c4fac6c5cd720",
+      "text": "걷다",
+      "enSourceHash": "7a6c4fac6c5cd720"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/en:98d9e96dc524003f",
+      "text": "복습 — 전체 존댓말 층",
+      "enSourceHash": "98d9e96dc524003f"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/en:a746222f09d85605",
+      "text": "눈",
+      "enSourceHash": "a746222f09d85605"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/en:c06b0cfe0cc5e900",
+      "text": "꽃",
+      "enSourceHash": "c06b0cfe0cc5e900"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/en:e9d9df24a68c1d7d",
+      "text": "\"강\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "e9d9df24a68c1d7d"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/ja:いけに いきません",
+      "text": "연못에 가지 않습니다",
+      "enSourceHash": "1b2f154948d7d98c"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/ja:かぜが あります",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/ja:からだは げんきです",
+      "text": "몸은 건강합니다",
+      "enSourceHash": "d00b70787158f353"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/ja:さくらを みます",
+      "text": "벚꽃을 봅니다",
+      "enSourceHash": "d644d47c6edd53fc"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/ja:じかんが ありません",
+      "text": "시간이 없습니다",
+      "enSourceHash": "6415eb41b45ed487"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/ja:じゅぎょうは あさです",
+      "text": "수업은 아침입니다",
+      "enSourceHash": "943a51d0bf361f09"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/ja:はなを かいます",
+      "text": "꽃을 삽니다",
+      "enSourceHash": "37dcc397c5bebaf9"
+    },
+    {
+      "anchor": "m7/ja-m7-neo-review-3/ja:ケンくんは きません",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    }
+  ]
+}

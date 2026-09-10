@@ -1,0 +1,1815 @@
+{
+  "schema": 1,
+  "moduleId": "m1",
+  "lang": "ko",
+  "generatedAt": "2026-09-10",
+  "draftedBy": "qwen3.5:122b-a10b-q4_K_M",
+  "entryCount": 361,
+  "entries": [
+    {
+      "anchor": "m1/atom:あい/gloss",
+      "text": "사랑",
+      "enSourceHash": "686f746a95b6f836"
+    },
+    {
+      "anchor": "m1/atom:あおい/gloss",
+      "text": "파랗다",
+      "enSourceHash": "16477688c0e00699"
+    },
+    {
+      "anchor": "m1/atom:あさ/gloss",
+      "text": "아침",
+      "enSourceHash": "c23b31a0179b550f"
+    },
+    {
+      "anchor": "m1/atom:いいえ/gloss",
+      "text": "아니오",
+      "enSourceHash": "9390298f3fb0c5b1"
+    },
+    {
+      "anchor": "m1/atom:いえ/gloss",
+      "text": "집",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m1/atom:いけ/gloss",
+      "text": "연못",
+      "enSourceHash": "4e7914b0df8068b7"
+    },
+    {
+      "anchor": "m1/atom:いぬ/gloss",
+      "text": "개",
+      "enSourceHash": "cd6357efdd966de8"
+    },
+    {
+      "anchor": "m1/atom:いろ/gloss",
+      "text": "색",
+      "enSourceHash": "74284d9dcbcc0992"
+    },
+    {
+      "anchor": "m1/atom:うえ/gloss",
+      "text": "위",
+      "enSourceHash": "1fba66d7c9b2768c"
+    },
+    {
+      "anchor": "m1/atom:うそ/gloss",
+      "text": "거짓말",
+      "enSourceHash": "11d44dc85b9821c6"
+    },
+    {
+      "anchor": "m1/atom:うた/gloss",
+      "text": "노래",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m1/atom:うま/gloss",
+      "text": "말",
+      "enSourceHash": "fd62862b6dc213be"
+    },
+    {
+      "anchor": "m1/atom:えき/gloss",
+      "text": "역",
+      "enSourceHash": "9b4ef3e5b7b4d175"
+    },
+    {
+      "anchor": "m1/atom:かい/gloss",
+      "text": "조개",
+      "enSourceHash": "ce635c4eabff5e4f"
+    },
+    {
+      "anchor": "m1/atom:かお/gloss",
+      "text": "얼굴",
+      "enSourceHash": "0282d9b79f42c74c"
+    },
+    {
+      "anchor": "m1/atom:かめ/gloss",
+      "text": "거북",
+      "enSourceHash": "74dd730b5c36c1cb"
+    },
+    {
+      "anchor": "m1/atom:かわ/gloss",
+      "text": "강",
+      "enSourceHash": "5f5a8ed8f139be6d"
+    },
+    {
+      "anchor": "m1/atom:きのこ/gloss",
+      "text": "버섯",
+      "enSourceHash": "5ef2c394d5b63e41"
+    },
+    {
+      "anchor": "m1/atom:こえ/gloss",
+      "text": "목소리",
+      "enSourceHash": "c57d7e92019708b6"
+    },
+    {
+      "anchor": "m1/atom:これ/gloss",
+      "text": "이것",
+      "enSourceHash": "1eb79602411ef02c"
+    },
+    {
+      "anchor": "m1/atom:これ/shortGloss",
+      "text": "이것 (내 것)",
+      "enSourceHash": "755d07a8b350b42e"
+    },
+    {
+      "anchor": "m1/atom:さくら/gloss",
+      "text": "벚꽃",
+      "enSourceHash": "aaa40dd48e44ccfe"
+    },
+    {
+      "anchor": "m1/atom:すし/gloss",
+      "text": "초밥",
+      "enSourceHash": "670bd9ced0c6bc3f"
+    },
+    {
+      "anchor": "m1/atom:そら/gloss",
+      "text": "하늘",
+      "enSourceHash": "05f514fae7ca5710"
+    },
+    {
+      "anchor": "m1/atom:つき/gloss",
+      "text": "달",
+      "enSourceHash": "9e78b43ea00edcac"
+    },
+    {
+      "anchor": "m1/atom:とけい/gloss",
+      "text": "시계",
+      "enSourceHash": "9e6a483a100d3c76"
+    },
+    {
+      "anchor": "m1/atom:なに/gloss",
+      "text": "무엇",
+      "enSourceHash": "749ab2c0d06c42ae"
+    },
+    {
+      "anchor": "m1/atom:ねこ/gloss",
+      "text": "고양이",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m1/atom:はな/gloss",
+      "text": "꽃",
+      "enSourceHash": "c06b0cfe0cc5e900"
+    },
+    {
+      "anchor": "m1/atom:ひと/gloss",
+      "text": "사람",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m1/atom:ふね/gloss",
+      "text": "배",
+      "enSourceHash": "25cdb46d8d2115a2"
+    },
+    {
+      "anchor": "m1/atom:ほし/gloss",
+      "text": "별",
+      "enSourceHash": "525eca1d5089dbdc"
+    },
+    {
+      "anchor": "m1/atom:ほん/gloss",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m1/atom:もも/gloss",
+      "text": "복숭아",
+      "enSourceHash": "85356064d03872ac"
+    },
+    {
+      "anchor": "m1/atom:やま/gloss",
+      "text": "산",
+      "enSourceHash": "3b80d38f7686a8b5"
+    },
+    {
+      "anchor": "m1/atom:ゆき/gloss",
+      "text": "눈",
+      "enSourceHash": "a746222f09d85605"
+    },
+    {
+      "anchor": "m1/atom:よむ/gloss",
+      "text": "읽다",
+      "enSourceHash": "3909c2f0b16a018d"
+    },
+    {
+      "anchor": "m1/atom:わたし/gloss",
+      "text": "나",
+      "enSourceHash": "37cdd361150bd289"
+    },
+    {
+      "anchor": "m1/gp:step:ja-ka3-info-desu-ka/ex:かお です",
+      "text": "얼굴이다.",
+      "enSourceHash": "868dd53d0aae43dc"
+    },
+    {
+      "anchor": "m1/gp:step:ja-ka3-info-desu-ka/ex:かお ですか",
+      "text": "얼굴이니?",
+      "enSourceHash": "d74e2c7e05b62153"
+    },
+    {
+      "anchor": "m1/gp:step:ja-wa2-info-0/ex:みず を のむ",
+      "text": "물을 마시다.",
+      "enSourceHash": "4e3c12d2882c7209"
+    },
+    {
+      "anchor": "m1/gp:step:ja-wa2-info-0/ex:パン を たべる",
+      "text": "빵을 먹다.",
+      "enSourceHash": "711bbf6bca1eaf7b"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-1/en:372f7e2fd2d01ce2",
+      "text": "그 (남성)",
+      "enSourceHash": "372f7e2fd2d01ce2"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-1/en:76194369f7d5822e",
+      "text": "하행 — 소개 1",
+      "enSourceHash": "76194369f7d5822e"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-1/en:8693873cd8f8a2d9",
+      "text": "하",
+      "enSourceHash": "8693873cd8f8a2d9"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-1/en:8f434346648f6b96",
+      "text": "히",
+      "enSourceHash": "8f434346648f6b96"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-1/en:a4d0ef23161b5b7c",
+      "text": "후",
+      "enSourceHash": "a4d0ef23161b5b7c"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-1/en:a821c62e8104f851",
+      "text": "호",
+      "enSourceHash": "a821c62e8104f851"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-1/ja:ひと",
+      "text": "'사람'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "593a9d3678139b43"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-2/en:25cdb46d8d2115a2",
+      "text": "배",
+      "enSourceHash": "25cdb46d8d2115a2"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-2/en:34824682886c16ef",
+      "text": "하행 — 소개 2",
+      "enSourceHash": "34824682886c16ef"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-2/en:372f7e2fd2d01ce2",
+      "text": "그 (남성)",
+      "enSourceHash": "372f7e2fd2d01ce2"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-2/en:38a81e87e79631e6",
+      "text": "사람",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-2/en:525eca1d5089dbdc",
+      "text": "별",
+      "enSourceHash": "525eca1d5089dbdc"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-2/en:63f75c890b05405e",
+      "text": "노래",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-2/en:77af778b51abd4a3",
+      "text": "고양이",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-2/en:8693873cd8f8a2d9",
+      "text": "하",
+      "enSourceHash": "8693873cd8f8a2d9"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-2/en:88d178d728e8394f",
+      "text": "쿠",
+      "enSourceHash": "88d178d728e8394f"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-2/en:8f434346648f6b96",
+      "text": "히",
+      "enSourceHash": "8f434346648f6b96"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-2/en:9e78b43ea00edcac",
+      "text": "달",
+      "enSourceHash": "9e78b43ea00edcac"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-2/en:a4d0ef23161b5b7c",
+      "text": "후",
+      "enSourceHash": "a4d0ef23161b5b7c"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-2/ja:ふね",
+      "text": "'배'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "8d1dbeb6b6c9ef89"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-3/en:0a64ce10853f25cb",
+      "text": "스",
+      "enSourceHash": "0a64ce10853f25cb"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-3/en:117f124c9780aa73",
+      "text": "하행 — 복습",
+      "enSourceHash": "117f124c9780aa73"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-3/en:25cdb46d8d2115a2",
+      "text": "배",
+      "enSourceHash": "25cdb46d8d2115a2"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-3/en:38a81e87e79631e6",
+      "text": "사람",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-3/en:525eca1d5089dbdc",
+      "text": "별",
+      "enSourceHash": "525eca1d5089dbdc"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-3/en:77af778b51abd4a3",
+      "text": "고양이",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-3/en:8e5202705183bd3a",
+      "text": "케",
+      "enSourceHash": "8e5202705183bd3a"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-3/en:9390298f3fb0c5b1",
+      "text": "노",
+      "enSourceHash": "9390298f3fb0c5b1"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-3/en:ca978112ca1bbdca",
+      "text": "아",
+      "enSourceHash": "ca978112ca1bbdca"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-3/ja:うえ",
+      "text": "'위'에 해당하는 단어를 만들어 보세요",
+      "enSourceHash": "b8eb006dd49b6da2"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-3/ja:ほし",
+      "text": "'별'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "3f60a3cdb985ceca"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-3/ja:ほし です",
+      "text": "만들기: '별입니다.'",
+      "enSourceHash": "bf32f8daa4b2c036"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-1/en:2b84b2a9020f8b08",
+      "text": "키",
+      "enSourceHash": "2b84b2a9020f8b08"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-1/en:3ebb1c99b12b7746",
+      "text": "카",
+      "enSourceHash": "3ebb1c99b12b7746"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-1/en:70a5771f00ddf754",
+      "text": "카행 — 소개 1",
+      "enSourceHash": "70a5771f00ddf754"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-1/en:88d178d728e8394f",
+      "text": "쿠",
+      "enSourceHash": "88d178d728e8394f"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-1/en:8e5202705183bd3a",
+      "text": "케",
+      "enSourceHash": "8e5202705183bd3a"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-1/ja:かい",
+      "text": "'조개'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "ebea3dc25d8fe306"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-2/en:0282d9b79f42c74c",
+      "text": "얼굴",
+      "enSourceHash": "0282d9b79f42c74c"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-2/en:06a79c3640b9d3f0",
+      "text": "가행 — 소개 2",
+      "enSourceHash": "06a79c3640b9d3f0"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-2/en:2b84b2a9020f8b08",
+      "text": "키",
+      "enSourceHash": "2b84b2a9020f8b08"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-2/en:3ebb1c99b12b7746",
+      "text": "카",
+      "enSourceHash": "3ebb1c99b12b7746"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-2/en:4e7914b0df8068b7",
+      "text": "연못",
+      "enSourceHash": "4e7914b0df8068b7"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-2/en:88d178d728e8394f",
+      "text": "쿠",
+      "enSourceHash": "88d178d728e8394f"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-2/en:8e5202705183bd3a",
+      "text": "케",
+      "enSourceHash": "8e5202705183bd3a"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-2/en:9b4ef3e5b7b4d175",
+      "text": "역",
+      "enSourceHash": "9b4ef3e5b7b4d175"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-2/en:c57d7e92019708b6",
+      "text": "목소리",
+      "enSourceHash": "c57d7e92019708b6"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-2/en:ce635c4eabff5e4f",
+      "text": "조개껍질",
+      "enSourceHash": "ce635c4eabff5e4f"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-2/ja:いけ",
+      "text": "'연못'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "f35e69cb83dee0ec"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-3/en:0282d9b79f42c74c",
+      "text": "얼굴",
+      "enSourceHash": "0282d9b79f42c74c"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-3/en:3d8ae9f801bbcea1",
+      "text": "'목소리'를 일본어로 어떻게 말하나요?",
+      "enSourceHash": "3d8ae9f801bbcea1"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-3/en:3f79bb7b435b0532",
+      "text": "에",
+      "enSourceHash": "3f79bb7b435b0532"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-3/en:4e7914b0df8068b7",
+      "text": "연못",
+      "enSourceHash": "4e7914b0df8068b7"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-3/en:65c74c15a686187b",
+      "text": "오",
+      "enSourceHash": "65c74c15a686187b"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-3/en:c57d7e92019708b6",
+      "text": "목소리",
+      "enSourceHash": "c57d7e92019708b6"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-3/en:ca978112ca1bbdca",
+      "text": "아",
+      "enSourceHash": "ca978112ca1bbdca"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-3/en:ce635c4eabff5e4f",
+      "text": "조개껍질",
+      "enSourceHash": "ce635c4eabff5e4f"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-3/en:d5690739f0d291c6",
+      "text": "가행 — 복습",
+      "enSourceHash": "d5690739f0d291c6"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-3/en:de7d1b721a1e0632",
+      "text": "이",
+      "enSourceHash": "de7d1b721a1e0632"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-3/ja:あい",
+      "text": "'사랑'에 해당하는 단어를 만들어 보세요",
+      "enSourceHash": "be84262743287d02"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-3/ja:かお です",
+      "text": "만들기: '얼굴이다.'",
+      "enSourceHash": "ce0c9555970302ff"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-3/ja:こえ",
+      "text": "'목소리'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "0992c0358459f11b"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-1/en:16477688c0e00699",
+      "text": "파란색",
+      "enSourceHash": "16477688c0e00699"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-1/en:2a51c800506c91b8",
+      "text": "말하다",
+      "enSourceHash": "2a51c800506c91b8"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-1/en:686f746a95b6f836",
+      "text": "사랑",
+      "enSourceHash": "686f746a95b6f836"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-1/en:88c7f08d0be5407e",
+      "text": "위",
+      "enSourceHash": "88c7f08d0be5407e"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-1/en:d6e21286621a8586",
+      "text": "집",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-1/ja:あい",
+      "text": "'사랑'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "b54cd3baa6225ec4"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-1/ja:いう",
+      "text": "'말하다'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "f13d8ed9629ec09b"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-2/en:0bfe935e70c321c7",
+      "text": "우",
+      "enSourceHash": "0bfe935e70c321c7"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-2/en:16477688c0e00699",
+      "text": "파란색",
+      "enSourceHash": "16477688c0e00699"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-2/en:65c74c15a686187b",
+      "text": "오",
+      "enSourceHash": "65c74c15a686187b"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-2/en:686f746a95b6f836",
+      "text": "사랑",
+      "enSourceHash": "686f746a95b6f836"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-2/en:88c7f08d0be5407e",
+      "text": "위",
+      "enSourceHash": "88c7f08d0be5407e"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-2/en:ca978112ca1bbdca",
+      "text": "아",
+      "enSourceHash": "ca978112ca1bbdca"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-2/en:d6e21286621a8586",
+      "text": "집",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-2/en:de7d1b721a1e0632",
+      "text": "이",
+      "enSourceHash": "de7d1b721a1e0632"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-2/ja:あおい",
+      "text": "'파란색'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "296a1bbd70ea001d"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-2/ja:いえ",
+      "text": "'집'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "54c99fca653215c7"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-2/ja:うえ",
+      "text": "'위'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "ed10c4e1d17f5f9d"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/en:0bfe935e70c321c7",
+      "text": "u",
+      "enSourceHash": "0bfe935e70c321c7"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/en:16477688c0e00699",
+      "text": "파란색",
+      "enSourceHash": "16477688c0e00699"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/en:2d1c763271a52a39",
+      "text": "모음 — 전체 복습",
+      "enSourceHash": "2d1c763271a52a39"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/en:3f79bb7b435b0532",
+      "text": "e",
+      "enSourceHash": "3f79bb7b435b0532"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/en:602825fa6187b12b",
+      "text": "각 가나를 소리와 연결하세요",
+      "enSourceHash": "602825fa6187b12b"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/en:65c74c15a686187b",
+      "text": "o",
+      "enSourceHash": "65c74c15a686187b"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/en:686f746a95b6f836",
+      "text": "사랑",
+      "enSourceHash": "686f746a95b6f836"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/en:88c7f08d0be5407e",
+      "text": "위",
+      "enSourceHash": "88c7f08d0be5407e"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/en:9390298f3fb0c5b1",
+      "text": "아니요",
+      "enSourceHash": "9390298f3fb0c5b1"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/en:ca978112ca1bbdca",
+      "text": "a",
+      "enSourceHash": "ca978112ca1bbdca"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/en:d6e21286621a8586",
+      "text": "집",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/en:de7d1b721a1e0632",
+      "text": "i",
+      "enSourceHash": "de7d1b721a1e0632"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/ja:あい",
+      "text": "'사랑'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "b54cd3baa6225ec4"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/ja:あおい",
+      "text": "'파란색'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "296a1bbd70ea001d"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/ja:いいえ",
+      "text": "'아니요'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "164e690c316b069f"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/ja:いえ",
+      "text": "'집'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "54c99fca653215c7"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-1/en:19503ea6785ee124",
+      "text": "mu",
+      "enSourceHash": "19503ea6785ee124"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-1/en:2744ccd10c7533bd",
+      "text": "me",
+      "enSourceHash": "2744ccd10c7533bd"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-1/en:3c44c3e1b8b78447",
+      "text": "ma",
+      "enSourceHash": "3c44c3e1b8b78447"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-1/en:a821c62e8104f851",
+      "text": "ho",
+      "enSourceHash": "a821c62e8104f851"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-1/en:eee1c1ade6525d24",
+      "text": "mi",
+      "enSourceHash": "eee1c1ade6525d24"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-1/en:f4a4ce5fa6340a35",
+      "text": "mo",
+      "enSourceHash": "f4a4ce5fa6340a35"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-1/en:f9650a4bde3f1885",
+      "text": "Ma 행 — 도입 1",
+      "enSourceHash": "f9650a4bde3f1885"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-1/ja:うま",
+      "text": "'말'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "a3ffe54895788f2e"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:0a64ce10853f25cb",
+      "text": "su",
+      "enSourceHash": "0a64ce10853f25cb"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:19503ea6785ee124",
+      "text": "mu",
+      "enSourceHash": "19503ea6785ee124"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:25cdb46d8d2115a2",
+      "text": "배",
+      "enSourceHash": "25cdb46d8d2115a2"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:2744ccd10c7533bd",
+      "text": "me",
+      "enSourceHash": "2744ccd10c7533bd"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:3086cf468ccca87c",
+      "text": "nu",
+      "enSourceHash": "3086cf468ccca87c"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:38a81e87e79631e6",
+      "text": "사람",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:3c44c3e1b8b78447",
+      "text": "ma",
+      "enSourceHash": "3c44c3e1b8b78447"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:5ef2c394d5b63e41",
+      "text": "버섯",
+      "enSourceHash": "5ef2c394d5b63e41"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:74dd730b5c36c1cb",
+      "text": "거북",
+      "enSourceHash": "74dd730b5c36c1cb"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:77af778b51abd4a3",
+      "text": "고양이",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:870288c8799bfb67",
+      "text": "Ma 행 — 도입 2",
+      "enSourceHash": "870288c8799bfb67"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:9390298f3fb0c5b1",
+      "text": "아니요",
+      "enSourceHash": "9390298f3fb0c5b1"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:9e78b43ea00edcac",
+      "text": "달",
+      "enSourceHash": "9e78b43ea00edcac"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:eee1c1ade6525d24",
+      "text": "mi",
+      "enSourceHash": "eee1c1ade6525d24"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:fd62862b6dc213be",
+      "text": "말",
+      "enSourceHash": "fd62862b6dc213be"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/ja:かめ",
+      "text": "'거북'에 해당하는 단어를 듣고 만들어 보세요.",
+      "enSourceHash": "48e3c34607a7d847"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-3/en:2d6c9a90dd38f685",
+      "text": "테",
+      "enSourceHash": "2d6c9a90dd38f685"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-3/en:4db03a277cfb9ef4",
+      "text": "니",
+      "enSourceHash": "4db03a277cfb9ef4"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-3/en:9390298f3fb0c5b1",
+      "text": "노",
+      "enSourceHash": "9390298f3fb0c5b1"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-3/en:a821c62e8104f851",
+      "text": "호",
+      "enSourceHash": "a821c62e8104f851"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-3/en:ac1025b2a9dedaed",
+      "text": "마행 — 복습",
+      "enSourceHash": "ac1025b2a9dedaed"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-3/ja:うま ですか",
+      "text": "'말입니까?'라는 질문을 만들어 보세요.",
+      "enSourceHash": "8585dc14db638fd0"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-3/ja:ひと",
+      "text": "'사람'에 해당하는 단어를 만들어 보세요.",
+      "enSourceHash": "ae781c7c7d94720a"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-3/ja:もも",
+      "text": "'복숭아'에 해당하는 단어를 듣고 만들어 보세요.",
+      "enSourceHash": "42c4481f0534764a"
+    },
+    {
+      "anchor": "m1/ja-m1-na-1/en:1fdbc74ccfd68d07",
+      "text": "코",
+      "enSourceHash": "1fdbc74ccfd68d07"
+    },
+    {
+      "anchor": "m1/ja-m1-na-1/en:3086cf468ccca87c",
+      "text": "누",
+      "enSourceHash": "3086cf468ccca87c"
+    },
+    {
+      "anchor": "m1/ja-m1-na-1/en:3d9fc4bde7ceef05",
+      "text": "나",
+      "enSourceHash": "3d9fc4bde7ceef05"
+    },
+    {
+      "anchor": "m1/ja-m1-na-1/en:4c9554f3ecdd390a",
+      "text": "나행 — 소개 1",
+      "enSourceHash": "4c9554f3ecdd390a"
+    },
+    {
+      "anchor": "m1/ja-m1-na-1/en:4db03a277cfb9ef4",
+      "text": "니",
+      "enSourceHash": "4db03a277cfb9ef4"
+    },
+    {
+      "anchor": "m1/ja-m1-na-1/en:76592b9de6d38238",
+      "text": "타",
+      "enSourceHash": "76592b9de6d38238"
+    },
+    {
+      "anchor": "m1/ja-m1-na-1/ja:なに",
+      "text": "'무엇'에 해당하는 단어를 듣고 만들어 보세요.",
+      "enSourceHash": "efd6e44334ff5a62"
+    },
+    {
+      "anchor": "m1/ja-m1-na-2/en:3086cf468ccca87c",
+      "text": "누",
+      "enSourceHash": "3086cf468ccca87c"
+    },
+    {
+      "anchor": "m1/ja-m1-na-2/en:3d9fc4bde7ceef05",
+      "text": "나",
+      "enSourceHash": "3d9fc4bde7ceef05"
+    },
+    {
+      "anchor": "m1/ja-m1-na-2/en:4b34166429a49955",
+      "text": "나행 — 소개 2",
+      "enSourceHash": "4b34166429a49955"
+    },
+    {
+      "anchor": "m1/ja-m1-na-2/en:4db03a277cfb9ef4",
+      "text": "니",
+      "enSourceHash": "4db03a277cfb9ef4"
+    },
+    {
+      "anchor": "m1/ja-m1-na-2/en:5ef2c394d5b63e41",
+      "text": "버섯",
+      "enSourceHash": "5ef2c394d5b63e41"
+    },
+    {
+      "anchor": "m1/ja-m1-na-2/en:63f75c890b05405e",
+      "text": "노래",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m1/ja-m1-na-2/en:749ab2c0d06c42ae",
+      "text": "무엇",
+      "enSourceHash": "749ab2c0d06c42ae"
+    },
+    {
+      "anchor": "m1/ja-m1-na-2/en:77af778b51abd4a3",
+      "text": "고양이",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m1/ja-m1-na-2/en:9e78b43ea00edcac",
+      "text": "달",
+      "enSourceHash": "9e78b43ea00edcac"
+    },
+    {
+      "anchor": "m1/ja-m1-na-2/en:ca978112ca1bbdca",
+      "text": "아",
+      "enSourceHash": "ca978112ca1bbdca"
+    },
+    {
+      "anchor": "m1/ja-m1-na-2/en:cb58e4600bf0142c",
+      "text": "네",
+      "enSourceHash": "cb58e4600bf0142c"
+    },
+    {
+      "anchor": "m1/ja-m1-na-2/en:d8198efa3604d164",
+      "text": "시계",
+      "enSourceHash": "d8198efa3604d164"
+    },
+    {
+      "anchor": "m1/ja-m1-na-2/ja:ねこ",
+      "text": "'고양이'에 해당하는 단어를 듣고 만들어 보세요.",
+      "enSourceHash": "cfc0f106841d3c94"
+    },
+    {
+      "anchor": "m1/ja-m1-na-3/en:5ef2c394d5b63e41",
+      "text": "버섯",
+      "enSourceHash": "5ef2c394d5b63e41"
+    },
+    {
+      "anchor": "m1/ja-m1-na-3/en:625dbfca3fcaa0ae",
+      "text": "나행 — 복습",
+      "enSourceHash": "625dbfca3fcaa0ae"
+    },
+    {
+      "anchor": "m1/ja-m1-na-3/en:65c74c15a686187b",
+      "text": "오",
+      "enSourceHash": "65c74c15a686187b"
+    },
+    {
+      "anchor": "m1/ja-m1-na-3/en:749ab2c0d06c42ae",
+      "text": "무엇",
+      "enSourceHash": "749ab2c0d06c42ae"
+    },
+    {
+      "anchor": "m1/ja-m1-na-3/en:77af778b51abd4a3",
+      "text": "고양이",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m1/ja-m1-na-3/en:9e78b43ea00edcac",
+      "text": "달",
+      "enSourceHash": "9e78b43ea00edcac"
+    },
+    {
+      "anchor": "m1/ja-m1-na-3/en:ad9a67fefa847de8",
+      "text": "세",
+      "enSourceHash": "ad9a67fefa847de8"
+    },
+    {
+      "anchor": "m1/ja-m1-na-3/en:ca978112ca1bbdca",
+      "text": "아",
+      "enSourceHash": "ca978112ca1bbdca"
+    },
+    {
+      "anchor": "m1/ja-m1-na-3/en:de7d1b721a1e0632",
+      "text": "이",
+      "enSourceHash": "de7d1b721a1e0632"
+    },
+    {
+      "anchor": "m1/ja-m1-na-3/ja:うた",
+      "text": "'노래'에 해당하는 단어를 만들어 보세요.",
+      "enSourceHash": "faf7ad277ae7d29a"
+    },
+    {
+      "anchor": "m1/ja-m1-na-3/ja:きのこ",
+      "text": "'버섯'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "8c99ff9a9e81be86"
+    },
+    {
+      "anchor": "m1/ja-m1-na-3/ja:ねこ ですか",
+      "text": "'고양이입니까?'라는 질문을 만들어 보세요",
+      "enSourceHash": "eb3567f4f1b0b628"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-1/en:0bfe935e70c321c7",
+      "text": "u",
+      "enSourceHash": "0bfe935e70c321c7"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-1/en:37e7702e5ce449c1",
+      "text": "ra",
+      "enSourceHash": "37e7702e5ce449c1"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-1/en:396a14ab206e2b44",
+      "text": "ri",
+      "enSourceHash": "396a14ab206e2b44"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-1/en:7ef9ec0cf2c4faca",
+      "text": "ro",
+      "enSourceHash": "7ef9ec0cf2c4faca"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-1/en:c7454b8592f22050",
+      "text": "Ra 행 — 소개 1",
+      "enSourceHash": "c7454b8592f22050"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-1/en:de7d1b721a1e0632",
+      "text": "i",
+      "enSourceHash": "de7d1b721a1e0632"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-1/en:ed5ad332c1060437",
+      "text": "ru",
+      "enSourceHash": "ed5ad332c1060437"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-1/ja:さくら",
+      "text": "'벚꽃'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "5ef4f1c0ce56fe4f"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-2/en:14c1a4a5d970f7da",
+      "text": "Ra 행 — 소개 2",
+      "enSourceHash": "14c1a4a5d970f7da"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-2/en:1eb79602411ef02c",
+      "text": "이것",
+      "enSourceHash": "1eb79602411ef02c"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-2/en:25cdb46d8d2115a2",
+      "text": "배",
+      "enSourceHash": "25cdb46d8d2115a2"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-2/en:37e7702e5ce449c1",
+      "text": "ra",
+      "enSourceHash": "37e7702e5ce449c1"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-2/en:396a14ab206e2b44",
+      "text": "ri",
+      "enSourceHash": "396a14ab206e2b44"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-2/en:3ac1ecbd2220c675",
+      "text": "re",
+      "enSourceHash": "3ac1ecbd2220c675"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-2/en:74284d9dcbcc0992",
+      "text": "색",
+      "enSourceHash": "74284d9dcbcc0992"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-2/en:77af778b51abd4a3",
+      "text": "고양이",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-2/en:7ef9ec0cf2c4faca",
+      "text": "ro",
+      "enSourceHash": "7ef9ec0cf2c4faca"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-2/en:cb58e4600bf0142c",
+      "text": "ne",
+      "enSourceHash": "cb58e4600bf0142c"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-2/en:ed5ad332c1060437",
+      "text": "ru",
+      "enSourceHash": "ed5ad332c1060437"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-2/ja:これ",
+      "text": "'이것'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "1b85871c43fff9cd"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-3/en:1eb79602411ef02c",
+      "text": "이것",
+      "enSourceHash": "1eb79602411ef02c"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-3/en:3b80d38f7686a8b5",
+      "text": "산",
+      "enSourceHash": "3b80d38f7686a8b5"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-3/en:3c44c3e1b8b78447",
+      "text": "ma",
+      "enSourceHash": "3c44c3e1b8b78447"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-3/en:4db03a277cfb9ef4",
+      "text": "ni",
+      "enSourceHash": "4db03a277cfb9ef4"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-3/en:65c74c15a686187b",
+      "text": "o",
+      "enSourceHash": "65c74c15a686187b"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-3/en:74284d9dcbcc0992",
+      "text": "색",
+      "enSourceHash": "74284d9dcbcc0992"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-3/en:8693873cd8f8a2d9",
+      "text": "ha",
+      "enSourceHash": "8693873cd8f8a2d9"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-3/en:a4a4301bf5d5cddf",
+      "text": "Ra 행 — 복습",
+      "enSourceHash": "a4a4301bf5d5cddf"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-3/en:aaa40dd48e44ccfe",
+      "text": "벚꽃",
+      "enSourceHash": "aaa40dd48e44ccfe"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-3/ja:いろ",
+      "text": "'색'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "4da2dbed212a521f"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-3/ja:ひと",
+      "text": "'사람'에 해당하는 단어를 만들어 보세요",
+      "enSourceHash": "ae781c7c7d94720a"
+    },
+    {
+      "anchor": "m1/ja-m1-recap/en:efab9871954dbac0",
+      "text": "1 모듈 · 히라가나 — 복습",
+      "enSourceHash": "efab9871954dbac0"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-1/en:0a64ce10853f25cb",
+      "text": "su",
+      "enSourceHash": "0a64ce10853f25cb"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-1/en:4cf6829aa93728e8",
+      "text": "sa",
+      "enSourceHash": "4cf6829aa93728e8"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-1/en:ad9a67fefa847de8",
+      "text": "se",
+      "enSourceHash": "ad9a67fefa847de8"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-1/en:d3ec195c40b2d2db",
+      "text": "Sa 행 — 소개 1",
+      "enSourceHash": "d3ec195c40b2d2db"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-1/en:ded9c2181fd7ea46",
+      "text": "shi",
+      "enSourceHash": "ded9c2181fd7ea46"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-1/ja:あさ",
+      "text": "'아침'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "c3fecfa88c6caece"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-2/en:0282d9b79f42c74c",
+      "text": "얼굴",
+      "enSourceHash": "0282d9b79f42c74c"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-2/en:0a64ce10853f25cb",
+      "text": "su",
+      "enSourceHash": "0a64ce10853f25cb"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-2/en:4342c375f8b8c3f1",
+      "text": "Sa 행 — 소개 2",
+      "enSourceHash": "4342c375f8b8c3f1"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-2/en:4cf6829aa93728e8",
+      "text": "sa",
+      "enSourceHash": "4cf6829aa93728e8"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-2/en:ad9a67fefa847de8",
+      "text": "se",
+      "enSourceHash": "ad9a67fefa847de8"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-2/en:c23b31a0179b550f",
+      "text": "아침",
+      "enSourceHash": "c23b31a0179b550f"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-2/en:ce635c4eabff5e4f",
+      "text": "껍데기",
+      "enSourceHash": "ce635c4eabff5e4f"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-2/en:cf98f59c0c003582",
+      "text": "초밥",
+      "enSourceHash": "cf98f59c0c003582"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-2/en:ded9c2181fd7ea46",
+      "text": "shi",
+      "enSourceHash": "ded9c2181fd7ea46"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-2/ja:すし",
+      "text": "'초밥'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "be1df902c06cc016"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-3/en:05f514fae7ca5710",
+      "text": "하늘",
+      "enSourceHash": "05f514fae7ca5710"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-3/en:2b84b2a9020f8b08",
+      "text": "ki",
+      "enSourceHash": "2b84b2a9020f8b08"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-3/en:31162c018431abc8",
+      "text": "Sa 행 — 복습",
+      "enSourceHash": "31162c018431abc8"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-3/en:3ebb1c99b12b7746",
+      "text": "ka",
+      "enSourceHash": "3ebb1c99b12b7746"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-3/en:3f79bb7b435b0532",
+      "text": "e",
+      "enSourceHash": "3f79bb7b435b0532"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-3/en:c23b31a0179b550f",
+      "text": "아침",
+      "enSourceHash": "c23b31a0179b550f"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-3/en:ca978112ca1bbdca",
+      "text": "a",
+      "enSourceHash": "ca978112ca1bbdca"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-3/en:ce635c4eabff5e4f",
+      "text": "껍데기",
+      "enSourceHash": "ce635c4eabff5e4f"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-3/en:cf98f59c0c003582",
+      "text": "초밥",
+      "enSourceHash": "cf98f59c0c003582"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-3/ja:あい",
+      "text": "'사랑'에 해당하는 단어를 만들어 보세요",
+      "enSourceHash": "be84262743287d02"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-3/ja:すし です",
+      "text": "만들기: '초밥입니다.'",
+      "enSourceHash": "32fa3f01bbe05dba"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-3/ja:そら",
+      "text": "'하늘'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "f0601c9dce5712e4"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-1/en:2b84b2a9020f8b08",
+      "text": "ki",
+      "enSourceHash": "2b84b2a9020f8b08"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-1/en:2d6c9a90dd38f685",
+      "text": "te",
+      "enSourceHash": "2d6c9a90dd38f685"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-1/en:4cf6829aa93728e8",
+      "text": "sa",
+      "enSourceHash": "4cf6829aa93728e8"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-1/en:58af96d547380ed6",
+      "text": "tsu",
+      "enSourceHash": "58af96d547380ed6"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-1/en:76592b9de6d38238",
+      "text": "ta",
+      "enSourceHash": "76592b9de6d38238"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-1/en:dffe602cd1e0bfa9",
+      "text": "chi",
+      "enSourceHash": "dffe602cd1e0bfa9"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-1/en:e2861368db60cc7e",
+      "text": "Ta 행 — 소개 1",
+      "enSourceHash": "e2861368db60cc7e"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-1/ja:うた",
+      "text": "'노래'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "b140b3554480e10e"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/en:05f514fae7ca5710",
+      "text": "하늘",
+      "enSourceHash": "05f514fae7ca5710"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/en:0bfe935e70c321c7",
+      "text": "u",
+      "enSourceHash": "0bfe935e70c321c7"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/en:2d6c9a90dd38f685",
+      "text": "te",
+      "enSourceHash": "2d6c9a90dd38f685"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/en:58af96d547380ed6",
+      "text": "tsu",
+      "enSourceHash": "58af96d547380ed6"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/en:63f75c890b05405e",
+      "text": "노래",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/en:76592b9de6d38238",
+      "text": "ta",
+      "enSourceHash": "76592b9de6d38238"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/en:9e78b43ea00edcac",
+      "text": "달",
+      "enSourceHash": "9e78b43ea00edcac"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/en:c23b31a0179b550f",
+      "text": "아침",
+      "enSourceHash": "c23b31a0179b550f"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/en:c6bf8be0051a22c2",
+      "text": "Ta 행 — 소개 2",
+      "enSourceHash": "c6bf8be0051a22c2"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/en:ce635c4eabff5e4f",
+      "text": "껍데기",
+      "enSourceHash": "ce635c4eabff5e4f"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/en:d8198efa3604d164",
+      "text": "시계",
+      "enSourceHash": "d8198efa3604d164"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/en:ded9c2181fd7ea46",
+      "text": "시",
+      "enSourceHash": "ded9c2181fd7ea46"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/en:dffe602cd1e0bfa9",
+      "text": "치",
+      "enSourceHash": "dffe602cd1e0bfa9"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/ja:つき",
+      "text": "'달'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "b837040e1273fb12"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:0a64ce10853f25cb",
+      "text": "스",
+      "enSourceHash": "0a64ce10853f25cb"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:0bfe935e70c321c7",
+      "text": "우",
+      "enSourceHash": "0bfe935e70c321c7"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:2b84b2a9020f8b08",
+      "text": "키",
+      "enSourceHash": "2b84b2a9020f8b08"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:2d6c9a90dd38f685",
+      "text": "테",
+      "enSourceHash": "2d6c9a90dd38f685"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:3ebb1c99b12b7746",
+      "text": "카",
+      "enSourceHash": "3ebb1c99b12b7746"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:4728bedb58571632",
+      "text": "가나를 소리와 연결하세요",
+      "enSourceHash": "4728bedb58571632"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:58af96d547380ed6",
+      "text": "츠",
+      "enSourceHash": "58af96d547380ed6"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:63f75c890b05405e",
+      "text": "노래",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:663ea1bfffe5038f",
+      "text": "토",
+      "enSourceHash": "663ea1bfffe5038f"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:76592b9de6d38238",
+      "text": "타",
+      "enSourceHash": "76592b9de6d38238"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:9e78b43ea00edcac",
+      "text": "달",
+      "enSourceHash": "9e78b43ea00edcac"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:ad9a67fefa847de8",
+      "text": "세",
+      "enSourceHash": "ad9a67fefa847de8"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:b938eeb87882ec33",
+      "text": "타행 — 복습",
+      "enSourceHash": "b938eeb87882ec33"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:cf98f59c0c003582",
+      "text": "스시",
+      "enSourceHash": "cf98f59c0c003582"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:d8198efa3604d164",
+      "text": "시계",
+      "enSourceHash": "d8198efa3604d164"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:dffe602cd1e0bfa9",
+      "text": "치",
+      "enSourceHash": "dffe602cd1e0bfa9"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/ja:いいえ",
+      "text": "'아니요'에 해당하는 단어를 만들어 보세요",
+      "enSourceHash": "117cb79485c16a41"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/ja:つき です",
+      "text": "만들기: '달입니다.'",
+      "enSourceHash": "07e197b36457ab8b"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/ja:とけい",
+      "text": "'시계'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "a10045dae815ffca"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-1/en:2d9f16bc0cf9f1e6",
+      "text": "와행 — 소개 1",
+      "enSourceHash": "2d9f16bc0cf9f1e6"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-1/en:3ac1ecbd2220c675",
+      "text": "레",
+      "enSourceHash": "3ac1ecbd2220c675"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-1/en:65c74c15a686187b",
+      "text": "오",
+      "enSourceHash": "65c74c15a686187b"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-1/en:87b810070b7c7396",
+      "text": "와",
+      "enSourceHash": "87b810070b7c7396"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-1/en:cb58e4600bf0142c",
+      "text": "네",
+      "enSourceHash": "cb58e4600bf0142c"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-1/ja:かわ",
+      "text": "'강'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "29efa6400ef028f4"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-2/en:1b16b1df538ba12d",
+      "text": "ん",
+      "enSourceHash": "1b16b1df538ba12d"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-2/en:38a81e87e79631e6",
+      "text": "사람",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-2/en:3b80d38f7686a8b5",
+      "text": "산",
+      "enSourceHash": "3b80d38f7686a8b5"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-2/en:5f5a8ed8f139be6d",
+      "text": "강",
+      "enSourceHash": "5f5a8ed8f139be6d"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-2/en:65c74c15a686187b",
+      "text": "오",
+      "enSourceHash": "65c74c15a686187b"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-2/en:77af778b51abd4a3",
+      "text": "고양이",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-2/en:87b810070b7c7396",
+      "text": "와",
+      "enSourceHash": "87b810070b7c7396"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-2/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-2/en:a496f643895bef64",
+      "text": "와행 — 소개 2",
+      "enSourceHash": "a496f643895bef64"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-2/en:d7d077156c603a38",
+      "text": "나 / 나를",
+      "enSourceHash": "d7d077156c603a38"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-2/ja:わたし",
+      "text": "'나 / 나를'에 해당하는 단어를 듣고 만들어 보세요",
+      "enSourceHash": "14b6c33a6274f77b"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-3/en:2b84b2a9020f8b08",
+      "text": "키",
+      "enSourceHash": "2b84b2a9020f8b08"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-3/en:3086cf468ccca87c",
+      "text": "누",
+      "enSourceHash": "3086cf468ccca87c"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-3/en:3b80d38f7686a8b5",
+      "text": "산",
+      "enSourceHash": "3b80d38f7686a8b5"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-3/en:4db03a277cfb9ef4",
+      "text": "니",
+      "enSourceHash": "4db03a277cfb9ef4"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-3/en:5f5a8ed8f139be6d",
+      "text": "강",
+      "enSourceHash": "5f5a8ed8f139be6d"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-3/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-3/en:9c1b2cdd13698da9",
+      "text": "와 행 — 복습",
+      "enSourceHash": "9c1b2cdd13698da9"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-3/en:a4d0ef23161b5b7c",
+      "text": "후",
+      "enSourceHash": "a4d0ef23161b5b7c"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-3/en:a746222f09d85605",
+      "text": "눈",
+      "enSourceHash": "a746222f09d85605"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-3/en:d7d077156c603a38",
+      "text": "나 / 나를",
+      "enSourceHash": "d7d077156c603a38"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-3/ja:いえ",
+      "text": "'집'에 해당하는 단어를 만들어 보세요",
+      "enSourceHash": "b4c47197771461ce"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-3/ja:ほん",
+      "text": "듣고 '책'에 해당하는 단어를 만들어 보세요",
+      "enSourceHash": "2a23fe8c8813a4f7"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-1/en:3ebb1c99b12b7746",
+      "text": "카",
+      "enSourceHash": "3ebb1c99b12b7746"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-1/en:5109f6dc636d7068",
+      "text": "유",
+      "enSourceHash": "5109f6dc636d7068"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-1/en:5b76e8f908297f3f",
+      "text": "야 행 — 소개 1",
+      "enSourceHash": "5b76e8f908297f3f"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-1/en:6663103a3e47efc8",
+      "text": "야",
+      "enSourceHash": "6663103a3e47efc8"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-1/en:e9058ab198f6908f",
+      "text": "요",
+      "enSourceHash": "e9058ab198f6908f"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-1/ja:やま",
+      "text": "듣고 '산'에 해당하는 단어를 만들어 보세요",
+      "enSourceHash": "fd48e985fb48e429"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-2/en:25cdb46d8d2115a2",
+      "text": "배",
+      "enSourceHash": "25cdb46d8d2115a2"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-2/en:38a81e87e79631e6",
+      "text": "사람",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-2/en:3b80d38f7686a8b5",
+      "text": "산",
+      "enSourceHash": "3b80d38f7686a8b5"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-2/en:45902cd5d4a9aee6",
+      "text": "야 행 — 소개 2",
+      "enSourceHash": "45902cd5d4a9aee6"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-2/en:5109f6dc636d7068",
+      "text": "유",
+      "enSourceHash": "5109f6dc636d7068"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-2/en:6663103a3e47efc8",
+      "text": "야",
+      "enSourceHash": "6663103a3e47efc8"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-2/en:77af778b51abd4a3",
+      "text": "고양이",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-2/en:9e78b43ea00edcac",
+      "text": "달",
+      "enSourceHash": "9e78b43ea00edcac"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-2/en:a746222f09d85605",
+      "text": "눈",
+      "enSourceHash": "a746222f09d85605"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-2/en:e9058ab198f6908f",
+      "text": "요",
+      "enSourceHash": "e9058ab198f6908f"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-2/en:eee1c1ade6525d24",
+      "text": "미",
+      "enSourceHash": "eee1c1ade6525d24"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-2/ja:ゆき",
+      "text": "듣고 '눈'에 해당하는 단어를 만들어 보세요",
+      "enSourceHash": "112b4f70cab128f1"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-3/en:1fdbc74ccfd68d07",
+      "text": "코",
+      "enSourceHash": "1fdbc74ccfd68d07"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-3/en:2b84b2a9020f8b08",
+      "text": "키",
+      "enSourceHash": "2b84b2a9020f8b08"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-3/en:3909c2f0b16a018d",
+      "text": "읽다",
+      "enSourceHash": "3909c2f0b16a018d"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-3/en:3b80d38f7686a8b5",
+      "text": "산",
+      "enSourceHash": "3b80d38f7686a8b5"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-3/en:538dda9c8dc55919",
+      "text": "야 행 — 복습",
+      "enSourceHash": "538dda9c8dc55919"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-3/en:5f5a8ed8f139be6d",
+      "text": "강",
+      "enSourceHash": "5f5a8ed8f139be6d"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-3/en:a4d0ef23161b5b7c",
+      "text": "후",
+      "enSourceHash": "a4d0ef23161b5b7c"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-3/en:a746222f09d85605",
+      "text": "눈",
+      "enSourceHash": "a746222f09d85605"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-3/en:ca978112ca1bbdca",
+      "text": "아",
+      "enSourceHash": "ca978112ca1bbdca"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-3/ja:いいえ",
+      "text": "'아니요'에 해당하는 단어를 만들어 보세요",
+      "enSourceHash": "117cb79485c16a41"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-3/ja:よむ",
+      "text": "'읽다'에 해당하는 단어를 듣고 만들어 보세요.",
+      "enSourceHash": "56854b4df971dc6f"
+    }
+  ]
+}

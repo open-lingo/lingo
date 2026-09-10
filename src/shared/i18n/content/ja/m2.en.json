@@ -1,0 +1,1859 @@
+{
+  "schema": 1,
+  "moduleId": "m2",
+  "lang": "ja",
+  "generatedAt": "2026-09-10",
+  "entryCount": 370,
+  "entries": [
+    {
+      "anchor": "m2/atom:えび/gloss",
+      "en": "shrimp",
+      "enSourceHash": "42a73cf9f258b8e4"
+    },
+    {
+      "anchor": "m2/atom:えんぴつ/gloss",
+      "en": "pencil",
+      "enSourceHash": "13809668fb436386"
+    },
+    {
+      "anchor": "m2/atom:おちゃ/gloss",
+      "en": "green tea",
+      "enSourceHash": "69afc2ce866da3bb"
+    },
+    {
+      "anchor": "m2/atom:かぎ/gloss",
+      "en": "key",
+      "enSourceHash": "2c70e12b7a0646f9"
+    },
+    {
+      "anchor": "m2/atom:かぜ/gloss",
+      "en": "wind",
+      "enSourceHash": "9b58e68145a79ca0"
+    },
+    {
+      "anchor": "m2/atom:かぞく/gloss",
+      "en": "family",
+      "enSourceHash": "d34a569ab7aaa54d"
+    },
+    {
+      "anchor": "m2/atom:かばん/gloss",
+      "en": "bag, basket",
+      "enSourceHash": "3a5147f5c3d68881"
+    },
+    {
+      "anchor": "m2/atom:からだ/gloss",
+      "en": "body",
+      "enSourceHash": "230d8358dc8e8890"
+    },
+    {
+      "anchor": "m2/atom:きっぷ/gloss",
+      "en": "ticket",
+      "enSourceHash": "14069429150abcbf"
+    },
+    {
+      "anchor": "m2/atom:きゅうり/gloss",
+      "en": "cucumber",
+      "enSourceHash": "dd832404e8eeb907"
+    },
+    {
+      "anchor": "m2/atom:きょう/gloss",
+      "en": "today",
+      "enSourceHash": "e0f4f767ac88a930"
+    },
+    {
+      "anchor": "m2/atom:げんき/gloss",
+      "en": "health, vitality",
+      "enSourceHash": "1981692f365d4a8b"
+    },
+    {
+      "anchor": "m2/atom:ごはん/gloss",
+      "en": "cooked rice, meal",
+      "enSourceHash": "3684d110c708b8f2"
+    },
+    {
+      "anchor": "m2/atom:しゃしん/gloss",
+      "en": "photograph",
+      "enSourceHash": "7482d5802c3c2798"
+    },
+    {
+      "anchor": "m2/atom:じかん/gloss",
+      "en": "time",
+      "enSourceHash": "336074805fc85398"
+    },
+    {
+      "anchor": "m2/atom:じゅう/gloss",
+      "en": "ten",
+      "enSourceHash": "e4432baa90819aae"
+    },
+    {
+      "anchor": "m2/atom:ぞう/gloss",
+      "en": "elephant",
+      "enSourceHash": "cd08c4c4316df20d"
+    },
+    {
+      "anchor": "m2/atom:たべる/gloss",
+      "en": "to eat",
+      "enSourceHash": "527af7c109a784d8"
+    },
+    {
+      "anchor": "m2/atom:でんわ/gloss",
+      "en": "telephone",
+      "enSourceHash": "7339725159893c57"
+    },
+    {
+      "anchor": "m2/atom:どあ/gloss",
+      "en": "door",
+      "enSourceHash": "2534e2de1dec24fe"
+    },
+    {
+      "anchor": "m2/atom:ぱん/gloss",
+      "en": "bread",
+      "enSourceHash": "985604c2b6024312"
+    },
+    {
+      "anchor": "m2/atom:ひゃく/gloss",
+      "en": "hundred",
+      "enSourceHash": "97fe8a3749069931"
+    },
+    {
+      "anchor": "m2/atom:ぴあの/gloss",
+      "en": "piano",
+      "enSourceHash": "1d78e018e405ef26"
+    },
+    {
+      "anchor": "m2/atom:ぶた/gloss",
+      "en": "pig",
+      "enSourceHash": "f0b8c9d84dd2b877"
+    },
+    {
+      "anchor": "m2/atom:ぷりん/gloss",
+      "en": "pudding",
+      "enSourceHash": "910daa97a4052206"
+    },
+    {
+      "anchor": "m2/atom:ぺん/gloss",
+      "en": "pen",
+      "enSourceHash": "e21a6b0cb193057e"
+    },
+    {
+      "anchor": "m2/atom:ぼうし/gloss",
+      "en": "hat",
+      "enSourceHash": "18e1dd392168f601"
+    },
+    {
+      "anchor": "m2/atom:まど/gloss",
+      "en": "window",
+      "enSourceHash": "44ff7b02c80d38b2"
+    },
+    {
+      "anchor": "m2/atom:みず/gloss",
+      "en": "water",
+      "enSourceHash": "0f4168490e38b844"
+    },
+    {
+      "anchor": "m2/atom:めがね/gloss",
+      "en": "glasses",
+      "enSourceHash": "266550babbb7bd39"
+    },
+    {
+      "anchor": "m2/atom:りょうり/gloss",
+      "en": "cuisine",
+      "enSourceHash": "2753cb15f1d6d34c"
+    },
+    {
+      "anchor": "m2/gp:step:ja-b1-info-open/ex:は → ば",
+      "en": "voiced h becomes b",
+      "enSourceHash": "f1afa30650e19c7d"
+    },
+    {
+      "anchor": "m2/gp:step:ja-b1-info-open/ex:ふ → ぶ",
+      "en": "voiced h becomes b",
+      "enSourceHash": "f1afa30650e19c7d"
+    },
+    {
+      "anchor": "m2/gp:step:ja-d1-info-open/ex:た → だ",
+      "en": "voiced t becomes d",
+      "enSourceHash": "1d85c176eb5eed32"
+    },
+    {
+      "anchor": "m2/gp:step:ja-d1-info-open/ex:と → ど",
+      "en": "voiced t becomes d",
+      "enSourceHash": "1d85c176eb5eed32"
+    },
+    {
+      "anchor": "m2/gp:step:ja-g1-info-open/ex:か → が",
+      "en": "voiced k becomes g",
+      "enSourceHash": "55e99b1a4999a7e7"
+    },
+    {
+      "anchor": "m2/gp:step:ja-g1-info-open/ex:き → ぎ",
+      "en": "voiced k becomes g",
+      "enSourceHash": "55e99b1a4999a7e7"
+    },
+    {
+      "anchor": "m2/gp:step:ja-yi1-info-open/ex:き + ゃ = きゃ",
+      "en": "one blended sound",
+      "enSourceHash": "4ea2e8d3bda83f8b"
+    },
+    {
+      "anchor": "m2/gp:step:ja-yi1-info-open/ex:き + ょ = きょ",
+      "en": "one blended sound",
+      "enSourceHash": "4ea2e8d3bda83f8b"
+    },
+    {
+      "anchor": "m2/gp:step:ja-yr3-info-katakana-ahead/ex:みか → ミカ",
+      "en": "same sounds, other alphabet",
+      "enSourceHash": "8316b08ac4ef6ef3"
+    },
+    {
+      "anchor": "m2/gp:step:ja-yr3-info-katakana-ahead/ex:ミカ",
+      "en": "a name — katakana, not hiragana",
+      "enSourceHash": "403e1de943bd94d5"
+    },
+    {
+      "anchor": "m2/gp:step:ja-yr3-info-long-vowels/ex:りょうり",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m2/gp:step:ja-yr3-info-sokuon/ex:きつぷ",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m2/gp:step:ja-ysc1-info-open/ex:し + ゃ = しゃ",
+      "en": "'sha', not 'sya'",
+      "enSourceHash": "346a2fcb8069d77b"
+    },
+    {
+      "anchor": "m2/gp:step:ja-ysc1-info-open/ex:ち + ゃ = ちゃ",
+      "en": "'cha', not 'tya'",
+      "enSourceHash": "84a186140c6a1988"
+    },
+    {
+      "anchor": "m2/gp:step:ja-z1-info-open/ex:さ → ざ",
+      "en": "voiced s becomes z",
+      "enSourceHash": "339457c971a58e5b"
+    },
+    {
+      "anchor": "m2/gp:step:ja-z1-info-open/ex:し → じ",
+      "en": "voiced shi becomes ji, not zi",
+      "enSourceHash": "c8621584e922c7a8"
+    },
+    {
+      "anchor": "m2/ja-m1-b-1/en:2d2fa3618e51aa9c",
+      "en": "Voiced h → b — Intro",
+      "enSourceHash": "2d2fa3618e51aa9c"
+    },
+    {
+      "anchor": "m2/ja-m1-b-1/en:4381fc5dd773d592",
+      "en": "H → B",
+      "enSourceHash": "4381fc5dd773d592"
+    },
+    {
+      "anchor": "m2/ja-m1-b-1/en:46599c5bb5c33101",
+      "en": "be",
+      "enSourceHash": "46599c5bb5c33101"
+    },
+    {
+      "anchor": "m2/ja-m1-b-1/en:9508394fe63a491f",
+      "en": "bu",
+      "enSourceHash": "9508394fe63a491f"
+    },
+    {
+      "anchor": "m2/ja-m1-b-1/en:970f519c2cadbcef",
+      "en": "ba",
+      "enSourceHash": "970f519c2cadbcef"
+    },
+    {
+      "anchor": "m2/ja-m1-b-1/en:d9065d6da185ec28",
+      "en": "bi",
+      "enSourceHash": "d9065d6da185ec28"
+    },
+    {
+      "anchor": "m2/ja-m1-b-1/ja:えび",
+      "en": "Listen and build the word for 'shrimp'",
+      "enSourceHash": "c4217f36b9f62b37"
+    },
+    {
+      "anchor": "m2/ja-m1-b-2/en:04269a8d9a6c4483",
+      "en": "How do you say \"bag\" in Japanese?",
+      "enSourceHash": "04269a8d9a6c4483"
+    },
+    {
+      "anchor": "m2/ja-m1-b-2/en:18e1dd392168f601",
+      "en": "hat",
+      "enSourceHash": "18e1dd392168f601"
+    },
+    {
+      "anchor": "m2/ja-m1-b-2/en:3d099d0f13df9d0b",
+      "en": "bo",
+      "enSourceHash": "3d099d0f13df9d0b"
+    },
+    {
+      "anchor": "m2/ja-m1-b-2/en:3ebb1c99b12b7746",
+      "en": "ka",
+      "enSourceHash": "3ebb1c99b12b7746"
+    },
+    {
+      "anchor": "m2/ja-m1-b-2/en:42a73cf9f258b8e4",
+      "en": "shrimp",
+      "enSourceHash": "42a73cf9f258b8e4"
+    },
+    {
+      "anchor": "m2/ja-m1-b-2/en:46599c5bb5c33101",
+      "en": "be",
+      "enSourceHash": "46599c5bb5c33101"
+    },
+    {
+      "anchor": "m2/ja-m1-b-2/en:4728bedb58571632",
+      "en": "Match the kana to their sounds",
+      "enSourceHash": "4728bedb58571632"
+    },
+    {
+      "anchor": "m2/ja-m1-b-2/en:4a6ab4a837198c40",
+      "en": "How do you say \"to eat\" in Japanese?",
+      "enSourceHash": "4a6ab4a837198c40"
+    },
+    {
+      "anchor": "m2/ja-m1-b-2/en:8fde522cb88aa558",
+      "en": "Voiced h → b — Practice",
+      "enSourceHash": "8fde522cb88aa558"
+    },
+    {
+      "anchor": "m2/ja-m1-b-2/en:9508394fe63a491f",
+      "en": "bu",
+      "enSourceHash": "9508394fe63a491f"
+    },
+    {
+      "anchor": "m2/ja-m1-b-2/en:970f519c2cadbcef",
+      "en": "ba",
+      "enSourceHash": "970f519c2cadbcef"
+    },
+    {
+      "anchor": "m2/ja-m1-b-2/en:c018019b6a8b01ab",
+      "en": "bag",
+      "enSourceHash": "c018019b6a8b01ab"
+    },
+    {
+      "anchor": "m2/ja-m1-b-2/en:d9065d6da185ec28",
+      "en": "bi",
+      "enSourceHash": "d9065d6da185ec28"
+    },
+    {
+      "anchor": "m2/ja-m1-b-2/en:f0b8c9d84dd2b877",
+      "en": "pig",
+      "enSourceHash": "f0b8c9d84dd2b877"
+    },
+    {
+      "anchor": "m2/ja-m1-b-2/ja:たべる",
+      "en": "Listen and build the word for 'to eat'",
+      "enSourceHash": "241c8e2fa0703afc"
+    },
+    {
+      "anchor": "m2/ja-m1-b-3/en:132ee978eff12144",
+      "en": "How do you say \"shrimp\" in Japanese?",
+      "enSourceHash": "132ee978eff12144"
+    },
+    {
+      "anchor": "m2/ja-m1-b-3/en:1bb5056a0132d1c2",
+      "en": "How do you say \"hat\" in Japanese?",
+      "enSourceHash": "1bb5056a0132d1c2"
+    },
+    {
+      "anchor": "m2/ja-m1-b-3/en:26788fd99a26aa97",
+      "en": "How do you say \"flower\" in Japanese?",
+      "enSourceHash": "26788fd99a26aa97"
+    },
+    {
+      "anchor": "m2/ja-m1-b-3/en:3d099d0f13df9d0b",
+      "en": "bo",
+      "enSourceHash": "3d099d0f13df9d0b"
+    },
+    {
+      "anchor": "m2/ja-m1-b-3/en:3ebb1c99b12b7746",
+      "en": "ka",
+      "enSourceHash": "3ebb1c99b12b7746"
+    },
+    {
+      "anchor": "m2/ja-m1-b-3/en:46599c5bb5c33101",
+      "en": "be",
+      "enSourceHash": "46599c5bb5c33101"
+    },
+    {
+      "anchor": "m2/ja-m1-b-3/en:4728bedb58571632",
+      "en": "Match the kana to their sounds",
+      "enSourceHash": "4728bedb58571632"
+    },
+    {
+      "anchor": "m2/ja-m1-b-3/en:6acbccdbf777c120",
+      "en": "How do you say \"pig\" in Japanese?",
+      "enSourceHash": "6acbccdbf777c120"
+    },
+    {
+      "anchor": "m2/ja-m1-b-3/en:77a5564e4a6cd162",
+      "en": "How do you say \"cat\" in Japanese?",
+      "enSourceHash": "77a5564e4a6cd162"
+    },
+    {
+      "anchor": "m2/ja-m1-b-3/en:9508394fe63a491f",
+      "en": "bu",
+      "enSourceHash": "9508394fe63a491f"
+    },
+    {
+      "anchor": "m2/ja-m1-b-3/en:970f519c2cadbcef",
+      "en": "ba",
+      "enSourceHash": "970f519c2cadbcef"
+    },
+    {
+      "anchor": "m2/ja-m1-b-3/en:9ec3d060089479d0",
+      "en": "Voiced h → b — Review",
+      "enSourceHash": "9ec3d060089479d0"
+    },
+    {
+      "anchor": "m2/ja-m1-b-3/en:d9065d6da185ec28",
+      "en": "bi",
+      "enSourceHash": "d9065d6da185ec28"
+    },
+    {
+      "anchor": "m2/ja-m1-d-1/en:76592b9de6d38238",
+      "en": "ta",
+      "enSourceHash": "76592b9de6d38238"
+    },
+    {
+      "anchor": "m2/ja-m1-d-1/en:959a45d44e6fcf58",
+      "en": "de",
+      "enSourceHash": "959a45d44e6fcf58"
+    },
+    {
+      "anchor": "m2/ja-m1-d-1/en:aa58b21b01d6b8a9",
+      "en": "da",
+      "enSourceHash": "aa58b21b01d6b8a9"
+    },
+    {
+      "anchor": "m2/ja-m1-d-1/en:ac0b52a2ae6ef999",
+      "en": "do",
+      "enSourceHash": "ac0b52a2ae6ef999"
+    },
+    {
+      "anchor": "m2/ja-m1-d-1/en:b5f45336b9547bb4",
+      "en": "T → D (with two ghosts)",
+      "enSourceHash": "b5f45336b9547bb4"
+    },
+    {
+      "anchor": "m2/ja-m1-d-1/en:bf8a0e5e73531640",
+      "en": "Voiced t → d — Intro",
+      "enSourceHash": "bf8a0e5e73531640"
+    },
+    {
+      "anchor": "m2/ja-m1-d-1/ja:でんわ",
+      "en": "Listen and build the word for 'telephone'",
+      "enSourceHash": "96fe056013f801a3"
+    },
+    {
+      "anchor": "m2/ja-m1-d-2/en:230d8358dc8e8890",
+      "en": "body",
+      "enSourceHash": "230d8358dc8e8890"
+    },
+    {
+      "anchor": "m2/ja-m1-d-2/en:2534e2de1dec24fe",
+      "en": "door",
+      "enSourceHash": "2534e2de1dec24fe"
+    },
+    {
+      "anchor": "m2/ja-m1-d-2/en:336074805fc85398",
+      "en": "time",
+      "enSourceHash": "336074805fc85398"
+    },
+    {
+      "anchor": "m2/ja-m1-d-2/en:3ac1ecbd2220c675",
+      "en": "re",
+      "enSourceHash": "3ac1ecbd2220c675"
+    },
+    {
+      "anchor": "m2/ja-m1-d-2/en:4728bedb58571632",
+      "en": "Match the kana to their sounds",
+      "enSourceHash": "4728bedb58571632"
+    },
+    {
+      "anchor": "m2/ja-m1-d-2/en:58af96d547380ed6",
+      "en": "tsu",
+      "enSourceHash": "58af96d547380ed6"
+    },
+    {
+      "anchor": "m2/ja-m1-d-2/en:7339725159893c57",
+      "en": "telephone",
+      "enSourceHash": "7339725159893c57"
+    },
+    {
+      "anchor": "m2/ja-m1-d-2/en:7ef9ec0cf2c4faca",
+      "en": "ro",
+      "enSourceHash": "7ef9ec0cf2c4faca"
+    },
+    {
+      "anchor": "m2/ja-m1-d-2/en:959a45d44e6fcf58",
+      "en": "de",
+      "enSourceHash": "959a45d44e6fcf58"
+    },
+    {
+      "anchor": "m2/ja-m1-d-2/en:9b58e68145a79ca0",
+      "en": "wind",
+      "enSourceHash": "9b58e68145a79ca0"
+    },
+    {
+      "anchor": "m2/ja-m1-d-2/en:9de6f20353443697",
+      "en": "How do you say \"telephone\" in Japanese?",
+      "enSourceHash": "9de6f20353443697"
+    },
+    {
+      "anchor": "m2/ja-m1-d-2/en:aa58b21b01d6b8a9",
+      "en": "da",
+      "enSourceHash": "aa58b21b01d6b8a9"
+    },
+    {
+      "anchor": "m2/ja-m1-d-2/en:ac0b52a2ae6ef999",
+      "en": "do",
+      "enSourceHash": "ac0b52a2ae6ef999"
+    },
+    {
+      "anchor": "m2/ja-m1-d-2/en:ca978112ca1bbdca",
+      "en": "a",
+      "enSourceHash": "ca978112ca1bbdca"
+    },
+    {
+      "anchor": "m2/ja-m1-d-2/en:cd08c4c4316df20d",
+      "en": "elephant",
+      "enSourceHash": "cd08c4c4316df20d"
+    },
+    {
+      "anchor": "m2/ja-m1-d-2/en:d7d86195ce9a53a2",
+      "en": "How do you say \"door\" in Japanese?",
+      "enSourceHash": "d7d86195ce9a53a2"
+    },
+    {
+      "anchor": "m2/ja-m1-d-2/en:fcb5cfb329af6c3f",
+      "en": "Voiced t → d — Practice",
+      "enSourceHash": "fcb5cfb329af6c3f"
+    },
+    {
+      "anchor": "m2/ja-m1-d-2/ja:どあ",
+      "en": "Listen and build the word for 'door'",
+      "enSourceHash": "1ac7a338736ef2e2"
+    },
+    {
+      "anchor": "m2/ja-m1-d-3/en:3ac1ecbd2220c675",
+      "en": "re",
+      "enSourceHash": "3ac1ecbd2220c675"
+    },
+    {
+      "anchor": "m2/ja-m1-d-3/en:4728bedb58571632",
+      "en": "Match the kana to their sounds",
+      "enSourceHash": "4728bedb58571632"
+    },
+    {
+      "anchor": "m2/ja-m1-d-3/en:58af96d547380ed6",
+      "en": "tsu",
+      "enSourceHash": "58af96d547380ed6"
+    },
+    {
+      "anchor": "m2/ja-m1-d-3/en:62cc478cb422c06f",
+      "en": "How do you say \"sky\" in Japanese?",
+      "enSourceHash": "62cc478cb422c06f"
+    },
+    {
+      "anchor": "m2/ja-m1-d-3/en:74a129460a3ce060",
+      "en": "Voiced t → d — Review",
+      "enSourceHash": "74a129460a3ce060"
+    },
+    {
+      "anchor": "m2/ja-m1-d-3/en:7ef9ec0cf2c4faca",
+      "en": "ro",
+      "enSourceHash": "7ef9ec0cf2c4faca"
+    },
+    {
+      "anchor": "m2/ja-m1-d-3/en:959a45d44e6fcf58",
+      "en": "de",
+      "enSourceHash": "959a45d44e6fcf58"
+    },
+    {
+      "anchor": "m2/ja-m1-d-3/en:9de6f20353443697",
+      "en": "How do you say \"telephone\" in Japanese?",
+      "enSourceHash": "9de6f20353443697"
+    },
+    {
+      "anchor": "m2/ja-m1-d-3/en:aa58b21b01d6b8a9",
+      "en": "da",
+      "enSourceHash": "aa58b21b01d6b8a9"
+    },
+    {
+      "anchor": "m2/ja-m1-d-3/en:ac0b52a2ae6ef999",
+      "en": "do",
+      "enSourceHash": "ac0b52a2ae6ef999"
+    },
+    {
+      "anchor": "m2/ja-m1-d-3/en:ca978112ca1bbdca",
+      "en": "a",
+      "enSourceHash": "ca978112ca1bbdca"
+    },
+    {
+      "anchor": "m2/ja-m1-d-3/en:d7d86195ce9a53a2",
+      "en": "How do you say \"door\" in Japanese?",
+      "enSourceHash": "d7d86195ce9a53a2"
+    },
+    {
+      "anchor": "m2/ja-m1-d-3/en:f3806c270fd98bf1",
+      "en": "How do you say \"tree\" in Japanese?",
+      "enSourceHash": "f3806c270fd98bf1"
+    },
+    {
+      "anchor": "m2/ja-m1-d-3/en:f4920e11c79b1821",
+      "en": "How do you say \"body\" in Japanese?",
+      "enSourceHash": "f4920e11c79b1821"
+    },
+    {
+      "anchor": "m2/ja-m1-g-1/en:1917d730c88ed0f6",
+      "en": "gi",
+      "enSourceHash": "1917d730c88ed0f6"
+    },
+    {
+      "anchor": "m2/ja-m1-g-1/en:21c25736de927c1b",
+      "en": "Voiced k → g — Intro",
+      "enSourceHash": "21c25736de927c1b"
+    },
+    {
+      "anchor": "m2/ja-m1-g-1/en:309d20864f274b09",
+      "en": "ge",
+      "enSourceHash": "309d20864f274b09"
+    },
+    {
+      "anchor": "m2/ja-m1-g-1/en:6152d43caa491abe",
+      "en": "gu",
+      "enSourceHash": "6152d43caa491abe"
+    },
+    {
+      "anchor": "m2/ja-m1-g-1/en:ee32a5de5ed5e8e5",
+      "en": "Dakuten — the voicing mark",
+      "enSourceHash": "ee32a5de5ed5e8e5"
+    },
+    {
+      "anchor": "m2/ja-m1-g-1/en:f52d63231eb0dbaa",
+      "en": "ga",
+      "enSourceHash": "f52d63231eb0dbaa"
+    },
+    {
+      "anchor": "m2/ja-m1-g-1/ja:かぎ",
+      "en": "Listen and build the word for 'key'",
+      "enSourceHash": "83160e1d90a08832"
+    },
+    {
+      "anchor": "m2/ja-m1-g-2/en:1917d730c88ed0f6",
+      "en": "gi",
+      "enSourceHash": "1917d730c88ed0f6"
+    },
+    {
+      "anchor": "m2/ja-m1-g-2/en:1fdbc74ccfd68d07",
+      "en": "ko",
+      "enSourceHash": "1fdbc74ccfd68d07"
+    },
+    {
+      "anchor": "m2/ja-m1-g-2/en:266550babbb7bd39",
+      "en": "glasses",
+      "enSourceHash": "266550babbb7bd39"
+    },
+    {
+      "anchor": "m2/ja-m1-g-2/en:2c70e12b7a0646f9",
+      "en": "key",
+      "enSourceHash": "2c70e12b7a0646f9"
+    },
+    {
+      "anchor": "m2/ja-m1-g-2/en:309d20864f274b09",
+      "en": "ge",
+      "enSourceHash": "309d20864f274b09"
+    },
+    {
+      "anchor": "m2/ja-m1-g-2/en:4728bedb58571632",
+      "en": "Match the kana to their sounds",
+      "enSourceHash": "4728bedb58571632"
+    },
+    {
+      "anchor": "m2/ja-m1-g-2/en:4bdf40d0d1ae3611",
+      "en": "rice/meal",
+      "enSourceHash": "4bdf40d0d1ae3611"
+    },
+    {
+      "anchor": "m2/ja-m1-g-2/en:4cd0e21a9a0795a1",
+      "en": "go",
+      "enSourceHash": "4cd0e21a9a0795a1"
+    },
+    {
+      "anchor": "m2/ja-m1-g-2/en:56aa6b77c760f710",
+      "en": "well/energy",
+      "enSourceHash": "56aa6b77c760f710"
+    },
+    {
+      "anchor": "m2/ja-m1-g-2/en:6152d43caa491abe",
+      "en": "gu",
+      "enSourceHash": "6152d43caa491abe"
+    },
+    {
+      "anchor": "m2/ja-m1-g-2/en:95216b5bcae996ea",
+      "en": "How do you say \"key\" in Japanese?",
+      "enSourceHash": "95216b5bcae996ea"
+    },
+    {
+      "anchor": "m2/ja-m1-g-2/en:ab7082ddb75bfa3c",
+      "en": "Voiced k → g — Practice",
+      "enSourceHash": "ab7082ddb75bfa3c"
+    },
+    {
+      "anchor": "m2/ja-m1-g-2/en:e0cbcdf6a72af7a9",
+      "en": "How do you say \"glasses\" in Japanese?",
+      "enSourceHash": "e0cbcdf6a72af7a9"
+    },
+    {
+      "anchor": "m2/ja-m1-g-2/en:f52d63231eb0dbaa",
+      "en": "ga",
+      "enSourceHash": "f52d63231eb0dbaa"
+    },
+    {
+      "anchor": "m2/ja-m1-g-2/ja:かぎ",
+      "en": "Listen and build the word for 'key'",
+      "enSourceHash": "83160e1d90a08832"
+    },
+    {
+      "anchor": "m2/ja-m1-g-3/en:1917d730c88ed0f6",
+      "en": "gi",
+      "enSourceHash": "1917d730c88ed0f6"
+    },
+    {
+      "anchor": "m2/ja-m1-g-3/en:1fdbc74ccfd68d07",
+      "en": "ko",
+      "enSourceHash": "1fdbc74ccfd68d07"
+    },
+    {
+      "anchor": "m2/ja-m1-g-3/en:309d20864f274b09",
+      "en": "ge",
+      "enSourceHash": "309d20864f274b09"
+    },
+    {
+      "anchor": "m2/ja-m1-g-3/en:40de5387b2d71703",
+      "en": "How do you say \"rice/meal\" in Japanese?",
+      "enSourceHash": "40de5387b2d71703"
+    },
+    {
+      "anchor": "m2/ja-m1-g-3/en:4728bedb58571632",
+      "en": "Match the kana to their sounds",
+      "enSourceHash": "4728bedb58571632"
+    },
+    {
+      "anchor": "m2/ja-m1-g-3/en:4cd0e21a9a0795a1",
+      "en": "go",
+      "enSourceHash": "4cd0e21a9a0795a1"
+    },
+    {
+      "anchor": "m2/ja-m1-g-3/en:6152d43caa491abe",
+      "en": "gu",
+      "enSourceHash": "6152d43caa491abe"
+    },
+    {
+      "anchor": "m2/ja-m1-g-3/en:62cc478cb422c06f",
+      "en": "How do you say \"sky\" in Japanese?",
+      "enSourceHash": "62cc478cb422c06f"
+    },
+    {
+      "anchor": "m2/ja-m1-g-3/en:95216b5bcae996ea",
+      "en": "How do you say \"key\" in Japanese?",
+      "enSourceHash": "95216b5bcae996ea"
+    },
+    {
+      "anchor": "m2/ja-m1-g-3/en:c684e8946d3005ec",
+      "en": "Voiced k → g — Review",
+      "enSourceHash": "c684e8946d3005ec"
+    },
+    {
+      "anchor": "m2/ja-m1-g-3/en:d86a585a1e3581e2",
+      "en": "How do you say \"well/energy\" in Japanese?",
+      "enSourceHash": "d86a585a1e3581e2"
+    },
+    {
+      "anchor": "m2/ja-m1-g-3/en:f52d63231eb0dbaa",
+      "en": "ga",
+      "enSourceHash": "f52d63231eb0dbaa"
+    },
+    {
+      "anchor": "m2/ja-m1-g-3/en:f6f28b350bedc8e6",
+      "en": "How do you say \"star\" in Japanese?",
+      "enSourceHash": "f6f28b350bedc8e6"
+    },
+    {
+      "anchor": "m2/ja-m1-p-1/en:3ca2b6679d1a8d01",
+      "en": "Handakuten p-row — Intro",
+      "enSourceHash": "3ca2b6679d1a8d01"
+    },
+    {
+      "anchor": "m2/ja-m1-p-1/en:4b4d5589e12d32d5",
+      "en": "pu",
+      "enSourceHash": "4b4d5589e12d32d5"
+    },
+    {
+      "anchor": "m2/ja-m1-p-1/en:85b42e1702877c85",
+      "en": "pi",
+      "enSourceHash": "85b42e1702877c85"
+    },
+    {
+      "anchor": "m2/ja-m1-p-1/en:9513229d43597826",
+      "en": "pa",
+      "enSourceHash": "9513229d43597826"
+    },
+    {
+      "anchor": "m2/ja-m1-p-1/en:b7f663ac66ee1f14",
+      "en": "Handakuten — the circle mark",
+      "enSourceHash": "b7f663ac66ee1f14"
+    },
+    {
+      "anchor": "m2/ja-m1-p-1/en:cdf69b25a417e257",
+      "en": "pe",
+      "enSourceHash": "cdf69b25a417e257"
+    },
+    {
+      "anchor": "m2/ja-m1-p-1/ja:ぱん",
+      "en": "Listen and build the word for 'bread'",
+      "enSourceHash": "ba3e3d8ba36d2d6e"
+    },
+    {
+      "anchor": "m2/ja-m1-p-2/en:1917d730c88ed0f6",
+      "en": "gi",
+      "enSourceHash": "1917d730c88ed0f6"
+    },
+    {
+      "anchor": "m2/ja-m1-p-2/en:1d78e018e405ef26",
+      "en": "piano",
+      "enSourceHash": "1d78e018e405ef26"
+    },
+    {
+      "anchor": "m2/ja-m1-p-2/en:26ada81d6ca3894b",
+      "en": "Handakuten p-row — Practice",
+      "enSourceHash": "26ada81d6ca3894b"
+    },
+    {
+      "anchor": "m2/ja-m1-p-2/en:4728bedb58571632",
+      "en": "Match the kana to their sounds",
+      "enSourceHash": "4728bedb58571632"
+    },
+    {
+      "anchor": "m2/ja-m1-p-2/en:4b4d5589e12d32d5",
+      "en": "pu",
+      "enSourceHash": "4b4d5589e12d32d5"
+    },
+    {
+      "anchor": "m2/ja-m1-p-2/en:6199aecf23aba7e8",
+      "en": "po",
+      "enSourceHash": "6199aecf23aba7e8"
+    },
+    {
+      "anchor": "m2/ja-m1-p-2/en:85b42e1702877c85",
+      "en": "pi",
+      "enSourceHash": "85b42e1702877c85"
+    },
+    {
+      "anchor": "m2/ja-m1-p-2/en:910daa97a4052206",
+      "en": "pudding",
+      "enSourceHash": "910daa97a4052206"
+    },
+    {
+      "anchor": "m2/ja-m1-p-2/en:9513229d43597826",
+      "en": "pa",
+      "enSourceHash": "9513229d43597826"
+    },
+    {
+      "anchor": "m2/ja-m1-p-2/en:985604c2b6024312",
+      "en": "bread",
+      "enSourceHash": "985604c2b6024312"
+    },
+    {
+      "anchor": "m2/ja-m1-p-2/en:cdf69b25a417e257",
+      "en": "pe",
+      "enSourceHash": "cdf69b25a417e257"
+    },
+    {
+      "anchor": "m2/ja-m1-p-2/en:e21a6b0cb193057e",
+      "en": "pen",
+      "enSourceHash": "e21a6b0cb193057e"
+    },
+    {
+      "anchor": "m2/ja-m1-p-2/en:e5e226ebf990c8d4",
+      "en": "How do you say \"pen\" in Japanese?",
+      "enSourceHash": "e5e226ebf990c8d4"
+    },
+    {
+      "anchor": "m2/ja-m1-p-2/en:ea551afb4b25e0fe",
+      "en": "How do you say \"bread\" in Japanese?",
+      "enSourceHash": "ea551afb4b25e0fe"
+    },
+    {
+      "anchor": "m2/ja-m1-p-2/ja:ぺん",
+      "en": "Listen and build the word for 'pen'",
+      "enSourceHash": "e2ba148d7fe78048"
+    },
+    {
+      "anchor": "m2/ja-m1-p-3/en:1917d730c88ed0f6",
+      "en": "gi",
+      "enSourceHash": "1917d730c88ed0f6"
+    },
+    {
+      "anchor": "m2/ja-m1-p-3/en:24d4f78331b07368",
+      "en": "How do you say \"pudding\" in Japanese?",
+      "enSourceHash": "24d4f78331b07368"
+    },
+    {
+      "anchor": "m2/ja-m1-p-3/en:4728bedb58571632",
+      "en": "Match the kana to their sounds",
+      "enSourceHash": "4728bedb58571632"
+    },
+    {
+      "anchor": "m2/ja-m1-p-3/en:4b4d5589e12d32d5",
+      "en": "pu",
+      "enSourceHash": "4b4d5589e12d32d5"
+    },
+    {
+      "anchor": "m2/ja-m1-p-3/en:6199aecf23aba7e8",
+      "en": "po",
+      "enSourceHash": "6199aecf23aba7e8"
+    },
+    {
+      "anchor": "m2/ja-m1-p-3/en:79c0284015ccf976",
+      "en": "How do you say \"eye\" in Japanese?",
+      "enSourceHash": "79c0284015ccf976"
+    },
+    {
+      "anchor": "m2/ja-m1-p-3/en:85b42e1702877c85",
+      "en": "pi",
+      "enSourceHash": "85b42e1702877c85"
+    },
+    {
+      "anchor": "m2/ja-m1-p-3/en:9513229d43597826",
+      "en": "pa",
+      "enSourceHash": "9513229d43597826"
+    },
+    {
+      "anchor": "m2/ja-m1-p-3/en:cdf69b25a417e257",
+      "en": "pe",
+      "enSourceHash": "cdf69b25a417e257"
+    },
+    {
+      "anchor": "m2/ja-m1-p-3/en:d831319af7702a2d",
+      "en": "How do you say \"piano\" in Japanese?",
+      "enSourceHash": "d831319af7702a2d"
+    },
+    {
+      "anchor": "m2/ja-m1-p-3/en:db0dbb005037b58b",
+      "en": "Handakuten p-row — Review",
+      "enSourceHash": "db0dbb005037b58b"
+    },
+    {
+      "anchor": "m2/ja-m1-p-3/en:e5e226ebf990c8d4",
+      "en": "How do you say \"pen\" in Japanese?",
+      "enSourceHash": "e5e226ebf990c8d4"
+    },
+    {
+      "anchor": "m2/ja-m1-p-3/en:f3806c270fd98bf1",
+      "en": "How do you say \"tree\" in Japanese?",
+      "enSourceHash": "f3806c270fd98bf1"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-1/en:1534d8691a23c33b",
+      "en": "kya",
+      "enSourceHash": "1534d8691a23c33b"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-1/en:2b84b2a9020f8b08",
+      "en": "ki",
+      "enSourceHash": "2b84b2a9020f8b08"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-1/en:4721e286c56125d4",
+      "en": "Yōon — Intro",
+      "enSourceHash": "4721e286c56125d4"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-1/en:9183c674889ff274",
+      "en": "kyu",
+      "enSourceHash": "9183c674889ff274"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-1/en:ee84d89558d58111",
+      "en": "Yōon — small kana combinations",
+      "enSourceHash": "ee84d89558d58111"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-1/en:f19313755ae13a4a",
+      "en": "kyo",
+      "enSourceHash": "f19313755ae13a4a"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-1/ja:きゅうり",
+      "en": "Listen and build the word for 'cucumber'",
+      "enSourceHash": "5d743db8e01f584e"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-2/en:1534d8691a23c33b",
+      "en": "kya",
+      "enSourceHash": "1534d8691a23c33b"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-2/en:17359760dd3cc936",
+      "en": "How do you say \"cucumber\" in Japanese?",
+      "enSourceHash": "17359760dd3cc936"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-2/en:19503ea6785ee124",
+      "en": "mu",
+      "enSourceHash": "19503ea6785ee124"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-2/en:1fdbc74ccfd68d07",
+      "en": "ko",
+      "enSourceHash": "1fdbc74ccfd68d07"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-2/en:3df8aa8da56c4627",
+      "en": "Yōon — Practice",
+      "enSourceHash": "3df8aa8da56c4627"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-2/en:3f79bb7b435b0532",
+      "en": "e",
+      "enSourceHash": "3f79bb7b435b0532"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-2/en:4728bedb58571632",
+      "en": "Match the kana to their sounds",
+      "enSourceHash": "4728bedb58571632"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-2/en:6cba777e422e0233",
+      "en": "How do you say \"today\" in Japanese?",
+      "enSourceHash": "6cba777e422e0233"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-2/en:9183c674889ff274",
+      "en": "kyu",
+      "enSourceHash": "9183c674889ff274"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-2/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-2/en:ca978112ca1bbdca",
+      "en": "a",
+      "enSourceHash": "ca978112ca1bbdca"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-2/en:dd832404e8eeb907",
+      "en": "cucumber",
+      "enSourceHash": "dd832404e8eeb907"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-2/en:e0f4f767ac88a930",
+      "en": "today",
+      "enSourceHash": "e0f4f767ac88a930"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-2/en:e4432baa90819aae",
+      "en": "ten",
+      "enSourceHash": "e4432baa90819aae"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-2/en:f19313755ae13a4a",
+      "en": "kyo",
+      "enSourceHash": "f19313755ae13a4a"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-2/ja:きょう",
+      "en": "Listen and build the word for 'today'",
+      "enSourceHash": "bd1da3d147cee858"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-3/en:00752862d630e46e",
+      "en": "Yōon — Review",
+      "enSourceHash": "00752862d630e46e"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-3/en:1534d8691a23c33b",
+      "en": "kya",
+      "enSourceHash": "1534d8691a23c33b"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-3/en:17359760dd3cc936",
+      "en": "How do you say \"cucumber\" in Japanese?",
+      "enSourceHash": "17359760dd3cc936"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-3/en:19503ea6785ee124",
+      "en": "mu",
+      "enSourceHash": "19503ea6785ee124"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-3/en:1fdbc74ccfd68d07",
+      "en": "ko",
+      "enSourceHash": "1fdbc74ccfd68d07"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-3/en:3f79bb7b435b0532",
+      "en": "e",
+      "enSourceHash": "3f79bb7b435b0532"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-3/en:4728bedb58571632",
+      "en": "Match the kana to their sounds",
+      "enSourceHash": "4728bedb58571632"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-3/en:6cba777e422e0233",
+      "en": "How do you say \"today\" in Japanese?",
+      "enSourceHash": "6cba777e422e0233"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-3/en:9183c674889ff274",
+      "en": "kyu",
+      "enSourceHash": "9183c674889ff274"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-3/en:ca978112ca1bbdca",
+      "en": "a",
+      "enSourceHash": "ca978112ca1bbdca"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-3/en:f19313755ae13a4a",
+      "en": "kyo",
+      "enSourceHash": "f19313755ae13a4a"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-3/en:f3806c270fd98bf1",
+      "en": "How do you say \"tree\" in Japanese?",
+      "enSourceHash": "f3806c270fd98bf1"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-intro-3/en:f6f28b350bedc8e6",
+      "en": "How do you say \"star\" in Japanese?",
+      "enSourceHash": "f6f28b350bedc8e6"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-1/en:0183e8d454c42f72",
+      "en": "hya",
+      "enSourceHash": "0183e8d454c42f72"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-1/en:1becc4cf4b858dda",
+      "en": "hyo",
+      "enSourceHash": "1becc4cf4b858dda"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-1/en:483f65caff26f37d",
+      "en": "Yōon rare — Intro",
+      "enSourceHash": "483f65caff26f37d"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-1/en:979feed25bd3bf18",
+      "en": "hyu",
+      "enSourceHash": "979feed25bd3bf18"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-1/en:b5dcec23df8d9d66",
+      "en": "rya",
+      "enSourceHash": "b5dcec23df8d9d66"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-1/ja:ひゃく",
+      "en": "Listen and build the word for 'hundred'",
+      "enSourceHash": "ec8682a0cffb7dfd"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-2/en:0183e8d454c42f72",
+      "en": "hya",
+      "enSourceHash": "0183e8d454c42f72"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-2/en:1becc4cf4b858dda",
+      "en": "hyo",
+      "enSourceHash": "1becc4cf4b858dda"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-2/en:4728bedb58571632",
+      "en": "Match the kana to their sounds",
+      "enSourceHash": "4728bedb58571632"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-2/en:53b2946160fcd21c",
+      "en": "ryo",
+      "enSourceHash": "53b2946160fcd21c"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-2/en:58975c195b38cbbb",
+      "en": "Yōon rare — Practice",
+      "enSourceHash": "58975c195b38cbbb"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-2/en:82bd81ea4b030255",
+      "en": "cooking",
+      "enSourceHash": "82bd81ea4b030255"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-2/en:88d178d728e8394f",
+      "en": "ku",
+      "enSourceHash": "88d178d728e8394f"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-2/en:97fe8a3749069931",
+      "en": "hundred",
+      "enSourceHash": "97fe8a3749069931"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-2/en:a691b6bc04f1996c",
+      "en": "nyu",
+      "enSourceHash": "a691b6bc04f1996c"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-2/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-2/en:b57b4a310c318d76",
+      "en": "ryu",
+      "enSourceHash": "b57b4a310c318d76"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-2/en:b5dcec23df8d9d66",
+      "en": "rya",
+      "enSourceHash": "b5dcec23df8d9d66"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-2/en:bdeda9f3830afcb6",
+      "en": "How do you say \"cooking\" in Japanese?",
+      "enSourceHash": "bdeda9f3830afcb6"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-2/en:d18b0f124bf881ae",
+      "en": "nyo",
+      "enSourceHash": "d18b0f124bf881ae"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-2/en:d1eb829add783674",
+      "en": "How do you say \"hundred\" in Japanese?",
+      "enSourceHash": "d1eb829add783674"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-2/en:e4432baa90819aae",
+      "en": "ten",
+      "enSourceHash": "e4432baa90819aae"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-2/en:e7a00e53bd04bf48",
+      "en": "nya",
+      "enSourceHash": "e7a00e53bd04bf48"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-2/ja:りょうり",
+      "en": "Listen and build the word for 'cooking'",
+      "enSourceHash": "ef499f8362a81b43"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-3/en:0183e8d454c42f72",
+      "en": "hya",
+      "enSourceHash": "0183e8d454c42f72"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-3/en:1becc4cf4b858dda",
+      "en": "hyo",
+      "enSourceHash": "1becc4cf4b858dda"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-3/en:2b9b5345eee88c1f",
+      "en": "Yōon rare — Review",
+      "enSourceHash": "2b9b5345eee88c1f"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-3/en:2c8fa1889c442769",
+      "en": "How do you say \"moon\" in Japanese?",
+      "enSourceHash": "2c8fa1889c442769"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-3/en:4728bedb58571632",
+      "en": "Match the kana to their sounds",
+      "enSourceHash": "4728bedb58571632"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-3/en:5109f6dc636d7068",
+      "en": "yu",
+      "enSourceHash": "5109f6dc636d7068"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-3/en:53b2946160fcd21c",
+      "en": "ryo",
+      "enSourceHash": "53b2946160fcd21c"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-3/en:7fcf2536f185d8f8",
+      "en": "The other alphabet — katakana",
+      "enSourceHash": "7fcf2536f185d8f8"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-3/en:8cbf9155af9d9c9b",
+      "en": "How do you say \"mountain\" in Japanese?",
+      "enSourceHash": "8cbf9155af9d9c9b"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-3/en:a0f4101a1000dc86",
+      "en": "Held vowels — two beats, one sound",
+      "enSourceHash": "a0f4101a1000dc86"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-3/en:a691b6bc04f1996c",
+      "en": "nyu",
+      "enSourceHash": "a691b6bc04f1996c"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-3/en:b57b4a310c318d76",
+      "en": "ryu",
+      "enSourceHash": "b57b4a310c318d76"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-3/en:b5dcec23df8d9d66",
+      "en": "rya",
+      "enSourceHash": "b5dcec23df8d9d66"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-3/en:bdeda9f3830afcb6",
+      "en": "How do you say \"cooking\" in Japanese?",
+      "enSourceHash": "bdeda9f3830afcb6"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-3/en:d18b0f124bf881ae",
+      "en": "nyo",
+      "enSourceHash": "d18b0f124bf881ae"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-3/en:d1eb829add783674",
+      "en": "How do you say \"hundred\" in Japanese?",
+      "enSourceHash": "d1eb829add783674"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-rare-3/en:e7a00e53bd04bf48",
+      "en": "nya",
+      "enSourceHash": "e7a00e53bd04bf48"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-1/en:1f3aec7c35c1441c",
+      "en": "sho",
+      "enSourceHash": "1f3aec7c35c1441c"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-1/en:5e23cb6f1dedf108",
+      "en": "Yōon sh + ch — Intro",
+      "enSourceHash": "5e23cb6f1dedf108"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-1/en:9f040b2618f042f0",
+      "en": "sh + ch yōon",
+      "enSourceHash": "9f040b2618f042f0"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-1/en:bef9a0ab123c0575",
+      "en": "shu",
+      "enSourceHash": "bef9a0ab123c0575"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-1/en:d600474b1b8e50d3",
+      "en": "sha",
+      "enSourceHash": "d600474b1b8e50d3"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-1/en:d602c74b86c96b8e",
+      "en": "cha",
+      "enSourceHash": "d602c74b86c96b8e"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-1/ja:しゃしん",
+      "en": "Listen and build the word for 'photo'",
+      "enSourceHash": "0f82e547a03afd8d"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-2/en:1f3aec7c35c1441c",
+      "en": "sho",
+      "enSourceHash": "1f3aec7c35c1441c"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-2/en:4728bedb58571632",
+      "en": "Match the kana to their sounds",
+      "enSourceHash": "4728bedb58571632"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-2/en:55c64d0fcd6f9d5f",
+      "en": "photo",
+      "enSourceHash": "55c64d0fcd6f9d5f"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-2/en:560c48d6c73e72bd",
+      "en": "cho",
+      "enSourceHash": "560c48d6c73e72bd"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-2/en:6eff9efbe9ec4716",
+      "en": "chu",
+      "enSourceHash": "6eff9efbe9ec4716"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-2/en:8c8a76f28ba13080",
+      "en": "Yōon sh + ch — Practice",
+      "enSourceHash": "8c8a76f28ba13080"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-2/en:96731d4c676d5473",
+      "en": "How do you say \"tea\" in Japanese?",
+      "enSourceHash": "96731d4c676d5473"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-2/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-2/en:bef9a0ab123c0575",
+      "en": "shu",
+      "enSourceHash": "bef9a0ab123c0575"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-2/en:d600474b1b8e50d3",
+      "en": "sha",
+      "enSourceHash": "d600474b1b8e50d3"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-2/en:d602c74b86c96b8e",
+      "en": "cha",
+      "enSourceHash": "d602c74b86c96b8e"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-2/en:dd832404e8eeb907",
+      "en": "cucumber",
+      "enSourceHash": "dd832404e8eeb907"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-2/en:e0f4f767ac88a930",
+      "en": "today",
+      "enSourceHash": "e0f4f767ac88a930"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-2/en:f9efeeddfa75fe58",
+      "en": "How do you say \"photo\" in Japanese?",
+      "enSourceHash": "f9efeeddfa75fe58"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-2/ja:おちゃ",
+      "en": "Listen and build the word for 'tea'",
+      "enSourceHash": "1817e3552c9e300b"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-3/en:1f3aec7c35c1441c",
+      "en": "sho",
+      "enSourceHash": "1f3aec7c35c1441c"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-3/en:26788fd99a26aa97",
+      "en": "How do you say \"flower\" in Japanese?",
+      "enSourceHash": "26788fd99a26aa97"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-3/en:4728bedb58571632",
+      "en": "Match the kana to their sounds",
+      "enSourceHash": "4728bedb58571632"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-3/en:4c5db38fd95c76dc",
+      "en": "Yōon sh + ch — Review",
+      "enSourceHash": "4c5db38fd95c76dc"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-3/en:560c48d6c73e72bd",
+      "en": "cho",
+      "enSourceHash": "560c48d6c73e72bd"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-3/en:6eff9efbe9ec4716",
+      "en": "chu",
+      "enSourceHash": "6eff9efbe9ec4716"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-3/en:79c0284015ccf976",
+      "en": "How do you say \"eye\" in Japanese?",
+      "enSourceHash": "79c0284015ccf976"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-3/en:96731d4c676d5473",
+      "en": "How do you say \"tea\" in Japanese?",
+      "enSourceHash": "96731d4c676d5473"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-3/en:bef9a0ab123c0575",
+      "en": "shu",
+      "enSourceHash": "bef9a0ab123c0575"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-3/en:d600474b1b8e50d3",
+      "en": "sha",
+      "enSourceHash": "d600474b1b8e50d3"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-3/en:d602c74b86c96b8e",
+      "en": "cha",
+      "enSourceHash": "d602c74b86c96b8e"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-sh-ch-3/en:f9efeeddfa75fe58",
+      "en": "How do you say \"photo\" in Japanese?",
+      "enSourceHash": "f9efeeddfa75fe58"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-1/en:22a35d01dbca353a",
+      "en": "gya",
+      "enSourceHash": "22a35d01dbca353a"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-1/en:27c47b28fb5f4545",
+      "en": "ju",
+      "enSourceHash": "27c47b28fb5f4545"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-1/en:3702fc1866630796",
+      "en": "ja",
+      "enSourceHash": "3702fc1866630796"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-1/en:b657429fa1bd79e4",
+      "en": "Yōon voiced — Intro",
+      "enSourceHash": "b657429fa1bd79e4"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-1/en:c278ec5a69c34aac",
+      "en": "jo",
+      "enSourceHash": "c278ec5a69c34aac"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-1/ja:じゅう",
+      "en": "Listen and build the word for 'ten'",
+      "enSourceHash": "7399800086d0a845"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-2/en:22a35d01dbca353a",
+      "en": "gya",
+      "enSourceHash": "22a35d01dbca353a"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-2/en:2335b0321dcf1ad9",
+      "en": "pya",
+      "enSourceHash": "2335b0321dcf1ad9"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-2/en:3702fc1866630796",
+      "en": "ja",
+      "enSourceHash": "3702fc1866630796"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-2/en:4728bedb58571632",
+      "en": "Match the kana to their sounds",
+      "enSourceHash": "4728bedb58571632"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-2/en:5109f6dc636d7068",
+      "en": "yu",
+      "enSourceHash": "5109f6dc636d7068"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-2/en:5e3a77bef903ece6",
+      "en": "pyu",
+      "enSourceHash": "5e3a77bef903ece6"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-2/en:6152d43caa491abe",
+      "en": "gu",
+      "enSourceHash": "6152d43caa491abe"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-2/en:6f104e256a1b16cc",
+      "en": "Yōon voiced — Practice",
+      "enSourceHash": "6f104e256a1b16cc"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-2/en:7ddddb977a416215",
+      "en": "bya",
+      "enSourceHash": "7ddddb977a416215"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-2/en:97f869a4bab9eda4",
+      "en": "gyu",
+      "enSourceHash": "97f869a4bab9eda4"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-2/en:a69f2e1e798a8580",
+      "en": "gyo",
+      "enSourceHash": "a69f2e1e798a8580"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-2/en:d2c404bd20ded1a3",
+      "en": "byu",
+      "enSourceHash": "d2c404bd20ded1a3"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-2/ja:じゅう",
+      "en": "Listen and build the word for 'ten'",
+      "enSourceHash": "7399800086d0a845"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-3/en:15d2f99c1b9b7f5c",
+      "en": "How do you say \"ten\" in Japanese?",
+      "enSourceHash": "15d2f99c1b9b7f5c"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-3/en:22a35d01dbca353a",
+      "en": "gya",
+      "enSourceHash": "22a35d01dbca353a"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-3/en:2335b0321dcf1ad9",
+      "en": "pya",
+      "enSourceHash": "2335b0321dcf1ad9"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-3/en:27c47b28fb5f4545",
+      "en": "ju",
+      "enSourceHash": "27c47b28fb5f4545"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-3/en:3702fc1866630796",
+      "en": "ja",
+      "enSourceHash": "3702fc1866630796"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-3/en:4728bedb58571632",
+      "en": "Match the kana to their sounds",
+      "enSourceHash": "4728bedb58571632"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-3/en:62cc478cb422c06f",
+      "en": "How do you say \"sky\" in Japanese?",
+      "enSourceHash": "62cc478cb422c06f"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-3/en:7ddddb977a416215",
+      "en": "bya",
+      "enSourceHash": "7ddddb977a416215"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-3/en:97f869a4bab9eda4",
+      "en": "gyu",
+      "enSourceHash": "97f869a4bab9eda4"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-3/en:a4cc6440777fe0db",
+      "en": "Yōon voiced — Review",
+      "enSourceHash": "a4cc6440777fe0db"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-3/en:a69f2e1e798a8580",
+      "en": "gyo",
+      "enSourceHash": "a69f2e1e798a8580"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-3/en:c278ec5a69c34aac",
+      "en": "jo",
+      "enSourceHash": "c278ec5a69c34aac"
+    },
+    {
+      "anchor": "m2/ja-m1-yoon-voiced-3/en:f6f28b350bedc8e6",
+      "en": "How do you say \"star\" in Japanese?",
+      "enSourceHash": "f6f28b350bedc8e6"
+    },
+    {
+      "anchor": "m2/ja-m1-z-1/en:33129567e0bd787e",
+      "en": "ze",
+      "enSourceHash": "33129567e0bd787e"
+    },
+    {
+      "anchor": "m2/ja-m1-z-1/en:3c42d9ac9807bbf9",
+      "en": "za",
+      "enSourceHash": "3c42d9ac9807bbf9"
+    },
+    {
+      "anchor": "m2/ja-m1-z-1/en:401694cd261fc9d3",
+      "en": "Voiced s → z — Intro",
+      "enSourceHash": "401694cd261fc9d3"
+    },
+    {
+      "anchor": "m2/ja-m1-z-1/en:82cefa8283d30fda",
+      "en": "zu",
+      "enSourceHash": "82cefa8283d30fda"
+    },
+    {
+      "anchor": "m2/ja-m1-z-1/en:bddf2d2528c7bbf5",
+      "en": "ji",
+      "enSourceHash": "bddf2d2528c7bbf5"
+    },
+    {
+      "anchor": "m2/ja-m1-z-1/en:f5c2deaa37b800f0",
+      "en": "S → Z (with one twist)",
+      "enSourceHash": "f5c2deaa37b800f0"
+    },
+    {
+      "anchor": "m2/ja-m1-z-1/ja:みず",
+      "en": "Listen and build the word for 'water'",
+      "enSourceHash": "6a5f1ce1d424ddd4"
+    },
+    {
+      "anchor": "m2/ja-m1-z-2/en:0f4168490e38b844",
+      "en": "water",
+      "enSourceHash": "0f4168490e38b844"
+    },
+    {
+      "anchor": "m2/ja-m1-z-2/en:33129567e0bd787e",
+      "en": "ze",
+      "enSourceHash": "33129567e0bd787e"
+    },
+    {
+      "anchor": "m2/ja-m1-z-2/en:336074805fc85398",
+      "en": "time",
+      "enSourceHash": "336074805fc85398"
+    },
+    {
+      "anchor": "m2/ja-m1-z-2/en:3c42d9ac9807bbf9",
+      "en": "za",
+      "enSourceHash": "3c42d9ac9807bbf9"
+    },
+    {
+      "anchor": "m2/ja-m1-z-2/en:4728bedb58571632",
+      "en": "Match the kana to their sounds",
+      "enSourceHash": "4728bedb58571632"
+    },
+    {
+      "anchor": "m2/ja-m1-z-2/en:4917e75f2b24614d",
+      "en": "How do you say \"wind\" in Japanese?",
+      "enSourceHash": "4917e75f2b24614d"
+    },
+    {
+      "anchor": "m2/ja-m1-z-2/en:6663103a3e47efc8",
+      "en": "ya",
+      "enSourceHash": "6663103a3e47efc8"
+    },
+    {
+      "anchor": "m2/ja-m1-z-2/en:82cefa8283d30fda",
+      "en": "zu",
+      "enSourceHash": "82cefa8283d30fda"
+    },
+    {
+      "anchor": "m2/ja-m1-z-2/en:9b58e68145a79ca0",
+      "en": "wind",
+      "enSourceHash": "9b58e68145a79ca0"
+    },
+    {
+      "anchor": "m2/ja-m1-z-2/en:aabf7a24fc146222",
+      "en": "Voiced s → z — Practice",
+      "enSourceHash": "aabf7a24fc146222"
+    },
+    {
+      "anchor": "m2/ja-m1-z-2/en:bddf2d2528c7bbf5",
+      "en": "ji",
+      "enSourceHash": "bddf2d2528c7bbf5"
+    },
+    {
+      "anchor": "m2/ja-m1-z-2/en:bf5ee7cc61e1dae3",
+      "en": "How do you say \"water\" in Japanese?",
+      "enSourceHash": "bf5ee7cc61e1dae3"
+    },
+    {
+      "anchor": "m2/ja-m1-z-2/en:cd08c4c4316df20d",
+      "en": "elephant",
+      "enSourceHash": "cd08c4c4316df20d"
+    },
+    {
+      "anchor": "m2/ja-m1-z-2/en:ed4771b3e3a8fe6f",
+      "en": "zo",
+      "enSourceHash": "ed4771b3e3a8fe6f"
+    },
+    {
+      "anchor": "m2/ja-m1-z-2/ja:かぜ",
+      "en": "Listen and build the word for 'wind'",
+      "enSourceHash": "4ed973082fa69405"
+    },
+    {
+      "anchor": "m2/ja-m1-z-3/en:33129567e0bd787e",
+      "en": "ze",
+      "enSourceHash": "33129567e0bd787e"
+    },
+    {
+      "anchor": "m2/ja-m1-z-3/en:3b7bc11d91b54d33",
+      "en": "How do you say \"time\" in Japanese?",
+      "enSourceHash": "3b7bc11d91b54d33"
+    },
+    {
+      "anchor": "m2/ja-m1-z-3/en:3c42d9ac9807bbf9",
+      "en": "za",
+      "enSourceHash": "3c42d9ac9807bbf9"
+    },
+    {
+      "anchor": "m2/ja-m1-z-3/en:4728bedb58571632",
+      "en": "Match the kana to their sounds",
+      "enSourceHash": "4728bedb58571632"
+    },
+    {
+      "anchor": "m2/ja-m1-z-3/en:4917e75f2b24614d",
+      "en": "How do you say \"wind\" in Japanese?",
+      "enSourceHash": "4917e75f2b24614d"
+    },
+    {
+      "anchor": "m2/ja-m1-z-3/en:6663103a3e47efc8",
+      "en": "ya",
+      "enSourceHash": "6663103a3e47efc8"
+    },
+    {
+      "anchor": "m2/ja-m1-z-3/en:77a5564e4a6cd162",
+      "en": "How do you say \"cat\" in Japanese?",
+      "enSourceHash": "77a5564e4a6cd162"
+    },
+    {
+      "anchor": "m2/ja-m1-z-3/en:79c0284015ccf976",
+      "en": "How do you say \"eye\" in Japanese?",
+      "enSourceHash": "79c0284015ccf976"
+    },
+    {
+      "anchor": "m2/ja-m1-z-3/en:82cefa8283d30fda",
+      "en": "zu",
+      "enSourceHash": "82cefa8283d30fda"
+    },
+    {
+      "anchor": "m2/ja-m1-z-3/en:bddf2d2528c7bbf5",
+      "en": "ji",
+      "enSourceHash": "bddf2d2528c7bbf5"
+    },
+    {
+      "anchor": "m2/ja-m1-z-3/en:e4d9e7661a01a3e8",
+      "en": "Voiced s → z — Review",
+      "enSourceHash": "e4d9e7661a01a3e8"
+    },
+    {
+      "anchor": "m2/ja-m1-z-3/en:e7e92e6c9323c77e",
+      "en": "How do you say \"elephant\" in Japanese?",
+      "enSourceHash": "e7e92e6c9323c77e"
+    },
+    {
+      "anchor": "m2/ja-m1-z-3/en:ed4771b3e3a8fe6f",
+      "en": "zo",
+      "enSourceHash": "ed4771b3e3a8fe6f"
+    },
+    {
+      "anchor": "m2/ja-m2-recap/en:d30f93bf2da43afe",
+      "en": "Module 2 · Voicing — Recap",
+      "enSourceHash": "d30f93bf2da43afe"
+    }
+  ]
+}

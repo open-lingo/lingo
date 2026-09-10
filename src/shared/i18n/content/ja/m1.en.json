@@ -1,0 +1,1814 @@
+{
+  "schema": 1,
+  "moduleId": "m1",
+  "lang": "ja",
+  "generatedAt": "2026-09-10",
+  "entryCount": 361,
+  "entries": [
+    {
+      "anchor": "m1/atom:あい/gloss",
+      "en": "love",
+      "enSourceHash": "686f746a95b6f836"
+    },
+    {
+      "anchor": "m1/atom:あおい/gloss",
+      "en": "blue",
+      "enSourceHash": "16477688c0e00699"
+    },
+    {
+      "anchor": "m1/atom:あさ/gloss",
+      "en": "morning",
+      "enSourceHash": "c23b31a0179b550f"
+    },
+    {
+      "anchor": "m1/atom:いいえ/gloss",
+      "en": "no",
+      "enSourceHash": "9390298f3fb0c5b1"
+    },
+    {
+      "anchor": "m1/atom:いえ/gloss",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m1/atom:いけ/gloss",
+      "en": "pond",
+      "enSourceHash": "4e7914b0df8068b7"
+    },
+    {
+      "anchor": "m1/atom:いぬ/gloss",
+      "en": "dog",
+      "enSourceHash": "cd6357efdd966de8"
+    },
+    {
+      "anchor": "m1/atom:いろ/gloss",
+      "en": "color",
+      "enSourceHash": "74284d9dcbcc0992"
+    },
+    {
+      "anchor": "m1/atom:うえ/gloss",
+      "en": "on top of",
+      "enSourceHash": "1fba66d7c9b2768c"
+    },
+    {
+      "anchor": "m1/atom:うそ/gloss",
+      "en": "a lie",
+      "enSourceHash": "11d44dc85b9821c6"
+    },
+    {
+      "anchor": "m1/atom:うた/gloss",
+      "en": "song",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m1/atom:うま/gloss",
+      "en": "horse",
+      "enSourceHash": "fd62862b6dc213be"
+    },
+    {
+      "anchor": "m1/atom:えき/gloss",
+      "en": "station",
+      "enSourceHash": "9b4ef3e5b7b4d175"
+    },
+    {
+      "anchor": "m1/atom:かい/gloss",
+      "en": "shell",
+      "enSourceHash": "ce635c4eabff5e4f"
+    },
+    {
+      "anchor": "m1/atom:かお/gloss",
+      "en": "face",
+      "enSourceHash": "0282d9b79f42c74c"
+    },
+    {
+      "anchor": "m1/atom:かめ/gloss",
+      "en": "turtle",
+      "enSourceHash": "74dd730b5c36c1cb"
+    },
+    {
+      "anchor": "m1/atom:かわ/gloss",
+      "en": "river",
+      "enSourceHash": "5f5a8ed8f139be6d"
+    },
+    {
+      "anchor": "m1/atom:きのこ/gloss",
+      "en": "mushroom",
+      "enSourceHash": "5ef2c394d5b63e41"
+    },
+    {
+      "anchor": "m1/atom:こえ/gloss",
+      "en": "voice",
+      "enSourceHash": "c57d7e92019708b6"
+    },
+    {
+      "anchor": "m1/atom:これ/gloss",
+      "en": "this",
+      "enSourceHash": "1eb79602411ef02c"
+    },
+    {
+      "anchor": "m1/atom:これ/shortGloss",
+      "en": "this (by me)",
+      "enSourceHash": "755d07a8b350b42e"
+    },
+    {
+      "anchor": "m1/atom:さくら/gloss",
+      "en": "cherry blossom",
+      "enSourceHash": "aaa40dd48e44ccfe"
+    },
+    {
+      "anchor": "m1/atom:すし/gloss",
+      "en": "Sushi",
+      "enSourceHash": "670bd9ced0c6bc3f"
+    },
+    {
+      "anchor": "m1/atom:そら/gloss",
+      "en": "sky",
+      "enSourceHash": "05f514fae7ca5710"
+    },
+    {
+      "anchor": "m1/atom:つき/gloss",
+      "en": "moon",
+      "enSourceHash": "9e78b43ea00edcac"
+    },
+    {
+      "anchor": "m1/atom:とけい/gloss",
+      "en": "watch, clock",
+      "enSourceHash": "9e6a483a100d3c76"
+    },
+    {
+      "anchor": "m1/atom:なに/gloss",
+      "en": "what",
+      "enSourceHash": "749ab2c0d06c42ae"
+    },
+    {
+      "anchor": "m1/atom:ねこ/gloss",
+      "en": "cat",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m1/atom:はな/gloss",
+      "en": "flower",
+      "enSourceHash": "c06b0cfe0cc5e900"
+    },
+    {
+      "anchor": "m1/atom:ひと/gloss",
+      "en": "person",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m1/atom:ふね/gloss",
+      "en": "boat",
+      "enSourceHash": "25cdb46d8d2115a2"
+    },
+    {
+      "anchor": "m1/atom:ほし/gloss",
+      "en": "star",
+      "enSourceHash": "525eca1d5089dbdc"
+    },
+    {
+      "anchor": "m1/atom:ほん/gloss",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m1/atom:もも/gloss",
+      "en": "peach",
+      "enSourceHash": "85356064d03872ac"
+    },
+    {
+      "anchor": "m1/atom:やま/gloss",
+      "en": "mountain",
+      "enSourceHash": "3b80d38f7686a8b5"
+    },
+    {
+      "anchor": "m1/atom:ゆき/gloss",
+      "en": "snow",
+      "enSourceHash": "a746222f09d85605"
+    },
+    {
+      "anchor": "m1/atom:よむ/gloss",
+      "en": "to read",
+      "enSourceHash": "3909c2f0b16a018d"
+    },
+    {
+      "anchor": "m1/atom:わたし/gloss",
+      "en": "I/me",
+      "enSourceHash": "37cdd361150bd289"
+    },
+    {
+      "anchor": "m1/gp:step:ja-ka3-info-desu-ka/ex:かお です",
+      "en": "It's a face.",
+      "enSourceHash": "868dd53d0aae43dc"
+    },
+    {
+      "anchor": "m1/gp:step:ja-ka3-info-desu-ka/ex:かお ですか",
+      "en": "Is it a face?",
+      "enSourceHash": "d74e2c7e05b62153"
+    },
+    {
+      "anchor": "m1/gp:step:ja-wa2-info-0/ex:みず を のむ",
+      "en": "I drink water.",
+      "enSourceHash": "4e3c12d2882c7209"
+    },
+    {
+      "anchor": "m1/gp:step:ja-wa2-info-0/ex:パン を たべる",
+      "en": "I eat bread.",
+      "enSourceHash": "711bbf6bca1eaf7b"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-1/en:372f7e2fd2d01ce2",
+      "en": "he",
+      "enSourceHash": "372f7e2fd2d01ce2"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-1/en:76194369f7d5822e",
+      "en": "Ha-row — Intro 1",
+      "enSourceHash": "76194369f7d5822e"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-1/en:8693873cd8f8a2d9",
+      "en": "ha",
+      "enSourceHash": "8693873cd8f8a2d9"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-1/en:8f434346648f6b96",
+      "en": "hi",
+      "enSourceHash": "8f434346648f6b96"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-1/en:a4d0ef23161b5b7c",
+      "en": "fu",
+      "enSourceHash": "a4d0ef23161b5b7c"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-1/en:a821c62e8104f851",
+      "en": "ho",
+      "enSourceHash": "a821c62e8104f851"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-1/ja:ひと",
+      "en": "Listen and build the word for 'person'",
+      "enSourceHash": "593a9d3678139b43"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-2/en:25cdb46d8d2115a2",
+      "en": "boat",
+      "enSourceHash": "25cdb46d8d2115a2"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-2/en:34824682886c16ef",
+      "en": "Ha-row — Intro 2",
+      "enSourceHash": "34824682886c16ef"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-2/en:372f7e2fd2d01ce2",
+      "en": "he",
+      "enSourceHash": "372f7e2fd2d01ce2"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-2/en:38a81e87e79631e6",
+      "en": "person",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-2/en:525eca1d5089dbdc",
+      "en": "star",
+      "enSourceHash": "525eca1d5089dbdc"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-2/en:63f75c890b05405e",
+      "en": "song",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-2/en:77af778b51abd4a3",
+      "en": "cat",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-2/en:8693873cd8f8a2d9",
+      "en": "ha",
+      "enSourceHash": "8693873cd8f8a2d9"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-2/en:88d178d728e8394f",
+      "en": "ku",
+      "enSourceHash": "88d178d728e8394f"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-2/en:8f434346648f6b96",
+      "en": "hi",
+      "enSourceHash": "8f434346648f6b96"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-2/en:9e78b43ea00edcac",
+      "en": "moon",
+      "enSourceHash": "9e78b43ea00edcac"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-2/en:a4d0ef23161b5b7c",
+      "en": "fu",
+      "enSourceHash": "a4d0ef23161b5b7c"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-2/ja:ふね",
+      "en": "Listen and build the word for 'boat'",
+      "enSourceHash": "8d1dbeb6b6c9ef89"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-3/en:0a64ce10853f25cb",
+      "en": "su",
+      "enSourceHash": "0a64ce10853f25cb"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-3/en:117f124c9780aa73",
+      "en": "Ha-row — Review",
+      "enSourceHash": "117f124c9780aa73"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-3/en:25cdb46d8d2115a2",
+      "en": "boat",
+      "enSourceHash": "25cdb46d8d2115a2"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-3/en:38a81e87e79631e6",
+      "en": "person",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-3/en:525eca1d5089dbdc",
+      "en": "star",
+      "enSourceHash": "525eca1d5089dbdc"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-3/en:77af778b51abd4a3",
+      "en": "cat",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-3/en:8e5202705183bd3a",
+      "en": "ke",
+      "enSourceHash": "8e5202705183bd3a"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-3/en:9390298f3fb0c5b1",
+      "en": "no",
+      "enSourceHash": "9390298f3fb0c5b1"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-3/en:ca978112ca1bbdca",
+      "en": "a",
+      "enSourceHash": "ca978112ca1bbdca"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-3/ja:うえ",
+      "en": "Build the word for 'above'",
+      "enSourceHash": "b8eb006dd49b6da2"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-3/ja:ほし",
+      "en": "Listen and build the word for 'star'",
+      "enSourceHash": "3f60a3cdb985ceca"
+    },
+    {
+      "anchor": "m1/ja-m1-ha-3/ja:ほし です",
+      "en": "Build: 'It's a star.'",
+      "enSourceHash": "bf32f8daa4b2c036"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-1/en:2b84b2a9020f8b08",
+      "en": "ki",
+      "enSourceHash": "2b84b2a9020f8b08"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-1/en:3ebb1c99b12b7746",
+      "en": "ka",
+      "enSourceHash": "3ebb1c99b12b7746"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-1/en:70a5771f00ddf754",
+      "en": "Ka-row — Intro 1",
+      "enSourceHash": "70a5771f00ddf754"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-1/en:88d178d728e8394f",
+      "en": "ku",
+      "enSourceHash": "88d178d728e8394f"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-1/en:8e5202705183bd3a",
+      "en": "ke",
+      "enSourceHash": "8e5202705183bd3a"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-1/ja:かい",
+      "en": "Listen and build the word for 'shell'",
+      "enSourceHash": "ebea3dc25d8fe306"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-2/en:0282d9b79f42c74c",
+      "en": "face",
+      "enSourceHash": "0282d9b79f42c74c"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-2/en:06a79c3640b9d3f0",
+      "en": "Ka-row — Intro 2",
+      "enSourceHash": "06a79c3640b9d3f0"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-2/en:2b84b2a9020f8b08",
+      "en": "ki",
+      "enSourceHash": "2b84b2a9020f8b08"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-2/en:3ebb1c99b12b7746",
+      "en": "ka",
+      "enSourceHash": "3ebb1c99b12b7746"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-2/en:4e7914b0df8068b7",
+      "en": "pond",
+      "enSourceHash": "4e7914b0df8068b7"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-2/en:88d178d728e8394f",
+      "en": "ku",
+      "enSourceHash": "88d178d728e8394f"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-2/en:8e5202705183bd3a",
+      "en": "ke",
+      "enSourceHash": "8e5202705183bd3a"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-2/en:9b4ef3e5b7b4d175",
+      "en": "station",
+      "enSourceHash": "9b4ef3e5b7b4d175"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-2/en:c57d7e92019708b6",
+      "en": "voice",
+      "enSourceHash": "c57d7e92019708b6"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-2/en:ce635c4eabff5e4f",
+      "en": "shell",
+      "enSourceHash": "ce635c4eabff5e4f"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-2/ja:いけ",
+      "en": "Listen and build the word for 'pond'",
+      "enSourceHash": "f35e69cb83dee0ec"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-3/en:0282d9b79f42c74c",
+      "en": "face",
+      "enSourceHash": "0282d9b79f42c74c"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-3/en:3d8ae9f801bbcea1",
+      "en": "How do you say \"voice\" in Japanese?",
+      "enSourceHash": "3d8ae9f801bbcea1"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-3/en:3f79bb7b435b0532",
+      "en": "e",
+      "enSourceHash": "3f79bb7b435b0532"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-3/en:4e7914b0df8068b7",
+      "en": "pond",
+      "enSourceHash": "4e7914b0df8068b7"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-3/en:65c74c15a686187b",
+      "en": "o",
+      "enSourceHash": "65c74c15a686187b"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-3/en:c57d7e92019708b6",
+      "en": "voice",
+      "enSourceHash": "c57d7e92019708b6"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-3/en:ca978112ca1bbdca",
+      "en": "a",
+      "enSourceHash": "ca978112ca1bbdca"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-3/en:ce635c4eabff5e4f",
+      "en": "shell",
+      "enSourceHash": "ce635c4eabff5e4f"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-3/en:d5690739f0d291c6",
+      "en": "Ka-row — Review",
+      "enSourceHash": "d5690739f0d291c6"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-3/en:de7d1b721a1e0632",
+      "en": "i",
+      "enSourceHash": "de7d1b721a1e0632"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-3/ja:あい",
+      "en": "Build the word for 'love'",
+      "enSourceHash": "be84262743287d02"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-3/ja:かお です",
+      "en": "Build: 'It's a face.'",
+      "enSourceHash": "ce0c9555970302ff"
+    },
+    {
+      "anchor": "m1/ja-m1-ka-3/ja:こえ",
+      "en": "Listen and build the word for 'voice'",
+      "enSourceHash": "0992c0358459f11b"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-1/en:16477688c0e00699",
+      "en": "blue",
+      "enSourceHash": "16477688c0e00699"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-1/en:2a51c800506c91b8",
+      "en": "to say",
+      "enSourceHash": "2a51c800506c91b8"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-1/en:686f746a95b6f836",
+      "en": "love",
+      "enSourceHash": "686f746a95b6f836"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-1/en:88c7f08d0be5407e",
+      "en": "above",
+      "enSourceHash": "88c7f08d0be5407e"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-1/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-1/ja:あい",
+      "en": "Listen and build the word for 'love'",
+      "enSourceHash": "b54cd3baa6225ec4"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-1/ja:いう",
+      "en": "Listen and build the word for 'to say'",
+      "enSourceHash": "f13d8ed9629ec09b"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-2/en:0bfe935e70c321c7",
+      "en": "u",
+      "enSourceHash": "0bfe935e70c321c7"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-2/en:16477688c0e00699",
+      "en": "blue",
+      "enSourceHash": "16477688c0e00699"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-2/en:65c74c15a686187b",
+      "en": "o",
+      "enSourceHash": "65c74c15a686187b"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-2/en:686f746a95b6f836",
+      "en": "love",
+      "enSourceHash": "686f746a95b6f836"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-2/en:88c7f08d0be5407e",
+      "en": "above",
+      "enSourceHash": "88c7f08d0be5407e"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-2/en:ca978112ca1bbdca",
+      "en": "a",
+      "enSourceHash": "ca978112ca1bbdca"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-2/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-2/en:de7d1b721a1e0632",
+      "en": "i",
+      "enSourceHash": "de7d1b721a1e0632"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-2/ja:あおい",
+      "en": "Listen and build the word for 'blue'",
+      "enSourceHash": "296a1bbd70ea001d"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-2/ja:いえ",
+      "en": "Listen and build the word for 'house'",
+      "enSourceHash": "54c99fca653215c7"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-2/ja:うえ",
+      "en": "Listen and build the word for 'above'",
+      "enSourceHash": "ed10c4e1d17f5f9d"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/en:0bfe935e70c321c7",
+      "en": "u",
+      "enSourceHash": "0bfe935e70c321c7"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/en:16477688c0e00699",
+      "en": "blue",
+      "enSourceHash": "16477688c0e00699"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/en:2d1c763271a52a39",
+      "en": "Vowels — Full Review",
+      "enSourceHash": "2d1c763271a52a39"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/en:3f79bb7b435b0532",
+      "en": "e",
+      "enSourceHash": "3f79bb7b435b0532"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/en:602825fa6187b12b",
+      "en": "Match each kana to its sound",
+      "enSourceHash": "602825fa6187b12b"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/en:65c74c15a686187b",
+      "en": "o",
+      "enSourceHash": "65c74c15a686187b"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/en:686f746a95b6f836",
+      "en": "love",
+      "enSourceHash": "686f746a95b6f836"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/en:88c7f08d0be5407e",
+      "en": "above",
+      "enSourceHash": "88c7f08d0be5407e"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/en:9390298f3fb0c5b1",
+      "en": "no",
+      "enSourceHash": "9390298f3fb0c5b1"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/en:ca978112ca1bbdca",
+      "en": "a",
+      "enSourceHash": "ca978112ca1bbdca"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/en:de7d1b721a1e0632",
+      "en": "i",
+      "enSourceHash": "de7d1b721a1e0632"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/ja:あい",
+      "en": "Listen and build the word for 'love'",
+      "enSourceHash": "b54cd3baa6225ec4"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/ja:あおい",
+      "en": "Listen and build the word for 'blue'",
+      "enSourceHash": "296a1bbd70ea001d"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/ja:いいえ",
+      "en": "Listen and build the word for 'no'",
+      "enSourceHash": "164e690c316b069f"
+    },
+    {
+      "anchor": "m1/ja-m1-l1-3/ja:いえ",
+      "en": "Listen and build the word for 'house'",
+      "enSourceHash": "54c99fca653215c7"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-1/en:19503ea6785ee124",
+      "en": "mu",
+      "enSourceHash": "19503ea6785ee124"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-1/en:2744ccd10c7533bd",
+      "en": "me",
+      "enSourceHash": "2744ccd10c7533bd"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-1/en:3c44c3e1b8b78447",
+      "en": "ma",
+      "enSourceHash": "3c44c3e1b8b78447"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-1/en:a821c62e8104f851",
+      "en": "ho",
+      "enSourceHash": "a821c62e8104f851"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-1/en:eee1c1ade6525d24",
+      "en": "mi",
+      "enSourceHash": "eee1c1ade6525d24"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-1/en:f4a4ce5fa6340a35",
+      "en": "mo",
+      "enSourceHash": "f4a4ce5fa6340a35"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-1/en:f9650a4bde3f1885",
+      "en": "Ma-row — Intro 1",
+      "enSourceHash": "f9650a4bde3f1885"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-1/ja:うま",
+      "en": "Listen and build the word for 'horse'",
+      "enSourceHash": "a3ffe54895788f2e"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:0a64ce10853f25cb",
+      "en": "su",
+      "enSourceHash": "0a64ce10853f25cb"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:19503ea6785ee124",
+      "en": "mu",
+      "enSourceHash": "19503ea6785ee124"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:25cdb46d8d2115a2",
+      "en": "boat",
+      "enSourceHash": "25cdb46d8d2115a2"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:2744ccd10c7533bd",
+      "en": "me",
+      "enSourceHash": "2744ccd10c7533bd"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:3086cf468ccca87c",
+      "en": "nu",
+      "enSourceHash": "3086cf468ccca87c"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:38a81e87e79631e6",
+      "en": "person",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:3c44c3e1b8b78447",
+      "en": "ma",
+      "enSourceHash": "3c44c3e1b8b78447"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:5ef2c394d5b63e41",
+      "en": "mushroom",
+      "enSourceHash": "5ef2c394d5b63e41"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:74dd730b5c36c1cb",
+      "en": "turtle",
+      "enSourceHash": "74dd730b5c36c1cb"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:77af778b51abd4a3",
+      "en": "cat",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:870288c8799bfb67",
+      "en": "Ma-row — Intro 2",
+      "enSourceHash": "870288c8799bfb67"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:9390298f3fb0c5b1",
+      "en": "no",
+      "enSourceHash": "9390298f3fb0c5b1"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:9e78b43ea00edcac",
+      "en": "moon",
+      "enSourceHash": "9e78b43ea00edcac"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:eee1c1ade6525d24",
+      "en": "mi",
+      "enSourceHash": "eee1c1ade6525d24"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/en:fd62862b6dc213be",
+      "en": "horse",
+      "enSourceHash": "fd62862b6dc213be"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-2/ja:かめ",
+      "en": "Listen and build the word for 'turtle'",
+      "enSourceHash": "48e3c34607a7d847"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-3/en:2d6c9a90dd38f685",
+      "en": "te",
+      "enSourceHash": "2d6c9a90dd38f685"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-3/en:4db03a277cfb9ef4",
+      "en": "ni",
+      "enSourceHash": "4db03a277cfb9ef4"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-3/en:9390298f3fb0c5b1",
+      "en": "no",
+      "enSourceHash": "9390298f3fb0c5b1"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-3/en:a821c62e8104f851",
+      "en": "ho",
+      "enSourceHash": "a821c62e8104f851"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-3/en:ac1025b2a9dedaed",
+      "en": "Ma-row — Review",
+      "enSourceHash": "ac1025b2a9dedaed"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-3/ja:うま ですか",
+      "en": "Build the question: 'Is it a horse?'",
+      "enSourceHash": "8585dc14db638fd0"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-3/ja:ひと",
+      "en": "Build the word for 'person'",
+      "enSourceHash": "ae781c7c7d94720a"
+    },
+    {
+      "anchor": "m1/ja-m1-ma-3/ja:もも",
+      "en": "Listen and build the word for 'peach'",
+      "enSourceHash": "42c4481f0534764a"
+    },
+    {
+      "anchor": "m1/ja-m1-na-1/en:1fdbc74ccfd68d07",
+      "en": "ko",
+      "enSourceHash": "1fdbc74ccfd68d07"
+    },
+    {
+      "anchor": "m1/ja-m1-na-1/en:3086cf468ccca87c",
+      "en": "nu",
+      "enSourceHash": "3086cf468ccca87c"
+    },
+    {
+      "anchor": "m1/ja-m1-na-1/en:3d9fc4bde7ceef05",
+      "en": "na",
+      "enSourceHash": "3d9fc4bde7ceef05"
+    },
+    {
+      "anchor": "m1/ja-m1-na-1/en:4c9554f3ecdd390a",
+      "en": "Na-row — Intro 1",
+      "enSourceHash": "4c9554f3ecdd390a"
+    },
+    {
+      "anchor": "m1/ja-m1-na-1/en:4db03a277cfb9ef4",
+      "en": "ni",
+      "enSourceHash": "4db03a277cfb9ef4"
+    },
+    {
+      "anchor": "m1/ja-m1-na-1/en:76592b9de6d38238",
+      "en": "ta",
+      "enSourceHash": "76592b9de6d38238"
+    },
+    {
+      "anchor": "m1/ja-m1-na-1/ja:なに",
+      "en": "Listen and build the word for 'what'",
+      "enSourceHash": "efd6e44334ff5a62"
+    },
+    {
+      "anchor": "m1/ja-m1-na-2/en:3086cf468ccca87c",
+      "en": "nu",
+      "enSourceHash": "3086cf468ccca87c"
+    },
+    {
+      "anchor": "m1/ja-m1-na-2/en:3d9fc4bde7ceef05",
+      "en": "na",
+      "enSourceHash": "3d9fc4bde7ceef05"
+    },
+    {
+      "anchor": "m1/ja-m1-na-2/en:4b34166429a49955",
+      "en": "Na-row — Intro 2",
+      "enSourceHash": "4b34166429a49955"
+    },
+    {
+      "anchor": "m1/ja-m1-na-2/en:4db03a277cfb9ef4",
+      "en": "ni",
+      "enSourceHash": "4db03a277cfb9ef4"
+    },
+    {
+      "anchor": "m1/ja-m1-na-2/en:5ef2c394d5b63e41",
+      "en": "mushroom",
+      "enSourceHash": "5ef2c394d5b63e41"
+    },
+    {
+      "anchor": "m1/ja-m1-na-2/en:63f75c890b05405e",
+      "en": "song",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m1/ja-m1-na-2/en:749ab2c0d06c42ae",
+      "en": "what",
+      "enSourceHash": "749ab2c0d06c42ae"
+    },
+    {
+      "anchor": "m1/ja-m1-na-2/en:77af778b51abd4a3",
+      "en": "cat",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m1/ja-m1-na-2/en:9e78b43ea00edcac",
+      "en": "moon",
+      "enSourceHash": "9e78b43ea00edcac"
+    },
+    {
+      "anchor": "m1/ja-m1-na-2/en:ca978112ca1bbdca",
+      "en": "a",
+      "enSourceHash": "ca978112ca1bbdca"
+    },
+    {
+      "anchor": "m1/ja-m1-na-2/en:cb58e4600bf0142c",
+      "en": "ne",
+      "enSourceHash": "cb58e4600bf0142c"
+    },
+    {
+      "anchor": "m1/ja-m1-na-2/en:d8198efa3604d164",
+      "en": "clock",
+      "enSourceHash": "d8198efa3604d164"
+    },
+    {
+      "anchor": "m1/ja-m1-na-2/ja:ねこ",
+      "en": "Listen and build the word for 'cat'",
+      "enSourceHash": "cfc0f106841d3c94"
+    },
+    {
+      "anchor": "m1/ja-m1-na-3/en:5ef2c394d5b63e41",
+      "en": "mushroom",
+      "enSourceHash": "5ef2c394d5b63e41"
+    },
+    {
+      "anchor": "m1/ja-m1-na-3/en:625dbfca3fcaa0ae",
+      "en": "Na-row — Review",
+      "enSourceHash": "625dbfca3fcaa0ae"
+    },
+    {
+      "anchor": "m1/ja-m1-na-3/en:65c74c15a686187b",
+      "en": "o",
+      "enSourceHash": "65c74c15a686187b"
+    },
+    {
+      "anchor": "m1/ja-m1-na-3/en:749ab2c0d06c42ae",
+      "en": "what",
+      "enSourceHash": "749ab2c0d06c42ae"
+    },
+    {
+      "anchor": "m1/ja-m1-na-3/en:77af778b51abd4a3",
+      "en": "cat",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m1/ja-m1-na-3/en:9e78b43ea00edcac",
+      "en": "moon",
+      "enSourceHash": "9e78b43ea00edcac"
+    },
+    {
+      "anchor": "m1/ja-m1-na-3/en:ad9a67fefa847de8",
+      "en": "se",
+      "enSourceHash": "ad9a67fefa847de8"
+    },
+    {
+      "anchor": "m1/ja-m1-na-3/en:ca978112ca1bbdca",
+      "en": "a",
+      "enSourceHash": "ca978112ca1bbdca"
+    },
+    {
+      "anchor": "m1/ja-m1-na-3/en:de7d1b721a1e0632",
+      "en": "i",
+      "enSourceHash": "de7d1b721a1e0632"
+    },
+    {
+      "anchor": "m1/ja-m1-na-3/ja:うた",
+      "en": "Build the word for 'song'",
+      "enSourceHash": "faf7ad277ae7d29a"
+    },
+    {
+      "anchor": "m1/ja-m1-na-3/ja:きのこ",
+      "en": "Listen and build the word for 'mushroom'",
+      "enSourceHash": "8c99ff9a9e81be86"
+    },
+    {
+      "anchor": "m1/ja-m1-na-3/ja:ねこ ですか",
+      "en": "Build the question: 'Is it a cat?'",
+      "enSourceHash": "eb3567f4f1b0b628"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-1/en:0bfe935e70c321c7",
+      "en": "u",
+      "enSourceHash": "0bfe935e70c321c7"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-1/en:37e7702e5ce449c1",
+      "en": "ra",
+      "enSourceHash": "37e7702e5ce449c1"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-1/en:396a14ab206e2b44",
+      "en": "ri",
+      "enSourceHash": "396a14ab206e2b44"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-1/en:7ef9ec0cf2c4faca",
+      "en": "ro",
+      "enSourceHash": "7ef9ec0cf2c4faca"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-1/en:c7454b8592f22050",
+      "en": "Ra-row — Intro 1",
+      "enSourceHash": "c7454b8592f22050"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-1/en:de7d1b721a1e0632",
+      "en": "i",
+      "enSourceHash": "de7d1b721a1e0632"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-1/en:ed5ad332c1060437",
+      "en": "ru",
+      "enSourceHash": "ed5ad332c1060437"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-1/ja:さくら",
+      "en": "Listen and build the word for 'cherry blossom'",
+      "enSourceHash": "5ef4f1c0ce56fe4f"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-2/en:14c1a4a5d970f7da",
+      "en": "Ra-row — Intro 2",
+      "enSourceHash": "14c1a4a5d970f7da"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-2/en:1eb79602411ef02c",
+      "en": "this",
+      "enSourceHash": "1eb79602411ef02c"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-2/en:25cdb46d8d2115a2",
+      "en": "boat",
+      "enSourceHash": "25cdb46d8d2115a2"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-2/en:37e7702e5ce449c1",
+      "en": "ra",
+      "enSourceHash": "37e7702e5ce449c1"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-2/en:396a14ab206e2b44",
+      "en": "ri",
+      "enSourceHash": "396a14ab206e2b44"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-2/en:3ac1ecbd2220c675",
+      "en": "re",
+      "enSourceHash": "3ac1ecbd2220c675"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-2/en:74284d9dcbcc0992",
+      "en": "color",
+      "enSourceHash": "74284d9dcbcc0992"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-2/en:77af778b51abd4a3",
+      "en": "cat",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-2/en:7ef9ec0cf2c4faca",
+      "en": "ro",
+      "enSourceHash": "7ef9ec0cf2c4faca"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-2/en:cb58e4600bf0142c",
+      "en": "ne",
+      "enSourceHash": "cb58e4600bf0142c"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-2/en:ed5ad332c1060437",
+      "en": "ru",
+      "enSourceHash": "ed5ad332c1060437"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-2/ja:これ",
+      "en": "Listen and build the word for 'this'",
+      "enSourceHash": "1b85871c43fff9cd"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-3/en:1eb79602411ef02c",
+      "en": "this",
+      "enSourceHash": "1eb79602411ef02c"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-3/en:3b80d38f7686a8b5",
+      "en": "mountain",
+      "enSourceHash": "3b80d38f7686a8b5"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-3/en:3c44c3e1b8b78447",
+      "en": "ma",
+      "enSourceHash": "3c44c3e1b8b78447"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-3/en:4db03a277cfb9ef4",
+      "en": "ni",
+      "enSourceHash": "4db03a277cfb9ef4"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-3/en:65c74c15a686187b",
+      "en": "o",
+      "enSourceHash": "65c74c15a686187b"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-3/en:74284d9dcbcc0992",
+      "en": "color",
+      "enSourceHash": "74284d9dcbcc0992"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-3/en:8693873cd8f8a2d9",
+      "en": "ha",
+      "enSourceHash": "8693873cd8f8a2d9"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-3/en:a4a4301bf5d5cddf",
+      "en": "Ra-row — Review",
+      "enSourceHash": "a4a4301bf5d5cddf"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-3/en:aaa40dd48e44ccfe",
+      "en": "cherry blossom",
+      "enSourceHash": "aaa40dd48e44ccfe"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-3/ja:いろ",
+      "en": "Listen and build the word for 'color'",
+      "enSourceHash": "4da2dbed212a521f"
+    },
+    {
+      "anchor": "m1/ja-m1-ra-3/ja:ひと",
+      "en": "Build the word for 'person'",
+      "enSourceHash": "ae781c7c7d94720a"
+    },
+    {
+      "anchor": "m1/ja-m1-recap/en:efab9871954dbac0",
+      "en": "Module 1 · Hiragana — Recap",
+      "enSourceHash": "efab9871954dbac0"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-1/en:0a64ce10853f25cb",
+      "en": "su",
+      "enSourceHash": "0a64ce10853f25cb"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-1/en:4cf6829aa93728e8",
+      "en": "sa",
+      "enSourceHash": "4cf6829aa93728e8"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-1/en:ad9a67fefa847de8",
+      "en": "se",
+      "enSourceHash": "ad9a67fefa847de8"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-1/en:d3ec195c40b2d2db",
+      "en": "Sa-row — Intro 1",
+      "enSourceHash": "d3ec195c40b2d2db"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-1/en:ded9c2181fd7ea46",
+      "en": "shi",
+      "enSourceHash": "ded9c2181fd7ea46"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-1/ja:あさ",
+      "en": "Listen and build the word for 'morning'",
+      "enSourceHash": "c3fecfa88c6caece"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-2/en:0282d9b79f42c74c",
+      "en": "face",
+      "enSourceHash": "0282d9b79f42c74c"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-2/en:0a64ce10853f25cb",
+      "en": "su",
+      "enSourceHash": "0a64ce10853f25cb"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-2/en:4342c375f8b8c3f1",
+      "en": "Sa-row — Intro 2",
+      "enSourceHash": "4342c375f8b8c3f1"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-2/en:4cf6829aa93728e8",
+      "en": "sa",
+      "enSourceHash": "4cf6829aa93728e8"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-2/en:ad9a67fefa847de8",
+      "en": "se",
+      "enSourceHash": "ad9a67fefa847de8"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-2/en:c23b31a0179b550f",
+      "en": "morning",
+      "enSourceHash": "c23b31a0179b550f"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-2/en:ce635c4eabff5e4f",
+      "en": "shell",
+      "enSourceHash": "ce635c4eabff5e4f"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-2/en:cf98f59c0c003582",
+      "en": "sushi",
+      "enSourceHash": "cf98f59c0c003582"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-2/en:ded9c2181fd7ea46",
+      "en": "shi",
+      "enSourceHash": "ded9c2181fd7ea46"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-2/ja:すし",
+      "en": "Listen and build the word for 'sushi'",
+      "enSourceHash": "be1df902c06cc016"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-3/en:05f514fae7ca5710",
+      "en": "sky",
+      "enSourceHash": "05f514fae7ca5710"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-3/en:2b84b2a9020f8b08",
+      "en": "ki",
+      "enSourceHash": "2b84b2a9020f8b08"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-3/en:31162c018431abc8",
+      "en": "Sa-row — Review",
+      "enSourceHash": "31162c018431abc8"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-3/en:3ebb1c99b12b7746",
+      "en": "ka",
+      "enSourceHash": "3ebb1c99b12b7746"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-3/en:3f79bb7b435b0532",
+      "en": "e",
+      "enSourceHash": "3f79bb7b435b0532"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-3/en:c23b31a0179b550f",
+      "en": "morning",
+      "enSourceHash": "c23b31a0179b550f"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-3/en:ca978112ca1bbdca",
+      "en": "a",
+      "enSourceHash": "ca978112ca1bbdca"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-3/en:ce635c4eabff5e4f",
+      "en": "shell",
+      "enSourceHash": "ce635c4eabff5e4f"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-3/en:cf98f59c0c003582",
+      "en": "sushi",
+      "enSourceHash": "cf98f59c0c003582"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-3/ja:あい",
+      "en": "Build the word for 'love'",
+      "enSourceHash": "be84262743287d02"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-3/ja:すし です",
+      "en": "Build: 'It's sushi.'",
+      "enSourceHash": "32fa3f01bbe05dba"
+    },
+    {
+      "anchor": "m1/ja-m1-sa-3/ja:そら",
+      "en": "Listen and build the word for 'sky'",
+      "enSourceHash": "f0601c9dce5712e4"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-1/en:2b84b2a9020f8b08",
+      "en": "ki",
+      "enSourceHash": "2b84b2a9020f8b08"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-1/en:2d6c9a90dd38f685",
+      "en": "te",
+      "enSourceHash": "2d6c9a90dd38f685"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-1/en:4cf6829aa93728e8",
+      "en": "sa",
+      "enSourceHash": "4cf6829aa93728e8"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-1/en:58af96d547380ed6",
+      "en": "tsu",
+      "enSourceHash": "58af96d547380ed6"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-1/en:76592b9de6d38238",
+      "en": "ta",
+      "enSourceHash": "76592b9de6d38238"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-1/en:dffe602cd1e0bfa9",
+      "en": "chi",
+      "enSourceHash": "dffe602cd1e0bfa9"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-1/en:e2861368db60cc7e",
+      "en": "Ta-row — Intro 1",
+      "enSourceHash": "e2861368db60cc7e"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-1/ja:うた",
+      "en": "Listen and build the word for 'song'",
+      "enSourceHash": "b140b3554480e10e"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/en:05f514fae7ca5710",
+      "en": "sky",
+      "enSourceHash": "05f514fae7ca5710"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/en:0bfe935e70c321c7",
+      "en": "u",
+      "enSourceHash": "0bfe935e70c321c7"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/en:2d6c9a90dd38f685",
+      "en": "te",
+      "enSourceHash": "2d6c9a90dd38f685"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/en:58af96d547380ed6",
+      "en": "tsu",
+      "enSourceHash": "58af96d547380ed6"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/en:63f75c890b05405e",
+      "en": "song",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/en:76592b9de6d38238",
+      "en": "ta",
+      "enSourceHash": "76592b9de6d38238"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/en:9e78b43ea00edcac",
+      "en": "moon",
+      "enSourceHash": "9e78b43ea00edcac"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/en:c23b31a0179b550f",
+      "en": "morning",
+      "enSourceHash": "c23b31a0179b550f"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/en:c6bf8be0051a22c2",
+      "en": "Ta-row — Intro 2",
+      "enSourceHash": "c6bf8be0051a22c2"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/en:ce635c4eabff5e4f",
+      "en": "shell",
+      "enSourceHash": "ce635c4eabff5e4f"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/en:d8198efa3604d164",
+      "en": "clock",
+      "enSourceHash": "d8198efa3604d164"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/en:ded9c2181fd7ea46",
+      "en": "shi",
+      "enSourceHash": "ded9c2181fd7ea46"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/en:dffe602cd1e0bfa9",
+      "en": "chi",
+      "enSourceHash": "dffe602cd1e0bfa9"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-2/ja:つき",
+      "en": "Listen and build the word for 'moon'",
+      "enSourceHash": "b837040e1273fb12"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:0a64ce10853f25cb",
+      "en": "su",
+      "enSourceHash": "0a64ce10853f25cb"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:0bfe935e70c321c7",
+      "en": "u",
+      "enSourceHash": "0bfe935e70c321c7"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:2b84b2a9020f8b08",
+      "en": "ki",
+      "enSourceHash": "2b84b2a9020f8b08"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:2d6c9a90dd38f685",
+      "en": "te",
+      "enSourceHash": "2d6c9a90dd38f685"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:3ebb1c99b12b7746",
+      "en": "ka",
+      "enSourceHash": "3ebb1c99b12b7746"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:4728bedb58571632",
+      "en": "Match the kana to their sounds",
+      "enSourceHash": "4728bedb58571632"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:58af96d547380ed6",
+      "en": "tsu",
+      "enSourceHash": "58af96d547380ed6"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:63f75c890b05405e",
+      "en": "song",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:663ea1bfffe5038f",
+      "en": "to",
+      "enSourceHash": "663ea1bfffe5038f"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:76592b9de6d38238",
+      "en": "ta",
+      "enSourceHash": "76592b9de6d38238"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:9e78b43ea00edcac",
+      "en": "moon",
+      "enSourceHash": "9e78b43ea00edcac"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:ad9a67fefa847de8",
+      "en": "se",
+      "enSourceHash": "ad9a67fefa847de8"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:b938eeb87882ec33",
+      "en": "Ta-row — Review",
+      "enSourceHash": "b938eeb87882ec33"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:cf98f59c0c003582",
+      "en": "sushi",
+      "enSourceHash": "cf98f59c0c003582"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:d8198efa3604d164",
+      "en": "clock",
+      "enSourceHash": "d8198efa3604d164"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/en:dffe602cd1e0bfa9",
+      "en": "chi",
+      "enSourceHash": "dffe602cd1e0bfa9"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/ja:いいえ",
+      "en": "Build the word for 'no'",
+      "enSourceHash": "117cb79485c16a41"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/ja:つき です",
+      "en": "Build: 'It's the moon.'",
+      "enSourceHash": "07e197b36457ab8b"
+    },
+    {
+      "anchor": "m1/ja-m1-ta-3/ja:とけい",
+      "en": "Listen and build the word for 'clock'",
+      "enSourceHash": "a10045dae815ffca"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-1/en:2d9f16bc0cf9f1e6",
+      "en": "Wa-row — Intro 1",
+      "enSourceHash": "2d9f16bc0cf9f1e6"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-1/en:3ac1ecbd2220c675",
+      "en": "re",
+      "enSourceHash": "3ac1ecbd2220c675"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-1/en:65c74c15a686187b",
+      "en": "o",
+      "enSourceHash": "65c74c15a686187b"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-1/en:87b810070b7c7396",
+      "en": "wa",
+      "enSourceHash": "87b810070b7c7396"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-1/en:cb58e4600bf0142c",
+      "en": "ne",
+      "enSourceHash": "cb58e4600bf0142c"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-1/ja:かわ",
+      "en": "Listen and build the word for 'river'",
+      "enSourceHash": "29efa6400ef028f4"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-2/en:1b16b1df538ba12d",
+      "en": "n",
+      "enSourceHash": "1b16b1df538ba12d"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-2/en:38a81e87e79631e6",
+      "en": "person",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-2/en:3b80d38f7686a8b5",
+      "en": "mountain",
+      "enSourceHash": "3b80d38f7686a8b5"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-2/en:5f5a8ed8f139be6d",
+      "en": "river",
+      "enSourceHash": "5f5a8ed8f139be6d"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-2/en:65c74c15a686187b",
+      "en": "o",
+      "enSourceHash": "65c74c15a686187b"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-2/en:77af778b51abd4a3",
+      "en": "cat",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-2/en:87b810070b7c7396",
+      "en": "wa",
+      "enSourceHash": "87b810070b7c7396"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-2/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-2/en:a496f643895bef64",
+      "en": "Wa-row — Intro 2",
+      "enSourceHash": "a496f643895bef64"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-2/en:d7d077156c603a38",
+      "en": "I / me",
+      "enSourceHash": "d7d077156c603a38"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-2/ja:わたし",
+      "en": "Listen and build the word for 'I / me'",
+      "enSourceHash": "14b6c33a6274f77b"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-3/en:2b84b2a9020f8b08",
+      "en": "ki",
+      "enSourceHash": "2b84b2a9020f8b08"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-3/en:3086cf468ccca87c",
+      "en": "nu",
+      "enSourceHash": "3086cf468ccca87c"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-3/en:3b80d38f7686a8b5",
+      "en": "mountain",
+      "enSourceHash": "3b80d38f7686a8b5"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-3/en:4db03a277cfb9ef4",
+      "en": "ni",
+      "enSourceHash": "4db03a277cfb9ef4"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-3/en:5f5a8ed8f139be6d",
+      "en": "river",
+      "enSourceHash": "5f5a8ed8f139be6d"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-3/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-3/en:9c1b2cdd13698da9",
+      "en": "Wa-row — Review",
+      "enSourceHash": "9c1b2cdd13698da9"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-3/en:a4d0ef23161b5b7c",
+      "en": "fu",
+      "enSourceHash": "a4d0ef23161b5b7c"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-3/en:a746222f09d85605",
+      "en": "snow",
+      "enSourceHash": "a746222f09d85605"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-3/en:d7d077156c603a38",
+      "en": "I / me",
+      "enSourceHash": "d7d077156c603a38"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-3/ja:いえ",
+      "en": "Build the word for 'house'",
+      "enSourceHash": "b4c47197771461ce"
+    },
+    {
+      "anchor": "m1/ja-m1-wa-3/ja:ほん",
+      "en": "Listen and build the word for 'book'",
+      "enSourceHash": "2a23fe8c8813a4f7"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-1/en:3ebb1c99b12b7746",
+      "en": "ka",
+      "enSourceHash": "3ebb1c99b12b7746"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-1/en:5109f6dc636d7068",
+      "en": "yu",
+      "enSourceHash": "5109f6dc636d7068"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-1/en:5b76e8f908297f3f",
+      "en": "Ya-row — Intro 1",
+      "enSourceHash": "5b76e8f908297f3f"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-1/en:6663103a3e47efc8",
+      "en": "ya",
+      "enSourceHash": "6663103a3e47efc8"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-1/en:e9058ab198f6908f",
+      "en": "yo",
+      "enSourceHash": "e9058ab198f6908f"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-1/ja:やま",
+      "en": "Listen and build the word for 'mountain'",
+      "enSourceHash": "fd48e985fb48e429"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-2/en:25cdb46d8d2115a2",
+      "en": "boat",
+      "enSourceHash": "25cdb46d8d2115a2"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-2/en:38a81e87e79631e6",
+      "en": "person",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-2/en:3b80d38f7686a8b5",
+      "en": "mountain",
+      "enSourceHash": "3b80d38f7686a8b5"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-2/en:45902cd5d4a9aee6",
+      "en": "Ya-row — Intro 2",
+      "enSourceHash": "45902cd5d4a9aee6"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-2/en:5109f6dc636d7068",
+      "en": "yu",
+      "enSourceHash": "5109f6dc636d7068"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-2/en:6663103a3e47efc8",
+      "en": "ya",
+      "enSourceHash": "6663103a3e47efc8"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-2/en:77af778b51abd4a3",
+      "en": "cat",
+      "enSourceHash": "77af778b51abd4a3"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-2/en:9e78b43ea00edcac",
+      "en": "moon",
+      "enSourceHash": "9e78b43ea00edcac"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-2/en:a746222f09d85605",
+      "en": "snow",
+      "enSourceHash": "a746222f09d85605"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-2/en:e9058ab198f6908f",
+      "en": "yo",
+      "enSourceHash": "e9058ab198f6908f"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-2/en:eee1c1ade6525d24",
+      "en": "mi",
+      "enSourceHash": "eee1c1ade6525d24"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-2/ja:ゆき",
+      "en": "Listen and build the word for 'snow'",
+      "enSourceHash": "112b4f70cab128f1"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-3/en:1fdbc74ccfd68d07",
+      "en": "ko",
+      "enSourceHash": "1fdbc74ccfd68d07"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-3/en:2b84b2a9020f8b08",
+      "en": "ki",
+      "enSourceHash": "2b84b2a9020f8b08"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-3/en:3909c2f0b16a018d",
+      "en": "to read",
+      "enSourceHash": "3909c2f0b16a018d"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-3/en:3b80d38f7686a8b5",
+      "en": "mountain",
+      "enSourceHash": "3b80d38f7686a8b5"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-3/en:538dda9c8dc55919",
+      "en": "Ya-row — Review",
+      "enSourceHash": "538dda9c8dc55919"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-3/en:5f5a8ed8f139be6d",
+      "en": "river",
+      "enSourceHash": "5f5a8ed8f139be6d"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-3/en:a4d0ef23161b5b7c",
+      "en": "fu",
+      "enSourceHash": "a4d0ef23161b5b7c"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-3/en:a746222f09d85605",
+      "en": "snow",
+      "enSourceHash": "a746222f09d85605"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-3/en:ca978112ca1bbdca",
+      "en": "a",
+      "enSourceHash": "ca978112ca1bbdca"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-3/ja:いいえ",
+      "en": "Build the word for 'no'",
+      "enSourceHash": "117cb79485c16a41"
+    },
+    {
+      "anchor": "m1/ja-m1-ya-3/ja:よむ",
+      "en": "Listen and build the word for 'to read'",
+      "enSourceHash": "56854b4df971dc6f"
+    }
+  ]
+}
