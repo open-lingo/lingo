@@ -1,0 +1,277 @@
+module: m31
+title: "Me duele la mano"
+frame: none
+throughModule: m30
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m31 — the dative-experiencer frame extended to the body: «duele»/
+# «duelen» (hurts/hurt), the SAME "sentence that runs backwards" shape
+# «gusta»/«gustan» (m13) already taught, now carrying pain/sensation
+# instead of preference, with m30's own body nouns as its grammatical
+# subject.
+#
+#     me duele la mano       me duelen las manos      (yo, m13 «me»)
+#     ¿te duele el pie?      ¿te duelen los pies?      (tú, m13 «te»)
+#     a Diego le duele el ojo   a Ana le duelen los ojos  (3rd, m13 «le» + «a + name»)
+#
+# ONE idea, the whole module: TWO new verb-forms («duele»/«duelen»), zero
+# new syntax. The dative-experiencer word order («me duele la mano» — the
+# body part is the grammatical SUBJECT, the person who feels it is a
+# dative object out front) is not new to this course — it is the exact
+# frame m13's «gusta»/«gustan» already drilled to full yo/tú/3rd-person
+# coverage («me gusta», «te gusta», «a Diego le gusta»). m31 does not
+# reteach that frame; it recombines it against a second verb and against
+# m30's seven just-taught body nouns as the frame's grammatical subject.
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# Four lines of evidence:
+#   1. **Rhythm calls for a grammar beat, and m30's own header already
+#      named the natural next idea and rejected it on a stale premise.**
+#      m26 (grammar) → m27 (break) → m28 (grammar) → m29 (grammar) → m30
+#      (break, body). Two grammar modules, one break, is the same
+#      pattern m29's own header used to justify m28→m29 running grammar
+#      twice in a row — a break module (m30) is always followed by a
+#      return to grammar, never a second break, per every prior module's
+#      own interleave reasoning. m30-header.yaml's REJECTED ALTERNATIVE 4
+#      named «doler» directly as "the natural next step after body-part
+#      nouns exist," rejecting it FOR m30 ONLY on the grounds that it
+#      "needs «gustar»'s own irregular impersonal-object word order... a
+#      second new grammar idea layered onto a module whose entire framing
+#      is zero new verb morphology." That reasoning was about m30's own
+#      scope, not about «doler» being unready — and it directly names m31
+#      as where to "give it the same dedicated care m7/m13 gave «gustar»
+#      itself."
+#   2. **Correcting the premise m30 rejected «doler» under: the "«gustar»
+#      word order" «doler» needs is not new grammar risk, it is fully
+#      PRIOR — verified by grep, not assumed.** `grep -n 'atom({ surface:
+#      "gusta"\|"gustan"\|"me"\|"te"\|"le"' curriculum/m13.ts` confirms
+#      the ENTIRE dative-experiencer paradigm m31 needs is already live:
+#      «me» (to me) and «te» (to you), both `kind: "particle"` atoms
+#      registered at m13; «le» (to him/her) ALSO a registered `kind:
+#      "particle"` atom at m13, not merely a function word — and the
+#      «a + [name] le VERB» construction (m13 L6, "a Diego le gusta el
+#      fútbol") is the exact frame a 3rd-person «duele» sentence needs.
+#      m13's own module title is literally "Me gusta, me gustan — the
+#      sentence that runs backwards" — this course already has a name and
+#      a fully-taught mental model for this word order. m30's header
+#      undersold this precedent the same way m28's header once undersold
+#      how much of m16/m17's pronoun work m29 could reuse (a pattern this
+#      course's own briefs keep having to correct — see m29-header.yaml's
+#      own "Correcting the record" section for the identical move). «les»
+#      (to them) is confirmed NOT PRIOR (grep-verified zero hits m1–m30)
+#      — m13 itself never taught nosotros/ellos-plural dative forms, so
+#      this module's own scope (yo/tú/3rd-singular-via-le) mirrors m13's
+#      own taught scope exactly; it is not a new gap this module opens.
+#   3. **Maximum recombination against the module directly before it —
+#      the strongest "review after" interleave story of any candidate
+#      considered.** Per [[interleave-dont-block-teach]] and
+#      `docs/course-design-learnings-2026-08-21.md`, the ideal grammar
+#      beat after a lexicon break puts the break's own vocabulary
+#      immediately back to work in a new frame. m30's seven body nouns
+#      (mano, pie, brazo, pierna, ojo, boca, nariz — all imageMcq-debuted
+#      last module) slot directly into «duele»/«duelen» as its
+#      grammatical subject with ZERO new nouns needed: «me duele la
+#      mano», «me duelen los pies», «a Diego le duele el brazo». No other
+#      candidate considered below reuses m30's own vocabulary at all.
+#   4. **Verified data floor.** `grep -o 'surface: "[^"]*"'
+#      curriculum/m{1..30}.ts | sort -u | grep -iE "duele|duelen|doler"`
+#      returns zero hits — «duele»/«duelen» are genuinely virgin. No new
+#      emoji needed (verb-morphology atoms in this course, like m13's
+#      «gusta»/«gustan» themselves, carry no `emoji:` field — confirmed
+#      by reading `ES_M13_ATOMS`), so no vendoring step applies, the
+#      second module in a row with zero vendoring work (after m30).
+#
+# ── CORRECTING m30's OWN REJECTED ALTERNATIVE 4 (verified by grep, not
+#    assumed) ─────────────────────────────────────────────────────────────
+# m30-header.yaml's REJECTED ALTERNATIVE 4 states: "«doler» is a new VERB
+# with «gustar»'s own irregular impersonal-object word order (back-of-
+# clause subject, front-of-clause indirect object) — a second new
+# grammar idea layered onto a module whose entire framing is zero new
+# verb morphology." That framing is correct for why m30 (a lexicon-break
+# module) should not have carried it, but it is easy to misread as "the
+# word order itself is unresolved risk." It is not: the word order is
+# `gusta`/`gustan`'s own PRIOR frame (m13, LIVE since 2026-09-09,
+# drilled to yo/tú/3rd-singular). What is actually new in m31 is
+# narrower and cheaper than m30's own rejection implies — two verb-forms
+# recombined against an existing, fully-internalized sentence shape, not
+# a second new grammar idea. Named here explicitly so a future author
+# reads m30's REJECTED ALTERNATIVE 4 as "wrong module for this," not
+# "this needs new syntax work first."
+#
+# ── REJECTED ALTERNATIVE 1: «tener que» + infinitivo (obligation) ────────
+# Real, unspent (grep-verified zero hits for "tener que"/"hay que" across
+# `curriculum/*.ts` and `curriculum/ir/*.ir.yaml`, matching
+# m29-header.yaml's own REJECTED ALTERNATIVE 2 finding, re-checked here
+# and still zero as of this brief). «tener» is fully PRIOR (m5/m15/m18).
+# Rejected for m31 specifically: it is the SAME shape this course already
+# has three times over — a conjugated verb followed by a bare-infinitive
+# complement (querer/poder m14, ir a m28, now tener que) — "a fourth verb
+# that takes this same complement," exactly the "more of the same
+# mechanic, not a new idea" trap m29-header.yaml's own REJECTED
+# ALTERNATIVE 2 named against this identical candidate. It also has zero
+# connection to m30's just-taught body vocabulary, the weakest
+# recombination story of any candidate considered. Left open as a
+# plausible future module — reserve for whenever the course wants a
+# fourth "verb + bare infinitive" host without a new syntax rule
+# attached, exactly as m29's header already reserved it.
+#
+# ── REJECTED ALTERNATIVE 2: «estar + gerundio» (present progressive) ─────
+# Real, high-value A2 content, and — per m29-header.yaml's own
+# correction — NOT structurally banned by any gate (pin E7 only forbids
+# glossing a SIMPLE present as an English progressive before the
+# construction exists; it explicitly LICENSES the progressive gloss once
+# taught). Rejected for m31 specifically: it needs its own new morphology
+# (the -ando/-iendo gerund form across however many PRIOR verbs it
+# touches) — a genuinely new production shape, not a recombination of an
+# existing one the way «duele»/«duelen» is. It also has no connection to
+# m30's body vocabulary. Reserved as its own future module, exactly as
+# m29-header.yaml's own REJECTED ALTERNATIVE 3 already reserved it; still
+# open, still real.
+#
+# ── REJECTED ALTERNATIVE 3: comparatives (más/menos... que, tan... como) ─
+# Real content, still carrying the same unresolved risk
+# m29-header.yaml's REJECTED ALTERNATIVE 4 named and did not clear: «como»
+# is a PRIOR, actively-used atom from m11 meaning "I eat" (1st person of
+# «comer»), a genuine lexical homograph with the comparative «como»
+# ("as/like"). That disambiguation work was not done for m31 and is not
+# this module's job to absorb alongside a new verb pair. No connection to
+# m30's body vocabulary either. Reserved as a future module that can give
+# the «como» collision the dedicated attention m28 gave "voy a" — still
+# open, unchanged from m29's own assessment.
+#
+# ── REJECTED ALTERNATIVE 4: commands / imperative mood ────────────────────
+# Real, high-value, and explicitly flagged as "likely too big" by this
+# module's own dispatch brief — confirmed correct on inspection: a
+# command module needs a full new verb-form PARADIGM (regular + the
+# common irregular imperatives, plus the affirmative/negative distinction
+# Spanish imperatives carry), not a recombination of an existing frame —
+# a heavier grammar footprint than any other candidate considered, the
+# same "second new idea competing with the first" argument
+# m29-header.yaml used against «estar + gerundio» and m30-header.yaml
+# used against city/directions' own imperative dependency. Natural
+# future pairing: city/directions vocabulary (m30-header.yaml's own
+# REJECTED ALTERNATIVE 3, "reserved for whenever a module wants to pair
+# vocabulary with a new imperative/command form") — named here again so
+# a future author has both halves of that pairing in one place.
+#
+# ── REJECTED: extending this module's own new vocabulary beyond
+#    «duele»/«duelen» (cabeza, garganta, estómago, espalda, hombro) ───────
+# The classic "health complaint" vocabulary set (head, throat, stomach,
+# back, shoulder) is real, grep-verified fully unregistered, and would
+# make «me duele la cabeza» — the single most iconic «doler» sentence in
+# any A2 curriculum — available. Deliberately NOT added to m31: m30's
+# own seven body nouns already give this module FULL, natural coverage
+# (a learner can say "me duele la mano/el pie/el brazo/la pierna/el
+# ojo/la boca/la nariz" — every sentence this module's lesson plan below
+# needs), and this module's own framing is a thin placement/frame
+# recombination — TWO new atoms, not a lexicon module — matching
+# [[drafting-coverage-not-volume]] and m29's own "0 new atoms" precedent
+# more closely than m30's "7 new nouns" one. A quick check for a clean
+# "head" emoji candidate (🤕 = face with head bandage, an injured-PERSON
+# glyph, not an isolated head; 🧠 = brain, a different organ) found no
+# unambiguous single-referent glyph for "head" the way ✋/🦶/💪/🦵/👁️/👄/👃
+# each cleanly are — a real image-MCQ ceiling-rule risk this module
+# doesn't need to take on. This check was a quick candidate sweep, not an
+# exhaustive Unicode-chart review — flagged UNVERIFIED below. Reserved as
+# a future THREE-TO-FIVE-atom recombination lesson (cabeza, garganta,
+# estómago, espalda, hombro), the same sizing and the same "not
+# abandoned, correctly resized" treatment m30-header.yaml gave house
+# vocabulary.
+#
+# ── THE CENTRAL DISCRIMINATION: NEVER CONJUGATE «duele»/«duelen» TO THE
+#    PERSON — READ BEFORE DRAFTING ANY LESSON ────────────────────────────
+# «duele»/«duelen» agree with the BODY PART (the grammatical subject),
+# never with the person who feels it — the exact same rule m13's own
+# «gusta»/«gustan» already enforces («me gusta el café», never «yo
+# gusto»). The English-transfer error a learner is likely to construct by
+# analogy from "my hand hurts" (subject = "my hand" in English too, so
+# this one is actually LOW risk in that direction) is instead the
+# opposite transfer, from "I hurt" / "it hurts me" read as "yo duelo" or
+# "me duelo" — treating the EXPERIENCER as the verb's subject the way
+# English "I hurt" can be misheard to imply. This is the identical
+# grammatical-subject-confusion class m13's own "sentence that runs
+# backwards" framing exists to name and defuse; m31 inherits that framing
+# wholesale rather than re-deriving new language for the same idea.
+# Every discrimination step in this module (agreementCloze / textMcq
+# distractors) must include a foil that wrongly conjugates the verb to
+# the PERSON instead of the body part (e.g. offering "*duelo" or
+# "*duelemos" as an option, never validly correct), not only a
+# singular/plural body-part-agreement foil — this is this module's most
+# important distractor, exactly the role the third-position foil played
+# for m29 and the mid-position-pronoun foil plays generally in this
+# course's own "no third position"-family rules. Note the specific claim
+# that no such "*gusto"-style foil was found grep-confirmed inside
+# `m13.test.ts` itself is flagged UNVERIFIED below — the discrimination
+# is reasoned from the underlying grammar and m13's own "runs backwards"
+# framing, not copied from a confirmed m13 test pin.
+#
+# ── SCOPE: yo / tú / 3rd-singular-via-«le», NOT nosotros/ellos ───────────
+# Mirrors m13's own taught scope exactly — «nos» (m18, "we") and «les»
+# (to them) are both grep-verified NOT PRIOR as a dative-plural pairing
+# with gusta-type verbs (m13 never taught "nos gusta"/"les gusta"; «les»
+# itself has zero hits anywhere in m1–m30). This is not a new gap m31
+# opens — it is the same boundary m13 already drew, carried forward
+# unchanged. Do not reach for «nos duele» or «les duele»; both would
+# require registering a new dative particle this module was not scoped
+# to add.
+#
+# ── AGREEMENT IS NOT A NEW ATOM — m30's SEVEN BODY NOUNS PLURALIZE
+#    NORMALLY, «nariz»/«narices» STILL AVOIDED ───────────────────────────
+# Per `authoring-rules.md`'s "Agreement is not a new atom" paragraph and
+# `getEsPluralCanon`'s course-wide precedent (already exercised by m30
+# itself): «mano»→«manos», «pie»→«pies», «brazo»→«brazos»,
+# «pierna»→«piernas», «ojo»→«ojos», «boca»→«bocas» all pluralize as
+# regular -s forms with no new registration, and this module's own
+# singular/plural verb-agreement rule («duele» for one body part,
+# «duelen» for more than one) is the SAME regular-plural-drives-
+# verb-agreement mechanism «gusta»/«gustan» already exercises — no new
+# rule to invent, just a new verb pair riding the existing one. «nariz»
+# stays singular-only in this module too («me duele la nariz», never
+# «me duelen las narices») — m30's own shipped commit record ("«narices»
+# removed from learner-facing text") confirms this was a live authoring
+# trap in the immediately-PRIOR module and the underlying UNVERIFIED
+# claim (whether the inflection engine accepts the irregular z→c plural)
+# was never resolved; m31 inherits the same caution rather than
+# re-testing it.
+#
+# ── NO NEW EMOJI, NO VENDORING (matches m30's own precedent, verified not
+#    assumed) ──────────────────────────────────────────────────────────
+# `duele`/`duelen` are verb-morphology atoms, like `gusta`/`gustan`
+# (m13) — reading `ES_M13_ATOMS` confirms neither carries an `emoji:`
+# field. No new vendoring step applies. Re-verify this stays true at ship
+# time if a drafting agent's IR adds an `emoji:` field to either atom —
+# that would be a defect, not a stylistic choice.
+#
+# ── SIM NPC-LINE PROVENANCE: LIVE, CARRY FORWARD FROM m29/m30 ────────────
+# `es-quality.test.ts`'s dialogue_sim provenance gate applies unchanged.
+# This module's NPC lines will exercise the dative-particle vocabulary
+# («me»/«te»/«le», m13) plus m30's body nouns plus this module's own
+# «duele»/«duelen» — no fused-string decomposition risk (unlike m29),
+# every surface here is a registered whole word. Still: manually grep
+# every sim `npc:` line before shipping, the same discipline every prior
+# module's brief has required.
+#
+# ── ACCENT: ROSE, VERIFIED UNUSED, LIGHTLY THEMATIC ───────────────────────
+# Checked every `accent:` pair in `curriculum/index.ts` (grep-verified,
+# all 30 pairs read in full): zero hits for `#fb7185` or `#9f1239`.
+# Distinct from every rose/red/pink pair already spent (`#f43f5e`→
+# `#be123c`, `#ef4444`→`#991b1b`, `#f472b6`→`#db2777`, `#f472b6`→
+# `#9d174d`, `#d946ef`→`#86198f`) — checked side by side, this pair sits
+# warmer and lighter than all five, reading as "gentle ache" rather than
+# alarm-red or the course's PRIOR pink pairs. A light thematic nod (the
+# "ouch" domain) without forcing a heavy medical metaphor onto what is
+# still fundamentally a grammar module, the same restraint m28's "go"
+# green used for a periphrastic-future module and m30's teal used for a
+# body-vocabulary one.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # duele — hurts/aches (singular subject: one body part, or an
+  # uncountable sensation). Reuses the «gusta»/«gustan» (m13)
+  # dative-experiencer word order verbatim — same frame, new verb.
+  - { surface: "duele", meaningEn: "hurts, aches (one thing)", partOfSpeech: "verb", kind: "vocab", hint: "duele — same word order as «gusta» (m13): the body part is the subject. «me duele la mano», never «yo duelo». Agrees with the body part, not the person." }
+  # duelen — hurt/ache (plural subject: more than one body part). Same
+  # singular/plural split as «gusta»/«gustan» (m13), reused verbatim.
+  - { surface: "duelen", meaningEn: "hurt, ache (more than one thing)", partOfSpeech: "verb", kind: "vocab", hint: "duelen — «duele» becomes «duelen» exactly when «gusta» becomes «gustan» (m13): more than one thing doing the hurting/pleasing. «me duelen los pies»." }
+
+lessons:
