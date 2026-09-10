@@ -735,8 +735,8 @@
           "lines": [
             {
               "speaker": "Ken",
-              "ja": "わあ、きれいな へやだね。",
-              "en": "Wow, what a nice room."
+              "ja": "きれいな へやだね。",
+              "en": "What a nice room."
             },
             {
               "speaker": "Mika",
@@ -942,8 +942,8 @@
             },
             {
               "speaker": "Tom",
-              "ja": "なるほど。",
-              "en": "I see."
+              "ja": "わかった。",
+              "en": "Got it."
             }
           ],
           "questions": [
@@ -1211,7 +1211,8 @@
           "en": "Since I left the door open in advance, the room is cool.",
           "exercises": [
             "te-oku",
-            "kara-because"
+            "kara-because",
+            "ta-form"
           ],
           "mode": "build"
         },
@@ -1222,7 +1223,8 @@
           "combines": [
             "te-oku",
             "te-aru",
-            "kara-because"
+            "kara-because",
+            "ta-form"
           ],
           "mode": "build"
         }
@@ -1276,7 +1278,8 @@
           "ja": "けさ ほんを たなに ならべた。",
           "en": "I arranged the books on the shelf this morning.",
           "exercises": [
-            "transitivity-family-noticing"
+            "transitivity-family-noticing",
+            "ta-form"
           ],
           "mode": "build"
         },
@@ -1395,7 +1398,8 @@
             "te-oku",
             "te-aru",
             "kara-because",
-            "ni-location"
+            "ni-location",
+            "ta-form"
           ],
           "mode": "build"
         }
@@ -1487,8 +1491,8 @@
             },
             {
               "speaker": "Ken",
-              "ja": "すごいね。",
-              "en": "Amazing."
+              "ja": "いいね。",
+              "en": "Nice."
             }
           ],
           "questions": [
@@ -1512,7 +1516,8 @@
             "te-aru",
             "noni-concession",
             "node-because",
-            "te-oku"
+            "te-oku",
+            "ta-form"
           ],
           "mode": "build"
         }
@@ -1666,7 +1671,8 @@
           "en": "Even though the books had been arranged on the shelf, my older brother broke it again.",
           "exercises": [
             "te-aru",
-            "noni-concession"
+            "noni-concession",
+            "ta-form"
           ],
           "mode": "build"
         },
@@ -1689,7 +1695,9 @@
           "en": "After decorating in advance before the party, I took photos.",
           "exercises": [
             "te-oku",
-            "te-kara"
+            "te-kara",
+            "mae-ni",
+            "ta-form"
           ],
           "mode": "build"
         },
@@ -1810,7 +1818,8 @@
           "combines": [
             "te-aru",
             "shi-listing",
-            "noni-concession"
+            "noni-concession",
+            "ta-form"
           ],
           "mode": "build"
         }
@@ -1850,7 +1859,8 @@
           "exercises": [
             "te-oku",
             "mae-ni",
-            "kara-because"
+            "kara-because",
+            "ta-form"
           ],
           "mode": "build"
         },
@@ -1860,7 +1870,8 @@
           "en": "Even though the books had been arranged on the shelf, my older brother broke it again.",
           "exercises": [
             "te-aru",
-            "noni-concession"
+            "noni-concession",
+            "ta-form"
           ],
           "mode": "build"
         },
@@ -1942,7 +1953,8 @@
             "mae-ni",
             "kara-because",
             "te-aru",
-            "shi-listing"
+            "shi-listing",
+            "ta-form"
           ],
           "mode": "build"
         }
@@ -2093,7 +2105,8 @@
             "te-oku",
             "mae-ni",
             "node-because",
-            "te-aru"
+            "te-aru",
+            "ta-form"
           ],
           "mode": "build"
         },
@@ -2148,8 +2161,8 @@
             },
             {
               "speaker": "Tanaka",
-              "ja": "すごいね。",
-              "en": "Impressive."
+              "ja": "よかったね。",
+              "en": "That's great."
             }
           ],
           "questions": [
@@ -2174,7 +2187,9 @@
             "noni-concession",
             "node-because",
             "te-oku",
-            "shi-listing"
+            "shi-listing",
+            "mae-ni",
+            "ta-form"
           ],
           "mode": "build"
         }

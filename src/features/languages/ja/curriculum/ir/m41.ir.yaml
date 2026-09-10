@@ -270,7 +270,7 @@ lessons:
       - { kind: kanji, kana: かざる, kanji: 飾る, distractors: ["かがやく", "かさねる", "かえる"], exercises: [te-aru] }
       - kind: dialogue
         lines:
-          - { speaker: "Ken", ja: "わあ、きれいな へやだね。", en: "Wow, what a nice room." }
+          - { speaker: "Ken", ja: "きれいな へやだね。", en: "What a nice room." }
           - { speaker: "Mika", ja: "うん、パーティーの ために かざってあるよ。", en: "Yeah, it's been decorated for the party." }
           - { speaker: "Ken", ja: "ポスターも はってあるね。", en: "There's a poster stuck up too." }
         questions:
@@ -311,7 +311,7 @@ lessons:
         lines:
           - { speaker: "Tom", ja: "まどが あいているね。だれか あけたの？", en: "The window is open. Did someone open it?" }
           - { speaker: "Mika", ja: "うん、わたしが あけてあるよ。かぜが すずしいから。", en: "Yeah, I left it open on purpose. The breeze is cool." }
-          - { speaker: "Tom", ja: "なるほど。", en: "I see." }
+          - { speaker: "Tom", ja: "わかった。", en: "Got it." }
         questions:
           - { q: "Why is the window open?", options: ["Mika left it open on purpose, for the breeze", "It blew open by itself", "Nobody knows why", "Tom is opening it right now"], answer: "Mika left it open on purpose, for the breeze" }
       - { kind: challenge, ja: "まどが あけてあるから、かぜが はいっている。", en: "Since the window has been left open, a breeze is coming in.", combines: [te-aru, te-iru-resultative, kara-because], mode: build }
@@ -361,8 +361,8 @@ lessons:
           - { speaker: "Mika", ja: "うん、わかった。", en: "OK, got it." }
         questions:
           - { q: "Why is Mika decorating the room now?", options: ["Because the party is tomorrow", "Because guests just arrived", "Because the room is already decorated", "Because Ken asked for a poster"], answer: "Because the party is tomorrow" }
-      - { kind: sentence, ja: "ドアを あけておいたから、へやが すずしい。", en: "Since I left the door open in advance, the room is cool.", exercises: [te-oku, kara-because], mode: build }
-      - { kind: challenge, ja: "へやを かざっておいたから、へやが いま きれいに かざってある。", en: "Since I decorated the room in advance, it's now decorated nicely.", combines: [te-oku, te-aru, kara-because], mode: build }
+      - { kind: sentence, ja: "ドアを あけておいたから、へやが すずしい。", en: "Since I left the door open in advance, the room is cool.", exercises: [te-oku, kara-because, ta-form], mode: build }
+      - { kind: challenge, ja: "へやを かざっておいたから、へやが いま きれいに かざってある。", en: "Since I decorated the room in advance, it's now decorated nicely.", combines: [te-oku, te-aru, kara-because, ta-form], mode: build }
     reviewPool: [まど, ドア, へや, かべ, たな, ポスター, いえ, かぜ]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -386,7 +386,7 @@ lessons:
       - { kind: rule, grammarPointId: transitivity-family-noticing }
       - { kind: sentence, ja: "ほんが たなに ならんでいる。", en: "The books are lined up on the shelf.", exercises: [transitivity-family-noticing], mode: build }
       - { kind: sentence, ja: "ほんを たなに ならべる。", en: "I line the books up on the shelf.", exercises: [transitivity-family-noticing], mode: build }
-      - { kind: sentence, ja: "けさ ほんを たなに ならべた。", en: "I arranged the books on the shelf this morning.", exercises: [transitivity-family-noticing], mode: build }
+      - { kind: sentence, ja: "けさ ほんを たなに ならべた。", en: "I arranged the books on the shelf this morning.", exercises: [transitivity-family-noticing, ta-form], mode: build }
       - { kind: sentence, ja: "ほんが たなに ならべてある。", en: "The books have been arranged on the shelf.", exercises: [te-aru], mode: build }
       - { kind: sentence, ja: "でんきが きえている。", en: "The light is off.", exercises: [te-iru-resultative], mode: build }
       - { kind: sentence, ja: "まどが しまっている。", en: "The window is closed.", exercises: [te-iru-resultative], mode: listening }
@@ -401,7 +401,7 @@ lessons:
           - { speaker: "Tom", ja: "じゃあ、いまは ならべてあるんだね。", en: "So they've been arranged that way on purpose, then." }
         questions:
           - { q: "Why are the books lined up neatly?", options: ["Mika arranged them this morning", "They fell into a row by accident", "Tom arranged them", "Nobody knows"], answer: "Mika arranged them this morning" }
-      - { kind: challenge, ja: "ほんを たなに ならべておいたから、ほんが いま きれいに ならべてある。", en: "Since I arranged the books on the shelf in advance, they're now neatly arranged.", combines: [te-oku, te-aru, kara-because, ni-location], mode: build }
+      - { kind: challenge, ja: "ほんを たなに ならべておいたから、ほんが いま きれいに ならべてある。", en: "Since I arranged the books on the shelf in advance, they're now neatly arranged.", combines: [te-oku, te-aru, kara-because, ni-location, ta-form], mode: build }
     reviewPool: [ほん, たな, でんき, まど, ドア, くるま, でんしゃ, えいが]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -420,10 +420,10 @@ lessons:
         lines:
           - { speaker: "Ken", ja: "へやは どう？", en: "How's the room?" }
           - { speaker: "Mika", ja: "ポスターが はってあるし、ほんも ならべてあるし、もう じゅんびは できたよ。", en: "A poster has been stuck up, and the books have been arranged too, and what's more the preparations are done." }
-          - { speaker: "Ken", ja: "すごいね。", en: "Amazing." }
+          - { speaker: "Ken", ja: "いいね。", en: "Nice." }
         questions:
           - { q: "What's true about the room now?", options: ["The poster and books are already arranged", "Nothing has been done yet", "Ken decorated the room", "The window is still closed"], answer: "The poster and books are already arranged" }
-      - { kind: challenge, ja: "まどが あけてあるのに へやは あついので、ドアも あけておいた。", en: "Since the room is hot even though the window has been left open, I left the door open too, in advance.", combines: [te-aru, noni-concession, node-because, te-oku], mode: build }
+      - { kind: challenge, ja: "まどが あけてあるのに へやは あついので、ドアも あけておいた。", en: "Since the room is hot even though the window has been left open, I left the door open too, in advance.", combines: [te-aru, noni-concession, node-because, te-oku, ta-form], mode: build }
     reviewPool: [まど, へや, かべ, たな, ポスター, ほん, ドア, いえ]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -456,9 +456,9 @@ lessons:
     introduces: [おいて, とった]
     beats:
       - { kind: sentence, ja: "へやが かざってあるし、ポスターも はってあるし、うれしい。", en: "The room has been decorated, and what's more a poster has been stuck up, so I'm happy.", exercises: [te-aru, shi-listing], mode: build }
-      - { kind: sentence, ja: "ほんが たなに ならべてあるのに、あにが また こわした。", en: "Even though the books had been arranged on the shelf, my older brother broke it again.", exercises: [te-aru, noni-concession], mode: build }
+      - { kind: sentence, ja: "ほんが たなに ならべてあるのに、あにが また こわした。", en: "Even though the books had been arranged on the shelf, my older brother broke it again.", exercises: [te-aru, noni-concession, ta-form], mode: build }
       - { kind: particle-cloze, stem: "まどが ", tail: "ので、すずしい。", answer: "あけてある", options: ["あけてある", "あいている", "あける"], en: "Since the window has been left open, it's cool.", explanation: "'has been left open' points to the deliberate resultant state, あけてある. あいている only says it's open, without signalling anyone left it that way on purpose, and あける is the bare dictionary form with no state marking." }
-      - { kind: sentence, ja: "パーティーの まえに かざっておいてから、しゃしんを とった。", en: "After decorating in advance before the party, I took photos.", exercises: [te-oku, te-kara], mode: build }
+      - { kind: sentence, ja: "パーティーの まえに かざっておいてから、しゃしんを とった。", en: "After decorating in advance before the party, I took photos.", exercises: [te-oku, te-kara, mae-ni, ta-form], mode: build }
       - { kind: listening-comp, audio: "へやが かざってあるし、ポスターも はってあるし、うれしかったよ。", answer: "The room had been decorated, and a poster had been stuck up too, so I was happy.", distractors: ["The room was a mess, so I was sad.", "I decorated the room myself, just now.", "Nobody had decorated the room."], q: "What does this mean?" }
       - { kind: kanji, kana: かべ, kanji: 壁, distractors: ["へや", "かがみ", "まど"], exercises: [te-aru] }
       - kind: dialogue
@@ -481,7 +481,7 @@ lessons:
             reply: { mode: build, tiles: ["ほんが", "たなに", "ならべてあるのに", "あにが", "こわした", "たなを"], answer: "ほんが たなに ならべてあるのに、あにが こわした。" }
             replyGloss: "The books have been arranged on the shelf, even though my older brother messed it up."
             explanation: "のに marks the contradiction (arranged, yet messed up); たなを would wrongly make the shelf a direct object of a state sentence."
-      - { kind: challenge, ja: "へやが かざってあるし、ほんも たなに ならべてあるのに、あにが また こわした。", en: "The room had been decorated, and what's more the books had been arranged on the shelf too, but my older brother broke it again.", combines: [te-aru, shi-listing, noni-concession], mode: build }
+      - { kind: challenge, ja: "へやが かざってあるし、ほんも たなに ならべてあるのに、あにが また こわした。", en: "The room had been decorated, and what's more the books had been arranged on the shelf too, but my older brother broke it again.", combines: [te-aru, shi-listing, noni-concession, ta-form], mode: build }
     reviewPool: [へや, かべ, たな, ポスター, ほん, まど, あに, しゃしん]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -492,8 +492,8 @@ lessons:
     introduces: []
     beats:
       - { kind: sentence, ja: "まどが あけてあるし、すずしいし、いい。", en: "The window has been left open, and what's more it's cool, so it's nice.", exercises: [te-aru, shi-listing], mode: build }
-      - { kind: sentence, ja: "いま、パーティーの まえに へやを かざっておいたから、きれいだ。", en: "Since I decorated the room in advance before the party, it's pretty now.", exercises: [te-oku, mae-ni, kara-because], mode: build }
-      - { kind: sentence, ja: "ほんが たなに ならべてあるのに、あにが また こわした。", en: "Even though the books had been arranged on the shelf, my older brother broke it again.", exercises: [te-aru, noni-concession], mode: build }
+      - { kind: sentence, ja: "いま、パーティーの まえに へやを かざっておいたから、きれいだ。", en: "Since I decorated the room in advance before the party, it's pretty now.", exercises: [te-oku, mae-ni, kara-because, ta-form], mode: build }
+      - { kind: sentence, ja: "ほんが たなに ならべてあるのに、あにが また こわした。", en: "Even though the books had been arranged on the shelf, my older brother broke it again.", exercises: [te-aru, noni-concession, ta-form], mode: build }
       - { kind: particle-cloze, stem: "ポスターが かべに ", tail: "し、ほんも たなに ならべてある。", answer: "はってある", options: ["はってある", "はっている", "はる"], en: "A poster has been stuck on the wall, and what's more the books have been arranged on the shelf.", explanation: "'has been stuck' is the deliberate resultant state, はってある. はっている would be 'in the middle of sticking it up' (an ongoing action), and bare はる is the plain dictionary form with no state marking." }
       - { kind: listening-comp, audio: "うん、パーティーの まえに かざっておいたんだ。", answer: "Yeah, I decorated it in advance before the party.", distractors: ["No, I haven't decorated it yet.", "I'm decorating it right now.", "Someone else decorated it."], q: "What does this mean?" }
       - { kind: kanji, kana: たな, kanji: 棚, distractors: ["たに", "たたむ", "たのむ"], exercises: [te-aru] }
@@ -504,7 +504,7 @@ lessons:
           - { speaker: "Ken", ja: "じゃあ、いまは もう かざってあるんだね。", en: "So it's already decorated then." }
         questions:
           - { q: "When did Mika decorate the room?", options: ["Before the party, in advance", "Right now", "After the party", "Nobody decorated it"], answer: "Before the party, in advance" }
-      - { kind: challenge, ja: "パーティーの まえに かざっておいたから、ポスターも はってあるし、ほんも ならべてある。", en: "Since I decorated in advance before the party, a poster has been stuck up and what's more the books have been arranged.", combines: [te-oku, mae-ni, kara-because, te-aru, shi-listing], mode: build }
+      - { kind: challenge, ja: "パーティーの まえに かざっておいたから、ポスターも はってあるし、ほんも ならべてある。", en: "Since I decorated in advance before the party, a poster has been stuck up and what's more the books have been arranged.", combines: [te-oku, mae-ni, kara-because, te-aru, shi-listing, ta-form], mode: build }
     reviewPool: [へや, まど, かべ, たな, ポスター, ほん, あに, いえ]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -537,7 +537,7 @@ lessons:
     focus: "Every てある pattern in one arc — core construction, discrimination from ている, contrast with ておく, the pair family — combined with prior N4 grammar, no new vocabulary"
     introduces: []
     beats:
-      - { kind: sentence, ja: "パーティーの まえに へやを かざっておいたので、もう へやが きれいに かざってある。", en: "Since I decorated the room in advance before the party, it's already nicely decorated.", exercises: [te-oku, mae-ni, node-because, te-aru], mode: build }
+      - { kind: sentence, ja: "パーティーの まえに へやを かざっておいたので、もう へやが きれいに かざってある。", en: "Since I decorated the room in advance before the party, it's already nicely decorated.", exercises: [te-oku, mae-ni, node-because, te-aru, ta-form], mode: build }
       - { kind: sentence, ja: "ポスターが かべに はってあるし、ほんも たなに ならべてあるし、あには うれしかった。", en: "A poster has been stuck on the wall, and what's more the books have been arranged on the shelf, and my older brother was happy.", exercises: [te-aru, shi-listing], mode: listening }
       - { kind: particle-cloze, stem: "まどが ", tail: "のに、へやは あつい。", answer: "あけてある", options: ["あけてある", "あいている", "あける"], en: "Even though the window has been left open, the room is hot.", explanation: "'has been left open' signals the deliberate resultant state, あけてある. あいている would just say it's open, without anyone's intent implied, and あける is the bare dictionary form with no state marking." }
       - { kind: kanji, kana: ポスター, kanji: ポスター, distractors: ["ポケット", "ポイント", "ポスト"], exercises: [te-aru] }
@@ -545,8 +545,8 @@ lessons:
         lines:
           - { speaker: "Tanaka", ja: "へやは どうだった？", en: "How was the room?" }
           - { speaker: "Mika", ja: "パーティーの まえに かざっておいたので、もう きれいに かざってあったよ。", en: "Since I decorated it in advance before the party, it was already nicely decorated." }
-          - { speaker: "Tanaka", ja: "すごいね。", en: "Impressive." }
+          - { speaker: "Tanaka", ja: "よかったね。", en: "That's great." }
         questions:
           - { q: "Why was the room already nicely decorated?", options: ["Mika decorated it in advance before the party", "Guests decorated it themselves", "Nobody decorated it", "Ken decorated it during the party"], answer: "Mika decorated it in advance before the party" }
-      - { kind: challenge, ja: "まどが あけてあるのに へやが あついので、パーティーの まえに かざっておいたし、ドアも あけておいた。", en: "Since the room is hot even though the window has been left open, I decorated in advance before the party and what's more left the door open too.", combines: [te-aru, noni-concession, node-because, te-oku, shi-listing], mode: build }
+      - { kind: challenge, ja: "まどが あけてあるのに へやが あついので、パーティーの まえに かざっておいたし、ドアも あけておいた。", en: "Since the room is hot even though the window has been left open, I decorated in advance before the party and what's more left the door open too.", combines: [te-aru, noni-concession, node-because, te-oku, shi-listing, mae-ni, ta-form], mode: build }
     reviewPool: [へや, まど, かべ, たな, ポスター, ほん, あに, ドア]
