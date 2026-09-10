@@ -308,7 +308,7 @@
       "kana": "ぬすまれる",
       "romaji": "nusumareru",
       "gloss": "to be stolen (passive of ぬすむ)",
-      "shortGloss": "be stolen",
+      "shortGloss": "be stolen (steal)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "ぬすむ",
@@ -318,7 +318,7 @@
       "kana": "ほめられる",
       "romaji": "homerareru",
       "gloss": "to be praised (passive of ほめる)",
-      "shortGloss": "be praised",
+      "shortGloss": "be praised (praise)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "ほめる",
@@ -328,7 +328,7 @@
       "kana": "される",
       "romaji": "sareru",
       "gloss": "to be done (passive of する)",
-      "shortGloss": "be done",
+      "shortGloss": "be done (make)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "する",
@@ -338,7 +338,7 @@
       "kana": "しかられる",
       "romaji": "shikarareru",
       "gloss": "to be scolded (passive of しかる)",
-      "shortGloss": "be scolded",
+      "shortGloss": "be scolded (scold)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "しかる",
@@ -348,7 +348,7 @@
       "kana": "こたえた",
       "romaji": "kotaeta",
       "gloss": "answered (past of こたえる)",
-      "shortGloss": "answered",
+      "shortGloss": "answered (answer)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "こたえる",
@@ -358,7 +358,7 @@
       "kana": "ぬすまれた",
       "romaji": "nusumareta",
       "gloss": "was stolen (passive of ぬすむ)",
-      "shortGloss": "was stolen",
+      "shortGloss": "was stolen (steal)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "ぬすむ",
@@ -368,7 +368,7 @@
       "kana": "ほめられた",
       "romaji": "homerareta",
       "gloss": "was praised (passive of ほめる)",
-      "shortGloss": "was praised",
+      "shortGloss": "was praised (praise)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "ほめる",
@@ -378,7 +378,7 @@
       "kana": "された",
       "romaji": "sareta",
       "gloss": "was done (passive of する)",
-      "shortGloss": "was done",
+      "shortGloss": "was done (make)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "する",
@@ -388,7 +388,7 @@
       "kana": "しかられた",
       "romaji": "shikarareta",
       "gloss": "was scolded (passive of しかる)",
-      "shortGloss": "was scolded",
+      "shortGloss": "was scolded (scold)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "しかる",
@@ -425,7 +425,7 @@
       "kana": "たのまれる",
       "romaji": "tanomareru",
       "gloss": "to be asked (passive of たのむ)",
-      "shortGloss": "be asked",
+      "shortGloss": "be asked (ask)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "たのむ",
@@ -435,7 +435,7 @@
       "kana": "よばれる",
       "romaji": "yobareru",
       "gloss": "to be called in (passive of よぶ)",
-      "shortGloss": "be called",
+      "shortGloss": "be called (call)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "よぶ",
@@ -445,7 +445,7 @@
       "kana": "さそわれる",
       "romaji": "sasowareru",
       "gloss": "to be invited (passive of さそう)",
-      "shortGloss": "be invited",
+      "shortGloss": "be invited (invite)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "さそう",
@@ -455,7 +455,7 @@
       "kana": "たのまれた",
       "romaji": "tanomareta",
       "gloss": "was asked (passive of たのむ)",
-      "shortGloss": "was asked",
+      "shortGloss": "was asked (ask)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "たのむ",
@@ -465,7 +465,7 @@
       "kana": "よばれた",
       "romaji": "yobareta",
       "gloss": "was called in (passive of よぶ)",
-      "shortGloss": "was called",
+      "shortGloss": "was called (call)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "よぶ",
@@ -475,7 +475,7 @@
       "kana": "さそわれた",
       "romaji": "sasowareta",
       "gloss": "was invited (passive of さそう)",
-      "shortGloss": "was invited",
+      "shortGloss": "was invited (invite)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "さそう",
@@ -510,7 +510,7 @@
       "kana": "たてられる",
       "romaji": "taterareru",
       "gloss": "to be built (passive of たてる)",
-      "shortGloss": "be built",
+      "shortGloss": "be built (build)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "たてる",
@@ -520,7 +520,7 @@
       "kana": "たてられた",
       "romaji": "taterareta",
       "gloss": "was built (passive of たてる)",
-      "shortGloss": "was built",
+      "shortGloss": "was built (build)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "たてる",
@@ -530,7 +530,7 @@
       "kana": "はつめいされた",
       "romaji": "hatsumeisareta",
       "gloss": "was invented (passive of はつめいする)",
-      "shortGloss": "was invented",
+      "shortGloss": "was invented (invent)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "はつめい",
@@ -540,10 +540,30 @@
       "kana": "けんきゅうされた",
       "romaji": "kenkyuusareta",
       "gloss": "was researched (passive of けんきゅうする)",
-      "shortGloss": "was researched",
+      "shortGloss": "was researched (research)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "けんきゅう",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "けんきゅうされて",
+      "romaji": "kenkyuusarete",
+      "gloss": "researched, and (te-form of けんきゅうされる)",
+      "shortGloss": "researched (research)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "けんきゅう",
+      "verbClass": "irregular"
+    },
+    {
+      "kana": "はつめいされて",
+      "romaji": "hatsumeisarete",
+      "gloss": "invented, and (te-form of はつめいされる)",
+      "shortGloss": "invented (invent)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "はつめい",
       "verbClass": "irregular"
     },
     {
@@ -558,7 +578,7 @@
       "kana": "ふられた",
       "romaji": "furareta",
       "gloss": "got rained on (suffering passive of ふる)",
-      "shortGloss": "got rained on",
+      "shortGloss": "got rained on (rain)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "ふる",
@@ -568,7 +588,7 @@
       "kana": "はいられた",
       "romaji": "hairareta",
       "gloss": "had (someone) enter, to one's misfortune (suffering passive of はいる)",
-      "shortGloss": "broken in on",
+      "shortGloss": "broken in on (enter)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "はいる",
@@ -594,7 +614,7 @@
       "kana": "そうさされた",
       "romaji": "sousasareta",
       "gloss": "was investigated (passive of そうさする)",
-      "shortGloss": "was investigated",
+      "shortGloss": "investigated (investigation)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "そうさ",
@@ -671,48 +691,35 @@
           "mode": "build"
         },
         {
-          "kind": "particle-cloze",
-          "stem": "どろぼう",
-          "tail": " いる。",
-          "answer": "が",
-          "options": [
-            "が",
-            "は",
-            "を"
-          ],
-          "en": "There is a thief.",
-          "explanation": "が introduces something into existence/attention for the first time — いる needs its subject marked が, not は (which would presume the listener already knows which thief) or を (いる takes no object)."
-        },
-        {
           "kind": "listening-comp",
-          "audio": "せんせいは がくせいを ほめる。",
-          "answer": "The teacher praises the student.",
+          "audio": "せんせいは ともだちを ほめる。",
+          "answer": "The teacher praises my friend.",
           "distractors": [
-            "The teacher scolds the student.",
-            "The student praises the teacher.",
-            "The student scolds the teacher."
+            "The teacher scolds my friend.",
+            "My friend praises the teacher.",
+            "My friend scolds the teacher."
           ],
           "q": "What does this mean?"
         },
         {
           "kind": "listening-comp",
-          "audio": "せんせいは がくせいを しかる。",
-          "answer": "The teacher scolds the student.",
+          "audio": "せんせいは ともだちを しかる。",
+          "answer": "The teacher scolds my friend.",
           "distractors": [
-            "The teacher praises the student.",
-            "The student scolds the teacher.",
-            "The student praises the teacher."
+            "The teacher praises my friend.",
+            "My friend scolds the teacher.",
+            "My friend praises the teacher."
           ],
           "q": "What does this mean?"
         },
         {
           "kind": "listening-comp",
-          "audio": "どろぼうは かばんを ぬすむ。",
-          "answer": "The thief steals the bag.",
+          "audio": "どろぼうは ほんを ぬすむ。",
+          "answer": "The thief steals the book.",
           "distractors": [
-            "The thief hides the bag.",
-            "Someone steals the thief's bag.",
-            "The police found the bag."
+            "The thief hides the book.",
+            "Someone steals the thief's book.",
+            "The police found the book."
           ],
           "q": "What does this mean?"
         },
@@ -739,7 +746,7 @@
             },
             {
               "speaker": "Tom",
-              "ja": "えっ、けいさつを よんで！",
+              "ja": "えっ、けいさつに でんわして！",
               "en": "What, call the police!"
             },
             {
@@ -767,7 +774,8 @@
           "en": "The police saw the thief.",
           "combines": [
             "wo-object",
-            "ta-form"
+            "ta-form",
+            "wa-topic"
           ],
           "mode": "build"
         }
@@ -841,26 +849,13 @@
           "mode": "build"
         },
         {
-          "kind": "particle-cloze",
-          "stem": "がくせいは せんせい",
-          "tail": " しかられた。",
-          "answer": "に",
-          "options": [
-            "に",
-            "を",
-            "が"
-          ],
-          "en": "The student was scolded by the teacher.",
-          "explanation": "The agent of a passive — who did it — takes に, not を: を would make the student the one doing the scolding."
-        },
-        {
           "kind": "listening-comp",
-          "audio": "せんせいに ほめられた。",
-          "answer": "I was praised by the teacher.",
+          "audio": "ともだちは せんせいに ほめられた。",
+          "answer": "My friend was praised by the teacher.",
           "distractors": [
-            "I praised the teacher.",
-            "I was scolded by the teacher.",
-            "The teacher was praised by me."
+            "My friend praised the teacher.",
+            "My friend was scolded by the teacher.",
+            "The teacher was praised by my friend."
           ],
           "q": "What does this mean?"
         },
@@ -892,7 +887,7 @@
             },
             {
               "speaker": "Ken",
-              "ja": "すごいね。",
+              "ja": "よかったね。",
               "en": "That's great."
             }
           ],
@@ -965,7 +960,8 @@
           "en": "Because I was asked a question by the teacher, I answered.",
           "combines": [
             "passive-rareru",
-            "kara-because"
+            "kara-because",
+            "ta-form"
           ],
           "mode": "build"
         }
@@ -1056,26 +1052,13 @@
           "mode": "build"
         },
         {
-          "kind": "particle-cloze",
-          "stem": "どろぼうに さいふ",
-          "tail": " ぬすまれた。",
-          "answer": "を",
-          "options": [
-            "を",
-            "は",
-            "が"
-          ],
-          "en": "My wallet was stolen (by a thief).",
-          "explanation": "The owned thing keeps を even in the passive — it never becomes the topic here; the OWNER is the (dropped) topic. は would make the wallet itself the topic of a different kind of sentence."
-        },
-        {
           "kind": "listening-comp",
-          "audio": "どろぼうに とけいを ぬすまれた。",
-          "answer": "My watch was stolen by a thief.",
+          "audio": "どろぼうに かばんを ぬすまれた。",
+          "answer": "My bag was stolen by a thief.",
           "distractors": [
-            "I stole a thief's watch.",
-            "My watch was found by a thief.",
-            "A thief was stolen by my watch."
+            "I stole a thief's bag.",
+            "My bag was found by a thief.",
+            "A thief was stolen by my bag."
           ],
           "q": "What does this mean?"
         },
@@ -1130,7 +1113,8 @@
           "en": "Because my wallet was stolen by a thief, I called the police.",
           "combines": [
             "possessed-object-passive",
-            "kara-because"
+            "kara-because",
+            "ta-form"
           ],
           "mode": "build"
         }
@@ -1170,19 +1154,6 @@
             "passive-rareru"
           ],
           "mode": "listening"
-        },
-        {
-          "kind": "particle-cloze",
-          "stem": "がくせいは せんせい",
-          "tail": " しかられた。",
-          "answer": "に",
-          "options": [
-            "に",
-            "を",
-            "が"
-          ],
-          "en": "The student was scolded by the teacher.",
-          "explanation": "The passive agent takes に; を would make the student the scolder, not the one scolded."
         },
         {
           "kind": "sentence",
@@ -1287,6 +1258,8 @@
         "たてられる",
         "はつめいされた",
         "けんきゅうされた",
+        "けんきゅうされて",
+        "はつめいされて",
         "よって"
       ],
       "beats": [
@@ -1323,6 +1296,26 @@
         },
         {
           "kind": "sentence",
+          "ja": "この きかいは けんきゅうされて、はつめいされた。",
+          "en": "This machine was researched, and then invented.",
+          "exercises": [
+            "niyotte-creation-passive",
+            "te-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "この きかいは はつめいされて、けんきゅうされた。",
+          "en": "This machine was invented, and then researched.",
+          "exercises": [
+            "niyotte-creation-passive",
+            "te-form"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
           "ja": "ちちは いえを たてる。",
           "en": "My father builds houses.",
           "exercises": [
@@ -1333,35 +1326,35 @@
         {
           "kind": "particle-cloze",
           "stem": "この きかいは タナカさん",
-          "tail": " よって はつめいされた。",
-          "answer": "に",
+          "tail": " はつめいされた。",
+          "answer": "によって",
           "options": [
+            "によって",
             "に",
-            "を",
-            "で"
+            "を"
           ],
           "en": "This machine was invented by Mr. Tanaka.",
-          "explanation": "によって is に + よって — the agent-marker に leads it off, so the blank before よって is に, not を (which marks a direct object) or で (which marks means/location)."
+          "explanation": "Creation/authorship passives favor によって over plain に — the more formal cousin, reserved for who MADE something."
         },
         {
           "kind": "listening-comp",
-          "audio": "この いえは ちちに よって たてられた。",
-          "answer": "This house was built by my father.",
+          "audio": "この だいがくは ちちに よって たてられた。",
+          "answer": "This university was built by my father.",
           "distractors": [
-            "My father built a different house.",
-            "This house was researched by my father.",
-            "My father lives in this house."
+            "My father built a different university.",
+            "This university was researched by my father.",
+            "My father studies at this university."
           ],
           "q": "What does this mean?"
         },
         {
           "kind": "listening-comp",
-          "audio": "この きかいは けんきゅうされた。",
-          "answer": "This machine was researched.",
+          "audio": "タナカさんの きかいは けんきゅうされた。",
+          "answer": "Tanaka's machine was researched.",
           "distractors": [
-            "This machine was invented.",
-            "This machine researches things.",
-            "The machine was built by hand."
+            "Tanaka's machine was invented.",
+            "Tanaka's machine researches things.",
+            "Tanaka's machine was built by hand."
           ],
           "q": "What does this mean?"
         },
@@ -1393,7 +1386,7 @@
             },
             {
               "speaker": "Mika",
-              "ja": "すごいね。",
+              "ja": "いいね。",
               "en": "That's amazing."
             }
           ],
@@ -1416,7 +1409,8 @@
           "en": "This machine was researched and then invented by Tanaka.",
           "combines": [
             "niyotte-creation-passive",
-            "te-form"
+            "te-form",
+            "wa-topic"
           ],
           "mode": "build"
         }
@@ -1485,19 +1479,6 @@
             "possessed-object-passive"
           ],
           "mode": "build"
-        },
-        {
-          "kind": "particle-cloze",
-          "stem": "どろぼうに とけい",
-          "tail": " ぬすまれた。",
-          "answer": "を",
-          "options": [
-            "を",
-            "は",
-            "が"
-          ],
-          "en": "My watch was stolen (by a thief).",
-          "explanation": "The owned thing keeps を even in the passive; the owner is the (dropped) topic, not the watch."
         },
         {
           "kind": "sentence",
@@ -1629,7 +1610,7 @@
         {
           "kind": "particle-cloze",
           "stem": "この きかいは タナカさん",
-          "tail": " よって はつめいされた。",
+          "tail": " はつめいされた。",
           "answer": "によって",
           "options": [
             "によって",
@@ -1641,12 +1622,12 @@
         },
         {
           "kind": "listening-comp",
-          "audio": "いえに ひがいが あった。",
-          "answer": "There was damage to the house.",
+          "audio": "きかいに ひがいが あった。",
+          "answer": "There was damage to the machine.",
           "distractors": [
-            "The house was undamaged.",
-            "A house was built.",
-            "The house had a wound."
+            "The machine was undamaged.",
+            "A machine was built.",
+            "The machine had a wound."
           ],
           "q": "What does this mean?"
         },
@@ -1739,19 +1720,6 @@
           "mode": "build"
         },
         {
-          "kind": "particle-cloze",
-          "stem": "どろぼうに さいふ",
-          "tail": " ぬすまれた。",
-          "answer": "を",
-          "options": [
-            "を",
-            "に",
-            "が"
-          ],
-          "en": "My wallet was stolen (by a thief).",
-          "explanation": "The owned thing keeps を in a possessed-object passive."
-        },
-        {
           "kind": "sentence",
           "ja": "この いえは ちちに よって たてられた。",
           "en": "This house was built by my father.",
@@ -1783,15 +1751,15 @@
         {
           "kind": "particle-cloze",
           "stem": "この きかいは タナカさん",
-          "tail": " よって はつめいされた。",
-          "answer": "に",
+          "tail": " はつめいされた。",
+          "answer": "によって",
           "options": [
+            "によって",
             "に",
-            "を",
-            "で"
+            "を"
           ],
           "en": "This machine was invented by Mr. Tanaka.",
-          "explanation": "によって is に + よって — the agent-marker leads off."
+          "explanation": "によって is に + よって — the more formal cousin, reserved for who MADE something."
         },
         {
           "kind": "dialogue",
@@ -1898,12 +1866,12 @@
         },
         {
           "kind": "listening-comp",
-          "audio": "せんせいに ほめられたし、 たのまれたし、 うれしかった。",
-          "answer": "I was praised and asked a favor by the teacher, so I was happy.",
+          "audio": "ともだちは せんせいに ほめられたし、 たのまれたし、 うれしかった。",
+          "answer": "My friend was praised and asked a favor by the teacher, so he was happy.",
           "distractors": [
-            "I was scolded and asked a favor, so I was sad.",
-            "I praised and asked the teacher, so I was happy.",
-            "I was praised but not asked anything."
+            "My friend was scolded and asked a favor, so he was sad.",
+            "My friend praised and asked the teacher, so he was happy.",
+            "My friend was praised but not asked anything."
           ],
           "q": "What does this mean?"
         },
@@ -2066,24 +2034,24 @@
         {
           "kind": "particle-cloze",
           "stem": "この きかいは タナカさん",
-          "tail": " よって はつめいされたし、けんきゅうされた。",
-          "answer": "に",
+          "tail": " はつめいされたし、けんきゅうされた。",
+          "answer": "によって",
           "options": [
+            "によって",
             "に",
-            "を",
-            "で"
+            "を"
           ],
           "en": "This machine was invented and what's more researched by Mr. Tanaka.",
-          "explanation": "によって is に + よって — the agent-marker leads off."
+          "explanation": "によって is に + よって — the more formal cousin, reserved for who MADE something."
         },
         {
           "kind": "listening-comp",
-          "audio": "どろぼうに とけいを ぬすまれたのに、げんきだった。",
-          "answer": "Even though my watch was stolen by a thief, I was fine.",
+          "audio": "どろぼうに さいふを ぬすまれたのに、げんきだった。",
+          "answer": "Even though my wallet was stolen by a thief, I was fine.",
           "distractors": [
-            "My watch was stolen, so I was upset.",
-            "Nobody stole my watch, so I was fine.",
-            "I stole a watch, and I was fine."
+            "My wallet was stolen, so I was upset.",
+            "Nobody stole my wallet, so I was fine.",
+            "I stole a wallet, and I was fine."
           ],
           "q": "What does this mean?"
         },
@@ -2115,7 +2083,7 @@
             },
             {
               "speaker": "Ken",
-              "ja": "すごいね。",
+              "ja": "いいね。",
               "en": "That's amazing."
             }
           ],
@@ -2183,15 +2151,15 @@
         {
           "kind": "particle-cloze",
           "stem": "この きかいは タナカさん",
-          "tail": " よって はつめいされた。",
-          "answer": "に",
+          "tail": " はつめいされた。",
+          "answer": "によって",
           "options": [
+            "によって",
             "に",
-            "を",
-            "で"
+            "を"
           ],
           "en": "This machine was invented by Mr. Tanaka.",
-          "explanation": "によって is に + よって."
+          "explanation": "によって is に + よって — the more formal cousin, reserved for who MADE something."
         },
         {
           "kind": "listening-comp",
@@ -2212,19 +2180,6 @@
             "niyotte-creation-passive"
           ],
           "mode": "listening"
-        },
-        {
-          "kind": "particle-cloze",
-          "stem": "どろぼうに とけい",
-          "tail": " ぬすまれた。",
-          "answer": "を",
-          "options": [
-            "を",
-            "に",
-            "が"
-          ],
-          "en": "My watch was stolen (by a thief).",
-          "explanation": "The owned thing keeps を."
         },
         {
           "kind": "dialogue",
@@ -2309,15 +2264,15 @@
         {
           "kind": "particle-cloze",
           "stem": "この きかいは タナカさん",
-          "tail": " よって はつめいされた。",
-          "answer": "に",
+          "tail": " はつめいされた。",
+          "answer": "によって",
           "options": [
+            "によって",
             "に",
-            "を",
-            "で"
+            "を"
           ],
           "en": "This machine was invented by Mr. Tanaka.",
-          "explanation": "によって is に + よって — the agent marker leads off."
+          "explanation": "によって is に + よって — the more formal cousin, reserved for who MADE something."
         },
         {
           "kind": "kanji",
