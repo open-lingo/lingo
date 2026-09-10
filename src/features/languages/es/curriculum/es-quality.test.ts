@@ -56,10 +56,19 @@ import { ES_M24_CHECKPOINT_INDEX } from "./m24";
 import { ES_M25_CHECKPOINT_INDEX } from "./m25";
 import { ES_M26_CHECKPOINT_INDEX } from "./m26";
 import { ES_M27_CHECKPOINT_INDEX } from "./m27";
-import { getEsCourseAtoms } from "../courseAtoms";
 import { ES_M28_CHECKPOINT_INDEX } from "./m28";
+import { findEsAtomBySurface, getEsCourseAtoms, type EsAtom } from "../courseAtoms";
 import { ES_MODULE_ORDER } from "../grammarHelpers";
 import { isGradedStep } from "@/features/lesson/data/_stepPredicates";
+import { ES_VERB_ENTRIES } from "../conjugationTables";
+import {
+  esTokens,
+  ES_FUNCTION_WORDS,
+  ES_PROPER_NAMES,
+  getEsGenderCanon,
+  getEsPluralCanon,
+} from "../__tests__/moduleBarGuards";
+import type { DialogueSimStep } from "@/features/lesson/types";
 
 const MODULE_ORDER: readonly string[] = ES_MODULE_ORDER;
 
@@ -266,4 +275,315 @@ describe("ES quality — compounding review", () => {
     }
     expect(bad, `weak cross-module review: ${bad.join(", ")}`).toEqual([]);
   });
+});
+
+/**
+ * ES quality — dialogue_sim content resolves to registered atoms.
+ *
+ * ROOT CAUSE (why «de niños» shipped in BOTH m26 L10 and m27 L10, caught
+ * only by human review — a3580612, 0be21768): `esSurfaces()`
+ * (`__tests__/moduleBarGuards.ts`), the tokenizer every per-module
+ * "vocab provenance" scan (inv 24/33) and every module's own
+ * UNREGISTERED/ILLEGAL-form PIN walk from, has a `switch (step.type)` with
+ * NO case for `"dialogue_sim"` — it falls through to `default: break` and
+ * returns `[]`. Every dialogue_sim NPC line and reply is therefore
+ * INVISIBLE to every scan built on top of `esSurfaces`, including the
+ * course-wide vocab-provenance gate. What actually caught «de niños» twice
+ * was a human reviewer, not a gate — the per-module PIN tests that DO read
+ * sim turns (each mN.test.ts's own `allSurfacesAndNpc`) only ban a
+ * hand-curated list of forms specific to THAT module's own new grammar
+ * (e.g. m26's `UNREGISTERED_PRETERITE`); nothing ever generically checked
+ * that a sim line's words resolve to the atom registry, so an unregistered
+ * INFLECTION of an EARLIER module's atom (m22's singular-only «de niño»,
+ * pluralized to «de niños» to agree with a plural subject) was invisible to
+ * every existing gate — it isn't m26/m27's own new vocabulary, so it was in
+ * no module's hand-curated banned-forms list either.
+ *
+ * This describe block does NOT touch `esSurfaces` — extending it to handle
+ * `dialogue_sim` would feed sim content into 26 modules' SHRINK-ONLY debt
+ * ratchets (`registerEsModuleBarGuards`'s `unknownTokens`/`nonIntroDebuts`)
+ * all at once, well outside this fix's blast radius. Instead this is a
+ * separate, hard-fail (zero-tolerance, no ratchet) course-wide gate scoped
+ * to dialogue_sim only, built from the SAME tokenizer/registry primitives
+ * (`esTokens`, `ES_FUNCTION_WORDS`, `ES_PROPER_NAMES`,
+ * `getEsGenderCanon`/`getEsPluralCanon`, `getEsCourseAtoms`) the existing
+ * sim/vocab gates already use — exported from `moduleBarGuards.ts`
+ * specifically for this reuse (2026-09-10).
+ *
+ * Checked positions (mirrors the "grade answers, not every string" pin):
+ * every dialogue_sim NPC line (always shown, ungraded) + every ACCEPTED
+ * reply surface (build `answer`/`alsoAccepted`; choice `correctOptionId` +
+ * `alsoCorrectOptionIds`). Wrong choice-mode distractors are intentional
+ * foils (same carve-out `esSurfaces`'s own multiple_choice case makes) and
+ * are not walked here.
+ *
+ * Two checks:
+ *  (1) MULTI-WORD ATOM INFLECTION INTEGRITY — the exact defect class,
+ *      checked over NPC lines AND accepted replies (the original bug was
+ *      an NPC line). A registered multi-word atom ("de niño") may appear
+ *      as its exact surface, or with the one inflection its own authoring
+ *      convention sanctions course-wide (the regular -o→-a gender swap on
+ *      the last word — the atom registry's own comment on "de niño"
+ *      spells this out: "«de niña» is the feminine … not a separate
+ *      atom"). ANY other inflection detected in the vicinity of the
+ *      atom's word sequence (plural -s/-es on any word, e.g. «de niños»)
+ *      fails, UNLESS that exact inflected string is itself a separately
+ *      registered atom surface (a real, different, registered word — not
+ *      a stray bend of this one).
+ *  (2) WORD-LEVEL PROVENANCE — checked over ACCEPTED REPLIES ONLY (NPC
+ *      lines are deliberately excluded — see below). Every content word
+ *      resolves to a function word, a proper name, a registered atom
+ *      surface word introduced by this lesson's module or earlier
+ *      (fromModule ≤ N, cumulative), or a conjugated form of a verb whose
+ *      INFINITIVE is taught by this lesson's module or earlier (gated on
+ *      `introducedAtModule`, not a matching atom surface — see the
+ *      exemptions note). (Tense-by-module legality — e.g. "is this
+ *      preterite cell taught yet" — stays each module's own hand-curated
+ *      UNREGISTERED_* scan; duplicating that per-tense calendar here is
+ *      out of this fix's scope. This check only catches words with NO
+ *      course provenance at all — forward references to an unregistered
+ *      word, or invented non-words.)
+ *
+ * WHY CHECK (2) EXCLUDES NPC LINES: investigating this gate's own initial
+ * failures surfaced that this course has an established, first-class
+ * dialogue_sim design pattern — NPC turns tagged "fast"/"rapido" (m1–m10,
+ * e.g. es-m2-9's t4-rapido) deliberately run AHEAD of the student's taught
+ * vocabulary as an immersion device, rescued by the fixed survival phrase
+ * "no entiendo"; "slow"/"despacio" companions use syllable-hyphenated
+ * spelling ("¿Có-mo es-tás?") for pronunciation coaching. m2's own
+ * `explanation` prose says so outright: "She asked if you want to go to
+ * the movies tomorrow — module 3 material. «no entiendo» just saved the
+ * conversation." Checking every NPC word against taught vocabulary is
+ * therefore not a bug detector for this course — it is factually wrong
+ * about the design. Running check (2) unscoped found 153 "unregistered"
+ * words, ALL 153 in NPC position and ZERO in reply position (verified via
+ * -t filter, 2026-09-10) — confirming the invariant that actually holds is
+ * "the reply is decodable from taught language," not "the whole exchange
+ * is." Scoped to replies only, check (2) passes CLEANLY against the
+ * existing course with zero allowlist entries needed — including "no
+ * entiendo" itself, which resolves because it is properly registered as
+ * its own multi-word PHRASE atom (m2, `esReviewPool.ts`), not because of
+ * any special-casing here.
+ *
+ * EXEMPTIONS (course-wide allowlist, not per-module — reasoned, listed in
+ * full):
+ *  - `ES_FUNCTION_WORDS` / `ES_PROPER_NAMES` (imported from
+ *    `moduleBarGuards.ts` — the SAME allowlist every other ES gate uses;
+ *    not restated here).
+ *  - plural/gender canon (`getEsPluralCanon`/`getEsGenderCanon`): a
+ *    REGULAR derived form of a registered noun/adjective word is not a
+ *    separate vocabulary item, course-wide (m3/m4 doctrine — "los libros"
+ *    drills libro exactly as "hablas" drills hablar). Same canon the
+ *    existing vocab-provenance gate already applies to every other step
+ *    type; dialogue_sim gets no special treatment.
+ *  - conjugated verb forms (`ES_VERB_ENTRIES`), gated on the verb entry's
+ *    own `introducedAtModule` (not a matching atom surface — several
+ *    taught verbs, e.g. suppletive "ir", have no atom of their own
+ *    surface) — see check (2)'s note above.
+ */
+describe("ES quality — dialogue_sim content resolves to registered atoms", () => {
+  const ATOMS = getEsCourseAtoms();
+
+  // Cumulative (by module, in ES_MODULE_ORDER) registered atom words —
+  // the noun/adjective/etc. vocabulary a lesson in module `m` may assume.
+  const cumulativeAtomWordsByModule = new Map<string, Set<string>>();
+  // Cumulative multi-word atoms (surface has ≥2 words) — the carriers
+  // check (1) walks.
+  const cumulativeMultiWordAtomsByModule = new Map<string, EsAtom[]>();
+  {
+    const words = new Set<string>();
+    const multi: EsAtom[] = [];
+    for (const m of MODULE_ORDER) {
+      for (const a of ATOMS) {
+        if (a.fromModule !== m) continue;
+        for (const w of esTokens(a.surface)) words.add(w);
+        if (esTokens(a.surface).length >= 2) multi.push(a);
+      }
+      cumulativeAtomWordsByModule.set(m, new Set(words));
+      cumulativeMultiWordAtomsByModule.set(m, [...multi]);
+    }
+  }
+
+  // Cumulative conjugated-verb-form words, unlocked at the module the verb
+  // entry itself declares (`introducedAtModule`) — the SAME field
+  // conjugationTables.ts's own comments cite as the teach-date authority
+  // (e.g. "ir" / M11 Vamos). An earlier draft of this gated on a matching
+  // registered atom surface instead; that undercounted, because several
+  // taught verbs (e.g. "ir" — voy/vas/va/vamos/van, suppletive, M11) have
+  // no atom of their own surface at all — only `introducedAtModule` is
+  // reliable here.
+  const cumulativeVerbWordsByModule = new Map<string, Set<string>>();
+  {
+    const words = new Set<string>();
+    for (const m of MODULE_ORDER) {
+      const n = Number(m.slice(1));
+      for (const v of ES_VERB_ENTRIES) {
+        if (v.introducedAtModule !== n) continue;
+        for (const w of esTokens(v.lemma ?? "")) words.add(w);
+        for (const f of Object.values(v.forms ?? {})) {
+          if (typeof f === "string") for (const w of esTokens(f)) words.add(w);
+        }
+      }
+      cumulativeVerbWordsByModule.set(m, new Set(words));
+    }
+  }
+
+  const genderCanon = getEsGenderCanon();
+  const pluralCanon = getEsPluralCanon();
+
+  /** Every printed dialogue_sim string this gate checks: NPC lines
+   *  (always shown) + accepted reply surfaces (build answer/alsoAccepted,
+   *  choice correct + alsoCorrect options). Distractor choice options are
+   *  intentional foils and are excluded (matches esSurfaces's own MCQ
+   *  carve-out).
+   *
+   *  `includeNpc` (default true) lets check (2) exclude NPC lines — see
+   *  that check's own note on why NPC content is a different invariant
+   *  from reply content in this course. */
+  function dialogueSimCheckedTexts(
+    step: DialogueSimStep,
+    lessonId: string,
+    includeNpc = true,
+  ): Array<{ id: string; text: string }> {
+    const out: Array<{ id: string; text: string }> = [];
+    for (const t of step.turns) {
+      if (includeNpc) {
+        out.push({ id: `${lessonId}/${step.id}/${t.id}/npc`, text: t.npc.kana });
+        if (t.npc.audioText && t.npc.audioText !== t.npc.kana) {
+          out.push({ id: `${lessonId}/${step.id}/${t.id}/npc-audio`, text: t.npc.audioText });
+        }
+      }
+      const r = t.reply;
+      if (r.mode === "build") {
+        out.push({ id: `${lessonId}/${step.id}/${t.id}/reply`, text: r.answer });
+        for (const alt of r.alsoAccepted ?? []) {
+          out.push({ id: `${lessonId}/${step.id}/${t.id}/reply-alsoAccepted`, text: alt });
+        }
+      } else {
+        const correct = r.options.find((o) => o.id === r.correctOptionId);
+        if (correct) out.push({ id: `${lessonId}/${step.id}/${t.id}/reply`, text: correct.text });
+        for (const altId of r.alsoCorrectOptionIds ?? []) {
+          const alt = r.options.find((o) => o.id === altId);
+          if (alt) out.push({ id: `${lessonId}/${step.id}/${t.id}/reply-alsoCorrect`, text: alt.text });
+        }
+      }
+    }
+    return out;
+  }
+
+  function escapeRegExp(s: string): string {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+
+  /** Loosely matches ANY plausible inflection near a multi-word atom's word
+   *  sequence (regular plural -s/-es on any word; the sanctioned -o/-a
+   *  gender swap on the last word) so check (1) can judge the CAPTURED text
+   *  narrowly against the sanctioned set below — deliberately broad on the
+   *  capture side, narrow on the judgment side. */
+  function multiWordAtomVariantRegex(surface: string): RegExp {
+    const words = surface.toLowerCase().split(/\s+/);
+    const last = words.length - 1;
+    const parts = words.map((w, i) => {
+      if (i === last && /[oa]$/.test(w)) {
+        const stem = escapeRegExp(w.slice(0, -1));
+        return `${stem}[oa]s?`;
+      }
+      return `${escapeRegExp(w)}(?:e?s)?`;
+    });
+    return new RegExp(`\\b${parts.join("\\s+")}\\b`, "giu");
+  }
+
+  /** The surfaces a registered multi-word atom is allowed to appear as
+   *  course-wide: its exact registered surface, plus the regular -o→-a
+   *  gender swap on the last word (the atom registry's own sanctioned
+   *  inflection — see "de niño" / "de niña"). Plural is NOT sanctioned by
+   *  default — an idiom like «de niño» ("as a child") does not inflect for
+   *  the subject's number in this course's register; a module that
+   *  legitimately needs the plural must register it as its own atom. */
+  function sanctionedVariants(surface: string): Set<string> {
+    const words = surface.toLowerCase().split(/\s+/);
+    const last = words.length - 1;
+    const out = new Set<string>([surface.toLowerCase()]);
+    if (/o$/.test(words[last])) {
+      const swapped = [...words];
+      swapped[last] = `${swapped[last].slice(0, -1)}a`;
+      out.add(swapped.join(" "));
+    }
+    return out;
+  }
+
+  it(
+    "no dialogue_sim NPC line or accepted reply carries an unregistered inflection of a registered multi-word atom " +
+      "(the «de niño»→«de niños» defect class — a3580612, 0be21768)",
+    () => {
+      const bad: string[] = [];
+      for (const lesson of ES_ALL_LESSONS) {
+        const mod = moduleOf(lesson.id);
+        if (!mod) continue;
+        const carriers = cumulativeMultiWordAtomsByModule.get(mod) ?? [];
+        if (carriers.length === 0) continue;
+        for (const step of lesson.steps) {
+          if (step.type !== "dialogue_sim") continue;
+          for (const { id, text } of dialogueSimCheckedTexts(step as DialogueSimStep, lesson.id)) {
+            const lower = text.toLowerCase();
+            for (const atom of carriers) {
+              const sanctioned = sanctionedVariants(atom.surface);
+              for (const m of lower.matchAll(multiWordAtomVariantRegex(atom.surface))) {
+                const matched = m[0].replace(/\s+/g, " ").trim();
+                if (sanctioned.has(matched)) continue;
+                // A separately, genuinely registered atom surface that
+                // happens to match the loose capture (a real different
+                // word) is not a stray inflection of THIS atom.
+                if (findEsAtomBySurface(matched)) continue;
+                bad.push(
+                  `${id}: «${matched}» in «${text}» — unregistered inflection of atom «${atom.surface}» (${atom.fromModule})`,
+                );
+              }
+            }
+          }
+        }
+      }
+      expect(
+        bad,
+        `unregistered inflection of a registered multi-word atom in dialogue_sim:\n${bad.join("\n")}`,
+      ).toEqual([]);
+    },
+  );
+
+  it(
+    "every content word in a dialogue_sim accepted reply resolves to a registered atom, a taught verb " +
+      "conjugation, a function word, or a proper name — cumulative to that lesson's module " +
+      "(NPC lines excluded — see the describe-block note on the «rapido»/«despacio» exposure pattern)",
+    () => {
+      const bad: string[] = [];
+      for (const lesson of ES_ALL_LESSONS) {
+        const mod = moduleOf(lesson.id);
+        if (!mod) continue;
+        const knownAtoms = cumulativeAtomWordsByModule.get(mod) ?? new Set<string>();
+        const knownVerbs = cumulativeVerbWordsByModule.get(mod) ?? new Set<string>();
+        for (const step of lesson.steps) {
+          if (step.type !== "dialogue_sim") continue;
+          // includeNpc=false — see the "why NPC lines are excluded" note
+          // on this describe block.
+          for (const { id, text } of dialogueSimCheckedTexts(step as DialogueSimStep, lesson.id, false)) {
+            for (const raw of esTokens(text)) {
+              if (ES_FUNCTION_WORDS.has(raw) || ES_PROPER_NAMES.has(raw)) continue;
+              // Regular derived forms fold to their registered base — but
+              // ONLY when the raw token itself is not already known (a
+              // registered plural/feminine keeps its own identity).
+              const t = knownAtoms.has(raw)
+                ? raw
+                : (pluralCanon.get(raw) ?? genderCanon.get(raw) ?? raw);
+              if (knownAtoms.has(t) || knownVerbs.has(raw) || knownVerbs.has(t)) continue;
+              bad.push(`${id}: unregistered word "${raw}" in "${text}" (module ${mod})`);
+            }
+          }
+        }
+      }
+      expect(
+        bad,
+        `unregistered word in dialogue_sim (fromModule ≤ N):\n${bad.join("\n")}`,
+      ).toEqual([]);
+    },
+  );
 });

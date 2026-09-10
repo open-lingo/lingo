@@ -171,8 +171,12 @@ function esRegularPlurals(word: string): string[] {
 
 let genderCanon: Map<string, string> | null = null;
 
-/** feminine token (sg + pl) → masculine token, over -o adjective atom words. */
-function getEsGenderCanon(): Map<string, string> {
+/** feminine token (sg + pl) → masculine token, over -o adjective atom words.
+ *  Exported (2026-09-10) so the course-wide dialogue_sim provenance gate
+ *  (es-quality.test.ts) canonicalizes tokens with the IDENTICAL logic this
+ *  file's own vocab-provenance check uses — one canon, not two that can
+ *  drift apart. */
+export function getEsGenderCanon(): Map<string, string> {
   if (genderCanon) return genderCanon;
   const map = new Map<string, string>();
   for (const a of getEsCourseAtoms()) {
@@ -190,8 +194,9 @@ function getEsGenderCanon(): Map<string, string> {
 
 let pluralCanon: Map<string, string> | null = null;
 
-/** plural token → singular token, over noun/adjective atom surface words. */
-function getEsPluralCanon(): Map<string, string> {
+/** plural token → singular token, over noun/adjective atom surface words.
+ *  Exported alongside getEsGenderCanon() — see that export's note. */
+export function getEsPluralCanon(): Map<string, string> {
   if (pluralCanon) return pluralCanon;
   const map = new Map<string, string>();
   for (const a of getEsCourseAtoms()) {

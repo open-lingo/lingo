@@ -1798,8 +1798,8 @@ lessons:
             goal: "Narrate the whole memory, start to finish."
             reply:
               mode: build
-              tiles: ["de", "niños,", "veníamos", "aquí", "juntos", "cuando,", "de", "repente,", "vino", "Diego,", "y", "entonces", "queríamos", "ir", "a", "la", "fiesta", "venían", "quería"]
-              answer: "de niños, veníamos aquí juntos cuando, de repente, vino Diego, y entonces queríamos ir a la fiesta"
+              tiles: ["de", "niño,", "veníamos", "aquí", "juntos", "cuando,", "de", "repente,", "vino", "Diego,", "y", "entonces", "queríamos", "ir", "a", "la", "fiesta", "venían", "quería"]
+              answer: "de niño, veníamos aquí juntos cuando, de repente, vino Diego, y entonces queríamos ir a la fiesta"
             replyGloss: "As children, we used to come here together when, suddenly, Diego came, and then we wanted to go to the party."
             explanation: "The whole module in one line: «veníamos» paints the ongoing scene; «vino» is the one surprise event inside it; «queríamos», with «entonces», closes it — every family, both tenses, doing its own job."
 

@@ -1891,8 +1891,8 @@ const ES_M23_10: LessonContent = {
           goal: "Narrate the whole memory, start to finish.",
           reply: {
             mode: "build",
-            tiles: ["de", "niños,", "íbamos", "a", "la", "escuela", "juntos", "cuando,", "de", "repente,", "vino", "Sofía,", "y", "entonces", "todos", "fueron", "al", "parque", "iban", "vino"],
-            answer: "de niños, íbamos a la escuela juntos cuando, de repente, vino Sofía, y entonces todos fueron al parque",
+            tiles: ["de", "niño,", "íbamos", "a", "la", "escuela", "juntos", "cuando,", "de", "repente,", "vino", "Sofía,", "y", "entonces", "todos", "fueron", "al", "parque", "iban", "vino"],
+            answer: "de niño, íbamos a la escuela juntos cuando, de repente, vino Sofía, y entonces todos fueron al parque",
           },
           replyGloss: "As children, we used to go to school together when, suddenly, Sofía came, and then everyone went to the park.",
           explanation: "The whole module in one line: «íbamos» paints the ongoing scene; «vino» is the one surprise event inside it; «fueron», with «todos», is what happened next. Every connective, both tenses, doing their own job.",
