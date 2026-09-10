@@ -702,10 +702,10 @@ lessons:
     introduces: [あげた, くれた, もらった, うれしかった]
     beats:
       - { kind: rule, grammarPointId: ta-form }
-      - { kind: sentence, ja: "がっこうから かえる とき たんじょうびに ちちに とけいを もらった。", en: "When I got home from school, I got a watch from my father for my birthday", exercises: [ta-form, morau, ni-time, toki], mode: build }
+      - { kind: sentence, ja: "たんじょうびの パーティーを する とき ちちに とけいを もらった。", en: "When we had the birthday party, I got a watch from my father", exercises: [ta-form, morau, ni-recipient, toki], mode: build }
       - { kind: sentence, ja: "ともだちが けいたいを くれた。", en: "My friend gave me a cell phone", exercises: [ta-form, kureru, ga-existence], mode: build }
       - { kind: kanji, kana: かぞく, kanji: 家族, exercises: [ta-form] }
-      - { kind: sentence, ja: "ともだちと あそんだから せんせいに はなたばを あげた。", en: "I hung out with a friend, so I gave the teacher a bouquet", exercises: [ta-form, ageru, ni-recipient, kara-because], mode: build }
+      - { kind: sentence, ja: "パーティーで ケーキを たべたから せんせいに はなたばを あげた。", en: "We ate cake at the party, so I gave the teacher a bouquet", exercises: [ta-form, ageru, ni-recipient, kara-because], mode: build }
       - { kind: sentence, ja: "プレゼントを もらったから うれしかった。", en: "I got a present, so I was happy", exercises: [ta-form, morau, kara-because], mode: build }
       - { kind: sentence, ja: "いしゃに くすりを もらったから あした がっこうに いく。", en: "I got medicine from the doctor, so I'll go to school tomorrow", exercises: [ta-form, morau, kara-because], mode: listening }
       - { kind: sentence, ja: "かぞくが おおきい ケーキを くれた。", en: "My family gave me a big cake", exercises: [ta-form, kureru, i-adj-present], mode: build }

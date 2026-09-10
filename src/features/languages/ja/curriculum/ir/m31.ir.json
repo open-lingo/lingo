@@ -2074,12 +2074,12 @@
         },
         {
           "kind": "sentence",
-          "ja": "がっこうから かえる とき たんじょうびに ちちに とけいを もらった。",
-          "en": "When I got home from school, I got a watch from my father for my birthday",
+          "ja": "たんじょうびの パーティーを する とき ちちに とけいを もらった。",
+          "en": "When we had the birthday party, I got a watch from my father",
           "exercises": [
             "ta-form",
             "morau",
-            "ni-time",
+            "ni-recipient",
             "toki"
           ],
           "mode": "build"
@@ -2105,8 +2105,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ともだちと あそんだから せんせいに はなたばを あげた。",
-          "en": "I hung out with a friend, so I gave the teacher a bouquet",
+          "ja": "パーティーで ケーキを たべたから せんせいに はなたばを あげた。",
+          "en": "We ate cake at the party, so I gave the teacher a bouquet",
           "exercises": [
             "ta-form",
             "ageru",
