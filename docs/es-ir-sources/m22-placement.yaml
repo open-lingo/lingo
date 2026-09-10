@@ -1,0 +1,23 @@
+placement:
+  screener:
+    - id: "es-m22-scr-1"
+      prompt: "'As a child, I used to speak Spanish every day.' — which one?"
+      correct: "de niño, hablaba español todos los días"
+      distractors: ["de niño, hablas español todos los días", "de niño, hablábamos español todos los días", "de niño, hablaban español todos los días"]
+  byModule:
+    - id: "es-m22-pl-1"
+      prompt: "We used to go to school together."
+      correct: "íbamos a la escuela juntos"
+      distractors: ["iba a la escuela juntos", "vamos a la escuela juntos", "iban a la escuela juntos"]
+    - id: "es-m22-pl-2"
+      prompt: "Everyone used to be very good."
+      correct: "todos eran muy buenos"
+      distractors: ["todos éramos muy buenos", "todos son muy buenos", "él era muy bueno"]
+    - id: "es-m22-pl-3"
+      prompt: "How old were you (tú)?"
+      correct: "¿cuántos años tenías?"
+      distractors: ["¿cuántos años tienes?", "¿cuántos años teníamos?", "¿cuántos años tenían?"]
+    - id: "es-m22-pl-4"
+      prompt: "We used to watch movies at the theater."
+      correct: "veíamos películas en el cine"
+      distractors: ["veía películas en el cine", "vemos películas en el cine", "veían películas en el cine"]

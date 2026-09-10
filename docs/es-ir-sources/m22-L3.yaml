@@ -1,0 +1,159 @@
+  # ── L3 · «Era, eras» — ser's imperfect debuts. «era» is a SECOND "first
+  #    slot" atom: yo era / él-ella-usted era share the exact surface, same
+  #    collision as «hablaba» (L1) — the info card here is shorter, pointing
+  #    back to L1's full explanation. «eras» (tú) carries no such collision.
+  #    No accent on era/eras (éramos, the one accented ser form, is L4's).
+  #    Recall floor: this lesson carries ≥1 recall of an L1/L2 win line.
+  - n: 3
+    template: free
+    title: "Era, eras"
+    description: "«era» is ser's imperfect — and it shares the same trick as «hablaba»: «yo era» and «él/ella/usted era» are the exact same word. «eras» is you (tú) were, no collision there."
+    steps:
+      - kind: map
+        id: l3-map-diegoerabueno
+        tokens: ["de niño", "Diego", "era", "muy", "bueno"]
+        pairs:
+          - { en: "as a child", tokenIndex: 0 }
+          - { en: "Diego", tokenIndex: 1 }
+          - { en: "was", tokenIndex: 2 }
+          - { en: "very", tokenIndex: 3 }
+          - { en: "good", tokenIndex: 4 }
+        audioText: "de niño, Diego era muy bueno"
+        revealNote: "«era» is ser's imperfect — same trick as «hablaba»: «yo era» and «él era» are the exact same word. Only the subject tells you who."
+      - kind: info
+        id: l3-info-era
+        title: "Era — ser's imperfect, same collision"
+        body: "«era» is I was / he, she, you were — the same trick as «hablaba»: one word, two people, only the subject tells you who (see L1 for the full rule). «eras» is you (tú) were, no accent. Use «era» for description and identity in the past — what someone was like, who they were."
+      - kind: speakLit
+        id: l3-sp-yoera
+        es: "yo era muy bueno de niño"
+        en: "I was very good as a child"
+        atoms: ["era", "muy", "bueno", "de niño"]
+      - kind: buildLit
+        id: l3-b-diegoerabueno
+        es: "Diego era muy bueno de niño"
+        en: "Diego was very good as a child"
+        atoms: ["era", "muy", "bueno", "de niño"]
+        tiles: ["es", "son"]
+      - kind: speakLit
+        id: l3-sp-tueras
+        es: "tú eras muy bueno de niño"
+        en: "You (tú) were very good as a child"
+        atoms: ["eras", "muy", "bueno", "de niño"]
+      - kind: clozeLit
+        id: l3-c-anaerabuena
+        es: "de niño, Ana era muy buena"
+        en: "As a child, Ana was very good"
+        blank: "era"
+        options: ["era", "es", "eras"]
+        atoms: ["de niño", "era", "muy", "bueno"]
+        why: "Ana, in the past: «era». «es» slips into now; «eras» would be tú, not Ana."
+      - kind: listenCompLit
+        id: l3-lc-elerabueno
+        es: "él era muy bueno de niño"
+        en: "He was very good as a child."
+        atoms: ["era", "muy", "bueno", "de niño"]
+        distractorsEn:
+          - "He is very good."
+          - "She was very good as a child."
+          - "They were very good as children."
+      - kind: mcq
+        id: l3-q-tueras
+        prompt: "Which one means 'you (tú) were'?"
+        correct: "tú eras"
+        distractors: ["tú era", "tú eres", "usted eras"]
+        atoms: ["eras"]
+        why: "«eras» — the tú ending, no accent. «era» collapses yo/él, not tú; «eres» slips into now; «usted» takes «era», not «eras»."
+      - kind: buildLit
+        id: l3-b-tueraescuela
+        es: "tú eras muy bueno en la escuela"
+        en: "You (tú) were very good at school"
+        atoms: ["eras", "muy", "bueno", "escuela"]
+        tiles: ["era", "es"]
+      - kind: audioWimcq
+        id: l3-ear-playa
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: agreementLit
+        id: l3-agr-yoelera
+        en: "I was very good, and he was very good too"
+        audioText: "yo era muy bueno, y él era muy bueno también"
+        atoms: ["era", "muy", "bueno"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "era", options: ["era", "eres"] } }
+          - { text: " muy bueno, y él " }
+          - { blank: { id: "p2", answer: "era", options: ["era", "es"] } }
+          - { text: " muy bueno también" }
+      - kind: listenBuildLit
+        id: l3-lb-tuerasfiesta
+        es: "tú eras muy bueno en la fiesta"
+        en: "You (tú) were very good at the party"
+        atoms: ["eras", "muy", "bueno", "fiesta"]
+        tiles: ["era", "es"]
+      - kind: textMcq
+        id: l3-tm-era
+        target: "era"
+        distractors: ["es", "eran", "eras"]
+      # Printed non-recall at L1 (es-m22-1-l1-sp-win).
+      - kind: speakLit
+        id: l3-sp-recall-hablabatodosdias
+        es: "de niño, hablaba español todos los días"
+        en: "As a child, I used to speak Spanish every day"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l3-sim-carmen-erabueno
+        scene: { emoji: "😊", title: "Carmen asks about everyone's childhood", setting: "Carmen wants to know what everyone was like as a kid." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Eras bueno de niño?", audioText: "¿eras bueno de niño?", gloss: "Were you (tú) good as a child?" }
+            goal: "Say yes, you were always good."
+            reply:
+              mode: build
+              tiles: ["sí", "era", "siempre", "bueno", "eran", "es"]
+              answer: "sí era siempre bueno"
+            replyGloss: "Yes, I was always good."
+            explanation: "Answering as yourself: «era». «eran» would be more than one; «es» slips into now."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Y Ana? ¿Era buena también?", audioText: "¿y ana? ¿era buena también?", gloss: "And Ana? Was she good too?" }
+            goal: "Say yes, she was very good."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, ella era muy buena" }
+                - { id: "wrong1", text: "sí, yo era muy buena" }
+                - { id: "wrong2", text: "sí, ella es muy buena" }
+              correctOptionId: "right"
+              audioText: "sí, ella era muy buena"
+            replyGloss: "Yes, she was very good."
+            explanation: "The question is about Ana: «ella era». Swapping the subject to «yo» would wrongly claim it about you; «es» slips into now."
+          - id: t3
+            npc: { speaker: "Carmen", es: "¿Y Diego? ¿Era bueno de niño?", audioText: "¿y diego? ¿era bueno de niño?", gloss: "And Diego? Was he good as a child?" }
+            goal: "Say yes, he was always very good."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, él era siempre muy bueno" }
+                - { id: "wrong1", text: "sí, yo era siempre muy bueno" }
+                - { id: "wrong2", text: "sí, él es siempre muy bueno" }
+              correctOptionId: "right"
+              audioText: "sí, él era siempre muy bueno"
+            replyGloss: "Yes, he was always very good."
+            explanation: "About Diego: «él era». «yo era» would wrongly claim it about you; «es» slips into now."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "era", target: "I was, he/she/you was" }
+          - { source: "eras", target: "you (tú) were" }
+          - { source: "bueno", target: "good" }
+          - { source: "de niño", target: "as a child" }
+          - { source: "escuela", target: "school" }
+          - { source: "fiesta", target: "the party" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "de niño, Diego era muy bueno"
+        en: "As a child, Diego was very good"
+        atoms: ["de niño", "era", "muy", "bueno"]

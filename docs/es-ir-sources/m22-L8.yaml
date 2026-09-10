@@ -1,0 +1,172 @@
+  # ── L8 · CHECKPOINT — graded only, zero info cards. Exercises all 21 atoms
+  #    (hablaba/hablabas/hablábamos/hablaban, tenía/tenías/teníamos/tenían,
+  #    era/eras/éramos/eran, iba/ibas/íbamos/iban, veía/veías/veíamos/veían,
+  #    de niño) via paired build/listen-build sentences carrying two forms
+  #    each through «y», same shape as m21-L8. ≥2 recalls (L6, L7 — first
+  #    time either is recalled). NO preterite anywhere; «hablamos»/«vivimos»
+  #    still avoided everywhere (identical to their preterite surface).
+  #    «todos» re-checked with iban only, never íbamos.
+  - n: 8
+    template: free
+    title: "Checkpoint: todo el imperfecto"
+    description: "Every imperfect form from this module, all at once, all graded — no new teaching, just proof you've got it."
+    steps:
+      - kind: buildLit
+        id: l8-b-hablabatenia
+        es: "de niño, hablaba mucho y tenía muchos amigos"
+        en: "As a child, I used to speak a lot and had a lot of friends"
+        atoms: ["de niño", "hablaba", "tenía", "mucho"]
+        tiles: ["hablo", "tengo"]
+      - kind: listenBuildLit
+        id: l8-lb-hablabastenias
+        es: "tú hablabas mucho y tenías muchos amigos"
+        en: "You (tú) used to speak a lot and used to have a lot of friends"
+        atoms: ["hablabas", "tenías", "mucho"]
+        tiles: ["hablas", "tienes"]
+      - kind: buildLit
+        id: l8-b-hablabamosteniamos
+        es: "hablábamos mucho y teníamos muchos amigos"
+        en: "We used to speak a lot and used to have a lot of friends"
+        atoms: ["hablábamos", "teníamos", "mucho"]
+        tiles: ["habla", "hablaban"]
+      - kind: listenBuildLit
+        id: l8-lb-hablabantenian
+        es: "ellos hablaban mucho y tenían muchos amigos"
+        en: "They used to speak a lot and used to have a lot of friends"
+        atoms: ["hablaban", "tenían", "mucho"]
+        tiles: ["hablan", "tienen"]
+      - kind: buildLit
+        id: l8-b-eraveia
+        es: "de niño, era muy bueno y veía películas"
+        en: "As a child, I was very good and used to watch movies"
+        atoms: ["de niño", "era", "veía", "bueno", "película"]
+        tiles: ["es", "veo"]
+      - kind: listenBuildLit
+        id: l8-lb-erasveias
+        es: "tú eras muy bueno y veías películas"
+        en: "You (tú) were very good and used to watch movies"
+        atoms: ["eras", "veías", "bueno", "película"]
+        tiles: ["eres", "ves"]
+      - kind: buildLit
+        id: l8-b-eramosveiamos
+        es: "éramos muy buenos y veíamos películas"
+        en: "We were very good and used to watch movies"
+        atoms: ["éramos", "veíamos", "bueno", "película"]
+        tiles: ["somos", "vemos"]
+      - kind: listenBuildLit
+        id: l8-lb-eranveian
+        es: "ellos eran muy buenos y veían películas"
+        en: "They were very good and used to watch movies"
+        atoms: ["eran", "veían", "bueno", "película"]
+        tiles: ["son", "ven"]
+      - kind: buildLit
+        id: l8-b-ibaibas
+        es: "yo iba a la escuela, y tú ibas también"
+        en: "I used to go to school, and you (tú) used to go too"
+        atoms: ["iba", "ibas", "escuela"]
+        tiles: ["voy", "vas"]
+      - kind: listenBuildLit
+        id: l8-lb-ibamosiban
+        es: "nosotros íbamos a la escuela, y ellos iban también"
+        en: "We used to go to school, and they used to go too"
+        atoms: ["íbamos", "iban", "escuela"]
+        tiles: ["vamos", "van"]
+      - kind: clozeLit
+        id: l8-c-todosiban
+        es: "todos iban al parque siempre"
+        en: "Everyone always used to go to the park"
+        blank: "iban"
+        options: ["iban", "íbamos", "iba"]
+        atoms: ["todos", "iban", "parque", "siempre"]
+        why: "«todos» takes the they-ending: «iban», never «íbamos» — that would wrongly include you."
+      - kind: mcq
+        id: l8-q-tuveias
+        prompt: "Which one means 'you (tú) used to watch'?"
+        correct: "tú veías"
+        distractors: ["tú veía", "tú ves", "tú veíamos"]
+        atoms: ["veías"]
+        why: "«veías» — accented, the tú ending. «veía» collapses yo/él, not tú; «ves» slips into now; «veíamos» would be we."
+      # Printed non-recall at L6 (es-m22-6-l6-sp-win).
+      - kind: speakLit
+        id: l8-sp-recall-veiamoscine
+        es: "veíamos películas en el cine"
+        en: "We used to watch movies at the movie theater"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l8-agr-yoeltenia
+        en: "I used to have a lot, and he used to have a lot too"
+        audioText: "yo tenía mucho, y él tenía también"
+        atoms: ["tenía", "mucho"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "tenía", options: ["tenía", "tengo"] } }
+          - { text: " mucho, y él " }
+          - { blank: { id: "p2", answer: "tenía", options: ["tenía", "tiene"] } }
+          - { text: " también" }
+      - kind: textMcq
+        id: l8-tm-tenia
+        target: "tenía"
+        distractors: ["tenías", "tenían", "tiene"]
+      - kind: audioWimcq
+        id: l8-ear-playa
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la escuela", emoji: "🏫" }
+      # Printed non-recall at L7 (es-m22-7-l7-sp-win).
+      - kind: speakLit
+        id: l8-sp-recall-cuantosanos
+        es: "¿cuántos años tenías?"
+        en: "How old were you?"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l8-sim-review
+        scene: { emoji: "📖", title: "Final review: growing up", setting: "Carmen is putting the whole picture together — school, friends, everyone as kids." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Ibas a la escuela de niño?", audioText: "¿ibas a la escuela de niño?", gloss: "Did you (tú) used to go to school as a child?" }
+            goal: "Say yes, you always used to go."
+            reply:
+              mode: build
+              tiles: ["sí", "iba", "siempre", "iban", "voy"]
+              answer: "sí iba siempre"
+            replyGloss: "Yes, I always used to go."
+            explanation: "Answering as yourself: «iba». «iban» would be more than one; «voy» slips into now."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Y todos tenían muchos amigos?", audioText: "¿y todos tenían muchos amigos?", gloss: "And did everyone used to have a lot of friends?" }
+            goal: "Say yes, everyone always used to."
+            reply:
+              mode: build
+              tiles: ["sí", "todos", "tenían", "siempre", "muchos", "amigos", "teníamos"]
+              answer: "sí todos tenían siempre muchos amigos"
+            replyGloss: "Yes, everyone always used to have a lot of friends."
+            explanation: "«todos» always takes the they-ending: «tenían», never «teníamos» — that would wrongly include you."
+          - id: t3
+            npc: { speaker: "Carmen", es: "¿Eras tú muy bueno de niño?", audioText: "¿eras tú muy bueno de niño?", gloss: "Were you (tú) very good as a child?" }
+            goal: "Say yes, you were always very good."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, era siempre muy bueno" }
+                - { id: "wrong1", text: "sí, eran siempre muy bueno" }
+                - { id: "wrong2", text: "sí, soy siempre muy bueno" }
+              correctOptionId: "right"
+              audioText: "sí, era siempre muy bueno"
+            replyGloss: "Yes, I was always very good."
+            explanation: "Answering as yourself: «era». «eran» would be more than one; «soy» slips into now."
+      - kind: matchLit
+        id: l8-match
+        pairs:
+          - { source: "hablaba", target: "I/he/she/you used to speak" }
+          - { source: "tenía", target: "I/he/she/you used to have" }
+          - { source: "era", target: "I/he/she/you used to be" }
+          - { source: "iba", target: "I/he/she/you used to go" }
+          - { source: "veía", target: "I/he/she/you used to watch" }
+          - { source: "de niño", target: "as a child" }
+      - kind: speakLit
+        id: l8-sp-win
+        es: "de niño, iba a la playa y era muy bueno"
+        en: "As a child, I used to go to the beach and was very good"
+        atoms: ["de niño", "iba", "playa", "era", "bueno"]

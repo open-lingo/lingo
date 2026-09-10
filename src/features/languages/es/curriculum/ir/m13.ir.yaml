@@ -88,7 +88,7 @@ newAtoms:
   - { surface: "me", meaningEn: "to me", partOfSpeech: "particle", kind: "particle" }
   - { surface: "te", meaningEn: "to you", partOfSpeech: "particle", kind: "particle" }
   - { surface: "le", meaningEn: "to him, to her", partOfSpeech: "particle", kind: "particle" }
-  - { surface: "mucho", meaningEn: "a lot", partOfSpeech: "adverb", kind: "vocab" }
+  - { surface: "mucho", meaningEn: "a lot", partOfSpeech: "adjective", kind: "vocab" }
   - { surface: "pizza", meaningEn: "pizza", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🍕" }
   - { surface: "helado", meaningEn: "ice cream", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🍨" }
   - { surface: "película", meaningEn: "movie", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "📽️", hint: "peh-LEE-ku-la" }

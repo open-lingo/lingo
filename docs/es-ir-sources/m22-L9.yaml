@@ -1,0 +1,155 @@
+  # ── L9 · CONSOLIDATION — zero new atoms. The only sanctioned contrast is
+  #    PRESENT vs IMPERFECT, anchored on PRIOR present «voy» (m11) against
+  #    «iba» — no other verb's present tense appears anywhere in this lesson.
+  #    Every other family is drilled side by side, imperfect only (no mixing
+  #    with present beyond voy/iba). Context: el trabajo 💼. ≥1 recall. NO
+  #    preterite anywhere; «hablamos»/«vivimos» still avoided.
+  - n: 9
+    template: free
+    title: "Hoy voy, de niño iba"
+    description: "One new trick: «voy» is now (present), «iba» is back then (imperfect) — the only present/imperfect pair this module allows. Everything else here is the five families you already know, side by side."
+    steps:
+      - kind: map
+        id: l9-map-hoyvoytrabajopero
+        tokens: ["hoy", "voy", "al", "trabajo,", "pero", "de niño", "iba", "a", "la", "escuela"]
+        pairs:
+          - { en: "today", tokenIndex: 0 }
+          - { en: "I go", tokenIndex: 1 }
+          - { en: "to the", tokenIndex: 2 }
+          - { en: "work,", tokenIndex: 3 }
+          - { en: "but", tokenIndex: 4 }
+          - { en: "as a child", tokenIndex: 5 }
+          - { en: "I used to go", tokenIndex: 6 }
+          - { en: "to", tokenIndex: 7 }
+          - { en: "the", tokenIndex: 8 }
+          - { en: "school", tokenIndex: 9 }
+        audioText: "hoy voy al trabajo, pero de niño iba a la escuela"
+        revealNote: "«voy» is now — today, one time, present. «iba» is back then — as a child, again and again, imperfect. «hoy» and «de niño» are the two words that tell you which one you need."
+      - kind: info
+        id: l9-info-voyiba
+        title: "Voy vs. iba — now vs. back then"
+        body: "«voy» is present — happening now, today. «iba» is imperfect — happening again and again, back then. Same verb, ir, two completely different tenses. The clue is always in the sentence: «hoy» points to «voy»; «de niño» points to «iba». This is the only present-vs-past pair this module drills — everything else you'll see stays in the imperfect."
+      - kind: buildLit
+        id: l9-b-hoyvoyparque
+        es: "hoy voy al parque, pero de niño iba a la escuela"
+        en: "Today I go to the park, but as a child I used to go to school"
+        atoms: ["iba", "escuela"]
+        tiles: ["van", "iban"]
+      - kind: speakLit
+        id: l9-sp-hoyvoytrabajohablaba
+        es: "hoy voy al trabajo, pero de niño hablaba mucho español"
+        en: "Today I go to work, but as a child I used to speak a lot of Spanish"
+        atoms: ["hablaba", "español"]
+      - kind: clozeLit
+        id: l9-c-teniaera
+        es: "de niño, tenía muchos amigos y era muy bueno"
+        en: "As a child, I used to have a lot of friends and was very good"
+        blank: "era"
+        options: ["era", "es", "eran"]
+        atoms: ["tenía", "era", "mucho", "bueno"]
+        why: "Still imperfect, still back then, still just one: «era». «es» slips into now; «eran» would be more than one."
+      - kind: listenCompLit
+        id: l9-lc-tueravestias
+        es: "tú eras muy bueno y veías películas de niño"
+        en: "You (tú) were very good and used to watch movies as a child."
+        atoms: ["eras", "veías", "bueno", "película"]
+        distractorsEn:
+          - "You are very good and watch movies."
+          - "He was very good and used to watch movies as a child."
+          - "You were very good and used to watch movies at work."
+      - kind: mcq
+        id: l9-q-voyiba
+        prompt: "Which one means 'I used to go' — not today, back then?"
+        correct: "iba"
+        distractors: ["voy", "ibas", "van"]
+        atoms: ["iba"]
+        why: "«iba» is the imperfect — back then, again and again. «voy» is today; «ibas» would be tú; «van» slips into now, and into them."
+      - kind: buildLit
+        id: l9-b-hoyvoyparquetodos
+        es: "hoy voy al parque, pero de niño iba a la escuela todos los días"
+        en: "Today I go to the park, but as a child I used to go to school every day"
+        atoms: ["iba", "escuela", "todos los días"]
+        tiles: ["van", "iban"]
+      - kind: audioWimcq
+        id: l9-ear-trabajo
+        target: { surface: "el trabajo", emoji: "💼" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "el parque", emoji: "🌳" }
+      - kind: agreementLit
+        id: l9-agr-voyiba
+        en: "Today I go to work, but as a child I used to go to school"
+        audioText: "hoy voy al trabajo, pero de niño iba a la escuela"
+        atoms: ["iba"]
+        segments:
+          - { text: "hoy " }
+          - { blank: { id: "p1", answer: "voy", options: ["voy", "iba"] } }
+          - { text: " al trabajo, pero de niño " }
+          - { blank: { id: "p2", answer: "iba", options: ["iba", "voy"] } }
+          - { text: " a la escuela" }
+      - kind: listenBuildLit
+        id: l9-lb-todoserantenian
+        es: "todos eran buenos y tenían muchos amigos"
+        en: "Everyone was good and used to have a lot of friends"
+        atoms: ["todos", "eran", "tenían", "bueno", "mucho"]
+        tiles: ["éramos", "teníamos"]
+      - kind: textMcq
+        id: l9-tm-iba
+        target: "iba"
+        distractors: ["voy", "iban", "va"]
+      # Printed non-recall at L8 (es-m22-8-l8-sp-win).
+      - kind: speakLit
+        id: l9-sp-recall-ibaplayaera
+        es: "de niño, iba a la playa y era muy bueno"
+        en: "As a child, I used to go to the beach and was very good"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l9-sim-ana-trabajo
+        scene: { emoji: "💼", title: "Ana asks about now and then", setting: "Ana wants to know what you do today, and what you used to do as a kid." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Vas al trabajo hoy?", audioText: "¿vas al trabajo hoy?", gloss: "Are you going to work today?" }
+            goal: "Say yes, you go to work today."
+            reply:
+              mode: build
+              tiles: ["sí", "voy", "al", "trabajo", "hoy", "iba", "iban"]
+              answer: "sí voy al trabajo hoy"
+            replyGloss: "Yes, I go to work today."
+            explanation: "Today, right now: «voy» — present, not imperfect."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y de niño? ¿Ibas a la escuela también?", audioText: "¿y de niño? ¿ibas a la escuela también?", gloss: "And as a child? Did you used to go to school too?" }
+            goal: "Say yes, you always used to go."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, iba siempre" }
+                - { id: "wrong1", text: "sí, voy siempre" }
+                - { id: "wrong2", text: "sí, iban siempre" }
+              correctOptionId: "right"
+              audioText: "sí, iba siempre"
+            replyGloss: "Yes, I always used to go."
+            explanation: "«de niño» points to the imperfect: «iba». «voy» would slip into today; «iban» would be more than one."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Eras bueno en la escuela de niño?", audioText: "¿eras bueno en la escuela de niño?", gloss: "Were you good at school as a child?" }
+            goal: "Say yes, you were always very good."
+            reply:
+              mode: build
+              tiles: ["sí", "era", "siempre", "muy", "bueno", "eran", "soy"]
+              answer: "sí era siempre muy bueno"
+            replyGloss: "Yes, I was always very good."
+            explanation: "Still «de niño», still imperfect: «era». «eran» would be more than one; «soy» slips into now."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "voy", target: "I go (today, now)" }
+          - { source: "iba", target: "I used to go (back then)" }
+          - { source: "hablaba", target: "I/he/she/you used to speak" }
+          - { source: "tenía", target: "I/he/she/you used to have" }
+          - { source: "era", target: "I/he/she/you used to be" }
+          - { source: "el trabajo", target: "work" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "hoy voy al trabajo, pero de niño iba a la escuela"
+        en: "Today I go to work, but as a child I used to go to school"
+        atoms: ["iba", "trabajo", "escuela"]

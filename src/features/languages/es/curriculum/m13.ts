@@ -32,7 +32,7 @@ export const ES_M13_ATOMS: EsAtom[] = [
   atom({ surface: "me", meaningEn: "to me", partOfSpeech: "particle", fromModule: "m13", kind: "particle" }),
   atom({ surface: "te", meaningEn: "to you", partOfSpeech: "particle", fromModule: "m13", kind: "particle" }),
   atom({ surface: "le", meaningEn: "to him, to her", partOfSpeech: "particle", fromModule: "m13", kind: "particle" }),
-  atom({ surface: "mucho", meaningEn: "a lot", partOfSpeech: "adverb", fromModule: "m13", kind: "vocab" }),
+  atom({ surface: "mucho", meaningEn: "a lot", partOfSpeech: "adjective", fromModule: "m13", kind: "vocab" }),
   atom({ surface: "pizza", meaningEn: "pizza", partOfSpeech: "noun", fromModule: "m13", kind: "vocab", gender: "f", emoji: "🍕" }),
   atom({ surface: "helado", meaningEn: "ice cream", partOfSpeech: "noun", fromModule: "m13", kind: "vocab", gender: "m", emoji: "🍨" }),
   atom({ surface: "película", meaningEn: "movie", partOfSpeech: "noun", fromModule: "m13", kind: "vocab", gender: "f", emoji: "📽️", hint: "peh-LEE-ku-la" }),

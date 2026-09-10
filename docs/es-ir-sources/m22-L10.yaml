@@ -1,0 +1,169 @@
+  # ── L10 · MASTERY — zero new atoms, zero info cards, every step graded.
+  #    Longest sim in the module (Ana asks the whole group "¿cómo eran de
+  #    niños?", 5 turns) — the module's law that the mastery lesson must END
+  #    on the sim (§13.9 law 7) means the verbatim closing win line is
+  #    delivered as the sim's final (5th) turn reply, not a separate speakLit
+  #    step; matchLit sits just before the sim instead of after it. ≥2
+  #    recalls (L9, L1 — full-circle back to the very first win). Context:
+  #    «de niños» (plural) and «siempre», both already demonstrated safe in
+  #    earlier lessons. NO preterite anywhere; «hablamos»/«vivimos» avoided.
+  - n: 10
+    template: free
+    title: "De niños, íbamos juntos"
+    description: "Everything from this module, one last time, fully graded — five families, the yo=él collision, and «todos», all working together."
+    steps:
+      - kind: buildLit
+        id: l10-b-teniaeranninos
+        es: "de niños, tenían muchos amigos y eran muy buenos"
+        en: "As children, they used to have a lot of friends and were very good"
+        atoms: ["de niño", "tenían", "eran", "mucho", "bueno"]
+        tiles: ["teníamos", "éramos"]
+      - kind: listenBuildLit
+        id: l10-lb-ibamosveiamos
+        es: "de niños, íbamos al parque y veíamos películas"
+        en: "As children, we used to go to the park and used to watch movies"
+        atoms: ["íbamos", "veíamos", "parque", "película"]
+        tiles: ["iban", "veían"]
+      - kind: clozeLit
+        id: l10-c-todoshablaban
+        es: "todos hablaban mucho de niños"
+        en: "Everyone used to speak a lot as children"
+        blank: "hablaban"
+        options: ["hablaban", "hablábamos", "hablaba"]
+        atoms: ["todos", "hablaban"]
+        why: "«todos» takes the they-ending: «hablaban», never «hablábamos» — that would wrongly include you."
+      - kind: mcq
+        id: l10-q-teniamos
+        prompt: "Which one means 'we used to have', not 'they used to have'?"
+        correct: "teníamos"
+        distractors: ["tenían", "tenía", "tienen"]
+        atoms: ["teníamos"]
+        why: "«teníamos» is the nosotros form, accented like every tener imperfect form. «tenían» would be them; «tenía» would be just one; «tienen» slips into now."
+      - kind: agreementLit
+        id: l10-agr-yoeliba
+        en: "I used to go to school, and he used to go too"
+        audioText: "yo iba a la escuela, y él iba también"
+        atoms: ["iba", "escuela"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "iba", options: ["iba", "voy"] } }
+          - { text: " a la escuela, y él " }
+          - { blank: { id: "p2", answer: "iba", options: ["iba", "va"] } }
+          - { text: " también" }
+      # Printed non-recall at L9 (es-m22-9-l9-sp-win).
+      - kind: speakLit
+        id: l10-sp-recall-hoyvoytrabajo
+        es: "hoy voy al trabajo, pero de niño iba a la escuela"
+        en: "Today I go to work, but as a child I used to go to school"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l10-tm-eran
+        target: "eran"
+        distractors: ["era", "éramos", "son"]
+      - kind: audioWimcq
+        id: l10-ear-escuela
+        target: { surface: "la escuela", emoji: "🏫" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "la playa", emoji: "🏖️" }
+      - kind: buildLit
+        id: l10-b-hablabamosveiamos
+        es: "de niños, hablábamos siempre y veíamos películas juntos"
+        en: "As children, we always used to speak and used to watch movies together"
+        atoms: ["hablábamos", "veíamos", "siempre", "película", "juntos"]
+        tiles: ["hablaban", "veían"]
+      - kind: listenBuildLit
+        id: l10-lb-todoserantenian
+        es: "todos eran buenos y tenían muchos amigos siempre"
+        en: "Everyone was good and always used to have a lot of friends"
+        atoms: ["todos", "eran", "tenían", "bueno", "mucho", "siempre"]
+        tiles: ["éramos", "teníamos"]
+      - kind: clozeLit
+        id: l10-c-eramossiempre
+        es: "de niños, éramos muy buenos siempre"
+        en: "As children, we were always very good"
+        blank: "éramos"
+        options: ["éramos", "eran", "era"]
+        atoms: ["éramos", "bueno", "siempre"]
+        why: "We, the group: «éramos» — the one accented ser form. «eran» would be them; «era» would be just one."
+      - kind: mcq
+        id: l10-q-iban
+        prompt: "Which one means 'they used to go'?"
+        correct: "iban"
+        distractors: ["íbamos", "iba", "van"]
+        atoms: ["iban"]
+        why: "«iban» — the they-ending, no accent. «íbamos» would be we; «iba» collapses yo/él; «van» slips into now."
+      # Printed non-recall at L1 (es-m22-1-l1-sp-win).
+      - kind: speakLit
+        id: l10-sp-recall-hablabatodosdias
+        es: "de niño, hablaba español todos los días"
+        en: "As a child, I used to speak Spanish every day"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l10-tm-veiamos
+        target: "veíamos"
+        distractors: ["veían", "veía", "vemos"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "hablábamos", target: "we used to speak" }
+          - { source: "teníamos", target: "we used to have" }
+          - { source: "éramos", target: "we were" }
+          - { source: "íbamos", target: "we used to go" }
+          - { source: "veíamos", target: "we used to watch" }
+          - { source: "de niños", target: "as children" }
+      - kind: sim
+        id: l10-sim-ana-grupo
+        scene: { emoji: "👨‍👩‍👧‍👦", title: "Ana asks the whole group", setting: "Ana wants to hear from the whole group: what was it like being a kid?" }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Cómo eran ustedes de niños?", audioText: "¿cómo eran ustedes de niños?", gloss: "What were you all like as children?" }
+            goal: "Say you were all always very good."
+            reply:
+              mode: build
+              tiles: ["éramos", "siempre", "muy", "buenos", "eran", "era"]
+              answer: "éramos siempre muy buenos"
+            replyGloss: "We were always very good."
+            explanation: "Answering for the group, you included: «éramos» — the accented nosotros form. «eran» would hand it to someone else."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tenían muchos amigos?", audioText: "¿y tenían muchos amigos?", gloss: "And did everyone have a lot of friends?" }
+            goal: "Say yes, everyone always used to."
+            reply:
+              mode: build
+              tiles: ["sí", "todos", "tenían", "siempre", "muchos", "amigos", "teníamos"]
+              answer: "sí todos tenían siempre muchos amigos"
+            replyGloss: "Yes, everyone always used to have a lot of friends."
+            explanation: "«todos» always takes the they-ending: «tenían», never «teníamos» — that would wrongly include you."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Ibas a la escuela con ellos?", audioText: "¿ibas a la escuela con ellos?", gloss: "Did you used to go to school with them?" }
+            goal: "Say yes, you always used to go together."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, íbamos juntos siempre" }
+                - { id: "wrong1", text: "sí, iban juntos siempre" }
+                - { id: "wrong2", text: "sí, voy juntos siempre" }
+              correctOptionId: "right"
+              audioText: "sí, íbamos juntos siempre"
+            replyGloss: "Yes, we always used to go together."
+            explanation: "You and them together: «íbamos» — the accented nosotros form. «iban» would leave you out; «voy» slips into now."
+          - id: t4
+            npc: { speaker: "Ana", es: "¿Hablaban español en la escuela?", audioText: "¿hablaban español en la escuela?", gloss: "Did you all use to speak Spanish at school?" }
+            goal: "Say yes, you always used to speak it."
+            reply:
+              mode: build
+              tiles: ["sí", "hablábamos", "siempre", "español", "hablaban", "hablo"]
+              answer: "sí hablábamos siempre español"
+            replyGloss: "Yes, we always used to speak it."
+            explanation: "You and the group: «hablábamos» — the nosotros ending, the one that carries an accent. «hablaban» would leave you out."
+          - id: t5
+            npc: { speaker: "Ana", es: "¿Qué más recuerdas de niños?", audioText: "¿qué más recuerdas de niños?", gloss: "What else do you remember as children?" }
+            goal: "Describe growing up together, and talking a lot."
+            reply:
+              mode: build
+              tiles: ["de", "niños", "íbamos", "a", "la", "escuela", "juntos", "y", "siempre", "hablábamos", "mucho", "iban", "hablaban"]
+              answer: "de niños íbamos a la escuela juntos y siempre hablábamos mucho"
+            replyGloss: "As children, we used to go to school together, and we always used to talk a lot."
+            explanation: "The whole group, together: «íbamos»/«hablábamos» — the accented nosotros forms this whole module builds toward."

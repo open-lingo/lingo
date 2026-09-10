@@ -1,0 +1,156 @@
+  # ── L4 · «Éramos, eran, todos eran» — the rest of ser's imperfect:
+  #    éramos (nosotros — the one accented ser form) and eran (ellos/
+  #    ustedes, no accent). Re-spends «todos» (PRIOR, m21): todos always
+  #    takes eran, never éramos — same rule as m21's preterite, restated for
+  #    this tense. NO preterite anywhere. Recall floor: ≥1 recall (L1/L2).
+  - n: 4
+    template: free
+    title: "Éramos, eran, todos eran"
+    description: "«éramos» is we were — the one ser imperfect form with an accent. «eran» is they were, or you all were. And «todos» still takes the they-ending, never the we-ending: «todos eran», never «todos éramos»."
+    steps:
+      - kind: map
+        id: l4-map-eramosfamiliatodoseran
+        tokens: ["éramos", "una", "familia", "y", "todos", "eran", "buenos", "amigos"]
+        pairs:
+          - { en: "we were", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "family", tokenIndex: 2 }
+          - { en: "and", tokenIndex: 3 }
+          - { en: "everyone", tokenIndex: 4 }
+          - { en: "was", tokenIndex: 5 }
+          - { en: "good", tokenIndex: 6 }
+          - { en: "friends", tokenIndex: 7 }
+        audioText: "éramos una familia, y todos eran buenos amigos"
+        revealNote: "«éramos» is we were — the one ser imperfect form with an accent. «eran» is they were, or you all were — no accent. «todos» still takes the they-ending, never the we-ending: «todos eran», never «todos éramos»."
+      - kind: info
+        id: l4-info-eramoseran
+        title: "Éramos, eran — todos still takes the they-ending"
+        body: "«éramos» is we were — the accented nosotros form, same rule as «hablábamos». «eran» is they were, or you all were — no accent. «todos» (everyone) always takes «eran», never «éramos» — the same rule you already know from m21's preterite: «todos» is never you-and-me."
+      - kind: speakLit
+        id: l4-sp-eramosfamilia
+        es: "éramos una familia muy buena"
+        en: "We were a very good family"
+        atoms: ["éramos", "familia", "muy", "bueno"]
+      - kind: buildLit
+        id: l4-b-todoseranamigos
+        es: "todos eran buenos amigos"
+        en: "Everyone was good friends"
+        atoms: ["todos", "eran"]
+        tiles: ["éramos", "era"]
+      - kind: speakLit
+        id: l4-sp-samluiseran
+        es: "Sam y Luis eran buenos amigos de niños"
+        en: "Sam and Luis were good friends as children"
+        atoms: ["eran", "bueno", "de niño"]
+      - kind: clozeLit
+        id: l4-c-eramosescuela
+        es: "éramos amigos en la escuela"
+        en: "We were friends at school"
+        blank: "éramos"
+        options: ["éramos", "eran", "era"]
+        atoms: ["éramos", "escuela"]
+        why: "We, the group: «éramos» — the one accented ser form. «eran» would be them; «era» would be just one."
+      - kind: listenCompLit
+        id: l4-lc-todoseranbuenos
+        es: "todos eran muy buenos amigos"
+        en: "Everyone was very good friends."
+        atoms: ["todos", "eran", "bueno"]
+        distractorsEn:
+          - "Everyone is very good friends."
+          - "We were very good friends."
+          - "Everyone was very good friends at school."
+      - kind: mcq
+        id: l4-q-todoseran
+        prompt: "Which one is correct?"
+        correct: "todos eran"
+        distractors: ["todos éramos", "todos era", "todos son"]
+        atoms: ["todos", "eran"]
+        why: "«todos» always takes the they-ending: «eran». «todos éramos» wrongly includes you; «era» would be just one; «son» slips into now."
+      - kind: buildLit
+        id: l4-b-eramosamigosfiesta
+        es: "éramos amigos en la fiesta"
+        en: "We were friends at the party"
+        atoms: ["éramos", "fiesta"]
+        tiles: ["eran", "somos"]
+      - kind: audioWimcq
+        id: l4-ear-casa
+        target: { surface: "casa", emoji: "🏠" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "el parque", emoji: "🌳" }
+      - kind: agreementLit
+        id: l4-agr-eramoseran
+        en: "We were a family, and they were friends"
+        audioText: "éramos una familia, y ellos eran amigos"
+        atoms: ["éramos", "familia", "eran"]
+        segments:
+          - { blank: { id: "p1", answer: "éramos", options: ["éramos", "eran"] } }
+          - { text: " una familia, y ellos " }
+          - { blank: { id: "p2", answer: "eran", options: ["eran", "éramos"] } }
+          - { text: " amigos" }
+      - kind: listenBuildLit
+        id: l4-lb-todoseranescuela
+        es: "todos eran amigos en la escuela"
+        en: "Everyone was friends at school"
+        atoms: ["todos", "eran", "escuela"]
+        tiles: ["éramos", "era"]
+      - kind: textMcq
+        id: l4-tm-eran
+        target: "eran"
+        distractors: ["éramos", "era", "es"]
+      # Printed non-recall at L2 (es-m22-2-l2-sp-win).
+      - kind: speakLit
+        id: l4-sp-recall-hablabamosescuela
+        es: "de niños, hablábamos mucho en la escuela"
+        en: "As children, we used to speak a lot at school"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l4-sim-carmen-familia
+        scene: { emoji: "👨‍👩‍👧", title: "Carmen asks about growing up", setting: "Carmen wants to know what the whole group used to be like as kids." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Eran ustedes buenos amigos de niños?", audioText: "¿eran ustedes buenos amigos de niños?", gloss: "Were you all good friends as children?" }
+            goal: "Say yes, you were a family."
+            reply:
+              mode: build
+              tiles: ["sí", "éramos", "una", "familia", "eran", "era"]
+              answer: "sí éramos una familia"
+            replyGloss: "Yes, we were a family."
+            explanation: "Answering for the group: «éramos» — the accented nosotros form. «eran» would hand it to someone else."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Y Sam y Luis? ¿Eran amigos también?", audioText: "¿y sam y luis? ¿eran amigos también?", gloss: "And Sam and Luis? Were they friends too?" }
+            goal: "Say yes, they were always good friends."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, eran siempre buenos amigos" }
+                - { id: "wrong1", text: "sí, éramos siempre buenos amigos" }
+                - { id: "wrong2", text: "sí, son siempre buenos amigos" }
+              correctOptionId: "right"
+              audioText: "sí, eran siempre buenos amigos"
+            replyGloss: "Yes, they were always good friends."
+            explanation: "Sam and Luis — them: «eran». «éramos» would wrongly include you; «son» slips into now."
+          - id: t3
+            npc: { speaker: "Carmen", es: "¿Eran todos buenos amigos en la escuela?", audioText: "¿eran todos buenos amigos en la escuela?", gloss: "Was everyone good friends at school?" }
+            goal: "Say yes, everyone was always good friends."
+            reply:
+              mode: build
+              tiles: ["sí", "todos", "eran", "siempre", "buenos", "amigos", "éramos"]
+              answer: "sí todos eran siempre buenos amigos"
+            replyGloss: "Yes, everyone was always good friends."
+            explanation: "«todos» always takes the they-ending: «eran», never «éramos» — that would wrongly include you."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "éramos", target: "we were" }
+          - { source: "eran", target: "they were, you all were" }
+          - { source: "familia", target: "family" }
+          - { source: "amigo", target: "friend" }
+          - { source: "casa", target: "house, home" }
+          - { source: "fiesta", target: "the party" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "éramos una familia, y todos eran buenos amigos"
+        en: "We were a family, and everyone was good friends"
+        atoms: ["éramos", "familia", "todos", "eran", "bueno", "amigo"]

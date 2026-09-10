@@ -201,6 +201,6 @@ newAtoms:
   - { surface: "veíamos", meaningEn: "we used to see", partOfSpeech: "verb", kind: "vocab", hint: "beh-ee-AH-mos" }
   - { surface: "veían", meaningEn: "they used to see, you all used to see", partOfSpeech: "verb", kind: "vocab", hint: "beh-EE-ahn" }
   # time-frame carrier
-  - { surface: "de niño", meaningEn: "as a child, when I/he/she was little", partOfSpeech: "phrase", kind: "vocab", hint: "deh NEE-nyoh — «de niña» is the feminine, same word with the regular -o/-a swap, not a separate atom" }
+  - { surface: "de niño", meaningEn: "as a child, when I/he/she was little", partOfSpeech: "noun", kind: "vocab", hint: "deh NEE-nyoh — «de niña» is the feminine, same word with the regular -o/-a swap, not a separate atom" }
 
 lessons:

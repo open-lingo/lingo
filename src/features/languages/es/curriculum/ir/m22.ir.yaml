@@ -1,0 +1,1867 @@
+module: m22
+title: "Hablaba, era, iba"
+frame: none
+throughModule: m21
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m22 — the imperfect. Fourth A2 module; opens the SECOND past tense.
+#
+#     -ar:   hablaba*  hablabas  hablábamos  hablaban
+#     tener: tenía*    tenías    teníamos    tenían   (regular in imperfect — age/state)
+#     ser:   era*      eras      éramos      eran     (irregular #1)
+#     ir:    iba*      ibas      íbamos      iban     (irregular #2)
+#     ver:   veía*     veías     veíamos     veían    (irregular #3 — the whole irregular set)
+#
+#     (* = yo AND él/ella/usted share this exact surface — see "THE YO=ÉL
+#     COLLISION" below. Every "first slot" atom below carries BOTH readings.)
+#
+# ONE idea, the whole module: a past tense for things that kept happening or
+# were just true, not things that happened once and finished (that is the
+# preterite, m19–m21, and it is NOT reopened here — see "NO PRETERITE THIS
+# MODULE" below). Regular verbs split into exactly two families (-ar → -aba,
+# -er/-ir → -ía); the ENTIRE language has exactly three irregular verbs in
+# this tense (ser, ir, ver) — fewer irregulars than any tense the learner has
+# met. That smallness is the thing to teach, not hide.
+#
+# ── WHY THIS MODULE, NOT A THIRD PRETERITE MODULE (decision, 2026-09-10) ──
+# docs/es-ir-sources/es-m21-brief.md named this module directly: "Imperfect
+# (with a preterite-vs-imperfect contrast module after it) is the natural
+# m22+, once this module closes the preterite paradigm." m21 closed it
+# (nosotros/ustedes now have a past for every verb the learner owns). The
+# task brief that opened this module confirms the shape: m22 teaches the
+# imperfect ON ITS OWN TERMS; the preterite-vs-imperfect CONTRAST is m23's
+# job, not this one's. Evidence for the split, not preference:
+#   1. CLAUDE.md: "every new word or structure is introduced before it's
+#      tested." A contrast lesson that pits imperfect against preterite
+#      presupposes the learner already has a clean, confident imperfect to
+#      contrast WITH. m22 builds that; m23 spends it.
+#   2. The imperfect's one real novelty — yo/él share a surface — is dense
+#      enough on its own (it touches every single atom in the module, not
+#      one surface the way «hablamos» touched two in m21). Bundling a second
+#      novelty (aspectual contrast) into the same module would stack two
+#      unrelated new skills on the learner at once, which is exactly the
+#      "manufacture a hollow card" failure mode CLAUDE.md warns against.
+#   3. Data readiness does not decide it: conjugationTables.ts already
+#      carries a full imperfect paradigm for all eighteen A1–A2 verbs the
+#      course has ever taught (pin E12) — nothing new to add to the table.
+#      "What the learner can already reason about" decides it, and a learner
+#      who has never produced an imperfect form cannot yet reason about how
+#      it differs from a preterite they've had for three modules.
+#
+# ── PERSONS: ALL FIVE, FROM L1 (decision) ─────────────────────────────────
+# Unlike the preterite (which took three modules — m19 regular singular, m20
+# irregular singular, m21 plural — to reach all five persons), this module
+# does not stage persons at all. Two reasons, not one:
+#   1. Person-agreement morphology is not new content. The learner has
+#      produced yo/tú/él/nosotros/ustedes-ellos subjects and endings across
+#      TWO tenses already (m1–m18 present, m19–m21 preterite). Staging them
+#      again here would re-teach a skill already automatic, with no
+#      learning benefit — the preterite's staging was forced by IRREGULAR
+#      STEMS eating a whole module's atom budget (m20), not by any rule that
+#      persons must be taught one at a time.
+#   2. The yo=él collision (below) means imperfect has only FOUR distinct
+#      surfaces per verb, not five — nosotros/ustedes forms are the only
+#      "new" endings a five-person paradigm would otherwise add beyond what
+#      three-slot (yo/él, tú, nosotros) coverage already gives. Five full
+#      verb families × 4 surfaces = 20 atoms, comfortably inside the ≈21
+#      budget m20/m21 set — there is no budget pressure forcing a stage-out.
+# vosotros is still never drilled (m18's rule carries, LatAm-neutral course).
+#
+# ── THE YO=ÉL COLLISION — the one new mechanic every atom here shares ─────
+# Present and preterite always mark yo and él/ella/usted with different
+# endings (hablo/habla; hablé/habló). Imperfect does not: hablaba IS both "I
+# used to speak" and "he/she/you(usted) used to speak" — same for every verb,
+# every conjugation class, no exception (era, iba, veía, tenía all collapse
+# the same way). This is the FIRST time in the course two different
+# grammatical persons share one exact orthographic form with nothing on the
+# verb to tell them apart — not an edge case like «hablamos»/«vivimos» (one
+# surface, two TENSE readings, disambiguated by a time marker); this is
+# every new atom, two PERSON readings, disambiguated ONLY by an explicit
+# subject (a pronoun, a name, or unambiguous context) sitting in the same
+# clause. Never let a "first slot" atom stand subjectless in an answer
+# position as if the ending told you who — it doesn't, and a step that
+# implies otherwise is teaching something false. Each verb family's FIRST
+# lesson must carry an info card naming this explicitly (not just for
+# hablar — the fact is general, but Spencer's rule is "teach it where the
+# learner first meets it," so hablar's L1 card states the general fact once,
+# and every later family's card is one line shorter, pointing back to it).
+#
+# ── TENER: REGULAR HERE, IRREGULAR EVERYWHERE ELSE (teach the surprise) ───
+# tener is a yo-irregular in the present (tengo) and a full stem-change verb
+# in the preterite (tuve) — the learner has met it as "the irregular verb"
+# twice already. In the imperfect it is perfectly regular: tenía/tenías/
+# teníamos/tenían, the exact -ía family every -er/-ir verb takes. This is
+# worth saying out loud (info card, L7) — it is further evidence for "the
+# imperfect is the easy tense," not a coincidence to bury in a hint. tenía
+# is also this module's AGE/STATE carrier: «tenía diez años» — but tener
+# means "to have," not "to be," so the idiomatic English is "I WAS ten,"
+# never "I had ten" — glosses must say so (see atom hints below), and
+# drafting agents must not literal-translate an age sentence.
+#
+# ── NO PRETERITE THIS MODULE (hard ban, not a style note) ─────────────────
+# No preterite form — new or PRIOR, m19/m20/m21, singular or plural — may
+# appear ANYWHERE in m22, in any step, including sim NPC lines and
+# distractors. The sanctioned contrast this module teaches is PRESENT vs
+# IMPERFECT (L9: "hoy hablo inglés, pero de niño hablaba español" — habitual
+# past against habitual present, both aspects the learner already half-owns
+# from the present tense and this module). PRETERITE vs IMPERFECT is m23's
+# entire reason to exist; smuggling it in here pre-empts that module and
+# breaks the "every new structure introduced before it's tested" contract
+# for m23's actual new idea (aspect choice).
+#
+# ── NO PROGRESSIVE (pin E7, restated for this module's specific trap) ─────
+# The ENGLISH gloss legitimately reads as progressive ("was speaking",
+# "used to speak") — per E7 (es-authoring-invariants-pinned.md §3) that is
+# the correct gloss shape for imperfect, unlike present tense where a
+# progressive gloss is banned outright. But the SPANISH surface is always
+# the simple imperfect form. Never build "estaba hablando" or any
+# estar+-ndo periphrasis — that is a real, more advanced construction this
+# course has not taught and will not need to, since the simple imperfect
+# already covers every use this module drills.
+#
+# ── ACCENTS: THE OPPOSITE RULE FROM m20/m21 (read this twice) ─────────────
+# m20/m21's preterite law was "no accent, ever." Imperfect is the mirror
+# image:
+#   - -ar family (hablar): accent ONLY on the nosotros form — hablábamos.
+#     hablaba/hablabas/hablaban carry none.
+#   - -er/-ir family (tener, ver — and every regular -er/-ir verb): accent on
+#     EVERY form's í — tenía/tenías/teníamos/tenían, veía/veías/veíamos/
+#     veían. No exceptions.
+#   - ser (era family): accent ONLY on the nosotros form — éramos.
+#     era/eras/eran carry none.
+#   - ir (iba family): accent ONLY on the nosotros form — íbamos.
+#     iba/ibas/iban carry none.
+# Derive every cell from conjugationTables.ts (pin E12) rather than trusting
+# memory — the table already has these exactly right.
+#
+# ── PIN E12: EVERY CELL COMES FROM conjugationTables.ts ───────────────────
+# imperfect.yo / imperfect.tu / imperfect.nosotros / imperfect.ustedes
+# already exist in ES_VERB_ENTRIES for hablar, tener, ser, ir, ver (and, not
+# used this module but present for a future wave: comer, vivir, estar,
+# querer, poder, hacer, trabajar, estudiar, comprar, escribir, salir,
+# cocinar, venir) — nothing new to add to the table. imperfect.el is never a
+# separate cell to read; it is identical to imperfect.yo by the language's
+# own rule (see the collision above), so derive the "first slot" atom from
+# imperfect.yo and gloss both readings on it.
+#
+# ── «de niño/a» — the module's time-frame carrier (new atom) ──────────────
+# The idiomatic Spanish frame for "as a child / when I was a kid" is «de
+# niño» (said by a male speaker or about a boy/man) / «de niña» (female).
+# Register «de niño» as the atom (masculine default, matching how «bueno»
+# was registered and «buena» licensed off it in m20/m21) — «de niña» is then
+# a PRIOR -o/-a feminine variant of a now-PRIOR atom, same convention, not a
+# second registration. «de niños» (plural, "as children" for a group) is
+# likewise a licensed regular plural, not a second atom — but bare «niño»/
+# «niña»/«niños» WITHOUT «de» is a different word (a noun, not this phrase)
+# and is NOT licensed; the atom is the whole phrase, never just the noun.
+# PRIOR «siempre» (m10) and PRIOR «todos los días»
+# (m10) are also legal imperfect-frame markers: unlike ayer/hoy/mañana,
+# they carry no tense of their own (frequency, not a deictic time point), so
+# they pair with imperfect freely without needing a fresh atom.
+#
+# ── «todos» — PRIOR (m21), reused unchanged ────────────────────────────────
+# Still takes 3rd-person-plural agreement only: «todos eran/iban/hablaban/
+# tenían/veían», never a nosotros imperfect form. Same rule as m21, same
+# reasoning, no new atom.
+#
+# ── NO NEW EMOJI THIS MODULE ───────────────────────────────────────────────
+# No new imageable noun — «de niño/a» is a temporal frame, not an object, and
+# every verb family is grammar, not vocabulary. Precedent: m19 and m21 both
+# shipped zero new emoji (pure verb-focus modules). audioWimcq still drills
+# PRIOR nouns with their existing emoji: la escuela 🏫, el parque 🌳, la
+# playa 🏖️, el museo 🏛️, el cine 🎬, la fiesta 🎉, el mercado 🛒, la tienda
+# 🏪, casa 🏠, el trabajo 💼 are all PRIOR-with-emoji and fit a childhood-
+# habits register naturally ("de niño iba a la escuela / a la playa").
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # hablar — the regular -ar model. Teach the general yo=él fact HERE.
+  - { surface: "hablaba", meaningEn: "I used to speak, he/she/you (usted) used to speak", partOfSpeech: "verb", kind: "vocab", hint: "ah-BLAH-bah — no accent. This is where you meet the rule: yo and él/ella/usted ALWAYS share the same imperfect form. Only the subject tells you who." }
+  - { surface: "hablabas", meaningEn: "you (tú) used to speak", partOfSpeech: "verb", kind: "vocab", hint: "ah-BLAH-bahs" }
+  - { surface: "hablábamos", meaningEn: "we used to speak", partOfSpeech: "verb", kind: "vocab", hint: "ah-blah-BAH-mos — the ONE -ar form that carries an accent" }
+  - { surface: "hablaban", meaningEn: "they used to speak, you all used to speak", partOfSpeech: "verb", kind: "vocab", hint: "ah-BLAH-bahn" }
+  # tener — regular in the imperfect despite being irregular everywhere else the learner has met it. Age/state carrier.
+  - { surface: "tenía", meaningEn: "I had, he/she/you (usted) had (age, possession, or state)", partOfSpeech: "verb", kind: "vocab", hint: "teh-NEE-ah — regular -ía, unlike «tengo»/«tuve». For age, «tenía diez años» is idiomatically \"I WAS ten,\" never \"I had ten\" — tener means to have, but English states age with to be." }
+  - { surface: "tenías", meaningEn: "you (tú) had (age, possession, or state)", partOfSpeech: "verb", kind: "vocab", hint: "teh-NEE-ahs" }
+  - { surface: "teníamos", meaningEn: "we had (age, possession, or state)", partOfSpeech: "verb", kind: "vocab", hint: "teh-nee-AH-mos" }
+  - { surface: "tenían", meaningEn: "they had, you all had (age, possession, or state)", partOfSpeech: "verb", kind: "vocab", hint: "teh-NEE-ahn" }
+  # ser — irregular #1 of exactly three. Description/identity in the past.
+  - { surface: "era", meaningEn: "I was, he/she/you (usted) was", partOfSpeech: "verb", kind: "vocab", hint: "EH-rah — no accent" }
+  - { surface: "eras", meaningEn: "you (tú) were", partOfSpeech: "verb", kind: "vocab", hint: "EH-rahs" }
+  - { surface: "éramos", meaningEn: "we were", partOfSpeech: "verb", kind: "vocab", hint: "EH-rah-mos — the ONE ser form that carries an accent" }
+  - { surface: "eran", meaningEn: "they were, you all were", partOfSpeech: "verb", kind: "vocab", hint: "EH-rahn" }
+  # ir — irregular #2 of exactly three. Habitual movement/routine.
+  - { surface: "iba", meaningEn: "I used to go, he/she/you (usted) used to go", partOfSpeech: "verb", kind: "vocab", hint: "EE-bah — no accent" }
+  - { surface: "ibas", meaningEn: "you (tú) used to go", partOfSpeech: "verb", kind: "vocab", hint: "EE-bahs" }
+  - { surface: "íbamos", meaningEn: "we used to go", partOfSpeech: "verb", kind: "vocab", hint: "EE-bah-mos — the ONE ir form that carries an accent" }
+  - { surface: "iban", meaningEn: "they used to go, you all used to go", partOfSpeech: "verb", kind: "vocab", hint: "EE-bahn" }
+  # ver — irregular #3 of exactly three. Habitual watching/seeing.
+  - { surface: "veía", meaningEn: "I used to see, he/she/you (usted) used to see", partOfSpeech: "verb", kind: "vocab", hint: "beh-EE-ah — keeps the e from «ver», unlike a regular -er verb's stem" }
+  - { surface: "veías", meaningEn: "you (tú) used to see", partOfSpeech: "verb", kind: "vocab", hint: "beh-EE-ahs" }
+  - { surface: "veíamos", meaningEn: "we used to see", partOfSpeech: "verb", kind: "vocab", hint: "beh-ee-AH-mos" }
+  - { surface: "veían", meaningEn: "they used to see, you all used to see", partOfSpeech: "verb", kind: "vocab", hint: "beh-EE-ahn" }
+  # time-frame carrier
+  - { surface: "de niño", meaningEn: "as a child, when I/he/she was little", partOfSpeech: "noun", kind: "vocab", hint: "deh NEE-nyoh — «de niña» is the feminine, same word with the regular -o/-a swap, not a separate atom" }
+
+lessons:
+  # ── L1 · «Hablaba de niño» — hablaba, the -ar imperfect (regular), debuts
+  #    BOTH readings at once: yo hablaba (I used to speak) and él/ella/usted
+  #    hablaba (he/she/you used to speak) are the exact same word — the
+  #    yo=él collision this whole module runs on. Also debuts «de niño», the
+  #    module's time-frame carrier. No accent on hablaba (only nosotros
+  #    carries one, and hablábamos isn't taught until L2). NO preterite
+  #    anywhere; every answer position keeps an explicit subject on hablaba.
+  - n: 1
+    template: free
+    title: "Hablaba de niño"
+    description: "Meet the imperfect: a past for things you used to do again and again. One new word, «hablaba» — and it's both \"I used to speak\" and \"he/she/you used to speak\" at once. Only the subject in front of it tells you which."
+    steps:
+      - kind: map
+        id: l1-map-deninohablaba
+        tokens: ["de niño", "yo", "hablaba", "español", "todos los días"]
+        pairs:
+          - { en: "as a child", tokenIndex: 0 }
+          - { en: "I", tokenIndex: 1 }
+          - { en: "used to speak", tokenIndex: 2 }
+          - { en: "Spanish", tokenIndex: 3 }
+          - { en: "every day", tokenIndex: 4 }
+        audioText: "de niño, yo hablaba español todos los días"
+        revealNote: "«hablaba» is the new past for things that kept happening, not one finished action. It also does double duty: «yo hablaba» and «él hablaba» look exactly the same — only the subject in front tells you who."
+      - kind: info
+        id: l1-info-hablaba
+        title: "Hablaba — a past for things that kept happening"
+        body: "«hablaba» is the imperfect: a past for things you used to do again and again, or that were just true for a while — not one finished action. Here's the one new trick this whole module runs on: «yo hablaba» (I used to speak) and «él/ella/usted hablaba» (he/she/you used to speak) are the exact same word. Nothing on the verb tells you who — only a pronoun, a name, or context sitting right in the sentence does. Never trust the ending alone with this tense."
+      - kind: speakLit
+        id: l1-sp-yohablaba
+        es: "yo hablaba español todos los días"
+        en: "I used to speak Spanish every day"
+        atoms: ["hablaba", "español", "todos los días"]
+      - kind: buildLit
+        id: l1-b-diegohablaba
+        es: "de niño, Diego hablaba español"
+        en: "As a child, Diego used to speak Spanish"
+        atoms: ["de niño", "hablaba", "español"]
+        tiles: ["habla", "hablan"]
+      - kind: speakLit
+        id: l1-sp-elhablaba
+        es: "de niño, él hablaba español siempre"
+        en: "As a child, he used to speak Spanish all the time"
+        atoms: ["de niño", "hablaba", "español", "siempre"]
+      - kind: clozeLit
+        id: l1-c-anahablaba
+        es: "de niño, Ana hablaba español siempre"
+        en: "As a child, Ana used to speak Spanish all the time"
+        blank: "hablaba"
+        options: ["hablaba", "habla", "hablan"]
+        atoms: ["de niño", "hablaba", "siempre"]
+        why: "Ana, in the past, again and again: «hablaba». «habla» would slip into now; «hablan» would be more than one person."
+      - kind: listenCompLit
+        id: l1-lc-yohablabaescuela
+        es: "yo hablaba español en la escuela"
+        en: "I used to speak Spanish at school."
+        atoms: ["hablaba", "español", "escuela"]
+        distractorsEn:
+          - "I speak Spanish at school."
+          - "He used to speak Spanish at school."
+          - "I used to speak Spanish at home."
+      - kind: mcq
+        id: l1-q-elhablaba
+        prompt: "Which one means 'he used to speak'?"
+        correct: "él hablaba"
+        distractors: ["él habla", "él hablan", "yo hablo"]
+        atoms: ["hablaba"]
+        why: "«hablaba» is the imperfect — the exact same word for yo and él. «habla» slips into now; «hablan» would be more than one; «hablo» is present, just you."
+      - kind: buildLit
+        id: l1-b-ustedhablaba
+        es: "usted hablaba español muy bien"
+        en: "You (usted) used to speak Spanish very well"
+        atoms: ["hablaba", "español"]
+        tiles: ["habla", "hablas"]
+      - kind: audioWimcq
+        id: l1-ear-escuela
+        target: { surface: "la escuela", emoji: "🏫" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la playa", emoji: "🏖️" }
+      - kind: agreementLit
+        id: l1-agr-yoelhablaba
+        en: "I used to speak Spanish, and he used to speak it too"
+        audioText: "yo hablaba español, y él hablaba también"
+        atoms: ["hablaba", "español"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "hablaba", options: ["hablaba", "hablo"] } }
+          - { text: " español, y él " }
+          - { blank: { id: "p2", answer: "hablaba", options: ["hablaba", "habla"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l1-lb-diegohablabamucho
+        es: "de niño, Diego hablaba mucho español"
+        en: "As a child, Diego used to speak a lot of Spanish"
+        atoms: ["de niño", "hablaba", "español"]
+        tiles: ["habla", "hablan"]
+      - kind: textMcq
+        id: l1-tm-hablaba
+        target: "hablaba"
+        distractors: ["habla", "hablo", "hablan"]
+      - kind: speakLit
+        id: l1-sp-yosiemprehablaba
+        es: "de niño, yo siempre hablaba español con Ana"
+        en: "As a child, I always used to speak Spanish with Ana"
+        atoms: ["de niño", "hablaba", "español", "siempre"]
+      - kind: sim
+        id: l1-sim-ana-deniño
+        scene: { emoji: "🗣️", title: "Ana asks about your childhood", setting: "Ana wants to know what language you and your friends used to speak as a child." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Hablaba usted español de niño?", audioText: "¿hablaba usted español de niño?", gloss: "Did you (usted) used to speak Spanish as a child?" }
+            goal: "Say yes, you used to speak it daily."
+            reply:
+              mode: build
+              tiles: ["sí", "hablaba", "todos", "los", "días", "habla", "hablan"]
+              answer: "sí hablaba todos los días"
+            replyGloss: "Yes, I used to speak it every day."
+            explanation: "Ana asked with «usted» — formal you shares the exact same imperfect form as yo: «hablaba». The subject is already set by the question, so the answer can stay plain."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego? ¿Hablaba español también?", audioText: "¿y diego? ¿hablaba español también?", gloss: "And Diego? Did he used to speak Spanish too?" }
+            goal: "Say yes, he used to speak it too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, él hablaba también" }
+                - { id: "wrong1", text: "sí, yo hablaba también" }
+                - { id: "wrong2", text: "sí, él habla también" }
+              correctOptionId: "right"
+              audioText: "sí, él hablaba también"
+            replyGloss: "Yes, he used to speak it too."
+            explanation: "The question is about Diego: «él hablaba». Swapping the subject to «yo» would wrongly claim it was you; «habla» would slip into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Hablaba usted español en la escuela también?", audioText: "¿hablaba usted español en la escuela también?", gloss: "Did you also used to speak Spanish at school?" }
+            goal: "Say yes, always, at school too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, hablaba siempre en la escuela" }
+                - { id: "wrong1", text: "sí, hablan siempre en la escuela" }
+                - { id: "wrong2", text: "sí, habla siempre en la escuela" }
+              correctOptionId: "right"
+              audioText: "sí, hablaba siempre en la escuela"
+            replyGloss: "Yes, I always used to speak it at school."
+            explanation: "Still you, answering as «yo»: «hablaba». «habla»/«hablan» both slip into now — and «hablan» wrongly makes it more than one person."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "hablaba", target: "I used to speak, he/she/you used to speak" }
+          - { source: "de niño", target: "as a child" }
+          - { source: "español", target: "Spanish" }
+          - { source: "todos los días", target: "every day" }
+          - { source: "siempre", target: "always" }
+          - { source: "escuela", target: "school" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "de niño, hablaba español todos los días"
+        en: "As a child, I used to speak Spanish every day"
+        atoms: ["de niño", "hablaba", "español", "todos los días"]
+
+  # ── L2 · «Hablábamos, hablaban» — the rest of hablar's imperfect: hablabas
+  #    (tú), hablábamos (nosotros — the ONE -ar form with an accent), hablaban
+  #    (ellos/ustedes). None of these three collide across persons (only the
+  #    "first slot" hablaba does), so no fresh subject-disambiguation drill
+  #    is needed for them — but «todos» (PRIOR, m21) still takes hablaban
+  #    only, never hablábamos (rule 8). NO preterite anywhere.
+  - n: 2
+    template: free
+    title: "Hablábamos, hablaban"
+    description: "Three more pieces of hablar's imperfect: «hablabas» (you), «hablábamos» (we — the one -ar form with an accent), «hablaban» (they, you all)."
+    steps:
+      - kind: map
+        id: l2-map-deninoshablabamos
+        tokens: ["de niños", "hablábamos", "mucho", "en", "la escuela"]
+        pairs:
+          - { en: "as children", tokenIndex: 0 }
+          - { en: "we used to speak", tokenIndex: 1 }
+          - { en: "a lot", tokenIndex: 2 }
+          - { en: "at", tokenIndex: 3 }
+          - { en: "school", tokenIndex: 4 }
+        audioText: "de niños, hablábamos mucho en la escuela"
+        revealNote: "«hablábamos» is the one -ar imperfect form that carries an accent — nosotros, always. «hablaban» (they, you all) and «hablabas» (tú) carry none, same as «hablaba»."
+      - kind: info
+        id: l2-info-hablabamoshablaban
+        title: "Hablábamos, hablaban — the rest of hablar's imperfect"
+        body: "«hablábamos» is we used to speak — the one -ar imperfect form with an accent, always on nosotros. «hablaban» is they used to speak, or you all used to speak — no accent. «hablabas» is you (tú) used to speak — no accent either. Three more pieces of the same -aba family as «hablaba»."
+      - kind: speakLit
+        id: l2-sp-tuhablabas
+        es: "tú hablabas español de niño"
+        en: "You (tú) used to speak Spanish as a child"
+        atoms: ["hablabas", "español", "de niño"]
+      - kind: buildLit
+        id: l2-b-hablabamosescuela
+        es: "hablábamos mucho en la escuela"
+        en: "We used to speak a lot at school"
+        atoms: ["hablábamos", "escuela"]
+        tiles: ["habla", "hablabas"]
+      - kind: speakLit
+        id: l2-sp-hablabanescuela
+        es: "ellos hablaban español en la escuela"
+        en: "They used to speak Spanish at school"
+        atoms: ["hablaban", "español", "escuela"]
+      - kind: clozeLit
+        id: l2-c-hablabamosjuntos
+        es: "hablábamos juntos todos los días"
+        en: "We used to speak together every day"
+        blank: "hablábamos"
+        options: ["hablábamos", "hablaban", "hablaba"]
+        atoms: ["hablábamos", "juntos", "todos los días"]
+        why: "We, more than one: «hablábamos» — the one -ar imperfect form with an accent. «hablaban» would be them; «hablaba» would be just one."
+      - kind: listenCompLit
+        id: l2-lc-hablabanfiesta
+        es: "todos hablaban mucho en la fiesta"
+        en: "Everyone used to talk a lot at the party."
+        atoms: ["hablaban", "fiesta"]
+        distractorsEn:
+          - "Everyone talks a lot at the party."
+          - "We used to talk a lot at the party."
+          - "Everyone used to talk a lot at school."
+      - kind: mcq
+        id: l2-q-tuhablabas
+        prompt: "Which one means 'you (tú) used to speak'?"
+        correct: "tú hablabas"
+        distractors: ["tú hablaba", "tú hablas", "tú hablábamos"]
+        atoms: ["hablabas"]
+        why: "«hablabas» — the tú ending. «hablaba» collapses yo/él, not tú; «hablas» slips into now; «hablábamos» would be we."
+      - kind: buildLit
+        id: l2-b-diegosofiahablaban
+        es: "Diego y Sofía hablaban español juntos"
+        en: "Diego and Sofía used to speak Spanish together"
+        atoms: ["hablaban", "español", "juntos"]
+        tiles: ["hablaba", "hablan"]
+      - kind: audioWimcq
+        id: l2-ear-parque
+        target: { surface: "el parque", emoji: "🌳" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "la playa", emoji: "🏖️" }
+      - kind: agreementLit
+        id: l2-agr-hablabamoshablaban
+        en: "We used to speak Spanish, and they used to speak it too"
+        audioText: "hablábamos español, y ellos hablaban también"
+        atoms: ["hablábamos", "español", "hablaban"]
+        segments:
+          - { blank: { id: "p1", answer: "hablábamos", options: ["hablábamos", "hablaban"] } }
+          - { text: " español, y ellos " }
+          - { blank: { id: "p2", answer: "hablaban", options: ["hablaban", "hablábamos"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l2-lb-tuhablabasescuela
+        es: "tú hablabas mucho en la escuela"
+        en: "You (tú) used to speak a lot at school"
+        atoms: ["hablabas", "escuela"]
+        tiles: ["hablaba", "hablan"]
+      - kind: textMcq
+        id: l2-tm-hablaban
+        target: "hablaban"
+        distractors: ["hablaba", "hablabas", "hablábamos"]
+      - kind: speakLit
+        id: l2-sp-todosconsolidacion
+        es: "de niños, hablábamos y ellos hablaban también"
+        en: "As children, we used to speak and they used to speak too"
+        atoms: ["de niño", "hablábamos", "hablaban"]
+      - kind: sim
+        id: l2-sim-sofia-escuela
+        scene: { emoji: "🏫", title: "Sofía remembers school", setting: "Sofía is asking who used to talk a lot at school, back when everyone was a kid." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Hablabas mucho en la escuela de niño?", audioText: "¿hablabas mucho en la escuela de niño?", gloss: "Did you (tú) used to talk a lot at school as a child?" }
+            goal: "Say yes, you and Ana used to talk."
+            reply:
+              mode: build
+              tiles: ["sí", "hablábamos", "juntos", "hablaban", "hablaba"]
+              answer: "sí hablábamos juntos"
+            replyGloss: "Yes, we used to talk together."
+            explanation: "You and Ana together: «hablábamos» — the nosotros ending, the one that carries an accent. «hablaban» would be someone else; «hablaba» would be just one."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y Diego y Luis? ¿Hablaban mucho también?", audioText: "¿y diego y luis? ¿hablaban mucho también?", gloss: "And Diego and Luis? Did they used to talk a lot too?" }
+            goal: "Say yes, they always used to talk."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, hablaban mucho siempre" }
+                - { id: "wrong1", text: "sí, hablábamos mucho siempre" }
+                - { id: "wrong2", text: "sí, hablan mucho siempre" }
+              correctOptionId: "right"
+              audioText: "sí, hablaban mucho siempre"
+            replyGloss: "Yes, they always used to talk a lot."
+            explanation: "Diego and Luis — them: «hablaban». «hablábamos» would wrongly include you; «hablan» slips into now."
+          - id: t3
+            npc: { speaker: "Sofía", es: "¿Hablaban todos mucho de niños?", audioText: "¿hablaban todos mucho de niños?", gloss: "Did everyone used to talk a lot as children?" }
+            goal: "Say yes, everyone always used to talk."
+            reply:
+              mode: build
+              tiles: ["sí", "todos", "hablaban", "siempre", "hablábamos", "hablaba"]
+              answer: "sí todos hablaban siempre"
+            replyGloss: "Yes, everyone always used to talk."
+            explanation: "«todos» always takes the they-ending, same rule as m21's preterite: «hablaban», never «hablábamos» — that would wrongly include you."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "hablabas", target: "you (tú) used to speak" }
+          - { source: "hablábamos", target: "we used to speak" }
+          - { source: "hablaban", target: "they used to speak, you all used to speak" }
+          - { source: "de niños", target: "as children" }
+          - { source: "juntos", target: "together" }
+          - { source: "escuela", target: "school" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "de niños, hablábamos mucho en la escuela"
+        en: "As children, we used to speak a lot at school"
+        atoms: ["de niño", "hablábamos", "escuela"]
+
+  # ── L3 · «Era, eras» — ser's imperfect debuts. «era» is a SECOND "first
+  #    slot" atom: yo era / él-ella-usted era share the exact surface, same
+  #    collision as «hablaba» (L1) — the info card here is shorter, pointing
+  #    back to L1's full explanation. «eras» (tú) carries no such collision.
+  #    No accent on era/eras (éramos, the one accented ser form, is L4's).
+  #    Recall floor: this lesson carries ≥1 recall of an L1/L2 win line.
+  - n: 3
+    template: free
+    title: "Era, eras"
+    description: "«era» is ser's imperfect — and it shares the same trick as «hablaba»: «yo era» and «él/ella/usted era» are the exact same word. «eras» is you (tú) were, no collision there."
+    steps:
+      - kind: map
+        id: l3-map-diegoerabueno
+        tokens: ["de niño", "Diego", "era", "muy", "bueno"]
+        pairs:
+          - { en: "as a child", tokenIndex: 0 }
+          - { en: "Diego", tokenIndex: 1 }
+          - { en: "was", tokenIndex: 2 }
+          - { en: "very", tokenIndex: 3 }
+          - { en: "good", tokenIndex: 4 }
+        audioText: "de niño, Diego era muy bueno"
+        revealNote: "«era» is ser's imperfect — same trick as «hablaba»: «yo era» and «él era» are the exact same word. Only the subject tells you who."
+      - kind: info
+        id: l3-info-era
+        title: "Era — ser's imperfect, same collision"
+        body: "«era» is I was / he, she, you were — the same trick as «hablaba»: one word, two people, only the subject tells you who (see L1 for the full rule). «eras» is you (tú) were, no accent. Use «era» for description and identity in the past — what someone was like, who they were."
+      - kind: speakLit
+        id: l3-sp-yoera
+        es: "yo era muy bueno de niño"
+        en: "I was very good as a child"
+        atoms: ["era", "muy", "bueno", "de niño"]
+      - kind: buildLit
+        id: l3-b-diegoerabueno
+        es: "Diego era muy bueno de niño"
+        en: "Diego was very good as a child"
+        atoms: ["era", "muy", "bueno", "de niño"]
+        tiles: ["es", "son"]
+      - kind: speakLit
+        id: l3-sp-tueras
+        es: "tú eras muy bueno de niño"
+        en: "You (tú) were very good as a child"
+        atoms: ["eras", "muy", "bueno", "de niño"]
+      - kind: clozeLit
+        id: l3-c-anaerabuena
+        es: "de niño, Ana era muy buena"
+        en: "As a child, Ana was very good"
+        blank: "era"
+        options: ["era", "es", "eras"]
+        atoms: ["de niño", "era", "muy", "bueno"]
+        why: "Ana, in the past: «era». «es» slips into now; «eras» would be tú, not Ana."
+      - kind: listenCompLit
+        id: l3-lc-elerabueno
+        es: "él era muy bueno de niño"
+        en: "He was very good as a child."
+        atoms: ["era", "muy", "bueno", "de niño"]
+        distractorsEn:
+          - "He is very good."
+          - "She was very good as a child."
+          - "They were very good as children."
+      - kind: mcq
+        id: l3-q-tueras
+        prompt: "Which one means 'you (tú) were'?"
+        correct: "tú eras"
+        distractors: ["tú era", "tú eres", "usted eras"]
+        atoms: ["eras"]
+        why: "«eras» — the tú ending, no accent. «era» collapses yo/él, not tú; «eres» slips into now; «usted» takes «era», not «eras»."
+      - kind: buildLit
+        id: l3-b-tueraescuela
+        es: "tú eras muy bueno en la escuela"
+        en: "You (tú) were very good at school"
+        atoms: ["eras", "muy", "bueno", "escuela"]
+        tiles: ["era", "es"]
+      - kind: audioWimcq
+        id: l3-ear-playa
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: agreementLit
+        id: l3-agr-yoelera
+        en: "I was very good, and he was very good too"
+        audioText: "yo era muy bueno, y él era muy bueno también"
+        atoms: ["era", "muy", "bueno"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "era", options: ["era", "eres"] } }
+          - { text: " muy bueno, y él " }
+          - { blank: { id: "p2", answer: "era", options: ["era", "es"] } }
+          - { text: " muy bueno también" }
+      - kind: listenBuildLit
+        id: l3-lb-tuerasfiesta
+        es: "tú eras muy bueno en la fiesta"
+        en: "You (tú) were very good at the party"
+        atoms: ["eras", "muy", "bueno", "fiesta"]
+        tiles: ["era", "es"]
+      - kind: textMcq
+        id: l3-tm-era
+        target: "era"
+        distractors: ["es", "eran", "eras"]
+      # Printed non-recall at L1 (es-m22-1-l1-sp-win).
+      - kind: speakLit
+        id: l3-sp-recall-hablabatodosdias
+        es: "de niño, hablaba español todos los días"
+        en: "As a child, I used to speak Spanish every day"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l3-sim-carmen-erabueno
+        scene: { emoji: "😊", title: "Carmen asks about everyone's childhood", setting: "Carmen wants to know what everyone was like as a kid." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Eras bueno de niño?", audioText: "¿eras bueno de niño?", gloss: "Were you (tú) good as a child?" }
+            goal: "Say yes, you were always good."
+            reply:
+              mode: build
+              tiles: ["sí", "era", "siempre", "bueno", "eran", "es"]
+              answer: "sí era siempre bueno"
+            replyGloss: "Yes, I was always good."
+            explanation: "Answering as yourself: «era». «eran» would be more than one; «es» slips into now."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Y Ana? ¿Era buena también?", audioText: "¿y ana? ¿era buena también?", gloss: "And Ana? Was she good too?" }
+            goal: "Say yes, she was very good."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, ella era muy buena" }
+                - { id: "wrong1", text: "sí, yo era muy buena" }
+                - { id: "wrong2", text: "sí, ella es muy buena" }
+              correctOptionId: "right"
+              audioText: "sí, ella era muy buena"
+            replyGloss: "Yes, she was very good."
+            explanation: "The question is about Ana: «ella era». Swapping the subject to «yo» would wrongly claim it about you; «es» slips into now."
+          - id: t3
+            npc: { speaker: "Carmen", es: "¿Y Diego? ¿Era bueno de niño?", audioText: "¿y diego? ¿era bueno de niño?", gloss: "And Diego? Was he good as a child?" }
+            goal: "Say yes, he was always very good."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, él era siempre muy bueno" }
+                - { id: "wrong1", text: "sí, yo era siempre muy bueno" }
+                - { id: "wrong2", text: "sí, él es siempre muy bueno" }
+              correctOptionId: "right"
+              audioText: "sí, él era siempre muy bueno"
+            replyGloss: "Yes, he was always very good."
+            explanation: "About Diego: «él era». «yo era» would wrongly claim it about you; «es» slips into now."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "era", target: "I was, he/she/you was" }
+          - { source: "eras", target: "you (tú) were" }
+          - { source: "bueno", target: "good" }
+          - { source: "de niño", target: "as a child" }
+          - { source: "escuela", target: "school" }
+          - { source: "fiesta", target: "the party" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "de niño, Diego era muy bueno"
+        en: "As a child, Diego was very good"
+        atoms: ["de niño", "era", "muy", "bueno"]
+
+  # ── L4 · «Éramos, eran, todos eran» — the rest of ser's imperfect:
+  #    éramos (nosotros — the one accented ser form) and eran (ellos/
+  #    ustedes, no accent). Re-spends «todos» (PRIOR, m21): todos always
+  #    takes eran, never éramos — same rule as m21's preterite, restated for
+  #    this tense. NO preterite anywhere. Recall floor: ≥1 recall (L1/L2).
+  - n: 4
+    template: free
+    title: "Éramos, eran, todos eran"
+    description: "«éramos» is we were — the one ser imperfect form with an accent. «eran» is they were, or you all were. And «todos» still takes the they-ending, never the we-ending: «todos eran», never «todos éramos»."
+    steps:
+      - kind: map
+        id: l4-map-eramosfamiliatodoseran
+        tokens: ["éramos", "una", "familia", "y", "todos", "eran", "buenos", "amigos"]
+        pairs:
+          - { en: "we were", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "family", tokenIndex: 2 }
+          - { en: "and", tokenIndex: 3 }
+          - { en: "everyone", tokenIndex: 4 }
+          - { en: "was", tokenIndex: 5 }
+          - { en: "good", tokenIndex: 6 }
+          - { en: "friends", tokenIndex: 7 }
+        audioText: "éramos una familia, y todos eran buenos amigos"
+        revealNote: "«éramos» is we were — the one ser imperfect form with an accent. «eran» is they were, or you all were — no accent. «todos» still takes the they-ending, never the we-ending: «todos eran», never «todos éramos»."
+      - kind: info
+        id: l4-info-eramoseran
+        title: "Éramos, eran — todos still takes the they-ending"
+        body: "«éramos» is we were — the accented nosotros form, same rule as «hablábamos». «eran» is they were, or you all were — no accent. «todos» (everyone) always takes «eran», never «éramos» — the same rule you already know from m21's preterite: «todos» is never you-and-me."
+      - kind: speakLit
+        id: l4-sp-eramosfamilia
+        es: "éramos una familia muy buena"
+        en: "We were a very good family"
+        atoms: ["éramos", "familia", "muy", "bueno"]
+      - kind: buildLit
+        id: l4-b-todoseranamigos
+        es: "todos eran buenos amigos"
+        en: "Everyone was good friends"
+        atoms: ["todos", "eran"]
+        tiles: ["éramos", "era"]
+      - kind: speakLit
+        id: l4-sp-samluiseran
+        es: "Sam y Luis eran buenos amigos de niños"
+        en: "Sam and Luis were good friends as children"
+        atoms: ["eran", "bueno", "de niño"]
+      - kind: clozeLit
+        id: l4-c-eramosescuela
+        es: "éramos amigos en la escuela"
+        en: "We were friends at school"
+        blank: "éramos"
+        options: ["éramos", "eran", "era"]
+        atoms: ["éramos", "escuela"]
+        why: "We, the group: «éramos» — the one accented ser form. «eran» would be them; «era» would be just one."
+      - kind: listenCompLit
+        id: l4-lc-todoseranbuenos
+        es: "todos eran muy buenos amigos"
+        en: "Everyone was very good friends."
+        atoms: ["todos", "eran", "bueno"]
+        distractorsEn:
+          - "Everyone is very good friends."
+          - "We were very good friends."
+          - "Everyone was very good friends at school."
+      - kind: mcq
+        id: l4-q-todoseran
+        prompt: "Which one is correct?"
+        correct: "todos eran"
+        distractors: ["todos éramos", "todos era", "todos son"]
+        atoms: ["todos", "eran"]
+        why: "«todos» always takes the they-ending: «eran». «todos éramos» wrongly includes you; «era» would be just one; «son» slips into now."
+      - kind: buildLit
+        id: l4-b-eramosamigosfiesta
+        es: "éramos amigos en la fiesta"
+        en: "We were friends at the party"
+        atoms: ["éramos", "fiesta"]
+        tiles: ["eran", "somos"]
+      - kind: audioWimcq
+        id: l4-ear-casa
+        target: { surface: "casa", emoji: "🏠" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "el parque", emoji: "🌳" }
+      - kind: agreementLit
+        id: l4-agr-eramoseran
+        en: "We were a family, and they were friends"
+        audioText: "éramos una familia, y ellos eran amigos"
+        atoms: ["éramos", "familia", "eran"]
+        segments:
+          - { blank: { id: "p1", answer: "éramos", options: ["éramos", "eran"] } }
+          - { text: " una familia, y ellos " }
+          - { blank: { id: "p2", answer: "eran", options: ["eran", "éramos"] } }
+          - { text: " amigos" }
+      - kind: listenBuildLit
+        id: l4-lb-todoseranescuela
+        es: "todos eran amigos en la escuela"
+        en: "Everyone was friends at school"
+        atoms: ["todos", "eran", "escuela"]
+        tiles: ["éramos", "era"]
+      - kind: textMcq
+        id: l4-tm-eran
+        target: "eran"
+        distractors: ["éramos", "era", "es"]
+      # Printed non-recall at L2 (es-m22-2-l2-sp-win).
+      - kind: speakLit
+        id: l4-sp-recall-hablabamosescuela
+        es: "de niños, hablábamos mucho en la escuela"
+        en: "As children, we used to speak a lot at school"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l4-sim-carmen-familia
+        scene: { emoji: "👨‍👩‍👧", title: "Carmen asks about growing up", setting: "Carmen wants to know what the whole group used to be like as kids." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Eran ustedes buenos amigos de niños?", audioText: "¿eran ustedes buenos amigos de niños?", gloss: "Were you all good friends as children?" }
+            goal: "Say yes, you were a family."
+            reply:
+              mode: build
+              tiles: ["sí", "éramos", "una", "familia", "eran", "era"]
+              answer: "sí éramos una familia"
+            replyGloss: "Yes, we were a family."
+            explanation: "Answering for the group: «éramos» — the accented nosotros form. «eran» would hand it to someone else."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Y Sam y Luis? ¿Eran amigos también?", audioText: "¿y sam y luis? ¿eran amigos también?", gloss: "And Sam and Luis? Were they friends too?" }
+            goal: "Say yes, they were always good friends."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, eran siempre buenos amigos" }
+                - { id: "wrong1", text: "sí, éramos siempre buenos amigos" }
+                - { id: "wrong2", text: "sí, son siempre buenos amigos" }
+              correctOptionId: "right"
+              audioText: "sí, eran siempre buenos amigos"
+            replyGloss: "Yes, they were always good friends."
+            explanation: "Sam and Luis — them: «eran». «éramos» would wrongly include you; «son» slips into now."
+          - id: t3
+            npc: { speaker: "Carmen", es: "¿Eran todos buenos amigos en la escuela?", audioText: "¿eran todos buenos amigos en la escuela?", gloss: "Was everyone good friends at school?" }
+            goal: "Say yes, everyone was always good friends."
+            reply:
+              mode: build
+              tiles: ["sí", "todos", "eran", "siempre", "buenos", "amigos", "éramos"]
+              answer: "sí todos eran siempre buenos amigos"
+            replyGloss: "Yes, everyone was always good friends."
+            explanation: "«todos» always takes the they-ending: «eran», never «éramos» — that would wrongly include you."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "éramos", target: "we were" }
+          - { source: "eran", target: "they were, you all were" }
+          - { source: "familia", target: "family" }
+          - { source: "amigo", target: "friend" }
+          - { source: "casa", target: "house, home" }
+          - { source: "fiesta", target: "the party" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "éramos una familia, y todos eran buenos amigos"
+        en: "We were a family, and everyone was good friends"
+        atoms: ["éramos", "familia", "todos", "eran", "bueno", "amigo"]
+
+  # ── L5 · «Iba a la escuela» — the whole ir imperfect family in one lesson:
+  #    iba (a THIRD "first slot" atom — yo=él collision, same as hablaba/
+  #    era; info card here is one line shorter, pointing back to L1), ibas
+  #    (tú), íbamos (nosotros — the one accented ir form), iban (ellos/
+  #    ustedes). «todos» re-spent with iban only, never íbamos (rule 8). NO
+  #    preterite anywhere. Recall floor: ≥1 recall (L1–L4 pool now open).
+  - n: 5
+    template: free
+    title: "Iba a la escuela"
+    description: "«iba» is ir's imperfect — a third word that collapses yo and él/ella/usted into one (see L1). This lesson gives you the whole family at once: iba, ibas, íbamos, iban."
+    steps:
+      - kind: map
+        id: l5-map-ibaescuelatemprano
+        tokens: ["de niño", "iba", "a", "la", "escuela", "temprano"]
+        pairs:
+          - { en: "as a child", tokenIndex: 0 }
+          - { en: "I used to go", tokenIndex: 1 }
+          - { en: "to", tokenIndex: 2 }
+          - { en: "the", tokenIndex: 3 }
+          - { en: "school", tokenIndex: 4 }
+          - { en: "early", tokenIndex: 5 }
+        audioText: "de niño, iba a la escuela temprano"
+        revealNote: "«iba» is ir's imperfect — same collision as «hablaba»/«era»: «yo iba» and «él iba» are the same word. No accent — that's only on «íbamos»."
+      - kind: info
+        id: l5-info-iba
+        title: "Iba — ir's imperfect, same collision, one more"
+        body: "«iba» is I used to go / he, she, you used to go — same trick as «hablaba» and «era» (see L1 for the full rule). No accent, same as «era». This lesson gives you the whole family: «ibas» (tú), «íbamos» (we — the one accented ir form), «iban» (they, you all)."
+      - kind: speakLit
+        id: l5-sp-yoiba
+        es: "yo iba a la escuela temprano"
+        en: "I used to go to school early"
+        atoms: ["iba", "escuela", "temprano"]
+      - kind: buildLit
+        id: l5-b-tuibasparque
+        es: "tú ibas al parque de niño"
+        en: "You (tú) used to go to the park as a child"
+        atoms: ["ibas", "parque", "de niño"]
+        tiles: ["iba", "van"]
+      - kind: speakLit
+        id: l5-sp-ibamosescuela
+        es: "íbamos a la escuela juntos"
+        en: "We used to go to school together"
+        atoms: ["íbamos", "escuela", "juntos"]
+      - kind: clozeLit
+        id: l5-c-todosibanparque
+        es: "todos iban al parque siempre"
+        en: "Everyone always used to go to the park"
+        blank: "iban"
+        options: ["iban", "íbamos", "iba"]
+        atoms: ["todos", "iban", "parque", "siempre"]
+        why: "«todos» takes the they-ending: «iban», never «íbamos» — that would wrongly include you."
+      - kind: listenCompLit
+        id: l5-lc-diegoibaescuela
+        es: "Diego iba a la escuela temprano"
+        en: "Diego used to go to school early."
+        atoms: ["iba", "escuela", "temprano"]
+        distractorsEn:
+          - "Diego goes to school early."
+          - "Diego used to go to the park early."
+          - "They used to go to school early."
+      - kind: mcq
+        id: l5-q-tuibas
+        prompt: "Which one means 'you (tú) used to go'?"
+        correct: "tú ibas"
+        distractors: ["tú iba", "tú vas", "tú íbamos"]
+        atoms: ["ibas"]
+        why: "«ibas» — the tú ending, no accent. «iba» collapses yo/él, not tú; «vas» slips into now; «íbamos» would be we."
+      - kind: buildLit
+        id: l5-b-ibamosjuntosescuela
+        es: "íbamos juntos a la escuela todos los días"
+        en: "We used to go to school together every day"
+        atoms: ["íbamos", "juntos", "escuela", "todos los días"]
+        tiles: ["iban", "vamos"]
+      - kind: audioWimcq
+        id: l5-ear-playa
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: agreementLit
+        id: l5-agr-yoeliba
+        en: "I used to go to the park, and he used to go too"
+        audioText: "yo iba al parque, y él iba también"
+        atoms: ["iba", "parque"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "iba", options: ["iba", "voy"] } }
+          - { text: " al parque, y él " }
+          - { blank: { id: "p2", answer: "iba", options: ["iba", "va"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l5-lb-samluisiban
+        es: "Sam y Luis iban a la playa siempre"
+        en: "Sam and Luis always used to go to the beach"
+        atoms: ["iban", "playa", "siempre"]
+        tiles: ["íbamos", "iba"]
+      - kind: textMcq
+        id: l5-tm-iba
+        target: "iba"
+        distractors: ["ibas", "iban", "va"]
+      # Printed non-recall at L3 (es-m22-3-l3-sp-win).
+      - kind: speakLit
+        id: l5-sp-recall-diegoerabueno
+        es: "de niño, Diego era muy bueno"
+        en: "As a child, Diego was very good"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l5-sim-ana-escuela
+        scene: { emoji: "🏫", title: "Ana asks about school", setting: "Ana wants to know how everyone used to get to school as kids." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Ibas a la escuela temprano?", audioText: "¿ibas a la escuela temprano?", gloss: "Did you (tú) used to go to school early?" }
+            goal: "Say yes, you always used to go early."
+            reply:
+              mode: build
+              tiles: ["sí", "iba", "siempre", "temprano", "iban", "voy"]
+              answer: "sí iba siempre temprano"
+            replyGloss: "Yes, I always used to go early."
+            explanation: "Answering as yourself: «iba». «iban» would be more than one; «voy» slips into now."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Iban a la escuela también?", audioText: "¿y diego y sofía? ¿iban a la escuela también?", gloss: "And Diego and Sofía? Did they used to go to school too?" }
+            goal: "Say yes, they always used to go together."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, iban juntos siempre" }
+                - { id: "wrong1", text: "sí, íbamos juntos siempre" }
+                - { id: "wrong2", text: "sí, van juntos siempre" }
+              correctOptionId: "right"
+              audioText: "sí, iban juntos siempre"
+            replyGloss: "Yes, they always used to go together."
+            explanation: "Diego and Sofía — them: «iban». «íbamos» would wrongly include you; «van» slips into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Íbamos juntos al parque de niños?", audioText: "¿y tú y yo? ¿íbamos juntos al parque de niños?", gloss: "And you and I? Did we used to go to the park together as kids?" }
+            goal: "Say yes, we always used to go."
+            reply:
+              mode: build
+              tiles: ["sí", "íbamos", "siempre", "juntos", "iban", "iba"]
+              answer: "sí íbamos siempre juntos"
+            replyGloss: "Yes, we always used to go together."
+            explanation: "You and Ana together: «íbamos» — the accented nosotros form. «iban» would be someone else."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "iba", target: "I used to go, he/she/you used to go" }
+          - { source: "ibas", target: "you (tú) used to go" }
+          - { source: "íbamos", target: "we used to go" }
+          - { source: "iban", target: "they used to go, you all used to go" }
+          - { source: "escuela", target: "school" }
+          - { source: "temprano", target: "early" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "de niño, iba a la escuela temprano"
+        en: "As a child, I used to go to school early"
+        atoms: ["de niño", "iba", "escuela", "temprano"]
+
+  # ── L6 · «Veíamos películas» — ver's imperfect debuts whole: veía (a
+  #    FOURTH "first slot" atom — yo=él collision, same as hablaba/era/iba;
+  #    info card shorter, points back to L1), veías (tú), veíamos (nosotros),
+  #    veían (ellos/ustedes). NEW RULE this lesson: ver is -er, and -er/-ir
+  #    verbs accent EVERY imperfect form, not just nosotros — veía, veías,
+  #    veíamos, veían ALL carry the accent (unlike hablar/ir/ser, which only
+  #    accent nosotros). «todos» re-spent with veían only, never veíamos.
+  #    NO preterite anywhere. Recall floor: ≥1 recall (L1–L5 pool open).
+  - n: 6
+    template: free
+    title: "Veíamos películas"
+    description: "«veía» is ver's imperfect — same yo=él collision as hablaba/era/iba (see L1). But ver is different in one way: EVERY form carries an accent — veía, veías, veíamos, veían, all of them."
+    steps:
+      - kind: map
+        id: l6-map-veiamospeliculascine
+        tokens: ["veíamos", "películas", "en", "el cine", "siempre"]
+        pairs:
+          - { en: "we used to watch", tokenIndex: 0 }
+          - { en: "movies", tokenIndex: 1 }
+          - { en: "at", tokenIndex: 2 }
+          - { en: "the movie theater", tokenIndex: 3 }
+          - { en: "always", tokenIndex: 4 }
+        audioText: "veíamos películas en el cine siempre"
+        revealNote: "«veía» is ver's imperfect — same collision as «hablaba»/«era»/«iba»: «yo veía» and «él veía» are the same word. But ver is different: EVERY form keeps the accent — veía, veías, veíamos, veían, all of them."
+      - kind: info
+        id: l6-info-veia
+        title: "Veía — the same collision, but every form is accented"
+        body: "«veía» is I used to watch / he, she, you used to watch — the same collision as «hablaba» (see L1 for the full rule). Here's what's new: ver is an -er verb, and -er/-ir verbs accent EVERY imperfect form, not just nosotros. «veía», «veías», «veíamos», «veían» — all four carry the accent."
+      - kind: speakLit
+        id: l6-sp-yoveia
+        es: "yo veía películas en el cine"
+        en: "I used to watch movies at the movie theater"
+        atoms: ["veía", "película", "cine"]
+      - kind: buildLit
+        id: l6-b-tuveiasplaya
+        es: "tú veías a Ana en la playa"
+        en: "You (tú) used to see Ana at the beach"
+        atoms: ["veías", "playa"]
+        tiles: ["veía", "ves"]
+      - kind: speakLit
+        id: l6-sp-veiamoscine
+        es: "veíamos películas juntos en el cine"
+        en: "We used to watch movies together at the movie theater"
+        atoms: ["veíamos", "película", "cine", "juntos"]
+      - kind: clozeLit
+        id: l6-c-todosveianpeliculas
+        es: "todos veían películas siempre"
+        en: "Everyone always used to watch movies"
+        blank: "veían"
+        options: ["veían", "veíamos", "veía"]
+        atoms: ["todos", "veían", "película", "siempre"]
+        why: "«todos» takes the they-ending: «veían», never «veíamos» — that would wrongly include you."
+      - kind: listenCompLit
+        id: l6-lc-diegoveiapeliculas
+        es: "Diego veía películas en el cine"
+        en: "Diego used to watch movies at the movie theater."
+        atoms: ["veía", "película", "cine"]
+        distractorsEn:
+          - "Diego watches movies at the movie theater."
+          - "Diego used to watch movies at the beach."
+          - "They used to watch movies at the movie theater."
+      - kind: mcq
+        id: l6-q-tuveias
+        prompt: "Which one means 'you (tú) used to see'?"
+        correct: "tú veías"
+        distractors: ["tú veia", "tú ves", "tú veíamos"]
+        atoms: ["veías"]
+        why: "«veías» — the tú ending, accented like every ver imperfect form. «veia» is missing its accent; «ves» slips into now; «veíamos» would be we."
+      - kind: buildLit
+        id: l6-b-veiamosplayajuntos
+        es: "veíamos la playa juntos siempre"
+        en: "We used to see the beach together always"
+        atoms: ["veíamos", "playa", "juntos", "siempre"]
+        tiles: ["veían", "vemos"]
+      - kind: audioWimcq
+        id: l6-ear-cine
+        target: { surface: "el cine", emoji: "🎬" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: agreementLit
+        id: l6-agr-yoelveia
+        en: "I used to watch movies, and he used to watch them too"
+        audioText: "yo veía películas, y él veía también"
+        atoms: ["veía", "película"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "veía", options: ["veía", "veo"] } }
+          - { text: " películas, y él " }
+          - { blank: { id: "p2", answer: "veía", options: ["veía", "ve"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l6-lb-samluisveian
+        es: "Sam y Luis veían películas en el cine"
+        en: "Sam and Luis used to watch movies at the movie theater"
+        atoms: ["veían", "película", "cine"]
+        tiles: ["veíamos", "veía"]
+      - kind: textMcq
+        id: l6-tm-veia
+        target: "veía"
+        distractors: ["veías", "veían", "ve"]
+      # Printed non-recall at L4 (es-m22-4-l4-sp-win).
+      - kind: speakLit
+        id: l6-sp-recall-eramosfamilia
+        es: "éramos una familia, y todos eran buenos amigos"
+        en: "We were a family, and everyone was good friends"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l6-sim-ana-cine
+        scene: { emoji: "🎬", title: "Ana asks about movies", setting: "Ana wants to know who used to watch movies together as kids." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Veías películas en el cine de niño?", audioText: "¿veías películas en el cine de niño?", gloss: "Did you (tú) used to watch movies at the movie theater as a child?" }
+            goal: "Say yes, you always used to watch them."
+            reply:
+              mode: build
+              tiles: ["sí", "veía", "siempre", "películas", "veían", "veo"]
+              answer: "sí veía siempre películas"
+            replyGloss: "Yes, I always used to watch movies."
+            explanation: "Answering as yourself: «veía». «veían» would be more than one; «veo» slips into now."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Veían películas también?", audioText: "¿y diego y sofía? ¿veían películas también?", gloss: "And Diego and Sofía? Did they used to watch movies too?" }
+            goal: "Say yes, they always used to watch together."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, veían juntos siempre" }
+                - { id: "wrong1", text: "sí, veíamos juntos siempre" }
+                - { id: "wrong2", text: "sí, ven juntos siempre" }
+              correctOptionId: "right"
+              audioText: "sí, veían juntos siempre"
+            replyGloss: "Yes, they always used to watch together."
+            explanation: "Diego and Sofía — them: «veían». «veíamos» would wrongly include you; «ven» slips into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Veíamos películas juntos?", audioText: "¿y tú y yo? ¿veíamos películas juntos?", gloss: "And you and I? Did we used to watch movies together?" }
+            goal: "Say yes, we always used to watch together."
+            reply:
+              mode: build
+              tiles: ["sí", "veíamos", "siempre", "juntos", "veían", "veía"]
+              answer: "sí veíamos siempre juntos"
+            replyGloss: "Yes, we always used to watch together."
+            explanation: "You and Ana together: «veíamos» — accented, like every ver imperfect form. «veían» would be someone else."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "veía", target: "I used to watch, he/she/you used to watch" }
+          - { source: "veías", target: "you (tú) used to watch" }
+          - { source: "veíamos", target: "we used to watch" }
+          - { source: "veían", target: "they used to watch, you all used to watch" }
+          - { source: "película", target: "movie" }
+          - { source: "el cine", target: "the movie theater" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "veíamos películas en el cine"
+        en: "We used to watch movies at the movie theater"
+        atoms: ["veíamos", "película", "cine"]
+
+  # ── L7 · «¿Cuántos años tenías?» — tener's imperfect debuts whole: tenía (a
+  #    FIFTH and FINAL "first slot" atom — yo=él collision, info card shorter,
+  #    points back to L1), tenías (tú), teníamos (nosotros), tenían (ellos/
+  #    ustedes). Tener is -er, so EVERY form is accented (same rule as veía,
+  #    L6). Info card explicitly notes tener is REGULAR in the imperfect —
+  #    unlike present «tengo» or preterite «tuve» — a different stem entirely.
+  #    This lesson also drills negation («no») and questions across all five
+  #    verb families (hablaba/era/iba/veía/tenía) now that the whole set is
+  #    taught. «todos» re-spent with tenían only, never teníamos. Uses PRIOR
+  #    «años»/«¿cuántos?» (m5). NO preterite anywhere. Recall: ≥1 (L1–L6 pool).
+  - n: 7
+    template: free
+    title: "¿Cuántos años tenías?"
+    description: "«tenía» is tener's imperfect — same yo=él collision as the other four (see L1), but tener is REGULAR here: nothing like «tengo» or «tuve». This lesson also puts «no» and questions to work across all five families."
+    steps:
+      - kind: map
+        id: l7-map-cuantosanosteniasescuela
+        tokens: ["¿cuántos", "años", "tenías", "cuando", "ibas", "a", "la", "escuela?"]
+        pairs:
+          - { en: "how many", tokenIndex: 0 }
+          - { en: "years", tokenIndex: 1 }
+          - { en: "did you use to have", tokenIndex: 2 }
+          - { en: "when", tokenIndex: 3 }
+          - { en: "you used to go", tokenIndex: 4 }
+          - { en: "to", tokenIndex: 5 }
+          - { en: "the", tokenIndex: 6 }
+          - { en: "school?", tokenIndex: 7 }
+        audioText: "¿cuántos años tenías cuando ibas a la escuela?"
+        revealNote: "«tenía» is tener's imperfect — same collision as the other four: «yo tenía» and «él tenía» are the same word. Tener is REGULAR here, nothing like present «tengo» or preterite «tuve» — and like «veía», every form keeps the accent."
+      - kind: info
+        id: l7-info-tenia
+        title: "Tenía — the last collision, and tener is regular here"
+        body: "«tenía» is I used to have / he, she, you used to have — the same collision as «hablaba», «era», «iba», «veía» (see L1 for the full rule). Tener is an -er verb, so every form is accented, same as «veía»: «tenía», «tenías», «teníamos», «tenían». And here's the good news: tener is completely REGULAR in the imperfect — nothing like present «tengo» or preterite «tuve». It's just the -ía family, like any other -er verb."
+      - kind: speakLit
+        id: l7-sp-yotenia
+        es: "yo tenía muchos amigos de niño"
+        en: "I used to have a lot of friends as a child"
+        atoms: ["tenía", "mucho"]
+      - kind: buildLit
+        id: l7-b-tuteniascasa
+        es: "tú tenías una casa grande"
+        en: "You (tú) used to have a big house"
+        atoms: ["tenías", "casa"]
+        tiles: ["tenía", "tienes"]
+      - kind: speakLit
+        id: l7-sp-teniamosamigos
+        es: "teníamos muchos amigos siempre"
+        en: "We always used to have a lot of friends"
+        atoms: ["teníamos", "mucho", "siempre"]
+      - kind: clozeLit
+        id: l7-c-todostenianamigos
+        es: "todos tenían muchos amigos"
+        en: "Everyone used to have a lot of friends"
+        blank: "tenían"
+        options: ["tenían", "teníamos", "tenía"]
+        atoms: ["todos", "tenían", "mucho"]
+        why: "«todos» takes the they-ending: «tenían», never «teníamos» — that would wrongly include you."
+      - kind: listenCompLit
+        id: l7-lc-diegoteniacasa
+        es: "Diego tenía una casa grande"
+        en: "Diego used to have a big house."
+        atoms: ["tenía", "casa"]
+        distractorsEn:
+          - "Diego has a big house."
+          - "Diego used to have a small house."
+          - "They used to have a big house."
+      - kind: mcq
+        id: l7-q-tutenias
+        prompt: "Which one means 'you (tú) used to have'?"
+        correct: "tú tenías"
+        distractors: ["tú tenía", "tú tienes", "tú teníamos"]
+        atoms: ["tenías"]
+        why: "«tenías» — the tú ending, accented like every tener imperfect form. «tenía» collapses yo/él, not tú; «tienes» slips into now; «teníamos» would be we."
+      - kind: buildLit
+        id: l7-b-teniamosmuchoCasa
+        es: "teníamos mucho en la casa"
+        en: "We used to have a lot in the house"
+        atoms: ["teníamos", "mucho", "casa"]
+        tiles: ["tenían", "tenemos"]
+      - kind: audioWimcq
+        id: l7-ear-casa
+        target: { surface: "la casa", emoji: "🏠" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "el parque", emoji: "🌳" }
+      - kind: agreementLit
+        id: l7-agr-yoeltenia
+        en: "I used to have a lot, and he used to have a lot too"
+        audioText: "yo tenía mucho, y él tenía también"
+        atoms: ["tenía", "mucho"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "tenía", options: ["tenía", "tengo"] } }
+          - { text: " mucho, y él " }
+          - { blank: { id: "p2", answer: "tenía", options: ["tenía", "tiene"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l7-lb-samluistenian
+        es: "Sam y Luis tenían una casa grande"
+        en: "Sam and Luis used to have a big house"
+        atoms: ["tenían", "casa"]
+        tiles: ["teníamos", "tenía"]
+      - kind: textMcq
+        id: l7-tm-tenia
+        target: "tenía"
+        distractors: ["tenías", "tenían", "tiene"]
+      - kind: buildLit
+        id: l7-b-nohablabamucho
+        es: "de niño, no hablaba mucho"
+        en: "As a child, I didn't used to speak much"
+        atoms: ["hablaba", "mucho"]
+        tiles: ["hablo", "hablaban"]
+        why: "«no» in front of the imperfect just negates it, same as anywhere else: «no hablaba» — I didn't used to speak."
+      - kind: clozeLit
+        id: l7-c-noeratimida
+        es: "de niño, Ana no era muy buena"
+        en: "As a child, Ana wasn't very good"
+        blank: "era"
+        options: ["era", "es", "eran"]
+        atoms: ["era", "bueno"]
+        why: "«no» plus «era»: she wasn't — still the yo=él collision word, just negated."
+      - kind: buildLit
+        id: l7-b-noibaescuelatemprano
+        es: "de niño, no iba a la escuela temprano"
+        en: "As a child, I didn't used to go to school early"
+        atoms: ["iba", "escuela", "temprano"]
+        tiles: ["voy", "iban"]
+      - kind: agreementLit
+        id: l7-agr-noveia
+        en: "I didn't used to watch much, but he always used to watch"
+        audioText: "yo no veía mucho, pero él veía siempre"
+        atoms: ["veía", "mucho"]
+        segments:
+          - { text: "yo no " }
+          - { blank: { id: "p1", answer: "veía", options: ["veía", "veo"] } }
+          - { text: " mucho, pero él " }
+          - { blank: { id: "p2", answer: "veía", options: ["veía", "ve"] } }
+          - { text: " siempre" }
+      # Printed non-recall at L5 (es-m22-5-l5-sp-win).
+      - kind: speakLit
+        id: l7-sp-recall-ibaescuelatemprano
+        es: "de niño, iba a la escuela temprano"
+        en: "As a child, I used to go to school early"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l7-sim-carmen-anos
+        scene: { emoji: "🎂", title: "Carmen asks about the old days", setting: "Carmen is curious how old everyone was and what they had growing up." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Cuántos años tenías cuando ibas a la escuela?", audioText: "¿cuántos años tenías cuando ibas a la escuela?", gloss: "How old were you when you used to go to school?" }
+            goal: "Say you used to be about seven."
+            reply:
+              mode: build
+              tiles: ["tenía", "siete", "años", "más", "o", "menos", "tenían", "tengo"]
+              answer: "tenía siete años más o menos"
+            replyGloss: "I used to be about seven years old."
+            explanation: "Answering as yourself: «tenía». «tenían» would be more than one; «tengo» slips into now."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Y Diego y Sofía? ¿No tenían la misma edad?", audioText: "¿y diego y sofía? ¿no tenían la misma edad?", gloss: "And Diego and Sofía? Didn't they used to be the same age?" }
+            goal: "Say no, they used to have different ages."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, tenían edades diferentes" }
+                - { id: "wrong1", text: "no, teníamos edades diferentes" }
+                - { id: "wrong2", text: "no, tienen edades diferentes" }
+              correctOptionId: "right"
+              audioText: "no, tenían edades diferentes"
+            replyGloss: "No, they used to have different ages."
+            explanation: "Diego and Sofía — them: «tenían». «teníamos» would wrongly include you; «tienen» slips into now."
+          - id: t3
+            npc: { speaker: "Carmen", es: "¿Y tú y yo? ¿Teníamos la misma edad de niños?", audioText: "¿y tú y yo? ¿teníamos la misma edad de niños?", gloss: "And you and I? Did we used to be the same age as kids?" }
+            goal: "Say yes, always the same age as kids."
+            reply:
+              mode: build
+              tiles: ["sí", "teníamos", "siempre", "la", "misma", "edad", "tenían", "tenía"]
+              answer: "sí teníamos siempre la misma edad"
+            replyGloss: "Yes, we always used to be the same age."
+            explanation: "You and Carmen together: «teníamos» — the nosotros form, accented like every tener imperfect form."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "tenía", target: "I used to have, he/she/you used to have" }
+          - { source: "tenías", target: "you (tú) used to have" }
+          - { source: "teníamos", target: "we used to have" }
+          - { source: "tenían", target: "they used to have, you all used to have" }
+          - { source: "casa", target: "house, home" }
+          - { source: "mucho", target: "a lot" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "¿cuántos años tenías?"
+        en: "How old were you?"
+        atoms: ["¿cuántos?", "años", "tenías"]
+
+  # ── L8 · CHECKPOINT — graded only, zero info cards. Exercises all 21 atoms
+  #    (hablaba/hablabas/hablábamos/hablaban, tenía/tenías/teníamos/tenían,
+  #    era/eras/éramos/eran, iba/ibas/íbamos/iban, veía/veías/veíamos/veían,
+  #    de niño) via paired build/listen-build sentences carrying two forms
+  #    each through «y», same shape as m21-L8. ≥2 recalls (L6, L7 — first
+  #    time either is recalled). NO preterite anywhere; «hablamos»/«vivimos»
+  #    still avoided everywhere (identical to their preterite surface).
+  #    «todos» re-checked with iban only, never íbamos.
+  - n: 8
+    template: free
+    title: "Checkpoint: todo el imperfecto"
+    description: "Every imperfect form from this module, all at once, all graded — no new teaching, just proof you've got it."
+    steps:
+      - kind: buildLit
+        id: l8-b-hablabatenia
+        es: "de niño, hablaba mucho y tenía muchos amigos"
+        en: "As a child, I used to speak a lot and had a lot of friends"
+        atoms: ["de niño", "hablaba", "tenía", "mucho"]
+        tiles: ["hablo", "tengo"]
+      - kind: listenBuildLit
+        id: l8-lb-hablabastenias
+        es: "tú hablabas mucho y tenías muchos amigos"
+        en: "You (tú) used to speak a lot and used to have a lot of friends"
+        atoms: ["hablabas", "tenías", "mucho"]
+        tiles: ["hablas", "tienes"]
+      - kind: buildLit
+        id: l8-b-hablabamosteniamos
+        es: "hablábamos mucho y teníamos muchos amigos"
+        en: "We used to speak a lot and used to have a lot of friends"
+        atoms: ["hablábamos", "teníamos", "mucho"]
+        tiles: ["habla", "hablaban"]
+      - kind: listenBuildLit
+        id: l8-lb-hablabantenian
+        es: "ellos hablaban mucho y tenían muchos amigos"
+        en: "They used to speak a lot and used to have a lot of friends"
+        atoms: ["hablaban", "tenían", "mucho"]
+        tiles: ["hablan", "tienen"]
+      - kind: buildLit
+        id: l8-b-eraveia
+        es: "de niño, era muy bueno y veía películas"
+        en: "As a child, I was very good and used to watch movies"
+        atoms: ["de niño", "era", "veía", "bueno", "película"]
+        tiles: ["es", "veo"]
+      - kind: listenBuildLit
+        id: l8-lb-erasveias
+        es: "tú eras muy bueno y veías películas"
+        en: "You (tú) were very good and used to watch movies"
+        atoms: ["eras", "veías", "bueno", "película"]
+        tiles: ["eres", "ves"]
+      - kind: buildLit
+        id: l8-b-eramosveiamos
+        es: "éramos muy buenos y veíamos películas"
+        en: "We were very good and used to watch movies"
+        atoms: ["éramos", "veíamos", "bueno", "película"]
+        tiles: ["somos", "vemos"]
+      - kind: listenBuildLit
+        id: l8-lb-eranveian
+        es: "ellos eran muy buenos y veían películas"
+        en: "They were very good and used to watch movies"
+        atoms: ["eran", "veían", "bueno", "película"]
+        tiles: ["son", "ven"]
+      - kind: buildLit
+        id: l8-b-ibaibas
+        es: "yo iba a la escuela, y tú ibas también"
+        en: "I used to go to school, and you (tú) used to go too"
+        atoms: ["iba", "ibas", "escuela"]
+        tiles: ["voy", "vas"]
+      - kind: listenBuildLit
+        id: l8-lb-ibamosiban
+        es: "nosotros íbamos a la escuela, y ellos iban también"
+        en: "We used to go to school, and they used to go too"
+        atoms: ["íbamos", "iban", "escuela"]
+        tiles: ["vamos", "van"]
+      - kind: clozeLit
+        id: l8-c-todosiban
+        es: "todos iban al parque siempre"
+        en: "Everyone always used to go to the park"
+        blank: "iban"
+        options: ["iban", "íbamos", "iba"]
+        atoms: ["todos", "iban", "parque", "siempre"]
+        why: "«todos» takes the they-ending: «iban», never «íbamos» — that would wrongly include you."
+      - kind: mcq
+        id: l8-q-tuveias
+        prompt: "Which one means 'you (tú) used to watch'?"
+        correct: "tú veías"
+        distractors: ["tú veía", "tú ves", "tú veíamos"]
+        atoms: ["veías"]
+        why: "«veías» — accented, the tú ending. «veía» collapses yo/él, not tú; «ves» slips into now; «veíamos» would be we."
+      # Printed non-recall at L6 (es-m22-6-l6-sp-win).
+      - kind: speakLit
+        id: l8-sp-recall-veiamoscine
+        es: "veíamos películas en el cine"
+        en: "We used to watch movies at the movie theater"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l8-agr-yoeltenia
+        en: "I used to have a lot, and he used to have a lot too"
+        audioText: "yo tenía mucho, y él tenía también"
+        atoms: ["tenía", "mucho"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "tenía", options: ["tenía", "tengo"] } }
+          - { text: " mucho, y él " }
+          - { blank: { id: "p2", answer: "tenía", options: ["tenía", "tiene"] } }
+          - { text: " también" }
+      - kind: textMcq
+        id: l8-tm-tenia
+        target: "tenía"
+        distractors: ["tenías", "tenían", "tiene"]
+      - kind: audioWimcq
+        id: l8-ear-playa
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la escuela", emoji: "🏫" }
+      # Printed non-recall at L7 (es-m22-7-l7-sp-win).
+      - kind: speakLit
+        id: l8-sp-recall-cuantosanos
+        es: "¿cuántos años tenías?"
+        en: "How old were you?"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l8-sim-review
+        scene: { emoji: "📖", title: "Final review: growing up", setting: "Carmen is putting the whole picture together — school, friends, everyone as kids." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Ibas a la escuela de niño?", audioText: "¿ibas a la escuela de niño?", gloss: "Did you (tú) used to go to school as a child?" }
+            goal: "Say yes, you always used to go."
+            reply:
+              mode: build
+              tiles: ["sí", "iba", "siempre", "iban", "voy"]
+              answer: "sí iba siempre"
+            replyGloss: "Yes, I always used to go."
+            explanation: "Answering as yourself: «iba». «iban» would be more than one; «voy» slips into now."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Y todos tenían muchos amigos?", audioText: "¿y todos tenían muchos amigos?", gloss: "And did everyone used to have a lot of friends?" }
+            goal: "Say yes, everyone always used to."
+            reply:
+              mode: build
+              tiles: ["sí", "todos", "tenían", "siempre", "muchos", "amigos", "teníamos"]
+              answer: "sí todos tenían siempre muchos amigos"
+            replyGloss: "Yes, everyone always used to have a lot of friends."
+            explanation: "«todos» always takes the they-ending: «tenían», never «teníamos» — that would wrongly include you."
+          - id: t3
+            npc: { speaker: "Carmen", es: "¿Eras tú muy bueno de niño?", audioText: "¿eras tú muy bueno de niño?", gloss: "Were you (tú) very good as a child?" }
+            goal: "Say yes, you were always very good."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, era siempre muy bueno" }
+                - { id: "wrong1", text: "sí, eran siempre muy bueno" }
+                - { id: "wrong2", text: "sí, soy siempre muy bueno" }
+              correctOptionId: "right"
+              audioText: "sí, era siempre muy bueno"
+            replyGloss: "Yes, I was always very good."
+            explanation: "Answering as yourself: «era». «eran» would be more than one; «soy» slips into now."
+      - kind: matchLit
+        id: l8-match
+        pairs:
+          - { source: "hablaba", target: "I/he/she/you used to speak" }
+          - { source: "tenía", target: "I/he/she/you used to have" }
+          - { source: "era", target: "I/he/she/you used to be" }
+          - { source: "iba", target: "I/he/she/you used to go" }
+          - { source: "veía", target: "I/he/she/you used to watch" }
+          - { source: "de niño", target: "as a child" }
+      - kind: speakLit
+        id: l8-sp-win
+        es: "de niño, iba a la playa y era muy bueno"
+        en: "As a child, I used to go to the beach and was very good"
+        atoms: ["de niño", "iba", "playa", "era", "bueno"]
+
+  # ── L9 · CONSOLIDATION — zero new atoms. The only sanctioned contrast is
+  #    PRESENT vs IMPERFECT, anchored on PRIOR present «voy» (m11) against
+  #    «iba» — no other verb's present tense appears anywhere in this lesson.
+  #    Every other family is drilled side by side, imperfect only (no mixing
+  #    with present beyond voy/iba). Context: el trabajo 💼. ≥1 recall. NO
+  #    preterite anywhere; «hablamos»/«vivimos» still avoided.
+  - n: 9
+    template: free
+    title: "Hoy voy, de niño iba"
+    description: "One new trick: «voy» is now (present), «iba» is back then (imperfect) — the only present/imperfect pair this module allows. Everything else here is the five families you already know, side by side."
+    steps:
+      - kind: map
+        id: l9-map-hoyvoytrabajopero
+        tokens: ["hoy", "voy", "al", "trabajo,", "pero", "de niño", "iba", "a", "la", "escuela"]
+        pairs:
+          - { en: "today", tokenIndex: 0 }
+          - { en: "I go", tokenIndex: 1 }
+          - { en: "to the", tokenIndex: 2 }
+          - { en: "work,", tokenIndex: 3 }
+          - { en: "but", tokenIndex: 4 }
+          - { en: "as a child", tokenIndex: 5 }
+          - { en: "I used to go", tokenIndex: 6 }
+          - { en: "to", tokenIndex: 7 }
+          - { en: "the", tokenIndex: 8 }
+          - { en: "school", tokenIndex: 9 }
+        audioText: "hoy voy al trabajo, pero de niño iba a la escuela"
+        revealNote: "«voy» is now — today, one time, present. «iba» is back then — as a child, again and again, imperfect. «hoy» and «de niño» are the two words that tell you which one you need."
+      - kind: info
+        id: l9-info-voyiba
+        title: "Voy vs. iba — now vs. back then"
+        body: "«voy» is present — happening now, today. «iba» is imperfect — happening again and again, back then. Same verb, ir, two completely different tenses. The clue is always in the sentence: «hoy» points to «voy»; «de niño» points to «iba». This is the only present-vs-past pair this module drills — everything else you'll see stays in the imperfect."
+      - kind: buildLit
+        id: l9-b-hoyvoyparque
+        es: "hoy voy al parque, pero de niño iba a la escuela"
+        en: "Today I go to the park, but as a child I used to go to school"
+        atoms: ["iba", "escuela"]
+        tiles: ["van", "iban"]
+      - kind: speakLit
+        id: l9-sp-hoyvoytrabajohablaba
+        es: "hoy voy al trabajo, pero de niño hablaba mucho español"
+        en: "Today I go to work, but as a child I used to speak a lot of Spanish"
+        atoms: ["hablaba", "español"]
+      - kind: clozeLit
+        id: l9-c-teniaera
+        es: "de niño, tenía muchos amigos y era muy bueno"
+        en: "As a child, I used to have a lot of friends and was very good"
+        blank: "era"
+        options: ["era", "es", "eran"]
+        atoms: ["tenía", "era", "mucho", "bueno"]
+        why: "Still imperfect, still back then, still just one: «era». «es» slips into now; «eran» would be more than one."
+      - kind: listenCompLit
+        id: l9-lc-tueravestias
+        es: "tú eras muy bueno y veías películas de niño"
+        en: "You (tú) were very good and used to watch movies as a child."
+        atoms: ["eras", "veías", "bueno", "película"]
+        distractorsEn:
+          - "You are very good and watch movies."
+          - "He was very good and used to watch movies as a child."
+          - "You were very good and used to watch movies at work."
+      - kind: mcq
+        id: l9-q-voyiba
+        prompt: "Which one means 'I used to go' — not today, back then?"
+        correct: "iba"
+        distractors: ["voy", "ibas", "van"]
+        atoms: ["iba"]
+        why: "«iba» is the imperfect — back then, again and again. «voy» is today; «ibas» would be tú; «van» slips into now, and into them."
+      - kind: buildLit
+        id: l9-b-hoyvoyparquetodos
+        es: "hoy voy al parque, pero de niño iba a la escuela todos los días"
+        en: "Today I go to the park, but as a child I used to go to school every day"
+        atoms: ["iba", "escuela", "todos los días"]
+        tiles: ["van", "iban"]
+      - kind: audioWimcq
+        id: l9-ear-trabajo
+        target: { surface: "el trabajo", emoji: "💼" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "el parque", emoji: "🌳" }
+      - kind: agreementLit
+        id: l9-agr-voyiba
+        en: "Today I go to work, but as a child I used to go to school"
+        audioText: "hoy voy al trabajo, pero de niño iba a la escuela"
+        atoms: ["iba"]
+        segments:
+          - { text: "hoy " }
+          - { blank: { id: "p1", answer: "voy", options: ["voy", "iba"] } }
+          - { text: " al trabajo, pero de niño " }
+          - { blank: { id: "p2", answer: "iba", options: ["iba", "voy"] } }
+          - { text: " a la escuela" }
+      - kind: listenBuildLit
+        id: l9-lb-todoserantenian
+        es: "todos eran buenos y tenían muchos amigos"
+        en: "Everyone was good and used to have a lot of friends"
+        atoms: ["todos", "eran", "tenían", "bueno", "mucho"]
+        tiles: ["éramos", "teníamos"]
+      - kind: textMcq
+        id: l9-tm-iba
+        target: "iba"
+        distractors: ["voy", "iban", "va"]
+      # Printed non-recall at L8 (es-m22-8-l8-sp-win).
+      - kind: speakLit
+        id: l9-sp-recall-ibaplayaera
+        es: "de niño, iba a la playa y era muy bueno"
+        en: "As a child, I used to go to the beach and was very good"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l9-sim-ana-trabajo
+        scene: { emoji: "💼", title: "Ana asks about now and then", setting: "Ana wants to know what you do today, and what you used to do as a kid." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Vas al trabajo hoy?", audioText: "¿vas al trabajo hoy?", gloss: "Are you going to work today?" }
+            goal: "Say yes, you go to work today."
+            reply:
+              mode: build
+              tiles: ["sí", "voy", "al", "trabajo", "hoy", "iba", "iban"]
+              answer: "sí voy al trabajo hoy"
+            replyGloss: "Yes, I go to work today."
+            explanation: "Today, right now: «voy» — present, not imperfect."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y de niño? ¿Ibas a la escuela también?", audioText: "¿y de niño? ¿ibas a la escuela también?", gloss: "And as a child? Did you used to go to school too?" }
+            goal: "Say yes, you always used to go."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, iba siempre" }
+                - { id: "wrong1", text: "sí, voy siempre" }
+                - { id: "wrong2", text: "sí, iban siempre" }
+              correctOptionId: "right"
+              audioText: "sí, iba siempre"
+            replyGloss: "Yes, I always used to go."
+            explanation: "«de niño» points to the imperfect: «iba». «voy» would slip into today; «iban» would be more than one."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Eras bueno en la escuela de niño?", audioText: "¿eras bueno en la escuela de niño?", gloss: "Were you good at school as a child?" }
+            goal: "Say yes, you were always very good."
+            reply:
+              mode: build
+              tiles: ["sí", "era", "siempre", "muy", "bueno", "eran", "soy"]
+              answer: "sí era siempre muy bueno"
+            replyGloss: "Yes, I was always very good."
+            explanation: "Still «de niño», still imperfect: «era». «eran» would be more than one; «soy» slips into now."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "voy", target: "I go (today, now)" }
+          - { source: "iba", target: "I used to go (back then)" }
+          - { source: "hablaba", target: "I/he/she/you used to speak" }
+          - { source: "tenía", target: "I/he/she/you used to have" }
+          - { source: "era", target: "I/he/she/you used to be" }
+          - { source: "el trabajo", target: "work" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "hoy voy al trabajo, pero de niño iba a la escuela"
+        en: "Today I go to work, but as a child I used to go to school"
+        atoms: ["iba", "trabajo", "escuela"]
+
+  # ── L10 · MASTERY — zero new atoms, zero info cards, every step graded.
+  #    Longest sim in the module (Ana asks the whole group "¿cómo eran de
+  #    niños?", 5 turns) — the module's law that the mastery lesson must END
+  #    on the sim (§13.9 law 7) means the verbatim closing win line is
+  #    delivered as the sim's final (5th) turn reply, not a separate speakLit
+  #    step; matchLit sits just before the sim instead of after it. ≥2
+  #    recalls (L9, L1 — full-circle back to the very first win). Context:
+  #    «de niños» (plural) and «siempre», both already demonstrated safe in
+  #    earlier lessons. NO preterite anywhere; «hablamos»/«vivimos» avoided.
+  - n: 10
+    template: free
+    title: "De niños, íbamos juntos"
+    description: "Everything from this module, one last time, fully graded — five families, the yo=él collision, and «todos», all working together."
+    steps:
+      - kind: buildLit
+        id: l10-b-teniaeranninos
+        es: "de niños, tenían muchos amigos y eran muy buenos"
+        en: "As children, they used to have a lot of friends and were very good"
+        atoms: ["de niño", "tenían", "eran", "mucho", "bueno"]
+        tiles: ["teníamos", "éramos"]
+      - kind: listenBuildLit
+        id: l10-lb-ibamosveiamos
+        es: "de niños, íbamos al parque y veíamos películas"
+        en: "As children, we used to go to the park and used to watch movies"
+        atoms: ["íbamos", "veíamos", "parque", "película"]
+        tiles: ["iban", "veían"]
+      - kind: clozeLit
+        id: l10-c-todoshablaban
+        es: "todos hablaban mucho de niños"
+        en: "Everyone used to speak a lot as children"
+        blank: "hablaban"
+        options: ["hablaban", "hablábamos", "hablaba"]
+        atoms: ["todos", "hablaban"]
+        why: "«todos» takes the they-ending: «hablaban», never «hablábamos» — that would wrongly include you."
+      - kind: mcq
+        id: l10-q-teniamos
+        prompt: "Which one means 'we used to have', not 'they used to have'?"
+        correct: "teníamos"
+        distractors: ["tenían", "tenía", "tienen"]
+        atoms: ["teníamos"]
+        why: "«teníamos» is the nosotros form, accented like every tener imperfect form. «tenían» would be them; «tenía» would be just one; «tienen» slips into now."
+      - kind: agreementLit
+        id: l10-agr-yoeliba
+        en: "I used to go to school, and he used to go too"
+        audioText: "yo iba a la escuela, y él iba también"
+        atoms: ["iba", "escuela"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "iba", options: ["iba", "voy"] } }
+          - { text: " a la escuela, y él " }
+          - { blank: { id: "p2", answer: "iba", options: ["iba", "va"] } }
+          - { text: " también" }
+      # Printed non-recall at L9 (es-m22-9-l9-sp-win).
+      - kind: speakLit
+        id: l10-sp-recall-hoyvoytrabajo
+        es: "hoy voy al trabajo, pero de niño iba a la escuela"
+        en: "Today I go to work, but as a child I used to go to school"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l10-tm-eran
+        target: "eran"
+        distractors: ["era", "éramos", "son"]
+      - kind: audioWimcq
+        id: l10-ear-escuela
+        target: { surface: "la escuela", emoji: "🏫" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "la playa", emoji: "🏖️" }
+      - kind: buildLit
+        id: l10-b-hablabamosveiamos
+        es: "de niños, hablábamos siempre y veíamos películas juntos"
+        en: "As children, we always used to speak and used to watch movies together"
+        atoms: ["hablábamos", "veíamos", "siempre", "película", "juntos"]
+        tiles: ["hablaban", "veían"]
+      - kind: listenBuildLit
+        id: l10-lb-todoserantenian
+        es: "todos eran buenos y tenían muchos amigos siempre"
+        en: "Everyone was good and always used to have a lot of friends"
+        atoms: ["todos", "eran", "tenían", "bueno", "mucho", "siempre"]
+        tiles: ["éramos", "teníamos"]
+      - kind: clozeLit
+        id: l10-c-eramossiempre
+        es: "de niños, éramos muy buenos siempre"
+        en: "As children, we were always very good"
+        blank: "éramos"
+        options: ["éramos", "eran", "era"]
+        atoms: ["éramos", "bueno", "siempre"]
+        why: "We, the group: «éramos» — the one accented ser form. «eran» would be them; «era» would be just one."
+      - kind: mcq
+        id: l10-q-iban
+        prompt: "Which one means 'they used to go'?"
+        correct: "iban"
+        distractors: ["íbamos", "iba", "van"]
+        atoms: ["iban"]
+        why: "«iban» — the they-ending, no accent. «íbamos» would be we; «iba» collapses yo/él; «van» slips into now."
+      # Printed non-recall at L1 (es-m22-1-l1-sp-win).
+      - kind: speakLit
+        id: l10-sp-recall-hablabatodosdias
+        es: "de niño, hablaba español todos los días"
+        en: "As a child, I used to speak Spanish every day"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l10-tm-veiamos
+        target: "veíamos"
+        distractors: ["veían", "veía", "vemos"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "hablábamos", target: "we used to speak" }
+          - { source: "teníamos", target: "we used to have" }
+          - { source: "éramos", target: "we were" }
+          - { source: "íbamos", target: "we used to go" }
+          - { source: "veíamos", target: "we used to watch" }
+          - { source: "de niños", target: "as children" }
+      - kind: sim
+        id: l10-sim-ana-grupo
+        scene: { emoji: "👨‍👩‍👧‍👦", title: "Ana asks the whole group", setting: "Ana wants to hear from the whole group: what was it like being a kid?" }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Cómo eran ustedes de niños?", audioText: "¿cómo eran ustedes de niños?", gloss: "What were you all like as children?" }
+            goal: "Say you were all always very good."
+            reply:
+              mode: build
+              tiles: ["éramos", "siempre", "muy", "buenos", "eran", "era"]
+              answer: "éramos siempre muy buenos"
+            replyGloss: "We were always very good."
+            explanation: "Answering for the group, you included: «éramos» — the accented nosotros form. «eran» would hand it to someone else."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tenían muchos amigos?", audioText: "¿y tenían muchos amigos?", gloss: "And did everyone have a lot of friends?" }
+            goal: "Say yes, everyone always used to."
+            reply:
+              mode: build
+              tiles: ["sí", "todos", "tenían", "siempre", "muchos", "amigos", "teníamos"]
+              answer: "sí todos tenían siempre muchos amigos"
+            replyGloss: "Yes, everyone always used to have a lot of friends."
+            explanation: "«todos» always takes the they-ending: «tenían», never «teníamos» — that would wrongly include you."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Ibas a la escuela con ellos?", audioText: "¿ibas a la escuela con ellos?", gloss: "Did you used to go to school with them?" }
+            goal: "Say yes, you always used to go together."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, íbamos juntos siempre" }
+                - { id: "wrong1", text: "sí, iban juntos siempre" }
+                - { id: "wrong2", text: "sí, voy juntos siempre" }
+              correctOptionId: "right"
+              audioText: "sí, íbamos juntos siempre"
+            replyGloss: "Yes, we always used to go together."
+            explanation: "You and them together: «íbamos» — the accented nosotros form. «iban» would leave you out; «voy» slips into now."
+          - id: t4
+            npc: { speaker: "Ana", es: "¿Hablaban español en la escuela?", audioText: "¿hablaban español en la escuela?", gloss: "Did you all use to speak Spanish at school?" }
+            goal: "Say yes, you always used to speak it."
+            reply:
+              mode: build
+              tiles: ["sí", "hablábamos", "siempre", "español", "hablaban", "hablo"]
+              answer: "sí hablábamos siempre español"
+            replyGloss: "Yes, we always used to speak it."
+            explanation: "You and the group: «hablábamos» — the nosotros ending, the one that carries an accent. «hablaban» would leave you out."
+          - id: t5
+            npc: { speaker: "Ana", es: "¿Qué más recuerdas de niños?", audioText: "¿qué más recuerdas de niños?", gloss: "What else do you remember as children?" }
+            goal: "Describe growing up together, and talking a lot."
+            reply:
+              mode: build
+              tiles: ["de", "niños", "íbamos", "a", "la", "escuela", "juntos", "y", "siempre", "hablábamos", "mucho", "iban", "hablaban"]
+              answer: "de niños íbamos a la escuela juntos y siempre hablábamos mucho"
+            replyGloss: "As children, we used to go to school together, and we always used to talk a lot."
+            explanation: "The whole group, together: «íbamos»/«hablábamos» — the accented nosotros forms this whole module builds toward."
+
+placement:
+  screener:
+    - id: "es-m22-scr-1"
+      prompt: "'As a child, I used to speak Spanish every day.' — which one?"
+      correct: "de niño, hablaba español todos los días"
+      distractors: ["de niño, hablas español todos los días", "de niño, hablábamos español todos los días", "de niño, hablaban español todos los días"]
+  byModule:
+    - id: "es-m22-pl-1"
+      prompt: "We used to go to school together."
+      correct: "íbamos a la escuela juntos"
+      distractors: ["iba a la escuela juntos", "vamos a la escuela juntos", "iban a la escuela juntos"]
+    - id: "es-m22-pl-2"
+      prompt: "Everyone used to be very good."
+      correct: "todos eran muy buenos"
+      distractors: ["todos éramos muy buenos", "todos son muy buenos", "él era muy bueno"]
+    - id: "es-m22-pl-3"
+      prompt: "How old were you (tú)?"
+      correct: "¿cuántos años tenías?"
+      distractors: ["¿cuántos años tienes?", "¿cuántos años teníamos?", "¿cuántos años tenían?"]
+    - id: "es-m22-pl-4"
+      prompt: "We used to watch movies at the theater."
+      correct: "veíamos películas en el cine"
+      distractors: ["veía películas en el cine", "vemos películas en el cine", "veían películas en el cine"]

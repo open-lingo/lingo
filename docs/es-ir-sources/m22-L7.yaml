@@ -1,0 +1,194 @@
+  # ── L7 · «¿Cuántos años tenías?» — tener's imperfect debuts whole: tenía (a
+  #    FIFTH and FINAL "first slot" atom — yo=él collision, info card shorter,
+  #    points back to L1), tenías (tú), teníamos (nosotros), tenían (ellos/
+  #    ustedes). Tener is -er, so EVERY form is accented (same rule as veía,
+  #    L6). Info card explicitly notes tener is REGULAR in the imperfect —
+  #    unlike present «tengo» or preterite «tuve» — a different stem entirely.
+  #    This lesson also drills negation («no») and questions across all five
+  #    verb families (hablaba/era/iba/veía/tenía) now that the whole set is
+  #    taught. «todos» re-spent with tenían only, never teníamos. Uses PRIOR
+  #    «años»/«¿cuántos?» (m5). NO preterite anywhere. Recall: ≥1 (L1–L6 pool).
+  - n: 7
+    template: free
+    title: "¿Cuántos años tenías?"
+    description: "«tenía» is tener's imperfect — same yo=él collision as the other four (see L1), but tener is REGULAR here: nothing like «tengo» or «tuve». This lesson also puts «no» and questions to work across all five families."
+    steps:
+      - kind: map
+        id: l7-map-cuantosanosteniasescuela
+        tokens: ["¿cuántos", "años", "tenías", "cuando", "ibas", "a", "la", "escuela?"]
+        pairs:
+          - { en: "how many", tokenIndex: 0 }
+          - { en: "years", tokenIndex: 1 }
+          - { en: "did you use to have", tokenIndex: 2 }
+          - { en: "when", tokenIndex: 3 }
+          - { en: "you used to go", tokenIndex: 4 }
+          - { en: "to", tokenIndex: 5 }
+          - { en: "the", tokenIndex: 6 }
+          - { en: "school?", tokenIndex: 7 }
+        audioText: "¿cuántos años tenías cuando ibas a la escuela?"
+        revealNote: "«tenía» is tener's imperfect — same collision as the other four: «yo tenía» and «él tenía» are the same word. Tener is REGULAR here, nothing like present «tengo» or preterite «tuve» — and like «veía», every form keeps the accent."
+      - kind: info
+        id: l7-info-tenia
+        title: "Tenía — the last collision, and tener is regular here"
+        body: "«tenía» is I used to have / he, she, you used to have — the same collision as «hablaba», «era», «iba», «veía» (see L1 for the full rule). Tener is an -er verb, so every form is accented, same as «veía»: «tenía», «tenías», «teníamos», «tenían». And here's the good news: tener is completely REGULAR in the imperfect — nothing like present «tengo» or preterite «tuve». It's just the -ía family, like any other -er verb."
+      - kind: speakLit
+        id: l7-sp-yotenia
+        es: "yo tenía muchos amigos de niño"
+        en: "I used to have a lot of friends as a child"
+        atoms: ["tenía", "mucho"]
+      - kind: buildLit
+        id: l7-b-tuteniascasa
+        es: "tú tenías una casa grande"
+        en: "You (tú) used to have a big house"
+        atoms: ["tenías", "casa"]
+        tiles: ["tenía", "tienes"]
+      - kind: speakLit
+        id: l7-sp-teniamosamigos
+        es: "teníamos muchos amigos siempre"
+        en: "We always used to have a lot of friends"
+        atoms: ["teníamos", "mucho", "siempre"]
+      - kind: clozeLit
+        id: l7-c-todostenianamigos
+        es: "todos tenían muchos amigos"
+        en: "Everyone used to have a lot of friends"
+        blank: "tenían"
+        options: ["tenían", "teníamos", "tenía"]
+        atoms: ["todos", "tenían", "mucho"]
+        why: "«todos» takes the they-ending: «tenían», never «teníamos» — that would wrongly include you."
+      - kind: listenCompLit
+        id: l7-lc-diegoteniacasa
+        es: "Diego tenía una casa grande"
+        en: "Diego used to have a big house."
+        atoms: ["tenía", "casa"]
+        distractorsEn:
+          - "Diego has a big house."
+          - "Diego used to have a small house."
+          - "They used to have a big house."
+      - kind: mcq
+        id: l7-q-tutenias
+        prompt: "Which one means 'you (tú) used to have'?"
+        correct: "tú tenías"
+        distractors: ["tú tenía", "tú tienes", "tú teníamos"]
+        atoms: ["tenías"]
+        why: "«tenías» — the tú ending, accented like every tener imperfect form. «tenía» collapses yo/él, not tú; «tienes» slips into now; «teníamos» would be we."
+      - kind: buildLit
+        id: l7-b-teniamosmuchoCasa
+        es: "teníamos mucho en la casa"
+        en: "We used to have a lot in the house"
+        atoms: ["teníamos", "mucho", "casa"]
+        tiles: ["tenían", "tenemos"]
+      - kind: audioWimcq
+        id: l7-ear-casa
+        target: { surface: "la casa", emoji: "🏠" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "el parque", emoji: "🌳" }
+      - kind: agreementLit
+        id: l7-agr-yoeltenia
+        en: "I used to have a lot, and he used to have a lot too"
+        audioText: "yo tenía mucho, y él tenía también"
+        atoms: ["tenía", "mucho"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "tenía", options: ["tenía", "tengo"] } }
+          - { text: " mucho, y él " }
+          - { blank: { id: "p2", answer: "tenía", options: ["tenía", "tiene"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l7-lb-samluistenian
+        es: "Sam y Luis tenían una casa grande"
+        en: "Sam and Luis used to have a big house"
+        atoms: ["tenían", "casa"]
+        tiles: ["teníamos", "tenía"]
+      - kind: textMcq
+        id: l7-tm-tenia
+        target: "tenía"
+        distractors: ["tenías", "tenían", "tiene"]
+      - kind: buildLit
+        id: l7-b-nohablabamucho
+        es: "de niño, no hablaba mucho"
+        en: "As a child, I didn't used to speak much"
+        atoms: ["hablaba", "mucho"]
+        tiles: ["hablo", "hablaban"]
+        why: "«no» in front of the imperfect just negates it, same as anywhere else: «no hablaba» — I didn't used to speak."
+      - kind: clozeLit
+        id: l7-c-noeratimida
+        es: "de niño, Ana no era muy buena"
+        en: "As a child, Ana wasn't very good"
+        blank: "era"
+        options: ["era", "es", "eran"]
+        atoms: ["era", "bueno"]
+        why: "«no» plus «era»: she wasn't — still the yo=él collision word, just negated."
+      - kind: buildLit
+        id: l7-b-noibaescuelatemprano
+        es: "de niño, no iba a la escuela temprano"
+        en: "As a child, I didn't used to go to school early"
+        atoms: ["iba", "escuela", "temprano"]
+        tiles: ["voy", "iban"]
+      - kind: agreementLit
+        id: l7-agr-noveia
+        en: "I didn't used to watch much, but he always used to watch"
+        audioText: "yo no veía mucho, pero él veía siempre"
+        atoms: ["veía", "mucho"]
+        segments:
+          - { text: "yo no " }
+          - { blank: { id: "p1", answer: "veía", options: ["veía", "veo"] } }
+          - { text: " mucho, pero él " }
+          - { blank: { id: "p2", answer: "veía", options: ["veía", "ve"] } }
+          - { text: " siempre" }
+      # Printed non-recall at L5 (es-m22-5-l5-sp-win).
+      - kind: speakLit
+        id: l7-sp-recall-ibaescuelatemprano
+        es: "de niño, iba a la escuela temprano"
+        en: "As a child, I used to go to school early"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l7-sim-carmen-anos
+        scene: { emoji: "🎂", title: "Carmen asks about the old days", setting: "Carmen is curious how old everyone was and what they had growing up." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Cuántos años tenías cuando ibas a la escuela?", audioText: "¿cuántos años tenías cuando ibas a la escuela?", gloss: "How old were you when you used to go to school?" }
+            goal: "Say you used to be about seven."
+            reply:
+              mode: build
+              tiles: ["tenía", "siete", "años", "más", "o", "menos", "tenían", "tengo"]
+              answer: "tenía siete años más o menos"
+            replyGloss: "I used to be about seven years old."
+            explanation: "Answering as yourself: «tenía». «tenían» would be more than one; «tengo» slips into now."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Y Diego y Sofía? ¿No tenían la misma edad?", audioText: "¿y diego y sofía? ¿no tenían la misma edad?", gloss: "And Diego and Sofía? Didn't they used to be the same age?" }
+            goal: "Say no, they used to have different ages."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, tenían edades diferentes" }
+                - { id: "wrong1", text: "no, teníamos edades diferentes" }
+                - { id: "wrong2", text: "no, tienen edades diferentes" }
+              correctOptionId: "right"
+              audioText: "no, tenían edades diferentes"
+            replyGloss: "No, they used to have different ages."
+            explanation: "Diego and Sofía — them: «tenían». «teníamos» would wrongly include you; «tienen» slips into now."
+          - id: t3
+            npc: { speaker: "Carmen", es: "¿Y tú y yo? ¿Teníamos la misma edad de niños?", audioText: "¿y tú y yo? ¿teníamos la misma edad de niños?", gloss: "And you and I? Did we used to be the same age as kids?" }
+            goal: "Say yes, always the same age as kids."
+            reply:
+              mode: build
+              tiles: ["sí", "teníamos", "siempre", "la", "misma", "edad", "tenían", "tenía"]
+              answer: "sí teníamos siempre la misma edad"
+            replyGloss: "Yes, we always used to be the same age."
+            explanation: "You and Carmen together: «teníamos» — the nosotros form, accented like every tener imperfect form."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "tenía", target: "I used to have, he/she/you used to have" }
+          - { source: "tenías", target: "you (tú) used to have" }
+          - { source: "teníamos", target: "we used to have" }
+          - { source: "tenían", target: "they used to have, you all used to have" }
+          - { source: "casa", target: "house, home" }
+          - { source: "mucho", target: "a lot" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "¿cuántos años tenías?"
+        en: "How old were you?"
+        atoms: ["¿cuántos?", "años", "tenías"]

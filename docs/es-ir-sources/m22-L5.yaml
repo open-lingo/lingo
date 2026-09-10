@@ -1,0 +1,156 @@
+  # ── L5 · «Iba a la escuela» — the whole ir imperfect family in one lesson:
+  #    iba (a THIRD "first slot" atom — yo=él collision, same as hablaba/
+  #    era; info card here is one line shorter, pointing back to L1), ibas
+  #    (tú), íbamos (nosotros — the one accented ir form), iban (ellos/
+  #    ustedes). «todos» re-spent with iban only, never íbamos (rule 8). NO
+  #    preterite anywhere. Recall floor: ≥1 recall (L1–L4 pool now open).
+  - n: 5
+    template: free
+    title: "Iba a la escuela"
+    description: "«iba» is ir's imperfect — a third word that collapses yo and él/ella/usted into one (see L1). This lesson gives you the whole family at once: iba, ibas, íbamos, iban."
+    steps:
+      - kind: map
+        id: l5-map-ibaescuelatemprano
+        tokens: ["de niño", "iba", "a", "la", "escuela", "temprano"]
+        pairs:
+          - { en: "as a child", tokenIndex: 0 }
+          - { en: "I used to go", tokenIndex: 1 }
+          - { en: "to", tokenIndex: 2 }
+          - { en: "the", tokenIndex: 3 }
+          - { en: "school", tokenIndex: 4 }
+          - { en: "early", tokenIndex: 5 }
+        audioText: "de niño, iba a la escuela temprano"
+        revealNote: "«iba» is ir's imperfect — same collision as «hablaba»/«era»: «yo iba» and «él iba» are the same word. No accent — that's only on «íbamos»."
+      - kind: info
+        id: l5-info-iba
+        title: "Iba — ir's imperfect, same collision, one more"
+        body: "«iba» is I used to go / he, she, you used to go — same trick as «hablaba» and «era» (see L1 for the full rule). No accent, same as «era». This lesson gives you the whole family: «ibas» (tú), «íbamos» (we — the one accented ir form), «iban» (they, you all)."
+      - kind: speakLit
+        id: l5-sp-yoiba
+        es: "yo iba a la escuela temprano"
+        en: "I used to go to school early"
+        atoms: ["iba", "escuela", "temprano"]
+      - kind: buildLit
+        id: l5-b-tuibasparque
+        es: "tú ibas al parque de niño"
+        en: "You (tú) used to go to the park as a child"
+        atoms: ["ibas", "parque", "de niño"]
+        tiles: ["iba", "van"]
+      - kind: speakLit
+        id: l5-sp-ibamosescuela
+        es: "íbamos a la escuela juntos"
+        en: "We used to go to school together"
+        atoms: ["íbamos", "escuela", "juntos"]
+      - kind: clozeLit
+        id: l5-c-todosibanparque
+        es: "todos iban al parque siempre"
+        en: "Everyone always used to go to the park"
+        blank: "iban"
+        options: ["iban", "íbamos", "iba"]
+        atoms: ["todos", "iban", "parque", "siempre"]
+        why: "«todos» takes the they-ending: «iban», never «íbamos» — that would wrongly include you."
+      - kind: listenCompLit
+        id: l5-lc-diegoibaescuela
+        es: "Diego iba a la escuela temprano"
+        en: "Diego used to go to school early."
+        atoms: ["iba", "escuela", "temprano"]
+        distractorsEn:
+          - "Diego goes to school early."
+          - "Diego used to go to the park early."
+          - "They used to go to school early."
+      - kind: mcq
+        id: l5-q-tuibas
+        prompt: "Which one means 'you (tú) used to go'?"
+        correct: "tú ibas"
+        distractors: ["tú iba", "tú vas", "tú íbamos"]
+        atoms: ["ibas"]
+        why: "«ibas» — the tú ending, no accent. «iba» collapses yo/él, not tú; «vas» slips into now; «íbamos» would be we."
+      - kind: buildLit
+        id: l5-b-ibamosjuntosescuela
+        es: "íbamos juntos a la escuela todos los días"
+        en: "We used to go to school together every day"
+        atoms: ["íbamos", "juntos", "escuela", "todos los días"]
+        tiles: ["iban", "vamos"]
+      - kind: audioWimcq
+        id: l5-ear-playa
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: agreementLit
+        id: l5-agr-yoeliba
+        en: "I used to go to the park, and he used to go too"
+        audioText: "yo iba al parque, y él iba también"
+        atoms: ["iba", "parque"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "iba", options: ["iba", "voy"] } }
+          - { text: " al parque, y él " }
+          - { blank: { id: "p2", answer: "iba", options: ["iba", "va"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l5-lb-samluisiban
+        es: "Sam y Luis iban a la playa siempre"
+        en: "Sam and Luis always used to go to the beach"
+        atoms: ["iban", "playa", "siempre"]
+        tiles: ["íbamos", "iba"]
+      - kind: textMcq
+        id: l5-tm-iba
+        target: "iba"
+        distractors: ["ibas", "iban", "va"]
+      # Printed non-recall at L3 (es-m22-3-l3-sp-win).
+      - kind: speakLit
+        id: l5-sp-recall-diegoerabueno
+        es: "de niño, Diego era muy bueno"
+        en: "As a child, Diego was very good"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l5-sim-ana-escuela
+        scene: { emoji: "🏫", title: "Ana asks about school", setting: "Ana wants to know how everyone used to get to school as kids." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Ibas a la escuela temprano?", audioText: "¿ibas a la escuela temprano?", gloss: "Did you (tú) used to go to school early?" }
+            goal: "Say yes, you always used to go early."
+            reply:
+              mode: build
+              tiles: ["sí", "iba", "siempre", "temprano", "iban", "voy"]
+              answer: "sí iba siempre temprano"
+            replyGloss: "Yes, I always used to go early."
+            explanation: "Answering as yourself: «iba». «iban» would be more than one; «voy» slips into now."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Iban a la escuela también?", audioText: "¿y diego y sofía? ¿iban a la escuela también?", gloss: "And Diego and Sofía? Did they used to go to school too?" }
+            goal: "Say yes, they always used to go together."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, iban juntos siempre" }
+                - { id: "wrong1", text: "sí, íbamos juntos siempre" }
+                - { id: "wrong2", text: "sí, van juntos siempre" }
+              correctOptionId: "right"
+              audioText: "sí, iban juntos siempre"
+            replyGloss: "Yes, they always used to go together."
+            explanation: "Diego and Sofía — them: «iban». «íbamos» would wrongly include you; «van» slips into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Íbamos juntos al parque de niños?", audioText: "¿y tú y yo? ¿íbamos juntos al parque de niños?", gloss: "And you and I? Did we used to go to the park together as kids?" }
+            goal: "Say yes, we always used to go."
+            reply:
+              mode: build
+              tiles: ["sí", "íbamos", "siempre", "juntos", "iban", "iba"]
+              answer: "sí íbamos siempre juntos"
+            replyGloss: "Yes, we always used to go together."
+            explanation: "You and Ana together: «íbamos» — the accented nosotros form. «iban» would be someone else."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "iba", target: "I used to go, he/she/you used to go" }
+          - { source: "ibas", target: "you (tú) used to go" }
+          - { source: "íbamos", target: "we used to go" }
+          - { source: "iban", target: "they used to go, you all used to go" }
+          - { source: "escuela", target: "school" }
+          - { source: "temprano", target: "early" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "de niño, iba a la escuela temprano"
+        en: "As a child, I used to go to school early"
+        atoms: ["de niño", "iba", "escuela", "temprano"]

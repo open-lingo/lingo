@@ -1,0 +1,158 @@
+  # ── L1 · «Hablaba de niño» — hablaba, the -ar imperfect (regular), debuts
+  #    BOTH readings at once: yo hablaba (I used to speak) and él/ella/usted
+  #    hablaba (he/she/you used to speak) are the exact same word — the
+  #    yo=él collision this whole module runs on. Also debuts «de niño», the
+  #    module's time-frame carrier. No accent on hablaba (only nosotros
+  #    carries one, and hablábamos isn't taught until L2). NO preterite
+  #    anywhere; every answer position keeps an explicit subject on hablaba.
+  - n: 1
+    template: free
+    title: "Hablaba de niño"
+    description: "Meet the imperfect: a past for things you used to do again and again. One new word, «hablaba» — and it's both \"I used to speak\" and \"he/she/you used to speak\" at once. Only the subject in front of it tells you which."
+    steps:
+      - kind: map
+        id: l1-map-deninohablaba
+        tokens: ["de niño", "yo", "hablaba", "español", "todos los días"]
+        pairs:
+          - { en: "as a child", tokenIndex: 0 }
+          - { en: "I", tokenIndex: 1 }
+          - { en: "used to speak", tokenIndex: 2 }
+          - { en: "Spanish", tokenIndex: 3 }
+          - { en: "every day", tokenIndex: 4 }
+        audioText: "de niño, yo hablaba español todos los días"
+        revealNote: "«hablaba» is the new past for things that kept happening, not one finished action. It also does double duty: «yo hablaba» and «él hablaba» look exactly the same — only the subject in front tells you who."
+      - kind: info
+        id: l1-info-hablaba
+        title: "Hablaba — a past for things that kept happening"
+        body: "«hablaba» is the imperfect: a past for things you used to do again and again, or that were just true for a while — not one finished action. Here's the one new trick this whole module runs on: «yo hablaba» (I used to speak) and «él/ella/usted hablaba» (he/she/you used to speak) are the exact same word. Nothing on the verb tells you who — only a pronoun, a name, or context sitting right in the sentence does. Never trust the ending alone with this tense."
+      - kind: speakLit
+        id: l1-sp-yohablaba
+        es: "yo hablaba español todos los días"
+        en: "I used to speak Spanish every day"
+        atoms: ["hablaba", "español", "todos los días"]
+      - kind: buildLit
+        id: l1-b-diegohablaba
+        es: "de niño, Diego hablaba español"
+        en: "As a child, Diego used to speak Spanish"
+        atoms: ["de niño", "hablaba", "español"]
+        tiles: ["habla", "hablan"]
+      - kind: speakLit
+        id: l1-sp-elhablaba
+        es: "de niño, él hablaba español siempre"
+        en: "As a child, he used to speak Spanish all the time"
+        atoms: ["de niño", "hablaba", "español", "siempre"]
+      - kind: clozeLit
+        id: l1-c-anahablaba
+        es: "de niño, Ana hablaba español siempre"
+        en: "As a child, Ana used to speak Spanish all the time"
+        blank: "hablaba"
+        options: ["hablaba", "habla", "hablan"]
+        atoms: ["de niño", "hablaba", "siempre"]
+        why: "Ana, in the past, again and again: «hablaba». «habla» would slip into now; «hablan» would be more than one person."
+      - kind: listenCompLit
+        id: l1-lc-yohablabaescuela
+        es: "yo hablaba español en la escuela"
+        en: "I used to speak Spanish at school."
+        atoms: ["hablaba", "español", "escuela"]
+        distractorsEn:
+          - "I speak Spanish at school."
+          - "He used to speak Spanish at school."
+          - "I used to speak Spanish at home."
+      - kind: mcq
+        id: l1-q-elhablaba
+        prompt: "Which one means 'he used to speak'?"
+        correct: "él hablaba"
+        distractors: ["él habla", "él hablan", "yo hablo"]
+        atoms: ["hablaba"]
+        why: "«hablaba» is the imperfect — the exact same word for yo and él. «habla» slips into now; «hablan» would be more than one; «hablo» is present, just you."
+      - kind: buildLit
+        id: l1-b-ustedhablaba
+        es: "usted hablaba español muy bien"
+        en: "You (usted) used to speak Spanish very well"
+        atoms: ["hablaba", "español"]
+        tiles: ["habla", "hablas"]
+      - kind: audioWimcq
+        id: l1-ear-escuela
+        target: { surface: "la escuela", emoji: "🏫" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la playa", emoji: "🏖️" }
+      - kind: agreementLit
+        id: l1-agr-yoelhablaba
+        en: "I used to speak Spanish, and he used to speak it too"
+        audioText: "yo hablaba español, y él hablaba también"
+        atoms: ["hablaba", "español"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "hablaba", options: ["hablaba", "hablo"] } }
+          - { text: " español, y él " }
+          - { blank: { id: "p2", answer: "hablaba", options: ["hablaba", "habla"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l1-lb-diegohablabamucho
+        es: "de niño, Diego hablaba mucho español"
+        en: "As a child, Diego used to speak a lot of Spanish"
+        atoms: ["de niño", "hablaba", "español"]
+        tiles: ["habla", "hablan"]
+      - kind: textMcq
+        id: l1-tm-hablaba
+        target: "hablaba"
+        distractors: ["habla", "hablo", "hablan"]
+      - kind: speakLit
+        id: l1-sp-yosiemprehablaba
+        es: "de niño, yo siempre hablaba español con Ana"
+        en: "As a child, I always used to speak Spanish with Ana"
+        atoms: ["de niño", "hablaba", "español", "siempre"]
+      - kind: sim
+        id: l1-sim-ana-deniño
+        scene: { emoji: "🗣️", title: "Ana asks about your childhood", setting: "Ana wants to know what language you and your friends used to speak as a child." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Hablaba usted español de niño?", audioText: "¿hablaba usted español de niño?", gloss: "Did you (usted) used to speak Spanish as a child?" }
+            goal: "Say yes, you used to speak it daily."
+            reply:
+              mode: build
+              tiles: ["sí", "hablaba", "todos", "los", "días", "habla", "hablan"]
+              answer: "sí hablaba todos los días"
+            replyGloss: "Yes, I used to speak it every day."
+            explanation: "Ana asked with «usted» — formal you shares the exact same imperfect form as yo: «hablaba». The subject is already set by the question, so the answer can stay plain."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego? ¿Hablaba español también?", audioText: "¿y diego? ¿hablaba español también?", gloss: "And Diego? Did he used to speak Spanish too?" }
+            goal: "Say yes, he used to speak it too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, él hablaba también" }
+                - { id: "wrong1", text: "sí, yo hablaba también" }
+                - { id: "wrong2", text: "sí, él habla también" }
+              correctOptionId: "right"
+              audioText: "sí, él hablaba también"
+            replyGloss: "Yes, he used to speak it too."
+            explanation: "The question is about Diego: «él hablaba». Swapping the subject to «yo» would wrongly claim it was you; «habla» would slip into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Hablaba usted español en la escuela también?", audioText: "¿hablaba usted español en la escuela también?", gloss: "Did you also used to speak Spanish at school?" }
+            goal: "Say yes, always, at school too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, hablaba siempre en la escuela" }
+                - { id: "wrong1", text: "sí, hablan siempre en la escuela" }
+                - { id: "wrong2", text: "sí, habla siempre en la escuela" }
+              correctOptionId: "right"
+              audioText: "sí, hablaba siempre en la escuela"
+            replyGloss: "Yes, I always used to speak it at school."
+            explanation: "Still you, answering as «yo»: «hablaba». «habla»/«hablan» both slip into now — and «hablan» wrongly makes it more than one person."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "hablaba", target: "I used to speak, he/she/you used to speak" }
+          - { source: "de niño", target: "as a child" }
+          - { source: "español", target: "Spanish" }
+          - { source: "todos los días", target: "every day" }
+          - { source: "siempre", target: "always" }
+          - { source: "escuela", target: "school" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "de niño, hablaba español todos los días"
+        en: "As a child, I used to speak Spanish every day"
+        atoms: ["de niño", "hablaba", "español", "todos los días"]

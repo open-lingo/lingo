@@ -1,0 +1,152 @@
+  # ── L2 · «Hablábamos, hablaban» — the rest of hablar's imperfect: hablabas
+  #    (tú), hablábamos (nosotros — the ONE -ar form with an accent), hablaban
+  #    (ellos/ustedes). None of these three collide across persons (only the
+  #    "first slot" hablaba does), so no fresh subject-disambiguation drill
+  #    is needed for them — but «todos» (PRIOR, m21) still takes hablaban
+  #    only, never hablábamos (rule 8). NO preterite anywhere.
+  - n: 2
+    template: free
+    title: "Hablábamos, hablaban"
+    description: "Three more pieces of hablar's imperfect: «hablabas» (you), «hablábamos» (we — the one -ar form with an accent), «hablaban» (they, you all)."
+    steps:
+      - kind: map
+        id: l2-map-deninoshablabamos
+        tokens: ["de niños", "hablábamos", "mucho", "en", "la escuela"]
+        pairs:
+          - { en: "as children", tokenIndex: 0 }
+          - { en: "we used to speak", tokenIndex: 1 }
+          - { en: "a lot", tokenIndex: 2 }
+          - { en: "at", tokenIndex: 3 }
+          - { en: "school", tokenIndex: 4 }
+        audioText: "de niños, hablábamos mucho en la escuela"
+        revealNote: "«hablábamos» is the one -ar imperfect form that carries an accent — nosotros, always. «hablaban» (they, you all) and «hablabas» (tú) carry none, same as «hablaba»."
+      - kind: info
+        id: l2-info-hablabamoshablaban
+        title: "Hablábamos, hablaban — the rest of hablar's imperfect"
+        body: "«hablábamos» is we used to speak — the one -ar imperfect form with an accent, always on nosotros. «hablaban» is they used to speak, or you all used to speak — no accent. «hablabas» is you (tú) used to speak — no accent either. Three more pieces of the same -aba family as «hablaba»."
+      - kind: speakLit
+        id: l2-sp-tuhablabas
+        es: "tú hablabas español de niño"
+        en: "You (tú) used to speak Spanish as a child"
+        atoms: ["hablabas", "español", "de niño"]
+      - kind: buildLit
+        id: l2-b-hablabamosescuela
+        es: "hablábamos mucho en la escuela"
+        en: "We used to speak a lot at school"
+        atoms: ["hablábamos", "escuela"]
+        tiles: ["habla", "hablabas"]
+      - kind: speakLit
+        id: l2-sp-hablabanescuela
+        es: "ellos hablaban español en la escuela"
+        en: "They used to speak Spanish at school"
+        atoms: ["hablaban", "español", "escuela"]
+      - kind: clozeLit
+        id: l2-c-hablabamosjuntos
+        es: "hablábamos juntos todos los días"
+        en: "We used to speak together every day"
+        blank: "hablábamos"
+        options: ["hablábamos", "hablaban", "hablaba"]
+        atoms: ["hablábamos", "juntos", "todos los días"]
+        why: "We, more than one: «hablábamos» — the one -ar imperfect form with an accent. «hablaban» would be them; «hablaba» would be just one."
+      - kind: listenCompLit
+        id: l2-lc-hablabanfiesta
+        es: "todos hablaban mucho en la fiesta"
+        en: "Everyone used to talk a lot at the party."
+        atoms: ["hablaban", "fiesta"]
+        distractorsEn:
+          - "Everyone talks a lot at the party."
+          - "We used to talk a lot at the party."
+          - "Everyone used to talk a lot at school."
+      - kind: mcq
+        id: l2-q-tuhablabas
+        prompt: "Which one means 'you (tú) used to speak'?"
+        correct: "tú hablabas"
+        distractors: ["tú hablaba", "tú hablas", "tú hablábamos"]
+        atoms: ["hablabas"]
+        why: "«hablabas» — the tú ending. «hablaba» collapses yo/él, not tú; «hablas» slips into now; «hablábamos» would be we."
+      - kind: buildLit
+        id: l2-b-diegosofiahablaban
+        es: "Diego y Sofía hablaban español juntos"
+        en: "Diego and Sofía used to speak Spanish together"
+        atoms: ["hablaban", "español", "juntos"]
+        tiles: ["hablaba", "hablan"]
+      - kind: audioWimcq
+        id: l2-ear-parque
+        target: { surface: "el parque", emoji: "🌳" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "la playa", emoji: "🏖️" }
+      - kind: agreementLit
+        id: l2-agr-hablabamoshablaban
+        en: "We used to speak Spanish, and they used to speak it too"
+        audioText: "hablábamos español, y ellos hablaban también"
+        atoms: ["hablábamos", "español", "hablaban"]
+        segments:
+          - { blank: { id: "p1", answer: "hablábamos", options: ["hablábamos", "hablaban"] } }
+          - { text: " español, y ellos " }
+          - { blank: { id: "p2", answer: "hablaban", options: ["hablaban", "hablábamos"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l2-lb-tuhablabasescuela
+        es: "tú hablabas mucho en la escuela"
+        en: "You (tú) used to speak a lot at school"
+        atoms: ["hablabas", "escuela"]
+        tiles: ["hablaba", "hablan"]
+      - kind: textMcq
+        id: l2-tm-hablaban
+        target: "hablaban"
+        distractors: ["hablaba", "hablabas", "hablábamos"]
+      - kind: speakLit
+        id: l2-sp-todosconsolidacion
+        es: "de niños, hablábamos y ellos hablaban también"
+        en: "As children, we used to speak and they used to speak too"
+        atoms: ["de niño", "hablábamos", "hablaban"]
+      - kind: sim
+        id: l2-sim-sofia-escuela
+        scene: { emoji: "🏫", title: "Sofía remembers school", setting: "Sofía is asking who used to talk a lot at school, back when everyone was a kid." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Hablabas mucho en la escuela de niño?", audioText: "¿hablabas mucho en la escuela de niño?", gloss: "Did you (tú) used to talk a lot at school as a child?" }
+            goal: "Say yes, you and Ana used to talk."
+            reply:
+              mode: build
+              tiles: ["sí", "hablábamos", "juntos", "hablaban", "hablaba"]
+              answer: "sí hablábamos juntos"
+            replyGloss: "Yes, we used to talk together."
+            explanation: "You and Ana together: «hablábamos» — the nosotros ending, the one that carries an accent. «hablaban» would be someone else; «hablaba» would be just one."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y Diego y Luis? ¿Hablaban mucho también?", audioText: "¿y diego y luis? ¿hablaban mucho también?", gloss: "And Diego and Luis? Did they used to talk a lot too?" }
+            goal: "Say yes, they always used to talk."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, hablaban mucho siempre" }
+                - { id: "wrong1", text: "sí, hablábamos mucho siempre" }
+                - { id: "wrong2", text: "sí, hablan mucho siempre" }
+              correctOptionId: "right"
+              audioText: "sí, hablaban mucho siempre"
+            replyGloss: "Yes, they always used to talk a lot."
+            explanation: "Diego and Luis — them: «hablaban». «hablábamos» would wrongly include you; «hablan» slips into now."
+          - id: t3
+            npc: { speaker: "Sofía", es: "¿Hablaban todos mucho de niños?", audioText: "¿hablaban todos mucho de niños?", gloss: "Did everyone used to talk a lot as children?" }
+            goal: "Say yes, everyone always used to talk."
+            reply:
+              mode: build
+              tiles: ["sí", "todos", "hablaban", "siempre", "hablábamos", "hablaba"]
+              answer: "sí todos hablaban siempre"
+            replyGloss: "Yes, everyone always used to talk."
+            explanation: "«todos» always takes the they-ending, same rule as m21's preterite: «hablaban», never «hablábamos» — that would wrongly include you."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "hablabas", target: "you (tú) used to speak" }
+          - { source: "hablábamos", target: "we used to speak" }
+          - { source: "hablaban", target: "they used to speak, you all used to speak" }
+          - { source: "de niños", target: "as children" }
+          - { source: "juntos", target: "together" }
+          - { source: "escuela", target: "school" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "de niños, hablábamos mucho en la escuela"
+        en: "As children, we used to speak a lot at school"
+        atoms: ["de niño", "hablábamos", "escuela"]

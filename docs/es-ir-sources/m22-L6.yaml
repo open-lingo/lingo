@@ -1,0 +1,157 @@
+  # ── L6 · «Veíamos películas» — ver's imperfect debuts whole: veía (a
+  #    FOURTH "first slot" atom — yo=él collision, same as hablaba/era/iba;
+  #    info card shorter, points back to L1), veías (tú), veíamos (nosotros),
+  #    veían (ellos/ustedes). NEW RULE this lesson: ver is -er, and -er/-ir
+  #    verbs accent EVERY imperfect form, not just nosotros — veía, veías,
+  #    veíamos, veían ALL carry the accent (unlike hablar/ir/ser, which only
+  #    accent nosotros). «todos» re-spent with veían only, never veíamos.
+  #    NO preterite anywhere. Recall floor: ≥1 recall (L1–L5 pool open).
+  - n: 6
+    template: free
+    title: "Veíamos películas"
+    description: "«veía» is ver's imperfect — same yo=él collision as hablaba/era/iba (see L1). But ver is different in one way: EVERY form carries an accent — veía, veías, veíamos, veían, all of them."
+    steps:
+      - kind: map
+        id: l6-map-veiamospeliculascine
+        tokens: ["veíamos", "películas", "en", "el cine", "siempre"]
+        pairs:
+          - { en: "we used to watch", tokenIndex: 0 }
+          - { en: "movies", tokenIndex: 1 }
+          - { en: "at", tokenIndex: 2 }
+          - { en: "the movie theater", tokenIndex: 3 }
+          - { en: "always", tokenIndex: 4 }
+        audioText: "veíamos películas en el cine siempre"
+        revealNote: "«veía» is ver's imperfect — same collision as «hablaba»/«era»/«iba»: «yo veía» and «él veía» are the same word. But ver is different: EVERY form keeps the accent — veía, veías, veíamos, veían, all of them."
+      - kind: info
+        id: l6-info-veia
+        title: "Veía — the same collision, but every form is accented"
+        body: "«veía» is I used to watch / he, she, you used to watch — the same collision as «hablaba» (see L1 for the full rule). Here's what's new: ver is an -er verb, and -er/-ir verbs accent EVERY imperfect form, not just nosotros. «veía», «veías», «veíamos», «veían» — all four carry the accent."
+      - kind: speakLit
+        id: l6-sp-yoveia
+        es: "yo veía películas en el cine"
+        en: "I used to watch movies at the movie theater"
+        atoms: ["veía", "película", "cine"]
+      - kind: buildLit
+        id: l6-b-tuveiasplaya
+        es: "tú veías a Ana en la playa"
+        en: "You (tú) used to see Ana at the beach"
+        atoms: ["veías", "playa"]
+        tiles: ["veía", "ves"]
+      - kind: speakLit
+        id: l6-sp-veiamoscine
+        es: "veíamos películas juntos en el cine"
+        en: "We used to watch movies together at the movie theater"
+        atoms: ["veíamos", "película", "cine", "juntos"]
+      - kind: clozeLit
+        id: l6-c-todosveianpeliculas
+        es: "todos veían películas siempre"
+        en: "Everyone always used to watch movies"
+        blank: "veían"
+        options: ["veían", "veíamos", "veía"]
+        atoms: ["todos", "veían", "película", "siempre"]
+        why: "«todos» takes the they-ending: «veían», never «veíamos» — that would wrongly include you."
+      - kind: listenCompLit
+        id: l6-lc-diegoveiapeliculas
+        es: "Diego veía películas en el cine"
+        en: "Diego used to watch movies at the movie theater."
+        atoms: ["veía", "película", "cine"]
+        distractorsEn:
+          - "Diego watches movies at the movie theater."
+          - "Diego used to watch movies at the beach."
+          - "They used to watch movies at the movie theater."
+      - kind: mcq
+        id: l6-q-tuveias
+        prompt: "Which one means 'you (tú) used to see'?"
+        correct: "tú veías"
+        distractors: ["tú veia", "tú ves", "tú veíamos"]
+        atoms: ["veías"]
+        why: "«veías» — the tú ending, accented like every ver imperfect form. «veia» is missing its accent; «ves» slips into now; «veíamos» would be we."
+      - kind: buildLit
+        id: l6-b-veiamosplayajuntos
+        es: "veíamos la playa juntos siempre"
+        en: "We used to see the beach together always"
+        atoms: ["veíamos", "playa", "juntos", "siempre"]
+        tiles: ["veían", "vemos"]
+      - kind: audioWimcq
+        id: l6-ear-cine
+        target: { surface: "el cine", emoji: "🎬" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: agreementLit
+        id: l6-agr-yoelveia
+        en: "I used to watch movies, and he used to watch them too"
+        audioText: "yo veía películas, y él veía también"
+        atoms: ["veía", "película"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "veía", options: ["veía", "veo"] } }
+          - { text: " películas, y él " }
+          - { blank: { id: "p2", answer: "veía", options: ["veía", "ve"] } }
+          - { text: " también" }
+      - kind: listenBuildLit
+        id: l6-lb-samluisveian
+        es: "Sam y Luis veían películas en el cine"
+        en: "Sam and Luis used to watch movies at the movie theater"
+        atoms: ["veían", "película", "cine"]
+        tiles: ["veíamos", "veía"]
+      - kind: textMcq
+        id: l6-tm-veia
+        target: "veía"
+        distractors: ["veías", "veían", "ve"]
+      # Printed non-recall at L4 (es-m22-4-l4-sp-win).
+      - kind: speakLit
+        id: l6-sp-recall-eramosfamilia
+        es: "éramos una familia, y todos eran buenos amigos"
+        en: "We were a family, and everyone was good friends"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l6-sim-ana-cine
+        scene: { emoji: "🎬", title: "Ana asks about movies", setting: "Ana wants to know who used to watch movies together as kids." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Veías películas en el cine de niño?", audioText: "¿veías películas en el cine de niño?", gloss: "Did you (tú) used to watch movies at the movie theater as a child?" }
+            goal: "Say yes, you always used to watch them."
+            reply:
+              mode: build
+              tiles: ["sí", "veía", "siempre", "películas", "veían", "veo"]
+              answer: "sí veía siempre películas"
+            replyGloss: "Yes, I always used to watch movies."
+            explanation: "Answering as yourself: «veía». «veían» would be more than one; «veo» slips into now."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego y Sofía? ¿Veían películas también?", audioText: "¿y diego y sofía? ¿veían películas también?", gloss: "And Diego and Sofía? Did they used to watch movies too?" }
+            goal: "Say yes, they always used to watch together."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, veían juntos siempre" }
+                - { id: "wrong1", text: "sí, veíamos juntos siempre" }
+                - { id: "wrong2", text: "sí, ven juntos siempre" }
+              correctOptionId: "right"
+              audioText: "sí, veían juntos siempre"
+            replyGloss: "Yes, they always used to watch together."
+            explanation: "Diego and Sofía — them: «veían». «veíamos» would wrongly include you; «ven» slips into now."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Veíamos películas juntos?", audioText: "¿y tú y yo? ¿veíamos películas juntos?", gloss: "And you and I? Did we used to watch movies together?" }
+            goal: "Say yes, we always used to watch together."
+            reply:
+              mode: build
+              tiles: ["sí", "veíamos", "siempre", "juntos", "veían", "veía"]
+              answer: "sí veíamos siempre juntos"
+            replyGloss: "Yes, we always used to watch together."
+            explanation: "You and Ana together: «veíamos» — accented, like every ver imperfect form. «veían» would be someone else."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "veía", target: "I used to watch, he/she/you used to watch" }
+          - { source: "veías", target: "you (tú) used to watch" }
+          - { source: "veíamos", target: "we used to watch" }
+          - { source: "veían", target: "they used to watch, you all used to watch" }
+          - { source: "película", target: "movie" }
+          - { source: "el cine", target: "the movie theater" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "veíamos películas en el cine"
+        en: "We used to watch movies at the movie theater"
+        atoms: ["veíamos", "película", "cine"]

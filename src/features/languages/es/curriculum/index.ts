@@ -32,6 +32,7 @@ import { ES_M18_LESSONS } from "./m18";
 import { ES_M19_LESSONS } from "./m19";
 import { ES_M20_LESSONS } from "./m20";
 import { ES_M21_LESSONS } from "./m21";
+import { ES_M22_LESSONS } from "./m22";
 
 export type EsModuleMeta = {
   id: string;
@@ -183,7 +184,14 @@ export const ES_MODULE_META: EsModuleMeta[] = [
     eyebrow: "Module 21 · El pretérito plural",
     summary: "the same past you already own, said about more than one person — «hablamos» finally gets its other meaning, and «todos» brings the whole group into the sentence.",
     accent: { from: "#38bdf8", to: "#0c4a6e" },
+  },  {
+    id: "m22",
+    title: "Hablaba, era, iba",
+    eyebrow: "Module 22 · El imperfecto",
+    summary: "a past tense for things that kept happening or were just true — and for the first time, «I» and «he, she, you» say it with the exact same word.",
+    accent: { from: "#818cf8", to: "#3730a3" },
   },
+
 
 
 
@@ -213,6 +221,7 @@ const LESSONS_BY_MODULE: Record<string, LessonContent[]> = {
   m19: ES_M19_LESSONS,
   m20: ES_M20_LESSONS,
   m21: ES_M21_LESSONS,
+  m22: ES_M22_LESSONS,
 };
 
 /** Flat lesson list for the shared LESSONS content index (mockLessons.ts). */
