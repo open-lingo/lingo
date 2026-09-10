@@ -805,13 +805,13 @@ lessons:
       # plain, which is the module's own established pattern — `register: plain`
       # holds and `m31-neo.test.ts` still sees no あげます/くれます/もらいます.
       - { kind: rule, grammarPointId: kureru, variant: honorific }
-      - { kind: sentence, ja: "じゅぎょうを まつ とき しんせつな せんせいに ノートを もらった。", en: "While waiting for class, I got a notebook from a kind teacher", exercises: [ta-form, morau, na-adj-present, toki], mode: build }
+      - { kind: sentence, ja: "じゅぎょうで きくから しんせつな せんせいに ノートを もらった。", en: "Because I ask questions in class, I got a notebook from a kind teacher", exercises: [ta-form, morau, na-adj-present, kara-because], mode: build }
       - { kind: sentence, ja: "せんせいは しんせつだから じゅぎょうが すきだ。", en: "The teacher is kind, so I like the class", exercises: [na-adj-present, kara-because, suki-kirai-no], mode: build }
-      - { kind: sentence, ja: "てがみを かくから せんせいに おれいの てがみを あげるんです。", en: "I'm writing a letter, so the thing is, I'm giving the teacher a thank-you letter", exercises: [ageru, n-desu, no-possession, kara-because], mode: build }
+      - { kind: sentence, ja: "せんせいが しんせつに おしえるから せんせいに おれいの てがみを あげるんです。", en: "Because the teacher teaches so kindly, the thing is, I'm giving the teacher a thank-you letter", exercises: [ageru, n-desu, no-possession, kara-because], mode: build }
       - { kind: sentence, ja: "しんせつな がくせいが かさを くれた。", en: "A kind student gave me an umbrella", exercises: [ta-form, kureru, na-adj-present], mode: listening }
-      - { kind: sentence, ja: "いしゃを まつ とき こんど しんせつな いしゃに くすりを もらう。", en: "While waiting for the doctor, next time I get medicine from the kind doctor", exercises: [morau, na-adj-present, ni-recipient, toki], mode: build }
+      - { kind: sentence, ja: "びょういんに はいるから こんど しんせつな いしゃに くすりを もらう。", en: "Because I'll be admitted to the hospital, next time I'll get medicine from a kind doctor", exercises: [morau, na-adj-present, ni-recipient, kara-because], mode: build }
       - { kind: sentence, ja: "かいしゃで はたらく ひとは しんせつだから きねんの カードを あげた。", en: "The people who work at the company are kind, so I gave them a commemorative card", exercises: [ageru, ta-form, na-adj-present, kara-because], mode: build }
-      - { kind: sentence, ja: "プレゼントを かう まえに たんじょうびに ケーキを もらうんです。", en: "Before buying a present, the thing is, I'm getting a cake for my birthday", exercises: [morau, n-desu, ni-time, mae-ni], mode: build }
+      - { kind: sentence, ja: "ともだちが うたを うたう とき たんじょうびに ケーキを もらうんです。", en: "When my friends sing, the thing is, I get a cake for my birthday", exercises: [morau, n-desu, ni-time, toki], mode: build }
       - { kind: sentence, ja: "しんせつな せんせいに ノートを もらった。", en: "I got a notebook from a kind teacher", exercises: [ta-form, morau], mode: translate }
       - { kind: particle-cloze, stem: "しんせつな がくせいが かさを ", tail: "。", answer: "くれた", options: ["くれた", "あげた", "もらった"], en: "A kind student gave me an umbrella", explanation: "the student is marked が and the umbrella came in to my side, so the verb is くれる in the past. あげた would send it away from me, and もらった would make me the subject rather than the student." }
       - { kind: listening-comp, audio: "せんせいが じしょを くださった。", answer: "The teacher was kind enough to give me a dictionary", distractors: ["I gave the teacher a dictionary", "The teacher was kind enough to give me a notebook", "I received a dictionary from a student"], exercises: [kureru, ta-form] }

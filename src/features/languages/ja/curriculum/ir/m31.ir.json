@@ -2711,13 +2711,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "じゅぎょうを まつ とき しんせつな せんせいに ノートを もらった。",
-          "en": "While waiting for class, I got a notebook from a kind teacher",
+          "ja": "じゅぎょうで きくから しんせつな せんせいに ノートを もらった。",
+          "en": "Because I ask questions in class, I got a notebook from a kind teacher",
           "exercises": [
             "ta-form",
             "morau",
             "na-adj-present",
-            "toki"
+            "kara-because"
           ],
           "mode": "build"
         },
@@ -2734,8 +2734,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "てがみを かくから せんせいに おれいの てがみを あげるんです。",
-          "en": "I'm writing a letter, so the thing is, I'm giving the teacher a thank-you letter",
+          "ja": "せんせいが しんせつに おしえるから せんせいに おれいの てがみを あげるんです。",
+          "en": "Because the teacher teaches so kindly, the thing is, I'm giving the teacher a thank-you letter",
           "exercises": [
             "ageru",
             "n-desu",
@@ -2757,13 +2757,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "いしゃを まつ とき こんど しんせつな いしゃに くすりを もらう。",
-          "en": "While waiting for the doctor, next time I get medicine from the kind doctor",
+          "ja": "びょういんに はいるから こんど しんせつな いしゃに くすりを もらう。",
+          "en": "Because I'll be admitted to the hospital, next time I'll get medicine from a kind doctor",
           "exercises": [
             "morau",
             "na-adj-present",
             "ni-recipient",
-            "toki"
+            "kara-because"
           ],
           "mode": "build"
         },
@@ -2781,13 +2781,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "プレゼントを かう まえに たんじょうびに ケーキを もらうんです。",
-          "en": "Before buying a present, the thing is, I'm getting a cake for my birthday",
+          "ja": "ともだちが うたを うたう とき たんじょうびに ケーキを もらうんです。",
+          "en": "When my friends sing, the thing is, I get a cake for my birthday",
           "exercises": [
             "morau",
             "n-desu",
             "ni-time",
-            "mae-ni"
+            "toki"
           ],
           "mode": "build"
         },
