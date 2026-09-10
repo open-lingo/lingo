@@ -56,18 +56,21 @@
  * VOICING LEDGER (printed speak → licenses later cue:"recall"):
  *   vingt L1 · c'est combien ? L6 · ça coûte vingt euros L6 · c'est cher
  *   L7 · ce n'est pas cher L7.
- *   recalls drawn: vingt L2 (internal) · il parle français L3 (m11) ·
- *   c'est lundi L4 (m8) · je vais au cinéma L5 (m5) · vingt L8 (internal) ·
- *   c'est cher L8 (internal) · c'est combien ? L9 (internal) · je voudrais
- *   un croissant L9 (m6) · vingt L10 (internal) · ce n'est pas cher L10
- *   (internal). Total 10 recalls, 3 cross-module (m11/m8/m5, plus a 4th
- *   bonus cross-module touch in L9 from m6) — comfortably over the ≥8
- *   floor and the 2–3 cross-module band.
+ *   recalls drawn: vingt L2 (internal) · mon frère est très grand L2 (m9) ·
+ *   il parle français L3 (m11) · c'est lundi L4 (m8) · je vais au cinéma
+ *   L5 (m5) · vingt L8 (internal) · c'est cher L8 (internal) · c'est
+ *   combien ? L9 (internal) · je voudrais un croissant L9 (m6) · vingt L10
+ *   (internal) · ce n'est pas cher L10 (internal). Total 11 recalls, 5
+ *   cross-module (m9/m11/m8/m5/m6) — comfortably over the ≥8 floor and the
+ *   2–3 cross-module band.
  *
  * Cast: a market-stall vendor (L6) haggling in whole euros; a boutique
  * scene (L9) mixing «je voudrais» with a price and a cher/pas-cher
  * reaction; a video-call recap (L10, reusing the m11 video-call frame)
- * that closes on a soft «je sais pas» tease for m13's negation module.
+ * that closes on an ordinary cher/pas-cher agreement beat — NOT a «je
+ * sais pas» tease (that draft line used an untaught verb, «savoir», and
+ * the untaught intensifier «si», and would have shipped the ne-drop
+ * register a full module early; pin F10 reserves ne-drop for m13).
  */
 import type { LessonContent, LessonStep } from "@/features/lesson/types";
 import { atom, type FrAtom } from "../courseAtoms";
@@ -406,7 +409,7 @@ function lesson4(): LessonStep[] {
       id: "fr-m12-4-smcq-discrim",
       prompt: "Which is the ROUND ceiling, not a compositional number?",
       correctText: "cent",
-      distractorsText: ["soixante-dix", "quarante-neuf", "soixante-neuf"],
+      distractorsText: ["trente", "quarante-neuf", "soixante-neuf"],
     }),
     cloze(
       "fr-m12-4-cloze-review",
@@ -421,7 +424,7 @@ function lesson4(): LessonStep[] {
       "fr-m12-4-build-soixanteneuf",
       "Build: 'sixty-nine'",
       "soixante-neuf",
-      ["soixante-neuf", "soixante-dix", "cinquante-neuf"],
+      ["soixante-neuf", "soixante-huit", "cinquante-neuf"],
       ["soixante-neuf"],
     ),
     listeningCompSentence({
@@ -491,10 +494,10 @@ function lesson5(): LessonStep[] {
       "",
       "",
       "cent",
-      ["quatre-vingt", "cent", "soixante"],
+      ["quarante", "cent", "soixante"],
       "one hundred",
       "cent",
-      "Trick option — «quatre-vingt» belongs to the irregular 70–99 band, saved for a later module. Pick «cent».",
+      "«cent» is the round ceiling — not a compositional tens number like «quarante» or «soixante».",
     ),
     vocabTextMcq(
       "fr-m12-5-vmcq-vingt",
@@ -506,7 +509,7 @@ function lesson5(): LessonStep[] {
       "fr-m12-5-build-soixantehuit",
       "Build: 'sixty-eight'",
       "soixante-huit",
-      ["soixante-huit", "soixante-dix", "cinquante-huit"],
+      ["soixante-huit", "quarante-huit", "cinquante-huit"],
       ["soixante-huit"],
     ),
     listeningCompSentence({
@@ -610,7 +613,7 @@ function lesson6(): LessonStep[] {
             mode: "choice",
             options: [
               { id: "correct", text: "c'est combien ?" },
-              { id: "wrong-day", text: "c'est quel jour ?" },
+              { id: "wrong-when", text: "c'est quand ?" },
               { id: "wrong-who", text: "c'est qui ?" },
             ],
             correctOptionId: "correct",
@@ -824,11 +827,11 @@ function checkpointLesson(): LessonStep[] {
     ),
     listeningCompSentence({
       id: "fr-m12-8-lc-3",
-      audioText: "c'est combien ? ça coûte quatre-vingt-cinq euros",
-      correctMeaningEn: "How much is it? It costs eighty-five euros.",
+      audioText: "c'est combien ? ça coûte soixante-quatre euros",
+      correctMeaningEn: "How much is it? It costs sixty-four euros.",
       distractorsEn: [
-        "How much is it? It costs forty-five euros.",
-        "It's expensive. It costs eighty-five euros.",
+        "How much is it? It costs forty-four euros.",
+        "It's expensive. It costs sixty-four euros.",
         "How much is it? It's not expensive.",
       ],
     }),
@@ -1010,7 +1013,7 @@ function lesson9(): LessonStep[] {
 }
 
 /** L10 — mastery: all-graded, every m12 atom present, ends on a
- *  video-call dialogue_sim that closes on a soft «je sais pas» m13 tease. */
+ *  video-call dialogue_sim closing on an ordinary cher/pas-cher beat. */
 function lesson10(): LessonStep[] {
   return [
     listeningCompSentence({
@@ -1032,9 +1035,9 @@ function lesson10(): LessonStep[] {
     ),
     sentenceMcq({
       id: "fr-m12-10-smcq-recap",
-      prompt: "'It costs ninety-nine — no wait, which of these is a REGULAR tens number this module taught?",
-      correctText: "soixante-neuf euros",
-      distractorsText: ["quatre-vingt-dix-neuf euros", "soixante-dix euros", "quatre-vingts euros"],
+      prompt: "'Sixty-nine' — pick the French.",
+      correctText: "soixante-neuf",
+      distractorsText: ["soixante-huit", "cinquante-neuf", "vingt-neuf"],
     }),
     cloze(
       "fr-m12-10-cloze-recap",
@@ -1092,7 +1095,7 @@ function lesson10(): LessonStep[] {
             options: [
               { id: "correct", text: "d'accord, ce n'est pas cher" },
               { id: "wrong-cher", text: "d'accord, c'est cher" },
-              { id: "wrong-form", text: "d'accord, c'est pas cher" },
+              { id: "wrong-form", text: "d'accord, ce n'est pas cent" },
             ],
             correctOptionId: "correct",
             audioText: "d'accord, ce n'est pas cher",
@@ -1124,22 +1127,22 @@ function lesson10(): LessonStep[] {
           id: "t3-tease",
           npc: {
             speaker: "Léa",
-            kana: "Bon — pourquoi c'est si cher ? Je sais pas !",
-            audioText: "bon — pourquoi c'est si cher ? je sais pas !",
-            gloss: "Well — why is it so expensive? I don't know!",
+            kana: "Ah, oui — c'est très cher !",
+            audioText: "ah, oui — c'est très cher !",
+            gloss: "Ah, yes — it's very expensive!",
           },
-          goal: "Agree — you don't know either.",
+          goal: "Agree — it's very expensive.",
           reply: {
             mode: "choice",
             options: [
-              { id: "correct", text: "moi non plus, je sais pas" },
-              { id: "wrong-know", text: "moi, je sais" },
-              { id: "wrong-cher", text: "moi non plus, c'est cher" },
+              { id: "correct", text: "oui, c'est très cher" },
+              { id: "wrong-cheap", text: "non, ce n'est pas cher" },
+              { id: "wrong-mix", text: "oui, ce n'est pas cher" },
             ],
             correctOptionId: "correct",
-            audioText: "moi non plus, je sais pas",
+            audioText: "oui, c'est très cher",
           },
-          replyGloss: "Me neither, I don't know!",
+          replyGloss: "Yes, it's very expensive.",
         },
       ],
     },
