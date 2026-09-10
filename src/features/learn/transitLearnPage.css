@@ -547,29 +547,40 @@ a:focus-visible .tmc-d-stop {
   box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.7);
 }
 /* background art layer (design-call prototype, 2026-09-09) — a flat-vector
-   scene behind the night-metro line. `background-attachment: fixed` pins it
-   to the viewport (not this panel's full, page-length height), so as the
-   learner scrolls the stations over it, the art holds still relative to the
-   window — a slow-parallax read achieved with zero JS. Negative z-index
-   keeps it under the in-flow header/line content while staying above this
-   root's own solid `--vnm-bg` fill (stacking-context paint order: root
-   background, then negative-z-index descendants, then in-flow children). */
+   scene behind the night-metro line. Real `position: fixed` (NOT
+   `background-attachment: fixed`, which iOS WebKit — Mobile Safari and the
+   TestFlight WebView — silently downgrades to `scroll`, stretching the art
+   to the panel's full page-length height with no parallax at all). A fixed
+   element pins to the viewport in every engine; it stays a DOM child of
+   `.vnm-root` (fixed positioning escapes the panel for LAYOUT) but is still
+   visually clipped to the panel's rounded box by `.vnm-root`'s `overflow:
+   hidden` — confirmed in Chromium — which is exactly what keeps it off the
+   top signage header and bottom tab bar without any extra z-index work
+   there. Negative z-index keeps it under this panel's own in-flow
+   header/line content while staying above `.vnm-root`'s own solid
+   `--vnm-bg` fill (stacking-context paint order: root background, then
+   negative-z-index descendants, then in-flow children — see the `z-index:
+   0` note on `.vnm-root` above). VerticalNetworkMap only renders on the
+   mobile learn route (`.md:hidden` on desktop is `display: none`, which
+   drops fixed descendants from paint too) and unmounts with the route, so
+   this never bleeds onto another page. */
 .vnm-bg-photo {
-  position: absolute;
+  position: fixed;
   inset: 0;
   z-index: -2;
   background-image: var(--vnm-bg-image);
   background-size: cover;
   background-position: center top;
-  background-attachment: fixed;
   opacity: 0.34;
   pointer-events: none;
 }
 /* Navy fade top + bottom so the header and the tier-interchange stops at
    either end of the line stay readable over the art; the untinted band in
-   the middle is where most stations live. */
+   the middle is where most stations live. Fixed for the same reason as
+   `.vnm-bg-photo` — it rides the same viewport-pinned layer, not the
+   panel's scrolled content. */
 .vnm-bg-overlay {
-  position: absolute;
+  position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
