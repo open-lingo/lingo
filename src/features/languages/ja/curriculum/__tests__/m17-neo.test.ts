@@ -60,13 +60,13 @@ registerModuleBarGuards({
 });
 
 describe("m17-neo module shape (invariant 25)", () => {
-  it("ships 13 lessons: 9 teaching + 3 review + 1 challenge", () => {
-    expect(M17_NEO_LESSONS).toHaveLength(13);
+  it("ships 14 lessons: 10 teaching + 3 review + 1 challenge", () => {
+    expect(M17_NEO_LESSONS).toHaveLength(14);
     const reviews = M17_NEO_LESSONS.filter((l) => /-review(-\d+)?$/.test(l.id));
     const challenge = M17_NEO_LESSONS.filter((l) => l.id.endsWith("-challenge"));
     expect(reviews, reviews.map((l) => l.id).join(", ")).toHaveLength(3);
     expect(challenge).toHaveLength(1);
-    expect(M17_NEO_LESSONS.length - reviews.length - challenge.length).toBe(9);
+    expect(M17_NEO_LESSONS.length - reviews.length - challenge.length).toBe(10);
   });
 
   it("the CHALLENGE lesson is last", () => {
@@ -165,18 +165,23 @@ describe("m17-neo pedagogy invariants", () => {
     expect(offenders, offenders.join("\n")).toEqual([]);
   });
 
-  it("ships ZERO word_image_mcq steps, and that is the honest count (inv 44)", () => {
+  it("ships exactly 2 word_image_mcq steps — the two honest debuts (inv 44)", () => {
     // ちち / はは / あに / あね are already on the course's own
     // WORD_IMAGE_MCQ_BLOCKLIST; おとうと / いもうと / きょうだい / ひとり /
     // ふたり / はたち fail the same test for the same reason (👦 reads "boy",
     // not "MY YOUNGER brother"; 🧍 already belongs to からだ; 🔞 is an
-    // age-restriction sign). Every new atom is therefore `imageable: false`
-    // and debuts on its rule card or a build beat. Inv 44 is explicit that
-    // word_image_mcq carries no usage floor.
+    // age-restriction sign). Pack 9 (2026-09-10, ja-m17-neo-10) added
+    // おじいさん (👴) and おばあさん (👵), and unlike every earlier word in this
+    // module neither collides with a live glyph in the registry, so both get
+    // an honest image-MCQ debut — the other four Pack 9 words (おとな/おんな/
+    // おんなのこ/どなた) DO collide (m19/m24 shared-glyph ruling) and stay
+    // `imageable: false`, debuting on the rule card instead. Inv 44 is
+    // explicit that word_image_mcq carries no usage floor, so 2 is the
+    // honest count, not a target.
     const imaged = M17_NEO_LESSONS.flatMap((l) => l.steps).filter(
       (s) => s.type === "word_image_mcq",
     );
-    expect(imaged.map((s) => s.id), "an image debut appeared where none is honest").toEqual([]);
+    expect(imaged, "an image debut appeared where none is honest").toHaveLength(2);
   });
 
   it("never uses に as a NUMERAL, and never an age with a sound-change cell", () => {

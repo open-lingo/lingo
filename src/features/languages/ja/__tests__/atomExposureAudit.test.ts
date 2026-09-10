@@ -196,8 +196,17 @@ const MAX_NEVER_TOUCHED = 140;
  * is the CORRECT state for a recognition-only atom, not debt; it comes OFF
  * this list only when the module reaches production for these two, same as
  * every entry above. Verified against the full EXPOSURE_REPORT=1 dump: the
- * pre-existing 56 entries are unchanged, only these two are new. */
-const MAX_GRADED_BUT_NEVER_WRITES = 58;
+ * pre-existing 56 entries are unchanged, only these two are new.
+ *
+ * 58 → 62, 2026-09-10 (Wave 1 pack 9, m17): おとな, おんな, おんなのこ,
+ * おじいさん, おばあさん, どなた — the six new atoms of ja-m17-neo-10 (「あの
+ * ひとは どなたですか」). Same shape as every entry above: all six were
+ * `fromModule: "future"` before this pack (invisible to this audit), and
+ * every graded touch of each lives inside m17, the module that introduces
+ * them — D2 blocks same-module writes by design, D4 seed-on-unlock still
+ * schedules them due the next day. They come OFF this list only when a
+ * LATER module grades them (a later Wave 1 pack's job, not this one's). */
+const MAX_GRADED_BUT_NEVER_WRITES = 62;
 
 type Row = {
   atomId: string;

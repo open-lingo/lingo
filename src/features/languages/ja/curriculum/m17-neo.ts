@@ -13,9 +13,11 @@
  * (`node scripts/compile-ir.mjs m17`), laid out by `compileModule` at import.
  * DO NOT hand-edit lessons here — edit the IR and recompile.
  *
- * Shape (inv 25): 13 lessons = 9 teaching + 3 review + 1 challenge, challenge
+ * Shape (inv 25): 14 lessons = 10 teaching + 3 review + 1 challenge, challenge
  * LAST. NO katakana rows — the katakana programme ended at m11, so the
- * compiled order IS the shipped order.
+ * compiled order IS the shipped order. ja-m17-neo-10 (Pack 9, 2026-09-10)
+ * added どなた (the polite twin of だれ) plus おとな/おんな/おんなのこ/
+ * おじいさん/おばあさん, right before the module's final review.
  */
 import type { LessonContent } from "@/features/lesson/types";
 import { compileModule, type ModuleIR } from "@/features/lesson/data/moduleCompiler";
@@ -40,6 +42,7 @@ export const M17_NEO_LESSONS: LessonContent[] = [
   byId("ja-m17-neo-7"),
   byId("ja-m17-neo-8"),
   byId("ja-m17-neo-9"),
+  byId("ja-m17-neo-10"),
   byId("ja-m17-neo-review-3"),
   byId("ja-m17-neo-challenge"),
 ];

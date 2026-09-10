@@ -692,6 +692,7 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m17-neo-7", title: "この ほん — pointing at a named thing", status: "available" as const },
             { id: "ja-m17-neo-8", title: "これ と この — standing alone or attached", status: "available" as const },
             { id: "ja-m17-neo-9", title: "あの ひとは だれ？ — asking about people", status: "available" as const },
+            { id: "ja-m17-neo-10", title: "「あの ひとは どなたですか」 — describing people, politely", status: "available" as const },
             { id: "ja-m17-neo-review-3", title: "Review — うちの かぞく, start to finish", status: "available" as const },
             { id: "ja-m17-neo-challenge", title: "Challenge — introduce your family", status: "available" as const },
           ],

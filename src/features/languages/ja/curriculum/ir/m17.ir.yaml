@@ -266,6 +266,7 @@ grammarPoints:
       - { ja: "それは おとうとの けいたいだ。", en: "That is my younger brother's cell phone." }
     antiPattern: { ja: "あのは あにの くるまだから あたらしい。", why: "あの always needs a noun right behind it — with nothing to attach to, the word you want is the stand-alone あれ: あれは あにの くるまだから あたらしい。" }
   - id: dare
+    variant: base
     rule: "A question word sits exactly where its answer would sit, and it never takes は. だれ asks WHO — 「あの ひとは だれ？」 — and だれ plus の asks WHOSE — 「これは だれの かばん？」. The family questions run on the same rails and you now have all of them: 「かぞくは なんにん？」 for how many, 「なんさい？」 for how old, 「どの ひとが ミカの ともだちだ？」 for which one. Watch what comes back, though. Answering ABOUT your own family, every answer lands in the うち set — ちち, はは, あに, あね, おとうと, いもうと — because the moment you are speaking to an outsider, your family is the inside group."
     examples:
       - { ja: "これは だれの かばん？", en: "Whose bag is this?" }
@@ -274,6 +275,17 @@ grammarPoints:
       - { ja: "どの ひとが ミカの ともだちだ？", en: "Which person is Mika's friend?" }
       - { ja: "だれが この しゃしんを かった？", en: "Who bought this photo?" }
     antiPattern: { ja: "これは だれ かばん？", why: "asking WHOSE needs の between だれ and the noun — だれ on its own only ever means \"who\": これは だれの かばん？" }
+
+  - id: dare
+    variant: polite
+    rule: "だれ asks WHO, and it is the plain, everyday word — fine with friends and family. Speaking to a stranger, a customer, or anyone you owe extra respect, Japanese reaches for どなた instead: same job, same slot だれ fills, more polite. Swap the word and nothing else changes — どなた never stacks on top of だれ, and it pairs with です the way だれ pairs with だ when the moment calls for it. の still works exactly the same after either one: だれの is 'whose', casually; どなたの is 'whose', politely. With more people around to describe now — おとな, おんな, おんなのこ, an おじいさんor an おばあさん — どなた is the word that lets you ask about any of them without sounding rude."
+    examples:
+      - { ja: "あの おんなは どなたですか。", en: "Who is that woman? (polite)" }
+      - { ja: "あの おとなは どなたですか。", en: "Who is that adult? (polite)" }
+      - { ja: "あの おんなのこは どなたですか。", en: "Who is that girl? (polite)" }
+      - { ja: "どなたの ほんですか。", en: "Whose book is this? (polite)" }
+      - { ja: "あの ひとは どなたですか。", en: "Who is that person? (polite)" }
+    antiPattern: { ja: "あの ひとは どなただ。", why: "どなた is the polite word, so it pairs with です, never plain だ: あの ひとは どなたですか。" }
 
 newAtoms:
   # ══ L1. The two parent terms. Both already carry courseAtoms rows with stale
@@ -311,6 +323,25 @@ newAtoms:
   - { kana: その, romaji: sono, gloss: "that (+ noun)", shortGloss: "that …", imageable: false, kind: vocab }
   - { kana: あの, romaji: ano, gloss: "that over there (+ noun)", shortGloss: "that … over there", imageable: false, kind: vocab }
   - { kana: どの, romaji: dono, gloss: "which (+ noun)", shortGloss: "which …", imageable: false, kind: vocab }
+  # ══ L10 (Pack 9, 2026-09-10). People-description vocabulary + the polite
+  #    question word. おとな (🧑) is ひと's (m1, live, unblocked) glyph, おんな
+  #    (👩) is あね's (m17, live, already blocked) glyph, and おんなのこ (👧) is
+  #    いもうと's (m17, live, already blocked) glyph — the m19/m24 shared-glyph
+  #    ruling in every case: the newcomer stays imageable: false and debuts on
+  #    the dare/polite rule card instead of taking a word_image_mcq slot. どなた
+  #    has no honest picture of its own (it is an interrogative pronoun) and
+  #    debuts the same way. おじいさん (👴) and おばあさん (👵) have no glyph
+  #    conflict in the registry, so both stay ordinary image debuts — framed as
+  #    generic elderly-person nouns describing a third party (never "my
+  #    grandfather"), which keeps them out of m17's own うち/そと family-address
+  #    ruling; the そと honorific set (おとうさん etc.) stays reserved for
+  #    Family II (m21).
+  - { kana: おとな, romaji: otona, gloss: "adult", shortGloss: "adult", imageable: false, kind: vocab }
+  - { kana: おんな, romaji: onna, gloss: "woman", shortGloss: "woman", imageable: false, kind: vocab }
+  - { kana: おんなのこ, romaji: onnanoko, gloss: "girl", shortGloss: "girl", imageable: false, kind: vocab }
+  - { kana: おじいさん, romaji: ojiisan, gloss: "grandfather, older man", shortGloss: "older man", kind: vocab }
+  - { kana: おばあさん, romaji: obaasan, gloss: "grandmother, older woman", shortGloss: "older woman", kind: vocab }
+  - { kana: どなた, romaji: donata, gloss: "who (polite)", shortGloss: "who (polite)", imageable: false, kind: vocab }
 
 lessons:
   # ═══════════════════════════════════════════════════════════════════════
@@ -598,7 +629,7 @@ lessons:
     focus: "だれ / だれの / なんにん / なんさい / どの — the question frames that make the whole module usable"
     introduces: []
     beats:
-      - { kind: rule, grammarPointId: dare }
+      - { kind: rule, grammarPointId: dare, variant: base }
       - { kind: sentence, ja: "これは だれの かばん？", en: "Whose bag is this", exercises: [dare, no-possession], mode: build }
       - { kind: sentence, ja: "あの ひとは だれ？", en: "Who is that person over there", exercises: [dare, kono-sono-ano-dono], mode: build }
       - { kind: sentence, ja: "どの ひとが ミカの ともだちだ？", en: "Which person is Mika's friend", exercises: [dare, kono-sono-ano-dono], mode: listening }
@@ -618,6 +649,47 @@ lessons:
           - { q: "Who is in Mika's photo?", options: ["Her father, mother and older sister", "Her father and younger brother", "Her mother and younger sister", "Her friends from university"], answer: "Her father, mother and older sister" }
       - { kind: challenge, ja: "あの きっさてんに いる ひとは だれの ともだちだ？", en: "Whose friend is the person in that coffee shop over there", combines: [dare, kono-sono-ano-dono, dictionary-form, ni-location], mode: build }
     reviewPool: [この, その, あの, どの, ひと, ともだち, かばん, しゃしん, かぞく, きっさてん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # Pack 9 (2026-09-10). Landed as ja-m17-neo-10, right before the module's
+  # final review — a second variant of L9's own `dare` point (どなた, the
+  # polite twin) plus six people-description words. おとな/おんな/おんなのこ
+  # are blocked (glyph collisions — see the newAtoms comment above) and debut
+  # on the rule card; おじいさん/おばあさん are ordinary image debuts, framed
+  # as generic elderly-person nouns describing a third party so they never
+  # collide with m17's うち/そと family-address ruling. どなた pairs with です
+  # the way だれ pairs with だ — established precedent for graded です content
+  # under an explicit "Say politely:" cue (m7/m20/m26/m29) is followed here,
+  # not the plain-only production default.
+  - id: m17-neo-10
+    role: teaching
+    title: "「あの ひとは どなたですか」 — describing people, politely"
+    focus: "どなた, the polite twin of だれ, plus the words for describing people you don't know yet"
+    introduces: [おとな, おんな, おんなのこ, おじいさん, おばあさん, どなた]
+    beats:
+      - { kind: rule, grammarPointId: dare, variant: polite }
+      - { kind: sentence, ja: "あの ひとは おとなだ。", en: "That person over there is an adult", exercises: [kono-sono-ano-dono, desu-copula], mode: build }
+      - { kind: sentence, ja: "あの おんなは がくせいだ。", en: "That woman over there is a student", exercises: [kono-sono-ano-dono, desu-copula], mode: build }
+      - { kind: sentence, ja: "あの おんなのこは ミカの ともだちだ。", en: "That girl over there is Mika's friend", exercises: [kono-sono-ano-dono, no-possession, desu-copula], mode: build }
+      - { kind: particle-cloze, stem: "あの ", tail: "は がくせいだ。", answer: "おんな", options: ["おんな", "おとな", "おんなのこ"], en: "That woman over there is a student", explanation: "おんな is a grown woman; おとな is any adult and おんなのこ is a girl — only おんな names a woman." }
+      - { kind: particle-cloze, stem: "あの ひとは もう ", tail: "だ。", answer: "おとな", options: ["おとな", "おんなのこ", "がくせい"], en: "That person over there is already an adult", explanation: "おとな is any grown adult, man or woman; おんなのこ is specifically a girl and がくせい is 'student' — only おとな fits a general adult." }
+      - { kind: sentence, ja: "あの おじいさんは せんせいだ。", en: "That older man over there is a teacher", exercises: [kono-sono-ano-dono, desu-copula], mode: build }
+      - { kind: sentence, ja: "あの おばあさんは にほんじんだ。", en: "That older woman over there is Japanese", exercises: [kono-sono-ano-dono, desu-copula], mode: build }
+      - { kind: particle-cloze, stem: "あの ", tail: "は せんせいだ。", answer: "おじいさん", options: ["おじいさん", "おばあさん", "おとな"], en: "That older man over there is a teacher", explanation: "おじいさん is an older man; おばあさん is an older woman and おとな is any adult — only おじいさん fits an older man." }
+      - { kind: sentence, ja: "あの ひとは どなたですか。", en: "Say politely: Who is that person over there?", exercises: [dare, kono-sono-ano-dono, desu-copula, ka-question], mode: build }
+      - { kind: particle-cloze, stem: "あの おんなは ", tail: "ですか。", answer: "どなた", options: ["どなた", "だれ", "どの"], en: "Who is that woman? (polite)", explanation: "どなた is the polite word for who; だれ is its plain twin, and どの needs a noun right behind it, not a question mark." }
+      - { kind: listening-comp, audio: "あの おじいさんは せんせいだ。", answer: "That older man over there is a teacher", distractors: ["That older woman over there is a teacher", "That older man over there is a student", "That person over there is a teacher"], exercises: [kono-sono-ano-dono, desu-copula] }
+      - { kind: listening-comp, audio: "あの おんなのこは にほんじんだ。", answer: "That girl over there is Japanese", distractors: ["That woman over there is Japanese", "That older woman over there is Japanese", "That adult over there is Japanese"], exercises: [kono-sono-ano-dono, desu-copula] }
+      - { kind: sentence, ja: "あの おじいさんと おばあさんは ともだちだ。", en: "That older man and that older woman over there are friends", exercises: [kono-sono-ano-dono, to-and, desu-copula], mode: listening }
+      - { kind: sentence, ja: "あの おんなのこは わたしの ともだちだ。", en: "Say to a friend: That girl over there is my friend", exercises: [kono-sono-ano-dono, no-possession, desu-copula], mode: translate }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "あの おじいさんは どなたですか。", en: "Who is that older man over there? (polite)" }
+          - { speaker: "Mika", ja: "わたしの ちちです。だいがくの せんせいです。", en: "He's my father. He's a university teacher." }
+        questions:
+          - { q: "Who is the older man Tanaka asks about?", options: ["Mika's father, a university teacher", "Mika's older brother, a student", "Mika's friend, a teacher", "A stranger Mika doesn't know"], answer: "Mika's father, a university teacher" }
+      - { kind: challenge, ja: "あの おじいさんは ろくじゅうごさいだから もう だいがくの せんせいじゃない。", en: "That older man over there is sixty-five, so he's no longer a university teacher", combines: [kono-sono-ano-dono, counter-sai, kara-because, mada-mou, na-adj-negative], mode: build }
+    reviewPool: [ちち, はは, あに, あね, かぞく, ともだち, ひと, がくせい, せんせい, だいがく]
 
   # ═══════════════════════════════════════════════════════════════════════
   - id: m17-neo-review-3
