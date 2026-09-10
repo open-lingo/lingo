@@ -46,12 +46,12 @@
         tiles: ["era", "es"]
       - kind: clozeLit
         id: l8-c-cuandoerasninofuisteescuela
-        es: "cuando eras niño, fuiste mucho a la escuela"
-        en: "When you were a child, you went to school a lot"
-        blank: "fuiste"
-        options: ["fuiste", "ibas"]
-        atoms: ["cuando", "fuiste", "eras", "escuela"]
-        why: "«fuiste» reports the bounded habit as a fact about the whole childhood, not one trip — but it's still the you-preterite, not the ongoing scene «ibas» would give."
+        es: "cuando eras niño, ibas mucho a la escuela"
+        en: "When you were a child, you used to go to school a lot"
+        blank: "ibas"
+        options: ["ibas", "fuiste"]
+        atoms: ["cuando", "ibas", "eras", "escuela"]
+        why: "«mucho» signals a repeated habit — the ongoing scene «ibas» gives. «fuiste» would make it one bounded trip, not something you did over and over."
       - kind: mcq
         id: l8-q-fueeraibacheck
         prompt: "Which one always means 'was going' — the ongoing scene?"

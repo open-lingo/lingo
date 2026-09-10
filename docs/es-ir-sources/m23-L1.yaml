@@ -56,7 +56,7 @@
         why: "«cuando» (no accent) just connects — it isn't asking anything. «¿cuándo?» only ever asks a question."
       - kind: listenCompLit
         id: l1-lc-cuandoerabuenoescuela
-        es: "cuando era niño, era muy bueno en la escuela"
+        es: "cuando yo era niño, era muy bueno en la escuela"
         en: "When I was a child, I was very good at school."
         atoms: ["cuando", "era", "bueno", "escuela"]
         distractorsEn:

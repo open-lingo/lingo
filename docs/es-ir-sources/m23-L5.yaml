@@ -128,7 +128,7 @@
             replyGloss: "Yes, I went with them."
             explanation: "«fui» — the one bounded trip, your own I-ending. «iba» would make it repeated; «voy» slips into now."
           - id: t3
-            npc: { speaker: "Ana", es: "¿Hablaban todos mientras caminaban?", audioText: "¿hablaban todos mientras caminaban?", gloss: "Were they all talking while they walked?" }
+            npc: { speaker: "Ana", es: "¿Hablaban todos mientras iban a la playa?", audioText: "¿hablaban todos mientras iban a la playa?", gloss: "Were they all talking while they were going to the beach?" }
             goal: "Say yes, they were talking."
             reply:
               mode: build

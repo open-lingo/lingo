@@ -45,12 +45,12 @@
         atoms: ["cuando", "iba", "era", "bueno", "escuela"]
       - kind: clozeLit
         id: l6-c-lafiestafuebuenacuandovinodiego
-        es: "la fiesta fue buena, cuando vino Diego"
+        es: "la fiesta era buena, cuando vino Diego"
         en: "The party was good, when Diego came"
-        blank: "fue"
-        options: ["fue", "era"]
-        atoms: ["fue", "vino"]
-        why: "«fue» reports the one bounded verdict — how the party turned out. «era» would make it an ongoing description with no endpoint."
+        blank: "era"
+        options: ["era", "fue"]
+        atoms: ["era", "vino"]
+        why: "«era» paints the party as the ongoing scene Diego's arrival landed inside. «fue» would make the party's whole verdict a bounded event, not the backdrop «cuando vino Diego» is happening in."
       - kind: listenCompLit
         id: l6-lc-diegofuebuenoenlaescuela
         es: "Diego fue muy bueno en la escuela"

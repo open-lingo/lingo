@@ -10,16 +10,15 @@
     steps:
       - kind: map
         id: l4-map-derepentevinodiegoentoncesfuimos
-        tokens: ["de", "repente", "vino", "Diego,", "entonces", "fuimos", "al", "parque"]
+        tokens: ["de repente", "vino", "Diego,", "entonces", "fuimos", "al", "parque"]
         pairs:
           - { en: "suddenly", tokenIndex: 0 }
-          - { en: "(suddenly)", tokenIndex: 1 }
-          - { en: "came", tokenIndex: 2 }
-          - { en: "Diego,", tokenIndex: 3 }
-          - { en: "so", tokenIndex: 4 }
-          - { en: "we went", tokenIndex: 5 }
-          - { en: "to the", tokenIndex: 6 }
-          - { en: "park", tokenIndex: 7 }
+          - { en: "came", tokenIndex: 1 }
+          - { en: "Diego,", tokenIndex: 2 }
+          - { en: "so", tokenIndex: 3 }
+          - { en: "we went", tokenIndex: 4 }
+          - { en: "to the", tokenIndex: 5 }
+          - { en: "park", tokenIndex: 6 }
         audioText: "de repente vino Diego, entonces fuimos al parque"
         revealNote: "«entonces» — then, so — is new: it chains what happened next. «vino» is the first finished event; «entonces» links it to «fuimos», the next one."
       - kind: info

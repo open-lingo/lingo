@@ -154,7 +154,7 @@
             replyGloss: "Then everyone went to the park."
             explanation: "«entonces» chains the next bounded event, and «todos» keeps the they-ending: «fueron», the one trip. «iban» would make it repeated; «mientras» would claim simultaneity, not sequence."
           - id: t4
-            npc: { speaker: "Ana", es: "¿Hablaban ustedes mientras caminaban?", audioText: "¿hablaban ustedes mientras caminaban?", gloss: "Were you all talking while you walked?" }
+            npc: { speaker: "Ana", es: "¿Hablaban ustedes mientras iban a la escuela?", audioText: "¿hablaban ustedes mientras iban a la escuela?", gloss: "Were you all talking while you were going to school?" }
             goal: "Say yes, you were always talking a lot."
             reply:
               mode: build

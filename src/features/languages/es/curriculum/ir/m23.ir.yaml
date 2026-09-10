@@ -194,7 +194,7 @@ lessons:
         why: "«cuando» (no accent) just connects — it isn't asking anything. «¿cuándo?» only ever asks a question."
       - kind: listenCompLit
         id: l1-lc-cuandoerabuenoescuela
-        es: "cuando era niño, era muy bueno en la escuela"
+        es: "cuando yo era niño, era muy bueno en la escuela"
         en: "When I was a child, I was very good at school."
         atoms: ["cuando", "era", "bueno", "escuela"]
         distractorsEn:
@@ -588,16 +588,15 @@ lessons:
     steps:
       - kind: map
         id: l4-map-derepentevinodiegoentoncesfuimos
-        tokens: ["de", "repente", "vino", "Diego,", "entonces", "fuimos", "al", "parque"]
+        tokens: ["de repente", "vino", "Diego,", "entonces", "fuimos", "al", "parque"]
         pairs:
           - { en: "suddenly", tokenIndex: 0 }
-          - { en: "(suddenly)", tokenIndex: 1 }
-          - { en: "came", tokenIndex: 2 }
-          - { en: "Diego,", tokenIndex: 3 }
-          - { en: "so", tokenIndex: 4 }
-          - { en: "we went", tokenIndex: 5 }
-          - { en: "to the", tokenIndex: 6 }
-          - { en: "park", tokenIndex: 7 }
+          - { en: "came", tokenIndex: 1 }
+          - { en: "Diego,", tokenIndex: 2 }
+          - { en: "so", tokenIndex: 3 }
+          - { en: "we went", tokenIndex: 4 }
+          - { en: "to the", tokenIndex: 5 }
+          - { en: "park", tokenIndex: 6 }
         audioText: "de repente vino Diego, entonces fuimos al parque"
         revealNote: "«entonces» — then, so — is new: it chains what happened next. «vino» is the first finished event; «entonces» links it to «fuimos», the next one."
       - kind: info
@@ -857,7 +856,7 @@ lessons:
             replyGloss: "Yes, I went with them."
             explanation: "«fui» — the one bounded trip, your own I-ending. «iba» would make it repeated; «voy» slips into now."
           - id: t3
-            npc: { speaker: "Ana", es: "¿Hablaban todos mientras caminaban?", audioText: "¿hablaban todos mientras caminaban?", gloss: "Were they all talking while they walked?" }
+            npc: { speaker: "Ana", es: "¿Hablaban todos mientras iban a la playa?", audioText: "¿hablaban todos mientras iban a la playa?", gloss: "Were they all talking while they were going to the beach?" }
             goal: "Say yes, they were talking."
             reply:
               mode: build
@@ -927,12 +926,12 @@ lessons:
         atoms: ["cuando", "iba", "era", "bueno", "escuela"]
       - kind: clozeLit
         id: l6-c-lafiestafuebuenacuandovinodiego
-        es: "la fiesta fue buena, cuando vino Diego"
+        es: "la fiesta era buena, cuando vino Diego"
         en: "The party was good, when Diego came"
-        blank: "fue"
-        options: ["fue", "era"]
-        atoms: ["fue", "vino"]
-        why: "«fue» reports the one bounded verdict — how the party turned out. «era» would make it an ongoing description with no endpoint."
+        blank: "era"
+        options: ["era", "fue"]
+        atoms: ["era", "vino"]
+        why: "«era» paints the party as the ongoing scene Diego's arrival landed inside. «fue» would make the party's whole verdict a bounded event, not the backdrop «cuando vino Diego» is happening in."
       - kind: listenCompLit
         id: l6-lc-diegofuebuenoenlaescuela
         es: "Diego fue muy bueno en la escuela"
@@ -1228,12 +1227,12 @@ lessons:
         tiles: ["era", "es"]
       - kind: clozeLit
         id: l8-c-cuandoerasninofuisteescuela
-        es: "cuando eras niño, fuiste mucho a la escuela"
-        en: "When you were a child, you went to school a lot"
-        blank: "fuiste"
-        options: ["fuiste", "ibas"]
-        atoms: ["cuando", "fuiste", "eras", "escuela"]
-        why: "«fuiste» reports the bounded habit as a fact about the whole childhood, not one trip — but it's still the you-preterite, not the ongoing scene «ibas» would give."
+        es: "cuando eras niño, ibas mucho a la escuela"
+        en: "When you were a child, you used to go to school a lot"
+        blank: "ibas"
+        options: ["ibas", "fuiste"]
+        atoms: ["cuando", "ibas", "eras", "escuela"]
+        why: "«mucho» signals a repeated habit — the ongoing scene «ibas» gives. «fuiste» would make it one bounded trip, not something you did over and over."
       - kind: mcq
         id: l8-q-fueeraibacheck
         prompt: "Which one always means 'was going' — the ongoing scene?"
@@ -1635,7 +1634,7 @@ lessons:
             replyGloss: "Then everyone went to the park."
             explanation: "«entonces» chains the next bounded event, and «todos» keeps the they-ending: «fueron», the one trip. «iban» would make it repeated; «mientras» would claim simultaneity, not sequence."
           - id: t4
-            npc: { speaker: "Ana", es: "¿Hablaban ustedes mientras caminaban?", audioText: "¿hablaban ustedes mientras caminaban?", gloss: "Were you all talking while you walked?" }
+            npc: { speaker: "Ana", es: "¿Hablaban ustedes mientras iban a la escuela?", audioText: "¿hablaban ustedes mientras iban a la escuela?", gloss: "Were you all talking while you were going to school?" }
             goal: "Say yes, you were always talking a lot."
             reply:
               mode: build
