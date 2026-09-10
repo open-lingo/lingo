@@ -1,0 +1,23 @@
+placement:
+  screener:
+    - id: "es-m27-scr-1"
+      prompt: "'As a child, it was very cold.' — which one?"
+      correct: "de niño, hacía mucho frío"
+      distractors: ["de niño, hace mucho frío", "de niño, hacía mucho calor", "de niño, hacían mucho frío"]
+  byModule:
+    - id: "es-m27-pl-1"
+      prompt: "It's raining, and I don't like the rain."
+      correct: "hay lluvia, y no me gusta la lluvia"
+      distractors: ["hay lluvia, y no me gusta el lluvia", "había lluvia, y no me gusta la lluvia", "hay lluvia, y no te gusta la lluvia"]
+    - id: "es-m27-pl-2"
+      prompt: "It's very windy, and there's also snow."
+      correct: "hay mucho viento, y también hay nieve"
+      distractors: ["hay mucho viento, y también hay lluvia", "hace mucho viento, y también hay nieve", "había mucho viento, y también hay nieve"]
+    - id: "es-m27-pl-3"
+      prompt: "It's cloudy, that's why we didn't go to the beach."
+      correct: "está nublado, por eso no fuimos a la playa"
+      distractors: ["está nublada, por eso no fuimos a la playa", "estaba nublado, por eso no fuimos a la playa", "está nublado, porque no fuimos a la playa"]
+    - id: "es-m27-pl-4"
+      prompt: "Today it's sunny and it's not cold, but as a child it was always very cold."
+      correct: "hoy hace sol y no hace frío, pero de niño siempre hacía mucho frío"
+      distractors: ["hoy hace sol y no hace frío, pero de niño siempre hace mucho frío", "hoy hacía sol y no hace frío, pero de niño siempre hacía mucho frío", "hoy hace sol y no hace calor, pero de niño siempre hacía mucho frío"]

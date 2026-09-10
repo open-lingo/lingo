@@ -37,6 +37,7 @@ import { ES_M23_LESSONS } from "./m23";
 import { ES_M24_LESSONS } from "./m24";
 import { ES_M25_LESSONS } from "./m25";
 import { ES_M26_LESSONS } from "./m26";
+import { ES_M27_LESSONS } from "./m27";
 
 export type EsModuleMeta = {
   id: string;
@@ -218,7 +219,14 @@ export const ES_MODULE_META: EsModuleMeta[] = [
     eyebrow: "Module 26 · Vivía, comía, estudiaba",
     summary: "the imperfect's trick, a third time — vivir, comer, estudiar, trabajar, and salir slot into the same -aba/-ía pattern «tenía» and «estaba» already taught you, and now, for the first time, every one of them has a matching preterite to contrast against.",
     accent: { from: "#22d3ee", to: "#0891b2" },
+  },  {
+    id: "m27",
+    title: "Hace sol, hace frío",
+    eyebrow: "Module 27 · Hace sol, hace frío",
+    summary: "seven new weather words — sun, rain, wind, snow, cloudy, heat, cold — slotting into sentence patterns you already own: «hace», «hay», «está», now describing the sky instead of a place.",
+    accent: { from: "#eab308", to: "#a16207" },
   },
+
 
 
 
@@ -258,6 +266,7 @@ const LESSONS_BY_MODULE: Record<string, LessonContent[]> = {
   m24: ES_M24_LESSONS,
   m25: ES_M25_LESSONS,
   m26: ES_M26_LESSONS,
+  m27: ES_M27_LESSONS,
 };
 
 /** Flat lesson list for the shared LESSONS content index (mockLessons.ts). */

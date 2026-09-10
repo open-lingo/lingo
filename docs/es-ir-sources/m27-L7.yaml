@@ -1,0 +1,136 @@
+  # ── L7 · «No hace calor, hace frío» — NO new atoms. Pure negation
+  #    recombination across all 7 weather words, all with PRIOR «no» (m1).
+  #    By design, no question sentence appears anywhere in this lesson
+  #    (declarative statements only, sim included) — negation stands on its
+  #    own without needing a question to answer. Carries one recall.
+  - n: 7
+    template: free
+    title: "No hace calor, hace frío"
+    description: "Every weather word, negated: «no» (PRIOR, m1) plus each frame you already own. No new words — just recombination."
+    steps:
+      - kind: map
+        id: l7-map-nohacecalor
+        tokens: ["no", "hace", "calor"]
+        pairs:
+          - { en: "not", tokenIndex: 0 }
+          - { en: "it is (weather)", tokenIndex: 1 }
+          - { en: "heat", tokenIndex: 2 }
+        audioText: "no hace calor"
+        revealNote: "«no» in front of «hace calor» — same negation you've used since m1, now on a weather frame."
+      - kind: speakLit
+        id: l7-sp-nohaysolhoy
+        es: "no hay sol hoy"
+        en: "There's no sun today"
+        atoms: ["no", "hay", "el sol", "hoy"]
+      - kind: buildLit
+        id: l7-b-nohaylluviahoy
+        es: "no hay lluvia hoy"
+        en: "There's no rain today"
+        atoms: ["no", "hay", "la lluvia", "hoy"]
+        tiles: ["estaba", "hace"]
+      - kind: clozeLit
+        id: l7-c-noestanublado
+        es: "no está nublado"
+        en: "It's not cloudy"
+        blank: "está"
+        options: ["está", "hay"]
+        atoms: ["no", "está", "nublado"]
+        why: "«nublado» pairs with «está» (PRIOR, m4), never «hay» — the same frame as always, just negated."
+      - kind: listenCompLit
+        id: l7-lc-nonievepeoviento
+        es: "no hay nieve, pero hay viento"
+        en: "There's no snow, but it's windy."
+        atoms: ["no", "hay", "la nieve", "pero", "hay", "el viento"]
+        distractorsEn:
+          - "There's no wind, but there's snow."
+          - "There's no snow, and there's no wind either."
+          - "There was no snow, but it was windy."
+      - kind: mcq
+        id: l7-q-nohayviento
+        prompt: "Which one means 'there's no wind'?"
+        correct: "no hay viento"
+        distractors: ["no hay nieve", "no hace viento", "no hacía viento"]
+        atoms: ["no", "hay", "el viento"]
+        why: "«el viento» pairs with «hay» (PRIOR, m3), not «hace» — negated the same way."
+      # Printed non-recall at L3 (es-m27-3-l3-sp-win).
+      - kind: speakLit
+        id: l7-sp-recall-l3win
+        es: "hay mucho viento, y también hay nieve"
+        en: "It's very windy, and there's also snow"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l7-ear-escuela
+        target: { surface: "la escuela", emoji: "🏫" }
+        distractors:
+          - { surface: "el museo", emoji: "🏛️" }
+          - { surface: "la tienda", emoji: "🏪" }
+      - kind: agreementLit
+        id: l7-agr-nocalorsifrio
+        en: "It's not hot, it's cold"
+        audioText: "no hace calor, hace frío"
+        atoms: ["no", "hace", "el calor", "el frío"]
+        segments:
+          - { text: "no hace " }
+          - { blank: { id: "p1", answer: "calor", options: ["calor", "frío"] } }
+          - { text: ", hace " }
+          - { blank: { id: "p2", answer: "frío", options: ["frío", "calor"] } }
+      - kind: listenBuildLit
+        id: l7-lb-noestanubladohoy
+        es: "no está nublado hoy"
+        en: "It's not cloudy today"
+        atoms: ["no", "está", "nublado", "hoy"]
+        tiles: ["hacía", "estaba"]
+      - kind: textMcq
+        id: l7-tm-no
+        target: "no"
+        distractors: ["muy", "hay", "hace"]
+      - kind: sim
+        id: l7-sim-ana-negacion
+        scene: { emoji: "🥶", title: "Ana talks about today's weather", setting: "Ana tells you what the weather is like, statement by statement." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "Hoy no hace mucho calor.", audioText: "hoy no hace mucho calor.", gloss: "Today it's not very hot." }
+            goal: "Say yes, it's cold."
+            reply:
+              mode: build
+              tiles: ["sí", "hace", "frío", "calor"]
+              answer: "sí hace frío"
+            replyGloss: "Yes, it's cold."
+            explanation: "«hace frío» — same impersonal «hace», simple confirmation."
+          - id: t2
+            npc: { speaker: "Ana", es: "No hay sol hoy, está nublado.", audioText: "no hay sol hoy, está nublado.", gloss: "There's no sun today, it's cloudy." }
+            goal: "Agree, and say you don't like it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, no me gusta" }
+                - { id: "wrong1", text: "sí, no te gusta" }
+                - { id: "wrong2", text: "sí, no me gustan" }
+              correctOptionId: "right"
+              audioText: "sí, no me gusta"
+            replyGloss: "Yes, I don't like it."
+            explanation: "Talking about yourself: «no me gusta», not «no te gusta» (that would talk about Ana)."
+          - id: t3
+            npc: { speaker: "Ana", es: "A Diego no le gusta el frío.", audioText: "a diego no le gusta el frío.", gloss: "Diego doesn't like the cold." }
+            goal: "Say Diego likes sun, not rain."
+            reply:
+              mode: build
+              tiles: ["a", "diego", "le", "gusta", "el", "sol", "pero", "no", "le", "gusta", "la", "lluvia"]
+              answer: "a diego le gusta el sol pero no le gusta la lluvia"
+            replyGloss: "Diego likes the sun, but not the rain."
+            explanation: "«pero» (PRIOR, m6) links the two — «le gusta» stays the same, only «no» changes what follows."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "no hay sol", target: "there's no sun" }
+          - { source: "no hace calor", target: "it's not hot" }
+          - { source: "no está nublado", target: "it's not cloudy" }
+          - { source: "no me gusta", target: "I don't like" }
+          - { source: "pero", target: "but" }
+          - { source: "hoy", target: "today" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "no hace calor, hace frío, y no me gusta"
+        en: "It's not hot, it's cold, and I don't like it"
+        atoms: ["no", "hace", "el calor", "hace", "el frío", "no", "me gusta"]

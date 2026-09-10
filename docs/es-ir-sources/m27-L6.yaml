@@ -1,0 +1,145 @@
+  # ── L6 · «Está nublado, por eso...» — nublado debuts via info+buildLit
+  #    (NOT imageMcq — an impersonal weather adjective, nothing to picture;
+  #    see brief hard rule 1 exception). PRIOR «está» (m4), «estaba» (m24
+  #    imperfect), «cuando»/«mientras» (m23), «porque»/«por eso» (m25),
+  #    «fuimos»/«no fuimos» (m21). Heavy recombination lesson: two recalls.
+  #    «nublado» never takes gender/number — always this one form, since
+  #    «está nublado» has no subject to agree with (same impersonal shape
+  #    as «hace calor»/«hay sol»).
+  - n: 6
+    template: free
+    title: "Está nublado, por eso..."
+    description: "«nublado» — cloudy, with the PRIOR «está» (m4) and its imperfect «estaba» (m24). Always one form: impersonal, nothing to agree with."
+    steps:
+      - kind: map
+        id: l6-map-hoyestanublado
+        tokens: ["hoy", "está", "nublado"]
+        pairs:
+          - { en: "today", tokenIndex: 0 }
+          - { en: "it is (state)", tokenIndex: 1 }
+          - { en: "cloudy", tokenIndex: 2 }
+        audioText: "hoy está nublado"
+        revealNote: "«está» (m4) plus this module's own «nublado» — cloudy. Impersonal, just like «hace calor»: one form, always."
+      - kind: info
+        id: l6-info-nublado
+        title: "Nublado — always one form"
+        body: "«nublado» never changes: no «nublada», no «nublados». «está nublado» has no subject, so nothing to agree with — same shape as «hace calor»."
+      - kind: buildLit
+        id: l6-b-estamuynubladohoy
+        es: "está muy nublado hoy"
+        en: "It's very cloudy today"
+        atoms: ["está", "muy", "nublado", "hoy"]
+        tiles: ["estaba", "hace"]
+      - kind: clozeLit
+        id: l6-c-ayerestabanublado
+        es: "ayer estaba nublado"
+        en: "Yesterday it was cloudy"
+        blank: "estaba"
+        options: ["estaba", "está"]
+        atoms: ["ayer", "estaba", "nublado"]
+        why: "«ayer» (PRIOR, m21) points at the past, so the imperfect «estaba» (PRIOR, m24), not «está»."
+      - kind: listenCompLit
+        id: l6-lc-nubladocuandofuimos
+        es: "estaba nublado cuando fuimos a la playa"
+        en: "It was cloudy when we went to the beach."
+        atoms: ["estaba", "nublado", "cuando", "fuimos", "playa"]
+        distractorsEn:
+          - "It was sunny when we went to the beach."
+          - "It's cloudy when we go to the beach."
+          - "It was cloudy, but we didn't go to the beach."
+      - kind: mcq
+        id: l6-q-nublado
+        prompt: "Which one means 'cloudy'?"
+        correct: "nublado"
+        distractors: ["lluvia", "viento", "calor"]
+        atoms: ["nublado"]
+        why: "«nublado» is cloudy. «lluvia»/«viento»/«calor» are other weather words from this module."
+      # Printed non-recall at L1 (es-m27-1-l1-sp-win).
+      - kind: speakLit
+        id: l6-sp-recall-l1win
+        es: "hoy hay sol, y me gusta el sol"
+        en: "Today it's sunny, and I like the sun"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l6-ear-fiesta
+        target: { surface: "la fiesta", emoji: "🎉" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "el museo", emoji: "🏛️" }
+      # Printed non-recall at L5 (es-m27-5-l5-sp-win).
+      - kind: speakLit
+        id: l6-sp-recall-l5win
+        es: "no hace calor, hace un poco de frío"
+        en: "It's not hot, it's a little cold"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l6-agr-estabanubladohaciafrio
+        en: "It was cloudy, and it was cold"
+        audioText: "estaba nublado, y hacía frío"
+        atoms: ["estaba", "nublado", "hacía", "el frío"]
+        segments:
+          - { blank: { id: "p1", answer: "estaba", options: ["estaba", "hacía"] } }
+          - { text: " nublado, y " }
+          - { blank: { id: "p2", answer: "hacía", options: ["hacía", "estaba"] } }
+          - { text: " frío" }
+      - kind: listenBuildLit
+        id: l6-lb-poresonofuimosplaya
+        es: "por eso no fuimos a la playa"
+        en: "That's why we didn't go to the beach"
+        atoms: ["por eso", "no", "fuimos", "playa"]
+        tiles: ["porque", "íbamos"]
+      - kind: textMcq
+        id: l6-tm-nublado
+        target: "nublado"
+        distractors: ["son", "muy", "está"]
+      - kind: sim
+        id: l6-sim-ana-nublado
+        scene: { emoji: "☁️", title: "Ana asks about the beach plan", setting: "Ana wants to know why you and Diego didn't go to the beach yesterday." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Fuimos a la playa ayer?", audioText: "¿fuimos a la playa ayer?", gloss: "Did we go to the beach yesterday?" }
+            goal: "Say no, it was cloudy."
+            reply:
+              mode: build
+              tiles: ["no", "estaba", "nublado", "hacía"]
+              answer: "no estaba nublado"
+            replyGloss: "No, it was cloudy."
+            explanation: "«estaba nublado» — the imperfect (m24), an ongoing scene, not one event."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Estaba nublado ayer?", audioText: "¿estaba nublado ayer?", gloss: "Was it cloudy yesterday?" }
+            goal: "Say yes, that's why we didn't go."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, por eso no fuimos" }
+                - { id: "wrong1", text: "sí, porque no fuimos" }
+                - { id: "wrong2", text: "sí, está nublado, por eso no fuimos" }
+              correctOptionId: "right"
+              audioText: "sí, por eso no fuimos"
+            replyGloss: "Yes, that's why we didn't go."
+            explanation: "The reason («estaba nublado») already came first, so «por eso» (PRIOR, m25) follows it — «porque» would need to come before the reason instead."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Hace calor hoy?", audioText: "¿hace calor hoy?", gloss: "Is it hot today?" }
+            goal: "Say no, it's cold and cloudy."
+            reply:
+              mode: build
+              tiles: ["no", "no", "hace", "calor", "hace", "frío", "y", "está", "nublado", "hacía"]
+              answer: "no no hace calor hace frío y está nublado"
+            replyGloss: "No, it's not hot, it's cold, and it's cloudy."
+            explanation: "Three impersonal frames side by side: «hace frío» and «está nublado» — each keeps its own PRIOR verb."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "nublado", target: "cloudy" }
+          - { source: "estaba", target: "it was (state)" }
+          - { source: "por eso", target: "that's why" }
+          - { source: "cuando", target: "when" }
+          - { source: "ayer", target: "yesterday" }
+          - { source: "fuimos", target: "we went" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "estaba nublado, por eso no fuimos a la playa"
+        en: "It was cloudy, that's why we didn't go to the beach"
+        atoms: ["estaba", "nublado", "por eso", "no", "fuimos", "playa"]

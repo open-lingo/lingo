@@ -491,4 +491,11 @@ export const ES_REVIEW_POOL: EsReviewEntry[] = [
   { surface: "salías", gloss: "you (tú) were leaving/going out", kind: "vocab", fromModule: "m26", partOfSpeech: "verb" },
   { surface: "salíamos", gloss: "we were leaving/going out, we used to go out", kind: "vocab", fromModule: "m26", partOfSpeech: "verb" },
   { surface: "salían", gloss: "they were leaving/going out, you all were leaving/going out", kind: "vocab", fromModule: "m26", partOfSpeech: "verb" },
+  { surface: "el sol", gloss: "the sun", kind: "vocab", fromModule: "m27", partOfSpeech: "noun" },
+  { surface: "la lluvia", gloss: "the rain", kind: "vocab", fromModule: "m27", partOfSpeech: "noun" },
+  { surface: "el viento", gloss: "the wind", kind: "vocab", fromModule: "m27", partOfSpeech: "noun" },
+  { surface: "la nieve", gloss: "the snow", kind: "vocab", fromModule: "m27", partOfSpeech: "noun" },
+  { surface: "nublado", gloss: "cloudy", kind: "vocab", fromModule: "m27", partOfSpeech: "adjective" },
+  { surface: "el calor", gloss: "the heat", kind: "vocab", fromModule: "m27", partOfSpeech: "noun" },
+  { surface: "el frío", gloss: "the cold", kind: "vocab", fromModule: "m27", partOfSpeech: "noun" },
 ];

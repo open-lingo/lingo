@@ -1,0 +1,143 @@
+  # ── L4 · «Hace calor» — el calor debuts on imageMcq. First lesson to use
+  #    the «hace» + heat/cold idiom (PRIOR «hace», m15, hacer 3rd-person —
+  #    previewed generally on L1's info card). NOT a new verb form: same
+  #    «hace» you already own, now impersonal (no subject), exactly like
+  #    «hay» was impersonal for sol/lluvia/viento/nieve. Carries one recall.
+  - n: 4
+    template: free
+    title: "Hace calor"
+    description: "«el calor» — the heat, with the PRIOR «hace» (m15) now impersonal: «hace calor», it's hot. Same verb, no subject to agree with."
+    steps:
+      - kind: map
+        id: l4-map-hacemuchocalor
+        tokens: ["hace", "mucho", "calor"]
+        pairs:
+          - { en: "it is (weather)", tokenIndex: 0 }
+          - { en: "a lot of", tokenIndex: 1 }
+          - { en: "heat", tokenIndex: 2 }
+        audioText: "hace mucho calor"
+        revealNote: "«hace» — the same word from m15 («ana hace la tarea»), now with no subject: «hace calor», it's hot. This module's own «calor»."
+      - kind: imageMcq
+        id: l4-im-calor
+        target: { surface: "el calor", meaningEn: "the heat", emoji: "🥵" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la tienda", emoji: "🏪" }
+      - kind: speakLit
+        id: l4-sp-hacemuchocalorhoy
+        es: "hace mucho calor hoy"
+        en: "It's very hot today"
+        atoms: ["hace", "mucho", "el calor", "hoy"]
+      - kind: buildLit
+        id: l4-b-enmexicohacecalor
+        es: "en México, siempre hace calor"
+        en: "In Mexico, it's always hot"
+        atoms: ["México", "siempre", "hace", "el calor"]
+        tiles: ["estaba", "hay"]
+      - kind: clozeLit
+        id: l4-c-diegonolegustacalor
+        es: "a Diego no le gusta el calor"
+        en: "Diego doesn't like the heat"
+        blank: "le"
+        options: ["le", "te"]
+        atoms: ["le", "gusta", "el calor"]
+        why: "«le» — talking about Diego (PRIOR, m13). «te» would talk to you instead."
+      - kind: listenCompLit
+        id: l4-lc-hacecalorplaya
+        es: "hace mucho calor en la playa"
+        en: "It's very hot at the beach."
+        atoms: ["hace", "mucho", "el calor", "playa"]
+        distractorsEn:
+          - "It was very hot at the beach."
+          - "It's very windy at the beach."
+          - "It's a little hot at the beach."
+      - kind: mcq
+        id: l4-q-elcalor
+        prompt: "Which one means 'the heat'?"
+        correct: "el calor"
+        distractors: ["el sol", "el viento", "la nieve"]
+        atoms: ["el calor"]
+        why: "«el calor» is the heat. «el sol»/«el viento»/«la nieve» are all other weather words from this module."
+      # Printed non-recall at L3 (es-m27-3-l3-sp-win).
+      - kind: speakLit
+        id: l4-sp-recall-l3win
+        es: "hay mucho viento, y también hay nieve"
+        en: "It's very windy, and there's also snow"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l4-ear-parque
+        target: { surface: "el parque", emoji: "🌳" }
+        distractors:
+          - { surface: "la tienda", emoji: "🏪" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: agreementLit
+        id: l4-agr-megustatecalor
+        en: "I like the heat, and you like it too"
+        audioText: "me gusta el calor, y te gusta también"
+        atoms: ["me gusta", "el calor", "te gusta", "también"]
+        segments:
+          - { blank: { id: "p1", answer: "me", options: ["me", "te"] } }
+          - { text: " gusta el calor, y " }
+          - { blank: { id: "p2", answer: "te", options: ["te", "me"] } }
+          - { text: " gusta también" }
+      - kind: listenBuildLit
+        id: l4-lb-samlegustacalor
+        es: "a Sam le gusta el calor"
+        en: "Sam likes the heat"
+        atoms: ["le", "gusta", "el calor"]
+        tiles: ["gustan", "hay"]
+      - kind: textMcq
+        id: l4-tm-calor
+        target: "el calor"
+        distractors: ["son", "muy", "hace"]
+      - kind: sim
+        id: l4-sim-ana-calor
+        scene: { emoji: "🥵", title: "Ana talks about the heat", setting: "Ana wants to know what the weather is like where you are." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Hace mucho calor hoy?", audioText: "¿hace mucho calor hoy?", gloss: "Is it very hot today?" }
+            goal: "Say yes, it's very hot."
+            reply:
+              mode: build
+              tiles: ["sí", "hace", "mucho", "calor", "hay"]
+              answer: "sí hace mucho calor"
+            replyGloss: "Yes, it's very hot."
+            explanation: "«hace» plus «calor» — impersonal, no subject to agree with, just like «hay sol»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Te gusta el calor?", audioText: "¿te gusta el calor?", gloss: "Do you like the heat?" }
+            goal: "Say no, you don't like the heat."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, no me gusta el calor" }
+                - { id: "wrong1", text: "no, no te gusta el calor" }
+                - { id: "wrong2", text: "no, no me gustan el calor" }
+              correctOptionId: "right"
+              audioText: "no, no me gusta el calor"
+            replyGloss: "No, I don't like the heat."
+            explanation: "Talking about yourself: «no me gusta», not «no te gusta» (that would talk about Ana). «el calor» is one thing, so «gusta», never «gustan»."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y a Diego? ¿Le gusta el calor?", audioText: "¿y a diego? ¿le gusta el calor?", gloss: "And Diego? Does he like the heat?" }
+            goal: "Say yes, Diego likes the heat a lot."
+            reply:
+              mode: build
+              tiles: ["sí", "a", "diego", "le", "gusta", "mucho", "el", "calor", "te"]
+              answer: "sí a diego le gusta mucho el calor"
+            replyGloss: "Yes, Diego likes the heat a lot."
+            explanation: "«a Diego le gusta» — the PRIOR (m13) pattern for someone else liking something, «le» unchanged."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "el calor", target: "the heat" }
+          - { source: "hace", target: "it is (weather)" }
+          - { source: "el viento", target: "the wind" }
+          - { source: "la nieve", target: "the snow" }
+          - { source: "hoy", target: "today" }
+          - { source: "también", target: "also, too" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "hace mucho calor hoy"
+        en: "It's very hot today"
+        atoms: ["hace", "mucho", "el calor", "hoy"]

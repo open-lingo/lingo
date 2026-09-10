@@ -1,0 +1,1744 @@
+module: m27
+title: "Hace sol, hace frío"
+frame: none
+throughModule: m26
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m27 — the weather. Ninth A2 module.
+#
+#     el sol      🌞   la lluvia   🌧️
+#     el viento   💨   la nieve    ❄️
+#     nublado     ☁️   (predicate, "it's cloudy" — impersonal, no agreement)
+#     el calor    🥵   el frío     🥶
+#
+# ONE idea, the whole module: SEVEN new imageable weather words, zero new
+# grammar. Every sentence frame this module needs is already registered —
+# «hace» (m15, "makes/does," reused in its idiomatic weather sense "hace
+# calor/frío"), «hacía» (m24, imperfect, "hacía mucho frío de niño"), «está»
+# (m4, "is [somewhere]," reused for a weather STATE, "está nublado"),
+# «estaba» (m24, imperfect, "estaba nublado"), «hay» (m3, "there is/are,"
+# "hay viento/nieve"), «me gusta»/«te gusta» (m7/m13, "me gusta el sol").
+# This is the first module since m18/m20 whose new idea is imageable
+# NOUN vocabulary, not a verb-range or connective expansion — and the
+# first imageMcq debut since m20.
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# Three lines of evidence:
+#   1. **The vocabulary gap is the sharpest open gap in the course, and it
+#      has been silently compounding.** Grep-verified: m19, m21, m22, m23,
+#      m24, m25, m26 — SEVEN consecutive modules — shipped zero new
+#      imageable nouns and zero new emoji (each one's own header says so
+#      explicitly, "same precedent as m19/m21/…"). Every narrative sentence
+#      since m19 draws on the same ~10 PRIOR places-with-emoji (la fiesta,
+#      el cine, la playa, la escuela, el trabajo, casa, el parque, el
+#      museo, el mercado, la tienda) recombined under new grammar. CLAUDE.md's
+#      stated aim is "lessons a learner can actually reason through" — that
+#      demands fresh CONTENT to reason about, not just fresh mechanics to
+#      apply to the same ten nouns a ninth time. No prior module named this
+#      gap explicitly, but every one of the seven RECORDED shipping zero new
+#      nouns as a precedent, not a plan — the gap was accumulating, unnamed,
+#      the whole time.
+#   2. **It IS this module's interleave break, and does more than a
+#      manufactured one would.** [[interleave-dont-block-teach]]: split a
+#      repetitive family across lessons with unrelated breaks between.
+#      m22→m23→m24→m25→m26 already leaned on this once (m25's causal
+#      connectives broke the m22/m24/m26 imperfect-wave streak at the
+#      module level) — but m26 immediately resumed the SAME mechanic
+#      (wave 3) right after that one break, and an eighth-remaining-verb
+#      "wave 4" (cocinar/escribir/comprar) directly off the back of m26
+#      would be the imperfect mechanic FOUR of the last five modules,
+#      the exact fatigue pattern m25's own header warned against. A
+#      vocabulary module is a genuine break in KIND (nouns, not verb
+#      paradigms or connectives), not just a different verb set.
+#   3. **Verified data floor, and it's clean.** Grep-verified zero hits for
+#      sol, lluvia, viento, nieve, nublado, calor, frío, soleado, tiempo,
+#      llueve, nieva, invierno/verano/primavera/otoño anywhere in
+#      m1–m26 (`grep -o 'surface: "[^"]*"'
+#      src/features/languages/es/curriculum/m{1..26}.ts | sort -u`). The
+#      sentence frames this module needs — «hace»/«hacía» (m15/m24),
+#      «está»/«estaba» (m4/m24), «hay» (m3), «me gusta»/«te gusta»
+#      (m7/m13) — are ALL already registered; zero new verb morphology,
+#      zero new tense, the lightest grammar footprint since m25.
+#
+# ── REJECTED ALTERNATIVE 1: a fourth imperfect wave (cocinar, escribir,
+# comprar) ──────────────────────────────────────────────────────────────
+# `m24-header.yaml`'s "WHICH FIVE" section and `m26-header.yaml`'s "WHICH
+# FIVE OF THE EIGHT" section both named these three explicitly as a
+# possible next wave, fully data-ready (grep-verified again here: zero
+# hits for cocinaba/escribía/compraba anywhere in m1–m26).  Rejected for
+# m27 on the same fatigue ground m25's own header used against itself:
+# m22 (wave 1) → m24 (wave 2) → m26 (wave 3) already delivered the full
+# arc [[drafting-coverage-not-volume]] argues for (five, then five, then
+# five — completeness without cramming); a fourth wave of only three
+# verbs directly off m26, with no module-level break at all this time
+# (unlike m25's break before m26), would be the SAME mechanic in
+# consecutive modules — the one pattern every wave's own header has
+# explicitly avoided so far. The three verbs remain fully data-ready and
+# cost nothing by waiting — named here again as a possible FUTURE wave,
+# not manufactured.
+#
+# ── REJECTED ALTERNATIVE 2: register the bare infinitive «ir» ─────────────
+# `docs/handoff-2026-09-10-overnight-authoring.md` (08:06 entry, also
+# carried forward as a live warning in `m26-header.yaml`) records that
+# «ir» is printed as text throughout m11–m26 but was never registered via
+# `atom()` — a real follow-on, but not a MODULE. It is a one-line registry
+# fix (add `atom({ surface: "ir", ... })` to whichever module first prints
+# it, then verify no downstream `atoms:` array was silently relying on its
+# absence) with no ten-lesson content shape, no new idea for a learner to
+# reason through, and no checkpoint. Filing it as m27 would manufacture
+# lesson content around a bookkeeping fix — exactly backwards. Stays open
+# as a small hygiene task for whichever module next touches «ir» in a
+# build/cloze answer position, not this module's job.
+#
+# ── REJECTED ALTERNATIVE 3: a consolidation/narration module ──────────────
+# `m25-header.yaml`'s "REJECTED ALTERNATIVE 2" already rejected this once,
+# on the ground that no backlog signal supports a whole module of pure
+# review (m19–m26 being unwalked is Spencer's QA debt, not a content gap
+# a new module closes) and that this course's consolidation precedent is a
+# single LESSON inside a content module (m22-L9, m24-L9, m26-L9), never a
+# module-sized unit. That reasoning is unchanged and still binding — but
+# the *pressure* behind this alternative (three imperfect waves in four
+# content-shaped modules, m22/m24/m26, argues for SOME kind of break) is
+# real and is exactly what evidence line 2 above answers: this module
+# supplies the break, in a form that also adds new content instead of
+# spending ten lessons re-drilling old sentences. A pure-review module
+# would satisfy interleave and nothing else; this module satisfies
+# interleave AND the seven-module vocabulary gap. Strictly dominates the
+# consolidation alternative on the same reasoning m25 already used to
+# reject it, so not attempted.
+#
+# ── WHICH SEVEN WORDS, AND WHY NOT SEASONS OR "¿QUÉ TIEMPO HACE?"
+# (decision) ────────────────────────────────────────────────────────────
+# Weather nouns/predicates were chosen over an alternative vocabulary
+# domain (clothing is already PRIOR since m12/m16; food is heavily PRIOR
+# since m7/m11/m13; body parts partially PRIOR since m17) specifically
+# because weather is the one common A2 lexical set that is BOTH fully
+# unregistered AND slots into sentence frames the course already owns
+# (hace/hacía, está/estaba, hay, gustar) with zero new grammar — see
+# evidence line 3. Two adjacent temptations were deliberately cut:
+#   1. **Seasons (invierno, verano, primavera, otoño) are NOT included.**
+#      Real A2 content, fully data-ready (grep-verified, zero hits), and a
+#      natural companion set — but adding four more nouns on top of seven
+#      would push this module toward the "eight verbs in one module"
+#      failure `m26-header.yaml`'s own "REJECTED ALTERNATIVE 1" warned
+#      against for a DIFFERENT module (thinning debut room per
+#      [[drafting-coverage-not-volume]]). Left as a natural FUTURE
+#      companion module ("en invierno" as a time-frame, parallel to how
+#      «de niño» already frames the imperfect) — not manufactured here.
+#   2. **No «¿qué tiempo hace?» question form.** The natural "what's the
+#      weather" question needs a free-standing «qué», which has never been
+#      registered (grep-verified, zero hits — `m25-header.yaml`'s own
+#      "WHICH TWO ATOMS" section already established this: m3's «¿qué
+#      es?» is a fixed MULTI-word atom, not a decomposable «qué»). Minting
+#      «qué» as a free-standing interrogative would be a second new idea
+#      (a genuine question-formation atom), not a natural extension of a
+#      vocabulary module — the identical reasoning m25 used to exclude
+#      «¿por qué?». Stays open for a future module, same status «¿por
+#      qué?» still holds.
+#   3. **No «llueve»/«nieva» (impersonal weather verbs for rain/snow).**
+#      Real Spanish, and genuinely simple (3rd-person-only, no paradigm) —
+#      but still a NEW VERB atom, which this module's own "zero new verb
+#      morphology" framing (evidence line 3) deliberately avoids. «la
+#      lluvia» and «la nieve» are taught as NOUNS instead («hay lluvia»/
+#      «hay nieve», reusing PRIOR «hay» m3) — a deliberate simplification,
+#      named explicitly so a drafting agent doesn't reach for the more
+#      idiomatic-but-ungated verb forms. «lloviendo»/«nevando» are doubly
+#      excluded — pin E7 (no progressive) would ban them outright even if
+#      the base verbs were registered.
+#   4. **«soleado» (sunny, adjective) is NOT included, though it was
+#      considered.** «nublado» (cloudy) is kept — it pairs with «está»/
+#      «estaba» exactly like a location does, and has a clean, unambiguous
+#      emoji (☁️). «soleado» was cut for an IMAGE-DISAMBIGUATION reason,
+#      not a grammar one: every candidate emoji for "sunny" (⛅, 🌤️) mixes
+#      a sun glyph with a cloud glyph, reading as visually indistinguishable
+#      from «nublado»'s own ☁️ in a 4-option imageMcq grid — the authoring
+#      guide's own ceiling rule ("bad image is worse than no image," §13.2)
+#      argues against it. "It's sunny" is fully expressible without a new
+#      atom: «hay sol» (PRIOR «hay» + this module's own «sol»).
+#
+# ── NO NEW VERB MORPHOLOGY, NO NEW TENSE, NO PROGRESSIVE ───────────────────
+# Zero new verb atoms this module. «hace»/«haces» (m15), «hacía» family
+# (m24), «está» (m4), «estamos»/«están» (m18), «estaba» family (m24),
+# «hay» (m3), «gusta»/«gustan»/«me gusta»/«te gusta» (m7/m13) are ALL
+# PRIOR and this module's only job is pairing them with seven new nouns/
+# one new predicate adjective. Pin E7 (no progressive) is unaffected —
+# named above only because «lloviendo»/«nevando» might otherwise tempt a
+# drafting agent reaching for a "more natural" phrasing.
+#
+# ── SEMANTIC EXTENSION, NAMED EXPLICITLY: «está»'S PRIOR GLOSS IS
+# "IS (SOMEWHERE)" — THIS MODULE GENERALIZES IT TO A WEATHER STATE ────────
+# «está» was registered at m4 glossed narrowly as "is (somewhere)" — a
+# LOCATION sense («la mesa está aquí»). «está nublado» is a STATE sense
+# (impersonal, no location, no explicit subject) — the same verb, a
+# natural adjacent use any Spanish course teaches, but NOT literally the
+# registered gloss. Not a homograph (no OTHER course word collides), but
+# drafting agents should not claim «está nublado» "reuses the m4 meaning"
+# in a rule card — it reuses the WORD, extends the SENSE. Same treatment
+# «como» (I eat, m11) vs a hypothetical causal «como» would have needed
+# had m25 gone the other way — except here the extension is legitimate
+# Spanish, not a collision, so no ban is needed, only an honest gloss.
+#
+# ── NO NEW EMOJI COLLISION — VERIFIED AGAINST EVERY PRIOR EMOJI ───────────
+# Grep-verified (`grep -o 'emoji: "[^"]*"' curriculum/m{1..26}.ts | sort
+# -u`, 634 unique prior emoji strings checked one at a time): 🌧️ 💨 ❄️ ☁️
+# 🥵 🥶 all zero hits, clean. **☀️ is NOT reused for «el sol» despite being
+# the obvious choice** — it is already in use (m1/m2/m3/m4/m5/m7/m10) as
+# the DISTRACTOR emoji for «buenas tardes» in a greeting-time imageMcq;
+# reusing it for «el sol» would put the same glyph on two different
+# correct answers in two different modules' distractor pools, a real
+# imageMcq-ambiguity risk (authoring guide §13.2's ceiling rule). «el sol»
+# uses 🌞 instead (also clean, zero prior hits) — distinct from 🌅
+# (buenos días, PRIOR) and 🌙 (buenas noches, PRIOR).
+#
+# ── ACCENT: FRESH COLOUR — WARM YELLOW, VERIFIED UNUSED, THEMATIC ─────────
+# Checked every `accent:` pair in `curriculum/index.ts` (grep-verified:
+# zero hits for `#eab308` and `#a16207`) against all 26 modules' pairs,
+# including the six most recent — m21 sky (`#38bdf8`→`#0c4a6e`), m22
+# indigo (`#818cf8`→`#3730a3`), m23 red (`#ef4444`→`#991b1b`), m24 fuchsia
+# (`#d946ef`→`#86198f`), m25 blue (`#3b82f6`→`#1d4ed8`), m26 cyan
+# (`#22d3ee`→`#0891b2`). Warm yellow reads as distinct from all of them at
+# a glance and is thematically apt for a sun/weather module — `#f59e0b`
+# (amber, used twice already) was deliberately avoided in favor of a
+# cleaner, unused yellow.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # el sol — sun. NOT ☀️ (see emoji-collision note above) — 🌞 instead.
+  # Used with PRIOR «hay» (there is/are, m3) and PRIOR «me gusta»/«te
+  # gusta» (m7/m13). No verb of its own.
+  - { surface: "el sol", meaningEn: "the sun", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🌞", hint: "el sol — «hay sol» (it's sunny), «me gusta el sol» (I like the sun)" }
+  # la lluvia — rain, taught as a NOUN (not the impersonal verb «llueve» —
+  # unregistered, deliberately not manufactured, see header decision 3).
+  - { surface: "la lluvia", meaningEn: "the rain", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🌧️", hint: "la lluvia — «hay lluvia» (there's rain), «no me gusta la lluvia» (I don't like the rain)" }
+  # el viento — wind, same noun-not-verb treatment.
+  - { surface: "el viento", meaningEn: "the wind", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "💨", hint: "el viento — «hay viento» (it's windy)" }
+  # la nieve — snow, same noun-not-verb treatment (not «nieva»).
+  - { surface: "la nieve", meaningEn: "the snow", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "❄️", hint: "la nieve — «hay nieve» (there's snow), «me gusta la nieve» (I like the snow)" }
+  # nublado — cloudy. Impersonal predicate after «está»/«estaba» (PRIOR,
+  # m4/m24) — invariable, never agrees with a subject (there isn't one).
+  - { surface: "nublado", meaningEn: "cloudy", partOfSpeech: "adjective", kind: "vocab", emoji: "☁️", hint: "nu-BLAH-do — «está nublado» (it's cloudy), «estaba nublado» (it was cloudy). Invariable — impersonal, no subject to agree with." }
+  # el calor — heat. Idiomatic weather sense of PRIOR «hace»/«hacía»
+  # (m15/m24): «hace calor», «hacía mucho calor».
+  - { surface: "el calor", meaningEn: "the heat", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🥵", hint: "el calor — «hace calor» (it's hot), «hacía mucho calor» (it was very hot)" }
+  # el frío — cold. Same idiom pattern, the calor/frío minimal pair.
+  - { surface: "el frío", meaningEn: "the cold", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🥶", hint: "el frío — «hace frío» (it's cold), «hacía frío» (it was cold). Pairs with «el calor» as the module's own minimal pair." }
+
+lessons:
+  # ── L1 · «Hay sol» — el sol debuts on imageMcq (first new-emoji debut
+  #    since m20; §13.2 "the image IS the introduction"). NOT ☀️ (PRIOR,
+  #    m1-m10, the «buenas tardes» distractor) — 🌞 instead (see the
+  #    header's "NO NEW EMOJI COLLISION" section). Carries this module's ONE
+  #    general usage-note card (≤3 lines, budget per CLAUDE.md), explaining
+  #    the «hace»/«hay»/«está» + weather-word PATTERN itself. PRIOR context:
+  #    «hay» (m3), «me gusta»/«te gusta»/«le gusta» (m7/m13). No recall
+  #    (nothing earlier in this module).
+  - n: 1
+    template: free
+    title: "Hay sol"
+    description: "Seven new weather words, zero new grammar — every sentence frame is already yours. «hay sol» — «hay» (m3) plus this module's own «el sol»."
+    steps:
+      - kind: map
+        id: l1-map-hoyhaysol
+        tokens: ["hoy", "hay", "sol"]
+        pairs:
+          - { en: "today", tokenIndex: 0 }
+          - { en: "there is", tokenIndex: 1 }
+          - { en: "sun", tokenIndex: 2 }
+        audioText: "hoy hay sol"
+        revealNote: "«hay» (m3, there is/are) plus this module's own «sol» — the sun. «hoy hay sol»: today it's sunny."
+      - kind: imageMcq
+        id: l1-im-sol
+        target: { surface: "el sol", meaningEn: "the sun", emoji: "🌞" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: info
+        id: l1-info-patronclima
+        title: "Hace, hay, está — the weather pattern"
+        body: "Spanish describes weather with words you already know: «hace» (m15) + heat/cold, «hay» (m3) + wind/snow, «está» (m4) + cloudy. «hay mucho sol» — it's very sunny."
+      - kind: speakLit
+        id: l1-sp-megustaelsol
+        es: "me gusta el sol"
+        en: "I like the sun"
+        atoms: ["me gusta", "el sol"]
+      - kind: buildLit
+        id: l1-b-enmexicosiemprehaysol
+        es: "en México, siempre hay mucho sol"
+        en: "In Mexico, there's always a lot of sun"
+        atoms: ["México", "siempre", "hay", "mucho", "el sol"]
+        tiles: ["estaba", "hace"]
+      - kind: clozeLit
+        id: l1-c-tegustaelsol
+        es: "te gusta el sol"
+        en: "you (tú) like the sun"
+        blank: "te"
+        options: ["te", "me"]
+        atoms: ["te gusta", "el sol"]
+        why: "«te» — talking to you (tú). «me» would talk about yourself instead."
+      - kind: listenCompLit
+        id: l1-lc-diegolegustasol
+        es: "a Diego le gusta el sol"
+        en: "Diego likes the sun."
+        atoms: ["le", "gusta", "el sol"]
+        distractorsEn:
+          - "Diego doesn't like the sun."
+          - "Diego likes the rain."
+          - "Ana likes the sun."
+      - kind: mcq
+        id: l1-q-elsol
+        prompt: "Which one means 'the sun'?"
+        correct: "el sol"
+        distractors: ["la playa", "el parque", "la escuela"]
+        atoms: ["el sol"]
+        why: "«el sol» is the sun. «la playa»/«el parque»/«la escuela» are all PRIOR places, not weather."
+      - kind: buildLit
+        id: l1-b-haymuchosolplaya
+        es: "hay mucho sol en la playa"
+        en: "It's very sunny at the beach"
+        atoms: ["hay", "mucho", "el sol", "playa"]
+        tiles: ["hace", "estaba"]
+      - kind: audioWimcq
+        id: l1-ear-playa
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: agreementLit
+        id: l1-agr-megustategusta
+        en: "I like the sun, and you like it too"
+        audioText: "me gusta el sol, y te gusta también"
+        atoms: ["me gusta", "el sol", "te gusta", "también"]
+        segments:
+          - { blank: { id: "p1", answer: "me", options: ["me", "te"] } }
+          - { text: " gusta el sol, y " }
+          - { blank: { id: "p2", answer: "te", options: ["te", "me"] } }
+          - { text: " gusta también" }
+      - kind: listenBuildLit
+        id: l1-lb-analegustasol
+        es: "a Ana le gusta el sol"
+        en: "Ana likes the sun"
+        atoms: ["le", "gusta", "el sol"]
+        tiles: ["gustan", "hay"]
+      - kind: textMcq
+        id: l1-tm-sol
+        target: "el sol"
+        distractors: ["son", "muy", "hay"]
+      - kind: sim
+        id: l1-sim-ana-sol
+        scene: { emoji: "🌞", title: "Ana talks about the sun", setting: "Ana wants to know if you like sunny weather." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Hay sol hoy?", audioText: "¿hay sol hoy?", gloss: "Is it sunny today?" }
+            goal: "Say yes, there's a lot of sun."
+            reply:
+              mode: build
+              tiles: ["sí", "hay", "mucho", "sol", "hace"]
+              answer: "sí hay mucho sol"
+            replyGloss: "Yes, there's a lot of sun."
+            explanation: "«hay» (there is) plus «sol» — no verb agreement to think about, it's impersonal."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Te gusta el sol?", audioText: "¿te gusta el sol?", gloss: "Do you like the sun?" }
+            goal: "Say yes, you like the sun a lot."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me gusta mucho el sol" }
+                - { id: "wrong1", text: "sí, te gusta mucho el sol" }
+                - { id: "wrong2", text: "sí, me gustan mucho el sol" }
+              correctOptionId: "right"
+              audioText: "sí, me gusta mucho el sol"
+            replyGloss: "Yes, I like the sun a lot."
+            explanation: "Talking about yourself: «me gusta», not «te gusta» (that would talk about Ana). «el sol» is one thing, so «gusta», never «gustan»."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y a Diego? ¿Le gusta el sol también?", audioText: "¿y a diego? ¿le gusta el sol también?", gloss: "And Diego? Does he like the sun too?" }
+            goal: "Say yes, Diego likes the sun too."
+            reply:
+              mode: build
+              tiles: ["sí", "a", "diego", "le", "gusta", "el", "sol", "también", "me"]
+              answer: "sí a diego le gusta el sol también"
+            replyGloss: "Yes, Diego likes the sun too."
+            explanation: "«a Diego le gusta» — the PRIOR (m13) pattern for someone else liking something, «le» unchanged."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "el sol", target: "the sun" }
+          - { source: "hay", target: "there is, there are" }
+          - { source: "me gusta", target: "I like" }
+          - { source: "te gusta", target: "you (tú) like" }
+          - { source: "le gusta", target: "he/she/you (usted) likes" }
+          - { source: "hoy", target: "today" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "hoy hay sol, y me gusta el sol"
+        en: "Today it's sunny, and I like the sun"
+        atoms: ["hoy", "hay", "el sol", "me gusta"]
+
+  # ── L2 · «No me gusta la lluvia» — la lluvia debuts on imageMcq, taught
+  #    as a NOUN (not the impersonal verb «llueve» — unregistered,
+  #    deliberately not manufactured; see header decision 3). Carries one
+  #    recall of L1's own win line. PRIOR context: hay (m3), no (m1), me
+  #    gusta/no me gusta/le gusta (m7/m12/m13).
+  - n: 2
+    template: free
+    title: "No me gusta la lluvia"
+    description: "«la lluvia» — the rain, taught as a noun with PRIOR «hay». «no me gusta la lluvia» stacks PRIOR negation onto PRIOR «me gusta»."
+    steps:
+      - kind: map
+        id: l2-map-haylluviahoy
+        tokens: ["hay", "lluvia", "hoy"]
+        pairs:
+          - { en: "there is", tokenIndex: 0 }
+          - { en: "rain", tokenIndex: 1 }
+          - { en: "today", tokenIndex: 2 }
+        audioText: "hay lluvia hoy"
+        revealNote: "«la lluvia» — the rain. Taught as a noun, just like «el sol»: «hay lluvia», not a special weather verb."
+      - kind: imageMcq
+        id: l2-im-lluvia
+        target: { surface: "la lluvia", meaningEn: "the rain", emoji: "🌧️" }
+        distractors:
+          - { surface: "el museo", emoji: "🏛️" }
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "la tienda", emoji: "🏪" }
+      - kind: speakLit
+        id: l2-sp-nomegustalluvia
+        es: "no me gusta la lluvia"
+        en: "I don't like the rain"
+        atoms: ["no", "me gusta", "la lluvia"]
+      - kind: buildLit
+        id: l2-b-hoyhaylluvia
+        es: "hoy hay mucha lluvia"
+        en: "Today there's a lot of rain"
+        atoms: ["hoy", "hay", "mucho", "la lluvia"]
+        tiles: ["estaba", "hace"]
+      - kind: clozeLit
+        id: l2-c-diegonolegustalluvia
+        es: "a Diego no le gusta la lluvia"
+        en: "Diego doesn't like the rain"
+        blank: "le"
+        options: ["le", "te"]
+        atoms: ["le", "gusta", "la lluvia"]
+        why: "«le» — talking about Diego (PRIOR, m13). «te» would talk to you instead."
+      - kind: listenCompLit
+        id: l2-lc-haylluvianomegusta
+        es: "hay lluvia, pero no me gusta"
+        en: "It's raining, but I don't like it."
+        atoms: ["hay", "la lluvia", "no", "me gusta"]
+        distractorsEn:
+          - "It's raining, and I like it."
+          - "It's sunny, but I don't like it."
+          - "It was raining, but I didn't like it."
+      - kind: mcq
+        id: l2-q-lalluvia
+        prompt: "Which one means 'the rain'?"
+        correct: "la lluvia"
+        distractors: ["el sol", "la playa", "el parque"]
+        atoms: ["la lluvia"]
+        why: "«la lluvia» is the rain. «el sol» (PRIOR, L1) and «la playa»/«el parque» are all a different word."
+      # Printed non-recall at L1 (es-m27-1-l1-sp-win).
+      - kind: speakLit
+        id: l2-sp-recall-l1win
+        es: "hoy hay sol, y me gusta el sol"
+        en: "Today it's sunny, and I like the sun"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l2-ear-museo
+        target: { surface: "el museo", emoji: "🏛️" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "la tienda", emoji: "🏪" }
+      - kind: agreementLit
+        id: l2-agr-melegustalluvia
+        en: "I don't like the rain, and Diego doesn't like it either"
+        audioText: "no me gusta la lluvia, y a Diego no le gusta"
+        atoms: ["me gusta", "la lluvia", "le", "gusta"]
+        segments:
+          - { text: "no " }
+          - { blank: { id: "p1", answer: "me", options: ["me", "le"] } }
+          - { text: " gusta la lluvia, y a Diego no " }
+          - { blank: { id: "p2", answer: "le", options: ["le", "me"] } }
+          - { text: " gusta" }
+      - kind: listenBuildLit
+        id: l2-lb-samnolegustalluvia
+        es: "a Sam no le gusta la lluvia"
+        en: "Sam doesn't like the rain"
+        atoms: ["le", "gusta", "la lluvia"]
+        tiles: ["gustan", "hay"]
+      - kind: textMcq
+        id: l2-tm-lluvia
+        target: "la lluvia"
+        distractors: ["hay", "muy", "son"]
+      - kind: sim
+        id: l2-sim-ana-lluvia
+        scene: { emoji: "🌧️", title: "Ana talks about the rain", setting: "Ana wants to know what you think of the rain today." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Hay lluvia hoy?", audioText: "¿hay lluvia hoy?", gloss: "Is it raining today?" }
+            goal: "Say yes, there's a lot of rain."
+            reply:
+              mode: build
+              tiles: ["sí", "hay", "mucha", "lluvia", "sol"]
+              answer: "sí hay mucha lluvia"
+            replyGloss: "Yes, there's a lot of rain."
+            explanation: "«hay» plus «lluvia» — impersonal, no subject to agree with."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Te gusta la lluvia?", audioText: "¿te gusta la lluvia?", gloss: "Do you like the rain?" }
+            goal: "Say no, you don't like the rain."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, no me gusta la lluvia" }
+                - { id: "wrong1", text: "no, no te gusta la lluvia" }
+                - { id: "wrong2", text: "no, no me gustan la lluvia" }
+              correctOptionId: "right"
+              audioText: "no, no me gusta la lluvia"
+            replyGloss: "No, I don't like the rain."
+            explanation: "Talking about yourself: «no me gusta», not «no te gusta» (that would talk about Ana). «la lluvia» is one thing, so «gusta», never «gustan»."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y a Diego? ¿Le gusta la lluvia?", audioText: "¿y a diego? ¿le gusta la lluvia?", gloss: "And Diego? Does he like the rain?" }
+            goal: "Say no, Diego doesn't like the rain either."
+            reply:
+              mode: build
+              tiles: ["no", "a", "diego", "no", "le", "gusta", "la", "lluvia", "te"]
+              answer: "no a diego no le gusta la lluvia"
+            replyGloss: "No, Diego doesn't like the rain either."
+            explanation: "«a Diego no le gusta» — the PRIOR (m13) pattern, negated."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "la lluvia", target: "the rain" }
+          - { source: "no me gusta", target: "I don't like" }
+          - { source: "no le gusta", target: "he/she/you (usted) doesn't like" }
+          - { source: "hoy", target: "today" }
+          - { source: "el sol", target: "the sun" }
+          - { source: "hay", target: "there is, there are" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "hay lluvia hoy, y no me gusta la lluvia"
+        en: "It's raining today, and I don't like the rain"
+        atoms: ["hay", "la lluvia", "hoy", "no", "me gusta"]
+
+  # ── L3 · «Hay viento y nieve» — el viento AND la nieve debut, both on
+  #    imageMcq, both taught as NOUNS with PRIOR «hay» (not «nieva» —
+  #    unregistered, deliberately not manufactured). Recombines PRIOR
+  #    mucho/mucha gender agreement (m13/m18: «mucha hambre») onto this
+  #    module's own masculine/feminine pair. Carries one recall of L2's win
+  #    line.
+  - n: 3
+    template: free
+    title: "Hay viento y nieve"
+    description: "Two new nouns at once, same PRIOR «hay» pattern: «hay mucho viento» (masculine), «hay mucha nieve» (feminine) — the same mucho/mucha agreement you already use (m13/m18)."
+    steps:
+      - kind: map
+        id: l3-map-haymuchoviento
+        tokens: ["hay", "mucho", "viento"]
+        pairs:
+          - { en: "there is", tokenIndex: 0 }
+          - { en: "a lot of", tokenIndex: 1 }
+          - { en: "wind", tokenIndex: 2 }
+        audioText: "hay mucho viento"
+        revealNote: "«el viento» — the wind, masculine, so «mucho viento» — the same agreement you already use (m13/m18: «mucha hambre»)."
+      - kind: imageMcq
+        id: l3-im-viento
+        target: { surface: "el viento", meaningEn: "the wind", emoji: "💨" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el museo", emoji: "🏛️" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: speakLit
+        id: l3-sp-haymuchovientohoy
+        es: "hay mucho viento hoy"
+        en: "It's very windy today"
+        atoms: ["hay", "mucho", "el viento", "hoy"]
+      - kind: imageMcq
+        id: l3-im-nieve
+        target: { surface: "la nieve", meaningEn: "the snow", emoji: "❄️" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la tienda", emoji: "🏪" }
+          - { surface: "el cine", emoji: "🎬" }
+      - kind: buildLit
+        id: l3-b-tambienhaynievemexico
+        es: "también hay nieve en México"
+        en: "There's also snow in Mexico"
+        atoms: ["también", "hay", "la nieve", "México"]
+        tiles: ["estaba", "hace"]
+      - kind: clozeLit
+        id: l3-c-diegolegustanieve
+        es: "a Diego le gusta la nieve"
+        en: "Diego likes the snow"
+        blank: "le"
+        options: ["le", "te"]
+        atoms: ["le", "gusta", "la nieve"]
+        why: "«le» — talking about Diego (PRIOR, m13). «te» would talk to you instead."
+      - kind: listenCompLit
+        id: l3-lc-vientoynievemucha
+        es: "hay mucho viento y mucha nieve"
+        en: "It's very windy and there's a lot of snow."
+        atoms: ["hay", "mucho", "el viento", "mucho", "la nieve"]
+        distractorsEn:
+          - "There was a lot of wind and a lot of snow."
+          - "It's very windy, but there's no snow."
+          - "There's a little wind and a little snow."
+      - kind: mcq
+        id: l3-q-elviento
+        prompt: "Which one means 'the wind'?"
+        correct: "el viento"
+        distractors: ["la nieve", "el sol", "la lluvia"]
+        atoms: ["el viento"]
+        why: "«el viento» is the wind. «la nieve»/«el sol»/«la lluvia» are all other weather words from this module."
+      # Printed non-recall at L2 (es-m27-2-l2-sp-win).
+      - kind: speakLit
+        id: l3-sp-recall-l2win
+        es: "hay lluvia hoy, y no me gusta la lluvia"
+        en: "It's raining today, and I don't like the rain"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l3-ear-cine
+        target: { surface: "el cine", emoji: "🎬" }
+        distractors:
+          - { surface: "la tienda", emoji: "🏪" }
+          - { surface: "el parque", emoji: "🌳" }
+      - kind: agreementLit
+        id: l3-agr-muchovientomuchanieve
+        en: "There's a lot of wind, and there's a lot of snow"
+        audioText: "hay mucho viento, y hay mucha nieve"
+        atoms: ["hay", "mucho", "el viento", "la nieve"]
+        segments:
+          - { text: "hay " }
+          - { blank: { id: "p1", answer: "mucho", options: ["mucho", "mucha"] } }
+          - { text: " viento, y hay " }
+          - { blank: { id: "p2", answer: "mucha", options: ["mucha", "mucho"] } }
+          - { text: " nieve" }
+      - kind: listenBuildLit
+        id: l3-lb-samlegustanieve
+        es: "a Sam le gusta la nieve"
+        en: "Sam likes the snow"
+        atoms: ["le", "gusta", "la nieve"]
+        tiles: ["gustan", "hay"]
+      - kind: textMcq
+        id: l3-tm-viento
+        target: "el viento"
+        distractors: ["son", "muy", "hay"]
+      - kind: sim
+        id: l3-sim-ana-viento-nieve
+        scene: { emoji: "💨", title: "Ana talks about wind and snow", setting: "Ana wants to know what the weather is like where you are." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Hay mucho viento?", audioText: "¿hay mucho viento?", gloss: "Is it very windy?" }
+            goal: "Say yes, and there's snow too."
+            reply:
+              mode: build
+              tiles: ["sí", "y", "también", "hay", "nieve", "mucha"]
+              answer: "sí y también hay nieve"
+            replyGloss: "Yes, and there's also snow."
+            explanation: "«también» adds the second thing — «hay nieve» stays impersonal, just like «hay viento»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Te gusta la nieve?", audioText: "¿te gusta la nieve?", gloss: "Do you like the snow?" }
+            goal: "Say yes, you like the snow a lot."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me gusta mucho la nieve" }
+                - { id: "wrong1", text: "sí, te gusta mucho la nieve" }
+                - { id: "wrong2", text: "sí, me gustan mucho la nieve" }
+              correctOptionId: "right"
+              audioText: "sí, me gusta mucho la nieve"
+            replyGloss: "Yes, I like the snow a lot."
+            explanation: "Talking about yourself: «me gusta», not «te gusta». «la nieve» is one thing, so «gusta», never «gustan»."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y a Diego? ¿Le gusta el viento?", audioText: "¿y a diego? ¿le gusta el viento?", gloss: "And Diego? Does he like the wind?" }
+            goal: "Say no, Diego doesn't like the wind."
+            reply:
+              mode: build
+              tiles: ["no", "a", "diego", "no", "le", "gusta", "el", "viento", "te"]
+              answer: "no a diego no le gusta el viento"
+            replyGloss: "No, Diego doesn't like the wind."
+            explanation: "«a Diego no le gusta» — the PRIOR (m13) pattern, negated."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "el viento", target: "the wind" }
+          - { source: "la nieve", target: "the snow" }
+          - { source: "mucho", target: "a lot (masculine)" }
+          - { source: "mucha", target: "a lot (feminine)" }
+          - { source: "también", target: "also, too" }
+          - { source: "hay", target: "there is, there are" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "hay mucho viento, y también hay nieve"
+        en: "It's very windy, and there's also snow"
+        atoms: ["hay", "mucho", "el viento", "también", "la nieve"]
+
+  # ── L4 · «Hace calor» — el calor debuts on imageMcq. First lesson to use
+  #    the «hace» + heat/cold idiom (PRIOR «hace», m15, hacer 3rd-person —
+  #    previewed generally on L1's info card). NOT a new verb form: same
+  #    «hace» you already own, now impersonal (no subject), exactly like
+  #    «hay» was impersonal for sol/lluvia/viento/nieve. Carries one recall.
+  - n: 4
+    template: free
+    title: "Hace calor"
+    description: "«el calor» — the heat, with the PRIOR «hace» (m15) now impersonal: «hace calor», it's hot. Same verb, no subject to agree with."
+    steps:
+      - kind: map
+        id: l4-map-hacemuchocalor
+        tokens: ["hace", "mucho", "calor"]
+        pairs:
+          - { en: "it is (weather)", tokenIndex: 0 }
+          - { en: "a lot of", tokenIndex: 1 }
+          - { en: "heat", tokenIndex: 2 }
+        audioText: "hace mucho calor"
+        revealNote: "«hace» — the same word from m15 («ana hace la tarea»), now with no subject: «hace calor», it's hot. This module's own «calor»."
+      - kind: imageMcq
+        id: l4-im-calor
+        target: { surface: "el calor", meaningEn: "the heat", emoji: "🥵" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la tienda", emoji: "🏪" }
+      - kind: speakLit
+        id: l4-sp-hacemuchocalorhoy
+        es: "hace mucho calor hoy"
+        en: "It's very hot today"
+        atoms: ["hace", "mucho", "el calor", "hoy"]
+      - kind: buildLit
+        id: l4-b-enmexicohacecalor
+        es: "en México, siempre hace calor"
+        en: "In Mexico, it's always hot"
+        atoms: ["México", "siempre", "hace", "el calor"]
+        tiles: ["estaba", "hay"]
+      - kind: clozeLit
+        id: l4-c-diegonolegustacalor
+        es: "a Diego no le gusta el calor"
+        en: "Diego doesn't like the heat"
+        blank: "le"
+        options: ["le", "te"]
+        atoms: ["le", "gusta", "el calor"]
+        why: "«le» — talking about Diego (PRIOR, m13). «te» would talk to you instead."
+      - kind: listenCompLit
+        id: l4-lc-hacecalorplaya
+        es: "hace mucho calor en la playa"
+        en: "It's very hot at the beach."
+        atoms: ["hace", "mucho", "el calor", "playa"]
+        distractorsEn:
+          - "It was very hot at the beach."
+          - "It's very windy at the beach."
+          - "It's a little hot at the beach."
+      - kind: mcq
+        id: l4-q-elcalor
+        prompt: "Which one means 'the heat'?"
+        correct: "el calor"
+        distractors: ["el sol", "el viento", "la nieve"]
+        atoms: ["el calor"]
+        why: "«el calor» is the heat. «el sol»/«el viento»/«la nieve» are all other weather words from this module."
+      # Printed non-recall at L3 (es-m27-3-l3-sp-win).
+      - kind: speakLit
+        id: l4-sp-recall-l3win
+        es: "hay mucho viento, y también hay nieve"
+        en: "It's very windy, and there's also snow"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l4-ear-parque
+        target: { surface: "el parque", emoji: "🌳" }
+        distractors:
+          - { surface: "la tienda", emoji: "🏪" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: agreementLit
+        id: l4-agr-megustatecalor
+        en: "I like the heat, and you like it too"
+        audioText: "me gusta el calor, y te gusta también"
+        atoms: ["me gusta", "el calor", "te gusta", "también"]
+        segments:
+          - { blank: { id: "p1", answer: "me", options: ["me", "te"] } }
+          - { text: " gusta el calor, y " }
+          - { blank: { id: "p2", answer: "te", options: ["te", "me"] } }
+          - { text: " gusta también" }
+      - kind: listenBuildLit
+        id: l4-lb-samlegustacalor
+        es: "a Sam le gusta el calor"
+        en: "Sam likes the heat"
+        atoms: ["le", "gusta", "el calor"]
+        tiles: ["gustan", "hay"]
+      - kind: textMcq
+        id: l4-tm-calor
+        target: "el calor"
+        distractors: ["son", "muy", "hace"]
+      - kind: sim
+        id: l4-sim-ana-calor
+        scene: { emoji: "🥵", title: "Ana talks about the heat", setting: "Ana wants to know what the weather is like where you are." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Hace mucho calor hoy?", audioText: "¿hace mucho calor hoy?", gloss: "Is it very hot today?" }
+            goal: "Say yes, it's very hot."
+            reply:
+              mode: build
+              tiles: ["sí", "hace", "mucho", "calor", "hay"]
+              answer: "sí hace mucho calor"
+            replyGloss: "Yes, it's very hot."
+            explanation: "«hace» plus «calor» — impersonal, no subject to agree with, just like «hay sol»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Te gusta el calor?", audioText: "¿te gusta el calor?", gloss: "Do you like the heat?" }
+            goal: "Say no, you don't like the heat."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, no me gusta el calor" }
+                - { id: "wrong1", text: "no, no te gusta el calor" }
+                - { id: "wrong2", text: "no, no me gustan el calor" }
+              correctOptionId: "right"
+              audioText: "no, no me gusta el calor"
+            replyGloss: "No, I don't like the heat."
+            explanation: "Talking about yourself: «no me gusta», not «no te gusta» (that would talk about Ana). «el calor» is one thing, so «gusta», never «gustan»."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y a Diego? ¿Le gusta el calor?", audioText: "¿y a diego? ¿le gusta el calor?", gloss: "And Diego? Does he like the heat?" }
+            goal: "Say yes, Diego likes the heat a lot."
+            reply:
+              mode: build
+              tiles: ["sí", "a", "diego", "le", "gusta", "mucho", "el", "calor", "te"]
+              answer: "sí a diego le gusta mucho el calor"
+            replyGloss: "Yes, Diego likes the heat a lot."
+            explanation: "«a Diego le gusta» — the PRIOR (m13) pattern for someone else liking something, «le» unchanged."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "el calor", target: "the heat" }
+          - { source: "hace", target: "it is (weather)" }
+          - { source: "el viento", target: "the wind" }
+          - { source: "la nieve", target: "the snow" }
+          - { source: "hoy", target: "today" }
+          - { source: "también", target: "also, too" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "hace mucho calor hoy"
+        en: "It's very hot today"
+        atoms: ["hace", "mucho", "el calor", "hoy"]
+
+  # ── L5 · «Hace frío» — el frío debuts on imageMcq, immediately contrasted
+  #    against el calor (L4) via «no hace calor, hace frío» — the module's
+  #    first calor/frío minimal pair. Same PRIOR «hace» idiom as L4, no new
+  #    grammar. Carries one recall.
+  - n: 5
+    template: free
+    title: "Hace frío"
+    description: "«el frío» — the cold, contrasted right away with L4's «el calor»: «no hace calor, hace frío»."
+    steps:
+      - kind: map
+        id: l5-map-hacefrio
+        tokens: ["hace", "un", "poco", "de", "frío"]
+        pairs:
+          - { en: "it is (weather)", tokenIndex: 0 }
+          - { en: "a little", tokenIndex: 1 }
+          - { en: "of", tokenIndex: 3 }
+          - { en: "cold", tokenIndex: 4 }
+        audioText: "hace un poco de frío"
+        revealNote: "«el frío» — the cold, this module's opposite of «el calor». Same PRIOR «hace»."
+      - kind: imageMcq
+        id: l5-im-frio
+        target: { surface: "el frío", meaningEn: "the cold", emoji: "🥶" }
+        distractors:
+          - { surface: "el museo", emoji: "🏛️" }
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "el cine", emoji: "🎬" }
+      - kind: speakLit
+        id: l5-sp-nohacecalorhacefrio
+        es: "no hace calor, hace frío"
+        en: "It's not hot, it's cold"
+        atoms: ["no", "hace", "el calor", "hace", "el frío"]
+      - kind: buildLit
+        id: l5-b-enmexicohacefrio
+        es: "aquí también hace frío"
+        en: "Here it's also cold"
+        atoms: ["aquí", "también", "hace", "el frío"]
+        tiles: ["estaba", "hay"]
+      - kind: clozeLit
+        id: l5-c-diegolegustafrio
+        es: "a Diego le gusta el frío"
+        en: "Diego likes the cold"
+        blank: "le"
+        options: ["le", "te"]
+        atoms: ["le", "gusta", "el frío"]
+        why: "«le» — talking about Diego (PRIOR, m13). «te» would talk to you instead."
+      - kind: listenCompLit
+        id: l5-lc-noquierohacefrio
+        es: "no me gusta el frío, pero me gusta la nieve"
+        en: "I don't like the cold, but I like the snow."
+        atoms: ["no", "me gusta", "el frío", "me gusta", "la nieve"]
+        distractorsEn:
+          - "I like the cold, but I don't like the snow."
+          - "I don't like the cold, and I don't like the snow either."
+          - "I liked the cold, but I liked the snow."
+      - kind: mcq
+        id: l5-q-elfrio
+        prompt: "Which one means 'the cold'?"
+        correct: "el frío"
+        distractors: ["el calor", "el sol", "la lluvia"]
+        atoms: ["el frío"]
+        why: "«el frío» is the cold — the opposite of L4's «el calor». «el sol»/«la lluvia» are other weather words."
+      # Printed non-recall at L4 (es-m27-4-l4-sp-win).
+      - kind: speakLit
+        id: l5-sp-recall-l4win
+        es: "hace mucho calor hoy"
+        en: "It's very hot today"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l5-ear-museo
+        target: { surface: "el museo", emoji: "🏛️" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: agreementLit
+        id: l5-agr-calorfrio
+        en: "It's not hot, it's a little cold"
+        audioText: "no hace calor, hace un poco de frío"
+        atoms: ["no", "hace", "el calor", "un poco", "el frío"]
+        segments:
+          - { text: "no hace " }
+          - { blank: { id: "p1", answer: "calor", options: ["calor", "frío"] } }
+          - { text: ", hace un poco de " }
+          - { blank: { id: "p2", answer: "frío", options: ["frío", "calor"] } }
+      - kind: listenBuildLit
+        id: l5-lb-samlegustafrio
+        es: "a Sam no le gusta el frío"
+        en: "Sam doesn't like the cold"
+        atoms: ["le", "gusta", "el frío"]
+        tiles: ["gustan", "hay"]
+      - kind: textMcq
+        id: l5-tm-frio
+        target: "el frío"
+        distractors: ["son", "muy", "hace"]
+      - kind: sim
+        id: l5-sim-ana-frio
+        scene: { emoji: "🥶", title: "Ana talks about the cold", setting: "Ana wants to know if it's cold where you are." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Hace frío hoy?", audioText: "¿hace frío hoy?", gloss: "Is it cold today?" }
+            goal: "Say no, it's not cold, it's hot."
+            reply:
+              mode: build
+              tiles: ["no", "no", "hace", "frío", "hace", "calor", "hay"]
+              answer: "no no hace frío hace calor"
+            replyGloss: "No, it's not cold, it's hot."
+            explanation: "«hace frío» and «hace calor» — same impersonal «hace», opposite words."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Te gusta el frío?", audioText: "¿te gusta el frío?", gloss: "Do you like the cold?" }
+            goal: "Say no, you don't like the cold."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, no me gusta el frío" }
+                - { id: "wrong1", text: "no, no te gusta el frío" }
+                - { id: "wrong2", text: "no, no me gustan el frío" }
+              correctOptionId: "right"
+              audioText: "no, no me gusta el frío"
+            replyGloss: "No, I don't like the cold."
+            explanation: "Talking about yourself: «no me gusta», not «no te gusta» (that would talk about Ana). «el frío» is one thing, so «gusta», never «gustan»."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y a Diego? ¿Le gusta el frío?", audioText: "¿y a diego? ¿le gusta el frío?", gloss: "And Diego? Does he like the cold?" }
+            goal: "Say yes, Diego likes the cold a lot."
+            reply:
+              mode: build
+              tiles: ["sí", "a", "diego", "le", "gusta", "mucho", "el", "frío", "te"]
+              answer: "sí a diego le gusta mucho el frío"
+            replyGloss: "Yes, Diego likes the cold a lot."
+            explanation: "«a Diego le gusta» — the PRIOR (m13) pattern for someone else liking something, «le» unchanged."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "el frío", target: "the cold" }
+          - { source: "el calor", target: "the heat" }
+          - { source: "no hace calor", target: "it's not hot" }
+          - { source: "un poco de", target: "a little" }
+          - { source: "aquí", target: "here" }
+          - { source: "hace", target: "it is (weather)" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "no hace calor, hace un poco de frío"
+        en: "It's not hot, it's a little cold"
+        atoms: ["no", "hace", "el calor", "un poco", "el frío"]
+
+  # ── L6 · «Está nublado, por eso...» — nublado debuts via info+buildLit
+  #    (NOT imageMcq — an impersonal weather adjective, nothing to picture;
+  #    see brief hard rule 1 exception). PRIOR «está» (m4), «estaba» (m24
+  #    imperfect), «cuando»/«mientras» (m23), «porque»/«por eso» (m25),
+  #    «fuimos»/«no fuimos» (m21). Heavy recombination lesson: two recalls.
+  #    «nublado» never takes gender/number — always this one form, since
+  #    «está nublado» has no subject to agree with (same impersonal shape
+  #    as «hace calor»/«hay sol»).
+  - n: 6
+    template: free
+    title: "Está nublado, por eso..."
+    description: "«nublado» — cloudy, with the PRIOR «está» (m4) and its imperfect «estaba» (m24). Always one form: impersonal, nothing to agree with."
+    steps:
+      - kind: map
+        id: l6-map-hoyestanublado
+        tokens: ["hoy", "está", "nublado"]
+        pairs:
+          - { en: "today", tokenIndex: 0 }
+          - { en: "it is (state)", tokenIndex: 1 }
+          - { en: "cloudy", tokenIndex: 2 }
+        audioText: "hoy está nublado"
+        revealNote: "«está» (m4) plus this module's own «nublado» — cloudy. Impersonal, just like «hace calor»: one form, always."
+      - kind: info
+        id: l6-info-nublado
+        title: "Nublado — always one form"
+        body: "«nublado» never changes: no «nublada», no «nublados». «está nublado» has no subject, so nothing to agree with — same shape as «hace calor»."
+      - kind: buildLit
+        id: l6-b-estamuynubladohoy
+        es: "está muy nublado hoy"
+        en: "It's very cloudy today"
+        atoms: ["está", "muy", "nublado", "hoy"]
+        tiles: ["estaba", "hace"]
+      - kind: clozeLit
+        id: l6-c-ayerestabanublado
+        es: "ayer estaba nublado"
+        en: "Yesterday it was cloudy"
+        blank: "estaba"
+        options: ["estaba", "está"]
+        atoms: ["ayer", "estaba", "nublado"]
+        why: "«ayer» (PRIOR, m21) points at the past, so the imperfect «estaba» (PRIOR, m24), not «está»."
+      - kind: listenCompLit
+        id: l6-lc-nubladocuandofuimos
+        es: "estaba nublado cuando fuimos a la playa"
+        en: "It was cloudy when we went to the beach."
+        atoms: ["estaba", "nublado", "cuando", "fuimos", "playa"]
+        distractorsEn:
+          - "It was sunny when we went to the beach."
+          - "It's cloudy when we go to the beach."
+          - "It was cloudy, but we didn't go to the beach."
+      - kind: mcq
+        id: l6-q-nublado
+        prompt: "Which one means 'cloudy'?"
+        correct: "nublado"
+        distractors: ["lluvia", "viento", "calor"]
+        atoms: ["nublado"]
+        why: "«nublado» is cloudy. «lluvia»/«viento»/«calor» are other weather words from this module."
+      # Printed non-recall at L1 (es-m27-1-l1-sp-win).
+      - kind: speakLit
+        id: l6-sp-recall-l1win
+        es: "hoy hay sol, y me gusta el sol"
+        en: "Today it's sunny, and I like the sun"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l6-ear-fiesta
+        target: { surface: "la fiesta", emoji: "🎉" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "el museo", emoji: "🏛️" }
+      # Printed non-recall at L5 (es-m27-5-l5-sp-win).
+      - kind: speakLit
+        id: l6-sp-recall-l5win
+        es: "no hace calor, hace un poco de frío"
+        en: "It's not hot, it's a little cold"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l6-agr-estabanubladohaciafrio
+        en: "It was cloudy, and it was cold"
+        audioText: "estaba nublado, y hacía frío"
+        atoms: ["estaba", "nublado", "hacía", "el frío"]
+        segments:
+          - { blank: { id: "p1", answer: "estaba", options: ["estaba", "hacía"] } }
+          - { text: " nublado, y " }
+          - { blank: { id: "p2", answer: "hacía", options: ["hacía", "estaba"] } }
+          - { text: " frío" }
+      - kind: listenBuildLit
+        id: l6-lb-poresonofuimosplaya
+        es: "por eso no fuimos a la playa"
+        en: "That's why we didn't go to the beach"
+        atoms: ["por eso", "no", "fuimos", "playa"]
+        tiles: ["porque", "íbamos"]
+      - kind: textMcq
+        id: l6-tm-nublado
+        target: "nublado"
+        distractors: ["son", "muy", "está"]
+      - kind: sim
+        id: l6-sim-ana-nublado
+        scene: { emoji: "☁️", title: "Ana asks about the beach plan", setting: "Ana wants to know why you and Diego didn't go to the beach yesterday." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Fuimos a la playa ayer?", audioText: "¿fuimos a la playa ayer?", gloss: "Did we go to the beach yesterday?" }
+            goal: "Say no, it was cloudy."
+            reply:
+              mode: build
+              tiles: ["no", "estaba", "nublado", "hacía"]
+              answer: "no estaba nublado"
+            replyGloss: "No, it was cloudy."
+            explanation: "«estaba nublado» — the imperfect (m24), an ongoing scene, not one event."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Estaba nublado ayer?", audioText: "¿estaba nublado ayer?", gloss: "Was it cloudy yesterday?" }
+            goal: "Say yes, that's why we didn't go."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, por eso no fuimos" }
+                - { id: "wrong1", text: "sí, porque no fuimos" }
+                - { id: "wrong2", text: "sí, está nublado, por eso no fuimos" }
+              correctOptionId: "right"
+              audioText: "sí, por eso no fuimos"
+            replyGloss: "Yes, that's why we didn't go."
+            explanation: "The reason («estaba nublado») already came first, so «por eso» (PRIOR, m25) follows it — «porque» would need to come before the reason instead."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Hace calor hoy?", audioText: "¿hace calor hoy?", gloss: "Is it hot today?" }
+            goal: "Say no, it's cold and cloudy."
+            reply:
+              mode: build
+              tiles: ["no", "no", "hace", "calor", "hace", "frío", "y", "está", "nublado", "hacía"]
+              answer: "no no hace calor hace frío y está nublado"
+            replyGloss: "No, it's not hot, it's cold, and it's cloudy."
+            explanation: "Three impersonal frames side by side: «hace frío» and «está nublado» — each keeps its own PRIOR verb."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "nublado", target: "cloudy" }
+          - { source: "estaba", target: "it was (state)" }
+          - { source: "por eso", target: "that's why" }
+          - { source: "cuando", target: "when" }
+          - { source: "ayer", target: "yesterday" }
+          - { source: "fuimos", target: "we went" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "estaba nublado, por eso no fuimos a la playa"
+        en: "It was cloudy, that's why we didn't go to the beach"
+        atoms: ["estaba", "nublado", "por eso", "no", "fuimos", "playa"]
+
+  # ── L7 · «No hace calor, hace frío» — NO new atoms. Pure negation
+  #    recombination across all 7 weather words, all with PRIOR «no» (m1).
+  #    By design, no question sentence appears anywhere in this lesson
+  #    (declarative statements only, sim included) — negation stands on its
+  #    own without needing a question to answer. Carries one recall.
+  - n: 7
+    template: free
+    title: "No hace calor, hace frío"
+    description: "Every weather word, negated: «no» (PRIOR, m1) plus each frame you already own. No new words — just recombination."
+    steps:
+      - kind: map
+        id: l7-map-nohacecalor
+        tokens: ["no", "hace", "calor"]
+        pairs:
+          - { en: "not", tokenIndex: 0 }
+          - { en: "it is (weather)", tokenIndex: 1 }
+          - { en: "heat", tokenIndex: 2 }
+        audioText: "no hace calor"
+        revealNote: "«no» in front of «hace calor» — same negation you've used since m1, now on a weather frame."
+      - kind: speakLit
+        id: l7-sp-nohaysolhoy
+        es: "no hay sol hoy"
+        en: "There's no sun today"
+        atoms: ["no", "hay", "el sol", "hoy"]
+      - kind: buildLit
+        id: l7-b-nohaylluviahoy
+        es: "no hay lluvia hoy"
+        en: "There's no rain today"
+        atoms: ["no", "hay", "la lluvia", "hoy"]
+        tiles: ["estaba", "hace"]
+      - kind: clozeLit
+        id: l7-c-noestanublado
+        es: "no está nublado"
+        en: "It's not cloudy"
+        blank: "está"
+        options: ["está", "hay"]
+        atoms: ["no", "está", "nublado"]
+        why: "«nublado» pairs with «está» (PRIOR, m4), never «hay» — the same frame as always, just negated."
+      - kind: listenCompLit
+        id: l7-lc-nonievepeoviento
+        es: "no hay nieve, pero hay viento"
+        en: "There's no snow, but it's windy."
+        atoms: ["no", "hay", "la nieve", "pero", "hay", "el viento"]
+        distractorsEn:
+          - "There's no wind, but there's snow."
+          - "There's no snow, and there's no wind either."
+          - "There was no snow, but it was windy."
+      - kind: mcq
+        id: l7-q-nohayviento
+        prompt: "Which one means 'there's no wind'?"
+        correct: "no hay viento"
+        distractors: ["no hay nieve", "no hace viento", "no hacía viento"]
+        atoms: ["no", "hay", "el viento"]
+        why: "«el viento» pairs with «hay» (PRIOR, m3), not «hace» — negated the same way."
+      # Printed non-recall at L3 (es-m27-3-l3-sp-win).
+      - kind: speakLit
+        id: l7-sp-recall-l3win
+        es: "hay mucho viento, y también hay nieve"
+        en: "It's very windy, and there's also snow"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l7-ear-escuela
+        target: { surface: "la escuela", emoji: "🏫" }
+        distractors:
+          - { surface: "el museo", emoji: "🏛️" }
+          - { surface: "la tienda", emoji: "🏪" }
+      - kind: agreementLit
+        id: l7-agr-nocalorsifrio
+        en: "It's not hot, it's cold"
+        audioText: "no hace calor, hace frío"
+        atoms: ["no", "hace", "el calor", "el frío"]
+        segments:
+          - { text: "no hace " }
+          - { blank: { id: "p1", answer: "calor", options: ["calor", "frío"] } }
+          - { text: ", hace " }
+          - { blank: { id: "p2", answer: "frío", options: ["frío", "calor"] } }
+      - kind: listenBuildLit
+        id: l7-lb-noestanubladohoy
+        es: "no está nublado hoy"
+        en: "It's not cloudy today"
+        atoms: ["no", "está", "nublado", "hoy"]
+        tiles: ["hacía", "estaba"]
+      - kind: textMcq
+        id: l7-tm-no
+        target: "no"
+        distractors: ["muy", "hay", "hace"]
+      - kind: sim
+        id: l7-sim-ana-negacion
+        scene: { emoji: "🥶", title: "Ana talks about today's weather", setting: "Ana tells you what the weather is like, statement by statement." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "Hoy no hace mucho calor.", audioText: "hoy no hace mucho calor.", gloss: "Today it's not very hot." }
+            goal: "Say yes, it's cold."
+            reply:
+              mode: build
+              tiles: ["sí", "hace", "frío", "calor"]
+              answer: "sí hace frío"
+            replyGloss: "Yes, it's cold."
+            explanation: "«hace frío» — same impersonal «hace», simple confirmation."
+          - id: t2
+            npc: { speaker: "Ana", es: "No hay sol hoy, está nublado.", audioText: "no hay sol hoy, está nublado.", gloss: "There's no sun today, it's cloudy." }
+            goal: "Agree, and say you don't like it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, no me gusta" }
+                - { id: "wrong1", text: "sí, no te gusta" }
+                - { id: "wrong2", text: "sí, no me gustan" }
+              correctOptionId: "right"
+              audioText: "sí, no me gusta"
+            replyGloss: "Yes, I don't like it."
+            explanation: "Talking about yourself: «no me gusta», not «no te gusta» (that would talk about Ana)."
+          - id: t3
+            npc: { speaker: "Ana", es: "A Diego no le gusta el frío.", audioText: "a diego no le gusta el frío.", gloss: "Diego doesn't like the cold." }
+            goal: "Say Diego likes sun, not rain."
+            reply:
+              mode: build
+              tiles: ["a", "diego", "le", "gusta", "el", "sol", "pero", "no", "le", "gusta", "la", "lluvia"]
+              answer: "a diego le gusta el sol pero no le gusta la lluvia"
+            replyGloss: "Diego likes the sun, but not the rain."
+            explanation: "«pero» (PRIOR, m6) links the two — «le gusta» stays the same, only «no» changes what follows."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "no hay sol", target: "there's no sun" }
+          - { source: "no hace calor", target: "it's not hot" }
+          - { source: "no está nublado", target: "it's not cloudy" }
+          - { source: "no me gusta", target: "I don't like" }
+          - { source: "pero", target: "but" }
+          - { source: "hoy", target: "today" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "no hace calor, hace frío, y no me gusta"
+        en: "It's not hot, it's cold, and I don't like it"
+        atoms: ["no", "hace", "el calor", "hace", "el frío", "no", "me gusta"]
+
+  # ── L8 · CHECKPOINT — graded only, zero info cards. All 7 weather words
+  #    at once, all three PRIOR frames (hay/hace/está), plus L6's own
+  #    imperfect/por-eso recombination. ≥2 recalls (L2 and L7). Win line
+  #    uses PRIOR «hacía» (m24) and «salía» (m26, one of the five imperfect
+  #    families) — a new original sentence built entirely from confirmed
+  #    PRIOR module material. Ends sim → matchLit → speakLit-win, the
+  #    standard ending.
+  - n: 8
+    template: free
+    title: "Checkpoint: sol, lluvia, viento, nieve, calor, frío, nublado"
+    description: "All seven weather words, all graded — no new teaching, just proof you've got it: hay, hace, está, and their imperfects, together."
+    steps:
+      - kind: buildLit
+        id: l8-b-haysolnohaylluvia
+        es: "hoy hay sol, y no hay lluvia"
+        en: "Today it's sunny, and there's no rain"
+        atoms: ["hay", "el sol", "no", "hay", "la lluvia"]
+        tiles: ["hace", "estaba"]
+      - kind: listenBuildLit
+        id: l8-lb-vientonieve
+        es: "hay mucho viento, pero no hay nieve"
+        en: "It's very windy, but there's no snow"
+        atoms: ["hay", "mucho", "el viento", "no", "hay", "la nieve"]
+        tiles: ["hace", "estaba"]
+      - kind: buildLit
+        id: l8-b-calorfrio
+        es: "no hace calor, hace un poco de frío"
+        en: "It's not hot, it's a little cold"
+        atoms: ["no", "hace", "el calor", "un poco", "el frío"]
+        tiles: ["hay", "está"]
+      - kind: clozeLit
+        id: l8-c-estabanubladoporeso
+        es: "estaba nublado, por eso no fuimos a la playa"
+        en: "It was cloudy, that's why we didn't go to the beach"
+        blank: "estaba"
+        options: ["estaba", "está"]
+        atoms: ["estaba", "nublado", "por eso", "fuimos", "playa"]
+        why: "«fuimos» (PRIOR, m21) marks the past, so the imperfect «estaba» (PRIOR, m24), not «está»."
+      - kind: speakLit
+        id: l8-sp-megustaelsolnoelfrio
+        es: "me gusta el sol, pero no me gusta el frío"
+        en: "I like the sun, but I don't like the cold"
+        atoms: ["me gusta", "el sol", "pero", "no", "me gusta", "el frío"]
+      - kind: mcq
+        id: l8-q-collisioncheck
+        prompt: "Which one pairs with «hay», never «hace» or «está»?"
+        correct: "la nieve"
+        distractors: ["el calor", "el frío", "nublado"]
+        atoms: ["la nieve"]
+        why: "«la nieve» uses «hay» (PRIOR, m3), same as «el sol»/«la lluvia»/«el viento». «el calor»/«el frío» use «hace»; «nublado» uses «está»."
+      # Printed non-recall at L2 (es-m27-2-l2-sp-win).
+      - kind: speakLit
+        id: l8-sp-recall-l2win
+        es: "hay lluvia hoy, y no me gusta la lluvia"
+        en: "It's raining today, and I don't like the rain"
+        atoms: []
+        cue: recall
+      - kind: agreementLit
+        id: l8-agr-haciacalorestabanublado
+        en: "It used to be hot, and it was cloudy too"
+        audioText: "hacía calor, y estaba nublado también"
+        atoms: ["hacía", "el calor", "estaba", "nublado", "también"]
+        segments:
+          - { blank: { id: "p1", answer: "hacía", options: ["hacía", "estaba"] } }
+          - { text: " calor, y " }
+          - { blank: { id: "p2", answer: "estaba", options: ["estaba", "hacía"] } }
+          - { text: " nublado también" }
+      - kind: textMcq
+        id: l8-tm-nublado
+        target: "nublado"
+        distractors: ["viento", "nieve", "sol"]
+      - kind: audioWimcq
+        id: l8-ear-parque
+        target: { surface: "el parque", emoji: "🌳" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "el mercado", emoji: "🛒" }
+      # Printed non-recall at L7 (es-m27-7-l7-sp-win).
+      - kind: speakLit
+        id: l8-sp-recall-l7win
+        es: "no hace calor, hace frío, y no me gusta"
+        en: "It's not hot, it's cold, and I don't like it"
+        atoms: []
+        cue: recall
+      - kind: sim
+        id: l8-sim-ana-checkpoint
+        scene: { emoji: "🌦️", title: "Ana checks in on the weather", setting: "Ana wants to know what the weather is like, all week." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Hay sol hoy, o hay lluvia?", audioText: "¿hay sol hoy, o hay lluvia?", gloss: "Is it sunny today, or is it raining?" }
+            goal: "Say there's sun, and also wind."
+            reply:
+              mode: build
+              tiles: ["hay", "sol", "y", "también", "hay", "viento", "lluvia"]
+              answer: "hay sol y también hay viento"
+            replyGloss: "There's sun, and there's also wind."
+            explanation: "«también» (PRIOR, m11/m13) adds the second thing — «hay viento» stays impersonal."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Hacía frío ayer?", audioText: "¿hacía frío ayer?", gloss: "Was it cold yesterday?" }
+            goal: "Say yes, and it was cloudy too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, y estaba nublado también" }
+                - { id: "wrong1", text: "sí, y hace nublado también" }
+                - { id: "wrong2", text: "sí, y estaban nublado también" }
+              correctOptionId: "right"
+              audioText: "sí, y estaba nublado también"
+            replyGloss: "Yes, and it was cloudy too."
+            explanation: "«nublado» always pairs with «está»/«estaba», never «hace» — and it never changes form."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Te gusta la nieve, o te gusta el calor?", audioText: "¿te gusta la nieve, o te gusta el calor?", gloss: "Do you like the snow, or do you like the heat?" }
+            goal: "Say you like the heat, not the cold."
+            reply:
+              mode: build
+              tiles: ["me", "gusta", "el", "calor", "no", "el", "frío", "te"]
+              answer: "me gusta el calor no el frío"
+            replyGloss: "I like the heat, not the cold."
+            explanation: "Talking about yourself: «me gusta», not «te gusta» (that would talk about Ana)."
+      - kind: matchLit
+        id: l8-match
+        pairs:
+          - { source: "el sol", target: "the sun" }
+          - { source: "la lluvia", target: "the rain" }
+          - { source: "el viento", target: "the wind" }
+          - { source: "la nieve", target: "the snow" }
+          - { source: "el calor", target: "the heat" }
+          - { source: "el frío", target: "the cold" }
+          - { source: "nublado", target: "cloudy" }
+      - kind: speakLit
+        id: l8-sp-win
+        es: "de niño, siempre hacía mucho frío, por eso no salía mucho"
+        en: "As a child, it was always very cold, that's why I didn't go out much"
+        atoms: ["de niño", "siempre", "hacía", "mucho", "el frío", "por eso", "no", "salía", "mucho"]
+
+  # ── L9 · «Hoy hace sol, pero de niño hacía frío» — NO new atoms. Present
+  #    vs. imperfect idiom contrast only (hard rule 6): «hace» (now) against
+  #    «hacía» (used to be), the same PRIOR pair from m15/m24. Real Spanish
+  #    lets «el sol» pair with either «hay» or «hace» (unlike «nublado»,
+  #    which only ever takes «está») — flagged briefly on the map step's
+  #    revealNote, not a full info card, to stay inside hard rule 6's scope.
+  #    Carries one recall.
+  - n: 9
+    template: free
+    title: "Hoy hace sol, pero de niño hacía frío"
+    description: "Present against imperfect, side by side: «hace» (now, PRIOR m15) against «hacía» (used to be, PRIOR m24) — no new words, just the tense contrast."
+    steps:
+      - kind: map
+        id: l9-map-hoyhacesol
+        tokens: ["hoy", "hace", "sol"]
+        pairs:
+          - { en: "today", tokenIndex: 0 }
+          - { en: "it is (weather)", tokenIndex: 1 }
+          - { en: "sun", tokenIndex: 2 }
+        audioText: "hoy hace sol"
+        revealNote: "«el sol» can pair with «hace» too, not just «hay» — both are real. «nublado», though, only ever takes «está»."
+      - kind: speakLit
+        id: l9-sp-hoyhacesolnofrio
+        es: "hoy hace sol y no hace frío"
+        en: "Today it's sunny and it's not cold"
+        atoms: ["hoy", "hace", "el sol", "no", "hace", "el frío"]
+      - kind: buildLit
+        id: l9-b-deninohaciafrio
+        es: "de niño, hacía mucho frío"
+        en: "As a child, it used to be very cold"
+        atoms: ["de niño", "hacía", "mucho", "el frío"]
+        tiles: ["hace", "estaba"]
+      - kind: clozeLit
+        id: l9-c-deninohaciacaloraqui
+        es: "de niño, hacía mucho calor aquí"
+        en: "As a child, it used to be very hot here"
+        blank: "hacía"
+        options: ["hacía", "hace"]
+        atoms: ["de niño", "hacía", "mucho", "el calor", "aquí"]
+        why: "«de niño» (PRIOR, m24/m26) points at the past, so the imperfect «hacía», not «hace»."
+      - kind: listenCompLit
+        id: l9-lc-deninonosolmuchofrio
+        es: "de niño, no hacía sol, hacía mucho frío"
+        en: "As a child, it wasn't sunny, it used to be very cold."
+        atoms: ["de niño", "no", "hacía", "el sol", "hacía", "mucho", "el frío"]
+        distractorsEn:
+          - "Today it's not sunny, it's very cold."
+          - "As a child, it was sunny, and it was cold too."
+          - "As a child, it wasn't cold, it was very sunny."
+      - kind: mcq
+        id: l9-q-nowvspast
+        prompt: "Which one talks about NOW, not the past?"
+        correct: "hace sol"
+        distractors: ["hacía sol", "hacía frío", "hacía viento"]
+        atoms: ["hace", "el sol"]
+        why: "«hace» (PRIOR, m15) is now. «hacía» (PRIOR, m24) is the imperfect — the standing habit of the past."
+      # Printed non-recall at L6 (es-m27-6-l6-sp-win).
+      - kind: speakLit
+        id: l9-sp-recall-l6win
+        es: "estaba nublado, por eso no fuimos a la playa"
+        en: "It was cloudy, that's why we didn't go to the beach"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l9-ear-mercado
+        target: { surface: "el mercado", emoji: "🛒" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "el parque", emoji: "🌳" }
+      - kind: agreementLit
+        id: l9-agr-hacehacia
+        en: "Today it's hot, but as a child it used to be cold"
+        audioText: "hoy hace calor, pero de niño hacía frío"
+        atoms: ["hoy", "hace", "el calor", "de niño", "hacía", "el frío"]
+        segments:
+          - { text: "hoy " }
+          - { blank: { id: "p1", answer: "hace", options: ["hace", "hacía"] } }
+          - { text: " calor, pero de niño " }
+          - { blank: { id: "p2", answer: "hacía", options: ["hacía", "hace"] } }
+          - { text: " frío" }
+      - kind: listenBuildLit
+        id: l9-lb-siemprehaciafrio
+        es: "siempre hacía mucho frío"
+        en: "It was always very cold"
+        atoms: ["siempre", "hacía", "mucho", "el frío"]
+        tiles: ["hace", "estaba"]
+      - kind: textMcq
+        id: l9-tm-hacia
+        target: "hacía"
+        distractors: ["hace", "hay", "está"]
+      - kind: sim
+        id: l9-sim-ana-presenteimperfecto
+        scene: { emoji: "🌤️", title: "Ana compares now and back then", setting: "Ana wants to know how the weather now compares to when you were a child." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Hace sol hoy?", audioText: "¿hace sol hoy?", gloss: "Is it sunny today?" }
+            goal: "Say yes, and it's not cold."
+            reply:
+              mode: build
+              tiles: ["sí", "y", "no", "hace", "frío", "hacía"]
+              answer: "sí y no hace frío"
+            replyGloss: "Yes, and it's not cold."
+            explanation: "«hace» — now, the present. No imperfect here, nothing habitual being described."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Hacía frío cuando eras niño?", audioText: "¿hacía frío cuando eras niño?", gloss: "Was it cold when you were a child?" }
+            goal: "Say yes, it was always very cold."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, siempre hacía mucho frío" }
+                - { id: "wrong1", text: "sí, siempre hace mucho frío" }
+                - { id: "wrong2", text: "sí, siempre hacían mucho frío" }
+              correctOptionId: "right"
+              audioText: "sí, siempre hacía mucho frío"
+            replyGloss: "Yes, it was always very cold."
+            explanation: "«de niño»/«cuando eras niño» points at the standing habit: «hacía», not «hace» (that would slip into now)."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y hoy? ¿Hace frío también?", audioText: "¿y hoy? ¿hace frío también?", gloss: "And today? Is it cold too?" }
+            goal: "Say no, today it's sunny."
+            reply:
+              mode: build
+              tiles: ["no", "hoy", "hace", "sol", "hacía"]
+              answer: "no hoy hace sol"
+            replyGloss: "No, today it's sunny."
+            explanation: "Back to «hace» — the present, describing right now."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "hace", target: "it is (now)" }
+          - { source: "hacía", target: "it used to be" }
+          - { source: "de niño", target: "as a child" }
+          - { source: "siempre", target: "always" }
+          - { source: "cuando", target: "when" }
+          - { source: "hoy", target: "today" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "hoy hace sol y no hace frío, pero de niño siempre hacía mucho frío"
+        en: "Today it's sunny and it's not cold, but as a child it was always very cold"
+        atoms: ["hoy", "hace", "el sol", "no", "hace", "el frío", "de niño", "siempre", "hacía", "mucho", "el frío"]
+
+  # ── L10 · MASTERY — zero new atoms, zero info cards, every step graded.
+  #    Longest sim in the module (Ana asks for the whole memory, 5 turns) —
+  #    per the module's law, the mastery lesson must END on the sim, so the
+  #    verbatim closing win line is delivered as the sim's final (5th) turn
+  #    reply, not a separate speakLit step; matchLit sits just before the
+  #    sim instead of after it. ≥2 recalls (L9, L1 — full-circle back to
+  #    the very first win). ≥1 PRIOR m23 connective («cuando» and
+  #    «mientras», both used). ≥1 PRIOR m25 connective («porque»/«por eso»,
+  #    both used). Context: all 7 weather atoms plus PRIOR
+  #    vivíamos/salíamos/salías/salían (m26) and estaba/hacía (m24), all
+  #    working together. NOTE: the brief's suggested win line used «un día»
+  #    and «nevaba», neither confirmed PRIOR (nevaba is a manufactured
+  #    weather-verb form this module deliberately never teaches, per hard
+  #    rule 3) and «donde» (grep-confirmed zero hits anywhere in m1-m26).
+  #    This lesson's win line substitutes the registered «aquí» for
+  #    «donde» and drops «nevaba» for the registered «hacía frío» —
+  #    otherwise it preserves the brief's intent (a childhood memory, the
+  #    imperfect weather idiom, «por eso» causal, PRIOR m25) exactly.
+  - n: 10
+    template: free
+    title: "De niño, hacía mucho frío aquí"
+    description: "Everything from this module, one last time, fully graded — every weather word recombined, PRIOR m23/m25 connectives, all working together."
+    steps:
+      - kind: buildLit
+        id: l10-b-deninoviviamosaquijuntos
+        es: "de niño, vivíamos aquí juntos"
+        en: "As children, we used to live here together"
+        atoms: ["de niño", "vivíamos", "aquí", "juntos"]
+        tiles: ["vivían", "vive"]
+      - kind: speakLit
+        id: l10-sp-siemprehaciafrio
+        es: "de niño, siempre hacía mucho frío"
+        en: "As a child, it was always very cold"
+        atoms: ["de niño", "siempre", "hacía", "mucho", "el frío"]
+      - kind: buildLit
+        id: l10-b-nohaciacalorhaciafrio
+        es: "no hacía calor, hacía frío"
+        en: "It wasn't hot, it was cold"
+        atoms: ["no", "hacía", "el calor", "hacía", "el frío"]
+        tiles: ["hace", "estaba"]
+      - kind: listenBuildLit
+        id: l10-lb-saliamospocoporquehaciafrio
+        es: "salíamos poco porque hacía frío"
+        en: "We didn't go out much because it was cold"
+        atoms: ["salíamos", "porque", "hacía", "el frío"]
+        tiles: ["salían", "sale"]
+      - kind: clozeLit
+        id: l10-c-cuandohaciafrionosaliamos
+        es: "cuando hacía frío, no salíamos mucho"
+        en: "When it was cold, we didn't go out much"
+        blank: "salíamos"
+        options: ["salíamos", "salían"]
+        atoms: ["cuando", "hacía", "el frío", "salíamos", "mucho"]
+        why: "«nosotros» keeps «salíamos» — the accented we-form; «salían» would wrongly shift to they."
+      - kind: mcq
+        id: l10-q-cuando
+        prompt: "Which one sets up a WHEN, not a WHY?"
+        correct: "cuando"
+        distractors: ["porque", "por eso", "mientras"]
+        atoms: ["cuando"]
+        why: "«cuando» (when) frames a moment. «porque»/«por eso» (PRIOR, m25) give a reason; «mientras» marks simultaneity, close but not the same as a single «when»."
+      - kind: agreementLit
+        id: l10-agr-yotusaliamos
+        en: "I used to go out little, and you did too"
+        audioText: "yo salía poco, y tú salías también"
+        atoms: ["salía", "salías"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "salía", options: ["salía", "salías"] } }
+          - { text: " poco, y tú " }
+          - { blank: { id: "p2", answer: "salías", options: ["salías", "salía"] } }
+          - { text: " también" }
+      # Printed non-recall at L9 (es-m27-9-l9-sp-win).
+      - kind: speakLit
+        id: l10-sp-recall-l9win
+        es: "hoy hace sol y no hace frío, pero de niño siempre hacía mucho frío"
+        en: "Today it's sunny and it's not cold, but as a child it was always very cold"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l10-tm-cuando
+        target: "cuando"
+        distractors: ["porque", "por eso", "mientras"]
+      - kind: audioWimcq
+        id: l10-ear-tienda
+        target: { surface: "la tienda", emoji: "🏪" }
+        distractors:
+          - { surface: "el museo", emoji: "🏛️" }
+          - { surface: "la fiesta", emoji: "🎉" }
+      - kind: buildLit
+        id: l10-b-nohaciamuchosolaqui
+        es: "de niño, no hacía mucho sol aquí"
+        en: "As a child, it wasn't very sunny here"
+        atoms: ["de niño", "no", "hacía", "mucho", "el sol", "aquí"]
+        tiles: ["hace", "estaba"]
+      - kind: listenBuildLit
+        id: l10-lb-mientrashaciafrioestabanublado
+        es: "mientras hacía frío, estaba nublado"
+        en: "While it was cold, it was cloudy"
+        atoms: ["mientras", "hacía", "el frío", "estaba", "nublado"]
+        tiles: ["hace", "está"]
+      - kind: clozeLit
+        id: l10-c-todossaliancuandohaciafrio
+        es: "todos salían poco cuando hacía frío"
+        en: "Everyone went out little when it was cold"
+        blank: "salían"
+        options: ["salían", "salíamos"]
+        atoms: ["todos", "salían", "cuando", "hacía", "el frío"]
+        why: "«todos» takes the they-ending: «salían», never «salíamos» (we)."
+      - kind: mcq
+        id: l10-q-saliamosmucho
+        prompt: "'We used to go out a lot' — which one?"
+        correct: "salíamos mucho"
+        distractors: ["salía mucho", "salíamos poco", "salían mucho"]
+        atoms: ["salíamos", "mucho"]
+        why: "«salíamos» (PRIOR, m26) is the accented we-form — «salía» wrongly narrows to one person, «salían» wrongly shifts to they, and «poco» is the wrong amount."
+      - kind: speakLit
+        id: l10-sp-tusaliaspococuandofrio
+        es: "tú siempre salías poco cuando hacía frío"
+        en: "You (tú) always went out little when it was cold"
+        atoms: ["salías", "siempre", "cuando", "hacía", "el frío"]
+      - kind: buildLit
+        id: l10-b-tuviviasaquidenino
+        es: "tú vivías aquí de niño"
+        en: "You (tú) used to live here as a child"
+        atoms: ["vivías", "aquí", "de niño"]
+        tiles: ["vivía", "vive"]
+      # Printed non-recall at L1 (es-m27-1-l1-sp-win).
+      - kind: speakLit
+        id: l10-sp-recall-l1win
+        es: "hoy hay sol, y me gusta el sol"
+        en: "Today it's sunny, and I like the sun"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l10-tm-porque
+        target: "porque"
+        distractors: ["por eso", "cuando", "mientras"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "cuando", target: "when" }
+          - { source: "mientras", target: "while" }
+          - { source: "porque", target: "because" }
+          - { source: "por eso", target: "that's why" }
+          - { source: "vivíamos", target: "we used to live" }
+          - { source: "salíamos", target: "we used to go out" }
+      - kind: sim
+        id: l10-sim-ana-memoria
+        scene: { emoji: "🥶", title: "Ana asks for the whole memory", setting: "Ana wants to hear the whole childhood weather story, start to finish, in one telling." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Vivían todos aquí juntos de niños?", audioText: "¿vivían todos aquí juntos de niños?", gloss: "Did you all used to live here together as children?" }
+            goal: "Say yes, you all lived here together."
+            reply:
+              mode: build
+              tiles: ["sí", "vivíamos", "aquí", "juntos", "vivían"]
+              answer: "sí vivíamos aquí juntos"
+            replyGloss: "Yes, we used to live here together."
+            explanation: "«vivíamos» — the accented we-form, answering for the whole group."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Siempre hacía mucho frío?", audioText: "¿siempre hacía mucho frío?", gloss: "Was it always very cold?" }
+            goal: "Say yes, and it wasn't very sunny."
+            reply:
+              mode: build
+              tiles: ["sí", "y", "no", "hacía", "mucho", "sol", "hace"]
+              answer: "sí y no hacía mucho sol"
+            replyGloss: "Yes, and it wasn't very sunny."
+            explanation: "«hacía» keeps the same we-scene as «vivíamos» — the standing habit of the past, not «hace» (that would slip into now)."
+          - id: t3
+            npc: { speaker: "Ana", es: "Salían poco, entonces.", audioText: "salían poco, entonces.", gloss: "You all went out little, then." }
+            goal: "Say because it was cold."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "porque hacía frío" }
+                - { id: "wrong1", text: "por eso hacía frío" }
+                - { id: "wrong2", text: "porque hace frío" }
+              correctOptionId: "right"
+              audioText: "porque hacía frío"
+            replyGloss: "Because it was cold."
+            explanation: "«porque» answers a WHY directly; «por eso» would flip the direction backwards. «hacía», not «hace» — still the past."
+          - id: t4
+            npc: { speaker: "Ana", es: "¿Estaba nublado mientras hacía frío?", audioText: "¿estaba nublado mientras hacía frío?", gloss: "Was it cloudy while it was cold?" }
+            goal: "Say yes, it was very cloudy."
+            reply:
+              mode: build
+              tiles: ["sí", "estaba", "muy", "nublado", "está"]
+              answer: "sí estaba muy nublado"
+            replyGloss: "Yes, it was very cloudy."
+            explanation: "«estaba» — the imperfect (m24), the same ongoing scene as «hacía»."
+          - id: t5
+            npc: { speaker: "Ana", es: "Cuéntamelo todo, de principio a fin.", audioText: "cuéntamelo todo, de principio a fin.", gloss: "Tell me the whole thing, start to finish." }
+            goal: "Narrate the whole memory, start to finish."
+            reply:
+              mode: build
+              tiles: ["de", "niño", "vivíamos", "aquí", "siempre", "hacía", "mucho", "frío", "por", "eso", "salíamos", "poco", "vivían", "salían"]
+              answer: "de niño vivíamos aquí siempre hacía mucho frío por eso salíamos poco"
+            replyGloss: "As a child, we used to live here; it was always very cold, that's why we didn't go out much."
+            explanation: "The whole module in one line: «vivíamos», «hacía frío», «salíamos» — three families, one voice — closed with PRIOR «por eso» (m25) giving the result."
+
+placement:
+  screener:
+    - id: "es-m27-scr-1"
+      prompt: "'As a child, it was very cold.' — which one?"
+      correct: "de niño, hacía mucho frío"
+      distractors: ["de niño, hace mucho frío", "de niño, hacía mucho calor", "de niño, hacían mucho frío"]
+  byModule:
+    - id: "es-m27-pl-1"
+      prompt: "It's raining, and I don't like the rain."
+      correct: "hay lluvia, y no me gusta la lluvia"
+      distractors: ["hay lluvia, y no me gusta el lluvia", "había lluvia, y no me gusta la lluvia", "hay lluvia, y no te gusta la lluvia"]
+    - id: "es-m27-pl-2"
+      prompt: "It's very windy, and there's also snow."
+      correct: "hay mucho viento, y también hay nieve"
+      distractors: ["hay mucho viento, y también hay lluvia", "hace mucho viento, y también hay nieve", "había mucho viento, y también hay nieve"]
+    - id: "es-m27-pl-3"
+      prompt: "It's cloudy, that's why we didn't go to the beach."
+      correct: "está nublado, por eso no fuimos a la playa"
+      distractors: ["está nublada, por eso no fuimos a la playa", "estaba nublado, por eso no fuimos a la playa", "está nublado, porque no fuimos a la playa"]
+    - id: "es-m27-pl-4"
+      prompt: "Today it's sunny and it's not cold, but as a child it was always very cold."
+      correct: "hoy hace sol y no hace frío, pero de niño siempre hacía mucho frío"
+      distractors: ["hoy hace sol y no hace frío, pero de niño siempre hace mucho frío", "hoy hacía sol y no hace frío, pero de niño siempre hacía mucho frío", "hoy hace sol y no hace calor, pero de niño siempre hacía mucho frío"]

@@ -1,0 +1,139 @@
+  # ── L9 · «Hoy hace sol, pero de niño hacía frío» — NO new atoms. Present
+  #    vs. imperfect idiom contrast only (hard rule 6): «hace» (now) against
+  #    «hacía» (used to be), the same PRIOR pair from m15/m24. Real Spanish
+  #    lets «el sol» pair with either «hay» or «hace» (unlike «nublado»,
+  #    which only ever takes «está») — flagged briefly on the map step's
+  #    revealNote, not a full info card, to stay inside hard rule 6's scope.
+  #    Carries one recall.
+  - n: 9
+    template: free
+    title: "Hoy hace sol, pero de niño hacía frío"
+    description: "Present against imperfect, side by side: «hace» (now, PRIOR m15) against «hacía» (used to be, PRIOR m24) — no new words, just the tense contrast."
+    steps:
+      - kind: map
+        id: l9-map-hoyhacesol
+        tokens: ["hoy", "hace", "sol"]
+        pairs:
+          - { en: "today", tokenIndex: 0 }
+          - { en: "it is (weather)", tokenIndex: 1 }
+          - { en: "sun", tokenIndex: 2 }
+        audioText: "hoy hace sol"
+        revealNote: "«el sol» can pair with «hace» too, not just «hay» — both are real. «nublado», though, only ever takes «está»."
+      - kind: speakLit
+        id: l9-sp-hoyhacesolnofrio
+        es: "hoy hace sol y no hace frío"
+        en: "Today it's sunny and it's not cold"
+        atoms: ["hoy", "hace", "el sol", "no", "hace", "el frío"]
+      - kind: buildLit
+        id: l9-b-deninohaciafrio
+        es: "de niño, hacía mucho frío"
+        en: "As a child, it used to be very cold"
+        atoms: ["de niño", "hacía", "mucho", "el frío"]
+        tiles: ["hace", "estaba"]
+      - kind: clozeLit
+        id: l9-c-deninohaciacaloraqui
+        es: "de niño, hacía mucho calor aquí"
+        en: "As a child, it used to be very hot here"
+        blank: "hacía"
+        options: ["hacía", "hace"]
+        atoms: ["de niño", "hacía", "mucho", "el calor", "aquí"]
+        why: "«de niño» (PRIOR, m24/m26) points at the past, so the imperfect «hacía», not «hace»."
+      - kind: listenCompLit
+        id: l9-lc-deninonosolmuchofrio
+        es: "de niño, no hacía sol, hacía mucho frío"
+        en: "As a child, it wasn't sunny, it used to be very cold."
+        atoms: ["de niño", "no", "hacía", "el sol", "hacía", "mucho", "el frío"]
+        distractorsEn:
+          - "Today it's not sunny, it's very cold."
+          - "As a child, it was sunny, and it was cold too."
+          - "As a child, it wasn't cold, it was very sunny."
+      - kind: mcq
+        id: l9-q-nowvspast
+        prompt: "Which one talks about NOW, not the past?"
+        correct: "hace sol"
+        distractors: ["hacía sol", "hacía frío", "hacía viento"]
+        atoms: ["hace", "el sol"]
+        why: "«hace» (PRIOR, m15) is now. «hacía» (PRIOR, m24) is the imperfect — the standing habit of the past."
+      # Printed non-recall at L6 (es-m27-6-l6-sp-win).
+      - kind: speakLit
+        id: l9-sp-recall-l6win
+        es: "estaba nublado, por eso no fuimos a la playa"
+        en: "It was cloudy, that's why we didn't go to the beach"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l9-ear-mercado
+        target: { surface: "el mercado", emoji: "🛒" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "el parque", emoji: "🌳" }
+      - kind: agreementLit
+        id: l9-agr-hacehacia
+        en: "Today it's hot, but as a child it used to be cold"
+        audioText: "hoy hace calor, pero de niño hacía frío"
+        atoms: ["hoy", "hace", "el calor", "de niño", "hacía", "el frío"]
+        segments:
+          - { text: "hoy " }
+          - { blank: { id: "p1", answer: "hace", options: ["hace", "hacía"] } }
+          - { text: " calor, pero de niño " }
+          - { blank: { id: "p2", answer: "hacía", options: ["hacía", "hace"] } }
+          - { text: " frío" }
+      - kind: listenBuildLit
+        id: l9-lb-siemprehaciafrio
+        es: "siempre hacía mucho frío"
+        en: "It was always very cold"
+        atoms: ["siempre", "hacía", "mucho", "el frío"]
+        tiles: ["hace", "estaba"]
+      - kind: textMcq
+        id: l9-tm-hacia
+        target: "hacía"
+        distractors: ["hace", "hay", "está"]
+      - kind: sim
+        id: l9-sim-ana-presenteimperfecto
+        scene: { emoji: "🌤️", title: "Ana compares now and back then", setting: "Ana wants to know how the weather now compares to when you were a child." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Hace sol hoy?", audioText: "¿hace sol hoy?", gloss: "Is it sunny today?" }
+            goal: "Say yes, and it's not cold."
+            reply:
+              mode: build
+              tiles: ["sí", "y", "no", "hace", "frío", "hacía"]
+              answer: "sí y no hace frío"
+            replyGloss: "Yes, and it's not cold."
+            explanation: "«hace» — now, the present. No imperfect here, nothing habitual being described."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Hacía frío cuando eras niño?", audioText: "¿hacía frío cuando eras niño?", gloss: "Was it cold when you were a child?" }
+            goal: "Say yes, it was always very cold."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, siempre hacía mucho frío" }
+                - { id: "wrong1", text: "sí, siempre hace mucho frío" }
+                - { id: "wrong2", text: "sí, siempre hacían mucho frío" }
+              correctOptionId: "right"
+              audioText: "sí, siempre hacía mucho frío"
+            replyGloss: "Yes, it was always very cold."
+            explanation: "«de niño»/«cuando eras niño» points at the standing habit: «hacía», not «hace» (that would slip into now)."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y hoy? ¿Hace frío también?", audioText: "¿y hoy? ¿hace frío también?", gloss: "And today? Is it cold too?" }
+            goal: "Say no, today it's sunny."
+            reply:
+              mode: build
+              tiles: ["no", "hoy", "hace", "sol", "hacía"]
+              answer: "no hoy hace sol"
+            replyGloss: "No, today it's sunny."
+            explanation: "Back to «hace» — the present, describing right now."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "hace", target: "it is (now)" }
+          - { source: "hacía", target: "it used to be" }
+          - { source: "de niño", target: "as a child" }
+          - { source: "siempre", target: "always" }
+          - { source: "cuando", target: "when" }
+          - { source: "hoy", target: "today" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "hoy hace sol y no hace frío, pero de niño siempre hacía mucho frío"
+        en: "Today it's sunny and it's not cold, but as a child it was always very cold"
+        atoms: ["hoy", "hace", "el sol", "no", "hace", "el frío", "de niño", "siempre", "hacía", "mucho", "el frío"]

@@ -1,0 +1,149 @@
+  # ── L1 · «Hay sol» — el sol debuts on imageMcq (first new-emoji debut
+  #    since m20; §13.2 "the image IS the introduction"). NOT ☀️ (PRIOR,
+  #    m1-m10, the «buenas tardes» distractor) — 🌞 instead (see the
+  #    header's "NO NEW EMOJI COLLISION" section). Carries this module's ONE
+  #    general usage-note card (≤3 lines, budget per CLAUDE.md), explaining
+  #    the «hace»/«hay»/«está» + weather-word PATTERN itself. PRIOR context:
+  #    «hay» (m3), «me gusta»/«te gusta»/«le gusta» (m7/m13). No recall
+  #    (nothing earlier in this module).
+  - n: 1
+    template: free
+    title: "Hay sol"
+    description: "Seven new weather words, zero new grammar — every sentence frame is already yours. «hay sol» — «hay» (m3) plus this module's own «el sol»."
+    steps:
+      - kind: map
+        id: l1-map-hoyhaysol
+        tokens: ["hoy", "hay", "sol"]
+        pairs:
+          - { en: "today", tokenIndex: 0 }
+          - { en: "there is", tokenIndex: 1 }
+          - { en: "sun", tokenIndex: 2 }
+        audioText: "hoy hay sol"
+        revealNote: "«hay» (m3, there is/are) plus this module's own «sol» — the sun. «hoy hay sol»: today it's sunny."
+      - kind: imageMcq
+        id: l1-im-sol
+        target: { surface: "el sol", meaningEn: "the sun", emoji: "🌞" }
+        distractors:
+          - { surface: "la playa", emoji: "🏖️" }
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: info
+        id: l1-info-patronclima
+        title: "Hace, hay, está — the weather pattern"
+        body: "Spanish describes weather with words you already know: «hace» (m15) + heat/cold, «hay» (m3) + wind/snow, «está» (m4) + cloudy. «hay mucho sol» — it's very sunny."
+      - kind: speakLit
+        id: l1-sp-megustaelsol
+        es: "me gusta el sol"
+        en: "I like the sun"
+        atoms: ["me gusta", "el sol"]
+      - kind: buildLit
+        id: l1-b-enmexicosiemprehaysol
+        es: "en México, siempre hay mucho sol"
+        en: "In Mexico, there's always a lot of sun"
+        atoms: ["México", "siempre", "hay", "mucho", "el sol"]
+        tiles: ["estaba", "hace"]
+      - kind: clozeLit
+        id: l1-c-tegustaelsol
+        es: "te gusta el sol"
+        en: "you (tú) like the sun"
+        blank: "te"
+        options: ["te", "me"]
+        atoms: ["te gusta", "el sol"]
+        why: "«te» — talking to you (tú). «me» would talk about yourself instead."
+      - kind: listenCompLit
+        id: l1-lc-diegolegustasol
+        es: "a Diego le gusta el sol"
+        en: "Diego likes the sun."
+        atoms: ["le", "gusta", "el sol"]
+        distractorsEn:
+          - "Diego doesn't like the sun."
+          - "Diego likes the rain."
+          - "Ana likes the sun."
+      - kind: mcq
+        id: l1-q-elsol
+        prompt: "Which one means 'the sun'?"
+        correct: "el sol"
+        distractors: ["la playa", "el parque", "la escuela"]
+        atoms: ["el sol"]
+        why: "«el sol» is the sun. «la playa»/«el parque»/«la escuela» are all PRIOR places, not weather."
+      - kind: buildLit
+        id: l1-b-haymuchosolplaya
+        es: "hay mucho sol en la playa"
+        en: "It's very sunny at the beach"
+        atoms: ["hay", "mucho", "el sol", "playa"]
+        tiles: ["hace", "estaba"]
+      - kind: audioWimcq
+        id: l1-ear-playa
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: agreementLit
+        id: l1-agr-megustategusta
+        en: "I like the sun, and you like it too"
+        audioText: "me gusta el sol, y te gusta también"
+        atoms: ["me gusta", "el sol", "te gusta", "también"]
+        segments:
+          - { blank: { id: "p1", answer: "me", options: ["me", "te"] } }
+          - { text: " gusta el sol, y " }
+          - { blank: { id: "p2", answer: "te", options: ["te", "me"] } }
+          - { text: " gusta también" }
+      - kind: listenBuildLit
+        id: l1-lb-analegustasol
+        es: "a Ana le gusta el sol"
+        en: "Ana likes the sun"
+        atoms: ["le", "gusta", "el sol"]
+        tiles: ["gustan", "hay"]
+      - kind: textMcq
+        id: l1-tm-sol
+        target: "el sol"
+        distractors: ["son", "muy", "hay"]
+      - kind: sim
+        id: l1-sim-ana-sol
+        scene: { emoji: "🌞", title: "Ana talks about the sun", setting: "Ana wants to know if you like sunny weather." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Hay sol hoy?", audioText: "¿hay sol hoy?", gloss: "Is it sunny today?" }
+            goal: "Say yes, there's a lot of sun."
+            reply:
+              mode: build
+              tiles: ["sí", "hay", "mucho", "sol", "hace"]
+              answer: "sí hay mucho sol"
+            replyGloss: "Yes, there's a lot of sun."
+            explanation: "«hay» (there is) plus «sol» — no verb agreement to think about, it's impersonal."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Te gusta el sol?", audioText: "¿te gusta el sol?", gloss: "Do you like the sun?" }
+            goal: "Say yes, you like the sun a lot."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me gusta mucho el sol" }
+                - { id: "wrong1", text: "sí, te gusta mucho el sol" }
+                - { id: "wrong2", text: "sí, me gustan mucho el sol" }
+              correctOptionId: "right"
+              audioText: "sí, me gusta mucho el sol"
+            replyGloss: "Yes, I like the sun a lot."
+            explanation: "Talking about yourself: «me gusta», not «te gusta» (that would talk about Ana). «el sol» is one thing, so «gusta», never «gustan»."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Y a Diego? ¿Le gusta el sol también?", audioText: "¿y a diego? ¿le gusta el sol también?", gloss: "And Diego? Does he like the sun too?" }
+            goal: "Say yes, Diego likes the sun too."
+            reply:
+              mode: build
+              tiles: ["sí", "a", "diego", "le", "gusta", "el", "sol", "también", "me"]
+              answer: "sí a diego le gusta el sol también"
+            replyGloss: "Yes, Diego likes the sun too."
+            explanation: "«a Diego le gusta» — the PRIOR (m13) pattern for someone else liking something, «le» unchanged."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "el sol", target: "the sun" }
+          - { source: "hay", target: "there is, there are" }
+          - { source: "me gusta", target: "I like" }
+          - { source: "te gusta", target: "you (tú) like" }
+          - { source: "le gusta", target: "he/she/you (usted) likes" }
+          - { source: "hoy", target: "today" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "hoy hay sol, y me gusta el sol"
+        en: "Today it's sunny, and I like the sun"
+        atoms: ["hoy", "hay", "el sol", "me gusta"]
