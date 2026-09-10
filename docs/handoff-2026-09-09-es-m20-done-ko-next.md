@@ -19,8 +19,10 @@ m20 was the first module done this way — see "What it cost" below.
 | m19 «Ayer hablé» | local green (pins fixed, 13 extra clips) | e86e17d1 |
 | m20 «Fui, hice, tuve» | local green, ES suite 1425 tests, 224 clips | b8d3a613 |
 | preflight | GREEN (exit 0, 12808 tests, CI-semantics build) on 83b82650 after a one-line practice-test fix | 83b82650 |
+| KO queue items 1–4 (below) | DONE locally — gates m3–m27, review grids m16–m27, particle-cue gate, R1–R4 audit fixes; preflight GREEN (exit 0, 13332 tests) after rebase onto 82d7a3b0 | 7f3aa520 |
+| KO handoff for Payton | `docs/ko-handoff-payton-2026-09-09.md` (what changed, what gates cover, what to walk, mobile pass) | a4f91cf3 |
 
-Local main is 8 commits ahead of origin/main. NOT pushed (Spencer decides; the
+Local main is 11 commits ahead of origin/main (ES m18–m20 + KO). NOT pushed (Spencer decides; the
 mobile session asked to be told before any push so its practice-wave merge
 fetches first — message "Mobile app feedback fixes [fbedc0]").
 
@@ -67,28 +69,28 @@ B109–B115, walk debt B111, hacer ruling B112 in every mN.test.ts; dead
 `LINGO_CUSTOM_ART["es:mesa"]`; stale `conjugationTables.ts` comments;
 m21+ unplanned (A2 continues: plural preterite, or imperfect).
 
-## KO queue — from the mobile session (owner of none of these; all unstarted)
+## KO queue — from the mobile session (status 2026-09-09 evening: 1–4 DONE in 7f3aa520, 5–7 parked)
 Source: cross-session message 2026-09-09 from "Mobile app feedback fixes".
 KO m1–m27 live on prod + TestFlight (R1–R4 shipped 2026-09-02, head c98e79b1).
 Payton is the KO QA tester; Spencer is not walking KO.
-1. [HIGH] Audit the unaudited re-author delta: `docs/ko-release-audit-2026-09-01.md`
+1. [HIGH] DONE — Sonnet audit found 3 HIGH (뭐/왜 graded before intro; liaison wrap-up meaning-graded 있어요/없어요), all fixed in m2. Original ask: audit the unaudited re-author delta: `docs/ko-release-audit-2026-09-01.md`
    predates R1–R4. Unreviewed: ko-m2-cv-1/2/3, ko-m2-bt-*, ko-m1-mix-1/2,
    빵 at m5 (ko-m5-3/ko-m5-5), and R2's 562 `unlockModule` moves in
    `src/features/languages/ko/**/frequencyAtoms*` (ingest
    `scripts/ingest-ko-frequency.mjs`, baseline `ko/__tests__/freqRankBaseline.json`).
    Shape: one Sonnet agent on `git diff 65c0944e..c98e79b1 -- src/features/languages/ko`.
-2. [HIGH] m16–m27 never audited; gates `introBeforeGraded` and
+2. [HIGH] DONE — both gates now m3–m27; caught 담배 (m16), 너무 (m26), no grids m16–m27; all fixed. Original ask: m16–m27 never audited; gates `introBeforeGraded` and
    `koCompoundingReview` stop at m15 (`ko/__tests__/introBeforeGraded.test.ts`,
    `koCompoundingReview.test.ts`). Extend both to m27, fix what they catch.
-3. [MED] Payton's findings in `docs/user-feedback/` (KO rows, if any); port the
+3. [MED] DONE — Payton's rows #33/#34 were already fixed; KO particle-cue gate ported (`ko/__tests__/particleCueAnswerability.test.ts`, 21 clozes cued). Original ask: Payton's findings in `docs/user-feedback/` (KO rows, if any); port the
    JA uncued-particle detector to KO (은/는/이/가/을/를 cloze prompts with no
    English cue) — memory `uncued-particle-prompts`.
-4. [MED] 화요일/목요일 srsEligible without an intro card → intro card or flag.
-5. [LOW] koCompoundingReview ratchet 0.6; m12 tight at 0.625 — author m12
+4. [MED] DONE (already fixed 2026-09-01) — 화요일/목요일 srsEligible without an intro card → intro card or flag.
+5. [LOW] PARKED — koCompoundingReview ratchet 0.6; m12 tight at 0.625 — author m12
    review carriers first (`curriculum/_reviewInterleave.ts`).
-6. [LOW/LONG] 742 untaught grade-A words: `docs/ko-gap-audit-2026-08-26.md`,
+6. [LOW/LONG] PARKED — 742 untaught grade-A words: `docs/ko-gap-audit-2026-08-26.md`,
    `docs/data/ko-graded-vocab.json`, B067 packs 7–13.
-7. [LOW pipeline] lingo-data TTS manifest read-modify-write has no lock —
+7. [LOW pipeline] PARKED (no KO TTS owed by today's work) — lingo-data TTS manifest read-modify-write has no lock —
    serialize KO TTS with the other session's JA TTS.
 Cautions: `aws sso login` before `pipeline.tts.upload`; CDN host is
 app.openlingoapp.com, never the apex.
@@ -97,7 +99,7 @@ ja m11/m30 IR, `src/features/lesson/moduleCompiler.ts` + lesson types (on
 branch practice-wave-2026-09-09, unmerged — no compiler edits until it lands).
 They are NOT touching es/**, ko/**, fr/**.
 
-## Resume recipe for KO item 1 (do this the Sonnet way)
+## Resume recipe for KO item 1 (DONE 2026-09-09 exactly this way — kept as the template)
 Spawn one Sonnet agent: read `docs/ko-release-audit-2026-09-01.md` for the
 audit rubric, then `git diff 65c0944e..c98e79b1 --stat -- src/features/languages/ko`
 and the listed lessons; report defects as `<lesson/step id>: <problem> → <fix>`.
