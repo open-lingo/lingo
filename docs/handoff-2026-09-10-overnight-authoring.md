@@ -95,3 +95,4 @@ fan-out; save small notes here after every step (auto-compaction is on).
 - 11:32 FR speech-negation probe landed 807d3205 (283 speech tests green, no matcher change; 5 authoring constraints forwarded to the m18 author). Spencer to listen: scratchpad fr-plus-probe/out/fr/1e45c1eac1af9e7a.mp3 («je ne mange plus», high band −19.8 dB below full band → silent s, high confidence) vs f55769634e918eec.mp3 («deux plus deux», −4.9 dB).
 - 11:33 FR m19 brief writer dispatched (second FR stream).
 - 11:34 JA m40 diagnostics fix landed bfdb6a0b (ta-form tagged on 3 challenge beats; no clips). Follow-on: add the app-project diagnostics test to the JA per-module gate recipe so this class is caught at authoring time.
+- 11:39 FR m19 brief committed 9c4986f5 (aller + infinitif, 2 atoms; unverified: spoken-safety of subject-chunk + infinitive under loose-match — next second-stream item is a probe like the negation one).
