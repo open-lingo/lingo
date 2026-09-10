@@ -59,3 +59,5 @@ fan-out; save small notes here after every step (auto-compaction is on).
 - 08:17 — ES m24 review COMMITTED abc1b5bd (14 foil fixes, no audio; class finding: ILLEGAL_PRESENT_FORMS pins don't scan tiles/distractors — candidate gate extension, recorded as follow-on, not raised tonight). ES m25 author dispatched. Active: JA m40 author, FR m15 author, FR m16 brief, ES m25 author.
 - 08:21 — FR m16 brief committed (marked not-dispatchable until m15 lands; m15 author still writing — m15.ts not yet on disk at 08:21).
 - 08:55 FR m15 committed 9443c1a2 (988 FR green, 113 clips all in fr.json). tsc/frequencyAtoms failures = JA m40 in flight. Next: m15 reviewer dispatched.
+- 08:55 FR m15 reviewer dispatched (Sonnet). JA m40 author + ES m25 author still running.
+- 09:06 ES m25 committed 3ccc2ff7 (1800 ES green, 150 clips, manifest_count=5944). m25 reviewer dispatched next.
