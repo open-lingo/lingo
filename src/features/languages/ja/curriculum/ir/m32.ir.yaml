@@ -357,7 +357,7 @@ lessons:
       # Second carrier (rep-audit 2026-09-09): テレビ had one distinct
       # carrier, always paired with ばんごはんを たべたら — here the trigger
       # clause is different (getting home, not finishing dinner).
-      - { kind: listening-comp, audio: "うちに かえったら、テレビを みる。", answer: "When I get home, I'll watch television", distractors: ["When I get home, I'll do my homework", "When I've had dinner, I'll watch television", "When I get home, I'll read a book"], exercises: [tara, ni-location] }
+      - { kind: listening-comp, audio: "うちに かえったら、テレビを みる。", answer: "When I get home, I'll watch television", distractors: ["When I get home, I'll do my homework", "When I've had dinner, I'll watch television", "When I get home, I won't watch television"], exercises: [tara, ni-location] }
       - { kind: particle-cloze, stem: "ごはんを ", tail: "、ねる。", answer: "たべたら", options: ["たべたら", "たべる", "たべたり"], en: "When I've eaten, I'll sleep", explanation: "たべる is a る-verb, so its past is たべた and the conditional is たべたら. The dictionary form たべる cannot carry a condition, and たべたり is the ~たり~たり list form from module 23 — it lines up examples, it does not set one up." }
       - { kind: sentence, ja: "あめが ふったら、いかない。", en: "If it rains, I won't go", exercises: [tara, nai-form], mode: build }
       - { kind: sentence, ja: "ほんを よんだら、しごとに いく。", en: "When I've read my book, I'll go to work", exercises: [tara, wo-object, ni-location], mode: listening }
