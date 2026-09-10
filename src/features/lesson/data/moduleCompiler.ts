@@ -860,11 +860,68 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
    * is never the numeral. (The module notes already flagged this collision
    * class for に/にじゅう and missed it here.)
    */
+  /**
+   * し is ALSO a homograph — bound courseAtoms id "shi" (四, "four",
+   * fromModule m13, blocked) collides with m39's new 〜し reason-listing
+   * suffix (やすいし、おいしいし — "and what's more"). The suffix glues
+   * directly onto a plain-form predicate with no space, so the tokenizer
+   * (longest-match, space-delimited) reads やすいし as やすい + し exactly
+   * the way it reads たなかさん as たなか + さん — same collision shape as
+   * the さん/三 case above, mirrored here rather than widened generally.
+   * A bare し immediately after a token ending in a plain-predicate sound
+   * (i-adjective い, godan/ichidan dictionary endings, た-form, だ copula)
+   * is the listing suffix, never the numeral: real counted fours in this
+   * course are either spoken よん or, for the small class of compounds
+   * that keep the し reading (よじ needs its own atom; じゅうし etc. are
+   * unauthored), effectively absent from authored content. The one
+   * theoretical false negative — a future 十四(じゅうし) sentence, since
+   * 十 ends in う and would also match this guard — trades an
+   * under-count on an already-blocked stub for closing the real,
+   * high-volume false-credit path m39 opens. See ir/m39.ir.yaml notes.
+   */
+  const PLAIN_PREDICATE_FINALS = new Set([
+    "い", "く", "ぐ", "す", "つ", "ぬ", "ぶ", "む", "う", "る", "た", "だ",
+  ]);
+  /**
+   * でも is a THIRD homograph in the same family: courseAtoms id "demo"
+   * (kana でも, "but", discourse conjunction, fromModule "future") collides
+   * with m39's concessive でも (がくせいでも わかる — "even a student
+   * understands", glued directly onto a noun/な-adjective with no space,
+   * mirroring ても for verbs/い-adjectives). The brief is explicit this
+   * module must NOT attribute grading credit to the "demo" row for the
+   * concessive sense (docs/ja-m39-brief-2026-09-10.md §0/§5) — it stays an
+   * IR-local grammarPointId only. Distinguishing rule: the conjunction
+   * でも always OPENS a sentence/clause (tokenizes as position 0); the
+   * concessive でも is always glued mid-word onto whatever precedes it
+   * (i > 0). No authored sentence anywhere in the live course currently
+   * grades sentence-initial でも (its "future" fromModule tag reflects
+   * that it has never actually been taught), so excluding the glued,
+   * position>0 case costs no existing credit and closes this module's
+   * false-attribution path the same way the さん/三 and し/四 guards do.
+   */
   const exercised = (ja: string): string[] => {
     const tokens = tokenize(ja);
     return tokens.filter((t, i) => {
       if (!atoms.has(t)) return false;
       if (t === "さん" && i > 0 && NAMES.includes(tokens[i - 1])) return false;
+      if (
+        t === "し" &&
+        i > 0 &&
+        PLAIN_PREDICATE_FINALS.has(tokens[i - 1].slice(-1))
+      )
+        return false;
+      if (t === "でも" && i > 0) return false;
+      // FOURTH instance of the same class: なんで ("why", casual, courseAtoms
+      // id "nande") is a registered atom that also happens to be the exact
+      // prefix of なんでも, one of the five fixed 疑問詞+でも／も closed-set
+      // idioms this module ships (L6, grammarPointId demo-mo-closed-set —
+      // "ship exactly these five... the course does not derive でも-mo
+      // compounds from a productive rule"). The tokenizer has no idiom
+      // concept, so it happily resolves なんでも as なんで + も and credits
+      // "why" vocabulary the learner was never asked to produce. Exclude
+      // なんで only when directly followed by も — standalone なんで (e.g.
+      // なんで いくの？) is unaffected.
+      if (t === "なんで" && tokens[i + 1] === "も") return false;
       return true;
     });
   };

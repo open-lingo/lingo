@@ -84,7 +84,7 @@ export type CourseAtomSource =
   | "m8" | "m9" | "m10" | "m11" | "m12" | "m13" | "m14" | "m15" | "m16" | "m17"
   | "m18" | "m19" | "m20" | "m21" | "m22" | "m23" | "m24" | "m25" | "m26" | "m27"
   | "m28" | "m29" | "m30" | "m31" | "m32" | "m33" | "m34" | "m35" | "m36" | "m37"
-  | "m38"
+  | "m38" | "m39"
   // Forward N4 attributions (2026-08-09 A2 re-home of the retired m30
   // pilot's atoms; spec 2026-08-06-n4-open-and-transform-teaching-design.md).
   // None of these modules is authored yet, so atoms tagged with them never
@@ -168,7 +168,15 @@ export type CourseAtom = {
   note?: string;
 };
 
-export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
+// Split into two literals and concatenated below (2026-09-10, m39 landing):
+// TS2590 "Expression produces a union type that is too complex to represent"
+// starts firing on the single 1028+-element literal once contextually typed
+// against `CourseAtom` (many optional literal-union fields) — a checker
+// complexity ceiling, not a real type error. Splitting the literal in two
+// keeps each half under the ceiling; concatenation re-typed against
+// `ReadonlyArray<CourseAtom>` is cheap. Purely mechanical — no entries
+// added, removed, or reordered by the split itself.
+const JA_COURSE_ATOMS_PART1: readonly CourseAtom[] = [
   { id: "ai", emoji: "❤️", kana: "あい", romaji: "ai", meaningEn: "love", fromModule: "m1", introducedByLessonId: "ja-m1-l1", kind: "vocab", pos: "noun" },
   { id: "iie", kana: "いいえ", romaji: "iie", meaningEn: "no", fromModule: "m1", introducedByLessonId: "ja-m1-l1", kind: "vocab", blocked: true, note: "interjection/function word", pos: "interjection" },
   { id: "uma", emoji: "🐎", kana: "うま", kanji: "馬", romaji: "uma", meaningEn: "horse", fromModule: "m1", introducedByLessonId: "ja-m1-l7-ma", kind: "vocab", pos: "noun" },
@@ -434,7 +442,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "sore", kana: "それ", romaji: "sore", shortGloss: "that (by you)", meaningEn: "that", fromModule: "m4", kind: "vocab", blocked: true, note: "demonstrative — per rubric", pos: "pronoun" },
   { id: "sorekara", kana: "それから", romaji: "sorekara", meaningEn: "after that", fromModule: "future", freqRank: 34, kind: "vocab", blocked: true, note: "conjunction — abstract grammar", pos: "conjunction" },
   { id: "soredeha", kana: "それでは", romaji: "soredeha", meaningEn: "in that situation", fromModule: "future", freqRank: 35, kind: "vocab", blocked: true, note: "discourse connector", pos: "conjunction" },
-  { id: "taihen", kana: "たいへん", romaji: "taihen", meaningEn: "very", fromModule: "future", freqRank: 36, kind: "vocab", blocked: true, note: "intensifier adverb", pos: "adverb" },
+  { id: "taihen", kana: "たいへん", romaji: "taihen", meaningEn: "very", fromModule: "m39", introducedByLessonId: "ja-m39-neo-5", kind: "vocab", blocked: true, note: "intensifier adverb — re-stamped future → m39 (たいへん つかれた, ja-m39-neo-5); adverb sense only, no な-adjective 'big deal' sense added", pos: "adverb" },
   { id: "takusan", kana: "たくさん", romaji: "takusan", meaningEn: "many", fromModule: "future", freqRank: 37, introducedByLessonId: "ja-m20-3-1", kind: "vocab", blocked: true, note: "abstract quantifier; no specific referent", pos: "adverb" },
   { id: "tate", kana: "たて", romaji: "tate", meaningEn: "length, height", emoji: "📏", fromModule: "future", freqRank: 38, kind: "vocab", note: "ruler = measurement", pos: "noun" },
   { id: "tabako", kana: "たばこ", romaji: "tabako", meaningEn: "tobacco, cigarettes", shortGloss: "cigarettes", emoji: "🚬", fromModule: "m16", kind: "vocab", note: "taught by m16 vocab pack 6 2026-07-30 (B067)", pos: "noun" },
@@ -444,7 +452,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "choudo", kana: "ちょうど", romaji: "choudo", meaningEn: "exactly", fromModule: "future", freqRank: 40, introducedByLessonId: "ja-m21-7-2", kind: "vocab", blocked: true, note: "abstract adverb; no concrete referent", pos: "adverb" },
   { id: "chotto", kana: "ちょっと", romaji: "chotto", meaningEn: "somewhat", fromModule: "m10", kind: "vocab", blocked: true, note: "adverb/abstract degree marker", pos: "adverb" },
   { id: "tsukeru", kana: "つける", romaji: "tsukeru", meaningEn: "to turn on", emoji: "💡", fromModule: "future", freqRank: 41, kind: "vocab", note: "lightbulb as turn-on cue", pos: "verb", conjugation: { class: "ichidan", entryId: "tsukeru" } },
-  { id: "tsumaranai", kana: "つまらない", romaji: "tsumaranai", meaningEn: "boring", emoji: "🥱", fromModule: "future", freqRank: 42, kind: "vocab", note: "yawn = boredom", pos: "adjective", conjugation: { class: "i-adj", entryId: "tsumaranai" } },
+  { id: "tsumaranai", kana: "つまらない", romaji: "tsumaranai", meaningEn: "boring", emoji: "🥱", fromModule: "m39", introducedByLessonId: "ja-m39-neo-5", kind: "vocab", note: "yawn = boredom — re-stamped future → m39 (この えいがは つまらない, ja-m39-neo-5)", pos: "adjective", conjugation: { class: "i-adj", entryId: "tsumaranai" } },
   { id: "dekiru", kana: "できる", romaji: "dekiru", meaningEn: "to be able to", fromModule: "m24", introducedByLessonId: "ja-m23-8-1", kind: "vocab", blocked: true, note: "modal/auxiliary verb; abstract", pos: "verb", conjugation: { class: "ichidan" } },
   { id: "deha", kana: "では", romaji: "deha", meaningEn: "with that...", fromModule: "m26", introducedByLessonId: "ja-m26-5-2", kind: "vocab", blocked: true, note: "particle/conjunction", pos: "conjunction" },
   { id: "demo", kana: "でも", romaji: "demo", meaningEn: "but", fromModule: "future", freqRank: 43, introducedByLessonId: "ja-m26-1-2", kind: "vocab", blocked: true, note: "conjunction", pos: "conjunction" },
@@ -801,7 +809,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "maiasa", kana: "まいあさ", kanji: "毎朝", romaji: "maiasa", meaningEn: "every morning", emoji: "🌅", fromModule: "future", freqRank: 231, kind: "vocab", note: "sunrise reads as morning", pos: "noun" },
   { id: "maishuu", kana: "まいしゅう", kanji: "毎週", romaji: "maishuu", meaningEn: "every week", fromModule: "future", freqRank: 232, kind: "vocab", blocked: true, note: "abstract recurrence", pos: "noun" },
   { id: "suiyoubi", kana: "すいようび", kanji: "水曜日", romaji: "suiyoubi", meaningEn: "Wednesday", fromModule: "m11", kind: "vocab", blocked: true, note: "day-of-week label; needs text not image; taught by m11 vocab pack 2026-07-29 (B067); was m12", pos: "noun" },
-  { id: "kitanai", kana: "きたない", kanji: "汚い", romaji: "kitanai", meaningEn: "dirty", emoji: "🗑️", fromModule: "future", freqRank: 233, kind: "vocab", blocked: true, note: "trash reads as 'garbage' not 'dirty'", pos: "adjective", conjugation: { class: "i-adj" } },
+  { id: "kitanai", kana: "きたない", kanji: "汚い", romaji: "kitanai", meaningEn: "dirty", emoji: "🗑️", fromModule: "m39", introducedByLessonId: "ja-m39-neo-2", kind: "vocab", blocked: true, note: "trash reads as 'garbage' not 'dirty' — re-stamped future → m39 (きたないのに すきだ, ja-m39-neo-2)", pos: "adjective", conjugation: { class: "i-adj" } },
   { id: "oyogu", kana: "およぐ", kanji: "泳ぐ", romaji: "oyogu", meaningEn: "to swim", emoji: "🏊", fromModule: "m14", kind: "vocab", pos: "verb", conjugation: { class: "godan", entryId: "oyogu" } },
   { id: "youfuku", kana: "ようふく", kanji: "洋服", romaji: "youfuku", meaningEn: "western-style clothes", emoji: "👔", fromModule: "future", freqRank: 234, kind: "vocab", note: "necktie/shirt", pos: "noun" },
   { id: "arau", kana: "あらう", kanji: "洗う", romaji: "arau", meaningEn: "to wash", emoji: "🧼", fromModule: "m13", kind: "vocab", blocked: true, note: "taught by m13 vocab pack 2026-07-29 (B067); was m16. blocked: 🧼 belongs to せっけん, taught in the same lesson", pos: "verb", conjugation: { class: "godan", entryId: "arau" } },
@@ -937,6 +945,9 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "tanomu", kana: "たのむ", kanji: "頼む", romaji: "tanomu", meaningEn: "to ask", emoji: "🙏", fromModule: "future", freqRank: 292, kind: "vocab", note: "request gesture", pos: "verb", conjugation: { class: "godan" } },
   { id: "tobu", kana: "とぶ", kanji: "飛ぶ", romaji: "tobu", meaningEn: "to fly, to hop", emoji: "🕊️", fromModule: "future", freqRank: 293, kind: "vocab", note: "dove as flying proxy", pos: "verb", conjugation: { class: "godan" } },
   { id: "hikouki", kana: "ひこうき", kanji: "飛行機", romaji: "hikouki", meaningEn: "aeroplane", emoji: "✈️", fromModule: "m23", kind: "vocab", blocked: true, note: "blocked because ✈️ is already りょこう's emoji and りょこう is a met word — m23's ruling", pos: "noun" },
+];
+
+const JA_COURSE_ATOMS_PART2: readonly CourseAtom[] = [
   { id: "tabemono", kana: "たべもの", kanji: "食べ物", romaji: "tabemono", meaningEn: "food", emoji: "🍱", fromModule: "m5", kind: "vocab", note: "bento as food cue", pos: "noun" },
   { id: "shokudou", kana: "しょくどう", kanji: "食堂", romaji: "shokudou", meaningEn: "dining hall", emoji: "🍽️", fromModule: "future", freqRank: 294, kind: "vocab", note: "plate with utensils", pos: "noun" },
   { id: "nomimono", kana: "のみもの", kanji: "飲み物", romaji: "nomimono", meaningEn: "a drink", emoji: "🥤", fromModule: "m5", kind: "vocab", pos: "noun" },
@@ -1685,6 +1696,30 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "modoru", kana: "もどる", kanji: "戻る", romaji: "modoru", meaningEn: "to go back, to return (to a place)", shortGloss: "go back", fromModule: "m38", introducedByLessonId: "ja-m38-neo-6", kind: "vocab", blocked: true, note: "motion-return verb — blocked alongside the trajectory set (もっていく/もってくる/つれる) rather than singled out; no picture distinguishes 'going back' from any other departure/arrival glyph already owned by いく/くる", pos: "verb", conjugation: { class: "godan" } },
   { id: "tsureru", kana: "つれる", kanji: "連れる", romaji: "tsureru", meaningEn: "to take (someone) along", shortGloss: "take along", fromModule: "m38", introducedByLessonId: "ja-m38-neo-6", kind: "vocab", blocked: true, note: "deferred from m35 for this module's trajectory frame (m38.ir.yaml notes) — no honest single-frame picture distinguishes つれる 'take a person' from もつ 'carry a thing'", pos: "verb", conjugation: { class: "ichidan" } },
 
+  // のに itself, glued (mirrors ので's own "node" row above) — without a
+  // combined atom the longest-match tokenizer falls back to greedy の + に,
+  // splitting the whole concession joint into two bare particle tiles and
+  // crediting only p-no/p-ni, never the construction. See m39.ir.yaml notes.
+  { id: "noni", kana: "のに", romaji: "noni", meaningEn: "even though, and yet (concession)", shortGloss: "and yet", fromModule: "m39", introducedByLessonId: "ja-m39-neo-1", kind: "vocab", blocked: true, note: "conjunctive particle — no concrete referent", pos: "particle" },
+  // m39 (Concession & reasons — のに vs ので, ても/でも, し). All 8 new
+  // headwords below are abstract judgment/degree な-adjectives with no
+  // honest single-frame picture (same ruling class as m38's こわれる/ふえる/
+  // へる run) — imageable:false in the IR, blocked here, debut via a build
+  // beat rather than word_image_mcq.
+  { id: "zannen", kana: "ざんねん", kanji: "残念", romaji: "zannen", meaningEn: "a shame, regrettable", shortGloss: "a shame", fromModule: "m39", introducedByLessonId: "ja-m39-neo-1", kind: "vocab", blocked: true, note: "abstract regret judgment; no honest single-frame picture — the canonical complaint/regret な-adjective, chosen so たいへん doesn't also carry that sense", pos: "adjective", conjugation: { class: "na-adj" } },
+  { id: "muri", kana: "むり", kanji: "無理", romaji: "muri", meaningEn: "unreasonable, no way, impossible", shortGloss: "no way", fromModule: "m39", introducedByLessonId: "ja-m39-neo-1", kind: "vocab", blocked: true, note: "abstract judgment; no honest single-frame picture", pos: "adjective", conjugation: { class: "na-adj" } },
+  { id: "juubun", kana: "じゅうぶん", kanji: "十分", romaji: "juubun", meaningEn: "enough, sufficient", shortGloss: "enough", fromModule: "m39", introducedByLessonId: "ja-m39-neo-3", kind: "vocab", blocked: true, note: "abstract sufficiency judgment; no honest single-frame picture — real homograph risk against じゅっぷん \"ten minutes\", used as an intentional kanji-beat distractor in m39", pos: "adjective", conjugation: { class: "na-adj" } },
+  { id: "tokubetsu", kana: "とくべつ", kanji: "特別", romaji: "tokubetsu", meaningEn: "special", shortGloss: "special", fromModule: "m39", introducedByLessonId: "ja-m39-neo-6", kind: "vocab", blocked: true, note: "abstract judgment; no honest single-frame picture", pos: "adjective", conjugation: { class: "na-adj" } },
+  { id: "saikou", kana: "さいこう", kanji: "最高", romaji: "saikou", meaningEn: "the best, greatest", shortGloss: "the best", fromModule: "m39", introducedByLessonId: "ja-m39-neo-7", kind: "vocab", blocked: true, note: "abstract superlative judgment; no honest single-frame picture", pos: "adjective", conjugation: { class: "na-adj" } },
+  { id: "saiaku", kana: "さいあく", kanji: "最悪", romaji: "saiaku", meaningEn: "the worst", shortGloss: "the worst", fromModule: "m39", introducedByLessonId: "ja-m39-neo-10", kind: "vocab", blocked: true, note: "abstract superlative judgment, さいこう's pair; no honest single-frame picture", pos: "adjective", conjugation: { class: "na-adj" } },
+  { id: "yamuwoenai", kana: "やむをえない", romaji: "yamuwoenai", meaningEn: "it can't be helped, unavoidable", shortGloss: "can't be helped", fromModule: "m39", introducedByLessonId: "ja-m39-neo-9", kind: "vocab", blocked: true, note: "idiom sidequest, no freqRank; abstract fixed phrase, no honest single-frame picture", pos: "adjective", conjugation: { class: "i-adj" } },
+  { id: "shikatanai", kana: "しかたない", romaji: "shikatanai", meaningEn: "it can't be helped, oh well", shortGloss: "oh well", fromModule: "m39", introducedByLessonId: "ja-m39-neo-10", kind: "vocab", blocked: true, note: "idiom sidequest, no freqRank; abstract fixed phrase, no honest single-frame picture", pos: "adjective", conjugation: { class: "i-adj" } },
+
+];
+
+export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
+  ...JA_COURSE_ATOMS_PART1,
+  ...JA_COURSE_ATOMS_PART2,
 ];
 /**
  * Which atom a BARE KANA means when several share it.

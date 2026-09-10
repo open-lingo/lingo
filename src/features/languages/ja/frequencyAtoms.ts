@@ -35,12 +35,12 @@ import {
 } from "../frequencyTypes";
 
 /**
- * JA's true upper unlock bound — the last LIVE content module (m38, N4 tier).
+ * JA's true upper unlock bound — the last LIVE content module (m39, N4 tier).
  * Overflow ranks pile here. Was 30 until 2026-08-26 (eight modules stale: a
  * learner at m38 saw nothing new past m30). `frequencyAtoms.test.ts` ties
  * this to the live curriculum so it cannot silently go stale again.
  */
-export const JA_FREQ_LAST_MODULE = 38;
+export const JA_FREQ_LAST_MODULE = 39;
 
 function isFrequencyCandidate(atom: CourseAtom): boolean {
   return (

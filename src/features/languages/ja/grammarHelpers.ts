@@ -389,7 +389,36 @@ export function cloze(
       ...without.slice(targetSlot),
     ];
   }
-  const particleAtomIds = resolveAtomIds([correctParticle]);
+  // し/四 homograph (courseAtoms id "shi", kana し, kanji 四, "four",
+  // fromModule m13, blocked): m39's 〜し reason-listing suffix glues onto a
+  // plain-form predicate with no space (やすい|し), the exact shape
+  // moduleCompiler.ts's `exercised()` already special-cases for
+  // sentence/build beats (mirroring the さん/三 honorific guard). This
+  // particle-cloze path resolves `correctParticle` straight to an atom id
+  // with no sentence context at all, so it doesn't inherit that guard — a
+  // second, independent leak of the same hazard the module's brief flagged.
+  // Narrowest fix in place of widening moduleCompiler: mirror the same
+  // predicate-final check here, scoped to this one ambiguous particle.
+  const PLAIN_PREDICATE_FINALS = new Set([
+    "い", "く", "ぐ", "す", "つ", "ぬ", "ぶ", "む", "う", "る", "た", "だ",
+  ]);
+  const isListingShi =
+    correctParticle === "し" &&
+    PLAIN_PREDICATE_FINALS.has(before.trim().slice(-1));
+  // でも/四第三 collision, second leak (courseAtoms id "demo", kana でも,
+  // "but", fromModule "future", never taught): moduleCompiler.ts's
+  // `exercised()` already excludes m39's concessive でも when it's glued
+  // mid-sentence (i > 0) vs the conjunction's sentence-initial position
+  // (i === 0) — see that file for the full reasoning. Every particle-cloze
+  // in this course that tests でも as `correctParticle` is testing the
+  // CONCESSIVE sense glued onto a stem (がくせいでも, どこでも, …), i.e. the
+  // cloze equivalent of "glued" is a non-empty `before`. This path resolves
+  // `correctParticle` straight to an atom id with zero sentence context, so
+  // it doesn't inherit that guard either — mirror it the same way as the
+  // し fix above, scoped to this one ambiguous particle.
+  const isConcessiveDemo = correctParticle === "でも" && before.trim().length > 0;
+  const particleAtomIds =
+    isListingShi || isConcessiveDemo ? [] : resolveAtomIds([correctParticle]);
   return {
     id,
     type: "particle_cloze",

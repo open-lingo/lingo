@@ -285,7 +285,7 @@ grammarPoints:
       - { ja: "あの おんなのこは どなたですか。", en: "Who is that girl? (polite)" }
       - { ja: "どなたの ほんですか。", en: "Whose book is this? (polite)" }
       - { ja: "あの ひとは どなたですか。", en: "Who is that person? (polite)" }
-    antiPattern: { ja: "あの ひとは どなただ。", why: "どなた is the polite word, so it pairs with です, never plain だ: あの ひとは どなたですか。" }
+    antiPattern: { ja: "あの せんせいは どなただ。", why: "どなた is the polite word, so it pairs with です, never plain だ: あの せんせいは どなたですか。" }
 
 newAtoms:
   # ══ L1. The two parent terms. Both already carry courseAtoms rows with stale
