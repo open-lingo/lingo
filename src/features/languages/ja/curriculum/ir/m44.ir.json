@@ -1546,12 +1546,12 @@
         },
         {
           "kind": "listening-comp",
-          "audio": "ミカは ははに にる。",
-          "answer": "Mika resembles her mother.",
+          "audio": "こどもは ちちに よく にる。",
+          "answer": "Children often resemble their father.",
           "distractors": [
-            "Mika doesn't resemble her mother at all.",
-            "Mika is her own mother.",
-            "Mika has never met her mother."
+            "Children never resemble their father.",
+            "Children are their father's exact copy.",
+            "Children have never met their father."
           ],
           "q": "What does this mean?"
         },
@@ -1727,8 +1727,8 @@
             },
             {
               "speaker": "Ken",
-              "ja": "ほんとだ。かぜを ひいたみたいな こえだね。",
-              "en": "True. Sounds like a voice that caught a cold, huh."
+              "ja": "ほんとだ。こえが かぜを ひいたみたいだね。",
+              "en": "True. The voice sounds like it caught a cold, huh."
             },
             {
               "speaker": "Mika",

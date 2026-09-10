@@ -475,7 +475,7 @@ lessons:
       - { kind: particle-cloze, stem: "にんぎょう", tail: " かお。", answer: "のような", options: ["のような", "のように", "なような"], en: "A doll-like face.", explanation: "のような modifies the NOUN that follows it (かお) — のように would instead describe a VERB or adjective's manner, and なような isn't a real connector shape at all." }
       - { kind: listening-comp, audio: "かがみのような うみ。", answer: "A mirror-like sea.", distractors: ["A stormy, rough sea.", "No sea at all.", "A frozen sea."], q: "What does this mean?" }
       - { kind: listening-comp, audio: "たなかさんは ちちに にている。", answer: "Tanaka resembles his father.", distractors: ["Tanaka doesn't resemble his father at all.", "Tanaka is his own father.", "Tanaka has never met his father."], q: "What does this mean?" }
-      - { kind: listening-comp, audio: "ミカは ははに にる。", answer: "Mika resembles her mother.", distractors: ["Mika doesn't resemble her mother at all.", "Mika is her own mother.", "Mika has never met her mother."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "こどもは ちちに よく にる。", answer: "Children often resemble their father.", distractors: ["Children never resemble their father.", "Children are their father's exact copy.", "Children have never met their father."], q: "What does this mean?" }
       - { kind: kanji, kana: にる, kanji: 似る, distractors: ["にぎる", "にがい", "にんぎょう"], exercises: [you-na-simile] }
       - kind: sim
         scene: { emoji: "🪞", title: "A doll that looks just like her", setting: "Ken and Mika notice a doll in a shop window that looks exactly like Mika's little sister." }
@@ -510,7 +510,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "この おとは ねこのように きこえるね。", en: "This sound sounds like a cat, huh." }
-          - { speaker: "Ken", ja: "ほんとだ。かぜを ひいたみたいな こえだね。", en: "True. Sounds like a voice that caught a cold, huh." }
+          - { speaker: "Ken", ja: "ほんとだ。こえが かぜを ひいたみたいだね。", en: "True. The voice sounds like it caught a cold, huh." }
           - { speaker: "Mika", ja: "げんきなようだから、だいじょうぶだよ。", en: "It seems energetic, so it's fine." }
         questions:
           - { q: "What does Mika conclude about the sound in the end?", options: ["It seems energetic, so it's fine", "It's definitely sick", "It's not a sound at all", "She has no opinion"], answer: "It seems energetic, so it's fine" }
