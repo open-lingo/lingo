@@ -1,0 +1,226 @@
+module: m27
+title: "Hace sol, hace frío"
+frame: none
+throughModule: m26
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m27 — the weather. Ninth A2 module.
+#
+#     el sol      🌞   la lluvia   🌧️
+#     el viento   💨   la nieve    ❄️
+#     nublado     ☁️   (predicate, "it's cloudy" — impersonal, no agreement)
+#     el calor    🥵   el frío     🥶
+#
+# ONE idea, the whole module: SEVEN new imageable weather words, zero new
+# grammar. Every sentence frame this module needs is already registered —
+# «hace» (m15, "makes/does," reused in its idiomatic weather sense "hace
+# calor/frío"), «hacía» (m24, imperfect, "hacía mucho frío de niño"), «está»
+# (m4, "is [somewhere]," reused for a weather STATE, "está nublado"),
+# «estaba» (m24, imperfect, "estaba nublado"), «hay» (m3, "there is/are,"
+# "hay viento/nieve"), «me gusta»/«te gusta» (m7/m13, "me gusta el sol").
+# This is the first module since m18/m20 whose new idea is imageable
+# NOUN vocabulary, not a verb-range or connective expansion — and the
+# first imageMcq debut since m20.
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# Three lines of evidence:
+#   1. **The vocabulary gap is the sharpest open gap in the course, and it
+#      has been silently compounding.** Grep-verified: m19, m21, m22, m23,
+#      m24, m25, m26 — SEVEN consecutive modules — shipped zero new
+#      imageable nouns and zero new emoji (each one's own header says so
+#      explicitly, "same precedent as m19/m21/…"). Every narrative sentence
+#      since m19 draws on the same ~10 PRIOR places-with-emoji (la fiesta,
+#      el cine, la playa, la escuela, el trabajo, casa, el parque, el
+#      museo, el mercado, la tienda) recombined under new grammar. CLAUDE.md's
+#      stated aim is "lessons a learner can actually reason through" — that
+#      demands fresh CONTENT to reason about, not just fresh mechanics to
+#      apply to the same ten nouns a ninth time. No prior module named this
+#      gap explicitly, but every one of the seven RECORDED shipping zero new
+#      nouns as a precedent, not a plan — the gap was accumulating, unnamed,
+#      the whole time.
+#   2. **It IS this module's interleave break, and does more than a
+#      manufactured one would.** [[interleave-dont-block-teach]]: split a
+#      repetitive family across lessons with unrelated breaks between.
+#      m22→m23→m24→m25→m26 already leaned on this once (m25's causal
+#      connectives broke the m22/m24/m26 imperfect-wave streak at the
+#      module level) — but m26 immediately resumed the SAME mechanic
+#      (wave 3) right after that one break, and an eighth-remaining-verb
+#      "wave 4" (cocinar/escribir/comprar) directly off the back of m26
+#      would be the imperfect mechanic FOUR of the last five modules,
+#      the exact fatigue pattern m25's own header warned against. A
+#      vocabulary module is a genuine break in KIND (nouns, not verb
+#      paradigms or connectives), not just a different verb set.
+#   3. **Verified data floor, and it's clean.** Grep-verified zero hits for
+#      sol, lluvia, viento, nieve, nublado, calor, frío, soleado, tiempo,
+#      llueve, nieva, invierno/verano/primavera/otoño anywhere in
+#      m1–m26 (`grep -o 'surface: "[^"]*"'
+#      src/features/languages/es/curriculum/m{1..26}.ts | sort -u`). The
+#      sentence frames this module needs — «hace»/«hacía» (m15/m24),
+#      «está»/«estaba» (m4/m24), «hay» (m3), «me gusta»/«te gusta»
+#      (m7/m13) — are ALL already registered; zero new verb morphology,
+#      zero new tense, the lightest grammar footprint since m25.
+#
+# ── REJECTED ALTERNATIVE 1: a fourth imperfect wave (cocinar, escribir,
+# comprar) ──────────────────────────────────────────────────────────────
+# `m24-header.yaml`'s "WHICH FIVE" section and `m26-header.yaml`'s "WHICH
+# FIVE OF THE EIGHT" section both named these three explicitly as a
+# possible next wave, fully data-ready (grep-verified again here: zero
+# hits for cocinaba/escribía/compraba anywhere in m1–m26).  Rejected for
+# m27 on the same fatigue ground m25's own header used against itself:
+# m22 (wave 1) → m24 (wave 2) → m26 (wave 3) already delivered the full
+# arc [[drafting-coverage-not-volume]] argues for (five, then five, then
+# five — completeness without cramming); a fourth wave of only three
+# verbs directly off m26, with no module-level break at all this time
+# (unlike m25's break before m26), would be the SAME mechanic in
+# consecutive modules — the one pattern every wave's own header has
+# explicitly avoided so far. The three verbs remain fully data-ready and
+# cost nothing by waiting — named here again as a possible FUTURE wave,
+# not manufactured.
+#
+# ── REJECTED ALTERNATIVE 2: register the bare infinitive «ir» ─────────────
+# `docs/handoff-2026-09-10-overnight-authoring.md` (08:06 entry, also
+# carried forward as a live warning in `m26-header.yaml`) records that
+# «ir» is printed as text throughout m11–m26 but was never registered via
+# `atom()` — a real follow-on, but not a MODULE. It is a one-line registry
+# fix (add `atom({ surface: "ir", ... })` to whichever module first prints
+# it, then verify no downstream `atoms:` array was silently relying on its
+# absence) with no ten-lesson content shape, no new idea for a learner to
+# reason through, and no checkpoint. Filing it as m27 would manufacture
+# lesson content around a bookkeeping fix — exactly backwards. Stays open
+# as a small hygiene task for whichever module next touches «ir» in a
+# build/cloze answer position, not this module's job.
+#
+# ── REJECTED ALTERNATIVE 3: a consolidation/narration module ──────────────
+# `m25-header.yaml`'s "REJECTED ALTERNATIVE 2" already rejected this once,
+# on the ground that no backlog signal supports a whole module of pure
+# review (m19–m26 being unwalked is Spencer's QA debt, not a content gap
+# a new module closes) and that this course's consolidation precedent is a
+# single LESSON inside a content module (m22-L9, m24-L9, m26-L9), never a
+# module-sized unit. That reasoning is unchanged and still binding — but
+# the *pressure* behind this alternative (three imperfect waves in four
+# content-shaped modules, m22/m24/m26, argues for SOME kind of break) is
+# real and is exactly what evidence line 2 above answers: this module
+# supplies the break, in a form that also adds new content instead of
+# spending ten lessons re-drilling old sentences. A pure-review module
+# would satisfy interleave and nothing else; this module satisfies
+# interleave AND the seven-module vocabulary gap. Strictly dominates the
+# consolidation alternative on the same reasoning m25 already used to
+# reject it, so not attempted.
+#
+# ── WHICH SEVEN WORDS, AND WHY NOT SEASONS OR "¿QUÉ TIEMPO HACE?"
+# (decision) ────────────────────────────────────────────────────────────
+# Weather nouns/predicates were chosen over an alternative vocabulary
+# domain (clothing is already PRIOR since m12/m16; food is heavily PRIOR
+# since m7/m11/m13; body parts partially PRIOR since m17) specifically
+# because weather is the one common A2 lexical set that is BOTH fully
+# unregistered AND slots into sentence frames the course already owns
+# (hace/hacía, está/estaba, hay, gustar) with zero new grammar — see
+# evidence line 3. Two adjacent temptations were deliberately cut:
+#   1. **Seasons (invierno, verano, primavera, otoño) are NOT included.**
+#      Real A2 content, fully data-ready (grep-verified, zero hits), and a
+#      natural companion set — but adding four more nouns on top of seven
+#      would push this module toward the "eight verbs in one module"
+#      failure `m26-header.yaml`'s own "REJECTED ALTERNATIVE 1" warned
+#      against for a DIFFERENT module (thinning debut room per
+#      [[drafting-coverage-not-volume]]). Left as a natural FUTURE
+#      companion module ("en invierno" as a time-frame, parallel to how
+#      «de niño» already frames the imperfect) — not manufactured here.
+#   2. **No «¿qué tiempo hace?» question form.** The natural "what's the
+#      weather" question needs a free-standing «qué», which has never been
+#      registered (grep-verified, zero hits — `m25-header.yaml`'s own
+#      "WHICH TWO ATOMS" section already established this: m3's «¿qué
+#      es?» is a fixed MULTI-word atom, not a decomposable «qué»). Minting
+#      «qué» as a free-standing interrogative would be a second new idea
+#      (a genuine question-formation atom), not a natural extension of a
+#      vocabulary module — the identical reasoning m25 used to exclude
+#      «¿por qué?». Stays open for a future module, same status «¿por
+#      qué?» still holds.
+#   3. **No «llueve»/«nieva» (impersonal weather verbs for rain/snow).**
+#      Real Spanish, and genuinely simple (3rd-person-only, no paradigm) —
+#      but still a NEW VERB atom, which this module's own "zero new verb
+#      morphology" framing (evidence line 3) deliberately avoids. «la
+#      lluvia» and «la nieve» are taught as NOUNS instead («hay lluvia»/
+#      «hay nieve», reusing PRIOR «hay» m3) — a deliberate simplification,
+#      named explicitly so a drafting agent doesn't reach for the more
+#      idiomatic-but-ungated verb forms. «lloviendo»/«nevando» are doubly
+#      excluded — pin E7 (no progressive) would ban them outright even if
+#      the base verbs were registered.
+#   4. **«soleado» (sunny, adjective) is NOT included, though it was
+#      considered.** «nublado» (cloudy) is kept — it pairs with «está»/
+#      «estaba» exactly like a location does, and has a clean, unambiguous
+#      emoji (☁️). «soleado» was cut for an IMAGE-DISAMBIGUATION reason,
+#      not a grammar one: every candidate emoji for "sunny" (⛅, 🌤️) mixes
+#      a sun glyph with a cloud glyph, reading as visually indistinguishable
+#      from «nublado»'s own ☁️ in a 4-option imageMcq grid — the authoring
+#      guide's own ceiling rule ("bad image is worse than no image," §13.2)
+#      argues against it. "It's sunny" is fully expressible without a new
+#      atom: «hay sol» (PRIOR «hay» + this module's own «sol»).
+#
+# ── NO NEW VERB MORPHOLOGY, NO NEW TENSE, NO PROGRESSIVE ───────────────────
+# Zero new verb atoms this module. «hace»/«haces» (m15), «hacía» family
+# (m24), «está» (m4), «estamos»/«están» (m18), «estaba» family (m24),
+# «hay» (m3), «gusta»/«gustan»/«me gusta»/«te gusta» (m7/m13) are ALL
+# PRIOR and this module's only job is pairing them with seven new nouns/
+# one new predicate adjective. Pin E7 (no progressive) is unaffected —
+# named above only because «lloviendo»/«nevando» might otherwise tempt a
+# drafting agent reaching for a "more natural" phrasing.
+#
+# ── SEMANTIC EXTENSION, NAMED EXPLICITLY: «está»'S PRIOR GLOSS IS
+# "IS (SOMEWHERE)" — THIS MODULE GENERALIZES IT TO A WEATHER STATE ────────
+# «está» was registered at m4 glossed narrowly as "is (somewhere)" — a
+# LOCATION sense («la mesa está aquí»). «está nublado» is a STATE sense
+# (impersonal, no location, no explicit subject) — the same verb, a
+# natural adjacent use any Spanish course teaches, but NOT literally the
+# registered gloss. Not a homograph (no OTHER course word collides), but
+# drafting agents should not claim «está nublado» "reuses the m4 meaning"
+# in a rule card — it reuses the WORD, extends the SENSE. Same treatment
+# «como» (I eat, m11) vs a hypothetical causal «como» would have needed
+# had m25 gone the other way — except here the extension is legitimate
+# Spanish, not a collision, so no ban is needed, only an honest gloss.
+#
+# ── NO NEW EMOJI COLLISION — VERIFIED AGAINST EVERY PRIOR EMOJI ───────────
+# Grep-verified (`grep -o 'emoji: "[^"]*"' curriculum/m{1..26}.ts | sort
+# -u`, 634 unique prior emoji strings checked one at a time): 🌧️ 💨 ❄️ ☁️
+# 🥵 🥶 all zero hits, clean. **☀️ is NOT reused for «el sol» despite being
+# the obvious choice** — it is already in use (m1/m2/m3/m4/m5/m7/m10) as
+# the DISTRACTOR emoji for «buenas tardes» in a greeting-time imageMcq;
+# reusing it for «el sol» would put the same glyph on two different
+# correct answers in two different modules' distractor pools, a real
+# imageMcq-ambiguity risk (authoring guide §13.2's ceiling rule). «el sol»
+# uses 🌞 instead (also clean, zero prior hits) — distinct from 🌅
+# (buenos días, PRIOR) and 🌙 (buenas noches, PRIOR).
+#
+# ── ACCENT: FRESH COLOUR — WARM YELLOW, VERIFIED UNUSED, THEMATIC ─────────
+# Checked every `accent:` pair in `curriculum/index.ts` (grep-verified:
+# zero hits for `#eab308` and `#a16207`) against all 26 modules' pairs,
+# including the six most recent — m21 sky (`#38bdf8`→`#0c4a6e`), m22
+# indigo (`#818cf8`→`#3730a3`), m23 red (`#ef4444`→`#991b1b`), m24 fuchsia
+# (`#d946ef`→`#86198f`), m25 blue (`#3b82f6`→`#1d4ed8`), m26 cyan
+# (`#22d3ee`→`#0891b2`). Warm yellow reads as distinct from all of them at
+# a glance and is thematically apt for a sun/weather module — `#f59e0b`
+# (amber, used twice already) was deliberately avoided in favor of a
+# cleaner, unused yellow.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # el sol — sun. NOT ☀️ (see emoji-collision note above) — 🌞 instead.
+  # Used with PRIOR «hay» (there is/are, m3) and PRIOR «me gusta»/«te
+  # gusta» (m7/m13). No verb of its own.
+  - { surface: "el sol", meaningEn: "the sun", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🌞", hint: "el sol — «hay sol» (it's sunny), «me gusta el sol» (I like the sun)" }
+  # la lluvia — rain, taught as a NOUN (not the impersonal verb «llueve» —
+  # unregistered, deliberately not manufactured, see header decision 3).
+  - { surface: "la lluvia", meaningEn: "the rain", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🌧️", hint: "la lluvia — «hay lluvia» (there's rain), «no me gusta la lluvia» (I don't like the rain)" }
+  # el viento — wind, same noun-not-verb treatment.
+  - { surface: "el viento", meaningEn: "the wind", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "💨", hint: "el viento — «hay viento» (it's windy)" }
+  # la nieve — snow, same noun-not-verb treatment (not «nieva»).
+  - { surface: "la nieve", meaningEn: "the snow", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "❄️", hint: "la nieve — «hay nieve» (there's snow), «me gusta la nieve» (I like the snow)" }
+  # nublado — cloudy. Impersonal predicate after «está»/«estaba» (PRIOR,
+  # m4/m24) — invariable, never agrees with a subject (there isn't one).
+  - { surface: "nublado", meaningEn: "cloudy", partOfSpeech: "adjective", kind: "vocab", emoji: "☁️", hint: "nu-BLAH-do — «está nublado» (it's cloudy), «estaba nublado» (it was cloudy). Invariable — impersonal, no subject to agree with." }
+  # el calor — heat. Idiomatic weather sense of PRIOR «hace»/«hacía»
+  # (m15/m24): «hace calor», «hacía mucho calor».
+  - { surface: "el calor", meaningEn: "the heat", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🥵", hint: "el calor — «hace calor» (it's hot), «hacía mucho calor» (it was very hot)" }
+  # el frío — cold. Same idiom pattern, the calor/frío minimal pair.
+  - { surface: "el frío", meaningEn: "the cold", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🥶", hint: "el frío — «hace frío» (it's cold), «hacía frío» (it was cold). Pairs with «el calor» as the module's own minimal pair." }
+
+lessons:
