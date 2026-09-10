@@ -2948,12 +2948,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "ちちに おかねを もらった。",
-          "en": "I got money from my father",
+          "ja": "がっこうから かえる とき ちちに おかねを もらった。",
+          "en": "When I got home from school, I got money from my father",
           "exercises": [
             "wa-topic",
             "morau",
-            "ta-form"
+            "ta-form",
+            "toki"
           ],
           "mode": "build"
         },
@@ -3011,12 +3012,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "その ひとから なにも もらわない。",
-          "en": "I don't get anything from that person",
+          "ja": "いそぐから その ひとから なにも もらわない。",
+          "en": "I'm in a hurry, so I don't get anything from that person",
           "exercises": [
             "morau",
             "nai-form",
-            "kara-origin"
+            "kara-origin",
+            "kara-because"
           ],
           "mode": "build"
         },
@@ -3033,12 +3035,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "ともだちが けいたいを くれたから よろこんだ。",
-          "en": "My friend gave me a cell phone, so I was delighted",
+          "ja": "ともだちを まつ とき ともだちが けいたいを くれたから よろこんだ。",
+          "en": "While waiting for my friend, my friend gave me a cell phone, so I was delighted",
           "exercises": [
             "kureru",
             "ta-form",
-            "kara-because"
+            "kara-because",
+            "toki"
           ],
           "mode": "build"
         },
