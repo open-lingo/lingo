@@ -280,10 +280,10 @@ function lesson1(): LessonStep[] {
       ["ça coûte", "douze euros"],
     ),
     listeningCompSentence({
-      id: "fr-m17-1-lc-leonze",
-      audioText: "ça coûte le onze",
-      correctMeaningEn: "it costs — number eleven",
-      distractorsEn: ["it costs — number twelve", "it costs — number ten", "it costs — number twenty"],
+      id: "fr-m17-1-lc-onze",
+      audioText: "ça coûte onze euros",
+      correctMeaningEn: "it costs eleven euros",
+      distractorsEn: ["it costs twelve euros", "it costs ten euros", "it costs twenty euros"],
     }),
     crossModuleMatchPairs("fr-m17-1", [["onze", "eleven"], ["douze", "twelve"], ["dix", "ten"], ["vingt", "twenty"], ["ça coûte", "it costs"], ["euros", "euros (currency, plural)"]]),
   ];
@@ -335,11 +335,11 @@ function lesson2(): LessonStep[] {
       distractorsEn: ["it costs thirteen euros", "it costs fifteen euros", "it costs four euros"],
     }),
     build(
-      "fr-m17-2-build-treize-recap",
-      "Build: 'it costs thirteen euros'",
-      "ça coûte treize euros",
-      ["ça coûte", "treize euros", "onze euros", "quatorze euros"],
-      ["ça coûte", "treize euros"],
+      "fr-m17-2-build-douze-recap",
+      "Build: 'it costs twelve euros'",
+      "ça coûte douze euros",
+      ["ça coûte", "douze euros", "onze euros", "quatorze euros"],
+      ["ça coûte", "douze euros"],
     ),
     cloze(
       "fr-m17-2-cloze-onze-recap",
@@ -774,7 +774,7 @@ function checkpointLesson(): LessonStep[] {
       id: "fr-m17-8-lc-dixsept",
       audioText: "ça coûte dix-sept euros",
       correctMeaningEn: "it costs seventeen euros",
-      distractorsEn: ["it costs seventeen euros — but eleven", "it costs seven euros", "it costs eighteen euros"],
+      distractorsEn: ["it costs eleven euros", "it costs seven euros", "it costs eighteen euros"],
     }),
     sentenceMcq({
       id: "fr-m17-8-smcq-soixanteetonze",
@@ -847,7 +847,7 @@ function lesson9(): LessonStep[] {
       "fr-m17-9-cross-grand",
       "big / tall",
       "grand",
-      ["petit", "bon", "cher"],
+      ["petit", "bon", "c'est cher"],
     ),
     cloze(
       "fr-m17-9-cloze-quatrevingtcinq",
@@ -1076,9 +1076,9 @@ function lesson10(): LessonStep[] {
           id: "t2-tease",
           npc: {
             speaker: "Théo",
-            kana: "Et la semaine prochaine, j'ai quelque chose de nouveau pour vous…",
-            audioText: "et la semaine prochaine, j'ai quelque chose de nouveau pour vous",
-            gloss: "And next week, I have something new for you…",
+            kana: "Et demain, encore ?",
+            audioText: "et demain, encore ?",
+            gloss: "And tomorrow, again?",
           },
           goal: "Say okay, see you soon.",
           reply: {
