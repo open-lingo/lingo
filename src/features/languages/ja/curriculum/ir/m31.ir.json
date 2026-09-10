@@ -3386,12 +3386,12 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "プレゼントを かう まえに たんじょうびに ちちに とけいを もらった。",
-          "en": "Before buying a present, I got a watch from my father for my birthday",
+          "ja": "かいしゃで はたらく ちちに たんじょうびに とけいを もらった。",
+          "en": "I got a watch for my birthday from my father, who works at the company",
           "exercises": [
             "ta-form",
             "morau",
-            "mae-ni"
+            "ni-time"
           ],
           "mode": "build"
         },
@@ -3407,8 +3407,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "せんせいを まつ とき せんせいに はなたばを あげた。",
-          "en": "While waiting for the teacher, I gave the teacher a bouquet",
+          "ja": "おちゃを のむ とき せんせいに はなたばを あげた。",
+          "en": "When we had tea, I gave the teacher a bouquet",
           "exercises": [
             "ta-form",
             "ageru",

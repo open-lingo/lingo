@@ -908,9 +908,9 @@ lessons:
     focus: "あげる, くれる and もらう across past and non-past, with the receiver said and unsaid"
     introduces: []
     beats:
-      - { kind: sentence, ja: "プレゼントを かう まえに たんじょうびに ちちに とけいを もらった。", en: "Before buying a present, I got a watch from my father for my birthday", exercises: [ta-form, morau, mae-ni], mode: build }
+      - { kind: sentence, ja: "かいしゃで はたらく ちちに たんじょうびに とけいを もらった。", en: "I got a watch for my birthday from my father, who works at the company", exercises: [ta-form, morau, ni-time], mode: build }
       - { kind: sentence, ja: "ともだちが けいたいを くれた。", en: "My friend gave me a cell phone", exercises: [ta-form, kureru], mode: build }
-      - { kind: sentence, ja: "せんせいを まつ とき せんせいに はなたばを あげた。", en: "While waiting for the teacher, I gave the teacher a bouquet", exercises: [ta-form, ageru, toki], mode: listening }
+      - { kind: sentence, ja: "おちゃを のむ とき せんせいに はなたばを あげた。", en: "When we had tea, I gave the teacher a bouquet", exercises: [ta-form, ageru, toki], mode: listening }
       - { kind: sentence, ja: "ともだちに かさを かりた。", en: "I borrowed an umbrella from my friend", exercises: [ta-form, ni-recipient], mode: build }
       - { kind: sentence, ja: "かいしゃから きねんの とけいを もらう。", en: "I get a commemorative watch from the company", exercises: [kara-origin, morau], mode: build }
       - { kind: particle-cloze, stem: "いもうとが ケーキを くれたから ", tail: "。", answer: "よろこんだ", options: ["よろこんだ", "あげた", "かした"], en: "My little sister gave me a cake, so I was delighted", explanation: "the cake arriving is a reason to be delighted, which is what よろこぶ says. あげた and かした are both things you do to somebody else, and neither is a reaction." }
