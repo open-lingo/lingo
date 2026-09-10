@@ -39,7 +39,9 @@ const GLOSS_MUST_CONTAIN: Record<string, string[]> = {
   // seasons
   なつ: ["summer"],
   ふゆ: ["winter"],
-  はる: ["spring"],
+  // はる is a live two-sense kana surface from m41: 春 (spring, m25) and
+  // 貼る (to stick/paste, m41's `haru-stick` atom) — both acceptable.
+  はる: ["spring", "stick", "paste"],
   あき: ["autumn", "fall"],
   // people — the terms a learner most often sees blurred together
   せんせい: ["teacher", "professor", "doctor"],

@@ -219,8 +219,25 @@ const MAX_NEVER_TOUCHED = 140;
  * course-wide, the same ATOM-REGISTRATION-RIPPLE class the m36 entry above
  * describes — verified the pre-existing 62 minus one ripple-fixed entry plus
  * these eleven nets to 72. They come OFF this list only when a later module
- * grades them (future Wave 1 authoring), not a fix to make here. */
-const MAX_GRADED_BUT_NEVER_WRITES = 72;
+ * grades them (future Wave 1 authoring), not a fix to make here.
+ *
+ * 72 → 77, 2026-09-10 (Wave 1, m41 landing — n4-12 transitivity II /
+ * てある): six of m41's own new/re-stamped atoms — パーティー, じゃあ, ならぶ,
+ * ならべる, メモ, かざる. パーティー and じゃあ are re-stamped dead-attribution
+ * fixes (both previously carried `fromModule: "future"` plus an
+ * `introducedByLessonId` pointing into `curriculum/_archive/` only, so
+ * neither was ever actually live-graded before landing here); ならぶ/
+ * ならべる are the module's own new intransitive/transitive pair; メモ and
+ * かざる are new vocabulary. Every graded touch of each lives inside m41,
+ * the module that introduces them — same D2/D4 shape as every entry above:
+ * the same-module gate blocks the write, D4 seed-on-unlock still schedules
+ * each due the next day. Net +5 (not +6) because registering m41's rows
+ * re-attributes some filler/review tokenization course-wide, the same
+ * ATOM-REGISTRATION-RIPPLE class the m36/m40 entries above describe —
+ * verified the pre-existing 72 minus one ripple-fixed entry plus these six
+ * nets to 77. They come OFF this list only when a later module grades them
+ * (future Wave 1 authoring), not a fix to make here. */
+const MAX_GRADED_BUT_NEVER_WRITES = 77;
 
 type Row = {
   atomId: string;

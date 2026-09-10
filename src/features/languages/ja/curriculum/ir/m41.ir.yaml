@@ -1,0 +1,552 @@
+module: m41
+title: "Transitivity II: 〜てある + the pair families"
+register: plain
+priorNeoModules: [m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18, m19, m20, m21, m22, m23, m24, m25, m26, m27, m28, m29, m30, m31, m32, m33, m34, m35, m36, m37, m38, m39, m40]
+priorGrammarPoints: [ka-question, no-possession, wa-topic, wo-object, ga-existence,
+  ni-location, ni-time, de-action, mo-also, kara-because, node-because, kedo,
+  made-until, mae-ni, te-form, te-kudasai, te-iru, te-kara, te-miru, te-oku,
+  ta-form, nai-form, nai-existence, dictionary-form, masu-present, masu-negative,
+  masu-past, desu-copula, i-adj-present, i-adj-past, na-adj-present, v-tai,
+  to-omoimasu, toki, tsumori-desu, mashou, masenka, potential-form, dekiru,
+  deshou, kana-wondering, n-desu, sugiru, ku-ni-naru, hou-ga-ii,
+  nakereba-naranai, yo-emphasis, ne-agreement, register-audience,
+  chotto-softener, ageru, kureru, morau, ni-recipient, tara, to-conditional,
+  jidoushi-tadoushi, te-iru-resultative, volitional, you-to-omou, koto-ni-suru,
+  koto-ni-naru, you-to-suru, te-kureru, te-ageru, te-morau, favor-ladder, dake,
+  shika-nai, sou-appearance, garu-tagaru, yasui-nikui, nagara, ba-form,
+  ba-restriction, ba-vs-tara, nara, nara-vs-tara, ba-hodo, family-register,
+  frequency-adverbs, kono-sono-ano-dono, ni-iku, te-shimau, chau,
+  te-iku-kuru-space, kite-chain, te-kuru-iku-time, noni-concession,
+  temo-concession, demo-concession, demo-mo-closed-set, shi-listing,
+  passive-form, passive-rareru, possessed-object-passive,
+  niyotte-creation-passive, suffering-passive-recognition]
+notes: |
+  m41 · n4-12 — TRANSITIVITY II: 〜てある + the pair families
+  (docs/spine-n4.md §n4-12, docs/ja-m41-brief-2026-09-10.md). Ships 12
+  lessons (inv 25: 8 teaching + 3 review + 1 challenge, challenge last).
+  spiralWith: n4-04 (m33's jidoushi/tadoushi pairs) — this module is a
+  deepening pass, not a fresh topic.
+
+  WHAT IS TAUGHT:
+  1. **Core construction (L2, id te-aru):** a TRANSITIVE verb's て-form +
+     ある = a state somebody left on purpose. The object drops を and takes
+     が: まどを あける (action) → まどが あけてある (state, left that way on
+     purpose). Anchor minimal pair uses ZERO new vocabulary — まど/あける/
+     あく have been known since m14/m33 — so the grammar stands on its own.
+  2. **てある vs 自動詞+ている vs 他動詞+ている (L3, id
+     te-aru-vs-te-iru):** three readings of the same event. まどが あいている
+     (state, no agent implied, m33) / ミカが まどを あけている (ongoing
+     action, agent doing it right now) / まどが あけてある (state, agent
+     implied, deliberate). A single non-graded rule-card aside references
+     m40's あけられる (passive) as a FOURTH, unrelated shape — never drilled,
+     confirmed live via `node scripts/authoring-context.mjs m41` before
+     writing it (passive-form/passive-rareru are real priorGrammarPoints).
+  3. **てある vs ておく (L5, id te-oku-vs-te-aru):** both ride the same
+     て-form slot (m30's helper-verb schema, "front-loaded" precisely so
+     this module could teach ONE thing instead of re-deriving て+verb).
+     ておく keeps AGENT framing (を stays: まどを あけておく, I'll leave it
+     open); てある reframes the same fact as a property of the room (が:
+     まどが あけてある). No tense distinction, purely a whose-action-is-on-
+     stage distinction.
+  4. **Family-noticing (L6, id transitivity-family-noticing):** m33 shipped
+     NINE pairs, not six — あく/あける, しまる/しめる, はいる/いれる,
+     とまる/とめる, きまる/きめる, きえる/けす, はじまる/はじめる, でる/だす,
+     おちる/おとす (verified by reading m33.ir.yaml's grammarPoints in full,
+     not trusting the spine's own summary). This module adds a TENTH:
+     ならぶ (intransitive, "to be in a row") / ならべる (transitive, "to
+     line up"), both repointed from stale courseAtoms "future" stubs
+     (fromModule → "m41"). てある gives every pair member a third face:
+     ほんが たなに ならんでいる (in a row, no agent) vs ほんが たなに
+     ならべてある (arranged, on purpose) — the same あいている/あけてある
+     relationship, one pair over.
+
+  REJECTED: つく／つける AS A NEW PAIR (brief's carried-forward flag b,
+  resolved here with certainty, not merely investigated). courseAtoms
+  already reserves the kana つく for `tsuku` (着く, "to arrive", m23, LIVE,
+  unblocked) and つける for `tsukeru` (付ける, "to turn on", stub,
+  fromModule "future"). `atomIndex()` (moduleCompiler.ts) builds ONE merged
+  entry PER KANA STRING across the whole course — first-wins over
+  `JA_COURSE_ATOMS_BY_KANA`'s own last-wins Map construction — so a second
+  courseAtoms row sharing kana つく (for 点く, "to turn on, of itself")
+  would not create a second, disambiguable entry: appended later in
+  courseAtoms.ts it would WIN the last-wins Map and silently overwrite
+  `tsuku`'s (着く, arrive) gloss/emoji app-wide, corrupting an already-live,
+  actively-taught m23 atom — the exact class of bug the file's own はな
+  (花/鼻) comment describes as recently fixed. Unlike the exercised()
+  tokenizer's existing さん/し/でも/なんで position-based guards (which
+  disambiguate GRADING CREDIT after both senses already coexist in the
+  atom map), this collision happens one layer earlier, at map construction,
+  where no position/context exists to consult — there are two dictionary-
+  form intransitive verbs in identical syntactic slots (NOUNが つく), with
+  no structural tell between them. Independent confirmation: m24's own
+  authors hit this exact kana collision three months earlier while
+  drafting potential-form atoms and explicitly rejected it (courseAtoms.ts
+  ~line 1414, "つく → つける is 付ける 'to turn on' (row exists)"). Given
+  no positional fix is possible and the module's own vocab budget already
+  reaches ten pairs without it, the brief's own lowest-priority-protected
+  optional item is cut outright rather than shipped unsafely — coverage
+  not volume.
+
+  ALSO RESOLVED (brief §2's own instruction, now stale): the brief asks to
+  hand-register ある's inflected forms (あった, etc.) as m41 newAtoms. They
+  are unnecessary — あった was already registered by m38
+  (ir/m38.ir.yaml, `kind: verb-form, derivedFrom: ある`) and has been live,
+  known vocabulary via `priorVocab` since m38 landed. ある's present form
+  has been known since m6. No ある-form registration happens in this
+  module. Negation of ある (ない/ありません) is deliberately out of scope —
+  neither the brief's done-criteria nor N4 scope requires it, and m30's
+  own ておく module made the identical register-caution call for
+  てはいけない-style negation of its own helper.
+
+  HOMOGRAPH: はる. Three senses share the kana. `haru` (春, "spring", m25,
+  blocked) is unrelated and untouched. `haru-stick` (貼る, "to stick") had
+  `introducedByLessonId: "ja-m14-6-2"` — checked against `isDeadAttribution`
+  (`lessonAtomIndex.ts`): ja-m14-6-2 exists ONLY in
+  `curriculum/_archive/m14.ts`, not in the live `mockLessons.ts` registry,
+  so `getContent("ja-m14-6-2")` returns falsy — a DEAD attribution, exactly
+  m38's なくす/ぜんぶ precedent. Re-stamped `fromModule: "future" → "m41"`,
+  `introducedByLessonId` repointed to this module's own first live debut
+  lesson, id kept as `haru-stick` (never a third `haru*` id).
+
+  ならぶ／ならべる repointed the same way as たのむ／よぶ in m40: both were
+  genuine unallocated `fromModule: "future"` stubs (courseAtoms.ts ids
+  `narabu`/`naraberu`), never taught by any live lesson — flipped to
+  `fromModule: "m41"` here.
+
+  VOCAB BUDGET: brief's ceiling was 32 (a ceiling, not a quota — same
+  doctrine as m39's 34→11 and m40's 36→12). This module ships 5 brand-new
+  atoms (かべ, たな, ポスター, メモ, かざる) + 3 repointed stubs
+  (はる-stick, ならぶ, ならべる) = 8 atom-registry actions, all household/
+  tidying register. はいち, せいとん and したく (the brief's own explicit
+  first three cuts, in the brief's own stated cut-priority order) are cut
+  entirely — near-synonyms of already-covered ground (かたづける/junbi/
+  yotei are all carrier-only per the brief's own §1 correction) that would
+  have added volume without adding a new grammatical idea.
+
+  All new/reactivated atoms ship `blocked: true` (no image-MCQ debut,
+  matching m40's own all-blocked pattern for this tier) — sidesteps any
+  emoji-vendoring risk entirely; `requireImageFirst`'s check only ever
+  applies to `!blocked && emoji` atoms, so this costs nothing.
+
+grammarPoints:
+  - id: te-aru
+    rule: "A third helper rides the exact same て-form slot ておく (m30) and ている (m14) already use, and its meaning fuses both. てある needs a TRANSITIVE verb — one that already takes を — and when ある lands behind its て-form, two things happen together: the object drops を and takes が instead, and the sentence stops being about an action and becomes about a STATE somebody left behind on purpose. まどを あける (I open the window, an action, を) becomes まどが あけてある (the window has been left open, a state, が) — nobody is opening anything right now; somebody opened it earlier, and it is still that way because they meant it to be. Compare this to 自動詞+ている (module 33): まどが あいている also describes an open window, but says nothing about why — maybe it blew open, maybe nobody noticed. てある always implies a hand behind it, even when that hand is never named."
+    examples:
+      - { ja: "まどが あけてある。", en: "The window has been left open (on purpose)." }
+      - { ja: "ポスターが かべに はってある。", en: "A poster has been stuck on the wall." }
+      - { ja: "ほんが たなに ならべてある。", en: "The books have been arranged on the shelf." }
+      - { ja: "へやが かざってある。", en: "The room has been decorated." }
+    antiPattern: { ja: "まどを あけてある。", why: "てある promotes the object to が the moment the verb turns into a resultant state — を would still mark it as an action's direct object, which is exactly what てある is not: まどが あけてある。" }
+  - id: te-aru-vs-te-iru
+    rule: "Three shapes, one verb pair, three different pictures. 自動詞+ている (module 33) is a state with no agent named — まどが あいている, the window is open, full stop, nobody said by whom. 他動詞+ている is the SAME transitive verb doing its normal job, an action actually happening right now — ミカが まどを あけている, Mika is in the middle of opening the window; を never left. 他動詞+てある takes that same transitive verb and turns it into a state too, but a state with an agent implied — まどが あけてある, the window has been left open, and someone meant it that way. Read the particle and the verb together: が+自動詞+ている is a fact about the world; を+他動詞+ている is somebody working right now; が+他動詞+てある is somebody's earlier choice, still in effect. (A fourth shape exists too — あけられる, module 40's passive — but it answers a different question, who something happened TO, not what state a thing is in; this module never drills it.)"
+    examples:
+      - { ja: "まどが あいている。", en: "The window is open." }
+      - { ja: "ミカが まどを あけている。", en: "Mika is opening the window." }
+      - { ja: "まどが あけてある。", en: "The window has been left open (on purpose)." }
+      - { ja: "ドアが しまっている。", en: "The door is closed." }
+      - { ja: "ドアが しめてある。", en: "The door has been closed (on purpose)." }
+    antiPattern: { ja: "まどを あいている。", why: "あいている is the intransitive half — the window doing the opening by itself — so it takes が, never を; を belongs only to the transitive pair member, あける: まどが あいている。" }
+  - id: te-oku-vs-te-aru
+    rule: "Two helpers, same て-form slot, and they can describe almost the same room two different ways. ておく (module 30) keeps the sentence about the AGENT: まどを あけておく, I'll leave the window open — を stays, because it's still framed as something you did or are choosing not to undo. てある drops the agent and reframes the same fact as a property of the ROOM: まどが あけてある, the window is (in the state of having been) left open — が, because now the window is being described, not your choice. Say the plan to someone BEFORE it happens and ておく is what you reach for; say the same fact to someone walking in and noticing the room and てある is what they'd say. Nothing about tense forces the choice — it's about whose action is on stage."
+    examples:
+      - { ja: "まどを あけておく。", en: "I'll leave the window open (in preparation)." }
+      - { ja: "まどが あけてある。", en: "The window has been left open." }
+      - { ja: "へやを かざっておく。", en: "I'll decorate the room in advance." }
+      - { ja: "へやが かざってある。", en: "The room has been decorated." }
+    antiPattern: { ja: "まどが あけておく。", why: "ておく keeps its agent framing, so its object stays を — が belongs to てある, the state-of-the-room version of the same sentence: まどを あけておく。" }
+  - id: transitivity-family-noticing
+    rule: "Nine pairs met since module 33, and now a tenth. ならぶ is the intransitive half — things standing in a row on their own: ほんが たなに ならんでいる, the books are lined up (on the shelf). ならべる is what somebody DOES: ほんを たなに ならべる, I line the books up. Exactly the pattern あく/あける, しまる/しめる, はいる/いれる, とまる/とめる, きまる/きめる, きえる/けす, はじまる/はじめる, でる/だす and おちる/おとす already taught: が-verb for the thing happening on its own, を-verb for somebody making it happen. What's new this module is a THIRD member many of these pairs can take — the て-form of the transitive half plus ある: ほんが たなに ならべてある isn't just books in a row, it's books somebody arranged and left that way, the same relationship as まどが あいている vs まどが あけてある, one pair over. The family keeps growing; the read never changes — find the particle, and you already know which side you're looking at."
+    examples:
+      - { ja: "ほんが たなに ならんでいる。", en: "The books are lined up on the shelf." }
+      - { ja: "ほんを たなに ならべる。", en: "I line the books up on the shelf." }
+      - { ja: "ほんが たなに ならべてある。", en: "The books have been arranged on the shelf." }
+      - { ja: "でんしゃが とまる。", en: "The train stops." }
+      - { ja: "くるまを とめる。", en: "I stop the car." }
+    antiPattern: { ja: "ほんを たなに ならんでいる。", why: "ならぶ is the intransitive half — books lining up on their own — so it takes が, never を; を belongs to ならべる, the doing half: ほんが たなに ならんでいる。" }
+
+newAtoms:
+  # ══ L1 — new lemmas + reactivated stubs, plain-form only, no てある yet.
+  - { kana: かべ, romaji: kabe, gloss: "wall", shortGloss: "wall", imageable: false, kind: vocab }
+  - { kana: たな, romaji: tana, gloss: "shelf", shortGloss: "shelf", imageable: false, kind: vocab }
+  - { kana: ポスター, romaji: posutaa, gloss: "poster", shortGloss: "poster", imageable: false, kind: vocab }
+  - { kana: メモ, romaji: memo, gloss: "memo, note", shortGloss: "memo", imageable: false, kind: vocab }
+  - { kana: はる, romaji: haru, gloss: "to stick, to paste", shortGloss: "stick", imageable: false, kind: verb, verbClass: u }
+  - { kana: かざる, romaji: kazaru, gloss: "to decorate, to display", shortGloss: "decorate", imageable: false, kind: verb, verbClass: u }
+  - { kana: ならべる, romaji: naraberu, gloss: "to line up, to arrange", shortGloss: "line up (arrange)", imageable: false, kind: verb, verbClass: ru }
+  - { kana: ならぶ, romaji: narabu, gloss: "to line up, to be in a row", shortGloss: "line up (stand)", imageable: false, kind: verb, verbClass: u }
+  # ══ L2 — て-forms of this module's own new TRANSITIVE verbs, needed for
+  # てある. All hand-authored (no conjugation_transform ride), so plain form
+  # (L1) and て-form (L2) landing in different lessons is a pedagogical
+  # choice, not an engine requirement.
+  - { kana: はって, romaji: hatte, gloss: "stuck, pasted (te-form of はる)", shortGloss: "stuck (stick)", imageable: false, kind: verb-form, derivedFrom: はる, verbClass: u }
+  - { kana: かざって, romaji: kazatte, gloss: "decorated (te-form of かざる)", shortGloss: "decorated (decorate)", imageable: false, kind: verb-form, derivedFrom: かざる, verbClass: u }
+  - { kana: ならべて, romaji: narabete, gloss: "lined up (te-form of ならべる)", shortGloss: "lined up (arrange)", imageable: false, kind: verb-form, derivedFrom: ならべる, verbClass: ru }
+  # ══ L6 — ならぶ's own て-form, needed for the family-noticing contrast
+  # (ならんでいる vs ならべてある).
+  - { kana: ならんで, romaji: narande, gloss: "lined up, in a row (te-form of ならぶ)", shortGloss: "in a row (stand)", imageable: false, kind: verb-form, derivedFrom: ならぶ, verbClass: u }
+  - { kana: ならべた, romaji: narabeta, gloss: "lined up, arranged (past tense of ならべる)", shortGloss: "arrange (past)", imageable: false, kind: verb-form, derivedFrom: ならべる, verbClass: ru }
+  # ══ L5 — おく (m30, "to put") gets its own conjugated forms here: only its
+  # dictionary form was ever registered, and ておく (do X in advance / leave
+  # X in a state) rides おく's OWN past/te-form, not the preceding verb's.
+  # Needed for "あけておいた" (L5) and, later, "かざっておいてから" (L9).
+  - { kana: おいた, romaji: oita, gloss: "put, left in advance (past tense of おく)", shortGloss: "put (advance, past)", imageable: false, kind: verb-form, derivedFrom: おく, verbClass: u }
+  # ══ L9 — おく's て-form (i-onbin く→いて, same shape as おいた's く→いた),
+  # needed for the ておいてから ("do X in advance, then...") sequencing beat.
+  - { kana: おいて, romaji: oite, gloss: "put, left in advance (te-form of おく)", shortGloss: "put (advance, te-form)", imageable: false, kind: verb-form, derivedFrom: おく, verbClass: u }
+  # ══ L9 — とる (撮る, "to take a photo", m30) past tense, needed for the same
+  # ておいてから beat's second clause (しゃしんを とった).
+  - { kana: とった, romaji: totta, gloss: "took (a photo, past tense of とる)", shortGloss: "took (photo, past)", imageable: false, kind: verb-form, derivedFrom: とる, verbClass: u }
+  # ══ L3 — あける (m14, "to open") past tense, needed for the "だれか あけたの？"
+  # dialogue question — only the plain/te-form were ever registered.
+  - { kana: あけた, romaji: aketa, gloss: "opened (past tense of あける)", shortGloss: "open (past)", imageable: false, kind: verb-form, derivedFrom: あける, verbClass: ru }
+
+lessons:
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m41-neo-1
+    role: teaching
+    title: "「かべに ポスターが ある」— getting the room's vocabulary"
+    focus: "Priming vocabulary for the てある arc — no new grammar yet, all through は/が/を you already own"
+    introduces: [かべ, たな, ポスター, メモ, はる, かざる, ならべる, ならぶ, パーティー]
+    beats:
+      - { kind: sentence, ja: "かべに ポスターが ある。", en: "There is a poster on the wall.", exercises: [ga-existence], mode: build }
+      - { kind: sentence, ja: "たなに ほんが ある。", en: "There are books on the shelf.", exercises: [ga-existence], mode: build }
+      - { kind: sentence, ja: "つくえに メモが ある。", en: "There's a memo on the desk.", exercises: [ga-existence], mode: build }
+      - { kind: sentence, ja: "ポスターを かべに はる。", en: "I stick a poster on the wall.", exercises: [wo-object], mode: build }
+      - { kind: sentence, ja: "へやを かざる。", en: "I decorate the room.", exercises: [wo-object], mode: build }
+      - { kind: sentence, ja: "ほんを たなに ならべる。", en: "I arrange the books on the shelf.", exercises: [wo-object], mode: build }
+      - { kind: sentence, ja: "ほんが たなに ならぶ。", en: "The books line up on the shelf.", exercises: [ga-existence], mode: build }
+      - { kind: particle-cloze, stem: "かべに ポスターが ", tail: "。", answer: "ある", options: ["ある", "いる", "ない"], en: "There is a poster on the wall.", explanation: "ポスター is a thing, not a person or animal, so its existence is ある, never いる (reserved for people/animals). ない would say there is no poster at all — the opposite of this sentence." }
+      - { kind: listening-comp, audio: "たなに ほんが ある。", answer: "There are books on the shelf.", distractors: ["There is a shelf in the book.", "There is no book on the shelf.", "The shelf has a poster."], q: "What does this mean?" }
+      # パーティー's debut: `listening-comp` (kind), NOT `sentence`/mode:build —
+      # a `sentence` beat compiles to `build_sentence`, which collides with
+      # this lesson's own trailing `challenge` sentence beat (also
+      # build_sentence-shaped) in the COMPILED steps array (density
+      # auto-expansion shifts raw beat order, so this only showed up by
+      # inspecting LessonContent.steps directly) and trips the
+      # density/variety no-adjacent-identical-type bar. `sentence`/
+      # mode:listening compiles to `listening_build`, which isn't in
+      # TEACH_FIRST_INTRO_TYPES (stepTaxonomy.ts) so it can't be a debut
+      # step either. `listening-comp` (kind) compiles to
+      # `listening_comprehension`, which is both intro-capable and a
+      # distinct type from every step around it here.
+      - { kind: listening-comp, audio: "あした パーティーが ある。", answer: "There's a party tomorrow.", distractors: ["There was a party yesterday.", "There's no party tomorrow.", "The party is today, not tomorrow."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "ほんを たなに ならべる。", answer: "I arrange the books on the shelf.", distractors: ["The books are already on the shelf.", "I take the books off the shelf.", "I read the books on the shelf."], q: "What does this mean?" }
+      # メモ and ならぶ recognition beats (recognitionExposure ratchet): both
+      # are `imageable: false` (no image-MCQ debut path exists) and their
+      # ONLY other graded touch in this lesson is a `build` sentence — a
+      # pure-production exposure. A `listening-comp` credits the word via
+      # `answer`, giving each a cheap recognition touch before the learner
+      # is ever asked to produce it. Per the ratchet's own fix recipe (reuse
+      # an already-authored sentence), these mirror this lesson's own
+      # build-mode sentences for メモ (beat 3 above) and ならぶ (beat 7 above).
+      - { kind: listening-comp, audio: "つくえに メモが ある。", answer: "There's a memo on the desk.", distractors: ["There's a memo on the wall.", "There's a book on the desk.", "There's no memo anywhere."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "ほんが たなに ならぶ。", answer: "The books line up on the shelf.", distractors: ["I line the books up on the shelf.", "The books are stacked on the desk.", "There are no books on the shelf."], q: "What does this mean?" }
+      - { kind: kanji, kana: はる, kanji: 貼る, distractors: ["はれる", "はなす", "はしる"], exercises: [wo-object] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "パーティーの まえに へやを かざる。", en: "I'll decorate the room before the party." }
+          - { speaker: "Ken", ja: "いいね。ポスターを かべに はる。", en: "Sounds good. I'll stick a poster on the wall." }
+          - { speaker: "Mika", ja: "ほんも たなに ならべる。", en: "I'll line the books up on the shelf too." }
+        questions:
+          - { q: "What are Mika and Ken doing?", options: ["Decorating the room before a party", "Cleaning the shelf", "Reading books", "Writing a memo"], answer: "Decorating the room before a party" }
+      - { kind: challenge, ja: "へやを かざるから、ポスターを かべに はる。", en: "Since I'm decorating the room, I'll stick a poster on the wall.", combines: [wo-object, ni-location, kara-because], mode: build }
+    reviewPool: [へや, ほん, つくえ, ドア, まど, いえ, せんせい, がっこう]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m41-neo-2
+    role: teaching
+    title: "「ポスターが はってある」— てある, a result someone meant"
+    focus: "Core construction: transitive て-form + ある = an intentional resultant state; the object switches を→が"
+    introduces: [はって, かざって, ならべて]
+    beats:
+      - { kind: rule, grammarPointId: te-aru }
+      - { kind: sentence, ja: "まどが あいている。", en: "The window is open.", exercises: [te-iru-resultative], mode: build }
+      - { kind: sentence, ja: "まどが あけてある。", en: "The window has been left open (on purpose).", exercises: [te-aru], mode: build }
+      - { kind: sentence, ja: "ポスターが かべに はってある。", en: "A poster has been stuck on the wall.", exercises: [te-aru], mode: build }
+      - { kind: sentence, ja: "ほんが たなに ならべてある。", en: "The books have been arranged on the shelf.", exercises: [te-aru], mode: build }
+      - { kind: sentence, ja: "へやが かざってある。", en: "The room has been decorated.", exercises: [te-aru], mode: listening }
+      - { kind: particle-cloze, stem: "まどが ", tail: "。", answer: "あけてある", options: ["あけてある", "あける", "あく"], en: "The window has been left open.", explanation: "あけてある names the finished, deliberate state (てある). あける is the bare dictionary form with no て at all, and あく is the intransitive 'it opens by itself' — this state description needs あけてある." }
+      - { kind: listening-comp, audio: "ポスターが かべに はってある。", answer: "A poster has been stuck on the wall.", distractors: ["I am sticking a poster on the wall.", "The poster fell off the wall.", "There is no poster on the wall."], q: "What does this mean?" }
+      - { kind: kanji, kana: かざる, kanji: 飾る, distractors: ["かがやく", "かさねる", "かえる"], exercises: [te-aru] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "わあ、きれいな へやだね。", en: "Wow, what a nice room." }
+          - { speaker: "Mika", ja: "うん、パーティーの ために かざってあるよ。", en: "Yeah, it's been decorated for the party." }
+          - { speaker: "Ken", ja: "ポスターも はってあるね。", en: "There's a poster stuck up too." }
+        questions:
+          - { q: "Why has the room been decorated?", options: ["For the party", "For a test", "For a guest that never came", "Nobody knows"], answer: "For the party" }
+      - kind: sim
+        scene: { emoji: "🏠", title: "A tidy surprise", setting: "Ken walks into Mika's room and notices it has been set up on purpose." }
+        turns:
+          - npc: { speaker: "Ken", ja: "まどは どう なっている？", en: "What's going on with the window?" }
+            goal: "Say the window has been left open (on purpose)."
+            reply: { mode: build, tiles: ["まどが", "あけてある", "あいている", "まどを"], answer: "まどが あけてある。" }
+            replyGloss: "The window has been left open (on purpose)."
+            explanation: "あけてある names an agent's earlier choice; あいている would only say the window is open, with no claim anyone meant it that way. まどを swaps in the wrong particle for a state sentence."
+          - npc: { speaker: "Ken", ja: "ほんは どこに ある？", en: "Where are the books?" }
+            goal: "Say the books have been arranged on the shelf."
+            reply: { mode: build, tiles: ["ほんが", "たなに", "ならべてある", "たなを", "ならぶ"], answer: "ほんが たなに ならべてある。" }
+            replyGloss: "The books have been arranged on the shelf."
+            explanation: "ならべてある marks the deliberate result with が; たなを would wrongly treat the shelf as a direct object, and bare ならぶ drops the てある state entirely."
+      - { kind: challenge, ja: "まどが あけてあるから、へやが すずしい。", en: "Since the window has been left open, the room is cool.", combines: [te-aru, i-adj-present, kara-because], mode: build }
+    reviewPool: [まど, へや, ドア, いえ, かべ, たな, ポスター, ほん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m41-neo-3
+    role: teaching
+    title: "「あいている・あけている・あけてある」— three shapes, three readings"
+    focus: "Discriminate 自動詞+ている (state, no agent), 他動詞+ている (ongoing action) and 他動詞+てある (deliberate resultant state)"
+    introduces: [あけた]
+    beats:
+      - { kind: rule, grammarPointId: te-aru-vs-te-iru }
+      - { kind: sentence, ja: "まどが あいている。", en: "The window is open.", exercises: [te-iru-resultative], mode: build }
+      - { kind: sentence, ja: "ミカが まどを あけている。", en: "Mika is opening the window.", exercises: [te-iru], mode: build }
+      - { kind: sentence, ja: "まどが あけてある。", en: "The window has been left open (on purpose).", exercises: [te-aru], mode: build }
+      - { kind: particle-cloze, stem: "まどが ", tail: "。", answer: "あいている", options: ["あいている", "あけてある", "あけている"], en: "The window is open.", explanation: "The English just says the window 'is open', with no one's intent mentioned — that's the plain intransitive state, あいている. あけてある would need 'left open on purpose', and あけている describes someone mid-action of opening it." }
+      - { kind: sentence, ja: "ドアが しまっている。", en: "The door is closed.", exercises: [te-iru-resultative], mode: listening }
+      - { kind: sentence, ja: "ドアが しめてある。", en: "The door has been closed (on purpose).", exercises: [te-aru], mode: build }
+      - { kind: listening-comp, audio: "ミカが まどを あけている。", answer: "Mika is opening the window.", distractors: ["The window is already open.", "The window has been left open on purpose.", "Mika closed the window."], q: "What does this mean?" }
+      - { kind: sentence, ja: "ミカが まどを あけた。", en: "Mika opened the window.", exercises: [ta-form], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "まどが あいているね。だれか あけたの？", en: "The window is open. Did someone open it?" }
+          - { speaker: "Mika", ja: "うん、わたしが あけてあるよ。かぜが すずしいから。", en: "Yeah, I left it open on purpose. The breeze is cool." }
+          - { speaker: "Tom", ja: "なるほど。", en: "I see." }
+        questions:
+          - { q: "Why is the window open?", options: ["Mika left it open on purpose, for the breeze", "It blew open by itself", "Nobody knows why", "Tom is opening it right now"], answer: "Mika left it open on purpose, for the breeze" }
+      - { kind: challenge, ja: "まどが あけてあるから、かぜが はいっている。", en: "Since the window has been left open, a breeze is coming in.", combines: [te-aru, te-iru-resultative, kara-because], mode: build }
+    reviewPool: [まど, ドア, へや, かぜ, いえ, ほん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m41-neo-review-1
+    role: review
+    title: "Review — てある so far"
+    focus: "Spiral L1-L3: the vocabulary, the core construction, and the three-way discrimination"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "ポスターが かべに はってある。", en: "A poster has been stuck on the wall.", exercises: [te-aru], mode: build }
+      - { kind: sentence, ja: "ほんが たなに ならべてある。", en: "The books have been arranged on the shelf.", exercises: [te-aru], mode: build }
+      - { kind: particle-cloze, stem: "まどが ", tail: "。", answer: "あけてある", options: ["あけてある", "あいている", "あける"], en: "The window has been left open.", explanation: "'has been left open' signals a deliberate resultant state — あけてある. あいている would just say it's open, with no deliberateness implied, and あける is the bare active verb with no state marking at all." }
+      - { kind: sentence, ja: "まどが あいている。", en: "The window is open.", exercises: [te-iru-resultative], mode: build }
+      - { kind: sentence, ja: "ミカが まどを あけている。", en: "Mika is opening the window.", exercises: [te-iru], mode: build }
+      - { kind: listening-comp, audio: "へやが かざってある。", answer: "The room has been decorated.", distractors: ["I am decorating the room right now.", "The room is a mess.", "Nobody decorated the room."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "この へや、きれいだね。", en: "This room is nice." }
+          - { speaker: "Mika", ja: "うん、パーティーの ために かざってあるの。", en: "Yeah, it's been decorated for the party." }
+          - { speaker: "Ken", ja: "ポスターも いいね。", en: "The poster looks good too." }
+        questions:
+          - { q: "Why does the room look this way?", options: ["It's been decorated for the party", "Nobody cleaned it", "Mika is decorating it right now", "It's always like this"], answer: "It's been decorated for the party" }
+      - { kind: sentence, ja: "ドアが しめてある。", en: "The door has been closed (on purpose).", exercises: [te-aru], mode: build }
+    reviewPool: [まど, ドア, へや, かべ, たな, ポスター, ほん, いえ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m41-neo-5
+    role: teaching
+    title: "「あけておく」 vs 「あけてある」— what I'll do vs what's already so"
+    focus: "ておく (agent framing, を) vs てある (state framing, が) — same て-form slot, different subject on stage"
+    introduces: [おいた]
+    beats:
+      - { kind: rule, grammarPointId: te-oku-vs-te-aru }
+      - { kind: sentence, ja: "まどを あけておく。", en: "I'll leave the window open (in preparation).", exercises: [te-oku], mode: build }
+      - { kind: sentence, ja: "まどが あけてある。", en: "The window has been left open.", exercises: [te-aru], mode: build }
+      - { kind: sentence, ja: "へやを かざっておく。", en: "I'll decorate the room in advance.", exercises: [te-oku], mode: build }
+      - { kind: sentence, ja: "へやが かざってある。", en: "The room has been decorated.", exercises: [te-aru], mode: listening }
+      - { kind: particle-cloze, stem: "まどを ", tail: "。", answer: "あけておく", options: ["あけておく", "あけてある", "あける"], en: "I'll leave the window open (in preparation).", explanation: "ておく frames this as something I'm doing now in preparation for later — あけておく. あけてある would describe the already-finished state instead, and bare あける drops the 'in preparation' framing entirely." }
+      - { kind: listening-comp, audio: "へやを かざっておく。", answer: "I'll decorate the room in advance.", distractors: ["The room has already been decorated.", "I am decorating the room right now.", "Nobody decorated the room."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "あした パーティーだから、へやを かざっておくね。", en: "Since the party is tomorrow, I'll decorate the room in advance." }
+          - { speaker: "Ken", ja: "ありがとう。ドアも あけておくね。", en: "Thanks. I'll leave the door open too." }
+          - { speaker: "Mika", ja: "うん、わかった。", en: "OK, got it." }
+        questions:
+          - { q: "Why is Mika decorating the room now?", options: ["Because the party is tomorrow", "Because guests just arrived", "Because the room is already decorated", "Because Ken asked for a poster"], answer: "Because the party is tomorrow" }
+      - { kind: sentence, ja: "ドアを あけておいたから、へやが すずしい。", en: "Since I left the door open in advance, the room is cool.", exercises: [te-oku, kara-because], mode: build }
+      - { kind: challenge, ja: "へやを かざっておいたから、へやが いま きれいに かざってある。", en: "Since I decorated the room in advance, it's now decorated nicely.", combines: [te-oku, te-aru, kara-because], mode: build }
+    reviewPool: [まど, ドア, へや, かべ, たな, ポスター, いえ, かぜ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m41-neo-6
+    role: teaching
+    title: "「ならんでいる」 「ならべてある」— the tenth pair"
+    focus: "Deepen the nine known jidoushi/tadoushi pairs and add a tenth: ならぶ／ならべる, then run each face through てある"
+    # じゃあ (discourse "well then…") debuts here via `listening-comp`, not
+    # its later dialogue use — `courseAtoms.ts`'s pre-existing `ja--jaa` row
+    # had a DEAD `introducedByLessonId` (ja-m26-5-2, exists only in
+    # curriculum/_archive/m26.ts, never compiled live — the same
+    # dead-attribution class as this module's own haru-stick/paatii fixes)
+    # so it had in fact never been live-taught; re-stamped in courseAtoms.ts
+    # to point here. Its kana field was also simplified from the broken
+    # "じゃ / じゃあ" (a literal slash-and-space string that can never match
+    # real text — bare じゃ is never used standalone anywhere live, only as
+    # part of じゃない/じゃなかった, which are separate m12 grammar-chunk
+    # atoms) down to plain "じゃあ".
+    introduces: [ならんで, ならべた, じゃあ]
+    beats:
+      - { kind: rule, grammarPointId: transitivity-family-noticing }
+      - { kind: sentence, ja: "ほんが たなに ならんでいる。", en: "The books are lined up on the shelf.", exercises: [transitivity-family-noticing], mode: build }
+      - { kind: sentence, ja: "ほんを たなに ならべる。", en: "I line the books up on the shelf.", exercises: [transitivity-family-noticing], mode: build }
+      - { kind: sentence, ja: "けさ ほんを たなに ならべた。", en: "I arranged the books on the shelf this morning.", exercises: [transitivity-family-noticing], mode: build }
+      - { kind: sentence, ja: "ほんが たなに ならべてある。", en: "The books have been arranged on the shelf.", exercises: [te-aru], mode: build }
+      - { kind: sentence, ja: "でんきが きえている。", en: "The light is off.", exercises: [te-iru-resultative], mode: build }
+      - { kind: sentence, ja: "まどが しまっている。", en: "The window is closed.", exercises: [te-iru-resultative], mode: listening }
+      - { kind: particle-cloze, stem: "ほんが たなに ", tail: "。", answer: "ならんでいる", options: ["ならんでいる", "ならべてある", "ならべている"], en: "The books are lined up on the shelf.", explanation: "ならぶ is the intransitive half — the books lining up on their own, an ongoing state described with ならんでいる. ならべてある would need someone's deliberate arranging in the picture, and ならべている is 'in the middle of arranging them' — an active, ongoing action." }
+      - { kind: listening-comp, audio: "ほんが たなに ならべてある。", answer: "The books have been arranged on the shelf.", distractors: ["The books are lined up by themselves, nobody arranged them.", "I am arranging the books right now.", "The books fell off the shelf."], q: "What does this mean?" }
+      - { kind: kanji, kana: ならべる, kanji: 並べる, distractors: ["ならう", "くらべる", "しらべる"], exercises: [transitivity-family-noticing] }
+      - { kind: listening-comp, audio: "じゃあ、いまから たなに ならべる。", answer: "Well then, I'll arrange them on the shelf now.", distractors: ["Never mind, I won't arrange them.", "I already arranged them on the shelf.", "The shelf is already full."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "ほんが きれいに ならんでいるね。", en: "The books are lined up neatly." }
+          - { speaker: "Mika", ja: "うん、けさ たなに ならべたの。", en: "Yeah, I arranged them on the shelf this morning." }
+          - { speaker: "Tom", ja: "じゃあ、いまは ならべてあるんだね。", en: "So they've been arranged that way on purpose, then." }
+        questions:
+          - { q: "Why are the books lined up neatly?", options: ["Mika arranged them this morning", "They fell into a row by accident", "Tom arranged them", "Nobody knows"], answer: "Mika arranged them this morning" }
+      - { kind: challenge, ja: "ほんを たなに ならべておいたから、ほんが いま きれいに ならべてある。", en: "Since I arranged the books on the shelf in advance, they're now neatly arranged.", combines: [te-oku, te-aru, kara-because, ni-location], mode: build }
+    reviewPool: [ほん, たな, でんき, まど, ドア, くるま, でんしゃ, えいが]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m41-neo-7
+    role: teaching
+    title: "「はってあるし、ならべてあるし」— production sweep across every face"
+    focus: "てある rides prior grammar freely — し listing, のに concession, mae-ni — no new vocabulary"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "ポスターが かべに はってあるし、ほんも たなに ならべてある。", en: "A poster has been stuck on the wall, and what's more the books have been arranged on the shelf.", exercises: [te-aru, shi-listing], mode: build }
+      - { kind: sentence, ja: "まどが あけてあるのに、へやは あつい。", en: "Even though the window has been left open, the room is hot.", exercises: [te-aru, noni-concession], mode: build }
+      - { kind: sentence, ja: "パーティーの まえに、へやを かざっておく。", en: "Before the party, I'll decorate the room in advance.", exercises: [te-oku, mae-ni], mode: build }
+      - { kind: particle-cloze, stem: "へやが ", tail: "から、きれいだ。", answer: "かざってある", options: ["かざってある", "かざっている", "かざる"], en: "Since the room has been decorated, it's pretty.", explanation: "'has been decorated' is the finished, deliberate state — かざってある. かざっている would be 'is in the middle of decorating' (an ongoing action needing someone doing it right now), and bare かざる is the plain dictionary form with no state marking." }
+      - { kind: listening-comp, audio: "ポスターが はってあるし、ほんも ならべてあるし、もう じゅんびは できたよ。", answer: "A poster has been stuck up, and the books have been arranged too, and what's more the preparations are done.", distractors: ["Nothing has been done yet.", "The poster fell off the wall.", "The books still need to be arranged."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "へやは どう？", en: "How's the room?" }
+          - { speaker: "Mika", ja: "ポスターが はってあるし、ほんも ならべてあるし、もう じゅんびは できたよ。", en: "A poster has been stuck up, and the books have been arranged too, and what's more the preparations are done." }
+          - { speaker: "Ken", ja: "すごいね。", en: "Amazing." }
+        questions:
+          - { q: "What's true about the room now?", options: ["The poster and books are already arranged", "Nothing has been done yet", "Ken decorated the room", "The window is still closed"], answer: "The poster and books are already arranged" }
+      - { kind: challenge, ja: "まどが あけてあるのに へやは あついので、ドアも あけておいた。", en: "Since the room is hot even though the window has been left open, I left the door open too, in advance.", combines: [te-aru, noni-concession, node-because, te-oku], mode: build }
+    reviewPool: [まど, へや, かべ, たな, ポスター, ほん, ドア, いえ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m41-neo-review-2
+    role: review
+    title: "Review — every face of てある, every pair"
+    focus: "Spiral L5-L7: ておく vs てある, the tenth pair, and てある riding prior grammar"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "まどを あけておく。", en: "I'll leave the window open (in preparation).", exercises: [te-oku], mode: build }
+      - { kind: sentence, ja: "まどが あけてある。", en: "The window has been left open.", exercises: [te-aru], mode: build }
+      - { kind: sentence, ja: "ほんが たなに ならんでいる。", en: "The books are lined up on the shelf.", exercises: [transitivity-family-noticing], mode: build }
+      - { kind: particle-cloze, stem: "ほんが たなに ", tail: "。", answer: "ならべてある", options: ["ならべてある", "ならんでいる", "ならべる"], en: "The books have been arranged on the shelf.", explanation: "'have been arranged' names the deliberate resultant state — ならべてある. ならんでいる would just say they're lined up, with no arranger implied, and bare ならべる drops the state marking entirely." }
+      - { kind: sentence, ja: "ポスターが かべに はってあるし、へやも かざってある。", en: "A poster has been stuck on the wall, and what's more the room has been decorated.", exercises: [te-aru, shi-listing], mode: build }
+      - { kind: listening-comp, audio: "まどが あけてあるのに、へやは あつい。", answer: "Even though the window has been left open, the room is hot.", distractors: ["The window is closed, so the room is hot.", "Since the window is open, the room is cool.", "Nobody opened the window."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tom", ja: "へやの じゅんびは できた？", en: "Is the room ready?" }
+          - { speaker: "Mika", ja: "うん、ぜんぶ かざっておいたよ。", en: "Yeah, I decorated everything in advance." }
+          - { speaker: "Tom", ja: "じゃあ、もう かざってあるんだね。", en: "So it's already decorated, then." }
+        questions:
+          - { q: "What did Mika do?", options: ["Decorated the room in advance", "Is decorating the room right now", "Asked Tom to decorate", "Nothing yet"], answer: "Decorated the room in advance" }
+    reviewPool: [まど, へや, かべ, たな, ポスター, ほん, ドア, いえ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m41-neo-9
+    role: teaching
+    title: "「かざってあるし、ならべてあるし」— production capstone"
+    focus: "Every てある face combined with prior N4 grammar; second sim before the full sweep"
+    introduces: [おいて, とった]
+    beats:
+      - { kind: sentence, ja: "へやが かざってあるし、ポスターも はってあるし、うれしい。", en: "The room has been decorated, and what's more a poster has been stuck up, so I'm happy.", exercises: [te-aru, shi-listing], mode: build }
+      - { kind: sentence, ja: "ほんが たなに ならべてあるのに、あにが また こわした。", en: "Even though the books had been arranged on the shelf, my older brother broke it again.", exercises: [te-aru, noni-concession], mode: build }
+      - { kind: particle-cloze, stem: "まどが ", tail: "ので、すずしい。", answer: "あけてある", options: ["あけてある", "あいている", "あける"], en: "Since the window has been left open, it's cool.", explanation: "'has been left open' points to the deliberate resultant state, あけてある. あいている only says it's open, without signalling anyone left it that way on purpose, and あける is the bare dictionary form with no state marking." }
+      - { kind: sentence, ja: "パーティーの まえに かざっておいてから、しゃしんを とった。", en: "After decorating in advance before the party, I took photos.", exercises: [te-oku, te-kara], mode: build }
+      - { kind: listening-comp, audio: "へやが かざってあるし、ポスターも はってあるし、うれしかったよ。", answer: "The room had been decorated, and a poster had been stuck up too, so I was happy.", distractors: ["The room was a mess, so I was sad.", "I decorated the room myself, just now.", "Nobody had decorated the room."], q: "What does this mean?" }
+      - { kind: kanji, kana: かべ, kanji: 壁, distractors: ["へや", "かがみ", "まど"], exercises: [te-aru] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "きょうは どうだった？", en: "How was today?" }
+          - { speaker: "Ken", ja: "へやが かざってあるし、ポスターも はってあるし、うれしかったよ。", en: "The room had been decorated, and a poster had been stuck up too, so I was happy." }
+          - { speaker: "Mika", ja: "よかったね。", en: "That's great." }
+        questions:
+          - { q: "Why was Ken happy?", options: ["The room had been decorated and a poster stuck up", "He decorated the room himself, right now", "The shelf was empty", "Nobody knows"], answer: "The room had been decorated and a poster stuck up" }
+      - kind: sim
+        scene: { emoji: "🎉", title: "Before the guests arrive", setting: "Tanaka is checking with Mika whether the room is ready." }
+        turns:
+          - npc: { speaker: "Tanaka", ja: "まどは どう なっている？", en: "What's going on with the window?" }
+            goal: "Say the window has been left open on purpose, and what's more the room has been decorated."
+            reply: { mode: build, tiles: ["まどが", "あけてあるし", "へやも", "かざってある", "まどを", "あいている"], answer: "まどが あけてあるし、へやも かざってある。" }
+            replyGloss: "The window has been left open, and what's more the room has been decorated."
+            explanation: "Both clauses need が (てある always promotes the object); まどを and bare あいている both drop the deliberate-agent reading the question asked about."
+          - npc: { speaker: "Tanaka", ja: "ほんは どう なっている？", en: "What about the books?" }
+            goal: "Say the books have been arranged on the shelf, even though your older brother messed it up before."
+            reply: { mode: build, tiles: ["ほんが", "たなに", "ならべてあるのに", "あにが", "こわした", "たなを"], answer: "ほんが たなに ならべてあるのに、あにが こわした。" }
+            replyGloss: "The books have been arranged on the shelf, even though my older brother messed it up."
+            explanation: "のに marks the contradiction (arranged, yet messed up); たなを would wrongly make the shelf a direct object of a state sentence."
+      - { kind: challenge, ja: "へやが かざってあるし、ほんも たなに ならべてあるのに、あにが また こわした。", en: "The room had been decorated, and what's more the books had been arranged on the shelf too, but my older brother broke it again.", combines: [te-aru, shi-listing, noni-concession], mode: build }
+    reviewPool: [へや, かべ, たな, ポスター, ほん, まど, あに, しゃしん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m41-neo-10
+    role: teaching
+    title: "「あけてあるし、ならべてある」— every face, one last time"
+    focus: "Full production sweep: てある, ておく-vs-てある, and the pair family, no new vocabulary"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "まどが あけてあるし、すずしいし、いい。", en: "The window has been left open, and what's more it's cool, so it's nice.", exercises: [te-aru, shi-listing], mode: build }
+      - { kind: sentence, ja: "いま、パーティーの まえに へやを かざっておいたから、きれいだ。", en: "Since I decorated the room in advance before the party, it's pretty now.", exercises: [te-oku, mae-ni, kara-because], mode: build }
+      - { kind: sentence, ja: "ほんが たなに ならべてあるのに、あにが また こわした。", en: "Even though the books had been arranged on the shelf, my older brother broke it again.", exercises: [te-aru, noni-concession], mode: build }
+      - { kind: particle-cloze, stem: "ポスターが かべに ", tail: "し、ほんも たなに ならべてある。", answer: "はってある", options: ["はってある", "はっている", "はる"], en: "A poster has been stuck on the wall, and what's more the books have been arranged on the shelf.", explanation: "'has been stuck' is the deliberate resultant state, はってある. はっている would be 'in the middle of sticking it up' (an ongoing action), and bare はる is the plain dictionary form with no state marking." }
+      - { kind: listening-comp, audio: "うん、パーティーの まえに かざっておいたんだ。", answer: "Yeah, I decorated it in advance before the party.", distractors: ["No, I haven't decorated it yet.", "I'm decorating it right now.", "Someone else decorated it."], q: "What does this mean?" }
+      - { kind: kanji, kana: たな, kanji: 棚, distractors: ["たに", "たたむ", "たのむ"], exercises: [te-aru] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "へや、きれいだね。", en: "The room looks nice." }
+          - { speaker: "Mika", ja: "うん、パーティーの まえに かざっておいたんだ。", en: "Yeah, I decorated it in advance before the party." }
+          - { speaker: "Ken", ja: "じゃあ、いまは もう かざってあるんだね。", en: "So it's already decorated then." }
+        questions:
+          - { q: "When did Mika decorate the room?", options: ["Before the party, in advance", "Right now", "After the party", "Nobody decorated it"], answer: "Before the party, in advance" }
+      - { kind: challenge, ja: "パーティーの まえに かざっておいたから、ポスターも はってあるし、ほんも ならべてある。", en: "Since I decorated in advance before the party, a poster has been stuck up and what's more the books have been arranged.", combines: [te-oku, mae-ni, kara-because, te-aru, shi-listing], mode: build }
+    reviewPool: [へや, まど, かべ, たな, ポスター, ほん, あに, いえ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m41-neo-review-3
+    role: review
+    title: "Review — the whole module, every marker"
+    focus: "Full-module spiral: てある, てある-vs-ている, ておく-vs-てある, the ten-pair family"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "まどが あけてある。", en: "The window has been left open (on purpose).", exercises: [te-aru], mode: build }
+      - { kind: sentence, ja: "まどが あいている。", en: "The window is open.", exercises: [te-iru-resultative], mode: build }
+      - { kind: sentence, ja: "まどを あけておく。", en: "I'll leave the window open (in preparation).", exercises: [te-oku], mode: build }
+      - { kind: particle-cloze, stem: "ほんが たなに ", tail: "。", answer: "ならべてある", options: ["ならべてある", "ならんでいる", "ならべる"], en: "The books have been arranged on the shelf.", explanation: "'have been arranged' points to the deliberate resultant state — ならべてある. ならんでいる only says they're lined up, with no arranger implied, and bare ならべる is the plain dictionary form with no state marking." }
+      - { kind: sentence, ja: "ほんが たなに ならんでいる。", en: "The books are lined up on the shelf.", exercises: [transitivity-family-noticing], mode: build }
+      - { kind: listening-comp, audio: "へやが かざってあるし、ポスターも はってある。", answer: "The room has been decorated, and a poster has been stuck up too.", distractors: ["The room is a mess.", "I am decorating the room right now.", "The poster fell off the wall."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "へやは じゅんび できた？", en: "Is the room ready?" }
+          - { speaker: "Ken", ja: "うん、ぜんぶ かざってあるよ。", en: "Yeah, everything has been decorated." }
+          - { speaker: "Mika", ja: "ありがとう。", en: "Thanks." }
+        questions:
+          - { q: "Is the room ready?", options: ["Yes, everything has been decorated", "No, nothing is ready", "Ken is decorating it right now", "Mika will decorate it later"], answer: "Yes, everything has been decorated" }
+      - { kind: sentence, ja: "ドアが しめてある。", en: "The door has been closed (on purpose).", exercises: [te-aru], mode: build }
+    reviewPool: [まど, へや, ドア, かべ, たな, ポスター, ほん, いえ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m41-neo-challenge
+    role: challenge
+    title: "Challenge — the room before the party"
+    focus: "Every てある pattern in one arc — core construction, discrimination from ている, contrast with ておく, the pair family — combined with prior N4 grammar, no new vocabulary"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "パーティーの まえに へやを かざっておいたので、もう へやが きれいに かざってある。", en: "Since I decorated the room in advance before the party, it's already nicely decorated.", exercises: [te-oku, mae-ni, node-because, te-aru], mode: build }
+      - { kind: sentence, ja: "ポスターが かべに はってあるし、ほんも たなに ならべてあるし、あには うれしかった。", en: "A poster has been stuck on the wall, and what's more the books have been arranged on the shelf, and my older brother was happy.", exercises: [te-aru, shi-listing], mode: listening }
+      - { kind: particle-cloze, stem: "まどが ", tail: "のに、へやは あつい。", answer: "あけてある", options: ["あけてある", "あいている", "あける"], en: "Even though the window has been left open, the room is hot.", explanation: "'has been left open' signals the deliberate resultant state, あけてある. あいている would just say it's open, without anyone's intent implied, and あける is the bare dictionary form with no state marking." }
+      - { kind: kanji, kana: ポスター, kanji: ポスター, distractors: ["ポケット", "ポイント", "ポスト"], exercises: [te-aru] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "へやは どうだった？", en: "How was the room?" }
+          - { speaker: "Mika", ja: "パーティーの まえに かざっておいたので、もう きれいに かざってあったよ。", en: "Since I decorated it in advance before the party, it was already nicely decorated." }
+          - { speaker: "Tanaka", ja: "すごいね。", en: "Impressive." }
+        questions:
+          - { q: "Why was the room already nicely decorated?", options: ["Mika decorated it in advance before the party", "Guests decorated it themselves", "Nobody decorated it", "Ken decorated it during the party"], answer: "Mika decorated it in advance before the party" }
+      - { kind: challenge, ja: "まどが あけてあるのに へやが あついので、パーティーの まえに かざっておいたし、ドアも あけておいた。", en: "Since the room is hot even though the window has been left open, I decorated in advance before the party and what's more left the door open too.", combines: [te-aru, noni-concession, node-because, te-oku, shi-listing], mode: build }
+    reviewPool: [へや, まど, かべ, たな, ポスター, ほん, あに, ドア]
