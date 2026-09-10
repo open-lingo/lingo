@@ -179,8 +179,25 @@ const MAX_NEVER_TOUCHED = 140;
  * invisible to this audit entirely: registering a word is what makes its debt
  * countable. うたう is NOT a new entry — it was already stuck under its stale
  * m23 tag. The way these three come OFF the list is a later module grading
- * them, which is Wave 1 authoring, not a fix to make here. */
-const MAX_GRADED_BUT_NEVER_WRITES = 56;
+ * them, which is Wave 1 authoring, not a fix to make here.
+ *
+ * 56 → 58, 2026-09-09 (rep-audit second-carrier wave, m30–m34): くださる and
+ * いただく. NOT a regression — the opposite. Both are explicitly
+ * RECOGNITION-ONLY in m31 ("production at n4-21" per the module's own
+ * notes), and before this wave the bare non-past form of each had ZERO real
+ * step-level exposure at all (くださる's only prior appearance was a
+ * grammar-card `examples` entry, which this audit's `isGradedStep` scan does
+ * not see — only くださった, the past, had a graded step). Giving each atom
+ * its required second carrier sentence (per docs/ja-n4-repetition-audit-
+ * 2026-09-09.md proposal 1) necessarily used listening-comp/dialogue beats
+ * (never build/translate, to respect the recognition-only design), which
+ * newly satisfies `graded > 0` for both — they simply weren't counted by
+ * this ratchet before because they were never graded at all. `writes === 0`
+ * is the CORRECT state for a recognition-only atom, not debt; it comes OFF
+ * this list only when the module reaches production for these two, same as
+ * every entry above. Verified against the full EXPOSURE_REPORT=1 dump: the
+ * pre-existing 56 entries are unchanged, only these two are new. */
+const MAX_GRADED_BUT_NEVER_WRITES = 58;
 
 type Row = {
   atomId: string;
