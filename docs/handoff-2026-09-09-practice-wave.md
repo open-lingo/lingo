@@ -200,6 +200,25 @@ before pushing ES to main.
 - **Backgrounds set:** 22 entries at `~/Desktop/openlingo-backgrounds-2026-09-09/`;
   shibuya re-rolled OK (seed 208), andes-market still white-card (kept v1).
 
+### SHIPPING wave 2 ~22:00 PT (Spencer: "yes to prod push" 2026-09-09, relayed + confirmed in-session)
+Integration branch `ship-2026-09-09` (worktree `.claude/worktrees/ship`) =
+origin/main `57c87543` (lingle-42's KO/ES push, ci+deploy green) + merges of
+`mobile-map-wave-2026-09-09`, `filler-pool-2026-09-09` (`c98bca11`) and
+`m31-recycle-2026-09-09` (`6a8bd0b6`, contains n4-carriers) — all three
+merge-tree clean, zero conflicts. Then:
+- `dce85ef1` tts: 86 ja + 7 ja-keita clips generated (lingo-data edge pipeline,
+  deck emitted from this branch: `ja: 9274 total, 9188 cached, 86 to generate,
+  failed=0`), manifests ja 13633→13719 hashes, ja-keita 928→935 overrides,
+  verified supersets; mp3s under `tts-publish/` (also closes pre-existing m30/m32
+  たら/ておく gaps).
+- docs: INDEX.md repoints (lingle-42's two archive moves) + rows for the KO
+  handoffs, this handoff, the recycle audit and the station-line doc.
+- iOS `CURRENT_PROJECT_VERSION = 11` (build 11 carries the mobile map wave:
+  bg art at opacity 0.34 — Spencer did not pick a value, so the lane's value
+  ships; station-line prototype is dev-route only, not on the map).
+- Preflight → push → ci/deploy CONCLUSIONS → served entry check → build 11
+  (release-b11.sh in scratchpad, points at the ship worktree) → recorded below.
+
 ### Open items needing Spencer (unchanged + new)
 Device pass on build 9/10; background opacity/placement call; station-line
 go/no-go; merge+push of `mobile-map-wave` and `filler-pool` (+carriers, +m31
