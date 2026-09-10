@@ -98,3 +98,4 @@ fan-out; save small notes here after every step (auto-compaction is on).
 - 11:39 FR m19 brief committed 9c4986f5 (aller + infinitif, 2 atoms; unverified: spoken-safety of subject-chunk + infinitive under loose-match — next second-stream item is a probe like the negation one).
 - 11:39 FR near-future speech probe dispatched (second stream; settles the m19 brief's unverified claim before the m19 author starts).
 - 11:44 FR near-future speech probe landed 3fd390e6 (310 speech tests green; 5 constraints ready for the m19 dispatch).
+- 11:44 FR dialogue_sim provenance gate lane dispatched (class fix for the m17 tease-line escape; new frSimProvenance.test.ts, no fr-quality edits).
