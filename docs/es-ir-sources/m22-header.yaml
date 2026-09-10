@@ -1,0 +1,206 @@
+module: m22
+title: "Hablaba, era, iba"
+frame: none
+throughModule: m21
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m22 — the imperfect. Fourth A2 module; opens the SECOND past tense.
+#
+#     -ar:   hablaba*  hablabas  hablábamos  hablaban
+#     tener: tenía*    tenías    teníamos    tenían   (regular in imperfect — age/state)
+#     ser:   era*      eras      éramos      eran     (irregular #1)
+#     ir:    iba*      ibas      íbamos      iban     (irregular #2)
+#     ver:   veía*     veías     veíamos     veían    (irregular #3 — the whole irregular set)
+#
+#     (* = yo AND él/ella/usted share this exact surface — see "THE YO=ÉL
+#     COLLISION" below. Every "first slot" atom below carries BOTH readings.)
+#
+# ONE idea, the whole module: a past tense for things that kept happening or
+# were just true, not things that happened once and finished (that is the
+# preterite, m19–m21, and it is NOT reopened here — see "NO PRETERITE THIS
+# MODULE" below). Regular verbs split into exactly two families (-ar → -aba,
+# -er/-ir → -ía); the ENTIRE language has exactly three irregular verbs in
+# this tense (ser, ir, ver) — fewer irregulars than any tense the learner has
+# met. That smallness is the thing to teach, not hide.
+#
+# ── WHY THIS MODULE, NOT A THIRD PRETERITE MODULE (decision, 2026-09-10) ──
+# docs/es-ir-sources/es-m21-brief.md named this module directly: "Imperfect
+# (with a preterite-vs-imperfect contrast module after it) is the natural
+# m22+, once this module closes the preterite paradigm." m21 closed it
+# (nosotros/ustedes now have a past for every verb the learner owns). The
+# task brief that opened this module confirms the shape: m22 teaches the
+# imperfect ON ITS OWN TERMS; the preterite-vs-imperfect CONTRAST is m23's
+# job, not this one's. Evidence for the split, not preference:
+#   1. CLAUDE.md: "every new word or structure is introduced before it's
+#      tested." A contrast lesson that pits imperfect against preterite
+#      presupposes the learner already has a clean, confident imperfect to
+#      contrast WITH. m22 builds that; m23 spends it.
+#   2. The imperfect's one real novelty — yo/él share a surface — is dense
+#      enough on its own (it touches every single atom in the module, not
+#      one surface the way «hablamos» touched two in m21). Bundling a second
+#      novelty (aspectual contrast) into the same module would stack two
+#      unrelated new skills on the learner at once, which is exactly the
+#      "manufacture a hollow card" failure mode CLAUDE.md warns against.
+#   3. Data readiness does not decide it: conjugationTables.ts already
+#      carries a full imperfect paradigm for all eighteen A1–A2 verbs the
+#      course has ever taught (pin E12) — nothing new to add to the table.
+#      "What the learner can already reason about" decides it, and a learner
+#      who has never produced an imperfect form cannot yet reason about how
+#      it differs from a preterite they've had for three modules.
+#
+# ── PERSONS: ALL FIVE, FROM L1 (decision) ─────────────────────────────────
+# Unlike the preterite (which took three modules — m19 regular singular, m20
+# irregular singular, m21 plural — to reach all five persons), this module
+# does not stage persons at all. Two reasons, not one:
+#   1. Person-agreement morphology is not new content. The learner has
+#      produced yo/tú/él/nosotros/ustedes-ellos subjects and endings across
+#      TWO tenses already (m1–m18 present, m19–m21 preterite). Staging them
+#      again here would re-teach a skill already automatic, with no
+#      learning benefit — the preterite's staging was forced by IRREGULAR
+#      STEMS eating a whole module's atom budget (m20), not by any rule that
+#      persons must be taught one at a time.
+#   2. The yo=él collision (below) means imperfect has only FOUR distinct
+#      surfaces per verb, not five — nosotros/ustedes forms are the only
+#      "new" endings a five-person paradigm would otherwise add beyond what
+#      three-slot (yo/él, tú, nosotros) coverage already gives. Five full
+#      verb families × 4 surfaces = 20 atoms, comfortably inside the ≈21
+#      budget m20/m21 set — there is no budget pressure forcing a stage-out.
+# vosotros is still never drilled (m18's rule carries, LatAm-neutral course).
+#
+# ── THE YO=ÉL COLLISION — the one new mechanic every atom here shares ─────
+# Present and preterite always mark yo and él/ella/usted with different
+# endings (hablo/habla; hablé/habló). Imperfect does not: hablaba IS both "I
+# used to speak" and "he/she/you(usted) used to speak" — same for every verb,
+# every conjugation class, no exception (era, iba, veía, tenía all collapse
+# the same way). This is the FIRST time in the course two different
+# grammatical persons share one exact orthographic form with nothing on the
+# verb to tell them apart — not an edge case like «hablamos»/«vivimos» (one
+# surface, two TENSE readings, disambiguated by a time marker); this is
+# every new atom, two PERSON readings, disambiguated ONLY by an explicit
+# subject (a pronoun, a name, or unambiguous context) sitting in the same
+# clause. Never let a "first slot" atom stand subjectless in an answer
+# position as if the ending told you who — it doesn't, and a step that
+# implies otherwise is teaching something false. Each verb family's FIRST
+# lesson must carry an info card naming this explicitly (not just for
+# hablar — the fact is general, but Spencer's rule is "teach it where the
+# learner first meets it," so hablar's L1 card states the general fact once,
+# and every later family's card is one line shorter, pointing back to it).
+#
+# ── TENER: REGULAR HERE, IRREGULAR EVERYWHERE ELSE (teach the surprise) ───
+# tener is a yo-irregular in the present (tengo) and a full stem-change verb
+# in the preterite (tuve) — the learner has met it as "the irregular verb"
+# twice already. In the imperfect it is perfectly regular: tenía/tenías/
+# teníamos/tenían, the exact -ía family every -er/-ir verb takes. This is
+# worth saying out loud (info card, L7) — it is further evidence for "the
+# imperfect is the easy tense," not a coincidence to bury in a hint. tenía
+# is also this module's AGE/STATE carrier: «tenía diez años» — but tener
+# means "to have," not "to be," so the idiomatic English is "I WAS ten,"
+# never "I had ten" — glosses must say so (see atom hints below), and
+# drafting agents must not literal-translate an age sentence.
+#
+# ── NO PRETERITE THIS MODULE (hard ban, not a style note) ─────────────────
+# No preterite form — new or PRIOR, m19/m20/m21, singular or plural — may
+# appear ANYWHERE in m22, in any step, including sim NPC lines and
+# distractors. The sanctioned contrast this module teaches is PRESENT vs
+# IMPERFECT (L9: "hoy hablo inglés, pero de niño hablaba español" — habitual
+# past against habitual present, both aspects the learner already half-owns
+# from the present tense and this module). PRETERITE vs IMPERFECT is m23's
+# entire reason to exist; smuggling it in here pre-empts that module and
+# breaks the "every new structure introduced before it's tested" contract
+# for m23's actual new idea (aspect choice).
+#
+# ── NO PROGRESSIVE (pin E7, restated for this module's specific trap) ─────
+# The ENGLISH gloss legitimately reads as progressive ("was speaking",
+# "used to speak") — per E7 (es-authoring-invariants-pinned.md §3) that is
+# the correct gloss shape for imperfect, unlike present tense where a
+# progressive gloss is banned outright. But the SPANISH surface is always
+# the simple imperfect form. Never build "estaba hablando" or any
+# estar+-ndo periphrasis — that is a real, more advanced construction this
+# course has not taught and will not need to, since the simple imperfect
+# already covers every use this module drills.
+#
+# ── ACCENTS: THE OPPOSITE RULE FROM m20/m21 (read this twice) ─────────────
+# m20/m21's preterite law was "no accent, ever." Imperfect is the mirror
+# image:
+#   - -ar family (hablar): accent ONLY on the nosotros form — hablábamos.
+#     hablaba/hablabas/hablaban carry none.
+#   - -er/-ir family (tener, ver — and every regular -er/-ir verb): accent on
+#     EVERY form's í — tenía/tenías/teníamos/tenían, veía/veías/veíamos/
+#     veían. No exceptions.
+#   - ser (era family): accent ONLY on the nosotros form — éramos.
+#     era/eras/eran carry none.
+#   - ir (iba family): accent ONLY on the nosotros form — íbamos.
+#     iba/ibas/iban carry none.
+# Derive every cell from conjugationTables.ts (pin E12) rather than trusting
+# memory — the table already has these exactly right.
+#
+# ── PIN E12: EVERY CELL COMES FROM conjugationTables.ts ───────────────────
+# imperfect.yo / imperfect.tu / imperfect.nosotros / imperfect.ustedes
+# already exist in ES_VERB_ENTRIES for hablar, tener, ser, ir, ver (and, not
+# used this module but present for a future wave: comer, vivir, estar,
+# querer, poder, hacer, trabajar, estudiar, comprar, escribir, salir,
+# cocinar, venir) — nothing new to add to the table. imperfect.el is never a
+# separate cell to read; it is identical to imperfect.yo by the language's
+# own rule (see the collision above), so derive the "first slot" atom from
+# imperfect.yo and gloss both readings on it.
+#
+# ── «de niño/a» — the module's time-frame carrier (new atom) ──────────────
+# The idiomatic Spanish frame for "as a child / when I was a kid" is «de
+# niño» (said by a male speaker or about a boy/man) / «de niña» (female).
+# Register «de niño» as the atom (masculine default, matching how «bueno»
+# was registered and «buena» licensed off it in m20/m21) — «de niña» is then
+# a PRIOR -o/-a feminine variant of a now-PRIOR atom, same convention, not a
+# second registration. «de niños» (plural, "as children" for a group) is
+# likewise a licensed regular plural, not a second atom — but bare «niño»/
+# «niña»/«niños» WITHOUT «de» is a different word (a noun, not this phrase)
+# and is NOT licensed; the atom is the whole phrase, never just the noun.
+# PRIOR «siempre» (m10) and PRIOR «todos los días»
+# (m10) are also legal imperfect-frame markers: unlike ayer/hoy/mañana,
+# they carry no tense of their own (frequency, not a deictic time point), so
+# they pair with imperfect freely without needing a fresh atom.
+#
+# ── «todos» — PRIOR (m21), reused unchanged ────────────────────────────────
+# Still takes 3rd-person-plural agreement only: «todos eran/iban/hablaban/
+# tenían/veían», never a nosotros imperfect form. Same rule as m21, same
+# reasoning, no new atom.
+#
+# ── NO NEW EMOJI THIS MODULE ───────────────────────────────────────────────
+# No new imageable noun — «de niño/a» is a temporal frame, not an object, and
+# every verb family is grammar, not vocabulary. Precedent: m19 and m21 both
+# shipped zero new emoji (pure verb-focus modules). audioWimcq still drills
+# PRIOR nouns with their existing emoji: la escuela 🏫, el parque 🌳, la
+# playa 🏖️, el museo 🏛️, el cine 🎬, la fiesta 🎉, el mercado 🛒, la tienda
+# 🏪, casa 🏠, el trabajo 💼 are all PRIOR-with-emoji and fit a childhood-
+# habits register naturally ("de niño iba a la escuela / a la playa").
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # hablar — the regular -ar model. Teach the general yo=él fact HERE.
+  - { surface: "hablaba", meaningEn: "I used to speak, he/she/you (usted) used to speak", partOfSpeech: "verb", kind: "vocab", hint: "ah-BLAH-bah — no accent. This is where you meet the rule: yo and él/ella/usted ALWAYS share the same imperfect form. Only the subject tells you who." }
+  - { surface: "hablabas", meaningEn: "you (tú) used to speak", partOfSpeech: "verb", kind: "vocab", hint: "ah-BLAH-bahs" }
+  - { surface: "hablábamos", meaningEn: "we used to speak", partOfSpeech: "verb", kind: "vocab", hint: "ah-blah-BAH-mos — the ONE -ar form that carries an accent" }
+  - { surface: "hablaban", meaningEn: "they used to speak, you all used to speak", partOfSpeech: "verb", kind: "vocab", hint: "ah-BLAH-bahn" }
+  # tener — regular in the imperfect despite being irregular everywhere else the learner has met it. Age/state carrier.
+  - { surface: "tenía", meaningEn: "I had, he/she/you (usted) had (age, possession, or state)", partOfSpeech: "verb", kind: "vocab", hint: "teh-NEE-ah — regular -ía, unlike «tengo»/«tuve». For age, «tenía diez años» is idiomatically \"I WAS ten,\" never \"I had ten\" — tener means to have, but English states age with to be." }
+  - { surface: "tenías", meaningEn: "you (tú) had (age, possession, or state)", partOfSpeech: "verb", kind: "vocab", hint: "teh-NEE-ahs" }
+  - { surface: "teníamos", meaningEn: "we had (age, possession, or state)", partOfSpeech: "verb", kind: "vocab", hint: "teh-nee-AH-mos" }
+  - { surface: "tenían", meaningEn: "they had, you all had (age, possession, or state)", partOfSpeech: "verb", kind: "vocab", hint: "teh-NEE-ahn" }
+  # ser — irregular #1 of exactly three. Description/identity in the past.
+  - { surface: "era", meaningEn: "I was, he/she/you (usted) was", partOfSpeech: "verb", kind: "vocab", hint: "EH-rah — no accent" }
+  - { surface: "eras", meaningEn: "you (tú) were", partOfSpeech: "verb", kind: "vocab", hint: "EH-rahs" }
+  - { surface: "éramos", meaningEn: "we were", partOfSpeech: "verb", kind: "vocab", hint: "EH-rah-mos — the ONE ser form that carries an accent" }
+  - { surface: "eran", meaningEn: "they were, you all were", partOfSpeech: "verb", kind: "vocab", hint: "EH-rahn" }
+  # ir — irregular #2 of exactly three. Habitual movement/routine.
+  - { surface: "iba", meaningEn: "I used to go, he/she/you (usted) used to go", partOfSpeech: "verb", kind: "vocab", hint: "EE-bah — no accent" }
+  - { surface: "ibas", meaningEn: "you (tú) used to go", partOfSpeech: "verb", kind: "vocab", hint: "EE-bahs" }
+  - { surface: "íbamos", meaningEn: "we used to go", partOfSpeech: "verb", kind: "vocab", hint: "EE-bah-mos — the ONE ir form that carries an accent" }
+  - { surface: "iban", meaningEn: "they used to go, you all used to go", partOfSpeech: "verb", kind: "vocab", hint: "EE-bahn" }
+  # ver — irregular #3 of exactly three. Habitual watching/seeing.
+  - { surface: "veía", meaningEn: "I used to see, he/she/you (usted) used to see", partOfSpeech: "verb", kind: "vocab", hint: "beh-EE-ah — keeps the e from «ver», unlike a regular -er verb's stem" }
+  - { surface: "veías", meaningEn: "you (tú) used to see", partOfSpeech: "verb", kind: "vocab", hint: "beh-EE-ahs" }
+  - { surface: "veíamos", meaningEn: "we used to see", partOfSpeech: "verb", kind: "vocab", hint: "beh-ee-AH-mos" }
+  - { surface: "veían", meaningEn: "they used to see, you all used to see", partOfSpeech: "verb", kind: "vocab", hint: "beh-EE-ahn" }
+  # time-frame carrier
+  - { surface: "de niño", meaningEn: "as a child, when I/he/she was little", partOfSpeech: "phrase", kind: "vocab", hint: "deh NEE-nyoh — «de niña» is the feminine, same word with the regular -o/-a swap, not a separate atom" }
+
+lessons:
