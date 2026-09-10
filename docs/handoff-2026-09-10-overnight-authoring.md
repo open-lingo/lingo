@@ -83,3 +83,4 @@ fan-out; save small notes here after every step (auto-compaction is on).
 - 10:54 JA m42 brief committed (n4-13 hearsay そうだ/って/らしい; no new ruleset; author dispatch waits for the m41 reviewer to land).
 - 10:58 JA m41 reviewer done (4 untaught reaction words swapped; ta-form/mae-ni credit tags on 13 beats; borderline: notes claim 9 m33 pairs spiralled, only ~3 exercised). Edits on disk, UNCOMMITTED — JA gate blocked by ES m27 mid-registration import throw; will gate+chain+commit after m27 lands.
 - 11:05 FR m17 «De onze à cent» committed 409b3ce6 (93 clips, fr manifest 1419, FR 1246 passed). Reviewer dispatched; m18 brief writer dispatched (second FR stream).
+- 11:11 ES m27 «Hace sol, hace frío» committed d2d91a22 (159 clips, es manifest 6276, ES 1957 passed). Reviewer dispatched.
