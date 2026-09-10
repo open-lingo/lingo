@@ -599,18 +599,18 @@ lessons:
     introduces: [こんど, おいわい, きねん, カード, おめでとう, うれしい]
     beats:
       - { kind: rule, grammarPointId: kara-origin }
-      - { kind: sentence, ja: "ともだちを まつ とき ともだちから おみやげを もらう。", en: "While waiting for my friend, I get a souvenir from my friend", exercises: [kara-origin, morau, wo-object, toki], mode: build }
+      - { kind: sentence, ja: "ともだちが かえるから ともだちから おみやげを もらう。", en: "Because my friend is coming back, I get a souvenir from my friend", exercises: [kara-origin, morau, wo-object, kara-because], mode: build }
       - { kind: sentence, ja: "かいしゃで はたらくから かいしゃから きねんの とけいを もらう。", en: "Because I work at the company, I get a commemorative watch from the company", exercises: [kara-origin, morau, no-possession, kara-because], mode: build }
       - { kind: kanji, kana: きっぷ, kanji: 切符, exercises: [kara-origin] }
-      - { kind: sentence, ja: "にほんに いく まえに せんせいから おいわいの カードを もらう。", en: "Before going to Japan, I get a congratulations card from the teacher", exercises: [kara-origin, morau, no-possession, mae-ni], mode: build }
-      - { kind: sentence, ja: "いそぐから あねから きっぷを もらう。", en: "I'm in a hurry, so I get a ticket from my older sister", exercises: [kara-origin, morau, family-register, kara-because], mode: build }
+      - { kind: sentence, ja: "だいがくに はいる まえに せんせいから おいわいの カードを もらう。", en: "Before entering university, I get a congratulations card from the teacher", exercises: [kara-origin, morau, no-possession, mae-ni], mode: build }
+      - { kind: sentence, ja: "えいがを みる まえに あねから きっぷを もらう。", en: "Before watching a movie, I get a ticket from my older sister", exercises: [kara-origin, morau, family-register, mae-ni], mode: build }
       - { kind: sentence, ja: "こんど いしゃから くすりを もらう。", en: "I'll get medicine from the doctor next time", exercises: [kara-origin, morau, wo-object], mode: build }
       # から never appears with あげる or くれる, so a contrast beat here is what
       # makes that audible rather than merely stated on the card.
       - { kind: sentence, ja: "ともだちが おいわいの カードを くれる。", en: "My friend gives me a congratulations card", exercises: [kureru, no-possession, ga-existence], mode: build }
       - { kind: sentence, ja: "あねの たんじょうび おめでとう。", en: "Happy birthday to my older sister", exercises: [no-possession, family-register], mode: build }
       - { kind: sentence, ja: "こんど かいしゃから おいわいの きっぷを もらう。", en: "I'll get congratulatory tickets from the company next time", exercises: [kara-origin, morau, no-possession], mode: listening }
-      - { kind: sentence, ja: "しゃしんを みる とき がくせいから てがみを もらう。", en: "When I look at photos, I get a letter from a student", exercises: [kara-origin, morau, toki], mode: translate }
+      - { kind: sentence, ja: "まいにち がっこうに くる がくせいから てがみを もらう。", en: "I get a letter from a student who comes to school every day", exercises: [kara-origin, morau], mode: translate }
       # Second carrier (rep-audit 2026-09-09): おめでとう had one distinct
       # carrier — a birthday greeting frame. Here it stands alone as a
       # reaction to news, not attached to a たんじょうび noun phrase.
