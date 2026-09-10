@@ -1,0 +1,145 @@
+  # ── L1 · «Me duele la mano» — «duele» debuts, yo-form, singular body
+  #    part. No emoji exists for a verb-morphology atom (same class as
+  #    m13's own «gusta»), so this is NOT an imageMcq debut — the map
+  #    step lets the learner puzzle out the word order first (map carries
+  #    no esSurfaces credit, so it is not the gate-visible debut), then
+  #    the info card is the real first exposure, quoting «duele» in
+  #    guillemets and anchoring directly to «me gusta» (m13). The central
+  #    discrimination (never conjugate to the person) is seeded here via
+  #    a textMcq/mcq foil bank («duelo»/«dueles»/«duelen»), placed only
+  #    in multiple_choice/vocabTextMcq steps because those distractors
+  #    are NOT scanned by esSurfaces — a clozeLit option IS scanned, so
+  #    «duelen» never appears in ANY clozeLit `options:` list in this
+  #    lesson (the l1-c-meduelelbrazo cloze blanks the el/la article
+  #    instead, keeping L2 as «duelen»'s one and only narrative debut).
+  #    Per the brief, `tengo`/colors/size are RESERVED to L9's dedicated
+  #    tengo-vs-duele contrast — none of that family appears here; the
+  #    agreementLit instead reviews el/la gender-article agreement on
+  #    body nouns (PRIOR, m30), and decoy tiles are wrong-article foils.
+  #    No recall — nothing earlier in this module yet.
+  - n: 1
+    template: free
+    title: "Me duele la mano"
+    description: "One new word, «duele» — it rides the exact word order «me gusta» already taught in module 13. The body part does the hurting; you're just the «me» out front."
+    steps:
+      - kind: map
+        id: l1-map-meduelelamano
+        tokens: ["me", "duele", "la", "mano"]
+        pairs:
+          - { en: "to me", tokenIndex: 0 }
+          - { en: "hurts", tokenIndex: 1 }
+          - { en: "hand", tokenIndex: 3 }
+        audioText: "me duele la mano"
+        revealNote: "«duele» — same word order as «me gusta» (m13). Watch what's doing the hurting: «la mano», not «me»."
+      - kind: info
+        id: l1-info-meduele
+        title: "Me duele — the sentence runs backwards, again"
+        body: "«me duele» — same word order as «me gusta» (m13): the sentence runs backwards. The body part is the subject; the person is out front. «me duele la mano»."
+      - kind: speakLit
+        id: l1-sp-meduelelpie
+        es: "me duele el pie"
+        en: "My foot hurts"
+        atoms: ["me", "duele", "pie"]
+      - kind: buildLit
+        id: l1-b-meduelelamano
+        es: "me duele la mano"
+        en: "My hand hurts"
+        atoms: ["me", "duele", "mano"]
+        tiles: ["el"]
+      - kind: clozeLit
+        id: l1-c-meduelelbrazo
+        es: "me duele el brazo"
+        en: "My arm hurts"
+        blank: "el"
+        options: ["el", "la"]
+        atoms: ["me", "duele", "brazo"]
+        why: "«el brazo» — masculine, so «el». «duele» stays fixed; only the article tracks the noun's gender, same as any other body noun (m30)."
+      - kind: listenCompLit
+        id: l1-lc-meduelelapierna
+        es: "me duele la pierna"
+        en: "My leg hurts."
+        atoms: ["me", "duele", "pierna"]
+        distractorsEn:
+          - "My legs hurt."
+          - "My arm hurts."
+          - "You have a leg."
+      - kind: mcq
+        id: l1-q-duele
+        prompt: "Which one means 'it hurts' (one thing)?"
+        correct: "duele"
+        distractors: ["duelo", "duelen", "dueles"]
+        atoms: ["duele"]
+        why: "«duele» agrees with the thing doing the hurting, never with the person — same rule «gusta» already taught (m13). «yo duelo» is never correct."
+      - kind: buildLit
+        id: l1-b-meduelelanariz
+        es: "me duele la nariz"
+        en: "My nose hurts"
+        atoms: ["me", "duele", "nariz"]
+        tiles: ["los"]
+      - kind: audioWimcq
+        id: l1-ear-perro
+        target: { surface: "perro", emoji: "🐶" }
+        distractors:
+          - { surface: "libro", emoji: "📖" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: agreementLit
+        id: l1-agr-manopiearticulo
+        en: "My hand hurts, and my foot hurts too"
+        audioText: "me duele la mano, y me duele el pie también"
+        atoms: ["me", "duele", "mano", "pie", "también"]
+        segments:
+          - { text: "me duele " }
+          - { blank: { id: "p1", answer: "la", options: ["la", "el"] } }
+          - { text: " mano, y me duele " }
+          - { blank: { id: "p2", answer: "el", options: ["el", "la"] } }
+          - { text: " pie también" }
+      - kind: listenBuildLit
+        id: l1-lb-meduelelbrazo
+        es: "me duele el brazo"
+        en: "My arm hurts"
+        atoms: ["me", "duele", "brazo"]
+        tiles: ["la", "los"]
+      - kind: textMcq
+        id: l1-tm-duele
+        target: "duele"
+        distractors: ["duelo", "dueles", "duelen"]
+      - kind: sim
+        id: l1-sim-diego-mano
+        scene: { emoji: "🤕", title: "Diego notices something's wrong", setting: "Diego sees you wincing and asks what's wrong." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Te duele la mano?", audioText: "¿te duele la mano?", gloss: "Does your hand hurt?" }
+            goal: "Say yes, your hand hurts."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me duele la mano" }
+                - { id: "wrong1", text: "sí, te duele la mano" }
+                - { id: "wrong2", text: "sí, yo duelo la mano" }
+              correctOptionId: "right"
+              audioText: "sí, me duele la mano"
+            replyGloss: "Yes, my hand hurts."
+            explanation: "«me», not «te» — the pointer matches YOU now, not Diego's question. And never «yo duelo» — «duele» agrees with «la mano», not with the person, exactly like «gusta» (m13)."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y el pie? ¿Te duele también?", audioText: "¿y el pie? ¿te duele también?", gloss: "And your foot? Does it hurt too?" }
+            goal: "Say yes, your foot hurts too."
+            reply:
+              mode: build
+              tiles: ["sí", "me", "duele", "el", "pie", "también", "duelo", "yo"]
+              answer: "sí me duele el pie también"
+            replyGloss: "Yes, my foot hurts too."
+            explanation: "«el pie», not «la mano» — the pain moved to a different registered body part. Still «me duele», never «yo duelo»."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "duele", target: "hurts (one thing)" }
+          - { source: "mano", target: "hand" }
+          - { source: "pie", target: "foot" }
+          - { source: "brazo", target: "arm" }
+          - { source: "pierna", target: "leg" }
+          - { source: "nariz", target: "nose" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "me duele la mano"
+        en: "My hand hurts"
+        atoms: ["me", "duele", "mano"]

@@ -1,0 +1,135 @@
+  # ── L9 · «Tengo los ojos azules, pero me duelen» — the dedicated
+  #    tengo-vs-duele contrast. Per the brief, tengo-family + colors/size
+  #    are RESERVED to this lesson only — nowhere else in the module.
+  #    SAME noun, same body part, in BOTH frames back to back: «tengo»
+  #    puts the PERSON as subject (possession); «duele(n)» puts the BODY
+  #    PART as subject (sensation) — the grammatical-role flip is the
+  #    whole point, never mixed inside one clause. ≥1 recall of L8's win
+  #    line opens the body.
+  - n: 9
+    template: free
+    title: "Tengo los ojos azules, pero me duelen"
+    description: "Two frames, same body part: «tengo» (I have — PRIOR, you're the subject) versus «duele» (it hurts — the body part is the subject). Never mixed in one clause."
+    steps:
+      - kind: map
+        id: l9-map-tengoojosazules
+        tokens: ["tengo", "los", "ojos", "azules,", "pero", "me", "duelen"]
+        pairs:
+          - { en: "I have", tokenIndex: 0 }
+          - { en: "blue eyes", tokenIndex: 3 }
+          - { en: "but", tokenIndex: 4 }
+          - { en: "they hurt me", tokenIndex: 6 }
+        audioText: "tengo los ojos azules, pero me duelen"
+        revealNote: "«tengo» — you're the subject, you HAVE them. «me duelen» — the eyes are the subject now, THEY hurt. Same eyes, two different sentences."
+      - kind: info
+        id: l9-info-tengovsduele
+        title: "Tengo vs. duele — who's the subject?"
+        body: "«tengo los ojos azules» — you are the subject, PRIOR since module 5. «me duelen» — the eyes become the subject; you become «me», out front. The verb never takes a yo-ending here — it always agrees with the body part, not with you."
+      - kind: speakLit
+        id: l9-sp-recall-l8win
+        es: "me duele la mano, te duelen los ojos, y a Diego le duele el pie"
+        en: "My hand hurts, your eyes hurt, and Diego's foot hurts"
+        atoms: ["me", "duele", "mano", "te", "duelen", "ojo", "le", "pie"]
+        cue: recall
+      - kind: buildLit
+        id: l9-b-tengomanosgrandes
+        es: "tengo las manos grandes, pero me duelen"
+        en: "I have big hands, but they hurt"
+        atoms: ["tengo", "mano", "grande", "pero", "me", "duelen"]
+        tiles: ["duele"]
+      - kind: clozeLit
+        id: l9-c-tienespiepequeno
+        es: "tienes el pie pequeño, pero te duele"
+        en: "You have a small foot, but it hurts"
+        blank: "duele"
+        options: ["duele", "duelen"]
+        atoms: ["tienes", "pie", "pequeño", "pero", "te", "duele"]
+        why: "one foot, one thing hurting — «duele». «tienes»/«pequeño» describe it; «duele» is the separate, second sentence about how it feels."
+      - kind: listenCompLit
+        id: l9-lc-diegotienebrazo
+        es: "Diego tiene el brazo grande, pero le duele"
+        en: "Diego has a big arm, but it hurts."
+        atoms: ["tiene", "brazo", "grande", "pero", "le", "duele"]
+        distractorsEn:
+          - "Diego has a small arm, but it hurts."
+          - "Diego has a big arm, but his arms hurt."
+          - "Diego has a big arm."
+      - kind: mcq
+        id: l9-q-tengoduele
+        prompt: "'I have blue eyes.' — which word?"
+        correct: "tengo"
+        distractors: ["duele", "duelen", "tiene"]
+        atoms: ["tengo"]
+        why: "«tengo» (m5) states possession — you're the subject. «duele»/«duelen» would flip the sentence to be about pain, a different sentence entirely."
+      - kind: buildLit
+        id: l9-b-anatieneojospequenos
+        es: "Ana tiene los ojos pequeños, pero le duelen"
+        en: "Ana has small eyes, but they hurt"
+        atoms: ["tiene", "ojo", "pequeño", "pero", "le", "duelen"]
+        tiles: ["duele"]
+      - kind: audioWimcq
+        id: l9-ear-casa
+        target: { surface: "casa", emoji: "🏠" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "libro", emoji: "📖" }
+      - kind: agreementLit
+        id: l9-agr-tengoazulesduelen
+        en: "I have blue eyes, and today they hurt"
+        audioText: "tengo los ojos azules, y hoy me duelen"
+        atoms: ["tengo", "ojo", "azul", "hoy", "me", "duelen"]
+        segments:
+          - { text: "tengo los ojos " }
+          - { blank: { id: "p1", answer: "azules", options: ["azules", "azul"] } }
+          - { text: ", y hoy me " }
+          - { blank: { id: "p2", answer: "duelen", options: ["duelen", "duele"] } }
+      - kind: listenBuildLit
+        id: l9-lb-tienenmanosduelen
+        es: "tienes las manos grandes, y hoy te duelen"
+        en: "You have big hands, and today they hurt"
+        atoms: ["tienes", "mano", "grande", "hoy", "te", "duelen"]
+        tiles: ["duele", "me"]
+      - kind: textMcq
+        id: l9-tm-tengo
+        target: "tengo"
+        distractors: ["duele", "duelen", "tiene"]
+      - kind: sim
+        id: l9-sim-luis-tengoduele
+        scene: { emoji: "🔵", title: "Luis notices your eyes", setting: "Luis compliments your blue eyes, then notices you rubbing them." }
+        turns:
+          - id: t1
+            npc: { speaker: "Luis", es: "Tienes los ojos azules.", audioText: "tienes los ojos azules.", gloss: "You have blue eyes." }
+            goal: "Agree, and say yes, you have blue eyes."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo los ojos azules" }
+                - { id: "wrong1", text: "sí, me duelen los ojos azules" }
+                - { id: "wrong2", text: "sí, tiene los ojos azules" }
+              correctOptionId: "right"
+              audioText: "sí, tengo los ojos azules"
+            replyGloss: "Yes, I have blue eyes."
+            explanation: "Possession stays with «tengo» — «duelen» would be a different sentence, about pain, not color. And «tengo», not «tiene» — you're answering about yourself."
+          - id: t2
+            npc: { speaker: "Luis", es: "¿Pero te duelen hoy?", audioText: "¿pero te duelen hoy?", gloss: "But do they hurt today?" }
+            goal: "Say yes, they hurt a lot today."
+            reply:
+              mode: build
+              tiles: ["sí,", "me", "duelen", "mucho", "hoy", "tengo", "duele"]
+              answer: "sí, me duelen mucho hoy"
+            replyGloss: "Yes, they hurt a lot today."
+            explanation: "Now the frame flips — «me duelen», not «tengo». Same eyes, a different sentence about how they feel."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "tengo", target: "I have (possession)" }
+          - { source: "duele", target: "it hurts (sensation)" }
+          - { source: "azul", target: "blue" }
+          - { source: "grande", target: "big" }
+          - { source: "pequeño", target: "small" }
+          - { source: "hoy", target: "today" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "tengo los ojos azules, pero me duelen"
+        en: "I have blue eyes, but they hurt"
+        atoms: ["tengo", "ojo", "azul", "pero", "me", "duelen"]

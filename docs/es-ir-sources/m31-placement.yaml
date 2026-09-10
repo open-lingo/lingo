@@ -1,0 +1,23 @@
+placement:
+  screener:
+    - id: "es-m31-scr-1"
+      prompt: "'My foot hurts.' — which one?"
+      correct: "me duele el pie"
+      distractors: ["me duelen el pie", "me duele los pies", "yo duelo el pie"]
+  byModule:
+    - id: "es-m31-pl-1"
+      prompt: "My hands hurt."
+      correct: "me duelen las manos"
+      distractors: ["me duele las manos", "me duelen la manos", "yo duelo las manos"]
+    - id: "es-m31-pl-2"
+      prompt: "Does your arm hurt?"
+      correct: "¿te duele el brazo?"
+      distractors: ["¿te duelen el brazo?", "¿tú duele el brazo?", "¿te duele los brazos?"]
+    - id: "es-m31-pl-3"
+      prompt: "Diego's eye hurts."
+      correct: "a Diego le duele el ojo"
+      distractors: ["a Diego le duelen el ojo", "a Diego lo duele el ojo", "Diego duele el ojo"]
+    - id: "es-m31-pl-4"
+      prompt: "Her mouth and nose hurt."
+      correct: "le duelen la boca y la nariz"
+      distractors: ["le duele la boca y la nariz", "le duelen la boca y las narices", "le duelen el boca y la nariz"]

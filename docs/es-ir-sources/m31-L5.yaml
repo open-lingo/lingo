@@ -1,0 +1,134 @@
+  # ── L5 · «No puedo correr» — real-use scenario, after sport. «puedo/
+  #    puedes/puede» (m14) recombine with «duele» to explain WHY: the
+  #    frame this module teaches is used, not drilled in isolation. No
+  #    Spanish word for "doctor" exists in the course, so the clinic
+  #    framing lives only in the English scene setting (scanned nothing);
+  #    every Spanish line stays inside registered vocabulary. ≥1 recall
+  #    of L4's named third-person line opens the body.
+  - n: 5
+    template: free
+    title: "No puedo correr"
+    description: "Real use: «duele» explains why you can't. «No puedo correr, me duele la pierna» — the reason comes right after."
+    steps:
+      - kind: map
+        id: l5-map-nopuedocorrer
+        tokens: ["no", "puedo", "correr,", "me", "duele", "la", "pierna"]
+        pairs:
+          - { en: "I can't", tokenIndex: 1 }
+          - { en: "run", tokenIndex: 2 }
+          - { en: "my leg hurts", tokenIndex: 4 }
+        audioText: "no puedo correr, me duele la pierna"
+        revealNote: "«no puedo correr» (m14) plus the reason — «me duele la pierna». One sentence, cause and effect."
+      - kind: info
+        id: l5-info-nopuedoporque
+        title: "No puedo... — now with a reason"
+        body: "«no puedo correr, me duele la pierna» — PRIOR «puedo» (m14) and this module's «duele», back to back. The pain explains the «no puedo»."
+      - kind: speakLit
+        id: l5-sp-recall-adiegoleduele
+        es: "a Diego le duele el brazo"
+        en: "Diego's arm hurts"
+        atoms: ["le", "duele", "brazo"]
+        cue: recall
+      - kind: buildLit
+        id: l5-b-nopuedescorrer
+        es: "no puedes correr, te duele el pie"
+        en: "You can't run, your foot hurts"
+        atoms: ["puedes", "correr", "te", "duele", "pie"]
+        tiles: ["duelen"]
+      - kind: clozeLit
+        id: l5-c-nopuedecorrer
+        es: "Diego no puede correr, le duelen las piernas"
+        en: "Diego can't run, his legs hurt"
+        blank: "duelen"
+        options: ["duelen", "duele"]
+        atoms: ["puede", "correr", "le", "duelen", "pierna"]
+        why: "«las piernas» — both legs, more than one thing — «duelen». Same rule, now inside a longer sentence."
+      - kind: listenCompLit
+        id: l5-lc-nopuedocorrerbrazo
+        es: "no puedo correr, me duele el brazo"
+        en: "I can't run, my arm hurts."
+        atoms: ["puedo", "correr", "me", "duele", "brazo"]
+        distractorsEn:
+          - "I can run, my arm hurts."
+          - "I can't run, my legs hurt."
+          - "I can't run."
+      - kind: mcq
+        id: l5-q-nopuedo
+        prompt: "'I can't run' — which word means 'I can't'?"
+        correct: "puedo"
+        distractors: ["puedes", "puede", "duelo"]
+        atoms: ["puedo"]
+        why: "«puedo» — PRIOR from module 14, «I can/I'm able to». Never «duelo»; that word doesn't exist."
+      - kind: buildLit
+        id: l5-b-anaduelenmanos
+        es: "Ana no puede correr, le duelen las manos"
+        en: "Ana can't run, her hands hurt"
+        atoms: ["puede", "correr", "le", "duelen", "mano"]
+        tiles: ["duele"]
+      - kind: audioWimcq
+        id: l5-ear-libro
+        target: { surface: "libro", emoji: "📖" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: agreementLit
+        id: l5-agr-samcorrer
+        en: "Sam can't run, his foot hurts a lot"
+        audioText: "Sam no puede correr, le duele mucho el pie"
+        atoms: ["puede", "correr", "le", "duele", "mucho", "pie"]
+        segments:
+          - { text: "Sam no puede correr, le " }
+          - { blank: { id: "p1", answer: "duele", options: ["duele", "duelen"] } }
+          - { text: " mucho " }
+          - { blank: { id: "p2", answer: "el", options: ["el", "la"] } }
+          - { text: " pie" }
+      - kind: listenBuildLit
+        id: l5-lb-teduelemucho
+        es: "no puedes correr, te duele mucho la pierna"
+        en: "You can't run, your leg hurts a lot"
+        atoms: ["puedes", "correr", "te", "duele", "mucho", "pierna"]
+        tiles: ["duelen", "me"]
+      - kind: textMcq
+        id: l5-tm-correr
+        target: "correr"
+        distractors: ["duele", "puede", "mano"]
+      - kind: sim
+        id: l5-sim-carmen-clinica
+        scene: { emoji: "🩺", title: "At the clinic", setting: "Carmen is a doctor. She's asking what hurts after your game." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Te duele la pierna?", audioText: "¿te duele la pierna?", gloss: "Does your leg hurt?" }
+            goal: "Say yes, your leg hurts a lot."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me duele mucho la pierna" }
+                - { id: "wrong1", text: "sí, te duele mucho la pierna" }
+                - { id: "wrong2", text: "sí, duelo mucho la pierna" }
+              correctOptionId: "right"
+              audioText: "sí, me duele mucho la pierna"
+            replyGloss: "Yes, my leg hurts a lot."
+            explanation: "«me», not «te» — you're answering about yourself. «duelo» is never a word; «duele» never conjugates to the person."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Puedes correr?", audioText: "¿puedes correr?", gloss: "Can you run?" }
+            goal: "Say no, you can't run."
+            reply:
+              mode: build
+              tiles: ["no", "puedo", "correr", "puedes", "duelo"]
+              answer: "no puedo correr"
+            replyGloss: "No, I can't run."
+            explanation: "Answer about yourself with «puedo», not «puedes» — Carmen asked with «puedes», you reply with «puedo»."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "no puedo", target: "I can't" }
+          - { source: "correr", target: "to run" }
+          - { source: "me duele mucho", target: "it hurts me a lot" }
+          - { source: "pierna", target: "leg" }
+          - { source: "pie", target: "foot" }
+          - { source: "brazo", target: "arm" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "no puedo correr, me duele la pierna"
+        en: "I can't run, my leg hurts"
+        atoms: ["puedo", "correr", "me", "duele", "pierna"]

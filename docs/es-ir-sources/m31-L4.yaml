@@ -1,0 +1,138 @@
+  # ── L4 · «A Diego le duele...» — third person, named. «le»/«a» are
+  #    both PRIOR (m13's own «a Diego le gusta el fútbol» is the direct
+  #    calibration precedent, echoed in the info card below). No «les»
+  #    anywhere — dative-plural is explicitly NOT-PRIOR per the brief and
+  #    stays out of this module entirely; only me/te/le. ≥1 recall of
+  #    L3's «te duele» opens the body.
+  - n: 4
+    template: free
+    title: "A Diego le duele..."
+    description: "Someone else, named — «a Diego le duele». The same «a + name + le» frame you already used for «a Diego le gusta el fútbol» back in module 13."
+    steps:
+      - kind: map
+        id: l4-map-adiegoleduele
+        tokens: ["a", "Diego", "le", "duele", "el", "brazo"]
+        pairs:
+          - { en: "Diego", tokenIndex: 1 }
+          - { en: "to him", tokenIndex: 2 }
+          - { en: "hurts", tokenIndex: 3 }
+          - { en: "arm", tokenIndex: 5 }
+        audioText: "a Diego le duele el brazo"
+        revealNote: "«a Diego le duele» — same frame as «a Diego le gusta» (m13). «le» is doing the same job it always does."
+      - kind: info
+        id: l4-info-adiegoleduele
+        title: "A Diego le duele — naming who"
+        body: "«a Diego le duele el brazo» — same shape as «a Diego le gusta el fútbol» (m13). The «a Diego» names who; «le» still points at that person, man or woman, one or many things hurting."
+      - kind: speakLit
+        id: l4-sp-recall-teduelelamano
+        es: "¿te duele la mano?"
+        en: "Does your hand hurt?"
+        atoms: ["te", "duele", "mano"]
+        cue: recall
+      - kind: buildLit
+        id: l4-b-adiegoleduele
+        es: "a Diego le duele el brazo"
+        en: "Diego's arm hurts"
+        atoms: ["le", "duele", "brazo"]
+        tiles: ["duelen"]
+      - kind: clozeLit
+        id: l4-c-aanaleduelen
+        es: "a Ana le duelen los pies"
+        en: "Ana's feet hurt"
+        blank: "duelen"
+        options: ["duelen", "duele"]
+        atoms: ["le", "duelen", "pie"]
+        why: "«los pies» is plural, so «duelen» — the rule never changes, no matter whose name is out front."
+      - kind: listenCompLit
+        id: l4-lc-asofialeduele
+        es: "a Sofía le duele el ojo"
+        en: "Sofía's eye hurts."
+        atoms: ["le", "duele", "ojo"]
+        distractorsEn:
+          - "Sofía's eyes hurt."
+          - "Diego's eye hurts."
+          - "Sofía has an eye."
+      - kind: mcq
+        id: l4-q-leduele
+        prompt: "'Diego's leg hurts.' — which word after «le»?"
+        correct: "duele"
+        distractors: ["duelen", "duelo", "dueles"]
+        atoms: ["le", "duele"]
+        why: "«la pierna» is one thing — «duele». «le» never changes for a man or a woman; only how many things hurt changes the verb, same rule as «le gusta» (m13)."
+      - kind: buildLit
+        id: l4-b-amarialeduelenlosojos
+        es: "a María le duelen los ojos"
+        en: "María's eyes hurt"
+        atoms: ["le", "duelen", "ojo"]
+        tiles: ["duele"]
+      - kind: audioWimcq
+        id: l4-ear-perro
+        target: { surface: "perro", emoji: "🐶" }
+        distractors:
+          - { surface: "libro", emoji: "📖" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: agreementLit
+        id: l4-agr-diegoana
+        en: "Diego's hand hurts, and Ana's feet hurt too"
+        audioText: "a Diego le duele la mano, y a Ana le duelen los pies también"
+        atoms: ["le", "duele", "mano", "duelen", "pie", "también"]
+        segments:
+          - { text: "a Diego le " }
+          - { blank: { id: "p1", answer: "duele", options: ["duele", "duelen"] } }
+          - { text: " la mano, y a Ana le " }
+          - { blank: { id: "p2", answer: "duelen", options: ["duelen", "duele"] } }
+          - { text: " los pies también" }
+      - kind: listenBuildLit
+        id: l4-lb-acarmenleduele
+        es: "a Carmen le duele la nariz"
+        en: "Carmen's nose hurts"
+        atoms: ["le", "duele", "nariz"]
+        tiles: ["duelen", "te"]
+      - kind: textMcq
+        id: l4-tm-le
+        target: "le"
+        distractors: ["me", "te", "mucho"]
+      - kind: sim
+        id: l4-sim-luis-diego
+        scene: { emoji: "🙁", title: "Luis is worried about Diego", setting: "Luis noticed Diego wasn't playing fútbol today." }
+        turns:
+          - id: t1
+            npc: { speaker: "Luis", es: "¿Le duele la pierna a Diego?", audioText: "¿le duele la pierna a Diego?", gloss: "Does Diego's leg hurt?" }
+            goal: "Say yes, Diego's leg hurts."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, a Diego le duele la pierna" }
+                - { id: "wrong1", text: "sí, a Diego le duelen la pierna" }
+                - { id: "wrong2", text: "sí, Diego duele la pierna" }
+              correctOptionId: "right"
+              audioText: "sí, a Diego le duele la pierna"
+            replyGloss: "Yes, Diego's leg hurts."
+            explanation: "«la pierna» is one thing — «duele», not «duelen». And «le» never drops out, even with the name right there: «Diego le duele», not «Diego duele»."
+          - id: t2
+            npc: { speaker: "Luis", es: "¿Y tú? ¿Te duele la pierna también?", audioText: "¿y tú? ¿te duele la pierna también?", gloss: "And you? Does your leg hurt too?" }
+            goal: "Say no, your leg doesn't hurt."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, no me duele la pierna" }
+                - { id: "wrong1", text: "no, no te duele la pierna" }
+                - { id: "wrong2", text: "no, no le duele la pierna" }
+              correctOptionId: "right"
+              audioText: "no, no me duele la pierna"
+            replyGloss: "No, my leg doesn't hurt."
+            explanation: "Answering about yourself again — «me», not «te» or «le». Luis asked with «te»; you always reply with «me»."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "le duele", target: "hurts (to him/her, one thing)" }
+          - { source: "le duelen", target: "hurt (to him/her, more than one)" }
+          - { source: "a Diego", target: "to Diego" }
+          - { source: "a Ana", target: "to Ana" }
+          - { source: "a Sofía", target: "to Sofía" }
+          - { source: "a María", target: "to María" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "a Diego le duele el brazo"
+        en: "Diego's arm hurts"
+        atoms: ["le", "duele", "brazo"]

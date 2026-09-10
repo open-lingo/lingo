@@ -514,4 +514,6 @@ export const ES_REVIEW_POOL: EsReviewEntry[] = [
   { surface: "ojo", gloss: "eye", kind: "vocab", fromModule: "m30", partOfSpeech: "noun" },
   { surface: "boca", gloss: "mouth", kind: "vocab", fromModule: "m30", partOfSpeech: "noun" },
   { surface: "nariz", gloss: "nose", kind: "vocab", fromModule: "m30", partOfSpeech: "noun" },
+  { surface: "duele", gloss: "hurts, aches (one thing)", kind: "vocab", fromModule: "m31", partOfSpeech: "verb" },
+  { surface: "duelen", gloss: "hurt, ache (more than one thing)", kind: "vocab", fromModule: "m31", partOfSpeech: "verb" },
 ];

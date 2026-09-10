@@ -1,0 +1,137 @@
+  # ── L2 · «Me duelen los pies» — «duelen» debuts, plural yo-form,
+  #    completing the pair by direct deduction from m13's gusta/gustan
+  #    (same singular/plural split, same word order). map previews
+  #    (uncredited); info is the real debut, quoting «duelen». Central
+  #    discrimination continues: the mcq/textMcq foil banks now add
+  #    «duele» (wrong number) alongside the person-conjugation foils,
+  #    still only in unscanned multiple_choice steps. One recall of
+  #    L1's own singular pattern (cue: recall) opens the lesson body.
+  #    audioWimcq target rotates to «libro» (away from L1's «perro»).
+  #    Still no `tengo`/colors/size (reserved to L9).
+  - n: 2
+    template: free
+    title: "Me duelen los pies"
+    description: "The other half of the pair — «duelen», when more than one thing hurts. Same word order, same rule you already used for «gusta»/«gustan» back in module 13."
+    steps:
+      - kind: map
+        id: l2-map-meduelenlospies
+        tokens: ["me", "duelen", "los", "pies"]
+        pairs:
+          - { en: "to me", tokenIndex: 0 }
+          - { en: "hurt (plural)", tokenIndex: 1 }
+          - { en: "feet", tokenIndex: 3 }
+        audioText: "me duelen los pies"
+        revealNote: "«duelen» — more than one foot, so the verb switches, just like «gustan» did back in module 13."
+      - kind: info
+        id: l2-info-meduelen
+        title: "Duelen — when it's more than one"
+        body: "«me duelen los pies» — «pies» is plural, so «duele» becomes «duelen». Exactly the same switch as «gusta»→«gustan» (m13): the verb agrees with what's hurting, never with you."
+      - kind: speakLit
+        id: l2-sp-recall-meduelelamano
+        es: "me duele la mano"
+        en: "My hand hurts"
+        atoms: ["me", "duele", "mano"]
+        cue: recall
+      - kind: buildLit
+        id: l2-b-meduelenlospies
+        es: "me duelen los pies"
+        en: "My feet hurt"
+        atoms: ["me", "duelen", "pie"]
+        tiles: ["el"]
+      - kind: clozeLit
+        id: l2-c-meduelenlosojos
+        es: "me duelen los ojos"
+        en: "My eyes hurt"
+        blank: "duelen"
+        options: ["duelen", "duele"]
+        atoms: ["me", "duelen", "ojo"]
+        why: "two eyes, more than one thing hurting — «duelen», not «duele». The verb counts what hurts, not who's hurting."
+      - kind: listenCompLit
+        id: l2-lc-meduelenlasmanos
+        es: "me duelen las manos"
+        en: "My hands hurt."
+        atoms: ["me", "duelen", "mano"]
+        distractorsEn:
+          - "My hand hurts."
+          - "My feet hurt."
+          - "You have hands."
+      - kind: mcq
+        id: l2-q-duelen
+        prompt: "Which one means 'they hurt' (more than one thing)?"
+        correct: "duelen"
+        distractors: ["duele", "duelemos", "duelo"]
+        atoms: ["duelen"]
+        why: "«duelen» agrees with more than one thing hurting — same split as «gusta»/«gustan» (m13). There is no «duelemos»; the verb never conjugates to the person."
+      - kind: buildLit
+        id: l2-b-meduelenlosbrazos
+        es: "me duelen los brazos"
+        en: "My arms hurt"
+        atoms: ["me", "duelen", "brazo"]
+        tiles: ["la"]
+      - kind: audioWimcq
+        id: l2-ear-libro
+        target: { surface: "libro", emoji: "📖" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: agreementLit
+        id: l2-agr-duelesingularplural
+        en: "My arm hurts, and my legs hurt too"
+        audioText: "me duele el brazo, y me duelen las piernas también"
+        atoms: ["me", "duele", "brazo", "duelen", "pierna", "también"]
+        segments:
+          - { text: "me " }
+          - { blank: { id: "p1", answer: "duele", options: ["duele", "duelen"] } }
+          - { text: " el brazo, y me " }
+          - { blank: { id: "p2", answer: "duelen", options: ["duelen", "duele"] } }
+          - { text: " las piernas también" }
+      - kind: listenBuildLit
+        id: l2-lb-meduelenlaspiernas
+        es: "me duelen las piernas"
+        en: "My legs hurt"
+        atoms: ["me", "duelen", "pierna"]
+        tiles: ["duele", "el"]
+      - kind: textMcq
+        id: l2-tm-duelen
+        target: "duelen"
+        distractors: ["duele", "duelemos", "dueles"]
+      - kind: sim
+        id: l2-sim-ana-pies
+        scene: { emoji: "🥿", title: "Ana asks about your feet", setting: "Ana notices you limping after the walk." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Te duelen los pies?", audioText: "¿te duelen los pies?", gloss: "Do your feet hurt?" }
+            goal: "Say yes, your feet hurt."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me duelen los pies" }
+                - { id: "wrong1", text: "sí, me duele los pies" }
+                - { id: "wrong2", text: "sí, te duelen los pies" }
+              correctOptionId: "right"
+              audioText: "sí, me duelen los pies"
+            replyGloss: "Yes, my feet hurt."
+            explanation: "«pies» is plural — «duelen», not «duele». And «me», not «te» — you're answering about yourself, not asking Ana about hers."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y las manos? ¿También te duelen?", audioText: "¿y las manos? ¿también te duelen?", gloss: "And your hands? Do they hurt too?" }
+            goal: "Say yes, your hands hurt too."
+            reply:
+              mode: build
+              tiles: ["sí", "me", "duelen", "las", "manos", "también", "duele", "duelemos"]
+              answer: "sí me duelen las manos también"
+            replyGloss: "Yes, my hands hurt too."
+            explanation: "«las manos» is still plural — «duelen» stays. Never «duelemos»; the verb doesn't conjugate to match the person."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "duelen", target: "hurt (more than one)" }
+          - { source: "pies", target: "feet" }
+          - { source: "ojos", target: "eyes" }
+          - { source: "manos", target: "hands" }
+          - { source: "brazos", target: "arms" }
+          - { source: "piernas", target: "legs" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "me duelen los pies"
+        en: "My feet hurt"
+        atoms: ["me", "duelen", "pie"]

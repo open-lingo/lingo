@@ -1,0 +1,127 @@
+  # ── L8 · Checkpoint — all graded, no map/info (mirrors m30-L8's own
+  #    checkpoint shape). Pure recombination of L1-L7 content: singular/
+  #    plural duele, all three persons (me/te/le), porque + voy a/no
+  #    puedo, ayer/hoy preterite contrast. ≥2 recalls (brief's own
+  #    checkpoint floor) drawn from different earlier lessons' win lines.
+  #    Ends sim → matchLit → speakLit-win, same closing shape as every
+  #    other lesson (doctrine: last 3 steps need a match_pairs step).
+  - n: 8
+    template: free
+    title: "Checkpoint: me duele, te duele, le duele"
+    description: "Everything so far, recombined — no new words, just the three persons and the singular/plural split, all in one pass."
+    steps:
+      - kind: speakLit
+        id: l8-sp-recall-meduelelamano
+        es: "me duele la mano"
+        en: "My hand hurts"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-teduelenlosojos
+        es: "¿te duelen los ojos?"
+        en: "Do your eyes hurt?"
+        atoms: ["te", "duelen", "ojo"]
+        tiles: ["duele"]
+      - kind: clozeLit
+        id: l8-c-adiegoleduele
+        es: "a Diego le duele el brazo"
+        en: "Diego's arm hurts"
+        blank: "duele"
+        options: ["duele", "duelen"]
+        atoms: ["le", "duele", "brazo"]
+        why: "«el brazo» — one thing — «duele». Named third person uses the exact same rule as «me»/«te»."
+      - kind: listenCompLit
+        id: l8-lc-anonopuedocorrer
+        es: "no puedo correr porque me duele el pie"
+        en: "I can't run because my foot hurts."
+        atoms: ["puedo", "correr", "porque", "me", "duele", "pie"]
+        distractorsEn:
+          - "I can run because my foot hurts."
+          - "I can't run because my feet hurt."
+          - "My foot hurts."
+      - kind: mcq
+        id: l8-q-duelefoils
+        prompt: "Which one means 'it hurts' (one thing)?"
+        correct: "duele"
+        distractors: ["duelo", "duelen", "dueles"]
+        atoms: ["duele"]
+        why: "«duele» never conjugates to the person — it agrees only with what's hurting, exactly like «gusta» (m13)."
+      - kind: speakLit
+        id: l8-sp-recall-ayerhoy
+        es: "ayer trabajé mucho, y hoy me duelen las manos"
+        en: "Yesterday I worked a lot, and today my hands hurt"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-samvaacorrer
+        es: "Sam va a correr, pero le duele el ojo"
+        en: "Sam is going to run, but his eye hurts"
+        atoms: ["va", "correr", "pero", "le", "duele", "ojo"]
+        tiles: ["duelen"]
+      - kind: audioWimcq
+        id: l8-ear-libro
+        target: { surface: "libro", emoji: "📖" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: agreementLit
+        id: l8-agr-mariapiernasnariz
+        en: "María's legs hurt, and her nose hurts too"
+        audioText: "a María le duelen las piernas, y le duele la nariz también"
+        atoms: ["le", "duelen", "pierna", "duele", "nariz", "también"]
+        segments:
+          - { text: "a María le " }
+          - { blank: { id: "p1", answer: "duelen", options: ["duelen", "duele"] } }
+          - { text: " las piernas, y le " }
+          - { blank: { id: "p2", answer: "duele", options: ["duele", "duelen"] } }
+          - { text: " la nariz también" }
+      - kind: listenBuildLit
+        id: l8-lb-teduelelabocaporque
+        es: "¿te duele la boca porque comiste mucho?"
+        en: "Does your mouth hurt because you ate a lot?"
+        atoms: ["te", "duele", "boca", "porque", "comiste"]
+        tiles: ["duelen", "me"]
+      - kind: textMcq
+        id: l8-tm-duelen
+        target: "duelen"
+        distractors: ["duele", "duelemos", "dueles"]
+      - kind: sim
+        id: l8-sim-checkpoint
+        scene: { emoji: "🏁", title: "Checkpoint check-in", setting: "Ana runs into you and Diego after a long week and asks how you're both doing." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Te duelen las piernas?", audioText: "¿te duelen las piernas?", gloss: "Do your legs hurt?" }
+            goal: "Say yes, your legs hurt a lot."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me duelen mucho las piernas" }
+                - { id: "wrong1", text: "sí, te duelen mucho las piernas" }
+                - { id: "wrong2", text: "sí, duelemos mucho las piernas" }
+              correctOptionId: "right"
+              audioText: "sí, me duelen mucho las piernas"
+            replyGloss: "Yes, my legs hurt a lot."
+            explanation: "«me», not «te» — answering about yourself. «duelemos» is never a word; the verb agrees with «las piernas», not with you."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y a Diego? ¿Le duele la mano también?", audioText: "¿y a Diego? ¿le duele la mano también?", gloss: "And Diego? Does his hand hurt too?" }
+            goal: "Say yes, his hand hurts too."
+            reply:
+              mode: build
+              tiles: ["sí,", "a", "Diego", "le", "duele", "la", "mano", "también", "duelen"]
+              answer: "sí, a Diego le duele la mano también"
+            replyGloss: "Yes, Diego's hand hurts too."
+            explanation: "«a Diego le duele» — named third person, one thing («la mano»), so «duele» stays singular."
+      - kind: matchLit
+        id: l8-match
+        pairs:
+          - { source: "me duele", target: "hurts me (one thing)" }
+          - { source: "te duelen", target: "hurt you (more than one)" }
+          - { source: "le duele", target: "hurts him/her (one thing)" }
+          - { source: "porque", target: "because" }
+          - { source: "ayer", target: "yesterday" }
+          - { source: "hoy", target: "today" }
+      - kind: speakLit
+        id: l8-sp-win
+        es: "me duele la mano, te duelen los ojos, y a Diego le duele el pie"
+        en: "My hand hurts, your eyes hurt, and Diego's foot hurts"
+        atoms: ["me", "duele", "mano", "te", "duelen", "ojo", "le", "pie"]

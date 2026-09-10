@@ -1,0 +1,135 @@
+  # ── L6 · «No voy a correr porque me duele el pie» — «voy a» + inf
+  #    (m9/m28) and «porque» (m25) both recombine onto the dative frame;
+  #    the "no puedo... because it hurts" real-use pattern now gets its
+  #    actual reason-word. No new atoms — pure recombination. ≥1 recall
+  #    of L5's win line opens the body. mcq content diversifies to
+  #    «porque» itself (central duele-person foils still covered by
+  #    textMcq, kept alive every lesson per the brief).
+  - n: 6
+    template: free
+    title: "No voy a correr porque me duele el pie"
+    description: "«porque» (m25) gives the reason — «no voy a correr porque me duele el pie». The plan changes because of the pain."
+    steps:
+      - kind: map
+        id: l6-map-novoyacorrerporque
+        tokens: ["no", "voy", "a", "correr", "porque", "me", "duele", "el", "pie"]
+        pairs:
+          - { en: "I'm not going to", tokenIndex: 1 }
+          - { en: "run", tokenIndex: 3 }
+          - { en: "because", tokenIndex: 4 }
+          - { en: "my foot hurts", tokenIndex: 6 }
+        audioText: "no voy a correr porque me duele el pie"
+        revealNote: "«voy a» (m9) plus «porque» (m25) plus «me duele» — three PRIOR pieces and this module's word, one sentence."
+      - kind: info
+        id: l6-info-porque
+        title: "Porque — the reason"
+        body: "«no voy a correr porque me duele el pie» — «porque» (m25) states the reason. The plan («voy a correr») changes because of what hurts."
+      - kind: speakLit
+        id: l6-sp-recall-nopuedocorrer
+        es: "no puedo correr, me duele la pierna"
+        en: "I can't run, my leg hurts"
+        atoms: ["puedo", "correr", "me", "duele", "pierna"]
+        cue: recall
+      - kind: buildLit
+        id: l6-b-diegonovaacorrer
+        es: "Diego no va a correr porque le duele la pierna"
+        en: "Diego isn't going to run because his leg hurts"
+        atoms: ["va", "correr", "porque", "le", "duele", "pierna"]
+        tiles: ["duelen"]
+      - kind: clozeLit
+        id: l6-c-anaporque
+        es: "Ana no va a correr porque le duelen los pies"
+        en: "Ana isn't going to run because her feet hurt"
+        blank: "duelen"
+        options: ["duelen", "duele"]
+        atoms: ["va", "correr", "porque", "le", "duelen", "pie"]
+        why: "«los pies» — more than one — «duelen». The «porque» clause follows the same agreement rule as any other."
+      - kind: listenCompLit
+        id: l6-lc-vasacorrer
+        es: "vas a correr, pero te duele el brazo"
+        en: "You're going to run, but your arm hurts."
+        atoms: ["vas", "correr", "pero", "te", "duele", "brazo"]
+        distractorsEn:
+          - "You're not going to run, but your arm hurts."
+          - "You're going to run, but your arms hurt."
+          - "You're going to run."
+      - kind: mcq
+        id: l6-q-porque
+        prompt: "Which word means 'because'?"
+        correct: "porque"
+        distractors: ["pero", "también", "para"]
+        atoms: ["porque"]
+        why: "«porque» (m25) states a reason. «pero» (m6) means 'but'; «también» (m11) means 'also' — different jobs."
+      - kind: buildLit
+        id: l6-b-samvaajugar
+        es: "Sam va a correr, pero le duele el ojo"
+        en: "Sam is going to run, but his eye hurts"
+        atoms: ["va", "correr", "pero", "le", "duele", "ojo"]
+        tiles: ["duelen"]
+      - kind: audioWimcq
+        id: l6-ear-casa
+        target: { surface: "casa", emoji: "🏠" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "libro", emoji: "📖" }
+      - kind: agreementLit
+        id: l6-agr-porquesingularplural
+        en: "María isn't going to run because her hand hurts, and her arms hurt too"
+        audioText: "María no va a correr porque le duele la mano, y le duelen los brazos también"
+        atoms: ["va", "correr", "porque", "le", "duele", "mano", "duelen", "brazo", "también"]
+        segments:
+          - { text: "María no va a correr porque le " }
+          - { blank: { id: "p1", answer: "duele", options: ["duele", "duelen"] } }
+          - { text: " la mano, y le " }
+          - { blank: { id: "p2", answer: "duelen", options: ["duelen", "duele"] } }
+          - { text: " los brazos también" }
+      - kind: listenBuildLit
+        id: l6-lb-noteduele
+        es: "no voy a correr porque te duele el pie"
+        en: "I'm not going to run because your foot hurts"
+        atoms: ["voy", "correr", "porque", "te", "duele", "pie"]
+        tiles: ["duelen", "me"]
+      - kind: textMcq
+        id: l6-tm-duele-foils
+        target: "duele"
+        distractors: ["duelo", "duelen", "dueles"]
+      - kind: sim
+        id: l6-sim-luis-plan
+        scene: { emoji: "📅", title: "Weekend plans", setting: "Luis is planning a run this weekend and checks if you can join." }
+        turns:
+          - id: t1
+            npc: { speaker: "Luis", es: "¿Vas a correr también?", audioText: "¿vas a correr también?", gloss: "Are you going to run too?" }
+            goal: "Say no, because your foot hurts."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, porque me duele el pie" }
+                - { id: "wrong1", text: "no, porque te duele el pie" }
+                - { id: "wrong2", text: "no, pero me duele el pie" }
+              correctOptionId: "right"
+              audioText: "no, porque me duele el pie"
+            replyGloss: "No, because my foot hurts."
+            explanation: "«porque» gives the reason; «pero» would mean 'but' and doesn't fit here. And «me», not «te» — you're talking about yourself."
+          - id: t2
+            npc: { speaker: "Luis", es: "¿Y Diego? ¿Va a correr?", audioText: "¿y Diego? ¿va a correr?", gloss: "And Diego? Is he going to run?" }
+            goal: "Say no, because his leg hurts too."
+            reply:
+              mode: build
+              tiles: ["no,", "porque", "le", "duele", "la", "pierna", "también", "duelen", "duelo"]
+              answer: "no, porque le duele la pierna también"
+            replyGloss: "No, because his leg hurts too."
+            explanation: "«le», not «me» — this is about Diego now, not you. «la pierna» is one thing, so «duele» stays singular."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "porque", target: "because" }
+          - { source: "voy a", target: "I'm going to" }
+          - { source: "va a", target: "he/she is going to" }
+          - { source: "vas a", target: "you're going to" }
+          - { source: "pero", target: "but" }
+          - { source: "también", target: "also, too" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "no voy a correr porque me duele el pie"
+        en: "I'm not going to run because my foot hurts"
+        atoms: ["voy", "correr", "porque", "me", "duele", "pie"]

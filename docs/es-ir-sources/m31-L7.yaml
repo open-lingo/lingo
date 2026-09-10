@@ -1,0 +1,135 @@
+  # ── L7 · «Ayer trabajé mucho, y hoy me duelen las manos» — preterite
+  #    review (m19, «trabajé»/«salí») pairs with «hoy» (m8) against
+  #    «ayer» to frame duele as TODAY'S consequence of YESTERDAY'S
+  #    action — a real cause-effect scenario, not a bare list. Body
+  #    parts combine via «y»/«también» (both PRIOR) across separate
+  #    clauses, each keeping its own verb, avoiding the combined-subject
+  #    plural-agreement edge case. ≥1 recall of L6's win line opens body.
+  - n: 7
+    template: free
+    title: "Ayer trabajé mucho, y hoy me duelen las manos"
+    description: "Yesterday's preterite (m19), today's consequence. «ayer trabajé mucho, y hoy me duelen las manos» — the past explains the present."
+    steps:
+      - kind: map
+        id: l7-map-ayertrabajehoymeduelen
+        tokens: ["ayer", "trabajé", "mucho,", "y", "hoy", "me", "duelen", "las", "manos"]
+        pairs:
+          - { en: "yesterday", tokenIndex: 0 }
+          - { en: "I worked", tokenIndex: 1 }
+          - { en: "today", tokenIndex: 4 }
+          - { en: "my hands hurt", tokenIndex: 6 }
+        audioText: "ayer trabajé mucho, y hoy me duelen las manos"
+        revealNote: "«ayer trabajé» (m19, past) sets up «hoy me duelen» (present) — yesterday's cause, today's effect."
+      - kind: info
+        id: l7-info-ayerhoy
+        title: "Ayer... hoy... — cause, then effect"
+        body: "«ayer trabajé mucho, y hoy me duelen las manos» — «ayer» (m19 preterite) tells what happened; «hoy» (m8) plus «duelen» tells what it left behind, right now."
+      - kind: speakLit
+        id: l7-sp-recall-novoyacorrer
+        es: "no voy a correr porque me duele el pie"
+        en: "I'm not going to run because my foot hurts"
+        atoms: ["voy", "correr", "porque", "me", "duele", "pie"]
+        cue: recall
+      - kind: buildLit
+        id: l7-b-ayersalipero
+        es: "ayer salí, pero hoy me duele el pie"
+        en: "Yesterday I went out, but today my foot hurts"
+        atoms: ["salí", "pero", "hoy", "me", "duele", "pie"]
+        tiles: ["duelen"]
+      - kind: clozeLit
+        id: l7-c-ayertrabajoana
+        es: "Ana trabajó ayer, y hoy le duelen los brazos"
+        en: "Ana worked yesterday, and today her arms hurt"
+        blank: "duelen"
+        options: ["duelen", "duele"]
+        atoms: ["trabajó", "ayer", "hoy", "le", "duelen", "brazo"]
+        why: "«los brazos» — more than one — «duelen». Past tense in the first half doesn't change the agreement rule in the second."
+      - kind: listenCompLit
+        id: l7-lc-samsalioayer
+        es: "Sam salió ayer, y hoy le duele la pierna"
+        en: "Sam went out yesterday, and today his leg hurts."
+        atoms: ["salió", "ayer", "hoy", "le", "duele", "pierna"]
+        distractorsEn:
+          - "Sam is going out today, and his leg hurts."
+          - "Sam went out yesterday, and today his legs hurt."
+          - "Sam went out yesterday."
+      - kind: mcq
+        id: l7-q-ayerhoy
+        prompt: "'Today' — which word?"
+        correct: "hoy"
+        distractors: ["ayer", "mucho", "también"]
+        atoms: ["hoy"]
+        why: "«hoy» (m8) means 'today'. «ayer» (m19) is 'yesterday' — the two words that set up this whole lesson's contrast."
+      - kind: buildLit
+        id: l7-b-hoymeduelebrazo
+        es: "hoy me duele el brazo, y también me duele la pierna"
+        en: "Today my arm hurts, and my leg hurts too"
+        atoms: ["hoy", "me", "duele", "brazo", "también", "pierna"]
+        tiles: ["duelen"]
+      - kind: audioWimcq
+        id: l7-ear-perro
+        target: { surface: "perro", emoji: "🐶" }
+        distractors:
+          - { surface: "libro", emoji: "📖" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: agreementLit
+        id: l7-agr-trabajesingularplural
+        en: "I worked yesterday, and today my hand hurts, and my eyes hurt too"
+        audioText: "trabajé ayer, y hoy me duele la mano, y me duelen los ojos también"
+        atoms: ["trabajé", "ayer", "hoy", "me", "duele", "mano", "duelen", "ojo", "también"]
+        segments:
+          - { text: "trabajé ayer, y hoy me " }
+          - { blank: { id: "p1", answer: "duele", options: ["duele", "duelen"] } }
+          - { text: " la mano, y me " }
+          - { blank: { id: "p2", answer: "duelen", options: ["duelen", "duele"] } }
+          - { text: " los ojos también" }
+      - kind: listenBuildLit
+        id: l7-lb-diegotrabajo
+        es: "Diego trabajó ayer, y hoy le duele la nariz"
+        en: "Diego worked yesterday, and today his nose hurts"
+        atoms: ["trabajó", "ayer", "hoy", "le", "duele", "nariz"]
+        tiles: ["duelen", "te"]
+      - kind: textMcq
+        id: l7-tm-duelen-foils
+        target: "duelen"
+        distractors: ["duele", "duelemos", "dueles"]
+      - kind: sim
+        id: l7-sim-carmen-ayerhoy
+        scene: { emoji: "🗓️", title: "Carmen checks in", setting: "Carmen remembers you worked a lot yesterday and asks how you feel today." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "Trabajaste mucho ayer. ¿Te duelen las manos hoy?", audioText: "trabajaste mucho ayer. ¿te duelen las manos hoy?", gloss: "You worked a lot yesterday. Do your hands hurt today?" }
+            goal: "Say yes, your hands hurt today."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, hoy me duelen las manos" }
+                - { id: "wrong1", text: "sí, hoy me duele las manos" }
+                - { id: "wrong2", text: "sí, hoy te duelen las manos" }
+              correctOptionId: "right"
+              audioText: "sí, hoy me duelen las manos"
+            replyGloss: "Yes, my hands hurt today."
+            explanation: "«las manos» is plural — «duelen». And «me», not «te» — you're answering about yourself."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Y el brazo también?", audioText: "¿y el brazo también?", gloss: "And your arm too?" }
+            goal: "Say yes, your arm hurts too."
+            reply:
+              mode: build
+              tiles: ["sí,", "también", "me", "duele", "el", "brazo", "duelen", "duelo"]
+              answer: "sí, también me duele el brazo"
+            replyGloss: "Yes, my arm hurts too."
+            explanation: "«el brazo» — one thing, back to «duele». Every body part gets its own agreement check."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "ayer", target: "yesterday" }
+          - { source: "hoy", target: "today" }
+          - { source: "trabajé", target: "I worked" }
+          - { source: "salí", target: "I went out" }
+          - { source: "también", target: "also, too" }
+          - { source: "pero", target: "but" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "ayer trabajé mucho, y hoy me duelen las manos"
+        en: "Yesterday I worked a lot, and today my hands hurt"
+        atoms: ["trabajé", "ayer", "hoy", "me", "duelen", "mano"]

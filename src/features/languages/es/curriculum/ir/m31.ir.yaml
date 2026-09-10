@@ -1,0 +1,1651 @@
+module: m31
+title: "Me duele la mano"
+frame: none
+throughModule: m30
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m31 — the dative-experiencer frame extended to the body: «duele»/
+# «duelen» (hurts/hurt), the SAME "sentence that runs backwards" shape
+# «gusta»/«gustan» (m13) already taught, now carrying pain/sensation
+# instead of preference, with m30's own body nouns as its grammatical
+# subject.
+#
+#     me duele la mano       me duelen las manos      (yo, m13 «me»)
+#     ¿te duele el pie?      ¿te duelen los pies?      (tú, m13 «te»)
+#     a Diego le duele el ojo   a Ana le duelen los ojos  (3rd, m13 «le» + «a + name»)
+#
+# ONE idea, the whole module: TWO new verb-forms («duele»/«duelen»), zero
+# new syntax. The dative-experiencer word order («me duele la mano» — the
+# body part is the grammatical SUBJECT, the person who feels it is a
+# dative object out front) is not new to this course — it is the exact
+# frame m13's «gusta»/«gustan» already drilled to full yo/tú/3rd-person
+# coverage («me gusta», «te gusta», «a Diego le gusta»). m31 does not
+# reteach that frame; it recombines it against a second verb and against
+# m30's seven just-taught body nouns as the frame's grammatical subject.
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# Four lines of evidence:
+#   1. **Rhythm calls for a grammar beat, and m30's own header already
+#      named the natural next idea and rejected it on a stale premise.**
+#      m26 (grammar) → m27 (break) → m28 (grammar) → m29 (grammar) → m30
+#      (break, body). Two grammar modules, one break, is the same
+#      pattern m29's own header used to justify m28→m29 running grammar
+#      twice in a row — a break module (m30) is always followed by a
+#      return to grammar, never a second break, per every prior module's
+#      own interleave reasoning. m30-header.yaml's REJECTED ALTERNATIVE 4
+#      named «doler» directly as "the natural next step after body-part
+#      nouns exist," rejecting it FOR m30 ONLY on the grounds that it
+#      "needs «gustar»'s own irregular impersonal-object word order... a
+#      second new grammar idea layered onto a module whose entire framing
+#      is zero new verb morphology." That reasoning was about m30's own
+#      scope, not about «doler» being unready — and it directly names m31
+#      as where to "give it the same dedicated care m7/m13 gave «gustar»
+#      itself."
+#   2. **Correcting the premise m30 rejected «doler» under: the "«gustar»
+#      word order" «doler» needs is not new grammar risk, it is fully
+#      PRIOR — verified by grep, not assumed.** `grep -n 'atom({ surface:
+#      "gusta"\|"gustan"\|"me"\|"te"\|"le"' curriculum/m13.ts` confirms
+#      the ENTIRE dative-experiencer paradigm m31 needs is already live:
+#      «me» (to me) and «te» (to you), both `kind: "particle"` atoms
+#      registered at m13; «le» (to him/her) ALSO a registered `kind:
+#      "particle"` atom at m13, not merely a function word — and the
+#      «a + [name] le VERB» construction (m13 L6, "a Diego le gusta el
+#      fútbol") is the exact frame a 3rd-person «duele» sentence needs.
+#      m13's own module title is literally "Me gusta, me gustan — the
+#      sentence that runs backwards" — this course already has a name and
+#      a fully-taught mental model for this word order. m30's header
+#      undersold this precedent the same way m28's header once undersold
+#      how much of m16/m17's pronoun work m29 could reuse (a pattern this
+#      course's own briefs keep having to correct — see m29-header.yaml's
+#      own "Correcting the record" section for the identical move). «les»
+#      (to them) is confirmed NOT PRIOR (grep-verified zero hits m1–m30)
+#      — m13 itself never taught nosotros/ellos-plural dative forms, so
+#      this module's own scope (yo/tú/3rd-singular-via-le) mirrors m13's
+#      own taught scope exactly; it is not a new gap this module opens.
+#   3. **Maximum recombination against the module directly before it —
+#      the strongest "review after" interleave story of any candidate
+#      considered.** Per [[interleave-dont-block-teach]] and
+#      `docs/course-design-learnings-2026-08-21.md`, the ideal grammar
+#      beat after a lexicon break puts the break's own vocabulary
+#      immediately back to work in a new frame. m30's seven body nouns
+#      (mano, pie, brazo, pierna, ojo, boca, nariz — all imageMcq-debuted
+#      last module) slot directly into «duele»/«duelen» as its
+#      grammatical subject with ZERO new nouns needed: «me duele la
+#      mano», «me duelen los pies», «a Diego le duele el brazo». No other
+#      candidate considered below reuses m30's own vocabulary at all.
+#   4. **Verified data floor.** `grep -o 'surface: "[^"]*"'
+#      curriculum/m{1..30}.ts | sort -u | grep -iE "duele|duelen|doler"`
+#      returns zero hits — «duele»/«duelen» are genuinely virgin. No new
+#      emoji needed (verb-morphology atoms in this course, like m13's
+#      «gusta»/«gustan» themselves, carry no `emoji:` field — confirmed
+#      by reading `ES_M13_ATOMS`), so no vendoring step applies, the
+#      second module in a row with zero vendoring work (after m30).
+#
+# ── CORRECTING m30's OWN REJECTED ALTERNATIVE 4 (verified by grep, not
+#    assumed) ─────────────────────────────────────────────────────────────
+# m30-header.yaml's REJECTED ALTERNATIVE 4 states: "«doler» is a new VERB
+# with «gustar»'s own irregular impersonal-object word order (back-of-
+# clause subject, front-of-clause indirect object) — a second new
+# grammar idea layered onto a module whose entire framing is zero new
+# verb morphology." That framing is correct for why m30 (a lexicon-break
+# module) should not have carried it, but it is easy to misread as "the
+# word order itself is unresolved risk." It is not: the word order is
+# `gusta`/`gustan`'s own PRIOR frame (m13, LIVE since 2026-09-09,
+# drilled to yo/tú/3rd-singular). What is actually new in m31 is
+# narrower and cheaper than m30's own rejection implies — two verb-forms
+# recombined against an existing, fully-internalized sentence shape, not
+# a second new grammar idea. Named here explicitly so a future author
+# reads m30's REJECTED ALTERNATIVE 4 as "wrong module for this," not
+# "this needs new syntax work first."
+#
+# ── REJECTED ALTERNATIVE 1: «tener que» + infinitivo (obligation) ────────
+# Real, unspent (grep-verified zero hits for "tener que"/"hay que" across
+# `curriculum/*.ts` and `curriculum/ir/*.ir.yaml`, matching
+# m29-header.yaml's own REJECTED ALTERNATIVE 2 finding, re-checked here
+# and still zero as of this brief). «tener» is fully PRIOR (m5/m15/m18).
+# Rejected for m31 specifically: it is the SAME shape this course already
+# has three times over — a conjugated verb followed by a bare-infinitive
+# complement (querer/poder m14, ir a m28, now tener que) — "a fourth verb
+# that takes this same complement," exactly the "more of the same
+# mechanic, not a new idea" trap m29-header.yaml's own REJECTED
+# ALTERNATIVE 2 named against this identical candidate. It also has zero
+# connection to m30's just-taught body vocabulary, the weakest
+# recombination story of any candidate considered. Left open as a
+# plausible future module — reserve for whenever the course wants a
+# fourth "verb + bare infinitive" host without a new syntax rule
+# attached, exactly as m29's header already reserved it.
+#
+# ── REJECTED ALTERNATIVE 2: «estar + gerundio» (present progressive) ─────
+# Real, high-value A2 content, and — per m29-header.yaml's own
+# correction — NOT structurally banned by any gate (pin E7 only forbids
+# glossing a SIMPLE present as an English progressive before the
+# construction exists; it explicitly LICENSES the progressive gloss once
+# taught). Rejected for m31 specifically: it needs its own new morphology
+# (the -ando/-iendo gerund form across however many PRIOR verbs it
+# touches) — a genuinely new production shape, not a recombination of an
+# existing one the way «duele»/«duelen» is. It also has no connection to
+# m30's body vocabulary. Reserved as its own future module, exactly as
+# m29-header.yaml's own REJECTED ALTERNATIVE 3 already reserved it; still
+# open, still real.
+#
+# ── REJECTED ALTERNATIVE 3: comparatives (más/menos... que, tan... como) ─
+# Real content, still carrying the same unresolved risk
+# m29-header.yaml's REJECTED ALTERNATIVE 4 named and did not clear: «como»
+# is a PRIOR, actively-used atom from m11 meaning "I eat" (1st person of
+# «comer»), a genuine lexical homograph with the comparative «como»
+# ("as/like"). That disambiguation work was not done for m31 and is not
+# this module's job to absorb alongside a new verb pair. No connection to
+# m30's body vocabulary either. Reserved as a future module that can give
+# the «como» collision the dedicated attention m28 gave "voy a" — still
+# open, unchanged from m29's own assessment.
+#
+# ── REJECTED ALTERNATIVE 4: commands / imperative mood ────────────────────
+# Real, high-value, and explicitly flagged as "likely too big" by this
+# module's own dispatch brief — confirmed correct on inspection: a
+# command module needs a full new verb-form PARADIGM (regular + the
+# common irregular imperatives, plus the affirmative/negative distinction
+# Spanish imperatives carry), not a recombination of an existing frame —
+# a heavier grammar footprint than any other candidate considered, the
+# same "second new idea competing with the first" argument
+# m29-header.yaml used against «estar + gerundio» and m30-header.yaml
+# used against city/directions' own imperative dependency. Natural
+# future pairing: city/directions vocabulary (m30-header.yaml's own
+# REJECTED ALTERNATIVE 3, "reserved for whenever a module wants to pair
+# vocabulary with a new imperative/command form") — named here again so
+# a future author has both halves of that pairing in one place.
+#
+# ── REJECTED: extending this module's own new vocabulary beyond
+#    «duele»/«duelen» (cabeza, garganta, estómago, espalda, hombro) ───────
+# The classic "health complaint" vocabulary set (head, throat, stomach,
+# back, shoulder) is real, grep-verified fully unregistered, and would
+# make «me duele la cabeza» — the single most iconic «doler» sentence in
+# any A2 curriculum — available. Deliberately NOT added to m31: m30's
+# own seven body nouns already give this module FULL, natural coverage
+# (a learner can say "me duele la mano/el pie/el brazo/la pierna/el
+# ojo/la boca/la nariz" — every sentence this module's lesson plan below
+# needs), and this module's own framing is a thin placement/frame
+# recombination — TWO new atoms, not a lexicon module — matching
+# [[drafting-coverage-not-volume]] and m29's own "0 new atoms" precedent
+# more closely than m30's "7 new nouns" one. A quick check for a clean
+# "head" emoji candidate (🤕 = face with head bandage, an injured-PERSON
+# glyph, not an isolated head; 🧠 = brain, a different organ) found no
+# unambiguous single-referent glyph for "head" the way ✋/🦶/💪/🦵/👁️/👄/👃
+# each cleanly are — a real image-MCQ ceiling-rule risk this module
+# doesn't need to take on. This check was a quick candidate sweep, not an
+# exhaustive Unicode-chart review — flagged UNVERIFIED below. Reserved as
+# a future THREE-TO-FIVE-atom recombination lesson (cabeza, garganta,
+# estómago, espalda, hombro), the same sizing and the same "not
+# abandoned, correctly resized" treatment m30-header.yaml gave house
+# vocabulary.
+#
+# ── THE CENTRAL DISCRIMINATION: NEVER CONJUGATE «duele»/«duelen» TO THE
+#    PERSON — READ BEFORE DRAFTING ANY LESSON ────────────────────────────
+# «duele»/«duelen» agree with the BODY PART (the grammatical subject),
+# never with the person who feels it — the exact same rule m13's own
+# «gusta»/«gustan» already enforces («me gusta el café», never «yo
+# gusto»). The English-transfer error a learner is likely to construct by
+# analogy from "my hand hurts" (subject = "my hand" in English too, so
+# this one is actually LOW risk in that direction) is instead the
+# opposite transfer, from "I hurt" / "it hurts me" read as "yo duelo" or
+# "me duelo" — treating the EXPERIENCER as the verb's subject the way
+# English "I hurt" can be misheard to imply. This is the identical
+# grammatical-subject-confusion class m13's own "sentence that runs
+# backwards" framing exists to name and defuse; m31 inherits that framing
+# wholesale rather than re-deriving new language for the same idea.
+# Every discrimination step in this module (agreementCloze / textMcq
+# distractors) must include a foil that wrongly conjugates the verb to
+# the PERSON instead of the body part (e.g. offering "*duelo" or
+# "*duelemos" as an option, never validly correct), not only a
+# singular/plural body-part-agreement foil — this is this module's most
+# important distractor, exactly the role the third-position foil played
+# for m29 and the mid-position-pronoun foil plays generally in this
+# course's own "no third position"-family rules. Note the specific claim
+# that no such "*gusto"-style foil was found grep-confirmed inside
+# `m13.test.ts` itself is flagged UNVERIFIED below — the discrimination
+# is reasoned from the underlying grammar and m13's own "runs backwards"
+# framing, not copied from a confirmed m13 test pin.
+#
+# ── SCOPE: yo / tú / 3rd-singular-via-«le», NOT nosotros/ellos ───────────
+# Mirrors m13's own taught scope exactly — «nos» (m18, "we") and «les»
+# (to them) are both grep-verified NOT PRIOR as a dative-plural pairing
+# with gusta-type verbs (m13 never taught "nos gusta"/"les gusta"; «les»
+# itself has zero hits anywhere in m1–m30). This is not a new gap m31
+# opens — it is the same boundary m13 already drew, carried forward
+# unchanged. Do not reach for «nos duele» or «les duele»; both would
+# require registering a new dative particle this module was not scoped
+# to add.
+#
+# ── AGREEMENT IS NOT A NEW ATOM — m30's SEVEN BODY NOUNS PLURALIZE
+#    NORMALLY, «nariz»/«narices» STILL AVOIDED ───────────────────────────
+# Per `authoring-rules.md`'s "Agreement is not a new atom" paragraph and
+# `getEsPluralCanon`'s course-wide precedent (already exercised by m30
+# itself): «mano»→«manos», «pie»→«pies», «brazo»→«brazos»,
+# «pierna»→«piernas», «ojo»→«ojos», «boca»→«bocas» all pluralize as
+# regular -s forms with no new registration, and this module's own
+# singular/plural verb-agreement rule («duele» for one body part,
+# «duelen» for more than one) is the SAME regular-plural-drives-
+# verb-agreement mechanism «gusta»/«gustan» already exercises — no new
+# rule to invent, just a new verb pair riding the existing one. «nariz»
+# stays singular-only in this module too («me duele la nariz», never
+# «me duelen las narices») — m30's own shipped commit record ("«narices»
+# removed from learner-facing text") confirms this was a live authoring
+# trap in the immediately-PRIOR module and the underlying UNVERIFIED
+# claim (whether the inflection engine accepts the irregular z→c plural)
+# was never resolved; m31 inherits the same caution rather than
+# re-testing it.
+#
+# ── NO NEW EMOJI, NO VENDORING (matches m30's own precedent, verified not
+#    assumed) ──────────────────────────────────────────────────────────
+# `duele`/`duelen` are verb-morphology atoms, like `gusta`/`gustan`
+# (m13) — reading `ES_M13_ATOMS` confirms neither carries an `emoji:`
+# field. No new vendoring step applies. Re-verify this stays true at ship
+# time if a drafting agent's IR adds an `emoji:` field to either atom —
+# that would be a defect, not a stylistic choice.
+#
+# ── SIM NPC-LINE PROVENANCE: LIVE, CARRY FORWARD FROM m29/m30 ────────────
+# `es-quality.test.ts`'s dialogue_sim provenance gate applies unchanged.
+# This module's NPC lines will exercise the dative-particle vocabulary
+# («me»/«te»/«le», m13) plus m30's body nouns plus this module's own
+# «duele»/«duelen» — no fused-string decomposition risk (unlike m29),
+# every surface here is a registered whole word. Still: manually grep
+# every sim `npc:` line before shipping, the same discipline every prior
+# module's brief has required.
+#
+# ── ACCENT: ROSE, VERIFIED UNUSED, LIGHTLY THEMATIC ───────────────────────
+# Checked every `accent:` pair in `curriculum/index.ts` (grep-verified,
+# all 30 pairs read in full): zero hits for `#fb7185` or `#9f1239`.
+# Distinct from every rose/red/pink pair already spent (`#f43f5e`→
+# `#be123c`, `#ef4444`→`#991b1b`, `#f472b6`→`#db2777`, `#f472b6`→
+# `#9d174d`, `#d946ef`→`#86198f`) — checked side by side, this pair sits
+# warmer and lighter than all five, reading as "gentle ache" rather than
+# alarm-red or the course's PRIOR pink pairs. A light thematic nod (the
+# "ouch" domain) without forcing a heavy medical metaphor onto what is
+# still fundamentally a grammar module, the same restraint m28's "go"
+# green used for a periphrastic-future module and m30's teal used for a
+# body-vocabulary one.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # duele — hurts/aches (singular subject: one body part, or an
+  # uncountable sensation). Reuses the «gusta»/«gustan» (m13)
+  # dative-experiencer word order verbatim — same frame, new verb.
+  - { surface: "duele", meaningEn: "hurts, aches (one thing)", partOfSpeech: "verb", kind: "vocab", hint: "duele — same word order as «gusta» (m13): the body part is the subject. «me duele la mano», never «yo duelo». Agrees with the body part, not the person." }
+  # duelen — hurt/ache (plural subject: more than one body part). Same
+  # singular/plural split as «gusta»/«gustan» (m13), reused verbatim.
+  - { surface: "duelen", meaningEn: "hurt, ache (more than one thing)", partOfSpeech: "verb", kind: "vocab", hint: "duelen — «duele» becomes «duelen» exactly when «gusta» becomes «gustan» (m13): more than one thing doing the hurting/pleasing. «me duelen los pies»." }
+
+lessons:
+  # ── L1 · «Me duele la mano» — «duele» debuts, yo-form, singular body
+  #    part. No emoji exists for a verb-morphology atom (same class as
+  #    m13's own «gusta»), so this is NOT an imageMcq debut — the map
+  #    step lets the learner puzzle out the word order first (map carries
+  #    no esSurfaces credit, so it is not the gate-visible debut), then
+  #    the info card is the real first exposure, quoting «duele» in
+  #    guillemets and anchoring directly to «me gusta» (m13). The central
+  #    discrimination (never conjugate to the person) is seeded here via
+  #    a textMcq/mcq foil bank («duelo»/«dueles»/«duelen»), placed only
+  #    in multiple_choice/vocabTextMcq steps because those distractors
+  #    are NOT scanned by esSurfaces — a clozeLit option IS scanned, so
+  #    «duelen» never appears in ANY clozeLit `options:` list in this
+  #    lesson (the l1-c-meduelelbrazo cloze blanks the el/la article
+  #    instead, keeping L2 as «duelen»'s one and only narrative debut).
+  #    Per the brief, `tengo`/colors/size are RESERVED to L9's dedicated
+  #    tengo-vs-duele contrast — none of that family appears here; the
+  #    agreementLit instead reviews el/la gender-article agreement on
+  #    body nouns (PRIOR, m30), and decoy tiles are wrong-article foils.
+  #    No recall — nothing earlier in this module yet.
+  - n: 1
+    template: free
+    title: "Me duele la mano"
+    description: "One new word, «duele» — it rides the exact word order «me gusta» already taught in module 13. The body part does the hurting; you're just the «me» out front."
+    steps:
+      - kind: map
+        id: l1-map-meduelelamano
+        tokens: ["me", "duele", "la", "mano"]
+        pairs:
+          - { en: "to me", tokenIndex: 0 }
+          - { en: "hurts", tokenIndex: 1 }
+          - { en: "hand", tokenIndex: 3 }
+        audioText: "me duele la mano"
+        revealNote: "«duele» — same word order as «me gusta» (m13). Watch what's doing the hurting: «la mano», not «me»."
+      - kind: info
+        id: l1-info-meduele
+        title: "Me duele — the sentence runs backwards, again"
+        body: "«me duele» — same word order as «me gusta» (m13): the sentence runs backwards. The body part is the subject; the person is out front. «me duele la mano»."
+      - kind: speakLit
+        id: l1-sp-meduelelpie
+        es: "me duele el pie"
+        en: "My foot hurts"
+        atoms: ["me", "duele", "pie"]
+      - kind: buildLit
+        id: l1-b-meduelelamano
+        es: "me duele la mano"
+        en: "My hand hurts"
+        atoms: ["me", "duele", "mano"]
+        tiles: ["el"]
+      - kind: clozeLit
+        id: l1-c-meduelelbrazo
+        es: "me duele el brazo"
+        en: "My arm hurts"
+        blank: "el"
+        options: ["el", "la"]
+        atoms: ["me", "duele", "brazo"]
+        why: "«el brazo» — masculine, so «el». «duele» stays fixed; only the article tracks the noun's gender, same as any other body noun (m30)."
+      - kind: listenCompLit
+        id: l1-lc-meduelelapierna
+        es: "me duele la pierna"
+        en: "My leg hurts."
+        atoms: ["me", "duele", "pierna"]
+        distractorsEn:
+          - "My legs hurt."
+          - "My arm hurts."
+          - "You have a leg."
+      - kind: mcq
+        id: l1-q-duele
+        prompt: "Which one means 'it hurts' (one thing)?"
+        correct: "duele"
+        distractors: ["duelo", "duelen", "dueles"]
+        atoms: ["duele"]
+        why: "«duele» agrees with the thing doing the hurting, never with the person — same rule «gusta» already taught (m13). «yo duelo» is never correct."
+      - kind: buildLit
+        id: l1-b-meduelelanariz
+        es: "me duele la nariz"
+        en: "My nose hurts"
+        atoms: ["me", "duele", "nariz"]
+        tiles: ["los"]
+      - kind: audioWimcq
+        id: l1-ear-perro
+        target: { surface: "perro", emoji: "🐶" }
+        distractors:
+          - { surface: "libro", emoji: "📖" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: agreementLit
+        id: l1-agr-manopiearticulo
+        en: "My hand hurts, and my foot hurts too"
+        audioText: "me duele la mano, y me duele el pie también"
+        atoms: ["me", "duele", "mano", "pie", "también"]
+        segments:
+          - { text: "me duele " }
+          - { blank: { id: "p1", answer: "la", options: ["la", "el"] } }
+          - { text: " mano, y me duele " }
+          - { blank: { id: "p2", answer: "el", options: ["el", "la"] } }
+          - { text: " pie también" }
+      - kind: listenBuildLit
+        id: l1-lb-meduelelbrazo
+        es: "me duele el brazo"
+        en: "My arm hurts"
+        atoms: ["me", "duele", "brazo"]
+        tiles: ["la", "los"]
+      - kind: textMcq
+        id: l1-tm-duele
+        target: "duele"
+        distractors: ["duelo", "dueles", "duelen"]
+      - kind: sim
+        id: l1-sim-diego-mano
+        scene: { emoji: "🤕", title: "Diego notices something's wrong", setting: "Diego sees you wincing and asks what's wrong." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Te duele la mano?", audioText: "¿te duele la mano?", gloss: "Does your hand hurt?" }
+            goal: "Say yes, your hand hurts."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me duele la mano" }
+                - { id: "wrong1", text: "sí, te duele la mano" }
+                - { id: "wrong2", text: "sí, yo duelo la mano" }
+              correctOptionId: "right"
+              audioText: "sí, me duele la mano"
+            replyGloss: "Yes, my hand hurts."
+            explanation: "«me», not «te» — the pointer matches YOU now, not Diego's question. And never «yo duelo» — «duele» agrees with «la mano», not with the person, exactly like «gusta» (m13)."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y el pie? ¿Te duele también?", audioText: "¿y el pie? ¿te duele también?", gloss: "And your foot? Does it hurt too?" }
+            goal: "Say yes, your foot hurts too."
+            reply:
+              mode: build
+              tiles: ["sí", "me", "duele", "el", "pie", "también", "duelo", "yo"]
+              answer: "sí me duele el pie también"
+            replyGloss: "Yes, my foot hurts too."
+            explanation: "«el pie», not «la mano» — the pain moved to a different registered body part. Still «me duele», never «yo duelo»."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "duele", target: "hurts (one thing)" }
+          - { source: "mano", target: "hand" }
+          - { source: "pie", target: "foot" }
+          - { source: "brazo", target: "arm" }
+          - { source: "pierna", target: "leg" }
+          - { source: "nariz", target: "nose" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "me duele la mano"
+        en: "My hand hurts"
+        atoms: ["me", "duele", "mano"]
+
+  # ── L2 · «Me duelen los pies» — «duelen» debuts, plural yo-form,
+  #    completing the pair by direct deduction from m13's gusta/gustan
+  #    (same singular/plural split, same word order). map previews
+  #    (uncredited); info is the real debut, quoting «duelen». Central
+  #    discrimination continues: the mcq/textMcq foil banks now add
+  #    «duele» (wrong number) alongside the person-conjugation foils,
+  #    still only in unscanned multiple_choice steps. One recall of
+  #    L1's own singular pattern (cue: recall) opens the lesson body.
+  #    audioWimcq target rotates to «libro» (away from L1's «perro»).
+  #    Still no `tengo`/colors/size (reserved to L9).
+  - n: 2
+    template: free
+    title: "Me duelen los pies"
+    description: "The other half of the pair — «duelen», when more than one thing hurts. Same word order, same rule you already used for «gusta»/«gustan» back in module 13."
+    steps:
+      - kind: map
+        id: l2-map-meduelenlospies
+        tokens: ["me", "duelen", "los", "pies"]
+        pairs:
+          - { en: "to me", tokenIndex: 0 }
+          - { en: "hurt (plural)", tokenIndex: 1 }
+          - { en: "feet", tokenIndex: 3 }
+        audioText: "me duelen los pies"
+        revealNote: "«duelen» — more than one foot, so the verb switches, just like «gustan» did back in module 13."
+      - kind: info
+        id: l2-info-meduelen
+        title: "Duelen — when it's more than one"
+        body: "«me duelen los pies» — «pies» is plural, so «duele» becomes «duelen». Exactly the same switch as «gusta»→«gustan» (m13): the verb agrees with what's hurting, never with you."
+      - kind: speakLit
+        id: l2-sp-recall-meduelelamano
+        es: "me duele la mano"
+        en: "My hand hurts"
+        atoms: ["me", "duele", "mano"]
+        cue: recall
+      - kind: buildLit
+        id: l2-b-meduelenlospies
+        es: "me duelen los pies"
+        en: "My feet hurt"
+        atoms: ["me", "duelen", "pie"]
+        tiles: ["el"]
+      - kind: clozeLit
+        id: l2-c-meduelenlosojos
+        es: "me duelen los ojos"
+        en: "My eyes hurt"
+        blank: "duelen"
+        options: ["duelen", "duele"]
+        atoms: ["me", "duelen", "ojo"]
+        why: "two eyes, more than one thing hurting — «duelen», not «duele». The verb counts what hurts, not who's hurting."
+      - kind: listenCompLit
+        id: l2-lc-meduelenlasmanos
+        es: "me duelen las manos"
+        en: "My hands hurt."
+        atoms: ["me", "duelen", "mano"]
+        distractorsEn:
+          - "My hand hurts."
+          - "My feet hurt."
+          - "You have hands."
+      - kind: mcq
+        id: l2-q-duelen
+        prompt: "Which one means 'they hurt' (more than one thing)?"
+        correct: "duelen"
+        distractors: ["duele", "duelemos", "duelo"]
+        atoms: ["duelen"]
+        why: "«duelen» agrees with more than one thing hurting — same split as «gusta»/«gustan» (m13). There is no «duelemos»; the verb never conjugates to the person."
+      - kind: buildLit
+        id: l2-b-meduelenlosbrazos
+        es: "me duelen los brazos"
+        en: "My arms hurt"
+        atoms: ["me", "duelen", "brazo"]
+        tiles: ["la"]
+      - kind: audioWimcq
+        id: l2-ear-libro
+        target: { surface: "libro", emoji: "📖" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: agreementLit
+        id: l2-agr-duelesingularplural
+        en: "My arm hurts, and my legs hurt too"
+        audioText: "me duele el brazo, y me duelen las piernas también"
+        atoms: ["me", "duele", "brazo", "duelen", "pierna", "también"]
+        segments:
+          - { text: "me " }
+          - { blank: { id: "p1", answer: "duele", options: ["duele", "duelen"] } }
+          - { text: " el brazo, y me " }
+          - { blank: { id: "p2", answer: "duelen", options: ["duelen", "duele"] } }
+          - { text: " las piernas también" }
+      - kind: listenBuildLit
+        id: l2-lb-meduelenlaspiernas
+        es: "me duelen las piernas"
+        en: "My legs hurt"
+        atoms: ["me", "duelen", "pierna"]
+        tiles: ["duele", "el"]
+      - kind: textMcq
+        id: l2-tm-duelen
+        target: "duelen"
+        distractors: ["duele", "duelemos", "dueles"]
+      - kind: sim
+        id: l2-sim-ana-pies
+        scene: { emoji: "🥿", title: "Ana asks about your feet", setting: "Ana notices you limping after the walk." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Te duelen los pies?", audioText: "¿te duelen los pies?", gloss: "Do your feet hurt?" }
+            goal: "Say yes, your feet hurt."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me duelen los pies" }
+                - { id: "wrong1", text: "sí, me duele los pies" }
+                - { id: "wrong2", text: "sí, te duelen los pies" }
+              correctOptionId: "right"
+              audioText: "sí, me duelen los pies"
+            replyGloss: "Yes, my feet hurt."
+            explanation: "«pies» is plural — «duelen», not «duele». And «me», not «te» — you're answering about yourself, not asking Ana about hers."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y las manos? ¿También te duelen?", audioText: "¿y las manos? ¿también te duelen?", gloss: "And your hands? Do they hurt too?" }
+            goal: "Say yes, your hands hurt too."
+            reply:
+              mode: build
+              tiles: ["sí", "me", "duelen", "las", "manos", "también", "duele", "duelemos"]
+              answer: "sí me duelen las manos también"
+            replyGloss: "Yes, my hands hurt too."
+            explanation: "«las manos» is still plural — «duelen» stays. Never «duelemos»; the verb doesn't conjugate to match the person."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "duelen", target: "hurt (more than one)" }
+          - { source: "pies", target: "feet" }
+          - { source: "ojos", target: "eyes" }
+          - { source: "manos", target: "hands" }
+          - { source: "brazos", target: "arms" }
+          - { source: "piernas", target: "legs" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "me duelen los pies"
+        en: "My feet hurt"
+        atoms: ["me", "duelen", "pie"]
+
+  # ── L3 · «¿Te duele...?» — tú-form questions, production. «te» is
+  #    PRIOR (m13); no new atom, just recombination onto the dative
+  #    frame. Interleaves with m29's clitic-on-infinitive family
+  #    (reviewed via PRIOR compiled sentence, not a new coinage) so the
+  #    lesson isn't 100% dative-frame steps in a row. ≥1 recall
+  #    (singular AND plural, per the brief's recall table) opens the body.
+  - n: 3
+    template: free
+    title: "¿Te duele...?"
+    description: "Asking someone else — «te duele»/«te duelen». Same «me»→«te» swap you already made a hundred times with «gusta» back in module 13."
+    steps:
+      - kind: map
+        id: l3-map-teduelelamano
+        tokens: ["¿te", "duele", "la", "mano?"]
+        pairs:
+          - { en: "to you", tokenIndex: 0 }
+          - { en: "hurts", tokenIndex: 1 }
+          - { en: "hand", tokenIndex: 3 }
+        audioText: "¿te duele la mano?"
+        revealNote: "«te duele» — swap «me» for «te» and you're asking someone else, exactly like «¿te gusta?» (m13)."
+      - kind: info
+        id: l3-info-teduele
+        title: "Te duele — asking someone else"
+        body: "«¿te duele la mano?» — swap «me» for «te» and the sentence now asks. Same swap as «¿te gusta?» (m13); the verb itself never changes for the question."
+      - kind: speakLit
+        id: l3-sp-recall-meduelenlospies
+        es: "me duelen los pies"
+        en: "My feet hurt"
+        atoms: ["me", "duelen", "pie"]
+        cue: recall
+      - kind: buildLit
+        id: l3-b-teduelelamano
+        es: "¿te duele la mano?"
+        en: "Does your hand hurt?"
+        atoms: ["te", "duele", "mano"]
+        tiles: ["duelen"]
+      - kind: clozeLit
+        id: l3-c-teduelenlospies
+        es: "te duelen los pies"
+        en: "Your feet hurt"
+        blank: "duelen"
+        options: ["duelen", "duele"]
+        atoms: ["te", "duelen", "pie"]
+        why: "«los pies» is plural — «duelen». Same rule whether it's a statement or a question."
+      - kind: listenCompLit
+        id: l3-lc-teduelelojo
+        es: "¿te duele el ojo?"
+        en: "Does your eye hurt?"
+        atoms: ["te", "duele", "ojo"]
+        distractorsEn:
+          - "Do your eyes hurt?"
+          - "Does my eye hurt?"
+          - "You have an eye."
+      - kind: mcq
+        id: l3-q-teduele
+        prompt: "'Does your arm hurt?' — which word goes after «te»?"
+        correct: "duele"
+        distractors: ["duelo", "duelen", "dueles"]
+        atoms: ["te", "duele"]
+        why: "«el brazo» is singular, so «duele» — same rule as always: the verb agrees with what hurts, never with «tú»."
+      - kind: speakLit
+        id: l3-sp-recall-noquierolevantarme
+        es: "no quiero levantarme"
+        en: "I don't want to get up"
+        atoms: ["quiero", "levantarme"]
+        cue: recall
+      - kind: audioWimcq
+        id: l3-ear-casa
+        target: { surface: "casa", emoji: "🏠" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "libro", emoji: "📖" }
+      - kind: buildLit
+        id: l3-b-teduelenlosbrazos
+        es: "¿te duelen los brazos?"
+        en: "Do your arms hurt?"
+        atoms: ["te", "duelen", "brazo"]
+        tiles: ["duele"]
+      - kind: listenBuildLit
+        id: l3-lb-teduelelapierna
+        es: "¿te duele la pierna?"
+        en: "Does your leg hurt?"
+        atoms: ["te", "duele", "pierna"]
+        tiles: ["duelen", "me"]
+      - kind: textMcq
+        id: l3-tm-te
+        target: "te"
+        distractors: ["me", "le", "mucho"]
+      - kind: sim
+        id: l3-sim-sofia-boca
+        scene: { emoji: "😬", title: "Sofía checks on you", setting: "Sofía sees you wincing after biting into something too hot." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Te duele la boca?", audioText: "¿te duele la boca?", gloss: "Does your mouth hurt?" }
+            goal: "Say yes, your mouth hurts."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me duele la boca" }
+                - { id: "wrong1", text: "sí, te duele la boca" }
+                - { id: "wrong2", text: "sí, duelo la boca" }
+              correctOptionId: "right"
+              audioText: "sí, me duele la boca"
+            replyGloss: "Yes, my mouth hurts."
+            explanation: "Answer about yourself with «me», not «te» — Sofía asked with «te», but you reply about you. And «duelo» is never a word here; «duele» never conjugates to the person."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y los dientes también?", audioText: "¿y los dientes también?", gloss: "And your teeth too?" }
+            goal: "Say no, just your mouth."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, solo me duele la boca" }
+                - { id: "wrong1", text: "no, solo te duele la boca" }
+                - { id: "wrong2", text: "no, solo duelen la boca" }
+              correctOptionId: "right"
+              audioText: "no, solo me duele la boca"
+            replyGloss: "No, just my mouth hurts."
+            explanation: "Still «me duele» — one thing, «la boca», so «duele» stays singular."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "te duele", target: "hurts (to you, one thing)" }
+          - { source: "te duelen", target: "hurt (to you, more than one)" }
+          - { source: "boca", target: "mouth" }
+          - { source: "ojo", target: "eye" }
+          - { source: "pierna", target: "leg" }
+          - { source: "brazo", target: "arm" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "¿te duele la mano?"
+        en: "Does your hand hurt?"
+        atoms: ["te", "duele", "mano"]
+
+  # ── L4 · «A Diego le duele...» — third person, named. «le»/«a» are
+  #    both PRIOR (m13's own «a Diego le gusta el fútbol» is the direct
+  #    calibration precedent, echoed in the info card below). No «les»
+  #    anywhere — dative-plural is explicitly NOT-PRIOR per the brief and
+  #    stays out of this module entirely; only me/te/le. ≥1 recall of
+  #    L3's «te duele» opens the body.
+  - n: 4
+    template: free
+    title: "A Diego le duele..."
+    description: "Someone else, named — «a Diego le duele». The same «a + name + le» frame you already used for «a Diego le gusta el fútbol» back in module 13."
+    steps:
+      - kind: map
+        id: l4-map-adiegoleduele
+        tokens: ["a", "Diego", "le", "duele", "el", "brazo"]
+        pairs:
+          - { en: "Diego", tokenIndex: 1 }
+          - { en: "to him", tokenIndex: 2 }
+          - { en: "hurts", tokenIndex: 3 }
+          - { en: "arm", tokenIndex: 5 }
+        audioText: "a Diego le duele el brazo"
+        revealNote: "«a Diego le duele» — same frame as «a Diego le gusta» (m13). «le» is doing the same job it always does."
+      - kind: info
+        id: l4-info-adiegoleduele
+        title: "A Diego le duele — naming who"
+        body: "«a Diego le duele el brazo» — same shape as «a Diego le gusta el fútbol» (m13). The «a Diego» names who; «le» still points at that person, man or woman, one or many things hurting."
+      - kind: speakLit
+        id: l4-sp-recall-teduelelamano
+        es: "¿te duele la mano?"
+        en: "Does your hand hurt?"
+        atoms: ["te", "duele", "mano"]
+        cue: recall
+      - kind: buildLit
+        id: l4-b-adiegoleduele
+        es: "a Diego le duele el brazo"
+        en: "Diego's arm hurts"
+        atoms: ["le", "duele", "brazo"]
+        tiles: ["duelen"]
+      - kind: clozeLit
+        id: l4-c-aanaleduelen
+        es: "a Ana le duelen los pies"
+        en: "Ana's feet hurt"
+        blank: "duelen"
+        options: ["duelen", "duele"]
+        atoms: ["le", "duelen", "pie"]
+        why: "«los pies» is plural, so «duelen» — the rule never changes, no matter whose name is out front."
+      - kind: listenCompLit
+        id: l4-lc-asofialeduele
+        es: "a Sofía le duele el ojo"
+        en: "Sofía's eye hurts."
+        atoms: ["le", "duele", "ojo"]
+        distractorsEn:
+          - "Sofía's eyes hurt."
+          - "Diego's eye hurts."
+          - "Sofía has an eye."
+      - kind: mcq
+        id: l4-q-leduele
+        prompt: "'Diego's leg hurts.' — which word after «le»?"
+        correct: "duele"
+        distractors: ["duelen", "duelo", "dueles"]
+        atoms: ["le", "duele"]
+        why: "«la pierna» is one thing — «duele». «le» never changes for a man or a woman; only how many things hurt changes the verb, same rule as «le gusta» (m13)."
+      - kind: buildLit
+        id: l4-b-amarialeduelenlosojos
+        es: "a María le duelen los ojos"
+        en: "María's eyes hurt"
+        atoms: ["le", "duelen", "ojo"]
+        tiles: ["duele"]
+      - kind: audioWimcq
+        id: l4-ear-perro
+        target: { surface: "perro", emoji: "🐶" }
+        distractors:
+          - { surface: "libro", emoji: "📖" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: agreementLit
+        id: l4-agr-diegoana
+        en: "Diego's hand hurts, and Ana's feet hurt too"
+        audioText: "a Diego le duele la mano, y a Ana le duelen los pies también"
+        atoms: ["le", "duele", "mano", "duelen", "pie", "también"]
+        segments:
+          - { text: "a Diego le " }
+          - { blank: { id: "p1", answer: "duele", options: ["duele", "duelen"] } }
+          - { text: " la mano, y a Ana le " }
+          - { blank: { id: "p2", answer: "duelen", options: ["duelen", "duele"] } }
+          - { text: " los pies también" }
+      - kind: listenBuildLit
+        id: l4-lb-acarmenleduele
+        es: "a Carmen le duele la nariz"
+        en: "Carmen's nose hurts"
+        atoms: ["le", "duele", "nariz"]
+        tiles: ["duelen", "te"]
+      - kind: textMcq
+        id: l4-tm-le
+        target: "le"
+        distractors: ["me", "te", "mucho"]
+      - kind: sim
+        id: l4-sim-luis-diego
+        scene: { emoji: "🙁", title: "Luis is worried about Diego", setting: "Luis noticed Diego wasn't playing fútbol today." }
+        turns:
+          - id: t1
+            npc: { speaker: "Luis", es: "¿Le duele la pierna a Diego?", audioText: "¿le duele la pierna a Diego?", gloss: "Does Diego's leg hurt?" }
+            goal: "Say yes, Diego's leg hurts."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, a Diego le duele la pierna" }
+                - { id: "wrong1", text: "sí, a Diego le duelen la pierna" }
+                - { id: "wrong2", text: "sí, Diego duele la pierna" }
+              correctOptionId: "right"
+              audioText: "sí, a Diego le duele la pierna"
+            replyGloss: "Yes, Diego's leg hurts."
+            explanation: "«la pierna» is one thing — «duele», not «duelen». And «le» never drops out, even with the name right there: «Diego le duele», not «Diego duele»."
+          - id: t2
+            npc: { speaker: "Luis", es: "¿Y tú? ¿Te duele la pierna también?", audioText: "¿y tú? ¿te duele la pierna también?", gloss: "And you? Does your leg hurt too?" }
+            goal: "Say no, your leg doesn't hurt."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, no me duele la pierna" }
+                - { id: "wrong1", text: "no, no te duele la pierna" }
+                - { id: "wrong2", text: "no, no le duele la pierna" }
+              correctOptionId: "right"
+              audioText: "no, no me duele la pierna"
+            replyGloss: "No, my leg doesn't hurt."
+            explanation: "Answering about yourself again — «me», not «te» or «le». Luis asked with «te»; you always reply with «me»."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "le duele", target: "hurts (to him/her, one thing)" }
+          - { source: "le duelen", target: "hurt (to him/her, more than one)" }
+          - { source: "a Diego", target: "to Diego" }
+          - { source: "a Ana", target: "to Ana" }
+          - { source: "a Sofía", target: "to Sofía" }
+          - { source: "a María", target: "to María" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "a Diego le duele el brazo"
+        en: "Diego's arm hurts"
+        atoms: ["le", "duele", "brazo"]
+
+  # ── L5 · «No puedo correr» — real-use scenario, after sport. «puedo/
+  #    puedes/puede» (m14) recombine with «duele» to explain WHY: the
+  #    frame this module teaches is used, not drilled in isolation. No
+  #    Spanish word for "doctor" exists in the course, so the clinic
+  #    framing lives only in the English scene setting (scanned nothing);
+  #    every Spanish line stays inside registered vocabulary. ≥1 recall
+  #    of L4's named third-person line opens the body.
+  - n: 5
+    template: free
+    title: "No puedo correr"
+    description: "Real use: «duele» explains why you can't. «No puedo correr, me duele la pierna» — the reason comes right after."
+    steps:
+      - kind: map
+        id: l5-map-nopuedocorrer
+        tokens: ["no", "puedo", "correr,", "me", "duele", "la", "pierna"]
+        pairs:
+          - { en: "I can't", tokenIndex: 1 }
+          - { en: "run", tokenIndex: 2 }
+          - { en: "my leg hurts", tokenIndex: 4 }
+        audioText: "no puedo correr, me duele la pierna"
+        revealNote: "«no puedo correr» (m14) plus the reason — «me duele la pierna». One sentence, cause and effect."
+      - kind: info
+        id: l5-info-nopuedoporque
+        title: "No puedo... — now with a reason"
+        body: "«no puedo correr, me duele la pierna» — PRIOR «puedo» (m14) and this module's «duele», back to back. The pain explains the «no puedo»."
+      - kind: speakLit
+        id: l5-sp-recall-adiegoleduele
+        es: "a Diego le duele el brazo"
+        en: "Diego's arm hurts"
+        atoms: ["le", "duele", "brazo"]
+        cue: recall
+      - kind: buildLit
+        id: l5-b-nopuedescorrer
+        es: "no puedes correr, te duele el pie"
+        en: "You can't run, your foot hurts"
+        atoms: ["puedes", "correr", "te", "duele", "pie"]
+        tiles: ["duelen"]
+      - kind: clozeLit
+        id: l5-c-nopuedecorrer
+        es: "Diego no puede correr, le duelen las piernas"
+        en: "Diego can't run, his legs hurt"
+        blank: "duelen"
+        options: ["duelen", "duele"]
+        atoms: ["puede", "correr", "le", "duelen", "pierna"]
+        why: "«las piernas» — both legs, more than one thing — «duelen». Same rule, now inside a longer sentence."
+      - kind: listenCompLit
+        id: l5-lc-nopuedocorrerbrazo
+        es: "no puedo correr, me duele el brazo"
+        en: "I can't run, my arm hurts."
+        atoms: ["puedo", "correr", "me", "duele", "brazo"]
+        distractorsEn:
+          - "I can run, my arm hurts."
+          - "I can't run, my legs hurt."
+          - "I can't run."
+      - kind: mcq
+        id: l5-q-nopuedo
+        prompt: "'I can't run' — which word means 'I can't'?"
+        correct: "puedo"
+        distractors: ["puedes", "puede", "duelo"]
+        atoms: ["puedo"]
+        why: "«puedo» — PRIOR from module 14, «I can/I'm able to». Never «duelo»; that word doesn't exist."
+      - kind: buildLit
+        id: l5-b-anaduelenmanos
+        es: "Ana no puede correr, le duelen las manos"
+        en: "Ana can't run, her hands hurt"
+        atoms: ["puede", "correr", "le", "duelen", "mano"]
+        tiles: ["duele"]
+      - kind: audioWimcq
+        id: l5-ear-libro
+        target: { surface: "libro", emoji: "📖" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: agreementLit
+        id: l5-agr-samcorrer
+        en: "Sam can't run, his foot hurts a lot"
+        audioText: "Sam no puede correr, le duele mucho el pie"
+        atoms: ["puede", "correr", "le", "duele", "mucho", "pie"]
+        segments:
+          - { text: "Sam no puede correr, le " }
+          - { blank: { id: "p1", answer: "duele", options: ["duele", "duelen"] } }
+          - { text: " mucho " }
+          - { blank: { id: "p2", answer: "el", options: ["el", "la"] } }
+          - { text: " pie" }
+      - kind: listenBuildLit
+        id: l5-lb-teduelemucho
+        es: "no puedes correr, te duele mucho la pierna"
+        en: "You can't run, your leg hurts a lot"
+        atoms: ["puedes", "correr", "te", "duele", "mucho", "pierna"]
+        tiles: ["duelen", "me"]
+      - kind: textMcq
+        id: l5-tm-correr
+        target: "correr"
+        distractors: ["duele", "puede", "mano"]
+      - kind: sim
+        id: l5-sim-carmen-clinica
+        scene: { emoji: "🩺", title: "At the clinic", setting: "Carmen is a doctor. She's asking what hurts after your game." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Te duele la pierna?", audioText: "¿te duele la pierna?", gloss: "Does your leg hurt?" }
+            goal: "Say yes, your leg hurts a lot."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me duele mucho la pierna" }
+                - { id: "wrong1", text: "sí, te duele mucho la pierna" }
+                - { id: "wrong2", text: "sí, duelo mucho la pierna" }
+              correctOptionId: "right"
+              audioText: "sí, me duele mucho la pierna"
+            replyGloss: "Yes, my leg hurts a lot."
+            explanation: "«me», not «te» — you're answering about yourself. «duelo» is never a word; «duele» never conjugates to the person."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Puedes correr?", audioText: "¿puedes correr?", gloss: "Can you run?" }
+            goal: "Say no, you can't run."
+            reply:
+              mode: build
+              tiles: ["no", "puedo", "correr", "puedes", "duelo"]
+              answer: "no puedo correr"
+            replyGloss: "No, I can't run."
+            explanation: "Answer about yourself with «puedo», not «puedes» — Carmen asked with «puedes», you reply with «puedo»."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "no puedo", target: "I can't" }
+          - { source: "correr", target: "to run" }
+          - { source: "me duele mucho", target: "it hurts me a lot" }
+          - { source: "pierna", target: "leg" }
+          - { source: "pie", target: "foot" }
+          - { source: "brazo", target: "arm" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "no puedo correr, me duele la pierna"
+        en: "I can't run, my leg hurts"
+        atoms: ["puedo", "correr", "me", "duele", "pierna"]
+
+  # ── L6 · «No voy a correr porque me duele el pie» — «voy a» + inf
+  #    (m9/m28) and «porque» (m25) both recombine onto the dative frame;
+  #    the "no puedo... because it hurts" real-use pattern now gets its
+  #    actual reason-word. No new atoms — pure recombination. ≥1 recall
+  #    of L5's win line opens the body. mcq content diversifies to
+  #    «porque» itself (central duele-person foils still covered by
+  #    textMcq, kept alive every lesson per the brief).
+  - n: 6
+    template: free
+    title: "No voy a correr porque me duele el pie"
+    description: "«porque» (m25) gives the reason — «no voy a correr porque me duele el pie». The plan changes because of the pain."
+    steps:
+      - kind: map
+        id: l6-map-novoyacorrerporque
+        tokens: ["no", "voy", "a", "correr", "porque", "me", "duele", "el", "pie"]
+        pairs:
+          - { en: "I'm not going to", tokenIndex: 1 }
+          - { en: "run", tokenIndex: 3 }
+          - { en: "because", tokenIndex: 4 }
+          - { en: "my foot hurts", tokenIndex: 6 }
+        audioText: "no voy a correr porque me duele el pie"
+        revealNote: "«voy a» (m9) plus «porque» (m25) plus «me duele» — three PRIOR pieces and this module's word, one sentence."
+      - kind: info
+        id: l6-info-porque
+        title: "Porque — the reason"
+        body: "«no voy a correr porque me duele el pie» — «porque» (m25) states the reason. The plan («voy a correr») changes because of what hurts."
+      - kind: speakLit
+        id: l6-sp-recall-nopuedocorrer
+        es: "no puedo correr, me duele la pierna"
+        en: "I can't run, my leg hurts"
+        atoms: ["puedo", "correr", "me", "duele", "pierna"]
+        cue: recall
+      - kind: buildLit
+        id: l6-b-diegonovaacorrer
+        es: "Diego no va a correr porque le duele la pierna"
+        en: "Diego isn't going to run because his leg hurts"
+        atoms: ["va", "correr", "porque", "le", "duele", "pierna"]
+        tiles: ["duelen"]
+      - kind: clozeLit
+        id: l6-c-anaporque
+        es: "Ana no va a correr porque le duelen los pies"
+        en: "Ana isn't going to run because her feet hurt"
+        blank: "duelen"
+        options: ["duelen", "duele"]
+        atoms: ["va", "correr", "porque", "le", "duelen", "pie"]
+        why: "«los pies» — more than one — «duelen». The «porque» clause follows the same agreement rule as any other."
+      - kind: listenCompLit
+        id: l6-lc-vasacorrer
+        es: "vas a correr, pero te duele el brazo"
+        en: "You're going to run, but your arm hurts."
+        atoms: ["vas", "correr", "pero", "te", "duele", "brazo"]
+        distractorsEn:
+          - "You're not going to run, but your arm hurts."
+          - "You're going to run, but your arms hurt."
+          - "You're going to run."
+      - kind: mcq
+        id: l6-q-porque
+        prompt: "Which word means 'because'?"
+        correct: "porque"
+        distractors: ["pero", "también", "para"]
+        atoms: ["porque"]
+        why: "«porque» (m25) states a reason. «pero» (m6) means 'but'; «también» (m11) means 'also' — different jobs."
+      - kind: buildLit
+        id: l6-b-samvaajugar
+        es: "Sam va a correr, pero le duele el ojo"
+        en: "Sam is going to run, but his eye hurts"
+        atoms: ["va", "correr", "pero", "le", "duele", "ojo"]
+        tiles: ["duelen"]
+      - kind: audioWimcq
+        id: l6-ear-casa
+        target: { surface: "casa", emoji: "🏠" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "libro", emoji: "📖" }
+      - kind: agreementLit
+        id: l6-agr-porquesingularplural
+        en: "María isn't going to run because her hand hurts, and her arms hurt too"
+        audioText: "María no va a correr porque le duele la mano, y le duelen los brazos también"
+        atoms: ["va", "correr", "porque", "le", "duele", "mano", "duelen", "brazo", "también"]
+        segments:
+          - { text: "María no va a correr porque le " }
+          - { blank: { id: "p1", answer: "duele", options: ["duele", "duelen"] } }
+          - { text: " la mano, y le " }
+          - { blank: { id: "p2", answer: "duelen", options: ["duelen", "duele"] } }
+          - { text: " los brazos también" }
+      - kind: listenBuildLit
+        id: l6-lb-noteduele
+        es: "no voy a correr porque te duele el pie"
+        en: "I'm not going to run because your foot hurts"
+        atoms: ["voy", "correr", "porque", "te", "duele", "pie"]
+        tiles: ["duelen", "me"]
+      - kind: textMcq
+        id: l6-tm-duele-foils
+        target: "duele"
+        distractors: ["duelo", "duelen", "dueles"]
+      - kind: sim
+        id: l6-sim-luis-plan
+        scene: { emoji: "📅", title: "Weekend plans", setting: "Luis is planning a run this weekend and checks if you can join." }
+        turns:
+          - id: t1
+            npc: { speaker: "Luis", es: "¿Vas a correr también?", audioText: "¿vas a correr también?", gloss: "Are you going to run too?" }
+            goal: "Say no, because your foot hurts."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, porque me duele el pie" }
+                - { id: "wrong1", text: "no, porque te duele el pie" }
+                - { id: "wrong2", text: "no, pero me duele el pie" }
+              correctOptionId: "right"
+              audioText: "no, porque me duele el pie"
+            replyGloss: "No, because my foot hurts."
+            explanation: "«porque» gives the reason; «pero» would mean 'but' and doesn't fit here. And «me», not «te» — you're talking about yourself."
+          - id: t2
+            npc: { speaker: "Luis", es: "¿Y Diego? ¿Va a correr?", audioText: "¿y Diego? ¿va a correr?", gloss: "And Diego? Is he going to run?" }
+            goal: "Say no, because his leg hurts too."
+            reply:
+              mode: build
+              tiles: ["no,", "porque", "le", "duele", "la", "pierna", "también", "duelen", "duelo"]
+              answer: "no, porque le duele la pierna también"
+            replyGloss: "No, because his leg hurts too."
+            explanation: "«le», not «me» — this is about Diego now, not you. «la pierna» is one thing, so «duele» stays singular."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "porque", target: "because" }
+          - { source: "voy a", target: "I'm going to" }
+          - { source: "va a", target: "he/she is going to" }
+          - { source: "vas a", target: "you're going to" }
+          - { source: "pero", target: "but" }
+          - { source: "también", target: "also, too" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "no voy a correr porque me duele el pie"
+        en: "I'm not going to run because my foot hurts"
+        atoms: ["voy", "correr", "porque", "me", "duele", "pie"]
+
+  # ── L7 · «Ayer trabajé mucho, y hoy me duelen las manos» — preterite
+  #    review (m19, «trabajé»/«salí») pairs with «hoy» (m8) against
+  #    «ayer» to frame duele as TODAY'S consequence of YESTERDAY'S
+  #    action — a real cause-effect scenario, not a bare list. Body
+  #    parts combine via «y»/«también» (both PRIOR) across separate
+  #    clauses, each keeping its own verb, avoiding the combined-subject
+  #    plural-agreement edge case. ≥1 recall of L6's win line opens body.
+  - n: 7
+    template: free
+    title: "Ayer trabajé mucho, y hoy me duelen las manos"
+    description: "Yesterday's preterite (m19), today's consequence. «ayer trabajé mucho, y hoy me duelen las manos» — the past explains the present."
+    steps:
+      - kind: map
+        id: l7-map-ayertrabajehoymeduelen
+        tokens: ["ayer", "trabajé", "mucho,", "y", "hoy", "me", "duelen", "las", "manos"]
+        pairs:
+          - { en: "yesterday", tokenIndex: 0 }
+          - { en: "I worked", tokenIndex: 1 }
+          - { en: "today", tokenIndex: 4 }
+          - { en: "my hands hurt", tokenIndex: 6 }
+        audioText: "ayer trabajé mucho, y hoy me duelen las manos"
+        revealNote: "«ayer trabajé» (m19, past) sets up «hoy me duelen» (present) — yesterday's cause, today's effect."
+      - kind: info
+        id: l7-info-ayerhoy
+        title: "Ayer... hoy... — cause, then effect"
+        body: "«ayer trabajé mucho, y hoy me duelen las manos» — «ayer» (m19 preterite) tells what happened; «hoy» (m8) plus «duelen» tells what it left behind, right now."
+      - kind: speakLit
+        id: l7-sp-recall-novoyacorrer
+        es: "no voy a correr porque me duele el pie"
+        en: "I'm not going to run because my foot hurts"
+        atoms: ["voy", "correr", "porque", "me", "duele", "pie"]
+        cue: recall
+      - kind: buildLit
+        id: l7-b-ayersalipero
+        es: "ayer salí, pero hoy me duele el pie"
+        en: "Yesterday I went out, but today my foot hurts"
+        atoms: ["salí", "pero", "hoy", "me", "duele", "pie"]
+        tiles: ["duelen"]
+      - kind: clozeLit
+        id: l7-c-ayertrabajoana
+        es: "Ana trabajó ayer, y hoy le duelen los brazos"
+        en: "Ana worked yesterday, and today her arms hurt"
+        blank: "duelen"
+        options: ["duelen", "duele"]
+        atoms: ["trabajó", "ayer", "hoy", "le", "duelen", "brazo"]
+        why: "«los brazos» — more than one — «duelen». Past tense in the first half doesn't change the agreement rule in the second."
+      - kind: listenCompLit
+        id: l7-lc-samsalioayer
+        es: "Sam salió ayer, y hoy le duele la pierna"
+        en: "Sam went out yesterday, and today his leg hurts."
+        atoms: ["salió", "ayer", "hoy", "le", "duele", "pierna"]
+        distractorsEn:
+          - "Sam is going out today, and his leg hurts."
+          - "Sam went out yesterday, and today his legs hurt."
+          - "Sam went out yesterday."
+      - kind: mcq
+        id: l7-q-ayerhoy
+        prompt: "'Today' — which word?"
+        correct: "hoy"
+        distractors: ["ayer", "mucho", "también"]
+        atoms: ["hoy"]
+        why: "«hoy» (m8) means 'today'. «ayer» (m19) is 'yesterday' — the two words that set up this whole lesson's contrast."
+      - kind: buildLit
+        id: l7-b-hoymeduelebrazo
+        es: "hoy me duele el brazo, y también me duele la pierna"
+        en: "Today my arm hurts, and my leg hurts too"
+        atoms: ["hoy", "me", "duele", "brazo", "también", "pierna"]
+        tiles: ["duelen"]
+      - kind: audioWimcq
+        id: l7-ear-perro
+        target: { surface: "perro", emoji: "🐶" }
+        distractors:
+          - { surface: "libro", emoji: "📖" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: agreementLit
+        id: l7-agr-trabajesingularplural
+        en: "I worked yesterday, and today my hand hurts, and my eyes hurt too"
+        audioText: "trabajé ayer, y hoy me duele la mano, y me duelen los ojos también"
+        atoms: ["trabajé", "ayer", "hoy", "me", "duele", "mano", "duelen", "ojo", "también"]
+        segments:
+          - { text: "trabajé ayer, y hoy me " }
+          - { blank: { id: "p1", answer: "duele", options: ["duele", "duelen"] } }
+          - { text: " la mano, y me " }
+          - { blank: { id: "p2", answer: "duelen", options: ["duelen", "duele"] } }
+          - { text: " los ojos también" }
+      - kind: listenBuildLit
+        id: l7-lb-diegotrabajo
+        es: "Diego trabajó ayer, y hoy le duele la nariz"
+        en: "Diego worked yesterday, and today his nose hurts"
+        atoms: ["trabajó", "ayer", "hoy", "le", "duele", "nariz"]
+        tiles: ["duelen", "te"]
+      - kind: textMcq
+        id: l7-tm-duelen-foils
+        target: "duelen"
+        distractors: ["duele", "duelemos", "dueles"]
+      - kind: sim
+        id: l7-sim-carmen-ayerhoy
+        scene: { emoji: "🗓️", title: "Carmen checks in", setting: "Carmen remembers you worked a lot yesterday and asks how you feel today." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "Trabajaste mucho ayer. ¿Te duelen las manos hoy?", audioText: "trabajaste mucho ayer. ¿te duelen las manos hoy?", gloss: "You worked a lot yesterday. Do your hands hurt today?" }
+            goal: "Say yes, your hands hurt today."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, hoy me duelen las manos" }
+                - { id: "wrong1", text: "sí, hoy me duele las manos" }
+                - { id: "wrong2", text: "sí, hoy te duelen las manos" }
+              correctOptionId: "right"
+              audioText: "sí, hoy me duelen las manos"
+            replyGloss: "Yes, my hands hurt today."
+            explanation: "«las manos» is plural — «duelen». And «me», not «te» — you're answering about yourself."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Y el brazo también?", audioText: "¿y el brazo también?", gloss: "And your arm too?" }
+            goal: "Say yes, your arm hurts too."
+            reply:
+              mode: build
+              tiles: ["sí,", "también", "me", "duele", "el", "brazo", "duelen", "duelo"]
+              answer: "sí, también me duele el brazo"
+            replyGloss: "Yes, my arm hurts too."
+            explanation: "«el brazo» — one thing, back to «duele». Every body part gets its own agreement check."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "ayer", target: "yesterday" }
+          - { source: "hoy", target: "today" }
+          - { source: "trabajé", target: "I worked" }
+          - { source: "salí", target: "I went out" }
+          - { source: "también", target: "also, too" }
+          - { source: "pero", target: "but" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "ayer trabajé mucho, y hoy me duelen las manos"
+        en: "Yesterday I worked a lot, and today my hands hurt"
+        atoms: ["trabajé", "ayer", "hoy", "me", "duelen", "mano"]
+
+  # ── L8 · Checkpoint — all graded, no map/info (mirrors m30-L8's own
+  #    checkpoint shape). Pure recombination of L1-L7 content: singular/
+  #    plural duele, all three persons (me/te/le), porque + voy a/no
+  #    puedo, ayer/hoy preterite contrast. ≥2 recalls (brief's own
+  #    checkpoint floor) drawn from different earlier lessons' win lines.
+  #    Ends sim → matchLit → speakLit-win, same closing shape as every
+  #    other lesson (doctrine: last 3 steps need a match_pairs step).
+  - n: 8
+    template: free
+    title: "Checkpoint: me duele, te duele, le duele"
+    description: "Everything so far, recombined — no new words, just the three persons and the singular/plural split, all in one pass."
+    steps:
+      - kind: speakLit
+        id: l8-sp-recall-meduelelamano
+        es: "me duele la mano"
+        en: "My hand hurts"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-teduelenlosojos
+        es: "¿te duelen los ojos?"
+        en: "Do your eyes hurt?"
+        atoms: ["te", "duelen", "ojo"]
+        tiles: ["duele"]
+      - kind: clozeLit
+        id: l8-c-adiegoleduele
+        es: "a Diego le duele el brazo"
+        en: "Diego's arm hurts"
+        blank: "duele"
+        options: ["duele", "duelen"]
+        atoms: ["le", "duele", "brazo"]
+        why: "«el brazo» — one thing — «duele». Named third person uses the exact same rule as «me»/«te»."
+      - kind: listenCompLit
+        id: l8-lc-anonopuedocorrer
+        es: "no puedo correr porque me duele el pie"
+        en: "I can't run because my foot hurts."
+        atoms: ["puedo", "correr", "porque", "me", "duele", "pie"]
+        distractorsEn:
+          - "I can run because my foot hurts."
+          - "I can't run because my feet hurt."
+          - "My foot hurts."
+      - kind: mcq
+        id: l8-q-duelefoils
+        prompt: "Which one means 'it hurts' (one thing)?"
+        correct: "duele"
+        distractors: ["duelo", "duelen", "dueles"]
+        atoms: ["duele"]
+        why: "«duele» never conjugates to the person — it agrees only with what's hurting, exactly like «gusta» (m13)."
+      - kind: speakLit
+        id: l8-sp-recall-ayerhoy
+        es: "ayer trabajé mucho, y hoy me duelen las manos"
+        en: "Yesterday I worked a lot, and today my hands hurt"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-samvaacorrer
+        es: "Sam va a correr, pero le duele el ojo"
+        en: "Sam is going to run, but his eye hurts"
+        atoms: ["va", "correr", "pero", "le", "duele", "ojo"]
+        tiles: ["duelen"]
+      - kind: audioWimcq
+        id: l8-ear-libro
+        target: { surface: "libro", emoji: "📖" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: agreementLit
+        id: l8-agr-mariapiernasnariz
+        en: "María's legs hurt, and her nose hurts too"
+        audioText: "a María le duelen las piernas, y le duele la nariz también"
+        atoms: ["le", "duelen", "pierna", "duele", "nariz", "también"]
+        segments:
+          - { text: "a María le " }
+          - { blank: { id: "p1", answer: "duelen", options: ["duelen", "duele"] } }
+          - { text: " las piernas, y le " }
+          - { blank: { id: "p2", answer: "duele", options: ["duele", "duelen"] } }
+          - { text: " la nariz también" }
+      - kind: listenBuildLit
+        id: l8-lb-teduelelabocaporque
+        es: "¿te duele la boca porque comiste mucho?"
+        en: "Does your mouth hurt because you ate a lot?"
+        atoms: ["te", "duele", "boca", "porque", "comiste"]
+        tiles: ["duelen", "me"]
+      - kind: textMcq
+        id: l8-tm-duelen
+        target: "duelen"
+        distractors: ["duele", "duelemos", "dueles"]
+      - kind: sim
+        id: l8-sim-checkpoint
+        scene: { emoji: "🏁", title: "Checkpoint check-in", setting: "Ana runs into you and Diego after a long week and asks how you're both doing." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Te duelen las piernas?", audioText: "¿te duelen las piernas?", gloss: "Do your legs hurt?" }
+            goal: "Say yes, your legs hurt a lot."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me duelen mucho las piernas" }
+                - { id: "wrong1", text: "sí, te duelen mucho las piernas" }
+                - { id: "wrong2", text: "sí, duelemos mucho las piernas" }
+              correctOptionId: "right"
+              audioText: "sí, me duelen mucho las piernas"
+            replyGloss: "Yes, my legs hurt a lot."
+            explanation: "«me», not «te» — answering about yourself. «duelemos» is never a word; the verb agrees with «las piernas», not with you."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y a Diego? ¿Le duele la mano también?", audioText: "¿y a Diego? ¿le duele la mano también?", gloss: "And Diego? Does his hand hurt too?" }
+            goal: "Say yes, his hand hurts too."
+            reply:
+              mode: build
+              tiles: ["sí,", "a", "Diego", "le", "duele", "la", "mano", "también", "duelen"]
+              answer: "sí, a Diego le duele la mano también"
+            replyGloss: "Yes, Diego's hand hurts too."
+            explanation: "«a Diego le duele» — named third person, one thing («la mano»), so «duele» stays singular."
+      - kind: matchLit
+        id: l8-match
+        pairs:
+          - { source: "me duele", target: "hurts me (one thing)" }
+          - { source: "te duelen", target: "hurt you (more than one)" }
+          - { source: "le duele", target: "hurts him/her (one thing)" }
+          - { source: "porque", target: "because" }
+          - { source: "ayer", target: "yesterday" }
+          - { source: "hoy", target: "today" }
+      - kind: speakLit
+        id: l8-sp-win
+        es: "me duele la mano, te duelen los ojos, y a Diego le duele el pie"
+        en: "My hand hurts, your eyes hurt, and Diego's foot hurts"
+        atoms: ["me", "duele", "mano", "te", "duelen", "ojo", "le", "pie"]
+
+  # ── L9 · «Tengo los ojos azules, pero me duelen» — the dedicated
+  #    tengo-vs-duele contrast. Per the brief, tengo-family + colors/size
+  #    are RESERVED to this lesson only — nowhere else in the module.
+  #    SAME noun, same body part, in BOTH frames back to back: «tengo»
+  #    puts the PERSON as subject (possession); «duele(n)» puts the BODY
+  #    PART as subject (sensation) — the grammatical-role flip is the
+  #    whole point, never mixed inside one clause. ≥1 recall of L8's win
+  #    line opens the body.
+  - n: 9
+    template: free
+    title: "Tengo los ojos azules, pero me duelen"
+    description: "Two frames, same body part: «tengo» (I have — PRIOR, you're the subject) versus «duele» (it hurts — the body part is the subject). Never mixed in one clause."
+    steps:
+      - kind: map
+        id: l9-map-tengoojosazules
+        tokens: ["tengo", "los", "ojos", "azules,", "pero", "me", "duelen"]
+        pairs:
+          - { en: "I have", tokenIndex: 0 }
+          - { en: "blue eyes", tokenIndex: 3 }
+          - { en: "but", tokenIndex: 4 }
+          - { en: "they hurt me", tokenIndex: 6 }
+        audioText: "tengo los ojos azules, pero me duelen"
+        revealNote: "«tengo» — you're the subject, you HAVE them. «me duelen» — the eyes are the subject now, THEY hurt. Same eyes, two different sentences."
+      - kind: info
+        id: l9-info-tengovsduele
+        title: "Tengo vs. duele — who's the subject?"
+        body: "«tengo los ojos azules» — you are the subject, PRIOR since module 5. «me duelen» — the eyes become the subject; you become «me», out front. The verb never takes a yo-ending here — it always agrees with the body part, not with you."
+      - kind: speakLit
+        id: l9-sp-recall-l8win
+        es: "me duele la mano, te duelen los ojos, y a Diego le duele el pie"
+        en: "My hand hurts, your eyes hurt, and Diego's foot hurts"
+        atoms: ["me", "duele", "mano", "te", "duelen", "ojo", "le", "pie"]
+        cue: recall
+      - kind: buildLit
+        id: l9-b-tengomanosgrandes
+        es: "tengo las manos grandes, pero me duelen"
+        en: "I have big hands, but they hurt"
+        atoms: ["tengo", "mano", "grande", "pero", "me", "duelen"]
+        tiles: ["duele"]
+      - kind: clozeLit
+        id: l9-c-tienespiepequeno
+        es: "tienes el pie pequeño, pero te duele"
+        en: "You have a small foot, but it hurts"
+        blank: "duele"
+        options: ["duele", "duelen"]
+        atoms: ["tienes", "pie", "pequeño", "pero", "te", "duele"]
+        why: "one foot, one thing hurting — «duele». «tienes»/«pequeño» describe it; «duele» is the separate, second sentence about how it feels."
+      - kind: listenCompLit
+        id: l9-lc-diegotienebrazo
+        es: "Diego tiene el brazo grande, pero le duele"
+        en: "Diego has a big arm, but it hurts."
+        atoms: ["tiene", "brazo", "grande", "pero", "le", "duele"]
+        distractorsEn:
+          - "Diego has a small arm, but it hurts."
+          - "Diego has a big arm, but his arms hurt."
+          - "Diego has a big arm."
+      - kind: mcq
+        id: l9-q-tengoduele
+        prompt: "'I have blue eyes.' — which word?"
+        correct: "tengo"
+        distractors: ["duele", "duelen", "tiene"]
+        atoms: ["tengo"]
+        why: "«tengo» (m5) states possession — you're the subject. «duele»/«duelen» would flip the sentence to be about pain, a different sentence entirely."
+      - kind: buildLit
+        id: l9-b-anatieneojospequenos
+        es: "Ana tiene los ojos pequeños, pero le duelen"
+        en: "Ana has small eyes, but they hurt"
+        atoms: ["tiene", "ojo", "pequeño", "pero", "le", "duelen"]
+        tiles: ["duele"]
+      - kind: audioWimcq
+        id: l9-ear-casa
+        target: { surface: "casa", emoji: "🏠" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "libro", emoji: "📖" }
+      - kind: agreementLit
+        id: l9-agr-tengoazulesduelen
+        en: "I have blue eyes, and today they hurt"
+        audioText: "tengo los ojos azules, y hoy me duelen"
+        atoms: ["tengo", "ojo", "azul", "hoy", "me", "duelen"]
+        segments:
+          - { text: "tengo los ojos " }
+          - { blank: { id: "p1", answer: "azules", options: ["azules", "azul"] } }
+          - { text: ", y hoy me " }
+          - { blank: { id: "p2", answer: "duelen", options: ["duelen", "duele"] } }
+      - kind: listenBuildLit
+        id: l9-lb-tienenmanosduelen
+        es: "tienes las manos grandes, y hoy te duelen"
+        en: "You have big hands, and today they hurt"
+        atoms: ["tienes", "mano", "grande", "hoy", "te", "duelen"]
+        tiles: ["duele", "me"]
+      - kind: textMcq
+        id: l9-tm-tengo
+        target: "tengo"
+        distractors: ["duele", "duelen", "tiene"]
+      - kind: sim
+        id: l9-sim-luis-tengoduele
+        scene: { emoji: "🔵", title: "Luis notices your eyes", setting: "Luis compliments your blue eyes, then notices you rubbing them." }
+        turns:
+          - id: t1
+            npc: { speaker: "Luis", es: "Tienes los ojos azules.", audioText: "tienes los ojos azules.", gloss: "You have blue eyes." }
+            goal: "Agree, and say yes, you have blue eyes."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo los ojos azules" }
+                - { id: "wrong1", text: "sí, me duelen los ojos azules" }
+                - { id: "wrong2", text: "sí, tiene los ojos azules" }
+              correctOptionId: "right"
+              audioText: "sí, tengo los ojos azules"
+            replyGloss: "Yes, I have blue eyes."
+            explanation: "Possession stays with «tengo» — «duelen» would be a different sentence, about pain, not color. And «tengo», not «tiene» — you're answering about yourself."
+          - id: t2
+            npc: { speaker: "Luis", es: "¿Pero te duelen hoy?", audioText: "¿pero te duelen hoy?", gloss: "But do they hurt today?" }
+            goal: "Say yes, they hurt a lot today."
+            reply:
+              mode: build
+              tiles: ["sí,", "me", "duelen", "mucho", "hoy", "tengo", "duele"]
+              answer: "sí, me duelen mucho hoy"
+            replyGloss: "Yes, they hurt a lot today."
+            explanation: "Now the frame flips — «me duelen», not «tengo». Same eyes, a different sentence about how they feel."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "tengo", target: "I have (possession)" }
+          - { source: "duele", target: "it hurts (sensation)" }
+          - { source: "azul", target: "blue" }
+          - { source: "grande", target: "big" }
+          - { source: "pequeño", target: "small" }
+          - { source: "hoy", target: "today" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "tengo los ojos azules, pero me duelen"
+        en: "I have blue eyes, but they hurt"
+        atoms: ["tengo", "ojo", "azul", "pero", "me", "duelen"]
+
+  # ── L10 · Mastery — all graded, no map/info (mirrors m30-L10's own
+  #    mastery shape). Recombines every strand: singular/plural, all
+  #    three persons, porque/voy a/no puedo, ayer/hoy, and a final recall
+  #    of L9's tengo-vs-duele contrast (retrieval only — no new teaching,
+  #    the reservation was about introducing that content, not recalling
+  #    it). ≥2 recalls (brief's own mastery floor). LAST step is the
+  #    sim, ending on the module's own title line — no matchLit/speakLit
+  #    after it, matching doctrine's mastery-ends-on-sim rule.
+  - n: 10
+    template: free
+    title: "Mastery: me duele, te duele, le duele"
+    description: "Every strand, one last time — three persons, singular and plural, real reasons, real consequences. Ends where the module started: «me duele la mano»."
+    steps:
+      - kind: speakLit
+        id: l10-sp-recall-l9win
+        es: "tengo los ojos azules, pero me duelen"
+        en: "I have blue eyes, but they hurt"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l10-b-samvaacorrerpierna
+        es: "Sam no va a correr porque le duele la pierna"
+        en: "Sam isn't going to run because his leg hurts"
+        atoms: ["va", "correr", "porque", "le", "duele", "pierna"]
+        tiles: ["duelen"]
+      - kind: clozeLit
+        id: l10-c-carmenayertrabajo
+        es: "Carmen trabajó ayer, y hoy le duelen las manos"
+        en: "Carmen worked yesterday, and today her hands hurt"
+        blank: "duelen"
+        options: ["duelen", "duele"]
+        atoms: ["trabajó", "ayer", "hoy", "le", "duelen", "mano"]
+        why: "«las manos» — more than one — «duelen». Past-tense setup, present-tense agreement rule, unchanged."
+      - kind: listenCompLit
+        id: l10-lc-teduelelabocaporque
+        es: "no puedes comer porque te duele la boca"
+        en: "You can't eat because your mouth hurts."
+        atoms: ["puedes", "comer", "porque", "te", "duele", "boca"]
+        distractorsEn:
+          - "You can eat because your mouth hurts."
+          - "You can't eat because your mouths hurt."
+          - "Your mouth hurts."
+      - kind: mcq
+        id: l10-q-duelefoilsfinal
+        prompt: "Which one means 'it hurts' (one thing)?"
+        correct: "duele"
+        distractors: ["duelo", "duelen", "dueles"]
+        atoms: ["duele"]
+        why: "One last time: «duele» agrees with what's hurting, never with the person. There is no «yo duelo»."
+      - kind: speakLit
+        id: l10-sp-recall-l7win
+        es: "ayer trabajé mucho, y hoy me duelen las manos"
+        en: "Yesterday I worked a lot, and today my hands hurt"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l10-b-adiegoleduelenojos
+        es: "a Diego le duelen los ojos porque trabajó mucho"
+        en: "Diego's eyes hurt because he worked a lot"
+        atoms: ["le", "duelen", "ojo", "porque", "trabajó"]
+        tiles: ["duele"]
+      - kind: audioWimcq
+        id: l10-ear-perro
+        target: { surface: "perro", emoji: "🐶" }
+        distractors:
+          - { surface: "libro", emoji: "📖" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: agreementLit
+        id: l10-agr-anaboca
+        en: "Ana can't run today because her foot hurts, and her legs hurt too"
+        audioText: "Ana no puede correr hoy porque le duele el pie, y le duelen las piernas también"
+        atoms: ["puede", "correr", "hoy", "porque", "le", "duele", "pie", "duelen", "pierna", "también"]
+        segments:
+          - { text: "Ana no puede correr hoy porque le " }
+          - { blank: { id: "p1", answer: "duele", options: ["duele", "duelen"] } }
+          - { text: " el pie, y le " }
+          - { blank: { id: "p2", answer: "duelen", options: ["duelen", "duele"] } }
+          - { text: " las piernas también" }
+      - kind: listenBuildLit
+        id: l10-lb-teduelenmanosayer
+        es: "trabajaste ayer, y hoy te duelen las manos"
+        en: "You worked yesterday, and today your hands hurt"
+        atoms: ["trabajaste", "ayer", "hoy", "te", "duelen", "mano"]
+        tiles: ["duele", "me"]
+      - kind: textMcq
+        id: l10-tm-duelenfinal
+        target: "duelen"
+        distractors: ["duele", "duelemos", "dueles"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "me duele", target: "hurts me (one thing)" }
+          - { source: "te duelen", target: "hurt you (more than one)" }
+          - { source: "le duele", target: "hurts him/her (one thing)" }
+          - { source: "porque", target: "because" }
+          - { source: "no puedo", target: "I can't" }
+          - { source: "voy a", target: "I'm going to" }
+      - kind: sim
+        id: l10-sim-mastery
+        scene: { emoji: "🖐️", title: "One last check-in", setting: "Diego notices you wincing again — the same hand from the start of the module." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Todavía te duele la mano?", audioText: "¿todavía te duele la mano?", gloss: "Does your hand still hurt?" }
+            goal: "Say yes, your hand still hurts a lot."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, todavía me duele mucho la mano" }
+                - { id: "wrong1", text: "sí, todavía te duele mucho la mano" }
+                - { id: "wrong2", text: "sí, todavía duelo mucho la mano" }
+              correctOptionId: "right"
+              audioText: "sí, todavía me duele mucho la mano"
+            replyGloss: "Yes, my hand still hurts a lot."
+            explanation: "«me», not «te» — answering about yourself. «duelo» is never a word; the verb agrees with «la mano», never with the person."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿No puedes correr entonces?", audioText: "¿no puedes correr entonces?", gloss: "You can't run then?" }
+            goal: "Say no — because your hand hurts."
+            reply:
+              mode: build
+              tiles: ["no,", "no", "puedo", "porque", "me", "duele", "la", "mano", "duelo"]
+              answer: "no, no puedo porque me duele la mano"
+            replyGloss: "No, I can't, because my hand hurts."
+            explanation: "«no puedo» (m14) plus «porque» (m25) plus «me duele la mano» — the whole module, one sentence, right back where it started."
+
+placement:
+  screener:
+    - id: "es-m31-scr-1"
+      prompt: "'My foot hurts.' — which one?"
+      correct: "me duele el pie"
+      distractors: ["me duelen el pie", "me duele los pies", "yo duelo el pie"]
+  byModule:
+    - id: "es-m31-pl-1"
+      prompt: "My hands hurt."
+      correct: "me duelen las manos"
+      distractors: ["me duele las manos", "me duelen la manos", "yo duelo las manos"]
+    - id: "es-m31-pl-2"
+      prompt: "Does your arm hurt?"
+      correct: "¿te duele el brazo?"
+      distractors: ["¿te duelen el brazo?", "¿tú duele el brazo?", "¿te duele los brazos?"]
+    - id: "es-m31-pl-3"
+      prompt: "Diego's eye hurts."
+      correct: "a Diego le duele el ojo"
+      distractors: ["a Diego le duelen el ojo", "a Diego lo duele el ojo", "Diego duele el ojo"]
+    - id: "es-m31-pl-4"
+      prompt: "Her mouth and nose hurt."
+      correct: "le duelen la boca y la nariz"
+      distractors: ["le duele la boca y la nariz", "le duelen la boca y las narices", "le duelen el boca y la nariz"]

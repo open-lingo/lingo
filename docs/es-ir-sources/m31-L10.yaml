@@ -1,0 +1,123 @@
+  # ── L10 · Mastery — all graded, no map/info (mirrors m30-L10's own
+  #    mastery shape). Recombines every strand: singular/plural, all
+  #    three persons, porque/voy a/no puedo, ayer/hoy, and a final recall
+  #    of L9's tengo-vs-duele contrast (retrieval only — no new teaching,
+  #    the reservation was about introducing that content, not recalling
+  #    it). ≥2 recalls (brief's own mastery floor). LAST step is the
+  #    sim, ending on the module's own title line — no matchLit/speakLit
+  #    after it, matching doctrine's mastery-ends-on-sim rule.
+  - n: 10
+    template: free
+    title: "Mastery: me duele, te duele, le duele"
+    description: "Every strand, one last time — three persons, singular and plural, real reasons, real consequences. Ends where the module started: «me duele la mano»."
+    steps:
+      - kind: speakLit
+        id: l10-sp-recall-l9win
+        es: "tengo los ojos azules, pero me duelen"
+        en: "I have blue eyes, but they hurt"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l10-b-samvaacorrerpierna
+        es: "Sam no va a correr porque le duele la pierna"
+        en: "Sam isn't going to run because his leg hurts"
+        atoms: ["va", "correr", "porque", "le", "duele", "pierna"]
+        tiles: ["duelen"]
+      - kind: clozeLit
+        id: l10-c-carmenayertrabajo
+        es: "Carmen trabajó ayer, y hoy le duelen las manos"
+        en: "Carmen worked yesterday, and today her hands hurt"
+        blank: "duelen"
+        options: ["duelen", "duele"]
+        atoms: ["trabajó", "ayer", "hoy", "le", "duelen", "mano"]
+        why: "«las manos» — more than one — «duelen». Past-tense setup, present-tense agreement rule, unchanged."
+      - kind: listenCompLit
+        id: l10-lc-teduelelabocaporque
+        es: "no puedes comer porque te duele la boca"
+        en: "You can't eat because your mouth hurts."
+        atoms: ["puedes", "comer", "porque", "te", "duele", "boca"]
+        distractorsEn:
+          - "You can eat because your mouth hurts."
+          - "You can't eat because your mouths hurt."
+          - "Your mouth hurts."
+      - kind: mcq
+        id: l10-q-duelefoilsfinal
+        prompt: "Which one means 'it hurts' (one thing)?"
+        correct: "duele"
+        distractors: ["duelo", "duelen", "dueles"]
+        atoms: ["duele"]
+        why: "One last time: «duele» agrees with what's hurting, never with the person. There is no «yo duelo»."
+      - kind: speakLit
+        id: l10-sp-recall-l7win
+        es: "ayer trabajé mucho, y hoy me duelen las manos"
+        en: "Yesterday I worked a lot, and today my hands hurt"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l10-b-adiegoleduelenojos
+        es: "a Diego le duelen los ojos porque trabajó mucho"
+        en: "Diego's eyes hurt because he worked a lot"
+        atoms: ["le", "duelen", "ojo", "porque", "trabajó"]
+        tiles: ["duele"]
+      - kind: audioWimcq
+        id: l10-ear-perro
+        target: { surface: "perro", emoji: "🐶" }
+        distractors:
+          - { surface: "libro", emoji: "📖" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: agreementLit
+        id: l10-agr-anaboca
+        en: "Ana can't run today because her foot hurts, and her legs hurt too"
+        audioText: "Ana no puede correr hoy porque le duele el pie, y le duelen las piernas también"
+        atoms: ["puede", "correr", "hoy", "porque", "le", "duele", "pie", "duelen", "pierna", "también"]
+        segments:
+          - { text: "Ana no puede correr hoy porque le " }
+          - { blank: { id: "p1", answer: "duele", options: ["duele", "duelen"] } }
+          - { text: " el pie, y le " }
+          - { blank: { id: "p2", answer: "duelen", options: ["duelen", "duele"] } }
+          - { text: " las piernas también" }
+      - kind: listenBuildLit
+        id: l10-lb-teduelenmanosayer
+        es: "trabajaste ayer, y hoy te duelen las manos"
+        en: "You worked yesterday, and today your hands hurt"
+        atoms: ["trabajaste", "ayer", "hoy", "te", "duelen", "mano"]
+        tiles: ["duele", "me"]
+      - kind: textMcq
+        id: l10-tm-duelenfinal
+        target: "duelen"
+        distractors: ["duele", "duelemos", "dueles"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "me duele", target: "hurts me (one thing)" }
+          - { source: "te duelen", target: "hurt you (more than one)" }
+          - { source: "le duele", target: "hurts him/her (one thing)" }
+          - { source: "porque", target: "because" }
+          - { source: "no puedo", target: "I can't" }
+          - { source: "voy a", target: "I'm going to" }
+      - kind: sim
+        id: l10-sim-mastery
+        scene: { emoji: "🖐️", title: "One last check-in", setting: "Diego notices you wincing again — the same hand from the start of the module." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Todavía te duele la mano?", audioText: "¿todavía te duele la mano?", gloss: "Does your hand still hurt?" }
+            goal: "Say yes, your hand still hurts a lot."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, todavía me duele mucho la mano" }
+                - { id: "wrong1", text: "sí, todavía te duele mucho la mano" }
+                - { id: "wrong2", text: "sí, todavía duelo mucho la mano" }
+              correctOptionId: "right"
+              audioText: "sí, todavía me duele mucho la mano"
+            replyGloss: "Yes, my hand still hurts a lot."
+            explanation: "«me», not «te» — answering about yourself. «duelo» is never a word; the verb agrees with «la mano», never with the person."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿No puedes correr entonces?", audioText: "¿no puedes correr entonces?", gloss: "You can't run then?" }
+            goal: "Say no — because your hand hurts."
+            reply:
+              mode: build
+              tiles: ["no,", "no", "puedo", "porque", "me", "duele", "la", "mano", "duelo"]
+              answer: "no, no puedo porque me duele la mano"
+            replyGloss: "No, I can't, because my hand hurts."
+            explanation: "«no puedo» (m14) plus «porque» (m25) plus «me duele la mano» — the whole module, one sentence, right back where it started."

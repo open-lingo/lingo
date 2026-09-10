@@ -1,0 +1,132 @@
+  # ── L3 · «¿Te duele...?» — tú-form questions, production. «te» is
+  #    PRIOR (m13); no new atom, just recombination onto the dative
+  #    frame. Interleaves with m29's clitic-on-infinitive family
+  #    (reviewed via PRIOR compiled sentence, not a new coinage) so the
+  #    lesson isn't 100% dative-frame steps in a row. ≥1 recall
+  #    (singular AND plural, per the brief's recall table) opens the body.
+  - n: 3
+    template: free
+    title: "¿Te duele...?"
+    description: "Asking someone else — «te duele»/«te duelen». Same «me»→«te» swap you already made a hundred times with «gusta» back in module 13."
+    steps:
+      - kind: map
+        id: l3-map-teduelelamano
+        tokens: ["¿te", "duele", "la", "mano?"]
+        pairs:
+          - { en: "to you", tokenIndex: 0 }
+          - { en: "hurts", tokenIndex: 1 }
+          - { en: "hand", tokenIndex: 3 }
+        audioText: "¿te duele la mano?"
+        revealNote: "«te duele» — swap «me» for «te» and you're asking someone else, exactly like «¿te gusta?» (m13)."
+      - kind: info
+        id: l3-info-teduele
+        title: "Te duele — asking someone else"
+        body: "«¿te duele la mano?» — swap «me» for «te» and the sentence now asks. Same swap as «¿te gusta?» (m13); the verb itself never changes for the question."
+      - kind: speakLit
+        id: l3-sp-recall-meduelenlospies
+        es: "me duelen los pies"
+        en: "My feet hurt"
+        atoms: ["me", "duelen", "pie"]
+        cue: recall
+      - kind: buildLit
+        id: l3-b-teduelelamano
+        es: "¿te duele la mano?"
+        en: "Does your hand hurt?"
+        atoms: ["te", "duele", "mano"]
+        tiles: ["duelen"]
+      - kind: clozeLit
+        id: l3-c-teduelenlospies
+        es: "te duelen los pies"
+        en: "Your feet hurt"
+        blank: "duelen"
+        options: ["duelen", "duele"]
+        atoms: ["te", "duelen", "pie"]
+        why: "«los pies» is plural — «duelen». Same rule whether it's a statement or a question."
+      - kind: listenCompLit
+        id: l3-lc-teduelelojo
+        es: "¿te duele el ojo?"
+        en: "Does your eye hurt?"
+        atoms: ["te", "duele", "ojo"]
+        distractorsEn:
+          - "Do your eyes hurt?"
+          - "Does my eye hurt?"
+          - "You have an eye."
+      - kind: mcq
+        id: l3-q-teduele
+        prompt: "'Does your arm hurt?' — which word goes after «te»?"
+        correct: "duele"
+        distractors: ["duelo", "duelen", "dueles"]
+        atoms: ["te", "duele"]
+        why: "«el brazo» is singular, so «duele» — same rule as always: the verb agrees with what hurts, never with «tú»."
+      - kind: speakLit
+        id: l3-sp-recall-noquierolevantarme
+        es: "no quiero levantarme"
+        en: "I don't want to get up"
+        atoms: ["quiero", "levantarme"]
+        cue: recall
+      - kind: audioWimcq
+        id: l3-ear-casa
+        target: { surface: "casa", emoji: "🏠" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "libro", emoji: "📖" }
+      - kind: buildLit
+        id: l3-b-teduelenlosbrazos
+        es: "¿te duelen los brazos?"
+        en: "Do your arms hurt?"
+        atoms: ["te", "duelen", "brazo"]
+        tiles: ["duele"]
+      - kind: listenBuildLit
+        id: l3-lb-teduelelapierna
+        es: "¿te duele la pierna?"
+        en: "Does your leg hurt?"
+        atoms: ["te", "duele", "pierna"]
+        tiles: ["duelen", "me"]
+      - kind: textMcq
+        id: l3-tm-te
+        target: "te"
+        distractors: ["me", "le", "mucho"]
+      - kind: sim
+        id: l3-sim-sofia-boca
+        scene: { emoji: "😬", title: "Sofía checks on you", setting: "Sofía sees you wincing after biting into something too hot." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Te duele la boca?", audioText: "¿te duele la boca?", gloss: "Does your mouth hurt?" }
+            goal: "Say yes, your mouth hurts."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me duele la boca" }
+                - { id: "wrong1", text: "sí, te duele la boca" }
+                - { id: "wrong2", text: "sí, duelo la boca" }
+              correctOptionId: "right"
+              audioText: "sí, me duele la boca"
+            replyGloss: "Yes, my mouth hurts."
+            explanation: "Answer about yourself with «me», not «te» — Sofía asked with «te», but you reply about you. And «duelo» is never a word here; «duele» never conjugates to the person."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y los dientes también?", audioText: "¿y los dientes también?", gloss: "And your teeth too?" }
+            goal: "Say no, just your mouth."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, solo me duele la boca" }
+                - { id: "wrong1", text: "no, solo te duele la boca" }
+                - { id: "wrong2", text: "no, solo duelen la boca" }
+              correctOptionId: "right"
+              audioText: "no, solo me duele la boca"
+            replyGloss: "No, just my mouth hurts."
+            explanation: "Still «me duele» — one thing, «la boca», so «duele» stays singular."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "te duele", target: "hurts (to you, one thing)" }
+          - { source: "te duelen", target: "hurt (to you, more than one)" }
+          - { source: "boca", target: "mouth" }
+          - { source: "ojo", target: "eye" }
+          - { source: "pierna", target: "leg" }
+          - { source: "brazo", target: "arm" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "¿te duele la mano?"
+        en: "Does your hand hurt?"
+        atoms: ["te", "duele", "mano"]
