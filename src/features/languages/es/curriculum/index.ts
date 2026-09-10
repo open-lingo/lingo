@@ -43,6 +43,7 @@ import { ES_M29_LESSONS } from "./m29";
 import { ES_M30_LESSONS } from "./m30";
 import { ES_M31_LESSONS } from "./m31";
 import { ES_M32_LESSONS } from "./m32";
+import { ES_M33_LESSONS } from "./m33";
 
 export type EsModuleMeta = {
   id: string;
@@ -260,7 +261,14 @@ export const ES_MODULE_META: EsModuleMeta[] = [
     eyebrow: "Module 32 · Clothing round 2",
     summary: "five more clothing words — el pantalón, la chaqueta, los calcetines, los guantes, la bufanda — put straight to work with everything you already know: «tengo», «necesito», size and color (m6), «voy a comprarlo/la/los» (m29), «¿cuánto cuesta?» (m12), and «me duele(n)» (m31).",
     accent: { from: "#4f46e5", to: "#312e81" },
+  },  {
+    id: "m33",
+    title: "Tengo que trabajar",
+    eyebrow: "Module 33 · Obligation, at last",
+    summary: "«tengo que» plus a bare infinitive — the fourth linker in this course's modal family (quiero/puedo, voy a, and now tengo que), riding a «tener» paradigm and a «que» you already know completely.",
+    accent: { from: "#78716c", to: "#1c1917" },
   },
+
 
 
 
@@ -312,6 +320,7 @@ const LESSONS_BY_MODULE: Record<string, LessonContent[]> = {
   m30: ES_M30_LESSONS,
   m31: ES_M31_LESSONS,
   m32: ES_M32_LESSONS,
+  m33: ES_M33_LESSONS,
 };
 
 /** Flat lesson list for the shared LESSONS content index (mockLessons.ts). */

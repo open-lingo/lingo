@@ -1,0 +1,129 @@
+  # ── L2 · «¿Tienes que estudiar?» — tú-form recombination. No new atom:
+  #    «tienes» (m5) plus the already-free «que» plus a PRIOR infinitive.
+  #    Graded via the bare «tienes» atom, never a second "tienes que"
+  #    surface (see m33-header.yaml). Central person-agreement contrast:
+  #    «tienes» is for asking someone else about THEMSELVES, «tengo»
+  #    stays yourself — the sim turns this into the actual discrimination.
+  #    ≥1 recall (L1's win line).
+  - n: 2
+    template: free
+    title: "¿Tienes que estudiar?"
+    description: "«tienes que» — the tú-form, same rule: «tienes» (m5) plus «que» plus the infinitive. Graded through the already-registered «tienes», never a new surface."
+    steps:
+      - kind: map
+        id: l2-map-tienesqueestudiar
+        tokens: ["¿tienes", "que", "estudiar", "hoy?"]
+        pairs:
+          - { en: "do you have to", tokenIndex: 0 }
+          - { en: "study", tokenIndex: 2 }
+          - { en: "today?", tokenIndex: 3 }
+        audioText: "¿tienes que estudiar hoy?"
+        revealNote: "«tienes» (m5) plus «que» plus the infinitive — same pattern as «tengo que», just the tú-form. Still never drop «que»."
+      - kind: speakLit
+        id: l2-sp-recall
+        es: "tengo que trabajar"
+        en: "I have to work"
+        cue: recall
+        atoms: ["tengo que", "trabajar"]
+      - kind: buildLit
+        id: l2-b-tienesquetrabajarmuchohoy
+        es: "tienes que trabajar mucho hoy"
+        en: "You have to work a lot today"
+        atoms: ["tienes", "trabajar", "mucho", "hoy"]
+        tiles: ["tengo", "tiene"]
+      - kind: clozeLit
+        id: l2-c-tienesqueestudiarmanana
+        es: "tienes que estudiar mañana"
+        en: "You have to study tomorrow"
+        blank: "tienes"
+        options: ["tienes", "tengo"]
+        atoms: ["tienes", "estudiar", "mañana"]
+        why: "«tú» takes «tienes» — «tengo» is the yo-form, for yourself only."
+      - kind: listenCompLit
+        id: l2-lc-tienesquetrabajarhoy
+        es: "¿tienes que trabajar hoy?"
+        en: "Do you have to work today?"
+        atoms: ["tienes", "trabajar", "hoy"]
+        distractorsEn:
+          - "Do I have to work today?"
+          - "Do you want to work today?"
+          - "Do you have to work tomorrow?"
+      - kind: mcq
+        id: l2-q-tienesqueestudiarhoy
+        prompt: "Which one means 'you have to study'?"
+        correct: "tienes que estudiar"
+        distractors: ["tienes estudiar", "tengo que estudiar", "quieres que estudiar"]
+        atoms: ["tienes", "estudiar"]
+        why: "«tienes» is the tú-form; never drop «que» («tienes estudiar» is ungrammatical). And «quieres» never takes a «que» linker at all."
+      - kind: buildLit
+        id: l2-b-nopeortienesqueestudiarmananatambien
+        es: "no, pero tienes que estudiar mañana también"
+        en: "No, but you have to study tomorrow too"
+        atoms: ["no", "pero", "tienes", "estudiar", "mañana", "también"]
+        tiles: ["tengo", "tiene"]
+      - kind: audioWimcq
+        id: l2-ear-libro
+        target: { surface: "libro", emoji: "📖" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: agreementLit
+        id: l2-agr-tienespantalontengocamisa
+        en: "You have new pants, and I have a new shirt"
+        audioText: "tienes un pantalón nuevo, y tengo una camisa nueva"
+        atoms: ["tienes", "pantalón", "nuevo", "tengo", "camisa"]
+        segments:
+          - { text: "tienes un pantalón " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y tengo una camisa " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l2-lb-tienesqueestudiarpuedesnadar
+        es: "tienes que estudiar, pero puedes nadar mañana"
+        en: "You have to study, but you can swim tomorrow"
+        atoms: ["tienes", "estudiar", "pero", "puedes", "nadar", "mañana"]
+        tiles: ["tengo", "tiene"]
+      - kind: textMcq
+        id: l2-tm-estudiar
+        target: "estudiar"
+        distractors: ["estudiante", "estudio", "escuchar"]
+      - kind: sim
+        id: l2-sim-ana-playa
+        scene: { emoji: "🏖️", title: "Ana can't go to the beach", setting: "Ana texts you about her day." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "Hoy no puedo ir a la playa.", audioText: "hoy no puedo ir a la playa", gloss: "Today I can't go to the beach." }
+            goal: "Ask if she has to work."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "¿tienes que trabajar?" }
+                - { id: "wrong1", text: "¿tengo que trabajar?" }
+                - { id: "wrong2", text: "¿tienes trabajar?" }
+              correctOptionId: "right"
+              audioText: "¿tienes que trabajar?"
+            replyGloss: "Do you have to work?"
+            explanation: "Asking Ana about HERSELF uses «tienes», not «tengo» (that's for yourself) — and never drop «que»."
+          - id: t2
+            npc: { speaker: "Ana", es: "Sí, tengo que trabajar mucho hoy. ¿Y tú? ¿Quieres ir a la playa?", audioText: "sí, tengo que trabajar mucho hoy. ¿y tú? ¿quieres ir a la playa?", gloss: "Yes, I have to work a lot today. And you? Do you want to go to the beach?" }
+            goal: "Say yes, but you have to study tomorrow."
+            reply:
+              mode: build
+              tiles: ["sí", "pero", "tengo", "que", "estudiar", "mañana", "tienes", "tiene"]
+              answer: "sí pero tengo que estudiar mañana"
+            replyGloss: "Yes, but I have to study tomorrow."
+            explanation: "Back to yourself — «tengo», not «tienes» (that's for Ana)."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "tienes", target: "you have" }
+          - { source: "estudiar", target: "study" }
+          - { source: "trabajar", target: "work" }
+          - { source: "mucho", target: "a lot" }
+          - { source: "hoy", target: "today" }
+          - { source: "mañana", target: "tomorrow" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "¿tienes que estudiar hoy?"
+        en: "Do you have to study today?"
+        atoms: ["tienes", "estudiar", "hoy"]

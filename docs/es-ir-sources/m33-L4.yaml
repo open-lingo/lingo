@@ -1,0 +1,127 @@
+  # ── L4 · «Tenemos que estudiar juntos» — nosotros recombination. No new
+  #    atom: «tenemos» (m18) plus the already-free «que» plus a PRIOR
+  #    infinitive. Recombines «juntos» (m18). Widens the modal contrast:
+  #    «tengo que» (que-linker) against PRIOR «vamos a» (m18/m28's own
+  #    «a»-linker) in the same sentence. ≥1 recall (L3's win line).
+  - n: 4
+    template: free
+    title: "Tenemos que estudiar juntos"
+    description: "«tenemos que» — the nosotros-shape «tenemos» (m18) plus «que» plus the infinitive. Same rule, both of you."
+    steps:
+      - kind: map
+        id: l4-map-tenemosqueestudiarjuntos
+        tokens: ["tenemos", "que", "estudiar", "juntos"]
+        pairs:
+          - { en: "we have to", tokenIndex: 0 }
+          - { en: "study", tokenIndex: 2 }
+          - { en: "together", tokenIndex: 3 }
+        audioText: "tenemos que estudiar juntos"
+        revealNote: "«tenemos» (m18) — the nosotros-shape. Still «que» plus the infinitive."
+      - kind: speakLit
+        id: l4-sp-recall
+        es: "Ana tiene que trabajar mañana"
+        en: "Ana has to work tomorrow"
+        cue: recall
+        atoms: ["tiene", "trabajar", "mañana"]
+      - kind: buildLit
+        id: l4-b-tenemosqueestudiarvamosanadar
+        es: "tenemos que estudiar, pero vamos a nadar mañana"
+        en: "We have to study, but we're going to swim tomorrow"
+        atoms: ["tenemos", "estudiar", "pero", "vamos", "nadar", "mañana"]
+        tiles: ["tengo", "tienes"]
+      - kind: clozeLit
+        id: l4-c-tenemosquetrabajarjuntos
+        es: "tenemos que trabajar juntos"
+        en: "We have to work together"
+        blank: "tenemos"
+        options: ["tenemos", "tienen"]
+        atoms: ["tenemos", "trabajar", "juntos"]
+        why: "«nosotros» takes «tenemos» — «tienen» is for «ellos/ustedes», a different person entirely."
+      - kind: listenCompLit
+        id: l4-lc-tenemosqueestudiarhoy
+        es: "tenemos que estudiar hoy"
+        en: "We have to study today."
+        atoms: ["tenemos", "estudiar", "hoy"]
+        distractorsEn:
+          - "We want to study today."
+          - "They have to study today."
+          - "We have to study tomorrow."
+      - kind: mcq
+        id: l4-q-tenemosquetrabajarjuntos
+        prompt: "Which one means 'we have to work'?"
+        correct: "tenemos que trabajar"
+        distractors: ["tenemos trabajar", "tienen que trabajar", "queremos que trabajar"]
+        atoms: ["tenemos", "trabajar"]
+        why: "«tenemos» is the nosotros-shape; never drop «que» — and «queremos» (want) never takes a «que» linker at all."
+      - kind: buildLit
+        id: l4-b-miamigoyyotenemosquecomprarguantes
+        es: "mi amigo y yo tenemos que comprar guantes nuevos"
+        en: "My friend and I have to buy new gloves"
+        atoms: ["mi", "amigo", "tenemos", "comprar", "guantes", "nuevo"]
+        tiles: ["tengo", "tiene"]
+      - kind: audioWimcq
+        id: l4-ear-pantalon
+        target: { surface: "pantalón", emoji: "👖" }
+        distractors:
+          - { surface: "chaqueta", emoji: "🧥" }
+          - { surface: "camisa", emoji: "👕" }
+      - kind: agreementLit
+        id: l4-agr-tenemospantalontienecamisa
+        en: "We have new pants, and Ana has a new shirt"
+        audioText: "tenemos un pantalón nuevo, y Ana tiene una camisa nueva"
+        atoms: ["tenemos", "pantalón", "nuevo", "tiene", "camisa"]
+        segments:
+          - { text: "tenemos un pantalón " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y Ana tiene una camisa " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l4-lb-tenemosquetrabajarvamosplaya
+        es: "tenemos que trabajar, pero vamos a la playa mañana"
+        en: "We have to work, but we're going to the beach tomorrow"
+        atoms: ["tenemos", "trabajar", "pero", "vamos", "playa", "mañana"]
+        tiles: ["tengo", "tiene"]
+      - kind: textMcq
+        id: l4-tm-juntos
+        target: "juntos"
+        distractors: ["juntar", "juntas", "justo"]
+      - kind: sim
+        id: l4-sim-ana-estudiar
+        scene: { emoji: "📚", title: "Planning to study together", setting: "Ana suggests studying together." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Vamos a estudiar juntos mañana?", audioText: "¿vamos a estudiar juntos mañana?", gloss: "Are we going to study together tomorrow?" }
+            goal: "Say yes, you both have to study."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tenemos que estudiar" }
+                - { id: "wrong1", text: "sí, tengo que estudiar" }
+                - { id: "wrong2", text: "sí, tenemos estudiar" }
+              correctOptionId: "right"
+              audioText: "sí, tenemos que estudiar"
+            replyGloss: "Yes, we have to study."
+            explanation: "Talking about BOTH of you uses «tenemos» (nosotros) — not «tengo» (yourself alone) — and never drop «que»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego? ¿Tiene que estudiar también?", audioText: "¿y diego? ¿tiene que estudiar también?", gloss: "And Diego? Does he have to study too?" }
+            goal: "Say yes, he has to study too."
+            reply:
+              mode: build
+              tiles: ["sí", "tiene", "que", "estudiar", "también", "tenemos", "tengo"]
+              answer: "sí tiene que estudiar también"
+            replyGloss: "Yes, he has to study too."
+            explanation: "Diego — a named subject — takes «tiene», not «tenemos» (both of you) or «tengo» (yourself)."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "tenemos", target: "we have" }
+          - { source: "estudiar", target: "study" }
+          - { source: "juntos", target: "together" }
+          - { source: "trabajar", target: "work" }
+          - { source: "mañana", target: "tomorrow" }
+          - { source: "vamos", target: "we go" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "tenemos que estudiar juntos"
+        en: "We have to study together"
+        atoms: ["tenemos", "estudiar", "juntos"]

@@ -1,0 +1,138 @@
+  # ── L9 · «Puedo trabajar, pero no tengo que trabajar hoy» — the
+  #    dedicated contrast lesson, same infinitive host, different
+  #    meaning: «puedo» (can, ability, m14) vs «tengo que» (must,
+  #    obligation, m33). Carries the module's second and final info card
+  #    (see m33-header.yaml usage-note budget — L1 and L9 only). Also the
+  #    negation case: «no tengo que» = don't have to, not the reverse.
+  #    Reaches m29's fused clitic family («comprarla»). ≥1 recall (L2's
+  #    win line).
+  - n: 9
+    template: free
+    title: "Puedo trabajar, pero no tengo que trabajar hoy"
+    description: "«puedo» (can, ability, m14) vs «tengo que» (must, obligation, m33) — same infinitive, different meaning. And negating «tengo que»: «no tengo que» = don't have to, not the reverse."
+    steps:
+      - kind: map
+        id: l9-map-puedotrabajarnotengoque
+        tokens: ["puedo", "trabajar,", "pero", "no", "tengo que", "trabajar", "hoy"]
+        pairs:
+          - { en: "I can", tokenIndex: 0 }
+          - { en: "work,", tokenIndex: 1 }
+          - { en: "but", tokenIndex: 2 }
+          - { en: "not", tokenIndex: 3 }
+          - { en: "I have to", tokenIndex: 4 }
+          - { en: "work", tokenIndex: 5 }
+          - { en: "today", tokenIndex: 6 }
+        audioText: "puedo trabajar, pero no tengo que trabajar hoy"
+        revealNote: "«puedo» = can (ability, m14). «tengo que» = have to (obligation, m33). Negating it — «no tengo que» — means 'I don't have to,' not 'I have to not.'"
+      - kind: info
+        id: l9-info-puedovstengoque
+        title: "Puedo vs. tengo que"
+        body: "«puedo trabajar» = I CAN work (ability, m14). «tengo que trabajar» = I HAVE TO work (obligation, m33). Same infinitive, different meaning — and «no tengo que» means \"I don't have to,\" not the reverse."
+      - kind: speakLit
+        id: l9-sp-recall
+        es: "¿tienes que estudiar hoy?"
+        en: "Do you have to study today?"
+        cue: recall
+        atoms: ["tienes", "estudiar", "hoy"]
+      - kind: buildLit
+        id: l9-b-puedocomprarchaquetanotengoquecomprarla
+        es: "puedo comprar una chaqueta, pero no tengo que comprarla hoy"
+        en: "I can buy a jacket, but I don't have to buy it today"
+        atoms: ["puedo", "comprar", "chaqueta", "pero", "no", "tengo que", "comprarla", "hoy"]
+        tiles: ["quiero", "voy"]
+      - kind: clozeLit
+        id: l9-c-puedetrabajarnotienequetrabajar
+        es: "puede trabajar, pero no tiene que trabajar hoy"
+        en: "She can work, but she doesn't have to work today"
+        blank: "puede"
+        options: ["puede", "puedo"]
+        atoms: ["puede", "trabajar", "no", "tiene"]
+        why: "«puede»/«tiene» — talking about someone else, not «puedo»/«tengo» (yourself)."
+      - kind: listenCompLit
+        id: l9-lc-puedonadarnotengoquenadar
+        es: "puedo nadar, pero no tengo que nadar hoy"
+        en: "I can swim, but I don't have to swim today."
+        atoms: ["puedo", "nadar", "no", "tengo que"]
+        distractorsEn:
+          - "I want to swim, but I don't have to swim today."
+          - "I can swim, but I have to swim today."
+          - "I can't swim, but I don't have to swim today."
+      - kind: mcq
+        id: l9-q-puedotrabajarnotengoquetrabajarhoy
+        prompt: "Which one means 'I can work'?"
+        correct: "puedo trabajar"
+        distractors: ["tengo que trabajar", "quiero trabajar", "puedo que trabajar"]
+        atoms: ["puedo", "trabajar"]
+        why: "«puedo» = can; «tengo que» = must — very different meanings. «quiero» ≠ «puedo» — want isn't can. And «puedo» never takes a «que» linker."
+      - kind: buildLit
+        id: l9-b-hermanapuedeestudiarnotiene
+        es: "mi hermana puede estudiar, pero no tiene que estudiar hoy"
+        en: "My sister can study, but she doesn't have to study today"
+        atoms: ["mi", "hermana", "puede", "estudiar", "no", "tiene"]
+        tiles: ["puedo", "tengo"]
+      - kind: audioWimcq
+        id: l9-ear-chaqueta
+        target: { surface: "chaqueta", emoji: "🧥" }
+        distractors:
+          - { surface: "pantalón", emoji: "👖" }
+          - { surface: "calcetines", emoji: "🧦" }
+      - kind: agreementLit
+        id: l9-agr-puedochaquetanuevanotengopantalonnuevo
+        en: "I can buy a new jacket, but I don't have to buy new pants"
+        audioText: "puedo comprar una chaqueta nueva, pero no tengo que comprar un pantalón nuevo"
+        atoms: ["puedo", "comprar", "chaqueta", "nuevo", "no", "tengo que", "pantalón"]
+        segments:
+          - { text: "puedo comprar una chaqueta " }
+          - { blank: { id: "p1", answer: "nueva", options: ["nueva", "nuevo"] } }
+          - { text: ", pero no tengo que comprar un pantalón " }
+          - { blank: { id: "p2", answer: "nuevo", options: ["nuevo", "nueva"] } }
+      - kind: listenBuildLit
+        id: l9-lb-puedesnadarnotienesquenadar
+        es: "puedes nadar, pero no tienes que nadar mañana"
+        en: "You can swim, but you don't have to swim tomorrow"
+        atoms: ["puedes", "nadar", "no", "tienes", "mañana"]
+        tiles: ["puedo", "tengo"]
+      - kind: textMcq
+        id: l9-tm-puedo
+        target: "puedo"
+        distractors: ["pueblo", "puente", "suelo"]
+      - kind: sim
+        id: l9-sim-ana-plan
+        scene: { emoji: "💪", title: "Ana asks about your plans", setting: "Ana wonders what you're doing this weekend." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Puedes trabajar mañana?", audioText: "¿puedes trabajar mañana?", gloss: "Can you work tomorrow?" }
+            goal: "Say you can, but don't have to."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, puedo, pero no tengo que" }
+                - { id: "wrong1", text: "sí, tengo, pero no puedo que" }
+                - { id: "wrong2", text: "sí, puedo, pero no tengo trabajar" }
+              correctOptionId: "right"
+              audioText: "sí, puedo, pero no tengo que"
+            replyGloss: "Yes, I can, but I don't have to."
+            explanation: "«puedo» = can; «tengo que» = must — very different meanings, and never drop «que»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermana? ¿Tiene que trabajar ella?", audioText: "¿y tu hermana? ¿tiene que trabajar ella?", gloss: "And your sister? Does she have to work?" }
+            goal: "Say no, she can, but doesn't have to."
+            reply:
+              mode: build
+              tiles: ["no", "no", "puede", "pero", "tiene", "que", "trabajar", "puedo", "tengo"]
+              answer: "no puede pero no tiene que trabajar"
+            replyGloss: "No, she can, but she doesn't have to work."
+            explanation: "«puede»/«tiene» — about her, not yourself. The negation still needs «que»: «no tiene que», never «no tiene trabajar»."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "puedo", target: "I can" }
+          - { source: "tengo que", target: "I have to" }
+          - { source: "no", target: "not" }
+          - { source: "trabajar", target: "work" }
+          - { source: "comprarla", target: "to buy it" }
+          - { source: "hoy", target: "today" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "puedo trabajar, pero no tengo que trabajar hoy"
+        en: "I can work, but I don't have to work today"
+        atoms: ["puedo", "trabajar", "pero", "no", "tengo que", "hoy"]

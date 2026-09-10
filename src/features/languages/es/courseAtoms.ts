@@ -61,10 +61,11 @@ import { ES_M29_ATOMS } from "./curriculum/m29";
 import { ES_M30_ATOMS } from "./curriculum/m30";
 import { ES_M31_ATOMS } from "./curriculum/m31";
 import { ES_M32_ATOMS } from "./curriculum/m32";
+import { ES_M33_ATOMS } from "./curriculum/m33";
 
 export type EsAtomKind = "vocab" | "particle" | "phrase";
 
-export type EsAtomSource = "m1" | "m2" | "m3" | "m4" | "m5" | "m6" | "m7" | "m8" | "m9" | "m10" | "m11" | "m12" | "m13" | "m14" | "m15" | "m16" | "m17" | "m18" | "m19" | "m20" | "m21" | "m22" | "m23" | "m24" | "m25" | "m26" | "m27" | "m28" | "m29" | "m30" | "m31" | "m32";
+export type EsAtomSource = "m1" | "m2" | "m3" | "m4" | "m5" | "m6" | "m7" | "m8" | "m9" | "m10" | "m11" | "m12" | "m13" | "m14" | "m15" | "m16" | "m17" | "m18" | "m19" | "m20" | "m21" | "m22" | "m23" | "m24" | "m25" | "m26" | "m27" | "m28" | "m29" | "m30" | "m31" | "m32" | "m33";
 
 /** ES-specific atom shape — Latin script + gender for the agreement engines. */
 export type EsAtom = Atom & {
@@ -224,6 +225,7 @@ export function getEsCourseAtoms(): ReadonlyArray<EsAtom> {
     ...ES_M30_ATOMS,
     ...ES_M31_ATOMS,
     ...ES_M32_ATOMS,
+    ...ES_M33_ATOMS,
   ]);
 }
 

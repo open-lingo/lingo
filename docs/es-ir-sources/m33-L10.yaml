@@ -1,0 +1,130 @@
+  # ── L10 · Mastery — all graded, no map/info (mirrors m32-L10's own
+  #    mastery shape: no trailing speakLit-win after sim). Recombines every
+  #    strand of the module (tengo/tiene/tenemos, dropped-«que» avoided
+  #    throughout) plus m30's «duele»/«duelen», m29's fused clitics
+  #    («comprarlo»/«comprarla»), m16's «necesito», and m32's clothing
+  #    nouns. Two recalls (L9 and L3, different lessons, neither recalled
+  #    together before). NOTE ON THE BRIEF'S TARGET SENTENCE: the brief's
+  #    win line ("Me duele la mano, pero tengo que comprarlo — necesito una
+  #    chaqueta nueva.") pairs the masculine clitic «comprarlo» with the
+  #    feminine antecedent «chaqueta» — a gender-agreement bug. Corrected
+  #    to «comprarla» (step 2, the closest analog to a "win" line this
+  #    mastery lesson carries, since mastery lessons end on sim with no
+  #    trailing speakLit — see m32-L10 precedent). «comprarlo» is still
+  #    used elsewhere in this lesson (steps 3, 10) with a masculine referent
+  #    in context, so the module still exercises both fused-clitic genders.
+  #    LAST step is the sim — no matchLit/speakLit after it.
+  - n: 10
+    template: free
+    title: "Mastery: me duele la mano, pero tengo que..."
+    description: "Every strand, one last time — obligation across all persons, pain (m30/m31), fused clitics (m29), and clothing (m32), all in one pass."
+    steps:
+      - kind: speakLit
+        id: l10-sp-recall-l9win
+        es: "puedo trabajar, pero no tengo que trabajar hoy"
+        en: "I can work, but I don't have to work today"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l10-b-meduelelamanotengoquecomprarla
+        es: "me duele la mano, pero tengo que comprarla — necesito una chaqueta nueva"
+        en: "My hand hurts, but I have to buy it — I need a new jacket"
+        atoms: ["me", "duele", "mano", "pero", "tengo que", "comprarla", "necesito", "chaqueta"]
+        tiles: ["duelen", "tiene"]
+      - kind: clozeLit
+        id: l10-c-tienequecomprarlopantalon
+        es: "tiene que comprarlo mañana, el pantalón nuevo"
+        en: "He has to buy it tomorrow, the new pants"
+        blank: "comprarlo"
+        options: ["comprarlo", "comprarla"]
+        atoms: ["tiene", "comprarlo", "mañana", "pantalón", "nuevo"]
+        why: "«el pantalón» is masculine, so «comprarlo», not «comprarla»."
+      - kind: listenCompLit
+        id: l10-lc-tengoquecomprarguantesduelen
+        es: "tengo que comprar guantes porque me duelen las manos"
+        en: "I have to buy gloves because my hands hurt."
+        atoms: ["tengo que", "comprar", "guantes", "porque", "me", "duelen", "mano"]
+        distractorsEn:
+          - "I want to buy gloves because my hands hurt."
+          - "I have to buy gloves because my hand hurts."
+          - "My hands hurt."
+      - kind: mcq
+        id: l10-q-pantalonchaquetanecesito
+        prompt: "Which one means 'I have to buy new pants, and I also need a jacket'?"
+        correct: "tengo que comprar un pantalón nuevo, y también necesito una chaqueta"
+        distractors: ["tengo comprar un pantalón nuevo, y también necesito una chaqueta", "tengo que comprar un pantalón nueva, y también necesito una chaqueta", "tengo que comprar un pantalón nuevo, y también necesita una chaqueta"]
+        atoms: ["tengo que", "comprar", "pantalón", "nuevo", "también", "necesito", "chaqueta"]
+        why: "Never drop «que»; «pantalón» is masculine so «nuevo», not «nueva»; and «necesito», not «necesita» — it's about you."
+      - kind: speakLit
+        id: l10-sp-recall-l3win
+        es: "Ana tiene que trabajar mañana"
+        en: "Ana has to work tomorrow"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l10-b-meduelenmanoscomprarguantes
+        es: "me duelen las manos, tengo que comprar guantes nuevos"
+        en: "My hands hurt, I have to buy new gloves"
+        atoms: ["me", "duelen", "mano", "tengo que", "comprar", "guantes", "nuevo"]
+        tiles: ["duele", "tiene"]
+      - kind: audioWimcq
+        id: l10-ear-mano
+        target: { surface: "mano", emoji: "✋" }
+        distractors:
+          - { surface: "pie", emoji: "🦶" }
+          - { surface: "brazo", emoji: "💪" }
+      - kind: agreementLit
+        id: l10-agr-chaquetapantalonamigo
+        en: "I have to buy a new jacket, but my friend needs new pants"
+        audioText: "tengo que comprar una chaqueta nueva, pero mi amigo necesita un pantalón nuevo"
+        atoms: ["tengo que", "comprar", "chaqueta", "nuevo", "amigo", "necesita", "pantalón"]
+        segments:
+          - { text: "tengo que comprar una chaqueta " }
+          - { blank: { id: "p1", answer: "nueva", options: ["nueva", "nuevo"] } }
+          - { text: ", pero mi amigo necesita un pantalón " }
+          - { blank: { id: "p2", answer: "nuevo", options: ["nuevo", "nueva"] } }
+      - kind: listenBuildLit
+        id: l10-lb-meduelelamanocomprarlomanana
+        es: "me duele la mano, pero tengo que comprarlo mañana"
+        en: "My hand hurts, but I have to buy it tomorrow"
+        atoms: ["me", "duele", "mano", "pero", "tengo que", "comprarlo", "mañana"]
+        tiles: ["duelen", "tiene"]
+      - kind: textMcq
+        id: l10-tm-necesito
+        target: "necesito"
+        distractors: ["negocio", "nervioso", "necesita"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "duele", target: "hurts (one thing)" }
+          - { source: "duelen", target: "hurt (more than one)" }
+          - { source: "mano", target: "hand" }
+          - { source: "tengo que", target: "I have to" }
+          - { source: "comprarlo", target: "to buy it" }
+          - { source: "necesito", target: "I need" }
+      - kind: sim
+        id: l10-sim-mastery
+        scene: { emoji: "🛍️", title: "One last errand", setting: "Ana checks on you before the weekend." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Te duele la mano?", audioText: "¿te duele la mano?", gloss: "Does your hand hurt?" }
+            goal: "Say your hand hurts."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "me duele la mano" }
+                - { id: "wrong1", text: "me duelen la mano" }
+                - { id: "wrong2", text: "tengo duele la mano" }
+              correctOptionId: "right"
+              audioText: "me duele la mano"
+            replyGloss: "My hand hurts."
+            explanation: "«mano» is singular, so «duele», not «duelen» — and never «tengo duele», mixing two different verbs."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Vas a comprar una chaqueta hoy?", audioText: "¿vas a comprar una chaqueta hoy?", gloss: "Are you going to buy a jacket today?" }
+            goal: "Say you have to buy a jacket."
+            reply:
+              mode: build
+              tiles: ["tengo", "que", "comprar", "una", "chaqueta", "nueva", "quiero", "voy"]
+              answer: "tengo que comprar una chaqueta nueva"
+            replyGloss: "I have to buy a new jacket."
+            explanation: "«chaqueta» is feminine, so «una»/«nueva» — and never drop «que» between «tengo» and the infinitive."

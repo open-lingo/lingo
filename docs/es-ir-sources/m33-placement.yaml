@@ -1,0 +1,23 @@
+placement:
+  screener:
+    - id: "es-m33-scr-1"
+      prompt: "'I have to work.' — which one?"
+      correct: "tengo que trabajar"
+      distractors: ["tengo trabajar", "quiero que trabajar", "voy que trabajar"]
+  byModule:
+    - id: "es-m33-pl-1"
+      prompt: "I have to work."
+      correct: "tengo que trabajar"
+      distractors: ["tengo trabajar", "quiero trabajar", "voy a trabajar"]
+    - id: "es-m33-pl-2"
+      prompt: "Do you have to study today?"
+      correct: "¿tienes que estudiar hoy?"
+      distractors: ["¿tienes estudiar hoy?", "¿tienes que estudias hoy?", "¿tiene que estudiar hoy?"]
+    - id: "es-m33-pl-3"
+      prompt: "We have to study together."
+      correct: "tenemos que estudiar juntos"
+      distractors: ["tenemos estudiar juntos", "tenemos que estudiamos juntos", "tienen que estudiar juntos"]
+    - id: "es-m33-pl-4"
+      prompt: "I can work, but I don't have to work today."
+      correct: "puedo trabajar, pero no tengo que trabajar hoy"
+      distractors: ["puedo trabajar, pero no tengo trabajar hoy", "quiero trabajar, pero no tengo que trabajar hoy", "puedo que trabajar, pero no tengo que trabajar hoy"]

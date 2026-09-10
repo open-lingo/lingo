@@ -1,0 +1,128 @@
+  # ── L3 · «Ana tiene que trabajar mañana» — 3rd-singular recombination,
+  #    named subject. No new atom: «tiene» (m5) plus the already-free
+  #    «que» plus a PRIOR infinitive. First lesson to fold in m32's
+  #    clothing frame (chaqueta) as the obligation's object, per the
+  #    interleave requirement. ≥1 recall (L2's win line).
+  - n: 3
+    template: free
+    title: "Ana tiene que trabajar mañana"
+    description: "«tiene que» — a named subject takes the él/ella-shape «tiene» (m5), never «tienes» (tú) or «tengo» (yo). Same rule, third person."
+    steps:
+      - kind: map
+        id: l3-map-anatienequetrabajarmanana
+        tokens: ["Ana", "tiene", "que", "trabajar", "mañana"]
+        pairs:
+          - { en: "Ana", tokenIndex: 0 }
+          - { en: "has to", tokenIndex: 1 }
+          - { en: "work", tokenIndex: 3 }
+          - { en: "tomorrow", tokenIndex: 4 }
+        audioText: "Ana tiene que trabajar mañana"
+        revealNote: "A named subject («Ana») takes «tiene» — the él/ella-shape (m5) — never «tienes» (tú) or «tengo» (yo). Still «que» plus the infinitive."
+      - kind: speakLit
+        id: l3-sp-recall
+        es: "¿tienes que estudiar hoy?"
+        en: "Do you have to study today?"
+        cue: recall
+        atoms: ["tienes", "estudiar", "hoy"]
+      - kind: buildLit
+        id: l3-b-anatienequecomprarchaqueta
+        es: "Ana tiene que comprar una chaqueta nueva"
+        en: "Ana has to buy a new jacket"
+        atoms: ["tiene", "comprar", "chaqueta", "nuevo"]
+        tiles: ["tengo", "tienes"]
+      - kind: clozeLit
+        id: l3-c-diegotienequecomprarpantalon
+        es: "Diego tiene que comprar un pantalón nuevo"
+        en: "Diego has to buy new pants"
+        blank: "tiene"
+        options: ["tiene", "tienes"]
+        atoms: ["tiene", "comprar", "pantalón", "nuevo"]
+        why: "A named subject («Diego») takes «tiene», the él/ella-shape — never «tienes», which is only for tú."
+      - kind: listenCompLit
+        id: l3-lc-anatienequetrabajarmanana
+        es: "Ana tiene que trabajar mañana"
+        en: "Ana has to work tomorrow."
+        atoms: ["tiene", "trabajar", "mañana"]
+        distractorsEn:
+          - "Ana wants to work tomorrow."
+          - "You have to work tomorrow."
+          - "Ana has to work today."
+      - kind: mcq
+        id: l3-q-diegotienequeestudiar
+        prompt: "Which one means 'he has to study'?"
+        correct: "tiene que estudiar"
+        distractors: ["tengo que estudiar", "tiene estudiar", "quiere que estudiar"]
+        atoms: ["tiene", "estudiar"]
+        why: "A named subject takes «tiene» (él/ella), never «tengo» (yourself) — and «que» never drops."
+      - kind: buildLit
+        id: l3-b-mihermanatienequecomprarcalcetines
+        es: "mi hermana tiene que comprar calcetines nuevos"
+        en: "My sister has to buy new socks"
+        atoms: ["mi", "hermana", "tiene", "comprar", "calcetines", "nuevo"]
+        tiles: ["tengo", "tienes"]
+      - kind: audioWimcq
+        id: l3-ear-guantes
+        target: { surface: "guantes", emoji: "🧤" }
+        distractors:
+          - { surface: "calcetines", emoji: "🧦" }
+          - { surface: "zapato", emoji: "👞" }
+      - kind: agreementLit
+        id: l3-agr-tienepantalontengocamisa
+        en: "Ana has new pants, and I have a new shirt"
+        audioText: "Ana tiene un pantalón nuevo, y tengo una camisa nueva"
+        atoms: ["tiene", "pantalón", "nuevo", "tengo", "camisa"]
+        segments:
+          - { text: "Ana tiene un pantalón " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y tengo una camisa " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l3-lb-anatienequetrabajarpuedenadar
+        es: "Ana tiene que trabajar, pero puede nadar mañana"
+        en: "Ana has to work, but she can swim tomorrow"
+        atoms: ["tiene", "trabajar", "pero", "puede", "nadar", "mañana"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l3-tm-comprar
+        target: "comprar"
+        distractors: ["comprador", "compra", "cocinar"]
+      - kind: sim
+        id: l3-sim-diego-ana
+        scene: { emoji: "👖", title: "Diego asks about Ana", setting: "Diego wonders why Ana isn't at the beach." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Dónde está Ana? ¿Por qué no está aquí?", audioText: "¿dónde está ana? ¿por qué no está aquí?", gloss: "Where's Ana? Why isn't she here?" }
+            goal: "Say she has to work today."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "tiene que trabajar hoy" }
+                - { id: "wrong1", text: "tengo que trabajar hoy" }
+                - { id: "wrong2", text: "tiene trabajar hoy" }
+              correctOptionId: "right"
+              audioText: "tiene que trabajar hoy"
+            replyGloss: "She has to work today."
+            explanation: "Talking about Ana (a named subject, not yourself) uses «tiene» — not «tengo» (yourself) — and never drop «que»."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y Luis? ¿Tiene que trabajar también?", audioText: "¿y luis? ¿tiene que trabajar también?", gloss: "And Luis? Does he have to work too?" }
+            goal: "Say he has to buy a jacket too."
+            reply:
+              mode: build
+              tiles: ["sí", "tiene", "que", "comprar", "una", "chaqueta", "nueva", "también", "tengo", "tienes"]
+              answer: "sí tiene que comprar una chaqueta nueva también"
+            replyGloss: "Yes, he has to buy a new jacket too."
+            explanation: "Luis — another named subject — still «tiene», never «tienes» (tú) or «tengo» (yourself)."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "tiene", target: "he/she has" }
+          - { source: "comprar", target: "buy" }
+          - { source: "chaqueta", target: "jacket" }
+          - { source: "trabajar", target: "work" }
+          - { source: "mañana", target: "tomorrow" }
+          - { source: "también", target: "also, too" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "Ana tiene que trabajar mañana"
+        en: "Ana has to work tomorrow"
+        atoms: ["tiene", "trabajar", "mañana"]

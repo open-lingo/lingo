@@ -1,0 +1,1596 @@
+module: m33
+title: "Tengo que trabajar"
+frame: none
+throughModule: m32
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m33 — obligation: «tengo que» + infinitivo, the fourth and final
+# member of this course's modal-verb constellation (querer/poder m14,
+# ir a m28, necesito m16 — now must). Fourteenth A2 module, and the
+# first GRAMMAR beat since m31 (m32 was the intervening lexicon break,
+# per interleave-don't-block-teach).
+#
+#     quiero trabajar     (want,   m14 — bare infinitive)
+#     puedo trabajar      (can,    m14 — bare infinitive)
+#     voy a trabajar      (plan,   m28 — «a» + infinitive)
+#     tengo que trabajar  (MUST,   m33 — «que» + infinitive, THIS module)
+#
+# ONE idea, the whole module: the linking word «que» is what makes an
+# obligation sentence different from every bare-infinitive modal this
+# course already teaches. «tengo»/«tienes»/«tiene» (m5), «tenemos»/
+# «tienen» (m18), and the bare infinitive «tener» itself (m15) are ALL
+# already fully PRIOR — every person of the paradigm exists with zero
+# conjugation gap, unlike m28's own «va» gap-fill. «que» is already a
+# free function word (`ES_FUNCTION_WORDS`, moduleBarGuards.ts line 83).
+# This module teaches a SYNTACTIC PATTERN, not new morphology: put «que»
+# between an already-known «tener» form and an already-known infinitive,
+# and the sentence means "must," not "want to" or "can." One new atom
+# only (the idiom anchor «tengo que» itself, see below) — this is as
+# thin a grammar module as the course has shipped since m29.
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# Four lines of evidence:
+#   1. **Rhythm calls for a grammar beat, and course shape supports it.**
+#      m27 (break) → m28 (grammar) → m29 (grammar) → m30 (break) → m31
+#      (grammar, one beat) → m32 (break) — the identical "single grammar
+#      beat between breaks" cadence m31's own header used for its own
+#      placement after m30. m32's own header called m32 "on schedule, not
+#      overdue" for a break; the same logic now calls m33 on schedule for
+#      the next grammar beat.
+#   2. **Every rival candidate the task asked to weigh was checked against
+#      the actual registry, not assumed — and two are DISQUALIFIED
+#      outright, not merely weaker.** `grep -o 'surface: "[^"]*"'
+#      curriculum/m{1..32}.ts | sort -u | grep -iE "pued|quier"` confirms
+#      «poder»/«puedo»/«puedes»/«puede» are FULLY taught at m14, including
+#      the negated form («no puedo cocinar hoy», m14 L2, read directly
+#      from `curriculum/m14.ts:306`) — "poder + infinitivo" is not new
+#      content, it would be pure recombination mislabeled as a grammar
+#      beat. Direct read of `curriculum/m13.ts:930-999` confirms «me
+#      gusta + infinitivo» (bare-infinitive complement of gustar, e.g.
+#      "me gusta nadar", "me gusta nadar y viajar") is ALSO already fully
+#      taught at m13 — extending gustar to infinitives or to m32's
+#      clothing nouns is recombination, not a new structure. Both
+#      candidates the task asked to weigh are, on inspection, already
+#      shipped. See REJECTED sections below for the other four.
+#   3. **Highest recombination value of any live candidate against
+#      m28–m32, verified hook by hook, not asserted.** «tengo que» sits in
+#      the exact same "modal + infinitive complement" slot as THREE prior
+#      constructions and creates a direct four-way minimal-pair set:
+#      «quiero»/«puedo» (m14, bare infinitive, no linker) vs «voy a» (m28,
+#      «a» linker, near-future) vs «tengo que» (m33, «que» linker,
+#      obligation) — the richest modal-contrast story this course has had
+#      any single module build. It also reaches m29's fused-clitic family
+#      directly: «tengo que comprarlo/comprarla/comprarlos» slots the
+#      obligation frame in front of m29's own flagship atoms with zero
+#      friction (the fused form is itself the bare-infinitive complement
+#      «que» requires). It reaches m32's clothing nouns and shopping frame
+#      («tengo que comprar una chaqueta», «tengo que trabajar, pero
+#      necesito una bufanda nueva») and m25's «porque» for justification
+#      sentences («no puedo ir, porque tengo que trabajar»). No other
+#      candidate considered (see REJECTED below) reaches more than one of
+#      m28/m29/m32's own frames.
+#   4. **Verified data floor, both directions.** `grep -rn "tener que|
+#      tengo que|tienes que|tiene que" curriculum/m{1..32}.ts` returns
+#      zero hits — the idiom has never been voiced. `grep -o 'surface:
+#      "[^"]*"' curriculum/m{1..32}.ts | sort -u | grep -iE "^.*\"(teng|
+#      tien)"` confirms tengo/tienes/tiene (m5) and tenemos/tienen (m18)
+#      are ALL prior — a complete paradigm, no gap. `grep -n
+#      'ES_FUNCTION_WORDS' -A16 __tests__/moduleBarGuards.ts` confirms
+#      "que" is listed among the free connectives (line 83, alongside
+#      «pero», «si», «como») — already ungated, no registration needed.
+#      No new emoji: this module's one new atom is a phrase/idiom kind
+#      (see below), carrying no `emoji:` field, matching the course's own
+#      convention for grammar-category atoms (m13's gusta/gustan, m28's
+#      va, m31's duele/duelen — none are imageable, none carry emoji).
+#      Zero vendoring work this module.
+#
+# ── REJECTED: «poder + infinitivo» — not new, already shipped ────────────
+# `curriculum/m14.ts:28-32` registers «poder»/«puedo»/«puedes»/«puede» as
+# full atoms; the module's own L2 (`curriculum/m14.ts:264-321`) teaches
+# the modal-plus-bare-infinitive construction end to end, including the
+# exact negated form the task's candidate list named ("no puedo cocinar
+# hoy," `curriculum/m14.ts:306`). Recombining «poder» against m28–m32
+# content is legitimate REVIEW, not a new grammar beat — disqualified,
+# not merely weaker than the field.
+#
+# ── REJECTED: «me gusta(n)» extended to infinitives or to m32's clothing
+#    nouns — not new, already shipped ─────────────────────────────────────
+# `curriculum/m13.ts:930-999` (L5) teaches «me gusta» + bare infinitive
+# to full coordination depth ("me gusta nadar y viajar," with an explicit
+# reveal note on why «gusta» never pluralizes for a list of activities).
+# Extending «me gusta» to m32's clothing nouns ("me gusta la chaqueta")
+# is straight noun-object recombination of a PRIOR pattern (m7/m13),
+# introducing no new syntax. Neither reading of this candidate is a
+# grammar beat.
+#
+# ── REJECTED: «ponerse»/«llevar» (wear/put on) — real, well-scoped future
+#    content, explicitly deferred TWICE already, not chosen here on
+#    atom-budget and recombination-breadth grounds ─────────────────────────
+# m30's header and m32's header (`m32-header.yaml`, the "REJECTED: a
+# 'wearing' verb" section) both name this pairing directly as clean
+# future content once a reflexive-verb module exists to carry it — and
+# m17 (`curriculum/m17.ts`) DOES already teach the full reflexive
+# paradigm (acostarse/despertarse/ducharse/lavarse/levantarse, «me»/«te»/
+# «se»), so «ponerse» would not need to teach reflexive morphology from
+# scratch. It was weighed honestly against «tener que» anyway, on the
+# task's own instruction, and loses on two counts: (a) atom budget —
+# `curriculum/m15.ts:47-48` shows only «poner»/«pongo» are prior; «pones»/
+# «pone» are NOT (grep-verified zero hits), so a minimally-honest
+# «ponerse» debut needs at least 2 new reflexive forms (me pongo, te
+# pones) PLUS an entirely new verb «llevar» (grep-verified zero hits
+# anywhere in m1–m32) for the "wear" half of the pairing — 3-4 new atoms
+# before any full-paradigm coverage, against this module's 1; (b)
+# recombination breadth — «ponerse»/«llevar» ties richly to m32 (clothing)
+# alone and has no natural tie to m28 («voy a»), m29 (fused clitics —
+# «ponérselo» would be a DOUBLE fusion, reflexive-plus-clitic, a bigger
+# leap than any fusion this course has taught), or m31 («duele»/«duelen»
+# has no clean semantic tie to putting on clothes). Left open, explicitly,
+# as the clean candidate for m34 or a nearby module — not re-deferred
+# silently a third time, decided against on the actual numbers this time.
+#
+# ── REJECTED: «hace frío/calor» + clothing recombination ─────────────────
+# `frío`/`calor`/`hace` are all PRIOR (m27, weather). Pairing weather with
+# clothing ("hace frío, necesito una chaqueta") is pure lexical
+# recombination of TWO already-taught modules — legitimate REVIEW content
+# for a future lesson inside another module, but zero new grammar; does
+# not answer "what does m33 teach" on its own.
+#
+# ── REJECTED: «estar + adjective» vs «ser» for states ─────────────────────
+# Genuinely unresolved as an EXPLICIT contrast rule — `curriculum/m2.ts`
+# (soy/eres/es), `curriculum/m4.ts` (está), and `curriculum/m18.ts`
+# (estamos/están/somos/son) each teach pieces of both paradigms, but no
+# module has ever drawn the ser-vs-estar line as a named rule. Rejected
+# for m33 specifically, not forever: formalizing it is a SUBSTANTIALLY
+# bigger lift than this module's "one linking word" idea — two irregular
+# verb paradigms plus a genuinely hard permanent/temporary usage
+# distinction, likely 4-6+ new atoms and its own dedicated multi-lesson
+# contrast arc, not a "≤3 atom, one deduction" beat. It also has no
+# natural tie to m28/m29/m31/m32's own recent content the way «tener que»
+# does. Left open as real future content, sized more like a future
+# module of its own than a recombination lesson.
+#
+# ── REJECTED: imperative tú (commands, for NPC sim frames) ────────────────
+# No imperative form is registered anywhere in m1-m32 (grep-verified).
+# Rejected on two grounds: (1) scope — a useful imperative needs several
+# verbs' command forms at once to carry real NPC dialogue, a bigger lift
+# than "≤3 atoms, one structure"; (2) motivation — per "lessons a learner
+# can reason through; real use" (CLAUDE.md's own aim), a course structure
+# should earn its place by what a LEARNER needs, not by what would make a
+# future sim-author's life easier. Serving dialogue-authoring convenience
+# is not, on its own, a content justification. Left open as real future
+# content once its own recombination case is made on learner-need
+# grounds.
+#
+# ── REJECTED: demonstratives (este/esta/estos/estas/ese/esa) with clothing
+#    ───────────────────────────────────────────────────────────────────
+# NOT a fresh gap — `curriculum/m12.ts` already registers este/esta/estos/
+# estas/ese/esa in full (confirmed by direct read, also independently
+# listed among ES_FUNCTION_WORDS' free demonstrative set). Pairing them
+# with m32's clothing nouns is pure recombination, not new grammar; zero
+# candidacy as this module's content.
+#
+# ── THE CENTRAL DISCRIMINATION — read before drafting any lesson ─────────
+# The linking word is everything. «quiero trabajar» / «puedo trabajar» /
+# «voy a trabajar» / «tengo que trabajar» share the SAME infinitive
+# complement and differ ONLY in what comes before it — bare infinitive
+# (querer, poder), «a» + infinitive (ir), «que» + infinitive (tener). The
+# transfer error to guard against: a learner who has internalized
+# «puedo»/«quiero»'s bare-infinitive pattern reaching for *"tengo
+# trabajar" (dropping «que») — the single most natural mistake this
+# module exists to prevent, the same structural role m29's third-position
+# foil and m31's "never conjugate to the person" foil played for their
+# own modules. Every discrimination step (`agreementCloze`/`textMcq`/
+# `sentenceMcq`) contrasting «tengo que» against «quiero»/«puedo» must
+# include a foil that DROPS «que» (never as a correct answer). A second,
+# lower-priority foil: inventing *"tengo a trabajar" (borrowing m28's
+# linker onto the wrong verb) — worth one distractor, not the module's
+# central rule.
+#
+# ── ONE NEW ATOM — «tengo que», the idiom anchor, mirroring m7's «tengo
+#    hambre»/«tengo sed» precedent, NOT a per-person registration ────────
+# `curriculum/m7.ts:43-44` registers «tengo hambre»/«tengo sed» as
+# `kind: "phrase"`, `partOfSpeech: "phrase"` atoms even though «tengo» is
+# separately a plain-verb atom (m5) — the established convention for a
+# lexicalized idiom whose MEANING isn't transparent from its parts, even
+# when every component word is independently prior. «tengo que» follows
+# the identical convention: ONE phrase atom, registered as the yo-form
+# anchor (this module's L1 debut), «meaningEn: "I have to."» Every OTHER
+# person's obligation sentence («tienes que», «tiene que», «tenemos que»,
+# «tienen que») is graded through the ALREADY-REGISTERED bare «tener»
+# conjugation (tienes/tiene/tenemos/tienen, all prior) plus the free word
+# «que» — NOT through a second registered "X que" surface. This is a live
+# gate trap, not a stylistic footnote: `irAtomResolution.test.ts` is
+# zero-tolerance on `atoms:` credit — crediting a step with `atoms:
+# ["tienes que"]` would be a SILENT miss (unregistered surface, exact
+# match required, no fold) unless a drafting agent adds a second phrase
+# atom for it, which this module deliberately does not. Credit L2+ steps
+# with `atoms: ["tienes"]` (etc.), never the two-word bigram. State this
+# rule explicitly in the drafting brief's hard rules (done, see below) so
+# no agent reaches for the intuitive-but-wrong credit array.
+#
+# ── NO NEW EMOJI, NO VENDORING ─────────────────────────────────────────────
+# «tengo que» is a phrase/idiom-kind atom with no honest single-referent
+# image (an obligation modal, same non-imageable category as m13's
+# gusta/gustan, m28's va, and m31's duele/duelen — none carry an `emoji:`
+# field). No `src/pub/noto-emoji/svg/` work applies this module.
+#
+# ── SIM NPC-LINE PROVENANCE: LIVE AND UNFORGIVING — m29 IS THE START OF
+#    THE ZERO-LEGACY WINDOW, m33 IS WELL INSIDE IT ─────────────────────────
+# `esSimNpcProvenance.test.ts`'s `KNOWN_LEGACY` allowlist is SHRINK-ONLY
+# and scoped to m1-m10, m20, m22-m28 — m29 through m33 get NO reaction-
+# word leniency (confirmed by direct read of the gate file's own
+# provenance-scope comment, same wording m32's brief already carried
+# forward). Every NPC word in this module's dialogue_sim lessons must
+# resolve to: this module's own atom («tengo que», yo-form only — an NPC
+# line asking a tú/3rd-person obligation question must be built from the
+# ALREADY-PRIOR bare «tener» forms + «que», never from this module's own
+# registered surface, which is yo-only), any PRIOR atom (m1-m32), a
+# taught verb conjugation, `ES_FUNCTION_WORDS`, or `ES_PROPER_NAMES`.
+# Natural scenario: a friend inviting the learner somewhere, the learner
+# declining with an obligation — NPC side stays entirely in PRIOR
+# invitation vocabulary («¿quieres…?», «vamos a…», m14/m18/m28), never
+# needing this module's own content at all. Grep every `npc:` line by
+# hand before shipping.
+#
+# ── ACCENT: WARM GRAPHITE/STONE, VERIFIED UNUSED, THEMATICALLY RESTRAINED
+#    ───────────────────────────────────────────────────────────────────
+# Checked every `accent:` pair in `curriculum/index.ts` (grep-verified,
+# all 32 pairs read in full): zero hits for `#78716c` or `#1c1917`.
+# Distinct from the four most recent modules specifically (m29 cool slate
+# `#64748b`/`#334155`, m30 teal, m31 rose, m32 denim indigo) and from
+# every existing gray/neutral pair already spent (none — this is the
+# course's first genuinely neutral, non-saturated accent). A warm
+# graphite reads as "weight/duty" without forcing a heavy metaphor onto a
+# module that is, underneath the theme, still a one-linking-word grammar
+# point — the same restraint m29's slate and m31's rose both used for
+# their own grammar modules.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # tengo que — I have to (idiom anchor, yo-form only). Mirrors m7's
+  # «tengo hambre»/«tengo sed» idiom-phrase convention: registered as its
+  # own phrase atom even though every component word (tengo m5, que
+  # ES_FUNCTION_WORDS) is independently prior, because the MEANING
+  # ("must," not "have that") is not transparent from the parts. Every
+  # other person's obligation sentence is graded via the already-
+  # registered bare tener conjugation + the free word «que» — see the
+  # dedicated header section above; do NOT register "tienes que" etc. as
+  # additional surfaces.
+  - { surface: "tengo que", meaningEn: "I have to", partOfSpeech: "phrase", kind: "phrase", hint: "tengo que — «tengo» (m5) plus «que», already a free word. Put «que» between «tengo» and any infinitive you already know and the meaning tips from having a thing to doing a thing: not «tengo trabajar» (ungrammatical — never drop «que»), «tengo que trabajar». Contrast with «quiero trabajar» / «puedo trabajar» (m14, no linker at all) and «voy a trabajar» (m28, «a» not «que»)." }
+
+lessons:
+  # ── L1 · «Tengo que trabajar» — «tengo que» debuts, yo-form only. The
+  #    ONE new atom this module registers (phrase/idiom kind, mirroring
+  #    m7's «tengo hambre»/«tengo sed» convention — see m33-header.yaml).
+  #    Carries the module's one general rule card, contrasting «tengo
+  #    que trabajar» (obligation, «que» linker) against PRIOR «quiero
+  #    trabajar» / «puedo trabajar» (m14, no linker at all) and PRIOR
+  #    «voy a trabajar» (m28, «a» linker). Introduces the central
+  #    discrimination foil (dropping «que» — *"tengo trabajar" is
+  #    ungrammatical) in the MCQ and the sim, never as a correct answer.
+  #    PRIOR context only: tengo (m5), quiero/puedo (m14), voy (m9/m28),
+  #    trabajar/estudiar (m10), nadar (m13), hoy/mañana (m8), pero (m18/
+  #    ES_FUNCTION_WORDS), también (m11), playa (m25), pantalón/camisa/
+  #    chaqueta (m12/m32). No recall — first lesson of the module.
+  - n: 1
+    template: free
+    title: "Tengo que trabajar"
+    description: "«tengo que» plus a bare infinitive — I HAVE TO, not I want to («quiero») or I can («puedo», m14, no linker) or I'm going to («voy a», m28, «a» not «que»). Never drop «que»: «tengo trabajar» is ungrammatical."
+    steps:
+      - kind: map
+        id: l1-map-tengoquetrabajar
+        tokens: ["tengo que", "trabajar"]
+        pairs:
+          - { en: "I have to", tokenIndex: 0 }
+          - { en: "work", tokenIndex: 1 }
+        audioText: "tengo que trabajar"
+        revealNote: "«tengo que» — never drop the «que»: «tengo trabajar» is ungrammatical. «que» is the linker; «quiero»/«puedo» (m14) use no linker at all, and «voy a» (m28) uses «a», not «que»."
+      - kind: info
+        id: l1-info-tengoque
+        title: "Tengo que — I have to"
+        body: "«tengo que» plus a bare infinitive means I HAVE TO. Compare «quiero trabajar» (want to, no linker) and «voy a trabajar» (going to, «a» not «que»). Never drop «que»: «tengo trabajar» is ungrammatical."
+      - kind: speakLit
+        id: l1-sp-tengoqueestudiar
+        es: "tengo que estudiar"
+        en: "I have to study"
+        atoms: ["tengo que", "estudiar"]
+      - kind: buildLit
+        id: l1-b-tengoquetrabajarmanana
+        es: "tengo que trabajar mañana"
+        en: "I have to work tomorrow"
+        atoms: ["tengo que", "trabajar", "mañana"]
+        tiles: ["quiero", "voy"]
+      - kind: clozeLit
+        id: l1-c-tengoqueestudiarhoy
+        es: "tengo que estudiar hoy"
+        en: "I have to study today"
+        blank: "estudiar"
+        options: ["estudiar", "estudio"]
+        atoms: ["tengo que", "estudiar", "hoy"]
+        why: "After «que», the infinitive never conjugates — «estudiar», not «estudio»."
+      - kind: listenCompLit
+        id: l1-lc-tengoquetrabajarhoy
+        es: "tengo que trabajar hoy"
+        en: "I have to work today."
+        atoms: ["tengo que", "trabajar", "hoy"]
+        distractorsEn:
+          - "I want to work today."
+          - "I have to work tomorrow."
+          - "I can work today."
+      - kind: mcq
+        id: l1-q-tengoquetrabajar
+        prompt: "Which one means 'I have to work'?"
+        correct: "tengo que trabajar"
+        distractors: ["tengo trabajar", "quiero que trabajar", "voy que trabajar"]
+        atoms: ["tengo que", "trabajar"]
+        why: "«tengo que» always needs «que» before the infinitive — dropping it («tengo trabajar») is ungrammatical. «que» is «tengo»'s own linker, not «quiero»'s (no linker) or «voy»'s («a»)."
+      - kind: buildLit
+        id: l1-b-quieronadarperotengoqueestudiar
+        es: "quiero nadar, pero tengo que estudiar"
+        en: "I want to swim, but I have to study"
+        atoms: ["quiero", "nadar", "pero", "tengo que", "estudiar"]
+        tiles: ["puedo", "voy"]
+      - kind: audioWimcq
+        id: l1-ear-camisa
+        target: { surface: "camisa", emoji: "👕" }
+        distractors:
+          - { surface: "libro", emoji: "📖" }
+          - { surface: "perro", emoji: "🐶" }
+      - kind: agreementLit
+        id: l1-agr-pantalonnuevocamisanueva
+        en: "I have to buy new pants, and I have a new shirt"
+        audioText: "tengo que comprar un pantalón nuevo, y tengo una camisa nueva"
+        atoms: ["tengo que", "comprar", "pantalón", "nuevo", "tengo", "camisa"]
+        segments:
+          - { text: "tengo que comprar un pantalón " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y tengo una camisa " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l1-lb-tengoqueestudiarpuedonadar
+        es: "tengo que estudiar, pero puedo nadar mañana"
+        en: "I have to study, but I can swim tomorrow"
+        atoms: ["tengo que", "estudiar", "pero", "puedo", "nadar", "mañana"]
+        tiles: ["quiero", "voy"]
+      - kind: textMcq
+        id: l1-tm-trabajar
+        target: "trabajar"
+        distractors: ["trabajador", "trabajo", "viajar"]
+      - kind: sim
+        id: l1-sim-diego-playa
+        scene: { emoji: "🏖️", title: "Diego invites you to the beach", setting: "Diego calls to make plans." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Quieres ir a la playa hoy?", audioText: "¿quieres ir a la playa hoy?", gloss: "Do you want to go to the beach today?" }
+            goal: "Say no, you have to work."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, tengo que trabajar" }
+                - { id: "wrong1", text: "no, tengo trabajar" }
+                - { id: "wrong2", text: "no, quiero que trabajar" }
+              correctOptionId: "right"
+              audioText: "no, tengo que trabajar"
+            replyGloss: "No, I have to work."
+            explanation: "«tengo que trabajar» — never drop «que»: «tengo trabajar» is ungrammatical."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y mañana? ¿Puedes ir mañana?", audioText: "¿y mañana? ¿puedes ir mañana?", gloss: "And tomorrow? Can you go tomorrow?" }
+            goal: "Say you have to study tomorrow too."
+            reply:
+              mode: build
+              tiles: ["tengo", "que", "estudiar", "mañana", "también", "quiero", "voy"]
+              answer: "tengo que estudiar mañana también"
+            replyGloss: "I have to study tomorrow too."
+            explanation: "«tengo que» plus a bare infinitive — «estudiar» stays bare, never conjugated."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "tengo que", target: "I have to" }
+          - { source: "trabajar", target: "work" }
+          - { source: "estudiar", target: "study" }
+          - { source: "quiero", target: "I want" }
+          - { source: "puedo", target: "I can" }
+          - { source: "mañana", target: "tomorrow" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "tengo que trabajar"
+        en: "I have to work"
+        atoms: ["tengo que", "trabajar"]
+
+  # ── L2 · «¿Tienes que estudiar?» — tú-form recombination. No new atom:
+  #    «tienes» (m5) plus the already-free «que» plus a PRIOR infinitive.
+  #    Graded via the bare «tienes» atom, never a second "tienes que"
+  #    surface (see m33-header.yaml). Central person-agreement contrast:
+  #    «tienes» is for asking someone else about THEMSELVES, «tengo»
+  #    stays yourself — the sim turns this into the actual discrimination.
+  #    ≥1 recall (L1's win line).
+  - n: 2
+    template: free
+    title: "¿Tienes que estudiar?"
+    description: "«tienes que» — the tú-form, same rule: «tienes» (m5) plus «que» plus the infinitive. Graded through the already-registered «tienes», never a new surface."
+    steps:
+      - kind: map
+        id: l2-map-tienesqueestudiar
+        tokens: ["¿tienes", "que", "estudiar", "hoy?"]
+        pairs:
+          - { en: "do you have to", tokenIndex: 0 }
+          - { en: "study", tokenIndex: 2 }
+          - { en: "today?", tokenIndex: 3 }
+        audioText: "¿tienes que estudiar hoy?"
+        revealNote: "«tienes» (m5) plus «que» plus the infinitive — same pattern as «tengo que», just the tú-form. Still never drop «que»."
+      - kind: speakLit
+        id: l2-sp-recall
+        es: "tengo que trabajar"
+        en: "I have to work"
+        cue: recall
+        atoms: ["tengo que", "trabajar"]
+      - kind: buildLit
+        id: l2-b-tienesquetrabajarmuchohoy
+        es: "tienes que trabajar mucho hoy"
+        en: "You have to work a lot today"
+        atoms: ["tienes", "trabajar", "mucho", "hoy"]
+        tiles: ["tengo", "tiene"]
+      - kind: clozeLit
+        id: l2-c-tienesqueestudiarmanana
+        es: "tienes que estudiar mañana"
+        en: "You have to study tomorrow"
+        blank: "tienes"
+        options: ["tienes", "tengo"]
+        atoms: ["tienes", "estudiar", "mañana"]
+        why: "«tú» takes «tienes» — «tengo» is the yo-form, for yourself only."
+      - kind: listenCompLit
+        id: l2-lc-tienesquetrabajarhoy
+        es: "¿tienes que trabajar hoy?"
+        en: "Do you have to work today?"
+        atoms: ["tienes", "trabajar", "hoy"]
+        distractorsEn:
+          - "Do I have to work today?"
+          - "Do you want to work today?"
+          - "Do you have to work tomorrow?"
+      - kind: mcq
+        id: l2-q-tienesqueestudiarhoy
+        prompt: "Which one means 'you have to study'?"
+        correct: "tienes que estudiar"
+        distractors: ["tienes estudiar", "tengo que estudiar", "quieres que estudiar"]
+        atoms: ["tienes", "estudiar"]
+        why: "«tienes» is the tú-form; never drop «que» («tienes estudiar» is ungrammatical). And «quieres» never takes a «que» linker at all."
+      - kind: buildLit
+        id: l2-b-nopeortienesqueestudiarmananatambien
+        es: "no, pero tienes que estudiar mañana también"
+        en: "No, but you have to study tomorrow too"
+        atoms: ["no", "pero", "tienes", "estudiar", "mañana", "también"]
+        tiles: ["tengo", "tiene"]
+      - kind: audioWimcq
+        id: l2-ear-libro
+        target: { surface: "libro", emoji: "📖" }
+        distractors:
+          - { surface: "perro", emoji: "🐶" }
+          - { surface: "casa", emoji: "🏠" }
+      - kind: agreementLit
+        id: l2-agr-tienespantalontengocamisa
+        en: "You have new pants, and I have a new shirt"
+        audioText: "tienes un pantalón nuevo, y tengo una camisa nueva"
+        atoms: ["tienes", "pantalón", "nuevo", "tengo", "camisa"]
+        segments:
+          - { text: "tienes un pantalón " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y tengo una camisa " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l2-lb-tienesqueestudiarpuedesnadar
+        es: "tienes que estudiar, pero puedes nadar mañana"
+        en: "You have to study, but you can swim tomorrow"
+        atoms: ["tienes", "estudiar", "pero", "puedes", "nadar", "mañana"]
+        tiles: ["tengo", "tiene"]
+      - kind: textMcq
+        id: l2-tm-estudiar
+        target: "estudiar"
+        distractors: ["estudiante", "estudio", "escuchar"]
+      - kind: sim
+        id: l2-sim-ana-playa
+        scene: { emoji: "🏖️", title: "Ana can't go to the beach", setting: "Ana texts you about her day." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "Hoy no puedo ir a la playa.", audioText: "hoy no puedo ir a la playa", gloss: "Today I can't go to the beach." }
+            goal: "Ask if she has to work."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "¿tienes que trabajar?" }
+                - { id: "wrong1", text: "¿tengo que trabajar?" }
+                - { id: "wrong2", text: "¿tienes trabajar?" }
+              correctOptionId: "right"
+              audioText: "¿tienes que trabajar?"
+            replyGloss: "Do you have to work?"
+            explanation: "Asking Ana about HERSELF uses «tienes», not «tengo» (that's for yourself) — and never drop «que»."
+          - id: t2
+            npc: { speaker: "Ana", es: "Sí, tengo que trabajar mucho hoy. ¿Y tú? ¿Quieres ir a la playa?", audioText: "sí, tengo que trabajar mucho hoy. ¿y tú? ¿quieres ir a la playa?", gloss: "Yes, I have to work a lot today. And you? Do you want to go to the beach?" }
+            goal: "Say yes, but you have to study tomorrow."
+            reply:
+              mode: build
+              tiles: ["sí", "pero", "tengo", "que", "estudiar", "mañana", "tienes", "tiene"]
+              answer: "sí pero tengo que estudiar mañana"
+            replyGloss: "Yes, but I have to study tomorrow."
+            explanation: "Back to yourself — «tengo», not «tienes» (that's for Ana)."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "tienes", target: "you have" }
+          - { source: "estudiar", target: "study" }
+          - { source: "trabajar", target: "work" }
+          - { source: "mucho", target: "a lot" }
+          - { source: "hoy", target: "today" }
+          - { source: "mañana", target: "tomorrow" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "¿tienes que estudiar hoy?"
+        en: "Do you have to study today?"
+        atoms: ["tienes", "estudiar", "hoy"]
+
+  # ── L3 · «Ana tiene que trabajar mañana» — 3rd-singular recombination,
+  #    named subject. No new atom: «tiene» (m5) plus the already-free
+  #    «que» plus a PRIOR infinitive. First lesson to fold in m32's
+  #    clothing frame (chaqueta) as the obligation's object, per the
+  #    interleave requirement. ≥1 recall (L2's win line).
+  - n: 3
+    template: free
+    title: "Ana tiene que trabajar mañana"
+    description: "«tiene que» — a named subject takes the él/ella-shape «tiene» (m5), never «tienes» (tú) or «tengo» (yo). Same rule, third person."
+    steps:
+      - kind: map
+        id: l3-map-anatienequetrabajarmanana
+        tokens: ["Ana", "tiene", "que", "trabajar", "mañana"]
+        pairs:
+          - { en: "Ana", tokenIndex: 0 }
+          - { en: "has to", tokenIndex: 1 }
+          - { en: "work", tokenIndex: 3 }
+          - { en: "tomorrow", tokenIndex: 4 }
+        audioText: "Ana tiene que trabajar mañana"
+        revealNote: "A named subject («Ana») takes «tiene» — the él/ella-shape (m5) — never «tienes» (tú) or «tengo» (yo). Still «que» plus the infinitive."
+      - kind: speakLit
+        id: l3-sp-recall
+        es: "¿tienes que estudiar hoy?"
+        en: "Do you have to study today?"
+        cue: recall
+        atoms: ["tienes", "estudiar", "hoy"]
+      - kind: buildLit
+        id: l3-b-anatienequecomprarchaqueta
+        es: "Ana tiene que comprar una chaqueta nueva"
+        en: "Ana has to buy a new jacket"
+        atoms: ["tiene", "comprar", "chaqueta", "nuevo"]
+        tiles: ["tengo", "tienes"]
+      - kind: clozeLit
+        id: l3-c-diegotienequecomprarpantalon
+        es: "Diego tiene que comprar un pantalón nuevo"
+        en: "Diego has to buy new pants"
+        blank: "tiene"
+        options: ["tiene", "tienes"]
+        atoms: ["tiene", "comprar", "pantalón", "nuevo"]
+        why: "A named subject («Diego») takes «tiene», the él/ella-shape — never «tienes», which is only for tú."
+      - kind: listenCompLit
+        id: l3-lc-anatienequetrabajarmanana
+        es: "Ana tiene que trabajar mañana"
+        en: "Ana has to work tomorrow."
+        atoms: ["tiene", "trabajar", "mañana"]
+        distractorsEn:
+          - "Ana wants to work tomorrow."
+          - "You have to work tomorrow."
+          - "Ana has to work today."
+      - kind: mcq
+        id: l3-q-diegotienequeestudiar
+        prompt: "Which one means 'he has to study'?"
+        correct: "tiene que estudiar"
+        distractors: ["tengo que estudiar", "tiene estudiar", "quiere que estudiar"]
+        atoms: ["tiene", "estudiar"]
+        why: "A named subject takes «tiene» (él/ella), never «tengo» (yourself) — and «que» never drops."
+      - kind: buildLit
+        id: l3-b-mihermanatienequecomprarcalcetines
+        es: "mi hermana tiene que comprar calcetines nuevos"
+        en: "My sister has to buy new socks"
+        atoms: ["mi", "hermana", "tiene", "comprar", "calcetines", "nuevo"]
+        tiles: ["tengo", "tienes"]
+      - kind: audioWimcq
+        id: l3-ear-guantes
+        target: { surface: "guantes", emoji: "🧤" }
+        distractors:
+          - { surface: "calcetines", emoji: "🧦" }
+          - { surface: "zapato", emoji: "👞" }
+      - kind: agreementLit
+        id: l3-agr-tienepantalontengocamisa
+        en: "Ana has new pants, and I have a new shirt"
+        audioText: "Ana tiene un pantalón nuevo, y tengo una camisa nueva"
+        atoms: ["tiene", "pantalón", "nuevo", "tengo", "camisa"]
+        segments:
+          - { text: "Ana tiene un pantalón " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y tengo una camisa " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l3-lb-anatienequetrabajarpuedenadar
+        es: "Ana tiene que trabajar, pero puede nadar mañana"
+        en: "Ana has to work, but she can swim tomorrow"
+        atoms: ["tiene", "trabajar", "pero", "puede", "nadar", "mañana"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l3-tm-comprar
+        target: "comprar"
+        distractors: ["comprador", "compra", "cocinar"]
+      - kind: sim
+        id: l3-sim-diego-ana
+        scene: { emoji: "👖", title: "Diego asks about Ana", setting: "Diego wonders why Ana isn't at the beach." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Dónde está Ana? ¿Por qué no está aquí?", audioText: "¿dónde está ana? ¿por qué no está aquí?", gloss: "Where's Ana? Why isn't she here?" }
+            goal: "Say she has to work today."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "tiene que trabajar hoy" }
+                - { id: "wrong1", text: "tengo que trabajar hoy" }
+                - { id: "wrong2", text: "tiene trabajar hoy" }
+              correctOptionId: "right"
+              audioText: "tiene que trabajar hoy"
+            replyGloss: "She has to work today."
+            explanation: "Talking about Ana (a named subject, not yourself) uses «tiene» — not «tengo» (yourself) — and never drop «que»."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y Luis? ¿Tiene que trabajar también?", audioText: "¿y luis? ¿tiene que trabajar también?", gloss: "And Luis? Does he have to work too?" }
+            goal: "Say he has to buy a jacket too."
+            reply:
+              mode: build
+              tiles: ["sí", "tiene", "que", "comprar", "una", "chaqueta", "nueva", "también", "tengo", "tienes"]
+              answer: "sí tiene que comprar una chaqueta nueva también"
+            replyGloss: "Yes, he has to buy a new jacket too."
+            explanation: "Luis — another named subject — still «tiene», never «tienes» (tú) or «tengo» (yourself)."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "tiene", target: "he/she has" }
+          - { source: "comprar", target: "buy" }
+          - { source: "chaqueta", target: "jacket" }
+          - { source: "trabajar", target: "work" }
+          - { source: "mañana", target: "tomorrow" }
+          - { source: "también", target: "also, too" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "Ana tiene que trabajar mañana"
+        en: "Ana has to work tomorrow"
+        atoms: ["tiene", "trabajar", "mañana"]
+
+  # ── L4 · «Tenemos que estudiar juntos» — nosotros recombination. No new
+  #    atom: «tenemos» (m18) plus the already-free «que» plus a PRIOR
+  #    infinitive. Recombines «juntos» (m18). Widens the modal contrast:
+  #    «tengo que» (que-linker) against PRIOR «vamos a» (m18/m28's own
+  #    «a»-linker) in the same sentence. ≥1 recall (L3's win line).
+  - n: 4
+    template: free
+    title: "Tenemos que estudiar juntos"
+    description: "«tenemos que» — the nosotros-shape «tenemos» (m18) plus «que» plus the infinitive. Same rule, both of you."
+    steps:
+      - kind: map
+        id: l4-map-tenemosqueestudiarjuntos
+        tokens: ["tenemos", "que", "estudiar", "juntos"]
+        pairs:
+          - { en: "we have to", tokenIndex: 0 }
+          - { en: "study", tokenIndex: 2 }
+          - { en: "together", tokenIndex: 3 }
+        audioText: "tenemos que estudiar juntos"
+        revealNote: "«tenemos» (m18) — the nosotros-shape. Still «que» plus the infinitive."
+      - kind: speakLit
+        id: l4-sp-recall
+        es: "Ana tiene que trabajar mañana"
+        en: "Ana has to work tomorrow"
+        cue: recall
+        atoms: ["tiene", "trabajar", "mañana"]
+      - kind: buildLit
+        id: l4-b-tenemosqueestudiarvamosanadar
+        es: "tenemos que estudiar, pero vamos a nadar mañana"
+        en: "We have to study, but we're going to swim tomorrow"
+        atoms: ["tenemos", "estudiar", "pero", "vamos", "nadar", "mañana"]
+        tiles: ["tengo", "tienes"]
+      - kind: clozeLit
+        id: l4-c-tenemosquetrabajarjuntos
+        es: "tenemos que trabajar juntos"
+        en: "We have to work together"
+        blank: "tenemos"
+        options: ["tenemos", "tienen"]
+        atoms: ["tenemos", "trabajar", "juntos"]
+        why: "«nosotros» takes «tenemos» — «tienen» is for «ellos/ustedes», a different person entirely."
+      - kind: listenCompLit
+        id: l4-lc-tenemosqueestudiarhoy
+        es: "tenemos que estudiar hoy"
+        en: "We have to study today."
+        atoms: ["tenemos", "estudiar", "hoy"]
+        distractorsEn:
+          - "We want to study today."
+          - "They have to study today."
+          - "We have to study tomorrow."
+      - kind: mcq
+        id: l4-q-tenemosquetrabajarjuntos
+        prompt: "Which one means 'we have to work'?"
+        correct: "tenemos que trabajar"
+        distractors: ["tenemos trabajar", "tienen que trabajar", "queremos que trabajar"]
+        atoms: ["tenemos", "trabajar"]
+        why: "«tenemos» is the nosotros-shape; never drop «que» — and «queremos» (want) never takes a «que» linker at all."
+      - kind: buildLit
+        id: l4-b-miamigoyyotenemosquecomprarguantes
+        es: "mi amigo y yo tenemos que comprar guantes nuevos"
+        en: "My friend and I have to buy new gloves"
+        atoms: ["mi", "amigo", "tenemos", "comprar", "guantes", "nuevo"]
+        tiles: ["tengo", "tiene"]
+      - kind: audioWimcq
+        id: l4-ear-pantalon
+        target: { surface: "pantalón", emoji: "👖" }
+        distractors:
+          - { surface: "chaqueta", emoji: "🧥" }
+          - { surface: "camisa", emoji: "👕" }
+      - kind: agreementLit
+        id: l4-agr-tenemospantalontienecamisa
+        en: "We have new pants, and Ana has a new shirt"
+        audioText: "tenemos un pantalón nuevo, y Ana tiene una camisa nueva"
+        atoms: ["tenemos", "pantalón", "nuevo", "tiene", "camisa"]
+        segments:
+          - { text: "tenemos un pantalón " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y Ana tiene una camisa " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l4-lb-tenemosquetrabajarvamosplaya
+        es: "tenemos que trabajar, pero vamos a la playa mañana"
+        en: "We have to work, but we're going to the beach tomorrow"
+        atoms: ["tenemos", "trabajar", "pero", "vamos", "playa", "mañana"]
+        tiles: ["tengo", "tiene"]
+      - kind: textMcq
+        id: l4-tm-juntos
+        target: "juntos"
+        distractors: ["juntar", "juntas", "justo"]
+      - kind: sim
+        id: l4-sim-ana-estudiar
+        scene: { emoji: "📚", title: "Planning to study together", setting: "Ana suggests studying together." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Vamos a estudiar juntos mañana?", audioText: "¿vamos a estudiar juntos mañana?", gloss: "Are we going to study together tomorrow?" }
+            goal: "Say yes, you both have to study."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tenemos que estudiar" }
+                - { id: "wrong1", text: "sí, tengo que estudiar" }
+                - { id: "wrong2", text: "sí, tenemos estudiar" }
+              correctOptionId: "right"
+              audioText: "sí, tenemos que estudiar"
+            replyGloss: "Yes, we have to study."
+            explanation: "Talking about BOTH of you uses «tenemos» (nosotros) — not «tengo» (yourself alone) — and never drop «que»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego? ¿Tiene que estudiar también?", audioText: "¿y diego? ¿tiene que estudiar también?", gloss: "And Diego? Does he have to study too?" }
+            goal: "Say yes, he has to study too."
+            reply:
+              mode: build
+              tiles: ["sí", "tiene", "que", "estudiar", "también", "tenemos", "tengo"]
+              answer: "sí tiene que estudiar también"
+            replyGloss: "Yes, he has to study too."
+            explanation: "Diego — a named subject — takes «tiene», not «tenemos» (both of you) or «tengo» (yourself)."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "tenemos", target: "we have" }
+          - { source: "estudiar", target: "study" }
+          - { source: "juntos", target: "together" }
+          - { source: "trabajar", target: "work" }
+          - { source: "mañana", target: "tomorrow" }
+          - { source: "vamos", target: "we go" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "tenemos que estudiar juntos"
+        en: "We have to study together"
+        atoms: ["tenemos", "estudiar", "juntos"]
+
+  # ── L5 · «Mis amigos tienen que trabajar» — ellos/ustedes recombination.
+  #    No new atom: «tienen» (m18) plus the already-free «que» plus a
+  #    PRIOR infinitive. Closes out the full five-person paradigm sweep
+  #    (tengo/tienes/tiene/tenemos/tienen, L1-L5) before L6's mixed-person
+  #    discrimination lesson. ≥1 recall (L4's win line).
+  - n: 5
+    template: free
+    title: "Mis amigos tienen que trabajar"
+    description: "«tienen que» — the ellos/ustedes-shape «tienen» (m18) plus «que» plus the infinitive. The paradigm is now complete: tengo/tienes/tiene/tenemos/tienen, all graded through PRIOR «tener», never a second registered surface."
+    steps:
+      - kind: map
+        id: l5-map-misamigostienenquetrabajar
+        tokens: ["mis", "amigos", "tienen", "que", "trabajar"]
+        pairs:
+          - { en: "my", tokenIndex: 0 }
+          - { en: "friends", tokenIndex: 1 }
+          - { en: "have to", tokenIndex: 2 }
+          - { en: "work", tokenIndex: 4 }
+        audioText: "mis amigos tienen que trabajar"
+        revealNote: "«tienen» (m18) — the ellos/ustedes-shape. The full paradigm is now recombined: tengo/tienes/tiene/tenemos/tienen, all through PRIOR «tener»."
+      - kind: speakLit
+        id: l5-sp-recall
+        es: "tenemos que estudiar juntos"
+        en: "We have to study together"
+        cue: recall
+        atoms: ["tenemos", "estudiar", "juntos"]
+      - kind: buildLit
+        id: l5-b-misamigostienenquecomprarcalcetines
+        es: "mis amigos tienen que comprar calcetines nuevos"
+        en: "My friends have to buy new socks"
+        atoms: ["mi", "amigo", "tienen", "comprar", "calcetines", "nuevo"]
+        tiles: ["tengo", "tenemos"]
+      - kind: clozeLit
+        id: l5-c-tienenquetrabajarhoy
+        es: "tienen que trabajar hoy"
+        en: "They have to work today"
+        blank: "tienen"
+        options: ["tienen", "tenemos"]
+        atoms: ["tienen", "trabajar", "hoy"]
+        why: "«ellos/ustedes» take «tienen» — «tenemos» is nosotros, a different person entirely."
+      - kind: listenCompLit
+        id: l5-lc-misamigostienenquetrabajar
+        es: "mis amigos tienen que trabajar"
+        en: "My friends have to work."
+        atoms: ["mi", "amigo", "tienen", "trabajar"]
+        distractorsEn:
+          - "My friends want to work."
+          - "My friend has to work."
+          - "My friends have to study."
+      - kind: mcq
+        id: l5-q-tienenquetrabajarjuntos
+        prompt: "Which one means 'they have to work'?"
+        correct: "tienen que trabajar"
+        distractors: ["tienen trabajar", "tenemos que trabajar", "quieren que trabajar"]
+        atoms: ["tienen", "trabajar"]
+        why: "«tienen» is the ellos/ustedes-shape; never drop «que» — and «quieren» (want) never takes a «que» linker at all."
+      - kind: buildLit
+        id: l5-b-ustedestienenquecomprarguantes
+        es: "ustedes tienen que comprar guantes nuevos"
+        en: "You all have to buy new gloves"
+        atoms: ["ustedes", "tienen", "comprar", "guantes", "nuevo"]
+        tiles: ["tenemos", "tiene"]
+      - kind: audioWimcq
+        id: l5-ear-calcetines
+        target: { surface: "calcetines", emoji: "🧦" }
+        distractors:
+          - { surface: "guantes", emoji: "🧤" }
+          - { surface: "camisa", emoji: "👕" }
+      - kind: agreementLit
+        id: l5-agr-tienenpantalontienecamisa
+        en: "My friends have new pants, and Ana has a new shirt"
+        audioText: "mis amigos tienen un pantalón nuevo, y Ana tiene una camisa nueva"
+        atoms: ["mi", "amigo", "tienen", "pantalón", "nuevo", "tiene", "camisa"]
+        segments:
+          - { text: "mis amigos tienen un pantalón " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y Ana tiene una camisa " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l5-lb-tienenquetrabajarvanplaya
+        es: "tienen que trabajar, pero van a la playa mañana"
+        en: "They have to work, but they're going to the beach tomorrow"
+        atoms: ["tienen", "trabajar", "pero", "van", "playa", "mañana"]
+        tiles: ["tenemos", "tiene"]
+      - kind: textMcq
+        id: l5-tm-amigo
+        target: "amigo"
+        distractors: ["amigable", "abrigo", "amargo"]
+      - kind: sim
+        id: l5-sim-sam-amigos
+        scene: { emoji: "🧦", title: "Sam and Luis go shopping", setting: "Sam texts about weekend plans." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sam", es: "¿Tus amigos van a la playa mañana?", audioText: "¿tus amigos van a la playa mañana?", gloss: "Are your friends going to the beach tomorrow?" }
+            goal: "Say no, they have to work."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, tienen que trabajar" }
+                - { id: "wrong1", text: "no, tenemos que trabajar" }
+                - { id: "wrong2", text: "no, tienen trabajar" }
+              correctOptionId: "right"
+              audioText: "no, tienen que trabajar"
+            replyGloss: "No, they have to work."
+            explanation: "Talking about your friends (ellos) uses «tienen» — not «tenemos» (you and them together) — and never drop «que»."
+          - id: t2
+            npc: { speaker: "Sam", es: "¿Y ustedes? ¿Tienen que trabajar también?", audioText: "¿y ustedes? ¿tienen que trabajar también?", gloss: "And you all? Do you all have to work too?" }
+            goal: "Say yes, we have to work together."
+            reply:
+              mode: build
+              tiles: ["sí", "tenemos", "que", "trabajar", "juntos", "tienen", "tengo"]
+              answer: "sí tenemos que trabajar juntos"
+            replyGloss: "Yes, we have to work together."
+            explanation: "Back to «tenemos» (nosotros) — you and your friends together, not «tienen» (them alone)."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "tienen", target: "they/you all have" }
+          - { source: "amigos", target: "friends" }
+          - { source: "trabajar", target: "work" }
+          - { source: "comprar", target: "buy" }
+          - { source: "ustedes", target: "you all" }
+          - { source: "van", target: "they go" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "mis amigos tienen que trabajar"
+        en: "My friends have to work"
+        atoms: ["mi", "amigo", "tienen", "trabajar"]
+
+  # ── L6 · «Quiero nadar, pero tengo que trabajar» — the central
+  #    discrimination lesson. No new atoms — pure recombination across
+  #    the full four-way modal contrast (quiero/puedo, m14, no linker;
+  #    voy a, m28, «a»; tengo que, m33, «que») and mixed persons
+  #    (tengo/tiene/tenemos/tienen, all PRIOR). No info card — the rule
+  #    was already carried in L1; this lesson drills it. ≥1 recall
+  #    (L5's win line).
+  - n: 6
+    template: free
+    title: "Quiero nadar, pero tengo que trabajar"
+    description: "The four-way modal contrast, one sentence: «quiero»/«puedo» (no linker), «voy a» («a»), «tengo que» («que») — same infinitive complement, different linking word."
+    steps:
+      - kind: map
+        id: l6-map-quieronadarperotengoquetrabajar
+        tokens: ["quiero", "nadar,", "pero", "tengo que", "trabajar"]
+        pairs:
+          - { en: "I want", tokenIndex: 0 }
+          - { en: "to swim,", tokenIndex: 1 }
+          - { en: "but", tokenIndex: 2 }
+          - { en: "I have to", tokenIndex: 3 }
+          - { en: "work", tokenIndex: 4 }
+        audioText: "quiero nadar, pero tengo que trabajar"
+        revealNote: "Same infinitive complement, three different linkers: «quiero»/«puedo» (none), «voy a» («a»), «tengo que» («que»)."
+      - kind: speakLit
+        id: l6-sp-recall
+        es: "mis amigos tienen que trabajar"
+        en: "My friends have to work"
+        cue: recall
+        atoms: ["mi", "amigo", "tienen", "trabajar"]
+      - kind: buildLit
+        id: l6-b-puedonadarperotengoqueestudiar
+        es: "puedo nadar, pero tengo que estudiar"
+        en: "I can swim, but I have to study"
+        atoms: ["puedo", "nadar", "pero", "tengo que", "estudiar"]
+        tiles: ["quiero", "voy"]
+      - kind: clozeLit
+        id: l6-c-vamosanadartienenquetrabajar
+        es: "vamos a nadar, pero tienen que trabajar"
+        en: "We're going to swim, but they have to work"
+        blank: "tienen"
+        options: ["tienen", "tenemos"]
+        atoms: ["vamos", "nadar", "tienen", "trabajar"]
+        why: "«tienen» — ellos/ustedes; «tenemos» would wrongly include yourself."
+      - kind: listenCompLit
+        id: l6-lc-tienequetrabajarpuedenadar
+        es: "tiene que trabajar, pero puede nadar mañana"
+        en: "She has to work, but she can swim tomorrow."
+        atoms: ["tiene", "trabajar", "puede", "nadar", "mañana"]
+        distractorsEn:
+          - "She wants to work, but she can swim tomorrow."
+          - "She has to work, but she wants to swim tomorrow."
+          - "He has to work, but he can swim tomorrow."
+      - kind: mcq
+        id: l6-q-quieronadarperotengoquetrabajar
+        prompt: "Which one means 'I want to swim'?"
+        correct: "quiero nadar"
+        distractors: ["voy a nadar", "puedo nadar", "quiere nadar"]
+        atoms: ["quiero", "nadar"]
+        why: "«quiero» = want, «voy a» = going to, «puedo» = can — only «quiero» matches 'want.' And «quiere» is about someone else, not you."
+      - kind: buildLit
+        id: l6-b-mihermanatienequecomprarchaquetayotengoquecomprar
+        es: "mi hermana tiene que comprar una chaqueta, pero yo tengo que comprar calcetines"
+        en: "My sister has to buy a jacket, but I have to buy socks"
+        atoms: ["mi", "hermana", "tiene", "comprar", "chaqueta", "pero", "tengo que", "calcetines"]
+        tiles: ["tienes", "tienen"]
+      - kind: audioWimcq
+        id: l6-ear-chaqueta
+        target: { surface: "chaqueta", emoji: "🧥" }
+        distractors:
+          - { surface: "pantalón", emoji: "👖" }
+          - { surface: "guantes", emoji: "🧤" }
+      - kind: agreementLit
+        id: l6-agr-tengoquechaquetanuevaamigostienenguantes
+        en: "I have to buy a new jacket, and my friends have new gloves"
+        audioText: "tengo que comprar una chaqueta nueva, y mis amigos tienen guantes nuevos"
+        atoms: ["tengo que", "comprar", "chaqueta", "nuevo", "mi", "amigo", "tienen", "guantes"]
+        segments:
+          - { text: "tengo que comprar una chaqueta " }
+          - { blank: { id: "p1", answer: "nueva", options: ["nueva", "nuevo"] } }
+          - { text: ", y mis amigos tienen guantes " }
+          - { blank: { id: "p2", answer: "nuevos", options: ["nuevos", "nuevas"] } }
+      - kind: listenBuildLit
+        id: l6-lb-quieroplayapero-tengoquetrabajar
+        es: "quiero ir a la playa, pero tengo que trabajar hoy"
+        en: "I want to go to the beach, but I have to work today"
+        atoms: ["quiero", "playa", "pero", "tengo que", "trabajar", "hoy"]
+        tiles: ["voy", "puedo"]
+      - kind: textMcq
+        id: l6-tm-puedo
+        target: "puedo"
+        distractors: ["pueblo", "puente", "suelo"]
+      - kind: sim
+        id: l6-sim-ana-plan
+        scene: { emoji: "🏖️", title: "A group weekend plan", setting: "Ana's making plans for tomorrow." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Puedes ir a la playa mañana?", audioText: "¿puedes ir a la playa mañana?", gloss: "Can you go to the beach tomorrow?" }
+            goal: "Say no, you have to work."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, tengo que trabajar" }
+                - { id: "wrong1", text: "no, quiero que trabajar" }
+                - { id: "wrong2", text: "no, tengo trabajar" }
+              correctOptionId: "right"
+              audioText: "no, tengo que trabajar"
+            replyGloss: "No, I have to work."
+            explanation: "«tengo que» — obligation; never drop «que», and «quiero» never takes a «que» linker at all."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tus amigos? ¿Van a ir?", audioText: "¿y tus amigos? ¿van a ir?", gloss: "And your friends? Are they going to go?" }
+            goal: "Say they're going, but have to study."
+            reply:
+              mode: build
+              tiles: ["van", "a", "ir", "pero", "tienen", "que", "estudiar", "tengo"]
+              answer: "van a ir pero tienen que estudiar"
+            replyGloss: "They're going, but they have to study."
+            explanation: "«van a» = going to (m18/m28); «tienen que» = have to (m33) — different linkers, same infinitive complement."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "quiero", target: "I want" }
+          - { source: "puedo", target: "I can" }
+          - { source: "voy", target: "I'm going" }
+          - { source: "tengo que", target: "I have to" }
+          - { source: "pero", target: "but" }
+          - { source: "trabajar", target: "work" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "quiero nadar, pero tengo que trabajar"
+        en: "I want to swim, but I have to work"
+        atoms: ["quiero", "nadar", "pero", "tengo que", "trabajar"]
+
+  # ── L7 · «No puedo, tengo que trabajar» — declining an invitation with
+  #    an obligation, the natural register for this whole module. No new
+  #    atoms. Recombines PRIOR «no puedo» (m14) as the decline, «tengo
+  #    que» (m33) as the reason. Dialogue_sim is the lesson's centerpiece.
+  #    ≥1 recall (L6's win line).
+  - n: 7
+    template: free
+    title: "No puedo, tengo que trabajar"
+    description: "Declining an invitation: «no puedo» (m14, can't) plus the reason, «tengo que» (m33, have to). The natural conversational use of this whole module."
+    steps:
+      - kind: map
+        id: l7-map-nopuedotengoquetrabajar
+        tokens: ["no", "puedo,", "tengo que", "trabajar"]
+        pairs:
+          - { en: "no,", tokenIndex: 0 }
+          - { en: "I can't,", tokenIndex: 1 }
+          - { en: "I have to", tokenIndex: 2 }
+          - { en: "work", tokenIndex: 3 }
+        audioText: "no puedo, tengo que trabajar"
+        revealNote: "Declining an invitation: «no puedo» (I can't, m14) plus the reason, «tengo que» (I have to)."
+      - kind: speakLit
+        id: l7-sp-recall
+        es: "quiero nadar, pero tengo que trabajar"
+        en: "I want to swim, but I have to work"
+        cue: recall
+        atoms: ["quiero", "nadar", "pero", "tengo que", "trabajar"]
+      - kind: buildLit
+        id: l7-b-nopuedoirtengoqueestudiar
+        es: "no puedo ir, tengo que estudiar"
+        en: "I can't go, I have to study"
+        atoms: ["no", "puedo", "ir", "tengo que", "estudiar"]
+        tiles: ["quiero", "voy"]
+      - kind: clozeLit
+        id: l7-c-nopuedeirtienequetrabajar
+        es: "no puede ir, tiene que trabajar"
+        en: "She can't go, she has to work"
+        blank: "puede"
+        options: ["puede", "puedo"]
+        atoms: ["no", "puede", "ir", "tiene", "trabajar"]
+        why: "«puede»/«tiene» — talking about someone else (él/ella), not «puedo»/«tengo» (yourself)."
+      - kind: listenCompLit
+        id: l7-lc-nopuedoirtengoquetrabajarhoy
+        es: "no puedo ir, tengo que trabajar hoy"
+        en: "I can't go, I have to work today."
+        atoms: ["no", "puedo", "ir", "tengo que", "trabajar", "hoy"]
+        distractorsEn:
+          - "I don't want to go, I have to work today."
+          - "I can't go, I want to work today."
+          - "She can't go, she has to work today."
+      - kind: mcq
+        id: l7-q-nopuedotengoquetrabajar
+        prompt: "Which one gives 'I have to work' as the reason?"
+        correct: "tengo que trabajar"
+        distractors: ["tengo trabajar", "voy que trabajar", "puedo que trabajar"]
+        atoms: ["tengo que", "trabajar"]
+        why: "Never drop «que» after «tengo» — and neither «voy» nor «puedo» takes «que» as a linker; only «tengo que» does."
+      - kind: buildLit
+        id: l7-b-amigonopuedeirtienequecomprar
+        es: "mi amigo no puede ir, tiene que comprar una chaqueta"
+        en: "My friend can't go, he has to buy a jacket"
+        atoms: ["mi", "amigo", "no", "puede", "ir", "tiene", "comprar", "chaqueta"]
+        tiles: ["puedo", "tengo"]
+      - kind: audioWimcq
+        id: l7-ear-guantes
+        target: { surface: "guantes", emoji: "🧤" }
+        distractors:
+          - { surface: "calcetines", emoji: "🧦" }
+          - { surface: "chaqueta", emoji: "🧥" }
+      - kind: agreementLit
+        id: l7-agr-nopuedopantalonamigocamisa
+        en: "I can't go, I have to buy new pants, and my friend has a new shirt"
+        audioText: "no puedo ir, tengo que comprar un pantalón nuevo, y mi amigo tiene una camisa nueva"
+        atoms: ["no", "puedo", "ir", "tengo que", "comprar", "pantalón", "nuevo", "mi", "amigo", "tiene", "camisa"]
+        segments:
+          - { text: "no puedo ir, tengo que comprar un pantalón " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y mi amigo tiene una camisa " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l7-lb-nopuedesirtienesqueestudiar
+        es: "no puedes ir, tienes que estudiar"
+        en: "You can't go, you have to study"
+        atoms: ["no", "puedes", "ir", "tienes", "estudiar"]
+        tiles: ["puedo", "tengo"]
+      - kind: textMcq
+        id: l7-tm-camisa
+        target: "camisa"
+        distractors: ["camisón", "cortina", "comisa"]
+      - kind: sim
+        id: l7-sim-diego-fiesta
+        scene: { emoji: "🎉", title: "Diego invites you to a party", setting: "Diego calls about tomorrow." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Quieres ir a una fiesta mañana?", audioText: "¿quieres ir a una fiesta mañana?", gloss: "Do you want to go to a party tomorrow?" }
+            goal: "Decline — say you have to work."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no puedo, tengo que trabajar" }
+                - { id: "wrong1", text: "no puedo, tengo trabajar" }
+                - { id: "wrong2", text: "no quiero, tengo que trabajar" }
+              correctOptionId: "right"
+              audioText: "no puedo, tengo que trabajar"
+            replyGloss: "I can't, I have to work."
+            explanation: "«no puedo» declines, «tengo que» gives the reason — never drop «que»."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y tu hermana? ¿Puede ir ella?", audioText: "¿y tu hermana? ¿puede ir ella?", gloss: "And your sister? Can she go?" }
+            goal: "Say no, she has to study too."
+            reply:
+              mode: build
+              tiles: ["no", "puede", "tiene", "que", "estudiar", "también", "puedo", "tengo"]
+              answer: "no puede tiene que estudiar también"
+            replyGloss: "No, she has to study too."
+            explanation: "«puede»/«tiene» — talking about your sister (él/ella), not «puedo»/«tengo» (yourself)."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "puedo", target: "I can" }
+          - { source: "tengo que", target: "I have to" }
+          - { source: "ir", target: "to go" }
+          - { source: "trabajar", target: "work" }
+          - { source: "fiesta", target: "party" }
+          - { source: "mañana", target: "tomorrow" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "no puedo, tengo que trabajar"
+        en: "I can't, I have to work"
+        atoms: ["no", "puedo", "tengo que", "trabajar"]
+
+  # ── L8 · Checkpoint — all graded, no map/info (mirrors m30-L8/m31-L8/
+  #    m32-L8's own checkpoint shape). Pure recombination of L1-L7: all
+  #    five persons (tengo/tienes/tiene/tenemos/tienen), the dropped-«que»
+  #    foil in the MCQ and the sim's wrong options, m32 clothing objects.
+  #    Two recalls, drawn from different earlier lessons' win lines (L7
+  #    and L1). Ends sim → matchLit → speakLit-win, same closing shape as
+  #    every other lesson.
+  - n: 8
+    template: free
+    title: "Checkpoint: todos tienen que hacer algo"
+    description: "Everything so far, recombined — no new words, just the five persons of «tener que» working together, plus m32's clothing objects."
+    steps:
+      - kind: speakLit
+        id: l8-sp-recall-l7win
+        es: "no puedo, tengo que trabajar"
+        en: "I can't, I have to work"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-tengoquetrabajartienesqueestudiar
+        es: "tengo que trabajar, pero tienes que estudiar"
+        en: "I have to work, but you have to study"
+        atoms: ["tengo que", "trabajar", "pero", "tienes", "estudiar"]
+        tiles: ["tiene", "tienen"]
+      - kind: clozeLit
+        id: l8-c-tienequecomprarchaquetanueva
+        es: "tiene que comprar una chaqueta nueva"
+        en: "She has to buy a new jacket"
+        blank: "tiene"
+        options: ["tiene", "tienes"]
+        atoms: ["tiene", "comprar", "chaqueta", "nuevo"]
+        why: "A named subject takes «tiene», not «tienes» (tú)."
+      - kind: listenCompLit
+        id: l8-lc-tenemosquetrabajarjuntos
+        es: "tenemos que trabajar juntos"
+        en: "We have to work together."
+        atoms: ["tenemos", "trabajar", "juntos"]
+        distractorsEn:
+          - "We want to work together."
+          - "They have to work together."
+          - "We have to study together."
+      - kind: mcq
+        id: l8-q-tienenquecomprarcalcetines
+        prompt: "Which one means 'they have to buy'?"
+        correct: "tienen que comprar"
+        distractors: ["tienen comprar", "tenemos que comprar", "tienen que compran"]
+        atoms: ["tienen", "comprar"]
+        why: "«tienen» — ellos/ustedes; never drop «que» («tienen comprar» is ungrammatical), and the infinitive stays bare: «comprar», not «compran»."
+      - kind: speakLit
+        id: l8-sp-recall-l1win
+        es: "tengo que trabajar"
+        en: "I have to work"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-amigostienenqueyotengoque
+        es: "mis amigos tienen que comprar guantes, pero yo tengo que comprar calcetines"
+        en: "My friends have to buy gloves, but I have to buy socks"
+        atoms: ["mi", "amigo", "tienen", "comprar", "guantes", "tengo que", "calcetines"]
+        tiles: ["tiene", "tienes"]
+      - kind: audioWimcq
+        id: l8-ear-pantalon
+        target: { surface: "pantalón", emoji: "👖" }
+        distractors:
+          - { surface: "chaqueta", emoji: "🧥" }
+          - { surface: "camisa", emoji: "👕" }
+      - kind: agreementLit
+        id: l8-agr-anachaquetatenemospantalon
+        en: "Ana has to buy a new jacket, and we have new pants"
+        audioText: "Ana tiene que comprar una chaqueta nueva, y tenemos un pantalón nuevo"
+        atoms: ["tiene", "comprar", "chaqueta", "nuevo", "tenemos", "pantalón"]
+        segments:
+          - { text: "Ana tiene que comprar una chaqueta " }
+          - { blank: { id: "p1", answer: "nueva", options: ["nueva", "nuevo"] } }
+          - { text: ", y tenemos un pantalón " }
+          - { blank: { id: "p2", answer: "nuevo", options: ["nuevo", "nueva"] } }
+      - kind: listenBuildLit
+        id: l8-lb-tienenquetrabajarvanplaya
+        es: "tienen que trabajar, pero van a la playa mañana"
+        en: "They have to work, but they're going to the beach tomorrow"
+        atoms: ["tienen", "trabajar", "pero", "van", "playa", "mañana"]
+        tiles: ["tenemos", "tiene"]
+      - kind: textMcq
+        id: l8-tm-trabajar
+        target: "trabajar"
+        distractors: ["trabajador", "trabajo", "viajar"]
+      - kind: sim
+        id: l8-sim-checkpoint
+        scene: { emoji: "🏁", title: "Checkpoint check-in", setting: "Ana checks in on everyone's plans." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes que trabajar mañana?", audioText: "¿tienes que trabajar mañana?", gloss: "Do you have to work tomorrow?" }
+            goal: "Say yes, you have to work."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo que trabajar" }
+                - { id: "wrong1", text: "sí, tengo trabajar" }
+                - { id: "wrong2", text: "sí, tienes que trabajar" }
+              correctOptionId: "right"
+              audioText: "sí, tengo que trabajar"
+            replyGloss: "Yes, I have to work."
+            explanation: "Never drop «que» («tengo trabajar» is ungrammatical), and «tengo», not «tienes» — that's for asking about someone else."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tus amigos? ¿Tienen que trabajar también?", audioText: "¿y tus amigos? ¿tienen que trabajar también?", gloss: "And your friends? Do they have to work too?" }
+            goal: "Say yes, they all have to work."
+            reply:
+              mode: build
+              tiles: ["sí", "tienen", "que", "trabajar", "también", "tenemos", "tiene"]
+              answer: "sí tienen que trabajar también"
+            replyGloss: "Yes, they all have to work too."
+            explanation: "«tienen» — ellos/ustedes, not «tenemos» (you and them together)."
+      - kind: matchLit
+        id: l8-match
+        pairs:
+          - { source: "tengo que", target: "I have to" }
+          - { source: "tienes", target: "you have" }
+          - { source: "tiene", target: "he/she has" }
+          - { source: "tenemos", target: "we have" }
+          - { source: "tienen", target: "they/you all have" }
+          - { source: "trabajar", target: "work" }
+      - kind: speakLit
+        id: l8-sp-win
+        es: "tengo que trabajar, y mis amigos tienen que comprar guantes"
+        en: "I have to work, and my friends have to buy gloves"
+        atoms: ["tengo que", "trabajar", "mi", "amigo", "tienen", "comprar", "guantes"]
+
+  # ── L9 · «Puedo trabajar, pero no tengo que trabajar hoy» — the
+  #    dedicated contrast lesson, same infinitive host, different
+  #    meaning: «puedo» (can, ability, m14) vs «tengo que» (must,
+  #    obligation, m33). Carries the module's second and final info card
+  #    (see m33-header.yaml usage-note budget — L1 and L9 only). Also the
+  #    negation case: «no tengo que» = don't have to, not the reverse.
+  #    Reaches m29's fused clitic family («comprarla»). ≥1 recall (L2's
+  #    win line).
+  - n: 9
+    template: free
+    title: "Puedo trabajar, pero no tengo que trabajar hoy"
+    description: "«puedo» (can, ability, m14) vs «tengo que» (must, obligation, m33) — same infinitive, different meaning. And negating «tengo que»: «no tengo que» = don't have to, not the reverse."
+    steps:
+      - kind: map
+        id: l9-map-puedotrabajarnotengoque
+        tokens: ["puedo", "trabajar,", "pero", "no", "tengo que", "trabajar", "hoy"]
+        pairs:
+          - { en: "I can", tokenIndex: 0 }
+          - { en: "work,", tokenIndex: 1 }
+          - { en: "but", tokenIndex: 2 }
+          - { en: "not", tokenIndex: 3 }
+          - { en: "I have to", tokenIndex: 4 }
+          - { en: "work", tokenIndex: 5 }
+          - { en: "today", tokenIndex: 6 }
+        audioText: "puedo trabajar, pero no tengo que trabajar hoy"
+        revealNote: "«puedo» = can (ability, m14). «tengo que» = have to (obligation, m33). Negating it — «no tengo que» — means 'I don't have to,' not 'I have to not.'"
+      - kind: info
+        id: l9-info-puedovstengoque
+        title: "Puedo vs. tengo que"
+        body: "«puedo trabajar» = I CAN work (ability, m14). «tengo que trabajar» = I HAVE TO work (obligation, m33). Same infinitive, different meaning — and «no tengo que» means \"I don't have to,\" not the reverse."
+      - kind: speakLit
+        id: l9-sp-recall
+        es: "¿tienes que estudiar hoy?"
+        en: "Do you have to study today?"
+        cue: recall
+        atoms: ["tienes", "estudiar", "hoy"]
+      - kind: buildLit
+        id: l9-b-puedocomprarchaquetanotengoquecomprarla
+        es: "puedo comprar una chaqueta, pero no tengo que comprarla hoy"
+        en: "I can buy a jacket, but I don't have to buy it today"
+        atoms: ["puedo", "comprar", "chaqueta", "pero", "no", "tengo que", "comprarla", "hoy"]
+        tiles: ["quiero", "voy"]
+      - kind: clozeLit
+        id: l9-c-puedetrabajarnotienequetrabajar
+        es: "puede trabajar, pero no tiene que trabajar hoy"
+        en: "She can work, but she doesn't have to work today"
+        blank: "puede"
+        options: ["puede", "puedo"]
+        atoms: ["puede", "trabajar", "no", "tiene"]
+        why: "«puede»/«tiene» — talking about someone else, not «puedo»/«tengo» (yourself)."
+      - kind: listenCompLit
+        id: l9-lc-puedonadarnotengoquenadar
+        es: "puedo nadar, pero no tengo que nadar hoy"
+        en: "I can swim, but I don't have to swim today."
+        atoms: ["puedo", "nadar", "no", "tengo que"]
+        distractorsEn:
+          - "I want to swim, but I don't have to swim today."
+          - "I can swim, but I have to swim today."
+          - "I can't swim, but I don't have to swim today."
+      - kind: mcq
+        id: l9-q-puedotrabajarnotengoquetrabajarhoy
+        prompt: "Which one means 'I can work'?"
+        correct: "puedo trabajar"
+        distractors: ["tengo que trabajar", "quiero trabajar", "puedo que trabajar"]
+        atoms: ["puedo", "trabajar"]
+        why: "«puedo» = can; «tengo que» = must — very different meanings. «quiero» ≠ «puedo» — want isn't can. And «puedo» never takes a «que» linker."
+      - kind: buildLit
+        id: l9-b-hermanapuedeestudiarnotiene
+        es: "mi hermana puede estudiar, pero no tiene que estudiar hoy"
+        en: "My sister can study, but she doesn't have to study today"
+        atoms: ["mi", "hermana", "puede", "estudiar", "no", "tiene"]
+        tiles: ["puedo", "tengo"]
+      - kind: audioWimcq
+        id: l9-ear-chaqueta
+        target: { surface: "chaqueta", emoji: "🧥" }
+        distractors:
+          - { surface: "pantalón", emoji: "👖" }
+          - { surface: "calcetines", emoji: "🧦" }
+      - kind: agreementLit
+        id: l9-agr-puedochaquetanuevanotengopantalonnuevo
+        en: "I can buy a new jacket, but I don't have to buy new pants"
+        audioText: "puedo comprar una chaqueta nueva, pero no tengo que comprar un pantalón nuevo"
+        atoms: ["puedo", "comprar", "chaqueta", "nuevo", "no", "tengo que", "pantalón"]
+        segments:
+          - { text: "puedo comprar una chaqueta " }
+          - { blank: { id: "p1", answer: "nueva", options: ["nueva", "nuevo"] } }
+          - { text: ", pero no tengo que comprar un pantalón " }
+          - { blank: { id: "p2", answer: "nuevo", options: ["nuevo", "nueva"] } }
+      - kind: listenBuildLit
+        id: l9-lb-puedesnadarnotienesquenadar
+        es: "puedes nadar, pero no tienes que nadar mañana"
+        en: "You can swim, but you don't have to swim tomorrow"
+        atoms: ["puedes", "nadar", "no", "tienes", "mañana"]
+        tiles: ["puedo", "tengo"]
+      - kind: textMcq
+        id: l9-tm-puedo
+        target: "puedo"
+        distractors: ["pueblo", "puente", "suelo"]
+      - kind: sim
+        id: l9-sim-ana-plan
+        scene: { emoji: "💪", title: "Ana asks about your plans", setting: "Ana wonders what you're doing this weekend." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Puedes trabajar mañana?", audioText: "¿puedes trabajar mañana?", gloss: "Can you work tomorrow?" }
+            goal: "Say you can, but don't have to."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, puedo, pero no tengo que" }
+                - { id: "wrong1", text: "sí, tengo, pero no puedo que" }
+                - { id: "wrong2", text: "sí, puedo, pero no tengo trabajar" }
+              correctOptionId: "right"
+              audioText: "sí, puedo, pero no tengo que"
+            replyGloss: "Yes, I can, but I don't have to."
+            explanation: "«puedo» = can; «tengo que» = must — very different meanings, and never drop «que»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tu hermana? ¿Tiene que trabajar ella?", audioText: "¿y tu hermana? ¿tiene que trabajar ella?", gloss: "And your sister? Does she have to work?" }
+            goal: "Say no, she can, but doesn't have to."
+            reply:
+              mode: build
+              tiles: ["no", "no", "puede", "pero", "tiene", "que", "trabajar", "puedo", "tengo"]
+              answer: "no puede pero no tiene que trabajar"
+            replyGloss: "No, she can, but she doesn't have to work."
+            explanation: "«puede»/«tiene» — about her, not yourself. The negation still needs «que»: «no tiene que», never «no tiene trabajar»."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "puedo", target: "I can" }
+          - { source: "tengo que", target: "I have to" }
+          - { source: "no", target: "not" }
+          - { source: "trabajar", target: "work" }
+          - { source: "comprarla", target: "to buy it" }
+          - { source: "hoy", target: "today" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "puedo trabajar, pero no tengo que trabajar hoy"
+        en: "I can work, but I don't have to work today"
+        atoms: ["puedo", "trabajar", "pero", "no", "tengo que", "hoy"]
+
+  # ── L10 · Mastery — all graded, no map/info (mirrors m32-L10's own
+  #    mastery shape: no trailing speakLit-win after sim). Recombines every
+  #    strand of the module (tengo/tiene/tenemos, dropped-«que» avoided
+  #    throughout) plus m30's «duele»/«duelen», m29's fused clitics
+  #    («comprarlo»/«comprarla»), m16's «necesito», and m32's clothing
+  #    nouns. Two recalls (L9 and L3, different lessons, neither recalled
+  #    together before). NOTE ON THE BRIEF'S TARGET SENTENCE: the brief's
+  #    win line ("Me duele la mano, pero tengo que comprarlo — necesito una
+  #    chaqueta nueva.") pairs the masculine clitic «comprarlo» with the
+  #    feminine antecedent «chaqueta» — a gender-agreement bug. Corrected
+  #    to «comprarla» (step 2, the closest analog to a "win" line this
+  #    mastery lesson carries, since mastery lessons end on sim with no
+  #    trailing speakLit — see m32-L10 precedent). «comprarlo» is still
+  #    used elsewhere in this lesson (steps 3, 10) with a masculine referent
+  #    in context, so the module still exercises both fused-clitic genders.
+  #    LAST step is the sim — no matchLit/speakLit after it.
+  - n: 10
+    template: free
+    title: "Mastery: me duele la mano, pero tengo que..."
+    description: "Every strand, one last time — obligation across all persons, pain (m30/m31), fused clitics (m29), and clothing (m32), all in one pass."
+    steps:
+      - kind: speakLit
+        id: l10-sp-recall-l9win
+        es: "puedo trabajar, pero no tengo que trabajar hoy"
+        en: "I can work, but I don't have to work today"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l10-b-meduelelamanotengoquecomprarla
+        es: "me duele la mano, pero tengo que comprarla — necesito una chaqueta nueva"
+        en: "My hand hurts, but I have to buy it — I need a new jacket"
+        atoms: ["me", "duele", "mano", "pero", "tengo que", "comprarla", "necesito", "chaqueta"]
+        tiles: ["duelen", "tiene"]
+      - kind: clozeLit
+        id: l10-c-tienequecomprarlopantalon
+        es: "tiene que comprarlo mañana, el pantalón nuevo"
+        en: "He has to buy it tomorrow, the new pants"
+        blank: "comprarlo"
+        options: ["comprarlo", "comprarla"]
+        atoms: ["tiene", "comprarlo", "mañana", "pantalón", "nuevo"]
+        why: "«el pantalón» is masculine, so «comprarlo», not «comprarla»."
+      - kind: listenCompLit
+        id: l10-lc-tengoquecomprarguantesduelen
+        es: "tengo que comprar guantes porque me duelen las manos"
+        en: "I have to buy gloves because my hands hurt."
+        atoms: ["tengo que", "comprar", "guantes", "porque", "me", "duelen", "mano"]
+        distractorsEn:
+          - "I want to buy gloves because my hands hurt."
+          - "I have to buy gloves because my hand hurts."
+          - "My hands hurt."
+      - kind: mcq
+        id: l10-q-pantalonchaquetanecesito
+        prompt: "Which one means 'I have to buy new pants, and I also need a jacket'?"
+        correct: "tengo que comprar un pantalón nuevo, y también necesito una chaqueta"
+        distractors: ["tengo comprar un pantalón nuevo, y también necesito una chaqueta", "tengo que comprar un pantalón nueva, y también necesito una chaqueta", "tengo que comprar un pantalón nuevo, y también necesita una chaqueta"]
+        atoms: ["tengo que", "comprar", "pantalón", "nuevo", "también", "necesito", "chaqueta"]
+        why: "Never drop «que»; «pantalón» is masculine so «nuevo», not «nueva»; and «necesito», not «necesita» — it's about you."
+      - kind: speakLit
+        id: l10-sp-recall-l3win
+        es: "Ana tiene que trabajar mañana"
+        en: "Ana has to work tomorrow"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l10-b-meduelenmanoscomprarguantes
+        es: "me duelen las manos, tengo que comprar guantes nuevos"
+        en: "My hands hurt, I have to buy new gloves"
+        atoms: ["me", "duelen", "mano", "tengo que", "comprar", "guantes", "nuevo"]
+        tiles: ["duele", "tiene"]
+      - kind: audioWimcq
+        id: l10-ear-mano
+        target: { surface: "mano", emoji: "✋" }
+        distractors:
+          - { surface: "pie", emoji: "🦶" }
+          - { surface: "brazo", emoji: "💪" }
+      - kind: agreementLit
+        id: l10-agr-chaquetapantalonamigo
+        en: "I have to buy a new jacket, but my friend needs new pants"
+        audioText: "tengo que comprar una chaqueta nueva, pero mi amigo necesita un pantalón nuevo"
+        atoms: ["tengo que", "comprar", "chaqueta", "nuevo", "amigo", "necesita", "pantalón"]
+        segments:
+          - { text: "tengo que comprar una chaqueta " }
+          - { blank: { id: "p1", answer: "nueva", options: ["nueva", "nuevo"] } }
+          - { text: ", pero mi amigo necesita un pantalón " }
+          - { blank: { id: "p2", answer: "nuevo", options: ["nuevo", "nueva"] } }
+      - kind: listenBuildLit
+        id: l10-lb-meduelelamanocomprarlomanana
+        es: "me duele la mano, pero tengo que comprarlo mañana"
+        en: "My hand hurts, but I have to buy it tomorrow"
+        atoms: ["me", "duele", "mano", "pero", "tengo que", "comprarlo", "mañana"]
+        tiles: ["duelen", "tiene"]
+      - kind: textMcq
+        id: l10-tm-necesito
+        target: "necesito"
+        distractors: ["negocio", "nervioso", "necesita"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "duele", target: "hurts (one thing)" }
+          - { source: "duelen", target: "hurt (more than one)" }
+          - { source: "mano", target: "hand" }
+          - { source: "tengo que", target: "I have to" }
+          - { source: "comprarlo", target: "to buy it" }
+          - { source: "necesito", target: "I need" }
+      - kind: sim
+        id: l10-sim-mastery
+        scene: { emoji: "🛍️", title: "One last errand", setting: "Ana checks on you before the weekend." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Te duele la mano?", audioText: "¿te duele la mano?", gloss: "Does your hand hurt?" }
+            goal: "Say your hand hurts."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "me duele la mano" }
+                - { id: "wrong1", text: "me duelen la mano" }
+                - { id: "wrong2", text: "tengo duele la mano" }
+              correctOptionId: "right"
+              audioText: "me duele la mano"
+            replyGloss: "My hand hurts."
+            explanation: "«mano» is singular, so «duele», not «duelen» — and never «tengo duele», mixing two different verbs."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Vas a comprar una chaqueta hoy?", audioText: "¿vas a comprar una chaqueta hoy?", gloss: "Are you going to buy a jacket today?" }
+            goal: "Say you have to buy a jacket."
+            reply:
+              mode: build
+              tiles: ["tengo", "que", "comprar", "una", "chaqueta", "nueva", "quiero", "voy"]
+              answer: "tengo que comprar una chaqueta nueva"
+            replyGloss: "I have to buy a new jacket."
+            explanation: "«chaqueta» is feminine, so «una»/«nueva» — and never drop «que» between «tengo» and the infinitive."
+
+placement:
+  screener:
+    - id: "es-m33-scr-1"
+      prompt: "'I have to work.' — which one?"
+      correct: "tengo que trabajar"
+      distractors: ["tengo trabajar", "quiero que trabajar", "voy que trabajar"]
+  byModule:
+    - id: "es-m33-pl-1"
+      prompt: "I have to work."
+      correct: "tengo que trabajar"
+      distractors: ["tengo trabajar", "quiero trabajar", "voy a trabajar"]
+    - id: "es-m33-pl-2"
+      prompt: "Do you have to study today?"
+      correct: "¿tienes que estudiar hoy?"
+      distractors: ["¿tienes estudiar hoy?", "¿tienes que estudias hoy?", "¿tiene que estudiar hoy?"]
+    - id: "es-m33-pl-3"
+      prompt: "We have to study together."
+      correct: "tenemos que estudiar juntos"
+      distractors: ["tenemos estudiar juntos", "tenemos que estudiamos juntos", "tienen que estudiar juntos"]
+    - id: "es-m33-pl-4"
+      prompt: "I can work, but I don't have to work today."
+      correct: "puedo trabajar, pero no tengo que trabajar hoy"
+      distractors: ["puedo trabajar, pero no tengo trabajar hoy", "quiero trabajar, pero no tengo que trabajar hoy", "puedo que trabajar, pero no tengo que trabajar hoy"]

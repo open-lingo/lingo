@@ -1,0 +1,131 @@
+  # ── L6 · «Quiero nadar, pero tengo que trabajar» — the central
+  #    discrimination lesson. No new atoms — pure recombination across
+  #    the full four-way modal contrast (quiero/puedo, m14, no linker;
+  #    voy a, m28, «a»; tengo que, m33, «que») and mixed persons
+  #    (tengo/tiene/tenemos/tienen, all PRIOR). No info card — the rule
+  #    was already carried in L1; this lesson drills it. ≥1 recall
+  #    (L5's win line).
+  - n: 6
+    template: free
+    title: "Quiero nadar, pero tengo que trabajar"
+    description: "The four-way modal contrast, one sentence: «quiero»/«puedo» (no linker), «voy a» («a»), «tengo que» («que») — same infinitive complement, different linking word."
+    steps:
+      - kind: map
+        id: l6-map-quieronadarperotengoquetrabajar
+        tokens: ["quiero", "nadar,", "pero", "tengo que", "trabajar"]
+        pairs:
+          - { en: "I want", tokenIndex: 0 }
+          - { en: "to swim,", tokenIndex: 1 }
+          - { en: "but", tokenIndex: 2 }
+          - { en: "I have to", tokenIndex: 3 }
+          - { en: "work", tokenIndex: 4 }
+        audioText: "quiero nadar, pero tengo que trabajar"
+        revealNote: "Same infinitive complement, three different linkers: «quiero»/«puedo» (none), «voy a» («a»), «tengo que» («que»)."
+      - kind: speakLit
+        id: l6-sp-recall
+        es: "mis amigos tienen que trabajar"
+        en: "My friends have to work"
+        cue: recall
+        atoms: ["mi", "amigo", "tienen", "trabajar"]
+      - kind: buildLit
+        id: l6-b-puedonadarperotengoqueestudiar
+        es: "puedo nadar, pero tengo que estudiar"
+        en: "I can swim, but I have to study"
+        atoms: ["puedo", "nadar", "pero", "tengo que", "estudiar"]
+        tiles: ["quiero", "voy"]
+      - kind: clozeLit
+        id: l6-c-vamosanadartienenquetrabajar
+        es: "vamos a nadar, pero tienen que trabajar"
+        en: "We're going to swim, but they have to work"
+        blank: "tienen"
+        options: ["tienen", "tenemos"]
+        atoms: ["vamos", "nadar", "tienen", "trabajar"]
+        why: "«tienen» — ellos/ustedes; «tenemos» would wrongly include yourself."
+      - kind: listenCompLit
+        id: l6-lc-tienequetrabajarpuedenadar
+        es: "tiene que trabajar, pero puede nadar mañana"
+        en: "She has to work, but she can swim tomorrow."
+        atoms: ["tiene", "trabajar", "puede", "nadar", "mañana"]
+        distractorsEn:
+          - "She wants to work, but she can swim tomorrow."
+          - "She has to work, but she wants to swim tomorrow."
+          - "He has to work, but he can swim tomorrow."
+      - kind: mcq
+        id: l6-q-quieronadarperotengoquetrabajar
+        prompt: "Which one means 'I want to swim'?"
+        correct: "quiero nadar"
+        distractors: ["voy a nadar", "puedo nadar", "quiere nadar"]
+        atoms: ["quiero", "nadar"]
+        why: "«quiero» = want, «voy a» = going to, «puedo» = can — only «quiero» matches 'want.' And «quiere» is about someone else, not you."
+      - kind: buildLit
+        id: l6-b-mihermanatienequecomprarchaquetayotengoquecomprar
+        es: "mi hermana tiene que comprar una chaqueta, pero yo tengo que comprar calcetines"
+        en: "My sister has to buy a jacket, but I have to buy socks"
+        atoms: ["mi", "hermana", "tiene", "comprar", "chaqueta", "pero", "tengo que", "calcetines"]
+        tiles: ["tienes", "tienen"]
+      - kind: audioWimcq
+        id: l6-ear-chaqueta
+        target: { surface: "chaqueta", emoji: "🧥" }
+        distractors:
+          - { surface: "pantalón", emoji: "👖" }
+          - { surface: "guantes", emoji: "🧤" }
+      - kind: agreementLit
+        id: l6-agr-tengoquechaquetanuevaamigostienenguantes
+        en: "I have to buy a new jacket, and my friends have new gloves"
+        audioText: "tengo que comprar una chaqueta nueva, y mis amigos tienen guantes nuevos"
+        atoms: ["tengo que", "comprar", "chaqueta", "nuevo", "mi", "amigo", "tienen", "guantes"]
+        segments:
+          - { text: "tengo que comprar una chaqueta " }
+          - { blank: { id: "p1", answer: "nueva", options: ["nueva", "nuevo"] } }
+          - { text: ", y mis amigos tienen guantes " }
+          - { blank: { id: "p2", answer: "nuevos", options: ["nuevos", "nuevas"] } }
+      - kind: listenBuildLit
+        id: l6-lb-quieroplayapero-tengoquetrabajar
+        es: "quiero ir a la playa, pero tengo que trabajar hoy"
+        en: "I want to go to the beach, but I have to work today"
+        atoms: ["quiero", "playa", "pero", "tengo que", "trabajar", "hoy"]
+        tiles: ["voy", "puedo"]
+      - kind: textMcq
+        id: l6-tm-puedo
+        target: "puedo"
+        distractors: ["pueblo", "puente", "suelo"]
+      - kind: sim
+        id: l6-sim-ana-plan
+        scene: { emoji: "🏖️", title: "A group weekend plan", setting: "Ana's making plans for tomorrow." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Puedes ir a la playa mañana?", audioText: "¿puedes ir a la playa mañana?", gloss: "Can you go to the beach tomorrow?" }
+            goal: "Say no, you have to work."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, tengo que trabajar" }
+                - { id: "wrong1", text: "no, quiero que trabajar" }
+                - { id: "wrong2", text: "no, tengo trabajar" }
+              correctOptionId: "right"
+              audioText: "no, tengo que trabajar"
+            replyGloss: "No, I have to work."
+            explanation: "«tengo que» — obligation; never drop «que», and «quiero» never takes a «que» linker at all."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tus amigos? ¿Van a ir?", audioText: "¿y tus amigos? ¿van a ir?", gloss: "And your friends? Are they going to go?" }
+            goal: "Say they're going, but have to study."
+            reply:
+              mode: build
+              tiles: ["van", "a", "ir", "pero", "tienen", "que", "estudiar", "tengo"]
+              answer: "van a ir pero tienen que estudiar"
+            replyGloss: "They're going, but they have to study."
+            explanation: "«van a» = going to (m18/m28); «tienen que» = have to (m33) — different linkers, same infinitive complement."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "quiero", target: "I want" }
+          - { source: "puedo", target: "I can" }
+          - { source: "voy", target: "I'm going" }
+          - { source: "tengo que", target: "I have to" }
+          - { source: "pero", target: "but" }
+          - { source: "trabajar", target: "work" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "quiero nadar, pero tengo que trabajar"
+        en: "I want to swim, but I have to work"
+        atoms: ["quiero", "nadar", "pero", "tengo que", "trabajar"]

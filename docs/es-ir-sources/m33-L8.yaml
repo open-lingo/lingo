@@ -1,0 +1,126 @@
+  # ── L8 · Checkpoint — all graded, no map/info (mirrors m30-L8/m31-L8/
+  #    m32-L8's own checkpoint shape). Pure recombination of L1-L7: all
+  #    five persons (tengo/tienes/tiene/tenemos/tienen), the dropped-«que»
+  #    foil in the MCQ and the sim's wrong options, m32 clothing objects.
+  #    Two recalls, drawn from different earlier lessons' win lines (L7
+  #    and L1). Ends sim → matchLit → speakLit-win, same closing shape as
+  #    every other lesson.
+  - n: 8
+    template: free
+    title: "Checkpoint: todos tienen que hacer algo"
+    description: "Everything so far, recombined — no new words, just the five persons of «tener que» working together, plus m32's clothing objects."
+    steps:
+      - kind: speakLit
+        id: l8-sp-recall-l7win
+        es: "no puedo, tengo que trabajar"
+        en: "I can't, I have to work"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-tengoquetrabajartienesqueestudiar
+        es: "tengo que trabajar, pero tienes que estudiar"
+        en: "I have to work, but you have to study"
+        atoms: ["tengo que", "trabajar", "pero", "tienes", "estudiar"]
+        tiles: ["tiene", "tienen"]
+      - kind: clozeLit
+        id: l8-c-tienequecomprarchaquetanueva
+        es: "tiene que comprar una chaqueta nueva"
+        en: "She has to buy a new jacket"
+        blank: "tiene"
+        options: ["tiene", "tienes"]
+        atoms: ["tiene", "comprar", "chaqueta", "nuevo"]
+        why: "A named subject takes «tiene», not «tienes» (tú)."
+      - kind: listenCompLit
+        id: l8-lc-tenemosquetrabajarjuntos
+        es: "tenemos que trabajar juntos"
+        en: "We have to work together."
+        atoms: ["tenemos", "trabajar", "juntos"]
+        distractorsEn:
+          - "We want to work together."
+          - "They have to work together."
+          - "We have to study together."
+      - kind: mcq
+        id: l8-q-tienenquecomprarcalcetines
+        prompt: "Which one means 'they have to buy'?"
+        correct: "tienen que comprar"
+        distractors: ["tienen comprar", "tenemos que comprar", "tienen que compran"]
+        atoms: ["tienen", "comprar"]
+        why: "«tienen» — ellos/ustedes; never drop «que» («tienen comprar» is ungrammatical), and the infinitive stays bare: «comprar», not «compran»."
+      - kind: speakLit
+        id: l8-sp-recall-l1win
+        es: "tengo que trabajar"
+        en: "I have to work"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-amigostienenqueyotengoque
+        es: "mis amigos tienen que comprar guantes, pero yo tengo que comprar calcetines"
+        en: "My friends have to buy gloves, but I have to buy socks"
+        atoms: ["mi", "amigo", "tienen", "comprar", "guantes", "tengo que", "calcetines"]
+        tiles: ["tiene", "tienes"]
+      - kind: audioWimcq
+        id: l8-ear-pantalon
+        target: { surface: "pantalón", emoji: "👖" }
+        distractors:
+          - { surface: "chaqueta", emoji: "🧥" }
+          - { surface: "camisa", emoji: "👕" }
+      - kind: agreementLit
+        id: l8-agr-anachaquetatenemospantalon
+        en: "Ana has to buy a new jacket, and we have new pants"
+        audioText: "Ana tiene que comprar una chaqueta nueva, y tenemos un pantalón nuevo"
+        atoms: ["tiene", "comprar", "chaqueta", "nuevo", "tenemos", "pantalón"]
+        segments:
+          - { text: "Ana tiene que comprar una chaqueta " }
+          - { blank: { id: "p1", answer: "nueva", options: ["nueva", "nuevo"] } }
+          - { text: ", y tenemos un pantalón " }
+          - { blank: { id: "p2", answer: "nuevo", options: ["nuevo", "nueva"] } }
+      - kind: listenBuildLit
+        id: l8-lb-tienenquetrabajarvanplaya
+        es: "tienen que trabajar, pero van a la playa mañana"
+        en: "They have to work, but they're going to the beach tomorrow"
+        atoms: ["tienen", "trabajar", "pero", "van", "playa", "mañana"]
+        tiles: ["tenemos", "tiene"]
+      - kind: textMcq
+        id: l8-tm-trabajar
+        target: "trabajar"
+        distractors: ["trabajador", "trabajo", "viajar"]
+      - kind: sim
+        id: l8-sim-checkpoint
+        scene: { emoji: "🏁", title: "Checkpoint check-in", setting: "Ana checks in on everyone's plans." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes que trabajar mañana?", audioText: "¿tienes que trabajar mañana?", gloss: "Do you have to work tomorrow?" }
+            goal: "Say yes, you have to work."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo que trabajar" }
+                - { id: "wrong1", text: "sí, tengo trabajar" }
+                - { id: "wrong2", text: "sí, tienes que trabajar" }
+              correctOptionId: "right"
+              audioText: "sí, tengo que trabajar"
+            replyGloss: "Yes, I have to work."
+            explanation: "Never drop «que» («tengo trabajar» is ungrammatical), and «tengo», not «tienes» — that's for asking about someone else."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tus amigos? ¿Tienen que trabajar también?", audioText: "¿y tus amigos? ¿tienen que trabajar también?", gloss: "And your friends? Do they have to work too?" }
+            goal: "Say yes, they all have to work."
+            reply:
+              mode: build
+              tiles: ["sí", "tienen", "que", "trabajar", "también", "tenemos", "tiene"]
+              answer: "sí tienen que trabajar también"
+            replyGloss: "Yes, they all have to work too."
+            explanation: "«tienen» — ellos/ustedes, not «tenemos» (you and them together)."
+      - kind: matchLit
+        id: l8-match
+        pairs:
+          - { source: "tengo que", target: "I have to" }
+          - { source: "tienes", target: "you have" }
+          - { source: "tiene", target: "he/she has" }
+          - { source: "tenemos", target: "we have" }
+          - { source: "tienen", target: "they/you all have" }
+          - { source: "trabajar", target: "work" }
+      - kind: speakLit
+        id: l8-sp-win
+        es: "tengo que trabajar, y mis amigos tienen que comprar guantes"
+        en: "I have to work, and my friends have to buy gloves"
+        atoms: ["tengo que", "trabajar", "mi", "amigo", "tienen", "comprar", "guantes"]

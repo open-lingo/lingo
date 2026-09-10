@@ -1,0 +1,128 @@
+  # ── L7 · «No puedo, tengo que trabajar» — declining an invitation with
+  #    an obligation, the natural register for this whole module. No new
+  #    atoms. Recombines PRIOR «no puedo» (m14) as the decline, «tengo
+  #    que» (m33) as the reason. Dialogue_sim is the lesson's centerpiece.
+  #    ≥1 recall (L6's win line).
+  - n: 7
+    template: free
+    title: "No puedo, tengo que trabajar"
+    description: "Declining an invitation: «no puedo» (m14, can't) plus the reason, «tengo que» (m33, have to). The natural conversational use of this whole module."
+    steps:
+      - kind: map
+        id: l7-map-nopuedotengoquetrabajar
+        tokens: ["no", "puedo,", "tengo que", "trabajar"]
+        pairs:
+          - { en: "no,", tokenIndex: 0 }
+          - { en: "I can't,", tokenIndex: 1 }
+          - { en: "I have to", tokenIndex: 2 }
+          - { en: "work", tokenIndex: 3 }
+        audioText: "no puedo, tengo que trabajar"
+        revealNote: "Declining an invitation: «no puedo» (I can't, m14) plus the reason, «tengo que» (I have to)."
+      - kind: speakLit
+        id: l7-sp-recall
+        es: "quiero nadar, pero tengo que trabajar"
+        en: "I want to swim, but I have to work"
+        cue: recall
+        atoms: ["quiero", "nadar", "pero", "tengo que", "trabajar"]
+      - kind: buildLit
+        id: l7-b-nopuedoirtengoqueestudiar
+        es: "no puedo ir, tengo que estudiar"
+        en: "I can't go, I have to study"
+        atoms: ["no", "puedo", "ir", "tengo que", "estudiar"]
+        tiles: ["quiero", "voy"]
+      - kind: clozeLit
+        id: l7-c-nopuedeirtienequetrabajar
+        es: "no puede ir, tiene que trabajar"
+        en: "She can't go, she has to work"
+        blank: "puede"
+        options: ["puede", "puedo"]
+        atoms: ["no", "puede", "ir", "tiene", "trabajar"]
+        why: "«puede»/«tiene» — talking about someone else (él/ella), not «puedo»/«tengo» (yourself)."
+      - kind: listenCompLit
+        id: l7-lc-nopuedoirtengoquetrabajarhoy
+        es: "no puedo ir, tengo que trabajar hoy"
+        en: "I can't go, I have to work today."
+        atoms: ["no", "puedo", "ir", "tengo que", "trabajar", "hoy"]
+        distractorsEn:
+          - "I don't want to go, I have to work today."
+          - "I can't go, I want to work today."
+          - "She can't go, she has to work today."
+      - kind: mcq
+        id: l7-q-nopuedotengoquetrabajar
+        prompt: "Which one gives 'I have to work' as the reason?"
+        correct: "tengo que trabajar"
+        distractors: ["tengo trabajar", "voy que trabajar", "puedo que trabajar"]
+        atoms: ["tengo que", "trabajar"]
+        why: "Never drop «que» after «tengo» — and neither «voy» nor «puedo» takes «que» as a linker; only «tengo que» does."
+      - kind: buildLit
+        id: l7-b-amigonopuedeirtienequecomprar
+        es: "mi amigo no puede ir, tiene que comprar una chaqueta"
+        en: "My friend can't go, he has to buy a jacket"
+        atoms: ["mi", "amigo", "no", "puede", "ir", "tiene", "comprar", "chaqueta"]
+        tiles: ["puedo", "tengo"]
+      - kind: audioWimcq
+        id: l7-ear-guantes
+        target: { surface: "guantes", emoji: "🧤" }
+        distractors:
+          - { surface: "calcetines", emoji: "🧦" }
+          - { surface: "chaqueta", emoji: "🧥" }
+      - kind: agreementLit
+        id: l7-agr-nopuedopantalonamigocamisa
+        en: "I can't go, I have to buy new pants, and my friend has a new shirt"
+        audioText: "no puedo ir, tengo que comprar un pantalón nuevo, y mi amigo tiene una camisa nueva"
+        atoms: ["no", "puedo", "ir", "tengo que", "comprar", "pantalón", "nuevo", "mi", "amigo", "tiene", "camisa"]
+        segments:
+          - { text: "no puedo ir, tengo que comprar un pantalón " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y mi amigo tiene una camisa " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l7-lb-nopuedesirtienesqueestudiar
+        es: "no puedes ir, tienes que estudiar"
+        en: "You can't go, you have to study"
+        atoms: ["no", "puedes", "ir", "tienes", "estudiar"]
+        tiles: ["puedo", "tengo"]
+      - kind: textMcq
+        id: l7-tm-camisa
+        target: "camisa"
+        distractors: ["camisón", "cortina", "comisa"]
+      - kind: sim
+        id: l7-sim-diego-fiesta
+        scene: { emoji: "🎉", title: "Diego invites you to a party", setting: "Diego calls about tomorrow." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Quieres ir a una fiesta mañana?", audioText: "¿quieres ir a una fiesta mañana?", gloss: "Do you want to go to a party tomorrow?" }
+            goal: "Decline — say you have to work."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no puedo, tengo que trabajar" }
+                - { id: "wrong1", text: "no puedo, tengo trabajar" }
+                - { id: "wrong2", text: "no quiero, tengo que trabajar" }
+              correctOptionId: "right"
+              audioText: "no puedo, tengo que trabajar"
+            replyGloss: "I can't, I have to work."
+            explanation: "«no puedo» declines, «tengo que» gives the reason — never drop «que»."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y tu hermana? ¿Puede ir ella?", audioText: "¿y tu hermana? ¿puede ir ella?", gloss: "And your sister? Can she go?" }
+            goal: "Say no, she has to study too."
+            reply:
+              mode: build
+              tiles: ["no", "puede", "tiene", "que", "estudiar", "también", "puedo", "tengo"]
+              answer: "no puede tiene que estudiar también"
+            replyGloss: "No, she has to study too."
+            explanation: "«puede»/«tiene» — talking about your sister (él/ella), not «puedo»/«tengo» (yourself)."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "puedo", target: "I can" }
+          - { source: "tengo que", target: "I have to" }
+          - { source: "ir", target: "to go" }
+          - { source: "trabajar", target: "work" }
+          - { source: "fiesta", target: "party" }
+          - { source: "mañana", target: "tomorrow" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "no puedo, tengo que trabajar"
+        en: "I can't, I have to work"
+        atoms: ["no", "puedo", "tengo que", "trabajar"]

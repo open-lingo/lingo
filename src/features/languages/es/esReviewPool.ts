@@ -516,4 +516,10 @@ export const ES_REVIEW_POOL: EsReviewEntry[] = [
   { surface: "nariz", gloss: "nose", kind: "vocab", fromModule: "m30", partOfSpeech: "noun" },
   { surface: "duele", gloss: "hurts, aches (one thing)", kind: "vocab", fromModule: "m31", partOfSpeech: "verb" },
   { surface: "duelen", gloss: "hurt, ache (more than one thing)", kind: "vocab", fromModule: "m31", partOfSpeech: "verb" },
+  { surface: "pantalón", gloss: "pants, trousers", kind: "vocab", fromModule: "m32", partOfSpeech: "noun" },
+  { surface: "chaqueta", gloss: "jacket", kind: "vocab", fromModule: "m32", partOfSpeech: "noun" },
+  { surface: "calcetines", gloss: "socks", kind: "vocab", fromModule: "m32", partOfSpeech: "noun" },
+  { surface: "guantes", gloss: "gloves", kind: "vocab", fromModule: "m32", partOfSpeech: "noun" },
+  { surface: "bufanda", gloss: "scarf", kind: "vocab", fromModule: "m32", partOfSpeech: "noun" },
+  { surface: "tengo que", gloss: "I have to", kind: "phrase", fromModule: "m33", partOfSpeech: "phrase" },
 ];

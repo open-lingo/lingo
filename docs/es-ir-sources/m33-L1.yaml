@@ -1,0 +1,137 @@
+  # ── L1 · «Tengo que trabajar» — «tengo que» debuts, yo-form only. The
+  #    ONE new atom this module registers (phrase/idiom kind, mirroring
+  #    m7's «tengo hambre»/«tengo sed» convention — see m33-header.yaml).
+  #    Carries the module's one general rule card, contrasting «tengo
+  #    que trabajar» (obligation, «que» linker) against PRIOR «quiero
+  #    trabajar» / «puedo trabajar» (m14, no linker at all) and PRIOR
+  #    «voy a trabajar» (m28, «a» linker). Introduces the central
+  #    discrimination foil (dropping «que» — *"tengo trabajar" is
+  #    ungrammatical) in the MCQ and the sim, never as a correct answer.
+  #    PRIOR context only: tengo (m5), quiero/puedo (m14), voy (m9/m28),
+  #    trabajar/estudiar (m10), nadar (m13), hoy/mañana (m8), pero (m18/
+  #    ES_FUNCTION_WORDS), también (m11), playa (m25), pantalón/camisa/
+  #    chaqueta (m12/m32). No recall — first lesson of the module.
+  - n: 1
+    template: free
+    title: "Tengo que trabajar"
+    description: "«tengo que» plus a bare infinitive — I HAVE TO, not I want to («quiero») or I can («puedo», m14, no linker) or I'm going to («voy a», m28, «a» not «que»). Never drop «que»: «tengo trabajar» is ungrammatical."
+    steps:
+      - kind: map
+        id: l1-map-tengoquetrabajar
+        tokens: ["tengo que", "trabajar"]
+        pairs:
+          - { en: "I have to", tokenIndex: 0 }
+          - { en: "work", tokenIndex: 1 }
+        audioText: "tengo que trabajar"
+        revealNote: "«tengo que» — never drop the «que»: «tengo trabajar» is ungrammatical. «que» is the linker; «quiero»/«puedo» (m14) use no linker at all, and «voy a» (m28) uses «a», not «que»."
+      - kind: info
+        id: l1-info-tengoque
+        title: "Tengo que — I have to"
+        body: "«tengo que» plus a bare infinitive means I HAVE TO. Compare «quiero trabajar» (want to, no linker) and «voy a trabajar» (going to, «a» not «que»). Never drop «que»: «tengo trabajar» is ungrammatical."
+      - kind: speakLit
+        id: l1-sp-tengoqueestudiar
+        es: "tengo que estudiar"
+        en: "I have to study"
+        atoms: ["tengo que", "estudiar"]
+      - kind: buildLit
+        id: l1-b-tengoquetrabajarmanana
+        es: "tengo que trabajar mañana"
+        en: "I have to work tomorrow"
+        atoms: ["tengo que", "trabajar", "mañana"]
+        tiles: ["quiero", "voy"]
+      - kind: clozeLit
+        id: l1-c-tengoqueestudiarhoy
+        es: "tengo que estudiar hoy"
+        en: "I have to study today"
+        blank: "estudiar"
+        options: ["estudiar", "estudio"]
+        atoms: ["tengo que", "estudiar", "hoy"]
+        why: "After «que», the infinitive never conjugates — «estudiar», not «estudio»."
+      - kind: listenCompLit
+        id: l1-lc-tengoquetrabajarhoy
+        es: "tengo que trabajar hoy"
+        en: "I have to work today."
+        atoms: ["tengo que", "trabajar", "hoy"]
+        distractorsEn:
+          - "I want to work today."
+          - "I have to work tomorrow."
+          - "I can work today."
+      - kind: mcq
+        id: l1-q-tengoquetrabajar
+        prompt: "Which one means 'I have to work'?"
+        correct: "tengo que trabajar"
+        distractors: ["tengo trabajar", "quiero que trabajar", "voy que trabajar"]
+        atoms: ["tengo que", "trabajar"]
+        why: "«tengo que» always needs «que» before the infinitive — dropping it («tengo trabajar») is ungrammatical. «que» is «tengo»'s own linker, not «quiero»'s (no linker) or «voy»'s («a»)."
+      - kind: buildLit
+        id: l1-b-quieronadarperotengoqueestudiar
+        es: "quiero nadar, pero tengo que estudiar"
+        en: "I want to swim, but I have to study"
+        atoms: ["quiero", "nadar", "pero", "tengo que", "estudiar"]
+        tiles: ["puedo", "voy"]
+      - kind: audioWimcq
+        id: l1-ear-camisa
+        target: { surface: "camisa", emoji: "👕" }
+        distractors:
+          - { surface: "libro", emoji: "📖" }
+          - { surface: "perro", emoji: "🐶" }
+      - kind: agreementLit
+        id: l1-agr-pantalonnuevocamisanueva
+        en: "I have to buy new pants, and I have a new shirt"
+        audioText: "tengo que comprar un pantalón nuevo, y tengo una camisa nueva"
+        atoms: ["tengo que", "comprar", "pantalón", "nuevo", "tengo", "camisa"]
+        segments:
+          - { text: "tengo que comprar un pantalón " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y tengo una camisa " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l1-lb-tengoqueestudiarpuedonadar
+        es: "tengo que estudiar, pero puedo nadar mañana"
+        en: "I have to study, but I can swim tomorrow"
+        atoms: ["tengo que", "estudiar", "pero", "puedo", "nadar", "mañana"]
+        tiles: ["quiero", "voy"]
+      - kind: textMcq
+        id: l1-tm-trabajar
+        target: "trabajar"
+        distractors: ["trabajador", "trabajo", "viajar"]
+      - kind: sim
+        id: l1-sim-diego-playa
+        scene: { emoji: "🏖️", title: "Diego invites you to the beach", setting: "Diego calls to make plans." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Quieres ir a la playa hoy?", audioText: "¿quieres ir a la playa hoy?", gloss: "Do you want to go to the beach today?" }
+            goal: "Say no, you have to work."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, tengo que trabajar" }
+                - { id: "wrong1", text: "no, tengo trabajar" }
+                - { id: "wrong2", text: "no, quiero que trabajar" }
+              correctOptionId: "right"
+              audioText: "no, tengo que trabajar"
+            replyGloss: "No, I have to work."
+            explanation: "«tengo que trabajar» — never drop «que»: «tengo trabajar» is ungrammatical."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y mañana? ¿Puedes ir mañana?", audioText: "¿y mañana? ¿puedes ir mañana?", gloss: "And tomorrow? Can you go tomorrow?" }
+            goal: "Say you have to study tomorrow too."
+            reply:
+              mode: build
+              tiles: ["tengo", "que", "estudiar", "mañana", "también", "quiero", "voy"]
+              answer: "tengo que estudiar mañana también"
+            replyGloss: "I have to study tomorrow too."
+            explanation: "«tengo que» plus a bare infinitive — «estudiar» stays bare, never conjugated."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "tengo que", target: "I have to" }
+          - { source: "trabajar", target: "work" }
+          - { source: "estudiar", target: "study" }
+          - { source: "quiero", target: "I want" }
+          - { source: "puedo", target: "I can" }
+          - { source: "mañana", target: "tomorrow" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "tengo que trabajar"
+        en: "I have to work"
+        atoms: ["tengo que", "trabajar"]

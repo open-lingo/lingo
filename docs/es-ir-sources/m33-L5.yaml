@@ -1,0 +1,128 @@
+  # ── L5 · «Mis amigos tienen que trabajar» — ellos/ustedes recombination.
+  #    No new atom: «tienen» (m18) plus the already-free «que» plus a
+  #    PRIOR infinitive. Closes out the full five-person paradigm sweep
+  #    (tengo/tienes/tiene/tenemos/tienen, L1-L5) before L6's mixed-person
+  #    discrimination lesson. ≥1 recall (L4's win line).
+  - n: 5
+    template: free
+    title: "Mis amigos tienen que trabajar"
+    description: "«tienen que» — the ellos/ustedes-shape «tienen» (m18) plus «que» plus the infinitive. The paradigm is now complete: tengo/tienes/tiene/tenemos/tienen, all graded through PRIOR «tener», never a second registered surface."
+    steps:
+      - kind: map
+        id: l5-map-misamigostienenquetrabajar
+        tokens: ["mis", "amigos", "tienen", "que", "trabajar"]
+        pairs:
+          - { en: "my", tokenIndex: 0 }
+          - { en: "friends", tokenIndex: 1 }
+          - { en: "have to", tokenIndex: 2 }
+          - { en: "work", tokenIndex: 4 }
+        audioText: "mis amigos tienen que trabajar"
+        revealNote: "«tienen» (m18) — the ellos/ustedes-shape. The full paradigm is now recombined: tengo/tienes/tiene/tenemos/tienen, all through PRIOR «tener»."
+      - kind: speakLit
+        id: l5-sp-recall
+        es: "tenemos que estudiar juntos"
+        en: "We have to study together"
+        cue: recall
+        atoms: ["tenemos", "estudiar", "juntos"]
+      - kind: buildLit
+        id: l5-b-misamigostienenquecomprarcalcetines
+        es: "mis amigos tienen que comprar calcetines nuevos"
+        en: "My friends have to buy new socks"
+        atoms: ["mi", "amigo", "tienen", "comprar", "calcetines", "nuevo"]
+        tiles: ["tengo", "tenemos"]
+      - kind: clozeLit
+        id: l5-c-tienenquetrabajarhoy
+        es: "tienen que trabajar hoy"
+        en: "They have to work today"
+        blank: "tienen"
+        options: ["tienen", "tenemos"]
+        atoms: ["tienen", "trabajar", "hoy"]
+        why: "«ellos/ustedes» take «tienen» — «tenemos» is nosotros, a different person entirely."
+      - kind: listenCompLit
+        id: l5-lc-misamigostienenquetrabajar
+        es: "mis amigos tienen que trabajar"
+        en: "My friends have to work."
+        atoms: ["mi", "amigo", "tienen", "trabajar"]
+        distractorsEn:
+          - "My friends want to work."
+          - "My friend has to work."
+          - "My friends have to study."
+      - kind: mcq
+        id: l5-q-tienenquetrabajarjuntos
+        prompt: "Which one means 'they have to work'?"
+        correct: "tienen que trabajar"
+        distractors: ["tienen trabajar", "tenemos que trabajar", "quieren que trabajar"]
+        atoms: ["tienen", "trabajar"]
+        why: "«tienen» is the ellos/ustedes-shape; never drop «que» — and «quieren» (want) never takes a «que» linker at all."
+      - kind: buildLit
+        id: l5-b-ustedestienenquecomprarguantes
+        es: "ustedes tienen que comprar guantes nuevos"
+        en: "You all have to buy new gloves"
+        atoms: ["ustedes", "tienen", "comprar", "guantes", "nuevo"]
+        tiles: ["tenemos", "tiene"]
+      - kind: audioWimcq
+        id: l5-ear-calcetines
+        target: { surface: "calcetines", emoji: "🧦" }
+        distractors:
+          - { surface: "guantes", emoji: "🧤" }
+          - { surface: "camisa", emoji: "👕" }
+      - kind: agreementLit
+        id: l5-agr-tienenpantalontienecamisa
+        en: "My friends have new pants, and Ana has a new shirt"
+        audioText: "mis amigos tienen un pantalón nuevo, y Ana tiene una camisa nueva"
+        atoms: ["mi", "amigo", "tienen", "pantalón", "nuevo", "tiene", "camisa"]
+        segments:
+          - { text: "mis amigos tienen un pantalón " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y Ana tiene una camisa " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l5-lb-tienenquetrabajarvanplaya
+        es: "tienen que trabajar, pero van a la playa mañana"
+        en: "They have to work, but they're going to the beach tomorrow"
+        atoms: ["tienen", "trabajar", "pero", "van", "playa", "mañana"]
+        tiles: ["tenemos", "tiene"]
+      - kind: textMcq
+        id: l5-tm-amigo
+        target: "amigo"
+        distractors: ["amigable", "abrigo", "amargo"]
+      - kind: sim
+        id: l5-sim-sam-amigos
+        scene: { emoji: "🧦", title: "Sam and Luis go shopping", setting: "Sam texts about weekend plans." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sam", es: "¿Tus amigos van a la playa mañana?", audioText: "¿tus amigos van a la playa mañana?", gloss: "Are your friends going to the beach tomorrow?" }
+            goal: "Say no, they have to work."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, tienen que trabajar" }
+                - { id: "wrong1", text: "no, tenemos que trabajar" }
+                - { id: "wrong2", text: "no, tienen trabajar" }
+              correctOptionId: "right"
+              audioText: "no, tienen que trabajar"
+            replyGloss: "No, they have to work."
+            explanation: "Talking about your friends (ellos) uses «tienen» — not «tenemos» (you and them together) — and never drop «que»."
+          - id: t2
+            npc: { speaker: "Sam", es: "¿Y ustedes? ¿Tienen que trabajar también?", audioText: "¿y ustedes? ¿tienen que trabajar también?", gloss: "And you all? Do you all have to work too?" }
+            goal: "Say yes, we have to work together."
+            reply:
+              mode: build
+              tiles: ["sí", "tenemos", "que", "trabajar", "juntos", "tienen", "tengo"]
+              answer: "sí tenemos que trabajar juntos"
+            replyGloss: "Yes, we have to work together."
+            explanation: "Back to «tenemos» (nosotros) — you and your friends together, not «tienen» (them alone)."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "tienen", target: "they/you all have" }
+          - { source: "amigos", target: "friends" }
+          - { source: "trabajar", target: "work" }
+          - { source: "comprar", target: "buy" }
+          - { source: "ustedes", target: "you all" }
+          - { source: "van", target: "they go" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "mis amigos tienen que trabajar"
+        en: "My friends have to work"
+        atoms: ["mi", "amigo", "tienen", "trabajar"]
