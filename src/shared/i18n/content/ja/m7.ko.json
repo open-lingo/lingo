@@ -108,7 +108,7 @@
     },
     {
       "anchor": "m7/atom:ちゃん/gloss",
-      "text": "-짱 (친절함)",
+      "text": "-짱 (애칭)",
       "enSourceHash": "471ec4befd968599"
     },
     {
@@ -163,7 +163,7 @@
     },
     {
       "anchor": "m7/atom:を/gloss",
-      "text": "목적격 조사",
+      "text": "목적어 표시",
       "enSourceHash": "d0322005b64f2453"
     },
     {
@@ -178,12 +178,12 @@
     },
     {
       "anchor": "m7/gp:desu-copula/ex:がくせいです",
-      "text": "학생이다 (존댓말)",
+      "text": "학생이에요.",
       "enSourceHash": "8f624646dd13b155"
     },
     {
       "anchor": "m7/gp:desu-copula/ex:たなかさんは せんせいです",
-      "text": "타나카 씨는 선생님이다 (존댓말)",
+      "text": "다나카 씨는 선생님이에요.",
       "enSourceHash": "31d13a6d60e80d2b"
     },
     {
@@ -193,7 +193,7 @@
     },
     {
       "anchor": "m7/gp:ka-question/ex:たなかさんは せんせいですか",
-      "text": "타나카 씨는 선생님입니까? (존댓말)",
+      "text": "다나카 씨는 선생님이에요?",
       "enSourceHash": "87f8179c1ef7d0aa"
     },
     {
@@ -203,22 +203,22 @@
     },
     {
       "anchor": "m7/gp:ka-question/ex:みずを のみますか",
-      "text": "물을 마십니까? (존댓말)",
+      "text": "물을 마셔요?",
       "enSourceHash": "8b7d69f70fd68e50"
     },
     {
       "anchor": "m7/gp:masu-negative/ex:きょうは いきません",
-      "text": "오늘은 가지 않습니다.",
+      "text": "오늘은 가지 않아요.",
       "enSourceHash": "0a48c8d55828132b"
     },
     {
       "anchor": "m7/gp:masu-negative/ex:ごはんを たべません",
-      "text": "밥을 먹지 않습니다.",
+      "text": "밥을 먹지 않아요.",
       "enSourceHash": "9c7298a7f8709c84"
     },
     {
       "anchor": "m7/gp:masu-negative/ex:しゃしんを みません",
-      "text": "사진을 보지 않습니다.",
+      "text": "사진을 보지 않아요.",
       "enSourceHash": "9dd78754a1c4be6b"
     },
     {
@@ -228,17 +228,17 @@
     },
     {
       "anchor": "m7/gp:masu-negative/ex:のみません",
-      "text": "마시지 않습니다.",
+      "text": "마시지 않아요.",
       "enSourceHash": "2d485ca64bb74d61"
     },
     {
       "anchor": "m7/gp:masu-present/ex:いえに いきます。",
-      "text": "집에 갑니다.",
+      "text": "집에 가요.",
       "enSourceHash": "a8bda6c2cc74e0d6"
     },
     {
       "anchor": "m7/gp:masu-present/ex:しゃしんを みます。",
-      "text": "사진을 봅니다.",
+      "text": "사진을 봐요.",
       "enSourceHash": "7bc41f251b0fb196"
     },
     {
@@ -248,7 +248,7 @@
     },
     {
       "anchor": "m7/gp:masu-present/ex:たべます",
-      "text": "먹습니다.",
+      "text": "먹어요.",
       "enSourceHash": "5830c368d31e76c5"
     },
     {
@@ -258,17 +258,17 @@
     },
     {
       "anchor": "m7/gp:masu-present/ex:ともだちが きます。",
-      "text": "친구가 옵니다.",
+      "text": "친구가 와요.",
       "enSourceHash": "485eea7a3a4c6d46"
     },
     {
       "anchor": "m7/gp:masu-present/ex:ほんを かいます。",
-      "text": "책을 삽니다.",
+      "text": "책을 사요.",
       "enSourceHash": "5405efdad1e4c6bd"
     },
     {
       "anchor": "m7/gp:masu-present/ex:みずを のみます",
-      "text": "물을 마십니다.",
+      "text": "물을 마셔요.",
       "enSourceHash": "7f5a9e09328ba8cf"
     },
     {
@@ -288,12 +288,12 @@
     },
     {
       "anchor": "m7/gp:register-audience/ex:トムさんは アメリカじんです。",
-      "text": "톰은 미국 사람입니다.",
+      "text": "톰 씨는 미국 사람이에요.",
       "enSourceHash": "8b4fd91f2d2e18d7"
     },
     {
       "anchor": "m7/gp:register-audience/ex:ミカちゃんは がくせいです。",
-      "text": "미카는 학생이야.",
+      "text": "미카 짱은 학생이야.",
       "enSourceHash": "b8deb1c561c86cd6"
     },
     {
@@ -343,7 +343,7 @@
     },
     {
       "anchor": "m7/ja-m7-neo-1/ja:いえで たべます",
-      "text": "집에서 먹습니다.",
+      "text": "정중하게 말하세요: 집에서 먹어요.",
       "enSourceHash": "da733246a7041511"
     },
     {
@@ -358,32 +358,32 @@
     },
     {
       "anchor": "m7/ja-m7-neo-1/ja:たなかさんは たべます",
-      "text": "다나카는 먹습니다.",
+      "text": "정중하게 말하세요: 다나카 씨는 먹어요.",
       "enSourceHash": "6161289b8173d64c"
     },
     {
       "anchor": "m7/ja-m7-neo-1/ja:たなかさんは みずを のみます",
-      "text": "다나카는 물을 마십니다.",
+      "text": "정중하게 말하세요: 다나카 씨는 물을 마셔요.",
       "enSourceHash": "a76ba131d4315508"
     },
     {
       "anchor": "m7/ja-m7-neo-1/ja:ともだちと たべます",
-      "text": "친구와 먹습니다.",
+      "text": "정중하게 말하세요: 친구와 먹어요.",
       "enSourceHash": "aca696ef8900768e"
     },
     {
       "anchor": "m7/ja-m7-neo-1/ja:ともだちと のみます",
-      "text": "친구와 마십니다.",
+      "text": "정중하게 말하세요: 친구와 마셔요.",
       "enSourceHash": "1e78983a1935ecfb"
     },
     {
       "anchor": "m7/ja-m7-neo-1/ja:はい たべます",
-      "text": "네, 먹겠습니다.",
+      "text": "정중하게 말하세요: 네, 먹을게요.",
       "enSourceHash": "2f229f24c8b82001"
     },
     {
       "anchor": "m7/ja-m7-neo-1/ja:りょうりを たべます",
-      "text": "요리를 먹습니다.",
+      "text": "정중하게 말하세요: 요리를 먹어요.",
       "enSourceHash": "55a9bad0381cad27"
     },
     {
@@ -433,22 +433,22 @@
     },
     {
       "anchor": "m7/ja-m7-neo-2/en:d3bf28da55f404a6",
-      "text": "'집'에 해당하는 단어를 고르세요",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
       "enSourceHash": "d3bf28da55f404a6"
     },
     {
       "anchor": "m7/ja-m7-neo-2/ja:いえに いきます",
-      "text": "정중하게 말하기: 나는 집에 간다",
+      "text": "정중하게 말하세요: 집에 가요.",
       "enSourceHash": "a860c18778e7b8fc"
     },
     {
       "anchor": "m7/ja-m7-neo-2/ja:きょう ともだちが いえに きます",
-      "text": "정중하게 말하기: 친구가 오늘 집에 온다",
+      "text": "정중하게 말하세요: 오늘 친구가 집에 와요.",
       "enSourceHash": "7062fce20c1a277a"
     },
     {
       "anchor": "m7/ja-m7-neo-2/ja:さんぽを します",
-      "text": "정중하게 말하기: 나는 산책한다",
+      "text": "정중하게 말하세요: 산책해요.",
       "enSourceHash": "33f7171286d6983b"
     },
     {
@@ -458,17 +458,17 @@
     },
     {
       "anchor": "m7/ja-m7-neo-2/ja:そらを みます",
-      "text": "정중하게 말하기: 나는 하늘을 본다",
+      "text": "정중하게 말하세요: 하늘을 봐요.",
       "enSourceHash": "012eff3332222555"
     },
     {
       "anchor": "m7/ja-m7-neo-2/ja:ともだちが きます",
-      "text": "정중하게 말하기: 친구가 온다",
+      "text": "정중하게 말하세요: 친구가 와요.",
       "enSourceHash": "ed8cb52b34adce6d"
     },
     {
       "anchor": "m7/ja-m7-neo-2/ja:ほんを かいます",
-      "text": "정중하게 말하기: 나는 책을 산다",
+      "text": "정중하게 말하세요: 책을 사요.",
       "enSourceHash": "7c0f3b0013efba3b"
     },
     {
@@ -488,7 +488,7 @@
     },
     {
       "anchor": "m7/ja-m7-neo-3/en:46bcff11a845ba3d",
-      "text": "'사람'에 해당하는 단어를 고르세요",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
       "enSourceHash": "46bcff11a845ba3d"
     },
     {
@@ -513,7 +513,7 @@
     },
     {
       "anchor": "m7/ja-m7-neo-3/en:d3bf28da55f404a6",
-      "text": "'집'에 해당하는 단어를 고르세요",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
       "enSourceHash": "d3bf28da55f404a6"
     },
     {
@@ -523,12 +523,12 @@
     },
     {
       "anchor": "m7/ja-m7-neo-3/ja:きょうは いきません",
-      "text": "정중하게 말하기: 나는 오늘 가지 않는다",
+      "text": "정중하게 말하세요: 오늘은 가지 않아요.",
       "enSourceHash": "01eab7931203821c"
     },
     {
       "anchor": "m7/ja-m7-neo-3/ja:きょうは たべません",
-      "text": "정중하게 말하기: 나는 오늘 먹지 않는다",
+      "text": "정중하게 말하세요: 오늘은 먹지 않아요.",
       "enSourceHash": "6ed176780cb5c348"
     },
     {
@@ -538,7 +538,7 @@
     },
     {
       "anchor": "m7/ja-m7-neo-3/ja:さんぽを しません",
-      "text": "정중하게 말하기: 나는 산책하지 않는다",
+      "text": "정중하게 말하세요: 산책하지 않아요.",
       "enSourceHash": "5f8fce861611a3fb"
     },
     {
@@ -548,17 +548,17 @@
     },
     {
       "anchor": "m7/ja-m7-neo-3/ja:たなかさんは きません",
-      "text": "정중하게 말하기: 다나카는 오지 않는다",
+      "text": "정중하게 말하세요: 다나카 씨는 오지 않아요.",
       "enSourceHash": "b0288fdfb032f40e"
     },
     {
       "anchor": "m7/ja-m7-neo-3/ja:みずを のみません",
-      "text": "정중하게 말하기: 나는 물을 마시지 않는다",
+      "text": "정중하게 말하세요: 물을 마시지 않아요.",
       "enSourceHash": "9881cbba7bde7b8d"
     },
     {
       "anchor": "m7/ja-m7-neo-3/ja:ミカさんは きょう いえに きません",
-      "text": "정중하게 말하기: 미카는 오늘 집에 오지 않는다",
+      "text": "정중하게 말하세요: 미카 씨는 오늘 집에 오지 않아요.",
       "enSourceHash": "a1ecab2383aa4341"
     },
     {
@@ -583,7 +583,7 @@
     },
     {
       "anchor": "m7/ja-m7-neo-4/en:46bcff11a845ba3d",
-      "text": "'사람'에 해당하는 단어를 고르세요",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
       "enSourceHash": "46bcff11a845ba3d"
     },
     {
@@ -593,12 +593,12 @@
     },
     {
       "anchor": "m7/ja-m7-neo-4/en:5fe36e377a7e2137",
-      "text": "'노래'에 해당하는 단어를 고르세요",
+      "text": "\"노래\"에 해당하는 단어를 고르세요",
       "enSourceHash": "5fe36e377a7e2137"
     },
     {
       "anchor": "m7/ja-m7-neo-4/en:727ea55fc8ee1dc7",
-      "text": "'연못'에 해당하는 단어를 고르세요",
+      "text": "\"연못\"에 해당하는 단어를 고르세요",
       "enSourceHash": "727ea55fc8ee1dc7"
     },
     {
@@ -623,7 +623,7 @@
     },
     {
       "anchor": "m7/ja-m7-neo-4/ja:がくせいです",
-      "text": "정중하게 말하기: 나는 학생이다",
+      "text": "정중하게 말하세요: 학생이에요.",
       "enSourceHash": "2e154338c25c302b"
     },
     {
@@ -633,17 +633,17 @@
     },
     {
       "anchor": "m7/ja-m7-neo-4/ja:せんせいです",
-      "text": "정중하게 말하기: 나는 선생님이다",
+      "text": "정중하게 말하세요: 선생님이에요.",
       "enSourceHash": "8888f178e3dfdf83"
     },
     {
       "anchor": "m7/ja-m7-neo-4/ja:それは かぎです",
-      "text": "정중하게 말하기: 그것은 열쇠이다",
+      "text": "정중하게 말하세요: 그것은 열쇠예요.",
       "enSourceHash": "3b6d541bf4f90273"
     },
     {
       "anchor": "m7/ja-m7-neo-4/ja:たなかさんの いえは あそこです",
-      "text": "정중하게 말하기: 다나카 씨의 집은 저기이다",
+      "text": "정중하게 말하세요: 다나카 씨의 집은 저기예요.",
       "enSourceHash": "ebb6d251021d53e5"
     },
     {
@@ -653,12 +653,12 @@
     },
     {
       "anchor": "m7/ja-m7-neo-4/ja:トムさんは アメリカじんです",
-      "text": "정중하게 말하기: 톰은 미국인이다",
+      "text": "정중하게 말하세요: 톰 씨는 미국 사람이에요.",
       "enSourceHash": "aaa22160c7a161d6"
     },
     {
       "anchor": "m7/ja-m7-neo-4/ja:ミカさんは にほんじんです",
-      "text": "정중하게 말하기: 미카는 일본인이다",
+      "text": "정중하게 말하세요: 미카 씨는 일본인이에요.",
       "enSourceHash": "d22f5da3f0e24420"
     },
     {
@@ -723,12 +723,12 @@
     },
     {
       "anchor": "m7/ja-m7-neo-5/ja:いきますか",
-      "text": "정중하게 말하기: 당신은 가십니까?",
+      "text": "정중하게 말하세요: 가요?",
       "enSourceHash": "f3fa5e77ded03921"
     },
     {
       "anchor": "m7/ja-m7-neo-5/ja:うたを ききますか",
-      "text": "정중하게 말하기: 당신은 노래를 듣겠습니까?",
+      "text": "정중하게 말하세요: 노래를 들어요?",
       "enSourceHash": "702f9f57d291fcb1"
     },
     {
@@ -738,32 +738,32 @@
     },
     {
       "anchor": "m7/ja-m7-neo-5/ja:たなかさんは きょう いえに いきますか",
-      "text": "정중하게 말하기: 다나카 씨는 오늘 집에 갑니까?",
+      "text": "정중하게 말하세요: 다나카 씨는 오늘 집에 가요?",
       "enSourceHash": "843194c46f61f394"
     },
     {
       "anchor": "m7/ja-m7-neo-5/ja:たなかさんは せんせいですか",
-      "text": "정중하게 말하기: 다나카 씨는 선생님입니까?",
+      "text": "정중하게 말하세요: 다나카 씨는 선생님이에요?",
       "enSourceHash": "5796ad91221d8239"
     },
     {
       "anchor": "m7/ja-m7-neo-5/ja:たべますか",
-      "text": "정중하게 말하기: 당신은 먹겠습니까?",
+      "text": "정중하게 말하세요: 먹어요?",
       "enSourceHash": "842b23a3de400d65"
     },
     {
       "anchor": "m7/ja-m7-neo-5/ja:どこに いきますか",
-      "text": "정중하게 말하기: 당신은 어디로 갑니까?",
+      "text": "정중하게 말하세요: 어디에 가요?",
       "enSourceHash": "05f4d79cdb4b3417"
     },
     {
       "anchor": "m7/ja-m7-neo-5/ja:なにを たべますか",
-      "text": "정중하게 말하기: 당신은 무엇을 먹겠습니까?",
+      "text": "정중하게 말하세요: 무엇을 먹어요?",
       "enSourceHash": "17efb753a27d5542"
     },
     {
       "anchor": "m7/ja-m7-neo-5/ja:みずを のみますか",
-      "text": "정중하게 말하기: 당신은 물을 마시겠습니까?",
+      "text": "정중하게 말하세요: 물을 마셔요?",
       "enSourceHash": "90ee6041d1a9961a"
     },
     {
@@ -838,22 +838,22 @@
     },
     {
       "anchor": "m7/ja-m7-neo-6/ja:うん そう",
-      "text": "친구에게 말하기: 응, 맞아",
+      "text": "친구에게 말하세요: 응, 맞아",
       "enSourceHash": "5cdcc278af4a7546"
     },
     {
       "anchor": "m7/ja-m7-neo-6/ja:ええ そうです",
-      "text": "공손하게 말하기: 네, 그렇습니다",
+      "text": "정중하게 말하세요: 네, 맞아요",
       "enSourceHash": "e4ce3543a04310f1"
     },
     {
       "anchor": "m7/ja-m7-neo-6/ja:きょう たべます",
-      "text": "선생님께 말하기: 오늘 먹겠습니다",
+      "text": "선생님께 말하세요: 오늘 먹겠습니다",
       "enSourceHash": "e6af79b1c4ed8d51"
     },
     {
       "anchor": "m7/ja-m7-neo-6/ja:きょう たべる",
-      "text": "친구에게 말하기: 오늘 먹을 거야",
+      "text": "친구에게 말하세요: 오늘 먹을 거야",
       "enSourceHash": "f5860a5f9302da4e"
     },
     {
@@ -863,7 +863,7 @@
     },
     {
       "anchor": "m7/ja-m7-neo-6/ja:ほんを かいます",
-      "text": "선생님께 말하기: 책을 살게요",
+      "text": "선생님께 말하세요: 책을 사겠습니다",
       "enSourceHash": "b33c83cf5f3aeb1c"
     },
     {
@@ -873,7 +873,7 @@
     },
     {
       "anchor": "m7/ja-m7-neo-7/en:0c01f76515cfaa03",
-      "text": "오늘 수업이 있다",
+      "text": "오늘 수업이 있어요",
       "enSourceHash": "0c01f76515cfaa03"
     },
     {
@@ -898,7 +898,7 @@
     },
     {
       "anchor": "m7/ja-m7-neo-7/en:37b92f2baf8d5aab",
-      "text": "다나카 씨는 회사에서 일하나요?",
+      "text": "다나카 씨는 회사에서 일해요?",
       "enSourceHash": "37b92f2baf8d5aab"
     },
     {
@@ -913,7 +913,7 @@
     },
     {
       "anchor": "m7/ja-m7-neo-7/en:7e07739573df03b2",
-      "text": "오늘 수업이 없다",
+      "text": "오늘 수업이 없어요",
       "enSourceHash": "7e07739573df03b2"
     },
     {
@@ -923,7 +923,7 @@
     },
     {
       "anchor": "m7/ja-m7-neo-7/en:9a403f516d566cbc",
-      "text": "미카 씨는 오늘 회사에서 일하지 않는다",
+      "text": "미카 씨는 오늘 회사에서 일하지 않아요",
       "enSourceHash": "9a403f516d566cbc"
     },
     {
@@ -938,27 +938,27 @@
     },
     {
       "anchor": "m7/ja-m7-neo-7/ja:かいしゃで はたらく",
-      "text": "친구에게 말하기: 회사에서 일한다",
+      "text": "친구에게 말하세요: 회사에서 일해",
       "enSourceHash": "3690cd11134377cf"
     },
     {
       "anchor": "m7/ja-m7-neo-7/ja:かいしゃに いく",
-      "text": "친구에게 말하기: 회사에 간다",
+      "text": "친구에게 말하세요: 회사에 가",
       "enSourceHash": "39ba51402dd4d814"
     },
     {
       "anchor": "m7/ja-m7-neo-7/ja:きょう じゅぎょうが あります",
-      "text": "공손하게 말하기: 오늘 수업이 있습니다",
+      "text": "정중하게 말하세요: 오늘 수업이 있어요",
       "enSourceHash": "59396011ad699bc6"
     },
     {
       "anchor": "m7/ja-m7-neo-7/ja:きょう じゅぎょうが ありません",
-      "text": "공손하게 말하기: 오늘 수업이 없습니다",
+      "text": "정중하게 말하세요: 오늘 수업이 없어요",
       "enSourceHash": "99ada17b41c04d4b"
     },
     {
       "anchor": "m7/ja-m7-neo-7/ja:きょう はたらきます",
-      "text": "공손하게 말하기: 오늘 일합니다",
+      "text": "정중하게 말하세요: 오늘 일해요",
       "enSourceHash": "4f1cd88161cb4e44"
     },
     {
@@ -973,12 +973,12 @@
     },
     {
       "anchor": "m7/ja-m7-neo-7/ja:たなかさんは かいしゃで はたらきますか",
-      "text": "공손하게 말하기: 다나카 씨는 회사에서 일하십니까?",
+      "text": "정중하게 말하세요: 다나카 씨는 회사에서 일해요?",
       "enSourceHash": "9b15fd0a6f233228"
     },
     {
       "anchor": "m7/ja-m7-neo-7/ja:ミカさんは きょう かいしゃで はたらきません",
-      "text": "공손하게 말하기: 미카 씨는 오늘 회사에서 일하지 않습니다",
+      "text": "정중하게 말하세요: 미카 씨는 오늘 회사에서 일하지 않아요",
       "enSourceHash": "e9f4d35810071e40"
     },
     {
@@ -1043,12 +1043,12 @@
     },
     {
       "anchor": "m7/ja-m7-neo-8/ja:たなかさま",
-      "text": "매우 공손하게 말하기: 타나카 사마",
+      "text": "매우 정중하게 말하세요: 다나카 님",
       "enSourceHash": "e0f698d1f5058ef3"
     },
     {
       "anchor": "m7/ja-m7-neo-8/ja:たなかさまは せんせいです",
-      "text": "매우 공손하게 말하기: 타나카는 선생님이다",
+      "text": "매우 정중하게 말하세요: 다나카 님은 선생님이십니다",
       "enSourceHash": "f540e6508851508b"
     },
     {
@@ -1058,7 +1058,7 @@
     },
     {
       "anchor": "m7/ja-m7-neo-8/ja:トムくんも いきます",
-      "text": "공손하게 말하기: 톰도 간다",
+      "text": "정중하게 말하세요: 톰 군도 가요",
       "enSourceHash": "0e6ef0a6af6c25df"
     },
     {
@@ -1073,12 +1073,12 @@
     },
     {
       "anchor": "m7/ja-m7-neo-8/ja:ミカちゃんは きます",
-      "text": "공손하게 말하기: 미카는 온다",
+      "text": "정중하게 말하세요: 미카 짱은 와요",
       "enSourceHash": "fe0439c29e57bc04"
     },
     {
       "anchor": "m7/ja-m7-neo-8/ja:ミカちゃんは きょう じゅぎょうに いきますか",
-      "text": "공손하게 말하기: 미카는 오늘 수업에 가는가?",
+      "text": "정중하게 말하세요: 미카 짱은 오늘 수업에 가요?",
       "enSourceHash": "4349d4a4d5ad7b3b"
     },
     {
@@ -1148,7 +1148,7 @@
     },
     {
       "anchor": "m7/ja-m7-neo-9/ja:うたを ききますか",
-      "text": "선생님께 말하기: 노래를 듣겠습니까?",
+      "text": "선생님께 말하세요: 노래를 들으시겠습니까?",
       "enSourceHash": "1cb2734a7199756a"
     },
     {
@@ -1158,27 +1158,27 @@
     },
     {
       "anchor": "m7/ja-m7-neo-9/ja:うみに いきます",
-      "text": "선생님께 말하기: 바다로 간다",
+      "text": "선생님께 말하세요: 바다에 가겠습니다",
       "enSourceHash": "eb2f6258e55ecae0"
     },
     {
       "anchor": "m7/ja-m7-neo-9/ja:うみに いく",
-      "text": "친구에게 말하기: 바다로 간다",
+      "text": "친구에게 말하세요: 바다에 가",
       "enSourceHash": "8b381da8cc561f2f"
     },
     {
       "anchor": "m7/ja-m7-neo-9/ja:きょうは はたらきません",
-      "text": "공손하게 말하기: 오늘은 일하지 않는다",
+      "text": "정중하게 말하세요: 오늘은 일하지 않아요",
       "enSourceHash": "7b2442f111dbfa0a"
     },
     {
       "anchor": "m7/ja-m7-neo-9/ja:これは ぼうしです",
-      "text": "선생님께 말하기: 이것은 모자이다",
+      "text": "선생님께 말하세요: 이것은 모자입니다",
       "enSourceHash": "28f9a148e697c321"
     },
     {
       "anchor": "m7/ja-m7-neo-9/ja:ケンくんと あそびます",
-      "text": "공손하게 말하기: 켄과 놀겠다",
+      "text": "정중하게 말하세요: 켄 군이랑 놀게요",
       "enSourceHash": "ba003c4cde5e3d57"
     },
     {
@@ -1203,12 +1203,12 @@
     },
     {
       "anchor": "m7/ja-m7-neo-challenge/en:4d83eae65eff9664",
-      "text": "챌린지 — 모두 합치기",
+      "text": "도전 — 모두 합치기",
       "enSourceHash": "4d83eae65eff9664"
     },
     {
       "anchor": "m7/ja-m7-neo-challenge/en:55f03a1b1a5c8af4",
-      "text": "켄은 회사에서 일하지 않는다",
+      "text": "켄 군은 회사에서 일하지 않아요",
       "enSourceHash": "55f03a1b1a5c8af4"
     },
     {
@@ -1218,12 +1218,12 @@
     },
     {
       "anchor": "m7/ja-m7-neo-challenge/en:727ea55fc8ee1dc7",
-      "text": "'연못'에 해당하는 단어를 고르세요",
+      "text": "\"연못\"에 해당하는 단어를 고르세요",
       "enSourceHash": "727ea55fc8ee1dc7"
     },
     {
       "anchor": "m7/ja-m7-neo-challenge/en:72bdfaa601ef3ea8",
-      "text": "미카는 수업에 오지 않니?",
+      "text": "미카 씨는 수업에 오지 않아요?",
       "enSourceHash": "72bdfaa601ef3ea8"
     },
     {
@@ -1233,37 +1233,37 @@
     },
     {
       "anchor": "m7/ja-m7-neo-challenge/en:830eae7f272b621c",
-      "text": "수업에서 무엇을 하니?",
+      "text": "수업에서 무엇을 해요?",
       "enSourceHash": "830eae7f272b621c"
     },
     {
       "anchor": "m7/ja-m7-neo-challenge/en:89cb24f14eab4c74",
-      "text": "오늘은 친구와 바다에 간다",
+      "text": "오늘은 친구와 바다에 가요",
       "enSourceHash": "89cb24f14eab4c74"
     },
     {
       "anchor": "m7/ja-m7-neo-challenge/en:93fd5e165a357b34",
-      "text": "타나카는 오늘 회사에 가지 않는다",
+      "text": "다나카 님은 오늘 회사에 가지 않으십니다",
       "enSourceHash": "93fd5e165a357b34"
     },
     {
       "anchor": "m7/ja-m7-neo-challenge/en:c26a6737c08c4aed",
-      "text": "저쪽 사람은 선생님이니?",
+      "text": "저기 사람은 선생님이에요?",
       "enSourceHash": "c26a6737c08c4aed"
     },
     {
       "anchor": "m7/ja-m7-neo-challenge/en:cc19597f9da7d2ab",
-      "text": "타나카 씨 집에 가니?",
+      "text": "다나카 씨의 집에 가요?",
       "enSourceHash": "cc19597f9da7d2ab"
     },
     {
       "anchor": "m7/ja-m7-neo-challenge/en:d3bf28da55f404a6",
-      "text": "'집'에 해당하는 단어를 고르세요",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
       "enSourceHash": "d3bf28da55f404a6"
     },
     {
       "anchor": "m7/ja-m7-neo-challenge/en:db31a92df6198d46",
-      "text": "미카의 친구는 일본인이니?",
+      "text": "미카의 친구는 일본인이에요?",
       "enSourceHash": "db31a92df6198d46"
     },
     {
@@ -1273,7 +1273,7 @@
     },
     {
       "anchor": "m7/ja-m7-neo-challenge/en:e9d9df24a68c1d7d",
-      "text": "'강'에 해당하는 단어를 고르세요",
+      "text": "\"강\"에 해당하는 단어를 고르세요",
       "enSourceHash": "e9d9df24a68c1d7d"
     },
     {
@@ -1283,7 +1283,7 @@
     },
     {
       "anchor": "m7/ja-m7-neo-challenge/ja:あそこの ひとは せんせいですか",
-      "text": "저쪽 사람은 선생님입니까?",
+      "text": "정중하게 말하세요: 저기 사람은 선생님이에요?",
       "enSourceHash": "ff783e831014c830"
     },
     {
@@ -1293,27 +1293,27 @@
     },
     {
       "anchor": "m7/ja-m7-neo-challenge/ja:きょうは みずを のみません",
-      "text": "오늘 저는 물을 마시지 않습니다",
+      "text": "정중하게 말하세요: 오늘은 물을 마시지 않아요.",
       "enSourceHash": "e9ce0f44c39d41ed"
     },
     {
       "anchor": "m7/ja-m7-neo-challenge/ja:じゅぎょうで なにを しますか",
-      "text": "수업에서 무엇을 합니까?",
+      "text": "정중하게 말하세요: 수업에서 무엇을 해요?",
       "enSourceHash": "31052422510a3d65"
     },
     {
       "anchor": "m7/ja-m7-neo-challenge/ja:たなかさまは きょう かいしゃに いきません",
-      "text": "타나카 님은 오늘 회사에 가지 않습니다",
+      "text": "매우 정중하게 말하세요: 다나카 님은 오늘 회사에 가지 않습니다",
       "enSourceHash": "6aebc3d07d9ce349"
     },
     {
       "anchor": "m7/ja-m7-neo-challenge/ja:たなかさんの いえに いきますか",
-      "text": "타나카 씨 집에 갑니까?",
+      "text": "정중하게 말하세요: 다나카 씨의 집에 가요?",
       "enSourceHash": "80c6a5fec6728144"
     },
     {
       "anchor": "m7/ja-m7-neo-challenge/ja:ケンくんは かいしゃで はたらきません",
-      "text": "켄 군은 회사에서 일하지 않습니다",
+      "text": "정중하게 말하세요: 켄 군은 회사에서 일하지 않아요",
       "enSourceHash": "0d6aa40149d52121"
     },
     {
@@ -1323,7 +1323,7 @@
     },
     {
       "anchor": "m7/ja-m7-neo-challenge/ja:ミカちゃんも かいしゃで はたらきますか",
-      "text": "미카 양도 회사에서 일합니까?",
+      "text": "정중하게 말하세요: 미카 짱도 회사에서 일해요?",
       "enSourceHash": "183d9c13dc41238d"
     },
     {
@@ -1403,7 +1403,7 @@
     },
     {
       "anchor": "m7/ja-m7-neo-review-1/en:46bcff11a845ba3d",
-      "text": "'사람'에 해당하는 단어를 고르세요",
+      "text": "\"사람\"에 해당하는 단어를 고르세요",
       "enSourceHash": "46bcff11a845ba3d"
     },
     {
@@ -1463,42 +1463,42 @@
     },
     {
       "anchor": "m7/ja-m7-neo-review-1/ja:いぬが きます",
-      "text": "듣는 대로 만들어 보세요.",
+      "text": "들리는 대로 만들어 보세요.",
       "enSourceHash": "b28d903ef295627a"
     },
     {
       "anchor": "m7/ja-m7-neo-review-1/ja:うたを ききます",
-      "text": "존댓말로 말하세요: 노래를 듣습니다",
+      "text": "정중하게 말하세요: 노래를 들어요",
       "enSourceHash": "34fd7f156d69c301"
     },
     {
       "anchor": "m7/ja-m7-neo-review-1/ja:かわで あそびます",
-      "text": "존댓말로 말하세요: 강에서 놀겠습니다",
+      "text": "정중하게 말하세요: 강에서 놀아요",
       "enSourceHash": "900666d3f173cb15"
     },
     {
       "anchor": "m7/ja-m7-neo-review-1/ja:きょうは しません",
-      "text": "존댓말로 말하세요: 오늘은 하지 않겠습니다",
+      "text": "정중하게 말하세요: 오늘은 하지 않아요",
       "enSourceHash": "9fb56f3728599bf5"
     },
     {
       "anchor": "m7/ja-m7-neo-review-1/ja:そこに いきません",
-      "text": "존댓말로 말하세요: 거기에 가지 않겠습니다",
+      "text": "정중하게 말하세요: 거기에 가지 않아요",
       "enSourceHash": "5fce1184385db894"
     },
     {
       "anchor": "m7/ja-m7-neo-review-1/ja:ともだちと いきます",
-      "text": "듣는 대로 만들어 보세요.",
+      "text": "들리는 대로 만들어 보세요.",
       "enSourceHash": "b28d903ef295627a"
     },
     {
       "anchor": "m7/ja-m7-neo-review-1/ja:ねこを みます",
-      "text": "존댓말로 말하세요: 고양이를 봅니다",
+      "text": "정중하게 말하세요: 고양이를 봐요",
       "enSourceHash": "c544d305932ef18b"
     },
     {
       "anchor": "m7/ja-m7-neo-review-1/ja:みずを のみません",
-      "text": "듣는 대로 만들어 보세요.",
+      "text": "들리는 대로 만들어 보세요.",
       "enSourceHash": "b28d903ef295627a"
     },
     {
@@ -1563,42 +1563,42 @@
     },
     {
       "anchor": "m7/ja-m7-neo-review-2/ja:あれは まどです",
-      "text": "존댓말로 말하세요: 그것은 창문입니다",
+      "text": "정중하게 말하세요: 저것은 창문이에요",
       "enSourceHash": "7502c8af9243c490"
     },
     {
       "anchor": "m7/ja-m7-neo-review-2/ja:えんぴつを かいますか",
-      "text": "존댓말로 말하세요: 연필을 사시겠습니까?",
+      "text": "정중하게 말하세요: 연필을 사요?",
       "enSourceHash": "4d3e55e79ed61864"
     },
     {
       "anchor": "m7/ja-m7-neo-review-2/ja:かぞくと いきます",
-      "text": "존댓말로 말하세요: 가족과 가겠습니다",
+      "text": "정중하게 말하세요: 가족과 가요",
       "enSourceHash": "c6f158847798ce40"
     },
     {
       "anchor": "m7/ja-m7-neo-review-2/ja:きっぷを かいます",
-      "text": "존댓말로 말하세요: 표를 사겠습니다",
+      "text": "정중하게 말하세요: 표를 살게요",
       "enSourceHash": "ea885968946640f0"
     },
     {
       "anchor": "m7/ja-m7-neo-review-2/ja:きょうは いきません",
-      "text": "듣는 대로 만들어 보세요.",
+      "text": "들리는 대로 만들어 보세요.",
       "enSourceHash": "b28d903ef295627a"
     },
     {
       "anchor": "m7/ja-m7-neo-review-2/ja:そらを みますか",
-      "text": "듣는 대로 만들어 보세요.",
+      "text": "들리는 대로 만들어 보세요.",
       "enSourceHash": "b28d903ef295627a"
     },
     {
       "anchor": "m7/ja-m7-neo-review-2/ja:でんわは そこです",
-      "text": "존댓말로 말하세요: 전화는 그곳입니다",
+      "text": "정중하게 말하세요: 전화는 그곳이에요",
       "enSourceHash": "d0113dd15fd32757"
     },
     {
       "anchor": "m7/ja-m7-neo-review-2/ja:なにを かいますか",
-      "text": "듣는 대로 만들어 보세요.",
+      "text": "들리는 대로 만들어 보세요.",
       "enSourceHash": "b28d903ef295627a"
     },
     {
@@ -1668,7 +1668,7 @@
     },
     {
       "anchor": "m7/ja-m7-neo-review-3/ja:いけに いきません",
-      "text": "연못에 가지 않습니다",
+      "text": "정중하게 말하세요: 연못에 가지 않아요.",
       "enSourceHash": "1b2f154948d7d98c"
     },
     {
@@ -1678,27 +1678,27 @@
     },
     {
       "anchor": "m7/ja-m7-neo-review-3/ja:からだは げんきです",
-      "text": "몸은 건강합니다",
+      "text": "정중하게 말하세요: 몸은 건강해요.",
       "enSourceHash": "d00b70787158f353"
     },
     {
       "anchor": "m7/ja-m7-neo-review-3/ja:さくらを みます",
-      "text": "벚꽃을 봅니다",
+      "text": "정중하게 말하세요: 벚꽃을 볼게요.",
       "enSourceHash": "d644d47c6edd53fc"
     },
     {
       "anchor": "m7/ja-m7-neo-review-3/ja:じかんが ありません",
-      "text": "시간이 없습니다",
+      "text": "정중하게 말하세요: 시간이 없어요.",
       "enSourceHash": "6415eb41b45ed487"
     },
     {
       "anchor": "m7/ja-m7-neo-review-3/ja:じゅぎょうは あさです",
-      "text": "수업은 아침입니다",
+      "text": "정중하게 말하세요: 수업은 아침이에요.",
       "enSourceHash": "943a51d0bf361f09"
     },
     {
       "anchor": "m7/ja-m7-neo-review-3/ja:はなを かいます",
-      "text": "꽃을 삽니다",
+      "text": "정중하게 말하세요: 꽃을 살게요.",
       "enSourceHash": "37dcc397c5bebaf9"
     },
     {

@@ -35,3 +35,14 @@ between these was found and fixed.
 ## 5. Verbatim
 JA kana, romaji, all IDs/anchors/hashes, grammar rule prose (out of scope
 this pilot, rung 1b §3), `readAloudText`/`antiPattern.ja/.romaji`.
+
+## Addendum (m7 review, 2026-09-10) — audience-conditioned register drills
+m7+ carry "Say politely / to a friend / to a teacher / very politely" cues. Mapping
+(inferred from the project goal — the KO gloss must show the same register move the
+JA makes): unmarked polite → 해요체; "to a teacher" self-statement → 합니다체 + -겠-,
+teacher-as-subject → 합니다체 with -시-; "to a friend" → spoken 해체 (-아/어/야), NOT the
+written -ㄴ다/는다 used for plain-form example glosses; "very politely"/さま → 합니다체 + -시-.
+Only `/ja:`-anchored entries render their EN cue to the learner, so only those get the
+Korean cue prefix (정중하게 말하세요: / 친구에게 말하세요: / 선생님께 말하세요: / 매우 정중하게
+말하세요:); `en:`-anchored filler entries stay plain glosses. Names: 다나카, never 타나카.
+"Build what you hear." → 들리는 대로 만들어 보세요.
