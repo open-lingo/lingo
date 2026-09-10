@@ -174,7 +174,17 @@ describe("fromModule drift guard (introduction doctrine)", () => {
     // した/きた are exempt by name: m11's introduces are する/くる's plain
     // pasts (IR-only inflections); the kana map resolves them to the untaught
     // nouns 下/北 (the reservedInflections collision class).
-    const INFLECTION_COLLISIONS = new Set(["shita", "kita"]);
+    // mitai-evidential joins them 2026-09-10 (m44 landing): m13's own IR-only
+    // newAtom みたい (見たい, tai-form of みる, "want to watch") has no
+    // courseAtoms.ts row of its own (by design — see m44's own note on the
+    // courseAtoms.ts mitai-evidential row), so m13's `introduces:` entry for
+    // that kana resolves through JA_COURSE_ATOMS_BY_KANA to m44's UNRELATED
+    // homograph atom (みたい, the ようだ casual-evidential twin) the moment
+    // m44 registers it — same kana-map collision class as した/きた, not a
+    // real drift (atomIndex()'s courseAtoms→priorAtoms→newAtoms last-wins
+    // ordering keeps each module's own compiled lessons reading the correct
+    // sense; this guard's kana-keyed walk is what can't tell them apart).
+    const INFLECTION_COLLISIONS = new Set(["shita", "kita", "mitai-evidential"]);
     const offenders: string[] = [];
     for (const atom of JA_COURSE_ATOMS) {
       if (INFLECTION_COLLISIONS.has(atom.id)) continue;
@@ -216,6 +226,14 @@ describe("fromModule drift guard (introduction doctrine)", () => {
       // "m13 sentence predates the m21/m23 teach". They are now TAUGHT at m13,
       // where the sentences always were, so the debt is gone rather than
       // waived.
+      // mitai-evidential (2026-09-10, m44 landing): same kana-map homograph
+      // collision as the INFLECTION_COLLISIONS entry above — m13's own
+      // (unregistered) tai-form みたい sentences now resolve their
+      // exercisedAtoms through the live courseAtoms.ts registry straight to
+      // m44's UNRELATED evidential みたい the moment that row exists. Not
+      // real used-before-taught debt; m13's own compiled lessons never meant
+      // this atom.
+      "mitai-evidential",
     ]);
     const offenders: string[] = [];
     for (const atom of JA_COURSE_ATOMS) {

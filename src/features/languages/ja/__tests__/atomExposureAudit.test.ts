@@ -267,8 +267,22 @@ const MAX_NEVER_TOUCHED = 140;
  * unverified "+2" estimate (docs/ja-m43-brief-2026-09-10.md) undercounted
  * by one; measured, not assumed, per this file's own doctrine. They come
  * OFF this list only when a later module grades them (future Wave 1
- * authoring), not a fix to make here. */
-const MAX_GRADED_BUT_NEVER_WRITES = 82;
+ * authoring), not a fix to make here.
+ *
+ * 82 → 84, 2026-09-10 (Wave 1, m44 landing — n4-15 evidential-family
+ * reassembly: ようだ/みたい/のように・のような): three of m44's own new atoms —
+ * にる (verb, m44-neo-7), ふんいき, ようす (both nouns, m44-neo-9). Same
+ * same-module D2 gate shape as every entry above: every graded touch of
+ * each lives only inside m44, the module that introduces them, so the
+ * write gate (prior-module-only) blocks all three; D4 seed-on-unlock still
+ * schedules each due the next day. Measured via EXPOSURE_REPORT=1: net +2
+ * (not +3) — the report's raw count moved 82→84 while carrying exactly
+ * these 3 new m44 rows, meaning one pre-existing row fell off the stuck
+ * list in the same run (atom-registration ripples forward, expected per
+ * the freq-wave doctrine; not chased further since the ratchet only cares
+ * about the ceiling, not which row moved). They come OFF this list only
+ * when a later module grades them, not a fix to make here. */
+const MAX_GRADED_BUT_NEVER_WRITES = 84;
 
 type Row = {
   atomId: string;

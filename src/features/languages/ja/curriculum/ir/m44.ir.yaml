@@ -1,0 +1,613 @@
+module: m44
+title: "ようだ / みたい / のように・のような — evidential-family reassembly"
+register: plain
+priorNeoModules: [m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18, m19, m20, m21, m22, m23, m24, m25, m26, m27, m28, m29, m30, m31, m32, m33, m34, m35, m36, m37, m38, m39, m40, m41, m42, m43]
+priorGrammarPoints: [ka-question, no-possession, wa-topic, wo-object, ga-existence,
+  ni-location, ni-time, de-action, mo-also, kara-because, node-because, kedo,
+  made-until, mae-ni, te-form, te-kudasai, te-iru, te-kara, te-miru, te-oku,
+  ta-form, nai-form, nai-existence, dictionary-form, masu-present, masu-negative,
+  masu-past, desu-copula, i-adj-present, i-adj-past, na-adj-present, v-tai,
+  to-omoimasu, toki, tsumori-desu, mashou, masenka, potential-form, dekiru,
+  deshou, kana-wondering, n-desu, sugiru, ku-ni-naru, hou-ga-ii,
+  nakereba-naranai, yo-emphasis, ne-agreement, register-audience,
+  chotto-softener, ageru, kureru, morau, ni-recipient, tara, to-conditional,
+  jidoushi-tadoushi, te-iru-resultative, volitional, you-to-omou, koto-ni-suru,
+  koto-ni-naru, you-to-suru, te-kureru, te-ageru, te-morau, favor-ladder, dake,
+  shika-nai, sou-appearance, garu-tagaru, yasui-nikui, nagara, ba-form,
+  ba-restriction, ba-vs-tara, nara, nara-vs-tara, ba-hodo, family-register,
+  frequency-adverbs, kono-sono-ano-dono, ni-iku, te-shimau, chau,
+  te-iku-kuru-space, kite-chain, te-kuru-iku-time, noni-concession,
+  temo-concession, demo-concession, demo-mo-closed-set, shi-listing,
+  passive-form, passive-rareru, possessed-object-passive,
+  niyotte-creation-passive, suffering-passive-recognition, te-aru,
+  te-aru-vs-te-iru, te-oku-vs-te-aru, transitivity-family-noticing,
+  sou-hearsay, tte-quotative, to-itte-ita, rashii-hearsay,
+  deshou-adjective, deshou-verb, deshou-casual, darou, tabun-kitto,
+  kamoshirenai, hazu, certainty-ladder]
+notes: |
+  m44 · n4-15 — EVIDENTIAL-FAMILY REASSEMBLY: ようだ / みたい / のように・のような
+  (docs/spine-n4.md §n4-15, docs/ja-m44-brief-2026-09-10.md). Ships 12 lessons
+  (inv 25: 8 teaching + 3 review + 1 challenge, challenge last, reviews at
+  positions 4/8/11 — matching m41/m42/m43's own placement).
+
+  WHAT IS TAUGHT (one root よう, four constructions, sorted by JOB not by
+  strength — deliberately NOT another certainty ladder; m43 already owns
+  that framing and this module never re-derives it):
+  1. **ようだ (direct-evidence guess), L2 id youda-direct-evidence, variant
+     "plain":** a plain verb or い-adjective attaches to ようだ AS-IS —
+     かぜを ひいたようだ, never かぜを ひきましたようだ (mixed register).
+  2. **ようだ off a noun/な-adjective, L3, same id, variant "noun-na":** the
+     same の/な connector move はず already taught (m43) — noun hosts
+     insert の (がくせいのようだ), な-adjective hosts insert な
+     (げんきなようだ), never だ. Two `kind: rule` cards sharing one id via
+     distinct `variant` keys — the m43 hazu intro/spends precedent,
+     generalized a second time (`resolveGrammarPoint` disambiguates on
+     `beat.variant` when 2+ grammarPoints share an id).
+  3. **みたい (casual twin), L5 id mitai-casual:** identical job to ようだ,
+     identical verb/い-adjective attachment, but its OWN noun rule — bare,
+     no の at all (こどもみたいだ, never こどものみたいだ). This is the one
+     genuine asymmetry between the two twins and the crux of this
+     lesson's antiPattern.
+  4. **のように (simile, adverbial), L6 id you-ni-simile:** steps entirely
+     outside evidence-guessing — a comparison to a noun, describing HOW
+     something is/happens. Always Noun+の+よう+に, no exceptions (unlike
+     ようだ/みたい, a simile always needs the の since it is comparing to
+     a THING, never attaching directly to a verb/adjective host).
+  5. **のような (simile, adnominal), L7 id you-na-simile:** のように's
+     twin for describing a NOUN instead of an action — Noun1+の+よう+な+
+     Noun2, "a Noun2 like Noun1." Same fixed の, choice is な (before a
+     noun) vs に (before a verb/adjective). Folded into a dialogue_sim
+     over the appearance/resemblance domain (かがみ, にんぎょう, そっくり,
+     にる) — the m43-neo-7 "pure integration inside one dialogue_sim"
+     shape, but WITH new vocabulary this time since L7 is this module's
+     domain-integration slot, not a pure-review slot.
+  6. **evidential-family, L10 (neo-10, "neo-8" position), own new id — a
+     REVIEW-OBJECT synthesis card, not new teaching** (inv 26 shape):
+     reassembles all four constructions by JOB (evidence-guess vs simile,
+     predicate vs adnominal), explicitly framed as a source-of-evidence
+     family, NOT a second certainty ladder — the rule prose says this
+     outright, to keep it from blurring into m43's own certainty-ladder
+     card two review cycles earlier.
+
+  CORRECTED (brief's own working assumption, caught before any file was
+  written): the brief's working assumption was that みたい needs ZERO new
+  atom registration, relying on the m13 priorAtoms fallback for the kana
+  string "みたい". VERIFIED FALSE by reading m13.ir.yaml directly — m13's
+  own みたい is a completely different word: the たい-form (want-to) of
+  みる (見る, "to watch"), registered `kind: tai-form, derivedFrom: みる,
+  gloss: "want to watch"`. It is a pure kana homograph with this module's
+  comparative みたい, not the same atom at all. Falling back to m13's
+  entry would silently teach "want to watch" glosses on every みたい
+  sentence in this module. FIX: みたい is registered as its OWN new
+  courseAtoms.ts row (kind: vocab) in this module's newAtoms below —
+  last-wins layering means this module's own newAtoms override the
+  auto-computed priorAtoms entry for the same kana string within this
+  module's compiled lessons, exactly the かもしれない fused-atom
+  precedent for tokenizer/gloss safety, generalized to a same-kana
+  cross-meaning collision instead of a greedy-match collision.
+
+  よう REGISTRATION (mirrors はず's own m43 precedent exactly): よう is
+  registered as ONE bare-noun courseAtoms.ts atom (no kanji — 様 exists
+  but this grammatical use stays kana-only at this level, same choice
+  m43 made for はず). Every construction in this module (ようだ, ようです,
+  なようだ, のようだ, のように, ような, のような) decomposes cleanly from
+  よう + already-known copula/particle inflections (だ, です, な, に, の)
+  — no fused multi-kana atom needed anywhere in this family, unlike
+  かもしれない's own m43 tokenizer-safety fusion, because よう itself is
+  never truncated or run together with a neighboring atom in a way that
+  creates a shorter-match collision.
+
+  にる/にている REGISTRATION (courseAtoms.ts confirmed absent from
+  VERB_ENTRIES, so CHAIN_FORMS derives nothing for it — the m43
+  うたがう/しんじる precedent, generalized): にる (似る, ichidan, "to
+  resemble") is registered as a normal courseAtoms.ts vocab row.
+  にている (its て-iru resultative, "resembles/looks like") is an
+  IR-only `kind: verb-form, derivedFrom: にる` newAtom — the DERIVED_KINDS
+  exemption applies, so it adds nothing to the courseAtoms.ts row count.
+
+  ANTIPATTERN DESIGN (gate 6, lintAntiPatternMinimalPairs, threshold
+  charOverlapRatio ≥ 0.5): every one of this module's 6 grammarPoints
+  pairs its antiPattern against a MINIMAL single-connector-swap on
+  examples[0]'s own base sentence (verified in a scratch script mirroring
+  moduleContentLints.ts's exact charOverlapRatio implementation before
+  writing any of them into this file) — computed ratios 0.727-0.923,
+  comfortable margin above the 0.5 floor. An earlier candidate pairing
+  UNRELATED sentences on the same topic (rejected before writing, not
+  reflected below) computed well under 0.5 in the same script and
+  confirmed the minimal-pair strategy is the only reliable design here.
+
+  VOCABULARY SAFETY (grepped against courseAtoms.ts before every sentence
+  was drafted, not assumed): スープ is unregistered — never used (かぜ/たまご
+  domain carriers used instead where a similar slot was wanted). かわいい,
+  しろい, とり, あまい, とぶ, くらい, はなし, おなじ, みえる(unblocked? — no,
+  みえる/きこえる ARE registered, fromModule m24, blocked:true but usable
+  since blocked only suppresses image-debut, not usability) are all
+  `fromModule: "future"` and avoided EXCEPT みえる/きこえる which are m24
+  (safe, used deliberately in L1/L6). へん is registered only in its
+  "area" (辺) sense (fromModule "future"); the "strange" (変) sense used
+  in an early draft dialogue line was never a registered atom at all —
+  dropped, no へんな anywhere in this module. たいへん is registered
+  adverb-sense-only (no な-adjective "big deal" sense); no たいへんだ
+  predicate anywhere here. つめたそう is not a registered derived
+  そう-appearance atom (m36's set is collocation-specific); never
+  invented. Confirmed safe and used throughout instead: かぜ(cold, m2),
+  ひく(m14, its ひいた past IS in VERB_ENTRIES), あかい(m13), びょうき(m22),
+  しんぱい/あんしん(m43), ねこ/いぬ(m1), こども(m31), ゆめ(m34, blocked but
+  usable), きれい(m12), あそぶ(m4), はしる(m16), ちがう(m10), うみ(m3),
+  め(m16, blocked but usable), こえ(m1), ちち/いもうと(m17, blocked but
+  usable), たまご(m20), へや/しずか(m12/m27, both blocked but usable).
+
+  IMAGEABLE/EMOJI-VENDORING DISCIPLINE (CLAUDE.md's own landmine, checked
+  via `ls src/pub/noto-emoji/svg/` before marking any new atom
+  imageable): こおり (🧊, emoji_u1f9ca.svg CONFIRMED vendored) is the only
+  new atom marked `imageable: true`, so it is the only one eligible for
+  the compiler's automatic word_image_mcq debut (moduleCompiler.ts
+  ~1560-1592/2186-2249 — NOT hand-authored in this IR). かがみ (🪞) and
+  にんぎょう (🪆/🧸) have NO vendored SVG — both kept `imageable: false`
+  to avoid shipping a broken image card. Every other new atom (abstract
+  nouns/adjectives: におい, あじ, けむり, ちがい, とくちょう, ふんいき,
+  きざし, ようす, そっくり, よう, みたい, にる) is `imageable: false` on
+  its own semantic merits (none is a concrete drawable object).
+
+  STRUCTURE-TRUE GLOSS DISCIPLINE (brief's own hard constraint, not
+  re-derived here): no rung in this module is ever glossed as hearsay
+  (m42 owns そうだ-hearsay/らしい — never referenced as if this module's
+  own words share their job) and never as purpose (ように-purpose, "in
+  order to," is forward-flagged for n4-19 and never taught, exercised,
+  or even mentioned here — every ように sentence in this module is
+  simile-only, comparing to a noun, never a goal clause).
+
+  MAX_GRADED_BUT_NEVER_WRITES: measured for real after this module landed
+  via `EXPOSURE_REPORT=1 npx vitest run
+  src/features/languages/ja/__tests__/atomExposureAudit.test.ts` — actual
+  delta and evidence recorded in the final task report, not assumed here.
+
+  REJECTED: re-deriving m43's certainty-ladder framing for the
+  evidential-family review card (explicitly different axis — source of
+  evidence, not strength — stated in that card's own rule prose so the
+  two never blur together on review); a fused かもしれない-style multi-kana
+  atom for any of this module's words (none of them create a
+  shorter-match tokenizer collision the way casual かも would have);
+  registering ように-purpose in any form (forward-flagged n4-19 only).
+
+  m35 だけ landmine (confirmed live, not hypothetical): m35's own IR
+  registered だけ as a local particle newAtom, which propagates into every
+  later IR module's priorAtoms — so any `kind: sentence|capstone|challenge`
+  build-mode beat that authors an unspaced だ+けど boundary (na-adjective or
+  ようだ/copula immediately followed by けど with no space) gets greedy
+  longest-matched as だけ+ど instead of だ+けど, orphaning ど. m38's own
+  header already flags "avoid だけど everywhere"; m42 worked around it with
+  an authored space before けど in its one build-mode use. Hit this exactly
+  once here (L5's challenge beat, げんきなようだ+けど) — fixed the same way,
+  with an authored space before けど. dialogue_sim speaker lines are NOT
+  run through the buildability tokenizer, so だけど reads naturally
+  unspaced there (L7/L10 speaker lines) and needed no change.
+grammarPoints:
+  - id: youda-direct-evidence
+    variant: plain
+    rule: "ようだ states a guess grounded in DIRECT evidence — something your own eyes, ears, or nose just told you. Attach it to the plain form of what you observed: a verb or い-adjective in dictionary/plain form as-is — かぜを ひいたようだ, 'seems like he caught a cold,' あめが ふっているようだ, 'seems like it's raining.' Compare かもしれない, which you already own: かもしれない admits a guess with little or no evidence at all; ようだ always has something concrete behind it — a red face, the sound of rain, a taste on your tongue."
+    examples:
+      - { ja: "かぜを ひいたようだ。", en: "Seems like he caught a cold." }
+      - { ja: "そとは さむいようだ。", en: "Seems cold outside." }
+      - { ja: "この りょうりは からいようだ。", en: "This dish seems spicy." }
+      - { ja: "あめが ふっているようだ。", en: "Seems like it's raining." }
+      - { ja: "たなかさんは いそがしいようだ。", en: "Tanaka seems busy." }
+    antiPattern: { ja: "かぜを ひきましたようだ。", why: "ようだ attaches to the PLAIN form — かぜを ひいたようだ. ひきました is the polite ます-form, and mixing register like this never happens; keep the whole sentence plain until you reach ようです." }
+  - id: youda-direct-evidence
+    variant: noun-na
+    rule: "The same evidence-based ようだ needs a connector when the host is a noun or な-adjective. A noun host inserts の: がくせいのようだ, 'seems to be a student.' A な-adjective host inserts な: げんきなようだ, 'seems energetic.' This is the SAME move はず already makes (の for nouns, な for な-adjectives) — never だ, which only belongs to a plain declarative sentence standing alone, never directly before ようだ."
+    examples:
+      - { ja: "たなかさんは げんきなようだ。", en: "Tanaka seems energetic." }
+      - { ja: "あの ひとは がくせいのようだ。", en: "That person seems to be a student." }
+      - { ja: "たなかさんは せんせいのようだ。", en: "Tanaka seems to be a teacher." }
+      - { ja: "この へやは しずかなようだ。", en: "This room seems quiet." }
+      - { ja: "あの こどもは げんきなようだ。", en: "That child seems energetic." }
+    antiPattern: { ja: "たなかさんは げんきだようだ。", why: "A な-adjective host needs な before ようだ, not だ — げんきなようだ, 'seems energetic.' だ belongs to a plain sentence standing alone, never stacks directly onto ようだ." }
+  - id: mitai-casual
+    rule: "みたい is ようだ's exact casual twin — same evidence-based guess, more relaxed everyday speech. Verbs and い-adjectives attach the same way as ようだ, plain form as-is: かぜを ひいたみたい. But a noun host attaches BARE, no connector at all — こどもみたいだ, 'seems like a child,' never こどものみたいだ. That dropped の is the one real difference from ようだ's noun rule; everything else is the same job, a different register."
+    examples:
+      - { ja: "こどもみたいだ。", en: "Seems like a child." }
+      - { ja: "かぜを ひいたみたい。", en: "Seems like he caught a cold." }
+      - { ja: "たなかさんは いそがしいみたい。", en: "Tanaka seems busy." }
+      - { ja: "あめが ふっているみたい。", en: "Seems like it's raining." }
+      - { ja: "がくせいみたいだね。", en: "Seems like a student, huh." }
+    antiPattern: { ja: "こどものみたいだ。", why: "みたい attaches to a noun BARE, no の at all — こどもみたいだ, 'seems like a child.' That の belongs to ようだ's noun rule, not みたい's; the two twins don't share connectors." }
+  - id: you-ni-simile
+    rule: "のように steps entirely outside evidence-guessing. It is a SIMILE describing HOW something is or happens, by comparison to a noun — always Noun+の+よう+に, no exceptions, since a simile always compares to a THING. こおりのように つめたい, 'as cold as ice.' ねこのように きこえる, 'sounds like a cat.' Never drop the の — unlike ようだ's own plain-form verb/adjective hosts, のように only ever attaches through a noun."
+    examples:
+      - { ja: "こおりのように つめたい。", en: "As cold as ice." }
+      - { ja: "ねこのように きこえる。", en: "Sounds like a cat." }
+      - { ja: "ゆめのように きれいだ。", en: "Pretty like a dream." }
+      - { ja: "こどものように あそぶ。", en: "Plays like a child." }
+      - { ja: "いぬのように はしる。", en: "Runs like a dog." }
+    antiPattern: { ja: "こおりように つめたい。", why: "のように always needs の before よう — こおりのように, 'like ice.' Dropping の breaks the one fixed rule this simile shape has; it never attaches to a noun bare, the way みたい can." }
+  - id: you-na-simile
+    rule: "のような is のように's twin for describing a NOUN instead of an action — Noun1+の+よう+な+Noun2, 'a Noun2 like Noun1.' にんぎょうのような かお, 'a doll-like face.' かがみのような うみ, 'a mirror-like sea.' Same fixed の connector as のように — the only choice is な (before a following noun) versus に (before a verb or adjective)."
+    examples:
+      - { ja: "にんぎょうのような かお。", en: "A doll-like face." }
+      - { ja: "こおりのような みず。", en: "Ice-like water." }
+      - { ja: "かがみのような うみ。", en: "A mirror-like sea." }
+      - { ja: "ねこのような め。", en: "Cat-like eyes." }
+      - { ja: "こどものような こえ。", en: "A childlike voice." }
+    antiPattern: { ja: "にんぎょうのようだ かお。", why: "Before a following NOUN, よう needs な, not だ — にんぎょうのような かお, 'a doll-like face.' ようだ is a full predicate that ENDS a sentence; it can never sit in front of another noun." }
+  - id: evidential-family
+    rule: "Four shapes, one root よう, four different jobs — not a strength scale like m43's certainty rungs, but a SOURCE-of-evidence family. ようだ states a direct-evidence guess about reality, plain register; みたい is its exact casual twin. のように steps outside guessing to describe HOW something is, by simile; のような is that same simile describing WHAT something is — a noun. Never mix connector rules across the four: ようだ/みたい can take a bare or almost-bare noun host; のように/のような always need の, with no exception."
+    examples:
+      - { ja: "あめが ふっているようだ。", en: "Seems like it's raining." }
+      - { ja: "かぜを ひいたみたい。", en: "Seems like he caught a cold (casual)." }
+      - { ja: "こおりのように つめたい。", en: "As cold as ice." }
+      - { ja: "にんぎょうのような かお。", en: "A doll-like face." }
+      - { ja: "かぜを ひいたようだから、びょうきかもしれない。", en: "Seems like he caught a cold, so he might be sick." }
+    antiPattern: { ja: "あめが ふっているのように。", why: "のように needs a NOUN before it — a verb like ふっている never attaches this way. For a direct-evidence guess off a verb, attach ようだ straight, no connector at all: あめが ふっているようだ。" }
+newAtoms:
+  # ══ L1 (neo-1) — sensory-evidence domain, no new grammar. こおり debuts
+  # here (🧊 confirmed vendored, only imageable new atom this module).
+  - { kana: におい, romaji: nioi, gloss: "a smell", shortGloss: "smell", imageable: false, kind: vocab, pos: noun }
+  - { kana: あじ, kanji: 味, romaji: aji, gloss: "a taste, a flavor", shortGloss: "taste", imageable: false, kind: vocab, pos: noun }
+  - { kana: けむり, kanji: 煙, romaji: kemuri, gloss: "smoke", shortGloss: "smoke", imageable: false, kind: vocab, pos: noun }
+  - { kana: こおり, kanji: 氷, romaji: koori, gloss: "ice", shortGloss: "ice", imageable: true, emoji: "🧊", kind: vocab, pos: noun }
+  # ══ L2 (neo-2), id youda-direct-evidence variant plain — the direct-
+  # evidence guess marker itself, one bare-noun atom (mirrors はず's own
+  # m43 precedent). No kanji at this register (see notes above).
+  - { kana: よう, romaji: you, gloss: "way, manner, appearance (grammar carrier for ようだ/みたい/のように/のような)", shortGloss: "seems (grammar)", imageable: false, kind: vocab, pos: noun }
+  # どうしたの — dialogue-opener chunk ("what's wrong?"), registered here as
+  # a whole-phrase atom (courseAtoms.ts's own future-backlog row is
+  # unsafe/not-yet-taught) since it debuts in this lesson's dialogue;
+  # given its own intro-capable sentence/build beat below, ahead of the
+  # dialogue, so the debut isn't the dialogue itself (invariant 33).
+  - { kana: どうしたの, romaji: "doushitano", gloss: "what's wrong?, what's the matter?", shortGloss: "what's wrong?", imageable: false, kind: phrase }
+  # ひいた — the buildability tokenizer only knows LITERAL registered
+  # surfaces (atomIndex holds bare dictionary-form kana only; conjugated
+  # forms of even a VERB_ENTRIES-backed godan verb like ひく are never
+  # auto-derived for the tile bank — confirmed against m11's own たべた/
+  # のんだ/みた courseAtoms.ts rows, which register every past-tense
+  # surface a sentence actually uses). ひく (m14, courseAtoms.ts) has no
+  # past-tense row anywhere yet, so its て/た-line row (かぜを ひいた, "caught
+  # a cold") is registered here as an IR-only derived verb-form newAtom —
+  # exempt from the courseAtoms.ts row requirement (DERIVED_KINDS). Gloss
+  # keeps the literal "pull" content word (かぜを ひく is idiomatically "to
+  # pull a cold" — the sense guard reads this as a real, not homograph,
+  # derivation from ひく, "to pull") so gloss-mismatch aligns the sense
+  # instead of flagging an unrelated-homograph split.
+  - { kana: ひいた, romaji: hiita, gloss: "caught (a cold) — lit. 'pulled' a cold, past tense of ひく", shortGloss: "caught (lit. pull) a cold", imageable: false, kind: verb-form, derivedFrom: ひく, verbClass: u }
+  # ══ L3 (neo-3), same id, variant noun-na — no new vocabulary, reuses
+  # already-known nouns/な-adjectives (げんき, がくせい, せんせい, しずか).
+  # ══ L5 (neo-5), id mitai-casual — みたい's OWN new atom, overriding
+  # (last-wins, this module's own newAtoms) m13's unrelated たい-form
+  # homograph みたい (見たい, "want to watch") for every sentence in this
+  # module (see CORRECTED note above).
+  - { kana: みたい, romaji: mitai, gloss: "seems like, looks like (casual counterpart of ようだ — NOT みる+たい 'want to watch')", shortGloss: "seems like (casual)", imageable: false, kind: vocab }
+  # ══ L6 (neo-6), id you-ni-simile — the adverbial simile connector,
+  # plus its new domain nouns (difference/characteristic).
+  - { kana: ちがい, kanji: 違い, romaji: chigai, gloss: "a difference", shortGloss: "difference", imageable: false, kind: vocab, pos: noun }
+  - { kana: とくちょう, kanji: 特徴, romaji: tokuchou, gloss: "a characteristic, a distinguishing feature", shortGloss: "characteristic", imageable: false, kind: vocab, pos: noun }
+  # ══ L7 (neo-7), id you-na-simile — the adnominal simile connector,
+  # domain integration over resemblance/appearance vocabulary, folded
+  # into a dialogue_sim. にる has no VERB_ENTRIES row (confirmed via
+  # conjugationTables.ts grep), so its て-iru resultative にている is
+  # hand-registered as a derived verb-form (DERIVED_KINDS exemption —
+  # the m43 うたがう/しんじる precedent, generalized).
+  - { kana: かがみ, kanji: 鏡, romaji: kagami, gloss: "a mirror", shortGloss: "mirror", imageable: false, kind: vocab, pos: noun }
+  - { kana: にんぎょう, kanji: 人形, romaji: ningyou, gloss: "a doll", shortGloss: "doll", imageable: false, kind: vocab, pos: noun }
+  - { kana: そっくり, romaji: sokkuri, gloss: "exactly alike, a perfect match", shortGloss: "exactly alike", imageable: false, kind: vocab, pos: adjective, conjugation: { class: "na-adj" } }
+  - { kana: にる, kanji: 似る, romaji: niru, gloss: "to resemble", shortGloss: "to resemble", imageable: false, kind: vocab, pos: verb, verbClass: ru }
+  - { kana: にている, romaji: niteiru, gloss: "resembles, looks like — て-iru resultative of にる", shortGloss: "resembles (resemble)", imageable: false, kind: verb-form, derivedFrom: にる, verbClass: ru }
+  # ══ L9 (neo-9) — pure domain integration, no new grammar. Atmosphere-
+  # and-signs vocabulary, combined with L2/L3's ようだ naturally.
+  - { kana: ふんいき, kanji: 雰囲気, romaji: fun.iki, gloss: "atmosphere, mood", shortGloss: "atmosphere", imageable: false, kind: vocab, pos: noun }
+  - { kana: きざし, kanji: 兆し, romaji: kizashi, gloss: "a sign, an omen", shortGloss: "sign", imageable: false, kind: vocab, pos: noun }
+  - { kana: ようす, kanji: 様子, romaji: yousu, gloss: "the state of things, a condition, appearance", shortGloss: "condition", imageable: false, kind: vocab, pos: noun }
+
+lessons:
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m44-neo-1
+    role: teaching
+    title: "「けむりの におい」— the sensory-evidence domain"
+    focus: "Priming vocabulary for the evidential-family arc — no new grammar yet, all through particles and forms you already own"
+    introduces: [におい, あじ, けむり, こおり]
+    beats:
+      - { kind: sentence, ja: "けむりの においが する。", en: "There's a smell of smoke.", exercises: [ga-existence], mode: build }
+      - { kind: sentence, ja: "この りょうりは からい あじが する。", en: "This dish has a spicy taste.", exercises: [ga-existence, i-adj-present], mode: build }
+      - { kind: sentence, ja: "けむりが みえる。", en: "Smoke is visible.", exercises: [ga-existence], mode: build }
+      - { kind: sentence, ja: "こおりが つめたい。", en: "The ice is cold.", exercises: [i-adj-present], mode: build }
+      - { kind: sentence, ja: "みずの あじが する。", en: "There's a taste of water.", exercises: [ga-existence], mode: listening }
+      - { kind: particle-cloze, stem: "けむりの ", tail: "が する。", answer: "におい", options: ["におい", "あじ", "おと"], en: "There's a smell of smoke.", explanation: "におい is what your NOSE picks up. あじ is what your TONGUE picks up, and おと is what your EARS pick up — the same sentence shape, three different senses." }
+      - { kind: listening-comp, audio: "こおりが つめたい。", answer: "The ice is cold.", distractors: ["The ice is hot.", "There is no ice.", "The ice melted."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "けむりが みえるから、においが する。", answer: "Since smoke is visible, there's a smell.", distractors: ["Since smoke is visible, there's no smell at all.", "There's no smoke anywhere.", "The smell disappeared."], q: "What does this mean?" }
+      - { kind: kanji, kana: こおり, kanji: 氷, distractors: ["こども", "こえ", "こたえ"], exercises: [ga-existence] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "なんだか けむりの においが するね。", en: "Somehow there's a smell of smoke, huh." }
+          - { speaker: "Ken", ja: "ほんとだ。どこから？", en: "Really. From where?" }
+          - { speaker: "Mika", ja: "わからない。でも、かぜが つめたい。", en: "I don't know. But the wind is cold." }
+        questions:
+          - { q: "What does Mika notice?", options: ["A smell of smoke", "A sound of thunder", "A taste of something sweet", "Nothing unusual"], answer: "A smell of smoke" }
+      - { kind: challenge, ja: "かぜも つめたいし、けむりの においも するから、そとは さむいだろう。", en: "The wind is cold too, and there's a smell of smoke too, so it's probably cold outside.", combines: [shi-listing, kara-because, darou], mode: build }
+    reviewPool: [かぜ, つめたい, みず, りょうり]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m44-neo-2
+    role: teaching
+    title: "「かぜを ひいたようだ」— ようだ, a direct-evidence guess"
+    focus: "Core construction: plain verb/い-adjective + ようだ states a guess grounded in direct sensory evidence"
+    introduces: [よう, どうしたの]
+    beats:
+      - { kind: rule, grammarPointId: youda-direct-evidence, variant: plain }
+      - { kind: sentence, ja: "かぜを ひいたようだ。", en: "Seems like he caught a cold.", exercises: [youda-direct-evidence], mode: build }
+      - { kind: sentence, ja: "そとは さむいようだ。", en: "Seems cold outside.", exercises: [youda-direct-evidence], mode: build }
+      - { kind: sentence, ja: "この りょうりは からいようだ。", en: "This dish seems spicy.", exercises: [youda-direct-evidence], mode: build }
+      - { kind: sentence, ja: "あめが ふっているようだ。", en: "Seems like it's raining.", exercises: [youda-direct-evidence, te-iru], mode: build }
+      - { kind: sentence, ja: "たなかさんは いそがしいようだ。", en: "Tanaka seems busy.", exercises: [youda-direct-evidence], mode: listening }
+      - { kind: particle-cloze, stem: "かぜを ひいた", tail: "。", answer: "ようだ", options: ["ようだ", "のようだ", "だようだ"], en: "Seems like he caught a cold.", explanation: "ようだ attaches straight onto a plain verb — ひいたようだ. の is for noun hosts (next lesson) and だ never appears directly before ようだ." }
+      - { kind: listening-comp, audio: "そとは さむいようだ。", answer: "Seems cold outside.", distractors: ["It's definitely cold outside.", "It's not cold outside at all.", "It was cold outside yesterday."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "あめが ふっているようだ。", answer: "Seems like it's raining.", distractors: ["It's definitely raining.", "It's not raining at all.", "It rained yesterday."], q: "What does this mean?" }
+      - { kind: kanji, kana: かぜ, kanji: 風邪, distractors: ["かお", "かがみ", "かわ"], exercises: [youda-direct-evidence] }
+      - { kind: sentence, ja: "たなかさん、どうしたの？", en: "Tanaka, what's wrong?", exercises: [], mode: build }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "たなかさん、どうしたの？", en: "Tanaka, what's wrong?" }
+          - { speaker: "Ken", ja: "かぜを ひいたようだよ。かおが あかい。", en: "Seems like he caught a cold. His face is red." }
+          - { speaker: "Mika", ja: "そう。だいじょうぶかな。", en: "I see. I wonder if he's okay." }
+        questions:
+          - { q: "What does Ken think is wrong with Tanaka?", options: ["He seems to have caught a cold", "He is definitely fine", "He already recovered", "Nobody knows anything"], answer: "He seems to have caught a cold" }
+      - { kind: challenge, ja: "かおが あかいから、かぜを ひいたようだ。", en: "Since his face is red, it seems like he caught a cold.", combines: [youda-direct-evidence, kara-because, i-adj-present], mode: build }
+    reviewPool: [かぜ, あかい, さむい, からい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m44-neo-3
+    role: teaching
+    title: "「げんきなようだ」— ようだ off a noun or な-adjective"
+    focus: "The connector move: noun hosts insert の, な-adjective hosts insert な, never だ — the same move はず already taught"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: youda-direct-evidence, variant: noun-na }
+      - { kind: sentence, ja: "たなかさんは げんきなようだ。", en: "Tanaka seems energetic.", exercises: [youda-direct-evidence], mode: build }
+      - { kind: sentence, ja: "あの ひとは がくせいのようだ。", en: "That person seems to be a student.", exercises: [youda-direct-evidence], mode: build }
+      - { kind: sentence, ja: "たなかさんは せんせいのようだ。", en: "Tanaka seems to be a teacher.", exercises: [youda-direct-evidence], mode: build }
+      - { kind: sentence, ja: "この へやは しずかなようだ。", en: "This room seems quiet.", exercises: [youda-direct-evidence], mode: build }
+      - { kind: sentence, ja: "あの こどもは げんきなようだ。", en: "That child seems energetic.", exercises: [youda-direct-evidence], mode: listening }
+      - { kind: particle-cloze, stem: "たなかさんは ", tail: "。", answer: "げんきなようだ", options: ["げんきなようだ", "げんきようだ", "げんきだようだ"], en: "Tanaka seems energetic.", explanation: "A な-adjective host inserts な before ようだ — げんきなようだ. Dropping な or swapping in だ both break the connector rule." }
+      - { kind: listening-comp, audio: "たなかさんは がくせいのようだ。", answer: "Tanaka seems to be a student.", distractors: ["Tanaka is definitely not a student.", "Tanaka was a student.", "Nobody knows if Tanaka is a student."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "あの こどもは しずかなようだ。", answer: "That child seems quiet.", distractors: ["That child is definitely loud.", "That child was quiet.", "Nobody knows anything about that child."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "あの ひと、せんせい？", en: "Is that person a teacher?" }
+          - { speaker: "Ken", ja: "うん、せんせいのようだね。", en: "Yeah, seems like a teacher." }
+          - { speaker: "Mika", ja: "この へやも しずかなようだし、あんしんだね。", en: "This room seems quiet too, and that's a relief." }
+        questions:
+          - { q: "What does Ken think about the person?", options: ["Seems to be a teacher", "Is definitely a student", "Is definitely not a teacher", "Nobody knows"], answer: "Seems to be a teacher" }
+      - { kind: challenge, ja: "あの ひとは せんせいのようだし、この へやも しずかなようだ。", en: "That person seems to be a teacher, and this room seems quiet too.", combines: [youda-direct-evidence, shi-listing, na-adj-present], mode: build }
+    reviewPool: [せんせい, がくせい, しずか, へや]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m44-neo-review-1
+    role: review
+    title: "Review — ようだ, direct evidence off every host"
+    focus: "Spiral L1-L3: the sensory-evidence domain vocabulary and ようだ's full connector rule — THIS MODULE ONLY"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "けむりの においが する。", en: "There's a smell of smoke.", exercises: [ga-existence], mode: build }
+      - { kind: sentence, ja: "かぜを ひいたようだ。", en: "Seems like he caught a cold.", exercises: [youda-direct-evidence], mode: build }
+      - { kind: particle-cloze, stem: "かぜを ひいた", tail: "。", answer: "ようだ", options: ["ようだ", "のようだ", "だようだ"], en: "Seems like he caught a cold.", explanation: "ようだ attaches straight onto a plain verb — ひいたようだ. の is for noun hosts and だ never appears directly before ようだ." }
+      - { kind: sentence, ja: "たなかさんは げんきなようだ。", en: "Tanaka seems energetic.", exercises: [youda-direct-evidence], mode: build }
+      - { kind: sentence, ja: "あの ひとは がくせいのようだ。", en: "That person seems to be a student.", exercises: [youda-direct-evidence], mode: listening }
+      - { kind: listening-comp, audio: "あめが ふっているようだ。", answer: "Seems like it's raining.", distractors: ["It's definitely raining.", "It's not raining at all.", "It rained yesterday."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "たなかさん、どうしたの？", en: "Tanaka, what's wrong?" }
+          - { speaker: "Ken", ja: "かぜを ひいたようだよ。", en: "Seems like he caught a cold." }
+          - { speaker: "Mika", ja: "そう。この へやも さむいようだし、しんぱいだね。", en: "I see. This room seems cold too, so I'm worried." }
+        questions:
+          - { q: "What does Mika say about the room?", options: ["Seems cold, so she's worried", "Seems warm and comfortable", "Is definitely not cold", "She has no opinion about it"], answer: "Seems cold, so she's worried" }
+      - { kind: sentence, ja: "こおりが つめたい。", en: "The ice is cold.", exercises: [i-adj-present], mode: build }
+    reviewPool: [におい, あじ, けむり, こおり, よう]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m44-neo-5
+    role: teaching
+    title: "「かぜを ひいたみたい」— みたい, the casual twin"
+    focus: "みたい is ようだ's exact casual twin — same job, but its own bare-noun rule, no の at all"
+    introduces: [みたい]
+    beats:
+      - { kind: rule, grammarPointId: mitai-casual }
+      - { kind: sentence, ja: "こどもみたいだ。", en: "Seems like a child.", exercises: [mitai-casual], mode: build }
+      - { kind: sentence, ja: "かぜを ひいたみたい。", en: "Seems like he caught a cold.", exercises: [mitai-casual], mode: build }
+      - { kind: sentence, ja: "たなかさんは いそがしいみたい。", en: "Tanaka seems busy.", exercises: [mitai-casual], mode: build }
+      - { kind: sentence, ja: "あめが ふっているみたい。", en: "Seems like it's raining.", exercises: [mitai-casual, te-iru], mode: build }
+      - { kind: sentence, ja: "がくせいみたいだね。", en: "Seems like a student, huh.", exercises: [mitai-casual], mode: listening }
+      - { kind: particle-cloze, stem: "かぜを ひいた", tail: "。", answer: "みたい", options: ["みたい", "のみたい", "ようみたい"], en: "Seems like he caught a cold (casual).", explanation: "みたい attaches straight onto a plain verb, just like ようだ — but の and よう never stack onto みたい; the two twins don't share connectors, each is a complete word on its own." }
+      - { kind: listening-comp, audio: "こどもみたいだ。", answer: "Seems like a child.", distractors: ["Is definitely an adult.", "Is definitely not a child.", "Was a child long ago."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "たなかさんは いそがしいみたい。", answer: "Tanaka seems busy.", distractors: ["Tanaka is definitely free.", "Tanaka is definitely busy, no doubt.", "Nobody knows about Tanaka's schedule."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "たなかさん、どうしたの？", en: "Tanaka, what's wrong?" }
+          - { speaker: "Ken", ja: "かぜを ひいたみたい。かおが あかいよ。", en: "Seems like he caught a cold. His face is red." }
+          - { speaker: "Mika", ja: "そう。だいじょうぶかな。", en: "I see. I wonder if he's okay." }
+        questions:
+          - { q: "What does Ken think about Tanaka, casually?", options: ["Seems like he caught a cold", "Definitely healthy", "Already recovered", "No idea"], answer: "Seems like he caught a cold" }
+      - { kind: challenge, ja: "かおが あかいから、かぜを ひいたみたい。げんきなようだ けど、しんぱいだ。", en: "Since his face is red, it seems like he caught a cold, but even though he seems energetic, I'm worried.", combines: [mitai-casual, kara-because, youda-direct-evidence, kedo], mode: build }
+    reviewPool: [かぜ, あかい, げんき, しんぱい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m44-neo-6
+    role: teaching
+    title: "「こおりのように つめたい」— のように, a simile of HOW"
+    focus: "Nのように + verb/adjective describes HOW something is or happens, by comparison — a different job from ようだ's evidence-guess"
+    introduces: [ちがい, とくちょう]
+    beats:
+      - { kind: rule, grammarPointId: you-ni-simile }
+      - { kind: sentence, ja: "こおりのように つめたい。", en: "As cold as ice.", exercises: [you-ni-simile], mode: build }
+      - { kind: sentence, ja: "ねこのように きこえる。", en: "Sounds like a cat.", exercises: [you-ni-simile], mode: build }
+      - { kind: sentence, ja: "ゆめのように きれいだ。", en: "Pretty like a dream.", exercises: [you-ni-simile], mode: build }
+      - { kind: sentence, ja: "こどものように あそぶ。", en: "Plays like a child.", exercises: [you-ni-simile], mode: build }
+      - { kind: sentence, ja: "いぬのように はしる。", en: "Runs like a dog.", exercises: [you-ni-simile], mode: listening }
+      - { kind: particle-cloze, stem: "こおり", tail: " つめたい。", answer: "のように", options: ["のように", "のような", "ように"], en: "As cold as ice.", explanation: "のように needs の before よう — simile always attaches through の onto the noun. のような is the adnominal twin (next lesson, describes a following NOUN, not an action)." }
+      - { kind: listening-comp, audio: "ねこのように きこえる。", answer: "Sounds like a cat.", distractors: ["Sounds like rain.", "Sounds like nothing at all.", "Sounds like thunder."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "いぬのように はしる。", answer: "Runs like a dog.", distractors: ["Walks slowly like a turtle.", "Doesn't move at all.", "Swims like a fish."], q: "What does this mean?" }
+      - { kind: sentence, ja: "ちがいが わからない。", en: "I can't tell the difference.", exercises: [], mode: build }
+      - { kind: sentence, ja: "いぬの とくちょうが ある。", en: "It has dog characteristics.", exercises: [ga-existence], mode: build }
+      - { kind: kanji, kana: ちがい, kanji: 違い, distractors: ["ちかい", "ちいさい", "ちから"], exercises: [you-ni-simile] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "この おとは ねこのように きこえるね。", en: "This sound sounds like a cat, huh." }
+          - { speaker: "Ken", ja: "ほんとだ。でも、いぬの とくちょうも あるよ。", en: "True. But it also has dog characteristics." }
+          - { speaker: "Mika", ja: "ちがいが よく わからないね。", en: "Hard to tell the difference, huh." }
+        questions:
+          - { q: "What does Mika say the sound is like?", options: ["Sounds like a cat", "Sounds like rain", "Sounds like nothing", "Sounds like thunder"], answer: "Sounds like a cat" }
+      - { kind: challenge, ja: "この おとは ねこのように きこえるが、いぬの とくちょうも あるから、ちがいが わからない。", en: "This sound sounds like a cat, but since it also has dog characteristics, I can't tell the difference.", combines: [you-ni-simile, kedo, kara-because], mode: build }
+    reviewPool: [ねこ, いぬ, おと, こおり]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m44-neo-7
+    role: teaching
+    title: "「にんぎょうのような かお」— のような + the resemblance domain"
+    focus: "のような describes a NOUN by comparison to another noun; domain integration with にる/そっくり inside one dialogue_sim"
+    introduces: [かがみ, にんぎょう, そっくり, にる]
+    beats:
+      - { kind: rule, grammarPointId: you-na-simile }
+      - { kind: sentence, ja: "にんぎょうのような かお。", en: "A doll-like face.", exercises: [you-na-simile], mode: build }
+      - { kind: sentence, ja: "こおりのような みず。", en: "Ice-like water.", exercises: [you-na-simile], mode: build }
+      - { kind: sentence, ja: "かがみのような うみ。", en: "A mirror-like sea.", exercises: [you-na-simile], mode: build }
+      - { kind: sentence, ja: "ねこのような め。", en: "Cat-like eyes.", exercises: [you-na-simile], mode: build }
+      - { kind: sentence, ja: "こどものような こえ。", en: "A childlike voice.", exercises: [you-na-simile], mode: listening }
+      - { kind: sentence, ja: "たなかさんは ちちに にている。", en: "Tanaka resembles his father.", exercises: [dictionary-form], mode: build }
+      - { kind: sentence, ja: "ミカと いもうとは そっくりだ。", en: "Mika and her younger sister are exactly alike.", exercises: [na-adj-present], mode: build }
+      - { kind: particle-cloze, stem: "にんぎょう", tail: " かお。", answer: "のような", options: ["のような", "のように", "なような"], en: "A doll-like face.", explanation: "のような modifies the NOUN that follows it (かお) — のように would instead describe a VERB or adjective's manner, and なような isn't a real connector shape at all." }
+      - { kind: listening-comp, audio: "かがみのような うみ。", answer: "A mirror-like sea.", distractors: ["A stormy, rough sea.", "No sea at all.", "A frozen sea."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "たなかさんは ちちに にている。", answer: "Tanaka resembles his father.", distractors: ["Tanaka doesn't resemble his father at all.", "Tanaka is his own father.", "Tanaka has never met his father."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "ミカは ははに にる。", answer: "Mika resembles her mother.", distractors: ["Mika doesn't resemble her mother at all.", "Mika is her own mother.", "Mika has never met her mother."], q: "What does this mean?" }
+      - { kind: kanji, kana: にる, kanji: 似る, distractors: ["にぎる", "にがい", "にんぎょう"], exercises: [you-na-simile] }
+      - kind: sim
+        scene: { emoji: "🪞", title: "A doll that looks just like her", setting: "Ken and Mika notice a doll in a shop window that looks exactly like Mika's little sister." }
+        turns:
+          - npc: { speaker: "Ken", ja: "みて！この にんぎょう、いもうとさんに そっくりだね。", en: "Look! This doll looks just like your little sister." }
+            goal: "Agree, and say it resembles her a lot."
+            reply: { mode: build, tiles: ["ほんとだ", "たいへん", "にている", "かがみみたい", "にんぎょうだ"], answer: "ほんとだ。たいへん にている。" }
+            replyGloss: "True. It resembles her a lot."
+            explanation: "にる is the plain verb 'to resemble' — たいへん にている intensifies it with a word you already know, no new grammar needed."
+          - npc: { speaker: "Ken", ja: "かおが にんぎょうのようだよ。", en: "Her face is doll-like." }
+            goal: "Say her eyes are cat-like too."
+            reply: { mode: build, tiles: ["めも", "ねこのような", "めだ", "いぬのような", "かおだ"], answer: "めも ねこのような めだ。" }
+            replyGloss: "Her eyes, too, are cat-like eyes."
+            explanation: "ような modifies the noun め that follows it — 'cat-like eyes,' not a cat itself."
+      - { kind: listening-comp, audio: "ミカと いもうとは そっくりだ。", answer: "Mika and her sister are exactly alike.", distractors: ["Mika and her sister look nothing alike.", "Mika has no sister.", "They used to look alike but don't anymore."], q: "What does this mean?" }
+      - { kind: challenge, ja: "この にんぎょうは いもうとに そっくりで、かおも ねこのような めを している。", en: "This doll looks just like my sister, and its face has cat-like eyes too.", combines: [you-na-simile, te-iru, wo-object], mode: build }
+    reviewPool: [かがみ, にんぎょう, そっくり, にる]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m44-neo-review-2
+    role: review
+    title: "Review — ようだ, みたい, and のように・のような"
+    focus: "Spiral L1-L7: every construction so far, over the sensory and resemblance domains — THIS MODULE ONLY"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "かぜを ひいたようだ。", en: "Seems like he caught a cold.", exercises: [youda-direct-evidence], mode: build }
+      - { kind: sentence, ja: "たなかさんは げんきなようだ。", en: "Tanaka seems energetic.", exercises: [youda-direct-evidence], mode: build }
+      - { kind: sentence, ja: "こどもみたいだ。", en: "Seems like a child.", exercises: [mitai-casual], mode: build }
+      - { kind: particle-cloze, stem: "こおり", tail: " つめたい。", answer: "のように", options: ["のように", "のような", "ように"], en: "As cold as ice.", explanation: "のように needs の before よう — simile always attaches through の onto the noun." }
+      - { kind: sentence, ja: "にんぎょうのような かお。", en: "A doll-like face.", exercises: [you-na-simile], mode: build }
+      - { kind: listening-comp, audio: "たなかさんは ちちに にている。", answer: "Tanaka resembles his father.", distractors: ["Tanaka doesn't resemble his father at all.", "Tanaka is his own father.", "Tanaka has never met his father."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "この おとは ねこのように きこえるね。", en: "This sound sounds like a cat, huh." }
+          - { speaker: "Ken", ja: "ほんとだ。かぜを ひいたみたいな こえだね。", en: "True. Sounds like a voice that caught a cold, huh." }
+          - { speaker: "Mika", ja: "げんきなようだから、だいじょうぶだよ。", en: "It seems energetic, so it's fine." }
+        questions:
+          - { q: "What does Mika conclude about the sound in the end?", options: ["It seems energetic, so it's fine", "It's definitely sick", "It's not a sound at all", "She has no opinion"], answer: "It seems energetic, so it's fine" }
+      - { kind: sentence, ja: "ミカと いもうとは そっくりだ。", en: "Mika and her younger sister are exactly alike.", exercises: [na-adj-present], mode: build }
+    reviewPool: [よう, みたい, ちがい, とくちょう, かがみ, にんぎょう, そっくり, にる]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m44-neo-9
+    role: teaching
+    title: "「あめが ふる きざし」— atmosphere and signs, domain integration"
+    focus: "Domain integration: combine ようだ naturally over atmosphere-and-signs vocabulary — no new grammar"
+    introduces: [ふんいき, きざし, ようす]
+    beats:
+      - { kind: sentence, ja: "この いえは いい ふんいきだ。", en: "This house has a nice atmosphere.", exercises: [wa-topic], mode: build }
+      - { kind: sentence, ja: "あめが ふる きざしが ある。", en: "There are signs it'll rain.", exercises: [ga-existence], mode: build }
+      - { kind: sentence, ja: "たなかさんの ようすを みる。", en: "I look at Tanaka's condition.", exercises: [wo-object], mode: build }
+      - { kind: sentence, ja: "ふんいきが しずかなようだ。", en: "The atmosphere seems quiet.", exercises: [youda-direct-evidence], mode: build }
+      - { kind: sentence, ja: "きざしを みて、あめが ふるようだと おもう。", en: "Seeing the signs, I think it seems like it'll rain.", exercises: [youda-direct-evidence, to-omoimasu], mode: listening }
+      - { kind: particle-cloze, stem: "あめが ふる ", tail: "が ある。", answer: "きざし", options: ["きざし", "ようす", "ふんいき"], en: "There are signs it'll rain.", explanation: "きざし is a concrete 'sign' that something is about to happen; ようす is the general 'state of things' and ふんいき is 'atmosphere, mood' — different nouns for different kinds of observation." }
+      - { kind: listening-comp, audio: "たなかさんの いえは いい ふんいきだ。", answer: "Tanaka's house has a nice atmosphere.", distractors: ["Tanaka's house has a bad atmosphere.", "Nobody likes Tanaka's house.", "Tanaka's house is empty."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "たなかさんの ようすを みる。", answer: "I look at Tanaka's condition.", distractors: ["I ignore Tanaka's condition.", "Tanaka looks at my condition.", "Nobody is looking at anything."], q: "What does this mean?" }
+      - { kind: kanji, kana: ようす, kanji: 様子, distractors: ["ようふく", "よる", "よぶ"], exercises: [wo-object] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "この いえ、いい ふんいきだね。", en: "This house has a nice atmosphere, huh." }
+          - { speaker: "Ken", ja: "うん。でも そらの ようすを みて。あめが ふる きざしが あるよ。", en: "Yeah. But look at the sky's condition. There are signs it'll rain." }
+          - { speaker: "Mika", ja: "ほんとだ。かさを もっていこう。", en: "True. Let's take an umbrella." }
+        questions:
+          - { q: "What does Ken notice?", options: ["Signs that it will rain", "Signs that it will be sunny", "Nothing unusual", "A doll that looks like Mika"], answer: "Signs that it will rain" }
+      - { kind: challenge, ja: "そらの ようすを みると、あめが ふる きざしが あるようだ。", en: "Looking at the sky's condition, it seems like there are signs it'll rain.", combines: [youda-direct-evidence, to-conditional, ga-existence], mode: build }
+    reviewPool: [ふんいき, きざし, ようす, そら]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m44-neo-10
+    role: teaching
+    title: "「ようだと みたいと のようにと のような」— assembling the evidential family"
+    focus: "Pre-review integration: the よう-family as a REVIEW OBJECT (inv 26 shape), no new teaching, no new vocabulary"
+    introduces: []
+    beats:
+      - { kind: rule, grammarPointId: evidential-family }
+      - { kind: sentence, ja: "あめが ふっているようだ。", en: "Seems like it's raining.", exercises: [youda-direct-evidence], mode: build }
+      - { kind: sentence, ja: "かぜを ひいたみたい。", en: "Seems like he caught a cold.", exercises: [mitai-casual], mode: build }
+      - { kind: sentence, ja: "こおりのように つめたい。", en: "As cold as ice.", exercises: [you-ni-simile], mode: build }
+      - { kind: sentence, ja: "にんぎょうのような かお。", en: "A doll-like face.", exercises: [you-na-simile], mode: listening }
+      - { kind: particle-cloze, stem: "かおが あかいから、かぜを ひいた", tail: "。", answer: "ようだ", options: ["ようだ", "のように", "のような"], en: "Since his face is red, it seems like he caught a cold.", explanation: "Direct-evidence guessing off a plain verb needs ようだ straight, no connector. のように/のような are simile shapes for comparing to a NOUN, not for stating a guess about reality." }
+      - { kind: listening-comp, audio: "にんぎょうのような かお。", answer: "A doll-like face.", distractors: ["A very ugly face.", "No face at all.", "An old man's face."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "たなかさんは ちちに にている。", answer: "Tanaka resembles his father.", distractors: ["Tanaka doesn't resemble his father at all.", "Tanaka is his own father.", "Tanaka has never met his father."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "たなかさん、かおが あかいね。かぜを ひいたようだけど、だいじょうぶかな。", en: "Tanaka's face is red, huh. Seems like he caught a cold, but I wonder if he's okay." }
+          - { speaker: "Mika", ja: "こえも こどものように きこえたけど、げんきなようすだったよ。", en: "His voice sounded childlike too, but he seemed to be in good shape." }
+          - { speaker: "Ken", ja: "そう。あんしんだね。", en: "I see. That's a relief." }
+        questions:
+          - { q: "How does the evidence in the dialogue compare — which sentence is a SIMILE, not a guess about Tanaka's own condition?", options: ["こえも こどものように きこえた, comparing his voice to a child's", "かぜを ひいたようだ, guessing he caught a cold", "げんきなようすだった, describing his own condition", "あんしんだね, a feeling, not evidence at all"], answer: "こえも こどものように きこえた, comparing his voice to a child's" }
+      - { kind: challenge, ja: "かおが あかいから、かぜを ひいたようだし、こえも こどものように きこえる。", en: "Since his face is red, it seems like he caught a cold, and his voice sounds like a child's too.", combines: [evidential-family, youda-direct-evidence, you-ni-simile, kara-because, shi-listing], mode: build }
+    reviewPool: [かぜ, あかい, にんぎょう, こども, こえ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m44-neo-review-3
+    role: review
+    title: "Review — the whole module, every shape of the evidential family"
+    focus: "Full-module spiral: ようだ, みたい, のように, のような, and the evidential-family synthesis over the whole domain vocabulary"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "かぜを ひいたようだ。", en: "Seems like he caught a cold.", exercises: [youda-direct-evidence], mode: build }
+      - { kind: sentence, ja: "たなかさんは げんきなようだ。", en: "Tanaka seems energetic.", exercises: [youda-direct-evidence], mode: build }
+      - { kind: sentence, ja: "こどもみたいだ。", en: "Seems like a child.", exercises: [mitai-casual], mode: build }
+      - { kind: particle-cloze, stem: "こおり", tail: " つめたい。", answer: "のように", options: ["のように", "のような", "ように"], en: "As cold as ice.", explanation: "のように needs の before よう — simile always attaches through の onto the noun; のような would need a following noun instead." }
+      - { kind: sentence, ja: "にんぎょうのような かお。", en: "A doll-like face.", exercises: [you-na-simile], mode: build }
+      - { kind: listening-comp, audio: "あめが ふる きざしが ある。", answer: "There are signs it'll rain.", distractors: ["There is no chance of rain.", "It already rained.", "Nobody has checked the weather."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Tanaka", ja: "そらの ようすが ちがうかな。", en: "I wonder if the sky's condition is off." }
+          - { speaker: "Ken", ja: "きざしを みると、あめが ふるようだよ。", en: "Looking at the signs, seems like it'll rain." }
+          - { speaker: "Mika", ja: "かさを もっていこう。ふんいきも なんだか しずかだしね。", en: "Let's take an umbrella. The atmosphere is also somehow quiet, after all." }
+        questions:
+          - { q: "What does Ken conclude from the signs?", options: ["It seems like it'll rain", "It seems like it'll be sunny", "He has no opinion", "It already rained"], answer: "It seems like it'll rain" }
+      - { kind: sentence, ja: "たなかさんは ちちに にている。", en: "Tanaka resembles his father.", exercises: [dictionary-form], mode: build }
+    reviewPool: [におい, あじ, けむり, こおり, よう, みたい, ちがい, とくちょう, かがみ, にんぎょう, そっくり, にる, ふんいき, きざし, ようす]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m44-neo-challenge
+    role: challenge
+    title: "Challenge — the whole evidential family, one conversation"
+    focus: "Every shape of the family in one arc — ようだ, みたい, のように, のような, and the evidential-family synthesis — combined with prior N4 grammar, no new vocabulary"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "かぜを ひいたようだが、たなかさんは かならず くるはずだ。", en: "It seems like he caught a cold, but Tanaka should definitely be coming.", exercises: [youda-direct-evidence, hazu, kedo], mode: build }
+      - { kind: sentence, ja: "そとは こおりのように つめたいのに、こどもは そとで あそんでいる。", en: "Even though it's as cold as ice outside, the child is playing outside.", exercises: [you-ni-simile, noni-concession, te-iru], mode: listening }
+      - { kind: particle-cloze, stem: "かおが あかいから、かぜを ひいた", tail: "が、たなかさんは くるはずだ。", answer: "ようだ", options: ["ようだ", "みたい", "のような"], en: "It seems like he caught a cold, but Tanaka should be coming.", explanation: "This is a formal-register sentence, so ようだ fits better than casual みたい; のような is the wrong construction shape entirely — it needs a following noun, not a clause continuation." }
+      - { kind: kanji, kana: かがみ, kanji: 鏡, distractors: ["かみ", "かぞく", "かいしゃ"], exercises: [you-na-simile] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "たなかさん、かおが あかいね。かぜを ひいたようだけど、だいじょうぶかな。", en: "Tanaka's face is red, huh. Seems like he caught a cold, but I wonder if he's okay." }
+          - { speaker: "Ken", ja: "やくそくが あるから、くるはずだよ。しんじよう。", en: "Since there's a promise, he should be coming. Let's believe it." }
+          - { speaker: "Mika", ja: "うん。こえも こどものように きこえたけど、げんきなようだし、あんしんだね。", en: "Yeah. His voice sounded childlike too, but he seems energetic, so that's a relief." }
+        questions:
+          - { q: "How does Mika sound about Tanaka's condition by the end?", options: ["Reassured — he seems fine after all", "Still very worried", "Certain he is seriously ill", "She has no opinion"], answer: "Reassured — he seems fine after all" }
+      - { kind: challenge, ja: "かおが あかいから かぜを ひいたようだが、やくそくが あるから、たなかさんは きっと くるはずだと しんじている。", en: "Since his face is red it seems like he caught a cold, but since there's a promise, I believe that Tanaka should definitely be coming.", combines: [evidential-family, youda-direct-evidence, hazu, kara-because, tabun-kitto], mode: build }
+    reviewPool: [におい, あじ, けむり, こおり, よう, みたい, ちがい, とくちょう, かがみ, にんぎょう, そっくり, にる, ふんいき, きざし, ようす]
