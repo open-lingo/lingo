@@ -1,0 +1,140 @@
+  # ── L6 · «Voy a hacerlo» — recombination: the second-position rule
+  #    applied to PRIOR m28 «voy a» + bare infinitive, not just «querer»/
+  #    «poder». ≥1 recall of L5's own win line. New atom this lesson:
+  #    «hacerlo» (header list, first PRINTED here). Third-position foil
+  #    («voy a lo hacer») appears as an mcq distractor and a sim
+  #    wrong-choice option only.
+  - n: 6
+    template: free
+    title: "Voy a hacerlo"
+    description: "«voy a» (m28) plus a bare infinitive is a third host for the same rule: the pointer can go right before «voy», or fuse onto the end of the infinitive."
+    steps:
+      - kind: map
+        id: l6-map-voyahacerlo
+        tokens: ["voy", "a", "hacerlo"]
+        pairs:
+          - { en: "I'm going to", tokenIndex: 0 }
+          - { en: "do it", tokenIndex: 2 }
+        audioText: "voy a hacerlo"
+        revealNote: "«hacerlo» — «hacer» (m15) plus «lo» (m16), fused onto the end. Same fusion as «verlo»/«comprarlo», a third host verb: «voy a» (m28) instead of «quiero»/«puedo»."
+      # Printed non-recall at L5 (es-m29-5-l5-sp-win).
+      - kind: speakLit
+        id: l6-sp-recall-l5win
+        es: "Diego puede ducharse"
+        en: "Diego can shower"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l6-b-voyahacerlomanana
+        also: ["mañana voy a hacerlo"]
+        es: "voy a hacerlo mañana"
+        en: "I'm going to do it tomorrow"
+        atoms: ["voy", "hacerlo", "mañana"]
+        tiles: ["vas", "va"]
+      - kind: clozeLit
+        id: l6-c-lovoyahacer
+        es: "lo voy a hacer mañana"
+        en: "I'm going to do it tomorrow"
+        blank: "lo"
+        options: ["lo", "la"]
+        atoms: ["voy", "hacer", "mañana"]
+        why: "the task is masculine («el trabajo»), so «lo» — right in front of «voy», the pre-verbal position PRIOR since m16. «la» would point at something feminine instead."
+      - kind: listenCompLit
+        id: l6-lc-diegovaahacerlo
+        es: "Diego también va a hacerlo"
+        en: "Diego is also going to do it."
+        atoms: ["va", "hacerlo", "también"]
+        distractorsEn:
+          - "Diego isn't going to do it."
+          - "Diego did it."
+          - "Diego is also going to see it."
+      - kind: mcq
+        id: l6-q-hacerlo
+        prompt: "Which one means 'I'm going to do it'?"
+        correct: "voy a hacerlo"
+        distractors: ["voy a lo hacer", "voy hacerlo", "va a hacerlo"]
+        atoms: ["voy", "hacerlo"]
+        why: "«hacerlo» — the pointer fused onto the infinitive. «voy a lo hacer» puts the pointer between the two verbs — never legal. «voy hacerlo» drops the «a»; «va» is the wrong person."
+      - kind: buildLit
+        id: l6-b-vamosaverlomanana
+        also: ["mañana vamos a verlo"]
+        es: "vamos a verlo mañana"
+        en: "We're going to see it tomorrow"
+        atoms: ["vamos", "verlo", "mañana"]
+        tiles: ["van", "va"]
+      - kind: audioWimcq
+        id: l6-ear-fiesta
+        target: { surface: "la fiesta", emoji: "🎉" }
+        distractors:
+          - { surface: "el museo", emoji: "🏛️" }
+          - { surface: "el cine", emoji: "🎬" }
+      - kind: agreementLit
+        id: l6-agr-voyahacerlovasaverlo
+        en: "I'm going to do it, and you're going to see it"
+        audioText: "yo voy a hacerlo, y tú vas a verlo"
+        atoms: ["voy", "hacerlo", "vas", "verlo"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "voy", options: ["voy", "vas"] } }
+          - { text: " a hacerlo, y tú " }
+          - { blank: { id: "p2", answer: "vas", options: ["vas", "voy"] } }
+          - { text: " a verlo" }
+      - kind: listenBuildLit
+        id: l6-lb-quierohacerlomanana
+        es: "quiero hacerlo mañana también"
+        en: "I want to do it tomorrow too"
+        atoms: ["quiero", "hacerlo", "mañana", "también"]
+        tiles: ["quiere", "quieres"]
+      - kind: textMcq
+        id: l6-tm-hacerlo
+        target: "hacerlo"
+        distractors: ["hacer", "hago", "hacerla"]
+      - kind: sim
+        id: l6-sim-ana-hacerlo
+        scene: { emoji: "📋", title: "Ana asks about the task", setting: "Ana wants to know if you'll finish the task." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Vas a hacerlo mañana?", audioText: "¿vas a hacerlo mañana?", gloss: "Are you going to do it tomorrow?" }
+            goal: "Say yes, you're going to do it."
+            reply:
+              mode: build
+              tiles: ["sí", "voy", "a", "hacerlo", "hacerla"]
+              answer: "sí voy a hacerlo"
+            replyGloss: "Yes, I'm going to do it."
+            explanation: "«hacerlo» — «hacer» plus «lo» fused onto the end, matching Ana's own «hacerlo»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y Diego va a verlo también?", audioText: "¿y Diego va a verlo también?", gloss: "And is Diego also going to see it?" }
+            goal: "Say yes, he's also going to see it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, también va a verlo" }
+                - { id: "wrong1", text: "sí, también va a lo ver" }
+                - { id: "wrong2", text: "sí, también vas a verlo" }
+              correctOptionId: "right"
+              audioText: "sí, también va a verlo"
+            replyGloss: "Yes, he's also going to see it."
+            explanation: "«verlo» stays fused after «va» — never «va a lo ver», the pointer between the two verbs."
+          - id: t3
+            npc: { speaker: "Ana", es: "Nosotros vamos a hacerlo hoy.", audioText: "nosotros vamos a hacerlo hoy.", gloss: "We're going to do it today." }
+            goal: "Say that's great, you also want to."
+            reply:
+              mode: build
+              tiles: ["yo", "también", "quiero", "hacerlo", "hacerla"]
+              answer: "yo también quiero hacerlo"
+            replyGloss: "I also want to do it."
+            explanation: "Same fusion, a fourth host verb: «quiero» instead of «voy a», and «hacerlo» stays fused."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "hacerlo", target: "to do it" }
+          - { source: "verlo", target: "to see it" }
+          - { source: "voy a", target: "I'm going to" }
+          - { source: "va a", target: "he/she/you (formal) is going to" }
+          - { source: "vamos a", target: "we're going to" }
+          - { source: "hago", target: "I do" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "voy a hacerlo mañana"
+        en: "I'm going to do it tomorrow"
+        atoms: ["voy", "hacerlo", "mañana"]

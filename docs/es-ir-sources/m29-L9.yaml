@@ -1,0 +1,150 @@
+  # ── L9 · «Lo quiero ver, quiero verlo» — every legal pair side by side.
+  #    The contrast is SYNTACTIC (same meaning, two positions), never a
+  #    tense contrast (hard rule 8) — every pair in this lesson is
+  #    checked to mean EXACTLY the same thing, never past vs present.
+  #    Second contrast pair: «Ana se quiere levantar» / «Ana quiere
+  #    levantarse» — «levantarse» here is the PRIOR m17 dictionary atom,
+  #    byte-identical, first fused-context PRINTING alongside its own
+  #    pre-verbal twin. ≥1 recall of L8's own win line.
+  - n: 9
+    template: free
+    title: "Lo quiero ver, quiero verlo"
+    description: "Both positions, side by side — they mean exactly the same thing. Pre-verbal or fused: your choice, never a difference in meaning."
+    steps:
+      - kind: map
+        id: l9-map-loquieroverquieroverlo
+        tokens: ["lo", "quiero", "ver,", "quiero", "verlo"]
+        pairs:
+          - { en: "it", tokenIndex: 0 }
+          - { en: "I want to see", tokenIndex: 1 }
+          - { en: "same meaning, other position", tokenIndex: 4 }
+        audioText: "lo quiero ver, quiero verlo"
+        revealNote: "«lo quiero ver» and «quiero verlo» — same pointer, same meaning, two homes. Not two different sentences, one sentence said two ways."
+      - kind: info
+        id: l9-info-mismosignificado
+        title: "Two ways, one meaning"
+        body: "«lo quiero ver» and «quiero verlo» mean exactly the same thing — \"I want to see it.\" Nothing changes about WHEN or WHAT; only WHERE the pointer sits changes. Pick either one, every time."
+      - kind: speakLit
+        id: l9-sp-loquieroverquieroverlo
+        es: "lo quiero ver, quiero verlo"
+        en: "I want to see it, I want to see it"
+        atoms: ["quiero", "verlo"]
+      - kind: buildLit
+        id: l9-b-lapuedocomprarpuedocomprarla
+        es: "la puedo comprar, puedo comprarla"
+        en: "I can buy it, I can buy it"
+        atoms: ["puedo", "comprarla"]
+        tiles: ["puedes", "puede"]
+      # Printed non-recall at L8 (es-m29-8-l8-sp-win).
+      - kind: speakLit
+        id: l9-sp-recall-l8win
+        es: "no quiero levantarme, pero puedo hacerlo"
+        en: "I don't want to get up, but I can do it"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: l9-c-anasequierelevantar
+        es: "Ana se quiere levantar temprano"
+        en: "Ana wants to get up early"
+        blank: "se"
+        options: ["se", "me"]
+        atoms: ["quiere", "levantar", "temprano"]
+        why: "«Ana» is 3rd person, so «se» — right in front of «quiere», the pre-verbal position PRIOR since m17. «me» would be about «yo» instead."
+      - kind: listenCompLit
+        id: l9-lc-anaquierelevantarse
+        es: "Ana quiere levantarse temprano también"
+        en: "Ana also wants to get up early."
+        atoms: ["quiere", "levantarse", "temprano", "también"]
+        distractorsEn:
+          - "Ana doesn't want to get up early."
+          - "Ana got up early."
+          - "Ana also wants to shower early."
+      - kind: buildLit
+        id: l9-b-anasequierelevantar
+        also: ["Ana quiere levantarse"]
+        es: "Ana se quiere levantar"
+        en: "Ana wants to get up (same meaning, either order)"
+        atoms: ["quiere", "levantarse"]
+        tiles: ["puede", "levantarme", "levantarse"]
+      - kind: listenBuildLit
+        id: l9-lb-diegovaahacerlolovaahacer
+        es: "Diego va a hacerlo, lo va a hacer"
+        en: "Diego is going to do it, he's going to do it"
+        atoms: ["va", "hacerlo"]
+        tiles: ["vas", "van"]
+      - kind: audioWimcq
+        id: l9-ear-museo
+        target: { surface: "el museo", emoji: "🏛️" }
+        distractors:
+          - { surface: "el cine", emoji: "🎬" }
+          - { surface: "la fiesta", emoji: "🎉" }
+      - kind: agreementLit
+        id: l9-agr-lopuedocomprarcomprarlotambien
+        en: "Ana can buy it, and I can also buy it"
+        audioText: "Ana lo puede comprar, y yo puedo comprarlo también"
+        atoms: ["puede", "puedo", "comprarlo", "también"]
+        segments:
+          - { text: "Ana lo " }
+          - { blank: { id: "p1", answer: "puede", options: ["puede", "puedo"] } }
+          - { text: " comprar, y yo " }
+          - { blank: { id: "p2", answer: "puedo", options: ["puedo", "puede"] } }
+          - { text: " comprarlo también" }
+      - kind: listenBuildLit
+        id: l9-lb-melevantomequierolevantar
+        es: "me quiero levantar, quiero levantarme"
+        en: "I want to get up, I want to get up"
+        atoms: ["quiero", "levantarme"]
+        tiles: ["quiere", "quieres"]
+      - kind: textMcq
+        id: l9-tm-levantarse
+        target: "levantarse"
+        distractors: ["levantarme", "levantar", "levanta"]
+      - kind: sim
+        id: l9-sim-diego-samemeaning
+        scene: { emoji: "🤔", title: "Diego checks he understood", setting: "Diego wants to confirm both ways of saying the same thing." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Lo quieres ver o quieres verlo?", audioText: "¿lo quieres ver o quieres verlo?", gloss: "Do you want to see it, or do you want to see it?" }
+            goal: "Say yes, you want to see it."
+            reply:
+              mode: build
+              tiles: ["sí", "quiero", "verlo", "veo"]
+              answer: "sí quiero verlo"
+            replyGloss: "Yes, I want to see it."
+            explanation: "«lo quieres ver» and «quieres verlo» ask the exact same question two ways — either answer is right."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Ana se quiere levantar o quiere levantarse?", audioText: "¿Ana se quiere levantar o quiere levantarse?", gloss: "Does Ana want to get up, or want to get up?" }
+            goal: "Say yes, she wants to get up."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, quiere levantarse" }
+                - { id: "wrong1", text: "sí, quiere se levantar" }
+                - { id: "wrong2", text: "sí, quiero levantarse" }
+              correctOptionId: "right"
+              audioText: "sí, quiere levantarse"
+            replyGloss: "Yes, she wants to get up."
+            explanation: "«se quiere levantar» and «quiere levantarse» — pre-verbal and fused, exactly the same meaning; the reply just needs «levantarse» said once, never twice."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿Y puedes comprarlo o lo puedes comprar?", audioText: "¿y puedes comprarlo o lo puedes comprar?", gloss: "And can you buy it, or can you buy it?" }
+            goal: "Say yes, you can buy it."
+            reply:
+              mode: build
+              tiles: ["sí", "puedo", "comprarlo", "compro"]
+              answer: "sí puedo comprarlo"
+            replyGloss: "Yes, I can buy it."
+            explanation: "A third pair, «poder» this time — pre-verbal and fused, still the same meaning."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "verlo", target: "to see it" }
+          - { source: "levantarse", target: "to get (oneself) up" }
+          - { source: "comprarlo", target: "to buy it" }
+          - { source: "temprano", target: "early" }
+          - { source: "duchar", target: "to shower (the bare verb)" }
+          - { source: "también", target: "also, too" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "Ana lo puede comprar, y yo puedo comprarlo también"
+        en: "Ana can buy it, and I can also buy it"
+        atoms: ["puede", "puedo", "comprarlo", "también"]

@@ -500,4 +500,11 @@ export const ES_REVIEW_POOL: EsReviewEntry[] = [
   { surface: "el frío", gloss: "the cold", kind: "vocab", fromModule: "m27", partOfSpeech: "noun" },
   { surface: "ir", gloss: "to go", kind: "vocab", fromModule: "m28", partOfSpeech: "verb" },
   { surface: "va", gloss: "he/she/it goes, is going / (usted) you go", kind: "vocab", fromModule: "m28", partOfSpeech: "verb" },
+  { surface: "verlo", gloss: "to see it (him)", kind: "vocab", fromModule: "m29", partOfSpeech: "verb" },
+  { surface: "comprarlo", gloss: "to buy it (him)", kind: "vocab", fromModule: "m29", partOfSpeech: "verb" },
+  { surface: "comprarla", gloss: "to buy it (her)", kind: "vocab", fromModule: "m29", partOfSpeech: "verb" },
+  { surface: "comprarlos", gloss: "to buy them (masc.)", kind: "vocab", fromModule: "m29", partOfSpeech: "verb" },
+  { surface: "levantarme", gloss: "to get myself up", kind: "vocab", fromModule: "m29", partOfSpeech: "verb" },
+  { surface: "hacerlo", gloss: "to do it", kind: "vocab", fromModule: "m29", partOfSpeech: "verb" },
+  { surface: "verlos", gloss: "to see them (masc.)", kind: "vocab", fromModule: "m29", partOfSpeech: "verb" },
 ];

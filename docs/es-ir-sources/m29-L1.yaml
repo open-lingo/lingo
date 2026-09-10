@@ -1,0 +1,145 @@
+  # ── L1 · «Quiero verlo» — the second clitic position debuts: yo, direct
+  #    object «lo» (m16), against «querer» (m7/m14). PRIOR pre-verbal «lo
+  #    quiero ver» is recapped (clozeLit), never re-taught as new. New
+  #    atoms this lesson: «verlo» (debuts via the info card's own guillemet
+  #    span, hard rule 1) and «comprarlo» (debuts via l1-b-noquierocomprarlohoy,
+  #    the first buildLit). No recall (nothing earlier in this module).
+  #    Third-position foil («quiero lo comprar») appears as an mcq
+  #    distractor and a sim wrong-choice option only — never as a correct/
+  #    answer position (hard rule 4).
+  - n: 1
+    template: free
+    title: "Quiero verlo"
+    description: "«lo» (m16) has always gone right before the verb. When a second verb sits right there with a bare infinitive, that same «lo» can ALSO ride along at the end instead."
+    steps:
+      - kind: map
+        id: l1-map-quieroverlo
+        tokens: ["quiero", "verlo"]
+        pairs:
+          - { en: "I want", tokenIndex: 0 }
+          - { en: "to see it", tokenIndex: 1 }
+        audioText: "quiero verlo"
+        revealNote: "«verlo» — «ver» (m15) plus «lo» (m16), fused onto the end. Look at where the pointer went: not in front of «quiero» this time, but riding along on the second verb."
+      - kind: info
+        id: l1-info-segundaposicion
+        title: "The pointer's second home"
+        body: "«lo»/«la»/«los»/«las» (m16) and «me»/«te»/«se» (m17) have always gone right before the verb. When a second verb is right there with a bare infinitive — «quiero», «puedo», «voy a» — that same word can ALSO ride along at the end instead: «lo quiero ver» and «quiero verlo» mean exactly the same thing. It never sits between the two verbs."
+      - kind: speakLit
+        id: l1-sp-quieroverlo
+        es: "quiero verlo"
+        en: "I want to see it"
+        atoms: ["quiero", "verlo"]
+      - kind: buildLit
+        id: l1-b-noquierocomprarlohoy
+        also: ["hoy no quiero comprarlo"]
+        es: "no quiero comprarlo hoy"
+        en: "I don't want to buy it today"
+        atoms: ["quiero", "comprarlo", "hoy"]
+        tiles: ["compro", "compra"]
+      - kind: clozeLit
+        id: l1-c-nolocomprar
+        es: "no lo quiero comprar"
+        en: "I don't want to buy it (the book)"
+        blank: "lo"
+        options: ["lo", "la"]
+        atoms: ["quiero", "comprar"]
+        why: "«el libro» is masculine, so «lo» — right in front of «quiero», the pre-verbal position PRIOR since m16. «la» would point at something feminine instead."
+      - kind: listenCompLit
+        id: l1-lc-diegoquierecomprarlo
+        es: "Diego también quiere comprarlo"
+        en: "Diego also wants to buy it."
+        atoms: ["quiere", "comprarlo", "también"]
+        distractorsEn:
+          - "Diego doesn't want to buy it."
+          - "Diego also wanted to buy it."
+          - "Diego also wants to see it."
+      - kind: mcq
+        id: l1-q-comprarlo
+        prompt: "Which one means 'I want to buy it'?"
+        correct: "quiero comprarlo"
+        distractors: ["quiero lo comprar", "quiero comprarla", "quiero comprarlos"]
+        atoms: ["quiero", "comprarlo"]
+        why: "«comprarlo» — the pointer fused onto the infinitive. «quiero lo comprar» puts the pointer between the two verbs — never legal. «comprarla»/«comprarlos» would be the wrong gender or number."
+      - kind: buildLit
+        id: l1-b-noquieroverlohoy
+        also: ["hoy no quiero verlo"]
+        es: "no quiero verlo hoy"
+        en: "I don't want to see it today"
+        atoms: ["quiero", "verlo", "hoy"]
+        tiles: ["veo", "ves"]
+      - kind: audioWimcq
+        id: l1-ear-playa
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "el parque", emoji: "🌳" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: agreementLit
+        id: l1-agr-quieroverloquierescomprarlo
+        en: "I want to see it, and you want to buy it"
+        audioText: "yo quiero verlo, y tú quieres comprarlo"
+        atoms: ["quiero", "verlo", "quieres", "comprarlo"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "quiero", options: ["quiero", "quieres"] } }
+          - { text: " verlo, y tú " }
+          - { blank: { id: "p2", answer: "quieres", options: ["quieres", "quiero"] } }
+          - { text: " comprarlo" }
+      - kind: listenBuildLit
+        id: l1-lb-puedocomprarlomanana
+        es: "puedo comprarlo mañana también"
+        en: "I can buy it tomorrow too"
+        atoms: ["puedo", "comprarlo", "mañana", "también"]
+        tiles: ["puede", "puedes"]
+      - kind: textMcq
+        id: l1-tm-verlo
+        target: "verlo"
+        distractors: ["ver", "veo", "verla"]
+      - kind: sim
+        id: l1-sim-sofia-verlo
+        scene: { emoji: "👀", title: "Sofía asks about your plans", setting: "Sofía has the book and wants to know what you want to do." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Tienes el libro?", audioText: "¿tienes el libro?", gloss: "Do you have the book?" }
+            goal: "Say yes, and you want to see it."
+            reply:
+              mode: build
+              tiles: ["sí", "y", "quiero", "verlo", "veo"]
+              answer: "sí y quiero verlo"
+            replyGloss: "Yes, and I want to see it."
+            explanation: "«verlo» — «ver» (m15) plus «lo» fused onto the end, exactly like «comprarlo». Same second position, a different infinitive."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Lo puedes comprar mañana?", audioText: "¿lo puedes comprar mañana?", gloss: "Can you buy it tomorrow?" }
+            goal: "Say yes, you can buy it tomorrow."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, puedo comprarlo mañana" }
+                - { id: "wrong1", text: "sí, puedo lo comprar mañana" }
+                - { id: "wrong2", text: "sí, puedo comprarla mañana" }
+              correctOptionId: "right"
+              audioText: "sí, puedo comprarlo mañana"
+            replyGloss: "Yes, I can buy it tomorrow."
+            explanation: "«comprarlo» fused onto «comprar» — never «puedo lo comprar», the pointer between the two verbs. «comprarla» would be the wrong gender."
+          - id: t3
+            npc: { speaker: "Sofía", es: "¿Y quieres verlo también, o no?", audioText: "¿y quieres verlo también, o no?", gloss: "And do you want to see it too, or not?" }
+            goal: "Say yes, you want to see it too."
+            reply:
+              mode: build
+              tiles: ["sí", "quiero", "verlo", "también", "veo"]
+              answer: "sí quiero verlo también"
+            replyGloss: "Yes, I want to see it too."
+            explanation: "Same fusion again — «verlo» stays fused after «quiero», with «también» (m11) outside the pair, the same way «no»/«siempre» stayed outside the pair in m17."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "verlo", target: "to see it" }
+          - { source: "comprarlo", target: "to buy it" }
+          - { source: "lo", target: "it (direct object, before the verb)" }
+          - { source: "quiero", target: "I want" }
+          - { source: "ver", target: "to see" }
+          - { source: "comprar", target: "to buy" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "quiero comprarlo mañana"
+        en: "I want to buy it tomorrow"
+        atoms: ["quiero", "comprarlo", "mañana"]

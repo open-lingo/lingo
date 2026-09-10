@@ -1,0 +1,148 @@
+  # ── L4 · «No quiero levantarme» — the rule crosses families: reflexive
+  #    «me» (m13/m17) fused onto the BARE m17-L7 «levantar» (never the
+  #    «-se» dictionary card), against «querer». Pairs directly with
+  #    m17-L7's own bare-verb teaching. ≥1 recall of L3's own win line.
+  #    New atom this lesson: «levantarme» (header list, first PRINTED
+  #    here). ⚠️ m17-L7's own header note: only «levantar» and «duchar»
+  #    are registered BARE infinitives — «lavar»/«acostar»/«despertar»/
+  #    «peinar» are NOT, so this lesson does not touch them, and the only
+  #    fused surface printed anywhere below is «levantarme» itself (the
+  #    one atom the header registered) — never «levantarte», which is
+  #    not a registered surface. «duchar» appears only in its PRIOR
+  #    pre-verbal shape («me quiero duchar»), recapping m17, not fused.
+  #    Third-position foil («quiero me levantar») appears as an mcq
+  #    distractor and a sim wrong-choice option only.
+  - n: 4
+    template: free
+    title: "No quiero levantarme"
+    description: "The same rule crosses families: «me» (m13/m17) fuses onto a bare infinitive exactly the way «lo»/«la»/«los»/«las» did."
+    steps:
+      - kind: map
+        id: l4-map-noquierolevantarme
+        tokens: ["no", "quiero", "levantarme"]
+        pairs:
+          - { en: "I don't want", tokenIndex: 1 }
+          - { en: "to get myself up", tokenIndex: 2 }
+        audioText: "no quiero levantarme"
+        revealNote: "«levantarme» — the bare «levantar» (m17 L7) plus «me» (m13/m17), fused onto the end. «me quiero levantar» and «quiero levantarme» mean exactly the same thing."
+      # Printed non-recall at L3 (es-m29-3-l3-sp-win).
+      - kind: speakLit
+        id: l4-sp-recall-l3win
+        es: "Ana puede comprarlos hoy"
+        en: "Ana can buy them today"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l4-b-melevantohoy
+        also: ["hoy me levanto"]
+        es: "me levanto hoy"
+        en: "I get up today"
+        atoms: ["me", "levanto", "hoy"]
+        tiles: ["te", "se"]
+      - kind: clozeLit
+        id: l4-c-melevantotemprano
+        es: "me levanto temprano"
+        en: "I get up early"
+        blank: "me"
+        options: ["me", "te"]
+        atoms: ["levanto", "temprano"]
+        why: "«yo» is the subject, so «me» — right in front of «levanto», the pre-verbal position PRIOR since m17. «te» would be about «tú» instead."
+      - kind: listenCompLit
+        id: l4-lc-quierolevantarme
+        es: "No quiero levantarme temprano"
+        en: "I don't want to get up early."
+        atoms: ["quiero", "levantarme", "temprano"]
+        distractorsEn:
+          - "I want to get up early."
+          - "I don't want to get up late."
+          - "I don't want to go to bed early."
+      - kind: mcq
+        id: l4-q-levantarme
+        prompt: "Which one means 'I don't want to get up'?"
+        correct: "no quiero levantarme"
+        distractors: ["no me quiero levantarme", "no quiero me levantar", "no quiere levantarme"]
+        atoms: ["quiero", "levantarme"]
+        why: "«levantarme» — the pointer fused onto the infinitive, said once. «no me quiero levantarme» doubles it; «no quiero me levantar» puts the pointer between the two verbs — never legal."
+      - kind: buildLit
+        id: l4-b-nomequieroducharhoy
+        also: ["hoy no me quiero duchar"]
+        es: "no me quiero duchar hoy"
+        en: "I don't want to shower today"
+        atoms: ["quiero", "duchar", "me", "hoy"]
+        tiles: ["ducho", "se"]
+      - kind: audioWimcq
+        id: l4-ear-casa
+        target: { surface: "la casa", emoji: "🏠" }
+        distractors:
+          - { surface: "la escuela", emoji: "🏫" }
+          - { surface: "el trabajo", emoji: "💼" }
+      - kind: agreementLit
+        id: l4-agr-quierolevantarmetequieresduchar
+        en: "I want to get myself up, and you want to shower"
+        audioText: "yo quiero levantarme, y tú te quieres duchar"
+        atoms: ["quiero", "levantarme", "quieres", "duchar"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "quiero", options: ["quiero", "quieres"] } }
+          - { text: " levantarme, y tú te " }
+          - { blank: { id: "p2", answer: "quieres", options: ["quieres", "quiero"] } }
+          - { text: " duchar" }
+      - kind: listenBuildLit
+        id: l4-lb-puedolevantarmetemprano
+        es: "puedo levantarme temprano también"
+        en: "I can get myself up early too"
+        atoms: ["puedo", "levantarme", "temprano", "también"]
+        tiles: ["puede", "puedes"]
+      - kind: textMcq
+        id: l4-tm-levantarme
+        target: "levantarme"
+        distractors: ["levantar", "levanto", "levanta"]
+      - kind: sim
+        id: l4-sim-diego-levantarme
+        scene: { emoji: "😴", title: "Diego asks about tomorrow", setting: "Diego wants to know your morning plans." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Te levantas temprano mañana?", audioText: "¿te levantas temprano mañana?", gloss: "Do you get up early tomorrow?" }
+            goal: "Say no, you don't want to get up."
+            reply:
+              mode: build
+              tiles: ["no", "quiero", "levantarme", "temprano", "levanto"]
+              answer: "no quiero levantarme temprano"
+            replyGloss: "No, I don't want to get up early."
+            explanation: "«levantarme» — the bare «levantar» plus «me» fused onto the end, the same fusion drilled all lesson."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Te puedes duchar ahora?", audioText: "¿te puedes duchar ahora?", gloss: "Can you shower now?" }
+            goal: "Say yes, you can shower now."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me puedo duchar ahora" }
+                - { id: "wrong1", text: "sí, puedo duchar ahora" }
+                - { id: "wrong2", text: "sí, puedes duchar ahora" }
+              correctOptionId: "right"
+              audioText: "sí, me puedo duchar ahora"
+            replyGloss: "Yes, I can shower now."
+            explanation: "«me» stays pre-verbal here, right in front of «puedo» — the OTHER legal home, not fused this time. «puedo duchar ahora» is missing the pointer; «puedes» is the wrong person."
+          - id: t3
+            npc: { speaker: "Diego", es: "Yo también quiero levantarme temprano.", audioText: "yo también quiero levantarme temprano.", gloss: "I also want to get up early." }
+            goal: "Say you also want to get up early."
+            reply:
+              mode: build
+              tiles: ["y", "yo", "también", "quiero", "levantarme", "temprano"]
+              answer: "y yo también quiero levantarme temprano"
+            replyGloss: "And I also want to get up early."
+            explanation: "Same fusion again — «levantarme» stays fused after «quiero», the same way it did all lesson."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "levantarme", target: "to get myself up" }
+          - { source: "duchar", target: "to shower (the bare verb)" }
+          - { source: "me", target: "myself (before the verb)" }
+          - { source: "temprano", target: "early" }
+          - { source: "levanto", target: "I get (myself) up" }
+          - { source: "ahora", target: "now" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "no quiero levantarme"
+        en: "I don't want to get up"
+        atoms: ["quiero", "levantarme"]

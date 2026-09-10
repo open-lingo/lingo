@@ -1,0 +1,129 @@
+  # ── L8 · Checkpoint — graded only (no map, no info card), both pronoun
+  #    families (lo/la/los/las AND me/se) × both host-verb families
+  #    (querer/poder AND voy a) × both positions (pre-verbal AND fused),
+  #    third-position foils throughout. ≥2 recalls (L6, L7). No new atom.
+  - n: 8
+    template: free
+    title: "Checkpoint: el pointer, dos hogares"
+    description: "Every pronoun family, every host verb, both positions — all together."
+    steps:
+      - kind: buildLit
+        id: l8-b-quierocomprarlohoy
+        es: "quiero comprarlo hoy"
+        en: "I want to buy it today"
+        atoms: ["quiero", "comprarlo", "hoy"]
+        tiles: ["quieres", "quiere"]
+      - kind: clozeLit
+        id: l8-c-lopuedescomprar
+        es: "lo puedes comprar mañana"
+        en: "You can buy it tomorrow"
+        blank: "lo"
+        options: ["lo", "la"]
+        atoms: ["puedes", "comprar", "mañana"]
+        why: "the thing is masculine, so «lo» — right in front of «puedes», the pre-verbal position PRIOR since m16. «la» would point at something feminine instead."
+      - kind: listenCompLit
+        id: l8-lc-anapuedecomprarlos
+        es: "Ana puede comprarlos hoy"
+        en: "Ana can buy them today."
+        atoms: ["puede", "comprarlos", "hoy"]
+        distractorsEn:
+          - "Ana can't buy them today."
+          - "Ana could buy them today."
+          - "Ana can also see them today."
+      - kind: mcq
+        id: l8-q-thirdposition
+        prompt: "Which one means 'I don't want to get up'?"
+        correct: "no quiero levantarme"
+        distractors: ["no quiero me levantar", "no quieres levantarme", "no quiero levantarse"]
+        atoms: ["quiero", "levantarme"]
+        why: "«levantarme» fused onto the infinitive. «no quiero me levantar» puts the pointer between the two verbs — never legal. «quieres» is the wrong person; «levantarse» the wrong pronoun."
+      - kind: buildLit
+        id: l8-b-diegopuededucharse
+        es: "Diego puede ducharse ahora"
+        en: "Diego can shower now"
+        atoms: ["puede", "ducharse", "ahora"]
+        tiles: ["puedo", "puedes"]
+      - kind: agreementLit
+        id: l8-agr-checkpoint
+        en: "I'm going to do it, and Diego is going to see it"
+        audioText: "yo voy a hacerlo, y Diego va a verlo"
+        atoms: ["voy", "hacerlo", "va", "verlo"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "voy", options: ["voy", "va"] } }
+          - { text: " a hacerlo, y Diego " }
+          - { blank: { id: "p2", answer: "va", options: ["va", "voy"] } }
+          - { text: " a verlo" }
+      # Printed non-recall at L6 (es-m29-6-l6-sp-win).
+      - kind: speakLit
+        id: l8-sp-recall-l6win
+        es: "voy a hacerlo mañana"
+        en: "I'm going to do it tomorrow"
+        atoms: []
+        cue: recall
+      - kind: listenBuildLit
+        id: l8-lb-voyalevantarmetemprano
+        es: "mañana voy a levantarme temprano"
+        en: "Tomorrow I'm going to get myself up early"
+        atoms: ["voy", "levantarme", "mañana", "temprano"]
+        tiles: ["vas", "va"]
+      # Printed non-recall at L7 (es-m29-7-l7-sp-win).
+      - kind: speakLit
+        id: l8-sp-recall-l7win
+        es: "mañana voy a levantarme"
+        en: "Tomorrow I'm going to get myself up"
+        atoms: []
+        cue: recall
+      - kind: textMcq
+        id: l8-tm-comprarla
+        target: "comprarla"
+        distractors: ["comprarlo", "comprarlos", "comprar"]
+      - kind: sim
+        id: l8-sim-checkpoint
+        scene: { emoji: "📋", title: "Ana checks everyone's plans", setting: "Ana is confirming what everyone wants and can do this weekend." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Quieres verlo o puedes comprarlo?", audioText: "¿quieres verlo o puedes comprarlo?", gloss: "Do you want to see it or can you buy it?" }
+            goal: "Say you want to see it, not buy."
+            reply:
+              mode: build
+              tiles: ["quiero", "verlo", "no", "quiero", "comprarlo"]
+              answer: "quiero verlo no quiero comprarlo"
+            replyGloss: "I want to see it, I don't want to buy it."
+            explanation: "Two host verbs, two fused pointers — «verlo» and «comprarlo» — both on «quiero»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Puede Diego ducharse ahora?", audioText: "¿puede Diego ducharse ahora?", gloss: "Can Diego shower now?" }
+            goal: "Say no, he wants to get up early."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, quiere levantarse temprano" }
+                - { id: "wrong1", text: "no, quiere se levantar temprano" }
+                - { id: "wrong2", text: "no, quiero levantarse temprano" }
+              correctOptionId: "right"
+              audioText: "no, quiere levantarse temprano"
+            replyGloss: "No, he wants to get up early."
+            explanation: "«levantarse» stays fused after «quiere» — never «quiere se levantar», the pointer between the two verbs."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Vas a hacerlo mañana también?", audioText: "¿vas a hacerlo mañana también?", gloss: "Are you going to do it tomorrow too?" }
+            goal: "Say yes, and Ana can see it too."
+            reply:
+              mode: build
+              tiles: ["sí", "y", "Ana", "puede", "verlo", "también"]
+              answer: "sí y Ana puede verlo también"
+            replyGloss: "Yes, and Ana can see it too."
+            explanation: "A third host verb, «puede», and the fused pointer travels with it — «verlo» — exactly the same rule."
+      - kind: matchLit
+        id: l8-match
+        pairs:
+          - { source: "comprarlo", target: "to buy it" }
+          - { source: "verlo", target: "to see it" }
+          - { source: "levantarme", target: "to get myself up" }
+          - { source: "ducharse", target: "to shower (himself/herself)" }
+          - { source: "hacerlo", target: "to do it" }
+          - { source: "temprano", target: "early" }
+      - kind: speakLit
+        id: l8-sp-win
+        es: "no quiero levantarme, pero puedo hacerlo"
+        en: "I don't want to get up, but I can do it"
+        atoms: ["quiero", "levantarme", "puedo", "hacerlo", "pero"]

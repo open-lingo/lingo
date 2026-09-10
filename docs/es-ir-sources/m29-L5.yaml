@@ -1,0 +1,144 @@
+  # ── L5 · «Diego puede ducharse» — reflexive «se», 3rd person, against
+  #    «puede» (m14). Full pronoun set (lo/la/los/las/me/te/se) has now
+  #    been fused at least once each across L1-L5. No new atom: «ducharse»
+  #    is byte-identical to the PRIOR m17 dictionary-name atom (NAME-ONLY
+  #    there; here it is the fused 3rd-person form, which happens to be
+  #    the identical string) — first fused-context PRINTING of it. ≥1
+  #    recall of L4's own win line. Third-position foil («Diego puede se
+  #    duchar») appears as an mcq distractor and a sim wrong-choice
+  #    option only.
+  - n: 5
+    template: free
+    title: "Diego puede ducharse"
+    description: "Third person, reflexive: «se» (m17) fuses onto the end exactly the way «me» did. The full pronoun set — lo, la, los, las, me, te, se — now has both homes."
+    steps:
+      - kind: map
+        id: l5-map-diegopuededucharse
+        tokens: ["Diego", "puede", "ducharse"]
+        pairs:
+          - { en: "Diego", tokenIndex: 0 }
+          - { en: "can", tokenIndex: 1 }
+          - { en: "shower himself", tokenIndex: 2 }
+        audioText: "Diego puede ducharse"
+        revealNote: "«ducharse» — «duchar» (m17) plus «se» (m17), fused onto the end. «se puede duchar» and «puede ducharse» mean exactly the same thing."
+      # Printed non-recall at L4 (es-m29-4-l4-sp-win).
+      - kind: speakLit
+        id: l5-sp-recall-l4win
+        es: "no quiero levantarme"
+        en: "I don't want to get up"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l5-b-diegopuededucharsehoy
+        also: ["hoy Diego puede ducharse"]
+        es: "Diego puede ducharse hoy"
+        en: "Diego can shower today"
+        atoms: ["puede", "ducharse", "hoy"]
+        tiles: ["puedo", "puedes"]
+      - kind: clozeLit
+        id: l5-c-sepuededuchar
+        es: "se puede duchar ahora"
+        en: "He can shower now"
+        blank: "se"
+        options: ["se", "me"]
+        atoms: ["puede", "duchar", "ahora"]
+        why: "«él» is the subject, so «se» — right in front of «puede», the pre-verbal position PRIOR since m17. «me» would be about «yo» instead."
+      - kind: listenCompLit
+        id: l5-lc-anapuededucharse
+        es: "Ana también puede ducharse"
+        en: "Ana can also shower."
+        atoms: ["puede", "ducharse", "también"]
+        distractorsEn:
+          - "Ana can't shower."
+          - "Ana could shower."
+          - "Ana also wants to shower."
+      - kind: mcq
+        id: l5-q-ducharse
+        prompt: "Which one means 'Diego can shower'?"
+        correct: "Diego puede ducharse"
+        distractors: ["Diego puede se duchar", "Diego puedo ducharse", "Diego puede levantarme"]
+        atoms: ["puede", "ducharse"]
+        why: "«ducharse» — the pointer fused onto the infinitive. «Diego puede se duchar» puts the pointer between the two verbs — never legal. «puedo» is the wrong person; «levantarme» is the wrong pronoun."
+      - kind: buildLit
+        id: l5-b-quiereducharsetambien
+        also: ["también quiere ducharse"]
+        es: "Diego quiere ducharse también"
+        en: "Diego wants to shower too"
+        atoms: ["quiere", "ducharse", "también"]
+        tiles: ["quiero", "quieres"]
+      - kind: audioWimcq
+        id: l5-ear-trabajo
+        target: { surface: "el trabajo", emoji: "💼" }
+        distractors:
+          - { surface: "la casa", emoji: "🏠" }
+          - { surface: "la escuela", emoji: "🏫" }
+      - kind: agreementLit
+        id: l5-agr-diegopuededucharseyoquierolevantarme
+        en: "Diego can shower, and I want to get myself up"
+        audioText: "Diego puede ducharse, y yo quiero levantarme"
+        atoms: ["puede", "ducharse", "quiero", "levantarme"]
+        segments:
+          - { text: "Diego " }
+          - { blank: { id: "p1", answer: "puede", options: ["puede", "puedo"] } }
+          - { text: " ducharse, y yo " }
+          - { blank: { id: "p2", answer: "quiero", options: ["quiero", "quiere"] } }
+          - { text: " levantarme" }
+      - kind: listenBuildLit
+        id: l5-lb-anaquiereducharseahora
+        es: "Ana quiere ducharse ahora también"
+        en: "Ana wants to shower now too"
+        atoms: ["quiere", "ducharse", "ahora", "también"]
+        tiles: ["quiero", "quieres"]
+      - kind: textMcq
+        id: l5-tm-ducharse
+        target: "ducharse"
+        distractors: ["duchar", "ducho", "levantarse"]
+      - kind: sim
+        id: l5-sim-sofia-ducharse
+        scene: { emoji: "🚿", title: "Sofía asks about Diego", setting: "Sofía wants to know Diego's morning plans." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Puede Diego ducharse ahora?", audioText: "¿puede Diego ducharse ahora?", gloss: "Can Diego shower now?" }
+            goal: "Say yes, he can shower now."
+            reply:
+              mode: build
+              tiles: ["sí", "puede", "ducharse", "ahora", "levantarse"]
+              answer: "sí puede ducharse ahora"
+            replyGloss: "Yes, he can shower now."
+            explanation: "«ducharse» — «duchar» plus «se» fused onto the end, matching Sofía's own «ducharse»."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y quiere levantarse temprano?", audioText: "¿y quiere levantarse temprano?", gloss: "And does he want to get up early?" }
+            goal: "Say yes, he wants to get up early."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, quiere levantarse temprano" }
+                - { id: "wrong1", text: "sí, quiere se levantar temprano" }
+                - { id: "wrong2", text: "sí, quiero levantarse temprano" }
+              correctOptionId: "right"
+              audioText: "sí, quiere levantarse temprano"
+            replyGloss: "Yes, he wants to get up early."
+            explanation: "«levantarse» stays fused after «quiere» — never «quiere se levantar», the pointer between the two verbs."
+          - id: t3
+            npc: { speaker: "Sofía", es: "Yo también me quiero duchar ahora.", audioText: "yo también me quiero duchar ahora.", gloss: "I also want to shower now." }
+            goal: "Say Ana wants to shower too."
+            reply:
+              mode: build
+              tiles: ["Ana", "también", "quiere", "ducharse", "duchar"]
+              answer: "Ana también quiere ducharse"
+            replyGloss: "Ana also wants to shower."
+            explanation: "Same fusion, third person: «quiere» is Ana's form (m7/m14), and «ducharse» stays fused."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "ducharse", target: "to shower (himself/herself)" }
+          - { source: "levantarse", target: "to get (oneself) up" }
+          - { source: "se", target: "himself, herself (before the verb)" }
+          - { source: "ahora", target: "now" }
+          - { source: "puede", target: "he/she/you (formal) can" }
+          - { source: "quiere", target: "he/she/you (formal) wants" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "Diego puede ducharse"
+        en: "Diego can shower"
+        atoms: ["puede", "ducharse"]

@@ -1,0 +1,142 @@
+  # ── L7 · «Mañana voy a levantarme» — recombination: reflexive «me»
+  #    fused onto PRIOR m28 «voy a», not just «querer». Discrimination
+  #    against the third-position foil begins in earnest (both a
+  #    clozeLit-style mcq and a listenBuildLit distractor drill it). ≥1
+  #    recall of L6's own win line. No new atom: «levantarme» is already
+  #    registered (header, first printed at L4) — this lesson recombines
+  #    it with a new host verb.
+  - n: 7
+    template: free
+    title: "Mañana voy a levantarme"
+    description: "The reflexive family works with «voy a» too. «me» can go right before «voy», or fuse onto the end of the infinitive — never between the two verbs."
+    steps:
+      - kind: map
+        id: l7-map-mananavoyalevantarme
+        tokens: ["mañana", "voy", "a", "levantarme"]
+        pairs:
+          - { en: "tomorrow", tokenIndex: 0 }
+          - { en: "I'm going to", tokenIndex: 1 }
+          - { en: "get myself up", tokenIndex: 3 }
+        audioText: "mañana voy a levantarme"
+        revealNote: "«levantarme» — the same fused form from L4, now on a fourth host verb: «voy a» (m28) instead of «quiero»."
+      # Printed non-recall at L6 (es-m29-6-l6-sp-win).
+      - kind: speakLit
+        id: l7-sp-recall-l6win
+        es: "voy a hacerlo mañana"
+        en: "I'm going to do it tomorrow"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l7-b-voyalevantarmetemprano
+        also: ["temprano voy a levantarme"]
+        es: "voy a levantarme temprano"
+        en: "I'm going to get myself up early"
+        atoms: ["voy", "levantarme", "temprano"]
+        tiles: ["vas", "va"]
+      - kind: clozeLit
+        id: l7-c-mevoyalevantar
+        es: "me voy a levantar temprano"
+        en: "I'm going to get up early"
+        blank: "me"
+        options: ["me", "te"]
+        atoms: ["voy", "levantar", "temprano"]
+        why: "«yo» is the subject, so «me» — right in front of «voy», the pre-verbal position PRIOR since m17. «te» would be about «tú» instead."
+      - kind: listenCompLit
+        id: l7-lc-diegovaalevantarse
+        es: "Diego también va a levantarse temprano"
+        en: "Diego is also going to get up early."
+        atoms: ["va", "levantarse", "temprano", "también"]
+        distractorsEn:
+          - "Diego isn't going to get up early."
+          - "Diego got up early."
+          - "Diego is also going to shower early."
+      - kind: mcq
+        id: l7-q-thirdposition
+        prompt: "Which one means 'I'm going to get myself up'?"
+        correct: "voy a levantarme"
+        distractors: ["voy a me levantar", "vas a levantarme", "va a levantarme"]
+        atoms: ["voy", "levantarme"]
+        why: "«levantarme» fused onto the infinitive. «voy a me levantar» puts the pointer between the two verbs — never legal. «vas»/«va» are the wrong person."
+      - kind: buildLit
+        id: l7-b-anavaaducharsehoy
+        also: ["hoy Ana va a ducharse"]
+        es: "Ana va a ducharse hoy"
+        en: "Ana is going to shower today"
+        atoms: ["va", "ducharse", "hoy"]
+        tiles: ["vas", "van"]
+      - kind: audioWimcq
+        id: l7-ear-cine
+        target: { surface: "el cine", emoji: "🎬" }
+        distractors:
+          - { surface: "la fiesta", emoji: "🎉" }
+          - { surface: "el museo", emoji: "🏛️" }
+      - kind: agreementLit
+        id: l7-agr-voyalevantarmevasaducharte
+        en: "I'm going to get myself up, and you're going to shower"
+        audioText: "yo voy a levantarme, y tú te vas a duchar"
+        atoms: ["voy", "levantarme", "vas"]
+        segments:
+          - { text: "yo " }
+          - { blank: { id: "p1", answer: "voy", options: ["voy", "vas"] } }
+          - { text: " a levantarme, y tú te " }
+          - { blank: { id: "p2", answer: "vas", options: ["vas", "voy"] } }
+          - { text: " a duchar" }
+      - kind: listenBuildLit
+        id: l7-lb-nolovoyahacer
+        es: "no lo voy a hacer hoy"
+        en: "I'm not going to do it today"
+        atoms: ["voy", "hacer", "hoy"]
+        tiles: ["hacerlo", "comprarlo"]
+      - kind: textMcq
+        id: l7-tm-levantarme
+        target: "levantarme"
+        distractors: ["levantar", "levanto", "levanta"]
+      - kind: sim
+        id: l7-sim-sofia-levantarme
+        scene: { emoji: "🗓️", title: "Sofía asks about the weekend", setting: "Sofía wants to know your weekend morning plans." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Te vas a levantar temprano?", audioText: "¿te vas a levantar temprano?", gloss: "Are you going to get up early?" }
+            goal: "Say yes, you're going to get up early."
+            reply:
+              mode: build
+              tiles: ["sí", "voy", "a", "levantarme", "temprano"]
+              answer: "sí voy a levantarme temprano"
+            replyGloss: "Yes, I'm going to get up early."
+            explanation: "«levantarme» — the bare «levantar» plus «me» fused onto the end; Sofía asked pre-verbally («te vas a levantar»), you can answer either way."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y Diego va a ducharse también?", audioText: "¿y Diego va a ducharse también?", gloss: "And is Diego also going to shower?" }
+            goal: "Say yes, he's also going to shower."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, también va a ducharse" }
+                - { id: "wrong1", text: "sí, también va a se duchar" }
+                - { id: "wrong2", text: "sí, también vas a ducharse" }
+              correctOptionId: "right"
+              audioText: "sí, también va a ducharse"
+            replyGloss: "Yes, he's also going to shower."
+            explanation: "«ducharse» stays fused after «va» — never «va a se duchar», the pointer between the two verbs."
+          - id: t3
+            npc: { speaker: "Sofía", es: "Yo me voy a levantar temprano también.", audioText: "yo me voy a levantar temprano también.", gloss: "I'm also going to get up early." }
+            goal: "Say the same thing, using the other position."
+            reply:
+              mode: build
+              tiles: ["yo", "también", "voy", "a", "levantarme"]
+              answer: "yo también voy a levantarme"
+            replyGloss: "I'm also going to get myself up."
+            explanation: "Sofía used the pre-verbal home («me voy a levantar»); you used the fused one («voy a levantarme») — both correct, your choice."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "levantarme", target: "to get myself up" }
+          - { source: "ducharse", target: "to shower (himself/herself)" }
+          - { source: "voy a", target: "I'm going to" }
+          - { source: "va a", target: "he/she/you (formal) is going to" }
+          - { source: "temprano", target: "early" }
+          - { source: "hoy", target: "today" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "mañana voy a levantarme"
+        en: "Tomorrow I'm going to get myself up"
+        atoms: ["voy", "levantarme", "mañana"]

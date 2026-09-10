@@ -1,0 +1,23 @@
+placement:
+  screener:
+    - id: "es-m29-scr-1"
+      prompt: "'I want to see it.' — which one?"
+      correct: "quiero verlo"
+      distractors: ["quiero lo ver", "quiero ver", "quiero verla"]
+  byModule:
+    - id: "es-m29-pl-1"
+      prompt: "I don't want to get up."
+      correct: "no quiero levantarme"
+      distractors: ["no quiero me levantar", "no me quiero levantarme", "no quiero levantar"]
+    - id: "es-m29-pl-2"
+      prompt: "Can you buy it (the dress) tomorrow?"
+      correct: "¿puedes comprarla mañana?"
+      distractors: ["¿puedes la comprar mañana?", "¿puedo comprarla mañana?", "¿puedes comprarlo mañana?"]
+    - id: "es-m29-pl-3"
+      prompt: "I'm going to do it tomorrow."
+      correct: "voy a hacerlo mañana"
+      distractors: ["voy a lo hacer mañana", "voy hacerlo mañana", "voy a hacerla mañana"]
+    - id: "es-m29-pl-4"
+      prompt: "This weekend I'm going to see them."
+      correct: "este fin de semana voy a verlos"
+      distractors: ["este fin de semana voy a los ver", "este fin de semana voy a verlas", "este fin de semana voy verlos"]

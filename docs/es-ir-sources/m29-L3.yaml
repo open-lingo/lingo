@@ -1,0 +1,140 @@
+  # ── L3 · «Ana puede comprarlos» — 3rd person, «los»/«las», against
+  #    «puede» (m14). ≥1 recall of L2's own win line. New atom this
+  #    lesson: «comprarlos» (header list, first PRINTED here). Third-
+  #    position foil («Ana puede los comprar») appears as an mcq
+  #    distractor and a sim wrong-choice option only.
+  - n: 3
+    template: free
+    title: "Ana puede comprarlos"
+    description: "Third person works exactly the same way: «puede» (m14) followed by a bare infinitive gives the pronoun the same two homes, plural included."
+    steps:
+      - kind: map
+        id: l3-map-anapuedecomprarlos
+        tokens: ["Ana", "puede", "comprarlos"]
+        pairs:
+          - { en: "Ana", tokenIndex: 0 }
+          - { en: "can", tokenIndex: 1 }
+          - { en: "buy them", tokenIndex: 2 }
+        audioText: "Ana puede comprarlos"
+        revealNote: "«comprarlos» — «comprar» (m12) plus «los» (m4/m16), fused onto the end. Same fusion, plural this time."
+      # Printed non-recall at L2 (es-m29-2-l2-sp-win).
+      - kind: speakLit
+        id: l3-sp-recall-l2win
+        es: "¿puedes comprarla mañana?"
+        en: "Can you buy it tomorrow?"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l3-b-anapuedecomprarloshoy
+        also: ["hoy Ana puede comprarlos"]
+        es: "Ana puede comprarlos hoy"
+        en: "Ana can buy them today"
+        atoms: ["puede", "comprarlos", "hoy"]
+        tiles: ["puedo", "puedes"]
+      - kind: clozeLit
+        id: l3-c-lospuedecomprar
+        es: "los puede comprar mañana"
+        en: "She can buy them (the books) tomorrow"
+        blank: "los"
+        options: ["los", "las"]
+        atoms: ["puede", "comprar", "mañana"]
+        why: "«los libros» is masculine plural, so «los» — right in front of «puede», the pre-verbal position PRIOR since m16. «las» would point at something feminine plural instead."
+      - kind: listenCompLit
+        id: l3-lc-diegopuedecomprarlas
+        es: "Diego también las puede comprar"
+        en: "Diego can also buy them."
+        atoms: ["puede", "comprar", "también"]
+        distractorsEn:
+          - "Diego can't buy them."
+          - "Diego could buy them."
+          - "Diego can also see them."
+      - kind: mcq
+        id: l3-q-comprarlos
+        prompt: "Which one means 'Ana can buy them (the books)'?"
+        correct: "Ana puede comprarlos"
+        distractors: ["Ana puede los comprar", "Ana puede comprarlas", "Ana puedo comprarlos"]
+        atoms: ["puede", "comprarlos"]
+        why: "«comprarlos» — the pointer fused onto the infinitive. «Ana puede los comprar» puts the pointer between the two verbs — never legal. «comprarlas» is the wrong gender; «puedo» the wrong person."
+      - kind: buildLit
+        id: l3-b-sofiapuedeverlashoy
+        also: ["hoy Sofía las puede ver"]
+        es: "Sofía las puede ver hoy"
+        en: "Sofía can see them (fem.) today"
+        atoms: ["puede", "ver", "hoy"]
+        tiles: ["veo", "ves"]
+      - kind: audioWimcq
+        id: l3-ear-tienda
+        target: { surface: "la tienda", emoji: "🏪" }
+        distractors:
+          - { surface: "el mercado", emoji: "🛒" }
+          - { surface: "el parque", emoji: "🌳" }
+      - kind: agreementLit
+        id: l3-agr-anapuedecomprarlossofiapuedeverlas
+        en: "Ana can buy them, and Sofía can see them"
+        audioText: "Ana puede comprarlos, y Sofía las puede ver"
+        atoms: ["puede", "comprarlos", "ver"]
+        segments:
+          - { text: "Ana " }
+          - { blank: { id: "p1", answer: "puede", options: ["puede", "puedo"] } }
+          - { text: " comprarlos, y Sofía las " }
+          - { blank: { id: "p2", answer: "puede", options: ["puede", "puedes"] } }
+          - { text: " ver" }
+      - kind: listenBuildLit
+        id: l3-lb-quierecomprarlosmanana
+        es: "Diego quiere comprarlos mañana también"
+        en: "Diego wants to buy them tomorrow too"
+        atoms: ["quiere", "comprarlos", "mañana", "también"]
+        tiles: ["quiero", "quieres"]
+      - kind: textMcq
+        id: l3-tm-comprarlos
+        target: "comprarlos"
+        distractors: ["comprarlas", "comprarlo", "los comprar"]
+      - kind: sim
+        id: l3-sim-sofia-comprarlos
+        scene: { emoji: "🛍️", title: "Sofía asks about Ana", setting: "Sofía wants to know if Ana can help with the shopping." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Puede Ana comprarlos mañana?", audioText: "¿puede Ana comprarlos mañana?", gloss: "Can Ana buy them tomorrow?" }
+            goal: "Say yes, she can buy them tomorrow."
+            reply:
+              mode: build
+              tiles: ["sí", "puede", "comprarlos", "mañana", "comprarlas"]
+              answer: "sí puede comprarlos mañana"
+            replyGloss: "Yes, she can buy them tomorrow."
+            explanation: "«comprarlos» — «comprar» plus «los» fused onto the end. «comprarlas» would be the wrong gender."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y las puede ver también?", audioText: "¿y las puede ver también?", gloss: "And can she see them too?" }
+            goal: "Say yes, she can see them too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, las puede ver también" }
+                - { id: "wrong1", text: "sí, puede las ver también" }
+                - { id: "wrong2", text: "sí, los puede ver también" }
+              correctOptionId: "right"
+              audioText: "sí, las puede ver también"
+            replyGloss: "Yes, she can see them too."
+            explanation: "«las» stays right in front of «puede» — the pre-verbal home. «puede las ver» puts it between the two verbs instead; «los» would be the wrong gender."
+          - id: t3
+            npc: { speaker: "Sofía", es: "Yo también quiero comprarlos.", audioText: "yo también quiero comprarlos.", gloss: "I also want to buy them." }
+            goal: "Say Diego wants to buy them too."
+            reply:
+              mode: build
+              tiles: ["Diego", "también", "quiere", "comprarlos", "comprarlas"]
+              answer: "Diego también quiere comprarlos"
+            replyGloss: "Diego also wants to buy them."
+            explanation: "Same fusion, third person: «quiere» is Diego's form (m7/m14), and «comprarlos» stays fused."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "comprarlos", target: "to buy them (masc.)" }
+          - { source: "ver", target: "to see" }
+          - { source: "los", target: "them, masc. (direct object, before the verb)" }
+          - { source: "las", target: "them, fem. (direct object, before the verb)" }
+          - { source: "puede", target: "he/she/you (formal) can" }
+          - { source: "quiere", target: "he/she/you (formal) wants" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "Ana puede comprarlos hoy"
+        en: "Ana can buy them today"
+        atoms: ["puede", "comprarlos", "hoy"]

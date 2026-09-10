@@ -39,6 +39,7 @@ import { ES_M25_LESSONS } from "./m25";
 import { ES_M26_LESSONS } from "./m26";
 import { ES_M27_LESSONS } from "./m27";
 import { ES_M28_LESSONS } from "./m28";
+import { ES_M29_LESSONS } from "./m29";
 
 export type EsModuleMeta = {
   id: string;
@@ -232,7 +233,14 @@ export const ES_MODULE_META: EsModuleMeta[] = [
     eyebrow: "Module 28 · Voy a nadar mañana",
     summary: "the near future — «voy a, vas a, va a, vamos a, van a» plus any infinitive you already know, turning the same «voy» that gets you to the beach into the verb that gets you to tomorrow.",
     accent: { from: "#22c55e", to: "#15803d" },
+  },  {
+    id: "m29",
+    title: "Quiero verlo",
+    eyebrow: "Module 29 · The pointer's second home",
+    summary: "the same short word — lo, la, los, las, me, te, se — that always went before the verb can now ride along at the end of an infinitive: «lo quiero ver» and «quiero verlo» are both correct, and you get to choose.",
+    accent: { from: "#64748b", to: "#334155" },
   },
+
 
 
 
@@ -276,6 +284,7 @@ const LESSONS_BY_MODULE: Record<string, LessonContent[]> = {
   m26: ES_M26_LESSONS,
   m27: ES_M27_LESSONS,
   m28: ES_M28_LESSONS,
+  m29: ES_M29_LESSONS,
 };
 
 /** Flat lesson list for the shared LESSONS content index (mockLessons.ts). */

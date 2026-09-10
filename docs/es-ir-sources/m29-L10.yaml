@@ -1,0 +1,183 @@
+  # ── L10 · Mastery — Ana asks the group about the weekend. Longest sim in
+  #    the module; mixes «voy a» + reflexive-fused AND «voy a» + object-
+  #    fused in the same conversation. No map, no info card (L8-checkpoint
+  #    convention). New atom this lesson: «verlos» (header's 7th and final
+  #    atom) — debuts on the very first step, a buildLit (`build_sentence`,
+  #    an ES_INTRO_TYPES-eligible step type; L10 has no map/info to debut
+  #    it on otherwise). ≥2 recalls (L8, L9). ≥2 PRIOR connectives:
+  #    «mientras» (m23, used with SIMPLE PRESENT — precedented live by
+  #    m28-L10's own "mientras yo estudio, Ana va a trabajar") and «por
+  #    eso» (m25).
+  #
+  #    DECISION RECORD — NOT reusing m28-L10's own closing precedent line
+  #    "Cuéntamelo todo, de principio a fin.": that NPC line's expected
+  #    reply chains multiple clauses but never stacks two pronouns on one
+  #    infinitive, so on its face it looks safe. It was rejected anyway
+  #    because the natural way to fold BOTH of this module's fused
+  #    families (reflexive-fused AND object-fused) into one "tell me
+  #    everything" answer invites exactly the double-pronoun stack hard
+  #    rule 6 bans (e.g. a construction like "quiero contármelo" — two
+  #    pronouns on one infinitive, out of scope). Safer and just as
+  #    thorough: five separate turns, each exercising ONE fused pronoun
+  #    at a time; the lesson ENDS on the sim (§13.9 law 7 — mastery must
+  #    end on a conversation, not a grid), so the header's own verbatim
+  #    win line is delivered as the sim's own final-turn reply (t5),
+  #    mirroring m28-L10's own pattern, rather than a separate closing
+  #    speakLit.
+  #
+  #    «quieren»/«pueden» (ustedes/ellos present) are AVOIDED throughout —
+  #    grep-confirmed zero hits anywhere in `curriculum/*.ts`, i.e. never
+  #    actually printed/drilled anywhere in the live course even though
+  #    the conjugation table has full entries once querer/poder's
+  #    `introducedAtModule` is reached. Per "intro before review," a form
+  #    with zero prior exposure has no PRIOR to lean on regardless of any
+  #    gate's literal tolerance — so group-plural content in this lesson
+  #    is built with singular addressees (Ana asking each person in turn)
+  #    and the module's own registered plural atoms (los/las, «los»
+  #    fused as «verlos»/«comprarlos») instead of a plural verb form.
+  - n: 10
+    template: free
+    title: "Los planes del grupo"
+    description: "Ana checks in with everyone about the weekend — every fused pronoun this module taught, both host-verb families, one conversation."
+    steps:
+      - kind: buildLit
+        id: l10-b-estefindesemanavoyaverlos
+        also: ["voy a verlos este fin de semana"]
+        es: "este fin de semana voy a verlos"
+        en: "This weekend I'm going to see them"
+        atoms: ["voy", "verlos", "el fin de semana"]
+        tiles: ["vas", "va"]
+      - kind: clozeLit
+        id: l10-c-mientrasdiegosevaaduchar
+        es: "mientras yo trabajo, Diego se va a duchar"
+        en: "While I work, Diego is going to shower"
+        blank: "se"
+        options: ["se", "me"]
+        atoms: ["mientras", "va", "duchar"]
+        why: "«Diego» is 3rd person, so «se» — right in front of «va», the pre-verbal position PRIOR since m17. «me» would be about «yo» instead."
+      - kind: listenCompLit
+        id: l10-lc-sofiapuedeverlos
+        es: "Sofía puede verlos mañana también"
+        en: "Sofía can also see them tomorrow."
+        atoms: ["puede", "verlos", "mañana", "también"]
+        distractorsEn:
+          - "Sofía can't see them tomorrow."
+          - "Sofía saw them tomorrow."
+          - "Sofía can also buy them tomorrow."
+      - kind: mcq
+        id: l10-q-thirdposition
+        prompt: "Which one means 'I'm going to see them'?"
+        correct: "voy a verlos"
+        distractors: ["voy a los ver", "vas a verlos", "voy a verlas"]
+        atoms: ["voy", "verlos"]
+        why: "«verlos» fused onto the infinitive. «voy a los ver» puts the pointer between the two verbs — never legal. «vas» is the wrong person; «verlas» the wrong gender."
+      - kind: buildLit
+        id: l10-b-puedocomprarloshoy
+        also: ["hoy puedo comprarlos"]
+        es: "puedo comprarlos hoy"
+        en: "I can buy them today"
+        atoms: ["puedo", "comprarlos", "hoy"]
+        tiles: ["puedes", "puede"]
+      # Printed non-recall at L8 (es-m29-8-l8-sp-win).
+      - kind: speakLit
+        id: l10-sp-recall-l8win
+        es: "no quiero levantarme, pero puedo hacerlo"
+        en: "I don't want to get up, but I can do it"
+        atoms: []
+        cue: recall
+      - kind: audioWimcq
+        id: l10-ear-playa
+        target: { surface: "la playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "el museo", emoji: "🏛️" }
+          - { surface: "la fiesta", emoji: "🎉" }
+      - kind: agreementLit
+        id: l10-agr-checkpoint
+        en: "Ana is going to see them, and I'm going to buy them"
+        audioText: "Ana va a verlos, y yo voy a comprarlos"
+        atoms: ["va", "verlos", "voy", "comprarlos"]
+        segments:
+          - { text: "Ana " }
+          - { blank: { id: "p1", answer: "va", options: ["va", "voy"] } }
+          - { text: " a verlos, y yo " }
+          - { blank: { id: "p2", answer: "voy", options: ["voy", "va"] } }
+          - { text: " a comprarlos" }
+      # Printed non-recall at L9 (es-m29-9-l9-sp-win).
+      - kind: speakLit
+        id: l10-sp-recall-l9win
+        es: "Ana lo puede comprar, y yo puedo comprarlo también"
+        en: "Ana can buy it, and I can also buy it"
+        atoms: []
+        cue: recall
+      - kind: listenBuildLit
+        id: l10-lb-poresovoyaverlos
+        es: "va a hacer frío, por eso voy a verlos hoy"
+        en: "It's going to be cold, that's why I'm going to see them today"
+        atoms: ["va", "hacer", "el frío", "por eso", "voy", "verlos", "hoy"]
+        tiles: ["vas", "van"]
+      - kind: textMcq
+        id: l10-tm-verlos
+        target: "verlos"
+        distractors: ["verlo", "verla", "verlas"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "verlos", target: "to see them (masc.)" }
+          - { source: "comprarlos", target: "to buy them (masc.)" }
+          - { source: "ducharse", target: "to shower (himself/herself)" }
+          - { source: "mientras", target: "while" }
+          - { source: "por eso", target: "that's why" }
+          - { source: "este fin de semana", target: "this weekend" }
+      - kind: sim
+        id: l10-sim-ana-grupo
+        scene: { emoji: "📅", title: "Ana checks in with everyone", setting: "Ana is asking the group about the weekend, one person at a time." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Te vas a levantar temprano este fin de semana?", audioText: "¿te vas a levantar temprano este fin de semana?", gloss: "Are you going to get up early this weekend?" }
+            goal: "Say yes, you're going to get up early."
+            reply:
+              mode: build
+              tiles: ["sí", "voy", "a", "levantarme", "temprano", "levantarte"]
+              answer: "sí voy a levantarme temprano"
+            replyGloss: "Yes, I'm going to get myself up early."
+            explanation: "«levantarme» fused onto «voy a» — recombines two PRIOR modules (m17 reflexive + m28 «voy a»)."
+          - id: t2
+            npc: { speaker: "Ana", es: "Diego también va a ducharse temprano.", audioText: "Diego también va a ducharse temprano.", gloss: "Diego is also going to shower early." }
+            goal: "Ask if Sofía is also going to shower."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "¿y Sofía también va a ducharse?" }
+                - { id: "wrong1", text: "¿y Sofía también va a se duchar?" }
+                - { id: "wrong2", text: "¿y Sofía también vas a ducharse?" }
+              correctOptionId: "right"
+              audioText: "¿y Sofía también va a ducharse?"
+            replyGloss: "And is Sofía also going to shower?"
+            explanation: "«ducharse» stays fused after «va» — never «va a se duchar», the pointer between the two verbs; «vas» would ask about yourself."
+          - id: t3
+            npc: { speaker: "Ana", es: "¿Puedes comprarlos mañana?", audioText: "¿puedes comprarlos mañana?", gloss: "Can you buy them tomorrow?" }
+            goal: "Say yes, and you'll see them this weekend."
+            reply:
+              mode: build
+              tiles: ["sí", "puedo", "comprarlos", "y", "voy", "a", "verlos", "este", "fin", "de", "semana", "verlas"]
+              answer: "sí puedo comprarlos y voy a verlos este fin de semana"
+            replyGloss: "Yes, I can buy them, and I'm going to see them this weekend."
+            explanation: "Two fused pointers, two host verbs — «comprarlos» after «puedo», «verlos» after «voy a» — the same rule both times."
+          - id: t4
+            npc: { speaker: "Ana", es: "Va a hacer frío este fin de semana.", audioText: "va a hacer frío este fin de semana.", gloss: "It's going to be cold this weekend." }
+            goal: "Say that's why you'll see them today."
+            reply:
+              mode: build
+              tiles: ["por", "eso", "voy", "a", "verlos", "hoy", "porque"]
+              answer: "por eso voy a verlos hoy"
+            replyGloss: "That's why I'm going to see them today."
+            explanation: "«por eso» (m25) states the result of the cold weather — a natural connective closing the plan."
+          - id: t5
+            npc: { speaker: "Ana", es: "Yo voy a comprarlos este fin de semana.", audioText: "yo voy a comprarlos este fin de semana.", gloss: "I'm going to buy them this weekend." }
+            goal: "Say you'll see them this weekend too."
+            reply:
+              mode: build
+              tiles: ["este", "fin", "de", "semana", "voy", "a", "verlos", "hoy"]
+              answer: "este fin de semana voy a verlos"
+            replyGloss: "This weekend I'm going to see them."
+            explanation: "The module's own flagship recombination, closing the lesson: «voy a» (m28) plus «verlos» — «ver» (m15) plus «los» (m4/m16) fused onto the end."

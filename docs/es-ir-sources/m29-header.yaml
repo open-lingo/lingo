@@ -191,8 +191,14 @@ checkpoint: 8
 # (m13 particles), se (m17 atom), quiero/quieres/quiere (m7/m14),
 # puedo/puedes/puede (m14), querer/poder (bare infinitives, m14),
 # voy/vas/va/vamos/van/ir (m9/m18/m28), and the bare (non-reflexive)
-# infinitives levantar/duchar/despertar/acostar/lavar/peinar (m17 L7,
-# registered separately from their «-se» dictionary-name atoms) plus
+# infinitives levantar/duchar ONLY (m17 L7, registered separately from
+# their «-se» dictionary-name atoms — CORRECTION, drafting-time
+# finding: m17-L7.yaml's own header explicitly states "«acostar»/
+# «despertar»/«lavar» are NOT registered [as bare infinitives]: the
+# wanting is drilled on levantar/duchar only," so this module fuses
+# a pronoun onto a bare infinitive ONLY for levantar/duchar — never
+# lavar/acostar/despertar/peinar, whose «-se» dictionary atoms stay
+# NAME-ONLY per hard rule 3 and are never fused in this module) plus
 # the full m10-m17 bare-infinitive set (bailar/cantar/estudiar/hablar/
 # trabajar/comer/correr/escribir/leer/vivir/comprar/cocinar/nadar/
 # viajar/dormir/salir/tener/ver/hacer). This is a placement RULE over
@@ -237,6 +243,57 @@ checkpoint: 8
 # `#818cf8`, `#a78bfa`, `#a855f7`, `#c084fc`) — slate reads distinctly
 # desaturated next to all of them.
 # ─────────────────────────────────────────────────────────────────────────
-newAtoms: []
+# ── CORRECTION TO "NEW ATOMS: 0" ABOVE (drafting-time finding,
+#    2026-09-10) — the claim above does not survive contact with the
+#    pipeline, verified two independent ways before drafting a single
+#    lesson:
+#    1. `scripts/compile-ir-es.mjs` line 105 hard-requires
+#       `ir.newAtoms.length > 0` ("ir.newAtoms must be a non-empty
+#       list") — `newAtoms: []` does not compile at all, full stop.
+#    2. Even setting the compiler requirement aside, every fused string
+#       this module teaches («verlo», «comprarlo», «levantarme», …) is
+#       ONE unbroken run of letters to `esTokens()` (the regex is
+#       `[a-záéíóúñü]+` — it does not decompose a fused clitic back
+#       into its component pronoun + infinitive). The course-wide vocab-
+#       provenance gate (`registerEsModuleBarGuards`'s "no untracked
+#       words", debt 0 for any module authored after 2026-08-19) walks
+#       every `build_sentence`/`speaking`/`particle_cloze`/etc. answer
+#       surface through that same tokenizer and requires each resulting
+#       word to resolve against the registered-atom + conjugation
+#       lexicon. A fused surface that is not itself a registered atom
+#       is therefore an unconditional "untracked word" failure the
+#       moment it appears as a graded answer — not a corner case, the
+#       module's entire content. (The separate LIVE dialogue_sim
+#       provenance gate in `es-quality.test.ts` independently confirms
+#       the same non-decomposition behavior for sim reply positions —
+#       see that describe block's own tokenizer, identical `esTokens`.)
+#    Resolution, minimal-registration per [[drafting-coverage-not-
+#    volume]]: register ONLY the exact fused surfaces this module's own
+#    ten lessons print in a graded-answer position — 7 atoms, not the
+#    full combinatorial closure hard rule 6 enumerates. Where a fused
+#    3rd-person-reflexive form happens to coincide letter-for-letter
+#    with an ALREADY-REGISTERED m17 dictionary-name atom (duchar + se
+#    = «ducharse», byte-identical to m17's NAME-ONLY card), no new atom
+#    is registered — it is PRIOR by that coincidence, used at L5 and
+#    (as «levantarse») at L9's second contrast pair. The seven surfaces
+#    that do NOT coincide with any PRIOR atom: verlo, comprarlo,
+#    comprarla, comprarlos, levantarme, hacerlo, verlos. Each is a pure
+#    RECOMBINATION of PRIOR parts (a PRIOR bare infinitive, m10-m17, +
+#    a PRIOR pronoun, m16/m17) — thinner than any content module's atom
+#    count (m25/m28 each had 2 atoms that were genuinely NEW words; these
+#    7 are 100% derivable from PRIOR vocabulary by the rule this module
+#    itself teaches, registered only because the gate needs a literal
+#    string to point provenance at, not because the course is teaching
+#    7 new dictionary entries). No emoji on any of the 7 (grammar/
+#    placement atoms, matches every PRIOR verb-morphology atom in this
+#    course — hard rule 11 unaffected).
+newAtoms:
+  - { surface: "verlo", meaningEn: "to see it (him)", partOfSpeech: "verb", kind: "vocab", hint: "verlo — «ver» (m15) plus «lo» (m16) fused onto the end. «lo quiero ver» and «quiero verlo» mean exactly the same thing; this is the module's own flagship pair." }
+  - { surface: "comprarlo", meaningEn: "to buy it (him)", partOfSpeech: "verb", kind: "vocab", hint: "comprarlo — «comprar» (m12) plus «lo» (m16) fused onto the end. Same fusion as «verlo», a different PRIOR infinitive." }
+  - { surface: "comprarla", meaningEn: "to buy it (her)", partOfSpeech: "verb", kind: "vocab", hint: "comprarla — «comprar» (m12) plus «la» (m3/m16) fused onto the end. Same fusion, feminine object." }
+  - { surface: "comprarlos", meaningEn: "to buy them (masc.)", partOfSpeech: "verb", kind: "vocab", hint: "comprarlos — «comprar» (m12) plus «los» (m4/m16) fused onto the end. Same fusion, plural object." }
+  - { surface: "levantarme", meaningEn: "to get myself up", partOfSpeech: "verb", kind: "vocab", hint: "levantarme — the BARE «levantar» (m17 L7, never the «-se» dictionary card) plus «me» (m13/m17) fused onto the end. «me quiero levantar» and «quiero levantarme» mean exactly the same thing." }
+  - { surface: "hacerlo", meaningEn: "to do it", partOfSpeech: "verb", kind: "vocab", hint: "hacerlo — «hacer» (m15) plus «lo» (m16) fused onto the end. Recombines with PRIOR «voy a» (m28): «voy a hacerlo»." }
+  - { surface: "verlos", meaningEn: "to see them (masc.)", partOfSpeech: "verb", kind: "vocab", hint: "verlos — «ver» (m15) plus «los» (m4/m16) fused onto the end. This module's mastery-lesson recombination with PRIOR «voy a» (m28): «voy a verlos»." }
 
 lessons:

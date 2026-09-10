@@ -1,0 +1,141 @@
+  # ── L2 · «¿Puedes comprarla?» — second position extended to tú, «la»,
+  #    against «poder» (m14) instead of «querer» (m7/m14) — the rule
+  #    generalizes to a second host verb immediately. ≥1 recall of L1's
+  #    own win line. New atom this lesson: none new (this module's other
+  #    6 atoms were already registered in the header; this lesson simply
+  #    reuses «comprarlo»/introduces its feminine sibling «comprarla»
+  #    from the header list, first PRINTED here). Third-position foil
+  #    («puedes la comprar») appears as a textMcq distractor and a sim
+  #    wrong-choice option only.
+  - n: 2
+    template: free
+    title: "¿Puedes comprarla?"
+    description: "The same second position works with «poder» (m14), not just «querer». Any conjugated verb followed by a bare infinitive gives the pronoun the same two homes."
+    steps:
+      - kind: map
+        id: l2-map-puedescomprarla
+        tokens: ["¿puedes", "comprarla?"]
+        pairs:
+          - { en: "can you", tokenIndex: 0 }
+          - { en: "buy it (her)", tokenIndex: 1 }
+        audioText: "¿puedes comprarla?"
+        revealNote: "«comprarla» — «comprar» (m12) plus «la» (m16), fused onto the end. Same fusion as L1's «comprarlo», but «la» because the thing is feminine."
+      # Printed non-recall at L1 (es-m29-1-l1-sp-win).
+      - kind: speakLit
+        id: l2-sp-recall-l1win
+        es: "quiero comprarlo mañana"
+        en: "I want to buy it tomorrow"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l2-b-puedescomprarlahoy
+        also: ["hoy puedes comprarla"]
+        es: "puedes comprarla hoy"
+        en: "You can buy it today"
+        atoms: ["puedes", "comprarla", "hoy"]
+        tiles: ["puedo", "puede"]
+      - kind: listenBuildLit
+        id: l2-lb-lapuedescomprarmanana
+        es: "la puedes comprar mañana"
+        en: "You can buy it (the dress) tomorrow"
+        atoms: ["puedes", "comprar", "mañana"]
+        tiles: ["lo", "los"]
+      - kind: listenCompLit
+        id: l2-lc-sofiapuedecomprarla
+        es: "Sofía puede comprarla también"
+        en: "Sofía can also buy it."
+        atoms: ["puede", "comprarla", "también"]
+        distractorsEn:
+          - "Sofía can't buy it."
+          - "Sofía could buy it."
+          - "Sofía can also see it."
+      - kind: mcq
+        id: l2-q-comprarla
+        prompt: "Which one means 'Can you buy it?'"
+        correct: "¿puedes comprarla?"
+        distractors: ["¿puedes la comprar?", "¿puedo comprarla?", "¿puedes comprarlo?"]
+        atoms: ["puedes", "comprarla"]
+        why: "«comprarla» — the pointer fused onto the infinitive. «puedes la comprar» puts the pointer between the two verbs — never legal. «puedo» is the wrong person; «comprarlo» the wrong gender."
+      - kind: buildLit
+        id: l2-b-nopuedesverlahoy
+        also: ["hoy no la puedes ver"]
+        es: "no la puedes ver hoy"
+        en: "You can't see it today"
+        atoms: ["puedes", "ver", "hoy"]
+        tiles: ["veo", "ve"]
+      - kind: audioWimcq
+        id: l2-ear-mercado
+        target: { surface: "el mercado", emoji: "🛒" }
+        distractors:
+          - { surface: "la tienda", emoji: "🏪" }
+          - { surface: "la playa", emoji: "🏖️" }
+      - kind: agreementLit
+        id: l2-agr-puedescomprarlapuedoverla
+        en: "You can buy it, and I can see it"
+        audioText: "tú puedes comprarla, y yo la puedo ver"
+        atoms: ["puedes", "comprarla", "puedo", "ver"]
+        segments:
+          - { text: "tú " }
+          - { blank: { id: "p1", answer: "puedes", options: ["puedes", "puedo"] } }
+          - { text: " comprarla, y yo la " }
+          - { blank: { id: "p2", answer: "puedo", options: ["puedo", "puedes"] } }
+          - { text: " ver" }
+      - kind: listenBuildLit
+        id: l2-lb-quierescomprarlamanana
+        es: "quieres comprarla mañana también"
+        en: "You want to buy it tomorrow too"
+        atoms: ["quieres", "comprarla", "mañana", "también"]
+        tiles: ["quiero", "quiere"]
+      - kind: textMcq
+        id: l2-tm-comprarla
+        target: "comprarla"
+        distractors: ["comprarlo", "comprar", "la comprar"]
+      - kind: sim
+        id: l2-sim-diego-comprarla
+        scene: { emoji: "🛍️", title: "Diego asks about the dress", setting: "Diego wants to know if you can help with an errand." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Puedes comprarla mañana?", audioText: "¿puedes comprarla mañana?", gloss: "Can you buy it tomorrow?" }
+            goal: "Say yes, you can buy it tomorrow."
+            reply:
+              mode: build
+              tiles: ["sí", "puedo", "comprarla", "mañana", "comprarlo"]
+              answer: "sí puedo comprarla mañana"
+            replyGloss: "Yes, I can buy it tomorrow."
+            explanation: "«comprarla» — «comprar» plus «la» fused onto the end, matching Diego's own «la». «comprarlo» would be the wrong gender."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y la quieres ver también?", audioText: "¿y la quieres ver también?", gloss: "And do you want to see it too?" }
+            goal: "Say yes, you want to see it too."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, la quiero ver también" }
+                - { id: "wrong1", text: "sí, quiero la ver también" }
+                - { id: "wrong2", text: "sí, lo quiero ver también" }
+              correctOptionId: "right"
+              audioText: "sí, la quiero ver también"
+            replyGloss: "Yes, I want to see it too."
+            explanation: "«la» stays right in front of «quiero» — the pre-verbal home. «quiero la ver» puts it between the two verbs instead; «lo» would be the wrong gender."
+          - id: t3
+            npc: { speaker: "Diego", es: "Puedo comprarla hoy también.", audioText: "puedo comprarla hoy también.", gloss: "I can buy it today too." }
+            goal: "Say no, you can't buy it today."
+            reply:
+              mode: build
+              tiles: ["no", "puedo", "comprarla", "hoy", "comprarlo"]
+              answer: "no puedo comprarla hoy"
+            replyGloss: "No, I can't buy it today."
+            explanation: "Same fusion, negated: «no» sits outside the pair, the way it always has, and «comprarla» stays fused."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "comprarla", target: "to buy it (her)" }
+          - { source: "ver", target: "to see" }
+          - { source: "la", target: "it, her (direct object, before the verb)" }
+          - { source: "puedes", target: "you can" }
+          - { source: "puede", target: "he/she/you (formal) can" }
+          - { source: "también", target: "also, too" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "¿puedes comprarla mañana?"
+        en: "Can you buy it tomorrow?"
+        atoms: ["puedes", "comprarla", "mañana"]
