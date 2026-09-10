@@ -1744,8 +1744,8 @@ const ES_M27_10: LessonContent = {
           id: "t1",
           npc: {
             speaker: "Ana",
-            kana: "¿Vivían todos aquí juntos de niños?",
-            audioText: "¿vivían todos aquí juntos de niños?",
+            kana: "¿Vivían todos aquí juntos de niño?",
+            audioText: "¿vivían todos aquí juntos de niño?",
             gloss: "Did you all used to live here together as children?",
           },
           goal: "Say yes, you all lived here together.",
