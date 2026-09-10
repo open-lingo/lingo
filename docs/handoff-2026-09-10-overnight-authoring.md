@@ -87,3 +87,4 @@ fan-out; save small notes here after every step (auto-compaction is on).
 - 11:12 JA m41 review committed 489ea6d1 (1 clip, ja manifest 14531). JA m42 author dispatched from docs/ja-m42-brief-2026-09-10.md.
 - 11:17 ES m27 review committed 0be21768 (1 IR fix, 1 clip). FOLLOW-ON: «de niños» plural has now recurred in m26 and m27 mastery sims — add a pin to the ES test template (UNREGISTERED scan should already catch it; check why it doesn't for sim NPC lines). Next ES: m28 brief writer.
 - 11:18 FR m18 brief committed («Jamais, rien, plus»; 2 atoms; plus via frame+bridge card; L7 written-only until a clip is listened to). Author dispatch waits for m17 reviewer.
+- 11:18 Second-stream lanes dispatched: ES sim-NPC unregistered-surface gate (class fix for «de niños»), FR speech-negation probe (jamais/rien/plus; edge-tts «plus» clips to scratchpad for Spencer to listen).
