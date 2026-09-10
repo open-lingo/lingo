@@ -115,8 +115,11 @@
  *      ends on dialogue_sim) both follow the §13/m22 shape exactly.
  *
  * VOICING LEDGER (cued-recall-precedes-printed-voicing, R3/§13.9):
- *   - L1 "il est deux heures" — NEW, printed, graded.
- *   - L2 "il est quelle heure ?" — NEW, printed, graded.
+ *   - L1 "il est deux heures" — NEW, printed, graded. L1 ALSO recalls m4's
+ *     "il y a un café" (the bridge card's own dummy-«il» precedent, voiced
+ *     again at the lesson's close).
+ *   - L2 "il est quelle heure ?" — NEW, printed, graded. L2 ALSO recalls
+ *     m5's "tu vas où ?" (the in-situ question-form precedent).
  *   - L3 recalls L1's "il est deux heures".
  *   - L4 "on va au cinéma à sept heures" — NEW, printed, graded.
  *   - L5 recalls L4's "on va au cinéma à sept heures".
@@ -126,7 +129,9 @@
  *     quelle heure ?".
  *   - L9 recalls L4's "on va au cinéma à sept heures".
  *   - L10 (mastery) recalls m4's "il y a un café".
- *   Total: 10 recalls, exceeding the course-wide >=8 floor.
+ *   Total: 12 recalls (this ledger previously undercounted at 10, omitting
+ *   L1's and L2's own bridge/precedent recalls — corrected on review),
+ *   comfortably exceeding the course-wide >=8 floor.
  */
 import type { LessonContent, LessonStep } from "@/features/lesson/types";
 import { atom, type FrAtom } from "../courseAtoms";
@@ -1363,7 +1368,7 @@ const FR_M23_10: LessonContent = {
   moduleId: "m23",
   courseId: COURSE_ID,
   languageId: "fr",
-  title: "Une, deux, trois heures",
+  title: "Quatre, cinq, six heures",
   estimatedMinutes: 10,
   xpReward: 25,
   steps: lesson10(),
