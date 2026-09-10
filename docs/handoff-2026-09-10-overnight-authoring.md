@@ -55,3 +55,4 @@ fan-out; save small notes here after every step (auto-compaction is on).
 - 08:02 — FR m14 COMMITTED (925 FR green, 122 clips). Author findings accepted: n'a must be its own atom (frTokens 1-char filter — brief's derivation claim FALSE, record for m15's halle/en ville planning); speech-grader elision folding still UNVERIFIED (no gate exercises it). FR m14 reviewer dispatched.
 - 08:06 — ES m24 COMMITTED (1721 ES green, 156 clips). Follow-on recorded: 'ir' infinitive is used as text in m11–m24 but is not a live atom (SRS credit silently dropped) — register once in a dedicated pass, token-neutrally. ES m24 reviewer dispatched.
 - 08:13 — FR m14 review COMMITTED (2 content fixes, no new audio). FR m15 author dispatched from docs/fr-m15-brief-2026-09-10.md.
+- 08:13 — FR m15 author + FR m16 brief writer dispatched. Active: JA m40 author, ES m24 reviewer, FR m15 author, FR m16 brief.
