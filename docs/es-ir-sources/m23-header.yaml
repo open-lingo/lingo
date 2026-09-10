@@ -1,0 +1,138 @@
+module: m23
+title: "Cuando, mientras, de repente"
+frame: none
+throughModule: m22
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m23 — preterite vs imperfect, in the SAME sentence. Fifth A2 module;
+# the contrast m21's header and m22's header both pointed at and both
+# deliberately declined to teach.
+#
+# ONE idea, the whole module: two pasts can share a sentence because they do
+# different JOBS. The imperfect (m22: hablaba/tenía/era/iba/veía) paints the
+# ongoing scene — what was already true or already happening. The preterite
+# (m19–m21: hablé…hablaron, fui…fueron, hice…hicieron, etc.) reports the
+# thing that happened INSIDE that scene — one bounded event. «cuando»,
+# «mientras», «de repente», «entonces» are the four words that let a learner
+# SAY which job each clause is doing, instead of guessing from word order.
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# `docs/es-ir-sources/es-m22-brief.md` named this module directly and drew
+# the line: "the preterite-vs-imperfect contrast is m23's job, not this
+# module's [m22's]." That line is now cashed. Evidence:
+#   1. CLAUDE.md: "every new word or structure is introduced before it's
+#      tested." m22 built a clean, confident imperfect (all five families,
+#      all persons, the yo=él collision explicitly taught). m19–m21 built a
+#      clean, confident preterite (all persons, nine regular verbs, six
+#      irregulars). Both halves of the contrast are now PRIOR — nothing
+#      this module teaches is untested raw material, which is the exact
+#      precondition m22's header set for opening this module.
+#   2. This module's new content is ENTIRELY the four connectives — it adds
+#      no new verb morphology. That keeps it a single new idea (which
+#      clause is which job), not a second one stacked on top of a first
+#      (the "hollow card" failure mode m22's header also named).
+#
+# ── NO NEW VERB PARADIGMS — REUSE ONLY (hard rule) ─────────────────────────
+# Every verb form in this module must already be a PRIOR atom from m18
+# (present), m19–m21 (preterite), or m22 (imperfect). Do not conjugate a
+# verb into a tense/person it has never been registered in. In particular:
+#   - The imperfect side of every contrast sentence is restricted to the
+#     FIVE verbs m22 gave an imperfect to: hablar, tener, ser, ir, ver.
+#     There is no «estaba», «hacía», «vivía», «trabajaba», «quería», «podía»,
+#     «comía», «salía», «cocinaba», «escribía», «compraba», «estudiaba»,
+#     «venía» — none of these are registered atoms, in this module or any
+#     earlier one. (m22-header.yaml's own "what this module does NOT teach"
+#     section bans manufacturing them — that ban is still live here.)
+#   - The preterite side may use ANY PRIOR preterite form (all of m19's 26,
+#     m20's 21, m21's 21) at any person — this side is NOT restricted to
+#     five verbs, and drafting agents should use that breadth for variety
+#     across ten lessons rather than leaning on the same two or three verbs.
+#   - No progressive (pin E7 / m22's restated ban) — still true here; a
+#     background clause is simple imperfect, never «estaba + -ndo».
+#
+# ── THE REAL COLLISION THIS MODULE TEACHES: fue vs era, fue vs iba ────────
+# «fue» (PRIOR, m20) glosses as both "was" (ser) and "went" (ir) — the
+# learner already owns that dual reading. This module adds the THIRD and
+# FOURTH readings of the same territory: «era» also glosses "was" (ser,
+# imperfect) and «iba» also glosses "went" (ir, imperfect, "used to go" /
+# "was going"). Four surfaces, two English glosses, one real distinction:
+# fue = a bounded, one-time state or trip; era/iba = the ongoing backdrop.
+# This is NOT a rule to state once in an info card and move on — it is
+# dense enough to earn its own dedicated lesson (L6, "Fue o era") built as
+# minimal pairs, the same way m22 gave the yo=él collision its own weight
+# in L1 rather than a footnote. A build/cloze/MCQ that asks the learner to
+# choose fue-vs-era or fue-vs-iba from context is this module's signature
+# exercise — use it generously from L6 on.
+#
+# ── THE FOUR NEW ATOMS AND THE JOB EACH ONE MARKS ─────────────────────────
+#   cuando   — "when": introduces the clause holding the PRETERITE event;
+#              the OTHER clause (imperfect) is the scene it lands in.
+#              Lowercase, unaccented — NOT the same word as PRIOR «¿cuándo?»
+#              (m8, accented, question-only). Never drop the accent on the
+#              question form; never add one to this conjunction.
+#   mientras — "while": frames SIMULTANEITY. Most often imperfect-imperfect
+#              ("mientras hablábamos, ella escribía" — not usable here,
+#              escribía isn't PRIOR imperfect; use two of the five licensed
+#              verbs) or imperfect + a preterite event landing inside it
+#              ("mientras hablábamos, vino Diego").
+#   de repente — "suddenly": marks the preterite clause as an INTERRUPTION,
+#              not just an event — sharpens the contrast for a learner who
+#              might otherwise read two clauses as merely sequential.
+#   entonces — "then, so": chains what happens NEXT — most natural
+#              preterite-to-preterite ("de repente vino Diego, entonces
+#              fuimos al parque"), the module's one deliberate example that
+#              the contrast isn't always imperfect-vs-preterite; sometimes
+#              it's preterite-vs-preterite in sequence, and «entonces» is
+#              how a learner marks that instead.
+# All four are invariable (no conjugation, no gender/number agreement) —
+# no new inflection to teach alongside them, which is exactly why they are
+# the right size of new content for a module whose real job is combining
+# things the learner already owns.
+#
+# ── PRIOR ADVERBS NOT REGISTERED HERE, ALREADY OWNED: «ya», «todavía» ─────
+# grep-verified (`grep -o 'surface: "[^"]*"' src/features/languages/es/
+# curriculum/m{1..22}.ts | sort -u`): «ya» (already, m16) and «todavía»
+# (still/yet, m16) are both PRIOR — do NOT re-register them. Both are legal
+# in this module (frequency/state adverbs, not deictic time points), but
+# they are not this module's content and don't need debut treatment.
+#
+# ── «de niño/a/s» (PRIOR, m22) — frames the IMPERFECT clause only ─────────
+# Same marker/tense-agreement discipline as m21/m22: «de niño» sits in the
+# imperfect clause of a mixed sentence, never labels the preterite clause
+# directly. In a mixed sentence it is legal ("de niño, iba a la escuela
+# cuando..."), just always attached to the imperfect side.
+#
+# ── «todos» (PRIOR, m21) — unchanged rule, now cuts both ways ─────────────
+# Still 3rd-person-plural agreement only. With the imperfect side that means
+# eran/iban/hablaban/tenían/veían (never éramos/íbamos/…); with the
+# preterite side it means the m21 ustedes/ellos forms (fueron, hicieron,
+# tuvieron, vinieron, vieron, hablaron, comieron, vivieron, estudiaron,
+# compraron, trabajaron, escribieron), never a nosotros form on either side.
+#
+# ── WATCH: hablamos (PRIOR, m21, ambiguous) is now a THIRD sibling of
+# hablábamos (PRIOR, m22, unambiguous imperfect) ───────────────────────────
+# The hablar family now has three past-adjacent surfaces in scope: hablé
+# (unambiguous preterite), hablamos (present OR preterite — m21's dual
+# reading, resolved only by a marker), and hablábamos (unambiguous
+# imperfect). A contrast sentence that wants «hablamos» to read as
+# preterite still needs a disambiguating marker in the same clause per
+# m21's rule — that rule doesn't relax just because the clause sits next to
+# an obviously-imperfect one. If the ambiguity would confuse the contrast
+# itself, prefer «hablé/habló/hablaron» (unambiguous) or «hablábamos»
+# (unambiguous) over «hablamos» in these lessons.
+#
+# ── NO NEW EMOJI, NO NEW NOUN THIS MODULE ──────────────────────────────────
+# Same precedent as m19/m21/m22 (pure-grammar modules ship zero). All four
+# new atoms are invariable connectives; narrative color comes from PRIOR
+# nouns-with-emoji (la escuela 🏫, el parque 🌳, la playa 🏖️, el cine 🎬,
+# la fiesta 🎉, el mercado 🛒, la tienda 🏪, casa 🏠, el trabajo 💼, el
+# museo 🏛️) and the fixed cast, not from new vocabulary.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  - { surface: "cuando", meaningEn: "when", partOfSpeech: "conjunction", kind: "vocab", hint: "KWAHN-doh — no accent. Not the same word as the question «¿cuándo?» (with an accent) — this one only ever introduces a clause, never asks a question." }
+  - { surface: "mientras", meaningEn: "while", partOfSpeech: "conjunction", kind: "vocab", hint: "mee-EN-trahs — marks two things happening at the same time" }
+  - { surface: "de repente", meaningEn: "suddenly", partOfSpeech: "adverb", kind: "vocab", hint: "deh reh-PEN-teh — flags the clause where something just happened, breaking into an ongoing scene" }
+  - { surface: "entonces", meaningEn: "then, so", partOfSpeech: "adverb", kind: "vocab", hint: "en-TOHN-sehs — chains what happened next" }
+
+lessons:
