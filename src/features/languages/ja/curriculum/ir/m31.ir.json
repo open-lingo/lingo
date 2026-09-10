@@ -1842,12 +1842,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "ともだちが わたしに プレゼントを くれる。",
-          "en": "My friend gives me a present",
+          "ja": "がっこうから かえる とき ともだちが わたしに プレゼントを くれる。",
+          "en": "When I get home from school, my friend gives me a present",
           "exercises": [
             "kureru",
             "ni-recipient",
-            "wa-topic"
+            "wa-topic",
+            "toki"
           ],
           "mode": "build"
         },
@@ -1863,12 +1864,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "せんせいが いもうとに おかしを くれる。",
-          "en": "The teacher gives my little sister candy",
+          "ja": "いもうとを まつ とき せんせいが いもうとに おかしを くれる。",
+          "en": "When she waits for my little sister, the teacher gives my little sister candy",
           "exercises": [
             "kureru",
             "ni-recipient",
-            "family-register"
+            "family-register",
+            "toki"
           ],
           "mode": "listening"
         },
@@ -1898,23 +1900,25 @@
         },
         {
           "kind": "sentence",
-          "ja": "その とけいは たかいから ともだちに あげない。",
-          "en": "That watch is expensive, so I'm not giving it to my friend",
+          "ja": "でんわで はなす とき その とけいは たかいから ともだちに あげない。",
+          "en": "When I talk on the phone, that watch is expensive, so I'm not giving it to my friend",
           "exercises": [
             "ageru",
             "nai-form",
-            "kara-because"
+            "kara-because",
+            "toki"
           ],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "あには わたしに なにも くれない。",
-          "en": "My older brother doesn't give me anything",
+          "ja": "がっこうに いく まえに あには わたしに なにも くれない。",
+          "en": "Before I go to school, my older brother doesn't give me anything",
           "exercises": [
             "kureru",
             "nai-form",
-            "family-register"
+            "family-register",
+            "mae-ni"
           ],
           "mode": "build"
         },
@@ -1931,12 +1935,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "がくせいに ノートを あげる。",
-          "en": "I'll give the student a notebook",
+          "ja": "てがみを かくから がくせいに ノートを あげる。",
+          "en": "I'll write a letter, so I'll give the student a notebook",
           "exercises": [
             "ageru",
             "ni-recipient",
-            "wo-object"
+            "wo-object",
+            "kara-because"
           ],
           "mode": "build"
         },

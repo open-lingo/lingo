@@ -672,15 +672,15 @@ lessons:
     introduces: [あげない, くれない]
     beats:
       - { kind: rule, grammarPointId: ageru, variant: limits }
-      - { kind: sentence, ja: "ともだちが わたしに プレゼントを くれる。", en: "My friend gives me a present", exercises: [kureru, ni-recipient, wa-topic], mode: build }
+      - { kind: sentence, ja: "がっこうから かえる とき ともだちが わたしに プレゼントを くれる。", en: "When I get home from school, my friend gives me a present", exercises: [kureru, ni-recipient, wa-topic, toki], mode: build }
       - { kind: sentence, ja: "ともだちに プレゼントを もらう。", en: "I get a present from my friend", exercises: [morau, ni-recipient], mode: build }
-      - { kind: sentence, ja: "せんせいが いもうとに おかしを くれる。", en: "The teacher gives my little sister candy", exercises: [kureru, ni-recipient, family-register], mode: listening }
+      - { kind: sentence, ja: "いもうとを まつ とき せんせいが いもうとに おかしを くれる。", en: "When she waits for my little sister, the teacher gives my little sister candy", exercises: [kureru, ni-recipient, family-register, toki], mode: listening }
       - { kind: sentence, ja: "プレゼントを もらうから うれしい。", en: "I'll get a present, so I'm happy", exercises: [morau, kara-because, i-adj-present], mode: build }
       - { kind: particle-cloze, stem: "ともだちが わたしに プレゼントを ", tail: "。", answer: "くれる", options: ["くれる", "あげる", "もらう"], en: "My friend gives me a present", explanation: "あげる can never point back at the speaker, whichever way you conjugate it. くれる is the verb here because my friend is marked が and the present arrives at me; もらう would need ME as the subject." }
-      - { kind: sentence, ja: "その とけいは たかいから ともだちに あげない。", en: "That watch is expensive, so I'm not giving it to my friend", exercises: [ageru, nai-form, kara-because], mode: build }
-      - { kind: sentence, ja: "あには わたしに なにも くれない。", en: "My older brother doesn't give me anything", exercises: [kureru, nai-form, family-register], mode: build }
+      - { kind: sentence, ja: "でんわで はなす とき その とけいは たかいから ともだちに あげない。", en: "When I talk on the phone, that watch is expensive, so I'm not giving it to my friend", exercises: [ageru, nai-form, kara-because, toki], mode: build }
+      - { kind: sentence, ja: "がっこうに いく まえに あには わたしに なにも くれない。", en: "Before I go to school, my older brother doesn't give me anything", exercises: [kureru, nai-form, family-register, mae-ni], mode: build }
       - { kind: sentence, ja: "はなが すきだから あねに はなたばを あげる。", en: "She likes flowers, so I'll give my older sister a bouquet", exercises: [ageru, kara-because, suki-kirai-no], mode: listening }
-      - { kind: sentence, ja: "がくせいに ノートを あげる。", en: "I'll give the student a notebook", exercises: [ageru, ni-recipient, wo-object], mode: build }
+      - { kind: sentence, ja: "てがみを かくから がくせいに ノートを あげる。", en: "I'll write a letter, so I'll give the student a notebook", exercises: [ageru, ni-recipient, wo-object, kara-because], mode: build }
       - { kind: sentence, ja: "ともだちに プレゼントを もらう。", en: "I get a present from my friend", exercises: [morau, ni-recipient], mode: translate }
       - { kind: particle-cloze, stem: "あには わたしに なにも ", tail: "。", answer: "くれない", options: ["くれない", "あげない", "もらう"], en: "My older brother doesn't give me anything", explanation: "the thing would be arriving at me, so the verb is くれる and its negative is くれない. あげない points the wrong way, and もらう would say I do get something after all." }
       - { kind: listening-comp, audio: "あには わたしに なにも くれない。", answer: "My older brother doesn't give me anything", distractors: ["My older brother gives me everything", "I don't give my older brother anything", "My older sister doesn't give me anything"], exercises: [kureru, nai-form] }
