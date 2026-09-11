@@ -21,7 +21,7 @@
       - kind: info
         id: l5-info-hayvshayque
         title: "Hay vs. hay que — two different jobs"
-        body: "«hay» plus a noun means 'there is/are' («hay un banco» — there's a bank, m3). «hay» plus «que» plus an infinitive means 'one has to' («hay que ir» — one has to go). Same first word, completely different sentence."
+        body: "«hay» plus a noun means \"there is/are\" («hay un banco» — there's a bank, m3). «hay» plus «que» plus an infinitive means \"one has to\" («hay que ir» — one has to go). Same first word, completely different sentence."
       - kind: speakLit
         id: l5-sp-recall
         es: "me duele el pie, pero hay que ir al hospital"

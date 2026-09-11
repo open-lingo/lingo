@@ -44,10 +44,10 @@
         blank: "tienes"
         options: ["tienes", "hay"]
         atoms: ["tengo que", "cocinar", "ahora"]
-        why: "«ahora» names no one but YOU as the one who has to act — «tienes que», not the general «hay que»."
+        why: "This is about YOU specifically — «tienes que», not the general «hay que»."
       - kind: buildLit
         id: l2-b-hayquecomersiempre
-        es: "hay que comer siempre"
+        es: "siempre hay que comer"
         en: "One always has to eat"
         atoms: ["hay que", "comer", "siempre"]
         tiles: ["tengo", "tienes"]
@@ -91,7 +91,7 @@
           - { blank: { id: "p2", answer: "bonito", options: ["bonito", "bonita"] } }
       - kind: listenBuildLit
         id: l2-lb-hayquecomersiempretienesquecocinar
-        es: "hay que comer siempre, pero tienes que cocinar ahora"
+        es: "siempre hay que comer, pero tienes que cocinar ahora"
         en: "One always has to eat, but you have to cook now"
         atoms: ["hay que", "comer", "siempre", "pero", "tengo que", "cocinar", "ahora"]
         tiles: ["tengo", "tiene"]
@@ -136,6 +136,6 @@
           - { source: "siempre", target: "always" }
       - kind: speakLit
         id: l2-sp-win
-        es: "hay que comer siempre, pero nunca tengo que cocinar"
+        es: "siempre hay que comer, pero nunca tengo que cocinar"
         en: "One always has to eat, but I never have to cook"
         atoms: ["hay que", "comer", "siempre", "pero", "nunca", "tengo que", "cocinar"]

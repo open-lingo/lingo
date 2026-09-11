@@ -551,10 +551,10 @@ lessons:
         blank: "tienes"
         options: ["tienes", "hay"]
         atoms: ["tengo que", "cocinar", "ahora"]
-        why: "«ahora» names no one but YOU as the one who has to act — «tienes que», not the general «hay que»."
+        why: "This is about YOU specifically — «tienes que», not the general «hay que»."
       - kind: buildLit
         id: l2-b-hayquecomersiempre
-        es: "hay que comer siempre"
+        es: "siempre hay que comer"
         en: "One always has to eat"
         atoms: ["hay que", "comer", "siempre"]
         tiles: ["tengo", "tienes"]
@@ -598,7 +598,7 @@ lessons:
           - { blank: { id: "p2", answer: "bonito", options: ["bonito", "bonita"] } }
       - kind: listenBuildLit
         id: l2-lb-hayquecomersiempretienesquecocinar
-        es: "hay que comer siempre, pero tienes que cocinar ahora"
+        es: "siempre hay que comer, pero tienes que cocinar ahora"
         en: "One always has to eat, but you have to cook now"
         atoms: ["hay que", "comer", "siempre", "pero", "tengo que", "cocinar", "ahora"]
         tiles: ["tengo", "tiene"]
@@ -643,7 +643,7 @@ lessons:
           - { source: "siempre", target: "always" }
       - kind: speakLit
         id: l2-sp-win
-        es: "hay que comer siempre, pero nunca tengo que cocinar"
+        es: "siempre hay que comer, pero nunca tengo que cocinar"
         en: "One always has to eat, but I never have to cook"
         atoms: ["hay que", "comer", "siempre", "pero", "nunca", "tengo que", "cocinar"]
 
@@ -673,7 +673,7 @@ lessons:
         revealNote: "«no hay que ir» — one doesn't have to go. Just «no» in front of the same invariant phrase. No new form — «hay» still never conjugates."
       - kind: speakLit
         id: l3-sp-recall
-        es: "hay que comer siempre, pero nunca tengo que cocinar"
+        es: "siempre hay que comer, pero nunca tengo que cocinar"
         en: "One always has to eat, but I never have to cook"
         atoms: ["hay que", "comer", "siempre", "pero", "nunca", "tengo que", "cocinar"]
         cue: recall
@@ -939,7 +939,7 @@ lessons:
       - kind: info
         id: l5-info-hayvshayque
         title: "Hay vs. hay que — two different jobs"
-        body: "«hay» plus a noun means 'there is/are' («hay un banco» — there's a bank, m3). «hay» plus «que» plus an infinitive means 'one has to' («hay que ir» — one has to go). Same first word, completely different sentence."
+        body: "«hay» plus a noun means \"there is/are\" («hay un banco» — there's a bank, m3). «hay» plus «que» plus an infinitive means \"one has to\" («hay que ir» — one has to go). Same first word, completely different sentence."
       - kind: speakLit
         id: l5-sp-recall
         es: "me duele el pie, pero hay que ir al hospital"
@@ -1358,7 +1358,7 @@ lessons:
         why: "A rule for any traveler, not just you — «hay que», never dropped to bare «hay», and the infinitive stays «comprar»."
       - kind: speakLit
         id: l8-sp-recall-l2win
-        es: "hay que comer siempre, pero nunca tengo que cocinar"
+        es: "siempre hay que comer, pero nunca tengo que cocinar"
         en: "One always has to eat, but I never have to cook"
         atoms: []
         cue: recall

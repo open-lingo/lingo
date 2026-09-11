@@ -225,15 +225,15 @@ const ES_M37_2: LessonContent = {
       ["tienes", "hay"],
       "You have to cook now",
       "tienes que cocinar ahora",
-      "«ahora» names no one but YOU as the one who has to act — «tienes que», not the general «hay que».",
+      "This is about YOU specifically — «tienes que», not the general «hay que».",
       ["tengo que", "cocinar", "ahora"],
     ),
     build(
       "es-m37-2-l2-b-hayquecomersiempre",
       "Build: 'One always has to eat'",
-      "hay que comer siempre",
-      ["hay", "que", "comer", "siempre", "tengo", "tienes"],
-      ["hay", "que", "comer", "siempre"],
+      "siempre hay que comer",
+      ["siempre", "hay", "que", "comer", "tengo", "tienes"],
+      ["siempre", "hay", "que", "comer"],
       ["hay que", "comer", "siempre"],
     ),
     sentenceMcq({
@@ -284,9 +284,9 @@ const ES_M37_2: LessonContent = {
     ),
     listeningBuildSentence({
       id: "es-m37-2-l2-lb-hayquecomersiempretienesquecocinar",
-      target: "hay que comer siempre, pero tienes que cocinar ahora",
-      tiles: ["hay", "que", "comer", "siempre,", "pero", "tienes", "que", "cocinar", "ahora", "tengo", "tiene"],
-      correctOrder: ["hay", "que", "comer", "siempre,", "pero", "tienes", "que", "cocinar", "ahora"],
+      target: "siempre hay que comer, pero tienes que cocinar ahora",
+      tiles: ["siempre", "hay", "que", "comer,", "pero", "tienes", "que", "cocinar", "ahora", "tengo", "tiene"],
+      correctOrder: ["siempre", "hay", "que", "comer,", "pero", "tienes", "que", "cocinar", "ahora"],
       promptEn: "One always has to eat, but you have to cook now",
       exercisedAtomSurfaces: ["hay que", "comer", "siempre", "pero", "tengo que", "cocinar", "ahora"],
     }),
@@ -351,7 +351,7 @@ const ES_M37_2: LessonContent = {
         { id: "p6", source: "siempre", target: "always" },
       ],
     },
-    speaking("es-m37-2-l2-sp-win", "hay que comer siempre, pero nunca tengo que cocinar", "One always has to eat, but I never have to cook", ["hay que", "comer", "siempre", "pero", "nunca", "tengo que", "cocinar"]),
+    speaking("es-m37-2-l2-sp-win", "siempre hay que comer, pero nunca tengo que cocinar", "One always has to eat, but I never have to cook", ["hay que", "comer", "siempre", "pero", "nunca", "tengo que", "cocinar"]),
   ],
 };
 
@@ -377,7 +377,7 @@ const ES_M37_3: LessonContent = {
       audioText: "no hay que ir",
       revealNote: "«no hay que ir» — one doesn't have to go. Just «no» in front of the same invariant phrase. No new form — «hay» still never conjugates.",
     },
-    speaking("es-m37-3-l3-sp-recall", "hay que comer siempre, pero nunca tengo que cocinar", "One always has to eat, but I never have to cook", ["hay que", "comer", "siempre", "pero", "nunca", "tengo que", "cocinar"], "recall"),
+    speaking("es-m37-3-l3-sp-recall", "siempre hay que comer, pero nunca tengo que cocinar", "One always has to eat, but I never have to cook", ["hay que", "comer", "siempre", "pero", "nunca", "tengo que", "cocinar"], "recall"),
     cloze(
       "es-m37-3-l3-c-nohayquetrabajarmanana",
       "no ",
@@ -700,7 +700,7 @@ const ES_M37_5: LessonContent = {
     infoStep(
       "es-m37-5-l5-info-hayvshayque",
       "Hay vs. hay que — two different jobs",
-      "«hay» plus a noun means 'there is/are' («hay un banco» — there's a bank, m3). «hay» plus «que» plus an infinitive means 'one has to' («hay que ir» — one has to go). Same first word, completely different sentence.",
+      "«hay» plus a noun means \"there is/are\" («hay un banco» — there's a bank, m3). «hay» plus «que» plus an infinitive means \"one has to\" («hay que ir» — one has to go). Same first word, completely different sentence.",
       "grammar",
     ),
     speaking("es-m37-5-l5-sp-recall", "me duele el pie, pero hay que ir al hospital", "My foot hurts, but one has to go to the hospital", ["me", "duele", "el", "pie", "pero", "hay que", "ir", "al", "hospital"], "recall"),
@@ -1207,7 +1207,7 @@ const ES_M37_8: LessonContent = {
       explanation: "A rule for any traveler, not just you — «hay que», never dropped to bare «hay», and the infinitive stays «comprar».",
       exercisedAtomSurfaces: ["hay que", "comprar"],
     }),
-    speaking("es-m37-8-l8-sp-recall-l2win", "hay que comer siempre, pero nunca tengo que cocinar", "One always has to eat, but I never have to cook", [], "recall"),
+    speaking("es-m37-8-l8-sp-recall-l2win", "siempre hay que comer, pero nunca tengo que cocinar", "One always has to eat, but I never have to cook", [], "recall"),
     build(
       "es-m37-8-l8-b-hayunafarmaciacercaperohayqueirenmetro",
       "Build: 'There's a pharmacy nearby, but one has to go by metro'",

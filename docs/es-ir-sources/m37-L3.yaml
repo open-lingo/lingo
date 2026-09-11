@@ -24,7 +24,7 @@
         revealNote: "«no hay que ir» — one doesn't have to go. Just «no» in front of the same invariant phrase. No new form — «hay» still never conjugates."
       - kind: speakLit
         id: l3-sp-recall
-        es: "hay que comer siempre, pero nunca tengo que cocinar"
+        es: "siempre hay que comer, pero nunca tengo que cocinar"
         en: "One always has to eat, but I never have to cook"
         atoms: ["hay que", "comer", "siempre", "pero", "nunca", "tengo que", "cocinar"]
         cue: recall

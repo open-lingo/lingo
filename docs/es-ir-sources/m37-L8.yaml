@@ -48,7 +48,7 @@
         why: "A rule for any traveler, not just you — «hay que», never dropped to bare «hay», and the infinitive stays «comprar»."
       - kind: speakLit
         id: l8-sp-recall-l2win
-        es: "hay que comer siempre, pero nunca tengo que cocinar"
+        es: "siempre hay que comer, pero nunca tengo que cocinar"
         en: "One always has to eat, but I never have to cook"
         atoms: []
         cue: recall
