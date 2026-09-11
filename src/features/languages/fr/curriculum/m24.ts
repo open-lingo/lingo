@@ -88,10 +88,15 @@
  *   je voudrais un jus de pomme L1 · je voudrais une baguette, s'il te
  *   plaît L2 · je voudrais une soupe L3 · le café est ouvert L5 ·
  *   l'école est ouverte L5.
- *   recalls drawn: le café est ouvert L6 (this module, L5) · il y a un
- *   café L2+L8+L9 (m4) · on va au cinéma à sept heures L7 (m23) · elle est
- *   très grande L8 (m9) · c'est lundi L10 (m8).
- *   Total: 5 recalls, comfortably clearing the course-wide >=... floor for
+ *   recalls drawn: il y a un café L2+L8+L9 (m4) · j'aime le fromage L3
+ *   (m6) · je voudrais une soupe L4 (this module, L3) · le café est
+ *   ouvert L6 (this module, L5) · on va au cinéma à sept heures L7 (m23) ·
+ *   elle est très grande L8 (m9) · c'est lundi L10 (m8).
+ *   Total: 9 recall-cued speaking instances across 7 distinct recalled
+ *   phrases (corrected — an earlier draft of this ledger undercounted by
+ *   omitting the L3 «j'aime le fromage» and L4 «je voudrais une soupe»
+ *   recalls, the same class of ledger slip m23's own header caught itself
+ *   making), comfortably clearing the course-wide >=... floor for
  *   a food-round-2 module of this size (no course-wide numeric floor
  *   applies below m22; this module's own design keeps recall density in
  *   line with m6/m9's own ledgers).
