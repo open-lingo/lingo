@@ -1,0 +1,556 @@
+module: m45
+title: "使役形 させる — the causative: make/let someone do"
+register: plain
+priorNeoModules: [m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18, m19, m20, m21, m22, m23, m24, m25, m26, m27, m28, m29, m30, m31, m32, m33, m34, m35, m36, m37, m38, m39, m40, m41, m42, m43, m44]
+priorGrammarPoints: [ka-question, no-possession, wa-topic, wo-object, ga-existence,
+  ni-location, ni-time, de-action, mo-also, kara-because, node-because, kedo,
+  made-until, mae-ni, te-form, te-kudasai, te-iru, te-kara, te-miru, te-oku,
+  ta-form, nai-form, nai-existence, dictionary-form, masu-present, masu-negative,
+  masu-past, desu-copula, i-adj-present, i-adj-past, na-adj-present, v-tai,
+  to-omoimasu, toki, tsumori-desu, mashou, masenka, potential-form, dekiru,
+  deshou, kana-wondering, n-desu, sugiru, ku-ni-naru, hou-ga-ii,
+  nakereba-naranai, yo-emphasis, ne-agreement, register-audience,
+  chotto-softener, ageru, kureru, morau, ni-recipient, tara, to-conditional,
+  jidoushi-tadoushi, te-iru-resultative, volitional, you-to-omou, koto-ni-suru,
+  koto-ni-naru, you-to-suru, te-kureru, te-ageru, te-morau, favor-ladder, dake,
+  shika-nai, sou-appearance, garu-tagaru, yasui-nikui, nagara, ba-form,
+  ba-restriction, ba-vs-tara, nara, nara-vs-tara, ba-hodo, family-register,
+  frequency-adverbs, kono-sono-ano-dono, ni-iku, te-shimau, chau,
+  te-iku-kuru-space, kite-chain, te-kuru-iku-time, noni-concession,
+  temo-concession, demo-concession, demo-mo-closed-set, shi-listing,
+  passive-form, passive-rareru, possessed-object-passive,
+  niyotte-creation-passive, suffering-passive-recognition, te-aru,
+  te-aru-vs-te-iru, te-oku-vs-te-aru, transitivity-family-noticing,
+  sou-hearsay, tte-quotative, to-itte-ita, rashii-hearsay,
+  deshou-adjective, deshou-verb, deshou-casual, darou, tabun-kitto,
+  kamoshirenai, hazu, certainty-ladder, youda-direct-evidence, mitai-casual,
+  you-ni-simile, you-na-simile, evidential-family]
+notes: |
+  m45 · n4-16 — CAUSATIVE させる (docs/spine-n4.md §n4-16,
+  docs/ja-m45-brief-2026-09-10.md). Ships 12 lessons (inv 25: 8 teaching +
+  3 review + 1 challenge, challenge last, reviews at positions 4/8/11 —
+  matching m40-m44's own placement). Lesson ids follow m43's own
+  non-skipping convention (1,2,3,review-1,4,5,6,review-2,7,8,review-3,
+  challenge), not m40/m41's skip-4/skip-8 convention — both are attested
+  precedents, this module picked the cleaner one.
+
+  ENGINEERING PRE-WORK (done and verified green before any lesson content
+  was written, per inv 49 — a conjugation_transform step must never drill
+  a form with no ruleset):
+  - `causative` added to TRANSFORM_RULESETS (transformRulesets.ts) —
+    godan naiStem+せる (よむ→よませる canonical), ichidan +させる
+    (たべる→たべさせる canonical), する→させる, くる→こさせる — mirroring
+    passive's (m40) table shape exactly. RULESET_ALTERNATES.causative
+    added too (よむ→かう, たべる→みる leak-masking alternates), matching
+    passive's full-coverage choice. transformRulesets.test.ts green.
+  - KEY FINDING (generalizes m40's own practice, resolves an open question
+    the brief flagged): the tokenizer/ramp auto-generator (moduleCompiler.ts
+    ~1150-1300) NEVER auto-derives a full conjugated surface from
+    VERB_ENTRIES — only masu-STEMS are auto-derived (for constructions like
+    〜に いく). This means EVERY causative-conjugated kana surface actually
+    used in a sentence/dialogue/challenge beat needs a hand-registered
+    `kind: verb-form` newAtom with `derivedFrom`+`verbClass`, REGARDLESS of
+    whether the base verb (よむ/たべる/する/くる/あるく/かえる — all
+    VERB_ENTRIES members) is "safe." VERB_ENTRIES membership only affects
+    the ruleset-table auto-fill and masu-STEM tokenizer entries, never
+    full-form sentence-content registration.
+
+  DECISIONS INFERRED (no user turn to ask; reasoned from the brief + spine
+  + doctrine, recorded here per "never park a question"):
+  1. **まかせる kept 100% dictionary-form, zero causative inflections** —
+     the brief's own "awkward as a causative host, likely skip" guidance.
+     It appears only as plain vocab (L4), entrusting-something-to-someone,
+     not conjugated into the causative itself.
+  2. **そだてる gets exactly ONE hand-registered causative surface**
+     (そだてさせる, L6) for the MAKE-vs-LET "deepen" lesson, per the
+     brief's own recommendation — used to generalize MAKE-vs-LET from
+     PARTICLE choice (L4, intransitive あるく: を vs に) to
+     CONTEXT/ADVERB choice (L6, transitive そだてる: に is fixed since
+     を is already taken by the direct object いぬ; むりやり's presence
+     or absence carries the MADE-vs-LET reading instead). This is
+     linguistically accurate (transitive causatives can't reassign を to
+     the causee) and pedagogically distinct from L4's mechanism, not a
+     repeat.
+  3. **ゆるす gets one hand-registered NAI-FORM** (ゆるさない, L7) — not
+     a causative form at all, needed for the natural idiom きそくは
+     それを ゆるさない ("the rules don't allow that"), tying きそく+ゆるす
+     together. Counted toward the brief's "2-4 extra newAtoms for these
+     three risk verbs" budget (used: 2 — そだてさせる, ゆるさない — plus
+     まかせる needing zero).
+  4. **させていただく forward-flags to m50/n4-21** — CONFIRMED (not just
+     matched to the brief's provisional guess) via direct docs/spine-n4.md
+     read: m50/n4-21's own header is "Keigo II — 謙譲語 +
+     〜させていただく (+ causative-passive)" and its body states
+     "〜させていただく = causative (m45) + humble receiving (m35)."
+     L8 here is therefore strictly RECOGNITION ONLY — させていただく never
+     appears in a `sentence`/build/particle-cloze/challenge beat, only in
+     the grammarPoint's own rule prose (unregistered, mirrors passive-form's
+     かう→かわれる prose-only precedent) and one comprehension-only
+     listening-comp beat. させて (L7's own te-form of する's causative) and
+     いただく (already known, m31, recognition-only there too) are both
+     independently registered, so a recognition-only exposure sentence is
+     safe without adding any new atom for the fused phrase itself.
+  5. **NEVER させられる/よまれさせる/any causative+passive stack anywhere
+     in this module** — that is m50's exclusive job (causative-passive).
+     Checked every authored sentence by hand for this.
+  6. **そうじする cash-in (courseAtoms.ts) kept OUT of `newAtoms` below**,
+     appearing only in L3's `introduces` + its own sentence text — mirrors
+     the m43 ぜったい / m44 どうしたの precedent exactly (a cashed-in atom
+     is already a registered lemma; only the lesson-scoping array needs
+     it). そうじする's own causative form (そうじさせる) was deliberately
+     NOT authored — L3 keeps そうじする in a single plain vocab-priming
+     sentence, and the irregular-causative ramp uses bare させる (from
+     する) via しゅくだいを させる instead, avoiding an extra fused-verb
+     causative registration for no pedagogical gain.
+  7. **はやく (adverbial form of the already-known い-adjective はやい,
+     m13) needed its own `adj-form` newAtom** — the same STEMS-only-does-
+     masu-stems gap applies to い-adjective く-forms, not just verb
+     conjugations; caught while drafting L7's かえらせて ください sentence.
+  8. Two carrier atoms used purely in sentence/reviewPool text, never
+     re-declared in `newAtoms` and never in any lesson's `introduces`:
+     しゅくだい (m32) and こまる (m35, but only via its own new past-tense
+     surface こまった — see L2 below, mirrors m40's こたえた precedent for
+     an already-known lemma's not-yet-registered past tense).
+  9. Two brief inconsistencies noted for the record, neither blocking:
+     the brief's worked-example chip once named のむ where the spine and
+     the shipped transformRulesets.ts both consistently use よむ as the
+     godan canonical — よむ was followed throughout. The brief also
+     asserted "よむ taught m1"; courseAtoms.ts / conjugationTables.ts
+     confirm よむ's actual `introducedAtModule` is m7 — immaterial either
+     way since m7 « m45, but corrected for the record.
+grammarPoints:
+  - id: causative-form
+    variant: godan
+    conjugation: { form: causative, classes: [u] }
+    rule: "The causative makes/lets someone else do something. For a godan (u-verb), bend the dictionary form's final -u sound back to its -a partner — the same naiStem you already use for ない and volitional — then add せる: よむ → よま + せる = よませる, 'make/let (someone) read.' かく → かかせる, はなす → はなさせる, かえる → かえらせる — every godan verb follows this one move. The MEANING (make vs let) is never in the verb itself — it rides the particle marking the person caused to act, covered next lesson."
+    examples:
+      - { ja: "よむ → よませる", en: "to read → to make/let (someone) read" }
+      - { ja: "かく → かかせる", en: "to write → to make/let (someone) write" }
+      - { ja: "はなす → はなさせる", en: "to speak → to make/let (someone) speak" }
+      - { ja: "かえる → かえらせる", en: "to return → to make/let (someone) return" }
+    antiPattern: { ja: "よむせる", why: "せる only glues onto a verb stem that already ends in -a — an u-verb has to bend FIRST: よむ → よま, then + せる. よませる, never よむせる." }
+  - id: causative-form
+    variant: ichidan-irregular
+    conjugation: { form: causative, classes: [ru, irregular] }
+    rule: "An ichidan (ru-verb) does what it always does — drop る, add the ending whole: たべる → たべ + させる = たべさせる, 'make/let (someone) eat.' みる → みさせる follows the same move. The two irregulars are two words to memorize outright: する → させる, くる → こさせる. Notice godan せる and ichidan させる are close cousins — both are 'the verb, plus something-seru' — but only ichidan (and both irregulars) get the extra さ."
+    examples:
+      - { ja: "たべる → たべさせる", en: "to eat → to make/let (someone) eat" }
+      - { ja: "みる → みさせる", en: "to watch/see → to make/let (someone) watch" }
+      - { ja: "する → させる", en: "to do → to make/let (someone) do" }
+      - { ja: "くる → こさせる", en: "to come → to make/let (someone) come" }
+    antiPattern: { ja: "たべせる", why: "an ichidan verb needs the FULL させる ending, not just せる — たべ+させる. Dropping the さ is a godan move borrowed onto the wrong class." }
+  - id: causative-make-vs-let
+    variant: intransitive
+    rule: "The causative verb never tells you MAKE vs LET by itself — the PARTICLE marking the person caused to act does, and for an intransitive verb (jidoushi — you already own this family from m33/m41) you get a real choice: を marks them as being MADE/FORCED, に marks them as being LET/PERMITTED. こどもを あるかせた, 'made the child walk' (forced) — こどもに あるかせた, 'let the child walk' (permitted) — same verb あるかせた, opposite reading, only the particle moves. This works because あるく never had its own を to begin with (it's intransitive), so を is free to be repurposed as the forced-causee marker."
+    examples:
+      - { ja: "おやは こどもを あるかせた。", en: "The parent made the child walk." }
+      - { ja: "おやは こどもに あるかせた。", en: "The parent let the child walk." }
+      - { ja: "せんせいは がくせいを あるかせた。", en: "The teacher made the student walk." }
+    antiPattern: { ja: "おやは むりやり こどもに あるかせた。", why: "むりやり ('forcibly') signals that the child was MADE to walk — but に marks the causee as being LET, not forced, and those two signals contradict each other. The forced reading needs を instead: おやは むりやり こどもを あるかせた。" }
+  - id: causative-make-vs-let
+    variant: transitive
+    rule: "A TRANSITIVE verb (tadoushi) already owns を for its own direct object, so the causee can only take に — こどもに やさいを たべさせる, 'made/let the child eat vegetables,' never こどもを やさいを (two を in one clause is never legal). With を unavailable, MAKE vs LET has to be read from CONTEXT and adverbs instead of the particle: むりやり ('forcibly') signals the MADE reading unambiguously — おやは こどもに むりやり いぬを そだてさせる, 'forcibly made the child raise the dog.' Drop むりやり and the same そだてさせる leans toward the neutral/LET reading instead."
+    examples:
+      - { ja: "おやは こどもに むりやり いぬを そだてさせる。", en: "The parent forcibly makes the child raise the dog." }
+      - { ja: "おやは こどもに いぬを そだてさせる。", en: "The parent lets the child raise the dog." }
+      - { ja: "おやは こどもに むりやり やさいを たべさせる。", en: "The parent forcibly makes the child eat vegetables." }
+    antiPattern: { ja: "おやは こどもを いぬを そだてさせる。", why: "a transitive verb's causee can never take を — いぬ already has it. The causee always takes に with a transitive causative: こどもに いぬを そだてさせる。" }
+  - id: causative-request
+    rule: "Two everyday requests both ride the causative's て-form. させて ください asks permission to do something YOURSELF — しゅくだいを させて ください, 'please let me do the homework.' させて もらう describes RECEIVING that permission, riding the favor-ladder (m35) you already own — せんせいに しゅくだいを させて もらう, 'I get to do the homework (thanks to the teacher letting me).' Both are humble, self-directed requests — never confuse them with ordering someone ELSE to do something, which stays plain させる with no て-chain."
+    examples:
+      - { ja: "しゅくだいを させて ください。", en: "Please let me do the homework." }
+      - { ja: "かえらせて ください。", en: "Please let me go home." }
+      - { ja: "せんせいに しゅくだいを させて もらう。", en: "I get to do the homework (with the teacher's permission)." }
+    antiPattern: { ja: "しゅくだいを させて くれる。", why: "させて くれる would mean someone ELSE offered without being asked — a different rung of the same favor-ladder. Asking permission for yourself needs させて ください (the request) or させて もらう (describing that you received it), never くれる." }
+  - id: causative-politeness-recognition
+    rule: "One more shape to RECOGNIZE, not produce yet: させて いただく. It is させて もらう's own ultra-polite twin, built from causative-te plus the humble receiving verb いただく you already met (m31, recognition only there too) — しゅくだいを させて いただく, 'I humbly get to do the homework.' You will hear this constantly in formal Japanese (especially from someone about to do something, asking implicit permission first), but production — and its trickier cousin, the causative-PASSIVE させられる — waits until n4-21, where humble language gets its own full module."
+    examples:
+      - { ja: "しゅくだいを させて いただく。", en: "I humbly get to do the homework." }
+      - { ja: "そうじを させて いただいた。", en: "I humbly got to do the cleaning." }
+    antiPattern: { ja: "しゅくだいを させられる。", why: "させられる is the CAUSATIVE-PASSIVE — 'I am made to do the homework' (unwillingly) — a completely different, much later shape (n4-21). させて いただく is a humble, WILLING request-and-receive; never confuse the two just because both start with させ." }
+
+newAtoms:
+  # ══ L1 (neo-1), id causative-form variant godan — おや (carrier family
+  # noun, the spine's own canonical causer) + よませる, the one ramped
+  # godan surface (canonical per transformRulesets.ts, matches よむ,
+  # already taught m7).
+  - { kana: おや, kanji: 親, romaji: oya, gloss: "a parent, parents", shortGloss: "parent", imageable: false, kind: vocab, pos: noun }
+  - { kana: よませる, romaji: yomaseru, gloss: "to make/let (someone) read (causative of よむ)", shortGloss: "make/let read", imageable: false, kind: verb-form, derivedFrom: よむ, verbClass: u }
+  # ══ L2 (neo-2), interleave break, no new grammarPointId — しかた, the
+  # idiom しかたが ない, plus こまった: a plain past-tense surface of the
+  # already-known lemma こまる (m35), never registered anywhere before
+  # (needed for one dialogue/challenge line), mirrors m40's こたえた
+  # precedent (DERIVED_KINDS-exempt verb-form for an already-known base).
+  - { kana: しかた, kanji: 仕方, romaji: shikata, gloss: "a way of doing something, a method", shortGloss: "way (of doing)", imageable: false, kind: vocab, pos: noun }
+  - { kana: こまった, romaji: komatta, gloss: "got into trouble (past of こまる)", shortGloss: "got into trouble", imageable: false, kind: verb-form, derivedFrom: こまる, verbClass: u }
+  # ══ L3 (neo-3), id causative-form variant ichidan-irregular — むりやり
+  # (MAKE-reading signal adverb) + the three ramped ichidan/irregular
+  # surfaces (canonical per transformRulesets.ts: たべる/する/くる).
+  # そうじする itself is a courseAtoms.ts cash-in (was a "future"-tagged
+  # stub, see notes above) — deliberately NOT listed here, only in this
+  # lesson's `introduces` and its own plain (non-causative) sentence.
+  - { kana: むりやり, romaji: muriyari, gloss: "forcibly, against one's will", shortGloss: "forcibly", imageable: false, kind: vocab, pos: adverb }
+  - { kana: たべさせる, romaji: tabesaseru, gloss: "to make/let (someone) eat (causative of たべる)", shortGloss: "make/let eat", imageable: false, kind: verb-form, derivedFrom: たべる, verbClass: ru }
+  - { kana: させる, romaji: saseru, gloss: "to make/let (someone) do (causative of する)", shortGloss: "make/let do", imageable: false, kind: verb-form, derivedFrom: する, verbClass: irregular }
+  - { kana: こさせる, romaji: kosaseru, gloss: "to make/let (someone) come (causative of くる)", shortGloss: "make/let come", imageable: false, kind: verb-form, derivedFrom: くる, verbClass: irregular }
+  # ══ L4 (neo-4), id causative-make-vs-let variant intransitive — まかせる
+  # (kept 100% dictionary-form, see notes above) + せわ, plus あるかせた:
+  # the past-tense causative of the already-known intransitive あるく
+  # (m19), this module's own MAKE-vs-LET minimal-pair verb (を vs に).
+  - { kana: まかせる, kanji: 任せる, romaji: makaseru, gloss: "to entrust, to leave (a matter) to someone", shortGloss: "entrust", imageable: false, kind: vocab, pos: verb, verbClass: ru }
+  - { kana: せわ, kanji: 世話, romaji: sewa, gloss: "care, looking after (someone)", shortGloss: "care (of someone)", imageable: false, kind: vocab, pos: noun }
+  - { kana: あるかせた, romaji: arukaseta, gloss: "made/let (someone) walk (past causative of あるく)", shortGloss: "made/let walk", imageable: false, kind: verb-form, derivedFrom: あるく, verbClass: u }
+  # ══ L6 (neo-6), id causative-make-vs-let variant transitive — そだてる
+  # (nurture verb, ichidan) + しつけ, plus そだてさせる: the ONE
+  # hand-registered causative surface for そだてる (see notes above),
+  # showing the transitive case (causee fixed at に, MAKE-vs-LET read
+  # from むりやり's presence/absence instead of particle choice).
+  - { kana: そだてる, kanji: 育てる, romaji: sodateru, gloss: "to raise, to bring up (a child, a plant, an animal)", shortGloss: "raise, bring up", imageable: false, kind: vocab, pos: verb, verbClass: ru }
+  - { kana: しつけ, kanji: 躾, romaji: shitsuke, gloss: "discipline, upbringing", shortGloss: "discipline", imageable: false, kind: vocab, pos: noun }
+  - { kana: そだてさせる, romaji: sodatesaseru, gloss: "to make/let (someone) raise (causative of そだてる)", shortGloss: "make/let raise", imageable: false, kind: verb-form, derivedFrom: そだてる, verbClass: ru }
+  # ══ L7 (neo-7), id causative-request — きそく/めいれい/ゆるす (the
+  # institutional-permission vocabulary domain) + ゆるさない (nai-form of
+  # ゆるす, not causative — needed for the idiom きそくは それを ゆるさない,
+  # see notes above) + させて/かえらせて (causative te-forms, the
+  # させて ください / させて もらう machinery) + はやく (adverbial form of
+  # the already-known い-adjective はやい, m13 — caught mid-draft, see
+  # notes above; STEMS only auto-derives masu-stems, not い-adjective
+  # く-forms either).
+  - { kana: きそく, kanji: 規則, romaji: kisoku, gloss: "a rule, a regulation", shortGloss: "rule", imageable: false, kind: vocab, pos: noun }
+  - { kana: めいれい, kanji: 命令, romaji: meirei, gloss: "an order, a command", shortGloss: "order, command", imageable: false, kind: vocab, pos: noun }
+  - { kana: ゆるす, kanji: 許す, romaji: yurusu, gloss: "to forgive, to allow, to permit", shortGloss: "forgive, allow", imageable: false, kind: vocab, pos: verb, verbClass: u }
+  - { kana: ゆるさない, romaji: yurusanai, gloss: "doesn't allow, won't forgive (negative of ゆるす)", shortGloss: "doesn't allow", imageable: false, kind: verb-form, derivedFrom: ゆるす, verbClass: u }
+  - { kana: させて, romaji: sasete, gloss: "make/let (someone) do, and — te-form of させる (causative of する)", shortGloss: "make/let do, and", imageable: false, kind: verb-form, derivedFrom: する, verbClass: irregular }
+  - { kana: かえらせて, romaji: kaerasete, gloss: "make/let (someone) go back, and — te-form of かえらせる (causative of かえる)", shortGloss: "make/let go back, and", imageable: false, kind: verb-form, derivedFrom: かえる, verbClass: u }
+  - { kana: はやく, romaji: hayaku, gloss: "early, quickly (adverbial form of はやい)", shortGloss: "early, quickly", imageable: false, kind: adj-form, derivedFrom: はやい }
+  # ══ L8 (neo-8), id causative-politeness-recognition — ないしょ +
+  # きょういく (sidequest). させて いただく itself needs NO new atom: させて
+  # (already registered above, L7) and いただく (already known, m31) both
+  # already exist; the phrase is presented as two space-separated
+  # already-registered tokens, never its own fused lemma.
+  - { kana: ないしょ, kanji: 内緒, romaji: naisho, gloss: "a secret", shortGloss: "secret", imageable: false, kind: vocab, pos: noun }
+  - { kana: きょういく, kanji: 教育, romaji: kyouiku, gloss: "education", shortGloss: "education", imageable: false, kind: vocab, pos: noun }
+  # ══ review-3 (neo-review-3) — ざんぎょう, sidequest vocabulary, this
+  # module's final new lemma.
+  - { kana: ざんぎょう, kanji: 残業, romaji: zangyou, gloss: "overtime work", shortGloss: "overtime", imageable: false, kind: vocab, pos: noun }
+
+lessons:
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m45-neo-1
+    role: teaching
+    title: "「おやは こどもに ほんを よませる」— させる, the godan causative"
+    focus: "Core formation: a godan verb bends to its a-row and adds せる — the causative makes/lets someone else act"
+    introduces: [おや, よませる]
+    beats:
+      - { kind: rule, grammarPointId: causative-form, variant: godan }
+      - { kind: sentence, ja: "おやは こどもに ほんを よませる。", en: "The parent makes/lets the child read a book.", exercises: [causative-form], mode: build }
+      - { kind: sentence, ja: "せんせいは がくせいに ほんを よませる。", en: "The teacher makes/lets the student read a book.", exercises: [causative-form], mode: build }
+      - { kind: sentence, ja: "ちちは こどもに ほんを よませる。", en: "The father makes/lets the child read a book.", exercises: [causative-form], mode: build }
+      - { kind: sentence, ja: "こどもは ちちに ほんを よませる。", en: "The child makes/lets the father read a book.", exercises: [causative-form], mode: build }
+      - { kind: sentence, ja: "ははは こどもに ほんを よませる。", en: "The mother makes/lets the child read a book.", exercises: [causative-form], mode: listening }
+      - { kind: particle-cloze, stem: "おやは こどもに ほんを よま", tail: "。", answer: "せる", options: ["せる", "る", "ない"], en: "The parent makes/lets the child read a book.", explanation: "よむ is a godan verb — bend to the a-row first (よむ → よま), then add せる. That same よま- stem is the one you already use for ない (よまない, 'doesn't read') — same stem, different ending, opposite job." }
+      - { kind: listening-comp, audio: "せんせいは こどもに ほんを よませる。", answer: "The teacher makes/lets the child read a book.", distractors: ["The teacher reads a book to the child.", "The child refuses to read the book.", "The teacher forbids the child from reading."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "せんせいは がくせいに ほんを よませる。", answer: "The teacher makes/lets the student read a book.", distractors: ["The teacher reads a book to the student.", "The student makes the teacher read.", "The teacher forbids reading."], q: "What does this mean?" }
+      - { kind: kanji, kana: おや, kanji: 親, distractors: ["おかし", "おもい", "おそい"], exercises: [causative-form] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "おやは こどもに ほんを よませるの？", en: "Does a parent make the child read books?" }
+          - { speaker: "Ken", ja: "うん、よく よませるよ。", en: "Yeah, they often make them read." }
+          - { speaker: "Mika", ja: "いいね。", en: "That's nice." }
+        questions:
+          - { q: "What does Ken say?", options: ["Parents often make their child read", "Parents never let their child read", "Children always refuse to read", "Teachers make children read instead"], answer: "Parents often make their child read" }
+      - { kind: challenge, ja: "ほんは おもしろいから、おやは こどもに よませる。", en: "Since the book is interesting, the parent makes the child read it.", combines: [causative-form, kara-because, i-adj-present], mode: build }
+    reviewPool: [ちち, はは, ほん, せんせい, がくせい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m45-neo-2
+    role: teaching
+    title: "「しかたが ない」— interleave break, before the second causative class"
+    focus: "Unrelated-domain break (interleave, not block-teach): しかたが ない plus a review pass on L1's causative"
+    introduces: [しかた, こまった]
+    beats:
+      - { kind: sentence, ja: "しかたが ない。", en: "It can't be helped.", exercises: [nai-existence], mode: build }
+      - { kind: sentence, ja: "こまった ときは、 しかたが ない。", en: "When you're in trouble, it can't be helped.", exercises: [toki, nai-existence], mode: build }
+      - { kind: sentence, ja: "がくせいは こまった。", en: "The student got into trouble.", exercises: [ta-form], mode: build }
+      - { kind: sentence, ja: "おやは こどもに ほんを よませる。", en: "The parent makes/lets the child read a book.", exercises: [causative-form], mode: build }
+      - { kind: sentence, ja: "こまった ときは、 しかたが ない。", en: "When you're in trouble, it can't be helped.", exercises: [toki, nai-existence], mode: listening }
+      - { kind: particle-cloze, stem: "こまった ときは、", tail: "が ない。", answer: "しかた", options: ["しかた", "とき", "やくそく"], en: "When you're in trouble, it can't be helped.", explanation: "しかたが ない is the fixed idiom 'it can't be helped' — しかた is 'a way of doing,' and its absence (が ない) is what makes something unavoidable." }
+      - { kind: listening-comp, audio: "しかたが ない。", answer: "It can't be helped.", distractors: ["There's plenty of time.", "I know exactly what to do.", "It was easy."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "がくせいは こまった。", answer: "The student got into trouble.", distractors: ["The student helped someone.", "The student was praised.", "The student went home."], q: "What does this mean?" }
+      - { kind: kanji, kana: しかた, kanji: 仕方, distractors: ["しごと", "した", "しかい"], exercises: [nai-existence] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "どうしたの？", en: "What's wrong?" }
+          - { speaker: "Ken", ja: "しゅくだいで こまったんだ。", en: "I'm in trouble with homework." }
+          - { speaker: "Mika", ja: "しかたが ないね。", en: "Can't be helped, huh." }
+        questions:
+          - { q: "Why is Ken troubled?", options: ["Because of homework", "Because of a test", "Because of a movie", "Because of the weather"], answer: "Because of homework" }
+      - { kind: challenge, ja: "がくせいが こまった ときは、せんせいが ほんを よませる。", en: "When the student got into trouble, the teacher made them read a book.", combines: [causative-form, toki, ta-form], mode: build }
+    reviewPool: [しゅくだい, とき, おや, ほん, せんせい, がくせい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m45-neo-3
+    role: teaching
+    title: "「おやは こどもに やさいを たべさせる」— させる, ichidan and the irregulars"
+    focus: "Second formation class: ichidan drops る and adds させる whole; する/くる are memorized outright — plus むりやり and the そうじする cash-in"
+    introduces: [むりやり, そうじする, たべさせる, させる, こさせる]
+    beats:
+      - { kind: rule, grammarPointId: causative-form, variant: ichidan-irregular }
+      - { kind: sentence, ja: "がくせいは そうじする。", en: "The student cleans.", exercises: [], mode: build }
+      - { kind: sentence, ja: "おやは こどもに やさいを たべさせる。", en: "The parent makes/lets the child eat vegetables.", exercises: [causative-form], mode: build }
+      - { kind: sentence, ja: "おやは こどもに むりやり やさいを たべさせる。", en: "The parent forcibly makes the child eat vegetables.", exercises: [causative-form], mode: build }
+      - { kind: sentence, ja: "おやは こどもに しゅくだいを させる。", en: "The parent makes the child do homework.", exercises: [causative-form], mode: build }
+      - { kind: sentence, ja: "せんせいは がくせいに がっこうに こさせる。", en: "The teacher makes the student come to school.", exercises: [causative-form], mode: listening }
+      - { kind: particle-cloze, stem: "おやは こどもに やさいを たべ", tail: "。", answer: "させる", options: ["させる", "せる", "る"], en: "The parent makes/lets the child eat vegetables.", explanation: "An ichidan verb drops る and adds させる whole — たべ+させる. An u-verb would instead bend to its a-row first (よま+せる); never mix the two patterns." }
+      - { kind: listening-comp, audio: "おやは こどもに むりやり やさいを たべさせる。", answer: "The parent forcibly makes the child eat vegetables.", distractors: ["The parent lets the child skip vegetables.", "The child forces the parent to eat vegetables.", "The parent eats vegetables with the child."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "せんせいは がくせいに がっこうに こさせる。", answer: "The teacher makes the student come to school.", distractors: ["The teacher goes to the student's school.", "The student makes the teacher come to school.", "The teacher forbids the student from coming to school."], q: "What does this mean?" }
+      - { kind: kanji, kana: そうじする, kanji: 掃除, distractors: ["そうさ", "そつぎょう", "そんけい"], exercises: [] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "こどもは やさいが すき？", en: "Does your child like vegetables?" }
+          - { speaker: "Ken", ja: "ううん、すきじゃないから、むりやり たべさせるよ。", en: "No, since they don't like it, I forcibly make them eat it." }
+          - { speaker: "Mika", ja: "そうか。", en: "I see." }
+        questions:
+          - { q: "Why does Ken force his child to eat vegetables?", options: ["Because the child doesn't like them", "Because the child is allergic", "Because the teacher told him to", "Because vegetables are expensive"], answer: "Because the child doesn't like them" }
+      - { kind: challenge, ja: "やさいが すきじゃないから、おやは こどもに むりやり たべさせる。", en: "Since the child doesn't like vegetables, the parent forcibly makes the child eat them.", combines: [causative-form, kara-because, na-adj-present], mode: build }
+    reviewPool: [やさい, がっこう, すき, ほん, しゅくだい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m45-neo-review-1
+    role: review
+    title: "Review — させる, both formation classes"
+    focus: "Spiral L1-L3: godan and ichidan/irregular causative formation, plus しかた — THIS MODULE ONLY"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "おやは こどもに ほんを よませる。", en: "The parent makes/lets the child read a book.", exercises: [causative-form], mode: build }
+      - { kind: sentence, ja: "おやは こどもに やさいを たべさせる。", en: "The parent makes/lets the child eat vegetables.", exercises: [causative-form], mode: build }
+      - { kind: particle-cloze, stem: "おやは こどもに しゅくだいを ", tail: "。", answer: "させる", options: ["させる", "よませる", "たべさせる"], en: "The parent makes the child do homework.", explanation: "しゅくだい pairs with する (do homework), whose causative is bare させる — not よませる (that's よむ's) or たべさせる (that's たべる's)." }
+      - { kind: sentence, ja: "せんせいは がくせいに がっこうに こさせる。", en: "The teacher makes the student come to school.", exercises: [causative-form], mode: build }
+      - { kind: sentence, ja: "しかたが ない。", en: "It can't be helped.", exercises: [nai-existence], mode: listening }
+      - { kind: listening-comp, audio: "おやは こどもに むりやり やさいを たべさせる。", answer: "The parent forcibly makes the child eat vegetables.", distractors: ["The parent lets the child skip vegetables.", "The child forces the parent to eat vegetables.", "The parent eats vegetables with the child."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "どうしたの？", en: "What's wrong?" }
+          - { speaker: "Ken", ja: "しゅくだいで こまったんだ。せんせいが よませる ほんが むずかしい。", en: "I'm in trouble with homework. The book the teacher makes me read is difficult." }
+          - { speaker: "Mika", ja: "しかたが ないね。", en: "Can't be helped, huh." }
+        questions:
+          - { q: "What is Ken's homework problem?", options: ["The book he was made to read is difficult", "He has no homework", "He forgot his book", "He finished early"], answer: "The book he was made to read is difficult" }
+      - { kind: sentence, ja: "がくせいは こまった。", en: "The student got into trouble.", exercises: [ta-form], mode: build }
+    reviewPool: [おや, よませる, たべさせる, させる, こさせる, しかた, こまった]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m45-neo-4
+    role: teaching
+    title: "「こどもを あるかせた」「こどもに あるかせた」— MAKE vs LET, intransitive"
+    focus: "The causative verb never says make-vs-let by itself — for an intransitive verb, the particle on the causee does: を forces, に permits"
+    introduces: [まかせる, せわ, あるかせた]
+    beats:
+      - { kind: rule, grammarPointId: causative-make-vs-let, variant: intransitive }
+      - { kind: sentence, ja: "おやは こどもに しゅくだいを まかせる。", en: "The parent entrusts the homework to the child.", exercises: [], mode: build }
+      - { kind: sentence, ja: "おやは いぬの せわを こどもに まかせる。", en: "The parent entrusts the dog's care to the child.", exercises: [no-possession], mode: build }
+      - { kind: sentence, ja: "おやは こどもを あるかせた。", en: "The parent made the child walk.", exercises: [causative-make-vs-let], mode: build }
+      - { kind: sentence, ja: "おやは こどもに あるかせた。", en: "The parent let the child walk.", exercises: [causative-make-vs-let], mode: build }
+      - { kind: sentence, ja: "せんせいは がくせいを あるかせた。", en: "The teacher made the student walk.", exercises: [causative-make-vs-let], mode: listening }
+      - { kind: particle-cloze, stem: "せんせいは がくせいを ある", tail: "。", answer: "かせた", options: ["かせた", "いた", "かせる"], en: "The teacher made the student walk (past).", explanation: "あるく is a godan verb — bend to the a-row first (ある→あるか), add せた for past causative. あるいた is just plain past 'walked,' not causative at all." }
+      - { kind: listening-comp, audio: "おやは こどもに あるかせた。", answer: "The parent let the child walk.", distractors: ["The parent made the child walk.", "The parent forbade the child from walking.", "The child made the parent walk."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "おやは いぬの せわを こどもに まかせる。", answer: "The parent entrusts the dog's care to the child.", distractors: ["The parent takes care of the dog themselves.", "The child refuses to take care of the dog.", "The dog takes care of the child."], q: "What does this mean?" }
+      - { kind: kanji, kana: せわ, kanji: 世話, distractors: ["せかい", "せんせい", "せなか"], exercises: [] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "いぬの せわは だれが する？", en: "Who takes care of the dog?" }
+          - { speaker: "Ken", ja: "こどもに まかせるよ。", en: "I leave it to the child." }
+          - { speaker: "Mika", ja: "いいね。", en: "Nice." }
+        questions:
+          - { q: "Who takes care of the dog?", options: ["The child", "Ken", "Mika", "Nobody"], answer: "The child" }
+      - kind: sim
+        scene: { emoji: "🚶", title: "あるかせる？あるかせない？", setting: "Deciding whether to make or let the child walk to school." }
+        turns:
+          - npc: { speaker: "Mika", ja: "がっこうまで あるかせる？", en: "Will you make/let (them) walk to school?" }
+            goal: "Say you'll make the child walk (force it)."
+            reply: { mode: build, tiles: ["こどもを", "こどもに", "あるかせる", "。"], answer: "こどもを あるかせる。" }
+            replyGloss: "I'll make the child walk."
+            explanation: "を marks the causee as FORCED — こどもを あるかせる is 'make the child walk,' not 'let.'"
+          - npc: { speaker: "Mika", ja: "きょうは むずかしいね。", en: "Today's hard, huh." }
+            goal: "Say you'll let the child walk instead (permit)."
+            reply: { mode: build, tiles: ["こどもを", "こどもに", "あるかせる", "。"], answer: "こどもに あるかせる。" }
+            replyGloss: "I'll let the child walk."
+            explanation: "に marks the causee as PERMITTED — こどもに あるかせる is 'let the child walk,' the opposite reading from を with the exact same verb."
+      - { kind: challenge, ja: "せんせいも がくせいを あるかせた。", en: "The teacher, too, made the student walk.", combines: [causative-make-vs-let, mo-also, ta-form], mode: build }
+    reviewPool: [こども, いぬ, しゅくだい, がっこう, だれ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m45-neo-5
+    role: teaching
+    title: "「せんせいに しかられた」— passive comes back, spiral"
+    focus: "Backward spiral: passive (m40) reviewed side-by-side with causative — same -られる/-せる suffix family, opposite direction, never stacked on one verb"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "がくせいは せんせいに ほめられた。", en: "The student was praised by the teacher.", exercises: [passive-rareru], mode: build }
+      - { kind: sentence, ja: "おやは こどもに ほんを よませる。", en: "The parent makes/lets the child read a book.", exercises: [causative-form], mode: build }
+      - { kind: sentence, ja: "がくせいは せんせいに しかられた。", en: "The student was scolded by the teacher.", exercises: [passive-rareru], mode: build }
+      - { kind: sentence, ja: "おやは こどもに しゅくだいを させる。", en: "The parent makes the child do homework.", exercises: [causative-form], mode: build }
+      - { kind: sentence, ja: "せんせいは がくせいに がっこうに こさせる。", en: "The teacher makes the student come to school.", exercises: [causative-form], mode: listening }
+      - { kind: particle-cloze, stem: "がくせいは せんせい", tail: " しかられた。", answer: "に", options: ["に", "を", "によって"], en: "The student was scolded by the teacher.", explanation: "The passive agent — who did the scolding — takes に, exactly like the causer's target does with causative. を would make the teacher the one being scolded; によって is reserved for the more formal creation/authorship pattern (m40), not an everyday action like scolding." }
+      - { kind: listening-comp, audio: "こどもは せんせいに ほめられた。", answer: "The child was praised by the teacher.", distractors: ["The child praised the teacher.", "The teacher was scolded by the child.", "The child scolded the teacher."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "おやは こどもに しゅくだいを させる。", answer: "The parent makes the child do homework.", distractors: ["The child makes the parent do homework.", "The parent does the homework instead.", "The parent forbids homework."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "どうしたの？", en: "What's wrong?" }
+          - { speaker: "Ken", ja: "せんせいに しかられたよ。", en: "I got scolded by the teacher." }
+          - { speaker: "Mika", ja: "だいじょうぶ？", en: "Are you okay?" }
+          - { speaker: "Ken", ja: "うん、だいじょうぶ。おやは しゅくだいを させるよ。", en: "Yeah, I'm okay. My parent makes me do homework now." }
+        questions:
+          - { q: "What happened to Ken?", options: ["He was scolded by the teacher", "He praised the teacher", "He scolded a student", "He finished his homework happily"], answer: "He was scolded by the teacher" }
+      - { kind: challenge, ja: "せんせいに しかられたから、おやは こどもに しゅくだいを させる。", en: "Since (the child) was scolded by the teacher, the parent makes the child do homework.", combines: [passive-rareru, causative-form, kara-because], mode: build }
+    reviewPool: [せんせい, がくせい, しゅくだい, だいじょうぶ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m45-neo-6
+    role: teaching
+    title: "「こどもに いぬを そだてさせる」— MAKE vs LET, transitive"
+    focus: "A transitive verb's causee can only take に (を is already taken by the object) — MAKE vs LET reads from むりやり/context instead"
+    introduces: [そだてる, しつけ, そだてさせる]
+    beats:
+      - { kind: rule, grammarPointId: causative-make-vs-let, variant: transitive }
+      - { kind: sentence, ja: "こどもは いぬを そだてる。", en: "The child raises the dog.", exercises: [], mode: build }
+      - { kind: sentence, ja: "おやは こどもに いぬを そだてさせる。", en: "The parent lets the child raise the dog.", exercises: [causative-make-vs-let], mode: build }
+      - { kind: sentence, ja: "おやは こどもに むりやり いぬを そだてさせる。", en: "The parent forcibly makes the child raise the dog.", exercises: [causative-make-vs-let], mode: build }
+      - { kind: sentence, ja: "いぬの しつけは むずかしい。", en: "The dog's discipline (training) is difficult.", exercises: [no-possession, i-adj-present], mode: build }
+      - { kind: sentence, ja: "おやは こどもに むりやり しゅくだいを させる。", en: "The parent forcibly makes the child do homework.", exercises: [causative-make-vs-let, causative-form], mode: build }
+      - { kind: sentence, ja: "せんせいは がくせいに いぬの せわを まかせる。", en: "The teacher entrusts the dog's care to the student.", exercises: [no-possession], mode: listening }
+      - { kind: particle-cloze, stem: "おやは こどもに いぬを そだて", tail: "。", answer: "させる", options: ["させる", "せる", "る"], en: "The parent makes/lets the child raise the dog.", explanation: "そだてる is ichidan — drop る, add させる whole: そだて+させる. せる alone is the godan ending, wrong class here." }
+      - { kind: listening-comp, audio: "おやは こどもに むりやり いぬを そだてさせる。", answer: "The parent forcibly makes the child raise the dog.", distractors: ["The parent lets the child skip raising the dog.", "The child forces the parent to raise the dog.", "The parent raises the dog with the child."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "いぬの しつけは むずかしい。", answer: "The dog's discipline (training) is difficult.", distractors: ["The dog's discipline is easy.", "The dog has no discipline problems.", "The child's discipline is difficult."], q: "What does this mean?" }
+      - { kind: kanji, kana: そだてる, kanji: 育てる, distractors: ["たすける", "そうじする", "たべる"], exercises: [causative-make-vs-let] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "いぬを そだてるのは むずかしい？", en: "Is raising a dog difficult?" }
+          - { speaker: "Ken", ja: "うん、しつけが むずかしいよ。", en: "Yeah, the training is difficult." }
+          - { speaker: "Mika", ja: "こどもに まかせるの？", en: "Do you leave it to the child?" }
+          - { speaker: "Ken", ja: "ううん、わたしが する。", en: "No, I do it myself." }
+        questions:
+          - { q: "Who does the dog's training?", options: ["Ken does it himself", "The child does it", "The teacher does it", "Nobody does it"], answer: "Ken does it himself" }
+      - { kind: challenge, ja: "いぬの しつけは むずかしいから、おやは こどもに むりやり そだてさせる。", en: "Since the dog's training is difficult, the parent forcibly makes the child raise it.", combines: [causative-make-vs-let, no-possession, kara-because], mode: build }
+    reviewPool: [いぬ, こども, おや, せんせい, がくせい, まかせる, せわ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m45-neo-review-2
+    role: review
+    title: "Review — MAKE vs LET, intransitive and transitive"
+    focus: "Spiral L4-L6: causee-particle contrast (intransitive) vs causee-fixed-at-に (transitive), plus the passive backward-spiral — THIS MODULE ONLY"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "おやは こどもを あるかせた。", en: "The parent made the child walk.", exercises: [causative-make-vs-let], mode: build }
+      - { kind: sentence, ja: "おやは こどもに あるかせた。", en: "The parent let the child walk.", exercises: [causative-make-vs-let], mode: build }
+      - { kind: sentence, ja: "おやは こどもに むりやり いぬを そだてさせる。", en: "The parent forcibly makes the child raise the dog.", exercises: [causative-make-vs-let], mode: build }
+      - { kind: sentence, ja: "がくせいは せんせいに しかられた。", en: "The student was scolded by the teacher.", exercises: [passive-rareru], mode: build }
+      - { kind: sentence, ja: "おやは こどもに いぬを そだてさせる。", en: "The parent lets the child raise the dog.", exercises: [causative-make-vs-let], mode: listening }
+      - { kind: listening-comp, audio: "おやは いぬの せわを こどもに まかせる。", answer: "The parent entrusts the dog's care to the child.", distractors: ["The parent takes care of the dog themselves.", "The child refuses to take care of the dog.", "The dog takes care of the child."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "どうしたの？", en: "What's wrong?" }
+          - { speaker: "Ken", ja: "せんせいに しかられたんだ。おやが むりやり いぬの せわを させるから。", en: "I got scolded by the teacher. Because my parent forces me to look after the dog." }
+          - { speaker: "Mika", ja: "しかたが ないね。", en: "Can't be helped, huh." }
+        questions:
+          - { q: "Why was Ken scolded?", options: ["Because his parent forces him to look after the dog", "Because he forgot his homework", "Because he was late", "Because he broke a rule"], answer: "Because his parent forces him to look after the dog" }
+      - { kind: sentence, ja: "しかたが ない。", en: "It can't be helped.", exercises: [nai-existence], mode: build }
+    reviewPool: [あるかせた, そだてさせる, しかられた, しかた, まかせる]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m45-neo-7
+    role: teaching
+    title: "「しゅくだいを させて ください」— させる, the request ladder"
+    focus: "させて ください asks permission for yourself; させて もらう describes receiving it — riding the favor-ladder (m35)"
+    introduces: [きそく, めいれい, ゆるす, ゆるさない, させて, かえらせて, はやく]
+    beats:
+      - { kind: rule, grammarPointId: causative-request }
+      - { kind: sentence, ja: "しゅくだいを させて ください。", en: "Please let me do the homework.", exercises: [causative-request], mode: build }
+      - { kind: sentence, ja: "かえらせて ください。", en: "Please let me go home.", exercises: [causative-request], mode: build }
+      - { kind: sentence, ja: "せんせいに しゅくだいを させて もらう。", en: "I get to do the homework (the teacher lets me).", exercises: [causative-request, favor-ladder], mode: build }
+      - { kind: sentence, ja: "せんせいは それを ゆるす。", en: "The teacher allows that.", exercises: [], mode: build }
+      - { kind: sentence, ja: "きそくは それを ゆるさない。", en: "The rules don't allow that.", exercises: [nai-form], mode: build }
+      - { kind: sentence, ja: "はやく かえらせて ください。", en: "Please let me go home early.", exercises: [causative-request], mode: listening }
+      - { kind: particle-cloze, stem: "しゅくだいを させて ", tail: "。", answer: "ください", options: ["ください", "もらう", "くれる"], en: "Please let me do the homework.", explanation: "させて ください is the direct request form — 'please let me.' させて もらう describes RECEIVING permission (a different sentence shape); させて くれる would mean someone offered without being asked." }
+      - { kind: listening-comp, audio: "かえらせて ください。", answer: "Please let me go home.", distractors: ["Please make me go home.", "I won't go home.", "Please come home."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "きそくは それを ゆるさない。", answer: "The rules don't allow that.", distractors: ["The rules allow anything.", "There are no rules.", "The rules were changed."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "せんせいは それを ゆるす。", answer: "The teacher allows that.", distractors: ["The teacher forbids that.", "The teacher forgot that.", "The teacher made that."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "めいれいだから、しゅくだいを させて ください。", answer: "Since it's an order, please let me do the homework.", distractors: ["Since it's homework, please give the order.", "Even though it's an order, I refuse.", "Please give me the order for homework."], q: "What does this mean?" }
+      - { kind: kanji, kana: きそく, kanji: 規則, distractors: ["きぶん", "きせつ", "きけん"], exercises: [causative-request] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "もう はやく かえらせて ください。", en: "Please let me go home early already." }
+          - { speaker: "Ken", ja: "きそくが それを ゆるさないよ。", en: "The rules don't allow that." }
+          - { speaker: "Mika", ja: "えー、しかたが ないね。", en: "Ugh, can't be helped." }
+        questions:
+          - { q: "Why can't Mika go home early?", options: ["The rules don't allow it", "She has no reason to leave", "Ken said no", "There's a test"], answer: "The rules don't allow it" }
+      - { kind: challenge, ja: "めいれいだから、しゅくだいを させて ください。", en: "Since it's an order, please let me do the homework.", combines: [causative-request, kara-because, causative-form], mode: build }
+    reviewPool: [しゅくだい, きそく, かえる, もらう, ください]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m45-neo-8
+    role: teaching
+    title: "「しゅくだいを させて いただく」— recognize the ultra-polite twin"
+    focus: "させて いただく = させて もらう's humble twin — RECOGNITION only; production (and causative-passive) waits for n4-21"
+    introduces: [ないしょ, きょういく]
+    beats:
+      - { kind: rule, grammarPointId: causative-politeness-recognition }
+      - { kind: sentence, ja: "きょういくは むずかしいと おもう。", en: "I think education is difficult.", exercises: [to-omoimasu], mode: build }
+      - { kind: sentence, ja: "それは ないしょだ。", en: "That's a secret.", exercises: [desu-copula], mode: build }
+      - { kind: sentence, ja: "しゅくだいを させて もらう。", en: "I get to do the homework (with permission).", exercises: [causative-request], mode: build }
+      - { kind: listening-comp, audio: "しゅくだいを させて いただく。", answer: "I humbly get to do the homework (politely).", distractors: ["I refuse to do the homework.", "I make someone else do the homework.", "I forgot to do the homework."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "それは ないしょだ。", answer: "That's a secret.", distractors: ["That's well known.", "That's a rule.", "That's an order."], q: "What does this mean?" }
+      - { kind: kanji, kana: きょういく, kanji: 教育, distractors: ["きそく", "きぶん", "きけん"], exercises: [] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "せんせい、しゅくだいを させて いただく。", en: "Teacher, I humbly get to do the homework." }
+          - { speaker: "Ken", ja: "うん、いいよ。でも ないしょだよ。", en: "Sure. But it's a secret." }
+          - { speaker: "Mika", ja: "きょういくは おもしろいね。", en: "Education is interesting, huh." }
+        questions:
+          - { q: "What does Ken say?", options: ["It's fine, but it's a secret", "It's not allowed", "He'll do it himself", "He's too busy"], answer: "It's fine, but it's a secret" }
+      - { kind: challenge, ja: "きょういくは むずかしいと おもうから、せんせいに しつもんを させて もらう。", en: "Since I think education is difficult, I get the teacher to let me ask a question.", combines: [to-omoimasu, kara-because, causative-request], mode: build }
+    reviewPool: [ないしょ, きょういく, しつもん, おもしろい, せんせい]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m45-neo-review-3
+    role: review
+    title: "Review — the request ladder and させて いただく recognition"
+    focus: "Spiral L7-L8: させて ください/もらう plus recognizing させて いただく — THIS MODULE ONLY"
+    introduces: [ざんぎょう]
+    beats:
+      - { kind: sentence, ja: "しゅくだいを させて ください。", en: "Please let me do the homework.", exercises: [causative-request], mode: build }
+      - { kind: sentence, ja: "かえらせて ください。", en: "Please let me go home.", exercises: [causative-request], mode: build }
+      - { kind: sentence, ja: "きそくは それを ゆるさない。", en: "The rules don't allow that.", exercises: [nai-form], mode: build }
+      - { kind: sentence, ja: "きょうは ざんぎょうだ。", en: "Today there's overtime.", exercises: [wa-topic, desu-copula], mode: build }
+      - { kind: listening-comp, audio: "しゅくだいを させて いただく。", answer: "I humbly get to do the homework (politely).", distractors: ["I refuse to do the homework.", "I make someone else do the homework.", "I forgot to do the homework."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "きょうは ざんぎょうだ。", answer: "Today there's overtime.", distractors: ["Today there's no work.", "Today is a holiday.", "Today class ends early."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "きょうは ざんぎょう？", en: "Overtime today?" }
+          - { speaker: "Ken", ja: "うん、ざんぎょうだよ。", en: "Yeah, overtime." }
+          - { speaker: "Mika", ja: "しかたが ないね。", en: "Can't be helped, huh." }
+        questions:
+          - { q: "What is happening today?", options: ["Ken has overtime", "Ken is on vacation", "Ken is sick", "Ken finished early"], answer: "Ken has overtime" }
+      - { kind: sentence, ja: "せんせいに しゅくだいを させて もらう。", en: "I get to do the homework (with the teacher's permission).", exercises: [causative-request, favor-ladder], mode: build }
+    reviewPool: [ざんぎょう, きそく, ゆるさない, させて, かえらせて, しかた]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m45-neo-challenge
+    role: challenge
+    title: "Challenge — させる, every shape in one arc"
+    focus: "Godan+ichidan formation, MAKE-vs-LET (intransitive and transitive), the request ladder — all combined with prior N4 grammar, no new vocabulary"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "おやは こどもに むりやり やさいを たべさせるが、こどもは たべない。", en: "The parent forcibly makes the child eat vegetables, but the child won't eat.", exercises: [causative-form, causative-make-vs-let, kedo], mode: build }
+      - { kind: sentence, ja: "いぬの しつけが むずかしいので、おやは こどもに むりやり そだてさせる。", en: "Since the dog's training is difficult, the parent forcibly makes the child raise it.", exercises: [causative-make-vs-let, node-because, no-possession], mode: listening }
+      - { kind: particle-cloze, stem: "おやは こどもに しゅくだいを ", tail: "。", answer: "させる", options: ["させる", "よませる", "たべさせる"], en: "The parent makes the child do homework.", explanation: "しゅくだいを させる pairs する's causative with しゅくだい — よませる is よむ's causative (wrong verb), たべさせる is たべる's (also wrong verb)." }
+      - { kind: kanji, kana: きそく, kanji: 規則, distractors: ["きぶん", "きせつ", "きけん"], exercises: [causative-request] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "こどもに いぬの せわを させて いるの？", en: "Are you having the child take care of the dog?" }
+          - { speaker: "Ken", ja: "うん、しつけは こどもに まかせる。", en: "Yeah, I leave the discipline to the child too." }
+          - { speaker: "Mika", ja: "むりやりじゃないね。", en: "It's not forced, is it." }
+          - { speaker: "Ken", ja: "うん、こどもも いぬが すきだから。", en: "Yeah, since the child likes the dog too." }
+        questions:
+          - { q: "How does the child feel about the dog?", options: ["The child likes the dog", "The child is afraid of the dog", "The child hates taking care of the dog", "The child ignores the dog"], answer: "The child likes the dog" }
+      - { kind: challenge, ja: "やさいが すきじゃないので、おやは こどもに むりやり たべさせるが、いぬの せわは こどもに まかせる。", en: "Since the child doesn't like vegetables, the parent forcibly makes them eat, but leaves the dog's care to the child.", combines: [causative-make-vs-let, node-because, kedo, na-adj-present], mode: build }
+    reviewPool: [おや, よませる, しかた, こまった, むりやり, そうじする, たべさせる, させる, こさせる, まかせる, せわ, あるかせた, そだてる, しつけ, そだてさせる, きそく, めいれい, ゆるす, ゆるさない, させて, かえらせて, はやく, ないしょ, きょういく, ざんぎょう]

@@ -281,8 +281,26 @@ const MAX_NEVER_TOUCHED = 140;
  * list in the same run (atom-registration ripples forward, expected per
  * the freq-wave doctrine; not chased further since the ratchet only cares
  * about the ceiling, not which row moved). They come OFF this list only
- * when a later module grades them, not a fix to make here. */
-const MAX_GRADED_BUT_NEVER_WRITES = 84;
+ * when a later module grades them, not a fix to make here.
+ *
+ * 84 → 90, 2026-09-10 (Wave 1, m45 landing — n4-16 causative させる): seven
+ * of m45's own new atoms — そうじする, そだてる, しつけ, めいれい, ゆるす,
+ * ないしょ, きょういく. Same same-module D2 gate shape as every entry above:
+ * every graded touch of each lives only inside m45, the module that
+ * introduces them, so the write gate (prior-module-only) blocks all seven;
+ * D4 seed-on-unlock still schedules each due the next day. Measured via
+ * EXPOSURE_REPORT=1: net +6 (not +7) — the report's raw count moved 84→90
+ * while carrying exactly these 7 new m45 rows, meaning one pre-existing row
+ * fell off the stuck list in the same run (atom-registration ripples
+ * forward, same as the m44 entry above; not chased further since the
+ * ratchet only cares about the ceiling, not which row moved). ゆるす also
+ * gained a same-module listening-comp recognition beat this landing (fixing
+ * a separate recognitionExposure production-only-exposure gap) — that does
+ * NOT move it off this list, since the D2 gate is about module recency, not
+ * modality: a recognition-only grade inside the SAME module still can't
+ * write. They come OFF this list only when a later module grades them, not
+ * a fix to make here. */
+const MAX_GRADED_BUT_NEVER_WRITES = 90;
 
 type Row = {
   atomId: string;

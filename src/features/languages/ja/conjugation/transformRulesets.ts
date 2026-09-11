@@ -504,6 +504,61 @@ export const TRANSFORM_RULESETS: Record<string, TransformRuleset> = {
       },
     ],
   },
+
+  // causative (m45, id "causative") — させる. Godan bends the u-row to the
+  // a-row (naiStem) and adds せる; ichidan drops る and adds させる; both
+  // irregulars are memorized whole. Canonical row examples per house
+  // convention (matches passive's own ruling — these four are pinned
+  // regardless of what the module drills) AND per the spine's own worked
+  // examples (よませる／たべさせる／させる／こさせる): godan uses よむ (not
+  // のむ — spine's causative example set names よむ specifically, id
+  // "yomu", already in VERB_ENTRIES, taught m7), ichidan/irregular reuse
+  // たべる／する／くる exactly as passive's table does.
+  causative: {
+    label: "させる form — the causative, every class",
+    rows: [
+      {
+        group: "ichidan",
+        label: "る-verbs",
+        examples: ["たべる"],
+        chips: [
+          { text: "たべ" },
+          { text: "る", kind: "out" },
+          sep("→"),
+          { text: "たべ" },
+          { text: "させる", kind: "add" },
+        ],
+      },
+      {
+        group: "godan",
+        label: "う-verbs",
+        examples: ["よむ"],
+        chips: [
+          { text: "よ" },
+          { text: "む", kind: "out" },
+          sep("→"),
+          { text: "よ" },
+          { text: "ま", kind: "in" },
+          sep("＋"),
+          { text: "せる", kind: "add" },
+        ],
+      },
+      {
+        group: "irregular",
+        label: "irregular",
+        examples: ["する", "くる"],
+        chips: [
+          { text: "する", kind: "out" },
+          sep("→"),
+          { text: "させる", kind: "in" },
+          sep("·"),
+          { text: "くる", kind: "out" },
+          sep("→"),
+          { text: "こさせる", kind: "in" },
+        ],
+      },
+    ],
+  },
 };
 
 /**
@@ -1014,6 +1069,66 @@ const RULESET_ALTERNATES: Record<string, Record<string, RulesetRow>> = {
         { text: "する", kind: "out" },
         sep("→"),
         { text: "される", kind: "in" },
+        sep("·"),
+        { text: "くる", kind: "out" },
+        sep("→"),
+        { text: "？", kind: "add" },
+      ],
+    },
+  },
+
+  // causative: m45 drills all four canonical bases (よむ in L1's godan-only
+  // ramp; たべる/する/くる in L3's ichidan+irregular ramp) — every canonical
+  // example needs an alternate, matching passive's full-coverage choice.
+  causative: {
+    よむ: {
+      group: "godan",
+      label: "う-verbs",
+      examples: ["かう"],
+      chips: [
+        { text: "か" },
+        { text: "う", kind: "out" },
+        sep("→"),
+        { text: "か" },
+        { text: "わ", kind: "in" },
+        sep("＋"),
+        { text: "せる", kind: "add" },
+      ],
+    },
+    たべる: {
+      group: "ichidan",
+      label: "る-verbs",
+      examples: ["みる"],
+      chips: [
+        { text: "み" },
+        { text: "る", kind: "out" },
+        sep("→"),
+        { text: "み" },
+        { text: "させる", kind: "add" },
+      ],
+    },
+    する: {
+      group: "irregular",
+      label: "irregular",
+      examples: ["くる"],
+      chips: [
+        { text: "くる", kind: "out" },
+        sep("→"),
+        { text: "こさせる", kind: "in" },
+        sep("·"),
+        { text: "する", kind: "out" },
+        sep("→"),
+        { text: "？", kind: "add" },
+      ],
+    },
+    くる: {
+      group: "irregular",
+      label: "irregular",
+      examples: ["する"],
+      chips: [
+        { text: "する", kind: "out" },
+        sep("→"),
+        { text: "させる", kind: "in" },
         sep("·"),
         { text: "くる", kind: "out" },
         sep("→"),
