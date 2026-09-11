@@ -1,0 +1,3531 @@
+{
+  "schema": 1,
+  "moduleId": "m16",
+  "lang": "ja",
+  "generatedAt": "2026-09-11",
+  "entryCount": 587,
+  "entries": [
+    {
+      "anchor": "m16/atom:いみ/gloss",
+      "en": "meaning",
+      "enSourceHash": "e409bfc6fe798c2e",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:うち/gloss",
+      "en": "Home / my place",
+      "enSourceHash": "e47e25d45fcb3007",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:かく/gloss",
+      "en": "to write",
+      "enSourceHash": "1b221d6d1eb23536",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:がつ/gloss",
+      "en": "month (in a date)",
+      "enSourceHash": "a6813f7d0ddbe8ea",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:がつ/shortGloss",
+      "en": "month",
+      "enSourceHash": "a5c7d1719e284f2c",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:きょうしつ/gloss",
+      "en": "classroom",
+      "enSourceHash": "83d82a74a67aebde",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:けど/gloss",
+      "en": "but",
+      "enSourceHash": "cdc29937887188ad",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:さむい/gloss",
+      "en": "cold",
+      "enSourceHash": "e272deecde720ffc",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:すう/gloss",
+      "en": "to smoke",
+      "enSourceHash": "8535028f4811402a",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:ぜんぜん/gloss",
+      "en": "not at all (with a negative)",
+      "enSourceHash": "1836b5de4cf9e4e3",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:ぜんぜん/shortGloss",
+      "en": "not at all",
+      "enSourceHash": "d440a63a2025f47b",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:たいせつ/gloss",
+      "en": "important",
+      "enSourceHash": "34a989eb3e220e6b",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:たばこ/gloss",
+      "en": "tobacco, cigarettes",
+      "enSourceHash": "88e6a379c2e6d0ba",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:たばこ/shortGloss",
+      "en": "cigarettes",
+      "enSourceHash": "f286b5ae29a2f8a1",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:つかう/gloss",
+      "en": "to use",
+      "enSourceHash": "d6c48b73689bef1a",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:なかった/gloss",
+      "en": "there wasn't, didn't have",
+      "enSourceHash": "4395d8c0889ea40c",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:なかった/shortGloss",
+      "en": "didn't have",
+      "enSourceHash": "7a280f96b6f9502f",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:ので/gloss",
+      "en": "because (softer)",
+      "enSourceHash": "8b8df83ee1786f2c",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:ので/shortGloss",
+      "en": "because",
+      "enSourceHash": "a511aeeeb8a11993",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:はしる/gloss",
+      "en": "to run",
+      "enSourceHash": "a3d78ca02f8b3a78",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:まい/gloss",
+      "en": "counter for flat things",
+      "enSourceHash": "fc23d5b9ca5e5543",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:まい/shortGloss",
+      "en": "flat-thing counter",
+      "enSourceHash": "3666078d5bd9a850",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:まで/gloss",
+      "en": "until, as far as",
+      "enSourceHash": "f079723b55f3053b",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:まで/shortGloss",
+      "en": "until",
+      "enSourceHash": "2e3200de84b9cada",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:め/gloss",
+      "en": "eye",
+      "enSourceHash": "47c215b5f70eb9c9",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:やさしい/gloss",
+      "en": "easy, simple",
+      "enSourceHash": "b3c6ff9aac7e86df",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:やすみ/gloss",
+      "en": "rest, vacation",
+      "enSourceHash": "c1e42c9d86e0c28d",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:よわい/gloss",
+      "en": "weak",
+      "enSourceHash": "481ba4019c9d2710",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:わるい/gloss",
+      "en": "bad",
+      "enSourceHash": "2f05d4b689d270ca",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:クラス/gloss",
+      "en": "class",
+      "enSourceHash": "0889113e04d3203f",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:スポーツ/gloss",
+      "en": "sport",
+      "enSourceHash": "ec450786e26a5154",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/atom:ノート/gloss",
+      "en": "notebook, exercise book",
+      "enSourceHash": "2b826c0b37a83e7d",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m16/gp:counter-mai/ex:きっぷを さん かった。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:counter-mai/ex:きっぷを さんまい かった。",
+      "en": "I bought three tickets.",
+      "enSourceHash": "34ec3210a227ba58",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:counter-mai/ex:きっぷを なんまい かう？",
+      "en": "How many tickets are you buying?",
+      "enSourceHash": "5d32531410a56a2d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:counter-mai/ex:しゃしんを いちまい ください。",
+      "en": "One photo, please.",
+      "enSourceHash": "4b21dceebe2e06ea",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:counter-mai/ex:しゃしんを ごまい みた。",
+      "en": "I looked at five photos.",
+      "enSourceHash": "a1136e79d65a90a6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:counter-mai/ex:シャツを よんまい かう。",
+      "en": "I'll buy four shirts.",
+      "enSourceHash": "2aea073118bd0c6d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:kara-because/ex:いそがしいから うちに いる。",
+      "en": "I'm busy, so I'm staying home.",
+      "enSourceHash": "13032991bef23b76",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:kara-because/ex:いそがしいだから うちに いる。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:kara-because/ex:おいしいから よく たべる。",
+      "en": "It's delicious, so I eat it often.",
+      "enSourceHash": "5305c1f91cefaf3e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:kara-because/ex:じかんが ないから いかない。",
+      "en": "I have no time, so I'm not going.",
+      "enSourceHash": "df18e2e37665e7de",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:kara-because/ex:たかいから かわない。",
+      "en": "It's expensive, so I won't buy it.",
+      "enSourceHash": "621d10ca0ae14f07",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:kara-because/ex:ゆきだから ミカは こない。",
+      "en": "It's snowing, so Mika isn't coming.",
+      "enSourceHash": "239665c879208efa",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:kara-origin/ex:あさから いそがしい。",
+      "en": "I've been busy since morning.",
+      "enSourceHash": "ca7cca24ad83c12b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:kara-origin/ex:くじから はたらく。",
+      "en": "I work from nine.",
+      "enSourceHash": "0bb06948e02e8b03",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:kara-origin/ex:ごごから じゅぎょうが ある。",
+      "en": "I have class from the afternoon.",
+      "enSourceHash": "97437ecdd5b0a05a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:kara-origin/ex:にほんから ともだちが くる。",
+      "en": "A friend is coming from Japan.",
+      "enSourceHash": "b6fef78c1df8a5a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:kara-origin/ex:トムは アメリカから くる。",
+      "en": "Tom is coming from America.",
+      "enSourceHash": "61cd16f54f089698",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:kara-origin/ex:トムは アメリカを くる。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:karada-ni-warui/ex:かぜが よわいから うみで およぐ。",
+      "en": "The wind is weak, so I'll swim in the sea.",
+      "enSourceHash": "88e0185aab7b50bb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:karada-ni-warui/ex:かぞくは たいせつだ。",
+      "en": "Family is important.",
+      "enSourceHash": "9b33c426e46c4485",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:karada-ni-warui/ex:からだに わるいから すわない。",
+      "en": "It's bad for me, so I don't smoke.",
+      "enSourceHash": "cde987ce9701621c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:karada-ni-warui/ex:けいたいは めで わるい。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:karada-ni-warui/ex:けいたいは めに わるい。",
+      "en": "Phones are bad for your eyes.",
+      "enSourceHash": "26433e472a9fab94",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:karada-ni-warui/ex:たいせつな しゃしんなので みせない。",
+      "en": "It's an important photo, so I won't show it.",
+      "enSourceHash": "778bf3b0d1fffd20",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:kedo/ex:いそがしいけど いく。",
+      "en": "I'm busy, but I'll go.",
+      "enSourceHash": "edff5adcad5cde20",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:kedo/ex:ここは しずかだけど すきじゃない。",
+      "en": "It's quiet here, but I don't like it.",
+      "enSourceHash": "36e00ea784c27fb2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:kedo/ex:たかいけど かいたい。",
+      "en": "It's expensive, but I want to buy it.",
+      "enSourceHash": "c53f167a74052ed2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:kedo/ex:たかいだけど かいたい。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:kedo/ex:のんだけど まだ のみたい。",
+      "en": "I drank, but I still want more.",
+      "enSourceHash": "43911cf42446ffea",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:kedo/ex:ゆきだけど いく。",
+      "en": "It's snowing, but I'll go.",
+      "enSourceHash": "cfe787491af3fa98",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:made-until/ex:あさから ばんまで えいがを みた。",
+      "en": "I watched movies from morning till evening.",
+      "enSourceHash": "5479b4a5ac81dc77",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:made-until/ex:いちがつから さんがつまで さむい。",
+      "en": "It's cold from January to March.",
+      "enSourceHash": "730a4dde8646aa9f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:made-until/ex:くじから ごじから はたらく。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:made-until/ex:くじから ごじまで はたらく。",
+      "en": "I work from nine to five.",
+      "enSourceHash": "5ba591a2c37db68b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:made-until/ex:ごじまで まつ。",
+      "en": "I'll wait until five.",
+      "enSourceHash": "d5f1ff6a303d997f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:made-until/ex:にほんから アメリカまで いく。",
+      "en": "I'll go from Japan to America.",
+      "enSourceHash": "400ccbc0e4ed3433",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:masu-past-negative/ex:あさ ちゃを のみませんでした。",
+      "en": "I didn't drink tea in the morning.",
+      "enSourceHash": "41917824b8314e44",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:masu-past-negative/ex:えいがを みませんでした。",
+      "en": "I didn't watch the movie.",
+      "enSourceHash": "49b2841a61718d19",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:masu-past-negative/ex:きのう ごはんを たべませんだ。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:masu-past-negative/ex:きのう ごはんを たべませんでした。",
+      "en": "I didn't eat yesterday.",
+      "enSourceHash": "f1d996115458872f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:masu-past-negative/ex:きのうは なにも しませんでした。",
+      "en": "I didn't do anything yesterday.",
+      "enSourceHash": "d6493005e061df03",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:masu-past-negative/ex:ミカは きませんでした。",
+      "en": "Mika didn't come.",
+      "enSourceHash": "565704976e223ec3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:nai-form/ex:あさ ちゃを のまなかった。",
+      "en": "I didn't drink tea in the morning.",
+      "enSourceHash": "41917824b8314e44",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:nai-form/ex:きのう ごはんを たべないかった。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:nai-form/ex:きのう ごはんを たべなかった。",
+      "en": "I didn't eat yesterday.",
+      "enSourceHash": "f1d996115458872f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:nai-form/ex:きのうは なにも しなかった。",
+      "en": "I didn't do anything yesterday.",
+      "enSourceHash": "d6493005e061df03",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:nai-form/ex:じかんが なかったから いかなかった。",
+      "en": "I had no time, so I didn't go.",
+      "enSourceHash": "9fc958832069fb2f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:nai-form/ex:ぜんぜん おもしろくなかった。",
+      "en": "It wasn't interesting at all.",
+      "enSourceHash": "4f87704fa6be04cc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:node-because/ex:あした じゅぎょうが あるので うちに いる。",
+      "en": "I have class tomorrow, so I'm staying home.",
+      "enSourceHash": "49d87e31bb15b9f1",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:node-because/ex:しずかだので ここが すきだ。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:node-because/ex:しずかなので ここが すきだ。",
+      "en": "It's quiet, so I like it here.",
+      "enSourceHash": "859bbea5c62bd74d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:node-because/ex:じかんが ないので いかない。",
+      "en": "I have no time, so I'm not going.",
+      "enSourceHash": "df18e2e37665e7de",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:node-because/ex:たかいので かわない。",
+      "en": "It's expensive, so I won't buy it.",
+      "enSourceHash": "621d10ca0ae14f07",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:node-because/ex:ゆきなので ミカは こない。",
+      "en": "It's snowing, so Mika isn't coming.",
+      "enSourceHash": "239665c879208efa",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:wa-topic/ex:ここは とりにくが おいしい。",
+      "en": "The chicken here is delicious.",
+      "enSourceHash": "303de1c692d67e66",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:wa-topic/ex:だれが くる？",
+      "en": "Who's coming?",
+      "enSourceHash": "765c8c656e55fb3d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:wa-topic/ex:だれは くる？",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:wa-topic/ex:わたしは じかんが ない。",
+      "en": "I have no time.",
+      "enSourceHash": "e241c9e4842b1488",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:wa-topic/ex:ケンが くるから うちで まつ。",
+      "en": "Ken is coming, so I'll wait at home.",
+      "enSourceHash": "30f2fb8b63c9058b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:wa-topic/ex:ミカは がくせいだから いそがしい。",
+      "en": "Mika is a student, so she's busy.",
+      "enSourceHash": "6708b43745047546",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:yomu-imi/ex:いみが わからないので せんせいに きく。",
+      "en": "I don't understand the meaning, so I'll ask the teacher.",
+      "enSourceHash": "12987e26904e6027",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:yomu-imi/ex:ここに なまえを かいて ください。",
+      "en": "Please write your name here.",
+      "enSourceHash": "f351a0e5ac404123",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:yomu-imi/ex:ほんを よむだ。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:yomu-imi/ex:やさしい ほんを よむ。",
+      "en": "I read easy books.",
+      "enSourceHash": "d8ceeb82cf913cb2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:yomu-imi/ex:クラスの まえに やさしい ほんを よんだ。",
+      "en": "I read an easy book before class.",
+      "enSourceHash": "1aa6eb3b53de5d35",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/gp:yomu-imi/ex:クラスは くじから じゅうじまでだ。",
+      "en": "Class runs from nine to ten.",
+      "enSourceHash": "0b09b6a64be839d9",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:1cbf4d1105c14200",
+      "en": "It's cold, so I'm staying home",
+      "enSourceHash": "1cbf4d1105c14200",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:336074805fc85398",
+      "en": "time",
+      "enSourceHash": "336074805fc85398",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:38de625d48ccd00c",
+      "en": "It's cheap, so I'll buy it",
+      "enSourceHash": "38de625d48ccd00c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:431e478c12ec59b0",
+      "en": "I have no time, so I'm not going",
+      "enSourceHash": "431e478c12ec59b0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:45cddcf98d723543",
+      "en": "A friend is coming, so I'm going to the coffee shop",
+      "enSourceHash": "45cddcf98d723543",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:531471ab12b06731",
+      "en": "A friend is coming, so I'm staying home",
+      "enSourceHash": "531471ab12b06731",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:540f445d3c7274c8",
+      "en": "It's expensive, so I won't buy it",
+      "enSourceHash": "540f445d3c7274c8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:8a6ba32c9bed6ce7",
+      "en": "movie",
+      "enSourceHash": "8a6ba32c9bed6ce7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:8c66791bd6059c85",
+      "en": "I bought it because it was cheap",
+      "enSourceHash": "8c66791bd6059c85",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:a746222f09d85605",
+      "en": "snow",
+      "enSourceHash": "a746222f09d85605",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:ad72aa728f671d5d",
+      "en": "My friend went to the coffee shop",
+      "enSourceHash": "ad72aa728f671d5d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:bb2b6e74be8498b9",
+      "en": "Mika is coming, so I'm staying home",
+      "enSourceHash": "bb2b6e74be8498b9",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:c02c46900edeb327",
+      "en": "I'm going to the coffee shop with a friend",
+      "enSourceHash": "c02c46900edeb327",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:cce4d2504d4b809c",
+      "en": "It's cheap, but I won't buy it",
+      "enSourceHash": "cce4d2504d4b809c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:cde48537ca2c2808",
+      "en": "friend",
+      "enSourceHash": "cde48537ca2c2808",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:ff0c8f6c3b86da9a",
+      "en": "It's delicious, so I eat it often",
+      "enSourceHash": "ff0c8f6c3b86da9a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/ja:おいしいから よく たべる",
+      "en": "Build: It's delicious, so I eat it often",
+      "enSourceHash": "3df8611858b3789f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/ja:さむいから うちに いる",
+      "en": "Build: It's cold, so I'm staying home",
+      "enSourceHash": "4090cb78e3b72e4f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/ja:じかんが ないから いかない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/ja:たかいから かわない",
+      "en": "Build: It's expensive, so I won't buy it",
+      "enSourceHash": "a4cb282eed847b6e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/ja:にぎやかだから ここが すきだ",
+      "en": "Build: It's lively, so I like it here",
+      "enSourceHash": "cf341ed8e0c248d0",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/ja:ゆきだから ミカは こない",
+      "en": "Build: It's snowing, so Mika isn't coming",
+      "enSourceHash": "d260ed2de7e7f9b2",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/ja:ミカが くるから うちに いる",
+      "en": "Build: Mika is coming, so I'm staying home",
+      "enSourceHash": "9cbce3506533ffc5",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/ja:ミカが すきな みせは たかいから きょうは かいものを しない",
+      "en": "Build: The shop Mika likes is expensive, so I'm not shopping today",
+      "enSourceHash": "2edf63cb1bb036cb",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:0889113e04d3203f",
+      "en": "class",
+      "enSourceHash": "0889113e04d3203f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:0c2284f223d59fd9",
+      "en": "There is no class today",
+      "enSourceHash": "0c2284f223d59fd9",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:1057a9604e04b274",
+      "en": "teacher",
+      "enSourceHash": "1057a9604e04b274",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:12a82a202d7496b3",
+      "en": "I understand the meaning, so I won't ask",
+      "enSourceHash": "12a82a202d7496b3",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:13809668fb436386",
+      "en": "pencil",
+      "enSourceHash": "13809668fb436386",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:25158a69d7b8cadf",
+      "en": "The teacher doesn't know the meaning",
+      "enSourceHash": "25158a69d7b8cadf",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:42b357bc18bb5a72",
+      "en": "I don't understand the meaning, so I'll ask the teacher",
+      "enSourceHash": "42b357bc18bb5a72",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:65911f73cc66d96e",
+      "en": "Class runs from nine to ten",
+      "enSourceHash": "65911f73cc66d96e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:6aef942eb8234630",
+      "en": "Class ran from nine to ten yesterday",
+      "enSourceHash": "6aef942eb8234630",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:82a3537ff0dbce7e",
+      "en": "name",
+      "enSourceHash": "82a3537ff0dbce7e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:869fda581e1d3956",
+      "en": "Class runs from ten to eleven",
+      "enSourceHash": "869fda581e1d3956",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:f80105efab6d863f",
+      "en": "letter",
+      "enSourceHash": "f80105efab6d863f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:fd3f636c5fbfcef3",
+      "en": "It's easy, so I won't ask the teacher",
+      "enSourceHash": "fd3f636c5fbfcef3",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/ja:えんぴつを つかって ノートに かく",
+      "en": "Build: I use a pencil and write in my notebook",
+      "enSourceHash": "3dea9911befe0581",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/ja:きょうしつで ほんを よむ",
+      "en": "Build: I read books in the classroom",
+      "enSourceHash": "42d329beaaa0efc7",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/ja:ここに なまえを かいて ください",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/ja:じかんが なかったから てがみを かかなかった",
+      "en": "Build: I had no time, so I didn't write the letter",
+      "enSourceHash": "542904d5ee81dc04",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/ja:じゅぎょうで えんぴつを つかう",
+      "en": "Build: I use a pencil in class",
+      "enSourceHash": "7562b85dcc3d7549",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/ja:やさしい ほんだけど いみが わからない",
+      "en": "Build: It's an easy book, but I don't understand the meaning",
+      "enSourceHash": "591f6ef7c416681c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/ja:やさしい ほんを よんでいる",
+      "en": "Build: I'm reading an easy book",
+      "enSourceHash": "f9dc5c1636e36990",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/ja:クラスの まえに やさしい ほんを よんだ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/ja:クラスは くじから じゅうじまでだ",
+      "en": "Build: Class runs from nine to ten",
+      "enSourceHash": "a301d7101b8618de",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/ja:ノートに なまえを かく",
+      "en": "Build: I'll write my name in the notebook",
+      "enSourceHash": "ac075bccf3f2a6ec",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:0677922d28a4731a",
+      "en": "The wind is strong, so I won't swim in the sea",
+      "enSourceHash": "0677922d28a4731a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:199c708419560e5b",
+      "en": "Family is important",
+      "enSourceHash": "199c708419560e5b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:1b1a3e964b164a87",
+      "en": "The wind was weak, so I swam yesterday",
+      "enSourceHash": "1b1a3e964b164a87",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:230d8358dc8e8890",
+      "en": "body",
+      "enSourceHash": "230d8358dc8e8890",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:24d8f99e154a0a9d",
+      "en": "The wind is weak, so I'll swim in the sea",
+      "enSourceHash": "24d8f99e154a0a9d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:4a69f19c8c264850",
+      "en": "sea",
+      "enSourceHash": "4a69f19c8c264850",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:6ca248ef76b334e3",
+      "en": "Family is fun",
+      "enSourceHash": "6ca248ef76b334e3",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:7482d5802c3c2798",
+      "en": "photograph",
+      "enSourceHash": "7482d5802c3c2798",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:7eb7b29fc2220e93",
+      "en": "I run because I have no time",
+      "enSourceHash": "7eb7b29fc2220e93",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:995c5d31c7b6126e",
+      "en": "I don't like sports, so I don't run",
+      "enSourceHash": "995c5d31c7b6126e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:9b4ef3e5b7b4d175",
+      "en": "station",
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:9b58e68145a79ca0",
+      "en": "wind",
+      "enSourceHash": "9b58e68145a79ca0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:9befd70c94d82fab",
+      "en": "My family is busy",
+      "enSourceHash": "9befd70c94d82fab",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:9dee6893682a5948",
+      "en": "Time is important",
+      "enSourceHash": "9dee6893682a5948",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:a4890684e9f09886",
+      "en": "I like sports, so I run often",
+      "enSourceHash": "a4890684e9f09886",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:a60da99db1892276",
+      "en": "It's cold, so I'm not going to the sea",
+      "enSourceHash": "a60da99db1892276",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:ba680c81525a1091",
+      "en": "I like sports, but I don't run",
+      "enSourceHash": "ba680c81525a1091",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:d34a569ab7aaa54d",
+      "en": "family",
+      "enSourceHash": "d34a569ab7aaa54d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/ja:あさ えきまで はしる",
+      "en": "Build: I run as far as the station in the morning",
+      "enSourceHash": "9c6ea4ac8bb374c2",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/ja:からだに わるいから たばこを すわない",
+      "en": "Build: It's bad for me, so I don't smoke",
+      "enSourceHash": "777ca0aacc029299",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/ja:けいたいは めに わるい",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/ja:たいせつな とけいだから ミカに みせない",
+      "en": "Build: It's an important watch, so I won't show it to Mika",
+      "enSourceHash": "392011bb147efe58",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/ja:たばこは からだに わるい",
+      "en": "Build: Cigarettes are bad for you",
+      "enSourceHash": "a96b529695aaef92",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/ja:たばこは からだに わるいから ぜんぜん すわない",
+      "en": "Build: Cigarettes are bad for you, so I don't smoke at all",
+      "enSourceHash": "fa49e22380780a95",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/ja:スポーツが すきだから よく はしる",
+      "en": "Build: I like sports, so I run often",
+      "enSourceHash": "33553c7665e15735",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/ja:スポーツは からだに いい",
+      "en": "Build: Sports are good for you",
+      "enSourceHash": "b75b35b5ab0bcb3e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:14069429150abcbf",
+      "en": "ticket",
+      "enSourceHash": "14069429150abcbf",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:2ed128fa137cf13a",
+      "en": "home (my place)",
+      "enSourceHash": "2ed128fa137cf13a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:38a81e87e79631e6",
+      "en": "person",
+      "enSourceHash": "38a81e87e79631e6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:39ad431ae7f58faf",
+      "en": "The tea here is expensive",
+      "enSourceHash": "39ad431ae7f58faf",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:450198bbb96964fc",
+      "en": "Who's coming tomorrow?",
+      "enSourceHash": "450198bbb96964fc",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:50236784473c5634",
+      "en": "Who bought the book?",
+      "enSourceHash": "50236784473c5634",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:66653c22a91084e7",
+      "en": "I like tea",
+      "enSourceHash": "66653c22a91084e7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:69142b8923218ec3",
+      "en": "The tea here is delicious",
+      "enSourceHash": "69142b8923218ec3",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:889e42b5a43b0628",
+      "en": "Who is looking at the book?",
+      "enSourceHash": "889e42b5a43b0628",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:8a6ba32c9bed6ce7",
+      "en": "movie",
+      "enSourceHash": "8a6ba32c9bed6ce7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:8ca150426c9a78cf",
+      "en": "Whose book is it?",
+      "enSourceHash": "8ca150426c9a78cf",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:abf727b6ad64d36b",
+      "en": "This tea is famous",
+      "enSourceHash": "abf727b6ad64d36b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:aef36a0146a8368c",
+      "en": "Mika is a student, so she's busy",
+      "enSourceHash": "aef36a0146a8368c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:b88034524955ce2b",
+      "en": "Did you buy the book?",
+      "enSourceHash": "b88034524955ce2b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:bc44acb04d557abd",
+      "en": "The chicken here is delicious",
+      "enSourceHash": "bc44acb04d557abd",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:ca4eba525d6aa226",
+      "en": "Ken is coming, so I'll wait at home",
+      "enSourceHash": "ca4eba525d6aa226",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:cde48537ca2c2808",
+      "en": "friend",
+      "enSourceHash": "cde48537ca2c2808",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:e272deecde720ffc",
+      "en": "cold",
+      "enSourceHash": "e272deecde720ffc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/ja:あした だれが くる？",
+      "en": "Build: Who's coming tomorrow?",
+      "enSourceHash": "73ca049f2722ea34",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/ja:ここは とりにくが おいしい",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/ja:さむいから ミカは うちに いる",
+      "en": "Build: It's cold, so Mika is staying home",
+      "enSourceHash": "4685bdf23db04264",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/ja:だれが かった？",
+      "en": "Build: Who bought it?",
+      "enSourceHash": "c42e98d4373331c5",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/ja:わたしは じかんが ない",
+      "en": "Build: I have no time",
+      "enSourceHash": "a8191472f2fa2019",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/ja:ケンが くるから うちで まつ",
+      "en": "Build: Ken is coming, so I'll wait at home",
+      "enSourceHash": "c092e48789030512",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/ja:ミカが すきな えいがは ゆうめいだから きっぷが たかい",
+      "en": "Build: The movie Mika likes is famous, so the tickets are expensive",
+      "enSourceHash": "cb0a2aa8cec08bad",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/ja:ミカは がくせいだから いそがしい",
+      "en": "Build: Mika is a student, so she's busy",
+      "enSourceHash": "6a62df843c34b441",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:0cee93f0e6fc1e48",
+      "en": "I hate the music here",
+      "enSourceHash": "0cee93f0e6fc1e48",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:11556a9cb2870ca5",
+      "en": "It's noisy, so I hate it here",
+      "enSourceHash": "11556a9cb2870ca5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:2d15d73528d49a96",
+      "en": "It's noisy, but I like it here",
+      "enSourceHash": "2d15d73528d49a96",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:2ed128fa137cf13a",
+      "en": "home (my place)",
+      "enSourceHash": "2ed128fa137cf13a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:336074805fc85398",
+      "en": "time",
+      "enSourceHash": "336074805fc85398",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:431e478c12ec59b0",
+      "en": "I have no time, so I'm not going",
+      "enSourceHash": "431e478c12ec59b0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:515aa847286583a0",
+      "en": "I'm busy, so I'm not going to the coffee shop",
+      "enSourceHash": "515aa847286583a0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:8a2e8aea72566f56",
+      "en": "It's snowing, so Mika isn't coming",
+      "enSourceHash": "8a2e8aea72566f56",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:8b9144a9ce401782",
+      "en": "I'm not busy, so I'm going to the coffee shop",
+      "enSourceHash": "8b9144a9ce401782",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:9a871b983a234b91",
+      "en": "I was busy, so I didn't go to the coffee shop",
+      "enSourceHash": "9a871b983a234b91",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:a8b1bfa70f7fe821",
+      "en": "It's noisy, so I don't like it here",
+      "enSourceHash": "a8b1bfa70f7fe821",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:c798e5b18ed876ef",
+      "en": "coffee shop",
+      "enSourceHash": "c798e5b18ed876ef",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:e272deecde720ffc",
+      "en": "cold",
+      "enSourceHash": "e272deecde720ffc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:e2a8b22600e5d2ed",
+      "en": "I'm busy, but I'm going to the coffee shop",
+      "enSourceHash": "e2a8b22600e5d2ed",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:f247fa35c0a2a4e5",
+      "en": "It's quiet, so I like it here",
+      "enSourceHash": "f247fa35c0a2a4e5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/ja:あした じゅぎょうが あるので うちに いる",
+      "en": "Build: I have class tomorrow, so I'm staying home",
+      "enSourceHash": "288580c8d1385a52",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/ja:いそがしいので あした いく",
+      "en": "Build: I'm busy, so I'll go tomorrow",
+      "enSourceHash": "6028e1d71c15455a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/ja:しずかなので ここが すきだ",
+      "en": "Build: It's quiet, so I like it here",
+      "enSourceHash": "2b4e8916befbde19",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/ja:じかんが ないので いかない",
+      "en": "Build: I have no time, so I'm not going",
+      "enSourceHash": "d87b9cefbb3ece09",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/ja:たかいので かわない",
+      "en": "Build: It's expensive, so I won't buy it",
+      "enSourceHash": "a4cb282eed847b6e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/ja:にぎやかなので ここは すきじゃない",
+      "en": "Build: It's noisy, so I don't like it here",
+      "enSourceHash": "0a07230952d8a517",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/ja:ゆきだから ミカは こない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/ja:ミカが すきな きっさてんは しずかなので よく ちゃを のむ",
+      "en": "Build: The coffee shop Mika likes is quiet, so I often drink tea there",
+      "enSourceHash": "da0187a840471a97",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:01ea5ddd3be5477a",
+      "en": "shoes",
+      "enSourceHash": "01ea5ddd3be5477a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:14069429150abcbf",
+      "en": "ticket",
+      "enSourceHash": "14069429150abcbf",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:2ed128fa137cf13a",
+      "en": "home (my place)",
+      "enSourceHash": "2ed128fa137cf13a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:2fcc9c526bdb53f1",
+      "en": "I go to the station when it snows",
+      "enSourceHash": "2fcc9c526bdb53f1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:33fef2c678b8ce70",
+      "en": "It was cheap, so I bought it",
+      "enSourceHash": "33fef2c678b8ce70",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:38de625d48ccd00c",
+      "en": "It's cheap, so I'll buy it",
+      "enSourceHash": "38de625d48ccd00c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:3d2ffd0b2d276721",
+      "en": "It was snowing at the station",
+      "enSourceHash": "3d2ffd0b2d276721",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:431e478c12ec59b0",
+      "en": "I have no time, so I'm not going",
+      "enSourceHash": "431e478c12ec59b0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:4745157a36c9c64e",
+      "en": "I drank, but I still want more",
+      "enSourceHash": "4745157a36c9c64e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:4f8e16a09a4ef477",
+      "en": "It's cold, but I'm going to the sea",
+      "enSourceHash": "4f8e16a09a4ef477",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:540f445d3c7274c8",
+      "en": "It's expensive, so I won't buy it",
+      "enSourceHash": "540f445d3c7274c8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:75e7170eeb6195b2",
+      "en": "It's snowing, so I'm not going to the station",
+      "enSourceHash": "75e7170eeb6195b2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:8a6ba32c9bed6ce7",
+      "en": "movie",
+      "enSourceHash": "8a6ba32c9bed6ce7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:a511aeeeb8a11993",
+      "en": "because",
+      "enSourceHash": "a511aeeeb8a11993",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:b645856b1bfd0b74",
+      "en": "It's snowing, but I'm going to the station",
+      "enSourceHash": "b645856b1bfd0b74",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:cce4d2504d4b809c",
+      "en": "It's cheap, but I won't buy it",
+      "enSourceHash": "cce4d2504d4b809c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:de2e90849802ba49",
+      "en": "It's quiet here, but I don't like it",
+      "enSourceHash": "de2e90849802ba49",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:e272deecde720ffc",
+      "en": "cold",
+      "enSourceHash": "e272deecde720ffc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/ja:いそがしいけど いく",
+      "en": "Build: I'm busy, but I'll go",
+      "enSourceHash": "2200fcce6929b11a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/ja:ここは しずかだけど すきじゃない",
+      "en": "Build: It's quiet here, but I don't like it",
+      "enSourceHash": "a50d2d6b78e72563",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/ja:さむいけど うみに いく",
+      "en": "Build: It's cold, but I'm going to the sea",
+      "enSourceHash": "5d001ac29963ee52",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/ja:じかんが ないので いかない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/ja:たかいけど かいたい",
+      "en": "Build: It's expensive, but I want to buy it",
+      "enSourceHash": "966c775d32977de3",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/ja:のんだけど まだ のみたい",
+      "en": "Build: I drank, but I still want more",
+      "enSourceHash": "4085d5092ec8b898",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/ja:ゆきだけど いく",
+      "en": "Build: It's snowing, but I'll go",
+      "enSourceHash": "c9cee444072b4225",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/ja:ミカが かった くつは たかかったけど きれいだ",
+      "en": "Build: The shoes Mika bought were expensive, but they're pretty",
+      "enSourceHash": "7324cd13dab4b5f0",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:04174877ff00c574",
+      "en": "A friend is coming from America",
+      "enSourceHash": "04174877ff00c574",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:078e838f6a59ecc2",
+      "en": "I'm busy in the afternoon",
+      "enSourceHash": "078e838f6a59ecc2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:12dfac4b82ef97f8",
+      "en": "A friend is coming from Japan",
+      "enSourceHash": "12dfac4b82ef97f8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:2ed128fa137cf13a",
+      "en": "home (my place)",
+      "enSourceHash": "2ed128fa137cf13a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:8b5e7f1339844024",
+      "en": "I'll watch the movie from five",
+      "enSourceHash": "8b5e7f1339844024",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:97c23e04c486ffc0",
+      "en": "I'm busy from the morning",
+      "enSourceHash": "97c23e04c486ffc0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:9b4ef3e5b7b4d175",
+      "en": "station",
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:a511aeeeb8a11993",
+      "en": "because",
+      "enSourceHash": "a511aeeeb8a11993",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:adba6c0ec8a8d89e",
+      "en": "university",
+      "enSourceHash": "adba6c0ec8a8d89e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:b455a097303cda11",
+      "en": "Tom is coming from America",
+      "enSourceHash": "b455a097303cda11",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:cdc29937887188ad",
+      "en": "but",
+      "enSourceHash": "cdc29937887188ad",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:cfa5cf18523f1e73",
+      "en": "I'm not busy in the morning",
+      "enSourceHash": "cfa5cf18523f1e73",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:e272deecde720ffc",
+      "en": "cold",
+      "enSourceHash": "e272deecde720ffc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:ec1cb01c13918dcb",
+      "en": "I was busy this morning",
+      "enSourceHash": "ec1cb01c13918dcb",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:efd746eae69c0e91",
+      "en": "I have class from the afternoon",
+      "enSourceHash": "efd746eae69c0e91",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:f5af24b3e65bb49d",
+      "en": "My friend is American",
+      "enSourceHash": "f5af24b3e65bb49d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:fd0ec2d62f5fe9b7",
+      "en": "A friend is going to America",
+      "enSourceHash": "fd0ec2d62f5fe9b7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/ja:あさから いそがしい",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/ja:くじから はたらく",
+      "en": "Build: I work from nine",
+      "enSourceHash": "e01ba67a0af8ffce",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/ja:ごごから じゅぎょうが ある",
+      "en": "Build: I have class from the afternoon",
+      "enSourceHash": "ad9c1d64ac4b5399",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/ja:ごじから えいがを みる",
+      "en": "Build: I'll watch the movie from five",
+      "enSourceHash": "1416c21d61101aaa",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/ja:さむいから ともだちは にほんから こない",
+      "en": "Build: It's cold, so my friend isn't coming from Japan",
+      "enSourceHash": "0acc7a3ddecc9516",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/ja:にほんから くる ともだちに しゃしんを みせる",
+      "en": "Build: I'll show the photos to the friend coming from Japan",
+      "enSourceHash": "094a685a555015ee",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/ja:にほんから ともだちが くる",
+      "en": "Build: A friend is coming from Japan",
+      "enSourceHash": "9820f416e7fdfeb4",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/ja:トムは アメリカから くる",
+      "en": "Build: Tom is coming from America",
+      "enSourceHash": "662783222ba5df7b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:1d4d735049d72846",
+      "en": "I work from the afternoon until the evening",
+      "enSourceHash": "1d4d735049d72846",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:26cfe12b13a6e8b4",
+      "en": "I go to the sea from October to June",
+      "enSourceHash": "26cfe12b13a6e8b4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:2df610a2c92ef35b",
+      "en": "I work from nine to five",
+      "enSourceHash": "2df610a2c92ef35b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:2ed128fa137cf13a",
+      "en": "home (my place)",
+      "enSourceHash": "2ed128fa137cf13a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:336074805fc85398",
+      "en": "time",
+      "enSourceHash": "336074805fc85398",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:414666abd297213d",
+      "en": "I go to the sea from June to October",
+      "enSourceHash": "414666abd297213d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:543ca4dec06586eb",
+      "en": "I don't work in the afternoon",
+      "enSourceHash": "543ca4dec06586eb",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:647294383b2cbc24",
+      "en": "Japan",
+      "enSourceHash": "647294383b2cbc24",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:84e279d8e00c2351",
+      "en": "The vacation runs from June to September",
+      "enSourceHash": "84e279d8e00c2351",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:940dd2e6c780b8a6",
+      "en": "I'll go from Japan to America",
+      "enSourceHash": "940dd2e6c780b8a6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:a511aeeeb8a11993",
+      "en": "because",
+      "enSourceHash": "a511aeeeb8a11993",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:b1891bc58781c22e",
+      "en": "I don't go to the sea until October",
+      "enSourceHash": "b1891bc58781c22e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:bb99185604f6e56e",
+      "en": "I work from the morning until the afternoon",
+      "enSourceHash": "bb99185604f6e56e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:cdc29937887188ad",
+      "en": "but",
+      "enSourceHash": "cdc29937887188ad",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:d9d489233fcaafc0",
+      "en": "I went to the sea in June",
+      "enSourceHash": "d9d489233fcaafc0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:e272deecde720ffc",
+      "en": "cold",
+      "enSourceHash": "e272deecde720ffc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:e6fc42a2b7354c11",
+      "en": "It's cold from January to March",
+      "enSourceHash": "e6fc42a2b7354c11",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:f196167d25bc604f",
+      "en": "I worked until the afternoon",
+      "enSourceHash": "f196167d25bc604f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/ja:あさから いそがしい",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/ja:あさから ばんまで えいがを みた",
+      "en": "Build: I watched movies from morning till evening",
+      "enSourceHash": "2a8a893bd4ed2fcc",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/ja:いちがつから さんがつまで さむい",
+      "en": "Build: It's cold from January to March",
+      "enSourceHash": "66f65dbfe92ff4fa",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/ja:くじから ごじまで はたらく",
+      "en": "Build: I work from nine to five",
+      "enSourceHash": "3d3c16bb7082874f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/ja:ごじまで まつ",
+      "en": "Build: I'll wait until five",
+      "enSourceHash": "4e7d593fe23b9ff1",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/ja:なつやすみは ろくがつから くがつまでだから りょこうに いく",
+      "en": "Build: The summer vacation runs from June to September, so I'm going on a trip",
+      "enSourceHash": "35dd2873e1e7c863",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/ja:にほんから アメリカまで いく",
+      "en": "Build: I'll go from Japan to America",
+      "enSourceHash": "7cf884b6706fe300",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/ja:やすみは ろくがつから くがつまでだ",
+      "en": "Build: The vacation runs from June to September",
+      "enSourceHash": "5f16a25ab46039bf",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:14069429150abcbf",
+      "en": "ticket",
+      "enSourceHash": "14069429150abcbf",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:1b24e0c17e952e4c",
+      "en": "vacation",
+      "enSourceHash": "1b24e0c17e952e4c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:22013613c6178770",
+      "en": "I don't eat in the morning",
+      "enSourceHash": "22013613c6178770",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:2ed128fa137cf13a",
+      "en": "home (my place)",
+      "enSourceHash": "2ed128fa137cf13a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:363484f6f339707d",
+      "en": "I ate in the morning",
+      "enSourceHash": "363484f6f339707d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:6c747a6a23d63be2",
+      "en": "I didn't eat in the morning",
+      "enSourceHash": "6c747a6a23d63be2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:7f12c298d779183b",
+      "en": "I don't go to coffee shops",
+      "enSourceHash": "7f12c298d779183b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:a511aeeeb8a11993",
+      "en": "because",
+      "enSourceHash": "a511aeeeb8a11993",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:b486db7b02550a51",
+      "en": "I didn't drink tea in the morning",
+      "enSourceHash": "b486db7b02550a51",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:be289da7d8e36e25",
+      "en": "I won't go to the coffee shop tomorrow",
+      "enSourceHash": "be289da7d8e36e25",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:c7c932b5bce5d76e",
+      "en": "I went to the coffee shop yesterday",
+      "enSourceHash": "c7c932b5bce5d76e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:cdc29937887188ad",
+      "en": "but",
+      "enSourceHash": "cdc29937887188ad",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:e272deecde720ffc",
+      "en": "cold",
+      "enSourceHash": "e272deecde720ffc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:f0d81aef70ab31b3",
+      "en": "I didn't go to the coffee shop yesterday",
+      "enSourceHash": "f0d81aef70ab31b3",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/ja:あさ ちゃを のみませんでした",
+      "en": "Say politely: I didn't drink tea in the morning",
+      "enSourceHash": "8520a6a80882090a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/ja:あさから ばんまで はたらく",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/ja:きっぷを かいませんでした",
+      "en": "Say politely: I didn't buy a ticket",
+      "enSourceHash": "dc74cdca370d88ff",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/ja:きのう ごはんを たべませんでした",
+      "en": "Say politely: I didn't eat yesterday",
+      "enSourceHash": "b176c626982a1e43",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/ja:きのうは なにも しませんでした",
+      "en": "Say politely: I didn't do anything yesterday",
+      "enSourceHash": "dc269688aae276e6",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/ja:さむかったから いきませんでした",
+      "en": "Say politely: I didn't go because it was cold",
+      "enSourceHash": "8aeb0d2acc22574d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/ja:たかかったので えいがを みませんでした",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/ja:ミカが すきな えいがは ゆうめいだけど きのうは みませんでした",
+      "en": "Say politely: The movie Mika likes is famous, but I didn't watch it yesterday",
+      "enSourceHash": "248492cb97b25b0e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:0cd69c929665e31d",
+      "en": "My friend didn't come yesterday",
+      "enSourceHash": "0cd69c929665e31d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:1128ade914e6775f",
+      "en": "It wasn't delicious at all",
+      "enSourceHash": "1128ade914e6775f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:1b24e0c17e952e4c",
+      "en": "vacation",
+      "enSourceHash": "1b24e0c17e952e4c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:2ed128fa137cf13a",
+      "en": "home (my place)",
+      "enSourceHash": "2ed128fa137cf13a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:336074805fc85398",
+      "en": "time",
+      "enSourceHash": "336074805fc85398",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:77ff83d845801ebd",
+      "en": "It was delicious",
+      "enSourceHash": "77ff83d845801ebd",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:83ee8c73143ffe2a",
+      "en": "I didn't eat it at all",
+      "enSourceHash": "83ee8c73143ffe2a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:933170ef9164106e",
+      "en": "I didn't go to my friend's place",
+      "enSourceHash": "933170ef9164106e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:9aba900f79d9d623",
+      "en": "My friend came yesterday",
+      "enSourceHash": "9aba900f79d9d623",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:a511aeeeb8a11993",
+      "en": "because",
+      "enSourceHash": "a511aeeeb8a11993",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:cdc29937887188ad",
+      "en": "but",
+      "enSourceHash": "cdc29937887188ad",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:d70adb7c2f802d4e",
+      "en": "My friend isn't coming today",
+      "enSourceHash": "d70adb7c2f802d4e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:d8e2029ba92ae698",
+      "en": "It wasn't expensive at all",
+      "enSourceHash": "d8e2029ba92ae698",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:e272deecde720ffc",
+      "en": "cold",
+      "enSourceHash": "e272deecde720ffc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/ja:あさ ちゃを のまなかった",
+      "en": "Build: I didn't drink tea in the morning",
+      "enSourceHash": "d887e7683d206dad",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/ja:えいがは ぜんぜん おもしろくなかった",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/ja:きっぷを かわなかったから えいがを みなかった",
+      "en": "Build: I didn't buy a ticket, so I didn't watch the movie",
+      "enSourceHash": "d1b3d78bebeee86c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/ja:きのう ごはんを たべなかった",
+      "en": "Build: I didn't eat yesterday",
+      "enSourceHash": "65339c3daa0b9d52",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/ja:きのうは なにも しなかった",
+      "en": "Build: I didn't do anything yesterday",
+      "enSourceHash": "fccaca4608df2cd7",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/ja:さむかったので えきまで いかなかった",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/ja:じかんが なかったから いかなかった",
+      "en": "Build: I had no time, so I didn't go",
+      "enSourceHash": "d89591c56b95e5a0",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/ja:ゆきだったから ともだちは こなかった",
+      "en": "Build: It was snowing, so my friend didn't come",
+      "enSourceHash": "a07b527337d6df79",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/ja:ゆきだったから ミカが すきな みせに いかなかった",
+      "en": "Build: It was snowing, so I didn't go to the shop Mika likes",
+      "enSourceHash": "1ed4176a41d21368",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:14069429150abcbf",
+      "en": "ticket",
+      "enSourceHash": "14069429150abcbf",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:146721cab1d20494",
+      "en": "The tickets were expensive, so I didn't buy them",
+      "enSourceHash": "146721cab1d20494",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:1b24e0c17e952e4c",
+      "en": "vacation",
+      "enSourceHash": "1b24e0c17e952e4c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:1f28005f4ab88211",
+      "en": "I'll buy one ticket",
+      "enSourceHash": "1f28005f4ab88211",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:2ed128fa137cf13a",
+      "en": "home (my place)",
+      "enSourceHash": "2ed128fa137cf13a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:335181555b945264",
+      "en": "I'll show five photos",
+      "enSourceHash": "335181555b945264",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:5b845aad8a78ca7c",
+      "en": "I looked at one photo",
+      "enSourceHash": "5b845aad8a78ca7c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:63fb0a8ce36ff969",
+      "en": "I'll buy four tickets",
+      "enSourceHash": "63fb0a8ce36ff969",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:6d46af4d6879bda6",
+      "en": "I'll buy four photos",
+      "enSourceHash": "6d46af4d6879bda6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:a0e2f71099472dfc",
+      "en": "I'll show one photo",
+      "enSourceHash": "a0e2f71099472dfc",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:a159556f33cc3e2d",
+      "en": "I looked at five photos",
+      "enSourceHash": "a159556f33cc3e2d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:a511aeeeb8a11993",
+      "en": "because",
+      "enSourceHash": "a511aeeeb8a11993",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:aa9c894cafdd41ca",
+      "en": "I bought three tickets",
+      "enSourceHash": "aa9c894cafdd41ca",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:ba51d38ae5e3469a",
+      "en": "I'll buy four shirts",
+      "enSourceHash": "ba51d38ae5e3469a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:cdc29937887188ad",
+      "en": "but",
+      "enSourceHash": "cdc29937887188ad",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:d83f89176f600971",
+      "en": "I'll buy one photo",
+      "enSourceHash": "d83f89176f600971",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:e272deecde720ffc",
+      "en": "cold",
+      "enSourceHash": "e272deecde720ffc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:f3912b35ee1afa75",
+      "en": "I bought four tickets",
+      "enSourceHash": "f3912b35ee1afa75",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/ja:きっぷは たかかったので かわなかった",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/ja:きっぷを ごまい かいませんでした",
+      "en": "Say politely: I didn't buy five tickets",
+      "enSourceHash": "e7aaa14f12621b1f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/ja:きっぷを ごまい かったけど ともだちは こなかった",
+      "en": "Build: I bought five tickets, but my friends didn't come",
+      "enSourceHash": "ea26b5db95cfb753",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/ja:きっぷを さんまい かった",
+      "en": "Build: I bought three tickets",
+      "enSourceHash": "841111264018082c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/ja:きっぷを なんまい かう？",
+      "en": "Build: How many tickets are you buying?",
+      "enSourceHash": "5788686d0e2ceb15",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/ja:しゃしんを いちまい ください",
+      "en": "Build: One photo, please",
+      "enSourceHash": "9dc496a438290206",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/ja:しゃしんを ごまい みた",
+      "en": "Build: I looked at five photos",
+      "enSourceHash": "bd979d64bc34e414",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/ja:たかかったから きっぷを いちまい かった",
+      "en": "Build: It was expensive, so I bought one ticket",
+      "enSourceHash": "7818caf78ff0f72b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/ja:シャツを よんまい かう",
+      "en": "Build: I'll buy four shirts",
+      "enSourceHash": "ca867bbc8a332fc6",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:02d2490da9d1f70f",
+      "en": "I'm working from morning till evening, so I have no time",
+      "enSourceHash": "02d2490da9d1f70f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:0554d10fd2e97f52",
+      "en": "Mika works from nine to five, so she isn't coming",
+      "enSourceHash": "0554d10fd2e97f52",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:1371f046063f52b5",
+      "en": "Mika isn't working, so she's coming at nine",
+      "enSourceHash": "1371f046063f52b5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:14069429150abcbf",
+      "en": "ticket",
+      "enSourceHash": "14069429150abcbf",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:1673db132233f09f",
+      "en": "The ticket was expensive, so I didn't watch the movie",
+      "enSourceHash": "1673db132233f09f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:1b24e0c17e952e4c",
+      "en": "vacation",
+      "enSourceHash": "1b24e0c17e952e4c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:2ed128fa137cf13a",
+      "en": "home (my place)",
+      "enSourceHash": "2ed128fa137cf13a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:5096303770ad01e8",
+      "en": "The ticket Mika bought was cheap, but the movie wasn't interesting at all",
+      "enSourceHash": "5096303770ad01e8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:5970b0e0247828c2",
+      "en": "Mika comes at five because she finishes work",
+      "enSourceHash": "5970b0e0247828c2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:6bf31bfa215a5222",
+      "en": "I bought one ticket in the snow",
+      "enSourceHash": "6bf31bfa215a5222",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:89449a13b0f645cd",
+      "en": "It was snowing, so I bought one ticket",
+      "enSourceHash": "89449a13b0f645cd",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:9e64434f8c569355",
+      "en": "I'll be in Japan from June to September, so I'll show five photos",
+      "enSourceHash": "9e64434f8c569355",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:a511aeeeb8a11993",
+      "en": "because",
+      "enSourceHash": "a511aeeeb8a11993",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:b3c88451ad64eed5",
+      "en": "Pick the word for \"snow\"",
+      "enSourceHash": "b3c88451ad64eed5",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:be943e76a5b1c39f",
+      "en": "Mika worked from nine to five, so she didn't come",
+      "enSourceHash": "be943e76a5b1c39f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:c05a6868ab16cd97",
+      "en": "Challenge — say why, say how long, say what didn't happen",
+      "enSourceHash": "c05a6868ab16cd97",
+      "kind": "title"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:cdc29937887188ad",
+      "en": "but",
+      "enSourceHash": "cdc29937887188ad",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:ce3b35def0a79119",
+      "en": "It's snowing, so I won't buy a ticket",
+      "enSourceHash": "ce3b35def0a79119",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:ce52d90ff139e03d",
+      "en": "It was snowing, so I didn't buy even one ticket",
+      "enSourceHash": "ce52d90ff139e03d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:e272deecde720ffc",
+      "en": "cold",
+      "enSourceHash": "e272deecde720ffc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/ja:あさから ばんまで はたらいて いるから じかんが ない",
+      "en": "Build: I'm working from morning till evening, so I have no time",
+      "enSourceHash": "c09bc11e6c3f3417",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/ja:きっぷが たかかったので えいがを みませんでした",
+      "en": "Say politely: The ticket was expensive, so I didn't watch the movie",
+      "enSourceHash": "bf13cc8530e07468",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/ja:さむかったけど うみに いく ともだちを まつ",
+      "en": "Build: It was cold, but I'll wait for the friend going to the sea",
+      "enSourceHash": "badcef75837e8c55",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/ja:じかんが なかったので きっぷを いちまい かいませんでした",
+      "en": "Say politely: I had no time, so I didn't buy a ticket",
+      "enSourceHash": "474f3c471ee5b2d8",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/ja:ろくがつから くがつまで にほんに いるから しゃしんを ごまい みせる",
+      "en": "Build: I'll be in Japan from June to September, so I'll show five photos",
+      "enSourceHash": "487205722d5df0e6",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/ja:アメリカから ともだちが くるので えきまで いく",
+      "en": "Build: A friend is coming from America, so I'll go as far as the station",
+      "enSourceHash": "3b30bc7098281cc2",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/ja:ミカが かった きっぷは やすかったけど えいがは ぜんぜん おもしろくなかった",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/ja:ミカが すきな きっさてんは くじから ごじまでだから ごごに ちゃを のまなかった",
+      "en": "Build: The coffee shop Mika likes runs from nine to five, so I didn't drink tea in the afternoon",
+      "enSourceHash": "1f0a5b25ec7f9d86",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:025b804aad45198d",
+      "en": "I'm not going because it's cold",
+      "enSourceHash": "025b804aad45198d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:0be5748a806fd35a",
+      "en": "Are you coming tomorrow?",
+      "enSourceHash": "0be5748a806fd35a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:10b517a673059fdf",
+      "en": "Where are you going tomorrow?",
+      "enSourceHash": "10b517a673059fdf",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:1cbf4d1105c14200",
+      "en": "It's cold, so I'm staying home",
+      "enSourceHash": "1cbf4d1105c14200",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:2ed128fa137cf13a",
+      "en": "home (my place)",
+      "enSourceHash": "2ed128fa137cf13a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:336074805fc85398",
+      "en": "time",
+      "enSourceHash": "336074805fc85398",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:3b724fea8999559d",
+      "en": "Who bought it yesterday?",
+      "enSourceHash": "3b724fea8999559d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:3ee08388f14bac34",
+      "en": "I have time, so I'm going",
+      "enSourceHash": "3ee08388f14bac34",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:431e478c12ec59b0",
+      "en": "I have no time, so I'm not going",
+      "enSourceHash": "431e478c12ec59b0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:450198bbb96964fc",
+      "en": "Who's coming tomorrow?",
+      "enSourceHash": "450198bbb96964fc",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:8a6ba32c9bed6ce7",
+      "en": "movie",
+      "enSourceHash": "8a6ba32c9bed6ce7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:ae523933822166a6",
+      "en": "I have no money, so I'm not going",
+      "enSourceHash": "ae523933822166a6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:aef36a0146a8368c",
+      "en": "Mika is a student, so she's busy",
+      "enSourceHash": "aef36a0146a8368c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:b3c88451ad64eed5",
+      "en": "Pick the word for \"snow\"",
+      "enSourceHash": "b3c88451ad64eed5",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:c798e5b18ed876ef",
+      "en": "coffee shop",
+      "enSourceHash": "c798e5b18ed876ef",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:ca4eba525d6aa226",
+      "en": "Ken is coming, so I'll wait at home",
+      "enSourceHash": "ca4eba525d6aa226",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:cde48537ca2c2808",
+      "en": "friend",
+      "enSourceHash": "cde48537ca2c2808",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:e272deecde720ffc",
+      "en": "cold",
+      "enSourceHash": "e272deecde720ffc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:f0b770269c5d1ef1",
+      "en": "Review — saying why",
+      "enSourceHash": "f0b770269c5d1ef1",
+      "kind": "title"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:f247fa35c0a2a4e5",
+      "en": "It's quiet, so I like it here",
+      "enSourceHash": "f247fa35c0a2a4e5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/ja:あした じゅぎょうが あるので うちに いる",
+      "en": "Build: I have class tomorrow, so I'm staying home",
+      "enSourceHash": "288580c8d1385a52",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/ja:ここは とりにくが おいしい",
+      "en": "Build: The chicken here is delicious",
+      "enSourceHash": "1d7cf694472a0053",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/ja:さむいから うちに いる",
+      "en": "Build: It's cold, so I'm staying home",
+      "enSourceHash": "4090cb78e3b72e4f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/ja:しずかなので ここが すきだ",
+      "en": "Build: It's quiet, so I like it here",
+      "enSourceHash": "2b4e8916befbde19",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/ja:たかいので かわない",
+      "en": "Build: It's expensive, so I won't buy it",
+      "enSourceHash": "a4cb282eed847b6e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/ja:ゆきだから ミカは こない",
+      "en": "Build: It's snowing, so Mika isn't coming",
+      "enSourceHash": "d260ed2de7e7f9b2",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/ja:ケンが くるから うちで まつ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/ja:ミカは がくせいだから いそがしい",
+      "en": "Build: Mika is a student, so she's busy",
+      "enSourceHash": "6a62df843c34b441",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:04174877ff00c574",
+      "en": "A friend is coming from America",
+      "enSourceHash": "04174877ff00c574",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:12dfac4b82ef97f8",
+      "en": "A friend is coming from Japan",
+      "enSourceHash": "12dfac4b82ef97f8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:14069429150abcbf",
+      "en": "ticket",
+      "enSourceHash": "14069429150abcbf",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:1b24e0c17e952e4c",
+      "en": "vacation",
+      "enSourceHash": "1b24e0c17e952e4c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:2df610a2c92ef35b",
+      "en": "I work from nine to five",
+      "enSourceHash": "2df610a2c92ef35b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:2ed128fa137cf13a",
+      "en": "home (my place)",
+      "enSourceHash": "2ed128fa137cf13a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:4f8e16a09a4ef477",
+      "en": "It's cold, but I'm going to the sea",
+      "enSourceHash": "4f8e16a09a4ef477",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:5984392dad817acf",
+      "en": "It's quiet here, so I like it",
+      "enSourceHash": "5984392dad817acf",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:6a38d0bb3109b28e",
+      "en": "It's noisy here, but I like it",
+      "enSourceHash": "6a38d0bb3109b28e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:73a12a05d89fc445",
+      "en": "A friend is going to Japan",
+      "enSourceHash": "73a12a05d89fc445",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:84e279d8e00c2351",
+      "en": "The vacation runs from June to September",
+      "enSourceHash": "84e279d8e00c2351",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:a03d1291e8414dd8",
+      "en": "I don't like quiet places",
+      "enSourceHash": "a03d1291e8414dd8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:a511aeeeb8a11993",
+      "en": "because",
+      "enSourceHash": "a511aeeeb8a11993",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:b3c88451ad64eed5",
+      "en": "Pick the word for \"snow\"",
+      "enSourceHash": "b3c88451ad64eed5",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:b455a097303cda11",
+      "en": "Tom is coming from America",
+      "enSourceHash": "b455a097303cda11",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:c298d6f32938ef54",
+      "en": "My friend is Japanese",
+      "enSourceHash": "c298d6f32938ef54",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:cc85ef081f5406dd",
+      "en": "Review — but, from, and until",
+      "enSourceHash": "cc85ef081f5406dd",
+      "kind": "title"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:cdc29937887188ad",
+      "en": "but",
+      "enSourceHash": "cdc29937887188ad",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:de2e90849802ba49",
+      "en": "It's quiet here, but I don't like it",
+      "enSourceHash": "de2e90849802ba49",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:e272deecde720ffc",
+      "en": "cold",
+      "enSourceHash": "e272deecde720ffc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/ja:あさから いそがしい",
+      "en": "Build: I've been busy since morning",
+      "enSourceHash": "5f33b7c3ee532842",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/ja:いちがつから さんがつまで さむい",
+      "en": "Build: It's cold from January to March",
+      "enSourceHash": "66f65dbfe92ff4fa",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/ja:くじから ごじまで はたらく",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/ja:ごじまで まつ",
+      "en": "Build: I'll wait until five",
+      "enSourceHash": "4e7d593fe23b9ff1",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/ja:たかいけど かいたい",
+      "en": "Build: It's expensive, but I want to buy it",
+      "enSourceHash": "966c775d32977de3",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/ja:やすみは ろくがつから くがつまでだ",
+      "en": "Build: The vacation runs from June to September",
+      "enSourceHash": "5f16a25ab46039bf",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/ja:ゆきだけど いく",
+      "en": "Build: It's snowing, but I'll go",
+      "enSourceHash": "c9cee444072b4225",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/ja:トムは アメリカから くる",
+      "en": "Build: Tom is coming from America",
+      "enSourceHash": "662783222ba5df7b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:032830273251d611",
+      "en": "It wasn't interesting at all",
+      "enSourceHash": "032830273251d611",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:0b743f114a277e01",
+      "en": "Cigarettes are expensive, so I don't buy them",
+      "enSourceHash": "0b743f114a277e01",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:0f4e179e3075c24e",
+      "en": "Cigarettes are bad for you, so I don't smoke",
+      "enSourceHash": "0f4e179e3075c24e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:14069429150abcbf",
+      "en": "ticket",
+      "enSourceHash": "14069429150abcbf",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:1b24e0c17e952e4c",
+      "en": "vacation",
+      "enSourceHash": "1b24e0c17e952e4c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:1d5220e8c9af92a5",
+      "en": "Running is good for you, so I run",
+      "enSourceHash": "1d5220e8c9af92a5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:2ed128fa137cf13a",
+      "en": "home (my place)",
+      "enSourceHash": "2ed128fa137cf13a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:404e34c4da6a1798",
+      "en": "It wasn't quiet at all",
+      "enSourceHash": "404e34c4da6a1798",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:414ad30e0d2e5c83",
+      "en": "The teacher asked me the meaning",
+      "enSourceHash": "414ad30e0d2e5c83",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:429376daf3e64359",
+      "en": "It's bad for me, but I smoke",
+      "enSourceHash": "429376daf3e64359",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:42b357bc18bb5a72",
+      "en": "I don't understand the meaning, so I'll ask the teacher",
+      "enSourceHash": "42b357bc18bb5a72",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:52115812a0060ac9",
+      "en": "Review — reasons, spans, and what didn't happen",
+      "enSourceHash": "52115812a0060ac9",
+      "kind": "title"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:79852975c8ad3a37",
+      "en": "I watched a movie yesterday",
+      "enSourceHash": "79852975c8ad3a37",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:7a94fe5f6be8fff8",
+      "en": "I'll read it because it's easy",
+      "enSourceHash": "7a94fe5f6be8fff8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:7d1f7d4dd55d8015",
+      "en": "I know the meaning, so I won't ask",
+      "enSourceHash": "7d1f7d4dd55d8015",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:a511aeeeb8a11993",
+      "en": "because",
+      "enSourceHash": "a511aeeeb8a11993",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:cad818b682664a44",
+      "en": "I didn't watch a movie yesterday",
+      "enSourceHash": "cad818b682664a44",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:cdc29937887188ad",
+      "en": "but",
+      "enSourceHash": "cdc29937887188ad",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:d7d12004d5fa4ce7",
+      "en": "I don't watch movies",
+      "enSourceHash": "d7d12004d5fa4ce7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:d8e2029ba92ae698",
+      "en": "It wasn't expensive at all",
+      "enSourceHash": "d8e2029ba92ae698",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:e272deecde720ffc",
+      "en": "cold",
+      "enSourceHash": "e272deecde720ffc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:f528eeb8e9ca7d29",
+      "en": "It was interesting",
+      "enSourceHash": "f528eeb8e9ca7d29",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:fd65fd28d18f47b4",
+      "en": "I won't watch the movie tomorrow",
+      "enSourceHash": "fd65fd28d18f47b4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:えんぴつを つかって ノートに かく",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:かぜが よわいから うみで およぐ",
+      "en": "Build: The wind is weak, so I'll swim in the sea",
+      "enSourceHash": "1cec17063a50668f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:きっぷを さんまい かった",
+      "en": "Build: I bought three tickets",
+      "enSourceHash": "841111264018082c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:きのう ごはんを たべなかった",
+      "en": "Build: I didn't eat yesterday",
+      "enSourceHash": "65339c3daa0b9d52",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:きょうしつで やさしい ほんを よむ",
+      "en": "Build: I read easy books in the classroom",
+      "enSourceHash": "50ab5340fc9ab54e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:くじから ごじまで はたらく",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:さむいから うちに いる",
+      "en": "Build: It's cold, so I'm staying home",
+      "enSourceHash": "4090cb78e3b72e4f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:さむかったから いきませんでした",
+      "en": "Say politely: I didn't go because it was cold",
+      "enSourceHash": "8aeb0d2acc22574d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:しずかなので ここが すきだ",
+      "en": "Build: It's quiet, so I like it here",
+      "enSourceHash": "2b4e8916befbde19",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:たいせつな しゃしんを ミカに みせる",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:たかいけど かいたい",
+      "en": "Build: It's expensive, but I want to buy it",
+      "enSourceHash": "966c775d32977de3",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:にほんから ともだちが くる",
+      "en": "Build: A friend is coming from Japan",
+      "enSourceHash": "9820f416e7fdfeb4",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:やすみは ろくがつから くがつまでだ",
+      "en": "Build: The vacation runs from June to September",
+      "enSourceHash": "5f16a25ab46039bf",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:クラスで あたらしい けいたいを つかう",
+      "en": "Build: I use the new phone in class",
+      "enSourceHash": "a07e91fb6098d218",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:スポーツが すきだから えきまで はしる",
+      "en": "Build: I like sports, so I run as far as the station",
+      "enSourceHash": "ca4a6524bb6ca169",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m16/story:ja-m16-a-day-at-school/en:3502cb6aeecf5592",
+      "en": "Class, notes, and homework.",
+      "enSourceHash": "3502cb6aeecf5592",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m16/story:ja-m16-a-day-at-school/en:e2a126dd161ca387",
+      "en": "A day at school",
+      "enSourceHash": "e2a126dd161ca387",
+      "kind": "title"
+    },
+    {
+      "anchor": "m16/story:ja-m16-a-day-at-school/ja:あさごはんを たべて、がっこうに はしる。",
+      "en": "I eat breakfast and run to school.",
+      "enSourceHash": "683eeb689afb76af",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-a-day-at-school/ja:きょうしつで ノートに かく。",
+      "en": "I write in my notebook in the classroom.",
+      "enSourceHash": "8b2dffaa31052ef0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-a-day-at-school/ja:きょうは クラスが ある。",
+      "en": "Today there's a class.",
+      "enSourceHash": "26f8e6aea9700ec0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-a-day-at-school/ja:しゅくだいは やさしいけど たいせつだ。",
+      "en": "The homework is easy but important.",
+      "enSourceHash": "cca13924d72c3ae2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-a-day-at-school/ja:わたしは きょうしつに はいる。",
+      "en": "I enter the classroom.",
+      "enSourceHash": "45def34566284a0c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-a-day-at-school/ja:わたしは じぶんで べんきょうする。",
+      "en": "I study by myself.",
+      "enSourceHash": "7c9b2a1137a684c0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-a-day-at-school/ja:スポーツも すこし する。",
+      "en": "I do a bit of sports too.",
+      "enSourceHash": "bf0155f2962b145b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/en:cc00b891aea22e5c",
+      "en": "The first hot spring",
+      "enSourceHash": "cc00b891aea22e5c",
+      "kind": "title"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/en:e56f9c6a116141b4",
+      "en": "A mountain hotel, a rule nobody wrote down, and a bottle of milk.",
+      "enSourceHash": "e56f9c6a116141b4",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/gloss:おんせん",
+      "en": "a hot spring bath",
+      "enSourceHash": "74930e8a4a8e32b4",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/gloss:ゆかた",
+      "en": "a light cotton robe worn at an inn",
+      "enSourceHash": "7005707e0f43f78b",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:「さきに からだを あらう。」",
+      "en": "\"You wash your body first.\"",
+      "enSourceHash": "9589b222de06a676",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:「せっけんですか。」",
+      "en": "\"Soap?\"",
+      "enSourceHash": "9fc1553064095f88",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:「はい。これは たいせつだ。」",
+      "en": "\"Yes. This is important.\"",
+      "enSourceHash": "f9b4f0ea4eb6f239",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:あとで ぎゅうにゅうを のむ。",
+      "en": "Afterwards I drink milk.",
+      "enSourceHash": "507b5bdc65e7e85c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:いまは おんせんの ことが わかった。",
+      "en": "Now I have understood hot springs.",
+      "enSourceHash": "8ef0a30f26bb28bc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:おんせんで およぐ ひとは いない。",
+      "en": "Nobody swims in a hot spring.",
+      "enSourceHash": "cfefee03c4ff5cc2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:おんせんの あとの ぎゅうにゅうは とても おいしい。",
+      "en": "Milk after a hot spring is very good.",
+      "enSourceHash": "6b16af444c8895cf",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:おんせんは とても あつい。",
+      "en": "The hot spring is very hot.",
+      "enSourceHash": "d116357191cbc44c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:おんせんは スポーツ じゃない。",
+      "en": "A hot spring is not a sport.",
+      "enSourceHash": "44142ba681c7c27c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:ここは とても しずかだ。",
+      "en": "It is very quiet here.",
+      "enSourceHash": "b7411c08c08ee748",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:そとにも おんせんが ある。",
+      "en": "There is a hot spring outside too.",
+      "enSourceHash": "f6a31af40df587c0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:そとの おんせんで やまを みる。",
+      "en": "At the outdoor hot spring I look at the mountains.",
+      "enSourceHash": "e86e9fead9fc8695",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:それから おんせんに はいる。",
+      "en": "Then I get into the hot spring.",
+      "enSourceHash": "af087167e2155a85",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:ちちは わたしに おんせんの はなしを する。",
+      "en": "Father tells me about hot springs.",
+      "enSourceHash": "90e8e24e270737aa",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:なつやすみに かぞくで りょこうに いく。",
+      "en": "In the summer holidays the family goes on a trip.",
+      "enSourceHash": "15e0f14d00cc919d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:まいとし おんせんに いく。",
+      "en": "I go to a hot spring every year.",
+      "enSourceHash": "b9505ad50b115875",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:わたしは おんせんに はじめて はいる。",
+      "en": "I get into a hot spring for the first time.",
+      "enSourceHash": "52c1d28e78bc9d4b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:わたしは おんせんの ことが わからない。",
+      "en": "I do not understand hot springs.",
+      "enSourceHash": "8d4decb8ce4adf56",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:わたしは さきに せっけんで からだを あらう。",
+      "en": "First I wash my body with soap.",
+      "enSourceHash": "c98c9003478dfe4a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:わたしは そとに いく。",
+      "en": "I go outside.",
+      "enSourceHash": "f88c9293e911841a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:わたしは ながい じかん おんせんに いる。",
+      "en": "I am in the hot spring for a long time.",
+      "enSourceHash": "d62b11de4afbb26e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:ホテルに おんせんが ある。",
+      "en": "The hotel has a hot spring.",
+      "enSourceHash": "a7f4e5405bb243a9",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:ホテルの ふくは ゆかただ。",
+      "en": "The hotel's clothes are yukata.",
+      "enSourceHash": "23c446a384bbc24a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:ホテルは やまに ある。",
+      "en": "The hotel is in the mountains.",
+      "enSourceHash": "4e2ef4f1538e88bf",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/en:12eb9f21abd858b0",
+      "en": "The homework goes missing, so it gets written twice.",
+      "enSourceHash": "12eb9f21abd858b0",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/en:d3139f29f6ad02ef",
+      "en": "The second notebook",
+      "enSourceHash": "d3139f29f6ad02ef",
+      "kind": "title"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/gloss:おなじ",
+      "en": "the same",
+      "enSourceHash": "fa0487f2dc91544a",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/gloss:さがす",
+      "en": "to look for, to search",
+      "enSourceHash": "af169d40f1964b10",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/gloss:なくす",
+      "en": "to lose (something)",
+      "enSourceHash": "37974eee32e696cc",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:「きょうしつに ノートが ありません。」",
+      "en": "\"There's no notebook in the classroom.\"",
+      "enSourceHash": "7e647b1b4e23291e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:「これは あたらしい ノートです。」",
+      "en": "\"This is a new notebook.\"",
+      "enSourceHash": "c247cf119ac6bc1b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:「しゅくだいは たいせつです。」",
+      "en": "\"Homework is important.\"",
+      "enSourceHash": "58ffdb7b8123f274",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:「ノートは どこですか。」",
+      "en": "\"Where is the notebook?\"",
+      "enSourceHash": "ad37cc8858c2487a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:あたらしい ノートを せんせいに みせる。",
+      "en": "I show the teacher the new notebook.",
+      "enSourceHash": "42949d3c484d9312",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:いまは いみが わかった。",
+      "en": "Now the meaning has made sense.",
+      "enSourceHash": "644d30a7d1a9a257",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:いまは はちじはんだ。クラスは くじだ。",
+      "en": "It's half past eight. Class is at nine.",
+      "enSourceHash": "bd9a6e1d50f4e49d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:いみが わからない ところも ある。",
+      "en": "There are parts whose meaning I don't get.",
+      "enSourceHash": "300a10754c6af8da",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:かようびの あさ、きょうしつで かばんを あける。",
+      "en": "Tuesday morning, I open my bag in the classroom.",
+      "enSourceHash": "b0b8c863b0726a44",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:くじに せんせいが きょうしつに はいる。",
+      "en": "At nine the teacher comes into the classroom.",
+      "enSourceHash": "fa78526b1c630684",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:けど、じゅうじまで かく。",
+      "en": "But I write until ten.",
+      "enSourceHash": "ddc9c2303f860363",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:げつようびの よる、あたらしい ノートに しゅくだいを かく。",
+      "en": "Monday night, I write the homework in a new notebook.",
+      "enSourceHash": "2d8e99665c93f736",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:しゅくだいは たいせつだと おもう。いまは ほんとうに そう おもう。",
+      "en": "Homework is important, I think. Now I really do think so.",
+      "enSourceHash": "f76571f1666f45ae",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:しゅくだいは とても むずかしい。",
+      "en": "The homework is very hard.",
+      "enSourceHash": "901d8afffb89a4b0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:じしょと ペンは ある。けど、ノートは ない。",
+      "en": "The dictionary and the pen are there. But not the notebook.",
+      "enSourceHash": "b09eb2de827c40a3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:せんせいは しゅくだいの はなしを よく する。",
+      "en": "My teacher talks about homework a lot.",
+      "enSourceHash": "43e85568993df94e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:せんせいは ぼくに ふるい ノートを みせる。ろうかの ノートだ。",
+      "en": "The teacher shows me my old notebook. It's the one from the corridor.",
+      "enSourceHash": "85d45050a6db2c86",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:それから、おなじ しゅくだいを もういちど かく。",
+      "en": "Then I write the same homework again.",
+      "enSourceHash": "e77133cd3f623366",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:ともだちの ケンが ぼくの かばんを みる。",
+      "en": "My friend Ken looks at my bag.",
+      "enSourceHash": "ff524d9b3898c4b0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:ぼくは きょうしつを さがす。",
+      "en": "I search the classroom.",
+      "enSourceHash": "f348b7a457be035e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:ぼくは しゅくだいが きらいだ。",
+      "en": "I hate homework.",
+      "enSourceHash": "56143105dd0d0d6a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:ぼくは ノートを なくす。",
+      "en": "I lose the notebook.",
+      "enSourceHash": "c39115a5678dfa8c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:ゆうべの むずかしい ところが やさしい。",
+      "en": "Last night's hard parts are easy.",
+      "enSourceHash": "f726f311254ac8c8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:ノートが なかった。",
+      "en": "The notebook wasn't there.",
+      "enSourceHash": "0d3119e7eeb3012a",
+      "kind": "ja-gloss"
+    }
+  ]
+}

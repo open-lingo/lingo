@@ -1,0 +1,2945 @@
+{
+  "schema": 1,
+  "moduleId": "m16",
+  "lang": "ko",
+  "generatedAt": "2026-09-11",
+  "draftedBy": "qwen3.5:122b-a10b-q4_K_M",
+  "entryCount": 587,
+  "entries": [
+    {
+      "anchor": "m16/atom:いみ/gloss",
+      "text": "뜻",
+      "enSourceHash": "e409bfc6fe798c2e"
+    },
+    {
+      "anchor": "m16/atom:うち/gloss",
+      "text": "집 (내 집)",
+      "enSourceHash": "e47e25d45fcb3007"
+    },
+    {
+      "anchor": "m16/atom:かく/gloss",
+      "text": "쓰다",
+      "enSourceHash": "1b221d6d1eb23536"
+    },
+    {
+      "anchor": "m16/atom:がつ/gloss",
+      "text": "월 (날짜)",
+      "enSourceHash": "a6813f7d0ddbe8ea"
+    },
+    {
+      "anchor": "m16/atom:がつ/shortGloss",
+      "text": "월",
+      "enSourceHash": "a5c7d1719e284f2c"
+    },
+    {
+      "anchor": "m16/atom:きょうしつ/gloss",
+      "text": "교실",
+      "enSourceHash": "83d82a74a67aebde"
+    },
+    {
+      "anchor": "m16/atom:けど/gloss",
+      "text": "하지만",
+      "enSourceHash": "cdc29937887188ad"
+    },
+    {
+      "anchor": "m16/atom:さむい/gloss",
+      "text": "춥다",
+      "enSourceHash": "e272deecde720ffc"
+    },
+    {
+      "anchor": "m16/atom:すう/gloss",
+      "text": "피우다",
+      "enSourceHash": "8535028f4811402a"
+    },
+    {
+      "anchor": "m16/atom:ぜんぜん/gloss",
+      "text": "전혀 (부정문과 함께)",
+      "enSourceHash": "1836b5de4cf9e4e3"
+    },
+    {
+      "anchor": "m16/atom:ぜんぜん/shortGloss",
+      "text": "전혀",
+      "enSourceHash": "d440a63a2025f47b"
+    },
+    {
+      "anchor": "m16/atom:たいせつ/gloss",
+      "text": "중요하다",
+      "enSourceHash": "34a989eb3e220e6b"
+    },
+    {
+      "anchor": "m16/atom:たばこ/gloss",
+      "text": "담배",
+      "enSourceHash": "88e6a379c2e6d0ba"
+    },
+    {
+      "anchor": "m16/atom:たばこ/shortGloss",
+      "text": "담배",
+      "enSourceHash": "f286b5ae29a2f8a1"
+    },
+    {
+      "anchor": "m16/atom:つかう/gloss",
+      "text": "쓰다",
+      "enSourceHash": "d6c48b73689bef1a"
+    },
+    {
+      "anchor": "m16/atom:なかった/gloss",
+      "text": "없었다, 가지고 있지 않았다",
+      "enSourceHash": "4395d8c0889ea40c"
+    },
+    {
+      "anchor": "m16/atom:なかった/shortGloss",
+      "text": "가지고 있지 않았다",
+      "enSourceHash": "7a280f96b6f9502f"
+    },
+    {
+      "anchor": "m16/atom:ので/gloss",
+      "text": "왜냐하면 (부드러운)",
+      "enSourceHash": "8b8df83ee1786f2c"
+    },
+    {
+      "anchor": "m16/atom:ので/shortGloss",
+      "text": "왜냐하면",
+      "enSourceHash": "a511aeeeb8a11993"
+    },
+    {
+      "anchor": "m16/atom:はしる/gloss",
+      "text": "달리다",
+      "enSourceHash": "a3d78ca02f8b3a78"
+    },
+    {
+      "anchor": "m16/atom:まい/gloss",
+      "text": "평평한 물건의 단위",
+      "enSourceHash": "fc23d5b9ca5e5543"
+    },
+    {
+      "anchor": "m16/atom:まい/shortGloss",
+      "text": "평평한 물건 단위",
+      "enSourceHash": "3666078d5bd9a850"
+    },
+    {
+      "anchor": "m16/atom:まで/gloss",
+      "text": "~까지",
+      "enSourceHash": "f079723b55f3053b"
+    },
+    {
+      "anchor": "m16/atom:まで/shortGloss",
+      "text": "~까지",
+      "enSourceHash": "2e3200de84b9cada"
+    },
+    {
+      "anchor": "m16/atom:め/gloss",
+      "text": "눈",
+      "enSourceHash": "47c215b5f70eb9c9"
+    },
+    {
+      "anchor": "m16/atom:やさしい/gloss",
+      "text": "쉽다, 간단하다",
+      "enSourceHash": "b3c6ff9aac7e86df"
+    },
+    {
+      "anchor": "m16/atom:やすみ/gloss",
+      "text": "휴식, 휴가",
+      "enSourceHash": "c1e42c9d86e0c28d"
+    },
+    {
+      "anchor": "m16/atom:よわい/gloss",
+      "text": "약하다",
+      "enSourceHash": "481ba4019c9d2710"
+    },
+    {
+      "anchor": "m16/atom:わるい/gloss",
+      "text": "나쁘다",
+      "enSourceHash": "2f05d4b689d270ca"
+    },
+    {
+      "anchor": "m16/atom:クラス/gloss",
+      "text": "반",
+      "enSourceHash": "0889113e04d3203f"
+    },
+    {
+      "anchor": "m16/atom:スポーツ/gloss",
+      "text": "스포츠",
+      "enSourceHash": "ec450786e26a5154"
+    },
+    {
+      "anchor": "m16/atom:ノート/gloss",
+      "text": "노트, 연습장",
+      "enSourceHash": "2b826c0b37a83e7d"
+    },
+    {
+      "anchor": "m16/gp:counter-mai/ex:きっぷを さん かった。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m16/gp:counter-mai/ex:きっぷを さんまい かった。",
+      "text": "표를 세 장 샀다.",
+      "enSourceHash": "34ec3210a227ba58"
+    },
+    {
+      "anchor": "m16/gp:counter-mai/ex:きっぷを なんまい かう？",
+      "text": "표를 몇 장 살까?",
+      "enSourceHash": "5d32531410a56a2d"
+    },
+    {
+      "anchor": "m16/gp:counter-mai/ex:しゃしんを いちまい ください。",
+      "text": "사진 한 장 주세요.",
+      "enSourceHash": "4b21dceebe2e06ea"
+    },
+    {
+      "anchor": "m16/gp:counter-mai/ex:しゃしんを ごまい みた。",
+      "text": "사진 다섯 장을 봤다.",
+      "enSourceHash": "a1136e79d65a90a6"
+    },
+    {
+      "anchor": "m16/gp:counter-mai/ex:シャツを よんまい かう。",
+      "text": "셔츠 네 장을 살 것이다.",
+      "enSourceHash": "2aea073118bd0c6d"
+    },
+    {
+      "anchor": "m16/gp:kara-because/ex:いそがしいから うちに いる。",
+      "text": "바쁘니까 집에 있다.",
+      "enSourceHash": "13032991bef23b76"
+    },
+    {
+      "anchor": "m16/gp:kara-because/ex:いそがしいだから うちに いる。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m16/gp:kara-because/ex:おいしいから よく たべる。",
+      "text": "맛있어서 자주 먹는다.",
+      "enSourceHash": "5305c1f91cefaf3e"
+    },
+    {
+      "anchor": "m16/gp:kara-because/ex:じかんが ないから いかない。",
+      "text": "시간이 없으니까 가지 않는다.",
+      "enSourceHash": "df18e2e37665e7de"
+    },
+    {
+      "anchor": "m16/gp:kara-because/ex:たかいから かわない。",
+      "text": "비싸서 사지 않는다.",
+      "enSourceHash": "621d10ca0ae14f07"
+    },
+    {
+      "anchor": "m16/gp:kara-because/ex:ゆきだから ミカは こない。",
+      "text": "눈이 와서 미카는 오지 않는다.",
+      "enSourceHash": "239665c879208efa"
+    },
+    {
+      "anchor": "m16/gp:kara-origin/ex:あさから いそがしい。",
+      "text": "아침부터 바쁘다.",
+      "enSourceHash": "ca7cca24ad83c12b"
+    },
+    {
+      "anchor": "m16/gp:kara-origin/ex:くじから はたらく。",
+      "text": "9시부터 일한다.",
+      "enSourceHash": "0bb06948e02e8b03"
+    },
+    {
+      "anchor": "m16/gp:kara-origin/ex:ごごから じゅぎょうが ある。",
+      "text": "오후부터 수업이 있다.",
+      "enSourceHash": "97437ecdd5b0a05a"
+    },
+    {
+      "anchor": "m16/gp:kara-origin/ex:にほんから ともだちが くる。",
+      "text": "일본에서 친구가 온다.",
+      "enSourceHash": "b6fef78c1df8a5a0"
+    },
+    {
+      "anchor": "m16/gp:kara-origin/ex:トムは アメリカから くる。",
+      "text": "톰은 미국에서 온다.",
+      "enSourceHash": "61cd16f54f089698"
+    },
+    {
+      "anchor": "m16/gp:kara-origin/ex:トムは アメリカを くる。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m16/gp:karada-ni-warui/ex:かぜが よわいから うみで およぐ。",
+      "text": "바람이 약해서 바다에서 수영한다.",
+      "enSourceHash": "88e0185aab7b50bb"
+    },
+    {
+      "anchor": "m16/gp:karada-ni-warui/ex:かぞくは たいせつだ。",
+      "text": "가족은 소중하다.",
+      "enSourceHash": "9b33c426e46c4485"
+    },
+    {
+      "anchor": "m16/gp:karada-ni-warui/ex:からだに わるいから すわない。",
+      "text": "몸에 해로워서 담배를 피우지 않는다.",
+      "enSourceHash": "cde987ce9701621c"
+    },
+    {
+      "anchor": "m16/gp:karada-ni-warui/ex:けいたいは めで わるい。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m16/gp:karada-ni-warui/ex:けいたいは めに わるい。",
+      "text": "휴대전화는 눈에 해롭다.",
+      "enSourceHash": "26433e472a9fab94"
+    },
+    {
+      "anchor": "m16/gp:karada-ni-warui/ex:たいせつな しゃしんなので みせない。",
+      "text": "소중한 사진이니까 보이지 않는다.",
+      "enSourceHash": "778bf3b0d1fffd20"
+    },
+    {
+      "anchor": "m16/gp:kedo/ex:いそがしいけど いく。",
+      "text": "바쁘지만 간다.",
+      "enSourceHash": "edff5adcad5cde20"
+    },
+    {
+      "anchor": "m16/gp:kedo/ex:ここは しずかだけど すきじゃない。",
+      "text": "여기는 조용하지만 좋아하지 않는다.",
+      "enSourceHash": "36e00ea784c27fb2"
+    },
+    {
+      "anchor": "m16/gp:kedo/ex:たかいけど かいたい。",
+      "text": "비싸지만 사고 싶다.",
+      "enSourceHash": "c53f167a74052ed2"
+    },
+    {
+      "anchor": "m16/gp:kedo/ex:たかいだけど かいたい。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m16/gp:kedo/ex:のんだけど まだ のみたい。",
+      "text": "마셨지만 아직 마시고 싶다.",
+      "enSourceHash": "43911cf42446ffea"
+    },
+    {
+      "anchor": "m16/gp:kedo/ex:ゆきだけど いく。",
+      "text": "눈이 오지만 간다.",
+      "enSourceHash": "cfe787491af3fa98"
+    },
+    {
+      "anchor": "m16/gp:made-until/ex:あさから ばんまで えいがを みた。",
+      "text": "아침부터 저녁까지 영화를 봤다.",
+      "enSourceHash": "5479b4a5ac81dc77"
+    },
+    {
+      "anchor": "m16/gp:made-until/ex:いちがつから さんがつまで さむい。",
+      "text": "1월부터 3월까지 춥다.",
+      "enSourceHash": "730a4dde8646aa9f"
+    },
+    {
+      "anchor": "m16/gp:made-until/ex:くじから ごじから はたらく。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m16/gp:made-until/ex:くじから ごじまで はたらく。",
+      "text": "9시부터 5시까지 일한다.",
+      "enSourceHash": "5ba591a2c37db68b"
+    },
+    {
+      "anchor": "m16/gp:made-until/ex:ごじまで まつ。",
+      "text": "5시까지 기다린다.",
+      "enSourceHash": "d5f1ff6a303d997f"
+    },
+    {
+      "anchor": "m16/gp:made-until/ex:にほんから アメリカまで いく。",
+      "text": "일본에서 미국까지 간다.",
+      "enSourceHash": "400ccbc0e4ed3433"
+    },
+    {
+      "anchor": "m16/gp:masu-past-negative/ex:あさ ちゃを のみませんでした。",
+      "text": "아침에 차를 마시지 않았어요.",
+      "enSourceHash": "41917824b8314e44"
+    },
+    {
+      "anchor": "m16/gp:masu-past-negative/ex:えいがを みませんでした。",
+      "text": "영화를 보지 않았어요.",
+      "enSourceHash": "49b2841a61718d19"
+    },
+    {
+      "anchor": "m16/gp:masu-past-negative/ex:きのう ごはんを たべませんだ。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m16/gp:masu-past-negative/ex:きのう ごはんを たべませんでした。",
+      "text": "어제 밥을 먹지 않았어요.",
+      "enSourceHash": "f1d996115458872f"
+    },
+    {
+      "anchor": "m16/gp:masu-past-negative/ex:きのうは なにも しませんでした。",
+      "text": "어제는 아무것도 하지 않았어요.",
+      "enSourceHash": "d6493005e061df03"
+    },
+    {
+      "anchor": "m16/gp:masu-past-negative/ex:ミカは きませんでした。",
+      "text": "미카는 오지 않았어요.",
+      "enSourceHash": "565704976e223ec3"
+    },
+    {
+      "anchor": "m16/gp:nai-form/ex:あさ ちゃを のまなかった。",
+      "text": "아침에 차를 마시지 않았다.",
+      "enSourceHash": "41917824b8314e44"
+    },
+    {
+      "anchor": "m16/gp:nai-form/ex:きのう ごはんを たべないかった。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m16/gp:nai-form/ex:きのう ごはんを たべなかった。",
+      "text": "어제 밥을 먹지 않았다.",
+      "enSourceHash": "f1d996115458872f"
+    },
+    {
+      "anchor": "m16/gp:nai-form/ex:きのうは なにも しなかった。",
+      "text": "어제는 아무것도 하지 않았다.",
+      "enSourceHash": "d6493005e061df03"
+    },
+    {
+      "anchor": "m16/gp:nai-form/ex:じかんが なかったから いかなかった。",
+      "text": "시간이 없었기 때문에 가지 않았다.",
+      "enSourceHash": "9fc958832069fb2f"
+    },
+    {
+      "anchor": "m16/gp:nai-form/ex:ぜんぜん おもしろくなかった。",
+      "text": "전혀 재미없었다.",
+      "enSourceHash": "4f87704fa6be04cc"
+    },
+    {
+      "anchor": "m16/gp:node-because/ex:あした じゅぎょうが あるので うちに いる。",
+      "text": "내일 수업이 있으니까 집에 있다.",
+      "enSourceHash": "49d87e31bb15b9f1"
+    },
+    {
+      "anchor": "m16/gp:node-because/ex:しずかだので ここが すきだ。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m16/gp:node-because/ex:しずかなので ここが すきだ。",
+      "text": "조용하니까 여기가 좋다.",
+      "enSourceHash": "859bbea5c62bd74d"
+    },
+    {
+      "anchor": "m16/gp:node-because/ex:じかんが ないので いかない。",
+      "text": "시간이 없으니까 가지 않는다.",
+      "enSourceHash": "df18e2e37665e7de"
+    },
+    {
+      "anchor": "m16/gp:node-because/ex:たかいので かわない。",
+      "text": "비싸니까 사지 않는다.",
+      "enSourceHash": "621d10ca0ae14f07"
+    },
+    {
+      "anchor": "m16/gp:node-because/ex:ゆきなので ミカは こない。",
+      "text": "눈이 오니까 미카는 오지 않는다.",
+      "enSourceHash": "239665c879208efa"
+    },
+    {
+      "anchor": "m16/gp:wa-topic/ex:ここは とりにくが おいしい。",
+      "text": "여기는 닭고기가 맛있다.",
+      "enSourceHash": "303de1c692d67e66"
+    },
+    {
+      "anchor": "m16/gp:wa-topic/ex:だれが くる？",
+      "text": "누가 온다?",
+      "enSourceHash": "765c8c656e55fb3d"
+    },
+    {
+      "anchor": "m16/gp:wa-topic/ex:だれは くる？",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m16/gp:wa-topic/ex:わたしは じかんが ない。",
+      "text": "나는 시간이 없다.",
+      "enSourceHash": "e241c9e4842b1488"
+    },
+    {
+      "anchor": "m16/gp:wa-topic/ex:ケンが くるから うちで まつ。",
+      "text": "켄이 오니까 집에서 기다린다.",
+      "enSourceHash": "30f2fb8b63c9058b"
+    },
+    {
+      "anchor": "m16/gp:wa-topic/ex:ミカは がくせいだから いそがしい。",
+      "text": "미카는 학생이니까 바쁘다.",
+      "enSourceHash": "6708b43745047546"
+    },
+    {
+      "anchor": "m16/gp:yomu-imi/ex:いみが わからないので せんせいに きく。",
+      "text": "뜻을 모르니까 선생님에게 묻는다.",
+      "enSourceHash": "12987e26904e6027"
+    },
+    {
+      "anchor": "m16/gp:yomu-imi/ex:ここに なまえを かいて ください。",
+      "text": "여기에 이름을 써 주세요.",
+      "enSourceHash": "f351a0e5ac404123"
+    },
+    {
+      "anchor": "m16/gp:yomu-imi/ex:ほんを よむだ。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m16/gp:yomu-imi/ex:やさしい ほんを よむ。",
+      "text": "쉬운 책을 읽는다.",
+      "enSourceHash": "d8ceeb82cf913cb2"
+    },
+    {
+      "anchor": "m16/gp:yomu-imi/ex:クラスの まえに やさしい ほんを よんだ。",
+      "text": "수업 전에 쉬운 책을 읽었다.",
+      "enSourceHash": "1aa6eb3b53de5d35"
+    },
+    {
+      "anchor": "m16/gp:yomu-imi/ex:クラスは くじから じゅうじまでだ。",
+      "text": "수업은 9시부터 10시까지다.",
+      "enSourceHash": "0b09b6a64be839d9"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:1cbf4d1105c14200",
+      "text": "춥니까, 그래서 집에 있어요",
+      "enSourceHash": "1cbf4d1105c14200"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:336074805fc85398",
+      "text": "시간",
+      "enSourceHash": "336074805fc85398"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:38de625d48ccd00c",
+      "text": "싸니까 사겠어요",
+      "enSourceHash": "38de625d48ccd00c"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:431e478c12ec59b0",
+      "text": "시간이 없으니까 안 가요",
+      "enSourceHash": "431e478c12ec59b0"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:45cddcf98d723543",
+      "text": "친구가 오니까 커피숍에 가요",
+      "enSourceHash": "45cddcf98d723543"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:531471ab12b06731",
+      "text": "친구가 오니까 집에 있어요",
+      "enSourceHash": "531471ab12b06731"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:540f445d3c7274c8",
+      "text": "비싸니까 안 살게요",
+      "enSourceHash": "540f445d3c7274c8"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:8a6ba32c9bed6ce7",
+      "text": "영화",
+      "enSourceHash": "8a6ba32c9bed6ce7"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:8c66791bd6059c85",
+      "text": "싸서 샀어요",
+      "enSourceHash": "8c66791bd6059c85"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:a746222f09d85605",
+      "text": "눈",
+      "enSourceHash": "a746222f09d85605"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:ad72aa728f671d5d",
+      "text": "친구가 커피숍에 갔어요",
+      "enSourceHash": "ad72aa728f671d5d"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:bb2b6e74be8498b9",
+      "text": "미카가 오니까 집에 있어요",
+      "enSourceHash": "bb2b6e74be8498b9"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:c02c46900edeb327",
+      "text": "친구와 커피숍에 가요",
+      "enSourceHash": "c02c46900edeb327"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:cce4d2504d4b809c",
+      "text": "싸지만 안 살게요",
+      "enSourceHash": "cce4d2504d4b809c"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:cde48537ca2c2808",
+      "text": "친구",
+      "enSourceHash": "cde48537ca2c2808"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:d6e21286621a8586",
+      "text": "집",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/en:ff0c8f6c3b86da9a",
+      "text": "맛있으니까 자주 먹어요",
+      "enSourceHash": "ff0c8f6c3b86da9a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/ja:おいしいから よく たべる",
+      "text": "만들기: 맛있으니까 자주 먹는다",
+      "enSourceHash": "3df8611858b3789f"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/ja:さむいから うちに いる",
+      "text": "만들기: 추우니까 집에 있다",
+      "enSourceHash": "4090cb78e3b72e4f"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/ja:じかんが ないから いかない",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/ja:たかいから かわない",
+      "text": "만들기: 비싸니까 안 산다",
+      "enSourceHash": "a4cb282eed847b6e"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/ja:にぎやかだから ここが すきだ",
+      "text": "만들기: 시끄러우니까 여기가 좋다",
+      "enSourceHash": "cf341ed8e0c248d0"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/ja:ゆきだから ミカは こない",
+      "text": "만들기: 눈이 오니까 미카는 안 온다",
+      "enSourceHash": "d260ed2de7e7f9b2"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/ja:ミカが くるから うちに いる",
+      "text": "만들기: 미카가 오니까 집에 있다",
+      "enSourceHash": "9cbce3506533ffc5"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-1/ja:ミカが すきな みせは たかいから きょうは かいものを しない",
+      "text": "만들기: 미카가 좋아하는 가게는 비싸니까 오늘은 쇼핑을 안 한다",
+      "enSourceHash": "2edf63cb1bb036cb"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:0889113e04d3203f",
+      "text": "수업",
+      "enSourceHash": "0889113e04d3203f"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:0c2284f223d59fd9",
+      "text": "오늘 수업이 없어요",
+      "enSourceHash": "0c2284f223d59fd9"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:1057a9604e04b274",
+      "text": "선생님",
+      "enSourceHash": "1057a9604e04b274"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:12a82a202d7496b3",
+      "text": "뜻을 아니까 안 묻겠어요",
+      "enSourceHash": "12a82a202d7496b3"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:13809668fb436386",
+      "text": "연필",
+      "enSourceHash": "13809668fb436386"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:25158a69d7b8cadf",
+      "text": "선생님은 뜻을 몰라요",
+      "enSourceHash": "25158a69d7b8cadf"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:42b357bc18bb5a72",
+      "text": "뜻을 모르니까 선생님에게 묻겠어요",
+      "enSourceHash": "42b357bc18bb5a72"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:65911f73cc66d96e",
+      "text": "수업은 9시부터 10시까지다",
+      "enSourceHash": "65911f73cc66d96e"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:6aef942eb8234630",
+      "text": "어제 수업은 9시부터 10시까지였다",
+      "enSourceHash": "6aef942eb8234630"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:82a3537ff0dbce7e",
+      "text": "이름",
+      "enSourceHash": "82a3537ff0dbce7e"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:869fda581e1d3956",
+      "text": "수업은 10시부터 11시까지다",
+      "enSourceHash": "869fda581e1d3956"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:f80105efab6d863f",
+      "text": "편지",
+      "enSourceHash": "f80105efab6d863f"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/en:fd3f636c5fbfcef3",
+      "text": "쉬우니까 선생님께 묻지 않겠다",
+      "enSourceHash": "fd3f636c5fbfcef3"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/ja:えんぴつを つかって ノートに かく",
+      "text": "만들기: 연필을 써서 노트에 쓴다",
+      "enSourceHash": "3dea9911befe0581"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/ja:きょうしつで ほんを よむ",
+      "text": "만들기: 교실에서 책을 읽는다",
+      "enSourceHash": "42d329beaaa0efc7"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/ja:ここに なまえを かいて ください",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/ja:じかんが なかったから てがみを かかなかった",
+      "text": "만들기: 시간이 없었기 때문에 편지를 쓰지 않았다",
+      "enSourceHash": "542904d5ee81dc04"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/ja:じゅぎょうで えんぴつを つかう",
+      "text": "만들기: 수업에서 연필을 쓴다",
+      "enSourceHash": "7562b85dcc3d7549"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/ja:やさしい ほんだけど いみが わからない",
+      "text": "만들기: 쉬운 책이지만 뜻을 모른다",
+      "enSourceHash": "591f6ef7c416681c"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/ja:やさしい ほんを よんでいる",
+      "text": "만들기: 쉬운 책을 읽고 있다",
+      "enSourceHash": "f9dc5c1636e36990"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/ja:クラスの まえに やさしい ほんを よんだ",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/ja:クラスは くじから じゅうじまでだ",
+      "text": "만들기: 수업은 9시부터 10시까지다",
+      "enSourceHash": "a301d7101b8618de"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-10/ja:ノートに なまえを かく",
+      "text": "만들기: 노트에 이름을 쓴다",
+      "enSourceHash": "ac075bccf3f2a6ec"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:0677922d28a4731a",
+      "text": "바람이 세니까 바다에서 수영하지 않겠다",
+      "enSourceHash": "0677922d28a4731a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:199c708419560e5b",
+      "text": "가족은 소중하다",
+      "enSourceHash": "199c708419560e5b"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:1b1a3e964b164a87",
+      "text": "바람이 약했기 때문에 어제 수영했다",
+      "enSourceHash": "1b1a3e964b164a87"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:230d8358dc8e8890",
+      "text": "몸",
+      "enSourceHash": "230d8358dc8e8890"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:24d8f99e154a0a9d",
+      "text": "바람이 약하니까 바다에서 수영하겠다",
+      "enSourceHash": "24d8f99e154a0a9d"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:4a69f19c8c264850",
+      "text": "바다",
+      "enSourceHash": "4a69f19c8c264850"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:6ca248ef76b334e3",
+      "text": "가족은 재미있다",
+      "enSourceHash": "6ca248ef76b334e3"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:7482d5802c3c2798",
+      "text": "사진",
+      "enSourceHash": "7482d5802c3c2798"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:7eb7b29fc2220e93",
+      "text": "시간이 없으니까 달린다",
+      "enSourceHash": "7eb7b29fc2220e93"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:995c5d31c7b6126e",
+      "text": "운동이 싫으니까 달리지 않는다",
+      "enSourceHash": "995c5d31c7b6126e"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:9b4ef3e5b7b4d175",
+      "text": "역",
+      "enSourceHash": "9b4ef3e5b7b4d175"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:9b58e68145a79ca0",
+      "text": "바람",
+      "enSourceHash": "9b58e68145a79ca0"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:9befd70c94d82fab",
+      "text": "내 가족은 바쁘다",
+      "enSourceHash": "9befd70c94d82fab"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:9dee6893682a5948",
+      "text": "시간은 소중하다",
+      "enSourceHash": "9dee6893682a5948"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:a4890684e9f09886",
+      "text": "운동이 좋으니까 자주 달린다",
+      "enSourceHash": "a4890684e9f09886"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:a60da99db1892276",
+      "text": "추우니까 바다에 가지 않겠다",
+      "enSourceHash": "a60da99db1892276"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:ba680c81525a1091",
+      "text": "운동은 좋지만 달리지는 않는다",
+      "enSourceHash": "ba680c81525a1091"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/en:d34a569ab7aaa54d",
+      "text": "가족",
+      "enSourceHash": "d34a569ab7aaa54d"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/ja:あさ えきまで はしる",
+      "text": "만들기: 아침에 역까지 달린다",
+      "enSourceHash": "9c6ea4ac8bb374c2"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/ja:からだに わるいから たばこを すわない",
+      "text": "만들기: 몸에 나쁘니까 담배를 피우지 않는다",
+      "enSourceHash": "777ca0aacc029299"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/ja:けいたいは めに わるい",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/ja:たいせつな とけいだから ミカに みせない",
+      "text": "만들기: 소중한 시계니까 미카에게 보여주지 않겠다",
+      "enSourceHash": "392011bb147efe58"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/ja:たばこは からだに わるい",
+      "text": "만들기: 담배는 몸에 나쁘다",
+      "enSourceHash": "a96b529695aaef92"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/ja:たばこは からだに わるいから ぜんぜん すわない",
+      "text": "만들기: 담배는 몸에 나쁘니까 전혀 피우지 않는다",
+      "enSourceHash": "fa49e22380780a95"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/ja:スポーツが すきだから よく はしる",
+      "text": "만들기: 운동이 좋으니까 자주 달린다",
+      "enSourceHash": "33553c7665e15735"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-11/ja:スポーツは からだに いい",
+      "text": "만들기: 운동은 몸에 좋다",
+      "enSourceHash": "b75b35b5ab0bcb3e"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:14069429150abcbf",
+      "text": "표",
+      "enSourceHash": "14069429150abcbf"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:2ed128fa137cf13a",
+      "text": "집 (내 집)",
+      "enSourceHash": "2ed128fa137cf13a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:38a81e87e79631e6",
+      "text": "사람",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:39ad431ae7f58faf",
+      "text": "여기 차는 비싸요",
+      "enSourceHash": "39ad431ae7f58faf"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:450198bbb96964fc",
+      "text": "내일 누가 오나요?",
+      "enSourceHash": "450198bbb96964fc"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:50236784473c5634",
+      "text": "누가 책을 샀나요?",
+      "enSourceHash": "50236784473c5634"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:66653c22a91084e7",
+      "text": "차는 좋아요",
+      "enSourceHash": "66653c22a91084e7"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:69142b8923218ec3",
+      "text": "여기 차는 맛있어요",
+      "enSourceHash": "69142b8923218ec3"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:889e42b5a43b0628",
+      "text": "누가 책을 보고 있나요?",
+      "enSourceHash": "889e42b5a43b0628"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:8a6ba32c9bed6ce7",
+      "text": "영화",
+      "enSourceHash": "8a6ba32c9bed6ce7"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:8ca150426c9a78cf",
+      "text": "누구의 책인가요?",
+      "enSourceHash": "8ca150426c9a78cf"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:abf727b6ad64d36b",
+      "text": "이 차는 유명해요",
+      "enSourceHash": "abf727b6ad64d36b"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:aef36a0146a8368c",
+      "text": "미카는 학생이라서 바빠요",
+      "enSourceHash": "aef36a0146a8368c"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:b88034524955ce2b",
+      "text": "책을 샀나요?",
+      "enSourceHash": "b88034524955ce2b"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:bc44acb04d557abd",
+      "text": "여기 닭고기는 맛있어요",
+      "enSourceHash": "bc44acb04d557abd"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:ca4eba525d6aa226",
+      "text": "켄이 오니까 집에서 기다려요",
+      "enSourceHash": "ca4eba525d6aa226"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:cde48537ca2c2808",
+      "text": "친구",
+      "enSourceHash": "cde48537ca2c2808"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/en:e272deecde720ffc",
+      "text": "추워요",
+      "enSourceHash": "e272deecde720ffc"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/ja:あした だれが くる？",
+      "text": "만들기: 내일 누가 오나요?",
+      "enSourceHash": "73ca049f2722ea34"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/ja:ここは とりにくが おいしい",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/ja:さむいから ミカは うちに いる",
+      "text": "만들기: 추우니까 미카는 집에 있어요",
+      "enSourceHash": "4685bdf23db04264"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/ja:だれが かった？",
+      "text": "만들기: 누가 샀나요?",
+      "enSourceHash": "c42e98d4373331c5"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/ja:わたしは じかんが ない",
+      "text": "만들기: 시간이 없어요",
+      "enSourceHash": "a8191472f2fa2019"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/ja:ケンが くるから うちで まつ",
+      "text": "만들기: 켄이 오니까 집에서 기다려요",
+      "enSourceHash": "c092e48789030512"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/ja:ミカが すきな えいがは ゆうめいだから きっぷが たかい",
+      "text": "만들기: 미카가 좋아하는 영화는 유명하니까 표가 비싸요",
+      "enSourceHash": "cb0a2aa8cec08bad"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-2/ja:ミカは がくせいだから いそがしい",
+      "text": "만들기: 미카는 학생이라서 바빠요",
+      "enSourceHash": "6a62df843c34b441"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:0cee93f0e6fc1e48",
+      "text": "여기 음악은 싫어요",
+      "enSourceHash": "0cee93f0e6fc1e48"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:11556a9cb2870ca5",
+      "text": "시끄러워서 여기가 싫어요",
+      "enSourceHash": "11556a9cb2870ca5"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:2d15d73528d49a96",
+      "text": "시끄럽지만 여기는 좋아요",
+      "enSourceHash": "2d15d73528d49a96"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:2ed128fa137cf13a",
+      "text": "집 (내 집)",
+      "enSourceHash": "2ed128fa137cf13a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:336074805fc85398",
+      "text": "시간",
+      "enSourceHash": "336074805fc85398"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:431e478c12ec59b0",
+      "text": "시간이 없으니까 안 가요",
+      "enSourceHash": "431e478c12ec59b0"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:515aa847286583a0",
+      "text": "바쁘니까 커피숍에 안 가요",
+      "enSourceHash": "515aa847286583a0"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:8a2e8aea72566f56",
+      "text": "눈이 오니까 미카는 안 와요",
+      "enSourceHash": "8a2e8aea72566f56"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:8b9144a9ce401782",
+      "text": "바쁘지 않으니까 커피숍에 가요",
+      "enSourceHash": "8b9144a9ce401782"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:9a871b983a234b91",
+      "text": "바빴으니까 커피숍에 안 갔어요",
+      "enSourceHash": "9a871b983a234b91"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:a8b1bfa70f7fe821",
+      "text": "시끄러워서 여기가 싫어요",
+      "enSourceHash": "a8b1bfa70f7fe821"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:c798e5b18ed876ef",
+      "text": "커피숍",
+      "enSourceHash": "c798e5b18ed876ef"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:e272deecde720ffc",
+      "text": "춥다",
+      "enSourceHash": "e272deecde720ffc"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:e2a8b22600e5d2ed",
+      "text": "바쁘지만 커피숍에 간다",
+      "enSourceHash": "e2a8b22600e5d2ed"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/en:f247fa35c0a2a4e5",
+      "text": "조용해서 여기가 좋다",
+      "enSourceHash": "f247fa35c0a2a4e5"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/ja:あした じゅぎょうが あるので うちに いる",
+      "text": "만들기: 내일 수업이 있어서 집에 있다",
+      "enSourceHash": "288580c8d1385a52"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/ja:いそがしいので あした いく",
+      "text": "만들기: 바빠서 내일 간다",
+      "enSourceHash": "6028e1d71c15455a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/ja:しずかなので ここが すきだ",
+      "text": "만들기: 조용해서 여기가 좋다",
+      "enSourceHash": "2b4e8916befbde19"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/ja:じかんが ないので いかない",
+      "text": "만들기: 시간이 없어서 가지 않는다",
+      "enSourceHash": "d87b9cefbb3ece09"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/ja:たかいので かわない",
+      "text": "만들기: 비싸서 사지 않는다",
+      "enSourceHash": "a4cb282eed847b6e"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/ja:にぎやかなので ここは すきじゃない",
+      "text": "만들기: 시끄러워서 여기는 싫다",
+      "enSourceHash": "0a07230952d8a517"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/ja:ゆきだから ミカは こない",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-3/ja:ミカが すきな きっさてんは しずかなので よく ちゃを のむ",
+      "text": "만들기: 미카가 좋아하는 커피숍은 조용해서 자주 차를 마신다",
+      "enSourceHash": "da0187a840471a97"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:01ea5ddd3be5477a",
+      "text": "신발",
+      "enSourceHash": "01ea5ddd3be5477a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:14069429150abcbf",
+      "text": "표",
+      "enSourceHash": "14069429150abcbf"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:2ed128fa137cf13a",
+      "text": "집 (내 집)",
+      "enSourceHash": "2ed128fa137cf13a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:2fcc9c526bdb53f1",
+      "text": "눈이 오면 역에 간다",
+      "enSourceHash": "2fcc9c526bdb53f1"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:33fef2c678b8ce70",
+      "text": "싸서 샀다",
+      "enSourceHash": "33fef2c678b8ce70"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:38de625d48ccd00c",
+      "text": "싸서 살 것이다",
+      "enSourceHash": "38de625d48ccd00c"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:3d2ffd0b2d276721",
+      "text": "역에서 눈이 오고 있다",
+      "enSourceHash": "3d2ffd0b2d276721"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:431e478c12ec59b0",
+      "text": "시간이 없어서 가지 않는다",
+      "enSourceHash": "431e478c12ec59b0"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:4745157a36c9c64e",
+      "text": "마셨지만 아직 더 마시고 싶다",
+      "enSourceHash": "4745157a36c9c64e"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:4f8e16a09a4ef477",
+      "text": "추우지만 바다에 간다",
+      "enSourceHash": "4f8e16a09a4ef477"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:540f445d3c7274c8",
+      "text": "비싸서 사지 않는다",
+      "enSourceHash": "540f445d3c7274c8"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:75e7170eeb6195b2",
+      "text": "눈이 오니까 역에 가지 않는다",
+      "enSourceHash": "75e7170eeb6195b2"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:8a6ba32c9bed6ce7",
+      "text": "영화",
+      "enSourceHash": "8a6ba32c9bed6ce7"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:a511aeeeb8a11993",
+      "text": "왜냐하면",
+      "enSourceHash": "a511aeeeb8a11993"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:b645856b1bfd0b74",
+      "text": "눈이 오지만 역에 간다",
+      "enSourceHash": "b645856b1bfd0b74"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:cce4d2504d4b809c",
+      "text": "싸지만 사지 않는다",
+      "enSourceHash": "cce4d2504d4b809c"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:de2e90849802ba49",
+      "text": "여기는 조용하지만 싫다",
+      "enSourceHash": "de2e90849802ba49"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/en:e272deecde720ffc",
+      "text": "춥다",
+      "enSourceHash": "e272deecde720ffc"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/ja:いそがしいけど いく",
+      "text": "만들기: 바쁘지만 간다",
+      "enSourceHash": "2200fcce6929b11a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/ja:ここは しずかだけど すきじゃない",
+      "text": "만들기: 여기는 조용하지만 싫다",
+      "enSourceHash": "a50d2d6b78e72563"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/ja:さむいけど うみに いく",
+      "text": "만들기: 추우지만 바다에 간다",
+      "enSourceHash": "5d001ac29963ee52"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/ja:じかんが ないので いかない",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/ja:たかいけど かいたい",
+      "text": "만들기: 비싸지만 사고 싶다",
+      "enSourceHash": "966c775d32977de3"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/ja:のんだけど まだ のみたい",
+      "text": "만들기: 마셨지만 아직 더 마시고 싶다",
+      "enSourceHash": "4085d5092ec8b898"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/ja:ゆきだけど いく",
+      "text": "만들기: 눈이 오지만 간다",
+      "enSourceHash": "c9cee444072b4225"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-4/ja:ミカが かった くつは たかかったけど きれいだ",
+      "text": "만들기: 미카가 산 신발은 비쌌지만 예쁘다",
+      "enSourceHash": "7324cd13dab4b5f0"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:04174877ff00c574",
+      "text": "친구가 미국에서 오고 있다",
+      "enSourceHash": "04174877ff00c574"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:078e838f6a59ecc2",
+      "text": "오후에 바쁘다",
+      "enSourceHash": "078e838f6a59ecc2"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:12dfac4b82ef97f8",
+      "text": "친구가 일본에서 오고 있다",
+      "enSourceHash": "12dfac4b82ef97f8"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:2ed128fa137cf13a",
+      "text": "내 집",
+      "enSourceHash": "2ed128fa137cf13a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:8b5e7f1339844024",
+      "text": "5시부터 영화를 본다",
+      "enSourceHash": "8b5e7f1339844024"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:97c23e04c486ffc0",
+      "text": "아침부터 바쁘다",
+      "enSourceHash": "97c23e04c486ffc0"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:9b4ef3e5b7b4d175",
+      "text": "역",
+      "enSourceHash": "9b4ef3e5b7b4d175"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:a511aeeeb8a11993",
+      "text": "왜냐하면",
+      "enSourceHash": "a511aeeeb8a11993"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:adba6c0ec8a8d89e",
+      "text": "대학",
+      "enSourceHash": "adba6c0ec8a8d89e"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:b455a097303cda11",
+      "text": "토미가 미국에서 오고 있다",
+      "enSourceHash": "b455a097303cda11"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:cdc29937887188ad",
+      "text": "하지만",
+      "enSourceHash": "cdc29937887188ad"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:cfa5cf18523f1e73",
+      "text": "아침에 바쁘지 않다",
+      "enSourceHash": "cfa5cf18523f1e73"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:e272deecde720ffc",
+      "text": "춥다",
+      "enSourceHash": "e272deecde720ffc"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:ec1cb01c13918dcb",
+      "text": "오늘 아침에 바빴다",
+      "enSourceHash": "ec1cb01c13918dcb"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:efd746eae69c0e91",
+      "text": "오후부터 수업이 있다",
+      "enSourceHash": "efd746eae69c0e91"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:f5af24b3e65bb49d",
+      "text": "친구가 미국 사람이다",
+      "enSourceHash": "f5af24b3e65bb49d"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/en:fd0ec2d62f5fe9b7",
+      "text": "친구가 미국으로 간다",
+      "enSourceHash": "fd0ec2d62f5fe9b7"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/ja:あさから いそがしい",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/ja:くじから はたらく",
+      "text": "만들기: 9시부터 일한다",
+      "enSourceHash": "e01ba67a0af8ffce"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/ja:ごごから じゅぎょうが ある",
+      "text": "만들기: 오후부터 수업이 있다",
+      "enSourceHash": "ad9c1d64ac4b5399"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/ja:ごじから えいがを みる",
+      "text": "만들기: 5시부터 영화를 본다",
+      "enSourceHash": "1416c21d61101aaa"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/ja:さむいから ともだちは にほんから こない",
+      "text": "만들기: 추우니까 친구는 일본에서 오지 않는다",
+      "enSourceHash": "0acc7a3ddecc9516"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/ja:にほんから くる ともだちに しゃしんを みせる",
+      "text": "만들기: 일본에서 오는 친구에게 사진을 보여 준다",
+      "enSourceHash": "094a685a555015ee"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/ja:にほんから ともだちが くる",
+      "text": "만들기: 일본에서 친구가 온다",
+      "enSourceHash": "9820f416e7fdfeb4"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-5/ja:トムは アメリカから くる",
+      "text": "만들기: 톰은 미국에서 온다",
+      "enSourceHash": "662783222ba5df7b"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:1d4d735049d72846",
+      "text": "오후부터 저녁까지 일해요",
+      "enSourceHash": "1d4d735049d72846"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:26cfe12b13a6e8b4",
+      "text": "10월부터 6월까지 바다에 가요",
+      "enSourceHash": "26cfe12b13a6e8b4"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:2df610a2c92ef35b",
+      "text": "9시부터 5시까지 일해요",
+      "enSourceHash": "2df610a2c92ef35b"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:2ed128fa137cf13a",
+      "text": "집 (내 집)",
+      "enSourceHash": "2ed128fa137cf13a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:336074805fc85398",
+      "text": "시간",
+      "enSourceHash": "336074805fc85398"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:414666abd297213d",
+      "text": "6월부터 10월까지 바다에 가요",
+      "enSourceHash": "414666abd297213d"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:543ca4dec06586eb",
+      "text": "오후에 일하지 않아요",
+      "enSourceHash": "543ca4dec06586eb"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:647294383b2cbc24",
+      "text": "일본",
+      "enSourceHash": "647294383b2cbc24"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:84e279d8e00c2351",
+      "text": "방학은 6월부터 9월까지예요",
+      "enSourceHash": "84e279d8e00c2351"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:940dd2e6c780b8a6",
+      "text": "일본에서 미국으로 가요",
+      "enSourceHash": "940dd2e6c780b8a6"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:a511aeeeb8a11993",
+      "text": "왜냐하면",
+      "enSourceHash": "a511aeeeb8a11993"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:b1891bc58781c22e",
+      "text": "10월까지 바다에 가지 않아요",
+      "enSourceHash": "b1891bc58781c22e"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:bb99185604f6e56e",
+      "text": "아침부터 오후까지 일해요",
+      "enSourceHash": "bb99185604f6e56e"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:cdc29937887188ad",
+      "text": "하지만",
+      "enSourceHash": "cdc29937887188ad"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:d9d489233fcaafc0",
+      "text": "6월에 바다에 갔어요",
+      "enSourceHash": "d9d489233fcaafc0"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:e272deecde720ffc",
+      "text": "춥다",
+      "enSourceHash": "e272deecde720ffc"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:e6fc42a2b7354c11",
+      "text": "1월부터 3월까지 추워요",
+      "enSourceHash": "e6fc42a2b7354c11"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/en:f196167d25bc604f",
+      "text": "오후까지 일했다",
+      "enSourceHash": "f196167d25bc604f"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/ja:あさから いそがしい",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/ja:あさから ばんまで えいがを みた",
+      "text": "만들기: 아침부터 밤까지 영화를 봤다",
+      "enSourceHash": "2a8a893bd4ed2fcc"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/ja:いちがつから さんがつまで さむい",
+      "text": "만들기: 1월부터 3월까지 춥다",
+      "enSourceHash": "66f65dbfe92ff4fa"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/ja:くじから ごじまで はたらく",
+      "text": "만들기: 9시부터 5시까지 일한다",
+      "enSourceHash": "3d3c16bb7082874f"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/ja:ごじまで まつ",
+      "text": "만들기: 5시까지 기다린다",
+      "enSourceHash": "4e7d593fe23b9ff1"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/ja:なつやすみは ろくがつから くがつまでだから りょこうに いく",
+      "text": "만들기: 여름방학은 6월부터 9월까지니까 여행을 간다",
+      "enSourceHash": "35dd2873e1e7c863"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/ja:にほんから アメリカまで いく",
+      "text": "만들기: 일본에서 미국까지 간다",
+      "enSourceHash": "7cf884b6706fe300"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-6/ja:やすみは ろくがつから くがつまでだ",
+      "text": "만들기: 휴일은 6월부터 9월까지다",
+      "enSourceHash": "5f16a25ab46039bf"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:14069429150abcbf",
+      "text": "표",
+      "enSourceHash": "14069429150abcbf"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:1b24e0c17e952e4c",
+      "text": "휴가",
+      "enSourceHash": "1b24e0c17e952e4c"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:22013613c6178770",
+      "text": "아침에 먹지 않는다",
+      "enSourceHash": "22013613c6178770"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:2ed128fa137cf13a",
+      "text": "집 (내 집)",
+      "enSourceHash": "2ed128fa137cf13a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:363484f6f339707d",
+      "text": "아침에 먹었다",
+      "enSourceHash": "363484f6f339707d"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:6c747a6a23d63be2",
+      "text": "아침에 먹지 않았다",
+      "enSourceHash": "6c747a6a23d63be2"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:7f12c298d779183b",
+      "text": "커피숍에 가지 않는다",
+      "enSourceHash": "7f12c298d779183b"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:a511aeeeb8a11993",
+      "text": "왜냐하면",
+      "enSourceHash": "a511aeeeb8a11993"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:b486db7b02550a51",
+      "text": "아침에 차를 마시지 않았다",
+      "enSourceHash": "b486db7b02550a51"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:be289da7d8e36e25",
+      "text": "내일 커피숍에 가지 않을 것이다",
+      "enSourceHash": "be289da7d8e36e25"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:c7c932b5bce5d76e",
+      "text": "어제 커피숍에 갔다",
+      "enSourceHash": "c7c932b5bce5d76e"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:cdc29937887188ad",
+      "text": "하지만",
+      "enSourceHash": "cdc29937887188ad"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:e272deecde720ffc",
+      "text": "추운",
+      "enSourceHash": "e272deecde720ffc"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/en:f0d81aef70ab31b3",
+      "text": "어제 커피숍에 가지 않았다",
+      "enSourceHash": "f0d81aef70ab31b3"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/ja:あさ ちゃを のみませんでした",
+      "text": "정중하게 말하세요: 아침에 차를 마시지 않았다",
+      "enSourceHash": "8520a6a80882090a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/ja:あさから ばんまで はたらく",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/ja:きっぷを かいませんでした",
+      "text": "정중하게 말하세요: 표를 사지 않았다",
+      "enSourceHash": "dc74cdca370d88ff"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/ja:きのう ごはんを たべませんでした",
+      "text": "정중하게 말하세요: 어제 밥을 먹지 않았다",
+      "enSourceHash": "b176c626982a1e43"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/ja:きのうは なにも しませんでした",
+      "text": "정중하게 말하세요: 어제는 아무것도 하지 않았다",
+      "enSourceHash": "dc269688aae276e6"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/ja:さむかったから いきませんでした",
+      "text": "정중하게 말하세요: 춥기 때문에 가지 않았다",
+      "enSourceHash": "8aeb0d2acc22574d"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/ja:たかかったので えいがを みませんでした",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-7/ja:ミカが すきな えいがは ゆうめいだけど きのうは みませんでした",
+      "text": "정중하게 말하세요: 미카가 좋아하는 영화는 유명하지만 어제 보지 않았다",
+      "enSourceHash": "248492cb97b25b0e"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:0cd69c929665e31d",
+      "text": "친구가 어제 오지 않았다",
+      "enSourceHash": "0cd69c929665e31d"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:1128ade914e6775f",
+      "text": "맛있지 않았다",
+      "enSourceHash": "1128ade914e6775f"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:1b24e0c17e952e4c",
+      "text": "휴가",
+      "enSourceHash": "1b24e0c17e952e4c"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:2ed128fa137cf13a",
+      "text": "집 (내 집)",
+      "enSourceHash": "2ed128fa137cf13a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:336074805fc85398",
+      "text": "시간",
+      "enSourceHash": "336074805fc85398"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:77ff83d845801ebd",
+      "text": "맛있었다",
+      "enSourceHash": "77ff83d845801ebd"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:83ee8c73143ffe2a",
+      "text": "전혀 먹지 않았다",
+      "enSourceHash": "83ee8c73143ffe2a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:933170ef9164106e",
+      "text": "친구 집에 가지 않았다",
+      "enSourceHash": "933170ef9164106e"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:9aba900f79d9d623",
+      "text": "친구가 어제 왔다",
+      "enSourceHash": "9aba900f79d9d623"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:a511aeeeb8a11993",
+      "text": "왜냐하면",
+      "enSourceHash": "a511aeeeb8a11993"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:cdc29937887188ad",
+      "text": "하지만",
+      "enSourceHash": "cdc29937887188ad"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:d70adb7c2f802d4e",
+      "text": "친구가 오늘 오지 않는다",
+      "enSourceHash": "d70adb7c2f802d4e"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:d8e2029ba92ae698",
+      "text": "전혀 비싸지 않았어요",
+      "enSourceHash": "d8e2029ba92ae698"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/en:e272deecde720ffc",
+      "text": "추워요",
+      "enSourceHash": "e272deecde720ffc"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/ja:あさ ちゃを のまなかった",
+      "text": "만들기: 아침에 차를 마시지 않았다",
+      "enSourceHash": "d887e7683d206dad"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/ja:えいがは ぜんぜん おもしろくなかった",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/ja:きっぷを かわなかったから えいがを みなかった",
+      "text": "만들기: 표를 사지 않았기 때문에 영화를 보지 않았다",
+      "enSourceHash": "d1b3d78bebeee86c"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/ja:きのう ごはんを たべなかった",
+      "text": "만들기: 어제 밥을 먹지 않았다",
+      "enSourceHash": "65339c3daa0b9d52"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/ja:きのうは なにも しなかった",
+      "text": "만들기: 어제는 아무것도 하지 않았다",
+      "enSourceHash": "fccaca4608df2cd7"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/ja:さむかったので えきまで いかなかった",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/ja:じかんが なかったから いかなかった",
+      "text": "만들기: 시간이 없었기 때문에 가지 않았다",
+      "enSourceHash": "d89591c56b95e5a0"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/ja:ゆきだったから ともだちは こなかった",
+      "text": "만들기: 눈이 왔기 때문에 친구가 오지 않았다",
+      "enSourceHash": "a07b527337d6df79"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-8/ja:ゆきだったから ミカが すきな みせに いかなかった",
+      "text": "만들기: 눈이 왔기 때문에 미카가 좋아하는 가게에 가지 않았다",
+      "enSourceHash": "1ed4176a41d21368"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:14069429150abcbf",
+      "text": "표",
+      "enSourceHash": "14069429150abcbf"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:146721cab1d20494",
+      "text": "표가 비싸서 사지 않았어요",
+      "enSourceHash": "146721cab1d20494"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:1b24e0c17e952e4c",
+      "text": "휴가",
+      "enSourceHash": "1b24e0c17e952e4c"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:1f28005f4ab88211",
+      "text": "표를 한 장 살게요",
+      "enSourceHash": "1f28005f4ab88211"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:2ed128fa137cf13a",
+      "text": "집 (내 집)",
+      "enSourceHash": "2ed128fa137cf13a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:335181555b945264",
+      "text": "사진을 다섯 장 보여줄게요",
+      "enSourceHash": "335181555b945264"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:5b845aad8a78ca7c",
+      "text": "사진을 한 장 봤어요",
+      "enSourceHash": "5b845aad8a78ca7c"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:63fb0a8ce36ff969",
+      "text": "표를 네 장 살게요",
+      "enSourceHash": "63fb0a8ce36ff969"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:6d46af4d6879bda6",
+      "text": "사진을 네 장 살게요",
+      "enSourceHash": "6d46af4d6879bda6"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:a0e2f71099472dfc",
+      "text": "사진을 한 장 보여줄게요",
+      "enSourceHash": "a0e2f71099472dfc"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:a159556f33cc3e2d",
+      "text": "사진을 다섯 장 봤어요",
+      "enSourceHash": "a159556f33cc3e2d"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:a511aeeeb8a11993",
+      "text": "왜냐하면",
+      "enSourceHash": "a511aeeeb8a11993"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:aa9c894cafdd41ca",
+      "text": "표를 세 장 샀어요",
+      "enSourceHash": "aa9c894cafdd41ca"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:ba51d38ae5e3469a",
+      "text": "셔츠를 네 장 살게요",
+      "enSourceHash": "ba51d38ae5e3469a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:cdc29937887188ad",
+      "text": "하지만",
+      "enSourceHash": "cdc29937887188ad"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:d83f89176f600971",
+      "text": "사진을 한 장 살게요",
+      "enSourceHash": "d83f89176f600971"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:e272deecde720ffc",
+      "text": "추워요",
+      "enSourceHash": "e272deecde720ffc"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/en:f3912b35ee1afa75",
+      "text": "표를 네 장 샀어요",
+      "enSourceHash": "f3912b35ee1afa75"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/ja:きっぷは たかかったので かわなかった",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/ja:きっぷを ごまい かいませんでした",
+      "text": "정중하게 말하세요: 표를 다섯 장 사지 않았어요",
+      "enSourceHash": "e7aaa14f12621b1f"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/ja:きっぷを ごまい かったけど ともだちは こなかった",
+      "text": "만들기: 표를 다섯 장 샀지만 친구들은 오지 않았다",
+      "enSourceHash": "ea26b5db95cfb753"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/ja:きっぷを さんまい かった",
+      "text": "만들기: 표를 세 장 샀다",
+      "enSourceHash": "841111264018082c"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/ja:きっぷを なんまい かう？",
+      "text": "만들기: 표를 몇 장 살까요?",
+      "enSourceHash": "5788686d0e2ceb15"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/ja:しゃしんを いちまい ください",
+      "text": "만들기: 사진을 한 장 주세요",
+      "enSourceHash": "9dc496a438290206"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/ja:しゃしんを ごまい みた",
+      "text": "만들기: 사진을 다섯 장 봤다",
+      "enSourceHash": "bd979d64bc34e414"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/ja:たかかったから きっぷを いちまい かった",
+      "text": "만들기: 비싸서 표를 한 장 샀다",
+      "enSourceHash": "7818caf78ff0f72b"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-9/ja:シャツを よんまい かう",
+      "text": "만들기: 셔츠를 네 장 살게요",
+      "enSourceHash": "ca867bbc8a332fc6"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:02d2490da9d1f70f",
+      "text": "아침부터 저녁까지 일해서 시간이 없어요",
+      "enSourceHash": "02d2490da9d1f70f"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:0554d10fd2e97f52",
+      "text": "미카는 9시부터 5시까지 일해서 오지 않아요",
+      "enSourceHash": "0554d10fd2e97f52"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:1371f046063f52b5",
+      "text": "미카는 일하지 않아서 9시에 올게요",
+      "enSourceHash": "1371f046063f52b5"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:14069429150abcbf",
+      "text": "표",
+      "enSourceHash": "14069429150abcbf"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:1673db132233f09f",
+      "text": "표가 비싸서 영화를 보지 않았다",
+      "enSourceHash": "1673db132233f09f"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:1b24e0c17e952e4c",
+      "text": "휴가",
+      "enSourceHash": "1b24e0c17e952e4c"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:2ed128fa137cf13a",
+      "text": "집 (내 집)",
+      "enSourceHash": "2ed128fa137cf13a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:5096303770ad01e8",
+      "text": "미카가 산 표는 쌌지만 영화는 전혀 재미없었다",
+      "enSourceHash": "5096303770ad01e8"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:5970b0e0247828c2",
+      "text": "미카는 일을 끝내서 5시에 온다",
+      "enSourceHash": "5970b0e0247828c2"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:6bf31bfa215a5222",
+      "text": "눈 속에서 표를 한 장 샀다",
+      "enSourceHash": "6bf31bfa215a5222"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:89449a13b0f645cd",
+      "text": "눈이 와서 표를 한 장 샀다",
+      "enSourceHash": "89449a13b0f645cd"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:9e64434f8c569355",
+      "text": "6월부터 9월까지 일본에 있으니까 사진을 다섯 장 보여 주겠다",
+      "enSourceHash": "9e64434f8c569355"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:a511aeeeb8a11993",
+      "text": "왜냐하면",
+      "enSourceHash": "a511aeeeb8a11993"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:b3c88451ad64eed5",
+      "text": "\"눈\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "b3c88451ad64eed5"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:be943e76a5b1c39f",
+      "text": "미카는 9시부터 5시까지 일해서 오지 않았다",
+      "enSourceHash": "be943e76a5b1c39f"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:c05a6868ab16cd97",
+      "text": "도전 — 왜 말하기, 얼마나 오래 말하기, 무엇을 하지 않았는지 말하기",
+      "enSourceHash": "c05a6868ab16cd97"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:cdc29937887188ad",
+      "text": "하지만",
+      "enSourceHash": "cdc29937887188ad"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:ce3b35def0a79119",
+      "text": "눈이 오니까 표를 사지 않을 것이다",
+      "enSourceHash": "ce3b35def0a79119"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:ce52d90ff139e03d",
+      "text": "눈이 와서 표를 한 장도 사지 않았다",
+      "enSourceHash": "ce52d90ff139e03d"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/en:e272deecde720ffc",
+      "text": "추위",
+      "enSourceHash": "e272deecde720ffc"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/ja:あさから ばんまで はたらいて いるから じかんが ない",
+      "text": "만들기: 아침부터 저녁까지 일하고 있으니까 시간이 없다",
+      "enSourceHash": "c09bc11e6c3f3417"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/ja:きっぷが たかかったので えいがを みませんでした",
+      "text": "정중하게 말하세요: 표가 비쌌기 때문에 영화를 보지 않았어요",
+      "enSourceHash": "bf13cc8530e07468"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/ja:さむかったけど うみに いく ともだちを まつ",
+      "text": "만들기: 추웠지만 바다로 가는 친구를 기다린다",
+      "enSourceHash": "badcef75837e8c55"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/ja:じかんが なかったので きっぷを いちまい かいませんでした",
+      "text": "정중하게 말하세요: 시간이 없었기 때문에 표를 한 장 사지 않았어요",
+      "enSourceHash": "474f3c471ee5b2d8"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/ja:ろくがつから くがつまで にほんに いるから しゃしんを ごまい みせる",
+      "text": "만들기: 6월부터 9월까지 일본에 있으니까 사진을 다섯 장 보여 주겠다",
+      "enSourceHash": "487205722d5df0e6"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/ja:アメリカから ともだちが くるので えきまで いく",
+      "text": "만들기: 친구가 미국에서 오니까 역까지 간다",
+      "enSourceHash": "3b30bc7098281cc2"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/ja:ミカが かった きっぷは やすかったけど えいがは ぜんぜん おもしろくなかった",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-challenge/ja:ミカが すきな きっさてんは くじから ごじまでだから ごごに ちゃを のまなかった",
+      "text": "만들기: 미카가 좋아하는 커피숍은 9시부터 5시까지이니까 오후에 차를 마시지 않았다",
+      "enSourceHash": "1f0a5b25ec7f9d86"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:025b804aad45198d",
+      "text": "추워서 가지 않는다",
+      "enSourceHash": "025b804aad45198d"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:0be5748a806fd35a",
+      "text": "내일 오나요?",
+      "enSourceHash": "0be5748a806fd35a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:10b517a673059fdf",
+      "text": "내일 어디로 가나요?",
+      "enSourceHash": "10b517a673059fdf"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:1cbf4d1105c14200",
+      "text": "추워서 집에 있다",
+      "enSourceHash": "1cbf4d1105c14200"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:2ed128fa137cf13a",
+      "text": "집 (내 집)",
+      "enSourceHash": "2ed128fa137cf13a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:336074805fc85398",
+      "text": "시간",
+      "enSourceHash": "336074805fc85398"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:3b724fea8999559d",
+      "text": "누가 어제 샀나요?",
+      "enSourceHash": "3b724fea8999559d"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:3ee08388f14bac34",
+      "text": "시간이 있으니까 간다",
+      "enSourceHash": "3ee08388f14bac34"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:431e478c12ec59b0",
+      "text": "시간이 없으니까 가지 않는다",
+      "enSourceHash": "431e478c12ec59b0"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:450198bbb96964fc",
+      "text": "누가 내일 오나요?",
+      "enSourceHash": "450198bbb96964fc"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:8a6ba32c9bed6ce7",
+      "text": "영화",
+      "enSourceHash": "8a6ba32c9bed6ce7"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:ae523933822166a6",
+      "text": "돈이 없으니까 가지 않는다",
+      "enSourceHash": "ae523933822166a6"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:aef36a0146a8368c",
+      "text": "미카는 학생이니까 바쁘다",
+      "enSourceHash": "aef36a0146a8368c"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:b3c88451ad64eed5",
+      "text": "\"눈\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "b3c88451ad64eed5"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:c798e5b18ed876ef",
+      "text": "커피숍",
+      "enSourceHash": "c798e5b18ed876ef"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:ca4eba525d6aa226",
+      "text": "켄이 오니까 집에서 기다리겠다",
+      "enSourceHash": "ca4eba525d6aa226"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:cde48537ca2c2808",
+      "text": "친구",
+      "enSourceHash": "cde48537ca2c2808"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:e272deecde720ffc",
+      "text": "추위",
+      "enSourceHash": "e272deecde720ffc"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:f0b770269c5d1ef1",
+      "text": "복습 — 이유 말하기",
+      "enSourceHash": "f0b770269c5d1ef1"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/en:f247fa35c0a2a4e5",
+      "text": "조용해서 여기가 좋아",
+      "enSourceHash": "f247fa35c0a2a4e5"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/ja:あした じゅぎょうが あるので うちに いる",
+      "text": "만들기: 내일 수업이 있으니까 집에 있어",
+      "enSourceHash": "288580c8d1385a52"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/ja:ここは とりにくが おいしい",
+      "text": "만들기: 여기 치킨이 맛있어",
+      "enSourceHash": "1d7cf694472a0053"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/ja:さむいから うちに いる",
+      "text": "만들기: 추우니까 집에 있어",
+      "enSourceHash": "4090cb78e3b72e4f"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/ja:しずかなので ここが すきだ",
+      "text": "만들기: 조용해서 여기가 좋아",
+      "enSourceHash": "2b4e8916befbde19"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/ja:たかいので かわない",
+      "text": "만들기: 비싸니까 안 사",
+      "enSourceHash": "a4cb282eed847b6e"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/ja:ゆきだから ミカは こない",
+      "text": "만들기: 눈이 오니까 미카는 오지 않아",
+      "enSourceHash": "d260ed2de7e7f9b2"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/ja:ケンが くるから うちで まつ",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-1/ja:ミカは がくせいだから いそがしい",
+      "text": "만들기: 미카는 학생이니까 바빠",
+      "enSourceHash": "6a62df843c34b441"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:04174877ff00c574",
+      "text": "친구가 미국에서 오고 있어",
+      "enSourceHash": "04174877ff00c574"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:12dfac4b82ef97f8",
+      "text": "친구가 일본에서 오고 있어",
+      "enSourceHash": "12dfac4b82ef97f8"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:14069429150abcbf",
+      "text": "표",
+      "enSourceHash": "14069429150abcbf"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:1b24e0c17e952e4c",
+      "text": "휴가",
+      "enSourceHash": "1b24e0c17e952e4c"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:2df610a2c92ef35b",
+      "text": "9시부터 5시까지 일해",
+      "enSourceHash": "2df610a2c92ef35b"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:2ed128fa137cf13a",
+      "text": "집 (내 집)",
+      "enSourceHash": "2ed128fa137cf13a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:4f8e16a09a4ef477",
+      "text": "추우지만 바다로 가",
+      "enSourceHash": "4f8e16a09a4ef477"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:5984392dad817acf",
+      "text": "여기 조용해서 좋아",
+      "enSourceHash": "5984392dad817acf"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:6a38d0bb3109b28e",
+      "text": "여기 시끄러워지만 좋아",
+      "enSourceHash": "6a38d0bb3109b28e"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:73a12a05d89fc445",
+      "text": "친구가 일본으로 가",
+      "enSourceHash": "73a12a05d89fc445"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:84e279d8e00c2351",
+      "text": "휴가는 6월부터 9월까지야",
+      "enSourceHash": "84e279d8e00c2351"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:a03d1291e8414dd8",
+      "text": "조용한 곳은 싫어",
+      "enSourceHash": "a03d1291e8414dd8"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:a511aeeeb8a11993",
+      "text": "왜냐하면",
+      "enSourceHash": "a511aeeeb8a11993"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:b3c88451ad64eed5",
+      "text": "\"눈\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "b3c88451ad64eed5"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:b455a097303cda11",
+      "text": "톰이 미국에서 오고 있어",
+      "enSourceHash": "b455a097303cda11"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:c298d6f32938ef54",
+      "text": "내 친구는 일본 사람이야",
+      "enSourceHash": "c298d6f32938ef54"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:cc85ef081f5406dd",
+      "text": "복습 — 하지만, ~부터, ~까지",
+      "enSourceHash": "cc85ef081f5406dd"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:cdc29937887188ad",
+      "text": "하지만",
+      "enSourceHash": "cdc29937887188ad"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:de2e90849802ba49",
+      "text": "여기 조용하지만 싫어",
+      "enSourceHash": "de2e90849802ba49"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/en:e272deecde720ffc",
+      "text": "추위",
+      "enSourceHash": "e272deecde720ffc"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/ja:あさから いそがしい",
+      "text": "만들기: 아침부터 바빠",
+      "enSourceHash": "5f33b7c3ee532842"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/ja:いちがつから さんがつまで さむい",
+      "text": "만들기: 1월부터 3월까지 추워",
+      "enSourceHash": "66f65dbfe92ff4fa"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/ja:くじから ごじまで はたらく",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/ja:ごじまで まつ",
+      "text": "만들기: 5시까지 기다려",
+      "enSourceHash": "4e7d593fe23b9ff1"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/ja:たかいけど かいたい",
+      "text": "만들기: 비싸지만 사고 싶어",
+      "enSourceHash": "966c775d32977de3"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/ja:やすみは ろくがつから くがつまでだ",
+      "text": "만들기: 휴가는 6월부터 9월까지야",
+      "enSourceHash": "5f16a25ab46039bf"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/ja:ゆきだけど いく",
+      "text": "만들기: 눈이 오지만 가",
+      "enSourceHash": "c9cee444072b4225"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-2/ja:トムは アメリカから くる",
+      "text": "만들기: 톰은 미국에서 와",
+      "enSourceHash": "662783222ba5df7b"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:032830273251d611",
+      "text": "전혀 재미없었다",
+      "enSourceHash": "032830273251d611"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:0b743f114a277e01",
+      "text": "담배는 비싸서 사지 않는다",
+      "enSourceHash": "0b743f114a277e01"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:0f4e179e3075c24e",
+      "text": "담배는 몸에 나빠서 피우지 않는다",
+      "enSourceHash": "0f4e179e3075c24e"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:14069429150abcbf",
+      "text": "표",
+      "enSourceHash": "14069429150abcbf"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:1b24e0c17e952e4c",
+      "text": "휴가",
+      "enSourceHash": "1b24e0c17e952e4c"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:1d5220e8c9af92a5",
+      "text": "달리는 것은 몸에 좋아서 달린다",
+      "enSourceHash": "1d5220e8c9af92a5"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:2ed128fa137cf13a",
+      "text": "집 (내 집)",
+      "enSourceHash": "2ed128fa137cf13a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:404e34c4da6a1798",
+      "text": "전혀 조용하지 않았다",
+      "enSourceHash": "404e34c4da6a1798"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:414ad30e0d2e5c83",
+      "text": "선생님이 뜻을 물었다",
+      "enSourceHash": "414ad30e0d2e5c83"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:429376daf3e64359",
+      "text": "나에게 나쁘지만 피운다",
+      "enSourceHash": "429376daf3e64359"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:42b357bc18bb5a72",
+      "text": "뜻을 모르니 선생님에게 물을 것이다",
+      "enSourceHash": "42b357bc18bb5a72"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:52115812a0060ac9",
+      "text": "복습 — 이유, 기간, 그리고 일어나지 않은 일",
+      "enSourceHash": "52115812a0060ac9"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:79852975c8ad3a37",
+      "text": "어제 영화를 봤다",
+      "enSourceHash": "79852975c8ad3a37"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:7a94fe5f6be8fff8",
+      "text": "쉬우니 읽을 것이다",
+      "enSourceHash": "7a94fe5f6be8fff8"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:7d1f7d4dd55d8015",
+      "text": "뜻을 아니 묻지 않을 것이다",
+      "enSourceHash": "7d1f7d4dd55d8015"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:a511aeeeb8a11993",
+      "text": "왜냐하면",
+      "enSourceHash": "a511aeeeb8a11993"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:cad818b682664a44",
+      "text": "어제 영화를 보지 않았다",
+      "enSourceHash": "cad818b682664a44"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:cdc29937887188ad",
+      "text": "하지만",
+      "enSourceHash": "cdc29937887188ad"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:d7d12004d5fa4ce7",
+      "text": "영화를 보지 않는다",
+      "enSourceHash": "d7d12004d5fa4ce7"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:d8e2029ba92ae698",
+      "text": "전혀 비싸지 않았다",
+      "enSourceHash": "d8e2029ba92ae698"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:e272deecde720ffc",
+      "text": "추위",
+      "enSourceHash": "e272deecde720ffc"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:f528eeb8e9ca7d29",
+      "text": "재미있었다",
+      "enSourceHash": "f528eeb8e9ca7d29"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/en:fd65fd28d18f47b4",
+      "text": "내일 그 영화를 보지 않을 것이다",
+      "enSourceHash": "fd65fd28d18f47b4"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:えんぴつを つかって ノートに かく",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:かぜが よわいから うみで およぐ",
+      "text": "만들기: 바람이 약해서 바다에서 수영한다",
+      "enSourceHash": "1cec17063a50668f"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:きっぷを さんまい かった",
+      "text": "만들기: 표를 세 장 샀다",
+      "enSourceHash": "841111264018082c"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:きのう ごはんを たべなかった",
+      "text": "만들기: 어제 밥을 먹지 않았다",
+      "enSourceHash": "65339c3daa0b9d52"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:きょうしつで やさしい ほんを よむ",
+      "text": "만들기: 교실에서 쉬운 책을 읽는다",
+      "enSourceHash": "50ab5340fc9ab54e"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:くじから ごじまで はたらく",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:さむいから うちに いる",
+      "text": "만들기: 추우니까 집에 있다",
+      "enSourceHash": "4090cb78e3b72e4f"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:さむかったから いきませんでした",
+      "text": "정중하게 말하세요: 추웠기 때문에 가지 않았어요",
+      "enSourceHash": "8aeb0d2acc22574d"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:しずかなので ここが すきだ",
+      "text": "만들기: 조용해서 여기가 좋다",
+      "enSourceHash": "2b4e8916befbde19"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:たいせつな しゃしんを ミカに みせる",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:たかいけど かいたい",
+      "text": "만들기: 비싸지만 사고 싶다",
+      "enSourceHash": "966c775d32977de3"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:にほんから ともだちが くる",
+      "text": "만들기: 일본에서 친구가 온다",
+      "enSourceHash": "9820f416e7fdfeb4"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:やすみは ろくがつから くがつまでだ",
+      "text": "만들기: 휴가는 6월부터 9월까지다",
+      "enSourceHash": "5f16a25ab46039bf"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:クラスで あたらしい けいたいを つかう",
+      "text": "만들기: 수업에서 새로운 전화를 쓴다",
+      "enSourceHash": "a07e91fb6098d218"
+    },
+    {
+      "anchor": "m16/ja-m16-neo-review-3/ja:スポーツが すきだから えきまで はしる",
+      "text": "만들기: 스포츠를 좋아해서 역까지 뛴다",
+      "enSourceHash": "ca4a6524bb6ca169"
+    },
+    {
+      "anchor": "m16/story:ja-m16-a-day-at-school/en:3502cb6aeecf5592",
+      "text": "수업, 노트, 그리고 숙제.",
+      "enSourceHash": "3502cb6aeecf5592"
+    },
+    {
+      "anchor": "m16/story:ja-m16-a-day-at-school/en:e2a126dd161ca387",
+      "text": "학교에서의 하루",
+      "enSourceHash": "e2a126dd161ca387"
+    },
+    {
+      "anchor": "m16/story:ja-m16-a-day-at-school/ja:あさごはんを たべて、がっこうに はしる。",
+      "text": "아침밥을 먹고 학교에 뛴다.",
+      "enSourceHash": "683eeb689afb76af"
+    },
+    {
+      "anchor": "m16/story:ja-m16-a-day-at-school/ja:きょうしつで ノートに かく。",
+      "text": "교실에서 노트에 쓴다.",
+      "enSourceHash": "8b2dffaa31052ef0"
+    },
+    {
+      "anchor": "m16/story:ja-m16-a-day-at-school/ja:きょうは クラスが ある。",
+      "text": "오늘은 수업이 있다.",
+      "enSourceHash": "26f8e6aea9700ec0"
+    },
+    {
+      "anchor": "m16/story:ja-m16-a-day-at-school/ja:しゅくだいは やさしいけど たいせつだ。",
+      "text": "숙제는 쉽지만 중요하다.",
+      "enSourceHash": "cca13924d72c3ae2"
+    },
+    {
+      "anchor": "m16/story:ja-m16-a-day-at-school/ja:わたしは きょうしつに はいる。",
+      "text": "나는 교실에 들어간다.",
+      "enSourceHash": "45def34566284a0c"
+    },
+    {
+      "anchor": "m16/story:ja-m16-a-day-at-school/ja:わたしは じぶんで べんきょうする。",
+      "text": "나는 혼자 공부한다.",
+      "enSourceHash": "7c9b2a1137a684c0"
+    },
+    {
+      "anchor": "m16/story:ja-m16-a-day-at-school/ja:スポーツも すこし する。",
+      "text": "스포츠도 조금 한다.",
+      "enSourceHash": "bf0155f2962b145b"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/en:cc00b891aea22e5c",
+      "text": "첫 번째 온천",
+      "enSourceHash": "cc00b891aea22e5c"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/en:e56f9c6a116141b4",
+      "text": "산장, 아무도 적어두지 않은 규칙, 그리고 우유 한 병.",
+      "enSourceHash": "e56f9c6a116141b4"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/gloss:おんせん",
+      "text": "온천",
+      "enSourceHash": "74930e8a4a8e32b4"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/gloss:ゆかた",
+      "text": "유카타",
+      "enSourceHash": "7005707e0f43f78b"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:「さきに からだを あらう。」",
+      "text": "\"먼저 몸을 씻는다.\"",
+      "enSourceHash": "9589b222de06a676"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:「せっけんですか。」",
+      "text": "\"비누입니까?\"",
+      "enSourceHash": "9fc1553064095f88"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:「はい。これは たいせつだ。」",
+      "text": "\"네. 이것은 중요하다.\"",
+      "enSourceHash": "f9b4f0ea4eb6f239"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:あとで ぎゅうにゅうを のむ。",
+      "text": "나중에 우유를 마신다.",
+      "enSourceHash": "507b5bdc65e7e85c"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:いまは おんせんの ことが わかった。",
+      "text": "이제 온천에 대해 알았다.",
+      "enSourceHash": "8ef0a30f26bb28bc"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:おんせんで およぐ ひとは いない。",
+      "text": "온천에서 수영하는 사람은 없다.",
+      "enSourceHash": "cfefee03c4ff5cc2"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:おんせんの あとの ぎゅうにゅうは とても おいしい。",
+      "text": "온천 이후의 우유는 매우 맛있다.",
+      "enSourceHash": "6b16af444c8895cf"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:おんせんは とても あつい。",
+      "text": "온천은 매우 뜨겁다.",
+      "enSourceHash": "d116357191cbc44c"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:おんせんは スポーツ じゃない。",
+      "text": "온천은 스포츠가 아니다.",
+      "enSourceHash": "44142ba681c7c27c"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:ここは とても しずかだ。",
+      "text": "여기는 매우 조용하다.",
+      "enSourceHash": "b7411c08c08ee748"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:そとにも おんせんが ある。",
+      "text": "바깥에도 온천이 있다.",
+      "enSourceHash": "f6a31af40df587c0"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:そとの おんせんで やまを みる。",
+      "text": "실외 온천에서 산을 본다.",
+      "enSourceHash": "e86e9fead9fc8695"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:それから おんせんに はいる。",
+      "text": "그리고 나서 온천에 들어간다.",
+      "enSourceHash": "af087167e2155a85"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:ちちは わたしに おんせんの はなしを する。",
+      "text": "아버지는 나에게 온천 이야기를 한다.",
+      "enSourceHash": "90e8e24e270737aa"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:なつやすみに かぞくで りょこうに いく。",
+      "text": "여름방학에 가족과 여행을 간다.",
+      "enSourceHash": "15e0f14d00cc919d"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:まいとし おんせんに いく。",
+      "text": "매년 온천에 간다.",
+      "enSourceHash": "b9505ad50b115875"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:わたしは おんせんに はじめて はいる。",
+      "text": "나는 처음으로 온천에 들어간다.",
+      "enSourceHash": "52c1d28e78bc9d4b"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:わたしは おんせんの ことが わからない。",
+      "text": "나는 온천에 대해 모른다.",
+      "enSourceHash": "8d4decb8ce4adf56"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:わたしは さきに せっけんで からだを あらう。",
+      "text": "나는 먼저 비누로 몸을 씻는다.",
+      "enSourceHash": "c98c9003478dfe4a"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:わたしは そとに いく。",
+      "text": "나는 바깥에 간다.",
+      "enSourceHash": "f88c9293e911841a"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:わたしは ながい じかん おんせんに いる。",
+      "text": "나는 오랫동안 온천에 있다.",
+      "enSourceHash": "d62b11de4afbb26e"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:ホテルに おんせんが ある。",
+      "text": "호텔에 온천이 있다.",
+      "enSourceHash": "a7f4e5405bb243a9"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:ホテルの ふくは ゆかただ。",
+      "text": "호텔의 옷은 유카타다.",
+      "enSourceHash": "23c446a384bbc24a"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-first-hot-spring/ja:ホテルは やまに ある。",
+      "text": "호텔은 산에 있다.",
+      "enSourceHash": "4e2ef4f1538e88bf"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/en:12eb9f21abd858b0",
+      "text": "숙적이 사라져서 두 번 쓴다.",
+      "enSourceHash": "12eb9f21abd858b0"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/en:d3139f29f6ad02ef",
+      "text": "두 번째 노트",
+      "enSourceHash": "d3139f29f6ad02ef"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/gloss:おなじ",
+      "text": "같다",
+      "enSourceHash": "fa0487f2dc91544a"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/gloss:さがす",
+      "text": "찾다",
+      "enSourceHash": "af169d40f1964b10"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/gloss:なくす",
+      "text": "잃어버리다",
+      "enSourceHash": "37974eee32e696cc"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:「きょうしつに ノートが ありません。」",
+      "text": "\"교실에 노트가 없어요.\"",
+      "enSourceHash": "7e647b1b4e23291e"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:「これは あたらしい ノートです。」",
+      "text": "\"이것은 새로운 노트예요.\"",
+      "enSourceHash": "c247cf119ac6bc1b"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:「しゅくだいは たいせつです。」",
+      "text": "\"숙제는 중요해요.\"",
+      "enSourceHash": "58ffdb7b8123f274"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:「ノートは どこですか。」",
+      "text": "\"노트는 어디예요?\"",
+      "enSourceHash": "ad37cc8858c2487a"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:あたらしい ノートを せんせいに みせる。",
+      "text": "새 노트를 선생님에게 보여 준다.",
+      "enSourceHash": "42949d3c484d9312"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:いまは いみが わかった。",
+      "text": "이제 뜻을 알았다.",
+      "enSourceHash": "644d30a7d1a9a257"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:いまは はちじはんだ。クラスは くじだ。",
+      "text": "이제는 8시 반이다. 수업은 9시이다.",
+      "enSourceHash": "bd9a6e1d50f4e49d"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:いみが わからない ところも ある。",
+      "text": "뜻을 알 수 없는 곳도 있다.",
+      "enSourceHash": "300a10754c6af8da"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:かようびの あさ、きょうしつで かばんを あける。",
+      "text": "화요일 아침, 교실에서 가방을 연다.",
+      "enSourceHash": "b0b8c863b0726a44"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:くじに せんせいが きょうしつに はいる。",
+      "text": "9시에 선생님이 교실에 들어온다.",
+      "enSourceHash": "fa78526b1c630684"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:けど、じゅうじまで かく。",
+      "text": "하지만 10시까지 쓴다.",
+      "enSourceHash": "ddc9c2303f860363"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:げつようびの よる、あたらしい ノートに しゅくだいを かく。",
+      "text": "월요일 밤, 새 노트에 숙제를 쓴다.",
+      "enSourceHash": "2d8e99665c93f736"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:しゅくだいは たいせつだと おもう。いまは ほんとうに そう おもう。",
+      "text": "숙제는 소중하다고 생각한다. 이제는 정말로 그렇게 생각한다.",
+      "enSourceHash": "f76571f1666f45ae"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:しゅくだいは とても むずかしい。",
+      "text": "숙제는 매우 어렵다.",
+      "enSourceHash": "901d8afffb89a4b0"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:じしょと ペンは ある。けど、ノートは ない。",
+      "text": "사전과 펜은 있다. 하지만 노트는 없다.",
+      "enSourceHash": "b09eb2de827c40a3"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:せんせいは しゅくだいの はなしを よく する。",
+      "text": "선생님은 숙제 이야기를 자주 한다.",
+      "enSourceHash": "43e85568993df94e"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:せんせいは ぼくに ふるい ノートを みせる。ろうかの ノートだ。",
+      "text": "선생님은 나에게 낡은 노트를 보여 준다. 복도의 노트이다.",
+      "enSourceHash": "85d45050a6db2c86"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:それから、おなじ しゅくだいを もういちど かく。",
+      "text": "그리고 같은 숙제를 다시 쓴다.",
+      "enSourceHash": "e77133cd3f623366"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:ともだちの ケンが ぼくの かばんを みる。",
+      "text": "친구 켄이 나의 가방을 본다.",
+      "enSourceHash": "ff524d9b3898c4b0"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:ぼくは きょうしつを さがす。",
+      "text": "나는 교실을 찾는다.",
+      "enSourceHash": "f348b7a457be035e"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:ぼくは しゅくだいが きらいだ。",
+      "text": "나는 숙제가 싫다.",
+      "enSourceHash": "56143105dd0d0d6a"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:ぼくは ノートを なくす。",
+      "text": "나는 노트를 잃어버린다.",
+      "enSourceHash": "c39115a5678dfa8c"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:ゆうべの むずかしい ところが やさしい。",
+      "text": "어제의 어려운 부분이 쉽다.",
+      "enSourceHash": "f726f311254ac8c8"
+    },
+    {
+      "anchor": "m16/story:ja-m16-the-second-notebook/ja:ノートが なかった。",
+      "text": "노트가 없었다.",
+      "enSourceHash": "0d3119e7eeb3012a"
+    }
+  ]
+}
