@@ -1,0 +1,366 @@
+module: m37
+title: "Hay que trabajar"
+frame: none
+throughModule: m36
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m37 — impersonal obligation: hay que + infinitivo. Eighteenth A2
+# module, sixth grammar beat since m19 (after m21 gustar-class, m23
+# reflexives, m26 preterite, m28 «voy a», m29 clitics, m31 «duele», m33
+# «tengo que», m35 «está»+location — this module continues that
+# constellation).
+#
+#     hay que + infinitivo (phrase, invariant)   one has to / it's
+#                                                 necessary to
+#
+# ONE idea, the whole module: an impersonal, no-subject cousin of m33's
+# «tengo que» — «hay que trabajar» (one has to work / you have to work,
+# generically) is NOT the same claim as «tengo que trabajar» (I,
+# specifically, have to work). Both pieces («hay», m3; «que», the free
+# linker m33 already taught the shape of) are fully PRIOR — this module
+# teaches only the NEW COMBINATION, registered as its own phrase atom for
+# the identical reason m33 registered «tengo que» rather than crediting
+# «tengo»+«que» separately: the combined meaning is not transparent from
+# the parts («hay» = "there is/are" + «que» = "that" does not obviously
+# spell "it is necessary to," the same non-transparency test m35-header
+# used to justify «tengo que»'s own registration and to justify NOT
+# registering «al lado de»). ONE new atom — the tightest possible grammar
+# beat this course has shipped, and genuinely simpler than m33's own
+# module: «hay» never conjugates for person (impersonal since its m3
+# debut), so unlike «tengo»/«tienes»/«tiene» que's three-way person
+# fan-out, «hay que» has no person forms to fan out AT ALL — every
+# sentence in this module credits the exact same two-word registered
+# surface, no exceptions, no agreement fold.
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# Four lines of evidence:
+#   1. **Rhythm calls for a grammar beat, and m36 is exactly one break past
+#      the last one.** m33 (grammar) → m34 (break) → m35 (grammar) → m36
+#      (break) — the identical one-beat alternation every recent header has
+#      used to justify its own placement. The beat due after m36 is on
+#      schedule.
+#   2. **Nine candidates named by the dispatching task were weighed against
+#      the actual registry, not assumed from the task's own framing — THREE
+#      disqualify outright as already-fully-taught, exactly the class m35-
+#      header already established for poder/querer/demonstratives.**
+#      `grep -o 'surface: "[^"]*"' curriculum/m{1..36}.ts | sort -u |
+#      grep -iE "<word>"` run against every candidate. Full accounting in
+#      REJECTED below. Short version: **«poder»+inf is not merely
+#      already-taught (m14) — it is ALREADY ACTIVELY RECOMBINED in m36
+#      itself** ("necesito ir a la estación, pero puedo ir mañana," "puedo
+#      ir en tren," `curriculum/m36.ts` L1/L2), the strongest possible
+#      disqualification signal this course has produced for any candidate
+#      yet. **«querer»+inf is disqualified identically** (m7/m14, matching
+#      m35-header's own unchanged finding). **«ir a»+inf future extension
+#      to nosotros/ellos is ALSO disqualified** — a genuinely new finding
+#      this round: m28 itself, "Voy a nadar mañana," already uses «vamos a
+#      viajar/comer/nadar/trabajar» (nosotros, `curriculum/m28.ts` L4) and
+#      m33 uses «van a ir» (ellos, `curriculum/m33.ts:983`) — the FULL
+#      person paradigm of the near-future construction is already exercised
+#      course-wide; there is no gap left for this candidate to fill.
+#   3. **The genuinely virgin candidates all cost MORE than «hay que» for
+#      LESS grammatical payoff, checked hook-by-hook, not assumed weaker.**
+#      «se puede» (impersonal ability/permission) reuses «puede» (m14) but
+#      also «se» — already registered, but as a REFLEXIVE pronoun (m17, "se
+#      levanta"), never as an impersonal/passive marker; teaching that
+#      SECOND function of an already-taught surface well would need its own
+#      dedicated explanation, competing directly with «hay que» for the
+#      same "impersonal construction" teaching slot at a weaker level
+#      (possibility, not obligation — the task's own stated goal, survival
+#      Spanish for errands, wants obligation more). «¿cuánto tiempo?»/
+#      «tarda» (duration) and «a qué hora»+«llega» (train times) are both
+#      genuinely virgin and tie beautifully to m36's own transport nouns —
+#      but BOTH need real new vocabulary (tarda + hora + minutos for the
+#      first; llega + hora for the second — `hora`/`minuto`/`minutos`/
+#      `tarda`/`tardan`/`llega`/`llegan` are ALL grep-confirmed zero PRIOR
+#      hits) AND a new verb paradigm (`tardar`/`llegar`), which is
+#      LEXICON-shaped work competing with this round's own "one new
+#      GRAMMAR structure" mandate, not a cleaner grammar deduction than
+#      «hay que»'s zero-new-vocabulary minimal pair against m33. Imperative
+#      tú (gira/sigue/dobla for directions) is rejected a THIRD time — see
+#      its own REJECTED section, the finding is unchanged from m33-header
+#      and m35-header. «primero»/«después»/«luego» sequencing adverbs are
+#      virgin lexicon, not a grammar structure — no unifying deduction path,
+#      break-shaped, not beat-shaped; the rhythm wants a beat this round.
+#   4. **The cleanest possible deduction path of any grammar module this
+#      course has shipped: a literal one-word substitution against a
+#      sentence the learner already produced twelve modules ago.** M33's own
+#      title is "Tengo que trabajar." This module's own title, "Hay que
+#      trabajar," IS the deduction — the learner sees the identical sentence
+#      with «tengo» swapped for «hay» and must reason out what changed (the
+#      subject vanished; the claim went from personal to general) before a
+#      single word of explanation. No other candidate offers a minimal-pair
+#      entry point this direct.
+#
+# ── REJECTED: «poder + infinitivo» / «no puedo» / «¿puedo…?» —
+#    DISQUALIFIED, already fully taught AND already actively recombined in
+#    m36 itself ────────────────────────────────────────────────────────────
+# `grep -o 'surface: "[^"]*"' curriculum/m{1..36}.ts | sort -u | grep -iE
+# "^puedo$|^puedes$|^puede$|^poder$"` returns FOUR hits, all m14. m35-header
+# already disqualified this exact candidate for the identical reason; the
+# finding holds unchanged two modules later — and this round adds a
+# stronger data point: `curriculum/m36.ts` lines 134-139 and 272-277
+# ALREADY build sentences on «puedo» ("necesito ir a la estación, pero
+# puedo ir mañana," "necesito ir a la estación, pero puedo ir en tren") —
+# the exact content a "poder module" would want to teach is already
+# shipped as RECOMBINATION content one module ago. Nothing left to teach.
+#
+# ── REJECTED: «querer + infinitivo» extension — DISQUALIFIED, already
+#    fully taught (m7/m14) ─────────────────────────────────────────────────
+# `grep -iE "^quiero$|^quieres$|^quiere$|^querer$"` against the same
+# surface list returns FOUR hits, m7/m14. Identical disqualification as
+# «poder» above, matching m35-header's own unchanged finding two modules
+# later — zero paradigm gap, nothing new to teach.
+#
+# ── REJECTED: «ir a + infinitivo» future extension to nosotros/ellos —
+#    DISQUALIFIED, a genuinely new finding this round, not merely inherited
+#    ────────────────────────────────────────────────────────────────────────
+# `curriculum/m28.ts` — whose own title is "Voy a nadar mañana," the near-
+# future construction's own debut module — ALREADY uses the nosotros form
+# with an infinitive four separate times: «vamos a viajar el fin de
+# semana» (line 581), «vamos a comer con Ana» (584), «vamos a nadar hoy»
+# (588), «vamos a trabajar mañana» (600). `curriculum/m33.ts:983` uses the
+# ellos form the same way: «van a ir pero tienen que estudiar». The task's
+# own framing named this as a candidate worth checking specifically
+# because m28's atom registration only formally lists `ir`/`va` as NEW
+# atoms — but the SENTENCES built from `voy`/`vas` (m9) + `vamos`/`van`
+# (m18) + this infinitive frame already exercise every person the
+# construction needs. There is no unfilled gap for this module to claim.
+#
+# ── REJECTED: «se puede» (impersonal ability/permission) — real future
+#    content, competes for the same teaching slot at a weaker level ───────
+# `puede` is fully PRIOR (m14). `se` is fully PRIOR (m17) but ONLY as a
+# REFLEXIVE pronoun ("se levanta," he/she gets (himself/herself) up) —
+# this course has never taught or distinguished an impersonal/passive «se»
+# ("se puede," "se vende," "se dice") from the reflexive one. Rejected for
+# m37 on two grounds: (1) introducing that SECOND grammatical function of
+# an already-taught surface well is itself a genuinely new idea competing
+# with «hay que» for the same "impersonal construction" module slot — this
+# course gets one new idea per grammar beat, and «hay que» costs LESS (zero
+# ambiguous dual-function surface to explain) for MORE payoff (obligation,
+# not mere possibility — closer to the task's own survival-Spanish-for-
+# errands goal: "you have to go to the bank" teaches more useful behavior
+# than "one can go to the bank"). (2) «se puede» has no equally direct
+# minimal-pair predecessor the way «hay que» has «tengo que» sitting one
+# module-and-change back — a weaker deduction path. Left open as real,
+# well-scoped future content, ideally its own module once impersonal-se
+# gets dedicated treatment rather than riding a reflexive-se overload.
+#
+# ── REJECTED: «¿cuánto tiempo?» / «tarda» (duration with transport) — real,
+#    virgin, but lexicon-shaped, not a grammar structure ─────────────────
+# `grep -iE "^tarda$|^tardan$|^hora$|^horas$|^minuto$|^minutos$|^tiempo$"`
+# against the m1-m36 surface list returns ZERO hits for all — genuinely
+# virgin, and «el tren tarda una hora» is exactly the recombination sentence
+# m36's own transport nouns were built to support eventually. Rejected for
+# THIS round specifically because it needs a new verb paradigm (`tardar`,
+# at minimum its 3rd-person «tarda»/«tardan») plus two new nouns («hora»,
+# «minutos») — three atoms of genuinely new VOCABULARY plus a new verb,
+# where «hay que» needs zero new vocabulary at all for a genuinely new
+# GRAMMATICAL structure. `cuánto` itself is already PRIOR (m12, "how
+# much") but has never been extended to «cuánto tiempo» (how long) — a
+# real, natural next step, just not this round's. A strong future break,
+# cleanest once formally paired with a "talking about how long things
+# take" lesson of its own, not squeezed into a grammar beat's atom budget.
+#
+# ── REJECTED: «a qué hora» + «sale»/«llega» (train times) — real, but
+#    «sale» is prior, «hora»/«llega» are not, and the natural teaching order
+#    wants «llegar»'s fuller paradigm ────────────────────────────────────
+# `sale`/`salgo` are grep-confirmed fully PRIOR (m15, "salir" — "he/she
+# leaves, I leave, I go out," a general leaving-the-house verb, not
+# specifically about a train's SCHEDULE — the task's candidate framing
+# assumes «sale» already carries a "departs" sense specific to transport,
+# which it does not yet formally carry in this course's own content).
+# `llega`/`llegan`/`llego`/`llegamos` and `hora` are all grep-confirmed
+# ZERO PRIOR hits. A real, well-scoped future lexicon+grammar hybrid
+# module (arrival/departure times), but — like the duration candidate
+# above — it needs genuinely new vocabulary (`llegar`, `hora`) competing
+# with this round's zero-new-vocabulary grammar beat. Left open, not
+# discarded.
+#
+# ── REJECTED: simple commands (imperative tú) for directions — rejected a
+#    THIRD time, same finding, unchanged ───────────────────────────────────
+# No command form of any verb is grep-confirmed PRIOR anywhere in m1-m36.
+# m33-header rejected this candidate: "no learner-need justification
+# found; NPC-authoring convenience alone doesn't earn a module slot."
+# m35-header reconfirmed it unchanged one module later. This round's own
+# task framing offers a stronger-sounding hook — m36's own stations/modes
+# make "turn left, go straight" directions feel like a natural next step —
+# but the underlying objection is UNCHANGED: a dialogue_sim can ask for and
+# receive directions perfectly naturally without any command form («¿dónde
+# está la estación?» / «está cerca, al lado del banco» — m35 already
+# proved this shape works, and m36's own L7 already used it for
+# transport). A honest imperative-tú module also costs MORE than this
+# round's budget allows for honest coverage — `gira`/`sigue`/`dobla` (turn/
+# continue/turn) as commands, PLUS `izquierda`/`derecha`/`derecho`
+# (left/right/straight) as supporting vocabulary those commands need to be
+# useful sentences, is 5-6 new atoms for a genuinely NEW verb-mood category
+# (imperative), not a single deduction from already-known pieces the way
+# «hay que» is. Left open, unchanged verdict, real future content once a
+# concrete learner-need scenario justifies the imperative mood's own
+# module.
+#
+# ── REJECTED: «primero»/«después»/«luego» sequencing adverbs — virgin
+#    lexicon, not a unifying grammar structure ─────────────────────────────
+# `grep -iE "^primero$|^después$|^luego$|^antes$|^entonces$"` against the
+# surface list returns only `entonces` as PRIOR (m22, "then/so," discourse
+# connector); `primero`/`después`/`luego`/`antes` are grep-confirmed zero
+# PRIOR-ATOM hits — though note `esSimNpcProvenance.test.ts`'s own
+# `KNOWN_LEGACY` allowlist lists `después` under `m23` (a grandfathered,
+# never-formally-taught NPC-line word predating the provenance gate, NOT a
+# registered atom — confirmed by the zero hit above; the two facts are
+# consistent, not contradictory). Rejected for m37: three independent
+# discourse adverbs with no single unifying grammatical idea to deduce —
+# this is BREAK-shaped content (a set of imageable-adjacent function words
+# recombined against existing sentences), not BEAT-shaped (one new
+# structure). The rhythm calls for a grammar beat this round, not a third
+# lexicon-adjacent break so soon after m36. Left open as a strong future
+# break or a recombination lesson inside one.
+#
+# ── THE TENGO QUE vs HAY QUE DISCRIMINATION — the central transfer error to
+#    guard against, this module's whole reason for existing ─────────────────
+# A learner who has internalized «tengo que» (m33) as "the obligation
+# sentence" will be tempted to reach for *"yo hay que trabajar" (bolting a
+# subject onto the impersonal construction, which takes NONE — «hay que»
+# never conjugates, never takes «yo»/«tú»/etc. in front of it) — or the
+# reverse, reaching for *"hay que trabajo" (dropping «que» the way an
+# over-generalized «tengo»-pattern might tempt, though «tengo que»'s own
+# module already drilled this specific slip and it should be stale by now).
+# The REAL new confusion this module owns: a learner asked to express "I
+# have to work" reaching for the easier, just-practiced «hay que trabajo»
+# when the sentence is in fact personal (wrong register — too general) —
+# or the reverse, over-specifying "tengo que" when the intended meaning is
+# a general rule that applies to everyone, not just the speaker ("aquí
+# hay que quitarse los zapatos," here one must take off one's shoes, is
+# NOT "yo tengo que quitarme los zapatos"). Every discrimination step
+# contrasting the two must include a foil of this shape — never a correct
+# answer — matching the discipline m29's clitic-order foil, m33's dropped-
+# «que» foil, and m35's motion-vs-location foil already established for
+# their own central transfer errors.
+#
+# ── THE HAY / HAY QUE DUAL-STATUS SECTION — «hay» carries THREE
+#    simultaneous roles, more than any prior module's own dual-status word
+#    ────────────────────────────────────────────────────────────────────────
+# (1) A registered VOCAB atom since m3 (`kind: "vocab"`, existential "there
+# is/are" — "hay un banco cerca"). (2) A member of `ES_FUNCTION_WORDS`
+# (`moduleBarGuards.ts:82`, "...es son está están soy eres hay ser
+# estar...") — a SCOPE-CHECK allowlist entry, independent of formal
+# teaching, the same mechanism m35-header already documented for `está`.
+# (3) — THIS module's own new contribution — the first half of a
+# registered PHRASE atom, `hay que` (`kind: "phrase"`), whose grammatical
+# function (impersonal modal auxiliary) is genuinely DIFFERENT from role
+# (1)'s existential main-verb function, the same "same surface, different
+# job" pattern m36-header documented for `en` (mode-marker vs. registered
+# particle atom) and m35-header documented for `está` (function word vs.
+# vocab atom) — now with a third simultaneous role stacked on. Do not
+# confuse: a sentence using bare existential «hay» ("hay una farmacia
+# aquí," m3-vintage content, fully legal to recombine) is NOT the same
+# atom-credit event as a sentence using the phrase «hay que» (this
+# module's own new atom) — `atoms:`/`exercisedAtomSurfaces` credit must
+# distinguish them exactly (see the credit-trap section below). «que»
+# itself remains what it has always been — a free `ES_FUNCTION_WORDS`
+# member, never independently credited on its own, only ever appearing as
+# the second half of a registered phrase (`tengo que`, m33; `hay que`,
+# this module) — unchanged by this module, not a new status for «que».
+#
+# ── AGREEMENT IS NOT A NEW ATOM — n/a this module, and simpler than every
+#    prior grammar beat's own version of this check ───────────────────────
+# «hay que» is a fixed, INVARIANT phrase — «hay» never conjugates for
+# person or number (impersonal since its own m3 debut: "hay un banco" /
+# "hay dos bancos," same word either way) and this module adds no new
+# inflecting word. Unlike m33's own «tengo que» (which fans out to
+# «tienes que»/«tiene que», each credited through the ALREADY-REGISTERED
+# person-form of «tener» rather than through «tengo que» itself — confirmed
+# by direct read, `curriculum/m33.ts:210-253`: "«tienes que» — ... Graded
+# through the already-registered «tienes», never a new surface") — «hay
+# que» has no such fan-out to manage. EVERY sentence in this module credits
+# the exact same two-word surface, `"hay que"`, with zero exceptions. This
+# is the single cleanest agreement story any grammar module this course
+# has shipped — recorded explicitly so a drafting agent doesn't go looking
+# for a person-form problem that does not exist here.
+#
+# ── THE atoms:/exercisedAtomSurfaces CREDIT TRAP FOR THIS MODULE — read
+#    before drafting a single step ──────────────────────────────────────────
+# `irAtomResolution.test.ts` is zero-tolerance exact-surface (unchanged).
+# This module's own trap has TWO faces, both worth naming explicitly.
+# Face one, the familiar "X que" bigram class every prior grammar module
+# has flagged (m33's own "tengo que," now recurring in the identical
+# shape): a sentence "hay que ir al banco" must credit
+# `["hay que", "ir", "banco"]` (plus whatever else the sentence's own words
+# resolve to) — **never** `["hay", "que", "ir", "banco"]` (crediting the
+# two halves separately silently under-credits the module's own new atom)
+# and **never** `["hay que ir"]` or any larger fused string (over-fusing
+# past the registered two-word surface is equally wrong — the registered
+# surface is exactly `"hay que"`, not `"hay que ir"`). Face two, THIS
+# module's own new variant, unique among the course's grammar beats so
+# far: a sentence using PLAIN existential «hay» ("hay un banco cerca," no
+# «que» at all) must credit `["hay", "banco", "cerca"]` — using the
+# ORIGINAL m3 atom, not the new phrase atom — never `["hay que"]` when
+# «que» isn't even in the sentence. Confusing these two in either direction
+# is this module's own version of the credit-vanishing bug class every
+# prior grammar module's brief has warned a drafting agent against.
+#
+# ── ES_FUNCTION_WORDS ALREADY CARRIES «hay»/«que» — A SCOPE-CHECK
+#    ALLOWLIST, AND ALSO (for «hay») A REGISTERED ATOM, AND NOW (for the
+#    pair together) A SECOND REGISTERED SURFACE — all true at once ────────
+# Direct read, `moduleBarGuards.ts:72-88`: `ES_FUNCTION_WORDS` already
+# lists both `hay` and `que` among its closed class. This means both words
+# are ALREADY legal in any NPC line or build-tile bank for SCOPE-CHECKING
+# purposes, independent of whether the two-word combination has been
+# formally taught. This module adds NOTHING to `ES_FUNCTION_WORDS` itself
+# — the new registration lives entirely in `courseAtoms.ts` (via
+# `ES_M37_ATOMS`), the same mechanism m33 used for `tengo que`. Do not
+# confuse "legal in an NPC line for scope purposes" (already true, unaffected
+# by this module) with "creditable via `atoms:`/`exercisedAtomSurfaces`"
+# (newly true for the exact string `"hay que"`, as of this module).
+#
+# ── SIM NPC-LINE PROVENANCE: LIVE AND UNFORGIVING, m29+ HAS ZERO LEGACY
+#    ALLOWANCE, RECONFIRMED THROUGH m36 ────────────────────────────────────
+# `esSimNpcProvenance.test.ts`'s `KNOWN_LEGACY` allowlist tail is confirmed
+# still `m28` (direct read of the full object, no m29-m36 entries) — this
+# module gets NO reaction-word leniency either. Every NPC word must resolve
+# to: this module's own 1 atom (`hay que`), any PRIOR atom (m1-m36), a
+# taught verb conjugation, `ES_FUNCTION_WORDS`, or `ES_PROPER_NAMES`.
+# `ES_PROPER_NAMES` (`moduleBarGuards.ts:90-93`): ana, diego, carlos,
+# maría/maria, sofía/sofia, luis, elena, pedro, juan, rosa, miguel, carmen,
+# lupita, jorge, marta — plus learner persona Sam. **Full-course cast check
+# (not just recent modules), grep of every `speaker:` field in m1-m36:**
+# `lupita` and `marta` are BOTH completely unused anywhere in the shipped
+# course (every other allowed name has appeared at least once in m28-m36:
+# Ana, Carlos, Carmen, Diego, Elena, Jorge, Juan, Luis, Miguel, Pedro, Rosa,
+# Sam, Sofía — Jorge debuted m36, Carlos debuted m35). **Marta** debuts as
+# this module's own L7 dialogue_sim NPC — a stronger freshness claim than
+# m36's own Jorge pick or m35's own Carlos pick, both of which were merely
+# unused THROUGH the prior module, not unused course-wide by this margin
+# (two names now remain in reserve after this module: only `lupita`).
+#
+# ── ACCENT: DEEP OFFICIAL-NOTICE INDIGO/NAVY, VERIFIED UNUSED, DISTINCT
+#    FROM EVERY PRIOR PAIR ─────────────────────────────────────────────────
+# Checked every `accent:` pair in `curriculum/index.ts` (grep-verified, all
+# 35 existing pairs read in full, both hex values individually): zero hits
+# for `#1e40af` or `#172554` anywhere as either a `from` or a `to`.
+# Distinct from the four most recent modules specifically (m33 warm
+# graphite/stone `#78716c`→`#1c1917`, m34 terracotta/clay `#d97757`→
+# `#92400e`, m35 deep cartographer teal-navy `#0e7490`→`#164e63`, m36
+# steel/rail slate `#475569`→`#1e293b`) and from the course's existing
+# blue/indigo cluster (`#0ea5e9`→`#0284c7`, `#38bdf8`→`#0369a1` ×2,
+# `#38bdf8`→`#0c4a6e`, `#3b82f6`→`#1d4ed8`, `#818cf8`→`#3730a3`,
+# `#4f46e5`→`#312e81`) — checked side by side, this pair sits deeper and
+# more saturated-navy than any of them, reading as "an official rule
+# printed in ink" (a posted notice, a municipal sign — "hay que" as
+# impersonal, generally-applicable law) rather than any single place or
+# vehicle metaphor.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # hay que — one has to / it's necessary to. Invariant phrase atom, built
+  # from already-free/registered pieces («hay», m3; «que», the linker m33
+  # already established the shape of) but registered as its OWN new surface
+  # because the combined meaning is not transparent from the parts —
+  # exactly the same non-transparency call m33 made for «tengo que» (and
+  # the same call m35 explicitly did NOT make for «al lado de», where the
+  # meaning IS transparent). Zero person fan-out, unlike «tengo que» — «hay»
+  # never conjugates, so this is the single surface every sentence in this
+  # module credits, no exceptions (L1).
+  - { surface: "hay que", meaningEn: "one has to, it's necessary to", partOfSpeech: "phrase", kind: "phrase", hint: "hay que — «hay» (m3, already yours) plus «que», already a free word. No subject ever goes in front of it — never «yo hay que», never «tú hay que» — it's a GENERAL rule, not a personal one. Contrast with «tengo que»/«tienes que»/«tiene que» (m33, personal: I/you/he-she specifically have to) — «hay que trabajar» (one has to work, in general) vs. «tengo que trabajar» (I, specifically, have to work)." }
+
+lessons:
