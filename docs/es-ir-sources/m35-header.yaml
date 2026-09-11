@@ -1,0 +1,295 @@
+module: m35
+title: "El banco está cerca"
+frame: none
+throughModule: m34
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m35 — location description: cerca, lejos, lado. Sixteenth A2 module.
+#
+#     cerca (adv.)      close / near
+#     lejos (adv.)      far
+#     el lado (noun)    side  →  «al lado de» / «al lado del»
+#
+# ONE idea, the whole module: turn an already-fully-taught verb, «está»
+# (m4, «is [somewhere]», plus «estamos»/«están», m18 — ZERO new verb
+# morphology, a genuine zero-conjugation-gap module, one step past even
+# m28's own "fill only the gap" discipline since here there is no gap at
+# all) into real errands Spanish, by teaching exactly THREE new location-
+# description words and recombining them against m34's five fresh places
+# (banco/farmacia/hospital/correo/supermercado) plus «hay» (m3) plus «voy
+# a»/«necesito ir a»/«tengo que ir a» (m9+m16+m28+m33). This is the fifth
+# grammar beat since m19 (after m21 gustar-class, m23 reflexives, m26
+# preterite, m28 «voy a», m29 clitics, m31 «duele», m33 «tengo que» — this
+# module continues that constellation) and the FIRST module since m4
+# itself to put fresh content behind «está» — m4 taught the verb inside a
+# house-object scavenger hunt at absolute beginner level; this module
+# reactivates it eleven grammar/lexicon modules later against errands
+# vocabulary an actual A2 learner needs to ask and answer "where is the
+# bank?" for real.
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# Four lines of evidence:
+#   1. **Rhythm calls for a grammar beat, and m34 is exactly one break past
+#      the last one.** m30 (break) → m31 (grammar) → m32 (break) → m33
+#      (grammar) → m34 (break) — the identical alternation every recent
+#      header has used to justify its own placement. The beat due after
+#      m34 is on schedule.
+#   2. **Eight candidates were weighed against the actual registry, not
+#      assumed from the task's own framing — two disqualify outright as
+#      already-fully-taught, not merely weaker.** `grep -o 'surface:
+#      "[^"]*"' curriculum/m{1..34}.ts | sort -u | grep -iE "<word>"` run
+#      against every candidate the task named (poder+inf, querer+inf,
+#      estar+location, hay+place, para+inf purpose, ponerse/llevar,
+#      imperative tú, demonstratives). Full accounting in REJECTED below.
+#   3. **Highest recombination value of any candidate, and uniquely, a
+#      live hook back into m4 itself — this course's OWN original
+#      hay/está/es three-way distinction, dormant since absolute-beginner
+#      level, now given real adult content.** `curriculum/m4.ts:49`'s own
+#      module description reads: "«hay» says something exists — «está»
+#      says exactly where it is... this module: find anything in the
+#      house, and say exactly where it is." That contrast was taught once,
+#      on house objects, at the very start of the course, and never
+#      revisited with content worth the sentence. m35 revisits it on FIVE
+#      genuinely useful places (banco/farmacia/hospital/correo/
+#      supermercado, m34) with a THIRD contrast added on top — motion
+#      («voy a», m9) vs. existence («hay», m3) vs. location («está», m4)
+#      — reaching EIGHT prior modules total (m3, m4, m9, m16, m18, m28,
+#      m31, m33, m34 — nine, counting m34 itself as the lexicon this
+#      module recombines against), more than any prior module's own
+#      recombination count in this course, verified by direct comparison
+#      against m34-header's own four-hook claim (the previous record).
+#   4. **Verified zero-morphology floor and a genuine zero-vendoring
+#      module, checked, not assumed.** `grep -o 'surface: "[^"]*"'
+#      curriculum/m{1..34}.ts | sort -u | grep -iE "^cerca$|^lejos$|^lado$"`
+#      returns zero hits for all three. `está`/`estamos`/`están` are
+#      grep-confirmed fully PRIOR (`m4.ts:29`, `m18.ts`) with all persons
+#      this module needs (3rd singular, 3rd plural) already taught —
+#      `estoy`/`estás` remain a genuine, UNFILLED paradigm gap, but this
+#      module has no occasion to need them (see the dedicated scope note
+#      below) and does not register them. No new imageable noun — «cerca»/
+#      «lejos» are relational adverbs, «lado» is a plain masculine noun
+#      with a defensible-but-ambiguous image (a photo of "a side" reads as
+#      arbitrary, not as "side"), so none carry an `emoji:` field, matching
+#      the non-imageable-grammar-atom convention (m13 `gusta`, m28 `va`,
+#      m31 `duele`/`duelen`, m33 `tengo que`) — zero vendoring work this
+#      module.
+#
+# ── REJECTED: «poder + infinitivo» / «no puedo» / «¿puedo…?» —
+#    DISQUALIFIED, already fully taught ───────────────────────────────────
+# `grep -o 'surface: "[^"]*"' curriculum/m{1..34}.ts | sort -u | grep -iE
+# "^puedo$|^puedes$|^puede$|^poder$"` returns FOUR hits, all m14
+# (`ES_M14_ATOMS`). No conjugation gap (unlike m28's own «va» gap-fill) —
+# every person this module could need already exists. m33-header already
+# disqualified this exact candidate for the identical reason; the finding
+# holds unchanged one module later. Recombining «puedo» against m34's
+# places is fine CONTENT (e.g. "¿puedo ir al banco hoy?") but teaches
+# nothing new, so it cannot anchor a "one new idea" grammar beat.
+#
+# ── REJECTED: «querer + infinitivo» — DISQUALIFIED, already fully taught
+#    (m7/m14) ──────────────────────────────────────────────────────────────
+# `grep -iE "^quiero$|^quieres$|^quiere$|^querer$"` against the same
+# surface list returns FOUR hits, m7/m14. Identical disqualification as
+# «poder» above — zero paradigm gap, nothing new to teach.
+#
+# ── REJECTED (as the module's OWN new idea, but KEPT as a heavy
+#    recombination hook): «hay + place» ───────────────────────────────────
+# `hay` is grep-confirmed fully PRIOR since `m3.ts:33` ("there is / there
+# are"). A "hay + place" module on its own would teach nothing new (same
+# disqualification class as «poder»/«querer» above) — but «hay» is not
+# discarded, it is the THIRD leg of this module's own three-way
+# recombination (motion/existence/location), used throughout the lesson
+# plan below («¿hay un banco cerca?»). Recorded explicitly so a drafting
+# agent understands why «hay» appears constantly in this module's own
+# sentences without being one of its three new atoms.
+#
+# ── REJECTED: «para + infinitivo» (purpose) — real future content,
+#    explicitly weighed and set aside THIS round ─────────────────────────
+# **Correction to the task's own framing:** neither `es-m34-brief.md` nor
+# `m34-header.yaml` contains the string "para" or "cerca"/"lejos" as a
+# deferred item anywhere (checked by direct grep of both files, zero
+# hits) — an earlier note's claim that m34's brief explicitly deferred
+# these was not found in the actual text and should not be propagated
+# further. The underlying FACT the note was reaching for does hold,
+# independently verified here: «para» is already a free function word
+# (`ES_FUNCTION_WORDS`, `moduleBarGuards.ts:82`: "...con por para sin
+# sobre entre desde hasta...") yet its PURPOSE-CLAUSE use (voy al banco
+# PARA sacar dinero) has never been taught or credited anywhere —
+# grep-verified: the literal word appears only three times course-wide,
+# all as untaught benefactive filler ("un regalo para Ana," m16; "una
+# mesa para cinco," m18) or as a never-credited `distractorsText` entry
+# (`m31.ts:932`, always a wrong MCQ answer, never a correct one). Real,
+# well-scoped future content — rejected for m35 specifically because (a)
+# a purpose clause is a genuinely SEPARATE new idea from location
+# description, competing for the same "one new idea" module slot, and (b)
+# it shares none of THIS module's own richest hook — the m4 hay/está/es
+# revival — since m4 never touched purpose. The natural DIRECT SEQUEL
+# module once m35's location vocabulary exists ("voy al banco, está
+# cerca, para sacar dinero"). Left open, not silently dropped.
+#
+# ── REJECTED: «ponerse»/«llevar» — real future content, rejected again on
+#    the same grounds m33-header already gave ─────────────────────────────
+# Still grep-confirmed unregistered (only `pongo`, m15, poner's yo-form
+# used for "pongo la mesa," is PRIOR — no reflexive `ponerse`, no
+# `llevar` in any form). m33-header already weighed and rejected this
+# exact candidate on atom-budget grounds (3-4 new atoms for honest
+# coverage) and recombination-breadth grounds (ties only to m32's
+# clothing). Both objections are stronger now, one module later: m32 is
+# three modules back with no active clothing thread in m34's own errands
+# lexicon, and this module's own «está» + m34-places hook is both cheaper
+# (3 atoms, one already-registered verb) and richer (nine prior modules,
+# see WHY above). Not this module's job.
+#
+# ── REJECTED: imperative tú — no learner-need justification, same finding
+#    as m33-header ──────────────────────────────────────────────────────
+# No command form of any verb is grep-confirmed PRIOR anywhere in m1-m34.
+# m33-header already rejected this candidate: "no learner-need
+# justification found; NPC-authoring convenience alone doesn't earn a
+# module slot." Unchanged one module later — a dialogue_sim can ask for
+# directions perfectly naturally without a command form ("¿dónde está el
+# banco?" / "está cerca" needs no imperative on either side).
+#
+# ── REJECTED: demonstratives (este/esta/ese/esa/…) — DISQUALIFIED,
+#    already fully PRIOR since m12 ────────────────────────────────────────
+# `grep -iE "^este$|^esta$|^estos$|^estas$|^ese$|^esa$|^esos$|^esas$"`
+# against the surface list returns all EIGHT forms, all `m12.ts`. Nothing
+# new to teach.
+#
+# ── THE m4 THREE-WAY REVIVAL — read before drafting any lesson ───────────
+# `m4.ts`'s own module description (line 49) already states the contrast
+# this module reactivates: "«hay» says something exists — «está» says
+# exactly where it is... m2's «es» still NAMES things... Three jobs,
+# three words." m35 does not re-teach any of the three verbs (all fully
+# PRIOR: `hay` m3, `está`/`estamos`/`están` m4/m18, `es`/`son` m2/m18) —
+# it gives the WHERE leg (`está`) genuinely useful adult content for the
+# first time since m4's own house-object scavenger hunt, and adds a
+# fourth leg this module DOES own: motion (`voy a`, m9) — "voy al banco"
+# (I'm heading to the bank, motion) is not the same claim as "el banco
+# está cerca" (the bank is nearby, location) is not the same claim as
+# "hay un banco cerca" (a bank exists nearby, existence). This
+# motion-vs-location minimal pair is the single most natural transfer
+# error this module exists to head off — see the dedicated discrimination
+# note below.
+#
+# ── THE MOTION-VS-LOCATION DISCRIMINATION — the central transfer error to
+#    guard against ────────────────────────────────────────────────────────
+# A learner who has internalized «voy a» (m9, m28) as "the sentence about
+# a place" will be tempted to reach for *"voy cerca del banco" when the
+# intended meaning is "the bank IS near" (a location claim about the
+# bank, not a motion claim about the learner) — or the reverse, reaching
+# for *"el banco está al banco" nonsense by over-applying «está» where
+# «voy a» belongs. Every discrimination step contrasting «está
+# cerca/lejos» against «voy a» must include a foil of this shape — never
+# offered as a correct answer, only as a wrong option in `sentenceMcq`/
+# `textMcq` distractor pools, matching the discipline m29's clitic-order
+# foil and m33's dropped-«que» foil already established for their own
+# central transfer errors.
+#
+# ── SCOPE NOTE: NO «estoy»/«estás» THIS MODULE — a deliberate exclusion,
+#    not an oversight ──────────────────────────────────────────────────────
+# `estoy`/`estás` (yo/tú forms of `estar`) are grep-confirmed NOT PRIOR
+# anywhere in m1-m34 — a genuine, unfilled paradigm gap. This module does
+# not fill it. Every sentence this module needs is a THIRD-PERSON claim
+# about a PLACE ("el banco está cerca," "los bancos están lejos") — the
+# subject is always a m34 place-noun (or its plural), never the learner
+# themself. «¿dónde estás?» / «estoy en el banco» (the learner's OWN
+# location) is real, well-scoped FUTURE content for a different module
+# (a "where are you right now" self-location beat, naturally paired with
+# a phone-call or meeting-up scenario) — deliberately out of scope here,
+# recorded so a drafting agent doesn't reach for «estoy» out of habit and
+# accidentally introduce an unregistered form into a build-tile bank or
+# NPC line.
+#
+# ── AGREEMENT IS NOT A NEW ATOM — «lado» is the only inflecting atom this
+#    module owns, plural fold traced, not assumed ─────────────────────────
+# `cerca`/`lejos` are invariant adverbs — no gender, no number, nothing to
+# fold. `lado` is a REGULAR masculine noun, vowel-final → the
+# vowel→`+s` branch of `esRegularPlurals()` (`moduleBarGuards.ts:168-174`,
+# traced directly, not assumed from precedent): plural `lados`. «al lado
+# de» is built COMPOSITIONALLY from already-free `al` (`ES_FUNCTION_WORDS`
+# and m9's own registered contraction) + the registered noun `lado` +
+# already-free `de` (`ES_FUNCTION_WORDS`, `m2.ts`) — NOT registered as its
+# own idiom-phrase atom (unlike m7's «tengo hambre» or m33's «tengo que»,
+# where the meaning is NOT transparent from the parts; "at [the] side of"
+# → "beside" is transparent once «lado» = "side" is known, the same
+# compositional judgment call m34-header made for its own five plain
+# nouns). «al lado del banco» — «del» is already free
+# (`ES_FUNCTION_WORDS`: "...lo al del..."), confirmed, no separate
+# registration needed for the contraction.
+#
+# ── THE atoms: CREDIT TRAP FOR THIS MODULE — read before drafting a
+#    single step ──────────────────────────────────────────────────────────
+# `irAtomResolution.test.ts` is zero-tolerance exact-surface (per every
+# prior module's own hard rule #1, unchanged). This module's OWN trap:
+# a sentence "el banco está al lado del correo" must credit
+# `atoms: ["está", "lado", ...]` (plus whichever m34 place nouns appear),
+# never `atoms: ["al lado de"]` or `atoms: ["al lado del"]` — those
+# strings are not registered surfaces (this module deliberately did NOT
+# register the phrase, see the compositional note above) and the credit
+# would silently vanish, the exact "X que"-bigram failure class m33/m34
+# already warned a future author against, now recurring in a new shape
+# ("al lado de[l]" instead of "tienes que").
+#
+# ── ES_FUNCTION_WORDS ALREADY CARRIES está/están/estar/hay/aquí/allí/
+#    es/son/soy/eres/ser/para/por/con/sin/sobre/entre/desde/hasta — A
+#    SCOPE-CHECK ALLOWLIST, NOT A TAUGHT-CONTENT REGISTRY ─────────────────
+# Direct read, `moduleBarGuards.ts:72-88`: `ES_FUNCTION_WORDS` already
+# lists `está`/`están`/`estar`/`hay`/`aquí`/`allí` among its closed class
+# — this means these words are ALREADY legal in any NPC line or build
+# tile bank for SCOPE-CHECKING purposes course-wide, independent of
+# whether they've been formally taught as a vocab atom. This is a
+# separate mechanism from `atoms:` credit and from the vocab-atom
+# registry in `courseAtoms.ts` — `está` is BOTH a function word (for
+# scope-checking) AND a formally-taught vocab atom (`m4.ts:29`, for
+# `atoms:` credit and SRS). Do not confuse the two: a word being in
+# `ES_FUNCTION_WORDS` does NOT mean it may be credited via `atoms:` in a
+# step — only the exactly-registered vocab-atom surfaces may be credited
+# (`está`, `estamos`, `están`, `hay`, `cerca`, `lejos`, `lado`, plus every
+# PRIOR module's own registered surfaces).
+#
+# ── SIM NPC-LINE PROVENANCE: LIVE AND UNFORGIVING, m29+ HAS ZERO LEGACY
+#    ALLOWANCE, RECONFIRMED FOR m35 ────────────────────────────────────────
+# `esSimNpcProvenance.test.ts`'s `KNOWN_LEGACY` allowlist tail is
+# confirmed still `m28` (direct read, no m29+ entries) — m29 through this
+# module get NO reaction-word leniency, unchanged since m33/m34's own
+# identical finding. Every NPC word must resolve to: this module's own 3
+# atoms, any PRIOR atom (m1-m34), a taught verb conjugation, a word
+# already covered by `ES_FUNCTION_WORDS`, or `ES_PROPER_NAMES`.
+# `ES_PROPER_NAMES` (`moduleBarGuards.ts:90-93`): ana, diego, carlos,
+# maría/maria, sofía/sofia, luis, elena, pedro, juan, rosa, miguel,
+# carmen, lupita, jorge, marta — plus learner persona Sam. Recently-used
+# cast (grep-verified `speaker:` fields, m28-m34): Ana (m30), Diego (m28),
+# Sofía (m28), Carmen (m31), Luis (m31) — Carlos remains in the allowed
+# set and STILL unused through m34; free to use here, a natural fresh
+# face for this module's own directions-asking dialogue_sim.
+#
+# ── ACCENT: DEEP CARTOGRAPHER TEAL-NAVY, VERIFIED UNUSED, DISTINCT FROM
+#    THE FOUR MOST RECENT MODULES ─────────────────────────────────────────
+# Checked every `accent:` pair in `curriculum/index.ts` (grep-verified,
+# all 34 pairs read in full, both hex values individually): zero hits for
+# `#0e7490` or `#164e63` anywhere as either a `from` or a `to`. Distinct
+# from the four most recent modules specifically (m31 rose, m32 denim
+# indigo, m33 warm graphite/stone, m34 terracotta/clay) and from the
+# course's existing sky/cyan/teal cluster (`#0ea5e9`→`#0284c7`,
+# `#38bdf8`→`#0369a1` ×2, `#38bdf8`→`#0c4a6e`, `#22d3ee`→`#0891b2`,
+# `#2dd4bf`→`#0f766e`/`#115e59`, `#14b8a6`→`#0d9488`) — checked side by
+# side, this pair sits noticeably deeper/darker (navy-leaning, not
+# sky-leaning) than any of them, reading as "a map at dusk" / compass-and-
+# chart restraint appropriate to a "where things are" module without
+# forcing a single-place metaphor.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # cerca — near / close. Invariant adverb; this module's own simplest
+  # debut, riding m4's already fully-taught «está» with zero new verb
+  # morphology (L1).
+  - { surface: "cerca", meaningEn: "near, close", partOfSpeech: "adverb", kind: "vocab", hint: "cerca — invariant, no gender/number. «el banco está cerca» (m4's «está», already yours since m4)." }
+  # lejos — far. Invariant adverb; this module's own direct antonym of
+  # «cerca», debuts L2 as a minimal-pair contrast.
+  - { surface: "lejos", meaningEn: "far", partOfSpeech: "adverb", kind: "vocab", hint: "lejos — invariant, the opposite of «cerca». «el hospital está lejos, pero la farmacia está cerca»." }
+  # lado — side. Regular masculine noun; «al lado de»/«al lado del» built
+  # compositionally from already-free «al»/«del» (ES_FUNCTION_WORDS) + this
+  # one registered noun — not its own idiom-phrase atom (meaning is
+  # transparent from the parts, unlike «tengo que»). Debuts L4.
+  - { surface: "lado", meaningEn: "side", partOfSpeech: "noun", kind: "vocab", gender: "m", hint: "el lado — regular masculine, regular plural «lados». «al lado de» = beside/next to — «al» + «lado» + «de», all pieces you already have or are about to." }
+
+lessons:
