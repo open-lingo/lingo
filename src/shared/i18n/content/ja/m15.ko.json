@@ -1,0 +1,2320 @@
+{
+  "schema": 1,
+  "moduleId": "m15",
+  "lang": "ko",
+  "generatedAt": "2026-09-11",
+  "draftedBy": "qwen3.5:122b-a10b-q4_K_M",
+  "entryCount": 462,
+  "entries": [
+    {
+      "anchor": "m15/atom:いそがしい/gloss",
+      "text": "바쁘다",
+      "enSourceHash": "5fb030817071f26c"
+    },
+    {
+      "anchor": "m15/atom:えいが/gloss",
+      "text": "영화",
+      "enSourceHash": "8a6ba32c9bed6ce7"
+    },
+    {
+      "anchor": "m15/atom:おんがく/gloss",
+      "text": "음악",
+      "enSourceHash": "80f189984e5ca702"
+    },
+    {
+      "anchor": "m15/atom:くつ/gloss",
+      "text": "신발",
+      "enSourceHash": "01ea5ddd3be5477a"
+    },
+    {
+      "anchor": "m15/atom:こと/gloss",
+      "text": "일, 하는 행위",
+      "enSourceHash": "df007bee9984e42d"
+    },
+    {
+      "anchor": "m15/atom:こと/shortGloss",
+      "text": "일 (행위)",
+      "enSourceHash": "8bda8a56c92da217"
+    },
+    {
+      "anchor": "m15/atom:とき/gloss",
+      "text": "때, ~할 때",
+      "enSourceHash": "fa88a24b39916d2f"
+    },
+    {
+      "anchor": "m15/atom:とき/shortGloss",
+      "text": "때, ~할 때",
+      "enSourceHash": "fa88a24b39916d2f"
+    },
+    {
+      "anchor": "m15/atom:まえ/gloss",
+      "text": "이전",
+      "enSourceHash": "6db7d803e74f1ffa"
+    },
+    {
+      "anchor": "m15/atom:やる/gloss",
+      "text": "하다",
+      "enSourceHash": "217655f48dde4e0a"
+    },
+    {
+      "anchor": "m15/atom:りょこう/gloss",
+      "text": "여행",
+      "enSourceHash": "0209442e115ad7bc"
+    },
+    {
+      "anchor": "m15/atom:カメラ/gloss",
+      "text": "카메라",
+      "enSourceHash": "89e8b9518d922794"
+    },
+    {
+      "anchor": "m15/gp:dictionary-form/ex:きっさてんで のむ ちゃが すきだ。",
+      "text": "카페에서 마시는 차가 좋다.",
+      "enSourceHash": "0c528e2a15ae1bf7"
+    },
+    {
+      "anchor": "m15/gp:dictionary-form/ex:きっさてんで はたらく ひとと あそぶ。",
+      "text": "카페에서 일하는 사람과 논다.",
+      "enSourceHash": "b5a4f9a036842671"
+    },
+    {
+      "anchor": "m15/gp:dictionary-form/ex:ごはんを たべる じかんが ない。",
+      "text": "밥을 먹을 시간이 없다.",
+      "enSourceHash": "184904f90065d2fe"
+    },
+    {
+      "anchor": "m15/gp:dictionary-form/ex:ちゃを のむ ひとは ミカだ。",
+      "text": "차를 마시는 사람은 미카다.",
+      "enSourceHash": "3c088ec08df26f3a"
+    },
+    {
+      "anchor": "m15/gp:dictionary-form/ex:ほんを みます ひとが いる。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m15/gp:dictionary-form/ex:ほんを みる ひとが いる。",
+      "text": "책을 보는 사람이 있다.",
+      "enSourceHash": "1f211265956c4149"
+    },
+    {
+      "anchor": "m15/gp:ga-existence/ex:たなかが おしえる じゅぎょうは おもしろい。",
+      "text": "다나카가 가르치는 수업은 재미있다.",
+      "enSourceHash": "5075559c799e3cf4"
+    },
+    {
+      "anchor": "m15/gp:ga-existence/ex:わたしが かった かばんは やすい。",
+      "text": "내가 산 가방은 싸다.",
+      "enSourceHash": "3dadaaa2de5c7a8b"
+    },
+    {
+      "anchor": "m15/gp:ga-existence/ex:わたしは ミカが かった ほんを みた。",
+      "text": "나는 미카가 산 책을 보았다.",
+      "enSourceHash": "df47bba1202db915"
+    },
+    {
+      "anchor": "m15/gp:ga-existence/ex:わたしは ミカは かった ほんを みた。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m15/gp:ga-existence/ex:ケンが きいた うたは おもしろい。",
+      "text": "켄이 들은 노래는 재미있다.",
+      "enSourceHash": "aee9e29c776426a4"
+    },
+    {
+      "anchor": "m15/gp:ga-existence/ex:ミカが かった いえは しずかだ。",
+      "text": "미카가 산 집은 조용하다.",
+      "enSourceHash": "b4bc1d8580fd917e"
+    },
+    {
+      "anchor": "m15/gp:mae-ni/ex:うみで およぐ まえに みずを のんだ。",
+      "text": "바다에서 수영하기 전에 물을 마셨다.",
+      "enSourceHash": "4d5bfdce1fbee773"
+    },
+    {
+      "anchor": "m15/gp:mae-ni/ex:きっさてんに いく まえに かばんを かった。",
+      "text": "카페에 가기 전에 가방을 샀다.",
+      "enSourceHash": "eeeedd3197f661f1"
+    },
+    {
+      "anchor": "m15/gp:mae-ni/ex:じゅぎょうの まえに ともだちと あそんだ。",
+      "text": "수업 전에 친구와 놀았다.",
+      "enSourceHash": "fa6fefd135cb46cd"
+    },
+    {
+      "anchor": "m15/gp:mae-ni/ex:だいがくに いく まえに ごはんを たべる。",
+      "text": "대학에 가기 전에 밥을 먹는다.",
+      "enSourceHash": "1ddadcfef1ddfc4c"
+    },
+    {
+      "anchor": "m15/gp:mae-ni/ex:だいがくに いった まえに ごはんを たべる。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m15/gp:mae-ni/ex:ちゃを のむ まえに ほんを みた。",
+      "text": "차를 마시기 전에 책을 보았다.",
+      "enSourceHash": "769d85966f97902a"
+    },
+    {
+      "anchor": "m15/gp:no-ga-suki/ex:あさ はたらく ことは きらいだ。",
+      "text": "아침에 일하는 것은 싫다.",
+      "enSourceHash": "f69c039cde5a9c0e"
+    },
+    {
+      "anchor": "m15/gp:no-ga-suki/ex:うみで およぐ ことが すきだ。",
+      "text": "바다에서 수영하는 것이 좋다.",
+      "enSourceHash": "c32f08b106012234"
+    },
+    {
+      "anchor": "m15/gp:no-ga-suki/ex:うみで およぐが すきだ。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m15/gp:no-ga-suki/ex:ともだちと あそぶ ことは おもしろい。",
+      "text": "친구와 노는 것은 재미있다.",
+      "enSourceHash": "d93a7f9a90225698"
+    },
+    {
+      "anchor": "m15/gp:no-ga-suki/ex:ほんを みる ことが すきだ。",
+      "text": "책을 보는 것이 좋다.",
+      "enSourceHash": "e767544c1a886657"
+    },
+    {
+      "anchor": "m15/gp:no-ga-suki/ex:わからない ことが ある。",
+      "text": "모르는 일이 있다.",
+      "enSourceHash": "806c4924f5b2d8be"
+    },
+    {
+      "anchor": "m15/gp:ta-form/ex:あさ のんだ ちゃは おいしい。",
+      "text": "아침에 마신 차는 맛있다.",
+      "enSourceHash": "23e623f53914bb71"
+    },
+    {
+      "anchor": "m15/gp:ta-form/ex:きのう いった みせは ふるい。",
+      "text": "어제 간 가게는 낡았다.",
+      "enSourceHash": "6584bd4832cd245e"
+    },
+    {
+      "anchor": "m15/gp:ta-form/ex:きのう かった の ほんを みた。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m15/gp:ta-form/ex:きのう かった ほんを みた。",
+      "text": "어제 산 책을 보았다.",
+      "enSourceHash": "0231cefdbb86519a"
+    },
+    {
+      "anchor": "m15/gp:ta-form/ex:きのう きいた うたが すきだ。",
+      "text": "어제 들은 노래가 좋다.",
+      "enSourceHash": "6a1852ede170782a"
+    },
+    {
+      "anchor": "m15/gp:ta-form/ex:きのう たべた すしは たかい。",
+      "text": "어제 먹은 초밥은 비싸다.",
+      "enSourceHash": "0a1b3a91839ed043"
+    },
+    {
+      "anchor": "m15/gp:te-kara/ex:うたを きいてから ごはんを たべた。",
+      "text": "노래를 듣고 나서 밥을 먹었다.",
+      "enSourceHash": "120777a72fe548fe"
+    },
+    {
+      "anchor": "m15/gp:te-kara/ex:きっさてんに いってから みせに いった。",
+      "text": "카페에 간 뒤에 가게에 갔다.",
+      "enSourceHash": "2b062abda6715026"
+    },
+    {
+      "anchor": "m15/gp:te-kara/ex:ごはんを たべてから だいがくに いく。",
+      "text": "밥을 먹고 나서 대학에 간다.",
+      "enSourceHash": "c9a7cb643be66811"
+    },
+    {
+      "anchor": "m15/gp:te-kara/ex:ごはんを たべるてから だいがくに いく。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m15/gp:te-kara/ex:ちゃを のんでから しゃしんを みた。",
+      "text": "차를 마신 후에 사진을 봤다.",
+      "enSourceHash": "21475886f212b73c"
+    },
+    {
+      "anchor": "m15/gp:te-kara/ex:めがねを かってから えきに いった。",
+      "text": "안경을 산 후에 역에 갔다.",
+      "enSourceHash": "5a46fb30b4aedd98"
+    },
+    {
+      "anchor": "m15/gp:toki/ex:うみに いく とき ぼうしを かう。",
+      "text": "바다에 갈 때 모자를 산다.",
+      "enSourceHash": "0f6bfed2f74106e9"
+    },
+    {
+      "anchor": "m15/gp:toki/ex:がくせいだ とき じてんしゃを かった。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m15/gp:toki/ex:がくせいの とき じてんしゃを かった。",
+      "text": "학생일 때 자전거를 샀다.",
+      "enSourceHash": "0b767a5c5166eaae"
+    },
+    {
+      "anchor": "m15/gp:toki/ex:きっさてんに いった とき ちゃを のんだ。",
+      "text": "커피숍에 갔을 때 차를 마셨다.",
+      "enSourceHash": "d46fc70adcb4e98b"
+    },
+    {
+      "anchor": "m15/gp:toki/ex:げんきな とき うみで およぐ。",
+      "text": "건강할 때 바다에서 수영한다.",
+      "enSourceHash": "339054692b26ff23"
+    },
+    {
+      "anchor": "m15/gp:toki/ex:ごはんを たべる とき みずを のむ。",
+      "text": "밥을 먹을 때 물을 마신다.",
+      "enSourceHash": "11bb3fcb0ce879fd"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:0db4d3c5c497f75b",
+      "text": "바다에서 수영하고 싶다",
+      "enSourceHash": "0db4d3c5c497f75b"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:336074805fc85398",
+      "text": "시간",
+      "enSourceHash": "336074805fc85398"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:38a81e87e79631e6",
+      "text": "사람",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:4865591efa8f3c1e",
+      "text": "커피숍에서 마시는 차가 좋다",
+      "enSourceHash": "4865591efa8f3c1e"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:4a69f19c8c264850",
+      "text": "바다",
+      "enSourceHash": "4a69f19c8c264850"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:4f0c41ef905ed97d",
+      "text": "차를 마시는 사람은 미카다",
+      "enSourceHash": "4f0c41ef905ed97d"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:6424956705fbebe4",
+      "text": "켄은 커피숍에 간다",
+      "enSourceHash": "6424956705fbebe4"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:69b50329f003274d",
+      "text": "커피숍에서 일하는 사람과 논다",
+      "enSourceHash": "69b50329f003274d"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:8e1108a56228d20f",
+      "text": "책을 보는 사람이 있다",
+      "enSourceHash": "8e1108a56228d20f"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:99ed6b6afbfdb654",
+      "text": "바다에서 수영하는 사람이 있다",
+      "enSourceHash": "99ed6b6afbfdb654"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:a9f74d1ec36ebdeb",
+      "text": "차",
+      "enSourceHash": "a9f74d1ec36ebdeb"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:c50a9be29aa0843e",
+      "text": "그 사람은 바다에서 수영했다",
+      "enSourceHash": "c50a9be29aa0843e"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:c798e5b18ed876ef",
+      "text": "커피숍",
+      "enSourceHash": "c798e5b18ed876ef"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:d2b4341e4409cd00",
+      "text": "커피숍에서 일하는 사람은 켄이다",
+      "enSourceHash": "d2b4341e4409cd00"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:e28187400a6b2e06",
+      "text": "숍에서 일하는 사람은 켄이다",
+      "enSourceHash": "e28187400a6b2e06"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:f1e396284df03abf",
+      "text": "강에서 수영하는 사람이 있다",
+      "enSourceHash": "f1e396284df03abf"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:fa64496c5f9e6071",
+      "text": "켄은 커피숍에서 기다리고 있다",
+      "enSourceHash": "fa64496c5f9e6071"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/ja:あたらしい くるまを うる みせに いく",
+      "text": "만들기: 새로운 차를 파는 가게에 간다",
+      "enSourceHash": "7754d2ac4fc47571"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/ja:きっさてんで のむ ちゃが すきだ",
+      "text": "만들기: 커피숍에서 마시는 차가 좋다",
+      "enSourceHash": "436a1e5908c933a6"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/ja:きっさてんで はたらく ひとと あそぶ",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/ja:きっさてんで はたらく ひとは ミカの あたらしい ともだちだ",
+      "text": "만들기: 커피숍에서 일하는 사람은 미카의 새로운 친구다",
+      "enSourceHash": "9c68552846e9a580"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/ja:ごはんを たべる じかんが ない",
+      "text": "만들기: 밥을 먹을 시간이 없다",
+      "enSourceHash": "6e68c1ad0794185b"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/ja:ちゃを のむ ひとは ミカだ",
+      "text": "만들기: 차를 마시는 사람은 미카다",
+      "enSourceHash": "4fea688d22d0d772"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/ja:にほんに いく ひとは ともだちだ",
+      "text": "만들기: 일본에 가는 사람은 친구다",
+      "enSourceHash": "c0ddd1c3543a551a"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/ja:ほんを みる ひとが いる",
+      "text": "만들기: 책을 보는 사람이 있다",
+      "enSourceHash": "342eca23d4139ce2"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:04942b5dc2feb104",
+      "text": "오늘 새로운 모자를 샀다",
+      "enSourceHash": "04942b5dc2feb104"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:07f546eadc94abbb",
+      "text": "오늘 조용한 가게에 갔다",
+      "enSourceHash": "07f546eadc94abbb"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:0f8074e5a2bb0b9a",
+      "text": "어제 산 모자는 새것이다",
+      "enSourceHash": "0f8074e5a2bb0b9a"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:248d1954b5c55536",
+      "text": "내가 가는 가게는 조용하다",
+      "enSourceHash": "248d1954b5c55536"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:333b22a223e306a5",
+      "text": "어제 본 영화는 재미있다",
+      "enSourceHash": "333b22a223e306a5"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:55d8a4ee211bc4f6",
+      "text": "어제 산 책을 봤다",
+      "enSourceHash": "55d8a4ee211bc4f6"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:5785380307d23d75",
+      "text": "아침에 마신 차는 맛있다",
+      "enSourceHash": "5785380307d23d75"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:63f75c890b05405e",
+      "text": "노래",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:670bd9ced0c6bc3f",
+      "text": "초밥",
+      "enSourceHash": "670bd9ced0c6bc3f"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:74ff84453c30f7cf",
+      "text": "어제 간 가게는 바빴다",
+      "enSourceHash": "74ff84453c30f7cf"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:82a3537ff0dbce7e",
+      "text": "이름",
+      "enSourceHash": "82a3537ff0dbce7e"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:a9f74d1ec36ebdeb",
+      "text": "차",
+      "enSourceHash": "a9f74d1ec36ebdeb"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:dfe244d22b9b36d6",
+      "text": "어제 간 가게는 낡았다",
+      "enSourceHash": "dfe244d22b9b36d6"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:e3fdda145da2e507",
+      "text": "어제 산 모자는 낡았다",
+      "enSourceHash": "e3fdda145da2e507"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:ee8f9994170ceea3",
+      "text": "어제 간 가게는 조용했다",
+      "enSourceHash": "ee8f9994170ceea3"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:f15f9611b09733d6",
+      "text": "사고 싶은 모자는 새 것이다",
+      "enSourceHash": "f15f9611b09733d6"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/ja:あさ のんだ ちゃは おいしい",
+      "text": "만들기: 아침에 마신 차는 맛있다",
+      "enSourceHash": "13af6195f7a8b482"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/ja:きのう いった みせは ふるい",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/ja:きのう かった ほんを みた",
+      "text": "만들기: 어제 산 책을 보았다",
+      "enSourceHash": "e601115c587145f6"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/ja:きのう きいた うたが すきだ",
+      "text": "만들기: 어제 들은 노래가 좋다",
+      "enSourceHash": "66963f0d6ae503bf"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/ja:きのう きっさてんで のんだ ちゃの なまえを おしえる",
+      "text": "만들기: 어제 커피숍에서 마신 차의 이름을 알려준다",
+      "enSourceHash": "7b7906137a5615e3"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/ja:きのう たべた すしは たかい",
+      "text": "만들기: 어제 먹은 초밥은 비싸다",
+      "enSourceHash": "b885139ba1c404b8"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/ja:きのう みた えいがの なまえが わからない",
+      "text": "만들기: 어제 본 영화의 이름을 모른다",
+      "enSourceHash": "cf0f36527a674e0f"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/ja:きのう みた えいがは おもしろい",
+      "text": "만들기: 어제 본 영화는 재미있다",
+      "enSourceHash": "cc6bb5346ab14c0c"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:0889113e04d3203f",
+      "text": "수업",
+      "enSourceHash": "0889113e04d3203f"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:316705c563af95e9",
+      "text": "미카가 파는 자전거는 낡았다",
+      "enSourceHash": "316705c563af95e9"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:39bf24b1ae7eadea",
+      "text": "미카가 파는 자전거는 새 것이다",
+      "enSourceHash": "39bf24b1ae7eadea"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:5214c881b989561b",
+      "text": "미카가 산 자전거는 낡았다",
+      "enSourceHash": "5214c881b989561b"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:63f75c890b05405e",
+      "text": "노래",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:6528f84104697227",
+      "text": "다나카는 큰 차를 사고 싶다",
+      "enSourceHash": "6528f84104697227"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:6f6ccf553a38ebdf",
+      "text": "켄이 들은 노래는 재미있다",
+      "enSourceHash": "6f6ccf553a38ebdf"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:7d5115a3843c1120",
+      "text": "다나카가 판 차는 크다",
+      "enSourceHash": "7d5115a3843c1120"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:92226e7064e32139",
+      "text": "미카가 산 집은 조용하다",
+      "enSourceHash": "92226e7064e32139"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:a24282a69ff42949",
+      "text": "다나카가 가르치는 수업은 재미있다",
+      "enSourceHash": "a24282a69ff42949"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:b2b28475feeb7ab2",
+      "text": "미카가 산 책을 보았다",
+      "enSourceHash": "b2b28475feeb7ab2"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:c018019b6a8b01ab",
+      "text": "가방",
+      "enSourceHash": "c018019b6a8b01ab"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:d29af8a2e160dd86",
+      "text": "자전거",
+      "enSourceHash": "d29af8a2e160dd86"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:d6e21286621a8586",
+      "text": "집",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:dd9f193401fef3f3",
+      "text": "다나카가 산 차는 크다",
+      "enSourceHash": "dd9f193401fef3f3"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:f7bff8182b459ed2",
+      "text": "미카는 새 자전거를 팔고 싶다",
+      "enSourceHash": "f7bff8182b459ed2"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:fb22bd845b56318b",
+      "text": "다나카가 산 차는 작다",
+      "enSourceHash": "fb22bd845b56318b"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/ja:たなかが おしえる じゅぎょうは おもしろい",
+      "text": "만들기: 다나카가 가르치는 수업은 재미있다",
+      "enSourceHash": "ee8a249af1914d99"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/ja:わたしが かった かばんは やすい",
+      "text": "만들기: 내가 산 가방은 싸다",
+      "enSourceHash": "d457dcbd9b5c0b67"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/ja:ミカが かった いえは しずかだ",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:e59e47eaca320f95",
+      "text": "미카는 노래 듣는 것이 좋다",
+      "enSourceHash": "e59e47eaca320f95"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:f3c06b2ef5609431",
+      "text": "켄은 책을 샀다",
+      "enSourceHash": "f3c06b2ef5609431"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:f3d85c3604093da1",
+      "text": "켄은 책이 싫다",
+      "enSourceHash": "f3d85c3604093da1"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/ja:あさ はたらく ことは きらいだ",
+      "text": "만들기: 아침에 일하는 것은 싫다",
+      "enSourceHash": "86a86f9213fddc51"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/ja:あたらしい えいがを みる ことが すきだ",
+      "text": "만들기: 새로운 영화를 보는 것이 좋다",
+      "enSourceHash": "48e161d8902e914d"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/ja:うみで およぐ ことが すきだ",
+      "text": "만들기: 바다에서 수영하는 것이 좋다",
+      "enSourceHash": "24ddad29bb12cc57"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/ja:きらいな ことが ない",
+      "text": "만들기: 싫은 것이 없다",
+      "enSourceHash": "25b21a0bd563abcf"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/ja:ともだちと あそぶ ことは おもしろい",
+      "text": "만들기: 친구와 노는 것은 재미있다",
+      "enSourceHash": "cf71dc469619f8ae"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/ja:ほんを みる ことが すきだ",
+      "text": "만들기: 책을 보는 것이 좋다",
+      "enSourceHash": "4e708b9357ef4b2f"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/ja:わからない ことが ある",
+      "text": "만들기: 모르는 것이 있다",
+      "enSourceHash": "61f02f8473108bb5"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/ja:ミカが すきな ことは あたらしい えいがを みる ことだ",
+      "text": "만들기: 미카가 좋아하는 것은 새로운 영화를 보는 것이다",
+      "enSourceHash": "d5d0f8f30f6c7c5c"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/ja:ミカは うたを きく ことが すきだ",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:0f4168490e38b844",
+      "text": "물",
+      "enSourceHash": "0f4168490e38b844"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:10a6ea1c6c44be32",
+      "text": "바다에 갈 때 모자를 산다",
+      "enSourceHash": "10a6ea1c6c44be32"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:130af364127662b2",
+      "text": "학생일 때 자전거를 샀다",
+      "enSourceHash": "130af364127662b2"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:18e1dd392168f601",
+      "text": "모자",
+      "enSourceHash": "18e1dd392168f601"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:2770e03f669d40c0",
+      "text": "바다를 위해 카메라를 사고 싶다",
+      "enSourceHash": "2770e03f669d40c0"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:3b5346da5517bc68",
+      "text": "바쁠 때 차를 마시지 않는다",
+      "enSourceHash": "3b5346da5517bc68"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:47b57e9c0a051094",
+      "text": "커피숍에 갔을 때 차를 마셨다",
+      "enSourceHash": "47b57e9c0a051094"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:4bdf40d0d1ae3611",
+      "text": "밥/식사",
+      "enSourceHash": "4bdf40d0d1ae3611"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:4e6b2e96bfcf8e92",
+      "text": "바빴고 차를 마시지 않았다",
+      "enSourceHash": "4e6b2e96bfcf8e92"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:657b94d62934eaf1",
+      "text": "오늘 차를 마시지 않는다",
+      "enSourceHash": "657b94d62934eaf1"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:8a6ba32c9bed6ce7",
+      "text": "영화",
+      "enSourceHash": "8a6ba32c9bed6ce7"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:8cc93866cd21c271",
+      "text": "먹을 때 물을 마신다",
+      "enSourceHash": "8cc93866cd21c271"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:a9f74d1ec36ebdeb",
+      "text": "차",
+      "enSourceHash": "a9f74d1ec36ebdeb"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:c44562367a3831bb",
+      "text": "바다에서 카메라를 산다",
+      "enSourceHash": "c44562367a3831bb"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:c74b381dd78b425f",
+      "text": "바다에 갈 때 카메라를 산다",
+      "enSourceHash": "c74b381dd78b425f"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:d29af8a2e160dd86",
+      "text": "자전거",
+      "enSourceHash": "d29af8a2e160dd86"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:deea5da18f4e7bed",
+      "text": "바다에 갔을 때 카메라를 샀다",
+      "enSourceHash": "deea5da18f4e7bed"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:fbfc3b8f50ab11d1",
+      "text": "바쁠 때 차를 마신다",
+      "enSourceHash": "fbfc3b8f50ab11d1"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/ja:いそがしい とき ごはんを たべない",
+      "text": "만들기: 바쁠 때 밥을 먹지 않는다",
+      "enSourceHash": "5bc1a75423b6e294"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/ja:うみに いく とき ぼうしを かう",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/ja:えいがを みる とき ケンと いく",
+      "text": "만들기: 영화를 볼 때 켄과 간다",
+      "enSourceHash": "7fd1937988815dcd"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/ja:がくせいの とき じてんしゃを かった",
+      "text": "만들기: 학생일 때 자전거를 샀다",
+      "enSourceHash": "e60d7f9f5140d131"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/ja:きっさてんに いった とき ちゃを のんだ",
+      "text": "만들기: 카페에 갔을 때 차를 마셨다",
+      "enSourceHash": "0cb99868eba7f6ce"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/ja:げんきな とき うみで およぐ",
+      "text": "만들기: 건강할 때 바다에서 수영한다",
+      "enSourceHash": "15a3f619a55d317a"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/ja:ごはんを たべる とき みずを のむ",
+      "text": "만들기: 먹을 때 물을 마신다",
+      "enSourceHash": "79ae97b638659485"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/ja:ミカが にほんに いった とき あたらしい くつを かった",
+      "text": "만들기: 미카가 일본에 갔을 때 새로운 신발을 샀다",
+      "enSourceHash": "44049ee31956ead9"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:0008c4e6bbdddce2",
+      "text": "방학 동안 친구와 논다",
+      "enSourceHash": "0008c4e6bbdddce2"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:192f6fd40a845394",
+      "text": "여행 갈 때 카메라를 산다",
+      "enSourceHash": "192f6fd40a845394"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:336074805fc85398",
+      "text": "때",
+      "enSourceHash": "336074805fc85398"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:3e0411cecedac492",
+      "text": "시간이 없을 때 영화를 보지 않는다",
+      "enSourceHash": "3e0411cecedac492"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:4d2f07c851325d06",
+      "text": "방학일 때 친구와 놀았다",
+      "enSourceHash": "4d2f07c851325d06"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:89e8b9518d922794",
+      "text": "카메라",
+      "enSourceHash": "89e8b9518d922794"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:8a6ba32c9bed6ce7",
+      "text": "영화",
+      "enSourceHash": "8a6ba32c9bed6ce7"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:9d457c3e55618a4a",
+      "text": "방학",
+      "enSourceHash": "9d457c3e55618a4a"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:b47ced6cb0b18bda",
+      "text": "여름에 친구와 놀고 싶다",
+      "enSourceHash": "b47ced6cb0b18bda"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:ba6c1f9d445f3559",
+      "text": "오늘 영화 볼 시간이 없다",
+      "enSourceHash": "ba6c1f9d445f3559"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:c018019b6a8b01ab",
+      "text": "가방",
+      "enSourceHash": "c018019b6a8b01ab"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:ca7004ff1595253d",
+      "text": "여행 갈 때 새로운 가방을 산다",
+      "enSourceHash": "ca7004ff1595253d"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:dc3d37be15a645e1",
+      "text": "방학일 때 일했다",
+      "enSourceHash": "dc3d37be15a645e1"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:ed103a700692ab3a",
+      "text": "방학일 때 바다에 갔다",
+      "enSourceHash": "ed103a700692ab3a"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:f8359c2520c6a836",
+      "text": "시간이 없어서 영화를 보지 않았다",
+      "enSourceHash": "f8359c2520c6a836"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:f8e3dfd36f150255",
+      "text": "시간이 있을 때 영화를 본다",
+      "enSourceHash": "f8e3dfd36f150255"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:fa88a24b39916d2f",
+      "text": "시간, 때",
+      "enSourceHash": "fa88a24b39916d2f"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/ja:じかんが ある とき えいがを みる",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/ja:じゅぎょうが ない とき ともだちと あそぶ",
+      "text": "만들기: 수업이 없을 때 친구와 논다",
+      "enSourceHash": "ce61678bd4c34738"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/ja:なつやすみの とき うみに いった",
+      "text": "만들기: 방학일 때 바다에 갔다",
+      "enSourceHash": "50de42273c35d376"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/ja:にほんに いった とき すしを たべた",
+      "text": "만들기: 일본에 갔을 때 초밥을 먹었다",
+      "enSourceHash": "b0cdc79d5c37ec34"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/ja:にほんに いった とき ミカが すきな みせで くつを かった",
+      "text": "만들기: 일본에 갔을 때 미카가 좋아하는 가게에서 신발을 샀다",
+      "enSourceHash": "8ae0dce9514684b6"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/ja:りょこうが すきな ひとと あそぶ",
+      "text": "만들기: 여행을 좋아하는 사람과 논다",
+      "enSourceHash": "6db39b08fc7ad260"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/ja:りょこうに いく とき あたらしい かばんを かう",
+      "text": "만들기: 여행을 갈 때 새로운 가방을 산다",
+      "enSourceHash": "f03b4c990751ae7c"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/ja:りょこうの とき カメラを かう",
+      "text": "만들기: 여행할 때 카메라를 산다",
+      "enSourceHash": "4f73bff4487a07e7"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:01ea5ddd3be5477a",
+      "text": "신발",
+      "enSourceHash": "01ea5ddd3be5477a"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:078203896e36c494",
+      "text": "카페에 가기 전에 가방을 샀다",
+      "enSourceHash": "078203896e36c494"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:0aa0f5c2b2a0f562",
+      "text": "대학에 가기 전에 먹는다",
+      "enSourceHash": "0aa0f5c2b2a0f562"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:0b9441be01737d8c",
+      "text": "수업에서 차를 마셨다",
+      "enSourceHash": "0b9441be01737d8c"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:14069429150abcbf",
+      "text": "표",
+      "enSourceHash": "14069429150abcbf"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:1a30ea64b1716b75",
+      "text": "대학에서 사진을 봤다",
+      "enSourceHash": "1a30ea64b1716b75"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:34a389d790fc2bdd",
+      "text": "여행",
+      "enSourceHash": "34a389d790fc2bdd"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:43b111d7cd28e368",
+      "text": "대학에 가기 전에 사진을 봤다",
+      "enSourceHash": "43b111d7cd28e368"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:483626b1251e26b0",
+      "text": "차를 마시기 전에 수업에 갔다",
+      "enSourceHash": "483626b1251e26b0"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:4ee8ed2ffc23619f",
+      "text": "수업 전에 친구와 놀았다",
+      "enSourceHash": "4ee8ed2ffc23619f"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:5135000b8ca7ccae",
+      "text": "대학에 간 후에 사진을 봤다",
+      "enSourceHash": "5135000b8ca7ccae"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:5e270818f646419f",
+      "text": "수업 전에 차를 마셨다",
+      "enSourceHash": "5e270818f646419f"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:8a6ba32c9bed6ce7",
+      "text": "영화",
+      "enSourceHash": "8a6ba32c9bed6ce7"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:8bda8a56c92da217",
+      "text": "일",
+      "enSourceHash": "8bda8a56c92da217"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:9ca70faf23158e71",
+      "text": "수업 후에 차를 마셨다",
+      "enSourceHash": "9ca70faf23158e71"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:daac6ccd97bbc4ae",
+      "text": "사진을 보기 전에 대학에 갔다",
+      "enSourceHash": "daac6ccd97bbc4ae"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:ed72556db05d9107",
+      "text": "차를 마시기 전에 책을 봤다",
+      "enSourceHash": "ed72556db05d9107"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:fa88a24b39916d2f",
+      "text": "때",
+      "enSourceHash": "fa88a24b39916d2f"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/ja:うみで およぐ まえに みずを のんだ",
+      "text": "만들기: 바다에서 수영하기 전에 물을 마셨다",
+      "enSourceHash": "3ccaa3614b812efe"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/ja:えいがを みる まえに きっぷを かう",
+      "text": "만들기: 영화를 보기 전에 표를 산다",
+      "enSourceHash": "f97eb9da71f7a8bd"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/ja:きっさてんに いく まえに かばんを かった",
+      "text": "만들기: 카페에 가기 전에 가방을 샀다",
+      "enSourceHash": "d22cca764e39216d"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/ja:じゅぎょうの まえに ともだちと あそんだ",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/ja:だいがくに いく まえに ごはんを たべる",
+      "text": "만들기: 대학에 가기 전에 밥을 먹는다",
+      "enSourceHash": "c1061dfb9838ea75"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/ja:ちゃを のむ まえに ほんを みた",
+      "text": "만들기: 차를 마시기 전에 책을 봤다",
+      "enSourceHash": "7c4f98a20b44fec8"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/ja:にほんに いく まえに ミカが すきな みせで あたらしい かばんを かった",
+      "text": "만들기: 일본에 가기 전에 미카가 좋아하는 가게에서 새로운 가방을 샀다",
+      "enSourceHash": "ca60c576bf96bf3f"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/ja:りょこうの まえに あたらしい くつを かった",
+      "text": "만들기: 여행 전에 새로운 신발을 샀다",
+      "enSourceHash": "b00f6e1f3e4f52b4"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:01ea5ddd3be5477a",
+      "text": "신발",
+      "enSourceHash": "01ea5ddd3be5477a"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:119288ad2b39a493",
+      "text": "먹기 전에 책을 봤다",
+      "enSourceHash": "119288ad2b39a493"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:12a6ae5f90cb5712",
+      "text": "먹은 후에 책을 봤다",
+      "enSourceHash": "12a6ae5f90cb5712"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:22992fccfc9302da",
+      "text": "사진을 보기 전에 가게에 갔다",
+      "enSourceHash": "22992fccfc9302da"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:2a5eb07fcfb23df4",
+      "text": "가게에 간 후에 사진을 봤다",
+      "enSourceHash": "2a5eb07fcfb23df4"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:34a389d790fc2bdd",
+      "text": "여행",
+      "enSourceHash": "34a389d790fc2bdd"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:4730b9b2d245ed86",
+      "text": "가게에서 사진을 봤다",
+      "enSourceHash": "4730b9b2d245ed86"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:48df3c884e7dbebb",
+      "text": "사진을 본 후에 가게에 갔다",
+      "enSourceHash": "48df3c884e7dbebb"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:502212c8c3a13581",
+      "text": "먹으면서 책을 봤다",
+      "enSourceHash": "502212c8c3a13581"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:5b01c1b76cfe20c2",
+      "text": "먹은 후에 대학에 간다",
+      "enSourceHash": "5b01c1b76cfe20c2"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:6db7d803e74f1ffa",
+      "text": "전에",
+      "enSourceHash": "6db7d803e74f1ffa"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:8a6ba32c9bed6ce7",
+      "text": "영화",
+      "enSourceHash": "8a6ba32c9bed6ce7"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:8bda8a56c92da217",
+      "text": "일 (행위)",
+      "enSourceHash": "8bda8a56c92da217"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:aad73bbc1708dbe3",
+      "text": "차를 마신 후에 사진을 봤다",
+      "enSourceHash": "aad73bbc1708dbe3"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:ad563d9b12df4d15",
+      "text": "노래를 들은 후에 밥을 먹었다",
+      "enSourceHash": "ad563d9b12df4d15"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:c4be28c21d81d593",
+      "text": "책을 본 후에 밥을 먹었다",
+      "enSourceHash": "c4be28c21d81d593"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:f7fc5dd3423937bd",
+      "text": "카페에 간 후에 가게에 갔다",
+      "enSourceHash": "f7fc5dd3423937bd"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:fa88a24b39916d2f",
+      "text": "시간, 때",
+      "enSourceHash": "fa88a24b39916d2f"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/ja:うたを きいてから ごはんを たべた",
+      "text": "만들기: 노래를 들은 후에 밥을 먹었다",
+      "enSourceHash": "f453d41e7e1b3ff7"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/ja:えいがを みてから ごはんを たべる",
+      "text": "만들기: 영화를 본 후에 밥을 먹는다",
+      "enSourceHash": "546b12ec5a976857"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/ja:かばんを かってから ミカが すきな きっさてんで ちゃを のんだ",
+      "text": "만들기: 가방을 산 후에 미카가 좋아하는 카페에서 차를 마셨다",
+      "enSourceHash": "c3381c2a7f9361d1"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/ja:きっさてんに いってから みせに いった",
+      "text": "만들기: 카페에 간 후에 가게에 갔다",
+      "enSourceHash": "3df49c24899cfd0c"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/ja:ごはんを たべてから だいがくに いく",
+      "text": "만들기: 밥을 먹은 후에 대학에 간다",
+      "enSourceHash": "e2b996b95a73c1da"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/ja:だいがくに いってから ともだちと あそんだ",
+      "text": "만들기: 대학에 간 후에 친구와 놀았다",
+      "enSourceHash": "9a9b1da5a67a5a2b"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/ja:ちゃを のんでから しゃしんを みた",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/ja:めがねを かってから えきに いった",
+      "text": "만들기: 안경을 산 후에 역에 갔다",
+      "enSourceHash": "b06caaa900b23c6e"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:01ea5ddd3be5477a",
+      "text": "신발",
+      "enSourceHash": "01ea5ddd3be5477a"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:34a389d790fc2bdd",
+      "text": "여행",
+      "enSourceHash": "34a389d790fc2bdd"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:495f439f0b3c12f3",
+      "text": "카페에서 신발을 샀다",
+      "enSourceHash": "495f439f0b3c12f3"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:5ae8805a9734b711",
+      "text": "신발을 산 후에 카페에 갔다",
+      "enSourceHash": "5ae8805a9734b711"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:62c51451e1232132",
+      "text": "영화를 보기 전에 표를 샀다",
+      "enSourceHash": "62c51451e1232132"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:6db7d803e74f1ffa",
+      "text": "전에",
+      "enSourceHash": "6db7d803e74f1ffa"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:7fd400c879f1799a",
+      "text": "신발을 사기 전에 카페에 갔다",
+      "enSourceHash": "7fd400c879f1799a"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:8a6ba32c9bed6ce7",
+      "text": "영화",
+      "enSourceHash": "8a6ba32c9bed6ce7"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:8bda8a56c92da217",
+      "text": "일 (행위)",
+      "enSourceHash": "8bda8a56c92da217"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:a9488c18f5fd7150",
+      "text": "먹기 전에 물을 마신다",
+      "enSourceHash": "a9488c18f5fd7150"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:c7b1221cb257e7ca",
+      "text": "먹은 후에 차를 마신다",
+      "enSourceHash": "c7b1221cb257e7ca"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:d07b73d9c1b4ae0a",
+      "text": "영화를 보기 전에 먹었다",
+      "enSourceHash": "d07b73d9c1b4ae0a"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:d7947c9371b72f05",
+      "text": "영화에서 먹었다",
+      "enSourceHash": "d7947c9371b72f05"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:e1cbae6623663945",
+      "text": "먹기 전에 영화를 봤다",
+      "enSourceHash": "e1cbae6623663945"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:eec2557983d00cac",
+      "text": "카페에 간 후에 신발을 샀다",
+      "enSourceHash": "eec2557983d00cac"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:f97068ba33a1592c",
+      "text": "영화를 본 후에 먹었다",
+      "enSourceHash": "f97068ba33a1592c"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:fa88a24b39916d2f",
+      "text": "시간, 때",
+      "enSourceHash": "fa88a24b39916d2f"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/ja:えいがを みてから ごはんを たべた",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/ja:えいがを みる まえに きっぷを かった",
+      "text": "만들기: 영화를 보기 전에 표를 샀다",
+      "enSourceHash": "e624b6e68f4a15df"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/ja:ごはんを たべてから ちゃを のむ",
+      "text": "만들기: 밥을 먹은 후에 차를 마신다",
+      "enSourceHash": "e3d8bd7c85c7aa58"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/ja:ごはんを たべる まえに みずを のむ",
+      "text": "만들기: 먹기 전에 물을 마신다",
+      "enSourceHash": "ee8730c2e76a7e8c"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/ja:だいがくに いく まえに きっさてんで ちゃを のむ",
+      "text": "만들기: 대학에 가기 전에 카페에서 차를 마신다",
+      "enSourceHash": "e3d16c4750f49a76"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/ja:ちゃを のんでから うみで およぐ",
+      "text": "만들기: 차를 마신 후에 바다에서 수영한다",
+      "enSourceHash": "e4213d81d2b37547"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/ja:りょこうに いく まえに あたらしい くつを かってから ともだちと あそんだ",
+      "text": "만들기: 여행 가기 전에 새로운 신발을 산 후에 친구와 놀았다",
+      "enSourceHash": "514356a0c8d08e91"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/ja:りょこうに いってから ともだちと あそんだ",
+      "text": "만들기: 여행 간 후에 친구와 놀았다",
+      "enSourceHash": "2cfbd6c42c286d0f"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/ja:りょこうの まえに あたらしい くつを かう",
+      "text": "만들기: 여행 전에 새로운 신발을 산다",
+      "enSourceHash": "fa911dfceb278da2"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:01ea5ddd3be5477a",
+      "text": "신발",
+      "enSourceHash": "01ea5ddd3be5477a"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:02a49b39b7d63c27",
+      "text": "책을 볼 시간이 없다",
+      "enSourceHash": "02a49b39b7d63c27"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:1810ced007af1719",
+      "text": "켄이 산 신발을 보고 가게에 갔다",
+      "enSourceHash": "1810ced007af1719"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:1839828da7eafee6",
+      "text": "미카를 위해 새 신발을 샀다",
+      "enSourceHash": "1839828da7eafee6"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:34a389d790fc2bdd",
+      "text": "여행",
+      "enSourceHash": "34a389d790fc2bdd"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:3e4539117fb12f2c",
+      "text": "미카가 산 신발이 좋다",
+      "enSourceHash": "3e4539117fb12f2c"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:3fa9c0b3ac1496bf",
+      "text": "도전 — 무엇을, 언제, 어떤 순서로 말하기",
+      "enSourceHash": "3fa9c0b3ac1496bf"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:44d694320d23c93d",
+      "text": "미카가 가게에서 새 신발을 샀다",
+      "enSourceHash": "44d694320d23c93d"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:6db7d803e74f1ffa",
+      "text": "이전",
+      "enSourceHash": "6db7d803e74f1ffa"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:6e3bf34066729e64",
+      "text": "\"바다\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "6e3bf34066729e64"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:8a6ba32c9bed6ce7",
+      "text": "영화",
+      "enSourceHash": "8a6ba32c9bed6ce7"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:8bda8a56c92da217",
+      "text": "일 (행위)",
+      "enSourceHash": "8bda8a56c92da217"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:a6f72652f97acdf4",
+      "text": "시간이 있을 때 책을 보았다",
+      "enSourceHash": "a6f72652f97acdf4"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:ac046afae82dbb5f",
+      "text": "미카가 좋아하는 가게에서 새 신발을 샀다",
+      "enSourceHash": "ac046afae82dbb5f"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:b5b1420916c2f4f0",
+      "text": "수업이 없을 때 친구와 노는 것이 좋다",
+      "enSourceHash": "b5b1420916c2f4f0"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:d1813199833f86c1",
+      "text": "여행 전에 새 카메라를 사는 것이 좋다",
+      "enSourceHash": "d1813199833f86c1"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:d91110f8b9fc1007",
+      "text": "일본에 가기 전에 미카가 좋아하는 영화를 보았다",
+      "enSourceHash": "d91110f8b9fc1007"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:ed0abbe07aa01605",
+      "text": "시간이 있을 때 책을 사는 것이 좋다",
+      "enSourceHash": "ed0abbe07aa01605"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:f8048ab68af6adae",
+      "text": "시간이 있을 때 책을 보는 것이 좋다",
+      "enSourceHash": "f8048ab68af6adae"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:fa88a24b39916d2f",
+      "text": "시간, 때",
+      "enSourceHash": "fa88a24b39916d2f"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/ja:いそがしい とき えいがを みる じかんが ない",
+      "text": "만들기: 바쁠 때 영화를 볼 시간이 없다",
+      "enSourceHash": "cc3c2a11fabbfdeb"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/ja:がくせいの とき きいた うたを いま きいている",
+      "text": "만들기: 학생일 때 들었던 노래를 지금 듣고 있다",
+      "enSourceHash": "876333921cb70ca4"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/ja:ごはんを たべてから ミカが すきな きっさてんで ちゃを のむ",
+      "text": "만들기: 밥을 먹은 후 미카가 좋아하는 카페에서 차를 마신다",
+      "enSourceHash": "244ea9f32a320f51"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/ja:じかんが ある とき ミカが かった ほんを みる ことが すきだ",
+      "text": "만들기: 시간이 있을 때 미카가 산 책을 보는 것이 좋다",
+      "enSourceHash": "9c2a90f4e5edf1e5"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/ja:じゅぎょうが ない とき ともだちと あそぶ ことが すきだ",
+      "text": "만들기: 수업이 없을 때 친구와 노는 것이 좋다",
+      "enSourceHash": "6c16d35b92f7f738"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/ja:にほんに いく まえに ミカが すきな えいがを みた",
+      "text": "만들기: 일본에 가기 전에 미카가 좋아하는 영화를 보았다",
+      "enSourceHash": "4e7a581648150fcd"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/ja:りょこうの まえに あたらしい カメラを かう ことが すきだ",
+      "text": "만들기: 여행 전에 새 카메라를 사는 것이 좋다",
+      "enSourceHash": "72a5e8ef1436654a"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/ja:ケンが かった くつを みてから みせに いった",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:01ea5ddd3be5477a",
+      "text": "신발",
+      "enSourceHash": "01ea5ddd3be5477a"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:333b22a223e306a5",
+      "text": "어제 본 영화가 재미있다",
+      "enSourceHash": "333b22a223e306a5"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:35fa4f91b07ee7be",
+      "text": "아침에 마신 차가 싸다",
+      "enSourceHash": "35fa4f91b07ee7be"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:38a81e87e79631e6",
+      "text": "사람",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:55d8a4ee211bc4f6",
+      "text": "어제 산 책을 보았다",
+      "enSourceHash": "55d8a4ee211bc4f6"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:5785380307d23d75",
+      "text": "아침에 마신 차가 맛있다",
+      "enSourceHash": "5785380307d23d75"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:63f75c890b05405e",
+      "text": "노래",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:69b50329f003274d",
+      "text": "카페에서 일하는 사람과 노는 것이 좋다",
+      "enSourceHash": "69b50329f003274d"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:6e3bf34066729e64",
+      "text": "\"바다\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "6e3bf34066729e64"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:732d6f7e90aa12ef",
+      "text": "카페에서 일하고 싶다",
+      "enSourceHash": "732d6f7e90aa12ef"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:735e4a73c6c90720",
+      "text": "아침에 산 차가 맛있다",
+      "enSourceHash": "735e4a73c6c90720"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:8a6ba32c9bed6ce7",
+      "text": "영화",
+      "enSourceHash": "8a6ba32c9bed6ce7"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:8a7070433e4f9bc4",
+      "text": "복습 — 명사 앞의 문장",
+      "enSourceHash": "8a7070433e4f9bc4"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:8e1108a56228d20f",
+      "text": "책을 보는 사람이 있다",
+      "enSourceHash": "8e1108a56228d20f"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:92226e7064e32139",
+      "text": "미카가 산 집은 조용하다",
+      "enSourceHash": "92226e7064e32139"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:92702b85a7cdfb2b",
+      "text": "카페에서 사람을 기다리고 있다",
+      "enSourceHash": "92702b85a7cdfb2b"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:a9f74d1ec36ebdeb",
+      "text": "차",
+      "enSourceHash": "a9f74d1ec36ebdeb"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:b486db7b02550a51",
+      "text": "아침에 차를 마시지 않았다",
+      "enSourceHash": "b486db7b02550a51"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:ca5b47deb7079429",
+      "text": "가게에서 일하는 사람과 논다",
+      "enSourceHash": "ca5b47deb7079429"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/ja:きっさてんで のむ ちゃが すきだ",
+      "text": "만들기: 카페에서 마시는 차가 좋다",
+      "enSourceHash": "436a1e5908c933a6"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/ja:きのう かった ほんを みた",
+      "text": "만들기: 어제 산 책을 봤다",
+      "enSourceHash": "e601115c587145f6"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/ja:きのう みた えいがは おもしろい",
+      "text": "만들기: 어제 본 영화가 재미있다",
+      "enSourceHash": "cc6bb5346ab14c0c"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/ja:たなかが おしえる じゅぎょうは おもしろい",
+      "text": "만들기: 다나카가 가르치는 수업이 재미있다",
+      "enSourceHash": "ee8a249af1914d99"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/ja:ほんを みる ひとが いる",
+      "text": "만들기: 책을 보는 사람이 있다",
+      "enSourceHash": "342eca23d4139ce2"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/ja:わたしが かった かばんは やすい",
+      "text": "만들기: 내가 산 가방은 싸다",
+      "enSourceHash": "d457dcbd9b5c0b67"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/ja:トムが かった くつは あたらしい",
+      "text": "만들기: 톰이 산 신발은 새것이다",
+      "enSourceHash": "c0768d44802ae26b"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/ja:ミカが かった いえは しずかだ",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:01ea5ddd3be5477a",
+      "text": "신발",
+      "enSourceHash": "01ea5ddd3be5477a"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:032e7162b2906902",
+      "text": "복습 — 물건과 시간",
+      "enSourceHash": "032e7162b2906902"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:0e5cdc4525ebee29",
+      "text": "영화를 볼 시간이 없다",
+      "enSourceHash": "0e5cdc4525ebee29"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:130af364127662b2",
+      "text": "학생일 때 자전거를 샀다",
+      "enSourceHash": "130af364127662b2"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:2abd1ded60b3cdcb",
+      "text": "바쁠 때 가게에서 먹는다",
+      "enSourceHash": "2abd1ded60b3cdcb"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:34a389d790fc2bdd",
+      "text": "여행",
+      "enSourceHash": "34a389d790fc2bdd"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:3bfdf8c43171daf8",
+      "text": "시간이 있을 때 영화를 봤다",
+      "enSourceHash": "3bfdf8c43171daf8"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:4f2b5d259583d0ed",
+      "text": "오늘 바빠서 먹지 않는다",
+      "enSourceHash": "4f2b5d259583d0ed"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:61ad29b2626ce2da",
+      "text": "바다에서 수영하는 것이 좋다",
+      "enSourceHash": "61ad29b2626ce2da"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:63f75c890b05405e",
+      "text": "노래",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:6e3bf34066729e64",
+      "text": "\"바다\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "6e3bf34066729e64"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:808549850eaff47c",
+      "text": "바빠서 먹지 않았다",
+      "enSourceHash": "808549850eaff47c"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:8a6ba32c9bed6ce7",
+      "text": "영화",
+      "enSourceHash": "8a6ba32c9bed6ce7"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:8bda8a56c92da217",
+      "text": "일 (행위)",
+      "enSourceHash": "8bda8a56c92da217"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:8cc93866cd21c271",
+      "text": "먹을 때 물을 마신다",
+      "enSourceHash": "8cc93866cd21c271"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:beee53435ac9958f",
+      "text": "영화를 보고 싶다",
+      "enSourceHash": "beee53435ac9958f"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:e18f06e73ebd9d83",
+      "text": "바쁠 때 먹지 않는다",
+      "enSourceHash": "e18f06e73ebd9d83"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:e59e47eaca320f95",
+      "text": "미카는 노래 듣는 것이 좋다",
+      "enSourceHash": "e59e47eaca320f95"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:f8e3dfd36f150255",
+      "text": "시간이 있을 때 영화를 본다",
+      "enSourceHash": "f8e3dfd36f150255"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:fa88a24b39916d2f",
+      "text": "시간, 때",
+      "enSourceHash": "fa88a24b39916d2f"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/ja:うみで およぐ ことが すきだ",
+      "text": "만들기: 바다에서 수영하는 것이 좋다",
+      "enSourceHash": "24ddad29bb12cc57"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/ja:がくせいの とき じてんしゃを かった",
+      "text": "만들기: 학생일 때 자전거를 샀다",
+      "enSourceHash": "e60d7f9f5140d131"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/ja:きらいな ことが ない",
+      "text": "만들기: 싫은 게 없다",
+      "enSourceHash": "25b21a0bd563abcf"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/ja:ごはんを たべる とき みずを のむ",
+      "text": "만들기: 밥을 먹을 때 물을 마신다",
+      "enSourceHash": "79ae97b638659485"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/ja:ともだちと あそぶ ことは おもしろい",
+      "text": "만들기: 친구와 노는 것은 재미있다",
+      "enSourceHash": "cf71dc469619f8ae"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/ja:りょこうに いく とき あたらしい かばんを かう",
+      "text": "만들기: 여행을 갈 때 새로운 가방을 산다",
+      "enSourceHash": "f03b4c990751ae7c"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/ja:わからない ことが ある",
+      "text": "만들기: 모르는 일이 있다",
+      "enSourceHash": "61f02f8473108bb5"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/ja:ミカは うたを きく ことが すきだ",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:01ea5ddd3be5477a",
+      "text": "신발",
+      "enSourceHash": "01ea5ddd3be5477a"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:0aa0f5c2b2a0f562",
+      "text": "대학에 가기 전에 먹는다",
+      "enSourceHash": "0aa0f5c2b2a0f562"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:34a389d790fc2bdd",
+      "text": "여행",
+      "enSourceHash": "34a389d790fc2bdd"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:4b51ae36c5f17670",
+      "text": "대학에 간 후에 먹는다",
+      "enSourceHash": "4b51ae36c5f17670"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:54b320b6bcb68a0b",
+      "text": "어제 본 영화는 지루하다",
+      "enSourceHash": "54b320b6bcb68a0b"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:55d8a4ee211bc4f6",
+      "text": "어제 산 책을 보았다",
+      "enSourceHash": "55d8a4ee211bc4f6"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:6db7d803e74f1ffa",
+      "text": "이전",
+      "enSourceHash": "6db7d803e74f1ffa"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:7ce828ea82b7fd50",
+      "text": "대학에서 먹는다",
+      "enSourceHash": "7ce828ea82b7fd50"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:8a6ba32c9bed6ce7",
+      "text": "영화",
+      "enSourceHash": "8a6ba32c9bed6ce7"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:8bda8a56c92da217",
+      "text": "일 (행위)",
+      "enSourceHash": "8bda8a56c92da217"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:92226e7064e32139",
+      "text": "미카가 산 집은 조용하다",
+      "enSourceHash": "92226e7064e32139"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:a9488c18f5fd7150",
+      "text": "먹기 전에 물을 마신다",
+      "enSourceHash": "a9488c18f5fd7150"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:ad563d9b12df4d15",
+      "text": "노래를 듣고 난 후에 먹었다",
+      "enSourceHash": "ad563d9b12df4d15"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:be1cd13b784395a2",
+      "text": "어제 본 영화는 재미있다",
+      "enSourceHash": "be1cd13b784395a2"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:c78358d10084109f",
+      "text": "먹기 전에 대학에 간다",
+      "enSourceHash": "c78358d10084109f"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:e38c8d000e57b0c7",
+      "text": "복습 — 절, 일, 시간과 순서",
+      "enSourceHash": "e38c8d000e57b0c7"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:e3f8311b0552e660",
+      "text": "보고 싶은 영화는 재미있다",
+      "enSourceHash": "e3f8311b0552e660"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:f0804d5cb4de1e0b",
+      "text": "어제 영화 티켓을 샀다",
+      "enSourceHash": "f0804d5cb4de1e0b"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:fa88a24b39916d2f",
+      "text": "시간, 때",
+      "enSourceHash": "fa88a24b39916d2f"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/ja:いそがしい とき えいがを みない",
+      "text": "만들기: 바쁠 때 영화를 보지 않는다",
+      "enSourceHash": "0658af8b50cefaab"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/ja:うたを きいてから ごはんを たべた",
+      "text": "만들기: 노래를 듣고 난 후에 밥을 먹었다",
+      "enSourceHash": "f453d41e7e1b3ff7"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/ja:うみで およぐ ことが すきだ",
+      "text": "만들기: 바다에서 수영하는 것이 좋다",
+      "enSourceHash": "24ddad29bb12cc57"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/ja:きのう かった ほんを みた",
+      "text": "만들기: 어제 산 책을 보았다",
+      "enSourceHash": "e601115c587145f6"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/ja:きらいな ことが ない",
+      "text": "만들기: 싫어하는 일이 없다",
+      "enSourceHash": "25b21a0bd563abcf"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/ja:ごはんを たべる まえに みずを のむ",
+      "text": "만들기: 먹기 전에 물을 마신다",
+      "enSourceHash": "ee8730c2e76a7e8c"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/ja:たなかが おしえる じゅぎょうは おもしろい",
+      "text": "만들기: 다나카가 가르치는 수업은 재미있다",
+      "enSourceHash": "ee8a249af1914d99"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/ja:りょこうの まえに あたらしい くつを かった",
+      "text": "만들기: 여행 전에 새로운 신발을 샀다",
+      "enSourceHash": "b00f6e1f3e4f52b4"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/ja:ミカが かった いえは しずかだ",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/en:73ed382103bc8bfd",
+      "text": "토요일에 바다로 끌려가 저녁이 되어서야 마음을 바꿨다.",
+      "enSourceHash": "73ed382103bc8bfd"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/en:dc879c6efb62303d",
+      "text": "원치 않던 여행",
+      "enSourceHash": "dc879c6efb62303d"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/gloss:けど",
+      "text": "하지만, 비록",
+      "enSourceHash": "6a16848ebec13abc"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/gloss:ねる",
+      "text": "자다, 잠자리에 들다",
+      "enSourceHash": "f9a158651932a7e9"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:「うみは とても たのしいです。」",
+      "text": "\"바다는 정말 즐거워요.\"",
+      "enSourceHash": "a560ce6cb55aa6f6"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:「どようびに ふたりで うみに いきます。」",
+      "text": "\"토요일에 둘이서 바다에 갈 거예요.\"",
+      "enSourceHash": "5150d0877da7cbb0"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:「りょこうは たいへんです。」",
+      "text": "\"여행은 힘들어요.\"",
+      "enSourceHash": "6c46079a152d4507"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:あとで、ふたりで おんがくを きいた。",
+      "text": "나중에 둘이서 음악을 들었다.",
+      "enSourceHash": "5dfb9111e5eb12f8"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:いまは りょこうが すきだ。",
+      "text": "이제는 여행이 좋다.",
+      "enSourceHash": "5618cb5d262ca4c3"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:うみの みずは つめたい。",
+      "text": "바닷물은 차갑다.",
+      "enSourceHash": "86bb4229213900bf"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:うみは とおい。",
+      "text": "바다는 멀다.",
+      "enSourceHash": "9ab79074c7aa4254"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:うみは とても きれいだ。",
+      "text": "바다는 매우 아름답다.",
+      "enSourceHash": "f4fe8f49b306fb10"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:うみは ほんとうに たのしい。",
+      "text": "바다는 정말 즐겁다.",
+      "enSourceHash": "efcc280dccf19dc7"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:けど、ともだちの ユミは りょこうが すきだ。",
+      "text": "하지만 친구 유미는 여행이 좋다.",
+      "enSourceHash": "7aba6126424692c1"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:つぎの りょこうは やまだ。",
+      "text": "다음 여행은 산이다.",
+      "enSourceHash": "2e4a104adb516824"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:どようび、ぼくは ろくじに おきる。",
+      "text": "토요일, 나는 6시에 일어난다.",
+      "enSourceHash": "b3aa233ce45350ef"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:ひるごはんに すしを たべる。",
+      "text": "점심에 초밥을 먹는다.",
+      "enSourceHash": "c5387cdcb07ecf9b"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:ふたりで でんしゃで うみに いく。",
+      "text": "둘이 전철로 바다에 간다.",
+      "enSourceHash": "32ead79ba1eef7fb"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:ぼくは うちが すきだ。",
+      "text": "나는 집이 좋다.",
+      "enSourceHash": "64e14e7f37433925"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:ぼくは まいにち かいしゃで はたらく。",
+      "text": "나는 매일 회사에서 일한다.",
+      "enSourceHash": "470bde535ca4fda9"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:ぼくは よく ねる。",
+      "text": "나는 잘 잔다.",
+      "enSourceHash": "a733c56ed5d8c6de"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:ぼくは りょこうが きらいじゃない。",
+      "text": "나는 여행이 싫지 않다.",
+      "enSourceHash": "04f4c295c585042b"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:ぼくは りょこうが すきじゃない。",
+      "text": "나는 여행이 좋지 않다.",
+      "enSourceHash": "f4bccc37f2d7f462"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:ぼくも およぐ。",
+      "text": "나도 수영한다.",
+      "enSourceHash": "39e9959dfc1a6b73"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:よる、でんしゃで うちに いく。",
+      "text": "밤에 전철로 집에 간다.",
+      "enSourceHash": "989e3739ecaf7780"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:よるは うちで テレビを みる。",
+      "text": "밤에는 집에서 텔레비전을 본다.",
+      "enSourceHash": "3eb5221a5df79b36"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:りょこうは たいへんだ。",
+      "text": "여행은 힘들다.",
+      "enSourceHash": "911e23d0e01e432f"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:ユミは よく およぐ。",
+      "text": "유미는 자주 수영한다.",
+      "enSourceHash": "b54fba3e68fd0b5a"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-weekend-ahead/en:52a7454cf870b929",
+      "text": "앞으로의 주말",
+      "enSourceHash": "52a7454cf870b929"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-weekend-ahead/en:aed1baf957e5bde1",
+      "text": "바쁜 하루, 그다음 즐거운 하루.",
+      "enSourceHash": "aed1baf957e5bde1"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-weekend-ahead/ja:あしたは りょこうに いく。",
+      "text": "내일은 여행에 간다.",
+      "enSourceHash": "4d15fea5e430a400"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-weekend-ahead/ja:あたらしい くつが ほしい。",
+      "text": "새 신발을 갖고 싶다.",
+      "enSourceHash": "0a5ac2d37f8d8e4f"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-weekend-ahead/ja:きょうは しごとを する。",
+      "text": "오늘은 일을 한다.",
+      "enSourceHash": "27e5ac35fd383a76"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-weekend-ahead/ja:それから かいものを する。",
+      "text": "그다음에 쇼핑을 한다.",
+      "enSourceHash": "0eef25050d89a6a2"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-weekend-ahead/ja:とても いそがしい。",
+      "text": "매우 바쁘다.",
+      "enSourceHash": "62dff3b96abe58d2"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-weekend-ahead/ja:ともだちと えいがを みる。",
+      "text": "친구와 영화를 본다.",
+      "enSourceHash": "f3421118345cb028"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-weekend-ahead/ja:りょこうは たのしい。",
+      "text": "여행은 즐겁다.",
+      "enSourceHash": "62d83b2e2eba5dd2"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/ja:わたしは ミカが かった ほんを みた",
+      "text": "만들기: 나는 미카가 산 책을 보았다",
+      "enSourceHash": "50b73982404a9d13"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/ja:ケンが うる じてんしゃは ふるい",
+      "text": "만들기: 켄이 파는 자전거는 낡았다",
+      "enSourceHash": "f10fcb545c05bb00"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/ja:ケンが きいた うたは おもしろい",
+      "text": "만들기: 켄이 들은 노래는 재미있다",
+      "enSourceHash": "96380c9aa2ee6d51"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/ja:トムが かった くつは あたらしい",
+      "text": "만들기: 톰이 산 신발은 새것이다",
+      "enSourceHash": "c0768d44802ae26b"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/ja:ミカが きのう かった あたらしい くつは やすい",
+      "text": "만들기: 미카가 어제 산 새 신발은 싸다",
+      "enSourceHash": "3428f3f685e054a7"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:01b6a1a44f223c47",
+      "text": "아침에 수영하는 것이 좋다",
+      "enSourceHash": "01b6a1a44f223c47"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:04163355df98925c",
+      "text": "아침에 수영하는 것이 싫다",
+      "enSourceHash": "04163355df98925c"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:0cd5f80f6c275eb2",
+      "text": "아침에 일하는 것이 싫다",
+      "enSourceHash": "0cd5f80f6c275eb2"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:1c30bcf8f84854e3",
+      "text": "켄은 책 사는 것이 좋다",
+      "enSourceHash": "1c30bcf8f84854e3"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:23e5e512e5e30713",
+      "text": "아침에 수영하지 않는다",
+      "enSourceHash": "23e5e512e5e30713"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:259c1b61afc88d63",
+      "text": "아침에 수영했다",
+      "enSourceHash": "259c1b61afc88d63"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:3456494e4f163de9",
+      "text": "책 보는 것이 좋다",
+      "enSourceHash": "3456494e4f163de9"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:4a69f19c8c264850",
+      "text": "바다",
+      "enSourceHash": "4a69f19c8c264850"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:4bdf40d0d1ae3611",
+      "text": "밥/식사",
+      "enSourceHash": "4bdf40d0d1ae3611"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:61ad29b2626ce2da",
+      "text": "바다에서 수영하는 것이 좋다",
+      "enSourceHash": "61ad29b2626ce2da"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:63f75c890b05405e",
+      "text": "노래",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:862adb7c55cc4af8",
+      "text": "켄은 책 보는 것이 좋다",
+      "enSourceHash": "862adb7c55cc4af8"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:8a6ba32c9bed6ce7",
+      "text": "영화",
+      "enSourceHash": "8a6ba32c9bed6ce7"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:cde48537ca2c2808",
+      "text": "친구",
+      "enSourceHash": "cde48537ca2c2808"
+    }
+  ]
+}

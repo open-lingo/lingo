@@ -1,0 +1,2781 @@
+{
+  "schema": 1,
+  "moduleId": "m15",
+  "lang": "ja",
+  "generatedAt": "2026-09-11",
+  "entryCount": 462,
+  "entries": [
+    {
+      "anchor": "m15/atom:いそがしい/gloss",
+      "en": "busy, irritated",
+      "enSourceHash": "5fb030817071f26c",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m15/atom:えいが/gloss",
+      "en": "movie",
+      "enSourceHash": "8a6ba32c9bed6ce7",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m15/atom:おんがく/gloss",
+      "en": "music",
+      "enSourceHash": "80f189984e5ca702",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m15/atom:くつ/gloss",
+      "en": "shoes",
+      "enSourceHash": "01ea5ddd3be5477a",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m15/atom:こと/gloss",
+      "en": "thing, the act of doing",
+      "enSourceHash": "df007bee9984e42d",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m15/atom:こと/shortGloss",
+      "en": "thing (act of)",
+      "enSourceHash": "8bda8a56c92da217",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m15/atom:とき/gloss",
+      "en": "time, when",
+      "enSourceHash": "fa88a24b39916d2f",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m15/atom:とき/shortGloss",
+      "en": "time, when",
+      "enSourceHash": "fa88a24b39916d2f",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m15/atom:まえ/gloss",
+      "en": "before",
+      "enSourceHash": "6db7d803e74f1ffa",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m15/atom:やる/gloss",
+      "en": "to do",
+      "enSourceHash": "217655f48dde4e0a",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m15/atom:りょこう/gloss",
+      "en": "travel",
+      "enSourceHash": "0209442e115ad7bc",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m15/atom:カメラ/gloss",
+      "en": "camera",
+      "enSourceHash": "89e8b9518d922794",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m15/gp:dictionary-form/ex:きっさてんで のむ ちゃが すきだ。",
+      "en": "I like the tea I drink at the coffee shop.",
+      "enSourceHash": "0c528e2a15ae1bf7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:dictionary-form/ex:きっさてんで はたらく ひとと あそぶ。",
+      "en": "I hang out with the person who works at the coffee shop.",
+      "enSourceHash": "b5a4f9a036842671",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:dictionary-form/ex:ごはんを たべる じかんが ない。",
+      "en": "There is no time to eat.",
+      "enSourceHash": "184904f90065d2fe",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:dictionary-form/ex:ちゃを のむ ひとは ミカだ。",
+      "en": "The person who drinks tea is Mika.",
+      "enSourceHash": "3c088ec08df26f3a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:dictionary-form/ex:ほんを みます ひとが いる。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:dictionary-form/ex:ほんを みる ひとが いる。",
+      "en": "There is a person who looks at books.",
+      "enSourceHash": "1f211265956c4149",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:ga-existence/ex:たなかが おしえる じゅぎょうは おもしろい。",
+      "en": "The class Tanaka teaches is interesting.",
+      "enSourceHash": "5075559c799e3cf4",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:ga-existence/ex:わたしが かった かばんは やすい。",
+      "en": "The bag I bought is cheap.",
+      "enSourceHash": "3dadaaa2de5c7a8b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:ga-existence/ex:わたしは ミカが かった ほんを みた。",
+      "en": "I looked at the book Mika bought.",
+      "enSourceHash": "df47bba1202db915",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:ga-existence/ex:わたしは ミカは かった ほんを みた。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:ga-existence/ex:ケンが きいた うたは おもしろい。",
+      "en": "The song Ken heard is interesting.",
+      "enSourceHash": "aee9e29c776426a4",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:ga-existence/ex:ミカが かった いえは しずかだ。",
+      "en": "The house Mika bought is quiet.",
+      "enSourceHash": "b4bc1d8580fd917e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:mae-ni/ex:うみで およぐ まえに みずを のんだ。",
+      "en": "Before swimming in the sea, I drank water.",
+      "enSourceHash": "4d5bfdce1fbee773",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:mae-ni/ex:きっさてんに いく まえに かばんを かった。",
+      "en": "Before going to the coffee shop, I bought a bag.",
+      "enSourceHash": "eeeedd3197f661f1",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:mae-ni/ex:じゅぎょうの まえに ともだちと あそんだ。",
+      "en": "Before class, I hung out with a friend.",
+      "enSourceHash": "fa6fefd135cb46cd",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:mae-ni/ex:だいがくに いく まえに ごはんを たべる。",
+      "en": "Before going to university, I eat.",
+      "enSourceHash": "1ddadcfef1ddfc4c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:mae-ni/ex:だいがくに いった まえに ごはんを たべる。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:mae-ni/ex:ちゃを のむ まえに ほんを みた。",
+      "en": "Before drinking tea, I looked at a book.",
+      "enSourceHash": "769d85966f97902a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:no-ga-suki/ex:あさ はたらく ことは きらいだ。",
+      "en": "I hate working in the morning.",
+      "enSourceHash": "f69c039cde5a9c0e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:no-ga-suki/ex:うみで およぐ ことが すきだ。",
+      "en": "I like swimming in the sea.",
+      "enSourceHash": "c32f08b106012234",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:no-ga-suki/ex:うみで およぐが すきだ。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:no-ga-suki/ex:ともだちと あそぶ ことは おもしろい。",
+      "en": "Hanging out with friends is fun.",
+      "enSourceHash": "d93a7f9a90225698",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:no-ga-suki/ex:ほんを みる ことが すきだ。",
+      "en": "I like looking at books.",
+      "enSourceHash": "e767544c1a886657",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:no-ga-suki/ex:わからない ことが ある。",
+      "en": "There is something I don't understand.",
+      "enSourceHash": "806c4924f5b2d8be",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:ta-form/ex:あさ のんだ ちゃは おいしい。",
+      "en": "The tea I drank in the morning is delicious.",
+      "enSourceHash": "23e623f53914bb71",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:ta-form/ex:きのう いった みせは ふるい。",
+      "en": "The shop I went to yesterday is old.",
+      "enSourceHash": "6584bd4832cd245e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:ta-form/ex:きのう かった の ほんを みた。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:ta-form/ex:きのう かった ほんを みた。",
+      "en": "I looked at the book I bought yesterday.",
+      "enSourceHash": "0231cefdbb86519a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:ta-form/ex:きのう きいた うたが すきだ。",
+      "en": "I like the song I heard yesterday.",
+      "enSourceHash": "6a1852ede170782a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:ta-form/ex:きのう たべた すしは たかい。",
+      "en": "The sushi I ate yesterday is expensive.",
+      "enSourceHash": "0a1b3a91839ed043",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:te-kara/ex:うたを きいてから ごはんを たべた。",
+      "en": "After listening to a song, I ate.",
+      "enSourceHash": "120777a72fe548fe",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:te-kara/ex:きっさてんに いってから みせに いった。",
+      "en": "After going to the coffee shop, I went to the shop.",
+      "enSourceHash": "2b062abda6715026",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:te-kara/ex:ごはんを たべてから だいがくに いく。",
+      "en": "After eating, I go to university.",
+      "enSourceHash": "c9a7cb643be66811",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:te-kara/ex:ごはんを たべるてから だいがくに いく。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:te-kara/ex:ちゃを のんでから しゃしんを みた。",
+      "en": "After drinking tea, I looked at the photo.",
+      "enSourceHash": "21475886f212b73c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:te-kara/ex:めがねを かってから えきに いった。",
+      "en": "After buying glasses, I went to the station.",
+      "enSourceHash": "5a46fb30b4aedd98",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:toki/ex:うみに いく とき ぼうしを かう。",
+      "en": "When I go to the sea, I buy a hat.",
+      "enSourceHash": "0f6bfed2f74106e9",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:toki/ex:がくせいだ とき じてんしゃを かった。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:toki/ex:がくせいの とき じてんしゃを かった。",
+      "en": "When I was a student, I bought a bicycle.",
+      "enSourceHash": "0b767a5c5166eaae",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:toki/ex:きっさてんに いった とき ちゃを のんだ。",
+      "en": "When I went to the coffee shop, I drank tea.",
+      "enSourceHash": "d46fc70adcb4e98b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:toki/ex:げんきな とき うみで およぐ。",
+      "en": "When I'm well, I swim in the sea.",
+      "enSourceHash": "339054692b26ff23",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/gp:toki/ex:ごはんを たべる とき みずを のむ。",
+      "en": "When I eat, I drink water.",
+      "enSourceHash": "11bb3fcb0ce879fd",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:0db4d3c5c497f75b",
+      "en": "I want to swim in the sea",
+      "enSourceHash": "0db4d3c5c497f75b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:336074805fc85398",
+      "en": "time",
+      "enSourceHash": "336074805fc85398",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:38a81e87e79631e6",
+      "en": "person",
+      "enSourceHash": "38a81e87e79631e6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:4865591efa8f3c1e",
+      "en": "I like the tea I drink at the coffee shop",
+      "enSourceHash": "4865591efa8f3c1e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:4a69f19c8c264850",
+      "en": "sea",
+      "enSourceHash": "4a69f19c8c264850",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:4f0c41ef905ed97d",
+      "en": "The person who drinks tea is Mika",
+      "enSourceHash": "4f0c41ef905ed97d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:6424956705fbebe4",
+      "en": "Ken goes to the coffee shop",
+      "enSourceHash": "6424956705fbebe4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:69b50329f003274d",
+      "en": "I hang out with the person who works at the coffee shop",
+      "enSourceHash": "69b50329f003274d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:8e1108a56228d20f",
+      "en": "There is a person who looks at books",
+      "enSourceHash": "8e1108a56228d20f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:99ed6b6afbfdb654",
+      "en": "There is a person who swims in the sea",
+      "enSourceHash": "99ed6b6afbfdb654",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:c50a9be29aa0843e",
+      "en": "The person swam in the sea",
+      "enSourceHash": "c50a9be29aa0843e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:c798e5b18ed876ef",
+      "en": "coffee shop",
+      "enSourceHash": "c798e5b18ed876ef",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:d2b4341e4409cd00",
+      "en": "The person who works at the coffee shop is Ken",
+      "enSourceHash": "d2b4341e4409cd00",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:e28187400a6b2e06",
+      "en": "The person who works at the shop is Ken",
+      "enSourceHash": "e28187400a6b2e06",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:f1e396284df03abf",
+      "en": "There is a person who swims in the river",
+      "enSourceHash": "f1e396284df03abf",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/en:fa64496c5f9e6071",
+      "en": "Ken is waiting at the coffee shop",
+      "enSourceHash": "fa64496c5f9e6071",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/ja:あたらしい くるまを うる みせに いく",
+      "en": "Build: I go to the shop that sells new cars",
+      "enSourceHash": "7754d2ac4fc47571",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/ja:きっさてんで のむ ちゃが すきだ",
+      "en": "Build: I like the tea I drink at the coffee shop",
+      "enSourceHash": "436a1e5908c933a6",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/ja:きっさてんで はたらく ひとと あそぶ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/ja:きっさてんで はたらく ひとは ミカの あたらしい ともだちだ",
+      "en": "Build: The person who works at the coffee shop is Mika's new friend",
+      "enSourceHash": "9c68552846e9a580",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/ja:ごはんを たべる じかんが ない",
+      "en": "Build: There is no time to eat",
+      "enSourceHash": "6e68c1ad0794185b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/ja:ちゃを のむ ひとは ミカだ",
+      "en": "Build: The person who drinks tea is Mika",
+      "enSourceHash": "4fea688d22d0d772",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/ja:にほんに いく ひとは ともだちだ",
+      "en": "Build: The person going to Japan is my friend",
+      "enSourceHash": "c0ddd1c3543a551a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-1/ja:ほんを みる ひとが いる",
+      "en": "Build: There is a person who looks at books",
+      "enSourceHash": "342eca23d4139ce2",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:04942b5dc2feb104",
+      "en": "I bought a new hat today",
+      "enSourceHash": "04942b5dc2feb104",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:07f546eadc94abbb",
+      "en": "I went to a quiet shop today",
+      "enSourceHash": "07f546eadc94abbb",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:0f8074e5a2bb0b9a",
+      "en": "The hat I bought yesterday is new",
+      "enSourceHash": "0f8074e5a2bb0b9a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:248d1954b5c55536",
+      "en": "The shop I go to is quiet",
+      "enSourceHash": "248d1954b5c55536",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:333b22a223e306a5",
+      "en": "The movie I saw yesterday is interesting",
+      "enSourceHash": "333b22a223e306a5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:55d8a4ee211bc4f6",
+      "en": "I looked at the book I bought yesterday",
+      "enSourceHash": "55d8a4ee211bc4f6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:5785380307d23d75",
+      "en": "The tea I drank in the morning is delicious",
+      "enSourceHash": "5785380307d23d75",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:63f75c890b05405e",
+      "en": "song",
+      "enSourceHash": "63f75c890b05405e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:670bd9ced0c6bc3f",
+      "en": "Sushi",
+      "enSourceHash": "670bd9ced0c6bc3f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:74ff84453c30f7cf",
+      "en": "The shop I went to yesterday was busy",
+      "enSourceHash": "74ff84453c30f7cf",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:82a3537ff0dbce7e",
+      "en": "name",
+      "enSourceHash": "82a3537ff0dbce7e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:dfe244d22b9b36d6",
+      "en": "The shop I went to yesterday is old",
+      "enSourceHash": "dfe244d22b9b36d6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:e3fdda145da2e507",
+      "en": "The hat I bought yesterday is old",
+      "enSourceHash": "e3fdda145da2e507",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:ee8f9994170ceea3",
+      "en": "The shop I went to yesterday was quiet",
+      "enSourceHash": "ee8f9994170ceea3",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/en:f15f9611b09733d6",
+      "en": "The hat I want to buy is new",
+      "enSourceHash": "f15f9611b09733d6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/ja:あさ のんだ ちゃは おいしい",
+      "en": "Build: The tea I drank in the morning is delicious",
+      "enSourceHash": "13af6195f7a8b482",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/ja:きのう いった みせは ふるい",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/ja:きのう かった ほんを みた",
+      "en": "Build: I looked at the book I bought yesterday",
+      "enSourceHash": "e601115c587145f6",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/ja:きのう きいた うたが すきだ",
+      "en": "Build: I like the song I heard yesterday",
+      "enSourceHash": "66963f0d6ae503bf",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/ja:きのう きっさてんで のんだ ちゃの なまえを おしえる",
+      "en": "Build: I'll tell you the name of the tea I drank at the coffee shop yesterday",
+      "enSourceHash": "7b7906137a5615e3",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/ja:きのう たべた すしは たかい",
+      "en": "Build: The sushi I ate yesterday is expensive",
+      "enSourceHash": "b885139ba1c404b8",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/ja:きのう みた えいがの なまえが わからない",
+      "en": "Build: I don't know the name of the movie I saw yesterday",
+      "enSourceHash": "cf0f36527a674e0f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-2/ja:きのう みた えいがは おもしろい",
+      "en": "Build: The movie I saw yesterday is interesting",
+      "enSourceHash": "cc6bb5346ab14c0c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:0889113e04d3203f",
+      "en": "class",
+      "enSourceHash": "0889113e04d3203f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:316705c563af95e9",
+      "en": "The bicycle Mika sells is old",
+      "enSourceHash": "316705c563af95e9",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:39bf24b1ae7eadea",
+      "en": "The bicycle Mika sells is new",
+      "enSourceHash": "39bf24b1ae7eadea",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:5214c881b989561b",
+      "en": "The bicycle Mika bought is old",
+      "enSourceHash": "5214c881b989561b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:63f75c890b05405e",
+      "en": "song",
+      "enSourceHash": "63f75c890b05405e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:6528f84104697227",
+      "en": "Tanaka wants to buy a big car",
+      "enSourceHash": "6528f84104697227",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:6f6ccf553a38ebdf",
+      "en": "The song Ken heard is interesting",
+      "enSourceHash": "6f6ccf553a38ebdf",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:7d5115a3843c1120",
+      "en": "The car Tanaka sold is big",
+      "enSourceHash": "7d5115a3843c1120",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:92226e7064e32139",
+      "en": "The house Mika bought is quiet",
+      "enSourceHash": "92226e7064e32139",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:a24282a69ff42949",
+      "en": "The class Tanaka teaches is interesting",
+      "enSourceHash": "a24282a69ff42949",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:b2b28475feeb7ab2",
+      "en": "I looked at the book Mika bought",
+      "enSourceHash": "b2b28475feeb7ab2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:c018019b6a8b01ab",
+      "en": "bag",
+      "enSourceHash": "c018019b6a8b01ab",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:d29af8a2e160dd86",
+      "en": "bicycle",
+      "enSourceHash": "d29af8a2e160dd86",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:dd9f193401fef3f3",
+      "en": "The car Tanaka bought is big",
+      "enSourceHash": "dd9f193401fef3f3",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:f7bff8182b459ed2",
+      "en": "Mika wants to sell a new bicycle",
+      "enSourceHash": "f7bff8182b459ed2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/en:fb22bd845b56318b",
+      "en": "The car Tanaka bought is small",
+      "enSourceHash": "fb22bd845b56318b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/ja:たなかが おしえる じゅぎょうは おもしろい",
+      "en": "Build: The class Tanaka teaches is interesting",
+      "enSourceHash": "ee8a249af1914d99",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/ja:わたしが かった かばんは やすい",
+      "en": "Build: The bag I bought is cheap",
+      "enSourceHash": "d457dcbd9b5c0b67",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/ja:わたしは ミカが かった ほんを みた",
+      "en": "Build: I looked at the book Mika bought",
+      "enSourceHash": "50b73982404a9d13",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/ja:ケンが うる じてんしゃは ふるい",
+      "en": "Build: The bicycle Ken sells is old",
+      "enSourceHash": "f10fcb545c05bb00",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/ja:ケンが きいた うたは おもしろい",
+      "en": "Build: The song Ken heard is interesting",
+      "enSourceHash": "96380c9aa2ee6d51",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/ja:トムが かった くつは あたらしい",
+      "en": "Build: The shoes Tom bought are new",
+      "enSourceHash": "c0768d44802ae26b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/ja:ミカが かった いえは しずかだ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-3/ja:ミカが きのう かった あたらしい くつは やすい",
+      "en": "Build: The new shoes Mika bought yesterday are cheap",
+      "enSourceHash": "3428f3f685e054a7",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:01b6a1a44f223c47",
+      "en": "I like swimming in the morning",
+      "enSourceHash": "01b6a1a44f223c47",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:04163355df98925c",
+      "en": "I hate swimming in the morning",
+      "enSourceHash": "04163355df98925c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:0cd5f80f6c275eb2",
+      "en": "I hate working in the morning",
+      "enSourceHash": "0cd5f80f6c275eb2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:1c30bcf8f84854e3",
+      "en": "Ken likes buying books",
+      "enSourceHash": "1c30bcf8f84854e3",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:23e5e512e5e30713",
+      "en": "I don't swim in the morning",
+      "enSourceHash": "23e5e512e5e30713",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:259c1b61afc88d63",
+      "en": "I swam in the morning",
+      "enSourceHash": "259c1b61afc88d63",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:3456494e4f163de9",
+      "en": "I like looking at books",
+      "enSourceHash": "3456494e4f163de9",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:4a69f19c8c264850",
+      "en": "sea",
+      "enSourceHash": "4a69f19c8c264850",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:4bdf40d0d1ae3611",
+      "en": "rice/meal",
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:61ad29b2626ce2da",
+      "en": "I like swimming in the sea",
+      "enSourceHash": "61ad29b2626ce2da",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:63f75c890b05405e",
+      "en": "song",
+      "enSourceHash": "63f75c890b05405e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:862adb7c55cc4af8",
+      "en": "Ken likes looking at books",
+      "enSourceHash": "862adb7c55cc4af8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:8a6ba32c9bed6ce7",
+      "en": "movie",
+      "enSourceHash": "8a6ba32c9bed6ce7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:cde48537ca2c2808",
+      "en": "friend",
+      "enSourceHash": "cde48537ca2c2808",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:e59e47eaca320f95",
+      "en": "Mika likes listening to songs",
+      "enSourceHash": "e59e47eaca320f95",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:f3c06b2ef5609431",
+      "en": "Ken bought a book",
+      "enSourceHash": "f3c06b2ef5609431",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/en:f3d85c3604093da1",
+      "en": "Ken doesn't like books",
+      "enSourceHash": "f3d85c3604093da1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/ja:あさ はたらく ことは きらいだ",
+      "en": "Build: I hate working in the morning",
+      "enSourceHash": "86a86f9213fddc51",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/ja:あたらしい えいがを みる ことが すきだ",
+      "en": "Build: I like watching new movies",
+      "enSourceHash": "48e161d8902e914d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/ja:うみで およぐ ことが すきだ",
+      "en": "Build: I like swimming in the sea",
+      "enSourceHash": "24ddad29bb12cc57",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/ja:きらいな ことが ない",
+      "en": "Build: There is nothing I dislike",
+      "enSourceHash": "25b21a0bd563abcf",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/ja:ともだちと あそぶ ことは おもしろい",
+      "en": "Build: Hanging out with friends is fun",
+      "enSourceHash": "cf71dc469619f8ae",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/ja:ほんを みる ことが すきだ",
+      "en": "Build: I like looking at books",
+      "enSourceHash": "4e708b9357ef4b2f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/ja:わからない ことが ある",
+      "en": "Build: There is something I don't understand",
+      "enSourceHash": "61f02f8473108bb5",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/ja:ミカが すきな ことは あたらしい えいがを みる ことだ",
+      "en": "Build: What Mika likes is watching new movies",
+      "enSourceHash": "d5d0f8f30f6c7c5c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-4/ja:ミカは うたを きく ことが すきだ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:0f4168490e38b844",
+      "en": "water",
+      "enSourceHash": "0f4168490e38b844",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:10a6ea1c6c44be32",
+      "en": "When I go to the sea, I buy a hat",
+      "enSourceHash": "10a6ea1c6c44be32",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:130af364127662b2",
+      "en": "When I was a student, I bought a bicycle",
+      "enSourceHash": "130af364127662b2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:18e1dd392168f601",
+      "en": "hat",
+      "enSourceHash": "18e1dd392168f601",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:2770e03f669d40c0",
+      "en": "I want to buy a camera for the sea",
+      "enSourceHash": "2770e03f669d40c0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:3b5346da5517bc68",
+      "en": "When I'm busy, I don't drink tea",
+      "enSourceHash": "3b5346da5517bc68",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:47b57e9c0a051094",
+      "en": "When I went to the coffee shop, I drank tea",
+      "enSourceHash": "47b57e9c0a051094",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:4bdf40d0d1ae3611",
+      "en": "rice/meal",
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:4e6b2e96bfcf8e92",
+      "en": "I was busy and didn't drink tea",
+      "enSourceHash": "4e6b2e96bfcf8e92",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:657b94d62934eaf1",
+      "en": "I don't drink tea today",
+      "enSourceHash": "657b94d62934eaf1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:8a6ba32c9bed6ce7",
+      "en": "movie",
+      "enSourceHash": "8a6ba32c9bed6ce7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:8cc93866cd21c271",
+      "en": "When I eat, I drink water",
+      "enSourceHash": "8cc93866cd21c271",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:c44562367a3831bb",
+      "en": "I buy a camera at the sea",
+      "enSourceHash": "c44562367a3831bb",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:c74b381dd78b425f",
+      "en": "When I go to the sea, I buy a camera",
+      "enSourceHash": "c74b381dd78b425f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:d29af8a2e160dd86",
+      "en": "bicycle",
+      "enSourceHash": "d29af8a2e160dd86",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:deea5da18f4e7bed",
+      "en": "When I went to the sea, I bought a camera",
+      "enSourceHash": "deea5da18f4e7bed",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/en:fbfc3b8f50ab11d1",
+      "en": "When I'm busy, I drink tea",
+      "enSourceHash": "fbfc3b8f50ab11d1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/ja:いそがしい とき ごはんを たべない",
+      "en": "Build: When I'm busy, I don't eat",
+      "enSourceHash": "5bc1a75423b6e294",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/ja:うみに いく とき ぼうしを かう",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/ja:えいがを みる とき ケンと いく",
+      "en": "Build: When I watch a movie, I go with Ken",
+      "enSourceHash": "7fd1937988815dcd",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/ja:がくせいの とき じてんしゃを かった",
+      "en": "Build: When I was a student, I bought a bicycle",
+      "enSourceHash": "e60d7f9f5140d131",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/ja:きっさてんに いった とき ちゃを のんだ",
+      "en": "Build: When I went to the coffee shop, I drank tea",
+      "enSourceHash": "0cb99868eba7f6ce",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/ja:げんきな とき うみで およぐ",
+      "en": "Build: When I'm well, I swim in the sea",
+      "enSourceHash": "15a3f619a55d317a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/ja:ごはんを たべる とき みずを のむ",
+      "en": "Build: When I eat, I drink water",
+      "enSourceHash": "79ae97b638659485",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-5/ja:ミカが にほんに いった とき あたらしい くつを かった",
+      "en": "Build: When Mika went to Japan, she bought new shoes",
+      "enSourceHash": "44049ee31956ead9",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:0008c4e6bbdddce2",
+      "en": "I hang out with friends during the summer vacation",
+      "enSourceHash": "0008c4e6bbdddce2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:192f6fd40a845394",
+      "en": "When I travel, I buy a camera",
+      "enSourceHash": "192f6fd40a845394",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:336074805fc85398",
+      "en": "time",
+      "enSourceHash": "336074805fc85398",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:3e0411cecedac492",
+      "en": "When I have no time, I don't watch movies",
+      "enSourceHash": "3e0411cecedac492",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:4d2f07c851325d06",
+      "en": "When it was summer vacation, I hung out with a friend",
+      "enSourceHash": "4d2f07c851325d06",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:89e8b9518d922794",
+      "en": "camera",
+      "enSourceHash": "89e8b9518d922794",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:8a6ba32c9bed6ce7",
+      "en": "movie",
+      "enSourceHash": "8a6ba32c9bed6ce7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:9d457c3e55618a4a",
+      "en": "summer break",
+      "enSourceHash": "9d457c3e55618a4a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:b47ced6cb0b18bda",
+      "en": "I want to hang out with a friend in the summer",
+      "enSourceHash": "b47ced6cb0b18bda",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:ba6c1f9d445f3559",
+      "en": "I have no time for movies today",
+      "enSourceHash": "ba6c1f9d445f3559",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:c018019b6a8b01ab",
+      "en": "bag",
+      "enSourceHash": "c018019b6a8b01ab",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:ca7004ff1595253d",
+      "en": "When I go on a trip, I buy a new bag",
+      "enSourceHash": "ca7004ff1595253d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:dc3d37be15a645e1",
+      "en": "When it was summer vacation, I worked",
+      "enSourceHash": "dc3d37be15a645e1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:ed103a700692ab3a",
+      "en": "When it was summer vacation, I went to the sea",
+      "enSourceHash": "ed103a700692ab3a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:f8359c2520c6a836",
+      "en": "I didn't watch a movie because I had no time",
+      "enSourceHash": "f8359c2520c6a836",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:f8e3dfd36f150255",
+      "en": "When I have time, I watch movies",
+      "enSourceHash": "f8e3dfd36f150255",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/en:fa88a24b39916d2f",
+      "en": "time, when",
+      "enSourceHash": "fa88a24b39916d2f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/ja:じかんが ある とき えいがを みる",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/ja:じゅぎょうが ない とき ともだちと あそぶ",
+      "en": "Build: When there is no class, I hang out with friends",
+      "enSourceHash": "ce61678bd4c34738",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/ja:なつやすみの とき うみに いった",
+      "en": "Build: When it was summer vacation, I went to the sea",
+      "enSourceHash": "50de42273c35d376",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/ja:にほんに いった とき すしを たべた",
+      "en": "Build: When I went to Japan, I ate sushi",
+      "enSourceHash": "b0cdc79d5c37ec34",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/ja:にほんに いった とき ミカが すきな みせで くつを かった",
+      "en": "Build: When I went to Japan, I bought shoes at the shop Mika likes",
+      "enSourceHash": "8ae0dce9514684b6",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/ja:りょこうが すきな ひとと あそぶ",
+      "en": "Build: I hang out with a person who likes traveling",
+      "enSourceHash": "6db39b08fc7ad260",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/ja:りょこうに いく とき あたらしい かばんを かう",
+      "en": "Build: When I go on a trip, I buy a new bag",
+      "enSourceHash": "f03b4c990751ae7c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-6/ja:りょこうの とき カメラを かう",
+      "en": "Build: When I travel, I buy a camera",
+      "enSourceHash": "4f73bff4487a07e7",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:01ea5ddd3be5477a",
+      "en": "shoes",
+      "enSourceHash": "01ea5ddd3be5477a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:078203896e36c494",
+      "en": "Before going to the coffee shop, I bought a bag",
+      "enSourceHash": "078203896e36c494",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:0aa0f5c2b2a0f562",
+      "en": "Before going to university, I eat",
+      "enSourceHash": "0aa0f5c2b2a0f562",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:0b9441be01737d8c",
+      "en": "I drank tea in class",
+      "enSourceHash": "0b9441be01737d8c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:14069429150abcbf",
+      "en": "ticket",
+      "enSourceHash": "14069429150abcbf",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:1a30ea64b1716b75",
+      "en": "I looked at a photo at the university",
+      "enSourceHash": "1a30ea64b1716b75",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:34a389d790fc2bdd",
+      "en": "trip",
+      "enSourceHash": "34a389d790fc2bdd",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:43b111d7cd28e368",
+      "en": "Before going to university, I looked at a photo",
+      "enSourceHash": "43b111d7cd28e368",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:483626b1251e26b0",
+      "en": "Before drinking tea, I went to class",
+      "enSourceHash": "483626b1251e26b0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:4ee8ed2ffc23619f",
+      "en": "Before class, I hung out with a friend",
+      "enSourceHash": "4ee8ed2ffc23619f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:5135000b8ca7ccae",
+      "en": "After going to university, I looked at a photo",
+      "enSourceHash": "5135000b8ca7ccae",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:5e270818f646419f",
+      "en": "Before class, I drank tea",
+      "enSourceHash": "5e270818f646419f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:8a6ba32c9bed6ce7",
+      "en": "movie",
+      "enSourceHash": "8a6ba32c9bed6ce7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:8bda8a56c92da217",
+      "en": "thing (act of)",
+      "enSourceHash": "8bda8a56c92da217",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:9ca70faf23158e71",
+      "en": "After class, I drank tea",
+      "enSourceHash": "9ca70faf23158e71",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:daac6ccd97bbc4ae",
+      "en": "Before looking at a photo, I went to university",
+      "enSourceHash": "daac6ccd97bbc4ae",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:ed72556db05d9107",
+      "en": "Before drinking tea, I looked at a book",
+      "enSourceHash": "ed72556db05d9107",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/en:fa88a24b39916d2f",
+      "en": "time, when",
+      "enSourceHash": "fa88a24b39916d2f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/ja:うみで およぐ まえに みずを のんだ",
+      "en": "Build: Before swimming in the sea, I drank water",
+      "enSourceHash": "3ccaa3614b812efe",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/ja:えいがを みる まえに きっぷを かう",
+      "en": "Build: Before watching a movie, I buy a ticket",
+      "enSourceHash": "f97eb9da71f7a8bd",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/ja:きっさてんに いく まえに かばんを かった",
+      "en": "Build: Before going to the coffee shop, I bought a bag",
+      "enSourceHash": "d22cca764e39216d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/ja:じゅぎょうの まえに ともだちと あそんだ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/ja:だいがくに いく まえに ごはんを たべる",
+      "en": "Build: Before going to university, I eat",
+      "enSourceHash": "c1061dfb9838ea75",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/ja:ちゃを のむ まえに ほんを みた",
+      "en": "Build: Before drinking tea, I looked at a book",
+      "enSourceHash": "7c4f98a20b44fec8",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/ja:にほんに いく まえに ミカが すきな みせで あたらしい かばんを かった",
+      "en": "Build: Before going to Japan, I bought a new bag at the shop Mika likes",
+      "enSourceHash": "ca60c576bf96bf3f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-7/ja:りょこうの まえに あたらしい くつを かった",
+      "en": "Build: Before the trip, I bought new shoes",
+      "enSourceHash": "b00f6e1f3e4f52b4",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:01ea5ddd3be5477a",
+      "en": "shoes",
+      "enSourceHash": "01ea5ddd3be5477a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:119288ad2b39a493",
+      "en": "Before eating, I looked at a book",
+      "enSourceHash": "119288ad2b39a493",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:12a6ae5f90cb5712",
+      "en": "After eating, I looked at a book",
+      "enSourceHash": "12a6ae5f90cb5712",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:22992fccfc9302da",
+      "en": "Before looking at the photo, I went to the shop",
+      "enSourceHash": "22992fccfc9302da",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:2a5eb07fcfb23df4",
+      "en": "After going to the shop, I looked at the photo",
+      "enSourceHash": "2a5eb07fcfb23df4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:34a389d790fc2bdd",
+      "en": "trip",
+      "enSourceHash": "34a389d790fc2bdd",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:4730b9b2d245ed86",
+      "en": "I looked at a photo at the shop",
+      "enSourceHash": "4730b9b2d245ed86",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:48df3c884e7dbebb",
+      "en": "After looking at the photo, I went to the shop",
+      "enSourceHash": "48df3c884e7dbebb",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:502212c8c3a13581",
+      "en": "I looked at a book while eating",
+      "enSourceHash": "502212c8c3a13581",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:5b01c1b76cfe20c2",
+      "en": "After eating, I go to university",
+      "enSourceHash": "5b01c1b76cfe20c2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:6db7d803e74f1ffa",
+      "en": "before",
+      "enSourceHash": "6db7d803e74f1ffa",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:8a6ba32c9bed6ce7",
+      "en": "movie",
+      "enSourceHash": "8a6ba32c9bed6ce7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:8bda8a56c92da217",
+      "en": "thing (act of)",
+      "enSourceHash": "8bda8a56c92da217",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:aad73bbc1708dbe3",
+      "en": "After drinking tea, I looked at the photo",
+      "enSourceHash": "aad73bbc1708dbe3",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:ad563d9b12df4d15",
+      "en": "After listening to a song, I ate",
+      "enSourceHash": "ad563d9b12df4d15",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:c4be28c21d81d593",
+      "en": "After looking at a book, I ate",
+      "enSourceHash": "c4be28c21d81d593",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:f7fc5dd3423937bd",
+      "en": "After going to the coffee shop, I went to the shop",
+      "enSourceHash": "f7fc5dd3423937bd",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/en:fa88a24b39916d2f",
+      "en": "time, when",
+      "enSourceHash": "fa88a24b39916d2f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/ja:うたを きいてから ごはんを たべた",
+      "en": "Build: After listening to a song, I ate",
+      "enSourceHash": "f453d41e7e1b3ff7",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/ja:えいがを みてから ごはんを たべる",
+      "en": "Build: After watching the movie, I eat",
+      "enSourceHash": "546b12ec5a976857",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/ja:かばんを かってから ミカが すきな きっさてんで ちゃを のんだ",
+      "en": "Build: After buying a bag, I drank tea at the coffee shop Mika likes",
+      "enSourceHash": "c3381c2a7f9361d1",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/ja:きっさてんに いってから みせに いった",
+      "en": "Build: After going to the coffee shop, I went to the shop",
+      "enSourceHash": "3df49c24899cfd0c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/ja:ごはんを たべてから だいがくに いく",
+      "en": "Build: After eating, I go to university",
+      "enSourceHash": "e2b996b95a73c1da",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/ja:だいがくに いってから ともだちと あそんだ",
+      "en": "Build: After going to university, I hung out with a friend",
+      "enSourceHash": "9a9b1da5a67a5a2b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/ja:ちゃを のんでから しゃしんを みた",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-8/ja:めがねを かってから えきに いった",
+      "en": "Build: After buying glasses, I went to the station",
+      "enSourceHash": "b06caaa900b23c6e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:01ea5ddd3be5477a",
+      "en": "shoes",
+      "enSourceHash": "01ea5ddd3be5477a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:34a389d790fc2bdd",
+      "en": "trip",
+      "enSourceHash": "34a389d790fc2bdd",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:495f439f0b3c12f3",
+      "en": "I bought shoes at the coffee shop",
+      "enSourceHash": "495f439f0b3c12f3",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:5ae8805a9734b711",
+      "en": "After buying shoes, I went to the coffee shop",
+      "enSourceHash": "5ae8805a9734b711",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:62c51451e1232132",
+      "en": "Before watching the movie, I bought a ticket",
+      "enSourceHash": "62c51451e1232132",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:6db7d803e74f1ffa",
+      "en": "before",
+      "enSourceHash": "6db7d803e74f1ffa",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:7fd400c879f1799a",
+      "en": "Before buying shoes, I went to the coffee shop",
+      "enSourceHash": "7fd400c879f1799a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:8a6ba32c9bed6ce7",
+      "en": "movie",
+      "enSourceHash": "8a6ba32c9bed6ce7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:8bda8a56c92da217",
+      "en": "thing (act of)",
+      "enSourceHash": "8bda8a56c92da217",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:a9488c18f5fd7150",
+      "en": "Before eating, I drink water",
+      "enSourceHash": "a9488c18f5fd7150",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:c7b1221cb257e7ca",
+      "en": "After eating, I drink tea",
+      "enSourceHash": "c7b1221cb257e7ca",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:d07b73d9c1b4ae0a",
+      "en": "Before watching the movie, I ate",
+      "enSourceHash": "d07b73d9c1b4ae0a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:d7947c9371b72f05",
+      "en": "I ate at the movie",
+      "enSourceHash": "d7947c9371b72f05",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:e1cbae6623663945",
+      "en": "Before eating, I watched the movie",
+      "enSourceHash": "e1cbae6623663945",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:eec2557983d00cac",
+      "en": "After going to the coffee shop, I bought shoes",
+      "enSourceHash": "eec2557983d00cac",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:f97068ba33a1592c",
+      "en": "After watching the movie, I ate",
+      "enSourceHash": "f97068ba33a1592c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/en:fa88a24b39916d2f",
+      "en": "time, when",
+      "enSourceHash": "fa88a24b39916d2f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/ja:えいがを みてから ごはんを たべた",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/ja:えいがを みる まえに きっぷを かった",
+      "en": "Build: Before watching the movie, I bought a ticket",
+      "enSourceHash": "e624b6e68f4a15df",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/ja:ごはんを たべてから ちゃを のむ",
+      "en": "Build: After eating, I drink tea",
+      "enSourceHash": "e3d8bd7c85c7aa58",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/ja:ごはんを たべる まえに みずを のむ",
+      "en": "Build: Before eating, I drink water",
+      "enSourceHash": "ee8730c2e76a7e8c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/ja:だいがくに いく まえに きっさてんで ちゃを のむ",
+      "en": "Build: Before going to university, I drink tea at a coffee shop",
+      "enSourceHash": "e3d16c4750f49a76",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/ja:ちゃを のんでから うみで およぐ",
+      "en": "Build: After drinking tea, I swim in the sea",
+      "enSourceHash": "e4213d81d2b37547",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/ja:りょこうに いく まえに あたらしい くつを かってから ともだちと あそんだ",
+      "en": "Build: Before going on the trip, I bought new shoes and then hung out with a friend",
+      "enSourceHash": "514356a0c8d08e91",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/ja:りょこうに いってから ともだちと あそんだ",
+      "en": "Build: After going on the trip, I hung out with a friend",
+      "enSourceHash": "2cfbd6c42c286d0f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-9/ja:りょこうの まえに あたらしい くつを かう",
+      "en": "Build: Before the trip, I buy new shoes",
+      "enSourceHash": "fa911dfceb278da2",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:01ea5ddd3be5477a",
+      "en": "shoes",
+      "enSourceHash": "01ea5ddd3be5477a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:02a49b39b7d63c27",
+      "en": "I have no time to look at books",
+      "enSourceHash": "02a49b39b7d63c27",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:1810ced007af1719",
+      "en": "After looking at the shoes Ken bought, I went to the shop",
+      "enSourceHash": "1810ced007af1719",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:1839828da7eafee6",
+      "en": "I bought new shoes for Mika",
+      "enSourceHash": "1839828da7eafee6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:34a389d790fc2bdd",
+      "en": "trip",
+      "enSourceHash": "34a389d790fc2bdd",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:3e4539117fb12f2c",
+      "en": "I like the shoes Mika bought",
+      "enSourceHash": "3e4539117fb12f2c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:3fa9c0b3ac1496bf",
+      "en": "Challenge — say what, say when, say in what order",
+      "enSourceHash": "3fa9c0b3ac1496bf",
+      "kind": "title"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:44d694320d23c93d",
+      "en": "Mika bought new shoes at the shop",
+      "enSourceHash": "44d694320d23c93d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:6db7d803e74f1ffa",
+      "en": "before",
+      "enSourceHash": "6db7d803e74f1ffa",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:6e3bf34066729e64",
+      "en": "Pick the word for \"sea\"",
+      "enSourceHash": "6e3bf34066729e64",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:8a6ba32c9bed6ce7",
+      "en": "movie",
+      "enSourceHash": "8a6ba32c9bed6ce7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:8bda8a56c92da217",
+      "en": "thing (act of)",
+      "enSourceHash": "8bda8a56c92da217",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:a6f72652f97acdf4",
+      "en": "When I had time, I looked at a book",
+      "enSourceHash": "a6f72652f97acdf4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:ac046afae82dbb5f",
+      "en": "I bought new shoes at the shop Mika likes",
+      "enSourceHash": "ac046afae82dbb5f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:b5b1420916c2f4f0",
+      "en": "I like hanging out with friends when there is no class",
+      "enSourceHash": "b5b1420916c2f4f0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:d1813199833f86c1",
+      "en": "I like buying a new camera before a trip",
+      "enSourceHash": "d1813199833f86c1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:d91110f8b9fc1007",
+      "en": "Before going to Japan, I watched the movie Mika likes",
+      "enSourceHash": "d91110f8b9fc1007",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:ed0abbe07aa01605",
+      "en": "I like buying books when I have time",
+      "enSourceHash": "ed0abbe07aa01605",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:f8048ab68af6adae",
+      "en": "When I have time, I like looking at books",
+      "enSourceHash": "f8048ab68af6adae",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/en:fa88a24b39916d2f",
+      "en": "time, when",
+      "enSourceHash": "fa88a24b39916d2f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/ja:いそがしい とき えいがを みる じかんが ない",
+      "en": "Build: When I'm busy, there is no time to watch movies",
+      "enSourceHash": "cc3c2a11fabbfdeb",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/ja:がくせいの とき きいた うたを いま きいている",
+      "en": "Build: I'm listening to the song I heard when I was a student",
+      "enSourceHash": "876333921cb70ca4",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/ja:ごはんを たべてから ミカが すきな きっさてんで ちゃを のむ",
+      "en": "Build: After eating, I drink tea at the coffee shop Mika likes",
+      "enSourceHash": "244ea9f32a320f51",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/ja:じかんが ある とき ミカが かった ほんを みる ことが すきだ",
+      "en": "Build: When I have time, I like looking at the book Mika bought",
+      "enSourceHash": "9c2a90f4e5edf1e5",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/ja:じゅぎょうが ない とき ともだちと あそぶ ことが すきだ",
+      "en": "Build: I like hanging out with friends when there is no class",
+      "enSourceHash": "6c16d35b92f7f738",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/ja:にほんに いく まえに ミカが すきな えいがを みた",
+      "en": "Build: Before going to Japan, I watched the movie Mika likes",
+      "enSourceHash": "4e7a581648150fcd",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/ja:りょこうの まえに あたらしい カメラを かう ことが すきだ",
+      "en": "Build: I like buying a new camera before a trip",
+      "enSourceHash": "72a5e8ef1436654a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-challenge/ja:ケンが かった くつを みてから みせに いった",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:01ea5ddd3be5477a",
+      "en": "shoes",
+      "enSourceHash": "01ea5ddd3be5477a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:333b22a223e306a5",
+      "en": "The movie I saw yesterday is interesting",
+      "enSourceHash": "333b22a223e306a5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:35fa4f91b07ee7be",
+      "en": "The tea I drank in the morning was cheap",
+      "enSourceHash": "35fa4f91b07ee7be",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:38a81e87e79631e6",
+      "en": "person",
+      "enSourceHash": "38a81e87e79631e6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:55d8a4ee211bc4f6",
+      "en": "I looked at the book I bought yesterday",
+      "enSourceHash": "55d8a4ee211bc4f6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:5785380307d23d75",
+      "en": "The tea I drank in the morning is delicious",
+      "enSourceHash": "5785380307d23d75",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:63f75c890b05405e",
+      "en": "song",
+      "enSourceHash": "63f75c890b05405e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:69b50329f003274d",
+      "en": "I hang out with the person who works at the coffee shop",
+      "enSourceHash": "69b50329f003274d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:6e3bf34066729e64",
+      "en": "Pick the word for \"sea\"",
+      "enSourceHash": "6e3bf34066729e64",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:732d6f7e90aa12ef",
+      "en": "I want to work at the coffee shop",
+      "enSourceHash": "732d6f7e90aa12ef",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:735e4a73c6c90720",
+      "en": "The tea I bought in the morning is delicious",
+      "enSourceHash": "735e4a73c6c90720",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:8a6ba32c9bed6ce7",
+      "en": "movie",
+      "enSourceHash": "8a6ba32c9bed6ce7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:8a7070433e4f9bc4",
+      "en": "Review — sentences in front of nouns",
+      "enSourceHash": "8a7070433e4f9bc4",
+      "kind": "title"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:8e1108a56228d20f",
+      "en": "There is a person who looks at books",
+      "enSourceHash": "8e1108a56228d20f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:92226e7064e32139",
+      "en": "The house Mika bought is quiet",
+      "enSourceHash": "92226e7064e32139",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:92702b85a7cdfb2b",
+      "en": "I'm waiting for the person at the coffee shop",
+      "enSourceHash": "92702b85a7cdfb2b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:b486db7b02550a51",
+      "en": "I didn't drink tea in the morning",
+      "enSourceHash": "b486db7b02550a51",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:ca5b47deb7079429",
+      "en": "I hang out with the person who works at the shop",
+      "enSourceHash": "ca5b47deb7079429",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/ja:きっさてんで のむ ちゃが すきだ",
+      "en": "Build: I like the tea I drink at the coffee shop",
+      "enSourceHash": "436a1e5908c933a6",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/ja:きのう かった ほんを みた",
+      "en": "Build: I looked at the book I bought yesterday",
+      "enSourceHash": "e601115c587145f6",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/ja:きのう みた えいがは おもしろい",
+      "en": "Build: The movie I saw yesterday is interesting",
+      "enSourceHash": "cc6bb5346ab14c0c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/ja:たなかが おしえる じゅぎょうは おもしろい",
+      "en": "Build: The class Tanaka teaches is interesting",
+      "enSourceHash": "ee8a249af1914d99",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/ja:ほんを みる ひとが いる",
+      "en": "Build: There is a person who looks at books",
+      "enSourceHash": "342eca23d4139ce2",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/ja:わたしが かった かばんは やすい",
+      "en": "Build: The bag I bought is cheap",
+      "enSourceHash": "d457dcbd9b5c0b67",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/ja:トムが かった くつは あたらしい",
+      "en": "Build: The shoes Tom bought are new",
+      "enSourceHash": "c0768d44802ae26b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-1/ja:ミカが かった いえは しずかだ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:01ea5ddd3be5477a",
+      "en": "shoes",
+      "enSourceHash": "01ea5ddd3be5477a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:032e7162b2906902",
+      "en": "Review — things and times",
+      "enSourceHash": "032e7162b2906902",
+      "kind": "title"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:0e5cdc4525ebee29",
+      "en": "I have no time to watch movies",
+      "enSourceHash": "0e5cdc4525ebee29",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:130af364127662b2",
+      "en": "When I was a student, I bought a bicycle",
+      "enSourceHash": "130af364127662b2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:2abd1ded60b3cdcb",
+      "en": "When I'm busy, I eat at the shop",
+      "enSourceHash": "2abd1ded60b3cdcb",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:34a389d790fc2bdd",
+      "en": "trip",
+      "enSourceHash": "34a389d790fc2bdd",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:3bfdf8c43171daf8",
+      "en": "When I had time, I watched a movie",
+      "enSourceHash": "3bfdf8c43171daf8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:4f2b5d259583d0ed",
+      "en": "I don't eat because I'm busy today",
+      "enSourceHash": "4f2b5d259583d0ed",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:61ad29b2626ce2da",
+      "en": "I like swimming in the sea",
+      "enSourceHash": "61ad29b2626ce2da",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:63f75c890b05405e",
+      "en": "song",
+      "enSourceHash": "63f75c890b05405e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:6e3bf34066729e64",
+      "en": "Pick the word for \"sea\"",
+      "enSourceHash": "6e3bf34066729e64",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:808549850eaff47c",
+      "en": "I was busy and didn't eat",
+      "enSourceHash": "808549850eaff47c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:8a6ba32c9bed6ce7",
+      "en": "movie",
+      "enSourceHash": "8a6ba32c9bed6ce7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:8bda8a56c92da217",
+      "en": "thing (act of)",
+      "enSourceHash": "8bda8a56c92da217",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:8cc93866cd21c271",
+      "en": "When I eat, I drink water",
+      "enSourceHash": "8cc93866cd21c271",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:beee53435ac9958f",
+      "en": "I want to watch a movie",
+      "enSourceHash": "beee53435ac9958f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:e18f06e73ebd9d83",
+      "en": "When I'm busy, I don't eat",
+      "enSourceHash": "e18f06e73ebd9d83",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:e59e47eaca320f95",
+      "en": "Mika likes listening to songs",
+      "enSourceHash": "e59e47eaca320f95",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:f8e3dfd36f150255",
+      "en": "When I have time, I watch movies",
+      "enSourceHash": "f8e3dfd36f150255",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/en:fa88a24b39916d2f",
+      "en": "time, when",
+      "enSourceHash": "fa88a24b39916d2f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/ja:うみで およぐ ことが すきだ",
+      "en": "Build: I like swimming in the sea",
+      "enSourceHash": "24ddad29bb12cc57",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/ja:がくせいの とき じてんしゃを かった",
+      "en": "Build: When I was a student, I bought a bicycle",
+      "enSourceHash": "e60d7f9f5140d131",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/ja:きらいな ことが ない",
+      "en": "Build: There is nothing I dislike",
+      "enSourceHash": "25b21a0bd563abcf",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/ja:ごはんを たべる とき みずを のむ",
+      "en": "Build: When I eat, I drink water",
+      "enSourceHash": "79ae97b638659485",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/ja:ともだちと あそぶ ことは おもしろい",
+      "en": "Build: Hanging out with friends is fun",
+      "enSourceHash": "cf71dc469619f8ae",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/ja:りょこうに いく とき あたらしい かばんを かう",
+      "en": "Build: When I go on a trip, I buy a new bag",
+      "enSourceHash": "f03b4c990751ae7c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/ja:わからない ことが ある",
+      "en": "Build: There is something I don't understand",
+      "enSourceHash": "61f02f8473108bb5",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-2/ja:ミカは うたを きく ことが すきだ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:01ea5ddd3be5477a",
+      "en": "shoes",
+      "enSourceHash": "01ea5ddd3be5477a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:0aa0f5c2b2a0f562",
+      "en": "Before going to university, I eat",
+      "enSourceHash": "0aa0f5c2b2a0f562",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:34a389d790fc2bdd",
+      "en": "trip",
+      "enSourceHash": "34a389d790fc2bdd",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:4b51ae36c5f17670",
+      "en": "After going to university, I eat",
+      "enSourceHash": "4b51ae36c5f17670",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:54b320b6bcb68a0b",
+      "en": "The movie I saw yesterday was boring",
+      "enSourceHash": "54b320b6bcb68a0b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:55d8a4ee211bc4f6",
+      "en": "I looked at the book I bought yesterday",
+      "enSourceHash": "55d8a4ee211bc4f6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:6db7d803e74f1ffa",
+      "en": "before",
+      "enSourceHash": "6db7d803e74f1ffa",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:7ce828ea82b7fd50",
+      "en": "I eat at the university",
+      "enSourceHash": "7ce828ea82b7fd50",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:8a6ba32c9bed6ce7",
+      "en": "movie",
+      "enSourceHash": "8a6ba32c9bed6ce7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:8bda8a56c92da217",
+      "en": "thing (act of)",
+      "enSourceHash": "8bda8a56c92da217",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:92226e7064e32139",
+      "en": "The house Mika bought is quiet",
+      "enSourceHash": "92226e7064e32139",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:a9488c18f5fd7150",
+      "en": "Before eating, I drink water",
+      "enSourceHash": "a9488c18f5fd7150",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:ad563d9b12df4d15",
+      "en": "After listening to a song, I ate",
+      "enSourceHash": "ad563d9b12df4d15",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:be1cd13b784395a2",
+      "en": "The movie I saw yesterday is fun",
+      "enSourceHash": "be1cd13b784395a2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:c78358d10084109f",
+      "en": "Before eating, I go to university",
+      "enSourceHash": "c78358d10084109f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:e38c8d000e57b0c7",
+      "en": "Review — clauses, things, times and order",
+      "enSourceHash": "e38c8d000e57b0c7",
+      "kind": "title"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:e3f8311b0552e660",
+      "en": "The movie I want to see is fun",
+      "enSourceHash": "e3f8311b0552e660",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:f0804d5cb4de1e0b",
+      "en": "I bought a ticket for the movie yesterday",
+      "enSourceHash": "f0804d5cb4de1e0b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/en:fa88a24b39916d2f",
+      "en": "time, when",
+      "enSourceHash": "fa88a24b39916d2f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/ja:いそがしい とき えいがを みない",
+      "en": "Build: When I'm busy, I don't watch movies",
+      "enSourceHash": "0658af8b50cefaab",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/ja:うたを きいてから ごはんを たべた",
+      "en": "Build: After listening to a song, I ate",
+      "enSourceHash": "f453d41e7e1b3ff7",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/ja:うみで およぐ ことが すきだ",
+      "en": "Build: I like swimming in the sea",
+      "enSourceHash": "24ddad29bb12cc57",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/ja:きのう かった ほんを みた",
+      "en": "Build: I looked at the book I bought yesterday",
+      "enSourceHash": "e601115c587145f6",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/ja:きらいな ことが ない",
+      "en": "Build: There is nothing I dislike",
+      "enSourceHash": "25b21a0bd563abcf",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/ja:ごはんを たべる まえに みずを のむ",
+      "en": "Build: Before eating, I drink water",
+      "enSourceHash": "ee8730c2e76a7e8c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/ja:たなかが おしえる じゅぎょうは おもしろい",
+      "en": "Build: The class Tanaka teaches is interesting",
+      "enSourceHash": "ee8a249af1914d99",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/ja:りょこうの まえに あたらしい くつを かった",
+      "en": "Build: Before the trip, I bought new shoes",
+      "enSourceHash": "b00f6e1f3e4f52b4",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/ja-m15-neo-review-3/ja:ミカが かった いえは しずかだ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/en:73ed382103bc8bfd",
+      "en": "Dragged to the sea on a Saturday, and talked round by evening.",
+      "enSourceHash": "73ed382103bc8bfd",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/en:dc879c6efb62303d",
+      "en": "The trip I didn't want",
+      "enSourceHash": "dc879c6efb62303d",
+      "kind": "title"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/gloss:けど",
+      "en": "but, although",
+      "enSourceHash": "6a16848ebec13abc",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/gloss:ねる",
+      "en": "to sleep, to go to bed",
+      "enSourceHash": "f9a158651932a7e9",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:「うみは とても たのしいです。」",
+      "en": "\"The sea is a lot of fun.\"",
+      "enSourceHash": "a560ce6cb55aa6f6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:「どようびに ふたりで うみに いきます。」",
+      "en": "\"On Saturday the two of us are going to the sea.\"",
+      "enSourceHash": "5150d0877da7cbb0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:「りょこうは たいへんです。」",
+      "en": "\"Trips are a hassle.\"",
+      "enSourceHash": "6c46079a152d4507",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:あとで、ふたりで おんがくを きいた。",
+      "en": "Afterwards the two of us listened to music.",
+      "enSourceHash": "5dfb9111e5eb12f8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:いまは りょこうが すきだ。",
+      "en": "Now I like it.",
+      "enSourceHash": "5618cb5d262ca4c3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:うみの みずは つめたい。",
+      "en": "The water is cold.",
+      "enSourceHash": "86bb4229213900bf",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:うみは とおい。",
+      "en": "The sea is a long way off.",
+      "enSourceHash": "9ab79074c7aa4254",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:うみは とても きれいだ。",
+      "en": "The sea is beautiful.",
+      "enSourceHash": "f4fe8f49b306fb10",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:うみは ほんとうに たのしい。",
+      "en": "The sea really is fun.",
+      "enSourceHash": "efcc280dccf19dc7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:けど、ともだちの ユミは りょこうが すきだ。",
+      "en": "But my friend Yumi loves them.",
+      "enSourceHash": "7aba6126424692c1",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:つぎの りょこうは やまだ。",
+      "en": "The next trip is the mountains.",
+      "enSourceHash": "2e4a104adb516824",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:どようび、ぼくは ろくじに おきる。",
+      "en": "On Saturday I get up at six.",
+      "enSourceHash": "b3aa233ce45350ef",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:ひるごはんに すしを たべる。",
+      "en": "For lunch we eat sushi.",
+      "enSourceHash": "c5387cdcb07ecf9b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:ふたりで でんしゃで うみに いく。",
+      "en": "The two of us take the train to the sea.",
+      "enSourceHash": "32ead79ba1eef7fb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:ぼくは うちが すきだ。",
+      "en": "I like being at home.",
+      "enSourceHash": "64e14e7f37433925",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:ぼくは まいにち かいしゃで はたらく。",
+      "en": "Every day I work at the office.",
+      "enSourceHash": "470bde535ca4fda9",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:ぼくは よく ねる。",
+      "en": "I sleep well.",
+      "enSourceHash": "a733c56ed5d8c6de",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:ぼくは りょこうが きらいじゃない。",
+      "en": "I don't dislike travelling after all.",
+      "enSourceHash": "04f4c295c585042b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:ぼくは りょこうが すきじゃない。",
+      "en": "I don't like travelling.",
+      "enSourceHash": "f4bccc37f2d7f462",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:ぼくも およぐ。",
+      "en": "I swim too.",
+      "enSourceHash": "39e9959dfc1a6b73",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:よる、でんしゃで うちに いく。",
+      "en": "At night we take the train home.",
+      "enSourceHash": "989e3739ecaf7780",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:よるは うちで テレビを みる。",
+      "en": "At night I watch TV at home.",
+      "enSourceHash": "3eb5221a5df79b36",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:りょこうは たいへんだ。",
+      "en": "Trips are a hassle.",
+      "enSourceHash": "911e23d0e01e432f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-trip-i-didnt-want/ja:ユミは よく およぐ。",
+      "en": "Yumi swims and swims.",
+      "enSourceHash": "b54fba3e68fd0b5a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-weekend-ahead/en:52a7454cf870b929",
+      "en": "The weekend ahead",
+      "enSourceHash": "52a7454cf870b929",
+      "kind": "title"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-weekend-ahead/en:aed1baf957e5bde1",
+      "en": "A busy day, then a fun one.",
+      "enSourceHash": "aed1baf957e5bde1",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-weekend-ahead/ja:あしたは りょこうに いく。",
+      "en": "Tomorrow I go on a trip.",
+      "enSourceHash": "4d15fea5e430a400",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-weekend-ahead/ja:あたらしい くつが ほしい。",
+      "en": "I want new shoes.",
+      "enSourceHash": "0a5ac2d37f8d8e4f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-weekend-ahead/ja:きょうは しごとを する。",
+      "en": "Today I work.",
+      "enSourceHash": "27e5ac35fd383a76",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-weekend-ahead/ja:それから かいものを する。",
+      "en": "After that I go shopping.",
+      "enSourceHash": "0eef25050d89a6a2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-weekend-ahead/ja:とても いそがしい。",
+      "en": "I'm very busy.",
+      "enSourceHash": "62dff3b96abe58d2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-weekend-ahead/ja:ともだちと えいがを みる。",
+      "en": "I watch a movie with a friend.",
+      "enSourceHash": "f3421118345cb028",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m15/story:ja-m15-the-weekend-ahead/ja:りょこうは たのしい。",
+      "en": "The trip is fun.",
+      "enSourceHash": "62d83b2e2eba5dd2",
+      "kind": "ja-gloss"
+    }
+  ]
+}
