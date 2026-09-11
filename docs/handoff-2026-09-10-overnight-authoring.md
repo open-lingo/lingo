@@ -205,3 +205,4 @@ fan-out; save small notes here after every step (auto-compaction is on).
 - 01:11 ES m35 author done (3 atoms cerca/lejos/lado, 10 lessons, 77 pins); running tts-chain then commit. KO m16 drafter exited; lane woken via SendMessage.
 - 01:25 ES m35 LANDED (cerca/lejos/lado; ES suite 2577/1; es manifest 7331). Author decisions: build-sim reply tiles are single space-tokens even for fused atoms («tengo que»); atom credit arrays use the registered base form; hay discrimination clozes need exactly 2 options for the E2 exemption; «perfecto» is KNOWN_LEGACY m4–m9 only. Dispatching JA m45 reviewer + JA m46 brief, ES m35 reviewer + ES m36 brief.
 - 01:30 Dispatched: JA m45 reviewer, JA m46 brief (n4-17 timing/aspect), ES m35 reviewer, ES m36 brief (lexicon break). In flight also: KO m16 (woken), FR m25 author.
+- 01:37 ES m35 REVIEW clean (0 fixes; borderline: L8 bare «está al lado» ellipsis left; stale fragment comment says perdón m21, actually m1). ES 2577/1 green.
