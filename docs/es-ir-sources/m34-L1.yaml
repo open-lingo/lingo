@@ -35,7 +35,7 @@
       - kind: info
         id: l1-info-alvsala
         title: "Al vs. a la"
-        body: "«al» = «a» + «el», fused, for masculine words: \"voy al banco\" (m9's rule). Feminine words never fuse — always two words, «a la»: \"voy a la farmacia\"."
+        body: "«al» = «a» + «el», fused, for masculine words: «voy al banco» (m9's rule). Feminine words never fuse — always two words, «a la»: «voy a la farmacia»."
       - kind: speakLit
         id: l1-sp-voyalbanco
         es: "voy al banco"

@@ -123,6 +123,6 @@
           - { source: "tengo que", target: "I have to" }
       - kind: speakLit
         id: l8-sp-win
-        es: "hoy necesito ir al banco, a la farmacia, al hospital, al correo, y al supermercado"
+        es: "hoy necesito ir al banco, a la farmacia, al hospital, al correo y al supermercado"
         en: "Today I need to go to the bank, the pharmacy, the hospital, the post office, and the supermarket"
         atoms: ["hoy", "necesito", "ir", "al", "banco", "a", "la", "farmacia", "hospital", "correo", "supermercado"]

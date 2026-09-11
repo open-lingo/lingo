@@ -1,5 +1,8 @@
   # ── L2 · «Necesito ir al hospital» — «hospital» debuts: masculine,
-  #    consonant-ending (like «el hotel»), so still «al» — no new rule,
+  #    consonant-ending — «el hotel» would be the classic parallel but that
+  #    word is unregistered course-wide (grep-verified zero hits m1-m33),
+  #    so the comparison is dropped from learner-facing text — so still «al»,
+  #    no new rule,
   #    straight reuse of L1's «al» pattern on a third noun. Recombines
   #    «necesito ir a» (m16's «necesito» + m28's «ir») for the first
   #    time this module, plus «necesitas»/«necesita» (m16, already
@@ -12,7 +15,7 @@
   - n: 2
     template: free
     title: "Necesito ir al hospital"
-    description: "«hospital» — masculine, consonant-ending like «el hotel», so still «al» (m9's rule, same as «banco»). Recombining «necesito ir a» (m16 + m28) for the first time this module."
+    description: "«hospital» — masculine, despite the consonant ending — there's no shortcut from how a word ends, so still «al» (m9's rule, same as «banco»). Recombining «necesito ir a» (m16 + m28) for the first time this module."
     steps:
       - kind: map
         id: l2-map-necesitoiralhospital
@@ -23,7 +26,7 @@
           - { en: "to the", tokenIndex: 2 }
           - { en: "hospital", tokenIndex: 3 }
         audioText: "necesito ir al hospital"
-        revealNote: "«hospital» — masculine, consonant-ending (like «el hotel»). Still «al», not «a la»."
+        revealNote: "«hospital» — masculine, despite the consonant ending. Still «al», not «a la»."
       - kind: imageMcq
         id: l2-im-hospital
         target: { surface: "hospital", meaningEn: "hospital", emoji: "🏥" }

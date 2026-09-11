@@ -10,7 +10,7 @@
   #    (L4's win line).
   - n: 5
     template: free
-    title: "Voy al banco, a la farmacia, y al supermercado"
+    title: "Voy al banco, a la farmacia y al supermercado"
     description: "An errand-day sentence, all five places at once — pure recombination, no new words. «al» for banco/hospital/correo/supermercado (masculine), «a la» for farmacia (feminine)."
     steps:
       - kind: map
@@ -104,11 +104,11 @@
             reply:
               mode: choice
               options:
-                - { id: "right", text: "voy al banco, y a la farmacia" }
-                - { id: "wrong1", text: "voy a la banco, y al farmacia" }
-                - { id: "wrong2", text: "voy al banco, y al farmacia" }
+                - { id: "right", text: "voy al banco y a la farmacia" }
+                - { id: "wrong1", text: "voy a la banco y al farmacia" }
+                - { id: "wrong2", text: "voy al banco y al farmacia" }
               correctOptionId: "right"
-              audioText: "voy al banco, y a la farmacia"
+              audioText: "voy al banco y a la farmacia"
             replyGloss: "I'm going to the bank, and the pharmacy."
             explanation: "«banco» masculine → «al»; «farmacia» feminine → «a la» — never swapped."
           - id: t2
@@ -131,6 +131,6 @@
           - { source: "al", target: "to the (masculine)" }
       - kind: speakLit
         id: l5-sp-win
-        es: "voy al banco, a la farmacia, y al supermercado"
+        es: "voy al banco, a la farmacia y al supermercado"
         en: "I'm going to the bank, the pharmacy, and the supermarket"
         atoms: ["voy", "al", "banco", "a", "la", "farmacia", "supermercado"]

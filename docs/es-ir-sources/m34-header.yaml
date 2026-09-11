@@ -322,10 +322,10 @@ newAtoms:
   # pain-frame (m31) recombination target alongside «hospital».
   - { surface: "farmacia", meaningEn: "pharmacy", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "💊", hint: "la farmacia — regular feminine. «necesito ir a la farmacia» (m16's «necesito» + m28's «ir», never «necesito voy»)." }
   # el hospital — hospital. Regular masculine noun despite the consonant
-  # ending (same pattern as «el hotel», not a new rule); this module's own
-  # flagship «tengo que» (m33) recombination target — the freshest grammar
-  # this course has.
-  - { surface: "hospital", meaningEn: "hospital", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🏥", hint: "el hospital — masculine, consonant ending (like «el hotel»). Regular plural «hospitales» (consonant → +es). «tengo que ir al hospital» (m33's «tengo que» + m28's «ir»)." }
+  # ending (no shortcut from how a noun ends, not a new rule); this
+  # module's own flagship «tengo que» (m33) recombination target — the
+  # freshest grammar this course has.
+  - { surface: "hospital", meaningEn: "hospital", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🏥", hint: "el hospital — masculine, despite the consonant ending. Regular plural «hospitales» (consonant → +es). «tengo que ir al hospital» (m33's «tengo que» + m28's «ir»)." }
   # el correo — post office. Regular masculine noun.
   - { surface: "correo", meaningEn: "post office", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "📮", hint: "el correo — regular masculine. «voy a ir al correo» (m28's «voy a» + infinitivo «ir», not «voy al correo a ir»)." }
   # el supermercado — supermarket. Regular masculine noun; this module's

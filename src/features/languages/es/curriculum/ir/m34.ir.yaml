@@ -322,10 +322,10 @@ newAtoms:
   # pain-frame (m31) recombination target alongside «hospital».
   - { surface: "farmacia", meaningEn: "pharmacy", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "💊", hint: "la farmacia — regular feminine. «necesito ir a la farmacia» (m16's «necesito» + m28's «ir», never «necesito voy»)." }
   # el hospital — hospital. Regular masculine noun despite the consonant
-  # ending (same pattern as «el hotel», not a new rule); this module's own
-  # flagship «tengo que» (m33) recombination target — the freshest grammar
-  # this course has.
-  - { surface: "hospital", meaningEn: "hospital", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🏥", hint: "el hospital — masculine, consonant ending (like «el hotel»). Regular plural «hospitales» (consonant → +es). «tengo que ir al hospital» (m33's «tengo que» + m28's «ir»)." }
+  # ending (no shortcut from how a noun ends, not a new rule); this
+  # module's own flagship «tengo que» (m33) recombination target — the
+  # freshest grammar this course has.
+  - { surface: "hospital", meaningEn: "hospital", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🏥", hint: "el hospital — masculine, despite the consonant ending. Regular plural «hospitales» (consonant → +es). «tengo que ir al hospital» (m33's «tengo que» + m28's «ir»)." }
   # el correo — post office. Regular masculine noun.
   - { surface: "correo", meaningEn: "post office", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "📮", hint: "el correo — regular masculine. «voy a ir al correo» (m28's «voy a» + infinitivo «ir», not «voy al correo a ir»)." }
   # el supermercado — supermarket. Regular masculine noun; this module's
@@ -372,7 +372,7 @@ lessons:
       - kind: info
         id: l1-info-alvsala
         title: "Al vs. a la"
-        body: "«al» = «a» + «el», fused, for masculine words: \"voy al banco\" (m9's rule). Feminine words never fuse — always two words, «a la»: \"voy a la farmacia\"."
+        body: "«al» = «a» + «el», fused, for masculine words: «voy al banco» (m9's rule). Feminine words never fuse — always two words, «a la»: «voy a la farmacia»."
       - kind: speakLit
         id: l1-sp-voyalbanco
         es: "voy al banco"
@@ -489,7 +489,10 @@ lessons:
         atoms: ["necesito", "ir", "al", "banco", "voy", "a", "la", "farmacia", "también"]
 
   # ── L2 · «Necesito ir al hospital» — «hospital» debuts: masculine,
-  #    consonant-ending (like «el hotel»), so still «al» — no new rule,
+  #    consonant-ending — «el hotel» would be the classic parallel but that
+  #    word is unregistered course-wide (grep-verified zero hits m1-m33),
+  #    so the comparison is dropped from learner-facing text — so still «al»,
+  #    no new rule,
   #    straight reuse of L1's «al» pattern on a third noun. Recombines
   #    «necesito ir a» (m16's «necesito» + m28's «ir») for the first
   #    time this module, plus «necesitas»/«necesita» (m16, already
@@ -502,7 +505,7 @@ lessons:
   - n: 2
     template: free
     title: "Necesito ir al hospital"
-    description: "«hospital» — masculine, consonant-ending like «el hotel», so still «al» (m9's rule, same as «banco»). Recombining «necesito ir a» (m16 + m28) for the first time this module."
+    description: "«hospital» — masculine, despite the consonant ending — there's no shortcut from how a word ends, so still «al» (m9's rule, same as «banco»). Recombining «necesito ir a» (m16 + m28) for the first time this module."
     steps:
       - kind: map
         id: l2-map-necesitoiralhospital
@@ -513,7 +516,7 @@ lessons:
           - { en: "to the", tokenIndex: 2 }
           - { en: "hospital", tokenIndex: 3 }
         audioText: "necesito ir al hospital"
-        revealNote: "«hospital» — masculine, consonant-ending (like «el hotel»). Still «al», not «a la»."
+        revealNote: "«hospital» — masculine, despite the consonant ending. Still «al», not «a la»."
       - kind: imageMcq
         id: l2-im-hospital
         target: { surface: "hospital", meaningEn: "hospital", emoji: "🏥" }
@@ -935,7 +938,7 @@ lessons:
   #    (L4's win line).
   - n: 5
     template: free
-    title: "Voy al banco, a la farmacia, y al supermercado"
+    title: "Voy al banco, a la farmacia y al supermercado"
     description: "An errand-day sentence, all five places at once — pure recombination, no new words. «al» for banco/hospital/correo/supermercado (masculine), «a la» for farmacia (feminine)."
     steps:
       - kind: map
@@ -1029,11 +1032,11 @@ lessons:
             reply:
               mode: choice
               options:
-                - { id: "right", text: "voy al banco, y a la farmacia" }
-                - { id: "wrong1", text: "voy a la banco, y al farmacia" }
-                - { id: "wrong2", text: "voy al banco, y al farmacia" }
+                - { id: "right", text: "voy al banco y a la farmacia" }
+                - { id: "wrong1", text: "voy a la banco y al farmacia" }
+                - { id: "wrong2", text: "voy al banco y al farmacia" }
               correctOptionId: "right"
-              audioText: "voy al banco, y a la farmacia"
+              audioText: "voy al banco y a la farmacia"
             replyGloss: "I'm going to the bank, and the pharmacy."
             explanation: "«banco» masculine → «al»; «farmacia» feminine → «a la» — never swapped."
           - id: t2
@@ -1056,7 +1059,7 @@ lessons:
           - { source: "al", target: "to the (masculine)" }
       - kind: speakLit
         id: l5-sp-win
-        es: "voy al banco, a la farmacia, y al supermercado"
+        es: "voy al banco, a la farmacia y al supermercado"
         en: "I'm going to the bank, the pharmacy, and the supermarket"
         atoms: ["voy", "al", "banco", "a", "la", "farmacia", "supermercado"]
 
@@ -1093,7 +1096,7 @@ lessons:
         body: "«voy al banco» = going (m9). «necesito ir a la farmacia» = need to go (m16+m28). «tengo que ir al hospital» = have to go (m33+m28). Three frames, same destinations."
       - kind: speakLit
         id: l6-sp-recall
-        es: "voy al banco, a la farmacia, y al supermercado"
+        es: "voy al banco, a la farmacia y al supermercado"
         en: "I'm going to the bank, the pharmacy, and the supermarket"
         cue: recall
         atoms: ["voy", "al", "banco", "a", "la", "farmacia", "supermercado"]
@@ -1470,7 +1473,7 @@ lessons:
           - { source: "tengo que", target: "I have to" }
       - kind: speakLit
         id: l8-sp-win
-        es: "hoy necesito ir al banco, a la farmacia, al hospital, al correo, y al supermercado"
+        es: "hoy necesito ir al banco, a la farmacia, al hospital, al correo y al supermercado"
         en: "Today I need to go to the bank, the pharmacy, the hospital, the post office, and the supermarket"
         atoms: ["hoy", "necesito", "ir", "al", "banco", "a", "la", "farmacia", "hospital", "correo", "supermercado"]
 
@@ -1502,7 +1505,7 @@ lessons:
         body: "«me duele la mano» (m31) and «tengo que ir a» (m33) chain into one sentence: «me duele la mano — tengo que ir al hospital». Pain that won't wait — «tengo que», not «voy» or «necesito»."
       - kind: speakLit
         id: l9-sp-recall
-        es: "hoy necesito ir al banco, a la farmacia, al hospital, al correo, y al supermercado"
+        es: "hoy necesito ir al banco, a la farmacia, al hospital, al correo y al supermercado"
         en: "Today I need to go to the bank, the pharmacy, the hospital, the post office, and the supermarket"
         cue: recall
         atoms: ["hoy", "necesito", "ir", "al", "banco", "a", "la", "farmacia", "hospital", "correo", "supermercado"]

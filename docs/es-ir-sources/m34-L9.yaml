@@ -26,7 +26,7 @@
         body: "«me duele la mano» (m31) and «tengo que ir a» (m33) chain into one sentence: «me duele la mano — tengo que ir al hospital». Pain that won't wait — «tengo que», not «voy» or «necesito»."
       - kind: speakLit
         id: l9-sp-recall
-        es: "hoy necesito ir al banco, a la farmacia, al hospital, al correo, y al supermercado"
+        es: "hoy necesito ir al banco, a la farmacia, al hospital, al correo y al supermercado"
         en: "Today I need to go to the bank, the pharmacy, the hospital, the post office, and the supermarket"
         cue: recall
         atoms: ["hoy", "necesito", "ir", "al", "banco", "a", "la", "farmacia", "hospital", "correo", "supermercado"]

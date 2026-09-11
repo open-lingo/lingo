@@ -29,7 +29,7 @@ const COURSE_ID = "mock-1";
 export const ES_M34_ATOMS: EsAtom[] = [
   atom({ surface: "banco", meaningEn: "bank", partOfSpeech: "noun", fromModule: "m34", kind: "vocab", gender: "m", emoji: "🏦", hint: "el banco — regular masculine. «voy al banco» (m9's «voy» + «al»)." }),
   atom({ surface: "farmacia", meaningEn: "pharmacy", partOfSpeech: "noun", fromModule: "m34", kind: "vocab", gender: "f", emoji: "💊", hint: "la farmacia — regular feminine. «necesito ir a la farmacia» (m16's «necesito» + m28's «ir», never «necesito voy»)." }),
-  atom({ surface: "hospital", meaningEn: "hospital", partOfSpeech: "noun", fromModule: "m34", kind: "vocab", gender: "m", emoji: "🏥", hint: "el hospital — masculine, consonant ending (like «el hotel»). Regular plural «hospitales» (consonant → +es). «tengo que ir al hospital» (m33's «tengo que» + m28's «ir»)." }),
+  atom({ surface: "hospital", meaningEn: "hospital", partOfSpeech: "noun", fromModule: "m34", kind: "vocab", gender: "m", emoji: "🏥", hint: "el hospital — masculine, despite the consonant ending. Regular plural «hospitales» (consonant → +es). «tengo que ir al hospital» (m33's «tengo que» + m28's «ir»)." }),
   atom({ surface: "correo", meaningEn: "post office", partOfSpeech: "noun", fromModule: "m34", kind: "vocab", gender: "m", emoji: "📮", hint: "el correo — regular masculine. «voy a ir al correo» (m28's «voy a» + infinitivo «ir», not «voy al correo a ir»)." }),
   atom({ surface: "supermercado", meaningEn: "supermarket", partOfSpeech: "noun", fromModule: "m34", kind: "vocab", gender: "m", emoji: "🏬", hint: "el supermercado — regular masculine. Not «mercado»'s 🛒 (m9) — a distinct building, distinct emoji. «necesito leche — voy al supermercado a comprarla» (m11's «leche» + m29's «comprarla»)." }),
 ];
@@ -60,7 +60,7 @@ const ES_M34_1: LessonContent = {
     infoStep(
       "es-m34-1-l1-info-alvsala",
       "Al vs. a la",
-      "«al» = «a» + «el», fused, for masculine words: \"voy al banco\" (m9's rule). Feminine words never fuse — always two words, «a la»: \"voy a la farmacia\".",
+      "«al» = «a» + «el», fused, for masculine words: «voy al banco» (m9's rule). Feminine words never fuse — always two words, «a la»: «voy a la farmacia».",
       "grammar",
     ),
     speaking("es-m34-1-l1-sp-voyalbanco", "voy al banco", "I'm going to the bank", ["voy", "al", "banco"]),
@@ -209,7 +209,7 @@ const ES_M34_2: LessonContent = {
   courseId: COURSE_ID,
   languageId: "es",
   title: "Necesito ir al hospital",
-  description: "«hospital» — masculine, consonant-ending like «el hotel», so still «al» (m9's rule, same as «banco»). Recombining «necesito ir a» (m16 + m28) for the first time this module.",
+  description: "«hospital» — masculine, despite the consonant ending — there's no shortcut from how a word ends, so still «al» (m9's rule, same as «banco»). Recombining «necesito ir a» (m16 + m28) for the first time this module.",
   estimatedMinutes: 8,
   xpReward: 20,
   steps: [
@@ -224,7 +224,7 @@ const ES_M34_2: LessonContent = {
         { en: "hospital", tokenIndex: 3 },
       ],
       audioText: "necesito ir al hospital",
-      revealNote: "«hospital» — masculine, consonant-ending (like «el hotel»). Still «al», not «a la».",
+      revealNote: "«hospital» — masculine, despite the consonant ending. Still «al», not «a la».",
     },
     vocabMcq("es-m34-2-l2-im-hospital", { surface: "hospital", meaningEn: "hospital", emoji: "🏥" }, [{ surface: "banco", emoji: "🏦" }, { surface: "farmacia", emoji: "💊" }, { surface: "escuela", emoji: "🏫" }]),
     speaking("es-m34-2-l2-sp-recall", "necesito ir al banco, y voy a la farmacia también", "I need to go to the bank, and I'm going to the pharmacy too", ["necesito", "ir", "al", "banco", "voy", "a", "la", "farmacia", "también"], "recall"),
@@ -707,7 +707,7 @@ const ES_M34_5: LessonContent = {
   moduleId: "m34",
   courseId: COURSE_ID,
   languageId: "es",
-  title: "Voy al banco, a la farmacia, y al supermercado",
+  title: "Voy al banco, a la farmacia y al supermercado",
   description: "An errand-day sentence, all five places at once — pure recombination, no new words. «al» for banco/hospital/correo/supermercado (masculine), «a la» for farmacia (feminine).",
   estimatedMinutes: 8,
   xpReward: 20,
@@ -821,12 +821,12 @@ const ES_M34_5: LessonContent = {
           reply: {
             mode: "choice",
             options: [
-              { id: "right", text: "voy al banco, y a la farmacia" },
-              { id: "wrong1", text: "voy a la banco, y al farmacia" },
-              { id: "wrong2", text: "voy al banco, y al farmacia" },
+              { id: "right", text: "voy al banco y a la farmacia" },
+              { id: "wrong1", text: "voy a la banco y al farmacia" },
+              { id: "wrong2", text: "voy al banco y al farmacia" },
             ],
             correctOptionId: "right",
-            audioText: "voy al banco, y a la farmacia",
+            audioText: "voy al banco y a la farmacia",
           },
           replyGloss: "I'm going to the bank, and the pharmacy.",
           explanation: "«banco» masculine → «al»; «farmacia» feminine → «a la» — never swapped.",
@@ -863,7 +863,7 @@ const ES_M34_5: LessonContent = {
         { id: "p6", source: "al", target: "to the (masculine)" },
       ],
     },
-    speaking("es-m34-5-l5-sp-win", "voy al banco, a la farmacia, y al supermercado", "I'm going to the bank, the pharmacy, and the supermarket", ["voy", "al", "banco", "a", "la", "farmacia", "supermercado"]),
+    speaking("es-m34-5-l5-sp-win", "voy al banco, a la farmacia y al supermercado", "I'm going to the bank, the pharmacy, and the supermarket", ["voy", "al", "banco", "a", "la", "farmacia", "supermercado"]),
   ],
 };
 
@@ -896,7 +896,7 @@ const ES_M34_6: LessonContent = {
       "«voy al banco» = going (m9). «necesito ir a la farmacia» = need to go (m16+m28). «tengo que ir al hospital» = have to go (m33+m28). Three frames, same destinations.",
       "grammar",
     ),
-    speaking("es-m34-6-l6-sp-recall", "voy al banco, a la farmacia, y al supermercado", "I'm going to the bank, the pharmacy, and the supermarket", ["voy", "al", "banco", "a", "la", "farmacia", "supermercado"], "recall"),
+    speaking("es-m34-6-l6-sp-recall", "voy al banco, a la farmacia y al supermercado", "I'm going to the bank, the pharmacy, and the supermarket", ["voy", "al", "banco", "a", "la", "farmacia", "supermercado"], "recall"),
     build(
       "es-m34-6-l6-b-tengoqueiralhospital",
       "Build: 'I have to go to the hospital'",
@@ -1364,7 +1364,7 @@ const ES_M34_8: LessonContent = {
         { id: "p6", source: "tengo que", target: "I have to" },
       ],
     },
-    speaking("es-m34-8-l8-sp-win", "hoy necesito ir al banco, a la farmacia, al hospital, al correo, y al supermercado", "Today I need to go to the bank, the pharmacy, the hospital, the post office, and the supermarket", ["hoy", "necesito", "ir", "al", "banco", "a", "la", "farmacia", "hospital", "correo", "supermercado"]),
+    speaking("es-m34-8-l8-sp-win", "hoy necesito ir al banco, a la farmacia, al hospital, al correo y al supermercado", "Today I need to go to the bank, the pharmacy, the hospital, the post office, and the supermarket", ["hoy", "necesito", "ir", "al", "banco", "a", "la", "farmacia", "hospital", "correo", "supermercado"]),
   ],
 };
 
@@ -1397,7 +1397,7 @@ const ES_M34_9: LessonContent = {
       "«me duele la mano» (m31) and «tengo que ir a» (m33) chain into one sentence: «me duele la mano — tengo que ir al hospital». Pain that won't wait — «tengo que», not «voy» or «necesito».",
       "grammar",
     ),
-    speaking("es-m34-9-l9-sp-recall", "hoy necesito ir al banco, a la farmacia, al hospital, al correo, y al supermercado", "Today I need to go to the bank, the pharmacy, the hospital, the post office, and the supermarket", ["hoy", "necesito", "ir", "al", "banco", "a", "la", "farmacia", "hospital", "correo", "supermercado"], "recall"),
+    speaking("es-m34-9-l9-sp-recall", "hoy necesito ir al banco, a la farmacia, al hospital, al correo y al supermercado", "Today I need to go to the bank, the pharmacy, the hospital, the post office, and the supermarket", ["hoy", "necesito", "ir", "al", "banco", "a", "la", "farmacia", "hospital", "correo", "supermercado"], "recall"),
     build(
       "es-m34-9-l9-b-meduelelamanotengoquehospital",
       "Build: 'My hand hurts — I have to go to the hospital'",
