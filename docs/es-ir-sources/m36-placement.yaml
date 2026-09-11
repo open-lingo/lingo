@@ -1,0 +1,27 @@
+placement:
+  screener:
+    - id: "es-m36-scr-1"
+      prompt: "'I'm going by train.' — which one?"
+      correct: "voy en tren"
+      distractors: ["voy a tren", "voy al tren", "voy tren"]
+  byModule:
+    - id: "es-m36-pl-1"
+      prompt: "I'm going by train."
+      correct: "voy en tren"
+      distractors: ["voy a tren", "voy al tren", "voy tren"]
+    - id: "es-m36-pl-2"
+      prompt: "Where is the station?"
+      correct: "¿dónde está la estación?"
+      distractors: ["¿dónde es la estación?", "¿dónde hay la estación?", "¿dónde voy la estación?"]
+    - id: "es-m36-pl-3"
+      prompt: "I need a taxi."
+      correct: "necesito un taxi"
+      distractors: ["necesito en taxi", "necesito ir taxi", "tengo un taxi"]
+    - id: "es-m36-pl-4"
+      prompt: "I have to go by bicycle."
+      correct: "tengo que ir en bicicleta"
+      distractors: ["tengo que ir a bicicleta", "tengo en bicicleta", "tengo que voy en bicicleta"]
+    - id: "es-m36-pl-5"
+      prompt: "The station is close, beside the bank."
+      correct: "la estación está cerca, al lado del banco"
+      distractors: ["la estación es cerca, al lado del banco", "la estación está cerca, al lado de banco", "la estación hay cerca, al lado del banco"]

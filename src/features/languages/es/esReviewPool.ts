@@ -530,4 +530,9 @@ export const ES_REVIEW_POOL: EsReviewEntry[] = [
   { surface: "cerca", gloss: "near, close", kind: "vocab", fromModule: "m35", partOfSpeech: "adverb" },
   { surface: "lejos", gloss: "far", kind: "vocab", fromModule: "m35", partOfSpeech: "adverb" },
   { surface: "lado", gloss: "side", kind: "vocab", fromModule: "m35", partOfSpeech: "noun" },
+  { surface: "estación", gloss: "station", kind: "vocab", fromModule: "m36", partOfSpeech: "noun" },
+  { surface: "tren", gloss: "train", kind: "vocab", fromModule: "m36", partOfSpeech: "noun" },
+  { surface: "metro", gloss: "metro, subway", kind: "vocab", fromModule: "m36", partOfSpeech: "noun" },
+  { surface: "taxi", gloss: "taxi", kind: "vocab", fromModule: "m36", partOfSpeech: "noun" },
+  { surface: "bicicleta", gloss: "bicycle", kind: "vocab", fromModule: "m36", partOfSpeech: "noun" },
 ];

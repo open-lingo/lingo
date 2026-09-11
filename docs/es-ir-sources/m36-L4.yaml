@@ -1,0 +1,142 @@
+  # ── L4 · «Necesito un taxi» — «taxi» debuts, and with it a DELIBERATE
+  #    contrast against L2/L3's «en»-mode shape: «taxi» pairs with m16's
+  #    bare-object «necesito» frame («necesito un taxi», not «voy en
+  #    taxi» here) to keep the two structures visibly distinct. «taxi»
+  #    itself still takes «en» for the MODE reading later in the lesson,
+  #    so both frames get exercised on the same noun.
+  #    PRIOR context only: necesito/un/el (m16), voy/a/al (m9), en (m3),
+  #    está/cerca/lejos (m4/m35), tengo que (m33), ir (m28), estación/
+  #    tren/metro (this module, L1-L3), banco/farmacia (m34).
+  - n: 4
+    template: free
+    title: "Necesito un taxi"
+    description: "«un taxi» — same «necesito + object» pattern you already know (m16). «taxi» is masculine and invariant in the singular — «un taxi», «el taxi»."
+    steps:
+      - kind: map
+        id: l4-map-necesitountaxi
+        tokens: ["necesito", "un", "taxi"]
+        pairs:
+          - { en: "I need", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "taxi", tokenIndex: 2 }
+        audioText: "necesito un taxi"
+        revealNote: "Same «necesito + object» shape as m16 — «un taxi», not «en taxi» here."
+      - kind: imageMcq
+        id: l4-im-taxi
+        target: { surface: "taxi", meaningEn: "taxi", emoji: "🚕" }
+        distractors:
+          - { surface: "estación", emoji: "🚉" }
+          - { surface: "tren", emoji: "🚆" }
+          - { surface: "metro", emoji: "🚇" }
+      - kind: speakLit
+        id: l4-sp-recall
+        es: "tengo que ir a la estación — hay un tren y un metro"
+        en: "I have to go to the station — there's a train and a metro"
+        atoms: ["tengo que", "ir", "a", "la", "estación", "hay", "un", "tren", "y", "un", "metro"]
+        cue: recall
+      - kind: info
+        id: l4-info-taxi
+        title: "Un taxi — the object pattern"
+        body: "«necesito un taxi» — same shape as m16's «necesito el regalo». «taxi» stays «taxi» in the singular, masculine: «un taxi», «el taxi»."
+      - kind: buildLit
+        id: l4-b-necesitountaxivoyalaestacion
+        es: "necesito un taxi, voy a la estación"
+        en: "I need a taxi, I'm going to the station"
+        atoms: ["necesito", "un", "taxi", "voy", "a", "la", "estación"]
+        tiles: ["tengo que", "puedo"]
+      - kind: clozeLit
+        id: l4-c-eltaxi
+        es: "el taxi"
+        en: "the taxi"
+        blank: "el"
+        options: ["el", "la"]
+        atoms: ["taxi"]
+        why: "«taxi» is masculine — «el», never «la»."
+      - kind: listenCompLit
+        id: l4-lc-necesitountaxilaestacionestalejos
+        es: "necesito un taxi, la estación está lejos"
+        en: "I need a taxi, the station is far."
+        atoms: ["necesito", "un", "taxi", "la", "estación", "está", "lejos"]
+        distractorsEn:
+          - "I need a taxi, the station is close."
+          - "I have a taxi, the station is far."
+          - "I need a train, the station is far."
+      - kind: mcq
+        id: l4-q-necesitountaxi
+        prompt: "Which one means 'I need a taxi'?"
+        correct: "necesito un taxi"
+        distractors: ["necesito en taxi", "necesito ir taxi", "tengo un taxi"]
+        atoms: ["necesito", "un", "taxi"]
+        why: "«necesito» takes the object directly, like m16 — no «en», no bare «ir», and «tengo» would mean possession, not need."
+      - kind: buildLit
+        id: l4-b-voyentaxialaestacion
+        es: "voy en taxi a la estación"
+        en: "I'm going by taxi to the station"
+        atoms: ["voy", "en", "taxi", "a", "la", "estación"]
+        tiles: ["necesito", "tengo que"]
+      - kind: audioWimcq
+        id: l4-ear-taxi
+        target: { surface: "taxi", emoji: "🚕" }
+        distractors:
+          - { surface: "tren", emoji: "🚆" }
+          - { surface: "metro", emoji: "🚇" }
+      - kind: agreementLit
+        id: l4-agr-bancograndefarmaciagrande
+        en: "The bank is big, and the pharmacy is big too"
+        audioText: "el banco es grande, y la farmacia es grande también"
+        atoms: ["banco", "grande", "farmacia"]
+        segments:
+          - { text: "el banco es " }
+          - { blank: { id: "p1", answer: "grande", options: ["grande", "grandes"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "grande", options: ["grande", "grandes"] } }
+      - kind: listenBuildLit
+        id: l4-lb-necesitountaxiperoeltrenestacerca
+        es: "necesito un taxi, pero el tren está cerca también"
+        en: "I need a taxi, but the train is close too"
+        atoms: ["necesito", "un", "taxi", "pero", "el", "tren", "está", "cerca", "también"]
+        tiles: ["voy", "tengo que"]
+      - kind: textMcq
+        id: l4-tm-taxi
+        target: "taxi"
+        distractors: ["taxis", "taxo", "toxi"]
+      - kind: sim
+        id: l4-sim-rosa-taxi
+        scene: { emoji: "🚕", title: "Rosa helps you find a ride", setting: "Rosa waits with you outside the pharmacy." }
+        turns:
+          - id: t1
+            npc: { speaker: "Rosa", es: "¿Qué necesitas?", audioText: "¿qué necesitas?", gloss: "What do you need?" }
+            goal: "Say you need a taxi."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "necesito un taxi" }
+                - { id: "wrong1", text: "necesito en taxi" }
+                - { id: "wrong2", text: "tengo un taxi" }
+              correctOptionId: "right"
+              audioText: "necesito un taxi"
+            replyGloss: "I need a taxi."
+            explanation: "«necesito» takes the object directly — no «en»."
+          - id: t2
+            npc: { speaker: "Rosa", es: "¿La estación está lejos?", audioText: "¿la estación está lejos?", gloss: "Is the station far?" }
+            goal: "Say yes, it's far."
+            reply:
+              mode: build
+              tiles: ["sí", "está", "lejos", "cerca", "es"]
+              answer: "sí está lejos"
+            replyGloss: "Yes, it's far."
+            explanation: "Location uses «está» (m4), not «es»."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "taxi", target: "taxi" }
+          - { source: "necesito", target: "I need" }
+          - { source: "un", target: "a, an" }
+          - { source: "voy", target: "I'm going" }
+          - { source: "lejos", target: "far" }
+          - { source: "estación", target: "station" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "necesito un taxi, voy a la estación — está lejos"
+        en: "I need a taxi, I'm going to the station — it's far"
+        atoms: ["necesito", "un", "taxi", "voy", "a", "la", "estación", "está", "lejos"]

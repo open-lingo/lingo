@@ -1,0 +1,132 @@
+  # ── L7 · Asking how to get somewhere — no new atom. Dedicated
+  #    dialogue_sim lesson putting «adónde» (m9, PRIOR) together with
+  #    this module's own «a»/«en» frames for the first time in a real
+  #    exchange: «¿adónde vas?» / «voy en metro, la estación está
+  #    cerca». No info card (pure recombination). Jorge debuts as NPC
+  #    (reserved from L1-L6 per the brief). No map (no new atom). PRIOR
+  #    context only: adónde/voy/vas/a/al (m9), en (m3), está/cerca/lejos
+  #    (m4/m35), necesito/un (m16), tengo que (m33), ir (m28), estación/
+  #    tren/metro/taxi/bicicleta (this module, L1-L6). One recall
+  #    (L6's win line).
+  - n: 7
+    template: free
+    title: "¿Adónde vas?"
+    description: "Putting it together: «¿adónde vas?» (m9) plus this module's own answers — «voy en metro», «voy en taxi», «tengo que ir en bicicleta»."
+    steps:
+      - kind: speakLit
+        id: l7-sp-recall
+        es: "voy a la estación en taxi, pero puedo ir en bicicleta"
+        en: "I'm going to the station by taxi, but I can go by bicycle"
+        atoms: ["voy", "a", "la", "estación", "en", "taxi", "pero", "puedo", "ir", "en", "bicicleta"]
+        cue: recall
+      - kind: buildLit
+        id: l7-b-voyalaestacionentren
+        es: "voy a la estación en tren"
+        en: "I'm going to the station by train"
+        atoms: ["voy", "a", "la", "estación", "en", "tren"]
+        tiles: ["necesito", "tengo que"]
+      - kind: clozeLit
+        id: l7-c-voyenmetro
+        es: "voy en metro"
+        en: "I'm going by metro"
+        blank: "en"
+        options: ["en", "al"]
+        atoms: ["voy", "metro"]
+        why: "«en» marks the MODE — «al» would make «metro» a destination, which isn't what this sentence means."
+      - kind: listenCompLit
+        id: l7-lc-necesitounttaxilaestacionestalejos
+        es: "necesito un taxi, la estación está lejos"
+        en: "I need a taxi, the station is far."
+        atoms: ["necesito", "un", "taxi", "la", "estación", "está", "lejos"]
+        distractorsEn:
+          - "I need a taxi, the station is close."
+          - "I have a taxi, the station is far."
+          - "I need a train, the station is far."
+      - kind: mcq
+        id: l7-q-adondevas
+        prompt: "Which one asks 'where are you going'?"
+        correct: "¿adónde vas?"
+        distractors: ["¿dónde vas?", "¿adónde está?", "¿adónde es?"]
+        atoms: ["adónde", "vas"]
+        why: "«adónde» always asks TO where, and pairs with «vas» (motion, m9) — not «está»/«es»."
+      - kind: buildLit
+        id: l7-b-tengoqueiralaestacionvoyenbicicleta
+        es: "tengo que ir a la estación, voy en bicicleta"
+        en: "I have to go to the station, I'm going by bicycle"
+        atoms: ["tengo que", "ir", "a", "la", "estación", "voy", "en", "bicicleta"]
+        tiles: ["necesito", "puedo"]
+      - kind: audioWimcq
+        id: l7-ear-taxi
+        target: { surface: "taxi", emoji: "🚕" }
+        distractors:
+          - { surface: "metro", emoji: "🚇" }
+          - { surface: "bicicleta", emoji: "🚲" }
+      - kind: agreementLit
+        id: l7-agr-bancopequenofarmacianueva
+        en: "The bank is small, and the pharmacy is new"
+        audioText: "el banco es pequeño, y la farmacia es nueva"
+        atoms: ["banco", "pequeño", "farmacia", "nuevo"]
+        segments:
+          - { text: "el banco es " }
+          - { blank: { id: "p1", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l7-lb-necesitoiralaestacionenmetro
+        es: "necesito ir a la estación en metro"
+        en: "I need to go to the station by metro"
+        atoms: ["necesito", "ir", "a", "la", "estación", "en", "metro"]
+        tiles: ["voy", "tengo que"]
+      - kind: textMcq
+        id: l7-tm-adonde
+        target: "adónde"
+        distractors: ["donde", "cuando", "cuanto"]
+      - kind: sim
+        id: l7-sim-jorge-adondevas
+        scene: { emoji: "🗺️", title: "Jorge asks about your trip", setting: "Jorge stops you outside the station." }
+        turns:
+          - id: t1
+            npc: { speaker: "Jorge", es: "¿Adónde vas?", audioText: "¿adónde vas?", gloss: "Where are you going?" }
+            goal: "Say you're going to the station."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "voy a la estación" }
+                - { id: "wrong1", text: "voy en estación" }
+                - { id: "wrong2", text: "voy estación" }
+              correctOptionId: "right"
+              audioText: "voy a la estación"
+            replyGloss: "I'm going to the station."
+            explanation: "«a la estación» — the destination, never a bare noun."
+          - id: t2
+            npc: { speaker: "Jorge", es: "¿En qué vas — en tren o en taxi?", audioText: "¿en qué vas — en tren o en taxi?", gloss: "How are you going — by train or by taxi?" }
+            goal: "Say you're going by bicycle."
+            reply:
+              mode: build
+              tiles: ["voy", "en", "bicicleta", "a", "al"]
+              answer: "voy en bicicleta"
+            replyGloss: "I'm going by bicycle."
+            explanation: "«en bicicleta» — the mode marker, no article, ever."
+          - id: t3
+            npc: { speaker: "Jorge", es: "¿La estación está cerca?", audioText: "¿la estación está cerca?", gloss: "Is the station close?" }
+            goal: "Say yes, it's close."
+            reply:
+              mode: build
+              tiles: ["sí", "está", "cerca", "lejos", "es"]
+              answer: "sí está cerca"
+            replyGloss: "Yes, it's close."
+            explanation: "Location uses «está» (m4), not «es»."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "adónde", target: "where to?" }
+          - { source: "vas", target: "you're going" }
+          - { source: "en", target: "by (mode)" }
+          - { source: "bicicleta", target: "bicycle" }
+          - { source: "estación", target: "station" }
+          - { source: "cerca", target: "near, close" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "¿adónde vas? tengo que ir a la estación en bicicleta"
+        en: "Where are you going? I have to go to the station by bicycle"
+        atoms: ["adónde", "vas", "tengo que", "ir", "a", "la", "estación", "en", "bicicleta"]

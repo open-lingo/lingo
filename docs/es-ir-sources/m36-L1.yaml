@@ -1,0 +1,142 @@
+  # ── L1 · «Voy a la estación» — «estación» debuts, this module's anchor
+  #    noun. Recombines «voy a»/«al» (m9) and the «¿dónde está…?»/«cerca»
+  #    payoff m35 just built (ONE module old) — the first noun since m35
+  #    shipped to receive the full "«está» says WHERE" treatment on
+  #    genuinely new ground. No new grammar: «a la» (unfused, feminine)
+  #    is the exact m9 rule m34-L1 already contrasted against «al».
+  #    PRIOR context only: voy/vas/a/al/adónde (m9), está/dónde/aquí/allí
+  #    (m4), cerca (m35), necesito (m16), ir (m28), puedo (m14), pero (m6),
+  #    también (m11), mañana (m8), banco/farmacia (m34, distractor pool).
+  #    No recall — first lesson of the module.
+  - n: 1
+    template: free
+    title: "Voy a la estación"
+    description: "«la estación» — station. Feminine, so «a la», never «al» (m9's rule, now against a new noun). You already know «está» says WHERE (m4) — today it finds a place you need."
+    steps:
+      - kind: map
+        id: l1-map-voyalaestacion
+        tokens: ["voy", "a", "la", "estación"]
+        pairs:
+          - { en: "I'm going", tokenIndex: 0 }
+          - { en: "to the", tokenIndex: 1 }
+          - { en: "(feminine)", tokenIndex: 2 }
+          - { en: "station", tokenIndex: 3 }
+        audioText: "voy a la estación"
+        revealNote: "«estación» is feminine — «a la», never «al» (m9's fused form is only for masculine words)."
+      - kind: imageMcq
+        id: l1-im-estacion
+        target: { surface: "estación", meaningEn: "station", emoji: "🚉" }
+        distractors:
+          - { surface: "banco", emoji: "🏦" }
+          - { surface: "farmacia", emoji: "💊" }
+          - { surface: "hospital", emoji: "🏥" }
+      - kind: info
+        id: l1-info-estacion
+        title: "La estación"
+        body: "«la estación» — regular feminine; the plural is «estaciones». You already know «está» says WHERE (m4) — today it also describes a place you need to find."
+      - kind: speakLit
+        id: l1-sp-voyalaestacion
+        es: "voy a la estación"
+        en: "I'm going to the station"
+        atoms: ["voy", "a", "la", "estación"]
+      - kind: buildLit
+        id: l1-b-necesitoiralaestacion
+        es: "necesito ir a la estación"
+        en: "I need to go to the station"
+        atoms: ["necesito", "ir", "a", "la", "estación"]
+        tiles: ["voy", "tengo que"]
+      - kind: clozeLit
+        id: l1-c-voyalaestacion
+        es: "voy a la estación"
+        en: "I'm going to the station"
+        blank: "la"
+        options: ["la", "el"]
+        atoms: ["voy", "a", "estación"]
+        why: "«estación» is feminine — «la», never «el» (that fuses into «al», for masculine words only)."
+      - kind: buildLit
+        id: l1-b-dondeestalaestacion
+        es: "¿dónde está la estación?"
+        en: "Where is the station?"
+        atoms: ["dónde", "está", "la", "estación"]
+        tiles: ["es", "hay"]
+      - kind: listenCompLit
+        id: l1-lc-laestacionestacerca
+        es: "la estación está cerca"
+        en: "The station is close."
+        atoms: ["la", "estación", "está", "cerca"]
+        distractorsEn:
+          - "The station is far."
+          - "Where is the station?"
+          - "I'm going to the station."
+      - kind: buildLit
+        id: l1-b-laestacionestacercaperonecesito
+        es: "la estación está cerca, pero necesito ir mañana"
+        en: "The station is close, but I need to go tomorrow"
+        atoms: ["la", "estación", "está", "cerca", "pero", "necesito", "ir", "mañana"]
+        tiles: ["voy", "tengo que"]
+      - kind: audioWimcq
+        id: l1-ear-estacion
+        target: { surface: "estación", emoji: "🚉" }
+        distractors:
+          - { surface: "banco", emoji: "🏦" }
+          - { surface: "farmacia", emoji: "💊" }
+      - kind: agreementLit
+        id: l1-agr-banconuevofarmacianueva
+        en: "The bank is new, and the pharmacy is new too"
+        audioText: "el banco es nuevo, y la farmacia es nueva también"
+        atoms: ["banco", "nuevo", "farmacia"]
+        segments:
+          - { text: "el banco es " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l1-lb-necesitoiralaestacionperopuedo
+        es: "necesito ir a la estación, pero puedo ir mañana"
+        en: "I need to go to the station, but I can go tomorrow"
+        atoms: ["necesito", "ir", "a", "la", "estación", "pero", "puedo", "mañana"]
+        tiles: ["voy", "tengo que"]
+      - kind: textMcq
+        id: l1-tm-estacion
+        target: "estación"
+        distractors: ["estatua", "escalón", "estanque"]
+      - kind: sim
+        id: l1-sim-ana-estacion
+        scene: { emoji: "🚉", title: "Ana asks about your trip", setting: "Ana runs into you near the bank." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Adónde vas?", audioText: "¿adónde vas?", gloss: "Where are you going?" }
+            goal: "Say you're going to the station."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "voy a la estación" }
+                - { id: "wrong1", text: "voy al estación" }
+                - { id: "wrong2", text: "voy estación" }
+              correctOptionId: "right"
+              audioText: "voy a la estación"
+            replyGloss: "I'm going to the station."
+            explanation: "«estación» is feminine — «a la», never the masculine fused «al» or a bare noun without «a»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Está cerca?", audioText: "¿está cerca?", gloss: "Is it close?" }
+            goal: "Say yes, it's close."
+            reply:
+              mode: build
+              tiles: ["sí", "está", "cerca", "es", "voy"]
+              answer: "sí está cerca"
+            replyGloss: "Yes, it's close."
+            explanation: "Location uses «está» (m4), not «es»."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "estación", target: "station" }
+          - { source: "voy", target: "I'm going" }
+          - { source: "a la", target: "to the (feminine)" }
+          - { source: "está", target: "is (somewhere)" }
+          - { source: "cerca", target: "near, close" }
+          - { source: "necesito", target: "I need" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "necesito ir a la estación — está cerca"
+        en: "I need to go to the station — it's close"
+        atoms: ["necesito", "ir", "a", "la", "estación", "está", "cerca"]

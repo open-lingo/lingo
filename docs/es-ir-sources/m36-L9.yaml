@@ -1,0 +1,127 @@
+  # ── L9 · Cross-recombination — no new atom. The module's single richest
+  #    lesson: m34's five places (banco/farmacia/hospital/correo/
+  #    supermercado) + m35's está/cerca/lejos/al lado de, together with
+  #    this module's own five transport nouns, for the first time —
+  #    "el banco está al lado de la estación," "voy en tren, la farmacia
+  #    está cerca del metro." Short optional info card (usage-note budget
+  #    item 6): now every known place has a known way to get there.
+  #    PRIOR context only: banco/farmacia/hospital/correo/supermercado
+  #    (m34), está/cerca/lejos/al lado de (m4/m35), voy/a/al (m9), en
+  #    (m3), necesito/un (m16), tengo que (m33), estación/tren/metro/
+  #    taxi/bicicleta (this module, L1-L8). One recall (L8's win line).
+  - n: 9
+    template: free
+    title: "Cómo llegar a todas partes"
+    description: "Now every place you know has a way to get there — «voy al banco en tren», «la farmacia está al lado de la estación»."
+    steps:
+      - kind: info
+        id: l9-info-comollegar
+        title: "Todas partes, todas las formas"
+        body: "Every place you know (m34) now has a way to get there: «voy al banco en tren», «la farmacia está cerca de la estación» — the same «a»/«en»/«está» you already use, on any place."
+      - kind: speakLit
+        id: l9-sp-recall
+        es: "voy a la estación en tren, pero necesito un taxi o puedo ir en bicicleta"
+        en: "I'm going to the station by train, but I need a taxi or I can go by bicycle"
+        atoms: ["voy", "a", "la", "estación", "en", "tren", "pero", "necesito", "un", "taxi", "o", "puedo", "ir", "en", "bicicleta"]
+        cue: recall
+      - kind: buildLit
+        id: l9-b-elbancoestaalladodelaestacion
+        es: "el banco está al lado de la estación"
+        en: "The bank is beside the station"
+        atoms: ["el", "banco", "está", "al", "lado", "de", "la", "estación"]
+        tiles: ["hay", "es"]
+      - kind: clozeLit
+        id: l9-c-lafarmaciaestacercadelmetro
+        es: "la farmacia está cerca del metro"
+        en: "The pharmacy is close to the metro"
+        blank: "del"
+        options: ["del", "de la"]
+        atoms: ["la", "farmacia", "está", "cerca", "metro"]
+        why: "«metro» is masculine — «cerca del metro» fuses «de» + «el», never «de la»."
+      - kind: buildLit
+        id: l9-b-laestacionestacercaalladodelbanco
+        es: "la estación está cerca, al lado del banco"
+        en: "The station is close, beside the bank"
+        atoms: ["la", "estación", "está", "cerca", "al", "lado", "banco"]
+        tiles: ["es", "hay"]
+      - kind: listenCompLit
+        id: l9-lc-voyalhospitalentaxiestaalladodelcorreo
+        es: "voy al hospital en taxi — está al lado del correo"
+        en: "I'm going to the hospital by taxi — it's beside the post office."
+        atoms: ["voy", "al", "hospital", "en", "taxi", "está", "al", "lado", "correo"]
+        distractorsEn:
+          - "I'm going to the hospital by taxi — it's far from the post office."
+          - "I'm going to the bank by taxi — it's beside the post office."
+          - "I need to go to the hospital by taxi — it's beside the post office."
+      - kind: buildLit
+        id: l9-b-tengoqueiralsupermercadopuedoirenmetro
+        es: "tengo que ir al supermercado, puedo ir en metro"
+        en: "I have to go to the supermarket, I can go by metro"
+        atoms: ["tengo que", "ir", "al", "supermercado", "puedo", "ir", "en", "metro"]
+        tiles: ["voy", "necesito"]
+      - kind: audioWimcq
+        id: l9-ear-metro
+        target: { surface: "metro", emoji: "🚇" }
+        distractors:
+          - { surface: "supermercado", emoji: "🏬" }
+          - { surface: "correo", emoji: "📮" }
+      - kind: agreementLit
+        id: l9-agr-hospitalviejocorreoNuevo
+        en: "The hospital is old, and the post office is new"
+        audioText: "el hospital es viejo, y el correo es nuevo"
+        atoms: ["hospital", "viejo", "correo", "nuevo"]
+        segments:
+          - { text: "el hospital es " }
+          - { blank: { id: "p1", answer: "viejo", options: ["viejo", "vieja"] } }
+          - { text: ", y el correo es " }
+          - { blank: { id: "p2", answer: "nuevo", options: ["nuevo", "nueva"] } }
+      - kind: listenBuildLit
+        id: l9-lb-necesitoiralafarmaciaentaxiestacercadelaestacion
+        es: "necesito ir a la farmacia en taxi — está cerca de la estación"
+        en: "I need to go to the pharmacy by taxi — it's close to the station"
+        atoms: ["necesito", "ir", "a", "la", "farmacia", "en", "taxi", "está", "cerca", "de", "la", "estación"]
+        tiles: ["voy", "tengo que"]
+      - kind: textMcq
+        id: l9-tm-estacion
+        target: "estación"
+        distractors: ["estatua", "escalón", "estanque"]
+      - kind: sim
+        id: l9-sim-pedro-comollegar
+        scene: { emoji: "🗺️", title: "Pedro asks for the fastest way", setting: "Pedro meets you near the supermarket." }
+        turns:
+          - id: t1
+            npc: { speaker: "Pedro", es: "¿Dónde está el banco?", audioText: "¿dónde está el banco?", gloss: "Where is the bank?" }
+            goal: "Say it's beside the station."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "está al lado de la estación" }
+                - { id: "wrong1", text: "hay al lado de la estación" }
+                - { id: "wrong2", text: "está al lado de estación" }
+              correctOptionId: "right"
+              audioText: "está al lado de la estación"
+            replyGloss: "It's beside the station."
+            explanation: "«estación» is feminine — «al lado de la estación», never a bare «de»."
+          - id: t2
+            npc: { speaker: "Pedro", es: "¿Cómo vas al hospital?", audioText: "¿cómo vas al hospital?", gloss: "How are you going to the hospital?" }
+            goal: "Say you're going by metro."
+            reply:
+              mode: build
+              tiles: ["voy", "en", "metro", "a", "al"]
+              answer: "voy en metro"
+            replyGloss: "I'm going by metro."
+            explanation: "«en metro» — the mode marker, no article, ever."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "al lado de", target: "beside" }
+          - { source: "cerca de", target: "close to" }
+          - { source: "estación", target: "station" }
+          - { source: "metro", target: "metro, subway" }
+          - { source: "banco", target: "bank" }
+          - { source: "correo", target: "post office" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "el banco está al lado de la estación, y necesito ir en taxi a la farmacia"
+        en: "The bank is beside the station, and I need to go by taxi to the pharmacy"
+        atoms: ["el", "banco", "está", "al", "lado", "de", "la", "estación", "necesito", "ir", "en", "taxi", "a", "la", "farmacia"]

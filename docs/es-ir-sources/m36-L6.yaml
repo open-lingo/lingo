@@ -1,0 +1,129 @@
+  # ── L6 · «A» vs «en» — the central discrimination of this module. No
+  #    new atom. Dedicated info card spells out the two-way split
+  #    explicitly (the only place in the module this is stated in
+  #    prose): «a»/«al» marks a DESTINATION (m9); «en» marks the MODE,
+  #    no article, ever (this module, L2). Built as a full-phrase «mcq»
+  #    choice, never a bare-«a» clozeLit (esTokens() drops length-1
+  #    tokens — «a» must never be a cloze option, correct or distractor).
+  #    Recombines all 5 new nouns against «a»/«en»/«necesito»/«tengo que».
+  #    One recall (L5's win line). PRIOR context only: voy/a/al (m9), en
+  #    (m3), necesito/un (m16), tengo que (m33), ir (m28), está/cerca/
+  #    lejos (m4/m35), estación/tren/metro/taxi/bicicleta (this module,
+  #    L1-L5), banco/farmacia (m34).
+  - n: 6
+    template: free
+    title: "A o en"
+    description: "«a» — going TO a place (m9). «en» — the MODE, no article, ever. «voy a la estación» vs. «voy en tren» — two different jobs, two different words."
+    steps:
+      - kind: info
+        id: l6-info-aoen
+        title: "A o en — two jobs"
+        body: "«a» — a DESTINATION, «voy a la estación» (m9). «en» — the MODE, no article, «voy en tren» (this module). Never mix them: not «voy en la estación», not «voy a tren»."
+      - kind: speakLit
+        id: l6-sp-recall
+        es: "no tengo un taxi, pero puedo ir en bicicleta a la estación"
+        en: "I don't have a taxi, but I can go by bicycle to the station"
+        atoms: ["no", "tengo", "un", "taxi", "pero", "puedo", "ir", "en", "bicicleta", "a", "la", "estación"]
+        cue: recall
+      - kind: buildLit
+        id: l6-b-voyalaestacionentaxi
+        es: "voy a la estación en taxi"
+        en: "I'm going to the station by taxi"
+        atoms: ["voy", "a", "la", "estación", "en", "taxi"]
+        tiles: ["necesito", "tengo que"]
+      - kind: clozeLit
+        id: l6-c-voyenmetro
+        es: "voy en metro"
+        en: "I'm going by metro"
+        blank: "en"
+        options: ["en", "al"]
+        atoms: ["voy", "metro"]
+        why: "«en» marks the MODE — «al» would name the metro as a destination, which isn't what this sentence means."
+      - kind: listenCompLit
+        id: l6-lc-tengoqueiralaestacionperovoyenbicicleta
+        es: "tengo que ir a la estación, pero voy en bicicleta"
+        en: "I have to go to the station, but I'm going by bicycle."
+        atoms: ["tengo que", "ir", "a", "la", "estación", "pero", "voy", "en", "bicicleta"]
+        distractorsEn:
+          - "I have to go to the station, but I'm going by taxi."
+          - "I want to go to the station, but I'm going by bicycle."
+          - "I have to go to the station, and I'm going by bicycle."
+      - kind: mcq
+        id: l6-q-aoenfoil
+        prompt: "'I'm going by train.' — which one?"
+        correct: "voy en tren"
+        distractors: ["voy a tren", "voy al tren", "voy tren"]
+        atoms: ["voy", "en", "tren"]
+        why: "«en» marks the MODE, no article, ever — «a»/«al» would make «tren» a destination, which isn't the meaning here."
+      - kind: buildLit
+        id: l6-b-necesitounmetroalaestacionentaxi
+        es: "necesito ir a la estación, pero puedo ir en taxi"
+        en: "I need to go to the station, but I can go by taxi"
+        atoms: ["necesito", "ir", "a", "la", "estación", "pero", "puedo", "ir", "en", "taxi"]
+        tiles: ["voy", "tengo que"]
+      - kind: audioWimcq
+        id: l6-ear-bicicleta
+        target: { surface: "bicicleta", emoji: "🚲" }
+        distractors:
+          - { surface: "estación", emoji: "🚉" }
+          - { surface: "taxi", emoji: "🚕" }
+      - kind: agreementLit
+        id: l6-agr-bancobonitofarmaciapequena
+        en: "The bank is pretty, and the pharmacy is small"
+        audioText: "el banco es bonito, y la farmacia es pequeña"
+        atoms: ["banco", "bonito", "farmacia", "pequeño"]
+        segments:
+          - { text: "el banco es " }
+          - { blank: { id: "p1", answer: "bonito", options: ["bonito", "bonita"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "pequeño"] } }
+      - kind: listenBuildLit
+        id: l6-lb-voyalaestacionpuedoirentrenoenmetro
+        es: "voy a la estación, puedo ir en tren o en metro"
+        en: "I'm going to the station, I can go by train or by metro"
+        atoms: ["voy", "a", "la", "estación", "puedo", "ir", "en", "tren", "o", "en", "metro"]
+        tiles: ["necesito", "tengo que"]
+      - kind: textMcq
+        id: l6-tm-tren
+        target: "tren"
+        distractors: ["treń", "trena", "treno"]
+      - kind: sim
+        id: l6-sim-carmen-aoen
+        scene: { emoji: "🚉", title: "Carmen asks about your route", setting: "Carmen meets you near the station." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Vas a la estación en metro?", audioText: "¿vas a la estación en metro?", gloss: "Are you going to the station by metro?" }
+            goal: "Say no, you're going by bicycle."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, voy en bicicleta" }
+                - { id: "wrong1", text: "no, voy a bicicleta" }
+                - { id: "wrong2", text: "no, voy al bicicleta" }
+              correctOptionId: "right"
+              audioText: "no, voy en bicicleta"
+            replyGloss: "No, I'm going by bicycle."
+            explanation: "«en» marks the MODE — never «a»/«al» for the vehicle itself."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Necesitas un taxi?", audioText: "¿necesitas un taxi?", gloss: "Do you need a taxi?" }
+            goal: "Say no, you have a bicycle."
+            reply:
+              mode: build
+              tiles: ["no", "tengo", "una", "bicicleta", "necesito"]
+              answer: "no tengo una bicicleta"
+            replyGloss: "No, I have a bicycle."
+            explanation: "«tengo» — possession (m5), not «necesito» — need."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "a", target: "to (destination)" }
+          - { source: "en", target: "by (mode)" }
+          - { source: "voy", target: "I'm going" }
+          - { source: "tren", target: "train" }
+          - { source: "metro", target: "metro, subway" }
+          - { source: "bicicleta", target: "bicycle" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "voy a la estación en taxi, pero puedo ir en bicicleta"
+        en: "I'm going to the station by taxi, but I can go by bicycle"
+        atoms: ["voy", "a", "la", "estación", "en", "taxi", "pero", "puedo", "ir", "en", "bicicleta"]

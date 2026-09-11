@@ -1,0 +1,143 @@
+  # ── L5 · «Tengo que ir en bicicleta» — «bicicleta» debuts, pairing
+  #    «tengo que» (m33) + bare «ir» (m28) with the «en»-mode marker for
+  #    the first time. No new framing needed — this is just the «tengo
+  #    que + en» combination (usage-note budget item 5), so NO new info
+  #    card this lesson.
+  #    PRIOR context only: tengo que/puedo (m33/m14), ir (m28), en (m3),
+  #    voy/a/al (m9), necesito/un (m16), está/cerca/lejos (m4/m35),
+  #    estación/tren/metro/taxi (this module, L1-L4), banco/farmacia (m34).
+  - n: 5
+    template: free
+    title: "Tengo que ir en bicicleta"
+    description: "«en bicicleta» — the same «en»-mode shape, now with «tengo que». «bicicleta» is feminine: «la bicicleta», «una bicicleta»."
+    steps:
+      - kind: map
+        id: l5-map-tengoqueirenbicicleta
+        tokens: ["tengo", "que", "ir", "en", "bicicleta"]
+        pairs:
+          - { en: "I have", tokenIndex: 0 }
+          - { en: "to", tokenIndex: 1 }
+          - { en: "go", tokenIndex: 2 }
+          - { en: "by", tokenIndex: 3 }
+          - { en: "bicycle", tokenIndex: 4 }
+        audioText: "tengo que ir en bicicleta"
+        revealNote: "«en» + the vehicle, no article — the same shape as «en tren» and «en metro»."
+      - kind: imageMcq
+        id: l5-im-bicicleta
+        target: { surface: "bicicleta", meaningEn: "bicycle", emoji: "🚲" }
+        distractors:
+          - { surface: "tren", emoji: "🚆" }
+          - { surface: "metro", emoji: "🚇" }
+          - { surface: "taxi", emoji: "🚕" }
+      - kind: speakLit
+        id: l5-sp-recall
+        es: "necesito un taxi, voy a la estación — está lejos"
+        en: "I need a taxi, I'm going to the station — it's far"
+        atoms: ["necesito", "un", "taxi", "voy", "a", "la", "estación", "está", "lejos"]
+        cue: recall
+      - kind: buildLit
+        id: l5-b-puedoirenbicicletaalaestacion
+        es: "puedo ir en bicicleta a la estación"
+        en: "I can go by bicycle to the station"
+        atoms: ["puedo", "ir", "en", "bicicleta", "a", "la", "estación"]
+        tiles: ["voy", "necesito"]
+      - kind: speakLit
+        id: l5-sp-tengoqueirenbicicleta
+        es: "tengo que ir en bicicleta"
+        en: "I have to go by bicycle"
+        atoms: ["tengo que", "ir", "en", "bicicleta"]
+      - kind: clozeLit
+        id: l5-c-labicicleta
+        es: "la bicicleta"
+        en: "the bicycle"
+        blank: "la"
+        options: ["la", "el"]
+        atoms: ["bicicleta"]
+        why: "«bicicleta» is feminine — «la», never «el»."
+      - kind: buildLit
+        id: l5-b-tengoqueirenbicicletaestacerca
+        es: "tengo que ir en bicicleta, está cerca"
+        en: "I have to go by bicycle, it's close"
+        atoms: ["tengo que", "ir", "en", "bicicleta", "está", "cerca"]
+        tiles: ["voy", "a"]
+      - kind: listenCompLit
+        id: l5-lc-tengoqueirenbicicletalaestacionestacerca
+        es: "tengo que ir en bicicleta, la estación está cerca"
+        en: "I have to go by bicycle, the station is close."
+        atoms: ["tengo que", "ir", "en", "bicicleta", "la", "estación", "está", "cerca"]
+        distractorsEn:
+          - "I have to go by bicycle, the station is far."
+          - "I want to go by bicycle, the station is close."
+          - "I have to go by taxi, the station is close."
+      - kind: buildLit
+        id: l5-b-notengountaxipuedoirenbicicleta
+        es: "no tengo un taxi, pero puedo ir en bicicleta"
+        en: "I don't have a taxi, but I can go by bicycle"
+        atoms: ["no", "tengo", "un", "taxi", "pero", "puedo", "ir", "en", "bicicleta"]
+        tiles: ["voy", "necesito"]
+      - kind: audioWimcq
+        id: l5-ear-bicicleta
+        target: { surface: "bicicleta", emoji: "🚲" }
+        distractors:
+          - { surface: "taxi", emoji: "🚕" }
+          - { surface: "estación", emoji: "🚉" }
+      - kind: agreementLit
+        id: l5-agr-bancoviejofarmaciavieja
+        en: "The bank is old, and the pharmacy is old too"
+        audioText: "el banco es viejo, y la farmacia es vieja también"
+        atoms: ["banco", "viejo", "farmacia"]
+        segments:
+          - { text: "el banco es " }
+          - { blank: { id: "p1", answer: "viejo", options: ["viejo", "vieja"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "vieja", options: ["vieja", "viejo"] } }
+      - kind: listenBuildLit
+        id: l5-lb-tengoqueiralaestacionpuedoirenbicicleta
+        es: "tengo que ir a la estación, pero puedo ir en bicicleta"
+        en: "I have to go to the station, but I can go by bicycle"
+        atoms: ["tengo que", "ir", "a", "la", "estación", "pero", "puedo", "ir", "en", "bicicleta"]
+        tiles: ["voy", "necesito"]
+      - kind: textMcq
+        id: l5-tm-bicicleta
+        target: "bicicleta"
+        distractors: ["biciclata", "bicicleto", "vicicleta"]
+      - kind: sim
+        id: l5-sim-sofia-bicicleta
+        scene: { emoji: "🚲", title: "Sofía asks how you'll get there", setting: "Sofía sees you outside the bank." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Cómo vas a la estación?", audioText: "¿cómo vas a la estación?", gloss: "How are you going to the station?" }
+            goal: "Say you have to go by bicycle."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "tengo que ir en bicicleta" }
+                - { id: "wrong1", text: "tengo que ir a bicicleta" }
+                - { id: "wrong2", text: "tengo en bicicleta" }
+              correctOptionId: "right"
+              audioText: "tengo que ir en bicicleta"
+            replyGloss: "I have to go by bicycle."
+            explanation: "«tengo que» + bare «ir», and «en bicicleta» for the mode — no article."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿La estación está cerca?", audioText: "¿la estación está cerca?", gloss: "Is the station close?" }
+            goal: "Say yes, it's close."
+            reply:
+              mode: build
+              tiles: ["sí", "está", "cerca", "lejos", "es"]
+              answer: "sí está cerca"
+            replyGloss: "Yes, it's close."
+            explanation: "Location uses «está» (m4), not «es»."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "bicicleta", target: "bicycle" }
+          - { source: "tengo que", target: "I have to" }
+          - { source: "puedo", target: "I can" }
+          - { source: "no", target: "no, not" }
+          - { source: "estación", target: "station" }
+          - { source: "taxi", target: "taxi" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "no tengo un taxi, pero puedo ir en bicicleta a la estación"
+        en: "I don't have a taxi, but I can go by bicycle to the station"
+        atoms: ["no", "tengo", "un", "taxi", "pero", "puedo", "ir", "en", "bicicleta", "a", "la", "estación"]

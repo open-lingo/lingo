@@ -1,0 +1,147 @@
+  # ── L2 · «Voy en tren» — «tren» debuts, and with it this module's own
+  #    new SENTENCE SHAPE: «en» as a transport-MODE marker, no article,
+  #    ever. «en» itself is fully PRIOR (m3, registered particle atom) —
+  #    zero new vocabulary, one new pattern. Dedicated info card per the
+  #    usage-note budget. Real use: «voy al trabajo en tren» (m9's
+  #    «trabajo»), not a bare list. One recall (L1's win line).
+  #    PRIOR context only: voy/vas/a/al (m9), en (m3), está/cerca/lejos
+  #    (m4/m35), necesito (m16), estación (this module, L1), trabajo (m9),
+  #    pero (m6), también (m11).
+  - n: 2
+    template: free
+    title: "Voy en tren"
+    description: "«en» + a transport word, no article, ever — «voy en tren», not «voy al tren» when you mean the MODE, not a destination."
+    steps:
+      - kind: map
+        id: l2-map-voyentren
+        tokens: ["voy", "en", "tren"]
+        pairs:
+          - { en: "I'm going", tokenIndex: 0 }
+          - { en: "by", tokenIndex: 1 }
+          - { en: "train", tokenIndex: 2 }
+        audioText: "voy en tren"
+        revealNote: "«en» marks the MODE — no «el»/«la» before the vehicle, ever."
+      - kind: imageMcq
+        id: l2-im-tren
+        target: { surface: "tren", meaningEn: "train", emoji: "🚆" }
+        distractors:
+          - { surface: "estación", emoji: "🚉" }
+          - { surface: "banco", emoji: "🏦" }
+          - { surface: "farmacia", emoji: "💊" }
+      - kind: speakLit
+        id: l2-sp-recall
+        es: "necesito ir a la estación — está cerca"
+        en: "I need to go to the station — it's close"
+        atoms: ["necesito", "ir", "a", "la", "estación", "está", "cerca"]
+        cue: recall
+      - kind: info
+        id: l2-info-entren
+        title: "En + tren — no article"
+        body: "«en» + a transport word, no «el»/«la» — «voy en tren», not «voy al tren» when you mean the MODE. «en» is the same word you've known since m3."
+      - kind: speakLit
+        id: l2-sp-voyentren
+        es: "voy en tren"
+        en: "I'm going by train"
+        atoms: ["voy", "en", "tren"]
+      - kind: buildLit
+        id: l2-b-voyaltrabajoentren
+        es: "voy al trabajo en tren"
+        en: "I'm going to work by train"
+        atoms: ["voy", "al", "trabajo", "en", "tren"]
+        tiles: ["a", "tengo que"]
+      - kind: clozeLit
+        id: l2-c-eltren
+        es: "el tren"
+        en: "the train"
+        blank: "el"
+        options: ["el", "la"]
+        atoms: ["tren"]
+        why: "«tren» is masculine — «el», never «la»."
+      - kind: listenCompLit
+        id: l2-lc-laestacionestalejosperonecesitoentren
+        es: "la estación está lejos, pero necesito ir en tren"
+        en: "The station is far, but I need to go by train."
+        atoms: ["la", "estación", "está", "lejos", "pero", "necesito", "ir", "en", "tren"]
+        distractorsEn:
+          - "The station is close, but I need to go by train."
+          - "The station is far, but I want to go by train."
+          - "The station is far, and I have to go by train."
+      - kind: mcq
+        id: l2-q-voyentren
+        prompt: "Which one means 'I'm going by train'?"
+        correct: "voy en tren"
+        distractors: ["voy a tren", "voy tren", "vas en tren"]
+        atoms: ["voy", "en", "tren"]
+        why: "«en» marks the MODE, no article — «a» would mark a destination, and «tren» here isn't one."
+      - kind: buildLit
+        id: l2-b-necesitoiralaestacionpuedoentren
+        es: "necesito ir a la estación, pero puedo ir en tren"
+        en: "I need to go to the station, but I can go by train"
+        atoms: ["necesito", "ir", "a", "la", "estación", "pero", "puedo", "en", "tren"]
+        tiles: ["voy", "tengo que"]
+      - kind: audioWimcq
+        id: l2-ear-tren
+        target: { surface: "tren", emoji: "🚆" }
+        distractors:
+          - { surface: "estación", emoji: "🚉" }
+          - { surface: "hospital", emoji: "🏥" }
+      - kind: agreementLit
+        id: l2-agr-bancopequenofarmaciapequena
+        en: "The bank is small, and the pharmacy is small too"
+        audioText: "el banco es pequeño, y la farmacia es pequeña también"
+        atoms: ["banco", "pequeño", "farmacia"]
+        segments:
+          - { text: "el banco es " }
+          - { blank: { id: "p1", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "pequeño"] } }
+      - kind: listenBuildLit
+        id: l2-lb-voyaltrabajoentrenperotambien
+        es: "voy al trabajo en tren, pero también necesito ir a la estación"
+        en: "I'm going to work by train, but I also need to go to the station"
+        atoms: ["voy", "al", "trabajo", "en", "tren", "pero", "también", "necesito", "ir", "a", "la", "estación"]
+        tiles: ["tengo que", "vas"]
+      - kind: textMcq
+        id: l2-tm-tren
+        target: "tren"
+        distractors: ["treń", "trena", "treno"]
+      - kind: sim
+        id: l2-sim-diego-tren
+        scene: { emoji: "🚆", title: "Diego asks about your commute", setting: "Diego meets you at the station." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Vas al trabajo en tren?", audioText: "¿vas al trabajo en tren?", gloss: "Are you going to work by train?" }
+            goal: "Say yes, you're going by train."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, voy en tren" }
+                - { id: "wrong1", text: "sí, voy a tren" }
+                - { id: "wrong2", text: "sí, voy tren" }
+              correctOptionId: "right"
+              audioText: "sí, voy en tren"
+            replyGloss: "Yes, I'm going by train."
+            explanation: "«en tren» — the mode marker, no article, and never a bare «a»."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿La estación está cerca?", audioText: "¿la estación está cerca?", gloss: "Is the station close?" }
+            goal: "Say no, it's far."
+            reply:
+              mode: build
+              tiles: ["no", "está", "lejos", "cerca", "es"]
+              answer: "no está lejos"
+            replyGloss: "No, it's far."
+            explanation: "«lejos», not «cerca» — the station is far."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "tren", target: "train" }
+          - { source: "en", target: "by (mode)" }
+          - { source: "trabajo", target: "work" }
+          - { source: "estación", target: "station" }
+          - { source: "lejos", target: "far" }
+          - { source: "necesito", target: "I need" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "necesito ir a la estación, y voy al trabajo en tren"
+        en: "I need to go to the station, and I go to work by train"
+        atoms: ["necesito", "ir", "a", "la", "estación", "voy", "al", "trabajo", "en", "tren"]

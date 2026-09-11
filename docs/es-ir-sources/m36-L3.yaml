@@ -1,0 +1,140 @@
+  # ── L3 · «Voy en metro» — «metro» debuts, paired directly against
+  #    «tren»: same «en»-mode shape, a different vehicle, discrimination
+  #    at "la estación." No new framing beyond L2's own info card (usage-
+  #    note budget item 3) — this lesson's info card is one line only.
+  #    One recall (L2's win line). PRIOR context only: voy/a/al (m9), en
+  #    (m3), está/cerca (m4/m35), hay (m3), tengo que (m33), ir (m28),
+  #    tren/estación (this module, L1-L2), banco/farmacia (m34).
+  - n: 3
+    template: free
+    title: "Voy en metro"
+    description: "«el metro» — same pattern as «tren»: «voy en metro», never «voy al metro» when the sentence means the MODE, not a destination."
+    steps:
+      - kind: map
+        id: l3-map-voyenmetro
+        tokens: ["voy", "en", "metro"]
+        pairs:
+          - { en: "I'm going", tokenIndex: 0 }
+          - { en: "by", tokenIndex: 1 }
+          - { en: "metro", tokenIndex: 2 }
+        audioText: "voy en metro"
+        revealNote: "Same shape as «tren» (L2) — «en» + the vehicle, no article."
+      - kind: imageMcq
+        id: l3-im-metro
+        target: { surface: "metro", meaningEn: "metro, subway", emoji: "🚇" }
+        distractors:
+          - { surface: "tren", emoji: "🚆" }
+          - { surface: "estación", emoji: "🚉" }
+          - { surface: "banco", emoji: "🏦" }
+      - kind: speakLit
+        id: l3-sp-recall
+        es: "necesito ir a la estación, y voy al trabajo en tren"
+        en: "I need to go to the station, and I go to work by train"
+        atoms: ["necesito", "ir", "a", "la", "estación", "voy", "al", "trabajo", "en", "tren"]
+        cue: recall
+      - kind: info
+        id: l3-info-metro
+        title: "El metro — same pattern"
+        body: "«el metro» — masculine, same «en»-mode shape as «tren»: «voy en metro», never «voy al metro» for the MODE."
+      - kind: buildLit
+        id: l3-b-hayuntrenyunmetroenlaestacion
+        es: "hay un tren y un metro en la estación"
+        en: "There's a train and a metro at the station"
+        atoms: ["hay", "un", "tren", "y", "un", "metro", "en", "la", "estación"]
+        tiles: ["voy", "necesito"]
+      - kind: clozeLit
+        id: l3-c-elmetro
+        es: "el metro"
+        en: "the metro"
+        blank: "el"
+        options: ["el", "la"]
+        atoms: ["metro"]
+        why: "«metro» is masculine — «el», never «la»."
+      - kind: listenCompLit
+        id: l3-lc-voyenmetroalaestacion
+        es: "voy en metro a la estación"
+        en: "I'm going by metro to the station."
+        atoms: ["voy", "en", "metro", "a", "la", "estación"]
+        distractorsEn:
+          - "I'm going by train to the station."
+          - "I'm going by metro to the bank."
+          - "I need to go by metro to the station."
+      - kind: mcq
+        id: l3-q-voyenmetro
+        prompt: "Which one means 'I'm going by metro'?"
+        correct: "voy en metro"
+        distractors: ["voy en tren", "voy a metro", "voy metro"]
+        atoms: ["voy", "en", "metro"]
+        why: "«metro» — same «en»-mode pattern as «tren», but a different vehicle. «tren» would name the train, not the metro."
+      - kind: buildLit
+        id: l3-b-tengoqueiralaestacionenmetro
+        es: "tengo que ir a la estación en metro"
+        en: "I have to go to the station by metro"
+        atoms: ["tengo que", "ir", "a", "la", "estación", "en", "metro"]
+        tiles: ["voy", "necesito"]
+      - kind: audioWimcq
+        id: l3-ear-metro
+        target: { surface: "metro", emoji: "🚇" }
+        distractors:
+          - { surface: "tren", emoji: "🚆" }
+          - { surface: "estación", emoji: "🚉" }
+      - kind: agreementLit
+        id: l3-agr-bancobonitofarmaciabonita
+        en: "The bank is pretty, and the pharmacy is pretty too"
+        audioText: "el banco es bonito, y la farmacia es bonita también"
+        atoms: ["banco", "bonito", "farmacia"]
+        segments:
+          - { text: "el banco es " }
+          - { blank: { id: "p1", answer: "bonito", options: ["bonito", "bonita"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "bonita", options: ["bonita", "bonito"] } }
+      - kind: listenBuildLit
+        id: l3-lb-necesitoirenmetroperoeltrenestacercatambien
+        es: "necesito ir en metro, pero el tren está cerca también"
+        en: "I need to go by metro, but the train is close too"
+        atoms: ["necesito", "ir", "en", "metro", "pero", "el", "tren", "está", "cerca", "también"]
+        tiles: ["voy", "tengo que"]
+      - kind: textMcq
+        id: l3-tm-metro
+        target: "metro"
+        distractors: ["metra", "metero", "matro"]
+      - kind: sim
+        id: l3-sim-miguel-metro
+        scene: { emoji: "🚇", title: "Miguel checks your route", setting: "Miguel meets you at the station entrance." }
+        turns:
+          - id: t1
+            npc: { speaker: "Miguel", es: "¿Vas en tren o en metro?", audioText: "¿vas en tren o en metro?", gloss: "Are you going by train or by metro?" }
+            goal: "Say you're going by metro."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "voy en metro" }
+                - { id: "wrong1", text: "voy metro" }
+                - { id: "wrong2", text: "voy al metro" }
+              correctOptionId: "right"
+              audioText: "voy en metro"
+            replyGloss: "I'm going by metro."
+            explanation: "«en metro» — the mode marker, no article, ever."
+          - id: t2
+            npc: { speaker: "Miguel", es: "¿La estación está cerca?", audioText: "¿la estación está cerca?", gloss: "Is the station close?" }
+            goal: "Say yes, it's close."
+            reply:
+              mode: build
+              tiles: ["sí", "está", "cerca", "lejos", "es"]
+              answer: "sí está cerca"
+            replyGloss: "Yes, it's close."
+            explanation: "Location uses «está» (m4), not «es»."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "metro", target: "metro, subway" }
+          - { source: "tren", target: "train" }
+          - { source: "en", target: "by (mode)" }
+          - { source: "estación", target: "station" }
+          - { source: "hay", target: "there is, there are" }
+          - { source: "tengo que", target: "I have to" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "tengo que ir a la estación — hay un tren y un metro"
+        en: "I have to go to the station — there's a train and a metro"
+        atoms: ["tengo que", "ir", "a", "la", "estación", "hay", "un", "tren", "y", "un", "metro"]
