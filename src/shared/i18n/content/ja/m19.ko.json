@@ -1,0 +1,2675 @@
+{
+  "schema": 1,
+  "moduleId": "m19",
+  "lang": "ko",
+  "generatedAt": "2026-09-11",
+  "draftedBy": "qwen3.5:122b-a10b-q4_K_M",
+  "entryCount": 533,
+  "entries": [
+    {
+      "anchor": "m19/atom:あるく/gloss",
+      "text": "걷다",
+      "enSourceHash": "89c2c14d1d789d98"
+    },
+    {
+      "anchor": "m19/atom:おりる/gloss",
+      "text": "내리다",
+      "enSourceHash": "e8953937867b9f11"
+    },
+    {
+      "anchor": "m19/atom:かいだん/gloss",
+      "text": "계단",
+      "enSourceHash": "0eeea780b063634b"
+    },
+    {
+      "anchor": "m19/atom:かえる/gloss",
+      "text": "돌아가다",
+      "enSourceHash": "69dc9130629e191a"
+    },
+    {
+      "anchor": "m19/atom:がっこう/gloss",
+      "text": "학교",
+      "enSourceHash": "d64debd942d7dc26"
+    },
+    {
+      "anchor": "m19/atom:じゅっぷん/gloss",
+      "text": "10분",
+      "enSourceHash": "bba0e58f9ca1cda8"
+    },
+    {
+      "anchor": "m19/atom:じゅっぷん/shortGloss",
+      "text": "10분",
+      "enSourceHash": "bba0e58f9ca1cda8"
+    },
+    {
+      "anchor": "m19/atom:たてもの/gloss",
+      "text": "건물",
+      "enSourceHash": "5167e9677e1fbc50"
+    },
+    {
+      "anchor": "m19/atom:ちかてつ/gloss",
+      "text": "지하철",
+      "enSourceHash": "7c9af9d7b7a004e2"
+    },
+    {
+      "anchor": "m19/atom:でんしゃ/gloss",
+      "text": "전철",
+      "enSourceHash": "25ffbc429f73817a"
+    },
+    {
+      "anchor": "m19/atom:としょかん/gloss",
+      "text": "도서관",
+      "enSourceHash": "b718f1354f724731"
+    },
+    {
+      "anchor": "m19/atom:どこですか/gloss",
+      "text": "어디예요?",
+      "enSourceHash": "26dc5e5265eddbbc"
+    },
+    {
+      "anchor": "m19/atom:にわ/gloss",
+      "text": "정원",
+      "enSourceHash": "23eeb69c681dfdb8"
+    },
+    {
+      "anchor": "m19/atom:びょういん/gloss",
+      "text": "병원",
+      "enSourceHash": "8afe3c83decffdf6"
+    },
+    {
+      "anchor": "m19/atom:ふん/gloss",
+      "text": "분 (2, 5, 7, 9 후)",
+      "enSourceHash": "53449dfd51483460"
+    },
+    {
+      "anchor": "m19/atom:ふん/shortGloss",
+      "text": "분",
+      "enSourceHash": "90e63d85fa1ab2c8"
+    },
+    {
+      "anchor": "m19/atom:ぷん/gloss",
+      "text": "분 (1, 3, 4, 6, 8, 10 후)",
+      "enSourceHash": "2fae3c8ee9ada368"
+    },
+    {
+      "anchor": "m19/atom:ぷん/shortGloss",
+      "text": "분 -pun",
+      "enSourceHash": "79ea5fbd8e766cd3"
+    },
+    {
+      "anchor": "m19/atom:へ/gloss",
+      "text": "로, 쪽으로 (방향)",
+      "enSourceHash": "4c85f5eaca92ada1"
+    },
+    {
+      "anchor": "m19/atom:へ/shortGloss",
+      "text": "쪽으로",
+      "enSourceHash": "cc58a5f8986c71d4"
+    },
+    {
+      "anchor": "m19/atom:まち/gloss",
+      "text": "마을, 도시",
+      "enSourceHash": "6421167cd1914269"
+    },
+    {
+      "anchor": "m19/atom:むこう/gloss",
+      "text": "저쪽",
+      "enSourceHash": "aa572b28f43faac6"
+    },
+    {
+      "anchor": "m19/atom:コンビニ/gloss",
+      "text": "편의점",
+      "enSourceHash": "cdc197198a299b7c"
+    },
+    {
+      "anchor": "m19/atom:バス/gloss",
+      "text": "버스",
+      "enSourceHash": "04e027e4990a203f"
+    },
+    {
+      "anchor": "m19/gp:counter-fun/ex:いま しちじ ごふんだ。",
+      "text": "지금 7시 5분이다.",
+      "enSourceHash": "8cf1ebf2c34e2567"
+    },
+    {
+      "anchor": "m19/gp:counter-fun/ex:いま しちじ ごぷんだ。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m19/gp:counter-fun/ex:えきまで じゅっぷん あるく。",
+      "text": "역까지 10분 걷는다.",
+      "enSourceHash": "ca4eff19cec0724c"
+    },
+    {
+      "anchor": "m19/gp:counter-fun/ex:でんしゃは はちじ じゅっぷんに くる。",
+      "text": "전철은 8시 10분에 온다.",
+      "enSourceHash": "87be8351c449a49b"
+    },
+    {
+      "anchor": "m19/gp:counter-fun/ex:バスは ろくじ さんぷんに くる。",
+      "text": "버스는 6시 3분에 온다.",
+      "enSourceHash": "6180853f44b00ff4"
+    },
+    {
+      "anchor": "m19/gp:counter-fun/ex:ミカは よんぷん まつ。",
+      "text": "미카는 4분 기다린다.",
+      "enSourceHash": "0809d808eebd1949"
+    },
+    {
+      "anchor": "m19/gp:de-action/ex:えきまで あるく。",
+      "text": "역까지 걷는다.",
+      "enSourceHash": "d84700fe508355f7"
+    },
+    {
+      "anchor": "m19/gp:de-action/ex:くるまで いくから きっぷは かわない。",
+      "text": "차로 가니까 표는 사지 않는다.",
+      "enSourceHash": "cbaa6c82322fcae4"
+    },
+    {
+      "anchor": "m19/gp:de-action/ex:くるまで だいがくに いく。",
+      "text": "차로 대학에 간다.",
+      "enSourceHash": "2688297aeb4c96a0"
+    },
+    {
+      "anchor": "m19/gp:de-action/ex:くるまを だいがくに いく。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m19/gp:de-action/ex:トムは ふねで うみへ いく。",
+      "text": "톰은 배로 바다로 간다.",
+      "enSourceHash": "93665fc3c8fb0b4e"
+    },
+    {
+      "anchor": "m19/gp:de-action/ex:ミカは じてんしゃで きっさてんに いく。",
+      "text": "미카는 자전거로 커피숍에 간다.",
+      "enSourceHash": "49acb1a98d632d20"
+    },
+    {
+      "anchor": "m19/gp:e-direction/ex:にほんへ いく。",
+      "text": "일본으로 간다.",
+      "enSourceHash": "1a9bf5d85bf25d50"
+    },
+    {
+      "anchor": "m19/gp:e-direction/ex:やまへ いくから くつを かう。",
+      "text": "산으로 가니까 신발을 산다.",
+      "enSourceHash": "935eb704db0e6700"
+    },
+    {
+      "anchor": "m19/gp:e-direction/ex:ろくじに うちへ かえる。",
+      "text": "6시에 집으로 돌아간다.",
+      "enSourceHash": "29c00bc889b75635"
+    },
+    {
+      "anchor": "m19/gp:e-direction/ex:ろくじへ うちへ かえる。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m19/gp:e-direction/ex:ケンは あした がっこうへ くる。",
+      "text": "케ンは 내일 학교로 온다.",
+      "enSourceHash": "19f7119d5603dc04"
+    },
+    {
+      "anchor": "m19/gp:e-direction/ex:ミカは うみへ いく。",
+      "text": "미카는 바다로 간다.",
+      "enSourceHash": "9587ace4874c916e"
+    },
+    {
+      "anchor": "m19/gp:kara-time/ex:あしたは あさ ろくじから いそがしい。",
+      "text": "내일은 아침 6시부터 바쁘다.",
+      "enSourceHash": "c5caf750775af770"
+    },
+    {
+      "anchor": "m19/gp:kara-time/ex:くじから はたらく。",
+      "text": "9시부터 일한다.",
+      "enSourceHash": "0bb06948e02e8b03"
+    },
+    {
+      "anchor": "m19/gp:kara-time/ex:くじから ろくじまで はたらく。",
+      "text": "9시부터 6시까지 일한다.",
+      "enSourceHash": "9392b080744d92b2"
+    },
+    {
+      "anchor": "m19/gp:kara-time/ex:くじまで ろくじから はたらく。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m19/gp:kara-time/ex:ばんは しちじから ひまだ。",
+      "text": "저녁은 7시부터 한가하다.",
+      "enSourceHash": "d55c222851b97d88"
+    },
+    {
+      "anchor": "m19/gp:kara-time/ex:みせは くじから ろくじまでだ。",
+      "text": "가게는 9시부터 6시까지다.",
+      "enSourceHash": "d263753aa6b389e8"
+    },
+    {
+      "anchor": "m19/gp:location-qa/ex:でんしゃは なんじに くる？",
+      "text": "전철은 몇 시에 오나?",
+      "enSourceHash": "703287b46a52b910"
+    },
+    {
+      "anchor": "m19/gp:location-qa/ex:としょかんは なんじから？",
+      "text": "도서관은 몇 시부터인가?",
+      "enSourceHash": "31aa0f6dfd114a91"
+    },
+    {
+      "anchor": "m19/gp:location-qa/ex:どこへ いく？",
+      "text": "어디로 가나?",
+      "enSourceHash": "0b2fee92c4059f5c"
+    },
+    {
+      "anchor": "m19/gp:location-qa/ex:どこを いく？",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m19/gp:location-qa/ex:なにで がっこうに いく？",
+      "text": "무엇으로 학교에 가나?",
+      "enSourceHash": "9f9944e6e4104ab2"
+    },
+    {
+      "anchor": "m19/gp:location-qa/ex:びょういんまで なんぷん あるく？",
+      "text": "병원까지 몇 분 걸어가나?",
+      "enSourceHash": "2d4d6e3e8161c7d4"
+    },
+    {
+      "anchor": "m19/gp:made-ni/ex:あしたまでに きっぷを かう。",
+      "text": "내일까지 표를 산다.",
+      "enSourceHash": "c279689c9257b0e6"
+    },
+    {
+      "anchor": "m19/gp:made-ni/ex:くじまでに がっこうに いく。",
+      "text": "9시까지 학교에 간다.",
+      "enSourceHash": "fc4a3a8409390baf"
+    },
+    {
+      "anchor": "m19/gp:made-ni/ex:ごじにまで うちに かえる。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m19/gp:made-ni/ex:ごじまでに うちに かえる。",
+      "text": "5시까지 집에 돌아간다.",
+      "enSourceHash": "b4e2331a074bdb84"
+    },
+    {
+      "anchor": "m19/gp:made-ni/ex:はちじ じゅっぷんまでに えきに いく。",
+      "text": "8시 10분까지 역에 간다.",
+      "enSourceHash": "70878a0b8ba01ffe"
+    },
+    {
+      "anchor": "m19/gp:made-ni/ex:ろくじまで きっさてんで まつ。",
+      "text": "6시까지 커피숍에서 기다린다.",
+      "enSourceHash": "09165382747b1104"
+    },
+    {
+      "anchor": "m19/gp:masu-present/ex:すみません えきは どこです。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m19/gp:masu-present/ex:すみません えきは どこですか。",
+      "text": "실례해요, 역은 어디예요?",
+      "enSourceHash": "7fa743afcb7e175f"
+    },
+    {
+      "anchor": "m19/gp:masu-present/ex:ちかてつで だいがくに いきますか。",
+      "text": "지하철로 대학에 가나요?",
+      "enSourceHash": "14ce574ecd1c74c9"
+    },
+    {
+      "anchor": "m19/gp:masu-present/ex:でんしゃは なんじに きますか。",
+      "text": "전철은 몇 시에 오나요?",
+      "enSourceHash": "703287b46a52b910"
+    },
+    {
+      "anchor": "m19/gp:masu-present/ex:びょういんは あそこですか。",
+      "text": "병원은 저기예요?",
+      "enSourceHash": "743f97c7966e8e46"
+    },
+    {
+      "anchor": "m19/gp:masu-present/ex:バスで がっこうに いきますか。",
+      "text": "버스로 학교에 가나요?",
+      "enSourceHash": "415b47706f0a603d"
+    },
+    {
+      "anchor": "m19/gp:ni-iku/ex:えいがを みに いく。",
+      "text": "영화를 보러 간다.",
+      "enSourceHash": "e812cc58f425e4ff"
+    },
+    {
+      "anchor": "m19/gp:ni-iku/ex:きょうは かいものに いく。",
+      "text": "오늘은 쇼핑하러 간다.",
+      "enSourceHash": "cb4b96b4d0b2e607"
+    },
+    {
+      "anchor": "m19/gp:ni-iku/ex:ごはんを たべに いく。",
+      "text": "밥을 먹으러 나간다.",
+      "enSourceHash": "d78b043262d7956e"
+    },
+    {
+      "anchor": "m19/gp:ni-iku/ex:ごはんを たべるに いく。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m19/gp:ni-iku/ex:トムは ともだちと あそびに くる。",
+      "text": "톰은 친구와 놀러 온다.",
+      "enSourceHash": "fd37b4353c20e6bb"
+    },
+    {
+      "anchor": "m19/gp:ni-iku/ex:ミカは ちゃを のみに きっさてんに いく。",
+      "text": "미카는 차를 마시러 커피숍에 간다.",
+      "enSourceHash": "5135f7624055abfc"
+    },
+    {
+      "anchor": "m19/gp:ni-location/ex:えきで いく。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m19/gp:ni-location/ex:えきに いく。",
+      "text": "역에 간다.",
+      "enSourceHash": "821dcf493853209b"
+    },
+    {
+      "anchor": "m19/gp:ni-location/ex:たてもの むこうに いく。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m19/gp:ni-location/ex:たてものの むこうに いく。",
+      "text": "건물 저편으로 간다.",
+      "enSourceHash": "da889cbbe176e3de"
+    },
+    {
+      "anchor": "m19/gp:ni-location/ex:たてものの むこうに にわが ある。",
+      "text": "건물 저편에 정원이 있다.",
+      "enSourceHash": "e573ac1c61071bfd"
+    },
+    {
+      "anchor": "m19/gp:ni-location/ex:たてものは にわの むこうだ。",
+      "text": "건물은 정원을 넘어선 곳이다.",
+      "enSourceHash": "71b292e5d466eba7"
+    },
+    {
+      "anchor": "m19/gp:ni-location/ex:なつやすみに にほんに いく。",
+      "text": "여름방학에 일본에 간다.",
+      "enSourceHash": "0a5808bd50ffc999"
+    },
+    {
+      "anchor": "m19/gp:ni-location/ex:にわの むこうに たてものが ある。",
+      "text": "정원을 넘어선 곳에 건물이 있다.",
+      "enSourceHash": "640c1c840c38ccf3"
+    },
+    {
+      "anchor": "m19/gp:ni-location/ex:むこうに いくから きっぷを かう。",
+      "text": "저편으로 가니까 표를 산다.",
+      "enSourceHash": "b631ec512132d6f6"
+    },
+    {
+      "anchor": "m19/gp:ni-location/ex:ろくじに うちに かえる。",
+      "text": "6시에 집에 돌아간다.",
+      "enSourceHash": "65e3bce770874ea8"
+    },
+    {
+      "anchor": "m19/gp:ni-location/ex:トムは あした だいがくに くる。",
+      "text": "톰은 내일 대학에 온다.",
+      "enSourceHash": "bf6fd106c8f741be"
+    },
+    {
+      "anchor": "m19/gp:ni-location/ex:ミカは きっさてんに いく。",
+      "text": "미카는 커피숍에 간다.",
+      "enSourceHash": "4b50a18c79960fd3"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:065d87dc3483a56a",
+      "text": "미카는 내일 학교에 간다",
+      "enSourceHash": "065d87dc3483a56a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:0889113e04d3203f",
+      "text": "수업",
+      "enSourceHash": "0889113e04d3203f"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:2ed128fa137cf13a",
+      "text": "집 (내 집)",
+      "enSourceHash": "2ed128fa137cf13a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:4bc6111307c6954b",
+      "text": "톰과 미카는 모두 집에 돌아간다",
+      "enSourceHash": "4bc6111307c6954b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:4dfc6c8a51462f6d",
+      "text": "미카는 아침에 학교에 간다",
+      "enSourceHash": "4dfc6c8a51462f6d"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:521a76c7e2847de3",
+      "text": "미카는 내일 도서관에 간다",
+      "enSourceHash": "521a76c7e2847de3"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:53b4d1c82dfab6f9",
+      "text": "미카는 내일 학교에 가지 않는다",
+      "enSourceHash": "53b4d1c82dfab6f9"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:69ad799bfb1f3c33",
+      "text": "톰은 집에 가지만 미카는 도서관에 간다",
+      "enSourceHash": "69ad799bfb1f3c33"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:857ce5796d5aea1b",
+      "text": "톰은 도서관에 가고 미카도 온다",
+      "enSourceHash": "857ce5796d5aea1b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:919e078c2619fe71",
+      "text": "나는 내일 학교에 간다",
+      "enSourceHash": "919e078c2619fe71"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:9b4ef3e5b7b4d175",
+      "text": "역",
+      "enSourceHash": "9b4ef3e5b7b4d175"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:adba6c0ec8a8d89e",
+      "text": "대학",
+      "enSourceHash": "adba6c0ec8a8d89e"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:baed831623943be3",
+      "text": "시계",
+      "enSourceHash": "baed831623943be3"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:bbf079fc19e810f9",
+      "text": "나는 오늘 도서관에 간다",
+      "enSourceHash": "bbf079fc19e810f9"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:c798e5b18ed876ef",
+      "text": "커피숍",
+      "enSourceHash": "c798e5b18ed876ef"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:cca7527f935b89d5",
+      "text": "미카는 어젯밤 학교에 갔다",
+      "enSourceHash": "cca7527f935b89d5"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:e1cc9283b0485645",
+      "text": "켄은 6시에 집에 간다",
+      "enSourceHash": "e1cc9283b0485645"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:ee8f3b8725d4b313",
+      "text": "톰은 도서관에 가지만 미카는 집에 간다",
+      "enSourceHash": "ee8f3b8725d4b313"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/ja:あした がっこうに いく",
+      "text": "만들기: 내일 학교에 간다",
+      "enSourceHash": "752bcb936fb3a7d7"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/ja:あしたは じゅぎょうが ないから がっこうに いかない",
+      "text": "만들기: 내일은 수업이 없으니 학교에 가지 않는다",
+      "enSourceHash": "cdb9e415d06bb880"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/ja:きょうは じゅぎょうが あるから がっこうに いく",
+      "text": "만들기: 오늘은 수업이 있으니 학교에 간다",
+      "enSourceHash": "1981888fb8e84cc1"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/ja:きょうは としょかんに いく",
+      "text": "만들기: 오늘은 도서관에 간다",
+      "enSourceHash": "89d54ba0fa5b243b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/ja:ケンは ろくじに うちに かえる",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/ja:トムは いそがしいから としょかんに いく",
+      "text": "만들기: 톰은 바쁘니 도서관에 간다",
+      "enSourceHash": "d6191f2b07df4c61"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/ja:ミカは あさ がっこうに いく",
+      "text": "만들기: 미카는 아침에 학교에 간다",
+      "enSourceHash": "a4245ba6b1070d73"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/ja:ミカは きっさてんに いくけど ケンは うちに かえる",
+      "text": "만들기: 미카는 커피숍에 가지만 켄은 집에 간다",
+      "enSourceHash": "aceaa996ab74c7f0"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/en:116f54c41d0405db",
+      "text": "전철",
+      "enSourceHash": "116f54c41d0405db"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/en:239575dfef886a4e",
+      "text": "편의점 뒤에 계단이 있다",
+      "enSourceHash": "239575dfef886a4e"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/en:3f1acea112a2c2a8",
+      "text": "편의점 앞에 정원이 있다",
+      "enSourceHash": "3f1acea112a2c2a8"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/en:8afe3c83decffdf6",
+      "text": "병원",
+      "enSourceHash": "8afe3c83decffdf6"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/en:94e5b4e7af2c2a48",
+      "text": "편의점 앞에 계단이 있다",
+      "enSourceHash": "94e5b4e7af2c2a48"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/en:9b4ef3e5b7b4d175",
+      "text": "역",
+      "enSourceHash": "9b4ef3e5b7b4d175"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/en:adba6c0ec8a8d89e",
+      "text": "대학",
+      "enSourceHash": "adba6c0ec8a8d89e"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/en:b718f1354f724731",
+      "text": "도서관",
+      "enSourceHash": "b718f1354f724731"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/en:bfd764afea048c25",
+      "text": "계단 앞에 편의점이 있다",
+      "enSourceHash": "bfd764afea048c25"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/en:d64debd942d7dc26",
+      "text": "학교",
+      "enSourceHash": "d64debd942d7dc26"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/ja:あさ まちの コンビニに いく",
+      "text": "만들기: 아침에 시내 편의점에 간다",
+      "enSourceHash": "6ee4d3b120822919"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/ja:でんしゃを おりる",
+      "text": "만들기: 전철에서 내린다",
+      "enSourceHash": "e967ce471d1d3ecb"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/ja:でんしゃを おりるから まちへ あるく",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/ja:にわの かいだんを おりる",
+      "text": "만들기: 정원의 계단을 내려간다",
+      "enSourceHash": "dec6ee2b1b10d377"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/ja:まちに いく",
+      "text": "만들기: 시내로 간다",
+      "enSourceHash": "37b50a8d8f5229aa"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/ja:まちの コンビニで きっぷを かってから たてものの むこうに いく",
+      "text": "만들기: 시내 편의점에서 표를 산 다음 건물의 반대편으로 간다",
+      "enSourceHash": "a60b7dea4070f67a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/ja:コンビニで きっぷを かう",
+      "text": "만들기: 편의점에서 표를 산다",
+      "enSourceHash": "d657e15bc5c89b84"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/ja:コンビニの まえに かいだんが ある",
+      "text": "만들기: 편의점 앞에 계단이 있다",
+      "enSourceHash": "b72c819b4d2b95a2"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:01ea5ddd3be5477a",
+      "text": "신발",
+      "enSourceHash": "01ea5ddd3be5477a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:14069429150abcbf",
+      "text": "표",
+      "enSourceHash": "14069429150abcbf"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:325191dc644d634d",
+      "text": "미카는 오늘 와서 그다음 병원으로 간다",
+      "enSourceHash": "325191dc644d634d"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:34b033e9e57bde0f",
+      "text": "톰은 내일 일본으로 가지 않는다",
+      "enSourceHash": "34b033e9e57bde0f"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:3b80d38f7686a8b5",
+      "text": "산",
+      "enSourceHash": "3b80d38f7686a8b5"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:4112ca688bae73e3",
+      "text": "미카는 병원에 가니까 오늘 안 온다",
+      "enSourceHash": "4112ca688bae73e3"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:4a69f19c8c264850",
+      "text": "바다",
+      "enSourceHash": "4a69f19c8c264850"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:5268153e2198b63e",
+      "text": "\"무엇\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5268153e2198b63e"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:63a2af92f35f3190",
+      "text": "톰은 내일 미국으로 간다",
+      "enSourceHash": "63a2af92f35f3190"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:647294383b2cbc24",
+      "text": "일본",
+      "enSourceHash": "647294383b2cbc24"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:6f1e151a6f2e667e",
+      "text": "나는 오늘 병원에 간다",
+      "enSourceHash": "6f1e151a6f2e667e"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:7a624b43735b8b59",
+      "text": "톰은 어제 일본에 갔다",
+      "enSourceHash": "7a624b43735b8b59"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:89c47bab0f36fc95",
+      "text": "미카는 학교에 가니까 오늘 안 온다",
+      "enSourceHash": "89c47bab0f36fc95"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:943503c1fef135ee",
+      "text": "톰은 내일 일본으로 간다",
+      "enSourceHash": "943503c1fef135ee"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:a2a6f74475a032f1",
+      "text": "미카는 오늘 병원에 안 간다",
+      "enSourceHash": "a2a6f74475a032f1"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:b53a2183622077e0",
+      "text": "톰은 바쁘지만 학교에 온다",
+      "enSourceHash": "b53a2183622077e0"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:d64debd942d7dc26",
+      "text": "학교",
+      "enSourceHash": "d64debd942d7dc26"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:ec86b5616f4971be",
+      "text": "미카는 내일 바다로 간다",
+      "enSourceHash": "ec86b5616f4971be"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:f0eeba1182ede4ca",
+      "text": "켄은 7시에 집에 간다",
+      "enSourceHash": "f0eeba1182ede4ca"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/ja:あしたは やすみだから ともだちと うみへ いく",
+      "text": "만들기: 내일은 휴일이니까 친구와 바다로 간다",
+      "enSourceHash": "215d79054044f227"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/ja:あねは びょういんへ いくから きょうは こない",
+      "text": "만들기: 누나는 병원에 가니까 오늘은 안 온다",
+      "enSourceHash": "37855bcae6e5c7c3"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/ja:きょうは びょういんへ いく",
+      "text": "만들기: 오늘은 병원에 간다",
+      "enSourceHash": "0c41f89f22c42467"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/ja:にほんへ いくから きっぷを かう",
+      "text": "만들기: 일본으로 가니까 표를 산다",
+      "enSourceHash": "4ca43ea7efeccb6c"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/ja:やまへ いくから くつを かう",
+      "text": "만들기: 산으로 가니까 신발을 산다",
+      "enSourceHash": "53c8c655afad3d53"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/ja:ケンは しちじに うちへ かえる",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/ja:トムは いそがしいけど がっこうへ くる",
+      "text": "만들기: 톰은 바쁘지만 학교로 온다",
+      "enSourceHash": "aa4234955a984584"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/ja:ミカは あした うみへ いく",
+      "text": "만들기: 미카는 내일 바다로 간다",
+      "enSourceHash": "e0c55006ff3e5973"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:14069429150abcbf",
+      "text": "표",
+      "enSourceHash": "14069429150abcbf"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:23bf28aec2362c6a",
+      "text": "톰은 버스로 대학에 간다",
+      "enSourceHash": "23bf28aec2362c6a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:25cdb46d8d2115a2",
+      "text": "배",
+      "enSourceHash": "25cdb46d8d2115a2"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:2b2961a431b23c90",
+      "text": "차",
+      "enSourceHash": "2b2961a431b23c90"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:342b54fe07f39199",
+      "text": "미카는 역에서 집까지 걷는다",
+      "enSourceHash": "342b54fe07f39199"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:7031b8da38db6d33",
+      "text": "톰은 대학까지 걷는다",
+      "enSourceHash": "7031b8da38db6d33"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:9a9e1011747e0258",
+      "text": "미카는 역에서 기다린다",
+      "enSourceHash": "9a9e1011747e0258"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:9b4ef3e5b7b4d175",
+      "text": "역",
+      "enSourceHash": "9b4ef3e5b7b4d175"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:9f45f35fac0da131",
+      "text": "미카는 집에서 역까지 걷는다",
+      "enSourceHash": "9f45f35fac0da131"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:ad288cfdf673efb4",
+      "text": "톰은 지하철로 학교에 간다",
+      "enSourceHash": "ad288cfdf673efb4"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:ae3a69b38b0830be",
+      "text": "미카는 집에서 역까지 버스로 간다",
+      "enSourceHash": "ae3a69b38b0830be"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:d29af8a2e160dd86",
+      "text": "자전거",
+      "enSourceHash": "d29af8a2e160dd86"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:d64debd942d7dc26",
+      "text": "학교",
+      "enSourceHash": "d64debd942d7dc26"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:e7e46573b665ca96",
+      "text": "톰은 지하철로 대학에 간다",
+      "enSourceHash": "e7e46573b665ca96"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/ja:うちから えきまで あるく",
+      "text": "만들기: 집에서 역까지 걷는다",
+      "enSourceHash": "2173c802115ee7ec"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/ja:きょうは でんしゃが ないから バスで いく",
+      "text": "만들기: 오늘은 전철이 없으니까 버스로 간다",
+      "enSourceHash": "229a351a137d9004"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/ja:ちかてつで だいがくへ いく",
+      "text": "만들기: 지하철로 대학에 간다",
+      "enSourceHash": "1209754aa73ade34"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/ja:ちかてつは やすいから ちかてつで いく",
+      "text": "만들기: 지하철은 싸니까 지하철로 간다",
+      "enSourceHash": "f3bb2134aef2af75"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/ja:でんしゃで がっこうに いく",
+      "text": "만들기: 전철로 학교에 간다",
+      "enSourceHash": "f4e3c1984559b48d"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/ja:トムは バスで びょういんに いく",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/ja:バスは やすいけど でんしゃで がっこうに いく",
+      "text": "만들기: 버스는 싸지만 전철로 학교에 간다",
+      "enSourceHash": "895ac34494878735"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/ja:ミカは バスで としょかんに いく",
+      "text": "만들기: 미카는 버스로 도서관에 간다",
+      "enSourceHash": "1430d6fc4f904543"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:1180412af43d7860",
+      "text": "쇼핑",
+      "enSourceHash": "1180412af43d7860"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:16bd5c475d4fb4ef",
+      "text": "오늘 친구와 쇼핑하러 간다",
+      "enSourceHash": "16bd5c475d4fb4ef"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:430e6ed62892255b",
+      "text": "미카는 책을 보러 도서관에 간다",
+      "enSourceHash": "430e6ed62892255b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:4bdf40d0d1ae3611",
+      "text": "밥/식사",
+      "enSourceHash": "4bdf40d0d1ae3611"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:51371e38c9324008",
+      "text": "미카는 집에서 차를 마신다",
+      "enSourceHash": "51371e38c9324008"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:5268153e2198b63e",
+      "text": "\"무엇\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5268153e2198b63e"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:670bd9ced0c6bc3f",
+      "text": "초밥",
+      "enSourceHash": "670bd9ced0c6bc3f"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:8a6ba32c9bed6ce7",
+      "text": "영화",
+      "enSourceHash": "8a6ba32c9bed6ce7"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:98fb0b9e8b2e3631",
+      "text": "미카는 커피숍에 먹으러 간다",
+      "enSourceHash": "98fb0b9e8b2e3631"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:a9f74d1ec36ebdeb",
+      "text": "차",
+      "enSourceHash": "a9f74d1ec36ebdeb"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:b2180174536f40c9",
+      "text": "미카는 커피숍에 차를 마시러 간다",
+      "enSourceHash": "b2180174536f40c9"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:c798e5b18ed876ef",
+      "text": "커피숍",
+      "enSourceHash": "c798e5b18ed876ef"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:cbe7a2d7fcbab0e6",
+      "text": "톰은 친구와 쇼핑하러 간다",
+      "enSourceHash": "cbe7a2d7fcbab0e6"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:de0eacb33edbf8bd",
+      "text": "영화를 보러 간다",
+      "enSourceHash": "de0eacb33edbf8bd"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:e1ecb64df3f45219",
+      "text": "내 친구는 오늘 쇼핑하러 간다",
+      "enSourceHash": "e1ecb64df3f45219"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:e74035a3bb4a2f92",
+      "text": "먹으러 나간다",
+      "enSourceHash": "e74035a3bb4a2f92"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:efcb0dc54f044c17",
+      "text": "어제 친구와 쇼핑하러 갔다",
+      "enSourceHash": "efcb0dc54f044c17"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:fd56c73da0372c13",
+      "text": "오늘 친구와 먹으러 나간다",
+      "enSourceHash": "fd56c73da0372c13"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/ja:あした ともだちと あそびに いく",
+      "text": "만들기: 내일 친구와 놀러 간다",
+      "enSourceHash": "dee9adcb5b8fff6d"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/ja:あしたは ひまだから ともだちと えいがを みに いく",
+      "text": "만들기: 내일은 한가하니까 친구와 영화를 보러 간다",
+      "enSourceHash": "d2b2d0831c804ffa"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/ja:えいがを みに いく",
+      "text": "만들기: 영화를 보러 간다",
+      "enSourceHash": "09dc500a9aa45606"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/ja:ごはんを たべに いく",
+      "text": "만들기: 먹으러 나간다",
+      "enSourceHash": "dbf46644a178e129"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/ja:すしを たべに いくけど かねが ない",
+      "text": "만들기: 초밥을 먹으러 나갔는데 돈이 없다",
+      "enSourceHash": "cab4bb9c30fd8536"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/ja:としょかんに ほんを みに いく",
+      "text": "만들기: 책을 보러 도서관에 간다",
+      "enSourceHash": "03403f4fbf211546"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/ja:トムは ともだちと かいものに いく",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/ja:ミカは ちゃを のみに きっさてんに いく",
+      "text": "만들기: 미카는 차를 마시러 커피숍에 간다",
+      "enSourceHash": "f2d0d9d30623ac79"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:04e027e4990a203f",
+      "text": "버스",
+      "enSourceHash": "04e027e4990a203f"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:0ca92baa8a9a6f52",
+      "text": "커피숍까지 10분 걸어 간다",
+      "enSourceHash": "0ca92baa8a9a6f52"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:0f67f7f2bfc024bf",
+      "text": "전철이 6시 3분에 온다",
+      "enSourceHash": "0f67f7f2bfc024bf"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:116f54c41d0405db",
+      "text": "전철",
+      "enSourceHash": "116f54c41d0405db"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:29faf0a835571321",
+      "text": "커피숍까지 5분 걸어 간다",
+      "enSourceHash": "29faf0a835571321"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:336074805fc85398",
+      "text": "시간",
+      "enSourceHash": "336074805fc85398"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:3abaf573b953b1dd",
+      "text": "지금 7시 5분이다",
+      "enSourceHash": "3abaf573b953b1dd"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:5268153e2198b63e",
+      "text": "\"무엇\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5268153e2198b63e"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:60853a5ca42fdf1b",
+      "text": "버스가 6시 10분에 온다",
+      "enSourceHash": "60853a5ca42fdf1b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:9116a317b5961566",
+      "text": "역까지 10분 걸어 간다",
+      "enSourceHash": "9116a317b5961566"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:94c38949f920a9d1",
+      "text": "전철이 8시 10분에 온다",
+      "enSourceHash": "94c38949f920a9d1"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:9a2484bcf8871257",
+      "text": "버스가 6시 3분에 온다",
+      "enSourceHash": "9a2484bcf8871257"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:9b4ef3e5b7b4d175",
+      "text": "역",
+      "enSourceHash": "9b4ef3e5b7b4d175"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:baed831623943be3",
+      "text": "시계",
+      "enSourceHash": "baed831623943be3"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:cbbb80f7e462affe",
+      "text": "커피숍에서 5분 기다린다",
+      "enSourceHash": "cbbb80f7e462affe"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:ce3bcee11248793f",
+      "text": "버스가 3시 6분에 온다",
+      "enSourceHash": "ce3bcee11248793f"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:e66bf91b46f74da2",
+      "text": "5시에 커피숍에 간다",
+      "enSourceHash": "e66bf91b46f74da2"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:ed5eb9a37e2d8231",
+      "text": "지금",
+      "enSourceHash": "ed5eb9a37e2d8231"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/ja:いま しちじ ごふんだ",
+      "text": "만들기: 지금 7시 5분이다",
+      "enSourceHash": "245c68580092af96"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/ja:えきまで じゅっぷん あるく",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/ja:がっこうまで じてんしゃで きゅうふんだ",
+      "text": "만들기: 학교까지 자전거로 9분이다",
+      "enSourceHash": "b9cb41867477ec71"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/ja:ちかてつは くじ よんぷんに くるから いま いく",
+      "text": "만들기: 지하철이 9시 4분에 오니까 지금 간다",
+      "enSourceHash": "3f7ec189c76c5fec"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/ja:でんしゃは くじ じゅっぷんに くるから えきで ごふん まつ",
+      "text": "만들기: 전철이 9시 10분에 오니까 역에서 5분 기다린다",
+      "enSourceHash": "761e3b2ba4d9f2bc"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/ja:でんしゃは はちじ じゅっぷんに くる",
+      "text": "만들기: 전철이 8시 10분에 온다",
+      "enSourceHash": "02c0009c31ebf05b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/ja:バスは ろくじ さんぷんに くる",
+      "text": "만들기: 버스가 6시 3분에 온다",
+      "enSourceHash": "81afaff26dbac514"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/ja:ミカは じゅっぷん まつけど ケンは こない",
+      "text": "만들기: 미카는 10분 기다리지만 켄은 오지 않는다",
+      "enSourceHash": "d9d386f3add21bbf"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:0889113e04d3203f",
+      "text": "수업",
+      "enSourceHash": "0889113e04d3203f"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:36e11c186286bdb7",
+      "text": "오후",
+      "enSourceHash": "36e11c186286bdb7"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:522da3f2230b3700",
+      "text": "내일 아침 6시부터 바쁘다",
+      "enSourceHash": "522da3f2230b3700"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:5268153e2198b63e",
+      "text": "\"무엇\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5268153e2198b63e"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:54120d8949d49c48",
+      "text": "도서관이 오후 10시부터 5시까지 열려 있다",
+      "enSourceHash": "54120d8949d49c48"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:7375fda25be54b8e",
+      "text": "도서관이 오후 5시부터 10시까지 열려 있다",
+      "enSourceHash": "7375fda25be54b8e"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:7b455f2dd791ffcc",
+      "text": "오전",
+      "enSourceHash": "7b455f2dd791ffcc"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:7e28bebbf2305d89",
+      "text": "가게가 오후 10시부터 5시까지 열려 있다",
+      "enSourceHash": "7e28bebbf2305d89"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:8e585d1586887295",
+      "text": "10시 5분부터 수업이 있다",
+      "enSourceHash": "8e585d1586887295"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:af9e507c65caeeb7",
+      "text": "10시 5분까지 수업이 있다",
+      "enSourceHash": "af9e507c65caeeb7"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:baed831623943be3",
+      "text": "시계",
+      "enSourceHash": "baed831623943be3"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:bf79908d1b72917b",
+      "text": "저녁에 7시부터 한가하다",
+      "enSourceHash": "bf79908d1b72917b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:c16a3a19ce18d3a2",
+      "text": "10시 10분부터 수업이 있다",
+      "enSourceHash": "c16a3a19ce18d3a2"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:c23b31a0179b550f",
+      "text": "아침",
+      "enSourceHash": "c23b31a0179b550f"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:ccef5b707f10934e",
+      "text": "가게가 9시부터 6시까지 열려 있다",
+      "enSourceHash": "ccef5b707f10934e"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:ec95168d74de38cb",
+      "text": "도서관이 오전 10시까지 열려 있다",
+      "enSourceHash": "ec95168d74de38cb"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:f2e4e67c8efd1a1b",
+      "text": "5시 10분부터 수업이 있다",
+      "enSourceHash": "f2e4e67c8efd1a1b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/ja:あしたは あさ ろくじから いそがしい",
+      "text": "만들기: 내일 아침 6시부터 바쁘다",
+      "enSourceHash": "242e92674190d65a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/ja:くじから はたらく",
+      "text": "만들기: 9시부터 일한다",
+      "enSourceHash": "e01ba67a0af8ffce"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/ja:じゅうじ ごふんから じゅぎょうが ある",
+      "text": "만들기: 10시 5분부터 수업이 있다",
+      "enSourceHash": "ac4f7b0c2119dac1"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/ja:でんしゃは あさ ごじから あるから だいじょうぶだ",
+      "text": "만들기: 아침 5시부터 전철이 있으니까 괜찮다",
+      "enSourceHash": "8a8f93128f26cded"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/ja:としょかんは じゅうじから ごご ごじまでだ",
+      "text": "만들기: 도서관은 10시부터 오후 5시까지다",
+      "enSourceHash": "0caf6c796a1e8b57"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/ja:ばんは しちじから ひまだ",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/ja:みせは くじから ろくじまでだ",
+      "text": "만들기: 가게는 9시부터 6시까지다",
+      "enSourceHash": "61c2292335d5fea9"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/ja:みせは くじから ろくじまでだから はちじ じゅっぷんに でんしゃで いく",
+      "text": "만들기: 가게는 9시부터 6시까지니까 8시 10분에 전철로 간다",
+      "enSourceHash": "d8930b45a737059d"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:14069429150abcbf",
+      "text": "표",
+      "enSourceHash": "14069429150abcbf"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:1bca0085d86845cf",
+      "text": "9시까지 학교에 도착한다",
+      "enSourceHash": "1bca0085d86845cf"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:21a5ebeeaaa6969c",
+      "text": "6시부터 카페에서 기다린다",
+      "enSourceHash": "21a5ebeeaaa6969c"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:3ac0add5da8cf440",
+      "text": "9시부터 학교에 간다",
+      "enSourceHash": "3ac0add5da8cf440"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:3b3b1dadbf06d36f",
+      "text": "9시까지 학교에 있다",
+      "enSourceHash": "3b3b1dadbf06d36f"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:4d5d92f270fc8c52",
+      "text": "6시까지 카페에 도착한다",
+      "enSourceHash": "4d5d92f270fc8c52"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:5268153e2198b63e",
+      "text": "\"무엇\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5268153e2198b63e"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:65fd6907eb798609",
+      "text": "5시까지 집에 돌아온다",
+      "enSourceHash": "65fd6907eb798609"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:859f4775eac966ad",
+      "text": "집에 돌아가다",
+      "enSourceHash": "859f4775eac966ad"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:8db1cb2fc93125fa",
+      "text": "6시까지 카페에서 기다린다",
+      "enSourceHash": "8db1cb2fc93125fa"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:9b4ef3e5b7b4d175",
+      "text": "역",
+      "enSourceHash": "9b4ef3e5b7b4d175"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:a9a27407ea6ef321",
+      "text": "6시까지 역에서 기다린다",
+      "enSourceHash": "a9a27407ea6ef321"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:b718f1354f724731",
+      "text": "도서관",
+      "enSourceHash": "b718f1354f724731"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:c798e5b18ed876ef",
+      "text": "카페",
+      "enSourceHash": "c798e5b18ed876ef"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:d641e3156d8798c8",
+      "text": "9시까지 도서관에 도착한다",
+      "enSourceHash": "d641e3156d8798c8"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:d64debd942d7dc26",
+      "text": "학교",
+      "enSourceHash": "d64debd942d7dc26"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:fc04819a1079cb33",
+      "text": "내일까지 표를 산다",
+      "enSourceHash": "fc04819a1079cb33"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/ja:あしたまでに きっぷを かう",
+      "text": "만들기: 내일까지 표를 산다",
+      "enSourceHash": "dae9996539d9073a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/ja:くじまでに がっこうに いく",
+      "text": "만들기: 9시까지 학교에 간다",
+      "enSourceHash": "4e769ec08f037b34"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/ja:ごじまで はたらくから ろくじまでに かえる",
+      "text": "만들기: 5시까지 일하니까 6시까지 집에 돌아온다",
+      "enSourceHash": "1d37e80ecdc6897f"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/ja:ごじまでに うちに かえる",
+      "text": "만들기: 5시까지 집에 돌아온다",
+      "enSourceHash": "02dd110f6e63b260"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/ja:でんしゃは ごじ さんぷんに くるから よじまでに えきに いく",
+      "text": "만들기: 열차가 5시 3분에 오니까 4시까지 역에 간다",
+      "enSourceHash": "b14d8f550f3b8702"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/ja:としょかんは ごじまでだから よじまでに いく",
+      "text": "만들기: 도서관이 5시까지니까 4시까지 간다",
+      "enSourceHash": "c39a8184391eae13"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/ja:はちじ じゅっぷんまでに えきに いく",
+      "text": "만들기: 8시 10분까지 역에 간다",
+      "enSourceHash": "ac7a98ec9d16da83"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/ja:ろくじまで きっさてんで まつ",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:116f54c41d0405db",
+      "text": "열차",
+      "enSourceHash": "116f54c41d0405db"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:2d4d6e3e8161c7d4",
+      "text": "병원까지 몇 분 걸리니?",
+      "enSourceHash": "2d4d6e3e8161c7d4"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:2f0828788e33e35a",
+      "text": "학교에 무엇으로 가니?",
+      "enSourceHash": "2f0828788e33e35a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:40ba322bbc8c28a1",
+      "text": "병원까지 몇 분 걸리니?",
+      "enSourceHash": "40ba322bbc8c28a1"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:41f8c3b906e53ff1",
+      "text": "버스가 몇 시에 오니?",
+      "enSourceHash": "41f8c3b906e53ff1"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:4ae37859df00351a",
+      "text": "열차가 오기까지 몇 분이니?",
+      "enSourceHash": "4ae37859df00351a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:51e0fb23e8696014",
+      "text": "도서관까지 몇 분 걸리니?",
+      "enSourceHash": "51e0fb23e8696014"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:5268153e2198b63e",
+      "text": "\"무엇\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5268153e2198b63e"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:5a7715b14a22aa25",
+      "text": "몇 시",
+      "enSourceHash": "5a7715b14a22aa25"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:703287b46a52b910",
+      "text": "열차가 몇 시에 오니?",
+      "enSourceHash": "703287b46a52b910"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:749ab2c0d06c42ae",
+      "text": "무엇",
+      "enSourceHash": "749ab2c0d06c42ae"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:86db80be1cad983b",
+      "text": "병원에는 몇 시에 가니?",
+      "enSourceHash": "86db80be1cad983b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:8afe3c83decffdf6",
+      "text": "병원",
+      "enSourceHash": "8afe3c83decffdf6"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:b04ae700cb3cef82",
+      "text": "열차는 어디서 오니?",
+      "enSourceHash": "b04ae700cb3cef82"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:b3ff3281c93573d4",
+      "text": "어디?",
+      "enSourceHash": "b3ff3281c93573d4"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:b718f1354f724731",
+      "text": "도서관",
+      "enSourceHash": "b718f1354f724731"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:d0430e2097c53ddb",
+      "text": "열차가 몇 시에 오니?",
+      "enSourceHash": "d0430e2097c53ddb"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:eb092c84b7a2a6f7",
+      "text": "병원까지 걸어가니?",
+      "enSourceHash": "eb092c84b7a2a6f7"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:fd04f62db40d2a6a",
+      "text": "역에 몇 시까지 가니?",
+      "enSourceHash": "fd04f62db40d2a6a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/ja:あしたは ひまだけど なんじから どこへ いく？",
+      "text": "만들기: 내일은 한가하지만 몇 시부터 어디로 가니?",
+      "enSourceHash": "f3ee64458ebad0e3"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/ja:きょうは いそがしいけど どこに いく？",
+      "text": "만들기: 오늘은 바쁘지만 어디에 가니?",
+      "enSourceHash": "af127884a64eefcd"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/ja:でんしゃは なんじに くる？",
+      "text": "만들기: 전철은 몇 시에 오니?",
+      "enSourceHash": "8dc410e4de2c5278"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/ja:としょかんは なんじから？",
+      "text": "만들기: 도서관은 몇 시부터니?",
+      "enSourceHash": "c67fbd8a784c8511"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/ja:どこへ いく？",
+      "text": "만들기: 어디로 가니?",
+      "enSourceHash": "644d308a1130cbd8"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/ja:なにで がっこうに いく？",
+      "text": "만들기: 무엇으로 학교에 가니?",
+      "enSourceHash": "80fa8afd103a97ab"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/ja:なんじまでに えきに いく？",
+      "text": "만들기: 몇 시까지 역에 가니?",
+      "enSourceHash": "f35829352fc34f6b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/ja:びょういんまで なんぷん あるく？",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:0630a30559153a34",
+      "text": "지하철로 대학에 가나요",
+      "enSourceHash": "0630a30559153a34"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:0b0e505050c34402",
+      "text": "기차로 병원에 가나요",
+      "enSourceHash": "0b0e505050c34402"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:116f54c41d0405db",
+      "text": "기차",
+      "enSourceHash": "116f54c41d0405db"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:13aaca13aefdfe14",
+      "text": "실례해요, 역이 어디인가요",
+      "enSourceHash": "13aaca13aefdfe14"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:3ce3dc07cd44d31a",
+      "text": "버스가 병원에 가나요",
+      "enSourceHash": "3ce3dc07cd44d31a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:41f8c3b906e53ff1",
+      "text": "버스는 몇 시에 오나요",
+      "enSourceHash": "41f8c3b906e53ff1"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:4ae37859df00351a",
+      "text": "기차가 오기까지 몇 분인가요",
+      "enSourceHash": "4ae37859df00351a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:5268153e2198b63e",
+      "text": "\"무엇\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5268153e2198b63e"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:703287b46a52b910",
+      "text": "기차는 몇 시에 오나요",
+      "enSourceHash": "703287b46a52b910"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:8afe3c83decffdf6",
+      "text": "병원",
+      "enSourceHash": "8afe3c83decffdf6"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:9429b8ba894d161a",
+      "text": "기차는 9시에 오나요",
+      "enSourceHash": "9429b8ba894d161a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:9b4ef3e5b7b4d175",
+      "text": "역",
+      "enSourceHash": "9b4ef3e5b7b4d175"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:a66bcbf1f5304689",
+      "text": "버스로 도서관에 가나요",
+      "enSourceHash": "a66bcbf1f5304689"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:adba6c0ec8a8d89e",
+      "text": "대학",
+      "enSourceHash": "adba6c0ec8a8d89e"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:b718f1354f724731",
+      "text": "도서관",
+      "enSourceHash": "b718f1354f724731"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:d0430e2097c53ddb",
+      "text": "기차는 몇 시에 오나요",
+      "enSourceHash": "d0430e2097c53ddb"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:d5d709070627bc55",
+      "text": "버스로 병원에 가나요",
+      "enSourceHash": "d5d709070627bc55"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:d64debd942d7dc26",
+      "text": "학교",
+      "enSourceHash": "d64debd942d7dc26"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:feb5a01e883acc6a",
+      "text": "버스로 학교에 가나요",
+      "enSourceHash": "feb5a01e883acc6a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/ja:えきは どこ？",
+      "text": "친구에게 말하세요: 역은 어디인가요",
+      "enSourceHash": "90b41fd9204aded6"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/ja:えきまで じゅっぷんですか",
+      "text": "정중하게 말하세요: 역까지 10분인가요",
+      "enSourceHash": "5c7bd5a838dfeb7c"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/ja:すみません ちかてつで びょういんに いきますか",
+      "text": "정중하게 말하세요: 실례해요, 지하철로 병원에 가나요",
+      "enSourceHash": "8f92f88dbb34774e"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/ja:ちかてつで だいがくに いきますか",
+      "text": "정중하게 말하세요: 지하철로 대학에 가나요",
+      "enSourceHash": "b9e2f6192d3b7f38"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/ja:でんしゃは なんじに きますか",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/ja:としょかんは なんじからですか",
+      "text": "정중하게 말하세요: 도서관은 몇 시부터인가요",
+      "enSourceHash": "1c35b772d0398f71"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/ja:びょういんは あそこですか",
+      "text": "정중하게 말하세요: 병원은 저기인가요",
+      "enSourceHash": "93f8fc5383bbffbd"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/ja:バスで がっこうに いきますか",
+      "text": "정중하게 말하세요: 버스로 학교에 가나요",
+      "enSourceHash": "a864c858013eb57f"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:04e027e4990a203f",
+      "text": "버스",
+      "enSourceHash": "04e027e4990a203f"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:083e30fb8637471b",
+      "text": "\"아침\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "083e30fb8637471b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:116f54c41d0405db",
+      "text": "기차",
+      "enSourceHash": "116f54c41d0405db"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:29befb80fb920f06",
+      "text": "영화를 보러 8시 10분 기차를 탄다",
+      "enSourceHash": "29befb80fb920f06"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:399a6b31873b6a87",
+      "text": "8시 10분 버스로 간다",
+      "enSourceHash": "399a6b31873b6a87"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:4604b5be89516c4d",
+      "text": "도서관은 5시부터 열려 있으니 4시에 간다",
+      "enSourceHash": "4604b5be89516c4d"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:4735d2e5fa067ff0",
+      "text": "병원까지 자전거로 9분이라 10시까지 간다",
+      "enSourceHash": "4735d2e5fa067ff0"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:5231bc8ed533b634",
+      "text": "도서관이 4시까지 열려 있으니 5시까지 간다",
+      "enSourceHash": "5231bc8ed533b634"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:5268153e2198b63e",
+      "text": "\"무엇\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5268153e2198b63e"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:681db7990902cda7",
+      "text": "도서관이 5시까지 열려 있으니 4시까지 있다",
+      "enSourceHash": "681db7990902cda7"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:7776cdb5a937779a",
+      "text": "10시 8분 열차로 간다",
+      "enSourceHash": "7776cdb5a937779a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:859f4775eac966ad",
+      "text": "집에 돌아가다",
+      "enSourceHash": "859f4775eac966ad"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:879d0c651b53ca62",
+      "text": "도서관이 5시까지 열려 있으니 4시까지 간다",
+      "enSourceHash": "879d0c651b53ca62"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:89c2c14d1d789d98",
+      "text": "걸어 가다",
+      "enSourceHash": "89c2c14d1d789d98"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:8a09c438d9073a79",
+      "text": "실례해요, 버스로 도서관에 가나요",
+      "enSourceHash": "8a09c438d9073a79"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:8e9fa5f8298a9e0b",
+      "text": "미카는 차 마시러 나가지만 켄은 집에 돌아간다",
+      "enSourceHash": "8e9fa5f8298a9e0b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:9227786e3cdc553b",
+      "text": "8시 5분 열차로 간다",
+      "enSourceHash": "9227786e3cdc553b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:9b999bca74dbf99e",
+      "text": "도서관이 5시까지 열려 있으니 4시까지 지하철로 간다",
+      "enSourceHash": "9b999bca74dbf99e"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:9e3bb16318998e34",
+      "text": "오늘 열차가 없으니 친구 차로 학교로 간다",
+      "enSourceHash": "9e3bb16318998e34"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:9f3a4329d8325465",
+      "text": "지하철",
+      "enSourceHash": "9f3a4329d8325465"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:aa4dd0ecc4dad7fc",
+      "text": "도전 — 전체 여행을 계획하다",
+      "enSourceHash": "aa4dd0ecc4dad7fc"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:b68f4d78d9fd8ad4",
+      "text": "8시 10분 열차로 간다",
+      "enSourceHash": "b68f4d78d9fd8ad4"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:d64debd942d7dc26",
+      "text": "학교",
+      "enSourceHash": "d64debd942d7dc26"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:ebb4f13b69722836",
+      "text": "9시부터 일하니 8시까지 회사에 간다",
+      "enSourceHash": "ebb4f13b69722836"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:f1d1463bab8eb8c6",
+      "text": "열차가 9시 4분에 오니 역에서 친구와 5분 기다린다",
+      "enSourceHash": "f1d1463bab8eb8c6"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/ja:きょうは でんしゃが ないから ともだちの くるまで がっこうへ いく",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/ja:くじから はたらくから はちじまでに かいしゃに いく",
+      "text": "만들기: 9시부터 일하니 8시까지 회사에 간다",
+      "enSourceHash": "2a1c89963128e4c4"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/ja:でんしゃは くじ よんぷんに くるから ともだちと えきで ごふん まつ",
+      "text": "만들기: 열차가 9시 4분에 오니 친구와 역에서 5분 기다린다",
+      "enSourceHash": "303ff0f4d0acc544"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/ja:としょかんは ごじまでだから よじまでに ちかてつで いく",
+      "text": "만들기: 도서관이 5시까지이니까 4시까지 지하철로 간다",
+      "enSourceHash": "1f0eea85f2cb73de"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/ja:はちじ じゅっぷんの でんしゃで えいがを みに いく",
+      "text": "만들기: 8시 10분 열차로 영화 보러 간다",
+      "enSourceHash": "eb87bd990fbda655"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/ja:びょういんまで じてんしゃで きゅうふんだから じゅうじまでに いく",
+      "text": "만들기: 병원까지 자전거로 9분이라 10시까지 간다",
+      "enSourceHash": "490ef66a78ec14f9"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/ja:ミカは ちゃを のみに いくけど ケンは うちに かえる",
+      "text": "만들기: 미카는 차 마시러 가지만 켄은 집에 돌아간다",
+      "enSourceHash": "026550874e816a8f"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:04e027e4990a203f",
+      "text": "버스",
+      "enSourceHash": "04e027e4990a203f"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:083e30fb8637471b",
+      "text": "\"아침\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "083e30fb8637471b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:116f54c41d0405db",
+      "text": "열차",
+      "enSourceHash": "116f54c41d0405db"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:2d4a2916fd30d249",
+      "text": "미카는 바다로 간다",
+      "enSourceHash": "2d4a2916fd30d249"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:34b033e9e57bde0f",
+      "text": "톰은 내일 일본으로 가지 않는다",
+      "enSourceHash": "34b033e9e57bde0f"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:4508b8806f6fab11",
+      "text": "미카는 도서관으로 가지만 켄은 집에 돌아간다",
+      "enSourceHash": "4508b8806f6fab11"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:5268153e2198b63e",
+      "text": "\"무엇\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5268153e2198b63e"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:5d9d61728be5aab5",
+      "text": "나는 열차로 학교에 간다",
+      "enSourceHash": "5d9d61728be5aab5"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:63a2af92f35f3190",
+      "text": "톰은 내일 미국으로 간다",
+      "enSourceHash": "63a2af92f35f3190"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:7339ecedff0cdece",
+      "text": "톰은 어제 일본에 왔다",
+      "enSourceHash": "7339ecedff0cdece"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:7b9f9af156f22b55",
+      "text": "미카는 집에 가지만 켄은 커피숍으로 간다",
+      "enSourceHash": "7b9f9af156f22b55"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:8afe3c83decffdf6",
+      "text": "병원",
+      "enSourceHash": "8afe3c83decffdf6"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:919e078c2619fe71",
+      "text": "나는 내일 학교에 간다",
+      "enSourceHash": "919e078c2619fe71"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:943503c1fef135ee",
+      "text": "톰은 내일 일본으로 간다",
+      "enSourceHash": "943503c1fef135ee"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:9f3a4329d8325465",
+      "text": "지하철",
+      "enSourceHash": "9f3a4329d8325465"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:b718f1354f724731",
+      "text": "도서관",
+      "enSourceHash": "b718f1354f724731"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:d64debd942d7dc26",
+      "text": "학교",
+      "enSourceHash": "d64debd942d7dc26"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:daebd8c8923e634b",
+      "text": "미카는 카페로 가고 켄은 집에 간다",
+      "enSourceHash": "daebd8c8923e634b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:e1cc9283b0485645",
+      "text": "켄은 6시에 집에 간다",
+      "enSourceHash": "e1cc9283b0485645"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:f9fac5e2f232198c",
+      "text": "미카와 켄 모두 집에 간다",
+      "enSourceHash": "f9fac5e2f232198c"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/ja:あした がっこうに いく",
+      "text": "만들기: 내일 학교에 간다",
+      "enSourceHash": "752bcb936fb3a7d7"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/ja:うちから えきまで あるく",
+      "text": "만들기: 집에서 역까지 걷는다",
+      "enSourceHash": "2173c802115ee7ec"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/ja:きょうは としょかんに いく",
+      "text": "만들기: 오늘 도서관에 간다",
+      "enSourceHash": "89d54ba0fa5b243b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/ja:ちかてつで だいがくへ いく",
+      "text": "만들기: 지하철로 대학에 간다",
+      "enSourceHash": "1209754aa73ade34"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/ja:でんしゃで がっこうに いく",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/ja:やまへ いくから くつを かう",
+      "text": "만들기: 산으로 가니까 신발을 산다",
+      "enSourceHash": "53c8c655afad3d53"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/ja:ケンは ろくじに うちに かえる",
+      "text": "만들기: 켄은 6시에 집에 돌아간다",
+      "enSourceHash": "9110d944f89c16b1"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/ja:ミカは うみへ いく",
+      "text": "만들기: 미카는 바다로 간다",
+      "enSourceHash": "2b5c724f1b4d5415"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:083e30fb8637471b",
+      "text": "\"아침\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "083e30fb8637471b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:1117d514e51d3faf",
+      "text": "걸어서 학교까지 9분이다",
+      "enSourceHash": "1117d514e51d3faf"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:1180412af43d7860",
+      "text": "쇼핑",
+      "enSourceHash": "1180412af43d7860"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:3abaf573b953b1dd",
+      "text": "지금 7시 5분이다",
+      "enSourceHash": "3abaf573b953b1dd"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:477afd5fb8e3e905",
+      "text": "자전거로 학교까지 5분이다",
+      "enSourceHash": "477afd5fb8e3e905"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:51bda2739bdb73d2",
+      "text": "켄은 10분을 기다렸지만 미카는 오지 않았다",
+      "enSourceHash": "51bda2739bdb73d2"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:5268153e2198b63e",
+      "text": "\"무엇\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5268153e2198b63e"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:6f4082aefa0bef83",
+      "text": "미카는 10분을 기다렸지만 켄은 오지 않았다",
+      "enSourceHash": "6f4082aefa0bef83"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:79ea5fbd8e766cd3",
+      "text": "분 -말장난",
+      "enSourceHash": "79ea5fbd8e766cd3"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:7d75e1516e459abe",
+      "text": "미카는 10분을 기다리고 켄이 왔다",
+      "enSourceHash": "7d75e1516e459abe"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:8a6ba32c9bed6ce7",
+      "text": "영화",
+      "enSourceHash": "8a6ba32c9bed6ce7"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:8dde4dd508b3fe79",
+      "text": "자전거로 학교까지 9분이다",
+      "enSourceHash": "8dde4dd508b3fe79"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:905cca08133cfe10",
+      "text": "복습 — 목적, 분과 시작 시간",
+      "enSourceHash": "905cca08133cfe10"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:90e63d85fa1ab2c8",
+      "text": "분",
+      "enSourceHash": "90e63d85fa1ab2c8"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:94c38949f920a9d1",
+      "text": "기차는 8시 10분에 온다",
+      "enSourceHash": "94c38949f920a9d1"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:bba0e58f9ca1cda8",
+      "text": "10분",
+      "enSourceHash": "bba0e58f9ca1cda8"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:da23c7951082ee1e",
+      "text": "미카는 5분을 기다렸지만 켄은 오지 않았다",
+      "enSourceHash": "da23c7951082ee1e"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:de0eacb33edbf8bd",
+      "text": "영화를 보러 간다",
+      "enSourceHash": "de0eacb33edbf8bd"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:e74035a3bb4a2f92",
+      "text": "먹으러 나간다",
+      "enSourceHash": "e74035a3bb4a2f92"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:ea7c0c4faf6cf4db",
+      "text": "자전거로 역까지 9분이다",
+      "enSourceHash": "ea7c0c4faf6cf4db"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/ja:いま しちじ ごふんだ",
+      "text": "만들기: 지금 7시 5분이다",
+      "enSourceHash": "245c68580092af96"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/ja:えいがを みに いく",
+      "text": "만들기: 영화를 보러 간다",
+      "enSourceHash": "09dc500a9aa45606"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/ja:きょうは ともだちと かいものに いく",
+      "text": "만들기: 오늘 친구와 쇼핑하러 간다",
+      "enSourceHash": "0076465fbafa358f"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/ja:くじから はたらく",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/ja:ごはんを たべに いく",
+      "text": "만들기: 먹으러 나간다",
+      "enSourceHash": "dbf46644a178e129"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/ja:でんしゃは はちじ じゅっぷんに くる",
+      "text": "만들기: 기차는 8시 10분에 온다",
+      "enSourceHash": "02c0009c31ebf05b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/ja:としょかんに ほんを みに いく",
+      "text": "만들기: 도서관에 책을 보러 간다",
+      "enSourceHash": "03403f4fbf211546"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/ja:みせは くじから ろくじまでだ",
+      "text": "만들기: 가게는 9시부터 6시까지다",
+      "enSourceHash": "61c2292335d5fea9"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:04e027e4990a203f",
+      "text": "버스",
+      "enSourceHash": "04e027e4990a203f"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:0ac1533c605fd681",
+      "text": "복습 — 이동하기, 시작부터 끝까지",
+      "enSourceHash": "0ac1533c605fd681"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:116f54c41d0405db",
+      "text": "전철",
+      "enSourceHash": "116f54c41d0405db"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:2cf30673f2e0a527",
+      "text": "전철로 도서관에 간다",
+      "enSourceHash": "2cf30673f2e0a527"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:2d4a2916fd30d249",
+      "text": "미카는 바다로 간다",
+      "enSourceHash": "2d4a2916fd30d249"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:348fd500c4589334",
+      "text": "전철이 8시 5분에 온다",
+      "enSourceHash": "348fd500c4589334"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:5bbd577069e940f1",
+      "text": "대학으로 걷는다",
+      "enSourceHash": "5bbd577069e940f1"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:5d9d61728be5aab5",
+      "text": "전철로 학교에 간다",
+      "enSourceHash": "5d9d61728be5aab5"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:65fd6907eb798609",
+      "text": "5시까지 집에 돌아온다",
+      "enSourceHash": "65fd6907eb798609"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:767b410b946b7eb1",
+      "text": "전철이 10시 8분에 온다",
+      "enSourceHash": "767b410b946b7eb1"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:8afe3c83decffdf6",
+      "text": "병원",
+      "enSourceHash": "8afe3c83decffdf6"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:94c38949f920a9d1",
+      "text": "전철이 8시 10분에 온다",
+      "enSourceHash": "94c38949f920a9d1"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:9f3a4329d8325465",
+      "text": "지하철",
+      "enSourceHash": "9f3a4329d8325465"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:9fc7c32557596bcc",
+      "text": "버스로 대학에 간다",
+      "enSourceHash": "9fc7c32557596bcc"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:b428f88d06dc30d4",
+      "text": "지하철로 대학에 간다",
+      "enSourceHash": "b428f88d06dc30d4"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:b69229ef1b580756",
+      "text": "버스가 8시 10분에 온다",
+      "enSourceHash": "b69229ef1b580756"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:b718f1354f724731",
+      "text": "도서관",
+      "enSourceHash": "b718f1354f724731"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:d64debd942d7dc26",
+      "text": "학교",
+      "enSourceHash": "d64debd942d7dc26"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:e74035a3bb4a2f92",
+      "text": "먹으러 나간다",
+      "enSourceHash": "e74035a3bb4a2f92"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/ja:うちから えきまで あるく",
+      "text": "만들기: 집에서 역까지 걷는다",
+      "enSourceHash": "2173c802115ee7ec"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/ja:ごじまでに うちに かえる",
+      "text": "만들기: 5시까지 집에 돌아온다",
+      "enSourceHash": "02dd110f6e63b260"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/ja:ごはんを たべに いく",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/ja:すみません バスで えきに いきますか",
+      "text": "정중하게 말하세요: 실례해요, 버스로 역에 가나요",
+      "enSourceHash": "f898b5f1a953bf4d"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/ja:たてものの まえに にわが ある",
+      "text": "만들기: 건물 앞에 정원이 있다",
+      "enSourceHash": "6c1234bb48e6d1d4"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/ja:でんしゃで がっこうに いく",
+      "text": "만들기: 전철로 학교에 간다",
+      "enSourceHash": "f4e3c1984559b48d"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/ja:みせは くじから ろくじまでだ",
+      "text": "만들기: 가게는 9시부터 6시까지다",
+      "enSourceHash": "61c2292335d5fea9"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/ja:コンビニの かいだんで まつ",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/ja:バスは ろくじ さんぷんに くる",
+      "text": "만들기: 버스가 6시 3분에 온다",
+      "enSourceHash": "81afaff26dbac514"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/ja:ミカは うみへ いく",
+      "text": "만들기: 미카는 바다로 간다",
+      "enSourceHash": "2b5c724f1b4d5415"
+    },
+    {
+      "anchor": "m19/story:ja-m19-my-family/en:952704ccac1ac9a6",
+      "text": "내 가족",
+      "enSourceHash": "952704ccac1ac9a6"
+    },
+    {
+      "anchor": "m19/story:ja-m19-my-family/en:e255d89b4b023269",
+      "text": "네 식구와 생일이 있다.",
+      "enSourceHash": "e255d89b4b023269"
+    },
+    {
+      "anchor": "m19/story:ja-m19-my-family/gloss:たんじょうび",
+      "text": "생일",
+      "enSourceHash": "0422d42c689b7e80"
+    },
+    {
+      "anchor": "m19/story:ja-m19-my-family/ja:あしたは いもうとの たんじょうびです。",
+      "text": "내일은 여동생의 생일이에요.",
+      "enSourceHash": "d4b3828d34a9196c"
+    },
+    {
+      "anchor": "m19/story:ja-m19-my-family/ja:あには だいがくの がくせいです。",
+      "text": "형은 대학의 학생이에요.",
+      "enSourceHash": "e1bc85fbe4a989bf"
+    },
+    {
+      "anchor": "m19/story:ja-m19-my-family/ja:いもうとは とても かわいいです。",
+      "text": "여동생은 매우 귀여워요.",
+      "enSourceHash": "6603af91d42727d4"
+    },
+    {
+      "anchor": "m19/story:ja-m19-my-family/ja:かぞくは みんな げんきです。",
+      "text": "가족은 모두 건강해요.",
+      "enSourceHash": "27b64cc210a61e24"
+    },
+    {
+      "anchor": "m19/story:ja-m19-my-family/ja:ちちと ははと あにと わたしです。",
+      "text": "아버지와 어머니와 형과 저예요.",
+      "enSourceHash": "0829d49e7d2ff802"
+    },
+    {
+      "anchor": "m19/story:ja-m19-my-family/ja:みんなで ごはんを たべます。",
+      "text": "다 같이 밥을 먹어요.",
+      "enSourceHash": "e6bcbdb5f1a6ed33"
+    },
+    {
+      "anchor": "m19/story:ja-m19-my-family/ja:わたしの かぞくは よにんです。",
+      "text": "내 가족은 4명이에요.",
+      "enSourceHash": "912b04e581e14da6"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/en:151738d83a872cff",
+      "text": "사진 속의 소녀",
+      "enSourceHash": "151738d83a872cff"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/en:f2a1148a2e53a1ef",
+      "text": "집에 있는 모든 사람이 추측한다. 거기에 있던 사람은 한 명뿐이었다.",
+      "enSourceHash": "f2a1148a2e53a1ef"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/gloss:おなじ",
+      "text": "같다",
+      "enSourceHash": "fa0487f2dc91544a"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/gloss:きっと",
+      "text": "반드시",
+      "enSourceHash": "e9670ad664015627"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/gloss:でしょう",
+      "text": "아마 ...일 것이다",
+      "enSourceHash": "72195645a10d1dec"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:「けっこんの まえの しゃしんです。」",
+      "text": "결혼 전 사진이에요.",
+      "enSourceHash": "a1e868739545d576"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:「よこの おとこのこは おじいさんです。」",
+      "text": "옆에 있는 소년은 할아버지예요.",
+      "enSourceHash": "931fd0e3350b0333"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:「わたしは じゅうななさいでした。」",
+      "text": "저는 17세였어요.",
+      "enSourceHash": "15bd3bceebfebaca"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:あには めがねを とる。「この かたは だいがくの がくせいでしょう。」",
+      "text": "형이 안경을 벗는다. \"이 분은 아마 대학생일 것이다.\"",
+      "enSourceHash": "3050fc3687bb8c0a"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:いま、ぼくは おばあさんの めを よく みる。しゃしんの おんなのこの めだ。",
+      "text": "지금 나는 할머니의 눈을 잘 본다. 사진 속 여자아이의 눈이다.",
+      "enSourceHash": "707d0430ea11f450"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:おばあさんの こえは しずかだ。「しりません。」",
+      "text": "할머니의 목소리는 조용하다. \"모른다.\"",
+      "enSourceHash": "f88cdb84abe42056"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:おばあさんは ななじゅうごさいだ。",
+      "text": "할머니는 75세다.",
+      "enSourceHash": "7c00da0b29b924d3"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:おばあさんは ぼくに しゃしんの はなしを する。",
+      "text": "할머니는 나에게 사진 이야기를 한다.",
+      "enSourceHash": "43d603800ae8ca88"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:おんなのこの めと おばあさんの めは おなじだ。",
+      "text": "여자아이의 눈과 할머니의 눈은 같다.",
+      "enSourceHash": "c9c659509d10b5e5"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:おんなのこは とても かわいい。",
+      "text": "여자아이는 매우 귀엽다.",
+      "enSourceHash": "3ce5e83a36dbf257"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:かばんの なかに ふるい しゃしんが ある。",
+      "text": "가방 안에 낡은 사진이 있다.",
+      "enSourceHash": "1806f6ca665a0df4"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:しゃしんの なかに おんなのこが いる。",
+      "text": "사진 안에 여자아이가 있다.",
+      "enSourceHash": "f634b7add6f3fac7"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:だれも わからない。",
+      "text": "아무도 모른다.",
+      "enSourceHash": "7441c86c7a105000"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:ちちは しゃしんを ながい じかん みる。「ははの おねえさんでしょう。」",
+      "text": "아버지는 사진을 오랫동안 본다. \"어머니의 언니일 것이다.\"",
+      "enSourceHash": "161afa0717a5b29f"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:にちようび、ぼくは おばあさんの うちに いる。",
+      "text": "일요일, 나는 할머니 집에 있다.",
+      "enSourceHash": "6a38907f809c007a"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:ははも しゃしんを みる。「きっと がっこうの せんせいでしょう。」",
+      "text": "어머니도 사진을 본다. \"반드시 학교 선생님일 것이다.\"",
+      "enSourceHash": "3cccc2780425ee30"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:ぼくの あねと おなじじゃない。おばあさんと おなじだ。",
+      "text": "내 누나와는 같지 않다. 할머니와 같다.",
+      "enSourceHash": "d9eb6057222edfb2"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:ぼくの あねと おなじだ。",
+      "text": "내 누나와 같다.",
+      "enSourceHash": "a78c1c2b8f407d52"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:ぼくは おばあさんに はなす。「この かたは どなたですか。」",
+      "text": "나는 할머니에게 말한다. \"이 분은 누구세요?\"",
+      "enSourceHash": "aeba16c8b5bf915b"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:ぼくは おばあさんの ふるい かばんを あける。",
+      "text": "나는 할머니의 낡은 가방을 연다.",
+      "enSourceHash": "71f1cef8794f7387"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:ぼくは しゃしんを もういちど みる。",
+      "text": "나는 사진을 다시 본다.",
+      "enSourceHash": "5e4fb6a4b60d726a"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:ぼくは ちちに しゃしんを みせる。",
+      "text": "나는 아버지에게 사진을 보여준다.",
+      "enSourceHash": "a61903c8fbd5d374"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:よる、おばあさんは ぼくを まつ。",
+      "text": "저녁에, 할머니는 나를 기다린다.",
+      "enSourceHash": "4a3845afa8119ce8"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/en:9635e15d812f9120",
+      "text": "춤추는 마을",
+      "enSourceHash": "9635e15d812f9120"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/en:a60b8439a45c9337",
+      "text": "하고 싶지 않았던 긴 기차 여행과 공원의 춤.",
+      "enSourceHash": "a60b8439a45c9337"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/gloss:おぼん",
+      "text": "오본 — 가족이 고향으로 돌아가는 여름 날들",
+      "enSourceHash": "0c4007ccf793ad9f"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/gloss:こども",
+      "text": "아이",
+      "enSourceHash": "343de8de95945f68"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/gloss:ぼんおどり",
+      "text": "마을 광장에서 함께 추는 봉오도리",
+      "enSourceHash": "7e1534a203503372"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:「これを みてください。」",
+      "text": "이것을 보세요.",
+      "enSourceHash": "34080ad68f69c60e"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:「ぼんおどりは やさしいです。」",
+      "text": "봉오도리는 쉬워요.",
+      "enSourceHash": "cd4ad61b0614cce2"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:「わたしは へたです。」",
+      "text": "저는 서툴어요.",
+      "enSourceHash": "81748053bf7a85b0"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:いもうとが わたしに ぼんおどりを おしえる。",
+      "text": "여동생이 나에게 봉오도리를 가르친다.",
+      "enSourceHash": "dc71a9dddc7b3944"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:いもうとが わたしの よこに くる。",
+      "text": "여동생이 내 옆으로 온다.",
+      "enSourceHash": "f3ba7b81284fd4c2"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:おとなも こどもも いる。",
+      "text": "어른도 있고 아이도 있다.",
+      "enSourceHash": "084d0c31a78c99a3"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:おばあさんの うちは とても とおい。",
+      "text": "할머니 집은 매우 멀다.",
+      "enSourceHash": "69e3efc0404352a3"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:おばあさんの ごはんは ほんとうに おいしい。",
+      "text": "할머니의 밥은 정말 맛있다.",
+      "enSourceHash": "f70683fcf275273b"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:おばあさんの まちは ちいさいけど、おぼんは にぎやかだ。",
+      "text": "할머니의 마을은 작지만, 오본은 성대하다.",
+      "enSourceHash": "5657811d82102ebc"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:おばあさんは こうえんの よこに すわる。",
+      "text": "할머니는 공원 옆에 앉는다.",
+      "enSourceHash": "6b3e6080980d61a2"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:おばあさんは ななじゅうさいだ。",
+      "text": "할머니는 일흔 살이다.",
+      "enSourceHash": "44f3c6ac79aaa92f"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:おばあさんは まいとし ここに くる。",
+      "text": "할머니는 매년 여기에 온다.",
+      "enSourceHash": "66c988ddabe7a005"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:おぼんに みんな うちに かえる。",
+      "text": "오본에 모두 집으로 돌아간다.",
+      "enSourceHash": "6548fc3d3a384602"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:おぼんは かぞくの やすみだ。",
+      "text": "오본은 가족의 휴일이다.",
+      "enSourceHash": "baa6c8eb6dddf9a8"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:かぞくの よにんで でんしゃに のる。",
+      "text": "가족 네 명이 전철에 탄다.",
+      "enSourceHash": "7e83a0182b499975"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:それから、まちの ひとが ぼんおどりを する。",
+      "text": "그리고 마을 사람들이 봉오도리를 한다.",
+      "enSourceHash": "e28065e349dc16c6"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:でんしゃの じかんは ながい。",
+      "text": "전철 시간이 길다.",
+      "enSourceHash": "591013b25c4f84de"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:でんしゃの ながい じかんは ぜんぜん たいへんじゃない。",
+      "text": "전철의 긴 시간은 전혀 힘들지 않다.",
+      "enSourceHash": "952bd0b6e3757fe3"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:なつの おぼんに かぞくで おばあさんの うちに かえる。",
+      "text": "여름 오본에 가족으로 할머니 집으로 돌아간다.",
+      "enSourceHash": "5e31c35bd539df85"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:にわに おおきな きが ある。",
+      "text": "마당에 큰 나무가 있다.",
+      "enSourceHash": "08b285d5efde7027"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:ゆうがた、まちの こうえんに いく。",
+      "text": "저녁에 마을 공원에 간다.",
+      "enSourceHash": "00ea5ab8bc03c3d1"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:わたしは ながい でんしゃが きらいだ。",
+      "text": "나는 긴 전철이 싫다.",
+      "enSourceHash": "f70f75209e22fea5"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:わたしは ぼんおどりが わからない。",
+      "text": "나는 봉오도리가 이해가 안 된다.",
+      "enSourceHash": "a892b29cf1a3b181"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:わたしも まいとし ここに かえる。",
+      "text": "나도 매년 여기에 돌아온다.",
+      "enSourceHash": "78ca342abd11de73"
+    }
+  ]
+}

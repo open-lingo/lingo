@@ -1,0 +1,3207 @@
+{
+  "schema": 1,
+  "moduleId": "m19",
+  "lang": "ja",
+  "generatedAt": "2026-09-11",
+  "entryCount": 533,
+  "entries": [
+    {
+      "anchor": "m19/atom:あるく/gloss",
+      "en": "to walk",
+      "enSourceHash": "89c2c14d1d789d98",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m19/atom:おりる/gloss",
+      "en": "to get off, to descend",
+      "enSourceHash": "e8953937867b9f11",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m19/atom:かいだん/gloss",
+      "en": "stairs",
+      "enSourceHash": "0eeea780b063634b",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m19/atom:かえる/gloss",
+      "en": "to go back",
+      "enSourceHash": "69dc9130629e191a",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m19/atom:がっこう/gloss",
+      "en": "school",
+      "enSourceHash": "d64debd942d7dc26",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m19/atom:じゅっぷん/gloss",
+      "en": "ten minutes",
+      "enSourceHash": "bba0e58f9ca1cda8",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m19/atom:じゅっぷん/shortGloss",
+      "en": "ten minutes",
+      "enSourceHash": "bba0e58f9ca1cda8",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m19/atom:たてもの/gloss",
+      "en": "building",
+      "enSourceHash": "5167e9677e1fbc50",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m19/atom:ちかてつ/gloss",
+      "en": "subway train",
+      "enSourceHash": "7c9af9d7b7a004e2",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m19/atom:でんしゃ/gloss",
+      "en": "electric train",
+      "enSourceHash": "25ffbc429f73817a",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m19/atom:としょかん/gloss",
+      "en": "library",
+      "enSourceHash": "b718f1354f724731",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m19/atom:どこですか/gloss",
+      "en": "Where is it?",
+      "enSourceHash": "26dc5e5265eddbbc",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m19/atom:にわ/gloss",
+      "en": "garden",
+      "enSourceHash": "23eeb69c681dfdb8",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m19/atom:びょういん/gloss",
+      "en": "hospital",
+      "enSourceHash": "8afe3c83decffdf6",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m19/atom:ふん/gloss",
+      "en": "minutes (after 2, 5, 7, 9)",
+      "enSourceHash": "53449dfd51483460",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m19/atom:ふん/shortGloss",
+      "en": "minutes",
+      "enSourceHash": "90e63d85fa1ab2c8",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m19/atom:ぷん/gloss",
+      "en": "minutes (after 1, 3, 4, 6, 8, 10)",
+      "enSourceHash": "2fae3c8ee9ada368",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m19/atom:ぷん/shortGloss",
+      "en": "minutes -pun",
+      "enSourceHash": "79ea5fbd8e766cd3",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m19/atom:へ/gloss",
+      "en": "to, toward (direction)",
+      "enSourceHash": "4c85f5eaca92ada1",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m19/atom:へ/shortGloss",
+      "en": "toward",
+      "enSourceHash": "cc58a5f8986c71d4",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m19/atom:まち/gloss",
+      "en": "town, city",
+      "enSourceHash": "6421167cd1914269",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m19/atom:むこう/gloss",
+      "en": "over there",
+      "enSourceHash": "aa572b28f43faac6",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m19/atom:コンビニ/gloss",
+      "en": "Convenience store",
+      "enSourceHash": "cdc197198a299b7c",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m19/atom:バス/gloss",
+      "en": "bus",
+      "enSourceHash": "04e027e4990a203f",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m19/gp:counter-fun/ex:いま しちじ ごふんだ。",
+      "en": "It's 7:05 now.",
+      "enSourceHash": "8cf1ebf2c34e2567",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:counter-fun/ex:いま しちじ ごぷんだ。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:counter-fun/ex:えきまで じゅっぷん あるく。",
+      "en": "I walk ten minutes to the station.",
+      "enSourceHash": "ca4eff19cec0724c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:counter-fun/ex:でんしゃは はちじ じゅっぷんに くる。",
+      "en": "The train comes at 8:10.",
+      "enSourceHash": "87be8351c449a49b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:counter-fun/ex:バスは ろくじ さんぷんに くる。",
+      "en": "The bus comes at 6:03.",
+      "enSourceHash": "6180853f44b00ff4",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:counter-fun/ex:ミカは よんぷん まつ。",
+      "en": "Mika waits four minutes.",
+      "enSourceHash": "0809d808eebd1949",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:de-action/ex:えきまで あるく。",
+      "en": "I walk as far as the station.",
+      "enSourceHash": "d84700fe508355f7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:de-action/ex:くるまで いくから きっぷは かわない。",
+      "en": "I'm going by car, so I won't buy a ticket.",
+      "enSourceHash": "cbaa6c82322fcae4",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:de-action/ex:くるまで だいがくに いく。",
+      "en": "I go to the university by car.",
+      "enSourceHash": "2688297aeb4c96a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:de-action/ex:くるまを だいがくに いく。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:de-action/ex:トムは ふねで うみへ いく。",
+      "en": "Tom heads out to the sea by boat.",
+      "enSourceHash": "93665fc3c8fb0b4e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:de-action/ex:ミカは じてんしゃで きっさてんに いく。",
+      "en": "Mika goes to the coffee shop by bike.",
+      "enSourceHash": "49acb1a98d632d20",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:e-direction/ex:にほんへ いく。",
+      "en": "I'm heading to Japan.",
+      "enSourceHash": "1a9bf5d85bf25d50",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:e-direction/ex:やまへ いくから くつを かう。",
+      "en": "I'm heading to the mountains, so I'll buy shoes.",
+      "enSourceHash": "935eb704db0e6700",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:e-direction/ex:ろくじに うちへ かえる。",
+      "en": "I'm heading home at six.",
+      "enSourceHash": "29c00bc889b75635",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:e-direction/ex:ろくじへ うちへ かえる。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:e-direction/ex:ケンは あした がっこうへ くる。",
+      "en": "Ken is coming to school tomorrow.",
+      "enSourceHash": "19f7119d5603dc04",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:e-direction/ex:ミカは うみへ いく。",
+      "en": "Mika is heading to the sea.",
+      "enSourceHash": "9587ace4874c916e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:kara-time/ex:あしたは あさ ろくじから いそがしい。",
+      "en": "Tomorrow I'm busy from six in the morning.",
+      "enSourceHash": "c5caf750775af770",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:kara-time/ex:くじから はたらく。",
+      "en": "I work from nine.",
+      "enSourceHash": "0bb06948e02e8b03",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:kara-time/ex:くじから ろくじまで はたらく。",
+      "en": "I work from nine to six.",
+      "enSourceHash": "9392b080744d92b2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:kara-time/ex:くじまで ろくじから はたらく。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:kara-time/ex:ばんは しちじから ひまだ。",
+      "en": "In the evening I'm free from seven.",
+      "enSourceHash": "d55c222851b97d88",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:kara-time/ex:みせは くじから ろくじまでだ。",
+      "en": "The shop is open from nine to six.",
+      "enSourceHash": "d263753aa6b389e8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:location-qa/ex:でんしゃは なんじに くる？",
+      "en": "What time does the train come?",
+      "enSourceHash": "703287b46a52b910",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:location-qa/ex:としょかんは なんじから？",
+      "en": "What time is the library open from?",
+      "enSourceHash": "31aa0f6dfd114a91",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:location-qa/ex:どこへ いく？",
+      "en": "Where are you heading?",
+      "enSourceHash": "0b2fee92c4059f5c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:location-qa/ex:どこを いく？",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:location-qa/ex:なにで がっこうに いく？",
+      "en": "What do you go to school by?",
+      "enSourceHash": "9f9944e6e4104ab2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:location-qa/ex:びょういんまで なんぷん あるく？",
+      "en": "How many minutes do you walk to the hospital?",
+      "enSourceHash": "2d4d6e3e8161c7d4",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:made-ni/ex:あしたまでに きっぷを かう。",
+      "en": "I'll buy the ticket by tomorrow.",
+      "enSourceHash": "c279689c9257b0e6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:made-ni/ex:くじまでに がっこうに いく。",
+      "en": "I'll get to school by nine.",
+      "enSourceHash": "fc4a3a8409390baf",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:made-ni/ex:ごじにまで うちに かえる。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:made-ni/ex:ごじまでに うちに かえる。",
+      "en": "I'll be home by five.",
+      "enSourceHash": "b4e2331a074bdb84",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:made-ni/ex:はちじ じゅっぷんまでに えきに いく。",
+      "en": "I'll get to the station by 8:10.",
+      "enSourceHash": "70878a0b8ba01ffe",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:made-ni/ex:ろくじまで きっさてんで まつ。",
+      "en": "I'll wait at the coffee shop until six.",
+      "enSourceHash": "09165382747b1104",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:masu-present/ex:すみません えきは どこです。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:masu-present/ex:すみません えきは どこですか。",
+      "en": "Excuse me, where is the station?",
+      "enSourceHash": "7fa743afcb7e175f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:masu-present/ex:ちかてつで だいがくに いきますか。",
+      "en": "Do you go to the university by subway?",
+      "enSourceHash": "14ce574ecd1c74c9",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:masu-present/ex:でんしゃは なんじに きますか。",
+      "en": "What time does the train come?",
+      "enSourceHash": "703287b46a52b910",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:masu-present/ex:びょういんは あそこですか。",
+      "en": "Is the hospital over there?",
+      "enSourceHash": "743f97c7966e8e46",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:masu-present/ex:バスで がっこうに いきますか。",
+      "en": "Do you go to school by bus?",
+      "enSourceHash": "415b47706f0a603d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:ni-iku/ex:えいがを みに いく。",
+      "en": "I'm going to watch a movie.",
+      "enSourceHash": "e812cc58f425e4ff",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:ni-iku/ex:きょうは かいものに いく。",
+      "en": "I'm going shopping today.",
+      "enSourceHash": "cb4b96b4d0b2e607",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:ni-iku/ex:ごはんを たべに いく。",
+      "en": "I'm going out to eat.",
+      "enSourceHash": "d78b043262d7956e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:ni-iku/ex:ごはんを たべるに いく。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:ni-iku/ex:トムは ともだちと あそびに くる。",
+      "en": "Tom is coming over to hang out with a friend.",
+      "enSourceHash": "fd37b4353c20e6bb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:ni-iku/ex:ミカは ちゃを のみに きっさてんに いく。",
+      "en": "Mika is going to the coffee shop to drink tea.",
+      "enSourceHash": "5135f7624055abfc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:ni-location/ex:えきで いく。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:ni-location/ex:えきに いく。",
+      "en": "I'm going to the station.",
+      "enSourceHash": "821dcf493853209b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:ni-location/ex:たてもの むこうに いく。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:ni-location/ex:たてものの むこうに いく。",
+      "en": "I'm going to the other side of the building.",
+      "enSourceHash": "da889cbbe176e3de",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:ni-location/ex:たてものの むこうに にわが ある。",
+      "en": "There's a garden on the other side of the building.",
+      "enSourceHash": "e573ac1c61071bfd",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:ni-location/ex:たてものは にわの むこうだ。",
+      "en": "The building is beyond the garden.",
+      "enSourceHash": "71b292e5d466eba7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:ni-location/ex:なつやすみに にほんに いく。",
+      "en": "I'm going to Japan for the summer vacation.",
+      "enSourceHash": "0a5808bd50ffc999",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:ni-location/ex:にわの むこうに たてものが ある。",
+      "en": "There's a building beyond the garden.",
+      "enSourceHash": "640c1c840c38ccf3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:ni-location/ex:むこうに いくから きっぷを かう。",
+      "en": "I'm heading over there, so I'll buy a ticket.",
+      "enSourceHash": "b631ec512132d6f6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:ni-location/ex:ろくじに うちに かえる。",
+      "en": "I'm going home at six.",
+      "enSourceHash": "65e3bce770874ea8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:ni-location/ex:トムは あした だいがくに くる。",
+      "en": "Tom is coming to the university tomorrow.",
+      "enSourceHash": "bf6fd106c8f741be",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/gp:ni-location/ex:ミカは きっさてんに いく。",
+      "en": "Mika is going to the coffee shop.",
+      "enSourceHash": "4b50a18c79960fd3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:065d87dc3483a56a",
+      "en": "Mika is going to school tomorrow",
+      "enSourceHash": "065d87dc3483a56a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:0889113e04d3203f",
+      "en": "class",
+      "enSourceHash": "0889113e04d3203f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:2ed128fa137cf13a",
+      "en": "home (my place)",
+      "enSourceHash": "2ed128fa137cf13a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:4bc6111307c6954b",
+      "en": "Tom and Mika are both going home",
+      "enSourceHash": "4bc6111307c6954b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:4dfc6c8a51462f6d",
+      "en": "Mika goes to school in the morning",
+      "enSourceHash": "4dfc6c8a51462f6d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:521a76c7e2847de3",
+      "en": "Mika is going to the library tomorrow",
+      "enSourceHash": "521a76c7e2847de3",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:53b4d1c82dfab6f9",
+      "en": "Mika isn't going to school tomorrow",
+      "enSourceHash": "53b4d1c82dfab6f9",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:69ad799bfb1f3c33",
+      "en": "Tom is going home, but Mika is going to the library",
+      "enSourceHash": "69ad799bfb1f3c33",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:857ce5796d5aea1b",
+      "en": "Tom is going to the library, and Mika is coming too",
+      "enSourceHash": "857ce5796d5aea1b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:919e078c2619fe71",
+      "en": "I'm going to school tomorrow",
+      "enSourceHash": "919e078c2619fe71",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:9b4ef3e5b7b4d175",
+      "en": "station",
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:adba6c0ec8a8d89e",
+      "en": "university",
+      "enSourceHash": "adba6c0ec8a8d89e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:baed831623943be3",
+      "en": "watch",
+      "enSourceHash": "baed831623943be3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:bbf079fc19e810f9",
+      "en": "I'm going to the library today",
+      "enSourceHash": "bbf079fc19e810f9",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:c798e5b18ed876ef",
+      "en": "coffee shop",
+      "enSourceHash": "c798e5b18ed876ef",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:cca7527f935b89d5",
+      "en": "Mika went to school yesterday",
+      "enSourceHash": "cca7527f935b89d5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:e1cc9283b0485645",
+      "en": "Ken is going home at six",
+      "enSourceHash": "e1cc9283b0485645",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/en:ee8f3b8725d4b313",
+      "en": "Tom is going to the library, but Mika is going home",
+      "enSourceHash": "ee8f3b8725d4b313",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/ja:あした がっこうに いく",
+      "en": "Build: I'm going to school tomorrow",
+      "enSourceHash": "752bcb936fb3a7d7",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/ja:あしたは じゅぎょうが ないから がっこうに いかない",
+      "en": "Build: I have no class tomorrow, so I'm not going to school",
+      "enSourceHash": "cdb9e415d06bb880",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/ja:きょうは じゅぎょうが あるから がっこうに いく",
+      "en": "Build: I have a class today, so I'm going to school",
+      "enSourceHash": "1981888fb8e84cc1",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/ja:きょうは としょかんに いく",
+      "en": "Build: I'm going to the library today",
+      "enSourceHash": "89d54ba0fa5b243b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/ja:ケンは ろくじに うちに かえる",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/ja:トムは いそがしいから としょかんに いく",
+      "en": "Build: Tom is busy, so he's going to the library",
+      "enSourceHash": "d6191f2b07df4c61",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/ja:ミカは あさ がっこうに いく",
+      "en": "Build: Mika goes to school in the morning",
+      "enSourceHash": "a4245ba6b1070d73",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-1/ja:ミカは きっさてんに いくけど ケンは うちに かえる",
+      "en": "Build: Mika is going to the coffee shop, but Ken is going home",
+      "enSourceHash": "aceaa996ab74c7f0",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/en:116f54c41d0405db",
+      "en": "train",
+      "enSourceHash": "116f54c41d0405db",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/en:239575dfef886a4e",
+      "en": "There are stairs behind the convenience store",
+      "enSourceHash": "239575dfef886a4e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/en:3f1acea112a2c2a8",
+      "en": "There is a garden in front of the convenience store",
+      "enSourceHash": "3f1acea112a2c2a8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/en:8afe3c83decffdf6",
+      "en": "hospital",
+      "enSourceHash": "8afe3c83decffdf6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/en:94e5b4e7af2c2a48",
+      "en": "There are stairs in front of the convenience store",
+      "enSourceHash": "94e5b4e7af2c2a48",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/en:9b4ef3e5b7b4d175",
+      "en": "station",
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/en:adba6c0ec8a8d89e",
+      "en": "university",
+      "enSourceHash": "adba6c0ec8a8d89e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/en:b718f1354f724731",
+      "en": "library",
+      "enSourceHash": "b718f1354f724731",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/en:bfd764afea048c25",
+      "en": "There is a convenience store in front of the stairs",
+      "enSourceHash": "bfd764afea048c25",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/en:d64debd942d7dc26",
+      "en": "school",
+      "enSourceHash": "d64debd942d7dc26",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/ja:あさ まちの コンビニに いく",
+      "en": "Build: In the morning I go to the convenience store in town",
+      "enSourceHash": "6ee4d3b120822919",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/ja:でんしゃを おりる",
+      "en": "Build: I'm getting off the train",
+      "enSourceHash": "e967ce471d1d3ecb",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/ja:でんしゃを おりるから まちへ あるく",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/ja:にわの かいだんを おりる",
+      "en": "Build: I go down the stairs in the garden",
+      "enSourceHash": "dec6ee2b1b10d377",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/ja:まちに いく",
+      "en": "Build: I'm going into town",
+      "enSourceHash": "37b50a8d8f5229aa",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/ja:まちの コンビニで きっぷを かってから たてものの むこうに いく",
+      "en": "Build: After buying the ticket at the convenience store in town, I'm going to the other side of the building",
+      "enSourceHash": "a60b7dea4070f67a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/ja:コンビニで きっぷを かう",
+      "en": "Build: I buy the ticket at the convenience store",
+      "enSourceHash": "d657e15bc5c89b84",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-10/ja:コンビニの まえに かいだんが ある",
+      "en": "Build: There are stairs in front of the convenience store",
+      "enSourceHash": "b72c819b4d2b95a2",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:01ea5ddd3be5477a",
+      "en": "shoes",
+      "enSourceHash": "01ea5ddd3be5477a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:14069429150abcbf",
+      "en": "ticket",
+      "enSourceHash": "14069429150abcbf",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:325191dc644d634d",
+      "en": "Mika is coming today and then heading to the hospital",
+      "enSourceHash": "325191dc644d634d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:34b033e9e57bde0f",
+      "en": "Tom isn't heading to Japan tomorrow",
+      "enSourceHash": "34b033e9e57bde0f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:3b80d38f7686a8b5",
+      "en": "mountain",
+      "enSourceHash": "3b80d38f7686a8b5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:4112ca688bae73e3",
+      "en": "Mika is heading to the hospital, so she isn't coming today",
+      "enSourceHash": "4112ca688bae73e3",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:4a69f19c8c264850",
+      "en": "sea",
+      "enSourceHash": "4a69f19c8c264850",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:5268153e2198b63e",
+      "en": "Pick the word for \"what\"",
+      "enSourceHash": "5268153e2198b63e",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:63a2af92f35f3190",
+      "en": "Tom is heading to America tomorrow",
+      "enSourceHash": "63a2af92f35f3190",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:647294383b2cbc24",
+      "en": "Japan",
+      "enSourceHash": "647294383b2cbc24",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:6f1e151a6f2e667e",
+      "en": "I'm heading to the hospital today",
+      "enSourceHash": "6f1e151a6f2e667e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:7a624b43735b8b59",
+      "en": "Tom went to Japan yesterday",
+      "enSourceHash": "7a624b43735b8b59",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:89c47bab0f36fc95",
+      "en": "Mika is heading to school, so she isn't coming today",
+      "enSourceHash": "89c47bab0f36fc95",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:943503c1fef135ee",
+      "en": "Tom is heading to Japan tomorrow",
+      "enSourceHash": "943503c1fef135ee",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:a2a6f74475a032f1",
+      "en": "Mika isn't heading to the hospital today",
+      "enSourceHash": "a2a6f74475a032f1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:b53a2183622077e0",
+      "en": "Tom is busy, but he's coming to school",
+      "enSourceHash": "b53a2183622077e0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:d64debd942d7dc26",
+      "en": "school",
+      "enSourceHash": "d64debd942d7dc26",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:ec86b5616f4971be",
+      "en": "Mika is heading to the sea tomorrow",
+      "enSourceHash": "ec86b5616f4971be",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/en:f0eeba1182ede4ca",
+      "en": "Ken is heading home at seven",
+      "enSourceHash": "f0eeba1182ede4ca",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/ja:あしたは やすみだから ともだちと うみへ いく",
+      "en": "Build: Tomorrow is a day off, so I'm heading to the sea with a friend",
+      "enSourceHash": "215d79054044f227",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/ja:あねは びょういんへ いくから きょうは こない",
+      "en": "Build: My older sister is heading to the hospital, so she isn't coming today",
+      "enSourceHash": "37855bcae6e5c7c3",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/ja:きょうは びょういんへ いく",
+      "en": "Build: I'm heading to the hospital today",
+      "enSourceHash": "0c41f89f22c42467",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/ja:にほんへ いくから きっぷを かう",
+      "en": "Build: I'm heading to Japan, so I'll buy a ticket",
+      "enSourceHash": "4ca43ea7efeccb6c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/ja:やまへ いくから くつを かう",
+      "en": "Build: I'm heading to the mountains, so I'll buy shoes",
+      "enSourceHash": "53c8c655afad3d53",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/ja:ケンは しちじに うちへ かえる",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/ja:トムは いそがしいけど がっこうへ くる",
+      "en": "Build: Tom is busy, but he's coming to school",
+      "enSourceHash": "aa4234955a984584",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-2/ja:ミカは あした うみへ いく",
+      "en": "Build: Mika is heading to the sea tomorrow",
+      "enSourceHash": "e0c55006ff3e5973",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:14069429150abcbf",
+      "en": "ticket",
+      "enSourceHash": "14069429150abcbf",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:23bf28aec2362c6a",
+      "en": "Tom goes to the university by bus",
+      "enSourceHash": "23bf28aec2362c6a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:25cdb46d8d2115a2",
+      "en": "boat",
+      "enSourceHash": "25cdb46d8d2115a2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:2b2961a431b23c90",
+      "en": "car",
+      "enSourceHash": "2b2961a431b23c90",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:342b54fe07f39199",
+      "en": "Mika walks from the station to her home",
+      "enSourceHash": "342b54fe07f39199",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:7031b8da38db6d33",
+      "en": "Tom walks to the university",
+      "enSourceHash": "7031b8da38db6d33",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:9a9e1011747e0258",
+      "en": "Mika waits at the station",
+      "enSourceHash": "9a9e1011747e0258",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:9b4ef3e5b7b4d175",
+      "en": "station",
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:9f45f35fac0da131",
+      "en": "Mika walks from home to the station",
+      "enSourceHash": "9f45f35fac0da131",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:ad288cfdf673efb4",
+      "en": "Tom goes to school by subway",
+      "enSourceHash": "ad288cfdf673efb4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:ae3a69b38b0830be",
+      "en": "Mika goes from home to the station by bus",
+      "enSourceHash": "ae3a69b38b0830be",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:d29af8a2e160dd86",
+      "en": "bicycle",
+      "enSourceHash": "d29af8a2e160dd86",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:d64debd942d7dc26",
+      "en": "school",
+      "enSourceHash": "d64debd942d7dc26",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/en:e7e46573b665ca96",
+      "en": "Tom goes to the university by subway",
+      "enSourceHash": "e7e46573b665ca96",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/ja:うちから えきまで あるく",
+      "en": "Build: I walk from home to the station",
+      "enSourceHash": "2173c802115ee7ec",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/ja:きょうは でんしゃが ないから バスで いく",
+      "en": "Build: There are no trains today, so I'm going by bus",
+      "enSourceHash": "229a351a137d9004",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/ja:ちかてつで だいがくへ いく",
+      "en": "Build: I head to the university by subway",
+      "enSourceHash": "1209754aa73ade34",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/ja:ちかてつは やすいから ちかてつで いく",
+      "en": "Build: The subway is cheap, so I'm going by subway",
+      "enSourceHash": "f3bb2134aef2af75",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/ja:でんしゃで がっこうに いく",
+      "en": "Build: I go to school by train",
+      "enSourceHash": "f4e3c1984559b48d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/ja:トムは バスで びょういんに いく",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/ja:バスは やすいけど でんしゃで がっこうに いく",
+      "en": "Build: The bus is cheap, but I go to school by train",
+      "enSourceHash": "895ac34494878735",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-3/ja:ミカは バスで としょかんに いく",
+      "en": "Build: Mika goes to the library by bus",
+      "enSourceHash": "1430d6fc4f904543",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:1180412af43d7860",
+      "en": "shopping",
+      "enSourceHash": "1180412af43d7860",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:16bd5c475d4fb4ef",
+      "en": "I'm going shopping with a friend today",
+      "enSourceHash": "16bd5c475d4fb4ef",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:430e6ed62892255b",
+      "en": "Mika is going to the library to look at books",
+      "enSourceHash": "430e6ed62892255b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:4bdf40d0d1ae3611",
+      "en": "rice/meal",
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:51371e38c9324008",
+      "en": "Mika drinks tea at home",
+      "enSourceHash": "51371e38c9324008",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:5268153e2198b63e",
+      "en": "Pick the word for \"what\"",
+      "enSourceHash": "5268153e2198b63e",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:670bd9ced0c6bc3f",
+      "en": "Sushi",
+      "enSourceHash": "670bd9ced0c6bc3f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:8a6ba32c9bed6ce7",
+      "en": "movie",
+      "enSourceHash": "8a6ba32c9bed6ce7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:98fb0b9e8b2e3631",
+      "en": "Mika is going to the coffee shop to eat",
+      "enSourceHash": "98fb0b9e8b2e3631",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:b2180174536f40c9",
+      "en": "Mika is going to the coffee shop to drink tea",
+      "enSourceHash": "b2180174536f40c9",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:c798e5b18ed876ef",
+      "en": "coffee shop",
+      "enSourceHash": "c798e5b18ed876ef",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:cbe7a2d7fcbab0e6",
+      "en": "Tom is going shopping with a friend",
+      "enSourceHash": "cbe7a2d7fcbab0e6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:de0eacb33edbf8bd",
+      "en": "I'm going to watch a movie",
+      "enSourceHash": "de0eacb33edbf8bd",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:e1ecb64df3f45219",
+      "en": "My friend is going shopping today",
+      "enSourceHash": "e1ecb64df3f45219",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:e74035a3bb4a2f92",
+      "en": "I'm going out to eat",
+      "enSourceHash": "e74035a3bb4a2f92",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:efcb0dc54f044c17",
+      "en": "I went shopping with a friend yesterday",
+      "enSourceHash": "efcb0dc54f044c17",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/en:fd56c73da0372c13",
+      "en": "I'm going out to eat with a friend today",
+      "enSourceHash": "fd56c73da0372c13",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/ja:あした ともだちと あそびに いく",
+      "en": "Build: I'm going out to hang out with a friend tomorrow",
+      "enSourceHash": "dee9adcb5b8fff6d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/ja:あしたは ひまだから ともだちと えいがを みに いく",
+      "en": "Build: I'm free tomorrow, so I'm going to watch a movie with a friend",
+      "enSourceHash": "d2b2d0831c804ffa",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/ja:えいがを みに いく",
+      "en": "Build: I'm going to watch a movie",
+      "enSourceHash": "09dc500a9aa45606",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/ja:ごはんを たべに いく",
+      "en": "Build: I'm going out to eat",
+      "enSourceHash": "dbf46644a178e129",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/ja:すしを たべに いくけど かねが ない",
+      "en": "Build: I'm going out to eat sushi, but I have no money",
+      "enSourceHash": "cab4bb9c30fd8536",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/ja:としょかんに ほんを みに いく",
+      "en": "Build: I'm going to the library to look at books",
+      "enSourceHash": "03403f4fbf211546",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/ja:トムは ともだちと かいものに いく",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-4/ja:ミカは ちゃを のみに きっさてんに いく",
+      "en": "Build: Mika is going to the coffee shop to drink tea",
+      "enSourceHash": "f2d0d9d30623ac79",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:04e027e4990a203f",
+      "en": "bus",
+      "enSourceHash": "04e027e4990a203f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:0ca92baa8a9a6f52",
+      "en": "I walk ten minutes to the coffee shop",
+      "enSourceHash": "0ca92baa8a9a6f52",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:0f67f7f2bfc024bf",
+      "en": "The train comes at 6:03",
+      "enSourceHash": "0f67f7f2bfc024bf",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:116f54c41d0405db",
+      "en": "train",
+      "enSourceHash": "116f54c41d0405db",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:29faf0a835571321",
+      "en": "I walk five minutes to the coffee shop",
+      "enSourceHash": "29faf0a835571321",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:336074805fc85398",
+      "en": "time",
+      "enSourceHash": "336074805fc85398",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:3abaf573b953b1dd",
+      "en": "It's 7:05 now",
+      "enSourceHash": "3abaf573b953b1dd",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:5268153e2198b63e",
+      "en": "Pick the word for \"what\"",
+      "enSourceHash": "5268153e2198b63e",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:60853a5ca42fdf1b",
+      "en": "The bus comes at 6:10",
+      "enSourceHash": "60853a5ca42fdf1b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:9116a317b5961566",
+      "en": "I walk ten minutes to the station",
+      "enSourceHash": "9116a317b5961566",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:94c38949f920a9d1",
+      "en": "The train comes at 8:10",
+      "enSourceHash": "94c38949f920a9d1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:9a2484bcf8871257",
+      "en": "The bus comes at 6:03",
+      "enSourceHash": "9a2484bcf8871257",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:9b4ef3e5b7b4d175",
+      "en": "station",
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:baed831623943be3",
+      "en": "watch",
+      "enSourceHash": "baed831623943be3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:cbbb80f7e462affe",
+      "en": "I wait five minutes at the coffee shop",
+      "enSourceHash": "cbbb80f7e462affe",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:ce3bcee11248793f",
+      "en": "The bus comes at 3:06",
+      "enSourceHash": "ce3bcee11248793f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:e66bf91b46f74da2",
+      "en": "I go to the coffee shop at five",
+      "enSourceHash": "e66bf91b46f74da2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/en:ed5eb9a37e2d8231",
+      "en": "now",
+      "enSourceHash": "ed5eb9a37e2d8231",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/ja:いま しちじ ごふんだ",
+      "en": "Build: It's 7:05 now",
+      "enSourceHash": "245c68580092af96",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/ja:えきまで じゅっぷん あるく",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/ja:がっこうまで じてんしゃで きゅうふんだ",
+      "en": "Build: It's nine minutes to school by bike",
+      "enSourceHash": "b9cb41867477ec71",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/ja:ちかてつは くじ よんぷんに くるから いま いく",
+      "en": "Build: The subway comes at 9:04, so I'm going now",
+      "enSourceHash": "3f7ec189c76c5fec",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/ja:でんしゃは くじ じゅっぷんに くるから えきで ごふん まつ",
+      "en": "Build: The train comes at 9:10, so I'll wait five minutes at the station",
+      "enSourceHash": "761e3b2ba4d9f2bc",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/ja:でんしゃは はちじ じゅっぷんに くる",
+      "en": "Build: The train comes at 8:10",
+      "enSourceHash": "02c0009c31ebf05b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/ja:バスは ろくじ さんぷんに くる",
+      "en": "Build: The bus comes at 6:03",
+      "enSourceHash": "81afaff26dbac514",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-5/ja:ミカは じゅっぷん まつけど ケンは こない",
+      "en": "Build: Mika waits ten minutes, but Ken doesn't come",
+      "enSourceHash": "d9d386f3add21bbf",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:0889113e04d3203f",
+      "en": "class",
+      "enSourceHash": "0889113e04d3203f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:36e11c186286bdb7",
+      "en": "p.m.",
+      "enSourceHash": "36e11c186286bdb7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:522da3f2230b3700",
+      "en": "Tomorrow I'm busy from six in the morning",
+      "enSourceHash": "522da3f2230b3700",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:5268153e2198b63e",
+      "en": "Pick the word for \"what\"",
+      "enSourceHash": "5268153e2198b63e",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:54120d8949d49c48",
+      "en": "The library is open from ten to five in the afternoon",
+      "enSourceHash": "54120d8949d49c48",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:7375fda25be54b8e",
+      "en": "The library is open from five to ten in the afternoon",
+      "enSourceHash": "7375fda25be54b8e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:7b455f2dd791ffcc",
+      "en": "a.m.",
+      "enSourceHash": "7b455f2dd791ffcc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:7e28bebbf2305d89",
+      "en": "The shop is open from ten to five in the afternoon",
+      "enSourceHash": "7e28bebbf2305d89",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:8e585d1586887295",
+      "en": "There's a class from 10:05",
+      "enSourceHash": "8e585d1586887295",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:af9e507c65caeeb7",
+      "en": "There's a class until 10:05",
+      "enSourceHash": "af9e507c65caeeb7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:baed831623943be3",
+      "en": "watch",
+      "enSourceHash": "baed831623943be3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:bf79908d1b72917b",
+      "en": "In the evening I'm free from seven",
+      "enSourceHash": "bf79908d1b72917b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:c16a3a19ce18d3a2",
+      "en": "There's a class from 10:10",
+      "enSourceHash": "c16a3a19ce18d3a2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:c23b31a0179b550f",
+      "en": "morning",
+      "enSourceHash": "c23b31a0179b550f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:ccef5b707f10934e",
+      "en": "The shop is open from nine to six",
+      "enSourceHash": "ccef5b707f10934e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:ec95168d74de38cb",
+      "en": "The library is open until ten in the morning",
+      "enSourceHash": "ec95168d74de38cb",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/en:f2e4e67c8efd1a1b",
+      "en": "There's a class from 5:10",
+      "enSourceHash": "f2e4e67c8efd1a1b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/ja:あしたは あさ ろくじから いそがしい",
+      "en": "Build: Tomorrow I'm busy from six in the morning",
+      "enSourceHash": "242e92674190d65a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/ja:くじから はたらく",
+      "en": "Build: I work from nine",
+      "enSourceHash": "e01ba67a0af8ffce",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/ja:じゅうじ ごふんから じゅぎょうが ある",
+      "en": "Build: There's a class from 10:05",
+      "enSourceHash": "ac4f7b0c2119dac1",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/ja:でんしゃは あさ ごじから あるから だいじょうぶだ",
+      "en": "Build: There are trains from five in the morning, so it's fine",
+      "enSourceHash": "8a8f93128f26cded",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/ja:としょかんは じゅうじから ごご ごじまでだ",
+      "en": "Build: The library is open from ten to five in the afternoon",
+      "enSourceHash": "0caf6c796a1e8b57",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/ja:ばんは しちじから ひまだ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/ja:みせは くじから ろくじまでだ",
+      "en": "Build: The shop is open from nine to six",
+      "enSourceHash": "61c2292335d5fea9",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-6/ja:みせは くじから ろくじまでだから はちじ じゅっぷんに でんしゃで いく",
+      "en": "Build: The shop is open from nine to six, so I'm going by train at 8:10",
+      "enSourceHash": "d8930b45a737059d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:14069429150abcbf",
+      "en": "ticket",
+      "enSourceHash": "14069429150abcbf",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:1bca0085d86845cf",
+      "en": "I'll get to school by nine",
+      "enSourceHash": "1bca0085d86845cf",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:21a5ebeeaaa6969c",
+      "en": "I'll wait at the coffee shop from six",
+      "enSourceHash": "21a5ebeeaaa6969c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:3ac0add5da8cf440",
+      "en": "I go to school from nine",
+      "enSourceHash": "3ac0add5da8cf440",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:3b3b1dadbf06d36f",
+      "en": "I'm at school until nine",
+      "enSourceHash": "3b3b1dadbf06d36f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:4d5d92f270fc8c52",
+      "en": "I'll get to the coffee shop by six",
+      "enSourceHash": "4d5d92f270fc8c52",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:5268153e2198b63e",
+      "en": "Pick the word for \"what\"",
+      "enSourceHash": "5268153e2198b63e",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:65fd6907eb798609",
+      "en": "I'll be home by five",
+      "enSourceHash": "65fd6907eb798609",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:859f4775eac966ad",
+      "en": "go home",
+      "enSourceHash": "859f4775eac966ad",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:8db1cb2fc93125fa",
+      "en": "I'll wait at the coffee shop until six",
+      "enSourceHash": "8db1cb2fc93125fa",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:9b4ef3e5b7b4d175",
+      "en": "station",
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:a9a27407ea6ef321",
+      "en": "I'll wait at the station until six",
+      "enSourceHash": "a9a27407ea6ef321",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:b718f1354f724731",
+      "en": "library",
+      "enSourceHash": "b718f1354f724731",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:c798e5b18ed876ef",
+      "en": "coffee shop",
+      "enSourceHash": "c798e5b18ed876ef",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:d641e3156d8798c8",
+      "en": "I'll get to the library by nine",
+      "enSourceHash": "d641e3156d8798c8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:d64debd942d7dc26",
+      "en": "school",
+      "enSourceHash": "d64debd942d7dc26",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/en:fc04819a1079cb33",
+      "en": "I'll buy the ticket by tomorrow",
+      "enSourceHash": "fc04819a1079cb33",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/ja:あしたまでに きっぷを かう",
+      "en": "Build: I'll buy the ticket by tomorrow",
+      "enSourceHash": "dae9996539d9073a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/ja:くじまでに がっこうに いく",
+      "en": "Build: I'll get to school by nine",
+      "enSourceHash": "4e769ec08f037b34",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/ja:ごじまで はたらくから ろくじまでに かえる",
+      "en": "Build: I work until five, so I'll be home by six",
+      "enSourceHash": "1d37e80ecdc6897f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/ja:ごじまでに うちに かえる",
+      "en": "Build: I'll be home by five",
+      "enSourceHash": "02dd110f6e63b260",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/ja:でんしゃは ごじ さんぷんに くるから よじまでに えきに いく",
+      "en": "Build: The train comes at 5:03, so I'll get to the station by four",
+      "enSourceHash": "b14d8f550f3b8702",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/ja:としょかんは ごじまでだから よじまでに いく",
+      "en": "Build: The library is open until five, so I'll get there by four",
+      "enSourceHash": "c39a8184391eae13",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/ja:はちじ じゅっぷんまでに えきに いく",
+      "en": "Build: I'll get to the station by 8:10",
+      "enSourceHash": "ac7a98ec9d16da83",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-7/ja:ろくじまで きっさてんで まつ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:116f54c41d0405db",
+      "en": "train",
+      "enSourceHash": "116f54c41d0405db",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:2d4d6e3e8161c7d4",
+      "en": "How many minutes do you walk to the hospital?",
+      "enSourceHash": "2d4d6e3e8161c7d4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:2f0828788e33e35a",
+      "en": "What do you go to school by",
+      "enSourceHash": "2f0828788e33e35a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:40ba322bbc8c28a1",
+      "en": "How many minutes do you walk to the hospital",
+      "enSourceHash": "40ba322bbc8c28a1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:41f8c3b906e53ff1",
+      "en": "What time does the bus come?",
+      "enSourceHash": "41f8c3b906e53ff1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:4ae37859df00351a",
+      "en": "How many minutes until the train comes?",
+      "enSourceHash": "4ae37859df00351a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:51e0fb23e8696014",
+      "en": "How many minutes do you walk to the library?",
+      "enSourceHash": "51e0fb23e8696014",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:5268153e2198b63e",
+      "en": "Pick the word for \"what\"",
+      "enSourceHash": "5268153e2198b63e",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:5a7715b14a22aa25",
+      "en": "what time",
+      "enSourceHash": "5a7715b14a22aa25",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:703287b46a52b910",
+      "en": "What time does the train come?",
+      "enSourceHash": "703287b46a52b910",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:749ab2c0d06c42ae",
+      "en": "what",
+      "enSourceHash": "749ab2c0d06c42ae",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:86db80be1cad983b",
+      "en": "What time do you go to the hospital?",
+      "enSourceHash": "86db80be1cad983b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:8afe3c83decffdf6",
+      "en": "hospital",
+      "enSourceHash": "8afe3c83decffdf6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:b04ae700cb3cef82",
+      "en": "Where does the train come from?",
+      "enSourceHash": "b04ae700cb3cef82",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:b3ff3281c93573d4",
+      "en": "where?",
+      "enSourceHash": "b3ff3281c93573d4",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:b718f1354f724731",
+      "en": "library",
+      "enSourceHash": "b718f1354f724731",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:d0430e2097c53ddb",
+      "en": "What time does the train come",
+      "enSourceHash": "d0430e2097c53ddb",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:eb092c84b7a2a6f7",
+      "en": "Do you walk to the hospital?",
+      "enSourceHash": "eb092c84b7a2a6f7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/en:fd04f62db40d2a6a",
+      "en": "What time will you get to the station by",
+      "enSourceHash": "fd04f62db40d2a6a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/ja:あしたは ひまだけど なんじから どこへ いく？",
+      "en": "Build: You're free tomorrow, but what time are you heading out, and where",
+      "enSourceHash": "f3ee64458ebad0e3",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/ja:きょうは いそがしいけど どこに いく？",
+      "en": "Build: You're busy today, but where are you going",
+      "enSourceHash": "af127884a64eefcd",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/ja:でんしゃは なんじに くる？",
+      "en": "Build: What time does the train come",
+      "enSourceHash": "8dc410e4de2c5278",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/ja:としょかんは なんじから？",
+      "en": "Build: What time is the library open from",
+      "enSourceHash": "c67fbd8a784c8511",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/ja:どこへ いく？",
+      "en": "Build: Where are you heading",
+      "enSourceHash": "644d308a1130cbd8",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/ja:なにで がっこうに いく？",
+      "en": "Build: What do you go to school by",
+      "enSourceHash": "80fa8afd103a97ab",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/ja:なんじまでに えきに いく？",
+      "en": "Build: What time will you get to the station by",
+      "enSourceHash": "f35829352fc34f6b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-8/ja:びょういんまで なんぷん あるく？",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:0630a30559153a34",
+      "en": "Do you go to the university by subway",
+      "enSourceHash": "0630a30559153a34",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:0b0e505050c34402",
+      "en": "Do you go to the hospital by train?",
+      "enSourceHash": "0b0e505050c34402",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:116f54c41d0405db",
+      "en": "train",
+      "enSourceHash": "116f54c41d0405db",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:13aaca13aefdfe14",
+      "en": "Excuse me, where is the station",
+      "enSourceHash": "13aaca13aefdfe14",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:3ce3dc07cd44d31a",
+      "en": "Does the bus go to the hospital?",
+      "enSourceHash": "3ce3dc07cd44d31a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:41f8c3b906e53ff1",
+      "en": "What time does the bus come?",
+      "enSourceHash": "41f8c3b906e53ff1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:4ae37859df00351a",
+      "en": "How many minutes until the train comes?",
+      "enSourceHash": "4ae37859df00351a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:5268153e2198b63e",
+      "en": "Pick the word for \"what\"",
+      "enSourceHash": "5268153e2198b63e",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:703287b46a52b910",
+      "en": "What time does the train come?",
+      "enSourceHash": "703287b46a52b910",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:8afe3c83decffdf6",
+      "en": "hospital",
+      "enSourceHash": "8afe3c83decffdf6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:9429b8ba894d161a",
+      "en": "Does the train come at nine?",
+      "enSourceHash": "9429b8ba894d161a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:9b4ef3e5b7b4d175",
+      "en": "station",
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:a66bcbf1f5304689",
+      "en": "Do you go to the library by bus?",
+      "enSourceHash": "a66bcbf1f5304689",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:adba6c0ec8a8d89e",
+      "en": "university",
+      "enSourceHash": "adba6c0ec8a8d89e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:b718f1354f724731",
+      "en": "library",
+      "enSourceHash": "b718f1354f724731",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:d0430e2097c53ddb",
+      "en": "What time does the train come",
+      "enSourceHash": "d0430e2097c53ddb",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:d5d709070627bc55",
+      "en": "Do you go to the hospital by bus?",
+      "enSourceHash": "d5d709070627bc55",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:d64debd942d7dc26",
+      "en": "school",
+      "enSourceHash": "d64debd942d7dc26",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/en:feb5a01e883acc6a",
+      "en": "Do you go to school by bus",
+      "enSourceHash": "feb5a01e883acc6a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/ja:えきは どこ？",
+      "en": "Say to a friend: Where is the station",
+      "enSourceHash": "90b41fd9204aded6",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/ja:えきまで じゅっぷんですか",
+      "en": "Say politely: Is it ten minutes to the station",
+      "enSourceHash": "5c7bd5a838dfeb7c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/ja:すみません ちかてつで びょういんに いきますか",
+      "en": "Say politely: Excuse me, do you go to the hospital by subway",
+      "enSourceHash": "8f92f88dbb34774e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/ja:ちかてつで だいがくに いきますか",
+      "en": "Say politely: Do you go to the university by subway",
+      "enSourceHash": "b9e2f6192d3b7f38",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/ja:でんしゃは なんじに きますか",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/ja:としょかんは なんじからですか",
+      "en": "Say politely: What time is the library open from",
+      "enSourceHash": "1c35b772d0398f71",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/ja:びょういんは あそこですか",
+      "en": "Say politely: Is the hospital over there",
+      "enSourceHash": "93f8fc5383bbffbd",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-9/ja:バスで がっこうに いきますか",
+      "en": "Say politely: Do you go to school by bus",
+      "enSourceHash": "a864c858013eb57f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:04e027e4990a203f",
+      "en": "bus",
+      "enSourceHash": "04e027e4990a203f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:083e30fb8637471b",
+      "en": "Pick the word for \"morning\"",
+      "enSourceHash": "083e30fb8637471b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:116f54c41d0405db",
+      "en": "train",
+      "enSourceHash": "116f54c41d0405db",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:29befb80fb920f06",
+      "en": "I'm taking the 8:10 train to go and watch a movie",
+      "enSourceHash": "29befb80fb920f06",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:399a6b31873b6a87",
+      "en": "I'm going on the 8:10 bus",
+      "enSourceHash": "399a6b31873b6a87",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:4604b5be89516c4d",
+      "en": "The library is open from five, so I'll go at four",
+      "enSourceHash": "4604b5be89516c4d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:4735d2e5fa067ff0",
+      "en": "It's nine minutes to the hospital by bike, so I'll get there by ten",
+      "enSourceHash": "4735d2e5fa067ff0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:5231bc8ed533b634",
+      "en": "The library is open until four, so I'll get there by five",
+      "enSourceHash": "5231bc8ed533b634",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:5268153e2198b63e",
+      "en": "Pick the word for \"what\"",
+      "enSourceHash": "5268153e2198b63e",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:681db7990902cda7",
+      "en": "The library is open until five, and I'll stay until four",
+      "enSourceHash": "681db7990902cda7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:7776cdb5a937779a",
+      "en": "I'm going on the 10:08 train",
+      "enSourceHash": "7776cdb5a937779a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:859f4775eac966ad",
+      "en": "go home",
+      "enSourceHash": "859f4775eac966ad",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:879d0c651b53ca62",
+      "en": "The library is open until five, so I'll get there by four",
+      "enSourceHash": "879d0c651b53ca62",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:89c2c14d1d789d98",
+      "en": "to walk",
+      "enSourceHash": "89c2c14d1d789d98",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:8a09c438d9073a79",
+      "en": "Excuse me, do you go to the library by bus",
+      "enSourceHash": "8a09c438d9073a79",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:8e9fa5f8298a9e0b",
+      "en": "Mika is going out to drink tea, but Ken is going home",
+      "enSourceHash": "8e9fa5f8298a9e0b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:9227786e3cdc553b",
+      "en": "I'm going on the 8:05 train",
+      "enSourceHash": "9227786e3cdc553b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:9b999bca74dbf99e",
+      "en": "The library is open until five, so I'm going by subway to get there by four",
+      "enSourceHash": "9b999bca74dbf99e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:9e3bb16318998e34",
+      "en": "There are no trains today, so I'm heading to school in a friend's car",
+      "enSourceHash": "9e3bb16318998e34",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:9f3a4329d8325465",
+      "en": "subway",
+      "enSourceHash": "9f3a4329d8325465",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:aa4dd0ecc4dad7fc",
+      "en": "Challenge — plan the whole trip",
+      "enSourceHash": "aa4dd0ecc4dad7fc",
+      "kind": "title"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:b68f4d78d9fd8ad4",
+      "en": "I'm going on the 8:10 train",
+      "enSourceHash": "b68f4d78d9fd8ad4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:d64debd942d7dc26",
+      "en": "school",
+      "enSourceHash": "d64debd942d7dc26",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:ebb4f13b69722836",
+      "en": "I work from nine, so I'll get to the company by eight",
+      "enSourceHash": "ebb4f13b69722836",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/en:f1d1463bab8eb8c6",
+      "en": "The train comes at 9:04, so I'll wait five minutes at the station with a friend",
+      "enSourceHash": "f1d1463bab8eb8c6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/ja:きょうは でんしゃが ないから ともだちの くるまで がっこうへ いく",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/ja:くじから はたらくから はちじまでに かいしゃに いく",
+      "en": "Build: I work from nine, so I'll get to the company by eight",
+      "enSourceHash": "2a1c89963128e4c4",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/ja:でんしゃは くじ よんぷんに くるから ともだちと えきで ごふん まつ",
+      "en": "Build: The train comes at 9:04, so I'll wait five minutes at the station with a friend",
+      "enSourceHash": "303ff0f4d0acc544",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/ja:としょかんは ごじまでだから よじまでに ちかてつで いく",
+      "en": "Build: The library is open until five, so I'm going by subway to get there by four",
+      "enSourceHash": "1f0eea85f2cb73de",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/ja:はちじ じゅっぷんの でんしゃで えいがを みに いく",
+      "en": "Build: I'm taking the 8:10 train to go and watch a movie",
+      "enSourceHash": "eb87bd990fbda655",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/ja:びょういんまで じてんしゃで きゅうふんだから じゅうじまでに いく",
+      "en": "Build: It's nine minutes to the hospital by bike, so I'll get there by ten",
+      "enSourceHash": "490ef66a78ec14f9",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-challenge/ja:ミカは ちゃを のみに いくけど ケンは うちに かえる",
+      "en": "Build: Mika is going out to drink tea, but Ken is going home",
+      "enSourceHash": "026550874e816a8f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:04e027e4990a203f",
+      "en": "bus",
+      "enSourceHash": "04e027e4990a203f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:083e30fb8637471b",
+      "en": "Pick the word for \"morning\"",
+      "enSourceHash": "083e30fb8637471b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:116f54c41d0405db",
+      "en": "train",
+      "enSourceHash": "116f54c41d0405db",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:2d4a2916fd30d249",
+      "en": "Mika is heading to the sea",
+      "enSourceHash": "2d4a2916fd30d249",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:34b033e9e57bde0f",
+      "en": "Tom isn't heading to Japan tomorrow",
+      "enSourceHash": "34b033e9e57bde0f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:4508b8806f6fab11",
+      "en": "Mika is going to the library, but Ken is going home",
+      "enSourceHash": "4508b8806f6fab11",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:5268153e2198b63e",
+      "en": "Pick the word for \"what\"",
+      "enSourceHash": "5268153e2198b63e",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:5d9d61728be5aab5",
+      "en": "I go to school by train",
+      "enSourceHash": "5d9d61728be5aab5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:63a2af92f35f3190",
+      "en": "Tom is heading to America tomorrow",
+      "enSourceHash": "63a2af92f35f3190",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:7339ecedff0cdece",
+      "en": "Tom came to Japan yesterday",
+      "enSourceHash": "7339ecedff0cdece",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:7b9f9af156f22b55",
+      "en": "Mika is going home, but Ken is going to the coffee shop",
+      "enSourceHash": "7b9f9af156f22b55",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:8afe3c83decffdf6",
+      "en": "hospital",
+      "enSourceHash": "8afe3c83decffdf6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:919e078c2619fe71",
+      "en": "I'm going to school tomorrow",
+      "enSourceHash": "919e078c2619fe71",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:943503c1fef135ee",
+      "en": "Tom is heading to Japan tomorrow",
+      "enSourceHash": "943503c1fef135ee",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:9f3a4329d8325465",
+      "en": "subway",
+      "enSourceHash": "9f3a4329d8325465",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:b718f1354f724731",
+      "en": "library",
+      "enSourceHash": "b718f1354f724731",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:d64debd942d7dc26",
+      "en": "school",
+      "enSourceHash": "d64debd942d7dc26",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:daebd8c8923e634b",
+      "en": "Mika is going to the coffee shop, but Ken is going home",
+      "enSourceHash": "daebd8c8923e634b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:e1cc9283b0485645",
+      "en": "Ken is going home at six",
+      "enSourceHash": "e1cc9283b0485645",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/en:f9fac5e2f232198c",
+      "en": "Mika and Ken are both going home",
+      "enSourceHash": "f9fac5e2f232198c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/ja:あした がっこうに いく",
+      "en": "Build: I'm going to school tomorrow",
+      "enSourceHash": "752bcb936fb3a7d7",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/ja:うちから えきまで あるく",
+      "en": "Build: I walk from home to the station",
+      "enSourceHash": "2173c802115ee7ec",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/ja:きょうは としょかんに いく",
+      "en": "Build: I'm going to the library today",
+      "enSourceHash": "89d54ba0fa5b243b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/ja:ちかてつで だいがくへ いく",
+      "en": "Build: I head to the university by subway",
+      "enSourceHash": "1209754aa73ade34",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/ja:でんしゃで がっこうに いく",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/ja:やまへ いくから くつを かう",
+      "en": "Build: I'm heading to the mountains, so I'll buy shoes",
+      "enSourceHash": "53c8c655afad3d53",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/ja:ケンは ろくじに うちに かえる",
+      "en": "Build: Ken is going home at six",
+      "enSourceHash": "9110d944f89c16b1",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-1/ja:ミカは うみへ いく",
+      "en": "Build: Mika is heading to the sea",
+      "enSourceHash": "2b5c724f1b4d5415",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:083e30fb8637471b",
+      "en": "Pick the word for \"morning\"",
+      "enSourceHash": "083e30fb8637471b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:1117d514e51d3faf",
+      "en": "It's nine minutes to school on foot",
+      "enSourceHash": "1117d514e51d3faf",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:1180412af43d7860",
+      "en": "shopping",
+      "enSourceHash": "1180412af43d7860",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:3abaf573b953b1dd",
+      "en": "It's 7:05 now",
+      "enSourceHash": "3abaf573b953b1dd",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:477afd5fb8e3e905",
+      "en": "It's five minutes to school by bike",
+      "enSourceHash": "477afd5fb8e3e905",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:51bda2739bdb73d2",
+      "en": "Ken waits ten minutes, but Mika doesn't come",
+      "enSourceHash": "51bda2739bdb73d2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:5268153e2198b63e",
+      "en": "Pick the word for \"what\"",
+      "enSourceHash": "5268153e2198b63e",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:6f4082aefa0bef83",
+      "en": "Mika waits ten minutes, but Ken doesn't come",
+      "enSourceHash": "6f4082aefa0bef83",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:79ea5fbd8e766cd3",
+      "en": "minutes -pun",
+      "enSourceHash": "79ea5fbd8e766cd3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:7d75e1516e459abe",
+      "en": "Mika waits ten minutes and Ken comes",
+      "enSourceHash": "7d75e1516e459abe",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:8a6ba32c9bed6ce7",
+      "en": "movie",
+      "enSourceHash": "8a6ba32c9bed6ce7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:8dde4dd508b3fe79",
+      "en": "It's nine minutes to school by bike",
+      "enSourceHash": "8dde4dd508b3fe79",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:905cca08133cfe10",
+      "en": "Review — purpose, minutes and start times",
+      "enSourceHash": "905cca08133cfe10",
+      "kind": "title"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:90e63d85fa1ab2c8",
+      "en": "minutes",
+      "enSourceHash": "90e63d85fa1ab2c8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:94c38949f920a9d1",
+      "en": "The train comes at 8:10",
+      "enSourceHash": "94c38949f920a9d1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:bba0e58f9ca1cda8",
+      "en": "ten minutes",
+      "enSourceHash": "bba0e58f9ca1cda8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:da23c7951082ee1e",
+      "en": "Mika waits five minutes, but Ken doesn't come",
+      "enSourceHash": "da23c7951082ee1e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:de0eacb33edbf8bd",
+      "en": "I'm going to watch a movie",
+      "enSourceHash": "de0eacb33edbf8bd",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:e74035a3bb4a2f92",
+      "en": "I'm going out to eat",
+      "enSourceHash": "e74035a3bb4a2f92",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/en:ea7c0c4faf6cf4db",
+      "en": "It's nine minutes to the station by bike",
+      "enSourceHash": "ea7c0c4faf6cf4db",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/ja:いま しちじ ごふんだ",
+      "en": "Build: It's 7:05 now",
+      "enSourceHash": "245c68580092af96",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/ja:えいがを みに いく",
+      "en": "Build: I'm going to watch a movie",
+      "enSourceHash": "09dc500a9aa45606",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/ja:きょうは ともだちと かいものに いく",
+      "en": "Build: I'm going shopping with a friend today",
+      "enSourceHash": "0076465fbafa358f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/ja:くじから はたらく",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/ja:ごはんを たべに いく",
+      "en": "Build: I'm going out to eat",
+      "enSourceHash": "dbf46644a178e129",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/ja:でんしゃは はちじ じゅっぷんに くる",
+      "en": "Build: The train comes at 8:10",
+      "enSourceHash": "02c0009c31ebf05b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/ja:としょかんに ほんを みに いく",
+      "en": "Build: I'm going to the library to look at books",
+      "enSourceHash": "03403f4fbf211546",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-2/ja:みせは くじから ろくじまでだ",
+      "en": "Build: The shop is open from nine to six",
+      "enSourceHash": "61c2292335d5fea9",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:04e027e4990a203f",
+      "en": "bus",
+      "enSourceHash": "04e027e4990a203f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:0ac1533c605fd681",
+      "en": "Review — getting around, start to finish",
+      "enSourceHash": "0ac1533c605fd681",
+      "kind": "title"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:116f54c41d0405db",
+      "en": "train",
+      "enSourceHash": "116f54c41d0405db",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:2cf30673f2e0a527",
+      "en": "I head to the library by subway",
+      "enSourceHash": "2cf30673f2e0a527",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:2d4a2916fd30d249",
+      "en": "Mika is heading to the sea",
+      "enSourceHash": "2d4a2916fd30d249",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:348fd500c4589334",
+      "en": "The train comes at 8:05",
+      "enSourceHash": "348fd500c4589334",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:5bbd577069e940f1",
+      "en": "I walk to the university",
+      "enSourceHash": "5bbd577069e940f1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:5d9d61728be5aab5",
+      "en": "I go to school by train",
+      "enSourceHash": "5d9d61728be5aab5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:65fd6907eb798609",
+      "en": "I'll be home by five",
+      "enSourceHash": "65fd6907eb798609",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:767b410b946b7eb1",
+      "en": "The train comes at 10:08",
+      "enSourceHash": "767b410b946b7eb1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:8afe3c83decffdf6",
+      "en": "hospital",
+      "enSourceHash": "8afe3c83decffdf6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:94c38949f920a9d1",
+      "en": "The train comes at 8:10",
+      "enSourceHash": "94c38949f920a9d1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:9f3a4329d8325465",
+      "en": "subway",
+      "enSourceHash": "9f3a4329d8325465",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:9fc7c32557596bcc",
+      "en": "I head to the university by bus",
+      "enSourceHash": "9fc7c32557596bcc",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:b428f88d06dc30d4",
+      "en": "I head to the university by subway",
+      "enSourceHash": "b428f88d06dc30d4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:b69229ef1b580756",
+      "en": "The bus comes at 8:10",
+      "enSourceHash": "b69229ef1b580756",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:b718f1354f724731",
+      "en": "library",
+      "enSourceHash": "b718f1354f724731",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:d64debd942d7dc26",
+      "en": "school",
+      "enSourceHash": "d64debd942d7dc26",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/en:e74035a3bb4a2f92",
+      "en": "I'm going out to eat",
+      "enSourceHash": "e74035a3bb4a2f92",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/ja:うちから えきまで あるく",
+      "en": "Build: I walk from home to the station",
+      "enSourceHash": "2173c802115ee7ec",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/ja:ごじまでに うちに かえる",
+      "en": "Build: I'll be home by five",
+      "enSourceHash": "02dd110f6e63b260",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/ja:ごはんを たべに いく",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/ja:すみません バスで えきに いきますか",
+      "en": "Say politely: Excuse me, do you go to the station by bus",
+      "enSourceHash": "f898b5f1a953bf4d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/ja:たてものの まえに にわが ある",
+      "en": "Build: There's a garden in front of the building",
+      "enSourceHash": "6c1234bb48e6d1d4",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/ja:でんしゃで がっこうに いく",
+      "en": "Build: I go to school by train",
+      "enSourceHash": "f4e3c1984559b48d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/ja:みせは くじから ろくじまでだ",
+      "en": "Build: The shop is open from nine to six",
+      "enSourceHash": "61c2292335d5fea9",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/ja:コンビニの かいだんで まつ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/ja:バスは ろくじ さんぷんに くる",
+      "en": "Build: The bus comes at 6:03",
+      "enSourceHash": "81afaff26dbac514",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/ja-m19-neo-review-3/ja:ミカは うみへ いく",
+      "en": "Build: Mika is heading to the sea",
+      "enSourceHash": "2b5c724f1b4d5415",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m19/story:ja-m19-my-family/en:952704ccac1ac9a6",
+      "en": "My family",
+      "enSourceHash": "952704ccac1ac9a6",
+      "kind": "title"
+    },
+    {
+      "anchor": "m19/story:ja-m19-my-family/en:e255d89b4b023269",
+      "en": "Four of us, and a birthday.",
+      "enSourceHash": "e255d89b4b023269",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m19/story:ja-m19-my-family/gloss:たんじょうび",
+      "en": "birthday",
+      "enSourceHash": "0422d42c689b7e80",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-my-family/ja:あしたは いもうとの たんじょうびです。",
+      "en": "Tomorrow is my sister's birthday.",
+      "enSourceHash": "d4b3828d34a9196c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-my-family/ja:あには だいがくの がくせいです。",
+      "en": "My brother is a university student.",
+      "enSourceHash": "e1bc85fbe4a989bf",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-my-family/ja:いもうとは とても かわいいです。",
+      "en": "My little sister is very cute.",
+      "enSourceHash": "6603af91d42727d4",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-my-family/ja:かぞくは みんな げんきです。",
+      "en": "My family is all doing well.",
+      "enSourceHash": "27b64cc210a61e24",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-my-family/ja:ちちと ははと あにと わたしです。",
+      "en": "My father, mother, older brother, and me.",
+      "enSourceHash": "0829d49e7d2ff802",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-my-family/ja:みんなで ごはんを たべます。",
+      "en": "We'll all eat together.",
+      "enSourceHash": "e6bcbdb5f1a6ed33",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-my-family/ja:わたしの かぞくは よにんです。",
+      "en": "There are four people in my family.",
+      "enSourceHash": "912b04e581e14da6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/en:151738d83a872cff",
+      "en": "The girl in the photo",
+      "enSourceHash": "151738d83a872cff",
+      "kind": "title"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/en:f2a1148a2e53a1ef",
+      "en": "Everyone in the house guesses. Only one person was there.",
+      "enSourceHash": "f2a1148a2e53a1ef",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/gloss:おなじ",
+      "en": "the same",
+      "enSourceHash": "fa0487f2dc91544a",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/gloss:きっと",
+      "en": "surely, definitely",
+      "enSourceHash": "e9670ad664015627",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/gloss:でしょう",
+      "en": "probably, I expect",
+      "enSourceHash": "72195645a10d1dec",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:「けっこんの まえの しゃしんです。」",
+      "en": "\"It's a photo from before the wedding.\"",
+      "enSourceHash": "a1e868739545d576",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:「よこの おとこのこは おじいさんです。」",
+      "en": "\"The boy at the side is your grandfather.\"",
+      "enSourceHash": "931fd0e3350b0333",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:「わたしは じゅうななさいでした。」",
+      "en": "\"I was seventeen.\"",
+      "enSourceHash": "15bd3bceebfebaca",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:あには めがねを とる。「この かたは だいがくの がくせいでしょう。」",
+      "en": "My older brother takes off his glasses. \"This person is probably a university student.\"",
+      "enSourceHash": "3050fc3687bb8c0a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:いま、ぼくは おばあさんの めを よく みる。しゃしんの おんなのこの めだ。",
+      "en": "Now I look at my grandmother's eyes properly. They're the eyes of the girl in the photo.",
+      "enSourceHash": "707d0430ea11f450",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:おばあさんの こえは しずかだ。「しりません。」",
+      "en": "My grandmother's voice is quiet. \"I don't know.\"",
+      "enSourceHash": "f88cdb84abe42056",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:おばあさんは ななじゅうごさいだ。",
+      "en": "My grandmother is seventy-five.",
+      "enSourceHash": "7c00da0b29b924d3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:おばあさんは ぼくに しゃしんの はなしを する。",
+      "en": "She tells me about the photo.",
+      "enSourceHash": "43d603800ae8ca88",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:おんなのこの めと おばあさんの めは おなじだ。",
+      "en": "The girl's eyes and my grandmother's eyes are the same.",
+      "enSourceHash": "c9c659509d10b5e5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:おんなのこは とても かわいい。",
+      "en": "The girl is very pretty.",
+      "enSourceHash": "3ce5e83a36dbf257",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:かばんの なかに ふるい しゃしんが ある。",
+      "en": "Inside the bag there's an old photo.",
+      "enSourceHash": "1806f6ca665a0df4",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:しゃしんの なかに おんなのこが いる。",
+      "en": "In the photo there's a girl.",
+      "enSourceHash": "f634b7add6f3fac7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:だれも わからない。",
+      "en": "Nobody knows.",
+      "enSourceHash": "7441c86c7a105000",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:ちちは しゃしんを ながい じかん みる。「ははの おねえさんでしょう。」",
+      "en": "My father looks at the photo for a long time. \"It's probably my mother's older sister.\"",
+      "enSourceHash": "161afa0717a5b29f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:にちようび、ぼくは おばあさんの うちに いる。",
+      "en": "On Sunday I'm at my grandmother's house.",
+      "enSourceHash": "6a38907f809c007a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:ははも しゃしんを みる。「きっと がっこうの せんせいでしょう。」",
+      "en": "My mother looks at the photo too. \"It's surely a teacher from the school.\"",
+      "enSourceHash": "3cccc2780425ee30",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:ぼくの あねと おなじじゃない。おばあさんと おなじだ。",
+      "en": "Not the same as my sister. The same as my grandmother.",
+      "enSourceHash": "d9eb6057222edfb2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:ぼくの あねと おなじだ。",
+      "en": "She's the same as my older sister.",
+      "enSourceHash": "a78c1c2b8f407d52",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:ぼくは おばあさんに はなす。「この かたは どなたですか。」",
+      "en": "I say to my grandmother, \"Who is this person?\"",
+      "enSourceHash": "aeba16c8b5bf915b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:ぼくは おばあさんの ふるい かばんを あける。",
+      "en": "I open my grandmother's old bag.",
+      "enSourceHash": "71f1cef8794f7387",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:ぼくは しゃしんを もういちど みる。",
+      "en": "I look at the photo again.",
+      "enSourceHash": "5e4fb6a4b60d726a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:ぼくは ちちに しゃしんを みせる。",
+      "en": "I show the photo to my father.",
+      "enSourceHash": "a61903c8fbd5d374",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-girl-in-the-photo/ja:よる、おばあさんは ぼくを まつ。",
+      "en": "In the evening, my grandmother waits for me.",
+      "enSourceHash": "4a3845afa8119ce8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/en:9635e15d812f9120",
+      "en": "The town that dances",
+      "enSourceHash": "9635e15d812f9120",
+      "kind": "title"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/en:a60b8439a45c9337",
+      "en": "A long train ride I did not want to make, and a dance in the park.",
+      "enSourceHash": "a60b8439a45c9337",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/gloss:おぼん",
+      "en": "Obon — the summer days when families return home",
+      "enSourceHash": "0c4007ccf793ad9f",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/gloss:こども",
+      "en": "a child",
+      "enSourceHash": "343de8de95945f68",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/gloss:ぼんおどり",
+      "en": "the Bon dance, danced together in the town square",
+      "enSourceHash": "7e1534a203503372",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:「これを みてください。」",
+      "en": "\"Watch this.\"",
+      "enSourceHash": "34080ad68f69c60e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:「ぼんおどりは やさしいです。」",
+      "en": "\"The Bon dance is easy.\"",
+      "enSourceHash": "cd4ad61b0614cce2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:「わたしは へたです。」",
+      "en": "\"I am bad at it.\"",
+      "enSourceHash": "81748053bf7a85b0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:いもうとが わたしに ぼんおどりを おしえる。",
+      "en": "My little sister teaches me the Bon dance.",
+      "enSourceHash": "dc71a9dddc7b3944",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:いもうとが わたしの よこに くる。",
+      "en": "My little sister comes to my side.",
+      "enSourceHash": "f3ba7b81284fd4c2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:おとなも こどもも いる。",
+      "en": "There are adults and there are children.",
+      "enSourceHash": "084d0c31a78c99a3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:おばあさんの うちは とても とおい。",
+      "en": "Grandmother's house is very far away.",
+      "enSourceHash": "69e3efc0404352a3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:おばあさんの ごはんは ほんとうに おいしい。",
+      "en": "Grandmother's food is really good.",
+      "enSourceHash": "f70683fcf275273b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:おばあさんの まちは ちいさいけど、おぼんは にぎやかだ。",
+      "en": "Grandmother's town is small, but Obon is lively.",
+      "enSourceHash": "5657811d82102ebc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:おばあさんは こうえんの よこに すわる。",
+      "en": "Grandmother sits beside the park.",
+      "enSourceHash": "6b3e6080980d61a2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:おばあさんは ななじゅうさいだ。",
+      "en": "Grandmother is seventy.",
+      "enSourceHash": "44f3c6ac79aaa92f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:おばあさんは まいとし ここに くる。",
+      "en": "Grandmother comes here every year.",
+      "enSourceHash": "66c988ddabe7a005",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:おぼんに みんな うちに かえる。",
+      "en": "At Obon everyone goes home.",
+      "enSourceHash": "6548fc3d3a384602",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:おぼんは かぞくの やすみだ。",
+      "en": "Obon is the family's holiday.",
+      "enSourceHash": "baa6c8eb6dddf9a8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:かぞくの よにんで でんしゃに のる。",
+      "en": "The four of us in the family get on the train.",
+      "enSourceHash": "7e83a0182b499975",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:それから、まちの ひとが ぼんおどりを する。",
+      "en": "After that the people of the town do the Bon dance.",
+      "enSourceHash": "e28065e349dc16c6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:でんしゃの じかんは ながい。",
+      "en": "The time on the train is long.",
+      "enSourceHash": "591013b25c4f84de",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:でんしゃの ながい じかんは ぜんぜん たいへんじゃない。",
+      "en": "The long time on the train is not hard at all.",
+      "enSourceHash": "952bd0b6e3757fe3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:なつの おぼんに かぞくで おばあさんの うちに かえる。",
+      "en": "At Obon in summer the family goes back to Grandmother's house.",
+      "enSourceHash": "5e31c35bd539df85",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:にわに おおきな きが ある。",
+      "en": "There is a big tree in the garden.",
+      "enSourceHash": "08b285d5efde7027",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:ゆうがた、まちの こうえんに いく。",
+      "en": "In the evening we go to the town's park.",
+      "enSourceHash": "00ea5ab8bc03c3d1",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:わたしは ながい でんしゃが きらいだ。",
+      "en": "I hate long trains.",
+      "enSourceHash": "f70f75209e22fea5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:わたしは ぼんおどりが わからない。",
+      "en": "I do not know the Bon dance.",
+      "enSourceHash": "a892b29cf1a3b181",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m19/story:ja-m19-the-town-that-dances/ja:わたしも まいとし ここに かえる。",
+      "en": "I come back here every year too.",
+      "enSourceHash": "78ca342abd11de73",
+      "kind": "ja-gloss"
+    }
+  ]
+}
