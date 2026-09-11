@@ -1,0 +1,125 @@
+  # ── L6 · Three-way discrimination: «voy» (motion, m9) vs «está»
+  #    (location, m4) vs «hay» (existence, m3). No new atom — the direct
+  #    payoff of m4's own "three jobs, three words" framing, now given a
+  #    dedicated lesson. Info card states the three-way split explicitly
+  #    (the only place in the module this is spelled out in prose). PRIOR
+  #    context only: cerca/lejos/hay (this module), está/es (m4/m2),
+  #    voy/al/a/de (m9/m2), banco/farmacia/hospital/correo/supermercado
+  #    (m34), necesito (m16), tengo que (m33). One recall (L5's win line).
+  - n: 6
+    template: free
+    title: "Voy, está, o hay"
+    description: "Three words, three jobs: «voy» — I'm going (motion). «está» — it's located (a specific place). «hay» — there is / there are (existence). Same idea, one clear split."
+    steps:
+      - kind: info
+        id: l6-info-voyestahay
+        title: "Voy, está, hay — three jobs"
+        body: "«voy» — I'm going (m9, motion). «está» — a specific place IS somewhere (m4, location). «hay» — something EXISTS (m3). «voy al banco» / «el banco está cerca» / «hay un banco cerca» — three different questions, three different words."
+      - kind: speakLit
+        id: l6-sp-recall
+        es: "el correo está al lado del supermercado, pero el hospital está lejos"
+        en: "The post office is beside the supermarket, but the hospital is far"
+        cue: recall
+        atoms: ["el", "correo", "está", "al", "lado", "supermercado", "pero", "el", "hospital", "lejos"]
+      - kind: buildLit
+        id: l6-b-voyalbancoestacerca
+        es: "voy al banco — está cerca"
+        en: "I'm going to the bank — it's close"
+        atoms: ["voy", "al", "banco", "está", "cerca"]
+        tiles: ["hay", "es"]
+      - kind: clozeLit
+        id: l6-c-hayunhospitalcerca
+        es: "hay un hospital cerca"
+        en: "There's a hospital nearby"
+        blank: "hay"
+        options: ["hay", "está"]
+        atoms: ["un", "hospital", "cerca"]
+        why: "«hay» — a hospital exists nearby. «está» would name a specific, already-known one — not a new one you're just learning exists."
+      - kind: listenCompLit
+        id: l6-lc-tengoqueiralafarmaciaestalejos
+        es: "tengo que ir a la farmacia, pero está lejos"
+        en: "I have to go to the pharmacy, but it's far."
+        atoms: ["tengo que", "ir", "a", "la", "farmacia", "pero", "está", "lejos"]
+        distractorsEn:
+          - "There's a pharmacy nearby."
+          - "The pharmacy is close."
+          - "I'm going to the pharmacy now."
+      - kind: mcq
+        id: l6-q-voyoesta
+        prompt: "'The bank is close' — which word fits?"
+        correct: "está cerca"
+        distractors: ["voy cerca", "hay cerca", "es cerca"]
+        atoms: ["está", "cerca"]
+        why: "The bank is a specific place — «está», not «voy» (motion) or «hay» (existence)."
+      - kind: buildLit
+        id: l6-b-hayunafarmaciacercaperonecesitoiralhospital
+        es: "hay una farmacia cerca, pero necesito ir al hospital"
+        en: "There's a pharmacy close by, but I need to go to the hospital"
+        atoms: ["hay", "una", "farmacia", "cerca", "pero", "necesito", "ir", "al", "hospital"]
+        tiles: ["está", "es"]
+      - kind: audioWimcq
+        id: l6-ear-supermercado
+        target: { surface: "supermercado", emoji: "🏬" }
+        distractors:
+          - { surface: "banco", emoji: "🏦" }
+          - { surface: "correo", emoji: "📮" }
+      - kind: agreementLit
+        id: l6-agr-bancobonitofarmaciabonita
+        en: "The bank is pretty, and the pharmacy is pretty too"
+        audioText: "el banco es bonito, y la farmacia es bonita también"
+        atoms: ["banco", "bonito", "farmacia"]
+        segments:
+          - { text: "el banco es " }
+          - { blank: { id: "p1", answer: "bonito", options: ["bonito", "bonita"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "bonita", options: ["bonita", "bonito"] } }
+      - kind: listenBuildLit
+        id: l6-lb-voyalcorreoestaalladodelsupermercado
+        es: "voy al correo — está al lado del supermercado"
+        en: "I'm going to the post office — it's beside the supermarket"
+        atoms: ["voy", "al", "correo", "está", "al", "lado", "supermercado"]
+        tiles: ["hay", "es"]
+      - kind: textMcq
+        id: l6-tm-hay
+        target: "hay"
+        distractors: ["voy", "está", "es"]
+      - kind: sim
+        id: l6-sim-carmen-hospital
+        scene: { emoji: "🏥", title: "Carmen sorts out her day", setting: "Carmen is figuring out where to go." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Hay un hospital cerca?", audioText: "¿hay un hospital cerca?", gloss: "Is there a hospital nearby?" }
+            goal: "Say yes, and that you're going now."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, hay uno cerca — voy ahora" }
+                - { id: "wrong1", text: "sí, está uno cerca — voy ahora" }
+                - { id: "wrong2", text: "sí, hay uno cerca — está ahora" }
+              correctOptionId: "right"
+              audioText: "sí, hay uno cerca — voy ahora"
+            replyGloss: "Yes, there's one nearby — I'm going now."
+            explanation: "«hay» for existence, «voy» for your own motion — never swap them."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Y la farmacia? ¿Dónde está?", audioText: "¿y la farmacia? ¿dónde está?", gloss: "And the pharmacy? Where is it?" }
+            goal: "Say it's beside the hospital."
+            reply:
+              mode: build
+              tiles: ["está", "al", "lado", "del", "hospital", "hay", "voy"]
+              answer: "está al lado del hospital"
+            replyGloss: "It's beside the hospital."
+            explanation: "A specific, known place — «está», not «hay» or «voy»."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "voy", target: "I'm going" }
+          - { source: "está", target: "is (somewhere)" }
+          - { source: "hay", target: "there is, there are" }
+          - { source: "cerca", target: "near, close" }
+          - { source: "lejos", target: "far" }
+          - { source: "lado", target: "side" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "hay un hospital cerca, y voy ahora — está al lado del correo"
+        en: "There's a hospital close by, and I'm going now — it's beside the post office"
+        atoms: ["hay", "un", "hospital", "cerca", "y", "voy", "ahora", "está", "al", "lado", "correo"]

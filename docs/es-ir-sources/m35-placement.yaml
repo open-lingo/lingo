@@ -1,0 +1,27 @@
+placement:
+  screener:
+    - id: "es-m35-scr-1"
+      prompt: "'The bank is near.' — which one?"
+      correct: "el banco está cerca"
+      distractors: ["el banco es cerca", "el banco cerca está", "voy cerca del banco"]
+  byModule:
+    - id: "es-m35-pl-1"
+      prompt: "The bank is near."
+      correct: "el banco está cerca"
+      distractors: ["el banco es cerca", "el banco cerca está", "voy cerca del banco"]
+    - id: "es-m35-pl-2"
+      prompt: "The hospital is far."
+      correct: "el hospital está lejos"
+      distractors: ["el hospital es lejos", "el hospital lejos está", "necesito lejos el hospital"]
+    - id: "es-m35-pl-3"
+      prompt: "The pharmacy is next to the bank."
+      correct: "la farmacia está al lado del banco"
+      distractors: ["la farmacia está al lado de banco", "la farmacia está al lado de la banco", "la farmacia es al lado del banco"]
+    - id: "es-m35-pl-4"
+      prompt: "Is there a pharmacy near here?"
+      correct: "¿hay una farmacia cerca?"
+      distractors: ["¿está una farmacia cerca?", "¿hay una farmacia lejos?", "¿es una farmacia cerca?"]
+    - id: "es-m35-pl-5"
+      prompt: "I have to go to the hospital, but it's far."
+      correct: "tengo que ir al hospital, pero está lejos"
+      distractors: ["tengo que ir al hospital, pero es lejos", "tengo que ir al hospital, pero voy lejos", "tengo que ir al hospital, pero hay lejos"]

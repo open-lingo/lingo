@@ -527,4 +527,7 @@ export const ES_REVIEW_POOL: EsReviewEntry[] = [
   { surface: "hospital", gloss: "hospital", kind: "vocab", fromModule: "m34", partOfSpeech: "noun" },
   { surface: "correo", gloss: "post office", kind: "vocab", fromModule: "m34", partOfSpeech: "noun" },
   { surface: "supermercado", gloss: "supermarket", kind: "vocab", fromModule: "m34", partOfSpeech: "noun" },
+  { surface: "cerca", gloss: "near, close", kind: "vocab", fromModule: "m35", partOfSpeech: "adverb" },
+  { surface: "lejos", gloss: "far", kind: "vocab", fromModule: "m35", partOfSpeech: "adverb" },
+  { surface: "lado", gloss: "side", kind: "vocab", fromModule: "m35", partOfSpeech: "noun" },
 ];

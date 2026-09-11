@@ -1,0 +1,135 @@
+  # ── L5 · Mixed recombination — no new atom. All 5 m34 places crossed
+  #    with cerca/lejos/al lado de, discrimination-heavy. Introduces
+  #    «cerca de»/«lejos de» + place (both words already free/registered —
+  #    «cerca»/«lejos» this module, «de» m2 — pure recombination, not a
+  #    new idiom). THE ATOMS: CREDIT TRAP still applies — «del» stays out
+  #    of every atoms: array. PRIOR context only: cerca/lejos/lado/hay
+  #    (this module), está/es (m4/m2), al/a/de (m9/m2), banco/farmacia/
+  #    hospital/correo/supermercado (m34), pero/también (m6/m11), nuevo
+  #    (m6). One recall (L4's win line).
+  - n: 5
+    template: free
+    title: "El correo está al lado del supermercado"
+    description: "All five places, mixed — «cerca», «lejos», «al lado de» — plus «cerca de»/«lejos de» + a place, built from pieces you already have."
+    steps:
+      - kind: map
+        id: l5-map-elcorreoestaalladodelsupermercado
+        tokens: ["el", "correo", "está", "al", "lado", "del", "supermercado"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "post office", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "at the", tokenIndex: 3 }
+          - { en: "side", tokenIndex: 4 }
+          - { en: "of the", tokenIndex: 5 }
+          - { en: "supermarket", tokenIndex: 6 }
+        audioText: "el correo está al lado del supermercado"
+        revealNote: "«supermercado» is masculine — «del» (fused), same rule as «al»."
+      - kind: speakLit
+        id: l5-sp-recall
+        es: "la farmacia está al lado del banco"
+        en: "The pharmacy is beside the bank"
+        cue: recall
+        atoms: ["la", "farmacia", "está", "al", "lado", "banco"]
+      - kind: buildLit
+        id: l5-b-elhospitalestalejosperoelbancoestacerca
+        es: "el hospital está lejos, pero el banco está cerca"
+        en: "The hospital is far, but the bank is close"
+        atoms: ["el", "hospital", "está", "lejos", "pero", "banco", "cerca"]
+        tiles: ["es", "al"]
+      - kind: clozeLit
+        id: l5-c-elsupermercadoestacercadelcorreo
+        es: "el supermercado está cerca del correo"
+        en: "The supermarket is close to the post office"
+        blank: "cerca"
+        options: ["cerca", "lejos"]
+        atoms: ["el", "supermercado", "está", "correo"]
+        why: "«cerca» (close), not «lejos» (far) — the two adverbs pair with «de» the same way."
+      - kind: listenCompLit
+        id: l5-lc-hayunbancoalladodelhospital
+        es: "hay un banco al lado del hospital"
+        en: "There's a bank beside the hospital."
+        atoms: ["hay", "un", "banco", "al", "lado", "hospital"]
+        distractorsEn:
+          - "There's a bank far from the hospital."
+          - "The bank is beside the hospital."
+          - "I need to go to the hospital."
+      - kind: mcq
+        id: l5-q-cercadelbanco
+        prompt: "Which one means 'near the bank'?"
+        correct: "cerca del banco"
+        distractors: ["lejos del banco", "al lado banco", "cerca el banco"]
+        atoms: ["cerca", "banco"]
+        why: "«cerca de» + «el» → «cerca del» (fused, masculine). Never drop the article: «cerca el banco» is ungrammatical."
+      - kind: buildLit
+        id: l5-b-elcorreoestaalladodelsupermercadoylafarmaciaestacerca
+        es: "el correo está al lado del supermercado, y la farmacia está cerca también"
+        en: "The post office is beside the supermarket, and the pharmacy is close too"
+        atoms: ["el", "correo", "está", "al", "lado", "supermercado", "y", "la", "farmacia", "cerca", "también"]
+        tiles: ["lejos", "es"]
+      - kind: audioWimcq
+        id: l5-ear-hospital
+        target: { surface: "hospital", emoji: "🏥" }
+        distractors:
+          - { surface: "correo", emoji: "📮" }
+          - { surface: "supermercado", emoji: "🏬" }
+      - kind: agreementLit
+        id: l5-agr-correonuevofarmacianueva
+        en: "The post office is new, and the pharmacy is new too"
+        audioText: "el correo es nuevo, y la farmacia es nueva también"
+        atoms: ["correo", "nuevo", "farmacia"]
+        segments:
+          - { text: "el correo es " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l5-lb-elbancoestalejosperoelsupermercadoestacerca
+        es: "el banco está lejos, pero el supermercado está cerca"
+        en: "The bank is far, but the supermarket is close"
+        atoms: ["el", "banco", "está", "lejos", "pero", "el", "supermercado", "cerca"]
+        tiles: ["es", "voy"]
+      - kind: textMcq
+        id: l5-tm-supermercado
+        target: "supermercado"
+        distractors: ["supermercao", "mercado", "supermercada"]
+      - kind: sim
+        id: l5-sim-miguel-correo
+        scene: { emoji: "📮", title: "Miguel maps out the block", setting: "Miguel is putting together directions." }
+        turns:
+          - id: t1
+            npc: { speaker: "Miguel", es: "¿El correo está al lado del supermercado?", audioText: "¿el correo está al lado del supermercado?", gloss: "Is the post office beside the supermarket?" }
+            goal: "Say yes, it's beside it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, está al lado del supermercado" }
+                - { id: "wrong1", text: "sí, está al lado de supermercado" }
+                - { id: "wrong2", text: "sí, es al lado del supermercado" }
+              correctOptionId: "right"
+              audioText: "sí, está al lado del supermercado"
+            replyGloss: "Yes, it's beside the supermarket."
+            explanation: "«supermercado» is masculine — «del» (fused). Location uses «está», not «es»."
+          - id: t2
+            npc: { speaker: "Miguel", es: "¿Y el hospital? ¿Está cerca o lejos?", audioText: "¿y el hospital? ¿está cerca o lejos?", gloss: "And the hospital? Is it close or far?" }
+            goal: "Say it's far."
+            reply:
+              mode: build
+              tiles: ["está", "lejos", "cerca", "es", "hay"]
+              answer: "está lejos"
+            replyGloss: "It's far."
+            explanation: "«lejos», the opposite of «cerca» — same «está»."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "cerca", target: "near, close" }
+          - { source: "lejos", target: "far" }
+          - { source: "lado", target: "side" }
+          - { source: "hospital", target: "hospital" }
+          - { source: "correo", target: "post office" }
+          - { source: "supermercado", target: "supermarket" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "el correo está al lado del supermercado, pero el hospital está lejos"
+        en: "The post office is beside the supermarket, but the hospital is far"
+        atoms: ["el", "correo", "está", "al", "lado", "supermercado", "pero", "el", "hospital", "lejos"]

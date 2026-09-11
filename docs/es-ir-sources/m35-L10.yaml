@@ -1,0 +1,123 @@
+  # ── L10 · Mastery — all graded, no map/info (mirrors m34-L10's own
+  #    mastery shape: no trailing speakLit-win after sim). Recombines
+  #    every strand of this module — «cerca»/«lejos»/«al lado de», the
+  #    es/está/hay three-way split, «¿dónde está…?», all five m34 places
+  #    — paired with m31's duele/duelen pain-to-pharmacy chain and m33's
+  #    «tengo que ir a». Two recalls (L9 and L7 win lines, different
+  #    lessons, neither recalled together before). Full-sentence MCQ is
+  #    legal here only (inv 28, L10 mastery exemption). LAST step is the
+  #    sim — no matchLit/speakLit after it.
+  - n: 10
+    template: free
+    title: "Mastery: ¿dónde está todo?"
+    description: "Every strand, one last time — «cerca», «lejos», «al lado de», «es»/«está»/«hay», «¿dónde está…?», and pain sending you to the hospital or the pharmacy, all in one pass."
+    steps:
+      - kind: speakLit
+        id: l10-sp-recall-l9win
+        es: "hay un banco cerca — es grande, y está al lado de la farmacia"
+        en: "There's a bank close by — it's big, and it's beside the pharmacy"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l10-b-meduelelamanoperotengoquesupermercado
+        es: "me duele la mano, pero tengo que ir al supermercado hoy — está cerca"
+        en: "My hand hurts, but I have to go to the supermarket today — it's close"
+        atoms: ["me", "duele", "la", "mano", "pero", "tengo que", "ir", "al", "supermercado", "hoy", "está", "cerca"]
+        tiles: ["duelen", "hay"]
+      - kind: clozeLit
+        id: l10-c-medueleelpiehayunhospitalcerca
+        es: "me duele el pie — hay un hospital cerca"
+        en: "My foot hurts — there's a hospital nearby"
+        blank: "hay"
+        options: ["hay", "está"]
+        atoms: ["me", "duele", "el", "pie", "un", "hospital", "cerca"]
+        why: "«hay» — a hospital exists nearby. «está» would name a specific, already-known one."
+      - kind: listenCompLit
+        id: l10-lc-tengoqueiralafarmaciaperoestaalladodelbanco
+        es: "tengo que ir a la farmacia, pero está al lado del banco"
+        en: "I have to go to the pharmacy, but it's beside the bank."
+        atoms: ["tengo que", "ir", "a", "la", "farmacia", "pero", "está", "al", "lado", "banco"]
+        distractorsEn:
+          - "I have to go to the bank, but it's beside the pharmacy."
+          - "I want to go to the pharmacy, but it's beside the bank."
+          - "There's a pharmacy beside the bank."
+      - kind: mcq
+        id: l10-q-meduelenlosojosmastery
+        prompt: "Which one means 'My eyes hurt — I have to go to the hospital, and it's beside the pharmacy'?"
+        correct: "me duelen los ojos — tengo que ir al hospital, y está al lado de la farmacia"
+        distractors: ["me duele los ojos — tengo que ir al hospital, y está al lado de la farmacia", "me duelen los ojos — tengo que voy al hospital, y está al lado de la farmacia", "me duelen los ojos — tengo que ir al hospital, y está al lado del farmacia"]
+        atoms: ["me", "duelen", "ojo", "tengo que", "ir", "al", "hospital", "y", "está", "al", "lado", "de", "la", "farmacia"]
+        why: "«los ojos» is plural — «duelen». After «tengo que», the infinitive stays bare — never «voy». And «farmacia» is feminine — «de la», never «del»."
+      - kind: speakLit
+        id: l10-sp-recall-l7win
+        es: "perdón, ¿dónde está el banco? — está al lado de la farmacia"
+        en: "Excuse me, where is the bank? — it's beside the pharmacy"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l10-b-voyalcorreoestalejosperonecesitohoy
+        es: "voy al correo — está lejos, pero necesito ir hoy"
+        en: "I'm going to the post office — it's far, but I need to go today"
+        atoms: ["voy", "al", "correo", "está", "lejos", "pero", "necesito", "ir", "hoy"]
+        tiles: ["tengo que", "hay"]
+      - kind: audioWimcq
+        id: l10-ear-hospital
+        target: { surface: "hospital", emoji: "🏥" }
+        distractors:
+          - { surface: "banco", emoji: "🏦" }
+          - { surface: "supermercado", emoji: "🏬" }
+      - kind: agreementLit
+        id: l10-agr-bancograndefarmaciagrande
+        en: "The bank is big, and the pharmacy is big too"
+        audioText: "el banco es grande, y la farmacia es grande también"
+        atoms: ["banco", "grande", "farmacia"]
+        segments:
+          - { text: "el banco es " }
+          - { blank: { id: "p1", answer: "grande", options: ["grande", "grandes"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "grande", options: ["grande", "grandes"] } }
+      - kind: listenBuildLit
+        id: l10-lb-necesitoiralhospitalperoduelelapierna
+        es: "necesito ir al hospital, pero me duele la pierna — está lejos"
+        en: "I need to go to the hospital, but my leg hurts — it's far"
+        atoms: ["necesito", "ir", "al", "hospital", "pero", "me", "duele", "la", "pierna", "está", "lejos"]
+        tiles: ["tengo que", "voy"]
+      - kind: textMcq
+        id: l10-tm-lejos
+        target: "lejos"
+        distractors: ["lejano", "leños", "lejo"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "cerca", target: "near, close" }
+          - { source: "lejos", target: "far" }
+          - { source: "lado", target: "side" }
+          - { source: "dónde", target: "where" }
+          - { source: "hay", target: "there is, there are" }
+          - { source: "duele", target: "hurts (one thing)" }
+      - kind: sim
+        id: l10-sim-diego-mastery
+        scene: { emoji: "🗺️", title: "One last errand day", setting: "Diego checks in before the weekend." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Te duele el pie? ¿Dónde está el hospital?", audioText: "¿te duele el pie? ¿dónde está el hospital?", gloss: "Does your foot hurt? Where is the hospital?" }
+            goal: "Say yes, foot hurts, and it's far."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me duele el pie — está lejos" }
+                - { id: "wrong1", text: "sí, me duelen el pie — está lejos" }
+                - { id: "wrong2", text: "sí, me duele el pie — hay lejos" }
+              correctOptionId: "right"
+              audioText: "sí, me duele el pie — está lejos"
+            replyGloss: "Yes, my foot hurts — it's far."
+            explanation: "«el pie» is singular, so «duele», not «duelen». And a specific place uses «está», never «hay»."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y la farmacia? ¿Está cerca, al lado del banco?", audioText: "¿y la farmacia? ¿está cerca, al lado del banco?", gloss: "And the pharmacy? Is it close, beside the bank?" }
+            goal: "Say yes, it's close, beside the bank."
+            reply:
+              mode: build
+              tiles: ["sí", "está", "cerca", "al", "lado", "del", "banco", "hay"]
+              answer: "sí está cerca al lado del banco"
+            replyGloss: "Yes, it's close, beside the bank."
+            explanation: "«al lado del banco» — «banco» is masculine, so «del», never a bare «de»."

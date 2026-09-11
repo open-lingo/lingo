@@ -1,0 +1,137 @@
+  # ── L1 · «El banco está cerca» — «cerca» debuts. Zero new verb
+  #    morphology: «está» is fully PRIOR (m4), this lesson gives it its
+  #    first genuinely adult content since m4's own house scavenger hunt.
+  #    No imageMcq — «cerca» is a non-imageable invariant adverb (§13.1);
+  #    debut via infoStep, immediately followed by build/cloze production
+  #    on the same sentence (guide §13.3's just-in-time cadence). Head off
+  #    the motion-vs-location foil («voy cerca…») from lesson one, per
+  #    header's dedicated discrimination note. PRIOR context only:
+  #    está (m4), es (m2), aquí (m3), banco/farmacia/hospital (m34),
+  #    necesito/necesitas (m16), ir (m28), puedo (m14), voy (m9), pero
+  #    (m6), también (m11), mañana (m8). No recall — first lesson.
+  - n: 1
+    template: free
+    title: "El banco está cerca"
+    description: "«cerca» — near, close. Invariant, no gender or number. You already know «está» says WHERE something is (m4) — today it also says HOW CLOSE."
+    steps:
+      - kind: map
+        id: l1-map-elbancoestacerca
+        tokens: ["el", "banco", "está", "cerca"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "bank", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "close", tokenIndex: 3 }
+        audioText: "el banco está cerca"
+        revealNote: "«cerca» — invariant, no gender/number. Rides «está» (m4), which already says WHERE — now it also says HOW CLOSE."
+      - kind: info
+        id: l1-info-cerca
+        title: "Cerca — near, close"
+        body: "«cerca» is invariant — no gender, no number, ever. You know «está» says WHERE (m4) — today it also says HOW CLOSE: «el banco está cerca»."
+      - kind: speakLit
+        id: l1-sp-elbancoestacerca
+        es: "el banco está cerca"
+        en: "The bank is close"
+        atoms: ["el", "banco", "está", "cerca"]
+      - kind: buildLit
+        id: l1-b-necesitoiralbancoestacerca
+        es: "necesito ir al banco — está cerca"
+        en: "I need to go to the bank — it's close"
+        atoms: ["necesito", "ir", "al", "banco", "está", "cerca"]
+        tiles: ["es", "voy"]
+      - kind: clozeLit
+        id: l1-c-elbancoestacerca
+        es: "el banco está cerca"
+        en: "The bank is close"
+        blank: "cerca"
+        options: ["cerca", "aquí"]
+        atoms: ["el", "banco", "está"]
+        why: "«cerca» says HOW CLOSE — «aquí» means «here», a specific spot, not a distance."
+      - kind: listenCompLit
+        id: l1-lc-lafarmaciaestacerca
+        es: "la farmacia está cerca"
+        en: "The pharmacy is close."
+        atoms: ["la", "farmacia", "está", "cerca"]
+        distractorsEn:
+          - "The pharmacy is here."
+          - "The bank is close."
+          - "I'm going to the pharmacy."
+      - kind: mcq
+        id: l1-q-estacerca
+        prompt: "Which one means 'it's close'?"
+        correct: "está cerca"
+        distractors: ["está aquí", "es cerca", "voy cerca"]
+        atoms: ["está", "cerca"]
+        why: "«está», not «es», for location — and «cerca» is a distance, not «voy» (motion, m9) or «aquí» (a specific spot)."
+      - kind: buildLit
+        id: l1-b-lafarmaciaestacercaperonecesito
+        es: "la farmacia está cerca, pero necesito ir al banco también"
+        en: "The pharmacy is close, but I also need to go to the bank"
+        atoms: ["la", "farmacia", "está", "cerca", "pero", "necesito", "ir", "al", "banco", "también"]
+        tiles: ["es", "voy"]
+      - kind: audioWimcq
+        id: l1-ear-correo
+        target: { surface: "correo", emoji: "📮" }
+        distractors:
+          - { surface: "hospital", emoji: "🏥" }
+          - { surface: "supermercado", emoji: "🏬" }
+      - kind: agreementLit
+        id: l1-agr-banconuevofarmacianueva
+        en: "The bank is new, and the pharmacy is new too"
+        audioText: "el banco es nuevo, y la farmacia es nueva también"
+        atoms: ["banco", "nuevo", "farmacia"]
+        segments:
+          - { text: "el banco es " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l1-lb-elhospitalestacercaperopuedo
+        es: "el hospital está cerca, pero puedo ir mañana"
+        en: "The hospital is close, but I can go tomorrow"
+        atoms: ["el", "hospital", "está", "cerca", "pero", "puedo", "mañana"]
+        tiles: ["es", "voy"]
+      - kind: textMcq
+        id: l1-tm-cerca
+        target: "cerca"
+        distractors: ["cerdo", "cera", "cerro"]
+      - kind: sim
+        id: l1-sim-elena-banco
+        scene: { emoji: "🏦", title: "Elena checks the bank", setting: "Elena wonders if the bank is close by." }
+        turns:
+          - id: t1
+            npc: { speaker: "Elena", es: "¿El banco está cerca?", audioText: "¿el banco está cerca?", gloss: "Is the bank close?" }
+            goal: "Say yes, it's close."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, está cerca" }
+                - { id: "wrong1", text: "sí, es cerca" }
+                - { id: "wrong2", text: "sí, voy cerca" }
+              correctOptionId: "right"
+              audioText: "sí, está cerca"
+            replyGloss: "Yes, it's close."
+            explanation: "Location uses «está» (m4), not «es» or «voy» (motion, m9)."
+          - id: t2
+            npc: { speaker: "Elena", es: "¿Necesitas ir ahora?", audioText: "¿necesitas ir ahora?", gloss: "Do you need to go now?" }
+            goal: "Say yes, you need to go now."
+            reply:
+              mode: build
+              tiles: ["sí", "necesito", "ir", "ahora", "voy", "tengo"]
+              answer: "sí necesito ir ahora"
+            replyGloss: "Yes, I need to go now."
+            explanation: "«necesito» — about yourself, not «necesitas» (that's asking about you)."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "cerca", target: "near, close" }
+          - { source: "está", target: "is (somewhere)" }
+          - { source: "banco", target: "bank" }
+          - { source: "farmacia", target: "pharmacy" }
+          - { source: "necesito", target: "I need" }
+          - { source: "ir", target: "to go" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "necesito ir al banco — está cerca"
+        en: "I need to go to the bank — it's close"
+        atoms: ["necesito", "ir", "al", "banco", "está", "cerca"]

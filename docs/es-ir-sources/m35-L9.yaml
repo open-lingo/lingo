@@ -1,0 +1,129 @@
+  # ── L9 · Dedicated «es» vs «está» vs «hay» three-way contrast — no new
+  #    atom. The direct payoff of m4's own "three jobs, three words"
+  #    framing: «es» (m2) — WHAT something is (identity/quality). «está»
+  #    (m4) — WHERE a specific, known thing is. «hay» (m3) — THAT
+  #    something exists. Distinct from L6's voy/está/hay (motion vs
+  #    location vs existence) — this lesson is the identity/location/
+  #    existence split, the classic ser/estar/haber confusion point.
+  #    Info card states it explicitly (2nd and last time this module
+  #    states a three-way split in prose). PRIOR context only: cerca/
+  #    lejos/lado/hay (this module), dónde/está/es (m4/m2), banco/
+  #    farmacia/hospital/correo/supermercado (m34), nuevo/viejo/bonito/
+  #    pequeño/grande (m6). One recall (L8's win line).
+  - n: 9
+    template: free
+    title: "Es, está, o hay"
+    description: "«es» — what it IS. «está» — where it IS (a known place). «hay» — that it exists. Three different questions about the same bank."
+    steps:
+      - kind: info
+        id: l9-info-esestahay
+        title: "Es, está, hay — the last split"
+        body: "«es» — WHAT something is (m2): «el banco es grande». «está» — WHERE a specific place is (m4): «el banco está cerca». «hay» — THAT something exists (m3): «hay un banco cerca». Same bank, three different questions."
+      - kind: speakLit
+        id: l9-sp-recall
+        es: "el banco está cerca, la farmacia está al lado, pero el hospital y el correo están lejos"
+        en: "The bank is close, the pharmacy is beside it, but the hospital and the post office are far"
+        cue: recall
+        atoms: ["el", "banco", "está", "cerca", "la", "farmacia", "al", "lado", "pero", "hospital", "correo", "están", "lejos"]
+      - kind: buildLit
+        id: l9-b-elbancoesgrandeyestacerca
+        es: "el banco es grande, y está cerca"
+        en: "The bank is big, and it's close"
+        atoms: ["el", "banco", "es", "grande", "y", "está", "cerca"]
+        tiles: ["hay", "voy"]
+      - kind: clozeLit
+        id: l9-c-hayunafarmaciacercayesnueva
+        es: "hay una farmacia cerca, y es nueva"
+        en: "There's a pharmacy close by, and it's new"
+        blank: "hay"
+        options: ["hay", "es"]
+        atoms: ["una", "farmacia", "cerca", "y", "es", "nuevo"]
+        why: "«hay» — a pharmacy exists nearby. «es nueva» right after names WHAT it's like, a separate question from whether it exists."
+      - kind: listenCompLit
+        id: l9-lc-elhospitalesviejoperoestacerca
+        es: "el hospital es viejo, pero está cerca"
+        en: "The hospital is old, but it's close."
+        atoms: ["el", "hospital", "es", "viejo", "pero", "está", "cerca"]
+        distractorsEn:
+          - "The hospital is old, but there's one close by."
+          - "There's an old hospital, but it's far."
+          - "The hospital is new, but it's close."
+      - kind: mcq
+        id: l9-q-esogrande
+        prompt: "'The supermarket is big' — which word fits?"
+        correct: "es grande"
+        distractors: ["está grande", "hay grande", "voy grande"]
+        atoms: ["es", "grande"]
+        why: "«grande» names a quality — «es», not «está» (location) or «hay» (existence)."
+      - kind: buildLit
+        id: l9-b-hayuncorreocercaesbonito
+        es: "hay un correo cerca — es bonito"
+        en: "There's a post office close by — it's pretty"
+        atoms: ["hay", "un", "correo", "cerca", "es", "bonito"]
+        tiles: ["está", "voy"]
+      - kind: audioWimcq
+        id: l9-ear-banco
+        target: { surface: "banco", emoji: "🏦" }
+        distractors:
+          - { surface: "supermercado", emoji: "🏬" }
+          - { surface: "hospital", emoji: "🏥" }
+      - kind: agreementLit
+        id: l9-agr-supermercadograndefarmaciagrande
+        en: "The supermarket is big, and the pharmacy is big too"
+        audioText: "el supermercado es grande, y la farmacia es grande también"
+        atoms: ["supermercado", "grande", "farmacia"]
+        segments:
+          - { text: "el supermercado es " }
+          - { blank: { id: "p1", answer: "grande", options: ["grande", "grandes"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "grande", options: ["grande", "grandes"] } }
+      - kind: listenBuildLit
+        id: l9-lb-elhospitalestaalladodelbancoyesgrande
+        es: "el hospital está al lado del banco, y es grande"
+        en: "The hospital is beside the bank, and it's big"
+        atoms: ["el", "hospital", "está", "al", "lado", "banco", "y", "es", "grande"]
+        tiles: ["hay", "voy"]
+      - kind: textMcq
+        id: l9-tm-hay
+        target: "hay"
+        distractors: ["es", "está", "ay"]
+      - kind: sim
+        id: l9-sim-sofia-supermercado
+        scene: { emoji: "🏬", title: "Sofía compares the two supermarkets", setting: "Sofía wants to know which supermarket to pick." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Hay un supermercado cerca?", audioText: "¿hay un supermercado cerca?", gloss: "Is there a supermarket nearby?" }
+            goal: "Say yes, and that it's big."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, hay uno — es grande" }
+                - { id: "wrong1", text: "sí, hay uno — está grande" }
+                - { id: "wrong2", text: "sí, está uno — es grande" }
+              correctOptionId: "right"
+              audioText: "sí, hay uno — es grande"
+            replyGloss: "Yes, there's one — it's big."
+            explanation: "«hay» for existence, «es» for a quality like size — never «está»."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y dónde está?", audioText: "¿y dónde está?", gloss: "And where is it?" }
+            goal: "Say it's beside the bank."
+            reply:
+              mode: build
+              tiles: ["está", "al", "lado", "del", "banco", "es", "hay"]
+              answer: "está al lado del banco"
+            replyGloss: "It's beside the bank."
+            explanation: "«dónde» asks WHERE — the answer takes «está», not «es» or «hay»."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "es", target: "he/she/it is (what)" }
+          - { source: "está", target: "is (somewhere)" }
+          - { source: "hay", target: "there is, there are" }
+          - { source: "grande", target: "big" }
+          - { source: "cerca", target: "near, close" }
+          - { source: "lado", target: "side" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "hay un banco cerca — es grande, y está al lado de la farmacia"
+        en: "There's a bank close by — it's big, and it's beside the pharmacy"
+        atoms: ["hay", "un", "banco", "cerca", "es", "grande", "y", "está", "al", "lado", "de", "la", "farmacia"]

@@ -63,6 +63,7 @@ import { ES_M31_CHECKPOINT_INDEX } from "./m31";
 import { ES_M32_CHECKPOINT_INDEX } from "./m32";
 import { ES_M33_CHECKPOINT_INDEX } from "./m33";
 import { ES_M34_CHECKPOINT_INDEX } from "./m34";
+import { ES_M35_CHECKPOINT_INDEX } from "./m35";
 import { findEsAtomBySurface, getEsCourseAtoms, type EsAtom } from "../courseAtoms";
 import { ES_MODULE_ORDER } from "../grammarHelpers";
 import { isGradedStep } from "@/features/lesson/data/_stepPredicates";
@@ -114,6 +115,7 @@ const CHECKPOINT_INDEX: Record<string, number> = {
   m32: ES_M32_CHECKPOINT_INDEX,
   m33: ES_M33_CHECKPOINT_INDEX,
   m34: ES_M34_CHECKPOINT_INDEX,
+  m35: ES_M35_CHECKPOINT_INDEX,
 };
 
 const SELECTION_TYPES = new Set<LessonStep["type"]>([

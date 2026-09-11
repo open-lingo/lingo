@@ -1,0 +1,133 @@
+  # ── L7 · Asking for directions — no new atom. Dedicated dialogue_sim
+  #    lesson putting «dónde» (m4, PRIOR — never used with «está» on real
+  #    content until now) together with this module's «está»/«cerca»/
+  #    «lejos»/«al lado de» for the first time: «¿dónde está el banco?».
+  #    No info card (pure recombination of two already-taught pieces — no
+  #    new rule to state). Carlos debuts as NPC (reserved from L1-L6 per
+  #    the brief). No map (no new atom). PRIOR context only: cerca/lejos/
+  #    lado/hay (this module), dónde/está/es (m4/m2), al/a/de (m9/m2),
+  #    banco/farmacia/hospital/correo/supermercado (m34), necesito (m16),
+  #    perdón (m21 courtesy — verify below), gracias (m1). One recall
+  #    (L6's win line).
+  - n: 7
+    template: free
+    title: "¿Dónde está el banco?"
+    description: "«dónde» (m4) + «está» — the real question: asking where something is."
+    steps:
+      - kind: speakLit
+        id: l7-sp-recall
+        es: "hay un hospital cerca, y voy ahora — está al lado del correo"
+        en: "There's a hospital close by, and I'm going now — it's beside the post office"
+        cue: recall
+        atoms: ["hay", "un", "hospital", "cerca", "y", "voy", "ahora", "está", "al", "lado", "correo"]
+      - kind: buildLit
+        id: l7-b-dondeestaelbanco
+        es: "¿dónde está el banco?"
+        en: "Where is the bank?"
+        atoms: ["dónde", "está", "el", "banco"]
+        tiles: ["es", "hay"]
+      - kind: clozeLit
+        id: l7-c-dondeestalafarmacia
+        es: "dónde está la farmacia"
+        en: "Where is the pharmacy"
+        blank: "dónde"
+        options: ["dónde", "hay"]
+        atoms: ["está", "la", "farmacia"]
+        why: "«dónde» asks WHERE, pointing straight at «está» — «hay» would only ask whether one exists, not where."
+      - kind: listenCompLit
+        id: l7-lc-elcorreoestaalladodelbanco
+        es: "el correo está al lado del banco"
+        en: "The post office is beside the bank."
+        atoms: ["el", "correo", "está", "al", "lado", "banco"]
+        distractorsEn:
+          - "Where is the post office?"
+          - "The post office is far from the bank."
+          - "There's a post office beside the bank."
+      - kind: mcq
+        id: l7-q-dondeesta
+        prompt: "Which one asks 'where is it'?"
+        correct: "dónde está"
+        distractors: ["dónde hay", "qué está", "dónde es"]
+        atoms: ["dónde", "está"]
+        why: "«dónde» pairs with «está» for a specific place — never «hay» (existence) or «es» (identity)."
+      - kind: buildLit
+        id: l7-b-perdondondeestaelsupermercado
+        es: "perdón, ¿dónde está el supermercado?"
+        en: "Excuse me, where is the supermarket?"
+        atoms: ["perdón", "dónde", "está", "el", "supermercado"]
+        tiles: ["hay", "es"]
+      - kind: audioWimcq
+        id: l7-ear-farmacia
+        target: { surface: "farmacia", emoji: "💊" }
+        distractors:
+          - { surface: "supermercado", emoji: "🏬" }
+          - { surface: "hospital", emoji: "🏥" }
+      - kind: agreementLit
+        id: l7-agr-hospitalpequenofarmaciapequena
+        en: "The hospital is small, and the pharmacy is small too"
+        audioText: "el hospital es pequeño, y la farmacia es pequeña también"
+        atoms: ["hospital", "pequeño", "farmacia"]
+        segments:
+          - { text: "el hospital es " }
+          - { blank: { id: "p1", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "pequeño"] } }
+      - kind: listenBuildLit
+        id: l7-lb-dondeestaelhospitalestaalladodelcorreo
+        es: "el hospital está al lado del correo, pero está lejos"
+        en: "The hospital is beside the post office, but it's far"
+        atoms: ["el", "hospital", "está", "al", "lado", "correo", "pero", "lejos"]
+        tiles: ["hay", "es"]
+      - kind: textMcq
+        id: l7-tm-donde
+        target: "dónde"
+        distractors: ["donde", "dando", "dolor"]
+      - kind: sim
+        id: l7-sim-carlos-directions
+        scene: { emoji: "🗺️", title: "Carlos asks for directions", setting: "Carlos stops you on the street." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carlos", es: "Perdón, ¿dónde está el banco?", audioText: "perdón, ¿dónde está el banco?", gloss: "Excuse me, where is the bank?" }
+            goal: "Say it's close by."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "está cerca" }
+                - { id: "wrong1", text: "hay cerca" }
+                - { id: "wrong2", text: "es cerca" }
+              correctOptionId: "right"
+              audioText: "está cerca"
+            replyGloss: "It's close by."
+            explanation: "«está» answers a «dónde» question about a specific place."
+          - id: t2
+            npc: { speaker: "Carlos", es: "Gracias. ¿Y la farmacia? ¿Está lejos?", audioText: "gracias. ¿y la farmacia? ¿está lejos?", gloss: "Thanks. And the pharmacy? Is it far?" }
+            goal: "Say no, it's beside the bank."
+            reply:
+              mode: build
+              tiles: ["no", "está", "al", "lado", "del", "banco", "hay"]
+              answer: "no está al lado del banco"
+            replyGloss: "No, it's beside the bank."
+            explanation: "«al lado del banco» — «lado» is masculine, so «del», not a bare «de»."
+          - id: t3
+            npc: { speaker: "Carlos", es: "Bien. ¿Dónde está el correo?", audioText: "bien. ¿dónde está el correo?", gloss: "Good. Where is the post office?" }
+            goal: "Say it's far."
+            reply:
+              mode: build
+              tiles: ["está", "lejos", "cerca", "hay", "es"]
+              answer: "está lejos"
+            replyGloss: "It's far."
+            explanation: "«lejos», not «cerca» — the post office is far."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "dónde", target: "where" }
+          - { source: "está", target: "is (somewhere)" }
+          - { source: "perdón", target: "excuse me" }
+          - { source: "cerca", target: "near, close" }
+          - { source: "lejos", target: "far" }
+          - { source: "lado", target: "side" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "perdón, ¿dónde está el banco? — está al lado de la farmacia"
+        en: "Excuse me, where is the bank? — it's beside the pharmacy"
+        atoms: ["perdón", "dónde", "está", "el", "banco", "al", "lado", "de", "la", "farmacia"]

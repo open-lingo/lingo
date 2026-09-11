@@ -1,0 +1,143 @@
+  # ── L4 · «La farmacia está al lado del banco» — «lado» debuts. No
+  #    imageMcq — a photo of "a side" reads as arbitrary, not
+  #    disambiguating (§13.1). «al lado de» is built COMPOSITIONALLY from
+  #    already-free «al»/«de»/«del» (ES_FUNCTION_WORDS) + this one
+  #    registered noun — NOT its own idiom-phrase atom. THE ATOMS: CREDIT
+  #    TRAP: «del» is NOT a registered atom (only «de» is, m2) — never put
+  #    «del» in an atoms: array, even though it's legal, scope-checked
+  #    text everywhere else. Gender-article discrimination: «del» (de+el,
+  #    masculine) vs «de la» (feminine, never fused) across m34's 5
+  #    places. PRIOR context only: cerca/lejos/hay (this module), está/es
+  #    (m4/m2), al/a/de (m9/m2), banco/farmacia/hospital/correo/
+  #    supermercado (m34), necesito (m16), viejo (m6). One recall (L3's
+  #    win line).
+  - n: 4
+    template: free
+    title: "La farmacia está al lado del banco"
+    description: "«lado» — side. «al lado de» = beside — «al» + «lado» + «de», all pieces you already have. «del» (de+el, masculine) vs «de la» (feminine, never fused) — the same fusion rule as «al»/«a la» (m9)."
+    steps:
+      - kind: map
+        id: l4-map-lafarmaciaestaalladodelbanco
+        tokens: ["la", "farmacia", "está", "al", "lado", "del", "banco"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "pharmacy", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "at the", tokenIndex: 3 }
+          - { en: "side", tokenIndex: 4 }
+          - { en: "of the", tokenIndex: 5 }
+          - { en: "bank", tokenIndex: 6 }
+        audioText: "la farmacia está al lado del banco"
+        revealNote: "«lado» — side, a regular masculine noun. «del» = de + el, fused — «banco» is masculine, same fusion rule as «al» (m9)."
+      - kind: info
+        id: l4-info-lado
+        title: "Lado — side"
+        body: "«lado» — side, a regular masculine noun. «al lado de» = beside, built from pieces you already have: «al» + «lado» + «de». «la farmacia está al lado del banco»."
+      - kind: speakLit
+        id: l4-sp-recall
+        es: "hay una farmacia cerca, pero el hospital está lejos"
+        en: "There's a pharmacy close by, but the hospital is far"
+        cue: recall
+        atoms: ["hay", "una", "farmacia", "cerca", "pero", "el", "hospital", "está", "lejos"]
+      - kind: buildLit
+        id: l4-b-elbancoestaalladodelafarmacia
+        es: "el banco está al lado de la farmacia"
+        en: "The bank is beside the pharmacy"
+        atoms: ["el", "banco", "está", "al", "lado", "de", "la", "farmacia"]
+        tiles: ["del", "es"]
+      - kind: clozeLit
+        id: l4-c-elhospitalestaalladodelcorreo
+        es: "el hospital está al lado del correo"
+        en: "The hospital is beside the post office"
+        blank: "del"
+        options: ["del", "de la"]
+        atoms: ["el", "hospital", "está", "al", "lado", "correo"]
+        why: "«correo» is masculine — «del» (de+el, fused). «de la» is for feminine nouns like «farmacia»."
+      - kind: listenCompLit
+        id: l4-lc-lafarmaciaestaalladodelhospital
+        es: "la farmacia está al lado del hospital"
+        en: "The pharmacy is beside the hospital."
+        atoms: ["la", "farmacia", "está", "al", "lado", "hospital"]
+        distractorsEn:
+          - "The pharmacy is close to the hospital."
+          - "The hospital is beside the pharmacy."
+          - "I'm going to the hospital."
+      - kind: mcq
+        id: l4-q-allado
+        prompt: "Which one means 'beside'?"
+        correct: "al lado"
+        distractors: ["a lado", "en lado", "el lado"]
+        atoms: ["al", "lado"]
+        why: "«lado» is masculine, so it's always «al lado» — never a bare «el», never the wrong preposition."
+      - kind: buildLit
+        id: l4-b-elhospitalestaalladodelbancoperolafarmaciaestalejos
+        es: "el hospital está al lado del banco, pero la farmacia está lejos"
+        en: "The hospital is beside the bank, but the pharmacy is far"
+        atoms: ["el", "hospital", "está", "al", "lado", "banco", "pero", "la", "farmacia", "lejos"]
+        tiles: ["es", "cerca"]
+      - kind: audioWimcq
+        id: l4-ear-correo
+        target: { surface: "correo", emoji: "📮" }
+        distractors:
+          - { surface: "banco", emoji: "🏦" }
+          - { surface: "hospital", emoji: "🏥" }
+      - kind: agreementLit
+        id: l4-agr-bancoviejofarmaciavieja
+        en: "The bank is old, and the pharmacy is old too"
+        audioText: "el banco es viejo, y la farmacia es vieja también"
+        atoms: ["banco", "viejo", "farmacia"]
+        segments:
+          - { text: "el banco es " }
+          - { blank: { id: "p1", answer: "viejo", options: ["viejo", "vieja"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "vieja", options: ["vieja", "viejo"] } }
+      - kind: listenBuildLit
+        id: l4-lb-elsupermercadoestaalladodelafarmacia
+        es: "el supermercado está al lado de la farmacia, y necesito ir también"
+        en: "The supermarket is beside the pharmacy, and I need to go too"
+        atoms: ["el", "supermercado", "está", "al", "lado", "de", "la", "farmacia", "y", "necesito", "ir", "también"]
+        tiles: ["del", "es"]
+      - kind: textMcq
+        id: l4-tm-lado
+        target: "lado"
+        distractors: ["dado", "lago", "ladra"]
+      - kind: sim
+        id: l4-sim-juan-banco
+        scene: { emoji: "🏦", title: "Juan checks the layout", setting: "Juan wants to know what's beside what." }
+        turns:
+          - id: t1
+            npc: { speaker: "Juan", es: "¿La farmacia está al lado del banco?", audioText: "¿la farmacia está al lado del banco?", gloss: "Is the pharmacy beside the bank?" }
+            goal: "Say yes, it's beside the bank."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, está al lado del banco" }
+                - { id: "wrong1", text: "sí, está al lado de banco" }
+                - { id: "wrong2", text: "sí, es al lado del banco" }
+              correctOptionId: "right"
+              audioText: "sí, está al lado del banco"
+            replyGloss: "Yes, it's beside the bank."
+            explanation: "«banco» is masculine — «del» (fused), never a bare «de». And location uses «está», not «es»."
+          - id: t2
+            npc: { speaker: "Juan", es: "¿Y el hospital? ¿Está lejos?", audioText: "¿y el hospital? ¿está lejos?", gloss: "And the hospital? Is it far?" }
+            goal: "Say yes, it's far."
+            reply:
+              mode: build
+              tiles: ["sí", "está", "lejos", "cerca", "es"]
+              answer: "sí está lejos"
+            replyGloss: "Yes, it's far."
+            explanation: "«lejos», not «cerca» — the hospital is far."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "lado", target: "side" }
+          - { source: "está", target: "is (somewhere)" }
+          - { source: "banco", target: "bank" }
+          - { source: "farmacia", target: "pharmacy" }
+          - { source: "correo", target: "post office" }
+          - { source: "hospital", target: "hospital" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "la farmacia está al lado del banco"
+        en: "The pharmacy is beside the bank"
+        atoms: ["la", "farmacia", "está", "al", "lado", "banco"]

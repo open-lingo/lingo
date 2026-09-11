@@ -1,0 +1,136 @@
+  # ── L2 · «El hospital está lejos» — «lejos» debuts, direct antonym of
+  #    «cerca» (L1). No imageMcq — same non-imageable class as L1. Debut
+  #    via infoStep, immediate build/cloze production, cloze pairs
+  #    lejos/cerca directly as the antonym discrimination. Recombines
+  #    with «correo»/«supermercado» (m34) for the first time this module.
+  #    PRIOR context only: cerca (this module, L1), está/es (m4/m2),
+  #    hospital/correo/supermercado/farmacia (m34), necesito (m16),
+  #    ir (m28), puedo (m14), voy (m9), pero/también (m6/m11), hoy/
+  #    mañana (m8). One recall (L1's win line).
+  - n: 2
+    template: free
+    title: "El hospital está lejos"
+    description: "«lejos» — far. Invariant, the direct opposite of «cerca» (L1). Same «está», new distance."
+    steps:
+      - kind: map
+        id: l2-map-elhospitalestalejos
+        tokens: ["el", "hospital", "está", "lejos"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "hospital", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "far", tokenIndex: 3 }
+        audioText: "el hospital está lejos"
+        revealNote: "«lejos» — invariant, the opposite of «cerca» (L1)."
+      - kind: info
+        id: l2-info-lejos
+        title: "Lejos — far"
+        body: "«lejos» is invariant — the direct opposite of «cerca» (L1). «el hospital está lejos, pero la farmacia está cerca»."
+      - kind: speakLit
+        id: l2-sp-recall
+        es: "necesito ir al banco — está cerca"
+        en: "I need to go to the bank — it's close"
+        cue: recall
+        atoms: ["necesito", "ir", "al", "banco", "está", "cerca"]
+      - kind: buildLit
+        id: l2-b-necesitoiralcorreoestalejos
+        es: "necesito ir al correo — está lejos"
+        en: "I need to go to the post office — it's far"
+        atoms: ["necesito", "ir", "al", "correo", "está", "lejos"]
+        tiles: ["es", "cerca"]
+      - kind: clozeLit
+        id: l2-c-elhospitalestalejos
+        es: "el hospital está lejos"
+        en: "The hospital is far"
+        blank: "lejos"
+        options: ["lejos", "cerca"]
+        atoms: ["el", "hospital", "está"]
+        why: "«lejos» (far), not «cerca» (close) — the direct opposite."
+      - kind: listenCompLit
+        id: l2-lc-elsupermercadoestalejos
+        es: "el supermercado está lejos"
+        en: "The supermarket is far."
+        atoms: ["el", "supermercado", "está", "lejos"]
+        distractorsEn:
+          - "The supermarket is close."
+          - "The hospital is far."
+          - "I'm going to the supermarket."
+      - kind: mcq
+        id: l2-q-estalejos
+        prompt: "Which one means 'it's far'?"
+        correct: "está lejos"
+        distractors: ["está cerca", "es lejos", "voy lejos"]
+        atoms: ["está", "lejos"]
+        why: "«está», not «es», for location — and «lejos», not «cerca», for far."
+      - kind: buildLit
+        id: l2-b-necesitoiralcorreoperoestalejos
+        es: "necesito ir al correo, pero está lejos"
+        en: "I need to go to the post office, but it's far"
+        atoms: ["necesito", "ir", "al", "correo", "pero", "está", "lejos"]
+        tiles: ["es", "cerca"]
+      - kind: audioWimcq
+        id: l2-ear-banco
+        target: { surface: "banco", emoji: "🏦" }
+        distractors:
+          - { surface: "farmacia", emoji: "💊" }
+          - { surface: "hospital", emoji: "🏥" }
+      - kind: agreementLit
+        id: l2-agr-correopequenofarmaciapequena
+        en: "The post office is small, and the pharmacy is small too"
+        audioText: "el correo es pequeño, y la farmacia es pequeña también"
+        atoms: ["correo", "pequeño", "farmacia"]
+        segments:
+          - { text: "el correo es " }
+          - { blank: { id: "p1", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "pequeño"] } }
+      - kind: listenBuildLit
+        id: l2-lb-elsupermercadoestalejosperonecesito
+        es: "el supermercado está lejos, pero necesito ir hoy"
+        en: "The supermarket is far, but I need to go today"
+        atoms: ["el", "supermercado", "está", "lejos", "pero", "necesito", "ir", "hoy"]
+        tiles: ["es", "voy"]
+      - kind: textMcq
+        id: l2-tm-lejos
+        target: "lejos"
+        distractors: ["lejano", "leños", "lejo"]
+      - kind: sim
+        id: l2-sim-pedro-hospital
+        scene: { emoji: "🏥", title: "Pedro asks about the hospital", setting: "Pedro wants to know how far things are." }
+        turns:
+          - id: t1
+            npc: { speaker: "Pedro", es: "¿El hospital está lejos?", audioText: "¿el hospital está lejos?", gloss: "Is the hospital far?" }
+            goal: "Say yes, it's far."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, está lejos" }
+                - { id: "wrong1", text: "sí, es lejos" }
+                - { id: "wrong2", text: "sí, voy lejos" }
+              correctOptionId: "right"
+              audioText: "sí, está lejos"
+            replyGloss: "Yes, it's far."
+            explanation: "Location uses «está» (m4), not «es» or «voy» (motion, m9)."
+          - id: t2
+            npc: { speaker: "Pedro", es: "¿Y el correo? ¿Está cerca?", audioText: "¿y el correo? ¿está cerca?", gloss: "And the post office? Is it close?" }
+            goal: "Say yes, it's close."
+            reply:
+              mode: build
+              tiles: ["sí", "está", "cerca", "lejos", "es"]
+              answer: "sí está cerca"
+            replyGloss: "Yes, it's close."
+            explanation: "«cerca», the opposite of «lejos» — same «está»."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "lejos", target: "far" }
+          - { source: "cerca", target: "near, close" }
+          - { source: "hospital", target: "hospital" }
+          - { source: "correo", target: "post office" }
+          - { source: "supermercado", target: "supermarket" }
+          - { source: "está", target: "is (somewhere)" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "el hospital está lejos, pero la farmacia está cerca"
+        en: "The hospital is far, but the pharmacy is close"
+        atoms: ["el", "hospital", "está", "lejos", "pero", "la", "farmacia", "cerca"]

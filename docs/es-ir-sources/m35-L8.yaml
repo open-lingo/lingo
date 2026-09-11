@@ -1,0 +1,128 @@
+  # ── L8 · Checkpoint — all graded, no map/info (mirrors m34-L8's own
+  #    checkpoint shape). Pure recombination of L1-L7: cerca/lejos/al lado
+  #    de (this module), the voy/está/hay three-way split, «dónde está»
+  #    questions, all five m34 places, «tengo que ir a» (m33). Two
+  #    recalls, drawn from different earlier lessons' win lines (L7 and
+  #    L4). Ends sim → matchLit → speakLit-win, same closing shape as
+  #    every other lesson. Win line is a five-place "grand tour" sentence
+  #    — the module's cumulative peak before L9's dedicated three-way
+  #    contrast lesson and L10's mastery.
+  - n: 8
+    template: free
+    title: "Checkpoint: por el barrio"
+    description: "Everything so far, recombined — «cerca», «lejos», «al lado de», «voy»/«está»/«hay», and «¿dónde está…?» — all five places, no new words."
+    steps:
+      - kind: speakLit
+        id: l8-sp-recall-l7win
+        es: "perdón, ¿dónde está el banco? — está al lado de la farmacia"
+        en: "Excuse me, where is the bank? — it's beside the pharmacy"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-tengoqueiralbancoperoestalejos
+        es: "tengo que ir al banco, pero está lejos"
+        en: "I have to go to the bank, but it's far"
+        atoms: ["tengo que", "ir", "al", "banco", "pero", "está", "lejos"]
+        tiles: ["hay", "es"]
+      - kind: clozeLit
+        id: l8-c-hayunafarmaciacercadelcorreo
+        es: "hay una farmacia cerca del correo"
+        en: "There's a pharmacy close to the post office"
+        blank: "hay"
+        options: ["hay", "está"]
+        atoms: ["una", "farmacia", "cerca", "correo"]
+        why: "«hay» — a pharmacy exists nearby. «está» would name a specific, already-known one."
+      - kind: listenCompLit
+        id: l8-lc-elhospitalestaalladodelsupermercado
+        es: "el hospital está al lado del supermercado, pero el banco está lejos"
+        en: "The hospital is beside the supermarket, but the bank is far."
+        atoms: ["el", "hospital", "está", "al", "lado", "supermercado", "pero", "banco", "lejos"]
+        distractorsEn:
+          - "The hospital is beside the supermarket, and the bank is close."
+          - "The bank is beside the supermarket, but the hospital is far."
+          - "I have to go to the hospital, but it's far."
+      - kind: mcq
+        id: l8-q-dondeestaelsupermercado
+        prompt: "'Where is the supermarket?' — which word pair fits the blank: ¿___ el supermercado?"
+        correct: "dónde está"
+        distractors: ["dónde hay", "dónde es", "qué está"]
+        atoms: ["dónde", "está"]
+        why: "«dónde» pairs with «está» for a specific place — never «hay» or «es»."
+      - kind: speakLit
+        id: l8-sp-recall-l4win
+        es: "la farmacia está al lado del banco"
+        en: "The pharmacy is beside the bank"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-necesitoiralcorreoestacercaperoelhospitallejos
+        es: "necesito ir al correo — está cerca, pero el hospital está lejos"
+        en: "I need to go to the post office — it's close, but the hospital is far"
+        atoms: ["necesito", "ir", "al", "correo", "está", "cerca", "pero", "el", "hospital", "lejos"]
+        tiles: ["voy", "hay"]
+      - kind: audioWimcq
+        id: l8-ear-correo
+        target: { surface: "correo", emoji: "📮" }
+        distractors:
+          - { surface: "banco", emoji: "🏦" }
+          - { surface: "hospital", emoji: "🏥" }
+      - kind: agreementLit
+        id: l8-agr-hospitalviejofarmaciavieja
+        en: "The hospital is old, and the pharmacy is old too"
+        audioText: "el hospital es viejo, y la farmacia es vieja también"
+        atoms: ["hospital", "viejo", "farmacia"]
+        segments:
+          - { text: "el hospital es " }
+          - { blank: { id: "p1", answer: "viejo", options: ["viejo", "vieja"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "vieja", options: ["vieja", "viejo"] } }
+      - kind: listenBuildLit
+        id: l8-lb-voyalsupermercadoestaalladodelbanco
+        es: "voy al supermercado — está al lado del banco"
+        en: "I'm going to the supermarket — it's beside the bank"
+        atoms: ["voy", "al", "supermercado", "está", "al", "lado", "banco"]
+        tiles: ["hay", "es"]
+      - kind: textMcq
+        id: l8-tm-lado
+        target: "lado"
+        distractors: ["dado", "lago", "ladra"]
+      - kind: sim
+        id: l8-sim-checkpoint
+        scene: { emoji: "🏁", title: "Checkpoint check-in", setting: "Ana checks in on where everything is." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Dónde está el correo?", audioText: "¿dónde está el correo?", gloss: "Where is the post office?" }
+            goal: "Say it's beside the supermarket."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "está al lado del supermercado" }
+                - { id: "wrong1", text: "hay al lado del supermercado" }
+                - { id: "wrong2", text: "está al lado de supermercado" }
+              correctOptionId: "right"
+              audioText: "está al lado del supermercado"
+            replyGloss: "It's beside the supermarket."
+            explanation: "«supermercado» is masculine — «del», never a bare «de». And «está», never «hay», for a specific place."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Tienes que ir al hospital hoy?", audioText: "¿tienes que ir al hospital hoy?", gloss: "Do you have to go to the hospital today?" }
+            goal: "Say yes, but it's far."
+            reply:
+              mode: build
+              tiles: ["sí", "tengo", "que", "ir", "pero", "está", "lejos", "voy"]
+              answer: "sí tengo que ir pero está lejos"
+            replyGloss: "Yes, I have to go, but it's far."
+            explanation: "«tengo que ir» — the second verb stays bare, never «voy»."
+      - kind: matchLit
+        id: l8-match
+        pairs:
+          - { source: "cerca", target: "near, close" }
+          - { source: "lejos", target: "far" }
+          - { source: "lado", target: "side" }
+          - { source: "dónde", target: "where" }
+          - { source: "hay", target: "there is, there are" }
+          - { source: "está", target: "is (somewhere)" }
+      - kind: speakLit
+        id: l8-sp-win
+        es: "el banco está cerca, la farmacia está al lado, pero el hospital y el correo están lejos"
+        en: "The bank is close, the pharmacy is beside it, but the hospital and the post office are far"
+        atoms: ["el", "banco", "está", "cerca", "la", "farmacia", "al", "lado", "pero", "hospital", "correo", "están", "lejos"]

@@ -1,0 +1,131 @@
+  # ── L3 · «¿Hay una farmacia cerca?» — no new atom. Recombines cerca/
+  #    lejos (L1/L2) with «hay» (m3), reviving m4's own existence-vs-
+  #    location contrast for the first time with real content. Central
+  #    cloze: «hay» vs «está» — existence vs a specific location. No
+  #    map/info — pure recombination lesson. PRIOR context only:
+  #    cerca/lejos (this module), hay (m3), está/es (m4/m2), banco/
+  #    farmacia/hospital/supermercado (m34), necesito (m16), ir (m28),
+  #    pero (m6), bonito (m6). One recall (L2's win line).
+  - n: 3
+    template: free
+    title: "¿Hay una farmacia cerca?"
+    description: "«hay» says something EXISTS — «está» says exactly WHERE it is (m4's own contrast, revived here on real errands places)."
+    steps:
+      - kind: map
+        id: l3-map-hayunafarmaciacerca
+        tokens: ["hay", "una", "farmacia", "cerca"]
+        pairs:
+          - { en: "there is", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "pharmacy", tokenIndex: 2 }
+          - { en: "close by", tokenIndex: 3 }
+        audioText: "hay una farmacia cerca"
+        revealNote: "«hay» (m3) says something EXISTS — «está» would name a specific one's location."
+      - kind: speakLit
+        id: l3-sp-recall
+        es: "el hospital está lejos, pero la farmacia está cerca"
+        en: "The hospital is far, but the pharmacy is close"
+        cue: recall
+        atoms: ["el", "hospital", "está", "lejos", "pero", "la", "farmacia", "cerca"]
+      - kind: buildLit
+        id: l3-b-hayunbancocerca
+        es: "hay un banco cerca"
+        en: "There's a bank close by"
+        atoms: ["hay", "un", "banco", "cerca"]
+        tiles: ["está", "es"]
+      - kind: clozeLit
+        id: l3-c-hayunafarmaciacerca
+        es: "hay una farmacia cerca"
+        en: "There's a pharmacy nearby"
+        blank: "hay"
+        options: ["hay", "está"]
+        atoms: ["una", "farmacia", "cerca"]
+        why: "«hay» asks whether one EXISTS — «está» would ask where a specific, already-known one is."
+      - kind: listenCompLit
+        id: l3-lc-hayunhospitalcerca
+        es: "hay un hospital cerca"
+        en: "There's a hospital close by."
+        atoms: ["hay", "un", "hospital", "cerca"]
+        distractorsEn:
+          - "The hospital is close."
+          - "There's a hospital far away."
+          - "I'm going to the hospital."
+      - kind: mcq
+        id: l3-q-hayunbanco
+        prompt: "Which one means 'there's a bank'?"
+        correct: "hay un banco"
+        distractors: ["está un banco", "es un banco", "voy un banco"]
+        atoms: ["hay", "un", "banco"]
+        why: "«hay» — something EXISTS. «está» would need a specific bank already in mind; «es» never fits existence."
+      - kind: buildLit
+        id: l3-b-hayunafarmaciacercaperoelhospitalestalejos
+        es: "hay una farmacia cerca, pero el hospital está lejos"
+        en: "There's a pharmacy close by, but the hospital is far"
+        atoms: ["hay", "una", "farmacia", "cerca", "pero", "el", "hospital", "está", "lejos"]
+        tiles: ["es", "voy"]
+      - kind: audioWimcq
+        id: l3-ear-supermercado
+        target: { surface: "supermercado", emoji: "🏬" }
+        distractors:
+          - { surface: "correo", emoji: "📮" }
+          - { surface: "banco", emoji: "🏦" }
+      - kind: agreementLit
+        id: l3-agr-supermercadobonitofarmaciabonita
+        en: "The supermarket is pretty, and the pharmacy is pretty too"
+        audioText: "el supermercado es bonito, y la farmacia es bonita también"
+        atoms: ["supermercado", "bonito", "farmacia"]
+        segments:
+          - { text: "el supermercado es " }
+          - { blank: { id: "p1", answer: "bonito", options: ["bonito", "bonita"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "bonita", options: ["bonita", "bonito"] } }
+      - kind: listenBuildLit
+        id: l3-lb-hayunbancocercaperonecesitosupermercado
+        es: "hay un banco cerca, pero necesito ir al supermercado"
+        en: "There's a bank close by, but I need to go to the supermarket"
+        atoms: ["hay", "un", "banco", "cerca", "pero", "necesito", "ir", "al", "supermercado"]
+        tiles: ["está", "es"]
+      - kind: textMcq
+        id: l3-tm-hay
+        target: "hay"
+        distractors: ["ahí", "ay", "hoy"]
+      - kind: sim
+        id: l3-sim-rosa-farmacia
+        scene: { emoji: "💊", title: "Rosa asks around", setting: "Rosa wants to know what's nearby." }
+        turns:
+          - id: t1
+            npc: { speaker: "Rosa", es: "¿Hay una farmacia cerca?", audioText: "¿hay una farmacia cerca?", gloss: "Is there a pharmacy nearby?" }
+            goal: "Say yes, there's one close by."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, hay una farmacia cerca" }
+                - { id: "wrong1", text: "sí, está una farmacia cerca" }
+                - { id: "wrong2", text: "sí, es una farmacia cerca" }
+              correctOptionId: "right"
+              audioText: "sí, hay una farmacia cerca"
+            replyGloss: "Yes, there's a pharmacy close by."
+            explanation: "«hay» — one exists nearby. Neither «está» (a specific known place) nor «es» fits here."
+          - id: t2
+            npc: { speaker: "Rosa", es: "¿Y el hospital? ¿Está lejos?", audioText: "¿y el hospital? ¿está lejos?", gloss: "And the hospital? Is it far?" }
+            goal: "Say yes, it's far."
+            reply:
+              mode: build
+              tiles: ["sí", "está", "lejos", "hay", "es"]
+              answer: "sí está lejos"
+            replyGloss: "Yes, it's far."
+            explanation: "The hospital is a specific, already-known place — «está», not «hay»."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "hay", target: "there is, there are" }
+          - { source: "está", target: "is (somewhere)" }
+          - { source: "cerca", target: "near, close" }
+          - { source: "lejos", target: "far" }
+          - { source: "farmacia", target: "pharmacy" }
+          - { source: "banco", target: "bank" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "hay una farmacia cerca, pero el hospital está lejos"
+        en: "There's a pharmacy close by, but the hospital is far"
+        atoms: ["hay", "una", "farmacia", "cerca", "pero", "el", "hospital", "está", "lejos"]

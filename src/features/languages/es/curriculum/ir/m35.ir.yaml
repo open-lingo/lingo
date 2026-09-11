@@ -1,0 +1,1652 @@
+module: m35
+title: "El banco está cerca"
+frame: none
+throughModule: m34
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m35 — location description: cerca, lejos, lado. Sixteenth A2 module.
+#
+#     cerca (adv.)      close / near
+#     lejos (adv.)      far
+#     el lado (noun)    side  →  «al lado de» / «al lado del»
+#
+# ONE idea, the whole module: turn an already-fully-taught verb, «está»
+# (m4, «is [somewhere]», plus «estamos»/«están», m18 — ZERO new verb
+# morphology, a genuine zero-conjugation-gap module, one step past even
+# m28's own "fill only the gap" discipline since here there is no gap at
+# all) into real errands Spanish, by teaching exactly THREE new location-
+# description words and recombining them against m34's five fresh places
+# (banco/farmacia/hospital/correo/supermercado) plus «hay» (m3) plus «voy
+# a»/«necesito ir a»/«tengo que ir a» (m9+m16+m28+m33). This is the fifth
+# grammar beat since m19 (after m21 gustar-class, m23 reflexives, m26
+# preterite, m28 «voy a», m29 clitics, m31 «duele», m33 «tengo que» — this
+# module continues that constellation) and the FIRST module since m4
+# itself to put fresh content behind «está» — m4 taught the verb inside a
+# house-object scavenger hunt at absolute beginner level; this module
+# reactivates it eleven grammar/lexicon modules later against errands
+# vocabulary an actual A2 learner needs to ask and answer "where is the
+# bank?" for real.
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# Four lines of evidence:
+#   1. **Rhythm calls for a grammar beat, and m34 is exactly one break past
+#      the last one.** m30 (break) → m31 (grammar) → m32 (break) → m33
+#      (grammar) → m34 (break) — the identical alternation every recent
+#      header has used to justify its own placement. The beat due after
+#      m34 is on schedule.
+#   2. **Eight candidates were weighed against the actual registry, not
+#      assumed from the task's own framing — two disqualify outright as
+#      already-fully-taught, not merely weaker.** `grep -o 'surface:
+#      "[^"]*"' curriculum/m{1..34}.ts | sort -u | grep -iE "<word>"` run
+#      against every candidate the task named (poder+inf, querer+inf,
+#      estar+location, hay+place, para+inf purpose, ponerse/llevar,
+#      imperative tú, demonstratives). Full accounting in REJECTED below.
+#   3. **Highest recombination value of any candidate, and uniquely, a
+#      live hook back into m4 itself — this course's OWN original
+#      hay/está/es three-way distinction, dormant since absolute-beginner
+#      level, now given real adult content.** `curriculum/m4.ts:49`'s own
+#      module description reads: "«hay» says something exists — «está»
+#      says exactly where it is... this module: find anything in the
+#      house, and say exactly where it is." That contrast was taught once,
+#      on house objects, at the very start of the course, and never
+#      revisited with content worth the sentence. m35 revisits it on FIVE
+#      genuinely useful places (banco/farmacia/hospital/correo/
+#      supermercado, m34) with a THIRD contrast added on top — motion
+#      («voy a», m9) vs. existence («hay», m3) vs. location («está», m4)
+#      — reaching EIGHT prior modules total (m3, m4, m9, m16, m18, m28,
+#      m31, m33, m34 — nine, counting m34 itself as the lexicon this
+#      module recombines against), more than any prior module's own
+#      recombination count in this course, verified by direct comparison
+#      against m34-header's own four-hook claim (the previous record).
+#   4. **Verified zero-morphology floor and a genuine zero-vendoring
+#      module, checked, not assumed.** `grep -o 'surface: "[^"]*"'
+#      curriculum/m{1..34}.ts | sort -u | grep -iE "^cerca$|^lejos$|^lado$"`
+#      returns zero hits for all three. `está`/`estamos`/`están` are
+#      grep-confirmed fully PRIOR (`m4.ts:29`, `m18.ts`) with all persons
+#      this module needs (3rd singular, 3rd plural) already taught —
+#      `estoy`/`estás` remain a genuine, UNFILLED paradigm gap, but this
+#      module has no occasion to need them (see the dedicated scope note
+#      below) and does not register them. No new imageable noun — «cerca»/
+#      «lejos» are relational adverbs, «lado» is a plain masculine noun
+#      with a defensible-but-ambiguous image (a photo of "a side" reads as
+#      arbitrary, not as "side"), so none carry an `emoji:` field, matching
+#      the non-imageable-grammar-atom convention (m13 `gusta`, m28 `va`,
+#      m31 `duele`/`duelen`, m33 `tengo que`) — zero vendoring work this
+#      module.
+#
+# ── REJECTED: «poder + infinitivo» / «no puedo» / «¿puedo…?» —
+#    DISQUALIFIED, already fully taught ───────────────────────────────────
+# `grep -o 'surface: "[^"]*"' curriculum/m{1..34}.ts | sort -u | grep -iE
+# "^puedo$|^puedes$|^puede$|^poder$"` returns FOUR hits, all m14
+# (`ES_M14_ATOMS`). No conjugation gap (unlike m28's own «va» gap-fill) —
+# every person this module could need already exists. m33-header already
+# disqualified this exact candidate for the identical reason; the finding
+# holds unchanged one module later. Recombining «puedo» against m34's
+# places is fine CONTENT (e.g. "¿puedo ir al banco hoy?") but teaches
+# nothing new, so it cannot anchor a "one new idea" grammar beat.
+#
+# ── REJECTED: «querer + infinitivo» — DISQUALIFIED, already fully taught
+#    (m7/m14) ──────────────────────────────────────────────────────────────
+# `grep -iE "^quiero$|^quieres$|^quiere$|^querer$"` against the same
+# surface list returns FOUR hits, m7/m14. Identical disqualification as
+# «poder» above — zero paradigm gap, nothing new to teach.
+#
+# ── REJECTED (as the module's OWN new idea, but KEPT as a heavy
+#    recombination hook): «hay + place» ───────────────────────────────────
+# `hay` is grep-confirmed fully PRIOR since `m3.ts:33` ("there is / there
+# are"). A "hay + place" module on its own would teach nothing new (same
+# disqualification class as «poder»/«querer» above) — but «hay» is not
+# discarded, it is the THIRD leg of this module's own three-way
+# recombination (motion/existence/location), used throughout the lesson
+# plan below («¿hay un banco cerca?»). Recorded explicitly so a drafting
+# agent understands why «hay» appears constantly in this module's own
+# sentences without being one of its three new atoms.
+#
+# ── REJECTED: «para + infinitivo» (purpose) — real future content,
+#    explicitly weighed and set aside THIS round ─────────────────────────
+# **Correction to the task's own framing:** neither `es-m34-brief.md` nor
+# `m34-header.yaml` contains the string "para" or "cerca"/"lejos" as a
+# deferred item anywhere (checked by direct grep of both files, zero
+# hits) — an earlier note's claim that m34's brief explicitly deferred
+# these was not found in the actual text and should not be propagated
+# further. The underlying FACT the note was reaching for does hold,
+# independently verified here: «para» is already a free function word
+# (`ES_FUNCTION_WORDS`, `moduleBarGuards.ts:82`: "...con por para sin
+# sobre entre desde hasta...") yet its PURPOSE-CLAUSE use (voy al banco
+# PARA sacar dinero) has never been taught or credited anywhere —
+# grep-verified: the literal word appears only three times course-wide,
+# all as untaught benefactive filler ("un regalo para Ana," m16; "una
+# mesa para cinco," m18) or as a never-credited `distractorsText` entry
+# (`m31.ts:932`, always a wrong MCQ answer, never a correct one). Real,
+# well-scoped future content — rejected for m35 specifically because (a)
+# a purpose clause is a genuinely SEPARATE new idea from location
+# description, competing for the same "one new idea" module slot, and (b)
+# it shares none of THIS module's own richest hook — the m4 hay/está/es
+# revival — since m4 never touched purpose. The natural DIRECT SEQUEL
+# module once m35's location vocabulary exists ("voy al banco, está
+# cerca, para sacar dinero"). Left open, not silently dropped.
+#
+# ── REJECTED: «ponerse»/«llevar» — real future content, rejected again on
+#    the same grounds m33-header already gave ─────────────────────────────
+# Still grep-confirmed unregistered (only `pongo`, m15, poner's yo-form
+# used for "pongo la mesa," is PRIOR — no reflexive `ponerse`, no
+# `llevar` in any form). m33-header already weighed and rejected this
+# exact candidate on atom-budget grounds (3-4 new atoms for honest
+# coverage) and recombination-breadth grounds (ties only to m32's
+# clothing). Both objections are stronger now, one module later: m32 is
+# three modules back with no active clothing thread in m34's own errands
+# lexicon, and this module's own «está» + m34-places hook is both cheaper
+# (3 atoms, one already-registered verb) and richer (nine prior modules,
+# see WHY above). Not this module's job.
+#
+# ── REJECTED: imperative tú — no learner-need justification, same finding
+#    as m33-header ──────────────────────────────────────────────────────
+# No command form of any verb is grep-confirmed PRIOR anywhere in m1-m34.
+# m33-header already rejected this candidate: "no learner-need
+# justification found; NPC-authoring convenience alone doesn't earn a
+# module slot." Unchanged one module later — a dialogue_sim can ask for
+# directions perfectly naturally without a command form ("¿dónde está el
+# banco?" / "está cerca" needs no imperative on either side).
+#
+# ── REJECTED: demonstratives (este/esta/ese/esa/…) — DISQUALIFIED,
+#    already fully PRIOR since m12 ────────────────────────────────────────
+# `grep -iE "^este$|^esta$|^estos$|^estas$|^ese$|^esa$|^esos$|^esas$"`
+# against the surface list returns all EIGHT forms, all `m12.ts`. Nothing
+# new to teach.
+#
+# ── THE m4 THREE-WAY REVIVAL — read before drafting any lesson ───────────
+# `m4.ts`'s own module description (line 49) already states the contrast
+# this module reactivates: "«hay» says something exists — «está» says
+# exactly where it is... m2's «es» still NAMES things... Three jobs,
+# three words." m35 does not re-teach any of the three verbs (all fully
+# PRIOR: `hay` m3, `está`/`estamos`/`están` m4/m18, `es`/`son` m2/m18) —
+# it gives the WHERE leg (`está`) genuinely useful adult content for the
+# first time since m4's own house-object scavenger hunt, and adds a
+# fourth leg this module DOES own: motion (`voy a`, m9) — "voy al banco"
+# (I'm heading to the bank, motion) is not the same claim as "el banco
+# está cerca" (the bank is nearby, location) is not the same claim as
+# "hay un banco cerca" (a bank exists nearby, existence). This
+# motion-vs-location minimal pair is the single most natural transfer
+# error this module exists to head off — see the dedicated discrimination
+# note below.
+#
+# ── THE MOTION-VS-LOCATION DISCRIMINATION — the central transfer error to
+#    guard against ────────────────────────────────────────────────────────
+# A learner who has internalized «voy a» (m9, m28) as "the sentence about
+# a place" will be tempted to reach for *"voy cerca del banco" when the
+# intended meaning is "the bank IS near" (a location claim about the
+# bank, not a motion claim about the learner) — or the reverse, reaching
+# for *"el banco está al banco" nonsense by over-applying «está» where
+# «voy a» belongs. Every discrimination step contrasting «está
+# cerca/lejos» against «voy a» must include a foil of this shape — never
+# offered as a correct answer, only as a wrong option in `sentenceMcq`/
+# `textMcq` distractor pools, matching the discipline m29's clitic-order
+# foil and m33's dropped-«que» foil already established for their own
+# central transfer errors.
+#
+# ── SCOPE NOTE: NO «estoy»/«estás» THIS MODULE — a deliberate exclusion,
+#    not an oversight ──────────────────────────────────────────────────────
+# `estoy`/`estás` (yo/tú forms of `estar`) are grep-confirmed NOT PRIOR
+# anywhere in m1-m34 — a genuine, unfilled paradigm gap. This module does
+# not fill it. Every sentence this module needs is a THIRD-PERSON claim
+# about a PLACE ("el banco está cerca," "los bancos están lejos") — the
+# subject is always a m34 place-noun (or its plural), never the learner
+# themself. «¿dónde estás?» / «estoy en el banco» (the learner's OWN
+# location) is real, well-scoped FUTURE content for a different module
+# (a "where are you right now" self-location beat, naturally paired with
+# a phone-call or meeting-up scenario) — deliberately out of scope here,
+# recorded so a drafting agent doesn't reach for «estoy» out of habit and
+# accidentally introduce an unregistered form into a build-tile bank or
+# NPC line.
+#
+# ── AGREEMENT IS NOT A NEW ATOM — «lado» is the only inflecting atom this
+#    module owns, plural fold traced, not assumed ─────────────────────────
+# `cerca`/`lejos` are invariant adverbs — no gender, no number, nothing to
+# fold. `lado` is a REGULAR masculine noun, vowel-final → the
+# vowel→`+s` branch of `esRegularPlurals()` (`moduleBarGuards.ts:168-174`,
+# traced directly, not assumed from precedent): plural `lados`. «al lado
+# de» is built COMPOSITIONALLY from already-free `al` (`ES_FUNCTION_WORDS`
+# and m9's own registered contraction) + the registered noun `lado` +
+# already-free `de` (`ES_FUNCTION_WORDS`, `m2.ts`) — NOT registered as its
+# own idiom-phrase atom (unlike m7's «tengo hambre» or m33's «tengo que»,
+# where the meaning is NOT transparent from the parts; "at [the] side of"
+# → "beside" is transparent once «lado» = "side" is known, the same
+# compositional judgment call m34-header made for its own five plain
+# nouns). «al lado del banco» — «del» is already free
+# (`ES_FUNCTION_WORDS`: "...lo al del..."), confirmed, no separate
+# registration needed for the contraction.
+#
+# ── THE atoms: CREDIT TRAP FOR THIS MODULE — read before drafting a
+#    single step ──────────────────────────────────────────────────────────
+# `irAtomResolution.test.ts` is zero-tolerance exact-surface (per every
+# prior module's own hard rule #1, unchanged). This module's OWN trap:
+# a sentence "el banco está al lado del correo" must credit
+# `atoms: ["está", "lado", ...]` (plus whichever m34 place nouns appear),
+# never `atoms: ["al lado de"]` or `atoms: ["al lado del"]` — those
+# strings are not registered surfaces (this module deliberately did NOT
+# register the phrase, see the compositional note above) and the credit
+# would silently vanish, the exact "X que"-bigram failure class m33/m34
+# already warned a future author against, now recurring in a new shape
+# ("al lado de[l]" instead of "tienes que").
+#
+# ── ES_FUNCTION_WORDS ALREADY CARRIES está/están/estar/hay/aquí/allí/
+#    es/son/soy/eres/ser/para/por/con/sin/sobre/entre/desde/hasta — A
+#    SCOPE-CHECK ALLOWLIST, NOT A TAUGHT-CONTENT REGISTRY ─────────────────
+# Direct read, `moduleBarGuards.ts:72-88`: `ES_FUNCTION_WORDS` already
+# lists `está`/`están`/`estar`/`hay`/`aquí`/`allí` among its closed class
+# — this means these words are ALREADY legal in any NPC line or build
+# tile bank for SCOPE-CHECKING purposes course-wide, independent of
+# whether they've been formally taught as a vocab atom. This is a
+# separate mechanism from `atoms:` credit and from the vocab-atom
+# registry in `courseAtoms.ts` — `está` is BOTH a function word (for
+# scope-checking) AND a formally-taught vocab atom (`m4.ts:29`, for
+# `atoms:` credit and SRS). Do not confuse the two: a word being in
+# `ES_FUNCTION_WORDS` does NOT mean it may be credited via `atoms:` in a
+# step — only the exactly-registered vocab-atom surfaces may be credited
+# (`está`, `estamos`, `están`, `hay`, `cerca`, `lejos`, `lado`, plus every
+# PRIOR module's own registered surfaces).
+#
+# ── SIM NPC-LINE PROVENANCE: LIVE AND UNFORGIVING, m29+ HAS ZERO LEGACY
+#    ALLOWANCE, RECONFIRMED FOR m35 ────────────────────────────────────────
+# `esSimNpcProvenance.test.ts`'s `KNOWN_LEGACY` allowlist tail is
+# confirmed still `m28` (direct read, no m29+ entries) — m29 through this
+# module get NO reaction-word leniency, unchanged since m33/m34's own
+# identical finding. Every NPC word must resolve to: this module's own 3
+# atoms, any PRIOR atom (m1-m34), a taught verb conjugation, a word
+# already covered by `ES_FUNCTION_WORDS`, or `ES_PROPER_NAMES`.
+# `ES_PROPER_NAMES` (`moduleBarGuards.ts:90-93`): ana, diego, carlos,
+# maría/maria, sofía/sofia, luis, elena, pedro, juan, rosa, miguel,
+# carmen, lupita, jorge, marta — plus learner persona Sam. Recently-used
+# cast (grep-verified `speaker:` fields, m28-m34): Ana (m30), Diego (m28),
+# Sofía (m28), Carmen (m31), Luis (m31) — Carlos remains in the allowed
+# set and STILL unused through m34; free to use here, a natural fresh
+# face for this module's own directions-asking dialogue_sim.
+#
+# ── ACCENT: DEEP CARTOGRAPHER TEAL-NAVY, VERIFIED UNUSED, DISTINCT FROM
+#    THE FOUR MOST RECENT MODULES ─────────────────────────────────────────
+# Checked every `accent:` pair in `curriculum/index.ts` (grep-verified,
+# all 34 pairs read in full, both hex values individually): zero hits for
+# `#0e7490` or `#164e63` anywhere as either a `from` or a `to`. Distinct
+# from the four most recent modules specifically (m31 rose, m32 denim
+# indigo, m33 warm graphite/stone, m34 terracotta/clay) and from the
+# course's existing sky/cyan/teal cluster (`#0ea5e9`→`#0284c7`,
+# `#38bdf8`→`#0369a1` ×2, `#38bdf8`→`#0c4a6e`, `#22d3ee`→`#0891b2`,
+# `#2dd4bf`→`#0f766e`/`#115e59`, `#14b8a6`→`#0d9488`) — checked side by
+# side, this pair sits noticeably deeper/darker (navy-leaning, not
+# sky-leaning) than any of them, reading as "a map at dusk" / compass-and-
+# chart restraint appropriate to a "where things are" module without
+# forcing a single-place metaphor.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # cerca — near / close. Invariant adverb; this module's own simplest
+  # debut, riding m4's already fully-taught «está» with zero new verb
+  # morphology (L1).
+  - { surface: "cerca", meaningEn: "near, close", partOfSpeech: "adverb", kind: "vocab", hint: "cerca — invariant, no gender/number. «el banco está cerca» (m4's «está», already yours since m4)." }
+  # lejos — far. Invariant adverb; this module's own direct antonym of
+  # «cerca», debuts L2 as a minimal-pair contrast.
+  - { surface: "lejos", meaningEn: "far", partOfSpeech: "adverb", kind: "vocab", hint: "lejos — invariant, the opposite of «cerca». «el hospital está lejos, pero la farmacia está cerca»." }
+  # lado — side. Regular masculine noun; «al lado de»/«al lado del» built
+  # compositionally from already-free «al»/«del» (ES_FUNCTION_WORDS) + this
+  # one registered noun — not its own idiom-phrase atom (meaning is
+  # transparent from the parts, unlike «tengo que»). Debuts L4.
+  - { surface: "lado", meaningEn: "side", partOfSpeech: "noun", kind: "vocab", gender: "m", hint: "el lado — regular masculine, regular plural «lados». «al lado de» = beside/next to — «al» + «lado» + «de», all pieces you already have or are about to." }
+
+lessons:
+  # ── L1 · «El banco está cerca» — «cerca» debuts. Zero new verb
+  #    morphology: «está» is fully PRIOR (m4), this lesson gives it its
+  #    first genuinely adult content since m4's own house scavenger hunt.
+  #    No imageMcq — «cerca» is a non-imageable invariant adverb (§13.1);
+  #    debut via infoStep, immediately followed by build/cloze production
+  #    on the same sentence (guide §13.3's just-in-time cadence). Head off
+  #    the motion-vs-location foil («voy cerca…») from lesson one, per
+  #    header's dedicated discrimination note. PRIOR context only:
+  #    está (m4), es (m2), aquí (m3), banco/farmacia/hospital (m34),
+  #    necesito/necesitas (m16), ir (m28), puedo (m14), voy (m9), pero
+  #    (m6), también (m11), mañana (m8). No recall — first lesson.
+  - n: 1
+    template: free
+    title: "El banco está cerca"
+    description: "«cerca» — near, close. Invariant, no gender or number. You already know «está» says WHERE something is (m4) — today it also says HOW CLOSE."
+    steps:
+      - kind: map
+        id: l1-map-elbancoestacerca
+        tokens: ["el", "banco", "está", "cerca"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "bank", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "close", tokenIndex: 3 }
+        audioText: "el banco está cerca"
+        revealNote: "«cerca» — invariant, no gender/number. Rides «está» (m4), which already says WHERE — now it also says HOW CLOSE."
+      - kind: info
+        id: l1-info-cerca
+        title: "Cerca — near, close"
+        body: "«cerca» is invariant — no gender, no number, ever. You know «está» says WHERE (m4) — today it also says HOW CLOSE: «el banco está cerca»."
+      - kind: speakLit
+        id: l1-sp-elbancoestacerca
+        es: "el banco está cerca"
+        en: "The bank is close"
+        atoms: ["el", "banco", "está", "cerca"]
+      - kind: buildLit
+        id: l1-b-necesitoiralbancoestacerca
+        es: "necesito ir al banco — está cerca"
+        en: "I need to go to the bank — it's close"
+        atoms: ["necesito", "ir", "al", "banco", "está", "cerca"]
+        tiles: ["es", "voy"]
+      - kind: clozeLit
+        id: l1-c-elbancoestacerca
+        es: "el banco está cerca"
+        en: "The bank is close"
+        blank: "cerca"
+        options: ["cerca", "aquí"]
+        atoms: ["el", "banco", "está"]
+        why: "«cerca» says HOW CLOSE — «aquí» means «here», a specific spot, not a distance."
+      - kind: listenCompLit
+        id: l1-lc-lafarmaciaestacerca
+        es: "la farmacia está cerca"
+        en: "The pharmacy is close."
+        atoms: ["la", "farmacia", "está", "cerca"]
+        distractorsEn:
+          - "The pharmacy is here."
+          - "The bank is close."
+          - "I'm going to the pharmacy."
+      - kind: mcq
+        id: l1-q-estacerca
+        prompt: "Which one means 'it's close'?"
+        correct: "está cerca"
+        distractors: ["está aquí", "es cerca", "voy cerca"]
+        atoms: ["está", "cerca"]
+        why: "«está», not «es», for location — and «cerca» is a distance, not «voy» (motion, m9) or «aquí» (a specific spot)."
+      - kind: buildLit
+        id: l1-b-lafarmaciaestacercaperonecesito
+        es: "la farmacia está cerca, pero necesito ir al banco también"
+        en: "The pharmacy is close, but I also need to go to the bank"
+        atoms: ["la", "farmacia", "está", "cerca", "pero", "necesito", "ir", "al", "banco", "también"]
+        tiles: ["es", "voy"]
+      - kind: audioWimcq
+        id: l1-ear-correo
+        target: { surface: "correo", emoji: "📮" }
+        distractors:
+          - { surface: "hospital", emoji: "🏥" }
+          - { surface: "supermercado", emoji: "🏬" }
+      - kind: agreementLit
+        id: l1-agr-banconuevofarmacianueva
+        en: "The bank is new, and the pharmacy is new too"
+        audioText: "el banco es nuevo, y la farmacia es nueva también"
+        atoms: ["banco", "nuevo", "farmacia"]
+        segments:
+          - { text: "el banco es " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l1-lb-elhospitalestacercaperopuedo
+        es: "el hospital está cerca, pero puedo ir mañana"
+        en: "The hospital is close, but I can go tomorrow"
+        atoms: ["el", "hospital", "está", "cerca", "pero", "puedo", "mañana"]
+        tiles: ["es", "voy"]
+      - kind: textMcq
+        id: l1-tm-cerca
+        target: "cerca"
+        distractors: ["cerdo", "cera", "cerro"]
+      - kind: sim
+        id: l1-sim-elena-banco
+        scene: { emoji: "🏦", title: "Elena checks the bank", setting: "Elena wonders if the bank is close by." }
+        turns:
+          - id: t1
+            npc: { speaker: "Elena", es: "¿El banco está cerca?", audioText: "¿el banco está cerca?", gloss: "Is the bank close?" }
+            goal: "Say yes, it's close."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, está cerca" }
+                - { id: "wrong1", text: "sí, es cerca" }
+                - { id: "wrong2", text: "sí, voy cerca" }
+              correctOptionId: "right"
+              audioText: "sí, está cerca"
+            replyGloss: "Yes, it's close."
+            explanation: "Location uses «está» (m4), not «es» or «voy» (motion, m9)."
+          - id: t2
+            npc: { speaker: "Elena", es: "¿Necesitas ir ahora?", audioText: "¿necesitas ir ahora?", gloss: "Do you need to go now?" }
+            goal: "Say yes, you need to go now."
+            reply:
+              mode: build
+              tiles: ["sí", "necesito", "ir", "ahora", "voy", "tengo"]
+              answer: "sí necesito ir ahora"
+            replyGloss: "Yes, I need to go now."
+            explanation: "«necesito» — about yourself, not «necesitas» (that's asking about you)."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "cerca", target: "near, close" }
+          - { source: "está", target: "is (somewhere)" }
+          - { source: "banco", target: "bank" }
+          - { source: "farmacia", target: "pharmacy" }
+          - { source: "necesito", target: "I need" }
+          - { source: "ir", target: "to go" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "necesito ir al banco — está cerca"
+        en: "I need to go to the bank — it's close"
+        atoms: ["necesito", "ir", "al", "banco", "está", "cerca"]
+
+  # ── L2 · «El hospital está lejos» — «lejos» debuts, direct antonym of
+  #    «cerca» (L1). No imageMcq — same non-imageable class as L1. Debut
+  #    via infoStep, immediate build/cloze production, cloze pairs
+  #    lejos/cerca directly as the antonym discrimination. Recombines
+  #    with «correo»/«supermercado» (m34) for the first time this module.
+  #    PRIOR context only: cerca (this module, L1), está/es (m4/m2),
+  #    hospital/correo/supermercado/farmacia (m34), necesito (m16),
+  #    ir (m28), puedo (m14), voy (m9), pero/también (m6/m11), hoy/
+  #    mañana (m8). One recall (L1's win line).
+  - n: 2
+    template: free
+    title: "El hospital está lejos"
+    description: "«lejos» — far. Invariant, the direct opposite of «cerca» (L1). Same «está», new distance."
+    steps:
+      - kind: map
+        id: l2-map-elhospitalestalejos
+        tokens: ["el", "hospital", "está", "lejos"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "hospital", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "far", tokenIndex: 3 }
+        audioText: "el hospital está lejos"
+        revealNote: "«lejos» — invariant, the opposite of «cerca» (L1)."
+      - kind: info
+        id: l2-info-lejos
+        title: "Lejos — far"
+        body: "«lejos» is invariant — the direct opposite of «cerca» (L1). «el hospital está lejos, pero la farmacia está cerca»."
+      - kind: speakLit
+        id: l2-sp-recall
+        es: "necesito ir al banco — está cerca"
+        en: "I need to go to the bank — it's close"
+        cue: recall
+        atoms: ["necesito", "ir", "al", "banco", "está", "cerca"]
+      - kind: buildLit
+        id: l2-b-necesitoiralcorreoestalejos
+        es: "necesito ir al correo — está lejos"
+        en: "I need to go to the post office — it's far"
+        atoms: ["necesito", "ir", "al", "correo", "está", "lejos"]
+        tiles: ["es", "cerca"]
+      - kind: clozeLit
+        id: l2-c-elhospitalestalejos
+        es: "el hospital está lejos"
+        en: "The hospital is far"
+        blank: "lejos"
+        options: ["lejos", "cerca"]
+        atoms: ["el", "hospital", "está"]
+        why: "«lejos» (far), not «cerca» (close) — the direct opposite."
+      - kind: listenCompLit
+        id: l2-lc-elsupermercadoestalejos
+        es: "el supermercado está lejos"
+        en: "The supermarket is far."
+        atoms: ["el", "supermercado", "está", "lejos"]
+        distractorsEn:
+          - "The supermarket is close."
+          - "The hospital is far."
+          - "I'm going to the supermarket."
+      - kind: mcq
+        id: l2-q-estalejos
+        prompt: "Which one means 'it's far'?"
+        correct: "está lejos"
+        distractors: ["está cerca", "es lejos", "voy lejos"]
+        atoms: ["está", "lejos"]
+        why: "«está», not «es», for location — and «lejos», not «cerca», for far."
+      - kind: buildLit
+        id: l2-b-necesitoiralcorreoperoestalejos
+        es: "necesito ir al correo, pero está lejos"
+        en: "I need to go to the post office, but it's far"
+        atoms: ["necesito", "ir", "al", "correo", "pero", "está", "lejos"]
+        tiles: ["es", "cerca"]
+      - kind: audioWimcq
+        id: l2-ear-banco
+        target: { surface: "banco", emoji: "🏦" }
+        distractors:
+          - { surface: "farmacia", emoji: "💊" }
+          - { surface: "hospital", emoji: "🏥" }
+      - kind: agreementLit
+        id: l2-agr-correopequenofarmaciapequena
+        en: "The post office is small, and the pharmacy is small too"
+        audioText: "el correo es pequeño, y la farmacia es pequeña también"
+        atoms: ["correo", "pequeño", "farmacia"]
+        segments:
+          - { text: "el correo es " }
+          - { blank: { id: "p1", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "pequeño"] } }
+      - kind: listenBuildLit
+        id: l2-lb-elsupermercadoestalejosperonecesito
+        es: "el supermercado está lejos, pero necesito ir hoy"
+        en: "The supermarket is far, but I need to go today"
+        atoms: ["el", "supermercado", "está", "lejos", "pero", "necesito", "ir", "hoy"]
+        tiles: ["es", "voy"]
+      - kind: textMcq
+        id: l2-tm-lejos
+        target: "lejos"
+        distractors: ["lejano", "leños", "lejo"]
+      - kind: sim
+        id: l2-sim-pedro-hospital
+        scene: { emoji: "🏥", title: "Pedro asks about the hospital", setting: "Pedro wants to know how far things are." }
+        turns:
+          - id: t1
+            npc: { speaker: "Pedro", es: "¿El hospital está lejos?", audioText: "¿el hospital está lejos?", gloss: "Is the hospital far?" }
+            goal: "Say yes, it's far."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, está lejos" }
+                - { id: "wrong1", text: "sí, es lejos" }
+                - { id: "wrong2", text: "sí, voy lejos" }
+              correctOptionId: "right"
+              audioText: "sí, está lejos"
+            replyGloss: "Yes, it's far."
+            explanation: "Location uses «está» (m4), not «es» or «voy» (motion, m9)."
+          - id: t2
+            npc: { speaker: "Pedro", es: "¿Y el correo? ¿Está cerca?", audioText: "¿y el correo? ¿está cerca?", gloss: "And the post office? Is it close?" }
+            goal: "Say yes, it's close."
+            reply:
+              mode: build
+              tiles: ["sí", "está", "cerca", "lejos", "es"]
+              answer: "sí está cerca"
+            replyGloss: "Yes, it's close."
+            explanation: "«cerca», the opposite of «lejos» — same «está»."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "lejos", target: "far" }
+          - { source: "cerca", target: "near, close" }
+          - { source: "hospital", target: "hospital" }
+          - { source: "correo", target: "post office" }
+          - { source: "supermercado", target: "supermarket" }
+          - { source: "está", target: "is (somewhere)" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "el hospital está lejos, pero la farmacia está cerca"
+        en: "The hospital is far, but the pharmacy is close"
+        atoms: ["el", "hospital", "está", "lejos", "pero", "la", "farmacia", "cerca"]
+
+  # ── L3 · «¿Hay una farmacia cerca?» — no new atom. Recombines cerca/
+  #    lejos (L1/L2) with «hay» (m3), reviving m4's own existence-vs-
+  #    location contrast for the first time with real content. Central
+  #    cloze: «hay» vs «está» — existence vs a specific location. No
+  #    map/info — pure recombination lesson. PRIOR context only:
+  #    cerca/lejos (this module), hay (m3), está/es (m4/m2), banco/
+  #    farmacia/hospital/supermercado (m34), necesito (m16), ir (m28),
+  #    pero (m6), bonito (m6). One recall (L2's win line).
+  - n: 3
+    template: free
+    title: "¿Hay una farmacia cerca?"
+    description: "«hay» says something EXISTS — «está» says exactly WHERE it is (m4's own contrast, revived here on real errands places)."
+    steps:
+      - kind: map
+        id: l3-map-hayunafarmaciacerca
+        tokens: ["hay", "una", "farmacia", "cerca"]
+        pairs:
+          - { en: "there is", tokenIndex: 0 }
+          - { en: "a", tokenIndex: 1 }
+          - { en: "pharmacy", tokenIndex: 2 }
+          - { en: "close by", tokenIndex: 3 }
+        audioText: "hay una farmacia cerca"
+        revealNote: "«hay» (m3) says something EXISTS — «está» would name a specific one's location."
+      - kind: speakLit
+        id: l3-sp-recall
+        es: "el hospital está lejos, pero la farmacia está cerca"
+        en: "The hospital is far, but the pharmacy is close"
+        cue: recall
+        atoms: ["el", "hospital", "está", "lejos", "pero", "la", "farmacia", "cerca"]
+      - kind: buildLit
+        id: l3-b-hayunbancocerca
+        es: "hay un banco cerca"
+        en: "There's a bank close by"
+        atoms: ["hay", "un", "banco", "cerca"]
+        tiles: ["está", "es"]
+      - kind: clozeLit
+        id: l3-c-hayunafarmaciacerca
+        es: "hay una farmacia cerca"
+        en: "There's a pharmacy nearby"
+        blank: "hay"
+        options: ["hay", "está"]
+        atoms: ["una", "farmacia", "cerca"]
+        why: "«hay» asks whether one EXISTS — «está» would ask where a specific, already-known one is."
+      - kind: listenCompLit
+        id: l3-lc-hayunhospitalcerca
+        es: "hay un hospital cerca"
+        en: "There's a hospital close by."
+        atoms: ["hay", "un", "hospital", "cerca"]
+        distractorsEn:
+          - "The hospital is close."
+          - "There's a hospital far away."
+          - "I'm going to the hospital."
+      - kind: mcq
+        id: l3-q-hayunbanco
+        prompt: "Which one means 'there's a bank'?"
+        correct: "hay un banco"
+        distractors: ["está un banco", "es un banco", "voy un banco"]
+        atoms: ["hay", "un", "banco"]
+        why: "«hay» — something EXISTS. «está» would need a specific bank already in mind; «es» never fits existence."
+      - kind: buildLit
+        id: l3-b-hayunafarmaciacercaperoelhospitalestalejos
+        es: "hay una farmacia cerca, pero el hospital está lejos"
+        en: "There's a pharmacy close by, but the hospital is far"
+        atoms: ["hay", "una", "farmacia", "cerca", "pero", "el", "hospital", "está", "lejos"]
+        tiles: ["es", "voy"]
+      - kind: audioWimcq
+        id: l3-ear-supermercado
+        target: { surface: "supermercado", emoji: "🏬" }
+        distractors:
+          - { surface: "correo", emoji: "📮" }
+          - { surface: "banco", emoji: "🏦" }
+      - kind: agreementLit
+        id: l3-agr-supermercadobonitofarmaciabonita
+        en: "The supermarket is pretty, and the pharmacy is pretty too"
+        audioText: "el supermercado es bonito, y la farmacia es bonita también"
+        atoms: ["supermercado", "bonito", "farmacia"]
+        segments:
+          - { text: "el supermercado es " }
+          - { blank: { id: "p1", answer: "bonito", options: ["bonito", "bonita"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "bonita", options: ["bonita", "bonito"] } }
+      - kind: listenBuildLit
+        id: l3-lb-hayunbancocercaperonecesitosupermercado
+        es: "hay un banco cerca, pero necesito ir al supermercado"
+        en: "There's a bank close by, but I need to go to the supermarket"
+        atoms: ["hay", "un", "banco", "cerca", "pero", "necesito", "ir", "al", "supermercado"]
+        tiles: ["está", "es"]
+      - kind: textMcq
+        id: l3-tm-hay
+        target: "hay"
+        distractors: ["ahí", "ay", "hoy"]
+      - kind: sim
+        id: l3-sim-rosa-farmacia
+        scene: { emoji: "💊", title: "Rosa asks around", setting: "Rosa wants to know what's nearby." }
+        turns:
+          - id: t1
+            npc: { speaker: "Rosa", es: "¿Hay una farmacia cerca?", audioText: "¿hay una farmacia cerca?", gloss: "Is there a pharmacy nearby?" }
+            goal: "Say yes, there's one close by."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, hay una farmacia cerca" }
+                - { id: "wrong1", text: "sí, está una farmacia cerca" }
+                - { id: "wrong2", text: "sí, es una farmacia cerca" }
+              correctOptionId: "right"
+              audioText: "sí, hay una farmacia cerca"
+            replyGloss: "Yes, there's a pharmacy close by."
+            explanation: "«hay» — one exists nearby. Neither «está» (a specific known place) nor «es» fits here."
+          - id: t2
+            npc: { speaker: "Rosa", es: "¿Y el hospital? ¿Está lejos?", audioText: "¿y el hospital? ¿está lejos?", gloss: "And the hospital? Is it far?" }
+            goal: "Say yes, it's far."
+            reply:
+              mode: build
+              tiles: ["sí", "está", "lejos", "hay", "es"]
+              answer: "sí está lejos"
+            replyGloss: "Yes, it's far."
+            explanation: "The hospital is a specific, already-known place — «está», not «hay»."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "hay", target: "there is, there are" }
+          - { source: "está", target: "is (somewhere)" }
+          - { source: "cerca", target: "near, close" }
+          - { source: "lejos", target: "far" }
+          - { source: "farmacia", target: "pharmacy" }
+          - { source: "banco", target: "bank" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "hay una farmacia cerca, pero el hospital está lejos"
+        en: "There's a pharmacy close by, but the hospital is far"
+        atoms: ["hay", "una", "farmacia", "cerca", "pero", "el", "hospital", "está", "lejos"]
+
+  # ── L4 · «La farmacia está al lado del banco» — «lado» debuts. No
+  #    imageMcq — a photo of "a side" reads as arbitrary, not
+  #    disambiguating (§13.1). «al lado de» is built COMPOSITIONALLY from
+  #    already-free «al»/«de»/«del» (ES_FUNCTION_WORDS) + this one
+  #    registered noun — NOT its own idiom-phrase atom. THE ATOMS: CREDIT
+  #    TRAP: «del» is NOT a registered atom (only «de» is, m2) — never put
+  #    «del» in an atoms: array, even though it's legal, scope-checked
+  #    text everywhere else. Gender-article discrimination: «del» (de+el,
+  #    masculine) vs «de la» (feminine, never fused) across m34's 5
+  #    places. PRIOR context only: cerca/lejos/hay (this module), está/es
+  #    (m4/m2), al/a/de (m9/m2), banco/farmacia/hospital/correo/
+  #    supermercado (m34), necesito (m16), viejo (m6). One recall (L3's
+  #    win line).
+  - n: 4
+    template: free
+    title: "La farmacia está al lado del banco"
+    description: "«lado» — side. «al lado de» = beside — «al» + «lado» + «de», all pieces you already have. «del» (de+el, masculine) vs «de la» (feminine, never fused) — the same fusion rule as «al»/«a la» (m9)."
+    steps:
+      - kind: map
+        id: l4-map-lafarmaciaestaalladodelbanco
+        tokens: ["la", "farmacia", "está", "al", "lado", "del", "banco"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "pharmacy", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "at the", tokenIndex: 3 }
+          - { en: "side", tokenIndex: 4 }
+          - { en: "of the", tokenIndex: 5 }
+          - { en: "bank", tokenIndex: 6 }
+        audioText: "la farmacia está al lado del banco"
+        revealNote: "«lado» — side, a regular masculine noun. «del» = de + el, fused — «banco» is masculine, same fusion rule as «al» (m9)."
+      - kind: info
+        id: l4-info-lado
+        title: "Lado — side"
+        body: "«lado» — side, a regular masculine noun. «al lado de» = beside, built from pieces you already have: «al» + «lado» + «de». «la farmacia está al lado del banco»."
+      - kind: speakLit
+        id: l4-sp-recall
+        es: "hay una farmacia cerca, pero el hospital está lejos"
+        en: "There's a pharmacy close by, but the hospital is far"
+        cue: recall
+        atoms: ["hay", "una", "farmacia", "cerca", "pero", "el", "hospital", "está", "lejos"]
+      - kind: buildLit
+        id: l4-b-elbancoestaalladodelafarmacia
+        es: "el banco está al lado de la farmacia"
+        en: "The bank is beside the pharmacy"
+        atoms: ["el", "banco", "está", "al", "lado", "de", "la", "farmacia"]
+        tiles: ["del", "es"]
+      - kind: clozeLit
+        id: l4-c-elhospitalestaalladodelcorreo
+        es: "el hospital está al lado del correo"
+        en: "The hospital is beside the post office"
+        blank: "del"
+        options: ["del", "de la"]
+        atoms: ["el", "hospital", "está", "al", "lado", "correo"]
+        why: "«correo» is masculine — «del» (de+el, fused). «de la» is for feminine nouns like «farmacia»."
+      - kind: listenCompLit
+        id: l4-lc-lafarmaciaestaalladodelhospital
+        es: "la farmacia está al lado del hospital"
+        en: "The pharmacy is beside the hospital."
+        atoms: ["la", "farmacia", "está", "al", "lado", "hospital"]
+        distractorsEn:
+          - "The pharmacy is close to the hospital."
+          - "The hospital is beside the pharmacy."
+          - "I'm going to the hospital."
+      - kind: mcq
+        id: l4-q-allado
+        prompt: "Which one means 'beside'?"
+        correct: "al lado"
+        distractors: ["a lado", "en lado", "el lado"]
+        atoms: ["al", "lado"]
+        why: "«lado» is masculine, so it's always «al lado» — never a bare «el», never the wrong preposition."
+      - kind: buildLit
+        id: l4-b-elhospitalestaalladodelbancoperolafarmaciaestalejos
+        es: "el hospital está al lado del banco, pero la farmacia está lejos"
+        en: "The hospital is beside the bank, but the pharmacy is far"
+        atoms: ["el", "hospital", "está", "al", "lado", "banco", "pero", "la", "farmacia", "lejos"]
+        tiles: ["es", "cerca"]
+      - kind: audioWimcq
+        id: l4-ear-correo
+        target: { surface: "correo", emoji: "📮" }
+        distractors:
+          - { surface: "banco", emoji: "🏦" }
+          - { surface: "hospital", emoji: "🏥" }
+      - kind: agreementLit
+        id: l4-agr-bancoviejofarmaciavieja
+        en: "The bank is old, and the pharmacy is old too"
+        audioText: "el banco es viejo, y la farmacia es vieja también"
+        atoms: ["banco", "viejo", "farmacia"]
+        segments:
+          - { text: "el banco es " }
+          - { blank: { id: "p1", answer: "viejo", options: ["viejo", "vieja"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "vieja", options: ["vieja", "viejo"] } }
+      - kind: listenBuildLit
+        id: l4-lb-elsupermercadoestaalladodelafarmacia
+        es: "el supermercado está al lado de la farmacia, y necesito ir también"
+        en: "The supermarket is beside the pharmacy, and I need to go too"
+        atoms: ["el", "supermercado", "está", "al", "lado", "de", "la", "farmacia", "y", "necesito", "ir", "también"]
+        tiles: ["del", "es"]
+      - kind: textMcq
+        id: l4-tm-lado
+        target: "lado"
+        distractors: ["dado", "lago", "ladra"]
+      - kind: sim
+        id: l4-sim-juan-banco
+        scene: { emoji: "🏦", title: "Juan checks the layout", setting: "Juan wants to know what's beside what." }
+        turns:
+          - id: t1
+            npc: { speaker: "Juan", es: "¿La farmacia está al lado del banco?", audioText: "¿la farmacia está al lado del banco?", gloss: "Is the pharmacy beside the bank?" }
+            goal: "Say yes, it's beside the bank."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, está al lado del banco" }
+                - { id: "wrong1", text: "sí, está al lado de banco" }
+                - { id: "wrong2", text: "sí, es al lado del banco" }
+              correctOptionId: "right"
+              audioText: "sí, está al lado del banco"
+            replyGloss: "Yes, it's beside the bank."
+            explanation: "«banco» is masculine — «del» (fused), never a bare «de». And location uses «está», not «es»."
+          - id: t2
+            npc: { speaker: "Juan", es: "¿Y el hospital? ¿Está lejos?", audioText: "¿y el hospital? ¿está lejos?", gloss: "And the hospital? Is it far?" }
+            goal: "Say yes, it's far."
+            reply:
+              mode: build
+              tiles: ["sí", "está", "lejos", "cerca", "es"]
+              answer: "sí está lejos"
+            replyGloss: "Yes, it's far."
+            explanation: "«lejos», not «cerca» — the hospital is far."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "lado", target: "side" }
+          - { source: "está", target: "is (somewhere)" }
+          - { source: "banco", target: "bank" }
+          - { source: "farmacia", target: "pharmacy" }
+          - { source: "correo", target: "post office" }
+          - { source: "hospital", target: "hospital" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "la farmacia está al lado del banco"
+        en: "The pharmacy is beside the bank"
+        atoms: ["la", "farmacia", "está", "al", "lado", "banco"]
+
+  # ── L5 · Mixed recombination — no new atom. All 5 m34 places crossed
+  #    with cerca/lejos/al lado de, discrimination-heavy. Introduces
+  #    «cerca de»/«lejos de» + place (both words already free/registered —
+  #    «cerca»/«lejos» this module, «de» m2 — pure recombination, not a
+  #    new idiom). THE ATOMS: CREDIT TRAP still applies — «del» stays out
+  #    of every atoms: array. PRIOR context only: cerca/lejos/lado/hay
+  #    (this module), está/es (m4/m2), al/a/de (m9/m2), banco/farmacia/
+  #    hospital/correo/supermercado (m34), pero/también (m6/m11), nuevo
+  #    (m6). One recall (L4's win line).
+  - n: 5
+    template: free
+    title: "El correo está al lado del supermercado"
+    description: "All five places, mixed — «cerca», «lejos», «al lado de» — plus «cerca de»/«lejos de» + a place, built from pieces you already have."
+    steps:
+      - kind: map
+        id: l5-map-elcorreoestaalladodelsupermercado
+        tokens: ["el", "correo", "está", "al", "lado", "del", "supermercado"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "post office", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "at the", tokenIndex: 3 }
+          - { en: "side", tokenIndex: 4 }
+          - { en: "of the", tokenIndex: 5 }
+          - { en: "supermarket", tokenIndex: 6 }
+        audioText: "el correo está al lado del supermercado"
+        revealNote: "«supermercado» is masculine — «del» (fused), same rule as «al»."
+      - kind: speakLit
+        id: l5-sp-recall
+        es: "la farmacia está al lado del banco"
+        en: "The pharmacy is beside the bank"
+        cue: recall
+        atoms: ["la", "farmacia", "está", "al", "lado", "banco"]
+      - kind: buildLit
+        id: l5-b-elhospitalestalejosperoelbancoestacerca
+        es: "el hospital está lejos, pero el banco está cerca"
+        en: "The hospital is far, but the bank is close"
+        atoms: ["el", "hospital", "está", "lejos", "pero", "banco", "cerca"]
+        tiles: ["es", "al"]
+      - kind: clozeLit
+        id: l5-c-elsupermercadoestacercadelcorreo
+        es: "el supermercado está cerca del correo"
+        en: "The supermarket is close to the post office"
+        blank: "cerca"
+        options: ["cerca", "lejos"]
+        atoms: ["el", "supermercado", "está", "correo"]
+        why: "«cerca» (close), not «lejos» (far) — the two adverbs pair with «de» the same way."
+      - kind: listenCompLit
+        id: l5-lc-hayunbancoalladodelhospital
+        es: "hay un banco al lado del hospital"
+        en: "There's a bank beside the hospital."
+        atoms: ["hay", "un", "banco", "al", "lado", "hospital"]
+        distractorsEn:
+          - "There's a bank far from the hospital."
+          - "The bank is beside the hospital."
+          - "I need to go to the hospital."
+      - kind: mcq
+        id: l5-q-cercadelbanco
+        prompt: "Which one means 'near the bank'?"
+        correct: "cerca del banco"
+        distractors: ["lejos del banco", "al lado banco", "cerca el banco"]
+        atoms: ["cerca", "banco"]
+        why: "«cerca de» + «el» → «cerca del» (fused, masculine). Never drop the article: «cerca el banco» is ungrammatical."
+      - kind: buildLit
+        id: l5-b-elcorreoestaalladodelsupermercadoylafarmaciaestacerca
+        es: "el correo está al lado del supermercado, y la farmacia está cerca también"
+        en: "The post office is beside the supermarket, and the pharmacy is close too"
+        atoms: ["el", "correo", "está", "al", "lado", "supermercado", "y", "la", "farmacia", "cerca", "también"]
+        tiles: ["lejos", "es"]
+      - kind: audioWimcq
+        id: l5-ear-hospital
+        target: { surface: "hospital", emoji: "🏥" }
+        distractors:
+          - { surface: "correo", emoji: "📮" }
+          - { surface: "supermercado", emoji: "🏬" }
+      - kind: agreementLit
+        id: l5-agr-correonuevofarmacianueva
+        en: "The post office is new, and the pharmacy is new too"
+        audioText: "el correo es nuevo, y la farmacia es nueva también"
+        atoms: ["correo", "nuevo", "farmacia"]
+        segments:
+          - { text: "el correo es " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l5-lb-elbancoestalejosperoelsupermercadoestacerca
+        es: "el banco está lejos, pero el supermercado está cerca"
+        en: "The bank is far, but the supermarket is close"
+        atoms: ["el", "banco", "está", "lejos", "pero", "el", "supermercado", "cerca"]
+        tiles: ["es", "voy"]
+      - kind: textMcq
+        id: l5-tm-supermercado
+        target: "supermercado"
+        distractors: ["supermercao", "mercado", "supermercada"]
+      - kind: sim
+        id: l5-sim-miguel-correo
+        scene: { emoji: "📮", title: "Miguel maps out the block", setting: "Miguel is putting together directions." }
+        turns:
+          - id: t1
+            npc: { speaker: "Miguel", es: "¿El correo está al lado del supermercado?", audioText: "¿el correo está al lado del supermercado?", gloss: "Is the post office beside the supermarket?" }
+            goal: "Say yes, it's beside it."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, está al lado del supermercado" }
+                - { id: "wrong1", text: "sí, está al lado de supermercado" }
+                - { id: "wrong2", text: "sí, es al lado del supermercado" }
+              correctOptionId: "right"
+              audioText: "sí, está al lado del supermercado"
+            replyGloss: "Yes, it's beside the supermarket."
+            explanation: "«supermercado» is masculine — «del» (fused). Location uses «está», not «es»."
+          - id: t2
+            npc: { speaker: "Miguel", es: "¿Y el hospital? ¿Está cerca o lejos?", audioText: "¿y el hospital? ¿está cerca o lejos?", gloss: "And the hospital? Is it close or far?" }
+            goal: "Say it's far."
+            reply:
+              mode: build
+              tiles: ["está", "lejos", "cerca", "es", "hay"]
+              answer: "está lejos"
+            replyGloss: "It's far."
+            explanation: "«lejos», the opposite of «cerca» — same «está»."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "cerca", target: "near, close" }
+          - { source: "lejos", target: "far" }
+          - { source: "lado", target: "side" }
+          - { source: "hospital", target: "hospital" }
+          - { source: "correo", target: "post office" }
+          - { source: "supermercado", target: "supermarket" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "el correo está al lado del supermercado, pero el hospital está lejos"
+        en: "The post office is beside the supermarket, but the hospital is far"
+        atoms: ["el", "correo", "está", "al", "lado", "supermercado", "pero", "el", "hospital", "lejos"]
+
+  # ── L6 · Three-way discrimination: «voy» (motion, m9) vs «está»
+  #    (location, m4) vs «hay» (existence, m3). No new atom — the direct
+  #    payoff of m4's own "three jobs, three words" framing, now given a
+  #    dedicated lesson. Info card states the three-way split explicitly
+  #    (the only place in the module this is spelled out in prose). PRIOR
+  #    context only: cerca/lejos/hay (this module), está/es (m4/m2),
+  #    voy/al/a/de (m9/m2), banco/farmacia/hospital/correo/supermercado
+  #    (m34), necesito (m16), tengo que (m33). One recall (L5's win line).
+  - n: 6
+    template: free
+    title: "Voy, está, o hay"
+    description: "Three words, three jobs: «voy» — I'm going (motion). «está» — it's located (a specific place). «hay» — there is / there are (existence). Same idea, one clear split."
+    steps:
+      - kind: info
+        id: l6-info-voyestahay
+        title: "Voy, está, hay — three jobs"
+        body: "«voy» — I'm going (m9, motion). «está» — a specific place IS somewhere (m4, location). «hay» — something EXISTS (m3). «voy al banco» / «el banco está cerca» / «hay un banco cerca» — three different questions, three different words."
+      - kind: speakLit
+        id: l6-sp-recall
+        es: "el correo está al lado del supermercado, pero el hospital está lejos"
+        en: "The post office is beside the supermarket, but the hospital is far"
+        cue: recall
+        atoms: ["el", "correo", "está", "al", "lado", "supermercado", "pero", "el", "hospital", "lejos"]
+      - kind: buildLit
+        id: l6-b-voyalbancoestacerca
+        es: "voy al banco — está cerca"
+        en: "I'm going to the bank — it's close"
+        atoms: ["voy", "al", "banco", "está", "cerca"]
+        tiles: ["hay", "es"]
+      - kind: clozeLit
+        id: l6-c-hayunhospitalcerca
+        es: "hay un hospital cerca"
+        en: "There's a hospital nearby"
+        blank: "hay"
+        options: ["hay", "está"]
+        atoms: ["un", "hospital", "cerca"]
+        why: "«hay» — a hospital exists nearby. «está» would name a specific, already-known one — not a new one you're just learning exists."
+      - kind: listenCompLit
+        id: l6-lc-tengoqueiralafarmaciaestalejos
+        es: "tengo que ir a la farmacia, pero está lejos"
+        en: "I have to go to the pharmacy, but it's far."
+        atoms: ["tengo que", "ir", "a", "la", "farmacia", "pero", "está", "lejos"]
+        distractorsEn:
+          - "There's a pharmacy nearby."
+          - "The pharmacy is close."
+          - "I'm going to the pharmacy now."
+      - kind: mcq
+        id: l6-q-voyoesta
+        prompt: "'The bank is close' — which word fits?"
+        correct: "está cerca"
+        distractors: ["voy cerca", "hay cerca", "es cerca"]
+        atoms: ["está", "cerca"]
+        why: "The bank is a specific place — «está», not «voy» (motion) or «hay» (existence)."
+      - kind: buildLit
+        id: l6-b-hayunafarmaciacercaperonecesitoiralhospital
+        es: "hay una farmacia cerca, pero necesito ir al hospital"
+        en: "There's a pharmacy close by, but I need to go to the hospital"
+        atoms: ["hay", "una", "farmacia", "cerca", "pero", "necesito", "ir", "al", "hospital"]
+        tiles: ["está", "es"]
+      - kind: audioWimcq
+        id: l6-ear-supermercado
+        target: { surface: "supermercado", emoji: "🏬" }
+        distractors:
+          - { surface: "banco", emoji: "🏦" }
+          - { surface: "correo", emoji: "📮" }
+      - kind: agreementLit
+        id: l6-agr-bancobonitofarmaciabonita
+        en: "The bank is pretty, and the pharmacy is pretty too"
+        audioText: "el banco es bonito, y la farmacia es bonita también"
+        atoms: ["banco", "bonito", "farmacia"]
+        segments:
+          - { text: "el banco es " }
+          - { blank: { id: "p1", answer: "bonito", options: ["bonito", "bonita"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "bonita", options: ["bonita", "bonito"] } }
+      - kind: listenBuildLit
+        id: l6-lb-voyalcorreoestaalladodelsupermercado
+        es: "voy al correo — está al lado del supermercado"
+        en: "I'm going to the post office — it's beside the supermarket"
+        atoms: ["voy", "al", "correo", "está", "al", "lado", "supermercado"]
+        tiles: ["hay", "es"]
+      - kind: textMcq
+        id: l6-tm-hay
+        target: "hay"
+        distractors: ["voy", "está", "es"]
+      - kind: sim
+        id: l6-sim-carmen-hospital
+        scene: { emoji: "🏥", title: "Carmen sorts out her day", setting: "Carmen is figuring out where to go." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Hay un hospital cerca?", audioText: "¿hay un hospital cerca?", gloss: "Is there a hospital nearby?" }
+            goal: "Say yes, and that you're going now."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, hay uno cerca — voy ahora" }
+                - { id: "wrong1", text: "sí, está uno cerca — voy ahora" }
+                - { id: "wrong2", text: "sí, hay uno cerca — está ahora" }
+              correctOptionId: "right"
+              audioText: "sí, hay uno cerca — voy ahora"
+            replyGloss: "Yes, there's one nearby — I'm going now."
+            explanation: "«hay» for existence, «voy» for your own motion — never swap them."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Y la farmacia? ¿Dónde está?", audioText: "¿y la farmacia? ¿dónde está?", gloss: "And the pharmacy? Where is it?" }
+            goal: "Say it's beside the hospital."
+            reply:
+              mode: build
+              tiles: ["está", "al", "lado", "del", "hospital", "hay", "voy"]
+              answer: "está al lado del hospital"
+            replyGloss: "It's beside the hospital."
+            explanation: "A specific, known place — «está», not «hay» or «voy»."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "voy", target: "I'm going" }
+          - { source: "está", target: "is (somewhere)" }
+          - { source: "hay", target: "there is, there are" }
+          - { source: "cerca", target: "near, close" }
+          - { source: "lejos", target: "far" }
+          - { source: "lado", target: "side" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "hay un hospital cerca, y voy ahora — está al lado del correo"
+        en: "There's a hospital close by, and I'm going now — it's beside the post office"
+        atoms: ["hay", "un", "hospital", "cerca", "y", "voy", "ahora", "está", "al", "lado", "correo"]
+
+  # ── L7 · Asking for directions — no new atom. Dedicated dialogue_sim
+  #    lesson putting «dónde» (m4, PRIOR — never used with «está» on real
+  #    content until now) together with this module's «está»/«cerca»/
+  #    «lejos»/«al lado de» for the first time: «¿dónde está el banco?».
+  #    No info card (pure recombination of two already-taught pieces — no
+  #    new rule to state). Carlos debuts as NPC (reserved from L1-L6 per
+  #    the brief). No map (no new atom). PRIOR context only: cerca/lejos/
+  #    lado/hay (this module), dónde/está/es (m4/m2), al/a/de (m9/m2),
+  #    banco/farmacia/hospital/correo/supermercado (m34), necesito (m16),
+  #    perdón (m21 courtesy — verify below), gracias (m1). One recall
+  #    (L6's win line).
+  - n: 7
+    template: free
+    title: "¿Dónde está el banco?"
+    description: "«dónde» (m4) + «está» — the real question: asking where something is."
+    steps:
+      - kind: speakLit
+        id: l7-sp-recall
+        es: "hay un hospital cerca, y voy ahora — está al lado del correo"
+        en: "There's a hospital close by, and I'm going now — it's beside the post office"
+        cue: recall
+        atoms: ["hay", "un", "hospital", "cerca", "y", "voy", "ahora", "está", "al", "lado", "correo"]
+      - kind: buildLit
+        id: l7-b-dondeestaelbanco
+        es: "¿dónde está el banco?"
+        en: "Where is the bank?"
+        atoms: ["dónde", "está", "el", "banco"]
+        tiles: ["es", "hay"]
+      - kind: clozeLit
+        id: l7-c-dondeestalafarmacia
+        es: "dónde está la farmacia"
+        en: "Where is the pharmacy"
+        blank: "dónde"
+        options: ["dónde", "hay"]
+        atoms: ["está", "la", "farmacia"]
+        why: "«dónde» asks WHERE, pointing straight at «está» — «hay» would only ask whether one exists, not where."
+      - kind: listenCompLit
+        id: l7-lc-elcorreoestaalladodelbanco
+        es: "el correo está al lado del banco"
+        en: "The post office is beside the bank."
+        atoms: ["el", "correo", "está", "al", "lado", "banco"]
+        distractorsEn:
+          - "Where is the post office?"
+          - "The post office is far from the bank."
+          - "There's a post office beside the bank."
+      - kind: mcq
+        id: l7-q-dondeesta
+        prompt: "Which one asks 'where is it'?"
+        correct: "dónde está"
+        distractors: ["dónde hay", "qué está", "dónde es"]
+        atoms: ["dónde", "está"]
+        why: "«dónde» pairs with «está» for a specific place — never «hay» (existence) or «es» (identity)."
+      - kind: buildLit
+        id: l7-b-perdondondeestaelsupermercado
+        es: "perdón, ¿dónde está el supermercado?"
+        en: "Excuse me, where is the supermarket?"
+        atoms: ["perdón", "dónde", "está", "el", "supermercado"]
+        tiles: ["hay", "es"]
+      - kind: audioWimcq
+        id: l7-ear-farmacia
+        target: { surface: "farmacia", emoji: "💊" }
+        distractors:
+          - { surface: "supermercado", emoji: "🏬" }
+          - { surface: "hospital", emoji: "🏥" }
+      - kind: agreementLit
+        id: l7-agr-hospitalpequenofarmaciapequena
+        en: "The hospital is small, and the pharmacy is small too"
+        audioText: "el hospital es pequeño, y la farmacia es pequeña también"
+        atoms: ["hospital", "pequeño", "farmacia"]
+        segments:
+          - { text: "el hospital es " }
+          - { blank: { id: "p1", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "pequeño"] } }
+      - kind: listenBuildLit
+        id: l7-lb-dondeestaelhospitalestaalladodelcorreo
+        es: "el hospital está al lado del correo, pero está lejos"
+        en: "The hospital is beside the post office, but it's far"
+        atoms: ["el", "hospital", "está", "al", "lado", "correo", "pero", "lejos"]
+        tiles: ["hay", "es"]
+      - kind: textMcq
+        id: l7-tm-donde
+        target: "dónde"
+        distractors: ["donde", "dando", "dolor"]
+      - kind: sim
+        id: l7-sim-carlos-directions
+        scene: { emoji: "🗺️", title: "Carlos asks for directions", setting: "Carlos stops you on the street." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carlos", es: "Perdón, ¿dónde está el banco?", audioText: "perdón, ¿dónde está el banco?", gloss: "Excuse me, where is the bank?" }
+            goal: "Say it's close by."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "está cerca" }
+                - { id: "wrong1", text: "hay cerca" }
+                - { id: "wrong2", text: "es cerca" }
+              correctOptionId: "right"
+              audioText: "está cerca"
+            replyGloss: "It's close by."
+            explanation: "«está» answers a «dónde» question about a specific place."
+          - id: t2
+            npc: { speaker: "Carlos", es: "Gracias. ¿Y la farmacia? ¿Está lejos?", audioText: "gracias. ¿y la farmacia? ¿está lejos?", gloss: "Thanks. And the pharmacy? Is it far?" }
+            goal: "Say no, it's beside the bank."
+            reply:
+              mode: build
+              tiles: ["no", "está", "al", "lado", "del", "banco", "hay"]
+              answer: "no está al lado del banco"
+            replyGloss: "No, it's beside the bank."
+            explanation: "«al lado del banco» — «lado» is masculine, so «del», not a bare «de»."
+          - id: t3
+            npc: { speaker: "Carlos", es: "Bien. ¿Dónde está el correo?", audioText: "bien. ¿dónde está el correo?", gloss: "Good. Where is the post office?" }
+            goal: "Say it's far."
+            reply:
+              mode: build
+              tiles: ["está", "lejos", "cerca", "hay", "es"]
+              answer: "está lejos"
+            replyGloss: "It's far."
+            explanation: "«lejos», not «cerca» — the post office is far."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "dónde", target: "where" }
+          - { source: "está", target: "is (somewhere)" }
+          - { source: "perdón", target: "excuse me" }
+          - { source: "cerca", target: "near, close" }
+          - { source: "lejos", target: "far" }
+          - { source: "lado", target: "side" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "perdón, ¿dónde está el banco? — está al lado de la farmacia"
+        en: "Excuse me, where is the bank? — it's beside the pharmacy"
+        atoms: ["perdón", "dónde", "está", "el", "banco", "al", "lado", "de", "la", "farmacia"]
+
+  # ── L8 · Checkpoint — all graded, no map/info (mirrors m34-L8's own
+  #    checkpoint shape). Pure recombination of L1-L7: cerca/lejos/al lado
+  #    de (this module), the voy/está/hay three-way split, «dónde está»
+  #    questions, all five m34 places, «tengo que ir a» (m33). Two
+  #    recalls, drawn from different earlier lessons' win lines (L7 and
+  #    L4). Ends sim → matchLit → speakLit-win, same closing shape as
+  #    every other lesson. Win line is a five-place "grand tour" sentence
+  #    — the module's cumulative peak before L9's dedicated three-way
+  #    contrast lesson and L10's mastery.
+  - n: 8
+    template: free
+    title: "Checkpoint: por el barrio"
+    description: "Everything so far, recombined — «cerca», «lejos», «al lado de», «voy»/«está»/«hay», and «¿dónde está…?» — all five places, no new words."
+    steps:
+      - kind: speakLit
+        id: l8-sp-recall-l7win
+        es: "perdón, ¿dónde está el banco? — está al lado de la farmacia"
+        en: "Excuse me, where is the bank? — it's beside the pharmacy"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-tengoqueiralbancoperoestalejos
+        es: "tengo que ir al banco, pero está lejos"
+        en: "I have to go to the bank, but it's far"
+        atoms: ["tengo que", "ir", "al", "banco", "pero", "está", "lejos"]
+        tiles: ["hay", "es"]
+      - kind: clozeLit
+        id: l8-c-hayunafarmaciacercadelcorreo
+        es: "hay una farmacia cerca del correo"
+        en: "There's a pharmacy close to the post office"
+        blank: "hay"
+        options: ["hay", "está"]
+        atoms: ["una", "farmacia", "cerca", "correo"]
+        why: "«hay» — a pharmacy exists nearby. «está» would name a specific, already-known one."
+      - kind: listenCompLit
+        id: l8-lc-elhospitalestaalladodelsupermercado
+        es: "el hospital está al lado del supermercado, pero el banco está lejos"
+        en: "The hospital is beside the supermarket, but the bank is far."
+        atoms: ["el", "hospital", "está", "al", "lado", "supermercado", "pero", "banco", "lejos"]
+        distractorsEn:
+          - "The hospital is beside the supermarket, and the bank is close."
+          - "The bank is beside the supermarket, but the hospital is far."
+          - "I have to go to the hospital, but it's far."
+      - kind: mcq
+        id: l8-q-dondeestaelsupermercado
+        prompt: "'Where is the supermarket?' — which word pair fits the blank: ¿___ el supermercado?"
+        correct: "dónde está"
+        distractors: ["dónde hay", "dónde es", "qué está"]
+        atoms: ["dónde", "está"]
+        why: "«dónde» pairs with «está» for a specific place — never «hay» or «es»."
+      - kind: speakLit
+        id: l8-sp-recall-l4win
+        es: "la farmacia está al lado del banco"
+        en: "The pharmacy is beside the bank"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-necesitoiralcorreoestacercaperoelhospitallejos
+        es: "necesito ir al correo — está cerca, pero el hospital está lejos"
+        en: "I need to go to the post office — it's close, but the hospital is far"
+        atoms: ["necesito", "ir", "al", "correo", "está", "cerca", "pero", "el", "hospital", "lejos"]
+        tiles: ["voy", "hay"]
+      - kind: audioWimcq
+        id: l8-ear-correo
+        target: { surface: "correo", emoji: "📮" }
+        distractors:
+          - { surface: "banco", emoji: "🏦" }
+          - { surface: "hospital", emoji: "🏥" }
+      - kind: agreementLit
+        id: l8-agr-hospitalviejofarmaciavieja
+        en: "The hospital is old, and the pharmacy is old too"
+        audioText: "el hospital es viejo, y la farmacia es vieja también"
+        atoms: ["hospital", "viejo", "farmacia"]
+        segments:
+          - { text: "el hospital es " }
+          - { blank: { id: "p1", answer: "viejo", options: ["viejo", "vieja"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "vieja", options: ["vieja", "viejo"] } }
+      - kind: listenBuildLit
+        id: l8-lb-voyalsupermercadoestaalladodelbanco
+        es: "voy al supermercado — está al lado del banco"
+        en: "I'm going to the supermarket — it's beside the bank"
+        atoms: ["voy", "al", "supermercado", "está", "al", "lado", "banco"]
+        tiles: ["hay", "es"]
+      - kind: textMcq
+        id: l8-tm-lado
+        target: "lado"
+        distractors: ["dado", "lago", "ladra"]
+      - kind: sim
+        id: l8-sim-checkpoint
+        scene: { emoji: "🏁", title: "Checkpoint check-in", setting: "Ana checks in on where everything is." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Dónde está el correo?", audioText: "¿dónde está el correo?", gloss: "Where is the post office?" }
+            goal: "Say it's beside the supermarket."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "está al lado del supermercado" }
+                - { id: "wrong1", text: "hay al lado del supermercado" }
+                - { id: "wrong2", text: "está al lado de supermercado" }
+              correctOptionId: "right"
+              audioText: "está al lado del supermercado"
+            replyGloss: "It's beside the supermarket."
+            explanation: "«supermercado» is masculine — «del», never a bare «de». And «está», never «hay», for a specific place."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Tienes que ir al hospital hoy?", audioText: "¿tienes que ir al hospital hoy?", gloss: "Do you have to go to the hospital today?" }
+            goal: "Say yes, but it's far."
+            reply:
+              mode: build
+              tiles: ["sí", "tengo", "que", "ir", "pero", "está", "lejos", "voy"]
+              answer: "sí tengo que ir pero está lejos"
+            replyGloss: "Yes, I have to go, but it's far."
+            explanation: "«tengo que ir» — the second verb stays bare, never «voy»."
+      - kind: matchLit
+        id: l8-match
+        pairs:
+          - { source: "cerca", target: "near, close" }
+          - { source: "lejos", target: "far" }
+          - { source: "lado", target: "side" }
+          - { source: "dónde", target: "where" }
+          - { source: "hay", target: "there is, there are" }
+          - { source: "está", target: "is (somewhere)" }
+      - kind: speakLit
+        id: l8-sp-win
+        es: "el banco está cerca, la farmacia está al lado, pero el hospital y el correo están lejos"
+        en: "The bank is close, the pharmacy is beside it, but the hospital and the post office are far"
+        atoms: ["el", "banco", "está", "cerca", "la", "farmacia", "al", "lado", "pero", "hospital", "correo", "están", "lejos"]
+
+  # ── L9 · Dedicated «es» vs «está» vs «hay» three-way contrast — no new
+  #    atom. The direct payoff of m4's own "three jobs, three words"
+  #    framing: «es» (m2) — WHAT something is (identity/quality). «está»
+  #    (m4) — WHERE a specific, known thing is. «hay» (m3) — THAT
+  #    something exists. Distinct from L6's voy/está/hay (motion vs
+  #    location vs existence) — this lesson is the identity/location/
+  #    existence split, the classic ser/estar/haber confusion point.
+  #    Info card states it explicitly (2nd and last time this module
+  #    states a three-way split in prose). PRIOR context only: cerca/
+  #    lejos/lado/hay (this module), dónde/está/es (m4/m2), banco/
+  #    farmacia/hospital/correo/supermercado (m34), nuevo/viejo/bonito/
+  #    pequeño/grande (m6). One recall (L8's win line).
+  - n: 9
+    template: free
+    title: "Es, está, o hay"
+    description: "«es» — what it IS. «está» — where it IS (a known place). «hay» — that it exists. Three different questions about the same bank."
+    steps:
+      - kind: info
+        id: l9-info-esestahay
+        title: "Es, está, hay — the last split"
+        body: "«es» — WHAT something is (m2): «el banco es grande». «está» — WHERE a specific place is (m4): «el banco está cerca». «hay» — THAT something exists (m3): «hay un banco cerca». Same bank, three different questions."
+      - kind: speakLit
+        id: l9-sp-recall
+        es: "el banco está cerca, la farmacia está al lado, pero el hospital y el correo están lejos"
+        en: "The bank is close, the pharmacy is beside it, but the hospital and the post office are far"
+        cue: recall
+        atoms: ["el", "banco", "está", "cerca", "la", "farmacia", "al", "lado", "pero", "hospital", "correo", "están", "lejos"]
+      - kind: buildLit
+        id: l9-b-elbancoesgrandeyestacerca
+        es: "el banco es grande, y está cerca"
+        en: "The bank is big, and it's close"
+        atoms: ["el", "banco", "es", "grande", "y", "está", "cerca"]
+        tiles: ["hay", "voy"]
+      - kind: clozeLit
+        id: l9-c-hayunafarmaciacercayesnueva
+        es: "hay una farmacia cerca, y es nueva"
+        en: "There's a pharmacy close by, and it's new"
+        blank: "hay"
+        options: ["hay", "es"]
+        atoms: ["una", "farmacia", "cerca", "y", "es", "nuevo"]
+        why: "«hay» — a pharmacy exists nearby. «es nueva» right after names WHAT it's like, a separate question from whether it exists."
+      - kind: listenCompLit
+        id: l9-lc-elhospitalesviejoperoestacerca
+        es: "el hospital es viejo, pero está cerca"
+        en: "The hospital is old, but it's close."
+        atoms: ["el", "hospital", "es", "viejo", "pero", "está", "cerca"]
+        distractorsEn:
+          - "The hospital is old, but there's one close by."
+          - "There's an old hospital, but it's far."
+          - "The hospital is new, but it's close."
+      - kind: mcq
+        id: l9-q-esogrande
+        prompt: "'The supermarket is big' — which word fits?"
+        correct: "es grande"
+        distractors: ["está grande", "hay grande", "voy grande"]
+        atoms: ["es", "grande"]
+        why: "«grande» names a quality — «es», not «está» (location) or «hay» (existence)."
+      - kind: buildLit
+        id: l9-b-hayuncorreocercaesbonito
+        es: "hay un correo cerca — es bonito"
+        en: "There's a post office close by — it's pretty"
+        atoms: ["hay", "un", "correo", "cerca", "es", "bonito"]
+        tiles: ["está", "voy"]
+      - kind: audioWimcq
+        id: l9-ear-banco
+        target: { surface: "banco", emoji: "🏦" }
+        distractors:
+          - { surface: "supermercado", emoji: "🏬" }
+          - { surface: "hospital", emoji: "🏥" }
+      - kind: agreementLit
+        id: l9-agr-supermercadograndefarmaciagrande
+        en: "The supermarket is big, and the pharmacy is big too"
+        audioText: "el supermercado es grande, y la farmacia es grande también"
+        atoms: ["supermercado", "grande", "farmacia"]
+        segments:
+          - { text: "el supermercado es " }
+          - { blank: { id: "p1", answer: "grande", options: ["grande", "grandes"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "grande", options: ["grande", "grandes"] } }
+      - kind: listenBuildLit
+        id: l9-lb-elhospitalestaalladodelbancoyesgrande
+        es: "el hospital está al lado del banco, y es grande"
+        en: "The hospital is beside the bank, and it's big"
+        atoms: ["el", "hospital", "está", "al", "lado", "banco", "y", "es", "grande"]
+        tiles: ["hay", "voy"]
+      - kind: textMcq
+        id: l9-tm-hay
+        target: "hay"
+        distractors: ["es", "está", "ay"]
+      - kind: sim
+        id: l9-sim-sofia-supermercado
+        scene: { emoji: "🏬", title: "Sofía compares the two supermarkets", setting: "Sofía wants to know which supermarket to pick." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Hay un supermercado cerca?", audioText: "¿hay un supermercado cerca?", gloss: "Is there a supermarket nearby?" }
+            goal: "Say yes, and that it's big."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, hay uno — es grande" }
+                - { id: "wrong1", text: "sí, hay uno — está grande" }
+                - { id: "wrong2", text: "sí, está uno — es grande" }
+              correctOptionId: "right"
+              audioText: "sí, hay uno — es grande"
+            replyGloss: "Yes, there's one — it's big."
+            explanation: "«hay» for existence, «es» for a quality like size — never «está»."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y dónde está?", audioText: "¿y dónde está?", gloss: "And where is it?" }
+            goal: "Say it's beside the bank."
+            reply:
+              mode: build
+              tiles: ["está", "al", "lado", "del", "banco", "es", "hay"]
+              answer: "está al lado del banco"
+            replyGloss: "It's beside the bank."
+            explanation: "«dónde» asks WHERE — the answer takes «está», not «es» or «hay»."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "es", target: "he/she/it is (what)" }
+          - { source: "está", target: "is (somewhere)" }
+          - { source: "hay", target: "there is, there are" }
+          - { source: "grande", target: "big" }
+          - { source: "cerca", target: "near, close" }
+          - { source: "lado", target: "side" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "hay un banco cerca — es grande, y está al lado de la farmacia"
+        en: "There's a bank close by — it's big, and it's beside the pharmacy"
+        atoms: ["hay", "un", "banco", "cerca", "es", "grande", "y", "está", "al", "lado", "de", "la", "farmacia"]
+
+  # ── L10 · Mastery — all graded, no map/info (mirrors m34-L10's own
+  #    mastery shape: no trailing speakLit-win after sim). Recombines
+  #    every strand of this module — «cerca»/«lejos»/«al lado de», the
+  #    es/está/hay three-way split, «¿dónde está…?», all five m34 places
+  #    — paired with m31's duele/duelen pain-to-pharmacy chain and m33's
+  #    «tengo que ir a». Two recalls (L9 and L7 win lines, different
+  #    lessons, neither recalled together before). Full-sentence MCQ is
+  #    legal here only (inv 28, L10 mastery exemption). LAST step is the
+  #    sim — no matchLit/speakLit after it.
+  - n: 10
+    template: free
+    title: "Mastery: ¿dónde está todo?"
+    description: "Every strand, one last time — «cerca», «lejos», «al lado de», «es»/«está»/«hay», «¿dónde está…?», and pain sending you to the hospital or the pharmacy, all in one pass."
+    steps:
+      - kind: speakLit
+        id: l10-sp-recall-l9win
+        es: "hay un banco cerca — es grande, y está al lado de la farmacia"
+        en: "There's a bank close by — it's big, and it's beside the pharmacy"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l10-b-meduelelamanoperotengoquesupermercado
+        es: "me duele la mano, pero tengo que ir al supermercado hoy — está cerca"
+        en: "My hand hurts, but I have to go to the supermarket today — it's close"
+        atoms: ["me", "duele", "la", "mano", "pero", "tengo que", "ir", "al", "supermercado", "hoy", "está", "cerca"]
+        tiles: ["duelen", "hay"]
+      - kind: clozeLit
+        id: l10-c-medueleelpiehayunhospitalcerca
+        es: "me duele el pie — hay un hospital cerca"
+        en: "My foot hurts — there's a hospital nearby"
+        blank: "hay"
+        options: ["hay", "está"]
+        atoms: ["me", "duele", "el", "pie", "un", "hospital", "cerca"]
+        why: "«hay» — a hospital exists nearby. «está» would name a specific, already-known one."
+      - kind: listenCompLit
+        id: l10-lc-tengoqueiralafarmaciaperoestaalladodelbanco
+        es: "tengo que ir a la farmacia, pero está al lado del banco"
+        en: "I have to go to the pharmacy, but it's beside the bank."
+        atoms: ["tengo que", "ir", "a", "la", "farmacia", "pero", "está", "al", "lado", "banco"]
+        distractorsEn:
+          - "I have to go to the bank, but it's beside the pharmacy."
+          - "I want to go to the pharmacy, but it's beside the bank."
+          - "There's a pharmacy beside the bank."
+      - kind: mcq
+        id: l10-q-meduelenlosojosmastery
+        prompt: "Which one means 'My eyes hurt — I have to go to the hospital, and it's beside the pharmacy'?"
+        correct: "me duelen los ojos — tengo que ir al hospital, y está al lado de la farmacia"
+        distractors: ["me duele los ojos — tengo que ir al hospital, y está al lado de la farmacia", "me duelen los ojos — tengo que voy al hospital, y está al lado de la farmacia", "me duelen los ojos — tengo que ir al hospital, y está al lado del farmacia"]
+        atoms: ["me", "duelen", "ojo", "tengo que", "ir", "al", "hospital", "y", "está", "al", "lado", "de", "la", "farmacia"]
+        why: "«los ojos» is plural — «duelen». After «tengo que», the infinitive stays bare — never «voy». And «farmacia» is feminine — «de la», never «del»."
+      - kind: speakLit
+        id: l10-sp-recall-l7win
+        es: "perdón, ¿dónde está el banco? — está al lado de la farmacia"
+        en: "Excuse me, where is the bank? — it's beside the pharmacy"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l10-b-voyalcorreoestalejosperonecesitohoy
+        es: "voy al correo — está lejos, pero necesito ir hoy"
+        en: "I'm going to the post office — it's far, but I need to go today"
+        atoms: ["voy", "al", "correo", "está", "lejos", "pero", "necesito", "ir", "hoy"]
+        tiles: ["tengo que", "hay"]
+      - kind: audioWimcq
+        id: l10-ear-hospital
+        target: { surface: "hospital", emoji: "🏥" }
+        distractors:
+          - { surface: "banco", emoji: "🏦" }
+          - { surface: "supermercado", emoji: "🏬" }
+      - kind: agreementLit
+        id: l10-agr-bancograndefarmaciagrande
+        en: "The bank is big, and the pharmacy is big too"
+        audioText: "el banco es grande, y la farmacia es grande también"
+        atoms: ["banco", "grande", "farmacia"]
+        segments:
+          - { text: "el banco es " }
+          - { blank: { id: "p1", answer: "grande", options: ["grande", "grandes"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "grande", options: ["grande", "grandes"] } }
+      - kind: listenBuildLit
+        id: l10-lb-necesitoiralhospitalperoduelelapierna
+        es: "necesito ir al hospital, pero me duele la pierna — está lejos"
+        en: "I need to go to the hospital, but my leg hurts — it's far"
+        atoms: ["necesito", "ir", "al", "hospital", "pero", "me", "duele", "la", "pierna", "está", "lejos"]
+        tiles: ["tengo que", "voy"]
+      - kind: textMcq
+        id: l10-tm-lejos
+        target: "lejos"
+        distractors: ["lejano", "leños", "lejo"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "cerca", target: "near, close" }
+          - { source: "lejos", target: "far" }
+          - { source: "lado", target: "side" }
+          - { source: "dónde", target: "where" }
+          - { source: "hay", target: "there is, there are" }
+          - { source: "duele", target: "hurts (one thing)" }
+      - kind: sim
+        id: l10-sim-diego-mastery
+        scene: { emoji: "🗺️", title: "One last errand day", setting: "Diego checks in before the weekend." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Te duele el pie? ¿Dónde está el hospital?", audioText: "¿te duele el pie? ¿dónde está el hospital?", gloss: "Does your foot hurt? Where is the hospital?" }
+            goal: "Say yes, foot hurts, and it's far."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me duele el pie — está lejos" }
+                - { id: "wrong1", text: "sí, me duelen el pie — está lejos" }
+                - { id: "wrong2", text: "sí, me duele el pie — hay lejos" }
+              correctOptionId: "right"
+              audioText: "sí, me duele el pie — está lejos"
+            replyGloss: "Yes, my foot hurts — it's far."
+            explanation: "«el pie» is singular, so «duele», not «duelen». And a specific place uses «está», never «hay»."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y la farmacia? ¿Está cerca, al lado del banco?", audioText: "¿y la farmacia? ¿está cerca, al lado del banco?", gloss: "And the pharmacy? Is it close, beside the bank?" }
+            goal: "Say yes, it's close, beside the bank."
+            reply:
+              mode: build
+              tiles: ["sí", "está", "cerca", "al", "lado", "del", "banco", "hay"]
+              answer: "sí está cerca al lado del banco"
+            replyGloss: "Yes, it's close, beside the bank."
+            explanation: "«al lado del banco» — «banco» is masculine, so «del», never a bare «de»."
+
+placement:
+  screener:
+    - id: "es-m35-scr-1"
+      prompt: "'The bank is near.' — which one?"
+      correct: "el banco está cerca"
+      distractors: ["el banco es cerca", "el banco cerca está", "voy cerca del banco"]
+  byModule:
+    - id: "es-m35-pl-1"
+      prompt: "The bank is near."
+      correct: "el banco está cerca"
+      distractors: ["el banco es cerca", "el banco cerca está", "voy cerca del banco"]
+    - id: "es-m35-pl-2"
+      prompt: "The hospital is far."
+      correct: "el hospital está lejos"
+      distractors: ["el hospital es lejos", "el hospital lejos está", "necesito lejos el hospital"]
+    - id: "es-m35-pl-3"
+      prompt: "The pharmacy is next to the bank."
+      correct: "la farmacia está al lado del banco"
+      distractors: ["la farmacia está al lado de banco", "la farmacia está al lado de la banco", "la farmacia es al lado del banco"]
+    - id: "es-m35-pl-4"
+      prompt: "Is there a pharmacy near here?"
+      correct: "¿hay una farmacia cerca?"
+      distractors: ["¿está una farmacia cerca?", "¿hay una farmacia lejos?", "¿es una farmacia cerca?"]
+    - id: "es-m35-pl-5"
+      prompt: "I have to go to the hospital, but it's far."
+      correct: "tengo que ir al hospital, pero está lejos"
+      distractors: ["tengo que ir al hospital, pero es lejos", "tengo que ir al hospital, pero voy lejos", "tengo que ir al hospital, pero hay lejos"]

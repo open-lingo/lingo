@@ -45,6 +45,7 @@ import { ES_M31_LESSONS } from "./m31";
 import { ES_M32_LESSONS } from "./m32";
 import { ES_M33_LESSONS } from "./m33";
 import { ES_M34_LESSONS } from "./m34";
+import { ES_M35_LESSONS } from "./m35";
 
 export type EsModuleMeta = {
   id: string;
@@ -274,7 +275,14 @@ export const ES_MODULE_META: EsModuleMeta[] = [
     eyebrow: "Module 34 · Errands around town",
     summary: "Five new places — banco, farmacia, hospital, correo, supermercado — recombined against «voy a» (m9), «necesito ir a» (m16+m28), and «tengo que ir a» (m33+m28), plus «duele»/«duelen» (m31) sending you straight to the hospital or the pharmacy.",
     accent: { from: "#d97757", to: "#92400e" },
+  },  {
+    id: "m35",
+    title: "El banco está cerca",
+    eyebrow: "Module 35 · Where things are",
+    summary: "«está» (m4/m18) names WHERE something is — «cerca», «lejos», and «lado» debut to say how close, how far, and what's beside what, recombined with «hay» (m3, existence) and «es» (m2, identity) so «¿dónde está…?» finally gets a real answer.",
+    accent: { from: "#0e7490", to: "#164e63" },
   },
+
 
 
 
@@ -330,6 +338,7 @@ const LESSONS_BY_MODULE: Record<string, LessonContent[]> = {
   m32: ES_M32_LESSONS,
   m33: ES_M33_LESSONS,
   m34: ES_M34_LESSONS,
+  m35: ES_M35_LESSONS,
 };
 
 /** Flat lesson list for the shared LESSONS content index (mockLessons.ts). */
