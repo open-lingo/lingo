@@ -1,0 +1,144 @@
+  # ── L7 · «Necesito ir a la farmacia y al correo» — no new atoms.
+  #    The dedicated dialogue_sim lesson: a 3-turn errand conversation
+  #    (Diego tags along) touching four of the module's five nouns.
+  #    No info card — pure recombination + a richer sim. PRIOR context
+  #    only: necesito/necesitas (m16), ir (m28), tengo que (m33), voy/
+  #    al/a (m9), pero/puedo (m18/m14), también/y (m11/m1), mañana
+  #    (m8), pequeño (m6/m32), comprar/comprarla (m12/m29), leche (m7),
+  #    all five nouns (this module, L1-L4). One recall (L6's win line).
+  - n: 7
+    template: free
+    title: "Necesito ir a la farmacia y al correo"
+    description: "An errand-day conversation — Diego tags along. All three frames (voy a / necesito ir a / tengo que ir a) and four of the module's five places, in one dialogue."
+    steps:
+      - kind: map
+        id: l7-map-necesitoiralafarmaciayalcorreo
+        tokens: ["necesito", "ir", "a", "la", "farmacia", "y", "al", "correo"]
+        pairs:
+          - { en: "I need", tokenIndex: 0 }
+          - { en: "to go", tokenIndex: 1 }
+          - { en: "to", tokenIndex: 2 }
+          - { en: "the", tokenIndex: 3 }
+          - { en: "pharmacy", tokenIndex: 4 }
+          - { en: "and", tokenIndex: 5 }
+          - { en: "to the", tokenIndex: 6 }
+          - { en: "post office", tokenIndex: 7 }
+        audioText: "necesito ir a la farmacia y al correo"
+        revealNote: "«a la» for feminine «farmacia», «al» for masculine «correo» — same sentence, both patterns."
+      - kind: speakLit
+        id: l7-sp-recall
+        es: "tengo que ir al hospital, y también necesito ir a la farmacia"
+        en: "I have to go to the hospital, and I also need to go to the pharmacy"
+        cue: recall
+        atoms: ["tengo que", "ir", "al", "hospital", "también", "necesito", "a", "la", "farmacia"]
+      - kind: buildLit
+        id: l7-b-voyalsupermercadoytengoqueiralbanco
+        es: "voy al supermercado, y tengo que ir al banco"
+        en: "I'm going to the supermarket, and I have to go to the bank"
+        atoms: ["voy", "al", "supermercado", "y", "tengo que", "ir", "banco"]
+        tiles: ["necesito", "puedo"]
+      - kind: clozeLit
+        id: l7-c-necesitoiralafarmacia
+        es: "necesito ir a la farmacia"
+        en: "I need to go to the pharmacy"
+        blank: "la"
+        options: ["la", "el"]
+        atoms: ["necesito", "ir", "farmacia"]
+        why: "«farmacia» is feminine — «la», not «el»."
+      - kind: listenCompLit
+        id: l7-lc-tengoqueiralhospitalperopuedo
+        es: "tengo que ir al hospital, pero puedo ir al correo mañana"
+        en: "I have to go to the hospital, but I can go to the post office tomorrow."
+        atoms: ["tengo que", "ir", "al", "hospital", "pero", "puedo", "correo", "mañana"]
+        distractorsEn:
+          - "I have to go to the hospital, but I can go to the bank tomorrow."
+          - "I want to go to the hospital, but I can go to the post office tomorrow."
+          - "I have to go to the post office, but I can go to the hospital tomorrow."
+      - kind: mcq
+        id: l7-q-necesitoiralafarmaciayalcorreo
+        prompt: "Which one correctly says 'to the pharmacy'?"
+        correct: "a la farmacia"
+        distractors: ["al farmacia", "a el farmacia", "la farmacia"]
+        atoms: ["a", "la", "farmacia"]
+        why: "«farmacia» is feminine — «a la» (two words, never fused), never «al» or a bare «la» without «a»."
+      - kind: buildLit
+        id: l7-b-voyalbancoperotambiennecesitosupermercado
+        es: "voy al banco, pero también necesito ir al supermercado"
+        en: "I'm going to the bank, but I also need to go to the supermarket"
+        atoms: ["voy", "al", "banco", "pero", "también", "necesito", "ir", "supermercado"]
+        tiles: ["tengo que", "puedo"]
+      - kind: audioWimcq
+        id: l7-ear-correo
+        target: { surface: "correo", emoji: "📮" }
+        distractors:
+          - { surface: "farmacia", emoji: "💊" }
+          - { surface: "supermercado", emoji: "🏬" }
+      - kind: agreementLit
+        id: l7-agr-supermercadopequenofarmaciapequena
+        en: "The supermarket is small, and the pharmacy is small too"
+        audioText: "el supermercado es pequeño, y la farmacia es pequeña también"
+        atoms: ["supermercado", "pequeño", "farmacia"]
+        segments:
+          - { text: "el supermercado es " }
+          - { blank: { id: "p1", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "pequeño"] } }
+      - kind: listenBuildLit
+        id: l7-lb-tengoqueiralcorreoynecesitobanco
+        es: "tengo que ir al correo, y necesito ir al banco también"
+        en: "I have to go to the post office, and I need to go to the bank too"
+        atoms: ["tengo que", "ir", "al", "correo", "y", "necesito", "banco", "también"]
+        tiles: ["voy", "puedo"]
+      - kind: textMcq
+        id: l7-tm-necesito
+        target: "necesito"
+        distractors: ["necesita", "necesitas", "necesitar"]
+      - kind: sim
+        id: l7-sim-diego-mandados
+        scene: { emoji: "🗺️", title: "Diego wants to tag along", setting: "Diego offers to join your errands." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Necesitas ir a la farmacia?", audioText: "¿necesitas ir a la farmacia?", gloss: "Do you need to go to the pharmacy?" }
+            goal: "Say yes, and also to the post office."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, y también al correo" }
+                - { id: "wrong1", text: "sí, y también a la correo" }
+                - { id: "wrong2", text: "sí, y también voy correo" }
+              correctOptionId: "right"
+              audioText: "sí, y también al correo"
+            replyGloss: "Yes, and also to the post office."
+            explanation: "«correo» is masculine — «al», never «a la», and never drop the article."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Vas al banco también?", audioText: "¿vas al banco también?", gloss: "Are you going to the bank too?" }
+            goal: "Say yes, you're going there too."
+            reply:
+              mode: build
+              tiles: ["sí", "voy", "al", "banco", "también", "tengo", "que"]
+              answer: "sí voy al banco también"
+            replyGloss: "Yes, I'm going there too."
+            explanation: "«voy al banco» — «banco» is masculine, «al»."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿Y el supermercado? ¿Vas a comprar leche?", audioText: "¿y el supermercado? ¿vas a comprar leche?", gloss: "And the supermarket? Are you going to buy milk?" }
+            goal: "Say yes, going to buy it."
+            reply:
+              mode: build
+              tiles: ["sí", "voy", "a", "comprarla", "también", "comprarlo"]
+              answer: "sí voy a comprarla también"
+            replyGloss: "Yes, I'm going to buy it too."
+            explanation: "«comprarla» — «la» refers back to «leche» (feminine)."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "farmacia", target: "pharmacy" }
+          - { source: "correo", target: "post office" }
+          - { source: "banco", target: "bank" }
+          - { source: "supermercado", target: "supermarket" }
+          - { source: "necesito", target: "I need" }
+          - { source: "tengo que", target: "I have to" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "necesito ir a la farmacia y al correo"
+        en: "I need to go to the pharmacy and the post office"
+        atoms: ["necesito", "ir", "a", "la", "farmacia", "y", "al", "correo"]

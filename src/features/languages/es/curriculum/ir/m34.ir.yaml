@@ -1,0 +1,1762 @@
+module: m34
+title: "Necesito ir al banco"
+frame: none
+throughModule: m33
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m34 — errands around town: el banco, la farmacia, el hospital, el
+# correo, el supermercado. Fifteenth A2 module.
+#
+#     el banco   🏦   la farmacia   💊
+#     el hospital 🏥   el correo     📮
+#     el supermercado 🏬
+#
+# ONE idea, the whole module: FIVE new imageable "places you have to go"
+# nouns, zero new verb morphology, zero new grammar. Every sentence frame
+# this module needs is already registered — «voy»/«vas»/«a»/«al» (m9, the
+# ORIGINAL places-in-town motion frame this module is a direct sequel to),
+# «necesito»/«necesitas»/«necesita» (m16), «ir» (m28, the bare infinitive
+# that lets «necesito»/«tengo que» reach a destination — «necesito IR al
+# banco», not «necesito el banco»), «tengo que» + the full bare-`tener`
+# paradigm (m33, THIS COURSE'S OWN IMMEDIATELY-PRIOR MODULE — the freshest
+# possible recombination target, unavailable to m33's own L10 because these
+# nouns didn't exist yet), the fused clitics «comprarlo»/«comprarla»/
+# «comprarlos» (m29, for a shopping-list object bought AT the new
+# «supermercado», not the destination noun itself — see the dedicated
+# section below), and «duele»/«duelen» + m30's body nouns (m31, a dedicated
+# L9 pain-frame lesson exactly mirroring m32's own L9 shape). This is the
+# fourth lexicon-break module since m19 (after m27's weather, m30's body,
+# m32's clothing round two) and a direct sequel to m9's own original
+# places-in-town debut (parque/tienda/escuela/cine/playa/mercado/trabajo/
+# autobús) — same domain, a genuinely fresh subset, now with an
+# obligation-and-need recombination story m9 itself couldn't have built
+# (m16/m28/m29/m30/m31/m33 didn't exist yet).
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# Four lines of evidence:
+#   1. **Rhythm calls for a break, and m33 is exactly one grammar beat past
+#      the last one.** m30 (break, body) → m31 (grammar, one beat, riding
+#      m30's own nouns) → m32 (break, clothing round two) → m33 (grammar,
+#      one beat, «tengo que») — the identical "one grammar beat, then a
+#      break" cadence m32's own header used to justify its own placement
+#      after m31, now applied forward: the break due after m33 is on
+#      schedule, not overdue.
+#   2. **Six honest domains were weighed against the actual registry, not
+#      assumed from a candidate list's framing.** `grep -o 'surface:
+#      "[^"]*"' curriculum/m{1..33}.ts | sort -u | grep -iE "<word>"` was
+#      run against every candidate the task named (house/rooms, kitchen/
+#      tableware, transport, places in town, school/office, nature/
+#      outdoors) before picking one. Two disqualify most of their own
+#      domain outright, not merely weaker — see REJECTED ALTERNATIVES
+#      below. "Places in town" itself is NOT a fresh domain in the
+#      aggregate (`cine`/`mercado`/`playa`/`tienda`/`trabajo`/`autobús`/
+#      `escuela`/`parque` all PRIOR since m9, confirmed again here, matching
+#      m32-header's own prior finding) — but the ERRANDS/SERVICES subset
+#      the task's own example sentence pointed at (`banco`, `farmacia`,
+#      `hospital`) was never actually checked by that finding and is
+#      grep-verified fully virgin, alongside `correo` and `supermercado`.
+#   3. **Highest recombination value of any candidate against the FOUR most
+#      recent modules' own frames, verified hook by hook, not asserted —
+#      and uniquely, a live hook into m33 itself, the freshest content this
+#      course has.** `necesito` + `ir` (m16+m28) and `tengo que` + `ir`
+#      (m33+m28) both give this module's five destination nouns a genuine
+#      "obligation to go somewhere" frame no other candidate domain shares
+#      with THREE prior grammar modules at once (m16, m28, m33). `duele`/
+#      `duelen` + m30's body nouns (m31) gives farmacia/hospital a second,
+#      independent, and thematically NATURAL recombination axis no other
+#      candidate had this cleanly: "me duele la mano, tengo que ir al
+#      hospital" is a real sentence an actual learner would say, not a
+#      forced pairing. `voy`/`vas`/`a`/`al` (m9) gives every noun its own
+#      simplest possible frame with zero new grammar. `comprarlo`/
+#      `comprarla`/`comprarlos` (m29) reaches this module once, cleanly,
+#      through `supermercado` as a shopping DESTINATION for an ALREADY-
+#      PRIOR object noun (e.g. `leche`, m11) — "necesito leche, voy al
+#      supermercado a comprarla" — not by fusing a clitic onto the
+#      destination noun itself (you cannot "comprarlo" a hospital). No
+#      other candidate domain considered reaches four independent PRIOR
+#      recombination hooks, and none reaches m33 AT ALL (m33 is one module
+#      old; only a module built immediately after it can recombine against
+#      it fresh).
+#   4. **Verified data floor, both directions, and a rare zero-vendoring
+#      module (checked, not assumed).** `grep -o 'surface: "[^"]*"'
+#      curriculum/m{1..33}.ts | sort -u | grep -iE
+#      "^banco$|^farmacia$|^hospital$|^correo$|^supermercado$"` returns
+#      zero hits for all five. All 5 target emoji (🏦💊🏥📮🏬) are grep-
+#      verified zero prior hits against every `emoji:` field in m1–m33
+#      (checked individually, including the two near-misses that matter:
+#      `mercado`'s own 🛒, m9 — `supermercado` deliberately targets 🏬
+#      instead, see below — and `estudiar`'s own 📚, m10 — `biblioteca`
+#      was considered and dropped for exactly this collision, see REJECTED
+#      WITHIN-DOMAIN below). Vendoring status checked file by file:
+#      `ls src/pub/noto-emoji/svg/ | grep -iE
+#      "^emoji_u(1f3e6|1f48a|1f3e5|1f4ee|1f3ec)"` returns all FIVE files
+#      already on disk (`emoji_u1f3e6.svg` 🏦, `emoji_u1f48a.svg` 💊,
+#      `emoji_u1f3e5.svg` 🏥, `emoji_u1f4ee.svg` 📮, `emoji_u1f3ec.svg` 🏬)
+#      — ZERO vendoring work this module, breaking m32's own one-vendoring-
+#      task precedent in the other direction (m30/m31 had zero, m32 had
+#      one, this module has zero again). Named explicitly, not assumed
+#      from m30/m31's streak.
+#
+# ── REJECTED WITHIN-DOMAIN: «biblioteca» (library) — the same emoji-
+#    collision trap m27/m30/m32 each already warned a future author
+#    against, now actually live for THIS domain ───────────────────────────
+# «biblioteca» is grep-verified fully unregistered and a natural sixth
+# "place in town" atom. Excluded deliberately: its only clean single-
+# referent emoji, 📚 (stack of books), is ALREADY «estudiar»'s (m10,
+# confirmed by reading `curriculum/m10.ts:31` — «estudiar» registers 📚 as
+# its own atom emoji). Reaching for it collides silently with a PRIOR
+# atom's image — the identical mistake m27's ☀️/🌞 trap, m30's own
+# REJECTED ALTERNATIVE 2 note, and m32's own «vestido»/👗 rejection all
+# warned a future author against. This module is that future author for
+# ITS OWN domain; the trap is named and paid down, not repeated.
+#
+# ── REJECTED WITHIN-DOMAIN: «oficina» (office) — real, virgin, but
+#    redundant against a PRIOR atom's own semantic territory ─────────────
+# `oficina` is grep-verified fully unregistered and has a clean, unspent
+# emoji (🏢, verified zero collision). Rejected anyway: `trabajo` (m9,
+# 💼) already covers "the place I have to go for work" in every sentence
+# this course has built so far ("voy al trabajo," "tengo que ir al
+# trabajo" both already fully legal PRIOR recombination with zero new
+# vocabulary) — adding `oficina` as a SEPARATE atom would teach a second
+# word for a concept `trabajo` already owns at this course's level, a
+# near-synonym distinction (workplace-in-general vs. a specific office
+# building) too fine-grained for an A2 "obligation to go somewhere"
+# lexicon break. Left open as real future content for a module that
+# actually needs the office/workplace distinction (e.g. a jobs/professions
+# module), not this one's job.
+#
+# ── REJECTED ALTERNATIVE 1: kitchen/tableware (plato, vaso, cuchara,
+#    tenedor, cuchillo, taza, olla, sartén, servilleta) ───────────────────
+# Genuinely, completely virgin — `grep -o 'surface: "[^"]*"'
+# curriculum/m{1..33}.ts | sort -u | grep -iE
+# "plato|vaso|cuchara|tenedor|cuchillo|taza|olla|sartén|servilleta"`
+# returns zero hits for all nine, the cleanest data floor of any candidate
+# considered. Rejected for m34 specifically on recombination grounds, not
+# viability: `tengo`/`necesito` give a bare-possession frame ("tengo un
+# plato"), but there is no clean tie to `voy a` + infinitivo (you don't
+# "go to" a fork), no tie to `duele`/`duelen` (a plate does not hurt), and
+# only a forced tie to `comprarlo`-family ("voy a comprarlo" needs a
+# SHOPPING DESTINATION noun to anchor the sentence, which this domain does
+# not supply on its own — it's a domain of objects, not places, and this
+# module specifically wanted a "somewhere to go" frame to ride m33's
+# obligation grammar while it's freshest). Errands/places reaches m16,
+# m28, m29 (indirectly, via `supermercado` as destination), m31, AND m33
+# — kitchen/tableware reaches only m16 directly. Left open as a strong,
+# well-scoped future break (a "setting the table" dialogue_sim writes
+# itself once this module exists).
+#
+# ── REJECTED ALTERNATIVE 2: transport (tren, coche, bicicleta, avión,
+#    barco, taxi, metro) ──────────────────────────────────────────────────
+# Also genuinely virgin (`autobús`/`carro` are the only PRIOR transport
+# words, m9/elsewhere; `tren`/`coche`/`bicicleta`/`avión`/`barco`/`taxi`/
+# `metro` are grep-verified zero hits). Rejected for m34 on two grounds:
+# (1) the natural verb this domain wants — "tomar el tren," "tomar el
+# autobús" — needs `tomar` (to take/catch), grep-verified NOT PRIOR
+# anywhere in m1–m33, a second new idea (a verb) competing with the
+# module's own "zero new grammar, ride PRIOR frames only" discipline the
+# task itself asked for; without `tomar`, the domain is stuck reusing
+# `voy en tren` (go BY train), a valid but noticeably thinner sentence
+# variety than "voy al banco"/"necesito ir a la farmacia." (2) weaker
+# recombination: no tie to `tengo que` + `ir` beyond the same thin `voy
+# en` frame, no tie to `duele`/`duelen`, no tie to `comprarlo`-family
+# (buying a mode of transport is not this course's beginner shopping
+# frame). Left open as real future content, cleanest once paired with a
+# `tomar` debut of its own.
+#
+# ── REJECTED ALTERNATIVE 3: house/rooms beyond m3/m4 (dormitorio, sala) ──
+# `cocina`/`baño` are BOTH already PRIOR (confirmed again here, matching
+# the task's own framing question) — only `dormitorio`/`sala`/`habitación`
+# are grep-verified virgin, TWO usable atoms at most (a third, `armario`,
+# collides with the identical furniture-emoji problem m30's own header
+# already priced out for the wider household domain). Two atoms is not
+# enough for a ten-lesson module on its own — the same "correctly resized
+# to a future recombination lesson inside another module" verdict m30's
+# header already reached for the wider household/furniture set, unchanged
+# and reconfirmed here for the rooms subset specifically.
+#
+# ── REJECTED ALTERNATIVE 4: school/office supplies beyond m5/m11
+#    (bolígrafo, cuaderno) ────────────────────────────────────────────────
+# `libro`/`mesa`/`silla`/`lápiz`/`mochila`/`papel` are ALL already PRIOR —
+# only `bolígrafo`/`cuaderno` are grep-verified virgin, again just TWO
+# atoms, the same under-sized-domain verdict as house/rooms above. Left
+# open as a recombination lesson inside a future module, not a module of
+# its own.
+#
+# ── REJECTED ALTERNATIVE 5: nature/outdoors (árbol, flor, sol, luna,
+#    estrella, montaña, río, lago, bosque, cielo) ─────────────────────────
+# Fully virgin (`grep -o 'surface: "[^"]*"' curriculum/m{1..33}.ts | sort
+# -u | grep -iE "árbol|flor|sol|luna|estrella|montaña|río|lago|bosque|
+# cielo"` returns zero hits for all ten — even `sol`, despite m27's own
+# weather module using the PHRASE "hace sol," never registers `sol` as its
+# own standalone atom, confirmed by direct read of `curriculum/m27.ts`).
+# Rejected for m34 because it shares NONE of errands/places' recombination
+# hooks: no `voy a`/`necesito ir a`/`tengo que ir a` obligation tie (you
+# don't have an obligation to go look at a tree), no `duele`/`duelen` tie,
+# no `comprarlo`-family tie. The weakest recombination story of any
+# candidate considered, despite the cleanest data floor. Left open as a
+# real, low-risk future break whenever the course wants a pure
+# description/scenery module with no dependency chain.
+#
+# ── THE «comprarlo»/«comprarla»/«comprarlos» FIT — READ BEFORE DRAFTING,
+#    the destination-not-object distinction (verified, not assumed) ──────
+# Unlike m32's clothing nouns (which WERE the direct object of `comprarlo`/
+# `comprarla`/`comprarlos`), none of this module's five nouns can
+# grammatically fill that slot — you cannot "comprarlo" a bank, pharmacy,
+# hospital, post office, or supermarket. The fused-clitic family still
+# reaches this module, correctly, through `supermercado` as the shopping
+# DESTINATION for an already-PRIOR object noun bought there: "necesito
+# leche (m11) — voy al supermercado a comprarla." Do not force a fused
+# clitic directly onto any of this module's own five atoms; that would be
+# a category error the gates will not catch (the surface itself is simply
+# never generated, not flagged), so this is a drafting-discipline note,
+# not a gate trap.
+#
+# ── THE «voy a» / «necesito» / «tengo que» THREE-FRAME RECOMBINATION —
+#    read before drafting any lesson ──────────────────────────────────────
+# Three independently PRIOR frames reach every one of this module's five
+# nouns with zero new grammar: (1) bare motion, m9 — «voy al banco» /
+# «vas a la farmacia» (simplest, best for L1–L5 debuts). (2) need + go,
+# m16 + m28 — «necesito ir al hospital» (uses `ir`, the bare infinitive
+# m28 already registered for exactly this "modal + infinitive" slot,
+# NEVER the conjugated `voy`/`va` after `necesito` — «necesito voy» is
+# ungrammatical). (3) obligation + go, m33 + m28 — «tengo que ir al
+# correo» (same `ir` infinitive, now after the freshest grammar this
+# course has). All three frames should appear across the module (see
+# lesson plan below); do not let (1) crowd out (2)/(3) — the whole point
+# of placing this break immediately after m33 is to recombine it while it
+# is freshest.
+#
+# ── ONE STRUCTURAL NOTE, NOT A NEW ATOM: «ir» after «necesito»/«tengo
+#    que», never a conjugated form ────────────────────────────────────────
+# `ir` (m28, bare infinitive) is the ONLY legal form after `necesito`/
+# `tengo que` in this module's own sentences — `voy`/`vas` (m9) are
+# CONJUGATED forms and may only follow a subject directly, never another
+# verb. A learner transfer error to guard against, structurally identical
+# to m33's own "dropped «que»" foil: reaching for *"necesito voy al banco"
+# or *"tengo que voy a la farmacia" (conjugating the second verb instead
+# of leaving it bare). This is not new content to teach from scratch —
+# m14's «puedo trabajar»/«quiero trabajar» and m28's own «voy a
+# trabajar» already established "the second verb never conjugates" as a
+# standing course rule — but it is the natural foil for this module's own
+# discrimination steps mixing `ir` in with five brand-new nouns. Include
+# at least one distractor of this shape in a mixed-review step (L6 or
+# L8), never as a correct answer.
+#
+# ── NO NEW EMOJI COLLISION; ZERO VENDORING TASKS (verified, not assumed)──
+# `grep -o 'emoji: "[^"]*"' curriculum/m{1..33}.ts | sort -u` — zero hits
+# for 🏦💊🏥📮🏬, checked individually, including the two near-misses that
+# matter (🛒 is already `mercado`'s, m9 — this module targets 🏬 for
+# `supermercado` instead, a visually distinct "department store" glyph;
+# 📚 is already `estudiar`'s, m10 — see the `biblioteca` rejection above).
+# `ls src/pub/noto-emoji/svg/` confirms all five target SVGs
+# (`emoji_u1f3e6.svg`, `emoji_u1f48a.svg`, `emoji_u1f3e5.svg`,
+# `emoji_u1f4ee.svg`, `emoji_u1f3ec.svg`) already present on disk. Zero
+# vendoring work this module — re-verify all five at ship time regardless
+# (a concurrent lane could in principle touch this directory).
+#
+# ── AGREEMENT IS NOT A NEW ATOM — ALL FIVE NOUNS REGULAR, PLURAL FOLD
+#    TRACED LINE-BY-LINE THIS TIME, NOT ASSUMED FROM THE GENERAL RULE ────
+# All five nouns are REGULAR and pluralize via the course-wide regular
+# inflection rule with ZERO exceptions — traced directly against
+# `esRegularPlurals()` (`moduleBarGuards.ts` ~166-174), not merely assumed
+# from precedent: `banco`/`correo`/`supermercado` end in a vowel → the
+# vowel→`+s` branch (`bancos`/`correos`/`supermercados`); `farmacia` same
+# branch (`farmacias`); `hospital` ends in a consonant that is neither
+# `z` nor `ón` → the consonant→`+es` branch (`hospitales`), the SAME
+# branch that already handles every other consonant-final noun this
+# course has registered. This resolves what m32's own header left
+# UNVERIFIED (whether the regular-plural canon fold "correctly derives" a
+# regular plural without special-casing) — it does, traced against the
+# actual function body this time, for all five of this module's nouns.
+# This fold applies ONLY to the bar-guard scope check (`looksSpanish` /
+# `lintFullSentenceMcqs`), per [[the m33 correction]] — NEVER to `atoms:`
+# credit, which stays zero-tolerance exact-surface (see Hard Rules below;
+# a plural sentence must still credit the registered SINGULAR surface,
+# e.g. «los bancos» credits `["banco"]`, never `["bancos"]`).
+#
+# ── SIM NPC-LINE PROVENANCE: LIVE AND UNFORGIVING — m29 IS THE START OF
+#    THE ZERO-LEGACY WINDOW, m34 IS WELL INSIDE IT ─────────────────────────
+# `esSimNpcProvenance.test.ts`'s `KNOWN_LEGACY` allowlist is SHRINK-ONLY
+# and scoped to m1-m10, m20, m22-m28 — m29 through this module get NO
+# reaction-word leniency (confirmed by direct read of the gate file's own
+# `KNOWN_LEGACY` object, current tail `m28: new Set([...])`, nothing for
+# m29+). Two words a drafting agent will be TEMPTED to reach for as NPC
+# filler are BOTH confirmed unregistered and NOT legacy-allowed for this
+# module: `algo` (only legacy-allowed at m7, `KNOWN_LEGACY.m7`, not usable
+# fresh here) and `pasa` (not legacy-allowed anywhere, grep-verified zero
+# hits as a registered surface course-wide — "¿qué pasa?" is NOT free
+# NPC filler for m34; do not use it). Every NPC word in this module's
+# dialogue_sim lessons must resolve to: this module's own 5 atoms, any
+# PRIOR atom (m1-m33), a taught verb conjugation, `ES_FUNCTION_WORDS`, or
+# `ES_PROPER_NAMES`. `ES_PROPER_NAMES` (`moduleBarGuards.ts` line 90) is:
+# ana, diego, carlos, maría/maria, sofía/sofia, luis, elena, pedro, juan,
+# rosa, miguel, carmen, lupita, jorge, marta — plus the learner persona
+# Sam (every sim reply speaks as Sam). Note for the record: `carlos` IS
+# in this set (confirmed by direct grep, `moduleBarGuards.ts:91`) — an
+# earlier assumption that "Carlos" is not an allowed NPC name does not
+# hold; `esTokens()` lowercases before matching (`moduleBarGuards.ts:64`),
+# so `Carlos`/`carlos` both resolve. Recent modules' own actually-used
+# cast (grep-verified against m28-m33's own `speaker:` fields): Ana (m30),
+# Diego (m28), Sofía (m28), Carmen (m31), Luis (m31) — Carlos is in the
+# allowed set but UNUSED so far; free to use, not a trap.
+#
+# ── ACCENT: TERRACOTTA/CLAY, VERIFIED UNUSED, THEMATICALLY RESTRAINED ────
+# Checked every `accent:` pair in `curriculum/index.ts` (grep-verified,
+# all 33 pairs read in full): zero hits for `#d97757` or `#92400e`.
+# Distinct from the four most recent modules specifically (m30 teal, m31
+# rose, m32 denim indigo, m33 warm graphite/stone) and from the three
+# existing orange/amber pairs already spent (`#f59e0b`→`#ea580c`,
+# `#f59e0b`→`#b45309`, `#f59e0b`→`#78350f`, `#fb923c`→`#c2410c`,
+# `#fb923c`→`#9a3412`) — checked side by side, this pair sits more
+# red-brown/clay than any of them, reading as "brick municipal buildings"
+# (bank, post office, hospital) without forcing a single-institution
+# metaphor onto a five-noun break, the same restraint every recent
+# module's own accent note has used.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # el banco — bank. Regular masculine noun; this module's own simplest
+  # «voy a» + place debut (L1).
+  - { surface: "banco", meaningEn: "bank", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🏦", hint: "el banco — regular masculine. «voy al banco» (m9's «voy» + «al»)." }
+  # la farmacia — pharmacy. Regular feminine noun; this module's own
+  # pain-frame (m31) recombination target alongside «hospital».
+  - { surface: "farmacia", meaningEn: "pharmacy", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "💊", hint: "la farmacia — regular feminine. «necesito ir a la farmacia» (m16's «necesito» + m28's «ir», never «necesito voy»)." }
+  # el hospital — hospital. Regular masculine noun despite the consonant
+  # ending (same pattern as «el hotel», not a new rule); this module's own
+  # flagship «tengo que» (m33) recombination target — the freshest grammar
+  # this course has.
+  - { surface: "hospital", meaningEn: "hospital", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🏥", hint: "el hospital — masculine, consonant ending (like «el hotel»). Regular plural «hospitales» (consonant → +es). «tengo que ir al hospital» (m33's «tengo que» + m28's «ir»)." }
+  # el correo — post office. Regular masculine noun.
+  - { surface: "correo", meaningEn: "post office", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "📮", hint: "el correo — regular masculine. «voy a ir al correo» (m28's «voy a» + infinitivo «ir», not «voy al correo a ir»)." }
+  # el supermercado — supermarket. Regular masculine noun; this module's
+  # own «comprarlo»-family (m29) recombination anchor — as a DESTINATION
+  # for an already-PRIOR shopping object, never as the fused clitic's own
+  # target (you cannot «comprarlo» a supermarket).
+  - { surface: "supermercado", meaningEn: "supermarket", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🏬", hint: "el supermercado — regular masculine. Not «mercado»'s 🛒 (m9) — a distinct building, distinct emoji. «necesito leche — voy al supermercado a comprarla» (m11's «leche» + m29's «comprarla»)." }
+
+lessons:
+  # ── L1 · «Voy al banco» / «Voy a la farmacia» — «banco» AND «farmacia»
+  #    both debut here, one masculine and one feminine, so the SAME
+  #    lesson can carry the module's one general rule card: «al» (a+el,
+  #    fused, masculine — m9) vs «a la» (two words, never fused,
+  #    feminine). Two image-MCQ debuts, non-adjacent, separated by
+  #    info/speakLit/buildLit/clozeLit — no gate bars two debuts in one
+  #    lesson (checked: m30/m32 both show 1-per-lesson by convention,
+  #    not by rule; ES_INTRO_TYPES has no per-lesson cap).
+  #    PRIOR context only: voy/vas/a/al/adónde (m9), necesito (m16),
+  #    ir (m28), puedo/tengo que (m14/m33 — reserved for later
+  #    lessons, NOT used here), nuevo/nueva (m12), también (m11),
+  #    mercado/tienda/escuela/playa (m9). No recall — first lesson of
+  #    the module.
+  - n: 1
+    template: free
+    title: "Voy al banco"
+    description: "Two new places, one rule: «al» (a+el, fused) for masculine «banco», «a la» (never fused) for feminine «farmacia» — the same pattern m9 taught, now with a second, unfused case to contrast it against."
+    steps:
+      - kind: map
+        id: l1-map-voyalbanco
+        tokens: ["voy", "al", "banco"]
+        pairs:
+          - { en: "I'm going", tokenIndex: 0 }
+          - { en: "to the", tokenIndex: 1 }
+          - { en: "bank", tokenIndex: 2 }
+        audioText: "voy al banco"
+        revealNote: "«al» = «a» + «el», fused — «banco» is masculine (m9's own rule, new noun)."
+      - kind: imageMcq
+        id: l1-im-banco
+        target: { surface: "banco", meaningEn: "bank", emoji: "🏦" }
+        distractors:
+          - { surface: "tienda", emoji: "🏪" }
+          - { surface: "escuela", emoji: "🏫" }
+          - { surface: "mercado", emoji: "🛒" }
+      - kind: info
+        id: l1-info-alvsala
+        title: "Al vs. a la"
+        body: "«al» = «a» + «el», fused, for masculine words: \"voy al banco\" (m9's rule). Feminine words never fuse — always two words, «a la»: \"voy a la farmacia\"."
+      - kind: speakLit
+        id: l1-sp-voyalbanco
+        es: "voy al banco"
+        en: "I'm going to the bank"
+        atoms: ["voy", "al", "banco"]
+      - kind: buildLit
+        id: l1-b-necesitoiralbanco
+        es: "necesito ir al banco"
+        en: "I need to go to the bank"
+        atoms: ["necesito", "ir", "al", "banco"]
+        tiles: ["voy", "tiene"]
+      - kind: clozeLit
+        id: l1-c-voyalbanco
+        es: "voy al banco"
+        en: "I'm going to the bank"
+        blank: "al"
+        options: ["al", "el"]
+        atoms: ["voy", "banco"]
+        why: "«banco» is masculine — «al» (fused «a» + «el»), never the bare «el» alone — you need the «a» too."
+      - kind: imageMcq
+        id: l1-im-farmacia
+        target: { surface: "farmacia", meaningEn: "pharmacy", emoji: "💊" }
+        distractors:
+          - { surface: "escuela", emoji: "🏫" }
+          - { surface: "playa", emoji: "🏖️" }
+          - { surface: "tienda", emoji: "🏪" }
+      - kind: listenCompLit
+        id: l1-lc-voyalafarmacia
+        es: "voy a la farmacia"
+        en: "I'm going to the pharmacy."
+        atoms: ["voy", "a", "la", "farmacia"]
+        distractorsEn:
+          - "I'm going to the bank."
+          - "I need to go to the pharmacy."
+          - "You're going to the pharmacy."
+      - kind: buildLit
+        id: l1-b-necesitoiralafarmacia
+        es: "necesito ir a la farmacia"
+        en: "I need to go to the pharmacy"
+        atoms: ["necesito", "ir", "a", "la", "farmacia"]
+        tiles: ["voy", "al"]
+      - kind: mcq
+        id: l1-q-voyalafarmacia
+        prompt: "Which one means 'I'm going to the pharmacy'?"
+        correct: "voy a la farmacia"
+        distractors: ["voy al farmacia", "voy a la banco", "voy el farmacia"]
+        atoms: ["voy", "farmacia"]
+        why: "«farmacia» is feminine — «a la», never «al» (that's for masculine words like «banco»)."
+      - kind: audioWimcq
+        id: l1-ear-mercado
+        target: { surface: "mercado", emoji: "🛒" }
+        distractors:
+          - { surface: "parque", emoji: "🌳" }
+          - { surface: "escuela", emoji: "🏫" }
+      - kind: agreementLit
+        id: l1-agr-banconuevofarmacianueva
+        en: "The bank is new, and the pharmacy is new too"
+        audioText: "el banco es nuevo, y la farmacia es nueva también"
+        atoms: ["banco", "nuevo", "farmacia"]
+        segments:
+          - { text: "el banco es " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l1-lb-necesitoiralbancoperopuedo
+        es: "necesito ir al banco, pero puedo ir a la farmacia mañana"
+        en: "I need to go to the bank, but I can go to the pharmacy tomorrow"
+        atoms: ["necesito", "ir", "al", "banco", "pero", "puedo", "farmacia", "mañana"]
+        tiles: ["voy", "tengo que"]
+      - kind: textMcq
+        id: l1-tm-banco
+        target: "banco"
+        distractors: ["blanco", "banca", "bando"]
+      - kind: sim
+        id: l1-sim-sofia-mandados
+        scene: { emoji: "🏦", title: "Sofía asks about your errands", setting: "Sofía runs into you on the street." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Adónde vas?", audioText: "¿adónde vas?", gloss: "Where are you going?" }
+            goal: "Say you're going to the bank."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "voy al banco" }
+                - { id: "wrong1", text: "voy a la banco" }
+                - { id: "wrong2", text: "voy el banco" }
+              correctOptionId: "right"
+              audioText: "voy al banco"
+            replyGloss: "I'm going to the bank."
+            explanation: "«banco» is masculine — «al», never «a la» or a bare «el» after «voy»."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Vas a la farmacia también?", audioText: "¿vas a la farmacia también?", gloss: "Are you going to the pharmacy too?" }
+            goal: "Say yes, you're going to the pharmacy too."
+            reply:
+              mode: build
+              tiles: ["sí", "voy", "a", "la", "farmacia", "también", "al", "el"]
+              answer: "sí voy a la farmacia también"
+            replyGloss: "Yes, I'm going to the pharmacy too."
+            explanation: "«farmacia» is feminine — «a la», never «al»."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "banco", target: "bank" }
+          - { source: "farmacia", target: "pharmacy" }
+          - { source: "voy", target: "I'm going" }
+          - { source: "al", target: "to the (masculine)" }
+          - { source: "necesito", target: "I need" }
+          - { source: "ir", target: "to go" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "necesito ir al banco, y voy a la farmacia también"
+        en: "I need to go to the bank, and I'm going to the pharmacy too"
+        atoms: ["necesito", "ir", "al", "banco", "voy", "a", "la", "farmacia", "también"]
+
+  # ── L2 · «Necesito ir al hospital» — «hospital» debuts: masculine,
+  #    consonant-ending (like «el hotel»), so still «al» — no new rule,
+  #    straight reuse of L1's «al» pattern on a third noun. Recombines
+  #    «necesito ir a» (m16's «necesito» + m28's «ir») for the first
+  #    time this module, plus «necesitas»/«necesita» (m16, already
+  #    registered — confirmed by grep, not a new atom). No info card —
+  #    same grammar point as L1, no new teaching content. PRIOR context
+  #    only: necesito/necesitas/necesita (m16), ir (m28), al (m9),
+  #    ahora (m9), pequeño (m6/m32), también (m11), hermana (m8),
+  #    pero/puedo (m18/m14), mañana (m8), banco/farmacia (this module,
+  #    L1), escuela/parque/playa (m9). One recall (L1's win line).
+  - n: 2
+    template: free
+    title: "Necesito ir al hospital"
+    description: "«hospital» — masculine, consonant-ending like «el hotel», so still «al» (m9's rule, same as «banco»). Recombining «necesito ir a» (m16 + m28) for the first time this module."
+    steps:
+      - kind: map
+        id: l2-map-necesitoiralhospital
+        tokens: ["necesito", "ir", "al", "hospital"]
+        pairs:
+          - { en: "I need", tokenIndex: 0 }
+          - { en: "to go", tokenIndex: 1 }
+          - { en: "to the", tokenIndex: 2 }
+          - { en: "hospital", tokenIndex: 3 }
+        audioText: "necesito ir al hospital"
+        revealNote: "«hospital» — masculine, consonant-ending (like «el hotel»). Still «al», not «a la»."
+      - kind: imageMcq
+        id: l2-im-hospital
+        target: { surface: "hospital", meaningEn: "hospital", emoji: "🏥" }
+        distractors:
+          - { surface: "banco", emoji: "🏦" }
+          - { surface: "farmacia", emoji: "💊" }
+          - { surface: "escuela", emoji: "🏫" }
+      - kind: speakLit
+        id: l2-sp-recall
+        es: "necesito ir al banco, y voy a la farmacia también"
+        en: "I need to go to the bank, and I'm going to the pharmacy too"
+        cue: recall
+        atoms: ["necesito", "ir", "al", "banco", "voy", "a", "la", "farmacia", "también"]
+      - kind: buildLit
+        id: l2-b-necesitoiralhospitalahora
+        es: "necesito ir al hospital ahora"
+        en: "I need to go to the hospital now"
+        atoms: ["necesito", "ir", "al", "hospital", "ahora"]
+        tiles: ["voy", "tengo que"]
+      - kind: clozeLit
+        id: l2-c-necesitoiralhospital
+        es: "necesito ir al hospital"
+        en: "I need to go to the hospital"
+        blank: "al"
+        options: ["al", "el"]
+        atoms: ["necesito", "ir", "hospital"]
+        why: "«hospital» is masculine — «al» (fused «a» + «el»), never the bare «el» alone."
+      - kind: listenCompLit
+        id: l2-lc-voyalhospitalahora
+        es: "voy al hospital ahora"
+        en: "I'm going to the hospital now."
+        atoms: ["voy", "al", "hospital", "ahora"]
+        distractorsEn:
+          - "I'm going to the bank now."
+          - "I need to go to the hospital now."
+          - "You're going to the hospital now."
+      - kind: mcq
+        id: l2-q-necesitoiralhospital
+        prompt: "Which one correctly says 'to the hospital'?"
+        correct: "al hospital"
+        distractors: ["a la hospital", "el hospital", "a el hospital"]
+        atoms: ["al", "hospital"]
+        why: "«hospital» is masculine — «al» (fused), never «a la», a bare «el», or the unfused «a el»."
+      - kind: buildLit
+        id: l2-b-voyalhospitalperonecesitofarmacia
+        es: "voy al hospital, pero necesito ir a la farmacia también"
+        en: "I'm going to the hospital, but I need to go to the pharmacy too"
+        atoms: ["voy", "al", "hospital", "pero", "necesito", "ir", "a", "la", "farmacia", "también"]
+        tiles: ["tengo que", "puedo"]
+      - kind: audioWimcq
+        id: l2-ear-escuela
+        target: { surface: "escuela", emoji: "🏫" }
+        distractors:
+          - { surface: "parque", emoji: "🌳" }
+          - { surface: "playa", emoji: "🏖️" }
+      - kind: agreementLit
+        id: l2-agr-hospitalpequenofarmaciapequena
+        en: "The hospital is small, and the pharmacy is small too"
+        audioText: "el hospital es pequeño, y la farmacia es pequeña también"
+        atoms: ["hospital", "pequeño", "farmacia"]
+        segments:
+          - { text: "el hospital es " }
+          - { blank: { id: "p1", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "pequeño"] } }
+      - kind: listenBuildLit
+        id: l2-lb-necesitoiralhospitalperopuedo
+        es: "necesito ir al hospital, pero puedo ir mañana"
+        en: "I need to go to the hospital, but I can go tomorrow"
+        atoms: ["necesito", "ir", "al", "hospital", "pero", "puedo", "mañana"]
+        tiles: ["voy", "tengo que"]
+      - kind: textMcq
+        id: l2-tm-hospital
+        target: "hospital"
+        distractors: ["hostal", "hostil", "hospitalidad"]
+      - kind: sim
+        id: l2-sim-diego-hospital
+        scene: { emoji: "🏥", title: "Diego worries about you", setting: "Diego notices you don't look well." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Necesitas ir al hospital?", audioText: "¿necesitas ir al hospital?", gloss: "Do you need to go to the hospital?" }
+            goal: "Say yes, you need to go there."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, necesito ir al hospital" }
+                - { id: "wrong1", text: "sí, necesito ir a la hospital" }
+                - { id: "wrong2", text: "sí, necesitas ir al hospital" }
+              correctOptionId: "right"
+              audioText: "sí, necesito ir al hospital"
+            replyGloss: "Yes, I need to go to the hospital."
+            explanation: "«hospital» is masculine — «al». And «necesito», not «necesitas» — that's asking about you, not answering for yourself."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y tu hermana? ¿Necesita ir también?", audioText: "¿y tu hermana? ¿necesita ir también?", gloss: "And your sister? Does she need to go too?" }
+            goal: "Say yes, she needs to go too."
+            reply:
+              mode: build
+              tiles: ["sí", "necesita", "ir", "también", "necesito", "tú"]
+              answer: "sí necesita ir también"
+            replyGloss: "Yes, she needs to go too."
+            explanation: "«necesita» — about her, not yourself («necesito»)."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "hospital", target: "hospital" }
+          - { source: "necesito", target: "I need" }
+          - { source: "necesitas", target: "you need" }
+          - { source: "necesita", target: "he/she needs" }
+          - { source: "ir", target: "to go" }
+          - { source: "ahora", target: "now" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "necesito ir al hospital ahora"
+        en: "I need to go to the hospital now"
+        atoms: ["necesito", "ir", "al", "hospital", "ahora"]
+
+  # ── L3 · «Voy al correo» — «correo» debuts: masculine, regular
+  #    vowel-ending. Carries the module's gender-discrimination card,
+  #    pulling all three nouns taught so far (banco/hospital masc,
+  #    farmacia fem) into one drill — the point being there's no
+  #    shortcut from the word's ending («hospital» is masculine despite
+  #    the consonant, exactly like m9's «el hotel»). Also introduces
+  #    «voy a» + infinitive («voy a ir al correo» — m28's near-future
+  #    marker, not the destination «voy al»/«voy a la») as a deliberate
+  #    near-collision: same «voy a», two different jobs. PRIOR context
+  #    only: voy/al/a (m9), ir (m28), necesito/necesitas (m16), pero/
+  #    puedo (m18/m14), también (m11), mañana (m8), y (m1), banco/
+  #    hospital/farmacia (this module, L1-L2), playa/mercado/tienda
+  #    (m9). One recall (L2's win line).
+  - n: 3
+    template: free
+    title: "Voy al correo"
+    description: "«correo» — masculine, regular. And a deliberate near-collision: «voy a» + infinitive (\"I'm going to go\", m28's future marker) vs «voy al»/«voy a la» + place (destination) — same «voy a», two different jobs."
+    steps:
+      - kind: map
+        id: l3-map-voyalcorreo
+        tokens: ["voy", "al", "correo"]
+        pairs:
+          - { en: "I'm going", tokenIndex: 0 }
+          - { en: "to the", tokenIndex: 1 }
+          - { en: "post office", tokenIndex: 2 }
+        audioText: "voy al correo"
+        revealNote: "«correo» — masculine, regular. «al», like «banco» and «hospital»."
+      - kind: imageMcq
+        id: l3-im-correo
+        target: { surface: "correo", meaningEn: "post office", emoji: "📮" }
+        distractors:
+          - { surface: "banco", emoji: "🏦" }
+          - { surface: "hospital", emoji: "🏥" }
+          - { surface: "farmacia", emoji: "💊" }
+      - kind: info
+        id: l3-info-generodiscriminacion
+        title: "Masculine or feminine — no shortcut from the ending"
+        body: "«el banco», «el hospital», «el correo» — all masculine → «al». «la farmacia» — feminine → «a la». «hospital» ends in a consonant but is still masculine — the ending is never a reliable shortcut."
+      - kind: speakLit
+        id: l3-sp-recall
+        es: "necesito ir al hospital ahora"
+        en: "I need to go to the hospital now"
+        cue: recall
+        atoms: ["necesito", "ir", "al", "hospital", "ahora"]
+      - kind: buildLit
+        id: l3-b-voyairalcorreo
+        es: "voy a ir al correo"
+        en: "I'm going to go to the post office"
+        atoms: ["voy", "a", "ir", "al", "correo"]
+        tiles: ["necesito", "tengo que"]
+      - kind: clozeLit
+        id: l3-c-voyalcorreo
+        es: "voy al correo"
+        en: "I'm going to the post office"
+        blank: "al"
+        options: ["al", "el"]
+        atoms: ["voy", "correo"]
+        why: "«correo» is masculine — «al» (fused «a» + «el»), never the bare «el» alone."
+      - kind: listenCompLit
+        id: l3-lc-voyairalcorreomanana
+        es: "voy a ir al correo mañana"
+        en: "I'm going to go to the post office tomorrow."
+        atoms: ["voy", "a", "ir", "al", "correo", "mañana"]
+        distractorsEn:
+          - "I'm going to the post office tomorrow."
+          - "I need to go to the post office tomorrow."
+          - "I'm going to go to the bank tomorrow."
+      - kind: mcq
+        id: l3-q-voyalcorreo
+        prompt: "Which one means 'I'm going to the post office'?"
+        correct: "voy al correo"
+        distractors: ["voy a la correo", "voy el correo", "voy a correo"]
+        atoms: ["voy", "correo"]
+        why: "«correo» is masculine — «al». Never drop the article: «voy a correo» is ungrammatical."
+      - kind: buildLit
+        id: l3-b-voyalcorreoynecesitobanco
+        es: "voy al correo, y necesito ir al banco también"
+        en: "I'm going to the post office, and I need to go to the bank too"
+        atoms: ["voy", "al", "correo", "y", "necesito", "ir", "banco", "también"]
+        tiles: ["tengo que", "puedo"]
+      - kind: audioWimcq
+        id: l3-ear-playa
+        target: { surface: "playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "mercado", emoji: "🛒" }
+          - { surface: "tienda", emoji: "🏪" }
+      - kind: agreementLit
+        id: l3-agr-correonuevofarmacianueva
+        en: "The post office is new, and the pharmacy is new too"
+        audioText: "el correo es nuevo, y la farmacia es nueva también"
+        atoms: ["correo", "nuevo", "farmacia"]
+        segments:
+          - { text: "el correo es " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l3-lb-necesitoiralcorreoperopuedo
+        es: "necesito ir al correo, pero puedo ir mañana"
+        en: "I need to go to the post office, but I can go tomorrow"
+        atoms: ["necesito", "ir", "al", "correo", "pero", "puedo", "mañana"]
+        tiles: ["voy", "tengo que"]
+      - kind: textMcq
+        id: l3-tm-correo
+        target: "correo"
+        distractors: ["correr", "corro", "coreo"]
+      - kind: sim
+        id: l3-sim-carmen-mandados
+        scene: { emoji: "📮", title: "Carmen is running errands too", setting: "Carmen sees you leaving the house." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Vas a ir al correo?", audioText: "¿vas a ir al correo?", gloss: "Are you going to go to the post office?" }
+            goal: "Say yes, you're going to go there."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, voy a ir al correo" }
+                - { id: "wrong1", text: "sí, voy al correo a ir" }
+                - { id: "wrong2", text: "sí, voy a la correo" }
+              correctOptionId: "right"
+              audioText: "sí, voy a ir al correo"
+            replyGloss: "Yes, I'm going to go there."
+            explanation: "«voy a» plus the infinitive («ir»), then the place: «al correo» — not «voy al correo a ir»."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Y el hospital? ¿Necesitas ir también?", audioText: "¿y el hospital? ¿necesitas ir también?", gloss: "And the hospital? Do you need to go too?" }
+            goal: "Say yes, you need to go too."
+            reply:
+              mode: build
+              tiles: ["sí", "necesito", "ir", "también", "al", "hospital", "voy"]
+              answer: "sí necesito ir al hospital también"
+            replyGloss: "Yes, I need to go to the hospital too."
+            explanation: "«necesito ir al hospital» — «hospital» is masculine, «al»."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "correo", target: "post office" }
+          - { source: "banco", target: "bank" }
+          - { source: "hospital", target: "hospital" }
+          - { source: "farmacia", target: "pharmacy" }
+          - { source: "al", target: "to the (masculine)" }
+          - { source: "ir", target: "to go" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "voy a ir al correo, y necesito ir al banco también"
+        en: "I'm going to go to the post office, and I need to go to the bank too"
+        atoms: ["voy", "a", "ir", "al", "correo", "necesito", "banco", "también"]
+
+  # ── L4 · «Necesito leche — voy al supermercado a comprarla» —
+  #    «supermercado» debuts: masculine, regular, and deliberately
+  #    NOT «mercado» (m9, 🛒) — a different, bigger building, its own
+  #    emoji (🏬), no collision (confirmed against all 33 prior
+  #    modules). First use this module of the comprarlo-family fused
+  #    clitic (m29): «leche» (m7, feminine) as the destination-object
+  #    pairing, «comprarla» referring back to it. PRIOR context only:
+  #    leche (m7, NOT m11 — corrected by grep; m11 only recombines it),
+  #    comprar/comprarla/comprarlo (m12/m29), necesito/necesitas (m16),
+  #    voy/al (m9), ir/a (m28/m9), pero/puedo (m18/m14), también (m11),
+  #    mañana (m8), mercado/tienda/escuela/parque (m9), farmacia/
+  #    hospital/correo (this module). One recall (L3's win line).
+  - n: 4
+    template: free
+    title: "Necesito leche — voy al supermercado"
+    description: "«supermercado» — masculine, regular, and NOT «mercado» (m9) — a different, bigger place, its own emoji. First pairing with the comprarlo-family (m29): «necesito leche — voy al supermercado a comprarla»."
+    steps:
+      - kind: map
+        id: l4-map-voyalsupermercado
+        tokens: ["voy", "al", "supermercado"]
+        pairs:
+          - { en: "I'm going", tokenIndex: 0 }
+          - { en: "to the", tokenIndex: 1 }
+          - { en: "supermarket", tokenIndex: 2 }
+        audioText: "voy al supermercado"
+        revealNote: "«supermercado» — masculine, regular. Not «mercado» (m9) — a bigger, different place."
+      - kind: imageMcq
+        id: l4-im-supermercado
+        target: { surface: "supermercado", meaningEn: "supermarket", emoji: "🏬" }
+        distractors:
+          - { surface: "mercado", emoji: "🛒" }
+          - { surface: "tienda", emoji: "🏪" }
+          - { surface: "banco", emoji: "🏦" }
+      - kind: info
+        id: l4-info-supermercadovsmercado
+        title: "Supermercado ≠ mercado"
+        body: "«supermercado» 🏬 — a bigger, different place than «mercado» 🛒 (m9). Same idea, different building, different emoji — don't confuse them."
+      - kind: speakLit
+        id: l4-sp-recall
+        es: "voy a ir al correo, y necesito ir al banco también"
+        en: "I'm going to go to the post office, and I need to go to the bank too"
+        cue: recall
+        atoms: ["voy", "a", "ir", "al", "correo", "necesito", "banco", "también"]
+      - kind: buildLit
+        id: l4-b-necesitoleche
+        es: "necesito leche"
+        en: "I need milk"
+        atoms: ["necesito", "leche"]
+        tiles: ["voy", "tengo"]
+      - kind: clozeLit
+        id: l4-c-voyalsupermercado
+        es: "voy al supermercado"
+        en: "I'm going to the supermarket"
+        blank: "al"
+        options: ["al", "el"]
+        atoms: ["voy", "supermercado"]
+        why: "«supermercado» is masculine — «al» (fused «a» + «el»), never the bare «el» alone."
+      - kind: listenCompLit
+        id: l4-lc-voyalsupermercadoacomprarleche
+        es: "voy al supermercado a comprar leche"
+        en: "I'm going to the supermarket to buy milk."
+        atoms: ["voy", "al", "supermercado", "a", "comprar", "leche"]
+        distractorsEn:
+          - "I'm going to the bank to buy milk."
+          - "I need to buy milk."
+          - "I'm going to the pharmacy to buy milk."
+      - kind: mcq
+        id: l4-q-necesitoleche
+        prompt: "Which one means 'I need milk'?"
+        correct: "necesito leche"
+        distractors: ["necesito la leche", "tengo leche", "voy leche"]
+        atoms: ["necesito", "leche"]
+        why: "«necesito» takes no article before «leche» — and «voy» needs «a»/«al» before a place, never a bare noun."
+      - kind: buildLit
+        id: l4-b-necesitolechevoyalsupermercadoacomprarla
+        es: "necesito leche — voy al supermercado a comprarla"
+        en: "I need milk — I'm going to the supermarket to buy it"
+        atoms: ["necesito", "leche", "voy", "al", "supermercado", "a", "comprarla"]
+        tiles: ["comprarlo", "tengo que"]
+      - kind: audioWimcq
+        id: l4-ear-tienda
+        target: { surface: "tienda", emoji: "🏪" }
+        distractors:
+          - { surface: "escuela", emoji: "🏫" }
+          - { surface: "parque", emoji: "🌳" }
+      - kind: agreementLit
+        id: l4-agr-supermercadonuevofarmacianueva
+        en: "The supermarket is new, and the pharmacy is new too"
+        audioText: "el supermercado es nuevo, y la farmacia es nueva también"
+        atoms: ["supermercado", "nuevo", "farmacia"]
+        segments:
+          - { text: "el supermercado es " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l4-lb-necesitolecheperopuedoiralsupermercado
+        es: "necesito leche, pero puedo ir al supermercado mañana"
+        en: "I need milk, but I can go to the supermarket tomorrow"
+        atoms: ["necesito", "leche", "pero", "puedo", "ir", "al", "supermercado", "mañana"]
+        tiles: ["voy", "tengo que"]
+      - kind: textMcq
+        id: l4-tm-supermercado
+        target: "supermercado"
+        distractors: ["mercado", "supermercados", "supermercada"]
+      - kind: sim
+        id: l4-sim-luis-compras
+        scene: { emoji: "🏬", title: "Luis asks about groceries", setting: "Luis is making a grocery list." }
+        turns:
+          - id: t1
+            npc: { speaker: "Luis", es: "¿Necesitas leche?", audioText: "¿necesitas leche?", gloss: "Do you need milk?" }
+            goal: "Say yes, you need milk."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, necesito leche" }
+                - { id: "wrong1", text: "sí, necesito la leche" }
+                - { id: "wrong2", text: "sí, necesitas leche" }
+              correctOptionId: "right"
+              audioText: "sí, necesito leche"
+            replyGloss: "Yes, I need milk."
+            explanation: "«necesito», not «necesitas» — that's asking about you. And no article before «leche»."
+          - id: t2
+            npc: { speaker: "Luis", es: "¿Vas al supermercado a comprarla?", audioText: "¿vas al supermercado a comprarla?", gloss: "Are you going to the supermarket to buy it?" }
+            goal: "Say yes, going there to buy it."
+            reply:
+              mode: build
+              tiles: ["sí", "voy", "al", "supermercado", "a", "comprarla", "comprarlo"]
+              answer: "sí voy al supermercado a comprarla"
+            replyGloss: "Yes, I'm going to the supermarket to buy it."
+            explanation: "«comprarla» — «la» refers back to «leche» (feminine), fused onto «comprar» (m29)."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "supermercado", target: "supermarket" }
+          - { source: "mercado", target: "market" }
+          - { source: "leche", target: "milk" }
+          - { source: "comprarla", target: "to buy it (her)" }
+          - { source: "necesito", target: "I need" }
+          - { source: "voy", target: "I'm going" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "necesito leche — voy al supermercado a comprarla"
+        en: "I need milk — I'm going to the supermarket to buy it"
+        atoms: ["necesito", "leche", "voy", "al", "supermercado", "a", "comprarla"]
+
+  # ── L5 · «Voy al banco, a la farmacia, y al supermercado» — no new
+  #    atoms. Pure cumulative recombination of all five nouns debuted
+  #    L1-L4, discrimination-heavy (masc «al» × banco/hospital/correo/
+  #    supermercado vs fem «a la» × farmacia, tested against each
+  #    other, not just against m9's old set). No info card — nothing
+  #    new to teach, just density. PRIOR context only: voy/al/a (m9),
+  #    necesito/necesitas (m16), ir (m28), pero/puedo (m18/m14),
+  #    también (m11), mañana/hoy (m8/m9), leche (m7), y (m1), viejo
+  #    (m32), all five of this module's nouns (L1-L4). One recall
+  #    (L4's win line).
+  - n: 5
+    template: free
+    title: "Voy al banco, a la farmacia, y al supermercado"
+    description: "An errand-day sentence, all five places at once — pure recombination, no new words. «al» for banco/hospital/correo/supermercado (masculine), «a la» for farmacia (feminine)."
+    steps:
+      - kind: map
+        id: l5-map-voyalbancoyalafarmacia
+        tokens: ["voy", "al", "banco", "y", "a", "la", "farmacia"]
+        pairs:
+          - { en: "I'm going", tokenIndex: 0 }
+          - { en: "to the", tokenIndex: 1 }
+          - { en: "bank", tokenIndex: 2 }
+          - { en: "and", tokenIndex: 3 }
+          - { en: "to", tokenIndex: 4 }
+          - { en: "the", tokenIndex: 5 }
+          - { en: "pharmacy", tokenIndex: 6 }
+        audioText: "voy al banco y a la farmacia"
+        revealNote: "Cumulative recombination — «al» for masculine «banco», «a la» for feminine «farmacia» (this module, L1-L4)."
+      - kind: speakLit
+        id: l5-sp-recall
+        es: "necesito leche — voy al supermercado a comprarla"
+        en: "I need milk — I'm going to the supermarket to buy it"
+        cue: recall
+        atoms: ["necesito", "leche", "voy", "al", "supermercado", "a", "comprarla"]
+      - kind: buildLit
+        id: l5-b-voyalhospitalyalcorreo
+        es: "voy al hospital y al correo hoy"
+        en: "I'm going to the hospital and the post office today"
+        atoms: ["voy", "al", "hospital", "y", "correo", "hoy"]
+        tiles: ["necesito", "tengo que"]
+      - kind: clozeLit
+        id: l5-c-necesitoiralcorreo
+        es: "necesito ir al correo"
+        en: "I need to go to the post office"
+        blank: "al"
+        options: ["al", "el"]
+        atoms: ["necesito", "ir", "correo"]
+        why: "«correo» is masculine — «al» (fused «a» + «el»), never the bare «el» alone."
+      - kind: listenCompLit
+        id: l5-lc-voyalbanconecesitofarmacia
+        es: "voy al banco, y necesito ir a la farmacia también"
+        en: "I'm going to the bank, and I need to go to the pharmacy too."
+        atoms: ["voy", "al", "banco", "y", "necesito", "ir", "a", "la", "farmacia", "también"]
+        distractorsEn:
+          - "I'm going to the pharmacy, and I need to go to the bank too."
+          - "I'm going to the bank, and I need to go to the hospital too."
+          - "I need to go to the bank, and I'm going to the pharmacy too."
+      - kind: mcq
+        id: l5-q-voyalhospitalyalcorreo
+        prompt: "Which one correctly says 'to the post office'?"
+        correct: "al correo"
+        distractors: ["a la correo", "el correo", "a el correo"]
+        atoms: ["al", "correo"]
+        why: "«correo» is masculine — «al» (fused), never «a la», a bare «el», or the unfused «a el»."
+      - kind: buildLit
+        id: l5-b-necesitoiralbancoytambienvoyalsupermercado
+        es: "necesito ir al banco, y también voy al supermercado"
+        en: "I need to go to the bank, and I'm also going to the supermarket"
+        atoms: ["necesito", "ir", "al", "banco", "y", "también", "voy", "supermercado"]
+        tiles: ["puedo", "tengo que"]
+      - kind: audioWimcq
+        id: l5-ear-banco
+        target: { surface: "banco", emoji: "🏦" }
+        distractors:
+          - { surface: "correo", emoji: "📮" }
+          - { surface: "hospital", emoji: "🏥" }
+      - kind: agreementLit
+        id: l5-agr-correoviejofarmaciavieja
+        en: "The post office is old, and the pharmacy is old too"
+        audioText: "el correo es viejo, y la farmacia es vieja también"
+        atoms: ["correo", "viejo", "farmacia"]
+        segments:
+          - { text: "el correo es " }
+          - { blank: { id: "p1", answer: "viejo", options: ["viejo", "vieja"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "vieja", options: ["vieja", "viejo"] } }
+      - kind: listenBuildLit
+        id: l5-lb-voyalbancoperopuedoiralcorreo
+        es: "voy al banco, pero puedo ir al correo mañana"
+        en: "I'm going to the bank, but I can go to the post office tomorrow"
+        atoms: ["voy", "al", "banco", "pero", "puedo", "ir", "correo", "mañana"]
+        tiles: ["necesito", "tengo que"]
+      - kind: textMcq
+        id: l5-tm-farmacia
+        target: "farmacia"
+        distractors: ["fábrica", "familia", "farmacéutico"]
+      - kind: sim
+        id: l5-sim-sam-mandados
+        scene: { emoji: "🚶", title: "Sam checks your errand list", setting: "Sam wants to know your plan for today." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sam", es: "¿Adónde vas hoy?", audioText: "¿adónde vas hoy?", gloss: "Where are you going today?" }
+            goal: "Say you're going to the bank, then pharmacy."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "voy al banco, y a la farmacia" }
+                - { id: "wrong1", text: "voy a la banco, y al farmacia" }
+                - { id: "wrong2", text: "voy al banco, y al farmacia" }
+              correctOptionId: "right"
+              audioText: "voy al banco, y a la farmacia"
+            replyGloss: "I'm going to the bank, and the pharmacy."
+            explanation: "«banco» masculine → «al»; «farmacia» feminine → «a la» — never swapped."
+          - id: t2
+            npc: { speaker: "Sam", es: "¿Y necesitas ir al supermercado también?", audioText: "¿y necesitas ir al supermercado también?", gloss: "And do you need to go to the supermarket too?" }
+            goal: "Say yes, you need milk."
+            reply:
+              mode: build
+              tiles: ["sí", "necesito", "leche", "también", "voy", "tengo que"]
+              answer: "sí necesito leche también"
+            replyGloss: "Yes, I need milk too."
+            explanation: "«necesito leche» — the reason you're headed to the supermarket."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "banco", target: "bank" }
+          - { source: "farmacia", target: "pharmacy" }
+          - { source: "hospital", target: "hospital" }
+          - { source: "correo", target: "post office" }
+          - { source: "supermercado", target: "supermarket" }
+          - { source: "al", target: "to the (masculine)" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "voy al banco, a la farmacia, y al supermercado"
+        en: "I'm going to the bank, the pharmacy, and the supermarket"
+        atoms: ["voy", "al", "banco", "a", "la", "farmacia", "supermercado"]
+
+  # ── L6 · «Tengo que ir al hospital» — no new atoms. Third frame
+  #    joins the module's recombination set: «voy a» (going, m9),
+  #    «necesito ir a» (need to go, m16+m28), «tengo que ir a» (have
+  #    to go, m33+m28) — one info card contrasting all three, the
+  #    module's second (only L1 and this lesson carry one). The
+  #    "never conjugate the second verb" foil («tengo que voy»)
+  #    appears ONLY as a wrong option — in the cloze distractor and the
+  #    sim's wrong replies — never as a correct answer anywhere. PRIOR
+  #    context only: tengo que (m33), ir (m28), voy/al/a (m9),
+  #    necesito (m16), pero/puedo (m18/m14), también/y (m11/m1),
+  #    mañana (m8), viejo (m32), all five nouns (this module, L1-L4).
+  #    One recall (L5's win line).
+  - n: 6
+    template: free
+    title: "Tengo que ir al hospital"
+    description: "«tengo que ir a» — the third frame: «voy a» (going, m9), «necesito ir a» (need to go, m16+m28), «tengo que ir a» (have to go, m33+m28). After «tengo que», the second verb stays bare: «ir», never the conjugated «voy»."
+    steps:
+      - kind: map
+        id: l6-map-tengoqueiralhospital
+        tokens: ["tengo que", "ir", "al", "hospital"]
+        pairs:
+          - { en: "I have to", tokenIndex: 0 }
+          - { en: "go", tokenIndex: 1 }
+          - { en: "to the", tokenIndex: 2 }
+          - { en: "hospital", tokenIndex: 3 }
+        audioText: "tengo que ir al hospital"
+        revealNote: "«tengo que» (m33) + «ir» (m28) — the infinitive stays bare after «tengo que», never «voy»."
+      - kind: info
+        id: l6-info-tresmarcos
+        title: "Voy a / necesito ir a / tengo que ir a"
+        body: "«voy al banco» = going (m9). «necesito ir a la farmacia» = need to go (m16+m28). «tengo que ir al hospital» = have to go (m33+m28). Three frames, same destinations."
+      - kind: speakLit
+        id: l6-sp-recall
+        es: "voy al banco, a la farmacia, y al supermercado"
+        en: "I'm going to the bank, the pharmacy, and the supermarket"
+        cue: recall
+        atoms: ["voy", "al", "banco", "a", "la", "farmacia", "supermercado"]
+      - kind: buildLit
+        id: l6-b-tengoqueiralhospital
+        es: "tengo que ir al hospital"
+        en: "I have to go to the hospital"
+        atoms: ["tengo que", "ir", "al", "hospital"]
+        tiles: ["voy", "necesito"]
+      - kind: clozeLit
+        id: l6-c-tengoqueiralcorreo
+        es: "tengo que ir al correo"
+        en: "I have to go to the post office"
+        blank: "ir"
+        options: ["ir", "voy"]
+        atoms: ["tengo que", "correo"]
+        why: "After «tengo que», the second verb stays a bare infinitive: «ir», never the conjugated «voy»."
+      - kind: listenCompLit
+        id: l6-lc-tengoqueiralsupermercado
+        es: "tengo que ir al supermercado"
+        en: "I have to go to the supermarket."
+        atoms: ["tengo que", "ir", "al", "supermercado"]
+        distractorsEn:
+          - "I want to go to the supermarket."
+          - "I have to go to the bank."
+          - "I need to go to the supermarket."
+      - kind: mcq
+        id: l6-q-tengoqueiralcorreo
+        prompt: "Which one correctly follows 'tengo que' with the bare infinitive?"
+        correct: "tengo que ir"
+        distractors: ["tengo que voy", "tengo ir", "que tengo ir"]
+        atoms: ["tengo que", "ir"]
+        why: "After «tengo que», the second verb stays bare — never the conjugated «voy». Never drop «que»: «tengo ir» is ungrammatical."
+      - kind: buildLit
+        id: l6-b-tengoqueiralafarmaciaperopuedo
+        es: "tengo que ir a la farmacia, pero puedo ir mañana"
+        en: "I have to go to the pharmacy, but I can go tomorrow"
+        atoms: ["tengo que", "ir", "a", "la", "farmacia", "pero", "puedo", "mañana"]
+        tiles: ["voy", "necesito"]
+      - kind: audioWimcq
+        id: l6-ear-hospital
+        target: { surface: "hospital", emoji: "🏥" }
+        distractors:
+          - { surface: "supermercado", emoji: "🏬" }
+          - { surface: "farmacia", emoji: "💊" }
+      - kind: agreementLit
+        id: l6-agr-hospitalviejofarmaciavieja
+        en: "The hospital is old, and the pharmacy is old too"
+        audioText: "el hospital es viejo, y la farmacia es vieja también"
+        atoms: ["hospital", "viejo", "farmacia"]
+        segments:
+          - { text: "el hospital es " }
+          - { blank: { id: "p1", answer: "viejo", options: ["viejo", "vieja"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "vieja", options: ["vieja", "viejo"] } }
+      - kind: listenBuildLit
+        id: l6-lb-tengoqueiralbancoytambiennecesito
+        es: "tengo que ir al banco, y también necesito ir a la farmacia"
+        en: "I have to go to the bank, and I also need to go to the pharmacy"
+        atoms: ["tengo que", "ir", "al", "banco", "y", "también", "necesito", "a", "la", "farmacia"]
+        tiles: ["voy", "puedo"]
+      - kind: textMcq
+        id: l6-tm-tengo
+        target: "tengo"
+        distractors: ["vengo", "pongo", "tenga"]
+      - kind: sim
+        id: l6-sim-ana-obligaciones
+        scene: { emoji: "🏥", title: "Ana checks on your day", setting: "Ana wants to know what you have to do." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes que ir al hospital hoy?", audioText: "¿tienes que ir al hospital hoy?", gloss: "Do you have to go to the hospital today?" }
+            goal: "Say yes, you have to go there."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo que ir al hospital" }
+                - { id: "wrong1", text: "sí, tengo que voy al hospital" }
+                - { id: "wrong2", text: "sí, tengo ir al hospital" }
+              correctOptionId: "right"
+              audioText: "sí, tengo que ir al hospital"
+            replyGloss: "Yes, I have to go to the hospital."
+            explanation: "After «tengo que», the second verb stays bare — never «voy». And never drop «que»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y el correo? ¿Tienes que ir también?", audioText: "¿y el correo? ¿tienes que ir también?", gloss: "And the post office? Do you have to go too?" }
+            goal: "Say yes, you have to go too."
+            reply:
+              mode: build
+              tiles: ["sí", "tengo", "que", "ir", "también", "voy", "al"]
+              answer: "sí tengo que ir también"
+            replyGloss: "Yes, I have to go too."
+            explanation: "«tengo que ir» — the bare infinitive stays «ir», not «voy»."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "tengo que", target: "I have to" }
+          - { source: "ir", target: "to go" }
+          - { source: "voy", target: "I'm going" }
+          - { source: "necesito", target: "I need" }
+          - { source: "hospital", target: "hospital" }
+          - { source: "correo", target: "post office" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "tengo que ir al hospital, y también necesito ir a la farmacia"
+        en: "I have to go to the hospital, and I also need to go to the pharmacy"
+        atoms: ["tengo que", "ir", "al", "hospital", "también", "necesito", "a", "la", "farmacia"]
+
+  # ── L7 · «Necesito ir a la farmacia y al correo» — no new atoms.
+  #    The dedicated dialogue_sim lesson: a 3-turn errand conversation
+  #    (Diego tags along) touching four of the module's five nouns.
+  #    No info card — pure recombination + a richer sim. PRIOR context
+  #    only: necesito/necesitas (m16), ir (m28), tengo que (m33), voy/
+  #    al/a (m9), pero/puedo (m18/m14), también/y (m11/m1), mañana
+  #    (m8), pequeño (m6/m32), comprar/comprarla (m12/m29), leche (m7),
+  #    all five nouns (this module, L1-L4). One recall (L6's win line).
+  - n: 7
+    template: free
+    title: "Necesito ir a la farmacia y al correo"
+    description: "An errand-day conversation — Diego tags along. All three frames (voy a / necesito ir a / tengo que ir a) and four of the module's five places, in one dialogue."
+    steps:
+      - kind: map
+        id: l7-map-necesitoiralafarmaciayalcorreo
+        tokens: ["necesito", "ir", "a", "la", "farmacia", "y", "al", "correo"]
+        pairs:
+          - { en: "I need", tokenIndex: 0 }
+          - { en: "to go", tokenIndex: 1 }
+          - { en: "to", tokenIndex: 2 }
+          - { en: "the", tokenIndex: 3 }
+          - { en: "pharmacy", tokenIndex: 4 }
+          - { en: "and", tokenIndex: 5 }
+          - { en: "to the", tokenIndex: 6 }
+          - { en: "post office", tokenIndex: 7 }
+        audioText: "necesito ir a la farmacia y al correo"
+        revealNote: "«a la» for feminine «farmacia», «al» for masculine «correo» — same sentence, both patterns."
+      - kind: speakLit
+        id: l7-sp-recall
+        es: "tengo que ir al hospital, y también necesito ir a la farmacia"
+        en: "I have to go to the hospital, and I also need to go to the pharmacy"
+        cue: recall
+        atoms: ["tengo que", "ir", "al", "hospital", "también", "necesito", "a", "la", "farmacia"]
+      - kind: buildLit
+        id: l7-b-voyalsupermercadoytengoqueiralbanco
+        es: "voy al supermercado, y tengo que ir al banco"
+        en: "I'm going to the supermarket, and I have to go to the bank"
+        atoms: ["voy", "al", "supermercado", "y", "tengo que", "ir", "banco"]
+        tiles: ["necesito", "puedo"]
+      - kind: clozeLit
+        id: l7-c-necesitoiralafarmacia
+        es: "necesito ir a la farmacia"
+        en: "I need to go to the pharmacy"
+        blank: "la"
+        options: ["la", "el"]
+        atoms: ["necesito", "ir", "farmacia"]
+        why: "«farmacia» is feminine — «la», not «el»."
+      - kind: listenCompLit
+        id: l7-lc-tengoqueiralhospitalperopuedo
+        es: "tengo que ir al hospital, pero puedo ir al correo mañana"
+        en: "I have to go to the hospital, but I can go to the post office tomorrow."
+        atoms: ["tengo que", "ir", "al", "hospital", "pero", "puedo", "correo", "mañana"]
+        distractorsEn:
+          - "I have to go to the hospital, but I can go to the bank tomorrow."
+          - "I want to go to the hospital, but I can go to the post office tomorrow."
+          - "I have to go to the post office, but I can go to the hospital tomorrow."
+      - kind: mcq
+        id: l7-q-necesitoiralafarmaciayalcorreo
+        prompt: "Which one correctly says 'to the pharmacy'?"
+        correct: "a la farmacia"
+        distractors: ["al farmacia", "a el farmacia", "la farmacia"]
+        atoms: ["a", "la", "farmacia"]
+        why: "«farmacia» is feminine — «a la» (two words, never fused), never «al» or a bare «la» without «a»."
+      - kind: buildLit
+        id: l7-b-voyalbancoperotambiennecesitosupermercado
+        es: "voy al banco, pero también necesito ir al supermercado"
+        en: "I'm going to the bank, but I also need to go to the supermarket"
+        atoms: ["voy", "al", "banco", "pero", "también", "necesito", "ir", "supermercado"]
+        tiles: ["tengo que", "puedo"]
+      - kind: audioWimcq
+        id: l7-ear-correo
+        target: { surface: "correo", emoji: "📮" }
+        distractors:
+          - { surface: "farmacia", emoji: "💊" }
+          - { surface: "supermercado", emoji: "🏬" }
+      - kind: agreementLit
+        id: l7-agr-supermercadopequenofarmaciapequena
+        en: "The supermarket is small, and the pharmacy is small too"
+        audioText: "el supermercado es pequeño, y la farmacia es pequeña también"
+        atoms: ["supermercado", "pequeño", "farmacia"]
+        segments:
+          - { text: "el supermercado es " }
+          - { blank: { id: "p1", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "pequeño"] } }
+      - kind: listenBuildLit
+        id: l7-lb-tengoqueiralcorreoynecesitobanco
+        es: "tengo que ir al correo, y necesito ir al banco también"
+        en: "I have to go to the post office, and I need to go to the bank too"
+        atoms: ["tengo que", "ir", "al", "correo", "y", "necesito", "banco", "también"]
+        tiles: ["voy", "puedo"]
+      - kind: textMcq
+        id: l7-tm-necesito
+        target: "necesito"
+        distractors: ["necesita", "necesitas", "necesitar"]
+      - kind: sim
+        id: l7-sim-diego-mandados
+        scene: { emoji: "🗺️", title: "Diego wants to tag along", setting: "Diego offers to join your errands." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Necesitas ir a la farmacia?", audioText: "¿necesitas ir a la farmacia?", gloss: "Do you need to go to the pharmacy?" }
+            goal: "Say yes, and also to the post office."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, y también al correo" }
+                - { id: "wrong1", text: "sí, y también a la correo" }
+                - { id: "wrong2", text: "sí, y también voy correo" }
+              correctOptionId: "right"
+              audioText: "sí, y también al correo"
+            replyGloss: "Yes, and also to the post office."
+            explanation: "«correo» is masculine — «al», never «a la», and never drop the article."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Vas al banco también?", audioText: "¿vas al banco también?", gloss: "Are you going to the bank too?" }
+            goal: "Say yes, you're going there too."
+            reply:
+              mode: build
+              tiles: ["sí", "voy", "al", "banco", "también", "tengo", "que"]
+              answer: "sí voy al banco también"
+            replyGloss: "Yes, I'm going there too."
+            explanation: "«voy al banco» — «banco» is masculine, «al»."
+          - id: t3
+            npc: { speaker: "Diego", es: "¿Y el supermercado? ¿Vas a comprar leche?", audioText: "¿y el supermercado? ¿vas a comprar leche?", gloss: "And the supermarket? Are you going to buy milk?" }
+            goal: "Say yes, going to buy it."
+            reply:
+              mode: build
+              tiles: ["sí", "voy", "a", "comprarla", "también", "comprarlo"]
+              answer: "sí voy a comprarla también"
+            replyGloss: "Yes, I'm going to buy it too."
+            explanation: "«comprarla» — «la» refers back to «leche» (feminine)."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "farmacia", target: "pharmacy" }
+          - { source: "correo", target: "post office" }
+          - { source: "banco", target: "bank" }
+          - { source: "supermercado", target: "supermarket" }
+          - { source: "necesito", target: "I need" }
+          - { source: "tengo que", target: "I have to" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "necesito ir a la farmacia y al correo"
+        en: "I need to go to the pharmacy and the post office"
+        atoms: ["necesito", "ir", "a", "la", "farmacia", "y", "al", "correo"]
+
+  # ── L8 · Checkpoint — all graded, no map/info (mirrors m30-L8/m31-L8/
+  #    m32-L8/m33-L8's own checkpoint shape). Pure recombination of
+  #    L1-L7: all five nouns, all three frames (voy a / necesito ir a /
+  #    tengo que ir a), the dropped-article and dropped-«que» foils in
+  #    the MCQ/cloze/sim. Two recalls, drawn from different earlier
+  #    lessons' win lines (L7 and L1). Ends sim → matchLit → speakLit-
+  #    win, same closing shape as every other lesson. Win line is a
+  #    five-noun "grand tour" sentence — the module's cumulative peak
+  #    before L9's dedicated pain-frame lesson and L10's mastery.
+  - n: 8
+    template: free
+    title: "Checkpoint: el día de mandados"
+    description: "Everything so far, recombined — all five places, all three frames («voy a» / «necesito ir a» / «tengo que ir a»), no new words."
+    steps:
+      - kind: speakLit
+        id: l8-sp-recall-l7win
+        es: "necesito ir a la farmacia y al correo"
+        en: "I need to go to the pharmacy and the post office"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-tengoqueiralbancoytambienvoy
+        es: "tengo que ir al banco, y también voy al supermercado"
+        en: "I have to go to the bank, and I'm also going to the supermarket"
+        atoms: ["tengo que", "ir", "al", "banco", "y", "también", "voy", "supermercado"]
+        tiles: ["necesito", "puedo"]
+      - kind: clozeLit
+        id: l8-c-voyalafarmacia
+        es: "voy a la farmacia"
+        en: "I'm going to the pharmacy"
+        blank: "la"
+        options: ["la", "el"]
+        atoms: ["voy", "farmacia"]
+        why: "«farmacia» is feminine — «la», not «el»."
+      - kind: listenCompLit
+        id: l8-lc-necesitoiralcorreoytengoquehospital
+        es: "necesito ir al correo, y tengo que ir al hospital"
+        en: "I need to go to the post office, and I have to go to the hospital."
+        atoms: ["necesito", "ir", "al", "correo", "y", "tengo que", "hospital"]
+        distractorsEn:
+          - "I need to go to the hospital, and I have to go to the post office."
+          - "I want to go to the post office, and I have to go to the hospital."
+          - "I need to go to the post office, and I can go to the hospital."
+      - kind: mcq
+        id: l8-q-voyalsupermercado
+        prompt: "Which one means 'I'm going to the supermarket'?"
+        correct: "voy al supermercado"
+        distractors: ["voy a la supermercado", "voy el supermercado", "necesito supermercado"]
+        atoms: ["voy", "supermercado"]
+        why: "«supermercado» is masculine — «al». Never drop the article."
+      - kind: speakLit
+        id: l8-sp-recall-l1win
+        es: "necesito ir al banco, y voy a la farmacia también"
+        en: "I need to go to the bank, and I'm going to the pharmacy too"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-necesitoiralafarmaciaytengoquebanco
+        es: "necesito ir a la farmacia, y tengo que ir al banco también"
+        en: "I need to go to the pharmacy, and I also have to go to the bank"
+        atoms: ["necesito", "ir", "a", "la", "farmacia", "y", "tengo que", "banco", "también"]
+        tiles: ["voy", "puedo"]
+      - kind: audioWimcq
+        id: l8-ear-farmacia
+        target: { surface: "farmacia", emoji: "💊" }
+        distractors:
+          - { surface: "banco", emoji: "🏦" }
+          - { surface: "correo", emoji: "📮" }
+      - kind: agreementLit
+        id: l8-agr-bancopequenofarmaciapequena
+        en: "The bank is small, and the pharmacy is small too"
+        audioText: "el banco es pequeño, y la farmacia es pequeña también"
+        atoms: ["banco", "pequeño", "farmacia"]
+        segments:
+          - { text: "el banco es " }
+          - { blank: { id: "p1", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "pequeño"] } }
+      - kind: listenBuildLit
+        id: l8-lb-voyalcorreoperotengoquehospital
+        es: "voy al correo, pero tengo que ir al hospital mañana"
+        en: "I'm going to the post office, but I have to go to the hospital tomorrow"
+        atoms: ["voy", "al", "correo", "pero", "tengo que", "ir", "hospital", "mañana"]
+        tiles: ["necesito", "puedo"]
+      - kind: textMcq
+        id: l8-tm-banco
+        target: "banco"
+        distractors: ["blanco", "banca", "bando"]
+      - kind: sim
+        id: l8-sim-checkpoint
+        scene: { emoji: "🏁", title: "Checkpoint check-in", setting: "Carmen checks in on all your errands today." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Tienes que ir al hospital hoy?", audioText: "¿tienes que ir al hospital hoy?", gloss: "Do you have to go to the hospital today?" }
+            goal: "Say yes, you have to go there."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo que ir al hospital" }
+                - { id: "wrong1", text: "sí, tengo que voy al hospital" }
+                - { id: "wrong2", text: "sí, tengo ir al hospital" }
+              correctOptionId: "right"
+              audioText: "sí, tengo que ir al hospital"
+            replyGloss: "Yes, I have to go to the hospital."
+            explanation: "After «tengo que», the second verb stays bare — never «voy». And never drop «que»."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Y necesitas leche del supermercado?", audioText: "¿y necesitas leche del supermercado?", gloss: "And do you need milk from the supermarket?" }
+            goal: "Say yes, you need milk."
+            reply:
+              mode: build
+              tiles: ["sí", "necesito", "leche", "también", "voy", "tengo"]
+              answer: "sí necesito leche también"
+            replyGloss: "Yes, I need milk too."
+            explanation: "«necesito leche» — the reason for the supermarket trip."
+      - kind: matchLit
+        id: l8-match
+        pairs:
+          - { source: "banco", target: "bank" }
+          - { source: "farmacia", target: "pharmacy" }
+          - { source: "hospital", target: "hospital" }
+          - { source: "correo", target: "post office" }
+          - { source: "supermercado", target: "supermarket" }
+          - { source: "tengo que", target: "I have to" }
+      - kind: speakLit
+        id: l8-sp-win
+        es: "hoy necesito ir al banco, a la farmacia, al hospital, al correo, y al supermercado"
+        en: "Today I need to go to the bank, the pharmacy, the hospital, the post office, and the supermarket"
+        atoms: ["hoy", "necesito", "ir", "al", "banco", "a", "la", "farmacia", "hospital", "correo", "supermercado"]
+
+  # ── L9 · «Me duele la mano — tengo que ir al hospital» — pain
+  #    (m31's «duele»/«duelen») chained with «tengo que ir a» (m33,
+  #    this module) for the first time. No new atoms, but a genuinely
+  #    new PATTERN (pain forces the trip) earns this module's fourth
+  #    usage-note card, mirroring the m31-L9/m32-L9 "dedicated
+  #    contrast" precedent. Body nouns are m30 (mano/pie/brazo/pierna/
+  #    ojo/boca/nariz). One recall of L8's win line.
+  - n: 9
+    template: free
+    title: "Me duele la mano"
+    description: "Two frames you already know — «me duele/duelen» (m31) and «tengo que ir a» (m33) — chained into one sentence: name the pain, then name where it sends you."
+    steps:
+      - kind: map
+        id: l9-map-meduelelamano
+        tokens: ["me", "duele", "la", "mano"]
+        pairs:
+          - { en: "to me", tokenIndex: 0 }
+          - { en: "hurts", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "hand", tokenIndex: 3 }
+        audioText: "me duele la mano"
+        revealNote: "«duele» (m31) — the body part is the subject. Next: what you do about it."
+      - kind: info
+        id: l9-info-painplusplace
+        title: "Pain + place — chaining two frames"
+        body: "«me duele la mano» (m31) and «tengo que ir a» (m33) chain into one sentence: «me duele la mano — tengo que ir al hospital». Pain that won't wait — «tengo que», not «voy» or «necesito»."
+      - kind: speakLit
+        id: l9-sp-recall
+        es: "hoy necesito ir al banco, a la farmacia, al hospital, al correo, y al supermercado"
+        en: "Today I need to go to the bank, the pharmacy, the hospital, the post office, and the supermarket"
+        cue: recall
+        atoms: ["hoy", "necesito", "ir", "al", "banco", "a", "la", "farmacia", "hospital", "correo", "supermercado"]
+      - kind: buildLit
+        id: l9-b-meduelelamanotengoquehospital
+        es: "me duele la mano — tengo que ir al hospital"
+        en: "My hand hurts — I have to go to the hospital"
+        atoms: ["me", "duele", "mano", "tengo que", "ir", "al", "hospital"]
+        tiles: ["duelen", "necesito"]
+      - kind: clozeLit
+        id: l9-c-meduelenlaspiernas
+        es: "me duelen las piernas"
+        en: "My legs hurt"
+        blank: "duelen"
+        options: ["duelen", "duele"]
+        atoms: ["me", "duelen", "pierna"]
+        why: "«las piernas» — plural — takes «duelen», not «duele»."
+      - kind: listenCompLit
+        id: l9-lc-meduelelbrazotengoquehospital
+        es: "me duele el brazo, y tengo que ir al hospital"
+        en: "My arm hurts, and I have to go to the hospital."
+        atoms: ["me", "duele", "brazo", "y", "tengo que", "ir", "al", "hospital"]
+        distractorsEn:
+          - "My leg hurts, and I have to go to the hospital."
+          - "My arm hurts, and I need to go to the hospital."
+          - "My arms hurt, and I have to go to the hospital."
+      - kind: mcq
+        id: l9-q-meduelenlosojos
+        prompt: "Which one means 'hurt' for «los ojos» (plural, about you)?"
+        correct: "me duelen"
+        distractors: ["me duele", "te duelen", "le duelen"]
+        atoms: ["me", "duelen"]
+        why: "«los ojos» is plural — «duelen», not «duele». And it's «me» (about you), not «te»/«le»."
+      - kind: buildLit
+        id: l9-b-meduelelapiernanecesitofarmacia
+        es: "me duele la pierna — necesito ir a la farmacia"
+        en: "My leg hurts — I need to go to the pharmacy"
+        atoms: ["me", "duele", "pierna", "necesito", "ir", "a", "la", "farmacia"]
+        tiles: ["tengo que", "duelen"]
+      - kind: audioWimcq
+        id: l9-ear-pie
+        target: { surface: "pie", emoji: "🦶" }
+        distractors:
+          - { surface: "mano", emoji: "✋" }
+          - { surface: "brazo", emoji: "💪" }
+      - kind: agreementLit
+        id: l9-agr-hospitalpequenofarmaciapequena
+        en: "The hospital is small, and the pharmacy is small too"
+        audioText: "el hospital es pequeño, y la farmacia es pequeña también"
+        atoms: ["hospital", "pequeño", "farmacia"]
+        segments:
+          - { text: "el hospital es " }
+          - { blank: { id: "p1", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "pequeño"] } }
+      - kind: listenBuildLit
+        id: l9-lb-meduelelojoperopuedofarmacia
+        es: "me duele el ojo, pero puedo ir a la farmacia mañana"
+        en: "My eye hurts, but I can go to the pharmacy tomorrow"
+        atoms: ["me", "duele", "ojo", "pero", "puedo", "ir", "a", "la", "farmacia", "mañana"]
+        tiles: ["tengo que", "necesito"]
+      - kind: textMcq
+        id: l9-tm-duele
+        target: "duele"
+        distractors: ["duelen", "duelo", "dueles"]
+      - kind: sim
+        id: l9-sim-sofia-dolor
+        scene: { emoji: "🤕", title: "Sofía notices you wincing", setting: "Sofía sees you holding your hand." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Te duele la mano?", audioText: "¿te duele la mano?", gloss: "Does your hand hurt?" }
+            goal: "Say yes, hand hurts, must go there."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me duele la mano — tengo que ir al hospital" }
+                - { id: "wrong1", text: "sí, te duele la mano — tengo que ir al hospital" }
+                - { id: "wrong2", text: "sí, me duele la mano — tengo que voy al hospital" }
+              correctOptionId: "right"
+              audioText: "sí, me duele la mano — tengo que ir al hospital"
+            replyGloss: "Yes, my hand hurts — I have to go to the hospital."
+            explanation: "«me», not «te» — it's about you. After «tengo que», the second verb stays bare: «ir», never «voy»."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y los ojos? ¿Necesitas ir a la farmacia?", audioText: "¿y los ojos? ¿necesitas ir a la farmacia?", gloss: "And your eyes? Do you need to go to the pharmacy?" }
+            goal: "Say yes, eyes hurt too, need to go."
+            reply:
+              mode: build
+              tiles: ["sí", "me", "duelen", "los", "ojos", "necesito", "ir", "también", "duele"]
+              answer: "sí me duelen los ojos necesito ir también"
+            replyGloss: "Yes, my eyes hurt too — I need to go."
+            explanation: "«los ojos» is plural, so «duelen», not «duele»."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "duele", target: "hurts (one thing)" }
+          - { source: "duelen", target: "hurt (more than one)" }
+          - { source: "mano", target: "hand" }
+          - { source: "ojo", target: "eye" }
+          - { source: "tengo que", target: "I have to" }
+          - { source: "hospital", target: "hospital" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "me duele la mano — tengo que ir al hospital"
+        en: "My hand hurts — I have to go to the hospital"
+        atoms: ["me", "duele", "mano", "tengo que", "ir", "al", "hospital"]
+
+  # ── L10 · Mastery — all graded, no map/info (mirrors m33-L10/m32-L10's
+  #    own mastery shape: no trailing speakLit-win after sim). Recombines
+  #    every strand of the module — all five nouns, all three frames
+  #    (voy a / necesito ir a / tengo que ir a), m31's duele/duelen paired
+  #    with hospital/farmacia, and m29's fused clitic «comprarla» paired
+  #    with «leche» (m7) and «supermercado» (this module). Two recalls
+  #    (L9 and L4 win lines, different lessons, neither recalled together
+  #    before). Full-sentence MCQ is legal here only (inv 28, L10 mastery
+  #    exemption). LAST step is the sim — no matchLit/speakLit after it.
+  - n: 10
+    template: free
+    title: "Mastery: el día de mandados"
+    description: "Every strand, one last time — all five places, all three frames, pain sending you to the hospital or the pharmacy, and a supermarket errand, all in one pass."
+    steps:
+      - kind: speakLit
+        id: l10-sp-recall-l9win
+        es: "me duele la mano — tengo que ir al hospital"
+        en: "My hand hurts — I have to go to the hospital"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l10-b-meduelelpieperotengoquesupermercado
+        es: "me duele el pie, pero tengo que ir al supermercado hoy"
+        en: "My foot hurts, but I have to go to the supermarket today"
+        atoms: ["me", "duele", "pie", "pero", "tengo que", "ir", "al", "supermercado", "hoy"]
+        tiles: ["duelen", "necesito"]
+      - kind: clozeLit
+        id: l10-c-necesitolechevoyalsupermercadocomprarla
+        es: "necesito leche — voy al supermercado a comprarla"
+        en: "I need milk — I'm going to the supermarket to buy it"
+        blank: "comprarla"
+        options: ["comprarla", "comprarlo"]
+        atoms: ["necesito", "leche", "voy", "al", "supermercado", "a", "comprarla"]
+        why: "«la» refers back to «leche» (feminine) — «comprarla», not «comprarlo»."
+      - kind: listenCompLit
+        id: l10-lc-tengoqueiralcorreoperopuedobanco
+        es: "tengo que ir al correo, pero puedo ir al banco mañana"
+        en: "I have to go to the post office, but I can go to the bank tomorrow."
+        atoms: ["tengo que", "ir", "al", "correo", "pero", "puedo", "banco", "mañana"]
+        distractorsEn:
+          - "I have to go to the bank, but I can go to the post office tomorrow."
+          - "I want to go to the post office, but I can go to the bank tomorrow."
+          - "I have to go to the post office, but I have to go to the bank tomorrow."
+      - kind: mcq
+        id: l10-q-meduelenlosojosmastery
+        prompt: "Which one means 'My eyes hurt — I have to go to the hospital, and I also need to go to the pharmacy'?"
+        correct: "me duelen los ojos — tengo que ir al hospital, y también necesito ir a la farmacia"
+        distractors: ["me duele los ojos — tengo que ir al hospital, y también necesito ir a la farmacia", "me duelen los ojos — tengo que voy al hospital, y también necesito ir a la farmacia", "me duelen los ojos — tengo que ir al hospital, y también necesito ir al farmacia"]
+        atoms: ["me", "duelen", "ojo", "tengo que", "ir", "al", "hospital", "también", "necesito", "a", "la", "farmacia"]
+        why: "«los ojos» is plural — «duelen». After «tengo que», the infinitive stays bare — never «voy». And «farmacia» is feminine — «a la», never «al»."
+      - kind: speakLit
+        id: l10-sp-recall-l4win
+        es: "necesito leche — voy al supermercado a comprarla"
+        en: "I need milk — I'm going to the supermarket to buy it"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l10-b-voyalbancotengoquecorreo
+        es: "voy al banco, y tengo que ir al correo también"
+        en: "I'm going to the bank, and I also have to go to the post office"
+        atoms: ["voy", "al", "banco", "y", "tengo que", "ir", "correo", "también"]
+        tiles: ["necesito", "duele"]
+      - kind: audioWimcq
+        id: l10-ear-hospital
+        target: { surface: "hospital", emoji: "🏥" }
+        distractors:
+          - { surface: "banco", emoji: "🏦" }
+          - { surface: "correo", emoji: "📮" }
+      - kind: agreementLit
+        id: l10-agr-correonuevofarmacianueva
+        en: "The post office is new, and the pharmacy is new too"
+        audioText: "el correo es nuevo, y la farmacia es nueva también"
+        atoms: ["correo", "nuevo", "farmacia"]
+        segments:
+          - { text: "el correo es " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l10-lb-necesitoiralhospitalperoduelepierna
+        es: "necesito ir al hospital, pero me duele la pierna"
+        en: "I need to go to the hospital, but my leg hurts"
+        atoms: ["necesito", "ir", "al", "hospital", "pero", "me", "duele", "pierna"]
+        tiles: ["tengo que", "voy"]
+      - kind: textMcq
+        id: l10-tm-correo
+        target: "correo"
+        distractors: ["correr", "corro", "correa"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "banco", target: "bank" }
+          - { source: "farmacia", target: "pharmacy" }
+          - { source: "hospital", target: "hospital" }
+          - { source: "correo", target: "post office" }
+          - { source: "supermercado", target: "supermarket" }
+          - { source: "comprarla", target: "to buy it (her)" }
+      - kind: sim
+        id: l10-sim-luis-mastery
+        scene: { emoji: "🛒", title: "One last errand day", setting: "Luis checks in before the weekend." }
+        turns:
+          - id: t1
+            npc: { speaker: "Luis", es: "¿Te duele el pie? ¿Tienes que ir al hospital?", audioText: "¿te duele el pie? ¿tienes que ir al hospital?", gloss: "Does your foot hurt? Do you have to go to the hospital?" }
+            goal: "Say yes, foot hurts, must go."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me duele el pie — tengo que ir al hospital" }
+                - { id: "wrong1", text: "sí, me duelen el pie — tengo que ir al hospital" }
+                - { id: "wrong2", text: "sí, me duele el pie — tengo que voy al hospital" }
+              correctOptionId: "right"
+              audioText: "sí, me duele el pie — tengo que ir al hospital"
+            replyGloss: "Yes, my foot hurts — I have to go to the hospital."
+            explanation: "«el pie» is singular, so «duele», not «duelen». The bare infinitive stays «ir» after «tengo que»."
+          - id: t2
+            npc: { speaker: "Luis", es: "¿Y vas a ir al supermercado también, a comprar leche?", audioText: "¿y vas a ir al supermercado también, a comprar leche?", gloss: "And are you also going to the supermarket, to buy milk?" }
+            goal: "Say yes, going to buy it."
+            reply:
+              mode: build
+              tiles: ["sí", "voy", "a", "comprarla", "también", "comprarlo"]
+              answer: "sí voy a comprarla también"
+            replyGloss: "Yes, I'm going to buy it too."
+            explanation: "«comprarla» — «la» refers back to «leche» (feminine)."
+
+placement:
+  screener:
+    - id: "es-m34-scr-1"
+      prompt: "'I'm going to the bank.' — which one?"
+      correct: "voy al banco"
+      distractors: ["voy a la banco", "voy el banco", "necesito banco"]
+  byModule:
+    - id: "es-m34-pl-1"
+      prompt: "I'm going to the bank."
+      correct: "voy al banco"
+      distractors: ["voy a la banco", "voy el banco", "necesito banco"]
+    - id: "es-m34-pl-2"
+      prompt: "I need to go to the pharmacy."
+      correct: "necesito ir a la farmacia"
+      distractors: ["necesito ir al farmacia", "necesito ir la farmacia", "voy ir a la farmacia"]
+    - id: "es-m34-pl-3"
+      prompt: "I have to go to the hospital."
+      correct: "tengo que ir al hospital"
+      distractors: ["tengo que ir a la hospital", "tengo que ir hospital", "tengo ir al hospital"]
+    - id: "es-m34-pl-4"
+      prompt: "I'm going to the post office."
+      correct: "voy al correo"
+      distractors: ["voy a la correo", "voy el correo", "necesito al correo"]
+    - id: "es-m34-pl-5"
+      prompt: "I need milk — I'm going to the supermarket."
+      correct: "necesito leche, voy al supermercado"
+      distractors: ["necesito leche, voy a la supermercado", "necesito leche, voy el supermercado", "necesito leche, tengo supermercado"]

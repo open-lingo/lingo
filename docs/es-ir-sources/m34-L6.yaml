@@ -1,0 +1,139 @@
+  # ── L6 · «Tengo que ir al hospital» — no new atoms. Third frame
+  #    joins the module's recombination set: «voy a» (going, m9),
+  #    «necesito ir a» (need to go, m16+m28), «tengo que ir a» (have
+  #    to go, m33+m28) — one info card contrasting all three, the
+  #    module's second (only L1 and this lesson carry one). The
+  #    "never conjugate the second verb" foil («tengo que voy»)
+  #    appears ONLY as a wrong option — in the cloze distractor and the
+  #    sim's wrong replies — never as a correct answer anywhere. PRIOR
+  #    context only: tengo que (m33), ir (m28), voy/al/a (m9),
+  #    necesito (m16), pero/puedo (m18/m14), también/y (m11/m1),
+  #    mañana (m8), viejo (m32), all five nouns (this module, L1-L4).
+  #    One recall (L5's win line).
+  - n: 6
+    template: free
+    title: "Tengo que ir al hospital"
+    description: "«tengo que ir a» — the third frame: «voy a» (going, m9), «necesito ir a» (need to go, m16+m28), «tengo que ir a» (have to go, m33+m28). After «tengo que», the second verb stays bare: «ir», never the conjugated «voy»."
+    steps:
+      - kind: map
+        id: l6-map-tengoqueiralhospital
+        tokens: ["tengo que", "ir", "al", "hospital"]
+        pairs:
+          - { en: "I have to", tokenIndex: 0 }
+          - { en: "go", tokenIndex: 1 }
+          - { en: "to the", tokenIndex: 2 }
+          - { en: "hospital", tokenIndex: 3 }
+        audioText: "tengo que ir al hospital"
+        revealNote: "«tengo que» (m33) + «ir» (m28) — the infinitive stays bare after «tengo que», never «voy»."
+      - kind: info
+        id: l6-info-tresmarcos
+        title: "Voy a / necesito ir a / tengo que ir a"
+        body: "«voy al banco» = going (m9). «necesito ir a la farmacia» = need to go (m16+m28). «tengo que ir al hospital» = have to go (m33+m28). Three frames, same destinations."
+      - kind: speakLit
+        id: l6-sp-recall
+        es: "voy al banco, a la farmacia, y al supermercado"
+        en: "I'm going to the bank, the pharmacy, and the supermarket"
+        cue: recall
+        atoms: ["voy", "al", "banco", "a", "la", "farmacia", "supermercado"]
+      - kind: buildLit
+        id: l6-b-tengoqueiralhospital
+        es: "tengo que ir al hospital"
+        en: "I have to go to the hospital"
+        atoms: ["tengo que", "ir", "al", "hospital"]
+        tiles: ["voy", "necesito"]
+      - kind: clozeLit
+        id: l6-c-tengoqueiralcorreo
+        es: "tengo que ir al correo"
+        en: "I have to go to the post office"
+        blank: "ir"
+        options: ["ir", "voy"]
+        atoms: ["tengo que", "correo"]
+        why: "After «tengo que», the second verb stays a bare infinitive: «ir», never the conjugated «voy»."
+      - kind: listenCompLit
+        id: l6-lc-tengoqueiralsupermercado
+        es: "tengo que ir al supermercado"
+        en: "I have to go to the supermarket."
+        atoms: ["tengo que", "ir", "al", "supermercado"]
+        distractorsEn:
+          - "I want to go to the supermarket."
+          - "I have to go to the bank."
+          - "I need to go to the supermarket."
+      - kind: mcq
+        id: l6-q-tengoqueiralcorreo
+        prompt: "Which one correctly follows 'tengo que' with the bare infinitive?"
+        correct: "tengo que ir"
+        distractors: ["tengo que voy", "tengo ir", "que tengo ir"]
+        atoms: ["tengo que", "ir"]
+        why: "After «tengo que», the second verb stays bare — never the conjugated «voy». Never drop «que»: «tengo ir» is ungrammatical."
+      - kind: buildLit
+        id: l6-b-tengoqueiralafarmaciaperopuedo
+        es: "tengo que ir a la farmacia, pero puedo ir mañana"
+        en: "I have to go to the pharmacy, but I can go tomorrow"
+        atoms: ["tengo que", "ir", "a", "la", "farmacia", "pero", "puedo", "mañana"]
+        tiles: ["voy", "necesito"]
+      - kind: audioWimcq
+        id: l6-ear-hospital
+        target: { surface: "hospital", emoji: "🏥" }
+        distractors:
+          - { surface: "supermercado", emoji: "🏬" }
+          - { surface: "farmacia", emoji: "💊" }
+      - kind: agreementLit
+        id: l6-agr-hospitalviejofarmaciavieja
+        en: "The hospital is old, and the pharmacy is old too"
+        audioText: "el hospital es viejo, y la farmacia es vieja también"
+        atoms: ["hospital", "viejo", "farmacia"]
+        segments:
+          - { text: "el hospital es " }
+          - { blank: { id: "p1", answer: "viejo", options: ["viejo", "vieja"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "vieja", options: ["vieja", "viejo"] } }
+      - kind: listenBuildLit
+        id: l6-lb-tengoqueiralbancoytambiennecesito
+        es: "tengo que ir al banco, y también necesito ir a la farmacia"
+        en: "I have to go to the bank, and I also need to go to the pharmacy"
+        atoms: ["tengo que", "ir", "al", "banco", "y", "también", "necesito", "a", "la", "farmacia"]
+        tiles: ["voy", "puedo"]
+      - kind: textMcq
+        id: l6-tm-tengo
+        target: "tengo"
+        distractors: ["vengo", "pongo", "tenga"]
+      - kind: sim
+        id: l6-sim-ana-obligaciones
+        scene: { emoji: "🏥", title: "Ana checks on your day", setting: "Ana wants to know what you have to do." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tienes que ir al hospital hoy?", audioText: "¿tienes que ir al hospital hoy?", gloss: "Do you have to go to the hospital today?" }
+            goal: "Say yes, you have to go there."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo que ir al hospital" }
+                - { id: "wrong1", text: "sí, tengo que voy al hospital" }
+                - { id: "wrong2", text: "sí, tengo ir al hospital" }
+              correctOptionId: "right"
+              audioText: "sí, tengo que ir al hospital"
+            replyGloss: "Yes, I have to go to the hospital."
+            explanation: "After «tengo que», the second verb stays bare — never «voy». And never drop «que»."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y el correo? ¿Tienes que ir también?", audioText: "¿y el correo? ¿tienes que ir también?", gloss: "And the post office? Do you have to go too?" }
+            goal: "Say yes, you have to go too."
+            reply:
+              mode: build
+              tiles: ["sí", "tengo", "que", "ir", "también", "voy", "al"]
+              answer: "sí tengo que ir también"
+            replyGloss: "Yes, I have to go too."
+            explanation: "«tengo que ir» — the bare infinitive stays «ir», not «voy»."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "tengo que", target: "I have to" }
+          - { source: "ir", target: "to go" }
+          - { source: "voy", target: "I'm going" }
+          - { source: "necesito", target: "I need" }
+          - { source: "hospital", target: "hospital" }
+          - { source: "correo", target: "post office" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "tengo que ir al hospital, y también necesito ir a la farmacia"
+        en: "I have to go to the hospital, and I also need to go to the pharmacy"
+        atoms: ["tengo que", "ir", "al", "hospital", "también", "necesito", "a", "la", "farmacia"]

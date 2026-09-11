@@ -1,0 +1,136 @@
+  # ── L5 · «Voy al banco, a la farmacia, y al supermercado» — no new
+  #    atoms. Pure cumulative recombination of all five nouns debuted
+  #    L1-L4, discrimination-heavy (masc «al» × banco/hospital/correo/
+  #    supermercado vs fem «a la» × farmacia, tested against each
+  #    other, not just against m9's old set). No info card — nothing
+  #    new to teach, just density. PRIOR context only: voy/al/a (m9),
+  #    necesito/necesitas (m16), ir (m28), pero/puedo (m18/m14),
+  #    también (m11), mañana/hoy (m8/m9), leche (m7), y (m1), viejo
+  #    (m32), all five of this module's nouns (L1-L4). One recall
+  #    (L4's win line).
+  - n: 5
+    template: free
+    title: "Voy al banco, a la farmacia, y al supermercado"
+    description: "An errand-day sentence, all five places at once — pure recombination, no new words. «al» for banco/hospital/correo/supermercado (masculine), «a la» for farmacia (feminine)."
+    steps:
+      - kind: map
+        id: l5-map-voyalbancoyalafarmacia
+        tokens: ["voy", "al", "banco", "y", "a", "la", "farmacia"]
+        pairs:
+          - { en: "I'm going", tokenIndex: 0 }
+          - { en: "to the", tokenIndex: 1 }
+          - { en: "bank", tokenIndex: 2 }
+          - { en: "and", tokenIndex: 3 }
+          - { en: "to", tokenIndex: 4 }
+          - { en: "the", tokenIndex: 5 }
+          - { en: "pharmacy", tokenIndex: 6 }
+        audioText: "voy al banco y a la farmacia"
+        revealNote: "Cumulative recombination — «al» for masculine «banco», «a la» for feminine «farmacia» (this module, L1-L4)."
+      - kind: speakLit
+        id: l5-sp-recall
+        es: "necesito leche — voy al supermercado a comprarla"
+        en: "I need milk — I'm going to the supermarket to buy it"
+        cue: recall
+        atoms: ["necesito", "leche", "voy", "al", "supermercado", "a", "comprarla"]
+      - kind: buildLit
+        id: l5-b-voyalhospitalyalcorreo
+        es: "voy al hospital y al correo hoy"
+        en: "I'm going to the hospital and the post office today"
+        atoms: ["voy", "al", "hospital", "y", "correo", "hoy"]
+        tiles: ["necesito", "tengo que"]
+      - kind: clozeLit
+        id: l5-c-necesitoiralcorreo
+        es: "necesito ir al correo"
+        en: "I need to go to the post office"
+        blank: "al"
+        options: ["al", "el"]
+        atoms: ["necesito", "ir", "correo"]
+        why: "«correo» is masculine — «al» (fused «a» + «el»), never the bare «el» alone."
+      - kind: listenCompLit
+        id: l5-lc-voyalbanconecesitofarmacia
+        es: "voy al banco, y necesito ir a la farmacia también"
+        en: "I'm going to the bank, and I need to go to the pharmacy too."
+        atoms: ["voy", "al", "banco", "y", "necesito", "ir", "a", "la", "farmacia", "también"]
+        distractorsEn:
+          - "I'm going to the pharmacy, and I need to go to the bank too."
+          - "I'm going to the bank, and I need to go to the hospital too."
+          - "I need to go to the bank, and I'm going to the pharmacy too."
+      - kind: mcq
+        id: l5-q-voyalhospitalyalcorreo
+        prompt: "Which one correctly says 'to the post office'?"
+        correct: "al correo"
+        distractors: ["a la correo", "el correo", "a el correo"]
+        atoms: ["al", "correo"]
+        why: "«correo» is masculine — «al» (fused), never «a la», a bare «el», or the unfused «a el»."
+      - kind: buildLit
+        id: l5-b-necesitoiralbancoytambienvoyalsupermercado
+        es: "necesito ir al banco, y también voy al supermercado"
+        en: "I need to go to the bank, and I'm also going to the supermarket"
+        atoms: ["necesito", "ir", "al", "banco", "y", "también", "voy", "supermercado"]
+        tiles: ["puedo", "tengo que"]
+      - kind: audioWimcq
+        id: l5-ear-banco
+        target: { surface: "banco", emoji: "🏦" }
+        distractors:
+          - { surface: "correo", emoji: "📮" }
+          - { surface: "hospital", emoji: "🏥" }
+      - kind: agreementLit
+        id: l5-agr-correoviejofarmaciavieja
+        en: "The post office is old, and the pharmacy is old too"
+        audioText: "el correo es viejo, y la farmacia es vieja también"
+        atoms: ["correo", "viejo", "farmacia"]
+        segments:
+          - { text: "el correo es " }
+          - { blank: { id: "p1", answer: "viejo", options: ["viejo", "vieja"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "vieja", options: ["vieja", "viejo"] } }
+      - kind: listenBuildLit
+        id: l5-lb-voyalbancoperopuedoiralcorreo
+        es: "voy al banco, pero puedo ir al correo mañana"
+        en: "I'm going to the bank, but I can go to the post office tomorrow"
+        atoms: ["voy", "al", "banco", "pero", "puedo", "ir", "correo", "mañana"]
+        tiles: ["necesito", "tengo que"]
+      - kind: textMcq
+        id: l5-tm-farmacia
+        target: "farmacia"
+        distractors: ["fábrica", "familia", "farmacéutico"]
+      - kind: sim
+        id: l5-sim-sam-mandados
+        scene: { emoji: "🚶", title: "Sam checks your errand list", setting: "Sam wants to know your plan for today." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sam", es: "¿Adónde vas hoy?", audioText: "¿adónde vas hoy?", gloss: "Where are you going today?" }
+            goal: "Say you're going to the bank, then pharmacy."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "voy al banco, y a la farmacia" }
+                - { id: "wrong1", text: "voy a la banco, y al farmacia" }
+                - { id: "wrong2", text: "voy al banco, y al farmacia" }
+              correctOptionId: "right"
+              audioText: "voy al banco, y a la farmacia"
+            replyGloss: "I'm going to the bank, and the pharmacy."
+            explanation: "«banco» masculine → «al»; «farmacia» feminine → «a la» — never swapped."
+          - id: t2
+            npc: { speaker: "Sam", es: "¿Y necesitas ir al supermercado también?", audioText: "¿y necesitas ir al supermercado también?", gloss: "And do you need to go to the supermarket too?" }
+            goal: "Say yes, you need milk."
+            reply:
+              mode: build
+              tiles: ["sí", "necesito", "leche", "también", "voy", "tengo que"]
+              answer: "sí necesito leche también"
+            replyGloss: "Yes, I need milk too."
+            explanation: "«necesito leche» — the reason you're headed to the supermarket."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "banco", target: "bank" }
+          - { source: "farmacia", target: "pharmacy" }
+          - { source: "hospital", target: "hospital" }
+          - { source: "correo", target: "post office" }
+          - { source: "supermercado", target: "supermarket" }
+          - { source: "al", target: "to the (masculine)" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "voy al banco, a la farmacia, y al supermercado"
+        en: "I'm going to the bank, the pharmacy, and the supermarket"
+        atoms: ["voy", "al", "banco", "a", "la", "farmacia", "supermercado"]

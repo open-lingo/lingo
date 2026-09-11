@@ -1,0 +1,123 @@
+  # ── L10 · Mastery — all graded, no map/info (mirrors m33-L10/m32-L10's
+  #    own mastery shape: no trailing speakLit-win after sim). Recombines
+  #    every strand of the module — all five nouns, all three frames
+  #    (voy a / necesito ir a / tengo que ir a), m31's duele/duelen paired
+  #    with hospital/farmacia, and m29's fused clitic «comprarla» paired
+  #    with «leche» (m7) and «supermercado» (this module). Two recalls
+  #    (L9 and L4 win lines, different lessons, neither recalled together
+  #    before). Full-sentence MCQ is legal here only (inv 28, L10 mastery
+  #    exemption). LAST step is the sim — no matchLit/speakLit after it.
+  - n: 10
+    template: free
+    title: "Mastery: el día de mandados"
+    description: "Every strand, one last time — all five places, all three frames, pain sending you to the hospital or the pharmacy, and a supermarket errand, all in one pass."
+    steps:
+      - kind: speakLit
+        id: l10-sp-recall-l9win
+        es: "me duele la mano — tengo que ir al hospital"
+        en: "My hand hurts — I have to go to the hospital"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l10-b-meduelelpieperotengoquesupermercado
+        es: "me duele el pie, pero tengo que ir al supermercado hoy"
+        en: "My foot hurts, but I have to go to the supermarket today"
+        atoms: ["me", "duele", "pie", "pero", "tengo que", "ir", "al", "supermercado", "hoy"]
+        tiles: ["duelen", "necesito"]
+      - kind: clozeLit
+        id: l10-c-necesitolechevoyalsupermercadocomprarla
+        es: "necesito leche — voy al supermercado a comprarla"
+        en: "I need milk — I'm going to the supermarket to buy it"
+        blank: "comprarla"
+        options: ["comprarla", "comprarlo"]
+        atoms: ["necesito", "leche", "voy", "al", "supermercado", "a", "comprarla"]
+        why: "«la» refers back to «leche» (feminine) — «comprarla», not «comprarlo»."
+      - kind: listenCompLit
+        id: l10-lc-tengoqueiralcorreoperopuedobanco
+        es: "tengo que ir al correo, pero puedo ir al banco mañana"
+        en: "I have to go to the post office, but I can go to the bank tomorrow."
+        atoms: ["tengo que", "ir", "al", "correo", "pero", "puedo", "banco", "mañana"]
+        distractorsEn:
+          - "I have to go to the bank, but I can go to the post office tomorrow."
+          - "I want to go to the post office, but I can go to the bank tomorrow."
+          - "I have to go to the post office, but I have to go to the bank tomorrow."
+      - kind: mcq
+        id: l10-q-meduelenlosojosmastery
+        prompt: "Which one means 'My eyes hurt — I have to go to the hospital, and I also need to go to the pharmacy'?"
+        correct: "me duelen los ojos — tengo que ir al hospital, y también necesito ir a la farmacia"
+        distractors: ["me duele los ojos — tengo que ir al hospital, y también necesito ir a la farmacia", "me duelen los ojos — tengo que voy al hospital, y también necesito ir a la farmacia", "me duelen los ojos — tengo que ir al hospital, y también necesito ir al farmacia"]
+        atoms: ["me", "duelen", "ojo", "tengo que", "ir", "al", "hospital", "también", "necesito", "a", "la", "farmacia"]
+        why: "«los ojos» is plural — «duelen». After «tengo que», the infinitive stays bare — never «voy». And «farmacia» is feminine — «a la», never «al»."
+      - kind: speakLit
+        id: l10-sp-recall-l4win
+        es: "necesito leche — voy al supermercado a comprarla"
+        en: "I need milk — I'm going to the supermarket to buy it"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l10-b-voyalbancotengoquecorreo
+        es: "voy al banco, y tengo que ir al correo también"
+        en: "I'm going to the bank, and I also have to go to the post office"
+        atoms: ["voy", "al", "banco", "y", "tengo que", "ir", "correo", "también"]
+        tiles: ["necesito", "duele"]
+      - kind: audioWimcq
+        id: l10-ear-hospital
+        target: { surface: "hospital", emoji: "🏥" }
+        distractors:
+          - { surface: "banco", emoji: "🏦" }
+          - { surface: "correo", emoji: "📮" }
+      - kind: agreementLit
+        id: l10-agr-correonuevofarmacianueva
+        en: "The post office is new, and the pharmacy is new too"
+        audioText: "el correo es nuevo, y la farmacia es nueva también"
+        atoms: ["correo", "nuevo", "farmacia"]
+        segments:
+          - { text: "el correo es " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l10-lb-necesitoiralhospitalperoduelepierna
+        es: "necesito ir al hospital, pero me duele la pierna"
+        en: "I need to go to the hospital, but my leg hurts"
+        atoms: ["necesito", "ir", "al", "hospital", "pero", "me", "duele", "pierna"]
+        tiles: ["tengo que", "voy"]
+      - kind: textMcq
+        id: l10-tm-correo
+        target: "correo"
+        distractors: ["correr", "corro", "correa"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "banco", target: "bank" }
+          - { source: "farmacia", target: "pharmacy" }
+          - { source: "hospital", target: "hospital" }
+          - { source: "correo", target: "post office" }
+          - { source: "supermercado", target: "supermarket" }
+          - { source: "comprarla", target: "to buy it (her)" }
+      - kind: sim
+        id: l10-sim-luis-mastery
+        scene: { emoji: "🛒", title: "One last errand day", setting: "Luis checks in before the weekend." }
+        turns:
+          - id: t1
+            npc: { speaker: "Luis", es: "¿Te duele el pie? ¿Tienes que ir al hospital?", audioText: "¿te duele el pie? ¿tienes que ir al hospital?", gloss: "Does your foot hurt? Do you have to go to the hospital?" }
+            goal: "Say yes, foot hurts, must go."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me duele el pie — tengo que ir al hospital" }
+                - { id: "wrong1", text: "sí, me duelen el pie — tengo que ir al hospital" }
+                - { id: "wrong2", text: "sí, me duele el pie — tengo que voy al hospital" }
+              correctOptionId: "right"
+              audioText: "sí, me duele el pie — tengo que ir al hospital"
+            replyGloss: "Yes, my foot hurts — I have to go to the hospital."
+            explanation: "«el pie» is singular, so «duele», not «duelen». The bare infinitive stays «ir» after «tengo que»."
+          - id: t2
+            npc: { speaker: "Luis", es: "¿Y vas a ir al supermercado también, a comprar leche?", audioText: "¿y vas a ir al supermercado también, a comprar leche?", gloss: "And are you also going to the supermarket, to buy milk?" }
+            goal: "Say yes, going to buy it."
+            reply:
+              mode: build
+              tiles: ["sí", "voy", "a", "comprarla", "también", "comprarlo"]
+              answer: "sí voy a comprarla también"
+            replyGloss: "Yes, I'm going to buy it too."
+            explanation: "«comprarla» — «la» refers back to «leche» (feminine)."

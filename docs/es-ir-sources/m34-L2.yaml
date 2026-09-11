@@ -1,0 +1,141 @@
+  # ── L2 · «Necesito ir al hospital» — «hospital» debuts: masculine,
+  #    consonant-ending (like «el hotel»), so still «al» — no new rule,
+  #    straight reuse of L1's «al» pattern on a third noun. Recombines
+  #    «necesito ir a» (m16's «necesito» + m28's «ir») for the first
+  #    time this module, plus «necesitas»/«necesita» (m16, already
+  #    registered — confirmed by grep, not a new atom). No info card —
+  #    same grammar point as L1, no new teaching content. PRIOR context
+  #    only: necesito/necesitas/necesita (m16), ir (m28), al (m9),
+  #    ahora (m9), pequeño (m6/m32), también (m11), hermana (m8),
+  #    pero/puedo (m18/m14), mañana (m8), banco/farmacia (this module,
+  #    L1), escuela/parque/playa (m9). One recall (L1's win line).
+  - n: 2
+    template: free
+    title: "Necesito ir al hospital"
+    description: "«hospital» — masculine, consonant-ending like «el hotel», so still «al» (m9's rule, same as «banco»). Recombining «necesito ir a» (m16 + m28) for the first time this module."
+    steps:
+      - kind: map
+        id: l2-map-necesitoiralhospital
+        tokens: ["necesito", "ir", "al", "hospital"]
+        pairs:
+          - { en: "I need", tokenIndex: 0 }
+          - { en: "to go", tokenIndex: 1 }
+          - { en: "to the", tokenIndex: 2 }
+          - { en: "hospital", tokenIndex: 3 }
+        audioText: "necesito ir al hospital"
+        revealNote: "«hospital» — masculine, consonant-ending (like «el hotel»). Still «al», not «a la»."
+      - kind: imageMcq
+        id: l2-im-hospital
+        target: { surface: "hospital", meaningEn: "hospital", emoji: "🏥" }
+        distractors:
+          - { surface: "banco", emoji: "🏦" }
+          - { surface: "farmacia", emoji: "💊" }
+          - { surface: "escuela", emoji: "🏫" }
+      - kind: speakLit
+        id: l2-sp-recall
+        es: "necesito ir al banco, y voy a la farmacia también"
+        en: "I need to go to the bank, and I'm going to the pharmacy too"
+        cue: recall
+        atoms: ["necesito", "ir", "al", "banco", "voy", "a", "la", "farmacia", "también"]
+      - kind: buildLit
+        id: l2-b-necesitoiralhospitalahora
+        es: "necesito ir al hospital ahora"
+        en: "I need to go to the hospital now"
+        atoms: ["necesito", "ir", "al", "hospital", "ahora"]
+        tiles: ["voy", "tengo que"]
+      - kind: clozeLit
+        id: l2-c-necesitoiralhospital
+        es: "necesito ir al hospital"
+        en: "I need to go to the hospital"
+        blank: "al"
+        options: ["al", "el"]
+        atoms: ["necesito", "ir", "hospital"]
+        why: "«hospital» is masculine — «al» (fused «a» + «el»), never the bare «el» alone."
+      - kind: listenCompLit
+        id: l2-lc-voyalhospitalahora
+        es: "voy al hospital ahora"
+        en: "I'm going to the hospital now."
+        atoms: ["voy", "al", "hospital", "ahora"]
+        distractorsEn:
+          - "I'm going to the bank now."
+          - "I need to go to the hospital now."
+          - "You're going to the hospital now."
+      - kind: mcq
+        id: l2-q-necesitoiralhospital
+        prompt: "Which one correctly says 'to the hospital'?"
+        correct: "al hospital"
+        distractors: ["a la hospital", "el hospital", "a el hospital"]
+        atoms: ["al", "hospital"]
+        why: "«hospital» is masculine — «al» (fused), never «a la», a bare «el», or the unfused «a el»."
+      - kind: buildLit
+        id: l2-b-voyalhospitalperonecesitofarmacia
+        es: "voy al hospital, pero necesito ir a la farmacia también"
+        en: "I'm going to the hospital, but I need to go to the pharmacy too"
+        atoms: ["voy", "al", "hospital", "pero", "necesito", "ir", "a", "la", "farmacia", "también"]
+        tiles: ["tengo que", "puedo"]
+      - kind: audioWimcq
+        id: l2-ear-escuela
+        target: { surface: "escuela", emoji: "🏫" }
+        distractors:
+          - { surface: "parque", emoji: "🌳" }
+          - { surface: "playa", emoji: "🏖️" }
+      - kind: agreementLit
+        id: l2-agr-hospitalpequenofarmaciapequena
+        en: "The hospital is small, and the pharmacy is small too"
+        audioText: "el hospital es pequeño, y la farmacia es pequeña también"
+        atoms: ["hospital", "pequeño", "farmacia"]
+        segments:
+          - { text: "el hospital es " }
+          - { blank: { id: "p1", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "pequeño"] } }
+      - kind: listenBuildLit
+        id: l2-lb-necesitoiralhospitalperopuedo
+        es: "necesito ir al hospital, pero puedo ir mañana"
+        en: "I need to go to the hospital, but I can go tomorrow"
+        atoms: ["necesito", "ir", "al", "hospital", "pero", "puedo", "mañana"]
+        tiles: ["voy", "tengo que"]
+      - kind: textMcq
+        id: l2-tm-hospital
+        target: "hospital"
+        distractors: ["hostal", "hostil", "hospitalidad"]
+      - kind: sim
+        id: l2-sim-diego-hospital
+        scene: { emoji: "🏥", title: "Diego worries about you", setting: "Diego notices you don't look well." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Necesitas ir al hospital?", audioText: "¿necesitas ir al hospital?", gloss: "Do you need to go to the hospital?" }
+            goal: "Say yes, you need to go there."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, necesito ir al hospital" }
+                - { id: "wrong1", text: "sí, necesito ir a la hospital" }
+                - { id: "wrong2", text: "sí, necesitas ir al hospital" }
+              correctOptionId: "right"
+              audioText: "sí, necesito ir al hospital"
+            replyGloss: "Yes, I need to go to the hospital."
+            explanation: "«hospital» is masculine — «al». And «necesito», not «necesitas» — that's asking about you, not answering for yourself."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y tu hermana? ¿Necesita ir también?", audioText: "¿y tu hermana? ¿necesita ir también?", gloss: "And your sister? Does she need to go too?" }
+            goal: "Say yes, she needs to go too."
+            reply:
+              mode: build
+              tiles: ["sí", "necesita", "ir", "también", "necesito", "tú"]
+              answer: "sí necesita ir también"
+            replyGloss: "Yes, she needs to go too."
+            explanation: "«necesita» — about her, not yourself («necesito»)."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "hospital", target: "hospital" }
+          - { source: "necesito", target: "I need" }
+          - { source: "necesitas", target: "you need" }
+          - { source: "necesita", target: "he/she needs" }
+          - { source: "ir", target: "to go" }
+          - { source: "ahora", target: "now" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "necesito ir al hospital ahora"
+        en: "I need to go to the hospital now"
+        atoms: ["necesito", "ir", "al", "hospital", "ahora"]

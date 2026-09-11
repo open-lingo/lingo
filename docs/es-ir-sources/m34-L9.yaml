@@ -1,0 +1,134 @@
+  # ── L9 · «Me duele la mano — tengo que ir al hospital» — pain
+  #    (m31's «duele»/«duelen») chained with «tengo que ir a» (m33,
+  #    this module) for the first time. No new atoms, but a genuinely
+  #    new PATTERN (pain forces the trip) earns this module's fourth
+  #    usage-note card, mirroring the m31-L9/m32-L9 "dedicated
+  #    contrast" precedent. Body nouns are m30 (mano/pie/brazo/pierna/
+  #    ojo/boca/nariz). One recall of L8's win line.
+  - n: 9
+    template: free
+    title: "Me duele la mano"
+    description: "Two frames you already know — «me duele/duelen» (m31) and «tengo que ir a» (m33) — chained into one sentence: name the pain, then name where it sends you."
+    steps:
+      - kind: map
+        id: l9-map-meduelelamano
+        tokens: ["me", "duele", "la", "mano"]
+        pairs:
+          - { en: "to me", tokenIndex: 0 }
+          - { en: "hurts", tokenIndex: 1 }
+          - { en: "the", tokenIndex: 2 }
+          - { en: "hand", tokenIndex: 3 }
+        audioText: "me duele la mano"
+        revealNote: "«duele» (m31) — the body part is the subject. Next: what you do about it."
+      - kind: info
+        id: l9-info-painplusplace
+        title: "Pain + place — chaining two frames"
+        body: "«me duele la mano» (m31) and «tengo que ir a» (m33) chain into one sentence: «me duele la mano — tengo que ir al hospital». Pain that won't wait — «tengo que», not «voy» or «necesito»."
+      - kind: speakLit
+        id: l9-sp-recall
+        es: "hoy necesito ir al banco, a la farmacia, al hospital, al correo, y al supermercado"
+        en: "Today I need to go to the bank, the pharmacy, the hospital, the post office, and the supermarket"
+        cue: recall
+        atoms: ["hoy", "necesito", "ir", "al", "banco", "a", "la", "farmacia", "hospital", "correo", "supermercado"]
+      - kind: buildLit
+        id: l9-b-meduelelamanotengoquehospital
+        es: "me duele la mano — tengo que ir al hospital"
+        en: "My hand hurts — I have to go to the hospital"
+        atoms: ["me", "duele", "mano", "tengo que", "ir", "al", "hospital"]
+        tiles: ["duelen", "necesito"]
+      - kind: clozeLit
+        id: l9-c-meduelenlaspiernas
+        es: "me duelen las piernas"
+        en: "My legs hurt"
+        blank: "duelen"
+        options: ["duelen", "duele"]
+        atoms: ["me", "duelen", "pierna"]
+        why: "«las piernas» — plural — takes «duelen», not «duele»."
+      - kind: listenCompLit
+        id: l9-lc-meduelelbrazotengoquehospital
+        es: "me duele el brazo, y tengo que ir al hospital"
+        en: "My arm hurts, and I have to go to the hospital."
+        atoms: ["me", "duele", "brazo", "y", "tengo que", "ir", "al", "hospital"]
+        distractorsEn:
+          - "My leg hurts, and I have to go to the hospital."
+          - "My arm hurts, and I need to go to the hospital."
+          - "My arms hurt, and I have to go to the hospital."
+      - kind: mcq
+        id: l9-q-meduelenlosojos
+        prompt: "Which one means 'hurt' for «los ojos» (plural, about you)?"
+        correct: "me duelen"
+        distractors: ["me duele", "te duelen", "le duelen"]
+        atoms: ["me", "duelen"]
+        why: "«los ojos» is plural — «duelen», not «duele». And it's «me» (about you), not «te»/«le»."
+      - kind: buildLit
+        id: l9-b-meduelelapiernanecesitofarmacia
+        es: "me duele la pierna — necesito ir a la farmacia"
+        en: "My leg hurts — I need to go to the pharmacy"
+        atoms: ["me", "duele", "pierna", "necesito", "ir", "a", "la", "farmacia"]
+        tiles: ["tengo que", "duelen"]
+      - kind: audioWimcq
+        id: l9-ear-pie
+        target: { surface: "pie", emoji: "🦶" }
+        distractors:
+          - { surface: "mano", emoji: "✋" }
+          - { surface: "brazo", emoji: "💪" }
+      - kind: agreementLit
+        id: l9-agr-hospitalpequenofarmaciapequena
+        en: "The hospital is small, and the pharmacy is small too"
+        audioText: "el hospital es pequeño, y la farmacia es pequeña también"
+        atoms: ["hospital", "pequeño", "farmacia"]
+        segments:
+          - { text: "el hospital es " }
+          - { blank: { id: "p1", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "pequeño"] } }
+      - kind: listenBuildLit
+        id: l9-lb-meduelelojoperopuedofarmacia
+        es: "me duele el ojo, pero puedo ir a la farmacia mañana"
+        en: "My eye hurts, but I can go to the pharmacy tomorrow"
+        atoms: ["me", "duele", "ojo", "pero", "puedo", "ir", "a", "la", "farmacia", "mañana"]
+        tiles: ["tengo que", "necesito"]
+      - kind: textMcq
+        id: l9-tm-duele
+        target: "duele"
+        distractors: ["duelen", "duelo", "dueles"]
+      - kind: sim
+        id: l9-sim-sofia-dolor
+        scene: { emoji: "🤕", title: "Sofía notices you wincing", setting: "Sofía sees you holding your hand." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Te duele la mano?", audioText: "¿te duele la mano?", gloss: "Does your hand hurt?" }
+            goal: "Say yes, hand hurts, must go there."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me duele la mano — tengo que ir al hospital" }
+                - { id: "wrong1", text: "sí, te duele la mano — tengo que ir al hospital" }
+                - { id: "wrong2", text: "sí, me duele la mano — tengo que voy al hospital" }
+              correctOptionId: "right"
+              audioText: "sí, me duele la mano — tengo que ir al hospital"
+            replyGloss: "Yes, my hand hurts — I have to go to the hospital."
+            explanation: "«me», not «te» — it's about you. After «tengo que», the second verb stays bare: «ir», never «voy»."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Y los ojos? ¿Necesitas ir a la farmacia?", audioText: "¿y los ojos? ¿necesitas ir a la farmacia?", gloss: "And your eyes? Do you need to go to the pharmacy?" }
+            goal: "Say yes, eyes hurt too, need to go."
+            reply:
+              mode: build
+              tiles: ["sí", "me", "duelen", "los", "ojos", "necesito", "ir", "también", "duele"]
+              answer: "sí me duelen los ojos necesito ir también"
+            replyGloss: "Yes, my eyes hurt too — I need to go."
+            explanation: "«los ojos» is plural, so «duelen», not «duele»."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "duele", target: "hurts (one thing)" }
+          - { source: "duelen", target: "hurt (more than one)" }
+          - { source: "mano", target: "hand" }
+          - { source: "ojo", target: "eye" }
+          - { source: "tengo que", target: "I have to" }
+          - { source: "hospital", target: "hospital" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "me duele la mano — tengo que ir al hospital"
+        en: "My hand hurts — I have to go to the hospital"
+        atoms: ["me", "duele", "mano", "tengo que", "ir", "al", "hospital"]

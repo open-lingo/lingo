@@ -44,6 +44,7 @@ import { ES_M30_LESSONS } from "./m30";
 import { ES_M31_LESSONS } from "./m31";
 import { ES_M32_LESSONS } from "./m32";
 import { ES_M33_LESSONS } from "./m33";
+import { ES_M34_LESSONS } from "./m34";
 
 export type EsModuleMeta = {
   id: string;
@@ -267,7 +268,14 @@ export const ES_MODULE_META: EsModuleMeta[] = [
     eyebrow: "Module 33 · Obligation, at last",
     summary: "«tengo que» plus a bare infinitive — the fourth linker in this course's modal family (quiero/puedo, voy a, and now tengo que), riding a «tener» paradigm and a «que» you already know completely.",
     accent: { from: "#78716c", to: "#1c1917" },
+  },  {
+    id: "m34",
+    title: "Necesito ir al banco",
+    eyebrow: "Module 34 · Errands around town",
+    summary: "Five new places — banco, farmacia, hospital, correo, supermercado — recombined against «voy a» (m9), «necesito ir a» (m16+m28), and «tengo que ir a» (m33+m28), plus «duele»/«duelen» (m31) sending you straight to the hospital or the pharmacy.",
+    accent: { from: "#d97757", to: "#92400e" },
   },
+
 
 
 
@@ -321,6 +329,7 @@ const LESSONS_BY_MODULE: Record<string, LessonContent[]> = {
   m31: ES_M31_LESSONS,
   m32: ES_M32_LESSONS,
   m33: ES_M33_LESSONS,
+  m34: ES_M34_LESSONS,
 };
 
 /** Flat lesson list for the shared LESSONS content index (mockLessons.ts). */

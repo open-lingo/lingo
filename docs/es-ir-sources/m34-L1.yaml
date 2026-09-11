@@ -1,0 +1,152 @@
+  # ── L1 · «Voy al banco» / «Voy a la farmacia» — «banco» AND «farmacia»
+  #    both debut here, one masculine and one feminine, so the SAME
+  #    lesson can carry the module's one general rule card: «al» (a+el,
+  #    fused, masculine — m9) vs «a la» (two words, never fused,
+  #    feminine). Two image-MCQ debuts, non-adjacent, separated by
+  #    info/speakLit/buildLit/clozeLit — no gate bars two debuts in one
+  #    lesson (checked: m30/m32 both show 1-per-lesson by convention,
+  #    not by rule; ES_INTRO_TYPES has no per-lesson cap).
+  #    PRIOR context only: voy/vas/a/al/adónde (m9), necesito (m16),
+  #    ir (m28), puedo/tengo que (m14/m33 — reserved for later
+  #    lessons, NOT used here), nuevo/nueva (m12), también (m11),
+  #    mercado/tienda/escuela/playa (m9). No recall — first lesson of
+  #    the module.
+  - n: 1
+    template: free
+    title: "Voy al banco"
+    description: "Two new places, one rule: «al» (a+el, fused) for masculine «banco», «a la» (never fused) for feminine «farmacia» — the same pattern m9 taught, now with a second, unfused case to contrast it against."
+    steps:
+      - kind: map
+        id: l1-map-voyalbanco
+        tokens: ["voy", "al", "banco"]
+        pairs:
+          - { en: "I'm going", tokenIndex: 0 }
+          - { en: "to the", tokenIndex: 1 }
+          - { en: "bank", tokenIndex: 2 }
+        audioText: "voy al banco"
+        revealNote: "«al» = «a» + «el», fused — «banco» is masculine (m9's own rule, new noun)."
+      - kind: imageMcq
+        id: l1-im-banco
+        target: { surface: "banco", meaningEn: "bank", emoji: "🏦" }
+        distractors:
+          - { surface: "tienda", emoji: "🏪" }
+          - { surface: "escuela", emoji: "🏫" }
+          - { surface: "mercado", emoji: "🛒" }
+      - kind: info
+        id: l1-info-alvsala
+        title: "Al vs. a la"
+        body: "«al» = «a» + «el», fused, for masculine words: \"voy al banco\" (m9's rule). Feminine words never fuse — always two words, «a la»: \"voy a la farmacia\"."
+      - kind: speakLit
+        id: l1-sp-voyalbanco
+        es: "voy al banco"
+        en: "I'm going to the bank"
+        atoms: ["voy", "al", "banco"]
+      - kind: buildLit
+        id: l1-b-necesitoiralbanco
+        es: "necesito ir al banco"
+        en: "I need to go to the bank"
+        atoms: ["necesito", "ir", "al", "banco"]
+        tiles: ["voy", "tiene"]
+      - kind: clozeLit
+        id: l1-c-voyalbanco
+        es: "voy al banco"
+        en: "I'm going to the bank"
+        blank: "al"
+        options: ["al", "el"]
+        atoms: ["voy", "banco"]
+        why: "«banco» is masculine — «al» (fused «a» + «el»), never the bare «el» alone — you need the «a» too."
+      - kind: imageMcq
+        id: l1-im-farmacia
+        target: { surface: "farmacia", meaningEn: "pharmacy", emoji: "💊" }
+        distractors:
+          - { surface: "escuela", emoji: "🏫" }
+          - { surface: "playa", emoji: "🏖️" }
+          - { surface: "tienda", emoji: "🏪" }
+      - kind: listenCompLit
+        id: l1-lc-voyalafarmacia
+        es: "voy a la farmacia"
+        en: "I'm going to the pharmacy."
+        atoms: ["voy", "a", "la", "farmacia"]
+        distractorsEn:
+          - "I'm going to the bank."
+          - "I need to go to the pharmacy."
+          - "You're going to the pharmacy."
+      - kind: buildLit
+        id: l1-b-necesitoiralafarmacia
+        es: "necesito ir a la farmacia"
+        en: "I need to go to the pharmacy"
+        atoms: ["necesito", "ir", "a", "la", "farmacia"]
+        tiles: ["voy", "al"]
+      - kind: mcq
+        id: l1-q-voyalafarmacia
+        prompt: "Which one means 'I'm going to the pharmacy'?"
+        correct: "voy a la farmacia"
+        distractors: ["voy al farmacia", "voy a la banco", "voy el farmacia"]
+        atoms: ["voy", "farmacia"]
+        why: "«farmacia» is feminine — «a la», never «al» (that's for masculine words like «banco»)."
+      - kind: audioWimcq
+        id: l1-ear-mercado
+        target: { surface: "mercado", emoji: "🛒" }
+        distractors:
+          - { surface: "parque", emoji: "🌳" }
+          - { surface: "escuela", emoji: "🏫" }
+      - kind: agreementLit
+        id: l1-agr-banconuevofarmacianueva
+        en: "The bank is new, and the pharmacy is new too"
+        audioText: "el banco es nuevo, y la farmacia es nueva también"
+        atoms: ["banco", "nuevo", "farmacia"]
+        segments:
+          - { text: "el banco es " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l1-lb-necesitoiralbancoperopuedo
+        es: "necesito ir al banco, pero puedo ir a la farmacia mañana"
+        en: "I need to go to the bank, but I can go to the pharmacy tomorrow"
+        atoms: ["necesito", "ir", "al", "banco", "pero", "puedo", "farmacia", "mañana"]
+        tiles: ["voy", "tengo que"]
+      - kind: textMcq
+        id: l1-tm-banco
+        target: "banco"
+        distractors: ["blanco", "banca", "bando"]
+      - kind: sim
+        id: l1-sim-sofia-mandados
+        scene: { emoji: "🏦", title: "Sofía asks about your errands", setting: "Sofía runs into you on the street." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Adónde vas?", audioText: "¿adónde vas?", gloss: "Where are you going?" }
+            goal: "Say you're going to the bank."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "voy al banco" }
+                - { id: "wrong1", text: "voy a la banco" }
+                - { id: "wrong2", text: "voy el banco" }
+              correctOptionId: "right"
+              audioText: "voy al banco"
+            replyGloss: "I'm going to the bank."
+            explanation: "«banco» is masculine — «al», never «a la» or a bare «el» after «voy»."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Vas a la farmacia también?", audioText: "¿vas a la farmacia también?", gloss: "Are you going to the pharmacy too?" }
+            goal: "Say yes, you're going to the pharmacy too."
+            reply:
+              mode: build
+              tiles: ["sí", "voy", "a", "la", "farmacia", "también", "al", "el"]
+              answer: "sí voy a la farmacia también"
+            replyGloss: "Yes, I'm going to the pharmacy too."
+            explanation: "«farmacia» is feminine — «a la», never «al»."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "banco", target: "bank" }
+          - { source: "farmacia", target: "pharmacy" }
+          - { source: "voy", target: "I'm going" }
+          - { source: "al", target: "to the (masculine)" }
+          - { source: "necesito", target: "I need" }
+          - { source: "ir", target: "to go" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "necesito ir al banco, y voy a la farmacia también"
+        en: "I need to go to the bank, and I'm going to the pharmacy too"
+        atoms: ["necesito", "ir", "al", "banco", "voy", "a", "la", "farmacia", "también"]

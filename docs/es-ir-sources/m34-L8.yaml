@@ -1,0 +1,128 @@
+  # ── L8 · Checkpoint — all graded, no map/info (mirrors m30-L8/m31-L8/
+  #    m32-L8/m33-L8's own checkpoint shape). Pure recombination of
+  #    L1-L7: all five nouns, all three frames (voy a / necesito ir a /
+  #    tengo que ir a), the dropped-article and dropped-«que» foils in
+  #    the MCQ/cloze/sim. Two recalls, drawn from different earlier
+  #    lessons' win lines (L7 and L1). Ends sim → matchLit → speakLit-
+  #    win, same closing shape as every other lesson. Win line is a
+  #    five-noun "grand tour" sentence — the module's cumulative peak
+  #    before L9's dedicated pain-frame lesson and L10's mastery.
+  - n: 8
+    template: free
+    title: "Checkpoint: el día de mandados"
+    description: "Everything so far, recombined — all five places, all three frames («voy a» / «necesito ir a» / «tengo que ir a»), no new words."
+    steps:
+      - kind: speakLit
+        id: l8-sp-recall-l7win
+        es: "necesito ir a la farmacia y al correo"
+        en: "I need to go to the pharmacy and the post office"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-tengoqueiralbancoytambienvoy
+        es: "tengo que ir al banco, y también voy al supermercado"
+        en: "I have to go to the bank, and I'm also going to the supermarket"
+        atoms: ["tengo que", "ir", "al", "banco", "y", "también", "voy", "supermercado"]
+        tiles: ["necesito", "puedo"]
+      - kind: clozeLit
+        id: l8-c-voyalafarmacia
+        es: "voy a la farmacia"
+        en: "I'm going to the pharmacy"
+        blank: "la"
+        options: ["la", "el"]
+        atoms: ["voy", "farmacia"]
+        why: "«farmacia» is feminine — «la», not «el»."
+      - kind: listenCompLit
+        id: l8-lc-necesitoiralcorreoytengoquehospital
+        es: "necesito ir al correo, y tengo que ir al hospital"
+        en: "I need to go to the post office, and I have to go to the hospital."
+        atoms: ["necesito", "ir", "al", "correo", "y", "tengo que", "hospital"]
+        distractorsEn:
+          - "I need to go to the hospital, and I have to go to the post office."
+          - "I want to go to the post office, and I have to go to the hospital."
+          - "I need to go to the post office, and I can go to the hospital."
+      - kind: mcq
+        id: l8-q-voyalsupermercado
+        prompt: "Which one means 'I'm going to the supermarket'?"
+        correct: "voy al supermercado"
+        distractors: ["voy a la supermercado", "voy el supermercado", "necesito supermercado"]
+        atoms: ["voy", "supermercado"]
+        why: "«supermercado» is masculine — «al». Never drop the article."
+      - kind: speakLit
+        id: l8-sp-recall-l1win
+        es: "necesito ir al banco, y voy a la farmacia también"
+        en: "I need to go to the bank, and I'm going to the pharmacy too"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-necesitoiralafarmaciaytengoquebanco
+        es: "necesito ir a la farmacia, y tengo que ir al banco también"
+        en: "I need to go to the pharmacy, and I also have to go to the bank"
+        atoms: ["necesito", "ir", "a", "la", "farmacia", "y", "tengo que", "banco", "también"]
+        tiles: ["voy", "puedo"]
+      - kind: audioWimcq
+        id: l8-ear-farmacia
+        target: { surface: "farmacia", emoji: "💊" }
+        distractors:
+          - { surface: "banco", emoji: "🏦" }
+          - { surface: "correo", emoji: "📮" }
+      - kind: agreementLit
+        id: l8-agr-bancopequenofarmaciapequena
+        en: "The bank is small, and the pharmacy is small too"
+        audioText: "el banco es pequeño, y la farmacia es pequeña también"
+        atoms: ["banco", "pequeño", "farmacia"]
+        segments:
+          - { text: "el banco es " }
+          - { blank: { id: "p1", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "pequeño"] } }
+      - kind: listenBuildLit
+        id: l8-lb-voyalcorreoperotengoquehospital
+        es: "voy al correo, pero tengo que ir al hospital mañana"
+        en: "I'm going to the post office, but I have to go to the hospital tomorrow"
+        atoms: ["voy", "al", "correo", "pero", "tengo que", "ir", "hospital", "mañana"]
+        tiles: ["necesito", "puedo"]
+      - kind: textMcq
+        id: l8-tm-banco
+        target: "banco"
+        distractors: ["blanco", "banca", "bando"]
+      - kind: sim
+        id: l8-sim-checkpoint
+        scene: { emoji: "🏁", title: "Checkpoint check-in", setting: "Carmen checks in on all your errands today." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Tienes que ir al hospital hoy?", audioText: "¿tienes que ir al hospital hoy?", gloss: "Do you have to go to the hospital today?" }
+            goal: "Say yes, you have to go there."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo que ir al hospital" }
+                - { id: "wrong1", text: "sí, tengo que voy al hospital" }
+                - { id: "wrong2", text: "sí, tengo ir al hospital" }
+              correctOptionId: "right"
+              audioText: "sí, tengo que ir al hospital"
+            replyGloss: "Yes, I have to go to the hospital."
+            explanation: "After «tengo que», the second verb stays bare — never «voy». And never drop «que»."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Y necesitas leche del supermercado?", audioText: "¿y necesitas leche del supermercado?", gloss: "And do you need milk from the supermarket?" }
+            goal: "Say yes, you need milk."
+            reply:
+              mode: build
+              tiles: ["sí", "necesito", "leche", "también", "voy", "tengo"]
+              answer: "sí necesito leche también"
+            replyGloss: "Yes, I need milk too."
+            explanation: "«necesito leche» — the reason for the supermarket trip."
+      - kind: matchLit
+        id: l8-match
+        pairs:
+          - { source: "banco", target: "bank" }
+          - { source: "farmacia", target: "pharmacy" }
+          - { source: "hospital", target: "hospital" }
+          - { source: "correo", target: "post office" }
+          - { source: "supermercado", target: "supermarket" }
+          - { source: "tengo que", target: "I have to" }
+      - kind: speakLit
+        id: l8-sp-win
+        es: "hoy necesito ir al banco, a la farmacia, al hospital, al correo, y al supermercado"
+        en: "Today I need to go to the bank, the pharmacy, the hospital, the post office, and the supermarket"
+        atoms: ["hoy", "necesito", "ir", "al", "banco", "a", "la", "farmacia", "hospital", "correo", "supermercado"]

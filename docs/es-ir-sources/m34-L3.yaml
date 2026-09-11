@@ -1,0 +1,146 @@
+  # ── L3 · «Voy al correo» — «correo» debuts: masculine, regular
+  #    vowel-ending. Carries the module's gender-discrimination card,
+  #    pulling all three nouns taught so far (banco/hospital masc,
+  #    farmacia fem) into one drill — the point being there's no
+  #    shortcut from the word's ending («hospital» is masculine despite
+  #    the consonant, exactly like m9's «el hotel»). Also introduces
+  #    «voy a» + infinitive («voy a ir al correo» — m28's near-future
+  #    marker, not the destination «voy al»/«voy a la») as a deliberate
+  #    near-collision: same «voy a», two different jobs. PRIOR context
+  #    only: voy/al/a (m9), ir (m28), necesito/necesitas (m16), pero/
+  #    puedo (m18/m14), también (m11), mañana (m8), y (m1), banco/
+  #    hospital/farmacia (this module, L1-L2), playa/mercado/tienda
+  #    (m9). One recall (L2's win line).
+  - n: 3
+    template: free
+    title: "Voy al correo"
+    description: "«correo» — masculine, regular. And a deliberate near-collision: «voy a» + infinitive (\"I'm going to go\", m28's future marker) vs «voy al»/«voy a la» + place (destination) — same «voy a», two different jobs."
+    steps:
+      - kind: map
+        id: l3-map-voyalcorreo
+        tokens: ["voy", "al", "correo"]
+        pairs:
+          - { en: "I'm going", tokenIndex: 0 }
+          - { en: "to the", tokenIndex: 1 }
+          - { en: "post office", tokenIndex: 2 }
+        audioText: "voy al correo"
+        revealNote: "«correo» — masculine, regular. «al», like «banco» and «hospital»."
+      - kind: imageMcq
+        id: l3-im-correo
+        target: { surface: "correo", meaningEn: "post office", emoji: "📮" }
+        distractors:
+          - { surface: "banco", emoji: "🏦" }
+          - { surface: "hospital", emoji: "🏥" }
+          - { surface: "farmacia", emoji: "💊" }
+      - kind: info
+        id: l3-info-generodiscriminacion
+        title: "Masculine or feminine — no shortcut from the ending"
+        body: "«el banco», «el hospital», «el correo» — all masculine → «al». «la farmacia» — feminine → «a la». «hospital» ends in a consonant but is still masculine — the ending is never a reliable shortcut."
+      - kind: speakLit
+        id: l3-sp-recall
+        es: "necesito ir al hospital ahora"
+        en: "I need to go to the hospital now"
+        cue: recall
+        atoms: ["necesito", "ir", "al", "hospital", "ahora"]
+      - kind: buildLit
+        id: l3-b-voyairalcorreo
+        es: "voy a ir al correo"
+        en: "I'm going to go to the post office"
+        atoms: ["voy", "a", "ir", "al", "correo"]
+        tiles: ["necesito", "tengo que"]
+      - kind: clozeLit
+        id: l3-c-voyalcorreo
+        es: "voy al correo"
+        en: "I'm going to the post office"
+        blank: "al"
+        options: ["al", "el"]
+        atoms: ["voy", "correo"]
+        why: "«correo» is masculine — «al» (fused «a» + «el»), never the bare «el» alone."
+      - kind: listenCompLit
+        id: l3-lc-voyairalcorreomanana
+        es: "voy a ir al correo mañana"
+        en: "I'm going to go to the post office tomorrow."
+        atoms: ["voy", "a", "ir", "al", "correo", "mañana"]
+        distractorsEn:
+          - "I'm going to the post office tomorrow."
+          - "I need to go to the post office tomorrow."
+          - "I'm going to go to the bank tomorrow."
+      - kind: mcq
+        id: l3-q-voyalcorreo
+        prompt: "Which one means 'I'm going to the post office'?"
+        correct: "voy al correo"
+        distractors: ["voy a la correo", "voy el correo", "voy a correo"]
+        atoms: ["voy", "correo"]
+        why: "«correo» is masculine — «al». Never drop the article: «voy a correo» is ungrammatical."
+      - kind: buildLit
+        id: l3-b-voyalcorreoynecesitobanco
+        es: "voy al correo, y necesito ir al banco también"
+        en: "I'm going to the post office, and I need to go to the bank too"
+        atoms: ["voy", "al", "correo", "y", "necesito", "ir", "banco", "también"]
+        tiles: ["tengo que", "puedo"]
+      - kind: audioWimcq
+        id: l3-ear-playa
+        target: { surface: "playa", emoji: "🏖️" }
+        distractors:
+          - { surface: "mercado", emoji: "🛒" }
+          - { surface: "tienda", emoji: "🏪" }
+      - kind: agreementLit
+        id: l3-agr-correonuevofarmacianueva
+        en: "The post office is new, and the pharmacy is new too"
+        audioText: "el correo es nuevo, y la farmacia es nueva también"
+        atoms: ["correo", "nuevo", "farmacia"]
+        segments:
+          - { text: "el correo es " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l3-lb-necesitoiralcorreoperopuedo
+        es: "necesito ir al correo, pero puedo ir mañana"
+        en: "I need to go to the post office, but I can go tomorrow"
+        atoms: ["necesito", "ir", "al", "correo", "pero", "puedo", "mañana"]
+        tiles: ["voy", "tengo que"]
+      - kind: textMcq
+        id: l3-tm-correo
+        target: "correo"
+        distractors: ["correr", "corro", "coreo"]
+      - kind: sim
+        id: l3-sim-carmen-mandados
+        scene: { emoji: "📮", title: "Carmen is running errands too", setting: "Carmen sees you leaving the house." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carmen", es: "¿Vas a ir al correo?", audioText: "¿vas a ir al correo?", gloss: "Are you going to go to the post office?" }
+            goal: "Say yes, you're going to go there."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, voy a ir al correo" }
+                - { id: "wrong1", text: "sí, voy al correo a ir" }
+                - { id: "wrong2", text: "sí, voy a la correo" }
+              correctOptionId: "right"
+              audioText: "sí, voy a ir al correo"
+            replyGloss: "Yes, I'm going to go there."
+            explanation: "«voy a» plus the infinitive («ir»), then the place: «al correo» — not «voy al correo a ir»."
+          - id: t2
+            npc: { speaker: "Carmen", es: "¿Y el hospital? ¿Necesitas ir también?", audioText: "¿y el hospital? ¿necesitas ir también?", gloss: "And the hospital? Do you need to go too?" }
+            goal: "Say yes, you need to go too."
+            reply:
+              mode: build
+              tiles: ["sí", "necesito", "ir", "también", "al", "hospital", "voy"]
+              answer: "sí necesito ir al hospital también"
+            replyGloss: "Yes, I need to go to the hospital too."
+            explanation: "«necesito ir al hospital» — «hospital» is masculine, «al»."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "correo", target: "post office" }
+          - { source: "banco", target: "bank" }
+          - { source: "hospital", target: "hospital" }
+          - { source: "farmacia", target: "pharmacy" }
+          - { source: "al", target: "to the (masculine)" }
+          - { source: "ir", target: "to go" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "voy a ir al correo, y necesito ir al banco también"
+        en: "I'm going to go to the post office, and I need to go to the bank too"
+        atoms: ["voy", "a", "ir", "al", "correo", "necesito", "banco", "también"]

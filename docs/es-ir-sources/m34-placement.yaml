@@ -1,0 +1,27 @@
+placement:
+  screener:
+    - id: "es-m34-scr-1"
+      prompt: "'I'm going to the bank.' — which one?"
+      correct: "voy al banco"
+      distractors: ["voy a la banco", "voy el banco", "necesito banco"]
+  byModule:
+    - id: "es-m34-pl-1"
+      prompt: "I'm going to the bank."
+      correct: "voy al banco"
+      distractors: ["voy a la banco", "voy el banco", "necesito banco"]
+    - id: "es-m34-pl-2"
+      prompt: "I need to go to the pharmacy."
+      correct: "necesito ir a la farmacia"
+      distractors: ["necesito ir al farmacia", "necesito ir la farmacia", "voy ir a la farmacia"]
+    - id: "es-m34-pl-3"
+      prompt: "I have to go to the hospital."
+      correct: "tengo que ir al hospital"
+      distractors: ["tengo que ir a la hospital", "tengo que ir hospital", "tengo ir al hospital"]
+    - id: "es-m34-pl-4"
+      prompt: "I'm going to the post office."
+      correct: "voy al correo"
+      distractors: ["voy a la correo", "voy el correo", "necesito al correo"]
+    - id: "es-m34-pl-5"
+      prompt: "I need milk — I'm going to the supermarket."
+      correct: "necesito leche, voy al supermercado"
+      distractors: ["necesito leche, voy a la supermercado", "necesito leche, voy el supermercado", "necesito leche, tengo supermercado"]

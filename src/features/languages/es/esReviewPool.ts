@@ -522,4 +522,9 @@ export const ES_REVIEW_POOL: EsReviewEntry[] = [
   { surface: "guantes", gloss: "gloves", kind: "vocab", fromModule: "m32", partOfSpeech: "noun" },
   { surface: "bufanda", gloss: "scarf", kind: "vocab", fromModule: "m32", partOfSpeech: "noun" },
   { surface: "tengo que", gloss: "I have to", kind: "phrase", fromModule: "m33", partOfSpeech: "phrase" },
+  { surface: "banco", gloss: "bank", kind: "vocab", fromModule: "m34", partOfSpeech: "noun" },
+  { surface: "farmacia", gloss: "pharmacy", kind: "vocab", fromModule: "m34", partOfSpeech: "noun" },
+  { surface: "hospital", gloss: "hospital", kind: "vocab", fromModule: "m34", partOfSpeech: "noun" },
+  { surface: "correo", gloss: "post office", kind: "vocab", fromModule: "m34", partOfSpeech: "noun" },
+  { surface: "supermercado", gloss: "supermarket", kind: "vocab", fromModule: "m34", partOfSpeech: "noun" },
 ];

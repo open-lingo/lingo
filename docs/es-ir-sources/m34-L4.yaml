@@ -1,0 +1,145 @@
+  # ── L4 · «Necesito leche — voy al supermercado a comprarla» —
+  #    «supermercado» debuts: masculine, regular, and deliberately
+  #    NOT «mercado» (m9, 🛒) — a different, bigger building, its own
+  #    emoji (🏬), no collision (confirmed against all 33 prior
+  #    modules). First use this module of the comprarlo-family fused
+  #    clitic (m29): «leche» (m7, feminine) as the destination-object
+  #    pairing, «comprarla» referring back to it. PRIOR context only:
+  #    leche (m7, NOT m11 — corrected by grep; m11 only recombines it),
+  #    comprar/comprarla/comprarlo (m12/m29), necesito/necesitas (m16),
+  #    voy/al (m9), ir/a (m28/m9), pero/puedo (m18/m14), también (m11),
+  #    mañana (m8), mercado/tienda/escuela/parque (m9), farmacia/
+  #    hospital/correo (this module). One recall (L3's win line).
+  - n: 4
+    template: free
+    title: "Necesito leche — voy al supermercado"
+    description: "«supermercado» — masculine, regular, and NOT «mercado» (m9) — a different, bigger place, its own emoji. First pairing with the comprarlo-family (m29): «necesito leche — voy al supermercado a comprarla»."
+    steps:
+      - kind: map
+        id: l4-map-voyalsupermercado
+        tokens: ["voy", "al", "supermercado"]
+        pairs:
+          - { en: "I'm going", tokenIndex: 0 }
+          - { en: "to the", tokenIndex: 1 }
+          - { en: "supermarket", tokenIndex: 2 }
+        audioText: "voy al supermercado"
+        revealNote: "«supermercado» — masculine, regular. Not «mercado» (m9) — a bigger, different place."
+      - kind: imageMcq
+        id: l4-im-supermercado
+        target: { surface: "supermercado", meaningEn: "supermarket", emoji: "🏬" }
+        distractors:
+          - { surface: "mercado", emoji: "🛒" }
+          - { surface: "tienda", emoji: "🏪" }
+          - { surface: "banco", emoji: "🏦" }
+      - kind: info
+        id: l4-info-supermercadovsmercado
+        title: "Supermercado ≠ mercado"
+        body: "«supermercado» 🏬 — a bigger, different place than «mercado» 🛒 (m9). Same idea, different building, different emoji — don't confuse them."
+      - kind: speakLit
+        id: l4-sp-recall
+        es: "voy a ir al correo, y necesito ir al banco también"
+        en: "I'm going to go to the post office, and I need to go to the bank too"
+        cue: recall
+        atoms: ["voy", "a", "ir", "al", "correo", "necesito", "banco", "también"]
+      - kind: buildLit
+        id: l4-b-necesitoleche
+        es: "necesito leche"
+        en: "I need milk"
+        atoms: ["necesito", "leche"]
+        tiles: ["voy", "tengo"]
+      - kind: clozeLit
+        id: l4-c-voyalsupermercado
+        es: "voy al supermercado"
+        en: "I'm going to the supermarket"
+        blank: "al"
+        options: ["al", "el"]
+        atoms: ["voy", "supermercado"]
+        why: "«supermercado» is masculine — «al» (fused «a» + «el»), never the bare «el» alone."
+      - kind: listenCompLit
+        id: l4-lc-voyalsupermercadoacomprarleche
+        es: "voy al supermercado a comprar leche"
+        en: "I'm going to the supermarket to buy milk."
+        atoms: ["voy", "al", "supermercado", "a", "comprar", "leche"]
+        distractorsEn:
+          - "I'm going to the bank to buy milk."
+          - "I need to buy milk."
+          - "I'm going to the pharmacy to buy milk."
+      - kind: mcq
+        id: l4-q-necesitoleche
+        prompt: "Which one means 'I need milk'?"
+        correct: "necesito leche"
+        distractors: ["necesito la leche", "tengo leche", "voy leche"]
+        atoms: ["necesito", "leche"]
+        why: "«necesito» takes no article before «leche» — and «voy» needs «a»/«al» before a place, never a bare noun."
+      - kind: buildLit
+        id: l4-b-necesitolechevoyalsupermercadoacomprarla
+        es: "necesito leche — voy al supermercado a comprarla"
+        en: "I need milk — I'm going to the supermarket to buy it"
+        atoms: ["necesito", "leche", "voy", "al", "supermercado", "a", "comprarla"]
+        tiles: ["comprarlo", "tengo que"]
+      - kind: audioWimcq
+        id: l4-ear-tienda
+        target: { surface: "tienda", emoji: "🏪" }
+        distractors:
+          - { surface: "escuela", emoji: "🏫" }
+          - { surface: "parque", emoji: "🌳" }
+      - kind: agreementLit
+        id: l4-agr-supermercadonuevofarmacianueva
+        en: "The supermarket is new, and the pharmacy is new too"
+        audioText: "el supermercado es nuevo, y la farmacia es nueva también"
+        atoms: ["supermercado", "nuevo", "farmacia"]
+        segments:
+          - { text: "el supermercado es " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l4-lb-necesitolecheperopuedoiralsupermercado
+        es: "necesito leche, pero puedo ir al supermercado mañana"
+        en: "I need milk, but I can go to the supermarket tomorrow"
+        atoms: ["necesito", "leche", "pero", "puedo", "ir", "al", "supermercado", "mañana"]
+        tiles: ["voy", "tengo que"]
+      - kind: textMcq
+        id: l4-tm-supermercado
+        target: "supermercado"
+        distractors: ["mercado", "supermercados", "supermercada"]
+      - kind: sim
+        id: l4-sim-luis-compras
+        scene: { emoji: "🏬", title: "Luis asks about groceries", setting: "Luis is making a grocery list." }
+        turns:
+          - id: t1
+            npc: { speaker: "Luis", es: "¿Necesitas leche?", audioText: "¿necesitas leche?", gloss: "Do you need milk?" }
+            goal: "Say yes, you need milk."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, necesito leche" }
+                - { id: "wrong1", text: "sí, necesito la leche" }
+                - { id: "wrong2", text: "sí, necesitas leche" }
+              correctOptionId: "right"
+              audioText: "sí, necesito leche"
+            replyGloss: "Yes, I need milk."
+            explanation: "«necesito», not «necesitas» — that's asking about you. And no article before «leche»."
+          - id: t2
+            npc: { speaker: "Luis", es: "¿Vas al supermercado a comprarla?", audioText: "¿vas al supermercado a comprarla?", gloss: "Are you going to the supermarket to buy it?" }
+            goal: "Say yes, going there to buy it."
+            reply:
+              mode: build
+              tiles: ["sí", "voy", "al", "supermercado", "a", "comprarla", "comprarlo"]
+              answer: "sí voy al supermercado a comprarla"
+            replyGloss: "Yes, I'm going to the supermarket to buy it."
+            explanation: "«comprarla» — «la» refers back to «leche» (feminine), fused onto «comprar» (m29)."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "supermercado", target: "supermarket" }
+          - { source: "mercado", target: "market" }
+          - { source: "leche", target: "milk" }
+          - { source: "comprarla", target: "to buy it (her)" }
+          - { source: "necesito", target: "I need" }
+          - { source: "voy", target: "I'm going" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "necesito leche — voy al supermercado a comprarla"
+        en: "I need milk — I'm going to the supermarket to buy it"
+        atoms: ["necesito", "leche", "voy", "al", "supermercado", "a", "comprarla"]
