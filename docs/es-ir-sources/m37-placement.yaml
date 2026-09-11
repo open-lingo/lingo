@@ -1,0 +1,27 @@
+placement:
+  screener:
+    - id: "es-m37-scr-1"
+      prompt: "'One has to work.' (a general rule, not about you) — which one?"
+      correct: "hay que trabajar"
+      distractors: ["tengo que trabajar", "hay trabajar", "hay que trabajo"]
+  byModule:
+    - id: "es-m37-pl-1"
+      prompt: "One has to work. (in general)"
+      correct: "hay que trabajar"
+      distractors: ["tengo que trabajar", "hay trabajar", "hay que trabajo"]
+    - id: "es-m37-pl-2"
+      prompt: "I have to work, but one has to study too."
+      correct: "tengo que trabajar, pero hay que estudiar también"
+      distractors: ["hay que trabajar, pero tengo que estudiar también", "tengo que trabajar, pero hay estudiar también", "tengo que trabajar, pero hay que estudio también"]
+    - id: "es-m37-pl-3"
+      prompt: "One has to go to the bank — it's close."
+      correct: "hay que ir al banco — está cerca"
+      distractors: ["hay que ir al banco — hay cerca", "hay ir al banco — está cerca", "tengo que ir al banco — está cerca"]
+    - id: "es-m37-pl-4"
+      prompt: "One has to buy the ticket at the station."
+      correct: "hay que comprar el boleto en la estación"
+      distractors: ["tengo que comprar el boleto en la estación", "hay que comprar el boleto en estación", "hay comprar el boleto en la estación"]
+    - id: "es-m37-pl-5"
+      prompt: "My foot hurts, but one has to go to the hospital."
+      correct: "me duele el pie, pero hay que ir al hospital"
+      distractors: ["me duele el pie, pero tengo que ir al hospital", "me duele el pie, pero hay ir al hospital", "me duelen el pie, pero hay que ir al hospital"]

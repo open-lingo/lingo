@@ -1,0 +1,123 @@
+  # ── L9 · Cross-recombination — no new atom. Pulls together everything
+  #    the module built: destinations (m34), transport (m36), body parts
+  #    (m30/m31), shopping (m16/m34), all threaded through «hay que» vs
+  #    «tengo/tienes/tiene que» vs «necesito»/«puedo». Short optional info
+  #    card recapping the whole contrast in one place before mastery.
+  #    One recall (L8's win line). PRIOR context only — no new atoms.
+  - n: 9
+    template: free
+    title: "Hay que hacer de todo"
+    description: "Everything, together — the general rule and the personal one, side by side one more time before the finish line."
+    steps:
+      - kind: info
+        id: l9-info-recap
+        title: "El cuadro completo"
+        body: "«hay que» + infinitive — a rule for anyone. «tengo/tienes/tiene que» + infinitive — a rule for one person. Both stay bare after «que» — never «hay que trabajo», never «tengo que trabajo»."
+      - kind: speakLit
+        id: l9-sp-recall
+        es: "hay que trabajar hoy, pero no hay que ir al hospital — necesito dormir"
+        en: "One has to work today, but one doesn't have to go to the hospital — I need to sleep"
+        atoms: ["hay que", "trabajar", "hoy", "pero", "no", "ir", "al", "hospital", "necesito", "dormir"]
+        cue: recall
+      - kind: clozeLit
+        id: l9-c-tienequeirenbicicletaalbanco
+        es: "tiene que ir en bicicleta al banco"
+        en: "He has to go by bicycle to the bank"
+        blank: "bicicleta"
+        options: ["bicicleta", "taxi"]
+        atoms: ["tengo que", "ir", "en", "bicicleta", "al", "banco"]
+        why: "Matching the sentence to the picture — «bicicleta», not «taxi»."
+      - kind: buildLit
+        id: l9-b-medueleelpiepuedoirenmetroalhospital
+        es: "me duele el pie, puedo ir en metro al hospital"
+        en: "My foot hurts, I can go by metro to the hospital"
+        atoms: ["me", "duele", "el", "pie", "puedo", "ir", "en", "metro", "al", "hospital"]
+        tiles: ["tengo que", "hay que"]
+      - kind: mcq
+        id: l9-q-hayquevsnecesito
+        prompt: "Which one means 'one has to buy' (a general errand, not your own need)?"
+        correct: "hay que comprar"
+        distractors: ["necesito comprar", "tengo que comprar", "hay comprar"]
+        atoms: ["hay que", "comprar"]
+        why: "The bread is a general errand — «hay que», not «necesito» (that's your own need) or «tengo que» (that's you specifically)."
+      - kind: listenCompLit
+        id: l9-lc-noteguequeirestacioncerca
+        es: "no hay que ir a la estación, está cerca del banco"
+        en: "One doesn't have to go to the station, it's close to the bank."
+        atoms: ["no", "hay que", "ir", "a", "la", "estación", "está", "cerca", "banco"]
+        distractorsEn:
+          - "I don't have to go to the station, it's close to the bank."
+          - "One has to go to the station, it's close to the bank."
+          - "One doesn't have to go to the station, it's far from the bank."
+      - kind: audioWimcq
+        id: l9-ear-taxi
+        target: { surface: "taxi", emoji: "🚕" }
+        distractors:
+          - { surface: "tren", emoji: "🚆" }
+          - { surface: "bicicleta", emoji: "🚲" }
+      - kind: buildLit
+        id: l9-b-tienesquecomprarelboletoenlaestacionpero
+        es: "tienes que comprar el boleto en la estación, pero puedo ir"
+        en: "You have to buy the ticket at the station, but I can go"
+        atoms: ["tengo que", "comprar", "el", "boleto", "en", "la", "estación", "pero", "puedo", "ir"]
+        tiles: ["hay que", "necesito"]
+      - kind: agreementLit
+        id: l9-agr-taxinuevobicicletanueva
+        en: "The taxi is new, and the bicycle is new too"
+        audioText: "el taxi es nuevo, y la bicicleta es nueva también"
+        atoms: ["taxi", "nuevo", "bicicleta"]
+        segments:
+          - { text: "el taxi es " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y la bicicleta es " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l9-lb-quehayquehacerenelbancohoy
+        es: "qué hay que hacer en el banco hoy"
+        en: "What does one have to do at the bank today"
+        atoms: ["hay que", "hacer", "en", "el", "banco", "hoy"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l9-tm-necesito
+        target: "necesito"
+        distractors: ["necesita", "puedo", "hago"]
+      - kind: sim
+        id: l9-sim-diego-repaso
+        scene: { emoji: "🗺️", title: "Planning the day", setting: "Diego is mapping out everyone's errands." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Qué hay que hacer hoy?", audioText: "¿qué hay que hacer hoy?", gloss: "What does one have to do today?" }
+            goal: "Say one has to buy milk and bread."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hay que comprar leche y pan" }
+                - { id: "wrong1", text: "tengo que comprar leche y pan" }
+                - { id: "wrong2", text: "hay comprar leche y pan" }
+              correctOptionId: "right"
+              audioText: "hay que comprar leche y pan"
+            replyGloss: "One has to buy milk and bread."
+            explanation: "Diego asked the general question — match it with «hay que», the shared list, not your own."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Tienes que ir al banco también?", audioText: "¿tienes que ir al banco también?", gloss: "Do you have to go to the bank too?" }
+            goal: "Say no, the bank is close by."
+            reply:
+              mode: build
+              tiles: ["no", "el", "banco", "está", "cerca", "hay"]
+              answer: "no el banco está cerca"
+            replyGloss: "No, the bank is close by."
+            explanation: "Diego asked about YOU, but this answer is just a fact about the bank — no obligation phrase needed at all."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "hay que", target: "one has to" }
+          - { source: "tengo/tienes/tiene que", target: "I/you/she have to" }
+          - { source: "necesito", target: "I need" }
+          - { source: "puedo", target: "I can" }
+          - { source: "en metro/tren/taxi/bicicleta", target: "by metro/train/taxi/bicycle" }
+          - { source: "está cerca/lejos", target: "it's close/far" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "hay que comprar pan y leche, pero tienes que ir al banco en bicicleta"
+        en: "One has to buy bread and milk, but you have to go to the bank by bicycle"
+        atoms: ["hay que", "comprar", "pan", "leche", "pero", "tengo que", "ir", "al", "banco", "en", "bicicleta"]

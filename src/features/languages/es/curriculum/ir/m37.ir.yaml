@@ -1,0 +1,1713 @@
+module: m37
+title: "Hay que trabajar"
+frame: none
+throughModule: m36
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m37 — impersonal obligation: hay que + infinitivo. Eighteenth A2
+# module, sixth grammar beat since m19 (after m21 gustar-class, m23
+# reflexives, m26 preterite, m28 «voy a», m29 clitics, m31 «duele», m33
+# «tengo que», m35 «está»+location — this module continues that
+# constellation).
+#
+#     hay que + infinitivo (phrase, invariant)   one has to / it's
+#                                                 necessary to
+#
+# ONE idea, the whole module: an impersonal, no-subject cousin of m33's
+# «tengo que» — «hay que trabajar» (one has to work / you have to work,
+# generically) is NOT the same claim as «tengo que trabajar» (I,
+# specifically, have to work). Both pieces («hay», m3; «que», the free
+# linker m33 already taught the shape of) are fully PRIOR — this module
+# teaches only the NEW COMBINATION, registered as its own phrase atom for
+# the identical reason m33 registered «tengo que» rather than crediting
+# «tengo»+«que» separately: the combined meaning is not transparent from
+# the parts («hay» = "there is/are" + «que» = "that" does not obviously
+# spell "it is necessary to," the same non-transparency test m35-header
+# used to justify «tengo que»'s own registration and to justify NOT
+# registering «al lado de»). ONE new atom — the tightest possible grammar
+# beat this course has shipped, and genuinely simpler than m33's own
+# module: «hay» never conjugates for person (impersonal since its m3
+# debut), so unlike «tengo»/«tienes»/«tiene» que's three-way person
+# fan-out, «hay que» has no person forms to fan out AT ALL — every
+# sentence in this module credits the exact same two-word registered
+# surface, no exceptions, no agreement fold.
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# Four lines of evidence:
+#   1. **Rhythm calls for a grammar beat, and m36 is exactly one break past
+#      the last one.** m33 (grammar) → m34 (break) → m35 (grammar) → m36
+#      (break) — the identical one-beat alternation every recent header has
+#      used to justify its own placement. The beat due after m36 is on
+#      schedule.
+#   2. **Nine candidates named by the dispatching task were weighed against
+#      the actual registry, not assumed from the task's own framing — THREE
+#      disqualify outright as already-fully-taught, exactly the class m35-
+#      header already established for poder/querer/demonstratives.**
+#      `grep -o 'surface: "[^"]*"' curriculum/m{1..36}.ts | sort -u |
+#      grep -iE "<word>"` run against every candidate. Full accounting in
+#      REJECTED below. Short version: **«poder»+inf is not merely
+#      already-taught (m14) — it is ALREADY ACTIVELY RECOMBINED in m36
+#      itself** ("necesito ir a la estación, pero puedo ir mañana," "puedo
+#      ir en tren," `curriculum/m36.ts` L1/L2), the strongest possible
+#      disqualification signal this course has produced for any candidate
+#      yet. **«querer»+inf is disqualified identically** (m7/m14, matching
+#      m35-header's own unchanged finding). **«ir a»+inf future extension
+#      to nosotros/ellos is ALSO disqualified** — a genuinely new finding
+#      this round: m28 itself, "Voy a nadar mañana," already uses «vamos a
+#      viajar/comer/nadar/trabajar» (nosotros, `curriculum/m28.ts` L4) and
+#      m33 uses «van a ir» (ellos, `curriculum/m33.ts:983`) — the FULL
+#      person paradigm of the near-future construction is already exercised
+#      course-wide; there is no gap left for this candidate to fill.
+#   3. **The genuinely virgin candidates all cost MORE than «hay que» for
+#      LESS grammatical payoff, checked hook-by-hook, not assumed weaker.**
+#      «se puede» (impersonal ability/permission) reuses «puede» (m14) but
+#      also «se» — already registered, but as a REFLEXIVE pronoun (m17, "se
+#      levanta"), never as an impersonal/passive marker; teaching that
+#      SECOND function of an already-taught surface well would need its own
+#      dedicated explanation, competing directly with «hay que» for the
+#      same "impersonal construction" teaching slot at a weaker level
+#      (possibility, not obligation — the task's own stated goal, survival
+#      Spanish for errands, wants obligation more). «¿cuánto tiempo?»/
+#      «tarda» (duration) and «a qué hora»+«llega» (train times) are both
+#      genuinely virgin and tie beautifully to m36's own transport nouns —
+#      but BOTH need real new vocabulary (tarda + hora + minutos for the
+#      first; llega + hora for the second — `hora`/`minuto`/`minutos`/
+#      `tarda`/`tardan`/`llega`/`llegan` are ALL grep-confirmed zero PRIOR
+#      hits) AND a new verb paradigm (`tardar`/`llegar`), which is
+#      LEXICON-shaped work competing with this round's own "one new
+#      GRAMMAR structure" mandate, not a cleaner grammar deduction than
+#      «hay que»'s zero-new-vocabulary minimal pair against m33. Imperative
+#      tú (gira/sigue/dobla for directions) is rejected a THIRD time — see
+#      its own REJECTED section, the finding is unchanged from m33-header
+#      and m35-header. «primero»/«después»/«luego» sequencing adverbs are
+#      virgin lexicon, not a grammar structure — no unifying deduction path,
+#      break-shaped, not beat-shaped; the rhythm wants a beat this round.
+#   4. **The cleanest possible deduction path of any grammar module this
+#      course has shipped: a literal one-word substitution against a
+#      sentence the learner already produced twelve modules ago.** M33's own
+#      title is "Tengo que trabajar." This module's own title, "Hay que
+#      trabajar," IS the deduction — the learner sees the identical sentence
+#      with «tengo» swapped for «hay» and must reason out what changed (the
+#      subject vanished; the claim went from personal to general) before a
+#      single word of explanation. No other candidate offers a minimal-pair
+#      entry point this direct.
+#
+# ── REJECTED: «poder + infinitivo» / «no puedo» / «¿puedo…?» —
+#    DISQUALIFIED, already fully taught AND already actively recombined in
+#    m36 itself ────────────────────────────────────────────────────────────
+# `grep -o 'surface: "[^"]*"' curriculum/m{1..36}.ts | sort -u | grep -iE
+# "^puedo$|^puedes$|^puede$|^poder$"` returns FOUR hits, all m14. m35-header
+# already disqualified this exact candidate for the identical reason; the
+# finding holds unchanged two modules later — and this round adds a
+# stronger data point: `curriculum/m36.ts` lines 134-139 and 272-277
+# ALREADY build sentences on «puedo» ("necesito ir a la estación, pero
+# puedo ir mañana," "necesito ir a la estación, pero puedo ir en tren") —
+# the exact content a "poder module" would want to teach is already
+# shipped as RECOMBINATION content one module ago. Nothing left to teach.
+#
+# ── REJECTED: «querer + infinitivo» extension — DISQUALIFIED, already
+#    fully taught (m7/m14) ─────────────────────────────────────────────────
+# `grep -iE "^quiero$|^quieres$|^quiere$|^querer$"` against the same
+# surface list returns FOUR hits, m7/m14. Identical disqualification as
+# «poder» above, matching m35-header's own unchanged finding two modules
+# later — zero paradigm gap, nothing new to teach.
+#
+# ── REJECTED: «ir a + infinitivo» future extension to nosotros/ellos —
+#    DISQUALIFIED, a genuinely new finding this round, not merely inherited
+#    ────────────────────────────────────────────────────────────────────────
+# `curriculum/m28.ts` — whose own title is "Voy a nadar mañana," the near-
+# future construction's own debut module — ALREADY uses the nosotros form
+# with an infinitive four separate times: «vamos a viajar el fin de
+# semana» (line 581), «vamos a comer con Ana» (584), «vamos a nadar hoy»
+# (588), «vamos a trabajar mañana» (600). `curriculum/m33.ts:983` uses the
+# ellos form the same way: «van a ir pero tienen que estudiar». The task's
+# own framing named this as a candidate worth checking specifically
+# because m28's atom registration only formally lists `ir`/`va` as NEW
+# atoms — but the SENTENCES built from `voy`/`vas` (m9) + `vamos`/`van`
+# (m18) + this infinitive frame already exercise every person the
+# construction needs. There is no unfilled gap for this module to claim.
+#
+# ── REJECTED: «se puede» (impersonal ability/permission) — real future
+#    content, competes for the same teaching slot at a weaker level ───────
+# `puede` is fully PRIOR (m14). `se` is fully PRIOR (m17) but ONLY as a
+# REFLEXIVE pronoun ("se levanta," he/she gets (himself/herself) up) —
+# this course has never taught or distinguished an impersonal/passive «se»
+# ("se puede," "se vende," "se dice") from the reflexive one. Rejected for
+# m37 on two grounds: (1) introducing that SECOND grammatical function of
+# an already-taught surface well is itself a genuinely new idea competing
+# with «hay que» for the same "impersonal construction" module slot — this
+# course gets one new idea per grammar beat, and «hay que» costs LESS (zero
+# ambiguous dual-function surface to explain) for MORE payoff (obligation,
+# not mere possibility — closer to the task's own survival-Spanish-for-
+# errands goal: "you have to go to the bank" teaches more useful behavior
+# than "one can go to the bank"). (2) «se puede» has no equally direct
+# minimal-pair predecessor the way «hay que» has «tengo que» sitting one
+# module-and-change back — a weaker deduction path. Left open as real,
+# well-scoped future content, ideally its own module once impersonal-se
+# gets dedicated treatment rather than riding a reflexive-se overload.
+#
+# ── REJECTED: «¿cuánto tiempo?» / «tarda» (duration with transport) — real,
+#    virgin, but lexicon-shaped, not a grammar structure ─────────────────
+# `grep -iE "^tarda$|^tardan$|^hora$|^horas$|^minuto$|^minutos$|^tiempo$"`
+# against the m1-m36 surface list returns ZERO hits for all — genuinely
+# virgin, and «el tren tarda una hora» is exactly the recombination sentence
+# m36's own transport nouns were built to support eventually. Rejected for
+# THIS round specifically because it needs a new verb paradigm (`tardar`,
+# at minimum its 3rd-person «tarda»/«tardan») plus two new nouns («hora»,
+# «minutos») — three atoms of genuinely new VOCABULARY plus a new verb,
+# where «hay que» needs zero new vocabulary at all for a genuinely new
+# GRAMMATICAL structure. `cuánto` itself is already PRIOR (m12, "how
+# much") but has never been extended to «cuánto tiempo» (how long) — a
+# real, natural next step, just not this round's. A strong future break,
+# cleanest once formally paired with a "talking about how long things
+# take" lesson of its own, not squeezed into a grammar beat's atom budget.
+#
+# ── REJECTED: «a qué hora» + «sale»/«llega» (train times) — real, but
+#    «sale» is prior, «hora»/«llega» are not, and the natural teaching order
+#    wants «llegar»'s fuller paradigm ────────────────────────────────────
+# `sale`/`salgo` are grep-confirmed fully PRIOR (m15, "salir" — "he/she
+# leaves, I leave, I go out," a general leaving-the-house verb, not
+# specifically about a train's SCHEDULE — the task's candidate framing
+# assumes «sale» already carries a "departs" sense specific to transport,
+# which it does not yet formally carry in this course's own content).
+# `llega`/`llegan`/`llego`/`llegamos` and `hora` are all grep-confirmed
+# ZERO PRIOR hits. A real, well-scoped future lexicon+grammar hybrid
+# module (arrival/departure times), but — like the duration candidate
+# above — it needs genuinely new vocabulary (`llegar`, `hora`) competing
+# with this round's zero-new-vocabulary grammar beat. Left open, not
+# discarded.
+#
+# ── REJECTED: simple commands (imperative tú) for directions — rejected a
+#    THIRD time, same finding, unchanged ───────────────────────────────────
+# No command form of any verb is grep-confirmed PRIOR anywhere in m1-m36.
+# m33-header rejected this candidate: "no learner-need justification
+# found; NPC-authoring convenience alone doesn't earn a module slot."
+# m35-header reconfirmed it unchanged one module later. This round's own
+# task framing offers a stronger-sounding hook — m36's own stations/modes
+# make "turn left, go straight" directions feel like a natural next step —
+# but the underlying objection is UNCHANGED: a dialogue_sim can ask for and
+# receive directions perfectly naturally without any command form («¿dónde
+# está la estación?» / «está cerca, al lado del banco» — m35 already
+# proved this shape works, and m36's own L7 already used it for
+# transport). A honest imperative-tú module also costs MORE than this
+# round's budget allows for honest coverage — `gira`/`sigue`/`dobla` (turn/
+# continue/turn) as commands, PLUS `izquierda`/`derecha`/`derecho`
+# (left/right/straight) as supporting vocabulary those commands need to be
+# useful sentences, is 5-6 new atoms for a genuinely NEW verb-mood category
+# (imperative), not a single deduction from already-known pieces the way
+# «hay que» is. Left open, unchanged verdict, real future content once a
+# concrete learner-need scenario justifies the imperative mood's own
+# module.
+#
+# ── REJECTED: «primero»/«después»/«luego» sequencing adverbs — virgin
+#    lexicon, not a unifying grammar structure ─────────────────────────────
+# `grep -iE "^primero$|^después$|^luego$|^antes$|^entonces$"` against the
+# surface list returns only `entonces` as PRIOR (m22, "then/so," discourse
+# connector); `primero`/`después`/`luego`/`antes` are grep-confirmed zero
+# PRIOR-ATOM hits — though note `esSimNpcProvenance.test.ts`'s own
+# `KNOWN_LEGACY` allowlist lists `después` under `m23` (a grandfathered,
+# never-formally-taught NPC-line word predating the provenance gate, NOT a
+# registered atom — confirmed by the zero hit above; the two facts are
+# consistent, not contradictory). Rejected for m37: three independent
+# discourse adverbs with no single unifying grammatical idea to deduce —
+# this is BREAK-shaped content (a set of imageable-adjacent function words
+# recombined against existing sentences), not BEAT-shaped (one new
+# structure). The rhythm calls for a grammar beat this round, not a third
+# lexicon-adjacent break so soon after m36. Left open as a strong future
+# break or a recombination lesson inside one.
+#
+# ── THE TENGO QUE vs HAY QUE DISCRIMINATION — the central transfer error to
+#    guard against, this module's whole reason for existing ─────────────────
+# A learner who has internalized «tengo que» (m33) as "the obligation
+# sentence" will be tempted to reach for *"yo hay que trabajar" (bolting a
+# subject onto the impersonal construction, which takes NONE — «hay que»
+# never conjugates, never takes «yo»/«tú»/etc. in front of it) — or the
+# reverse, reaching for *"hay que trabajo" (dropping «que» the way an
+# over-generalized «tengo»-pattern might tempt, though «tengo que»'s own
+# module already drilled this specific slip and it should be stale by now).
+# The REAL new confusion this module owns: a learner asked to express "I
+# have to work" reaching for the easier, just-practiced «hay que trabajo»
+# when the sentence is in fact personal (wrong register — too general) —
+# or the reverse, over-specifying "tengo que" when the intended meaning is
+# a general rule that applies to everyone, not just the speaker ("aquí
+# hay que quitarse los zapatos," here one must take off one's shoes, is
+# NOT "yo tengo que quitarme los zapatos"). Every discrimination step
+# contrasting the two must include a foil of this shape — never a correct
+# answer — matching the discipline m29's clitic-order foil, m33's dropped-
+# «que» foil, and m35's motion-vs-location foil already established for
+# their own central transfer errors.
+#
+# ── THE HAY / HAY QUE DUAL-STATUS SECTION — «hay» carries THREE
+#    simultaneous roles, more than any prior module's own dual-status word
+#    ────────────────────────────────────────────────────────────────────────
+# (1) A registered VOCAB atom since m3 (`kind: "vocab"`, existential "there
+# is/are" — "hay un banco cerca"). (2) A member of `ES_FUNCTION_WORDS`
+# (`moduleBarGuards.ts:82`, "...es son está están soy eres hay ser
+# estar...") — a SCOPE-CHECK allowlist entry, independent of formal
+# teaching, the same mechanism m35-header already documented for `está`.
+# (3) — THIS module's own new contribution — the first half of a
+# registered PHRASE atom, `hay que` (`kind: "phrase"`), whose grammatical
+# function (impersonal modal auxiliary) is genuinely DIFFERENT from role
+# (1)'s existential main-verb function, the same "same surface, different
+# job" pattern m36-header documented for `en` (mode-marker vs. registered
+# particle atom) and m35-header documented for `está` (function word vs.
+# vocab atom) — now with a third simultaneous role stacked on. Do not
+# confuse: a sentence using bare existential «hay» ("hay una farmacia
+# aquí," m3-vintage content, fully legal to recombine) is NOT the same
+# atom-credit event as a sentence using the phrase «hay que» (this
+# module's own new atom) — `atoms:`/`exercisedAtomSurfaces` credit must
+# distinguish them exactly (see the credit-trap section below). «que»
+# itself remains what it has always been — a free `ES_FUNCTION_WORDS`
+# member, never independently credited on its own, only ever appearing as
+# the second half of a registered phrase (`tengo que`, m33; `hay que`,
+# this module) — unchanged by this module, not a new status for «que».
+#
+# ── AGREEMENT IS NOT A NEW ATOM — n/a this module, and simpler than every
+#    prior grammar beat's own version of this check ───────────────────────
+# «hay que» is a fixed, INVARIANT phrase — «hay» never conjugates for
+# person or number (impersonal since its own m3 debut: "hay un banco" /
+# "hay dos bancos," same word either way) and this module adds no new
+# inflecting word. Unlike m33's own «tengo que» (which fans out to
+# «tienes que»/«tiene que», each credited through the ALREADY-REGISTERED
+# person-form of «tener» rather than through «tengo que» itself — confirmed
+# by direct read, `curriculum/m33.ts:210-253`: "«tienes que» — ... Graded
+# through the already-registered «tienes», never a new surface") — «hay
+# que» has no such fan-out to manage. EVERY sentence in this module credits
+# the exact same two-word surface, `"hay que"`, with zero exceptions. This
+# is the single cleanest agreement story any grammar module this course
+# has shipped — recorded explicitly so a drafting agent doesn't go looking
+# for a person-form problem that does not exist here.
+#
+# ── THE atoms:/exercisedAtomSurfaces CREDIT TRAP FOR THIS MODULE — read
+#    before drafting a single step ──────────────────────────────────────────
+# `irAtomResolution.test.ts` is zero-tolerance exact-surface (unchanged).
+# This module's own trap has TWO faces, both worth naming explicitly.
+# Face one, the familiar "X que" bigram class every prior grammar module
+# has flagged (m33's own "tengo que," now recurring in the identical
+# shape): a sentence "hay que ir al banco" must credit
+# `["hay que", "ir", "banco"]` (plus whatever else the sentence's own words
+# resolve to) — **never** `["hay", "que", "ir", "banco"]` (crediting the
+# two halves separately silently under-credits the module's own new atom)
+# and **never** `["hay que ir"]` or any larger fused string (over-fusing
+# past the registered two-word surface is equally wrong — the registered
+# surface is exactly `"hay que"`, not `"hay que ir"`). Face two, THIS
+# module's own new variant, unique among the course's grammar beats so
+# far: a sentence using PLAIN existential «hay» ("hay un banco cerca," no
+# «que» at all) must credit `["hay", "banco", "cerca"]` — using the
+# ORIGINAL m3 atom, not the new phrase atom — never `["hay que"]` when
+# «que» isn't even in the sentence. Confusing these two in either direction
+# is this module's own version of the credit-vanishing bug class every
+# prior grammar module's brief has warned a drafting agent against.
+#
+# ── ES_FUNCTION_WORDS ALREADY CARRIES «hay»/«que» — A SCOPE-CHECK
+#    ALLOWLIST, AND ALSO (for «hay») A REGISTERED ATOM, AND NOW (for the
+#    pair together) A SECOND REGISTERED SURFACE — all true at once ────────
+# Direct read, `moduleBarGuards.ts:72-88`: `ES_FUNCTION_WORDS` already
+# lists both `hay` and `que` among its closed class. This means both words
+# are ALREADY legal in any NPC line or build-tile bank for SCOPE-CHECKING
+# purposes, independent of whether the two-word combination has been
+# formally taught. This module adds NOTHING to `ES_FUNCTION_WORDS` itself
+# — the new registration lives entirely in `courseAtoms.ts` (via
+# `ES_M37_ATOMS`), the same mechanism m33 used for `tengo que`. Do not
+# confuse "legal in an NPC line for scope purposes" (already true, unaffected
+# by this module) with "creditable via `atoms:`/`exercisedAtomSurfaces`"
+# (newly true for the exact string `"hay que"`, as of this module).
+#
+# ── SIM NPC-LINE PROVENANCE: LIVE AND UNFORGIVING, m29+ HAS ZERO LEGACY
+#    ALLOWANCE, RECONFIRMED THROUGH m36 ────────────────────────────────────
+# `esSimNpcProvenance.test.ts`'s `KNOWN_LEGACY` allowlist tail is confirmed
+# still `m28` (direct read of the full object, no m29-m36 entries) — this
+# module gets NO reaction-word leniency either. Every NPC word must resolve
+# to: this module's own 1 atom (`hay que`), any PRIOR atom (m1-m36), a
+# taught verb conjugation, `ES_FUNCTION_WORDS`, or `ES_PROPER_NAMES`.
+# `ES_PROPER_NAMES` (`moduleBarGuards.ts:90-93`): ana, diego, carlos,
+# maría/maria, sofía/sofia, luis, elena, pedro, juan, rosa, miguel, carmen,
+# lupita, jorge, marta — plus learner persona Sam. **Full-course cast check
+# (not just recent modules), grep of every `speaker:` field in m1-m36:**
+# `lupita` and `marta` are BOTH completely unused anywhere in the shipped
+# course (every other allowed name has appeared at least once in m28-m36:
+# Ana, Carlos, Carmen, Diego, Elena, Jorge, Juan, Luis, Miguel, Pedro, Rosa,
+# Sam, Sofía — Jorge debuted m36, Carlos debuted m35). **Marta** debuts as
+# this module's own L7 dialogue_sim NPC — a stronger freshness claim than
+# m36's own Jorge pick or m35's own Carlos pick, both of which were merely
+# unused THROUGH the prior module, not unused course-wide by this margin
+# (two names now remain in reserve after this module: only `lupita`).
+#
+# ── ACCENT: DEEP OFFICIAL-NOTICE INDIGO/NAVY, VERIFIED UNUSED, DISTINCT
+#    FROM EVERY PRIOR PAIR ─────────────────────────────────────────────────
+# Checked every `accent:` pair in `curriculum/index.ts` (grep-verified, all
+# 35 existing pairs read in full, both hex values individually): zero hits
+# for `#1e40af` or `#172554` anywhere as either a `from` or a `to`.
+# Distinct from the four most recent modules specifically (m33 warm
+# graphite/stone `#78716c`→`#1c1917`, m34 terracotta/clay `#d97757`→
+# `#92400e`, m35 deep cartographer teal-navy `#0e7490`→`#164e63`, m36
+# steel/rail slate `#475569`→`#1e293b`) and from the course's existing
+# blue/indigo cluster (`#0ea5e9`→`#0284c7`, `#38bdf8`→`#0369a1` ×2,
+# `#38bdf8`→`#0c4a6e`, `#3b82f6`→`#1d4ed8`, `#818cf8`→`#3730a3`,
+# `#4f46e5`→`#312e81`) — checked side by side, this pair sits deeper and
+# more saturated-navy than any of them, reading as "an official rule
+# printed in ink" (a posted notice, a municipal sign — "hay que" as
+# impersonal, generally-applicable law) rather than any single place or
+# vehicle metaphor.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # hay que — one has to / it's necessary to. Invariant phrase atom, built
+  # from already-free/registered pieces («hay», m3; «que», the linker m33
+  # already established the shape of) but registered as its OWN new surface
+  # because the combined meaning is not transparent from the parts —
+  # exactly the same non-transparency call m33 made for «tengo que» (and
+  # the same call m35 explicitly did NOT make for «al lado de», where the
+  # meaning IS transparent). Zero person fan-out, unlike «tengo que» — «hay»
+  # never conjugates, so this is the single surface every sentence in this
+  # module credits, no exceptions (L1).
+  - { surface: "hay que", meaningEn: "one has to, it's necessary to", partOfSpeech: "phrase", kind: "phrase", hint: "hay que — «hay» (m3, already yours) plus «que», already a free word. No subject ever goes in front of it — never «yo hay que», never «tú hay que» — it's a GENERAL rule, not a personal one. Contrast with «tengo que»/«tienes que»/«tiene que» (m33, personal: I/you/he-she specifically have to) — «hay que trabajar» (one has to work, in general) vs. «tengo que trabajar» (I, specifically, have to work)." }
+
+lessons:
+  # ── L1 · «Hay que trabajar» — «hay que» debuts. The minimal-pair
+  #    deduction: the learner already produced «tengo que trabajar» twelve
+  #    modules ago (m33-L1's own win line) — this lesson swaps «tengo» for
+  #    «hay» and reasons out what changed (the subject vanished; the claim
+  #    went personal → general) before a single word of explanation. Zero
+  #    new verb morphology: «hay» never conjugates (invariant since m3).
+  #    No imageMcq — «hay que» is a non-imageable grammar phrase (§13.1).
+  #    Central discrimination foil (dropping «que», *"hay trabajo") lands
+  #    in the MCQ and the sim, never as a correct answer. PRIOR context
+  #    only: tengo que (m33), hay/aquí (m3), trabajar/estudiar (m10),
+  #    mucho (m7), hoy/mañana (m8), pero (m6/18), también (m11), puedo
+  #    (m14), ir/al (m28/m2), necesito (m16), boleto (m16), banco/farmacia/
+  #    hospital (m34), estación (m36). No recall — first lesson. Sim t2's
+  #    NPC line dropped «para» (not prior anywhere in m1-m36, caught by the
+  #    course-wide dialogue_sim vocabulary-provenance pin) — "¿y el tren?
+  #    ¿qué necesito?" reads fine without it.
+  - n: 1
+    template: free
+    title: "Hay que trabajar"
+    description: "«hay que» plus a bare infinitive — a GENERAL rule, no subject, ever. «hay que trabajar» — one has to work (whoever). Not «tengo que trabajar» (m33) — that's YOU, specifically."
+    steps:
+      - kind: map
+        id: l1-map-hayquetrabajar
+        tokens: ["hay que", "trabajar"]
+        pairs:
+          - { en: "one has to", tokenIndex: 0 }
+          - { en: "work", tokenIndex: 1 }
+        audioText: "hay que trabajar"
+        revealNote: "«hay que» — «hay» (m3, invariant, never conjugates) plus «que», already a free word. No subject ever goes in front of it — never «yo hay que». Compare «tengo que trabajar» (m33) — that's YOU, specifically."
+      - kind: info
+        id: l1-info-hayque
+        title: "Hay que — one has to, it's necessary to"
+        body: "«hay que» plus a bare infinitive is a GENERAL rule — no «yo», no «tú», it never changes. «tengo que trabajar» (m33) means I, specifically, have to work. «hay que trabajar» means one has to work — whoever, in general."
+      - kind: speakLit
+        id: l1-sp-tengoquetrabajar
+        es: "tengo que trabajar"
+        en: "I have to work"
+        atoms: ["tengo que", "trabajar"]
+      - kind: buildLit
+        id: l1-b-hayquetrabajarmuchoaqui
+        es: "hay que trabajar mucho aquí"
+        en: "One has to work a lot here"
+        atoms: ["hay que", "trabajar", "mucho", "aquí"]
+        tiles: ["tengo", "puedo"]
+      - kind: clozeLit
+        id: l1-c-hayqueestudiarhoy
+        es: "hay que estudiar hoy"
+        en: "One has to study today"
+        blank: "estudiar"
+        options: ["estudiar", "estudio"]
+        atoms: ["hay que", "estudiar", "hoy"]
+        why: "After «que», the infinitive never conjugates — «estudiar», not «estudio». Same rule as «tengo que» (m33)."
+      - kind: listenCompLit
+        id: l1-lc-hayquetrabajarhoy
+        es: "hay que trabajar hoy"
+        en: "One has to work today."
+        atoms: ["hay que", "trabajar", "hoy"]
+        distractorsEn:
+          - "I have to work today."
+          - "One has to work tomorrow."
+          - "One wants to work today."
+      - kind: mcq
+        id: l1-q-hayquetrabajar
+        prompt: "Which one means 'one has to work' (a general rule, not about you)?"
+        correct: "hay que trabajar"
+        distractors: ["tengo que trabajar", "hay trabajar", "hay que trabajo"]
+        atoms: ["hay que", "trabajar"]
+        why: "«hay que» never takes a subject — «tengo que» would mean YOU specifically. Never drop «que» («hay trabajar»), and the infinitive stays bare («trabajar», not «trabajo»)."
+      - kind: buildLit
+        id: l1-b-hayquecomprarelboletoenlaestacion
+        es: "hay que comprar el boleto en la estación"
+        en: "One has to buy the ticket at the station"
+        atoms: ["hay que", "comprar", "el", "boleto", "en", "la", "estación"]
+        tiles: ["tengo", "necesito"]
+      - kind: audioWimcq
+        id: l1-ear-banco
+        target: { surface: "banco", emoji: "🏦" }
+        distractors:
+          - { surface: "farmacia", emoji: "💊" }
+          - { surface: "hospital", emoji: "🏥" }
+      - kind: agreementLit
+        id: l1-agr-correopequenofarmaciapequena
+        en: "The post office is small, and the pharmacy is small too"
+        audioText: "el correo es pequeño, y la farmacia es pequeña también"
+        atoms: ["correo", "pequeño", "farmacia"]
+        segments:
+          - { text: "el correo es " }
+          - { blank: { id: "p1", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "pequeño"] } }
+      - kind: listenBuildLit
+        id: l1-lb-hayqueiralbancoperopuedo
+        es: "hay que ir al banco, pero puedo ir mañana"
+        en: "One has to go to the bank, but I can go tomorrow"
+        atoms: ["hay que", "ir", "al", "banco", "pero", "puedo", "mañana"]
+        tiles: ["tengo", "necesito"]
+      - kind: textMcq
+        id: l1-tm-trabajar
+        target: "trabajar"
+        distractors: ["trabajador", "trabajo", "viajar"]
+      - kind: sim
+        id: l1-sim-diego-trabajo
+        scene: { emoji: "💼", title: "Diego explains the rules", setting: "Diego is showing you around a new job." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Tienes que trabajar hoy?", audioText: "¿tienes que trabajar hoy?", gloss: "Do you have to work today?" }
+            goal: "Say no, but one has to study here."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, pero hay que estudiar aquí" }
+                - { id: "wrong1", text: "no, pero tengo que estudiar aquí" }
+                - { id: "wrong2", text: "no, pero hay estudiar aquí" }
+              correctOptionId: "right"
+              audioText: "no, pero hay que estudiar aquí"
+            replyGloss: "No, but one has to study here."
+            explanation: "A GENERAL rule, not about you specifically — «hay que», not «tengo que». And never drop «que»: «hay estudiar» is ungrammatical."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y el tren? ¿Qué necesito?", audioText: "¿y el tren? ¿qué necesito?", gloss: "And the train? What do I need?" }
+            goal: "Say one has to buy the ticket."
+            reply:
+              mode: build
+              tiles: ["hay", "que", "comprar", "el", "boleto", "en", "la", "estación", "tengo", "necesito"]
+              answer: "hay que comprar el boleto en la estación"
+            replyGloss: "One has to buy the ticket at the station."
+            explanation: "A rule that applies to anyone riding the train — «hay que», the impersonal one."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "hay que", target: "one has to" }
+          - { source: "tengo que", target: "I have to" }
+          - { source: "trabajar", target: "work" }
+          - { source: "estudiar", target: "study" }
+          - { source: "boleto", target: "ticket" }
+          - { source: "estación", target: "station" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "hay que trabajar hoy, y también hay que estudiar"
+        en: "One has to work today, and one also has to study"
+        atoms: ["hay que", "trabajar", "hoy", "también", "estudiar"]
+
+  # ── L2 · Discrimination drill — «hay que» vs «tengo que» side by side,
+  #    across persons (tengo/tienes/tiene, m33) to hammer that «hay que»
+  #    never changes while the personal form does. New combo: «hay que
+  #    comer» (comer = eat, PRIOR — grep-verified 6 hits pre-m37, e.g.
+  #    m19/m28) — everyone has to eat (general), contrasted against
+  #    «tengo/tienes/tiene que cocinar» (cocinar, PRIOR m13/m14/m19/m28 —
+  #    cooking is YOUR chore, specifically). NOTE: an earlier draft of
+  #    this lesson used «limpiar» ("clean") for the general half — that
+  #    verb turned out NOT to be prior anywhere in m1-m36 (m30's and m32's
+  #    own IR headers independently rejected it for the same reason, grep-
+  #    verified zero hits before this correction) and was caught only at
+  #    vocabTextMcq import-time, after the fragment had already passed
+  #    check-frag.sh — check-frag doesn't cross-check against the full
+  #    course atom registry, only local shape. Replaced with «comer»,
+  #    itself genuinely PRIOR. No new atoms. One recall (L1 win line).
+  #    PRIOR: tengo/tienes/tiene que (m33), comer (m19/m28), cocinar
+  #    (m13/m14/m19/m28), la casa (m5), ahora (m9), siempre (m19), nunca
+  #    (m19), Ana (m1 NPC name), bonito/bonita (prior, gender-agreement
+  #    adjective pair, replacing another non-prior adjective — limpio/
+  #    limpia — caught and fixed in the same pass).
+  - n: 2
+    template: free
+    title: "¿Tengo que o hay que?"
+    description: "Same shape, different job. «tengo que» — you, specifically. «hay que» — a rule for anyone. Watch them side by side."
+    steps:
+      - kind: map
+        id: l2-map-hayquecomer
+        tokens: ["hay que", "comer"]
+        pairs:
+          - { en: "one has to", tokenIndex: 0 }
+          - { en: "eat", tokenIndex: 1 }
+        audioText: "hay que comer"
+        revealNote: "«hay que comer» — one has to eat, a rule that applies to absolutely everyone. Not «tengo que comer» (m33) — that would single YOU out for a fact that's true of anyone."
+      - kind: speakLit
+        id: l2-sp-recall
+        es: "hay que trabajar hoy, y también hay que estudiar"
+        en: "One has to work today, and one also has to study"
+        atoms: ["hay que", "trabajar", "hoy", "también", "estudiar"]
+        cue: recall
+      - kind: clozeLit
+        id: l2-c-tienesquecocinar
+        es: "tienes que cocinar ahora"
+        en: "You have to cook now"
+        blank: "tienes"
+        options: ["tienes", "hay"]
+        atoms: ["tengo que", "cocinar", "ahora"]
+        why: "«ahora» names no one but YOU as the one who has to act — «tienes que», not the general «hay que»."
+      - kind: buildLit
+        id: l2-b-hayquecomersiempre
+        es: "hay que comer siempre"
+        en: "One always has to eat"
+        atoms: ["hay que", "comer", "siempre"]
+        tiles: ["tengo", "tienes"]
+      - kind: mcq
+        id: l2-q-anacocina
+        prompt: "Ana says, 'I have to cook.' Which one?"
+        correct: "tengo que cocinar"
+        distractors: ["hay que cocinar", "tiene que cocinar", "tengo que cocina"]
+        atoms: ["tengo que", "cocinar"]
+        why: "Ana is talking about herself — «tengo que», the personal form. «hay que» would drop her out of the sentence entirely."
+      - kind: listenCompLit
+        id: l2-lc-tienequecocinar
+        es: "Ana tiene que cocinar en la casa"
+        en: "Ana has to cook at the house."
+        atoms: ["tengo que", "cocinar", "la", "casa"]
+        distractorsEn:
+          - "One has to cook at the house."
+          - "Ana has to eat."
+          - "Ana always has to cook."
+      - kind: audioWimcq
+        id: l2-ear-hospital
+        target: { surface: "hospital", emoji: "🏥" }
+        distractors:
+          - { surface: "banco", emoji: "🏦" }
+          - { surface: "correo", emoji: "📮" }
+      - kind: buildLit
+        id: l2-b-nuncatengoquecocinar
+        es: "nunca tengo que cocinar aquí"
+        en: "I never have to cook here"
+        atoms: ["nunca", "tengo que", "cocinar", "aquí"]
+        tiles: ["hay", "tienes"]
+      - kind: agreementLit
+        id: l2-agr-casabonitaboletobonito
+        en: "The house is pretty, and the ticket is pretty too"
+        audioText: "la casa está bonita, y el boleto está bonito también"
+        atoms: ["casa", "bonito", "boleto"]
+        segments:
+          - { text: "la casa está " }
+          - { blank: { id: "p1", answer: "bonita", options: ["bonita", "bonito"] } }
+          - { text: ", y el boleto está " }
+          - { blank: { id: "p2", answer: "bonito", options: ["bonito", "bonita"] } }
+      - kind: listenBuildLit
+        id: l2-lb-hayquecomersiempretienesquecocinar
+        es: "hay que comer siempre, pero tienes que cocinar ahora"
+        en: "One always has to eat, but you have to cook now"
+        atoms: ["hay que", "comer", "siempre", "pero", "tengo que", "cocinar", "ahora"]
+        tiles: ["tengo", "tiene"]
+      - kind: textMcq
+        id: l2-tm-comer
+        target: "comer"
+        distractors: ["como", "comes", "cocinar"]
+      - kind: sim
+        id: l2-sim-ana-casa
+        scene: { emoji: "🍽️", title: "Dinner time", setting: "Ana is organizing dinner at home." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tengo que cocinar hoy?", audioText: "¿tengo que cocinar hoy?", gloss: "Do I have to cook today?" }
+            goal: "Say no, but one always has to eat."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, pero siempre hay que comer" }
+                - { id: "wrong1", text: "no, pero siempre tengo que comer" }
+                - { id: "wrong2", text: "no, pero siempre hay comer" }
+              correctOptionId: "right"
+              audioText: "no, pero siempre hay que comer"
+            replyGloss: "No, but one always has to eat."
+            explanation: "A fact true of anyone, not just Ana — «hay que», not «tengo que» (that would single her out)."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tú? ¿Qué tienes que hacer?", audioText: "¿y tú? ¿qué tienes que hacer?", gloss: "And you? What do you have to do?" }
+            goal: "Say you never have to cook here."
+            reply:
+              mode: build
+              tiles: ["nunca", "tengo", "que", "cocinar", "aquí", "hay", "tienes"]
+              answer: "nunca tengo que cocinar aquí"
+            replyGloss: "I never have to cook here."
+            explanation: "You're talking about yourself — «tengo que», the personal form."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "hay que" , target: "one has to" }
+          - { source: "tengo que", target: "I have to" }
+          - { source: "tienes que", target: "you have to" }
+          - { source: "tiene que", target: "she/he has to" }
+          - { source: "comer", target: "eat" }
+          - { source: "siempre", target: "always" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "hay que comer siempre, pero nunca tengo que cocinar"
+        en: "One always has to eat, but I never have to cook"
+        atoms: ["hay que", "comer", "siempre", "pero", "nunca", "tengo que", "cocinar"]
+
+  # ── L3 · Negation — «no hay que» = not necessary, still general, still
+  #    invariant. Zero new atoms: just «no» (m9) plus the phrase already
+  #    taught. Recombines m34 destination nouns + m16 necesito for a
+  #    contrast against «no hay que». One recall (L2 win line, updated to
+  #    match L2's corrected win line). PRIOR: no (m9), necesito (m16),
+  #    farmacia (m34), hospital (m34), banco (m34), hoy/mañana (m8), pero
+  #    (m6/18), Diego (m1 NPC name), dormir (m14 — replaces an earlier
+  #    draft's «descansar», which was NOT prior anywhere in m1-m36 and was
+  #    caught the same way as L2's «limpiar» bug, at vitest import time via
+  #    moduleBarGuards' unknownTokens scan, not check-frag.sh).
+  - n: 3
+    template: free
+    title: "No hay que ir"
+    description: "«no hay que» — not necessary, for anyone. Still no subject, still invariant. «no hay que ir» — one doesn't have to go."
+    steps:
+      - kind: map
+        id: l3-map-nohayqueir
+        tokens: ["no", "hay que", "ir"]
+        pairs:
+          - { en: "not", tokenIndex: 0 }
+          - { en: "one has to", tokenIndex: 1 }
+          - { en: "go", tokenIndex: 2 }
+        audioText: "no hay que ir"
+        revealNote: "«no hay que ir» — one doesn't have to go. Just «no» in front of the same invariant phrase. No new form — «hay» still never conjugates."
+      - kind: speakLit
+        id: l3-sp-recall
+        es: "hay que comer siempre, pero nunca tengo que cocinar"
+        en: "One always has to eat, but I never have to cook"
+        atoms: ["hay que", "comer", "siempre", "pero", "nunca", "tengo que", "cocinar"]
+        cue: recall
+      - kind: clozeLit
+        id: l3-c-nohayquetrabajarmanana
+        es: "no hay que trabajar mañana"
+        en: "One doesn't have to work tomorrow"
+        blank: "hay"
+        options: ["hay", "tengo"]
+        atoms: ["no", "hay que", "trabajar", "mañana"]
+        why: "This is a rule for anyone off tomorrow, not just you — «no hay que», not «no tengo que»."
+      - kind: buildLit
+        id: l3-b-nohayqueiralbancohoy
+        es: "no hay que ir al banco hoy"
+        en: "One doesn't have to go to the bank today"
+        atoms: ["no", "hay que", "ir", "al", "banco", "hoy"]
+        tiles: ["tengo", "necesito"]
+      - kind: mcq
+        id: l3-q-necesitovshayque
+        prompt: "Which one means 'one doesn't have to' (in general)?"
+        correct: "no hay que"
+        distractors: ["no tengo que", "hay que no", "no hay"]
+        atoms: ["no", "hay que"]
+        why: "«no hay que» has to come as one block, right after «no». Never split it («hay que no»), and never drop «que» («no hay»)."
+      - kind: listenCompLit
+        id: l3-lc-nohayquetrabajarmanana
+        es: "no hay que trabajar mañana"
+        en: "One doesn't have to work tomorrow."
+        atoms: ["no", "hay que", "trabajar", "mañana"]
+        distractorsEn:
+          - "I don't have to work tomorrow."
+          - "One has to work tomorrow."
+          - "One doesn't have to work today."
+      - kind: audioWimcq
+        id: l3-ear-farmacia
+        target: { surface: "farmacia", emoji: "💊" }
+        distractors:
+          - { surface: "hospital", emoji: "🏥" }
+          - { surface: "banco", emoji: "🏦" }
+      - kind: buildLit
+        id: l3-b-necesitodormirpeornohayquetrabajar
+        es: "necesito dormir, pero no hay que trabajar hoy"
+        en: "I need to sleep, but one doesn't have to work today"
+        atoms: ["necesito", "dormir", "pero", "no", "hay que", "trabajar", "hoy"]
+        tiles: ["tengo", "puedo"]
+      - kind: agreementLit
+        id: l3-agr-boletonuevofarmacianueva
+        en: "The ticket is new, and the pharmacy is new too"
+        audioText: "el boleto es nuevo, y la farmacia es nueva también"
+        atoms: ["boleto", "nuevo", "farmacia"]
+        segments:
+          - { text: "el boleto es " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l3-lb-nohayqueiralafarmaciamanana
+        es: "no hay que ir a la farmacia mañana"
+        en: "One doesn't have to go to the pharmacy tomorrow"
+        atoms: ["no", "hay que", "ir", "a", "la", "farmacia", "mañana"]
+        tiles: ["tengo", "necesito"]
+      - kind: textMcq
+        id: l3-tm-necesito
+        target: "necesito"
+        distractors: ["necesita", "necesitas", "puedo"]
+      - kind: sim
+        id: l3-sim-diego-descanso
+        scene: { emoji: "😌", title: "A day off", setting: "Diego is checking the schedule." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Hay que trabajar mañana?", audioText: "¿hay que trabajar mañana?", gloss: "Does one have to work tomorrow?" }
+            goal: "Say no, one doesn't have to work tomorrow."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, no hay que trabajar mañana" }
+                - { id: "wrong1", text: "no, no tengo que trabajar mañana" }
+                - { id: "wrong2", text: "no, hay que no trabajar mañana" }
+              correctOptionId: "right"
+              audioText: "no, no hay que trabajar mañana"
+            replyGloss: "No, one doesn't have to work tomorrow."
+            explanation: "Diego asked a general question — answer with the general form, and keep «no hay que» together as one block."
+          - id: t2
+            npc: { speaker: "Diego", es: "Qué bien. ¿Necesitas ir al banco?", audioText: "qué bien. ¿necesitas ir al banco?", gloss: "Great. Do you need to go to the bank?" }
+            goal: "Say you need sleep, but no bank today."
+            reply:
+              mode: build
+              tiles: ["necesito", "dormir", "pero", "no", "hay", "que", "ir", "al", "banco", "tengo"]
+              answer: "necesito dormir pero no hay que ir al banco"
+            replyGloss: "I need to sleep, but one doesn't have to go to the bank."
+            explanation: "«necesito» names you; «no hay que» stays general — the bank rule applies to anyone, not just you."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "no hay que", target: "one doesn't have to" }
+          - { source: "necesito", target: "I need" }
+          - { source: "dormir", target: "sleep" }
+          - { source: "farmacia", target: "pharmacy" }
+          - { source: "hospital", target: "hospital" }
+          - { source: "banco", target: "bank" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "necesito dormir, pero no hay que ir al banco hoy"
+        en: "I need to sleep, but one doesn't have to go to the bank today"
+        atoms: ["necesito", "dormir", "pero", "no", "hay que", "ir", "al", "banco", "hoy"]
+
+  # ── L4 · Recombination — «hay que» meets m30/m31 body-part vocabulary
+  #    and «duele». Central sentence pre-seeded in placement.yaml pl-5:
+  #    «me duele el pie, pero hay que ir al hospital». Zero new atoms.
+  #    One recall (L3 win line, updated to match L3's corrected win line).
+  #    PRIOR: duele/duelen (m31), pie/mano/ojo (m30), hospital (m34), pero
+  #    (m6/18), puedo (m14), mañana (m8), dormir (m14 — replaces an
+  #    earlier draft's non-prior «descansar», same fix as L3). Sim t1's NPC
+  #    line swapped «¿qué te pasa?» (untaught «pasa») for «¿te duele el
+  #    pie?» — same taught pieces (te m13, duele m31, el pie m30) already
+  #    doing the work; caught by the same vocabulary-provenance pin as
+  #    L1's «para» fix. «ojos»/«tienes que»/«tiene que» in atoms: arrays now
+  #    credit their registered surfaces («ojo» m30, «tengo que» m33) — atoms:
+  #    is SRS credit, not display, matching m6/m12's feminine-agreement
+  #    precedent (irAtomResolution.test.ts).
+  - n: 4
+    template: free
+    title: "Me duele, pero hay que ir"
+    description: "Something hurts — but the rule still stands. «me duele el pie, pero hay que ir al hospital»."
+    steps:
+      - kind: map
+        id: l4-map-medueleelpie
+        tokens: ["me duele", "el pie"]
+        pairs:
+          - { en: "it hurts me", tokenIndex: 0 }
+          - { en: "the foot", tokenIndex: 1 }
+        audioText: "me duele el pie"
+        revealNote: "«me duele el pie» (m31) — nothing new here. This lesson just puts it next to «hay que» to practice keeping both straight in one sentence."
+      - kind: speakLit
+        id: l4-sp-recall
+        es: "necesito dormir, pero no hay que ir al banco hoy"
+        en: "I need to sleep, but one doesn't have to go to the bank today"
+        atoms: ["necesito", "dormir", "pero", "no", "hay que", "ir", "al", "banco", "hoy"]
+        cue: recall
+      - kind: clozeLit
+        id: l4-c-meduelenlosojos
+        es: "me duelen los ojos"
+        en: "My eyes hurt"
+        blank: "duelen"
+        options: ["duelen", "duele"]
+        atoms: ["me", "duelen", "los", "ojo"]
+        why: "«ojos» is plural, so the verb matches: «duelen», not «duele»."
+      - kind: buildLit
+        id: l4-b-medueleelpieperohayqueir
+        es: "me duele el pie, pero hay que ir al hospital"
+        en: "My foot hurts, but one has to go to the hospital"
+        atoms: ["me", "duele", "el", "pie", "pero", "hay que", "ir", "al", "hospital"]
+        tiles: ["tengo", "puedo"]
+      - kind: mcq
+        id: l4-q-medueleelpie
+        prompt: "Which one means 'one has to' (a general rule, not about you)?"
+        correct: "hay que"
+        distractors: ["tengo que", "tiene que", "hay"]
+        atoms: ["hay que"]
+        why: "A rule for anyone — no subject ever goes in front of it, and it's never dropped to bare «hay». «tengo/tiene que» would name a specific person instead."
+      - kind: listenCompLit
+        id: l4-lc-medueleelpiehayqueirhospital
+        es: "me duele el pie, pero hay que ir al hospital"
+        en: "My foot hurts, but one has to go to the hospital."
+        atoms: ["me", "duele", "el", "pie", "pero", "hay que", "ir", "al", "hospital"]
+        distractorsEn:
+          - "My foot hurts, but I have to go to the hospital."
+          - "My eyes hurt, but one has to go to the hospital."
+          - "My foot hurts, but one can go to the hospital."
+      - kind: audioWimcq
+        id: l4-ear-pie
+        target: { surface: "pie", emoji: "🦶" }
+        distractors:
+          - { surface: "mano", emoji: "✋" }
+          - { surface: "ojo", emoji: "👁️" }
+      - kind: buildLit
+        id: l4-b-medueleelmanopuedodormirmanana
+        es: "me duele la mano, pero puedo dormir mañana"
+        en: "My hand hurts, but I can sleep tomorrow"
+        atoms: ["me", "duele", "la", "mano", "pero", "puedo", "dormir", "mañana"]
+        tiles: ["hay", "tengo"]
+      - kind: agreementLit
+        id: l4-agr-hospitalgrandefarmaciagrande
+        en: "The hospital is big, and the pharmacy is big too"
+        audioText: "el hospital es grande, y la farmacia es grande también"
+        atoms: ["hospital", "grande", "farmacia"]
+        segments:
+          - { text: "el hospital es " }
+          - { blank: { id: "p1", answer: "grande", options: ["grande", "grandes"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "grande", options: ["grande", "grandes"] } }
+      - kind: listenBuildLit
+        id: l4-lb-meduelenlosojoshayquedormir
+        es: "me duelen los ojos, hay que dormir"
+        en: "My eyes hurt, one has to sleep"
+        atoms: ["me", "duelen", "los", "ojo", "hay que", "dormir"]
+        tiles: ["tengo", "puedo"]
+      - kind: textMcq
+        id: l4-tm-duele
+        target: "duele"
+        distractors: ["duelen", "duelo", "puede"]
+      - kind: sim
+        id: l4-sim-marta-pie
+        scene: { emoji: "🏥", title: "A sore foot", setting: "Marta notices you limping." }
+        turns:
+          - id: t1
+            npc: { speaker: "Marta", es: "¿Te duele el pie?", audioText: "¿te duele el pie?", gloss: "Does your foot hurt?" }
+            goal: "Say your foot hurts."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "me duele el pie" }
+                - { id: "wrong1", text: "me duelen el pie" }
+                - { id: "wrong2", text: "me duele los pies" }
+              correctOptionId: "right"
+              audioText: "me duele el pie"
+            replyGloss: "My foot hurts."
+            explanation: "«el pie» is singular, so «duele», not «duelen»."
+          - id: t2
+            npc: { speaker: "Marta", es: "Entonces, ¿qué hay que hacer?", audioText: "entonces, ¿qué hay que hacer?", gloss: "So, what does one have to do?" }
+            goal: "Say one has to go to the hospital."
+            reply:
+              mode: build
+              tiles: ["hay", "que", "ir", "al", "hospital", "tengo", "puedo"]
+              answer: "hay que ir al hospital"
+            replyGloss: "One has to go to the hospital."
+            explanation: "A sore foot means a trip to the hospital for anyone — the general form, «hay que»."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "me duele", target: "it hurts me" }
+          - { source: "el pie", target: "the foot" }
+          - { source: "los ojos", target: "the eyes" }
+          - { source: "la mano", target: "the hand" }
+          - { source: "hay que", target: "one has to" }
+          - { source: "hospital", target: "hospital" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "me duele el pie, pero hay que ir al hospital"
+        en: "My foot hurts, but one has to go to the hospital"
+        atoms: ["me", "duele", "el", "pie", "pero", "hay que", "ir", "al", "hospital"]
+
+  # ── L5 · «hay» (m3, there is/are) vs «hay que» (obligation) — the
+  #    central credit-trap this module exists to defuse. Same word, two
+  #    jobs: «hay» alone + a noun = existence; «hay» + «que» + infinitive
+  #    = obligation. Dedicated info card (2nd and last of the module).
+  #    Zero new atoms. One recall (L4 win line). PRIOR: hay/un/una (m3),
+  #    farmacia/banco/hospital (m34), estación (m36), boleto (m16),
+  #    cerca/lejos (m35).
+  - n: 5
+    template: free
+    title: "Hay — dos trabajos"
+    description: "«hay» does two jobs. «hay un banco» — there's a bank. «hay que ir» — one has to go. Same word, different partner."
+    steps:
+      - kind: map
+        id: l5-map-hayunbanco
+        tokens: ["hay", "un banco"]
+        pairs:
+          - { en: "there is", tokenIndex: 0 }
+          - { en: "a bank", tokenIndex: 1 }
+        audioText: "hay un banco"
+        revealNote: "«hay un banco» (m3) — there's a bank. Plain «hay» plus a noun. No «que», no obligation — just existence."
+      - kind: info
+        id: l5-info-hayvshayque
+        title: "Hay vs. hay que — two different jobs"
+        body: "«hay» plus a noun means 'there is/are' («hay un banco» — there's a bank, m3). «hay» plus «que» plus an infinitive means 'one has to' («hay que ir» — one has to go). Same first word, completely different sentence."
+      - kind: speakLit
+        id: l5-sp-recall
+        es: "me duele el pie, pero hay que ir al hospital"
+        en: "My foot hurts, but one has to go to the hospital"
+        atoms: ["me", "duele", "el", "pie", "pero", "hay que", "ir", "al", "hospital"]
+        cue: recall
+      - kind: clozeLit
+        id: l5-c-hayunafarmaciacercaestacion
+        es: "hay una farmacia cerca de la estación"
+        en: "There's a pharmacy near the station"
+        blank: "cerca"
+        options: ["cerca", "lejos"]
+        atoms: ["hay", "una", "farmacia", "de", "la", "estación"]
+        why: "Plain «hay» plus «una farmacia» — just existence, no «que» in sight."
+      - kind: buildLit
+        id: l5-b-hayqueircompraralaestacion
+        es: "hay que ir a comprar el boleto en la estación"
+        en: "One has to go buy the ticket at the station"
+        atoms: ["hay que", "ir", "a", "comprar", "el", "boleto", "en", "la", "estación"]
+        tiles: ["tengo", "necesito"]
+      - kind: mcq
+        id: l5-q-hayvshayque
+        prompt: "Which one means 'there's a hospital'?"
+        correct: "hay un hospital"
+        distractors: ["hay que hospital", "hay que un hospital", "hay hospital"]
+        atoms: ["hay", "un", "hospital"]
+        why: "This sentence is about existence — plain «hay» plus «un hospital», no «que», no infinitive."
+      - kind: listenCompLit
+        id: l5-lc-hayunhospitalcerca
+        es: "hay un hospital cerca, pero hay que ir mañana"
+        en: "There's a hospital nearby, but one has to go tomorrow."
+        atoms: ["hay", "un", "hospital", "cerca", "pero", "hay que", "ir", "mañana"]
+        distractorsEn:
+          - "There's a hospital nearby, but I have to go tomorrow."
+          - "There's a hospital far away, but one has to go tomorrow."
+          - "There's a hospital nearby, but one has to go today."
+      - kind: audioWimcq
+        id: l5-ear-estacion
+        target: { surface: "estación", emoji: "🚉" }
+        distractors:
+          - { surface: "banco", emoji: "🏦" }
+          - { surface: "hospital", emoji: "🏥" }
+      - kind: buildLit
+        id: l5-b-hayunafarmacialejospuedoirmanana
+        es: "hay una farmacia lejos, pero puedo ir mañana"
+        en: "There's a pharmacy far away, but I can go tomorrow"
+        atoms: ["hay", "una", "farmacia", "lejos", "pero", "puedo", "ir", "mañana"]
+        tiles: ["tengo", "necesito"]
+      - kind: agreementLit
+        id: l5-agr-boletonuevoestacionnueva
+        en: "The ticket is new, and the station is new too"
+        audioText: "el boleto es nuevo, y la estación es nueva también"
+        atoms: ["boleto", "nuevo", "estación"]
+        segments:
+          - { text: "el boleto es " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y la estación es " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l5-lb-hayqueircompraralaestacionperocerca
+        es: "hay que ir a la estación, pero está cerca"
+        en: "One has to go to the station, but it's close"
+        atoms: ["hay que", "ir", "a", "la", "estación", "pero", "está", "cerca"]
+        tiles: ["tengo", "necesito"]
+      - kind: textMcq
+        id: l5-tm-hay
+        target: "hay"
+        distractors: ["hoy", "voy", "soy"]
+      - kind: sim
+        id: l5-sim-lupita-estacion
+        scene: { emoji: "🚉", title: "At the station", setting: "Lupita is helping you find your way." }
+        turns:
+          - id: t1
+            npc: { speaker: "Lupita", es: "¿Hay una farmacia cerca?", audioText: "¿hay una farmacia cerca?", gloss: "Is there a pharmacy nearby?" }
+            goal: "Say yes, but one has to buy tickets."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, pero hay que comprar el boleto ahora" }
+                - { id: "wrong1", text: "sí, pero tengo que comprar el boleto ahora" }
+                - { id: "wrong2", text: "sí, pero hay comprar el boleto ahora" }
+              correctOptionId: "right"
+              audioText: "sí, pero hay que comprar el boleto ahora"
+            replyGloss: "Yes, but one has to buy the ticket now."
+            explanation: "The first «hay» (there's a pharmacy) is existence — plain «hay». The second is the rule everyone follows — «hay que», never split from «que»."
+          - id: t2
+            npc: { speaker: "Lupita", es: "¿Dónde está la estación?", audioText: "¿dónde está la estación?", gloss: "Where is the station?" }
+            goal: "Say there's a station close by."
+            reply:
+              mode: build
+              tiles: ["hay", "una", "estación", "cerca", "que", "tengo"]
+              answer: "hay una estación cerca"
+            replyGloss: "There's a station close by."
+            explanation: "Existence again, plain «hay» plus a noun — no «que» needed."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "hay", target: "there is" }
+          - { source: "hay que", target: "one has to" }
+          - { source: "cerca", target: "close" }
+          - { source: "lejos", target: "far" }
+          - { source: "estación", target: "station" }
+          - { source: "boleto", target: "ticket" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "hay una farmacia cerca, pero hay que ir a la estación ahora"
+        en: "There's a pharmacy nearby, but one has to go to the station now"
+        atoms: ["hay", "una", "farmacia", "cerca", "pero", "hay que", "ir", "a", "la", "estación"]
+
+  # ── L6 · Recombination — «hay que» meets m36 transport nouns via «ir
+  #    en + [vehicle]» (ir m28, en m2 — both prior). Zero new atoms. One
+  #    recall (L5 win line). PRIOR: tren/metro/taxi/bicicleta (m36),
+  #    estación (m36), ir/al (m28/m2), en (m2), rápido (m19 or similar
+  #    — verified below), mejor (m20-ish — verified below).
+  - n: 6
+    template: free
+    title: "Hay que ir en tren"
+    description: "The rule doesn't care how you get there. «hay que ir en tren» — one has to go by train."
+    steps:
+      - kind: map
+        id: l6-map-hayqueirentren
+        tokens: ["hay que ir", "en tren"]
+        pairs:
+          - { en: "one has to go", tokenIndex: 0 }
+          - { en: "by train", tokenIndex: 1 }
+        audioText: "hay que ir en tren"
+        revealNote: "«hay que ir en tren» — one has to go by train. Still «hay que» plus a bare infinitive («ir»); «en tren» just tags along, same as always."
+      - kind: speakLit
+        id: l6-sp-recall
+        es: "hay una farmacia cerca, pero hay que ir a la estación ahora"
+        en: "There's a pharmacy nearby, but one has to go to the station now"
+        atoms: ["hay", "una", "farmacia", "cerca", "pero", "hay que", "ir", "a", "la", "estación"]
+        cue: recall
+      - kind: clozeLit
+        id: l6-c-tengoqueirentaxi
+        es: "tengo que ir en taxi hoy"
+        en: "I have to go by taxi today"
+        blank: "taxi"
+        options: ["taxi", "tren"]
+        atoms: ["tengo que", "ir", "en", "taxi", "hoy"]
+        why: "Just matching the sentence to the picture — «taxi», not «tren»."
+      - kind: buildLit
+        id: l6-b-hayqueirenmetroalaestacion
+        es: "hay que ir en metro a la estación"
+        en: "One has to go by metro to the station"
+        atoms: ["hay que", "ir", "en", "metro", "a", "la", "estación"]
+        tiles: ["tengo", "puedo"]
+      - kind: mcq
+        id: l6-q-hayqueirenbicicleta
+        prompt: "Which one means 'one has to go' (a general rule)?"
+        correct: "hay que ir"
+        distractors: ["tengo que ir", "hay que va", "hay ir"]
+        atoms: ["hay que", "ir"]
+        why: "A general rule — «hay que», not «tengo que». And the infinitive stays bare: «ir», not «va»."
+      - kind: listenCompLit
+        id: l6-lc-hayqueirentrenalaestacion
+        es: "hay que ir en tren a la estación"
+        en: "One has to go by train to the station."
+        atoms: ["hay que", "ir", "en", "tren", "a", "la", "estación"]
+        distractorsEn:
+          - "I have to go by train to the station."
+          - "One has to go by metro to the station."
+          - "One has to go by train to the bank."
+      - kind: audioWimcq
+        id: l6-ear-tren
+        target: { surface: "tren", emoji: "🚆" }
+        distractors:
+          - { surface: "metro", emoji: "🚇" }
+          - { surface: "taxi", emoji: "🚕" }
+      - kind: buildLit
+        id: l6-b-puedoirenbicicletaonobanco
+        es: "puedo ir en bicicleta al banco"
+        en: "I can go by bicycle to the bank"
+        atoms: ["puedo", "ir", "en", "bicicleta", "al", "banco"]
+        tiles: ["hay", "tengo"]
+      - kind: agreementLit
+        id: l6-agr-trennuevometronuevo
+        en: "The train is new, and the metro is new too"
+        audioText: "el tren es nuevo, y el metro es nuevo también"
+        atoms: ["tren", "nuevo", "metro"]
+        segments:
+          - { text: "el tren es " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y el metro es " }
+          - { blank: { id: "p2", answer: "nuevo", options: ["nuevo", "nueva"] } }
+      - kind: listenBuildLit
+        id: l6-lb-nohayqueirentaxieslejos
+        es: "no hay que ir en taxi, es lejos"
+        en: "One doesn't have to go by taxi, it's far"
+        atoms: ["no", "hay que", "ir", "en", "taxi", "es", "lejos"]
+        tiles: ["tengo", "puedo"]
+      - kind: textMcq
+        id: l6-tm-tren
+        target: "tren"
+        distractors: ["taxi", "metro", "tan"]
+      - kind: sim
+        id: l6-sim-marta-metro
+        scene: { emoji: "🚇", title: "Getting to the station", setting: "Marta is planning the route." }
+        turns:
+          - id: t1
+            npc: { speaker: "Marta", es: "¿Cómo vamos a la estación?", audioText: "¿cómo vamos a la estación?", gloss: "How do we get to the station?" }
+            goal: "Say one has to go by metro."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hay que ir en metro" }
+                - { id: "wrong1", text: "tengo que ir en metro" }
+                - { id: "wrong2", text: "hay que ir metro" }
+              correctOptionId: "right"
+              audioText: "hay que ir en metro"
+            replyGloss: "One has to go by metro."
+            explanation: "Marta asked how WE get there — the general answer, «hay que», and «en» stays in front of «metro»."
+          - id: t2
+            npc: { speaker: "Marta", es: "¿Y el taxi?", audioText: "¿y el taxi?", gloss: "And the taxi?" }
+            goal: "Say one doesn't have to go by taxi."
+            reply:
+              mode: build
+              tiles: ["no", "hay", "que", "ir", "en", "taxi", "tengo"]
+              answer: "no hay que ir en taxi"
+            replyGloss: "One doesn't have to go by taxi."
+            explanation: "Negation plus the general form, kept as one block: «no hay que»."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "hay que ir", target: "one has to go" }
+          - { source: "en tren", target: "by train" }
+          - { source: "en metro", target: "by metro" }
+          - { source: "en taxi", target: "by taxi" }
+          - { source: "en bicicleta", target: "by bicycle" }
+          - { source: "estación", target: "station" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "hay que ir en metro a la estación, pero no hay que ir en taxi"
+        en: "One has to go by metro to the station, but one doesn't have to go by taxi"
+        atoms: ["hay que", "ir", "en", "metro", "a", "la", "estación", "no", "taxi"]
+
+  # ── L7 · Question form + supermercado recombination, priming the
+  #    checkpoint. «¿qué hay que hacer?» (what does one have to do?)
+  #    already surfaced in L4's sim — this lesson makes it the taught
+  #    pattern. Zero new atoms. One recall (L6 win line). PRIOR: qué
+  #    (m13), hacer (m22-ish — verified below), supermercado (m34),
+  #    correo (m34), comprar (m16), leche/pan (verified below), caro/cara
+  #    (m12 — replaces an earlier draft's non-prior «fresco/fresca»,
+  #    caught by the same untaught-vocabulary sweep as L2-L4/L8-L10's
+  #    «limpiar»/«descansar» fixes; uses «es»/«son» not «está», matching
+  #    m12's own precedent for this adjective).
+  - n: 7
+    template: free
+    title: "¿Qué hay que hacer?"
+    description: "«¿qué hay que hacer?» — what does one have to do? A question about the general rule, not about you."
+    steps:
+      - kind: map
+        id: l7-map-quehayquehacer
+        tokens: ["qué hay que", "hacer"]
+        pairs:
+          - { en: "what does one have to", tokenIndex: 0 }
+          - { en: "do", tokenIndex: 1 }
+        audioText: "qué hay que hacer"
+        revealNote: "«¿qué hay que hacer?» — what does one have to do? Same «hay que», just with «qué» (m13) out front asking about it."
+      - kind: speakLit
+        id: l7-sp-recall
+        es: "hay que ir en metro a la estación, pero no hay que ir en taxi"
+        en: "One has to go by metro to the station, but one doesn't have to go by taxi"
+        atoms: ["hay que", "ir", "en", "metro", "a", "la", "estación", "no", "taxi"]
+        cue: recall
+      - kind: clozeLit
+        id: l7-c-hayquecomprarpan
+        es: "hay que comprar pan en el supermercado"
+        en: "One has to buy bread at the supermarket"
+        blank: "supermercado"
+        options: ["supermercado", "correo"]
+        atoms: ["hay que", "comprar", "pan", "en", "el", "supermercado"]
+        why: "Bread comes from the supermarket, not the post office — «supermercado», not «correo»."
+      - kind: buildLit
+        id: l7-b-quehayquehacerhoy
+        es: "qué hay que hacer hoy"
+        en: "What does one have to do today"
+        atoms: ["hay que", "hacer", "hoy"]
+        tiles: ["tengo", "tienes"]
+      - kind: mcq
+        id: l7-q-quehayquehacer
+        prompt: "Which one means 'one has to do' (the general form)?"
+        correct: "hay que hacer"
+        distractors: ["tengo que hacer", "hay hacer", "hay que haces"]
+        atoms: ["hay que", "hacer"]
+        why: "«tengo que hacer» would ask about YOU specifically — this is the general form, «hay que». And the infinitive stays bare: «hacer», not «haces»."
+      - kind: listenCompLit
+        id: l7-lc-hayquecomprarlechesupermercado
+        es: "hay que comprar leche en el supermercado"
+        en: "One has to buy milk at the supermarket."
+        atoms: ["hay que", "comprar", "leche", "en", "el", "supermercado"]
+        distractorsEn:
+          - "I have to buy milk at the supermarket."
+          - "One has to buy bread at the supermarket."
+          - "One has to buy milk at the post office."
+      - kind: audioWimcq
+        id: l7-ear-supermercado
+        target: { surface: "supermercado", emoji: "🏬" }
+        distractors:
+          - { surface: "correo", emoji: "📮" }
+          - { surface: "farmacia", emoji: "💊" }
+      - kind: buildLit
+        id: l7-b-tienesquecomprarlechehoy
+        es: "tienes que comprar leche hoy"
+        en: "You have to buy milk today"
+        atoms: ["tengo que", "comprar", "leche", "hoy"]
+        tiles: ["hay", "necesito"]
+      - kind: agreementLit
+        id: l7-agr-pancarolechecara
+        en: "The bread is expensive, and the milk is expensive too"
+        audioText: "el pan es caro, y la leche es cara también"
+        atoms: ["pan", "caro", "leche"]
+        segments:
+          - { text: "el pan es " }
+          - { blank: { id: "p1", answer: "caro", options: ["caro", "cara"] } }
+          - { text: ", y la leche es " }
+          - { blank: { id: "p2", answer: "cara", options: ["cara", "caro"] } }
+      - kind: listenBuildLit
+        id: l7-lb-quehayquehacerenelsupermercado
+        es: "qué hay que comprar en el supermercado"
+        en: "What does one have to buy at the supermarket"
+        atoms: ["hay que", "comprar", "en", "el", "supermercado"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l7-tm-hacer
+        target: "hacer"
+        distractors: ["hace", "hago", "haces"]
+      - kind: sim
+        id: l7-sim-diego-supermercado
+        scene: { emoji: "🛒", title: "At the supermarket", setting: "Diego is checking the shopping list." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Qué hay que comprar?", audioText: "¿qué hay que comprar?", gloss: "What does one have to buy?" }
+            goal: "Say one has to buy bread and milk."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hay que comprar pan y leche" }
+                - { id: "wrong1", text: "tengo que comprar pan y leche" }
+                - { id: "wrong2", text: "hay que comprar pan y leches" }
+              correctOptionId: "right"
+              audioText: "hay que comprar pan y leche"
+            replyGloss: "One has to buy bread and milk."
+            explanation: "Diego's question used «hay que», so the answer matches — the shopping list, not your personal errand."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y tú? ¿Tienes que ir?", audioText: "¿y tú? ¿tienes que ir?", gloss: "And you? Do you have to go?" }
+            goal: "Say yes, you have to go now."
+            reply:
+              mode: build
+              tiles: ["sí", "tengo", "que", "ir", "ahora", "hay", "tienes"]
+              answer: "sí tengo que ir ahora"
+            replyGloss: "Yes, I have to go now."
+            explanation: "Diego asked about YOU — answer with the personal form, «tengo que»."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "qué hay que", target: "what one has to" }
+          - { source: "hacer", target: "do" }
+          - { source: "comprar", target: "buy" }
+          - { source: "supermercado", target: "supermarket" }
+          - { source: "pan", target: "bread" }
+          - { source: "leche", target: "milk" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "qué hay que comprar en el supermercado hoy"
+        en: "What does one have to buy at the supermarket today"
+        atoms: ["hay que", "comprar", "en", "el", "supermercado", "hoy"]
+
+  # ── L8 · Checkpoint — all graded, no map/info (mirrors m33-L8/m35-L8/
+  #    m36-L8's own checkpoint shape). Pure recombination of L1-L7: «hay
+  #    que» vs «tengo/tienes/tiene que» vs «necesito»/«puedo», negation
+  #    «no hay que», the existence/obligation «hay» pair, transport «en»,
+  #    and the shopping/body-part nouns. Two recalls, drawn from L7 and
+  #    L2's win lines. Ends sim → matchLit → speakLit-win, same closing
+  #    shape as every other lesson.
+  - n: 8
+    template: free
+    title: "Checkpoint: hay que"
+    description: "Everything so far, recombined — «hay que» for the general rule, «tengo/tienes/tiene que» for a person, «necesito»/«puedo» alongside both."
+    steps:
+      - kind: speakLit
+        id: l8-sp-recall-l7win
+        es: "qué hay que comprar en el supermercado hoy"
+        en: "What does one have to buy at the supermarket today"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-hayqueiralhospitalperopuedoirmanana
+        es: "hay que ir al hospital, pero puedo ir mañana"
+        en: "One has to go to the hospital, but I can go tomorrow"
+        atoms: ["hay que", "ir", "al", "hospital", "pero", "puedo", "mañana"]
+        tiles: ["tengo", "necesito"]
+      - kind: clozeLit
+        id: l8-c-tienequecomprarleche
+        es: "tiene que comprar leche hoy"
+        en: "She has to buy milk today"
+        blank: "tiene"
+        options: ["tiene", "hay"]
+        atoms: ["tengo que", "comprar", "leche", "hoy"]
+        why: "This is about her, specifically — «tiene que», not the general «hay que»."
+      - kind: listenCompLit
+        id: l8-lc-nohayquetrabajarpuedodormir
+        es: "no hay que trabajar hoy, puedo dormir"
+        en: "One doesn't have to work today, I can sleep."
+        atoms: ["no", "hay que", "trabajar", "hoy", "puedo", "dormir"]
+        distractorsEn:
+          - "I don't have to work today, I can sleep."
+          - "One has to work today, I can sleep."
+          - "One doesn't have to work tomorrow, I can sleep."
+      - kind: mcq
+        id: l8-q-hayvstengofoil
+        prompt: "Which one means 'one has to buy' (a rule for any traveler)?"
+        correct: "hay que comprar"
+        distractors: ["tengo que comprar", "hay comprar", "hay que compra"]
+        atoms: ["hay que", "comprar"]
+        why: "A rule for any traveler, not just you — «hay que», never dropped to bare «hay», and the infinitive stays «comprar»."
+      - kind: speakLit
+        id: l8-sp-recall-l2win
+        es: "hay que comer siempre, pero nunca tengo que cocinar"
+        en: "One always has to eat, but I never have to cook"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-hayunafarmaciacercaperohayqueirenmetro
+        es: "hay una farmacia cerca, pero hay que ir en metro"
+        en: "There's a pharmacy nearby, but one has to go by metro"
+        atoms: ["hay", "una", "farmacia", "cerca", "pero", "hay que", "ir", "en", "metro"]
+        tiles: ["tengo", "necesito"]
+      - kind: audioWimcq
+        id: l8-ear-banco
+        target: { surface: "banco", emoji: "🏦" }
+        distractors:
+          - { surface: "hospital", emoji: "🏥" }
+          - { surface: "farmacia", emoji: "💊" }
+      - kind: agreementLit
+        id: l8-agr-hospitalpequenoestacionpequena
+        en: "The hospital is small, and the station is small too"
+        audioText: "el hospital es pequeño, y la estación es pequeña también"
+        atoms: ["hospital", "pequeño", "estación"]
+        segments:
+          - { text: "el hospital es " }
+          - { blank: { id: "p1", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+          - { text: ", y la estación es " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "pequeño"] } }
+      - kind: listenBuildLit
+        id: l8-lb-medueleelpieperonecesitotrabajar
+        es: "me duele el pie, pero necesito trabajar"
+        en: "My foot hurts, but I need to work"
+        atoms: ["me", "duele", "el", "pie", "pero", "necesito", "trabajar"]
+        tiles: ["hay que", "tiene"]
+      - kind: textMcq
+        id: l8-tm-hayque
+        target: "hay"
+        distractors: ["tengo", "tiene", "hago"]
+      - kind: sim
+        id: l8-sim-lupita-checkpoint
+        scene: { emoji: "🏁", title: "Checkpoint check-in", setting: "Lupita checks in on your errands." }
+        turns:
+          - id: t1
+            npc: { speaker: "Lupita", es: "¿Qué hay que hacer hoy?", audioText: "¿qué hay que hacer hoy?", gloss: "What does one have to do today?" }
+            goal: "Say one has to work, you can sleep."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hay que trabajar, pero puedo dormir" }
+                - { id: "wrong1", text: "tengo que trabajar, pero puedo dormir" }
+                - { id: "wrong2", text: "hay trabajar, pero puedo dormir" }
+              correctOptionId: "right"
+              audioText: "hay que trabajar, pero puedo dormir"
+            replyGloss: "One has to work, but I can sleep."
+            explanation: "Lupita's question used «hay que», so match it — the general rule, not «tengo que»."
+          - id: t2
+            npc: { speaker: "Lupita", es: "¿Necesitas ir al hospital?", audioText: "¿necesitas ir al hospital?", gloss: "Do you need to go to the hospital?" }
+            goal: "Say no, but one has to go tomorrow."
+            reply:
+              mode: build
+              tiles: ["no", "pero", "hay", "que", "ir", "mañana", "tengo"]
+              answer: "no pero hay que ir mañana"
+            replyGloss: "No, but one has to go tomorrow."
+            explanation: "A general appointment slot, not just yours — «hay que», staying together with «que»."
+      - kind: matchLit
+        id: l8-match
+        pairs:
+          - { source: "hay que", target: "one has to" }
+          - { source: "tengo/tienes/tiene que", target: "I/you/she have to" }
+          - { source: "no hay que", target: "one doesn't have to" }
+          - { source: "necesito", target: "I need" }
+          - { source: "puedo", target: "I can" }
+          - { source: "hay", target: "there is" }
+      - kind: speakLit
+        id: l8-sp-win
+        es: "hay que trabajar hoy, pero no hay que ir al hospital — necesito dormir"
+        en: "One has to work today, but one doesn't have to go to the hospital — I need to sleep"
+        atoms: ["hay que", "trabajar", "hoy", "pero", "no", "ir", "al", "hospital", "necesito", "dormir"]
+
+  # ── L9 · Cross-recombination — no new atom. Pulls together everything
+  #    the module built: destinations (m34), transport (m36), body parts
+  #    (m30/m31), shopping (m16/m34), all threaded through «hay que» vs
+  #    «tengo/tienes/tiene que» vs «necesito»/«puedo». Short optional info
+  #    card recapping the whole contrast in one place before mastery.
+  #    One recall (L8's win line). PRIOR context only — no new atoms.
+  - n: 9
+    template: free
+    title: "Hay que hacer de todo"
+    description: "Everything, together — the general rule and the personal one, side by side one more time before the finish line."
+    steps:
+      - kind: info
+        id: l9-info-recap
+        title: "El cuadro completo"
+        body: "«hay que» + infinitive — a rule for anyone. «tengo/tienes/tiene que» + infinitive — a rule for one person. Both stay bare after «que» — never «hay que trabajo», never «tengo que trabajo»."
+      - kind: speakLit
+        id: l9-sp-recall
+        es: "hay que trabajar hoy, pero no hay que ir al hospital — necesito dormir"
+        en: "One has to work today, but one doesn't have to go to the hospital — I need to sleep"
+        atoms: ["hay que", "trabajar", "hoy", "pero", "no", "ir", "al", "hospital", "necesito", "dormir"]
+        cue: recall
+      - kind: clozeLit
+        id: l9-c-tienequeirenbicicletaalbanco
+        es: "tiene que ir en bicicleta al banco"
+        en: "He has to go by bicycle to the bank"
+        blank: "bicicleta"
+        options: ["bicicleta", "taxi"]
+        atoms: ["tengo que", "ir", "en", "bicicleta", "al", "banco"]
+        why: "Matching the sentence to the picture — «bicicleta», not «taxi»."
+      - kind: buildLit
+        id: l9-b-medueleelpiepuedoirenmetroalhospital
+        es: "me duele el pie, puedo ir en metro al hospital"
+        en: "My foot hurts, I can go by metro to the hospital"
+        atoms: ["me", "duele", "el", "pie", "puedo", "ir", "en", "metro", "al", "hospital"]
+        tiles: ["tengo que", "hay que"]
+      - kind: mcq
+        id: l9-q-hayquevsnecesito
+        prompt: "Which one means 'one has to buy' (a general errand, not your own need)?"
+        correct: "hay que comprar"
+        distractors: ["necesito comprar", "tengo que comprar", "hay comprar"]
+        atoms: ["hay que", "comprar"]
+        why: "The bread is a general errand — «hay que», not «necesito» (that's your own need) or «tengo que» (that's you specifically)."
+      - kind: listenCompLit
+        id: l9-lc-noteguequeirestacioncerca
+        es: "no hay que ir a la estación, está cerca del banco"
+        en: "One doesn't have to go to the station, it's close to the bank."
+        atoms: ["no", "hay que", "ir", "a", "la", "estación", "está", "cerca", "banco"]
+        distractorsEn:
+          - "I don't have to go to the station, it's close to the bank."
+          - "One has to go to the station, it's close to the bank."
+          - "One doesn't have to go to the station, it's far from the bank."
+      - kind: audioWimcq
+        id: l9-ear-taxi
+        target: { surface: "taxi", emoji: "🚕" }
+        distractors:
+          - { surface: "tren", emoji: "🚆" }
+          - { surface: "bicicleta", emoji: "🚲" }
+      - kind: buildLit
+        id: l9-b-tienesquecomprarelboletoenlaestacionpero
+        es: "tienes que comprar el boleto en la estación, pero puedo ir"
+        en: "You have to buy the ticket at the station, but I can go"
+        atoms: ["tengo que", "comprar", "el", "boleto", "en", "la", "estación", "pero", "puedo", "ir"]
+        tiles: ["hay que", "necesito"]
+      - kind: agreementLit
+        id: l9-agr-taxinuevobicicletanueva
+        en: "The taxi is new, and the bicycle is new too"
+        audioText: "el taxi es nuevo, y la bicicleta es nueva también"
+        atoms: ["taxi", "nuevo", "bicicleta"]
+        segments:
+          - { text: "el taxi es " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y la bicicleta es " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l9-lb-quehayquehacerenelbancohoy
+        es: "qué hay que hacer en el banco hoy"
+        en: "What does one have to do at the bank today"
+        atoms: ["hay que", "hacer", "en", "el", "banco", "hoy"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l9-tm-necesito
+        target: "necesito"
+        distractors: ["necesita", "puedo", "hago"]
+      - kind: sim
+        id: l9-sim-diego-repaso
+        scene: { emoji: "🗺️", title: "Planning the day", setting: "Diego is mapping out everyone's errands." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Qué hay que hacer hoy?", audioText: "¿qué hay que hacer hoy?", gloss: "What does one have to do today?" }
+            goal: "Say one has to buy milk and bread."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hay que comprar leche y pan" }
+                - { id: "wrong1", text: "tengo que comprar leche y pan" }
+                - { id: "wrong2", text: "hay comprar leche y pan" }
+              correctOptionId: "right"
+              audioText: "hay que comprar leche y pan"
+            replyGloss: "One has to buy milk and bread."
+            explanation: "Diego asked the general question — match it with «hay que», the shared list, not your own."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Tienes que ir al banco también?", audioText: "¿tienes que ir al banco también?", gloss: "Do you have to go to the bank too?" }
+            goal: "Say no, the bank is close by."
+            reply:
+              mode: build
+              tiles: ["no", "el", "banco", "está", "cerca", "hay"]
+              answer: "no el banco está cerca"
+            replyGloss: "No, the bank is close by."
+            explanation: "Diego asked about YOU, but this answer is just a fact about the bank — no obligation phrase needed at all."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "hay que", target: "one has to" }
+          - { source: "tengo/tienes/tiene que", target: "I/you/she have to" }
+          - { source: "necesito", target: "I need" }
+          - { source: "puedo", target: "I can" }
+          - { source: "en metro/tren/taxi/bicicleta", target: "by metro/train/taxi/bicycle" }
+          - { source: "está cerca/lejos", target: "it's close/far" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "hay que comprar pan y leche, pero tienes que ir al banco en bicicleta"
+        en: "One has to buy bread and milk, but you have to go to the bank by bicycle"
+        atoms: ["hay que", "comprar", "pan", "leche", "pero", "tengo que", "ir", "al", "banco", "en", "bicicleta"]
+
+  # ── L10 · Mastery — all graded, no map/info (mirrors m34-L10/m35-L10/
+  #    m36-L10's own mastery shape: no trailing matchLit/speakLit after
+  #    sim; matchLit moves BEFORE sim). Recombines every strand of this
+  #    module: «hay que» (general) vs «tengo/tienes/tiene que» (personal)
+  #    vs «necesito»/«puedo», negation «no hay que», the existence/
+  #    obligation «hay» pair, transport «en», destinations, body parts,
+  #    shopping. Two recalls (L9 and L4 win lines, different lessons,
+  #    neither recalled together before). Full-sentence MCQ is legal here
+  #    only (inv 28, L10 mastery exemption). LAST step is the sim — no
+  #    matchLit/speakLit after it.
+  - n: 10
+    template: free
+    title: "Mastery: hay que"
+    description: "Every strand, one last time — the general rule, the personal one, and everything they've been recombined with, all in one pass."
+    steps:
+      - kind: speakLit
+        id: l10-sp-recall-l9win
+        es: "hay que comprar pan y leche, pero tienes que ir al banco en bicicleta"
+        en: "One has to buy bread and milk, but you have to go to the bank by bicycle"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l10-b-nohayquetrabajarperotengoquedormir
+        es: "no hay que trabajar hoy, pero tengo que dormir"
+        en: "One doesn't have to work today, but I have to sleep"
+        atoms: ["no", "hay que", "trabajar", "hoy", "pero", "tengo que", "dormir"]
+        tiles: ["puedo", "necesito"]
+      - kind: clozeLit
+        id: l10-c-hayunhospitalcercadelaestacion
+        es: "hay un hospital cerca de la estación"
+        en: "There's a hospital near the station"
+        blank: "cerca"
+        options: ["cerca", "lejos"]
+        atoms: ["hay", "un", "hospital", "de", "la", "estación"]
+        why: "Plain «hay» plus «un hospital» — existence, not obligation. «cerca», matching the picture."
+      - kind: listenCompLit
+        id: l10-lc-quehayquehacerenelsupermercado
+        es: "qué hay que comprar en el supermercado, y quién puede ir en metro"
+        en: "What does one have to buy at the supermarket, and who can go by metro."
+        atoms: ["hay que", "comprar", "en", "el", "supermercado", "y", "puede", "ir", "en", "metro"]
+        distractorsEn:
+          - "What do I have to buy at the supermarket, and who can go by metro."
+          - "What does one have to buy at the bank, and who can go by metro."
+          - "What does one have to buy at the supermarket, and who can go by taxi."
+      - kind: mcq
+        id: l10-q-cualquiermastery
+        prompt: "Which one means 'one has to go to the hospital by taxi, but I need to buy the ticket first'?"
+        correct: "hay que ir al hospital en taxi, pero necesito comprar el boleto"
+        distractors: ["tengo que ir al hospital en taxi, pero necesito comprar el boleto", "hay que ir al hospital a taxi, pero necesito comprar el boleto", "hay que ir al hospital en taxi, pero hay que comprar el boleto"]
+        atoms: ["hay que", "ir", "al", "hospital", "en", "taxi", "pero", "necesito", "comprar", "el", "boleto"]
+        why: "A rule anyone would follow — «hay que», not «tengo que». The mode marker is «en», never «a». And the ticket is YOUR errand — «necesito», not the general «hay que»."
+      - kind: speakLit
+        id: l10-sp-recall-l4win
+        es: "me duele el pie, pero hay que ir al hospital"
+        en: "My foot hurts, but one has to go to the hospital"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l10-b-tienequecomprarlecheperopuedoirmanana
+        es: "tiene que comprar leche, pero puedo ir mañana"
+        en: "She has to buy milk, but I can go tomorrow"
+        atoms: ["tengo que", "comprar", "leche", "pero", "puedo", "ir", "mañana"]
+        tiles: ["hay que", "necesito"]
+      - kind: audioWimcq
+        id: l10-ear-hospital
+        target: { surface: "hospital", emoji: "🏥" }
+        distractors:
+          - { surface: "banco", emoji: "🏦" }
+          - { surface: "estación", emoji: "🚉" }
+      - kind: agreementLit
+        id: l10-agr-boletopequenoestacionnueva
+        en: "The ticket is small, and the station is new"
+        audioText: "el boleto es pequeño, y la estación es nueva"
+        atoms: ["boleto", "pequeño", "estación", "nuevo"]
+        segments:
+          - { text: "el boleto es " }
+          - { blank: { id: "p1", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+          - { text: ", y la estación es " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l10-lb-nohayqueirenbicicletaeslejos
+        es: "no hay que ir en bicicleta, es lejos, pero puedo ir en tren"
+        en: "One doesn't have to go by bicycle, it's far, but I can go by train"
+        atoms: ["no", "hay que", "ir", "en", "bicicleta", "es", "lejos", "pero", "puedo", "tren"]
+        tiles: ["tengo que", "necesito"]
+      - kind: textMcq
+        id: l10-tm-necesito
+        target: "necesito"
+        distractors: ["necesita", "necesitas", "puede"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "hay que", target: "one has to" }
+          - { source: "tengo/tienes/tiene que", target: "I/you/she have to" }
+          - { source: "no hay que", target: "one doesn't have to" }
+          - { source: "necesito", target: "I need" }
+          - { source: "puedo", target: "I can" }
+          - { source: "hay", target: "there is" }
+      - kind: sim
+        id: l10-sim-marta-mastery
+        scene: { emoji: "🗺️", title: "One last errand list", setting: "Marta checks in before everyone heads out." }
+        turns:
+          - id: t1
+            npc: { speaker: "Marta", es: "¿Qué hay que hacer hoy?", audioText: "¿qué hay que hacer hoy?", gloss: "What does one have to do today?" }
+            goal: "Say one has to buy the ticket, tomorrow."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hay que comprar el boleto, pero puedo ir mañana" }
+                - { id: "wrong1", text: "tengo que comprar el boleto, pero puedo ir mañana" }
+                - { id: "wrong2", text: "hay comprar el boleto, pero puedo ir mañana" }
+              correctOptionId: "right"
+              audioText: "hay que comprar el boleto, pero puedo ir mañana"
+            replyGloss: "One has to buy the ticket, but I can go tomorrow."
+            explanation: "Marta's question used «hay que», so match it — the shared rule, and your own timing after «pero»."
+          - id: t2
+            npc: { speaker: "Marta", es: "¿Te duele el pie todavía?", audioText: "¿te duele el pie todavía?", gloss: "Does your foot still hurt?" }
+            goal: "Say yes, but no hospital needed."
+            reply:
+              mode: build
+              tiles: ["sí", "pero", "no", "hay", "que", "ir", "al", "hospital", "tengo"]
+              answer: "sí pero no hay que ir al hospital"
+            replyGloss: "Yes, but one doesn't have to go to the hospital."
+            explanation: "Keep «no hay que» together as one block — the general rule, negated."
+
+placement:
+  screener:
+    - id: "es-m37-scr-1"
+      prompt: "'One has to work.' (a general rule, not about you) — which one?"
+      correct: "hay que trabajar"
+      distractors: ["tengo que trabajar", "hay trabajar", "hay que trabajo"]
+  byModule:
+    - id: "es-m37-pl-1"
+      prompt: "One has to work. (in general)"
+      correct: "hay que trabajar"
+      distractors: ["tengo que trabajar", "hay trabajar", "hay que trabajo"]
+    - id: "es-m37-pl-2"
+      prompt: "I have to work, but one has to study too."
+      correct: "tengo que trabajar, pero hay que estudiar también"
+      distractors: ["hay que trabajar, pero tengo que estudiar también", "tengo que trabajar, pero hay estudiar también", "tengo que trabajar, pero hay que estudio también"]
+    - id: "es-m37-pl-3"
+      prompt: "One has to go to the bank — it's close."
+      correct: "hay que ir al banco — está cerca"
+      distractors: ["hay que ir al banco — hay cerca", "hay ir al banco — está cerca", "tengo que ir al banco — está cerca"]
+    - id: "es-m37-pl-4"
+      prompt: "One has to buy the ticket at the station."
+      correct: "hay que comprar el boleto en la estación"
+      distractors: ["tengo que comprar el boleto en la estación", "hay que comprar el boleto en estación", "hay comprar el boleto en la estación"]
+    - id: "es-m37-pl-5"
+      prompt: "My foot hurts, but one has to go to the hospital."
+      correct: "me duele el pie, pero hay que ir al hospital"
+      distractors: ["me duele el pie, pero tengo que ir al hospital", "me duele el pie, pero hay ir al hospital", "me duelen el pie, pero hay que ir al hospital"]

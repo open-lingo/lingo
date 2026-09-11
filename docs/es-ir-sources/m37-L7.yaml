@@ -1,0 +1,131 @@
+  # ── L7 · Question form + supermercado recombination, priming the
+  #    checkpoint. «¿qué hay que hacer?» (what does one have to do?)
+  #    already surfaced in L4's sim — this lesson makes it the taught
+  #    pattern. Zero new atoms. One recall (L6 win line). PRIOR: qué
+  #    (m13), hacer (m22-ish — verified below), supermercado (m34),
+  #    correo (m34), comprar (m16), leche/pan (verified below), caro/cara
+  #    (m12 — replaces an earlier draft's non-prior «fresco/fresca»,
+  #    caught by the same untaught-vocabulary sweep as L2-L4/L8-L10's
+  #    «limpiar»/«descansar» fixes; uses «es»/«son» not «está», matching
+  #    m12's own precedent for this adjective).
+  - n: 7
+    template: free
+    title: "¿Qué hay que hacer?"
+    description: "«¿qué hay que hacer?» — what does one have to do? A question about the general rule, not about you."
+    steps:
+      - kind: map
+        id: l7-map-quehayquehacer
+        tokens: ["qué hay que", "hacer"]
+        pairs:
+          - { en: "what does one have to", tokenIndex: 0 }
+          - { en: "do", tokenIndex: 1 }
+        audioText: "qué hay que hacer"
+        revealNote: "«¿qué hay que hacer?» — what does one have to do? Same «hay que», just with «qué» (m13) out front asking about it."
+      - kind: speakLit
+        id: l7-sp-recall
+        es: "hay que ir en metro a la estación, pero no hay que ir en taxi"
+        en: "One has to go by metro to the station, but one doesn't have to go by taxi"
+        atoms: ["hay que", "ir", "en", "metro", "a", "la", "estación", "no", "taxi"]
+        cue: recall
+      - kind: clozeLit
+        id: l7-c-hayquecomprarpan
+        es: "hay que comprar pan en el supermercado"
+        en: "One has to buy bread at the supermarket"
+        blank: "supermercado"
+        options: ["supermercado", "correo"]
+        atoms: ["hay que", "comprar", "pan", "en", "el", "supermercado"]
+        why: "Bread comes from the supermarket, not the post office — «supermercado», not «correo»."
+      - kind: buildLit
+        id: l7-b-quehayquehacerhoy
+        es: "qué hay que hacer hoy"
+        en: "What does one have to do today"
+        atoms: ["hay que", "hacer", "hoy"]
+        tiles: ["tengo", "tienes"]
+      - kind: mcq
+        id: l7-q-quehayquehacer
+        prompt: "Which one means 'one has to do' (the general form)?"
+        correct: "hay que hacer"
+        distractors: ["tengo que hacer", "hay hacer", "hay que haces"]
+        atoms: ["hay que", "hacer"]
+        why: "«tengo que hacer» would ask about YOU specifically — this is the general form, «hay que». And the infinitive stays bare: «hacer», not «haces»."
+      - kind: listenCompLit
+        id: l7-lc-hayquecomprarlechesupermercado
+        es: "hay que comprar leche en el supermercado"
+        en: "One has to buy milk at the supermarket."
+        atoms: ["hay que", "comprar", "leche", "en", "el", "supermercado"]
+        distractorsEn:
+          - "I have to buy milk at the supermarket."
+          - "One has to buy bread at the supermarket."
+          - "One has to buy milk at the post office."
+      - kind: audioWimcq
+        id: l7-ear-supermercado
+        target: { surface: "supermercado", emoji: "🏬" }
+        distractors:
+          - { surface: "correo", emoji: "📮" }
+          - { surface: "farmacia", emoji: "💊" }
+      - kind: buildLit
+        id: l7-b-tienesquecomprarlechehoy
+        es: "tienes que comprar leche hoy"
+        en: "You have to buy milk today"
+        atoms: ["tengo que", "comprar", "leche", "hoy"]
+        tiles: ["hay", "necesito"]
+      - kind: agreementLit
+        id: l7-agr-pancarolechecara
+        en: "The bread is expensive, and the milk is expensive too"
+        audioText: "el pan es caro, y la leche es cara también"
+        atoms: ["pan", "caro", "leche"]
+        segments:
+          - { text: "el pan es " }
+          - { blank: { id: "p1", answer: "caro", options: ["caro", "cara"] } }
+          - { text: ", y la leche es " }
+          - { blank: { id: "p2", answer: "cara", options: ["cara", "caro"] } }
+      - kind: listenBuildLit
+        id: l7-lb-quehayquehacerenelsupermercado
+        es: "qué hay que comprar en el supermercado"
+        en: "What does one have to buy at the supermarket"
+        atoms: ["hay que", "comprar", "en", "el", "supermercado"]
+        tiles: ["tengo", "tienes"]
+      - kind: textMcq
+        id: l7-tm-hacer
+        target: "hacer"
+        distractors: ["hace", "hago", "haces"]
+      - kind: sim
+        id: l7-sim-diego-supermercado
+        scene: { emoji: "🛒", title: "At the supermarket", setting: "Diego is checking the shopping list." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Qué hay que comprar?", audioText: "¿qué hay que comprar?", gloss: "What does one have to buy?" }
+            goal: "Say one has to buy bread and milk."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hay que comprar pan y leche" }
+                - { id: "wrong1", text: "tengo que comprar pan y leche" }
+                - { id: "wrong2", text: "hay que comprar pan y leches" }
+              correctOptionId: "right"
+              audioText: "hay que comprar pan y leche"
+            replyGloss: "One has to buy bread and milk."
+            explanation: "Diego's question used «hay que», so the answer matches — the shopping list, not your personal errand."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y tú? ¿Tienes que ir?", audioText: "¿y tú? ¿tienes que ir?", gloss: "And you? Do you have to go?" }
+            goal: "Say yes, you have to go now."
+            reply:
+              mode: build
+              tiles: ["sí", "tengo", "que", "ir", "ahora", "hay", "tienes"]
+              answer: "sí tengo que ir ahora"
+            replyGloss: "Yes, I have to go now."
+            explanation: "Diego asked about YOU — answer with the personal form, «tengo que»."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "qué hay que", target: "what one has to" }
+          - { source: "hacer", target: "do" }
+          - { source: "comprar", target: "buy" }
+          - { source: "supermercado", target: "supermarket" }
+          - { source: "pan", target: "bread" }
+          - { source: "leche", target: "milk" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "qué hay que comprar en el supermercado hoy"
+        en: "What does one have to buy at the supermarket today"
+        atoms: ["hay que", "comprar", "en", "el", "supermercado", "hoy"]

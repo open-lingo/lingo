@@ -1,0 +1,135 @@
+  # ── L4 · Recombination — «hay que» meets m30/m31 body-part vocabulary
+  #    and «duele». Central sentence pre-seeded in placement.yaml pl-5:
+  #    «me duele el pie, pero hay que ir al hospital». Zero new atoms.
+  #    One recall (L3 win line, updated to match L3's corrected win line).
+  #    PRIOR: duele/duelen (m31), pie/mano/ojo (m30), hospital (m34), pero
+  #    (m6/18), puedo (m14), mañana (m8), dormir (m14 — replaces an
+  #    earlier draft's non-prior «descansar», same fix as L3). Sim t1's NPC
+  #    line swapped «¿qué te pasa?» (untaught «pasa») for «¿te duele el
+  #    pie?» — same taught pieces (te m13, duele m31, el pie m30) already
+  #    doing the work; caught by the same vocabulary-provenance pin as
+  #    L1's «para» fix. «ojos»/«tienes que»/«tiene que» in atoms: arrays now
+  #    credit their registered surfaces («ojo» m30, «tengo que» m33) — atoms:
+  #    is SRS credit, not display, matching m6/m12's feminine-agreement
+  #    precedent (irAtomResolution.test.ts).
+  - n: 4
+    template: free
+    title: "Me duele, pero hay que ir"
+    description: "Something hurts — but the rule still stands. «me duele el pie, pero hay que ir al hospital»."
+    steps:
+      - kind: map
+        id: l4-map-medueleelpie
+        tokens: ["me duele", "el pie"]
+        pairs:
+          - { en: "it hurts me", tokenIndex: 0 }
+          - { en: "the foot", tokenIndex: 1 }
+        audioText: "me duele el pie"
+        revealNote: "«me duele el pie» (m31) — nothing new here. This lesson just puts it next to «hay que» to practice keeping both straight in one sentence."
+      - kind: speakLit
+        id: l4-sp-recall
+        es: "necesito dormir, pero no hay que ir al banco hoy"
+        en: "I need to sleep, but one doesn't have to go to the bank today"
+        atoms: ["necesito", "dormir", "pero", "no", "hay que", "ir", "al", "banco", "hoy"]
+        cue: recall
+      - kind: clozeLit
+        id: l4-c-meduelenlosojos
+        es: "me duelen los ojos"
+        en: "My eyes hurt"
+        blank: "duelen"
+        options: ["duelen", "duele"]
+        atoms: ["me", "duelen", "los", "ojo"]
+        why: "«ojos» is plural, so the verb matches: «duelen», not «duele»."
+      - kind: buildLit
+        id: l4-b-medueleelpieperohayqueir
+        es: "me duele el pie, pero hay que ir al hospital"
+        en: "My foot hurts, but one has to go to the hospital"
+        atoms: ["me", "duele", "el", "pie", "pero", "hay que", "ir", "al", "hospital"]
+        tiles: ["tengo", "puedo"]
+      - kind: mcq
+        id: l4-q-medueleelpie
+        prompt: "Which one means 'one has to' (a general rule, not about you)?"
+        correct: "hay que"
+        distractors: ["tengo que", "tiene que", "hay"]
+        atoms: ["hay que"]
+        why: "A rule for anyone — no subject ever goes in front of it, and it's never dropped to bare «hay». «tengo/tiene que» would name a specific person instead."
+      - kind: listenCompLit
+        id: l4-lc-medueleelpiehayqueirhospital
+        es: "me duele el pie, pero hay que ir al hospital"
+        en: "My foot hurts, but one has to go to the hospital."
+        atoms: ["me", "duele", "el", "pie", "pero", "hay que", "ir", "al", "hospital"]
+        distractorsEn:
+          - "My foot hurts, but I have to go to the hospital."
+          - "My eyes hurt, but one has to go to the hospital."
+          - "My foot hurts, but one can go to the hospital."
+      - kind: audioWimcq
+        id: l4-ear-pie
+        target: { surface: "pie", emoji: "🦶" }
+        distractors:
+          - { surface: "mano", emoji: "✋" }
+          - { surface: "ojo", emoji: "👁️" }
+      - kind: buildLit
+        id: l4-b-medueleelmanopuedodormirmanana
+        es: "me duele la mano, pero puedo dormir mañana"
+        en: "My hand hurts, but I can sleep tomorrow"
+        atoms: ["me", "duele", "la", "mano", "pero", "puedo", "dormir", "mañana"]
+        tiles: ["hay", "tengo"]
+      - kind: agreementLit
+        id: l4-agr-hospitalgrandefarmaciagrande
+        en: "The hospital is big, and the pharmacy is big too"
+        audioText: "el hospital es grande, y la farmacia es grande también"
+        atoms: ["hospital", "grande", "farmacia"]
+        segments:
+          - { text: "el hospital es " }
+          - { blank: { id: "p1", answer: "grande", options: ["grande", "grandes"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "grande", options: ["grande", "grandes"] } }
+      - kind: listenBuildLit
+        id: l4-lb-meduelenlosojoshayquedormir
+        es: "me duelen los ojos, hay que dormir"
+        en: "My eyes hurt, one has to sleep"
+        atoms: ["me", "duelen", "los", "ojo", "hay que", "dormir"]
+        tiles: ["tengo", "puedo"]
+      - kind: textMcq
+        id: l4-tm-duele
+        target: "duele"
+        distractors: ["duelen", "duelo", "puede"]
+      - kind: sim
+        id: l4-sim-marta-pie
+        scene: { emoji: "🏥", title: "A sore foot", setting: "Marta notices you limping." }
+        turns:
+          - id: t1
+            npc: { speaker: "Marta", es: "¿Te duele el pie?", audioText: "¿te duele el pie?", gloss: "Does your foot hurt?" }
+            goal: "Say your foot hurts."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "me duele el pie" }
+                - { id: "wrong1", text: "me duelen el pie" }
+                - { id: "wrong2", text: "me duele los pies" }
+              correctOptionId: "right"
+              audioText: "me duele el pie"
+            replyGloss: "My foot hurts."
+            explanation: "«el pie» is singular, so «duele», not «duelen»."
+          - id: t2
+            npc: { speaker: "Marta", es: "Entonces, ¿qué hay que hacer?", audioText: "entonces, ¿qué hay que hacer?", gloss: "So, what does one have to do?" }
+            goal: "Say one has to go to the hospital."
+            reply:
+              mode: build
+              tiles: ["hay", "que", "ir", "al", "hospital", "tengo", "puedo"]
+              answer: "hay que ir al hospital"
+            replyGloss: "One has to go to the hospital."
+            explanation: "A sore foot means a trip to the hospital for anyone — the general form, «hay que»."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "me duele", target: "it hurts me" }
+          - { source: "el pie", target: "the foot" }
+          - { source: "los ojos", target: "the eyes" }
+          - { source: "la mano", target: "the hand" }
+          - { source: "hay que", target: "one has to" }
+          - { source: "hospital", target: "hospital" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "me duele el pie, pero hay que ir al hospital"
+        en: "My foot hurts, but one has to go to the hospital"
+        atoms: ["me", "duele", "el", "pie", "pero", "hay que", "ir", "al", "hospital"]

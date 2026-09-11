@@ -535,4 +535,5 @@ export const ES_REVIEW_POOL: EsReviewEntry[] = [
   { surface: "metro", gloss: "metro, subway", kind: "vocab", fromModule: "m36", partOfSpeech: "noun" },
   { surface: "taxi", gloss: "taxi", kind: "vocab", fromModule: "m36", partOfSpeech: "noun" },
   { surface: "bicicleta", gloss: "bicycle", kind: "vocab", fromModule: "m36", partOfSpeech: "noun" },
+  { surface: "hay que", gloss: "one has to, it's necessary to", kind: "phrase", fromModule: "m37", partOfSpeech: "phrase" },
 ];

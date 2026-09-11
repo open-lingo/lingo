@@ -1,0 +1,132 @@
+  # ── L3 · Negation — «no hay que» = not necessary, still general, still
+  #    invariant. Zero new atoms: just «no» (m9) plus the phrase already
+  #    taught. Recombines m34 destination nouns + m16 necesito for a
+  #    contrast against «no hay que». One recall (L2 win line, updated to
+  #    match L2's corrected win line). PRIOR: no (m9), necesito (m16),
+  #    farmacia (m34), hospital (m34), banco (m34), hoy/mañana (m8), pero
+  #    (m6/18), Diego (m1 NPC name), dormir (m14 — replaces an earlier
+  #    draft's «descansar», which was NOT prior anywhere in m1-m36 and was
+  #    caught the same way as L2's «limpiar» bug, at vitest import time via
+  #    moduleBarGuards' unknownTokens scan, not check-frag.sh).
+  - n: 3
+    template: free
+    title: "No hay que ir"
+    description: "«no hay que» — not necessary, for anyone. Still no subject, still invariant. «no hay que ir» — one doesn't have to go."
+    steps:
+      - kind: map
+        id: l3-map-nohayqueir
+        tokens: ["no", "hay que", "ir"]
+        pairs:
+          - { en: "not", tokenIndex: 0 }
+          - { en: "one has to", tokenIndex: 1 }
+          - { en: "go", tokenIndex: 2 }
+        audioText: "no hay que ir"
+        revealNote: "«no hay que ir» — one doesn't have to go. Just «no» in front of the same invariant phrase. No new form — «hay» still never conjugates."
+      - kind: speakLit
+        id: l3-sp-recall
+        es: "hay que comer siempre, pero nunca tengo que cocinar"
+        en: "One always has to eat, but I never have to cook"
+        atoms: ["hay que", "comer", "siempre", "pero", "nunca", "tengo que", "cocinar"]
+        cue: recall
+      - kind: clozeLit
+        id: l3-c-nohayquetrabajarmanana
+        es: "no hay que trabajar mañana"
+        en: "One doesn't have to work tomorrow"
+        blank: "hay"
+        options: ["hay", "tengo"]
+        atoms: ["no", "hay que", "trabajar", "mañana"]
+        why: "This is a rule for anyone off tomorrow, not just you — «no hay que», not «no tengo que»."
+      - kind: buildLit
+        id: l3-b-nohayqueiralbancohoy
+        es: "no hay que ir al banco hoy"
+        en: "One doesn't have to go to the bank today"
+        atoms: ["no", "hay que", "ir", "al", "banco", "hoy"]
+        tiles: ["tengo", "necesito"]
+      - kind: mcq
+        id: l3-q-necesitovshayque
+        prompt: "Which one means 'one doesn't have to' (in general)?"
+        correct: "no hay que"
+        distractors: ["no tengo que", "hay que no", "no hay"]
+        atoms: ["no", "hay que"]
+        why: "«no hay que» has to come as one block, right after «no». Never split it («hay que no»), and never drop «que» («no hay»)."
+      - kind: listenCompLit
+        id: l3-lc-nohayquetrabajarmanana
+        es: "no hay que trabajar mañana"
+        en: "One doesn't have to work tomorrow."
+        atoms: ["no", "hay que", "trabajar", "mañana"]
+        distractorsEn:
+          - "I don't have to work tomorrow."
+          - "One has to work tomorrow."
+          - "One doesn't have to work today."
+      - kind: audioWimcq
+        id: l3-ear-farmacia
+        target: { surface: "farmacia", emoji: "💊" }
+        distractors:
+          - { surface: "hospital", emoji: "🏥" }
+          - { surface: "banco", emoji: "🏦" }
+      - kind: buildLit
+        id: l3-b-necesitodormirpeornohayquetrabajar
+        es: "necesito dormir, pero no hay que trabajar hoy"
+        en: "I need to sleep, but one doesn't have to work today"
+        atoms: ["necesito", "dormir", "pero", "no", "hay que", "trabajar", "hoy"]
+        tiles: ["tengo", "puedo"]
+      - kind: agreementLit
+        id: l3-agr-boletonuevofarmacianueva
+        en: "The ticket is new, and the pharmacy is new too"
+        audioText: "el boleto es nuevo, y la farmacia es nueva también"
+        atoms: ["boleto", "nuevo", "farmacia"]
+        segments:
+          - { text: "el boleto es " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l3-lb-nohayqueiralafarmaciamanana
+        es: "no hay que ir a la farmacia mañana"
+        en: "One doesn't have to go to the pharmacy tomorrow"
+        atoms: ["no", "hay que", "ir", "a", "la", "farmacia", "mañana"]
+        tiles: ["tengo", "necesito"]
+      - kind: textMcq
+        id: l3-tm-necesito
+        target: "necesito"
+        distractors: ["necesita", "necesitas", "puedo"]
+      - kind: sim
+        id: l3-sim-diego-descanso
+        scene: { emoji: "😌", title: "A day off", setting: "Diego is checking the schedule." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Hay que trabajar mañana?", audioText: "¿hay que trabajar mañana?", gloss: "Does one have to work tomorrow?" }
+            goal: "Say no, one doesn't have to work tomorrow."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, no hay que trabajar mañana" }
+                - { id: "wrong1", text: "no, no tengo que trabajar mañana" }
+                - { id: "wrong2", text: "no, hay que no trabajar mañana" }
+              correctOptionId: "right"
+              audioText: "no, no hay que trabajar mañana"
+            replyGloss: "No, one doesn't have to work tomorrow."
+            explanation: "Diego asked a general question — answer with the general form, and keep «no hay que» together as one block."
+          - id: t2
+            npc: { speaker: "Diego", es: "Qué bien. ¿Necesitas ir al banco?", audioText: "qué bien. ¿necesitas ir al banco?", gloss: "Great. Do you need to go to the bank?" }
+            goal: "Say you need sleep, but no bank today."
+            reply:
+              mode: build
+              tiles: ["necesito", "dormir", "pero", "no", "hay", "que", "ir", "al", "banco", "tengo"]
+              answer: "necesito dormir pero no hay que ir al banco"
+            replyGloss: "I need to sleep, but one doesn't have to go to the bank."
+            explanation: "«necesito» names you; «no hay que» stays general — the bank rule applies to anyone, not just you."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "no hay que", target: "one doesn't have to" }
+          - { source: "necesito", target: "I need" }
+          - { source: "dormir", target: "sleep" }
+          - { source: "farmacia", target: "pharmacy" }
+          - { source: "hospital", target: "hospital" }
+          - { source: "banco", target: "bank" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "necesito dormir, pero no hay que ir al banco hoy"
+        en: "I need to sleep, but one doesn't have to go to the bank today"
+        atoms: ["necesito", "dormir", "pero", "no", "hay que", "ir", "al", "banco", "hoy"]

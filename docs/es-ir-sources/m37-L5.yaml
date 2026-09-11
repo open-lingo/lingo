@@ -1,0 +1,132 @@
+  # ── L5 · «hay» (m3, there is/are) vs «hay que» (obligation) — the
+  #    central credit-trap this module exists to defuse. Same word, two
+  #    jobs: «hay» alone + a noun = existence; «hay» + «que» + infinitive
+  #    = obligation. Dedicated info card (2nd and last of the module).
+  #    Zero new atoms. One recall (L4 win line). PRIOR: hay/un/una (m3),
+  #    farmacia/banco/hospital (m34), estación (m36), boleto (m16),
+  #    cerca/lejos (m35).
+  - n: 5
+    template: free
+    title: "Hay — dos trabajos"
+    description: "«hay» does two jobs. «hay un banco» — there's a bank. «hay que ir» — one has to go. Same word, different partner."
+    steps:
+      - kind: map
+        id: l5-map-hayunbanco
+        tokens: ["hay", "un banco"]
+        pairs:
+          - { en: "there is", tokenIndex: 0 }
+          - { en: "a bank", tokenIndex: 1 }
+        audioText: "hay un banco"
+        revealNote: "«hay un banco» (m3) — there's a bank. Plain «hay» plus a noun. No «que», no obligation — just existence."
+      - kind: info
+        id: l5-info-hayvshayque
+        title: "Hay vs. hay que — two different jobs"
+        body: "«hay» plus a noun means 'there is/are' («hay un banco» — there's a bank, m3). «hay» plus «que» plus an infinitive means 'one has to' («hay que ir» — one has to go). Same first word, completely different sentence."
+      - kind: speakLit
+        id: l5-sp-recall
+        es: "me duele el pie, pero hay que ir al hospital"
+        en: "My foot hurts, but one has to go to the hospital"
+        atoms: ["me", "duele", "el", "pie", "pero", "hay que", "ir", "al", "hospital"]
+        cue: recall
+      - kind: clozeLit
+        id: l5-c-hayunafarmaciacercaestacion
+        es: "hay una farmacia cerca de la estación"
+        en: "There's a pharmacy near the station"
+        blank: "cerca"
+        options: ["cerca", "lejos"]
+        atoms: ["hay", "una", "farmacia", "de", "la", "estación"]
+        why: "Plain «hay» plus «una farmacia» — just existence, no «que» in sight."
+      - kind: buildLit
+        id: l5-b-hayqueircompraralaestacion
+        es: "hay que ir a comprar el boleto en la estación"
+        en: "One has to go buy the ticket at the station"
+        atoms: ["hay que", "ir", "a", "comprar", "el", "boleto", "en", "la", "estación"]
+        tiles: ["tengo", "necesito"]
+      - kind: mcq
+        id: l5-q-hayvshayque
+        prompt: "Which one means 'there's a hospital'?"
+        correct: "hay un hospital"
+        distractors: ["hay que hospital", "hay que un hospital", "hay hospital"]
+        atoms: ["hay", "un", "hospital"]
+        why: "This sentence is about existence — plain «hay» plus «un hospital», no «que», no infinitive."
+      - kind: listenCompLit
+        id: l5-lc-hayunhospitalcerca
+        es: "hay un hospital cerca, pero hay que ir mañana"
+        en: "There's a hospital nearby, but one has to go tomorrow."
+        atoms: ["hay", "un", "hospital", "cerca", "pero", "hay que", "ir", "mañana"]
+        distractorsEn:
+          - "There's a hospital nearby, but I have to go tomorrow."
+          - "There's a hospital far away, but one has to go tomorrow."
+          - "There's a hospital nearby, but one has to go today."
+      - kind: audioWimcq
+        id: l5-ear-estacion
+        target: { surface: "estación", emoji: "🚉" }
+        distractors:
+          - { surface: "banco", emoji: "🏦" }
+          - { surface: "hospital", emoji: "🏥" }
+      - kind: buildLit
+        id: l5-b-hayunafarmacialejospuedoirmanana
+        es: "hay una farmacia lejos, pero puedo ir mañana"
+        en: "There's a pharmacy far away, but I can go tomorrow"
+        atoms: ["hay", "una", "farmacia", "lejos", "pero", "puedo", "ir", "mañana"]
+        tiles: ["tengo", "necesito"]
+      - kind: agreementLit
+        id: l5-agr-boletonuevoestacionnueva
+        en: "The ticket is new, and the station is new too"
+        audioText: "el boleto es nuevo, y la estación es nueva también"
+        atoms: ["boleto", "nuevo", "estación"]
+        segments:
+          - { text: "el boleto es " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y la estación es " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l5-lb-hayqueircompraralaestacionperocerca
+        es: "hay que ir a la estación, pero está cerca"
+        en: "One has to go to the station, but it's close"
+        atoms: ["hay que", "ir", "a", "la", "estación", "pero", "está", "cerca"]
+        tiles: ["tengo", "necesito"]
+      - kind: textMcq
+        id: l5-tm-hay
+        target: "hay"
+        distractors: ["hoy", "voy", "soy"]
+      - kind: sim
+        id: l5-sim-lupita-estacion
+        scene: { emoji: "🚉", title: "At the station", setting: "Lupita is helping you find your way." }
+        turns:
+          - id: t1
+            npc: { speaker: "Lupita", es: "¿Hay una farmacia cerca?", audioText: "¿hay una farmacia cerca?", gloss: "Is there a pharmacy nearby?" }
+            goal: "Say yes, but one has to buy tickets."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, pero hay que comprar el boleto ahora" }
+                - { id: "wrong1", text: "sí, pero tengo que comprar el boleto ahora" }
+                - { id: "wrong2", text: "sí, pero hay comprar el boleto ahora" }
+              correctOptionId: "right"
+              audioText: "sí, pero hay que comprar el boleto ahora"
+            replyGloss: "Yes, but one has to buy the ticket now."
+            explanation: "The first «hay» (there's a pharmacy) is existence — plain «hay». The second is the rule everyone follows — «hay que», never split from «que»."
+          - id: t2
+            npc: { speaker: "Lupita", es: "¿Dónde está la estación?", audioText: "¿dónde está la estación?", gloss: "Where is the station?" }
+            goal: "Say there's a station close by."
+            reply:
+              mode: build
+              tiles: ["hay", "una", "estación", "cerca", "que", "tengo"]
+              answer: "hay una estación cerca"
+            replyGloss: "There's a station close by."
+            explanation: "Existence again, plain «hay» plus a noun — no «que» needed."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "hay", target: "there is" }
+          - { source: "hay que", target: "one has to" }
+          - { source: "cerca", target: "close" }
+          - { source: "lejos", target: "far" }
+          - { source: "estación", target: "station" }
+          - { source: "boleto", target: "ticket" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "hay una farmacia cerca, pero hay que ir a la estación ahora"
+        en: "There's a pharmacy nearby, but one has to go to the station now"
+        atoms: ["hay", "una", "farmacia", "cerca", "pero", "hay que", "ir", "a", "la", "estación"]

@@ -47,6 +47,7 @@ import { ES_M33_LESSONS } from "./m33";
 import { ES_M34_LESSONS } from "./m34";
 import { ES_M35_LESSONS } from "./m35";
 import { ES_M36_LESSONS } from "./m36";
+import { ES_M37_LESSONS } from "./m37";
 
 export type EsModuleMeta = {
   id: string;
@@ -288,7 +289,14 @@ export const ES_MODULE_META: EsModuleMeta[] = [
     eyebrow: "Module 36 · Getting around",
     summary: "Five ways to get where you're going: estación, tren, metro, taxi, bicicleta — plus the «a» vs «en» distinction that ties them together.",
     accent: { from: "#475569", to: "#1e293b" },
+  },  {
+    id: "m37",
+    title: "Hay que trabajar",
+    eyebrow: "Impersonal obligation",
+    summary: "Say what one has to do, in general — «hay que» plus a bare infinitive, no subject, ever.",
+    accent: { from: "#1e40af", to: "#172554" },
   },
+
 
 
 
@@ -348,6 +356,7 @@ const LESSONS_BY_MODULE: Record<string, LessonContent[]> = {
   m34: ES_M34_LESSONS,
   m35: ES_M35_LESSONS,
   m36: ES_M36_LESSONS,
+  m37: ES_M37_LESSONS,
 };
 
 /** Flat lesson list for the shared LESSONS content index (mockLessons.ts). */

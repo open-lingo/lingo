@@ -1,0 +1,126 @@
+  # ── L8 · Checkpoint — all graded, no map/info (mirrors m33-L8/m35-L8/
+  #    m36-L8's own checkpoint shape). Pure recombination of L1-L7: «hay
+  #    que» vs «tengo/tienes/tiene que» vs «necesito»/«puedo», negation
+  #    «no hay que», the existence/obligation «hay» pair, transport «en»,
+  #    and the shopping/body-part nouns. Two recalls, drawn from L7 and
+  #    L2's win lines. Ends sim → matchLit → speakLit-win, same closing
+  #    shape as every other lesson.
+  - n: 8
+    template: free
+    title: "Checkpoint: hay que"
+    description: "Everything so far, recombined — «hay que» for the general rule, «tengo/tienes/tiene que» for a person, «necesito»/«puedo» alongside both."
+    steps:
+      - kind: speakLit
+        id: l8-sp-recall-l7win
+        es: "qué hay que comprar en el supermercado hoy"
+        en: "What does one have to buy at the supermarket today"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-hayqueiralhospitalperopuedoirmanana
+        es: "hay que ir al hospital, pero puedo ir mañana"
+        en: "One has to go to the hospital, but I can go tomorrow"
+        atoms: ["hay que", "ir", "al", "hospital", "pero", "puedo", "mañana"]
+        tiles: ["tengo", "necesito"]
+      - kind: clozeLit
+        id: l8-c-tienequecomprarleche
+        es: "tiene que comprar leche hoy"
+        en: "She has to buy milk today"
+        blank: "tiene"
+        options: ["tiene", "hay"]
+        atoms: ["tengo que", "comprar", "leche", "hoy"]
+        why: "This is about her, specifically — «tiene que», not the general «hay que»."
+      - kind: listenCompLit
+        id: l8-lc-nohayquetrabajarpuedodormir
+        es: "no hay que trabajar hoy, puedo dormir"
+        en: "One doesn't have to work today, I can sleep."
+        atoms: ["no", "hay que", "trabajar", "hoy", "puedo", "dormir"]
+        distractorsEn:
+          - "I don't have to work today, I can sleep."
+          - "One has to work today, I can sleep."
+          - "One doesn't have to work tomorrow, I can sleep."
+      - kind: mcq
+        id: l8-q-hayvstengofoil
+        prompt: "Which one means 'one has to buy' (a rule for any traveler)?"
+        correct: "hay que comprar"
+        distractors: ["tengo que comprar", "hay comprar", "hay que compra"]
+        atoms: ["hay que", "comprar"]
+        why: "A rule for any traveler, not just you — «hay que», never dropped to bare «hay», and the infinitive stays «comprar»."
+      - kind: speakLit
+        id: l8-sp-recall-l2win
+        es: "hay que comer siempre, pero nunca tengo que cocinar"
+        en: "One always has to eat, but I never have to cook"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-hayunafarmaciacercaperohayqueirenmetro
+        es: "hay una farmacia cerca, pero hay que ir en metro"
+        en: "There's a pharmacy nearby, but one has to go by metro"
+        atoms: ["hay", "una", "farmacia", "cerca", "pero", "hay que", "ir", "en", "metro"]
+        tiles: ["tengo", "necesito"]
+      - kind: audioWimcq
+        id: l8-ear-banco
+        target: { surface: "banco", emoji: "🏦" }
+        distractors:
+          - { surface: "hospital", emoji: "🏥" }
+          - { surface: "farmacia", emoji: "💊" }
+      - kind: agreementLit
+        id: l8-agr-hospitalpequenoestacionpequena
+        en: "The hospital is small, and the station is small too"
+        audioText: "el hospital es pequeño, y la estación es pequeña también"
+        atoms: ["hospital", "pequeño", "estación"]
+        segments:
+          - { text: "el hospital es " }
+          - { blank: { id: "p1", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+          - { text: ", y la estación es " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "pequeño"] } }
+      - kind: listenBuildLit
+        id: l8-lb-medueleelpieperonecesitotrabajar
+        es: "me duele el pie, pero necesito trabajar"
+        en: "My foot hurts, but I need to work"
+        atoms: ["me", "duele", "el", "pie", "pero", "necesito", "trabajar"]
+        tiles: ["hay que", "tiene"]
+      - kind: textMcq
+        id: l8-tm-hayque
+        target: "hay"
+        distractors: ["tengo", "tiene", "hago"]
+      - kind: sim
+        id: l8-sim-lupita-checkpoint
+        scene: { emoji: "🏁", title: "Checkpoint check-in", setting: "Lupita checks in on your errands." }
+        turns:
+          - id: t1
+            npc: { speaker: "Lupita", es: "¿Qué hay que hacer hoy?", audioText: "¿qué hay que hacer hoy?", gloss: "What does one have to do today?" }
+            goal: "Say one has to work, you can sleep."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hay que trabajar, pero puedo dormir" }
+                - { id: "wrong1", text: "tengo que trabajar, pero puedo dormir" }
+                - { id: "wrong2", text: "hay trabajar, pero puedo dormir" }
+              correctOptionId: "right"
+              audioText: "hay que trabajar, pero puedo dormir"
+            replyGloss: "One has to work, but I can sleep."
+            explanation: "Lupita's question used «hay que», so match it — the general rule, not «tengo que»."
+          - id: t2
+            npc: { speaker: "Lupita", es: "¿Necesitas ir al hospital?", audioText: "¿necesitas ir al hospital?", gloss: "Do you need to go to the hospital?" }
+            goal: "Say no, but one has to go tomorrow."
+            reply:
+              mode: build
+              tiles: ["no", "pero", "hay", "que", "ir", "mañana", "tengo"]
+              answer: "no pero hay que ir mañana"
+            replyGloss: "No, but one has to go tomorrow."
+            explanation: "A general appointment slot, not just yours — «hay que», staying together with «que»."
+      - kind: matchLit
+        id: l8-match
+        pairs:
+          - { source: "hay que", target: "one has to" }
+          - { source: "tengo/tienes/tiene que", target: "I/you/she have to" }
+          - { source: "no hay que", target: "one doesn't have to" }
+          - { source: "necesito", target: "I need" }
+          - { source: "puedo", target: "I can" }
+          - { source: "hay", target: "there is" }
+      - kind: speakLit
+        id: l8-sp-win
+        es: "hay que trabajar hoy, pero no hay que ir al hospital — necesito dormir"
+        en: "One has to work today, but one doesn't have to go to the hospital — I need to sleep"
+        atoms: ["hay que", "trabajar", "hoy", "pero", "no", "ir", "al", "hospital", "necesito", "dormir"]

@@ -1,0 +1,141 @@
+  # ── L2 · Discrimination drill — «hay que» vs «tengo que» side by side,
+  #    across persons (tengo/tienes/tiene, m33) to hammer that «hay que»
+  #    never changes while the personal form does. New combo: «hay que
+  #    comer» (comer = eat, PRIOR — grep-verified 6 hits pre-m37, e.g.
+  #    m19/m28) — everyone has to eat (general), contrasted against
+  #    «tengo/tienes/tiene que cocinar» (cocinar, PRIOR m13/m14/m19/m28 —
+  #    cooking is YOUR chore, specifically). NOTE: an earlier draft of
+  #    this lesson used «limpiar» ("clean") for the general half — that
+  #    verb turned out NOT to be prior anywhere in m1-m36 (m30's and m32's
+  #    own IR headers independently rejected it for the same reason, grep-
+  #    verified zero hits before this correction) and was caught only at
+  #    vocabTextMcq import-time, after the fragment had already passed
+  #    check-frag.sh — check-frag doesn't cross-check against the full
+  #    course atom registry, only local shape. Replaced with «comer»,
+  #    itself genuinely PRIOR. No new atoms. One recall (L1 win line).
+  #    PRIOR: tengo/tienes/tiene que (m33), comer (m19/m28), cocinar
+  #    (m13/m14/m19/m28), la casa (m5), ahora (m9), siempre (m19), nunca
+  #    (m19), Ana (m1 NPC name), bonito/bonita (prior, gender-agreement
+  #    adjective pair, replacing another non-prior adjective — limpio/
+  #    limpia — caught and fixed in the same pass).
+  - n: 2
+    template: free
+    title: "¿Tengo que o hay que?"
+    description: "Same shape, different job. «tengo que» — you, specifically. «hay que» — a rule for anyone. Watch them side by side."
+    steps:
+      - kind: map
+        id: l2-map-hayquecomer
+        tokens: ["hay que", "comer"]
+        pairs:
+          - { en: "one has to", tokenIndex: 0 }
+          - { en: "eat", tokenIndex: 1 }
+        audioText: "hay que comer"
+        revealNote: "«hay que comer» — one has to eat, a rule that applies to absolutely everyone. Not «tengo que comer» (m33) — that would single YOU out for a fact that's true of anyone."
+      - kind: speakLit
+        id: l2-sp-recall
+        es: "hay que trabajar hoy, y también hay que estudiar"
+        en: "One has to work today, and one also has to study"
+        atoms: ["hay que", "trabajar", "hoy", "también", "estudiar"]
+        cue: recall
+      - kind: clozeLit
+        id: l2-c-tienesquecocinar
+        es: "tienes que cocinar ahora"
+        en: "You have to cook now"
+        blank: "tienes"
+        options: ["tienes", "hay"]
+        atoms: ["tengo que", "cocinar", "ahora"]
+        why: "«ahora» names no one but YOU as the one who has to act — «tienes que», not the general «hay que»."
+      - kind: buildLit
+        id: l2-b-hayquecomersiempre
+        es: "hay que comer siempre"
+        en: "One always has to eat"
+        atoms: ["hay que", "comer", "siempre"]
+        tiles: ["tengo", "tienes"]
+      - kind: mcq
+        id: l2-q-anacocina
+        prompt: "Ana says, 'I have to cook.' Which one?"
+        correct: "tengo que cocinar"
+        distractors: ["hay que cocinar", "tiene que cocinar", "tengo que cocina"]
+        atoms: ["tengo que", "cocinar"]
+        why: "Ana is talking about herself — «tengo que», the personal form. «hay que» would drop her out of the sentence entirely."
+      - kind: listenCompLit
+        id: l2-lc-tienequecocinar
+        es: "Ana tiene que cocinar en la casa"
+        en: "Ana has to cook at the house."
+        atoms: ["tengo que", "cocinar", "la", "casa"]
+        distractorsEn:
+          - "One has to cook at the house."
+          - "Ana has to eat."
+          - "Ana always has to cook."
+      - kind: audioWimcq
+        id: l2-ear-hospital
+        target: { surface: "hospital", emoji: "🏥" }
+        distractors:
+          - { surface: "banco", emoji: "🏦" }
+          - { surface: "correo", emoji: "📮" }
+      - kind: buildLit
+        id: l2-b-nuncatengoquecocinar
+        es: "nunca tengo que cocinar aquí"
+        en: "I never have to cook here"
+        atoms: ["nunca", "tengo que", "cocinar", "aquí"]
+        tiles: ["hay", "tienes"]
+      - kind: agreementLit
+        id: l2-agr-casabonitaboletobonito
+        en: "The house is pretty, and the ticket is pretty too"
+        audioText: "la casa está bonita, y el boleto está bonito también"
+        atoms: ["casa", "bonito", "boleto"]
+        segments:
+          - { text: "la casa está " }
+          - { blank: { id: "p1", answer: "bonita", options: ["bonita", "bonito"] } }
+          - { text: ", y el boleto está " }
+          - { blank: { id: "p2", answer: "bonito", options: ["bonito", "bonita"] } }
+      - kind: listenBuildLit
+        id: l2-lb-hayquecomersiempretienesquecocinar
+        es: "hay que comer siempre, pero tienes que cocinar ahora"
+        en: "One always has to eat, but you have to cook now"
+        atoms: ["hay que", "comer", "siempre", "pero", "tengo que", "cocinar", "ahora"]
+        tiles: ["tengo", "tiene"]
+      - kind: textMcq
+        id: l2-tm-comer
+        target: "comer"
+        distractors: ["como", "comes", "cocinar"]
+      - kind: sim
+        id: l2-sim-ana-casa
+        scene: { emoji: "🍽️", title: "Dinner time", setting: "Ana is organizing dinner at home." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tengo que cocinar hoy?", audioText: "¿tengo que cocinar hoy?", gloss: "Do I have to cook today?" }
+            goal: "Say no, but one always has to eat."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, pero siempre hay que comer" }
+                - { id: "wrong1", text: "no, pero siempre tengo que comer" }
+                - { id: "wrong2", text: "no, pero siempre hay comer" }
+              correctOptionId: "right"
+              audioText: "no, pero siempre hay que comer"
+            replyGloss: "No, but one always has to eat."
+            explanation: "A fact true of anyone, not just Ana — «hay que», not «tengo que» (that would single her out)."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y tú? ¿Qué tienes que hacer?", audioText: "¿y tú? ¿qué tienes que hacer?", gloss: "And you? What do you have to do?" }
+            goal: "Say you never have to cook here."
+            reply:
+              mode: build
+              tiles: ["nunca", "tengo", "que", "cocinar", "aquí", "hay", "tienes"]
+              answer: "nunca tengo que cocinar aquí"
+            replyGloss: "I never have to cook here."
+            explanation: "You're talking about yourself — «tengo que», the personal form."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "hay que" , target: "one has to" }
+          - { source: "tengo que", target: "I have to" }
+          - { source: "tienes que", target: "you have to" }
+          - { source: "tiene que", target: "she/he has to" }
+          - { source: "comer", target: "eat" }
+          - { source: "siempre", target: "always" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "hay que comer siempre, pero nunca tengo que cocinar"
+        en: "One always has to eat, but I never have to cook"
+        atoms: ["hay que", "comer", "siempre", "pero", "nunca", "tengo que", "cocinar"]

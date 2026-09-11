@@ -1,0 +1,124 @@
+  # ── L10 · Mastery — all graded, no map/info (mirrors m34-L10/m35-L10/
+  #    m36-L10's own mastery shape: no trailing matchLit/speakLit after
+  #    sim; matchLit moves BEFORE sim). Recombines every strand of this
+  #    module: «hay que» (general) vs «tengo/tienes/tiene que» (personal)
+  #    vs «necesito»/«puedo», negation «no hay que», the existence/
+  #    obligation «hay» pair, transport «en», destinations, body parts,
+  #    shopping. Two recalls (L9 and L4 win lines, different lessons,
+  #    neither recalled together before). Full-sentence MCQ is legal here
+  #    only (inv 28, L10 mastery exemption). LAST step is the sim — no
+  #    matchLit/speakLit after it.
+  - n: 10
+    template: free
+    title: "Mastery: hay que"
+    description: "Every strand, one last time — the general rule, the personal one, and everything they've been recombined with, all in one pass."
+    steps:
+      - kind: speakLit
+        id: l10-sp-recall-l9win
+        es: "hay que comprar pan y leche, pero tienes que ir al banco en bicicleta"
+        en: "One has to buy bread and milk, but you have to go to the bank by bicycle"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l10-b-nohayquetrabajarperotengoquedormir
+        es: "no hay que trabajar hoy, pero tengo que dormir"
+        en: "One doesn't have to work today, but I have to sleep"
+        atoms: ["no", "hay que", "trabajar", "hoy", "pero", "tengo que", "dormir"]
+        tiles: ["puedo", "necesito"]
+      - kind: clozeLit
+        id: l10-c-hayunhospitalcercadelaestacion
+        es: "hay un hospital cerca de la estación"
+        en: "There's a hospital near the station"
+        blank: "cerca"
+        options: ["cerca", "lejos"]
+        atoms: ["hay", "un", "hospital", "de", "la", "estación"]
+        why: "Plain «hay» plus «un hospital» — existence, not obligation. «cerca», matching the picture."
+      - kind: listenCompLit
+        id: l10-lc-quehayquehacerenelsupermercado
+        es: "qué hay que comprar en el supermercado, y quién puede ir en metro"
+        en: "What does one have to buy at the supermarket, and who can go by metro."
+        atoms: ["hay que", "comprar", "en", "el", "supermercado", "y", "puede", "ir", "en", "metro"]
+        distractorsEn:
+          - "What do I have to buy at the supermarket, and who can go by metro."
+          - "What does one have to buy at the bank, and who can go by metro."
+          - "What does one have to buy at the supermarket, and who can go by taxi."
+      - kind: mcq
+        id: l10-q-cualquiermastery
+        prompt: "Which one means 'one has to go to the hospital by taxi, but I need to buy the ticket first'?"
+        correct: "hay que ir al hospital en taxi, pero necesito comprar el boleto"
+        distractors: ["tengo que ir al hospital en taxi, pero necesito comprar el boleto", "hay que ir al hospital a taxi, pero necesito comprar el boleto", "hay que ir al hospital en taxi, pero hay que comprar el boleto"]
+        atoms: ["hay que", "ir", "al", "hospital", "en", "taxi", "pero", "necesito", "comprar", "el", "boleto"]
+        why: "A rule anyone would follow — «hay que», not «tengo que». The mode marker is «en», never «a». And the ticket is YOUR errand — «necesito», not the general «hay que»."
+      - kind: speakLit
+        id: l10-sp-recall-l4win
+        es: "me duele el pie, pero hay que ir al hospital"
+        en: "My foot hurts, but one has to go to the hospital"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l10-b-tienequecomprarlecheperopuedoirmanana
+        es: "tiene que comprar leche, pero puedo ir mañana"
+        en: "She has to buy milk, but I can go tomorrow"
+        atoms: ["tengo que", "comprar", "leche", "pero", "puedo", "ir", "mañana"]
+        tiles: ["hay que", "necesito"]
+      - kind: audioWimcq
+        id: l10-ear-hospital
+        target: { surface: "hospital", emoji: "🏥" }
+        distractors:
+          - { surface: "banco", emoji: "🏦" }
+          - { surface: "estación", emoji: "🚉" }
+      - kind: agreementLit
+        id: l10-agr-boletopequenoestacionnueva
+        en: "The ticket is small, and the station is new"
+        audioText: "el boleto es pequeño, y la estación es nueva"
+        atoms: ["boleto", "pequeño", "estación", "nuevo"]
+        segments:
+          - { text: "el boleto es " }
+          - { blank: { id: "p1", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+          - { text: ", y la estación es " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l10-lb-nohayqueirenbicicletaeslejos
+        es: "no hay que ir en bicicleta, es lejos, pero puedo ir en tren"
+        en: "One doesn't have to go by bicycle, it's far, but I can go by train"
+        atoms: ["no", "hay que", "ir", "en", "bicicleta", "es", "lejos", "pero", "puedo", "tren"]
+        tiles: ["tengo que", "necesito"]
+      - kind: textMcq
+        id: l10-tm-necesito
+        target: "necesito"
+        distractors: ["necesita", "necesitas", "puede"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "hay que", target: "one has to" }
+          - { source: "tengo/tienes/tiene que", target: "I/you/she have to" }
+          - { source: "no hay que", target: "one doesn't have to" }
+          - { source: "necesito", target: "I need" }
+          - { source: "puedo", target: "I can" }
+          - { source: "hay", target: "there is" }
+      - kind: sim
+        id: l10-sim-marta-mastery
+        scene: { emoji: "🗺️", title: "One last errand list", setting: "Marta checks in before everyone heads out." }
+        turns:
+          - id: t1
+            npc: { speaker: "Marta", es: "¿Qué hay que hacer hoy?", audioText: "¿qué hay que hacer hoy?", gloss: "What does one have to do today?" }
+            goal: "Say one has to buy the ticket, tomorrow."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hay que comprar el boleto, pero puedo ir mañana" }
+                - { id: "wrong1", text: "tengo que comprar el boleto, pero puedo ir mañana" }
+                - { id: "wrong2", text: "hay comprar el boleto, pero puedo ir mañana" }
+              correctOptionId: "right"
+              audioText: "hay que comprar el boleto, pero puedo ir mañana"
+            replyGloss: "One has to buy the ticket, but I can go tomorrow."
+            explanation: "Marta's question used «hay que», so match it — the shared rule, and your own timing after «pero»."
+          - id: t2
+            npc: { speaker: "Marta", es: "¿Te duele el pie todavía?", audioText: "¿te duele el pie todavía?", gloss: "Does your foot still hurt?" }
+            goal: "Say yes, but no hospital needed."
+            reply:
+              mode: build
+              tiles: ["sí", "pero", "no", "hay", "que", "ir", "al", "hospital", "tengo"]
+              answer: "sí pero no hay que ir al hospital"
+            replyGloss: "Yes, but one doesn't have to go to the hospital."
+            explanation: "Keep «no hay que» together as one block — the general rule, negated."

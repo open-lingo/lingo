@@ -1,0 +1,140 @@
+  # ── L1 · «Hay que trabajar» — «hay que» debuts. The minimal-pair
+  #    deduction: the learner already produced «tengo que trabajar» twelve
+  #    modules ago (m33-L1's own win line) — this lesson swaps «tengo» for
+  #    «hay» and reasons out what changed (the subject vanished; the claim
+  #    went personal → general) before a single word of explanation. Zero
+  #    new verb morphology: «hay» never conjugates (invariant since m3).
+  #    No imageMcq — «hay que» is a non-imageable grammar phrase (§13.1).
+  #    Central discrimination foil (dropping «que», *"hay trabajo") lands
+  #    in the MCQ and the sim, never as a correct answer. PRIOR context
+  #    only: tengo que (m33), hay/aquí (m3), trabajar/estudiar (m10),
+  #    mucho (m7), hoy/mañana (m8), pero (m6/18), también (m11), puedo
+  #    (m14), ir/al (m28/m2), necesito (m16), boleto (m16), banco/farmacia/
+  #    hospital (m34), estación (m36). No recall — first lesson. Sim t2's
+  #    NPC line dropped «para» (not prior anywhere in m1-m36, caught by the
+  #    course-wide dialogue_sim vocabulary-provenance pin) — "¿y el tren?
+  #    ¿qué necesito?" reads fine without it.
+  - n: 1
+    template: free
+    title: "Hay que trabajar"
+    description: "«hay que» plus a bare infinitive — a GENERAL rule, no subject, ever. «hay que trabajar» — one has to work (whoever). Not «tengo que trabajar» (m33) — that's YOU, specifically."
+    steps:
+      - kind: map
+        id: l1-map-hayquetrabajar
+        tokens: ["hay que", "trabajar"]
+        pairs:
+          - { en: "one has to", tokenIndex: 0 }
+          - { en: "work", tokenIndex: 1 }
+        audioText: "hay que trabajar"
+        revealNote: "«hay que» — «hay» (m3, invariant, never conjugates) plus «que», already a free word. No subject ever goes in front of it — never «yo hay que». Compare «tengo que trabajar» (m33) — that's YOU, specifically."
+      - kind: info
+        id: l1-info-hayque
+        title: "Hay que — one has to, it's necessary to"
+        body: "«hay que» plus a bare infinitive is a GENERAL rule — no «yo», no «tú», it never changes. «tengo que trabajar» (m33) means I, specifically, have to work. «hay que trabajar» means one has to work — whoever, in general."
+      - kind: speakLit
+        id: l1-sp-tengoquetrabajar
+        es: "tengo que trabajar"
+        en: "I have to work"
+        atoms: ["tengo que", "trabajar"]
+      - kind: buildLit
+        id: l1-b-hayquetrabajarmuchoaqui
+        es: "hay que trabajar mucho aquí"
+        en: "One has to work a lot here"
+        atoms: ["hay que", "trabajar", "mucho", "aquí"]
+        tiles: ["tengo", "puedo"]
+      - kind: clozeLit
+        id: l1-c-hayqueestudiarhoy
+        es: "hay que estudiar hoy"
+        en: "One has to study today"
+        blank: "estudiar"
+        options: ["estudiar", "estudio"]
+        atoms: ["hay que", "estudiar", "hoy"]
+        why: "After «que», the infinitive never conjugates — «estudiar», not «estudio». Same rule as «tengo que» (m33)."
+      - kind: listenCompLit
+        id: l1-lc-hayquetrabajarhoy
+        es: "hay que trabajar hoy"
+        en: "One has to work today."
+        atoms: ["hay que", "trabajar", "hoy"]
+        distractorsEn:
+          - "I have to work today."
+          - "One has to work tomorrow."
+          - "One wants to work today."
+      - kind: mcq
+        id: l1-q-hayquetrabajar
+        prompt: "Which one means 'one has to work' (a general rule, not about you)?"
+        correct: "hay que trabajar"
+        distractors: ["tengo que trabajar", "hay trabajar", "hay que trabajo"]
+        atoms: ["hay que", "trabajar"]
+        why: "«hay que» never takes a subject — «tengo que» would mean YOU specifically. Never drop «que» («hay trabajar»), and the infinitive stays bare («trabajar», not «trabajo»)."
+      - kind: buildLit
+        id: l1-b-hayquecomprarelboletoenlaestacion
+        es: "hay que comprar el boleto en la estación"
+        en: "One has to buy the ticket at the station"
+        atoms: ["hay que", "comprar", "el", "boleto", "en", "la", "estación"]
+        tiles: ["tengo", "necesito"]
+      - kind: audioWimcq
+        id: l1-ear-banco
+        target: { surface: "banco", emoji: "🏦" }
+        distractors:
+          - { surface: "farmacia", emoji: "💊" }
+          - { surface: "hospital", emoji: "🏥" }
+      - kind: agreementLit
+        id: l1-agr-correopequenofarmaciapequena
+        en: "The post office is small, and the pharmacy is small too"
+        audioText: "el correo es pequeño, y la farmacia es pequeña también"
+        atoms: ["correo", "pequeño", "farmacia"]
+        segments:
+          - { text: "el correo es " }
+          - { blank: { id: "p1", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+          - { text: ", y la farmacia es " }
+          - { blank: { id: "p2", answer: "pequeña", options: ["pequeña", "pequeño"] } }
+      - kind: listenBuildLit
+        id: l1-lb-hayqueiralbancoperopuedo
+        es: "hay que ir al banco, pero puedo ir mañana"
+        en: "One has to go to the bank, but I can go tomorrow"
+        atoms: ["hay que", "ir", "al", "banco", "pero", "puedo", "mañana"]
+        tiles: ["tengo", "necesito"]
+      - kind: textMcq
+        id: l1-tm-trabajar
+        target: "trabajar"
+        distractors: ["trabajador", "trabajo", "viajar"]
+      - kind: sim
+        id: l1-sim-diego-trabajo
+        scene: { emoji: "💼", title: "Diego explains the rules", setting: "Diego is showing you around a new job." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Tienes que trabajar hoy?", audioText: "¿tienes que trabajar hoy?", gloss: "Do you have to work today?" }
+            goal: "Say no, but one has to study here."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "no, pero hay que estudiar aquí" }
+                - { id: "wrong1", text: "no, pero tengo que estudiar aquí" }
+                - { id: "wrong2", text: "no, pero hay estudiar aquí" }
+              correctOptionId: "right"
+              audioText: "no, pero hay que estudiar aquí"
+            replyGloss: "No, but one has to study here."
+            explanation: "A GENERAL rule, not about you specifically — «hay que», not «tengo que». And never drop «que»: «hay estudiar» is ungrammatical."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Y el tren? ¿Qué necesito?", audioText: "¿y el tren? ¿qué necesito?", gloss: "And the train? What do I need?" }
+            goal: "Say one has to buy the ticket."
+            reply:
+              mode: build
+              tiles: ["hay", "que", "comprar", "el", "boleto", "en", "la", "estación", "tengo", "necesito"]
+              answer: "hay que comprar el boleto en la estación"
+            replyGloss: "One has to buy the ticket at the station."
+            explanation: "A rule that applies to anyone riding the train — «hay que», the impersonal one."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "hay que", target: "one has to" }
+          - { source: "tengo que", target: "I have to" }
+          - { source: "trabajar", target: "work" }
+          - { source: "estudiar", target: "study" }
+          - { source: "boleto", target: "ticket" }
+          - { source: "estación", target: "station" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "hay que trabajar hoy, y también hay que estudiar"
+        en: "One has to work today, and one also has to study"
+        atoms: ["hay que", "trabajar", "hoy", "también", "estudiar"]

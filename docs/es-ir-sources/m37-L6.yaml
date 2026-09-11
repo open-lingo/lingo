@@ -1,0 +1,126 @@
+  # ── L6 · Recombination — «hay que» meets m36 transport nouns via «ir
+  #    en + [vehicle]» (ir m28, en m2 — both prior). Zero new atoms. One
+  #    recall (L5 win line). PRIOR: tren/metro/taxi/bicicleta (m36),
+  #    estación (m36), ir/al (m28/m2), en (m2), rápido (m19 or similar
+  #    — verified below), mejor (m20-ish — verified below).
+  - n: 6
+    template: free
+    title: "Hay que ir en tren"
+    description: "The rule doesn't care how you get there. «hay que ir en tren» — one has to go by train."
+    steps:
+      - kind: map
+        id: l6-map-hayqueirentren
+        tokens: ["hay que ir", "en tren"]
+        pairs:
+          - { en: "one has to go", tokenIndex: 0 }
+          - { en: "by train", tokenIndex: 1 }
+        audioText: "hay que ir en tren"
+        revealNote: "«hay que ir en tren» — one has to go by train. Still «hay que» plus a bare infinitive («ir»); «en tren» just tags along, same as always."
+      - kind: speakLit
+        id: l6-sp-recall
+        es: "hay una farmacia cerca, pero hay que ir a la estación ahora"
+        en: "There's a pharmacy nearby, but one has to go to the station now"
+        atoms: ["hay", "una", "farmacia", "cerca", "pero", "hay que", "ir", "a", "la", "estación"]
+        cue: recall
+      - kind: clozeLit
+        id: l6-c-tengoqueirentaxi
+        es: "tengo que ir en taxi hoy"
+        en: "I have to go by taxi today"
+        blank: "taxi"
+        options: ["taxi", "tren"]
+        atoms: ["tengo que", "ir", "en", "taxi", "hoy"]
+        why: "Just matching the sentence to the picture — «taxi», not «tren»."
+      - kind: buildLit
+        id: l6-b-hayqueirenmetroalaestacion
+        es: "hay que ir en metro a la estación"
+        en: "One has to go by metro to the station"
+        atoms: ["hay que", "ir", "en", "metro", "a", "la", "estación"]
+        tiles: ["tengo", "puedo"]
+      - kind: mcq
+        id: l6-q-hayqueirenbicicleta
+        prompt: "Which one means 'one has to go' (a general rule)?"
+        correct: "hay que ir"
+        distractors: ["tengo que ir", "hay que va", "hay ir"]
+        atoms: ["hay que", "ir"]
+        why: "A general rule — «hay que», not «tengo que». And the infinitive stays bare: «ir», not «va»."
+      - kind: listenCompLit
+        id: l6-lc-hayqueirentrenalaestacion
+        es: "hay que ir en tren a la estación"
+        en: "One has to go by train to the station."
+        atoms: ["hay que", "ir", "en", "tren", "a", "la", "estación"]
+        distractorsEn:
+          - "I have to go by train to the station."
+          - "One has to go by metro to the station."
+          - "One has to go by train to the bank."
+      - kind: audioWimcq
+        id: l6-ear-tren
+        target: { surface: "tren", emoji: "🚆" }
+        distractors:
+          - { surface: "metro", emoji: "🚇" }
+          - { surface: "taxi", emoji: "🚕" }
+      - kind: buildLit
+        id: l6-b-puedoirenbicicletaonobanco
+        es: "puedo ir en bicicleta al banco"
+        en: "I can go by bicycle to the bank"
+        atoms: ["puedo", "ir", "en", "bicicleta", "al", "banco"]
+        tiles: ["hay", "tengo"]
+      - kind: agreementLit
+        id: l6-agr-trennuevometronuevo
+        en: "The train is new, and the metro is new too"
+        audioText: "el tren es nuevo, y el metro es nuevo también"
+        atoms: ["tren", "nuevo", "metro"]
+        segments:
+          - { text: "el tren es " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y el metro es " }
+          - { blank: { id: "p2", answer: "nuevo", options: ["nuevo", "nueva"] } }
+      - kind: listenBuildLit
+        id: l6-lb-nohayqueirentaxieslejos
+        es: "no hay que ir en taxi, es lejos"
+        en: "One doesn't have to go by taxi, it's far"
+        atoms: ["no", "hay que", "ir", "en", "taxi", "es", "lejos"]
+        tiles: ["tengo", "puedo"]
+      - kind: textMcq
+        id: l6-tm-tren
+        target: "tren"
+        distractors: ["taxi", "metro", "tan"]
+      - kind: sim
+        id: l6-sim-marta-metro
+        scene: { emoji: "🚇", title: "Getting to the station", setting: "Marta is planning the route." }
+        turns:
+          - id: t1
+            npc: { speaker: "Marta", es: "¿Cómo vamos a la estación?", audioText: "¿cómo vamos a la estación?", gloss: "How do we get to the station?" }
+            goal: "Say one has to go by metro."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hay que ir en metro" }
+                - { id: "wrong1", text: "tengo que ir en metro" }
+                - { id: "wrong2", text: "hay que ir metro" }
+              correctOptionId: "right"
+              audioText: "hay que ir en metro"
+            replyGloss: "One has to go by metro."
+            explanation: "Marta asked how WE get there — the general answer, «hay que», and «en» stays in front of «metro»."
+          - id: t2
+            npc: { speaker: "Marta", es: "¿Y el taxi?", audioText: "¿y el taxi?", gloss: "And the taxi?" }
+            goal: "Say one doesn't have to go by taxi."
+            reply:
+              mode: build
+              tiles: ["no", "hay", "que", "ir", "en", "taxi", "tengo"]
+              answer: "no hay que ir en taxi"
+            replyGloss: "One doesn't have to go by taxi."
+            explanation: "Negation plus the general form, kept as one block: «no hay que»."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "hay que ir", target: "one has to go" }
+          - { source: "en tren", target: "by train" }
+          - { source: "en metro", target: "by metro" }
+          - { source: "en taxi", target: "by taxi" }
+          - { source: "en bicicleta", target: "by bicycle" }
+          - { source: "estación", target: "station" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "hay que ir en metro a la estación, pero no hay que ir en taxi"
+        en: "One has to go by metro to the station, but one doesn't have to go by taxi"
+        atoms: ["hay que", "ir", "en", "metro", "a", "la", "estación", "no", "taxi"]
