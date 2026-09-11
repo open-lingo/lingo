@@ -1,0 +1,291 @@
+module: m36
+title: "Voy en tren"
+frame: none
+throughModule: m35
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m36 — transportation: la estación, el tren, el metro, el taxi, la
+# bicicleta. Sixteenth A2 module, second lexicon break after m35's grammar
+# beat.
+#
+#     la estación 🚉   el tren   🚆
+#     el metro    🚇   el taxi   🚕
+#     la bicicleta 🚲
+#
+# ONE idea, the whole module: FIVE new imageable "getting somewhere" nouns,
+# zero new verb morphology, zero new grammar. Every sentence frame this
+# module needs is already registered — «voy»/«vas»/«a»/«al» (m9, bare
+# motion to a destination), «en» (m3, ALREADY a registered particle atom,
+# not just a scope-check function word — the transport-MODE marker: «voy en
+# tren» ≠ «voy al tren»), «necesito» (m16, bare-object frame: «necesito un
+# taxi», the same shape as m16's own «necesito el regalo»), «tengo que» +
+# bare «ir» (m33+m28), and — the freshest and richest hook — «está» +
+# «cerca»/«lejos»/«al lado de» (m4+m35, ONE module old) giving this
+# module's own anchor noun, «estación», the exact same "place description"
+# treatment m35 just taught on m34's five places. This is the fifth
+# lexicon-break module since m19 (after m27's weather, m30's body, m32's
+# clothing round two, m34's errands) and the FIRST module to put a transport
+# noun through «está» + location — impossible before m35 existed.
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# Four lines of evidence:
+#   1. **Rhythm calls for a break, and m35 is exactly one grammar beat past
+#      the last one.** m32 (break) → m33 (grammar) → m34 (break) → m35
+#      (grammar) — the identical one-beat alternation every recent header
+#      has used to justify its own placement. The break due after m35 is on
+#      schedule.
+#   2. **Five domains named by the dispatching task were weighed against the
+#      actual registry, not assumed from the task's own framing — and two
+#      are mostly ALREADY SPENT, not merely weaker.** `grep -o 'surface:
+#      "[^"]*"' curriculum/m{1..35}.ts | sort -u | grep -iE "<word>"` run
+#      against every candidate: town/places round 2 (estación, parque,
+#      escuela, restaurante, tienda), transport (autobús, tren, metro, taxi,
+#      bicicleta, coche/carro), house/rooms (cocina, baño, habitación,
+#      sala), kitchen/food round 2, family round 2. Full accounting in
+#      REJECTED below — short version: **town/places round 2 is NOT a fresh
+#      domain in the aggregate** (`escuela`/`parque`/`restaurante`/`tienda`
+#      all PRIOR since m9, confirmed again here) — but `estación` itself
+#      was never actually checked by m9/m32/m34's own prior findings and is
+#      grep-verified fully virgin, and it is the one word from that
+#      candidate list this module actually wants — folded into the
+#      TRANSPORT domain below, not launched as its own "town round 2"
+#      module.
+#   3. **Transport reverses a decision this course already made once, for a
+#      reason that no longer holds — the single most interesting fact this
+#      header has to report.** `m34-header.yaml`'s own REJECTED ALTERNATIVE
+#      2 explicitly weighed and rejected transport for m34, on two grounds:
+#      (a) the natural verb, «tomar» (to take/catch), is not PRIOR, a
+#      second new idea competing with "zero new grammar"; without it the
+#      domain was "stuck reusing «voy en tren», a valid but noticeably
+#      thinner sentence variety than «voy al banco»"; (b) no tie to `tengo
+#      que` beyond that same thin frame, no tie to `duele`/`duelen`, no tie
+#      to `comprarlo`-family. Both objections are answered by content that
+#      did not exist when m34-header was written, one module later: (a)
+#      «en» is a REGISTERED ATOM since m3 (not merely a scope-check
+#      allowance — `curriculum/m3.ts:34`, `kind: "particle"`), so «voy en
+#      tren» needs no new verb and no `tomar` at all — the "thin sentence"
+#      complaint dissolves once «en» is recognized as already-creditable
+#      content, not a placeholder. (b) m35 (ONE module old at the time of
+#      this brief) gave «está»/«cerca»/«lejos»/«al lado de» real content for
+#      the first time since m4 — and a train/bus STATION is exactly the
+#      kind of place-noun that construction was built for: "la estación
+#      está cerca," "el metro está al lado del banco" (cross-recombining
+#      m34's own five places). Transport did not gain a new hook by
+#      accident; m35 built the hook and transport is the first domain to
+#      cash it in.
+#   4. **Highest recombination value of any of the five candidates weighed,
+#      reaching EIGHT prior modules — verified hook by hook, matching m35-
+#      header's own count for the previous record.** `voy`/`vas`/`a`/`al`
+#      (m9, destination), `en` (m3, mode-of-transport, its own registered
+#      atom), `está`/`dónde`/`aquí`/`allí` (m4), `necesito` (m16, bare-
+#      object frame), `ir` bare infinitive (m28), `tengo que` (m33), m34's
+#      five places (cross-recombination target for "al lado de"), and m35's
+#      own `cerca`/`lejos`/`lado` (the freshest content this course has).
+#      House/rooms reaches at most `está`+`hay`+`al lado de` (m3/m4/m35) —
+#      THREE. Kitchen/food round 2 reaches `necesito`+`tengo que`+
+#      `supermercado`+`comprarlo`-family (m16/m33/m34/m29) but nothing
+#      natural from `está`+`cerca`/`lejos` (food is not usefully described
+#      by proximity) — FOUR, all indirect. Family round 2 reaches only
+#      `tengo` (bare-possession, "tengo un primo") — ONE, the weakest of
+#      any candidate considered.
+#
+# ── REJECTED: town/places round 2 as its OWN module (parque, escuela,
+#    restaurante, tienda) — already spent, confirmed again ─────────────────
+# `grep -iE "^parque$|^escuela$|^restaurante$|^tienda$"` against the m1-m35
+# surface list returns hits for all four — `parque`/`escuela`/`tienda` at
+# m9, `restaurante` at m18 (verified by direct grep, not assumed from m9's
+# own atom list alone). Only `estación` (from this same candidate list) is
+# virgin — one atom is not a module. Folded into transport below instead of
+# discarded.
+#
+# ── REJECTED ALTERNATIVE: house/rooms (habitación, sala, dormitorio,
+#    comedor) — real, virgin, but weaker recombination and a thematic
+#    repeat ──────────────────────────────────────────────────────────────
+# `cocina`/`baño`/`casa`/`cuarto` are ALL already PRIOR (confirmed again
+# here); `habitación`/`sala`/`dormitorio`/`comedor` are grep-verified
+# virgin — a genuine 4-atom domain, not under-sized this time (unlike
+# m34-header's own narrower "rooms" subset, which only found 2). Rejected
+# for m36 on two grounds: (1) recombination reaches only `está`+`hay`+«al
+# lado de» (m3/m4/m35) — THREE prior modules, versus transport's eight; a
+# room is not a natural object of `voy a`/`necesito ir a`/`tengo que ir a`
+# in the same "errand" sense a train station is (you don't have an
+# obligation to go to your own kitchen). (2) m3/m4's own original teaching
+# frame was a HOUSE-OBJECT scavenger hunt — a second house/rooms module
+# this soon would recombine against the same domain those two modules
+# already own, rather than paying off m35's fresh «está» content on new
+# ground the way m34's errands places did. Left open as real future
+# content — a natural home for a `vivir`/`hay` "describe your house" break.
+#
+# ── REJECTED ALTERNATIVE: kitchen/food round 2 (arroz, pescado, verdura,
+#    fruta, huevo, tomate, cebolla) — virgin, but only indirect hooks ──────
+# `carne`/`leche`/`pan`/`pollo`/`queso` are ALL already PRIOR (m1-m20 era,
+# confirmed again here); `arroz`/`pescado`/`verdura`/`fruta`/`huevo`/
+# `tomate`/`cebolla` are grep-verified virgin — a genuine 5+-atom domain.
+# Rejected for m36: every hook (`necesito`, `tengo que`, `supermercado`,
+# `comprarlo`-family) is INDIRECT — food items are bought AT a place
+# (m34's `supermercado`), never themselves the subject of `voy a`/`está
+# cerca`. No natural sentence pairs food with m35's fresh location content
+# ("el arroz está cerca" is not something a learner would say). A strong
+# future break on its own recombination grounds, not this round's job.
+#
+# ── REJECTED ALTERNATIVE: family round 2 (tío, tía, primo, prima, hijo,
+#    hija) — virgin, but the weakest recombination story of any candidate
+#    considered ──────────────────────────────────────────────────────────
+# `hermano`/`hermana`/`padre`/`madre`/`abuelo`/`abuela` are ALL already
+# PRIOR (confirmed again here); `tío`/`tía`/`primo`/`prima`/`hijo`/`hija`
+# are grep-verified virgin. Rejected: family members are not places,
+# objects, or destinations — `voy a`/`necesito ir a`/`tengo que ir a`/
+# `está cerca`/`al lado de` have no natural sentence with a kinship noun as
+# their object at this course's level. Only `tengo` (bare possession,
+# "tengo dos primos") reaches at all — ONE prior-module hook, the weakest
+# of any candidate weighed. Left open as a possession-frame recombination
+# lesson inside a future module, not a module of its own.
+#
+# ── THE «a» vs «en» DISCRIMINATION — the central transfer error to guard
+#    against, this module's own version of m35's motion-vs-location foil ──
+# `a`/`al` (m9) marks a DESTINATION — «voy a la estación» (heading to the
+# station). `en` (m3, its own registered atom) marks a MODE — «voy en tren»
+# (traveling by train), no article, ever («voy en el tren» is grammatical
+# but marked/specific — this module teaches the unmarked generic form
+# only, matching the register every prior "just-in-time" grammar note in
+# this course has used). A learner who has internalized «voy a» as "the
+# whole sentence about going somewhere" will be tempted to reach for
+# *"voy a tren" (dropping «en» for the mode) or *"voy en la estación"
+# (using the mode-marker on a destination noun). Every discrimination step
+# contrasting the two must include a foil of this shape — never a correct
+# answer, matching the discipline m35's own motion-vs-location foil and
+# m33's dropped-«que» foil already established. **Design note, not a gate
+# trap:** `esTokens()` drops length-1 tokens (`moduleBarGuards.ts:63-65`),
+# so the bare single-letter «a» can never itself be a `particle_cloze`
+# option (confirmed, m35-brief's own hard rule #5, unchanged) — this
+# discrimination MUST be built as a `sentenceMcq`/`textMcq`/`build` choosing
+# between full phrases («voy a la estación» vs «voy en tren»), never as a
+# cloze isolating the bare «a» token.
+#
+# ── SCOPE NOTE: NO «tomar» THIS MODULE — a deliberate exclusion, the same
+#    exclusion m34-header already named, unchanged ────────────────────────
+# `tomar` (to take/catch, as in "tomar el tren") is grep-confirmed NOT
+# PRIOR anywhere in m1-m35. This module does not fill that gap — every
+# transport sentence here uses `voy`/`vas` + `en` (mode) or `voy a` + `al`
+# (destination), never a "take the train" construction. `tomar` remains
+# real, well-scoped FUTURE content (its own verb-conjugation module, not a
+# lexicon break); recorded so a drafting agent doesn't reach for it out of
+# habit in a dialogue_sim NPC line or build-tile bank.
+#
+# ── THE «voy a» / «en» / «necesito» / «tengo que» / «está» FIVE-FRAME
+#    RECOMBINATION — read before drafting any lesson ──────────────────────
+# Five independently PRIOR frames reach this module's five nouns with zero
+# new grammar: (1) bare destination motion, m9 — «voy a la estación» (best
+# for L1 debut, echoing m9's own title "Vamos"). (2) mode-of-transport, m3
+# — «voy en tren»/«voy en metro»/«voy en bicicleta» (this module's own
+# central new SENTENCE SHAPE, though «en» itself is zero-new-vocabulary).
+# (3) bare-object need, m16 — «necesito un taxi» (the same shape as m16's
+# own «necesito el regalo» — a bare noun object, not «necesito ir a»).
+# (4) obligation + go, m33+m28 — «tengo que ir a la estación». (5) location
+# description, m4+m35, THE FRESHEST — «la estación está cerca», «el metro
+# está al lado del banco» (cross-recombining m34's own places). All five
+# should appear across the module (see lesson plan below); (5) is the
+# module's own reason for existing NOW rather than earlier — do not let
+# (1)-(4) crowd it out of the lesson plan.
+#
+# ── AGREEMENT IS NOT A NEW ATOM — all five nouns regular, plural fold
+#    traced, not assumed ──────────────────────────────────────────────────
+# All five nouns pluralize via the course-wide regular rule with ZERO
+# exceptions, traced directly against `esRegularPlurals()`
+# (`moduleBarGuards.ts` ~168-174, function body re-read this round): `tren`
+# is consonant-final (neither `z` nor `ón`) → the `+es` branch →
+# «trenes» (the SAME branch `hospital`→«hospitales» already used, m34).
+# `metro`/`taxi` are vowel-final → `+s` → «metros»/«taxis». `bicicleta` is
+# vowel-final → `+s` → «bicicletas». `estación` ends in `ón` → the
+# dedicated `/ón$/` branch → «estaciones» (`estación`.slice(0,-2) + "ones",
+# matching real Spanish stress-shift orthography — the accent drops on the
+# plural, which is the regular pattern this branch encodes, not an
+# exception). Scope-check only, per every prior module's own rule — never
+# applies to `atoms:` credit (below).
+#
+# ── THE atoms: CREDIT TRAP FOR THIS MODULE — read before drafting a
+#    single step ──────────────────────────────────────────────────────────
+# `irAtomResolution.test.ts` is zero-tolerance exact-surface (unchanged).
+# This module has no new multi-word phrase atom (unlike m35's «al lado de»
+# trap) — but it has an analogous NATURAL-SOUNDING BIGRAM a drafting agent
+# could reach for by habit: a sentence "voy en tren a la estación" must
+# credit `atoms: ["voy", "en", "tren", "estación"]` (plus «a» if separately
+# credited per m9 convention — check m9's own usage before assuming),
+# **never** `atoms: ["voy en tren"]` or `atoms: ["en tren"]` as a single
+# string — those strings are not registered surfaces (this module registers
+# no phrase atom at all) and the credit would silently vanish, the exact
+# "X que"/"al lado de" failure class m33/m34/m35 already flagged, now
+# recurring in the shape "voy en X."
+#
+# ── ES_FUNCTION_WORDS ALREADY CARRIES «en» — A SCOPE-CHECK ALLOWLIST, AND
+#    ALSO A REGISTERED ATOM (both true at once, like «está») ─────────────
+# Direct read, `src/features/languages/es/__tests__/moduleBarGuards.ts:72-
+# 88`: `ES_FUNCTION_WORDS` lists `en` among its closed class (alongside
+# `a`/`de`/`con`/`por`/`para`/...). This means `en` is ALREADY legal in any
+# NPC line or build-tile bank for SCOPE-CHECKING purposes, independent of
+# whether it's formally taught. Separately, `en` is ALSO a registered vocab
+# atom (`m3.ts:34`, `kind: "particle"`) — creditable via `atoms:` since m3,
+# exactly the same dual status m35-header already documented for `está`. Do
+# not confuse the two mechanisms; both apply to `en` simultaneously.
+# (The same 2026-09-10 read that surfaced this also found `ES_FUNCTION_
+# WORDS` gained a `tus` entry this same day, per a comment at
+# `moduleBarGuards.ts:76-80` — fixing a genuine gap found by
+# `esSimNpcProvenance.test.ts` against m20/m26 dialogue_sim NPC lines. Not
+# this module's own change, noted for the record since it's a live edit to
+# a file this module also reads.)
+#
+# ── SIM NPC-LINE PROVENANCE: LIVE AND UNFORGIVING, m29+ HAS ZERO LEGACY
+#    ALLOWANCE, RECONFIRMED THROUGH m35 ──────────────────────────────────
+# `esSimNpcProvenance.test.ts`'s `KNOWN_LEGACY` allowlist tail is confirmed
+# still `m28` (direct read of the full object, m29 through m35 have zero
+# entries) — this module gets NO reaction-word leniency either. Every NPC
+# word must resolve to: this module's own 5 atoms, any PRIOR atom (m1-m35),
+# a taught verb conjugation, `ES_FUNCTION_WORDS`, or `ES_PROPER_NAMES`.
+# `ES_PROPER_NAMES` (`moduleBarGuards.ts:90-93`): ana, diego, carlos,
+# maría/maria, sofía/sofia, luis, elena, pedro, juan, rosa, miguel, carmen,
+# lupita, jorge, marta — plus learner persona Sam. **Cast check, full
+# course, not just recent modules:** grep of every `speaker:` field in
+# m1-m35 shows `jorge`, `marta`, and `lupita` COMPLETELY UNUSED anywhere in
+# the shipped course (`maría` was used heavily m2-m10, dormant since; every
+# other name in the allowed set has appeared at least once in m28-m35
+# alone: Ana, Carlos, Carmen, Diego, Elena, Juan, Luis, Miguel, Pedro,
+# Rosa, Sam, Sofía). Jorge is this module's own dialogue_sim NPC debut — a
+# stronger "genuinely fresh" claim than m35's own Carlos pick (which was
+# merely unused through m34, not unused course-wide).
+#
+# ── ACCENT: STEEL/RAIL SLATE, VERIFIED UNUSED, DISTINCT FROM THE SLATE
+#    ALREADY SPENT ────────────────────────────────────────────────────────
+# Checked every `accent:` pair in `curriculum/index.ts` (grep-verified, all
+# 35 pairs read in full, both hex values individually): zero hits for
+# `#475569` or `#1e293b` anywhere as either a `from` or a `to`. Distinct
+# from the four most recent modules (m32 denim indigo, m33 warm graphite/
+# stone, m34 terracotta/clay, m35 deep cartographer teal-navy) and from
+# `#64748b`→`#334155` (m27's own slate gray, already spent) — this pair
+# sits one step cooler and darker (blue-leaning slate rather than neutral
+# gray), reading as "steel rails at dusk" without forcing a single-vehicle
+# metaphor onto a five-noun break.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # la estación — station. Regular feminine noun, «ón»-branch plural
+  # «estaciones». This module's own anchor noun — the direct sequel to
+  # m34's five places, and the first noun to cash in m35's fresh «está» +
+  # «cerca»/«lejos»/«al lado de» content (L1).
+  - { surface: "estación", meaningEn: "station", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🚉", hint: "la estación — regular feminine, «ón» → plural «estaciones». «¿dónde está la estación?» (m4's «dónde»/«está») — «la estación está cerca» (m35's «cerca», one module old)." }
+  # el tren — train. Regular masculine noun, consonant-final plural
+  # «trenes». Debuts the «en»-as-mode-marker sentence shape (L2).
+  - { surface: "tren", meaningEn: "train", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🚆", hint: "el tren — regular masculine, plural «trenes» (consonant → +es, same branch as «hospital», m34). «voy en tren» — no article before a transport MODE (m3's «en», already a registered atom, not just a function word)." }
+  # el metro — metro/subway. Regular masculine noun, vowel-final plural
+  # «metros». Direct antonym-adjacent pairing with «tren» — same mode-
+  # marker sentence shape, different vehicle (L3).
+  - { surface: "metro", meaningEn: "metro, subway", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🚇", hint: "el metro — regular masculine, plural «metros». Same «en» pattern as «tren»: «voy en metro», never «voy al metro» when the sentence means the MODE, not a destination." }
+  # el taxi — taxi. Regular masculine noun, vowel-final plural «taxis».
+  # Debuts the «necesito» bare-object frame (m16) rather than the «voy
+  # en» mode frame — a taxi is something you NEED, not just a mode (L4).
+  - { surface: "taxi", meaningEn: "taxi", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🚕", hint: "el taxi — regular masculine, plural «taxis». «necesito un taxi» — the same bare-object shape as m16's own «necesito el regalo», not «necesito ir a»." }
+  # la bicicleta — bicycle. Regular feminine noun, vowel-final plural
+  # «bicicletas». Pairs «en» (mode) with «tengo que» (m33) for the first
+  # time this module needs a genuinely new combination (L5).
+  - { surface: "bicicleta", meaningEn: "bicycle", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "🚲", hint: "la bicicleta — regular feminine, plural «bicicletas». «tengo que ir en bicicleta» — m33's «tengo que» + m28's bare «ir» + this module's own «en»-mode marker, together for the first time." }
+
+lessons:
