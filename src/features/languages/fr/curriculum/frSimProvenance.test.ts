@@ -9,7 +9,7 @@
  * «quelque chose», «nouveau») — ship in m17 L10 undetected; only a human
  * review caught it.
  *
- * WHAT THIS WALKS: every `dialogue_sim` step in every FR module m2–m21, all
+ * WHAT THIS WALKS: every `dialogue_sim` step in every FR module m2–m26, all
  * turns, these fields only:
  *   - NPC line: `kana` (always) and `audioText` (when present);
  *   - the reply the learner is actually led to produce/pick:
@@ -71,7 +71,7 @@
  *      no numeral ever tokenizes, so no numeral needs (or can receive) an
  *      exemption. Every FR number in this course is spelled out
  *      («onze», «vingt») and taught as its own atom; verified none of
- *      m2–m21's dialogue_sim content contains a raw digit
+ *      m2–m26's dialogue_sim content contains a raw digit
  *      (`grep -nE "kana:.*[0-9]|audioText:.*[0-9]"` — no hits).
  *   5. §13.6 "the incomprehensible line is the cue" (`isIncomprehensibleTease`
  *      below): an NPC line's `kana`/`audioText` is exempt when that turn's
@@ -145,8 +145,9 @@ import { FR_M22_MODULE } from "./m22";
 import { FR_M23_MODULE } from "./m23";
 import { FR_M24_MODULE } from "./m24";
 import { FR_M25_MODULE } from "./m25";
+import { FR_M26_MODULE } from "./m26";
 
-// ─── Module inventory (m2–m21; m1 is not in range) ──
+// ─── Module inventory (m2–m26; m1 is not in range) ──
 
 const MODULES: ReadonlyArray<{ id: string; n: number; lessons: LessonContent[] }> = [
   { id: "m2", n: 2, lessons: FR_M2_MODULE.lessons },
@@ -173,6 +174,7 @@ const MODULES: ReadonlyArray<{ id: string; n: number; lessons: LessonContent[] }
   { id: "m23", n: 23, lessons: FR_M23_MODULE.lessons },
   { id: "m24", n: 24, lessons: FR_M24_MODULE.lessons },
   { id: "m25", n: 25, lessons: FR_M25_MODULE.lessons },
+  { id: "m26", n: 26, lessons: FR_M26_MODULE.lessons },
   // EVERY new FR module must be added here when it lands (coordinator checklist).
 ];
 
@@ -358,7 +360,7 @@ function walk(): Hit[] {
   return hits;
 }
 
-describe("FR dialogue_sim vocab provenance (m2–m21)", () => {
+describe("FR dialogue_sim vocab provenance (m2–m26)", () => {
   it("every token in every dialogue_sim turn (NPC lines, correct reply, alsoAccepted) resolves to an atom taught at or before this module", () => {
     const hits = walk();
     const fmt = hits.map(

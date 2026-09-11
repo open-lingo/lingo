@@ -24,7 +24,7 @@
  * static imports that evaluate in source order, recovering true numeric
  * eager-evaluation order.
  *
- * THIS GATE: walks every FR module m2–m21 (imported explicitly, in numeric
+ * THIS GATE: walks every FR module m2–m26 (imported explicitly, in numeric
  * order, the way `frSpeechMinimalPairs.test.ts` does) and every registered
  * gendered noun atom. The bug's exact shape is a LATER module referencing an
  * EARLIER module's noun — a cross-module distractor/reference — before that
@@ -96,8 +96,9 @@ import { FR_M22_MODULE } from "../curriculum/m22";
 import { FR_M23_MODULE } from "../curriculum/m23";
 import { FR_M24_MODULE } from "../curriculum/m24";
 import { FR_M25_MODULE } from "../curriculum/m25";
+import { FR_M26_MODULE } from "../curriculum/m26";
 
-// ─── Module inventory (m2–m24; add each new module at landing) ────────────
+// ─── Module inventory (m2–m26; add each new module at landing) ────────────
 
 const MODULES: ReadonlyArray<{ id: string; lessons: LessonContent[] }> = [
   { id: "m2", lessons: FR_M2_MODULE.lessons },
@@ -124,6 +125,7 @@ const MODULES: ReadonlyArray<{ id: string; lessons: LessonContent[] }> = [
   { id: "m23", lessons: FR_M23_MODULE.lessons },
   { id: "m24", lessons: FR_M24_MODULE.lessons },
   { id: "m25", lessons: FR_M25_MODULE.lessons },
+  { id: "m26", lessons: FR_M26_MODULE.lessons },
   // EVERY new FR module lands here when it ships (coordinator checklist,
   // mirrors frSimProvenance.test.ts's / frSpeechMinimalPairs.test.ts's own
   // inventory comment).

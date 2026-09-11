@@ -4,7 +4,7 @@
  * .test.ts` hand-picked 14 `pas` targets and traced them against the real
  * fuzzy speech matcher (`scoreAlternativesGeneric`,
  * `src/shared/speech/loose-match.ts`); this file instead WALKS every
- * graded `speaking` step in the live FR modules m2–m20 (imported the way
+ * graded `speaking` step in the live FR modules m2–m26 (imported the way
  * `frSimProvenance.test.ts` does — no hardcoded lesson text), finds every
  * MINIMAL-PAIR relationship a speaking target has with (a) a sibling
  * speaking target in the same lesson/module or (b) a wrong-answer surface
@@ -147,8 +147,9 @@ import { FR_M22_MODULE } from "../curriculum/m22";
 import { FR_M23_MODULE } from "../curriculum/m23";
 import { FR_M24_MODULE } from "../curriculum/m24";
 import { FR_M25_MODULE } from "../curriculum/m25";
+import { FR_M26_MODULE } from "../curriculum/m26";
 
-// ─── Module inventory (m2–m21; add each new module at landing) ────────────────
+// ─── Module inventory (m2–m26; add each new module at landing) ────────────────
 
 const MODULES: ReadonlyArray<{ id: string; lessons: LessonContent[] }> = [
   { id: "m2", lessons: FR_M2_MODULE.lessons },
@@ -175,6 +176,7 @@ const MODULES: ReadonlyArray<{ id: string; lessons: LessonContent[] }> = [
   { id: "m23", lessons: FR_M23_MODULE.lessons },
   { id: "m24", lessons: FR_M24_MODULE.lessons },
   { id: "m25", lessons: FR_M25_MODULE.lessons },
+  { id: "m26", lessons: FR_M26_MODULE.lessons },
   // EVERY new FR module lands here when it ships (coordinator checklist,
   // mirrors frSimProvenance.test.ts's own inventory comment).
 ];
@@ -298,7 +300,7 @@ type WrongSurface = {
 // option depending purely on which files vitest was given, not on any real
 // content difference.
 //
-// Fix: don't trust the baked text. By the time `walk()` runs, every m2–m20
+// Fix: don't trust the baked text. By the time `walk()` runs, every m2–m26
 // module above has finished its static import, so the atom registry is
 // guaranteed COMPLETE regardless of which order it was populated in.
 // Re-derive the canonical article form here, at collection time, using the
@@ -487,7 +489,7 @@ function walk(): Violation[] {
 // ─── KNOWN_LEGACY (dated, SHRINK-ONLY — see docs/fr-speech-minimal-pairs-2026-09-10.md) ──
 
 /**
- * Exact `${targetStepId}::${hearingStepId}` pairs that exist in m2–m20
+ * Exact `${targetStepId}::${hearingStepId}` pairs that exist in m2–m26
  * today and score at/above the pass floor. This allowlist may only
  * shrink (an entry is removed once the pair is fixed — content edit or a
  * `speaking` step moved to build/cloze/MCQ) — never grown to admit a NEW
@@ -577,7 +579,7 @@ const KNOWN_LEGACY = new Set<string>([
   "fr-m18-9-speak-saisjamais-recall::fr-m18-4-speak-saisrien",
 ]);
 
-describe("FR speech minimal-pair census (m2–m20, 2026-09-10)", () => {
+describe("FR speech minimal-pair census (m2–m26, 2026-09-10)", () => {
   const violations = walk();
 
   it("KNOWN_LEGACY has no stale entries (shrink-only ratchet stays honest)", () => {

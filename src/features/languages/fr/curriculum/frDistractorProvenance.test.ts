@@ -42,7 +42,7 @@
  * make room for it, and do not add a THIRD such exemption without an
  * equally specific, content-grounded justification.
  *
- * WHAT THIS WALKS: every FR module m2–m21, both:
+ * WHAT THIS WALKS: every FR module m2–m26, both:
  *   - every step in `lessons[].steps`;
  *   - every placement item in `FR_M{n}_PLACEMENT` — `.build()`'d, since a
  *     `PlacementItem` is a lazy factory, not itself a step (this is where
@@ -74,7 +74,7 @@
  *     of pure false positives, not a stricter check).
  *   - `self_explanation_mcq` (`selfExplain()`) and `dialogue_listen`: both
  *     are option-bearing step types in the shared type system, but FR
- *     authors NEITHER anywhere in m2–m21 (verified via a census of every
+ *     authors NEITHER anywhere in m2–m26 (verified via a census of every
  *     `step.type` across all 18 modules' lessons + placement items — zero
  *     occurrences of either). Left OUT of `SCANNED_TYPES` rather than
  *     speculatively included: whether their option text is French or
@@ -172,8 +172,9 @@ import { FR_M22_MODULE, FR_M22_PLACEMENT } from "./m22";
 import { FR_M23_MODULE, FR_M23_PLACEMENT } from "./m23";
 import { FR_M24_MODULE, FR_M24_PLACEMENT } from "./m24";
 import { FR_M25_MODULE, FR_M25_PLACEMENT } from "./m25";
+import { FR_M26_MODULE, FR_M26_PLACEMENT } from "./m26";
 
-// ─── Module inventory (m2–m21; m1 is not in range, matches frSimProvenance) ─
+// ─── Module inventory (m2–m26; m1 is not in range, matches frSimProvenance) ─
 
 const MODULES: ReadonlyArray<{
   id: string;
@@ -205,6 +206,7 @@ const MODULES: ReadonlyArray<{
   { id: "m23", n: 23, lessons: FR_M23_MODULE.lessons, placement: FR_M23_PLACEMENT },
   { id: "m24", n: 24, lessons: FR_M24_MODULE.lessons, placement: FR_M24_PLACEMENT },
   { id: "m25", n: 25, lessons: FR_M25_MODULE.lessons, placement: FR_M25_PLACEMENT },
+  { id: "m26", n: 26, lessons: FR_M26_MODULE.lessons, placement: FR_M26_PLACEMENT },
   // EVERY new FR module must be added here when it lands (coordinator checklist).
 ];
 
@@ -354,7 +356,7 @@ function walk(): Hit[] {
   return hits;
 }
 
-describe("FR MCQ/cloze distractor vocab provenance (m2–m21)", () => {
+describe("FR MCQ/cloze distractor vocab provenance (m2–m26)", () => {
   it("every distractor token in every multiple_choice/word_image_mcq/particle_cloze step (lessons + placement) resolves to an atom taught at or before this module", () => {
     const hits = walk();
     const fmt = hits.map(
