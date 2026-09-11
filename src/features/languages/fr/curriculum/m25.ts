@@ -31,7 +31,7 @@
  *      generalization of a pattern already taught twice.
  *
  *   3. THE SECOND ATOM'S ROLE — «qui est-ce ?» exists so the learner can
- *      RECOGNIZE the fronted/formal register (signs, written French, the
+ *      RECOGNIZE the fronted/written register (signs, written French, the
  *      classic "qui est-ce" greeting-card idiom) without ever being asked
  *      to produce it — production stays on the in-situ form the whole
  *      course has drilled. It debuts in L5 via info + word_map, and it
@@ -195,7 +195,7 @@ export const FR_M25_ATOMS: FrAtom[] = [
   }),
   atom({
     surface: "qui est-ce ?",
-    meaningEn: "who is it? (formal / written)",
+    meaningEn: "who is it? (written / fronted)",
     partOfSpeech: "phrase",
     fromModule: "m25",
     kind: "phrase",
@@ -439,15 +439,15 @@ function lesson4(): LessonStep[] {
   ];
 }
 
-/** L5 — debut: «qui est-ce ?», the fronted/formal twin. Recognition only —
+/** L5 — debut: «qui est-ce ?», the fronted/written twin. Recognition only —
  *  its one required answer position is the correct CHOICE-mode option of a
  *  dialogue_sim turn. */
 function lesson5(): LessonStep[] {
   return [
     infoStep(
       "fr-m25-5-info-quiestce",
-      "The formal twin",
-      "«C'est qui ?» is what you SAY. «Qui est-ce ?» is the same question, fronted and formal — the one you'll READ (signs, written French, the classic greeting-card line). Recognize it; you'll never be asked to say it.",
+      "The written twin",
+      "«C'est qui ?» is what YOU say. «Qui est-ce ?» is the same question, fronted — you'll see and hear it (signs, written French, the classic greeting-card line), but you're never asked to say it yourself.",
       "grammar",
     ),
     {
@@ -484,13 +484,13 @@ function lesson5(): LessonStep[] {
     listeningCompSentence({
       id: "fr-m25-5-lc-quiestce",
       audioText: "qui est-ce ?",
-      correctMeaningEn: "Who is it? (formal)",
+      correctMeaningEn: "Who is it? (written)",
       distractorsEn: ["Who is it?", "Where are you going?", "There's a café."],
     }),
     {
       id: "fr-m25-5-sim-toctoc",
       type: "dialogue_sim",
-      scene: { emoji: "🚪", title: "C'est qui ?", setting: "Someone's at the door." },
+      scene: { emoji: "🚪", title: "C'est qui ?", setting: "Knock knock — someone's at the door." },
       exercisedAtomIds: [],
       turns: [
         {
@@ -501,7 +501,7 @@ function lesson5(): LessonStep[] {
             audioText: "bonjour !",
             gloss: "Hello!",
           },
-          goal: "Ask who it is, formally.",
+          goal: "Ask who it is, the written way.",
           reply: {
             mode: "choice",
             options: [
@@ -540,7 +540,7 @@ function lesson5(): LessonStep[] {
     ]),
     crossModuleMatchPairs("fr-m25-5", [
       ["c'est qui ?", "who is it?"],
-      ["qui est-ce ?", "who is it? (formal)"],
+      ["qui est-ce ?", "who is it? (written)"],
       ["frère", "brother"],
       ["sœur", "sister"],
       ["famille", "family"],
@@ -699,13 +699,13 @@ function lesson8(): LessonStep[] {
     listeningCompSentence({
       id: "fr-m25-8-lc-quiestce",
       audioText: "qui est-ce ?",
-      correctMeaningEn: "Who is it? (formal)",
+      correctMeaningEn: "Who is it? (written)",
       distractorsEn: ["Who is it?", "Where are you going?", "There's a café."],
     }),
     {
       id: "fr-m25-8-sim-checkpoint",
       type: "dialogue_sim",
-      scene: { emoji: "🚪", title: "C'est qui, encore ?", setting: "The door again." },
+      scene: { emoji: "🚪", title: "C'est qui, encore ?", setting: "Another knock at the door." },
       exercisedAtomIds: [],
       turns: [
         {
@@ -716,7 +716,7 @@ function lesson8(): LessonStep[] {
             audioText: "bonjour !",
             gloss: "Hello!",
           },
-          goal: "Ask who it is, formally.",
+          goal: "Ask who it is, the written way.",
           reply: {
             mode: "choice",
             options: [
@@ -760,7 +760,7 @@ function lesson8(): LessonStep[] {
     crossModuleVocabMcq("fr-m25-8-mcq-frere", "brother", "le frère", ["la sœur", "la famille", "le père"]),
     crossModuleMatchPairs("fr-m25-8", [
       ["c'est qui ?", "who is it?"],
-      ["qui est-ce ?", "who is it? (formal)"],
+      ["qui est-ce ?", "who is it? (written)"],
       ["frère", "brother"],
       ["sœur", "sister"],
       ["père", "father"],
@@ -833,7 +833,7 @@ function lesson9(): LessonStep[] {
             speaker: "Léa",
             kana: "Il est deux heures. Qui est-ce ?",
             audioText: "il est deux heures. qui est-ce ?",
-            gloss: "It's two o'clock. Who is it? (formal)",
+            gloss: "It's two o'clock. Who is it? (written)",
           },
           goal: "Say it's Thomas.",
           reply: {
@@ -870,7 +870,7 @@ function lesson9(): LessonStep[] {
     crossModuleVocabMcq("fr-m25-9-mcq-frere", "brother", "le frère", ["la sœur", "la famille", "le père"]),
     crossModuleMatchPairs("fr-m25-9", [
       ["c'est qui ?", "who is it?"],
-      ["qui est-ce ?", "who is it? (formal)"],
+      ["qui est-ce ?", "who is it? (written)"],
       ["frère", "brother"],
       ["sœur", "sister"],
       ["famille", "family"],
@@ -884,7 +884,7 @@ function lesson9(): LessonStep[] {
  *  the whole cast, family, café, and de-possession threads folded in. */
 function lesson10(): LessonStep[] {
   return [
-    crossModuleVocabMcq("fr-m25-10-mcq-quiestce", "who is it? (formal)", "qui est-ce ?", [
+    crossModuleVocabMcq("fr-m25-10-mcq-quiestce", "who is it? (written)", "qui est-ce ?", [
       "c'est qui ?",
       "tu vas où ?",
       "il y a un café",
@@ -923,7 +923,7 @@ function lesson10(): LessonStep[] {
     ]),
     crossModuleMatchPairs("fr-m25-10", [
       ["c'est qui ?", "who is it?"],
-      ["qui est-ce ?", "who is it? (formal)"],
+      ["qui est-ce ?", "who is it? (written)"],
       ["frère", "brother"],
       ["sœur", "sister"],
       ["père", "father"],
@@ -959,7 +959,7 @@ function lesson10(): LessonStep[] {
             speaker: "Sam",
             kana: "Et lui, qui est-ce ?",
             audioText: "et lui, qui est-ce ?",
-            gloss: "And him, who is he? (formal)",
+            gloss: "And him, who is he? (written)",
           },
           goal: "Say it's your brother.",
           reply: {
@@ -1130,7 +1130,7 @@ export const FR_M25_PLACEMENT: PlacementItem[] = [
     build: () =>
       sentenceMcq({
         id: "pt-fr-m25-1",
-        prompt: "'Who is it? (formal)' — pick the French.",
+        prompt: "'Who is it? (written)' — pick the French.",
         correctText: "qui est-ce ?",
         distractorsText: ["c'est qui ?", "tu vas où ?", "il y a un café"],
       }),
