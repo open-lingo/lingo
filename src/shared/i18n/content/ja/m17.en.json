@@ -1,0 +1,3003 @@
+{
+  "schema": 1,
+  "moduleId": "m17",
+  "lang": "ja",
+  "generatedAt": "2026-09-11",
+  "entryCount": 499,
+  "entries": [
+    {
+      "anchor": "m17/atom:あに/gloss",
+      "en": "(humble) older brother",
+      "enSourceHash": "b4bbffd0c043a448",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m17/atom:あね/gloss",
+      "en": "(humble) older sister",
+      "enSourceHash": "2a8e341b43543261",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m17/atom:あの/gloss",
+      "en": "that over there",
+      "enSourceHash": "07fb57d7f89a935d",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m17/atom:いもうと/gloss",
+      "en": "(humble) younger sister",
+      "enSourceHash": "a18152ce671125ce",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m17/atom:おじいさん/gloss",
+      "en": "grandfather, male senior citizen",
+      "enSourceHash": "b9e71df555c1a87d",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m17/atom:おとうと/gloss",
+      "en": "younger brother",
+      "enSourceHash": "699e28f43efbd941",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m17/atom:おとな/gloss",
+      "en": "adult",
+      "enSourceHash": "7fdc3e8038e87ff5",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m17/atom:おばあさん/gloss",
+      "en": "grandmother, female senior-citizen",
+      "enSourceHash": "8583b28c131f9037",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m17/atom:おんな/gloss",
+      "en": "woman",
+      "enSourceHash": "cf2e5bff1ef03dcd",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m17/atom:おんなのこ/gloss",
+      "en": "girl",
+      "enSourceHash": "431ba1c6936744f6",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m17/atom:きょうだい/gloss",
+      "en": "(humble) siblings",
+      "enSourceHash": "085c3dd36933ab5e",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m17/atom:この/gloss",
+      "en": "this",
+      "enSourceHash": "1eb79602411ef02c",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m17/atom:さい/gloss",
+      "en": "years old (counter for age)",
+      "enSourceHash": "b0d2b6cdd918b393",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m17/atom:さい/shortGloss",
+      "en": "years old",
+      "enSourceHash": "d0352ccd05cc9901",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m17/atom:さんにん/gloss",
+      "en": "3 people",
+      "enSourceHash": "0b6302753961ef95",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m17/atom:その/gloss",
+      "en": "that",
+      "enSourceHash": "8e7fc0236af43df9",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m17/atom:ちち/gloss",
+      "en": "(my) father",
+      "enSourceHash": "246eecdb4cfc0dff",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m17/atom:どなた/gloss",
+      "en": "who",
+      "enSourceHash": "6ed0337140bd32b4",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m17/atom:どの/gloss",
+      "en": "which",
+      "enSourceHash": "77bc06c55d29ee3c",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m17/atom:にん/gloss",
+      "en": "counter for people",
+      "enSourceHash": "335b3935166d1331",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m17/atom:にん/shortGloss",
+      "en": "people counter",
+      "enSourceHash": "5ae88b4a709a65a5",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m17/atom:はたち/gloss",
+      "en": "20 years old, 20th year",
+      "enSourceHash": "2f85e4c06c5f2081",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m17/atom:はは/gloss",
+      "en": "(my) mother",
+      "enSourceHash": "abffccbe83df107b",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m17/atom:ひとり/gloss",
+      "en": "one person",
+      "enSourceHash": "2ab339c13cd3a954",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m17/atom:ふたり/gloss",
+      "en": "two people",
+      "enSourceHash": "e193c048bccd15a2",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m17/atom:よにん/gloss",
+      "en": "4 people",
+      "enSourceHash": "116cb644b5499fb0",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m17/gp:counter-nin/ex:あねが ひとり いるけど あには いない。",
+      "en": "I have one older sister, but I don't have an older brother.",
+      "enSourceHash": "84cfdea3235b5702",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:counter-nin/ex:うちの かぞくは よにんだ。",
+      "en": "There are four people in my family.",
+      "enSourceHash": "912b04e581e14da6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:counter-nin/ex:おとうとが ふたり いるから いそがしい。",
+      "en": "I have two younger brothers, so I'm busy.",
+      "enSourceHash": "ac03c3afd9be8c67",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:counter-nin/ex:かぞくは なんにん？",
+      "en": "How many people are in your family?",
+      "enSourceHash": "22abe7814243a9b8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:counter-nin/ex:きょうだいが さん いるから うちは にぎやかだ。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:counter-nin/ex:きょうだいが さんにん いるから うちは にぎやかだ。",
+      "en": "I have three siblings, so my house is lively.",
+      "enSourceHash": "39e8a725d369707a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:counter-sai/ex:あねは はたちさいだから だいがくに いく。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:counter-sai/ex:あねは はたちだから だいがくに いく。",
+      "en": "My older sister is twenty, so she goes to university.",
+      "enSourceHash": "0bbc943112144b2b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:counter-sai/ex:いもうとは ろくさいだから ちいさい。",
+      "en": "My younger sister is six, so she's small.",
+      "enSourceHash": "c9b5b4c1b1d2f039",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:counter-sai/ex:おとうとは きゅうさいだけど おおきい。",
+      "en": "My younger brother is nine, but he's big.",
+      "enSourceHash": "dd358d5eef0df43b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:counter-sai/ex:ちちは ごじゅうさんさいだけど げんきだ。",
+      "en": "My father is fifty-three, but he's in good health.",
+      "enSourceHash": "cf52b77fb5ee5565",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:counter-sai/ex:ミカは なんさい？",
+      "en": "How old is Mika?",
+      "enSourceHash": "4b64d9f434622adf",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:dare/ex:あの おとなは どなたですか。",
+      "en": "Who is that adult? (polite)",
+      "enSourceHash": "c4f46bfe4f4a642b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:dare/ex:あの おんなのこは どなたですか。",
+      "en": "Who is that girl? (polite)",
+      "enSourceHash": "baed8502a58adf28",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:dare/ex:あの せんせいは どなただ。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:dare/ex:あの せんせいは どなたですか。",
+      "en": "Who is that teacher? (polite)",
+      "enSourceHash": "0435dd8edbd029f2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:dare/ex:あの ひとは だれ？",
+      "en": "Who is that person over there?",
+      "enSourceHash": "68c39c89c3e36a06",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:dare/ex:あの ひとは どなたですか。",
+      "en": "Who is that person? (polite)",
+      "enSourceHash": "599ee679e36d6840",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:dare/ex:かぞくは なんにん？",
+      "en": "How many people are in your family?",
+      "enSourceHash": "22abe7814243a9b8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:dare/ex:これは だれ かばん？",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:dare/ex:これは だれの かばん？",
+      "en": "Whose bag is this?",
+      "enSourceHash": "4ae2e0246ab24f91",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:dare/ex:だれが この しゃしんを かった？",
+      "en": "Who bought this photo?",
+      "enSourceHash": "55d707fbabf3f92d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:dare/ex:どなたの ほんですか。",
+      "en": "Whose book is this? (polite)",
+      "enSourceHash": "e7f93a334e5774a7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:dare/ex:どの ひとが ミカの ともだちだ？",
+      "en": "Which person is Mika's friend?",
+      "enSourceHash": "234e9412a2e060cd",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:family-register/ex:ちちさんは かいしゃで はたらくから いそがしい。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:family-register/ex:ちちは かいしゃで はたらくから いそがしい。",
+      "en": "My father works at a company, so he's busy.",
+      "enSourceHash": "8e4ba2c93233ff63",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:family-register/ex:ちちは からだが おおきいけど ははは ちいさい。",
+      "en": "My father is big, but my mother is small.",
+      "enSourceHash": "3b63ac6b6f1c5b39",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:family-register/ex:ちちも ははも かいしゃで はたらく。",
+      "en": "Both my father and my mother work at a company.",
+      "enSourceHash": "5fa943b113b22473",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:family-register/ex:ははは くるまが すきだから よく かいものに いく。",
+      "en": "My mother likes cars, so she often drives to go shopping.",
+      "enSourceHash": "d668e67ee93cf6c9",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:family-register/ex:ははは せんせいだから じゅぎょうが ある。",
+      "en": "My mother is a teacher, so she has classes.",
+      "enSourceHash": "42a1698be7ea46a5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:ga-existence/ex:いもうとが いるけど おとうとは いない。",
+      "en": "I have a younger sister, but I don't have a younger brother.",
+      "enSourceHash": "412b192fe792d5bc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:ga-existence/ex:いもうとは だいがくの がくせいだから いそがしい。",
+      "en": "My younger sister is a university student, so she's busy.",
+      "enSourceHash": "73b6361d50972f86",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:ga-existence/ex:おとうとが あるけど あねは いない。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:ga-existence/ex:おとうとが いるけど あねは いない。",
+      "en": "I have a younger brother, but I don't have an older sister.",
+      "enSourceHash": "3bf0318980c332ed",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:ga-existence/ex:おとうとは おんがくが すきだから よく きく。",
+      "en": "My younger brother likes music, so he listens to it often.",
+      "enSourceHash": "2340dc8bee4e99d6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:ga-existence/ex:きょうだいが いるから うちは にぎやかだ。",
+      "en": "I have siblings, so my house is lively.",
+      "enSourceHash": "9ac10070c6589958",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:kono-sono-ano-dono/ex:あの ひとは あにの ともだちだ。",
+      "en": "That person over there is my older brother's friend.",
+      "enSourceHash": "44a68016030ce860",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:kono-sono-ano-dono/ex:あれ ひとは あにの ともだちだ。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:kono-sono-ano-dono/ex:この かばんは あねのだから きれいだ。",
+      "en": "This bag is my older sister's, so it's pretty.",
+      "enSourceHash": "d26cd3f73f52b6e7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:kono-sono-ano-dono/ex:この みせは やすいから よく いく。",
+      "en": "This shop is cheap, so I go often.",
+      "enSourceHash": "0a9ff3b93443ec96",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:kono-sono-ano-dono/ex:その しゃしんは ちちが かった。",
+      "en": "My father bought that photo.",
+      "enSourceHash": "19af25f5e9b55ba9",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:kono-sono-ano-dono/ex:どの くるまが ははのだ？",
+      "en": "Which car is my mother's?",
+      "enSourceHash": "3e27957bb301ca88",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:kore-sore-are-dore/ex:あの くるまは あにのだから あたらしい。",
+      "en": "That car over there is my older brother's, so it's new.",
+      "enSourceHash": "cab2651db32fb068",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:kore-sore-are-dore/ex:あのは あにの くるまだから あたらしい。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:kore-sore-are-dore/ex:あれは あにの くるまだから あたらしい。",
+      "en": "That over there is my older brother's car, so it's new.",
+      "enSourceHash": "f3667d5ca3c1fda7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:kore-sore-are-dore/ex:これは いもうとの ぼうしだから ちいさい。",
+      "en": "This is my younger sister's hat, so it's small.",
+      "enSourceHash": "104cc6bf7f2f39fa",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:kore-sore-are-dore/ex:それは おとうとの けいたいだ。",
+      "en": "That is my younger brother's cell phone.",
+      "enSourceHash": "dafb04390ac075ac",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:kore-sore-are-dore/ex:どの じてんしゃが あねのだ？",
+      "en": "Which bicycle is my older sister's?",
+      "enSourceHash": "d251569f06c2cb6f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:no-possession/ex:あに じてんしゃは たかかったけど あたらしい。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:no-possession/ex:あにの じてんしゃは たかかったけど あたらしい。",
+      "en": "My older brother's bicycle was expensive, but it's new.",
+      "enSourceHash": "197407b60d02ccb0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:no-possession/ex:あにの ともだちは だいがくの がくせいだ。",
+      "en": "My older brother's friend is a university student.",
+      "enSourceHash": "0328f1afc58d51d9",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:no-possession/ex:あねの かばんは ははのだ。",
+      "en": "My older sister's bag is my mother's.",
+      "enSourceHash": "1adb337d1e9f4b8e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:no-possession/ex:あねは ははの くるまを かった。",
+      "en": "My older sister bought my mother's car.",
+      "enSourceHash": "f38cb8719b1c22af",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:no-possession/ex:ちちの かいしゃは えきの まえだ。",
+      "en": "My father's company is in front of the station.",
+      "enSourceHash": "a12d7f826fffc824",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:numbers-11-99/ex:あには じゅうなな だから だいがくに いかない。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:numbers-11-99/ex:あには じゅうななさいだから だいがくに いかない。",
+      "en": "My older brother is seventeen, so he doesn't go to university.",
+      "enSourceHash": "ae6becb758ac9771",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:numbers-11-99/ex:ちちの ともだちは ろくじゅうさんさいだ。",
+      "en": "My father's friend is sixty-three.",
+      "enSourceHash": "35b5b8d342c4047f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:numbers-11-99/ex:ちちは ごじゅうさんさいだから いそがしい。",
+      "en": "My father is fifty-three, so he's busy.",
+      "enSourceHash": "dfd5ee1517077a99",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:numbers-11-99/ex:ははは よんじゅうごさいだけど げんきだ。",
+      "en": "My mother is forty-five, but she's in good health.",
+      "enSourceHash": "159c4c488c4cf5a6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/gp:numbers-11-99/ex:ケンは じゅうきゅうさいだから だいがくの がくせいだ。",
+      "en": "Ken is nineteen, so he's a university student.",
+      "enSourceHash": "b1201331cfbbf9c1",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/en:1057a9604e04b274",
+      "en": "teacher",
+      "enSourceHash": "1057a9604e04b274",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/en:230d8358dc8e8890",
+      "en": "body",
+      "enSourceHash": "230d8358dc8e8890",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/en:27278b5ec261dcfb",
+      "en": "My mother often goes shopping",
+      "enSourceHash": "27278b5ec261dcfb",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/en:2b2961a431b23c90",
+      "en": "car",
+      "enSourceHash": "2b2961a431b23c90",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/en:43752f8b977236cf",
+      "en": "My father is big, but my mother is small",
+      "enSourceHash": "43752f8b977236cf",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/en:4fe04d4658f3a483",
+      "en": "My mother is a teacher, so she has classes",
+      "enSourceHash": "4fe04d4658f3a483",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/en:56793f63236062d3",
+      "en": "My father often goes shopping",
+      "enSourceHash": "56793f63236062d3",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/en:745a865d3c541606",
+      "en": "My father has a car",
+      "enSourceHash": "745a865d3c541606",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/en:7b038b5c2f64be93",
+      "en": "Both my father and my mother work at a company",
+      "enSourceHash": "7b038b5c2f64be93",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/en:9e600c839b2328a8",
+      "en": "My mother went shopping",
+      "enSourceHash": "9e600c839b2328a8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/en:aef7eee0cbff4174",
+      "en": "My father works at a company, so he's busy",
+      "enSourceHash": "aef7eee0cbff4174",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/en:bba3713e2749fe9a",
+      "en": "My mother likes shopping",
+      "enSourceHash": "bba3713e2749fe9a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/en:cad0e348e355a888",
+      "en": "My mother likes cars",
+      "enSourceHash": "cad0e348e355a888",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/en:cc79e0246cd74371",
+      "en": "My father bought a car",
+      "enSourceHash": "cc79e0246cd74371",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/en:cde48537ca2c2808",
+      "en": "friend",
+      "enSourceHash": "cde48537ca2c2808",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/en:d34a569ab7aaa54d",
+      "en": "family",
+      "enSourceHash": "d34a569ab7aaa54d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/en:d919f417edac78c0",
+      "en": "My father likes cars",
+      "enSourceHash": "d919f417edac78c0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/en:f168ccdd91548c5a",
+      "en": "company",
+      "enSourceHash": "f168ccdd91548c5a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/ja:うちの ちちは にほんじんだ",
+      "en": "Build: My father is Japanese",
+      "enSourceHash": "62f8fac7870356ba",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/ja:ちちは あさから ばんまで はたらく",
+      "en": "Build: My father works from morning till evening",
+      "enSourceHash": "482ac23816cc7490",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/ja:ちちは かいしゃで はたらくから いそがしい",
+      "en": "Build: My father works at a company, so he's busy",
+      "enSourceHash": "6c5acc7a81436e94",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/ja:ちちは かいしゃで はたらくけど ははは うちに いる",
+      "en": "Build: My father works at a company, but my mother is at home",
+      "enSourceHash": "c9a38f29da576ce6",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/ja:ちちは からだが おおきいけど ははは ちいさい",
+      "en": "Build: My father is big, but my mother is small",
+      "enSourceHash": "d82bdf2819c3db77",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/ja:ちちも ははも かいしゃで はたらく",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/ja:ははは くるまが すきだから よく かいものに いく",
+      "en": "Build: My mother likes cars, so she often goes shopping",
+      "enSourceHash": "55d64ea226dd9712",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-1/ja:ははは せんせいだから じゅぎょうが ある",
+      "en": "Build: My mother is a teacher, so she has classes",
+      "enSourceHash": "c312598fe5ee2241",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-10/en:182fecb12bd62f4b",
+      "en": "older sister",
+      "enSourceHash": "182fecb12bd62f4b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-10/en:292c8662028765da",
+      "en": "That older woman over there is a teacher",
+      "enSourceHash": "292c8662028765da",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-10/en:4ba1d36121136f4c",
+      "en": "older brother",
+      "enSourceHash": "4ba1d36121136f4c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-10/en:56eef3bfa4821818",
+      "en": "That adult over there is Japanese",
+      "enSourceHash": "56eef3bfa4821818",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-10/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-10/en:79292531eb8b91fa",
+      "en": "my mother",
+      "enSourceHash": "79292531eb8b91fa",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-10/en:7fd55d71ce1feab7",
+      "en": "That older woman over there is Japanese",
+      "enSourceHash": "7fd55d71ce1feab7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-10/en:83746a94ec588af3",
+      "en": "That older man over there is a student",
+      "enSourceHash": "83746a94ec588af3",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-10/en:a18653850d7d4b95",
+      "en": "That person over there is a teacher",
+      "enSourceHash": "a18653850d7d4b95",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-10/en:a3d01010dcd5b684",
+      "en": "That woman over there is Japanese",
+      "enSourceHash": "a3d01010dcd5b684",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-10/en:bf26c5a71bfb49ed",
+      "en": "my father",
+      "enSourceHash": "bf26c5a71bfb49ed",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-10/en:cde48537ca2c2808",
+      "en": "friend",
+      "enSourceHash": "cde48537ca2c2808",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-10/en:d34a569ab7aaa54d",
+      "en": "family",
+      "enSourceHash": "d34a569ab7aaa54d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-10/en:d78ffa37259c27a2",
+      "en": "That older man over there is a teacher",
+      "enSourceHash": "d78ffa37259c27a2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-10/en:e225816a4471e8e7",
+      "en": "That girl over there is Japanese",
+      "enSourceHash": "e225816a4471e8e7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-10/ja:あの おじいさんと おばあさんは ともだちだ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-10/ja:あの おじいさんは せんせいだ",
+      "en": "Build: That older man over there is a teacher",
+      "enSourceHash": "6e7fbf438368d159",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-10/ja:あの おじいさんは ろくじゅうごさいだから もう だいがくの せんせいじゃない",
+      "en": "Build: That older man over there is sixty-five, so he's no longer a university teacher",
+      "enSourceHash": "1b01bd806cbd4d12",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-10/ja:あの おばあさんは にほんじんだ",
+      "en": "Build: That older woman over there is Japanese",
+      "enSourceHash": "7d84a438e7287c2a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-10/ja:あの おんなのこは ミカの ともだちだ",
+      "en": "Build: That girl over there is Mika's friend",
+      "enSourceHash": "7748cd3df6be80bf",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-10/ja:あの おんなは がくせいだ",
+      "en": "Build: That woman over there is a student",
+      "enSourceHash": "1c34b6983bb6bf15",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-10/ja:あの ひとは おとなだ",
+      "en": "Build: That person over there is an adult",
+      "enSourceHash": "341e921dbaf5c475",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-10/ja:あの ひとは どなたですか",
+      "en": "Say politely: Who is that person over there?",
+      "enSourceHash": "ad4285ff088ca69c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/en:01ea5ddd3be5477a",
+      "en": "shoes",
+      "enSourceHash": "01ea5ddd3be5477a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/en:066271597bf5b5f3",
+      "en": "My older brother likes music",
+      "enSourceHash": "066271597bf5b5f3",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/en:20eb92d02bd674f7",
+      "en": "My father's company is in front of the station",
+      "enSourceHash": "20eb92d02bd674f7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/en:7482d5802c3c2798",
+      "en": "photograph",
+      "enSourceHash": "7482d5802c3c2798",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/en:79292531eb8b91fa",
+      "en": "my mother",
+      "enSourceHash": "79292531eb8b91fa",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/en:8698e383f1bac661",
+      "en": "My older brother likes movies",
+      "enSourceHash": "8698e383f1bac661",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/en:8ac1528036fed3ab",
+      "en": "My older sister's shoes are new",
+      "enSourceHash": "8ac1528036fed3ab",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/en:96e45a1c020b89e5",
+      "en": "My older sister's bag is my mother's",
+      "enSourceHash": "96e45a1c020b89e5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/en:aa0ee543ef6fea0b",
+      "en": "My older brother's friend is a university student",
+      "enSourceHash": "aa0ee543ef6fea0b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/en:aa4b8bde7d1dfe85",
+      "en": "My older sister bought shoes",
+      "enSourceHash": "aa4b8bde7d1dfe85",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/en:aadf51ac27dc10c0",
+      "en": "My older brother's shoes are new",
+      "enSourceHash": "aadf51ac27dc10c0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/en:bedc81c889d053cc",
+      "en": "My older sister likes music",
+      "enSourceHash": "bedc81c889d053cc",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/en:bf26c5a71bfb49ed",
+      "en": "my father",
+      "enSourceHash": "bf26c5a71bfb49ed",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/en:c018019b6a8b01ab",
+      "en": "bag",
+      "enSourceHash": "c018019b6a8b01ab",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/en:cda85885488906b7",
+      "en": "My older brother's bicycle was expensive, but it's new",
+      "enSourceHash": "cda85885488906b7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/en:d29af8a2e160dd86",
+      "en": "bicycle",
+      "enSourceHash": "d29af8a2e160dd86",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/en:d66edbf3a83b6163",
+      "en": "My older sister's bag is new",
+      "enSourceHash": "d66edbf3a83b6163",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/en:f9a3de8de72b1618",
+      "en": "My older brother listens to music",
+      "enSourceHash": "f9a3de8de72b1618",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/ja:あにの じてんしゃは たかかったけど あたらしい",
+      "en": "Build: My older brother's bicycle was expensive, but it's new",
+      "enSourceHash": "0c49a220d9b8b7c0",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/ja:あにの ともだちは だいがくの がくせいだ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/ja:あにの ともだちは アメリカに いくから しゃしんを みせる",
+      "en": "Build: My older brother's friend is going to America, so I'll show him the photos",
+      "enSourceHash": "2b289439ee157093",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/ja:あには おんがくが すきだから よく きく",
+      "en": "Build: My older brother likes music, so he listens to it often",
+      "enSourceHash": "4b0bd40f4a17670d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/ja:あねの かばんは ははのだ",
+      "en": "Build: My older sister's bag is my mother's",
+      "enSourceHash": "bacf350b3fb54ca3",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/ja:あねは ははの くるまを かった",
+      "en": "Build: My older sister bought my mother's car",
+      "enSourceHash": "fd5933eb81496937",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/ja:これは あにの しゃしんだから みせる",
+      "en": "Build: This is my older brother's photo, so I'll show it to you",
+      "enSourceHash": "f2008ef8f154b573",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-2/ja:ちちの かいしゃは えきの まえだ",
+      "en": "Build: My father's company is in front of the station",
+      "enSourceHash": "8e557e913ccd0714",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/en:0a4a6ed7fe241560",
+      "en": "My younger brother is a university student",
+      "enSourceHash": "0a4a6ed7fe241560",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/en:15a18774490770c1",
+      "en": "My siblings are at home",
+      "enSourceHash": "15a18774490770c1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/en:182fecb12bd62f4b",
+      "en": "older sister",
+      "enSourceHash": "182fecb12bd62f4b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/en:39edf1b8445bb796",
+      "en": "I have a younger brother, so my house is lively",
+      "enSourceHash": "39edf1b8445bb796",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/en:3d8e87705d843339",
+      "en": "My house is lively, so my friends come",
+      "enSourceHash": "3d8e87705d843339",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/en:4ba1d36121136f4c",
+      "en": "older brother",
+      "enSourceHash": "4ba1d36121136f4c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/en:5a5dd2526a9e47a1",
+      "en": "I have siblings, so my house is lively",
+      "enSourceHash": "5a5dd2526a9e47a1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/en:6d10fd9d48cc9183",
+      "en": "My younger sister goes to the university",
+      "enSourceHash": "6d10fd9d48cc9183",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/en:722771fcb1e54608",
+      "en": "My younger sister is a university student",
+      "enSourceHash": "722771fcb1e54608",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/en:7482d5802c3c2798",
+      "en": "photograph",
+      "enSourceHash": "7482d5802c3c2798",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/en:76832578f3ee4f9e",
+      "en": "My older sister is a university student",
+      "enSourceHash": "76832578f3ee4f9e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/en:77af778b51abd4a3",
+      "en": "cat",
+      "enSourceHash": "77af778b51abd4a3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/en:79292531eb8b91fa",
+      "en": "my mother",
+      "enSourceHash": "79292531eb8b91fa",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/en:8e71769c0abf4016",
+      "en": "My younger sister is a university student, so she's busy",
+      "enSourceHash": "8e71769c0abf4016",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/en:96cc88ae9c99f378",
+      "en": "My younger brother likes music, so he listens to it often",
+      "enSourceHash": "96cc88ae9c99f378",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/en:bf26c5a71bfb49ed",
+      "en": "my father",
+      "enSourceHash": "bf26c5a71bfb49ed",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/en:e25e677e24439be5",
+      "en": "I have no siblings, so my house is quiet",
+      "enSourceHash": "e25e677e24439be5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/en:ed754f4d636f9505",
+      "en": "I have siblings, so I'll show you the photos",
+      "enSourceHash": "ed754f4d636f9505",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/ja:いもうとが いるけど あねは いない",
+      "en": "Build: I have a younger sister, but I don't have an older sister",
+      "enSourceHash": "17e41214438b314d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/ja:いもうとが いるけど あねは いないから しゃしんを みせる",
+      "en": "Build: I have a younger sister but no older sister, so I'll show you the photo",
+      "enSourceHash": "5cc1f7860bc791d8",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/ja:いもうとは だいがくの がくせいだから いそがしい",
+      "en": "Build: My younger sister is a university student, so she's busy",
+      "enSourceHash": "2a2f9ee44e292b3a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/ja:うちに ねこが いるから いもうとは げんきだ",
+      "en": "Build: There's a cat at home, so my younger sister is happy",
+      "enSourceHash": "528e338c69e00c50",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/ja:おとうとが いるから うちは にぎやかだ",
+      "en": "Build: I have a younger brother, so my house is lively",
+      "enSourceHash": "bca6287819f46361",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/ja:おとうとは あにの じてんしゃを かった",
+      "en": "Build: My younger brother bought my older brother's bicycle",
+      "enSourceHash": "602dae565fed7db9",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/ja:おとうとは おんがくが すきだから よく きく",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-3/ja:きょうだいが いるから しゃしんを みせる",
+      "en": "Build: I have siblings, so I'll show you the photos",
+      "enSourceHash": "d2419855d6ff282b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/en:0bd9eee72d0e8a16",
+      "en": "Four friends are coming",
+      "enSourceHash": "0bd9eee72d0e8a16",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/en:0fe9376abfade30d",
+      "en": "Two students are going to the coffee shop",
+      "enSourceHash": "0fe9376abfade30d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/en:182fecb12bd62f4b",
+      "en": "older sister",
+      "enSourceHash": "182fecb12bd62f4b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/en:22b0ba942bfb19d6",
+      "en": "Two friends came",
+      "enSourceHash": "22b0ba942bfb19d6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/en:25fd01cad117e835",
+      "en": "There are four people in my family",
+      "enSourceHash": "25fd01cad117e835",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/en:2c0c9f2fa0d8256f",
+      "en": "I have one older sister, but I don't have an older brother",
+      "enSourceHash": "2c0c9f2fa0d8256f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/en:344b40677cc171cf",
+      "en": "younger sister",
+      "enSourceHash": "344b40677cc171cf",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/en:3f221c1b9dbb4472",
+      "en": "There are two students in the coffee shop",
+      "enSourceHash": "3f221c1b9dbb4472",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/en:459d0a13acc34875",
+      "en": "One friend is coming",
+      "enSourceHash": "459d0a13acc34875",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/en:50d47d68586a7d01",
+      "en": "I have three siblings, so my house is lively",
+      "enSourceHash": "50d47d68586a7d01",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/en:568b8dc014a9d8f7",
+      "en": "Two friends are coming",
+      "enSourceHash": "568b8dc014a9d8f7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/en:644b02c502d34809",
+      "en": "There are three students in the coffee shop",
+      "enSourceHash": "644b02c502d34809",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/en:699e28f43efbd941",
+      "en": "younger brother",
+      "enSourceHash": "699e28f43efbd941",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/en:939ab6608e4929de",
+      "en": "siblings",
+      "enSourceHash": "939ab6608e4929de",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/en:9902d94379a4fa31",
+      "en": "The students are at the station",
+      "enSourceHash": "9902d94379a4fa31",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/en:b045ca5120fa1ba5",
+      "en": "I have two younger brothers, so I'm busy",
+      "enSourceHash": "b045ca5120fa1ba5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/en:c798e5b18ed876ef",
+      "en": "coffee shop",
+      "enSourceHash": "c798e5b18ed876ef",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/en:d34a569ab7aaa54d",
+      "en": "family",
+      "enSourceHash": "d34a569ab7aaa54d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/ja:あねが ひとり いるけど あには いない",
+      "en": "Build: I have one older sister, but I don't have an older brother",
+      "enSourceHash": "fcc11ffe9281634a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/ja:うちの かぞくは よにんだ",
+      "en": "Build: There are four people in my family",
+      "enSourceHash": "45f7dcd27db8b044",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/ja:おとうとが ふたり いるから いそがしい",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/ja:かぞくは なんにん？",
+      "en": "Build: How many people are in your family",
+      "enSourceHash": "ff1fdb5ac96c6df6",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/ja:がくせいが さんにん きっさてんに いる",
+      "en": "Build: There are three students in the coffee shop",
+      "enSourceHash": "0d3e8b12001363bf",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/ja:きょうだいが さんにん いるから うちは にぎやかだ",
+      "en": "Build: I have three siblings, so my house is lively",
+      "enSourceHash": "caa09f733f1a86f9",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/ja:きょうだいが ふたり いるけど うちは しずかだ",
+      "en": "Build: I have two siblings, but my house is quiet",
+      "enSourceHash": "88cb0888ba4bd8a0",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-4/ja:ともだちが よにん くるから ごはんを かう",
+      "en": "Build: Four friends are coming, so I'll buy some food",
+      "enSourceHash": "7b52ea272ef47200",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/en:05285786f53f8fdc",
+      "en": "My father is fifty-three, but he's in good health",
+      "enSourceHash": "05285786f53f8fdc",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/en:0b0710080abf95ba",
+      "en": "three people",
+      "enSourceHash": "0b0710080abf95ba",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/en:16068d355f688651",
+      "en": "My older sister is twenty, so she goes to university",
+      "enSourceHash": "16068d355f688651",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/en:1729dc7828e73898",
+      "en": "My father is thirty-five, so he swims often",
+      "enSourceHash": "1729dc7828e73898",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/en:182fecb12bd62f4b",
+      "en": "older sister",
+      "enSourceHash": "182fecb12bd62f4b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/en:1fd28558f0b48252",
+      "en": "My older sister is twenty, so she works",
+      "enSourceHash": "1fd28558f0b48252",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/en:2ab339c13cd3a954",
+      "en": "one person",
+      "enSourceHash": "2ab339c13cd3a954",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/en:41623d617c6825bf",
+      "en": "My younger brother is nine, but he's big",
+      "enSourceHash": "41623d617c6825bf",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/en:4a32397d009c7cb6",
+      "en": "My father swam a lot when he was fifty-three",
+      "enSourceHash": "4a32397d009c7cb6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/en:4cfe9b86a197cb4b",
+      "en": "My older brother is twenty, so he works",
+      "enSourceHash": "4cfe9b86a197cb4b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/en:699e28f43efbd941",
+      "en": "younger brother",
+      "enSourceHash": "699e28f43efbd941",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/en:85f4ddd857407632",
+      "en": "four people",
+      "enSourceHash": "85f4ddd857407632",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/en:871b53da5857311c",
+      "en": "My father is fifty-three, so he swims often",
+      "enSourceHash": "871b53da5857311c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/en:ad47326803816c78",
+      "en": "My older sister is twelve, so she doesn't work",
+      "enSourceHash": "ad47326803816c78",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/en:cd451f1a6ce305ed",
+      "en": "My mother is fifty-three and swims often",
+      "enSourceHash": "cd451f1a6ce305ed",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/en:d4a0f96d0e19eae4",
+      "en": "My younger sister is six, so she's small",
+      "enSourceHash": "d4a0f96d0e19eae4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/en:dab4d01b4d55de58",
+      "en": "My older sister works at a company",
+      "enSourceHash": "dab4d01b4d55de58",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/en:e193c048bccd15a2",
+      "en": "two people",
+      "enSourceHash": "e193c048bccd15a2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/ja:あねは はたちだから だいがくに いく",
+      "en": "Build: My older sister is twenty, so she goes to university",
+      "enSourceHash": "2ce96dca0d4d912e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/ja:あねは はたちだけど おとうとは きゅうさいだから うちは にぎやかだ",
+      "en": "Build: My older sister is twenty but my younger brother is nine, so my house is lively",
+      "enSourceHash": "8f43c5c460b2db14",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/ja:いもうとは ろくさいだから ちいさい",
+      "en": "Build: My younger sister is six, so she's small",
+      "enSourceHash": "de94945e6e779f63",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/ja:おとうとは きゅうさいだけど おおきい",
+      "en": "Build: My younger brother is nine, but he's big",
+      "enSourceHash": "dd899e43377d0c81",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/ja:ちちは ごじゅうさんさいだけど げんきだ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/ja:ははは よんじゅうごさいだから いそがしい",
+      "en": "Build: My mother is forty-five, so she's busy",
+      "enSourceHash": "7e17d7503062d06e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/ja:ケンは じゅうきゅうさいだから だいがくの がくせいだ",
+      "en": "Build: Ken is nineteen, so he's a university student",
+      "enSourceHash": "d07445227456aa35",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-5/ja:ミカは なんさい？",
+      "en": "Build: How old is Mika",
+      "enSourceHash": "01aa6bd3edf78a2f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/en:0bdf8c4829d7c780",
+      "en": "Ken's older brother is nineteen",
+      "enSourceHash": "0bdf8c4829d7c780",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/en:182fecb12bd62f4b",
+      "en": "older sister",
+      "enSourceHash": "182fecb12bd62f4b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/en:25791c33d09888a4",
+      "en": "My father's friend is sixty-three",
+      "enSourceHash": "25791c33d09888a4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/en:27ca6502dcd23ec4",
+      "en": "Ken is ninety",
+      "enSourceHash": "27ca6502dcd23ec4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/en:4a3caaaa272723d6",
+      "en": "My father is sixty-three",
+      "enSourceHash": "4a3caaaa272723d6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/en:4ba1d36121136f4c",
+      "en": "older brother",
+      "enSourceHash": "4ba1d36121136f4c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/en:6e2961da75dddb19",
+      "en": "My older brother is seventeen, so he doesn't go to university",
+      "enSourceHash": "6e2961da75dddb19",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/en:79292531eb8b91fa",
+      "en": "my mother",
+      "enSourceHash": "79292531eb8b91fa",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/en:7edc16d03227481f",
+      "en": "My mother's friend is sixty-three",
+      "enSourceHash": "7edc16d03227481f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/en:a6f75f4fe6078256",
+      "en": "Ken is nineteen",
+      "enSourceHash": "a6f75f4fe6078256",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/en:ab1d33c4aa1e91e4",
+      "en": "My father is fifty-three, so he's busy",
+      "enSourceHash": "ab1d33c4aa1e91e4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/en:b1ee3bcff94a6ae2",
+      "en": "My father's friend is thirty-six",
+      "enSourceHash": "b1ee3bcff94a6ae2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/en:bf26c5a71bfb49ed",
+      "en": "my father",
+      "enSourceHash": "bf26c5a71bfb49ed",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/en:d0352ccd05cc9901",
+      "en": "years old",
+      "enSourceHash": "d0352ccd05cc9901",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/en:d2fef84ec37a60d7",
+      "en": "twenty years old",
+      "enSourceHash": "d2fef84ec37a60d7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/en:d4ebb8f8515ce7c4",
+      "en": "Ken is nineteen, so he goes to university",
+      "enSourceHash": "d4ebb8f8515ce7c4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/en:d853cea4996ab435",
+      "en": "My mother is forty-five, but she's in good health",
+      "enSourceHash": "d853cea4996ab435",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/en:e62ae8d0e07e5422",
+      "en": "Ken is twenty",
+      "enSourceHash": "e62ae8d0e07e5422",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/ja:あには じゅうななさいだから だいがくに いかない",
+      "en": "Build: My older brother is seventeen, so he doesn't go to university",
+      "enSourceHash": "c58813c7e16f0c61",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/ja:あには じゅうななさいだけど おおきい",
+      "en": "Build: My older brother is seventeen, but he's big",
+      "enSourceHash": "61a48fb8382b5460",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/ja:あねは はたちだから だいがくに いくけど あには じゅうななさいだ",
+      "en": "Build: My older sister is twenty, so she goes to university, but my older brother is seventeen",
+      "enSourceHash": "960d19d943e6caf2",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/ja:あねは はたちだから だいがくの がくせいだ",
+      "en": "Build: My older sister is twenty, so she's a university student",
+      "enSourceHash": "46001af2efabd973",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/ja:ちちの ともだちは ろくじゅうさんさいだから かいしゃに いかない",
+      "en": "Build: My father's friend is sixty-three, so he doesn't go to the company",
+      "enSourceHash": "faf004b0ee19be50",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/ja:ちちは ごじゅうさんさいだから いそがしい",
+      "en": "Build: My father is fifty-three, so he's busy",
+      "enSourceHash": "332f490222178d92",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/ja:ははは よんじゅうごさいだけど げんきだ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-6/ja:ケンは じゅうきゅうさいだから だいがくに いく",
+      "en": "Build: Ken is nineteen, so he goes to university",
+      "enSourceHash": "43fe223e4627c26b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/en:2b2961a431b23c90",
+      "en": "car",
+      "enSourceHash": "2b2961a431b23c90",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/en:2b4331d79bb5bc95",
+      "en": "Whose car is this?",
+      "enSourceHash": "2b4331d79bb5bc95",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/en:457a864cbe7ac59c",
+      "en": "Which car did Mika buy?",
+      "enSourceHash": "457a864cbe7ac59c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/en:7482d5802c3c2798",
+      "en": "photograph",
+      "enSourceHash": "7482d5802c3c2798",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/en:754692ce66c56936",
+      "en": "This shop is cheap, so I go there often",
+      "enSourceHash": "754692ce66c56936",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/en:7cbcc5db63b81abb",
+      "en": "My older sister bought this bag",
+      "enSourceHash": "7cbcc5db63b81abb",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/en:86a577633c4ae90a",
+      "en": "My father bought that photo",
+      "enSourceHash": "86a577633c4ae90a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/en:87370a87af33f6dd",
+      "en": "That person over there is my older brother's friend",
+      "enSourceHash": "87370a87af33f6dd",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/en:94bbab804fdba08a",
+      "en": "Where is Mika's car?",
+      "enSourceHash": "94bbab804fdba08a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/en:9ac1d588b1cccc01",
+      "en": "This bag is my older sister's, so it's pretty",
+      "enSourceHash": "9ac1d588b1cccc01",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/en:b2c96a432b14f3c0",
+      "en": "This bag is my older sister's",
+      "enSourceHash": "b2c96a432b14f3c0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/en:c018019b6a8b01ab",
+      "en": "bag",
+      "enSourceHash": "c018019b6a8b01ab",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/en:c798e5b18ed876ef",
+      "en": "coffee shop",
+      "enSourceHash": "c798e5b18ed876ef",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/en:dbbc264846a72fe9",
+      "en": "Which car is Mika's?",
+      "enSourceHash": "dbbc264846a72fe9",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/en:f45f1c3afb73be55",
+      "en": "That bag over there is my older sister's",
+      "enSourceHash": "f45f1c3afb73be55",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/en:f5eb614c0a6a97e7",
+      "en": "This bag is my older brother's",
+      "enSourceHash": "f5eb614c0a6a97e7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/ja:あの きっさてんは しずかだから すきだ",
+      "en": "Build: That coffee shop over there is quiet, so I like it",
+      "enSourceHash": "e0f09b57ded31d49",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/ja:あの ひとは あにの ともだちだ",
+      "en": "Build: That person over there is my older brother's friend",
+      "enSourceHash": "65fffebfdebc0d81",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/ja:あの みせは たかいけど あねが すきだから よく いく",
+      "en": "Build: That shop over there is expensive, but my older sister likes it, so we go often",
+      "enSourceHash": "045bec8b1de81962",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/ja:この かばんは あねのだから きれいだ",
+      "en": "Build: This bag is my older sister's, so it's pretty",
+      "enSourceHash": "5b7d916da128d87d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/ja:この みせは やすいから よく いく",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/ja:その しゃしんは ちちが かった",
+      "en": "Build: My father bought that photo",
+      "enSourceHash": "4ef416180fadfc40",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/ja:その ほんは おとうとのだけど ぼくが かった",
+      "en": "Build: That book is my younger brother's, but I bought it",
+      "enSourceHash": "070a6cf57934b6a8",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-7/ja:どの くるまが ははのだ？",
+      "en": "Build: Which car is my mother's",
+      "enSourceHash": "ca7ce9569e1e5cf7",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/en:18e1dd392168f601",
+      "en": "hat",
+      "enSourceHash": "18e1dd392168f601",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/en:230908c68d7f4f9e",
+      "en": "This is my younger sister's hat",
+      "enSourceHash": "230908c68d7f4f9e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/en:23b3e4ff91cf04b6",
+      "en": "Which one is my older sister's bicycle",
+      "enSourceHash": "23b3e4ff91cf04b6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/en:27c79539cb696b36",
+      "en": "This is my younger brother's hat",
+      "enSourceHash": "27c79539cb696b36",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/en:2e6be0ec2e477f2c",
+      "en": "That car over there is my older sister's",
+      "enSourceHash": "2e6be0ec2e477f2c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/en:411dd30be5d3e95d",
+      "en": "My older brother bought that car",
+      "enSourceHash": "411dd30be5d3e95d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/en:4c570d7bb5fea9d3",
+      "en": "My younger sister bought this hat",
+      "enSourceHash": "4c570d7bb5fea9d3",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/en:5c817ac9467d30f8",
+      "en": "That car over there is my older brother's, so it's new",
+      "enSourceHash": "5c817ac9467d30f8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/en:82cf6febdc787bf4",
+      "en": "which …",
+      "enSourceHash": "82cf6febdc787bf4",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/en:8569ab385532945e",
+      "en": "Which bicycle is my older sister's",
+      "enSourceHash": "8569ab385532945e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/en:864d377fa2d1bcf7",
+      "en": "that … over there",
+      "enSourceHash": "864d377fa2d1bcf7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/en:93482f8347941b8d",
+      "en": "that …",
+      "enSourceHash": "93482f8347941b8d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/en:b54dd5907e982e26",
+      "en": "That over there is my younger sister's hat",
+      "enSourceHash": "b54dd5907e982e26",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/en:b898d2ffa2546b01",
+      "en": "That over there is my older brother's car, so it's new",
+      "enSourceHash": "b898d2ffa2546b01",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/en:cf8190e64e2a67f1",
+      "en": "That car over there is my older brother's",
+      "enSourceHash": "cf8190e64e2a67f1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/en:d7df1255821ac181",
+      "en": "this …",
+      "enSourceHash": "d7df1255821ac181",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/en:e9e3b8d8ba864fa9",
+      "en": "Cell phone",
+      "enSourceHash": "e9e3b8d8ba864fa9",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/en:ed73e610783c0825",
+      "en": "This car is my older brother's",
+      "enSourceHash": "ed73e610783c0825",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/ja:あの くるまは あにのだから あたらしい",
+      "en": "Build: That car over there is my older brother's, so it's new",
+      "enSourceHash": "dcaf5dde8f9d500f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/ja:あの みせで かった ぼうしは いもうとのだ",
+      "en": "Build: The hat I bought at that shop over there is my younger sister's",
+      "enSourceHash": "4b9875f6c84f2642",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/ja:あれは あにの くるまだから あたらしい",
+      "en": "Build: That over there is my older brother's car, so it's new",
+      "enSourceHash": "7d4cddfa259db7a2",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/ja:この ぼうしは いもうとのだけど ぼくが かった",
+      "en": "Build: This hat is my younger sister's, but I bought it",
+      "enSourceHash": "b1daf9dd790e43bd",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/ja:これは いもうとの ぼうしだから ちいさい",
+      "en": "Build: This is my younger sister's hat, so it's small",
+      "enSourceHash": "db4ad81e8d499a5f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/ja:それは おとうとの けいたいだ",
+      "en": "Build: That is my younger brother's cell phone",
+      "enSourceHash": "e55cf097f2a8d7aa",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/ja:どの じてんしゃが あねのだ？",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-8/ja:どれが あねの じてんしゃ？",
+      "en": "Build: Which one is my older sister's bicycle",
+      "enSourceHash": "a81b59520f8f1c2a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/en:22abe7814243a9b8",
+      "en": "How many people are in your family?",
+      "enSourceHash": "22abe7814243a9b8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/en:38a81e87e79631e6",
+      "en": "person",
+      "enSourceHash": "38a81e87e79631e6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/en:3de15bc0dc6f01d6",
+      "en": "This person is my older brother's friend",
+      "enSourceHash": "3de15bc0dc6f01d6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/en:4de4299bbfd66f1a",
+      "en": "How old is your family?",
+      "enSourceHash": "4de4299bbfd66f1a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/en:4e8cfabc5fab7b01",
+      "en": "Who is that person over there",
+      "enSourceHash": "4e8cfabc5fab7b01",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/en:5b40844bdcb56802",
+      "en": "Where is your family?",
+      "enSourceHash": "5b40844bdcb56802",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/en:6bcda3ab7daee339",
+      "en": "That person over there is my older sister's friend",
+      "enSourceHash": "6bcda3ab7daee339",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/en:82cf6febdc787bf4",
+      "en": "which …",
+      "enSourceHash": "82cf6febdc787bf4",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/en:864d377fa2d1bcf7",
+      "en": "that … over there",
+      "enSourceHash": "864d377fa2d1bcf7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/en:87370a87af33f6dd",
+      "en": "That person over there is my older brother's friend",
+      "enSourceHash": "87370a87af33f6dd",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/en:93482f8347941b8d",
+      "en": "that …",
+      "enSourceHash": "93482f8347941b8d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/en:95e6321163596e90",
+      "en": "My older brother's friend is coming",
+      "enSourceHash": "95e6321163596e90",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/en:b05e972023bafc29",
+      "en": "Who bought this photo",
+      "enSourceHash": "b05e972023bafc29",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/en:cde48537ca2c2808",
+      "en": "friend",
+      "enSourceHash": "cde48537ca2c2808",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/en:d7df1255821ac181",
+      "en": "this …",
+      "enSourceHash": "d7df1255821ac181",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/en:dc7d6ffa96babffc",
+      "en": "Whose bag is this",
+      "enSourceHash": "dc7d6ffa96babffc",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/en:ee700b825f8dd272",
+      "en": "Who is in your family?",
+      "enSourceHash": "ee700b825f8dd272",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/en:fffccfe1e3872e0b",
+      "en": "Which person is Mika's friend",
+      "enSourceHash": "fffccfe1e3872e0b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/ja:あの きっさてんに いる ひとは だれの ともだちだ？",
+      "en": "Build: Whose friend is the person in that coffee shop over there",
+      "enSourceHash": "a8ce436b34eb9638",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/ja:あの ひとは だれ？",
+      "en": "Build: Who is that person over there",
+      "enSourceHash": "0b74df6ac1d54cb4",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/ja:あの ひとは ミカの ともだちだから にほんじんだ",
+      "en": "Build: That person over there is Mika's friend, so she's Japanese",
+      "enSourceHash": "442564eb5f30dd0c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/ja:これは だれの かばん？",
+      "en": "Build: Whose bag is this",
+      "enSourceHash": "f9d480abe49b02fe",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/ja:その ひとは だれの ともだちだ？",
+      "en": "Build: Whose friend is that person",
+      "enSourceHash": "bb6bbc8cf05ea06f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/ja:だれが この しゃしんを かった？",
+      "en": "Build: Who bought this photo",
+      "enSourceHash": "09294bd13a8f9724",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/ja:どの ひとが ミカの ともだちだ？",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-9/ja:ミカは なんさい？",
+      "en": "Build: How old is Mika",
+      "enSourceHash": "01aa6bd3edf78a2f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/en:182fecb12bd62f4b",
+      "en": "older sister",
+      "enSourceHash": "182fecb12bd62f4b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/en:344b40677cc171cf",
+      "en": "younger sister",
+      "enSourceHash": "344b40677cc171cf",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/en:37ef6f2ce0a7bc50",
+      "en": "Pick the word for \"photograph\"",
+      "enSourceHash": "37ef6f2ce0a7bc50",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/en:4b1c01709e416d86",
+      "en": "My father is fifty-three, but he's in good health, so he swims often",
+      "enSourceHash": "4b1c01709e416d86",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/en:4ba1d36121136f4c",
+      "en": "older brother",
+      "enSourceHash": "4ba1d36121136f4c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/en:699e28f43efbd941",
+      "en": "younger brother",
+      "enSourceHash": "699e28f43efbd941",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/en:6bc2fecfcf7f0206",
+      "en": "The bag I bought at that shop over there is my older sister's, so it's new",
+      "enSourceHash": "6bc2fecfcf7f0206",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/en:6e2961da75dddb19",
+      "en": "My older brother is seventeen, so he doesn't go to university",
+      "enSourceHash": "6e2961da75dddb19",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/en:79292531eb8b91fa",
+      "en": "my mother",
+      "enSourceHash": "79292531eb8b91fa",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/en:7c4e4533034ac90c",
+      "en": "There are three siblings in this photo",
+      "enSourceHash": "7c4e4533034ac90c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/en:88264fec57c4ee48",
+      "en": "Which person is Ken's older brother?",
+      "enSourceHash": "88264fec57c4ee48",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/en:8bd69710d77b2a4d",
+      "en": "Which person is Ken's friend?",
+      "enSourceHash": "8bd69710d77b2a4d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/en:8e1ca6480e982e21",
+      "en": "My older brother is seventy, so he doesn't go to university",
+      "enSourceHash": "8e1ca6480e982e21",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/en:930c4e7cc8c56781",
+      "en": "Who is Ken's friend?",
+      "enSourceHash": "930c4e7cc8c56781",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/en:a142b43875394e46",
+      "en": "My older sister is seventeen and doesn't go to university",
+      "enSourceHash": "a142b43875394e46",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/en:aad9a6e5e5c98b45",
+      "en": "Where is Ken's friend?",
+      "enSourceHash": "aad9a6e5e5c98b45",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/en:bf26c5a71bfb49ed",
+      "en": "my father",
+      "enSourceHash": "bf26c5a71bfb49ed",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/en:db058c3c04ba5eb8",
+      "en": "My older sister is twenty, so she goes to university, but I'm fifteen",
+      "enSourceHash": "db058c3c04ba5eb8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/en:e0e96c1829107b82",
+      "en": "My older brother goes to university at seventeen",
+      "enSourceHash": "e0e96c1829107b82",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/en:f379fc6b9a0dd6df",
+      "en": "Challenge — introduce your family",
+      "enSourceHash": "f379fc6b9a0dd6df",
+      "kind": "title"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/ja:あねは はたちだから だいがくに いくけど ぼくは じゅうごさいだ",
+      "en": "Build: My older sister is twenty, so she goes to university, but I'm fifteen",
+      "enSourceHash": "3f6496cbbe864b4c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/ja:あの きっさてんに いる ひとは あねの ともだちだから にほんじんだ",
+      "en": "Build: The person in that coffee shop over there is my older sister's friend, so she's Japanese",
+      "enSourceHash": "78da9350bb491e54",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/ja:あの ひとは あねの ともだちだけど にほんじんじゃない",
+      "en": "Build: That person over there is my older sister's friend, but she isn't Japanese",
+      "enSourceHash": "b2d689f689339469",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/ja:あの みせで かった かばんは あねのだから あたらしい",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/ja:うちの かぞくは よにんだから くるまが おおきい",
+      "en": "Build: There are four of us in my family, so our car is big",
+      "enSourceHash": "e615e0c3263d6e0a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/ja:おとうとが ふたり いるから この くるまは ちいさい",
+      "en": "Build: I have two younger brothers, so this car is small",
+      "enSourceHash": "b10bd981bb5af653",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/ja:この しゃしんに きょうだいが さんにん いる",
+      "en": "Build: There are three siblings in this photo",
+      "enSourceHash": "dbfd6b478dfc9e6e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-challenge/ja:ちちは ごじゅうさんさいだけど げんきだから よく およぐ",
+      "en": "Build: My father is fifty-three, but he's in good health, so he swims often",
+      "enSourceHash": "57b7fccbdf4bcd44",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/en:0fad59b7fa473e51",
+      "en": "I have a younger sister, but I don't have an older sister",
+      "enSourceHash": "0fad59b7fa473e51",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/en:182fecb12bd62f4b",
+      "en": "older sister",
+      "enSourceHash": "182fecb12bd62f4b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/en:344b40677cc171cf",
+      "en": "younger sister",
+      "enSourceHash": "344b40677cc171cf",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/en:37ef6f2ce0a7bc50",
+      "en": "Pick the word for \"photograph\"",
+      "enSourceHash": "37ef6f2ce0a7bc50",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/en:39edf1b8445bb796",
+      "en": "I have a younger brother, so my house is lively",
+      "enSourceHash": "39edf1b8445bb796",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/en:4ba1d36121136f4c",
+      "en": "older brother",
+      "enSourceHash": "4ba1d36121136f4c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/en:4fe04d4658f3a483",
+      "en": "My mother is a teacher, so she has classes",
+      "enSourceHash": "4fe04d4658f3a483",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/en:5b667b96d6f4175e",
+      "en": "I don't have any siblings",
+      "enSourceHash": "5b667b96d6f4175e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/en:5f09fae3b69c32c2",
+      "en": "My father and mother are at home",
+      "enSourceHash": "5f09fae3b69c32c2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/en:64c48d1953cf3387",
+      "en": "I have a younger brother, but not an older brother",
+      "enSourceHash": "64c48d1953cf3387",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/en:66f8bcb5983e60d5",
+      "en": "Review — your side of the family",
+      "enSourceHash": "66f8bcb5983e60d5",
+      "kind": "title"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/en:699e28f43efbd941",
+      "en": "younger brother",
+      "enSourceHash": "699e28f43efbd941",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/en:79292531eb8b91fa",
+      "en": "my mother",
+      "enSourceHash": "79292531eb8b91fa",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/en:7b038b5c2f64be93",
+      "en": "Both my father and my mother work at a company",
+      "enSourceHash": "7b038b5c2f64be93",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/en:aef7eee0cbff4174",
+      "en": "My father works at a company, so he's busy",
+      "enSourceHash": "aef7eee0cbff4174",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/en:af86476303e7c755",
+      "en": "My father works at a company, but my mother doesn't",
+      "enSourceHash": "af86476303e7c755",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/en:bf26c5a71bfb49ed",
+      "en": "my father",
+      "enSourceHash": "bf26c5a71bfb49ed",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/en:cda85885488906b7",
+      "en": "My older brother's bicycle was expensive, but it's new",
+      "enSourceHash": "cda85885488906b7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/en:d84006dac1c7d31a",
+      "en": "I have an older sister, but not a younger one",
+      "enSourceHash": "d84006dac1c7d31a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/en:f493aab42152547a",
+      "en": "My mother works at a company",
+      "enSourceHash": "f493aab42152547a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/ja:あにの じてんしゃは たかかったけど あたらしい",
+      "en": "Build: My older brother's bicycle was expensive, but it's new",
+      "enSourceHash": "0c49a220d9b8b7c0",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/ja:あねは ははの くるまを かった",
+      "en": "Build: My older sister bought my mother's car",
+      "enSourceHash": "fd5933eb81496937",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/ja:いもうとは だいがくの がくせいだから いそがしい",
+      "en": "Build: My younger sister is a university student, so she's busy",
+      "enSourceHash": "2a2f9ee44e292b3a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/ja:おとうとが いるから うちは にぎやかだ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/ja:ちちの かいしゃは えきの まえだ",
+      "en": "Build: My father's company is in front of the station",
+      "enSourceHash": "8e557e913ccd0714",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/ja:ちちは かいしゃで はたらくから いそがしい",
+      "en": "Build: My father works at a company, so he's busy",
+      "enSourceHash": "6c5acc7a81436e94",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/ja:ちちは からだが おおきいけど ははは ちいさい",
+      "en": "Build: My father is big, but my mother is small",
+      "enSourceHash": "d82bdf2819c3db77",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-1/ja:ははは せんせいだから じゅぎょうが ある",
+      "en": "Build: My mother is a teacher, so she has classes",
+      "enSourceHash": "c312598fe5ee2241",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/en:04d15739e16b2374",
+      "en": "My mother is fourteen and in good health",
+      "enSourceHash": "04d15739e16b2374",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/en:0b0710080abf95ba",
+      "en": "three people",
+      "enSourceHash": "0b0710080abf95ba",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/en:11979e78976c9865",
+      "en": "I have two younger sisters, so I'm busy",
+      "enSourceHash": "11979e78976c9865",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/en:16068d355f688651",
+      "en": "My older sister is twenty, so she goes to university",
+      "enSourceHash": "16068d355f688651",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/en:25fd01cad117e835",
+      "en": "There are four people in my family",
+      "enSourceHash": "25fd01cad117e835",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/en:2a96f340a68c6efa",
+      "en": "I have one younger brother, so I'm busy",
+      "enSourceHash": "2a96f340a68c6efa",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/en:2ab339c13cd3a954",
+      "en": "one person",
+      "enSourceHash": "2ab339c13cd3a954",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/en:321da2fd4002b183",
+      "en": "Review — how many, how old",
+      "enSourceHash": "321da2fd4002b183",
+      "kind": "title"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/en:37ef6f2ce0a7bc50",
+      "en": "Pick the word for \"photograph\"",
+      "enSourceHash": "37ef6f2ce0a7bc50",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/en:4081176fc5c86e09",
+      "en": "My mother is forty-five, so she's busy",
+      "enSourceHash": "4081176fc5c86e09",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/en:41623d617c6825bf",
+      "en": "My younger brother is nine, but he's big",
+      "enSourceHash": "41623d617c6825bf",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/en:50d47d68586a7d01",
+      "en": "I have three siblings, so my house is lively",
+      "enSourceHash": "50d47d68586a7d01",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/en:528ea7bdbd4d7c38",
+      "en": "My two younger brothers are busy",
+      "enSourceHash": "528ea7bdbd4d7c38",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/en:85f4ddd857407632",
+      "en": "four people",
+      "enSourceHash": "85f4ddd857407632",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/en:b045ca5120fa1ba5",
+      "en": "I have two younger brothers, so I'm busy",
+      "enSourceHash": "b045ca5120fa1ba5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/en:d0352ccd05cc9901",
+      "en": "years old",
+      "enSourceHash": "d0352ccd05cc9901",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/en:d2fef84ec37a60d7",
+      "en": "twenty years old",
+      "enSourceHash": "d2fef84ec37a60d7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/en:d853cea4996ab435",
+      "en": "My mother is forty-five, but she's in good health",
+      "enSourceHash": "d853cea4996ab435",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/en:dfb06cb2d2b85e1d",
+      "en": "My father is forty-five, but he's in good health",
+      "enSourceHash": "dfb06cb2d2b85e1d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/en:e193c048bccd15a2",
+      "en": "two people",
+      "enSourceHash": "e193c048bccd15a2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/ja:あねが ひとり いるけど あには いない",
+      "en": "Build: I have one older sister, but I don't have an older brother",
+      "enSourceHash": "fcc11ffe9281634a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/ja:あねは はたちだから だいがくに いく",
+      "en": "Build: My older sister is twenty, so she goes to university",
+      "enSourceHash": "2ce96dca0d4d912e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/ja:うちの かぞくは よにんだ",
+      "en": "Build: There are four people in my family",
+      "enSourceHash": "45f7dcd27db8b044",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/ja:おとうとは きゅうさいだけど おおきい",
+      "en": "Build: My younger brother is nine, but he's big",
+      "enSourceHash": "dd899e43377d0c81",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/ja:がくせいが さんにん きっさてんに いる",
+      "en": "Build: There are three students in the coffee shop",
+      "enSourceHash": "0d3e8b12001363bf",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/ja:きょうだいが さんにん いるから うちは にぎやかだ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/ja:ちちは ごじゅうさんさいだから いそがしい",
+      "en": "Build: My father is fifty-three, so he's busy",
+      "enSourceHash": "332f490222178d92",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-2/ja:ケンは じゅうきゅうさいだから だいがくに いく",
+      "en": "Build: Ken is nineteen, so he goes to university",
+      "enSourceHash": "43fe223e4627c26b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/en:16068d355f688651",
+      "en": "My older sister is twenty, so she goes to university",
+      "enSourceHash": "16068d355f688651",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/en:182fecb12bd62f4b",
+      "en": "older sister",
+      "enSourceHash": "182fecb12bd62f4b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/en:25fd01cad117e835",
+      "en": "There are four people in my family",
+      "enSourceHash": "25fd01cad117e835",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/en:2afca44af0222173",
+      "en": "My three siblings are at home",
+      "enSourceHash": "2afca44af0222173",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/en:344b40677cc171cf",
+      "en": "younger sister",
+      "enSourceHash": "344b40677cc171cf",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/en:39fba7ccb99f0ee3",
+      "en": "My older brother is twenty and goes to university",
+      "enSourceHash": "39fba7ccb99f0ee3",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/en:4ba1d36121136f4c",
+      "en": "older brother",
+      "enSourceHash": "4ba1d36121136f4c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/en:4fd77d7ed508f7d1",
+      "en": "My older sister is twelve, so she doesn't go to university",
+      "enSourceHash": "4fd77d7ed508f7d1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/en:50d47d68586a7d01",
+      "en": "I have three siblings, so my house is lively",
+      "enSourceHash": "50d47d68586a7d01",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/en:699e28f43efbd941",
+      "en": "younger brother",
+      "enSourceHash": "699e28f43efbd941",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/en:6a5181dd7ac26603",
+      "en": "I have three friends, so my house is lively",
+      "enSourceHash": "6a5181dd7ac26603",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/en:79292531eb8b91fa",
+      "en": "my mother",
+      "enSourceHash": "79292531eb8b91fa",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/en:87370a87af33f6dd",
+      "en": "That person over there is my older brother's friend",
+      "enSourceHash": "87370a87af33f6dd",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/en:aef7eee0cbff4174",
+      "en": "My father works at a company, so he's busy",
+      "enSourceHash": "aef7eee0cbff4174",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/en:bc1568346811ed47",
+      "en": "My older sister goes to university every day",
+      "enSourceHash": "bc1568346811ed47",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/en:bd97b267fd2262a7",
+      "en": "I have two siblings, so my house is lively",
+      "enSourceHash": "bd97b267fd2262a7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/en:bf26c5a71bfb49ed",
+      "en": "my father",
+      "enSourceHash": "bf26c5a71bfb49ed",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/en:ce14eb884880a070",
+      "en": "Pick the word for \"cat\"",
+      "enSourceHash": "ce14eb884880a070",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/en:d4a0f96d0e19eae4",
+      "en": "My younger sister is six, so she's small",
+      "enSourceHash": "d4a0f96d0e19eae4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/ja:あにの じてんしゃは たかかったけど あたらしい",
+      "en": "Build: My older brother's bicycle was expensive, but it's new",
+      "enSourceHash": "0c49a220d9b8b7c0",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/ja:あの ひとは あにの ともだちだ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/ja:いもうとは ろくさいだから ちいさい",
+      "en": "Build: My younger sister is six, so she's small",
+      "enSourceHash": "de94945e6e779f63",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/ja:うちの かぞくは よにんだ",
+      "en": "Build: There are four people in my family",
+      "enSourceHash": "45f7dcd27db8b044",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/ja:きょうだいが いるから うちは にぎやかだ",
+      "en": "Build: I have siblings, so my house is lively",
+      "enSourceHash": "0e33e6549d94ceca",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/ja:これは いもうとの ぼうしだから ちいさい",
+      "en": "Build: This is my younger sister's hat, so it's small",
+      "enSourceHash": "db4ad81e8d499a5f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/ja:その ほんは おとうとのだけど ぼくが かった",
+      "en": "Build: That book is my younger brother's, but I bought it",
+      "enSourceHash": "070a6cf57934b6a8",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/ja:ちちは かいしゃで はたらくから いそがしい",
+      "en": "Build: My father works at a company, so he's busy",
+      "enSourceHash": "6c5acc7a81436e94",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/ja-m17-neo-review-3/ja:ちちは ごじゅうさんさいだから いそがしい",
+      "en": "Build: My father is fifty-three, so he's busy",
+      "enSourceHash": "332f490222178d92",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m17/story:ja-m17-the-quiet-carriage/en:714371a99ff5650a",
+      "en": "The quiet carriage",
+      "enSourceHash": "714371a99ff5650a",
+      "kind": "title"
+    },
+    {
+      "anchor": "m17/story:ja-m17-the-quiet-carriage/en:73f9d6151382e882",
+      "en": "Eight o'clock, a bag of bread, and two people looking at me.",
+      "enSourceHash": "73f9d6151382e882",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m17/story:ja-m17-the-quiet-carriage/gloss:マナー",
+      "en": "manners, the way people behave in public",
+      "enSourceHash": "655c15097259ec39",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m17/story:ja-m17-the-quiet-carriage/ja:うしろの ひとは ねる。",
+      "en": "The person behind me sleeps.",
+      "enSourceHash": "cb4f2cf761804866",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/story:ja-m17-the-quiet-carriage/ja:けいたいで はなしを する ひとは いない。",
+      "en": "Nobody talks on a phone.",
+      "enSourceHash": "1e71e9e7bcaf6d47",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/story:ja-m17-the-quiet-carriage/ja:これから でんしゃで しずかに ほんを よむ。",
+      "en": "From now on I read quietly on the train.",
+      "enSourceHash": "b38083a542b43b4a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/story:ja-m17-the-quiet-carriage/ja:それから、パンを たべる。",
+      "en": "After that I eat the bread.",
+      "enSourceHash": "a81b96225424cdd8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/story:ja-m17-the-quiet-carriage/ja:つぎの えきで おりる。",
+      "en": "I get off at the next station.",
+      "enSourceHash": "c01fa55a86987dac",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/story:ja-m17-the-quiet-carriage/ja:でんしゃの なかは とても しずかだ。",
+      "en": "Inside the train it is very quiet.",
+      "enSourceHash": "a5781065101ea8ed",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/story:ja-m17-the-quiet-carriage/ja:まえの ひとは ほんを よむ。",
+      "en": "The person in front of me reads a book.",
+      "enSourceHash": "e0c707b351d4462b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/story:ja-m17-the-quiet-carriage/ja:まえの ひとも わたしを みる。",
+      "en": "The person in front of me looks at me too.",
+      "enSourceHash": "ae00e04ac14a2ad4",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/story:ja-m17-the-quiet-carriage/ja:よこの ひとが わたしを みる。",
+      "en": "The person beside me looks at me.",
+      "enSourceHash": "13ea9f1354f70d45",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/story:ja-m17-the-quiet-carriage/ja:よこの ひとは けいたいを つかう。",
+      "en": "The person beside me uses a phone.",
+      "enSourceHash": "86d693b10c808641",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/story:ja-m17-the-quiet-carriage/ja:わたしは かばんから パンを とる。",
+      "en": "I take bread out of my bag.",
+      "enSourceHash": "96844b61d41fdaea",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/story:ja-m17-the-quiet-carriage/ja:わたしは でんしゃの マナーが わかった。",
+      "en": "I understood the manners of the train.",
+      "enSourceHash": "214b0105a38c909d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/story:ja-m17-the-quiet-carriage/ja:わたしは はちじの でんしゃに のる。",
+      "en": "I get on the eight o'clock train.",
+      "enSourceHash": "b23941611feffb63",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/story:ja-m17-the-quiet-carriage/ja:わたしは まどの そばに すわる。",
+      "en": "I sit by the window.",
+      "enSourceHash": "b88536542e4a2ab9",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/story:ja-m17-the-quiet-carriage/ja:わたしは もう たべない。",
+      "en": "I do not eat any more.",
+      "enSourceHash": "28313029cef5bef9",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m17/story:ja-m17-the-quiet-carriage/ja:パンは おいしいけど、でんしゃで たべる ひとは いない。",
+      "en": "The bread is good, but nobody eats on the train.",
+      "enSourceHash": "c142a55d70f30805",
+      "kind": "ja-gloss"
+    }
+  ]
+}
