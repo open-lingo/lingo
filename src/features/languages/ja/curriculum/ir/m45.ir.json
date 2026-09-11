@@ -312,8 +312,8 @@
           "en": "I humbly get to do the homework."
         },
         {
-          "ja": "そうじを させて いただいた。",
-          "en": "I humbly got to do the cleaning."
+          "ja": "しつもんを させて いただいた。",
+          "en": "I humbly got to ask a question."
         }
       ],
       "antiPattern": {
@@ -1863,6 +1863,13 @@
           "exercises": [
             "nai-form"
           ],
+          "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "これは せんせいの めいれいだ。",
+          "en": "This is the teacher's order.",
+          "exercises": [],
           "mode": "build"
         },
         {

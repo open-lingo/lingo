@@ -166,7 +166,7 @@ grammarPoints:
     rule: "One more shape to RECOGNIZE, not produce yet: させて いただく. It is させて もらう's own ultra-polite twin, built from causative-te plus the humble receiving verb いただく you already met (m31, recognition only there too) — しゅくだいを させて いただく, 'I humbly get to do the homework.' You will hear this constantly in formal Japanese (especially from someone about to do something, asking implicit permission first), but production — and its trickier cousin, the causative-PASSIVE させられる — waits until n4-21, where humble language gets its own full module."
     examples:
       - { ja: "しゅくだいを させて いただく。", en: "I humbly get to do the homework." }
-      - { ja: "そうじを させて いただいた。", en: "I humbly got to do the cleaning." }
+      - { ja: "しつもんを させて いただいた。", en: "I humbly got to ask a question." }
     antiPattern: { ja: "しゅくだいを させられる。", why: "させられる is the CAUSATIVE-PASSIVE — 'I am made to do the homework' (unwillingly) — a completely different, much later shape (n4-21). させて いただく is a humble, WILLING request-and-receive; never confuse the two just because both start with させ." }
 
 newAtoms:
@@ -469,6 +469,7 @@ lessons:
       - { kind: sentence, ja: "せんせいに しゅくだいを させて もらう。", en: "I get to do the homework (the teacher lets me).", exercises: [causative-request, favor-ladder], mode: build }
       - { kind: sentence, ja: "せんせいは それを ゆるす。", en: "The teacher allows that.", exercises: [], mode: build }
       - { kind: sentence, ja: "きそくは それを ゆるさない。", en: "The rules don't allow that.", exercises: [nai-form], mode: build }
+      - { kind: sentence, ja: "これは せんせいの めいれいだ。", en: "This is the teacher's order.", exercises: [], mode: build }
       - { kind: sentence, ja: "はやく かえらせて ください。", en: "Please let me go home early.", exercises: [causative-request], mode: listening }
       - { kind: particle-cloze, stem: "しゅくだいを させて ", tail: "。", answer: "ください", options: ["ください", "もらう", "くれる"], en: "Please let me do the homework.", explanation: "させて ください is the direct request form — 'please let me.' させて もらう describes RECEIVING permission (a different sentence shape); させて くれる would mean someone offered without being asked." }
       - { kind: listening-comp, audio: "かえらせて ください。", answer: "Please let me go home.", distractors: ["Please make me go home.", "I won't go home.", "Please come home."], q: "What does this mean?" }
