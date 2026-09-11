@@ -1,0 +1,594 @@
+module: m46
+title: "タイミングとアスペクト — 間に／うちに／ところだ／たばかり"
+register: plain
+priorNeoModules: [m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18, m19, m20, m21, m22, m23, m24, m25, m26, m27, m28, m29, m30, m31, m32, m33, m34, m35, m36, m37, m38, m39, m40, m41, m42, m43, m44, m45]
+priorGrammarPoints: [ka-question, no-possession, wa-topic, wo-object, ga-existence,
+  ni-location, ni-time, de-action, mo-also, kara-because, node-because, kedo,
+  made-until, mae-ni, te-form, te-kudasai, te-iru, te-kara, te-miru, te-oku,
+  ta-form, nai-form, nai-existence, dictionary-form, masu-present, masu-negative,
+  masu-past, desu-copula, i-adj-present, i-adj-past, na-adj-present, v-tai,
+  to-omoimasu, toki, tsumori-desu, mashou, masenka, potential-form, dekiru,
+  deshou, kana-wondering, n-desu, sugiru, ku-ni-naru, hou-ga-ii,
+  nakereba-naranai, yo-emphasis, ne-agreement, register-audience,
+  chotto-softener, ageru, kureru, morau, ni-recipient, tara, to-conditional,
+  jidoushi-tadoushi, te-iru-resultative, volitional, you-to-omou, koto-ni-suru,
+  koto-ni-naru, you-to-suru, te-kureru, te-ageru, te-morau, favor-ladder, dake,
+  shika-nai, sou-appearance, garu-tagaru, yasui-nikui, nagara, ba-form,
+  ba-restriction, ba-vs-tara, nara, nara-vs-tara, ba-hodo, family-register,
+  frequency-adverbs, kono-sono-ano-dono, ni-iku, te-shimau, chau,
+  te-iku-kuru-space, kite-chain, te-kuru-iku-time, noni-concession,
+  temo-concession, demo-concession, demo-mo-closed-set, shi-listing,
+  passive-form, passive-rareru, possessed-object-passive,
+  niyotte-creation-passive, suffering-passive-recognition, te-aru,
+  te-aru-vs-te-iru, te-oku-vs-te-aru, transitivity-family-noticing,
+  sou-hearsay, tte-quotative, to-itte-ita, rashii-hearsay,
+  deshou-adjective, deshou-verb, deshou-casual, darou, tabun-kitto,
+  kamoshirenai, hazu, certainty-ladder, youda-direct-evidence, mitai-casual,
+  you-ni-simile, you-na-simile, evidential-family, causative-form,
+  causative-make-vs-let, causative-request, causative-politeness-recognition]
+notes: |
+  m46 · n4-17 — TIMING & ASPECT: 間に／うちに／ところだ／たばかり
+  (docs/spine-n4.md §n4-17, docs/ja-m46-brief-2026-09-10.md). Consolidation
+  module: one mechanism (a timing/aspect frame riding a noun or verb-form
+  host) spent across four distinct nominal hosts, plus a quantity-drip
+  interleave break (ばかり/ずつ/め) and a compound-verb trio
+  (はじめる/つづける/おわる). Ships 12 lessons (inv 25: 8 teaching + 3
+  review + 1 challenge, challenge last, reviews at positions 4/8/11).
+  Lesson ids follow m43/m45's own non-skipping convention
+  (1,2,3,review-1,4,5,6,review-2,7,8,review-3,challenge).
+
+  ENGINEERING PRE-WORK: confirmed m46 needs ZERO new TRANSFORM_RULESETS
+  entries (docs/ja-m46-brief-2026-09-10.md §2) — ところだ/たばかり ride the
+  existing dictionary/た/て-form ChainForm members, and the compound-verb
+  attachment site is the masu-STEM, already a first-class derived form
+  since m4/m5. `transformRulesets.test.ts` needed no edit for this module.
+
+  DECISIONS INFERRED (no user turn to ask; reasoned from the brief + spine
+  + doctrine, recorded here per "never park a question"):
+  1. **No fresh うち atom.** うちに is the SAME lexeme (`ja-m6-1-uchi`,
+     "Home / my place," m16) widening its own sense range to "within X's
+     state," not a second homograph competing for the kana key — mirrors
+     m44's ようだ/みたい/のように/のような precedent exactly. `uchi-ni-window`
+     ships as a `kind: rule` card only, referencing `ja-m6-1-uchi` by id.
+     Its own registered gloss doesn't literally read "while still" — the
+     rule card's prose bridges that gap explicitly (brief §1a, READY TO
+     DISPATCH #4).
+  2. **ところ cash-in, both fields fixed.** `courseAtoms.ts:741`'s
+     future-tagged ところ stub flips `fromModule` "future"→"m46" AND its
+     `introducedByLessonId` moves off the DEAD `ja-m9-1-2` pointer (exists
+     only in `_archive/m9.ts`, never a live lesson) onto `ja-m46-neo-4`,
+     the live lesson that actually introduces `tokoro-da-aspect`. Mirrors
+     m45's そうじする / m43's ぜったい cash-in precedent, plus fixes the
+     landmine CLAUDE.md's own "Atom `introducedByLessonId` landmine" note
+     warns about (a stale static entry suppresses the module-fallback
+     unlock path).
+  3. **はじめ cash-in, fromModule only.** `courseAtoms.ts:629`'s
+     future-tagged はじめ ("beginning," noun — NOT the verb はじめる) has
+     no `introducedByLessonId` set at all, so no dead-pointer risk exists;
+     flips `fromModule` "future"→"m46" and gains
+     `introducedByLessonId: "ja-m46-neo-6"` (its L6 cash-in lesson). Its
+     existing 🚩 emoji and unblocked/imageable status (a prior author's
+     editorial call — a checkered flag reads honestly as "the start") are
+     preserved as-is rather than overridden to match this module's
+     otherwise-abstract-noun convention — there is no reason to relitigate
+     a call already made correctly.
+  4. **おわる／つづける／はじめる (verbs) ride entirely as prior atoms** —
+     all three already taught, unblocked-or-blocked per their own upstream
+     rows (m32/m30/m33) — never re-declared in `newAtoms`. だんだん
+     (m27) rides as a carrier only, same treatment.
+  5. **つづく included** (not cut) — the intransitive partner of the
+     already-known transitive つづける, deepening m33/m41's own
+     transitivity-family-noticing lens (this module's `spiralWith: n4-07`
+     neighborhood) at negligible cost, per the brief's explicit "prefer,
+     default include" framing (§1e, §6.5).
+  6. **め (ordinal suffix) collision, self-caught — NOT flagged in the
+     brief.** A bare め atom for `ordinal-me` would collide with the
+     EXISTING `courseAtoms.ts` row `{ id: "me", kana: "め", kanji: "目",
+     meaningEn: "eye", fromModule: "m16" }` — two genuinely different
+     words sharing one kana key (not a sense-widening case like うち/み
+     above). Resolution, mirroring the そうじする "cash in / fuse instead
+     of registering a bare collision-prone lemma" discipline in spirit
+     (and the `derivedFrom`-exemption confirmed in
+     `irAtomRegistration.test.ts` — any newAtom with `derivedFrom` set
+     needs no `courseAtoms.ts` row regardless of `kind`): `ordinal-me`
+     ships as a `kind: rule` card only, with two IR-local fused example
+     surfaces (ひとつめ, ふたつめ) registered as `derivedFrom`-exempt
+     `kind: vocab` newAtoms riding the already-taught number atoms
+     `ja-m5-5-v-hitotsu`/`ja-m5-5-v-futatsu` (m9) — no bare め atom is
+     ever registered or exercised standalone, so the "eye" collision never
+     materializes.
+  7. **Compound-verb surfaces hand-registered, budget-disciplined.**
+     はじめる／つづける／おわる are confirmed absent from `VERB_ENTRIES`
+     (`conjugationTables.ts`, zero grep hits for any of the three) despite
+     being taught, registered verbs — per m45's own corrected engineering
+     finding, EVERY full conjugated/compound surface needs hand
+     registration as `kind: verb-form` `derivedFrom` newAtoms regardless
+     of `VERB_ENTRIES` membership. Only the surfaces actually drilled are
+     registered (brief §2 point 3, §6.6): たべはじめる／よみつづける (L6,
+     dictionary form only) and たべおわる／たべおわった (L8, dictionary +
+     one past tense, the brief's own "budget for this deliberately"
+     recommendation). Every one carries `derivedFrom` pointing at the
+     CONTENT verb (たべる／よむ), never the compound host, per the
+     gloss-content-word-overlap guard (`moduleCompiler.ts:2292`).
+  8. **たばかり (temporal) rides the SAME `ばかり` atom as quantity-ばかり**
+     (L5), not a second registration — one lexeme, two grammar cards
+     (`bakari-quantity` and `ta-bakari-vs-ta-tokoro`), mirroring m44's
+     youda-direct-evidence two-card-one-atom precedent. Deliberately
+     placed a full lesson apart (L5 vs L7) per interleave doctrine and the
+     brief's explicit §6 rejection of a same-lesson discrimination card as
+     the default; L7's own antiPattern performs the discrimination only
+     once both senses have independently debuted.
+  9. **したところ distractorDebut ordering respected.** L4's own
+     `tokoro-da-aspect` card is where したところ first appears (as a
+     taught example, not a distractor); L7's `ta-bakari-vs-ta-tokoro` card
+     uses it as a distractor only after that debut — L4 precedes L7 in
+     lesson order, satisfying `distractorDebut` by construction.
+  10. **Kanji surfaces kept to the brief's conservative list**: 間
+      (あいだ, L1), 途中 (とちゅう, L2), 続く (つづく, L6), 久しぶり
+      (ひさしぶり, L7), plus the two pre-existing cash-in kanji fields
+      (所 on ところ, 初め／始め on はじめ). Every other new atom (さいきん,
+      きゅうに, ばかり, ずつ, まま, そのまま, いっしゅん) ships kana-only,
+      zero render-substitution risk — mirroring うち's own kana-only
+      precedent for a word whose kanji surface carries no pedagogical
+      value at this tier.
+  11. **なる (m27, "to become") never used for "phone rings."** なる's own
+      registered gloss is "to become" (成る), a different lexeme from
+      鳴る "to ring" despite sharing kana — any punctual-event example
+      sentence in this module uses てがみが きた ("a letter arrived," くる
+      + てがみ, both already taught) instead, avoiding a silent
+      wrong-meaning use of an existing atom.
+  12. **あつい (うちに's "while it's still hot" example) uses the LIVE
+      taught あつい only** — `courseAtoms.ts` carries three homographic
+      あつい rows (厚い "kind/thick," future-tagged; 暑い "hot [weather],"
+      m25, live; 熱い "hot to the touch," future-tagged). Only 暑い is
+      actually taught, so L3's example frames あつい as weather-heat
+      ("while it's still hot out"), never food-heat, to stay
+      comprehensibility-true to what's actually registered.
+
+grammarPoints:
+  - id: aida-duration
+    rule: "あいだ (間) marks a stretch of time as a single continuous span — the WHOLE TIME something else was true, not one point inside it. せんせいが はなしている あいだ、がくせいは きいている, 'The whole time the teacher talks, the students listen' — きいている (listening) is itself durative, so it fills the entire span. The clause before あいだ stays in its plain/ている form; あいだ attaches directly, no に."
+    examples:
+      - { ja: "せんせいが はなしている あいだ、がくせいは きいている。", en: "The whole time the teacher talks, the students listen." }
+      - { ja: "あめが ふっている あいだ、うちに いる。", en: "The whole time it's raining, (I) stay home." }
+      - { ja: "やすみの あいだ、りょこうする。", en: "For the whole vacation, (I) travel." }
+    antiPattern: { ja: "せんせいが はなしている あいだ、がくせいは ごはんを たべた。", why: "たべた is a single completed POINT-event, not something that fills the whole span of the teacher's talking — that reading needs あいだに, not bare あいだ. あいだ alone is only for a second clause that is itself durative/continuous." }
+  - id: aida-ni-point
+    rule: "あいだに (間に) marks a single POINT somewhere inside a span, not the whole span — add に to あいだ when the second clause is a one-off completed event. せんせいが はなしている あいだに、がくせいは ごはんを たべた, 'At some point while the teacher was talking, the student ate' — the eating is one instant inside the talking-span, not something that filled it. This is the pairwise contrast partner of あいだ (aida-duration): same noun host, に is the whole signal."
+    examples:
+      - { ja: "せんせいが はなしている あいだに、がくせいは ごはんを たべた。", en: "At some point while the teacher was talking, the student ate." }
+      - { ja: "あめが ふっている あいだに、がっこうへ いった。", en: "At some point while it was raining, (I) went to school." }
+      - { ja: "やすみの あいだに、ほんを かった。", en: "At some point during the vacation, (I) bought a book." }
+    antiPattern: { ja: "せんせいが はなしている あいだに、がくせいは きいている。", why: "きいている (listening) is durative — it fills the WHOLE talking-span, not one point inside it. That reading needs bare あいだ (aida-duration), not あいだに; swapping them here reverses which clause is supposed to be the single point." }
+  - id: uchi-ni-window
+    rule: "うちに marks a closing WINDOW — do the second thing before the first state changes. あつい うちに、たべる, 'Eat while it's still hot (before it cools).' This is the same うち you know as 'home' (m16) — the sense widens from a physical space to a STATE's own space: 'within the state of X.' Contrast with あいだに (aida-ni-point): あいだに is a neutral point-in-a-span report; うちに adds urgency — the window is closing, so act now. Negate the first clause (ない うちに) for 'before X happens': かえらない うちに、でんわを する, 'before going home, make a call.'"
+    examples:
+      - { ja: "あつい うちに、たべる。", en: "Eat while it's still hot." }
+      - { ja: "いえに かえらない うちに、でんわを する。", en: "Before going home, (I) make a call." }
+      - { ja: "コーヒーが つめたい うちに、のむ。", en: "Drink the coffee while it's cold." }
+    antiPattern: { ja: "あつい あいだに、たべる。", why: "あいだに just reports a neutral point inside a span — it doesn't warn that the window is closing. うちに carries that urgency (the food is COOLING); swapping in あいだに loses the 'before it's too late' feeling that's the whole point of choosing うちに here." }
+  - id: tokoro-da-aspect
+    rule: "ところ (a moment) rides a verb's OWN tense to pin exactly where in an action you are — three tenses, three aspects, same host noun. Dictionary form + ところだ = about to start: たべる ところだ, 'I'm about to eat.' ~ている + ところだ = mid-action: たべている ところだ, 'I'm in the middle of eating.' た-form + ところだ = just finished: たべた ところだ, 'I just ate.' You already own all three verb tenses — ところ just asks which one, and reports where you are in the action."
+    examples:
+      - { ja: "いま たべる ところだ。", en: "I'm just about to eat." }
+      - { ja: "いま たべている ところだ。", en: "I'm in the middle of eating right now." }
+      - { ja: "たべた ところだ。", en: "I just ate." }
+    antiPattern: { ja: "たべた ところだ。", why: "This actually means 'I JUST ate' (た-form = just finished) — if you meant 'about to eat,' you need the plain dictionary form instead: たべる ところだ. The verb's own tense IS the whole signal; swapping it swaps the aspect completely." }
+  - id: bakari-quantity
+    rule: "ばかり after a noun says 'nothing but X, only X' — often with a complaining or exasperated tone about doing too much of one thing. ごはんばかり たべる, 'All (I) do is eat rice.' Different from the already-known だけ (a neutral 'just, only'): ばかり implies excess, like you're tired of it."
+    examples:
+      - { ja: "ごはんばかり たべる。", en: "All (I) do is eat rice." }
+      - { ja: "テレビばかり みる。", en: "All (I) do is watch TV." }
+      - { ja: "テレビばかり みた。", en: "All I did was watch TV." }
+    antiPattern: { ja: "ごはんだけ たべる。", why: "だけ is neutral — it just states the fact of eating only rice, no complaint. ばかり adds the 'too much of this, I'm tired of it' flavor; swapping in だけ drops that tone entirely." }
+  - id: zutsu-distribution
+    rule: "ずつ after a counted quantity distributes it evenly across a group or across time — 'X each, X at a time.' ひとつずつ たべる, '(I) eat one at a time.' Unlike ばかり (which limits WHAT you do), ずつ describes HOW a quantity is spread out."
+    examples:
+      - { ja: "ひとつずつ たべる。", en: "(I) eat one at a time." }
+      - { ja: "ふたつずつ かう。", en: "(I) buy two at a time." }
+      - { ja: "ほんを ひとつずつ かった。", en: "(I) bought books one at a time." }
+    antiPattern: { ja: "ひとつばかり たべる。", why: "ばかり limits WHAT you're doing (nothing but eating), not how a quantity is spread. 'One at a time' needs ずつ; ひとつばかり would oddly claim you eat 'nothing but one,' not a distribution at all." }
+  - id: ordinal-me
+    rule: "め after a counted quantity turns it into an ordinal — 'the Nth one.' ひとつめ, 'the first one'; ふたつめ, 'the second one.' This め is a DIFFERENT word from め 'eye' (m16) despite sharing kana — context always disambiguates, since this め only ever follows a counted number."
+    examples:
+      - { ja: "ひとつめは ごはんです。", en: "The first one is rice." }
+      - { ja: "ふたつめは テレビです。", en: "The second one is TV." }
+    antiPattern: { ja: "ひとつは ごはんです。", why: "ひとつ alone just means 'one (item)' — it doesn't rank it in a sequence. Naming it as the FIRST in an ordered list needs the ordinal め: ひとつめ." }
+  - id: compound-verb-hajimeru
+    rule: "Drop ます from a verb's masu-form to get the masu-stem, then attach はじめる to mean 'start doing X' — the same attachment site as ながら/たい. たべはじめる, '(I) start eating.' This はじめる is the SAME verb from m33 ('to begin something'), now riding another verb instead of a plain noun object."
+    examples:
+      - { ja: "たべはじめる。", en: "(I) start eating." }
+      - { ja: "いま ごはんを たべはじめる。", en: "(I'm) starting to eat rice now." }
+    antiPattern: { ja: "たべて はじめる。", why: "The compound attaches to the BARE masu-stem (たべ), not the て-form — たべて はじめる isn't how this pattern works. It's たべはじめる, stem+はじめる fused directly, with no て in between." }
+  - id: compound-verb-tsuzukeru
+    rule: "Attach つづける to a masu-stem to mean 'keep doing X, continue doing X.' よみつづける, '(I) keep reading.' つづける (m30) has an intransitive partner つづく, 'to continue, to go on by itself' — つづける is something YOU do to a verb; つづく is something that just keeps happening on its own."
+    examples:
+      - { ja: "ほんを よみつづける。", en: "(I) keep reading the book." }
+      - { ja: "ほんは まだ つづく。", en: "The book still continues." }
+      - { ja: "しごとは まだ つづく。", en: "The work still continues." }
+    antiPattern: { ja: "ほんは まだ つづける。", why: "つづける needs a doer acting ON something — a book can't つづける itself. Something that 'just keeps going on its own' takes the intransitive つづく instead: ほんは まだ つづく。" }
+
+  - id: ta-bakari-vs-ta-tokoro
+    rule: "たばかり and たところ both ride た-form + a noun host, but answer different questions. たばかり (ばかり on た-form) says 'just did X' — foregrounding how RECENTLY it happened, often with a note of surprise: かったばかりだ, 'I just bought it (barely any time has passed).' たところ (ところだ's た-tense, from L4) reports WHERE you are in the action's timeline — one of three possible tenses. Same underlying fact, different emphasis: ばかり foregrounds recency; ところ foregrounds sequence-position."
+    examples:
+      - { ja: "かったばかりだ。", en: "I just bought it." }
+      - { ja: "たべた ところだ。", en: "I just finished eating." }
+      - { ja: "いったばかりだ。", en: "I just went (there)." }
+      - { ja: "しゅくだいを した ところだ。", en: "I just finished homework." }
+    antiPattern: { ja: "かった ところだ。", why: "This says 'I'm at the just-bought point' — grammatically fine, but if the emphasis is on how RECENT the purchase was (surprise: 'I only just bought this!'), かったばかりだ is the natural choice. ところだ tracks sequence-position; ばかり foregrounds recency." }
+  - id: mama-stative
+    rule: "まま after a plain-form (usually た-form) verb says a state is left exactly as it was — 'as is, unchanged.' かったまま だ, 'it's just as (I) bought it (untouched since).' まま is the STATIVE cousin of て-おく／て-ある: て-おく sets a state up on purpose for later use, て-ある reports a deliberately-arranged resulting state, but まま just names a state that hasn't changed — no deliberate setup implied, just 'nothing here has moved.'"
+    examples:
+      - { ja: "ほんを かったまま だ。", en: "The book is just as (I) bought it (untouched since)." }
+      - { ja: "そのまま いる。", en: "(I) stay just as (I) am." }
+      - { ja: "みたまま はなす。", en: "(I) tell it just as (I) saw it." }
+    antiPattern: { ja: "ほんを かっている。", why: "て-いる just reports an ongoing or resulting action (still in the state of having bought it) without flagging 'unchanged since.' まま specifically says nothing has been touched or altered — ほんを かったまま だ carries that 'still exactly as it was' flavor that ほんを かっている doesn't." }
+  - id: compound-verb-owaru
+    rule: "Attach おわる to a masu-stem to mean 'finish doing X' — the same attachment site as はじめる／つづける. たべおわる, '(I) finish eating.' Unlike L6's はじめる／つづける, this lesson budgets the past tense too: たべおわった, '(I) finished eating' — おわる (m32, already taught) is a live, ordinary verb with its own full conjugation, not restricted to dictionary form."
+    examples:
+      - { ja: "たべおわる。", en: "(I) finish eating." }
+      - { ja: "たべおわった。", en: "(I) finished eating." }
+      - { ja: "しごとは おわる。", en: "The work finishes." }
+    antiPattern: { ja: "たべる おわる。", why: "The compound fuses directly onto the masu-STEM (たべ), not the dictionary form — たべる おわる isn't how the attachment works. It's たべおわる, stem+おわる fused with no space." }
+newAtoms:
+  # ══ L1 (neo-1), ids aida-duration/aida-ni-point — あいだ (間, the noun
+  # host both grammar points ride) + さいきん (carrier adverb, "recently").
+  - { kana: あいだ, kanji: 間, romaji: aida, gloss: "the space/time between — a span or interval", shortGloss: "interval, span", imageable: false, kind: vocab, pos: noun }
+  - { kana: さいきん, romaji: saikin, gloss: "recently, lately", shortGloss: "recently", imageable: false, kind: vocab, pos: adverb }
+  # ══ L2 (neo-2) — unrelated interleave break, no new grammar point. とちゅう
+  # carrier vocab ("on the way") + light ながら (m36) review.
+  - { kana: とちゅう, kanji: 途中, romaji: tochuu, gloss: "on the way, midway", shortGloss: "on the way", imageable: false, kind: vocab, pos: noun }
+  # ══ L3 (neo-3), id uchi-ni-window — きゅうに (carrier adverb, "suddenly").
+  # うちに rides the existing m16 うち atom (ja-m6-1-uchi) — no new atom.
+  - { kana: きゅうに, romaji: kyuuni, gloss: "suddenly", shortGloss: "suddenly", imageable: false, kind: vocab, pos: adverb }
+  - { kana: かえらない, romaji: kaeranai, gloss: "won't go back, doesn't go back — negative of かえる", shortGloss: "won't go back", imageable: false, kind: verb-form, derivedFrom: かえる, verbClass: u }
+  # ══ L5 (neo-5) — quantity-drip interleave break, ids bakari-quantity/
+  # zutsu-distribution/ordinal-me. ばかり／ずつ ride their own courseAtoms
+  # rows (kind: particle). め stays UNREGISTERED as a bare atom (m16 "eye"
+  # collision, see notes decision #6) — only the two fused ordinal surfaces
+  # ひとつめ／ふたつめ are registered, as derivedFrom-exempt vocab riding
+  # the already-taught number atoms ja-m5-5-v-hitotsu/ja-m5-5-v-futatsu.
+  - { kana: ばかり, romaji: bakari, gloss: "only, nothing but — a quantity limiter", shortGloss: "only, just", imageable: false, kind: particle }
+  - { kana: ずつ, romaji: zutsu, gloss: "each, apiece — distributes a quantity evenly", shortGloss: "each, apiece", imageable: false, kind: particle }
+  - { kana: ひとつめ, romaji: hitotsume, gloss: "the first one — ordinal of ひとつ ('one')", shortGloss: "the first one", imageable: false, kind: vocab, derivedFrom: ひとつ }
+  - { kana: ふたつめ, romaji: futatsume, gloss: "the second one — ordinal of ふたつ ('two')", shortGloss: "second (of two)", imageable: false, kind: vocab, derivedFrom: ふたつ }
+  # ══ L6 (neo-6), ids compound-verb-hajimeru/compound-verb-tsuzukeru —
+  # つづく (intransitive partner of the already-known つづける) + the
+  # はじめ cash-in (declared here so the compiler's auto-debut generator
+  # can find its irAtom and emit はじめ's word_image_mcq debut step —
+  # invariant 30 requires the FIRST appearance of an imageable word to be
+  # its picture debut, not a mention inside compound-verb-hajimeru's own
+  # pinned rule card; that rule card's 3rd example was reworded to drop
+  # はじめ entirely so the debut step stays はじめ's true first appearance)
+  # + two hand-registered dictionary-form compound surfaces per the
+  # module's budget (notes decision #7).
+  - { kana: はじめ, romaji: hajime, gloss: "beginning", shortGloss: "beginning", kind: vocab, pos: noun }
+  - { kana: つづく, kanji: 続く, romaji: tsuzuku, gloss: "to continue, to go on (by itself)", shortGloss: "continue (itself)", imageable: false, kind: vocab, pos: verb }
+  - { kana: たべはじめる, romaji: tabehajimeru, gloss: "to start to eat (start+たべる)", shortGloss: "start to eat", imageable: false, kind: verb-form, derivedFrom: たべる, verbClass: ru }
+  - { kana: よみつづける, romaji: yomitsuzukeru, gloss: "to continue to read (continue+よむ)", shortGloss: "continue to read", imageable: false, kind: verb-form, derivedFrom: よむ, verbClass: u }
+  # ══ L7 (neo-7), id ta-bakari-vs-ta-tokoro — ひさしぶり (fixed greeting
+  # expression, freshly registered — not a future-tagged cash-in stub, so
+  # it IS declared here).
+  - { kana: ひさしぶり, kanji: 久しぶり, romaji: hisashiburi, gloss: "it's been a while, long time no see", shortGloss: "long time no see", imageable: false, kind: vocab, pos: expression }
+  # ══ L8 (neo-8), ids mama-stative/compound-verb-owaru — まま (stative
+  # noun) + そのまま／いっしゅん (freshly registered vocab, kana-only per
+  # decision #10) + たべおわる／たべおわった (compound-verb surfaces, dict
+  # + one past tense per the module's budget, notes decision #7). おわる
+  # itself rides the prior m32 atom untouched — never declared here.
+  - { kana: まま, romaji: mama, gloss: "as is, unchanged — leaving a state exactly as it was", shortGloss: "as is, staying so", imageable: false, kind: vocab, pos: noun }
+  - { kana: そのまま, romaji: sonomama, gloss: "just like that, exactly as it is", shortGloss: "just as is", imageable: false, kind: vocab, pos: expression }
+  - { kana: いっしゅん, romaji: isshun, gloss: "an instant, a moment", shortGloss: "an instant", imageable: false, kind: vocab, pos: noun }
+  - { kana: たべおわる, romaji: tabeowaru, gloss: "to finish eating (finish+たべる)", shortGloss: "finish to eat", imageable: false, kind: verb-form, derivedFrom: たべる, verbClass: ru }
+  - { kana: たべおわった, romaji: tabeowatta, gloss: "finished eating (finish+たべる, past)", shortGloss: "finished to eat", imageable: false, kind: verb-form, derivedFrom: たべる, verbClass: ru }
+
+lessons:
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m46-neo-1
+    role: teaching
+    title: "「はなしている あいだ」「はなしている あいだに」— あいだ vs あいだに"
+    focus: "Core contrast: あいだ marks the whole span (second clause is durative), あいだに marks one point inside it (second clause is a completed event) — same noun host あいだ, に is the entire signal"
+    introduces: [あいだ, さいきん]
+    beats:
+      - { kind: rule, grammarPointId: aida-duration }
+      - { kind: sentence, ja: "せんせいが はなしている あいだ、がくせいは きいている。", en: "The whole time the teacher talks, the students listen.", exercises: [aida-duration, te-iru], mode: build }
+      - { kind: rule, grammarPointId: aida-ni-point }
+      - { kind: sentence, ja: "せんせいが はなしている あいだに、がくせいは ごはんを たべた。", en: "At some point while the teacher was talking, the student ate.", exercises: [aida-ni-point, te-iru], mode: build }
+      - { kind: sentence, ja: "あめが ふっている あいだ、うちに いる。", en: "The whole time it's raining, (I) stay home.", exercises: [aida-duration, te-iru], mode: build }
+      - { kind: sentence, ja: "あめが ふっている あいだに、がっこうへ いった。", en: "At some point while it was raining, (I) went to school.", exercises: [aida-ni-point, te-iru], mode: listening }
+      - { kind: particle-cloze, stem: "せんせいが はなしている", tail: "、がくせいは ごはんを たべた。", answer: "あいだに", options: ["あいだに", "あいだ", "とき"], en: "At some point while the teacher was talking, the student ate.", explanation: "たべた is a single completed event — one point inside the talking-span, not something filling the whole span. That needs あいだに, not bare あいだ (which would claim the eating lasted the WHOLE time)." }
+      - { kind: listening-comp, audio: "がくせいが れんしゅうしている あいだ、せんせいは まっている。", answer: "The whole time the student is practicing, the teacher is waiting.", distractors: ["The teacher practices while the student waits.", "At some point, the teacher leaves.", "The student waits for the teacher."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "がくせいが れんしゅうしている あいだに、せんせいは ほんを みた。", answer: "At some point while the student was practicing, the teacher looked at a book.", distractors: ["The teacher looked at a book the whole time the student practiced.", "The student looked at a book while the teacher practiced.", "The teacher and student both practiced."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "さいきん いそがしい。", answer: "(I'm) busy recently.", distractors: ["(I) was busy a long time ago.", "(I'm) never busy.", "(I'll) be busy next year."], q: "What does this mean?" }
+      - { kind: kanji, kana: あいだ, kanji: 間, distractors: ["あさ", "あめ", "あるく"], exercises: [aida-duration] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "さいきん いそがしい？", en: "Are you busy recently?" }
+          - { speaker: "Ken", ja: "うん、テストの あいだ、れんしゅうしている。", en: "Yeah, the whole time it's test period, I'm practicing." }
+          - { speaker: "Mika", ja: "いそがしいね。", en: "That's busy, huh." }
+        questions:
+          - { q: "What is Ken doing during the test period?", options: ["Practicing the whole time", "Sleeping the whole time", "Traveling", "Waiting for a letter"], answer: "Practicing the whole time" }
+      - { kind: challenge, ja: "やすみの あいだ、りょこうするので、さいきん いそがしい。", en: "Because (I) travel the whole vacation, (I'm) busy recently.", combines: [aida-duration, node-because, i-adj-present], mode: build }
+    reviewPool: [はなす, きく, あめ, いえ, ごはん, たべた, いった, かった, いく, かえる]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m46-neo-2
+    role: teaching
+    title: "「かいしゃへ いく とちゅうで」— interleave break, no new grammar"
+    focus: "Unrelated-domain break (interleave, not block-teach): とちゅう carrier vocab plus a review pass on m36's ながら"
+    introduces: [とちゅう]
+    beats:
+      - { kind: sentence, ja: "かいしゃへ いく とちゅうで、あめが ふる。", en: "On the way to the company, it rains.", exercises: [], mode: build }
+      - { kind: sentence, ja: "がっこうへ いく とちゅうで、ともだちと はなす。", en: "On the way to school, (I) talk with a friend.", exercises: [], mode: build }
+      - { kind: sentence, ja: "あるきながら、でんわで はなす。", en: "(I) talk on the phone while walking.", exercises: [nagara], mode: build }
+      - { kind: sentence, ja: "かいしゃへ いく とちゅうで、あるきながら でんわで はなす。", en: "On the way to the company, (I) talk on the phone while walking.", exercises: [nagara], mode: listening }
+      - { kind: particle-cloze, stem: "がっこうへ いく", tail: "で、ともだちと はなす。", answer: "とちゅう", options: ["とちゅう", "あいだ", "とき"], en: "On the way to school, (I) talk with a friend.", explanation: "とちゅうで marks a POINT along a trip — 'midway, on the way.' あいだ would claim the talking filled the whole trip; とき would drop the sense of 'partway through.'" }
+      - { kind: listening-comp, audio: "こうえんへ いく とちゅうで、みちで ねこを みた。", answer: "On the way to the park, (I) saw a cat on the street.", distractors: ["The whole way to the park, a cat followed.", "After reaching the park, (I) saw a cat.", "(I) never went to the park."], q: "What does this mean?" }
+      - { kind: kanji, kana: とちゅう, kanji: 途中, distractors: ["とけい", "とおい", "とても"], exercises: [] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Ken", ja: "かいしゃへ いく とちゅうで、みちで せんせいを みた。", en: "On the way to the company, I saw the teacher on the street." }
+          - { speaker: "Mika", ja: "へえ、はなしてた？", en: "Oh, were you talking?" }
+          - { speaker: "Ken", ja: "うん、あるきながら はなしてた。", en: "Yeah, we were talking while walking." }
+        questions:
+          - { q: "Where did Ken see the teacher?", options: ["On the street, on the way to the company", "At the company", "At school", "At the park"], answer: "On the street, on the way to the company" }
+      - { kind: challenge, ja: "がっこうへ いく とちゅうで、おんがくを ききながら ほんも かった。", en: "On the way to school, (I) also bought a book while listening to music.", combines: [nagara, ta-form, mo-also], mode: build }
+    reviewPool: [かいしゃ, がっこう, みち, ともだち, こうえん, ねこ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m46-neo-3
+    role: teaching
+    title: "「あつい うちに」— うちに, contrasted against あいだに"
+    focus: "うちに: a closing window — act before the state changes. Same host word as うち ('home,' m16), sense widened to 'within a state.' Contrasted only against L1's あいだに (per spine), not against あいだ."
+    introduces: [きゅうに]
+    beats:
+      - { kind: rule, grammarPointId: uchi-ni-window }
+      - { kind: sentence, ja: "あつい うちに、たべる。", en: "Eat while it's still hot.", exercises: [uchi-ni-window], mode: build }
+      - { kind: sentence, ja: "いえに かえらない うちに、でんわを する。", en: "Before going home, (I) make a call.", exercises: [uchi-ni-window, nai-form], mode: build }
+      - { kind: sentence, ja: "コーヒーが つめたい うちに、のむ。", en: "Drink the coffee while it's cold.", exercises: [uchi-ni-window], mode: build }
+      - { kind: sentence, ja: "きゅうに あめが ふる。", en: "Suddenly it rains.", exercises: [], mode: listening }
+      - { kind: particle-cloze, stem: "あつい", tail: "、たべる。", answer: "うちに", options: ["うちに", "あいだに", "とき"], en: "Eat while it's still hot.", explanation: "うちに warns that the hot-window is closing — eat now, before it cools. あいだに would just report a neutral point in a span, with no urgency; とき doesn't carry the 'before it changes' warning at all." }
+      - { kind: listening-comp, audio: "でんわを しない うちに、 しゅくだいを する。", answer: "Before making a call, (I) do homework.", distractors: ["While making a call, (I) do homework.", "After making a call, (I) do homework.", "(I) never do homework."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "きゅうに あめが ふる まえに、いえに かえる。", answer: "(I) go home before it suddenly rains.", distractors: ["(I) go home while it's raining.", "(I) stay out in the sudden rain.", "(I) never go home."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "あつい うちに、たべよう。", en: "Let's eat while it's hot." }
+          - { speaker: "Ken", ja: "うん、きゅうに つめたい からね。", en: "Yeah, because it's suddenly cold." }
+          - { speaker: "Mika", ja: "そうだね。", en: "That's right." }
+        questions:
+          - { q: "Why does Mika want to eat now?", options: ["Before the food gets cold", "Before the store closes", "Before it rains", "Before the vacation ends"], answer: "Before the food gets cold" }
+      - { kind: challenge, ja: "いえに かえらない うちに、でんわを して、しゅくだいを する。", en: "Before going home, (I) make a call and do homework.", combines: [uchi-ni-window, nai-form, te-form], mode: build }
+    reviewPool: [あつい, あめ, いえ, かえる, でんわ, しゅくだい, コーヒー]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m46-neo-review-1
+    role: review
+    title: "Review — あいだ／あいだに／うちに"
+    focus: "Spiral L1-L3: the whole-span/point-in-span contrast (あいだ vs あいだに) plus うちに's closing-window sense — THIS MODULE ONLY"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "せんせいが はなしている あいだ、がくせいは きいている。", en: "The whole time the teacher talks, the students listen.", exercises: [aida-duration], mode: build }
+      - { kind: sentence, ja: "せんせいが はなしている あいだに、がくせいは ごはんを たべた。", en: "At some point while the teacher was talking, the student ate.", exercises: [aida-ni-point], mode: build }
+      - { kind: particle-cloze, stem: "あつい", tail: "、たべる。", answer: "うちに", options: ["うちに", "あいだに", "あいだ"], en: "Eat while it's still hot.", explanation: "うちに warns the hot-window is closing — eat now. あいだ/あいだに both describe reporting a span or a point in one, with no urgency." }
+      - { kind: sentence, ja: "いえに かえらない うちに、でんわを する。", en: "Before going home, (I) make a call.", exercises: [uchi-ni-window], mode: build }
+      - { kind: sentence, ja: "かいしゃへ いく とちゅうで、あるきながら でんわで はなす。", en: "On the way to the company, (I) talk on the phone while walking.", exercises: [nagara], mode: listening }
+      - { kind: listening-comp, audio: "がくせいが れんしゅうしている あいだ、せんせいは まっている。", answer: "The whole time the student is practicing, the teacher is waiting.", distractors: ["The teacher practices while the student waits.", "At some point, the teacher leaves.", "The student waits for the teacher."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "でんわを しない うちに、 しゅくだいを する。", answer: "Before making a call, (I) do homework.", distractors: ["While making a call, (I) do homework.", "After making a call, (I) do homework.", "(I) never do homework."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "さいきん いそがしい？", en: "Are you busy recently?" }
+          - { speaker: "Ken", ja: "うん、あつい うちに かえるから。", en: "Yeah, because I'm going home while it's still hot." }
+          - { speaker: "Mika", ja: "わかった。", en: "Got it." }
+        questions:
+          - { q: "Why is Ken hurrying?", options: ["He is going home while it's still hot out", "He is going to travel", "He wants to stay at work", "He is practicing"], answer: "He is going home while it's still hot out" }
+      - { kind: sentence, ja: "あめが ふっている あいだ、うちに いる。", en: "The whole time it's raining, (I) stay home.", exercises: [aida-duration], mode: build }
+    reviewPool: [せんせい, がくせい, あめ, いえ, かいしゃ, でんわ, しごと]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m46-neo-4
+    role: teaching
+    title: "「たべる ところだ」— ところだ, three tenses, one host"
+    focus: "ところだ rides the verb's own tense to report aspect: dictionary=about to, ている=mid-action, た=just finished. Cash-in ところ (fromModule future→m46, introducedByLessonId fixed off the dead ja-m9-1-2 pointer)."
+    introduces: [ところ]
+    beats:
+      - { kind: rule, grammarPointId: tokoro-da-aspect }
+      - { kind: sentence, ja: "いま たべる ところだ。", en: "I'm just about to eat.", exercises: [tokoro-da-aspect], mode: build }
+      - { kind: sentence, ja: "いま たべている ところだ。", en: "I'm in the middle of eating right now.", exercises: [tokoro-da-aspect, te-iru], mode: build }
+      - { kind: sentence, ja: "たべた ところだ。", en: "I just ate.", exercises: [tokoro-da-aspect, ta-form], mode: build }
+      - { kind: sentence, ja: "いま しゅくだいを する ところだ。", en: "I'm just about to do homework.", exercises: [tokoro-da-aspect], mode: listening }
+      - { kind: particle-cloze, stem: "いま", tail: " ところだ。", answer: "たべる", options: ["たべる", "たべている", "たべた"], en: "I'm about to eat.", explanation: "About-to needs the plain dictionary form: たべる ところだ. ている ところだ would mean 'in the middle of eating,' and た ところだ would mean 'just ate.'" }
+      - { kind: listening-comp, audio: "しゅくだいを している ところだ。", answer: "I'm in the middle of doing homework.", distractors: ["I'm about to do homework.", "I just finished homework.", "I never do homework."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "いま かえる ところだ。", answer: "I'm just about to go home.", distractors: ["I'm in the middle of going home.", "I just got home.", "I'm not going home."], q: "What does this mean?" }
+      - { kind: kanji, kana: ところ, kanji: 所, distractors: ["とけい", "とちゅう", "ともだち"], exercises: [tokoro-da-aspect] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "なにを している の？", en: "What are you doing?" }
+          - { speaker: "Ken", ja: "しゅくだいを している ところだよ。", en: "I'm in the middle of doing homework." }
+          - { speaker: "Mika", ja: "わかった。", en: "Got it." }
+        questions:
+          - { q: "What is Ken doing?", options: ["In the middle of homework", "About to start homework", "Just finished homework", "Eating"], answer: "In the middle of homework" }
+      - { kind: challenge, ja: "ごはんを たべたので、いま テレビを みる ところだ。", en: "Since I ate, I'm just about to watch TV now.", combines: [tokoro-da-aspect, node-because, ta-form], mode: build }
+    reviewPool: [たべる, いま, しゅくだい, テレビ, かえる]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m46-neo-5
+    role: teaching
+    title: "「ばかり」「ずつ」「め」— quantity-drip interleave break"
+    focus: "Unrelated-domain break (interleave, not block-teach): three quantity-marking suffixes, none building on ところだ. ばかり here is QUANTITY-sense only — its TEMPORAL たばかり sense debuts separately in L7, a full lesson apart, per interleave doctrine."
+    introduces: [ばかり, ずつ, ひとつめ, ふたつめ]
+    beats:
+      - { kind: rule, grammarPointId: bakari-quantity }
+      - { kind: sentence, ja: "ごはんばかり たべる。", en: "All (I) do is eat rice.", exercises: [bakari-quantity], mode: build }
+      - { kind: sentence, ja: "テレビばかり みる。", en: "All (I) do is watch TV.", exercises: [bakari-quantity], mode: build }
+      - { kind: rule, grammarPointId: zutsu-distribution }
+      - { kind: sentence, ja: "ひとつずつ たべる。", en: "(I) eat one at a time.", exercises: [zutsu-distribution], mode: build }
+      - { kind: sentence, ja: "ふたつずつ かう。", en: "(I) buy two at a time.", exercises: [zutsu-distribution], mode: listening }
+      - { kind: sentence, ja: "ひとつめは ごはんです。", en: "The first one is rice.", exercises: [ordinal-me], mode: build }
+      - { kind: sentence, ja: "ふたつめは テレビです。", en: "The second one is TV.", exercises: [ordinal-me], mode: listening }
+      - { kind: particle-cloze, stem: "ごはん", tail: " たべる。", answer: "ばかり", options: ["ばかり", "ずつ", "だけ"], en: "All (I) do is eat rice.", explanation: "ばかり carries the 'nothing but this, I'm tired of it' complaint. ずつ would mean 'a portion of rice at a time' (a distribution, not a complaint); だけ is the neutral 'just' with no tone at all." }
+      - { kind: listening-comp, audio: "テレビばかり みた。", answer: "All I did was watch TV.", distractors: ["I never watched TV.", "I watched TV once in a while.", "I watched TV with a friend."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "ほんを ひとつずつ かった。", answer: "I bought books one at a time.", distractors: ["I bought all the books at once.", "I never bought books.", "I read one book."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "しゅうまつは なにを した？", en: "What did you do this weekend?" }
+          - { speaker: "Ken", ja: "テレビばかり みたよ。", en: "All I did was watch TV." }
+          - { speaker: "Mika", ja: "そうなんだ。", en: "I see." }
+        questions:
+          - { q: "What did Ken do all weekend?", options: ["Watched nothing but TV", "Read books only", "Went shopping", "Studied"], answer: "Watched nothing but TV" }
+      - { kind: challenge, ja: "ほんを ひとつずつ かって、テレビばかり みた。", en: "(I) bought books one at a time, and then did nothing but watch TV.", combines: [zutsu-distribution, bakari-quantity, te-form], mode: build }
+    reviewPool: [ごはん, テレビ, ほん, みる, かう, たべる]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m46-neo-6
+    role: teaching
+    title: "「たべはじめる」「よみつづける」— compound verbs, はじめ cash-in"
+    focus: "Masu-stem + はじめる/つづける compounds ('start doing X' / 'keep doing X'). Cash-in はじめ (fromModule future→m46). つづける's intransitive partner つづく debuts here too, deepening the m33/m41 transitivity-family lens."
+    introduces: [はじめ, つづく]
+    beats:
+      - { kind: rule, grammarPointId: compound-verb-hajimeru }
+      - { kind: sentence, ja: "たべはじめる。", en: "(I) start eating.", exercises: [compound-verb-hajimeru], mode: build }
+      - { kind: sentence, ja: "いま ごはんを たべはじめる。", en: "(I'm) starting to eat rice now.", exercises: [compound-verb-hajimeru], mode: build }
+      - { kind: sentence, ja: "しごとは はじめから むずかしい。", en: "The work is difficult from the beginning.", exercises: [], mode: listening }
+      - { kind: rule, grammarPointId: compound-verb-tsuzukeru }
+      - { kind: sentence, ja: "ほんを よみつづける。", en: "(I) keep reading the book.", exercises: [compound-verb-tsuzukeru], mode: build }
+      - { kind: sentence, ja: "ほんは まだ つづく。", en: "The book still continues.", exercises: [compound-verb-tsuzukeru], mode: build }
+      - { kind: particle-cloze, stem: "しごとは", tail: "から むずかしい。", answer: "はじめ", options: ["はじめ", "つづく", "とちゅう"], en: "The work is difficult from the beginning.", explanation: "はじめ names the starting point of something. つづく would describe it going on, and とちゅう describes a midpoint on a trip — neither fits 'the beginning.'" }
+      - { kind: listening-comp, audio: "ほんを よみつづける。", answer: "(I) keep reading the book.", distractors: ["(I) start reading the book.", "(I) finished reading the book.", "(I) never read the book."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "しごとは まだ つづく。", answer: "The work still continues.", distractors: ["The work is already finished.", "The work is about to start.", "The work stopped."], q: "What does this mean?" }
+      - { kind: kanji, kana: つづく, kanji: 続く, distractors: ["あさ", "つかう", "とちゅう"], exercises: [compound-verb-tsuzukeru] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "しごとは もう はじめた？", en: "Have you already started work?" }
+          - { speaker: "Ken", ja: "うん、はじめから いそがしいよ。", en: "Yeah, busy from the beginning." }
+          - { speaker: "Mika", ja: "わかった。", en: "Got it." }
+        questions:
+          - { q: "What is true about Ken's work?", options: ["Busy from the beginning", "Finished already", "Not started yet", "Easy"], answer: "Busy from the beginning" }
+      - { kind: challenge, ja: "ごはんを たべはじめるけど、しごとは まだ つづく。", en: "(I'm) about to start eating, but the work still continues.", combines: [compound-verb-hajimeru, compound-verb-tsuzukeru, kedo], mode: build }
+    reviewPool: [しごと, ほん, むずかしい, ごはん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m46-neo-review-2
+    role: review
+    title: "Review — ところだ／compound verbs, spiral back to あいだ／うちに"
+    focus: "Mid-third review: ところだ's three-tense card + たべはじめる／つづく mixed with a light spiral back to L1-L3's あいだ／あいだに／うちに — semantic clozes only (never bare が/を/は)"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "いま たべる ところだ。", en: "I'm just about to eat.", exercises: [tokoro-da-aspect], mode: build }
+      - { kind: sentence, ja: "たべた ところだ。", en: "I just ate.", exercises: [tokoro-da-aspect, ta-form], mode: build }
+      - { kind: particle-cloze, stem: "しごとは", tail: "から むずかしい。", answer: "はじめ", options: ["はじめ", "つづく", "ところ"], en: "The work is difficult from the beginning.", explanation: "はじめ names a starting point. つづく describes something going on, and ところ (bare) names a place or moment, not specifically 'the beginning' — はじめ is the only fit." }
+      - { kind: sentence, ja: "たべはじめる。", en: "(I) start eating.", exercises: [compound-verb-hajimeru], mode: build }
+      - { kind: sentence, ja: "ほんは まだ つづく。", en: "The book still continues.", exercises: [compound-verb-tsuzukeru], mode: listening }
+      - { kind: listening-comp, audio: "いま かえる ところだ。", answer: "I'm just about to go home.", distractors: ["I'm in the middle of going home.", "I just got home.", "I'm not going home."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "しごとは まだ つづく。", answer: "The work still continues.", distractors: ["The work is already finished.", "The work is about to start.", "The work stopped."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "しごとは まだ つづく の？", en: "Does the work still continue?" }
+          - { speaker: "Ken", ja: "うん、いま しゅくだいを している ところだよ。", en: "Yeah, I'm in the middle of doing homework right now." }
+          - { speaker: "Mika", ja: "わかった。", en: "Got it." }
+        questions:
+          - { q: "What is Ken doing right now?", options: ["In the middle of homework", "About to start homework", "Just finished homework", "Watching TV"], answer: "In the middle of homework" }
+      - { kind: sentence, ja: "いえに かえらない うちに、でんわを する。", en: "Before going home, (I) make a call.", exercises: [uchi-ni-window], mode: build }
+      - { kind: sentence, ja: "せんせいが はなしている あいだに、がくせいは ごはんを たべた。", en: "At some point while the teacher was talking, the student ate.", exercises: [aida-ni-point], mode: listening }
+    reviewPool: [たべる, いま, しごと, ほん, かえる, いえ, でんわ, せんせい, がくせい, ごはん]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m46-neo-7
+    role: teaching
+    title: "「かったばかりだ」vs「たべた ところだ」— たばかり vs たところ, ひさしぶり"
+    focus: "Pairwise discrimination: たばかり (ばかり on た-form, foregrounds RECENCY) vs たところ (ところだ's た-tense from L4, foregrounds sequence-position). Vocab: ひさしぶり ('long time no see')."
+    introduces: [ひさしぶり]
+    beats:
+      - { kind: rule, grammarPointId: ta-bakari-vs-ta-tokoro }
+      - { kind: sentence, ja: "かったばかりだ。", en: "I just bought it.", exercises: [ta-bakari-vs-ta-tokoro, ta-form], mode: build }
+      - { kind: sentence, ja: "いったばかりだ。", en: "I just went (there).", exercises: [ta-bakari-vs-ta-tokoro, ta-form], mode: build }
+      - { kind: sentence, ja: "たべた ところだ。", en: "I just finished eating.", exercises: [tokoro-da-aspect, ta-form], mode: listening }
+      - { kind: particle-cloze, stem: "かった", tail: "だ。", answer: "ばかり", options: ["ばかり", "ところ", "だけ"], en: "I just bought it (emphasizing how recent it was).", explanation: "ばかり foregrounds RECENCY — 'barely any time has passed.' ところ would shift the emphasis to sequence-position instead, and だけ drops the 'just now' sense entirely, leaving only a neutral 'bought only it.'" }
+      - { kind: listening-comp, audio: "ひさしぶり！", answer: "It's been a while!", distractors: ["Good morning!", "See you later!", "Congratulations!"], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "ほんを かったばかりだよ。", answer: "I just bought a book.", distractors: ["I read a book a while ago.", "I'm about to buy a book.", "I never bought a book."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "ひさしぶり！げんき？", en: "Long time no see! How are you?" }
+          - { speaker: "Ken", ja: "うん、げんき。ほんを かったばかりだよ。", en: "Yeah, good. I just bought a book." }
+          - { speaker: "Mika", ja: "そうなんだ。", en: "I see." }
+        questions:
+          - { q: "What did Ken just do?", options: ["Bought a book", "Read a book", "Sold a book", "Lost a book"], answer: "Bought a book" }
+      - { kind: challenge, ja: "かったばかりだから、あたらしい。", en: "Because (I) just bought it, it's new.", combines: [ta-bakari-vs-ta-tokoro, node-because, i-adj-present], mode: build }
+    reviewPool: [ほん, げんき, いく, たべる, かう]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m46-neo-8
+    role: teaching
+    title: "「かったまま」「たべおわる」— まま stative, おわる compound (trio complete)"
+    focus: "まま (stative cousin of て-おく／て-ある, m30/m41) + 〜おわる compound (dict + one past, completing the はじめる/つづける/おわる trio). Vocab: そのまま, いっしゅん."
+    introduces: [まま, そのまま, いっしゅん]
+    beats:
+      - { kind: rule, grammarPointId: mama-stative }
+      - { kind: sentence, ja: "そのまま いる。", en: "(I) stay just as (I) am.", exercises: [mama-stative], mode: build }
+      - { kind: sentence, ja: "かったまま だ。", en: "It's just as (I) bought it (untouched since).", exercises: [mama-stative, ta-form], mode: build }
+      - { kind: sentence, ja: "みたまま はなす。", en: "(I) tell it just as (I) saw it.", exercises: [mama-stative, ta-form], mode: listening }
+      - { kind: rule, grammarPointId: compound-verb-owaru }
+      - { kind: sentence, ja: "たべおわる。", en: "(I) finish eating.", exercises: [compound-verb-owaru], mode: build }
+      - { kind: sentence, ja: "たべおわった。", en: "(I) finished eating.", exercises: [compound-verb-owaru, ta-form], mode: build }
+      - { kind: sentence, ja: "しごとは おわる。", en: "The work finishes.", exercises: [compound-verb-owaru], mode: listening }
+      - { kind: particle-cloze, stem: "しごとは", tail: "。", answer: "おわる", options: ["おわる", "はじめ", "つづく"], en: "The work finishes.", explanation: "おわる names the ENDING point. はじめ is a noun ('the beginning'), not a predicate here, and つづく would say the work keeps going — the opposite of finishing." }
+      - { kind: listening-comp, audio: "ごはんを たべおわったよ。", answer: "I finished eating.", distractors: ["I'm about to eat.", "I'm in the middle of eating.", "I never ate."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "いっしゅんで たべおわった。", answer: "(I) finished eating in an instant.", distractors: ["(I) ate very slowly.", "(I) haven't started eating.", "(I) forgot to eat."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "かったまま だ。", answer: "It's just as (I) bought it.", distractors: ["(I) already used it up.", "(I) returned it to the store.", "(I) broke it."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "そのまま いる。", answer: "(I) stay just as (I) am.", distractors: ["(I) change completely.", "(I) leave right away.", "(I) hide."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "ごはんは たべおわった？", en: "Have you finished eating?" }
+          - { speaker: "Ken", ja: "うん、いっしゅんで たべおわったよ。", en: "Yeah, I finished eating in an instant." }
+          - { speaker: "Mika", ja: "いいね。", en: "Nice." }
+        questions:
+          - { q: "How fast did Ken finish eating?", options: ["In an instant", "Very slowly", "He hasn't finished", "He skipped it"], answer: "In an instant" }
+      - { kind: challenge, ja: "たべおわった ところだ けど、しごとは まだ つづく。", en: "(I'm) just at the point of having finished eating, but work still continues.", combines: [tokoro-da-aspect, compound-verb-owaru, kedo], mode: build }
+    reviewPool: [ごはん, テレビ, しごと, みる, たべる]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m46-neo-review-3
+    role: review
+    title: "Review — full-module mixed: あいだ／うちに／ところだ／ばかり／compound verbs／まま"
+    focus: "Last-third review: every m46 grammar point + carrier vocab (うち/おわる/はじめる/つづける/だんだん) as already-known — semantic clozes only (never bare が/を/は)"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "せんせいが はなしている あいだ、がくせいは きいている。", en: "The whole time the teacher talks, the students listen.", exercises: [aida-duration], mode: build }
+      - { kind: sentence, ja: "いえに かえらない うちに、でんわを する。", en: "Before going home, (I) make a call.", exercises: [uchi-ni-window], mode: listening }
+      - { kind: sentence, ja: "たべた ところだ。", en: "I just finished eating.", exercises: [tokoro-da-aspect, ta-form], mode: build }
+      - { kind: particle-cloze, stem: "テレビ", tail: "みた。", answer: "ばかり", options: ["ばかり", "ずつ", "だけ"], en: "All I did was watch TV.", explanation: "ばかり adds the 'nothing but this, tired of it' flavor. ずつ would distribute a quantity ('two at a time'), which doesn't fit a bare noun here, and だけ is neutral 'just' — it drops the complaining tone ばかり carries." }
+      - { kind: sentence, ja: "ひとつめは ごはんです。", en: "The first one is rice.", exercises: [ordinal-me], mode: build }
+      - { kind: sentence, ja: "たべはじめる。", en: "(I) start eating.", exercises: [compound-verb-hajimeru], mode: build }
+      - { kind: sentence, ja: "ほんは まだ つづく。", en: "The book still continues.", exercises: [compound-verb-tsuzukeru], mode: listening }
+      - { kind: sentence, ja: "かったばかりだ。", en: "I just bought it.", exercises: [ta-bakari-vs-ta-tokoro, ta-form], mode: build }
+      - { kind: sentence, ja: "そのまま いる。", en: "(I) stay just as (I) am.", exercises: [mama-stative], mode: listening }
+      - { kind: sentence, ja: "たべおわった。", en: "(I) finished eating.", exercises: [compound-verb-owaru, ta-form], mode: build }
+      - { kind: listening-comp, audio: "ふたつずつ かった。", answer: "(I) bought two at a time.", distractors: ["(I) bought only two.", "(I) bought two, then sold them.", "(I) never bought any."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "しごとは おわる。", answer: "The work finishes.", distractors: ["The work is starting.", "The work continues forever.", "The work was canceled."], q: "What does this mean?" }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "ひさしぶり！げんき？", en: "Long time no see! How are you?" }
+          - { speaker: "Ken", ja: "うん、げんき。ほんを かったばかりだよ。", en: "Yeah, good. I just bought a book." }
+          - { speaker: "Mika", ja: "そうなんだ。", en: "I see." }
+        questions:
+          - { q: "What did Ken just do?", options: ["Bought a book", "Read a book", "Sold a book", "Lost a book"], answer: "Bought a book" }
+    reviewPool: [せんせい, がくせい, いえ, でんわ, ごはん, ほん, しごと, テレビ]
+
+  # ═══════════════════════════════════════════════════════════════════════
+  - id: m46-neo-challenge
+    role: challenge
+    title: "Challenge — timing & aspect, every frame in one arc"
+    focus: "あいだに, うちに, ところだ/ばかり contrast, compound verbs, まま — all combined with prior N4 grammar, no new vocabulary"
+    introduces: []
+    beats:
+      - { kind: sentence, ja: "がくせいが れんしゅうしている あいだに、せんせいは でんわを した。", en: "At some point while the student was practicing, the teacher made a call.", exercises: [aida-ni-point, ta-form], mode: build }
+      - { kind: sentence, ja: "しゅくだいを しない うちに、テレビを みる。", en: "Before doing homework, (I) watch TV.", exercises: [uchi-ni-window, nai-form], mode: listening }
+      - { kind: particle-cloze, stem: "たべた", tail: "だ。", answer: "ところ", options: ["ところ", "ばかり", "とき"], en: "I just finished eating (emphasizing sequence-position, not recency).", explanation: "ところ foregrounds WHERE you are in the timeline — just past the finishing point. ばかり would instead foreground how RECENT it was, and とき just marks a bare 'when,' with no aspectual 'just' sense at all." }
+      - { kind: kanji, kana: つづく, kanji: 続く, distractors: ["あさ", "つかう", "とちゅう"], exercises: [compound-verb-tsuzukeru] }
+      - kind: dialogue
+        lines:
+          - { speaker: "Mika", ja: "ひさしぶり！げんき？", en: "Long time no see! How are you?" }
+          - { speaker: "Ken", ja: "うん、げんき。いま ごはんを たべはじめる ところだよ。", en: "Yeah, good. I'm just about to start eating rice now." }
+          - { speaker: "Mika", ja: "そうなんだ。", en: "I see." }
+        questions:
+          - { q: "What is Ken about to do?", options: ["Start eating", "Finish eating", "Keep eating", "Stop eating"], answer: "Start eating" }
+      - { kind: challenge, ja: "せんせいが はなしている あいだに、そのまま ごはんを たべおわった。", en: "While the teacher was talking, (I) finished eating just as (I) was, without a break.", combines: [aida-ni-point, compound-verb-owaru, mama-stative], mode: build }
+    reviewPool: [せんせい, がくせい, ごはん, いえ, でんわ, ほん, しごと, テレビ]
