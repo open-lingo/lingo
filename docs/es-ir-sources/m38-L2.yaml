@@ -1,0 +1,139 @@
+  # ── L2 · «La sala está al lado del dormitorio» — «sala» debuts. Regular
+  #    feminine noun, vowel-final plural «salas». First lesson to pair two
+  #    of this module's own rooms via m35's «al lado de». No «limpiar» yet
+  #    (debuts L6). PRIOR: está/al/lado/del (m4/m9/m35), casa/cocina (m3/
+  #    m4), me gusta (m7), nuevo/pequeño/bonito (m6). One recall (L1 win
+  #    line).
+  - n: 2
+    template: free
+    title: "La sala está al lado del dormitorio"
+    description: "«la sala» — living room. Regular feminine, plural «salas». «al lado de» (m35) pairs two of this module's own rooms for the first time."
+    steps:
+      - kind: map
+        id: l2-map-lasalaestaalladodeldormitorio
+        tokens: ["la", "sala", "está", "al", "lado", "del", "dormitorio"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "living room", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "at the", tokenIndex: 3 }
+          - { en: "side", tokenIndex: 4 }
+          - { en: "of the", tokenIndex: 5 }
+          - { en: "bedroom", tokenIndex: 6 }
+        audioText: "la sala está al lado del dormitorio"
+        revealNote: "«sala» — regular feminine, plural «salas». «al lado de» (m35) — «del», not «de el», before a masculine word like «dormitorio»."
+      - kind: imageMcq
+        id: l2-im-sala
+        target: { surface: "sala", meaningEn: "living room", emoji: "📺" }
+        distractors:
+          - { surface: "cocina", emoji: "🍳" }
+          - { surface: "dormitorio", emoji: "💤" }
+          - { surface: "baño", emoji: "🚽" }
+      - kind: speakLit
+        id: l2-sp-recall-l1win
+        es: "mi dormitorio es grande, y está cerca de la cocina"
+        en: "My bedroom is big, and it's close to the kitchen"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l2-b-lasalaestaalladodeldormitorio
+        es: "la sala está al lado del dormitorio"
+        en: "The living room is beside the bedroom"
+        atoms: ["la", "sala", "está", "al", "lado", "dormitorio"]
+        tiles: ["cerca", "lejos"]
+      - kind: clozeLit
+        id: l2-c-lasalaesgrandeybonita
+        es: "la sala es grande y bonita"
+        en: "The living room is big and pretty"
+        blank: "sala"
+        options: ["sala", "cocina"]
+        atoms: ["la", "sala", "es", "grande", "bonito"]
+        why: "Matching the sentence to the picture — «sala», not «cocina»."
+      - kind: listenCompLit
+        id: l2-lc-lasalaestacercadelacocina
+        es: "la sala está cerca de la cocina"
+        en: "The living room is close to the kitchen."
+        atoms: ["la", "sala", "está", "cerca", "de", "la", "cocina"]
+        distractorsEn:
+          - "The living room is far from the kitchen."
+          - "The bedroom is close to the kitchen."
+          - "The living room is close to the bathroom."
+      - kind: mcq
+        id: l2-q-sala
+        prompt: "Which one means 'the living room'?"
+        correct: "la sala"
+        distractors: ["el sala", "la salas", "la cocina"]
+        atoms: ["la", "sala"]
+        why: "«sala» is feminine — «la», not «el». And this is the singular word, not «salas»."
+      - kind: buildLit
+        id: l2-b-megustalasalaesbonita
+        es: "me gusta la sala — es bonita"
+        en: "I like the living room — it's pretty"
+        atoms: ["me gusta", "la", "sala", "es", "bonito"]
+        tiles: ["cocina", "grande"]
+      - kind: audioWimcq
+        id: l2-ear-sala
+        target: { surface: "sala", emoji: "📺" }
+        distractors:
+          - { surface: "dormitorio", emoji: "💤" }
+          - { surface: "cocina", emoji: "🍳" }
+      - kind: agreementLit
+        id: l2-agr-salapequenadormitorionuevo
+        en: "The living room is small, and the bedroom is new too"
+        audioText: "la sala es pequeña, y el dormitorio es nuevo también"
+        atoms: ["sala", "pequeño", "dormitorio", "nuevo"]
+        segments:
+          - { text: "la sala es " }
+          - { blank: { id: "p1", answer: "pequeña", options: ["pequeña", "pequeño"] } }
+          - { text: ", y el dormitorio es " }
+          - { blank: { id: "p2", answer: "nuevo", options: ["nuevo", "nueva"] } }
+      - kind: listenBuildLit
+        id: l2-lb-lasalaestaalladodelacocinaperolejosdeldormitorio
+        es: "la sala está al lado de la cocina, pero lejos del dormitorio"
+        en: "The living room is beside the kitchen, but far from the bedroom"
+        atoms: ["la", "sala", "está", "al", "lado", "de", "la", "cocina", "pero", "lejos", "dormitorio"]
+        tiles: ["cerca", "baño"]
+      - kind: textMcq
+        id: l2-tm-sala
+        target: "sala"
+        distractors: ["sal", "sale", "saludo"]
+      - kind: sim
+        id: l2-sim-diego-sala
+        scene: { emoji: "📺", title: "Diego describes his apartment", setting: "Diego is drawing a little map of his place." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Dónde está la sala?", audioText: "¿dónde está la sala?", gloss: "Where is the living room?" }
+            goal: "Say it's beside the bedroom."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "está al lado del dormitorio" }
+                - { id: "wrong1", text: "está al lado de dormitorio" }
+                - { id: "wrong2", text: "está al lado de la dormitorio" }
+              correctOptionId: "right"
+              audioText: "está al lado del dormitorio"
+            replyGloss: "It's beside the bedroom."
+            explanation: "«dormitorio» is masculine, so «del», never a bare «de» or the feminine «la»."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Te gusta la sala?", audioText: "¿te gusta la sala?", gloss: "Do you like the living room?" }
+            goal: "Say yes, you like it, big and pretty."
+            reply:
+              mode: build
+              tiles: ["sí", "me", "gusta", "es", "grande", "y", "bonita", "pequeña"]
+              answer: "sí me gusta es grande y bonita"
+            replyGloss: "Yes, I like it — it's big and pretty."
+            explanation: "«sala» is feminine, so «bonita», not «bonito»."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "sala", target: "living room" }
+          - { source: "dormitorio", target: "bedroom" }
+          - { source: "al lado de", target: "beside" }
+          - { source: "cerca", target: "close" }
+          - { source: "lejos", target: "far" }
+          - { source: "me gusta", target: "I like it" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "la sala está al lado del dormitorio, y me gusta — es grande y bonita"
+        en: "The living room is beside the bedroom, and I like it — it's big and pretty"
+        atoms: ["la", "sala", "está", "al", "lado", "dormitorio", "me gusta", "grande", "bonito"]

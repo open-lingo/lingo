@@ -1,0 +1,27 @@
+placement:
+  screener:
+    - id: "es-m38-scr-1"
+      prompt: "'The bedroom is close to the kitchen.'"
+      correct: "el dormitorio está cerca de la cocina"
+      distractors: ["el dormitorio está lejos de la cocina", "el baño está cerca de la cocina", "el dormitorio es cerca de la cocina"]
+  byModule:
+    - id: "es-m38-pl-1"
+      prompt: "My bedroom is big, and it's close to the kitchen."
+      correct: "mi dormitorio es grande, y está cerca de la cocina"
+      distractors: ["mi dormitorio es grande, y está lejos de la cocina", "mi dormitorio es grande, y es cerca de la cocina", "mi dormitorio es grande, y está cerca de la sala"]
+    - id: "es-m38-pl-2"
+      prompt: "The living room is beside the bedroom."
+      correct: "la sala está al lado del dormitorio"
+      distractors: ["la sala está al lado de dormitorio", "la sala está al lado de la dormitorio", "el sala está al lado del dormitorio"]
+    - id: "es-m38-pl-3"
+      prompt: "One has to clean the dining room."
+      correct: "hay que limpiar el comedor"
+      distractors: ["hay limpiar el comedor", "hay que limpiar comedor", "tengo que limpiar el comedor"]
+    - id: "es-m38-pl-4"
+      prompt: "The garden is far from the garage."
+      correct: "el jardín está lejos del garaje"
+      distractors: ["el jardín está cerca del garaje", "el garaje está lejos del jardín", "el jardín está lejos de garaje"]
+    - id: "es-m38-pl-5"
+      prompt: "I'm going to the garage, but one has to clean the living room first."
+      correct: "voy al garaje, pero hay que limpiar la sala primero"
+      distractors: ["voy al garaje, pero tengo que limpiar la sala primero", "voy al garaje, pero hay que limpiar sala primero", "voy al garaje, pero hay que limpiar la sala después"]

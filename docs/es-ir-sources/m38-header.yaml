@@ -223,6 +223,25 @@ checkpoint: 8
 # rather than either of those two existing metaphors, and distinct from
 # `m34`'s own terracotta/clay and every other recent module's accent.
 # ─────────────────────────────────────────────────────────────────────────
+# ── EMOJI COLLISION FOUND DURING GATE RUN (2026-09-10, post-draft) — the
+#    two "obvious" emoji this module's own brief originally assigned were
+#    already bound elsewhere ────────────────────────────────────────────
+# `es-course-integrity.test.ts`'s "an emoji means ONE thing" gate (course-
+# wide, scans every `word_image_mcq` option) failed on first real run:
+# 🍽️ was already bound to «tengo hambre» (m7/m15, e.g. `m7.ts`'s
+# `es-m7-4-ear-hambresed1`) and 🛠️ was already bound to «trabajar» (m10's
+# `es-m10-8-cp-ear-1`) — neither collision was caught while drafting
+# because nothing in this module's own content scans the OTHER 37
+# modules' emoji bindings; only the full-course integrity test does.
+# Reassigned to unused, vendored (`src/pub/noto-emoji/svg/`) emoji instead:
+# «comedor» → 🍜 (steaming bowl, U+1F35C; the more literal 🍴 fork-and-
+# knife is also taken, by «restaurante», m18) and «garaje» → 🔧 (wrench,
+# U+1F527, same tools register as the original 🛠️ without the collision).
+# Every `imageMcq`/`audioWimcq`/`sim.scene` reference to either surface
+# across all 10 lesson fragments was updated in lockstep (sed, verified
+# zero remaining 🍽️/🛠️ hits outside this comment). Lesson: "SVGs already
+# vendored" (true) is not the same claim as "emoji unclaimed course-wide"
+# — the latter needs its own check before drafting, not just after.
 newAtoms:
   # el dormitorio — bedroom. Regular masculine noun, vowel-final plural
   # «dormitorios». This module's own L1 debut (image-MCQ intro).
@@ -233,7 +252,7 @@ newAtoms:
   # el comedor — dining room. Regular masculine noun, consonant-final
   # plural «comedores» (same branch as «hospital», m34). L3 debut — the
   # first noun to pair with m37's own «hay que».
-  - { surface: "comedor", meaningEn: "dining room", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🍽️", hint: "el comedor — regular masculine, plural «comedores» (consonant → +es, same branch as «hospital», m34). «hay que limpiar el comedor» — m37's «hay que», this module's own central new pairing." }
+  - { surface: "comedor", meaningEn: "dining room", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🍜", hint: "el comedor — regular masculine, plural «comedores» (consonant → +es, same branch as «hospital», m34). «hay que limpiar el comedor» — m37's «hay que», this module's own central new pairing." }
   # el jardín — garden, yard. Masculine. SINGULAR ONLY this module — see
   # the header's own landmine section: the regular-plural scope-check has
   # no «/ín$/» branch and would compute the wrong-Spanish «jardínes»
@@ -241,7 +260,7 @@ newAtoms:
   - { surface: "jardín", meaningEn: "garden, yard", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🌻", hint: "el jardín — masculine. Singular-only in this module's own content (see header — the plural «jardines» exists in real Spanish but trips a gate gap; avoided here rather than shipped). «tengo que limpiar el jardín» (m33's «tengo que»)." }
   # el garaje — garage. Regular masculine noun, vowel-final plural
   # «garajes». L5 debut — pairs with «está»+«lejos» and «voy a»/«al».
-  - { surface: "garaje", meaningEn: "garage", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🛠️", hint: "el garaje — regular masculine, plural «garajes». «el garaje está lejos de la casa» (m35's «lejos»), «voy al garaje» (m9's «voy a»/«al»)." }
+  - { surface: "garaje", meaningEn: "garage", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🔧", hint: "el garaje — regular masculine, plural «garajes». «el garaje está lejos de la casa» (m35's «lejos»), «voy al garaje» (m9's «voy a»/«al»)." }
   # limpiar — to clean. BARE INFINITIVE ONLY — see the header's own
   # dedicated section. This module's one new verb, registered exactly
   # like m28's own bare «ir»: no person-conjugated form anywhere. Always

@@ -1,0 +1,140 @@
+  # ── L6 · «Hay que limpiar la casa» — «limpiar» debuts, BARE INFINITIVE
+  #    ONLY. This atom is never conjugated anywhere in this module —
+  #    always after «hay que» (m37), «quiero» (m7), or «voy a» (m9's «voy»
+  #    + m28's «ir»-family «a + infinitive»). NEVER print «limpio»,
+  #    «limpias», «limpia», «limpiamos», «limpian», or any preterite/
+  #    imperfect form. Recombines all 5 rooms from this module for the
+  #    first time in one lesson. PRIOR: hay que (m37), quiero (m7), voy/al
+  #    (m9), dormitorio/sala/comedor/jardín/garaje (this module). One
+  #    recall (L5 win line).
+  - n: 6
+    template: free
+    title: "Hay que limpiar la casa"
+    description: "«limpiar» — to clean. You'll only ever see it as a bare infinitive: «hay que limpiar», «quiero limpiar», «voy a limpiar» — never conjugated."
+    steps:
+      - kind: map
+        id: l6-map-hayquelimpiarlacasa
+        tokens: ["hay", "que", "limpiar", "la", "casa"]
+        pairs:
+          - { en: "one has to", tokenIndex: 0 }
+          - { en: "(that)", tokenIndex: 1 }
+          - { en: "clean", tokenIndex: 2 }
+          - { en: "the", tokenIndex: 3 }
+          - { en: "house", tokenIndex: 4 }
+        audioText: "hay que limpiar la casa"
+        revealNote: "«limpiar» — to clean. It always stays a bare infinitive after «hay que», «quiero», or «voy a» — you won't be asked to conjugate it."
+      - kind: imageMcq
+        id: l6-im-limpiar
+        target: { surface: "limpiar", meaningEn: "to clean", emoji: "🧹" }
+        distractors:
+          - { surface: "comprar", emoji: "🛍️" }
+          - { surface: "trabajar", emoji: "👷" }
+          - { surface: "estudiar", emoji: "📚" }
+      - kind: speakLit
+        id: l6-sp-recall-l5win
+        es: "voy al garaje por mi bicicleta"
+        en: "I'm going to the garage for my bicycle"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l6-b-quierolimpiarelcomedor
+        es: "quiero limpiar el comedor"
+        en: "I want to clean the dining room"
+        atoms: ["quiero", "limpiar", "el", "comedor"]
+        tiles: ["sala", "dormitorio"]
+      - kind: clozeLit
+        id: l6-c-hayquelimpiarelbano
+        es: "hay que limpiar el baño"
+        en: "One has to clean the bathroom"
+        blank: "limpiar"
+        options: ["limpiar", "comprar"]
+        atoms: ["hay que", "limpiar", "el", "baño"]
+        why: "«limpiar» — to clean, matching the picture, not «comprar»."
+      - kind: listenCompLit
+        id: l6-lc-voyalimpiarlasala
+        es: "voy a limpiar la sala"
+        en: "I'm going to clean the living room."
+        atoms: ["voy", "a", "limpiar", "la", "sala"]
+        distractorsEn:
+          - "I'm going to clean the dining room."
+          - "I'm going to buy the living room furniture."
+          - "You're going to clean the living room."
+      - kind: mcq
+        id: l6-q-limpiar
+        prompt: "Which one means 'to clean'?"
+        correct: "limpiar"
+        distractors: ["estudiar", "trabajar", "comprar"]
+        atoms: ["limpiar"]
+        why: "«limpiar» is the infinitive — the plain, uncoined form, like English \"to clean\". It never changes after «hay que», «quiero», or «voy a»."
+      - kind: buildLit
+        id: l6-b-hayquelimpiareljardinytambienelgaraje
+        es: "hay que limpiar el jardín, y también el garaje"
+        en: "One has to clean the garden, and also the garage"
+        atoms: ["hay que", "limpiar", "el", "jardín", "también", "el", "garaje"]
+        tiles: ["comedor", "sala"]
+      - kind: audioWimcq
+        id: l6-ear-limpiar
+        target: { surface: "limpiar", emoji: "🧹" }
+        distractors:
+          - { surface: "comprar", emoji: "🛍️" }
+          - { surface: "trabajar", emoji: "👷" }
+      - kind: agreementLit
+        id: l6-agr-dormitorioviejocomedorbonito
+        en: "The bedroom is old, and the dining room is pretty too"
+        audioText: "el dormitorio es viejo, y el comedor es bonito también"
+        atoms: ["dormitorio", "viejo", "comedor", "bonito"]
+        segments:
+          - { text: "el dormitorio es " }
+          - { blank: { id: "p1", answer: "viejo", options: ["viejo", "vieja"] } }
+          - { text: ", y el comedor es " }
+          - { blank: { id: "p2", answer: "bonito", options: ["bonito", "bonita"] } }
+      - kind: listenBuildLit
+        id: l6-lb-hayquelimpiarlacasaperoquierolimpiarelgaraje
+        es: "hay que limpiar la casa, pero quiero limpiar el garaje"
+        en: "One has to clean the house, but I want to clean the garage"
+        atoms: ["hay que", "limpiar", "la", "casa", "pero", "quiero", "limpiar", "el", "garaje"]
+        tiles: ["jardín", "sala"]
+      - kind: textMcq
+        id: l6-tm-limpiar
+        target: "limpiar"
+        distractors: ["limpiador", "limpieza", "limitar"]
+      - kind: sim
+        id: l6-sim-rosa-limpiar
+        scene: { emoji: "🧹", title: "Rosa is planning chores", setting: "Rosa is making a cleaning list for the weekend." }
+        turns:
+          - id: t1
+            npc: { speaker: "Rosa", es: "¿Qué hay que limpiar hoy?", audioText: "¿qué hay que limpiar hoy?", gloss: "What does one have to clean today?" }
+            goal: "Say one has to clean the kitchen."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hay que limpiar la cocina" }
+                - { id: "wrong1", text: "quiero limpiar la cocina" }
+                - { id: "wrong2", text: "hay que limpiar cocina" }
+              correctOptionId: "right"
+              audioText: "hay que limpiar la cocina"
+            replyGloss: "One has to clean the kitchen."
+            explanation: "Match «hay que» from the question, not «quiero». And keep «la» before «cocina» — the infinitive «limpiar» itself never changes."
+          - id: t2
+            npc: { speaker: "Rosa", es: "¿Quieres limpiar el jardín también?", audioText: "¿quieres limpiar el jardín también?", gloss: "Do you want to clean the garden too?" }
+            goal: "Say yes, you want to clean it."
+            reply:
+              mode: build
+              tiles: ["sí", "quiero", "limpiar", "el", "jardín", "garaje"]
+              answer: "sí quiero limpiar el jardín"
+            replyGloss: "Yes, I want to clean it."
+            explanation: "«quiero» (m7) plus the bare infinitive «limpiar» — never «limpio» here, that's a different word entirely."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "limpiar", target: "to clean" }
+          - { source: "hay que", target: "one has to" }
+          - { source: "quiero", target: "I want" }
+          - { source: "voy a", target: "I'm going to" }
+          - { source: "también", target: "also" }
+          - { source: "garaje", target: "garage" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "hay que limpiar la casa, y quiero limpiar el jardín también"
+        en: "One has to clean the house, and I want to clean the garden too"
+        atoms: ["hay que", "limpiar", "la", "casa", "quiero", "jardín"]

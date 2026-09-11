@@ -1,0 +1,123 @@
+  # ── L9 · Cross-recombination — no new atom. Threads this module's rooms
+  #    and «hay que limpiar» through m34's destinations (banco/farmacia/
+  #    hospital/correo/supermercado), m14's puedo/querer, m16's necesito,
+  #    and the singular-only «jardín» rule one more time before mastery.
+  #    Short optional info card recapping both landmines (jardín singular,
+  #    limpiar bare infinitive). One recall (L8's win line). No new atoms.
+  - n: 9
+    template: free
+    title: "Hay que limpiar, y voy al banco"
+    description: "Everything, together — every room, «hay que limpiar», and a quick errand, one more time before the finish line."
+    steps:
+      - kind: info
+        id: l9-info-recap
+        title: "Dos reglas para recordar"
+        body: "«jardín» is singular-only in this course — it never takes a plural ending. And «limpiar» always stays a bare infinitive after «hay que», «quiero», or «voy a» — never conjugated."
+      - kind: speakLit
+        id: l9-sp-recall
+        es: "hay que limpiar el jardín, pero me gusta la casa"
+        en: "One has to clean the garden, but I like the house"
+        atoms: ["hay que", "limpiar", "el", "jardín", "pero", "me gusta", "la", "casa"]
+        cue: recall
+      - kind: clozeLit
+        id: l9-c-necesitolimpiarelgaraje
+        es: "necesito limpiar el garaje hoy"
+        en: "I need to clean the garage today"
+        blank: "garaje"
+        options: ["garaje", "jardín"]
+        atoms: ["necesito", "limpiar", "el", "garaje", "hoy"]
+        why: "Matching the sentence to the picture — «garaje», not «jardín»."
+      - kind: buildLit
+        id: l9-b-puedolimpiarlacocinayvoyalbanco
+        es: "puedo limpiar la cocina, y voy al banco"
+        en: "I can clean the kitchen, and I'm going to the bank"
+        atoms: ["puedo", "limpiar", "la", "cocina", "voy", "al", "banco"]
+        tiles: ["hay que", "comedor"]
+      - kind: mcq
+        id: l9-q-hayquevsnecesito
+        prompt: "Which one means 'one has to clean' (any house, not just yours)?"
+        correct: "hay que limpiar"
+        distractors: ["necesito limpiar", "tengo que limpiar", "hay limpiar"]
+        atoms: ["hay que", "limpiar"]
+        why: "A rule for any house — «hay que», not «necesito» or «tengo que». And «limpiar» stays bare."
+      - kind: listenCompLit
+        id: l9-lc-voyasupermercadoperoprimerohayquelimpiarlasala
+        es: "voy al supermercado, pero también hay que limpiar la sala"
+        en: "I'm going to the supermarket, but one also has to clean the living room."
+        atoms: ["voy", "al", "supermercado", "pero", "también", "hay que", "limpiar", "la", "sala"]
+        distractorsEn:
+          - "I'm going to the supermarket, but one also has to clean the dining room."
+          - "I'm going to the pharmacy, but one also has to clean the living room."
+          - "You're going to the supermarket, but one also has to clean the living room."
+      - kind: audioWimcq
+        id: l9-ear-jardin
+        target: { surface: "jardín", emoji: "🌻" }
+        distractors:
+          - { surface: "garaje", emoji: "🔧" }
+          - { surface: "comedor", emoji: "🍜" }
+      - kind: buildLit
+        id: l9-b-quierolimpiareldormitorioyvoyalafarmacia
+        es: "quiero limpiar el dormitorio, y voy a la farmacia"
+        en: "I want to clean the bedroom, and I'm going to the pharmacy"
+        atoms: ["quiero", "limpiar", "el", "dormitorio", "voy", "a", "la", "farmacia"]
+        tiles: ["hay que", "garaje"]
+      - kind: agreementLit
+        id: l9-agr-jardinpequenocorreopequeno
+        en: "The garden is small, and the post office is small too"
+        audioText: "el jardín es pequeño, y el correo es pequeño también"
+        atoms: ["jardín", "pequeño", "correo"]
+        segments:
+          - { text: "el jardín es " }
+          - { blank: { id: "p1", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+          - { text: ", y el correo es " }
+          - { blank: { id: "p2", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+      - kind: listenBuildLit
+        id: l9-lb-hayquelimpiarelcomedorperopuedoirenbicicletaalhospital
+        es: "hay que limpiar el comedor, pero puedo ir en bicicleta al hospital"
+        en: "One has to clean the dining room, but I can go by bicycle to the hospital"
+        atoms: ["hay que", "limpiar", "el", "comedor", "pero", "puedo", "ir", "en", "bicicleta", "al", "hospital"]
+        tiles: ["jardín", "sala"]
+      - kind: textMcq
+        id: l9-tm-jardin
+        target: "jardín"
+        distractors: ["jardinero", "jamón", "jarra"]
+      - kind: sim
+        id: l9-sim-sofia-limpiar
+        scene: { emoji: "🧹", title: "Sofía is finishing chores", setting: "Sofía is finishing chores before an errand." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Qué hay que limpiar hoy?", audioText: "¿qué hay que limpiar hoy?", gloss: "What does one have to clean today?" }
+            goal: "Say one has to clean the garage."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hay que limpiar el garaje" }
+                - { id: "wrong1", text: "necesito limpiar el garaje" }
+                - { id: "wrong2", text: "hay que limpiar garaje" }
+              correctOptionId: "right"
+              audioText: "hay que limpiar el garaje"
+            replyGloss: "One has to clean the garage."
+            explanation: "Sofía asked with «hay que», so match it — and keep «el» before «garaje»."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Vas al banco también?", audioText: "¿vas al banco también?", gloss: "Are you going to the bank too?" }
+            goal: "Say yes, you're going to the bank."
+            reply:
+              mode: build
+              tiles: ["sí", "voy", "al", "banco", "farmacia"]
+              answer: "sí voy al banco"
+            replyGloss: "Yes, I'm going to the bank."
+            explanation: "«voy al banco» (m9's «voy» + «al») — «banco» is masculine."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "hay que limpiar", target: "one has to clean" }
+          - { source: "necesito", target: "I need" }
+          - { source: "puedo", target: "I can" }
+          - { source: "también", target: "also" }
+          - { source: "jardín", target: "garden" }
+          - { source: "garaje", target: "garage" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "hay que limpiar el jardín, y voy al banco"
+        en: "One has to clean the garden, and I'm going to the bank"
+        atoms: ["hay que", "limpiar", "el", "jardín", "voy", "al", "banco"]

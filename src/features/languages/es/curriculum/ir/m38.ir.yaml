@@ -1,0 +1,1654 @@
+module: m38
+title: "Hay que limpiar la casa"
+frame: none
+throughModule: m37
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m38 — the rooms of a house (lexicon break, plus one bare-infinitive
+# verb). Nineteenth A2 module, third lexicon break since m19 (m32 clothing
+# round 2, m34 errands, m36 transport — this module continues that
+# constellation, immediately after m37's «hay que» grammar beat).
+#
+#     el dormitorio (m)   bedroom        la sala (f)      living room
+#     el comedor (m)      dining room    el jardín (m)    garden, yard
+#     el garaje (m)       garage
+#     limpiar              to clean (BARE INFINITIVE ONLY — see its own
+#                           section below; not a conjugation paradigm)
+#
+# ONE domain, six new atoms: the rooms/areas of a house a learner did NOT
+# already get from m3/m4's own house-object scavenger hunt (casa, puerta,
+# silla, ventana, mesa, cama, baño, cocina, cuarto — all already PRIOR,
+# reconfirmed below), plus the single new verb this module needs to cash
+# in BOTH of the course's two obligation constructions at once. Zero new
+# GRAMMAR — «hay que»/«tengo que» + infinitivo is entirely m33/m37's own
+# structure, already taught; this module supplies new nouns and one new
+# infinitive to plug into it, exactly the "lexicon break" shape m34/m36
+# established.
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# Four lines of evidence:
+#   1. **Rhythm calls for a break, and m37 is exactly one beat past the
+#      last one.** m34 (break) → m35 (grammar) → m36 (break) → m37
+#      (grammar) — the identical one-beat alternation every recent header
+#      has used to justify its own placement. The break due after m37 is
+#      on schedule.
+#   2. **House/rooms is the SAME candidate `m36-header.yaml` explicitly
+#      left open, not a fresh guess.** Re-grepped against the up-to-date
+#      m1-m37 surface list (`grep -o 'surface: "[^"]*"'
+#      curriculum/m{1..37}.ts | sort -u`): `casa`/`cocina`/`baño`/`cuarto`
+#      (m3/m4) plus, newly reconfirmed this round, `cama`/`mesa`/`puerta`/
+#      `silla`/`ventana` (m3/m4) and `ducha`/`dormir` (m17) are ALL already
+#      PRIOR — the m3/m4 house-object scavenger hunt is thoroughly spent.
+#      But `dormitorio`/`sala`/`comedor`/`jardín`/`garaje` (this module's
+#      own five) are ALL grep-confirmed zero-hit virgin, matching
+#      `m36-header.yaml`'s own finding for its narrower `habitación`/
+#      `sala`/`dormitorio`/`comedor` candidate list one module ago — a
+#      genuine, still-unclaimed 5-atom domain.
+#   3. **The specific objection that got this candidate rejected last time
+#      no longer fully holds — m37 built a fourth hook.** `m36-header.yaml`
+#      rejected house/rooms for m36 on exactly two grounds: (a) only THREE
+#      prior-module hooks (`está`/`hay`/«al lado de», all m3-m35) versus
+#      transport's eight, and (b) rooms aren't a natural object of
+#      `voy a`/`necesito ir a`/`tengo que ir a` the way an errand place is
+#      ("you don't have an obligation to go to your own kitchen"). Ground
+#      (a) is now stronger: m37's own «hay que + infinitivo» is the single
+#      most natural obligation frame a "rooms of a house" domain could ask
+#      for — "hay que limpiar el baño" is a more universally true sentence
+#      than almost anything else «hay que» pairs with course-wide. Ground
+#      (b) is SIDESTEPPED rather than refuted: this module doesn't lean on
+#      "going to" a room at all (no `voy a el dormitorio` content) — it
+#      leans on «está»+location (m35, a room CAN be "next to" another room,
+#      unlike ground (b)'s own objection) and on «hay que»/«tengo que» +
+#      «limpiar» (an obligation TOWARD a room, not a destination). This is
+#      the identical reversal-of-a-prior-verdict structure `m36-header.yaml`
+#      itself used for transport ("a prior header already said no once,
+#      with a reason that stopped applying") — content that didn't exist
+#      when the earlier rejection was written (m37's own atom) is exactly
+#      what flips the verdict.
+#   4. **Kitchen/food round 2 and family round 2 — re-checked against the
+#      current registry, nothing has changed.** Both remain real,
+#      well-scoped future content with the identical weaknesses
+#      `m36-header.yaml` already found: food's every hook is INDIRECT
+#      (bought AT a place, never itself the subject of `está`/`voy a`);
+#      family's only hook is bare possession (`tengo dos primos`), the
+#      weakest of any candidate this course has weighed. Full accounting
+#      in REJECTED below, reconfirmed by fresh greps, not inherited
+#      unchecked from the prior header's own prose.
+#
+# ── REJECTED: kitchen/food round 2 (arroz, pescado, verdura, fruta, huevo,
+#    tomate, cebolla) — still virgin, still only indirect hooks ──────────
+# `grep -iE "^arroz$|^pescado$|^verdura$|^fruta$|^huevo$|^tomate$|^cebolla$"`
+# against the up-to-date m1-m37 surface list returns zero hits for all
+# seven — genuinely virgin, unchanged since `m36-header.yaml`'s own check.
+# Rejected for the identical reason: every hook (`necesito`, `tengo que`,
+# `supermercado`, `comprarlo`-family) is INDIRECT — food is bought AT a
+# place (m34's `supermercado`), never itself the subject of `está`/«al
+# lado de»/«hay que». No natural sentence pairs a food noun with this
+# course's own location or obligation constructions the way a ROOM does
+# ("hay que limpiar la cocina" is natural; "hay que limpiar el arroz" is
+# not the same class of sentence). Left open as a strong future break.
+#
+# ── REJECTED: family round 2 (tío, tía, primo, prima, hijo, hija) — still
+#    virgin, still the weakest recombination story of any candidate ──────
+# `grep -iE "^tío$|^tía$|^primo$|^prima$|^hijo$|^hija$"` returns zero hits
+# for all six — unchanged since `m36-header.yaml`'s own check.
+# `hermano`/`hermana`/`padre`/`madre`/`abuelo`/`abuela` remain fully PRIOR
+# (confirmed again here). Rejected for the identical reason: kinship nouns
+# have no natural sentence with `voy a`/`está cerca`/«al lado de»/«hay
+# que» as their frame at this course's level — only `tengo` (bare
+# possession) reaches at all, one prior-module hook, weaker than every
+# other candidate this or the prior round weighed. Left open as a
+# possession-frame recombination lesson inside a future module.
+#
+# ── REJECTED: town/places, a third time — fully exhausted, not re-litigated
+#    ────────────────────────────────────────────────────────────────────
+# `m36-header.yaml` already folded the one virgin word from this list
+# (`estación`) into transport and confirmed `parque`/`escuela`/
+# `restaurante`/`tienda` are all PRIOR (m9/m18). Re-checked here for
+# completeness, unchanged: zero new town-places candidates remain. Not a
+# real alternative this round.
+#
+# ── LIMPIAR IS BARE-INFINITIVE-ONLY — A LEXICON ADDITION, NOT A HIDDEN
+#    GRAMMAR BEAT ─────────────────────────────────────────────────────────
+# This module registers exactly ONE new verb, `limpiar` (to clean), and
+# ONLY its bare infinitive form — the identical scope-limiting move m28
+# made for `ir` before `va` filled in the missing 3rd-person present
+# (`curriculum/m28.ts:29`, `atom({ surface: "ir", ... kind: "vocab" })`,
+# no conjugated forms alongside it in that same registration). Unlike
+# `ir`, this module registers NO person-conjugated form of `limpiar` at
+# all — no `limpio`/`limpias`/`limpia`/`limpiamos`/`limpian` anywhere.
+# `limpiar` appears in this module's own content exclusively immediately
+# after «hay que» (m37) or «tengo que» (m33) — both already-taught
+# invariant/person-marked auxiliaries whose own infinitive slot this verb
+# simply fills, the same syntactic role `trabajar`/`estudiar`/`comprar`
+# already play in m33/m37's own example sentences. This is why the module
+# stays a LEXICON break rather than becoming a hidden grammar beat: zero
+# new syntactic structure, one new content word slotting into two
+# structures the learner already owns. **Bespoke test-pin required**: this
+# module's own `m38.test.ts` must scan for any standalone occurrence of
+# `limpio`/`limpias`/`limpia`/`limpiamos`/`limpian`/`limpié`/`limpiaba`
+# (word-boundary match, not a substring hit inside an unrelated word)
+# anywhere in this module's assembled IR — fail if found — the same
+# `ILLEGAL_PRESENT_FORMS`-style scan m24/m25 built for their own
+# not-yet-taught-conjugation risk, generalized to this module's own single
+# verb. `limpiar` has an honest, unambiguous emoji (🧹) and per §13.1's
+# verb rubric ("verb with honest emoji → vocabMcq intro, then build
+# drills") gets its own image-MCQ debut, not a bare vocab card.
+#
+# ── THE JARDÍN PLURAL LANDMINE — a genuine gate gap found this round, not
+#    inherited from any prior header ────────────────────────────────────
+# `esRegularPlurals()` (`__tests__/moduleBarGuards.ts:168-175`) has a
+# dedicated `/ón$/` branch specifically because Spanish drops the accent
+# when pluralizing an -ón noun (`estación` → `estaciones`, not
+# `estaciónes` — the exact reason that branch exists, per m36-header's own
+# documentation). `jardín` has the IDENTICAL accent-drop behavior in real
+# Spanish (`jardín` → `jardines`, no accent) but ends in `-ín`, not `-ón`
+# — there is NO `/ín$/` branch in the current function, so
+# `esRegularPlurals("jardín")` computes `"jardínes"` (accent retained,
+# grammatically wrong) rather than the correct `"jardines"`. Verified by
+# direct execution against the live function body, not assumed:
+# `esRegularPlurals("jardín") → ["jardínes"]`. **Decision (inferred, not
+# parked): this module's own content uses `jardín` SINGULAR ONLY** — no
+# plural-subject sentence pluralizes it — sidestepping the mismatch
+# entirely rather than shipping either wrong-Spanish `"jardínes"` (to
+# satisfy the gate) or correct-Spanish `"jardines"` (which the gate's own
+# scope-check would then fail to recognize as this atom's plural,
+# repeating the exact "de niño" mistake `authoring-rules.md` already
+# documents and explicitly warns against: three prior rounds forced wrong
+# grammar to satisfy an under-modeled gate before the gate itself was
+# fixed). This module does NOT attempt that fix inline (out of scope for
+# a lexicon break); flagged here as real future gate work — add an
+# `/ín$/` branch to `esRegularPlurals()` alongside the existing `/ón$/`
+# one before any future module needs `jardín`'s plural.
+#
+# ── THE atoms:/exercisedAtomSurfaces CREDIT TRAP FOR THIS MODULE ─────────
+# `irAtomResolution.test.ts` is zero-tolerance exact-surface (unchanged).
+# This module's own five nouns are ordinary single-word vocab atoms — no
+# bigram-fusion risk the way m33/m37's phrase atoms had. The trap this
+# module DOES carry: a sentence "hay que limpiar el comedor" must credit
+# `["hay que", "limpiar", "comedor"]` — the ALREADY-REGISTERED m37 phrase
+# atom `"hay que"` plus this module's own `"limpiar"` plus this module's
+# own `"comedor"` — never `["hay", "que", "limpiar", "comedor"]` (splitting
+# the m37 phrase atom, the identical face-one credit-vanishing bug m37's
+# own header already flagged, now recurring one module later against a
+# genuinely new object). Any sentence using «tengo que limpiar X» carries
+# the parallel version against m33's own `"tengo que"` atom.
+#
+# ── ES_FUNCTION_WORDS / ES_PROPER_NAMES — DALIA IS THE ONLY FULLY-UNUSED
+#    NAME LEFT, CORRECTING A STALE m37-brief CLAIM ────────────────────────
+# `ES_FUNCTION_WORDS` (`moduleBarGuards.ts:72-88`) is unaffected by this
+# module — no new closed-class word. `ES_PROPER_NAMES`
+# (`moduleBarGuards.ts:90-99`): ana, diego, carlos, maría/maria, sofía/
+# sofia, luis, elena, pedro, juan, rosa, miguel, carmen, lupita, jorge,
+# marta, sam, méxico, mexico, españa, espana, colombia, perú, peru,
+# **dalia**, señor, señora. **Full-course cast check, every `speaker:`
+# field in m1-m37 (not just recent modules, not trusted from any prior
+# brief's own claim):** ana, carlos, carmen, diego, elena, jorge, juan,
+# luis, lupita, marta, maría, miguel, pedro, rosa, sam, sofía all appear
+# at least once. **`es-m37-brief.md`'s own "decisions inferred" section
+# claimed Lupita stayed in reserve after m37** — that claim is now STALE:
+# direct grep of `curriculum/m37.ts` (`grep -io 'speaker: "lupita"'`)
+# shows m37 actually used BOTH Marta and Lupita as speakers, contradicting
+# its own brief's stated plan (a discrepancy between planned and shipped
+# content, recorded here so a future agent doesn't inherit the stale
+# claim unchecked). Every human name in `ES_PROPER_NAMES` has now been
+# used as a `speaker:` at least once EXCEPT `dalia` — confirmed by a
+# dedicated zero-hit grep. **Dalia debuts as this module's own L7
+# dialogue_sim NPC** — the last fully-fresh name in the allowlist; no
+# name will remain in reserve after this module ships (a future module
+# needing a fresh NPC will need to extend `ES_PROPER_NAMES` itself, not
+# merely pick from the existing list).
+#
+# ── SIM NPC-LINE PROVENANCE: LIVE AND UNFORGIVING, m29+ HAS ZERO LEGACY
+#    ALLOWANCE, RECONFIRMED THROUGH m37 ────────────────────────────────────
+# `esSimNpcProvenance.test.ts`'s `KNOWN_LEGACY` allowlist tail is confirmed
+# still `m28` (direct read of the full object, no m29-m37 entries) — this
+# module gets NO reaction-word leniency either. Every NPC word must
+# resolve to: this module's own 6 atoms, any PRIOR atom, a taught verb
+# conjugation, `ES_FUNCTION_WORDS`, or `ES_PROPER_NAMES` — and per
+# `limpiar`'s own bare-infinitive-only scope above, NEVER a conjugated
+# form of `limpiar` in any NPC line either.
+#
+# ── ACCENT: HEALTHY HOUSEPLANT/GARDEN GREEN, VERIFIED UNUSED, DISTINCT
+#    FROM EVERY PRIOR GREEN-FAMILY PAIR ────────────────────────────────────
+# Checked every `accent:` pair in `curriculum/index.ts` (grep-verified,
+# every hex value individually, 66 unique values across ~37 pairs): zero
+# hits for `#16a34a` or `#166534` anywhere as either a `from` or a `to`.
+# The green family is otherwise fully spent (`#047857`/`#059669`/
+# `#10b981`/`#34d399` emerald, `#0d9488`/`#0f766e`/`#115e59`/`#14b8a6`/
+# `#2dd4bf` teal, `#22c55e`/`#15803d` green, `#3f6212`/`#a3e635` lime) —
+# `#16a34a`→`#166534` (Tailwind green-600→green-800) sits in the gap
+# between the emerald and lime clusters, reading as "a healthy houseplant"
+# rather than either of those two existing metaphors, and distinct from
+# `m34`'s own terracotta/clay and every other recent module's accent.
+# ─────────────────────────────────────────────────────────────────────────
+# ── EMOJI COLLISION FOUND DURING GATE RUN (2026-09-10, post-draft) — the
+#    two "obvious" emoji this module's own brief originally assigned were
+#    already bound elsewhere ────────────────────────────────────────────
+# `es-course-integrity.test.ts`'s "an emoji means ONE thing" gate (course-
+# wide, scans every `word_image_mcq` option) failed on first real run:
+# 🍽️ was already bound to «tengo hambre» (m7/m15, e.g. `m7.ts`'s
+# `es-m7-4-ear-hambresed1`) and 🛠️ was already bound to «trabajar» (m10's
+# `es-m10-8-cp-ear-1`) — neither collision was caught while drafting
+# because nothing in this module's own content scans the OTHER 37
+# modules' emoji bindings; only the full-course integrity test does.
+# Reassigned to unused, vendored (`src/pub/noto-emoji/svg/`) emoji instead:
+# «comedor» → 🍜 (steaming bowl, U+1F35C; the more literal 🍴 fork-and-
+# knife is also taken, by «restaurante», m18) and «garaje» → 🔧 (wrench,
+# U+1F527, same tools register as the original 🛠️ without the collision).
+# Every `imageMcq`/`audioWimcq`/`sim.scene` reference to either surface
+# across all 10 lesson fragments was updated in lockstep (sed, verified
+# zero remaining 🍽️/🛠️ hits outside this comment). Lesson: "SVGs already
+# vendored" (true) is not the same claim as "emoji unclaimed course-wide"
+# — the latter needs its own check before drafting, not just after.
+newAtoms:
+  # el dormitorio — bedroom. Regular masculine noun, vowel-final plural
+  # «dormitorios». This module's own L1 debut (image-MCQ intro).
+  - { surface: "dormitorio", meaningEn: "bedroom", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "💤", hint: "el dormitorio — regular masculine, plural «dormitorios». «tengo que limpiar el dormitorio» (m33's «tengo que» + this module's own «limpiar», once it debuts)." }
+  # la sala — living room. Regular feminine noun, vowel-final plural
+  # «salas». L2 debut, paired against «dormitorio» via «está al lado de».
+  - { surface: "sala", meaningEn: "living room", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "📺", hint: "la sala — regular feminine, plural «salas». «la sala está al lado del dormitorio» (m35's «está»/«al lado de», two of this module's own nouns paired for the first time)." }
+  # el comedor — dining room. Regular masculine noun, consonant-final
+  # plural «comedores» (same branch as «hospital», m34). L3 debut — the
+  # first noun to pair with m37's own «hay que».
+  - { surface: "comedor", meaningEn: "dining room", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🍜", hint: "el comedor — regular masculine, plural «comedores» (consonant → +es, same branch as «hospital», m34). «hay que limpiar el comedor» — m37's «hay que», this module's own central new pairing." }
+  # el jardín — garden, yard. Masculine. SINGULAR ONLY this module — see
+  # the header's own landmine section: the regular-plural scope-check has
+  # no «/ín$/» branch and would compute the wrong-Spanish «jardínes»
+  # rather than the correct «jardines». L4 debut.
+  - { surface: "jardín", meaningEn: "garden, yard", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🌻", hint: "el jardín — masculine. Singular-only in this module's own content (see header — the plural «jardines» exists in real Spanish but trips a gate gap; avoided here rather than shipped). «tengo que limpiar el jardín» (m33's «tengo que»)." }
+  # el garaje — garage. Regular masculine noun, vowel-final plural
+  # «garajes». L5 debut — pairs with «está»+«lejos» and «voy a»/«al».
+  - { surface: "garaje", meaningEn: "garage", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🔧", hint: "el garaje — regular masculine, plural «garajes». «el garaje está lejos de la casa» (m35's «lejos»), «voy al garaje» (m9's «voy a»/«al»)." }
+  # limpiar — to clean. BARE INFINITIVE ONLY — see the header's own
+  # dedicated section. This module's one new verb, registered exactly
+  # like m28's own bare «ir»: no person-conjugated form anywhere. Always
+  # immediately after «hay que» (m37) or «tengo que» (m33). L6 debut
+  # (image-MCQ intro, honest emoji, per §13.1's verb rubric), the lesson
+  # where all five of this module's own rooms first take a real verb.
+  - { surface: "limpiar", meaningEn: "to clean", partOfSpeech: "verb", kind: "vocab", emoji: "🧹", hint: "limpiar — the infinitive only; this module never teaches «limpio»/«limpias»/«limpia»/«limpiamos»/«limpian». Always right after «hay que» or «tengo que», the same slot «trabajar»/«estudiar»/«comprar» already fill in m33/m37's own sentences: «hay que limpiar la sala», «tengo que limpiar el garaje»." }
+
+lessons:
+  # ── L1 · «Mi dormitorio es grande» — «dormitorio» debuts. Deduction-first:
+  #    the word shares its root with «dormir» (m14, to sleep) — the room
+  #    where you sleep. Regular masculine, vowel-final plural
+  #    «dormitorios». No «limpiar» yet (debuts L6) — this lesson leans on
+  #    m6 size/quality adjectives and m35's «está»/«cerca»/«lejos» only.
+  #    PRIOR context only: dormir (m14), grande/pequeño/bonito/nuevo/viejo
+  #    (m6), está/el/la/en (m3/m4), cerca/lejos (m35), casa/cocina/baño/
+  #    cuarto (m3/m4). No recall — first lesson of the module.
+  - n: 1
+    template: free
+    title: "Mi dormitorio es grande"
+    description: "«el dormitorio» — the bedroom, from «dormir» (m14), the room where you sleep. Regular masculine noun, plural «dormitorios»."
+    steps:
+      - kind: map
+        id: l1-map-midormitorioesgrande
+        tokens: ["mi", "dormitorio", "es", "grande"]
+        pairs:
+          - { en: "my", tokenIndex: 0 }
+          - { en: "bedroom", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "big", tokenIndex: 3 }
+        audioText: "mi dormitorio es grande"
+        revealNote: "«dormitorio» — from «dormir» (m14, to sleep): the room where you sleep. Regular masculine — «el dormitorio», «un dormitorio», plural «dormitorios»."
+      - kind: imageMcq
+        id: l1-im-dormitorio
+        target: { surface: "dormitorio", meaningEn: "bedroom", emoji: "💤" }
+        distractors:
+          - { surface: "cocina", emoji: "🍳" }
+          - { surface: "baño", emoji: "🚽" }
+          - { surface: "cuarto", emoji: "🛋️" }
+      - kind: info
+        id: l1-info-dormitorio
+        title: "El dormitorio"
+        body: "«el dormitorio» — the bedroom, from «dormir» (m14). Regular masculine: «el dormitorio», «un dormitorio», plural «dormitorios»."
+      - kind: speakLit
+        id: l1-sp-midormitorioesgrande
+        es: "mi dormitorio es grande"
+        en: "My bedroom is big"
+        atoms: ["dormitorio", "grande"]
+      - kind: buildLit
+        id: l1-b-eldormitorioestacercadelacocina
+        es: "el dormitorio está cerca de la cocina"
+        en: "The bedroom is close to the kitchen"
+        atoms: ["el", "dormitorio", "está", "cerca", "de", "la", "cocina"]
+        tiles: ["lejos", "baño"]
+      - kind: clozeLit
+        id: l1-c-tengounacamanuevaeneldormitorio
+        es: "tengo una cama nueva en el dormitorio"
+        en: "I have a new bed in the bedroom"
+        blank: "dormitorio"
+        options: ["dormitorio", "baño"]
+        atoms: ["tengo", "una", "cama", "nuevo", "en", "el", "dormitorio"]
+        why: "Matching the sentence to the picture — «dormitorio», not «baño»."
+      - kind: listenCompLit
+        id: l1-lc-eldormitorioesgrandeynuevo
+        es: "el dormitorio es grande y nuevo"
+        en: "The bedroom is big and new."
+        atoms: ["el", "dormitorio", "es", "grande", "y", "nuevo"]
+        distractorsEn:
+          - "The bedroom is small and new."
+          - "The bathroom is big and new."
+          - "The bedroom is big and old."
+      - kind: mcq
+        id: l1-q-dormitorio
+        prompt: "Which one means 'the bedroom'?"
+        correct: "el dormitorio"
+        distractors: ["la dormitorio", "el dormitorios", "la cocina"]
+        atoms: ["el", "dormitorio"]
+        why: "«dormitorio» is masculine — «el», not «la». And this is the singular word, not «dormitorios»."
+      - kind: buildLit
+        id: l1-b-midormitorioespequenoperobonito
+        es: "mi dormitorio es pequeño pero bonito"
+        en: "My bedroom is small but pretty"
+        atoms: ["dormitorio", "pequeño", "pero", "bonito"]
+        tiles: ["grande", "viejo"]
+      - kind: audioWimcq
+        id: l1-ear-dormitorio
+        target: { surface: "dormitorio", emoji: "💤" }
+        distractors:
+          - { surface: "cocina", emoji: "🍳" }
+          - { surface: "baño", emoji: "🚽" }
+      - kind: agreementLit
+        id: l1-agr-dormitorionuevocasabonita
+        en: "The bedroom is new, and the house is pretty too"
+        audioText: "el dormitorio es nuevo, y la casa es bonita también"
+        atoms: ["dormitorio", "nuevo", "casa", "bonito"]
+        segments:
+          - { text: "el dormitorio es " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y la casa es " }
+          - { blank: { id: "p2", answer: "bonita", options: ["bonita", "bonito"] } }
+      - kind: listenBuildLit
+        id: l1-lb-eldormitorioestacercadelacocinaperolejosdelbano
+        es: "el dormitorio está cerca de la cocina, pero lejos del baño"
+        en: "The bedroom is close to the kitchen, but far from the bathroom"
+        atoms: ["dormitorio", "está", "cerca", "de", "la", "cocina", "pero", "lejos", "baño"]
+        tiles: ["cuarto", "puerta"]
+      - kind: textMcq
+        id: l1-tm-dormitorio
+        target: "dormitorio"
+        distractors: ["dormitorios", "domingo", "dormido"]
+      - kind: sim
+        id: l1-sim-ana-dormitorio
+        scene: { emoji: "💤", title: "Ana shows you her bedroom", setting: "Ana is giving you a tour of her new apartment." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tu dormitorio es grande?", audioText: "¿tu dormitorio es grande?", gloss: "Is your bedroom big?" }
+            goal: "Say yes, your bedroom is big and new."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, mi dormitorio es grande y nuevo" }
+                - { id: "wrong1", text: "sí, mi dormitorio es grande y nueva" }
+                - { id: "wrong2", text: "sí, tu dormitorio es grande y nuevo" }
+              correctOptionId: "right"
+              audioText: "sí, mi dormitorio es grande y nuevo"
+            replyGloss: "Yes, my bedroom is big and new."
+            explanation: "«dormitorio» is masculine, so «nuevo», not «nueva». And «mi», not «tu» — that's your own room."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y la cocina? ¿Está cerca del dormitorio?", audioText: "¿y la cocina? ¿está cerca del dormitorio?", gloss: "And the kitchen? Is it close to the bedroom?" }
+            goal: "Say yes, close, but far from the bathroom."
+            reply:
+              mode: build
+              tiles: ["sí", "está", "cerca", "pero", "lejos", "del", "baño", "lado"]
+              answer: "sí está cerca pero lejos del baño"
+            replyGloss: "Yes, it's close, but far from the bathroom."
+            explanation: "«baño» is masculine, so «del», not «de el». Keep «pero» to contrast «cerca» and «lejos»."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "dormitorio", target: "bedroom" }
+          - { source: "grande", target: "big" }
+          - { source: "pequeño", target: "small" }
+          - { source: "cerca", target: "close" }
+          - { source: "lejos", target: "far" }
+          - { source: "cocina", target: "kitchen" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "mi dormitorio es grande, y está cerca de la cocina"
+        en: "My bedroom is big, and it's close to the kitchen"
+        atoms: ["dormitorio", "grande", "está", "cerca", "de", "la", "cocina"]
+
+  # ── L2 · «La sala está al lado del dormitorio» — «sala» debuts. Regular
+  #    feminine noun, vowel-final plural «salas». First lesson to pair two
+  #    of this module's own rooms via m35's «al lado de». No «limpiar» yet
+  #    (debuts L6). PRIOR: está/al/lado/del (m4/m9/m35), casa/cocina (m3/
+  #    m4), me gusta (m7), nuevo/pequeño/bonito (m6). One recall (L1 win
+  #    line).
+  - n: 2
+    template: free
+    title: "La sala está al lado del dormitorio"
+    description: "«la sala» — living room. Regular feminine, plural «salas». «al lado de» (m35) pairs two of this module's own rooms for the first time."
+    steps:
+      - kind: map
+        id: l2-map-lasalaestaalladodeldormitorio
+        tokens: ["la", "sala", "está", "al", "lado", "del", "dormitorio"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "living room", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "at the", tokenIndex: 3 }
+          - { en: "side", tokenIndex: 4 }
+          - { en: "of the", tokenIndex: 5 }
+          - { en: "bedroom", tokenIndex: 6 }
+        audioText: "la sala está al lado del dormitorio"
+        revealNote: "«sala» — regular feminine, plural «salas». «al lado de» (m35) — «del», not «de el», before a masculine word like «dormitorio»."
+      - kind: imageMcq
+        id: l2-im-sala
+        target: { surface: "sala", meaningEn: "living room", emoji: "📺" }
+        distractors:
+          - { surface: "cocina", emoji: "🍳" }
+          - { surface: "dormitorio", emoji: "💤" }
+          - { surface: "baño", emoji: "🚽" }
+      - kind: speakLit
+        id: l2-sp-recall-l1win
+        es: "mi dormitorio es grande, y está cerca de la cocina"
+        en: "My bedroom is big, and it's close to the kitchen"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l2-b-lasalaestaalladodeldormitorio
+        es: "la sala está al lado del dormitorio"
+        en: "The living room is beside the bedroom"
+        atoms: ["la", "sala", "está", "al", "lado", "dormitorio"]
+        tiles: ["cerca", "lejos"]
+      - kind: clozeLit
+        id: l2-c-lasalaesgrandeybonita
+        es: "la sala es grande y bonita"
+        en: "The living room is big and pretty"
+        blank: "sala"
+        options: ["sala", "cocina"]
+        atoms: ["la", "sala", "es", "grande", "bonito"]
+        why: "Matching the sentence to the picture — «sala», not «cocina»."
+      - kind: listenCompLit
+        id: l2-lc-lasalaestacercadelacocina
+        es: "la sala está cerca de la cocina"
+        en: "The living room is close to the kitchen."
+        atoms: ["la", "sala", "está", "cerca", "de", "la", "cocina"]
+        distractorsEn:
+          - "The living room is far from the kitchen."
+          - "The bedroom is close to the kitchen."
+          - "The living room is close to the bathroom."
+      - kind: mcq
+        id: l2-q-sala
+        prompt: "Which one means 'the living room'?"
+        correct: "la sala"
+        distractors: ["el sala", "la salas", "la cocina"]
+        atoms: ["la", "sala"]
+        why: "«sala» is feminine — «la», not «el». And this is the singular word, not «salas»."
+      - kind: buildLit
+        id: l2-b-megustalasalaesbonita
+        es: "me gusta la sala — es bonita"
+        en: "I like the living room — it's pretty"
+        atoms: ["me gusta", "la", "sala", "es", "bonito"]
+        tiles: ["cocina", "grande"]
+      - kind: audioWimcq
+        id: l2-ear-sala
+        target: { surface: "sala", emoji: "📺" }
+        distractors:
+          - { surface: "dormitorio", emoji: "💤" }
+          - { surface: "cocina", emoji: "🍳" }
+      - kind: agreementLit
+        id: l2-agr-salapequenadormitorionuevo
+        en: "The living room is small, and the bedroom is new too"
+        audioText: "la sala es pequeña, y el dormitorio es nuevo también"
+        atoms: ["sala", "pequeño", "dormitorio", "nuevo"]
+        segments:
+          - { text: "la sala es " }
+          - { blank: { id: "p1", answer: "pequeña", options: ["pequeña", "pequeño"] } }
+          - { text: ", y el dormitorio es " }
+          - { blank: { id: "p2", answer: "nuevo", options: ["nuevo", "nueva"] } }
+      - kind: listenBuildLit
+        id: l2-lb-lasalaestaalladodelacocinaperolejosdeldormitorio
+        es: "la sala está al lado de la cocina, pero lejos del dormitorio"
+        en: "The living room is beside the kitchen, but far from the bedroom"
+        atoms: ["la", "sala", "está", "al", "lado", "de", "la", "cocina", "pero", "lejos", "dormitorio"]
+        tiles: ["cerca", "baño"]
+      - kind: textMcq
+        id: l2-tm-sala
+        target: "sala"
+        distractors: ["sal", "sale", "saludo"]
+      - kind: sim
+        id: l2-sim-diego-sala
+        scene: { emoji: "📺", title: "Diego describes his apartment", setting: "Diego is drawing a little map of his place." }
+        turns:
+          - id: t1
+            npc: { speaker: "Diego", es: "¿Dónde está la sala?", audioText: "¿dónde está la sala?", gloss: "Where is the living room?" }
+            goal: "Say it's beside the bedroom."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "está al lado del dormitorio" }
+                - { id: "wrong1", text: "está al lado de dormitorio" }
+                - { id: "wrong2", text: "está al lado de la dormitorio" }
+              correctOptionId: "right"
+              audioText: "está al lado del dormitorio"
+            replyGloss: "It's beside the bedroom."
+            explanation: "«dormitorio» is masculine, so «del», never a bare «de» or the feminine «la»."
+          - id: t2
+            npc: { speaker: "Diego", es: "¿Te gusta la sala?", audioText: "¿te gusta la sala?", gloss: "Do you like the living room?" }
+            goal: "Say yes, you like it, big and pretty."
+            reply:
+              mode: build
+              tiles: ["sí", "me", "gusta", "es", "grande", "y", "bonita", "pequeña"]
+              answer: "sí me gusta es grande y bonita"
+            replyGloss: "Yes, I like it — it's big and pretty."
+            explanation: "«sala» is feminine, so «bonita», not «bonito»."
+      - kind: matchLit
+        id: l2-match
+        pairs:
+          - { source: "sala", target: "living room" }
+          - { source: "dormitorio", target: "bedroom" }
+          - { source: "al lado de", target: "beside" }
+          - { source: "cerca", target: "close" }
+          - { source: "lejos", target: "far" }
+          - { source: "me gusta", target: "I like it" }
+      - kind: speakLit
+        id: l2-sp-win
+        es: "la sala está al lado del dormitorio, y me gusta — es grande y bonita"
+        en: "The living room is beside the bedroom, and I like it — it's big and pretty"
+        atoms: ["la", "sala", "está", "al", "lado", "dormitorio", "me gusta", "grande", "bonito"]
+
+  # ── L3 · «Hay que comprar sillas para el comedor» — «comedor» debuts.
+  #    Regular masculine noun (consonant-final, plural «comedores»). No
+  #    «limpiar» yet (debuts L6) — pairs the new room with m37's «hay que»
+  #    plus m12's «comprar», a non-limpiar infinitive, to recombine the
+  #    checkpoint-adjacent grammar phrase from the very first room-focused
+  #    lesson. PRIOR: hay que (m37), comprar (m12), sillas/silla (m3), para
+  #    (m2 function word), está/al/lado/del (m4/m9/m35), dormitorio/sala
+  #    (this module). One recall (L2 win line).
+  - n: 3
+    template: free
+    title: "Hay que comprar sillas para el comedor"
+    description: "«el comedor» — the dining room, where you eat. Regular masculine, plural «comedores». Recombines m37's «hay que» with m12's «comprar»."
+    steps:
+      - kind: map
+        id: l3-map-hayquecomprarsillasparaelcomedor
+        tokens: ["hay", "que", "comprar", "sillas", "para", "el", "comedor"]
+        pairs:
+          - { en: "one has to", tokenIndex: 0 }
+          - { en: "(that)", tokenIndex: 1 }
+          - { en: "buy", tokenIndex: 2 }
+          - { en: "chairs", tokenIndex: 3 }
+          - { en: "for", tokenIndex: 4 }
+          - { en: "the", tokenIndex: 5 }
+          - { en: "dining room", tokenIndex: 6 }
+        audioText: "hay que comprar sillas para el comedor"
+        revealNote: "«comedor» — where you eat, from «comer» (m5). Regular masculine: «el comedor», «un comedor», plural «comedores». «hay que» (m37) plus a bare infinitive — no subject."
+      - kind: imageMcq
+        id: l3-im-comedor
+        target: { surface: "comedor", meaningEn: "dining room", emoji: "🍜" }
+        distractors:
+          - { surface: "sala", emoji: "📺" }
+          - { surface: "dormitorio", emoji: "💤" }
+          - { surface: "cocina", emoji: "🍳" }
+      - kind: speakLit
+        id: l3-sp-recall-l2win
+        es: "la sala está al lado del dormitorio, y me gusta — es grande y bonita"
+        en: "The living room is beside the bedroom, and I like it — it's big and pretty"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l3-b-elcomedorestaalladodelacocina
+        es: "el comedor está al lado de la cocina"
+        en: "The dining room is beside the kitchen"
+        atoms: ["el", "comedor", "está", "al", "lado", "de", "la", "cocina"]
+        tiles: ["sala", "dormitorio"]
+      - kind: clozeLit
+        id: l3-c-elcomedoresgrande
+        es: "el comedor es grande"
+        en: "The dining room is big"
+        blank: "comedor"
+        options: ["comedor", "sala"]
+        atoms: ["el", "comedor", "es", "grande"]
+        why: "Matching the sentence to the picture — «comedor», not «sala»."
+      - kind: listenCompLit
+        id: l3-lc-hayquecomprarsillasparaelcomedor
+        es: "hay que comprar sillas para el comedor"
+        en: "One has to buy chairs for the dining room."
+        atoms: ["hay que", "comprar", "silla", "el", "comedor"]
+        distractorsEn:
+          - "One has to buy a table for the dining room."
+          - "One has to buy chairs for the living room."
+          - "I have to buy chairs for the dining room."
+      - kind: mcq
+        id: l3-q-comedor
+        prompt: "Which one means 'the dining room'?"
+        correct: "el comedor"
+        distractors: ["la comedor", "el comedores", "la cocina"]
+        atoms: ["el", "comedor"]
+        why: "«comedor» is masculine — «el», not «la». And this is the singular word, not «comedores»."
+      - kind: buildLit
+        id: l3-b-hayquecomprarunamesaparaelcomedor
+        es: "hay que comprar una mesa para el comedor"
+        en: "One has to buy a table for the dining room"
+        atoms: ["hay que", "comprar", "una", "mesa", "el", "comedor"]
+        tiles: ["sillas", "silla"]
+      - kind: audioWimcq
+        id: l3-ear-comedor
+        target: { surface: "comedor", emoji: "🍜" }
+        distractors:
+          - { surface: "sala", emoji: "📺" }
+          - { surface: "dormitorio", emoji: "💤" }
+      - kind: agreementLit
+        id: l3-agr-comedorpequenosillasnuevas
+        en: "The dining room is small, and the chairs are new too"
+        audioText: "el comedor es pequeño, y las sillas son nuevas también"
+        atoms: ["comedor", "pequeño", "silla", "nuevo"]
+        segments:
+          - { text: "el comedor es " }
+          - { blank: { id: "p1", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+          - { text: ", y las sillas son " }
+          - { blank: { id: "p2", answer: "nuevas", options: ["nuevas", "nuevos"] } }
+      - kind: listenBuildLit
+        id: l3-lb-hayquecomprarsillasparaelcomedorperonoparalasala
+        es: "hay que comprar sillas para el comedor, pero no para la sala"
+        en: "One has to buy chairs for the dining room, but not for the living room"
+        atoms: ["hay que", "comprar", "silla", "el", "comedor", "pero", "no", "la", "sala"]
+        tiles: ["dormitorio", "cocina"]
+      - kind: textMcq
+        id: l3-tm-comedor
+        target: "comedor"
+        distractors: ["comer", "comedores", "comedia"]
+      - kind: sim
+        id: l3-sim-carlos-comedor
+        scene: { emoji: "🍜", title: "Carlos is furnishing his dining room", setting: "Carlos is making a shopping list for his new place." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carlos", es: "¿Qué hay que comprar para el comedor?", audioText: "¿qué hay que comprar para el comedor?", gloss: "What does one have to buy for the dining room?" }
+            goal: "Say one has to buy chairs."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hay que comprar sillas" }
+                - { id: "wrong1", text: "tengo que comprar sillas" }
+                - { id: "wrong2", text: "hay que compra sillas" }
+              correctOptionId: "right"
+              audioText: "hay que comprar sillas"
+            replyGloss: "One has to buy chairs."
+            explanation: "«hay que» is the GENERAL rule — no «yo», no «tú». And the infinitive «comprar» never changes after it."
+          - id: t2
+            npc: { speaker: "Carlos", es: "¿El comedor está al lado de la cocina?", audioText: "¿el comedor está al lado de la cocina?", gloss: "Is the dining room beside the kitchen?" }
+            goal: "Say yes, it's beside the kitchen."
+            reply:
+              mode: build
+              tiles: ["sí", "está", "al", "lado", "de", "la", "cocina", "sala"]
+              answer: "sí está al lado de la cocina"
+            replyGloss: "Yes, it's beside the kitchen."
+            explanation: "«al lado de» (m35) plus «la cocina» — «cocina» is feminine, so no «del» here."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "comedor", target: "dining room" }
+          - { source: "hay que", target: "one has to" }
+          - { source: "comprar", target: "to buy" }
+          - { source: "sillas", target: "chairs" }
+          - { source: "para", target: "for" }
+          - { source: "al lado de", target: "beside" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "hay que comprar sillas para el comedor, y está al lado de la cocina"
+        en: "One has to buy chairs for the dining room, and it's beside the kitchen"
+        atoms: ["hay que", "comprar", "silla", "el", "comedor", "está", "al", "lado", "de", "la", "cocina"]
+
+  # ── L4 · «El jardín está lejos del comedor» — «jardín» debuts.
+  #    LANDMINE: «jardín» is SINGULAR-ONLY in this course — esRegularPlurals
+  #    has no «-ín» branch (would wrongly fold to «jardínes»), so the plural
+  #    is simply never taught or printed. Every MCQ/textMcq distractor below
+  #    is a different word or a gender-swap, never a plural of «jardín».
+  #    Paired against «comedor» (L3, already known) rather than «garaje» —
+  #    «garaje» is THIS module's own L5 debut and must never appear before
+  #    its own first-exposure imageMcq there (inv 44: word_image_mcq is
+  #    first-exposure only — an earlier draft paired jardín against garaje
+  #    here and it tripped that gate). No «limpiar» yet (debuts L6). PRIOR:
+  #    tengo/perro/gato (m5), está/lejos/cerca (m4/m35), grande/pequeño/
+  #    bonito/nuevo (m6), comedor/sala/dormitorio (this module, L1-L3). One
+  #    recall (L3 win line).
+  - n: 4
+    template: free
+    title: "El jardín está lejos del comedor"
+    description: "«el jardín» — the garden/yard. Masculine, and singular-only in this course — you'll never see «jardines»."
+    steps:
+      - kind: map
+        id: l4-map-eljardinestalejosdelcomedor
+        tokens: ["el", "jardín", "está", "lejos", "del", "comedor"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "garden", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "far", tokenIndex: 3 }
+          - { en: "from the", tokenIndex: 4 }
+          - { en: "dining room", tokenIndex: 5 }
+        audioText: "el jardín está lejos del comedor"
+        revealNote: "«jardín» — the garden or yard. Masculine: «el jardín», «un jardín». Keep the accent on the í — «jardin» without it isn't a word."
+      - kind: imageMcq
+        id: l4-im-jardin
+        target: { surface: "jardín", meaningEn: "garden, yard", emoji: "🌻" }
+        distractors:
+          - { surface: "comedor", emoji: "🍜" }
+          - { surface: "sala", emoji: "📺" }
+          - { surface: "dormitorio", emoji: "💤" }
+      - kind: speakLit
+        id: l4-sp-recall-l3win
+        es: "hay que comprar sillas para el comedor, y está al lado de la cocina"
+        en: "One has to buy chairs for the dining room, and it's beside the kitchen"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l4-b-tengounperroeneljardin
+        es: "tengo un perro en el jardín"
+        en: "I have a dog in the garden"
+        atoms: ["tengo", "un", "perro", "en", "el", "jardín"]
+        tiles: ["gato", "comedor"]
+      - kind: clozeLit
+        id: l4-c-eljardinesgrande
+        es: "el jardín es grande"
+        en: "The garden is big"
+        blank: "jardín"
+        options: ["jardín", "comedor"]
+        atoms: ["el", "jardín", "es", "grande"]
+        why: "Matching the sentence to the picture — «jardín», not «comedor»."
+      - kind: listenCompLit
+        id: l4-lc-eljardinestalejosdelcomedor
+        es: "el jardín está lejos del comedor"
+        en: "The garden is far from the dining room."
+        atoms: ["el", "jardín", "está", "lejos", "comedor"]
+        distractorsEn:
+          - "The garden is close to the dining room."
+          - "The bedroom is far from the dining room."
+          - "The garden is far from the living room."
+      - kind: mcq
+        id: l4-q-jardin
+        prompt: "Which one means 'the garden'?"
+        correct: "el jardín"
+        distractors: ["la jardín", "el dormitorio", "el comedor"]
+        atoms: ["el", "jardín"]
+        why: "«jardín» is masculine — «el», not «la»."
+      - kind: buildLit
+        id: l4-b-eljardinespequenoperobonito
+        es: "el jardín es pequeño pero bonito"
+        en: "The garden is small but pretty"
+        atoms: ["jardín", "pequeño", "pero", "bonito"]
+        tiles: ["grande", "nuevo"]
+      - kind: audioWimcq
+        id: l4-ear-jardin
+        target: { surface: "jardín", emoji: "🌻" }
+        distractors:
+          - { surface: "dormitorio", emoji: "💤" }
+          - { surface: "comedor", emoji: "🍜" }
+      - kind: agreementLit
+        id: l4-agr-jardinnuevoperrogrande
+        en: "The garden is new, and the dog is big too"
+        audioText: "el jardín es nuevo, y el perro es grande también"
+        atoms: ["jardín", "nuevo", "perro", "grande"]
+        segments:
+          - { text: "el jardín es " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y el perro es " }
+          - { blank: { id: "p2", answer: "grande", options: ["grande", "grandes"] } }
+      - kind: listenBuildLit
+        id: l4-lb-eljardinestacercadelacasaperolejosdelcomedor
+        es: "el jardín está cerca de la casa, pero lejos del comedor"
+        en: "The garden is close to the house, but far from the dining room"
+        atoms: ["jardín", "está", "cerca", "de", "la", "casa", "pero", "lejos", "comedor"]
+        tiles: ["sala", "dormitorio"]
+      - kind: textMcq
+        id: l4-tm-jardin
+        target: "jardín"
+        distractors: ["jardinero", "jamón", "jarra"]
+      - kind: sim
+        id: l4-sim-elena-jardin
+        scene: { emoji: "🌻", title: "Elena shows you the yard", setting: "Elena is walking you around outside her house." }
+        turns:
+          - id: t1
+            npc: { speaker: "Elena", es: "¿Tienes un perro en el jardín?", audioText: "¿tienes un perro en el jardín?", gloss: "Do you have a dog in the garden?" }
+            goal: "Say yes, you have a dog there."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo un perro en el jardín" }
+                - { id: "wrong1", text: "sí, tengo un perro en la jardín" }
+                - { id: "wrong2", text: "sí, tienes un perro en el jardín" }
+              correctOptionId: "right"
+              audioText: "sí, tengo un perro en el jardín"
+            replyGloss: "Yes, I have a dog in the garden."
+            explanation: "«tengo», not «tienes» — that's YOU, specifically. And «jardín» is masculine, so «el», not «la»."
+          - id: t2
+            npc: { speaker: "Elena", es: "¿Está lejos del comedor?", audioText: "¿está lejos del comedor?", gloss: "Is it far from the dining room?" }
+            goal: "Say no, it's close to the dining room."
+            reply:
+              mode: build
+              tiles: ["no", "está", "cerca", "del", "comedor", "lejos"]
+              answer: "no está cerca del comedor"
+            replyGloss: "No, it's close to the dining room."
+            explanation: "«comedor» is masculine, so «del», never a bare «de»."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "jardín", target: "garden" }
+          - { source: "comedor", target: "dining room" }
+          - { source: "perro", target: "dog" }
+          - { source: "cerca", target: "close" }
+          - { source: "lejos", target: "far" }
+          - { source: "tengo", target: "I have" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "el jardín está lejos del comedor, y tengo un perro"
+        en: "The garden is far from the dining room, and I have a dog"
+        atoms: ["jardín", "está", "lejos", "comedor", "tengo", "perro"]
+
+  # ── L5 · «Voy al garaje» — «garaje» debuts, the last of the 6 new rooms.
+  #    Regular masculine, vowel-final plural «garajes». Recombines m9's
+  #    «voy a»/«al» — the module's one deliberate «voy a + room» sentence,
+  #    paired with m6's «carro» and m36's «bicicleta». No «limpiar» yet
+  #    (debuts L6). PRIOR: voy/al (m9), carro (m6), bicicleta (m36), está/
+  #    cerca/lejos (m4/m35), jardín/comedor/sala/dormitorio (this module).
+  #    One recall (L4 win line).
+  - n: 5
+    template: free
+    title: "Voy al garaje"
+    description: "«el garaje» — the garage. Regular masculine, plural «garajes». «voy al garaje» recombines m9's «voy a» + «al» with a new room."
+    steps:
+      - kind: map
+        id: l5-map-voyalgaraje
+        tokens: ["voy", "al", "garaje"]
+        pairs:
+          - { en: "I'm going", tokenIndex: 0 }
+          - { en: "to the", tokenIndex: 1 }
+          - { en: "garage", tokenIndex: 2 }
+        audioText: "voy al garaje"
+        revealNote: "«garaje» — regular masculine, plural «garajes». «voy al garaje» (m9) — «al», not «a el», before a masculine word."
+      - kind: imageMcq
+        id: l5-im-garaje
+        target: { surface: "garaje", meaningEn: "garage", emoji: "🔧" }
+        distractors:
+          - { surface: "jardín", emoji: "🌻" }
+          - { surface: "comedor", emoji: "🍜" }
+          - { surface: "sala", emoji: "📺" }
+      - kind: speakLit
+        id: l5-sp-recall-l4win
+        es: "el jardín está lejos del comedor, y tengo un perro"
+        en: "The garden is far from the dining room, and I have a dog"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l5-b-tengounbicicletaenelgaraje
+        es: "tengo una bicicleta en el garaje"
+        en: "I have a bicycle in the garage"
+        atoms: ["tengo", "una", "bicicleta", "en", "el", "garaje"]
+        tiles: ["carro", "jardín"]
+      - kind: clozeLit
+        id: l5-c-elgarajeesgrande
+        es: "el garaje es grande"
+        en: "The garage is big"
+        blank: "garaje"
+        options: ["garaje", "jardín"]
+        atoms: ["el", "garaje", "es", "grande"]
+        why: "Matching the sentence to the picture — «garaje», not «jardín»."
+      - kind: listenCompLit
+        id: l5-lc-voyalgarajeportucarro
+        es: "voy al garaje por tu carro"
+        en: "I'm going to the garage for your car."
+        atoms: ["voy", "al", "garaje", "tu", "carro"]
+        distractorsEn:
+          - "I'm going to the garage for your bicycle."
+          - "I'm going to the garden for your car."
+          - "You're going to the garage for your car."
+      - kind: mcq
+        id: l5-q-garaje
+        prompt: "Which one means 'the garage'?"
+        correct: "el garaje"
+        distractors: ["la garaje", "el garajes", "el jardín"]
+        atoms: ["el", "garaje"]
+        why: "«garaje» is masculine — «el», not «la». And this is the singular word, not «garajes»."
+      - kind: buildLit
+        id: l5-b-voyalgarajeperoelcarroestaeneljardin
+        es: "voy al garaje, pero el carro está en el jardín"
+        en: "I'm going to the garage, but the car is in the garden"
+        atoms: ["voy", "al", "garaje", "pero", "el", "carro", "está", "jardín"]
+        tiles: ["comedor", "bicicleta"]
+      - kind: audioWimcq
+        id: l5-ear-garaje
+        target: { surface: "garaje", emoji: "🔧" }
+        distractors:
+          - { surface: "jardín", emoji: "🌻" }
+          - { surface: "comedor", emoji: "🍜" }
+      - kind: agreementLit
+        id: l5-agr-garajepequenobicicletanueva
+        en: "The garage is small, and the bicycle is new too"
+        audioText: "el garaje es pequeño, y la bicicleta es nueva también"
+        atoms: ["garaje", "pequeño", "bicicleta", "nuevo"]
+        segments:
+          - { text: "el garaje es " }
+          - { blank: { id: "p1", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+          - { text: ", y la bicicleta es " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l5-lb-voyalgarajeperoeljardinestacercadelacasa
+        es: "voy al garaje, pero el jardín está cerca de la casa"
+        en: "I'm going to the garage, but the garden is close to the house"
+        atoms: ["voy", "al", "garaje", "pero", "jardín", "está", "cerca", "de", "la", "casa"]
+        tiles: ["comedor", "sala"]
+      - kind: textMcq
+        id: l5-tm-garaje
+        target: "garaje"
+        distractors: ["garajes", "garantía", "gara"]
+      - kind: sim
+        id: l5-sim-miguel-garaje
+        scene: { emoji: "🔧", title: "Miguel needs the car", setting: "Miguel is heading out and needs his car from the garage." }
+        turns:
+          - id: t1
+            npc: { speaker: "Miguel", es: "¿Adónde vas?", audioText: "¿adónde vas?", gloss: "Where are you going?" }
+            goal: "Say you're going to the garage."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "voy al garaje" }
+                - { id: "wrong1", text: "voy a el garaje" }
+                - { id: "wrong2", text: "voy a la garaje" }
+              correctOptionId: "right"
+              audioText: "voy al garaje"
+            replyGloss: "I'm going to the garage."
+            explanation: "«al», not «a el» — «a» plus «el» always fuses. «garaje» is masculine."
+          - id: t2
+            npc: { speaker: "Miguel", es: "¿Está cerca del jardín?", audioText: "¿está cerca del jardín?", gloss: "Is it close to the garden?" }
+            goal: "Say yes, it's close."
+            reply:
+              mode: build
+              tiles: ["sí", "está", "cerca", "lejos", "también"]
+              answer: "sí está cerca"
+            replyGloss: "Yes, it's close."
+            explanation: "«cerca», not «lejos» — the garage is right by the garden."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "garaje", target: "garage" }
+          - { source: "voy", target: "I'm going" }
+          - { source: "al", target: "to the" }
+          - { source: "carro", target: "car" }
+          - { source: "bicicleta", target: "bicycle" }
+          - { source: "jardín", target: "garden" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "voy al garaje por mi bicicleta"
+        en: "I'm going to the garage for my bicycle"
+        atoms: ["voy", "al", "garaje", "bicicleta"]
+
+  # ── L6 · «Hay que limpiar la casa» — «limpiar» debuts, BARE INFINITIVE
+  #    ONLY. This atom is never conjugated anywhere in this module —
+  #    always after «hay que» (m37), «quiero» (m7), or «voy a» (m9's «voy»
+  #    + m28's «ir»-family «a + infinitive»). NEVER print «limpio»,
+  #    «limpias», «limpia», «limpiamos», «limpian», or any preterite/
+  #    imperfect form. Recombines all 5 rooms from this module for the
+  #    first time in one lesson. PRIOR: hay que (m37), quiero (m7), voy/al
+  #    (m9), dormitorio/sala/comedor/jardín/garaje (this module). One
+  #    recall (L5 win line).
+  - n: 6
+    template: free
+    title: "Hay que limpiar la casa"
+    description: "«limpiar» — to clean. You'll only ever see it as a bare infinitive: «hay que limpiar», «quiero limpiar», «voy a limpiar» — never conjugated."
+    steps:
+      - kind: map
+        id: l6-map-hayquelimpiarlacasa
+        tokens: ["hay", "que", "limpiar", "la", "casa"]
+        pairs:
+          - { en: "one has to", tokenIndex: 0 }
+          - { en: "(that)", tokenIndex: 1 }
+          - { en: "clean", tokenIndex: 2 }
+          - { en: "the", tokenIndex: 3 }
+          - { en: "house", tokenIndex: 4 }
+        audioText: "hay que limpiar la casa"
+        revealNote: "«limpiar» — to clean. It always stays a bare infinitive after «hay que», «quiero», or «voy a» — you won't be asked to conjugate it."
+      - kind: imageMcq
+        id: l6-im-limpiar
+        target: { surface: "limpiar", meaningEn: "to clean", emoji: "🧹" }
+        distractors:
+          - { surface: "comprar", emoji: "🛍️" }
+          - { surface: "trabajar", emoji: "👷" }
+          - { surface: "estudiar", emoji: "📚" }
+      - kind: speakLit
+        id: l6-sp-recall-l5win
+        es: "voy al garaje por mi bicicleta"
+        en: "I'm going to the garage for my bicycle"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l6-b-quierolimpiarelcomedor
+        es: "quiero limpiar el comedor"
+        en: "I want to clean the dining room"
+        atoms: ["quiero", "limpiar", "el", "comedor"]
+        tiles: ["sala", "dormitorio"]
+      - kind: clozeLit
+        id: l6-c-hayquelimpiarelbano
+        es: "hay que limpiar el baño"
+        en: "One has to clean the bathroom"
+        blank: "limpiar"
+        options: ["limpiar", "comprar"]
+        atoms: ["hay que", "limpiar", "el", "baño"]
+        why: "«limpiar» — to clean, matching the picture, not «comprar»."
+      - kind: listenCompLit
+        id: l6-lc-voyalimpiarlasala
+        es: "voy a limpiar la sala"
+        en: "I'm going to clean the living room."
+        atoms: ["voy", "a", "limpiar", "la", "sala"]
+        distractorsEn:
+          - "I'm going to clean the dining room."
+          - "I'm going to buy the living room furniture."
+          - "You're going to clean the living room."
+      - kind: mcq
+        id: l6-q-limpiar
+        prompt: "Which one means 'to clean'?"
+        correct: "limpiar"
+        distractors: ["estudiar", "trabajar", "comprar"]
+        atoms: ["limpiar"]
+        why: "«limpiar» is the infinitive — the plain, uncoined form, like English \"to clean\". It never changes after «hay que», «quiero», or «voy a»."
+      - kind: buildLit
+        id: l6-b-hayquelimpiareljardinytambienelgaraje
+        es: "hay que limpiar el jardín, y también el garaje"
+        en: "One has to clean the garden, and also the garage"
+        atoms: ["hay que", "limpiar", "el", "jardín", "también", "el", "garaje"]
+        tiles: ["comedor", "sala"]
+      - kind: audioWimcq
+        id: l6-ear-limpiar
+        target: { surface: "limpiar", emoji: "🧹" }
+        distractors:
+          - { surface: "comprar", emoji: "🛍️" }
+          - { surface: "trabajar", emoji: "👷" }
+      - kind: agreementLit
+        id: l6-agr-dormitorioviejocomedorbonito
+        en: "The bedroom is old, and the dining room is pretty too"
+        audioText: "el dormitorio es viejo, y el comedor es bonito también"
+        atoms: ["dormitorio", "viejo", "comedor", "bonito"]
+        segments:
+          - { text: "el dormitorio es " }
+          - { blank: { id: "p1", answer: "viejo", options: ["viejo", "vieja"] } }
+          - { text: ", y el comedor es " }
+          - { blank: { id: "p2", answer: "bonito", options: ["bonito", "bonita"] } }
+      - kind: listenBuildLit
+        id: l6-lb-hayquelimpiarlacasaperoquierolimpiarelgaraje
+        es: "hay que limpiar la casa, pero quiero limpiar el garaje"
+        en: "One has to clean the house, but I want to clean the garage"
+        atoms: ["hay que", "limpiar", "la", "casa", "pero", "quiero", "limpiar", "el", "garaje"]
+        tiles: ["jardín", "sala"]
+      - kind: textMcq
+        id: l6-tm-limpiar
+        target: "limpiar"
+        distractors: ["limpiador", "limpieza", "limitar"]
+      - kind: sim
+        id: l6-sim-rosa-limpiar
+        scene: { emoji: "🧹", title: "Rosa is planning chores", setting: "Rosa is making a cleaning list for the weekend." }
+        turns:
+          - id: t1
+            npc: { speaker: "Rosa", es: "¿Qué hay que limpiar hoy?", audioText: "¿qué hay que limpiar hoy?", gloss: "What does one have to clean today?" }
+            goal: "Say one has to clean the kitchen."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hay que limpiar la cocina" }
+                - { id: "wrong1", text: "quiero limpiar la cocina" }
+                - { id: "wrong2", text: "hay que limpiar cocina" }
+              correctOptionId: "right"
+              audioText: "hay que limpiar la cocina"
+            replyGloss: "One has to clean the kitchen."
+            explanation: "Match «hay que» from the question, not «quiero». And keep «la» before «cocina» — the infinitive «limpiar» itself never changes."
+          - id: t2
+            npc: { speaker: "Rosa", es: "¿Quieres limpiar el jardín también?", audioText: "¿quieres limpiar el jardín también?", gloss: "Do you want to clean the garden too?" }
+            goal: "Say yes, you want to clean it."
+            reply:
+              mode: build
+              tiles: ["sí", "quiero", "limpiar", "el", "jardín", "garaje"]
+              answer: "sí quiero limpiar el jardín"
+            replyGloss: "Yes, I want to clean it."
+            explanation: "«quiero» (m7) plus the bare infinitive «limpiar» — never «limpio» here, that's a different word entirely."
+      - kind: matchLit
+        id: l6-match
+        pairs:
+          - { source: "limpiar", target: "to clean" }
+          - { source: "hay que", target: "one has to" }
+          - { source: "quiero", target: "I want" }
+          - { source: "voy a", target: "I'm going to" }
+          - { source: "también", target: "also" }
+          - { source: "garaje", target: "garage" }
+      - kind: speakLit
+        id: l6-sp-win
+        es: "hay que limpiar la casa, y quiero limpiar el jardín también"
+        en: "One has to clean the house, and I want to clean the garden too"
+        atoms: ["hay que", "limpiar", "la", "casa", "quiero", "jardín"]
+
+  # ── L7 · Recombination — «me gusta» (m7) meets all 5 of this module's
+  #    rooms plus «hay que limpiar» (still bare infinitive) in one lesson.
+  #    Zero new atoms. Dalia debuts as NPC (last unused name in
+  #    ES_PROPER_NAMES — already present in moduleBarGuards.ts, no code
+  #    change needed). One recall (L6 win line). PRIOR: me gusta (m7),
+  #    hay que (m37), limpiar/dormitorio/sala/comedor/jardín/garaje (this
+  #    module), dónde/está (m4), cerca/lejos (m35), viejo/nuevo/grande/
+  #    pequeño (m6), quiero (m7), también (function word).
+  - n: 7
+    template: free
+    title: "Me gusta la casa, pero hay que limpiar"
+    description: "A full walk through the house — every room from this module, plus a review of «hay que limpiar». No new words."
+    steps:
+      - kind: map
+        id: l7-map-megustalacasaperohayquelimpiar
+        tokens: ["me gusta", "la casa", "pero", "hay que limpiar"]
+        pairs:
+          - { en: "I like it", tokenIndex: 0 }
+          - { en: "the house", tokenIndex: 1 }
+          - { en: "but", tokenIndex: 2 }
+          - { en: "one has to clean", tokenIndex: 3 }
+        audioText: "me gusta la casa, pero hay que limpiar"
+        revealNote: "Review lesson — every room from this module in one walk, plus «hay que limpiar», still a bare infinitive."
+      - kind: speakLit
+        id: l7-sp-recall-l6win
+        es: "hay que limpiar la casa, y quiero limpiar el jardín también"
+        en: "One has to clean the house, and I want to clean the garden too"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: l7-c-megustaelcomedor
+        es: "me gusta el comedor"
+        en: "I like the dining room"
+        blank: "comedor"
+        options: ["comedor", "sala"]
+        atoms: ["me gusta", "el", "comedor"]
+        why: "Matching the sentence to the picture — «comedor», not «sala»."
+      - kind: buildLit
+        id: l7-b-dondeestaeljardin
+        es: "¿dónde está el jardín?"
+        en: "Where is the garden?"
+        atoms: ["dónde", "está", "el", "jardín"]
+        tiles: ["garaje", "comedor"]
+      - kind: mcq
+        id: l7-q-megusta
+        prompt: "Which one means 'I like it'?"
+        correct: "me gusta"
+        distractors: ["me gustan", "te gusta", "gusta"]
+        atoms: ["me gusta"]
+        why: "«me gusta» — the whole phrase, for one thing liked. Not «te gusta» (that's YOU liking it), not the bare «gusta» alone."
+      - kind: listenCompLit
+        id: l7-lc-eljardinestacercadelacasaperoelgarajeestalejos
+        es: "el jardín está cerca de la casa, pero el garaje está lejos"
+        en: "The garden is close to the house, but the garage is far."
+        atoms: ["el", "jardín", "está", "cerca", "de", "la", "casa", "pero", "el", "garaje", "lejos"]
+        distractorsEn:
+          - "The garden is far from the house, but the garage is close."
+          - "The garden is close to the garage, but the house is far."
+          - "The dining room is close to the house, but the garage is far."
+      - kind: audioWimcq
+        id: l7-ear-comedor
+        target: { surface: "comedor", emoji: "🍜" }
+        distractors:
+          - { surface: "sala", emoji: "📺" }
+          - { surface: "dormitorio", emoji: "💤" }
+      - kind: buildLit
+        id: l7-b-hayquelimpiareldormitorioylasala
+        es: "hay que limpiar el dormitorio y la sala"
+        en: "One has to clean the bedroom and the living room"
+        atoms: ["hay que", "limpiar", "el", "dormitorio", "y", "la", "sala"]
+        tiles: ["comedor", "garaje"]
+      - kind: agreementLit
+        id: l7-agr-comedorviejojardinnuevo
+        en: "The dining room is old, and the garden is new too"
+        audioText: "el comedor es viejo, y el jardín es nuevo también"
+        atoms: ["comedor", "viejo", "jardín", "nuevo"]
+        segments:
+          - { text: "el comedor es " }
+          - { blank: { id: "p1", answer: "viejo", options: ["viejo", "vieja"] } }
+          - { text: ", y el jardín es " }
+          - { blank: { id: "p2", answer: "nuevo", options: ["nuevo", "nueva"] } }
+      - kind: listenBuildLit
+        id: l7-lb-quierolimpiarelgarajeytambienhayquelimpiarlacocina
+        es: "quiero limpiar el garaje, y también hay que limpiar la cocina"
+        en: "I want to clean the garage, and one also has to clean the kitchen"
+        atoms: ["quiero", "limpiar", "el", "garaje", "también", "hay que", "limpiar", "la", "cocina"]
+        tiles: ["jardín", "sala"]
+      - kind: textMcq
+        id: l7-tm-comedor
+        target: "comedor"
+        distractors: ["comer", "comedores", "comedia"]
+      - kind: sim
+        id: l7-sim-dalia-casa
+        scene: { emoji: "🏠", title: "Dalia shows you around", setting: "Dalia is giving you the full tour of her house." }
+        turns:
+          - id: t1
+            npc: { speaker: "Dalia", es: "¿Te gusta la casa?", audioText: "¿te gusta la casa?", gloss: "Do you like the house?" }
+            goal: "Say yes, you like it a lot."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me gusta mucho" }
+                - { id: "wrong1", text: "sí, te gusta mucho" }
+                - { id: "wrong2", text: "sí, me gustan mucho" }
+              correctOptionId: "right"
+              audioText: "sí, me gusta mucho"
+            replyGloss: "Yes, I like it a lot."
+            explanation: "«me gusta» — YOU liking it, one thing (the house). Not «te gusta» (that's Dalia liking it) and not «gustan» (that's for more than one thing)."
+          - id: t2
+            npc: { speaker: "Dalia", es: "¿Qué hay que limpiar todavía?", audioText: "¿qué hay que limpiar todavía?", gloss: "What does one still have to clean?" }
+            goal: "Say one has to clean the garage."
+            reply:
+              mode: build
+              tiles: ["hay", "que", "limpiar", "el", "garaje", "quiero"]
+              answer: "hay que limpiar el garaje"
+            replyGloss: "One has to clean the garage."
+            explanation: "«hay que» plus the bare infinitive «limpiar» — the GENERAL rule, no subject."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "me gusta", target: "I like it" }
+          - { source: "hay que limpiar", target: "one has to clean" }
+          - { source: "dónde está", target: "where is" }
+          - { source: "jardín", target: "garden" }
+          - { source: "comedor", target: "dining room" }
+          - { source: "también", target: "also" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "me gusta la casa, pero hay que limpiar el garaje todavía"
+        en: "I like the house, but one still has to clean the garage"
+        atoms: ["me gusta", "la", "casa", "pero", "hay que", "limpiar", "el", "garaje", "todavía"]
+
+  # ── L8 · Checkpoint — all graded, no map/imageMcq/info (mirrors m37-L8's
+  #    own checkpoint shape). Pure recombination of L1-L7: all 5 rooms,
+  #    «hay que limpiar» (still bare infinitive), «me gusta», «voy a»,
+  #    «dónde está», «cerca»/«lejos». Two recalls, from L7 and L1's win
+  #    lines. Ends sim → matchLit → speakLit-win. Every MCQ correct answer
+  #    kept ≤3 tokens and never sentence-shaped (inv 28 — checkpoint is
+  #    NOT exempt, only L10 mastery is).
+  - n: 8
+    template: free
+    title: "Checkpoint: la casa"
+    description: "Every room, plus «hay que limpiar» and «me gusta», all recombined."
+    steps:
+      - kind: speakLit
+        id: l8-sp-recall-l7win
+        es: "me gusta la casa, pero hay que limpiar el garaje todavía"
+        en: "I like the house, but one still has to clean the garage"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-eldormitorioylasalaestancercadelacocina
+        es: "el dormitorio y la sala están cerca de la cocina"
+        en: "The bedroom and the living room are close to the kitchen"
+        atoms: ["el", "dormitorio", "y", "la", "sala", "está", "cerca", "de", "la", "cocina"]
+        tiles: ["comedor", "lejos"]
+      - kind: clozeLit
+        id: l8-c-hayquelimpiarelcomedor
+        es: "hay que limpiar el comedor"
+        en: "One has to clean the dining room"
+        blank: "comedor"
+        options: ["comedor", "jardín"]
+        atoms: ["hay que", "limpiar", "el", "comedor"]
+        why: "Matching the sentence to the picture — «comedor», not «jardín»."
+      - kind: listenCompLit
+        id: l8-lc-voyaljardinperoelgarajeestacerca
+        es: "voy al jardín, pero el garaje está cerca"
+        en: "I'm going to the garden, but the garage is close."
+        atoms: ["voy", "al", "jardín", "pero", "el", "garaje", "está", "cerca"]
+        distractorsEn:
+          - "I'm going to the garage, but the garden is close."
+          - "I'm going to the garden, but the garage is far."
+          - "One is going to the garden, but the garage is close."
+      - kind: mcq
+        id: l8-q-megustavstegustafoil
+        prompt: "Which one means 'I like it' (talking about the garden)?"
+        correct: "me gusta"
+        distractors: ["te gusta", "me gustan", "gusta"]
+        atoms: ["me gusta"]
+        why: "YOU liking it — «me gusta», one thing. Not «te gusta» (that's someone else) and not «gustan» (that's for more than one thing)."
+      - kind: speakLit
+        id: l8-sp-recall-l1win
+        es: "mi dormitorio es grande, y está cerca de la cocina"
+        en: "My bedroom is big, and it's close to the kitchen"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-quierolimpiarelgarajeperotambienhayquelimpiareljardin
+        es: "quiero limpiar el garaje, pero también hay que limpiar el jardín"
+        en: "I want to clean the garage, but one also has to clean the garden"
+        atoms: ["quiero", "limpiar", "el", "garaje", "pero", "también", "hay que", "limpiar", "el", "jardín"]
+        tiles: ["comedor", "sala"]
+      - kind: audioWimcq
+        id: l8-ear-dormitorio
+        target: { surface: "dormitorio", emoji: "💤" }
+        distractors:
+          - { surface: "comedor", emoji: "🍜" }
+          - { surface: "garaje", emoji: "🔧" }
+      - kind: agreementLit
+        id: l8-agr-salaviejacomedorviejo
+        en: "The living room is old, and the dining room is old too"
+        audioText: "la sala es vieja, y el comedor es viejo también"
+        atoms: ["sala", "viejo", "comedor"]
+        segments:
+          - { text: "la sala es " }
+          - { blank: { id: "p1", answer: "vieja", options: ["vieja", "viejo"] } }
+          - { text: ", y el comedor es " }
+          - { blank: { id: "p2", answer: "viejo", options: ["viejo", "vieja"] } }
+      - kind: listenBuildLit
+        id: l8-lb-eldormitorioestaalladodelasala
+        es: "el dormitorio está al lado de la sala"
+        en: "The bedroom is beside the living room"
+        atoms: ["el", "dormitorio", "está", "al", "lado", "de", "la", "sala"]
+        tiles: ["comedor", "jardín"]
+      - kind: textMcq
+        id: l8-tm-garaje
+        target: "garaje"
+        distractors: ["garajes", "garantía", "gara"]
+      - kind: sim
+        id: l8-sim-jorge-checkpoint
+        scene: { emoji: "🏁", title: "Checkpoint check-in", setting: "Jorge checks in on the house tour." }
+        turns:
+          - id: t1
+            npc: { speaker: "Jorge", es: "¿Qué hay que limpiar hoy?", audioText: "¿qué hay que limpiar hoy?", gloss: "What does one have to clean today?" }
+            goal: "Say one has to clean the garden."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hay que limpiar el jardín" }
+                - { id: "wrong1", text: "quiero limpiar el jardín" }
+                - { id: "wrong2", text: "hay que limpiar jardín" }
+              correctOptionId: "right"
+              audioText: "hay que limpiar el jardín"
+            replyGloss: "One has to clean the garden."
+            explanation: "Jorge asked with «hay que», so match it — and keep «el» before «jardín»."
+          - id: t2
+            npc: { speaker: "Jorge", es: "¿Dónde está el garaje?", audioText: "¿dónde está el garaje?", gloss: "Where is the garage?" }
+            goal: "Say it's close, beside the garden."
+            reply:
+              mode: build
+              tiles: ["está", "cerca", "al", "lado", "del", "jardín", "lejos"]
+              answer: "está cerca al lado del jardín"
+            replyGloss: "It's close, beside the garden."
+            explanation: "«jardín» is masculine, so «del», never a bare «de»."
+      - kind: matchLit
+        id: l8-match
+        pairs:
+          - { source: "dormitorio", target: "bedroom" }
+          - { source: "sala", target: "living room" }
+          - { source: "comedor", target: "dining room" }
+          - { source: "jardín", target: "garden" }
+          - { source: "garaje", target: "garage" }
+          - { source: "hay que limpiar", target: "one has to clean" }
+      - kind: speakLit
+        id: l8-sp-win
+        es: "hay que limpiar el jardín, pero me gusta la casa"
+        en: "One has to clean the garden, but I like the house"
+        atoms: ["hay que", "limpiar", "el", "jardín", "pero", "me gusta", "la", "casa"]
+
+  # ── L9 · Cross-recombination — no new atom. Threads this module's rooms
+  #    and «hay que limpiar» through m34's destinations (banco/farmacia/
+  #    hospital/correo/supermercado), m14's puedo/querer, m16's necesito,
+  #    and the singular-only «jardín» rule one more time before mastery.
+  #    Short optional info card recapping both landmines (jardín singular,
+  #    limpiar bare infinitive). One recall (L8's win line). No new atoms.
+  - n: 9
+    template: free
+    title: "Hay que limpiar, y voy al banco"
+    description: "Everything, together — every room, «hay que limpiar», and a quick errand, one more time before the finish line."
+    steps:
+      - kind: info
+        id: l9-info-recap
+        title: "Dos reglas para recordar"
+        body: "«jardín» is singular-only in this course — it never takes a plural ending. And «limpiar» always stays a bare infinitive after «hay que», «quiero», or «voy a» — never conjugated."
+      - kind: speakLit
+        id: l9-sp-recall
+        es: "hay que limpiar el jardín, pero me gusta la casa"
+        en: "One has to clean the garden, but I like the house"
+        atoms: ["hay que", "limpiar", "el", "jardín", "pero", "me gusta", "la", "casa"]
+        cue: recall
+      - kind: clozeLit
+        id: l9-c-necesitolimpiarelgaraje
+        es: "necesito limpiar el garaje hoy"
+        en: "I need to clean the garage today"
+        blank: "garaje"
+        options: ["garaje", "jardín"]
+        atoms: ["necesito", "limpiar", "el", "garaje", "hoy"]
+        why: "Matching the sentence to the picture — «garaje», not «jardín»."
+      - kind: buildLit
+        id: l9-b-puedolimpiarlacocinayvoyalbanco
+        es: "puedo limpiar la cocina, y voy al banco"
+        en: "I can clean the kitchen, and I'm going to the bank"
+        atoms: ["puedo", "limpiar", "la", "cocina", "voy", "al", "banco"]
+        tiles: ["hay que", "comedor"]
+      - kind: mcq
+        id: l9-q-hayquevsnecesito
+        prompt: "Which one means 'one has to clean' (any house, not just yours)?"
+        correct: "hay que limpiar"
+        distractors: ["necesito limpiar", "tengo que limpiar", "hay limpiar"]
+        atoms: ["hay que", "limpiar"]
+        why: "A rule for any house — «hay que», not «necesito» or «tengo que». And «limpiar» stays bare."
+      - kind: listenCompLit
+        id: l9-lc-voyasupermercadoperoprimerohayquelimpiarlasala
+        es: "voy al supermercado, pero también hay que limpiar la sala"
+        en: "I'm going to the supermarket, but one also has to clean the living room."
+        atoms: ["voy", "al", "supermercado", "pero", "también", "hay que", "limpiar", "la", "sala"]
+        distractorsEn:
+          - "I'm going to the supermarket, but one also has to clean the dining room."
+          - "I'm going to the pharmacy, but one also has to clean the living room."
+          - "You're going to the supermarket, but one also has to clean the living room."
+      - kind: audioWimcq
+        id: l9-ear-jardin
+        target: { surface: "jardín", emoji: "🌻" }
+        distractors:
+          - { surface: "garaje", emoji: "🔧" }
+          - { surface: "comedor", emoji: "🍜" }
+      - kind: buildLit
+        id: l9-b-quierolimpiareldormitorioyvoyalafarmacia
+        es: "quiero limpiar el dormitorio, y voy a la farmacia"
+        en: "I want to clean the bedroom, and I'm going to the pharmacy"
+        atoms: ["quiero", "limpiar", "el", "dormitorio", "voy", "a", "la", "farmacia"]
+        tiles: ["hay que", "garaje"]
+      - kind: agreementLit
+        id: l9-agr-jardinpequenocorreopequeno
+        en: "The garden is small, and the post office is small too"
+        audioText: "el jardín es pequeño, y el correo es pequeño también"
+        atoms: ["jardín", "pequeño", "correo"]
+        segments:
+          - { text: "el jardín es " }
+          - { blank: { id: "p1", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+          - { text: ", y el correo es " }
+          - { blank: { id: "p2", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+      - kind: listenBuildLit
+        id: l9-lb-hayquelimpiarelcomedorperopuedoirenbicicletaalhospital
+        es: "hay que limpiar el comedor, pero puedo ir en bicicleta al hospital"
+        en: "One has to clean the dining room, but I can go by bicycle to the hospital"
+        atoms: ["hay que", "limpiar", "el", "comedor", "pero", "puedo", "ir", "en", "bicicleta", "al", "hospital"]
+        tiles: ["jardín", "sala"]
+      - kind: textMcq
+        id: l9-tm-jardin
+        target: "jardín"
+        distractors: ["jardinero", "jamón", "jarra"]
+      - kind: sim
+        id: l9-sim-sofia-limpiar
+        scene: { emoji: "🧹", title: "Sofía is finishing chores", setting: "Sofía is finishing chores before an errand." }
+        turns:
+          - id: t1
+            npc: { speaker: "Sofía", es: "¿Qué hay que limpiar hoy?", audioText: "¿qué hay que limpiar hoy?", gloss: "What does one have to clean today?" }
+            goal: "Say one has to clean the garage."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hay que limpiar el garaje" }
+                - { id: "wrong1", text: "necesito limpiar el garaje" }
+                - { id: "wrong2", text: "hay que limpiar garaje" }
+              correctOptionId: "right"
+              audioText: "hay que limpiar el garaje"
+            replyGloss: "One has to clean the garage."
+            explanation: "Sofía asked with «hay que», so match it — and keep «el» before «garaje»."
+          - id: t2
+            npc: { speaker: "Sofía", es: "¿Vas al banco también?", audioText: "¿vas al banco también?", gloss: "Are you going to the bank too?" }
+            goal: "Say yes, you're going to the bank."
+            reply:
+              mode: build
+              tiles: ["sí", "voy", "al", "banco", "farmacia"]
+              answer: "sí voy al banco"
+            replyGloss: "Yes, I'm going to the bank."
+            explanation: "«voy al banco» (m9's «voy» + «al») — «banco» is masculine."
+      - kind: matchLit
+        id: l9-match
+        pairs:
+          - { source: "hay que limpiar", target: "one has to clean" }
+          - { source: "necesito", target: "I need" }
+          - { source: "puedo", target: "I can" }
+          - { source: "también", target: "also" }
+          - { source: "jardín", target: "garden" }
+          - { source: "garaje", target: "garage" }
+      - kind: speakLit
+        id: l9-sp-win
+        es: "hay que limpiar el jardín, y voy al banco"
+        en: "One has to clean the garden, and I'm going to the bank"
+        atoms: ["hay que", "limpiar", "el", "jardín", "voy", "al", "banco"]
+
+  # ── L10 · Mastery — all graded, no map/info (mirrors m37-L10's own
+  #    mastery shape: no trailing matchLit/speakLit after sim; matchLit
+  #    moves BEFORE sim). Recombines every strand: all 5 rooms, «hay que
+  #    limpiar» (still bare infinitive, never conjugated), «me gusta»,
+  #    «quiero»/«puedo»/«voy a», «dónde está», singular-only «jardín».
+  #    Two recalls (L9 and L2 win lines, different lessons, neither
+  #    recalled together before). Full-sentence MCQ is legal here only
+  #    (inv 28, L10 mastery exemption). LAST step is the sim — no
+  #    matchLit/speakLit after it.
+  - n: 10
+    template: free
+    title: "Mastery: la casa"
+    description: "Every room, «hay que limpiar», and everything they've been recombined with — all in one last pass."
+    steps:
+      - kind: speakLit
+        id: l10-sp-recall-l9win
+        es: "hay que limpiar el jardín, y voy al banco"
+        en: "One has to clean the garden, and I'm going to the bank"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l10-b-nohayquelimpiarelgarajehoyperoquierolimpiarelcomedormanana
+        es: "no hay que limpiar el garaje hoy, pero quiero limpiar el comedor mañana"
+        en: "One doesn't have to clean the garage today, but I want to clean the dining room tomorrow"
+        atoms: ["no", "hay que", "limpiar", "el", "garaje", "hoy", "pero", "quiero", "limpiar", "el", "comedor", "mañana"]
+        tiles: ["jardín", "sala"]
+      - kind: clozeLit
+        id: l10-c-hayunasalagrandeenlacasa
+        es: "hay una sala grande en la casa"
+        en: "There's a big living room in the house"
+        blank: "sala"
+        options: ["sala", "comedor"]
+        atoms: ["hay", "una", "sala", "grande", "en", "la", "casa"]
+        why: "Plain «hay» plus «una sala» — existence, not obligation. «sala», matching the picture."
+      - kind: listenCompLit
+        id: l10-lc-dondeestaeljardinyquienpuedelimpiarelgaraje
+        es: "dónde está el jardín, y quién puede limpiar el garaje"
+        en: "Where is the garden, and who can clean the garage."
+        atoms: ["dónde", "está", "el", "jardín", "y", "puede", "limpiar", "el", "garaje"]
+        distractorsEn:
+          - "Where is the garage, and who can clean the garden."
+          - "Where is the garden, and who wants to clean the garage."
+          - "Where is the garden, and who can clean the dining room."
+      - kind: mcq
+        id: l10-q-cualquiermastery
+        prompt: "Which one means 'one has to clean the dining room, but I can clean the garden tomorrow'?"
+        correct: "hay que limpiar el comedor, pero puedo limpiar el jardín mañana"
+        distractors: ["tengo que limpiar el comedor, pero puedo limpiar el jardín mañana", "hay que limpiar el comedor, pero puedo limpiar el jardín hoy", "hay que limpiar comedor, pero puedo limpiar el jardín mañana"]
+        atoms: ["hay que", "limpiar", "el", "comedor", "pero", "puedo", "limpiar", "el", "jardín", "mañana"]
+        why: "A rule anyone would follow for the dining room — «hay que», not «tengo que». Your own timing after «pero» is «mañana», not «hoy». And keep «el» before «comedor»."
+      - kind: speakLit
+        id: l10-sp-recall-l2win
+        es: "la sala está al lado del dormitorio, y me gusta — es grande y bonita"
+        en: "The living room is beside the bedroom, and I like it — it's big and pretty"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l10-b-quierolimpiarlasalaytambienvoyalgaraje
+        es: "quiero limpiar la sala, y también voy al garaje"
+        en: "I want to clean the living room, and I'm also going to the garage"
+        atoms: ["quiero", "limpiar", "la", "sala", "también", "voy", "al", "garaje"]
+        tiles: ["comedor", "jardín"]
+      - kind: audioWimcq
+        id: l10-ear-sala
+        target: { surface: "sala", emoji: "📺" }
+        distractors:
+          - { surface: "comedor", emoji: "🍜" }
+          - { surface: "dormitorio", emoji: "💤" }
+      - kind: agreementLit
+        id: l10-agr-jardinnuevosalanueva
+        en: "The garden is new, and the living room is new too"
+        audioText: "el jardín es nuevo, y la sala es nueva también"
+        atoms: ["jardín", "nuevo", "sala"]
+        segments:
+          - { text: "el jardín es " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y la sala es " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l10-lb-nohayquelimpiareljardintodaviapuedolimpiarmanana
+        es: "no hay que limpiar el jardín todavía, puedo limpiar mañana"
+        en: "One doesn't have to clean the garden yet, I can clean tomorrow"
+        atoms: ["no", "hay que", "limpiar", "el", "jardín", "todavía", "puedo", "limpiar", "mañana"]
+        tiles: ["garaje", "comedor"]
+      - kind: textMcq
+        id: l10-tm-sala
+        target: "sala"
+        distractors: ["sal", "salas", "saludo"]
+      - kind: matchLit
+        id: l10-match
+        pairs:
+          - { source: "dormitorio", target: "bedroom" }
+          - { source: "sala", target: "living room" }
+          - { source: "comedor", target: "dining room" }
+          - { source: "jardín", target: "garden" }
+          - { source: "garaje", target: "garage" }
+          - { source: "hay que limpiar", target: "one has to clean" }
+      - kind: sim
+        id: l10-sim-luis-mastery
+        scene: { emoji: "🏠", title: "One last walk through the house", setting: "Luis walks through every room with you one last time." }
+        turns:
+          - id: t1
+            npc: { speaker: "Luis", es: "¿Dónde está el comedor?", audioText: "¿dónde está el comedor?", gloss: "Where is the dining room?" }
+            goal: "Say it's beside the kitchen, and it's big."
+            reply:
+              mode: build
+              tiles: ["está", "al", "lado", "de", "la", "cocina", "y", "es", "grande", "pequeño"]
+              answer: "está al lado de la cocina y es grande"
+            replyGloss: "It's beside the kitchen, and it's big."
+            explanation: "«cocina» is feminine, so just «de la» — never «del» in front of it."
+          - id: t2
+            npc: { speaker: "Luis", es: "¿Qué hay que limpiar todavía?", audioText: "¿qué hay que limpiar todavía?", gloss: "What does one still have to clean?" }
+            goal: "Say one has to clean both rooms."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hay que limpiar el jardín y el garaje" }
+                - { id: "wrong1", text: "hay que limpiar jardín y garaje" }
+                - { id: "wrong2", text: "tengo que limpiar el jardín y el garaje" }
+              correctOptionId: "right"
+              audioText: "hay que limpiar el jardín y el garaje"
+            replyGloss: "One has to clean the garden and the garage."
+            explanation: "Keep «el» before each room, and match Luis's «hay que» — the general rule, not «tengo que»."
+
+placement:
+  screener:
+    - id: "es-m38-scr-1"
+      prompt: "'The bedroom is close to the kitchen.'"
+      correct: "el dormitorio está cerca de la cocina"
+      distractors: ["el dormitorio está lejos de la cocina", "el baño está cerca de la cocina", "el dormitorio es cerca de la cocina"]
+  byModule:
+    - id: "es-m38-pl-1"
+      prompt: "My bedroom is big, and it's close to the kitchen."
+      correct: "mi dormitorio es grande, y está cerca de la cocina"
+      distractors: ["mi dormitorio es grande, y está lejos de la cocina", "mi dormitorio es grande, y es cerca de la cocina", "mi dormitorio es grande, y está cerca de la sala"]
+    - id: "es-m38-pl-2"
+      prompt: "The living room is beside the bedroom."
+      correct: "la sala está al lado del dormitorio"
+      distractors: ["la sala está al lado de dormitorio", "la sala está al lado de la dormitorio", "el sala está al lado del dormitorio"]
+    - id: "es-m38-pl-3"
+      prompt: "One has to clean the dining room."
+      correct: "hay que limpiar el comedor"
+      distractors: ["hay limpiar el comedor", "hay que limpiar comedor", "tengo que limpiar el comedor"]
+    - id: "es-m38-pl-4"
+      prompt: "The garden is far from the garage."
+      correct: "el jardín está lejos del garaje"
+      distractors: ["el jardín está cerca del garaje", "el garaje está lejos del jardín", "el jardín está lejos de garaje"]
+    - id: "es-m38-pl-5"
+      prompt: "I'm going to the garage, but one has to clean the living room first."
+      correct: "voy al garaje, pero hay que limpiar la sala primero"
+      distractors: ["voy al garaje, pero tengo que limpiar la sala primero", "voy al garaje, pero hay que limpiar sala primero", "voy al garaje, pero hay que limpiar la sala después"]

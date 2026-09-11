@@ -1,0 +1,141 @@
+  # ── L3 · «Hay que comprar sillas para el comedor» — «comedor» debuts.
+  #    Regular masculine noun (consonant-final, plural «comedores»). No
+  #    «limpiar» yet (debuts L6) — pairs the new room with m37's «hay que»
+  #    plus m12's «comprar», a non-limpiar infinitive, to recombine the
+  #    checkpoint-adjacent grammar phrase from the very first room-focused
+  #    lesson. PRIOR: hay que (m37), comprar (m12), sillas/silla (m3), para
+  #    (m2 function word), está/al/lado/del (m4/m9/m35), dormitorio/sala
+  #    (this module). One recall (L2 win line).
+  - n: 3
+    template: free
+    title: "Hay que comprar sillas para el comedor"
+    description: "«el comedor» — the dining room, where you eat. Regular masculine, plural «comedores». Recombines m37's «hay que» with m12's «comprar»."
+    steps:
+      - kind: map
+        id: l3-map-hayquecomprarsillasparaelcomedor
+        tokens: ["hay", "que", "comprar", "sillas", "para", "el", "comedor"]
+        pairs:
+          - { en: "one has to", tokenIndex: 0 }
+          - { en: "(that)", tokenIndex: 1 }
+          - { en: "buy", tokenIndex: 2 }
+          - { en: "chairs", tokenIndex: 3 }
+          - { en: "for", tokenIndex: 4 }
+          - { en: "the", tokenIndex: 5 }
+          - { en: "dining room", tokenIndex: 6 }
+        audioText: "hay que comprar sillas para el comedor"
+        revealNote: "«comedor» — where you eat, from «comer» (m5). Regular masculine: «el comedor», «un comedor», plural «comedores». «hay que» (m37) plus a bare infinitive — no subject."
+      - kind: imageMcq
+        id: l3-im-comedor
+        target: { surface: "comedor", meaningEn: "dining room", emoji: "🍜" }
+        distractors:
+          - { surface: "sala", emoji: "📺" }
+          - { surface: "dormitorio", emoji: "💤" }
+          - { surface: "cocina", emoji: "🍳" }
+      - kind: speakLit
+        id: l3-sp-recall-l2win
+        es: "la sala está al lado del dormitorio, y me gusta — es grande y bonita"
+        en: "The living room is beside the bedroom, and I like it — it's big and pretty"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l3-b-elcomedorestaalladodelacocina
+        es: "el comedor está al lado de la cocina"
+        en: "The dining room is beside the kitchen"
+        atoms: ["el", "comedor", "está", "al", "lado", "de", "la", "cocina"]
+        tiles: ["sala", "dormitorio"]
+      - kind: clozeLit
+        id: l3-c-elcomedoresgrande
+        es: "el comedor es grande"
+        en: "The dining room is big"
+        blank: "comedor"
+        options: ["comedor", "sala"]
+        atoms: ["el", "comedor", "es", "grande"]
+        why: "Matching the sentence to the picture — «comedor», not «sala»."
+      - kind: listenCompLit
+        id: l3-lc-hayquecomprarsillasparaelcomedor
+        es: "hay que comprar sillas para el comedor"
+        en: "One has to buy chairs for the dining room."
+        atoms: ["hay que", "comprar", "silla", "el", "comedor"]
+        distractorsEn:
+          - "One has to buy a table for the dining room."
+          - "One has to buy chairs for the living room."
+          - "I have to buy chairs for the dining room."
+      - kind: mcq
+        id: l3-q-comedor
+        prompt: "Which one means 'the dining room'?"
+        correct: "el comedor"
+        distractors: ["la comedor", "el comedores", "la cocina"]
+        atoms: ["el", "comedor"]
+        why: "«comedor» is masculine — «el», not «la». And this is the singular word, not «comedores»."
+      - kind: buildLit
+        id: l3-b-hayquecomprarunamesaparaelcomedor
+        es: "hay que comprar una mesa para el comedor"
+        en: "One has to buy a table for the dining room"
+        atoms: ["hay que", "comprar", "una", "mesa", "el", "comedor"]
+        tiles: ["sillas", "silla"]
+      - kind: audioWimcq
+        id: l3-ear-comedor
+        target: { surface: "comedor", emoji: "🍜" }
+        distractors:
+          - { surface: "sala", emoji: "📺" }
+          - { surface: "dormitorio", emoji: "💤" }
+      - kind: agreementLit
+        id: l3-agr-comedorpequenosillasnuevas
+        en: "The dining room is small, and the chairs are new too"
+        audioText: "el comedor es pequeño, y las sillas son nuevas también"
+        atoms: ["comedor", "pequeño", "silla", "nuevo"]
+        segments:
+          - { text: "el comedor es " }
+          - { blank: { id: "p1", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+          - { text: ", y las sillas son " }
+          - { blank: { id: "p2", answer: "nuevas", options: ["nuevas", "nuevos"] } }
+      - kind: listenBuildLit
+        id: l3-lb-hayquecomprarsillasparaelcomedorperonoparalasala
+        es: "hay que comprar sillas para el comedor, pero no para la sala"
+        en: "One has to buy chairs for the dining room, but not for the living room"
+        atoms: ["hay que", "comprar", "silla", "el", "comedor", "pero", "no", "la", "sala"]
+        tiles: ["dormitorio", "cocina"]
+      - kind: textMcq
+        id: l3-tm-comedor
+        target: "comedor"
+        distractors: ["comer", "comedores", "comedia"]
+      - kind: sim
+        id: l3-sim-carlos-comedor
+        scene: { emoji: "🍜", title: "Carlos is furnishing his dining room", setting: "Carlos is making a shopping list for his new place." }
+        turns:
+          - id: t1
+            npc: { speaker: "Carlos", es: "¿Qué hay que comprar para el comedor?", audioText: "¿qué hay que comprar para el comedor?", gloss: "What does one have to buy for the dining room?" }
+            goal: "Say one has to buy chairs."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hay que comprar sillas" }
+                - { id: "wrong1", text: "tengo que comprar sillas" }
+                - { id: "wrong2", text: "hay que compra sillas" }
+              correctOptionId: "right"
+              audioText: "hay que comprar sillas"
+            replyGloss: "One has to buy chairs."
+            explanation: "«hay que» is the GENERAL rule — no «yo», no «tú». And the infinitive «comprar» never changes after it."
+          - id: t2
+            npc: { speaker: "Carlos", es: "¿El comedor está al lado de la cocina?", audioText: "¿el comedor está al lado de la cocina?", gloss: "Is the dining room beside the kitchen?" }
+            goal: "Say yes, it's beside the kitchen."
+            reply:
+              mode: build
+              tiles: ["sí", "está", "al", "lado", "de", "la", "cocina", "sala"]
+              answer: "sí está al lado de la cocina"
+            replyGloss: "Yes, it's beside the kitchen."
+            explanation: "«al lado de» (m35) plus «la cocina» — «cocina» is feminine, so no «del» here."
+      - kind: matchLit
+        id: l3-match
+        pairs:
+          - { source: "comedor", target: "dining room" }
+          - { source: "hay que", target: "one has to" }
+          - { source: "comprar", target: "to buy" }
+          - { source: "sillas", target: "chairs" }
+          - { source: "para", target: "for" }
+          - { source: "al lado de", target: "beside" }
+      - kind: speakLit
+        id: l3-sp-win
+        es: "hay que comprar sillas para el comedor, y está al lado de la cocina"
+        en: "One has to buy chairs for the dining room, and it's beside the kitchen"
+        atoms: ["hay que", "comprar", "silla", "el", "comedor", "está", "al", "lado", "de", "la", "cocina"]

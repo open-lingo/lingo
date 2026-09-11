@@ -1,0 +1,136 @@
+  # ── L5 · «Voy al garaje» — «garaje» debuts, the last of the 6 new rooms.
+  #    Regular masculine, vowel-final plural «garajes». Recombines m9's
+  #    «voy a»/«al» — the module's one deliberate «voy a + room» sentence,
+  #    paired with m6's «carro» and m36's «bicicleta». No «limpiar» yet
+  #    (debuts L6). PRIOR: voy/al (m9), carro (m6), bicicleta (m36), está/
+  #    cerca/lejos (m4/m35), jardín/comedor/sala/dormitorio (this module).
+  #    One recall (L4 win line).
+  - n: 5
+    template: free
+    title: "Voy al garaje"
+    description: "«el garaje» — the garage. Regular masculine, plural «garajes». «voy al garaje» recombines m9's «voy a» + «al» with a new room."
+    steps:
+      - kind: map
+        id: l5-map-voyalgaraje
+        tokens: ["voy", "al", "garaje"]
+        pairs:
+          - { en: "I'm going", tokenIndex: 0 }
+          - { en: "to the", tokenIndex: 1 }
+          - { en: "garage", tokenIndex: 2 }
+        audioText: "voy al garaje"
+        revealNote: "«garaje» — regular masculine, plural «garajes». «voy al garaje» (m9) — «al», not «a el», before a masculine word."
+      - kind: imageMcq
+        id: l5-im-garaje
+        target: { surface: "garaje", meaningEn: "garage", emoji: "🔧" }
+        distractors:
+          - { surface: "jardín", emoji: "🌻" }
+          - { surface: "comedor", emoji: "🍜" }
+          - { surface: "sala", emoji: "📺" }
+      - kind: speakLit
+        id: l5-sp-recall-l4win
+        es: "el jardín está lejos del comedor, y tengo un perro"
+        en: "The garden is far from the dining room, and I have a dog"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l5-b-tengounbicicletaenelgaraje
+        es: "tengo una bicicleta en el garaje"
+        en: "I have a bicycle in the garage"
+        atoms: ["tengo", "una", "bicicleta", "en", "el", "garaje"]
+        tiles: ["carro", "jardín"]
+      - kind: clozeLit
+        id: l5-c-elgarajeesgrande
+        es: "el garaje es grande"
+        en: "The garage is big"
+        blank: "garaje"
+        options: ["garaje", "jardín"]
+        atoms: ["el", "garaje", "es", "grande"]
+        why: "Matching the sentence to the picture — «garaje», not «jardín»."
+      - kind: listenCompLit
+        id: l5-lc-voyalgarajeportucarro
+        es: "voy al garaje por tu carro"
+        en: "I'm going to the garage for your car."
+        atoms: ["voy", "al", "garaje", "tu", "carro"]
+        distractorsEn:
+          - "I'm going to the garage for your bicycle."
+          - "I'm going to the garden for your car."
+          - "You're going to the garage for your car."
+      - kind: mcq
+        id: l5-q-garaje
+        prompt: "Which one means 'the garage'?"
+        correct: "el garaje"
+        distractors: ["la garaje", "el garajes", "el jardín"]
+        atoms: ["el", "garaje"]
+        why: "«garaje» is masculine — «el», not «la». And this is the singular word, not «garajes»."
+      - kind: buildLit
+        id: l5-b-voyalgarajeperoelcarroestaeneljardin
+        es: "voy al garaje, pero el carro está en el jardín"
+        en: "I'm going to the garage, but the car is in the garden"
+        atoms: ["voy", "al", "garaje", "pero", "el", "carro", "está", "jardín"]
+        tiles: ["comedor", "bicicleta"]
+      - kind: audioWimcq
+        id: l5-ear-garaje
+        target: { surface: "garaje", emoji: "🔧" }
+        distractors:
+          - { surface: "jardín", emoji: "🌻" }
+          - { surface: "comedor", emoji: "🍜" }
+      - kind: agreementLit
+        id: l5-agr-garajepequenobicicletanueva
+        en: "The garage is small, and the bicycle is new too"
+        audioText: "el garaje es pequeño, y la bicicleta es nueva también"
+        atoms: ["garaje", "pequeño", "bicicleta", "nuevo"]
+        segments:
+          - { text: "el garaje es " }
+          - { blank: { id: "p1", answer: "pequeño", options: ["pequeño", "pequeña"] } }
+          - { text: ", y la bicicleta es " }
+          - { blank: { id: "p2", answer: "nueva", options: ["nueva", "nuevo"] } }
+      - kind: listenBuildLit
+        id: l5-lb-voyalgarajeperoeljardinestacercadelacasa
+        es: "voy al garaje, pero el jardín está cerca de la casa"
+        en: "I'm going to the garage, but the garden is close to the house"
+        atoms: ["voy", "al", "garaje", "pero", "jardín", "está", "cerca", "de", "la", "casa"]
+        tiles: ["comedor", "sala"]
+      - kind: textMcq
+        id: l5-tm-garaje
+        target: "garaje"
+        distractors: ["garajes", "garantía", "gara"]
+      - kind: sim
+        id: l5-sim-miguel-garaje
+        scene: { emoji: "🔧", title: "Miguel needs the car", setting: "Miguel is heading out and needs his car from the garage." }
+        turns:
+          - id: t1
+            npc: { speaker: "Miguel", es: "¿Adónde vas?", audioText: "¿adónde vas?", gloss: "Where are you going?" }
+            goal: "Say you're going to the garage."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "voy al garaje" }
+                - { id: "wrong1", text: "voy a el garaje" }
+                - { id: "wrong2", text: "voy a la garaje" }
+              correctOptionId: "right"
+              audioText: "voy al garaje"
+            replyGloss: "I'm going to the garage."
+            explanation: "«al», not «a el» — «a» plus «el» always fuses. «garaje» is masculine."
+          - id: t2
+            npc: { speaker: "Miguel", es: "¿Está cerca del jardín?", audioText: "¿está cerca del jardín?", gloss: "Is it close to the garden?" }
+            goal: "Say yes, it's close."
+            reply:
+              mode: build
+              tiles: ["sí", "está", "cerca", "lejos", "también"]
+              answer: "sí está cerca"
+            replyGloss: "Yes, it's close."
+            explanation: "«cerca», not «lejos» — the garage is right by the garden."
+      - kind: matchLit
+        id: l5-match
+        pairs:
+          - { source: "garaje", target: "garage" }
+          - { source: "voy", target: "I'm going" }
+          - { source: "al", target: "to the" }
+          - { source: "carro", target: "car" }
+          - { source: "bicicleta", target: "bicycle" }
+          - { source: "jardín", target: "garden" }
+      - kind: speakLit
+        id: l5-sp-win
+        es: "voy al garaje por mi bicicleta"
+        en: "I'm going to the garage for my bicycle"
+        atoms: ["voy", "al", "garaje", "bicicleta"]

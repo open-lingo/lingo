@@ -1,0 +1,126 @@
+  # ── L8 · Checkpoint — all graded, no map/imageMcq/info (mirrors m37-L8's
+  #    own checkpoint shape). Pure recombination of L1-L7: all 5 rooms,
+  #    «hay que limpiar» (still bare infinitive), «me gusta», «voy a»,
+  #    «dónde está», «cerca»/«lejos». Two recalls, from L7 and L1's win
+  #    lines. Ends sim → matchLit → speakLit-win. Every MCQ correct answer
+  #    kept ≤3 tokens and never sentence-shaped (inv 28 — checkpoint is
+  #    NOT exempt, only L10 mastery is).
+  - n: 8
+    template: free
+    title: "Checkpoint: la casa"
+    description: "Every room, plus «hay que limpiar» and «me gusta», all recombined."
+    steps:
+      - kind: speakLit
+        id: l8-sp-recall-l7win
+        es: "me gusta la casa, pero hay que limpiar el garaje todavía"
+        en: "I like the house, but one still has to clean the garage"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-eldormitorioylasalaestancercadelacocina
+        es: "el dormitorio y la sala están cerca de la cocina"
+        en: "The bedroom and the living room are close to the kitchen"
+        atoms: ["el", "dormitorio", "y", "la", "sala", "está", "cerca", "de", "la", "cocina"]
+        tiles: ["comedor", "lejos"]
+      - kind: clozeLit
+        id: l8-c-hayquelimpiarelcomedor
+        es: "hay que limpiar el comedor"
+        en: "One has to clean the dining room"
+        blank: "comedor"
+        options: ["comedor", "jardín"]
+        atoms: ["hay que", "limpiar", "el", "comedor"]
+        why: "Matching the sentence to the picture — «comedor», not «jardín»."
+      - kind: listenCompLit
+        id: l8-lc-voyaljardinperoelgarajeestacerca
+        es: "voy al jardín, pero el garaje está cerca"
+        en: "I'm going to the garden, but the garage is close."
+        atoms: ["voy", "al", "jardín", "pero", "el", "garaje", "está", "cerca"]
+        distractorsEn:
+          - "I'm going to the garage, but the garden is close."
+          - "I'm going to the garden, but the garage is far."
+          - "One is going to the garden, but the garage is close."
+      - kind: mcq
+        id: l8-q-megustavstegustafoil
+        prompt: "Which one means 'I like it' (talking about the garden)?"
+        correct: "me gusta"
+        distractors: ["te gusta", "me gustan", "gusta"]
+        atoms: ["me gusta"]
+        why: "YOU liking it — «me gusta», one thing. Not «te gusta» (that's someone else) and not «gustan» (that's for more than one thing)."
+      - kind: speakLit
+        id: l8-sp-recall-l1win
+        es: "mi dormitorio es grande, y está cerca de la cocina"
+        en: "My bedroom is big, and it's close to the kitchen"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l8-b-quierolimpiarelgarajeperotambienhayquelimpiareljardin
+        es: "quiero limpiar el garaje, pero también hay que limpiar el jardín"
+        en: "I want to clean the garage, but one also has to clean the garden"
+        atoms: ["quiero", "limpiar", "el", "garaje", "pero", "también", "hay que", "limpiar", "el", "jardín"]
+        tiles: ["comedor", "sala"]
+      - kind: audioWimcq
+        id: l8-ear-dormitorio
+        target: { surface: "dormitorio", emoji: "💤" }
+        distractors:
+          - { surface: "comedor", emoji: "🍜" }
+          - { surface: "garaje", emoji: "🔧" }
+      - kind: agreementLit
+        id: l8-agr-salaviejacomedorviejo
+        en: "The living room is old, and the dining room is old too"
+        audioText: "la sala es vieja, y el comedor es viejo también"
+        atoms: ["sala", "viejo", "comedor"]
+        segments:
+          - { text: "la sala es " }
+          - { blank: { id: "p1", answer: "vieja", options: ["vieja", "viejo"] } }
+          - { text: ", y el comedor es " }
+          - { blank: { id: "p2", answer: "viejo", options: ["viejo", "vieja"] } }
+      - kind: listenBuildLit
+        id: l8-lb-eldormitorioestaalladodelasala
+        es: "el dormitorio está al lado de la sala"
+        en: "The bedroom is beside the living room"
+        atoms: ["el", "dormitorio", "está", "al", "lado", "de", "la", "sala"]
+        tiles: ["comedor", "jardín"]
+      - kind: textMcq
+        id: l8-tm-garaje
+        target: "garaje"
+        distractors: ["garajes", "garantía", "gara"]
+      - kind: sim
+        id: l8-sim-jorge-checkpoint
+        scene: { emoji: "🏁", title: "Checkpoint check-in", setting: "Jorge checks in on the house tour." }
+        turns:
+          - id: t1
+            npc: { speaker: "Jorge", es: "¿Qué hay que limpiar hoy?", audioText: "¿qué hay que limpiar hoy?", gloss: "What does one have to clean today?" }
+            goal: "Say one has to clean the garden."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "hay que limpiar el jardín" }
+                - { id: "wrong1", text: "quiero limpiar el jardín" }
+                - { id: "wrong2", text: "hay que limpiar jardín" }
+              correctOptionId: "right"
+              audioText: "hay que limpiar el jardín"
+            replyGloss: "One has to clean the garden."
+            explanation: "Jorge asked with «hay que», so match it — and keep «el» before «jardín»."
+          - id: t2
+            npc: { speaker: "Jorge", es: "¿Dónde está el garaje?", audioText: "¿dónde está el garaje?", gloss: "Where is the garage?" }
+            goal: "Say it's close, beside the garden."
+            reply:
+              mode: build
+              tiles: ["está", "cerca", "al", "lado", "del", "jardín", "lejos"]
+              answer: "está cerca al lado del jardín"
+            replyGloss: "It's close, beside the garden."
+            explanation: "«jardín» is masculine, so «del», never a bare «de»."
+      - kind: matchLit
+        id: l8-match
+        pairs:
+          - { source: "dormitorio", target: "bedroom" }
+          - { source: "sala", target: "living room" }
+          - { source: "comedor", target: "dining room" }
+          - { source: "jardín", target: "garden" }
+          - { source: "garaje", target: "garage" }
+          - { source: "hay que limpiar", target: "one has to clean" }
+      - kind: speakLit
+        id: l8-sp-win
+        es: "hay que limpiar el jardín, pero me gusta la casa"
+        en: "One has to clean the garden, but I like the house"
+        atoms: ["hay que", "limpiar", "el", "jardín", "pero", "me gusta", "la", "casa"]

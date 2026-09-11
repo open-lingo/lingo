@@ -1,0 +1,145 @@
+  # ── L4 · «El jardín está lejos del comedor» — «jardín» debuts.
+  #    LANDMINE: «jardín» is SINGULAR-ONLY in this course — esRegularPlurals
+  #    has no «-ín» branch (would wrongly fold to «jardínes»), so the plural
+  #    is simply never taught or printed. Every MCQ/textMcq distractor below
+  #    is a different word or a gender-swap, never a plural of «jardín».
+  #    Paired against «comedor» (L3, already known) rather than «garaje» —
+  #    «garaje» is THIS module's own L5 debut and must never appear before
+  #    its own first-exposure imageMcq there (inv 44: word_image_mcq is
+  #    first-exposure only — an earlier draft paired jardín against garaje
+  #    here and it tripped that gate). No «limpiar» yet (debuts L6). PRIOR:
+  #    tengo/perro/gato (m5), está/lejos/cerca (m4/m35), grande/pequeño/
+  #    bonito/nuevo (m6), comedor/sala/dormitorio (this module, L1-L3). One
+  #    recall (L3 win line).
+  - n: 4
+    template: free
+    title: "El jardín está lejos del comedor"
+    description: "«el jardín» — the garden/yard. Masculine, and singular-only in this course — you'll never see «jardines»."
+    steps:
+      - kind: map
+        id: l4-map-eljardinestalejosdelcomedor
+        tokens: ["el", "jardín", "está", "lejos", "del", "comedor"]
+        pairs:
+          - { en: "the", tokenIndex: 0 }
+          - { en: "garden", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "far", tokenIndex: 3 }
+          - { en: "from the", tokenIndex: 4 }
+          - { en: "dining room", tokenIndex: 5 }
+        audioText: "el jardín está lejos del comedor"
+        revealNote: "«jardín» — the garden or yard. Masculine: «el jardín», «un jardín». Keep the accent on the í — «jardin» without it isn't a word."
+      - kind: imageMcq
+        id: l4-im-jardin
+        target: { surface: "jardín", meaningEn: "garden, yard", emoji: "🌻" }
+        distractors:
+          - { surface: "comedor", emoji: "🍜" }
+          - { surface: "sala", emoji: "📺" }
+          - { surface: "dormitorio", emoji: "💤" }
+      - kind: speakLit
+        id: l4-sp-recall-l3win
+        es: "hay que comprar sillas para el comedor, y está al lado de la cocina"
+        en: "One has to buy chairs for the dining room, and it's beside the kitchen"
+        atoms: []
+        cue: recall
+      - kind: buildLit
+        id: l4-b-tengounperroeneljardin
+        es: "tengo un perro en el jardín"
+        en: "I have a dog in the garden"
+        atoms: ["tengo", "un", "perro", "en", "el", "jardín"]
+        tiles: ["gato", "comedor"]
+      - kind: clozeLit
+        id: l4-c-eljardinesgrande
+        es: "el jardín es grande"
+        en: "The garden is big"
+        blank: "jardín"
+        options: ["jardín", "comedor"]
+        atoms: ["el", "jardín", "es", "grande"]
+        why: "Matching the sentence to the picture — «jardín», not «comedor»."
+      - kind: listenCompLit
+        id: l4-lc-eljardinestalejosdelcomedor
+        es: "el jardín está lejos del comedor"
+        en: "The garden is far from the dining room."
+        atoms: ["el", "jardín", "está", "lejos", "comedor"]
+        distractorsEn:
+          - "The garden is close to the dining room."
+          - "The bedroom is far from the dining room."
+          - "The garden is far from the living room."
+      - kind: mcq
+        id: l4-q-jardin
+        prompt: "Which one means 'the garden'?"
+        correct: "el jardín"
+        distractors: ["la jardín", "el dormitorio", "el comedor"]
+        atoms: ["el", "jardín"]
+        why: "«jardín» is masculine — «el», not «la»."
+      - kind: buildLit
+        id: l4-b-eljardinespequenoperobonito
+        es: "el jardín es pequeño pero bonito"
+        en: "The garden is small but pretty"
+        atoms: ["jardín", "pequeño", "pero", "bonito"]
+        tiles: ["grande", "nuevo"]
+      - kind: audioWimcq
+        id: l4-ear-jardin
+        target: { surface: "jardín", emoji: "🌻" }
+        distractors:
+          - { surface: "dormitorio", emoji: "💤" }
+          - { surface: "comedor", emoji: "🍜" }
+      - kind: agreementLit
+        id: l4-agr-jardinnuevoperrogrande
+        en: "The garden is new, and the dog is big too"
+        audioText: "el jardín es nuevo, y el perro es grande también"
+        atoms: ["jardín", "nuevo", "perro", "grande"]
+        segments:
+          - { text: "el jardín es " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y el perro es " }
+          - { blank: { id: "p2", answer: "grande", options: ["grande", "grandes"] } }
+      - kind: listenBuildLit
+        id: l4-lb-eljardinestacercadelacasaperolejosdelcomedor
+        es: "el jardín está cerca de la casa, pero lejos del comedor"
+        en: "The garden is close to the house, but far from the dining room"
+        atoms: ["jardín", "está", "cerca", "de", "la", "casa", "pero", "lejos", "comedor"]
+        tiles: ["sala", "dormitorio"]
+      - kind: textMcq
+        id: l4-tm-jardin
+        target: "jardín"
+        distractors: ["jardinero", "jamón", "jarra"]
+      - kind: sim
+        id: l4-sim-elena-jardin
+        scene: { emoji: "🌻", title: "Elena shows you the yard", setting: "Elena is walking you around outside her house." }
+        turns:
+          - id: t1
+            npc: { speaker: "Elena", es: "¿Tienes un perro en el jardín?", audioText: "¿tienes un perro en el jardín?", gloss: "Do you have a dog in the garden?" }
+            goal: "Say yes, you have a dog there."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, tengo un perro en el jardín" }
+                - { id: "wrong1", text: "sí, tengo un perro en la jardín" }
+                - { id: "wrong2", text: "sí, tienes un perro en el jardín" }
+              correctOptionId: "right"
+              audioText: "sí, tengo un perro en el jardín"
+            replyGloss: "Yes, I have a dog in the garden."
+            explanation: "«tengo», not «tienes» — that's YOU, specifically. And «jardín» is masculine, so «el», not «la»."
+          - id: t2
+            npc: { speaker: "Elena", es: "¿Está lejos del comedor?", audioText: "¿está lejos del comedor?", gloss: "Is it far from the dining room?" }
+            goal: "Say no, it's close to the dining room."
+            reply:
+              mode: build
+              tiles: ["no", "está", "cerca", "del", "comedor", "lejos"]
+              answer: "no está cerca del comedor"
+            replyGloss: "No, it's close to the dining room."
+            explanation: "«comedor» is masculine, so «del», never a bare «de»."
+      - kind: matchLit
+        id: l4-match
+        pairs:
+          - { source: "jardín", target: "garden" }
+          - { source: "comedor", target: "dining room" }
+          - { source: "perro", target: "dog" }
+          - { source: "cerca", target: "close" }
+          - { source: "lejos", target: "far" }
+          - { source: "tengo", target: "I have" }
+      - kind: speakLit
+        id: l4-sp-win
+        es: "el jardín está lejos del comedor, y tengo un perro"
+        en: "The garden is far from the dining room, and I have a dog"
+        atoms: ["jardín", "está", "lejos", "comedor", "tengo", "perro"]

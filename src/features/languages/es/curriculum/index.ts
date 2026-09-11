@@ -48,6 +48,7 @@ import { ES_M34_LESSONS } from "./m34";
 import { ES_M35_LESSONS } from "./m35";
 import { ES_M36_LESSONS } from "./m36";
 import { ES_M37_LESSONS } from "./m37";
+import { ES_M38_LESSONS } from "./m38";
 
 export type EsModuleMeta = {
   id: string;
@@ -295,7 +296,14 @@ export const ES_MODULE_META: EsModuleMeta[] = [
     eyebrow: "Impersonal obligation",
     summary: "Say what one has to do, in general — «hay que» plus a bare infinitive, no subject, ever.",
     accent: { from: "#1e40af", to: "#172554" },
+  },  {
+    id: "m38",
+    title: "Hay que limpiar la casa",
+    eyebrow: "Around the house",
+    summary: "Name every room and say what needs cleaning.",
+    accent: { from: "#16a34a", to: "#166534" },
   },
+
 
 
 
@@ -357,6 +365,7 @@ const LESSONS_BY_MODULE: Record<string, LessonContent[]> = {
   m35: ES_M35_LESSONS,
   m36: ES_M36_LESSONS,
   m37: ES_M37_LESSONS,
+  m38: ES_M38_LESSONS,
 };
 
 /** Flat lesson list for the shared LESSONS content index (mockLessons.ts). */

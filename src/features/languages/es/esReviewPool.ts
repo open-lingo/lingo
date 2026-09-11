@@ -536,4 +536,10 @@ export const ES_REVIEW_POOL: EsReviewEntry[] = [
   { surface: "taxi", gloss: "taxi", kind: "vocab", fromModule: "m36", partOfSpeech: "noun" },
   { surface: "bicicleta", gloss: "bicycle", kind: "vocab", fromModule: "m36", partOfSpeech: "noun" },
   { surface: "hay que", gloss: "one has to, it's necessary to", kind: "phrase", fromModule: "m37", partOfSpeech: "phrase" },
+  { surface: "dormitorio", gloss: "bedroom", kind: "vocab", fromModule: "m38", partOfSpeech: "noun" },
+  { surface: "sala", gloss: "living room", kind: "vocab", fromModule: "m38", partOfSpeech: "noun" },
+  { surface: "comedor", gloss: "dining room", kind: "vocab", fromModule: "m38", partOfSpeech: "noun" },
+  { surface: "jardín", gloss: "garden, yard", kind: "vocab", fromModule: "m38", partOfSpeech: "noun" },
+  { surface: "garaje", gloss: "garage", kind: "vocab", fromModule: "m38", partOfSpeech: "noun" },
+  { surface: "limpiar", gloss: "to clean", kind: "vocab", fromModule: "m38", partOfSpeech: "verb" },
 ];

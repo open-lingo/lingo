@@ -1,0 +1,131 @@
+  # ── L7 · Recombination — «me gusta» (m7) meets all 5 of this module's
+  #    rooms plus «hay que limpiar» (still bare infinitive) in one lesson.
+  #    Zero new atoms. Dalia debuts as NPC (last unused name in
+  #    ES_PROPER_NAMES — already present in moduleBarGuards.ts, no code
+  #    change needed). One recall (L6 win line). PRIOR: me gusta (m7),
+  #    hay que (m37), limpiar/dormitorio/sala/comedor/jardín/garaje (this
+  #    module), dónde/está (m4), cerca/lejos (m35), viejo/nuevo/grande/
+  #    pequeño (m6), quiero (m7), también (function word).
+  - n: 7
+    template: free
+    title: "Me gusta la casa, pero hay que limpiar"
+    description: "A full walk through the house — every room from this module, plus a review of «hay que limpiar». No new words."
+    steps:
+      - kind: map
+        id: l7-map-megustalacasaperohayquelimpiar
+        tokens: ["me gusta", "la casa", "pero", "hay que limpiar"]
+        pairs:
+          - { en: "I like it", tokenIndex: 0 }
+          - { en: "the house", tokenIndex: 1 }
+          - { en: "but", tokenIndex: 2 }
+          - { en: "one has to clean", tokenIndex: 3 }
+        audioText: "me gusta la casa, pero hay que limpiar"
+        revealNote: "Review lesson — every room from this module in one walk, plus «hay que limpiar», still a bare infinitive."
+      - kind: speakLit
+        id: l7-sp-recall-l6win
+        es: "hay que limpiar la casa, y quiero limpiar el jardín también"
+        en: "One has to clean the house, and I want to clean the garden too"
+        atoms: []
+        cue: recall
+      - kind: clozeLit
+        id: l7-c-megustaelcomedor
+        es: "me gusta el comedor"
+        en: "I like the dining room"
+        blank: "comedor"
+        options: ["comedor", "sala"]
+        atoms: ["me gusta", "el", "comedor"]
+        why: "Matching the sentence to the picture — «comedor», not «sala»."
+      - kind: buildLit
+        id: l7-b-dondeestaeljardin
+        es: "¿dónde está el jardín?"
+        en: "Where is the garden?"
+        atoms: ["dónde", "está", "el", "jardín"]
+        tiles: ["garaje", "comedor"]
+      - kind: mcq
+        id: l7-q-megusta
+        prompt: "Which one means 'I like it'?"
+        correct: "me gusta"
+        distractors: ["me gustan", "te gusta", "gusta"]
+        atoms: ["me gusta"]
+        why: "«me gusta» — the whole phrase, for one thing liked. Not «te gusta» (that's YOU liking it), not the bare «gusta» alone."
+      - kind: listenCompLit
+        id: l7-lc-eljardinestacercadelacasaperoelgarajeestalejos
+        es: "el jardín está cerca de la casa, pero el garaje está lejos"
+        en: "The garden is close to the house, but the garage is far."
+        atoms: ["el", "jardín", "está", "cerca", "de", "la", "casa", "pero", "el", "garaje", "lejos"]
+        distractorsEn:
+          - "The garden is far from the house, but the garage is close."
+          - "The garden is close to the garage, but the house is far."
+          - "The dining room is close to the house, but the garage is far."
+      - kind: audioWimcq
+        id: l7-ear-comedor
+        target: { surface: "comedor", emoji: "🍜" }
+        distractors:
+          - { surface: "sala", emoji: "📺" }
+          - { surface: "dormitorio", emoji: "💤" }
+      - kind: buildLit
+        id: l7-b-hayquelimpiareldormitorioylasala
+        es: "hay que limpiar el dormitorio y la sala"
+        en: "One has to clean the bedroom and the living room"
+        atoms: ["hay que", "limpiar", "el", "dormitorio", "y", "la", "sala"]
+        tiles: ["comedor", "garaje"]
+      - kind: agreementLit
+        id: l7-agr-comedorviejojardinnuevo
+        en: "The dining room is old, and the garden is new too"
+        audioText: "el comedor es viejo, y el jardín es nuevo también"
+        atoms: ["comedor", "viejo", "jardín", "nuevo"]
+        segments:
+          - { text: "el comedor es " }
+          - { blank: { id: "p1", answer: "viejo", options: ["viejo", "vieja"] } }
+          - { text: ", y el jardín es " }
+          - { blank: { id: "p2", answer: "nuevo", options: ["nuevo", "nueva"] } }
+      - kind: listenBuildLit
+        id: l7-lb-quierolimpiarelgarajeytambienhayquelimpiarlacocina
+        es: "quiero limpiar el garaje, y también hay que limpiar la cocina"
+        en: "I want to clean the garage, and one also has to clean the kitchen"
+        atoms: ["quiero", "limpiar", "el", "garaje", "también", "hay que", "limpiar", "la", "cocina"]
+        tiles: ["jardín", "sala"]
+      - kind: textMcq
+        id: l7-tm-comedor
+        target: "comedor"
+        distractors: ["comer", "comedores", "comedia"]
+      - kind: sim
+        id: l7-sim-dalia-casa
+        scene: { emoji: "🏠", title: "Dalia shows you around", setting: "Dalia is giving you the full tour of her house." }
+        turns:
+          - id: t1
+            npc: { speaker: "Dalia", es: "¿Te gusta la casa?", audioText: "¿te gusta la casa?", gloss: "Do you like the house?" }
+            goal: "Say yes, you like it a lot."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, me gusta mucho" }
+                - { id: "wrong1", text: "sí, te gusta mucho" }
+                - { id: "wrong2", text: "sí, me gustan mucho" }
+              correctOptionId: "right"
+              audioText: "sí, me gusta mucho"
+            replyGloss: "Yes, I like it a lot."
+            explanation: "«me gusta» — YOU liking it, one thing (the house). Not «te gusta» (that's Dalia liking it) and not «gustan» (that's for more than one thing)."
+          - id: t2
+            npc: { speaker: "Dalia", es: "¿Qué hay que limpiar todavía?", audioText: "¿qué hay que limpiar todavía?", gloss: "What does one still have to clean?" }
+            goal: "Say one has to clean the garage."
+            reply:
+              mode: build
+              tiles: ["hay", "que", "limpiar", "el", "garaje", "quiero"]
+              answer: "hay que limpiar el garaje"
+            replyGloss: "One has to clean the garage."
+            explanation: "«hay que» plus the bare infinitive «limpiar» — the GENERAL rule, no subject."
+      - kind: matchLit
+        id: l7-match
+        pairs:
+          - { source: "me gusta", target: "I like it" }
+          - { source: "hay que limpiar", target: "one has to clean" }
+          - { source: "dónde está", target: "where is" }
+          - { source: "jardín", target: "garden" }
+          - { source: "comedor", target: "dining room" }
+          - { source: "también", target: "also" }
+      - kind: speakLit
+        id: l7-sp-win
+        es: "me gusta la casa, pero hay que limpiar el garaje todavía"
+        en: "I like the house, but one still has to clean the garage"
+        atoms: ["me gusta", "la", "casa", "pero", "hay que", "limpiar", "el", "garaje", "todavía"]

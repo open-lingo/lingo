@@ -1,0 +1,141 @@
+  # ── L1 · «Mi dormitorio es grande» — «dormitorio» debuts. Deduction-first:
+  #    the word shares its root with «dormir» (m14, to sleep) — the room
+  #    where you sleep. Regular masculine, vowel-final plural
+  #    «dormitorios». No «limpiar» yet (debuts L6) — this lesson leans on
+  #    m6 size/quality adjectives and m35's «está»/«cerca»/«lejos» only.
+  #    PRIOR context only: dormir (m14), grande/pequeño/bonito/nuevo/viejo
+  #    (m6), está/el/la/en (m3/m4), cerca/lejos (m35), casa/cocina/baño/
+  #    cuarto (m3/m4). No recall — first lesson of the module.
+  - n: 1
+    template: free
+    title: "Mi dormitorio es grande"
+    description: "«el dormitorio» — the bedroom, from «dormir» (m14), the room where you sleep. Regular masculine noun, plural «dormitorios»."
+    steps:
+      - kind: map
+        id: l1-map-midormitorioesgrande
+        tokens: ["mi", "dormitorio", "es", "grande"]
+        pairs:
+          - { en: "my", tokenIndex: 0 }
+          - { en: "bedroom", tokenIndex: 1 }
+          - { en: "is", tokenIndex: 2 }
+          - { en: "big", tokenIndex: 3 }
+        audioText: "mi dormitorio es grande"
+        revealNote: "«dormitorio» — from «dormir» (m14, to sleep): the room where you sleep. Regular masculine — «el dormitorio», «un dormitorio», plural «dormitorios»."
+      - kind: imageMcq
+        id: l1-im-dormitorio
+        target: { surface: "dormitorio", meaningEn: "bedroom", emoji: "💤" }
+        distractors:
+          - { surface: "cocina", emoji: "🍳" }
+          - { surface: "baño", emoji: "🚽" }
+          - { surface: "cuarto", emoji: "🛋️" }
+      - kind: info
+        id: l1-info-dormitorio
+        title: "El dormitorio"
+        body: "«el dormitorio» — the bedroom, from «dormir» (m14). Regular masculine: «el dormitorio», «un dormitorio», plural «dormitorios»."
+      - kind: speakLit
+        id: l1-sp-midormitorioesgrande
+        es: "mi dormitorio es grande"
+        en: "My bedroom is big"
+        atoms: ["dormitorio", "grande"]
+      - kind: buildLit
+        id: l1-b-eldormitorioestacercadelacocina
+        es: "el dormitorio está cerca de la cocina"
+        en: "The bedroom is close to the kitchen"
+        atoms: ["el", "dormitorio", "está", "cerca", "de", "la", "cocina"]
+        tiles: ["lejos", "baño"]
+      - kind: clozeLit
+        id: l1-c-tengounacamanuevaeneldormitorio
+        es: "tengo una cama nueva en el dormitorio"
+        en: "I have a new bed in the bedroom"
+        blank: "dormitorio"
+        options: ["dormitorio", "baño"]
+        atoms: ["tengo", "una", "cama", "nuevo", "en", "el", "dormitorio"]
+        why: "Matching the sentence to the picture — «dormitorio», not «baño»."
+      - kind: listenCompLit
+        id: l1-lc-eldormitorioesgrandeynuevo
+        es: "el dormitorio es grande y nuevo"
+        en: "The bedroom is big and new."
+        atoms: ["el", "dormitorio", "es", "grande", "y", "nuevo"]
+        distractorsEn:
+          - "The bedroom is small and new."
+          - "The bathroom is big and new."
+          - "The bedroom is big and old."
+      - kind: mcq
+        id: l1-q-dormitorio
+        prompt: "Which one means 'the bedroom'?"
+        correct: "el dormitorio"
+        distractors: ["la dormitorio", "el dormitorios", "la cocina"]
+        atoms: ["el", "dormitorio"]
+        why: "«dormitorio» is masculine — «el», not «la». And this is the singular word, not «dormitorios»."
+      - kind: buildLit
+        id: l1-b-midormitorioespequenoperobonito
+        es: "mi dormitorio es pequeño pero bonito"
+        en: "My bedroom is small but pretty"
+        atoms: ["dormitorio", "pequeño", "pero", "bonito"]
+        tiles: ["grande", "viejo"]
+      - kind: audioWimcq
+        id: l1-ear-dormitorio
+        target: { surface: "dormitorio", emoji: "💤" }
+        distractors:
+          - { surface: "cocina", emoji: "🍳" }
+          - { surface: "baño", emoji: "🚽" }
+      - kind: agreementLit
+        id: l1-agr-dormitorionuevocasabonita
+        en: "The bedroom is new, and the house is pretty too"
+        audioText: "el dormitorio es nuevo, y la casa es bonita también"
+        atoms: ["dormitorio", "nuevo", "casa", "bonito"]
+        segments:
+          - { text: "el dormitorio es " }
+          - { blank: { id: "p1", answer: "nuevo", options: ["nuevo", "nueva"] } }
+          - { text: ", y la casa es " }
+          - { blank: { id: "p2", answer: "bonita", options: ["bonita", "bonito"] } }
+      - kind: listenBuildLit
+        id: l1-lb-eldormitorioestacercadelacocinaperolejosdelbano
+        es: "el dormitorio está cerca de la cocina, pero lejos del baño"
+        en: "The bedroom is close to the kitchen, but far from the bathroom"
+        atoms: ["dormitorio", "está", "cerca", "de", "la", "cocina", "pero", "lejos", "baño"]
+        tiles: ["cuarto", "puerta"]
+      - kind: textMcq
+        id: l1-tm-dormitorio
+        target: "dormitorio"
+        distractors: ["dormitorios", "domingo", "dormido"]
+      - kind: sim
+        id: l1-sim-ana-dormitorio
+        scene: { emoji: "💤", title: "Ana shows you her bedroom", setting: "Ana is giving you a tour of her new apartment." }
+        turns:
+          - id: t1
+            npc: { speaker: "Ana", es: "¿Tu dormitorio es grande?", audioText: "¿tu dormitorio es grande?", gloss: "Is your bedroom big?" }
+            goal: "Say yes, your bedroom is big and new."
+            reply:
+              mode: choice
+              options:
+                - { id: "right", text: "sí, mi dormitorio es grande y nuevo" }
+                - { id: "wrong1", text: "sí, mi dormitorio es grande y nueva" }
+                - { id: "wrong2", text: "sí, tu dormitorio es grande y nuevo" }
+              correctOptionId: "right"
+              audioText: "sí, mi dormitorio es grande y nuevo"
+            replyGloss: "Yes, my bedroom is big and new."
+            explanation: "«dormitorio» is masculine, so «nuevo», not «nueva». And «mi», not «tu» — that's your own room."
+          - id: t2
+            npc: { speaker: "Ana", es: "¿Y la cocina? ¿Está cerca del dormitorio?", audioText: "¿y la cocina? ¿está cerca del dormitorio?", gloss: "And the kitchen? Is it close to the bedroom?" }
+            goal: "Say yes, close, but far from the bathroom."
+            reply:
+              mode: build
+              tiles: ["sí", "está", "cerca", "pero", "lejos", "del", "baño", "lado"]
+              answer: "sí está cerca pero lejos del baño"
+            replyGloss: "Yes, it's close, but far from the bathroom."
+            explanation: "«baño» is masculine, so «del», not «de el». Keep «pero» to contrast «cerca» and «lejos»."
+      - kind: matchLit
+        id: l1-match
+        pairs:
+          - { source: "dormitorio", target: "bedroom" }
+          - { source: "grande", target: "big" }
+          - { source: "pequeño", target: "small" }
+          - { source: "cerca", target: "close" }
+          - { source: "lejos", target: "far" }
+          - { source: "cocina", target: "kitchen" }
+      - kind: speakLit
+        id: l1-sp-win
+        es: "mi dormitorio es grande, y está cerca de la cocina"
+        en: "My bedroom is big, and it's close to the kitchen"
+        atoms: ["dormitorio", "grande", "está", "cerca", "de", "la", "cocina"]
