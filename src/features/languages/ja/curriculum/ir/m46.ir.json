@@ -208,7 +208,7 @@
           "en": "At some point while it was raining, (I) went to school."
         },
         {
-          "ja": "やすみの あいだに、ほんを かった。",
+          "ja": "やすみの あいだに、 ほんを かった。",
           "en": "At some point during the vacation, (I) bought a book."
         }
       ],
@@ -874,8 +874,8 @@
             },
             {
               "speaker": "Mika",
-              "ja": "へえ、はなしてた？",
-              "en": "Oh, were you talking?"
+              "ja": "はなしてた？",
+              "en": "Were you talking?"
             },
             {
               "speaker": "Ken",
@@ -1015,7 +1015,7 @@
             },
             {
               "speaker": "Mika",
-              "ja": "そうだね。",
+              "ja": "そう。",
               "en": "That's right."
             }
           ],
@@ -1449,8 +1449,8 @@
           "lines": [
             {
               "speaker": "Mika",
-              "ja": "しゅうまつは なにを した？",
-              "en": "What did you do this weekend?"
+              "ja": "きのうは なにを した？",
+              "en": "What did you do yesterday?"
             },
             {
               "speaker": "Ken",
@@ -1459,13 +1459,13 @@
             },
             {
               "speaker": "Mika",
-              "ja": "そうなんだ。",
+              "ja": "そう。",
               "en": "I see."
             }
           ],
           "questions": [
             {
-              "q": "What did Ken do all weekend?",
+              "q": "What did Ken do yesterday?",
               "options": [
                 "Watched nothing but TV",
                 "Read books only",
@@ -1893,7 +1893,7 @@
             },
             {
               "speaker": "Mika",
-              "ja": "そうなんだ。",
+              "ja": "そう。",
               "en": "I see."
             }
           ],
@@ -2256,7 +2256,7 @@
             },
             {
               "speaker": "Mika",
-              "ja": "そうなんだ。",
+              "ja": "そう。",
               "en": "I see."
             }
           ],
@@ -2353,7 +2353,7 @@
             },
             {
               "speaker": "Mika",
-              "ja": "そうなんだ。",
+              "ja": "そう。",
               "en": "I see."
             }
           ],

@@ -158,7 +158,7 @@ grammarPoints:
     examples:
       - { ja: "せんせいが はなしている あいだに、がくせいは ごはんを たべた。", en: "At some point while the teacher was talking, the student ate." }
       - { ja: "あめが ふっている あいだに、がっこうへ いった。", en: "At some point while it was raining, (I) went to school." }
-      - { ja: "やすみの あいだに、ほんを かった。", en: "At some point during the vacation, (I) bought a book." }
+      - { ja: "やすみの あいだに、 ほんを かった。", en: "At some point during the vacation, (I) bought a book." }
     antiPattern: { ja: "せんせいが はなしている あいだに、がくせいは きいている。", why: "きいている (listening) is durative — it fills the WHOLE talking-span, not one point inside it. That reading needs bare あいだ (aida-duration), not あいだに; swapping them here reverses which clause is supposed to be the single point." }
   - id: uchi-ni-window
     rule: "うちに marks a closing WINDOW — do the second thing before the first state changes. あつい うちに、たべる, 'Eat while it's still hot (before it cools).' This is the same うち you know as 'home' (m16) — the sense widens from a physical space to a STATE's own space: 'within the state of X.' Contrast with あいだに (aida-ni-point): あいだに is a neutral point-in-a-span report; うちに adds urgency — the window is closing, so act now. Negate the first clause (ない うちに) for 'before X happens': かえらない うちに、でんわを する, 'before going home, make a call.'"
@@ -327,7 +327,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "かいしゃへ いく とちゅうで、みちで せんせいを みた。", en: "On the way to the company, I saw the teacher on the street." }
-          - { speaker: "Mika", ja: "へえ、はなしてた？", en: "Oh, were you talking?" }
+          - { speaker: "Mika", ja: "はなしてた？", en: "Were you talking?" }
           - { speaker: "Ken", ja: "うん、あるきながら はなしてた。", en: "Yeah, we were talking while walking." }
         questions:
           - { q: "Where did Ken see the teacher?", options: ["On the street, on the way to the company", "At the company", "At school", "At the park"], answer: "On the street, on the way to the company" }
@@ -353,7 +353,7 @@ lessons:
         lines:
           - { speaker: "Mika", ja: "あつい うちに、たべよう。", en: "Let's eat while it's hot." }
           - { speaker: "Ken", ja: "うん、きゅうに つめたい からね。", en: "Yeah, because it's suddenly cold." }
-          - { speaker: "Mika", ja: "そうだね。", en: "That's right." }
+          - { speaker: "Mika", ja: "そう。", en: "That's right." }
         questions:
           - { q: "Why does Mika want to eat now?", options: ["Before the food gets cold", "Before the store closes", "Before it rains", "Before the vacation ends"], answer: "Before the food gets cold" }
       - { kind: challenge, ja: "いえに かえらない うちに、でんわを して、しゅくだいを する。", en: "Before going home, (I) make a call and do homework.", combines: [uchi-ni-window, nai-form, te-form], mode: build }
@@ -429,11 +429,11 @@ lessons:
       - { kind: listening-comp, audio: "ほんを ひとつずつ かった。", answer: "I bought books one at a time.", distractors: ["I bought all the books at once.", "I never bought books.", "I read one book."], q: "What does this mean?" }
       - kind: dialogue
         lines:
-          - { speaker: "Mika", ja: "しゅうまつは なにを した？", en: "What did you do this weekend?" }
+          - { speaker: "Mika", ja: "きのうは なにを した？", en: "What did you do yesterday?" }
           - { speaker: "Ken", ja: "テレビばかり みたよ。", en: "All I did was watch TV." }
-          - { speaker: "Mika", ja: "そうなんだ。", en: "I see." }
+          - { speaker: "Mika", ja: "そう。", en: "I see." }
         questions:
-          - { q: "What did Ken do all weekend?", options: ["Watched nothing but TV", "Read books only", "Went shopping", "Studied"], answer: "Watched nothing but TV" }
+          - { q: "What did Ken do yesterday?", options: ["Watched nothing but TV", "Read books only", "Went shopping", "Studied"], answer: "Watched nothing but TV" }
       - { kind: challenge, ja: "ほんを ひとつずつ かって、テレビばかり みた。", en: "(I) bought books one at a time, and then did nothing but watch TV.", combines: [zutsu-distribution, bakari-quantity, te-form], mode: build }
     reviewPool: [ごはん, テレビ, ほん, みる, かう, たべる]
 
@@ -508,7 +508,7 @@ lessons:
         lines:
           - { speaker: "Mika", ja: "ひさしぶり！げんき？", en: "Long time no see! How are you?" }
           - { speaker: "Ken", ja: "うん、げんき。ほんを かったばかりだよ。", en: "Yeah, good. I just bought a book." }
-          - { speaker: "Mika", ja: "そうなんだ。", en: "I see." }
+          - { speaker: "Mika", ja: "そう。", en: "I see." }
         questions:
           - { q: "What did Ken just do?", options: ["Bought a book", "Read a book", "Sold a book", "Lost a book"], answer: "Bought a book" }
       - { kind: challenge, ja: "かったばかりだから、あたらしい。", en: "Because (I) just bought it, it's new.", combines: [ta-bakari-vs-ta-tokoro, node-because, i-adj-present], mode: build }
@@ -567,7 +567,7 @@ lessons:
         lines:
           - { speaker: "Mika", ja: "ひさしぶり！げんき？", en: "Long time no see! How are you?" }
           - { speaker: "Ken", ja: "うん、げんき。ほんを かったばかりだよ。", en: "Yeah, good. I just bought a book." }
-          - { speaker: "Mika", ja: "そうなんだ。", en: "I see." }
+          - { speaker: "Mika", ja: "そう。", en: "I see." }
         questions:
           - { q: "What did Ken just do?", options: ["Bought a book", "Read a book", "Sold a book", "Lost a book"], answer: "Bought a book" }
     reviewPool: [せんせい, がくせい, いえ, でんわ, ごはん, ほん, しごと, テレビ]
@@ -587,7 +587,7 @@ lessons:
         lines:
           - { speaker: "Mika", ja: "ひさしぶり！げんき？", en: "Long time no see! How are you?" }
           - { speaker: "Ken", ja: "うん、げんき。いま ごはんを たべはじめる ところだよ。", en: "Yeah, good. I'm just about to start eating rice now." }
-          - { speaker: "Mika", ja: "そうなんだ。", en: "I see." }
+          - { speaker: "Mika", ja: "そう。", en: "I see." }
         questions:
           - { q: "What is Ken about to do?", options: ["Start eating", "Finish eating", "Keep eating", "Stop eating"], answer: "Start eating" }
       - { kind: challenge, ja: "せんせいが はなしている あいだに、そのまま ごはんを たべおわった。", en: "While the teacher was talking, (I) finished eating just as (I) was, without a break.", combines: [aida-ni-point, compound-verb-owaru, mama-stative], mode: build }
