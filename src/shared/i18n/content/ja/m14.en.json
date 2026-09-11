@@ -1,0 +1,3201 @@
+{
+  "schema": 1,
+  "moduleId": "m14",
+  "lang": "ja",
+  "generatedAt": "2026-09-10",
+  "entryCount": 532,
+  "entries": [
+    {
+      "anchor": "m14/atom:あける/gloss",
+      "en": "to open",
+      "enSourceHash": "9c91eab3e8f24af4",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m14/atom:いけません/gloss",
+      "en": "must not, not allowed",
+      "enSourceHash": "b992accf4d189b65",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m14/atom:いけません/shortGloss",
+      "en": "must not",
+      "enSourceHash": "df0465d9a3940788",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m14/atom:およぐ/gloss",
+      "en": "to swim",
+      "enSourceHash": "7277bb91883c100d",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m14/atom:しめる/gloss",
+      "en": "to close something",
+      "enSourceHash": "a86a2f8a6dedcf2c",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m14/atom:つめたい/gloss",
+      "en": "cold to the touch",
+      "enSourceHash": "07759b47f1dd3704",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m14/atom:でんき/gloss",
+      "en": "electricity, electric light",
+      "enSourceHash": "d8479873502e11eb",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m14/atom:ひく/gloss",
+      "en": "to pull",
+      "enSourceHash": "38556677c47cf461",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m14/atom:まだ/gloss",
+      "en": "yet, still",
+      "enSourceHash": "f9cf024dce7c9e51",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m14/atom:まつ/gloss",
+      "en": "to wait",
+      "enSourceHash": "838a69724224dd76",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m14/atom:みせる/gloss",
+      "en": "to show",
+      "enSourceHash": "21941e3b1957f553",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m14/atom:もう/gloss",
+      "en": "already",
+      "enSourceHash": "ea53396caebc40d7",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m14/atom:もつ/gloss",
+      "en": "to hold",
+      "enSourceHash": "c1d768f4f4f2a5e0",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m14/atom:コーヒー/gloss",
+      "en": "coffee",
+      "enSourceHash": "37290d74ac4d186e",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m14/atom:ドア/gloss",
+      "en": "Western style door",
+      "enSourceHash": "c87114a3ddcc5c05",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m14/gp:akeru-shimeru/ex:ふるい いえに でんきが ない。",
+      "en": "The old house has no electric light.",
+      "enSourceHash": "17cfcabe64551019",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:akeru-shimeru/ex:まどを しめて ください。",
+      "en": "Please close the window.",
+      "enSourceHash": "e63f43c3e08e4bf1",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:akeru-shimeru/ex:みせは くじに ドアを あける。",
+      "en": "The shop opens its doors at nine.",
+      "enSourceHash": "11c5329ffb35876e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:akeru-shimeru/ex:みせは ごじに ドアを しめる。",
+      "en": "The shop closes its doors at five.",
+      "enSourceHash": "54ee6c6a873760c5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:akeru-shimeru/ex:ドアが あけて ください。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:akeru-shimeru/ex:ドアを あけて ください。",
+      "en": "Please open the door.",
+      "enSourceHash": "106606dfa8b58b7b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:akeru-shimeru/ex:ドアを ひいて ください。",
+      "en": "Please pull the door.",
+      "enSourceHash": "7db695d5cad08ed6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:kudasai/ex:あたらしい かさを ください。",
+      "en": "A new umbrella, please.",
+      "enSourceHash": "4649b74b0c3a975e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:kudasai/ex:しゃしんを みせて ください。",
+      "en": "Please show me the photo.",
+      "enSourceHash": "8b132fabfb66d399",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:kudasai/ex:すしを ください。",
+      "en": "Sushi, please.",
+      "enSourceHash": "76243295594f32cc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:kudasai/ex:ちょっと まって ください。",
+      "en": "Please wait a moment.",
+      "enSourceHash": "11ee546c32b6dcc7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:kudasai/ex:ほんを みて ください。",
+      "en": "Please look at the book.",
+      "enSourceHash": "1c01efe811a0119b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:kudasai/ex:みずが ください。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:kudasai/ex:みずを ください。",
+      "en": "Water, please.",
+      "enSourceHash": "f5f1b86cf34f7e09",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:kudasai/ex:コーヒーを ください。",
+      "en": "Coffee, please.",
+      "enSourceHash": "8d8b78a38614c451",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:mada-mou/ex:まだ ごはんを たべていない。",
+      "en": "I haven't eaten yet.",
+      "enSourceHash": "8c5c9300917cfc80",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:mada-mou/ex:まだ しゃしんを みていない。",
+      "en": "I haven't seen the photo yet.",
+      "enSourceHash": "42a23a681a873858",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:mada-mou/ex:もう ごはんを たべた。",
+      "en": "I already ate.",
+      "enSourceHash": "fda211670ec0ea44",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:mada-mou/ex:もう ごはんを たべたない。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:mada-mou/ex:もう しゃしんを みた。",
+      "en": "I already saw the photo.",
+      "enSourceHash": "76d7c4298c66db06",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:mada-mou/ex:ミカは まだ えきで まっている。",
+      "en": "Mika is still waiting at the station.",
+      "enSourceHash": "eeb8a5a4e0c0dece",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:naide-kudasai/ex:かわで およがないで ください。",
+      "en": "Please don't swim in the river.",
+      "enSourceHash": "5ccf25f49dc281dc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:naide-kudasai/ex:きょうは いかないで ください。",
+      "en": "Please don't go today.",
+      "enSourceHash": "d95c82ded85f195b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:naide-kudasai/ex:ここで たべない ください。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:naide-kudasai/ex:ここで たべないで ください。",
+      "en": "Please don't eat here.",
+      "enSourceHash": "6fdb8582a3cbe843",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:naide-kudasai/ex:しゃしんを みないで ください。",
+      "en": "Please don't look at the photo.",
+      "enSourceHash": "46bf626faa08ddfc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:naide-kudasai/ex:みずを のまないで ください。",
+      "en": "Please don't drink the water.",
+      "enSourceHash": "161ea943160301f0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-form/ex:あさ ごはんを たべて、だいがくに いく。",
+      "en": "In the morning I eat and then go to university.",
+      "enSourceHash": "1a72b25c7ffe92af",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-form/ex:あさ ごはんを たべる、だいがくに いく。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-form/ex:うたを きいて、ごはんを たべた。",
+      "en": "I listened to a song and then ate.",
+      "enSourceHash": "8b9ce10c215c3cbc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-form/ex:きっさてんに いって、ちゃを のんだ。",
+      "en": "I went to the coffee shop and drank tea.",
+      "enSourceHash": "1717a093deb76986",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-form/ex:きょうは えきに いって、ともだちと あそんだ。",
+      "en": "Today I went to the station and hung out with a friend.",
+      "enSourceHash": "73976b1b30615d93",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-form/ex:みせに いって、あたらしい ふくを かった。",
+      "en": "I went to the shop and bought new clothes.",
+      "enSourceHash": "26eb2dd96ce013f1",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-iru/ex:いま ごはんを たべている。",
+      "en": "I'm eating right now.",
+      "enSourceHash": "1a7baaf1dc81117b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-iru/ex:いま ごはんを たべるいる。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-iru/ex:いま みずを のんでいない。",
+      "en": "I'm not drinking water right now.",
+      "enSourceHash": "4942cda1a4b12b00",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-iru/ex:しっていない。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-iru/ex:しっている。",
+      "en": "I know.",
+      "enSourceHash": "45b3c6001b6b9556",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-iru/ex:ともだちは かいしゃで はたらいている。",
+      "en": "My friend works at a company.",
+      "enSourceHash": "27883e1a16fe2348",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-iru/ex:にほんに すんでいる。",
+      "en": "I live in Japan.",
+      "enSourceHash": "cce22e9165349ed8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-iru/ex:トムの なまえを しっている。",
+      "en": "I know Tom's name.",
+      "enSourceHash": "fc8d86d79ed4f62f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-iru/ex:ミカは いま ちゃを のんでいる。",
+      "en": "Mika is drinking tea right now.",
+      "enSourceHash": "6891b497f4b7abe3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-iru/ex:ミカは いま ほんを みている。",
+      "en": "Mika is looking at a book right now.",
+      "enSourceHash": "d819ff23128bb37a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-mo-ii/ex:ううん、だめ。",
+      "en": "No — that's not allowed.",
+      "enSourceHash": "cf0ef7eba5dfc12c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-mo-ii/ex:うみで およいでも いい。",
+      "en": "You may swim in the sea.",
+      "enSourceHash": "a32935f94f3ca554",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-mo-ii/ex:ここで たべても いい？",
+      "en": "Is it OK if I eat here?",
+      "enSourceHash": "e6db6159f2217bf1",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-mo-ii/ex:ここで たべるも いい？",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-mo-ii/ex:ここで まっても いい？",
+      "en": "May I wait here?",
+      "enSourceHash": "cd4f6071499ff858",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-mo-ii/ex:しゃしんを みても いい？",
+      "en": "May I look at the photo?",
+      "enSourceHash": "9db89e3b2b187cf4",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-wa-ikemasen/ex:かわで およいでは いけません。",
+      "en": "You must not swim in the river.",
+      "enSourceHash": "9c268a83a3607d11",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-wa-ikemasen/ex:ここで たべては いけません。",
+      "en": "You must not eat here.",
+      "enSourceHash": "1795b6916ec24d4e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-wa-ikemasen/ex:ここで たべては だめ。",
+      "en": "You can't eat here. (to a friend)",
+      "enSourceHash": "5b7085108bddde60",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-wa-ikemasen/ex:ここで たべるは いけません。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-wa-ikemasen/ex:ここで まっては いけません。",
+      "en": "You must not wait here.",
+      "enSourceHash": "da148dd3eb998ac8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/gp:te-wa-ikemasen/ex:じゅぎょうで けいたいを みては いけません。",
+      "en": "You must not look at your phone in class.",
+      "enSourceHash": "720858e41af1210f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:0f4168490e38b844",
+      "en": "water",
+      "enSourceHash": "0f4168490e38b844",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:174fde2a47dca22a",
+      "en": "Please show me the bag",
+      "enSourceHash": "174fde2a47dca22a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:48d509eb224ee1ef",
+      "en": "A small bag, please",
+      "enSourceHash": "48d509eb224ee1ef",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:526085a26286e0c2",
+      "en": "Please wait at the station",
+      "enSourceHash": "526085a26286e0c2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:63f75c890b05405e",
+      "en": "song",
+      "enSourceHash": "63f75c890b05405e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:6ccf97f2b31d0b93",
+      "en": "Please look here",
+      "enSourceHash": "6ccf97f2b31d0b93",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:7482d5802c3c2798",
+      "en": "photograph",
+      "enSourceHash": "7482d5802c3c2798",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:7d46916c3e1d229e",
+      "en": "Please buy it here",
+      "enSourceHash": "7d46916c3e1d229e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:bf95bbecf01fd2ef",
+      "en": "A big bag, please",
+      "enSourceHash": "bf95bbecf01fd2ef",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:cd563f8292d6ac44",
+      "en": "stand (te)",
+      "enSourceHash": "cd563f8292d6ac44",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:def22a1627ba18e8",
+      "en": "Please wait here",
+      "enSourceHash": "def22a1627ba18e8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:dffe9612baf7f70f",
+      "en": "I want a big bag",
+      "enSourceHash": "dffe9612baf7f70f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/ja:あたらしい ぼうしを ください",
+      "en": "Build: A new hat, please",
+      "enSourceHash": "f729d7a75e3d439c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/ja:うたを きいて ください",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/ja:きっさてんで まって ください",
+      "en": "Build: Please wait at the coffee shop",
+      "enSourceHash": "71b270bae173744f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/ja:しずかな きっさてんで ミカの しゃしんを みせて ください",
+      "en": "Build: Please show me Mika's photo at the quiet coffee shop",
+      "enSourceHash": "b74888c456af54fc",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/ja:しゃしんを みせて ください",
+      "en": "Build: Please show me the photo",
+      "enSourceHash": "bc1231d96848e913",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/ja:ちょっと まって ください",
+      "en": "Build: Please wait a moment",
+      "enSourceHash": "be0b24f8444c97a7",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/ja:みずを ください",
+      "en": "Build: Water, please",
+      "enSourceHash": "fae86d8280bbea5e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/ja:コーヒーを ください",
+      "en": "Build: Coffee, please",
+      "enSourceHash": "6a2dc5209bbde95c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/ja:ミカの あたらしい しゃしんを みせて ください",
+      "en": "Build: Please show me Mika's new photo",
+      "enSourceHash": "bb9dc4bd874a9cb8",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:053e8fa5745a6666",
+      "en": "The shop opens its doors at six",
+      "enSourceHash": "053e8fa5745a6666",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:0f4168490e38b844",
+      "en": "water",
+      "enSourceHash": "0f4168490e38b844",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:177ca70f42def123",
+      "en": "dictionary",
+      "enSourceHash": "177ca70f42def123",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:1dd6f22ee8a96aec",
+      "en": "I already closed the door",
+      "enSourceHash": "1dd6f22ee8a96aec",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:30fbafb4178b6eb5",
+      "en": "Please close the door",
+      "enSourceHash": "30fbafb4178b6eb5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:44ff7b02c80d38b2",
+      "en": "window",
+      "enSourceHash": "44ff7b02c80d38b2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:4e71a1851f141a32",
+      "en": "Please drink the cold water",
+      "enSourceHash": "4e71a1851f141a32",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:4f25e25405e18e14",
+      "en": "Please don't drink the cold water",
+      "enSourceHash": "4f25e25405e18e14",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:8369c491abc2318c",
+      "en": "You must not drink water here",
+      "enSourceHash": "8369c491abc2318c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:9c58ec6c87db9fe1",
+      "en": "I haven't closed the door yet",
+      "enSourceHash": "9c58ec6c87db9fe1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:a559d35828d9ae65",
+      "en": "The shop closes its doors at six",
+      "enSourceHash": "a559d35828d9ae65",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:a979ac26fc7eb082",
+      "en": "I already opened the door",
+      "enSourceHash": "a979ac26fc7eb082",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:c018019b6a8b01ab",
+      "en": "bag",
+      "enSourceHash": "c018019b6a8b01ab",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:c599a94ba73891c3",
+      "en": "The shop closes its doors at ten",
+      "enSourceHash": "c599a94ba73891c3",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:c8347a475ae6f493",
+      "en": "Please don't drink the cold tea",
+      "enSourceHash": "c8347a475ae6f493",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:d7e449881e6d1db7",
+      "en": "The shop closed its doors at six",
+      "enSourceHash": "d7e449881e6d1db7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/ja:あたらしい でんきが かいたい",
+      "en": "Build: I want to buy a new light",
+      "enSourceHash": "b93971dbd6cfb9c6",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/ja:ここで ドアを あけては いけません",
+      "en": "Build: You must not open the door here",
+      "enSourceHash": "5aa95ce0f6e40451",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/ja:つめたい みずが のみたい",
+      "en": "Build: I want to drink cold water",
+      "enSourceHash": "46168a28586bec9a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/ja:まどを あけても いい？",
+      "en": "Build: Is it OK if I open the window?",
+      "enSourceHash": "a37540a582f9aaeb",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/ja:みせは ろくじに ドアを しめる",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/ja:トムは つめたい ちゃを もっている",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/ja:ドアを あけないで ください",
+      "en": "Build: Please don't open the door",
+      "enSourceHash": "46d89df07136eff2",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/ja:ドアを しめて ください",
+      "en": "Build: Please close the door",
+      "enSourceHash": "10cbf7c3cef8c8bc",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/ja:ミカは あたらしい かばんを もっている",
+      "en": "Build: Mika has a new bag",
+      "enSourceHash": "6a7ef89c3dc5192e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/ja:ミカは まだ つめたい ちゃを のんでいる",
+      "en": "Build: Mika is still drinking the cold tea",
+      "enSourceHash": "c1003bb5eeb1fbd2",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:006cb3d5049556de",
+      "en": "I want to look at a photo",
+      "enSourceHash": "006cb3d5049556de",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:0cb75b29fc1d05ac",
+      "en": "I'm buying a photo",
+      "enSourceHash": "0cb75b29fc1d05ac",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:0f4168490e38b844",
+      "en": "water",
+      "enSourceHash": "0f4168490e38b844",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:2a24b10828775a9a",
+      "en": "lend (te)",
+      "enSourceHash": "2a24b10828775a9a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:3e9a80f033b2928e",
+      "en": "Ken is waiting at the shop",
+      "enSourceHash": "3e9a80f033b2928e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:4bdf40d0d1ae3611",
+      "en": "rice/meal",
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:5d59b2b96755e2c6",
+      "en": "lend",
+      "enSourceHash": "5d59b2b96755e2c6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:63f75c890b05405e",
+      "en": "song",
+      "enSourceHash": "63f75c890b05405e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:6b9552e188c962f2",
+      "en": "Ken went to the station",
+      "enSourceHash": "6b9552e188c962f2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:e46c4079347c824c",
+      "en": "Ken is waiting at the station",
+      "enSourceHash": "e46c4079347c824c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:eba401c2f94bf718",
+      "en": "I'm looking at a photo right now",
+      "enSourceHash": "eba401c2f94bf718",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:ef43e608a802d03e",
+      "en": "I looked at a photo",
+      "enSourceHash": "ef43e608a802d03e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:f5be58618ff5abeb",
+      "en": "Ken is working at the station",
+      "enSourceHash": "f5be58618ff5abeb",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/ja:いま ごはんを たべている",
+      "en": "Build: I'm eating right now",
+      "enSourceHash": "9f96cb4b9d2341c3",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/ja:いま みずを のんでいる",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/ja:ともだちは かいしゃで はたらいている",
+      "en": "Build: My friend works at a company",
+      "enSourceHash": "32c66af580c1d486",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/ja:ケンは にぎやかな みせで はたらいている",
+      "en": "Build: Ken works at a busy shop",
+      "enSourceHash": "2d8a3dd3c773c71f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/ja:トムは えきで まっている",
+      "en": "Build: Tom is waiting at the station",
+      "enSourceHash": "12bbe79deb19250d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/ja:ミカは いま うたを きいている",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/ja:ミカは いま しずかな きっさてんで ほんを みている",
+      "en": "Build: Mika is looking at a book at a quiet coffee shop right now",
+      "enSourceHash": "cb93308cf16466fc",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/ja:ミカは いま ほんを みている",
+      "en": "Build: Mika is looking at a book right now",
+      "enSourceHash": "e8481222c8217d21",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:030e746f8f202111",
+      "en": "I live in Japan",
+      "enSourceHash": "030e746f8f202111",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:0853f9436da654f8",
+      "en": "Mika lives in a new house",
+      "enSourceHash": "0853f9436da654f8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:0aecbd5f6637bc49",
+      "en": "I met Tom yesterday",
+      "enSourceHash": "0aecbd5f6637bc49",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:1b155edfa0f563e9",
+      "en": "I don't know Tom's friend",
+      "enSourceHash": "1b155edfa0f563e9",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:2eb02df4c6c98f45",
+      "en": "I know Mika's name",
+      "enSourceHash": "2eb02df4c6c98f45",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:38a81e87e79631e6",
+      "en": "person",
+      "enSourceHash": "38a81e87e79631e6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:3e4f16f7181804f4",
+      "en": "I don't know Tom",
+      "enSourceHash": "3e4f16f7181804f4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:40415b794e32490e",
+      "en": "I'm waiting for Tom",
+      "enSourceHash": "40415b794e32490e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:49d9ca9a9cda4452",
+      "en": "Tom lives in America",
+      "enSourceHash": "49d9ca9a9cda4452",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:55e9f284022b41a8",
+      "en": "Mika is building a new house",
+      "enSourceHash": "55e9f284022b41a8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:647294383b2cbc24",
+      "en": "Japan",
+      "enSourceHash": "647294383b2cbc24",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:66a1bb44eb064294",
+      "en": "Mika wants a new house",
+      "enSourceHash": "66a1bb44eb064294",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:6f60df6833e14f26",
+      "en": "I know Tom",
+      "enSourceHash": "6f60df6833e14f26",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:82a3537ff0dbce7e",
+      "en": "name",
+      "enSourceHash": "82a3537ff0dbce7e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:91a69026e3650b4a",
+      "en": "Mika lives in an old house",
+      "enSourceHash": "91a69026e3650b4a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:c798e5b18ed876ef",
+      "en": "coffee shop",
+      "enSourceHash": "c798e5b18ed876ef",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:d6e21286621a8586",
+      "en": "house",
+      "enSourceHash": "d6e21286621a8586",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/ja:あたらしい きっさてんを しらない",
+      "en": "Build: I don't know the new coffee shop",
+      "enSourceHash": "5ae94ef05cdceabc",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/ja:ゆうめいな みせを しっている",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/ja:わたしは にほんに すんでいる",
+      "en": "Build: I live in Japan",
+      "enSourceHash": "e894f31143b42ed4",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/ja:わたしは にほんの ゆうめいな きっさてんを しっている",
+      "en": "Build: I know a famous coffee shop in Japan",
+      "enSourceHash": "8b7af1ae22d4a098",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/ja:わたしは トムの ともだちを しらない",
+      "en": "Build: I don't know Tom's friend",
+      "enSourceHash": "df3b152e3efe81d1",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/ja:ケンは しずかな いえに すんでいる",
+      "en": "Build: Ken lives in a quiet house",
+      "enSourceHash": "bee9ca65208d497e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/ja:トムは アメリカに すんでいる",
+      "en": "Build: Tom lives in America",
+      "enSourceHash": "23a626597413c4be",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/ja:ミカの なまえを しっている",
+      "en": "Build: I know Mika's name",
+      "enSourceHash": "3e8a2eedd2e7513f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:035c36dcf5937009",
+      "en": "I already saw the photo",
+      "enSourceHash": "035c36dcf5937009",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:26eafd7c9e22cf8d",
+      "en": "Ken isn't at the coffee shop yet",
+      "enSourceHash": "26eafd7c9e22cf8d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:368adc94d8636857",
+      "en": "I'm drinking the milk now",
+      "enSourceHash": "368adc94d8636857",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:3f8127b124efa272",
+      "en": "I haven't eaten yet",
+      "enSourceHash": "3f8127b124efa272",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:4bdf40d0d1ae3611",
+      "en": "rice/meal",
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:4d6467a6d442e6a3",
+      "en": "Ken is already at the coffee shop",
+      "enSourceHash": "4d6467a6d442e6a3",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:5c5f9b87778cfb10",
+      "en": "clothes",
+      "enSourceHash": "5c5f9b87778cfb10",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:6e10ad1b5f7a1316",
+      "en": "I haven't seen the photo yet",
+      "enSourceHash": "6e10ad1b5f7a1316",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:7482d5802c3c2798",
+      "en": "photograph",
+      "enSourceHash": "7482d5802c3c2798",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:8279eef3862e0d7e",
+      "en": "hurry (te)",
+      "enSourceHash": "8279eef3862e0d7e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:9b4ef3e5b7b4d175",
+      "en": "station",
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:c5e4e231e654ff2a",
+      "en": "Ken isn't at the station yet",
+      "enSourceHash": "c5e4e231e654ff2a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:d50599edfdd4df6e",
+      "en": "I haven't drunk the milk yet",
+      "enSourceHash": "d50599edfdd4df6e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:e1dde0b3a8457309",
+      "en": "I already bought the milk",
+      "enSourceHash": "e1dde0b3a8457309",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:e57bede922706c8e",
+      "en": "I already drank the milk",
+      "enSourceHash": "e57bede922706c8e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:f08244d4c48eb505",
+      "en": "I already ate",
+      "enSourceHash": "f08244d4c48eb505",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:fa64496c5f9e6071",
+      "en": "Ken is waiting at the coffee shop",
+      "enSourceHash": "fa64496c5f9e6071",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/ja:まだ あたらしい ふくを かっていない",
+      "en": "Build: I haven't bought the new clothes yet",
+      "enSourceHash": "b93058ab5f6a4e71",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/ja:まだ ごはんを たべていない",
+      "en": "Build: I haven't eaten yet",
+      "enSourceHash": "1ebd1b81216c7a3e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/ja:まだ しゃしんを みていない",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/ja:もう ごはんを たべた",
+      "en": "Build: I already ate",
+      "enSourceHash": "3e111bccc0cb3de8",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/ja:もう しゃしんを みた",
+      "en": "Build: I already saw the photo",
+      "enSourceHash": "b205846ac83b1013",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/ja:もう ちゃを のんだ",
+      "en": "Build: I already drank the tea",
+      "enSourceHash": "503d547047a4559d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/ja:ミカは まだ えきで まっている",
+      "en": "Build: Mika is still waiting at the station",
+      "enSourceHash": "b28c0b32da85f65c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/ja:ミカは もう ゆうめいな みせで あたらしい かさを かった",
+      "en": "Build: Mika already bought a new umbrella at the famous shop",
+      "enSourceHash": "21e193eeaa4c1954",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:0201d4d8b5a55714",
+      "en": "Where do you work?",
+      "enSourceHash": "0201d4d8b5a55714",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:02c84d1bc7061d2f",
+      "en": "Tom is swimming in the river",
+      "enSourceHash": "02c84d1bc7061d2f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:10748d077994a65f",
+      "en": "Where are you going?",
+      "enSourceHash": "10748d077994a65f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:2581400d38290e14",
+      "en": "Mika wants to swim in the sea",
+      "enSourceHash": "2581400d38290e14",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:404069ec6fcc3913",
+      "en": "Who do you work with?",
+      "enSourceHash": "404069ec6fcc3913",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:4a69f19c8c264850",
+      "en": "sea",
+      "enSourceHash": "4a69f19c8c264850",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:5f5a8ed8f139be6d",
+      "en": "river",
+      "enSourceHash": "5f5a8ed8f139be6d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:6597843b04c09492",
+      "en": "Mika is swimming in the sea right now",
+      "enSourceHash": "6597843b04c09492",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:7722a4579a133fb7",
+      "en": "Mika is swimming in the river",
+      "enSourceHash": "7722a4579a133fb7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:818777c4023c0266",
+      "en": "What are you doing right now?",
+      "enSourceHash": "818777c4023c0266",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:98b625c3b0ff61cf",
+      "en": "What is Ken drinking right now?",
+      "enSourceHash": "98b625c3b0ff61cf",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:9b4ef3e5b7b4d175",
+      "en": "station",
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:9c751873826b201d",
+      "en": "Mika is swimming in the sea",
+      "enSourceHash": "9c751873826b201d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:b83a6328aa42319f",
+      "en": "Mika swam in the sea",
+      "enSourceHash": "b83a6328aa42319f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:cde48537ca2c2808",
+      "en": "friend",
+      "enSourceHash": "cde48537ca2c2808",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:d37a24b801c6e2e3",
+      "en": "stand",
+      "enSourceHash": "d37a24b801c6e2e3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:dc66030704c34bff",
+      "en": "Where did you work?",
+      "enSourceHash": "dc66030704c34bff",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/ja:いま なにを している？",
+      "en": "Build: What are you doing right now?",
+      "enSourceHash": "77de20b5befb6b61",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/ja:きっさてんで ちゃを のんでいる",
+      "en": "Build: I'm drinking tea at the coffee shop",
+      "enSourceHash": "959deddce58c7246",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/ja:だれを まっている？",
+      "en": "Build: Who are you waiting for?",
+      "enSourceHash": "9617e073680514a8",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/ja:ともだちは うみで およいでいる",
+      "en": "Build: My friend is swimming in the sea",
+      "enSourceHash": "b23181ac9f5ca373",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/ja:どこで はたらいている？",
+      "en": "Build: Where do you work?",
+      "enSourceHash": "92c6a7b1c3b90a43",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/ja:ケンは いま なにを のんでいる？",
+      "en": "Build: What is Ken drinking right now?",
+      "enSourceHash": "425e07558a26853c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/ja:トムは かわで およいでいる",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/ja:ミカの ともだちは いま しずかな うみで およいでいる",
+      "en": "Build: Mika's friend is swimming in the quiet sea right now",
+      "enSourceHash": "b4d6793b08d7e6ab",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/ja:ミカは うみで およいでいる",
+      "en": "Build: Mika is swimming in the sea",
+      "enSourceHash": "87daac7d4f716ab3",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:0db4d3c5c497f75b",
+      "en": "I want to swim in the sea",
+      "enSourceHash": "0db4d3c5c497f75b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:1ab573ecd2ae60ad",
+      "en": "Is it OK if I look at the photo here?",
+      "enSourceHash": "1ab573ecd2ae60ad",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:2a24b10828775a9a",
+      "en": "lend (te)",
+      "enSourceHash": "2a24b10828775a9a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:467e7d22a9c6d756",
+      "en": "May I show the photo here?",
+      "enSourceHash": "467e7d22a9c6d756",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:49ddfa4322dfa1c7",
+      "en": "You must not swim in the sea",
+      "enSourceHash": "49ddfa4322dfa1c7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:7482d5802c3c2798",
+      "en": "photograph",
+      "enSourceHash": "7482d5802c3c2798",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:8e23e6d6a7ff437f",
+      "en": "I'm swimming in the sea",
+      "enSourceHash": "8e23e6d6a7ff437f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:9cc9838b173459b8",
+      "en": "do (te)",
+      "enSourceHash": "9cc9838b173459b8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:9ce10d3126a7cbc9",
+      "en": "Did you look at the photo here?",
+      "enSourceHash": "9ce10d3126a7cbc9",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:9db89e3b2b187cf4",
+      "en": "May I look at the photo?",
+      "enSourceHash": "9db89e3b2b187cf4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:b17e7817e872d0ca",
+      "en": "You may swim in the sea",
+      "enSourceHash": "b17e7817e872d0ca",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:c798e5b18ed876ef",
+      "en": "coffee shop",
+      "enSourceHash": "c798e5b18ed876ef",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:c81095880b6b4280",
+      "en": "May I buy the photo here?",
+      "enSourceHash": "c81095880b6b4280",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:cd4f6071499ff858",
+      "en": "May I wait here?",
+      "enSourceHash": "cd4f6071499ff858",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:e6db6159f2217bf1",
+      "en": "Is it OK if I eat here?",
+      "enSourceHash": "e6db6159f2217bf1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/ja:あたらしい ほんを みても いい？",
+      "en": "Build: May I look at the new book?",
+      "enSourceHash": "02bfa18a1db1ce01",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/ja:うみで およいでも いい",
+      "en": "Build: You may swim in the sea",
+      "enSourceHash": "5d4650fdf1e68bd6",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/ja:きっさてんで はたらいても いい",
+      "en": "Build: You may work at the coffee shop",
+      "enSourceHash": "cdc0d85d66cf27ec",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/ja:ここで たべても いい？",
+      "en": "Build: Is it OK if I eat here?",
+      "enSourceHash": "cafe9ef90f7d56ed",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/ja:ここで まっても いい？",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/ja:しずかな きっさてんで ミカの ほんを みても いい？",
+      "en": "Build: May I look at Mika's book at the quiet coffee shop?",
+      "enSourceHash": "e96d94772d4816a3",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/ja:しゃしんを みても いい？",
+      "en": "Build: May I look at the photo?",
+      "enSourceHash": "b616a90976bc8627",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/ja:ちゃを のんでも いい？",
+      "en": "Build: May I drink the tea?",
+      "enSourceHash": "8f4101df868f0879",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:0889113e04d3203f",
+      "en": "class",
+      "enSourceHash": "0889113e04d3203f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:0d5ab8aa5c8415ad",
+      "en": "You must not swim at the coffee shop",
+      "enSourceHash": "0d5ab8aa5c8415ad",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:1f7f2dccde7d0d2f",
+      "en": "You may swim at the coffee shop",
+      "enSourceHash": "1f7f2dccde7d0d2f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:3a96edeceecdbf78",
+      "en": "You must not swim in the river",
+      "enSourceHash": "3a96edeceecdbf78",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:4a69f19c8c264850",
+      "en": "sea",
+      "enSourceHash": "4a69f19c8c264850",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:4f05bb2b4dee4690",
+      "en": "You may look at your phone in class",
+      "enSourceHash": "4f05bb2b4dee4690",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:5668f848a674bd88",
+      "en": "You must not eat here",
+      "enSourceHash": "5668f848a674bd88",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:5837764026a5388e",
+      "en": "Please don't eat at the coffee shop",
+      "enSourceHash": "5837764026a5388e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:5ba21636fab7a315",
+      "en": "You must not look at your phone in class",
+      "enSourceHash": "5ba21636fab7a315",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:5f5a8ed8f139be6d",
+      "en": "river",
+      "enSourceHash": "5f5a8ed8f139be6d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:7482d5802c3c2798",
+      "en": "photograph",
+      "enSourceHash": "7482d5802c3c2798",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:95426aebf3e39009",
+      "en": "Please show your phone in class",
+      "enSourceHash": "95426aebf3e39009",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:9790792816823656",
+      "en": "You must not wait here",
+      "enSourceHash": "9790792816823656",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:99fab962704095ed",
+      "en": "I'm looking at my phone in class",
+      "enSourceHash": "99fab962704095ed",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:df610eb0da0650ce",
+      "en": "I'm swimming at the coffee shop",
+      "enSourceHash": "df610eb0da0650ce",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:e9e3b8d8ba864fa9",
+      "en": "Cell phone",
+      "enSourceHash": "e9e3b8d8ba864fa9",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/ja:うみで およいでも いい",
+      "en": "Build: You may swim in the sea",
+      "enSourceHash": "5d4650fdf1e68bd6",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/ja:かわで およいでは いけません",
+      "en": "Build: You must not swim in the river",
+      "enSourceHash": "95d28966eccca70b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/ja:きっさてんで うたを きいては いけません",
+      "en": "Build: You must not listen to songs in the coffee shop",
+      "enSourceHash": "8a75e1a46465948d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/ja:ここで たべては いけません",
+      "en": "Build: You must not eat here",
+      "enSourceHash": "10057ccf363cdbb3",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/ja:ここで まっては いけません",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/ja:しずかな きっさてんで ともだちの しゃしんを みせては いけません",
+      "en": "Build: You must not show a friend's photo at the quiet coffee shop",
+      "enSourceHash": "56afb1f278699d03",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/ja:じゅぎょうで けいたいを みては いけません",
+      "en": "Build: You must not look at your phone in class",
+      "enSourceHash": "ba7f1d9796fbb8c5",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/ja:みせで しゃしんを みせては いけません",
+      "en": "Build: You must not show photos in the shop",
+      "enSourceHash": "bd6374e78d479d53",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:0f4168490e38b844",
+      "en": "water",
+      "enSourceHash": "0f4168490e38b844",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:28becedd3e8711c9",
+      "en": "I don't drink water",
+      "enSourceHash": "28becedd3e8711c9",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:4397e1845a564fdc",
+      "en": "Please go to the sea today",
+      "enSourceHash": "4397e1845a564fdc",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:4a69f19c8c264850",
+      "en": "sea",
+      "enSourceHash": "4a69f19c8c264850",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:5f5a8ed8f139be6d",
+      "en": "river",
+      "enSourceHash": "5f5a8ed8f139be6d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:7482d5802c3c2798",
+      "en": "photograph",
+      "enSourceHash": "7482d5802c3c2798",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:89f21ba3b93e7555",
+      "en": "Please don't swim in the river",
+      "enSourceHash": "89f21ba3b93e7555",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:8f3c4e7b44119dde",
+      "en": "May I drink the water?",
+      "enSourceHash": "8f3c4e7b44119dde",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:8fce8d4be416511e",
+      "en": "Please don't go today",
+      "enSourceHash": "8fce8d4be416511e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:9079329bad1d5724",
+      "en": "Please drink the water",
+      "enSourceHash": "9079329bad1d5724",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:bf43c2c22f1553bf",
+      "en": "Please don't drink the water",
+      "enSourceHash": "bf43c2c22f1553bf",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:bfbbc9d8f6aea8c8",
+      "en": "Please don't go to the sea today",
+      "enSourceHash": "bfbbc9d8f6aea8c8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:c798e5b18ed876ef",
+      "en": "coffee shop",
+      "enSourceHash": "c798e5b18ed876ef",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:d656d2581d24d5d3",
+      "en": "Please don't look at the photo",
+      "enSourceHash": "d656d2581d24d5d3",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:d7a386b348824531",
+      "en": "I'm not going to the sea today",
+      "enSourceHash": "d7a386b348824531",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:e6cfc343be3ce685",
+      "en": "Please don't eat here",
+      "enSourceHash": "e6cfc343be3ce685",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:f4ca5e7b08576937",
+      "en": "You must not go to the sea today",
+      "enSourceHash": "f4ca5e7b08576937",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/ja:かわで およがないで ください",
+      "en": "Build: Please don't swim in the river",
+      "enSourceHash": "164d36e842730e67",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/ja:きょうは いかないで ください",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/ja:ここで たべないで ください",
+      "en": "Build: Please don't eat here",
+      "enSourceHash": "208143dd973a584c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/ja:しゃしんを みないで ください",
+      "en": "Build: Please don't look at the photo",
+      "enSourceHash": "d3e3e3a4c5e1f6a7",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/ja:にぎやかな みせで ミカの しゃしんを みせないで ください",
+      "en": "Build: Please don't show Mika's photo at the busy shop",
+      "enSourceHash": "c5cdc63a16d09118",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/ja:ふるい ほんを かわないで ください",
+      "en": "Build: Please don't buy the old book",
+      "enSourceHash": "aebc137cfbdf1b79",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/ja:みずを のまないで ください",
+      "en": "Build: Please don't drink the water",
+      "enSourceHash": "cad653ff6c43dcd5",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/ja:ミカに しゃしんを みせないで ください",
+      "en": "Build: Please don't show Mika the photo",
+      "enSourceHash": "159fc6058ae30bc1",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:0d305ea3ce5b13af",
+      "en": "I want to look at a book at the coffee shop",
+      "enSourceHash": "0d305ea3ce5b13af",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:10751b3ec7c8fa9f",
+      "en": "I'm looking at a book at the coffee shop",
+      "enSourceHash": "10751b3ec7c8fa9f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:391b2d89e950adee",
+      "en": "I went to the coffee shop and looked at a book",
+      "enSourceHash": "391b2d89e950adee",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:3b857d67c27c1f6f",
+      "en": "I'm listening to a song and eating",
+      "enSourceHash": "3b857d67c27c1f6f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:4bdf40d0d1ae3611",
+      "en": "rice/meal",
+      "enSourceHash": "4bdf40d0d1ae3611",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:5c5f9b87778cfb10",
+      "en": "clothes",
+      "enSourceHash": "5c5f9b87778cfb10",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:66d14ea14c292650",
+      "en": "I listened to a song and then ate",
+      "enSourceHash": "66d14ea14c292650",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:92145886edc8d495",
+      "en": "I want to listen to a song and eat",
+      "enSourceHash": "92145886edc8d495",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:adba6c0ec8a8d89e",
+      "en": "university",
+      "enSourceHash": "adba6c0ec8a8d89e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:b178df522fa7b75f",
+      "en": "In the morning I eat and then go to university",
+      "enSourceHash": "b178df522fa7b75f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:c798e5b18ed876ef",
+      "en": "coffee shop",
+      "enSourceHash": "c798e5b18ed876ef",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:d00aea2c8de69ce2",
+      "en": "I went to the coffee shop and drank tea",
+      "enSourceHash": "d00aea2c8de69ce2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:d1c6e016f7fb6baf",
+      "en": "I ate and then listened to a song",
+      "enSourceHash": "d1c6e016f7fb6baf",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:ef67c55dd4f3a9f8",
+      "en": "I looked at a book and went to the coffee shop",
+      "enSourceHash": "ef67c55dd4f3a9f8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:fc5f4312af042253",
+      "en": "I went to the shop and bought new clothes",
+      "enSourceHash": "fc5f4312af042253",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/ja:あさ ごはんを たべて だいがくに いく",
+      "en": "Build: In the morning I eat and then go to university",
+      "enSourceHash": "6557ad95c4917686",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/ja:うたを きいて ごはんを たべた",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/ja:きっさてんに いって ちゃを のんだ",
+      "en": "Build: I went to the coffee shop and drank tea",
+      "enSourceHash": "135ca3577d72405b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/ja:きのう にぎやかな みせに いって ミカの あたらしい かさを かった",
+      "en": "Build: Yesterday I went to the busy shop and bought Mika's new umbrella",
+      "enSourceHash": "763fc81e9553997b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/ja:きょうは えきに いって ともだちと あそんだ",
+      "en": "Build: Today I went to the station and hung out with a friend",
+      "enSourceHash": "6b022b08aad34e77",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/ja:しゃしんを みて うたを きいた",
+      "en": "Build: I looked at the photo and listened to a song",
+      "enSourceHash": "731fcc3d34cce4cf",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/ja:ふるい しゃしんを みて ともだちと あそんだ",
+      "en": "Build: I looked at an old photo and hung out with a friend",
+      "enSourceHash": "292fb85ae7947909",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/ja:みせに いって あたらしい ふくを かった",
+      "en": "Build: I went to the shop and bought new clothes",
+      "enSourceHash": "c872aecf54b038ee",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:022e2e437f33988c",
+      "en": "You must not look at your phone in a quiet shop",
+      "enSourceHash": "022e2e437f33988c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:2ee3008e15dfb97d",
+      "en": "I'm swimming here",
+      "enSourceHash": "2ee3008e15dfb97d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:3ceb0b6f7731601a",
+      "en": "You may swim here",
+      "enSourceHash": "3ceb0b6f7731601a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:4a69f19c8c264850",
+      "en": "sea",
+      "enSourceHash": "4a69f19c8c264850",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:4cd6bce7cf948831",
+      "en": "My friend worked at a Japanese university",
+      "enSourceHash": "4cd6bce7cf948831",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:5412849c60acd1ce",
+      "en": "My friend works at a Japanese university",
+      "enSourceHash": "5412849c60acd1ce",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:58e7c2350521ed19",
+      "en": "My friend wants to work at a Japanese university",
+      "enSourceHash": "58e7c2350521ed19",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:5c5f9b87778cfb10",
+      "en": "clothes",
+      "enSourceHash": "5c5f9b87778cfb10",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:5f57eb0af7e9571d",
+      "en": "Is it OK if I go to the sea and swim with a friend?",
+      "enSourceHash": "5f57eb0af7e9571d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:663d5aa7169f971f",
+      "en": "Mika is still waiting for a friend at the busy coffee shop",
+      "enSourceHash": "663d5aa7169f971f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:7482d5802c3c2798",
+      "en": "photograph",
+      "enSourceHash": "7482d5802c3c2798",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:9510f5ea1ff63b68",
+      "en": "Challenge — say what's happening, then say what's allowed",
+      "enSourceHash": "9510f5ea1ff63b68",
+      "kind": "title"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:9b4ef3e5b7b4d175",
+      "en": "station",
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:bd170b289c25befc",
+      "en": "My friend studies at a Japanese university",
+      "enSourceHash": "bd170b289c25befc",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:c798e5b18ed876ef",
+      "en": "coffee shop",
+      "enSourceHash": "c798e5b18ed876ef",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:d1633c923a61cd55",
+      "en": "Please don't swim here",
+      "enSourceHash": "d1633c923a61cd55",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:d31070b38b04b6c1",
+      "en": "I know a famous shop in Japan",
+      "enSourceHash": "d31070b38b04b6c1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:e9e3b8d8ba864fa9",
+      "en": "Cell phone",
+      "enSourceHash": "e9e3b8d8ba864fa9",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:faa53e47ba9c83d1",
+      "en": "You must not swim here",
+      "enSourceHash": "faa53e47ba9c83d1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/ja:うみに いって ともだちと およいでも いい？",
+      "en": "Build: Is it OK if I go to the sea and swim with a friend?",
+      "enSourceHash": "d7f10621083e3abc",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/ja:きっさてんに いって ちゃを のんでも いい？",
+      "en": "Build: Is it OK if I go to the coffee shop and drink tea?",
+      "enSourceHash": "6f4ae6dffc6ec3b6",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/ja:きのう えきに いって あたらしい ほんを かった",
+      "en": "Build: Yesterday I went to the station and bought a new book",
+      "enSourceHash": "5a83a00b9fb50ded",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/ja:しずかな みせで けいたいを みては いけません",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/ja:ゆうめいな きっさてんに いって ミカと ちゃを のんでも いい？",
+      "en": "Build: Is it OK if I go to the famous coffee shop and drink tea with Mika?",
+      "enSourceHash": "8bc96a9e210011a0",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/ja:わたしは にほんの ゆうめいな みせを しっている",
+      "en": "Build: I know a famous shop in Japan",
+      "enSourceHash": "bc890ae95d0d6b91",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/ja:ケンは いま しずかな いえで ほんを みている",
+      "en": "Build: Ken is looking at a book at a quiet house right now",
+      "enSourceHash": "ef70859554284710",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/ja:ミカの ふるい しゃしんを みせないで ください",
+      "en": "Build: Please don't show Mika's old photo",
+      "enSourceHash": "615487ee9d3a9ee0",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/ja:ミカは まだ にぎやかな きっさてんで ともだちを まっている",
+      "en": "Build: Mika is still waiting for a friend at the busy coffee shop",
+      "enSourceHash": "09d263b3fea50869",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:1c785d1cf5e7822f",
+      "en": "Mika lives in Japan",
+      "enSourceHash": "1c785d1cf5e7822f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:368ae67d7246ed99",
+      "en": "Ken works at a company",
+      "enSourceHash": "368ae67d7246ed99",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:3ea37d8ea74b232f",
+      "en": "I'm drinking tea right now",
+      "enSourceHash": "3ea37d8ea74b232f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:5711272e5d67fad1",
+      "en": "Ken is going to a company",
+      "enSourceHash": "5711272e5d67fad1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:5fe36e377a7e2137",
+      "en": "Pick the word for \"song\"",
+      "enSourceHash": "5fe36e377a7e2137",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:647294383b2cbc24",
+      "en": "Japan",
+      "enSourceHash": "647294383b2cbc24",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:6e875a58240967ff",
+      "en": "Review — asking for it, and what's going on",
+      "enSourceHash": "6e875a58240967ff",
+      "kind": "title"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:7482d5802c3c2798",
+      "en": "photograph",
+      "enSourceHash": "7482d5802c3c2798",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:770a0c4232d75998",
+      "en": "I'm eating right now",
+      "enSourceHash": "770a0c4232d75998",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:8c98449c5a87ba2f",
+      "en": "Please wait a moment",
+      "enSourceHash": "8c98449c5a87ba2f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:a47db4eee6e107a2",
+      "en": "A new bag, please",
+      "enSourceHash": "a47db4eee6e107a2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:a91b41573a0645ab",
+      "en": "Ken works at a shop",
+      "enSourceHash": "a91b41573a0645ab",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:ae735c45ed91374f",
+      "en": "Ken wants to work at a company",
+      "enSourceHash": "ae735c45ed91374f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:c018019b6a8b01ab",
+      "en": "bag",
+      "enSourceHash": "c018019b6a8b01ab",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:c7ceb34e84f18600",
+      "en": "I'm making food now",
+      "enSourceHash": "c7ceb34e84f18600",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:df28fa5068f276b3",
+      "en": "I want to eat now",
+      "enSourceHash": "df28fa5068f276b3",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:f08244d4c48eb505",
+      "en": "I already ate",
+      "enSourceHash": "f08244d4c48eb505",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:f6002cbceb8c0327",
+      "en": "hurry",
+      "enSourceHash": "f6002cbceb8c0327",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/ja:あたらしい かばんを ください",
+      "en": "Build: A new bag, please",
+      "enSourceHash": "54a337d67df5269d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/ja:いま ちゃを のんでいる",
+      "en": "Build: I'm drinking tea right now",
+      "enSourceHash": "e659e1620510685d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/ja:きっさてんで うたを きいている",
+      "en": "Build: I'm listening to a song at the coffee shop",
+      "enSourceHash": "e2fede66ec5549f9",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/ja:ちょっと まって ください",
+      "en": "Build: Please wait a moment",
+      "enSourceHash": "be0b24f8444c97a7",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/ja:ふるい しゃしんを みせて ください",
+      "en": "Build: Please show me the old photo",
+      "enSourceHash": "f3cba927d0890477",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/ja:トムは えきで ともだちを まっている",
+      "en": "Build: Tom is waiting for a friend at the station",
+      "enSourceHash": "32d2ab4181381675",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/ja:ミカの あたらしい ふくを みせて ください",
+      "en": "Build: Please show me Mika's new clothes",
+      "enSourceHash": "44c38eb623bedb60",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/ja:ミカは にほんに すんでいる",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:035c36dcf5937009",
+      "en": "I already saw the photo",
+      "enSourceHash": "035c36dcf5937009",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:1817ac2ea5f69874",
+      "en": "I don't know a shop in Japan",
+      "enSourceHash": "1817ac2ea5f69874",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:1ab573ecd2ae60ad",
+      "en": "Is it OK if I look at the photo here?",
+      "enSourceHash": "1ab573ecd2ae60ad",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:46e9b543be6f099a",
+      "en": "I'm looking at the photo",
+      "enSourceHash": "46e9b543be6f099a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:57675315c14556b8",
+      "en": "I know a shop in Japan",
+      "enSourceHash": "57675315c14556b8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:5927c032f2fc73f3",
+      "en": "Review — what's happening, and what's allowed",
+      "enSourceHash": "5927c032f2fc73f3",
+      "kind": "title"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:5d4384e63b9e488d",
+      "en": "I went to a shop in Japan",
+      "enSourceHash": "5d4384e63b9e488d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:5d59b2b96755e2c6",
+      "en": "lend",
+      "enSourceHash": "5d59b2b96755e2c6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:5fe36e377a7e2137",
+      "en": "Pick the word for \"song\"",
+      "enSourceHash": "5fe36e377a7e2137",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:647294383b2cbc24",
+      "en": "Japan",
+      "enSourceHash": "647294383b2cbc24",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:6e10ad1b5f7a1316",
+      "en": "I haven't seen the photo yet",
+      "enSourceHash": "6e10ad1b5f7a1316",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:70a9cee8987e99a8",
+      "en": "I haven't drunk the tea yet",
+      "enSourceHash": "70a9cee8987e99a8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:7482d5802c3c2798",
+      "en": "photograph",
+      "enSourceHash": "7482d5802c3c2798",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:8ac1a9d8b21d5fe7",
+      "en": "I'm looking for a shop in Japan",
+      "enSourceHash": "8ac1a9d8b21d5fe7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:a2ec1aff81bb596d",
+      "en": "Mika works at a company",
+      "enSourceHash": "a2ec1aff81bb596d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:bed2735e4e42a8c4",
+      "en": "I already bought a new umbrella",
+      "enSourceHash": "bed2735e4e42a8c4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:d3bf28da55f404a6",
+      "en": "Pick the word for \"house\"",
+      "enSourceHash": "d3bf28da55f404a6",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:d9f656ea741ace43",
+      "en": "I don't want to see the photo",
+      "enSourceHash": "d9f656ea741ace43",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:f168ccdd91548c5a",
+      "en": "company",
+      "enSourceHash": "f168ccdd91548c5a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:f6002cbceb8c0327",
+      "en": "hurry",
+      "enSourceHash": "f6002cbceb8c0327",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/ja:ここで しゃしんを みても いい？",
+      "en": "Build: Is it OK if I look at the photo here?",
+      "enSourceHash": "ce9e380f9171b96f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/ja:ここで まっても いい？",
+      "en": "Build: May I wait here?",
+      "enSourceHash": "4796d878e538c9ff",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/ja:まだ ちゃを のんでいない",
+      "en": "Build: I haven't drunk the tea yet",
+      "enSourceHash": "57514182e4e8540c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/ja:もう あたらしい かさを かった",
+      "en": "Build: I already bought a new umbrella",
+      "enSourceHash": "62254691c42d3070",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/ja:わたしは にほんに すんでいる",
+      "en": "Build: I live in Japan",
+      "enSourceHash": "e894f31143b42ed4",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/ja:トムは うみで およいでいる",
+      "en": "Build: Tom is swimming in the sea",
+      "enSourceHash": "84434ac4a7f785cb",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/ja:ミカは かいしゃで はたらいている",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/ja:ミカは まだ えきで ともだちを まっている",
+      "en": "Build: Mika is still waiting for a friend at the station",
+      "enSourceHash": "40352d7f8fa47654",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:2ca6c0a972dc99b5",
+      "en": "I'm eating now",
+      "enSourceHash": "2ca6c0a972dc99b5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:3f8127b124efa272",
+      "en": "I haven't eaten yet",
+      "enSourceHash": "3f8127b124efa272",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:49ddfa4322dfa1c7",
+      "en": "You must not swim in the sea",
+      "enSourceHash": "49ddfa4322dfa1c7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:4caefb14ef40d49b",
+      "en": "I don't want a new light",
+      "enSourceHash": "4caefb14ef40d49b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:5c5f9b87778cfb10",
+      "en": "clothes",
+      "enSourceHash": "5c5f9b87778cfb10",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:5f5a8ed8f139be6d",
+      "en": "river",
+      "enSourceHash": "5f5a8ed8f139be6d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:6d0789c3d96a4983",
+      "en": "I'll carry Mika's umbrella tomorrow",
+      "enSourceHash": "6d0789c3d96a4983",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:7482d5802c3c2798",
+      "en": "photograph",
+      "enSourceHash": "7482d5802c3c2798",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:8d0d3c0f0972e55b",
+      "en": "I carried Mika's bag yesterday",
+      "enSourceHash": "8d0d3c0f0972e55b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:8e23e6d6a7ff437f",
+      "en": "I'm swimming in the sea",
+      "enSourceHash": "8e23e6d6a7ff437f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:960c3c9111040bd2",
+      "en": "Mika is holding my bag",
+      "enSourceHash": "960c3c9111040bd2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:9b4ef3e5b7b4d175",
+      "en": "station",
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:a33434d22b9b9642",
+      "en": "Please don't swim in the sea",
+      "enSourceHash": "a33434d22b9b9642",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:a9f74d1ec36ebdeb",
+      "en": "tea",
+      "enSourceHash": "a9f74d1ec36ebdeb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:b17e7817e872d0ca",
+      "en": "You may swim in the sea",
+      "enSourceHash": "b17e7817e872d0ca",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:c798e5b18ed876ef",
+      "en": "coffee shop",
+      "enSourceHash": "c798e5b18ed876ef",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:cc818ed33faa1aed",
+      "en": "I bought a new light",
+      "enSourceHash": "cc818ed33faa1aed",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:d118958d7365fcee",
+      "en": "I don't want to eat",
+      "enSourceHash": "d118958d7365fcee",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:d491c714be7dcaa1",
+      "en": "I'll carry Mika's bag tomorrow",
+      "enSourceHash": "d491c714be7dcaa1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:e100b83b4b812c43",
+      "en": "I want a new light",
+      "enSourceHash": "e100b83b4b812c43",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:eb01e592b28f13e7",
+      "en": "I want a new door",
+      "enSourceHash": "eb01e592b28f13e7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:f08244d4c48eb505",
+      "en": "I already ate",
+      "enSourceHash": "f08244d4c48eb505",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/ja:かわで およいでは いけません",
+      "en": "Build: You must not swim in the river",
+      "enSourceHash": "95d28966eccca70b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/ja:きっさてんに いって ちゃを のんだ",
+      "en": "Build: I went to the coffee shop and drank tea",
+      "enSourceHash": "135ca3577d72405b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/ja:きっさてんは しちじに ドアを しめる",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/ja:ここで しゃしんを みても いい？",
+      "en": "Build: Is it OK if I look at the photo here?",
+      "enSourceHash": "ce9e380f9171b96f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/ja:ここで たべないで ください",
+      "en": "Build: Please don't eat here",
+      "enSourceHash": "208143dd973a584c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/ja:ここでは ドアを ひく",
+      "en": "Build: Here, you pull the door",
+      "enSourceHash": "c3c0a08791845397",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/ja:つめたい みずを のんでも いい？",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/ja:ともだちは にほんの かいしゃで はたらいている",
+      "en": "Build: My friend works at a Japanese company",
+      "enSourceHash": "5dcc4241fced8938",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/ja:みずを のまないで ください",
+      "en": "Build: Please don't drink the water",
+      "enSourceHash": "cad653ff6c43dcd5",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/ja:みせは じゅうじに ドアを あける",
+      "en": "Build: The shop opens its doors at ten",
+      "enSourceHash": "6ccb645a07e54cc2",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/ja:もう あたらしい ふくを かった",
+      "en": "Build: I already bought new clothes",
+      "enSourceHash": "396bc87c50462f6b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/ja:わたしは ゆうめいな みせを しっている",
+      "en": "Build: I know a famous shop",
+      "enSourceHash": "4437ea30c7afbf8a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/ja:ミカは いま えきで まっている",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m14/story:ja-m14-a-visitor/en:d220aa58bad34567",
+      "en": "A visitor",
+      "enSourceHash": "d220aa58bad34567",
+      "kind": "title"
+    },
+    {
+      "anchor": "m14/story:ja-m14-a-visitor/en:d4c630a681f333e1",
+      "en": "A friend drops by.",
+      "enSourceHash": "d4c630a681f333e1",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m14/story:ja-m14-a-visitor/ja:きょう ともだちが うちに くる。",
+      "en": "A friend is coming over today.",
+      "enSourceHash": "a94546dc71ef6c80",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-a-visitor/ja:とても いい さいふだ。",
+      "en": "It's a really nice wallet.",
+      "enSourceHash": "a775f01b53c40e04",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-a-visitor/ja:ともだちが ドアを あける。",
+      "en": "My friend opens the door.",
+      "enSourceHash": "912b86f4cb6ad16e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-a-visitor/ja:ともだちは あたらしい さいふを みせる。",
+      "en": "My friend shows me a new wallet.",
+      "enSourceHash": "8c951017b1017e2f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-a-visitor/ja:ともだちは はなしを する。",
+      "en": "My friend tells a story.",
+      "enSourceHash": "22bd6cc77321c847",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-a-visitor/ja:ふたりで コーヒーを のむ。",
+      "en": "The two of us drink coffee.",
+      "enSourceHash": "09f2429422315a48",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-a-visitor/ja:ぼくは ともだちを まつ。",
+      "en": "I wait for my friend.",
+      "enSourceHash": "ebd15f3a1dc7574e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/en:bc3e8b356dc44807",
+      "en": "The letter to Tom",
+      "enSourceHash": "bc3e8b356dc44807",
+      "kind": "title"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/en:c8ddad49bf89d5af",
+      "en": "A reply posted a few hours too late.",
+      "enSourceHash": "c8ddad49bf89d5af",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/gloss:かく",
+      "en": "to write",
+      "enSourceHash": "1b221d6d1eb23536",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/gloss:けど",
+      "en": "but, although",
+      "enSourceHash": "6a16848ebec13abc",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:「きってが ありません。おかねも ありません。」",
+      "en": "\"I have no stamp. I have no money either.\"",
+      "enSourceHash": "666f2b7d477d3895",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:「みせで きってを かいます。」",
+      "en": "\"I'll buy a stamp at the shop.\"",
+      "enSourceHash": "65ed3b8e2e8f4e70",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:「わたしの さいふに ごひゃくえんが あります。」",
+      "en": "\"There is five hundred yen in my wallet.\"",
+      "enSourceHash": "9d363054a652128e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:あした、トムが うちに くる。",
+      "en": "Tomorrow Tom is coming over.",
+      "enSourceHash": "71554b597544bed6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:あたらしい ふうとうも ある。",
+      "en": "I have a new envelope too.",
+      "enSourceHash": "3a5a435934a63337",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:いま、てがみは ポストに ある。",
+      "en": "Now the letter is in the postbox.",
+      "enSourceHash": "afc4153f9d63a0fd",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:きってを ふうとうに はる。",
+      "en": "I stick the stamp on the envelope.",
+      "enSourceHash": "8fb30501d082e4fa",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:けさ、ポストに トムの はがきが ある。",
+      "en": "This morning there's a postcard from Tom in the postbox.",
+      "enSourceHash": "a65e7dc5f8f29f4a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:けど、きってが ない。",
+      "en": "But I have no stamp.",
+      "enSourceHash": "b84b5b9d7b8d5b88",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:さいふに おかねが ない。",
+      "en": "There's no money in my wallet.",
+      "enSourceHash": "69f10bdc89568081",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:それから、ポストに いく。",
+      "en": "Then I go to the postbox.",
+      "enSourceHash": "346d9726a9f1f491",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:はがきの はなしは とても いい。",
+      "en": "The news on the postcard is very good.",
+      "enSourceHash": "6a2b1e6f8e44b987",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:ぼくの てがみは まだ ポストに ある。",
+      "en": "And my letter is still sitting in the postbox.",
+      "enSourceHash": "c8254c3aa6701e90",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:ぼくは さいふを みる。",
+      "en": "I look in my wallet.",
+      "enSourceHash": "9333b5907c05e901",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:ぼくは ともだちの ユミに はなす。",
+      "en": "I talk to my friend Yumi.",
+      "enSourceHash": "e5753f6406c88770",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:ぼくは みせで きってを かった。",
+      "en": "I bought a stamp at the shop.",
+      "enSourceHash": "043ac0fa79db9c9f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:ぼくは トムに てがみを かく。",
+      "en": "I write Tom a letter.",
+      "enSourceHash": "4fff91bde1b9f2af",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:ぼくは トムに はなしを する。",
+      "en": "I'll just tell him the whole thing myself.",
+      "enSourceHash": "97efa2b2c8d73585",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:よる、トムが でんわを かける。",
+      "en": "In the evening, Tom calls.",
+      "enSourceHash": "b9b44d1d2d301c8a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:らいげつ じゃない。きょうだ。",
+      "en": "Not next month. Today.",
+      "enSourceHash": "1b6e3e8a5350fbbf",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:トムは いま とうきょうに いる。",
+      "en": "Tom is in Tokyo right now.",
+      "enSourceHash": "4cfb55701f5a181e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:トムは らいげつ にほんに くる。",
+      "en": "Tom is coming to Japan next month.",
+      "enSourceHash": "f5b72e9fa8d8cde2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:トムは アメリカの ともだちだ。",
+      "en": "Tom is my friend in America.",
+      "enSourceHash": "b351d34dd68e8408",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:ユミは ぼくに ごひゃくえんを かす。",
+      "en": "Yumi lends me five hundred yen.",
+      "enSourceHash": "11f7b39e4a2fd390",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/en:641cf67363bb3ef3",
+      "en": "New Year money, a camera that costs too much, and an older brother.",
+      "enSourceHash": "641cf67363bb3ef3",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/en:81ec8681800e0d23",
+      "en": "The New Year envelope",
+      "enSourceHash": "81ec8681800e0d23",
+      "kind": "title"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/gloss:おしょうがつ",
+      "en": "the New Year holiday",
+      "enSourceHash": "4e859ab3dee8742a",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/gloss:おとしだま",
+      "en": "New Year money given to children in a small envelope",
+      "enSourceHash": "3b22cf31f98203f9",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/gloss:じんじゃ",
+      "en": "a Shinto shrine",
+      "enSourceHash": "5ec426522f5c7628",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:「ぼくの おとしだまを かす。」",
+      "en": "\"I will lend you my New Year money.\"",
+      "enSourceHash": "66c20b52410d7349",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:「カメラが ほしいです。わたしの おとしだまは いちまんえんです。」",
+      "en": "\"I want a camera. My New Year money is ten thousand yen.\"",
+      "enSourceHash": "622421560f764325",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:あとで ちちが ふうとうを みせる。",
+      "en": "Afterwards Father shows an envelope.",
+      "enSourceHash": "cdbe4dd9f224360d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:あにの おとしだまも いちまんえんだ。",
+      "en": "My brother's New Year money is ten thousand yen too.",
+      "enSourceHash": "fb8285d3d67e94cc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:おかねが ない。",
+      "en": "I do not have enough money.",
+      "enSourceHash": "7197eace2f89cd6e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:おちゃも のむ。",
+      "en": "I drink tea too.",
+      "enSourceHash": "9da1e3d75c700bd9",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:かぞくが うちに くる。",
+      "en": "The family comes to my house.",
+      "enSourceHash": "749a4ceef11b05cf",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:ことしの おしょうがつだ。",
+      "en": "It is New Year this year.",
+      "enSourceHash": "e758e585a4fef919",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:ことしの おしょうがつは いい おしょうがつだった。",
+      "en": "This year's New Year was a good New Year.",
+      "enSourceHash": "90342c457e08874f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:じんじゃで わたしは あにに はなす。",
+      "en": "At the shrine I speak to my brother.",
+      "enSourceHash": "b3a6f8d17d0139c2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:じんじゃは とても にぎやかだ。",
+      "en": "The shrine is very lively.",
+      "enSourceHash": "873d7da81f73d25f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:その あと、あにの ふうとうが ドアに ある。",
+      "en": "After that my brother's envelope is at the door.",
+      "enSourceHash": "c9d38efd3425a6b2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:その カメラは にまんえんだ。",
+      "en": "That camera is twenty thousand yen.",
+      "enSourceHash": "1e8db49b06a34967",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:ちちと ははと あにと わたし、よにんだ。",
+      "en": "Father, Mother, my older brother and me — four of us.",
+      "enSourceHash": "74cd1a828dc178db",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:つぎの あさ、かぞくで じんじゃに いく。",
+      "en": "The next morning the family goes to the shrine.",
+      "enSourceHash": "7d0fd51d6b3417dc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:ははの りょうりは とても おいしい。",
+      "en": "Mother's cooking is very good.",
+      "enSourceHash": "d82a190d28b75496",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:ふうとうに いちまんえんが ある。",
+      "en": "There is ten thousand yen in the envelope.",
+      "enSourceHash": "7577dd5c66356f17",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:ふうとうに おとしだまが ある。",
+      "en": "There is New Year money in the envelope.",
+      "enSourceHash": "4858aa98be2075a3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:わたしの おとしだまは いちまんえんだ。",
+      "en": "My New Year money is ten thousand yen.",
+      "enSourceHash": "4a7e32700ae70e85",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:わたしは 「ありがとう」と はなす。",
+      "en": "I say, \"Thank you.\"",
+      "enSourceHash": "8ad2381a2c298d7a",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:わたしは ごはんを たべる。",
+      "en": "I eat the meal.",
+      "enSourceHash": "6c3881edbdd85650",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:わたしは カメラが ほしい。",
+      "en": "I want a camera.",
+      "enSourceHash": "5f845a3f9fd37cce",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:わたしは カメラを かった。",
+      "en": "I bought the camera.",
+      "enSourceHash": "deebe71c73d22ebe",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:カメラは たかい。",
+      "en": "The camera is expensive.",
+      "enSourceHash": "c3b28cf176ccd9af",
+      "kind": "ja-gloss"
+    }
+  ]
+}

@@ -1,0 +1,2670 @@
+{
+  "schema": 1,
+  "moduleId": "m14",
+  "lang": "ko",
+  "generatedAt": "2026-09-10",
+  "draftedBy": "qwen3.5:122b-a10b-q4_K_M",
+  "entryCount": 532,
+  "entries": [
+    {
+      "anchor": "m14/atom:あける/gloss",
+      "text": "열다",
+      "enSourceHash": "9c91eab3e8f24af4"
+    },
+    {
+      "anchor": "m14/atom:いけません/gloss",
+      "text": "안 되다",
+      "enSourceHash": "b992accf4d189b65"
+    },
+    {
+      "anchor": "m14/atom:いけません/shortGloss",
+      "text": "안 되다",
+      "enSourceHash": "df0465d9a3940788"
+    },
+    {
+      "anchor": "m14/atom:およぐ/gloss",
+      "text": "수영하다",
+      "enSourceHash": "7277bb91883c100d"
+    },
+    {
+      "anchor": "m14/atom:しめる/gloss",
+      "text": "닫다",
+      "enSourceHash": "a86a2f8a6dedcf2c"
+    },
+    {
+      "anchor": "m14/atom:つめたい/gloss",
+      "text": "차갑다",
+      "enSourceHash": "07759b47f1dd3704"
+    },
+    {
+      "anchor": "m14/atom:でんき/gloss",
+      "text": "전기",
+      "enSourceHash": "d8479873502e11eb"
+    },
+    {
+      "anchor": "m14/atom:ひく/gloss",
+      "text": "당기다",
+      "enSourceHash": "38556677c47cf461"
+    },
+    {
+      "anchor": "m14/atom:まだ/gloss",
+      "text": "아직",
+      "enSourceHash": "f9cf024dce7c9e51"
+    },
+    {
+      "anchor": "m14/atom:まつ/gloss",
+      "text": "기다리다",
+      "enSourceHash": "838a69724224dd76"
+    },
+    {
+      "anchor": "m14/atom:みせる/gloss",
+      "text": "보여주다",
+      "enSourceHash": "21941e3b1957f553"
+    },
+    {
+      "anchor": "m14/atom:もう/gloss",
+      "text": "이미",
+      "enSourceHash": "ea53396caebc40d7"
+    },
+    {
+      "anchor": "m14/atom:もつ/gloss",
+      "text": "들다",
+      "enSourceHash": "c1d768f4f4f2a5e0"
+    },
+    {
+      "anchor": "m14/atom:コーヒー/gloss",
+      "text": "커피",
+      "enSourceHash": "37290d74ac4d186e"
+    },
+    {
+      "anchor": "m14/atom:ドア/gloss",
+      "text": "서양식 문",
+      "enSourceHash": "c87114a3ddcc5c05"
+    },
+    {
+      "anchor": "m14/gp:akeru-shimeru/ex:ふるい いえに でんきが ない。",
+      "text": "오래된 집에 전기가 없다.",
+      "enSourceHash": "17cfcabe64551019"
+    },
+    {
+      "anchor": "m14/gp:akeru-shimeru/ex:まどを しめて ください。",
+      "text": "창문을 닫아 주세요.",
+      "enSourceHash": "e63f43c3e08e4bf1"
+    },
+    {
+      "anchor": "m14/gp:akeru-shimeru/ex:みせは くじに ドアを あける。",
+      "text": "가게는 9시에 문을 연다.",
+      "enSourceHash": "11c5329ffb35876e"
+    },
+    {
+      "anchor": "m14/gp:akeru-shimeru/ex:みせは ごじに ドアを しめる。",
+      "text": "가게는 5시에 문을 닫는다.",
+      "enSourceHash": "54ee6c6a873760c5"
+    },
+    {
+      "anchor": "m14/gp:akeru-shimeru/ex:ドアが あけて ください。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m14/gp:akeru-shimeru/ex:ドアを あけて ください。",
+      "text": "문을 열어 주세요.",
+      "enSourceHash": "106606dfa8b58b7b"
+    },
+    {
+      "anchor": "m14/gp:akeru-shimeru/ex:ドアを ひいて ください。",
+      "text": "문을 당겨 주세요.",
+      "enSourceHash": "7db695d5cad08ed6"
+    },
+    {
+      "anchor": "m14/gp:kudasai/ex:あたらしい かさを ください。",
+      "text": "새 우산 주세요.",
+      "enSourceHash": "4649b74b0c3a975e"
+    },
+    {
+      "anchor": "m14/gp:kudasai/ex:しゃしんを みせて ください。",
+      "text": "사진을 보여 주세요.",
+      "enSourceHash": "8b132fabfb66d399"
+    },
+    {
+      "anchor": "m14/gp:kudasai/ex:すしを ください。",
+      "text": "초밥 주세요.",
+      "enSourceHash": "76243295594f32cc"
+    },
+    {
+      "anchor": "m14/gp:kudasai/ex:ちょっと まって ください。",
+      "text": "잠시 기다려 주세요.",
+      "enSourceHash": "11ee546c32b6dcc7"
+    },
+    {
+      "anchor": "m14/gp:kudasai/ex:ほんを みて ください。",
+      "text": "책을 봐 주세요.",
+      "enSourceHash": "1c01efe811a0119b"
+    },
+    {
+      "anchor": "m14/gp:kudasai/ex:みずが ください。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m14/gp:kudasai/ex:みずを ください。",
+      "text": "물 주세요.",
+      "enSourceHash": "f5f1b86cf34f7e09"
+    },
+    {
+      "anchor": "m14/gp:kudasai/ex:コーヒーを ください。",
+      "text": "커피 주세요.",
+      "enSourceHash": "8d8b78a38614c451"
+    },
+    {
+      "anchor": "m14/gp:mada-mou/ex:まだ ごはんを たべていない。",
+      "text": "아직 밥을 먹지 않았다.",
+      "enSourceHash": "8c5c9300917cfc80"
+    },
+    {
+      "anchor": "m14/gp:mada-mou/ex:まだ しゃしんを みていない。",
+      "text": "아직 사진을 보지 않았다.",
+      "enSourceHash": "42a23a681a873858"
+    },
+    {
+      "anchor": "m14/gp:mada-mou/ex:もう ごはんを たべた。",
+      "text": "이미 밥을 먹었다.",
+      "enSourceHash": "fda211670ec0ea44"
+    },
+    {
+      "anchor": "m14/gp:mada-mou/ex:もう ごはんを たべたない。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m14/gp:mada-mou/ex:もう しゃしんを みた。",
+      "text": "이미 사진을 보았다.",
+      "enSourceHash": "76d7c4298c66db06"
+    },
+    {
+      "anchor": "m14/gp:mada-mou/ex:ミカは まだ えきで まっている。",
+      "text": "미카는 아직 역에서 기다리고 있다.",
+      "enSourceHash": "eeb8a5a4e0c0dece"
+    },
+    {
+      "anchor": "m14/gp:naide-kudasai/ex:かわで およがないで ください。",
+      "text": "강에서 헤엄치지 마세요.",
+      "enSourceHash": "5ccf25f49dc281dc"
+    },
+    {
+      "anchor": "m14/gp:naide-kudasai/ex:きょうは いかないで ください。",
+      "text": "오늘은 가지 마세요.",
+      "enSourceHash": "d95c82ded85f195b"
+    },
+    {
+      "anchor": "m14/gp:naide-kudasai/ex:ここで たべない ください。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m14/gp:naide-kudasai/ex:ここで たべないで ください。",
+      "text": "여기서 먹지 마세요.",
+      "enSourceHash": "6fdb8582a3cbe843"
+    },
+    {
+      "anchor": "m14/gp:naide-kudasai/ex:しゃしんを みないで ください。",
+      "text": "사진을 보지 마세요.",
+      "enSourceHash": "46bf626faa08ddfc"
+    },
+    {
+      "anchor": "m14/gp:naide-kudasai/ex:みずを のまないで ください。",
+      "text": "물을 마시지 마세요.",
+      "enSourceHash": "161ea943160301f0"
+    },
+    {
+      "anchor": "m14/gp:te-form/ex:あさ ごはんを たべて、だいがくに いく。",
+      "text": "아침에 밥을 먹고 대학에 간다.",
+      "enSourceHash": "1a72b25c7ffe92af"
+    },
+    {
+      "anchor": "m14/gp:te-form/ex:あさ ごはんを たべる、だいがくに いく。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m14/gp:te-form/ex:うたを きいて、ごはんを たべた。",
+      "text": "노래를 듣고 밥을 먹었다.",
+      "enSourceHash": "8b9ce10c215c3cbc"
+    },
+    {
+      "anchor": "m14/gp:te-form/ex:きっさてんに いって、ちゃを のんだ。",
+      "text": "커피숍에 가서 차를 마셨다.",
+      "enSourceHash": "1717a093deb76986"
+    },
+    {
+      "anchor": "m14/gp:te-form/ex:きょうは えきに いって、ともだちと あそんだ。",
+      "text": "오늘은 역에 가서 친구와 놀았다.",
+      "enSourceHash": "73976b1b30615d93"
+    },
+    {
+      "anchor": "m14/gp:te-form/ex:みせに いって、あたらしい ふくを かった。",
+      "text": "가게에 가서 새 옷을 샀다.",
+      "enSourceHash": "26eb2dd96ce013f1"
+    },
+    {
+      "anchor": "m14/gp:te-iru/ex:いま ごはんを たべている。",
+      "text": "지금 밥을 먹고 있다.",
+      "enSourceHash": "1a7baaf1dc81117b"
+    },
+    {
+      "anchor": "m14/gp:te-iru/ex:いま ごはんを たべるいる。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m14/gp:te-iru/ex:いま みずを のんでいない。",
+      "text": "지금 물을 마시고 있지 않다.",
+      "enSourceHash": "4942cda1a4b12b00"
+    },
+    {
+      "anchor": "m14/gp:te-iru/ex:しっていない。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m14/gp:te-iru/ex:しっている。",
+      "text": "알고 있다.",
+      "enSourceHash": "45b3c6001b6b9556"
+    },
+    {
+      "anchor": "m14/gp:te-iru/ex:ともだちは かいしゃで はたらいている。",
+      "text": "친구는 회사에서 일하고 있다.",
+      "enSourceHash": "27883e1a16fe2348"
+    },
+    {
+      "anchor": "m14/gp:te-iru/ex:にほんに すんでいる。",
+      "text": "일본에 살고 있다.",
+      "enSourceHash": "cce22e9165349ed8"
+    },
+    {
+      "anchor": "m14/gp:te-iru/ex:トムの なまえを しっている。",
+      "text": "톰의 이름을 알고 있다.",
+      "enSourceHash": "fc8d86d79ed4f62f"
+    },
+    {
+      "anchor": "m14/gp:te-iru/ex:ミカは いま ちゃを のんでいる。",
+      "text": "미카는 지금 차를 마시고 있다.",
+      "enSourceHash": "6891b497f4b7abe3"
+    },
+    {
+      "anchor": "m14/gp:te-iru/ex:ミカは いま ほんを みている。",
+      "text": "미카는 지금 책을 보고 있다.",
+      "enSourceHash": "d819ff23128bb37a"
+    },
+    {
+      "anchor": "m14/gp:te-mo-ii/ex:ううん、だめ。",
+      "text": "아니, 안 돼.",
+      "enSourceHash": "cf0ef7eba5dfc12c"
+    },
+    {
+      "anchor": "m14/gp:te-mo-ii/ex:うみで およいでも いい。",
+      "text": "바다에서 수영해도 좋다.",
+      "enSourceHash": "a32935f94f3ca554"
+    },
+    {
+      "anchor": "m14/gp:te-mo-ii/ex:ここで たべても いい？",
+      "text": "여기서 먹어도 좋니?",
+      "enSourceHash": "e6db6159f2217bf1"
+    },
+    {
+      "anchor": "m14/gp:te-mo-ii/ex:ここで たべるも いい？",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m14/gp:te-mo-ii/ex:ここで まっても いい？",
+      "text": "여기서 기다려도 좋니?",
+      "enSourceHash": "cd4f6071499ff858"
+    },
+    {
+      "anchor": "m14/gp:te-mo-ii/ex:しゃしんを みても いい？",
+      "text": "사진을 봐도 좋니?",
+      "enSourceHash": "9db89e3b2b187cf4"
+    },
+    {
+      "anchor": "m14/gp:te-wa-ikemasen/ex:かわで およいでは いけません。",
+      "text": "강에서 수영해서는 안 됩니다.",
+      "enSourceHash": "9c268a83a3607d11"
+    },
+    {
+      "anchor": "m14/gp:te-wa-ikemasen/ex:ここで たべては いけません。",
+      "text": "여기서 먹어서는 안 됩니다.",
+      "enSourceHash": "1795b6916ec24d4e"
+    },
+    {
+      "anchor": "m14/gp:te-wa-ikemasen/ex:ここで たべては だめ。",
+      "text": "여기서 먹으면 안 돼.",
+      "enSourceHash": "5b7085108bddde60"
+    },
+    {
+      "anchor": "m14/gp:te-wa-ikemasen/ex:ここで たべるは いけません。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m14/gp:te-wa-ikemasen/ex:ここで まっては いけません。",
+      "text": "여기서 기다려서는 안 됩니다.",
+      "enSourceHash": "da148dd3eb998ac8"
+    },
+    {
+      "anchor": "m14/gp:te-wa-ikemasen/ex:じゅぎょうで けいたいを みては いけません。",
+      "text": "수업에서 휴대폰을 봐서는 안 됩니다.",
+      "enSourceHash": "720858e41af1210f"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:0f4168490e38b844",
+      "text": "물",
+      "enSourceHash": "0f4168490e38b844"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:174fde2a47dca22a",
+      "text": "가방 보여 주세요",
+      "enSourceHash": "174fde2a47dca22a"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:48d509eb224ee1ef",
+      "text": "작은 가방 주세요",
+      "enSourceHash": "48d509eb224ee1ef"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:526085a26286e0c2",
+      "text": "역에서 기다려 주세요",
+      "enSourceHash": "526085a26286e0c2"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:63f75c890b05405e",
+      "text": "노래",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:6ccf97f2b31d0b93",
+      "text": "여기 봐 주세요",
+      "enSourceHash": "6ccf97f2b31d0b93"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:7482d5802c3c2798",
+      "text": "사진",
+      "enSourceHash": "7482d5802c3c2798"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:7d46916c3e1d229e",
+      "text": "여기서 사 주세요",
+      "enSourceHash": "7d46916c3e1d229e"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:a9f74d1ec36ebdeb",
+      "text": "차",
+      "enSourceHash": "a9f74d1ec36ebdeb"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:bf95bbecf01fd2ef",
+      "text": "큰 가방 주세요",
+      "enSourceHash": "bf95bbecf01fd2ef"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:cd563f8292d6ac44",
+      "text": "기다리다 (테형)",
+      "enSourceHash": "cd563f8292d6ac44"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:def22a1627ba18e8",
+      "text": "여기서 기다려 주세요",
+      "enSourceHash": "def22a1627ba18e8"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/en:dffe9612baf7f70f",
+      "text": "큰 가방이 갖고 싶다",
+      "enSourceHash": "dffe9612baf7f70f"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/ja:あたらしい ぼうしを ください",
+      "text": "만들기: 새 모자를 주세요",
+      "enSourceHash": "f729d7a75e3d439c"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/ja:うたを きいて ください",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/ja:きっさてんで まって ください",
+      "text": "만들기: 커피숍에서 기다려 주세요",
+      "enSourceHash": "71b270bae173744f"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/ja:しずかな きっさてんで ミカの しゃしんを みせて ください",
+      "text": "만들기: 조용한 커피숍에서 미카의 사진을 보여 주세요",
+      "enSourceHash": "b74888c456af54fc"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/ja:しゃしんを みせて ください",
+      "text": "만들기: 사진을 보여 주세요",
+      "enSourceHash": "bc1231d96848e913"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/ja:ちょっと まって ください",
+      "text": "만들기: 잠시 기다려 주세요",
+      "enSourceHash": "be0b24f8444c97a7"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/ja:みずを ください",
+      "text": "만들기: 물을 주세요",
+      "enSourceHash": "fae86d8280bbea5e"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/ja:コーヒーを ください",
+      "text": "만들기: 커피를 주세요",
+      "enSourceHash": "6a2dc5209bbde95c"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-1/ja:ミカの あたらしい しゃしんを みせて ください",
+      "text": "만들기: 미카의 새로운 사진을 보여 주세요",
+      "enSourceHash": "bb9dc4bd874a9cb8"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:053e8fa5745a6666",
+      "text": "상점이 6시에 문을 연다",
+      "enSourceHash": "053e8fa5745a6666"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:0f4168490e38b844",
+      "text": "물",
+      "enSourceHash": "0f4168490e38b844"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:177ca70f42def123",
+      "text": "사전",
+      "enSourceHash": "177ca70f42def123"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:1dd6f22ee8a96aec",
+      "text": "문을 이미 닫았다",
+      "enSourceHash": "1dd6f22ee8a96aec"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:30fbafb4178b6eb5",
+      "text": "문을 닫아 주세요",
+      "enSourceHash": "30fbafb4178b6eb5"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:44ff7b02c80d38b2",
+      "text": "창문",
+      "enSourceHash": "44ff7b02c80d38b2"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:4e71a1851f141a32",
+      "text": "찬물을 마셔 주세요",
+      "enSourceHash": "4e71a1851f141a32"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:4f25e25405e18e14",
+      "text": "찬물을 마시지 마세요",
+      "enSourceHash": "4f25e25405e18e14"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:8369c491abc2318c",
+      "text": "여기서는 물을 마시면 안 됩니다",
+      "enSourceHash": "8369c491abc2318c"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:8d9001d32c6a703d",
+      "text": "상점",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:9c58ec6c87db9fe1",
+      "text": "아직 문을 닫지 않았다",
+      "enSourceHash": "9c58ec6c87db9fe1"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:a559d35828d9ae65",
+      "text": "상점이 6시에 문을 닫는다",
+      "enSourceHash": "a559d35828d9ae65"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:a979ac26fc7eb082",
+      "text": "문을 이미 열었다",
+      "enSourceHash": "a979ac26fc7eb082"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:a9f74d1ec36ebdeb",
+      "text": "차",
+      "enSourceHash": "a9f74d1ec36ebdeb"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:c018019b6a8b01ab",
+      "text": "가방",
+      "enSourceHash": "c018019b6a8b01ab"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:c599a94ba73891c3",
+      "text": "상점이 10시에 문을 닫는다",
+      "enSourceHash": "c599a94ba73891c3"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:c8347a475ae6f493",
+      "text": "찬차를 마시지 마세요",
+      "enSourceHash": "c8347a475ae6f493"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/en:d7e449881e6d1db7",
+      "text": "상점이 6시에 문을 닫았다",
+      "enSourceHash": "d7e449881e6d1db7"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/ja:あたらしい でんきが かいたい",
+      "text": "만들기: 새로운 전등을 사고 싶다",
+      "enSourceHash": "b93971dbd6cfb9c6"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/ja:ここで ドアを あけては いけません",
+      "text": "만들기: 여기서는 문을 열면 안 됩니다",
+      "enSourceHash": "5aa95ce0f6e40451"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/ja:つめたい みずが のみたい",
+      "text": "만들기: 찬물을 마시고 싶다",
+      "enSourceHash": "46168a28586bec9a"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/ja:まどを あけても いい？",
+      "text": "만들기: 창문을 열어 해도 될까?",
+      "enSourceHash": "a37540a582f9aaeb"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/ja:みせは ろくじに ドアを しめる",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/ja:トムは つめたい ちゃを もっている",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/ja:ドアを あけないで ください",
+      "text": "만들기: 문을 열지 마세요",
+      "enSourceHash": "46d89df07136eff2"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/ja:ドアを しめて ください",
+      "text": "만들기: 문을 닫아 주세요",
+      "enSourceHash": "10cbf7c3cef8c8bc"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/ja:ミカは あたらしい かばんを もっている",
+      "text": "만들기: 미카는 새로운 가방을 가지고 있다",
+      "enSourceHash": "6a7ef89c3dc5192e"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-10/ja:ミカは まだ つめたい ちゃを のんでいる",
+      "text": "만들기: 미카는 아직 찬차를 마시고 있다",
+      "enSourceHash": "c1003bb5eeb1fbd2"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:006cb3d5049556de",
+      "text": "사진을 보고 싶다",
+      "enSourceHash": "006cb3d5049556de"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:0cb75b29fc1d05ac",
+      "text": "사진을 사고 있다",
+      "enSourceHash": "0cb75b29fc1d05ac"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:0f4168490e38b844",
+      "text": "물",
+      "enSourceHash": "0f4168490e38b844"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:2a24b10828775a9a",
+      "text": "빌려주다 (테형)",
+      "enSourceHash": "2a24b10828775a9a"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:3e9a80f033b2928e",
+      "text": "켄은 상점에서 기다리고 있다",
+      "enSourceHash": "3e9a80f033b2928e"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:4bdf40d0d1ae3611",
+      "text": "밥/식사",
+      "enSourceHash": "4bdf40d0d1ae3611"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:5d59b2b96755e2c6",
+      "text": "빌려주다",
+      "enSourceHash": "5d59b2b96755e2c6"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:63f75c890b05405e",
+      "text": "노래",
+      "enSourceHash": "63f75c890b05405e"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:6b9552e188c962f2",
+      "text": "켄은 역에 갔다",
+      "enSourceHash": "6b9552e188c962f2"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:e46c4079347c824c",
+      "text": "켄은 역에서 기다리고 있다",
+      "enSourceHash": "e46c4079347c824c"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:eba401c2f94bf718",
+      "text": "지금 사진을 보고 있다",
+      "enSourceHash": "eba401c2f94bf718"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:ef43e608a802d03e",
+      "text": "사진을 봤다",
+      "enSourceHash": "ef43e608a802d03e"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/en:f5be58618ff5abeb",
+      "text": "켄이 역에서 일하고 있다",
+      "enSourceHash": "f5be58618ff5abeb"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/ja:いま ごはんを たべている",
+      "text": "만들기: 지금 밥을 먹고 있다",
+      "enSourceHash": "9f96cb4b9d2341c3"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/ja:いま みずを のんでいる",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/ja:ともだちは かいしゃで はたらいている",
+      "text": "만들기: 친구가 회사에서 일하고 있다",
+      "enSourceHash": "32c66af580c1d486"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/ja:ケンは にぎやかな みせで はたらいている",
+      "text": "만들기: 켄은 붐비는 가게에서 일하고 있다",
+      "enSourceHash": "2d8a3dd3c773c71f"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/ja:トムは えきで まっている",
+      "text": "만들기: 톰이 역에서 기다리고 있다",
+      "enSourceHash": "12bbe79deb19250d"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/ja:ミカは いま うたを きいている",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/ja:ミカは いま しずかな きっさてんで ほんを みている",
+      "text": "만들기: 미카는 지금 조용한 커피숍에서 책을 보고 있다",
+      "enSourceHash": "cb93308cf16466fc"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-2/ja:ミカは いま ほんを みている",
+      "text": "만들기: 미카는 지금 책을 보고 있다",
+      "enSourceHash": "e8481222c8217d21"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:030e746f8f202111",
+      "text": "일본에 살고 있다",
+      "enSourceHash": "030e746f8f202111"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:0853f9436da654f8",
+      "text": "미카가 새 집에 살고 있다",
+      "enSourceHash": "0853f9436da654f8"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:0aecbd5f6637bc49",
+      "text": "어제 톰을 만났다",
+      "enSourceHash": "0aecbd5f6637bc49"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:1b155edfa0f563e9",
+      "text": "톰의 친구를 몰라요",
+      "enSourceHash": "1b155edfa0f563e9"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:2eb02df4c6c98f45",
+      "text": "미카의 이름을 알고 있다",
+      "enSourceHash": "2eb02df4c6c98f45"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:38a81e87e79631e6",
+      "text": "사람",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:3e4f16f7181804f4",
+      "text": "톰을 몰라요",
+      "enSourceHash": "3e4f16f7181804f4"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:40415b794e32490e",
+      "text": "톰을 기다리고 있다",
+      "enSourceHash": "40415b794e32490e"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:49d9ca9a9cda4452",
+      "text": "톰이 미국에 살고 있다",
+      "enSourceHash": "49d9ca9a9cda4452"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:55e9f284022b41a8",
+      "text": "미카가 새 집을 짓는다",
+      "enSourceHash": "55e9f284022b41a8"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:647294383b2cbc24",
+      "text": "일본",
+      "enSourceHash": "647294383b2cbc24"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:66a1bb44eb064294",
+      "text": "미카가 새 집을 갖고 싶다",
+      "enSourceHash": "66a1bb44eb064294"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:6f60df6833e14f26",
+      "text": "톰을 알고 있다",
+      "enSourceHash": "6f60df6833e14f26"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:82a3537ff0dbce7e",
+      "text": "이름",
+      "enSourceHash": "82a3537ff0dbce7e"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:91a69026e3650b4a",
+      "text": "미카가 오래된 집에 살고 있다",
+      "enSourceHash": "91a69026e3650b4a"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:c798e5b18ed876ef",
+      "text": "카페",
+      "enSourceHash": "c798e5b18ed876ef"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/en:d6e21286621a8586",
+      "text": "집",
+      "enSourceHash": "d6e21286621a8586"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/ja:あたらしい きっさてんを しらない",
+      "text": "만들기: 새 커피숍을 몰라요",
+      "enSourceHash": "5ae94ef05cdceabc"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/ja:ゆうめいな みせを しっている",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/ja:わたしは にほんに すんでいる",
+      "text": "만들기: 일본에 살고 있다",
+      "enSourceHash": "e894f31143b42ed4"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/ja:わたしは にほんの ゆうめいな きっさてんを しっている",
+      "text": "만들기: 일본의 유명한 커피숍를 알고 있다",
+      "enSourceHash": "8b7af1ae22d4a098"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/ja:わたしは トムの ともだちを しらない",
+      "text": "만들기: 톰의 친구를 몰라요",
+      "enSourceHash": "df3b152e3efe81d1"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/ja:ケンは しずかな いえに すんでいる",
+      "text": "만들기: 켄은 조용한 집에 살고 있다",
+      "enSourceHash": "bee9ca65208d497e"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/ja:トムは アメリカに すんでいる",
+      "text": "만들기: 톰이 미국에 살고 있다",
+      "enSourceHash": "23a626597413c4be"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-3/ja:ミカの なまえを しっている",
+      "text": "만들기: 미카의 이름을 알고 있다",
+      "enSourceHash": "3e8a2eedd2e7513f"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:035c36dcf5937009",
+      "text": "이미 사진을 봤다",
+      "enSourceHash": "035c36dcf5937009"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:26eafd7c9e22cf8d",
+      "text": "켄이 아직 커피숍에 없다",
+      "enSourceHash": "26eafd7c9e22cf8d"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:368adc94d8636857",
+      "text": "지금 우유를 마시고 있다",
+      "enSourceHash": "368adc94d8636857"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:3f8127b124efa272",
+      "text": "아직 먹지 않았다",
+      "enSourceHash": "3f8127b124efa272"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:4bdf40d0d1ae3611",
+      "text": "밥",
+      "enSourceHash": "4bdf40d0d1ae3611"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:4d6467a6d442e6a3",
+      "text": "켄은 이미 커피숍에 있다",
+      "enSourceHash": "4d6467a6d442e6a3"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:5c5f9b87778cfb10",
+      "text": "옷",
+      "enSourceHash": "5c5f9b87778cfb10"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:6e10ad1b5f7a1316",
+      "text": "아직 사진을 보지 않았다",
+      "enSourceHash": "6e10ad1b5f7a1316"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:7482d5802c3c2798",
+      "text": "사진",
+      "enSourceHash": "7482d5802c3c2798"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:8279eef3862e0d7e",
+      "text": "서두르다 (테형)",
+      "enSourceHash": "8279eef3862e0d7e"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:9b4ef3e5b7b4d175",
+      "text": "역",
+      "enSourceHash": "9b4ef3e5b7b4d175"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:a9f74d1ec36ebdeb",
+      "text": "차",
+      "enSourceHash": "a9f74d1ec36ebdeb"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:c5e4e231e654ff2a",
+      "text": "켄은 아직 역에 없다",
+      "enSourceHash": "c5e4e231e654ff2a"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:d50599edfdd4df6e",
+      "text": "아직 우유를 마시지 않았다",
+      "enSourceHash": "d50599edfdd4df6e"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:e1dde0b3a8457309",
+      "text": "이미 우유를 샀다",
+      "enSourceHash": "e1dde0b3a8457309"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:e57bede922706c8e",
+      "text": "이미 우유를 마셨다",
+      "enSourceHash": "e57bede922706c8e"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:f08244d4c48eb505",
+      "text": "이미 먹었다",
+      "enSourceHash": "f08244d4c48eb505"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/en:fa64496c5f9e6071",
+      "text": "켄은 커피숍에서 기다리고 있다",
+      "enSourceHash": "fa64496c5f9e6071"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/ja:まだ あたらしい ふくを かっていない",
+      "text": "만들기: 아직 새로운 옷을 사지 않았다",
+      "enSourceHash": "b93058ab5f6a4e71"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/ja:まだ ごはんを たべていない",
+      "text": "만들기: 아직 밥을 먹지 않았다",
+      "enSourceHash": "1ebd1b81216c7a3e"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/ja:まだ しゃしんを みていない",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/ja:もう ごはんを たべた",
+      "text": "만들기: 이미 밥을 먹었다",
+      "enSourceHash": "3e111bccc0cb3de8"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/ja:もう しゃしんを みた",
+      "text": "만들기: 이미 사진을 봤다",
+      "enSourceHash": "b205846ac83b1013"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/ja:もう ちゃを のんだ",
+      "text": "만들기: 이미 차를 마셨다",
+      "enSourceHash": "503d547047a4559d"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/ja:ミカは まだ えきで まっている",
+      "text": "만들기: 미카는 아직 역에서 기다리고 있다",
+      "enSourceHash": "b28c0b32da85f65c"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-4/ja:ミカは もう ゆうめいな みせで あたらしい かさを かった",
+      "text": "만들기: 미카는 이미 유명한 가게에서 새로운 우산을 샀다",
+      "enSourceHash": "21e193eeaa4c1954"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:0201d4d8b5a55714",
+      "text": "어디서 일하니?",
+      "enSourceHash": "0201d4d8b5a55714"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:02c84d1bc7061d2f",
+      "text": "톰은 강에서 수영하고 있다",
+      "enSourceHash": "02c84d1bc7061d2f"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:10748d077994a65f",
+      "text": "어디로 가니?",
+      "enSourceHash": "10748d077994a65f"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:2581400d38290e14",
+      "text": "미카는 바다에서 수영하고 싶다",
+      "enSourceHash": "2581400d38290e14"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:404069ec6fcc3913",
+      "text": "누구와 일하니?",
+      "enSourceHash": "404069ec6fcc3913"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:4a69f19c8c264850",
+      "text": "바다",
+      "enSourceHash": "4a69f19c8c264850"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:5f5a8ed8f139be6d",
+      "text": "강",
+      "enSourceHash": "5f5a8ed8f139be6d"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:6597843b04c09492",
+      "text": "미카는 지금 바다에서 수영하고 있다",
+      "enSourceHash": "6597843b04c09492"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:7722a4579a133fb7",
+      "text": "미카는 강에서 수영하고 있다",
+      "enSourceHash": "7722a4579a133fb7"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:818777c4023c0266",
+      "text": "지금 무엇을 하고 있니?",
+      "enSourceHash": "818777c4023c0266"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:98b625c3b0ff61cf",
+      "text": "켄은 지금 무엇을 마시고 있니?",
+      "enSourceHash": "98b625c3b0ff61cf"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:9b4ef3e5b7b4d175",
+      "text": "역",
+      "enSourceHash": "9b4ef3e5b7b4d175"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:9c751873826b201d",
+      "text": "미카는 바다에서 수영하고 있다",
+      "enSourceHash": "9c751873826b201d"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:a9f74d1ec36ebdeb",
+      "text": "차",
+      "enSourceHash": "a9f74d1ec36ebdeb"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:b83a6328aa42319f",
+      "text": "미카는 바다에서 수영했다",
+      "enSourceHash": "b83a6328aa42319f"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:cde48537ca2c2808",
+      "text": "친구",
+      "enSourceHash": "cde48537ca2c2808"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:d37a24b801c6e2e3",
+      "text": "서다",
+      "enSourceHash": "d37a24b801c6e2e3"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/en:dc66030704c34bff",
+      "text": "어디에서 일했니?",
+      "enSourceHash": "dc66030704c34bff"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/ja:いま なにを している？",
+      "text": "만들기: 지금 무엇을 하고 있니?",
+      "enSourceHash": "77de20b5befb6b61"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/ja:きっさてんで ちゃを のんでいる",
+      "text": "만들기: 커피숍에서 차를 마시고 있다",
+      "enSourceHash": "959deddce58c7246"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/ja:だれを まっている？",
+      "text": "만들기: 누구를 기다리고 있니?",
+      "enSourceHash": "9617e073680514a8"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/ja:ともだちは うみで およいでいる",
+      "text": "만들기: 친구가 바다에서 수영하고 있다",
+      "enSourceHash": "b23181ac9f5ca373"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/ja:どこで はたらいている？",
+      "text": "만들기: 어디서 일하고 있니?",
+      "enSourceHash": "92c6a7b1c3b90a43"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/ja:ケンは いま なにを のんでいる？",
+      "text": "만들기: 켄은 지금 무엇을 마시고 있니?",
+      "enSourceHash": "425e07558a26853c"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/ja:トムは かわで およいでいる",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/ja:ミカの ともだちは いま しずかな うみで およいでいる",
+      "text": "만들기: 미카의 친구는 지금 조용한 바다에서 수영하고 있다",
+      "enSourceHash": "b4d6793b08d7e6ab"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-5/ja:ミカは うみで およいでいる",
+      "text": "만들기: 미카는 바다에서 수영하고 있다",
+      "enSourceHash": "87daac7d4f716ab3"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:0db4d3c5c497f75b",
+      "text": "바다에서 수영하고 싶다",
+      "enSourceHash": "0db4d3c5c497f75b"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:1ab573ecd2ae60ad",
+      "text": "여기서 사진을 봐도 되니?",
+      "enSourceHash": "1ab573ecd2ae60ad"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:2a24b10828775a9a",
+      "text": "빌려주다 (테형)",
+      "enSourceHash": "2a24b10828775a9a"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:467e7d22a9c6d756",
+      "text": "여기서 사진을 보여줘도 되니?",
+      "enSourceHash": "467e7d22a9c6d756"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:49ddfa4322dfa1c7",
+      "text": "바다에서 수영하면 안 돼요",
+      "enSourceHash": "49ddfa4322dfa1c7"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:7482d5802c3c2798",
+      "text": "사진",
+      "enSourceHash": "7482d5802c3c2798"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:8e23e6d6a7ff437f",
+      "text": "바다에서 수영하고 있다",
+      "enSourceHash": "8e23e6d6a7ff437f"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:9cc9838b173459b8",
+      "text": "하다 (테형)",
+      "enSourceHash": "9cc9838b173459b8"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:9ce10d3126a7cbc9",
+      "text": "여기서 사진을 봤니?",
+      "enSourceHash": "9ce10d3126a7cbc9"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:9db89e3b2b187cf4",
+      "text": "사진을 봐도 되니?",
+      "enSourceHash": "9db89e3b2b187cf4"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:a9f74d1ec36ebdeb",
+      "text": "차",
+      "enSourceHash": "a9f74d1ec36ebdeb"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:b17e7817e872d0ca",
+      "text": "바다에서 수영해도 된다",
+      "enSourceHash": "b17e7817e872d0ca"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:c798e5b18ed876ef",
+      "text": "커피숍",
+      "enSourceHash": "c798e5b18ed876ef"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:c81095880b6b4280",
+      "text": "여기서 사진을 사도 되니?",
+      "enSourceHash": "c81095880b6b4280"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:cd4f6071499ff858",
+      "text": "여기서 기다려도 되니?",
+      "enSourceHash": "cd4f6071499ff858"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/en:e6db6159f2217bf1",
+      "text": "여기서 먹어도 되니?",
+      "enSourceHash": "e6db6159f2217bf1"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/ja:あたらしい ほんを みても いい？",
+      "text": "만들기: 새 책을 봐도 되니?",
+      "enSourceHash": "02bfa18a1db1ce01"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/ja:うみで およいでも いい",
+      "text": "만들기: 바다에서 수영해도 된다",
+      "enSourceHash": "5d4650fdf1e68bd6"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/ja:きっさてんで はたらいても いい",
+      "text": "만들기: 커피숍에서 일해도 된다",
+      "enSourceHash": "cdc0d85d66cf27ec"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/ja:ここで たべても いい？",
+      "text": "만들기: 여기서 먹어도 되니?",
+      "enSourceHash": "cafe9ef90f7d56ed"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/ja:ここで まっても いい？",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/ja:しずかな きっさてんで ミカの ほんを みても いい？",
+      "text": "만들기: 조용한 커피숍에서 미카의 책을 봐도 되니?",
+      "enSourceHash": "e96d94772d4816a3"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/ja:しゃしんを みても いい？",
+      "text": "만들기: 사진을 봐도 되니?",
+      "enSourceHash": "b616a90976bc8627"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-6/ja:ちゃを のんでも いい？",
+      "text": "만들기: 차를 마셔도 되니?",
+      "enSourceHash": "8f4101df868f0879"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:0889113e04d3203f",
+      "text": "수업",
+      "enSourceHash": "0889113e04d3203f"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:0d5ab8aa5c8415ad",
+      "text": "커피숍에서 수영하면 안 돼요",
+      "enSourceHash": "0d5ab8aa5c8415ad"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:1f7f2dccde7d0d2f",
+      "text": "커피숍에서 수영해도 된다",
+      "enSourceHash": "1f7f2dccde7d0d2f"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:3a96edeceecdbf78",
+      "text": "강에서 수영하면 안 돼요",
+      "enSourceHash": "3a96edeceecdbf78"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:4a69f19c8c264850",
+      "text": "바다",
+      "enSourceHash": "4a69f19c8c264850"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:4f05bb2b4dee4690",
+      "text": "수업에서 휴대폰을 봐도 된다",
+      "enSourceHash": "4f05bb2b4dee4690"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:5668f848a674bd88",
+      "text": "여기서 먹으면 안 돼요",
+      "enSourceHash": "5668f848a674bd88"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:5837764026a5388e",
+      "text": "커피숍에서 먹지 마세요",
+      "enSourceHash": "5837764026a5388e"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:5ba21636fab7a315",
+      "text": "수업에서 휴대폰을 보면 안 됩니다",
+      "enSourceHash": "5ba21636fab7a315"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:5f5a8ed8f139be6d",
+      "text": "강",
+      "enSourceHash": "5f5a8ed8f139be6d"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:7482d5802c3c2798",
+      "text": "사진",
+      "enSourceHash": "7482d5802c3c2798"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:95426aebf3e39009",
+      "text": "수업에서 휴대폰을 보여 주세요",
+      "enSourceHash": "95426aebf3e39009"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:9790792816823656",
+      "text": "여기서 기다리면 안 됩니다",
+      "enSourceHash": "9790792816823656"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:99fab962704095ed",
+      "text": "수업에서 휴대폰을 보고 있다",
+      "enSourceHash": "99fab962704095ed"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:df610eb0da0650ce",
+      "text": "커피숍에서 수영하고 있다",
+      "enSourceHash": "df610eb0da0650ce"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/en:e9e3b8d8ba864fa9",
+      "text": "휴대폰",
+      "enSourceHash": "e9e3b8d8ba864fa9"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/ja:うみで およいでも いい",
+      "text": "만들기: 바다에서 수영해도 된다",
+      "enSourceHash": "5d4650fdf1e68bd6"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/ja:かわで およいでは いけません",
+      "text": "만들기: 강에서 수영하면 안 됩니다",
+      "enSourceHash": "95d28966eccca70b"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/ja:きっさてんで うたを きいては いけません",
+      "text": "만들기: 커피숍에서 노래를 들으면 안 됩니다",
+      "enSourceHash": "8a75e1a46465948d"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/ja:ここで たべては いけません",
+      "text": "만들기: 여기서 먹으면 안 됩니다",
+      "enSourceHash": "10057ccf363cdbb3"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/ja:ここで まっては いけません",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/ja:しずかな きっさてんで ともだちの しゃしんを みせては いけません",
+      "text": "만들기: 조용한 커피숍에서 친구의 사진을 보여주면 안 됩니다",
+      "enSourceHash": "56afb1f278699d03"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/ja:じゅぎょうで けいたいを みては いけません",
+      "text": "만들기: 수업에서 휴대폰을 보면 안 됩니다",
+      "enSourceHash": "ba7f1d9796fbb8c5"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-7/ja:みせで しゃしんを みせては いけません",
+      "text": "만들기: 가게에서 사진을 보여주면 안 됩니다",
+      "enSourceHash": "bd6374e78d479d53"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:0f4168490e38b844",
+      "text": "물",
+      "enSourceHash": "0f4168490e38b844"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:28becedd3e8711c9",
+      "text": "물을 마시지 않는다",
+      "enSourceHash": "28becedd3e8711c9"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:4397e1845a564fdc",
+      "text": "오늘 바다에 가 주세요",
+      "enSourceHash": "4397e1845a564fdc"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:4a69f19c8c264850",
+      "text": "바다",
+      "enSourceHash": "4a69f19c8c264850"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:5f5a8ed8f139be6d",
+      "text": "강",
+      "enSourceHash": "5f5a8ed8f139be6d"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:7482d5802c3c2798",
+      "text": "사진",
+      "enSourceHash": "7482d5802c3c2798"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:89f21ba3b93e7555",
+      "text": "강에서 수영하지 마세요",
+      "enSourceHash": "89f21ba3b93e7555"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:8f3c4e7b44119dde",
+      "text": "물을 마셔도 되니?",
+      "enSourceHash": "8f3c4e7b44119dde"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:8fce8d4be416511e",
+      "text": "오늘 가지 마세요",
+      "enSourceHash": "8fce8d4be416511e"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:9079329bad1d5724",
+      "text": "물을 마셔 주세요",
+      "enSourceHash": "9079329bad1d5724"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:bf43c2c22f1553bf",
+      "text": "물을 마시지 마세요",
+      "enSourceHash": "bf43c2c22f1553bf"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:bfbbc9d8f6aea8c8",
+      "text": "오늘 바다에 가지 마세요",
+      "enSourceHash": "bfbbc9d8f6aea8c8"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:c798e5b18ed876ef",
+      "text": "카페",
+      "enSourceHash": "c798e5b18ed876ef"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:d656d2581d24d5d3",
+      "text": "사진을 보지 마세요",
+      "enSourceHash": "d656d2581d24d5d3"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:d7a386b348824531",
+      "text": "오늘 바다에 가지 않는다",
+      "enSourceHash": "d7a386b348824531"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:e6cfc343be3ce685",
+      "text": "여기서 먹지 마세요",
+      "enSourceHash": "e6cfc343be3ce685"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/en:f4ca5e7b08576937",
+      "text": "오늘 바다에 가면 안 됩니다",
+      "enSourceHash": "f4ca5e7b08576937"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/ja:かわで およがないで ください",
+      "text": "만들기: 강에서 수영하지 마세요",
+      "enSourceHash": "164d36e842730e67"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/ja:きょうは いかないで ください",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/ja:ここで たべないで ください",
+      "text": "만들기: 여기서 먹지 마세요",
+      "enSourceHash": "208143dd973a584c"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/ja:しゃしんを みないで ください",
+      "text": "만들기: 사진을 보지 마세요",
+      "enSourceHash": "d3e3e3a4c5e1f6a7"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/ja:にぎやかな みせで ミカの しゃしんを みせないで ください",
+      "text": "만들기: 붐비는 가게에서 미카의 사진을 보여주지 마세요",
+      "enSourceHash": "c5cdc63a16d09118"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/ja:ふるい ほんを かわないで ください",
+      "text": "만들기: 오래된 책을 사지 마세요",
+      "enSourceHash": "aebc137cfbdf1b79"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/ja:みずを のまないで ください",
+      "text": "만들기: 물을 마시지 마세요",
+      "enSourceHash": "cad653ff6c43dcd5"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-8/ja:ミカに しゃしんを みせないで ください",
+      "text": "만들기: 미카에게 사진을 보여주지 마세요",
+      "enSourceHash": "159fc6058ae30bc1"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:0d305ea3ce5b13af",
+      "text": "커피숍에서 책을 보고 싶다",
+      "enSourceHash": "0d305ea3ce5b13af"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:10751b3ec7c8fa9f",
+      "text": "커피숍에서 책을 보고 있다",
+      "enSourceHash": "10751b3ec7c8fa9f"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:391b2d89e950adee",
+      "text": "커피숍에 가서 책을 봤다",
+      "enSourceHash": "391b2d89e950adee"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:3b857d67c27c1f6f",
+      "text": "노래를 듣고 있다",
+      "enSourceHash": "3b857d67c27c1f6f"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:4bdf40d0d1ae3611",
+      "text": "밥",
+      "enSourceHash": "4bdf40d0d1ae3611"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:5c5f9b87778cfb10",
+      "text": "옷",
+      "enSourceHash": "5c5f9b87778cfb10"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:66d14ea14c292650",
+      "text": "노래를 듣고 나서 먹었다",
+      "enSourceHash": "66d14ea14c292650"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:92145886edc8d495",
+      "text": "노래를 듣고 싶고 먹고 싶다",
+      "enSourceHash": "92145886edc8d495"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:a9f74d1ec36ebdeb",
+      "text": "차",
+      "enSourceHash": "a9f74d1ec36ebdeb"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:adba6c0ec8a8d89e",
+      "text": "대학",
+      "enSourceHash": "adba6c0ec8a8d89e"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:b178df522fa7b75f",
+      "text": "아침에 먹고 나서 대학에 간다",
+      "enSourceHash": "b178df522fa7b75f"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:c798e5b18ed876ef",
+      "text": "커피숍",
+      "enSourceHash": "c798e5b18ed876ef"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:d00aea2c8de69ce2",
+      "text": "커피숍에 가서 차를 마셨다",
+      "enSourceHash": "d00aea2c8de69ce2"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:d1c6e016f7fb6baf",
+      "text": "먹고 나서 노래를 들었다",
+      "enSourceHash": "d1c6e016f7fb6baf"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:ef67c55dd4f3a9f8",
+      "text": "책을 보고 커피숍에 갔다",
+      "enSourceHash": "ef67c55dd4f3a9f8"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/en:fc5f4312af042253",
+      "text": "가게에 가서 새 옷을 샀다",
+      "enSourceHash": "fc5f4312af042253"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/ja:あさ ごはんを たべて だいがくに いく",
+      "text": "만들기: 아침에 먹고 나서 대학에 간다",
+      "enSourceHash": "6557ad95c4917686"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/ja:うたを きいて ごはんを たべた",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/ja:きっさてんに いって ちゃを のんだ",
+      "text": "만들기: 커피숍에 가서 차를 마셨다",
+      "enSourceHash": "135ca3577d72405b"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/ja:きのう にぎやかな みせに いって ミカの あたらしい かさを かった",
+      "text": "만들기: 어제 붐비는 가게에 가서 미카의 새 우산을 샀다",
+      "enSourceHash": "763fc81e9553997b"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/ja:きょうは えきに いって ともだちと あそんだ",
+      "text": "만들기: 오늘 역에 가서 친구와 놀았다",
+      "enSourceHash": "6b022b08aad34e77"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/ja:しゃしんを みて うたを きいた",
+      "text": "만들기: 사진을 보고 노래를 들었다",
+      "enSourceHash": "731fcc3d34cce4cf"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/ja:ふるい しゃしんを みて ともだちと あそんだ",
+      "text": "만들기: 오래된 사진을 보고 친구와 놀았다",
+      "enSourceHash": "292fb85ae7947909"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-9/ja:みせに いって あたらしい ふくを かった",
+      "text": "만들기: 가게에 가서 새 옷을 샀다",
+      "enSourceHash": "c872aecf54b038ee"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:022e2e437f33988c",
+      "text": "조용한 가게에서 휴대폰을 보면 안 돼요",
+      "enSourceHash": "022e2e437f33988c"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:2ee3008e15dfb97d",
+      "text": "여기서 수영하고 있다",
+      "enSourceHash": "2ee3008e15dfb97d"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:3ceb0b6f7731601a",
+      "text": "여기서 수영해도 된다",
+      "enSourceHash": "3ceb0b6f7731601a"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:4a69f19c8c264850",
+      "text": "바다",
+      "enSourceHash": "4a69f19c8c264850"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:4cd6bce7cf948831",
+      "text": "내 친구가 일본 대학에서 일했다",
+      "enSourceHash": "4cd6bce7cf948831"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:5412849c60acd1ce",
+      "text": "내 친구가 일본 대학에서 일한다",
+      "enSourceHash": "5412849c60acd1ce"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:58e7c2350521ed19",
+      "text": "내 친구가 일본 대학에서 일하고 싶다",
+      "enSourceHash": "58e7c2350521ed19"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:5c5f9b87778cfb10",
+      "text": "옷",
+      "enSourceHash": "5c5f9b87778cfb10"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:5f57eb0af7e9571d",
+      "text": "친구와 바다에 가서 수영해도 되니?",
+      "enSourceHash": "5f57eb0af7e9571d"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:663d5aa7169f971f",
+      "text": "미카는 여전히 붐비는 커피숍에서 친구를 기다리고 있다",
+      "enSourceHash": "663d5aa7169f971f"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:7482d5802c3c2798",
+      "text": "사진",
+      "enSourceHash": "7482d5802c3c2798"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:9510f5ea1ff63b68",
+      "text": "도전 — 무엇이 일어나고 있는지 말한 다음, 무엇을 해도 좋은지 말하세요",
+      "enSourceHash": "9510f5ea1ff63b68"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:9b4ef3e5b7b4d175",
+      "text": "역",
+      "enSourceHash": "9b4ef3e5b7b4d175"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:bd170b289c25befc",
+      "text": "내 친구는 일본의 대학에서 공부한다",
+      "enSourceHash": "bd170b289c25befc"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:c798e5b18ed876ef",
+      "text": "커피숍",
+      "enSourceHash": "c798e5b18ed876ef"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:d1633c923a61cd55",
+      "text": "여기서 수영하지 마세요",
+      "enSourceHash": "d1633c923a61cd55"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:d31070b38b04b6c1",
+      "text": "일본의 유명한 가게를 알고 있다",
+      "enSourceHash": "d31070b38b04b6c1"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:e9e3b8d8ba864fa9",
+      "text": "휴대폰",
+      "enSourceHash": "e9e3b8d8ba864fa9"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/en:faa53e47ba9c83d1",
+      "text": "여기서 수영하면 안 돼요",
+      "enSourceHash": "faa53e47ba9c83d1"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/ja:うみに いって ともだちと およいでも いい？",
+      "text": "만들기: 바다에 가서 친구와 수영해도 되니?",
+      "enSourceHash": "d7f10621083e3abc"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/ja:きっさてんに いって ちゃを のんでも いい？",
+      "text": "만들기: 커피숍에 가서 차를 마셔도 되니?",
+      "enSourceHash": "6f4ae6dffc6ec3b6"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/ja:きのう えきに いって あたらしい ほんを かった",
+      "text": "만들기: 어제 역에 가서 새로운 책을 샀다",
+      "enSourceHash": "5a83a00b9fb50ded"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/ja:しずかな みせで けいたいを みては いけません",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/ja:ゆうめいな きっさてんに いって ミカと ちゃを のんでも いい？",
+      "text": "만들기: 유명한 커피숍에 가서 미카와 차를 마셔도 되니?",
+      "enSourceHash": "8bc96a9e210011a0"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/ja:わたしは にほんの ゆうめいな みせを しっている",
+      "text": "만들기: 일본의 유명한 가게를 알고 있다",
+      "enSourceHash": "bc890ae95d0d6b91"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/ja:ケンは いま しずかな いえで ほんを みている",
+      "text": "만들기: 켄은 지금 조용한 집에서 책을 보고 있다",
+      "enSourceHash": "ef70859554284710"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/ja:ミカの ふるい しゃしんを みせないで ください",
+      "text": "만들기: 미카의 옛 사진을 보여주지 마세요",
+      "enSourceHash": "615487ee9d3a9ee0"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-challenge/ja:ミカは まだ にぎやかな きっさてんで ともだちを まっている",
+      "text": "만들기: 미카는 아직 붐비는 커피숍에서 친구를 기다리고 있다",
+      "enSourceHash": "09d263b3fea50869"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:1c785d1cf5e7822f",
+      "text": "미카는 일본에 살아요",
+      "enSourceHash": "1c785d1cf5e7822f"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:368ae67d7246ed99",
+      "text": "켄은 회사에서 일해요",
+      "enSourceHash": "368ae67d7246ed99"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:3ea37d8ea74b232f",
+      "text": "지금 차를 마시고 있어요",
+      "enSourceHash": "3ea37d8ea74b232f"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:5711272e5d67fad1",
+      "text": "켄은 회사에 가고 있어요",
+      "enSourceHash": "5711272e5d67fad1"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:5fe36e377a7e2137",
+      "text": "\"노래\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:647294383b2cbc24",
+      "text": "일본",
+      "enSourceHash": "647294383b2cbc24"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:6e875a58240967ff",
+      "text": "복습 — 무엇을 부탁하는지, 무슨 일이 일어나고 있는지",
+      "enSourceHash": "6e875a58240967ff"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:7482d5802c3c2798",
+      "text": "사진",
+      "enSourceHash": "7482d5802c3c2798"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:770a0c4232d75998",
+      "text": "지금 먹고 있어요",
+      "enSourceHash": "770a0c4232d75998"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:8c98449c5a87ba2f",
+      "text": "잠시 기다려 주세요",
+      "enSourceHash": "8c98449c5a87ba2f"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:a47db4eee6e107a2",
+      "text": "새로운 가방 주세요",
+      "enSourceHash": "a47db4eee6e107a2"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:a91b41573a0645ab",
+      "text": "켄은 가게에서 일해요",
+      "enSourceHash": "a91b41573a0645ab"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:a9f74d1ec36ebdeb",
+      "text": "차",
+      "enSourceHash": "a9f74d1ec36ebdeb"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:ae735c45ed91374f",
+      "text": "켄은 회사에서 일하고 싶어요",
+      "enSourceHash": "ae735c45ed91374f"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:c018019b6a8b01ab",
+      "text": "가방",
+      "enSourceHash": "c018019b6a8b01ab"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:c7ceb34e84f18600",
+      "text": "지금 음식을 만들고 있어요",
+      "enSourceHash": "c7ceb34e84f18600"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:df28fa5068f276b3",
+      "text": "지금 먹고 싶어요",
+      "enSourceHash": "df28fa5068f276b3"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:f08244d4c48eb505",
+      "text": "이미 먹었어요",
+      "enSourceHash": "f08244d4c48eb505"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/en:f6002cbceb8c0327",
+      "text": "서두르다",
+      "enSourceHash": "f6002cbceb8c0327"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/ja:あたらしい かばんを ください",
+      "text": "만들기: 새로운 가방 주세요",
+      "enSourceHash": "54a337d67df5269d"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/ja:いま ちゃを のんでいる",
+      "text": "만들기: 지금 차를 마시고 있다",
+      "enSourceHash": "e659e1620510685d"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/ja:きっさてんで うたを きいている",
+      "text": "만들기: 커피숍에서 노래를 듣고 있다",
+      "enSourceHash": "e2fede66ec5549f9"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/ja:ちょっと まって ください",
+      "text": "만들기: 조금만 기다려 주세요",
+      "enSourceHash": "be0b24f8444c97a7"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/ja:ふるい しゃしんを みせて ください",
+      "text": "만들기: 오래된 사진을 보여 주세요",
+      "enSourceHash": "f3cba927d0890477"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/ja:トムは えきで ともだちを まっている",
+      "text": "만들기: 톰은 역에서 친구를 기다리고 있다",
+      "enSourceHash": "32d2ab4181381675"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/ja:ミカの あたらしい ふくを みせて ください",
+      "text": "만들기: 미카의 새 옷을 보여 주세요",
+      "enSourceHash": "44c38eb623bedb60"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-1/ja:ミカは にほんに すんでいる",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:035c36dcf5937009",
+      "text": "사진을 이미 봤어요",
+      "enSourceHash": "035c36dcf5937009"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:1817ac2ea5f69874",
+      "text": "일본에 있는 가게를 몰라요",
+      "enSourceHash": "1817ac2ea5f69874"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:1ab573ecd2ae60ad",
+      "text": "여기서 사진을 봐도 될까요?",
+      "enSourceHash": "1ab573ecd2ae60ad"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:46e9b543be6f099a",
+      "text": "사진을 보고 있어요",
+      "enSourceHash": "46e9b543be6f099a"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:57675315c14556b8",
+      "text": "일본에 있는 가게를 알아요",
+      "enSourceHash": "57675315c14556b8"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:5927c032f2fc73f3",
+      "text": "복습 — 무슨 일이 일어나고, 무엇이 허용되는지",
+      "enSourceHash": "5927c032f2fc73f3"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:5d4384e63b9e488d",
+      "text": "일본에 있는 가게에 갔어요",
+      "enSourceHash": "5d4384e63b9e488d"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:5d59b2b96755e2c6",
+      "text": "빌려주다",
+      "enSourceHash": "5d59b2b96755e2c6"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:5fe36e377a7e2137",
+      "text": "\"노래\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "5fe36e377a7e2137"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:647294383b2cbc24",
+      "text": "일본",
+      "enSourceHash": "647294383b2cbc24"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:6e10ad1b5f7a1316",
+      "text": "아직 사진을 안 봤어요",
+      "enSourceHash": "6e10ad1b5f7a1316"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:70a9cee8987e99a8",
+      "text": "아직 차를 안 마셨어요",
+      "enSourceHash": "70a9cee8987e99a8"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:7482d5802c3c2798",
+      "text": "사진",
+      "enSourceHash": "7482d5802c3c2798"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:8ac1a9d8b21d5fe7",
+      "text": "일본에 있는 가게를 찾고 있어요",
+      "enSourceHash": "8ac1a9d8b21d5fe7"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:a2ec1aff81bb596d",
+      "text": "미카는 회사에서 일해요",
+      "enSourceHash": "a2ec1aff81bb596d"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:a9f74d1ec36ebdeb",
+      "text": "차",
+      "enSourceHash": "a9f74d1ec36ebdeb"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:bed2735e4e42a8c4",
+      "text": "이미 새 우산을 샀어요",
+      "enSourceHash": "bed2735e4e42a8c4"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:d3bf28da55f404a6",
+      "text": "\"집\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "d3bf28da55f404a6"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:d9f656ea741ace43",
+      "text": "사진을 보고 싶지 않아요",
+      "enSourceHash": "d9f656ea741ace43"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:f168ccdd91548c5a",
+      "text": "회사",
+      "enSourceHash": "f168ccdd91548c5a"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/en:f6002cbceb8c0327",
+      "text": "서두르다",
+      "enSourceHash": "f6002cbceb8c0327"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/ja:ここで しゃしんを みても いい？",
+      "text": "만들기: 여기서 사진을 봐도 돼?",
+      "enSourceHash": "ce9e380f9171b96f"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/ja:ここで まっても いい？",
+      "text": "만들기: 여기서 기다려도 돼?",
+      "enSourceHash": "4796d878e538c9ff"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/ja:まだ ちゃを のんでいない",
+      "text": "만들기: 아직 차를 마시지 않았다",
+      "enSourceHash": "57514182e4e8540c"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/ja:もう あたらしい かさを かった",
+      "text": "만들기: 이미 새 우산을 샀다",
+      "enSourceHash": "62254691c42d3070"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/ja:わたしは にほんに すんでいる",
+      "text": "만들기: 나는 일본에 살고 있다",
+      "enSourceHash": "e894f31143b42ed4"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/ja:トムは うみで およいでいる",
+      "text": "만들기: 톰은 바다에서 수영하고 있다",
+      "enSourceHash": "84434ac4a7f785cb"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/ja:ミカは かいしゃで はたらいている",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-2/ja:ミカは まだ えきで ともだちを まっている",
+      "text": "만들기: 미카는 아직 역에서 친구를 기다리고 있다",
+      "enSourceHash": "40352d7f8fa47654"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:2ca6c0a972dc99b5",
+      "text": "지금 먹고 있어요",
+      "enSourceHash": "2ca6c0a972dc99b5"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:3f8127b124efa272",
+      "text": "아직 안 먹었어요",
+      "enSourceHash": "3f8127b124efa272"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:49ddfa4322dfa1c7",
+      "text": "바다에서 수영하면 안 돼요",
+      "enSourceHash": "49ddfa4322dfa1c7"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:4caefb14ef40d49b",
+      "text": "새로운 전등이 필요하지 않아요",
+      "enSourceHash": "4caefb14ef40d49b"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:5c5f9b87778cfb10",
+      "text": "옷",
+      "enSourceHash": "5c5f9b87778cfb10"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:5f5a8ed8f139be6d",
+      "text": "강",
+      "enSourceHash": "5f5a8ed8f139be6d"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:6d0789c3d96a4983",
+      "text": "내일 미카의 우산을 들고 갈게요",
+      "enSourceHash": "6d0789c3d96a4983"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:7482d5802c3c2798",
+      "text": "사진",
+      "enSourceHash": "7482d5802c3c2798"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:8d0d3c0f0972e55b",
+      "text": "나는 어제 미카의 가방을 날랐다",
+      "enSourceHash": "8d0d3c0f0972e55b"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:8e23e6d6a7ff437f",
+      "text": "나는 바다에서 수영하고 있다",
+      "enSourceHash": "8e23e6d6a7ff437f"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:960c3c9111040bd2",
+      "text": "미카는 내 가방을 들고 있다",
+      "enSourceHash": "960c3c9111040bd2"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:9b4ef3e5b7b4d175",
+      "text": "역",
+      "enSourceHash": "9b4ef3e5b7b4d175"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:a33434d22b9b9642",
+      "text": "바다에서 수영하지 마세요",
+      "enSourceHash": "a33434d22b9b9642"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:a9f74d1ec36ebdeb",
+      "text": "차",
+      "enSourceHash": "a9f74d1ec36ebdeb"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:b17e7817e872d0ca",
+      "text": "바다에서 수영해도 좋아요",
+      "enSourceHash": "b17e7817e872d0ca"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:c798e5b18ed876ef",
+      "text": "커피숍",
+      "enSourceHash": "c798e5b18ed876ef"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:cc818ed33faa1aed",
+      "text": "나는 새로운 전구를 샀다",
+      "enSourceHash": "cc818ed33faa1aed"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:d118958d7365fcee",
+      "text": "나는 먹고 싶지 않다",
+      "enSourceHash": "d118958d7365fcee"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:d491c714be7dcaa1",
+      "text": "나는 내일 미카의 가방을 나를게요",
+      "enSourceHash": "d491c714be7dcaa1"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:e100b83b4b812c43",
+      "text": "나는 새로운 전구를 갖고 싶다",
+      "enSourceHash": "e100b83b4b812c43"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:eb01e592b28f13e7",
+      "text": "나는 새로운 문을 갖고 싶다",
+      "enSourceHash": "eb01e592b28f13e7"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/en:f08244d4c48eb505",
+      "text": "나는 이미 먹었다",
+      "enSourceHash": "f08244d4c48eb505"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/ja:かわで およいでは いけません",
+      "text": "만들기: 강에서 수영하면 안 됩니다",
+      "enSourceHash": "95d28966eccca70b"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/ja:きっさてんに いって ちゃを のんだ",
+      "text": "만들기: 커피숍에 가서 차를 마셨다",
+      "enSourceHash": "135ca3577d72405b"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/ja:きっさてんは しちじに ドアを しめる",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/ja:ここで しゃしんを みても いい？",
+      "text": "만들기: 여기서 사진을 봐도 되니?",
+      "enSourceHash": "ce9e380f9171b96f"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/ja:ここで たべないで ください",
+      "text": "만들기: 여기서 먹지 마세요",
+      "enSourceHash": "208143dd973a584c"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/ja:ここでは ドアを ひく",
+      "text": "만들기: 여기서는 문을 당긴다",
+      "enSourceHash": "c3c0a08791845397"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/ja:つめたい みずを のんでも いい？",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/ja:ともだちは にほんの かいしゃで はたらいている",
+      "text": "만들기: 친구는 일본의 회사에서 일하고 있다",
+      "enSourceHash": "5dcc4241fced8938"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/ja:みずを のまないで ください",
+      "text": "만들기: 물을 마시지 마세요",
+      "enSourceHash": "cad653ff6c43dcd5"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/ja:みせは じゅうじに ドアを あける",
+      "text": "만들기: 가게는 10시에 문을 연다",
+      "enSourceHash": "6ccb645a07e54cc2"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/ja:もう あたらしい ふくを かった",
+      "text": "만들기: 이미 새로운 옷을 샀다",
+      "enSourceHash": "396bc87c50462f6b"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/ja:わたしは ゆうめいな みせを しっている",
+      "text": "만들기: 나는 유명한 가게를 알고 있다",
+      "enSourceHash": "4437ea30c7afbf8a"
+    },
+    {
+      "anchor": "m14/ja-m14-neo-review-3/ja:ミカは いま えきで まっている",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m14/story:ja-m14-a-visitor/en:d220aa58bad34567",
+      "text": "방문자",
+      "enSourceHash": "d220aa58bad34567"
+    },
+    {
+      "anchor": "m14/story:ja-m14-a-visitor/en:d4c630a681f333e1",
+      "text": "친구가 들른다.",
+      "enSourceHash": "d4c630a681f333e1"
+    },
+    {
+      "anchor": "m14/story:ja-m14-a-visitor/ja:きょう ともだちが うちに くる。",
+      "text": "오늘 친구가 집에 온다.",
+      "enSourceHash": "a94546dc71ef6c80"
+    },
+    {
+      "anchor": "m14/story:ja-m14-a-visitor/ja:とても いい さいふだ。",
+      "text": "매우 좋은 지갑이다.",
+      "enSourceHash": "a775f01b53c40e04"
+    },
+    {
+      "anchor": "m14/story:ja-m14-a-visitor/ja:ともだちが ドアを あける。",
+      "text": "친구가 문을 연다.",
+      "enSourceHash": "912b86f4cb6ad16e"
+    },
+    {
+      "anchor": "m14/story:ja-m14-a-visitor/ja:ともだちは あたらしい さいふを みせる。",
+      "text": "친구는 새로운 지갑을 보여준다.",
+      "enSourceHash": "8c951017b1017e2f"
+    },
+    {
+      "anchor": "m14/story:ja-m14-a-visitor/ja:ともだちは はなしを する。",
+      "text": "친구는 이야기를 한다.",
+      "enSourceHash": "22bd6cc77321c847"
+    },
+    {
+      "anchor": "m14/story:ja-m14-a-visitor/ja:ふたりで コーヒーを のむ。",
+      "text": "둘이서 커피를 마신다.",
+      "enSourceHash": "09f2429422315a48"
+    },
+    {
+      "anchor": "m14/story:ja-m14-a-visitor/ja:ぼくは ともだちを まつ。",
+      "text": "나는 친구를 기다린다.",
+      "enSourceHash": "ebd15f3a1dc7574e"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/en:bc3e8b356dc44807",
+      "text": "톰에게 보낸 편지",
+      "enSourceHash": "bc3e8b356dc44807"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/en:c8ddad49bf89d5af",
+      "text": "몇 시간 늦게 우편으로 보낸 답장.",
+      "enSourceHash": "c8ddad49bf89d5af"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/gloss:かく",
+      "text": "쓰다",
+      "enSourceHash": "1b221d6d1eb23536"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/gloss:けど",
+      "text": "하지만",
+      "enSourceHash": "6a16848ebec13abc"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:「きってが ありません。おかねも ありません。」",
+      "text": "\"우표가 없다. 돈도 없다.\"",
+      "enSourceHash": "666f2b7d477d3895"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:「みせで きってを かいます。」",
+      "text": "\"가게에서 우표를 사다.\"",
+      "enSourceHash": "65ed3b8e2e8f4e70"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:「わたしの さいふに ごひゃくえんが あります。」",
+      "text": "「내 지갑에 오백 엔이 있습니다.」",
+      "enSourceHash": "9d363054a652128e"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:あした、トムが うちに くる。",
+      "text": "내일 톰이 집에 온다.",
+      "enSourceHash": "71554b597544bed6"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:あたらしい ふうとうも ある。",
+      "text": "새로운 봉투도 있다.",
+      "enSourceHash": "3a5a435934a63337"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:いま、てがみは ポストに ある。",
+      "text": "지금 편지는 우체통에 있다.",
+      "enSourceHash": "afc4153f9d63a0fd"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:きってを ふうとうに はる。",
+      "text": "우표를 봉투에 붙인다.",
+      "enSourceHash": "8fb30501d082e4fa"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:けさ、ポストに トムの はがきが ある。",
+      "text": "오늘 아침 우체통에 톰의 엽서가 있다.",
+      "enSourceHash": "a65e7dc5f8f29f4a"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:けど、きってが ない。",
+      "text": "하지만 우표가 없다.",
+      "enSourceHash": "b84b5b9d7b8d5b88"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:さいふに おかねが ない。",
+      "text": "지갑에 돈이 없다.",
+      "enSourceHash": "69f10bdc89568081"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:それから、ポストに いく。",
+      "text": "그리고 우체통에 간다.",
+      "enSourceHash": "346d9726a9f1f491"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:はがきの はなしは とても いい。",
+      "text": "엽서의 소식은 매우 좋다.",
+      "enSourceHash": "6a2b1e6f8e44b987"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:ぼくの てがみは まだ ポストに ある。",
+      "text": "내 편지는 아직 우체통에 있다.",
+      "enSourceHash": "c8254c3aa6701e90"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:ぼくは さいふを みる。",
+      "text": "나는 지갑을 본다.",
+      "enSourceHash": "9333b5907c05e901"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:ぼくは ともだちの ユミに はなす。",
+      "text": "나는 친구 유미에게 말한다.",
+      "enSourceHash": "e5753f6406c88770"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:ぼくは みせで きってを かった。",
+      "text": "나는 가게에서 우표를 샀다.",
+      "enSourceHash": "043ac0fa79db9c9f"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:ぼくは トムに てがみを かく。",
+      "text": "나는 톰에게 편지를 쓴다.",
+      "enSourceHash": "4fff91bde1b9f2af"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:ぼくは トムに はなしを する。",
+      "text": "나는 톰에게 이야기를 한다.",
+      "enSourceHash": "97efa2b2c8d73585"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:よる、トムが でんわを かける。",
+      "text": "밤에 톰이 전화를 한다.",
+      "enSourceHash": "b9b44d1d2d301c8a"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:らいげつ じゃない。きょうだ。",
+      "text": "다음 달이 아니다. 오늘이다.",
+      "enSourceHash": "1b6e3e8a5350fbbf"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:トムは いま とうきょうに いる。",
+      "text": "톰은 지금 도쿄에 있다.",
+      "enSourceHash": "4cfb55701f5a181e"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:トムは らいげつ にほんに くる。",
+      "text": "톰은 다음 달 일본에 온다.",
+      "enSourceHash": "f5b72e9fa8d8cde2"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:トムは アメリカの ともだちだ。",
+      "text": "톰은 미국의 친구다.",
+      "enSourceHash": "b351d34dd68e8408"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-letter-to-tom/ja:ユミは ぼくに ごひゃくえんを かす。",
+      "text": "유미는 나에게 오백 엔을 빌려준다.",
+      "enSourceHash": "11f7b39e4a2fd390"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/en:641cf67363bb3ef3",
+      "text": "세뱃돈, 너무 비싼 카메라, 그리고 오빠.",
+      "enSourceHash": "641cf67363bb3ef3"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/en:81ec8681800e0d23",
+      "text": "새해 봉투",
+      "enSourceHash": "81ec8681800e0d23"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/gloss:おしょうがつ",
+      "text": "새해",
+      "enSourceHash": "4e859ab3dee8742a"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/gloss:おとしだま",
+      "text": "세뱃돈",
+      "enSourceHash": "3b22cf31f98203f9"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/gloss:じんじゃ",
+      "text": "신사",
+      "enSourceHash": "5ec426522f5c7628"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:「ぼくの おとしだまを かす。」",
+      "text": "「내 세뱃돈을 빌려줘.」",
+      "enSourceHash": "66c20b52410d7349"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:「カメラが ほしいです。わたしの おとしだまは いちまんえんです。」",
+      "text": "「카메라가 갖고 싶습니다. 제 세뱃돈은 일만 엔입니다.」",
+      "enSourceHash": "622421560f764325"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:あとで ちちが ふうとうを みせる。",
+      "text": "나중에 아버지가 봉투를 보여준다.",
+      "enSourceHash": "cdbe4dd9f224360d"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:あにの おとしだまも いちまんえんだ。",
+      "text": "오빠의 세뱃돈도 일만 엔이다.",
+      "enSourceHash": "fb8285d3d67e94cc"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:おかねが ない。",
+      "text": "돈이 없다.",
+      "enSourceHash": "7197eace2f89cd6e"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:おちゃも のむ。",
+      "text": "차도 마신다.",
+      "enSourceHash": "9da1e3d75c700bd9"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:かぞくが うちに くる。",
+      "text": "가족이 집에 온다.",
+      "enSourceHash": "749a4ceef11b05cf"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:ことしの おしょうがつだ。",
+      "text": "올해가 새해다.",
+      "enSourceHash": "e758e585a4fef919"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:ことしの おしょうがつは いい おしょうがつだった。",
+      "text": "올해의 새해는 좋은 새해였다.",
+      "enSourceHash": "90342c457e08874f"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:じんじゃで わたしは あにに はなす。",
+      "text": "신사에서 나는 오빠에게 말한다.",
+      "enSourceHash": "b3a6f8d17d0139c2"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:じんじゃは とても にぎやかだ。",
+      "text": "신사는 매우 시끌벅적하다.",
+      "enSourceHash": "873d7da81f73d25f"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:その あと、あにの ふうとうが ドアに ある。",
+      "text": "그 후 오빠의 봉투가 문에 있다.",
+      "enSourceHash": "c9d38efd3425a6b2"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:その カメラは にまんえんだ。",
+      "text": "그 카메라는 이만 엔이다.",
+      "enSourceHash": "1e8db49b06a34967"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:ちちと ははと あにと わたし、よにんだ。",
+      "text": "아버지와 어머니와 형과 나, 넷이다.",
+      "enSourceHash": "74cd1a828dc178db"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:つぎの あさ、かぞくで じんじゃに いく。",
+      "text": "다음 아침, 가족이 신사에 간다.",
+      "enSourceHash": "7d0fd51d6b3417dc"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:ははの りょうりは とても おいしい。",
+      "text": "어머니의 요리는 매우 맛있다.",
+      "enSourceHash": "d82a190d28b75496"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:ふうとうに いちまんえんが ある。",
+      "text": "봉투에 일만 엔이 있다.",
+      "enSourceHash": "7577dd5c66356f17"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:ふうとうに おとしだまが ある。",
+      "text": "봉투에 세뱃돈이 있다.",
+      "enSourceHash": "4858aa98be2075a3"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:わたしの おとしだまは いちまんえんだ。",
+      "text": "나의 세뱃돈은 일만 엔이다.",
+      "enSourceHash": "4a7e32700ae70e85"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:わたしは 「ありがとう」と はなす。",
+      "text": "나는 '감사합니다'라고 말한다.",
+      "enSourceHash": "8ad2381a2c298d7a"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:わたしは ごはんを たべる。",
+      "text": "나는 밥을 먹는다.",
+      "enSourceHash": "6c3881edbdd85650"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:わたしは カメラが ほしい。",
+      "text": "나는 카메라를 갖고 싶다.",
+      "enSourceHash": "5f845a3f9fd37cce"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:わたしは カメラを かった。",
+      "text": "나는 카메라를 샀다.",
+      "enSourceHash": "deebe71c73d22ebe"
+    },
+    {
+      "anchor": "m14/story:ja-m14-the-new-year-envelope/ja:カメラは たかい。",
+      "text": "카메라는 비싸다.",
+      "enSourceHash": "c3b28cf176ccd9af"
+    }
+  ]
+}
