@@ -1,0 +1,253 @@
+module: m38
+title: "Hay que limpiar la casa"
+frame: none
+throughModule: m37
+expectedLessonCount: 10
+checkpoint: 8
+
+# ES m38 — the rooms of a house (lexicon break, plus one bare-infinitive
+# verb). Nineteenth A2 module, third lexicon break since m19 (m32 clothing
+# round 2, m34 errands, m36 transport — this module continues that
+# constellation, immediately after m37's «hay que» grammar beat).
+#
+#     el dormitorio (m)   bedroom        la sala (f)      living room
+#     el comedor (m)      dining room    el jardín (m)    garden, yard
+#     el garaje (m)       garage
+#     limpiar              to clean (BARE INFINITIVE ONLY — see its own
+#                           section below; not a conjugation paradigm)
+#
+# ONE domain, six new atoms: the rooms/areas of a house a learner did NOT
+# already get from m3/m4's own house-object scavenger hunt (casa, puerta,
+# silla, ventana, mesa, cama, baño, cocina, cuarto — all already PRIOR,
+# reconfirmed below), plus the single new verb this module needs to cash
+# in BOTH of the course's two obligation constructions at once. Zero new
+# GRAMMAR — «hay que»/«tengo que» + infinitivo is entirely m33/m37's own
+# structure, already taught; this module supplies new nouns and one new
+# infinitive to plug into it, exactly the "lexicon break" shape m34/m36
+# established.
+#
+# ── WHY THIS MODULE, NOW (decision, 2026-09-10) ───────────────────────────
+# Four lines of evidence:
+#   1. **Rhythm calls for a break, and m37 is exactly one beat past the
+#      last one.** m34 (break) → m35 (grammar) → m36 (break) → m37
+#      (grammar) — the identical one-beat alternation every recent header
+#      has used to justify its own placement. The break due after m37 is
+#      on schedule.
+#   2. **House/rooms is the SAME candidate `m36-header.yaml` explicitly
+#      left open, not a fresh guess.** Re-grepped against the up-to-date
+#      m1-m37 surface list (`grep -o 'surface: "[^"]*"'
+#      curriculum/m{1..37}.ts | sort -u`): `casa`/`cocina`/`baño`/`cuarto`
+#      (m3/m4) plus, newly reconfirmed this round, `cama`/`mesa`/`puerta`/
+#      `silla`/`ventana` (m3/m4) and `ducha`/`dormir` (m17) are ALL already
+#      PRIOR — the m3/m4 house-object scavenger hunt is thoroughly spent.
+#      But `dormitorio`/`sala`/`comedor`/`jardín`/`garaje` (this module's
+#      own five) are ALL grep-confirmed zero-hit virgin, matching
+#      `m36-header.yaml`'s own finding for its narrower `habitación`/
+#      `sala`/`dormitorio`/`comedor` candidate list one module ago — a
+#      genuine, still-unclaimed 5-atom domain.
+#   3. **The specific objection that got this candidate rejected last time
+#      no longer fully holds — m37 built a fourth hook.** `m36-header.yaml`
+#      rejected house/rooms for m36 on exactly two grounds: (a) only THREE
+#      prior-module hooks (`está`/`hay`/«al lado de», all m3-m35) versus
+#      transport's eight, and (b) rooms aren't a natural object of
+#      `voy a`/`necesito ir a`/`tengo que ir a` the way an errand place is
+#      ("you don't have an obligation to go to your own kitchen"). Ground
+#      (a) is now stronger: m37's own «hay que + infinitivo» is the single
+#      most natural obligation frame a "rooms of a house" domain could ask
+#      for — "hay que limpiar el baño" is a more universally true sentence
+#      than almost anything else «hay que» pairs with course-wide. Ground
+#      (b) is SIDESTEPPED rather than refuted: this module doesn't lean on
+#      "going to" a room at all (no `voy a el dormitorio` content) — it
+#      leans on «está»+location (m35, a room CAN be "next to" another room,
+#      unlike ground (b)'s own objection) and on «hay que»/«tengo que» +
+#      «limpiar» (an obligation TOWARD a room, not a destination). This is
+#      the identical reversal-of-a-prior-verdict structure `m36-header.yaml`
+#      itself used for transport ("a prior header already said no once,
+#      with a reason that stopped applying") — content that didn't exist
+#      when the earlier rejection was written (m37's own atom) is exactly
+#      what flips the verdict.
+#   4. **Kitchen/food round 2 and family round 2 — re-checked against the
+#      current registry, nothing has changed.** Both remain real,
+#      well-scoped future content with the identical weaknesses
+#      `m36-header.yaml` already found: food's every hook is INDIRECT
+#      (bought AT a place, never itself the subject of `está`/`voy a`);
+#      family's only hook is bare possession (`tengo dos primos`), the
+#      weakest of any candidate this course has weighed. Full accounting
+#      in REJECTED below, reconfirmed by fresh greps, not inherited
+#      unchecked from the prior header's own prose.
+#
+# ── REJECTED: kitchen/food round 2 (arroz, pescado, verdura, fruta, huevo,
+#    tomate, cebolla) — still virgin, still only indirect hooks ──────────
+# `grep -iE "^arroz$|^pescado$|^verdura$|^fruta$|^huevo$|^tomate$|^cebolla$"`
+# against the up-to-date m1-m37 surface list returns zero hits for all
+# seven — genuinely virgin, unchanged since `m36-header.yaml`'s own check.
+# Rejected for the identical reason: every hook (`necesito`, `tengo que`,
+# `supermercado`, `comprarlo`-family) is INDIRECT — food is bought AT a
+# place (m34's `supermercado`), never itself the subject of `está`/«al
+# lado de»/«hay que». No natural sentence pairs a food noun with this
+# course's own location or obligation constructions the way a ROOM does
+# ("hay que limpiar la cocina" is natural; "hay que limpiar el arroz" is
+# not the same class of sentence). Left open as a strong future break.
+#
+# ── REJECTED: family round 2 (tío, tía, primo, prima, hijo, hija) — still
+#    virgin, still the weakest recombination story of any candidate ──────
+# `grep -iE "^tío$|^tía$|^primo$|^prima$|^hijo$|^hija$"` returns zero hits
+# for all six — unchanged since `m36-header.yaml`'s own check.
+# `hermano`/`hermana`/`padre`/`madre`/`abuelo`/`abuela` remain fully PRIOR
+# (confirmed again here). Rejected for the identical reason: kinship nouns
+# have no natural sentence with `voy a`/`está cerca`/«al lado de»/«hay
+# que» as their frame at this course's level — only `tengo` (bare
+# possession) reaches at all, one prior-module hook, weaker than every
+# other candidate this or the prior round weighed. Left open as a
+# possession-frame recombination lesson inside a future module.
+#
+# ── REJECTED: town/places, a third time — fully exhausted, not re-litigated
+#    ────────────────────────────────────────────────────────────────────
+# `m36-header.yaml` already folded the one virgin word from this list
+# (`estación`) into transport and confirmed `parque`/`escuela`/
+# `restaurante`/`tienda` are all PRIOR (m9/m18). Re-checked here for
+# completeness, unchanged: zero new town-places candidates remain. Not a
+# real alternative this round.
+#
+# ── LIMPIAR IS BARE-INFINITIVE-ONLY — A LEXICON ADDITION, NOT A HIDDEN
+#    GRAMMAR BEAT ─────────────────────────────────────────────────────────
+# This module registers exactly ONE new verb, `limpiar` (to clean), and
+# ONLY its bare infinitive form — the identical scope-limiting move m28
+# made for `ir` before `va` filled in the missing 3rd-person present
+# (`curriculum/m28.ts:29`, `atom({ surface: "ir", ... kind: "vocab" })`,
+# no conjugated forms alongside it in that same registration). Unlike
+# `ir`, this module registers NO person-conjugated form of `limpiar` at
+# all — no `limpio`/`limpias`/`limpia`/`limpiamos`/`limpian` anywhere.
+# `limpiar` appears in this module's own content exclusively immediately
+# after «hay que» (m37) or «tengo que» (m33) — both already-taught
+# invariant/person-marked auxiliaries whose own infinitive slot this verb
+# simply fills, the same syntactic role `trabajar`/`estudiar`/`comprar`
+# already play in m33/m37's own example sentences. This is why the module
+# stays a LEXICON break rather than becoming a hidden grammar beat: zero
+# new syntactic structure, one new content word slotting into two
+# structures the learner already owns. **Bespoke test-pin required**: this
+# module's own `m38.test.ts` must scan for any standalone occurrence of
+# `limpio`/`limpias`/`limpia`/`limpiamos`/`limpian`/`limpié`/`limpiaba`
+# (word-boundary match, not a substring hit inside an unrelated word)
+# anywhere in this module's assembled IR — fail if found — the same
+# `ILLEGAL_PRESENT_FORMS`-style scan m24/m25 built for their own
+# not-yet-taught-conjugation risk, generalized to this module's own single
+# verb. `limpiar` has an honest, unambiguous emoji (🧹) and per §13.1's
+# verb rubric ("verb with honest emoji → vocabMcq intro, then build
+# drills") gets its own image-MCQ debut, not a bare vocab card.
+#
+# ── THE JARDÍN PLURAL LANDMINE — a genuine gate gap found this round, not
+#    inherited from any prior header ────────────────────────────────────
+# `esRegularPlurals()` (`__tests__/moduleBarGuards.ts:168-175`) has a
+# dedicated `/ón$/` branch specifically because Spanish drops the accent
+# when pluralizing an -ón noun (`estación` → `estaciones`, not
+# `estaciónes` — the exact reason that branch exists, per m36-header's own
+# documentation). `jardín` has the IDENTICAL accent-drop behavior in real
+# Spanish (`jardín` → `jardines`, no accent) but ends in `-ín`, not `-ón`
+# — there is NO `/ín$/` branch in the current function, so
+# `esRegularPlurals("jardín")` computes `"jardínes"` (accent retained,
+# grammatically wrong) rather than the correct `"jardines"`. Verified by
+# direct execution against the live function body, not assumed:
+# `esRegularPlurals("jardín") → ["jardínes"]`. **Decision (inferred, not
+# parked): this module's own content uses `jardín` SINGULAR ONLY** — no
+# plural-subject sentence pluralizes it — sidestepping the mismatch
+# entirely rather than shipping either wrong-Spanish `"jardínes"` (to
+# satisfy the gate) or correct-Spanish `"jardines"` (which the gate's own
+# scope-check would then fail to recognize as this atom's plural,
+# repeating the exact "de niño" mistake `authoring-rules.md` already
+# documents and explicitly warns against: three prior rounds forced wrong
+# grammar to satisfy an under-modeled gate before the gate itself was
+# fixed). This module does NOT attempt that fix inline (out of scope for
+# a lexicon break); flagged here as real future gate work — add an
+# `/ín$/` branch to `esRegularPlurals()` alongside the existing `/ón$/`
+# one before any future module needs `jardín`'s plural.
+#
+# ── THE atoms:/exercisedAtomSurfaces CREDIT TRAP FOR THIS MODULE ─────────
+# `irAtomResolution.test.ts` is zero-tolerance exact-surface (unchanged).
+# This module's own five nouns are ordinary single-word vocab atoms — no
+# bigram-fusion risk the way m33/m37's phrase atoms had. The trap this
+# module DOES carry: a sentence "hay que limpiar el comedor" must credit
+# `["hay que", "limpiar", "comedor"]` — the ALREADY-REGISTERED m37 phrase
+# atom `"hay que"` plus this module's own `"limpiar"` plus this module's
+# own `"comedor"` — never `["hay", "que", "limpiar", "comedor"]` (splitting
+# the m37 phrase atom, the identical face-one credit-vanishing bug m37's
+# own header already flagged, now recurring one module later against a
+# genuinely new object). Any sentence using «tengo que limpiar X» carries
+# the parallel version against m33's own `"tengo que"` atom.
+#
+# ── ES_FUNCTION_WORDS / ES_PROPER_NAMES — DALIA IS THE ONLY FULLY-UNUSED
+#    NAME LEFT, CORRECTING A STALE m37-brief CLAIM ────────────────────────
+# `ES_FUNCTION_WORDS` (`moduleBarGuards.ts:72-88`) is unaffected by this
+# module — no new closed-class word. `ES_PROPER_NAMES`
+# (`moduleBarGuards.ts:90-99`): ana, diego, carlos, maría/maria, sofía/
+# sofia, luis, elena, pedro, juan, rosa, miguel, carmen, lupita, jorge,
+# marta, sam, méxico, mexico, españa, espana, colombia, perú, peru,
+# **dalia**, señor, señora. **Full-course cast check, every `speaker:`
+# field in m1-m37 (not just recent modules, not trusted from any prior
+# brief's own claim):** ana, carlos, carmen, diego, elena, jorge, juan,
+# luis, lupita, marta, maría, miguel, pedro, rosa, sam, sofía all appear
+# at least once. **`es-m37-brief.md`'s own "decisions inferred" section
+# claimed Lupita stayed in reserve after m37** — that claim is now STALE:
+# direct grep of `curriculum/m37.ts` (`grep -io 'speaker: "lupita"'`)
+# shows m37 actually used BOTH Marta and Lupita as speakers, contradicting
+# its own brief's stated plan (a discrepancy between planned and shipped
+# content, recorded here so a future agent doesn't inherit the stale
+# claim unchecked). Every human name in `ES_PROPER_NAMES` has now been
+# used as a `speaker:` at least once EXCEPT `dalia` — confirmed by a
+# dedicated zero-hit grep. **Dalia debuts as this module's own L7
+# dialogue_sim NPC** — the last fully-fresh name in the allowlist; no
+# name will remain in reserve after this module ships (a future module
+# needing a fresh NPC will need to extend `ES_PROPER_NAMES` itself, not
+# merely pick from the existing list).
+#
+# ── SIM NPC-LINE PROVENANCE: LIVE AND UNFORGIVING, m29+ HAS ZERO LEGACY
+#    ALLOWANCE, RECONFIRMED THROUGH m37 ────────────────────────────────────
+# `esSimNpcProvenance.test.ts`'s `KNOWN_LEGACY` allowlist tail is confirmed
+# still `m28` (direct read of the full object, no m29-m37 entries) — this
+# module gets NO reaction-word leniency either. Every NPC word must
+# resolve to: this module's own 6 atoms, any PRIOR atom, a taught verb
+# conjugation, `ES_FUNCTION_WORDS`, or `ES_PROPER_NAMES` — and per
+# `limpiar`'s own bare-infinitive-only scope above, NEVER a conjugated
+# form of `limpiar` in any NPC line either.
+#
+# ── ACCENT: HEALTHY HOUSEPLANT/GARDEN GREEN, VERIFIED UNUSED, DISTINCT
+#    FROM EVERY PRIOR GREEN-FAMILY PAIR ────────────────────────────────────
+# Checked every `accent:` pair in `curriculum/index.ts` (grep-verified,
+# every hex value individually, 66 unique values across ~37 pairs): zero
+# hits for `#16a34a` or `#166534` anywhere as either a `from` or a `to`.
+# The green family is otherwise fully spent (`#047857`/`#059669`/
+# `#10b981`/`#34d399` emerald, `#0d9488`/`#0f766e`/`#115e59`/`#14b8a6`/
+# `#2dd4bf` teal, `#22c55e`/`#15803d` green, `#3f6212`/`#a3e635` lime) —
+# `#16a34a`→`#166534` (Tailwind green-600→green-800) sits in the gap
+# between the emerald and lime clusters, reading as "a healthy houseplant"
+# rather than either of those two existing metaphors, and distinct from
+# `m34`'s own terracotta/clay and every other recent module's accent.
+# ─────────────────────────────────────────────────────────────────────────
+newAtoms:
+  # el dormitorio — bedroom. Regular masculine noun, vowel-final plural
+  # «dormitorios». This module's own L1 debut (image-MCQ intro).
+  - { surface: "dormitorio", meaningEn: "bedroom", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "💤", hint: "el dormitorio — regular masculine, plural «dormitorios». «tengo que limpiar el dormitorio» (m33's «tengo que» + this module's own «limpiar», once it debuts)." }
+  # la sala — living room. Regular feminine noun, vowel-final plural
+  # «salas». L2 debut, paired against «dormitorio» via «está al lado de».
+  - { surface: "sala", meaningEn: "living room", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "📺", hint: "la sala — regular feminine, plural «salas». «la sala está al lado del dormitorio» (m35's «está»/«al lado de», two of this module's own nouns paired for the first time)." }
+  # el comedor — dining room. Regular masculine noun, consonant-final
+  # plural «comedores» (same branch as «hospital», m34). L3 debut — the
+  # first noun to pair with m37's own «hay que».
+  - { surface: "comedor", meaningEn: "dining room", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🍽️", hint: "el comedor — regular masculine, plural «comedores» (consonant → +es, same branch as «hospital», m34). «hay que limpiar el comedor» — m37's «hay que», this module's own central new pairing." }
+  # el jardín — garden, yard. Masculine. SINGULAR ONLY this module — see
+  # the header's own landmine section: the regular-plural scope-check has
+  # no «/ín$/» branch and would compute the wrong-Spanish «jardínes»
+  # rather than the correct «jardines». L4 debut.
+  - { surface: "jardín", meaningEn: "garden, yard", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🌻", hint: "el jardín — masculine. Singular-only in this module's own content (see header — the plural «jardines» exists in real Spanish but trips a gate gap; avoided here rather than shipped). «tengo que limpiar el jardín» (m33's «tengo que»)." }
+  # el garaje — garage. Regular masculine noun, vowel-final plural
+  # «garajes». L5 debut — pairs with «está»+«lejos» and «voy a»/«al».
+  - { surface: "garaje", meaningEn: "garage", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🛠️", hint: "el garaje — regular masculine, plural «garajes». «el garaje está lejos de la casa» (m35's «lejos»), «voy al garaje» (m9's «voy a»/«al»)." }
+  # limpiar — to clean. BARE INFINITIVE ONLY — see the header's own
+  # dedicated section. This module's one new verb, registered exactly
+  # like m28's own bare «ir»: no person-conjugated form anywhere. Always
+  # immediately after «hay que» (m37) or «tengo que» (m33). L6 debut
+  # (image-MCQ intro, honest emoji, per §13.1's verb rubric), the lesson
+  # where all five of this module's own rooms first take a real verb.
+  - { surface: "limpiar", meaningEn: "to clean", partOfSpeech: "verb", kind: "vocab", emoji: "🧹", hint: "limpiar — the infinitive only; this module never teaches «limpio»/«limpias»/«limpia»/«limpiamos»/«limpian». Always right after «hay que» or «tengo que», the same slot «trabajar»/«estudiar»/«comprar» already fill in m33/m37's own sentences: «hay que limpiar la sala», «tengo que limpiar el garaje»." }
+
+lessons:
