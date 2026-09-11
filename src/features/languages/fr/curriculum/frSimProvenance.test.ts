@@ -143,6 +143,7 @@ import { FR_M20_MODULE } from "./m20";
 import { FR_M21_MODULE } from "./m21";
 import { FR_M22_MODULE } from "./m22";
 import { FR_M23_MODULE } from "./m23";
+import { FR_M24_MODULE } from "./m24";
 
 // ─── Module inventory (m2–m21; m1 is not in range) ──
 
@@ -169,6 +170,7 @@ const MODULES: ReadonlyArray<{ id: string; n: number; lessons: LessonContent[] }
   { id: "m21", n: 21, lessons: FR_M21_MODULE.lessons },
   { id: "m22", n: 22, lessons: FR_M22_MODULE.lessons },
   { id: "m23", n: 23, lessons: FR_M23_MODULE.lessons },
+  { id: "m24", n: 24, lessons: FR_M24_MODULE.lessons },
   // EVERY new FR module must be added here when it lands (coordinator checklist).
 ];
 

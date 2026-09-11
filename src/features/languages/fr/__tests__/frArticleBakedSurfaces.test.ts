@@ -94,8 +94,9 @@ import { FR_M20_MODULE } from "../curriculum/m20";
 import { FR_M21_MODULE } from "../curriculum/m21";
 import { FR_M22_MODULE } from "../curriculum/m22";
 import { FR_M23_MODULE } from "../curriculum/m23";
+import { FR_M24_MODULE } from "../curriculum/m24";
 
-// ─── Module inventory (m2–m23; add each new module at landing) ────────────
+// ─── Module inventory (m2–m24; add each new module at landing) ────────────
 
 const MODULES: ReadonlyArray<{ id: string; lessons: LessonContent[] }> = [
   { id: "m2", lessons: FR_M2_MODULE.lessons },
@@ -120,6 +121,7 @@ const MODULES: ReadonlyArray<{ id: string; lessons: LessonContent[] }> = [
   { id: "m21", lessons: FR_M21_MODULE.lessons },
   { id: "m22", lessons: FR_M22_MODULE.lessons },
   { id: "m23", lessons: FR_M23_MODULE.lessons },
+  { id: "m24", lessons: FR_M24_MODULE.lessons },
   // EVERY new FR module lands here when it ships (coordinator checklist,
   // mirrors frSimProvenance.test.ts's / frSpeechMinimalPairs.test.ts's own
   // inventory comment).
