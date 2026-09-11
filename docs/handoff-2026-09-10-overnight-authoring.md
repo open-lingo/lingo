@@ -207,3 +207,4 @@ fan-out; save small notes here after every step (auto-compaction is on).
 - 01:30 Dispatched: JA m45 reviewer, JA m46 brief (n4-17 timing/aspect), ES m35 reviewer, ES m36 brief (lexicon break). In flight also: KO m16 (woken), FR m25 author.
 - 01:37 ES m35 REVIEW clean (0 fixes; borderline: L8 bare «está al lado» ellipsis left; stale fragment comment says perdón m21, actually m1). ES 2577/1 green.
 - 01:45 KO m16 LANDED (587 entries, drift 17.5%; 39 of 103 fixes were digit-counter spacing «9 시»→«9시» — add to CONVENTIONS for m17; new conventions に→에/で→로, すきだ→좋다 predicate only, attributive すきな→좋아하는 kept). The "backgrounding" was the harness 600s auto-background, not lane disobedience — lane used Monitor correctly. Dispatching KO m17.
+- 01:50 JA m46 brief committed (timing/aspect; ~11 new atoms + cash-ins ところ/はじめ; zero ruleset work; follow-on: ところ stub has a dead introducedByLessonId into _archive/m9.ts — author must re-point). Dispatching KO m17 + JA m46 author.
