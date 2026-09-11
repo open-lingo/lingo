@@ -1,0 +1,2715 @@
+{
+  "schema": 1,
+  "moduleId": "m18",
+  "lang": "ja",
+  "generatedAt": "2026-09-11",
+  "entryCount": 451,
+  "entries": [
+    {
+      "anchor": "m18/atom:き/gloss",
+      "en": "tree, wood",
+      "enSourceHash": "e356a943db627af9",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m18/atom:たのしい/gloss",
+      "en": "enjoyable",
+      "enSourceHash": "f77470ce4f1959e5",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m18/atom:はなす/gloss",
+      "en": "to speak",
+      "enSourceHash": "4ca762c41972c065",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m18/atom:むずかしい/gloss",
+      "en": "difficult",
+      "enSourceHash": "1e4453a98c9d7417",
+      "kind": "atom-gloss"
+    },
+    {
+      "anchor": "m18/gp:desu-copula/ex:あの きっさてんは しずかだと おもう。",
+      "en": "I think that coffee shop over there is quiet.",
+      "enSourceHash": "b50830a97deb1824",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:desu-copula/ex:この すしは おいしいと おもう。",
+      "en": "I think this sushi is delicious.",
+      "enSourceHash": "86785ba8e5e660c0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:desu-copula/ex:この ほんは おもしろいと おもう。",
+      "en": "I think this book is interesting.",
+      "enSourceHash": "ce74c8541295bd44",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:desu-copula/ex:たなかは せんせいだと おもう。",
+      "en": "I think Tanaka is a teacher.",
+      "enSourceHash": "bfbf898056a0f295",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:desu-copula/ex:ミカは がくせいだと おもう。",
+      "en": "I think Mika is a student.",
+      "enSourceHash": "40420ce0aa042553",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:desu-copula/ex:ミカは がくせいと おもう。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:ka-question/ex:あれは なんと いう はな？",
+      "en": "What is that flower called?",
+      "enSourceHash": "632b98083d413b43",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:ka-question/ex:この えいがは おもしろいと おもう？",
+      "en": "Do you think this movie is interesting?",
+      "enSourceHash": "f9f355bbf699db62",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:ka-question/ex:この みせは たかいと おもう？",
+      "en": "Do you think this shop is expensive?",
+      "enSourceHash": "2190040e4be87f98",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:ka-question/ex:どう おもう？",
+      "en": "What do you think?",
+      "enSourceHash": "330ccaae6ae8da16",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:ka-question/ex:ミカは くるかと おもう？",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:ka-question/ex:ミカは くると おもう？",
+      "en": "Do you think Mika is coming?",
+      "enSourceHash": "ef2351df00a7b694",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:kanji-set-1/ex:きょうは みずを かうと おもう。",
+      "en": "I think I'll buy water today.",
+      "enSourceHash": "cd5cb67266e804dd",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:kanji-set-1/ex:この かばんは たかいと おもう。",
+      "en": "I think this bag is expensive.",
+      "enSourceHash": "c245c4a4cba6a484",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:kanji-set-1/ex:この ひとは がくせいだと おもう。",
+      "en": "I think this person is a student.",
+      "enSourceHash": "4fd6e4e5e1bfd80e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:kanji-set-1/ex:トムは にほんに いくと おもう。",
+      "en": "I think Tom will go to Japan.",
+      "enSourceHash": "0449c7c615092271",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:kanji-set-1/ex:ミカは わかると おもう。",
+      "en": "I think Mika understands.",
+      "enSourceHash": "b81801cb8de60499",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:masu-present/ex:たなかは ミカに おしえると おもう。",
+      "en": "I think Tanaka will teach Mika.",
+      "enSourceHash": "db96e3547562f13d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:masu-present/ex:ケンは きょう はたらくと おもう。",
+      "en": "I think Ken will work today.",
+      "enSourceHash": "5b61da6c29f65bea",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:masu-present/ex:トムは ほんを かうと おもう。",
+      "en": "I think Tom will buy a book.",
+      "enSourceHash": "d46be59d88695a95",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:masu-present/ex:ミカは えきで まつと おもう。",
+      "en": "I think Mika will wait at the station.",
+      "enSourceHash": "d202b00b96924dcd",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:masu-present/ex:ミカは すしを たべますと おもう。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:masu-present/ex:ミカは すしを たべると おもう。",
+      "en": "I think Mika will eat sushi.",
+      "enSourceHash": "aad9419003caf417",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:nai-form/ex:たなかは きょう こないと おもう。",
+      "en": "I don't think Tanaka is coming today.",
+      "enSourceHash": "0bf1a4b8635ef483",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:nai-form/ex:ケンは くないと おもう。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:nai-form/ex:ケンは こないと おもう。",
+      "en": "I don't think Ken is coming.",
+      "enSourceHash": "45300a54edfa77bc",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:nai-form/ex:トムは わからないと おもう。",
+      "en": "I don't think Tom understands.",
+      "enSourceHash": "6bda45e114344762",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:nai-form/ex:ミカは えいがを みないと おもう。",
+      "en": "I don't think Mika will watch the movie.",
+      "enSourceHash": "dd27247867123085",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:nai-form/ex:ミカは すしを たべないと おもう。",
+      "en": "I don't think Mika will eat sushi.",
+      "enSourceHash": "0e72cee3cba457a1",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:ni-location/ex:たなかに わからないと いう。",
+      "en": "I'll tell Tanaka I don't understand.",
+      "enSourceHash": "b7775e1e5e565113",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:ni-location/ex:ともだちに この ほんは おもしろいと おしえる。",
+      "en": "I'll tell my friend this book is interesting.",
+      "enSourceHash": "508e80ed6c21d057",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:ni-location/ex:ケンは あした こないと きく。",
+      "en": "I hear Ken isn't coming tomorrow.",
+      "enSourceHash": "4a2c65a4c8d006a9",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:ni-location/ex:トムに この みせは やすいと いう。",
+      "en": "I'll tell Tom this shop is cheap.",
+      "enSourceHash": "4ab5d7d0ee4d98b2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:ni-location/ex:ミカに あした いくと いう。",
+      "en": "I'll tell Mika I'm going tomorrow.",
+      "enSourceHash": "825ed386fedc835c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:ni-location/ex:ミカを あした いくと いう。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:ta-form/ex:ケンは えいがを みたと おもう。",
+      "en": "I think Ken watched the movie.",
+      "enSourceHash": "f8cc257a40499195",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:ta-form/ex:ケンは きのう ともだちと あそんだと おもう。",
+      "en": "I think Ken played with a friend yesterday.",
+      "enSourceHash": "ffe8bb301d18bd4b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:ta-form/ex:トムは ほんを かったと おもう。",
+      "en": "I think Tom bought a book.",
+      "enSourceHash": "262f79ac0b9855d9",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:ta-form/ex:ミカは もう たべただと おもう。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:ta-form/ex:ミカは もう たべたと おもう。",
+      "en": "I think Mika has already eaten.",
+      "enSourceHash": "7e16d24f80cb457d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:ta-form/ex:ミカは わかったと おもう。",
+      "en": "I think Mika understood.",
+      "enSourceHash": "e1aacdb5b88ec1c6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:to-omoimasu/ex:あした いくと おもう。",
+      "en": "I think I'll go tomorrow.",
+      "enSourceHash": "812b768ca9a2edea",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:to-omoimasu/ex:あした いくを おもう。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:to-omoimasu/ex:たなかは わかると おもう。",
+      "en": "I think Tanaka understands.",
+      "enSourceHash": "3286f603894e891c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:to-omoimasu/ex:ケンは えいがを みると おもう。",
+      "en": "I think Ken will watch the movie.",
+      "enSourceHash": "d4126c1fe8297fc3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:to-omoimasu/ex:トムは うちに いると おもう。",
+      "en": "I think Tom is at home.",
+      "enSourceHash": "19722e452976758d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:to-omoimasu/ex:ミカは あした くると おもう。",
+      "en": "I think Mika is coming tomorrow.",
+      "enSourceHash": "b16fe22da68b9fae",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:to-quotation/ex:あれは なんと いう はな？",
+      "en": "What is that flower called?",
+      "enSourceHash": "632b98083d413b43",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:to-quotation/ex:これは さくらと いう はなだ。",
+      "en": "This is a flower called sakura.",
+      "enSourceHash": "7acd0570f2dfe664",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:to-quotation/ex:さくらと いう みせで かう。",
+      "en": "I buy it at a shop called Sakura.",
+      "enSourceHash": "b01640f9df9f2531",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:to-quotation/ex:トムと いう ひとが くる。",
+      "en": "A person called Tom is coming.",
+      "enSourceHash": "964521f1de235084",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:to-quotation/ex:トムの いう ひとが くる。",
+      "en": "(incorrect)",
+      "enSourceHash": "c49db083a23a80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/gp:to-quotation/ex:ミカと いう がくせいが いる。",
+      "en": "There's a student called Mika.",
+      "enSourceHash": "b13c0d38de12a6f3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:18e1dd392168f601",
+      "en": "hat",
+      "enSourceHash": "18e1dd392168f601",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:1a9b5d54313e4f5f",
+      "en": "I think I'll go tomorrow",
+      "enSourceHash": "1a9b5d54313e4f5f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:1e1cc3909a49adea",
+      "en": "Pick the word for \"mountain\"",
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:33d4d629df68a9b4",
+      "en": "I think Tanaka understands",
+      "enSourceHash": "33d4d629df68a9b4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:44a0c0ce041c171e",
+      "en": "I don't think Mika is going to the coffee shop",
+      "enSourceHash": "44a0c0ce041c171e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:670bd9ced0c6bc3f",
+      "en": "Sushi",
+      "enSourceHash": "670bd9ced0c6bc3f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:688bc76cffbf7ccd",
+      "en": "I think Mika went to the coffee shop",
+      "enSourceHash": "688bc76cffbf7ccd",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:722e657c7f247549",
+      "en": "to think",
+      "enSourceHash": "722e657c7f247549",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:8a6ba32c9bed6ce7",
+      "en": "movie",
+      "enSourceHash": "8a6ba32c9bed6ce7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:9b4426701edfbe90",
+      "en": "I think Ken will watch the movie",
+      "enSourceHash": "9b4426701edfbe90",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:ae09da91278b4412",
+      "en": "Tanaka thinks I understand",
+      "enSourceHash": "ae09da91278b4412",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:b037a60f1057a6fb",
+      "en": "Mika says she's going to the coffee shop",
+      "enSourceHash": "b037a60f1057a6fb",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:c4450e7a8c5ab035",
+      "en": "I think Mika is coming tomorrow",
+      "enSourceHash": "c4450e7a8c5ab035",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:c798e5b18ed876ef",
+      "en": "coffee shop",
+      "enSourceHash": "c798e5b18ed876ef",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:d2dec6b7931cdae8",
+      "en": "I don't think Tanaka understands",
+      "enSourceHash": "d2dec6b7931cdae8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:d4c3a4274f74395a",
+      "en": "I think Mika is going to the coffee shop",
+      "enSourceHash": "d4c3a4274f74395a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:d4fe01917c87b223",
+      "en": "I understood Tanaka",
+      "enSourceHash": "d4fe01917c87b223",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:fa096cc0820ecb03",
+      "en": "I think Tom is at home",
+      "enSourceHash": "fa096cc0820ecb03",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/ja:あした いくと おもう",
+      "en": "Build: I think I'll go tomorrow",
+      "enSourceHash": "a9bb25ad00a1035b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/ja:この きっさてんは やすいから ミカは いくと おもう",
+      "en": "Build: This coffee shop is cheap, so I think Mika will go",
+      "enSourceHash": "3f654b0da1c3fb38",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/ja:この みせは ぼうしを うると おもう",
+      "en": "Build: I think this shop sells hats",
+      "enSourceHash": "e0d8d1881f95e6ba",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/ja:たなかは きょう じゅぎょうが あると おもう",
+      "en": "Build: I think Tanaka has a class today",
+      "enSourceHash": "480e7008a3e8d89d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/ja:ケンは えいがを みると おもう",
+      "en": "Build: I think Ken will watch the movie",
+      "enSourceHash": "20ad5b64768856ef",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/ja:トムは うちに いると おもう",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/ja:ミカは あした くると おもう",
+      "en": "Build: I think Mika is coming tomorrow",
+      "enSourceHash": "69d0bfeea3ba7c3a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/ja:ミカは すしを たべると おもう",
+      "en": "Build: I think Mika will eat sushi",
+      "enSourceHash": "49c8d01dc149ed63",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:0889113e04d3203f",
+      "en": "class",
+      "enSourceHash": "0889113e04d3203f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:12469683c96f9068",
+      "en": "I think Tom bought a bag",
+      "enSourceHash": "12469683c96f9068",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:126684e9258fa6ee",
+      "en": "Tom says he'll buy a bag",
+      "enSourceHash": "126684e9258fa6ee",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:1bef543df356fa88",
+      "en": "I think Ken will work today",
+      "enSourceHash": "1bef543df356fa88",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:1e1cc3909a49adea",
+      "en": "Pick the word for \"mountain\"",
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:670bd9ced0c6bc3f",
+      "en": "Sushi",
+      "enSourceHash": "670bd9ced0c6bc3f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:722e657c7f247549",
+      "en": "to think",
+      "enSourceHash": "722e657c7f247549",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:8825e76530f87ff5",
+      "en": "milk",
+      "enSourceHash": "8825e76530f87ff5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:8f750618eeece5b5",
+      "en": "I think Tom will buy a bag",
+      "enSourceHash": "8f750618eeece5b5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:92b8414ce0954a68",
+      "en": "I think Ken works at a shop",
+      "enSourceHash": "92b8414ce0954a68",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:9b4ef3e5b7b4d175",
+      "en": "station",
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:b67b9cb8249c0980",
+      "en": "I don't think Ken works at a company",
+      "enSourceHash": "b67b9cb8249c0980",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:b9b601f5ec151410",
+      "en": "Ken says he works at a company",
+      "enSourceHash": "b9b601f5ec151410",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:d1cf27ac11ad5bce",
+      "en": "I think Mika will wait at the station",
+      "enSourceHash": "d1cf27ac11ad5bce",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:d208a0548f559570",
+      "en": "I think Mika will eat sushi",
+      "enSourceHash": "d208a0548f559570",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:f4be2a24a2641670",
+      "en": "I think Tom will buy a book",
+      "enSourceHash": "f4be2a24a2641670",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:f8b4c009ef92e80f",
+      "en": "I think Ken works at a company",
+      "enSourceHash": "f8b4c009ef92e80f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/ja:たなかは ミカに おしえると おもう",
+      "en": "Build: I think Tanaka will teach Mika",
+      "enSourceHash": "dbdb393179947420",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/ja:ケンは きょう はたらくと おもう",
+      "en": "Build: I think Ken will work today",
+      "enSourceHash": "8e0983552e174fa2",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/ja:ケンは こないと ききます",
+      "en": "Say politely: I hear Ken isn't coming",
+      "enSourceHash": "431397cd394805a3",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/ja:トムは ぎゅうにゅうを のむと おもう",
+      "en": "Build: I think Tom will drink the milk",
+      "enSourceHash": "faa0564f8eb82dbf",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/ja:トムは ほんを かうと おもう",
+      "en": "Build: I think Tom will buy a book",
+      "enSourceHash": "7caa8a399ea1cb66",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/ja:ミカは いそがしいから えきで まつと おもう",
+      "en": "Build: Mika is busy, so I think she'll wait at the station",
+      "enSourceHash": "cfb4f7d317eca682",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/ja:ミカは えきで まつと おもう",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/ja:ミカは すしを たべると おもう",
+      "en": "Build: I think Mika will eat sushi",
+      "enSourceHash": "49c8d01dc149ed63",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:00143559ac94dc33",
+      "en": "I don't think Tom understands",
+      "enSourceHash": "00143559ac94dc33",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:15fc0b785de0ac37",
+      "en": "I think Mika will drink the milk",
+      "enSourceHash": "15fc0b785de0ac37",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:1e1cc3909a49adea",
+      "en": "Pick the word for \"mountain\"",
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:266550babbb7bd39",
+      "en": "glasses",
+      "enSourceHash": "266550babbb7bd39",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:2bf61689e7edb55d",
+      "en": "I don't think Tom is coming today",
+      "enSourceHash": "2bf61689e7edb55d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:34a389d790fc2bdd",
+      "en": "trip",
+      "enSourceHash": "34a389d790fc2bdd",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:36806d2d30532a50",
+      "en": "I don't think Tanaka is coming today",
+      "enSourceHash": "36806d2d30532a50",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:38024af4d30473ae",
+      "en": "I don't think Ken is coming",
+      "enSourceHash": "38024af4d30473ae",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:570529af8b8d7644",
+      "en": "I don't think Mika will watch the movie",
+      "enSourceHash": "570529af8b8d7644",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:5c31ecc5ef57b2f3",
+      "en": "Tom says he isn't coming today",
+      "enSourceHash": "5c31ecc5ef57b2f3",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:62a8ea9fddb37c0c",
+      "en": "I don't think Ken is coming today",
+      "enSourceHash": "62a8ea9fddb37c0c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:670bd9ced0c6bc3f",
+      "en": "Sushi",
+      "enSourceHash": "670bd9ced0c6bc3f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:708ecc031ad473c0",
+      "en": "I don't think Ken will drink the milk",
+      "enSourceHash": "708ecc031ad473c0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:722e657c7f247549",
+      "en": "to think",
+      "enSourceHash": "722e657c7f247549",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:8a6ba32c9bed6ce7",
+      "en": "movie",
+      "enSourceHash": "8a6ba32c9bed6ce7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:90014486228b8dee",
+      "en": "I don't think Mika will drink the milk",
+      "enSourceHash": "90014486228b8dee",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:ae25eb03cdd94662",
+      "en": "Mika says she won't drink the milk",
+      "enSourceHash": "ae25eb03cdd94662",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:b293d170a0163e54",
+      "en": "I think Tom is coming today",
+      "enSourceHash": "b293d170a0163e54",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:cde48537ca2c2808",
+      "en": "friend",
+      "enSourceHash": "cde48537ca2c2808",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/ja:この えいがは おもしろくないから ミカは みないと おもう",
+      "en": "Build: This movie isn't interesting, so I don't think Mika will watch it",
+      "enSourceHash": "edd065930d71689d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/ja:たなかは きょう こないと おもう",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/ja:ケンは いそがしいから こないと おもう",
+      "en": "Build: Ken is busy, so I don't think he's coming",
+      "enSourceHash": "db49800cf1494a1d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/ja:ケンは こないと おもう",
+      "en": "Build: I don't think Ken is coming",
+      "enSourceHash": "aefb3568f4bd30d7",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/ja:トムは わからないと おもう",
+      "en": "Build: I don't think Tom understands",
+      "enSourceHash": "9bd65fc7f69db87d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/ja:ミカは えいがを みないと おもう",
+      "en": "Build: I don't think Mika will watch the movie",
+      "enSourceHash": "c823d6823d93e9e6",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/ja:ミカは すしを たべないと おもう",
+      "en": "Build: I don't think Mika will eat sushi",
+      "enSourceHash": "3ee3514e855b194a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/ja:ミカは めがねを かわないと おもう",
+      "en": "Build: I don't think Mika will buy glasses",
+      "enSourceHash": "42b1b1978ad6adbb",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:0889113e04d3203f",
+      "en": "class",
+      "enSourceHash": "0889113e04d3203f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:1d94a1eebd93928c",
+      "en": "I think that coffee shop over there is quiet",
+      "enSourceHash": "1d94a1eebd93928c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:2403e775ceacfc06",
+      "en": "I think this book is fun",
+      "enSourceHash": "2403e775ceacfc06",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:4cebea5d38f2f2b4",
+      "en": "I think this movie is fun",
+      "enSourceHash": "4cebea5d38f2f2b4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:5b45ead4db2dadc8",
+      "en": "I think this class is difficult",
+      "enSourceHash": "5b45ead4db2dadc8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:670bd9ced0c6bc3f",
+      "en": "Sushi",
+      "enSourceHash": "670bd9ced0c6bc3f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:6b96ee1f7da61bd5",
+      "en": "I think Mika is a student",
+      "enSourceHash": "6b96ee1f7da61bd5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:722e657c7f247549",
+      "en": "to think",
+      "enSourceHash": "722e657c7f247549",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:80c99b53a4f03c50",
+      "en": "I think this book is difficult",
+      "enSourceHash": "80c99b53a4f03c50",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:8a6ba32c9bed6ce7",
+      "en": "movie",
+      "enSourceHash": "8a6ba32c9bed6ce7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:94288affe29e511b",
+      "en": "I don't think the summer vacation is fun",
+      "enSourceHash": "94288affe29e511b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:96122d58a8fe8f83",
+      "en": "I think the summer vacation is difficult",
+      "enSourceHash": "96122d58a8fe8f83",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:98d9f60242c21f84",
+      "en": "I think the summer vacation is fun",
+      "enSourceHash": "98d9f60242c21f84",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:baed831623943be3",
+      "en": "watch",
+      "enSourceHash": "baed831623943be3",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:c798e5b18ed876ef",
+      "en": "coffee shop",
+      "enSourceHash": "c798e5b18ed876ef",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:e0f7a6d4ad5810ca",
+      "en": "I don't think this book is difficult",
+      "enSourceHash": "e0f7a6d4ad5810ca",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:ea0835ea9776df35",
+      "en": "I think the class is fun",
+      "enSourceHash": "ea0835ea9776df35",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/ja:あの きっさてんは しずかだと おもう",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/ja:この えいがは たのしいと おもう",
+      "en": "Build: I think this movie is fun",
+      "enSourceHash": "ab8d5d7351fbcbfa",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/ja:この じゅぎょうは むずかしいと おもう",
+      "en": "Build: I think this class is difficult",
+      "enSourceHash": "f5edaa7a12098e0d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/ja:この すしは おいしいと おもう",
+      "en": "Build: I think this sushi is delicious",
+      "enSourceHash": "700caadcf9a2b555",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/ja:この とけいは たかいけど あたらしいと おもう",
+      "en": "Build: This watch is expensive, but I think it's new",
+      "enSourceHash": "73a4b7f4cca3f16c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/ja:この ほんは むずかしいけど おもしろいと おもう",
+      "en": "Build: This book is difficult, but I think it's interesting",
+      "enSourceHash": "fb1972ee9ec5ff94",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/ja:たなかは せんせいだと おもう",
+      "en": "Build: I think Tanaka is a teacher",
+      "enSourceHash": "adbb9027f27ed60f",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/ja:ミカは がくせいだと おもう",
+      "en": "Build: I think Mika is a student",
+      "enSourceHash": "93ae22a519580a55",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:043cc3c17561da1e",
+      "en": "Tom asks if I'm coming tomorrow",
+      "enSourceHash": "043cc3c17561da1e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:1e1cc3909a49adea",
+      "en": "Pick the word for \"mountain\"",
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:1e7630ffc196e57a",
+      "en": "Ken says there's a student",
+      "enSourceHash": "1e7630ffc196e57a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:264c8c381bf16c98",
+      "en": "student",
+      "enSourceHash": "264c8c381bf16c98",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:2a51c800506c91b8",
+      "en": "to say",
+      "enSourceHash": "2a51c800506c91b8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:321546441c6e3b54",
+      "en": "I think Tom is coming tomorrow",
+      "enSourceHash": "321546441c6e3b54",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:38a81e87e79631e6",
+      "en": "person",
+      "enSourceHash": "38a81e87e79631e6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:6071e6f1d50c653c",
+      "en": "I buy it at a shop called Sakura",
+      "enSourceHash": "6071e6f1d50c653c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:6caa5885567e43d2",
+      "en": "I think Ken is a student",
+      "enSourceHash": "6caa5885567e43d2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:722e657c7f247549",
+      "en": "to think",
+      "enSourceHash": "722e657c7f247549",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:7e1c9ce3081b7622",
+      "en": "There's a student called Ken",
+      "enSourceHash": "7e1c9ce3081b7622",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:84a8f002d3c56ec1",
+      "en": "Tom says he isn't coming tomorrow",
+      "enSourceHash": "84a8f002d3c56ec1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:8cfcf56a15d75ee9",
+      "en": "A person called Tom is coming",
+      "enSourceHash": "8cfcf56a15d75ee9",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:a6fa997b19acdd2e",
+      "en": "There's a student called Mika",
+      "enSourceHash": "a6fa997b19acdd2e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:bb049088dbc7e2a0",
+      "en": "This is a flower called sakura",
+      "enSourceHash": "bb049088dbc7e2a0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:c06b0cfe0cc5e900",
+      "en": "flower",
+      "enSourceHash": "c06b0cfe0cc5e900",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:cb99b05feef092a9",
+      "en": "Tom says he's coming tomorrow",
+      "enSourceHash": "cb99b05feef092a9",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:dba142544baeee2e",
+      "en": "There's a teacher called Ken",
+      "enSourceHash": "dba142544baeee2e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/ja:あれは なんと いう はな？",
+      "en": "Build: What is that flower called",
+      "enSourceHash": "ce9e154562fdb289",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/ja:これは さくらと いう はなだ",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/ja:さくらと いう きっさてんは しずかだと おもう",
+      "en": "Build: I think the coffee shop called Sakura is quiet",
+      "enSourceHash": "0c4b2a6660e0295b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/ja:さくらと いう みせで かう",
+      "en": "Build: I buy it at a shop called Sakura",
+      "enSourceHash": "9c878d1fb07d6f02",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/ja:さくらと いう みせは やすいから よく いくと おもう",
+      "en": "Build: The shop called Sakura is cheap, so I think I'll go often",
+      "enSourceHash": "f0ccc3960a32d951",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/ja:トムと いう ひとが くる",
+      "en": "Build: A person called Tom is coming",
+      "enSourceHash": "5951eb84ab76d72c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/ja:ミカと いう がくせいが いる",
+      "en": "Build: There's a student called Mika",
+      "enSourceHash": "7748895e73b89705",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/ja:ミカは あした くると いう",
+      "en": "Build: Mika says she's coming tomorrow",
+      "enSourceHash": "997be265c9870d9d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:12469683c96f9068",
+      "en": "I think Tom bought a bag",
+      "enSourceHash": "12469683c96f9068",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:1e1cc3909a49adea",
+      "en": "Pick the word for \"mountain\"",
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:2753cb15f1d6d34c",
+      "en": "cuisine",
+      "enSourceHash": "2753cb15f1d6d34c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:3cac253babf82eb0",
+      "en": "I think Mika played with a friend yesterday",
+      "enSourceHash": "3cac253babf82eb0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:3fa489ee60adf26e",
+      "en": "I think Mika understood",
+      "enSourceHash": "3fa489ee60adf26e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:4ed47cedde5a8596",
+      "en": "I think Ken played with a friend yesterday",
+      "enSourceHash": "4ed47cedde5a8596",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:6670d02440d8ae34",
+      "en": "I don't think Mika played with a friend yesterday",
+      "enSourceHash": "6670d02440d8ae34",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:722e657c7f247549",
+      "en": "to think",
+      "enSourceHash": "722e657c7f247549",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:8825e76530f87ff5",
+      "en": "milk",
+      "enSourceHash": "8825e76530f87ff5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:8a6ba32c9bed6ce7",
+      "en": "movie",
+      "enSourceHash": "8a6ba32c9bed6ce7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:8f750618eeece5b5",
+      "en": "I think Tom will buy a bag",
+      "enSourceHash": "8f750618eeece5b5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:bc400a7f7405fe2a",
+      "en": "I think Mika will play with a friend tomorrow",
+      "enSourceHash": "bc400a7f7405fe2a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:c6754ab134d4be16",
+      "en": "I think Tom bought a book",
+      "enSourceHash": "c6754ab134d4be16",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:c798e5b18ed876ef",
+      "en": "coffee shop",
+      "enSourceHash": "c798e5b18ed876ef",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:c9a0e32b1595db5d",
+      "en": "I think Mika bought a bag",
+      "enSourceHash": "c9a0e32b1595db5d",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:e22e5ce246a7621f",
+      "en": "I think Ken watched the movie",
+      "enSourceHash": "e22e5ce246a7621f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:fd2a25e7a9dfffab",
+      "en": "I think Mika has already eaten",
+      "enSourceHash": "fd2a25e7a9dfffab",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/ja:きのうの りょうりは たかかったけど おいしかったと おもう",
+      "en": "Build: Yesterday's dish was expensive, but I think it was delicious",
+      "enSourceHash": "3a2e097be5aefcb2",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/ja:この りょうりは おいしかったと おもう",
+      "en": "Build: I think this dish was delicious",
+      "enSourceHash": "576d050564efe62c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/ja:たなかは もう ぎゅうにゅうを のんだと おもう",
+      "en": "Build: I think Tanaka has already drunk the milk",
+      "enSourceHash": "130478514c0b46f2",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/ja:ケンは えいがを みたと おもう",
+      "en": "Build: I think Ken watched the movie",
+      "enSourceHash": "74f32973b74712df",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/ja:ケンは きのう ともだちと あそんだと おもう",
+      "en": "Build: I think Ken played with a friend yesterday",
+      "enSourceHash": "f72350e7c92a0235",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/ja:トムは ほんを かったと おもう",
+      "en": "Build: I think Tom bought a book",
+      "enSourceHash": "9a41ca4478cdbb7d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/ja:ミカは もう たべたと おもう",
+      "en": "Build: I think Mika has already eaten",
+      "enSourceHash": "a3e647fd75ae2f67",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/ja:ミカは わかったと おもう",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:0706b82c3b593395",
+      "en": "Ken says he's going tomorrow",
+      "enSourceHash": "0706b82c3b593395",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:074a717bb07a0e68",
+      "en": "I'll tell Mika I'm going tomorrow",
+      "enSourceHash": "074a717bb07a0e68",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:14a2686db30cec05",
+      "en": "I'm telling a friend today",
+      "enSourceHash": "14a2686db30cec05",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:1e1cc3909a49adea",
+      "en": "Pick the word for \"mountain\"",
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:2089a0ee49c73316",
+      "en": "I'll tell Ken I'm going tomorrow",
+      "enSourceHash": "2089a0ee49c73316",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:2a51c800506c91b8",
+      "en": "to say",
+      "enSourceHash": "2a51c800506c91b8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:2b801e2960a8b718",
+      "en": "I'll ask Ken if he's going tomorrow",
+      "enSourceHash": "2b801e2960a8b718",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:36005df960c95b5e",
+      "en": "I'm talking with a friend today",
+      "enSourceHash": "36005df960c95b5e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:49c1e21755cc44e2",
+      "en": "I'll tell Tanaka I don't understand",
+      "enSourceHash": "49c1e21755cc44e2",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:722e657c7f247549",
+      "en": "to think",
+      "enSourceHash": "722e657c7f247549",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:83cfa15f303a7558",
+      "en": "I hear about a friend today",
+      "enSourceHash": "83cfa15f303a7558",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:844dfb635dc170f4",
+      "en": "I'll tell Tom this shop is cheap",
+      "enSourceHash": "844dfb635dc170f4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:8d9001d32c6a703d",
+      "en": "shop",
+      "enSourceHash": "8d9001d32c6a703d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:a87e96ee594f0f55",
+      "en": "My friend is talking today",
+      "enSourceHash": "a87e96ee594f0f55",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:c6e6f3b20fd1eace",
+      "en": "I hear Ken isn't coming tomorrow",
+      "enSourceHash": "c6e6f3b20fd1eace",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:c798e5b18ed876ef",
+      "en": "coffee shop",
+      "enSourceHash": "c798e5b18ed876ef",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:cde48537ca2c2808",
+      "en": "friend",
+      "enSourceHash": "cde48537ca2c2808",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:e1c81ee6fe715513",
+      "en": "I'll talk with Ken tomorrow",
+      "enSourceHash": "e1c81ee6fe715513",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/ja:きょうは ミカと はなす",
+      "en": "Build: I'm talking with Mika today",
+      "enSourceHash": "c67699a2e931c634",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/ja:たなかと はなすから きっさてんに いく",
+      "en": "Build: I'm talking with Tanaka, so I'm going to the coffee shop",
+      "enSourceHash": "625ce13d10e79382",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/ja:たなかに わからないと いう",
+      "en": "Build: I'll tell Tanaka I don't understand",
+      "enSourceHash": "562ac7691772b185",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/ja:ともだちに この ほんは おもしろいと おしえる",
+      "en": "Build: I'll tell my friend this book is interesting",
+      "enSourceHash": "8a662f7b36b8c386",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/ja:ケンは あした こないと きく",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/ja:トムに この みせは やすいと いう",
+      "en": "Build: I'll tell Tom this shop is cheap",
+      "enSourceHash": "e6980969bf6414b9",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/ja:ミカと はなすから この みせは やすいと おしえる",
+      "en": "Build: I'm talking with Mika, so I'll tell her this shop is cheap",
+      "enSourceHash": "82fa4a5aa92351c1",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/ja:ミカに あした いくと いう",
+      "en": "Build: I'll tell Mika I'm going tomorrow",
+      "enSourceHash": "c8695a2dc29b03f9",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:05f7955d98d454d6",
+      "en": "I think Mika will buy milk",
+      "enSourceHash": "05f7955d98d454d6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:0b309483cfd45da7",
+      "en": "I think this person went to Japan",
+      "enSourceHash": "0b309483cfd45da7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:0f4168490e38b844",
+      "en": "water",
+      "enSourceHash": "0f4168490e38b844",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:0f89048e39a3e9bf",
+      "en": "I don't think this person is going to Japan",
+      "enSourceHash": "0f89048e39a3e9bf",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:264c8c381bf16c98",
+      "en": "student",
+      "enSourceHash": "264c8c381bf16c98",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:38a81e87e79631e6",
+      "en": "person",
+      "enSourceHash": "38a81e87e79631e6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:4e1a2d0501fb5194",
+      "en": "I think Mika will drink water",
+      "enSourceHash": "4e1a2d0501fb5194",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:5de6df965567b1fe",
+      "en": "I think that person over there is going to Japan",
+      "enSourceHash": "5de6df965567b1fe",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:647294383b2cbc24",
+      "en": "Japan",
+      "enSourceHash": "647294383b2cbc24",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:6d6af1a0470bb72f",
+      "en": "I think Mika bought water",
+      "enSourceHash": "6d6af1a0470bb72f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:722e657c7f247549",
+      "en": "to think",
+      "enSourceHash": "722e657c7f247549",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:7b1273aa2c7791ae",
+      "en": "I think this person is going to Japan",
+      "enSourceHash": "7b1273aa2c7791ae",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:c018019b6a8b01ab",
+      "en": "bag",
+      "enSourceHash": "c018019b6a8b01ab",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:e3938b49851a7efe",
+      "en": "I think Mika will buy water",
+      "enSourceHash": "e3938b49851a7efe",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/ja:きょうは みずを かうと おもう",
+      "en": "Build: I think I'll buy water today",
+      "enSourceHash": "3d7a43259d51d6aa",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/ja:この ひとは がくせいだと おもう",
+      "en": "Build: I think this person is a student",
+      "enSourceHash": "60af905697295f6e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/ja:この ひとは にほんに いくと きくけど わからない",
+      "en": "Build: I hear this person is going to Japan, but I don't know",
+      "enSourceHash": "009927efb6371ca1",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/ja:ケンは あした こないと きく",
+      "en": "Build: I hear Ken isn't coming tomorrow",
+      "enSourceHash": "70e204eb6a5093b1",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/ja:トムは にほんに いくと おもう",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/ja:ミカは もう たべたと おもう",
+      "en": "Build: I think Mika has already eaten",
+      "enSourceHash": "a3e647fd75ae2f67",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:0889113e04d3203f",
+      "en": "class",
+      "enSourceHash": "0889113e04d3203f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:1e1cc3909a49adea",
+      "en": "Pick the word for \"mountain\"",
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:1e4453a98c9d7417",
+      "en": "difficult",
+      "enSourceHash": "1e4453a98c9d7417",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:2a51c800506c91b8",
+      "en": "to say",
+      "enSourceHash": "2a51c800506c91b8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:2c60c7a4b1010472",
+      "en": "Do you think this shop is expensive",
+      "enSourceHash": "2c60c7a4b1010472",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:33227b24123a54a7",
+      "en": "Do you think this book is difficult?",
+      "enSourceHash": "33227b24123a54a7",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:3967a15e65baabdc",
+      "en": "Do you think this book is fun?",
+      "enSourceHash": "3967a15e65baabdc",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:3a7cc2c4502fdb6a",
+      "en": "What is that flower called",
+      "enSourceHash": "3a7cc2c4502fdb6a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:463dbecd732ebe49",
+      "en": "Is this book difficult?",
+      "enSourceHash": "463dbecd732ebe49",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:4a9690d563610a9e",
+      "en": "Who thinks this book is difficult?",
+      "enSourceHash": "4a9690d563610a9e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:5b1fa94e854e0645",
+      "en": "Whose shop is this?",
+      "enSourceHash": "5b1fa94e854e0645",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:722e657c7f247549",
+      "en": "to think",
+      "enSourceHash": "722e657c7f247549",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:72e209939aef3d08",
+      "en": "What do you think of this shop?",
+      "enSourceHash": "72e209939aef3d08",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:8a6ba32c9bed6ce7",
+      "en": "movie",
+      "enSourceHash": "8a6ba32c9bed6ce7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:8c6ee247b3f3811c",
+      "en": "Where is this shop?",
+      "enSourceHash": "8c6ee247b3f3811c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:9c65fe860a495de6",
+      "en": "What is this shop called?",
+      "enSourceHash": "9c65fe860a495de6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:cca0f8a3e0fb6e1e",
+      "en": "Do you think this movie is interesting",
+      "enSourceHash": "cca0f8a3e0fb6e1e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:e3a01629eab9fe2e",
+      "en": "Do you think Mika is coming",
+      "enSourceHash": "e3a01629eab9fe2e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:f77470ce4f1959e5",
+      "en": "enjoyable",
+      "enSourceHash": "f77470ce4f1959e5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/ja:あれは なんと いう はな？",
+      "en": "Build: What is that flower called",
+      "enSourceHash": "ce9e154562fdb289",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/ja:この えいがは おもしろいと おもう？",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/ja:この じゅぎょうは むずかしいけど たのしいと おもう？",
+      "en": "Build: This class is difficult, but do you think it's fun",
+      "enSourceHash": "a104e9b51751ac3a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/ja:この じゅぎょうは むずかしいと おもう？",
+      "en": "Build: Do you think this class is difficult",
+      "enSourceHash": "4251d1a28eb7d34d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/ja:この みせは たかいと おもう？",
+      "en": "Build: Do you think this shop is expensive",
+      "enSourceHash": "a5de3e5df1404c28",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/ja:どう おもう？",
+      "en": "Build: What do you think",
+      "enSourceHash": "16e5d74df79728d7",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/ja:トムは わかると おもう？",
+      "en": "Build: Do you think Tom understands",
+      "enSourceHash": "8df5942026f3eb7e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/ja:ミカは くると おもう？",
+      "en": "Build: Do you think Mika is coming",
+      "enSourceHash": "54b40f69e450abff",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:0133eca7b99fbd47",
+      "en": "I hear Ken is working today",
+      "enSourceHash": "0133eca7b99fbd47",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:17211dd1910763b4",
+      "en": "I'll talk with Ken today",
+      "enSourceHash": "17211dd1910763b4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:1b5a42faba56a272",
+      "en": "Challenge — say what you think",
+      "enSourceHash": "1b5a42faba56a272",
+      "kind": "title"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:1e1cc3909a49adea",
+      "en": "Pick the word for \"mountain\"",
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:1e4453a98c9d7417",
+      "en": "difficult",
+      "enSourceHash": "1e4453a98c9d7417",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:1e97359af8cb4a8b",
+      "en": "Who thinks Mika is coming today?",
+      "enSourceHash": "1e97359af8cb4a8b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:2a51c800506c91b8",
+      "en": "to say",
+      "enSourceHash": "2a51c800506c91b8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:30ffb434a8ea57d1",
+      "en": "Is Mika coming today?",
+      "enSourceHash": "30ffb434a8ea57d1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:335b451a122c5255",
+      "en": "Do you think Mika came today?",
+      "enSourceHash": "335b451a122c5255",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:38a81e87e79631e6",
+      "en": "person",
+      "enSourceHash": "38a81e87e79631e6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:4ca762c41972c065",
+      "en": "to speak",
+      "enSourceHash": "4ca762c41972c065",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:59ad86e3ea181bc8",
+      "en": "Pick the word for \"flower\"",
+      "enSourceHash": "59ad86e3ea181bc8",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:722e657c7f247549",
+      "en": "to think",
+      "enSourceHash": "722e657c7f247549",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:7274e6b16183065e",
+      "en": "Do you think Mika is coming today?",
+      "enSourceHash": "7274e6b16183065e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:7cd933eceaf87cc3",
+      "en": "I think this watch is expensive, but I think Mika will buy it",
+      "enSourceHash": "7cd933eceaf87cc3",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:94b83add47a787df",
+      "en": "The shop called Sakura is cheap, so I think Mika will buy it",
+      "enSourceHash": "94b83add47a787df",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:98df9f8d72aad60b",
+      "en": "I'll tell Ken I'm working today",
+      "enSourceHash": "98df9f8d72aad60b",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:a394c390d5182d03",
+      "en": "Ken says he's working today",
+      "enSourceHash": "a394c390d5182d03",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:bc1e1caebc67e0f0",
+      "en": "Ken went on a trip yesterday, so I don't think he's coming today",
+      "enSourceHash": "bc1e1caebc67e0f0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:d1b2acbfa10c538c",
+      "en": "I'll tell Tanaka this class is difficult but fun",
+      "enSourceHash": "d1b2acbfa10c538c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:f77470ce4f1959e5",
+      "en": "enjoyable",
+      "enSourceHash": "f77470ce4f1959e5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/ja:この じゅぎょうは むずかしいけど たのしいと たなかに いう",
+      "en": "Build: I'll tell Tanaka this class is difficult but fun",
+      "enSourceHash": "ac874facd3dfa205",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/ja:この とけいは たかいと おもうけど ミカは かうと おもう",
+      "en": "Build: I think this watch is expensive, but I think Mika will buy it",
+      "enSourceHash": "019b9535f188f057",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/ja:さくらと いう きっさてんは しずかだから ミカと はなすと おもう",
+      "en": "Build: The coffee shop called Sakura is quiet, so I think I'll talk with Mika there",
+      "enSourceHash": "1a063af5a91241b7",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/ja:さくらと いう みせは やすいから ミカは かうと おもう",
+      "en": "Build: The shop called Sakura is cheap, so I think Mika will buy it",
+      "enSourceHash": "1a333e6a07f41e66",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/ja:ケンは きのう りょこうに いったから きょうは こないと おもう",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/ja:トムと いう ひとと はなすから きっさてんに いく",
+      "en": "Build: I'm talking with a person called Tom, so I'm going to the coffee shop",
+      "enSourceHash": "7b60c5f17cf3078c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/ja:ミカは もう たべたと きくけど わからない",
+      "en": "Build: I hear Mika has already eaten, but I don't know",
+      "enSourceHash": "b7ef3c8becb2f57e",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:00143559ac94dc33",
+      "en": "I don't think Tom understands",
+      "enSourceHash": "00143559ac94dc33",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:18e1dd392168f601",
+      "en": "hat",
+      "enSourceHash": "18e1dd392168f601",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:1a9b5d54313e4f5f",
+      "en": "I think I'll go tomorrow",
+      "enSourceHash": "1a9b5d54313e4f5f",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:1b5333610d090f30",
+      "en": "I don't think this shop sells hats",
+      "enSourceHash": "1b5333610d090f30",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:1e1cc3909a49adea",
+      "en": "Pick the word for \"mountain\"",
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:38024af4d30473ae",
+      "en": "I don't think Ken is coming",
+      "enSourceHash": "38024af4d30473ae",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:52e11af8611cc4ed",
+      "en": "I think this shop sells hats",
+      "enSourceHash": "52e11af8611cc4ed",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:577ef23bbf02f7a0",
+      "en": "I think that shop over there sells hats",
+      "enSourceHash": "577ef23bbf02f7a0",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:59ad86e3ea181bc8",
+      "en": "Pick the word for \"flower\"",
+      "enSourceHash": "59ad86e3ea181bc8",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:670bd9ced0c6bc3f",
+      "en": "Sushi",
+      "enSourceHash": "670bd9ced0c6bc3f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:722e657c7f247549",
+      "en": "to think",
+      "enSourceHash": "722e657c7f247549",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:8a6ba32c9bed6ce7",
+      "en": "movie",
+      "enSourceHash": "8a6ba32c9bed6ce7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:92719fe0cf8cd515",
+      "en": "book",
+      "enSourceHash": "92719fe0cf8cd515",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:9313a917adb2abd8",
+      "en": "I don't think Ken understands",
+      "enSourceHash": "9313a917adb2abd8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:9b4ef3e5b7b4d175",
+      "en": "station",
+      "enSourceHash": "9b4ef3e5b7b4d175",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:b8fb79d9ada5a4b6",
+      "en": "I think this shop sells glasses",
+      "enSourceHash": "b8fb79d9ada5a4b6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:cee05a84ef6176ef",
+      "en": "Tom doesn't understand me",
+      "enSourceHash": "cee05a84ef6176ef",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:d208a0548f559570",
+      "en": "I think Mika will eat sushi",
+      "enSourceHash": "d208a0548f559570",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:e3c61c84a7b38b95",
+      "en": "I think Tom understands",
+      "enSourceHash": "e3c61c84a7b38b95",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:f4be2a24a2641670",
+      "en": "I think Tom will buy a book",
+      "enSourceHash": "f4be2a24a2641670",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/ja:あした いくと おもう",
+      "en": "Build: I think I'll go tomorrow",
+      "enSourceHash": "a9bb25ad00a1035b",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/ja:たなかは きょう こないと おもう",
+      "en": "Build: I don't think Tanaka is coming today",
+      "enSourceHash": "62892f5d6d9640ba",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/ja:ケンは えいがを みると おもう",
+      "en": "Build: I think Ken will watch the movie",
+      "enSourceHash": "20ad5b64768856ef",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/ja:ケンは きょう はたらくと おもう",
+      "en": "Build: I think Ken will work today",
+      "enSourceHash": "8e0983552e174fa2",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/ja:ケンは こないと おもう",
+      "en": "Build: I don't think Ken is coming",
+      "enSourceHash": "aefb3568f4bd30d7",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/ja:トムは ほんを かうと おもう",
+      "en": "Build: I think Tom will buy a book",
+      "enSourceHash": "7caa8a399ea1cb66",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/ja:ミカは えきで まつと おもう",
+      "en": "Build: I think Mika will wait at the station",
+      "enSourceHash": "b2fb43035c7ae53d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/ja:ミカは すしを たべると おもう",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:0889113e04d3203f",
+      "en": "class",
+      "enSourceHash": "0889113e04d3203f",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:1e1cc3909a49adea",
+      "en": "Pick the word for \"mountain\"",
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:1e4453a98c9d7417",
+      "en": "difficult",
+      "enSourceHash": "1e4453a98c9d7417",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:2a51c800506c91b8",
+      "en": "to say",
+      "enSourceHash": "2a51c800506c91b8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:2b30ba74e4af9e55",
+      "en": "There's a teacher called Mika",
+      "enSourceHash": "2b30ba74e4af9e55",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:4c9df5d83949826e",
+      "en": "I don't think this dish was delicious",
+      "enSourceHash": "4c9df5d83949826e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:573cc8b57c60cb3a",
+      "en": "I think this dish is delicious",
+      "enSourceHash": "573cc8b57c60cb3a",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:59ad86e3ea181bc8",
+      "en": "Pick the word for \"flower\"",
+      "enSourceHash": "59ad86e3ea181bc8",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:5b45ead4db2dadc8",
+      "en": "I think this class is difficult",
+      "enSourceHash": "5b45ead4db2dadc8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:5d1098ff0220f2d4",
+      "en": "I think this dish was delicious",
+      "enSourceHash": "5d1098ff0220f2d4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:6b96ee1f7da61bd5",
+      "en": "I think Mika is a student",
+      "enSourceHash": "6b96ee1f7da61bd5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:722e657c7f247549",
+      "en": "to think",
+      "enSourceHash": "722e657c7f247549",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:8a6ba32c9bed6ce7",
+      "en": "movie",
+      "enSourceHash": "8a6ba32c9bed6ce7",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:8cfcf56a15d75ee9",
+      "en": "A person called Tom is coming",
+      "enSourceHash": "8cfcf56a15d75ee9",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:a6fa997b19acdd2e",
+      "en": "There's a student called Mika",
+      "enSourceHash": "a6fa997b19acdd2e",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:d05d94acdc43ea69",
+      "en": "I think this dish was expensive",
+      "enSourceHash": "d05d94acdc43ea69",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:e4573a71133b9217",
+      "en": "Mika says there's a student",
+      "enSourceHash": "e4573a71133b9217",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:f77470ce4f1959e5",
+      "en": "enjoyable",
+      "enSourceHash": "f77470ce4f1959e5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:fd2a25e7a9dfffab",
+      "en": "I think Mika has already eaten",
+      "enSourceHash": "fd2a25e7a9dfffab",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/ja:この えいがは たのしいと おもう",
+      "en": "Build: I think this movie is fun",
+      "enSourceHash": "ab8d5d7351fbcbfa",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/ja:この じゅぎょうは むずかしいと おもう",
+      "en": "Build: I think this class is difficult",
+      "enSourceHash": "f5edaa7a12098e0d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/ja:さくらと いう みせで かう",
+      "en": "Build: I buy it at a shop called Sakura",
+      "enSourceHash": "9c878d1fb07d6f02",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/ja:トムと いう ひとが くる",
+      "en": "Build: A person called Tom is coming",
+      "enSourceHash": "5951eb84ab76d72c",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/ja:トムは ほんを かったと おもう",
+      "en": "Build: I think Tom bought a book",
+      "enSourceHash": "9a41ca4478cdbb7d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/ja:ミカは あした くると いう",
+      "en": "Build: Mika says she's coming tomorrow",
+      "enSourceHash": "997be265c9870d9d",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/ja:ミカは がくせいだと おもう",
+      "en": "Build: I think Mika is a student",
+      "enSourceHash": "93ae22a519580a55",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/ja:ミカは もう たべたと おもう",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:074a717bb07a0e68",
+      "en": "I'll tell Mika I'm going tomorrow",
+      "enSourceHash": "074a717bb07a0e68",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:0b4e4171dee52a03",
+      "en": "Review — saying, thinking and asking",
+      "enSourceHash": "0b4e4171dee52a03",
+      "kind": "title"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:194c6a46af71a9d1",
+      "en": "I tell the shop my name",
+      "enSourceHash": "194c6a46af71a9d1",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:1b368616197f9c18",
+      "en": "I think this class is fun",
+      "enSourceHash": "1b368616197f9c18",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:1e1cc3909a49adea",
+      "en": "Pick the word for \"mountain\"",
+      "enSourceHash": "1e1cc3909a49adea",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:1e4453a98c9d7417",
+      "en": "difficult",
+      "enSourceHash": "1e4453a98c9d7417",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:1f6450b61f3dfcb9",
+      "en": "I think this shop is called Sakura",
+      "enSourceHash": "1f6450b61f3dfcb9",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:2a51c800506c91b8",
+      "en": "to say",
+      "enSourceHash": "2a51c800506c91b8",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:38024af4d30473ae",
+      "en": "I don't think Ken is coming",
+      "enSourceHash": "38024af4d30473ae",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:38a81e87e79631e6",
+      "en": "person",
+      "enSourceHash": "38a81e87e79631e6",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:4ca762c41972c065",
+      "en": "to speak",
+      "enSourceHash": "4ca762c41972c065",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:4cebea5d38f2f2b4",
+      "en": "I think this movie is fun",
+      "enSourceHash": "4cebea5d38f2f2b4",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:571e44ed12d32d9b",
+      "en": "Match each Japanese word to its meaning (review)",
+      "enSourceHash": "571e44ed12d32d9b",
+      "kind": "instruction"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:5b45ead4db2dadc8",
+      "en": "I think this class is difficult",
+      "enSourceHash": "5b45ead4db2dadc8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:6071e6f1d50c653c",
+      "en": "I buy it at a shop called Sakura",
+      "enSourceHash": "6071e6f1d50c653c",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:6b96ee1f7da61bd5",
+      "en": "I think Mika is a student",
+      "enSourceHash": "6b96ee1f7da61bd5",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:722e657c7f247549",
+      "en": "to think",
+      "enSourceHash": "722e657c7f247549",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:81d0e15ca6d80b03",
+      "en": "I don't think this class is difficult",
+      "enSourceHash": "81d0e15ca6d80b03",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:8f40896382fcf9f6",
+      "en": "I buy sakura at the shop",
+      "enSourceHash": "8f40896382fcf9f6",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:a6afe0fbb5467cc8",
+      "en": "I hear this class is difficult",
+      "enSourceHash": "a6afe0fbb5467cc8",
+      "kind": "mcq-option"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:f77470ce4f1959e5",
+      "en": "enjoyable",
+      "enSourceHash": "f77470ce4f1959e5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/ja:きょうは ミカと はなす",
+      "en": "Build: I'm talking with Mika today",
+      "enSourceHash": "c67699a2e931c634",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/ja:この えいがは たのしいと おもう",
+      "en": "Build: I think this movie is fun",
+      "enSourceHash": "ab8d5d7351fbcbfa",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/ja:ケンは えいがを みたと おもう",
+      "en": "Build: I think Ken watched the movie",
+      "enSourceHash": "74f32973b74712df",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/ja:ケンは こないと おもう",
+      "en": "Build what you hear.",
+      "enSourceHash": "b28d903ef295627a",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/ja:ミカに あした いくと いう",
+      "en": "Build: I'll tell Mika I'm going tomorrow",
+      "enSourceHash": "c8695a2dc29b03f9",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/ja:ミカは がくせいだと おもう",
+      "en": "Build: I think Mika is a student",
+      "enSourceHash": "93ae22a519580a55",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/ja:ミカは くると おもう？",
+      "en": "Build: Do you think Mika is coming",
+      "enSourceHash": "54b40f69e450abff",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/ja:ミカは もう たべたと おもう",
+      "en": "Build: I think Mika has already eaten",
+      "enSourceHash": "a3e647fd75ae2f67",
+      "kind": "build-prompt"
+    },
+    {
+      "anchor": "m18/story:ja-m18-a-warm-day/en:74cb03efbdbb4288",
+      "en": "A warm day",
+      "enSourceHash": "74cb03efbdbb4288",
+      "kind": "title"
+    },
+    {
+      "anchor": "m18/story:ja-m18-a-warm-day/en:b87bd93981961b8f",
+      "en": "The weather and the garden.",
+      "enSourceHash": "b87bd93981961b8f",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m18/story:ja-m18-a-warm-day/ja:あしたは たぶん あめだ。",
+      "en": "Tomorrow it will probably rain.",
+      "enSourceHash": "75223f0bdc8e1690",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-a-warm-day/ja:きょうは てんきが いい。",
+      "en": "The weather is nice today.",
+      "enSourceHash": "ebba00ac67da65c0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-a-warm-day/ja:そらは はれだ。",
+      "en": "The sky is clear.",
+      "enSourceHash": "4c4c7f1a38b00be2",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-a-warm-day/ja:とても あたたかい。",
+      "en": "It's very warm.",
+      "enSourceHash": "44ec559859ce80a0",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-a-warm-day/ja:となりの こうえんを あるく。",
+      "en": "I walk in the park next door.",
+      "enSourceHash": "96030ab7ad2dea06",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-a-warm-day/ja:にわに おおきな きが ある。",
+      "en": "There's a big tree in the garden.",
+      "enSourceHash": "f40da4bcd09c0dce",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-a-warm-day/ja:らいしゅうは すずしい。",
+      "en": "Next week will be cool.",
+      "enSourceHash": "69d6830d9e745a42",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/en:4caf47dbf580b8fa",
+      "en": "A year of complaining about a big tree, and one March morning.",
+      "enSourceHash": "4caf47dbf580b8fa",
+      "kind": "story-theme"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/en:4fc3b9a8121af9b1",
+      "en": "The tree next door",
+      "enSourceHash": "4fc3b9a8121af9b1",
+      "kind": "title"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/gloss:うるさい",
+      "en": "noisy, annoying",
+      "enSourceHash": "574e2aa7582b822c",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/gloss:くらい",
+      "en": "dark, gloomy",
+      "enSourceHash": "7c840dad05fed8b9",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/gloss:つよい",
+      "en": "strong, powerful",
+      "enSourceHash": "df6c4287d6ccfdf7",
+      "kind": "story-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:「いまは ふゆです。はなが ありません。」",
+      "en": "\"It's winter now. There are no flowers.\"",
+      "enSourceHash": "26cf6db42fc5df74",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:「その きは おおきいです。ぼくの へやが くらいです。」",
+      "en": "\"That tree is big. My room is dark.\"",
+      "enSourceHash": "12859edb0abb5291",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:あきに かぜが つよい。",
+      "en": "In autumn the wind is strong.",
+      "enSourceHash": "8dfe077ec2178955",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:ある あさ、まどを あける。",
+      "en": "One morning I open the window.",
+      "enSourceHash": "759e2fba2c27560d",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:いまは この きが すきだ。",
+      "en": "Now I like this tree.",
+      "enSourceHash": "517d0519ffcaea82",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:うちの となりに おおきな にわが ある。",
+      "en": "Next door to my house there's a big garden.",
+      "enSourceHash": "bb6a2c7205cf5492",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:かぜの よるは とても うるさい。",
+      "en": "Windy nights are very noisy.",
+      "enSourceHash": "41a7cfeacf1b54e9",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:きに はなが ある。",
+      "en": "There are flowers on the tree.",
+      "enSourceHash": "0fa802ebf57b156b",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:きは さくらだった。",
+      "en": "The tree was a cherry tree.",
+      "enSourceHash": "1947ea7cac4ae1a5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:きは ぼくの へやの まどの まえだ。",
+      "en": "The tree is right in front of my room's window.",
+      "enSourceHash": "292c710278baec06",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:さんがつ、てんきが まいにち あたたかい。",
+      "en": "In March the weather is warm every day.",
+      "enSourceHash": "0648d9605cd57ef5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:その はなしが わからない。",
+      "en": "I don't understand that.",
+      "enSourceHash": "a17dd154a9481915",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:つぎの ふゆも ぼくは まつ。",
+      "en": "Next winter too, I'll wait for it.",
+      "enSourceHash": "2f090f9f511fe727",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:となりの にわは とても きれいだ。",
+      "en": "The garden next door is beautiful.",
+      "enSourceHash": "a7c9ee02de0238fd",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:となりの ひとは 「はるは きれいです。」と はなす。",
+      "en": "The person next door says, \"It's beautiful in spring.\"",
+      "enSourceHash": "133e0936d8d5396c",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:なつは あつい。けど、きの したは すずしい。",
+      "en": "Summer is hot. But it's cool under the tree.",
+      "enSourceHash": "5d41661ee1c490dd",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:にわの なかに とても おおきな きが ある。",
+      "en": "In the garden there's a very big tree.",
+      "enSourceHash": "aec965fb56791be5",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:ふゆ、きの うえに ゆきが ある。",
+      "en": "In winter there's snow on the tree.",
+      "enSourceHash": "7146d71e16351981",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:ふゆの きは ぜんぜん きれいじゃない。",
+      "en": "The winter tree isn't beautiful at all.",
+      "enSourceHash": "b1e1de54e999253e",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:ぼくの へやの まどの まえに さくらが ある。",
+      "en": "There's a cherry tree in front of my window.",
+      "enSourceHash": "469daf9b3e6eb511",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:ぼくは きょねんから この まちに すむ。",
+      "en": "I've lived in this town since last year.",
+      "enSourceHash": "a0b94a6352c49666",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:ぼくは この きが すきじゃない。",
+      "en": "I don't like this tree.",
+      "enSourceHash": "7bc4b10ff95885d4",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:ぼくは となりの ひとに はなす。",
+      "en": "I speak to the person next door.",
+      "enSourceHash": "de43a7eedc8a8ccb",
+      "kind": "ja-gloss"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:まちの ひとが にわの まえに くる。ひとは しゃしんを とる。",
+      "en": "People from the town come to the front of the garden. They take photos.",
+      "enSourceHash": "bc9da4ba3fcfa9ea",
+      "kind": "ja-gloss"
+    }
+  ]
+}

@@ -1,0 +1,2265 @@
+{
+  "schema": 1,
+  "moduleId": "m18",
+  "lang": "ko",
+  "generatedAt": "2026-09-11",
+  "draftedBy": "qwen3.5:122b-a10b-q4_K_M",
+  "entryCount": 451,
+  "entries": [
+    {
+      "anchor": "m18/atom:き/gloss",
+      "text": "나무",
+      "enSourceHash": "e356a943db627af9"
+    },
+    {
+      "anchor": "m18/atom:たのしい/gloss",
+      "text": "즐겁다",
+      "enSourceHash": "f77470ce4f1959e5"
+    },
+    {
+      "anchor": "m18/atom:はなす/gloss",
+      "text": "말하다",
+      "enSourceHash": "4ca762c41972c065"
+    },
+    {
+      "anchor": "m18/atom:むずかしい/gloss",
+      "text": "어렵다",
+      "enSourceHash": "1e4453a98c9d7417"
+    },
+    {
+      "anchor": "m18/gp:desu-copula/ex:あの きっさてんは しずかだと おもう。",
+      "text": "저 커피숍은 조용하다고 생각한다.",
+      "enSourceHash": "b50830a97deb1824"
+    },
+    {
+      "anchor": "m18/gp:desu-copula/ex:この すしは おいしいと おもう。",
+      "text": "이 초밥은 맛있다고 생각한다.",
+      "enSourceHash": "86785ba8e5e660c0"
+    },
+    {
+      "anchor": "m18/gp:desu-copula/ex:この ほんは おもしろいと おもう。",
+      "text": "이 책은 재미있다고 생각한다.",
+      "enSourceHash": "ce74c8541295bd44"
+    },
+    {
+      "anchor": "m18/gp:desu-copula/ex:たなかは せんせいだと おもう。",
+      "text": "다나카는 선생님이라고 생각한다.",
+      "enSourceHash": "bfbf898056a0f295"
+    },
+    {
+      "anchor": "m18/gp:desu-copula/ex:ミカは がくせいだと おもう。",
+      "text": "미카는 학생이라고 생각한다.",
+      "enSourceHash": "40420ce0aa042553"
+    },
+    {
+      "anchor": "m18/gp:desu-copula/ex:ミカは がくせいと おもう。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m18/gp:ka-question/ex:あれは なんと いう はな？",
+      "text": "저 꽃은 뭐라고 부르나?",
+      "enSourceHash": "632b98083d413b43"
+    },
+    {
+      "anchor": "m18/gp:ka-question/ex:この えいがは おもしろいと おもう？",
+      "text": "이 영화는 재미있다고 생각하나?",
+      "enSourceHash": "f9f355bbf699db62"
+    },
+    {
+      "anchor": "m18/gp:ka-question/ex:この みせは たかいと おもう？",
+      "text": "이 가게는 비싸다고 생각하나?",
+      "enSourceHash": "2190040e4be87f98"
+    },
+    {
+      "anchor": "m18/gp:ka-question/ex:どう おもう？",
+      "text": "어떻게 생각하나?",
+      "enSourceHash": "330ccaae6ae8da16"
+    },
+    {
+      "anchor": "m18/gp:ka-question/ex:ミカは くるかと おもう？",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m18/gp:ka-question/ex:ミカは くると おもう？",
+      "text": "미카는 온다고 생각하나?",
+      "enSourceHash": "ef2351df00a7b694"
+    },
+    {
+      "anchor": "m18/gp:kanji-set-1/ex:きょうは みずを かうと おもう。",
+      "text": "오늘은 물을 살 것이라고 생각한다.",
+      "enSourceHash": "cd5cb67266e804dd"
+    },
+    {
+      "anchor": "m18/gp:kanji-set-1/ex:この かばんは たかいと おもう。",
+      "text": "이 가방은 비싸다고 생각한다.",
+      "enSourceHash": "c245c4a4cba6a484"
+    },
+    {
+      "anchor": "m18/gp:kanji-set-1/ex:この ひとは がくせいだと おもう。",
+      "text": "이 사람은 학생이라고 생각한다.",
+      "enSourceHash": "4fd6e4e5e1bfd80e"
+    },
+    {
+      "anchor": "m18/gp:kanji-set-1/ex:トムは にほんに いくと おもう。",
+      "text": "톰은 일본에 갈 것이라고 생각한다.",
+      "enSourceHash": "0449c7c615092271"
+    },
+    {
+      "anchor": "m18/gp:kanji-set-1/ex:ミカは わかると おもう。",
+      "text": "미카는 알아듣는다고 생각한다.",
+      "enSourceHash": "b81801cb8de60499"
+    },
+    {
+      "anchor": "m18/gp:masu-present/ex:たなかは ミカに おしえると おもう。",
+      "text": "다나카는 미카에게 가르쳐 줄 것이라고 생각한다.",
+      "enSourceHash": "db96e3547562f13d"
+    },
+    {
+      "anchor": "m18/gp:masu-present/ex:ケンは きょう はたらくと おもう。",
+      "text": "켄은 오늘 일할 것이라고 생각한다.",
+      "enSourceHash": "5b61da6c29f65bea"
+    },
+    {
+      "anchor": "m18/gp:masu-present/ex:トムは ほんを かうと おもう。",
+      "text": "톰은 책을 살 것이라고 생각한다.",
+      "enSourceHash": "d46be59d88695a95"
+    },
+    {
+      "anchor": "m18/gp:masu-present/ex:ミカは えきで まつと おもう。",
+      "text": "미카는 역에서 기다릴 것이라고 생각한다.",
+      "enSourceHash": "d202b00b96924dcd"
+    },
+    {
+      "anchor": "m18/gp:masu-present/ex:ミカは すしを たべますと おもう。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m18/gp:masu-present/ex:ミカは すしを たべると おもう。",
+      "text": "미카는 초밥을 먹을 것이라고 생각한다.",
+      "enSourceHash": "aad9419003caf417"
+    },
+    {
+      "anchor": "m18/gp:nai-form/ex:たなかは きょう こないと おもう。",
+      "text": "다나카는 오늘 오지 않을 것이라고 생각한다.",
+      "enSourceHash": "0bf1a4b8635ef483"
+    },
+    {
+      "anchor": "m18/gp:nai-form/ex:ケンは くないと おもう。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m18/gp:nai-form/ex:ケンは こないと おもう。",
+      "text": "켄은 오지 않을 것이라고 생각한다.",
+      "enSourceHash": "45300a54edfa77bc"
+    },
+    {
+      "anchor": "m18/gp:nai-form/ex:トムは わからないと おもう。",
+      "text": "톰은 알아듣지 못할 것이라고 생각한다.",
+      "enSourceHash": "6bda45e114344762"
+    },
+    {
+      "anchor": "m18/gp:nai-form/ex:ミカは えいがを みないと おもう。",
+      "text": "미카는 영화를 보지 않을 것이라고 생각한다.",
+      "enSourceHash": "dd27247867123085"
+    },
+    {
+      "anchor": "m18/gp:nai-form/ex:ミカは すしを たべないと おもう。",
+      "text": "미카는 초밥을 먹지 않을 것이라고 생각한다.",
+      "enSourceHash": "0e72cee3cba457a1"
+    },
+    {
+      "anchor": "m18/gp:ni-location/ex:たなかに わからないと いう。",
+      "text": "다나카에게 알아듣지 못한다고 말하겠다.",
+      "enSourceHash": "b7775e1e5e565113"
+    },
+    {
+      "anchor": "m18/gp:ni-location/ex:ともだちに この ほんは おもしろいと おしえる。",
+      "text": "친구에게 이 책은 재미있다고 가르치겠다.",
+      "enSourceHash": "508e80ed6c21d057"
+    },
+    {
+      "anchor": "m18/gp:ni-location/ex:ケンは あした こないと きく。",
+      "text": "켄은 내일 오지 않는다고 들었다.",
+      "enSourceHash": "4a2c65a4c8d006a9"
+    },
+    {
+      "anchor": "m18/gp:ni-location/ex:トムに この みせは やすいと いう。",
+      "text": "톰에게 이 가게는 싸다고 말하겠다.",
+      "enSourceHash": "4ab5d7d0ee4d98b2"
+    },
+    {
+      "anchor": "m18/gp:ni-location/ex:ミカに あした いくと いう。",
+      "text": "미카에게 내일 갈 것이라고 말하겠다.",
+      "enSourceHash": "825ed386fedc835c"
+    },
+    {
+      "anchor": "m18/gp:ni-location/ex:ミカを あした いくと いう。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m18/gp:ta-form/ex:ケンは えいがを みたと おもう。",
+      "text": "켄은 영화를 봤다고 생각한다.",
+      "enSourceHash": "f8cc257a40499195"
+    },
+    {
+      "anchor": "m18/gp:ta-form/ex:ケンは きのう ともだちと あそんだと おもう。",
+      "text": "켄은 어제는 친구와 놀았다고 생각한다.",
+      "enSourceHash": "ffe8bb301d18bd4b"
+    },
+    {
+      "anchor": "m18/gp:ta-form/ex:トムは ほんを かったと おもう。",
+      "text": "톰은 책을 샀다고 생각한다.",
+      "enSourceHash": "262f79ac0b9855d9"
+    },
+    {
+      "anchor": "m18/gp:ta-form/ex:ミカは もう たべただと おもう。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m18/gp:ta-form/ex:ミカは もう たべたと おもう。",
+      "text": "미카는 이미 먹었다고 생각한다.",
+      "enSourceHash": "7e16d24f80cb457d"
+    },
+    {
+      "anchor": "m18/gp:ta-form/ex:ミカは わかったと おもう。",
+      "text": "미카는 알아들었다고 생각한다.",
+      "enSourceHash": "e1aacdb5b88ec1c6"
+    },
+    {
+      "anchor": "m18/gp:to-omoimasu/ex:あした いくと おもう。",
+      "text": "내일 갈 것이라고 생각한다.",
+      "enSourceHash": "812b768ca9a2edea"
+    },
+    {
+      "anchor": "m18/gp:to-omoimasu/ex:あした いくを おもう。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m18/gp:to-omoimasu/ex:たなかは わかると おもう。",
+      "text": "다나카는 알아들을 것이라고 생각한다.",
+      "enSourceHash": "3286f603894e891c"
+    },
+    {
+      "anchor": "m18/gp:to-omoimasu/ex:ケンは えいがを みると おもう。",
+      "text": "켄은 영화를 볼 것이라고 생각한다.",
+      "enSourceHash": "d4126c1fe8297fc3"
+    },
+    {
+      "anchor": "m18/gp:to-omoimasu/ex:トムは うちに いると おもう。",
+      "text": "톰은 집에 있을 것이라고 생각한다.",
+      "enSourceHash": "19722e452976758d"
+    },
+    {
+      "anchor": "m18/gp:to-omoimasu/ex:ミカは あした くると おもう。",
+      "text": "미카는 내일 올 것이라고 생각한다.",
+      "enSourceHash": "b16fe22da68b9fae"
+    },
+    {
+      "anchor": "m18/gp:to-quotation/ex:あれは なんと いう はな？",
+      "text": "저것은 무슨 꽃이라고 부르는가?",
+      "enSourceHash": "632b98083d413b43"
+    },
+    {
+      "anchor": "m18/gp:to-quotation/ex:これは さくらと いう はなだ。",
+      "text": "이것은 사쿠라라고 부르는 꽃이다.",
+      "enSourceHash": "7acd0570f2dfe664"
+    },
+    {
+      "anchor": "m18/gp:to-quotation/ex:さくらと いう みせで かう。",
+      "text": "사쿠라라고 부르는 가게에서 산다.",
+      "enSourceHash": "b01640f9df9f2531"
+    },
+    {
+      "anchor": "m18/gp:to-quotation/ex:トムと いう ひとが くる。",
+      "text": "톰이라고 부르는 사람이 온다.",
+      "enSourceHash": "964521f1de235084"
+    },
+    {
+      "anchor": "m18/gp:to-quotation/ex:トムの いう ひとが くる。",
+      "text": "(틀림)",
+      "enSourceHash": "c49db083a23a80a0"
+    },
+    {
+      "anchor": "m18/gp:to-quotation/ex:ミカと いう がくせいが いる。",
+      "text": "미카라고 부르는 학생이 있다.",
+      "enSourceHash": "b13c0d38de12a6f3"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:18e1dd392168f601",
+      "text": "모자",
+      "enSourceHash": "18e1dd392168f601"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:1a9b5d54313e4f5f",
+      "text": "내일 갈 것이라고 생각한다",
+      "enSourceHash": "1a9b5d54313e4f5f"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:1e1cc3909a49adea",
+      "text": "\"산\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "1e1cc3909a49adea"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:33d4d629df68a9b4",
+      "text": "다나카는 알아들을 것이라고 생각한다",
+      "enSourceHash": "33d4d629df68a9b4"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:44a0c0ce041c171e",
+      "text": "미카는 커피숍에 가지 않을 것이라고 생각한다",
+      "enSourceHash": "44a0c0ce041c171e"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:670bd9ced0c6bc3f",
+      "text": "초밥",
+      "enSourceHash": "670bd9ced0c6bc3f"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:688bc76cffbf7ccd",
+      "text": "미카는 커피숍에 갔다고 생각한다",
+      "enSourceHash": "688bc76cffbf7ccd"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:722e657c7f247549",
+      "text": "생각하다",
+      "enSourceHash": "722e657c7f247549"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:8a6ba32c9bed6ce7",
+      "text": "영화",
+      "enSourceHash": "8a6ba32c9bed6ce7"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:9b4426701edfbe90",
+      "text": "켄은 영화를 볼 것이라고 생각한다",
+      "enSourceHash": "9b4426701edfbe90"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:ae09da91278b4412",
+      "text": "다나카는 내가 알아들을 것이라고 생각한다",
+      "enSourceHash": "ae09da91278b4412"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:b037a60f1057a6fb",
+      "text": "미카는 커피숍에 간다고 한다",
+      "enSourceHash": "b037a60f1057a6fb"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:c4450e7a8c5ab035",
+      "text": "미카는 내일 올 것이라고 생각한다",
+      "enSourceHash": "c4450e7a8c5ab035"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:c798e5b18ed876ef",
+      "text": "커피숍",
+      "enSourceHash": "c798e5b18ed876ef"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:d2dec6b7931cdae8",
+      "text": "다나카는 알아듣지 못할 것이라고 생각한다",
+      "enSourceHash": "d2dec6b7931cdae8"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:d4c3a4274f74395a",
+      "text": "미카는 커피숍에 갈 것이라고 생각한다",
+      "enSourceHash": "d4c3a4274f74395a"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:d4fe01917c87b223",
+      "text": "다나카를 알아들었다",
+      "enSourceHash": "d4fe01917c87b223"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/en:fa096cc0820ecb03",
+      "text": "톰은 집에 있을 것이라고 생각한다",
+      "enSourceHash": "fa096cc0820ecb03"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/ja:あした いくと おもう",
+      "text": "만들기: 내일 갈 것이라고 생각한다",
+      "enSourceHash": "a9bb25ad00a1035b"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/ja:この きっさてんは やすいから ミカは いくと おもう",
+      "text": "만들기: 이 커피숍은 싸니까 미카는 갈 것이라고 생각한다",
+      "enSourceHash": "3f654b0da1c3fb38"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/ja:この みせは ぼうしを うると おもう",
+      "text": "만들기: 이 가게는 모자를 팔 것이라고 생각한다",
+      "enSourceHash": "e0d8d1881f95e6ba"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/ja:たなかは きょう じゅぎょうが あると おもう",
+      "text": "만들기: 다나카는 오늘 수업이 있을 것이라고 생각한다",
+      "enSourceHash": "480e7008a3e8d89d"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/ja:ケンは えいがを みると おもう",
+      "text": "만들기: 켄은 영화를 볼 것이라고 생각한다",
+      "enSourceHash": "20ad5b64768856ef"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/ja:トムは うちに いると おもう",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/ja:ミカは あした くると おもう",
+      "text": "만들기: 미카는 내일 올 것이라고 생각한다",
+      "enSourceHash": "69d0bfeea3ba7c3a"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-1/ja:ミカは すしを たべると おもう",
+      "text": "만들기: 미카는 초밥을 먹을 것이라고 생각한다",
+      "enSourceHash": "49c8d01dc149ed63"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:0889113e04d3203f",
+      "text": "수업",
+      "enSourceHash": "0889113e04d3203f"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:12469683c96f9068",
+      "text": "톰은 가방을 샀다고 생각한다",
+      "enSourceHash": "12469683c96f9068"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:126684e9258fa6ee",
+      "text": "톰은 가방을 살 것이라고 말한다",
+      "enSourceHash": "126684e9258fa6ee"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:1bef543df356fa88",
+      "text": "켄은 오늘 일할 것이라고 생각한다",
+      "enSourceHash": "1bef543df356fa88"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:1e1cc3909a49adea",
+      "text": "\"산\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "1e1cc3909a49adea"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:670bd9ced0c6bc3f",
+      "text": "초밥",
+      "enSourceHash": "670bd9ced0c6bc3f"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:722e657c7f247549",
+      "text": "생각하다",
+      "enSourceHash": "722e657c7f247549"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:8825e76530f87ff5",
+      "text": "우유",
+      "enSourceHash": "8825e76530f87ff5"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:8f750618eeece5b5",
+      "text": "톰은 가방을 살 것이라고 생각한다",
+      "enSourceHash": "8f750618eeece5b5"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:92b8414ce0954a68",
+      "text": "켄은 가게에서 일한다고 생각한다",
+      "enSourceHash": "92b8414ce0954a68"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:9b4ef3e5b7b4d175",
+      "text": "역",
+      "enSourceHash": "9b4ef3e5b7b4d175"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:b67b9cb8249c0980",
+      "text": "켄은 회사에서 일하지 않는다고 생각한다",
+      "enSourceHash": "b67b9cb8249c0980"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:b9b601f5ec151410",
+      "text": "켄은 회사에서 일한다고 말한다",
+      "enSourceHash": "b9b601f5ec151410"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:d1cf27ac11ad5bce",
+      "text": "미카는 역에서 기다릴 것이라고 생각한다",
+      "enSourceHash": "d1cf27ac11ad5bce"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:d208a0548f559570",
+      "text": "미카는 초밥을 먹을 것이라고 생각한다",
+      "enSourceHash": "d208a0548f559570"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:f4be2a24a2641670",
+      "text": "톰은 책을 살 것이라고 생각한다",
+      "enSourceHash": "f4be2a24a2641670"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/en:f8b4c009ef92e80f",
+      "text": "켄은 회사에서 일한다고 생각한다",
+      "enSourceHash": "f8b4c009ef92e80f"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/ja:たなかは ミカに おしえると おもう",
+      "text": "만들기: 다나카는 미카에게 가르쳐 줄 것이라고 생각한다",
+      "enSourceHash": "dbdb393179947420"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/ja:ケンは きょう はたらくと おもう",
+      "text": "만들기: 켄은 오늘 일할 것이라고 생각한다",
+      "enSourceHash": "8e0983552e174fa2"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/ja:ケンは こないと ききます",
+      "text": "정중하게 말하세요: 켄은 오지 않는다고 들었어요.",
+      "enSourceHash": "431397cd394805a3"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/ja:トムは ぎゅうにゅうを のむと おもう",
+      "text": "만들기: 톰은 우유를 마실 것이라고 생각한다",
+      "enSourceHash": "faa0564f8eb82dbf"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/ja:トムは ほんを かうと おもう",
+      "text": "만들기: 톰은 책을 살 것이라고 생각한다",
+      "enSourceHash": "7caa8a399ea1cb66"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/ja:ミカは いそがしいから えきで まつと おもう",
+      "text": "만들기: 미카는 바빠서 역에서 기다릴 것이라고 생각한다",
+      "enSourceHash": "cfb4f7d317eca682"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/ja:ミカは えきで まつと おもう",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-2/ja:ミカは すしを たべると おもう",
+      "text": "만들기: 미카는 초밥을 먹을 것이라고 생각한다",
+      "enSourceHash": "49c8d01dc149ed63"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:00143559ac94dc33",
+      "text": "톰은 알아듣지 못할 것이라고 생각한다",
+      "enSourceHash": "00143559ac94dc33"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:15fc0b785de0ac37",
+      "text": "미카는 우유를 마실 것이라고 생각한다",
+      "enSourceHash": "15fc0b785de0ac37"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:1e1cc3909a49adea",
+      "text": "\"산\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "1e1cc3909a49adea"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:266550babbb7bd39",
+      "text": "안경",
+      "enSourceHash": "266550babbb7bd39"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:2bf61689e7edb55d",
+      "text": "톰은 오늘 오지 않을 것이라고 생각한다",
+      "enSourceHash": "2bf61689e7edb55d"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:34a389d790fc2bdd",
+      "text": "여행",
+      "enSourceHash": "34a389d790fc2bdd"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:36806d2d30532a50",
+      "text": "다나카는 오늘 오지 않을 것이라고 생각한다",
+      "enSourceHash": "36806d2d30532a50"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:38024af4d30473ae",
+      "text": "켄은 오지 않을 것이라고 생각한다",
+      "enSourceHash": "38024af4d30473ae"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:570529af8b8d7644",
+      "text": "미카는 영화를 보지 않을 것이라고 생각한다",
+      "enSourceHash": "570529af8b8d7644"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:5c31ecc5ef57b2f3",
+      "text": "톰은 오늘 오지 않는다고 말한다",
+      "enSourceHash": "5c31ecc5ef57b2f3"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:62a8ea9fddb37c0c",
+      "text": "켄은 오늘 오지 않을 것이라고 생각한다",
+      "enSourceHash": "62a8ea9fddb37c0c"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:670bd9ced0c6bc3f",
+      "text": "초밥",
+      "enSourceHash": "670bd9ced0c6bc3f"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:708ecc031ad473c0",
+      "text": "켄은 우유를 마시지 않을 것이라고 생각한다",
+      "enSourceHash": "708ecc031ad473c0"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:722e657c7f247549",
+      "text": "생각하다",
+      "enSourceHash": "722e657c7f247549"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:8a6ba32c9bed6ce7",
+      "text": "영화",
+      "enSourceHash": "8a6ba32c9bed6ce7"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:90014486228b8dee",
+      "text": "미카는 우유를 마시지 않을 것이라고 생각한다",
+      "enSourceHash": "90014486228b8dee"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:ae25eb03cdd94662",
+      "text": "미카는 우유를 마시지 않는다고 말한다",
+      "enSourceHash": "ae25eb03cdd94662"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:b293d170a0163e54",
+      "text": "톰은 오늘 올 것이라고 생각한다",
+      "enSourceHash": "b293d170a0163e54"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/en:cde48537ca2c2808",
+      "text": "친구",
+      "enSourceHash": "cde48537ca2c2808"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/ja:この えいがは おもしろくないから ミカは みないと おもう",
+      "text": "만들기: 이 영화는 재미없어서 미카는 보지 않을 것이라고 생각한다",
+      "enSourceHash": "edd065930d71689d"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/ja:たなかは きょう こないと おもう",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/ja:ケンは いそがしいから こないと おもう",
+      "text": "만들기: 켄은 바쁘니까 오지 않을 것이라고 생각한다",
+      "enSourceHash": "db49800cf1494a1d"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/ja:ケンは こないと おもう",
+      "text": "만들기: 켄은 오지 않을 것이라고 생각한다",
+      "enSourceHash": "aefb3568f4bd30d7"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/ja:トムは わからないと おもう",
+      "text": "만들기: 톰은 알아듣지 못할 것이라고 생각한다",
+      "enSourceHash": "9bd65fc7f69db87d"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/ja:ミカは えいがを みないと おもう",
+      "text": "만들기: 미카는 영화를 보지 않을 것이라고 생각한다",
+      "enSourceHash": "c823d6823d93e9e6"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/ja:ミカは すしを たべないと おもう",
+      "text": "만들기: 미카는 초밥을 먹지 않을 것이라고 생각한다",
+      "enSourceHash": "3ee3514e855b194a"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-3/ja:ミカは めがねを かわないと おもう",
+      "text": "만들기: 미카는 안경을 사지 않을 것이라고 생각한다",
+      "enSourceHash": "42b1b1978ad6adbb"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:0889113e04d3203f",
+      "text": "수업",
+      "enSourceHash": "0889113e04d3203f"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:1d94a1eebd93928c",
+      "text": "저 커피숍은 조용하다고 생각한다",
+      "enSourceHash": "1d94a1eebd93928c"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:2403e775ceacfc06",
+      "text": "이 책은 재미있다고 생각한다",
+      "enSourceHash": "2403e775ceacfc06"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:4cebea5d38f2f2b4",
+      "text": "이 영화는 재미있다고 생각한다",
+      "enSourceHash": "4cebea5d38f2f2b4"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:5b45ead4db2dadc8",
+      "text": "이 수업은 어렵다고 생각한다",
+      "enSourceHash": "5b45ead4db2dadc8"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:670bd9ced0c6bc3f",
+      "text": "초밥",
+      "enSourceHash": "670bd9ced0c6bc3f"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:6b96ee1f7da61bd5",
+      "text": "미카는 학생이라고 생각한다",
+      "enSourceHash": "6b96ee1f7da61bd5"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:722e657c7f247549",
+      "text": "생각하다",
+      "enSourceHash": "722e657c7f247549"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:80c99b53a4f03c50",
+      "text": "이 책은 어렵다고 생각한다",
+      "enSourceHash": "80c99b53a4f03c50"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:8a6ba32c9bed6ce7",
+      "text": "영화",
+      "enSourceHash": "8a6ba32c9bed6ce7"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:94288affe29e511b",
+      "text": "여름방학은 재미없다고 생각한다",
+      "enSourceHash": "94288affe29e511b"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:96122d58a8fe8f83",
+      "text": "여름방학은 어렵다고 생각한다",
+      "enSourceHash": "96122d58a8fe8f83"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:98d9f60242c21f84",
+      "text": "여름방학은 재미있다고 생각한다",
+      "enSourceHash": "98d9f60242c21f84"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:baed831623943be3",
+      "text": "보다",
+      "enSourceHash": "baed831623943be3"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:c798e5b18ed876ef",
+      "text": "커피숍",
+      "enSourceHash": "c798e5b18ed876ef"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:e0f7a6d4ad5810ca",
+      "text": "이 책은 어렵지 않다고 생각한다",
+      "enSourceHash": "e0f7a6d4ad5810ca"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/en:ea0835ea9776df35",
+      "text": "수업은 재미있다고 생각한다",
+      "enSourceHash": "ea0835ea9776df35"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/ja:あの きっさてんは しずかだと おもう",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/ja:この えいがは たのしいと おもう",
+      "text": "만들기: 이 영화는 재미있다고 생각한다",
+      "enSourceHash": "ab8d5d7351fbcbfa"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/ja:この じゅぎょうは むずかしいと おもう",
+      "text": "만들기: 이 수업은 어렵다고 생각한다",
+      "enSourceHash": "f5edaa7a12098e0d"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/ja:この すしは おいしいと おもう",
+      "text": "만들기: 이 초밥은 맛있다고 생각한다",
+      "enSourceHash": "700caadcf9a2b555"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/ja:この とけいは たかいけど あたらしいと おもう",
+      "text": "만들기: 이 시계는 비싸지만 새것이라고 생각한다",
+      "enSourceHash": "73a4b7f4cca3f16c"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/ja:この ほんは むずかしいけど おもしろいと おもう",
+      "text": "만들기: 이 책은 어렵지만 재미있다고 생각한다",
+      "enSourceHash": "fb1972ee9ec5ff94"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/ja:たなかは せんせいだと おもう",
+      "text": "만들기: 다나카는 선생님이라고 생각한다",
+      "enSourceHash": "adbb9027f27ed60f"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-4/ja:ミカは がくせいだと おもう",
+      "text": "만들기: 미카는 학생이라고 생각한다",
+      "enSourceHash": "93ae22a519580a55"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:043cc3c17561da1e",
+      "text": "톰은 내일 오는지 물어본다",
+      "enSourceHash": "043cc3c17561da1e"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:1e1cc3909a49adea",
+      "text": "\"산\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "1e1cc3909a49adea"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:1e7630ffc196e57a",
+      "text": "켄은 학생이 있다고 말한다",
+      "enSourceHash": "1e7630ffc196e57a"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:264c8c381bf16c98",
+      "text": "학생",
+      "enSourceHash": "264c8c381bf16c98"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:2a51c800506c91b8",
+      "text": "말하다",
+      "enSourceHash": "2a51c800506c91b8"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:321546441c6e3b54",
+      "text": "톰은 내일 올 것이라고 생각한다",
+      "enSourceHash": "321546441c6e3b54"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:38a81e87e79631e6",
+      "text": "사람",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:6071e6f1d50c653c",
+      "text": "사쿠라라는 가게에서 산다",
+      "enSourceHash": "6071e6f1d50c653c"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:6caa5885567e43d2",
+      "text": "켄은 학생이라고 생각한다",
+      "enSourceHash": "6caa5885567e43d2"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:722e657c7f247549",
+      "text": "생각하다",
+      "enSourceHash": "722e657c7f247549"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:7e1c9ce3081b7622",
+      "text": "켄이라는 학생이 있다",
+      "enSourceHash": "7e1c9ce3081b7622"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:84a8f002d3c56ec1",
+      "text": "톰은 내일 오지 않는다고 말한다",
+      "enSourceHash": "84a8f002d3c56ec1"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:8cfcf56a15d75ee9",
+      "text": "톰이라는 사람이 온다",
+      "enSourceHash": "8cfcf56a15d75ee9"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:a6fa997b19acdd2e",
+      "text": "미카라는 학생이 있다",
+      "enSourceHash": "a6fa997b19acdd2e"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:bb049088dbc7e2a0",
+      "text": "사쿠라라는 꽃이다",
+      "enSourceHash": "bb049088dbc7e2a0"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:c06b0cfe0cc5e900",
+      "text": "꽃",
+      "enSourceHash": "c06b0cfe0cc5e900"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:cb99b05feef092a9",
+      "text": "톰은 내일 온다고 말한다",
+      "enSourceHash": "cb99b05feef092a9"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/en:dba142544baeee2e",
+      "text": "켄이라는 선생님이 있다",
+      "enSourceHash": "dba142544baeee2e"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/ja:あれは なんと いう はな？",
+      "text": "만들기: 저 꽃은 뭐라고 부르나?",
+      "enSourceHash": "ce9e154562fdb289"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/ja:これは さくらと いう はなだ",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/ja:さくらと いう きっさてんは しずかだと おもう",
+      "text": "만들기: 사쿠라라는 커피숍은 조용하다고 생각한다",
+      "enSourceHash": "0c4b2a6660e0295b"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/ja:さくらと いう みせで かう",
+      "text": "만들기: 사쿠라라는 가게에서 산다",
+      "enSourceHash": "9c878d1fb07d6f02"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/ja:さくらと いう みせは やすいから よく いくと おもう",
+      "text": "만들기: 사쿠라라는 가게는 싸서 자주 갈 것이라고 생각한다",
+      "enSourceHash": "f0ccc3960a32d951"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/ja:トムと いう ひとが くる",
+      "text": "만들기: 톰이라는 사람이 온다",
+      "enSourceHash": "5951eb84ab76d72c"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/ja:ミカと いう がくせいが いる",
+      "text": "만들기: 미카라는 학생이 있다",
+      "enSourceHash": "7748895e73b89705"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-5/ja:ミカは あした くると いう",
+      "text": "만들기: 미카는 내일 온다고 말한다",
+      "enSourceHash": "997be265c9870d9d"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:12469683c96f9068",
+      "text": "톰은 가방을 샀다고 생각한다",
+      "enSourceHash": "12469683c96f9068"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:1e1cc3909a49adea",
+      "text": "\"산\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "1e1cc3909a49adea"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:2753cb15f1d6d34c",
+      "text": "요리",
+      "enSourceHash": "2753cb15f1d6d34c"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:3cac253babf82eb0",
+      "text": "미카는 어제 친구와 놀았다고 생각한다",
+      "enSourceHash": "3cac253babf82eb0"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:3fa489ee60adf26e",
+      "text": "미카는 알아들었다고 생각한다",
+      "enSourceHash": "3fa489ee60adf26e"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:4ed47cedde5a8596",
+      "text": "켄은 어제 친구와 놀았다고 생각한다",
+      "enSourceHash": "4ed47cedde5a8596"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:6670d02440d8ae34",
+      "text": "미카는 어제 친구와 놀지 않았다고 생각한다",
+      "enSourceHash": "6670d02440d8ae34"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:722e657c7f247549",
+      "text": "생각하다",
+      "enSourceHash": "722e657c7f247549"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:8825e76530f87ff5",
+      "text": "우유",
+      "enSourceHash": "8825e76530f87ff5"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:8a6ba32c9bed6ce7",
+      "text": "영화",
+      "enSourceHash": "8a6ba32c9bed6ce7"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:8f750618eeece5b5",
+      "text": "톰은 가방을 살 것이라고 생각한다",
+      "enSourceHash": "8f750618eeece5b5"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:bc400a7f7405fe2a",
+      "text": "미카는 내일 친구와 놀 것이라고 생각한다",
+      "enSourceHash": "bc400a7f7405fe2a"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:c6754ab134d4be16",
+      "text": "톰은 책을 샀다고 생각한다",
+      "enSourceHash": "c6754ab134d4be16"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:c798e5b18ed876ef",
+      "text": "커피숍",
+      "enSourceHash": "c798e5b18ed876ef"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:c9a0e32b1595db5d",
+      "text": "미카는 가방을 샀다고 생각한다",
+      "enSourceHash": "c9a0e32b1595db5d"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:e22e5ce246a7621f",
+      "text": "켄은 영화를 봤다고 생각한다",
+      "enSourceHash": "e22e5ce246a7621f"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/en:fd2a25e7a9dfffab",
+      "text": "미카는 이미 먹었다고 생각한다",
+      "enSourceHash": "fd2a25e7a9dfffab"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/ja:きのうの りょうりは たかかったけど おいしかったと おもう",
+      "text": "만들기: 어제 요리는 비쌌지만 맛있었다고 생각한다",
+      "enSourceHash": "3a2e097be5aefcb2"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/ja:この りょうりは おいしかったと おもう",
+      "text": "만들기: 이 요리는 맛있었다고 생각한다",
+      "enSourceHash": "576d050564efe62c"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/ja:たなかは もう ぎゅうにゅうを のんだと おもう",
+      "text": "만들기: 다나카는 이미 우유를 마셨다고 생각한다",
+      "enSourceHash": "130478514c0b46f2"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/ja:ケンは えいがを みたと おもう",
+      "text": "만들기: 켄은 영화를 봤다고 생각한다",
+      "enSourceHash": "74f32973b74712df"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/ja:ケンは きのう ともだちと あそんだと おもう",
+      "text": "만들기: 켄은 어제 친구와 놀았다고 생각한다",
+      "enSourceHash": "f72350e7c92a0235"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/ja:トムは ほんを かったと おもう",
+      "text": "만들기: 톰은 책을 샀다고 생각한다",
+      "enSourceHash": "9a41ca4478cdbb7d"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/ja:ミカは もう たべたと おもう",
+      "text": "만들기: 미카는 이미 먹었다고 생각한다",
+      "enSourceHash": "a3e647fd75ae2f67"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-6/ja:ミカは わかったと おもう",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:0706b82c3b593395",
+      "text": "켄은 내일 간다고 말한다",
+      "enSourceHash": "0706b82c3b593395"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:074a717bb07a0e68",
+      "text": "미카에게 내일 갈 것이라고 말하겠다",
+      "enSourceHash": "074a717bb07a0e68"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:14a2686db30cec05",
+      "text": "오늘 친구에게 말한다",
+      "enSourceHash": "14a2686db30cec05"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:1e1cc3909a49adea",
+      "text": "\"산\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "1e1cc3909a49adea"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:2089a0ee49c73316",
+      "text": "켄에게 내일 갈 것이라고 말하겠다",
+      "enSourceHash": "2089a0ee49c73316"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:2a51c800506c91b8",
+      "text": "말하다",
+      "enSourceHash": "2a51c800506c91b8"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:2b801e2960a8b718",
+      "text": "내일 갈지 켄에게 물어본다",
+      "enSourceHash": "2b801e2960a8b718"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:36005df960c95b5e",
+      "text": "오늘 친구와 이야기한다",
+      "enSourceHash": "36005df960c95b5e"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:49c1e21755cc44e2",
+      "text": "다나카에게 알아듣지 못한다고 말하겠다",
+      "enSourceHash": "49c1e21755cc44e2"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:722e657c7f247549",
+      "text": "생각하다",
+      "enSourceHash": "722e657c7f247549"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:83cfa15f303a7558",
+      "text": "오늘 친구에 대해 듣는다",
+      "enSourceHash": "83cfa15f303a7558"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:844dfb635dc170f4",
+      "text": "톰에게 이 가게는 싸다고 말하겠다",
+      "enSourceHash": "844dfb635dc170f4"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:8d9001d32c6a703d",
+      "text": "가게",
+      "enSourceHash": "8d9001d32c6a703d"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:a87e96ee594f0f55",
+      "text": "친구가 오늘 이야기한다",
+      "enSourceHash": "a87e96ee594f0f55"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:c6e6f3b20fd1eace",
+      "text": "켄은 내일 오지 않는다고 들었다",
+      "enSourceHash": "c6e6f3b20fd1eace"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:c798e5b18ed876ef",
+      "text": "커피숍",
+      "enSourceHash": "c798e5b18ed876ef"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:cde48537ca2c2808",
+      "text": "친구",
+      "enSourceHash": "cde48537ca2c2808"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/en:e1c81ee6fe715513",
+      "text": "내일 켄과 이야기한다",
+      "enSourceHash": "e1c81ee6fe715513"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/ja:きょうは ミカと はなす",
+      "text": "만들기: 오늘 미카와 이야기한다",
+      "enSourceHash": "c67699a2e931c634"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/ja:たなかと はなすから きっさてんに いく",
+      "text": "만들기: 다나카와 이야기하니까 커피숍에 간다",
+      "enSourceHash": "625ce13d10e79382"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/ja:たなかに わからないと いう",
+      "text": "만들기: 다나카에게 알아듣지 못한다고 말하겠다",
+      "enSourceHash": "562ac7691772b185"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/ja:ともだちに この ほんは おもしろいと おしえる",
+      "text": "만들기: 친구에게 이 책은 재미있다고 가르치겠다",
+      "enSourceHash": "8a662f7b36b8c386"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/ja:ケンは あした こないと きく",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/ja:トムに この みせは やすいと いう",
+      "text": "만들기: 톰에게 이 가게는 싸다고 말하겠다",
+      "enSourceHash": "e6980969bf6414b9"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/ja:ミカと はなすから この みせは やすいと おしえる",
+      "text": "만들기: 미카와 이야기하니까 이 가게는 싸다고 가르치겠다",
+      "enSourceHash": "82fa4a5aa92351c1"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-7/ja:ミカに あした いくと いう",
+      "text": "만들기: 미카에게 내일 갈 것이라고 말하겠다",
+      "enSourceHash": "c8695a2dc29b03f9"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:05f7955d98d454d6",
+      "text": "미카는 우유를 살 것이라고 생각한다",
+      "enSourceHash": "05f7955d98d454d6"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:0b309483cfd45da7",
+      "text": "이 사람은 일본에 갔다고 생각한다",
+      "enSourceHash": "0b309483cfd45da7"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:0f4168490e38b844",
+      "text": "물",
+      "enSourceHash": "0f4168490e38b844"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:0f89048e39a3e9bf",
+      "text": "이 사람은 일본에 가지 않을 것이라고 생각한다",
+      "enSourceHash": "0f89048e39a3e9bf"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:264c8c381bf16c98",
+      "text": "학생",
+      "enSourceHash": "264c8c381bf16c98"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:38a81e87e79631e6",
+      "text": "사람",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:4e1a2d0501fb5194",
+      "text": "미카는 물을 마실 것이라고 생각한다",
+      "enSourceHash": "4e1a2d0501fb5194"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:5de6df965567b1fe",
+      "text": "저 사람은 일본에 갈 것이라고 생각한다",
+      "enSourceHash": "5de6df965567b1fe"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:647294383b2cbc24",
+      "text": "일본",
+      "enSourceHash": "647294383b2cbc24"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:6d6af1a0470bb72f",
+      "text": "미카는 물을 샀다고 생각한다",
+      "enSourceHash": "6d6af1a0470bb72f"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:722e657c7f247549",
+      "text": "생각하다",
+      "enSourceHash": "722e657c7f247549"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:7b1273aa2c7791ae",
+      "text": "이 사람은 일본에 갈 것이라고 생각한다",
+      "enSourceHash": "7b1273aa2c7791ae"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:c018019b6a8b01ab",
+      "text": "가방",
+      "enSourceHash": "c018019b6a8b01ab"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/en:e3938b49851a7efe",
+      "text": "미카는 물을 살 것이라고 생각한다",
+      "enSourceHash": "e3938b49851a7efe"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/ja:きょうは みずを かうと おもう",
+      "text": "만들기: 오늘은 물을 살 것이라고 생각한다",
+      "enSourceHash": "3d7a43259d51d6aa"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/ja:この ひとは がくせいだと おもう",
+      "text": "만들기: 이 사람은 학생이라고 생각한다",
+      "enSourceHash": "60af905697295f6e"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/ja:この ひとは にほんに いくと きくけど わからない",
+      "text": "만들기: 이 사람은 일본에 간다고 들었는데 모르겠다",
+      "enSourceHash": "009927efb6371ca1"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/ja:ケンは あした こないと きく",
+      "text": "만들기: 켄은 내일 오지 않는다고 들었다",
+      "enSourceHash": "70e204eb6a5093b1"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/ja:トムは にほんに いくと おもう",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-8/ja:ミカは もう たべたと おもう",
+      "text": "만들기: 미카는 이미 먹었다고 생각한다",
+      "enSourceHash": "a3e647fd75ae2f67"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:0889113e04d3203f",
+      "text": "수업",
+      "enSourceHash": "0889113e04d3203f"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:1e1cc3909a49adea",
+      "text": "\"산\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "1e1cc3909a49adea"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:1e4453a98c9d7417",
+      "text": "어렵다",
+      "enSourceHash": "1e4453a98c9d7417"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:2a51c800506c91b8",
+      "text": "말하다",
+      "enSourceHash": "2a51c800506c91b8"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:2c60c7a4b1010472",
+      "text": "이 가게는 비싸다고 생각하나?",
+      "enSourceHash": "2c60c7a4b1010472"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:33227b24123a54a7",
+      "text": "이 책은 어렵다고 생각하나?",
+      "enSourceHash": "33227b24123a54a7"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:3967a15e65baabdc",
+      "text": "이 책은 재미있다고 생각하나?",
+      "enSourceHash": "3967a15e65baabdc"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:3a7cc2c4502fdb6a",
+      "text": "저 꽃은 뭐라고 부르나?",
+      "enSourceHash": "3a7cc2c4502fdb6a"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:463dbecd732ebe49",
+      "text": "이 책은 어렵나?",
+      "enSourceHash": "463dbecd732ebe49"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:4a9690d563610a9e",
+      "text": "누가 이 책은 어렵다고 생각하나?",
+      "enSourceHash": "4a9690d563610a9e"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:5b1fa94e854e0645",
+      "text": "이 가게는 누구의 가게인가?",
+      "enSourceHash": "5b1fa94e854e0645"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:722e657c7f247549",
+      "text": "생각하다",
+      "enSourceHash": "722e657c7f247549"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:72e209939aef3d08",
+      "text": "이 가게가 어떨 것 같나?",
+      "enSourceHash": "72e209939aef3d08"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:8a6ba32c9bed6ce7",
+      "text": "영화",
+      "enSourceHash": "8a6ba32c9bed6ce7"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:8c6ee247b3f3811c",
+      "text": "이 가게는 어디인가?",
+      "enSourceHash": "8c6ee247b3f3811c"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:9c65fe860a495de6",
+      "text": "이 가게는 뭐라고 부르나?",
+      "enSourceHash": "9c65fe860a495de6"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:cca0f8a3e0fb6e1e",
+      "text": "이 영화는 재미있다고 생각하나?",
+      "enSourceHash": "cca0f8a3e0fb6e1e"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:e3a01629eab9fe2e",
+      "text": "미카는 온다고 생각하나?",
+      "enSourceHash": "e3a01629eab9fe2e"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/en:f77470ce4f1959e5",
+      "text": "재미있다",
+      "enSourceHash": "f77470ce4f1959e5"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/ja:あれは なんと いう はな？",
+      "text": "만들기: 저 꽃은 뭐라고 부르나?",
+      "enSourceHash": "ce9e154562fdb289"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/ja:この えいがは おもしろいと おもう？",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/ja:この じゅぎょうは むずかしいけど たのしいと おもう？",
+      "text": "만들기: 이 수업은 어렵지만 재미있다고 생각하나?",
+      "enSourceHash": "a104e9b51751ac3a"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/ja:この じゅぎょうは むずかしいと おもう？",
+      "text": "만들기: 이 수업은 어렵다고 생각하나?",
+      "enSourceHash": "4251d1a28eb7d34d"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/ja:この みせは たかいと おもう？",
+      "text": "만들기: 이 가게는 비싸다고 생각하나?",
+      "enSourceHash": "a5de3e5df1404c28"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/ja:どう おもう？",
+      "text": "만들기: 어떻게 생각하나?",
+      "enSourceHash": "16e5d74df79728d7"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/ja:トムは わかると おもう？",
+      "text": "만들기: 톰은 알아듣는다고 생각하나?",
+      "enSourceHash": "8df5942026f3eb7e"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-9/ja:ミカは くると おもう？",
+      "text": "만들기: 미카는 온다고 생각하나?",
+      "enSourceHash": "54b40f69e450abff"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:0133eca7b99fbd47",
+      "text": "켄은 오늘 일한다고 들었다",
+      "enSourceHash": "0133eca7b99fbd47"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:17211dd1910763b4",
+      "text": "오늘 켄과 이야기한다",
+      "enSourceHash": "17211dd1910763b4"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:1b5a42faba56a272",
+      "text": "도전 — 생각하는 것을 말하기",
+      "enSourceHash": "1b5a42faba56a272"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:1e1cc3909a49adea",
+      "text": "\"산\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "1e1cc3909a49adea"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:1e4453a98c9d7417",
+      "text": "어렵다",
+      "enSourceHash": "1e4453a98c9d7417"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:1e97359af8cb4a8b",
+      "text": "누가 미카가 오늘 온다고 생각하나?",
+      "enSourceHash": "1e97359af8cb4a8b"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:2a51c800506c91b8",
+      "text": "말하다",
+      "enSourceHash": "2a51c800506c91b8"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:30ffb434a8ea57d1",
+      "text": "미카가 오늘 오나?",
+      "enSourceHash": "30ffb434a8ea57d1"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:335b451a122c5255",
+      "text": "미카가 오늘 왔다고 생각하나?",
+      "enSourceHash": "335b451a122c5255"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:38a81e87e79631e6",
+      "text": "사람",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:4ca762c41972c065",
+      "text": "말하다",
+      "enSourceHash": "4ca762c41972c065"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:59ad86e3ea181bc8",
+      "text": "\"꽃\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "59ad86e3ea181bc8"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:722e657c7f247549",
+      "text": "생각하다",
+      "enSourceHash": "722e657c7f247549"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:7274e6b16183065e",
+      "text": "미카가 오늘 온다고 생각하나?",
+      "enSourceHash": "7274e6b16183065e"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:7cd933eceaf87cc3",
+      "text": "이 시계는 비싸다고 생각하지만 미카는 살 것이라고 생각한다",
+      "enSourceHash": "7cd933eceaf87cc3"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:94b83add47a787df",
+      "text": "사쿠라라는 가게는 싸니까 미카는 살 것이라고 생각한다",
+      "enSourceHash": "94b83add47a787df"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:98df9f8d72aad60b",
+      "text": "오늘 일한다고 켄에게 말하겠다",
+      "enSourceHash": "98df9f8d72aad60b"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:a394c390d5182d03",
+      "text": "켄은 오늘 일한다고 말한다",
+      "enSourceHash": "a394c390d5182d03"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:bc1e1caebc67e0f0",
+      "text": "켄은 어제 여행을 갔으니 오늘 오지 않을 것이라고 생각한다",
+      "enSourceHash": "bc1e1caebc67e0f0"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:d1b2acbfa10c538c",
+      "text": "다나카에게 이 수업은 어렵지만 재미있다고 말하겠다",
+      "enSourceHash": "d1b2acbfa10c538c"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/en:f77470ce4f1959e5",
+      "text": "재미있다",
+      "enSourceHash": "f77470ce4f1959e5"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/ja:この じゅぎょうは むずかしいけど たのしいと たなかに いう",
+      "text": "만들기: 다나카에게 이 수업은 어렵지만 재미있다고 말하겠다",
+      "enSourceHash": "ac874facd3dfa205"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/ja:この とけいは たかいと おもうけど ミカは かうと おもう",
+      "text": "만들기: 이 시계는 비싸다고 생각하지만 미카는 살 것이라고 생각한다",
+      "enSourceHash": "019b9535f188f057"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/ja:さくらと いう きっさてんは しずかだから ミカと はなすと おもう",
+      "text": "만들기: 사쿠라라는 커피숍은 조용하니까 미카와 이야기할 것이라고 생각한다",
+      "enSourceHash": "1a063af5a91241b7"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/ja:さくらと いう みせは やすいから ミカは かうと おもう",
+      "text": "만들기: 사쿠라라는 가게는 싸니까 미카는 살 것이라고 생각한다",
+      "enSourceHash": "1a333e6a07f41e66"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/ja:ケンは きのう りょこうに いったから きょうは こないと おもう",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/ja:トムと いう ひとと はなすから きっさてんに いく",
+      "text": "만들기: 톰이라는 사람과 이야기하니까 커피숍에 간다",
+      "enSourceHash": "7b60c5f17cf3078c"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-challenge/ja:ミカは もう たべたと きくけど わからない",
+      "text": "만들기: 미카는 이미 먹었다고 들었지만 모르겠다",
+      "enSourceHash": "b7ef3c8becb2f57e"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:00143559ac94dc33",
+      "text": "톰은 알아듣지 못할 것이라고 생각한다",
+      "enSourceHash": "00143559ac94dc33"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:18e1dd392168f601",
+      "text": "모자",
+      "enSourceHash": "18e1dd392168f601"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:1a9b5d54313e4f5f",
+      "text": "내일 갈 것이라고 생각한다",
+      "enSourceHash": "1a9b5d54313e4f5f"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:1b5333610d090f30",
+      "text": "이 가게는 모자를 팔지 않을 것이라고 생각한다",
+      "enSourceHash": "1b5333610d090f30"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:1e1cc3909a49adea",
+      "text": "\"산\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "1e1cc3909a49adea"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:38024af4d30473ae",
+      "text": "켄은 오지 않을 것이라고 생각한다",
+      "enSourceHash": "38024af4d30473ae"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:52e11af8611cc4ed",
+      "text": "이 가게는 모자를 팔 것이라고 생각한다",
+      "enSourceHash": "52e11af8611cc4ed"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:577ef23bbf02f7a0",
+      "text": "저 가게는 모자를 팔 것이라고 생각한다",
+      "enSourceHash": "577ef23bbf02f7a0"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:59ad86e3ea181bc8",
+      "text": "\"꽃\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "59ad86e3ea181bc8"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:670bd9ced0c6bc3f",
+      "text": "초밥",
+      "enSourceHash": "670bd9ced0c6bc3f"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:722e657c7f247549",
+      "text": "생각하다",
+      "enSourceHash": "722e657c7f247549"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:8a6ba32c9bed6ce7",
+      "text": "영화",
+      "enSourceHash": "8a6ba32c9bed6ce7"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:92719fe0cf8cd515",
+      "text": "책",
+      "enSourceHash": "92719fe0cf8cd515"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:9313a917adb2abd8",
+      "text": "켄은 알아듣지 못할 것이라고 생각한다",
+      "enSourceHash": "9313a917adb2abd8"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:9b4ef3e5b7b4d175",
+      "text": "역",
+      "enSourceHash": "9b4ef3e5b7b4d175"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:b8fb79d9ada5a4b6",
+      "text": "이 가게는 안경을 팔 것이라고 생각한다",
+      "enSourceHash": "b8fb79d9ada5a4b6"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:cee05a84ef6176ef",
+      "text": "톰은 나를 알아듣지 못한다",
+      "enSourceHash": "cee05a84ef6176ef"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:d208a0548f559570",
+      "text": "미카는 초밥을 먹을 것이라고 생각한다",
+      "enSourceHash": "d208a0548f559570"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:e3c61c84a7b38b95",
+      "text": "톰은 알아들을 것이라고 생각한다",
+      "enSourceHash": "e3c61c84a7b38b95"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/en:f4be2a24a2641670",
+      "text": "톰은 책을 살 것이라고 생각한다",
+      "enSourceHash": "f4be2a24a2641670"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/ja:あした いくと おもう",
+      "text": "만들기: 내일 갈 것이라고 생각한다",
+      "enSourceHash": "a9bb25ad00a1035b"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/ja:たなかは きょう こないと おもう",
+      "text": "만들기: 다나카는 오늘 오지 않을 것이라고 생각한다",
+      "enSourceHash": "62892f5d6d9640ba"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/ja:ケンは えいがを みると おもう",
+      "text": "만들기: 켄은 영화를 볼 것이라고 생각한다",
+      "enSourceHash": "20ad5b64768856ef"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/ja:ケンは きょう はたらくと おもう",
+      "text": "만들기: 켄은 오늘 일할 것이라고 생각한다",
+      "enSourceHash": "8e0983552e174fa2"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/ja:ケンは こないと おもう",
+      "text": "만들기: 켄은 오지 않을 것이라고 생각한다",
+      "enSourceHash": "aefb3568f4bd30d7"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/ja:トムは ほんを かうと おもう",
+      "text": "만들기: 톰은 책을 살 것이라고 생각한다",
+      "enSourceHash": "7caa8a399ea1cb66"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/ja:ミカは えきで まつと おもう",
+      "text": "만들기: 미카는 역에서 기다릴 것이라고 생각한다",
+      "enSourceHash": "b2fb43035c7ae53d"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-1/ja:ミカは すしを たべると おもう",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:0889113e04d3203f",
+      "text": "수업",
+      "enSourceHash": "0889113e04d3203f"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:1e1cc3909a49adea",
+      "text": "\"산\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "1e1cc3909a49adea"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:1e4453a98c9d7417",
+      "text": "어렵다",
+      "enSourceHash": "1e4453a98c9d7417"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:2a51c800506c91b8",
+      "text": "말하다",
+      "enSourceHash": "2a51c800506c91b8"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:2b30ba74e4af9e55",
+      "text": "미카라는 선생님이 있다",
+      "enSourceHash": "2b30ba74e4af9e55"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:4c9df5d83949826e",
+      "text": "이 요리는 맛있지 않았다고 생각한다",
+      "enSourceHash": "4c9df5d83949826e"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:573cc8b57c60cb3a",
+      "text": "이 요리는 맛있다고 생각한다",
+      "enSourceHash": "573cc8b57c60cb3a"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:59ad86e3ea181bc8",
+      "text": "\"꽃\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "59ad86e3ea181bc8"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:5b45ead4db2dadc8",
+      "text": "이 수업은 어렵다고 생각한다",
+      "enSourceHash": "5b45ead4db2dadc8"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:5d1098ff0220f2d4",
+      "text": "이 요리는 맛있었다고 생각한다",
+      "enSourceHash": "5d1098ff0220f2d4"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:6b96ee1f7da61bd5",
+      "text": "미카는 학생이라고 생각한다",
+      "enSourceHash": "6b96ee1f7da61bd5"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:722e657c7f247549",
+      "text": "생각하다",
+      "enSourceHash": "722e657c7f247549"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:8a6ba32c9bed6ce7",
+      "text": "영화",
+      "enSourceHash": "8a6ba32c9bed6ce7"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:8cfcf56a15d75ee9",
+      "text": "톰이라는 사람이 온다",
+      "enSourceHash": "8cfcf56a15d75ee9"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:a6fa997b19acdd2e",
+      "text": "미카라는 학생이 있다",
+      "enSourceHash": "a6fa997b19acdd2e"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:d05d94acdc43ea69",
+      "text": "이 요리는 비쌌다고 생각한다",
+      "enSourceHash": "d05d94acdc43ea69"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:e4573a71133b9217",
+      "text": "미카는 학생이 있다고 말한다",
+      "enSourceHash": "e4573a71133b9217"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:f77470ce4f1959e5",
+      "text": "재미있다",
+      "enSourceHash": "f77470ce4f1959e5"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/en:fd2a25e7a9dfffab",
+      "text": "미카는 이미 먹었다고 생각한다",
+      "enSourceHash": "fd2a25e7a9dfffab"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/ja:この えいがは たのしいと おもう",
+      "text": "만들기: 이 영화는 재미있다고 생각한다",
+      "enSourceHash": "ab8d5d7351fbcbfa"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/ja:この じゅぎょうは むずかしいと おもう",
+      "text": "만들기: 이 수업은 어렵다고 생각한다",
+      "enSourceHash": "f5edaa7a12098e0d"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/ja:さくらと いう みせで かう",
+      "text": "만들기: 사쿠라라는 가게에서 산다",
+      "enSourceHash": "9c878d1fb07d6f02"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/ja:トムと いう ひとが くる",
+      "text": "만들기: 톰이라는 사람이 온다",
+      "enSourceHash": "5951eb84ab76d72c"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/ja:トムは ほんを かったと おもう",
+      "text": "만들기: 톰은 책을 샀다고 생각한다",
+      "enSourceHash": "9a41ca4478cdbb7d"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/ja:ミカは あした くると いう",
+      "text": "만들기: 미카는 내일 온다고 말한다",
+      "enSourceHash": "997be265c9870d9d"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/ja:ミカは がくせいだと おもう",
+      "text": "만들기: 미카는 학생이라고 생각한다",
+      "enSourceHash": "93ae22a519580a55"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-2/ja:ミカは もう たべたと おもう",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:074a717bb07a0e68",
+      "text": "미카에게 내일 갈 것이라고 말하겠다",
+      "enSourceHash": "074a717bb07a0e68"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:0b4e4171dee52a03",
+      "text": "리뷰 — 말하기, 생각하기, 질문하기",
+      "enSourceHash": "0b4e4171dee52a03"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:194c6a46af71a9d1",
+      "text": "가게에 내 이름을 말한다",
+      "enSourceHash": "194c6a46af71a9d1"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:1b368616197f9c18",
+      "text": "이 수업은 재미있다고 생각한다",
+      "enSourceHash": "1b368616197f9c18"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:1e1cc3909a49adea",
+      "text": "\"산\"에 해당하는 단어를 고르세요",
+      "enSourceHash": "1e1cc3909a49adea"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:1e4453a98c9d7417",
+      "text": "어렵다",
+      "enSourceHash": "1e4453a98c9d7417"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:1f6450b61f3dfcb9",
+      "text": "이 가게는 사쿠라라는 가게라고 생각한다",
+      "enSourceHash": "1f6450b61f3dfcb9"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:2a51c800506c91b8",
+      "text": "말하다",
+      "enSourceHash": "2a51c800506c91b8"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:38024af4d30473ae",
+      "text": "켄은 오지 않을 것이라고 생각한다",
+      "enSourceHash": "38024af4d30473ae"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:38a81e87e79631e6",
+      "text": "사람",
+      "enSourceHash": "38a81e87e79631e6"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:4ca762c41972c065",
+      "text": "말하다",
+      "enSourceHash": "4ca762c41972c065"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:4cebea5d38f2f2b4",
+      "text": "이 영화는 재미있다고 생각한다",
+      "enSourceHash": "4cebea5d38f2f2b4"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:571e44ed12d32d9b",
+      "text": "각 일본어 단어를 뜻과 연결하세요 (복습)",
+      "enSourceHash": "571e44ed12d32d9b"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:5b45ead4db2dadc8",
+      "text": "이 수업은 어렵다고 생각한다",
+      "enSourceHash": "5b45ead4db2dadc8"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:6071e6f1d50c653c",
+      "text": "사쿠라라는 가게에서 산다",
+      "enSourceHash": "6071e6f1d50c653c"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:6b96ee1f7da61bd5",
+      "text": "미카는 학생이라고 생각한다",
+      "enSourceHash": "6b96ee1f7da61bd5"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:722e657c7f247549",
+      "text": "생각하다",
+      "enSourceHash": "722e657c7f247549"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:81d0e15ca6d80b03",
+      "text": "이 수업은 어렵지 않다고 생각한다",
+      "enSourceHash": "81d0e15ca6d80b03"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:8f40896382fcf9f6",
+      "text": "가게에서 사쿠라를 산다",
+      "enSourceHash": "8f40896382fcf9f6"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:a6afe0fbb5467cc8",
+      "text": "이 수업은 어렵다고 들었다",
+      "enSourceHash": "a6afe0fbb5467cc8"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/en:f77470ce4f1959e5",
+      "text": "재미있다",
+      "enSourceHash": "f77470ce4f1959e5"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/ja:きょうは ミカと はなす",
+      "text": "만들기: 오늘 미카와 이야기한다",
+      "enSourceHash": "c67699a2e931c634"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/ja:この えいがは たのしいと おもう",
+      "text": "만들기: 이 영화는 재미있다고 생각한다",
+      "enSourceHash": "ab8d5d7351fbcbfa"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/ja:ケンは えいがを みたと おもう",
+      "text": "만들기: 켄은 영화를 봤다고 생각한다",
+      "enSourceHash": "74f32973b74712df"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/ja:ケンは こないと おもう",
+      "text": "들리는 대로 만들어 보세요.",
+      "enSourceHash": "b28d903ef295627a"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/ja:ミカに あした いくと いう",
+      "text": "만들기: 미카에게 내일 갈 것이라고 말하겠다",
+      "enSourceHash": "c8695a2dc29b03f9"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/ja:ミカは がくせいだと おもう",
+      "text": "만들기: 미카는 학생이라고 생각한다",
+      "enSourceHash": "93ae22a519580a55"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/ja:ミカは くると おもう？",
+      "text": "만들기: 미카는 온다고 생각하나?",
+      "enSourceHash": "54b40f69e450abff"
+    },
+    {
+      "anchor": "m18/ja-m18-neo-review-3/ja:ミカは もう たべたと おもう",
+      "text": "만들기: 미카는 이미 먹었다고 생각한다",
+      "enSourceHash": "a3e647fd75ae2f67"
+    },
+    {
+      "anchor": "m18/story:ja-m18-a-warm-day/en:74cb03efbdbb4288",
+      "text": "따뜻한 날",
+      "enSourceHash": "74cb03efbdbb4288"
+    },
+    {
+      "anchor": "m18/story:ja-m18-a-warm-day/en:b87bd93981961b8f",
+      "text": "날씨와 정원.",
+      "enSourceHash": "b87bd93981961b8f"
+    },
+    {
+      "anchor": "m18/story:ja-m18-a-warm-day/ja:あしたは たぶん あめだ。",
+      "text": "내일은 아마 비다.",
+      "enSourceHash": "75223f0bdc8e1690"
+    },
+    {
+      "anchor": "m18/story:ja-m18-a-warm-day/ja:きょうは てんきが いい。",
+      "text": "오늘은 날씨가 좋다.",
+      "enSourceHash": "ebba00ac67da65c0"
+    },
+    {
+      "anchor": "m18/story:ja-m18-a-warm-day/ja:そらは はれだ。",
+      "text": "하늘은 맑다.",
+      "enSourceHash": "4c4c7f1a38b00be2"
+    },
+    {
+      "anchor": "m18/story:ja-m18-a-warm-day/ja:とても あたたかい。",
+      "text": "매우 따뜻하다.",
+      "enSourceHash": "44ec559859ce80a0"
+    },
+    {
+      "anchor": "m18/story:ja-m18-a-warm-day/ja:となりの こうえんを あるく。",
+      "text": "이웃 공원을 걷는다.",
+      "enSourceHash": "96030ab7ad2dea06"
+    },
+    {
+      "anchor": "m18/story:ja-m18-a-warm-day/ja:にわに おおきな きが ある。",
+      "text": "정원에 큰 나무가 있다.",
+      "enSourceHash": "f40da4bcd09c0dce"
+    },
+    {
+      "anchor": "m18/story:ja-m18-a-warm-day/ja:らいしゅうは すずしい。",
+      "text": "다음 주는 시원하다.",
+      "enSourceHash": "69d6830d9e745a42"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/en:4caf47dbf580b8fa",
+      "text": "큰 나무에 대해 불평한 일 년과 어느 3월 아침.",
+      "enSourceHash": "4caf47dbf580b8fa"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/en:4fc3b9a8121af9b1",
+      "text": "이웃의 나무",
+      "enSourceHash": "4fc3b9a8121af9b1"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/gloss:うるさい",
+      "text": "시끄럽다",
+      "enSourceHash": "574e2aa7582b822c"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/gloss:くらい",
+      "text": "어둡다",
+      "enSourceHash": "7c840dad05fed8b9"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/gloss:つよい",
+      "text": "세다",
+      "enSourceHash": "df6c4287d6ccfdf7"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:「いまは ふゆです。はなが ありません。」",
+      "text": "「지금은 겨울입니다. 꽃이 없습니다.」",
+      "enSourceHash": "26cf6db42fc5df74"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:「その きは おおきいです。ぼくの へやが くらいです。」",
+      "text": "「그 나무는 큽니다. 제 방이 어둡습니다.」",
+      "enSourceHash": "12859edb0abb5291"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:あきに かぜが つよい。",
+      "text": "가을에 바람이 세다.",
+      "enSourceHash": "8dfe077ec2178955"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:ある あさ、まどを あける。",
+      "text": "어느 아침, 창문을 연다.",
+      "enSourceHash": "759e2fba2c27560d"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:いまは この きが すきだ。",
+      "text": "지금은 이 나무가 좋다.",
+      "enSourceHash": "517d0519ffcaea82"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:うちの となりに おおきな にわが ある。",
+      "text": "내 집 옆에 큰 정원이 있다.",
+      "enSourceHash": "bb6a2c7205cf5492"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:かぜの よるは とても うるさい。",
+      "text": "바람 부는 밤은 매우 시끄럽다.",
+      "enSourceHash": "41a7cfeacf1b54e9"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:きに はなが ある。",
+      "text": "나무에 꽃이 있다.",
+      "enSourceHash": "0fa802ebf57b156b"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:きは さくらだった。",
+      "text": "나무는 벚나무였다.",
+      "enSourceHash": "1947ea7cac4ae1a5"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:きは ぼくの へやの まどの まえだ。",
+      "text": "나무는 나의 방 창문 앞이다.",
+      "enSourceHash": "292c710278baec06"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:さんがつ、てんきが まいにち あたたかい。",
+      "text": "3월, 날씨가 매일 따뜻하다.",
+      "enSourceHash": "0648d9605cd57ef5"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:その はなしが わからない。",
+      "text": "그 이야기가 이해가 안 된다.",
+      "enSourceHash": "a17dd154a9481915"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:つぎの ふゆも ぼくは まつ。",
+      "text": "다음 겨울도 나는 기다린다.",
+      "enSourceHash": "2f090f9f511fe727"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:となりの にわは とても きれいだ。",
+      "text": "이웃의 정원은 매우 아름답다.",
+      "enSourceHash": "a7c9ee02de0238fd"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:となりの ひとは 「はるは きれいです。」と はなす。",
+      "text": "이웃 사람은「봄은 아름답습니다」라고 말한다.",
+      "enSourceHash": "133e0936d8d5396c"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:なつは あつい。けど、きの したは すずしい。",
+      "text": "여름은 덥다. 하지만 나무 아래는 시원하다.",
+      "enSourceHash": "5d41661ee1c490dd"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:にわの なかに とても おおきな きが ある。",
+      "text": "정원 안에 매우 큰 나무가 있다.",
+      "enSourceHash": "aec965fb56791be5"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:ふゆ、きの うえに ゆきが ある。",
+      "text": "겨울, 나무 위에 눈이 있다.",
+      "enSourceHash": "7146d71e16351981"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:ふゆの きは ぜんぜん きれいじゃない。",
+      "text": "겨울 나무는 전혀 아름답지 않다.",
+      "enSourceHash": "b1e1de54e999253e"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:ぼくの へやの まどの まえに さくらが ある。",
+      "text": "나의 방 창문 앞에 벚나무가 있다.",
+      "enSourceHash": "469daf9b3e6eb511"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:ぼくは きょねんから この まちに すむ。",
+      "text": "나는 작년부터 이 마을에 산다.",
+      "enSourceHash": "a0b94a6352c49666"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:ぼくは この きが すきじゃない。",
+      "text": "나는 이 나무가 좋지 않다.",
+      "enSourceHash": "7bc4b10ff95885d4"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:ぼくは となりの ひとに はなす。",
+      "text": "나는 이웃 사람에게 말한다.",
+      "enSourceHash": "de43a7eedc8a8ccb"
+    },
+    {
+      "anchor": "m18/story:ja-m18-the-tree-next-door/ja:まちの ひとが にわの まえに くる。ひとは しゃしんを とる。",
+      "text": "마을 사람들이 정원의 앞으로 온다. 사람들은 사진을 찍는다.",
+      "enSourceHash": "bc9da4ba3fcfa9ea"
+    }
+  ]
+}
