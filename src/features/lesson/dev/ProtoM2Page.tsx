@@ -1,6 +1,9 @@
 import { useLang } from "@/shared/hooks/useLangPath";
 import { ProtoModuleWalker, type ProtoModuleConfig } from "./ProtoModuleWalkerPage";
 import { ES_M2_LESSONS } from "@/features/languages/es/curriculum/m2";
+// Entry guard: courseAtoms must be the first thing to touch an FR mN file
+// (docs/fr-article-glob-race-2026-09-10.md) or its nouns bake bare.
+import "@/features/languages/fr/courseAtoms";
 import { FR_M2_MODULE } from "@/features/languages/fr/curriculum/m2";
 import { getMockLessonContent } from "../data/mockLessons";
 

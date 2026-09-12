@@ -83,7 +83,12 @@ function rowOutputs(row: { chips: { text: string; kind?: string }[] }): string[]
   return out;
 }
 
+// Memoised: one walk of every JA lesson is ~3 s under load, and the ruleset
+// shape test below calls this once per form — 12+ walks blew the 20 s
+// testTimeout on a busy machine (2026-09-11). The course is immutable here.
+let _liveDrills: Drill[] | undefined;
 function liveDrills(): Drill[] {
+  if (_liveDrills) return _liveDrills;
   const out: Drill[] = [];
   for (const mod of getMockCourse("ja").modules) {
     for (const lesson of mod.lessons as Array<{ id: string }>) {
@@ -100,6 +105,7 @@ function liveDrills(): Drill[] {
       }
     }
   }
+  _liveDrills = out;
   return out;
 }
 

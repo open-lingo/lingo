@@ -878,6 +878,9 @@ export default defineConfig(({ mode }) => {
             "src/features/languages/**/*.render.test.tsx",
           ],
           isolate: false,
+          // FR glob-order race guard — see src/test/frEntryGuard.ts. Project
+          // setupFiles REPLACE the root list, so the shared setup stays first.
+          setupFiles: ["./src/test/setup.ts", "./src/test/frEntryGuard.ts"],
         },
       },
       {
@@ -887,6 +890,7 @@ export default defineConfig(({ mode }) => {
           // curriculum project's exclude note.
           name: "curriculum-render",
           include: ["src/features/languages/**/*.render.test.tsx"],
+          setupFiles: ["./src/test/setup.ts", "./src/test/frEntryGuard.ts"],
         },
       },
       {
