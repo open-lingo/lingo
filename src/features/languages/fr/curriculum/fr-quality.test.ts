@@ -1,3 +1,4 @@
+import "../courseAtoms";
 /**
  * FR course-wide QUALITY guardrails — the §13-doctrine contract.
  *

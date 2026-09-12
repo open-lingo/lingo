@@ -1,3 +1,4 @@
+import "../courseAtoms";
 /**
  * FR speech minimal-pair census gate (2026-09-10) — the COURSE-WIDE
  * follow-on the m19/m20 negated-frame probes named: `frSpeechNegatedFrames
