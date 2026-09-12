@@ -154,9 +154,9 @@ describe("curriculum lesson counts", () => {
     expect(byId.get("m29")!.title).toMatch(/capstone/i);
   });
 
-  it("N4 tier is m30 = n4-01 .. m41 = n4-12, all authored", () => {
+  it("N4 tier is m30 = n4-01 .. m46 = n4-17, all authored", () => {
     const n4 = course.modules.filter((m) => m.tier === "n4");
-    expect(n4.map((m) => m.id)).toEqual(["m30", "m31", "m32", "m33", "m34", "m35", "m36", "m37", "m38", "m39", "m40", "m41"]);
+    expect(n4.map((m) => m.id)).toEqual(["m30", "m31", "m32", "m33", "m34", "m35", "m36", "m37", "m38", "m39", "m40", "m41", "m42", "m43", "m44", "m45", "m46"]);
     // Spec A1 retired the July pilot and left a locked, lesson-less station;
     // spec A3 authored m30 = n4-01 「て + helper I: 〜てみる / 〜ておく」 in its
     // place (2026-08-14), m31 = n4-02 「Give & receive I:
@@ -180,7 +180,7 @@ describe("curriculum lesson counts", () => {
     // (8 teaching) — inv 25's ceiling is 15. A tile may also carry story
     // rows (m32 does) — reading attachments, not lessons, so they are
     // filtered out first.
-    const LESSON_COUNT: Record<string, number> = { m30: 13, m31: 13, m32: 13, m33: 14, m34: 12, m35: 12, m36: 12, m37: 12, m38: 12, m39: 12, m40: 12, m41: 12 };
+    const LESSON_COUNT: Record<string, number> = { m30: 13, m31: 13, m32: 13, m33: 14, m34: 12, m35: 12, m36: 12, m37: 12, m38: 12, m39: 12, m40: 12, m41: 12, m42: 12, m43: 12, m44: 12, m45: 12, m46: 12 };
     for (const m of n4) {
       const lessons = m.lessons.filter((l) => l.kind !== "story");
       expect(m.comingSoon, `${m.id} is flagged comingSoon`).toBeUndefined();

@@ -1,3 +1,4 @@
+import "../courseAtoms";
 /**
  * FR m22 curriculum guard — «À qui ?» (possession-de consolidation).
  * Standard suite in the m17-m21.test.ts shape, plus bespoke pins specific

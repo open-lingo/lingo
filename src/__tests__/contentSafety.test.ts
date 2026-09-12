@@ -77,10 +77,15 @@ const PERSON_PRONOUNS = ["him", "her", "them", "you", "me", "us"];
  * must not reach across a clause boundary into an unrelated person.
  */
 const LIKES_A_PERSON = new RegExp(
+  // Prepositional "like" ("seems like a child", "looks just like her") is
+  // resemblance, not affection — the みたい/ようだ modules (m44+) gloss it
+  // constantly. Exclude the verb-adjacent forms; the exemption map below
+  // still carries the older reviewed instances.
+  String.raw`(?<!\b(?:seems?|seemed|looks?|looked|plays?|played|sounds?|sounded|feels?|felt|just|exactly)\s)` +
   String.raw`\b(?:like|likes|liked|love|loves|loved)\s+` +
     String.raw`(?:(?:the|a|an|my|your|his|her|their|our|that|this|those|these|little|big|older|younger|old|young|new|other|same|nice|kind)\s+){0,3}` +
       `(?:(?:${PERSON_WORDS.join("|")})\\b(?!['\u2019])` +
-    `|(?:${PERSON_PRONOUNS.join("|")})\\b(?=\\s*(?:[.,;!?"']|$)))`,
+    `|(?:${PERSON_PRONOUNS.join("|")})\\b(?!['\u2019](?:re|ve|ll|d)\\b)(?=\\s*(?:[.,;!?"']|$)))`,
   "i",
 );
 
@@ -123,6 +128,12 @@ const REVIEWED_EXEMPTIONS = new Map<string, string>([
   [
     "I love my family.",
     "fr-m7 «J'aime ma famille.» — same review as the unpunctuated form.",
+  ],
+  [
+    "Because the child doesn't like them",
+    "ja-m45-neo-3 comprehension MCQ option — \"them\" is the vegetables " +
+      "(やさいが すきじゃないから) from the dialogue line it answers; no " +
+      "person is liked or disliked.",
   ],
   [
     "I love your family!",

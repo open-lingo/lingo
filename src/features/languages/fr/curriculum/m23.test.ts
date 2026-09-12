@@ -1,3 +1,4 @@
+import "../courseAtoms";
 /**
  * FR m23 curriculum guard — «Il est quelle heure ?» (telling time on the
  * hour). Standard suite in the m17-m22.test.ts shape, plus bespoke pins

@@ -1,3 +1,4 @@
+import "../courseAtoms";
 /**
  * FR m24 curriculum guard — «C'est ouvert ?» (food round 2 + ouvert/ouverte,
  * fermé/fermée). Standard suite in the m17-m23.test.ts shape, plus bespoke

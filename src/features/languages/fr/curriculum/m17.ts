@@ -217,13 +217,13 @@ function crossModuleMatchPairs(
 }
 
 export const FR_M17_ATOMS: FrAtom[] = [
-  atom({ surface: "onze", meaningEn: "eleven", partOfSpeech: "other", fromModule: "m17", kind: "vocab", emoji: "1️⃣1️⃣", hint: "ohnz — starts like a consonant, same class as «huit»: say «le onze», never «l'onze»", consonantOnset: true }),
-  atom({ surface: "douze", meaningEn: "twelve", partOfSpeech: "other", fromModule: "m17", kind: "vocab", emoji: "1️⃣2️⃣", hint: "dooz" }),
-  atom({ surface: "treize", meaningEn: "thirteen", partOfSpeech: "other", fromModule: "m17", kind: "vocab", emoji: "1️⃣3️⃣", hint: "trehz" }),
-  atom({ surface: "quatorze", meaningEn: "fourteen", partOfSpeech: "other", fromModule: "m17", kind: "vocab", emoji: "1️⃣4️⃣", hint: "ka-TORZ" }),
-  atom({ surface: "quinze", meaningEn: "fifteen", partOfSpeech: "other", fromModule: "m17", kind: "vocab", emoji: "1️⃣5️⃣", hint: "kanz" }),
-  atom({ surface: "seize", meaningEn: "sixteen", partOfSpeech: "other", fromModule: "m17", kind: "vocab", emoji: "1️⃣6️⃣", hint: "sehz — not to be confused with «seize» the English verb, pure coincidence of spelling" }),
-  atom({ surface: "quatre-vingts", meaningEn: "eighty (exactly)", partOfSpeech: "other", fromModule: "m17", kind: "vocab", emoji: "8️⃣0️⃣", hint: "kat-ruh-VAN — «quatre» × «vingt», four twenties; the trailing -s shows ONLY when nothing follows (quatre-vingts alone) and disappears the instant a unit joins (quatre-vingt-un)" }),
+  atom({ surface: "onze", meaningEn: "eleven", partOfSpeech: "other", fromModule: "m17", kind: "vocab", hint: "ohnz — starts like a consonant, same class as «huit»: say «le onze», never «l'onze»", consonantOnset: true }),
+  atom({ surface: "douze", meaningEn: "twelve", partOfSpeech: "other", fromModule: "m17", kind: "vocab", hint: "dooz" }),
+  atom({ surface: "treize", meaningEn: "thirteen", partOfSpeech: "other", fromModule: "m17", kind: "vocab", hint: "trehz" }),
+  atom({ surface: "quatorze", meaningEn: "fourteen", partOfSpeech: "other", fromModule: "m17", kind: "vocab", hint: "ka-TORZ" }),
+  atom({ surface: "quinze", meaningEn: "fifteen", partOfSpeech: "other", fromModule: "m17", kind: "vocab", hint: "kanz" }),
+  atom({ surface: "seize", meaningEn: "sixteen", partOfSpeech: "other", fromModule: "m17", kind: "vocab", hint: "sehz — not to be confused with «seize» the English verb, pure coincidence of spelling" }),
+  atom({ surface: "quatre-vingts", meaningEn: "eighty (exactly)", partOfSpeech: "other", fromModule: "m17", kind: "vocab", hint: "kat-ruh-VAN — «quatre» × «vingt», four twenties; the trailing -s shows ONLY when nothing follows (quatre-vingts alone) and disappears the instant a unit joins (quatre-vingt-un)" }),
 ];
 
 /** L1 — «Onze, douze»: the first two teens, riding m12's live price frame

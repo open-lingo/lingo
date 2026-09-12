@@ -1,3 +1,4 @@
+import "../courseAtoms";
 /**
  * FR m25 curriculum guard — «C'est qui ?» — debut of the question word
  * «qui». Standard suite in the m17-m24.test.ts shape, plus bespoke pins

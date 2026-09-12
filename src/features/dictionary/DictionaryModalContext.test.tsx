@@ -80,15 +80,17 @@ describe("DictionaryModalProvider / useDictionaryModal", () => {
     renderProvider(getDictionaryEntries("ja")[0].surface);
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     fireEvent.click(screen.getByText("open-blank"));
-    // Modal is lazy-loaded — await the chunk.
-    expect(await screen.findByLabelText("Search the dictionary")).toBeInTheDocument();
+    // Modal is lazy-loaded — await the chunk. The chunk pulls the whole
+    // dictionary (every course's atoms), so the default 1 s findBy budget
+    // is too tight on a loaded machine; give it 10 s.
+    expect(await screen.findByLabelText("Search the dictionary", {}, { timeout: 10_000 })).toBeInTheDocument();
   });
 
   it("openWord(existing) opens straight to the entry; close() dismisses it", async () => {
     const target = getDictionaryEntries("ja").find((e) => e.reading !== e.surface)!;
     renderProvider(target.surface);
     fireEvent.click(screen.getByText("open-word"));
-    const dialog = within(await screen.findByRole("dialog"));
+    const dialog = within(await screen.findByRole("dialog", {}, { timeout: 10_000 }));
     expect(dialog.getByText(target.meaningEn)).toBeInTheDocument();
 
     fireEvent.click(screen.getByText("close-it"));

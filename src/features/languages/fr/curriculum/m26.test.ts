@@ -1,3 +1,4 @@
+import "../courseAtoms";
 /**
  * FR m26 curriculum guard — «À la maison» — household rooms + mass-noun
  * kitchen staples. Standard suite in the m17–m25.test.ts shape, plus

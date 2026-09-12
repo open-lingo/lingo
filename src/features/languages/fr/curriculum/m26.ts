@@ -42,22 +42,12 @@
  *      [room]» — that's ordinary indefinite-article existence, not
  *      partitive, and was always in scope.
  *
- *   4. THE "PARC"/"JARDIN" EMOJI COLLISION (a brief inaccuracy, flagged
- *      here) — the brief assigns «jardin» the emoji 🌳 (U+1F333). Direct
- *      grep of `m4.ts` shows «parc» (park, already live since m4, «il y a
- *      un parc» / «il y a un parc ici» a heavily recalled printed sentence
- *      through m4 and m7) is ALSO registered with emoji 🌳 — an exact
- *      glyph collision the brief did not catch (it only checked for zero
- *      surface-text collisions and zero missing-vendored-file issues, not
- *      emoji-glyph reuse across atoms; no machine gate enforces emoji
- *      uniqueness course-wide either — confirmed by grep, zero hits).
- *      RESOLUTION: keep «jardin» = 🌳 exactly as the brief specifies (it is
- *      pre-vendored and explicitly named in the brief's atom table), but
- *      this module never references «parc» at all — no bridge quote, no
- *      distractor, no match-pairs entry — so the two identical-icon atoms
- *      never co-occur as sibling options anywhere a learner could confuse
- *      them. This is a full, clean sidestep: m26's own café/park interleave
- *      material draws on «café» (☕, m1/m4, no collision) instead.
+ *   4. THE "PARC"/"JARDIN" EMOJI COLLISION — the brief assigned «jardin»
+ *      the emoji 🌳 (U+1F333), but «parc» (m4, live) already owns 🌳.
+ *      `courseEmojiIntegrity` ("an emoji means ONE thing") rejects an
+ *      emoji bound to two surfaces in image MCQs course-wide, so «jardin»
+ *      ships as 🌷 (U+1F337, vendored, unused elsewhere in FR) instead.
+ *      Push-gate fix 2026-09-11; the brief's table is superseded here.
  *
  *   5. NO PLURAL ARTICLE SURFACES NEEDED — `withArticle()` (confirmed by
  *      direct source read: no plural branch) is only ever called by
@@ -241,7 +231,7 @@ export const FR_M26_ATOMS: FrAtom[] = [
     fromModule: "m26",
     kind: "vocab",
     gender: "m",
-    emoji: "🌳",
+    emoji: "🌷",
     hint: "zhar-DAN — nasal ending, garden",
   }),
   atom({
@@ -290,7 +280,7 @@ const ROOM_POOL: { surface: string; emoji: string }[] = [
   { surface: "chambre", emoji: "🛏️" },
   { surface: "salon", emoji: "🛋️" },
   { surface: "cuisine", emoji: "🍳" },
-  { surface: "jardin", emoji: "🌳" },
+  { surface: "jardin", emoji: "🌷" },
 ];
 
 const STAPLE_POOL: { surface: string; emoji: string }[] = [
@@ -366,7 +356,7 @@ function lesson2(): LessonStep[] {
     ),
     speaking("fr-m26-2-speak-ilyaunecuisine", "il y a une cuisine", "there's a kitchen", ["cuisine"]),
     crossModuleVocabMcq("fr-m26-2-mcq-chambre", "bedroom", "la chambre", ["le salon", "la cuisine", "le jardin"]),
-    vocabMcq("fr-m26-2-vmcq-jardin", { surface: "jardin", meaningEn: "garden / yard", emoji: "🌳" }, ROOM_POOL),
+    vocabMcq("fr-m26-2-vmcq-jardin", { surface: "jardin", meaningEn: "garden / yard", emoji: "🌷" }, ROOM_POOL),
     speaking("fr-m26-2-speak-ilyaunjardin", "il y a un jardin", "there's a garden", ["jardin"]),
     build(
       "fr-m26-2-build-unegrandechambre",

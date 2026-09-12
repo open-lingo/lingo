@@ -110,7 +110,7 @@ const JA_RESTAMP_DEBT = new Set([
   "ja-m25-the-watch-i-gave-away", "ja-m26-a-tiring-day",
   "ja-m26-the-call-i-kept-putting-off", "ja-m27-getting-stronger",
   "ja-m27-practice-every-day", "ja-m27-the-pictures-in-the-notebook",
-  "ja-m29-cleaning-day", "ja-m29-two-broken-bicycles", "ja-m30-people-at-work",
+  "ja-m29-cleaning-day", "ja-m29-two-broken-bicycles",
   "ja-m30-the-club", "ja-m30-the-senior-i-grew-up-with",
 ]);
 
