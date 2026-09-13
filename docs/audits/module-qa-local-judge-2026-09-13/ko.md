@@ -1,8 +1,5 @@
 # Korean (ko) module QA — m16–m27
 
-> **Reader caveat (Fable spot check, 2026-09-13 17:45):** of the first six KO P1 rows, four are judge errors — `joahaeyo` (좋아해요), `sireohaeyo` (싫어해요) and `go naseo` (고 나서) are correct Revised Romanisation, and 짜다 does mean "salty" (the judge only knows its "weave" sense). The 122B's Korean judgment is not reliable (same finding as the 2026-08 drafting tests); treat KO P1s as leads to verify, not defects. judge_error=20/96 (21 %). JA/ES/FR results below are from the same judge — spot-check each course before acting on it.
-
-
 Local-judge sweep, 2026-09-13. Judge: `qwen3.5-judge-256k` (see ../README.md for harness + calibration). Lessons judged: 96 / expected 96. P1=40 P2=1 P3=0. judge_error=20. Judge wall time (successful calls only): 12.6 min. **43 raw findings were auto-filtered as self-negating CoT-leakage noise** (the judge tagged a step P1/P2 but its own `problem`/`suggestion` text concludes "no defect"/"None" — see README calibration section) and are NOT counted above or listed below.
 
 ## Findings

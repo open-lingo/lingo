@@ -91,16 +91,80 @@ responses that sometimes exceed `num_predict` mid-JSON — the harness's
 retry-once-then-`judge_error` path handles this; expect the KO
 `judge_error` rate to run higher than other courses.
 
+## Two systematic false-positive classes discovered during aggregation (post-calibration)
+
+Calibration (4 iterations, above) used two short hand-picked lessons and did
+not surface these; they only showed up at the scale of the real sweep, so
+they are handled by a post-hoc filter in the aggregator
+(`gen_course_doc.py`) rather than a 5th rubric iteration mid-sweep (editing
+`rubric_common.txt` would not retroactively fix already-emitted verdicts,
+and the running sweep process has that file cached in memory since launch —
+editing it does not even affect calls still in flight). Both classes are
+excluded from the P1/P2/P3 counts and findings tables below, with counts
+reported per course:
+
+1. **Self-negating CoT-leakage** (the dominant class, ~35-60% of raw
+   findings in KO/JA). With `think:false` there is no hidden reasoning
+   channel, so on a step it ultimately judges clean, the model sometimes
+   narrates its own verification into the `problem` field ("Wait, let me
+   re-check... `X` is actually correct... no defect here") and leaves
+   `suggestion` empty/"None"/"N/A" — but the JSON-schema-constrained decoder
+   still forces a well-formed `findings` entry tagged P1/P2 around that
+   narration. Filter: a finding is dropped if `suggestion` is empty/filler,
+   or if either field ends in a self-negation phrase ("no defect", "no
+   error", "is actually correct", etc.).
+2. **Fabricated "id: correct is not unique" rule** (found in JA, ~6% of raw
+   findings there). The judge repeatedly flagged the MCQ option
+   `{"id":"correct"}` as an invalid/non-unique identifier and demanded
+   renaming it. This is not a real rule — verified against
+   `grammarHelpers.ts` (the compiler factory literally maps the answer to
+   `{id:"correct"}`) and against raw module JSON sampled across all four
+   languages: `"correct"` is the codebase-wide standard id for the correct
+   option, universal, not a defect. Filter: drop any finding matching
+   "not a standard unique identifier" / "id from 'correct' to" / similar.
+
+Both filters are conservative (pattern-matched on the model's own
+concluding language, not on content judgment) and are applied identically
+across all four courses. Residual contamination that slips past both
+filters (e.g. a long narrated finding that happens to end with a real,
+specific, actionable suggestion) is left in the tables; `triage.md` catches
+further stragglers among the P1s specifically by checking whether the
+judge's own quote/claim is internally consistent.
+
+## Status (2026-09-13, end of session)
+
+**KO and JA are DONE** — every lesson in the target module range has a
+result line (verdict or `judge_error`); `ko.md` and `ja.md` are final for
+this rubric/model. **ES and FR are PAUSED, not started/barely started**:
+Spencer wants the judge setup re-benchmarked first (a separate agent is
+comparing thinking on/off, JSON-schema vs. free-text output, added
+vocabulary context, `qwen3.8:27b`, `gemma4:31b`, and a Claude-Code-CLI
+agentic harness against Sonnet-labelled ground truth on the KO findings)
+before spending more judge wall-time on the same setup. `sweep.mjs` was
+killed mid-run: ES got exactly 3/180 lessons judged (`es-m21-1..3`) before
+the stop — those 3 result lines exist in
+`scratchpad/qa-judge/results/es.jsonl` but are **discarded, not
+aggregated into any doc**; treat ES as 0/180 done. FR never started
+(0/240). Resuming later: `sweep.mjs` already skips lessons already present
+in a course's `.jsonl`, so ES can restart from scratch (after discarding
+the 3 stray lines) and FR from `m3`.
+
 ## Per-course totals
 
-_Filled in as each course finishes — see `ko.md`/`ja.md`/`es.md`/`fr.md`._
+| Course | Modules | Lessons | Steps | P1 | P2 | P3 | Noise filtered | Judge wall time | judge_error |
+|---|---|---|---|---|---|---|---|---|---|
+| KO (m16–m27) | 12 | 96 | 737 | 40 | 1 | 0 | 43 | 12.6 min | 20 |
+| JA (m39–m46) | 8 | 96 | 1,728 | 103 | 16 | 4 | 58 | 24.4 min | 10 |
+| ES (m21–m38) | 18 | 180 | — | — | — | — | — | — | **paused, 3/180 judged, discarded** |
+| FR (m3–m26) | 24 | 240 | — | — | — | — | — | — | **not started** |
 
-| Course | Modules | Lessons | Steps | P1 | P2 | P3 | Judge wall time | judge_error |
-|---|---|---|---|---|---|---|---|---|
-| KO (m16–m27) | 12 | 96 | TBD | TBD | TBD | TBD | TBD | TBD |
-| JA (m39–m46) | 8 | 96 | TBD | TBD | TBD | TBD | TBD | TBD |
-| ES (m21–m38) | 18 | 180 | TBD | TBD | TBD | TBD | TBD | TBD |
-| FR (m3–m26) | 24 | 240 | TBD | TBD | TBD | TBD | TBD | TBD |
+KO judge_error rate (20/96 = 21%) is high, concentrated in
+`phrase_card`-heavy lessons per the calibration note above (verbose
+CoT-style responses occasionally exceed `num_predict` mid-JSON). JA
+judge_error rate is 10/96 = 10%. Both wall-time figures are for successful
+calls only (retries/errors add more wall-clock that isn't reflected in that
+column — the actual KO course wall time was 84.2 min, JA was 73.9 min,
+including the judge_error retries).
 
 ## Reading order for a fixer
 
