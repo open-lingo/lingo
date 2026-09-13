@@ -31,6 +31,22 @@ ships the manifest, so the two can never land separately.
   `npm run module-gate -- mN` (stage 2 hashes every deck card against the
   manifest) AND a prod curl of one new hash.
 
+## Live snapshot + the commit-time coverage gate
+
+`tts-publish/live/<lang>.txt` (sorted, one hash per line) records which
+manifest hashes were confirmed live on the CDN as of a sweep with
+`node scripts/tts-live-snapshot.mjs <lang> [<lang> ...]` (omit langs to sweep
+every manifest). It exists because a hash can be genuinely published — by an
+older `lingo-data` upload, not staged here — and `manifestCoverage.test.ts`
+has no other way to know that without HEADing the CDN on every test run.
+Regenerate it: after a deploy that publishes new clips from this directory
+(so the old snapshot doesn't go stale-optimistic), and before emptying a
+language's staged directory (the emptied hashes must show up live first, or
+the gate below fails). `src/shared/tts/manifestCoverage.test.ts` fails a
+manifest whose hashes are neither in `tts-publish/<lang>/` nor in this
+snapshot — the 2026-09-13 class of bug (589 unpublished ES hashes) that
+`verify-tts-cdn.mjs`'s 25-sample check missed.
+
 ## Known consequence: visual-QA capture goes red between wave and deploy
 
 Once a wave's manifest lands but before its mp3s are uploaded, every new hash

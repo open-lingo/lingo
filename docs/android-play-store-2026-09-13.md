@@ -43,15 +43,22 @@ Several rows can run in parallel — see the total at the bottom.
 2. **[Spencer]** Create/confirm the Play Console developer account, pay the
    $25 one-time fee, submit identity verification. **2–5 business days**
    processing (can run in parallel with steps 3–8).
-3. **[code]** Add a release `signingConfig` to `android/app/build.gradle`
-   reading path/passwords from env vars, and fix `android/.gitignore` so a
-   keystore dropped in `android/` is actually excluded (see Code delta).
-   ~1–2 h.
+3. **[code] DONE 2026-09-13** — Added `signingConfigs.release` to
+   `android/app/build.gradle` (env vars, falling back to gitignored
+   `android/keystore.properties`; unsigned + `logger.warn` when neither is
+   set, so CI/debug are unaffected); `android/.gitignore` already had
+   `*.jks`/`*.keystore` enabled, added `keystore.properties` next to them.
+   Not validated: an actual signed `bundleRelease` (no keystore exists yet —
+   that's step 4, Spencer's).
 4. **[Spencer]** Generate the upload keystore (`keytool`), store it per the
    decision-6 custody plan, **outside the repo**. ~15 min + the custody
    decision itself.
-5. **[code]** Derive `versionCode`/`versionName` from a single source of
-   truth instead of the hardcoded `1`/`"1.0"` (see Code delta). ~1–2 h.
+5. **[code] DONE 2026-09-13** — `versionCode`/`versionName` now derive from
+   root `package.json` `version` (`major*10000 + minor*100 + patch`, env
+   override `LINGO_ANDROID_VERSION_CODE` for CI); current `package.json`
+   version is still `0.0.1` → `versionCode 1` / `versionName "0.0.1"` —
+   equal to, **not greater than**, the old hardcoded `1` (the cross-store
+   version-source-of-truth question flagged below this list is still open).
 6. **[code]** Verify the Android Auth0 + CORS entries from the 2026-09-04
    sideload pass are still live (they are a live, non-Terraform edit and may
    have drifted). ~30 min.
@@ -117,6 +124,9 @@ No edits performed. Exact changes, if/when authorized:
   - Optional: flip `minifyEnabled false` → `true` under `release` once
     `proguard-rules.pro` is verified not to strip anything the Capacitor
     WebView bridge or the speech-recognition plugin needs (decision 9).
+    **DONE 2026-09-13**: `minifyEnabled` left `false` (Spencer's call, still
+    open); added the commented-out `minifyEnabled true` line next to it so
+    flipping decision 9 is one edit.
 - **`android/.gitignore`**: uncomment the `#*.jks` / `#*.keystore` lines.
   As shipped today those lines are commented out, i.e. **a keystore placed
   under `android/` would NOT be excluded** — a real accidental-commit risk

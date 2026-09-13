@@ -24,7 +24,7 @@
  */
 
 import { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useApi } from "@/shared/api/provider";
 import { useAuth } from "@/shared/auth/useAuth";
@@ -64,6 +64,7 @@ export function PublicProfilePage() {
   const { t, i18n } = useTranslation();
   const { social } = useApi();
   const { login, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   const { me } = useMe();
   const viewerIsAdmin = canAccessSiteAdmin(me?.role);
 
@@ -159,6 +160,16 @@ export function PublicProfilePage() {
     // per arrival in register mode.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [registerMode, username]);
+
+  // Registration succeeded (editMode closes on save — see useOwnProfile),
+  // but the URL's seed username can differ from the one the user typed;
+  // that stale route 404s forever, so registerMode never clears (TestFlight
+  // build 12: "doesn't clear the setup screen"). Send them to the real one.
+  useEffect(() => {
+    if (registerMode && !editMode && draft.username && draft.username !== username) {
+      navigate(`/u/${encodeURIComponent(draft.username)}`, { replace: true });
+    }
+  }, [registerMode, editMode, draft.username, username, navigate]);
 
   // Equipped cosmetics come from the server-resolved owner state on the
   // public-profile response. Falling back to null gives the bare profile

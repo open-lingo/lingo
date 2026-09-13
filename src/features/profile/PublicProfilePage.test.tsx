@@ -19,6 +19,7 @@ const mockUnfriend = vi.fn();
 const mockBlock = vi.fn();
 const mockGetSettings = vi.fn();
 const mockUpdateMe = vi.fn();
+const mockRegister = vi.fn();
 
 vi.mock("@/shared/api/provider", () => ({
   useApi: () => ({
@@ -26,6 +27,7 @@ vi.mock("@/shared/api/provider", () => ({
       getByUsername: mockGetByUsername,
       getSettings: mockGetSettings,
       updateMe: mockUpdateMe,
+      register: mockRegister,
     },
     social: {
       getPublicProfile: mockGetPublicProfile,
@@ -129,7 +131,7 @@ function baseSocial(overrides: Partial<PublicProfile> = {}): PublicProfile {
   };
 }
 
-function renderPage() {
+function renderPage(initialPath = "/u/haru") {
   const client = new QueryClient({
     defaultOptions: { queries: { retry: false, staleTime: 0, gcTime: 0 } },
   });
@@ -137,7 +139,7 @@ function renderPage() {
     return <QueryClientProvider client={client}>{children}</QueryClientProvider>;
   }
   return render(
-    <MemoryRouter initialEntries={["/u/haru"]}>
+    <MemoryRouter initialEntries={[initialPath]}>
       <Routes>
         <Route path="/u/:username" element={<PublicProfilePage />} />
       </Routes>
@@ -157,6 +159,7 @@ describe("PublicProfilePage", () => {
     mockBlock.mockReset();
     mockGetSettings.mockReset();
     mockUpdateMe.mockReset();
+    mockRegister.mockReset();
     mockGetByUsername.mockResolvedValue(baseUser);
     mockGetSettings.mockResolvedValue({});
     mockUpdateMe.mockResolvedValue(baseUser);
@@ -263,5 +266,37 @@ describe("PublicProfilePage", () => {
     const friendsBtn = await screen.findByRole("button", { name: /friends/i });
     await userEvent.click(friendsBtn);
     expect(await screen.findByText(/act as user/i)).toBeInTheDocument();
+  });
+
+  it("navigates off the seed username after register when the user picked a different one (TestFlight build 12)", async () => {
+    const { ApiError } = await import("@/shared/api/client");
+    // The seed username ("spencer", from Auth0 nickname/email) never has a
+    // backend record — that's what put the page in register mode.
+    mockGetByUsername.mockImplementation((u: string) =>
+      u === "spencer"
+        ? Promise.reject(new ApiError(404, { detail: "not found" }))
+        : Promise.resolve({ ...baseUser, id: "user-new", username: u }),
+    );
+    mockGetPublicProfile.mockImplementation((u: string) =>
+      u === "spencer"
+        ? Promise.reject(new ApiError(404, { detail: "not found" }))
+        : Promise.resolve(baseSocial({ username: u, user_id: "user-new", friendship_status: "self" })),
+    );
+    mockRegister.mockResolvedValue({ ...baseUser, id: "user-new", username: "newname" });
+
+    renderPage("/u/spencer?register=1");
+    expect(await screen.findByText(/pick your username/i)).toBeInTheDocument();
+
+    const usernameInput = screen.getByPlaceholderText("@username");
+    const userEvent = (await import("@testing-library/user-event")).default;
+    const user = userEvent.setup();
+    await user.clear(usernameInput);
+    await user.type(usernameInput, "newname");
+    await user.click(screen.getByRole("button", { name: /continue/i }));
+
+    // Registration resolved with a different username than the URL's seed —
+    // the page must navigate off the stale route rather than stay stuck.
+    await waitFor(() => expect(mockGetByUsername).toHaveBeenCalledWith("newname"));
+    expect(screen.queryByText(/pick your username/i)).toBeNull();
   });
 });

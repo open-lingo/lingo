@@ -43,6 +43,36 @@ cd android && ./gradlew assembleDebug
 # → android/app/build/outputs/apk/debug/app-debug.apk (~37 MB)
 ```
 
+## Release build
+
+Per `docs/android-play-store-2026-09-13.md` §"Code delta" (signing + version
+derivation landed there; keystore generation and Play upload are still
+Spencer's steps). Not run by this repo pass — no keystore exists yet.
+
+```
+export LINGO_UPLOAD_KEYSTORE=/path/outside/repo/upload.jks
+export LINGO_UPLOAD_KEYSTORE_PASSWORD=...
+export LINGO_UPLOAD_KEY_ALIAS=...
+export LINGO_UPLOAD_KEY_PASSWORD=...
+# or drop the same 4 keys in android/keystore.properties (gitignored, local-only)
+
+npm run build:native && npx cap sync android
+(cd android && ./gradlew bundleRelease)
+# → android/app/build/outputs/bundle/release/app-release.aab
+```
+
+`versionCode`/`versionName` are derived from the repo-root `package.json`
+`version` field (`versionCode = major*10000 + minor*100 + patch`); override
+with `LINGO_ANDROID_VERSION_CODE` for CI. Without the 4 signing env vars (or
+`android/keystore.properties`) set, `bundleRelease` still configures and
+runs, it just produces an **unsigned** AAB — Play will reject that, so the
+vars are required before the actual upload build.
+
+Reminder: `applicationId` (`com.linguiversal.app`) is **permanent** once the
+first AAB is uploaded to Play Console — Play never allows changing it on an
+existing listing, only retiring it and publishing a new one under a new
+package name.
+
 ## Emulator QA
 
 ```

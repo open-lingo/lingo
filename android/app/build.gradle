@@ -1,5 +1,42 @@
 apply plugin: 'com.android.application'
 
+// --- Release signing config -------------------------------------------------
+// Reads from env vars first (CI), falling back to android/keystore.properties
+// (gitignored, local-only) with the same four keys. Never committed.
+def keystoreProps = new Properties()
+def keystorePropsFile = rootProject.file('keystore.properties')
+if (keystorePropsFile.exists()) {
+    keystorePropsFile.withInputStream { keystoreProps.load(it) }
+}
+def lookupSigningValue = { String envKey, String propKey ->
+    return System.getenv(envKey) ?: keystoreProps.getProperty(propKey)
+}
+def uploadKeystorePath = lookupSigningValue('LINGO_UPLOAD_KEYSTORE', 'LINGO_UPLOAD_KEYSTORE')
+def uploadKeystorePassword = lookupSigningValue('LINGO_UPLOAD_KEYSTORE_PASSWORD', 'LINGO_UPLOAD_KEYSTORE_PASSWORD')
+def uploadKeyAlias = lookupSigningValue('LINGO_UPLOAD_KEY_ALIAS', 'LINGO_UPLOAD_KEY_ALIAS')
+def uploadKeyPassword = lookupSigningValue('LINGO_UPLOAD_KEY_PASSWORD', 'LINGO_UPLOAD_KEY_PASSWORD')
+def hasReleaseSigningConfig = uploadKeystorePath && uploadKeystorePassword && uploadKeyAlias && uploadKeyPassword
+if (!hasReleaseSigningConfig) {
+    logger.warn('LINGO_UPLOAD_KEYSTORE(_PASSWORD)/LINGO_UPLOAD_KEY_ALIAS/LINGO_UPLOAD_KEY_PASSWORD ' +
+        'not set (env or android/keystore.properties) — release build will NOT be signed. ' +
+        'This is expected for CI/debug builds; a Play upload artifact needs these set.')
+}
+
+// --- versionCode / versionName from package.json ----------------------------
+// Single source of truth: repo-root package.json "version" (semver X.Y.Z).
+// Formula: versionCode = major*10000 + minor*100 + patch
+// This must be strictly monotonically increasing across every Play upload
+// (Play rejects an upload whose versionCode does not exceed the previous
+// one), so patch/minor/major are capped below 100/100/unbounded — a patch
+// bump always increases the code by 1, a minor bump by 100, a major bump by
+// 10000, and the ordering never inverts as long as package.json's version
+// itself only ever increases.
+def packageJson = new groovy.json.JsonSlurper().parse(new File(rootProject.projectDir, '../package.json'))
+def (pkgMajor, pkgMinor, pkgPatch) = packageJson.version.tokenize('.').collect { it.toInteger() }
+def derivedVersionCode = pkgMajor * 10000 + pkgMinor * 100 + pkgPatch
+def resolvedVersionCode = (System.getenv('LINGO_ANDROID_VERSION_CODE') ?: derivedVersionCode.toString()).toInteger()
+def resolvedVersionName = packageJson.version
+
 android {
     namespace = "com.linguiversal.app"
     compileSdk = rootProject.ext.compileSdkVersion
@@ -7,8 +44,8 @@ android {
         applicationId "com.linguiversal.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode resolvedVersionCode
+        versionName resolvedVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -16,10 +53,27 @@ android {
             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    signingConfigs {
+        if (hasReleaseSigningConfig) {
+            release {
+                storeFile file(uploadKeystorePath)
+                storePassword uploadKeystorePassword
+                keyAlias uploadKeyAlias
+                keyPassword uploadKeyPassword
+            }
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
+            // Flip to true once proguard-rules.pro is verified not to strip the
+            // Capacitor WebView bridge or the speech-recognition plugin
+            // (decision 9, docs/android-play-store-2026-09-13.md).
+            // minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            if (hasReleaseSigningConfig) {
+                signingConfig signingConfigs.release
+            }
         }
     }
 }
