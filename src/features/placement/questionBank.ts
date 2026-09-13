@@ -1,9 +1,35 @@
 import type { LessonStep } from "@/features/lesson/types";
+import type { PlacementBank } from "@/shared/language/types";
 import { cloze, sentenceMcq } from "@/features/languages/ja/grammarHelpers";
 import {
   cloze as koCloze,
   sentenceMcq as koSentenceMcq,
 } from "@/features/languages/ko/grammarHelpers";
+// NOT `tryGetLanguageModule` from `@/shared/language/registry` — that
+// registry statically imports ALL FOUR language modules, including
+// `ja/module.ts`, which itself statically imports `PLACEMENT_QUESTION_BANK`
+// from THIS file (to build `jaModule.placementBank`). Going through the
+// registry here closes that into an import cycle: this file →
+// registry.ts → ja/module.ts → this file, and `PLACEMENT_QUESTION_BANK`
+// (declared further down this file) is read before its own module finishes
+// initializing (TDZ — surfaced as "PLACEMENT_QUESTION_BANK is not
+// iterable" from `ja/module.ts` at import time). es/fr's `placementBank.ts`
+// leaves have none of that: they only import types (erased) + their
+// generated JSON, so importing them here directly is BOTH cycle-free and
+// lighter than the full `LanguageModule` (no courseAtoms/grammarHelpers/
+// conjugationTables/ttsManifest pulled in for this lookup). Mirrors the
+// `TIERS_BY_LANGUAGE` / `BANDS_BY_LANGUAGE` static-map convention this
+// feature already uses (tiers.ts, levelBands.ts) for per-language data ja/ko
+// don't need to hand-author here. ja/ko intentionally stay OFF this map —
+// they are and remain hard-coded-bank-only (see
+// `getHardCodedBankLanguages`).
+import { ES_PLACEMENT_BANK } from "@/features/languages/es/placementBank";
+import { FR_PLACEMENT_BANK } from "@/features/languages/fr/placementBank";
+
+const PLACEMENT_BANK_BY_LANGUAGE: Readonly<Record<string, PlacementBank>> = {
+  es: ES_PLACEMENT_BANK,
+  fr: FR_PLACEMENT_BANK,
+};
 
 // ---------------------------------------------------------------------------
 // Types
@@ -155,14 +181,97 @@ export function instantiateItem(config: PlacementItemConfig): LessonStep {
 // Helpers
 // ---------------------------------------------------------------------------
 
+/**
+ * Languages the hard-coded bank below actually covers. ja/ko items are
+ * authored inline in this file (see PLACEMENT_QUESTION_BANK); es/fr are
+ * NOT — they ship their placement pool through the language module contract
+ * instead (`LanguageModule.placementBank`, ADR-001), read from
+ * `curriculum/placement.generated.json` (`ES_PLACEMENT_BANK` /
+ * `FR_PLACEMENT_BANK`). Before this wired up, `getItemsForModule("es"|"fr")`
+ * always returned `[]` — no consumer (engine, `moduleHasBank`/`canTestOut`
+ * on the course map, `getDerivedTestOutItems`'s thin-pool fallback) ever saw
+ * an ES/FR item. Computed once from the array itself so a future language
+ * added to PLACEMENT_QUESTION_BANK doesn't need this set touched by hand.
+ *
+ * Lazily computed (not a module-top-level `const`) because
+ * `PLACEMENT_QUESTION_BANK` is declared further down this same file —
+ * evaluating this eagerly at import time would read it before
+ * initialization (TDZ).
+ */
+let hardCodedBankLanguages: ReadonlySet<string> | null = null;
+function getHardCodedBankLanguages(): ReadonlySet<string> {
+  if (!hardCodedBankLanguages) {
+    hardCodedBankLanguages = new Set(
+      PLACEMENT_QUESTION_BANK.map((i) => i.languageId ?? "ja"),
+    );
+  }
+  return hardCodedBankLanguages;
+}
+
+/** Adapt a `LanguageModule.placementBank` item (a real, already-authored
+ *  lesson step, built lazily) into a `derivedStep` config — the same shape
+ *  `deriveModuleTestOut` already produces for the JA/KO derived pool. `id`
+ *  is read from the BUILT step, not the bank entry's own `id` field: the
+ *  engine dedupes/records answers by the rendered step's id (see
+ *  `DerivedStepConfig`'s contract above), and nothing here guarantees the
+ *  two already match beyond convention. */
+function bankItemToConfig(
+  item: { id: string; moduleId: string; build: () => LessonStep },
+  languageId: string,
+): PlacementItemConfig {
+  const step = item.build();
+  return {
+    id: step.id,
+    moduleId: item.moduleId,
+    languageId,
+    type: "derivedStep",
+    step,
+  };
+}
+
+// Adapted items are cheap to recompute (a handful of modules ever get
+// looked up per attempt) but `build()` clones the whole step each call, and
+// the engine calls `getItemsForModule` many times per module per attempt
+// (selectNextItem, recordAnswer, the map's `moduleHasBank`/`canTestOut`, …).
+// Memoize per (languageId, moduleId) for the life of the module — the
+// underlying bank is static content, never re-authored at runtime.
+const languageBankCache = new Map<string, Map<string, PlacementItemConfig[]>>();
+
+function getLanguageModuleBankItems(
+  moduleId: string,
+  languageId: string,
+): PlacementItemConfig[] {
+  let byModule = languageBankCache.get(languageId);
+  if (!byModule) {
+    byModule = new Map();
+    languageBankCache.set(languageId, byModule);
+  }
+  const cached = byModule.get(moduleId);
+  if (cached) return cached;
+  // A language id with no entry in the map (unknown id, or a registered
+  // language that just isn't es/fr) must read as "no bank", never throw —
+  // this is a general lookup helper, not a route already gated on a known id.
+  const items =
+    PLACEMENT_BANK_BY_LANGUAGE[languageId]?.byModule[moduleId]?.map((item) =>
+      bankItemToConfig(item, languageId),
+    ) ?? [];
+  byModule.set(moduleId, items);
+  return items;
+}
+
 export function getItemsForModule(
   moduleId: string,
   languageId: string = "ja",
 ): PlacementItemConfig[] {
-  return PLACEMENT_QUESTION_BANK.filter(
-    (i) =>
-      i.moduleId === moduleId && (i.languageId ?? "ja") === languageId,
-  );
+  if (getHardCodedBankLanguages().has(languageId)) {
+    return PLACEMENT_QUESTION_BANK.filter(
+      (i) =>
+        i.moduleId === moduleId && (i.languageId ?? "ja") === languageId,
+    );
+  }
+  // No hard-coded bank for this language (es/fr today) — read the
+  // language module's own `placementBank` instead of returning `[]`.
+  return getLanguageModuleBankItems(moduleId, languageId);
 }
 
 // ---------------------------------------------------------------------------

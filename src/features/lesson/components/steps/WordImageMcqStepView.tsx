@@ -90,6 +90,17 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
   // so the setting is resolved for the "ja" language key.
   const showRomaji = isRomanizationOn(useSettings().settings.learning, "ja");
   const { language } = useLanguage();
+  // `font-japanese` (src/index.css) sets `word-break: keep-all` +
+  // `overflow-wrap: anywhere` — right for a kana/hangul run (never break
+  // mid-glyph-cluster, but still escape a single overlong run), wrong for
+  // Latin scripts: `overflow-wrap: anywhere` breaks INSIDE a word wherever
+  // it must to avoid overflow, which is exactly what "anywhere" means for a
+  // space-delimited language. On a 3-up ES/FR grid at 390px this split
+  // "mercado"/"escuela" mid-word ("el mercad / o"). Gate the class to the
+  // scripts it was written for; other languages fall back to normal
+  // word-boundary wrapping (`break-words`, applied inline below).
+  const isCjkScript = language?.id === "ja" || language?.id === "ko";
+  const scriptClass = isCjkScript ? "font-japanese" : "break-words";
   const [selected, setSelected] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [celebrating, setCelebrating] = useState(false);
@@ -298,7 +309,7 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
                     // text-2xl (not 3xl) below `sm`: on a ~110-140px phone card a
                     // 6-kana word at 30px wrapped to two lines and crowded the
                     // art out. Desktop keeps 4xl.
-                    "font-japanese text-center text-[clamp(1rem,17cqw,1.5rem)] font-bold tracking-wide sm:text-4xl " +
+                    `${scriptClass} text-center text-[clamp(1rem,17cqw,1.5rem)] font-bold tracking-wide sm:text-4xl ` +
                     (submitted && isAnswer
                       ? "text-accent"
                       : submitted && isSelected && !isAnswer
@@ -314,7 +325,7 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
                     // text-2xl (not 3xl) below `sm`: on a ~110-140px phone card a
                     // 6-kana word at 30px wrapped to two lines and crowded the
                     // art out. Desktop keeps 4xl.
-                    "font-japanese text-center text-[clamp(1rem,17cqw,1.5rem)] font-bold tracking-wide sm:text-4xl " +
+                    `${scriptClass} text-center text-[clamp(1rem,17cqw,1.5rem)] font-bold tracking-wide sm:text-4xl ` +
                     (submitted && isAnswer
                       ? "text-accent"
                       : submitted && isSelected && !isAnswer

@@ -159,3 +159,79 @@ describe("near-duplicate MCQ → cloze presentation (QA 2026-07-12)", () => {
     expect(converted).toBeLessThan(mcq);
   });
 });
+
+// Regression: `getItemsForModule` filtered PLACEMENT_QUESTION_BANK, which
+// only ever carried ja/ko items — es/fr always got `[]`, silently, even
+// though both languages ship a real `LanguageModule.placementBank`
+// (ES_PLACEMENT_BANK / FR_PLACEMENT_BANK, generated from authored curriculum
+// content). Nothing consumed those banks: not `getItemsForModule`, not
+// `moduleHasBank`/`canTestOut` on the course map (both call straight
+// through), not the banded-placement `itemsLookup` (which serves the
+// authored bank verbatim, never the derived pool). This locks the fallback:
+// a language absent from the hard-coded bank reads its own module's
+// `placementBank.byModule` instead of an empty array.
+describe("questionBank — es/fr read the language module's placementBank", () => {
+  it("es m14 has items adapted from ES_PLACEMENT_BANK, id === step.id", () => {
+    const items = getItemsForModule("m14", "es");
+    expect(items.length).toBeGreaterThan(0);
+    for (const item of items) {
+      expect(item.type).toBe("derivedStep");
+      expect(item.languageId).toBe("es");
+      expect(item.moduleId).toBe("m14");
+      if (item.type === "derivedStep") {
+        expect(item.id).toBe(item.step.id);
+      }
+    }
+  });
+
+  it("fr m1 has items adapted from FR_PLACEMENT_BANK, id === step.id", () => {
+    const items = getItemsForModule("m1", "fr");
+    expect(items.length).toBeGreaterThan(0);
+    for (const item of items) {
+      expect(item.type).toBe("derivedStep");
+      expect(item.languageId).toBe("fr");
+      if (item.type === "derivedStep") {
+        expect(item.id).toBe(item.step.id);
+      }
+    }
+  });
+
+  it("instantiateItem builds a real, renderable step for an es bank item", () => {
+    const items = getItemsForModule("m14", "es");
+    expect(items.length).toBeGreaterThan(0);
+    const step = instantiateItem(items[0]);
+    expect(step.id).toBe(items[0].id);
+  });
+
+  it("es/fr module coverage: every module in the generated bank yields items", () => {
+    // Spot-check a spread of modules rather than every one of the 38/26 —
+    // the point is the WIRING (module → bank lookup), not re-deriving the
+    // content-emit output module by module.
+    for (const mod of ["m1", "m5", "m10"]) {
+      expect(
+        getItemsForModule(mod, "es").length,
+        `es ${mod} should have bank items`,
+      ).toBeGreaterThan(0);
+    }
+    for (const mod of ["m1", "m2"]) {
+      expect(
+        getItemsForModule(mod, "fr").length,
+        `fr ${mod} should have bank items`,
+      ).toBeGreaterThan(0);
+    }
+  });
+
+  it("a genuinely unknown language still reads as no bank (never throws)", () => {
+    expect(() => getItemsForModule("m1", "zz-not-a-language")).not.toThrow();
+    expect(getItemsForModule("m1", "zz-not-a-language")).toEqual([]);
+  });
+
+  it("ja/ko are unaffected — still served from the hard-coded bank only", () => {
+    // A module with no hard-coded ja items (well past the authored m29
+    // ceiling) must NOT fall through to a ja `placementBank` — ja/ko's
+    // hard-coded array is the single source of truth for those languages,
+    // by design (see HARD_CODED_BANK_LANGUAGES in questionBank.ts).
+    expect(getItemsForModule("m99", "ja")).toEqual([]);
+    expect(getItemsForModule("m99", "ko")).toEqual([]);
+  });
+});

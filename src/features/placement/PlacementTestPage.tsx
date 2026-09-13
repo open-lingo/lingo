@@ -103,17 +103,39 @@ export function PlacementTestPage() {
   // Modules / languages without items render an honest "no test-out
   // questions yet" message instead of running through an empty engine
   // cycle and showing a misleading "Not quite yet, you need 100%".
+  //
+  // This is only trustworthy once the course JSON has actually loaded — see
+  // `courseReady` below. Before then `itemsLookup` reads an empty/partial
+  // registry and would read as "no bank" every time, so callers must gate on
+  // `courseReady === "ready"` before acting on `hasBank`.
   const hasBank =
     !isTestOut || (moduleId != null && itemsLookup(moduleId).length > 0);
 
-  // Test-out starts the engine immediately (single-module probe). Banded
-  // placement waits for the learner to self-declare a level first — `state`
-  // stays null until a band is chosen, and the level-select screen renders.
-  const [state, setState] = useState<AdaptiveState | null>(() =>
-    isTestOut ? createTestOutState(moduleId!, langId) : null,
-  );
+  // Content-as-data (2026-09-13 regression, commit 7d64a32b): a module's
+  // lesson JSON is fetched lazily, so on a cold direct navigation to
+  // `/:lang/learn/test-out/:moduleId` the registry is empty on the very
+  // first render. The test-out set (and `hasBank`) must not be derived
+  // until `ensureCourseLoaded` has actually resolved, or the page reads an
+  // empty bank and shows "no test-out questions yet" for a module that has
+  // one — flashing on every cold open.
+  const courseReady = useCourseReady(langId);
 
-  useCourseReady(langId);
+  // Test-out starts the engine once the course is ready (single-module
+  // probe). Banded placement waits for the learner to self-declare a level
+  // first — `state` stays null until a band is chosen, and the
+  // level-select screen renders. Both paths now start null; test-out's
+  // initial state is created in the effect below, keyed on `courseReady`,
+  // instead of a `useState` initializer that ran before content loaded.
+  const [state, setState] = useState<AdaptiveState | null>(null);
+  const testOutInitialized = useRef(false);
+  useEffect(() => {
+    if (!isTestOut || !moduleId) return;
+    if (courseReady !== "ready") return;
+    if (testOutInitialized.current) return;
+    testOutInitialized.current = true;
+    setState(createTestOutState(moduleId, langId));
+  }, [isTestOut, moduleId, langId, courseReady]);
+
   const bands = useMemo(() => getLevelBands(langId), [langId]);
   const languageName = useMemo(
     () => getLanguageConfig(langId)?.name ?? langId.toUpperCase(),
@@ -282,6 +304,22 @@ export function PlacementTestPage() {
     },
     [],
   );
+
+  // Cold-load guard: a test-out must not judge "no bank" (or start serving
+  // items) until the module's lesson JSON has actually loaded. Checked
+  // BEFORE `hasBank` — while `courseReady` is "loading" the registry reads
+  // empty for every module, so `hasBank` is not yet meaningful. "error"
+  // falls through to the normal `hasBank` check below rather than spinning
+  // forever.
+  if (isTestOut && courseReady === "loading") {
+    return (
+      <div className="flex min-h-[100dvh] flex-col items-center justify-center gap-4 bg-background p-8 text-center">
+        <p className="text-sm text-text-secondary">
+          {t("placement.loading", { defaultValue: "Loading…" })}
+        </p>
+      </div>
+    );
+  }
 
   if (!hasBank) {
     return (
