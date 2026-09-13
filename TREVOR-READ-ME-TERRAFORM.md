@@ -38,12 +38,19 @@ expire objects not written by the current deploy after ~90 days, or run a
 The billing alarms cannot be attributed to a path or a client without logs.
 Standard logs to a log bucket with a 30-day expiry; PriceClass_100 stays.
 
-## 4. Budget, billing alarms, cost breaker
+## 4. Budget, flood alarms, cost breaker (working, not codified; breaker not armed)
 
-`cost_breaker.tf` and `observability.tf` are in `lingo-infra` but the account's
-budget and billing alarms were created outside Terraform (see
-`memory: aws-access-and-cost-guardrails`). Import them, and confirm the breaker
-is applied and armed.
+These EXIST and fire (Spencer gets the emails): budget `lingo-monthly-guardrail`
+$25/mo with alerts at $10 / $25 / forecast and a 200% SNS notification; flood
+alarms on lingo-core invocations (≥6k/min×3) and throttles (≥1k/min×3,
+us-west-1) and CDN requests (≥150k/5 min, us-east-1) → SNS `lingo-cost-alarms`
+in both regions. They were created with the CLI on 2026-08-26 and are in no
+`.tf` file, so a fresh `terraform apply` neither manages nor protects them.
+Two asks: `terraform import` the budget + alarms + SNS topics into
+`observability.tf`, and apply `cost_breaker.tf` so the alarms trip the
+breaker (concurrency→0, app distro disabled) instead of only emailing —
+it needs the IAM role only your apply can create. Also confirm both SNS email
+subscriptions left PENDING on 2026-08-26 were confirmed.
 
 ## Cost context (why this matters at scale)
 

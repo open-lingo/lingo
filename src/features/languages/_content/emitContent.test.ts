@@ -26,6 +26,9 @@ import { buildSpanishCourse } from "@/features/languages/es/curriculum";
 import { buildFrenchCourse } from "@/features/languages/fr/curriculum";
 import { projectTaughtVocab } from "@/features/languages/ja/curriculum/taughtVocabProjection";
 import { buildEsAtomsAggregate } from "@/features/languages/es/curriculum/atomsAggregate.eager";
+import { buildFrAtomsAggregate } from "@/features/languages/fr/curriculum/atomsAggregate.eager";
+import { buildEsPlacementAggregate } from "@/features/languages/es/curriculum/placementAggregate.eager";
+import { buildFrPlacementAggregate } from "@/features/languages/fr/curriculum/placementAggregate.eager";
 import { getRegisteredLesson, getRegisteredLessons } from "@/features/lesson/data/lessonRegistry";
 import { computeMinedSentenceIndexes } from "@/features/lesson/data/minedSentences";
 import type { ContentManifest, ContentLanguageEntry } from "@/features/lesson/data/contentLoader";
@@ -124,6 +127,26 @@ describe.skipIf(!process.env.CONTENT_EMIT)("content:emit", () => {
       const abs = path.resolve(process.cwd(), "src/features/languages/es/curriculum/atoms.generated.json");
       writeFileSync(abs, JSON.stringify(buildEsAtomsAggregate()));
       lines.push(`  es atoms → ${path.relative(process.cwd(), abs)}`);
+    }
+
+    // FR atom aggregate (module order), read by fr/courseAtoms.ts at runtime.
+    {
+      const abs = path.resolve(process.cwd(), "src/features/languages/fr/curriculum/atoms.generated.json");
+      writeFileSync(abs, JSON.stringify(buildFrAtomsAggregate()));
+      lines.push(`  fr atoms → ${path.relative(process.cwd(), abs)}`);
+    }
+
+    // ES/FR placement banks (screener + per-module pool, steps materialized),
+    // read by es/placementBank.ts + fr/placementBank.ts at runtime.
+    {
+      const abs = path.resolve(process.cwd(), "src/features/languages/es/curriculum/placement.generated.json");
+      writeFileSync(abs, JSON.stringify(buildEsPlacementAggregate()));
+      lines.push(`  es placement → ${path.relative(process.cwd(), abs)}`);
+    }
+    {
+      const abs = path.resolve(process.cwd(), "src/features/languages/fr/curriculum/placement.generated.json");
+      writeFileSync(abs, JSON.stringify(buildFrPlacementAggregate()));
+      lines.push(`  fr placement → ${path.relative(process.cwd(), abs)}`);
     }
 
     const orphans = getRegisteredLessons().filter((l) => !claimed.has(l.id)).map((l) => l.id);

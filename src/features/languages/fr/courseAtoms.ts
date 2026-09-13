@@ -5,48 +5,45 @@
  * shape follows `es/courseAtoms.ts`, which is the parent: Latin script, so no
  * romanization field, and `gender` on nouns so the agreement engines work.
  *
- * TWO DELIBERATE DIVERGENCES FROM ES. Both close defect classes the ES file
- * documents in its own comments, and both are cheap to take now because FR has
- * no modules yet — they would be migrations later.
+ * ONE DELIBERATE DIVERGENCE FROM ES remains live:
  *
- * 1. THE AGGREGATE IS DERIVED, NOT HAND-MAINTAINED. ES keeps a literal list of
- *    `...ES_M17_ATOMS` spreads plus a hardcoded `EsAtomSource` union, and its
- *    own comment records what that costs: "m17 shipped without being added, so
- *    its 29 preterite atoms existed in `ES_ATOMS_BY_SURFACE` and were invisible
- *    to all three [consumers] — a module whose words were taught and then never
- *    scheduled." That is the same failure as a `MODULE_ORDER` frozen at m17
- *    silently exempting two modules from the comprehensibility gate. Here the
- *    curriculum is globbed and every `FR_M<n>_ATOMS` export is collected, so
- *    adding a module file IS adding its atoms. `import.meta.glob` is already
- *    house-idiomatic (`shared/tts/manifest.ts`), and with `eager: true` it
- *    hoists exactly like the static imports it replaces — the import-cycle
- *    semantics below are unchanged.
- *
- * 2. ELISION IS A PROPERTY OF THE ATOM, NOT OF THE SENTENCE. `le` + `ami` →
- *    `l'ami`, and a build-tile bank that hands out `le` and `ami` as separate
- *    tiles teaches a form that does not exist (fr pin §1; fr guide §0.1 on ja
- *    §4c). Elision is predictable from spelling — vowel-initial, including
- *    accented vowels and the ligatures `œ`/`æ` (`l'œuf`, `l'œil`), or mute h —
- *    EXCEPT for a closed lexical class of words that are SPELLED vowel-initial
- *    but PRONOUNCED consonant-initial: h aspiré (`le héros`, never
- *    `*l'héros`), glide-initial loans (`le yaourt`, `le yoga`, `la ouate`),
- *    and the numerals `onze`/`huit` (`le onze`, `le huit`). These block BOTH
- *    elision AND liaison, so the fact is declared ONCE on the atom
- *    (`consonantOnset: true`, of which `hAspire` is the h-spelled subset) and
- *    read everywhere through `isConsonantOnset()` — never re-derived at a use
- *    site. Judgment goes in the inventory.
+ * ELISION IS A PROPERTY OF THE ATOM, NOT OF THE SENTENCE. `le` + `ami` →
+ * `l'ami`, and a build-tile bank that hands out `le` and `ami` as separate
+ * tiles teaches a form that does not exist (fr pin §1; fr guide §0.1 on ja
+ * §4c). Elision is predictable from spelling — vowel-initial, including
+ * accented vowels and the ligatures `œ`/`æ` (`l'œuf`, `l'œil`), or mute h —
+ * EXCEPT for a closed lexical class of words that are SPELLED vowel-initial
+ * but PRONOUNCED consonant-initial: h aspiré (`le héros`, never
+ * `*l'héros`), glide-initial loans (`le yaourt`, `le yoga`, `la ouate`),
+ * and the numerals `onze`/`huit` (`le onze`, `le huit`). These block BOTH
+ * elision AND liaison, so the fact is declared ONCE on the atom
+ * (`consonantOnset: true`, of which `hAspire` is the h-spelled subset) and
+ * read everywhere through `isConsonantOnset()` — never re-derived at a use
+ * site. Judgment goes in the inventory.
  *
  * THE IMPORT CYCLE, inherited from ES and load-bearing: curriculum files import
  * `atom` back from here and call it at import time, so `atom()` and
  * `findFrAtomBySurface()` are hoisted function declarations over a `var`-backed
- * registry, callable while this module is still evaluating. The aggregate is a
- * lazy getter for the same reason — an eager spread throws a TDZ
- * ReferenceError whenever a curriculum file is the import entry point.
+ * registry, callable while this module is still evaluating.
+ *
+ * Content-as-data (2026-09-13): `getFrCourseAtoms()` no longer eager-globs
+ * `curriculum/m*.ts` (the glob-order race fix, docs/fr-article-glob-race-
+ * 2026-09-10.md, and the whole-lesson-body bundle cost it carried — see
+ * docs/content-as-data-2026-09-13.md). It reads the committed
+ * `curriculum/atoms.generated.json`, written by `npm run content:emit` from
+ * `curriculum/atomsAggregate.eager.ts` (a static, module-order import list —
+ * `es/curriculum/atomsAggregate.eager.ts` is the pattern). At runtime nothing
+ * imports the curriculum modules at all, so `findFrAtomBySurface` falls back
+ * to the JSON aggregate for any surface not yet in the live registry — same
+ * shape as `es/courseAtoms.ts`'s `jsonAtomsBySurface`. `collectFrAtomExports`
+ * stays below as the pure, tested collector `atomsAggregate.eager.ts` and
+ * `atoms.generated.test.ts`'s guard tests exercise directly.
  *
  * Dedup rule mirrors ES/KO: first-write-wins by surface. A later module
  * re-teaching an earlier surface must NOT re-register it.
  */
 import type { Atom, AtomId, PartOfSpeech } from "@/shared/language/types";
+import frAtomsJson from "./curriculum/atoms.generated.json";
 
 export type FrAtomKind = "vocab" | "particle" | "phrase";
 
@@ -173,19 +170,31 @@ export function atom(opts: {
   return a;
 }
 
+// eslint-disable-next-line no-var
+var _jsonBySurface: Map<string, FrAtom> | undefined;
+function jsonAtomsBySurface(): Map<string, FrAtom> {
+  if (!_jsonBySurface) {
+    _jsonBySurface = new Map<string, FrAtom>();
+    for (const a of frAtomsJson as FrAtom[]) if (!_jsonBySurface.has(a.surface)) _jsonBySurface.set(a.surface, a);
+  }
+  return _jsonBySurface;
+}
+
 /**
  * Cycle-safe accessor — grammar helpers resolve through this (a hoisted
  * function) because curriculum files call the step factories at import time.
- *
- * ES additionally falls back to a generated `ES_REVIEW_POOL` snapshot for
- * surfaces not yet live-registered. FR has no such snapshot and does not need
- * one yet: that fallback exists for compounding-review steps that reference a
- * PRIOR module, and there are no prior modules. Add it when the first FR module
- * that reviews backwards is authored — and add it as a generated file, not a
- * hand-written one.
+ * Falls back to the committed `atoms.generated.json` aggregate (same shape
+ * as `es/courseAtoms.ts`'s `jsonAtomsBySurface`) for any surface not yet
+ * live-registered — e.g. a test that imports a single `mN.ts` directly
+ * without its predecessors, or a module referencing an EARLIER module's
+ * surface (compounding review) before that module's `atom()` calls have run
+ * in this evaluation. The JSON aggregate is module-order-complete
+ * regardless of runtime import order, so this closes the same
+ * glob-order-race class `docs/fr-article-glob-race-2026-09-10.md` fixed —
+ * without needing a live glob at all.
  */
 export function findFrAtomBySurface(surface: string): FrAtom | undefined {
-  return surfaceRegistry().get(surface);
+  return surfaceRegistry().get(surface) ?? jsonAtomsBySurface().get(surface);
 }
 
 /**
@@ -197,50 +206,6 @@ export function getRegisteredFrAtoms(): FrAtom[] {
   return [...surfaceRegistry().values()];
 }
 
-/**
- * Every `curriculum/m<n>.ts`, eagerly. See divergence 1 in the header: this is
- * what makes "authored a module but forgot to list its atoms" unrepresentable.
- */
-// Negative pattern: never eagerly import the module TESTS sitting beside
-// the modules (import-cycle back through mockLessons).
-//
-// Glob-order race (docs/fr-article-glob-race-2026-09-10.md): Vite's
-// `import.meta.glob` transform unconditionally lexicographically-sorts the
-// COMBINED file list for a single call — "m10" < "m2" as strings — so a
-// single `["./curriculum/m*.ts"]` pattern produces the eager-IMPORT (module
-// evaluation) order m1, m10..m19, m2, m20.., m3..m9, not numeric order.
-// `withArticle()` (grammarHelpers.ts) reads the atom registry at
-// module-evaluation time, so under that order a later-numbered module can
-// evaluate — and bake a bare noun surface into its own singleton step data
-// — before an earlier module has registered the atom it references.
-// There is no glob option to control sort order, and merging multiple
-// patterns into ONE glob() call still sorts across all of them together
-// (verified against Vite's `transformGlobImport` source + empirical
-// probing). What DOES work: separate glob() calls, bucketed by digit-width,
-// each internally lexicographic == numeric (same string length), are
-// compiled into separate blocks of hoisted static imports; sibling static
-// imports with no cross-dependency between blocks evaluate in source order.
-// Splitting by width and listing narrowest-first therefore recovers true
-// numeric eager-evaluation order: m1..m9 fully evaluate before m10..m99,
-// which fully evaluate before m100+ (headroom past today's m22).
-const CURRICULUM_MODULES_1D = import.meta.glob<Record<string, unknown>>(
-  ["./curriculum/m[1-9].ts", "!./curriculum/m*.test.ts"],
-  { eager: true },
-);
-const CURRICULUM_MODULES_2D = import.meta.glob<Record<string, unknown>>(
-  ["./curriculum/m[1-9][0-9].ts", "!./curriculum/m*.test.ts"],
-  { eager: true },
-);
-const CURRICULUM_MODULES_3D = import.meta.glob<Record<string, unknown>>(
-  ["./curriculum/m[1-9][0-9][0-9].ts", "!./curriculum/m*.test.ts"],
-  { eager: true },
-);
-const CURRICULUM_MODULES: Record<string, Record<string, unknown>> = {
-  ...CURRICULUM_MODULES_1D,
-  ...CURRICULUM_MODULES_2D,
-  ...CURRICULUM_MODULES_3D,
-};
-
 const MODULE_NO = /\/m(\d+)\.ts$/;
 const ATOMS_EXPORT = /^FR_M(\d+)_ATOMS$/;
 
@@ -248,19 +213,30 @@ const ATOMS_EXPORT = /^FR_M(\d+)_ATOMS$/;
 var _frCourseAtoms: FrAtom[] | undefined;
 
 /**
- * Full FR atom registry, in module order. Lazy (see the cycle note in the
- * header). Returns `[]` while no module is authored, which is the honest
- * answer — not an error.
+ * Full FR atom registry, in module order. Content-as-data (2026-09-13): a
+ * committed JSON written by `npm run content:emit` from
+ * `curriculum/atomsAggregate.eager.ts` — see the header note. At runtime
+ * nothing else evaluates the curriculum, so the JSON atoms are also
+ * registered here: `findFrAtomBySurface` must resolve for the
+ * flashcard/SRS/vocab-art surfaces. `atoms.generated.test.ts` is the stale
+ * guard.
  */
 export function getFrCourseAtoms(): ReadonlyArray<FrAtom> {
-  return (_frCourseAtoms ??= collectFrAtomExports(CURRICULUM_MODULES));
+  if (!_frCourseAtoms) {
+    _frCourseAtoms = frAtomsJson as FrAtom[];
+    const registry = surfaceRegistry();
+    for (const a of _frCourseAtoms) if (!registry.has(a.surface)) registry.set(a.surface, a);
+  }
+  return _frCourseAtoms;
 }
 
 /**
- * Pure collector behind `getFrCourseAtoms`, exported so its guards can be
- * negative-control tested: authoring a real defective curriculum file would
- * poison the live glob (this one, the placement glob and the pathway glob),
- * so the tests inject a fake record instead.
+ * Pure collector, exported so its guards can be negative-control tested
+ * (`frCurriculum.test.ts`) with an injected fake record — a real defective
+ * curriculum file would only surface the same throw inside
+ * `atomsAggregate.eager.ts` at emit time. No longer called by
+ * `getFrCourseAtoms` (content-as-data migration, 2026-09-13); kept as the
+ * tested contract for what "well-formed `FR_M<n>_ATOMS`" means.
  */
 export function collectFrAtomExports(
   modules: Record<string, Record<string, unknown>>,

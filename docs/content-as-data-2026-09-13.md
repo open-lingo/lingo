@@ -56,6 +56,16 @@ paints, launch metadata loads only the current section.
 4. Keep local caches small: next lesson's module + ~60 clips. Whole-module
    audio packs remain opt-in (`mobile-offline-oss-scoping-2026-08-06.md` §T3/T4).
 
+## Committed generated data (per language, not gitignored)
+
+Small JSON files, each with a Node-only `*.eager.ts` aggregator and a
+`*.generated.test.ts` stale guard, read by `courseAtoms.ts`/`placementBank.ts`
+instead of importing/globbing every `curriculum/m*.ts` (whole lesson bodies):
+`es|fr/curriculum/atoms.generated.json` ← `atomsAggregate.eager.ts`, and
+`es|fr/curriculum/placement.generated.json` ← `placementAggregate.eager.ts`
+(`PlacementItem.build`, a closure, is materialized to a plain `step` at emit
+time and rewrapped in `() => step` by the consumer).
+
 ## Follow-ups
 
 - ES/FR course *structure* still comes from `es|fr/curriculum/index.ts`, which

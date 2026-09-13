@@ -2,15 +2,24 @@
  * French placement-test bank — Stage 1 screener + Stage 2 per-module pool.
  *
  * Like ES, placement items live WITH their module (`FR_M{n}_PLACEMENT` in
- * `curriculum/m{n}.ts`) and this file only aggregates. NOTE the export SHAPE
- * differs from ES: each `FR_M{n}_PLACEMENT` is a FLAT `PlacementItem[]` (the
- * first item doubles as the module's screener item); the {screener, byModule}
- * split is derived here. An ES-shaped object export THROWS at import time —
- * it used to be silently skipped, dropping the module's items. Unlike ES, the
- * aggregation is DERIVED by globbing the curriculum rather than by a
- * hand-maintained list of imports — see the header of `courseAtoms.ts` for why
- * (ES shipped m17 without adding it to its list, and the atoms went unscheduled
- * and unnoticed; a placement bank has exactly the same silent-omission shape).
+ * `curriculum/m{n}.ts`). NOTE the export SHAPE differs from ES: each
+ * `FR_M{n}_PLACEMENT` is a FLAT `PlacementItem[]` (the first item doubles as
+ * the module's screener item); the {screener, byModule} split is derived by
+ * `collectFrPlacement` below. An ES-shaped object export THROWS — it used to
+ * be silently skipped, dropping the module's items.
+ *
+ * Content-as-data (2026-09-13): `FR_PLACEMENT_BANK` itself no longer derives
+ * from a live `import.meta.glob` over `curriculum/m*.ts` (same bundle-cost
+ * and glob-order-race reasons as `courseAtoms.ts` — see its header and
+ * docs/content-as-data-2026-09-13.md). It reads the committed
+ * `curriculum/placement.generated.json`, written by `npm run content:emit`
+ * from `curriculum/placementAggregate.eager.ts`, which runs
+ * `collectFrPlacement` (still exported here, still the tested contract —
+ * `frCurriculum.test.ts`'s guard tests inject fake records against it
+ * directly) over a static import list instead of the live glob. Each
+ * `PlacementItem.build` (a closure — not JSON-safe) is materialized once at
+ * emit time into a plain `step` field and rewrapped in a trivial `() => step`
+ * closure here, so the shape at every call site is unchanged.
  *
  * Empty until the first French module is authored. That is the honest state,
  * not a stub to be replaced: `screener: []` means the placement test finds no
@@ -18,22 +27,17 @@
  * module exists.
  */
 import type { PlacementBank, PlacementItem, ModuleId } from "@/shared/language/types";
-
-// Negative pattern: never eagerly import the module TESTS sitting beside
-// the modules (import-cycle back through mockLessons).
-const CURRICULUM_MODULES = import.meta.glob<Record<string, unknown>>(
-  ["./curriculum/m*.ts", "!./curriculum/m*.test.ts"],
-  { eager: true },
-);
+import type { LessonStep } from "@/features/lesson/types";
+import placementJson from "./curriculum/placement.generated.json";
 
 const MODULE_NO = /\/m(\d+)\.ts$/;
 const PLACEMENT_EXPORT = /^FR_M(\d+)_PLACEMENT$/;
 
 /**
- * Pure collector behind `FR_PLACEMENT_BANK`, exported so its guards can be
- * negative-control tested: authoring a real defective curriculum file would
- * poison the live glob (and the atoms/pathway globs with it), so the tests
- * inject a fake record instead.
+ * Pure collector, run by `placementAggregate.eager.ts` at emit time (over a
+ * static import list, not a live glob) and exported so its guards can also
+ * be negative-control tested directly (`frCurriculum.test.ts`) with an
+ * injected fake record.
  */
 export function collectFrPlacement(
   modules: Record<string, Record<string, unknown>>,
@@ -83,6 +87,33 @@ export function collectFrPlacement(
   return { screener, byModule };
 }
 
-const { screener, byModule } = collectFrPlacement(CURRICULUM_MODULES);
+type PlacementItemJson = { id: string; moduleId: string; step: LessonStep };
+type PlacementAggregateJson = {
+  screener: PlacementItemJson[];
+  byModule: Record<string, PlacementItemJson[]>;
+};
 
-export const FR_PLACEMENT_BANK: PlacementBank = { screener, byModule };
+function hydrate(item: PlacementItemJson): PlacementItem {
+  return { id: item.id, moduleId: item.moduleId, build: () => structuredClone(item.step) };
+}
+
+const generated = placementJson as PlacementAggregateJson;
+
+// Hydrate `byModule` first and derive `screener` from it (module's first
+// item) rather than hydrating `generated.screener` independently: the FR
+// convention (unlike ES) is that a module's screener item IS its first
+// byModule item — `collectFrPlacement` above builds both from the SAME
+// array element — and `frCurriculum.test.ts` asserts that identity
+// (`FR_PLACEMENT_BANK.screener` `toContain`s `byModule[m][0]` by
+// reference). Hydrating both sides independently would produce two
+// value-equal but distinct objects and break that check.
+const hydratedByModule: Record<string, PlacementItem[]> = Object.fromEntries(
+  Object.entries(generated.byModule).map(([moduleId, items]) => [moduleId, items.map(hydrate)]),
+);
+
+export const FR_PLACEMENT_BANK: PlacementBank = {
+  screener: Object.values(hydratedByModule)
+    .filter((items) => items.length > 0)
+    .map((items) => items[0]),
+  byModule: hydratedByModule,
+};
