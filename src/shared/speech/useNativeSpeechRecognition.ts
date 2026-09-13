@@ -48,6 +48,11 @@ export type NativeSpeechPlugin = {
     popup?: boolean;
   }) => Promise<unknown>;
   stop: () => Promise<void>;
+  /**
+   * Android only (`@capacitor-community/speech-recognition` ≥5.1). The Swift
+   * plugin does not implement it, and the hook must not assume it exists.
+   */
+  isListening?: () => Promise<{ listening: boolean }>;
   addListener: (
     eventName: string,
     listenerFunc: (data: never) => void,
@@ -117,12 +122,34 @@ async function loadDefaultPlugin(): Promise<{ plugin: NativeSpeechPlugin | null 
   // step in a web build (or a test) produces an unhandled rejection.
   if (!IS_NATIVE) return { plugin: null };
   pluginSingleton ??= import("@capacitor/core")
-    .then(({ registerPlugin }) => ({
-      plugin: registerPlugin<NativeSpeechPlugin>("SpeechRecognizer"),
+    .then(({ registerPlugin, Capacitor }) => ({
+      plugin: registerPlugin<NativeSpeechPlugin>(
+        nativeSpeechPluginName(Capacitor.getPlatform()),
+      ),
     }))
     .catch(() => ({ plugin: null }));
   return pluginSingleton;
 }
+
+/**
+ * Which native class answers the bridge, per platform.
+ *
+ * - iOS: our own `SpeechRecognizer` (`ios/App/App/SpeechRecognizerPlugin.swift`),
+ *   because the community package cannot link into an SPM project (see above).
+ * - Android: `@capacitor-community/speech-recognition` links fine through
+ *   Gradle and exposes the same method/event surface, so we use it as-is.
+ *   Its Android class registers under the name `SpeechRecognition`.
+ *
+ * The Swift plugin was written to the community package's contract precisely
+ * so this could be a name switch and not an adapter. `NativeSpeechPlugin` is
+ * the shared slice; if either side drifts, add the adapter here, not in the hook.
+ */
+export function nativeSpeechPluginName(platform: string): string {
+  return platform === "android" ? "SpeechRecognition" : "SpeechRecognizer";
+}
+
+/** Longest we wait for the plugin's `stop()` to settle before finishing. */
+const STOP_SETTLE_MS = 750;
 
 export function useNativeSpeechRecognition(
   lang: string = "ko-KR",
@@ -142,6 +169,15 @@ export function useNativeSpeechRecognition(
   // Guards against a `stop` racing the async `start`, and against the
   // listeningState event double-firing `finished`.
   const activeRef = useRef(false);
+  const heardRef = useRef(false);
+  const watchdogRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const clearWatchdog = useCallback(() => {
+    if (watchdogRef.current !== null) {
+      clearInterval(watchdogRef.current);
+      watchdogRef.current = null;
+    }
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -181,18 +217,66 @@ export function useNativeSpeechRecognition(
   }, []);
 
   const reset = useCallback(() => {
+    heardRef.current = false;
     setTranscript("");
     setAlternatives([]);
     setFinished(false);
     setError(null);
   }, []);
 
+  /**
+   * Android watchdog. The community plugin resolves `start()` the moment the
+   * recognizer begins and, when the recognizer then dies on its own (silence
+   * timeout, NO_MATCH, network), it rejects the already-resolved call and emits
+   * NO `listeningState: stopped`. Verified on the API 35 emulator 2026-09-04:
+   * the step sat on "Listening…" indefinitely. `isListening()` is the only
+   * remaining signal, so poll it while a session is active. The Swift plugin
+   * emits a proper stopped event and has no `isListening`, so nothing is
+   * armed on iOS — `useNativeSpeechRecognition.test.ts` pins both.
+   */
+  const armWatchdog = useCallback(
+    (p: NativeSpeechPlugin) => {
+      clearWatchdog();
+      const probe = p.isListening;
+      if (!probe) return;
+      watchdogRef.current = setInterval(() => {
+        if (!activeRef.current) {
+          clearWatchdog();
+          return;
+        }
+        void probe
+          .call(p)
+          .then(({ listening: still }) => {
+            if (still || !activeRef.current) return;
+            activeRef.current = false;
+            clearWatchdog();
+            void detachListeners();
+            if (!heardRef.current) setError("no-speech");
+            setListening(false);
+            setFinished(true);
+          })
+          .catch(() => undefined);
+      }, 300);
+    },
+    [clearWatchdog, detachListeners],
+  );
+
   const stop = useCallback(() => {
     const p = pluginRef.current;
     activeRef.current = false;
+    clearWatchdog();
     void (async () => {
       try {
-        await p?.stop();
+        // Bounded: the Android community plugin's `stop()` never resolves its
+        // call (verified 2026-09-04 — Java `stop` runs `stopListening()` and
+        // returns; only an exception settles it). Waiting on it unbounded left
+        // the step on "Stop recording" after every manual tap-to-stop. The
+        // wait still exists so a plugin that DOES settle (the iOS Swift one)
+        // can deliver its final transcript before `finished` flips.
+        await Promise.race([
+          p?.stop(),
+          new Promise<void>((r) => setTimeout(r, STOP_SETTLE_MS)),
+        ]);
       } catch {
         /* already stopped */
       }
@@ -200,7 +284,7 @@ export function useNativeSpeechRecognition(
       setListening(false);
       setFinished(true);
     })();
-  }, [detachListeners]);
+  }, [clearWatchdog, detachListeners]);
 
   const start = useCallback(() => {
     const p = pluginRef.current;
@@ -241,6 +325,7 @@ export function useNativeSpeechRecognition(
           await p.addListener("partialResults", ((data: { matches?: string[] }) => {
             const matches = data?.matches ?? [];
             if (!matches.length) return;
+            heardRef.current = true;
             setTranscript(matches[0] ?? "");
             setAlternatives(matches.map((m) => ({ transcript: m })));
           }) as (d: never) => void),
@@ -261,6 +346,7 @@ export function useNativeSpeechRecognition(
             // this path and was the only thing that used to detach them.
             if (!activeRef.current) return;
             activeRef.current = false;
+            clearWatchdog();
             void detachListeners();
             // The recognizer can die without ever transcribing — iOS marks a
             // locale's offline model installed before the asset is really
@@ -275,6 +361,7 @@ export function useNativeSpeechRecognition(
         );
 
         if (!activeRef.current) return;
+        armWatchdog(p);
         await p.start({
           language: lang,
           maxResults: Math.min(Math.max(maxAlternatives, 1), 5),
@@ -284,21 +371,23 @@ export function useNativeSpeechRecognition(
         if (activeRef.current) setListening(true);
       } catch {
         activeRef.current = false;
+        clearWatchdog();
         setError("unknown");
         setListening(false);
         setFinished(true);
       }
     })();
-  }, [detachListeners, lang, maxAlternatives, reset]);
+  }, [armWatchdog, clearWatchdog, detachListeners, lang, maxAlternatives, reset]);
 
   // Never leave the mic open behind a unmounted step.
   useEffect(() => {
     return () => {
       activeRef.current = false;
+      clearWatchdog();
       void pluginRef.current?.stop().catch(() => undefined);
       void detachListeners();
     };
-  }, [detachListeners]);
+  }, [clearWatchdog, detachListeners]);
 
   return {
     listening,

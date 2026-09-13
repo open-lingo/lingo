@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Open Lingo</string>
+    <string name="title_activity_main">Open Lingo</string>
+    <string name="package_name">com.linguiversal.app</string>
+    <string name="custom_url_scheme">com.linguiversal.app</string>
+</resources>

@@ -16,6 +16,7 @@ import { describe, it, expect, vi } from "vitest";
 import { renderHook, act, waitFor } from "@testing-library/react";
 import {
   useNativeSpeechRecognition,
+  nativeSpeechPluginName,
   type NativeSpeechPlugin,
 } from "./useNativeSpeechRecognition";
 
@@ -176,5 +177,101 @@ describe("useNativeSpeechRecognition", () => {
     await waitFor(() => expect(result.current.error).toBe("unknown"));
     expect(result.current.finished).toBe(true);
     expect(result.current.listening).toBe(false);
+  });
+});
+
+describe("Android: recognizer that dies without a stopped event", () => {
+  // `@capacitor-community/speech-recognition` on Android resolves `start()`
+  // as soon as listening begins and, on a recognizer error (silence timeout,
+  // network, no match), rejects the ALREADY-RESOLVED call and emits nothing.
+  // The only signal left is `isListening()` flipping to false. Without a
+  // watchdog the hook shows "Listening…" forever.
+  it("finishes with no-speech once isListening() reports false and nothing was heard", async () => {
+    let listening = true;
+    const { plugin, emit } = makePlugin({
+      isListening: vi.fn(async () => ({ listening })),
+    });
+    const { result } = renderHook(() => useNativeSpeechRecognition("ko-KR", { plugin }));
+    await waitFor(() => expect(result.current.supported).toBe(true));
+    act(() => result.current.start());
+    emit("listeningState", { status: "started" });
+    await waitFor(() => expect(result.current.listening).toBe(true));
+
+    listening = false; // recognizer died natively; no event follows
+    await waitFor(() => expect(result.current.finished).toBe(true), { timeout: 3000 });
+    expect(result.current.listening).toBe(false);
+    expect(result.current.error).toBe("no-speech");
+  });
+
+  it("finishes cleanly (no error) if a transcript was heard before it died", async () => {
+    let listening = true;
+    const { plugin, emit } = makePlugin({
+      isListening: vi.fn(async () => ({ listening })),
+    });
+    const { result } = renderHook(() => useNativeSpeechRecognition("ko-KR", { plugin }));
+    await waitFor(() => expect(result.current.supported).toBe(true));
+    act(() => result.current.start());
+    emit("listeningState", { status: "started" });
+    await waitFor(() => expect(result.current.listening).toBe(true));
+    emit("partialResults", { matches: ["어머니"] });
+
+    listening = false;
+    await waitFor(() => expect(result.current.finished).toBe(true), { timeout: 3000 });
+    expect(result.current.error).toBeNull();
+    expect(result.current.transcript).toBe("어머니");
+  });
+
+  it("does not poll a plugin without isListening (the iOS Swift plugin)", async () => {
+    const { plugin, emit } = makePlugin();
+    const { result } = renderHook(() => useNativeSpeechRecognition("ko-KR", { plugin }));
+    await waitFor(() => expect(result.current.supported).toBe(true));
+    act(() => result.current.start());
+    emit("listeningState", { status: "started" });
+    await waitFor(() => expect(result.current.listening).toBe(true));
+    await new Promise((r) => setTimeout(r, 900));
+    expect(result.current.listening).toBe(true);
+    expect(result.current.finished).toBe(false);
+  });
+});
+
+describe("nativeSpeechPluginName", () => {
+  it("binds Android to the community plugin's registered class name", () => {
+    expect(nativeSpeechPluginName("android")).toBe("SpeechRecognition");
+  });
+
+  it("keeps iOS on the in-repo Swift plugin", () => {
+    expect(nativeSpeechPluginName("ios")).toBe("SpeechRecognizer");
+  });
+
+  it("falls back to the Swift name for anything else (never picks a plugin that can't link)", () => {
+    expect(nativeSpeechPluginName("web")).toBe("SpeechRecognizer");
+  });
+});
+
+describe("Android: plugin whose stop() never settles", () => {
+  // Verified on the emulator 2026-09-04: the community plugin's Java `stop()`
+  // calls `stopListening()` and returns without ever resolving the call (it
+  // only rejects on exception). An unbounded `await p.stop()` therefore left
+  // the step on "Stop recording" after every manual tap-to-stop.
+  it("still marks the attempt finished after a manual stop", async () => {
+    const { plugin, emit } = makePlugin({
+      stop: vi.fn(() => new Promise<void>(() => undefined)),
+    });
+    const { result } = renderHook(() => useNativeSpeechRecognition("ko-KR", { plugin }));
+    await waitFor(() => expect(result.current.supported).toBe(true));
+    await act(async () => result.current.start());
+    await act(async () => emit("listeningState", { status: "started" }));
+    await waitFor(() => expect(result.current.listening).toBe(true));
+
+    await act(async () => result.current.stop());
+
+    await waitFor(
+      () => {
+        expect(result.current.listening).toBe(false);
+        expect(result.current.finished).toBe(true);
+      },
+      { timeout: 3000 },
+    );
+    expect(result.current.error).toBeNull();
   });
 });

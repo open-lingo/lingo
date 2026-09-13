@@ -1,0 +1,14 @@
+import { readFileSync } from 'node:fs';
+import { createSign, createPrivateKey } from 'node:crypto';
+const env = Object.fromEntries(readFileSync(process.env.HOME+'/.appstoreconnect/credentials.env','utf8').split('\n').filter(l=>l.includes('=')).map(l=>l.trim().split('=')));
+const key = createPrivateKey(readFileSync(`${process.env.HOME}/.appstoreconnect/private_keys/AuthKey_${env.KEY_ID}.p8`));
+const b64 = o => Buffer.from(JSON.stringify(o)).toString('base64url');
+const now = Math.floor(Date.now()/1000);
+const hdr = b64({alg:'ES256',kid:env.KEY_ID,typ:'JWT'}), pl = b64({iss:env.ISSUER_ID,iat:now,exp:now+1200,aud:'appstoreconnect-v1'});
+const sig = createSign('sha256').update(`${hdr}.${pl}`).sign({key,dsaEncoding:'ieee-p1363'}).toString('base64url');
+const jwt = `${hdr}.${pl}.${sig}`;
+const [path, method='GET', body] = process.argv.slice(2);
+const url = path.startsWith('http') ? path : 'https://api.appstoreconnect.apple.com'+path;
+const r = await fetch(url,{method,headers:{Authorization:`Bearer ${jwt}`,'Content-Type':'application/json'},body});
+process.stderr.write(`HTTP ${r.status}\n`);
+console.log(await r.text());

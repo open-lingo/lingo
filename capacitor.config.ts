@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from "@capacitor/cli";
 
 /**
- * Capacitor wrapper config — iOS only for now (free-provisioning testing on
- * Spencer's own device; see `docs/mobile-testing-setup-2026-08-06.md`).
+ * Capacitor wrapper config — iOS (see `docs/mobile-testing-setup-2026-08-06.md`)
+ * and Android (sideload debug APK; see `docs/android-port-2026-09-04.md`).
  *
  * ⚠️ `appId` is ALSO the custom URL scheme Auth0 redirects back through, and it
  * is duplicated in `src/shared/platform/native.ts` as `NATIVE_APP_ID` because
@@ -28,6 +28,13 @@ const config: CapacitorConfig = {
     // ⚠️ A learner on the dark preset still gets a cream flash. Fixing that
     // properly means persisting the theme natively, not guessing here.
     backgroundColor: "#f5f0e6ff",
+  },
+  android: {
+    // Same cold-launch flash rationale as iOS above.
+    backgroundColor: "#f5f0e6ff",
+    // Default is already "https" (origin `https://localhost`); pinned so the
+    // Auth0 `allowed_origins` + lingo-core `CORS_ORIGINS` entries can't drift.
+    // iOS is `capacitor://localhost` — the two platforms need separate entries.
   },
 };
 
