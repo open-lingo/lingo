@@ -71,4 +71,20 @@ describe("boot-guard.js", () => {
     await vi.advanceTimersByTimeAsync(0);
     expect(document.getElementById("boot-fallback")).toBeNull();
   });
+  it("treats the Android origin https://localhost as native (8 s deadline, not dev)", () => {
+    const setURL = (window as unknown as { happyDOM?: { setURL(u: string): void } }).happyDOM?.setURL;
+    if (!setURL) return; // happy-dom only
+    const before = location.href;
+    const info = vi.spyOn(console, "info").mockImplementation(() => {});
+    try {
+      setURL.call((window as unknown as { happyDOM: unknown }).happyDOM, "https://localhost/");
+      boot();
+      const armed = info.mock.calls.map((c) => String(c[0])).find((m) => m.includes("armed:"));
+      expect(armed).toContain("timeout=8000ms native=true localDev=false");
+    } finally {
+      setURL.call((window as unknown as { happyDOM: unknown }).happyDOM, before);
+      info.mockRestore();
+    }
+  });
+
 });

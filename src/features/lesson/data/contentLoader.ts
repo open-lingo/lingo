@@ -1,6 +1,7 @@
 import type { LessonContent } from "../types";
-import { hasRegisteredLesson, registerLessons } from "./lessonRegistry";
+import { bumpContentRevision, hasRegisteredLesson, registerLessons } from "./lessonRegistry";
 import { setMinedSentenceIndexes, type MinedSentenceIndexes } from "./minedSentences";
+import type { ModuleIndex } from "@/features/learn/moduleVocabIndex";
 
 /**
  * Lesson content as data (2026-09-13).
@@ -39,6 +40,8 @@ export type ContentLanguageEntry = {
   extra?: { file: string; lessons: string[] };
   /** Precomputed sentence-miner index (Japanese only today). */
   mined?: string;
+  /** Precomputed per-module lesson-count + vocab index (course map). */
+  index?: string;
 };
 
 export type ContentManifest = {
@@ -200,6 +203,41 @@ export function ensureMinedSentencesLoaded(lang: string): Promise<void> {
   return p;
 }
 
+const moduleIndexPromises = new Map<string, Promise<void>>();
+const loadedModuleIndex = new Map<string, ModuleIndex[]>();
+
+/**
+ * The precomputed per-module index for a language (lesson counts + vocab
+ * samples) — a few KB versus a whole course's lesson bodies. Consumers
+ * (the course map) read it via `getLoadedModuleIndex` once this resolves
+ * and fall back to computing from whatever lesson content happens to be
+ * registered for modules the index doesn't cover.
+ */
+export function ensureModuleIndexLoaded(lang: string): Promise<void> {
+  let p = moduleIndexPromises.get(lang);
+  if (!p) {
+    p = loadContentManifest()
+      .then(async (m) => {
+        const file = m.languages[lang]?.index;
+        if (!file) return;
+        const data = await fetchJson<ModuleIndex[]>(file);
+        loadedModuleIndex.set(lang, data);
+        bumpContentRevision();
+      })
+      .catch((e) => {
+        moduleIndexPromises.delete(lang);
+        throw e;
+      });
+    moduleIndexPromises.set(lang, p);
+  }
+  return p;
+}
+
+/** The loaded module index for a language, or null before it lands. */
+export function getLoadedModuleIndex(lang: string): ModuleIndex[] | null {
+  return loadedModuleIndex.get(lang) ?? null;
+}
+
 /** Test-only reset. */
 export function __resetContentLoader(): void {
   manifestPromise = null;
@@ -208,4 +246,6 @@ export function __resetContentLoader(): void {
   filePromises.clear();
   loadedFiles.clear();
   minedPromises.clear();
+  moduleIndexPromises.clear();
+  loadedModuleIndex.clear();
 }

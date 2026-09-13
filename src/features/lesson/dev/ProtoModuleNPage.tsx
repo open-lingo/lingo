@@ -1,14 +1,15 @@
 import { useLocation } from "react-router-dom";
 import { useAllContentReady, useContentRevision } from "@/features/lesson/data/useLessonContent";
 import { ProtoModuleWalker, type ProtoModuleConfig } from "./ProtoModuleWalkerPage";
-import { ES_MODULE_META, ES_ALL_LESSONS } from "@/features/languages/es/curriculum";
+import esStructure from "@/features/languages/es/curriculum/structure.generated.json";
+import { getRegisteredLessons } from "@/features/lesson/data/lessonRegistry";
 import { getMockLessonContent } from "../data/mockLessons";
 
 /**
  * DEV · generic ES module QA walker for the m4–m10 wave.
  * Route: `/:lang/qa/m4` … `/qa/m10` (all registered onto this component —
- * the module id is read from the path). Serves the registered curriculum
- * through the real render pipeline, same contract as EsM1L1Page/ProtoM3Page.
+ * the module id is read from the path). Reads the registry + structure JSON
+ * instead of the curriculum TS so the curriculum is not bundled.
  */
 
 function stepsFor(lessonId: string) {
@@ -24,8 +25,10 @@ export default function ProtoModuleNPage() {
   useContentRevision();
   const { pathname } = useLocation();
   const mod = /\/qa\/(m\d+)$/.exec(pathname)?.[1] ?? "m4";
-  const meta = ES_MODULE_META.find((m) => m.id === mod);
-  const lessons = ES_ALL_LESSONS.filter((l) => l.id.startsWith(`es-${mod}-`));
+  const meta = esStructure.find((m) => m.id === mod);
+  // Registry order = each module file's lesson order, same as the old
+  // ES_ALL_LESSONS (ids like es-m4-3, es-m4-recap are not all numeric).
+  const lessons = getRegisteredLessons().filter((l) => l.id.startsWith(`es-${mod}-`));
   if (!meta || lessons.length === 0) {
     throw new Error(`QA walker: es module "${mod}" is not registered`);
   }

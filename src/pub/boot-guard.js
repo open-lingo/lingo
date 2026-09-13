@@ -31,10 +31,14 @@
   // test alone reads a phone as a dev box and the watchdog never reloads a
   // stuck native boot (seen on the Trap Phone, 2026-09-13). Native is decided
   // first and excludes dev.
-  var isNativeScheme = location.protocol === "capacitor:" || location.protocol === "ionic:";
+  // Android Capacitor serves from https://localhost (no port); a dev server is
+  // http:// with a port, so "https + bare localhost" is the Android app.
+  var isAndroidNative = location.protocol === "https:" && location.host === "localhost";
+  var isNativeScheme = location.protocol === "capacitor:" || location.protocol === "ionic:" || isAndroidNative;
   var isLocalDev = !isNativeScheme && (host === "localhost" || host === "127.0.0.1" || host === "[::1]");
-  // Native bundles load from capacitor://localhost — local, but NOT a dev server.
-  var isNative = location.protocol === "capacitor:" || location.protocol === "ionic:";
+  // Native bundles load from capacitor://localhost (iOS) or https://localhost
+  // (Android) — local, but NOT a dev server.
+  var isNative = isNativeScheme;
   var BOOT_TIMEOUT_MS = isLocalDev && !isNative ? 20000 : 8000;
   var RELOAD_KEY = "lingo:boot-guard-reloaded-at";
   var RELOAD_WINDOW_MS = 60000;

@@ -66,6 +66,20 @@ instead of importing/globbing every `curriculum/m*.ts` (whole lesson bodies):
 (`PlacementItem.build`, a closure, is materialized to a plain `step` at emit
 time and rewrapped in `() => step` by the consumer).
 
+## Module index (course map)
+
+`<lang>/index.<hash10>.json` — one `ModuleIndex` per course module
+(`{ id, lessonCount: {content,review,total}, vocabCount, vocabSamples }`,
+capped at `SAMPLE_CAP`=6 samples), built by
+`features/learn/moduleVocabIndex.ts#buildModuleIndexEntry` — the SAME
+function the emitter and the browser call, so they can't drift. A few KB
+per language versus a whole course's lesson bodies (JA: 22 KB vs 7.9 MB).
+`contentLoader.ts#ensureModuleIndexLoaded` / `getLoadedModuleIndex`,
+`useLessonContent.ts#useModuleIndexReady`. `CourseMapPage` reads it and
+falls back to a live per-module recompute (`getModuleLessonCounts` /
+`getModuleVocab`, content-derived) for any module the index doesn't cover
+yet — never a blank card.
+
 ## Follow-ups
 
 - ES/FR course *structure* still comes from `es|fr/curriculum/index.ts`, which
@@ -73,5 +87,3 @@ time and rewrapped in `() => step` by the consumer).
   JSON). Emit a structure file and drop the JS imports.
 - OTA content: the manifest is already versioned; a native build could fetch
   a newer manifest from the CDN and prefer CDN files over bundled ones.
-- Course-map vocab samples load the whole course; a lightweight vocab index
-  per module would keep that page to one small file.

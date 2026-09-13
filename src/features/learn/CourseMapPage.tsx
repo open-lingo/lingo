@@ -24,7 +24,8 @@ import {
   type VocabSample,
 } from "./courseMapData";
 import { groupModulesByLevel, type FluencyLevel } from "./courseLevels";
-import { useContentRevision, useCourseReady } from "@/features/lesson/data/useLessonContent";
+import { useContentRevision, useModuleIndexReady } from "@/features/lesson/data/useLessonContent";
+import { getLoadedModuleIndex } from "@/features/lesson/data/contentLoader";
 import { getItemsForModule } from "@/features/placement/questionBank";
 
 type ViewMode = "detailed" | "simple";
@@ -86,19 +87,27 @@ export function CourseMapPage() {
     [course, completedSet],
   );
 
-  // Content-as-data: vocab samples and mastery gates read lesson bodies,
-  // which load per module as JSON. Kick the whole course (the map shows
-  // every module) and rebuild the nodes as files land.
-  useCourseReady(course?.languageId);
+  // Content-as-data: the map shows every module but only needs lesson
+  // counts + a handful of vocab samples per module, not full lesson bodies.
+  // Load the small precomputed index instead of the whole course (that was
+  // 46 files / 7.77 MB for Japanese on a first visit); fall back to a live
+  // per-module recompute (mastery gates still read lesson bodies as they
+  // land) for any module the index doesn't cover yet.
+  useModuleIndexReady(course?.languageId);
   const contentRevision = useContentRevision();
+  const moduleIndex = course ? getLoadedModuleIndex(course.languageId) : null;
   const nodes: ModuleNode[] = useMemo(() => {
     if (!course) return [];
+    const indexById = new Map((moduleIndex ?? []).map((e) => [e.id, e]));
     return course.modules.map((module, index) => {
       const status = getModuleStatus(index, completedSet, course.modules);
       const display = getModuleDisplay(course.modules, index);
       const mastery = getModuleMastery(module, completedSet);
-      const counts = getModuleLessonCounts(module);
-      const vocab = getModuleVocab(module, course.languageId);
+      const indexEntry = indexById.get(module.id);
+      const counts = indexEntry?.lessonCount ?? getModuleLessonCounts(module);
+      const vocab = indexEntry
+        ? { count: indexEntry.vocabCount, samples: indexEntry.vocabSamples }
+        : getModuleVocab(module, course.languageId);
       const isCurrent = index === currentIndex;
       // A learner can test out of a module that's ahead of them (not the
       // current module, not already cleared) as long as a placement bank
@@ -125,7 +134,7 @@ export function CourseMapPage() {
         canTestOut,
       };
     });
-  }, [course, completedSet, currentIndex, contentRevision]);
+  }, [course, completedSet, currentIndex, contentRevision, moduleIndex]);
 
   const [view, setView] = useState<ViewMode>("detailed");
   const [selectedIndex, setSelectedIndex] = useState<number>(currentIndex);

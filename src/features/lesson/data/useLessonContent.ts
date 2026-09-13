@@ -1,15 +1,20 @@
 import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
 import { getContentRevision, hasRegisteredLesson, subscribeContent } from "./lessonRegistry";
-import { ensureAllContentLoaded, ensureCourseLoaded, ensureLessonLoaded } from "./contentLoader";
+import {
+  ensureAllContentLoaded,
+  ensureCourseLoaded,
+  ensureLessonLoaded,
+  ensureModuleIndexLoaded,
+} from "./contentLoader";
 
 /**
  * React seams for content-as-data (2026-09-13; see contentLoader.ts).
  *
  * `useContentRevision()` re-renders the caller whenever lessons register, so
  * anything memoised over the registry (`useMemo(() => build(...), [rev])`)
- * recomputes once JSON lands. `useLessonReady(id)` / `useCourseReady(lang)`
- * kick the load and report `loading | ready | error`; under the eager test
- * runtime they are `ready` on the first render.
+ * recomputes once JSON lands. `useLessonReady(id)` / `useCourseReady(lang)` /
+ * `useModuleIndexReady(lang)` kick the load and report `loading | ready |
+ * error`; under the eager test runtime they are `ready` on the first render.
  */
 export function useContentRevision(): number {
   return useSyncExternalStore(subscribeContent, getContentRevision, getContentRevision);
@@ -72,6 +77,33 @@ export function useCourseReady(lang: string | undefined, upToModuleId?: string):
       alive = false;
     };
   }, [lang, upToModuleId]);
+  return state;
+}
+
+/**
+ * Load a language's precomputed module index (lesson counts + vocab
+ * samples, a few KB) — the course map's alternative to `useCourseReady`,
+ * which fetches every module's full lesson JSON just to render per-module
+ * summaries.
+ */
+export function useModuleIndexReady(lang: string | undefined): ContentLoadState {
+  const [state, setState] = useState<ContentLoadState>("loading");
+  useEffect(() => {
+    if (!lang) return;
+    let alive = true;
+    setState("loading");
+    ensureModuleIndexLoaded(lang).then(
+      () => {
+        if (alive) setState("ready");
+      },
+      () => {
+        if (alive) setState("error");
+      },
+    );
+    return () => {
+      alive = false;
+    };
+  }, [lang]);
   return state;
 }
 

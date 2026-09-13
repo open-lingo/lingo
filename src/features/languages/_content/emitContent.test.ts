@@ -13,6 +13,9 @@
  *   content/v1/manifest.json                 — unhashed; lists every file
  *   content/v1/<lang>/<moduleId>.<hash>.json — { lessons: LessonContent[] }
  *   content/v1/<lang>/_extra.<hash>.json     — lessons in no course-map module
+ *   content/v1/<lang>/index.<hash>.json      — ModuleIndex[]: per-module
+ *                                               lesson counts + vocab samples
+ *                                               (the course map's small read)
  *   content/v1/ja/mined.<hash>.json          — precomputed sentence-miner index
  * Files are content-hashed so the service worker can cache them forever and
  * a regenerated module changes name; stale files are deleted on each run.
@@ -32,6 +35,7 @@ import { buildFrPlacementAggregate } from "@/features/languages/fr/curriculum/pl
 import { getRegisteredLesson, getRegisteredLessons } from "@/features/lesson/data/lessonRegistry";
 import { computeMinedSentenceIndexes } from "@/features/lesson/data/minedSentences";
 import type { ContentManifest, ContentLanguageEntry } from "@/features/lesson/data/contentLoader";
+import { buildModuleIndexEntry, type ModuleIndex } from "@/features/learn/moduleVocabIndex";
 // Registers every course synchronously (tests get it via the virtual module
 // too, but be explicit: this file IS the emitter).
 import "@/features/lesson/data/lessonRegistry.eager";
@@ -84,6 +88,23 @@ describe.skipIf(!process.env.CONTENT_EMIT)("content:emit", () => {
         langBytes += bytes;
         entry.modules.push({ id: mod.id, file, lessons: ids });
       }
+      // Per-module lesson-count + vocab index (course map, 2026-09-13):
+      // one entry per module regardless of registration state (lesson
+      // counts read the course model, not the registry) — the count must
+      // equal the course's module count or the map would silently drop a
+      // node's index entry.
+      const moduleIndex: ModuleIndex[] = course.modules.map((mod) =>
+        buildModuleIndexEntry(mod, lang),
+      );
+      expect(
+        moduleIndex.length,
+        `${lang}: index entry count must equal module count`,
+      ).toBe(course.modules.length);
+      const { file: indexFile, bytes: indexBytes } = write(`${lang}/index.json`, moduleIndex);
+      langBytes += indexBytes;
+      entry.index = indexFile;
+      lines.push(`  ${lang} module index: ${moduleIndex.length} entries, ${(indexBytes / 1024).toFixed(1)} KB`);
+
       const extra = getRegisteredLessons().filter(
         (l) => !claimed.has(l.id) && (l.languageId === lang || (!l.languageId && l.id.startsWith(lang + "-"))),
       );

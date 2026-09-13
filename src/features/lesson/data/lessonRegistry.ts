@@ -77,6 +77,16 @@ export function getContentRevision(): number {
   return revision;
 }
 
+/**
+ * Bump the revision without registering lessons — for loaders that cache
+ * their own derived data (e.g. the module vocab index) outside `table` but
+ * still need `useContentRevision()` subscribers to re-render once it lands.
+ */
+export function bumpContentRevision(): void {
+  revision++;
+  for (const cb of listeners) cb();
+}
+
 export function subscribeContent(cb: () => void): () => void {
   listeners.add(cb);
   return () => {
