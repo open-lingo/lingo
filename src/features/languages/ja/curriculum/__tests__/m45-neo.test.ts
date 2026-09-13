@@ -180,6 +180,18 @@ registerModuleBarGuards({
     "よませる", "たべさせる", "させる", "こさせる",
     "あるかせた", "そだてさせる", "ゆるさない", "させて", "かえらせて", "はやく",
     "こまった",
+    // いただきます — masu-form of いただく (JA local-judge triage 2026-09-13,
+    // ja-m45-neo-8-dlg-6: a student addressing a teacher with the bare
+    // dictionary form of an ultra-polite construction undercut the register
+    // the lesson teaches). Same DERIVED_KINDS exemption as the row above: a
+    // derived verb-form is never eligible for its own courseAtoms row, so it
+    // exists only for the tokenizer to see it. It appears in exactly ONE
+    // dialogue_listen line and nowhere else — this module keeps させて
+    // いただく (and now its masu-form) strictly RECOGNITION ONLY (L8's own
+    // focus line), so a dedicated intro-capable debut for a form that is by
+    // design never produced would be manufacturing exposure this lesson
+    // deliberately doesn't want.
+    "いただきます",
   ],
 });
 

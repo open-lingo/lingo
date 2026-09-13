@@ -206,7 +206,7 @@ grammarPoints:
     examples:
       - { ja: "がくせいでも わかる。", en: "Even a student understands." }
       - { ja: "ひまでも いかない。", en: "Even though I'm free, I won't go." }
-      - { ja: "あめでも いく。", en: "Even if it's rain, I'll go." }
+      - { ja: "あめでも いく。", en: "Even if it rains, I'll go." }
     antiPattern: { ja: "がくせいても わかる。", why: "ても attaches to a て-form; がくせい is a noun with no て-form to attach to at all. Nouns and な-adjectives take でも instead: がくせいでも わかる。" }
   - id: demo-mo-closed-set
     rule: "A closed set, memorized whole, not derived live: question-word + でも or + も. なんでも = anything, だれでも = anyone, どこでも = anywhere — the でも family means 'no matter which, it doesn't matter.' Flip でも to も with a NEGATIVE verb and the same question words swing to the opposite extreme: だれも いない = nobody is there (not 'anybody is there'), なにも たべない = I'm not eating anything. Ship exactly these five — なんでも/だれでも/どこでも/だれも/なにも — and no others; the course does not derive でも-mo compounds from a productive rule."

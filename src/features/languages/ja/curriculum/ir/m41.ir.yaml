@@ -540,7 +540,22 @@ lessons:
       - { kind: sentence, ja: "パーティーの まえに へやを かざっておいたので、もう へやが きれいに かざってある。", en: "Since I decorated the room in advance before the party, it's already nicely decorated.", exercises: [te-oku, mae-ni, node-because, te-aru, ta-form], mode: build }
       - { kind: sentence, ja: "ポスターが かべに はってあるし、ほんも たなに ならべてあるし、あには うれしかった。", en: "A poster has been stuck on the wall, and what's more the books have been arranged on the shelf, and my older brother was happy.", exercises: [te-aru, shi-listing], mode: listening }
       - { kind: particle-cloze, stem: "まどが ", tail: "のに、へやは あつい。", answer: "あけてある", options: ["あけてある", "あいている", "あける"], en: "Even though the window has been left open, the room is hot.", explanation: "'has been left open' signals the deliberate resultant state, あけてある. あいている would just say it's open, without anyone's intent implied, and あける is the bare dictionary form with no state marking." }
-      - { kind: kanji, kana: ポスター, kanji: ポスター, distractors: ["ポケット", "ポイント", "ポスト"], exercises: [te-aru] }
+      # Was a `kind: kanji` beat testing ポスター (JA local-judge triage
+      # 2026-09-13, ja-m41-neo-challenge-kanji-3): ポスター is a katakana
+      # loanword with no kanji form, so the beat set `kanji: ポスター` (same
+      # as `kana`) — reading === surface for the correct answer AND every
+      # distractor, no actual reading gap tested. kanjiReading()'s own
+      # contract refuses exactly this case ("use vocabMcq/translationMcq for
+      # a kana-only atom" — grammarHelpers.ts). A same-position
+      # listening-comp swap (also considered) tripped the selection-run cap
+      # (inv 25): it lands between two auto-filler `multiple_choice` steps
+      # here, making a run of 3. `kind: kanji` was itself non-selection —
+      # kept that shape with a plain build sentence instead (this compiler
+      # has no authorable word_image_mcq/vocab-mcq beat kind; word_image_mcq
+      # is auto-emitted and intro-only, and ポスター is already past its
+      # m41-neo-1 debut) — still exercised via reviewPool's translationMcq
+      # fill pipeline either way.
+      - { kind: sentence, ja: "ポスターが きれいに はってある。", en: "A poster has been stuck up neatly.", exercises: [te-aru], mode: build }
       - kind: dialogue
         lines:
           - { speaker: "Tanaka", ja: "へやは どうだった？", en: "How was the room?" }

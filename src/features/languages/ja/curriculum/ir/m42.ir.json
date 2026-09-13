@@ -445,6 +445,16 @@
       "conjugation": {
         "class": "i-adj"
       }
+    },
+    {
+      "kana": "わかって",
+      "romaji": "wakatte",
+      "gloss": "understanding — te-form of わかる",
+      "shortGloss": "understand (understand)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "わかる",
+      "verbClass": "u"
     }
   ],
   "lessons": [

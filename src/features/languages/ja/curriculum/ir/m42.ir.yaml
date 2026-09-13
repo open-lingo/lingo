@@ -351,6 +351,18 @@ newAtoms:
   # ══ L7, id rashii-hearsay — らしい itself, a genuine free-attaching
   # い-adjective lemma; no derived atom needed (see notes). ひなん cut.
   - { kana: らしい, romaji: rashii, gloss: "apparently, it seems (hearsay/evidential)", shortGloss: "apparently", imageable: false, kind: vocab, pos: adjective, conjugation: { class: i-adj } }
+  # わかって — te-form of the globally-registered わかる (id "wakaru",
+  # fromModule "future"). Needed verbatim (「もう わかっている」, m42-neo-
+  # challenge): without it, greedy tokenization has no match starting at
+  # わ (わかる's own dictionary-form token doesn't prefix-match the
+  # conjugated surface), strands bare わ as a 1-char fragment tile, then
+  # falls into the unrelated かって (買って/勝手) atom for the rest —
+  # same class as the つたえた/しらせた note above, and same class as
+  # m41's はって (te-form of はる). Registering the surface directly is
+  # the fix, not a tokenizer change: te-iru's own two tiles (わかって +
+  # いる) are what this beat's exercised te-iru grammar point actually
+  # tests (JA local-judge triage 2026-09-13, ja-m42-neo-3-challenge).
+  - { kana: わかって, romaji: wakatte, gloss: "understanding — te-form of わかる", shortGloss: "understand (understand)", imageable: false, kind: verb-form, derivedFrom: わかる, verbClass: u }
 
 lessons:
   # ═══════════════════════════════════════════════════════════════════════

@@ -228,6 +228,16 @@ newAtoms:
   # (already registered above, L7) and いただく (already known, m31) both
   # already exist; the phrase is presented as two space-separated
   # already-registered tokens, never its own fused lemma.
+  #
+  # いただきます — masu-form of いただく. JA local-judge triage 2026-09-13
+  # (ja-m45-neo-8-dlg-6): a student addressing a teacher directly with the
+  # bare dictionary form of an ultra-polite construction undercuts the
+  # register the phrase teaches (「せんせい、しゅくだいを させて いただく。」
+  # fixed to 「…させて いただきます。」). Recognition-only, same posture as
+  # いただく itself — appears in ONE dialogue_listen line, never a build/
+  # translate target, so it doesn't touch the "させて いただく never
+  # produced" invariant this lesson is built around.
+  - { kana: いただきます, romaji: itadakimasu, gloss: "humbly receive, get to (polite) — masu-form of いただく", shortGloss: "humbly receive (polite)", imageable: false, kind: verb-form, derivedFrom: いただく, verbClass: u }
   - { kana: ないしょ, kanji: 内緒, romaji: naisho, gloss: "a secret", shortGloss: "secret", imageable: false, kind: vocab, pos: noun }
   - { kana: きょういく, kanji: 教育, romaji: kyouiku, gloss: "education", shortGloss: "education", imageable: false, kind: vocab, pos: noun }
   # ══ review-3 (neo-review-3) — ざんぎょう, sidequest vocabulary, this
@@ -304,7 +314,7 @@ lessons:
       - { kind: particle-cloze, stem: "おやは こどもに やさいを たべ", tail: "。", answer: "させる", options: ["させる", "せる", "る"], en: "The parent makes/lets the child eat vegetables.", explanation: "An ichidan verb drops る and adds させる whole — たべ+させる. An u-verb would instead bend to its a-row first (よま+せる); never mix the two patterns." }
       - { kind: listening-comp, audio: "おやは こどもに むりやり やさいを たべさせる。", answer: "The parent forcibly makes the child eat vegetables.", distractors: ["The parent lets the child skip vegetables.", "The child forces the parent to eat vegetables.", "The parent eats vegetables with the child."], q: "What does this mean?" }
       - { kind: listening-comp, audio: "せんせいは がくせいに がっこうに こさせる。", answer: "The teacher makes the student come to school.", distractors: ["The teacher goes to the student's school.", "The student makes the teacher come to school.", "The teacher forbids the student from coming to school."], q: "What does this mean?" }
-      - { kind: kanji, kana: そうじする, kanji: 掃除, distractors: ["そうさ", "そつぎょう", "そんけい"], exercises: [] }
+      - { kind: kanji, kana: そうじする, kanji: 掃除, reading: そうじ, distractors: ["そうさ", "そつぎょう", "そんけい"], exercises: [] }
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "こどもは やさいが すき？", en: "Does your child like vegetables?" }
@@ -503,7 +513,7 @@ lessons:
       - { kind: kanji, kana: きょういく, kanji: 教育, distractors: ["きそく", "きぶん", "きけん"], exercises: [] }
       - kind: dialogue
         lines:
-          - { speaker: "Mika", ja: "せんせい、しゅくだいを させて いただく。", en: "Teacher, I humbly get to do the homework." }
+          - { speaker: "Mika", ja: "せんせい、しゅくだいを させて いただきます。", en: "Teacher, I humbly get to do the homework." }
           - { speaker: "Ken", ja: "うん、いいよ。でも ないしょだよ。", en: "Sure. But it's a secret." }
           - { speaker: "Mika", ja: "きょういくは おもしろいね。", en: "Education is interesting, huh." }
         questions:

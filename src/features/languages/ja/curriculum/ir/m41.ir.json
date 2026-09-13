@@ -2134,17 +2134,13 @@
           "explanation": "'has been left open' signals the deliberate resultant state, あけてある. あいている would just say it's open, without anyone's intent implied, and あける is the bare dictionary form with no state marking."
         },
         {
-          "kind": "kanji",
-          "kana": "ポスター",
-          "kanji": "ポスター",
-          "distractors": [
-            "ポケット",
-            "ポイント",
-            "ポスト"
-          ],
+          "kind": "sentence",
+          "ja": "ポスターが きれいに はってある。",
+          "en": "A poster has been stuck up neatly.",
           "exercises": [
             "te-aru"
-          ]
+          ],
+          "mode": "build"
         },
         {
           "kind": "dialogue",

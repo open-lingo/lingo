@@ -14,6 +14,7 @@
 import type { LessonContent, LessonStep, ReactiveGrammarTip } from "@/features/lesson/types";
 import type { IrSceneSpec } from "@/features/lesson/data/sceneResolve";
 import { resolveScene } from "@/features/lesson/data/sceneResolve";
+import { KANA_ROMAJI } from "@/shared/japanese/kanaTable";
 import {
   SELECTION_TYPES,
   TEACH_FIRST_INTRO_TYPES,
@@ -246,6 +247,17 @@ export type IRBeat =
       kana: string;
       /** Override the surface (homograph atoms, counter forms). */
       kanji?: string;
+      /**
+       * Override the tested/displayed reading when it differs from `kana`
+       * (`kana` stays the crediting atom's real kana — SRS attribution and
+       * the promptAnnotation gloss still resolve off it). Needed when
+       * `kanji` names a NARROWER surface than the atom's own kana: m45's
+       * そうじする atom (kanji 掃除, kana そうじする) tested against just
+       * 掃除 must read そうじ, not the bundled-in する — the kanji's own
+       * reading, not the whole compound verb (JA local-judge triage
+       * 2026-09-13, ja-m45-neo-3-kanji-8). Defaults to `kana`.
+       */
+      reading?: string;
       /** Hand-authored near-miss readings; defaults to `readingDistractors`. */
       distractors?: string[];
       exercises?: string[];
@@ -421,28 +433,21 @@ export function stripRegisterCue(en: string): string {
   return en.replace(/^(?:Say|Ask|Answer|Reply|Tell)\b[^:]{0,40}:\s*/i, "").trim() || en;
 }
 
-// Kana-faithful romaji (Spencer ruling: は→ha, を→wo, へ→he — the particle's
+// Kana-faithful romaji (Spencer ruling: は→ha, を→o, へ→he — the particle's
 // spelling, not its pronunciation). Display-only, for grammar-card examples.
-const ROMAJI: Record<string, string> = {
-  きゃ: "kya", きゅ: "kyu", きょ: "kyo", しゃ: "sha", しゅ: "shu", しょ: "sho",
-  ちゃ: "cha", ちゅ: "chu", ちょ: "cho", にゃ: "nya", にゅ: "nyu", にょ: "nyo",
-  ひゃ: "hya", ひゅ: "hyu", ひょ: "hyo", みゃ: "mya", みゅ: "myu", みょ: "myo",
-  りゃ: "rya", りゅ: "ryu", りょ: "ryo", ぎゃ: "gya", ぎゅ: "gyu", ぎょ: "gyo",
-  じゃ: "ja", じゅ: "ju", じょ: "jo", びゃ: "bya", びゅ: "byu", びょ: "byo",
-  ぴゃ: "pya", ぴゅ: "pyu", ぴょ: "pyo",
-  あ: "a", い: "i", う: "u", え: "e", お: "o",
-  か: "ka", き: "ki", く: "ku", け: "ke", こ: "ko", さ: "sa", し: "shi", す: "su", せ: "se", そ: "so",
-  た: "ta", ち: "chi", つ: "tsu", て: "te", と: "to", な: "na", に: "ni", ぬ: "nu", ね: "ne", の: "no",
-  は: "ha", ひ: "hi", ふ: "fu", へ: "he", ほ: "ho", ま: "ma", み: "mi", む: "mu", め: "me", も: "mo",
-  // を → "o": the KANA_ROMAJI citation reading (Spencer ruling) — the
-  // sentence-line "gohanwo" vs per-kana "o" mismatch was a sweep finding.
-  や: "ya", ゆ: "yu", よ: "yo", ら: "ra", り: "ri", る: "ru", れ: "re", ろ: "ro", わ: "wa", を: "o", ん: "n",
-  が: "ga", ぎ: "gi", ぐ: "gu", げ: "ge", ご: "go", ざ: "za", じ: "ji", ず: "zu", ぜ: "ze", ぞ: "zo",
-  だ: "da", ぢ: "ji", づ: "zu", で: "de", ど: "do", ば: "ba", び: "bi", ぶ: "bu", べ: "be", ぼ: "bo",
-  ぱ: "pa", ぴ: "pi", ぷ: "pu", ぺ: "pe", ぽ: "po",
-  ト: "to", ム: "mu", ミ: "mi", カ: "ka", ケ: "ke", ン: "n", タ: "ta", ナ: "na",
-};
-function kanaToRomaji(input: string): string {
+//
+// Looks up `KANA_ROMAJI` (@/shared/japanese/kanaTable, sourced from the full
+// JA_HIRAGANA + JA_KATAKANA tables in languageConfig.ts) — the same
+// canonical table used for per-kana ruby elsewhere — rather than a
+// hand-duplicated local table. A prior local `ROMAJI` const here carried
+// hiragana plus only eight hand-picked katakana characters (enough for the
+// course character names トム/ミカ/ケン/タナカ), so any OTHER katakana fell
+// through to raw-glyph passthrough: テスト → "テスtoha" once は followed,
+// and コーヒー → "ココヒヒ" (the ー long-vowel handler repeats the last
+// *output* character, which was itself an un-romanized raw katakana glyph
+// rather than a romaji vowel). KANA_ROMAJI has full katakana coverage
+// including extended loanword digraphs, so this class of bug can't recur.
+export function kanaToRomaji(input: string): string {
   const s = input.replace(/[。、？！]/g, "");
   const out: string[] = [];
   let i = 0;
@@ -451,19 +456,19 @@ function kanaToRomaji(input: string): string {
     if (ch === " " || ch === "　") {
       out.push(" ");
       i++;
-    } else if (ch === "っ") {
-      const r = ROMAJI[s.slice(i + 1, i + 3)] ?? ROMAJI[s[i + 1] ?? ""] ?? "";
+    } else if (ch === "っ" || ch === "ッ") {
+      const r = KANA_ROMAJI[s.slice(i + 1, i + 3)] ?? KANA_ROMAJI[s[i + 1] ?? ""] ?? "";
       if (r) out.push(r[0]);
       i++;
     } else if (ch === "ー") {
       const last = out[out.length - 1];
       if (last) out.push(last[last.length - 1]);
       i++;
-    } else if (ROMAJI[s.slice(i, i + 2)]) {
-      out.push(ROMAJI[s.slice(i, i + 2)]);
+    } else if (KANA_ROMAJI[s.slice(i, i + 2)]) {
+      out.push(KANA_ROMAJI[s.slice(i, i + 2)]);
       i += 2;
-    } else if (ROMAJI[ch]) {
-      out.push(ROMAJI[ch]);
+    } else if (KANA_ROMAJI[ch]) {
+      out.push(KANA_ROMAJI[ch]);
       i += 1;
     } else {
       out.push(ch);
@@ -1456,7 +1461,7 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
             meaningEn: a.meaningEn,
             fromModule: a.fromModule,
           } as ReviewAtom,
-          { kanji: beat.kanji, distractors: beat.distractors },
+          { kanji: beat.kanji, reading: beat.reading, distractors: beat.distractors },
         );
         if (beat.exercises?.length)
           step.exercisedGrammar = [...new Set(beat.exercises)];

@@ -311,7 +311,21 @@ const MAX_NEVER_TOUCHED = 140;
  * exactly matching the raw count of the five atoms (no ripple offset this
  * time — the pre-existing 90-row report plus exactly these five new rows,
  * nothing dropped off). They come OFF this list only when a later module
- * grades them, not a fix to make here. */
+ * grades them, not a fix to make here.
+ *
+ * 2026-09-13 (JA local-judge triage defect fix, ja-m41-neo-1-kanji-13):
+ * `kanjiReading()`'s `promptAnnotation` gloss for m41's 貼る ("to stick")
+ * kanji-reading step was wrong ("spring", from the はる homograph's ruled
+ * primary sense "haru" 春, m25) — fixed by disambiguating the DISPLAYED
+ * gloss on kana+kanji (`resolveAtomByKanjiSurface`). `exercisedAtoms`
+ * deliberately keeps the OLD bare-kana crediting (still "haru", not
+ * "haru-stick"): "haru-stick" has no exposure outside m41 anywhere in the
+ * live corpus, so D2's same-module gate means crediting it here can never
+ * produce a write, and kanji_reading isn't in INTRO_TYPES so it can't
+ * legitimately be a debut either — correcting the credit would only move
+ * this ratchet, not fix anything a learner experiences. Ratchets don't
+ * move for a content fix; see grammarHelpers.ts's `kanjiReading` for the
+ * full reasoning. This number is unchanged. */
 const MAX_GRADED_BUT_NEVER_WRITES = 95;
 
 type Row = {

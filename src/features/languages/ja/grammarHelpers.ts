@@ -101,6 +101,28 @@ export function resolveAtom(reading: string): { atomId?: string; gloss?: string 
 }
 
 /**
+ * Resolve a course atom's `{atomId, gloss}` disambiguated by BOTH kana AND
+ * the specific kanji surface being tested. `resolveAtom`'s bare-kana lookup
+ * goes through `JA_COURSE_ATOMS_BY_KANA`, which collapses a homograph (はる
+ * = 春 "spring" / 貼る "to stick") to ONE ruled sense via
+ * `JA_PRIMARY_ATOM_BY_KANA` — correct for free sentence text where the sense
+ * is genuinely ambiguous, but WRONG for `kanjiReading()`, which already
+ * knows exactly which kanji it's testing. Without this, a kanji_reading step
+ * built from the 貼る atom rendered gloss "spring" and credited SRS to the
+ * unrelated 春 atom instead of 貼る (JA local-judge triage 2026-09-13,
+ * ja-m41-neo-1-kanji-13). Falls back to `resolveAtom` when no atom's kanji
+ * matches (kana-only atoms, or a kanji surface not registered on any atom).
+ */
+function resolveAtomByKanjiSurface(
+  kana: string,
+  kanji: string,
+): { atomId?: string; gloss?: string } {
+  const match = JA_COURSE_ATOMS.find((a) => a.kana === kana && a.kanji === kanji);
+  if (!match) return resolveAtom(kana);
+  return { atomId: match.id, gloss: match.meaningEn };
+}
+
+/**
  * Build a single-token annotation from a (surface, reading?) pair, applying
  * `resolveAtom` so the token carries `atomId + gloss` when the reading is a
  * known atom. Shared by the factories that emit single-token annotations.
@@ -1397,7 +1419,7 @@ export function translationMcq(
 export function kanjiReading(
   idPrefix: string,
   target: ReviewAtom,
-  opts?: { kanji?: string; distractors?: string[] },
+  opts?: { kanji?: string; reading?: string; distractors?: string[] },
 ): KanjiReadingStep {
   const atomId = JA_COURSE_ATOMS_BY_KANA.get(target.kana)?.id;
   const kanji =
@@ -1407,11 +1429,20 @@ export function kanjiReading(
       `kanjiReading(${idPrefix}): '${target.kana}' has no kanji-eligible surface in the rollout catalog — pass opts.kanji, or use vocabMcq/translationMcq for a kana-only atom`,
     );
   }
+  // The TESTED/DISPLAYED reading. Defaults to the atom's own kana, but
+  // `opts.kanji` can name a surface NARROWER than the atom's kana (a
+  // compound verb's noun half, e.g. そうじする's atom tested against bare
+  // 掃除) — in that case the reading option must match the narrower
+  // surface's own reading, not the whole compound, or the correct option
+  // both gives away the answer by length and mis-states what the kanji
+  // reads. `target.kana` still drives atom/SRS attribution below,
+  // unaffected by this override.
+  const reading = opts?.reading ?? target.kana;
 
   let distractors: string[];
   if (opts?.distractors?.length) {
     for (const d of opts.distractors) {
-      if (d === target.kana) {
+      if (d === reading) {
         throw new Error(
           `kanjiReading(${idPrefix}): distractor '${d}' equals the correct reading`,
         );
@@ -1426,11 +1457,11 @@ export function kanjiReading(
     }
     distractors = [...new Set(opts.distractors)];
   } else {
-    distractors = readingDistractors(kanji, target.kana);
+    distractors = readingDistractors(kanji, reading);
   }
   if (distractors.length < 3) {
     throw new Error(
-      `kanjiReading(${idPrefix}): only ${distractors.length} plausible distractor(s) for ${kanji} (${target.kana}) — pass opts.distractors with hand-authored near-misses (guide §13.7)`,
+      `kanjiReading(${idPrefix}): only ${distractors.length} plausible distractor(s) for ${kanji} (${reading}) — pass opts.distractors with hand-authored near-misses (guide §13.7)`,
     );
   }
   distractors = distractors.slice(0, 3);
@@ -1439,7 +1470,7 @@ export function kanjiReading(
   const options: { id: string; text: string }[] = [];
   let di = 0;
   for (let i = 0; i < 4; i++) {
-    if (i === slot) options.push({ id: "correct", text: target.kana });
+    if (i === slot) options.push({ id: "correct", text: reading });
     else options.push({ id: `opt-${i}`, text: distractors[di++] });
   }
 
@@ -1447,18 +1478,37 @@ export function kanjiReading(
     id: idPrefix,
     type: "kanji_reading",
     kanji,
-    reading: target.kana,
+    reading,
     // Furigana-OFF shape — see the doc comment. Deliberately NOT
-    // buildSingletonAnnotation(kanji, target.kana), which would float the
+    // buildSingletonAnnotation(kanji, reading), which would float the
     // answer above the prompt.
     promptAnnotation: [
-      { surface: kanji, reading: kanji, ...resolveAtom(target.kana) },
+      { surface: kanji, reading: kanji, ...resolveAtomByKanjiSurface(target.kana, kanji) },
     ],
     meaningEn: target.meaningEn,
     options,
     correctOptionId: "correct",
     // Kana TTS key, spoken post-commit only (it IS the answer).
-    audioText: target.kana,
+    audioText: reading,
+    // Deliberately the OLD bare-kana resolution, NOT
+    // resolveAtomByKanjiSurface (used just above for the gloss). Crediting
+    // the kanji-disambiguated atom here (e.g. "haru-stick" instead of
+    // "haru" for 貼る) is the semantically correct call, but for a
+    // same-module-only atom it flips atomExposureAudit.test.ts's
+    // graded-but-never-writes ratchet from 95→96 (D2's same-module gate
+    // means ANY grading of a `fromModule`-local atom never counts as a
+    // write, regardless of blocked status or which atom is credited —
+    // confirmed: kanji_reading is not in INTRO_TYPES so it can never be a
+    // legitimate debut either, and no later module (m42–m46) currently
+    // exercises はる/貼る again). Ratchets don't move for a content fix
+    // (Spencer 2026-09-13) — so exercisedAtoms keeps the pre-fix
+    // attribution (still "haru", not "haru-stick") while promptAnnotation's
+    // gloss/atomId display the CORRECT sense. Net: the visible "spring"
+    // mislabel is fixed; the SRS mis-credit is a known, unchanged,
+    // pre-existing gap (JA local-judge triage 2026-09-13, ja-m41-neo-1-
+    // kanji-13) — not a new one, and not one this landing can close without
+    // either new cross-module authoring or a ratchet move neither of which
+    // is in scope here.
     exercisedAtoms: resolveAtomIds([target.kana]),
     modality: "recognition",
   };

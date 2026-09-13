@@ -535,6 +535,16 @@
       "derivedFrom": "はやい"
     },
     {
+      "kana": "いただきます",
+      "romaji": "itadakimasu",
+      "gloss": "humbly receive, get to (polite) — masu-form of いただく",
+      "shortGloss": "humbly receive (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いただく",
+      "verbClass": "u"
+    },
+    {
       "kana": "ないしょ",
       "kanji": "内緒",
       "romaji": "naisho",
@@ -984,6 +994,7 @@
           "kind": "kanji",
           "kana": "そうじする",
           "kanji": "掃除",
+          "reading": "そうじ",
           "distractors": [
             "そうさ",
             "そつぎょう",
@@ -2082,7 +2093,7 @@
           "lines": [
             {
               "speaker": "Mika",
-              "ja": "せんせい、しゅくだいを させて いただく。",
+              "ja": "せんせい、しゅくだいを させて いただきます。",
               "en": "Teacher, I humbly get to do the homework."
             },
             {
@@ -3462,6 +3473,7 @@
     "ろっぽん",
     "わ",
     "わかった",
+    "わかって",
     "わからない",
     "わかりにくい",
     "わかります",
@@ -10855,6 +10867,16 @@
       "conjugation": {
         "class": "i-adj"
       }
+    },
+    {
+      "kana": "わかって",
+      "romaji": "wakatte",
+      "gloss": "understanding — te-form of わかる",
+      "shortGloss": "understand (understand)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "わかる",
+      "verbClass": "u"
     },
     {
       "kana": "やくそく",
