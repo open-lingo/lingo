@@ -376,6 +376,15 @@ ruby {
 .kanji-ruby {
   ruby-align: start;
 }
+/* …except where centring cannot pry the word apart: a whole-word ruby (外国,
+   日本語 — the padding falls OUTSIDE the glyphs) or a reading with no more
+   kana than its kanji run (行(い)く, 食(た)べる — the reading is narrower than
+   the base, so nothing is padded). `KanjiRuby` sets `data-fit`; measured on
+   the iOS 18.7 simulator: 0px base shift for every fit case, 8.5–10.4px of
+   internal gap for the non-fit ones under `center` (TestFlight #62 vs #36). */
+.kanji-ruby[data-fit="true"] {
+  ruby-align: center;
+}
 
 /* Lesson-step content cluster: centred in the stage when it fits, but never
    clipped at the top when it does not. Plain `center` distributes overflow

@@ -1,4 +1,5 @@
 import { useLocation } from "react-router-dom";
+import { useAllContentReady, useContentRevision } from "@/features/lesson/data/useLessonContent";
 import { ProtoModuleWalker, type ProtoModuleConfig } from "./ProtoModuleWalkerPage";
 import { ES_MODULE_META, ES_ALL_LESSONS } from "@/features/languages/es/curriculum";
 import { getMockLessonContent } from "../data/mockLessons";
@@ -17,6 +18,10 @@ function stepsFor(lessonId: string) {
 }
 
 export default function ProtoModuleNPage() {
+  // Content-as-data: the proto pages read lessons synchronously; load all
+  // courses and re-render when they land.
+  useAllContentReady();
+  useContentRevision();
   const { pathname } = useLocation();
   const mod = /\/qa\/(m\d+)$/.exec(pathname)?.[1] ?? "m4";
   const meta = ES_MODULE_META.find((m) => m.id === mod);

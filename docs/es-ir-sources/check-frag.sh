@@ -22,6 +22,12 @@ head = re.sub(r"^checkpoint: .*", "checkpoint: 2", head, flags=re.M)
 open(out,"w").write(head+body+place)
 PY
 cd $REPO; set +e
-node scripts/compile-ir-es.mjs $MOD --check 2>&1; rc=$?
+# Diagnostics go through cap-output.mjs (2026-09-13) so a drafting agent's
+# context isn't spent on raw compiler output — same ~120-line cap as
+# `module-gate.mjs --compact`. The compiler is unchanged; only what reaches
+# stdout after it is filtered. `$pipestatus[1]` (zsh) is the compiler's own
+# exit code, not the filter's — capture it before anything else touches $?.
+node scripts/compile-ir-es.mjs $MOD --check 2>&1 | node "$REPO/scripts/authoring/cap-output.mjs"
+rc=$pipestatus[1]
 rm -f $OUT $REPO/src/features/languages/es/curriculum/$MOD.ts
 [[ $rc -eq 0 ]] && echo "FRAGMENT OK" || echo "FRAGMENT FAILED (exit $rc)"; exit $rc

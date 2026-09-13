@@ -3,7 +3,8 @@ import {
   DEFAULT_REGISTER_CAST,
   castView,
 } from "@/features/languages/ja/registerCast";
-import { lookupKanaEmoji, notoEmojiUrl } from "@/shared/assets/notoEmoji";
+import { notoEmojiUrl } from "@/shared/assets/notoEmoji";
+import { lookupKanaEmoji } from "@/shared/assets/kanaEmojiMap";
 
 /**
  * IR authoring form → runtime scene.

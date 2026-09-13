@@ -338,8 +338,7 @@ grep -oE 'promptEn: "[^"]*"' src/features/languages/es/curriculum/mN.ts | sort -
 grep -oE 'audioText: "[^"]*"' src/features/languages/es/curriculum/mN.ts | sort -u
 
 # 5. register it — SEVEN points, all of them silent if missed (§10)
-# 6. write mN.test.ts, then:
-npx tsc --noEmit && npx vitest run src/features/languages/es
+# 6. write mN.test.ts, then gate it — see §8a, NOT a raw vitest run
 ```
 
 **Frame-filled cells are reported on stderr.** A (verb, person) cell the pool
@@ -347,6 +346,82 @@ missed is built from the frame and named — never silently substituted. A run
 that reports 17 frame-fills is fine; a run that reports none *and* used the
 pool for everything is fine; a run that reports none because the reporting
 broke is not, so read the line.
+
+---
+
+## 8a. Authoring-cost wiring (2026-09-13 — brief/gate/reviewer discipline, MANDATORY)
+
+Authoring one module costs ~1.3M Sonnet tokens: ~750k drafting (5 agents,
+117k–208k each) + ~380k gate fix round-trips + 158k reviewer
+(`docs/handoff-2026-09-09-es-m20-done-ko-next.md` lines 51-64) — identical
+on Opus (`docs/handoff-2026-09-02-es-m11-m15.md` lines 149-152, same
+per-lesson cost measured head-to-head), so the lever is the unit of work,
+not the model tier. Four rules, from the next ES dispatch on (this
+supersedes step 4's raw `grep` pattern and step 6's raw `vitest run` above
+— those still work, they are just the expensive way now):
+
+1. **Briefs cite the surfaces index, never re-derive "is X already taught"
+   by reading `curriculum/m*.ts`.** `docs/es-ir-sources/surfaces-index.json`
+   (+ its `.md` summary), from `node scripts/authoring/surfaces-index.mjs
+   --lang es` (or `npm run authoring:surfaces -- --lang es`), replaces the
+   `grep -o 'surface: "[^"]*"' curriculum/m{1..N}.ts | sort -u` pattern
+   repeated near-verbatim in ~20 prior briefs (e.g.
+   `docs/es-ir-sources/es-m36-brief.md` lines 79-91, 150-160) — same source
+   of truth (each module's own `fromModule`-tagged `atom()` registrations),
+   already computed, with a `surfaceToFirstModule` reverse map for the
+   "is X virgin" check every brief runs. Regenerate before drafting if the
+   index's `generatedAt` predates the newest landed module.
+2. **Drafting agents gate through `gate-runner` (Haiku,
+   `.claude/agents/gate-runner.md`) or `module-gate.mjs --compact`, never a
+   raw `npx vitest run` / `npx tsc --noEmit` dump pasted into context** (the
+   `check-frag.sh` sandwich-compile each drafting agent runs per lesson
+   already routes its own diagnostics through `scripts/authoring/
+   cap-output.mjs`, capped the same way). `module-gate.mjs --compact` caps
+   output at ~120 lines total, grouping identical failures instead of
+   repeating them.
+3. **The reviewer pass (the one that found m20's 4 real defects) reads
+   ONLY the module's assembled IR/compiled TS plus
+   `es-authoring-invariants-pinned.md`** — not prior modules' full content —
+   and applies this checklist (≤15 items, each traced to a real m20 defect
+   or brief-error round-trip):
+   1. Every `dialogue_sim` NPC line uses only PRIOR (already-taught) words,
+      not just the graded answer position ([[grade-answers-not-every-string]]).
+   2. Connector/elision rules are applied where two taught words meet (y→e
+      before an i-/hi- sound was missed once: «y hice»→«e hice»).
+   3. Every factual grammar claim in an info-card is true (a false
+      hago→hizo claim shipped once).
+   4. Bare noun/atom surfaces in `atoms:` carry the article the registered
+      atom actually uses («museo»→«el museo»).
+   5. No full-sentence recognition MCQ where an invariant forbids it
+      (inv-28 class).
+   6. Every content word decomposes into a taught atom — no untracked word
+      slips past the gate (found: «hico», «todo»).
+   7. A word's authored `partOfSpeech`/`kind` is correct, not just its
+      surface — a wrong tag can mis-attribute it to the wrong regex/pool
+      (found: «trabajo» the noun matched the present-verb regex).
+   8. Every "win"/example sentence quoted IN THE BRIEF itself uses only
+      PRIOR words (a non-PRIOR «la cena» propagated once).
+   9. The brief's PRIOR list is accurate — a form marked PRIOR that isn't
+      actually taught yet costs a round-trip (`estoy`/`estás` once).
+   10. No lesson is a step-count outlier (a 26-step "marathon" shipped
+       once, sent back to 20).
+   11. No lesson runs a selection-step marathon (3+ in a row).
+   12. Distractor options are never equal to the correct answer token.
+   13. Cast/character names and register match every prior module's own
+       `speaker:` usage.
+   14. Cross-recombination claims in the header (which prior modules this
+       one reuses) are grep/index-verified, not assumed from the
+       dispatching task's own framing.
+   15. New atoms are genuinely virgin per the surfaces index (rule 1), not
+       assumed.
+   Always run this pass — ~158k tokens on m20, cheap relative to what it
+   catches, and every item is a defect class the mechanical gates cannot see.
+4. **One fix round-trip, then escalate.** A drafting agent gets ONE pass at
+   fixing gate failures from a `--compact`/`gate-runner` failure list. If
+   still red after that pass, stop — hand the coordinator the compact
+   failure list (not a fresh full run), same as m20's own two round-trips
+   were handled (one sent back via `SendMessage`, the rest fixed directly
+   rather than re-dispatched blind).
 
 ---
 

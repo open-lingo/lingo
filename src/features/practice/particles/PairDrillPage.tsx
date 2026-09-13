@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useContentRevision, useCourseReady } from "@/features/lesson/data/useLessonContent";
 import { Link, Navigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button, Card } from "@/shared/components/ui";
@@ -21,6 +22,8 @@ import { buildPairSession, gradePair, type PairGrade, type PairQuestion } from "
  * pillar can count it as training.
  */
 export function PairDrillPage() {
+  // Content-as-data: the drill corpus mines JA lessons; load the course.
+  useCourseReady("ja");
   const [params] = useSearchParams();
   const langPath = useLangPath();
   const langId = useLang();
@@ -57,7 +60,11 @@ function Session({ pair }: { pair: ParticlePair }) {
   const reachedModule = useCourseLevel();
   const { settings, updateSetting } = useSettings();
 
-  const pool = useMemo(() => minePairSentences(pair.particles, reachedModule), [pair, reachedModule]);
+  const contentRevision = useContentRevision();
+  const pool = useMemo(
+    () => minePairSentences(pair.particles, reachedModule),
+    [pair, reachedModule, contentRevision],
+  );
 
   // Usage cards owed before the first drill: computed ONCE on mount from the
   // persisted seen-set, then walked locally. Re-deriving from settings on every

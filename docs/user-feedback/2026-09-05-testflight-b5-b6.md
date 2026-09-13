@@ -119,6 +119,16 @@ Shots: `2026-09-05-testflight-shots/36.jpg` … `61.jpg`.
 | 60 | 60 | Build tray tiles overlapping | "I know we fixed this somewhere, maybe old version again" | #46 | fixed 40612f16 on the branch; build 8 predates it — verify on build 9 |
 | 61 | 61 | Typed translate 「しつもんを して こたえを きいてみた」 | "Is my sentence technically right? Are we too strict here?" | grading: no — 「きって」 is 切って (cut), not 聞いて, and 「こたえをみた」 drops the てみた. Display bug: the three accepted answers differed only by spacing and 。 | fixed 2311d25c (accepted list deduped on the grading key); the strictness is right |
 
+## Builds 10 + 11 — Spencer, 2026-09-09/10 (pulled 2026-09-11 23:50 MDT)
+
+Build 11 is APPROVED in beta review (build id `0ef29214…`). Crash submissions still **0**.
+
+| # | Shot | Step | Verbatim | Class | Status |
+|---|---|---|---|---|---|
+| 62 | 62 | Build 「I'm going abroad next month…」 (b10, JA m46-class) | "Every word needs to be center aligned if we can help it, furigana gets messed up without that" | layout: furigana line on build tiles is not centred over its base (がいこく sits left of 外国) | open — investigating in BuildSentenceStepView / kanji tile surface |
+| 63 | 63 | Listening comprehension MCQ 「やすかったから かっておいた」 (b10) | "Scrolls here are ugly, maybe we limit these to 3 answers and then convert a few more of them into the sentence build for English… Big decision" | design: 4 long-EN-option MCQs overflow on 15 Pro Max; a scrollbar appears on the option list | discuss — Spencer's own call; candidate = 3-option cap for long-answer listening MCQs (#4/#8/#17/#32 lane) |
+| 64 | 64 | App launch / unknown (b11, 20:31 MDT 2026-09-10) | "Doesn't return anything" | BLANK WHITE SCREEN — pure white, no chrome, no cream launch colour; no crash submission | open — reproducing on the simulator from 0822556c; white = webview showed nothing (boot throw before React mounts, or WKWebView content-process kill). No top-level error boundary exists today, so any provider throw is a white screen |
+
 ## Other channels
 
 | # | Source | Verbatim / summary | Class | Status |

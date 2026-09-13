@@ -45,10 +45,21 @@
  *      `--lessons=id1,id2` (no curriculum import here — ids are supplied,
  *      not derived, so this script stays content-agnostic). Skipped with a
  *      clear reason when the flag is unset or `--lessons` is missing.
+ *
+ * `--compact` (2026-09-13): same checks, same exit code — the only thing
+ * that changes is what reaches stdout. A raw run prints thousands of lines
+ * (the full suite alone is ~9,400 assertions); an agent that just needs
+ * "did it pass, what broke" pays for all of it in context. With
+ * `--compact`, child process output is captured instead of streamed, and
+ * only a per-stage one-line table plus (for FAILED stages) up to 3
+ * example messages per distinct failure group are printed, capped at
+ * ~120 total lines. The full captured output for every failed stage is
+ * still written to `artifacts/module-gate-compact/` so nothing is lost —
+ * only what reaches the caller's context shrinks.
  */
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { readFileSync, readdirSync } from "node:fs";
+import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 
@@ -80,27 +91,49 @@ const lessonIds = lessonsFlag
   : [];
 
 if (!moduleArg) {
-  console.error("Usage: npm run module-gate -- <module> [--lessons=id1,id2]");
-  console.error('Example: npm run module-gate -- m4-neo');
+  console.error("Usage: npm run module-gate -- <module> [--lessons=id1,id2] [--compact]");
+  console.error('Example: npm run module-gate -- m4-neo --compact');
   process.exit(1);
 }
+
+const COMPACT = rawArgs.includes("--compact");
 
 // ── stage runner ────────────────────────────────────────────────────────
 
 /** @type {{ name: string; status: "PASS" | "FAIL" | "SKIP"; detail: string; ms: number }[]} */
 const results = [];
 
+/** Captured stdout+stderr per stage name, populated only in --compact mode
+ * (non-compact runs stream straight to the terminal via stdio:"inherit"
+ * and nothing is captured — identical to pre-existing behavior). */
+const stageOutputs = new Map();
+let currentStageName = "";
+
 function run(cmd, args, opts = {}) {
-  return spawnSync(cmd, args, {
+  const res = spawnSync(cmd, args, {
     cwd: ROOT,
-    stdio: "inherit",
+    stdio: COMPACT ? "pipe" : "inherit",
     encoding: "utf-8",
     ...opts,
   });
+  if (COMPACT) {
+    const combined = [res.stdout, res.stderr].filter(Boolean).join("\n");
+    if (combined) recordCompactOutput(combined);
+  }
+  return res;
+}
+
+/** Append text to the current stage's captured output (compact mode only) —
+ * for failure detail generated in JS rather than by a spawned process. */
+function recordCompactOutput(text) {
+  if (!COMPACT || !text) return;
+  const prev = stageOutputs.get(currentStageName) ?? "";
+  stageOutputs.set(currentStageName, prev ? `${prev}\n${text}` : text);
 }
 
 function stage(name, fn) {
-  console.log(`\n=== module-gate: ${name} ===`);
+  currentStageName = name;
+  if (!COMPACT) console.log(`\n=== module-gate: ${name} ===`);
   const start = Date.now();
   let outcome;
   try {
@@ -187,11 +220,11 @@ stage("TTS deck emit + manifest coverage", () => {
   }
 
   if (missing.length > 0) {
-    console.log(`${missing.length} of ${cards.length} deck cards have no ja clip:`);
-    for (const c of missing.slice(0, 25)) {
-      console.log(`  - ${c.id}: "${c.front}"`);
-    }
-    if (missing.length > 25) console.log(`  … and ${missing.length - 25} more`);
+    const lines = [`${missing.length} of ${cards.length} deck cards have no ja clip:`];
+    for (const c of missing.slice(0, 25)) lines.push(`  - ${c.id}: "${c.front}"`);
+    if (missing.length > 25) lines.push(`  … and ${missing.length - 25} more`);
+    if (COMPACT) recordCompactOutput(lines.join("\n"));
+    else console.log(lines.join("\n"));
     return {
       status: "FAIL",
       detail: `${missing.length}/${cards.length} cards missing TTS clips`,
@@ -291,7 +324,7 @@ if (process.env.MODULE_GATE_FAST === "1") {
 // CEJC-frequent words become tail/carrier directives).
 stage("exposure audit (report-only)", () => {
   const audit = run("node", [resolve(__dirname, "exposure-audit.mjs")]);
-  if (audit.stdout) process.stdout.write(audit.stdout);
+  if (!COMPACT && audit.stdout) process.stdout.write(audit.stdout);
   return {
     status: audit.status === 0 ? "PASS" : "WARN",
     detail: "informational — see table above",
@@ -300,16 +333,111 @@ stage("exposure audit (report-only)", () => {
 
 // ── summary ─────────────────────────────────────────────────────────────
 
-console.log(`\n${"=".repeat(60)}`);
-console.log(`module-gate summary — ${moduleArg}`);
-console.log("=".repeat(60));
-for (const r of results) {
-  const secs = (r.ms / 1000).toFixed(1).padStart(5);
-  console.log(`[${r.status.padEnd(4)}] ${r.name.padEnd(38)} ${secs}s  ${r.detail ?? ""}`);
-}
-console.log("=".repeat(60));
-
 const failed = results.filter((r) => r.status === "FAIL");
 const overall = failed.length === 0 ? "PASS" : "FAIL";
-console.log(`RESULT: ${overall}${failed.length ? ` (${failed.length} stage(s) failed: ${failed.map((f) => f.name).join(", ")})` : ""}`);
+
+// ── --compact reporting ─────────────────────────────────────────────────
+// One PASS/FAIL line, counts, and for failures at most 3 example messages
+// per distinct failure group (grouped when identical after stripping
+// line/col numbers) — total output capped at ~120 lines. Full captured
+// stdout+stderr for every failed stage is written to
+// `artifacts/module-gate-compact/` regardless of the cap, so nothing a
+// human or a follow-up agent needs is actually lost.
+
+/** Signals a line is worth surfacing as failure evidence — vitest's
+ * "FAIL"/"×" markers, assertion diffs, and tsc's `error TS####`. */
+const FAILURE_SIGNAL =
+  /(^\s*(FAIL|×|✗)\s)|AssertionError|error TS\d+|^\s*Error:|^\s*Expected|^\s*Received/;
+
+function groupFailureLines(text, maxGroups = 5, maxPerGroup = 3) {
+  if (!text) return [];
+  const signalLines = text
+    .split("\n")
+    .map((l) => l.trim())
+    .filter((l) => l.length > 0 && FAILURE_SIGNAL.test(l));
+  const groups = new Map(); // normalized key -> { count, examples: string[] }
+  for (const line of signalLines) {
+    // Group identical failures by stripping the parts that vary per
+    // occurrence (line/col numbers, other digits) but keep the message.
+    const key = line.replace(/:\d+:\d+/g, ":L:C").replace(/\d+/g, "#");
+    if (!groups.has(key)) groups.set(key, { count: 0, examples: [] });
+    const g = groups.get(key);
+    g.count++;
+    if (g.examples.length < maxPerGroup) g.examples.push(line);
+  }
+  return [...groups.values()]
+    .sort((a, b) => b.count - a.count)
+    .slice(0, maxGroups);
+}
+
+function writeFullLog(stageName) {
+  const text = stageOutputs.get(stageName);
+  if (!text) return null;
+  const dir = resolve(ROOT, "artifacts/module-gate-compact");
+  mkdirSync(dir, { recursive: true });
+  const slug = stageName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  const path = resolve(dir, `${moduleArg}-${slug}.log`);
+  writeFileSync(path, text);
+  return path.slice(ROOT.length + 1);
+}
+
+function printCompactSummary() {
+  const CAP = 120;
+  const buf = [];
+  const p = (line) => buf.push(line);
+
+  p(`RESULT: ${overall} — module-gate ${moduleArg}`);
+  p(
+    `stages: ${results.length} total, ${results.filter((r) => r.status === "PASS").length} passed, ` +
+      `${failed.length} failed, ${results.filter((r) => r.status === "SKIP").length} skipped, ` +
+      `${results.filter((r) => r.status === "WARN").length} warned`,
+  );
+  for (const r of results) {
+    const secs = (r.ms / 1000).toFixed(1);
+    p(`[${r.status}] ${r.name} (${secs}s) — ${r.detail ?? ""}`);
+  }
+
+  if (failed.length) {
+    p("");
+    p("--- failures (first 3 messages per distinct group) ---");
+    for (const f of failed) {
+      p(`${f.name}:`);
+      const groups = groupFailureLines(stageOutputs.get(f.name));
+      if (groups.length === 0) {
+        p(`  (no parseable failure lines — see full log)`);
+      }
+      for (const g of groups) {
+        const suffix = g.count > 1 ? ` [×${g.count} similar]` : "";
+        p(`  - ${g.examples[0]}${suffix}`);
+        for (const extra of g.examples.slice(1)) p(`      ${extra}`);
+      }
+      const logPath = writeFullLog(f.name);
+      if (logPath) p(`  full output: ${logPath}`);
+    }
+  }
+
+  let out = buf;
+  if (out.length > CAP) {
+    out = buf.slice(0, CAP - 1);
+    out.push(
+      `… output capped at ${CAP} lines — full per-stage logs are under artifacts/module-gate-compact/`,
+    );
+  }
+  console.log(out.join("\n"));
+}
+
+if (!COMPACT) {
+  console.log(`\n${"=".repeat(60)}`);
+  console.log(`module-gate summary — ${moduleArg}`);
+  console.log("=".repeat(60));
+  for (const r of results) {
+    const secs = (r.ms / 1000).toFixed(1).padStart(5);
+    console.log(`[${r.status.padEnd(4)}] ${r.name.padEnd(38)} ${secs}s  ${r.detail ?? ""}`);
+  }
+  console.log("=".repeat(60));
+  console.log(`RESULT: ${overall}${failed.length ? ` (${failed.length} stage(s) failed: ${failed.map((f) => f.name).join(", ")})` : ""}`);
+} else {
+  printCompactSummary();
+}
+
 process.exit(failed.length === 0 ? 0 : 1);

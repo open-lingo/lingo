@@ -1,4 +1,5 @@
 import { ProtoModuleWalker, type ProtoModuleConfig } from "./ProtoModuleWalkerPage";
+import { useAllContentReady, useContentRevision } from "@/features/lesson/data/useLessonContent";
 import { ES_M3_LESSONS } from "@/features/languages/es/curriculum/m3";
 import { getMockLessonContent } from "../data/mockLessons";
 
@@ -28,5 +29,9 @@ const ES_CONFIG: ProtoModuleConfig = {
 };
 
 export default function ProtoM3Page() {
+  // Content-as-data: the proto pages read lessons synchronously; load all
+  // courses and re-render when they land.
+  useAllContentReady();
+  useContentRevision();
   return <ProtoModuleWalker config={ES_CONFIG} />;
 }

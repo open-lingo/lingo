@@ -14,3 +14,9 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+// Resolved by the `lesson-registry-bootstrap` plugin in vite.config.ts: the
+// eager curriculum table under vitest / CONTENT_EMIT, an empty module in
+// every real build. See src/features/lesson/data/lessonRegistry.ts.
+declare module "virtual:lesson-registry-bootstrap";
+declare module "virtual:eager:*";

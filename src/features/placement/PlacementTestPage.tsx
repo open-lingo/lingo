@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useContentRevision, useCourseReady } from "@/features/lesson/data/useLessonContent";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/shared/components/ui";
@@ -41,6 +42,8 @@ import { stopAllAudio } from "@/shared/tts";
 import type { LessonStep } from "@/features/lesson/types";
 
 export function PlacementTestPage() {
+  // Content-as-data: test-out items derive from lesson bodies (JSON).
+  const contentRevision = useContentRevision();
   const { t } = useTranslation();
   const { moduleId } = useParams<{ moduleId?: string }>();
   const isTestOut = !!moduleId;
@@ -95,7 +98,7 @@ export function PlacementTestPage() {
       attemptCache.set(mod, items);
       return items;
     };
-  }, [isTestOut, langId]);
+  }, [isTestOut, langId, contentRevision]);
 
   // Modules / languages without items render an honest "no test-out
   // questions yet" message instead of running through an empty engine
@@ -110,6 +113,7 @@ export function PlacementTestPage() {
     isTestOut ? createTestOutState(moduleId!, langId) : null,
   );
 
+  useCourseReady(langId);
   const bands = useMemo(() => getLevelBands(langId), [langId]);
   const languageName = useMemo(
     () => getLanguageConfig(langId)?.name ?? langId.toUpperCase(),

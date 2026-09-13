@@ -29,6 +29,7 @@ import {
   getAvailableMockLessonIds,
   getMockLessonContent,
 } from "./mockLessons";
+import { getContentRevision } from "./lessonRegistry";
 import { cloze, sentenceMcq } from "@/features/languages/ja/grammarHelpers";
 
 const GRAMMAR_POINTS = grammarPointsJson as GrammarPoint[];
@@ -305,6 +306,7 @@ export function pickPoolStep(
 // the grammarReviewIndex recursion trap (and because reviews aren't sources).
 
 let ruleIndex: Map<string, GrammarRuleStep> | null = null;
+let ruleIndexRev = -1;
 
 function buildGrammarRuleIndex(): Map<string, GrammarRuleStep> {
   const out = new Map<string, GrammarRuleStep>();
@@ -333,13 +335,17 @@ function buildGrammarRuleIndex(): Map<string, GrammarRuleStep> {
 export function getGrammarRuleStepForPoint(
   pointId: string,
 ): GrammarRuleStep | null {
-  if (!ruleIndex) ruleIndex = buildGrammarRuleIndex();
+  if (!ruleIndex || ruleIndexRev !== getContentRevision()) {
+    ruleIndex = buildGrammarRuleIndex();
+    ruleIndexRev = getContentRevision();
+  }
   return ruleIndex.get(pointId) ?? null;
 }
 
 /** Test/dev helper: drop the memoized rule index. */
 export function __resetGrammarRuleIndex(): void {
   ruleIndex = null;
+  ruleIndexRev = -1;
 }
 
 function moduleOrder(m: string): number {

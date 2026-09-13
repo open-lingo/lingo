@@ -101,16 +101,57 @@ function loadOne(v: unknown): SRSCardState | null {
 let _srsCacheRaw: string | null = null;
 let _srsCacheStore: SRSStore | null = null;
 
+// Task-scoped read guard (2026-09-13, phone cold-open). The raw-string check
+// above is one `localStorage.getItem` of a ~200 KB value per call. Chromium
+// answers that from an in-process map in well under a microsecond; iOS
+// WebKit charges ~30 µs per read. Home's first render (sentence miner ×
+// review-lesson scan) made ~240,000 such reads in ONE synchronous task —
+// 0.1 s on a Mac, 7.1 s of white screen on an iPhone 15 Pro Max. So the
+// raw string is re-read from localStorage at most once per task: the first
+// call in a task validates against storage as before, later calls in the
+// same task trust the cache, and a microtask (which runs when the task's
+// synchronous work ends) re-arms the check. Writes in this module invalidate
+// eagerly, so same-task self-writes are always visible; a same-task write by
+// OTHER code (a direct localStorage.setItem on the key) becomes visible at
+// the next task, which is when a UI could react to it anyway. Tests that
+// write the key directly and read back synchronously call
+// `invalidateSRSCache()` (or `localStorage.clear()` via setup) first.
+let _verifiedThisTask = false;
+let _legacyChecked = false;
+
+/** Drop the parse cache; the next getSRSStore re-reads localStorage. */
+export function invalidateSRSCache(): void {
+  _srsCacheRaw = null;
+  _srsCacheStore = null;
+  _verifiedThisTask = false;
+}
+
+if (typeof window !== "undefined") {
+  // Another tab wrote (or cleared) the store: the cached copy is stale.
+  window.addEventListener("storage", (e) => {
+    if (e.key === null || e.key === STORAGE_KEY) invalidateSRSCache();
+  });
+}
+
 export function getSRSStore(): SRSStore {
   if (typeof window === "undefined") return {};
+  if (_verifiedThisTask && _srsCacheStore) return _srsCacheStore;
   try {
     // One-time clear of any pre-FSRS-6 store still hanging around in
-    // older browsers. Cheap, idempotent, and only runs while the legacy
-    // key exists.
-    if (localStorage.getItem(LEGACY_STORAGE_KEY) !== null) {
-      localStorage.removeItem(LEGACY_STORAGE_KEY);
+    // older browsers. Cheap, idempotent, and only runs once per session.
+    if (!_legacyChecked) {
+      _legacyChecked = true;
+      if (localStorage.getItem(LEGACY_STORAGE_KEY) !== null) {
+        localStorage.removeItem(LEGACY_STORAGE_KEY);
+      }
     }
     const raw = localStorage.getItem(STORAGE_KEY);
+    if (!_verifiedThisTask) {
+      _verifiedThisTask = true;
+      queueMicrotask(() => {
+        _verifiedThisTask = false;
+      });
+    }
     if (!raw) {
       _srsCacheRaw = null;
       _srsCacheStore = null;
@@ -157,8 +198,7 @@ export function setSRSStore(store: SRSStore): void {
   safeLocalStorageWrite(STORAGE_KEY, JSON.stringify(store));
   // Invalidate the parse cache so the next read reflects this write. Cheap:
   // writes are never in the hot read loops.
-  _srsCacheRaw = null;
-  _srsCacheStore = null;
+  invalidateSRSCache();
 }
 
 export function getCardState(cardId: string): SRSCardState | undefined {
@@ -178,8 +218,7 @@ export function setCardState(cardId: string, state: SRSCardState): void {
 export function clearSRSStore(): void {
   if (typeof window === "undefined") return;
   localStorage.removeItem(STORAGE_KEY);
-  _srsCacheRaw = null;
-  _srsCacheStore = null;
+  invalidateSRSCache();
 }
 
 /** ISO timestamp of last successful SRS sync to backend. */

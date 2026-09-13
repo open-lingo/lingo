@@ -14,9 +14,9 @@
  * Sources, in order of truth:
  *  - IR modules (m6–m38): the compiled `mN.ir.json` `priorVocab` — the union
  *    of what every earlier module actually taught, computed by
- *    `scripts/compile-ir.mjs` where the filesystem is available. The JSONs
- *    are already statically imported by each `mN-neo.ts`, so importing them
- *    again here adds no bundle weight.
+ *    `scripts/compile-ir.mjs` where the filesystem is available. The two
+ *    fields this module needs are projected into `taughtVocab.generated.json`
+ *    by `npm run content:emit` (the full IR never reaches the app bundle).
  *  - Hand-authored modules with no IR (m1–m5 kana rows, the N4 pilot): real
  *    attribution via `lessonAtomIndex.getAtomsForLesson` — the introduced-by
  *    index, which honors live `introducedByLessonId` entries, is
@@ -30,101 +30,25 @@
  * ids — a taught surface is fair to show whichever registry row it resolves
  * to.
  */
+import taughtVocabJson from "./taughtVocab.generated.json";
 import { JA_COURSE_FURNITURE_KANA } from "@/features/lesson/data/moduleCompiler";
 import { getAtomsForLesson } from "@/features/lesson/data/lessonAtomIndex";
 import { tryGetLanguageModule } from "@/shared/language/registry";
 import { JA_COURSE_ATOMS } from "@/features/languages/ja/courseAtoms";
 
-import m6Ir from "./ir/m6.ir.json";
-import m7Ir from "./ir/m7.ir.json";
-import m8Ir from "./ir/m8.ir.json";
-import m9Ir from "./ir/m9.ir.json";
-import m10Ir from "./ir/m10.ir.json";
-import m11Ir from "./ir/m11.ir.json";
-import m12Ir from "./ir/m12.ir.json";
-import m13Ir from "./ir/m13.ir.json";
-import m14Ir from "./ir/m14.ir.json";
-import m15Ir from "./ir/m15.ir.json";
-import m16Ir from "./ir/m16.ir.json";
-import m17Ir from "./ir/m17.ir.json";
-import m18Ir from "./ir/m18.ir.json";
-import m19Ir from "./ir/m19.ir.json";
-import m20Ir from "./ir/m20.ir.json";
-import m21Ir from "./ir/m21.ir.json";
-import m22Ir from "./ir/m22.ir.json";
-import m23Ir from "./ir/m23.ir.json";
-import m24Ir from "./ir/m24.ir.json";
-import m25Ir from "./ir/m25.ir.json";
-import m26Ir from "./ir/m26.ir.json";
-import m27Ir from "./ir/m27.ir.json";
-import m28Ir from "./ir/m28.ir.json";
-import m29Ir from "./ir/m29.ir.json";
-import m30Ir from "./ir/m30.ir.json";
-import m31Ir from "./ir/m31.ir.json";
-import m32Ir from "./ir/m32.ir.json";
-import m33Ir from "./ir/m33.ir.json";
-import m34Ir from "./ir/m34.ir.json";
-import m35Ir from "./ir/m35.ir.json";
-import m36Ir from "./ir/m36.ir.json";
-import m37Ir from "./ir/m37.ir.json";
-import m38Ir from "./ir/m38.ir.json";
-import m39Ir from "./ir/m39.ir.json";
-import m40Ir from "./ir/m40.ir.json";
-import m41Ir from "./ir/m41.ir.json";
-import m42Ir from "./ir/m42.ir.json";
-import m43Ir from "./ir/m43.ir.json";
-import m44Ir from "./ir/m44.ir.json";
-import m45Ir from "./ir/m45.ir.json";
-import m46Ir from "./ir/m46.ir.json";
 
 type IrWithPriorVocab = {
   priorVocab?: string[];
   newAtoms?: { kana?: string }[];
 };
 
-const IR_BY_MODULE: Readonly<Record<string, IrWithPriorVocab>> = {
-  m6: m6Ir,
-  m7: m7Ir,
-  m8: m8Ir,
-  m9: m9Ir,
-  m10: m10Ir,
-  m11: m11Ir,
-  m12: m12Ir,
-  m13: m13Ir,
-  m14: m14Ir,
-  m15: m15Ir,
-  m16: m16Ir,
-  m17: m17Ir,
-  m18: m18Ir,
-  m19: m19Ir,
-  m20: m20Ir,
-  m21: m21Ir,
-  m22: m22Ir,
-  m23: m23Ir,
-  m24: m24Ir,
-  m25: m25Ir,
-  m26: m26Ir,
-  m27: m27Ir,
-  m28: m28Ir,
-  m29: m29Ir,
-  m30: m30Ir,
-  m31: m31Ir,
-  m32: m32Ir,
-  m33: m33Ir,
-  m34: m34Ir,
-  m35: m35Ir,
-  m36: m36Ir,
-  m37: m37Ir,
-  m38: m38Ir,
-  m39: m39Ir,
-  m40: m40Ir,
-  m41: m41Ir,
-  m42: m42Ir,
-  m43: m43Ir,
-  m44: m44Ir,
-  m45: m45Ir,
-  m46: m46Ir,
-};
+// Content-as-data (2026-09-13): importing the 41 `mN.ir.json` files here put
+// 5.4 MB of IR into the lesson chunk for the sake of two fields. The emitter
+// (`npm run content:emit`) projects exactly those fields into
+// `taughtVocab.generated.json` (committed; `taughtVocab.generated.test.ts`
+// is the stale guard) and this module reads that.
+const IR_BY_MODULE: Readonly<Record<string, IrWithPriorVocab>> =
+  taughtVocabJson as Readonly<Record<string, IrWithPriorVocab>>;
 
 const cache = new Map<string, ReadonlySet<string>>();
 

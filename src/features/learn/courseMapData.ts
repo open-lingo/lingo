@@ -13,7 +13,7 @@
  * resolution lives here, scoped to the course-map surface.
  */
 import type { Course, CourseModule } from "@/shared/domain/course";
-import { getMockLessonContent } from "@/features/lesson/data/mockLessons";
+import { getRegisteredLesson as getRawMockLesson } from "@/features/lesson/data/lessonRegistry";
 import {
   JA_COURSE_ATOMS,
   JA_COURSE_ATOMS_BY_ID,
@@ -76,7 +76,9 @@ function collectIntroducedIds(module: CourseModule): string[] {
   const out: string[] = [];
   for (const lesson of module.lessons) {
     if (isReviewLessonId(lesson.id)) continue;
-    const content = getMockLessonContent(lesson.id);
+    // Raw read: `introduces*` is authored, never set by padding, and the
+    // padded read would compile/pad every lesson on the boot path.
+    const content = getRawMockLesson(lesson.id);
     if (!content) continue;
     const ids = content.introducesCardIds ?? content.introducesVocabIds ?? [];
     for (const id of ids) {

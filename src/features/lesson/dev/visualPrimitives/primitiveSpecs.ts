@@ -5,7 +5,8 @@ import {
   DEFAULT_REGISTER_CAST,
   castView,
 } from "@/features/languages/ja/registerCast";
-import { lookupKanaEmoji, notoEmojiUrl } from "@/shared/assets/notoEmoji";
+import { notoEmojiUrl } from "@/shared/assets/notoEmoji";
+import { lookupKanaEmoji } from "@/shared/assets/kanaEmojiMap";
 
 /**
  * DEV · Executable specs for the proposed scene primitives. Every sentence

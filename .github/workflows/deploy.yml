@@ -110,10 +110,18 @@ jobs:
             --exclude index.html \
             --exclude sw.js \
             --exclude manifest.webmanifest \
+            --exclude boot-guard.js \
+            --exclude "content/v1/manifest.json" \
             --exclude "tts/*" \
             --cache-control "public,max-age=31536000,immutable"
           # index.html: never cache — it's the pointer to the hashed assets.
           aws s3 cp dist/index.html "s3://${{ vars.LINGO_S3_BUCKET }}/index.html" \
+            --cache-control "no-cache"
+          # boot-guard.js: the white-screen watchdog (src/pub/, unhashed URL,
+          # loaded by index.html before the module graph). Same stable-URL
+          # reason as sw.js — immutable here would pin every client to the
+          # first version they ever fetched.
+          aws s3 cp dist/boot-guard.js "s3://${{ vars.LINGO_S3_BUCKET }}/boot-guard.js" \
             --cache-control "no-cache"
           # sw.js: MUST revalidate. The browser re-fetches the service worker
           # on navigation to discover updates — an immutable-cached sw.js
@@ -121,6 +129,13 @@ jobs:
           # manifest.webmanifest rides along for the same stable-URL reason.
           aws s3 cp dist/sw.js "s3://${{ vars.LINGO_S3_BUCKET }}/sw.js" \
             --cache-control "no-cache"
+          # Lesson content manifest (content-as-data, 2026-09-13): the one
+          # mutable file under /content/ — every module file is content-hashed
+          # and immutable, the manifest names the current set. Same treatment
+          # as sw.js: never cached by the browser, invalidated below.
+          aws s3 cp dist/content/v1/manifest.json \
+            "s3://${{ vars.LINGO_S3_BUCKET }}/content/v1/manifest.json" \
+            --cache-control "no-cache" --content-type "application/json"
           aws s3 cp dist/manifest.webmanifest \
             "s3://${{ vars.LINGO_S3_BUCKET }}/manifest.webmanifest" \
             --content-type "application/manifest+json" \
@@ -168,7 +183,7 @@ jobs:
         run: |
           aws cloudfront create-invalidation \
             --distribution-id "${{ vars.LINGO_CLOUDFRONT_DIST_ID }}" \
-            --paths "/index.html" "/" "/sw.js" "/manifest.webmanifest"
+            --paths "/index.html" "/" "/sw.js" "/manifest.webmanifest" "/content/v1/manifest.json"
       - name: verify site serves THIS deploy
         # A 200 alone proves nothing — the edge happily serves a stale (or
         # older, coherent) bundle while a deploy half-lands. Assert the live

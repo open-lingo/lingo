@@ -119,6 +119,41 @@ function cspMetaPlugin(env: Record<string, string>): Plugin {
  * Build-time rather than runtime because a `<meta>` tag in the shipped HTML is
  * static: no amount of JS gating removes it from the binary Apple receives.
  */
+/**
+ * `virtual:lesson-registry-bootstrap` — the seam that keeps the curriculum
+ * OUT of the browser bundle without changing a single test (content-as-data,
+ * 2026-09-13; see src/features/lesson/data/lessonRegistry.ts).
+ *
+ * Under vitest (and when the content emitter runs, `CONTENT_EMIT=1`) the
+ * import resolves to `lessonRegistry.eager.ts` — the old static import block,
+ * registered synchronously — so every gate that expects the full table on
+ * import still gets it. In every real build and in `vite dev` it resolves
+ * to an empty module, and lessons arrive as JSON through `contentLoader.ts`.
+ */
+function lessonRegistryBootstrap(eager: boolean): Plugin {
+  // `virtual:eager:<name>` → src/features/lesson/data/<name>.eager.ts under
+  // vitest / CONTENT_EMIT, an empty module in every real build. The legacy
+  // id `virtual:lesson-registry-bootstrap` is `virtual:eager:lessonRegistry`.
+  const PREFIX = "virtual:eager:";
+  const LEGACY = "virtual:lesson-registry-bootstrap";
+  const nameOf = (source: string): string | null =>
+    source === LEGACY ? "lessonRegistry" : source.startsWith(PREFIX) ? source.slice(PREFIX.length) : null;
+  return {
+    name: "lesson-registry-bootstrap",
+    enforce: "pre",
+    resolveId(source) {
+      const name = nameOf(source);
+      if (!name) return null;
+      return eager
+        ? path.resolve(__dirname, `src/features/lesson/data/${name}.eager.ts`)
+        : "\0virtual:eager-empty:" + name;
+    },
+    load(source) {
+      return source.startsWith("\0virtual:eager-empty:") ? "export {};\n" : null;
+    },
+  };
+}
+
 function stripAdSenseMetaOnNative(mode: string): Plugin {
   return {
     name: "strip-adsense-meta-native",
@@ -622,6 +657,7 @@ export default defineConfig(({ mode }) => {
     spinePlanMiddleware(),
     cspMetaPlugin(env),
     stripAdSenseMetaOnNative(mode),
+    lessonRegistryBootstrap(mode === "test" || !!process.env.VITEST || !!process.env.CONTENT_EMIT),
     // Service worker: the app is a daily-use tool, so returning visits are the
     // common case — precaching the learner path makes them load from disk
     // instead of re-paying the CDN round trips every morning (the shell is
@@ -689,8 +725,31 @@ export default defineConfig(({ mode }) => {
         // to the shell (the CDN's 403→index.html mapping already taught us
         // how confusing HTML-named-.mp3 is — see serveTtsLocally).
         navigateFallback: "/index.html",
-        navigateFallbackDenylist: [/^\/assets\//, /^\/tts\//, /^\/dict\//, /^\/noto-emoji\//],
+        navigateFallbackDenylist: [/^\/assets\//, /^\/tts\//, /^\/dict\//, /^\/noto-emoji\//, /^\/content\//],
         runtimeCaching: [
+          {
+            // Lesson content as data (2026-09-13): per-module JSON with a
+            // content hash in the name — immutable, cache forever. Same
+            // HTML-shell guard as the TTS clips (a missing file comes back
+            // as index.html with a 200 from the CDN).
+            urlPattern: /\/content\/v\d+\/.*\.[0-9a-f]{10}\.json$/,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "lesson-content",
+              cacheableResponse: {
+                statuses: [200],
+                headers: { "content-type": "application/json" },
+              },
+              expiration: { maxEntries: 300, maxAgeSeconds: 60 * 60 * 24 * 365 },
+            },
+          },
+          {
+            // The manifest is mutable (unhashed): network first so a deploy
+            // is picked up on the next open, cached copy when offline.
+            urlPattern: /\/content\/v\d+\/manifest\.json$/,
+            handler: "NetworkFirst",
+            options: { cacheName: "lesson-content-manifest", networkTimeoutSeconds: 4 },
+          },
           {
             // Hashed filenames — immutable by construction. Anything not
             // precached (admin pages, practice modes) caches on first use.

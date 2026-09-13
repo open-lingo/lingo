@@ -1,7 +1,18 @@
+import { Suspense } from "react";
 import { useTranslation } from "react-i18next";
 import { ModalBase } from "./ModalBase";
 import { useModal } from "@/shared/contexts/ModalContext";
-import { SettingsContent } from "@/features/settings/SettingsContent";
+import { lazyRetry } from "@/shared/utils/lazyRetry";
+
+// Settings pulls the full cross-language registry (every language module,
+// including course-map data) just to render its language-picker sections.
+// Only needed once the settings modal is actually opened, so it's lazy —
+// nothing else in ModalRoot renders unless `top.id === "settings"` anyway.
+const SettingsContent = lazyRetry(() =>
+  import("@/features/settings/SettingsContent").then((m) => ({
+    default: m.SettingsContent,
+  })),
+);
 
 /**
  * Renders the top modal from the stack. Place inside ModalProvider (e.g. in Layout).
@@ -26,7 +37,9 @@ export function ModalRoot() {
       maxWidth="max-w-6xl"
       fullHeight
     >
-      <SettingsContent initialSection={initialSection} />
+      <Suspense fallback={null}>
+        <SettingsContent initialSection={initialSection} />
+      </Suspense>
     </ModalBase>
   );
 }

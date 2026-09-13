@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useAllContentReady, useContentRevision } from "@/features/lesson/data/useLessonContent";
 import { ModalBackdrop } from "@/shared/components/ModalBackdrop";
 import { Button } from "@/shared/components/ui/Button";
 import { getMockLessonStats } from "@/features/lesson/data/mockLessons";
@@ -8,7 +9,11 @@ type Props = {
 };
 
 export function LearnLessonLengthsOverlay({ onClose }: Props) {
-  const stats = useMemo(() => getMockLessonStats(), []);
+  // Content-as-data: load every course, re-render as files land.
+  const contentState = useAllContentReady();
+  const contentRevision = useContentRevision();
+  const stats = useMemo(() => getMockLessonStats(), [contentRevision]);
+  void contentState;
   const grandLessons = stats.reduce((s, m) => s + m.totalLessons, 0);
   const grandSteps = stats.reduce((s, m) => s + m.totalSteps, 0);
   const grandMinutes = stats.reduce((s, m) => s + m.totalMinutes, 0);

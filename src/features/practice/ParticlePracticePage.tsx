@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useContentRevision, useCourseReady } from "@/features/lesson/data/useLessonContent";
 import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { SegmentedControl } from "@/shared/components/ui";
@@ -24,13 +25,14 @@ function CombinePanel() {
   const { t } = useTranslation();
   const langPath = useLangPath();
   const reachedModule = useCourseLevel();
+  const contentRevision = useContentRevision();
   const pairs = useMemo(
     () =>
       PARTICLE_PAIRS.map((pair) => ({
         pair,
         count: minePairSentences(pair.particles, reachedModule).length,
       })),
-    [reachedModule],
+    [reachedModule, contentRevision],
   );
   return (
     <section aria-labelledby="particle-combine-heading" className="space-y-3">
@@ -204,6 +206,8 @@ function ParticleSectionBlock({
 }
 
 export function ParticlePracticePage() {
+  // Content-as-data: the particle corpus mines JA lessons; load the course.
+  useCourseReady("ja");
   const { t } = useTranslation();
   const { language } = useLanguage();
   const config = language ? getLanguageConfig(language.id) : null;

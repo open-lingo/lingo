@@ -12,7 +12,7 @@
  * Routes:
  * - /:lang/learn          — live mode (real progress), ja only, via
  *   LearnHomeRoute in App.tsx; flip `learn.transitMapHome` in
- *   public/feature-flags.json to revert to the classic page without a build.
+ *   src/pub/feature-flags.json to revert to the classic page without a build.
  * - /:lang/learn/classic  — the previous LearnPage, kept as the escape hatch
  *   (and where LearnDevPanel's unlock/clear-progress tools still live).
  * - /:lang/transit-preview — this page in `preview` mode: demo progress on

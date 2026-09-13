@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useAllContentReady, useContentRevision } from "@/features/lesson/data/useLessonContent";
 import { Link } from "react-router-dom";
 import { FilterBar, DataTable, type DataTableColumn } from "@/shared/components/data";
 import { Icon } from "@/shared/components/Icon";
@@ -10,6 +11,10 @@ type ModuleFilter = string;
 type DraftFilter = "all" | "drafts" | "untouched";
 
 export function AdminLessonsListPage() {
+  // Content-as-data: load every course, re-render as files land.
+  const contentState = useAllContentReady();
+  const contentRevision = useContentRevision();
+  void contentState;
   const [rows, setRows] = useState<LessonRow[]>([]);
   const [lang, setLang] = useState<LangFilter>("all");
   const [mod, setMod] = useState<ModuleFilter>("all");
@@ -23,7 +28,7 @@ export function AdminLessonsListPage() {
   useEffect(() => {
     refresh();
     return subscribeDrafts(refresh);
-  }, []);
+  }, [contentRevision]);
 
   const moduleOptions = useMemo(() => {
     const set = new Set<string>();

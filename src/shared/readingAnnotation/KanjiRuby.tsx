@@ -29,13 +29,39 @@ type Props = {
   show: boolean;
 } & ComponentPropsWithoutRef<"ruby">;
 
+/**
+ * Whether the reading can be CENTRED over its kanji run without WebKit prying
+ * the word apart. `ruby-align: center` pads the annotated base out to the
+ * width of its annotation; that padding lands INSIDE the word whenever a kana
+ * affix shares the <ruby> (忙(いそが)しい → "忙 しい", TestFlight #36), but is
+ * harmless — symmetric, outside the glyphs — when the ruby is the whole word
+ * (外国, 日本語). With no affix we always centre; with an affix we centre only
+ * when the reading cannot be wider than the run: helper kana are ≤0.75em of
+ * the base (`.kana-helper` = max(.65em, 12px) on a ≥16px host), so a reading
+ * with no more glyphs than its kanji run never exceeds it (行(い)く, 食(た)べる —
+ * measured 0px base shift on the iOS 18.7 simulator; 4 kana over 3 kanji is
+ * the worst fit at 0.5px a side). Everything else keeps `start`, where the
+ * reading overhangs the affix (TestFlight #62 asked for centred furigana
+ * "if we can help it"; this is the subset we can).
+ */
+export function kanjiRubyFits(parts: { prefix: string; body: string; rt: string; suffix: string }): boolean {
+  if (parts.prefix === "" && parts.suffix === "") return true;
+  return [...parts.rt].length <= [...parts.body].length;
+}
+
 export function KanjiRuby({ surface, reading, show, className, ...rubyProps }: Props) {
-  const { prefix, body, rt, suffix } = alignFurigana(surface, reading);
+  const parts = alignFurigana(surface, reading);
+  const { prefix, body, rt, suffix } = parts;
   return (
     // `kanji-ruby` (index.css) start-aligns the annotation so a reading wider
     // than its kanji overhangs the following kana instead of prying the word
     // apart — 忙(いそが)しい rendered as "忙 しい" on iOS (TestFlight #36).
-    <ruby {...rubyProps} className={className ? `kanji-ruby ${className}` : "kanji-ruby"}>
+    // `data-fit="true"` opts the safe subset back into `center` (#62).
+    <ruby
+      {...rubyProps}
+      className={className ? `kanji-ruby ${className}` : "kanji-ruby"}
+      data-fit={kanjiRubyFits(parts) ? "true" : "false"}
+    >
       {prefix !== "" && (
         <>
           {prefix}

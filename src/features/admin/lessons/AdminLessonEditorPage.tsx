@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useAllContentReady, useContentRevision } from "@/features/lesson/data/useLessonContent";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import type { LessonContent, LessonStep } from "@/features/lesson/types";
 import { Icon } from "@/shared/components/Icon";
@@ -17,6 +18,10 @@ import { StepInspector } from "./editor/StepInspector";
 import { PreviewPane } from "./editor/PreviewPane";
 
 export function AdminLessonEditorPage() {
+  // Content-as-data: load every course, re-render as files land.
+  const contentState = useAllContentReady();
+  const contentRevision = useContentRevision();
+  void contentState;
   const { lessonId: encodedId } = useParams<{ lessonId: string }>();
   const lessonId = encodedId ? decodeURIComponent(encodedId) : "";
   const navigate = useNavigate();
@@ -33,7 +38,7 @@ export function AdminLessonEditorPage() {
     setOriginal(source);
     setDraft(content ? deepClone(content) : null);
     setSelectedIdx(0);
-  }, [lessonId]);
+  }, [lessonId, contentRevision]);
 
   const isDraftExisting = useMemo(
     () => (lessonId ? loadDraft(lessonId) !== null : false),

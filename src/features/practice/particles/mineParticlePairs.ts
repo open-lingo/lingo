@@ -19,6 +19,7 @@ import { getMockLessonContent } from "@/features/lesson/data/mockLessons";
 import { makeGlobalTokenizer } from "@/features/lesson/data/moduleCompiler";
 import { getAllJaTaughtKana } from "@/features/languages/ja/curriculum/taughtVocab";
 import { parseModuleIndex } from "@/shared/settings/romanizationAutoFlip";
+import { getContentRevision } from "@/features/lesson/data/lessonRegistry";
 
 /** One sentence from the taught corpus, with its English line. */
 export type CorpusSentence = {
@@ -82,12 +83,16 @@ function sentencesFromStep(s: any): { text: string; translation: string }[] {
 }
 
 let corpusCache: CorpusSentence[] | null = null;
+let corpusCacheRev = -1;
 
 /**
  * Every translated sentence in the JA course, in course order, deduped by
  * text. Memoized — the walk materializes every lesson once.
  */
 export function getJaTaughtCorpus(): CorpusSentence[] {
+  if (corpusCacheRev !== getContentRevision()) {
+    corpusCache = null;
+  }
   if (corpusCache) return corpusCache;
   const course = getMockCourse("ja");
   const seen = new Set<string>();
@@ -116,6 +121,7 @@ export function getJaTaughtCorpus(): CorpusSentence[] {
       }
     }
   }
+  corpusCacheRev = getContentRevision();
   corpusCache = out;
   return out;
 }
@@ -215,5 +221,6 @@ export function minePairSentences(
 /** Test hook. */
 export function __resetParticleCorpus(): void {
   corpusCache = null;
+  corpusCacheRev = -1;
   tokenizeCache = null;
 }

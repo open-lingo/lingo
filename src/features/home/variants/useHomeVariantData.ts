@@ -20,6 +20,7 @@ import { getNextLesson } from "@/features/course/nextLesson";
 import { findInProgressLessonId } from "@/features/lesson/data/lessonProgress";
 import { useFlashcardDueSummary } from "@/features/flashcards/useFlashcardDueSummary";
 import { useQuests } from "@/features/quests/useQuests";
+import { useNextLessonWarm } from "@/features/home/useNextLessonWarm";
 import { summarizeDailyPlan } from "@/features/home/restructured/planHelpers";
 import { selectGoalQuests, type QuestProgressView } from "@/features/home/restructured/questsTileHelpers";
 import { buildMemoryStrengthView, type MemoryStrengthView } from "@/features/home/restructured/memoryStrengthHelpers";
@@ -147,6 +148,9 @@ export function useHomeVariantData(): HomeVariantData {
   }, [course, inProgressLessonId]);
   const fallbackNext = course ? getNextLesson(course, completedIds) : null;
   const nextLesson = inProgressInfo ?? fallbackNext;
+  // Content-as-data: warm the next lesson's module JSON + first clips once
+  // Home is idle, so the tap into the lesson is instant (useNextLessonWarm).
+  useNextLessonWarm(nextLesson?.lesson.id ?? null, langId);
   const isResume = inProgressInfo !== null;
 
   const startLessonHref = (() => {

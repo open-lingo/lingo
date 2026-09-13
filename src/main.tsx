@@ -37,6 +37,7 @@ import { FeatureFlagsProvider } from "@/shared/contexts/FeatureFlagsContext";
 import { SRSStoreRevisionProvider } from "@/features/flashcards/SRSStoreRevisionContext";
 import { AdProviderRoot } from "@/features/ads";
 import { BodyScrollbars } from "@/shared/components/BodyScrollbars";
+import { AppErrorBoundary } from "@/shared/components/AppErrorBoundary";
 import App from "./App";
 import { installDevLog } from "@/shared/devlog/devLog";
 import { isTesterMode } from "@/shared/telemetry/sessionLog";
@@ -67,7 +68,11 @@ if (!IS_NATIVE && !import.meta.env.DEV && "serviceWorker" in navigator) {
 // Warm the learner-path route chunks while Auth0 resolves the session —
 // see warmLearnerPathOnIdle for the waterfall this removes. Dev servers
 // skip it: it would just fan out module requests and muddy the network tab.
-if (!import.meta.env.DEV) {
+// Native skips it too: on capacitor:// there is no network to overlap, so
+// the warm is pure main-thread evaluation of the lesson chunks, measured at
+// ~9 s of blocked heartbeat on an iPhone before Home could paint
+// (docs/handoff-2026-09-11-mobile-qa.md). Route chunks load on tap instead.
+if (!IS_NATIVE && !import.meta.env.DEV) {
   warmLearnerPathOnIdle();
 }
 
@@ -136,49 +141,56 @@ const nativeAuthProps = {
   useRefreshTokensFallback: false,
 };
 
+// AppErrorBoundary sits OUTSIDE every provider: a throw in any of them used
+// to unmount the root and leave a blank white screen (TestFlight #64). Its
+// fallback depends on nothing below it. src/pub/boot-guard.js covers what
+// React never reaches (module-scope throws, missing chunks, a dead WebKit
+// content process).
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Auth0Provider
-      domain={domain}
-      clientId={clientId}
-      {...(IS_NATIVE
-        ? nativeAuthProps
-        : {
-            cacheLocation: "localstorage" as const,
-            useRefreshTokens: true,
-            useRefreshTokensFallback: true,
-          })}
-      authorizationParams={{
-        redirect_uri: redirectUri,
-        ...(auth0Audience ? { audience: auth0Audience } : {}),
-      }}
-    >
-      {IS_NATIVE && <NativeAuthBridge />}
-      <QueryClientProvider client={queryClient}>
-        <ApiProvider>
-          <ImpersonationProvider>
-          <FeatureFlagsProvider>
-          <SRSStoreRevisionProvider>
-          <SettingsProvider>
-            <ThemeProvider>
-              <LanguageProvider>
-              <ToastProvider>
-                <ModalProvider>
-                  <AdProviderRoot>
-                    <BodyScrollbars />
-                    <App />
-                    <AuthBypassBadge />
-                  </AdProviderRoot>
-                </ModalProvider>
-              </ToastProvider>
-              </LanguageProvider>
-            </ThemeProvider>
-          </SettingsProvider>
-          </SRSStoreRevisionProvider>
-          </FeatureFlagsProvider>
-          </ImpersonationProvider>
-        </ApiProvider>
-      </QueryClientProvider>
-    </Auth0Provider>
-  </StrictMode>
+    <AppErrorBoundary>
+      <Auth0Provider
+        domain={domain}
+        clientId={clientId}
+        {...(IS_NATIVE
+          ? nativeAuthProps
+          : {
+              cacheLocation: "localstorage" as const,
+              useRefreshTokens: true,
+              useRefreshTokensFallback: true,
+            })}
+        authorizationParams={{
+          redirect_uri: redirectUri,
+          ...(auth0Audience ? { audience: auth0Audience } : {}),
+        }}
+      >
+        {IS_NATIVE && <NativeAuthBridge />}
+        <QueryClientProvider client={queryClient}>
+          <ApiProvider>
+            <ImpersonationProvider>
+              <FeatureFlagsProvider>
+                <SRSStoreRevisionProvider>
+                  <SettingsProvider>
+                    <ThemeProvider>
+                      <LanguageProvider>
+                        <ToastProvider>
+                          <ModalProvider>
+                            <AdProviderRoot>
+                              <BodyScrollbars />
+                              <App />
+                              <AuthBypassBadge />
+                            </AdProviderRoot>
+                          </ModalProvider>
+                        </ToastProvider>
+                      </LanguageProvider>
+                    </ThemeProvider>
+                  </SettingsProvider>
+                </SRSStoreRevisionProvider>
+              </FeatureFlagsProvider>
+            </ImpersonationProvider>
+          </ApiProvider>
+        </QueryClientProvider>
+      </Auth0Provider>
+    </AppErrorBoundary>
+  </StrictMode>,
 );

@@ -1,12 +1,13 @@
 import { useEffect, useRef } from "react";
 import { useApi } from "@/shared/api";
 import { useAuth } from "@/shared/auth/useAuth";
-import {
-  ATOMS_UNLOCKED_EVENT,
-  getUnlockedAtomIds,
-  mergeServerUnlockedAtomIds,
-  type AtomsUnlockedDetail,
-} from "@/features/lesson/data/unlockLessonAtoms";
+import type { AtomsUnlockedDetail } from "@/features/lesson/data/unlockLessonAtoms";
+
+// `unlockLessonAtoms` drags in the full lesson-atom index (all per-language
+// course-atom tables) to build its lesson→atoms map at module scope. Both
+// uses below are inside effects (post-mount, off the render path), so the
+// module loads on demand instead of blocking the boot chunk.
+const unlockLessonAtoms = () => import("@/features/lesson/data/unlockLessonAtoms");
 
 /**
  * Server backup for the atom unlock ladder (M1, 2026-06-13).
@@ -37,14 +38,25 @@ export function useUnlockMapSync(): void {
   // (not gated on auth) — addUnlocks itself swallows pre-wire 404/501 and the
   // request just no-ops when signed out (token resolves to a dev/empty value).
   useEffect(() => {
-    function onUnlocked(e: Event) {
-      const detail = (e as CustomEvent<AtomsUnlockedDetail>).detail;
-      const ids = detail?.atomIds ?? [];
-      if (ids.length === 0) return;
-      void progress.addUnlocks(ids);
-    }
-    window.addEventListener(ATOMS_UNLOCKED_EVENT, onUnlocked);
-    return () => window.removeEventListener(ATOMS_UNLOCKED_EVENT, onUnlocked);
+    let cleanup: (() => void) | undefined;
+    let cancelled = false;
+
+    void unlockLessonAtoms().then(({ ATOMS_UNLOCKED_EVENT }) => {
+      if (cancelled) return;
+      function onUnlocked(e: Event) {
+        const detail = (e as CustomEvent<AtomsUnlockedDetail>).detail;
+        const ids = detail?.atomIds ?? [];
+        if (ids.length === 0) return;
+        void progress.addUnlocks(ids);
+      }
+      window.addEventListener(ATOMS_UNLOCKED_EVENT, onUnlocked);
+      cleanup = () => window.removeEventListener(ATOMS_UNLOCKED_EVENT, onUnlocked);
+    });
+
+    return () => {
+      cancelled = true;
+      cleanup?.();
+    };
   }, [progress]);
 
   // Hydrate once per session: union server → local, then push local-only → server.
@@ -57,6 +69,8 @@ export function useUnlockMapSync(): void {
       // null = backend not wired (404/501) or transient failure — keep local
       // set as-is; the next session retries.
       if (serverIds === null) return;
+
+      const { getUnlockedAtomIds, mergeServerUnlockedAtomIds } = await unlockLessonAtoms();
 
       if (serverIds.length > 0) mergeServerUnlockedAtomIds(serverIds);
 

@@ -1,4 +1,5 @@
 import { useLang } from "@/shared/hooks/useLangPath";
+import { useAllContentReady, useContentRevision } from "@/features/lesson/data/useLessonContent";
 import { ProtoModuleWalker, type ProtoModuleConfig } from "./ProtoModuleWalkerPage";
 import { ES_M2_LESSONS } from "@/features/languages/es/curriculum/m2";
 // Entry guard: courseAtoms must be the first thing to touch an FR mN file
@@ -44,6 +45,10 @@ const FR_CONFIG: ProtoModuleConfig = {
 };
 
 export default function ProtoM2Page() {
+  // Content-as-data: the proto pages read lessons synchronously; load all
+  // courses and re-render when they land.
+  useAllContentReady();
+  useContentRevision();
   const lang = useLang();
   return <ProtoModuleWalker config={lang === "fr" ? FR_CONFIG : ES_CONFIG} />;
 }

@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, type ReactNode } from "react";
+import { createContext, useContext, useMemo, type ReactNode , useEffect, useRef } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { AdminApi } from "./admin";
 import { AdsApi } from "./ads";
@@ -71,12 +71,43 @@ const AUTH0_AUDIENCE =
 // See `shared/auth/bypass.ts` for what each door is gated on.
 
 export function ApiProvider({ children }: { children: ReactNode }) {
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, logout, isAuthenticated } = useAuth0();
+
+  // Dead-session latch (2026-09-13, Trap Phone). A refresh token Auth0 has
+  // revoked/rotated away answers every `getAccessTokenSilently` with
+  // `invalid_grant` (403), and with `useRefreshTokensFallback: false` on native
+  // there is no silent-auth iframe to fall back to — so every API call in the
+  // boot wave fired its own POST /oauth/token (11 in the first 45 s), the
+  // cached `user` kept the UI in a half-signed-in "Hi there" state, and nothing
+  // ever asked the person to log in again. Auth0's own guidance for exactly
+  // this case (auth0-spa-js `useRefreshTokensFallback` docs): treat
+  // `invalid_grant` / `missing_refresh_token` as "log in interactively".
+  // Here: remember the failure for this session so later calls reject at once
+  // instead of hitting Auth0 again, and drop the stale local cache with a
+  // local-only logout (`openUrl: false` — no browser hop). `isAuthenticated`
+  // then flips false, RequireAuth routes to LoginPage, and LoginPage opens the
+  // real login. A successful login clears the latch.
+  const deadSession = useRef<unknown>(null);
+  useEffect(() => {
+    if (isAuthenticated) deadSession.current = null;
+  }, [isAuthenticated]);
 
   const api = useMemo(() => {
     const getAccessToken = AUTH_BYPASS
       ? () => Promise.resolve(BYPASS_TOKEN)
-      : () => getAccessTokenSilently({ authorizationParams: { audience: AUTH0_AUDIENCE } });
+      : () => {
+          if (deadSession.current) return Promise.reject(deadSession.current);
+          return getAccessTokenSilently({
+            authorizationParams: { audience: AUTH0_AUDIENCE },
+          }).catch((e: unknown) => {
+            const code = (e as { error?: unknown } | null)?.error;
+            if (code === "invalid_grant" || code === "missing_refresh_token") {
+              deadSession.current = e;
+              void logout({ openUrl: false });
+            }
+            throw e;
+          });
+        };
 
     // Re-read sessionStorage on every request — banner Stop/Start mutates
     // it live and the next API call must reflect the new state without
@@ -133,7 +164,7 @@ export function ApiProvider({ children }: { children: ReactNode }) {
       // correctly even mid-impersonation.
       ops: new OpsApi({ baseUrl: OPS_API_BASE_URL, getAccessToken }),
     };
-  }, [getAccessTokenSilently]);
+  }, [getAccessTokenSilently, logout]);
 
   return <Ctx.Provider value={api}>{children}</Ctx.Provider>;
 }

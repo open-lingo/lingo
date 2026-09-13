@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect, useMemo, useRef } from "react";
+import { useLessonReady } from "@/features/lesson/data/useLessonContent";
 import { Navigate, useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
@@ -128,7 +129,7 @@ const RETRY_ELIGIBLE_TYPES = new Set<LessonStep["type"]>([
 /** "See the rule" peeks granted per lesson. See the state below. */
 const RULE_PEEKS_PER_LESSON = 3;
 
-export function LessonPage() {
+function LessonPageInner() {
   const { lessonId } = useParams<{ lessonId: string }>();
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -1124,5 +1125,48 @@ function LessonMetaChips({
         )}
       </div>
     </>
+  );
+}
+
+/**
+ * Content gate (content-as-data, 2026-09-13). Lesson bodies are JSON loaded
+ * on demand (`contentLoader.ts`): this wrapper resolves the lesson's module
+ * (plus its predecessors, which review tails mine) before the player mounts,
+ * so every synchronous `getMockLessonContent` read inside stays exactly as
+ * it was. On the phone the files are inside the app bundle — a local read of
+ * a few hundred KB, tens of milliseconds — so the loading state is rarely
+ * seen; on the web the service worker keeps the hashed files after the first
+ * visit.
+ */
+export function LessonPage() {
+  const { lessonId } = useParams<{ lessonId: string }>();
+  const { state, retry } = useLessonReady(lessonId);
+  if (state === "ready") return <LessonPageInner />;
+  return (
+    <div
+      role="status"
+      aria-live="polite"
+      style={{
+        minHeight: "60vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "0.75rem",
+        padding: "1rem",
+        textAlign: "center",
+      }}
+    >
+      {state === "error" ? (
+        <>
+          <p>This lesson could not be loaded.</p>
+          <button type="button" onClick={retry}>
+            Try again
+          </button>
+        </>
+      ) : (
+        <p>Loading lesson…</p>
+      )}
+    </div>
   );
 }

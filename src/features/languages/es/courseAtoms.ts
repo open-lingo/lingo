@@ -28,45 +28,8 @@
  */
 import type { Atom, AtomId, PartOfSpeech } from "@/shared/language/types";
 import { ES_REVIEW_POOL } from "./esReviewPool";
+import esAtomsJson from "./curriculum/atoms.generated.json";
 
-import { ES_M1_ATOMS } from "./curriculum/m1";
-import { ES_M2_ATOMS } from "./curriculum/m2";
-import { ES_M3_ATOMS } from "./curriculum/m3";
-import { ES_M4_ATOMS } from "./curriculum/m4";
-import { ES_M5_ATOMS } from "./curriculum/m5";
-import { ES_M6_ATOMS } from "./curriculum/m6";
-import { ES_M7_ATOMS } from "./curriculum/m7";
-import { ES_M8_ATOMS } from "./curriculum/m8";
-import { ES_M9_ATOMS } from "./curriculum/m9";
-import { ES_M10_ATOMS } from "./curriculum/m10";
-import { ES_M11_ATOMS } from "./curriculum/m11";
-import { ES_M12_ATOMS } from "./curriculum/m12";
-import { ES_M13_ATOMS } from "./curriculum/m13";
-import { ES_M14_ATOMS } from "./curriculum/m14";
-import { ES_M15_ATOMS } from "./curriculum/m15";
-import { ES_M16_ATOMS } from "./curriculum/m16";
-import { ES_M17_ATOMS } from "./curriculum/m17";
-import { ES_M18_ATOMS } from "./curriculum/m18";
-import { ES_M19_ATOMS } from "./curriculum/m19";
-import { ES_M20_ATOMS } from "./curriculum/m20";
-import { ES_M21_ATOMS } from "./curriculum/m21";
-import { ES_M22_ATOMS } from "./curriculum/m22";
-import { ES_M23_ATOMS } from "./curriculum/m23";
-import { ES_M24_ATOMS } from "./curriculum/m24";
-import { ES_M25_ATOMS } from "./curriculum/m25";
-import { ES_M26_ATOMS } from "./curriculum/m26";
-import { ES_M27_ATOMS } from "./curriculum/m27";
-import { ES_M28_ATOMS } from "./curriculum/m28";
-import { ES_M29_ATOMS } from "./curriculum/m29";
-import { ES_M30_ATOMS } from "./curriculum/m30";
-import { ES_M31_ATOMS } from "./curriculum/m31";
-import { ES_M32_ATOMS } from "./curriculum/m32";
-import { ES_M33_ATOMS } from "./curriculum/m33";
-import { ES_M34_ATOMS } from "./curriculum/m34";
-import { ES_M35_ATOMS } from "./curriculum/m35";
-import { ES_M36_ATOMS } from "./curriculum/m36";
-import { ES_M37_ATOMS } from "./curriculum/m37";
-import { ES_M38_ATOMS } from "./curriculum/m38";
 
 export type EsAtomKind = "vocab" | "particle" | "phrase";
 
@@ -162,7 +125,17 @@ function poolFallback(): Map<string, EsAtom> {
  * (see the cycle note above).
  */
 export function findEsAtomBySurface(surface: string): EsAtom | undefined {
-  return surfaceRegistry().get(surface) ?? poolFallback().get(surface);
+  return surfaceRegistry().get(surface) ?? jsonAtomsBySurface().get(surface) ?? poolFallback().get(surface);
+}
+
+// eslint-disable-next-line no-var
+var _jsonBySurface: Map<string, EsAtom> | undefined;
+function jsonAtomsBySurface(): Map<string, EsAtom> {
+  if (!_jsonBySurface) {
+    _jsonBySurface = new Map<string, EsAtom>();
+    for (const a of esAtomsJson as EsAtom[]) if (!_jsonBySurface.has(a.surface)) _jsonBySurface.set(a.surface, a);
+  }
+  return _jsonBySurface;
 }
 
 /**
@@ -197,46 +170,20 @@ var _esCourseAtoms: EsAtom[] | undefined;
  * instead of a comment naming a specific last module.
  */
 export function getEsCourseAtoms(): ReadonlyArray<EsAtom> {
-  return (_esCourseAtoms ??= [
-    ...ES_M1_ATOMS,
-    ...ES_M2_ATOMS,
-    ...ES_M3_ATOMS,
-    ...ES_M4_ATOMS,
-    ...ES_M5_ATOMS,
-    ...ES_M6_ATOMS,
-    ...ES_M7_ATOMS,
-    ...ES_M8_ATOMS,
-    ...ES_M9_ATOMS,
-    ...ES_M10_ATOMS,
-    ...ES_M11_ATOMS,
-    ...ES_M12_ATOMS,
-    ...ES_M13_ATOMS,
-    ...ES_M14_ATOMS,
-    ...ES_M15_ATOMS,
-    ...ES_M16_ATOMS,
-    ...ES_M17_ATOMS,
-    ...ES_M18_ATOMS,
-    ...ES_M19_ATOMS,
-    ...ES_M20_ATOMS,
-    ...ES_M21_ATOMS,
-    ...ES_M22_ATOMS,
-    ...ES_M23_ATOMS,
-    ...ES_M24_ATOMS,
-    ...ES_M25_ATOMS,
-    ...ES_M26_ATOMS,
-    ...ES_M27_ATOMS,
-    ...ES_M28_ATOMS,
-    ...ES_M29_ATOMS,
-    ...ES_M30_ATOMS,
-    ...ES_M31_ATOMS,
-    ...ES_M32_ATOMS,
-    ...ES_M33_ATOMS,
-    ...ES_M34_ATOMS,
-    ...ES_M35_ATOMS,
-    ...ES_M36_ATOMS,
-    ...ES_M37_ATOMS,
-    ...ES_M38_ATOMS,
-  ]);
+  // Content-as-data (2026-09-13): the aggregate is a committed JSON written by
+  // `npm run content:emit` from `curriculum/atomsAggregate.eager.ts` (the
+  // 38-module spread that used to live here). Importing the modules for their
+  // atoms dragged every lesson body — ~3 MB of factory calls Rollup cannot
+  // tree-shake — into the main bundle for every user of every language.
+  // `atoms.generated.test.ts` is the stale guard. At runtime nothing else
+  // evaluates the curriculum, so the JSON atoms are also registered here:
+  // `findEsAtomBySurface` must resolve for the flashcard/SRS surfaces.
+  if (!_esCourseAtoms) {
+    _esCourseAtoms = esAtomsJson as EsAtom[];
+    const registry = surfaceRegistry();
+    for (const a of _esCourseAtoms) if (!registry.has(a.surface)) registry.set(a.surface, a);
+  }
+  return _esCourseAtoms;
 }
 
 /** Surface → atom lookup (used by `grammarHelpers.ts` to resolve atom ids

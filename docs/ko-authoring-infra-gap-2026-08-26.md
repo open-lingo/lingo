@@ -97,6 +97,78 @@ documents are milder, but the quoted-hit rule should be kept).
   batchim/liaison pronunciation notes, 은/는·이/가 particle alternation doctrine,
   honorific-register policy, RR romanization fade) before any module is dispatched.
 
+## 2a. Authoring-cost wiring (2026-09-13 — brief/gate/reviewer discipline)
+
+ES's m20 measurement: one module costs ~1.3M Sonnet tokens (~750k drafting
++ ~380k gate fix round-trips + 158k reviewer —
+`docs/handoff-2026-09-09-es-m20-done-ko-next.md` lines 51-64), identical on
+Opus (`docs/handoff-2026-09-02-es-m11-m15.md` lines 149-152) — the lever is
+the unit of work, not the model tier. KO has no re-authoring wave dispatched
+yet (§2's own gap: no `ko-lesson-authoring-guide.md`, no pinned invariants),
+so apply these four rules from the FIRST KO module dispatched, not as a
+retrofit — cheaper to build the discipline in than to bolt it on after a
+wave the way ES had to measure it. Two of the four are blocked on
+punch-list infra that doesn't exist yet; say so rather than silently
+skipping them.
+
+1. **Briefs cite the surfaces index — works TODAY, no other KO infra
+   required.** `node scripts/authoring/surfaces-index.mjs --lang ko` reads
+   `ko/courseAtoms.ts` (KO's atom registry is centralized there, unlike
+   ES/FR where atoms live per-module — this script already branches on
+   that) and writes `docs/ko-ir-sources/surfaces-index.json` (+ `.md`):
+   28 modules, 389 surfaces, verified 2026-09-13. Use it instead of
+   grepping `courseAtoms.ts` by hand for "is X already taught" (the pattern
+   several `ja-m*-brief` docs already use directly against `courseAtoms.ts`
+   — same idea, now generated).
+2. **Gate runs go through `gate-runner`** (Haiku, `.claude/agents/gate-runner.md`
+   — language-agnostic, it runs whatever command it's given) **for any KO
+   vitest run** (`npx vitest run --project curriculum
+   src/features/languages/ko`), never raw output pasted into a drafting
+   agent's context. `module-gate.mjs --compact` is NOT yet usable for KO —
+   it's hardcoded to JA paths (manifest, deck, curriculum dir); punch-list
+   item 7 ("Module-gate parameterization … `--lang=ko`") is the
+   prerequisite. Until then, `gate-runner` is the compaction layer for KO.
+3. **The reviewer pass reads the module's own content plus this doc's §2 +
+   `docs/ko-content-conventions-2026-09-10.md`** and applies the checklist
+   below. **KO has no pinned-invariants file yet** (punch-list item 1,
+   "blocks") — that gap is real; don't treat a KO reviewer's silence on an
+   invariant as compliance, flag "no pinned invariants to check against"
+   explicitly in the review report until item 1 lands. Checklist (≤15
+   items, ported from real ES m20 defects/brief-error round-trips —
+   extend with KO-specific items, e.g. particle alternation
+   (은/는·이/가), batchim/liaison, honorific register, as the KO reviewer
+   finds its own):
+   1. Every dialogue/NPC line uses only PRIOR (already-taught) words, not
+      just the graded answer position.
+   2. Particle alternation (은/는, 이/가, and others with a vowel/consonant
+      split) is applied correctly wherever two taught elements meet.
+   3. Every factual grammar claim in an explanation is true.
+   4. Bare word surfaces referenced in registration lists carry the form
+      the registered atom actually uses.
+   5. No card type is used where a gate forbids it for that slot.
+   6. Every content word decomposes into a taught atom — no untracked word
+      slips past `introBeforeGraded`/`koCompoundingReview`.
+   7. A word's authored part-of-speech/kind is correct, not just its
+      surface — a wrong tag can mis-attribute it to the wrong pool/regex.
+   8. Every example sentence quoted IN THE BRIEF itself uses only PRIOR
+      words.
+   9. The brief's "already taught" list is accurate — a form marked known
+      that isn't actually taught yet costs a round-trip.
+   10. No lesson is a step-count outlier vs. its module siblings.
+   11. No lesson runs the same step type back-to-back past the guard's
+       limit.
+   12. Distractor options are never equal to the correct answer token.
+   13. Cast/character names and register match every prior module's own
+       usage.
+   14. Cross-recombination claims (which prior modules this one reuses)
+       are grep/index-verified, not assumed from the dispatch framing.
+   15. New atoms are genuinely virgin per the surfaces index (rule 1), not
+       assumed.
+4. **One fix round-trip, then escalate.** A drafting agent gets ONE pass at
+   fixing gate failures from a `gate-runner`/compact failure list. If still
+   red after that pass, stop — hand the coordinator the compact failure
+   list rather than re-dispatching blind.
+
 ## 3. Gates & tests
 
 **`npm run module-gate` (`scripts/module-gate.mjs`) is JA-hardcoded end to end:**

@@ -3,16 +3,13 @@ import { useTranslation } from "react-i18next";
 import { useAuth } from "@/shared/auth/useAuth";
 import { useApi } from "@/shared/api";
 import { useToast } from "@/shared/contexts/ToastContext";
-import {
-  getDirtyCards,
-  performSync,
-  mergeServerState,
-  getDirtyGrammarCards,
-  performGrammarSync,
-  mergeGrammarStore,
-  partitionSyncStore,
-} from "./engine";
 import { notifySRSStoreChanged } from "./SRSStoreRevisionContext";
+
+// `./engine` pulls in the grammar-SRS module, which statically imports the
+// full JA course-atom table (and, transitively, the cross-language module
+// registry) just to resolve atom ids. Everything below is used only inside
+// the mount effect, so load it on demand instead of at boot.
+const srsEngine = () => import("./engine");
 
 /**
  * On load when authenticated: hydrates local SRS store from the server (so Card Manager
@@ -37,6 +34,15 @@ export function SRSPendingSync() {
     ranRef.current = true;
 
     (async () => {
+      const {
+        getDirtyCards,
+        performSync,
+        mergeServerState,
+        getDirtyGrammarCards,
+        performGrammarSync,
+        mergeGrammarStore,
+        partitionSyncStore,
+      } = await srsEngine();
       try {
         const fullState = await srs.getState();
         const { vocab, grammar } = partitionSyncStore(fullState ?? {});

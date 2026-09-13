@@ -25,7 +25,7 @@ import {
   getLessonCompletion,
   type LessonCompletion,
 } from "@/shared/domain/mockProgress";
-import { getMockLessonContent } from "@/features/lesson/data/mockLessons";
+import { getRegisteredLesson as getRawMockLesson } from "@/features/lesson/data/lessonRegistry";
 
 /**
  * Kept for future use — review-tail mechanics enforce all-correct at the
@@ -68,8 +68,16 @@ function isMasteryTestLesson(lessonId: string): boolean {
   if (!(lessonId.endsWith("-test") || lessonId.endsWith("-recap"))) {
     return false;
   }
-  const content = getMockLessonContent(lessonId);
-  return content?.steps.some((s) => s.type === "row_test") ?? false;
+  // Raw, not padded: this runs for every module on Home mount and the
+  // padded read would force the whole-course frequency index (see
+  // getRawMockLesson). Padding never adds a `row_test`.
+  const content = getRawMockLesson(lessonId);
+  // Content-as-data: on Home the lesson body may not be loaded yet (it is
+  // fetched per module). The id suffix is authoritative, so an unloaded
+  // lesson counts as a gate; the `row_test` check only demotes loaded
+  // lessons that turn out to be ordinary review/story lessons.
+  if (!content) return true;
+  return content.steps.some((s) => s.type === "row_test");
 }
 
 /** Return ids of every mastery-gate lesson in the module, in module order. */

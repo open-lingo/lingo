@@ -25,7 +25,10 @@ import {
   isSrsEligibleAtom,
 } from "@/features/languages/ja/courseAtoms";
 import { getMockCourse } from "@/shared/domain/mockCourse";
-import { getMockLessonContent } from "./mockLessons";
+import { getMinedLessonReader } from "./minedLessonReader";
+import { ensureMinedSentencesLoaded } from "./contentLoader";
+// Tests/emitter: installs the synchronous lesson reader (see *.eager.ts).
+import "virtual:eager:minedSentences";
 import { usesWord } from "./jaWordSpan";
 
 export type MinedSentence = { text: string; translation?: string };
@@ -135,7 +138,11 @@ function buildIndexesInner(): void {
     cardId: canonicalAtomId(a),
   }));
   for (const id of orderedJaLessonIds()) {
-    const lesson = getMockLessonContent(id);
+    // `floors: false`: this walk reads sentence text only, and the floor
+    // passes never touch it — with floors on, the first call here forced the
+    // whole-course frequency index (~1.2 s desktop, seconds on a phone) before
+    // Home could paint (it runs under useFlashcardDueSummary on Home).
+    const lesson = getMinedLessonReader()!(id, { floors: false });
     if (!lesson) continue;
     for (const step of lesson.steps) {
       for (const sent of sentencesFromStep(step)) {
@@ -173,8 +180,60 @@ function buildIndexesInner(): void {
  */
 export function getMinedSentences(): Map<string, MinedSentence> {
   if (building) return new Map();
-  if (!anyIndex) buildIndexes();
+  if (!anyIndex) {
+    if (!indexesAvailableSynchronously()) return EMPTY_ANY;
+    buildIndexes();
+  }
   return anyIndex!;
+}
+
+/** Serializable form of both indexes — what the content emitter writes. */
+export type MinedSentenceIndexes = {
+  any: [string, MinedSentence][];
+  translated: [string, MinedTranslatedSentence][];
+};
+
+/**
+ * Build both indexes by walking the (eagerly registered) lesson table.
+ * Used by `npm run content:emit`; the browser never walks.
+ */
+export function computeMinedSentenceIndexes(): MinedSentenceIndexes {
+  buildIndexes();
+  return {
+    any: [...(anyIndex ?? new Map())],
+    translated: [...(translatedIndex ?? new Map())],
+  };
+}
+
+/** Install precomputed indexes (browser: from content/v1/ja/mined.*.json). */
+export function setMinedSentenceIndexes(data: MinedSentenceIndexes): void {
+  anyIndex = new Map(data.any);
+  translatedIndex = new Map(data.translated);
+}
+
+const EMPTY_ANY: Map<string, MinedSentence> = new Map();
+let kicked = false;
+
+
+
+/**
+ * Content-as-data (2026-09-13): in the browser the lesson table is filled
+ * from JSON on demand and the miner's walk would need the whole Japanese
+ * course, so the walk only runs where the table is eager (tests, emitter).
+ * Otherwise the precomputed index is fetched once, and `getMinedSentences`
+ * answers EMPTY until it lands — callers on Home use `useContentRevision()`
+ * to re-render when it does. Empty is a safe answer: it means "no example
+ * sentence yet", never wrong data.
+ */
+function indexesAvailableSynchronously(): boolean {
+  if (getMinedLessonReader()) return true;
+  if (!kicked) {
+    kicked = true;
+    void ensureMinedSentencesLoaded("ja").catch(() => {
+      kicked = false;
+    });
+  }
+  return false;
 }
 
 /**
@@ -187,7 +246,10 @@ export function getMinedTranslatedSentences(): ReadonlyMap<
   MinedTranslatedSentence
 > {
   if (building) return EMPTY_TRANSLATED;
-  if (!translatedIndex) buildIndexes();
+  if (!translatedIndex) {
+    if (!indexesAvailableSynchronously()) return EMPTY_TRANSLATED;
+    buildIndexes();
+  }
   return translatedIndex!;
 }
 

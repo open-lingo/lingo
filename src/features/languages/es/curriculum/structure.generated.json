@@ -1,0 +1,2353 @@
+[
+  {
+    "id": "m1",
+    "title": "Sounds & greetings",
+    "eyebrow": "Module 1 · Sonidos y saludos",
+    "summary": "The five vowels, first greetings, courtesy words, and numbers 0–10.",
+    "accent": {
+      "from": "#0ea5e9",
+      "to": "#0284c7"
+    },
+    "lessons": [
+      {
+        "id": "es-m1-1",
+        "title": "Say hello — and no, politely",
+        "status": "available"
+      },
+      {
+        "id": "es-m1-2",
+        "title": "Ask nicely, apologize smoothly",
+        "status": "available"
+      },
+      {
+        "id": "es-m1-3",
+        "title": "Greet anyone, any time of day",
+        "status": "available"
+      },
+      {
+        "id": "es-m1-4",
+        "title": "Count to four — and a warmer goodbye",
+        "status": "available"
+      },
+      {
+        "id": "es-m1-5",
+        "title": "Five, six, seven — nice to meet you",
+        "status": "available"
+      },
+      {
+        "id": "es-m1-6",
+        "title": "Eight, nine, ten — and, or",
+        "status": "available"
+      },
+      {
+        "id": "es-m1-7",
+        "title": "✓ Checkpoint · Prove the first six",
+        "status": "available"
+      },
+      {
+        "id": "es-m1-8",
+        "title": "Your first real conversation",
+        "status": "available"
+      },
+      {
+        "id": "es-m1-9",
+        "title": "Prove it — then say goodnight",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m2",
+    "title": "Introductions",
+    "eyebrow": "Module 2 · Presentaciones",
+    "summary": "The turn-2 rescue kit, names, soy/eres, él/ella, and where you're from.",
+    "accent": {
+      "from": "#6366f1",
+      "to": "#8b5cf6"
+    },
+    "lessons": [
+      {
+        "id": "es-m2-1",
+        "title": "Never get knocked over by '¿Cómo estás?'",
+        "status": "available"
+      },
+      {
+        "id": "es-m2-2",
+        "title": "Say your name, ask for theirs",
+        "status": "available"
+      },
+      {
+        "id": "es-m2-3",
+        "title": "The escape phrase — and señor, señora",
+        "status": "available"
+      },
+      {
+        "id": "es-m2-4",
+        "title": "I am, you are",
+        "status": "available"
+      },
+      {
+        "id": "es-m2-5",
+        "title": "He and she",
+        "status": "available"
+      },
+      {
+        "id": "es-m2-6",
+        "title": "Say where you're from",
+        "status": "available"
+      },
+      {
+        "id": "es-m2-7",
+        "title": "The -o/-a switch, on people",
+        "status": "available"
+      },
+      {
+        "id": "es-m2-8",
+        "title": "✓ Checkpoint · Warm up for the café",
+        "status": "available"
+      },
+      {
+        "id": "es-m2-9",
+        "title": "The café conversation",
+        "status": "available"
+      },
+      {
+        "id": "es-m2-10",
+        "title": "Prove it — on a stranger",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m3",
+    "title": "Things & sides",
+    "eyebrow": "Module 3 · El, la y las cosas",
+    "summary": "el/la and un/una, your first nouns, «¿qué es?», and hay to count what you see.",
+    "accent": {
+      "from": "#f59e0b",
+      "to": "#ea580c"
+    },
+    "lessons": [
+      {
+        "id": "es-m3-1",
+        "title": "Everything picks a side",
+        "status": "available"
+      },
+      {
+        "id": "es-m3-2",
+        "title": "Never learn a side twice",
+        "status": "available"
+      },
+      {
+        "id": "es-m3-3",
+        "title": "Point and ask",
+        "status": "available"
+      },
+      {
+        "id": "es-m3-4",
+        "title": "Say what you see",
+        "status": "available"
+      },
+      {
+        "id": "es-m3-5",
+        "title": "Put things in their place",
+        "status": "available"
+      },
+      {
+        "id": "es-m3-6",
+        "title": "Find the keys",
+        "status": "available"
+      },
+      {
+        "id": "es-m3-7",
+        "title": "Count the room",
+        "status": "available"
+      },
+      {
+        "id": "es-m3-8",
+        "title": "L8 ✓ Checkpoint · Warm up for Sofía's visit",
+        "status": "available"
+      },
+      {
+        "id": "es-m3-9",
+        "title": "Sofía visits",
+        "status": "available"
+      },
+      {
+        "id": "es-m3-10",
+        "title": "Prove it — then a visitor",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m4",
+    "title": "Where things are",
+    "eyebrow": "Module 4 · ¿Dónde está?",
+    "summary": "hay vs está, rooms of the house, los/las and the plural rule, aquí/allí, and the two rule-breakers.",
+    "accent": {
+      "from": "#10b981",
+      "to": "#059669"
+    },
+    "lessons": [
+      {
+        "id": "es-m4-1",
+        "title": "Say where it is",
+        "status": "available"
+      },
+      {
+        "id": "es-m4-2",
+        "title": "Every room has a name",
+        "status": "available"
+      },
+      {
+        "id": "es-m4-3",
+        "title": "Here — or over there",
+        "status": "available"
+      },
+      {
+        "id": "es-m4-4",
+        "title": "One becomes many",
+        "status": "available"
+      },
+      {
+        "id": "es-m4-5",
+        "title": "The rule-breakers",
+        "status": "available"
+      },
+      {
+        "id": "es-m4-6",
+        "title": "The phone hunt",
+        "status": "available"
+      },
+      {
+        "id": "es-m4-7",
+        "title": "Count and locate",
+        "status": "available"
+      },
+      {
+        "id": "es-m4-8",
+        "title": "L8 ✓ Checkpoint · Every place, every pair",
+        "status": "available"
+      },
+      {
+        "id": "es-m4-9",
+        "title": "Diego's big date",
+        "status": "available"
+      },
+      {
+        "id": "es-m4-10",
+        "title": "Prove it — then Diego calls",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m5",
+    "title": "Mi familia",
+    "eyebrow": "Module 5 · Mi familia",
+    "summary": "tengo/tienes/tiene as formulas, mi/tu, the family, pets, and asking anyone's age.",
+    "accent": {
+      "from": "#f472b6",
+      "to": "#db2777"
+    },
+    "lessons": [
+      {
+        "id": "es-m5-1",
+        "title": "Say what's yours",
+        "status": "available"
+      },
+      {
+        "id": "es-m5-2",
+        "title": "Yours, and theirs",
+        "status": "available"
+      },
+      {
+        "id": "es-m5-3",
+        "title": "Same word, different ending",
+        "status": "available"
+      },
+      {
+        "id": "es-m5-4",
+        "title": "How old are they?",
+        "status": "available"
+      },
+      {
+        "id": "es-m5-5",
+        "title": "The whole family, in one photo",
+        "status": "available"
+      },
+      {
+        "id": "es-m5-6",
+        "title": "Sofía asks about the photo",
+        "status": "available"
+      },
+      {
+        "id": "es-m5-7",
+        "title": "Everyone, all at once",
+        "status": "available"
+      },
+      {
+        "id": "es-m5-8",
+        "title": "L8 ✓ Checkpoint · Everyone, every pair",
+        "status": "available"
+      },
+      {
+        "id": "es-m5-9",
+        "title": "Diego meets your dog",
+        "status": "available"
+      },
+      {
+        "id": "es-m5-10",
+        "title": "Prove it — then María asks",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m6",
+    "title": "Describe it",
+    "eyebrow": "Module 6 · Descríbelo",
+    "summary": "Adjectives that flip to match their noun, colors, muy and pero — the pink/blue tints finally do their work.",
+    "accent": {
+      "from": "#a855f7",
+      "to": "#7c3aed"
+    },
+    "lessons": [
+      {
+        "id": "es-m6-1",
+        "title": "Big or small — say it",
+        "status": "available"
+      },
+      {
+        "id": "es-m6-2",
+        "title": "Three colors — and very",
+        "status": "available"
+      },
+      {
+        "id": "es-m6-3",
+        "title": "Watch it flip",
+        "status": "available"
+      },
+      {
+        "id": "es-m6-4",
+        "title": "Describe the car",
+        "status": "available"
+      },
+      {
+        "id": "es-m6-5",
+        "title": "Old, but good",
+        "status": "available"
+      },
+      {
+        "id": "es-m6-6",
+        "title": "The describing game",
+        "status": "available"
+      },
+      {
+        "id": "es-m6-7",
+        "title": "Describe everything",
+        "status": "available"
+      },
+      {
+        "id": "es-m6-8",
+        "title": "L8 ✓ Checkpoint · Every color, every pair",
+        "status": "available"
+      },
+      {
+        "id": "es-m6-9",
+        "title": "María's carro",
+        "status": "available"
+      },
+      {
+        "id": "es-m6-10",
+        "title": "Prove it — then Diego visits",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m7",
+    "title": "El café",
+    "eyebrow": "Module 7 · El café",
+    "summary": "quiero vs me gusta, food and drink, tengo hambre/sed — and Diego finally pays at Carmen's café.",
+    "accent": {
+      "from": "#f59e0b",
+      "to": "#b45309"
+    },
+    "lessons": [
+      {
+        "id": "es-m7-1",
+        "title": "Order like a local",
+        "status": "available"
+      },
+      {
+        "id": "es-m7-2",
+        "title": "Want it now, like it always",
+        "status": "available"
+      },
+      {
+        "id": "es-m7-3",
+        "title": "Would you like...?",
+        "status": "available"
+      },
+      {
+        "id": "es-m7-4",
+        "title": "Hungry? Thirsty?",
+        "status": "available"
+      },
+      {
+        "id": "es-m7-5",
+        "title": "Now THAT's tasty",
+        "status": "available"
+      },
+      {
+        "id": "es-m7-6",
+        "title": "Diego finally pays",
+        "status": "available"
+      },
+      {
+        "id": "es-m7-7",
+        "title": "Order the whole menu",
+        "status": "available"
+      },
+      {
+        "id": "es-m7-8",
+        "title": "L8 ✓ Checkpoint · Every order, every pair",
+        "status": "available"
+      },
+      {
+        "id": "es-m7-9",
+        "title": "Carmen's café",
+        "status": "available"
+      },
+      {
+        "id": "es-m7-10",
+        "title": "Prove it — then María visits",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m8",
+    "title": "La semana",
+    "eyebrow": "Module 8 · La semana",
+    "summary": "The seven days, hoy/mañana, ¿cuándo? — and once through quince, with your ear against dos/doce.",
+    "accent": {
+      "from": "#38bdf8",
+      "to": "#0369a1"
+    },
+    "lessons": [
+      {
+        "id": "es-m8-1",
+        "title": "The week begins",
+        "status": "available"
+      },
+      {
+        "id": "es-m8-2",
+        "title": "When is it?",
+        "status": "available"
+      },
+      {
+        "id": "es-m8-3",
+        "title": "The weekend arrives",
+        "status": "available"
+      },
+      {
+        "id": "es-m8-4",
+        "title": "Eleven to fifteen",
+        "status": "available"
+      },
+      {
+        "id": "es-m8-5",
+        "title": "Tomorrow, and an honest exception",
+        "status": "available"
+      },
+      {
+        "id": "es-m8-6",
+        "title": "Planning the week",
+        "status": "available"
+      },
+      {
+        "id": "es-m8-7",
+        "title": "Every day, no new words",
+        "status": "available"
+      },
+      {
+        "id": "es-m8-8",
+        "title": "L8 ✓ Checkpoint · Every day, every pair",
+        "status": "available"
+      },
+      {
+        "id": "es-m8-9",
+        "title": "Coffee with Sofía",
+        "status": "available"
+      },
+      {
+        "id": "es-m8-10",
+        "title": "Prove it — then María checks in",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m9",
+    "title": "Vamos",
+    "eyebrow": "Module 9 · Vamos",
+    "summary": "voy/vas, a vs al, ¿adónde? — say where you're headed, and catch the bus there.",
+    "accent": {
+      "from": "#34d399",
+      "to": "#047857"
+    },
+    "lessons": [
+      {
+        "id": "es-m9-1",
+        "title": "Say where you're headed",
+        "status": "available"
+      },
+      {
+        "id": "es-m9-2",
+        "title": "The el-words shrink",
+        "status": "available"
+      },
+      {
+        "id": "es-m9-3",
+        "title": "Now ask them",
+        "status": "available"
+      },
+      {
+        "id": "es-m9-4",
+        "title": "Everywhere you need to go",
+        "status": "available"
+      },
+      {
+        "id": "es-m9-5",
+        "title": "Home skips the article",
+        "status": "available"
+      },
+      {
+        "id": "es-m9-6",
+        "title": "Catching the bus",
+        "status": "available"
+      },
+      {
+        "id": "es-m9-7",
+        "title": "Every direction, from memory",
+        "status": "available"
+      },
+      {
+        "id": "es-m9-8",
+        "title": "L8 ✓ Checkpoint · Every place, every pair",
+        "status": "available"
+      },
+      {
+        "id": "es-m9-9",
+        "title": "Beach day",
+        "status": "available"
+      },
+      {
+        "id": "es-m9-10",
+        "title": "Prove it — then María asks",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m10",
+    "title": "The verb machine",
+    "eyebrow": "Module 10 · La máquina",
+    "summary": "hablar, trabajar, estudiar — one -o/-as/-a swap runs them all. Ends on «hablo un poco».",
+    "accent": {
+      "from": "#f43f5e",
+      "to": "#be123c"
+    },
+    "lessons": [
+      {
+        "id": "es-m10-1",
+        "title": "Run your first machine",
+        "status": "available"
+      },
+      {
+        "id": "es-m10-2",
+        "title": "She speaks it too",
+        "status": "available"
+      },
+      {
+        "id": "es-m10-3",
+        "title": "Same machine, new verb",
+        "status": "available"
+      },
+      {
+        "id": "es-m10-4",
+        "title": "Always, never",
+        "status": "available"
+      },
+      {
+        "id": "es-m10-5",
+        "title": "Words that skip the machine",
+        "status": "available"
+      },
+      {
+        "id": "es-m10-6",
+        "title": "The machine reaches your family",
+        "status": "available"
+      },
+      {
+        "id": "es-m10-7",
+        "title": "Run every gear",
+        "status": "available"
+      },
+      {
+        "id": "es-m10-8",
+        "title": "L8 ✓ Checkpoint · Every gear, every pair",
+        "status": "available"
+      },
+      {
+        "id": "es-m10-9",
+        "title": "María's exchange, part one",
+        "status": "available"
+      },
+      {
+        "id": "es-m10-10",
+        "title": "Prove it — then María asks the real question",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m11",
+    "title": "Como y bebo",
+    "eyebrow": "Module 11 · La segunda máquina",
+    "summary": "comer, beber, vivir — the -er and -ir machines, which in the singular are one machine.",
+    "accent": {
+      "from": "#38bdf8",
+      "to": "#0369a1"
+    },
+    "lessons": [
+      {
+        "id": "es-m11-1",
+        "title": "Run your second machine",
+        "status": "available"
+      },
+      {
+        "id": "es-m11-2",
+        "title": "La carne",
+        "status": "available"
+      },
+      {
+        "id": "es-m11-3",
+        "title": "Bebo agua",
+        "status": "available"
+      },
+      {
+        "id": "es-m11-4",
+        "title": "También, pero",
+        "status": "available"
+      },
+      {
+        "id": "es-m11-5",
+        "title": "Vivo aquí",
+        "status": "available"
+      },
+      {
+        "id": "es-m11-6",
+        "title": "Quiero leer",
+        "status": "available"
+      },
+      {
+        "id": "es-m11-7",
+        "title": "Every gear",
+        "status": "available"
+      },
+      {
+        "id": "es-m11-8",
+        "title": "L8 ✓ Checkpoint · Every machine, every gear",
+        "status": "available"
+      },
+      {
+        "id": "es-m11-9",
+        "title": "Ana's table, part one",
+        "status": "available"
+      },
+      {
+        "id": "es-m11-10",
+        "title": "Prove it — then Diego's last question",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m12",
+    "title": "Este, ese",
+    "eyebrow": "Module 12 · Señalar",
+    "summary": "este, ese and their plurals — pointing agrees, and a shop is where you find out.",
+    "accent": {
+      "from": "#a78bfa",
+      "to": "#6d28d9"
+    },
+    "lessons": [
+      {
+        "id": "es-m12-1",
+        "title": "Este, esta",
+        "status": "available"
+      },
+      {
+        "id": "es-m12-2",
+        "title": "La camisa",
+        "status": "available"
+      },
+      {
+        "id": "es-m12-3",
+        "title": "Ese, esa",
+        "status": "available"
+      },
+      {
+        "id": "es-m12-4",
+        "title": "¿Cuánto cuesta?",
+        "status": "available"
+      },
+      {
+        "id": "es-m12-5",
+        "title": "Estos y esos",
+        "status": "available"
+      },
+      {
+        "id": "es-m12-6",
+        "title": "Caro o barato",
+        "status": "available"
+      },
+      {
+        "id": "es-m12-7",
+        "title": "Point at everything",
+        "status": "available"
+      },
+      {
+        "id": "es-m12-8",
+        "title": "L8 ✓ Checkpoint · Point at anything",
+        "status": "available"
+      },
+      {
+        "id": "es-m12-9",
+        "title": "Sofía's stall, part one",
+        "status": "available"
+      },
+      {
+        "id": "es-m12-10",
+        "title": "Prove it — then walk out with something",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m13",
+    "title": "Me gusta",
+    "eyebrow": "Module 13 · Lo que te gusta",
+    "summary": "gustar runs backwards — the thing you like is the subject, so the verb agrees with IT.",
+    "accent": {
+      "from": "#fb923c",
+      "to": "#c2410c"
+    },
+    "lessons": [
+      {
+        "id": "es-m13-1",
+        "title": "Me gusta",
+        "status": "available"
+      },
+      {
+        "id": "es-m13-2",
+        "title": "La pizza y el helado",
+        "status": "available"
+      },
+      {
+        "id": "es-m13-3",
+        "title": "¿Te gusta?",
+        "status": "available"
+      },
+      {
+        "id": "es-m13-4",
+        "title": "Me gustan",
+        "status": "available"
+      },
+      {
+        "id": "es-m13-5",
+        "title": "Me gusta nadar",
+        "status": "available"
+      },
+      {
+        "id": "es-m13-6",
+        "title": "A Diego le gusta",
+        "status": "available"
+      },
+      {
+        "id": "es-m13-7",
+        "title": "Everything you like",
+        "status": "available"
+      },
+      {
+        "id": "es-m13-8",
+        "title": "L8 ✓ Checkpoint · Who likes what",
+        "status": "available"
+      },
+      {
+        "id": "es-m13-9",
+        "title": "Everything you like, part one",
+        "status": "available"
+      },
+      {
+        "id": "es-m13-10",
+        "title": "Prove it — then make a plan out of it",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m14",
+    "title": "Puedo, quiero",
+    "eyebrow": "Module 14 · La vocal que se rompe",
+    "summary": "some verbs break their stem vowel — and you have been saying three of them since module 2.",
+    "accent": {
+      "from": "#2dd4bf",
+      "to": "#0f766e"
+    },
+    "lessons": [
+      {
+        "id": "es-m14-1",
+        "title": "Ya lo sabes",
+        "status": "available"
+      },
+      {
+        "id": "es-m14-2",
+        "title": "Puedo",
+        "status": "available"
+      },
+      {
+        "id": "es-m14-3",
+        "title": "No entiendo",
+        "status": "available"
+      },
+      {
+        "id": "es-m14-4",
+        "title": "Duermo tarde",
+        "status": "available"
+      },
+      {
+        "id": "es-m14-5",
+        "title": "Empieza temprano",
+        "status": "available"
+      },
+      {
+        "id": "es-m14-6",
+        "title": "Quiere, puede, duerme",
+        "status": "available"
+      },
+      {
+        "id": "es-m14-7",
+        "title": "Everything at once",
+        "status": "available"
+      },
+      {
+        "id": "es-m14-8",
+        "title": "L8 ✓ Checkpoint · The vowel that breaks",
+        "status": "available"
+      },
+      {
+        "id": "es-m14-9",
+        "title": "Everything you can, everything you want",
+        "status": "available"
+      },
+      {
+        "id": "es-m14-10",
+        "title": "Prove it — then settle tomorrow",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m15",
+    "title": "Hago, vengo",
+    "eyebrow": "Module 15 · El yo raro",
+    "summary": "a family of verbs whose yo form goes its own way — and «tengo» was the first one all along.",
+    "accent": {
+      "from": "#f472b6",
+      "to": "#9d174d"
+    },
+    "lessons": [
+      {
+        "id": "es-m15-1",
+        "title": "Tengo, y no lo sabías",
+        "status": "available"
+      },
+      {
+        "id": "es-m15-2",
+        "title": "Hago",
+        "status": "available"
+      },
+      {
+        "id": "es-m15-3",
+        "title": "Vengo",
+        "status": "available"
+      },
+      {
+        "id": "es-m15-4",
+        "title": "Salgo",
+        "status": "available"
+      },
+      {
+        "id": "es-m15-5",
+        "title": "Veo",
+        "status": "available"
+      },
+      {
+        "id": "es-m15-6",
+        "title": "Tener",
+        "status": "available"
+      },
+      {
+        "id": "es-m15-7",
+        "title": "All five at once",
+        "status": "available"
+      },
+      {
+        "id": "es-m15-8",
+        "title": "L8 ✓ Checkpoint · The yo that goes its own way",
+        "status": "available"
+      },
+      {
+        "id": "es-m15-9",
+        "title": "Everything I do, everywhere I go",
+        "status": "available"
+      },
+      {
+        "id": "es-m15-10",
+        "title": "Five verbs, one Saturday",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m16",
+    "title": "Lo veo",
+    "eyebrow": "Module 16 · Lo, la, los, las",
+    "summary": "the thing you just named does not get named twice — a short word stands in for it, and it goes before the verb.",
+    "accent": {
+      "from": "#2dd4bf",
+      "to": "#115e59"
+    },
+    "lessons": [
+      {
+        "id": "es-m16-1",
+        "title": "Lo veo",
+        "status": "available"
+      },
+      {
+        "id": "es-m16-2",
+        "title": "La veo",
+        "status": "available"
+      },
+      {
+        "id": "es-m16-3",
+        "title": "Lo necesito",
+        "status": "available"
+      },
+      {
+        "id": "es-m16-4",
+        "title": "Los tengo, las tengo",
+        "status": "available"
+      },
+      {
+        "id": "es-m16-5",
+        "title": "No lo veo",
+        "status": "available"
+      },
+      {
+        "id": "es-m16-6",
+        "title": "Ya lo tengo",
+        "status": "available"
+      },
+      {
+        "id": "es-m16-7",
+        "title": "Lo quiero comprar",
+        "status": "available"
+      },
+      {
+        "id": "es-m16-8",
+        "title": "L8 ✓ Checkpoint · The word that stands in for the thing",
+        "status": "available"
+      },
+      {
+        "id": "es-m16-9",
+        "title": "¿Lo tienes?",
+        "status": "available"
+      },
+      {
+        "id": "es-m16-10",
+        "title": "Lo busco, la compro",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m17",
+    "title": "Me levanto",
+    "eyebrow": "Module 17 · Me, te, se",
+    "summary": "some verbs carry a small word that points back at the person doing them — and it goes in front, exactly where «lo» went.",
+    "accent": {
+      "from": "#fb923c",
+      "to": "#9a3412"
+    },
+    "lessons": [
+      {
+        "id": "es-m17-1",
+        "title": "Me levanto",
+        "status": "available"
+      },
+      {
+        "id": "es-m17-2",
+        "title": "Me ducho",
+        "status": "available"
+      },
+      {
+        "id": "es-m17-3",
+        "title": "¿Cómo se llama?",
+        "status": "available"
+      },
+      {
+        "id": "es-m17-4",
+        "title": "Me lavo los dientes",
+        "status": "available"
+      },
+      {
+        "id": "es-m17-5",
+        "title": "Me despierto temprano",
+        "status": "available"
+      },
+      {
+        "id": "es-m17-6",
+        "title": "Me acuesto tarde",
+        "status": "available"
+      },
+      {
+        "id": "es-m17-7",
+        "title": "Me quiero levantar",
+        "status": "available"
+      },
+      {
+        "id": "es-m17-8",
+        "title": "L8 ✓ Checkpoint · The verb that points back at you",
+        "status": "available"
+      },
+      {
+        "id": "es-m17-9",
+        "title": "Todos los días",
+        "status": "available"
+      },
+      {
+        "id": "es-m17-10",
+        "title": "Un día en casa",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m18",
+    "title": "Nosotros y ellos",
+    "eyebrow": "Module 18 · -mos, -n",
+    "summary": "seventeen modules of I, you, he and she — two endings finish the table: we, and they. The last module of A1.",
+    "accent": {
+      "from": "#a3e635",
+      "to": "#3f6212"
+    },
+    "lessons": [
+      {
+        "id": "es-m18-1",
+        "title": "Nosotros hablamos",
+        "status": "available"
+      },
+      {
+        "id": "es-m18-2",
+        "title": "Ellos hablan",
+        "status": "available"
+      },
+      {
+        "id": "es-m18-3",
+        "title": "Somos amigos",
+        "status": "available"
+      },
+      {
+        "id": "es-m18-4",
+        "title": "Ustedes",
+        "status": "available"
+      },
+      {
+        "id": "es-m18-5",
+        "title": "Tenemos, tienen",
+        "status": "available"
+      },
+      {
+        "id": "es-m18-6",
+        "title": "Vamos, van",
+        "status": "available"
+      },
+      {
+        "id": "es-m18-7",
+        "title": "Estamos, están",
+        "status": "available"
+      },
+      {
+        "id": "es-m18-8",
+        "title": "L8 ✓ Checkpoint · The rest of the table",
+        "status": "available"
+      },
+      {
+        "id": "es-m18-9",
+        "title": "Todos juntos",
+        "status": "available"
+      },
+      {
+        "id": "es-m18-10",
+        "title": "Una mesa para cinco",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m19",
+    "title": "Ayer hablé",
+    "eyebrow": "Module 19 · El pretérito",
+    "summary": "the first sentence about yesterday: a finished action takes new endings, and the accent that moves the stress is the tense. A2 opens here.",
+    "accent": {
+      "from": "#f59e0b",
+      "to": "#78350f"
+    },
+    "lessons": [
+      {
+        "id": "es-m19-1",
+        "title": "Ayer hablé",
+        "status": "available"
+      },
+      {
+        "id": "es-m19-2",
+        "title": "Compré, trabajé",
+        "status": "available"
+      },
+      {
+        "id": "es-m19-3",
+        "title": "Anoche comí",
+        "status": "available"
+      },
+      {
+        "id": "es-m19-4",
+        "title": "Viví, salí",
+        "status": "available"
+      },
+      {
+        "id": "es-m19-5",
+        "title": "¿Hablo o habló?",
+        "status": "available"
+      },
+      {
+        "id": "es-m19-6",
+        "title": "El fin de semana",
+        "status": "available"
+      },
+      {
+        "id": "es-m19-7",
+        "title": "¿Y tú?",
+        "status": "available"
+      },
+      {
+        "id": "es-m19-8",
+        "title": "L8 ✓ Checkpoint · The past, regular",
+        "status": "available"
+      },
+      {
+        "id": "es-m19-9",
+        "title": "Mi semana",
+        "status": "available"
+      },
+      {
+        "id": "es-m19-10",
+        "title": "Lo que pasó",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m20",
+    "title": "Fui, hice, tuve",
+    "eyebrow": "Module 20 · El pasado irregular",
+    "summary": "the verbs you use most do not take yesterday's endings — they change their whole shape, and «fui» is both went and was.",
+    "accent": {
+      "from": "#c084fc",
+      "to": "#581c87"
+    },
+    "lessons": [
+      {
+        "id": "es-m20-1",
+        "title": "Ayer fui",
+        "status": "available"
+      },
+      {
+        "id": "es-m20-2",
+        "title": "Fue muy bueno",
+        "status": "available"
+      },
+      {
+        "id": "es-m20-3",
+        "title": "¿Qué hiciste?",
+        "status": "available"
+      },
+      {
+        "id": "es-m20-4",
+        "title": "Tuve, estuve",
+        "status": "available"
+      },
+      {
+        "id": "es-m20-5",
+        "title": "Vi, vine",
+        "status": "available"
+      },
+      {
+        "id": "es-m20-6",
+        "title": "El mes pasado",
+        "status": "available"
+      },
+      {
+        "id": "es-m20-7",
+        "title": "¿Fuiste? No fui",
+        "status": "available"
+      },
+      {
+        "id": "es-m20-8",
+        "title": "L8 ✓ Checkpoint · Fui, hice, tuve",
+        "status": "available"
+      },
+      {
+        "id": "es-m20-9",
+        "title": "Hoy y ayer",
+        "status": "available"
+      },
+      {
+        "id": "es-m20-10",
+        "title": "Todo el fin de semana",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m21",
+    "title": "Fuimos, fueron",
+    "eyebrow": "Module 21 · El pretérito plural",
+    "summary": "the same past you already own, said about more than one person — «hablamos» finally gets its other meaning, and «todos» brings the whole group into the sentence.",
+    "accent": {
+      "from": "#38bdf8",
+      "to": "#0c4a6e"
+    },
+    "lessons": [
+      {
+        "id": "es-m21-1",
+        "title": "Fuimos juntos",
+        "status": "available"
+      },
+      {
+        "id": "es-m21-2",
+        "title": "Fuimos, hablamos",
+        "status": "available"
+      },
+      {
+        "id": "es-m21-3",
+        "title": "¿Qué hicimos?",
+        "status": "available"
+      },
+      {
+        "id": "es-m21-4",
+        "title": "Tuvimos, estuvimos",
+        "status": "available"
+      },
+      {
+        "id": "es-m21-5",
+        "title": "Vimos, vinimos",
+        "status": "available"
+      },
+      {
+        "id": "es-m21-6",
+        "title": "Todos fueron",
+        "status": "available"
+      },
+      {
+        "id": "es-m21-7",
+        "title": "¿Fueron? No fuimos",
+        "status": "available"
+      },
+      {
+        "id": "es-m21-8",
+        "title": "L8 ✓ Checkpoint · Fuimos, hicimos, tuvimos",
+        "status": "available"
+      },
+      {
+        "id": "es-m21-9",
+        "title": "Hoy y ayer",
+        "status": "available"
+      },
+      {
+        "id": "es-m21-10",
+        "title": "Todo el fin de semana",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m22",
+    "title": "Hablaba, era, iba",
+    "eyebrow": "Module 22 · El imperfecto",
+    "summary": "a past tense for things that kept happening or were just true — and for the first time, «I» and «he, she, you» say it with the exact same word.",
+    "accent": {
+      "from": "#818cf8",
+      "to": "#3730a3"
+    },
+    "lessons": [
+      {
+        "id": "es-m22-1",
+        "title": "Hablaba de niño",
+        "status": "available"
+      },
+      {
+        "id": "es-m22-2",
+        "title": "Hablábamos, hablaban",
+        "status": "available"
+      },
+      {
+        "id": "es-m22-3",
+        "title": "Era, eras",
+        "status": "available"
+      },
+      {
+        "id": "es-m22-4",
+        "title": "Éramos, eran, todos eran",
+        "status": "available"
+      },
+      {
+        "id": "es-m22-5",
+        "title": "Iba a la escuela",
+        "status": "available"
+      },
+      {
+        "id": "es-m22-6",
+        "title": "Veíamos películas",
+        "status": "available"
+      },
+      {
+        "id": "es-m22-7",
+        "title": "¿Cuántos años tenías?",
+        "status": "available"
+      },
+      {
+        "id": "es-m22-8",
+        "title": "Checkpoint: todo el imperfecto",
+        "status": "available"
+      },
+      {
+        "id": "es-m22-9",
+        "title": "Hoy voy, de niño iba",
+        "status": "available"
+      },
+      {
+        "id": "es-m22-10",
+        "title": "De niños, íbamos juntos",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m23",
+    "title": "Cuando, mientras, de repente",
+    "eyebrow": "Module 23 · Pretérito vs. imperfecto",
+    "summary": "two pasts finally share a sentence — «cuando», «mientras», «de repente», and «entonces» say which clause is the ongoing scene and which is the one moment that happened inside it.",
+    "accent": {
+      "from": "#ef4444",
+      "to": "#991b1b"
+    },
+    "lessons": [
+      {
+        "id": "es-m23-1",
+        "title": "Cuando era niño",
+        "status": "available"
+      },
+      {
+        "id": "es-m23-2",
+        "title": "Mientras hablábamos",
+        "status": "available"
+      },
+      {
+        "id": "es-m23-3",
+        "title": "De repente",
+        "status": "available"
+      },
+      {
+        "id": "es-m23-4",
+        "title": "Entonces fuimos",
+        "status": "available"
+      },
+      {
+        "id": "es-m23-5",
+        "title": "Todos, cuando y mientras",
+        "status": "available"
+      },
+      {
+        "id": "es-m23-6",
+        "title": "Fue o era",
+        "status": "available"
+      },
+      {
+        "id": "es-m23-7",
+        "title": "¿Qué veías cuando...?",
+        "status": "available"
+      },
+      {
+        "id": "es-m23-8",
+        "title": "Checkpoint: cuando, mientras, de repente, entonces",
+        "status": "available"
+      },
+      {
+        "id": "es-m23-9",
+        "title": "Todo junto",
+        "status": "available"
+      },
+      {
+        "id": "es-m23-10",
+        "title": "De niños, íbamos juntos",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m24",
+    "title": "Estaba, hacía, quería",
+    "eyebrow": "Module 24 · Regular en el imperfecto",
+    "summary": "the imperfect's trick generalizes — estar, hacer, querer, poder, and venir are irregular everywhere else you've met them, but here they're perfectly regular, just like «tenía» already showed you.",
+    "accent": {
+      "from": "#d946ef",
+      "to": "#86198f"
+    },
+    "lessons": [
+      {
+        "id": "es-m24-1",
+        "title": "Estaba en casa",
+        "status": "available"
+      },
+      {
+        "id": "es-m24-2",
+        "title": "Hacía la tarea",
+        "status": "available"
+      },
+      {
+        "id": "es-m24-3",
+        "title": "Quería ir",
+        "status": "available"
+      },
+      {
+        "id": "es-m24-4",
+        "title": "Quería, pero no podía",
+        "status": "available"
+      },
+      {
+        "id": "es-m24-5",
+        "title": "Venía a la escuela temprano",
+        "status": "available"
+      },
+      {
+        "id": "es-m24-6",
+        "title": "Mientras hacía la tarea, vino Diego",
+        "status": "available"
+      },
+      {
+        "id": "es-m24-7",
+        "title": "¿Dónde estabas cuando vino Sofía?",
+        "status": "available"
+      },
+      {
+        "id": "es-m24-8",
+        "title": "Checkpoint: estaba, hacía, quería, podía, venía",
+        "status": "available"
+      },
+      {
+        "id": "es-m24-9",
+        "title": "Hoy hago, pero de niño hacía",
+        "status": "available"
+      },
+      {
+        "id": "es-m24-10",
+        "title": "De niños, veníamos aquí juntos",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m25",
+    "title": "Porque, por eso",
+    "eyebrow": "Module 25 · Porque, por eso",
+    "summary": "two clauses you can already build, causally linked — «porque» gives the reason, «por eso» gives the result, same two facts either direction.",
+    "accent": {
+      "from": "#3b82f6",
+      "to": "#1d4ed8"
+    },
+    "lessons": [
+      {
+        "id": "es-m25-1",
+        "title": "Porque tenía trabajo",
+        "status": "available"
+      },
+      {
+        "id": "es-m25-2",
+        "title": "Porque quería ir al cine",
+        "status": "available"
+      },
+      {
+        "id": "es-m25-3",
+        "title": "Porque no podía ir",
+        "status": "available"
+      },
+      {
+        "id": "es-m25-4",
+        "title": "Por eso no fui",
+        "status": "available"
+      },
+      {
+        "id": "es-m25-5",
+        "title": "Por eso venía temprano",
+        "status": "available"
+      },
+      {
+        "id": "es-m25-6",
+        "title": "Mientras hacía la tarea",
+        "status": "available"
+      },
+      {
+        "id": "es-m25-7",
+        "title": "No salí porque no quería",
+        "status": "available"
+      },
+      {
+        "id": "es-m25-8",
+        "title": "Checkpoint: porque, por eso",
+        "status": "available"
+      },
+      {
+        "id": "es-m25-9",
+        "title": "Porque y por eso, la misma historia",
+        "status": "available"
+      },
+      {
+        "id": "es-m25-10",
+        "title": "Cuando vino Sofía",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m26",
+    "title": "Vivía, comía, estudiaba",
+    "eyebrow": "Module 26 · Vivía, comía, estudiaba",
+    "summary": "the imperfect's trick, a third time — vivir, comer, estudiar, trabajar, and salir slot into the same -aba/-ía pattern «tenía» and «estaba» already taught you, and now, for the first time, every one of them has a matching preterite to contrast against.",
+    "accent": {
+      "from": "#22d3ee",
+      "to": "#0891b2"
+    },
+    "lessons": [
+      {
+        "id": "es-m26-1",
+        "title": "Vivía en México",
+        "status": "available"
+      },
+      {
+        "id": "es-m26-2",
+        "title": "Comía mucho en casa",
+        "status": "available"
+      },
+      {
+        "id": "es-m26-3",
+        "title": "Estudiaba mucho en la escuela",
+        "status": "available"
+      },
+      {
+        "id": "es-m26-4",
+        "title": "Mi padre trabajaba mucho",
+        "status": "available"
+      },
+      {
+        "id": "es-m26-5",
+        "title": "Salía al parque con Diego",
+        "status": "available"
+      },
+      {
+        "id": "es-m26-6",
+        "title": "Siempre comía en casa, pero ayer comí en el restaurante",
+        "status": "available"
+      },
+      {
+        "id": "es-m26-7",
+        "title": "¿Dónde vivías de niño?",
+        "status": "available"
+      },
+      {
+        "id": "es-m26-8",
+        "title": "Checkpoint: vivía, comía, estudiaba, trabajaba, salía",
+        "status": "available"
+      },
+      {
+        "id": "es-m26-9",
+        "title": "Hoy vivo en España, de niño vivía en México",
+        "status": "available"
+      },
+      {
+        "id": "es-m26-10",
+        "title": "De niño, vivíamos aquí juntos",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m27",
+    "title": "Hace sol, hace frío",
+    "eyebrow": "Module 27 · Hace sol, hace frío",
+    "summary": "seven new weather words — sun, rain, wind, snow, cloudy, heat, cold — slotting into sentence patterns you already own: «hace», «hay», «está», now describing the sky instead of a place.",
+    "accent": {
+      "from": "#eab308",
+      "to": "#a16207"
+    },
+    "lessons": [
+      {
+        "id": "es-m27-1",
+        "title": "Hay sol",
+        "status": "available"
+      },
+      {
+        "id": "es-m27-2",
+        "title": "No me gusta la lluvia",
+        "status": "available"
+      },
+      {
+        "id": "es-m27-3",
+        "title": "Hay viento y nieve",
+        "status": "available"
+      },
+      {
+        "id": "es-m27-4",
+        "title": "Hace calor",
+        "status": "available"
+      },
+      {
+        "id": "es-m27-5",
+        "title": "Hace frío",
+        "status": "available"
+      },
+      {
+        "id": "es-m27-6",
+        "title": "Está nublado, por eso...",
+        "status": "available"
+      },
+      {
+        "id": "es-m27-7",
+        "title": "No hace calor, hace frío",
+        "status": "available"
+      },
+      {
+        "id": "es-m27-8",
+        "title": "Checkpoint: sol, lluvia, viento, nieve, calor, frío, nublado",
+        "status": "available"
+      },
+      {
+        "id": "es-m27-9",
+        "title": "Hoy hace sol, pero de niño hacía frío",
+        "status": "available"
+      },
+      {
+        "id": "es-m27-10",
+        "title": "De niño, hacía mucho frío aquí",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m28",
+    "title": "Voy a nadar mañana",
+    "eyebrow": "Module 28 · Voy a nadar mañana",
+    "summary": "the near future — «voy a, vas a, va a, vamos a, van a» plus any infinitive you already know, turning the same «voy» that gets you to the beach into the verb that gets you to tomorrow.",
+    "accent": {
+      "from": "#22c55e",
+      "to": "#15803d"
+    },
+    "lessons": [
+      {
+        "id": "es-m28-1",
+        "title": "Voy a nadar mañana",
+        "status": "available"
+      },
+      {
+        "id": "es-m28-2",
+        "title": "¿Vas a trabajar mañana?",
+        "status": "available"
+      },
+      {
+        "id": "es-m28-3",
+        "title": "Ana va a comer con Diego",
+        "status": "available"
+      },
+      {
+        "id": "es-m28-4",
+        "title": "Vamos a viajar",
+        "status": "available"
+      },
+      {
+        "id": "es-m28-5",
+        "title": "Van a cocinar juntos",
+        "status": "available"
+      },
+      {
+        "id": "es-m28-6",
+        "title": "Va a hacer frío",
+        "status": "available"
+      },
+      {
+        "id": "es-m28-7",
+        "title": "No voy a trabajar mañana",
+        "status": "available"
+      },
+      {
+        "id": "es-m28-8",
+        "title": "Checkpoint: voy a + infinitivo",
+        "status": "available"
+      },
+      {
+        "id": "es-m28-9",
+        "title": "Voy a la playa, voy a nadar",
+        "status": "available"
+      },
+      {
+        "id": "es-m28-10",
+        "title": "Los planes del fin de semana",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m29",
+    "title": "Quiero verlo",
+    "eyebrow": "Module 29 · The pointer's second home",
+    "summary": "the same short word — lo, la, los, las, me, te, se — that always went before the verb can now ride along at the end of an infinitive: «lo quiero ver» and «quiero verlo» are both correct, and you get to choose.",
+    "accent": {
+      "from": "#64748b",
+      "to": "#334155"
+    },
+    "lessons": [
+      {
+        "id": "es-m29-1",
+        "title": "Quiero verlo",
+        "status": "available"
+      },
+      {
+        "id": "es-m29-2",
+        "title": "¿Puedes comprarla?",
+        "status": "available"
+      },
+      {
+        "id": "es-m29-3",
+        "title": "Ana puede comprarlos",
+        "status": "available"
+      },
+      {
+        "id": "es-m29-4",
+        "title": "No quiero levantarme",
+        "status": "available"
+      },
+      {
+        "id": "es-m29-5",
+        "title": "Diego puede ducharse",
+        "status": "available"
+      },
+      {
+        "id": "es-m29-6",
+        "title": "Voy a hacerlo",
+        "status": "available"
+      },
+      {
+        "id": "es-m29-7",
+        "title": "Mañana voy a levantarme",
+        "status": "available"
+      },
+      {
+        "id": "es-m29-8",
+        "title": "Checkpoint: el pointer, dos hogares",
+        "status": "available"
+      },
+      {
+        "id": "es-m29-9",
+        "title": "Lo quiero ver, quiero verlo",
+        "status": "available"
+      },
+      {
+        "id": "es-m29-10",
+        "title": "Los planes del grupo",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m30",
+    "title": "Tengo los ojos azules",
+    "eyebrow": "Module 30 · The body",
+    "summary": "seven new words for the body — la mano, el pie, el brazo, la pierna, el ojo, la boca, la nariz — recombined against everything you already know: «tengo», colors, size, and even the «verlo» you just learned in module 29.",
+    "accent": {
+      "from": "#14b8a6",
+      "to": "#0d9488"
+    },
+    "lessons": [
+      {
+        "id": "es-m30-1",
+        "title": "Tengo una mano",
+        "status": "available"
+      },
+      {
+        "id": "es-m30-2",
+        "title": "Tengo dos pies",
+        "status": "available"
+      },
+      {
+        "id": "es-m30-3",
+        "title": "Tengo un brazo grande",
+        "status": "available"
+      },
+      {
+        "id": "es-m30-4",
+        "title": "Tengo una pierna pequeña",
+        "status": "available"
+      },
+      {
+        "id": "es-m30-5",
+        "title": "Tengo los ojos azules",
+        "status": "available"
+      },
+      {
+        "id": "es-m30-6",
+        "title": "Tengo una boca grande",
+        "status": "available"
+      },
+      {
+        "id": "es-m30-7",
+        "title": "Tengo una nariz pequeña",
+        "status": "available"
+      },
+      {
+        "id": "es-m30-8",
+        "title": "Checkpoint: me lavo las manos",
+        "status": "available"
+      },
+      {
+        "id": "es-m30-9",
+        "title": "Sí, puedo verlo",
+        "status": "available"
+      },
+      {
+        "id": "es-m30-10",
+        "title": "Tengo los ojos azules y las manos grandes",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m31",
+    "title": "Me duele la mano",
+    "eyebrow": "Module 31 · The body, in pain",
+    "summary": "two new words, «duele» and «duelen», ride the exact word order «me gusta»/«me gustan» already taught back in module 13 — now the body parts you just learned in module 30 do the hurting instead of the liking.",
+    "accent": {
+      "from": "#fb7185",
+      "to": "#9f1239"
+    },
+    "lessons": [
+      {
+        "id": "es-m31-1",
+        "title": "Me duele la mano",
+        "status": "available"
+      },
+      {
+        "id": "es-m31-2",
+        "title": "Me duelen los pies",
+        "status": "available"
+      },
+      {
+        "id": "es-m31-3",
+        "title": "¿Te duele...?",
+        "status": "available"
+      },
+      {
+        "id": "es-m31-4",
+        "title": "A Diego le duele...",
+        "status": "available"
+      },
+      {
+        "id": "es-m31-5",
+        "title": "No puedo correr",
+        "status": "available"
+      },
+      {
+        "id": "es-m31-6",
+        "title": "No voy a correr porque me duele el pie",
+        "status": "available"
+      },
+      {
+        "id": "es-m31-7",
+        "title": "Ayer trabajé mucho, y hoy me duelen las manos",
+        "status": "available"
+      },
+      {
+        "id": "es-m31-8",
+        "title": "Checkpoint: me duele, te duele, le duele",
+        "status": "available"
+      },
+      {
+        "id": "es-m31-9",
+        "title": "Tengo los ojos azules, pero me duelen",
+        "status": "available"
+      },
+      {
+        "id": "es-m31-10",
+        "title": "Mastery: me duele, te duele, le duele",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m32",
+    "title": "Necesito una chaqueta nueva",
+    "eyebrow": "Module 32 · Clothing round 2",
+    "summary": "five more clothing words — el pantalón, la chaqueta, los calcetines, los guantes, la bufanda — put straight to work with everything you already know: «tengo», «necesito», size and color (m6), «voy a comprarlo/la/los» (m29), «¿cuánto cuesta?» (m12), and «me duele(n)» (m31).",
+    "accent": {
+      "from": "#4f46e5",
+      "to": "#312e81"
+    },
+    "lessons": [
+      {
+        "id": "es-m32-1",
+        "title": "Tengo un pantalón azul",
+        "status": "available"
+      },
+      {
+        "id": "es-m32-2",
+        "title": "Necesito una chaqueta nueva",
+        "status": "available"
+      },
+      {
+        "id": "es-m32-3",
+        "title": "Tengo calcetines negros",
+        "status": "available"
+      },
+      {
+        "id": "es-m32-4",
+        "title": "¿Tienes guantes grandes?",
+        "status": "available"
+      },
+      {
+        "id": "es-m32-5",
+        "title": "Mi bufanda es bonita",
+        "status": "available"
+      },
+      {
+        "id": "es-m32-6",
+        "title": "La chaqueta verde es pequeña",
+        "status": "available"
+      },
+      {
+        "id": "es-m32-7",
+        "title": "Voy a comprarla",
+        "status": "available"
+      },
+      {
+        "id": "es-m32-8",
+        "title": "Checkpoint: lo que necesito comprar",
+        "status": "available"
+      },
+      {
+        "id": "es-m32-9",
+        "title": "Me duelen los pies",
+        "status": "available"
+      },
+      {
+        "id": "es-m32-10",
+        "title": "Mastery: necesito comprar, me duelen",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m33",
+    "title": "Tengo que trabajar",
+    "eyebrow": "Module 33 · Obligation, at last",
+    "summary": "«tengo que» plus a bare infinitive — the fourth linker in this course's modal family (quiero/puedo, voy a, and now tengo que), riding a «tener» paradigm and a «que» you already know completely.",
+    "accent": {
+      "from": "#78716c",
+      "to": "#1c1917"
+    },
+    "lessons": [
+      {
+        "id": "es-m33-1",
+        "title": "Tengo que trabajar",
+        "status": "available"
+      },
+      {
+        "id": "es-m33-2",
+        "title": "¿Tienes que estudiar?",
+        "status": "available"
+      },
+      {
+        "id": "es-m33-3",
+        "title": "Ana tiene que trabajar mañana",
+        "status": "available"
+      },
+      {
+        "id": "es-m33-4",
+        "title": "Tenemos que estudiar juntos",
+        "status": "available"
+      },
+      {
+        "id": "es-m33-5",
+        "title": "Mis amigos tienen que trabajar",
+        "status": "available"
+      },
+      {
+        "id": "es-m33-6",
+        "title": "Quiero nadar, pero tengo que trabajar",
+        "status": "available"
+      },
+      {
+        "id": "es-m33-7",
+        "title": "No puedo, tengo que trabajar",
+        "status": "available"
+      },
+      {
+        "id": "es-m33-8",
+        "title": "Checkpoint: todos tienen que hacer algo",
+        "status": "available"
+      },
+      {
+        "id": "es-m33-9",
+        "title": "Puedo trabajar, pero no tengo que trabajar hoy",
+        "status": "available"
+      },
+      {
+        "id": "es-m33-10",
+        "title": "Mastery: me duele la mano, pero tengo que...",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m34",
+    "title": "Necesito ir al banco",
+    "eyebrow": "Module 34 · Errands around town",
+    "summary": "Five new places — banco, farmacia, hospital, correo, supermercado — recombined against «voy a» (m9), «necesito ir a» (m16+m28), and «tengo que ir a» (m33+m28), plus «duele»/«duelen» (m31) sending you straight to the hospital or the pharmacy.",
+    "accent": {
+      "from": "#d97757",
+      "to": "#92400e"
+    },
+    "lessons": [
+      {
+        "id": "es-m34-1",
+        "title": "Voy al banco",
+        "status": "available"
+      },
+      {
+        "id": "es-m34-2",
+        "title": "Necesito ir al hospital",
+        "status": "available"
+      },
+      {
+        "id": "es-m34-3",
+        "title": "Voy al correo",
+        "status": "available"
+      },
+      {
+        "id": "es-m34-4",
+        "title": "Necesito leche — voy al supermercado",
+        "status": "available"
+      },
+      {
+        "id": "es-m34-5",
+        "title": "Voy al banco, a la farmacia y al supermercado",
+        "status": "available"
+      },
+      {
+        "id": "es-m34-6",
+        "title": "Tengo que ir al hospital",
+        "status": "available"
+      },
+      {
+        "id": "es-m34-7",
+        "title": "Necesito ir a la farmacia y al correo",
+        "status": "available"
+      },
+      {
+        "id": "es-m34-8",
+        "title": "Checkpoint: el día de mandados",
+        "status": "available"
+      },
+      {
+        "id": "es-m34-9",
+        "title": "Me duele la mano",
+        "status": "available"
+      },
+      {
+        "id": "es-m34-10",
+        "title": "Mastery: el día de mandados",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m35",
+    "title": "El banco está cerca",
+    "eyebrow": "Module 35 · Where things are",
+    "summary": "«está» (m4/m18) names WHERE something is — «cerca», «lejos», and «lado» debut to say how close, how far, and what's beside what, recombined with «hay» (m3, existence) and «es» (m2, identity) so «¿dónde está…?» finally gets a real answer.",
+    "accent": {
+      "from": "#0e7490",
+      "to": "#164e63"
+    },
+    "lessons": [
+      {
+        "id": "es-m35-1",
+        "title": "El banco está cerca",
+        "status": "available"
+      },
+      {
+        "id": "es-m35-2",
+        "title": "El hospital está lejos",
+        "status": "available"
+      },
+      {
+        "id": "es-m35-3",
+        "title": "¿Hay una farmacia cerca?",
+        "status": "available"
+      },
+      {
+        "id": "es-m35-4",
+        "title": "La farmacia está al lado del banco",
+        "status": "available"
+      },
+      {
+        "id": "es-m35-5",
+        "title": "El correo está al lado del supermercado",
+        "status": "available"
+      },
+      {
+        "id": "es-m35-6",
+        "title": "Voy, está, o hay",
+        "status": "available"
+      },
+      {
+        "id": "es-m35-7",
+        "title": "¿Dónde está el banco?",
+        "status": "available"
+      },
+      {
+        "id": "es-m35-8",
+        "title": "Checkpoint: por el barrio",
+        "status": "available"
+      },
+      {
+        "id": "es-m35-9",
+        "title": "Es, está, o hay",
+        "status": "available"
+      },
+      {
+        "id": "es-m35-10",
+        "title": "Mastery: ¿dónde está todo?",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m36",
+    "title": "Voy en tren",
+    "eyebrow": "Module 36 · Getting around",
+    "summary": "Five ways to get where you're going: estación, tren, metro, taxi, bicicleta — plus the «a» vs «en» distinction that ties them together.",
+    "accent": {
+      "from": "#475569",
+      "to": "#1e293b"
+    },
+    "lessons": [
+      {
+        "id": "es-m36-1",
+        "title": "Voy a la estación",
+        "status": "available"
+      },
+      {
+        "id": "es-m36-2",
+        "title": "Voy en tren",
+        "status": "available"
+      },
+      {
+        "id": "es-m36-3",
+        "title": "Voy en metro",
+        "status": "available"
+      },
+      {
+        "id": "es-m36-4",
+        "title": "Necesito un taxi",
+        "status": "available"
+      },
+      {
+        "id": "es-m36-5",
+        "title": "Tengo que ir en bicicleta",
+        "status": "available"
+      },
+      {
+        "id": "es-m36-6",
+        "title": "A o en",
+        "status": "available"
+      },
+      {
+        "id": "es-m36-7",
+        "title": "¿Adónde vas?",
+        "status": "available"
+      },
+      {
+        "id": "es-m36-8",
+        "title": "Checkpoint: cómo llegar",
+        "status": "available"
+      },
+      {
+        "id": "es-m36-9",
+        "title": "Cómo llegar a todas partes",
+        "status": "available"
+      },
+      {
+        "id": "es-m36-10",
+        "title": "Mastery: cómo llegar",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m37",
+    "title": "Hay que trabajar",
+    "eyebrow": "Impersonal obligation",
+    "summary": "Say what one has to do, in general — «hay que» plus a bare infinitive, no subject, ever.",
+    "accent": {
+      "from": "#1e40af",
+      "to": "#172554"
+    },
+    "lessons": [
+      {
+        "id": "es-m37-1",
+        "title": "Hay que trabajar",
+        "status": "available"
+      },
+      {
+        "id": "es-m37-2",
+        "title": "¿Tengo que o hay que?",
+        "status": "available"
+      },
+      {
+        "id": "es-m37-3",
+        "title": "No hay que ir",
+        "status": "available"
+      },
+      {
+        "id": "es-m37-4",
+        "title": "Me duele, pero hay que ir",
+        "status": "available"
+      },
+      {
+        "id": "es-m37-5",
+        "title": "Hay — dos trabajos",
+        "status": "available"
+      },
+      {
+        "id": "es-m37-6",
+        "title": "Hay que ir en tren",
+        "status": "available"
+      },
+      {
+        "id": "es-m37-7",
+        "title": "¿Qué hay que hacer?",
+        "status": "available"
+      },
+      {
+        "id": "es-m37-8",
+        "title": "Checkpoint: hay que",
+        "status": "available"
+      },
+      {
+        "id": "es-m37-9",
+        "title": "Hay que hacer de todo",
+        "status": "available"
+      },
+      {
+        "id": "es-m37-10",
+        "title": "Mastery: hay que",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m38",
+    "title": "Hay que limpiar la casa",
+    "eyebrow": "Around the house",
+    "summary": "Name every room and say what needs cleaning.",
+    "accent": {
+      "from": "#16a34a",
+      "to": "#166534"
+    },
+    "lessons": [
+      {
+        "id": "es-m38-1",
+        "title": "Mi dormitorio es grande",
+        "status": "available"
+      },
+      {
+        "id": "es-m38-2",
+        "title": "La sala está al lado del dormitorio",
+        "status": "available"
+      },
+      {
+        "id": "es-m38-3",
+        "title": "Hay que comprar sillas para el comedor",
+        "status": "available"
+      },
+      {
+        "id": "es-m38-4",
+        "title": "El jardín está lejos del comedor",
+        "status": "available"
+      },
+      {
+        "id": "es-m38-5",
+        "title": "Voy al garaje",
+        "status": "available"
+      },
+      {
+        "id": "es-m38-6",
+        "title": "Hay que limpiar la casa",
+        "status": "available"
+      },
+      {
+        "id": "es-m38-7",
+        "title": "Me gusta la casa, pero hay que limpiar",
+        "status": "available"
+      },
+      {
+        "id": "es-m38-8",
+        "title": "Checkpoint: la casa",
+        "status": "available"
+      },
+      {
+        "id": "es-m38-9",
+        "title": "Hay que limpiar, y voy al banco",
+        "status": "available"
+      },
+      {
+        "id": "es-m38-10",
+        "title": "Mastery: la casa",
+        "status": "available"
+      }
+    ]
+  }
+]

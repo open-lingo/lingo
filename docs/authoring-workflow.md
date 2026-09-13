@@ -87,6 +87,74 @@ reads, and a defect class it keeps catching is the next gate to build.
 Same loop as the bulk audit: measure the human step instead of arguing
 about it.
 
+## Authoring-cost wiring (2026-09-13 — brief/gate/reviewer discipline, MANDATORY)
+
+Added after the m20 cost measurement showed authoring one module costs
+~1.3M Sonnet tokens (~750k drafting + ~380k gate fix round-trips + 158k
+reviewer — `docs/handoff-2026-09-09-es-m20-done-ko-next.md` lines 51-64),
+and that the cost is identical on Opus (`docs/handoff-2026-09-02-es-m11-m15.md`
+lines 149-152) — the lever is the UNIT OF WORK, not the model tier. Measured
+on ES but the same shape applies to every module-authoring dispatch here.
+Four rules, from the next dispatch on:
+
+1. **Briefs/context packs cite the surfaces index, never re-derive it by
+   reading compiled modules.** `docs/ja-ir-sources/surfaces-index.json` (+
+   its `.md` summary), from `node scripts/authoring/surfaces-index.mjs
+   --lang ja` if/when it's generated for JA, replaces "read N mN.ts files +
+   grep m{1..N}" — the same grep pattern ES briefs repeat by hand
+   (`docs/es-ir-sources/es-m36-brief.md` lines 79-91, 150-160). JA already
+   has `scripts/authoring-context.mjs` doing this work from the live
+   registry; keep using it as the JA-specific equivalent — the point of
+   this rule is "read the generated index, not six compiled files," not
+   "which script generates it."
+2. **Drafting/self-check agents gate through `gate-runner` (Haiku,
+   `.claude/agents/gate-runner.md`) or `module-gate.mjs --compact`, never a
+   raw `npx vitest run` pasted into context.** `--compact` caps
+   `module-gate.mjs`'s own output at ~120 lines (grouped, capped — see the
+   script's header comment). A dispatch that lets thousands of passing
+   assertions or a full tsc dump reach an agent's context is paying to
+   re-read what these two already compress.
+3. **The reviewer pass reads ONLY the module's IR/compiled source plus
+   `authoring-invariants-pinned.md`** (not prior modules' full content) and
+   runs this checklist (≤15 items, each traced to a real ES m20 defect or
+   brief-error round-trip — the JA course hasn't logged its own version of
+   this list yet, so treat these as the starting set and add JA-specific
+   items as the JA reviewer pass finds them):
+   1. Every NPC/dialogue line uses only PRIOR (already-taught) words, not
+      just the graded answer position.
+   2. Any elision/connector rule that applies where two taught words meet
+      is actually applied (ES missed y→e before an i-/hi- sound once).
+   3. Every factual grammar claim in an info/explanation card is true.
+   4. Bare word surfaces referenced in atom/registration lists carry
+      whatever form the registered atom actually uses (e.g. with article).
+   5. No card type is used where an invariant forbids it for that slot.
+   6. Every content word decomposes into a taught atom — no untracked word
+      slips past the mechanical gate.
+   7. A word's authored part-of-speech/kind is correct, not just its
+      surface — a wrong tag can mis-attribute it to the wrong pool/regex.
+   8. Every example sentence quoted IN THE BRIEF/context pack itself uses
+      only PRIOR words.
+   9. The brief's "already taught" list is accurate — a form marked known
+      that isn't actually taught yet costs a round-trip.
+   10. No lesson is a step-count outlier vs. the module's siblings.
+   11. No lesson runs the same step type back-to-back past the guard's
+       limit.
+   12. Distractor options are never equal to the correct answer token.
+   13. Cast/character names and register match every prior module's own
+       usage.
+   14. Cross-recombination claims (which prior modules this one reuses)
+       are grep/index-verified, not assumed from the dispatch framing.
+   15. New atoms are genuinely virgin per the surfaces index (rule 1), not
+       assumed.
+   Always run this pass — it is cheap relative to what it catches, and
+   every item on this list is a defect class the mechanical gates cannot
+   see.
+4. **One fix round-trip, then escalate.** A drafting agent gets ONE pass at
+   fixing gate failures from a `--compact`/`gate-runner` failure list. If
+   still red after that pass, stop — hand the coordinator the compact
+   failure list (not a fresh full run) rather than looping the same agent
+   a third time.
+
 ## Bulk conformance audit (Spencer 2026-07-26 — the backstop)
 
 Per-lesson re-reading raises compliance; it does not guarantee it. So the

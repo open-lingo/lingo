@@ -17,6 +17,7 @@ import type { DeckResponse } from "@/shared/api/decks";
 import { buildEnrichedCourseDeck } from "./data/courseDeck";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import { useCourseLevel } from "@/features/practice/useCourseLevel";
+import { useContentRevision } from "@/features/lesson/data/useLessonContent";
 
 function deckResponseToFlashcardDeck(d: DeckResponse): FlashcardDeck {
   return {
@@ -98,6 +99,9 @@ export function useFlashcardDueSummary(langId: string) {
   // Off (default) → the course deck is unchanged, so the backlog is unaffected.
   const freqEnabled = settings.flashcards?.frequencyVocab ?? false;
   const reachedModule = useCourseLevel();
+  // Content-as-data: the course deck's example sentences come from a
+  // precomputed index that lands after first paint; rebuild once it does.
+  const contentRevision = useContentRevision();
 
   return useMemo(() => {
     const byLang = subscribedDecks.filter(
@@ -200,5 +204,5 @@ export function useFlashcardDueSummary(langId: string) {
       communityPacksWithDecks: packs,
       isLoading,
     };
-  }, [subscribedDecks, langId, srsRevision, isLoading, freqEnabled, reachedModule]);
+  }, [subscribedDecks, langId, srsRevision, isLoading, freqEnabled, reachedModule, contentRevision]);
 }

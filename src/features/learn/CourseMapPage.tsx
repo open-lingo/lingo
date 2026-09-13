@@ -24,6 +24,7 @@ import {
   type VocabSample,
 } from "./courseMapData";
 import { groupModulesByLevel, type FluencyLevel } from "./courseLevels";
+import { useContentRevision, useCourseReady } from "@/features/lesson/data/useLessonContent";
 import { getItemsForModule } from "@/features/placement/questionBank";
 
 type ViewMode = "detailed" | "simple";
@@ -85,6 +86,11 @@ export function CourseMapPage() {
     [course, completedSet],
   );
 
+  // Content-as-data: vocab samples and mastery gates read lesson bodies,
+  // which load per module as JSON. Kick the whole course (the map shows
+  // every module) and rebuild the nodes as files land.
+  useCourseReady(course?.languageId);
+  const contentRevision = useContentRevision();
   const nodes: ModuleNode[] = useMemo(() => {
     if (!course) return [];
     return course.modules.map((module, index) => {
@@ -119,7 +125,7 @@ export function CourseMapPage() {
         canTestOut,
       };
     });
-  }, [course, completedSet, currentIndex]);
+  }, [course, completedSet, currentIndex, contentRevision]);
 
   const [view, setView] = useState<ViewMode>("detailed");
   const [selectedIndex, setSelectedIndex] = useState<number>(currentIndex);

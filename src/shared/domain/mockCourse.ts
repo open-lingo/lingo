@@ -9,8 +9,16 @@ import {
 import { MODULE_RECAP_LESSON_IDS } from "@/features/lesson/data/generatedHiraganaLessons";
 import { KO_M1_ROWS } from "@/features/languages/ko/curriculum/m1-rows";
 import { KO_M2_ROWS } from "@/features/languages/ko/curriculum/m2";
-import { buildSpanishCourse } from "@/features/languages/es/curriculum";
-import { buildFrenchCourse } from "@/features/languages/fr/curriculum";
+// Content-as-data (2026-09-13): the ES/FR pathway STRUCTURE is a committed
+// JSON written by `npm run content:emit` (stale-guarded by each curriculum's
+// structure.test.ts). Importing the builders here dragged every module's TS
+// — ~4 MB of lesson code — into the main bundle for every user of every
+// language; lesson bodies now arrive per module from content/v1.
+import esStructure from "@/features/languages/es/curriculum/structure.generated.json";
+import frStructure from "@/features/languages/fr/curriculum/structure.generated.json";
+import type { CourseModule } from "./course";
+const buildSpanishCourse = (): CourseModule[] => esStructure as CourseModule[];
+const buildFrenchCourse = (): CourseModule[] => frStructure as CourseModule[];
 export const ALPHABET_LESSON_ID = "m1-l0-alphabet";
 
 // `reviewModuleEntry` helper removed 2026-05-18 alongside the standalone

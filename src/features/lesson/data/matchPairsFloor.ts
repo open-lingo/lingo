@@ -56,6 +56,7 @@ import {
   type SRSStore,
 } from "@/features/flashcards/engine/srsStorage";
 import { seededShuffle } from "@/shared/utils/seededShuffle";
+import { getContentRevision } from "./lessonRegistry";
 
 export const MATCH_PAIRS_FLOOR = 6;
 
@@ -114,6 +115,7 @@ export function matchGridShape(pairs: readonly MatchPair[]): GridShape {
 /* ── corpus rarity index (no-FSRS fallback for "least reviewed first") ── */
 
 let frequencyIndex: Map<string, number> | null = null;
+let frequencyIndexRev = -1;
 
 /**
  * Count how often each atom kana appears across the raw curriculum so the
@@ -124,6 +126,9 @@ let frequencyIndex: Map<string, number> | null = null;
 function getFrequencyIndex(
   rawLessons: readonly LessonContent[],
 ): Map<string, number> {
+  if (frequencyIndexRev !== getContentRevision()) {
+    frequencyIndex = null;
+  }
   if (frequencyIndex) return frequencyIndex;
   const counts = new Map<string, number>();
   for (const lesson of rawLessons) {
@@ -134,11 +139,13 @@ function getFrequencyIndex(
       }
     }
   }
+  frequencyIndexRev = getContentRevision();
   frequencyIndex = counts;
   return counts;
 }
 
 let esFrequencyIndex: Map<string, number> | null = null;
+let esFrequencyIndexRev = -1;
 
 /**
  * ES analog of getFrequencyIndex: how often each atom surface appears
@@ -149,6 +156,9 @@ let esFrequencyIndex: Map<string, number> | null = null;
 function getEsFrequencyIndex(
   rawLessons: readonly LessonContent[],
 ): Map<string, number> {
+  if (esFrequencyIndexRev !== getContentRevision()) {
+    esFrequencyIndex = null;
+  }
   if (esFrequencyIndex) return esFrequencyIndex;
   const counts = new Map<string, number>();
   const surfaces = [...new Set(getEsCourseAtoms().map((a) => a.surface))];
@@ -165,6 +175,7 @@ function getEsFrequencyIndex(
       }
     }
   }
+  esFrequencyIndexRev = getContentRevision();
   esFrequencyIndex = counts;
   return counts;
 }
@@ -176,6 +187,7 @@ function escapeRegex(s: string): string {
 /* ── course-order prior-kana index (for romaji grids) ── */
 
 let priorKanaByLesson: Map<string, string[]> | null = null;
+let priorKanaByLessonRev = -1;
 
 /**
  * For each lesson id (in course order), the list of single kana introduced
@@ -186,6 +198,9 @@ function getPriorKanaIndex(
   orderedLessonIds: readonly string[],
   rawById: ReadonlyMap<string, LessonContent>,
 ): Map<string, string[]> {
+  if (priorKanaByLessonRev !== getContentRevision()) {
+    priorKanaByLesson = null;
+  }
   if (priorKanaByLesson) return priorKanaByLesson;
   const out = new Map<string, string[]>();
   const seen: string[] = [];
@@ -201,6 +216,7 @@ function getPriorKanaIndex(
       }
     }
   }
+  priorKanaByLessonRev = getContentRevision();
   priorKanaByLesson = out;
   return out;
 }
@@ -577,6 +593,9 @@ function allPriorKana(ctx: MatchPadContext): Set<string> {
 /** Test hook: reset memoized indexes (call when curriculum data is mocked). */
 export function __resetMatchPadIndexes(): void {
   frequencyIndex = null;
+  frequencyIndexRev = -1;
   esFrequencyIndex = null;
+  esFrequencyIndexRev = -1;
   priorKanaByLesson = null;
+  priorKanaByLessonRev = -1;
 }

@@ -22,7 +22,17 @@
       Saves 6 webfont files on every JA/KO first paint. Browser synthesizes
       intermediate weights from the loaded 700 for the rare 500/600/800 cases.
     -->
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" />
+    <!--
+      Loaded as a PRELOAD, not a stylesheet: a <link rel="stylesheet"> to a
+      third-party host is render-blocking AND blocks every later <script>
+      (including boot-guard.js) until it loads or times out. On a captive
+      portal / flaky mobile link that request can hang for minutes — measured
+      544 s in the headless QA harness — and the app shows pure white the whole
+      time (TestFlight #64 shape). boot-guard.js flips rel→stylesheet at boot;
+      a script-inserted stylesheet never blocks paint, and display=swap paints
+      the fallback fonts immediately.
+    -->
+    <link id="lingo-fonts" rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=swap" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <link rel="icon" type="image/x-icon" href="/icon.ico" />
     <!-- Home-screen install. Icons come from `scripts/generate-icons.mjs`.
@@ -46,6 +56,10 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- Classic script, before the module graph: paints a Reload fallback if
+         React never mounts or later unmounts the root (blank white screen,
+         TestFlight #64). See src/pub/boot-guard.js. -->
+    <script src="/boot-guard.js"></script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

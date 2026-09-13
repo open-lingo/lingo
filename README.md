@@ -1,5 +1,7 @@
 # Open Lingo — Frontend
 
+> **Trevor:** read [`TREVOR-READ-ME-TERRAFORM.md`](./TREVOR-READ-ME-TERRAFORM.md) before the next `terraform apply` in lingo-infra. One latent outage, three cost items. Delete the file when they are closed.
+
 React SPA for the Open Lingo language learning platform.
 
 ## Stack

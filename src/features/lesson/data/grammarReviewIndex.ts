@@ -19,6 +19,7 @@
  * Trainer (§10) cover them later.
  */
 import { getAvailableMockLessonIds, getMockLessonContent } from "./mockLessons";
+import { getContentRevision } from "./lessonRegistry";
 import type { LessonStep } from "../types";
 import grammarPointsJson from "./n5-grammar-points.json";
 import type { GrammarPoint } from "@/features/flashcards/engine/grammarSrs";
@@ -28,6 +29,7 @@ import { sentenceMcq } from "@/features/languages/ja/grammarHelpers";
 const GRAMMAR_POINTS = grammarPointsJson as GrammarPoint[];
 
 let index: Map<string, LessonStep[]> | null = null;
+let indexRev = -1;
 
 /**
  * Harvest attribution window (2026-07-06 mis-attribution fix). A literal
@@ -185,6 +187,9 @@ function buildDescriptiveGrammarSteps(): Map<string, LessonStep[]> {
  *  content lessons once (review-lesson ids skipped to avoid recursion, since
  *  this is imported by the review builder). */
 export function getGrammarReviewIndex(): Map<string, LessonStep[]> {
+  if (indexRev !== getContentRevision()) {
+    index = null;
+  }
   if (index) return index;
   const tokenToPoint = buildTokenToPoint();
   const out = new Map<string, LessonStep[]>();
@@ -247,6 +252,7 @@ export function getGrammarReviewIndex(): Map<string, LessonStep[]> {
     list.push(...steps);
     out.set(pid, list);
   }
+  indexRev = getContentRevision();
   index = out;
   return out;
 }
@@ -288,4 +294,5 @@ export function clozeStepSentence(step: LessonStep): string {
 
 export function __resetGrammarReviewIndex(): void {
   index = null;
+  indexRev = -1;
 }

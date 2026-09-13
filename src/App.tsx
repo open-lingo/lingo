@@ -247,7 +247,7 @@ function ConjugationHubRoute() {
 }
 /**
  * `learn` index dispatcher: ja gets the transit-map homepage while
- * `learn.transitMapHome` is on (flip it in public/feature-flags.json to
+ * `learn.transitMapHome` is on (flip it in src/pub/feature-flags.json to
  * revert without a rebuild); other languages — and the flag-off state — get
  * the classic pathway page, which also stays mounted at `learn/classic` as
  * the permanent escape hatch (and keeps the LearnDevPanel tools).
@@ -259,7 +259,7 @@ function LearnHomeRoute() {
 /**
  * MVP gates (Spencer + Trevor, 2026-07-16): social + community ship dark but
  * all code stays. A gated route bounces to home; flip `social.enabled` /
- * `community.enabled` in public/feature-flags.json to bring them back.
+ * `community.enabled` in src/pub/feature-flags.json to bring them back.
  */
 function RequireSocial({ children }: { children: ReactNode }) {
   const flags = useFeatureFlags();

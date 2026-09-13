@@ -1,13 +1,23 @@
+import { Suspense } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
 import { AuthMenu } from "@/shared/components/AuthMenu";
 import { LingotBalance } from "@/shared/components/LingotBalance";
-import { SyncManagerTrigger } from "@/features/sync/SyncManagerTrigger";
+import { lazyRetry } from "@/shared/utils/lazyRetry";
 import { useNavDestinations } from "@/shared/nav/useNavDestinations";
 import { makePrefetchHandlers } from "@/shared/utils/routePrefetch";
 import { useAuth } from "@/shared/auth/useAuth";
 import { marketingUrl } from "@/shared/config/marketing";
+
+// SyncManagerTrigger's hooks statically pull the grammar-SRS engine (and,
+// transitively, the JA course-atom table) for sync bookkeeping — deferred
+// the same way Layout.tsx defers its own two render sites.
+const SyncManagerTrigger = lazyRetry(() =>
+  import("@/features/sync/SyncManagerTrigger").then((m) => ({
+    default: m.SyncManagerTrigger,
+  })),
+);
 
 /**
  * Desktop (≥lg) left rail — the only nav on wide screens for signed-in users,
@@ -85,7 +95,9 @@ export function SidebarNav() {
               Language switching is inside the account menu; the bottom-right
               screen corner stays free for future surfaces. */}
           <div className="flex items-center justify-between gap-1.5">
-            <SyncManagerTrigger dropUp />
+            <Suspense fallback={null}>
+              <SyncManagerTrigger dropUp />
+            </Suspense>
             <LingotBalance />
             <AuthMenu dropUp />
           </div>

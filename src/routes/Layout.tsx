@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { CookieConsent } from "@/shared/components/CookieConsent";
-import { DevPanel } from "@/shared/components/DevPanel";
+import { lazyRetry } from "@/shared/utils/lazyRetry";
 import { CollapsibleAdBanner } from "@/features/ads/CollapsibleAdBanner";
 import { DailyWelcomeAd } from "@/features/ads/DailyWelcomeAd";
 import { loadAdSenseScript } from "@/features/ads/adsense";
@@ -9,11 +9,9 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { SRSPendingSync } from "@/features/flashcards/SRSPendingSync";
 import { LessonProgressHydrate } from "@/features/lesson/LessonProgressHydrate";
-import { SyncManagerTrigger } from "@/features/sync/SyncManagerTrigger";
 import { ThemeEditorPanel } from "@/shared/components/ThemeEditorPanel";
 import { AuthMenu } from "@/shared/components/AuthMenu";
 import { ModalRoot } from "@/shared/components/ModalRoot";
-import { CommandPalette } from "@/shared/components/CommandPalette/CommandPalette";
 import { ToastContainer } from "@/shared/components/ToastContainer";
 import { StorageQuotaWatcher } from "@/shared/components/StorageQuotaWatcher";
 import { useLangPath } from "@/shared/hooks/useLangPath";
@@ -43,6 +41,35 @@ import {
   prefetchSocial,
 } from "@/shared/utils/routePrefetch";
 import { marketingUrl } from "@/shared/config/marketing";
+
+// Dev-only tooling (never rendered in prod, see the DEV guard below), but a
+// static import still pulls its whole graph — including the full JA/course
+// atom tables it uses for bypass-all-locks debug actions — into the main
+// entry chunk. Lazy-load it so that weight only loads for dev builds that
+// actually mount it.
+const DevPanel = lazyRetry(() =>
+  import("@/shared/components/DevPanel").then((m) => ({ default: m.DevPanel })),
+);
+
+// Command palette pulls in the normalized cross-language atom catalogs
+// (ja/ko/es courseAtoms + mockCourse) just to build its command list. Not
+// needed for first paint — ⌘K becomes live a beat after boot instead of
+// blocking on it, same tradeoff every other lazy route already makes.
+const CommandPalette = lazyRetry(() =>
+  import("@/shared/components/CommandPalette/CommandPalette").then((m) => ({
+    default: m.CommandPalette,
+  })),
+);
+
+// SyncManagerTrigger's hooks statically pull the grammar-SRS engine (and,
+// transitively, the JA course-atom table) for sync bookkeeping. Both render
+// sites below are already conditional (authenticated header pill / open
+// mobile menu), so deferring the whole component costs nothing visible.
+const SyncManagerTrigger = lazyRetry(() =>
+  import("@/features/sync/SyncManagerTrigger").then((m) => ({
+    default: m.SyncManagerTrigger,
+  })),
+);
 
 export function Layout() {
   const { t } = useTranslation();
@@ -276,7 +303,9 @@ export function Layout() {
           <div className="flex min-w-0 shrink items-center justify-end gap-1.5 pr-1 sm:gap-2.5">
             {isAuthenticated && (
               <span className="hidden sm:inline-flex">
-                <SyncManagerTrigger />
+                <Suspense fallback={null}>
+                  <SyncManagerTrigger />
+                </Suspense>
               </span>
             )}
             {isAuthenticated && (
@@ -407,7 +436,9 @@ export function Layout() {
                 <span className="text-xs font-semibold uppercase tracking-wider text-text-muted">
                   {t("syncManager.titleShort", "Sync")}
                 </span>
-                <SyncManagerTrigger />
+                <Suspense fallback={null}>
+                  <SyncManagerTrigger />
+                </Suspense>
                 <span className="ml-auto">
                   <AdFreePill />
                 </span>
@@ -460,11 +491,20 @@ export function Layout() {
           screen corner is reserved for future surfaces. Toasts still stack
           from the top-right in this mode (see ToastContainer). */}
       <CookieConsent />
-      {/* Dev builds only — ?dev=1 in prod is inert (bundle never includes an
-          active panel thanks to the env guard + tree-shaking of the branch). */}
-      {import.meta.env.DEV && <DevPanel />}
+      {/* Dev builds only — ?dev=1 in prod is inert. Lazy so DevPanel's graph
+          (mockCourse, per-language courseAtoms tables) never ships in the
+          prod entry chunk. */}
+      {import.meta.env.DEV && (
+        <Suspense fallback={null}>
+          <DevPanel />
+        </Suspense>
+      )}
       <ModalRoot />
-      {isAuthenticated && <CommandPalette />}
+      {isAuthenticated && (
+        <Suspense fallback={null}>
+          <CommandPalette />
+        </Suspense>
+      )}
       {isThemeEditorOpen && <ThemeEditorPanel />}
       <ToastContainer
         bottomOffsetClass={focusedFlow ? "bottom-52" : undefined}

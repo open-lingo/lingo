@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useContentRevision, useCourseReady } from "@/features/lesson/data/useLessonContent";
 import { Link } from "react-router-dom";
 import { getMockLessonContent } from "../../data/mockLessons";
 import { DYNAMIC_REVIEW_PREFIX_CAP } from "../../data/dynamicReviewPrefix";
@@ -183,6 +184,8 @@ function StepRow({ step, idx }: { step: LessonStep; idx: number }) {
 }
 
 export default function ReviewPrefixQaPage() {
+  useCourseReady("ja");
+  const contentRevision = useContentRevision();
   // URL-driven initial state so Gate 10 captures can address each scenario:
   // ?scenario=heavy-due&lesson=ja-m22-neo-review-1
   const params = new URLSearchParams(window.location.search);
@@ -207,7 +210,7 @@ export default function ReviewPrefixQaPage() {
     applyScenario(scenario, lessonId);
     return getMockLessonContent(lessonId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [scenario, lessonId, nonce]);
+  }, [scenario, lessonId, nonce, contentRevision]);
 
   const dynCount = lesson?.steps.filter(isDynStep).length ?? 0;
   const beatCount =

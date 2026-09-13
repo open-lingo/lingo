@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useAllContentReady, useContentRevision } from "@/features/lesson/data/useLessonContent";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import {
@@ -459,9 +460,13 @@ const STATUS_META: {
 ];
 
 export default function QaTestDrivePage() {
+  // Content-as-data: load every course, re-render as files land.
+  const contentState = useAllContentReady();
+  const contentRevision = useContentRevision();
+  void contentState;
   const { language } = useLanguage();
   const langId = language?.id ?? "ja";
-  const sections = useMemo(() => buildSections(langId), [langId]);
+  const sections = useMemo(() => buildSections(langId), [langId, contentRevision]);
   const [notes, setNotes] = useState<QaNotes>(() => loadNotes(langId));
   const [exportState, setExportState] = useState<
     "idle" | "copied" | "downloaded"

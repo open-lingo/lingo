@@ -169,6 +169,68 @@ final French judgment is yours; anything the model flags, re-derive
 yourself. Every genuinely novel sentence gets your own grammar check
 regardless of model verdict.
 
+## 7a. Authoring-cost wiring (2026-09-13 — brief/gate/reviewer discipline, MANDATORY)
+
+Added after ES's m20 cost measurement: authoring one module costs ~1.3M
+Sonnet tokens (~750k drafting + ~380k gate fix round-trips + 158k reviewer —
+`docs/handoff-2026-09-09-es-m20-done-ko-next.md` lines 51-64), identical on
+Opus (`docs/handoff-2026-09-02-es-m11-m15.md` lines 149-152) — the lever is
+the unit of work, not the model tier. FR is the same shape (§7's "run
+FR-scoped tests" and "review pass" steps are exactly where the cost lands).
+Four rules, from the next FR dispatch on:
+
+1. **Briefs cite the surfaces index, never read compiled modules to answer
+   "is X already taught."** `docs/fr-ir-sources/surfaces-index.json` (+ its
+   `.md` summary), from `node scripts/authoring/surfaces-index.mjs --lang
+   fr`, replaces grepping `curriculum/m*.ts` by hand for prior surfaces —
+   the pattern ES briefs repeat verbatim every module
+   (`docs/es-ir-sources/es-m36-brief.md` lines 79-91, 150-160). Regenerate
+   before drafting if the newest FR module postdates the index's
+   `generatedAt`.
+2. **Gate runs go through `gate-runner` (Haiku, `.claude/agents/gate-runner.md`)
+   or `module-gate.mjs --compact`, never a raw `npx vitest run` pasted into
+   an agent's context.** `--compact` caps output at ~120 lines (grouped,
+   capped — see the script's header). §1's own gate table already runs
+   FR-scoped tests; run them through one of these two, not raw.
+3. **The reviewer pass (§7's "review pass") reads ONLY the module's own
+   content plus `fr-authoring-invariants-pinned.md`** and applies this
+   checklist (≤15 items, ported from real ES m20 defects/brief-error
+   round-trips — the FR-specific list starts here and grows as the FR
+   reviewer finds its own):
+   1. Every NPC/dialogue_sim line uses only PRIOR (already-taught) words,
+      not just the graded answer position.
+   2. Elision applies wherever it's grammatically required (this is FR's
+      own §2/§3 territory — l'-derived forms, liaison — cross-check every
+      instance, not just the ones a template already handles).
+   3. Every factual grammar claim in an `info`/explanation step is true.
+   4. Bare noun/atom surfaces referenced in registration lists carry the
+      form the registered atom actually uses (article, elision, gender).
+   5. No card type is used where §1's gates forbid it for that slot.
+   6. Every content word decomposes into a taught atom — no untracked word
+      slips past `moduleContentLints`'s vocab-provenance check.
+   7. A word's authored part-of-speech/gender is correct, not merely its
+      surface — a wrong tag can mis-attribute it to the wrong pool/regex.
+   8. Every example sentence quoted IN THE BRIEF itself uses only PRIOR
+      words.
+   9. The brief's "already taught" list is accurate — a form marked known
+      that isn't actually taught yet costs a round-trip.
+   10. No lesson is a step-count outlier vs. its module siblings.
+   11. No lesson runs the same step type back-to-back past
+       `moduleBarGuards`' limit.
+   12. Distractor options are never equal to the correct answer token.
+   13. Cast/character names and register match every prior module's own
+       usage.
+   14. Cross-recombination claims (which prior modules this one reuses)
+       are grep/index-verified, not assumed from the dispatch framing.
+   15. New atoms are genuinely virgin per the surfaces index (rule 1), not
+       assumed.
+   Always run this pass — cheap relative to what it catches, and every
+   item is a defect class the mechanical gates cannot see.
+4. **One fix round-trip, then escalate.** A drafting agent gets ONE pass at
+   fixing gate failures from a `--compact`/`gate-runner` failure list. If
+   still red after that pass, stop — hand the coordinator the compact
+   failure list (not a fresh full run) rather than re-dispatching blind.
+
 ## 8. The arc — m6–m15 spine registry (design authority: this file; revisable)
 
 Each module cashes the previous one's authored promise (check the
