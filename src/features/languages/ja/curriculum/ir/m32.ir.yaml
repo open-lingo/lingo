@@ -392,6 +392,14 @@ lessons:
       # The pair that makes the point: same form, one certain, one doubtful.
       - { kind: particle-cloze, stem: "はるに ", tail: "、はなが さく。", answer: "なったら", options: ["なったら", "なる", "なった"], en: "When spring comes, the flowers bloom", explanation: "spring is certain to come, and たら is STILL the form — Japanese does not make you pick between if and when. ら needs the past, so なる on its own will not do, and なった is that past without the ら that turns it into a condition." }
       - { kind: sentence, ja: "だいがくに はいったら、にほんごを ならう。", en: "When I get into university, I'll study Japanese", exercises: [tara, ni-location, wo-object], mode: build }
+      # げんご ("a language", m30, TestFlight #74/#76) gets its first grade
+      # outside m30 here — same がいこく+ならう collocation the module-30
+      # challenge lesson built (「がいこくに いくから げんごを ならっておく」),
+      # now the certain-future half of the if/when pair this lesson teaches:
+      # going abroad is exactly the kind of "when it happens" event the rule
+      # is arguing for. Ratchet-neutral follow-up to atomExposureAudit's
+      # 95→96 entry — this write is what takes it back to 95.
+      - { kind: sentence, ja: "がいこくに いったら、げんごを ならう。", en: "When I go abroad, I'll learn the language", exercises: [tara, ni-location, wo-object], mode: build }
       - { kind: sentence, ja: "なつに なったら、うみに いく。", en: "When summer comes, I'll go to the sea", exercises: [tara, ni-time, ni-location], mode: listening }
       - { kind: sentence, ja: "やすみに なったら、りょこうを する。", en: "When vacation comes, I'll take a trip", exercises: [tara, ni-time, wo-object], mode: translate }
       - { kind: kanji, kana: はる, kanji: 春, distractors: ["ばる", "はろ", "しゅう"], exercises: [tara] }

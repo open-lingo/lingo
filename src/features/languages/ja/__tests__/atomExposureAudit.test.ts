@@ -327,19 +327,22 @@ const MAX_NEVER_TOUCHED = 140;
  * move for a content fix; see grammarHelpers.ts's `kanjiReading` for the
  * full reasoning. This number is unchanged.
  *
- * 95 → 96, 2026-09-14 (TestFlight #74/#76): げんご, m30's new "a language"
- * atom, debuts and is graded three times, all inside m30 itself (the
- * dictionary-form ならう beat, its listening-comp, and the challenge
- * lesson's two がいこく sentences that used to lean on ことば). Same
- * same-module D2 gate shape as the m46 five above — the write gate is
- * prior-module-only, so it blocks until a later module grades げんご too;
- * D4 seed-on-unlock still schedules it due the next day. にほんご, taught
- * beside it, does NOT join this list: m32's own がいこく-adjacent sentence
- * already grades にほんご (previously mis-tokenized as にほん＋ご, the
- * number five — registering にほんご fixed that credit as a side effect),
- * which satisfies the prior-module write gate for free. げんご comes off
- * this list only when a later module grades it, not a fix to make here. */
-const MAX_GRADED_BUT_NEVER_WRITES = 96;
+ * 95 → 96 → 95, 2026-09-14 (TestFlight #74/#76, ratchet-neutral follow-up):
+ * げんご, m30's new "a language" atom, briefly joined this list — it debuted
+ * and was graded three times, all inside m30 itself (the dictionary-form
+ * ならう beat, its listening-comp, and the challenge lesson's two がいこく
+ * sentences that used to lean on ことば), so the same-module D2 gate blocked
+ * every one of those writes. にほんご, taught beside it, never joined: m32's
+ * own がいこく-adjacent sentence already grades にほんご (previously
+ * mis-tokenized as にほん＋ご, the number five — registering にほんご fixed
+ * that credit as a side effect), which satisfies the prior-module write gate
+ * for free. げんご now gets the same fix: m32-neo-2 (「がいこくに いったら、
+ * げんごを ならう。」, a build_sentence beat) reuses the exact がいこく+ならう
+ * collocation the m30 challenge built, as the certain-future half of m32's
+ * if/when たら pair — a later-module grade, so D2's prior-module gate opens
+ * and the atom writes. Net zero on the ceiling; this entry is deliberately
+ * NOT replaced by a same-size one — the fix is the removal. */
+const MAX_GRADED_BUT_NEVER_WRITES = 95;
 
 type Row = {
   atomId: string;
