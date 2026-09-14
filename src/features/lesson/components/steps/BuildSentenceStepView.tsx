@@ -312,14 +312,23 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   // centred horizontally, so the words share one baseline across a row and
   // any reading floats above it — the ghost/slot spans share this string
   // too (`placedTileClass`), so their sizing floor matches.
+  // #69 (Spencer TestFlight b12, 2026-09-14): "shrink build tiles size by
+  // 15% overall and decrease internal padding by 10-15% where we can."
+  // Every dimension below is the old Tailwind value scaled by 0.85 (size)
+  // or ~0.875 (padding, midpoint of the 10-15% ask), as an arbitrary-value
+  // class so the cut is exact rather than snapping to the nearest stock
+  // step. Before → after, px: px-3.5(14)→12.25, py-1.5(6)→5.25,
+  // text-base(16)→13.6, sm:px-4(16)→14, sm:py-2(8)→7, sm:text-xl(20)→17,
+  // sm:text-2xl(24)→20.4; bigTiles px-5(20)→17.5, py-3(12)→10.5,
+  // clamp(1.5rem,3.4cqh,2.25rem)→clamp(1.275rem,2.89cqh,1.9125rem).
   const denseTileClass = hugeBank
-    ? "flex flex-col items-center justify-end px-3.5 py-1.5 text-base font-bold leading-tight sm:px-4 sm:text-xl"
-    : "flex flex-col items-center justify-end px-3.5 py-1.5 text-base font-bold leading-tight sm:px-4 sm:py-2 sm:text-2xl";
+    ? "flex flex-col items-center justify-end px-[12.25px] py-[5.25px] text-[13.6px] font-bold leading-tight sm:px-[14px] sm:text-[17px]"
+    : "flex flex-col items-center justify-end px-[12.25px] py-[5.25px] text-[13.6px] font-bold leading-tight sm:px-[14px] sm:py-[7px] sm:text-[20.4px]";
   const bankTileClass = bigTiles
-    ? "px-5 py-3 text-[clamp(1.5rem,3.4cqh,2.25rem)] font-bold"
+    ? "px-[17.5px] py-[10.5px] text-[clamp(1.275rem,2.89cqh,1.9125rem)] font-bold"
     : denseTileClass;
   const placedTileClass = bigTiles
-    ? "px-5 py-3 text-[clamp(1.5rem,3.4cqh,2.25rem)] font-bold"
+    ? "px-[17.5px] py-[10.5px] text-[clamp(1.275rem,2.89cqh,1.9125rem)] font-bold"
     : denseTileClass;
 
   const handleEnter = useCallback(() => {
@@ -599,7 +608,11 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
            centered tray that hugs its tiles and visibly grows as they
            pop in. The zero-width ghost fixes the height (words never
            wrap), so growth is horizontal-only: nothing below moves. */
-        <div className="mx-auto flex min-h-[64px] w-fit max-w-full flex-wrap items-center justify-center gap-2 rounded-2xl border-[1.5px] border-dashed border-border bg-surface-muted px-4 py-2">
+        /* #75 (Spencer TestFlight b12, 2026-09-14): "sentence box defaults
+           too big, too much scroll initially forced" — floor shrunk
+           64px→54px (-15%, matches the #69 tile-size cut) so a short
+           answer doesn't reserve more empty height than one tile row. */
+        <div className="mx-auto flex min-h-[54px] w-fit max-w-full flex-wrap items-center justify-center gap-2 rounded-2xl border-[1.5px] border-dashed border-border bg-surface-muted px-4 py-2">
           <span aria-hidden className={`invisible w-0 overflow-hidden !px-0 ${placedTileClass}`}>
             <BuildTileSurface
               tile={step.correctOrder[0] ?? "あ"}
@@ -628,7 +641,12 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
            tiles share one grid cell, so the tray height is
            max(ghost, actual) and the box grows instead of overflowing.
            Left-aligned (reading order). */
-        <div className="grid min-h-[56px] sm:min-h-[72px] rounded-2xl border-[1.5px] border-dashed border-border bg-surface-muted px-4 py-2.5">
+        /* #75: same floor shrink, sentence-tray variant — 56px→48px,
+           sm:72px→61px (-15%). The ghost row (full-answer preview) still
+           sets the real floor for a multi-row answer; this class is the
+           visible floor for a short one, which is what forced the
+           "too much scroll before placing anything" complaint. */
+        <div className="grid min-h-[48px] sm:min-h-[61px] rounded-2xl border-[1.5px] border-dashed border-border bg-surface-muted px-4 py-2.5">
           <div aria-hidden className="[grid-area:1/1] invisible flex flex-wrap items-stretch gap-2 sm:gap-2.5">
             {step.correctOrder.map((tile, i) => (
               <span

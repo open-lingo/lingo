@@ -193,7 +193,17 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
           field are short, so top-aligning them stranded a 450px void on a
           430x932 phone (Spencer QA 2026-08-07) — nearly half the screen.
           Collapses to 0 when content overflows. */}
-      <p className="mt-auto text-xs font-bold uppercase tracking-wider text-text-muted">
+      {/* #71 (Spencer TestFlight b12, 2026-09-14): "move the box up
+          vertically a bit more" — on mobile this was one of two `mt-auto`
+          gaps (see the comment below) splitting the free vertical space
+          evenly above and below the content, so half the void sat above
+          the prompt. Swapping the TOP gap for a small fixed margin on
+          mobile removes that half; the bottom block keeps `mt-auto` so
+          the CTA still anchors to the bottom and the original "450px
+          void" bug (content top-aligned with nothing pushing the CTA
+          down) doesn't come back. `sm:mt-auto` restores the original
+          centred layout on desktop — unchanged there. */}
+      <p className="mt-3 sm:mt-auto text-xs font-bold uppercase tracking-wider text-text-muted">
         {directionLabel}
       </p>
       <h2 className="text-2xl font-bold text-text-primary">
@@ -235,7 +245,9 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
                 : "Type your translation..."
           }
           rows={3}
-          className="w-full resize-none rounded-xl border-[1.5px] border-border bg-surface px-4 py-3 text-base text-text-primary outline-none transition-colors focus:border-accent disabled:opacity-60"
+          // #71: "make their typing a little bigger" — text-base(16px) →
+          // text-lg(18px), +12.5%.
+          className="w-full resize-none rounded-xl border-[1.5px] border-border bg-surface px-4 py-3 text-lg text-text-primary outline-none transition-colors focus:border-accent disabled:opacity-60"
         />
         {/* Korean romaja → Hangul live preview (IME-safe: mirrors, never
             mutates the field). */}

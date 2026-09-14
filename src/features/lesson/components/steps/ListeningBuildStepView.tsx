@@ -186,16 +186,26 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
           action block below keeps `mt-auto`, so it stays bottom-anchored and
           the fixed action bar does not shift. */}
       <div className="flex min-h-0 flex-1 flex-col stage-center gap-5 sm:gap-7">
-      {/* Prompt row — bigger play button + larger text. Quoted meanings
+      {/* Prompt row — #69 (Spencer TestFlight b12, 2026-09-14): "the build
+       *  what you hear takes up too much space... go research recent
+       *  Duolingo screenshots." §4 of the scoping doc (unverified starting
+       *  spec): the play control should read as a compact, single-line
+       *  control on the instruction row, not a large stand-alone circle.
+       *  It was already laid out inline (flex row) next to the prompt
+       *  text, but at h-14/h-16 (56/64px) with a thick border + drop
+       *  shadow it visually dominated the row. Shrunk to h-11/h-12
+       *  (44/48px, the §4 "~44-48pt" figure) with a lighter shadow and a
+       *  smaller icon (28px→20px) so it reads as a compact instruction-row
+       *  control rather than a standalone hero button. Quoted meanings
        *  get auto-bolded via PromptWithEmphasis. */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3">
         <button
           type="button"
           onClick={handlePlay}
-          className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-accent-hover sm:h-16 sm:w-16 bg-accent text-white shadow-[0_3px_0_0_rgb(var(--color-accent-hover))] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_0_0_rgb(var(--color-accent-hover))] active:translate-y-px active:shadow-[0_1px_0_0_rgb(var(--color-accent-hover))]"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-accent-hover sm:h-12 sm:w-12 bg-accent text-white shadow-[0_2px_0_0_rgb(var(--color-accent-hover))] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_3px_0_0_rgb(var(--color-accent-hover))] active:translate-y-px active:shadow-[0_1px_0_0_rgb(var(--color-accent-hover))]"
           aria-label="Play audio"
         >
-          <Icon name="play" size={28} />
+          <Icon name="play" size={20} />
         </button>
         <div className="min-w-0">
           <p className="text-lg leading-snug text-text-secondary">
@@ -275,12 +285,18 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
           690px of a 743px scroller on a 15 Pro Max. Below `sm` the tiles
           take the sentence-build tier (text-xl, py-2 ≈ 48px) and the ghost
           floor is capped at two rows; from `sm` up nothing changes. */}
-      <div className="grid min-h-[64px] rounded-2xl border-2 border-dashed border-border bg-surface-muted px-4 py-3 sm:min-h-[80px] sm:py-4">
-        <div aria-hidden className="[grid-area:1/1] invisible flex max-h-[108px] flex-wrap items-stretch gap-2 overflow-hidden sm:max-h-none sm:gap-2.5">
+      {/* #75 sibling parity (BuildSentenceStepView shrunk its matching
+          floors -15%): min-h 64px→54px, sm:80px→68px, ghost cap
+          108px→92px. #69 sibling parity: tile px-4(16)→14, py-2(8)→7,
+          text-xl(20)→17, sm:px-5(20)→17.5, sm:py-2.5(10)→8.75,
+          sm:text-3xl(30)→25.5 (all -15%/-12.5%, same factors as
+          BuildSentenceStepView). */}
+      <div className="grid min-h-[54px] rounded-2xl border-2 border-dashed border-border bg-surface-muted px-4 py-3 sm:min-h-[68px] sm:py-4">
+        <div aria-hidden className="[grid-area:1/1] invisible flex max-h-[92px] flex-wrap items-stretch gap-2 overflow-hidden sm:max-h-none sm:gap-2.5">
           {step.correctOrder.map((tile, i) => (
             <span
               key={`ghost-${i}`}
-              className="flex flex-col items-center justify-end rounded-xl border-2 px-4 py-2 text-xl font-bold leading-tight sm:px-5 sm:py-2.5 sm:text-3xl"
+              className="flex flex-col items-center justify-end rounded-xl border-2 px-[14px] py-[7px] text-[17px] font-bold leading-tight sm:px-[17.5px] sm:py-[8.75px] sm:text-[25.5px]"
             >
               {/* Ghost sizing MUST use the same glyphs (kanji + rt) as the
                   real tiles or the tray mis-sizes. */}
@@ -306,7 +322,7 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
               onTileHoverEnd={peek.hoverEnd}
               forceHelperFor={(id) => peek.revealed.has(id)}
               className="flex flex-wrap content-start items-stretch gap-2.5"
-              tileClassName="flex flex-col items-center justify-end rounded-xl border-2 border-accent bg-accent-muted px-4 py-2 text-xl font-bold leading-tight text-accent sm:px-5 sm:py-2.5 sm:text-3xl transition-colors duration-150 hover:bg-accent hover:text-white"
+              tileClassName="flex flex-col items-center justify-end rounded-xl border-2 border-accent bg-accent-muted px-[14px] py-[7px] text-[17px] font-bold leading-tight text-accent sm:px-[17.5px] sm:py-[8.75px] sm:text-[25.5px] transition-colors duration-150 hover:bg-accent hover:text-white"
             />
           )}
         </div>
@@ -327,8 +343,8 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
               aria-pressed={used}
               className={
                 used
-                  ? "flex flex-col items-center justify-end rounded-xl border-2 border-border bg-surface-muted px-4 py-2 text-xl font-bold leading-tight text-text-muted opacity-40 sm:px-5 sm:py-4 sm:text-3xl"
-                  : "flex flex-col items-center justify-end rounded-xl border-2 border-border bg-surface px-4 py-2 text-xl font-bold leading-tight text-text-primary transition-colors duration-150 hover:border-accent disabled:opacity-50 sm:px-5 sm:py-4 sm:text-3xl"
+                  ? "flex flex-col items-center justify-end rounded-xl border-2 border-border bg-surface-muted px-[14px] py-[7px] text-[17px] font-bold leading-tight text-text-muted opacity-40 sm:px-[17.5px] sm:py-[14px] sm:text-[25.5px]"
+                  : "flex flex-col items-center justify-end rounded-xl border-2 border-border bg-surface px-[14px] py-[7px] text-[17px] font-bold leading-tight text-text-primary transition-colors duration-150 hover:border-accent disabled:opacity-50 sm:px-[17.5px] sm:py-[14px] sm:text-[25.5px]"
               }
             >
               <BuildTileSurface
