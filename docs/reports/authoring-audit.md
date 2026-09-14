@@ -46,7 +46,7 @@ guide or the compiler, not the modules one at a time.**
 | m42 | 216 | 0.0% | 11 | — | 1 |
 | m43 | 216 | 0.0% | 11 | — | 2 |
 | m44 | 216 | 0.0% | 11 | — | 1 |
-| m45 | 216 | 0.0% | 12 | — | 6 |
+| m45 | 216 | 0.0% | 12 | — | 7 |
 | m46 | 216 | 0.0% | 11 | — | 4 |
 
 ## Systemic — fix upstream, not per module
