@@ -33,9 +33,13 @@ export function SectionHeader({
 }
 
 /**
- * A grouped block of settings under an optional sub-label. Rows sit flat on the
- * surrounding surface (the modal is the only "box") separated by hairline
- * dividers — no nested card frame, so panels don't read as boxes-in-boxes.
+ * A grouped block of settings under an optional sub-label. Rows live inside a
+ * subtle card (hairline border + soft shadow, matching `shared/components/ui`'s
+ * `Card`) so a multi-group panel reads as a stack of distinct sections rather
+ * than one flat list — TestFlight build 12 #83 ("the settings page feels too
+ * flat"). Rows within a group are still separated by a hairline divider; the
+ * card boundary itself is the divider between groups (`space-y-6` between
+ * `SettingsGroup`s in the panel wrapper keeps them visually apart).
  */
 export function SettingsGroup({
   label,
@@ -47,13 +51,19 @@ export function SettingsGroup({
   className?: string;
 }) {
   return (
-    <section className={cn("space-y-1", className)}>
+    <section className={cn("space-y-1.5", className)}>
       {label ? (
         <h4 className="mb-1 text-xs font-semibold uppercase tracking-wide text-text-muted">
           {label}
         </h4>
       ) : null}
-      <div className="divide-y divide-border/60">{children}</div>
+      {/* No horizontal padding here on purpose: `SettingRow` (and the few
+          hand-rolled rows in AccountPrivacySection / ImportStudyHistorySection
+          that mirror it) carry their own `px-4` so the inset stays consistent
+          whichever way a row is built — padding here would double it up. */}
+      <div className="divide-y divide-border/60 rounded-card border border-border bg-surface shadow-card">
+        {children}
+      </div>
     </section>
   );
 }
@@ -104,7 +114,7 @@ export function SettingRow({
       <Wrapper
         htmlFor={asLabel ? undefined : htmlFor}
         className={cn(
-          "block space-y-3 py-3.5",
+          "block space-y-3 px-4 py-3.5",
           asLabel && "cursor-pointer",
           className,
         )}
@@ -119,7 +129,7 @@ export function SettingRow({
     <Wrapper
       htmlFor={asLabel ? undefined : htmlFor}
       className={cn(
-        "flex items-center justify-between gap-4 py-3.5",
+        "flex items-center justify-between gap-4 px-4 py-3.5",
         asLabel && "cursor-pointer",
         className,
       )}

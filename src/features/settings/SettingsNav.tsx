@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/shared/components/ui/cn";
 import type { Language } from "@/shared/domain/languages";
@@ -52,13 +52,28 @@ export function SettingsNav({
 
   const languagesActive = isLanguageSectionId(activeSection);
 
+  const tabScrollRef = useRef<HTMLElement>(null);
+  const [tabScrolled, setTabScrolled] = useState(false);
+  useEffect(() => {
+    const el = tabScrollRef.current;
+    if (!el) return;
+    const onScroll = () => setTabScrolled(el.scrollLeft > 4);
+    onScroll();
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <>
       {/* Mobile (<sm): horizontal scrolling tab strip so the user doesn't
           scroll past the whole nav to reach a section. Sections are flattened
-          (global + per-language) into one touch-friendly carousel. */}
+          (global + per-language) into one touch-friendly carousel. An
+          edge-fade mask (below) substitutes for the native scrollbar, which
+          is hidden app-wide on touch — it reads as 'more content this way'. */}
+      <div className="relative shrink-0 sm:hidden">
       <nav
-        className="no-scrollbar flex shrink-0 gap-1.5 overflow-x-auto whitespace-nowrap border-b border-border px-3 py-2 sm:hidden"
+        ref={tabScrollRef}
+        className="no-scrollbar flex gap-1.5 overflow-x-auto whitespace-nowrap border-b border-border px-3 py-2"
         aria-label={t("settings.nav.label", "Settings sections")}
       >
         {SETTINGS_GLOBAL_SECTIONS.map((id) => (
@@ -98,6 +113,17 @@ export function SettingsNav({
           );
         })}
       </nav>
+        {tabScrolled && (
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-surface to-transparent"
+          />
+        )}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-surface to-transparent"
+        />
+      </div>
 
       {/* Desktop (sm+): vertical rail with collapsible language group. */}
       <nav

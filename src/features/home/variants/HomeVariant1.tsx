@@ -81,10 +81,17 @@ function QuestsCard({ data }: { data: HomeVariantData }) {
                 <div className="h-full rounded-full bg-accent" style={{ width: `${percent}%` }} />
               </div>
               <div className="mt-1.5 flex items-center justify-between gap-2">
-                <span className="text-xs text-text-muted">{questRewardText(quest)}</span>
+                {/* Reward pill is always visible now (Duolingo-style progress
+                    bar + reward pill, TestFlight #81), not just once
+                    claimable — the data (`questRewardText`) already existed,
+                    this is a restyle, not a new field. */}
+                <span className="inline-flex items-center gap-1 rounded-full bg-surface-muted px-2 py-0.5 text-xs font-medium text-text-secondary">
+                  <Icon name="gem" size={11} aria-hidden className="text-accent" />
+                  {questRewardText(quest)}
+                </span>
                 {isClaimable ? (
                   <span className="inline-flex items-center gap-1 rounded-full bg-accent-muted px-2 py-0.5 text-xs font-semibold text-accent">
-                    <Icon name="gem" size={12} aria-hidden />
+                    <Icon name="checkCircle" size={12} aria-hidden />
                     Claim
                   </span>
                 ) : null}
@@ -127,6 +134,16 @@ function QuestsCard({ data }: { data: HomeVariantData }) {
   );
 }
 
+/**
+ * TestFlight #81: "Recent progress doesn't need individual things named...
+ * this page is just too much vertical scroll." Replaced the per-lesson list
+ * (previously up to 4 titled rows) with one aggregate stat row — lessons
+ * completed, XP earned, current streak, all fields `useHomeVariantData`
+ * already computed for other cards on this page. Cuts the card down to a
+ * fixed, short height regardless of how much course history exists, which is
+ * most of the page's vertical-scroll reduction (the hero + quests + rail
+ * were already fixed-height).
+ */
 function RecentCard({ data }: { data: HomeVariantData }) {
   return (
     <section className="rounded-card border border-border bg-surface p-5 shadow-card">
@@ -136,42 +153,62 @@ function RecentCard({ data }: { data: HomeVariantData }) {
           Recent progress
         </h2>
       </header>
-      {data.recentlyCompleted.length > 0 ? (
-        <ul className="mt-4 space-y-2.5">
-          {data.recentlyCompleted.map((title, i) => (
-            // min-w-0 is required here: this <li> is a flex row, and a flex
-            // item's default min-width is `auto` (its content size), not 0 —
-            // so without it, a long lesson title (e.g. a 「〜ってみる」
-            // 「おくっておく」 module name) refuses to shrink and blows the
-            // card, and the whole page, wider than the viewport. This was the
-            // root cause of TestFlight #38 (horizontal scroll) and likely #1
-            // (visible scrollbar). Root-cause fix: wrap the title instead of
-            // truncating it — these titles are the actual lesson name.
-            <li key={i} className="flex min-w-0 items-start gap-2 text-sm text-text-primary">
-              <Icon name="checkCircle" size={16} aria-hidden className="mt-0.5 shrink-0 text-success" />
-              <span className="min-w-0 line-clamp-2 break-words">{title}</span>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="mt-4 text-sm text-text-muted">Complete your first lesson to start a streak — it lands here.</p>
-      )}
 
-      <div className="mt-4 flex items-center gap-4 border-t border-border-muted pt-4 text-sm">
-        <span className="flex items-center gap-1.5 text-text-secondary">
-          <Icon name="bookOpen" size={15} aria-hidden className="text-accent" />
-          {data.startedCount} words
-        </span>
-        <span className="flex items-center gap-1.5 text-text-secondary">
-          <Icon name="graduationCap" size={15} aria-hidden className="text-accent" />
+      <div className="mt-4 grid grid-cols-3 gap-2">
+        <ProgressStat
+          icon="bookOpen"
+          value={data.completedLessonsCount}
+          label="Lessons done"
+        />
+        <ProgressStat
+          icon="star"
+          value={data.xpTotal.toLocaleString()}
+          label="XP earned"
+          valueClassName="text-accent"
+        />
+        <ProgressStat
+          icon="flame"
+          value={data.streak}
+          label={`Day${data.streak === 1 ? "" : "s"} streak`}
+          valueClassName="text-warning"
+        />
+      </div>
+
+      <div className="mt-3 flex items-center gap-4 border-t border-border-muted pt-3 text-xs text-text-secondary">
+        <span className="flex items-center gap-1.5">
+          <Icon name="graduationCap" size={13} aria-hidden className="text-accent" />
           {data.masteredCount} mastered
         </span>
-        <span className="flex items-center gap-1.5 text-text-secondary">
-          <Icon name="target" size={15} aria-hidden className="text-accent" />
-          {data.courseCompletionPct}%
+        <span className="flex items-center gap-1.5">
+          <Icon name="target" size={13} aria-hidden className="text-accent" />
+          {data.courseCompletionPct}% of course
         </span>
       </div>
     </section>
+  );
+}
+
+function ProgressStat({
+  icon,
+  value,
+  label,
+  valueClassName,
+}: {
+  icon: IconName;
+  value: number | string;
+  label: string;
+  valueClassName?: string;
+}) {
+  return (
+    <div className="rounded-lg bg-surface-muted px-2 py-3 text-center">
+      <Icon name={icon} size={15} aria-hidden className={cn("mx-auto", valueClassName ?? "text-accent")} />
+      <p className={cn("mt-1 text-lg font-bold leading-tight tabular-nums", valueClassName ?? "text-text-primary")}>
+        {value}
+      </p>
+      <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-wide text-text-muted">
+        {label}
+      </p>
+    </div>
   );
 }
 

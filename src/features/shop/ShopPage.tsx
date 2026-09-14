@@ -236,6 +236,7 @@ export default function ShopPage() {
         <ShopSection
           title={t("shop.sectionPowerups", { defaultValue: "Power-ups" })}
           tint={{ chip: "bg-sky-500", tile: "bg-sky-500/15 text-sky-500" }}
+          cols="usable"
           items={grouped.powerups}
           lingots={lingots}
           statsReady={statsReady}
@@ -414,6 +415,7 @@ function FeaturedBanner({
 
 type SectionProps = {
   title: string;
+  cols?: "cosmetic" | "usable";
   /** Section identity — `chip` colors the header marker, `tile` the
    *  icon previews. One sharp hue per section (power-ups ice, frames
    *  gold, titles violet); fixed hues w/ alpha stay theme-safe. */
@@ -430,6 +432,7 @@ type SectionProps = {
 function ShopSection({
   title,
   tint,
+  cols = "cosmetic",
   items,
   lingots,
   statsReady,
@@ -448,7 +451,13 @@ function ShopSection({
         ) : null}
         {title}
       </h2>
-      <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <ul
+        className={
+          cols === "usable"
+            ? "grid grid-cols-2 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+            : "grid grid-cols-3 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+        }
+      >
         {items.map((item) => {
           const owned = isOwned(item.id, item.consumable);
           const qty = ownedQuantity(item.id);

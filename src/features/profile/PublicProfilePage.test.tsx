@@ -201,6 +201,29 @@ describe("PublicProfilePage", () => {
     );
   });
 
+  it("short-circuits to the owner view instead of 'private' when the viewer owns the profile (TestFlight build 12 #68)", async () => {
+    // The backend's social endpoint 404s here exactly as it does in the
+    // "renders 'This profile is private'" test above (visibility check
+    // doesn't special-case the owner) — the difference is `useMe` reports
+    // the viewer as the same account the route is for. `isSelf`'s
+    // username-fallback should catch this and skip the private branch
+    // entirely, even though `socialProfile` never loads.
+    mockUseMe.mockReturnValue({
+      // `mockUseMe`'s inferred return type only carries `role` (see its
+      // declaration above) — cast past that for this one test, since the
+      // real `useMe()` returns a full `User` and `isSelf`'s fallback reads
+      // `me.username`.
+      me: { role: "user", username: "haru" } as { role: string },
+      isLoading: false,
+    });
+    const { ApiError } = await import("@/shared/api/client");
+    mockGetPublicProfile.mockRejectedValueOnce(new ApiError(404, { detail: "Not found" }));
+    renderPage("/u/haru");
+    const editBtn = await screen.findByRole("button", { name: /edit profile/i });
+    expect(editBtn).toBeInTheDocument();
+    expect(screen.queryByText(/this profile is private/i)).toBeNull();
+  });
+
   it("shows inline edit form when owner clicks Edit profile", async () => {
     mockGetPublicProfile.mockResolvedValue(
       baseSocial({ friendship_status: "self" }),

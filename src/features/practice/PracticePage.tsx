@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
@@ -35,6 +35,11 @@ export function PracticePage() {
   );
 
   const hasDue = !stats.isLoading && stats.dueCount > 0;
+
+  // TestFlight report: the practice tab must always open scrolled to top.
+  useEffect(() => {
+    if (window.scrollY > 0 || window.scrollX > 0) window.scrollTo(0, 0);
+  }, []);
 
   // Grammar training done today, from the practice-stats store (localStorage,
   // written on every graded drill). Mount-read is enough: the drills live on

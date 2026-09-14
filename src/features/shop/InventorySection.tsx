@@ -264,14 +264,14 @@ function CosmeticCategory({
       {owned.length === 0 ? (
         <p className="text-sm text-text-muted">{emptyLabel}</p>
       ) : (
-        <ul className="grid gap-3 sm:grid-cols-2">
+        <ul className="grid grid-cols-3 gap-2 sm:grid-cols-2">
           {owned.map((item) => {
             const isEquipped = equippedId === item.id;
             return (
               <li key={item.id}>
-                <Card padding="sm" className="flex items-center gap-3">
+                <Card padding="sm" className="flex flex-col items-center gap-2 text-center sm:flex-row sm:items-center sm:gap-3 sm:text-left">
                   {renderSwatch(item)}
-                  <div className="min-w-0 flex-1">
+                  <div className="min-w-0 w-full flex-1">
                     <p className="truncate text-sm font-medium text-text-primary">
                       {getLabel(item)}
                     </p>

@@ -235,7 +235,15 @@ export function PublicProfilePage() {
       </ProfileShell>
     );
   }
-  if (isPrivate) {
+  // TestFlight build 12 #68: tapping your OWN avatar routed into this same
+  // `/u/:username` view, and the social endpoint's visibility check 404s
+  // even for the owner (it doesn't special-case "viewer is the target"), so
+  // the owner saw "This profile is private" on their own account. `isSelf`
+  // is computed above from `me`/user-query data that's independent of the
+  // social 404, so short-circuit past the private branch for the owner —
+  // they fall through to the normal render below with `socialProfile` gaps
+  // (xp/streak/etc.) filled by the `?? 0` defaults already used there.
+  if (isPrivate && !isSelf) {
     return (
       <ProfileShell heading={t("profile.publicPrivate", "This profile is private")}>
         <p className="text-sm text-text-secondary">
