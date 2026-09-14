@@ -141,11 +141,11 @@
         },
         {
           "ja": "とりあえず コーヒーを のんでみる。",
-          "en": "I'll have some coffee for a start and see."
+          "en": "I'll try some coffee for a start."
         },
         {
           "ja": "わからないから せんせいに きいてみる。",
-          "en": "I don't understand, so I'll ask the teacher and see."
+          "en": "I don't understand, so I'll try asking the teacher."
         },
         {
           "ja": "この カメラを つかってみる。",
@@ -153,7 +153,7 @@
         },
         {
           "ja": "じかんが あるから としょかんに いってみる。",
-          "en": "I've got time, so I'll go to the library and see."
+          "en": "I've got time, so I'll try going to the library."
         }
       ],
       "antiPattern": {
@@ -175,7 +175,7 @@
         },
         {
           "ja": "せんせいに きいてみたけど だめだった。",
-          "en": "I asked the teacher and saw, but it was no good."
+          "en": "I tried asking the teacher, but it was no good."
         },
         {
           "ja": "かわで およいでみた。",
@@ -204,11 +204,11 @@
       "examples": [
         {
           "ja": "じしょで しらべてみる。",
-          "en": "I'll look it up in the dictionary and see."
+          "en": "I'll try looking it up in the dictionary."
         },
         {
           "ja": "わからないから えいごで しらべてみる。",
-          "en": "I don't understand, so I'll look it up in English and see."
+          "en": "I don't understand, so I'll try looking it up in English."
         },
         {
           "ja": "あした きめてみる。",
@@ -216,11 +216,11 @@
         },
         {
           "ja": "むずかしいけど じゅぎょうを つづけてみる。",
-          "en": "It's difficult, but I'll keep the class going and see."
+          "en": "It's difficult, but I'll try keeping the class going."
         },
         {
           "ja": "ことばを じしょで しらべてみた。",
-          "en": "I looked the word up in the dictionary and saw."
+          "en": "I tried looking the word up in the dictionary."
         }
       ],
       "antiPattern": {
@@ -299,7 +299,7 @@
         },
         {
           "ja": "せつめいが むずかしいから あにに きいてみる。",
-          "en": "The explanation is difficult, so I'll ask my older brother and see."
+          "en": "The explanation is difficult, so I'll try asking my older brother."
         },
         {
           "ja": "むずかしいけど とりあえず やってみる。",
@@ -307,7 +307,7 @@
         },
         {
           "ja": "この しつもんは むずかしいから せんせいに きいてみる。",
-          "en": "This question is difficult, so I'll ask the teacher and see."
+          "en": "This question is difficult, so I'll try asking the teacher."
         },
         {
           "ja": "かわで およいでみたけど さむかった。",
@@ -328,7 +328,7 @@
       "examples": [
         {
           "ja": "せんせいに えいごを ならってみる。",
-          "en": "I'll take English lessons from the teacher and see."
+          "en": "I'll try taking English lessons from the teacher."
         },
         {
           "ja": "あねの いえに しゃしんを おくっておく。",
@@ -336,7 +336,7 @@
         },
         {
           "ja": "おんがくを ならってみたけど だめだった。",
-          "en": "I took music lessons and saw, but it was no good."
+          "en": "I tried taking music lessons, but it was no good."
         },
         {
           "ja": "あした つかうから てがみを おくっておいた。",
@@ -344,7 +344,7 @@
         },
         {
           "ja": "まいにち れんしゅうを つづけてみる。",
-          "en": "I'll keep the practice going every day and see."
+          "en": "I'll try keeping the practice going every day."
         }
       ],
       "antiPattern": {
@@ -358,7 +358,7 @@
       "examples": [
         {
           "ja": "わからないから じしょで しらべてみる。",
-          "en": "I don't understand, so I'll look it up in the dictionary and see."
+          "en": "I don't understand, so I'll try looking it up in the dictionary."
         },
         {
           "ja": "あした じゅぎょうが あるから ことばを おぼえておく。",
@@ -374,7 +374,7 @@
         },
         {
           "ja": "せつめいが むずかしいから せんせいに はなしてみる。",
-          "en": "The explanation is difficult, so I'll talk to the teacher and see."
+          "en": "The explanation is difficult, so I'll try talking to the teacher."
         }
       ],
       "antiPattern": {
@@ -752,7 +752,7 @@
         {
           "kind": "sentence",
           "ja": "とりあえず コーヒーを のんでみる。",
-          "en": "I'll have some coffee for a start and see",
+          "en": "I'll try some coffee for a start",
           "exercises": [
             "te-miru",
             "wo-object"
@@ -762,7 +762,7 @@
         {
           "kind": "sentence",
           "ja": "わからないから せんせいに きいてみる。",
-          "en": "I don't understand, so I'll ask the teacher and see",
+          "en": "I don't understand, so I'll try asking the teacher",
           "exercises": [
             "te-miru",
             "kara-because",
@@ -784,7 +784,7 @@
         {
           "kind": "sentence",
           "ja": "じかんが あるから としょかんに いってみる。",
-          "en": "I've got time, so I'll go to the library and see",
+          "en": "I've got time, so I'll try going to the library",
           "exercises": [
             "te-miru",
             "kara-because",
@@ -844,7 +844,7 @@
             "きくみる",
             "きいて"
           ],
-          "en": "I don't understand, so I'll ask the teacher and see",
+          "en": "I don't understand, so I'll try asking the teacher",
           "explanation": "きいて is an unfinished て-form until a helper is parked behind it, and みる is what finishes it here. きくみる puts the helper on the dictionary form instead of the て-form, and きいて alone never gets to the finding out: わからないから せんせいに きいてみる。"
         },
         {
@@ -864,10 +864,10 @@
         {
           "kind": "listening-comp",
           "audio": "じかんが あるから やまに いってみる。",
-          "answer": "I've got time, so I'll go to the mountain and see",
+          "answer": "I've got time, so I'll try going to the mountain",
           "distractors": [
             "I haven't got time, so I'm not going to the mountain",
-            "I've got time, so I'll go to the library and see",
+            "I've got time, so I'll try going to the library",
             "I've got time, so I walk to the mountain every day"
           ],
           "exercises": [
@@ -1045,7 +1045,7 @@
         {
           "kind": "sentence",
           "ja": "せんせいに きいてみたけど だめだった。",
-          "en": "I asked the teacher and saw, but it was no good",
+          "en": "I tried asking the teacher, but it was no good",
           "exercises": [
             "ta-form",
             "te-miru",
@@ -1145,7 +1145,7 @@
         {
           "kind": "challenge",
           "ja": "じゅぎょうが むずかしいから さいしょに せんせいに きいてみたけど だめだった。",
-          "en": "The class is difficult, so I asked the teacher and saw first, but it was no good",
+          "en": "The class is difficult, so I tried asking the teacher first, but it was no good",
           "combines": [
             "ta-form",
             "te-miru",
@@ -1189,7 +1189,7 @@
         {
           "kind": "sentence",
           "ja": "じしょで しらべてみる。",
-          "en": "I'll look it up in the dictionary and see",
+          "en": "I'll try looking it up in the dictionary",
           "exercises": [
             "te-form",
             "te-miru",
@@ -1200,7 +1200,7 @@
         {
           "kind": "sentence",
           "ja": "わからないから えいごで しらべてみる。",
-          "en": "I don't understand, so I'll look it up in English and see",
+          "en": "I don't understand, so I'll try looking it up in English",
           "exercises": [
             "te-form",
             "te-miru",
@@ -1230,7 +1230,7 @@
         {
           "kind": "sentence",
           "ja": "むずかしいけど じゅぎょうを つづけてみる。",
-          "en": "It's difficult, but I'll keep the class going and see",
+          "en": "It's difficult, but I'll try keeping the class going",
           "exercises": [
             "te-form",
             "te-miru",
@@ -1241,7 +1241,7 @@
         {
           "kind": "sentence",
           "ja": "ことばを じしょで しらべてみた。",
-          "en": "I looked the word up in the dictionary and saw",
+          "en": "I tried looking the word up in the dictionary",
           "exercises": [
             "te-form",
             "ta-form",
@@ -1263,7 +1263,7 @@
         {
           "kind": "sentence",
           "ja": "けっかが わからないから せんせいに きいてみる。",
-          "en": "I don't know the result, so I'll ask the teacher and see",
+          "en": "I don't know the result, so I'll try asking the teacher",
           "exercises": [
             "te-form",
             "te-miru",
@@ -1274,7 +1274,7 @@
         {
           "kind": "sentence",
           "ja": "じしょで しらべてみる。",
-          "en": "I'll look it up in the dictionary and see",
+          "en": "I'll try looking it up in the dictionary",
           "exercises": [
             "te-form",
             "te-miru"
@@ -1291,17 +1291,17 @@
             "しらべてみた",
             "しらべる"
           ],
-          "en": "I don't know the word, so I'll look it up in the dictionary and see",
+          "en": "I don't know the word, so I'll try looking it up in the dictionary",
           "explanation": "not knowing the word is a reason still ahead of you, so the helper stays non-past. しらべてみた already happened, and bare しらべる drops the helper — and the finding out — altogether."
         },
         {
           "kind": "listening-comp",
           "audio": "むずかしいけど えいごの じゅぎょうを つづけてみる。",
-          "answer": "It's difficult, but I'll keep the English class going and see",
+          "answer": "It's difficult, but I'll try keeping the English class going",
           "distractors": [
             "It's difficult, so I'm not keeping the English class going",
             "It's easy, so I'll keep the English class going",
-            "It's difficult, but I'll keep the music class going and see"
+            "It's difficult, but I'll try keeping the music class going"
           ],
           "exercises": [
             "te-form",
@@ -1311,7 +1311,7 @@
         {
           "kind": "listening-comp",
           "audio": "じかんが ないから あした しらべてみる。",
-          "answer": "I haven't got time, so I'll look it up tomorrow and see",
+          "answer": "I haven't got time, so I'll try looking it up tomorrow",
           "distractors": [
             "I've got time, so I'll look it up today",
             "I haven't got time, so I'll have a go at deciding tomorrow",
@@ -1333,7 +1333,7 @@
             {
               "speaker": "Ken",
               "ja": "わからない。じしょで しらべてみる。",
-              "en": "I don't know. I'll look it up in the dictionary and see."
+              "en": "I don't know. I'll try looking it up in the dictionary."
             }
           ],
           "questions": [
@@ -1352,7 +1352,7 @@
         {
           "kind": "challenge",
           "ja": "ことばが わからないけど じかんが ないから あした じしょで しらべてみる。",
-          "en": "I don't know the word, but I haven't got time, so I'll look it up in the dictionary tomorrow and see",
+          "en": "I don't know the word, but I haven't got time, so I'll try looking it up in the dictionary tomorrow",
           "combines": [
             "te-form",
             "te-miru",
@@ -1396,7 +1396,7 @@
         {
           "kind": "sentence",
           "ja": "わからないから せんせいに きいてみる。",
-          "en": "I don't understand, so I'll ask the teacher and see",
+          "en": "I don't understand, so I'll try asking the teacher",
           "exercises": [
             "te-miru",
             "kara-because"
@@ -1416,7 +1416,7 @@
         {
           "kind": "sentence",
           "ja": "じしょで しらべてみる。",
-          "en": "I'll look it up in the dictionary and see",
+          "en": "I'll try looking it up in the dictionary",
           "exercises": [
             "te-form",
             "te-miru"
@@ -1426,7 +1426,7 @@
         {
           "kind": "sentence",
           "ja": "むずかしいけど じゅぎょうを つづけてみる。",
-          "en": "It's difficult, but I'll keep the class going and see",
+          "en": "It's difficult, but I'll try keeping the class going",
           "exercises": [
             "te-form",
             "kedo"
@@ -1443,13 +1443,13 @@
             "いってみた",
             "たべてみる"
           ],
-          "en": "I've got time, so I'll go to the library and see",
+          "en": "I've got time, so I'll try going to the library",
           "explanation": "having time is a reason still ahead of you, so the helper stays in the non-past. いってみた would put the trip in the past, and たべてみる has nothing to do with a library."
         },
         {
           "kind": "sentence",
           "ja": "とりあえず コーヒーを のんでみる。",
-          "en": "I'll have some coffee for a start and see",
+          "en": "I'll try some coffee for a start",
           "exercises": [
             "te-miru",
             "wo-object"
@@ -1473,7 +1473,7 @@
         {
           "kind": "sentence",
           "ja": "ことばを じしょで しらべてみた。",
-          "en": "I looked the word up in the dictionary and saw",
+          "en": "I tried looking the word up in the dictionary",
           "exercises": [
             "te-form",
             "ta-form"
@@ -1493,11 +1493,11 @@
         {
           "kind": "listening-comp",
           "audio": "せんせいに きいてみたけど だめだった。",
-          "answer": "I asked the teacher and saw, but it was no good",
+          "answer": "I tried asking the teacher, but it was no good",
           "distractors": [
-            "I asked the teacher and saw, and it was fine",
+            "I tried asking the teacher, and it was fine",
             "I didn't ask the teacher",
-            "I asked my older brother and saw, but it was no good"
+            "I tried asking my older brother, but it was no good"
           ],
           "exercises": [
             "ta-form",
@@ -1535,7 +1535,7 @@
             {
               "speaker": "Tom",
               "ja": "ううん。じしょで しらべてみる。",
-              "en": "Nope. I'll look it up in the dictionary and see."
+              "en": "Nope. I'll try looking it up in the dictionary."
             }
           ],
           "questions": [
@@ -2014,7 +2014,7 @@
         {
           "kind": "sentence",
           "ja": "せつめいが むずかしいから あにに きいてみる。",
-          "en": "The explanation is difficult, so I'll ask my older brother and see",
+          "en": "The explanation is difficult, so I'll try asking my older brother",
           "exercises": [
             "te-miru",
             "kara-because",
@@ -2105,7 +2105,7 @@
         {
           "kind": "sentence",
           "ja": "この しつもんは むずかしいから せんせいに きいてみる。",
-          "en": "This question is difficult, so I'll ask the teacher and see",
+          "en": "This question is difficult, so I'll try asking the teacher",
           "exercises": [
             "te-miru",
             "kara-because",
@@ -2116,7 +2116,7 @@
         {
           "kind": "sentence",
           "ja": "こたえが わからないから じしょで しらべてみる。",
-          "en": "I don't know the answer, so I'll look it up in the dictionary and see",
+          "en": "I don't know the answer, so I'll try looking it up in the dictionary",
           "exercises": [
             "te-miru",
             "kara-because",
@@ -2127,7 +2127,7 @@
         {
           "kind": "sentence",
           "ja": "この しつもんの こたえを きいてみる。",
-          "en": "I'll ask and see what the answer to this question is",
+          "en": "I'll try asking what the answer to this question is",
           "exercises": [
             "te-miru",
             "no-possession"
@@ -2144,7 +2144,7 @@
             "ならう",
             "おくる"
           ],
-          "en": "The explanation is difficult, so I'll ask my older brother and see",
+          "en": "The explanation is difficult, so I'll try asking my older brother",
           "explanation": "an explanation you did not follow is something you ASK about, so the て-form belongs to きく. ならう takes lessons over a long stretch, and おくる sends the explanation somewhere else instead of understanding it."
         },
         {
@@ -2186,7 +2186,7 @@
             {
               "speaker": "Ken",
               "ja": "ううん。むずかしいから せんせいに きいてみる。",
-              "en": "Nope. It's difficult, so I'll ask the teacher and see."
+              "en": "Nope. It's difficult, so I'll try asking the teacher."
             }
           ],
           "questions": [
@@ -2205,7 +2205,7 @@
         {
           "kind": "challenge",
           "ja": "こたえは わからないけど せつめいが むずかしいから とりあえず あにに きいてみる。",
-          "en": "I don't know the answer, but the explanation is difficult, so first off I'll ask my older brother and see",
+          "en": "I don't know the answer, but the explanation is difficult, so first off I'll try asking my older brother",
           "combines": [
             "te-miru",
             "kedo",
@@ -2336,7 +2336,7 @@
         {
           "kind": "sentence",
           "ja": "こたえが わからないから じしょで しらべてみる。",
-          "en": "I don't know the answer, so I'll look it up in the dictionary and see",
+          "en": "I don't know the answer, so I'll try looking it up in the dictionary",
           "exercises": [
             "te-miru",
             "kara-because"
@@ -2438,7 +2438,7 @@
         {
           "kind": "sentence",
           "ja": "せんせいに えいごを ならってみる。",
-          "en": "I'll take English lessons from the teacher and see",
+          "en": "I'll try taking English lessons from the teacher",
           "exercises": [
             "te-form",
             "te-miru",
@@ -2468,7 +2468,7 @@
         {
           "kind": "sentence",
           "ja": "おんがくを ならってみたけど だめだった。",
-          "en": "I took music lessons and saw, but it was no good",
+          "en": "I tried taking music lessons, but it was no good",
           "exercises": [
             "te-form",
             "ta-form",
@@ -2490,7 +2490,7 @@
         {
           "kind": "sentence",
           "ja": "まいにち れんしゅうを つづけてみる。",
-          "en": "I'll keep the practice going every day and see",
+          "en": "I'll try keeping the practice going every day",
           "exercises": [
             "te-form",
             "te-miru",
@@ -2523,7 +2523,7 @@
         {
           "kind": "sentence",
           "ja": "せんせいに えいごを ならってみる。",
-          "en": "I'll take English lessons from the teacher and see",
+          "en": "I'll try taking English lessons from the teacher",
           "exercises": [
             "te-form",
             "te-miru"
@@ -2644,7 +2644,7 @@
         {
           "kind": "sentence",
           "ja": "わからないから じしょで しらべてみる。",
-          "en": "I don't understand, so I'll look it up in the dictionary and see",
+          "en": "I don't understand, so I'll try looking it up in the dictionary",
           "exercises": [
             "kara-because",
             "te-miru",
@@ -2685,7 +2685,7 @@
         {
           "kind": "sentence",
           "ja": "せつめいが むずかしいから せんせいに はなしてみる。",
-          "en": "The explanation is difficult, so I'll talk to the teacher and see",
+          "en": "The explanation is difficult, so I'll try talking to the teacher",
           "exercises": [
             "kara-because",
             "te-miru",
@@ -2696,7 +2696,7 @@
         {
           "kind": "sentence",
           "ja": "がっこうが ちかいから あるいてみる。",
-          "en": "The school is near, so I'll have a walk and see",
+          "en": "The school is near, so I'll try walking there",
           "exercises": [
             "kara-because",
             "te-miru",
@@ -2752,11 +2752,11 @@
         {
           "kind": "listening-comp",
           "audio": "せつめいが むずかしいから あねに はなしてみる。",
-          "answer": "The explanation is difficult, so I'll talk to my older sister and see",
+          "answer": "The explanation is difficult, so I'll try talking to my older sister",
           "distractors": [
-            "The explanation is difficult, so I'll talk to my older brother and see",
+            "The explanation is difficult, so I'll try talking to my older brother",
             "The explanation is easy, so I won't talk to my older sister",
-            "The question is difficult, so I'll talk to my older sister and see"
+            "The question is difficult, so I'll try talking to my older sister"
           ],
           "exercises": [
             "kara-because",
@@ -2807,7 +2807,7 @@
         {
           "kind": "challenge",
           "ja": "がっこうが ちかいから あるいてみたけど さむかった。",
-          "en": "The school is near, so I had a walk and saw, but it was cold",
+          "en": "The school is near, so I tried walking, but it was cold",
           "combines": [
             "kara-because",
             "te-miru",
@@ -3062,7 +3062,7 @@
         {
           "kind": "sentence",
           "ja": "わからないから じしょで しらべてみる。",
-          "en": "I don't understand, so I'll look it up in the dictionary and see",
+          "en": "I don't understand, so I'll try looking it up in the dictionary",
           "exercises": [
             "kara-because",
             "te-miru"
@@ -3082,7 +3082,7 @@
         {
           "kind": "sentence",
           "ja": "せんせいに えいごを ならってみる。",
-          "en": "I'll take English lessons from the teacher and see",
+          "en": "I'll try taking English lessons from the teacher",
           "exercises": [
             "te-form",
             "te-miru"
@@ -3135,7 +3135,7 @@
         {
           "kind": "listening-comp",
           "audio": "むずかしいけど れんしゅうを つづけてみる。",
-          "answer": "It's difficult, but I'll keep the practice going and see",
+          "answer": "It's difficult, but I'll try keeping the practice going",
           "distractors": [
             "It's difficult, so I'm not keeping the practice going",
             "It's easy, so I'll keep the practice going",
@@ -3173,7 +3173,7 @@
           "distractors": [
             "The university is far, so I'll take the subway",
             "The school is near, so I'll give the bicycle a go",
-            "The university is near, so I'll have a walk and see"
+            "The university is near, so I'll try walking there"
           ],
           "exercises": [
             "kara-because",
@@ -3193,7 +3193,7 @@
         {
           "kind": "sentence",
           "ja": "せつめいが むずかしいから せんせいに はなしてみる。",
-          "en": "The explanation is difficult, so I'll talk to the teacher and see",
+          "en": "The explanation is difficult, so I'll try talking to the teacher",
           "exercises": [
             "kara-because",
             "te-miru"
@@ -3262,7 +3262,7 @@
         {
           "kind": "sentence",
           "ja": "らいげつ がいこくに いくから ことばを ならっておく。",
-          "en": "I'm going abroad next month, so I'll take lessons in the language in advance",
+          "en": "I'm going abroad next month, so I'll learn the language ahead of time",
           "exercises": [
             "te-oku",
             "kara-because",
@@ -3321,7 +3321,7 @@
         {
           "kind": "sentence",
           "ja": "いそがしいけど まいにち れんしゅうを つづけてみる。",
-          "en": "I'm busy, but I'll keep the practice going every day and see",
+          "en": "I'm busy, but I'll try keeping the practice going every day",
           "exercises": [
             "te-miru",
             "te-form",
@@ -3361,8 +3361,8 @@
             "ならってみる",
             "おくっておく"
           ],
-          "en": "I'm going abroad next month, so I'll take lessons in the language in advance",
-          "explanation": "going abroad next month is a deadline, so the helper is おく. ならってみる would only be finding out what the lessons are like, and おくっておく sends the words somewhere instead of learning them."
+          "en": "I'm going abroad next month, so I'll learn the language ahead of time",
+          "explanation": "going abroad next month is a deadline, so the helper is おく. ならってみる would only be finding out what learning the language is like, and おくっておく sends the language somewhere instead of learning it."
         },
         {
           "kind": "listening-comp",
@@ -3397,7 +3397,7 @@
         {
           "kind": "sentence",
           "ja": "あにに おんがくを ならってみたけど へただった。",
-          "en": "I took music lessons from my older brother and saw, but I was bad at it",
+          "en": "I tried taking music lessons from my older brother, but I was bad at it",
           "exercises": [
             "te-form",
             "te-miru",
@@ -3442,7 +3442,7 @@
         {
           "kind": "challenge",
           "ja": "がいこくに いきたいけど おかねが ないから とりあえず ことばを ならってみる。",
-          "en": "I want to go abroad, but I haven't got the money, so I'll take lessons in the language for a start and see",
+          "en": "I want to go abroad, but I haven't got the money, so I'll try learning the language for a start",
           "combines": [
             "te-miru",
             "te-form",
@@ -3586,12 +3586,15 @@
     "おさけ",
     "おしえて",
     "おしえる",
+    "おじいさん",
     "おそい",
     "おとうさん",
     "おとうと",
+    "おとな",
     "おなか",
     "おにいさん",
     "おねえさん",
+    "おばあさん",
     "おぼえなきゃ",
     "おぼえなければ",
     "おぼえる",
@@ -3606,7 +3609,10 @@
     "およがない",
     "およぐ",
     "およげる",
+    "おりる",
     "おんがく",
+    "おんな",
+    "おんなのこ",
     "か",
     "かいしゃ",
     "かいた",
@@ -3614,6 +3620,7 @@
     "かいたかった",
     "かいたくない",
     "かいたくなかった",
+    "かいだん",
     "かいて",
     "かいました",
     "かいます",
@@ -3814,6 +3821,7 @@
     "たかすぎる",
     "たって",
     "たつ",
+    "たてもの",
     "たなか",
     "たのしい",
     "たばこ",
@@ -3892,6 +3900,7 @@
     "どこですか",
     "どちら",
     "どっち",
+    "どなた",
     "どの",
     "どようび",
     "どれ",
@@ -3924,6 +3933,7 @@
     "にちようび",
     "にほん",
     "にほんじん",
+    "にわ",
     "にん",
     "ね",
     "ねこ",
@@ -4017,6 +4027,7 @@
     "まえ",
     "ましょう",
     "まだ",
+    "まち",
     "まって",
     "まつ",
     "まで",
@@ -4046,6 +4057,7 @@
     "みられる",
     "みる",
     "みれる",
+    "むこう",
     "むずかしい",
     "むずかしすぎる",
     "め",
@@ -4109,6 +4121,7 @@
     "アメリカじん",
     "カメラ",
     "クラス",
+    "コンビニ",
     "コーヒー",
     "シャワー",
     "スポーツ",
@@ -6138,6 +6151,52 @@
       "kind": "vocab"
     },
     {
+      "kana": "おとな",
+      "romaji": "otona",
+      "gloss": "adult",
+      "shortGloss": "adult",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おんな",
+      "romaji": "onna",
+      "gloss": "woman",
+      "shortGloss": "woman",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おんなのこ",
+      "romaji": "onnanoko",
+      "gloss": "girl",
+      "shortGloss": "girl",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おじいさん",
+      "romaji": "ojiisan",
+      "gloss": "grandfather, older man",
+      "shortGloss": "older man",
+      "kind": "vocab"
+    },
+    {
+      "kana": "おばあさん",
+      "romaji": "obaasan",
+      "gloss": "grandmother, older woman",
+      "shortGloss": "older woman",
+      "kind": "vocab"
+    },
+    {
+      "kana": "どなた",
+      "romaji": "donata",
+      "gloss": "who (polite)",
+      "shortGloss": "who (polite)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "むずかしい",
       "romaji": "muzukashii",
       "gloss": "difficult",
@@ -6245,6 +6304,58 @@
       "romaji": "juppun",
       "gloss": "ten minutes",
       "shortGloss": "ten minutes",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たてもの",
+      "romaji": "tatemono",
+      "gloss": "building",
+      "shortGloss": "building",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "かいだん",
+      "romaji": "kaidan",
+      "gloss": "stairs",
+      "shortGloss": "stairs",
+      "kind": "vocab"
+    },
+    {
+      "kana": "まち",
+      "romaji": "machi",
+      "gloss": "town",
+      "shortGloss": "town",
+      "kind": "vocab"
+    },
+    {
+      "kana": "にわ",
+      "romaji": "niwa",
+      "gloss": "garden",
+      "shortGloss": "garden",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "コンビニ",
+      "romaji": "konbini",
+      "gloss": "convenience store",
+      "shortGloss": "convenience store",
+      "kind": "vocab"
+    },
+    {
+      "kana": "おりる",
+      "romaji": "oriru",
+      "gloss": "to get off, to descend",
+      "shortGloss": "to get off",
+      "kind": "vocab"
+    },
+    {
+      "kana": "むこう",
+      "romaji": "mukou",
+      "gloss": "the other side, over there",
+      "shortGloss": "over there",
       "imageable": false,
       "kind": "vocab"
     },
