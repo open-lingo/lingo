@@ -161,7 +161,13 @@ try {
         // played post-commit (it IS the answer). The word is prior-module by
         // construction so a clip usually exists already — but "usually" is
         // exactly how the five silent-line classes shipped.
+        // `reading` (2026-09-13, ja-m45-neo-3): kanjiReading()'s audioText is
+        // `opts.reading ?? target.kana` — when a module narrows the tested
+        // reading to less than the whole atom (そうじする's atom tested
+        // against bare そうじ), the spoken surface is `reading`, NOT `kana`,
+        // and this emitter only ever captured `kana`. Emit both.
         if (b.kind === "kanji" && b.kana) kanaSet.add(b.kana);
+        if (b.kind === "kanji" && b.reading) kanaSet.add(b.reading);
         if (b.kind === "dialogue") for (const l of b.lines ?? []) if (l.ja) kanaSet.add(l.ja);
       }
     }
