@@ -46,11 +46,22 @@ export function DistrictView({
   const p = useLangPath();
   const lang = useLang();
   const strings = stringsFor(lang ?? "ja");
+  // #78 — Spencer: delete the previous/next station buttons. `onNav` stays
+  // in the prop signature (LearnPage.tsx + TransitLearnPage.tsx both pass
+  // it) in case station-to-station nav comes back some other way; nothing
+  // in this sheet calls it anymore.
+  void onNav;
   const mod = course.modules[index];
   const status = statuses[index];
   const nextIdx = getNextLessonIndex(mod.lessons, completedSet);
   const done = mod.lessons.filter((l) => completedSet.has(l.id)).length;
   const badge = getModuleDisplay(course.modules, index).badgeLabel;
+  // #78 — Spencer: "the module naming up top can remove the module 30 and
+  // just keep N4" — the shared `mod.eyebrow` string ("Module 30 · JLPT N4
+  // begins") also feeds ModuleCard/LearnModuleList/CourseMapPage, so instead
+  // of touching that shared data we pull just the level token out of it
+  // locally for this sheet only. No JLPT level in the string → no eyebrow.
+  const levelTag = mod.eyebrow?.match(/JLPT\s+(N\d)/i)?.[1]?.toUpperCase() ?? null;
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -81,12 +92,12 @@ export function DistrictView({
       aria-label={`${mod.title} district`}
     >
       <div className="tmc-district-panel w-full max-w-[900px] overflow-hidden rounded-md border-2 border-text-primary bg-surface shadow-popover" onClick={(e) => e.stopPropagation()}>
-        <div className="flex items-center gap-4 px-5 py-4" style={{ background: "var(--tmc-signage-bg)", color: "var(--tmc-signage-fg)" }}>
+        <div className="flex items-center gap-4 px-5 py-[13.6px]" style={{ background: "var(--tmc-signage-bg)", color: "var(--tmc-signage-fg)" }}>
           <div className="grid h-11 w-11 flex-none place-items-center rounded-full border-[3px] text-[15px] font-bold" style={{ borderColor: "var(--tmc-signage-fg)", background: "var(--tmc-line-main)", color: "rgb(var(--color-on-accent))" }}>
             {badge}
           </div>
           <div className="min-w-0 flex-1">
-            {mod.eyebrow && <div className="text-[10.5px] uppercase tracking-[0.14em] opacity-70">{mod.eyebrow}</div>}
+            {levelTag && <div className="text-[10.5px] uppercase tracking-[0.14em] opacity-70">{levelTag}</div>}
             <div className="truncate text-[19px] font-bold leading-tight">{mod.title}</div>
             <div className="text-[15px] leading-snug opacity-75 md:text-[12px]">
               {mod.comingSoon
@@ -94,7 +105,12 @@ export function DistrictView({
                 : `${done}/${mod.lessons.length} lessons${status === "locked" ? " · locked — complete the previous station" : ""}`}
             </div>
           </div>
-          <button onClick={onClose} aria-label="Close district view" className="grid h-11 w-11 flex-none place-items-center rounded-full hover:opacity-75 md:h-9 md:w-9" style={{ border: "2px solid var(--tmc-signage-fg)" }}>
+          <button
+            onClick={onClose}
+            aria-label="Close district view"
+            className="grid h-11 w-11 flex-none place-items-center rounded-full transition active:scale-95 hover:opacity-90 md:h-9 md:w-9"
+            style={{ background: "color-mix(in srgb, var(--tmc-signage-fg) 16%, transparent)", border: "2px solid var(--tmc-signage-fg)" }}
+          >
             <Icon name="close" size={16} aria-hidden />
           </button>
         </div>
@@ -116,9 +132,12 @@ export function DistrictView({
               const row = (
                 <div
                   className={cn(
-                    "tmc-board-row flex min-h-11 items-center gap-3 border-t border-white/10 px-4 py-3 md:min-h-0 md:py-2",
+                    "tmc-board-row flex min-h-11 items-center gap-3 border-t border-white/10 px-4 py-3 transition-colors md:min-h-0 md:py-2",
                     s.isCurrent && "bg-white/5",
-                    status !== "locked" && "hover:bg-white/10",
+                    // #78 — Spencer: "buttons need to just feel a bit more
+                    // alive" — hover + pressed (scale-95 + a stronger tint
+                    // than hover, so a tap visibly registers) states.
+                    status !== "locked" && "hover:bg-white/10 active:scale-95 active:bg-white/15",
                   )}
                   style={{ "--i": Math.min(i, 10) } as CSSProperties}
                 >
@@ -210,22 +229,19 @@ export function DistrictView({
           </div>
         )}
 
-        <div className="flex flex-wrap items-center gap-2.5 border-t border-border px-4 py-3 md:gap-2">
-          <button className="inline-flex min-h-11 items-center justify-center rounded-sm border border-border px-4 py-2.5 text-[14px] font-semibold text-text-secondary hover:bg-surface-muted disabled:opacity-40 md:min-h-0 md:px-3 md:py-1.5 md:text-[12.5px]" disabled={index === 0} onClick={() => onNav(index - 1)}>
-            ← Previous station
-          </button>
-          <button className="inline-flex min-h-11 items-center justify-center rounded-sm border border-border px-4 py-2.5 text-[14px] font-semibold text-text-secondary hover:bg-surface-muted disabled:opacity-40 md:min-h-0 md:px-3 md:py-1.5 md:text-[12.5px]" disabled={index === course.modules.length - 1} onClick={() => onNav(index + 1)}>
-            Next station →
-          </button>
+        <div className="flex flex-wrap items-center gap-2.5 border-t border-border px-4 py-[10.2px] md:gap-2">
           <div className="flex-1" />
           {status !== "completed" && !mod.comingSoon && (
-            <Link to={p(`learn/test-out/${mod.id}`)} className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-sm border border-border px-4 py-2.5 text-[14px] font-semibold text-text-secondary hover:border-accent hover:text-text-primary md:min-h-0 md:px-3 md:py-1.5 md:text-[12.5px]">
+            <Link to={p(`learn/test-out/${mod.id}`)} className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-sm border border-border px-4 py-2.5 text-[14px] font-semibold text-text-secondary transition active:scale-95 hover:border-accent hover:text-text-primary active:bg-surface-muted md:min-h-0 md:px-3 md:py-1.5 md:text-[12.5px]">
               <Icon name="graduationCap" size={14} aria-hidden />
               Test out
             </Link>
           )}
           {status !== "locked" && stops[nextIdx] && (
-            <Link to={lessonHref(stops[nextIdx].lesson)} className="inline-flex min-h-11 items-center justify-center rounded-sm bg-accent px-5 py-2.5 text-[14.5px] font-bold text-accent-foreground hover:bg-accent-hover md:min-h-0 md:px-4 md:py-1.5 md:text-[12.5px]">
+            <Link
+              to={lessonHref(stops[nextIdx].lesson)}
+              className="inline-flex min-h-11 items-center justify-center rounded-sm bg-accent px-5 py-2.5 text-[14.5px] font-bold text-accent-foreground transition active:scale-95 hover:bg-accent-hover active:bg-accent-hover md:min-h-0 md:px-4 md:py-1.5 md:text-[12.5px]"
+            >
               Continue L{nextIdx + 1} →
             </Link>
           )}

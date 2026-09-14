@@ -571,7 +571,7 @@ a:focus-visible .tmc-d-stop {
   background-image: var(--vnm-bg-image);
   background-size: cover;
   background-position: center top;
-  opacity: 0.34;
+  opacity: 0.44; /* #77 — Spencer: "background is slightly too transparent", +10% from 0.34 */
   pointer-events: none;
 }
 /* Navy fade top + bottom so the header and the tier-interchange stops at
@@ -636,8 +636,10 @@ a:focus-visible .tmc-d-stop {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin: 10px 0 2px;
-  padding: 10px 14px 10px 68px;
+  /* #77 — Spencer: "zone markers shouldn't take up as much space" — trimmed
+     from 10px/10px vertical (band was ~40px tall) to 6px/6px (~30px). */
+  margin: 6px 0 2px;
+  padding: 6px 14px 6px 68px;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -741,7 +743,15 @@ a:focus-visible .tmc-d-stop {
   flex-direction: column;
   justify-content: center;
   gap: 3px;
-  padding: 10px 14px 10px 8px;
+  /* #77 — Spencer: give the module name + "N/13 lessons" line "a little
+     even slightly darker rounded background... similar to how the side
+     quests have" (`.vnm-quest`'s pill chip). A translucent dark rounded
+     card (not a full 999px pill — this is a two-line block, not a chip)
+     lifts the text off the brighter background photo. */
+  padding: 9px 12px;
+  margin: 3px 10px 3px 0;
+  border-radius: 12px;
+  background: rgba(8, 12, 24, 0.4);
   min-width: 0;
 }
 .vnm-title {

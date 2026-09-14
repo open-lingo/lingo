@@ -1979,7 +1979,12 @@ export default function TransitLearnPage({
   if (modules.length === 0) {
     return (
       <div className={cn("tmc-root w-full", effectiveTier === "n4" && "tmc-tier-n4")}>
-        <TransitSignageHeader title={titleText} subtitle={LEARN_HEADER_SUBTITLE} />
+        {/* #84 — Spencer: the "学習路線図 — Japanese for Beginners" signage
+            card is "useless… wasted space" on mobile/touch, where the
+            vertical map is the only learn surface. Desktop keeps it. */}
+        <div className="hidden md:block">
+          <TransitSignageHeader title={titleText} subtitle={LEARN_HEADER_SUBTITLE} />
+        </div>
         {hasN4 && (
           <div className="mb-3">
             <TierTabs tier={effectiveTier} onChange={setTier} n5Label="N5 Line" n4Label="N4 Line" />
@@ -2005,28 +2010,38 @@ export default function TransitLearnPage({
         effectiveTier === "n4" && "tmc-tier-n4",
       )}
     >
-      {/* signage board header */}
-      <TransitSignageHeader
-        title={titleText}
-        subtitle={
-          preview
-            ? "Transit-map concept · dev preview · click stations, board quests, visit the depot"
-            : LEARN_HEADER_SUBTITLE
-        }
-        right={
-          headerRight ?? (
-            // Classic view is retired on mobile — the vertical map is the only
-            // mobile learn surface. Desktop keeps the escape hatch (the toggle
-            // normally fills this slot; this fallback shows only if none is set).
-            <Link
-              to={p("learn/classic")}
-              className="hidden items-center rounded-md border border-border px-3 py-1 text-[12.5px] font-bold text-text-primary transition hover:bg-surface-muted md:inline-flex"
-            >
-              ← Classic view
-            </Link>
-          )
-        }
-      />
+      {/* signage board header — #84: Spencer called the "学習路線図 —
+          Japanese for Beginners" card "useless… wasted space" on mobile
+          (where the vertical map is the only learn surface, so there's
+          nothing to toggle from it anyway — `right` is always the desktop
+          -only classic-view link there). Desktop keeps it unchanged. */}
+      <div className="hidden md:block">
+        <TransitSignageHeader
+          title={titleText}
+          subtitle={
+            preview
+              ? "Transit-map concept · dev preview · click stations, board quests, visit the depot"
+              : LEARN_HEADER_SUBTITLE
+          }
+          right={
+            headerRight ?? (
+              // Classic view is retired on mobile — the vertical map is the only
+              // mobile learn surface. Desktop keeps the escape hatch (the toggle
+              // normally fills this slot; this fallback shows only if none is set).
+              <Link
+                to={p("learn/classic")}
+                className="hidden items-center rounded-md border border-border px-3 py-1 text-[12.5px] font-bold text-text-primary transition hover:bg-surface-muted md:inline-flex"
+              >
+                ← Classic view
+              </Link>
+            )
+          }
+        />
+      </div>
+      {/* mobile/touch top spacer — replaces the breathing room the signage
+          header's own margin used to provide above the map, now that the
+          header itself is hidden below `md`. */}
+      <div className="h-3 md:hidden" aria-hidden />
 
       {/* tier switcher — (a) compact pill/tabs near the map header. Only
           mounted when this course has n4 content at all (requirement 5). */}
