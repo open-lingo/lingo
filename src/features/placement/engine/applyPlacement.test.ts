@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { applyPlacementResult } from "./applyPlacement";
 import { getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
 import { getCourseAtoms } from "@/shared/language/registry";
@@ -127,5 +127,23 @@ describe("applyPlacementResult — language-aware leveling", () => {
     const state = getCardState(m1Atoms[0].id);
     expect(state?.recognition.interval).toBe(150);
     expect(state?.known).toBe(true);
+  });
+
+  describe("seeding is batched into one SRS store write (perf, TestFlight #80 QA)", () => {
+    afterEach(() => {
+      vi.restoreAllMocks();
+    });
+
+    it("a multi-module banded placement pass writes the SRS store exactly once", () => {
+      const spy = vi.spyOn(localStorage, "setItem");
+      const passed = Array.from({ length: 30 }, (_, i) => `m${i + 1}`);
+      const r = applyPlacementResult(passed, "ja");
+      expect(r.seededAtomCount).toBeGreaterThan(0);
+
+      const srsWrites = spy.mock.calls.filter(
+        ([key]) => key === "open-lingo-srs:v2",
+      );
+      expect(srsWrites).toHaveLength(1);
+    });
   });
 });

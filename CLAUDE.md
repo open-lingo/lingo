@@ -205,8 +205,9 @@ Full model: `docs/srs-scheduling-model-2026-06-15.md`; grammar deck spec
   seed-on-unlock (due *next-day*, never same-day), review lessons, the flashcard
   reviewer, D2 content-review atoms (prior-module only), the grammar review session,
   the Conjugation Trainer, and **test-out seed** (D7, 2026-09-14 — placement/test-out
-  completion in `applyPlacement.ts` seeds a distance-scaled interval via the single
-  writer `srsStorage.seedTestOutAtom`; ≥90 days marks the card `known`, which makes
+  completion in `applyPlacement.ts` seeds a distance-scaled interval via the batched
+  writer `srsStorage.seedTestOutAtoms` (single-atom `seedTestOutAtom` still exists
+  for other callers; both apply the same never-shorten rule); ≥90 days marks the card `known`, which makes
   `isDue` permanently false — suppressed from the reviewer + review-lesson intake,
   visible only in Card Manager with a badge). The deck's `?practice=1` and "Practice
   anyway" flows write NOTHING. `buildSrsReviewLesson` is PURE (no build-time writes).

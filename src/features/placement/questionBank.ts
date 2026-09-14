@@ -1018,6 +1018,550 @@ export const PLACEMENT_QUESTION_BANK: readonly PlacementItemConfig[] = [
   },
 
   // ═════════════════════════════════════════════════════════════════════
+  // JA N4 — M30-M46 placement bank (TestFlight #80 QA, 2026-09-14).
+  //
+  // Added alongside skill tiers 9-16 (placement/tiers.ts) and the "n4"
+  // level band (placement/levelBands.ts): the tier table topped out at
+  // m29, so banded placement could never credit the N4 line even though
+  // per-module test-out already reached m46. Drafted by parallel Sonnet
+  // subagents per CLAUDE.md's bulk-authoring rule, from the module
+  // titles/summaries in mockCourse.ts — same convention as the m28/m29
+  // items above. Kana-only throughout; distractors are grammatical-error
+  // or wrong-choice-for-the-situation foils, never random gibberish
+  // (same bank-wide convention). Not yet native-reviewed — flag for a
+  // native-speaker pass before relying on these for a real placement
+  // decision at scale (mirrors the KO bank's NATIVE-REVIEW convention).
+  // ═════════════════════════════════════════════════════════════════════
+
+  // ── M30: て + helper I — 〜てみる / 〜ておく ────────────────────────────
+  {
+    id: "pt-m30-1", moduleId: "m30", type: "sentenceMcq",
+    grammarPointId: "temiru-give-it-a-go", skill: "〜てみる — give it a try",
+    prompt: "'I'll try eating it (see how it is).' — which is correct?",
+    correctKana: "たべてみる",
+    distractorsKana: ["たべってみる", "たべるてみる", "たべてみて"],
+  },
+  {
+    id: "pt-m30-2", moduleId: "m30", type: "sentenceMcq",
+    grammarPointId: "temiru-past", skill: "〜てみる past — tried it (and found out)",
+    prompt: "'I tried eating it (and it was fine).' — which is correct?",
+    correctKana: "たべてみた",
+    distractorsKana: ["たべたてみる", "たべてみった", "たべてみます"],
+  },
+  {
+    id: "pt-m30-3", moduleId: "m30", type: "sentenceMcq",
+    grammarPointId: "teoku-in-advance", skill: "〜ておく — do in advance / leave prepared",
+    prompt: "'I'll make the reservation in advance.' — which is correct?",
+    correctKana: "よやくを しておく",
+    distractorsKana: ["よやくを します", "よやくを しておいた", "よやくを しおく"],
+  },
+  {
+    id: "pt-m30-4", moduleId: "m30", type: "sentenceMcq",
+    grammarPointId: "temiru-not-tried-and-failed", skill: "〜てみる trap — give-it-a-go, not tried-and-failed",
+    prompt: "'I tried on the shoes just to see if they'd fit.' — which is correct?",
+    correctKana: "くつを はいてみた",
+    distractorsKana: ["くつを はいたが あわなかった", "くつを はきてみた", "くつを はいてみない"],
+  },
+
+  // ── M31: Give & receive I — あげる・くれる・もらう ────────────────────────────
+  {
+    id: "pt-m31-1", moduleId: "m31", type: "sentenceMcq",
+    grammarPointId: "ageru-give-away", skill: "あげる — give (away from me)",
+    prompt: "'I gave my friend a present.' — which is correct?",
+    correctKana: "ともだちに プレゼントを あげた",
+    distractorsKana: ["ともだちが プレゼントを あげた", "ともだちに プレゼントを くれた", "ともだちを プレゼントに あげた"],
+  },
+  {
+    id: "pt-m31-2", moduleId: "m31", type: "sentenceMcq",
+    grammarPointId: "kureru-give-to-me", skill: "くれる — someone gives to me / my side",
+    prompt: "'My friend gave me a present.' — which is correct?",
+    correctKana: "ともだちが プレゼントを くれた",
+    distractorsKana: ["ともだちに プレゼントを くれた", "ともだちが プレゼントを あげた", "わたしが プレゼントを くれた"],
+  },
+  {
+    id: "pt-m31-3", moduleId: "m31", type: "sentenceMcq",
+    grammarPointId: "morau-receive", skill: "もらう — I receive",
+    prompt: "'I got a present from my friend.' — which is correct?",
+    correctKana: "ともだちに プレゼントを もらった",
+    distractorsKana: ["ともだちが プレゼントを もらった", "ともだちに プレゼントを あげた", "わたしに プレゼントを もらった"],
+  },
+  {
+    id: "pt-m31-4", moduleId: "m31", type: "sentenceMcq",
+    grammarPointId: "ageru-cannot-target-me", skill: "あげる can't point back at me",
+    prompt: "'My friend gave me a book.' — which is correct?",
+    correctKana: "ともだちが ほんを くれた",
+    distractorsKana: ["ともだちが わたしに ほんを あげた", "ともだちに ほんを くれた", "わたしが ほんを くれた"],
+  },
+
+  // ── M32: Conditionals I — たら, and と as the contrast ────────────────────────────
+  {
+    id: "pt-m32-1", moduleId: "m32", type: "sentenceMcq",
+    grammarPointId: "tara-if-when", skill: "〜たら — if/when (plain past + ら)",
+    prompt: "'If it rains tomorrow, I'll stay home.' — which is correct?",
+    correctKana: "あした あめが ふったら、うちに いる",
+    distractorsKana: ["あした あめが ふると、うちに いる", "あした あめが ふるたら、うちに いる", "あした あめが ふりたら、うちに いる"],
+  },
+  {
+    id: "pt-m32-2", moduleId: "m32", type: "sentenceMcq",
+    grammarPointId: "to-automatic-result", skill: "と — automatic, every-time result",
+    prompt: "'If you push this button, the door opens (every time).' — which is correct?",
+    correctKana: "この ボタンを おすと、ドアが あく",
+    distractorsKana: ["この ボタンを おしたら、ドアが あく", "この ボタンを おすと、ドアが あいた", "この ボタンを おすとき、ドアが あく"],
+  },
+  {
+    id: "pt-m32-3", moduleId: "m32", type: "sentenceMcq",
+    grammarPointId: "to-blocked-before-invitation", skill: "と blocked before an invitation — use たら",
+    prompt: "'If you're free tomorrow, let's watch a movie.' — which is correct?",
+    correctKana: "あした ひまだったら、えいがを みましょう",
+    distractorsKana: ["あした ひまだと、えいがを みましょう", "あした ひまたら、えいがを みましょう", "あした ひまだったら、えいがを みます"],
+  },
+  {
+    id: "pt-m32-4", moduleId: "m32", type: "sentenceMcq",
+    grammarPointId: "to-blocked-before-request", skill: "と blocked before a request — use たら",
+    prompt: "'If you have time, please help me.' — which is correct?",
+    correctKana: "じかんが あったら、てつだって ください",
+    distractorsKana: ["じかんが あると、てつだって ください", "じかんが あったら、てつだいます", "じかんが あるたら、てつだって ください"],
+  },
+
+  // ── M33: Transitivity I — 自動詞/他動詞, が vs を ────────────────────────────
+  {
+    id: "pt-m33-1", moduleId: "m33", type: "sentenceMcq",
+    grammarPointId: "jidoushi-ga", skill: "自動詞 + が — it happens on its own",
+    prompt: "'The door opened (by itself / it just happened).' — which is correct?",
+    correctKana: "ドアが あいた",
+    distractorsKana: ["ドアを あいた", "ドアが あけた", "ドアが あけている"],
+  },
+  {
+    id: "pt-m33-2", moduleId: "m33", type: "sentenceMcq",
+    grammarPointId: "tadoushi-wo", skill: "他動詞 + を — someone does it to something",
+    prompt: "'I opened the door.' — which is correct?",
+    correctKana: "わたしが ドアを あけた",
+    distractorsKana: ["わたしが ドアが あけた", "わたしが ドアを あいた", "わたしに ドアを あけた"],
+  },
+  {
+    id: "pt-m33-3", moduleId: "m33", type: "sentenceMcq",
+    grammarPointId: "particle-tells-the-pair-apart", skill: "particle tells the pair apart — が vs を",
+    prompt: "'The light came on (by itself).' — which is correct?",
+    correctKana: "でんきが ついた",
+    distractorsKana: ["でんきを ついた", "でんきが つけた", "でんきを つけた"],
+  },
+  {
+    id: "pt-m33-4", moduleId: "m33", type: "sentenceMcq",
+    grammarPointId: "jidoushi-teiru-resulting-state", skill: "自動詞+ている — the state you find it in",
+    prompt: "'I walked into the room and the light was already on.' — which is correct?",
+    correctKana: "でんきが ついている",
+    distractorsKana: ["でんきを つけている", "でんきが つく", "でんきが ついた"],
+  },
+  // ── M34: Volitional — よう/おう, とおもう, ことにする ────────────────────────────
+  {
+    id: "pt-m34-1", moduleId: "m34", type: "sentenceMcq",
+    grammarPointId: "volitional-form", skill: "よう/おう — plain volitional ('let's.../I will...')",
+    prompt: "'Let's eat lunch.' — which is correct, casually?",
+    correctKana: "ひるごはんを たべよう",
+    distractorsKana: ["ひるごはんを たべます", "ひるごはんを たべる", "ひるごはんを たべろう"],
+  },
+  {
+    id: "pt-m34-2", moduleId: "m34", type: "sentenceMcq",
+    grammarPointId: "volitional-godan-invite", skill: "〜おう — casual invitation to a friend",
+    prompt: "Inviting a friend casually: 'Let's drink!'",
+    correctKana: "のもう!",
+    distractorsKana: ["のみましょう!", "のみよう!", "のむだろう!"],
+  },
+  {
+    id: "pt-m34-3", moduleId: "m34", type: "sentenceMcq",
+    grammarPointId: "to-omou-intention", skill: "〜(よ)うと おもう — stating an intention",
+    prompt: "Telling a friend about your plan: 'I think I'll quit my job.'",
+    correctKana: "しごとを やめようと おもう",
+    distractorsKana: ["しごとを やめると おもう", "しごとを やめようと します", "しごとを やめたいと おもう"],
+  },
+  {
+    id: "pt-m34-4", moduleId: "m34", type: "sentenceMcq",
+    grammarPointId: "koto-ni-suru", skill: "〜ことにする — deciding to do something",
+    prompt: "Announcing a decision: 'I've decided to go to Japan next year.'",
+    correctKana: "らいねん にほんに いくことにした",
+    distractorsKana: ["らいねん にほんに いくことになった", "らいねん にほんに いこうことにした", "らいねん にほんに いくつもりにした"],
+  },
+
+  // ── M35: Give & receive II — てあげる/てくれる/てもらう + favors ────────────────────────────
+  {
+    id: "pt-m35-1", moduleId: "m35", type: "sentenceMcq",
+    grammarPointId: "te-kureru", skill: "〜てくれる — someone did a favor for me",
+    prompt: "'My teacher taught me kanji.' (a kindness done for you) —",
+    correctKana: "せんせいが かんじを おしえてくれた",
+    distractorsKana: ["せんせいが かんじを おしえてあげた", "せんせいが かんじを おしえてもらった", "せんせいが かんじを おしえた"],
+  },
+  {
+    id: "pt-m35-2", moduleId: "m35", type: "sentenceMcq",
+    grammarPointId: "te-morau", skill: "〜てもらう — I received a favor (had someone do it)",
+    prompt: "'I had a friend help me (with my move).' —",
+    correctKana: "ともだちに てつだってもらった",
+    distractorsKana: ["ともだちが てつだってもらった", "ともだちに てつだってくれた", "ともだちに てつだってあげた"],
+  },
+  {
+    id: "pt-m35-3", moduleId: "m35", type: "sentenceMcq",
+    grammarPointId: "te-ageru-upward-trap", skill: "てあげる upward to a teacher — the trap, vs the polite offer",
+    prompt: "Offering to help your teacher, politely: 'Shall I help you?'",
+    correctKana: "てつだいましょうか",
+    distractorsKana: ["てつだってあげましょうか", "てつだってあげます", "てつだってもらいましょうか"],
+  },
+  {
+    id: "pt-m35-4", moduleId: "m35", type: "sentenceMcq",
+    grammarPointId: "favor-ladder-casual", skill: "casual favor request — 〜てくれない?",
+    prompt: "Asking a close friend casually: 'Will you help me?'",
+    correctKana: "てつだってくれない?",
+    distractorsKana: ["てつだってもらえますか", "てつだいましょうか", "てつだってくれてない?"],
+  },
+  {
+    id: "pt-m35-5", moduleId: "m35", type: "sentenceMcq",
+    grammarPointId: "favor-ladder-polite", skill: "polite favor request — 〜てもらえますか",
+    prompt: "Asking a stranger politely for help: 'Could you help me?'",
+    correctKana: "てつだってもらえますか",
+    distractorsKana: ["てつだってくれない?", "てつだってあげますか", "てつだってもらいますか"],
+  },
+
+  // ── M36: Looks like — そう, がる, やすい/にくい, ながら ────────────────────────────
+  {
+    id: "pt-m36-1", moduleId: "m36", type: "sentenceMcq",
+    grammarPointId: "sou-adjective-looks", skill: "〜そう (adjective stem) — looks/seems, visual impression",
+    prompt: "Looking at a steak before tasting it: 'This looks tough.'",
+    correctKana: "これは かたそう",
+    distractorsKana: ["これは かたいそう", "これは かたくそう", "これは かたいです"],
+  },
+  {
+    id: "pt-m36-2", moduleId: "m36", type: "sentenceMcq",
+    grammarPointId: "sou-verb-about-to", skill: "〜そう (verb stem) — about to happen",
+    prompt: "Looking at dark clouds: 'It looks like it's about to rain.'",
+    correctKana: "あめが ふりそう",
+    distractorsKana: ["あめが ふるそう", "あめが ふっている", "あめが ふりそうな"],
+  },
+  {
+    id: "pt-m36-3", moduleId: "m36", type: "sentenceMcq",
+    grammarPointId: "garu-third-person-desire", skill: "〜がる — describing someone else's visible desire (not たい)",
+    prompt: "'My little brother wants to go (you can tell from how he's acting).' —",
+    correctKana: "おとうとは いきたがっている",
+    distractorsKana: ["おとうとは いきたい", "おとうとは いきたがる", "おとうとは いきたいがっている"],
+  },
+  {
+    id: "pt-m36-4", moduleId: "m36", type: "sentenceMcq",
+    grammarPointId: "yasui-nikui", skill: "〜やすい/にくい — easy/hard to do",
+    prompt: "'This pen is hard to write with.' —",
+    correctKana: "このペンは かきにくい",
+    distractorsKana: ["このペンは かくにくい", "このペンは かきにくいだ", "このペンは かきやすい"],
+  },
+  {
+    id: "pt-m36-5", moduleId: "m36", type: "sentenceMcq",
+    grammarPointId: "nagara-simultaneous", skill: "〜ながら — doing two things at once",
+    prompt: "'I listen to music while studying.' —",
+    correctKana: "おんがくを ききながら べんきょうします",
+    distractorsKana: ["おんがくを きくながら べんきょうします", "おんがくを ききながらに べんきょうします", "おんがくを きいてながら べんきょうします"],
+  },
+
+  // ── M37: Conditionals II — ば + なら ────────────────────────────
+  {
+    id: "pt-m37-1", moduleId: "m37", type: "sentenceMcq",
+    grammarPointId: "ba-verb-form", skill: "〜ば — verb conditional (e-row + ば)",
+    prompt: "'If you drink water, you'll feel better.' —",
+    correctKana: "みずを のめば きぶんが よくなる",
+    distractorsKana: ["みずを のむば きぶんが よくなる", "みずを のみば きぶんが よくなる", "みずを のめれば きぶんが よくなる"],
+  },
+  {
+    id: "pt-m37-2", moduleId: "m37", type: "sentenceMcq",
+    grammarPointId: "kereba-adjective-form", skill: "〜ければ — i-adjective conditional",
+    prompt: "'If the weather is good, let's go.' —",
+    correctKana: "てんきが よければ いこう",
+    distractorsKana: ["てんきが いいければ いこう", "てんきが よくば いこう", "てんきが よかったければ いこう"],
+  },
+  {
+    id: "pt-m37-3", moduleId: "m37", type: "sentenceMcq",
+    grammarPointId: "ba-no-request-wall", skill: "action-verb ば-clause can't carry a request — needs たら",
+    prompt: "'If you eat, please buy (something for me).' —",
+    correctKana: "たべたら、かってください",
+    distractorsKana: ["たべれば、かってください", "たべると、かってください", "たべように、かってください"],
+  },
+  {
+    id: "pt-m37-4", moduleId: "m37", type: "sentenceMcq",
+    grammarPointId: "nara-responsive", skill: "〜なら — advising on what was just said, answer runs ahead",
+    prompt: "Responding to a friend who just said they're going to Japan: 'If you're going to Japan, you should buy the ticket now.'",
+    correctKana: "にほんに いくなら、きっぷを かっておいた ほうが いい",
+    distractorsKana: ["にほんに いったら、きっぷを かっておいた ほうが いい", "にほんに いけば、きっぷを かっておいた ほうが いい", "にほんに いくと、きっぷを かっておいた ほうが いい"],
+  },
+  // ── M38: て + helper II — てしまう/ちゃう + ていく/てくる ────────────────────────────
+  {
+    id: "pt-m38-1", moduleId: "m38", type: "sentenceMcq",
+    grammarPointId: "teshimau-completion", skill: "〜てしまう — completing something entirely (pride)",
+    prompt: "'I ate it all (my own dinner — I'm proud of myself).' — which is correct?",
+    correctKana: "ぜんぶ たべてしまった",
+    distractorsKana: ["ぜんぶ たべてしまう", "ぜんぶ たべってしまった", "ぜんぶ たべてしまいる"],
+  },
+  {
+    id: "pt-m38-2", moduleId: "m38", type: "sentenceMcq",
+    grammarPointId: "teshimau-regret", skill: "〜てしまう — completing something entirely (regret)",
+    prompt: "'I accidentally ate my friend's cake (oops).' — which is correct?",
+    correctKana: "ともだちの ケーキを たべてしまった",
+    distractorsKana: ["ともだちの ケーキを たべてしまう", "ともだちの ケーキが たべてしまった", "ともだちの ケーキを たべておいた"],
+  },
+  {
+    id: "pt-m38-3", moduleId: "m38", type: "sentenceMcq",
+    grammarPointId: "chau-contraction", skill: "ちゃう/じゃう — casual contraction of てしまう",
+    prompt: "'You broke the umbrella and you're admitting it was your fault.' — which is correct?",
+    correctKana: "かさを こわしちゃった",
+    distractorsKana: ["かさが こわれちゃった", "かさを こわしていた", "かさを こわちゃった"],
+  },
+  {
+    id: "pt-m38-4", moduleId: "m38", type: "sentenceMcq",
+    grammarPointId: "teiku-tekuru-motion", skill: "ていく／てくる — motion away vs. toward",
+    prompt: "'I'm taking the umbrella with me when I leave.' — which is correct?",
+    correctKana: "かさを もっていきます",
+    distractorsKana: ["かさを もってきます", "かさを もっています", "かさを もっていくます"],
+  },
+  {
+    id: "pt-m38-5", moduleId: "m38", type: "sentenceMcq",
+    grammarPointId: "teiku-tekuru-trend", skill: "ていく／てくる — a trend arriving vs. still heading on",
+    prompt: "'The number has been increasing up to now.' — which is correct?",
+    correctKana: "かずが ふえてきた",
+    distractorsKana: ["かずが ふえていく", "かずが ふえてある", "かずが ふえてきる"],
+  },
+
+  // ── M39: Concession & reasons — のに vs ので, ても, し ────────────────────────────
+  {
+    id: "pt-m39-1", moduleId: "m39", type: "sentenceMcq",
+    grammarPointId: "node-reason", skill: "ので — stating a plain, neutral reason",
+    prompt: "'It was raining, so I took an umbrella (just stating the reason).' — which is correct?",
+    correctKana: "あめが ふっていたので、かさを もっていった",
+    distractorsKana: ["あめが ふっていたのに、かさを もっていった", "あめが ふっていたなので、かさを もっていった", "あめが ふるので、かさを もっていった"],
+  },
+  {
+    id: "pt-m39-2", moduleId: "m39", type: "sentenceMcq",
+    grammarPointId: "noni-contrast", skill: "のに — an unexpected clash, often a complaint",
+    prompt: "'He had a fever, but he went to school anyway (I think that was a bad idea).' — which is correct?",
+    correctKana: "ねつが あるのに、がっこうに いった",
+    distractorsKana: ["ねつが あるので、がっこうに いった", "ねつが あるのにに、がっこうに いった", "ねつが あってのに、がっこうに いった"],
+  },
+  {
+    id: "pt-m39-3", moduleId: "m39", type: "sentenceMcq",
+    grammarPointId: "temo-even-if", skill: "ても — even if, holding a plan steady",
+    prompt: "'Even if it's expensive, I'm buying it — my mind's made up.' — which is correct?",
+    correctKana: "たかくても かいます",
+    distractorsKana: ["たかければ かいます", "たかいでも かいます", "たかくでも かいます"],
+  },
+  {
+    id: "pt-m39-4", moduleId: "m39", type: "sentenceMcq",
+    grammarPointId: "demo-closed-set", skill: "だれでも／なんでも／どこでも — no matter who/what/where",
+    prompt: "'Anyone can come into this shop.' — which is correct?",
+    correctKana: "この みせは だれでも はいれます",
+    distractorsKana: ["この みせは だれも はいれます", "この みせは だれでは はいれます", "この みせは なんでも はいれます"],
+  },
+  {
+    id: "pt-m39-5", moduleId: "m39", type: "sentenceMcq",
+    grammarPointId: "shi-stacking-reasons", skill: "し — stacking reasons toward one conclusion",
+    prompt: "'This restaurant is cheap, and what's more it's delicious — that's why I like it.' — which is correct?",
+    correctKana: "この みせは やすいし、おいしいし、すきです",
+    distractorsKana: ["この みせは やすくて、おいしくて、すきです", "この みせは やすいのに、おいしいのに、すきです", "この みせは やすいし、おいしくて、すきです"],
+  },
+
+  // ── M40: Passive I — direct passive られる ────────────────────────────
+  {
+    id: "pt-m40-1", moduleId: "m40", type: "sentenceMcq",
+    grammarPointId: "passive-godan-formation", skill: "られる — godan passive formation (a-stem + れる)",
+    prompt: "'My wallet got stolen.' — which is the correctly formed passive?",
+    correctKana: "さいふが ぬすまれた",
+    distractorsKana: ["さいふが ぬすみられた", "さいふが ぬすませられた", "さいふが ぬすんだ"],
+  },
+  {
+    id: "pt-m40-2", moduleId: "m40", type: "sentenceMcq",
+    grammarPointId: "passive-ichidan-formation", skill: "られる — ichidan passive formation (drop る + られる)",
+    prompt: "'I was praised by the teacher.' — which is correct?",
+    correctKana: "せんせいに ほめられた",
+    distractorsKana: ["せんせいに ほめった", "せんせいに ほめられった", "せんせいが ほめられた"],
+  },
+  {
+    id: "pt-m40-3", moduleId: "m40", type: "sentenceMcq",
+    grammarPointId: "passive-ni-doer", skill: "られる — に marks the doer",
+    prompt: "'The student was scolded by the teacher.' — which is correct?",
+    correctKana: "がくせいは せんせいに しかられた",
+    distractorsKana: ["がくせいは せんせいを しかられた", "がくせいは せんせいが しかられた", "がくせいは せんせいに しかった"],
+  },
+  {
+    id: "pt-m40-4", moduleId: "m40", type: "sentenceMcq",
+    grammarPointId: "passive-owned-thing", skill: "られる — owned-thing passive (owner stays topic)",
+    prompt: "'A thief stole my wallet — say it as something that happened TO me.' — which is correct?",
+    correctKana: "わたしは どろぼうに さいふを ぬすまれた",
+    distractorsKana: ["わたしは どろぼうに さいふが ぬすまれた", "どろぼうは わたしに さいふを ぬすまれた", "わたしは どろぼうを さいふに ぬすまれた"],
+  },
+
+  // ── M41: Transitivity II — 〜てある + the pair families ────────────────────────────
+  {
+    id: "pt-m41-1", moduleId: "m41", type: "sentenceMcq",
+    grammarPointId: "tearu-formation", skill: "〜てある — a state someone left on purpose",
+    prompt: "'The window has been left open on purpose.' — which is correct?",
+    correctKana: "まどが あけてある",
+    distractorsKana: ["まどを あけてある", "まどを あけている", "まどが あいてある"],
+  },
+  {
+    id: "pt-m41-2", moduleId: "m41", type: "sentenceMcq",
+    grammarPointId: "tearu-vs-teoku", skill: "〜てある vs 〜ておく — が/state vs を/agent-on-stage",
+    prompt: "'I opened the window ahead of time, getting ready for the guests.' — which is correct?",
+    correctKana: "まどを あけておいた",
+    distractorsKana: ["まどが あけてある", "まどを あいておいた", "まどを あけておく"],
+  },
+  {
+    id: "pt-m41-3", moduleId: "m41", type: "sentenceMcq",
+    grammarPointId: "tearu-vs-jidoushi-teiru", skill: "〜てある vs 自動詞＋ている — arranged state vs. plain fact",
+    prompt: "'The window is just open — nobody said who opened it or why.' — which is correct?",
+    correctKana: "まどが あいている",
+    distractorsKana: ["まどが あけてある", "まどを あいている", "まどが あいてある"],
+  },
+  // ── M42: Hearsay: そうだ / って / らしい ────────────────────────────
+  {
+    id: "pt-m42-1", moduleId: "m42", type: "sentenceMcq",
+    grammarPointId: "souda-hearsay", skill: "〜そうだ — hearsay from a direct source",
+    prompt: "'I heard it's going to rain tomorrow.' (You read it in the weather report) —",
+    correctKana: "あした あめが ふるそうだ",
+    distractorsKana: ["あした あめが ふりそうだ", "あした あめが ふるらしい", "あした あめが ふるだそうだ"],
+  },
+  {
+    id: "pt-m42-2", moduleId: "m42", type: "sentenceMcq",
+    grammarPointId: "tte-casual-quote", skill: "って — casual quoting shortcut for そうだ, friends only",
+    prompt: "Talking with a close friend: 'Tanaka said he's coming.' —",
+    correctKana: "たなかさんが くるって",
+    distractorsKana: ["たなかさんが くるだって", "たなかさんが くるのって", "たなかさんが くるってだ"],
+  },
+  {
+    id: "pt-m42-3", moduleId: "m42", type: "sentenceMcq",
+    grammarPointId: "rashii-impression", skill: "らしい — secondhand impression, no direct source",
+    prompt: "'Apparently the reporter is sick.' (An impression from indirect evidence, not a source you can name) —",
+    correctKana: "きしゃは びょうきらしい",
+    distractorsKana: ["きしゃは びょうきだらしい", "きしゃは びょうきそうだ", "きしゃは びょうきらしいだ"],
+  },
+
+  // ── M43: Certainty ladder: かもしれない / はず / でしょう ────────────────────────────
+  {
+    id: "pt-m43-1", moduleId: "m43", type: "sentenceMcq",
+    grammarPointId: "kamoshirenai", skill: "〜かもしれない — genuine uncertainty, \"might be\"",
+    prompt: "'She might be a student.' (You're really not sure) —",
+    correctKana: "がくせいかもしれない",
+    distractorsKana: ["がくせいだかもしれない", "がくせいのかもしれない", "がくせいかもしれないだ"],
+  },
+  {
+    id: "pt-m43-2", moduleId: "m43", type: "sentenceMcq",
+    grammarPointId: "hazu-da", skill: "〜はずだ — a conclusion backed by a real reason",
+    prompt: "'She should be a student.' (Based on something you know — she carries textbooks every day) —",
+    correctKana: "がくせいの はずだ",
+    distractorsKana: ["がくせい はずだ", "がくせいだのはずだ", "がくせいかもしれない"],
+  },
+  {
+    id: "pt-m43-3", moduleId: "m43", type: "sentenceMcq",
+    grammarPointId: "hazu-ga-nai", skill: "〜はずがない — flatly denying something is possible",
+    prompt: "'There's no way she's a student.' (You're certain she isn't) —",
+    correctKana: "がくせいの はずが ない",
+    distractorsKana: ["がくせい はずが ない", "がくせいだ はずが ない", "がくせいの はずが いない"],
+  },
+  {
+    id: "pt-m43-4", moduleId: "m43", type: "sentenceMcq",
+    grammarPointId: "certainty-ordering", skill: "certainty ladder — はず outranks かもしれない",
+    prompt: "'She must be home — her light's on and I know her schedule.' (Real evidence, not just a guess) —",
+    correctKana: "いえに いるはずだ",
+    distractorsKana: ["いえに いるかもしれない", "いえに いるでしょう", "いえに いるに ちがいない"],
+  },
+
+  // ── M44: Evidential-family reassembly: ようだ / みたい / のように / のような ────────────────────────────
+  {
+    id: "pt-m44-1", moduleId: "m44", type: "sentenceMcq",
+    grammarPointId: "you-da", skill: "〜ようだ — direct-evidence guess, noun host takes の",
+    prompt: "You look at someone across the room. 'This person seems like a teacher.' (Going on what you're seeing) —",
+    correctKana: "この ひとは せんせいの ようだ",
+    distractorsKana: ["この ひとは せんせい ようだ", "この ひとは せんせいだ ようだ", "この ひとは せんせいの みたい"],
+  },
+  {
+    id: "pt-m44-2", moduleId: "m44", type: "sentenceMcq",
+    grammarPointId: "mitai", skill: "〜みたい — casual twin of ようだ, noun host attaches WITHOUT の",
+    prompt: "Same idea, but chatting casually with a friend: 'This person seems like a teacher.' —",
+    correctKana: "この ひとは せんせいみたいだ",
+    distractorsKana: ["この ひとは せんせいの みたいだ", "この ひとは せんせいだ みたいだ", "この ひとは せんせいみたいな"],
+  },
+  {
+    id: "pt-m44-3", moduleId: "m44", type: "sentenceMcq",
+    grammarPointId: "no-youni", skill: "〜のように — simile describing HOW something is done",
+    prompt: "'She sings like a professional.' (Describing how she sings) —",
+    correctKana: "かのじょは プロの ように うたう",
+    distractorsKana: ["かのじょは プロの ような うたう", "かのじょは プロように うたう", "かのじょは プロの ようで うたう"],
+  },
+  {
+    id: "pt-m44-4", moduleId: "m44", type: "sentenceMcq",
+    grammarPointId: "no-youna", skill: "〜のような — simile describing WHAT something is like, before a noun",
+    prompt: "'A voice like an angel's.' (Describing what kind of voice) —",
+    correctKana: "てんしの ような こえ",
+    distractorsKana: ["てんしの ように こえ", "てんし ような こえ", "てんしの ような こえだ"],
+  },
+
+  // ── M45: Causative させる: make/let someone do ────────────────────────────
+  {
+    id: "pt-m45-1", moduleId: "m45", type: "sentenceMcq",
+    grammarPointId: "causative-formation", skill: "causative formation — ichidan drop る + させる, transitive causee = に",
+    prompt: "'The mother made the child eat vegetables.' —",
+    correctKana: "ははは こどもに やさいを たべさせた",
+    distractorsKana: ["ははは こどもに やさいを たべせた", "ははは こどもに やさいを たべらせた", "ははは こどもを やさいを たべさせた"],
+  },
+  {
+    id: "pt-m45-2", moduleId: "m45", type: "sentenceMcq",
+    grammarPointId: "causative-wo-intransitive", skill: "intransitive causee marked を — \"made\" do it",
+    prompt: "'The teacher made the child walk.' (Against the child's will) —",
+    correctKana: "せんせいは こどもを あるかせた",
+    distractorsKana: ["せんせいは こどもに あるかせた", "せんせいは こどもを あるかさせた", "せんせいは こどもを あるかせられた"],
+  },
+  {
+    id: "pt-m45-3", moduleId: "m45", type: "sentenceMcq",
+    grammarPointId: "causative-ni-intransitive", skill: "intransitive causee marked に — \"let\" them do it",
+    prompt: "'The mother let the child play outside.' (Giving permission) —",
+    correctKana: "ははは こどもに そとで あそばせた",
+    distractorsKana: ["ははは こどもを そとで あそばせた", "ははは こどもに そとで あそばした", "ははは こどもに そとで あそぼさせた"],
+  },
+  {
+    id: "pt-m45-4", moduleId: "m45", type: "sentenceMcq",
+    grammarPointId: "sasete-kudasai", skill: "〜させて ください — asking permission to do something yourself",
+    prompt: "Asking your boss: 'Please let me go home early today.' —",
+    correctKana: "きょう はやく かえらせて ください",
+    distractorsKana: ["きょう はやく かえって ください", "きょう はやく かえらせられて ください", "きょう はやく かえらせて あげます"],
+  },
+
+  // ── M46: Timing & aspect: 間に / うちに / ところだ / たばかり ────────────────────────────
+  {
+    id: "pt-m46-1", moduleId: "m46", type: "sentenceMcq",
+    grammarPointId: "aida-ni", skill: "〜あいだに — one point in time within a span, the に is essential",
+    prompt: "'I read a book while my sister was sleeping.' (One point within that span) —",
+    correctKana: "いもうとが ねている あいだに ほんを よんだ",
+    distractorsKana: ["いもうとが ねている あいだ ほんを よんだ", "いもうとが ねる あいだに ほんを よんだ", "いもうとが ねて あいだに ほんを よんだ"],
+  },
+  {
+    id: "pt-m46-2", moduleId: "m46", type: "sentenceMcq",
+    grammarPointId: "uchi-ni", skill: "〜うちに — act before a window/state closes",
+    prompt: "'Let's go out while it's still light out.' (Before it gets dark) —",
+    correctKana: "あかるい うちに でかけよう",
+    distractorsKana: ["あかるい あいだに でかけよう", "あかるいの うちに でかけよう", "あかるく うちに でかけよう"],
+  },
+  {
+    id: "pt-m46-3", moduleId: "m46", type: "sentenceMcq",
+    grammarPointId: "tokoro-da-about-to", skill: "辞書形＋ところだ — about to start an action",
+    prompt: "'I'm just about to eat.' (Haven't started yet) —",
+    correctKana: "いま たべる ところだ",
+    distractorsKana: ["いま たべている ところだ", "いま たべた ところだ", "いま たべる ところ だった"],
+  },
+  {
+    id: "pt-m46-4", moduleId: "m46", type: "sentenceMcq",
+    grammarPointId: "tokoro-da-just-finished", skill: "た形＋ところだ — just finished, sequence-position (vs たばかり's recency)",
+    prompt: "'I just finished eating — I'm about to go do the dishes next.' (Emphasis on what comes right after) —",
+    correctKana: "いま たべた ところだ",
+    distractorsKana: ["いま たべる ところだ", "いま たべている ところだ", "いま たべたばかりだ"],
+  },
+  {
+    id: "pt-m46-5", moduleId: "m46", type: "sentenceMcq",
+    grammarPointId: "ta-bakari", skill: "た形＋ばかり — something happened recently, \"just did X\"",
+    prompt: "'I just moved here, so I don't know the area well yet.' (Emphasis on recency) —",
+    correctKana: "ひっこしたばかりだ",
+    distractorsKana: ["ひっこすばかりだ", "ひっこした ところだ", "ひっこしていたばかりだ"],
+  },
+
+  // ═════════════════════════════════════════════════════════════════════
   // KOREAN — KO M1–M27 placement bank (3 items per module).
   //
   // Derived from the authored KO curriculum (features/languages/ko/

@@ -232,6 +232,46 @@ export function seedTestOutAtom(atomId: string, intervalDays: number): boolean {
   return true;
 }
 
+/**
+ * Batched test-out/placement seed (perf fix, TestFlight #80 QA,
+ * 2026-09-14). `seedTestOutAtom` above reads the store, stringifies the
+ * WHOLE store, and writes it back — per atom, deliberately (see the H8
+ * comment on `setCardState`, which this reuses). A banded placement pass
+ * seeds hundreds of atoms (m30 credits 563), so calling the single-atom
+ * writer in a loop is O(n²) against localStorage: measured 0.7-1.4s on
+ * desktop Chromium for 563 atoms, and iOS WebKit's ~30x slower
+ * localStorage (see the read-guard comment above, ~106-121) turns that
+ * into a multi-second freeze on a phone.
+ *
+ * This reads the store ONCE, applies the identical `shouldSeedTestOut`
+ * never-shorten rule and `createTestOutSeedState` shape per entry against
+ * that single in-memory copy, and writes ONCE at the end (skipped
+ * entirely if nothing needed seeding). Semantics are byte-identical to
+ * calling `seedTestOutAtom` sequentially for the same entries in the same
+ * order — the only difference is read/write count.
+ *
+ * Returns the atom ids (in the caller's original id shape, not
+ * canonicalized) that were actually seeded, same contract as the
+ * single-atom function's boolean return, batched.
+ */
+export function seedTestOutAtoms(
+  entries: ReadonlyArray<{ atomId: string; intervalDays: number }>,
+): string[] {
+  if (entries.length === 0) return [];
+  const store = getSRSStore();
+  const today = getToday();
+  const seededIds: string[] = [];
+  for (const { atomId, intervalDays } of entries) {
+    const canonical = canonicalize(atomId);
+    const existing = store[canonical];
+    if (!shouldSeedTestOut(existing, intervalDays)) continue;
+    store[canonical] = createTestOutSeedState(intervalDays, today);
+    seededIds.push(atomId);
+  }
+  if (seededIds.length > 0) setSRSStore(store);
+  return seededIds;
+}
+
 export function clearSRSStore(): void {
   if (typeof window === "undefined") return;
   localStorage.removeItem(STORAGE_KEY);

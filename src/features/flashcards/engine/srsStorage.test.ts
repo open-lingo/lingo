@@ -5,6 +5,8 @@ import {
   setSRSStore,
   getCardState,
   clearSRSStore,
+  seedTestOutAtom,
+  seedTestOutAtoms,
 } from "./srsStorage";
 import { createInitialState } from "./srs";
 import {
@@ -135,5 +137,92 @@ describe("srsStorage", () => {
       expect(events).toHaveLength(1);
       expect(events[0].reason).toBe("exceeded");
     });
+  });
+});
+
+describe("seedTestOutAtoms — batched test-out/placement seed", () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  // 3-module fixture: m1 atoms (further back, longer seed), m2 atoms (mid),
+  // m3 atoms (the just-tested module, shortest seed) — mirrors a small
+  // banded placement/test-out pass.
+  const fixtureEntries = [
+    { atomId: "ja:m1-a", intervalDays: 15 },
+    { atomId: "ja:m1-b", intervalDays: 15 },
+    { atomId: "ja:m2-a", intervalDays: 10 },
+    { atomId: "ja:m2-b", intervalDays: 10 },
+    { atomId: "ja:m3-a", intervalDays: 5 },
+    { atomId: "ja:m3-b", intervalDays: 5 },
+  ];
+
+  it("(a) batched result equals sequential single-atom seeding for a 3-module fixture", () => {
+    // Sequential (existing single-atom writer) into one store.
+    for (const { atomId, intervalDays } of fixtureEntries) {
+      seedTestOutAtom(atomId, intervalDays);
+    }
+    const sequentialStore = getSRSStore();
+    clearSRSStore();
+
+    // Batched (new writer) into a fresh store.
+    seedTestOutAtoms(fixtureEntries);
+    const batchedStore = getSRSStore();
+
+    expect(batchedStore).toEqual(sequentialStore);
+  });
+
+  it("(a) batched return value matches which atoms a sequential pass would report seeded", () => {
+    // Pre-seed one atom past what the batch would seed it to — sequential
+    // seedTestOutAtom would skip it (never-shorten); the batch must too.
+    seedTestOutAtom("ja:m1-a", 300);
+
+    const seeded = seedTestOutAtoms(fixtureEntries);
+
+    expect(seeded).not.toContain("ja:m1-a");
+    expect(seeded).toEqual(
+      expect.arrayContaining(["ja:m1-b", "ja:m2-a", "ja:m2-b", "ja:m3-a", "ja:m3-b"]),
+    );
+    expect(seeded).toHaveLength(5);
+  });
+
+  it("(b) never-shorten still holds when a lower module is seeded after a higher one", () => {
+    // Seed as though the learner tested out of m3 first (short interval)...
+    seedTestOutAtoms([{ atomId: "ja:atom-x", intervalDays: 5 }]);
+    // ...then a later, more advanced placement pass (m30) computes a much
+    // longer interval for the SAME atom's earlier attribution — this must win.
+    seedTestOutAtoms([{ atomId: "ja:atom-x", intervalDays: 150 }]);
+    expect(getCardState("ja:atom-x")?.recognition.interval).toBe(150);
+
+    // And the reverse order — a longer interval already on record must NOT
+    // be shortened by a later, smaller-distance batch.
+    seedTestOutAtoms([{ atomId: "ja:atom-y", intervalDays: 150 }]);
+    seedTestOutAtoms([{ atomId: "ja:atom-y", intervalDays: 5 }]);
+    expect(getCardState("ja:atom-y")?.recognition.interval).toBe(150);
+  });
+
+  it("(c) localStorage.setItem is called once per batch", () => {
+    const spy = vi.spyOn(localStorage, "setItem");
+    seedTestOutAtoms(fixtureEntries);
+    // seedTestOutAtoms itself performs exactly one write; the environment's
+    // getItem-based cache invalidation touches storage reads, not writes.
+    const srsWrites = spy.mock.calls.filter(([key]) => key === "open-lingo-srs:v2");
+    expect(srsWrites).toHaveLength(1);
+  });
+
+  it("(c) an all-skipped batch (never-shorten) performs zero writes", () => {
+    seedTestOutAtoms([{ atomId: "ja:atom-z", intervalDays: 300 }]);
+    const spy = vi.spyOn(localStorage, "setItem");
+    const seeded = seedTestOutAtoms([{ atomId: "ja:atom-z", intervalDays: 5 }]);
+    expect(seeded).toHaveLength(0);
+    const srsWrites = spy.mock.calls.filter(([key]) => key === "open-lingo-srs:v2");
+    expect(srsWrites).toHaveLength(0);
+  });
+
+  it("an empty batch is a no-op", () => {
+    expect(seedTestOutAtoms([])).toEqual([]);
   });
 });

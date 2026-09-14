@@ -18,9 +18,12 @@ describe("questionBank", () => {
     );
     // 93 → 99: tier 8 opened m28/m29 to placement, which needed 3 items each,
     // and m27 lost none (two of its items moved to m28, two were authored to
-    // replace them). Raise this deliberately; a silent drift means items were
-    // duplicated or a module lost coverage.
-    expect(jaItems.length).toBe(99);
+    // replace them).
+    // 99 → 170: tiers 9-16 (TestFlight #80 QA, 2026-09-14) opened m30-m46 to
+    // placement — 71 new items across 17 modules (see the N4 bank header
+    // comment above). Raise this deliberately; a silent drift means items
+    // were duplicated or a module lost coverage.
+    expect(jaItems.length).toBe(170);
     const shipped = jaItems.filter((i) => {
       const n = Number(i.moduleId.replace("m", ""));
       return n >= 3 && n <= 17;
@@ -28,6 +31,31 @@ describe("questionBank", () => {
     for (const i of shipped) {
       expect(i.grammarPointId, `${i.id} needs a grammarPointId`).toBeTruthy();
       expect(i.skill, `${i.id} needs a skill label`).toBeTruthy();
+    }
+  });
+
+  it("JA N4 bank (m30-m46) carries grammarPointId + skill, and is kana-only", () => {
+    // TestFlight #80 QA, 2026-09-14 — same coverage bar as m27-m29
+    // (grammarPointId + skill), plus this bank's own hard rule: no kanji
+    // anywhere in correctKana/distractorsKana (every existing JA item
+    // follows this; a stray kanji would silently break the kana-only
+    // reading convention the placement UI renders).
+    const n4Items = PLACEMENT_QUESTION_BANK.filter((i) => {
+      if ((i.languageId ?? "ja") !== "ja") return false;
+      const n = Number(i.moduleId.replace("m", ""));
+      return n >= 30 && n <= 46;
+    });
+    expect(n4Items.length).toBeGreaterThanOrEqual(51); // >= 3 per module x 17
+    const kanjiRe = /[一-鿿]/;
+    for (const i of n4Items) {
+      expect(i.grammarPointId, `${i.id} needs a grammarPointId`).toBeTruthy();
+      expect(i.skill, `${i.id} needs a skill label`).toBeTruthy();
+      if (i.type === "sentenceMcq") {
+        expect(i.correctKana, `${i.id} correctKana must be kana-only`).not.toMatch(kanjiRe);
+        for (const d of i.distractorsKana) {
+          expect(d, `${i.id} distractor must be kana-only`).not.toMatch(kanjiRe);
+        }
+      }
     }
   });
 

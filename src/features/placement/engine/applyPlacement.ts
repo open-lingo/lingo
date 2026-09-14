@@ -4,7 +4,7 @@ import {
   unlockLessonAtoms,
   unlockAtomIds,
 } from "@/features/lesson/data/unlockLessonAtoms";
-import { seedTestOutAtom } from "@/features/flashcards/engine/srsStorage";
+import { seedTestOutAtoms } from "@/features/flashcards/engine/srsStorage";
 import {
   moduleDistance,
   seedIntervalDays,
@@ -127,22 +127,24 @@ export function applyPlacementResult(
     0,
     ...[...seedModuleSet].map((m) => parseModuleIndex(m)),
   );
-  const seededIds: string[] = [];
+  // Batched (TestFlight #80 QA, 2026-09-14): the old per-atom loop called
+  // `seedTestOutAtom` once per atom, which reads, stringifies, and writes
+  // the ENTIRE SRS store every time — O(n²) against localStorage for a
+  // banded placement pass (m30 credits 563 atoms). `seedTestOutAtoms`
+  // reads/writes the store ONCE for the whole batch; the never-shorten
+  // rule (Bug 2 regression guard, generalized) still applies per atom.
+  const seedEntries: Array<{ atomId: string; intervalDays: number }> = [];
   for (const atom of getCourseAtoms(languageId)) {
     if (!atom.srsEligible) continue;
     if (atom.fromModule === undefined) continue;
     if (!seedModuleSet.has(atom.fromModule)) continue;
-    // Never clobber a real (more advanced) schedule — `seedTestOutAtom`
-    // only writes when the atom has no state, or a state less advanced
-    // than the computed seed (Bug 2 regression guard, generalized).
     const distance = moduleDistance(
       highestModuleIndex,
       parseModuleIndex(atom.fromModule),
     );
-    if (seedTestOutAtom(atom.id, seedIntervalDays(distance))) {
-      seededIds.push(atom.id);
-    }
+    seedEntries.push({ atomId: atom.id, intervalDays: seedIntervalDays(distance) });
   }
+  const seededIds = seedTestOutAtoms(seedEntries);
   // M8+ atoms carry module-level attribution only (no introducedByLessonId),
   // so the per-lesson unlock above can't reach them — unlock the seeded
   // atoms directly or SRS review lessons will skip them.

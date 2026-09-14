@@ -34,6 +34,7 @@ export {
   setNextSrsSyncAt,
   canonicalize,
   seedTestOutAtom,
+  seedTestOutAtoms,
 } from "./srsStorage";
 export {
   DAYS_PER_MODULE,

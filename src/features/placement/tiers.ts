@@ -40,6 +40,23 @@ const JA_SKILL_TIERS: readonly SkillTier[] = [
   // modules short of where they actually were. Per-module test-out was never
   // affected; it derives its items from the module's own lessons.
   { tier: 8, modules: ["m28", "m29"],                        screeningModuleId: "m28", label: "なきゃ/なければならない, ほうがいい, よ・ね" },
+  // Tiers 9-16 added 2026-09-14 (TestFlight #80 QA, defect 2): the tier list
+  // topped out at m29, so banded placement (getAllTestableModules /
+  // getLevelBands) could never credit m30-m46 even though the N4 line is
+  // fully authored and per-module test-out already reaches it. Grouping
+  // follows mockCourse.ts's own eyebrows: m30-m46 are ALL "JLPT N4" (one
+  // eyebrow zone, unlike the finer-grained N5 eyebrows tiers 0-8 track), so
+  // sub-groups here are by grammatical theme/pairing off the module titles
+  // (mockCourse.ts), matching the ~2-4-module granularity of tiers 0-8 —
+  // not invented labels.
+  { tier: 9,  modules: ["m30", "m31"],               screeningModuleId: "m30", label: "てみる・ておく, あげる・くれる・もらう" },
+  { tier: 10, modules: ["m32", "m33"],               screeningModuleId: "m32", label: "たら/と conditionals, 自動詞・他動詞" },
+  { tier: 11, modules: ["m34", "m35"],               screeningModuleId: "m34", label: "Volitional よう/おう・とおもう, てあげる/てくれる/てもらう" },
+  { tier: 12, modules: ["m36", "m37"],               screeningModuleId: "m36", label: "そう/がる/やすい・にくい, ば/なら conditionals" },
+  { tier: 13, modules: ["m38", "m39"],               screeningModuleId: "m38", label: "てしまう・ていく/てくる, のに/ので・ても/でも" },
+  { tier: 14, modules: ["m40", "m41"],               screeningModuleId: "m40", label: "Passive られる, てある + pair verbs" },
+  { tier: 15, modules: ["m42", "m43"],               screeningModuleId: "m42", label: "そうだ・って・らしい hearsay, かもしれない/はず/でしょう" },
+  { tier: 16, modules: ["m44", "m45", "m46"],        screeningModuleId: "m44", label: "ようだ/みたい, させる causative, 間に/うちに/ところだ" },
 ];
 
 const KO_SKILL_TIERS: readonly SkillTier[] = [
