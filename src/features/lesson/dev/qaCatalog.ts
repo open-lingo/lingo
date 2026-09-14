@@ -183,7 +183,12 @@ export function buildStepTypeCoverage(languageId: string): StepTypeCoverage[] {
   for (const type of ALL_STEP_TYPES) byType.set(type, []);
 
   for (const lessonId of getAvailableMockLessonIds()) {
-    const content = getMockLessonContent(lessonId);
+    // Only `step.type` is read below — skip the match-pairs/build-tile floor
+    // passes (default on) so this whole-course walk doesn't pay to build the
+    // match-pairs frequency index over every lesson on first use (the
+    // multi-minute /:lang/qa hang, see GetLessonContentOptions in
+    // mockLessons.ts).
+    const content = getMockLessonContent(lessonId, { floors: false });
     if (!content || content.languageId !== languageId) continue;
     const counts = new Map<StepType, number>();
     for (const step of content.steps) {

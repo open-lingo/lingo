@@ -101,7 +101,36 @@ function tone(ac: AudioContext, master: number, o: ToneOpts): void {
   osc.stop(t0 + o.dur + 0.02);
 }
 
+// `navigator.vibrate` is only silently ignored when it *throws*. Chrome
+// instead logs a console-level intervention ("Blocked call to
+// navigator.vibrate because user hasn't tapped on the frame") when it's
+// called before any user gesture on the page — try/catch never sees that,
+// so it still spams the console on every lesson mount (LessonIntro's
+// "lesson-start" sfx fires haptic() from a useEffect, before any tap).
+// Gate on a real gesture instead of guessing timing.
+let hasUserGesture = false;
+let gestureListenerInstalled = false;
+
+function markUserGesture(): void {
+  hasUserGesture = true;
+}
+
+function ensureGestureListener(): void {
+  if (gestureListenerInstalled || typeof window === "undefined") return;
+  gestureListenerInstalled = true;
+  const opts = { passive: true, once: true } as const;
+  window.addEventListener("pointerdown", markUserGesture, opts);
+  window.addEventListener("keydown", markUserGesture, opts);
+  window.addEventListener("touchstart", markUserGesture, opts);
+}
+
+if (typeof window !== "undefined") {
+  ensureGestureListener();
+}
+
 function haptic(ms: number): void {
+  ensureGestureListener();
+  if (!hasUserGesture) return;
   if (typeof navigator !== "undefined" && "vibrate" in navigator) {
     try {
       navigator.vibrate(ms);
