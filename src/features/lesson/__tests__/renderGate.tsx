@@ -105,6 +105,10 @@ import {
   type StepContract,
 } from "@/features/lesson/dev/visualQaContracts";
 import { annotateJapaneseText } from "@/features/languages/ja/romajiLexicon";
+import {
+  MAX_LISTENING_MCQ_OPTIONS,
+  selectDisplayedOptions,
+} from "@/features/lesson/components/steps/ListeningComprehensionStepView";
 
 // ── DOM helpers ─────────────────────────────────────────────────────────
 
@@ -250,6 +254,40 @@ export function registerRenderGate(opts: {
                 rtText === base,
                 `${id}/${step.id} (${step.type}): <rt> "${rtText}" floats above identical base "${base}"`,
               ).toBe(false);
+            }
+
+            // e. listening_comprehension option-cap sanity (TestFlight #63,
+            // b12 2026-09-14): ListeningComprehensionStepView renders at
+            // most MAX_LISTENING_MCQ_OPTIONS of the authored options, so a
+            // plain "every authored option is on screen" mustShow no longer
+            // holds. Follow the view's own selection (imported, not
+            // re-derived) rather than duplicating the cap/seed rule here:
+            // the correct option's text is still asserted above via the
+            // contract's mustShow; this adds the two checks a flat string
+            // list can't express — exact rendered count, and that nothing
+            // un-authored slipped onto the card.
+            if (step.type === "listening_comprehension") {
+              const expectedOptions = selectDisplayedOptions(
+                step.options,
+                step.correctOptionId,
+                step.id,
+              );
+              const buttons = Array.from(
+                container!.querySelectorAll<HTMLButtonElement>("button[aria-pressed]"),
+              );
+              expect(
+                buttons.length,
+                `${id}/${step.id}: expected ${expectedOptions.length} rendered options ` +
+                  `(min(${MAX_LISTENING_MCQ_OPTIONS}, ${step.options.length} authored)), found ${buttons.length}`,
+              ).toBe(expectedOptions.length);
+              const authoredTexts = new Set(step.options.map((o) => o.text));
+              for (const btn of buttons) {
+                const text = btn.textContent ?? "";
+                expect(
+                  authoredTexts.has(text),
+                  `${id}/${step.id}: rendered listening_comprehension option "${text}" is not one of the authored options`,
+                ).toBe(true);
+              }
             }
           });
 

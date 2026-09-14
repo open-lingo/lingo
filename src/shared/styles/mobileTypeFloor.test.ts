@@ -103,13 +103,15 @@ describe("mobile type floor", () => {
   });
 
   it("keeps the em-sized reading aid above the floor too", () => {
-    // `.kana-helper` is `0.65em`, so its computed size follows whatever tile it
-    // rides — 15.6px on an MCQ card, 10.4px on a word-build tile. It is the one
-    // case the class-name list above cannot catch.
+    // `.kana-helper` is `0.55em` (TestFlight #70a/#73 2026-09-14 shrink, was
+    // 0.65em), so its computed size follows whatever tile it rides. It is the
+    // one case the class-name list above cannot catch. The `max(…, 0.75rem)`
+    // floor is Spencer's 2026-09-09 "keep 12px" call and must stay present
+    // regardless of the em ratio.
     const css = readFileSync(CSS, "utf8");
     const start = css.indexOf(FLOOR_QUERY);
     expect(css.slice(start)).toMatch(
-      /\.kana-helper\s*\{\s*font-size:\s*max\(0\.65em,\s*0\.75rem\)/,
+      /\.kana-helper\s*\{\s*font-size:\s*max\(0\.55em,\s*0\.75rem\)/,
     );
   });
 

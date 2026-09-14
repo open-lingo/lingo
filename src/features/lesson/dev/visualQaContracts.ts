@@ -26,6 +26,10 @@ import {
   KATAKANA_ROMAJI_OFF_MODULE,
 } from "@/shared/settings/romanizationAutoFlip";
 import { KANJI_RECOGNITION_MODULE } from "@/features/languages/ja/secondScript/kanjiRollout";
+import {
+  MAX_LISTENING_MCQ_OPTIONS,
+  selectDisplayedOptions,
+} from "../components/steps/ListeningComprehensionStepView";
 
 /**
  * ORACLE INDEPENDENCE (validation finding, 2026-07-17): do NOT reuse the
@@ -177,10 +181,19 @@ function contractForStep(
       break;
     }
     case "listening_comprehension": {
-      step.options.forEach((o) => mustShow.push(o.text));
+      // TestFlight #63 (Spencer, b12 2026-09-14): the view renders at most
+      // MAX_LISTENING_MCQ_OPTIONS of the authored options (seeded pick via
+      // selectDisplayedOptions — the correct option always survives).
+      // mustShow follows that same selection rather than the full authored
+      // bank, so this contract (and the screenshot judge that consumes it)
+      // only ever expects text that is actually on screen.
+      selectDisplayedOptions(step.options, step.correctOptionId, step.id).forEach(
+        (o) => mustShow.push(o.text),
+      );
       mustShow.push(step.question);
       expectations.push(
-        "Play control for the audio; transcript may be hidden pre-answer.",
+        `Play control for the audio; transcript may be hidden pre-answer. At most ` +
+          `${MAX_LISTENING_MCQ_OPTIONS} of ${step.options.length} authored options render.`,
       );
       break;
     }
