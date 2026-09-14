@@ -722,7 +722,7 @@ function SkylineArt({
     <>
       {/* FAR (slowest): celestial painted FIRST so every landform occludes
           it — a star can never sit in front of a hill */}
-      <g ref={hillsRef} pointerEvents="none" aria-hidden>
+      <g ref={hillsRef} className="tmc-skyline-layer" pointerEvents="none" aria-hidden>
         <g className="tmc-night">
           {sky.stars.map((st, i) => (
             <circle key={i} className="tmc-star" cx={st.x} cy={st.y} r={st.r} opacity={st.bright ? 0.95 : 0.5} style={{ fill: "var(--tmc-star)", animationDelay: `${st.delay}s` }} />
@@ -754,7 +754,7 @@ function SkylineArt({
         <path d={sky.farHills2D} style={{ fill: "var(--tmc-scene-hill)" }} />
       </g>
       {/* MID: city rising from the bottom, behind the rails */}
-      <g ref={bldgRef} pointerEvents="none" aria-hidden>
+      <g ref={bldgRef} className="tmc-skyline-layer" pointerEvents="none" aria-hidden>
         {sky.mid.map((b, i) => (
           <g key={i}>
             <rect x={b.x} y={bottomY - b.h} width={b.w} height={b.h} rx={2} style={{ fill: "var(--tmc-scene-mid)" }} />
@@ -767,7 +767,7 @@ function SkylineArt({
         ))}
       </g>
       {/* NEAR (fastest): tallest towers + big landmarks */}
-      <g ref={cityRef} pointerEvents="none" aria-hidden>
+      <g ref={cityRef} className="tmc-skyline-layer" pointerEvents="none" aria-hidden>
         {sky.near.map((b, i) => (
           <g key={i}>
             <rect x={b.x} y={bottomY - b.h} width={b.w} height={b.h} rx={2.5} style={{ fill: "var(--tmc-scene-near)" }} />
@@ -1260,18 +1260,26 @@ function NetworkMap({
   return (
     <div
       className="tmc-map-panel relative rounded-md border-2 border-text-primary bg-surface shadow-card overflow-hidden"
+      data-has-photo={bgImage ? "true" : undefined}
       style={bgImage ? { ["--tmc-bg-image" as string]: `url(${bgImage})` } : undefined}
     >
-      {/* photo backdrop (TestFlight #77) — sits BEHIND FixedSky's sky
-          gradient/moon and the opaque SVG scenery, so it reads through the
-          sky band and any gaps exactly like the ambient sky layer already
-          does. `position: absolute` (not `fixed`) because this panel scrolls
-          its OWN content horizontally — it doesn't fill the viewport the way
-          the mobile page does, so pinning to the panel (not the viewport) is
-          the correct equivalent of `.vnm-bg-photo`. Needs `.tmc-map-panel`'s
-          own z-index (below) to form a stacking context, or this
-          negative-z-index layer escapes the panel's own paint order — same
-          landmine documented on `.vnm-root` in transitLearnPage.css. */}
+      {/* photo backdrop (TestFlight #77 follow-up, Spencer 2026-09-14: "old
+          one still there" — the opaque SkylineArt scenery + FixedSky's sky
+          gradient/moon painted OVER the photo, so it barely read). The photo
+          is now THE backdrop when `bgImage` is set: `data-has-photo="true"`
+          above drives a CSS rule (transitLearnPage.css, near `.tmc-bg-photo`)
+          that hides `.tmc-sky-layer` and `.tmc-skyline-layer` — matching
+          mobile's `.vnm-root`, which never draws scenery over `.vnm-bg-photo`
+          at all. The art/code stays mounted (refs below still no-op safely
+          when hidden); only paint is suppressed, and only for languages that
+          have a photo — es/ko/fr keep the procedural scenery unchanged.
+          `position: absolute` (not `fixed`) because this panel scrolls its
+          OWN content horizontally — it doesn't fill the viewport the way the
+          mobile page does, so pinning to the panel (not the viewport) is the
+          correct equivalent of `.vnm-bg-photo`. Needs `.tmc-map-panel`'s own
+          z-index (below) to form a stacking context, or this negative-z-index
+          layer escapes the panel's own paint order — same landmine
+          documented on `.vnm-root` in transitLearnPage.css. */}
       {bgImage && <div ref={bgPhotoRef} className="tmc-bg-photo" aria-hidden />}
       <FixedSky skyRef={skyRef} />
 

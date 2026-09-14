@@ -171,8 +171,22 @@
   background-image: var(--tmc-bg-image);
   background-size: cover;
   background-position: center;
-  opacity: 0.44;
+  opacity: 0.6;
   pointer-events: none;
+}
+/* TestFlight #77 follow-up (Spencer 2026-09-14: "old one still there") — once
+   a photo backdrop is active, the panel drops the procedural sky gradient
+   (`.tmc-sky-layer`, FixedSky) and the opaque scenery groups inside the map
+   SVG (`.tmc-skyline-layer`, SkylineArt's hills/mid/near groups) so the photo
+   reads as the actual backdrop, exactly like mobile's `.vnm-root` (which
+   never draws scenery over `.vnm-bg-photo` at all). Gated on
+   `[data-has-photo="true"]`, set inline on `.tmc-map-panel` alongside
+   `--tmc-bg-image` (TransitLearnPage.tsx) — languages with no art (es/ko/fr
+   today) never get this attribute and keep the scenery unchanged. Hide, not
+   remove: the art + its parallax refs stay mounted and harmless. */
+.tmc-map-panel[data-has-photo="true"] .tmc-sky-layer,
+.tmc-map-panel[data-has-photo="true"] .tmc-skyline-layer {
+  display: none;
 }
 /* fixed ambient layer — pinned to the panel, NOT the scrolling map;
    slow parallax translate is applied inline from the scroll handler */
