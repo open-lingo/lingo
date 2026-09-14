@@ -383,11 +383,11 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     verbatim:
       'I tried to test out and it seems like it didn\'t wait for the fetch the first time and instantly errored saying "no test out questions found" maybe this one needs a better wait',
     cls: "nav-behavior",
-    decision: "NOT CHANGED: the cold-load wait fix (3e444529, 2026-09-13) shipped after build 12 was cut, so b12 still has the race. Retest on build 13; if it still reproduces we add a loading state on that path.",
+    decision: "Fixed by 3e444529 (test-out waits for courseReady before deriving the bank) — shipped after build 12 was cut. Retested cold on the build-13 code: 8/8 headless cold-opens of /ja/learn/test-out/m14 and /m30 loaded a real step, never 'no test-out questions'. testOutColdLoad.test.tsx 2/2.",
     needsSpencer: false,
-    status: "open",
+    status: "built",
     link: "/ja/learn/test-out/m14",
-    eyeball: "Cold-open this URL directly: should show a loading state, then a real 0/12 step, never 'no test-out questions'.",
+    eyeball: "Spencer: ship. Verify on build 13 by cold-opening this URL: loading state, then a real 0/12 step.",
     lane: "F",
   },
   {
