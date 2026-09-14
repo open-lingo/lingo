@@ -205,10 +205,10 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     verbatim:
       "Also note same translation issues I had earlier, gengo is used for language no? Isn't kotoba a bad usage here? Is this just a limit due to their vocab? Do we maybe want to scope in teaching the words that makes these sentences more realistic and stop teaching these less common usages as the MAIN meaning?",
     cls: "content-gloss",
-    decision: "DECIDED + BUILT: kept ことば (げんご is not taught by m30; adding an atom ripples the gates) and tightened every ことば+ならう gloss to 'learn the language' — the closest 1:1. m29's ことば = 'word' uses are correct and untouched. If you want げんご taught as the real 'language' word, that is a new-atom authoring task (M) — say so.",
+    decision: "Taught 言語（げんご）and 日本語（にほんご）in m30-neo-7 (the ならう lesson, beside えいご: listening step 8 + build step 9 + a recognition touch at step 18) and used げんご — not ことば — for 'the language' in the module's abroad sentences. Country names skipped: m30 avoids copula sentences, so 'Xご is a language' would be off-pattern. Bonus: registering にほんご fixed m32/m38 mis-tokenising it as にほん + ご (five). 6 clips staged. (9d3a33d7; follow-up lane reuses げんご in a later module so the exposure audit stays at 95.)",
     needsSpencer: true,
     status: "built",
-    link: "/ja/learn/lessons/ja-m30-neo-challenge?step=13",
+    link: "/ja/learn/lessons/ja-m30-neo-7?step=8",
     eyeball: "Spencer: teach 言語 and use it, plus にほんご/country names if untaught (lane M). Is 'learn the language' acceptable with ことば, or do you want げんご authored in?",
     lane: "D",
   },
@@ -238,7 +238,7 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     verbatim:
       "This is also a bad translation no? Definitely an authoring note, we need to use the CLOSEST English 1-1 word translation, I may misunderstand naratte but lesson and language feel off to me.",
     cls: "content-gloss",
-    decision: "BUILT: 'so I'll take lessons in the language in advance' → 'so I'll learn the language ahead of time' (build, cloze and listening variants; the challenge closer at step 15 reads 'try learning the language for a start').",
+    decision: "Shipped with #74: m30-neo-challenge's two がいこく sentences and their cloze now read げんご instead of ことば; EN unchanged ('learn the language'). (9d3a33d7)",
     needsSpencer: true,
     status: "built",
     link: "/ja/learn/lessons/ja-m30-neo-challenge?step=0",
