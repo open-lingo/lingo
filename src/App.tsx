@@ -137,6 +137,9 @@ const ReviewPrefixQaPage = lazyRetry(
 const QaTestDrivePage = lazyRetry(
   () => import("@/features/lesson/dev/QaTestDrivePage"),
 );
+const FeedbackB12ReviewPage = lazyRetry(
+  () => import("@/features/lesson/dev/FeedbackB12ReviewPage"),
+);
 const ReviewQueuePage = lazyRetry(
   () => import("@/features/lesson/dev/ReviewQueuePage"),
 );
@@ -584,6 +587,7 @@ const router = createBrowserRouter([
               { path: "speech-tune", element: <SpeechTunePage /> },
               { path: "lesson-preview", element: <LessonStepPreviewPage /> },
               { path: "qa", element: <QaTestDrivePage /> },
+              { path: "qa/feedback-b12", element: <FeedbackB12ReviewPage /> },
               { path: "qa/register", element: <RegisterVariantsPage /> },
               { path: "qa/tts-probe", element: <TtsProbePage /> },
               {
