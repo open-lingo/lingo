@@ -52,7 +52,7 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     needsSpencer: true,
     status: "built",
     link: "/ja/learn/lessons/ja-m30-neo-challenge?step=1",
-    eyeball: "Exactly 3 option buttons, no scroll before CONTINUE. Decide: extend the cap to dialogue questions?",
+    eyeball: "Spencer: 3 on mobile, keep 4 on web (lane J). Exactly 3 option buttons, no scroll before CONTINUE. Decide: extend the cap to dialogue questions?",
     lane: "E",
   },
   {
@@ -111,7 +111,7 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     needsSpencer: false,
     status: "built",
     link: "/home",
-    eyeball: "Tap your avatar → View profile: you should see your own profile with the Edit button. (Needs the real backend, so check on the phone build or the web app.)",
+    eyeball: "Spencer 2026-09-14: SHIP. Tap your avatar → View profile: you should see your own profile with the Edit button. (Needs the real backend, so check on the phone build or the web app.)",
     lane: "C",
   },
   {
@@ -127,7 +127,7 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     needsSpencer: true,
     status: "built",
     link: "/ja/learn/lessons/ja-m30-neo-1?step=6",
-    eyeball: "Play button vs the prompt text; tiles never wrap mid-word; does −15% feel too tight?",
+    eyeball: "Spencer 2026-09-14: SHIP. Play button vs the prompt text; tiles never wrap mid-word; does −15% feel too tight?",
     lane: "A",
   },
   {
@@ -143,7 +143,7 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     needsSpencer: true,
     status: "built",
     link: "/ja/learn/lessons/ja-m30-neo-challenge?step=7",
-    eyeball: "Ruby size over 外国, the gap before it, the ? row. Also glance at a build and a dialogue step since this is shared.",
+    eyeball: "Spencer 2026-09-14: SHIP. Ruby size over 外国, the gap before it, the ? row. Also glance at a build and a dialogue step since this is shared.",
     lane: "E",
   },
   {
@@ -159,7 +159,7 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     needsSpencer: true,
     status: "built",
     link: "/ja/learn/lessons/ja-m30-neo-1?step=12",
-    eyeball: "Box near the top, bigger typing. Still boring? Images are the next lever.",
+    eyeball: "Spencer 2026-09-14: SHIP. Box near the top, bigger typing. Still boring? Images are the next lever.",
     lane: "C",
   },
   {
@@ -176,7 +176,7 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     needsSpencer: true,
     status: "built",
     link: "/ja/learn/lessons/ja-m30-neo-challenge?step=12",
-    eyeball: "Does 'tried Xing' read natural? Spot-check ja-m30-neo-1?step=0 and ja-m30-neo-3?step=0 too.",
+    eyeball: "Spencer: likes it; sweep for the same unnaturalness class later (delayed to-do). Does 'tried Xing' read natural? Spot-check ja-m30-neo-1?step=0 and ja-m30-neo-3?step=0 too.",
     lane: "D",
   },
   {
@@ -193,7 +193,7 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     needsSpencer: true,
     status: "built",
     link: "/ja/learn/lessons/ja-m30-neo-challenge?step=1",
-    eyeball: "Transcript size and the 窓/前 furigana.",
+    eyeball: "Spencer: super close — a touch more gap between kanji and furigana (lane K). Transcript size and the 窓/前 furigana.",
     lane: "E",
   },
   {
@@ -209,7 +209,7 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     needsSpencer: true,
     status: "built",
     link: "/ja/learn/lessons/ja-m30-neo-challenge?step=13",
-    eyeball: "Is 'learn the language' acceptable with ことば, or do you want げんご authored in?",
+    eyeball: "Spencer: teach 言語 and use it, plus にほんご/country names if untaught (lane M). Is 'learn the language' acceptable with ことば, or do you want げんご authored in?",
     lane: "D",
   },
   {
@@ -225,7 +225,7 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     needsSpencer: false,
     status: "built",
     link: "/ja/learn/lessons/ja-m30-neo-1?step=15",
-    eyeball: "No forced scroll before placing a tile; CHECK doesn't overlap the last row.",
+    eyeball: "Spencer: desktop example-sentence furigana slightly bigger + same gap (lane K). No forced scroll before placing a tile; CHECK doesn't overlap the last row.",
     lane: "A",
   },
   {
@@ -242,7 +242,7 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     needsSpencer: true,
     status: "built",
     link: "/ja/learn/lessons/ja-m30-neo-challenge?step=0",
-    eyeball: "Closest-gloss reading of ならう / ことば.",
+    eyeball: "Spencer: ship with the 言語 teach-and-replace (lane M). Closest-gloss reading of ならう / ことば.",
     lane: "D",
   },
   {
@@ -259,7 +259,7 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     needsSpencer: true,
     status: "built",
     link: "/ja/learn",
-    eyeball: "Opacity, band height, pills. Say if +10% isn't enough.",
+    eyeball: "Spencer: looks ok; recreate the scrolling background on desktop with local image authoring (lane N). Opacity, band height, pills. Say if +10% isn't enough.",
     lane: "B",
   },
   {
@@ -275,7 +275,7 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     needsSpencer: true,
     status: "built",
     link: "/ja/learn?tier=n4",
-    eyeball: "Tap a station to open the sheet. Press the rows — static shots can't show the pressed state.",
+    eyeball: "Spencer: probably good. Tap a station to open the sheet. Press the rows — static shots can't show the pressed state.",
     lane: "B",
   },
   {
@@ -291,7 +291,7 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     needsSpencer: false,
     status: "built",
     link: "/ja/practice",
-    eyeball: "Scroll down in Practice, leave, come back — it opens at the top.",
+    eyeball: "Spencer 2026-09-14: SHIP. Scroll down in Practice, leave, come back — it opens at the top.",
     lane: "C",
   },
   {
@@ -307,7 +307,7 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     needsSpencer: true,
     status: "built",
     link: "/ja/learn/test-out/m30",
-    eyeball: "Pass the m30 test-out, then /ja/practice/flashcards/cards → Status: Known; /ja/practice/flashcards/review must never show them. Want the 120-day anchor or an exponential curve instead?",
+    eyeball: "Spencer: ship, but Fable QAs the seeding further (lane L). Pass the m30 test-out, then /ja/practice/flashcards/cards → Status: Known; /ja/practice/flashcards/review must never show them. Want the 120-day anchor or an exponential curve instead?",
     lane: "F",
   },
   {
@@ -323,7 +323,7 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     needsSpencer: true,
     status: "built",
     link: "/home",
-    eyeball: "Less vertical scroll; does the stat row carry enough? Want quests broken into their own page?",
+    eyeball: "Spencer 2026-09-14: SHIP. Less vertical scroll; does the stat row carry enough? Want quests broken into their own page?",
     lane: "C",
   },
   {
@@ -339,7 +339,7 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     needsSpencer: false,
     status: "built",
     link: "/ja/shop",
-    eyeball: "3-up cosmetics, 2-up usables, no clipped text.",
+    eyeball: "Spencer 2026-09-14: SHIP. 3-up cosmetics, 2-up usables, no clipped text.",
     lane: "C",
   },
   {
@@ -355,7 +355,7 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     needsSpencer: true,
     status: "built",
     link: "/settings",
-    eyeball: "Fade on the tab row; groups read as cards. Enough, or push further?",
+    eyeball: "Spencer 2026-09-14: SHIP. Fade on the tab row; groups read as cards. Enough, or push further?",
     lane: "C",
   },
   {
@@ -371,7 +371,7 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     needsSpencer: true,
     status: "built",
     link: "/ja/learn",
-    eyeball: "Map starts right under the top bar — enough breathing room? Want something useful in its place?",
+    eyeball: "Spencer 2026-09-14: SHIP. Map starts right under the top bar — enough breathing room? Want something useful in its place?",
     lane: "B",
   },
   {
