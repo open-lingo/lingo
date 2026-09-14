@@ -453,8 +453,18 @@ ruby {
      between reading and word. A negative bottom margin IS honoured, so the
      band is trimmed by 3px (measured on iOS 26 WebKit: build tile 57→54px,
      a two-line listen sentence 57→54px; the reading stays clear of the
-     word — Spencer's "subtract from the spacing, keep 12px" call, 2026-09-09). */
-  margin-bottom: -3px;
+     word — Spencer's "subtract from the spacing, keep 12px" call, 2026-09-09).
+     TestFlight #73 (Spencer, b12 2026-09-14 — "SUPER close… the furigana
+     needs a tiny bit more spacing between the kanji and itself"): the #70a
+     trim above left the reading sitting flush on the kanji. +0.1em (of the
+     helper's own, already-shrunk font-size) opens a hairline gap back up
+     without reintroducing the #47/#49/#52 dead-air band. Any positive add
+     here necessarily grows the tile a little (the box is sized from this
+     margin) — 0.1em is the low end of Spencer's "~0.1–0.15em" suggestion,
+     chosen to keep that growth negligible: measured on the 行く
+     build-sentence tile (ja-m30-neo-1 step 6, 390×844) 50.25px → 51.45px
+     (+1.2px, ~2%). Don't raise this further without re-checking that tile. */
+  margin-bottom: calc(-3px + 0.1em);
   transition: opacity 200ms ease-out;
   opacity: 1;
 }
@@ -472,6 +482,20 @@ ruby {
 }
 .dark .kana-helper {
   color: rgb(var(--color-accent-hover)); /* lifted for dark surfaces */
+}
+/* TestFlight #75 (Spencer, b12 2026-09-14 — "on example sentence, the
+   furigana can be ever so slightly bigger on desktop, almost impossible to
+   see… look at ryouri (料理)"): the grammar-rule example tile (`ExampleTile`
+   in GrammarRuleStepView) is the only JA surface styled `.font-japanese
+   .text-xl` in the app, so that compound selects it without touching any
+   other furigana host. Desktop/fine-pointer only — touch stays at the #73
+   0.55em, and the mobile 12px floor further below is untouched by this
+   rule (it never applies at `pointer: fine`). The #73 gap above (shared via
+   the base `.kana-helper` rule) already applies here too. */
+@media (min-width: 1024px) and (pointer: fine) {
+  .font-japanese.text-xl .kana-helper {
+    font-size: 0.62em;
+  }
 }
 
 /* Readable text shadow for content layered on top of profile banner art.
