@@ -48,7 +48,7 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     verbatim:
       "Scrolls here are ugly, maybe we limit these to 3 answers and then convert a few more of them into the sentence build for English… Big decision",
     cls: "feature",
-    decision: "BUILT (your 'big decision', built for review): listening-comprehension MCQs now show at most 3 options — the correct one + 2 distractors picked deterministically from the step id (MAX_LISTENING_MCQ_OPTIONS = 3). Scope: all 2,450 listening_comprehension steps are authored with 4 options, so every one is affected. NOT applied to the 590 dialogue_listen questions (different render path) — say if you want it there too. The 'convert some into English sentence-build' half is authoring and was not done.",
+    decision: "Touch/mobile listening MCQs render 3 options (correct + 2 seeded distractors); desktop/web renders all authored options. Same coarse-pointer detector as the learn map. No authoring change. (6bdd332e)",
     needsSpencer: true,
     status: "built",
     link: "/ja/learn/lessons/ja-m30-neo-challenge?step=1",
@@ -189,7 +189,7 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     verbatim:
       "Sentence takes up a bit too much space, same Furigana shrink if we can, and shrink sentence text by 20% at least,",
     cls: "layout-fit",
-    decision: "BUILT: listen-and-answer sentence 24 → 19.2 px (−20%) plus the shared furigana/word-gap tightening from #70.",
+    decision: "Furigana kept at 0.55em; hairline gap added above the kanji (margin-bottom −3px → −3px + 0.1em). Build tile grows 50.25 → 51.45 px (+1.2 px), inside the approved trim. (8316fcf6)",
     needsSpencer: true,
     status: "built",
     link: "/ja/learn/lessons/ja-m30-neo-challenge?step=1",
@@ -221,7 +221,7 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
       "JA m30-class Build step, empty target box (BuildSentenceStepView.tsx target area, ~line 602/617)",
     verbatim: "Sentence box defaults too big here, too much scroll initially forced",
     cls: "layout-fit",
-    decision: "BUILT: empty target-box floors −15% (56/72 → 48/61 px; word-build 64 → 54; listening-build 64/80 → 54/68). Worst case (10-tile answer) measured 164 → 150 px; most of the remaining height is the invisible full-answer ghost that stops the box jumping as tiles land — the tile shrink from #69 does the rest.",
+    decision: "Desktop/fine-pointer only: the grammar example-sentence furigana renders at 0.62em instead of 0.55em, with the same gap; mobile floor and every other furigana host untouched. (8316fcf6)",
     needsSpencer: false,
     status: "built",
     link: "/ja/learn/lessons/ja-m30-neo-1?step=15",
@@ -255,11 +255,11 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     verbatim:
       "Background is slightly too transparent, maybe increase opacity 10%, love the background art though find the recipe we used to make it and then do it for the other languages, also the zone markers shouldn't take up as much space as that and maybe we give like a little even slightly darker rounded background for the 13 lessons and the module names. Similar to how the side quests have.",
     cls: "visual-polish",
-    decision: "BUILT: background photo opacity 0.34 → 0.44 (+10%); zone bands ~40 → ~30 px tall; module title + 'N/13 lessons' now sit on a dark rounded pill (like the quest cards). NOT done: the art recipe — none is recorded (the torii jpg is a 2026-09-09 design prototype with no prompt log), so ES/KO/FR art is a fresh art task, not a replay.",
+    decision: "Desktop map now paints the same pinned photo layer as mobile (0.44 opacity) from an mflux/Z-Image-Turbo wide torii render (1792×1024, 269 KB), parallaxing with the horizontal pan. NEEDS YOUR EYES: the desktop panel is a light day-skyline, so the night photo reads as muddy grey behind it — options: darken the desktop panel to match the mobile night metro, drop opacity, or keep. (bbce5c3f)",
     needsSpencer: true,
     status: "built",
     link: "/ja/learn",
-    eyeball: "Spencer: looks ok; recreate the scrolling background on desktop with local image authoring (lane N). Opacity, band height, pills. Say if +10% isn't enough.",
+    eyeball: "Desktop 1440 wide: /ja/learn, dismiss the placement modal; compare the sky band with the mobile map. Say darken / lower opacity / keep.",
     lane: "B",
   },
   {
@@ -303,7 +303,7 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     verbatim:
       'Also, we want to make it so when people test out modules, their fsrs state gets coded on an exponential scale or something if we can, or maybe a linear function at 5 days per module I.e if you test out of module 30 and all below, then module one gets 120 days fsrs? And then maybe for anything over 90 days we mark the word as "known" and they don\'t see it anymore or we exponentially do this somehow so they see it almost never and anything over 60 days or something gets a little further, that make sense? I don\'t want people reviewing words they already know if they don\'t have to',
     cls: "feature",
-    decision: "BUILT (design call taken): on test-out pass — and banded placement, same code path — every credited atom is seeded with interval = 5 days × (highest credited module − introducing module + 1). ≥ 90 days ⇒ 'known': never due in the flashcard reviewer or review-lesson intake, shown in Card Manager with a Known badge. 60–89 days = ordinary long FSRS interval. Never shortens an existing longer interval. Your example (m30 → m1 = 120 days) doesn't match 5 d/module (that gives 150); the rate was implemented, not the example. Seventh SRS write surface documented in CLAUDE.md (no code gate existed).",
+    decision: "Verified end to end: m14 pass seeds 325 atoms 5…70 d; m30 pass seeds 563 atoms 5…150 d with m13 = 90 d = known (>=); never shortens; known never due (311/0); banded placement shares the same path; survives reload. Two defects found and being fixed (lane O): seeding did one full store write PER atom (563 round-trips, 0.7–1.4 s desktop, iOS slower) → batched to one write; JA skill tiers stopped at m29 so banded placement could never credit m30–m46.",
     needsSpencer: true,
     status: "built",
     link: "/ja/learn/test-out/m30",
