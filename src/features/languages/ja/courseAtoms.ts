@@ -1528,6 +1528,12 @@ const JA_COURSE_ATOMS_PART2: readonly CourseAtom[] = [
   { id: "setsumei", kana: "せつめい", romaji: "setsumei", meaningEn: "an explanation", shortGloss: "explanation", fromModule: "m30", kind: "vocab", blocked: true, pos: "noun" },
   { id: "kotae", kana: "こたえ", romaji: "kotae", meaningEn: "the answer", shortGloss: "answer", fromModule: "m30", kind: "vocab", blocked: true, note: "longest-match keeps こたえる (4) ahead of こたえ (3), so the verb still tiles whole", pos: "noun" },
   { id: "renshuu", kana: "れんしゅう", romaji: "renshuu", meaningEn: "practice", shortGloss: "practice", fromModule: "m30", kind: "vocab", blocked: true, pos: "noun" },
+  // TestFlight #74/#76 (2026-09-14): げんご/にほんご were untaught course-wide;
+  // m30's own challenge lesson had been leaning on ことば ("word", m26) to mean
+  // "the language" — a lying gloss. Same backfill discipline as the rest of
+  // this block — retokenization checked the m22/m25 way (see the wrap-up).
+  { id: "gengo", kana: "げんご", romaji: "gengo", meaningEn: "a language", shortGloss: "language", fromModule: "m30", kind: "vocab", blocked: true, note: "abstract noun — no honest emoji distinct from にほん/アメリカ's flags (the えいご class)", pos: "noun" },
+  { id: "nihongo", kana: "にほんご", romaji: "nihongo", meaningEn: "the Japanese language", shortGloss: "Japanese", fromModule: "m30", kind: "vocab", blocked: true, note: "same flag-collision reasoning as げんご; distinct atom from にほん (Japan, m4) and にほんじん (Japanese person, m3) — registered WHOLE so longest-match keeps it ahead of にほん", pos: "noun" },
 
   // m31 (n4-02) — give & receive I
   { id: "kureru", kana: "くれる", romaji: "kureru", meaningEn: "to give (to me, or to my side)", shortGloss: "give me", fromModule: "m31", kind: "vocab", blocked: true, note: "direction is the meaning and a picture cannot carry it — the transfer scene does; blocked so the rule card cannot steal an image debut", pos: "verb", conjugation: { class: "ichidan" } },

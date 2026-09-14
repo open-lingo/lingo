@@ -608,6 +608,22 @@
       "kind": "vocab"
     },
     {
+      "kana": "げんご",
+      "romaji": "gengo",
+      "gloss": "a language",
+      "shortGloss": "language",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "にほんご",
+      "romaji": "nihongo",
+      "gloss": "the Japanese language",
+      "shortGloss": "Japanese",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "ならって",
       "romaji": "naratte",
       "gloss": "learn from somebody (te-form)",
@@ -1992,7 +2008,9 @@
         "おくる",
         "しつもん",
         "こたえ",
-        "とる"
+        "とる",
+        "にほんご",
+        "げんご"
       ],
       "beats": [
         {
@@ -2042,6 +2060,31 @@
             "wo-object"
           ],
           "mode": "build"
+        },
+        {
+          "kind": "sentence",
+          "ja": "せんせいに にほんごを ならう。",
+          "en": "I take Japanese lessons from the teacher",
+          "exercises": [
+            "dictionary-form",
+            "ni-location",
+            "wo-object"
+          ],
+          "mode": "build"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "せんせいに げんごを ならう。",
+          "answer": "I take language lessons from the teacher",
+          "distractors": [
+            "I take English lessons from the teacher",
+            "I take Japanese lessons from the teacher",
+            "I took language lessons from the teacher"
+          ],
+          "exercises": [
+            "dictionary-form",
+            "ni-location"
+          ]
         },
         {
           "kind": "sentence",
@@ -2173,6 +2216,20 @@
           "exercises": [
             "te-miru",
             "kedo"
+          ]
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "せんせいに にほんごを ならう。",
+          "answer": "I take Japanese lessons from the teacher",
+          "distractors": [
+            "I take English lessons from the teacher",
+            "I take language lessons from the teacher",
+            "I took Japanese lessons from the teacher"
+          ],
+          "exercises": [
+            "dictionary-form",
+            "ni-location"
           ]
         },
         {
@@ -3261,7 +3318,7 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "らいげつ がいこくに いくから ことばを ならっておく。",
+          "ja": "らいげつ がいこくに いくから げんごを ならっておく。",
           "en": "I'm going abroad next month, so I'll learn the language ahead of time",
           "exercises": [
             "te-oku",
@@ -3353,7 +3410,7 @@
         },
         {
           "kind": "particle-cloze",
-          "stem": "らいげつ がいこくに いくから ことばを ",
+          "stem": "らいげつ がいこくに いくから げんごを ",
           "tail": "。",
           "answer": "ならっておく",
           "options": [
@@ -3441,7 +3498,7 @@
         },
         {
           "kind": "challenge",
-          "ja": "がいこくに いきたいけど おかねが ないから とりあえず ことばを ならってみる。",
+          "ja": "がいこくに いきたいけど おかねが ないから とりあえず げんごを ならってみる。",
           "en": "I want to go abroad, but I haven't got the money, so I'll try learning the language for a start",
           "combines": [
             "te-miru",
@@ -3455,7 +3512,7 @@
         }
       ],
       "reviewPool": [
-        "ことば",
+        "げんご",
         "しゃしん",
         "やま",
         "しつもん",

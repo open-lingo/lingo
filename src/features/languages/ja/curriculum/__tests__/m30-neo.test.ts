@@ -153,9 +153,9 @@ describe("m30-neo module shape (invariant 25)", () => {
     }
   });
 
-  it("declares exactly the spine's 34 atoms, plus the R16 lemma", () => {
+  it("declares exactly the spine's 34 atoms, plus the R16 lemma and the TestFlight #74/#76 language pair", () => {
     // spine-n4 §2, n4-01: `vocab: { count: 34 }`. A module that quietly grows
-    // its allocation is the thing inv 16 exists to stop — so the +1 here is
+    // its allocation is the thing inv 16 exists to stop — so every +N here is
     // DECIDED AND DOCUMENTED (RUN-PLAN), not quiet.
     //
     // 35th = とる (撮る). This module already GRADED it in ten targets via the
@@ -165,9 +165,18 @@ describe("m30-neo module shape (invariant 25)", () => {
     // word entering the module; it is the module's existing word finally being
     // declared. L7 debuts it beside ならう and おくる, the same dict-then-て
     // shape the other two already use.
+    //
+    // 36th/37th = げんご / にほんご (TestFlight #74/#76, 2026-09-14). Spencer:
+    // "teach gengo and fill it in sentences ... same with language parallels
+    // like eigo or nihongo if we dont have them yet." にほんご was untaught
+    // course-wide; げんご was untaught, and this module's own challenge lesson
+    // had been leaning on ことば (m26, "word") to mean "the language" in its
+    // がいこく sentences — a lying gloss. L7 debuts both beside ならう, whose
+    // own rule text already frames its object as "a language" — the same
+    // dict-then-て slot えいご already used.
     const atoms = (m30Ir as unknown as { newAtoms: { kana: string }[] }).newAtoms;
-    expect(atoms).toHaveLength(35);
-    expect(new Set(atoms.map((a) => a.kana)).size).toBe(35);
+    expect(atoms).toHaveLength(37);
+    expect(new Set(atoms.map((a) => a.kana)).size).toBe(37);
   });
 
   it("teaches every `must` word the spine allocates", () => {

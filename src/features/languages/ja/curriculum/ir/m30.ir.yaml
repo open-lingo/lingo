@@ -480,6 +480,17 @@ newAtoms:
   - { kana: しつもん, romaji: "shitsumon", gloss: "a question", shortGloss: "question", imageable: false, kind: vocab }
   - { kana: こたえ, romaji: "kotae", gloss: "the answer", shortGloss: "answer", imageable: false, kind: vocab }
 
+  # ══ TestFlight #74/#76 (2026-09-14): ならう's own rule text already frames
+  #    its object as "a language, an instrument, a skill", so げんご debuts as
+  #    the third carrier beside えいご and the newly-taught にほんご — same
+  #    dictionary-form beat, same slot. Both imageable: false (no clean glyph
+  #    distinct from アメリカ/にほん's flags, same reasoning as えいご m26).
+  #    ことば (m26, "word") was standing in for "the language" in this
+  #    module's がいこく sentences before げんご existed — that gloss lied
+  #    (ことば means word, not language); the challenge lesson now uses げんご.
+  - { kana: げんご, romaji: "gengo", gloss: "a language", shortGloss: "language", imageable: false, kind: vocab }
+  - { kana: にほんご, romaji: "nihongo", gloss: "the Japanese language", shortGloss: "Japanese", imageable: false, kind: vocab }
+
   # ══ L9. The う-verb ramp's output. ならう ends in う and おくる ends in る, and
   #    both land on the SAME って row — the most useful contrast the godan て
   #    table has, and the reason both ride one ramp.
@@ -699,13 +710,15 @@ lessons:
     role: teaching
     title: "「たべてみた」 is not 「I tried to eat it」"
     focus: "てみる is give-it-a-go, never make-an-attempt — the classic learner error, named"
-    introduces: [ならう, おくる, しつもん, こたえ, とる]
+    introduces: [ならう, おくる, しつもん, こたえ, とる, にほんご, げんご]
     beats:
       - { kind: rule, grammarPointId: te-miru, variant: limits }
       - { kind: sentence, ja: "しつもんを して こたえを きいてみた。", en: "I asked the question to see what the answer was", exercises: [te-miru, ta-form, wo-object], mode: build }
       - { kind: sentence, ja: "せつめいが むずかしいから あにに きいてみる。", en: "The explanation is difficult, so I'll try asking my older brother", exercises: [te-miru, kara-because, ga-existence], mode: build }
       - { kind: sentence, ja: "むずかしいけど とりあえず やってみる。", en: "It's difficult, but first off I'll give it a go", exercises: [te-miru, kedo], mode: build }
       - { kind: sentence, ja: "せんせいに えいごを ならう。", en: "I take English lessons from the teacher", exercises: [dictionary-form, ni-location, wo-object], mode: build }
+      - { kind: sentence, ja: "せんせいに にほんごを ならう。", en: "I take Japanese lessons from the teacher", exercises: [dictionary-form, ni-location, wo-object], mode: build }
+      - { kind: listening-comp, audio: "せんせいに げんごを ならう。", answer: "I take language lessons from the teacher", distractors: ["I take English lessons from the teacher", "I take Japanese lessons from the teacher", "I took language lessons from the teacher"], exercises: [dictionary-form, ni-location] }
       - { kind: sentence, ja: "あねの いえに しゃしんを おくる。", en: "I'm sending the photo to my older sister's house", exercises: [dictionary-form, ni-location, wo-object], mode: build }
       - { kind: sentence, ja: "やまで しゃしんを とる。", en: "I take a photo on the mountain", exercises: [dictionary-form, de-action, wo-object], mode: build }
       # Second carriers (rep-audit 2026-09-09): おくる and とる each had one.
@@ -722,6 +735,7 @@ lessons:
       - { kind: particle-cloze, stem: "せつめいが むずかしいから あにに ", tail: "。", answer: "きいてみる", options: ["きいてみる", "ならう", "おくる"], en: "The explanation is difficult, so I'll try asking my older brother", explanation: "an explanation you did not follow is something you ASK about, so the て-form belongs to きく. ならう takes lessons over a long stretch, and おくる sends the explanation somewhere else instead of understanding it." }
       - { kind: listening-comp, audio: "あねに しつもんを して こたえを きいてみた。", answer: "I asked my older sister the question and heard what the answer was", distractors: ["I asked my older brother the question and heard what the answer was", "I asked my older sister the question but heard nothing", "I sent my older sister the question and heard what the answer was"], exercises: [te-miru, ta-form] }
       - { kind: listening-comp, audio: "たかいけど とりあえず かってみる。", answer: "It's expensive, but first off I'll give buying it a go", distractors: ["It's expensive, so I'm not buying it", "It's cheap, so first off I'll give buying it a go", "It was expensive, but I gave buying it a go"], exercises: [te-miru, kedo] }
+      - { kind: listening-comp, audio: "せんせいに にほんごを ならう。", answer: "I take Japanese lessons from the teacher", distractors: ["I take English lessons from the teacher", "I take language lessons from the teacher", "I took Japanese lessons from the teacher"], exercises: [dictionary-form, ni-location] }
       - kind: dialogue
         lines:
           - { speaker: "Tom", ja: "この しつもんの こたえは わかった？", en: "Did you work out the answer to this question?" }
@@ -888,7 +902,7 @@ lessons:
     focus: "End-of-module stretch: both helpers, both tenses, and every new verb, in sentences the module has never said"
     introduces: []
     beats:
-      - { kind: sentence, ja: "らいげつ がいこくに いくから ことばを ならっておく。", en: "I'm going abroad next month, so I'll learn the language ahead of time", exercises: [te-oku, kara-because, ni-location, te-form], mode: build }
+      - { kind: sentence, ja: "らいげつ がいこくに いくから げんごを ならっておく。", en: "I'm going abroad next month, so I'll learn the language ahead of time", exercises: [te-oku, kara-because, ni-location, te-form], mode: build }
       - { kind: sentence, ja: "きっぷが たかかったから ちかてつに のってみた。", en: "The ticket was expensive, so I gave the subway a go", exercises: [te-miru, ta-form, kara-because, i-adj-past], mode: listening }
       - { kind: sentence, ja: "ひまな とき やまの しゃしんを とってみる。", en: "When I'm free I have a go at taking photos of the mountain", exercises: [te-miru, toki, no-possession, na-adj-present], mode: build }
       - { kind: sentence, ja: "しつもんが むずかしいから せんせいに おくっておいた。", en: "The questions are difficult, so I sent them to the teacher in advance", exercises: [te-oku, ta-form, kara-because, ni-location], mode: build }
@@ -896,7 +910,7 @@ lessons:
       - { kind: sentence, ja: "いそがしいけど まいにち れんしゅうを つづけてみる。", en: "I'm busy, but I'll try keeping the practice going every day", exercises: [te-miru, te-form, kedo, frequency-adverbs], mode: build }
       - { kind: sentence, ja: "うるさいから まどを しめておく。", en: "It's noisy, so I'll keep the window shut", exercises: [te-oku, kara-because, i-adj-present], mode: build }
       - { kind: sentence, ja: "やままで あるいてみない？", en: "Won't you try walking to the mountain", exercises: [nai-form, te-miru], mode: translate }
-      - { kind: particle-cloze, stem: "らいげつ がいこくに いくから ことばを ", tail: "。", answer: "ならっておく", options: ["ならっておく", "ならってみる", "おくっておく"], en: "I'm going abroad next month, so I'll learn the language ahead of time", explanation: "going abroad next month is a deadline, so the helper is おく. ならってみる would only be finding out what learning the language is like, and おくっておく sends the language somewhere instead of learning it." }
+      - { kind: particle-cloze, stem: "らいげつ がいこくに いくから げんごを ", tail: "。", answer: "ならっておく", options: ["ならっておく", "ならってみる", "おくっておく"], en: "I'm going abroad next month, so I'll learn the language ahead of time", explanation: "going abroad next month is a deadline, so the helper is おく. ならってみる would only be finding out what learning the language is like, and おくっておく sends the language somewhere instead of learning it." }
       - { kind: listening-comp, audio: "うるさいから かえる まえに まどを しめておく。", answer: "It's noisy, so I'll shut the window before I go home", distractors: ["It's noisy, so I'll open the window before I go home", "It's cold, so I'll shut the window before I go home", "It's noisy, so I shut the window after I went home"], exercises: [mae-ni, te-oku, kara-because] }
       - { kind: listening-comp, audio: "じてんしゃが やすかったから かっておいた。", answer: "The bicycle was cheap, so I bought it in advance", distractors: ["The bicycle was expensive, so I didn't buy it", "The bicycle was cheap, so I gave it a go", "The car was cheap, so I bought it in advance"], exercises: [te-oku, ta-form, kara-because] }
       - { kind: sentence, ja: "あにに おんがくを ならってみたけど へただった。", en: "I tried taking music lessons from my older brother, but I was bad at it", exercises: [te-form, te-miru, ta-form, kedo, family-register], mode: build }
@@ -907,5 +921,5 @@ lessons:
           - { speaker: "Tom", ja: "ぼくは せんせいに しつもんを おくっておくんです。", en: "The thing is, I'll send the teacher my questions in advance." }
         questions:
           - { q: "What does Tom say he will do in advance?", options: ["Send the teacher his questions", "Learn the words before he goes home", "Go to the class next month", "Talk to Mika"], answer: "Send the teacher his questions" }
-      - { kind: challenge, ja: "がいこくに いきたいけど おかねが ないから とりあえず ことばを ならってみる。", en: "I want to go abroad, but I haven't got the money, so I'll try learning the language for a start", combines: [te-miru, te-form, v-tai, kedo, kara-because, nai-existence], mode: build }
-    reviewPool: [ことば, しゃしん, やま, しつもん, こたえ, せつめい, れんしゅう, まど, ちかてつ, がいこく]
+      - { kind: challenge, ja: "がいこくに いきたいけど おかねが ないから とりあえず げんごを ならってみる。", en: "I want to go abroad, but I haven't got the money, so I'll try learning the language for a start", combines: [te-miru, te-form, v-tai, kedo, kara-because, nai-existence], mode: build }
+    reviewPool: [げんご, しゃしん, やま, しつもん, こたえ, せつめい, れんしゅう, まど, ちかてつ, がいこく]
