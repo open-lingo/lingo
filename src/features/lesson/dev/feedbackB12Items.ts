@@ -51,7 +51,7 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     status: "built",
     link: "/ja/learn/lessons/ja-m30-neo-challenge?step=1",
     eyeball: "Exactly 3 option buttons, no scroll before CONTINUE. Decide: extend the cap to dialogue questions?",
-    lane: "A",
+    lane: "E",
   },
   {
     n: 65,
@@ -80,7 +80,7 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
       "Fixed — root cause was 589 unuploaded Spanish TTS clips (m13–m15) missing manifest entries; clips pushed.",
     needsSpencer: false,
     status: "fixed",
-    lane: "G",
+    lane: "C",
   },
   {
     n: 67,
@@ -94,7 +94,7 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     decision: "Fixed — same Spanish audio gap as #66.",
     needsSpencer: false,
     status: "fixed",
-    lane: "G",
+    lane: "C",
   },
   {
     n: 68,
