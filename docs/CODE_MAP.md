@@ -42,6 +42,7 @@
 - ModuleIR (type)
 - Diagnostic (type)
 - stripRegisterCue (function)
+- kanaToRomaji (function)
 - JA_COURSE_FURNITURE_KANA (const)
 - makeGlobalTokenizer (function)
 - compileModule (function)
@@ -451,17 +452,17 @@
 - nativeCallbackUrl (function)
 ### src/features/lesson/components/StepRenderer.tsx
 - StepRenderer (function)
+### src/shared/hooks/useUserSettings.ts
+- USER_SETTINGS_STALE_MS (const)
+- RawUserSettings (type)
+- userSettingsQueryKey (function)
+- useUserSettings (function)
 ### src/features/lesson/data/normalizedAtoms.ts
 - NormalizedAtomKind (type)
 - NormalizedAtom (type)
 - getNormalizedCourseAtoms (function)
 - getNormalizedAtomIndex (function)
 - __resetNormalizedAtoms (function)
-### src/shared/hooks/useUserSettings.ts
-- USER_SETTINGS_STALE_MS (const)
-- RawUserSettings (type)
-- userSettingsQueryKey (function)
-- useUserSettings (function)
 ### src/shared/contexts/FeatureFlagsContext.tsx
 - FeatureFlagsProvider (function)
 - useFeatureFlags (function)
@@ -521,8 +522,6 @@
 - getDeckImageUrl (function)
 ### src/features/lesson/hooks/useLessonKeyboard.ts
 - useLessonKeyboard (function)
-### src/features/lesson/components/ContinueButton.tsx
-- ContinueButton (function)
 ### src/features/lesson/data/lessonRegistry.ts
 - registerLessons (function)
 - getRegisteredLesson (function)
@@ -530,8 +529,11 @@
 - getRegisteredLessonIds (function)
 - getRegisteredLessons (function)
 - getContentRevision (function)
+- bumpContentRevision (function)
 - subscribeContent (function)
 - __clearLessonRegistry (function)
+### src/features/lesson/components/ContinueButton.tsx
+- ContinueButton (function)
 ### src/features/practice/alphabet/alphabetProgress.ts
 - LetterProgress (type)
 - AlphabetProgress (type)
@@ -687,12 +689,6 @@
 - sessionRating (function)
 - QuestionFactory (interface)
 - roundRobinBuild (function)
-### src/features/lesson/data/useLessonContent.ts
-- useContentRevision (function)
-- ContentLoadState (type)
-- useLessonReady (function)
-- useCourseReady (function)
-- useAllContentReady (function)
 ### src/features/admin/user-detail/useAdminUserDetail.ts
 - adminUserKeys (const)
 - useAdminUser (function)
@@ -722,6 +718,13 @@
 - getLessonWindow (function)
 - isLessonLocked (function)
 - isKatakanaPracticeComplete (function)
+### src/features/lesson/data/useLessonContent.ts
+- useContentRevision (function)
+- ContentLoadState (type)
+- useLessonReady (function)
+- useCourseReady (function)
+- useModuleIndexReady (function)
+- useAllContentReady (function)
 ### src/shared/hooks/useMediaQuery.ts
 - useMediaQuery (function)
 ### src/features/lesson/components/ExplainButton.tsx
@@ -745,6 +748,8 @@
 - ensureLessonLoaded (function)
 - ensureAllContentLoaded (function)
 - ensureMinedSentencesLoaded (function)
+- ensureModuleIndexLoaded (function)
+- getLoadedModuleIndex (function)
 - __resetContentLoader (function)
 ### src/features/languages/es/curriculum/index.ts
 - EsModuleMeta (type)
@@ -978,14 +983,14 @@
 - setLastLessonSyncAt (function)
 - getNextLessonSyncAt (function)
 - setNextLessonSyncAt (function)
-### src/features/lesson/dev/DevStageFrame.tsx
-- DevStageFrame (function)
 ### src/shared/glyphs/registry.ts
 - ScriptId (type)
 - hasBundledData (function)
 - getReferenceFor (function)
 - getGlyphData (function)
 - getSystemFontReferenceFor (function)
+### src/features/lesson/dev/DevStageFrame.tsx
+- DevStageFrame (function)
 ### src/features/flashcards/engine/srsSync.ts
 - computeDirtyCards (function)
 - getDirtyCards (function)
@@ -1129,13 +1134,13 @@
 - DistractorOptions (type)
 - hasShareGlyphOption (function)
 - buildKanjiDistractors (function)
+### src/features/community/CommunityDiscoveryLayout.tsx
+- CommunityDiscoveryLayoutProps (type)
+- CommunityDiscoveryLayout (function)
 ### src/shared/components/ui/SegmentedControl.tsx
 - SegmentedOption (type)
 - SegmentedControlProps (type)
 - SegmentedControl (function)
-### src/features/community/CommunityDiscoveryLayout.tsx
-- CommunityDiscoveryLayoutProps (type)
-- CommunityDiscoveryLayout (function)
 ### src/features/lesson/components/steps/translateVariants.ts
 - expandAcceptedAnswers (function)
 ### src/shared/components/ConfirmModal.tsx
@@ -1190,6 +1195,12 @@
 - isAdSenseScriptLoaded (function)
 - loadAdSenseScript (function)
 - pushAdSenseSlot (function)
+### src/features/admin/user-detail/_helpers.tsx
+- EMPTY_MODALITY (const)
+- normalizeAdminSrsCard (function)
+- toLocalDatetimeValue (function)
+- AdminCardPatch (type)
+- StatusPill (function)
 ### src/shared/glyphs/strokeRender.ts
 - getPathLength (function)
 - StrokeNumberStyle (type)
@@ -1197,12 +1208,6 @@
 - StrokeAnimationFrame (type)
 - StrokeProgressiveStyle (type)
 - renderStrokesProgressive (function)
-### src/features/admin/user-detail/_helpers.tsx
-- EMPTY_MODALITY (const)
-- normalizeAdminSrsCard (function)
-- toLocalDatetimeValue (function)
-- AdminCardPatch (type)
-- StatusPill (function)
 ### src/features/lesson/components/steps/SceneView.tsx
 - SceneView (function)
 ### src/shared/components/RichMarkdownEditor.tsx
@@ -1212,9 +1217,6 @@
 - generateIAdjFormationDistractors (function)
 - transformDrillIAdjDistractors (function)
 - generateFormationDistractors (function)
-### src/features/lesson/dev/ProtoModuleWalkerPage.tsx
-- ProtoModuleConfig (type)
-- ProtoModuleWalker (function)
 ### src/features/home/HomeNavCard.tsx
 - HomeNavCardProps (type)
 - HomeNavCard (function)
@@ -1283,6 +1285,9 @@
 - svgReference (function)
 ### src/shared/glyphs/systemFontReference.ts
 - systemFontReference (function)
+### src/features/lesson/dev/ProtoModuleWalkerPage.tsx
+- ProtoModuleConfig (type)
+- ProtoModuleWalker (function)
 ### src/features/practice/content/levels.ts
 - LevelBand (interface)
 - LEVEL_BANDS (const)
@@ -1352,11 +1357,11 @@
 - hasConjugationData (function)
 - getConjugationVerbEntries (function)
 - hasKanjiData (function)
+### src/features/languages/ja/secondScript/readingDistractors.ts
+- readingDistractors (function)
 ### src/features/lesson/data/deriveGrammarMicroSteps.ts
 - hintFromRule (function)
 - deriveGrammarMicroSteps (function)
-### src/features/languages/ja/secondScript/readingDistractors.ts
-- readingDistractors (function)
 ### src/features/learn/hooks/useCompletedLessonIds.ts
 - useCompletedLessonIds (function)
 ### src/features/quests/components/QuestProgressBar.tsx
@@ -1473,8 +1478,6 @@
 - buildSrsReviewLesson (function)
 ### src/shared/components/Chevron.tsx
 - Chevron (function)
-### src/shared/components/PageShell.tsx
-- PageShell (function)
 ### src/features/languages/siblingResolver.ts
 - hasSiblingSets (function)
 - getSiblingSurfaces (function)
@@ -1491,6 +1494,8 @@
 - mergeGrammarServerState (function)
 - performGrammarSync (function)
 - hydrateGrammarFromServer (function)
+### src/shared/components/PageShell.tsx
+- PageShell (function)
 ### src/features/practice/practiceStats.ts
 - PracticeFeatureKey (type)
 - ItemStats (type)
@@ -1867,16 +1872,16 @@
 - KO_ALL_FORMS (const)
 - getLemmasUpToModule (function)
 - buildKoConjugationTables (function)
-### src/features/learn/courseMapData.ts
+### src/features/learn/moduleVocabIndex.ts
 - VocabSample (type)
 - ModuleVocab (type)
+- ModuleLessonCounts (type)
+- ModuleIndex (type)
 - isReviewLessonId (function)
 - getModuleLessonCounts (function)
+- SAMPLE_CAP (const)
 - getModuleVocab (function)
-- COURSE_MILESTONES (const)
-- getMilestoneForModule (function)
-- hasMilestones (function)
-- courseHasMilestones (function)
+- buildModuleIndexEntry (function)
 ### src/shared/symbolMastery/LanguageSymbolMasteryProvider.tsx
 - LanguageSymbolMasteryProvider (function)
 ### src/features/lesson/components/Confetti.tsx
@@ -1884,11 +1889,7 @@
 ### src/features/placement/hooks/usePlacementDismissed.ts
 - isPlacementDismissed (function)
 - dismissPlacement (function)
-### src/features/practice/reading/useShowReadingRomaji.ts
-- useShowReadingRomaji (function)
-### src/shared/components/ui/Tooltip.tsx
-- TooltipSide (type)
-- TooltipProps (type)
-- Tooltip (function)
+### src/features/ads/AdSlot.tsx
+- AdSlot (function)
 ### capacitor.config.ts
-_… 896 more files omitted (budget)._
+_… 898 more files omitted (budget)._
