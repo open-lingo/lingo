@@ -1199,6 +1199,8 @@
       "statusNew": "New",
       "statusLearning": "Learning",
       "statusBuried": "Buried",
+      "statusKnown": "Known",
+      "knownHint": "Seeded from a test-out — you already showed you know this, so it won't come up for review.",
       "search": "Search",
       "searchPlaceholder": "Front or back…",
       "showing": "Showing {{count}} of {{total}} cards",

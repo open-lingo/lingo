@@ -50,25 +50,82 @@ describe("applyPlacementResult — language-aware leveling", () => {
     expect(r.seededAtomCount).toBe(0);
   });
 
-  it("does not clobber existing SRS progress on an atom that's already learned (Bug 2 regression)", () => {
-    // Pick a real m3 atom and give it real learned progress BEFORE running
-    // placement over m3 — this mirrors re-running placement (or placement
-    // landing on an atom test-out/review lessons already advanced).
+  it("does not clobber a GENUINELY MORE ADVANCED SRS state (Bug 2 regression, generalized for D7 test-out seeding)", () => {
+    // Pick a real m3 atom and give it real learned progress, well past what
+    // a test-out of m3 alone would seed (distance 1 → 5 days) — this
+    // mirrors re-running placement over an atom test-out/review lessons
+    // already advanced further than the seed would.
     const atoms = getCourseAtoms("ja").filter((a) => a.fromModule === "m3");
     expect(atoms.length).toBeGreaterThan(0);
     const target = atoms[0];
 
-    const learned = reviewCard(createInitialState(), "recognition", "good");
-    setCardState(target.id, learned);
+    const mature = {
+      recognition: {
+        stability: 40,
+        difficulty: 5,
+        state: "review" as const,
+        interval: 40,
+        dueDate: "2099-01-01",
+        lastReviewDate: "2026-01-01",
+        reps: 3,
+        lapses: 0,
+      },
+      production: {
+        stability: 40,
+        difficulty: 5,
+        state: "review" as const,
+        interval: 40,
+        dueDate: "2099-01-01",
+        lastReviewDate: "2026-01-01",
+        reps: 3,
+        lapses: 0,
+      },
+    };
+    setCardState(target.id, mature);
 
     applyPlacementResult(["m3"], "ja");
 
     const after = getCardState(target.id);
-    expect(after).toEqual(learned);
+    expect(after).toEqual(mature);
     // Sanity: placement still seeds atoms that had no prior state.
     const untouched = atoms.find((a) => a.id !== target.id);
     if (untouched) {
       expect(getCardState(untouched.id)).toBeDefined();
     }
+  });
+
+  it("BOOSTS an existing state that's LESS advanced than the test-out seed (D7 — never shorten a longer interval, but a short one legitimately gets raised)", () => {
+    // A single in-lesson "good" review leaves a same-day/short interval —
+    // less advanced than even a distance-1 (5-day) test-out seed. Testing
+    // out of the whole module is stronger evidence than one lesson answer,
+    // so it's allowed to raise this card, per the coordinator's D7 rule
+    // ("Seeding only applies to atoms with no existing SRS state or a
+    // state that is less advanced than the seed").
+    const atoms = getCourseAtoms("ja").filter((a) => a.fromModule === "m3");
+    const target = atoms[0];
+
+    const barelyStarted = reviewCard(createInitialState(), "recognition", "good");
+    setCardState(target.id, barelyStarted);
+
+    applyPlacementResult(["m3"], "ja");
+
+    const after = getCardState(target.id);
+    expect(after?.recognition.interval).toBe(5);
+    expect(after?.production.interval).toBe(5);
+    expect(after?.known).toBe(false);
+  });
+
+  it("computes the distance-scaled seed for a multi-module test-out (m30 → m1 gets 150 days, known)", () => {
+    const m1Atoms = getCourseAtoms("ja").filter((a) => a.fromModule === "m1");
+    expect(m1Atoms.length).toBeGreaterThan(0);
+
+    // Simulate a banded placement/test-out that credits every module 1..30 —
+    // the m1 atoms are 30 modules back from the highest credited module.
+    const passed = Array.from({ length: 30 }, (_, i) => `m${i + 1}`);
+    applyPlacementResult(passed, "ja");
+
+    const state = getCardState(m1Atoms[0].id);
+    expect(state?.recognition.interval).toBe(150);
+    expect(state?.known).toBe(true);
   });
 });

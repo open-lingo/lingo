@@ -28,7 +28,7 @@ export type ManagedCard = {
   deckId: string;
   deckName: string;
   state: SRSCardState | undefined;
-  status: "new" | "due" | "learning" | "buried" | "leech";
+  status: "new" | "due" | "learning" | "buried" | "leech" | "known";
   /**
    * Client-generated course deck card (curriculum atom). No backend deck
    * exists for these — deck-level actions (edit in the community editor,
@@ -40,6 +40,11 @@ export type ManagedCard = {
 
 function statusFor(state: SRSCardState | undefined): ManagedCard["status"] {
   if (!state) return "new";
+  // Known (test-out/placement seed ≥ 90 days, testOutSeed.ts) wins over
+  // every other status — it's a durable, un-suppressible label. `isDue`
+  // already returns false for a known card, but check the flag directly
+  // here so status reads correctly even if that ever changes.
+  if (state.known) return "known";
   // Leech wins over other states — a chronically-failing card is the one the
   // learner should act on (reformulate), even while it's buried/due.
   if (isLeech(state)) return "leech";

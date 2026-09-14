@@ -201,11 +201,15 @@ Full model: `docs/srs-scheduling-model-2026-06-15.md`; grammar deck spec
   NEVER renders as flip cards (vocab-only).
 - **Each card has two sub-states** (`recognition` + `production`); one modality
   updated at a time; `isDue` is true if either is due.
-- **Six SRS write surfaces** (don't add a seventh without checking the gates):
+- **Seven SRS write surfaces** (don't add an eighth without checking the gates):
   seed-on-unlock (due *next-day*, never same-day), review lessons, the flashcard
   reviewer, D2 content-review atoms (prior-module only), the grammar review session,
-  and the Conjugation Trainer. The deck's `?practice=1` and "Practice anyway" flows
-  write NOTHING. `buildSrsReviewLesson` is PURE (no build-time writes).
+  the Conjugation Trainer, and **test-out seed** (D7, 2026-09-14 — placement/test-out
+  completion in `applyPlacement.ts` seeds a distance-scaled interval via the single
+  writer `srsStorage.seedTestOutAtom`; ≥90 days marks the card `known`, which makes
+  `isDue` permanently false — suppressed from the reviewer + review-lesson intake,
+  visible only in Card Manager with a badge). The deck's `?practice=1` and "Practice
+  anyway" flows write NOTHING. `buildSrsReviewLesson` is PURE (no build-time writes).
 - **Ladder:** unlocked → seeded due-next-day → due. The flashcard reviewer plays the
   whole course deck, no intake cap by default.
 - **Kana subtlety:** "kana M1/M2 has no SRS" = the *glyphs* only; M1/M2 vocab words

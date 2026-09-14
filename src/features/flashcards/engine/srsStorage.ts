@@ -1,6 +1,8 @@
 import type { SRSCardState, SRSModalityState, SRSPhase } from "../data/types";
 import { isLegacyFlatFsrsState, migrateFlatToModal } from "./srsMigration";
 import { safeLocalStorageWrite } from "@/shared/utils/storageQuota";
+import { getToday } from "./srs";
+import { createTestOutSeedState, shouldSeedTestOut } from "./testOutSeed";
 
 // Bumped storage namespace for the FSRS-6 migration (2026-05-20). The
 // schema changed (stability + difficulty replaced easeFactor) and we
@@ -213,6 +215,21 @@ export function setCardState(cardId: string, state: SRSCardState): void {
   const store = getSRSStore();
   store[canonicalize(cardId)] = state;
   setSRSStore(store);
+}
+
+/**
+ * The single writer for the test-out/placement seed (the "test-out seed"
+ * SRS write surface — CLAUDE.md's six write surfaces, now seven).
+ * `intervalDays` comes from `testOutSeed.seedIntervalDays(distance)`.
+ * Never shortens an existing longer interval — see `shouldSeedTestOut`.
+ * Returns true iff it wrote (so callers can track which atoms were seeded,
+ * e.g. to unlock them).
+ */
+export function seedTestOutAtom(atomId: string, intervalDays: number): boolean {
+  const existing = getCardState(atomId);
+  if (!shouldSeedTestOut(existing, intervalDays)) return false;
+  setCardState(atomId, createTestOutSeedState(intervalDays, getToday()));
+  return true;
 }
 
 export function clearSRSStore(): void {

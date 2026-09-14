@@ -284,14 +284,25 @@ function isSubStateDue(sub: SRSModalityState): boolean {
   return sub.dueDate <= todayStr();
 }
 
-/** True if either modality is due today and the card isn't buried. */
+/**
+ * True if either modality is due today and the card isn't buried.
+ *
+ * A `known` card (test-out/placement seed ≥ KNOWN_THRESHOLD_DAYS,
+ * `testOutSeed.ts`) is NEVER due — this is the suppression mechanism for
+ * the flashcard reviewer and review-lesson intake. It's a durable flag, not
+ * just a long interval: a known card must never come due later either, so
+ * this check runs before the date math. Card Manager reads `state.known`
+ * directly (not `isDue`) so it can still list and badge the card.
+ */
 export function isDue(state: SRSCardState): boolean {
+  if (state.known) return false;
   if (state.buriedUntil && state.buriedUntil > todayStr()) return false;
   return isSubStateDue(state.recognition) || isSubStateDue(state.production);
 }
 
-/** Which modalities are due now (excluding buried). */
+/** Which modalities are due now (excluding buried, excluding known). */
 export function getDueModalities(state: SRSCardState): SRSModality[] {
+  if (state.known) return [];
   if (state.buriedUntil && state.buriedUntil > todayStr()) return [];
   const out: SRSModality[] = [];
   if (isSubStateDue(state.recognition)) out.push("recognition");

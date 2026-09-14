@@ -28,8 +28,8 @@ const TAB_MY_VOCAB = "vocab";
 
 const PAGE_SIZE = 25;
 
-type StatusFilter = "all" | "due" | "new" | "learning" | "buried" | "leech";
-const STATUS_VALUES: StatusFilter[] = ["due", "new", "learning", "buried", "leech"];
+type StatusFilter = "all" | "due" | "new" | "learning" | "buried" | "leech" | "known";
+const STATUS_VALUES: StatusFilter[] = ["due", "new", "learning", "buried", "leech", "known"];
 type SortKey = "dueDate" | "ease" | "deck" | "lastReview" | "front";
 
 function isVocabDeck(deckId: string): boolean {
@@ -463,7 +463,9 @@ export function CardManagerPage() {
             render: (mc) => (
               <span
                 className={`inline-flex rounded px-2 py-0.5 text-xs font-medium ${
-                  mc.status === "leech"
+                  mc.status === "known"
+                    ? "bg-accent/15 text-accent"
+                    : mc.status === "leech"
                     ? "bg-error/15 text-error"
                     : mc.status === "due"
                     ? "bg-warning/15 text-warning"
@@ -478,6 +480,11 @@ export function CardManagerPage() {
                     ? t("flashcards.cardManager.leechHint", {
                         defaultValue:
                           "You've forgotten this many times — consider reformulating it (simpler, more context).",
+                      })
+                    : mc.status === "known"
+                    ? t("flashcards.cardManager.knownHint", {
+                        defaultValue:
+                          "Seeded from a test-out — you already showed you know this, so it won't come up for review.",
                       })
                     : undefined
                 }

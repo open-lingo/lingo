@@ -164,6 +164,17 @@ export type SRSCardState = {
   /** If set and > today, card is buried (excluded from queue). YYYY-MM-DD. */
   buriedUntil?: string;
   /**
+   * Set ONLY by the test-out/placement seed writer (`testOutSeed.ts`,
+   * `srsStorage.seedTestOutAtom`) when the seeded interval is ≥
+   * `KNOWN_THRESHOLD_DAYS` (90 days) — the learner tested out far enough
+   * past this atom's module that it counts as already known. `isDue`
+   * treats a known card as never due, so it's suppressed from the
+   * flashcard reviewer and review-lesson intake; Card Manager still lists
+   * it (with a "known" badge) since it's a real card, just not an
+   * actionable one — there's no UI action that clears this flag.
+   */
+  known?: boolean;
+  /**
    * ISO timestamp set ONLY by the Card Manager's deliberate "reset" action
    * (`useCardManagerData.handleReset`). Distinguishes an intentional reset
    * from a card that merely looks reset-shaped (both modalities new/reps 0)

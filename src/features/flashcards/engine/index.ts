@@ -33,7 +33,17 @@ export {
   getNextSrsSyncAt,
   setNextSrsSyncAt,
   canonicalize,
+  seedTestOutAtom,
 } from "./srsStorage";
+export {
+  DAYS_PER_MODULE,
+  KNOWN_THRESHOLD_DAYS,
+  moduleDistance,
+  seedIntervalDays,
+  isKnown,
+  createTestOutSeedState,
+  shouldSeedTestOut,
+} from "./testOutSeed";
 export {
   buildReviewQueue,
   buildQueueFromSubscriptions,

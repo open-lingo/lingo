@@ -4,15 +4,16 @@ import {
   unlockLessonAtoms,
   unlockAtomIds,
 } from "@/features/lesson/data/unlockLessonAtoms";
+import { seedTestOutAtom } from "@/features/flashcards/engine/srsStorage";
 import {
-  getCardState,
-  setCardState,
-} from "@/features/flashcards/engine/srsStorage";
+  moduleDistance,
+  seedIntervalDays,
+} from "@/features/flashcards/engine/testOutSeed";
+import { parseModuleIndex } from "@/shared/settings/romanizationAutoFlip";
 import {
   getCourseAtoms,
   isLanguageRegistered,
 } from "@/shared/language/registry";
-import type { SRSCardState } from "@/features/flashcards/data/types";
 
 import type { MissedSkill } from "./adaptiveEngine";
 
@@ -30,21 +31,6 @@ export type PlacementResult = {
   /** Grammar points the learner missed, grouped for the gap report. */
   missedSkills: MissedSkill[];
 };
-
-function createPlacementSeedState(): SRSCardState {
-  const today = new Date().toISOString().slice(0, 10);
-  const sub = {
-    stability: 0,
-    difficulty: 0,
-    state: "learning" as const,
-    interval: 0,
-    dueDate: today,
-    lastReviewDate: today,
-    reps: 0,
-    lapses: 0,
-  };
-  return { recognition: { ...sub }, production: { ...sub } };
-}
 
 /**
  * Per-language placement quirks. `reviewLessonRe` matches lessons that should
@@ -130,19 +116,32 @@ export function applyPlacementResult(
     }
   }
 
-  const seedState = createPlacementSeedState();
+  // Distance-scaled FSRS seed (D7 "test-out seed", TestFlight b12 #80):
+  // the just-tested/highest-credited module's own atoms get 5 days; each
+  // module further back gets 5 more, up to KNOWN_THRESHOLD_DAYS (90) where
+  // the atom is marked "known" and suppressed from review. `seedModuleSet`
+  // is passed+assumed+auto-completed-script — the same "credited modules"
+  // set `PlacementTestPage` uses for its own highest-module math, so a
+  // banded placement and a single-module test-out compute the same curve.
+  const highestModuleIndex = Math.max(
+    0,
+    ...[...seedModuleSet].map((m) => parseModuleIndex(m)),
+  );
   const seededIds: string[] = [];
   for (const atom of getCourseAtoms(languageId)) {
     if (!atom.srsEligible) continue;
     if (atom.fromModule === undefined) continue;
     if (!seedModuleSet.has(atom.fromModule)) continue;
-    // Don't clobber a real schedule — mirrors seedSchedule.ts's
-    // seed-on-unlock guard. Without this, re-running placement (or
-    // placement over an atom the learner already has SRS progress on)
-    // silently wipes that progress back to a fresh "learning" seed.
-    if (getCardState(atom.id)) continue;
-    setCardState(atom.id, seedState);
-    seededIds.push(atom.id);
+    // Never clobber a real (more advanced) schedule — `seedTestOutAtom`
+    // only writes when the atom has no state, or a state less advanced
+    // than the computed seed (Bug 2 regression guard, generalized).
+    const distance = moduleDistance(
+      highestModuleIndex,
+      parseModuleIndex(atom.fromModule),
+    );
+    if (seedTestOutAtom(atom.id, seedIntervalDays(distance))) {
+      seededIds.push(atom.id);
+    }
   }
   // M8+ atoms carry module-level attribution only (no introducedByLessonId),
   // so the per-lesson unlock above can't reach them — unlock the seeded
