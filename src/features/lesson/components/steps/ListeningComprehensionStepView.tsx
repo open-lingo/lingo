@@ -11,19 +11,33 @@ import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { formatPrompt } from "../formatPrompt";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
 import { seededShuffle } from "@/shared/utils/seededShuffle";
+import { hasCoarsePointer } from "@/shared/platform/nativeScroll";
 
 const CELEBRATE_MS = 1100;
 
 /**
  * TestFlight #63 (Spencer, b12 2026-09-14 — "Scrolls here are ugly, maybe we
- * limit these to 3 answers… Big decision"): a 4-long-English-option listening
+ * limit these to 3 answers… Big decision"; Spencer's verdict, b12 follow-up:
+ * "3 answers is fine on mobile and then we stick with 4 on web and then the
+ * mobile just dynamically only picks 3"): a 4-long-English-option listening
  * MCQ pushes CONTINUE off a 390px screen, forcing a scroll before the learner
- * can even answer. Cap what's RENDERED (not the authored bank) at 3 options.
+ * can even answer — but only on a touch/coarse-pointer surface. Desktop has
+ * the vertical room, so it renders every authored option unchanged. Cap
+ * what's RENDERED (not the authored bank, and not desktop) at 3 options.
  */
 export const MAX_LISTENING_MCQ_OPTIONS = 3;
 
 /**
- * Picks which options to render when a step is authored with more than
+ * Picks which options to render. Pure — takes the touch/compact flag as an
+ * explicit argument rather than reading `hasCoarsePointer()` itself, so it
+ * stays testable and reusable from non-DOM contexts (the render gate, the
+ * visual-QA contract builder) without an environment to fake.
+ *
+ * When `compact` is false (desktop/web), every authored option renders,
+ * unchanged from what's authored — Spencer's verdict keeps 4-on-web and
+ * doesn't touch authoring either way.
+ *
+ * When `compact` is true (touch) and the step is authored with more than
  * `MAX_LISTENING_MCQ_OPTIONS`: the correct option always survives, and the
  * distractors are trimmed via a seed (the step id) so a given learner sees
  * the same 3 on every render/resume — not a fresh random subset each time
@@ -35,8 +49,11 @@ export function selectDisplayedOptions<T extends { id: string }>(
   options: readonly T[],
   correctOptionId: string,
   seed: string,
+  compact: boolean,
 ): T[] {
-  if (options.length <= MAX_LISTENING_MCQ_OPTIONS) return options.slice();
+  if (!compact || options.length <= MAX_LISTENING_MCQ_OPTIONS) {
+    return options.slice();
+  }
   const correct = options.find((o) => o.id === correctOptionId);
   const distractors = options.filter((o) => o.id !== correctOptionId);
   const pickCount = correct
@@ -64,9 +81,15 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
   const [celebrating, setCelebrating] = useState(false);
   const [celebrationText, setCelebrationText] = useState("");
 
+  // Same touch/coarse-pointer detection the learn page uses to force the
+  // vertical map on phones (`LearnHomeSwitch.tsx`) — reused rather than
+  // inventing a second detector. A laptop with a touchscreen reports
+  // `fine` as its primary pointer, so this correctly leaves desktop alone.
+  const compact = hasCoarsePointer();
+
   const displayedOptions = useMemo(
-    () => selectDisplayedOptions(step.options, step.correctOptionId, step.id),
-    [step.options, step.correctOptionId, step.id],
+    () => selectDisplayedOptions(step.options, step.correctOptionId, step.id, compact),
+    [step.options, step.correctOptionId, step.id, compact],
   );
 
   const isCorrect = selected === step.correctOptionId;

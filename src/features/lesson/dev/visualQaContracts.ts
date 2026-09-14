@@ -181,19 +181,28 @@ function contractForStep(
       break;
     }
     case "listening_comprehension": {
-      // TestFlight #63 (Spencer, b12 2026-09-14): the view renders at most
-      // MAX_LISTENING_MCQ_OPTIONS of the authored options (seeded pick via
-      // selectDisplayedOptions — the correct option always survives).
-      // mustShow follows that same selection rather than the full authored
-      // bank, so this contract (and the screenshot judge that consumes it)
-      // only ever expects text that is actually on screen.
-      selectDisplayedOptions(step.options, step.correctOptionId, step.id).forEach(
-        (o) => mustShow.push(o.text),
-      );
+      // TestFlight #63 (Spencer, b12 2026-09-14; verdict: 3 on touch, 4 on
+      // web, no authoring change): the view caps at MAX_LISTENING_MCQ_OPTIONS
+      // ONLY on a touch/coarse-pointer surface (seeded pick via
+      // selectDisplayedOptions — the correct option always survives); on
+      // desktop every authored option renders. This contract builder runs
+      // outside a real pointer environment (no DOM to read `hasCoarsePointer`
+      // from), so it derives the non-touch/desktop contract — compact:false
+      // — matching what the DOM render gate (jsdom, also non-touch) expects.
+      // mustShow follows that same selection rather than a fixed truncation,
+      // so this contract (and the screenshot judge that consumes it) only
+      // ever expects text that is actually on screen for that mode.
+      selectDisplayedOptions(
+        step.options,
+        step.correctOptionId,
+        step.id,
+        false,
+      ).forEach((o) => mustShow.push(o.text));
       mustShow.push(step.question);
       expectations.push(
-        `Play control for the audio; transcript may be hidden pre-answer. At most ` +
-          `${MAX_LISTENING_MCQ_OPTIONS} of ${step.options.length} authored options render.`,
+        `Play control for the audio; transcript may be hidden pre-answer. Desktop/web ` +
+          `renders all ${step.options.length} authored options; touch/mobile caps at ` +
+          `${MAX_LISTENING_MCQ_OPTIONS}.`,
       );
       break;
     }

@@ -257,20 +257,25 @@ export function registerRenderGate(opts: {
             }
 
             // e. listening_comprehension option-cap sanity (TestFlight #63,
-            // b12 2026-09-14): ListeningComprehensionStepView renders at
-            // most MAX_LISTENING_MCQ_OPTIONS of the authored options, so a
-            // plain "every authored option is on screen" mustShow no longer
-            // holds. Follow the view's own selection (imported, not
-            // re-derived) rather than duplicating the cap/seed rule here:
-            // the correct option's text is still asserted above via the
-            // contract's mustShow; this adds the two checks a flat string
-            // list can't express — exact rendered count, and that nothing
-            // un-authored slipped onto the card.
+            // b12 2026-09-14): ListeningComprehensionStepView caps at
+            // MAX_LISTENING_MCQ_OPTIONS of the authored options ONLY on a
+            // touch/coarse-pointer surface (Spencer's verdict: 3 on mobile,
+            // 4 on web). jsdom has no `window.matchMedia`, so the view's own
+            // `hasCoarsePointer()` returns false here — this gate always
+            // mounts in the non-touch/desktop mode, so expect the full
+            // authored bank (compact:false), matching what a real desktop
+            // browser renders. Follow the view's own selection (imported,
+            // not re-derived) rather than duplicating the cap/seed rule
+            // here: the correct option's text is still asserted above via
+            // the contract's mustShow; this adds the two checks a flat
+            // string list can't express — exact rendered count, and that
+            // nothing un-authored slipped onto the card.
             if (step.type === "listening_comprehension") {
               const expectedOptions = selectDisplayedOptions(
                 step.options,
                 step.correctOptionId,
                 step.id,
+                false,
               );
               const buttons = Array.from(
                 container!.querySelectorAll<HTMLButtonElement>("button[aria-pressed]"),
@@ -288,6 +293,25 @@ export function registerRenderGate(opts: {
                   `${id}/${step.id}: rendered listening_comprehension option "${text}" is not one of the authored options`,
                 ).toBe(true);
               }
+              // Compact/touch mode is a pure function of the same inputs and
+              // isn't reachable through this DOM mount (jsdom never reports
+              // a coarse pointer), so pin its contract here too — cheap,
+              // no render — rather than leaving mobile behavior unchecked
+              // by this gate entirely.
+              const compactOptions = selectDisplayedOptions(
+                step.options,
+                step.correctOptionId,
+                step.id,
+                true,
+              );
+              expect(
+                compactOptions.length,
+                `${id}/${step.id}: compact/touch mode should render min(${MAX_LISTENING_MCQ_OPTIONS}, ${step.options.length} authored)`,
+              ).toBe(Math.min(MAX_LISTENING_MCQ_OPTIONS, step.options.length));
+              expect(
+                compactOptions.some((o) => o.id === step.correctOptionId),
+                `${id}/${step.id}: compact/touch mode dropped the correct option`,
+              ).toBe(true);
             }
           });
 
