@@ -412,7 +412,7 @@ const M25_7: LessonContent = {
     infoStep(
       "ko-m25-7-info",
       "Trip-planning chat",
-      "친구: 여행 계획이 있어요? (Do you have travel plans?)\nYou: 네, 일본에 가려고 해요. (Yes, I intend to go to Japan.)\n친구: 일본에 간 적이 있어요? (Have you been to Japan?)\nYou: 아니요. 온천에 가러 가고 싶어요. (No. I want to go to a hot spring.)\nYou can run this whole exchange now.",
+      "친구: 여행 계획이 있어요? (Do you have travel plans?)\nYou: 네, 일본에 가려고 해요. (Yes, I intend to go to Japan.)\n친구: 일본에 간 적이 있어요? (Have you been to Japan?)\nYou: 아니요. 온천에 가고 싶어요. (No. I want to go to a hot spring.)\nYou can run this whole exchange now.",
       "default",
     ),
     sentenceMcq({
