@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { ListeningComprehensionStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
@@ -10,8 +10,46 @@ import { ExplainButton } from "../ExplainButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { formatPrompt } from "../formatPrompt";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
+import { seededShuffle } from "@/shared/utils/seededShuffle";
 
 const CELEBRATE_MS = 1100;
+
+/**
+ * TestFlight #63 (Spencer, b12 2026-09-14 — "Scrolls here are ugly, maybe we
+ * limit these to 3 answers… Big decision"): a 4-long-English-option listening
+ * MCQ pushes CONTINUE off a 390px screen, forcing a scroll before the learner
+ * can even answer. Cap what's RENDERED (not the authored bank) at 3 options.
+ */
+export const MAX_LISTENING_MCQ_OPTIONS = 3;
+
+/**
+ * Picks which options to render when a step is authored with more than
+ * `MAX_LISTENING_MCQ_OPTIONS`: the correct option always survives, and the
+ * distractors are trimmed via a seed (the step id) so a given learner sees
+ * the same 3 on every render/resume — not a fresh random subset each time
+ * (which could occasionally drop every wrong answer at once, or reshuffle
+ * mid-session and read as broken). Kept options preserve their authored
+ * relative order, so the correct answer's position isn't a tell.
+ */
+export function selectDisplayedOptions<T extends { id: string }>(
+  options: readonly T[],
+  correctOptionId: string,
+  seed: string,
+): T[] {
+  if (options.length <= MAX_LISTENING_MCQ_OPTIONS) return options.slice();
+  const correct = options.find((o) => o.id === correctOptionId);
+  const distractors = options.filter((o) => o.id !== correctOptionId);
+  const pickCount = correct
+    ? MAX_LISTENING_MCQ_OPTIONS - 1
+    : MAX_LISTENING_MCQ_OPTIONS;
+  const kept = new Set(
+    seededShuffle(distractors, seed)
+      .slice(0, pickCount)
+      .map((o) => o.id),
+  );
+  if (correct) kept.add(correct.id);
+  return options.filter((o) => kept.has(o.id));
+}
 
 type Props = {
   step: ListeningComprehensionStep;
@@ -26,6 +64,11 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
   const [celebrating, setCelebrating] = useState(false);
   const [celebrationText, setCelebrationText] = useState("");
 
+  const displayedOptions = useMemo(
+    () => selectDisplayedOptions(step.options, step.correctOptionId, step.id),
+    [step.options, step.correctOptionId, step.id],
+  );
+
   const isCorrect = selected === step.correctOptionId;
 
   const handleEnter = useCallback(() => {
@@ -36,8 +79,8 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
   useLessonKeyboard({
     onEnter: handleEnter,
     onNumber: (n) => {
-      if (!submitted && n <= step.options.length) {
-        setSelected(step.options[n - 1].id);
+      if (!submitted && n <= displayedOptions.length) {
+        setSelected(displayedOptions[n - 1].id);
       }
     },
   });
@@ -106,7 +149,9 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
             </p>
           )}
           {step.transcript ? (
-            <p className="font-japanese text-2xl font-semibold leading-tight text-text-primary">
+            // TestFlight #73 (Spencer, b12 2026-09-14 — "shrink sentence text
+            // by 20% at least"): 24px → 19.2px (text-2xl → 1.2rem, exact -20%).
+            <p className="font-japanese text-[1.2rem] font-semibold leading-tight text-text-primary">
               {step.transcriptAnnotation ? (
                 <AnnotatedJa segments={step.transcriptAnnotation} />
               ) : (
@@ -127,7 +172,7 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
       </h2>
 
       <div className="grid gap-2 sm:gap-3">
-        {step.options.map((opt) => {
+        {displayedOptions.map((opt) => {
           const isSelected = selected === opt.id;
           const isAnswer = opt.id === step.correctOptionId;
 

@@ -18,12 +18,24 @@ type Props = {
   explanation: string | undefined;
   hasSubmittedWrong: boolean;
   dwellMsThreshold?: number;
+  /**
+   * "floating" (default, unchanged): absolutely positioned top-right of the
+   * nearest `relative` ancestor — every existing call site.
+   * "inline" (TestFlight #70c, ParticleClozeStepView 2026-09-14): sits in
+   * normal flow so a caller can put it in the same flex row as its step
+   * label instead of it floating independently at the container's top edge
+   * (the two anchors used to line up only by coincidence, leaving dead
+   * space). The expansion panel keeps `w-full` in both modes so it still
+   * drops onto its own line when a flex-wrap parent is used.
+   */
+  layout?: "floating" | "inline";
 };
 
 export function ExplainButton({
   explanation,
   hasSubmittedWrong,
   dwellMsThreshold = 15_000,
+  layout = "floating",
 }: Props) {
   const { t } = useTranslation();
   const [dwellElapsed, setDwellElapsed] = useState(false);
@@ -44,13 +56,15 @@ export function ExplainButton({
         aria-label={t("lesson.explainQuestion", "Explain this question")}
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className="absolute right-2 top-2 inline-flex h-7 w-7 items-center justify-center rounded-full border border-text-muted/30 text-text-muted transition-colors hover:bg-surface-hover hover:text-text-primary"
+        className={`inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-text-muted/30 text-text-muted transition-colors hover:bg-surface-hover hover:text-text-primary ${
+          layout === "inline" ? "" : "absolute right-2 top-2"
+        }`}
         title={t("lesson.explainQuestion", "Explain this question")}
       >
         <Icon name="help" size={14} aria-hidden />
       </button>
       {open && (
-        <div className="mt-2 rounded-lg border border-info/40 bg-info/5 px-4 py-3 text-sm text-text-secondary">
+        <div className="mt-2 w-full rounded-lg border border-info/40 bg-info/5 px-4 py-3 text-sm text-text-secondary">
           {explanation}
         </div>
       )}

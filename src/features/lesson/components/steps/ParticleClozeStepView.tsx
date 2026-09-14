@@ -151,21 +151,34 @@ export function ParticleClozeStepView({
 
   return (
     <div className="relative flex flex-1 flex-col gap-6">
-      <ExplainButton
-        explanation={resolvedExplanation}
-        hasSubmittedWrong={hasSubmittedWrong}
-      />
-      {/* `mt-auto` HERE and on the action block below is what centres this
-          step. Two auto margins in a column split the free space evenly, so
-          the content sits midway between the header and the CTA while the CTA
-          stays bottom-anchored — no wrapper element, no reading-order change.
+      {/* `mt-auto` HERE (moved onto the row below, TestFlight #70c) and on the
+          action block further down is what centres this step. Two auto
+          margins in a column split the free space evenly, so the content
+          sits midway between the header and the CTA while the CTA stays
+          bottom-anchored — no wrapper element, no reading-order change.
           Top-aligned, this step stranded a 339px void on a 430x932 phone
           (Spencer QA 2026-08-07). Collapses to 0 when content overflows. */}
-      <p className="mt-auto text-xs font-bold uppercase tracking-wider text-text-muted">
-        {allOptionsAreParticles
-          ? t("lesson.pickParticle", "Pick what fits the blank")
-          : t("lesson.completeSentence", "Complete the sentence")}
-      </p>
+      {/* TestFlight #70c (Spencer, b12 2026-09-14): the "?" ExplainButton
+          used to be `absolute right-2 top-2` on the OUTER container while
+          this label sat under `mt-auto` further down — two independent
+          anchors that only lined up by coincidence, leaving dead space
+          between them on most viewport heights. Putting both in one flex
+          row (ExplainButton's `layout="inline"`) locks them to the same
+          baseline; `flex-wrap` + the button's expansion panel forcing
+          `basis-full` still lets the explanation drop onto its own line
+          below when opened. */}
+      <div className="mt-auto flex flex-wrap items-center justify-between gap-2">
+        <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
+          {allOptionsAreParticles
+            ? t("lesson.pickParticle", "Pick what fits the blank")
+            : t("lesson.completeSentence", "Complete the sentence")}
+        </p>
+        <ExplainButton
+          layout="inline"
+          explanation={resolvedExplanation}
+          hasSubmittedWrong={hasSubmittedWrong}
+        />
+      </div>
 
       <div className="rounded-2xl border-2 border-info/40 bg-info/5 px-5 py-6 text-center">
         {showMeaningUpFront ? (

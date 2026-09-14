@@ -411,6 +411,21 @@ ruby {
      column (a tile, a long compound), so nothing can overflow sideways. */
   word-break: keep-all;
   overflow-wrap: anywhere;
+  /* TestFlight #70b (Spencer, b12 2026-09-14 — "there shouldn't be word
+     spacing like near raigetsu and gaikoku"): authored JA sentences carry a
+     literal U+0020 at every bunsetsu boundary as a beginner-readability aid
+     (らいげつ␠がいこくに…) — that convention is used throughout every
+     course and stays; this only tightens the glyph, not removes it (a fully
+     collapsed space reads as a typo, run-together words). Measured on the
+     m30 cloze sentence (Chromium, 390px, 24px host): every intra-word kana
+     boundary sits at 0px gap (no letter-spacing anywhere), so the ONE
+     bunsetsu space stood out sharply at its unadorned ~5.4px advance,
+     especially next to a centred kanji-ruby (#62) that's already visually
+     set apart. -0.12em ≈ -2.9px at that size → ~2.5px effective width,
+     still a visible break, no longer a jarring gap. Word-spacing (not the
+     space glyph itself) so it scales with whatever size hosts this text
+     (build tiles, MCQ options, the cloze/listening sentence). */
+  word-spacing: -0.12em;
 }
 /* Apply Noto Sans KR to every Korean-language span so Hangul renders
    consistently across platforms. Wrap KO content with lang="ko" to opt in. */
@@ -419,7 +434,13 @@ ruby {
   font-family: "Noto Sans KR", "Inter", ui-sans-serif, system-ui, sans-serif;
 }
 .kana-helper {
-  font-size: 0.65em;
+  /* TestFlight #70a/#73 (Spencer, b12 2026-09-14 — "furigana should be a bit
+     smaller"): 0.65em → 0.55em (-15%, same magnitude as the #69 tile cut).
+     The mobile 12px floor below is UNCHANGED — Spencer's earlier "keep 12px"
+     call (2026-09-09) still holds; this only trims hosts big enough that the
+     floor wasn't binding (e.g. the 24-30px cloze/listening sentence text,
+     measured 15.6-19.5px before → 13.2-16.5px after). */
+  font-size: 0.55em;
   font-weight: 500;
   color: rgb(var(--color-accent)); /* reading aid rides the theme accent (marginalia red) */
   letter-spacing: 0.02em;
@@ -765,12 +786,13 @@ ruby {
     font-size: 0.8125rem;
   }
 
-  /* The romaji reading aid is sized in `em` (0.65 of whatever tile it rides),
-     so it slips under the floor wherever the host text is small: 15.6px on an
-     MCQ card's 24px kana, but 10.4px on a word-build tile. `max()` keeps the
-     proportional behaviour everywhere it is already legible and only clamps
-     the small end. */
+  /* The romaji reading aid is sized in `em` (0.55 of whatever tile it rides,
+     TestFlight #70a/#73 2026-09-14 — was 0.65em), so it slips under the floor
+     wherever the host text is small. `max()` keeps the proportional
+     behaviour everywhere it is already legible and only clamps the small
+     end — the 12px floor itself is Spencer's 2026-09-09 "keep 12px" call and
+     is untouched by the #70a shrink. */
   .kana-helper {
-    font-size: max(0.65em, 0.75rem);
+    font-size: max(0.55em, 0.75rem);
   }
 }
