@@ -931,11 +931,11 @@ const ES_M37_6: LessonContent = {
     ),
     listeningBuildSentence({
       id: "es-m37-6-l6-lb-nohayqueirentaxieslejos",
-      target: "no hay que ir en taxi, es lejos",
-      tiles: ["no", "hay", "que", "ir", "en", "taxi,", "es", "lejos", "tengo", "puedo"],
-      correctOrder: ["no", "hay", "que", "ir", "en", "taxi,", "es", "lejos"],
+      target: "no hay que ir en taxi, está lejos",
+      tiles: ["no", "hay", "que", "ir", "en", "taxi,", "está", "lejos", "tengo", "puedo"],
+      correctOrder: ["no", "hay", "que", "ir", "en", "taxi,", "está", "lejos"],
       promptEn: "One doesn't have to go by taxi, it's far",
-      exercisedAtomSurfaces: ["no", "hay que", "ir", "en", "taxi", "es", "lejos"],
+      exercisedAtomSurfaces: ["no", "hay que", "ir", "en", "taxi", "está", "lejos"],
     }),
     vocabTextMcq("es-m37-6-l6-tm-tren", "tren", ["taxi", "metro", "tan"]),
     {

@@ -1442,11 +1442,11 @@ lessons:
           - "I need new gloves."
       - kind: mcq
         id: l9-q-meduelenlospies
-        prompt: "Which one means 'hurt' for «los pies» (plural, about you)?"
+        prompt: "Which one means 'my feet hurt' (plural, first person)?"
         correct: "me duelen"
         distractors: ["me duele", "te duelen", "le duelen"]
         atoms: ["me", "duelen"]
-        why: "«los pies» is plural, so «duelen», not «duele» — and «me», not «te»/«le», since it's about you."
+        why: "«los pies» is plural, so «duelen», not «duele» — and «me», not «te»/«le», since the speaker is the one feeling the pain."
       - kind: buildLit
         id: l9-b-amihermanaleduelenlasmanos
         es: "a mi hermana le duelen las manos — necesita guantes nuevos"

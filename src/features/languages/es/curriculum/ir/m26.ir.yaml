@@ -1017,7 +1017,7 @@ lessons:
               correctOptionId: "right"
               audioText: "sí, salían mucho también"
             replyGloss: "Yes, they always went out a lot too."
-            explanation: "Sofía and María — them: «salían». «salíamos» would wrongly include you; «sale» slips into the present, and is singular besides — «salimos»/«salieron» are not registered forms for salir."
+            explanation: "Sofía and María — them: «salían». «salíamos» would wrongly include you; «sale» is present tense and singular; here we need the imperfect «salían»."
           - id: t3
             npc: { speaker: "Ana", es: "¿Y tú y yo? ¿Salíamos juntos al parque?", audioText: "¿y tú y yo? ¿salíamos juntos al parque?", gloss: "And you and I? Did we used to go out together to the park?" }
             goal: "Say yes, we always went out together there."
@@ -1215,7 +1215,7 @@ lessons:
       - kind: speakLit
         id: l6-sp-win
         es: "siempre comía en casa, pero ayer comí en el restaurante"
-        en: "I always ate at home, but yesterday I ate at the restaurant"
+        en: "I always used to eat at home, but yesterday I ate at the restaurant"
         atoms: ["siempre", "comía", "casa", "ayer", "comí", "restaurante"]
 
   # ── L7 · «¿Dónde vivías de niño?» — ZERO new atoms. Questions (yes/no

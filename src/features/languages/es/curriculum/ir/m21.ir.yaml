@@ -642,7 +642,7 @@ lessons:
         blank: "tuvimos"
         options: ["tuvimos", "tuvieron", "tuve"]
         atoms: ["tuvimos", "mucho", "trabajo", "ayer"]
-        why: "We, the group: «tuvimos». «tuvieron» would be someone else; «tuve» would be just you."
+        why: "We, the group: «tuvimos». «tuvieron» would be someone else; «tuve» would be just me (I had)."
       - kind: listenCompLit
         id: l4-lc-estuvimosescuela
         es: "estuvimos en la escuela la semana pasada"
@@ -818,7 +818,7 @@ lessons:
         blank: "vimos"
         options: ["vimos", "vieron", "vi"]
         atoms: ["vimos", "el museo", "la semana pasada"]
-        why: "We, the group: «vimos». «vieron» would be someone else; «vi» would be just you."
+        why: "We, the group: «vimos». «vieron» would be someone else; «vi» would be just me (I saw)."
       - kind: listenCompLit
         id: l5-lc-vinimosfiesta
         es: "vinimos temprano a la fiesta"
@@ -1009,7 +1009,7 @@ lessons:
         blank: "comimos"
         options: ["comimos", "comieron", "comí"]
         atoms: ["comimos"]
-        why: "We, the group: «comimos». «comieron» would be someone else; «comí» would be just you."
+        why: "We, the group: «comimos». «comieron» would be someone else; «comí» would be just me (I ate)."
       - kind: listenBuildLit
         id: l6-lb-samluiscomieron
         es: "Sam y Luis comieron mucho ayer"
@@ -1018,8 +1018,8 @@ lessons:
         tiles: ["comimos", "come"]
       - kind: clozeLit
         id: l6-c-anacarmenvivieron
-        es: "Ana y Carmen vivieron juntos en México"
-        en: "Ana and Carmen lived together in Mexico"
+        es: "Ana y Carmen vivieron en México"
+        en: "Ana and Carmen lived in Mexico"
         blank: "vivieron"
         options: ["vivieron", "vivimos", "vivió"]
         atoms: ["vivieron"]
@@ -1177,7 +1177,7 @@ lessons:
         blank: "estudiaron"
         options: ["estudiaron", "estudió", "estudié"]
         atoms: ["estudiaron", "la semana pasada"]
-        why: "Ana and Carmen — more than one: «estudiaron». «estudió» would be just one; «estudié» would be you."
+        why: "Ana and Carmen — more than one: «estudiaron». «estudió» would be just one; «estudié» would be I (first person)."
       - kind: listenCompLit
         id: l7-lc-compraronmercado
         es: "compraron mucho en el mercado"
@@ -1200,7 +1200,7 @@ lessons:
         blank: "escribieron"
         options: ["escribieron", "escribió", "escribí"]
         atoms: ["escribieron", "tarea", "juntos"]
-        why: "Sofía and Ana — more than one: «escribieron». «escribió» would be just one; «escribí» would be you."
+        why: "Sofía and Ana — more than one: «escribieron». «escribió» would be just one; «escribí» would be I (first person)."
       - kind: buildLit
         id: l7-b-fueronustedes
         es: "¿fueron ustedes?"
@@ -1273,7 +1273,7 @@ lessons:
               tiles: ["no", "Diego", "escribió", "escribieron", "escribí"]
               answer: "no Diego escribió"
             replyGloss: "No, Diego wrote it."
-            explanation: "Just Diego, one person: «escribió». «escribieron» would be more than one; «escribí» would be you."
+            explanation: "Just Diego, one person: «escribió». «escribieron» would be more than one; «escribí» would be I (first person)."
       - kind: matchLit
         id: l7-match
         pairs:

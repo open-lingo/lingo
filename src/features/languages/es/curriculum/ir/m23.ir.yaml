@@ -277,7 +277,7 @@ lessons:
           - { source: "era", target: "I/he/she/you was, the scene" }
           - { source: "fui", target: "I went/was, the event" }
           - { source: "iba", target: "I/he/she/you used to go" }
-          - { source: "vino", target: "he/she/you came" }
+          - { source: "vino", target: "he/she came" }
           - { source: "el mercado", target: "the market" }
       - kind: speakLit
         id: l1-sp-win
@@ -418,7 +418,7 @@ lessons:
           - { source: "mientras", target: "while" }
           - { source: "hablábamos", target: "we were talking" }
           - { source: "veíamos", target: "we were watching" }
-          - { source: "vino", target: "he/she/you came" }
+          - { source: "vino", target: "he/she came" }
           - { source: "la fiesta", target: "the party" }
           - { source: "la película", target: "the movie" }
       - kind: speakLit
@@ -567,7 +567,7 @@ lessons:
           - { source: "de repente", target: "suddenly" }
           - { source: "veíamos", target: "we were watching" }
           - { source: "hablábamos", target: "we were talking" }
-          - { source: "vino", target: "he/she/you came" }
+          - { source: "vino", target: "he/she came" }
           - { source: "la tienda", target: "the store" }
           - { source: "la película", target: "the movie" }
       - kind: speakLit
@@ -715,7 +715,7 @@ lessons:
         id: l4-match
         pairs:
           - { source: "entonces", target: "then, so" }
-          - { source: "vino", target: "he/she/you came" }
+          - { source: "vino", target: "he/she came" }
           - { source: "fuimos", target: "we went" }
           - { source: "hablé", target: "I talked" }
           - { source: "el parque", target: "the park" }
@@ -1170,7 +1170,7 @@ lessons:
           - { source: "no vi", target: "I didn't see" }
           - { source: "veías", target: "you used to watch" }
           - { source: "hablaba", target: "I/he/she/you was talking" }
-          - { source: "vino", target: "he/she/you came" }
+          - { source: "vino", target: "he/she came" }
           - { source: "la escuela", target: "the school" }
           - { source: "la tienda", target: "the store" }
       - kind: speakLit

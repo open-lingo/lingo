@@ -2128,7 +2128,7 @@ lessons:
         blank: "duerme"
         options: ["duerme", "duermo"]
         atoms: ["duerme", "temprano"]
-        why: "Diego is the sleeper, so «duerme»; «duermo» would be you. Spanish breaks the stem once and then puts the same ordinary endings on it that every verb since m10 has taken."
+        why: "Diego is the sleeper, so «duerme»; «duermo» would be me (I sleep). Spanish breaks the stem once and then puts the same ordinary endings on it that every verb since m10 has taken."
       # ── the él-ella column entire: six verbs, one break, one grid ────────
       - kind: matchLit
         id: l10-match

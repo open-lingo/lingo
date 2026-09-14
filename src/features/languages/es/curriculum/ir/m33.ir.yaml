@@ -964,7 +964,7 @@ lessons:
         distractorsEn:
           - "She wants to work, but she can swim tomorrow."
           - "She has to work, but she wants to swim tomorrow."
-          - "He has to work, but he can swim tomorrow."
+          - "She has to study, but she can swim tomorrow."
       - kind: mcq
         id: l6-q-quieronadarperotengoquetrabajar
         prompt: "Which one means 'I want to swim'?"
@@ -1205,7 +1205,7 @@ lessons:
         blank: "tiene"
         options: ["tiene", "tienes"]
         atoms: ["tiene", "comprar", "chaqueta", "nuevo"]
-        why: "A named subject takes «tiene», not «tienes» (tú)."
+        why: "The subject is 3rd person (she, implied), so use «tiene», not «tienes» (tú)."
       - kind: listenCompLit
         id: l8-lc-tenemosquetrabajarjuntos
         es: "tenemos que trabajar juntos"
@@ -1496,7 +1496,7 @@ lessons:
         correct: "tengo que comprar un pantalón nuevo, y también necesito una chaqueta"
         distractors: ["tengo comprar un pantalón nuevo, y también necesito una chaqueta", "tengo que comprar un pantalón nueva, y también necesito una chaqueta", "tengo que comprar un pantalón nuevo, y también necesita una chaqueta"]
         atoms: ["tengo que", "comprar", "pantalón", "nuevo", "también", "necesito", "chaqueta"]
-        why: "Never drop «que»; «pantalón» is masculine so «nuevo», not «nueva»; and «necesito», not «necesita» — it's about you."
+        why: "Never drop «que»; «pantalón» is masculine so «nuevo», not «nueva»; and «necesito», not «necesita» — the subject is «yo» (I)."
       - kind: speakLit
         id: l10-sp-recall-l3win
         es: "Ana tiene que trabajar mañana"

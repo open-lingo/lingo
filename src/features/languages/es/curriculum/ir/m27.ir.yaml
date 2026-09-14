@@ -985,7 +985,7 @@ lessons:
       - kind: info
         id: l6-info-nublado
         title: "Nublado — always one form"
-        body: "«nublado» never changes: no «nublada», no «nublados». «está nublado» has no subject, so nothing to agree with — same shape as «hace calor»."
+        body: "In «está nublado» (no subject), the form is fixed — but «nublado» is a regular adjective and agrees when a subject is present: «la mañana está nublada», «los días están nublados»."
       - kind: buildLit
         id: l6-b-estamuynubladohoy
         es: "está muy nublado hoy"

@@ -1627,9 +1627,9 @@ const ES_M25_9: LessonContent = {
     sentenceMcq({
       id: "es-m25-9-l9-q-leadswithresult",
       prompt: "Same two facts — which one leads with the RESULT?",
-      correctText: "por eso",
-      distractorsText: ["porque", "mientras", "entonces"],
-      explanation: "«por eso» leads with the reason, then states the result. «porque» flips it — result first, reason after. «mientras» (while) and «entonces» (then/so) are different connectives from m23.",
+      correctText: "porque",
+      distractorsText: ["por eso", "mientras", "entonces"],
+      explanation: "«porque» leads with the result, then gives the reason. «por eso» flips it — reason first, result after. «mientras» (while) and «entonces» (then/so) are different connectives from m23.",
       exercisedAtomSurfaces: ["por eso"],
     }),
     build(

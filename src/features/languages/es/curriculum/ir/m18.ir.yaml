@@ -859,7 +859,7 @@ lessons:
               tiles: ["sí", "tenemos", "los", "boletos", "tienen", "tengo"]
               answer: "sí tenemos los boletos"
             replyGloss: "Yes, we have the tickets."
-            explanation: "Diego asked the group with «tienen»; the group answers «tenemos». «tengo» would be you alone."
+            explanation: "Diego asked the group with «tienen»; the group answers «tenemos». «tengo» would be just me."
           - id: t2
             npc: { speaker: "Diego", es: "Ana y Sofía no tienen dinero.", audioText: "ana y sofía no tienen dinero", gloss: "Ana and Sofía don't have money." }
             goal: "Say you two have money."

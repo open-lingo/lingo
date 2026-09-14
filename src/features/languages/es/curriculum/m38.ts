@@ -1006,7 +1006,7 @@ const ES_M38_6: LessonContent = {
             answer: "sí quiero limpiar el jardín",
           },
           replyGloss: "Yes, I want to clean it.",
-          explanation: "«quiero» (m7) plus the bare infinitive «limpiar» — never «limpio» here, that's a different word entirely.",
+          explanation: "«quiero» (m7) plus the bare infinitive «limpiar» — never «limpio» here, after «quiero» you use the bare infinitive, not the conjugated form.",
         },
       ],
     },
@@ -1151,7 +1151,7 @@ const ES_M38_7: LessonContent = {
             audioText: "sí, me gusta mucho",
           },
           replyGloss: "Yes, I like it a lot.",
-          explanation: "«me gusta» — YOU liking it, one thing (the house). Not «te gusta» (that's Dalia liking it) and not «gustan» (that's for more than one thing).",
+          explanation: "«me gusta» — I like it, one thing (the house). Not «te gusta» (that's Dalia liking it) and not «gustan» (more than one thing).",
         },
         {
           id: "t2",
@@ -1314,8 +1314,8 @@ const ES_M38_8: LessonContent = {
           goal: "Say it's close, beside the garden.",
           reply: {
             mode: "build",
-            tiles: ["está", "cerca", "al", "lado", "del", "jardín", "lejos"],
-            answer: "está cerca al lado del jardín",
+            tiles: ["está", "cerca,", "al", "lado", "del", "jardín", "lejos"],
+            answer: "está cerca, al lado del jardín",
           },
           replyGloss: "It's close, beside the garden.",
           explanation: "«jardín» is masculine, so «del», never a bare «de».",

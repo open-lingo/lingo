@@ -1642,7 +1642,7 @@ const ES_M28_10: LessonContent = {
       { blank: { id: "p2", correctAnswer: "por eso", options: ["por eso", "porque"] } },
       { text: " necesito ir a la tienda" },
       ],
-      "I'm going to cook because it's going to be cold, that's why I need the store",
+      "I'm going to cook because it's going to be cold, that's why I need to go to the store",
       "voy a cocinar porque va a hacer frío, por eso necesito ir a la tienda",
       ["voy", "cocinar", "porque", "va", "hacer", "el frío", "por eso", "necesito", "ir", "tienda"],
     ),

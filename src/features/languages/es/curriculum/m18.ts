@@ -953,7 +953,7 @@ const ES_M18_5: LessonContent = {
             answer: "sí tenemos los boletos",
           },
           replyGloss: "Yes, we have the tickets.",
-          explanation: "Diego asked the group with «tienen»; the group answers «tenemos». «tengo» would be you alone.",
+          explanation: "Diego asked the group with «tienen»; the group answers «tenemos». «tengo» would be just me.",
         },
         {
           id: "t2",

@@ -653,7 +653,7 @@ const ES_M21_4: LessonContent = {
       ["tuvimos", "tuvieron", "tuve"],
       "We had a lot of work yesterday",
       "tuvimos mucho trabajo ayer",
-      "We, the group: «tuvimos». «tuvieron» would be someone else; «tuve» would be just you.",
+      "We, the group: «tuvimos». «tuvieron» would be someone else; «tuve» would be just me (I had).",
       ["tuvimos", "mucho", "trabajo", "ayer"],
     ),
     listeningCompSentence({
@@ -860,7 +860,7 @@ const ES_M21_5: LessonContent = {
       ["vimos", "vieron", "vi"],
       "We saw the museum last week",
       "vimos el museo la semana pasada",
-      "We, the group: «vimos». «vieron» would be someone else; «vi» would be just you.",
+      "We, the group: «vimos». «vieron» would be someone else; «vi» would be just me (I saw).",
       ["vimos", "el museo", "la semana pasada"],
     ),
     listeningCompSentence({
@@ -1076,7 +1076,7 @@ const ES_M21_6: LessonContent = {
       ["comimos", "comieron", "comí"],
       "We ate a lot at the party",
       "comimos mucho en la fiesta",
-      "We, the group: «comimos». «comieron» would be someone else; «comí» would be just you.",
+      "We, the group: «comimos». «comieron» would be someone else; «comí» would be just me (I ate).",
       ["comimos"],
     ),
     listeningBuildSentence({
@@ -1090,11 +1090,11 @@ const ES_M21_6: LessonContent = {
     cloze(
       "es-m21-6-l6-c-anacarmenvivieron",
       "Ana y Carmen ",
-      " juntos en México.",
+      " en México.",
       "vivieron",
       ["vivieron", "vivimos", "vivió"],
-      "Ana and Carmen lived together in Mexico",
-      "ana y Carmen vivieron juntos en México",
+      "Ana and Carmen lived in Mexico",
+      "ana y Carmen vivieron en México",
       "They — more than one: «vivieron». «vivimos» would include you (we); «vivió» would be just one.",
       ["vivieron"],
     ),
@@ -1274,7 +1274,7 @@ const ES_M21_7: LessonContent = {
       ["estudiaron", "estudió", "estudié"],
       "Ana and Carmen studied a lot last week",
       "ana y Carmen estudiaron mucho la semana pasada",
-      "Ana and Carmen — more than one: «estudiaron». «estudió» would be just one; «estudié» would be you.",
+      "Ana and Carmen — more than one: «estudiaron». «estudió» would be just one; «estudié» would be I (first person).",
       ["estudiaron", "la semana pasada"],
     ),
     listeningCompSentence({
@@ -1300,7 +1300,7 @@ const ES_M21_7: LessonContent = {
       ["escribieron", "escribió", "escribí"],
       "Sofía and Ana wrote the homework together",
       "sofía y Ana escribieron la tarea juntos",
-      "Sofía and Ana — more than one: «escribieron». «escribió» would be just one; «escribí» would be you.",
+      "Sofía and Ana — more than one: «escribieron». «escribió» would be just one; «escribí» would be I (first person).",
       ["escribieron", "tarea", "juntos"],
     ),
     build(
@@ -1397,7 +1397,7 @@ const ES_M21_7: LessonContent = {
             answer: "no Diego escribió",
           },
           replyGloss: "No, Diego wrote it.",
-          explanation: "Just Diego, one person: «escribió». «escribieron» would be more than one; «escribí» would be you.",
+          explanation: "Just Diego, one person: «escribió». «escribieron» would be more than one; «escribí» would be I (first person).",
         },
       ],
     },

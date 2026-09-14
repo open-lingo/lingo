@@ -793,7 +793,7 @@ const ES_M17_4: LessonContent = {
             audioText: "sí, se lava los dientes temprano",
           },
           replyGloss: "Yes, he brushes his teeth early.",
-          explanation: "Diego — a he — so «se lava». «me lavo» would be you; «se lavo» mixes the pointer and the ending.",
+          explanation: "Diego — a he — so «se lava». «me lavo» would be me; «se lavo» mixes the pointer and the ending.",
         },
         {
           id: "t3",
@@ -1183,7 +1183,7 @@ const ES_M17_6: LessonContent = {
             audioText: "se acuesta tarde",
           },
           replyGloss: "She goes to bed late.",
-          explanation: "Ana is a she: «se acuesta». «me acuesto» would be you, and «se acuesto» breaks the pair.",
+          explanation: "Ana is a she: «se acuesta». «me acuesto» would be me, and «se acuesto» breaks the pair.",
         },
         {
           id: "t3",

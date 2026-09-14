@@ -1392,10 +1392,10 @@ const ES_M32_9: LessonContent = {
     }),
     sentenceMcq({
       id: "es-m32-9-l9-q-meduelenlospies",
-      prompt: "Which one means 'hurt' for «los pies» (plural, about you)?",
+      prompt: "Which one means 'my feet hurt' (plural, first person)?",
       correctText: "me duelen",
       distractorsText: ["me duele", "te duelen", "le duelen"],
-      explanation: "«los pies» is plural, so «duelen», not «duele» — and «me», not «te»/«le», since it's about you.",
+      explanation: "«los pies» is plural, so «duelen», not «duele» — and «me», not «te»/«le», since the speaker is the one feeling the pain.",
       exercisedAtomSurfaces: ["me", "duelen"],
     }),
     build(

@@ -1486,10 +1486,10 @@ lessons:
       - kind: mcq
         id: l9-q-leadswithresult
         prompt: "Same two facts — which one leads with the RESULT?"
-        correct: "por eso"
-        distractors: ["porque", "mientras", "entonces"]
+        correct: "porque"
+        distractors: ["por eso", "mientras", "entonces"]
         atoms: ["por eso"]
-        why: "«por eso» leads with the reason, then states the result. «porque» flips it — result first, reason after. «mientras» (while) and «entonces» (then/so) are different connectives from m23."
+        why: "«porque» leads with the result, then gives the reason. «por eso» flips it — reason first, result after. «mientras» (while) and «entonces» (then/so) are different connectives from m23."
       - kind: buildLit
         id: l9-b-samluisqueriaporesohacian
         es: "Sam y Luis querían ir al cine, por eso hacían la tarea"

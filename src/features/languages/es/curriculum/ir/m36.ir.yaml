@@ -558,12 +558,12 @@ lessons:
             explanation: "«en tren» — the mode marker, no article, and never a bare «a»."
           - id: t2
             npc: { speaker: "Diego", es: "¿La estación está cerca?", audioText: "¿la estación está cerca?", gloss: "Is the station close?" }
-            goal: "Say no, it's far."
+            goal: "Say it's far."
             reply:
               mode: build
               tiles: ["no", "está", "lejos", "cerca", "es"]
-              answer: "no está lejos"
-            replyGloss: "No, it's far."
+              answer: "está lejos"
+            replyGloss: "It's far."
             explanation: "«lejos», not «cerca» — the station is far."
       - kind: matchLit
         id: l2-match
@@ -1119,8 +1119,8 @@ lessons:
             goal: "Say no, you have a bicycle."
             reply:
               mode: build
-              tiles: ["no", "tengo", "una", "bicicleta", "necesito"]
-              answer: "no tengo una bicicleta"
+              tiles: ["no,", "tengo", "una", "bicicleta", "necesito"]
+              answer: "no, tengo una bicicleta"
             replyGloss: "No, I have a bicycle."
             explanation: "«tengo» — possession (m5), not «necesito» — need."
       - kind: matchLit

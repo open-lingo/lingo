@@ -1996,7 +1996,7 @@ const ES_M14_10: LessonContent = {
       ["duerme", "duermo"],
       "Diego sleeps early",
       "diego duerme temprano",
-      "Diego is the sleeper, so «duerme»; «duermo» would be you. Spanish breaks the stem once and then puts the same ordinary endings on it that every verb since m10 has taken.",
+      "Diego is the sleeper, so «duerme»; «duermo» would be me (I sleep). Spanish breaks the stem once and then puts the same ordinary endings on it that every verb since m10 has taken.",
       ["duerme", "temprano"],
     ),
     {

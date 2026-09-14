@@ -761,7 +761,7 @@ const ES_M31_5: LessonContent = {
       prompt: "'I can't run' — which word means 'I can't'?",
       correctText: "puedo",
       distractorsText: ["puedes", "puede", "duelo"],
-      explanation: "«puedo» — PRIOR from module 14, «I can/I'm able to». Never «duelo»; that word doesn't exist.",
+      explanation: "«puedo» — PRIOR from module 14, «I can/I'm able to». «duelo» is not a conjugation of «doler» here — the verb never takes a personal ending like that.",
       exercisedAtomSurfaces: ["puedo"],
     }),
     build(
@@ -831,7 +831,7 @@ const ES_M31_5: LessonContent = {
             audioText: "sí, me duele mucho la pierna",
           },
           replyGloss: "Yes, my leg hurts a lot.",
-          explanation: "«me», not «te» — you're answering about yourself. «duelo» is never a word; «duele» never conjugates to the person.",
+          explanation: "«me», not «te» — you're answering about yourself. «duelo» is not a conjugation of «doler» here — the verb never takes a personal ending like that.",
         },
         {
           id: "t2",

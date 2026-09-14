@@ -889,7 +889,7 @@ const ES_M33_6: LessonContent = {
       id: "es-m33-6-l6-lc-tienequetrabajarpuedenadar",
       audioText: "tiene que trabajar, pero puede nadar mañana",
       correctMeaningEn: "She has to work, but she can swim tomorrow",
-      distractorsEn: ["She wants to work, but she can swim tomorrow", "She has to work, but she wants to swim tomorrow", "He has to work, but he can swim tomorrow"],
+      distractorsEn: ["She wants to work, but she can swim tomorrow", "She has to work, but she wants to swim tomorrow", "She has to study, but she can swim tomorrow"],
       exercisedAtomSurfaces: ["tiene", "trabajar", "puede", "nadar", "mañana"],
     }),
     sentenceMcq({
@@ -1193,7 +1193,7 @@ const ES_M33_8: LessonContent = {
       ["tiene", "tienes"],
       "She has to buy a new jacket",
       "tiene que comprar una chaqueta nueva",
-      "A named subject takes «tiene», not «tienes» (tú).",
+      "The subject is 3rd person (she, implied), so use «tiene», not «tienes» (tú).",
       ["tiene", "comprar", "chaqueta", "nuevo"],
     ),
     listeningCompSentence({
@@ -1529,7 +1529,7 @@ const ES_M33_10: LessonContent = {
       prompt: "Which one means 'I have to buy new pants, and I also need a jacket'?",
       correctText: "tengo que comprar un pantalón nuevo, y también necesito una chaqueta",
       distractorsText: ["tengo comprar un pantalón nuevo, y también necesito una chaqueta", "tengo que comprar un pantalón nueva, y también necesito una chaqueta", "tengo que comprar un pantalón nuevo, y también necesita una chaqueta"],
-      explanation: "Never drop «que»; «pantalón» is masculine so «nuevo», not «nueva»; and «necesito», not «necesita» — it's about you.",
+      explanation: "Never drop «que»; «pantalón» is masculine so «nuevo», not «nueva»; and «necesito», not «necesita» — the subject is «yo» (I).",
       exercisedAtomSurfaces: ["tengo que", "comprar", "pantalón", "nuevo", "también", "necesito", "chaqueta"],
     }),
     speaking("es-m33-10-l10-sp-recall-l3win", "ana tiene que trabajar mañana", "Ana has to work tomorrow", [], "recall"),

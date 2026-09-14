@@ -1127,9 +1127,9 @@ lessons:
           - { blank: { id: "p2", answer: "nuevo", options: ["nuevo", "nueva"] } }
       - kind: listenBuildLit
         id: l6-lb-nohayqueirentaxieslejos
-        es: "no hay que ir en taxi, es lejos"
+        es: "no hay que ir en taxi, está lejos"
         en: "One doesn't have to go by taxi, it's far"
-        atoms: ["no", "hay que", "ir", "en", "taxi", "es", "lejos"]
+        atoms: ["no", "hay que", "ir", "en", "taxi", "está", "lejos"]
         tiles: ["tengo", "puedo"]
       - kind: textMcq
         id: l6-tm-tren

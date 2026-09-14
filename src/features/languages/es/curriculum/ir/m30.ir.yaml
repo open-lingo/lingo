@@ -1376,7 +1376,7 @@ lessons:
   - n: 9
     template: free
     title: "Sí, puedo verlo"
-    description: "Masculine things get two homes for the pointer — «lo veo», «puedo verlo», same meaning. Feminine things get only one: «la veo», always pre-verbal, never fused."
+    description: "Both masculine and feminine things get two homes for the pointer: «lo veo»/«puedo verlo», «la veo»/«puedo verla» — same meaning, different position."
     steps:
       - kind: map
         id: l9-map-loveopuedoverlo
@@ -1386,7 +1386,7 @@ lessons:
           - { en: "I see it", tokenIndex: 1 }
           - { en: "same meaning, other position", tokenIndex: 3 }
         audioText: "lo veo, puedo verlo"
-        revealNote: "«lo veo» and «puedo verlo» mean exactly the same thing — masculine things get both homes for the pointer. Feminine things (mano, pierna, boca, nariz) only ever get the first kind: «la veo», never a fused second form."
+        revealNote: "«lo veo» and «puedo verlo» mean exactly the same thing — masculine things get both homes for the pointer. Both «la veo» and «verla» are valid; this pair contrasts the pre-verbal and post-verbal placements, both grammatical for feminine objects too."
       - kind: speakLit
         id: l9-sp-recall-l8win
         es: "me lavo las manos"
@@ -1418,9 +1418,9 @@ lessons:
         id: l9-q-piernaver
         prompt: "Which one means 'I can see it' (talking about la pierna)?"
         correct: "la puedo ver"
-        distractors: ["puedo verla", "lo puedo ver", "puedo ver la"]
+        distractors: ["puedo la ver", "lo puedo ver", "puedo ver la"]
         atoms: ["puedo", "ver"]
-        why: "«pierna» is feminine, so the pointer is «la», always in front of the verb: «la puedo ver». There is no fused second form for feminine things — that would need a pointer that doesn't exist. «lo puedo ver» is the wrong pointer, for masculine things."
+        why: "«pierna» is feminine, so the pointer is «la». It goes in front of the verb («la puedo ver») or fused onto the infinitive («puedo verla», also correct) — but never left standing alone as a separate word: «puedo la ver» and «puedo ver la» are both wrong word order. «lo puedo ver» is the wrong pointer, for masculine things."
       - kind: buildLit
         id: l9-b-veoelojopuedoverlo
         es: "veo el ojo, puedo verlo"
@@ -1478,7 +1478,7 @@ lessons:
               tiles: ["sí", "la", "puedo", "ver", "lo"]
               answer: "sí la puedo ver"
             replyGloss: "Yes, I can see it."
-            explanation: "«pierna» is feminine — the pointer is «la», never fused onto the verb; it goes in front of «puedo ver», the same slot «lo» takes for masculine things."
+            explanation: "«pierna» is feminine — the pointer is «la»; it goes in front of «puedo ver» (the more common order), the same slot «lo» takes for masculine things. «puedo verla», fused onto the infinitive, is also valid."
       - kind: matchLit
         id: l9-match
         pairs:

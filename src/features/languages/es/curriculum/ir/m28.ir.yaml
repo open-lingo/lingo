@@ -1493,7 +1493,7 @@ lessons:
           - { surface: "el cine", emoji: "🎬" }
       - kind: agreementLit
         id: l10-agr-porquepor
-        en: "I'm going to cook because it's going to be cold, that's why I need the store"
+        en: "I'm going to cook because it's going to be cold, that's why I need to go to the store"
         audioText: "voy a cocinar porque va a hacer frío, por eso necesito ir a la tienda"
         atoms: ["voy", "cocinar", "porque", "va", "hacer", "el frío", "por eso", "necesito", "ir", "tienda"]
         segments:

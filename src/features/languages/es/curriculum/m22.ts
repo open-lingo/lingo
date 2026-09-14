@@ -112,7 +112,7 @@ const ES_M22_1: LessonContent = {
       prompt: "Which one means 'he used to speak'?",
       correctText: "él hablaba",
       distractorsText: ["él habla", "él hablan", "yo hablo"],
-      explanation: "«hablaba» is the imperfect — the exact same word for yo and él. «habla» slips into now; «hablan» would be more than one; «hablo» is present, just you.",
+      explanation: "«hablaba» is the imperfect — the exact same word for yo and él. «habla» slips into now; «hablan» would be more than one; «hablo» is present, just yo (I speak).",
       exercisedAtomSurfaces: ["hablaba"],
     }),
     build(

@@ -948,7 +948,7 @@ const ES_M26_5: LessonContent = {
             audioText: "sí, salían mucho también",
           },
           replyGloss: "Yes, they always went out a lot too.",
-          explanation: "Sofía and María — them: «salían». «salíamos» would wrongly include you; «sale» slips into the present, and is singular besides — «salimos»/«salieron» are not registered forms for salir.",
+          explanation: "Sofía and María — them: «salían». «salíamos» would wrongly include you; «sale» is present tense and singular; here we need the imperfect «salían».",
         },
         {
           id: "t3",
@@ -1181,7 +1181,7 @@ const ES_M26_6: LessonContent = {
         { id: "p6", source: "comí", target: "I ate" },
       ],
     },
-    speaking("es-m26-6-l6-sp-win", "siempre comía en casa, pero ayer comí en el restaurante", "I always ate at home, but yesterday I ate at the restaurant", ["siempre", "comía", "casa", "ayer", "comí", "restaurante"]),
+    speaking("es-m26-6-l6-sp-win", "siempre comía en casa, pero ayer comí en el restaurante", "I always used to eat at home, but yesterday I ate at the restaurant", ["siempre", "comía", "casa", "ayer", "comí", "restaurante"]),
   ],
 };
 

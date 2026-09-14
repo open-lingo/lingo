@@ -891,7 +891,7 @@ lessons:
         correct: "puedo"
         distractors: ["puedes", "puede", "duelo"]
         atoms: ["puedo"]
-        why: "«puedo» — PRIOR from module 14, «I can/I'm able to». Never «duelo»; that word doesn't exist."
+        why: "«puedo» — PRIOR from module 14, «I can/I'm able to». «duelo» is not a conjugation of «doler» here — the verb never takes a personal ending like that."
       - kind: buildLit
         id: l5-b-anaduelenmanos
         es: "Ana no puede correr, le duelen las manos"
@@ -941,7 +941,7 @@ lessons:
               correctOptionId: "right"
               audioText: "sí, me duele mucho la pierna"
             replyGloss: "Yes, my leg hurts a lot."
-            explanation: "«me», not «te» — you're answering about yourself. «duelo» is never a word; «duele» never conjugates to the person."
+            explanation: "«me», not «te» — you're answering about yourself. «duelo» is not a conjugation of «doler» here — the verb never takes a personal ending like that."
           - id: t2
             npc: { speaker: "Carmen", es: "¿Puedes correr?", audioText: "¿puedes correr?", gloss: "Can you run?" }
             goal: "Say no, you can't run."

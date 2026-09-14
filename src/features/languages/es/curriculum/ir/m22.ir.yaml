@@ -270,7 +270,7 @@ lessons:
         correct: "él hablaba"
         distractors: ["él habla", "él hablan", "yo hablo"]
         atoms: ["hablaba"]
-        why: "«hablaba» is the imperfect — the exact same word for yo and él. «habla» slips into now; «hablan» would be more than one; «hablo» is present, just you."
+        why: "«hablaba» is the imperfect — the exact same word for yo and él. «habla» slips into now; «hablan» would be more than one; «hablo» is present, just yo (I speak)."
       - kind: buildLit
         id: l1-b-ustedhablaba
         es: "usted hablaba español muy bien"
