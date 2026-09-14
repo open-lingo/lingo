@@ -385,7 +385,7 @@ function lesson3(): LessonStep[] {
     infoStep(
       "fr-m10-3-info-des",
       "Some, and how many",
-      "«des» — some, the plural 'a' (day): «Il y a des chats ici» — there are (some) cats here. And your module-1 numbers finally multiply: «deux chats», «trois chiens». The -s appears in writing; «les», «des» and the number do the talking.",
+      "«des» — some, the plural of un/une (pronounced like \"day\"): «Il y a des chats ici» — there are (some) cats here. And your module-1 numbers finally multiply: «deux chats», «trois chiens». The -s appears in writing; «les», «des» and the number do the talking.",
       "grammar",
     ),
     {
@@ -625,7 +625,7 @@ function lesson4(): LessonStep[] {
       ],
       audioText: "il y a des livres ici",
       revealNote:
-        "A shelf appears — «des livres», sounding exactly like one book plus «day».",
+        "A shelf appears — «des livres»: the -s in «livres» is silent, so it sounds like the singular «livre» — but «des» (some) is a different word from «un» (a).",
     },
     cloze(
       "fr-m10-4-cloze-trois",
@@ -1360,7 +1360,7 @@ function lesson10(): LessonStep[] {
       ["les", "le"],
       "the cats",
       "les chats",
-      "Plural spelling, plural article — «les», lay.",
+      "Plural spelling, plural article — «les» (pronounced \"lay\").",
     ),
     speaking("fr-m10-10-speak-leshotels-recall", "les hôtels", "the hotels", [], "recall"),
     vocabTextMcq("fr-m10-10-mc-des", "des", ["les", "un", "une"]),

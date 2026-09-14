@@ -308,7 +308,7 @@ function lesson1(): LessonStep[] {
       ["heures", "hours / o'clock"],
       ["il est", "it's"],
       ["il y a", "there is"],
-      ["un café", "a coffee"],
+      ["un café", "a coffee (the drink)"],
       ["deux", "two"],
     ]),
   ];
@@ -615,7 +615,7 @@ function lesson5(): LessonStep[] {
       ["sept", "huit"],
       "it's seven o'clock",
       "il est sept heures",
-      "«sept» — the number that names m6's own «s'il te plaît» count, seven o'clock.",
+      "«sept» = seven. Il est sept heures = It's seven o'clock.",
     ),
     crossModuleVocabMcq("fr-m23-5-mcq-onze", "eleven", "onze", ["douze", "seize", "dix"]),
     build(

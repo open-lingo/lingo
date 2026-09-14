@@ -185,7 +185,7 @@ export const FR_M24_ATOMS: FrAtom[] = [
     kind: "vocab",
     gender: "m",
     emoji: "🧃",
-    hint: "zhoo — blue-m",
+    hint: "zhoo — masculine (le)",
   }),
   atom({
     surface: "pomme",
@@ -195,7 +195,7 @@ export const FR_M24_ATOMS: FrAtom[] = [
     kind: "vocab",
     gender: "f",
     emoji: "🍎",
-    hint: "pum — pink-f",
+    hint: "pum — feminine (la)",
   }),
   atom({
     surface: "baguette",
@@ -205,7 +205,7 @@ export const FR_M24_ATOMS: FrAtom[] = [
     kind: "vocab",
     gender: "f",
     emoji: "🥖",
-    hint: "ba-GET — pink-f",
+    hint: "ba-GET — feminine (la)",
   }),
   atom({
     surface: "tarte",
@@ -215,7 +215,7 @@ export const FR_M24_ATOMS: FrAtom[] = [
     kind: "vocab",
     gender: "f",
     emoji: "🥧",
-    hint: "tart — pink-f",
+    hint: "tart — feminine (la)",
   }),
   atom({
     surface: "crêpe",
@@ -225,7 +225,7 @@ export const FR_M24_ATOMS: FrAtom[] = [
     kind: "vocab",
     gender: "f",
     emoji: "🥞",
-    hint: "krehp — pink-f",
+    hint: "krehp — feminine (la)",
   }),
   atom({
     surface: "soupe",
@@ -235,7 +235,7 @@ export const FR_M24_ATOMS: FrAtom[] = [
     kind: "vocab",
     gender: "f",
     emoji: "🍲",
-    hint: "soop — pink-f",
+    hint: "soop — feminine (la)",
   }),
   atom({
     surface: "ouvert",
@@ -306,7 +306,7 @@ function lesson1(): LessonStep[] {
       ],
       audioText: "je voudrais un jus de pomme",
       tokenGenders: { 1: "m", 2: "m" },
-      revealNote: "«jus» is blue-m — «un jus de pomme», not «une».",
+      revealNote: "«jus» is masculine (le) — «un jus de pomme», not «une».",
     },
     speaking("fr-m24-1-speak-jusdepomme", "je voudrais un jus de pomme", "I would like an apple juice", []),
     vocabMcq(
@@ -378,7 +378,7 @@ function lesson2(): LessonStep[] {
       ],
       audioText: "je voudrais une baguette",
       tokenGenders: { 1: "f", 2: "f" },
-      revealNote: "«baguette» is pink-f — «une baguette».",
+      revealNote: "«baguette» is feminine (la) — «une baguette».",
     },
     speaking(
       "fr-m24-2-speak-baguette",
@@ -616,7 +616,7 @@ function lesson5(): LessonStep[] {
       ],
       audioText: "l'école est ouverte",
       tokenGenders: { 0: "f", 2: "f" },
-      revealNote: "«école» is pink-f, so «ouverte» wears the -e.",
+      revealNote: "«école» is feminine (la), so «ouverte» wears the -e.",
     },
     cloze(
       "fr-m24-5-cloze-ouverte",

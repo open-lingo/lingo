@@ -68,10 +68,10 @@ const COURSE_ID = "mock-1";
 export const FR_M7_ATOMS: FrAtom[] = [
   atom({ surface: "j'ai", meaningEn: "I have", partOfSpeech: "phrase", fromModule: "m7", kind: "phrase", hint: "zhay — je + ai, the shortest squeeze in French" }),
   atom({ surface: "tu as", meaningEn: "you have", partOfSpeech: "phrase", fromModule: "m7", kind: "phrase", hint: "tu AH — the -s is silent, as ever" }),
-  atom({ surface: "mon", meaningEn: "my (with le-words)", partOfSpeech: "particle", fromModule: "m7", kind: "particle", hint: "mohn — my, blue-m side" }),
-  atom({ surface: "ma", meaningEn: "my (with la-words)", partOfSpeech: "particle", fromModule: "m7", kind: "particle", hint: "mah — my, pink-f side" }),
-  atom({ surface: "ton", meaningEn: "your (with le-words)", partOfSpeech: "particle", fromModule: "m7", kind: "particle", hint: "tohn — your, blue-m side" }),
-  atom({ surface: "ta", meaningEn: "your (with la-words)", partOfSpeech: "particle", fromModule: "m7", kind: "particle", hint: "tah — your, pink-f side" }),
+  atom({ surface: "mon", meaningEn: "my (with le-words)", partOfSpeech: "particle", fromModule: "m7", kind: "particle", hint: "mohn — my, masculine (le) side" }),
+  atom({ surface: "ma", meaningEn: "my (with la-words)", partOfSpeech: "particle", fromModule: "m7", kind: "particle", hint: "mah — my, feminine (la) side" }),
+  atom({ surface: "ton", meaningEn: "your (with le-words)", partOfSpeech: "particle", fromModule: "m7", kind: "particle", hint: "tohn — your, masculine (le) side" }),
+  atom({ surface: "ta", meaningEn: "your (with la-words)", partOfSpeech: "particle", fromModule: "m7", kind: "particle", hint: "tah — your, feminine (la) side" }),
   atom({ surface: "frère", meaningEn: "brother", partOfSpeech: "noun", fromModule: "m7", kind: "vocab", gender: "m", emoji: "👦", hint: "frair — è wide open" }),
   atom({ surface: "sœur", meaningEn: "sister", partOfSpeech: "noun", fromModule: "m7", kind: "vocab", gender: "f", emoji: "👧", hint: "seur — œ is one letter, one sound" }),
   atom({ surface: "père", meaningEn: "father", partOfSpeech: "noun", fromModule: "m7", kind: "vocab", gender: "m", emoji: "🧔", hint: "pair" }),
@@ -130,7 +130,7 @@ function lesson1(): LessonStep[] {
       ["une", "un"],
       "I have a sister",
       "j'ai une sœur",
-      "«sœur» — pink-f: «une», even when she's yours.",
+      "«sœur» — feminine (la): «une», even when she's yours.",
     ),
     {
       // TAIL: m6 by ear.
@@ -194,7 +194,7 @@ function lesson2(): LessonStep[] {
     infoStep(
       "fr-m7-2-info-monma",
       "Make it yours",
-      "«mon» and «ma» — my — ride the same two sides as un/une: «mon frère» (blue-m), «ma sœur» (pink-f). Point at your people: «C'est mon frère.» — that's my brother. One system, another door.",
+      "«mon» and «ma» — my — ride the same two sides as un/une: «mon frère» (masculine (le)), «ma sœur» (feminine (la)). Point at your people: «C'est mon frère.» — that's my brother. One system, another door.",
       "grammar",
     ),
     {
@@ -220,7 +220,7 @@ function lesson2(): LessonStep[] {
       ["mon", "ma"],
       "that's my brother",
       "c'est mon frère",
-      "«frère» — blue-m, so «mon».",
+      "«frère» — masculine (le), so «mon».",
     ),
     {
       id: "fr-m7-2-sim-chloe",
@@ -278,7 +278,7 @@ function lesson2(): LessonStep[] {
       ["ma", "mon"],
       "that's my sister",
       "c'est ma sœur",
-      "«sœur» — pink-f, so «ma». Alternate until it's a reflex.",
+      "«sœur» — feminine (la), so «ma». Alternate until it's a reflex.",
     ),
     {
       // Same-lesson pair by EAR.
@@ -398,7 +398,7 @@ function lesson3(): LessonStep[] {
       ["ton", "ta"],
       "is that your dog?",
       "c'est ton chien ?",
-      "«chien» — blue-m: «ton», your on the blue side.",
+      "«chien» — masculine (le): «ton», your on the blue side.",
     ),
     {
       // TAIL: m6 by ear.
@@ -422,7 +422,7 @@ function lesson3(): LessonStep[] {
       ["ta", "ton"],
       "is that your sister?",
       "c'est ta sœur ?",
-      "«sœur» — pink-f: «ta». The sides never take a day off.",
+      "«sœur» — feminine (la): «ta». The sides never take a day off.",
     ),
     build(
       "fr-m7-3-build-tuasunfrere",
@@ -486,7 +486,7 @@ function lesson4(): LessonStep[] {
       audioText: "j'aime ma famille",
       tokenGenders: { 1: "f", 2: "f" },
       revealNote:
-        "m3's liking machine, m7's owners — the course compounds, pink-f all the way down.",
+        "m3's liking machine, m7's owners — the course compounds, feminine (la) all the way down.",
     },
     speaking("fr-m7-4-speak-mafamille", "j'aime ma famille", "I love my family", []),
     vocabMcq(
@@ -506,7 +506,7 @@ function lesson4(): LessonStep[] {
       ["mon", "ma"],
       "that's my father",
       "c'est mon père",
-      "«père» — blue-m: «mon père».",
+      "«père» — masculine (le): «mon père».",
     ),
     vocabMcq(
       "fr-m7-4-img-mere",
@@ -654,7 +654,7 @@ function lesson5(): LessonStep[] {
       ["ma", "mon"],
       "that's my family",
       "c'est ma famille",
-      "«famille» — pink-f: «ma famille».",
+      "«famille» — feminine (la): «ma famille».",
     ),
     {
       id: "fr-m7-5-sim-emma",
@@ -799,7 +799,7 @@ function lesson6(): LessonStep[] {
       ["ta", "ton"],
       "is that your family?",
       "c'est ta famille ?",
-      "«famille» — pink-f: «ta», their side of yours.",
+      "«famille» — feminine (la): «ta», their side of yours.",
     ),
     build(
       "fr-m7-6-build-unchien",
@@ -880,7 +880,7 @@ function lesson7(): LessonStep[] {
       ["mon", "ma"],
       "I love my dog",
       "j'aime mon chien",
-      "«chien» — blue-m: «mon», loved or not.",
+      "«chien» — masculine (le): «mon», loved or not.",
     ),
     listeningCompSentence({
       id: "fr-m7-7-lc-tuasunchat",
@@ -916,7 +916,7 @@ function lesson7(): LessonStep[] {
       ["ta", "ton"],
       "is that your mother?",
       "c'est ta mère ?",
-      "«mère» — pink-f: «ta mère».",
+      "«mère» — feminine (la): «ta mère».",
     ),
     {
       id: "fr-m7-7-sim-ines",
@@ -998,7 +998,7 @@ function checkpointLesson(): LessonStep[] {
       ["mon", "ma"],
       "that's my brother",
       "c'est mon frère",
-      "«frère» — blue-m: «mon».",
+      "«frère» — masculine (le): «mon».",
     ),
     speaking(
       "fr-m7-8-speak-both-recall",
@@ -1040,7 +1040,7 @@ function checkpointLesson(): LessonStep[] {
       ["ta", "ton"],
       "is that your sister?",
       "c'est ta sœur ?",
-      "«sœur» — pink-f: «ta».",
+      "«sœur» — feminine (la): «ta».",
     ),
     speaking(
       "fr-m7-8-speak-soeuretudiante-recall",
@@ -1071,7 +1071,7 @@ function checkpointLesson(): LessonStep[] {
       ["étudiant", "étudiante"],
       "my brother is a student",
       "mon frère est étudiant",
-      "«mon frère» keeps the t asleep: DYAHN.",
+      "«frère» is masculine, so the adjective takes the masculine form: étudiant (the final -t stays silent).",
     ),
     {
       id: "fr-m7-8-hear-chien",
@@ -1232,7 +1232,7 @@ function lesson9(): LessonStep[] {
       ["mon", "ma"],
       "I love my cat",
       "j'aime mon chat",
-      "«chat» — blue-m, purring or not: «mon chat».",
+      "«chat» — masculine (le), purring or not: «mon chat».",
     ),
     {
       id: "fr-m7-9-hear-soeur",
@@ -1307,7 +1307,7 @@ function lesson10(): LessonStep[] {
       ["ma", "mon"],
       "that's my mother",
       "c'est ma mère",
-      "«mère» — pink-f: «ma mère».",
+      "«mère» — feminine (la): «ma mère».",
     ),
     listeningCompSentence({
       id: "fr-m7-10-lc-frereetudiant",
@@ -1325,7 +1325,7 @@ function lesson10(): LessonStep[] {
       ["ton", "ta"],
       "is that your dog?",
       "c'est ton chien ?",
-      "«chien» — blue-m: «ton».",
+      "«chien» — masculine (le): «ton».",
     ),
     listeningCompSentence({
       id: "fr-m7-10-lc-tuasunesoeur",
@@ -1366,7 +1366,7 @@ function lesson10(): LessonStep[] {
       ["ma", "mon"],
       "I love my family",
       "j'aime ma famille",
-      "«famille» — pink-f to the end: «ma famille».",
+      "«famille» — feminine (la) to the end: «ma famille».",
     ),
     {
       id: "fr-m7-10-match",
@@ -1420,7 +1420,7 @@ function lesson10(): LessonStep[] {
           npc: {
             speaker: "Your mother",
             kana: "Enchantée !",
-            audioText: "enchanté",
+            audioText: "enchantée",
             gloss: "Nice to meet you! (she means Léa)",
           },
           goal: "Introduce Léa back.",

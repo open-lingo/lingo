@@ -271,7 +271,7 @@ function lesson1(): LessonStep[] {
 /** L2 — the cast: «c'est qui ?» answered with names. */
 function lesson2(): LessonStep[] {
   return [
-    crossModuleVocabMcq("fr-m25-2-mcq-cestqui", "who is it?", "c'est qui ?", [
+    crossModuleVocabMcq("fr-m25-2-mcq-cestqui", "who is it? (casual)", "c'est qui ?", [
       "tu vas où ?",
       "il y a un café",
       "qui est-ce ?",
@@ -337,7 +337,7 @@ function lesson3(): LessonStep[] {
       ["c'est", "ma sœur"],
       ["ma", "sœur"],
     ),
-    crossModuleVocabMcq("fr-m25-3-mcq-cestqui", "who is it?", "c'est qui ?", [
+    crossModuleVocabMcq("fr-m25-3-mcq-cestqui", "who is it? (casual)", "c'est qui ?", [
       "tu vas où ?",
       "il y a un café",
       "qui est-ce ?",
@@ -398,7 +398,7 @@ function lesson4(): LessonStep[] {
       ["c'est", "le frère", "de Léa"],
       ["frère"],
     ),
-    crossModuleVocabMcq("fr-m25-4-mcq-cestqui", "who is it?", "c'est qui ?", [
+    crossModuleVocabMcq("fr-m25-4-mcq-cestqui", "who is it? (casual)", "c'est qui ?", [
       "tu vas où ?",
       "il y a un café",
       "qui est-ce ?",
@@ -485,7 +485,7 @@ function lesson5(): LessonStep[] {
       id: "fr-m25-5-lc-quiestce",
       audioText: "qui est-ce ?",
       correctMeaningEn: "Who is it? (written)",
-      distractorsEn: ["Who is it?", "Where are you going?", "There's a café."],
+      distractorsEn: ["Who is it? (casual)", "Where are you going?", "There's a café."],
     }),
     {
       id: "fr-m25-5-sim-toctoc",
@@ -533,7 +533,7 @@ function lesson5(): LessonStep[] {
         },
       ],
     },
-    crossModuleVocabMcq("fr-m25-5-mcq-cestqui2", "who is it?", "c'est qui ?", [
+    crossModuleVocabMcq("fr-m25-5-mcq-cestqui2", "who is it? (casual)", "c'est qui ?", [
       "qui est-ce ?",
       "tu vas où ?",
       "il y a un café",
@@ -627,7 +627,7 @@ function lesson7(): LessonStep[] {
       undefined,
       ["c'est qui ?", "famille"],
     ),
-    crossModuleVocabMcq("fr-m25-7-mcq-cestqui", "who is it?", "c'est qui ?", [
+    crossModuleVocabMcq("fr-m25-7-mcq-cestqui", "who is it? (casual)", "c'est qui ?", [
       "tu vas où ?",
       "il y a un café",
       "qui est-ce ?",
@@ -663,7 +663,7 @@ function lesson7(): LessonStep[] {
  *  in «qui est-ce ?»'s second required answer position. */
 function lesson8(): LessonStep[] {
   return [
-    crossModuleVocabMcq("fr-m25-8-mcq-cestqui", "who is it?", "c'est qui ?", [
+    crossModuleVocabMcq("fr-m25-8-mcq-cestqui", "who is it? (casual)", "c'est qui ?", [
       "tu vas où ?",
       "il y a un café",
       "qui est-ce ?",
@@ -700,7 +700,7 @@ function lesson8(): LessonStep[] {
       id: "fr-m25-8-lc-quiestce",
       audioText: "qui est-ce ?",
       correctMeaningEn: "Who is it? (written)",
-      distractorsEn: ["Who is it?", "Where are you going?", "There's a café."],
+      distractorsEn: ["Who is it? (casual)", "Where are you going?", "There's a café."],
     }),
     {
       id: "fr-m25-8-sim-checkpoint",
@@ -782,7 +782,7 @@ function lesson9(): LessonStep[] {
       ["au café", "avec Léa"],
       [],
     ),
-    crossModuleVocabMcq("fr-m25-9-mcq-cestqui", "who is it?", "c'est qui ?", [
+    crossModuleVocabMcq("fr-m25-9-mcq-cestqui", "who is it? (casual)", "c'est qui ?", [
       "qui est-ce ?",
       "tu vas où ?",
       "il y a un café",
@@ -916,7 +916,7 @@ function lesson10(): LessonStep[] {
       ["au café,", "c'est qui ?"],
       ["c'est qui ?"],
     ),
-    crossModuleVocabMcq("fr-m25-10-mcq-cestqui", "who is it?", "c'est qui ?", [
+    crossModuleVocabMcq("fr-m25-10-mcq-cestqui", "who is it? (casual)", "c'est qui ?", [
       "qui est-ce ?",
       "tu vas où ?",
       "il y a un café",

@@ -211,7 +211,7 @@ function lesson1(): LessonStep[] {
       tokens: ["je viens de", "manger"],
       pairs: [
         { en: "I just", tokenIndex: 0 },
-        { en: "eaten", tokenIndex: 1 },
+        { en: "to eat", tokenIndex: 1 },
       ],
       audioText: "je viens de manger",
       revealNote: "«Je viens de» + a plain infinitive = I just... — no new verb form to learn.",
@@ -375,7 +375,7 @@ function lesson3(): LessonStep[] {
       pairs: [
         { en: "this morning", tokenIndex: 0 },
         { en: "I just", tokenIndex: 1 },
-        { en: "spoken", tokenIndex: 2 },
+        { en: "to speak", tokenIndex: 2 },
       ],
       audioText: "ce matin, je viens de parler",
       revealNote: "«Ce matin» sets the time; «viens de parler» says what just happened.",
@@ -455,7 +455,7 @@ function lesson4(): LessonStep[] {
       tokens: ["il vient de", "manger"],
       pairs: [
         { en: "he just", tokenIndex: 0 },
-        { en: "eaten", tokenIndex: 1 },
+        { en: "to eat", tokenIndex: 1 },
       ],
       audioText: "il vient de manger",
       revealNote: "«Il vient de manger» = he just ate — same frame, new infinitive.",
@@ -945,11 +945,11 @@ function lesson9(): LessonStep[] {
     cloze(
       "fr-m20-9-cloze-ilvisiteparis",
       "Il vient de",
-      "à Paris.",
+      "Paris.",
       "visiter",
       ["visiter", "manger"],
       "he just visited Paris",
-      "il vient de visiter à Paris",
+      "il vient de visiter Paris",
     ),
     build(
       "fr-m20-9-build-ellenevientpas",

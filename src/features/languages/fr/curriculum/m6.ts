@@ -86,7 +86,7 @@ export const FR_M6_ATOMS: FrAtom[] = [
   atom({ surface: "croissant", meaningEn: "croissant", partOfSpeech: "noun", fromModule: "m6", kind: "vocab", gender: "m", emoji: "🥐", hint: "krwa-SAHN — oi says wah, the t sleeps" }),
   atom({ surface: "gâteau", meaningEn: "cake", partOfSpeech: "noun", fromModule: "m6", kind: "vocab", gender: "m", emoji: "🍰", hint: "gah-TOH — eau says oh, like beaucoup" }),
   atom({ surface: "salade", meaningEn: "salad", partOfSpeech: "noun", fromModule: "m6", kind: "vocab", gender: "f", emoji: "🥗", hint: "sa-LAD" }),
-  atom({ surface: "sandwich", meaningEn: "sandwich", partOfSpeech: "noun", fromModule: "m6", kind: "vocab", gender: "m", emoji: "🥪", hint: "sahnd-WEECH — borrowed, and filed blue-m" }),
+  atom({ surface: "sandwich", meaningEn: "sandwich", partOfSpeech: "noun", fromModule: "m6", kind: "vocab", gender: "m", emoji: "🥪", hint: "sahnd-WEECH — borrowed, and filed masculine (le)" }),
   atom({ surface: "fromage", meaningEn: "cheese", partOfSpeech: "noun", fromModule: "m6", kind: "vocab", gender: "m", emoji: "🧀", hint: "fro-MAZH — a French meal isn't over before it" }),
 ];
 
@@ -184,7 +184,7 @@ function lesson1(): LessonStep[] {
       ["un", "une"],
       "I would like a croissant",
       "je voudrais un croissant",
-      "«croissant» — blue-m, like most of the pastry counter.",
+      "«croissant» — masculine (le), like most of the pastry counter.",
     ),
     build(
       "fr-m6-1-build-glace",
@@ -203,7 +203,7 @@ function lesson1(): LessonStep[] {
         { id: "p-svp", source: "s'il vous plaît", target: "please" },
         { id: "p-cafe", source: "café", target: "coffee" },
         { id: "p-glace", source: "glace", target: "ice cream" },
-        { id: "p-une", source: "une", target: "a (pink-f side)" },
+        { id: "p-une", source: "une", target: "a (feminine)" },
       ],
     },
     // WIN: the full order, out loud — printed first voicing.
@@ -258,7 +258,7 @@ function lesson2(): LessonStep[] {
       audioText: "un sandwich et une salade",
       tokenGenders: { 0: "m", 1: "m", 3: "f", 4: "f" },
       revealNote:
-        "Blue-m on one side of «et», pink-f on the other — the sides never blur, even on one plate.",
+        "Masculine (le) on one side of «et», feminine (la) on the other — the sides never blur, even on one plate.",
     },
     listeningCompSentence({
       id: "fr-m6-2-lc-salade",
@@ -727,7 +727,7 @@ function lesson5(): LessonStep[] {
       ["le", "la"],
       "I love cheese",
       "j'aime le fromage",
-      "«fromage» — blue-m, whatever the menu says.",
+      "«fromage» is masculine (le), so it takes «le», whatever the menu says.",
     ),
     {
       id: "fr-m6-5-hear-addition",
@@ -827,7 +827,6 @@ function lesson6(): LessonStep[] {
               { id: "tuvasou", text: "tu vas où ?" },
             ],
             correctOptionId: "ouisvp",
-            alsoCorrectOptionIds: ["nonmerci"],
             audioText: "oui s'il vous plaît",
           },
           replyGloss: "Yes, please.",
@@ -849,7 +848,6 @@ function lesson6(): LessonStep[] {
               { id: "encore", text: "encore un café s'il vous plaît" },
             ],
             correctOptionId: "laddition",
-            alsoCorrectOptionIds: ["nonmerci"],
             audioText: "l'addition s'il vous plaît",
           },
           replyGloss: "The bill, please.",
@@ -880,7 +878,7 @@ function lesson6(): LessonStep[] {
       ["une", "un"],
       "I would like a salad",
       "je voudrais une salade",
-      "«salade» — pink-f, order after order.",
+      "«salade» — feminine (la), order after order.",
     ),
     {
       id: "fr-m6-6-hear-salade",
@@ -953,7 +951,7 @@ function lesson7(): LessonStep[] {
         { id: "g-fromage", surface: "fromage", bucketId: "m", meaningEn: "cheese" },
       ],
       endingRule:
-        "-eau runs blue-m (gâteau — one ending you can mostly trust); the rest you know because you ordered them.",
+        "-eau runs masculine (le) (gâteau — one ending you can mostly trust); the rest you know because you ordered them.",
     }),
     // TAIL: the cheese confession, from memory (voiced L5).
     speaking("fr-m6-7-speak-fromage-recall", "j'aime le fromage", "I love cheese", [], "recall"),
@@ -965,7 +963,7 @@ function lesson7(): LessonStep[] {
       ["un", "une"],
       "another cake?",
       "encore un gâteau ?",
-      "«gâteau» — blue-m; «encore» changes nothing about sides.",
+      "«gâteau» — masculine (le); «encore» changes nothing about sides.",
     ),
     listeningCompSentence({
       id: "fr-m6-7-lc-encoreglace",
@@ -1087,7 +1085,7 @@ function checkpointLesson(): LessonStep[] {
       ["un", "une"],
       "I would like a sandwich",
       "je voudrais un sandwich",
-      "«sandwich» — blue-m, borrowed and filed.",
+      "«sandwich» is masculine (le), a borrowed word, so it takes «un».",
     ),
     speaking(
       "fr-m6-8-speak-croissant-recall",
@@ -1163,7 +1161,7 @@ function checkpointLesson(): LessonStep[] {
       ["s'il te plaît", "s'il vous plaît"],
       "a cake, please (to a FRIEND)",
       "un gâteau s'il te plaît",
-      "The friend-key — «te». The L7 trial went to the server; this one stays at the table.",
+      "Use «s'il te plaît» when speaking to a friend (tu form).",
     ),
     {
       id: "fr-m6-8-hear-addition",
@@ -1331,7 +1329,7 @@ function lesson9(): LessonStep[] {
       ["le", "la"],
       "I like cake",
       "j'aime le gâteau",
-      "«gâteau» stays blue-m in every sentence it sweetens.",
+      "«gâteau» stays masculine (le) in every sentence it sweetens.",
     ),
     {
       id: "fr-m6-9-hear-sandwich",
@@ -1406,7 +1404,7 @@ function lesson10(): LessonStep[] {
       ["une", "un"],
       "another salad?",
       "encore une salade ?",
-      "«salade» — pink-f, seconds included.",
+      "«salade» is feminine (la), so it takes «une».",
     ),
     listeningCompSentence({
       id: "fr-m6-10-lc-addition",

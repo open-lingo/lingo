@@ -814,7 +814,7 @@ function checkpointLesson(): LessonStep[] {
     ),
     sentenceMcq({
       id: "fr-m12-8-smcq-2",
-      prompt: "'It costs seventy euros' — wait, which of these is NOT a valid regular number this module taught?",
+      prompt: "'It costs sixty-nine euros' — which one is that?",
       correctText: "soixante-neuf euros",
       distractorsText: ["cinquante-neuf euros", "quarante-neuf euros", "trente-neuf euros"],
     }),

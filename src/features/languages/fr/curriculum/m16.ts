@@ -372,7 +372,7 @@ function lesson2(): LessonStep[] {
     agreementChain({
       id: "fr-m16-2-chain-allee",
       prompt: "Dress the sentence to match «Léa».",
-      head: { surface: "Léa", meaningEn: "Léa", featureLabel: "pink-f" },
+      head: { surface: "Léa", meaningEn: "Léa", featureLabel: "feminine (la)" },
       tokens: [
         { kind: "slot", id: "s-pro", options: ["il", "elle"], correct: "elle", roleLabel: "feminine subject" },
         { kind: "fixed", text: "est" },
@@ -713,7 +713,7 @@ function lesson5(): LessonStep[] {
     agreementChain({
       id: "fr-m16-5-chain-venue",
       prompt: "Dress the sentence to match «Chloé».",
-      head: { surface: "Chloé", meaningEn: "Chloé", featureLabel: "pink-f" },
+      head: { surface: "Chloé", meaningEn: "Chloé", featureLabel: "feminine (la)" },
       tokens: [
         { kind: "slot", id: "s-pro", options: ["il", "elle"], correct: "elle", roleLabel: "feminine subject" },
         { kind: "fixed", text: "est" },

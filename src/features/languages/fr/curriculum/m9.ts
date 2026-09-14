@@ -116,7 +116,7 @@ function lesson1(): LessonStep[] {
       ["grand", "grande"],
       "a big cat",
       "un grand chat",
-      "«chat» — blue-m: «grand» stays bare, its d asleep.",
+      "«chat» — masculine (le): «grand» stays bare, its d asleep.",
     ),
     {
       id: "fr-m9-1-map-grandemaison",
@@ -168,7 +168,7 @@ function lesson1(): LessonStep[] {
       ["grande", "grand"],
       "a big city",
       "une grande ville",
-      "«ville» — pink-f: «grande», dressed to match.",
+      "«ville» — feminine (la): «grande», dressed to match.",
     ),
     listeningCompSentence({
       // Ear trial 2 — answer the M-form (alternation, §13.9 law 4).
@@ -227,7 +227,7 @@ function lesson2(): LessonStep[] {
       ["petit", "petite"],
       "my little cat",
       "mon petit chat",
-      "«chat» — blue-m: «petit», t asleep.",
+      "«chat» — masculine (le): «petit», t asleep.",
     ),
     {
       id: "fr-m9-2-sim-chloe",
@@ -260,7 +260,7 @@ function lesson2(): LessonStep[] {
           },
           replyGloss: "Yes — that's my little cat.",
           explanation:
-            "«chat» is blue-m — mon petit chat. «ma petite» would dress him in the wrong uniform.",
+            "«chat» is masculine (le) — mon petit chat. «ma petite» would dress him in the wrong uniform.",
         },
       ],
     },
@@ -293,7 +293,7 @@ function lesson2(): LessonStep[] {
       ["petite", "petit"],
       "my little sister",
       "ma petite sœur",
-      "«sœur» — pink-f: «petite», the t wide awake.",
+      "«sœur» — feminine (la): «petite», the t wide awake.",
     ),
     build(
       "fr-m9-2-build-grandfrere",
@@ -509,7 +509,7 @@ function lesson4(): LessonStep[] {
       ["bon", "bonne"],
       "the cake is very good",
       "le gâteau est très bon",
-      "«gâteau» — blue-m: «bon», nasal and bare.",
+      "«gâteau» — masculine (le): «bon», nasal and bare.",
     ),
     {
       id: "fr-m9-4-sim-madame",
@@ -542,7 +542,7 @@ function lesson4(): LessonStep[] {
           },
           replyGloss: "The cake is very good.",
           explanation:
-            "«gâteau» is blue-m — très bon. The compliment lands harder when it's dressed right.",
+            "«gâteau» is masculine (le) — très bon. The compliment lands harder when it's dressed right.",
         },
       ],
     },
@@ -557,7 +557,7 @@ function lesson4(): LessonStep[] {
     agreementChain({
       id: "fr-m9-4-chain-gateau",
       prompt: "Dress the whole sentence to match «gâteau».",
-      head: { surface: "gâteau", meaningEn: "cake", featureLabel: "blue-m" },
+      head: { surface: "gâteau", meaningEn: "cake", featureLabel: "masculine (le)" },
       tokens: [
         { kind: "slot", id: "s-art", options: ["le", "la"], correct: "le", roleLabel: "masculine article" },
         { kind: "fixed", text: "gâteau" },
@@ -595,7 +595,7 @@ function lesson4(): LessonStep[] {
       ["bonne", "bon"],
       "the salad is very good",
       "la salade est très bonne",
-      "«salade» — pink-f: «bonne», bun with the n landing.",
+      "«salade» — feminine (la): «bonne», bun with the n landing.",
     ),
     build(
       "fr-m9-4-build-cafebon",
@@ -661,7 +661,7 @@ function lesson5(): LessonStep[] {
           },
           replyGloss: "It's a big museum.",
           explanation:
-            "«musée» — blue-m even at size: un grand musée. Its -ée ending lies; its side doesn't.",
+            "«musée» — masculine (le) even at size: un grand musée. Its -ée ending lies; its side doesn't.",
         },
       ],
     },
@@ -687,7 +687,7 @@ function lesson5(): LessonStep[] {
       ["petite", "petit"],
       "it's a small town",
       "c'est une petite ville",
-      "«ville» — pink-f: «petite», wherever «c'est» points.",
+      "«ville» — feminine (la): «petite», wherever «c'est» points.",
     ),
     {
       id: "fr-m9-5-map-petitcafe",
@@ -714,7 +714,7 @@ function lesson5(): LessonStep[] {
     agreementChain({
       id: "fr-m9-5-chain-maison",
       prompt: "Dress the chain to match «maison».",
-      head: { surface: "maison", meaningEn: "house", featureLabel: "pink-f" },
+      head: { surface: "maison", meaningEn: "house", featureLabel: "feminine (la)" },
       tokens: [
         { kind: "slot", id: "s-art", options: ["une", "un"], correct: "une", roleLabel: "feminine article" },
         { kind: "slot", id: "s-adj", options: ["grande", "grand"], correct: "grande", roleLabel: "feminine adjective" },
@@ -860,7 +860,7 @@ function lesson6(): LessonStep[] {
       ["grand", "grande"],
       "my dog is very big",
       "mon chien est très grand",
-      "«chien» — blue-m: bare «grand», even at full size.",
+      "«chien» — masculine (le): bare «grand», even at full size.",
     ),
     build(
       "fr-m9-6-build-saladebonne",
@@ -931,7 +931,7 @@ function lesson7(): LessonStep[] {
           surface: "musée",
           bucketId: "m",
           meaningEn: "museum",
-          note: "-ée looks pink and lies — blue-m: un grand musée.",
+          note: "-ée looks feminine but lies — masculine (le): un grand musée.",
         },
         { id: "g-ville", surface: "ville", bucketId: "f", meaningEn: "town" },
         { id: "g-gateau", surface: "gâteau", bucketId: "m", meaningEn: "cake" },
@@ -947,7 +947,7 @@ function lesson7(): LessonStep[] {
     agreementChain({
       id: "fr-m9-7-chain-ville",
       prompt: "Dress the chain to match «ville».",
-      head: { surface: "ville", meaningEn: "town / city", featureLabel: "pink-f" },
+      head: { surface: "ville", meaningEn: "town / city", featureLabel: "feminine (la)" },
       tokens: [
         { kind: "slot", id: "s-art", options: ["une", "un"], correct: "une", roleLabel: "feminine article" },
         { kind: "slot", id: "s-adj", options: ["grande", "grand"], correct: "grande", roleLabel: "feminine adjective" },
@@ -998,7 +998,7 @@ function lesson7(): LessonStep[] {
       ["bonne", "bon"],
       "the pizza is very good",
       "la pizza est très bonne",
-      "«pizza» — pink-f, and the compliment wears the -e.",
+      "«pizza» — feminine (la), and the compliment wears the -e.",
     ),
     {
       id: "fr-m9-7-sim-emma",
@@ -1074,7 +1074,7 @@ function checkpointLesson(): LessonStep[] {
       ["grand", "grande"],
       "a big museum",
       "un grand musée",
-      "«musée» — blue-m, whatever its ending claims.",
+      "«musée» — masculine (le), whatever its ending claims.",
     ),
     speaking(
       "fr-m9-8-speak-grandeville-recall",
@@ -1105,7 +1105,7 @@ function checkpointLesson(): LessonStep[] {
       ["petit", "petite"],
       "a little dog",
       "un petit chien",
-      "«chien» — blue-m: «petit», t asleep.",
+      "«chien» — masculine (le): «petit», t asleep.",
     ),
     speaking(
       "fr-m9-8-speak-petitcafe-recall",
@@ -1117,7 +1117,7 @@ function checkpointLesson(): LessonStep[] {
     agreementChain({
       id: "fr-m9-8-chain-soeur",
       prompt: "Dress the chain to match «sœur».",
-      head: { surface: "sœur", meaningEn: "sister", featureLabel: "pink-f" },
+      head: { surface: "sœur", meaningEn: "sister", featureLabel: "feminine (la)" },
       tokens: [
         { kind: "slot", id: "s-poss", options: ["ma", "mon"], correct: "ma", roleLabel: "feminine possessive" },
         { kind: "slot", id: "s-adj", options: ["petite", "petit"], correct: "petite", roleLabel: "feminine adjective" },
@@ -1148,7 +1148,7 @@ function checkpointLesson(): LessonStep[] {
       ["bon", "bonne"],
       "the coffee is very good",
       "le café est très bon",
-      "«café» — blue-m: «bon», bare and nasal.",
+      "«café» — masculine (le): «bon», bare and nasal.",
     ),
     vocabTextMcq("fr-m9-8-mc-tres", "très", ["bien", "encore", "ici"]),
     speaking(
@@ -1307,7 +1307,7 @@ function lesson9(): LessonStep[] {
       ["grande", "grand"],
       "I have a big family",
       "j'ai une grande famille",
-      "«famille» — pink-f: «grande», however many of you there are.",
+      "«famille» is feminine (la), so the adjective takes the -e form: grande.",
     ),
     {
       // TAIL: m6 by ear.
@@ -1377,7 +1377,7 @@ function lesson10(): LessonStep[] {
       ["grande", "grand"],
       "the city is very big",
       "la ville est très grande",
-      "«ville» — pink-f to the last: «grande».",
+      "«ville» — feminine (la) to the last: «grande».",
     ),
     speaking(
       "fr-m9-10-speak-petitesoeur-recall",
@@ -1396,7 +1396,7 @@ function lesson10(): LessonStep[] {
     agreementChain({
       id: "fr-m9-10-chain-chat",
       prompt: "Dress the chain to match «chat».",
-      head: { surface: "chat", meaningEn: "cat", featureLabel: "blue-m" },
+      head: { surface: "chat", meaningEn: "cat", featureLabel: "masculine (le)" },
       tokens: [
         { kind: "slot", id: "s-poss", options: ["mon", "ma"], correct: "mon", roleLabel: "masculine possessive" },
         { kind: "slot", id: "s-adj", options: ["petit", "petite"], correct: "petit", roleLabel: "masculine adjective" },
@@ -1434,7 +1434,7 @@ function lesson10(): LessonStep[] {
       ["bonne", "bon"],
       "the salad is very good",
       "la salade est très bonne",
-      "Pink-f verdict: «bonne» — the checkpoint's «bon» flipped back.",
+      "Feminine (la) verdict: «bonne» — the checkpoint's «bon» flipped back.",
     ),
     {
       id: "fr-m9-10-match",

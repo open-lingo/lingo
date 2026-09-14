@@ -904,7 +904,7 @@ function lesson7(): LessonStep[] {
     infoStep(
       "fr-m2v2-7-info-etudiante",
       "The letter that wakes up",
-      "«étudiante» — a woman student. Here's the French secret: étudiant ends in a SILENT t (ay-tu-DYAHN), but the -e of «étudiante» wakes it up — ay-tu-DYAHNT. You can HEAR French gender — and it's the same blue-m / pink-f the chips have been wearing since «bonne nuit». «Il est étudiant. Elle est étudiante.»",
+      "«étudiante» — a woman student. Here's the French secret: étudiant ends in a SILENT t (ay-tu-DYAHN), but the -e of «étudiante» wakes it up — ay-tu-DYAHNT. You can HEAR French gender — and it's the same masculine (le) / feminine (la) the chips have been wearing since «bonne nuit». «Il est étudiant. Elle est étudiante.»",
       "grammar",
     ),
     {

@@ -78,20 +78,20 @@ export const FR_M5_ATOMS: FrAtom[] = [
   atom({ surface: "tu vas", meaningEn: "you're going", partOfSpeech: "phrase", fromModule: "m5", kind: "phrase", hint: "tu VAH — the same va as «ça va»" }),
   atom({ surface: "on va", meaningEn: "we're going", partOfSpeech: "phrase", fromModule: "m5", kind: "phrase", hint: "ohn VAH — real-life French for 'we'; with a rise it invites" }),
   atom({ surface: "au", meaningEn: "to the (with le-words)", partOfSpeech: "particle", fromModule: "m5", kind: "particle", hint: "oh — à + le fused into one word; French never writes «à le»" }),
-  atom({ surface: "à la", meaningEn: "to the (with la-words)", partOfSpeech: "particle", fromModule: "m5", kind: "particle", hint: "ah lah — pink-f words keep both pieces" }),
+  atom({ surface: "à la", meaningEn: "to the (with la-words)", partOfSpeech: "particle", fromModule: "m5", kind: "particle", hint: "ah lah — feminine (la) words keep both pieces" }),
   atom({ surface: "d'accord", meaningEn: "okay / deal", partOfSpeech: "phrase", fromModule: "m5", kind: "phrase", hint: "da-KOR — de + accord, squeezed, of course" }),
   atom({ surface: "tu vas où ?", meaningEn: "where are you going?", partOfSpeech: "phrase", fromModule: "m5", kind: "phrase", hint: "tu vah OO — the street version, question at the end" }),
   atom({ surface: "demain", meaningEn: "tomorrow", partOfSpeech: "adverb", fromModule: "m5", kind: "vocab", hint: "duh-MAN — nasal ending" }),
   atom({ surface: "ce soir", meaningEn: "tonight", partOfSpeech: "phrase", fromModule: "m5", kind: "phrase", hint: "suh SWAR — 'this evening', the soir from bonsoir" }),
 ];
 
-/** L1 — «je vais» + the swallow: à + le = «au»; pink-f keeps «à la». */
+/** L1 — «je vais» + the swallow: à + le = «au»; feminine (la) keeps «à la». */
 function lesson1(): LessonStep[] {
   return [
     infoStep(
       "fr-m5-1-info-jevais",
       "Going places",
-      "«je vais» — I'm going (zhuh VAY). Then French swallows a word: à + le fuse into «au» (oh): «Je vais au cinéma» — I'm going to the movies. Pink-f words keep both pieces — «à la gare» — but «le» never survives after à.",
+      "«je vais» — I'm going (zhuh VAY). Then French swallows a word: à + le fuse into «au» (oh): «Je vais au cinéma» — I'm going to the movies. Feminine (la) words keep both pieces — «à la gare» — but «le» never survives after à.",
       "grammar",
     ),
     {
@@ -106,7 +106,7 @@ function lesson1(): LessonStep[] {
       audioText: "je vais au cinéma",
       tokenGenders: { 1: "m", 2: "m" },
       revealNote:
-        "«au» IS 'to the' — à + le, fused for good. One tile, one sound, blue-m only.",
+        "«au» IS 'to the' — à + le, fused for good. One tile, one sound, masculine (le) only.",
     },
     speaking("fr-m5-1-speak-aucinema", "je vais au cinéma", "I'm going to the movies", []),
     cloze(
@@ -117,7 +117,7 @@ function lesson1(): LessonStep[] {
       ["au", "à la"],
       "I'm going to the park",
       "je vais au parc",
-      "«parc» is blue-m — à + le fuses: «au parc».",
+      "«parc» is masculine (le) — à + le fuses: «au parc».",
     ),
     {
       // TAIL: m4 places by ear.
@@ -151,7 +151,7 @@ function lesson1(): LessonStep[] {
       audioText: "je vais à la gare",
       tokenGenders: { 1: "f", 2: "f" },
       revealNote:
-        "Pink-f words keep both pieces: «à la gare». Only «le» gets eaten.",
+        "Feminine (la) words keep both pieces: «à la gare». Only «le» gets eaten.",
     },
     listeningCompSentence({
       id: "fr-m5-1-lc-alagare",
@@ -167,7 +167,7 @@ function lesson1(): LessonStep[] {
       ["à la", "au"],
       "I'm going to the beach",
       "je vais à la plage",
-      "«plage» — pink-f, so both pieces stay: «à la plage».",
+      "«plage» — feminine (la), so both pieces stay: «à la plage».",
     ),
     build(
       "fr-m5-1-build-aucafe",
@@ -189,7 +189,7 @@ function lesson1(): LessonStep[] {
         { id: "p-dix", source: "dix", target: "ten" },
       ],
     },
-    // WIN: printed first voicing of the pink-f shape.
+    // WIN: printed first voicing of the feminine (la) shape.
     speaking("fr-m5-1-speak-alaplage", "je vais à la plage", "I'm going to the beach", []),
   ];
 }
@@ -270,7 +270,7 @@ function lesson2(): LessonStep[] {
       ["au", "à la"],
       "are you going to the museum?",
       "tu vas au musée ?",
-      "«musée» lies about its ending — blue-m, so the swallow: «au musée».",
+      "«musée» looks like it could be feminine but is masculine (le), so à + le contracts: au musée.",
     ),
     {
       // TAIL: m3 by ear.
@@ -505,7 +505,7 @@ function lesson4(): LessonStep[] {
       ["au", "à la"],
       "shall we go to the restaurant?",
       "on va au restaurant ?",
-      "«restaurant» — blue-m, so the swallow: «au restaurant».",
+      "«restaurant» — masculine (le), so the swallow: «au restaurant».",
     ),
     {
       // TAIL: m4 by ear.
@@ -640,7 +640,7 @@ function lesson5(): LessonStep[] {
       ["à la", "au"],
       "shall we go to the station tomorrow?",
       "on va à la gare demain ?",
-      "«gare» — pink-f: «à la», even inside a plan.",
+      "«gare» — feminine (la): «à la», even inside a plan.",
     ),
     {
       // TAIL: m3 by ear.
@@ -785,7 +785,7 @@ function lesson6(): LessonStep[] {
       audioText: "je vais à la gare demain",
       tokenGenders: { 1: "f", 2: "f" },
       revealNote:
-        "A plan with a timestamp — the same four-tile machine, pink-f edition.",
+        "A plan with a timestamp — the same four-tile machine, feminine (la) edition.",
     },
     {
       // m4 places by ear.
@@ -863,7 +863,7 @@ function lesson7(): LessonStep[] {
         { id: "g-restaurant", surface: "restaurant", bucketId: "m", meaningEn: "restaurant" },
       ],
       endingRule:
-        "«au» for the blue-m side, «à la» for pink-f — and the vowel-starters dodge both: à l'école, à l'hôtel.",
+        "«au» for the masculine (le) side, «à la» for feminine (la) — and the vowel-starters dodge both: à l'école, à l'hôtel.",
     }),
     // TAIL: L2's win, from memory.
     speaking(
@@ -881,7 +881,7 @@ function lesson7(): LessonStep[] {
       ["au", "à la"],
       "I'm going to the museum tomorrow",
       "je vais au musée demain",
-      "Blue-m keeps the swallow even with a timestamp: «au musée demain».",
+      "Masculine (le) keeps the swallow even with a timestamp: «au musée demain».",
     ),
     listeningCompSentence({
       // «d'accord» gets its solo ear beat.
@@ -1006,7 +1006,7 @@ function checkpointLesson(): LessonStep[] {
       ["au", "à la"],
       "I'm going to the movies",
       "je vais au cinéma",
-      "«cinéma» — blue-m: the swallow.",
+      "«cinéma» is masculine (le), so à + le contracts to au: au cinéma.",
     ),
     speaking("fr-m5-8-speak-tuvasou-recall", "tu vas où ?", "where are you going?", [], "recall"),
     listeningCompSentence({
@@ -1042,7 +1042,7 @@ function checkpointLesson(): LessonStep[] {
       ["à la", "au"],
       "are you going to the beach?",
       "tu vas à la plage ?",
-      "«plage» — pink-f: both pieces stay.",
+      "«plage» is feminine (la), so à + la doesn't contract — both pieces stay: à la plage.",
     ),
     speaking(
       "fr-m5-8-speak-aucinema-recall",
@@ -1321,7 +1321,7 @@ function lesson10(): LessonStep[] {
       ["au", "à la"],
       "shall we go to the museum?",
       "on va au musée ?",
-      "«musée» — blue-m, whatever its ending claims: «au musée».",
+      "«musée» — masculine (le), whatever its ending claims: «au musée».",
     ),
     listeningCompSentence({
       id: "fr-m5-10-lc-cesoir",
@@ -1349,7 +1349,7 @@ function lesson10(): LessonStep[] {
       ["à la", "au"],
       "I'm going to the beach",
       "je vais à la plage",
-      "Pink-f: both pieces, always.",
+      "Feminine (la): both pieces, always.",
     ),
     listeningCompSentence({
       id: "fr-m5-10-lc-tuvasou",

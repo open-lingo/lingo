@@ -486,7 +486,7 @@ function lesson4(): LessonStep[] {
       ["chocolat", "chocolate (review)"],
       ["j'aime", "I like / I love"],
       ["maison", "house"],
-      ["café", "café"],
+      ["café", "coffee"],
     ]),
   ];
 }

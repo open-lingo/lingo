@@ -393,7 +393,7 @@ function lesson2(): LessonStep[] {
       ["cents", "cent"],
       "it costs seven hundred euros",
       "ça coûte sept cents euros",
-      "nothing follows «cents» here, so the -s stays.",
+      "No number follows «cents» here (unlike in «deux cent mille»), so the -s stays.",
     ),
     listeningCompSentence({
       id: "fr-m21-2-lc-quatrecents",
@@ -618,7 +618,7 @@ function lesson5(): LessonStep[] {
     infoStep(
       "fr-m21-5-info-drop",
       "When the -s disappears",
-      "Compare: «deux cents» (200 — nothing follows «cents») and «deux cent un» (201 — a number joins it). The instant another number follows, «cent» drops its -s: cent un, deux cent un, trois cent un... The -s only survives when «cent(s)» is the very last word.",
+      "Compare: «deux cents» (200 — nothing follows «cents») and «deux cent un» (201 — a number joins it). The instant another number follows, «cent» drops its -s: cent un, deux cent un, trois cent un... The -s only survives when no other number follows «cent(s)» — e.g. «deux cents euros» keeps the -s, but «deux cent un» drops it.",
     ),
     {
       id: "fr-m21-5-map-centun",

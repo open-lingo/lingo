@@ -376,7 +376,7 @@ function lesson3(): LessonStep[] {
       // dressed to match (§13.4: seen, not announced).
       tokenGenders: { 0: "f", 1: "f" },
       revealNote:
-        "«nuit» is a she-word, and 'good' dressed to match: bonne — bun NWEE. That's why both chips glow pink with a little f: French sorts words into pink-f and blue-m families, and the colors will quietly track it from here on.",
+        "«nuit» is a she-word, and 'good' dressed to match: bonne — bun NWEE. That's why both chips glow pink with a little f: French sorts words into feminine (la) and masculine (le) families, and the colors will quietly track it from here on.",
     },
     speaking("fr-m1v2-3-speak-bonnenuit", "bonne nuit", "good night", [
       "bonne nuit",

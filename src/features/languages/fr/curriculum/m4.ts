@@ -70,7 +70,7 @@ export const FR_M4_ATOMS: FrAtom[] = [
   atom({ surface: "ville", meaningEn: "town / city", partOfSpeech: "noun", fromModule: "m4", kind: "vocab", gender: "f", emoji: "🏙️", hint: "veel" }),
   atom({ surface: "gare", meaningEn: "train station", partOfSpeech: "noun", fromModule: "m4", kind: "vocab", gender: "f", emoji: "🚉", hint: "gar" }),
   atom({ surface: "parc", meaningEn: "park", partOfSpeech: "noun", fromModule: "m4", kind: "vocab", gender: "m", emoji: "🌳", hint: "park — for once, the last letter IS spoken" }),
-  atom({ surface: "musée", meaningEn: "museum", partOfSpeech: "noun", fromModule: "m4", kind: "vocab", gender: "m", emoji: "🏛️", hint: "mu-ZAY — ends like a pink-f word but lives on the blue-m side" }),
+  atom({ surface: "musée", meaningEn: "museum", partOfSpeech: "noun", fromModule: "m4", kind: "vocab", gender: "m", emoji: "🏛️", hint: "mu-ZAY — ends like a feminine (la) word but lives on the masculine (le) side" }),
   atom({ surface: "école", meaningEn: "school", partOfSpeech: "noun", fromModule: "m4", kind: "vocab", gender: "f", emoji: "🏫", hint: "ay-KOHL — vowel start, so le/la squeeze to l'" }),
   atom({ surface: "hôtel", meaningEn: "hotel", partOfSpeech: "noun", fromModule: "m4", kind: "vocab", gender: "m", emoji: "🏨", hint: "oh-TELL — the h is silent, so the article squeezes: l'hôtel" }),
   atom({ surface: "restaurant", meaningEn: "restaurant", partOfSpeech: "noun", fromModule: "m4", kind: "vocab", gender: "m", emoji: "🍽️", hint: "res-toh-RAHN — the final t sleeps" }),
@@ -163,7 +163,7 @@ function lesson1(): LessonStep[] {
       ["une", "un"],
       "there's a station",
       "il y a une gare",
-      "«gare» is a pink-f word — «une», even inside «il y a».",
+      "«gare» is a feminine (la) word — «une», even inside «il y a».",
     ),
     build(
       "fr-m4-1-build-ilyauncafe",
@@ -289,7 +289,7 @@ function lesson2(): LessonStep[] {
       ["la", "le"],
       "where is the station?",
       "où est la gare ?",
-      "«gare» keeps its pink-f side inside questions too.",
+      "«gare» keeps its feminine (la) side inside questions too.",
     ),
     build(
       "fr-m4-2-build-ouestleparc",
@@ -368,7 +368,7 @@ function lesson3(): LessonStep[] {
       ["une", "un"],
       "it's a school",
       "c'est une école",
-      "«l'» hid the side — «une» shows it. École is pink-f.",
+      "«l'» hid the side — «une» shows it. École is feminine (la).",
     ),
     {
       id: "fr-m4-3-hear-lhotel",
@@ -391,7 +391,7 @@ function lesson3(): LessonStep[] {
       ["un", "une"],
       "it's a hotel",
       "c'est un hôtel",
-      "Blue-m behind the squeeze: «un hôtel» — the silent h steps aside for the sound.",
+      "Masculine (le) behind the squeeze: «un hôtel» — the silent h steps aside for the sound.",
     ),
     build(
       "fr-m4-3-build-lecoledelea",
@@ -415,7 +415,7 @@ function lesson3(): LessonStep[] {
         { id: "p-ecole", source: "école", target: "school" },
         { id: "p-hotel", source: "hôtel", target: "hotel" },
         { id: "p-ilya", source: "il y a", target: "there is / there are" },
-        { id: "p-une", source: "une", target: "a (pink-f side)" },
+        { id: "p-une", source: "une", target: "a (feminine)" },
         { id: "p-madame", source: "madame", target: "ma'am / Mrs." },
         { id: "p-cinq", source: "cinq", target: "five" },
       ],
@@ -647,7 +647,7 @@ function lesson5(): LessonStep[] {
       ["la", "le"],
       "where is the beach?",
       "où est la plage ?",
-      "«plage» — pink-f, so «la», even mid-question.",
+      "«plage» — feminine (la), so «la», even mid-question.",
     ),
     build(
       "fr-m4-5-build-plagelabas",
@@ -855,7 +855,7 @@ function lesson7(): LessonStep[] {
           surface: "musée",
           bucketId: "m",
           meaningEn: "museum",
-          note: "Ends like a pink-f word — and lies. Blue-m.",
+          note: "Ends like a feminine (la) word — and lies. Masculine (le).",
         },
         { id: "g-gare", surface: "gare", bucketId: "f", meaningEn: "train station" },
         {
@@ -863,7 +863,7 @@ function lesson7(): LessonStep[] {
           surface: "hôtel",
           bucketId: "m",
           meaningEn: "hotel",
-          note: "«l'» hides it — «un hôtel» tells you: blue-m.",
+          note: "«l'» hides it — «un hôtel» tells you: masculine (le).",
         },
         { id: "g-plage", surface: "plage", bucketId: "f", meaningEn: "beach" },
         { id: "g-restaurant", surface: "restaurant", bucketId: "m", meaningEn: "restaurant" },
@@ -872,7 +872,7 @@ function lesson7(): LessonStep[] {
           surface: "école",
           bucketId: "f",
           meaningEn: "school",
-          note: "Behind the squeeze: «une école» — pink-f.",
+          note: "Behind the squeeze: «une école» — feminine (la).",
         },
       ],
       endingRule:
@@ -894,7 +894,7 @@ function lesson7(): LessonStep[] {
       ["un", "une"],
       "there's a restaurant here",
       "il y a un restaurant ici",
-      "«restaurant» rides the blue-m side — «un».",
+      "«restaurant» rides the masculine (le) side — «un».",
     ),
     listeningCompSentence({
       id: "fr-m4-7-lc-ouestlerestaurant",
@@ -1023,7 +1023,7 @@ function checkpointLesson(): LessonStep[] {
       ["la", "le"],
       "the beach",
       "la plage",
-      "«plage» is a pink-f word — «la».",
+      "«plage» is a feminine (la) word — «la».",
     ),
     speaking("fr-m4-8-speak-laville-recall", "la ville", "the town", [], "recall"),
     listeningCompSentence({
@@ -1059,7 +1059,7 @@ function checkpointLesson(): LessonStep[] {
       ["un", "une"],
       "there's a hotel here",
       "il y a un hôtel ici",
-      "Blue-m behind the squeeze — «un hôtel».",
+      "Masculine (le) behind the squeeze — «un hôtel».",
     ),
     speaking(
       "fr-m4-8-speak-parcici-recall",
@@ -1245,7 +1245,7 @@ function lesson9(): LessonStep[] {
       ["le", "la"],
       "where is the museum?",
       "où est le musée ?",
-      "«musée» lies about its side — blue-m, «le».",
+      "«musée» lies about its side — masculine (le), «le».",
     ),
     {
       id: "fr-m4-9-hear-lecole",
@@ -1320,7 +1320,7 @@ function lesson10(): LessonStep[] {
       ["une", "un"],
       "there's a station here",
       "il y a une gare ici",
-      "«gare» — pink-f, «une».",
+      "«gare» is feminine (la), so it takes «une».",
     ),
     listeningCompSentence({
       id: "fr-m4-10-lc-ouestlecole",

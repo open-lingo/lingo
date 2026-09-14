@@ -9,7 +9,7 @@
  * definite article: «j'aime le chocolat». Scope decisions:
  *   - le/la + un/une + c'est + first nouns + j'aime / tu aimes /
  *     je n'aime pas / moi aussi. The §13.4 gender-rule callback card
- *     lives in L1 (the pink-f/blue-m chips have been absorbed since
+ *     lives in L1 (the feminine (la)/masculine (le) chips have been absorbed since
  *     «bonne nuit»).
  *   - ES m3's «hay» (existence) is NOT ported here — «il y a» waits for
  *     a later module; the budget went to aimer (the authored m2 hook).
@@ -57,9 +57,9 @@ const COURSE_ID = "mock-1";
 
 
 export const FR_M3_ATOMS: FrAtom[] = [
-  atom({ surface: "le", meaningEn: "the (with le-words)", partOfSpeech: "particle", fromModule: "m3", kind: "particle", hint: "luh — the blue-m family's 'the'" }),
-  atom({ surface: "la", meaningEn: "the (with la-words)", partOfSpeech: "particle", fromModule: "m3", kind: "particle", hint: "lah — the pink-f family's 'the'" }),
-  atom({ surface: "une", meaningEn: "a / an (with la-words)", partOfSpeech: "particle", fromModule: "m3", kind: "particle", hint: "oon — «un», your number one, is the blue-m 'a'" }),
+  atom({ surface: "le", meaningEn: "the (with le-words)", partOfSpeech: "particle", fromModule: "m3", kind: "particle", hint: "luh — the masculine (le) family's 'the'" }),
+  atom({ surface: "la", meaningEn: "the (with la-words)", partOfSpeech: "particle", fromModule: "m3", kind: "particle", hint: "lah — the feminine (la) family's 'the'" }),
+  atom({ surface: "une", meaningEn: "a / an (with la-words)", partOfSpeech: "particle", fromModule: "m3", kind: "particle", hint: "oon — «un», your number one, is the masculine (le) 'a'" }),
   atom({ surface: "c'est", meaningEn: "it's / this is", partOfSpeech: "phrase", fromModule: "m3", kind: "phrase", hint: "say — ce + est squeezed into one word, like d'où" }),
   atom({ surface: "c'est quoi ?", meaningEn: "what is that?", partOfSpeech: "phrase", fromModule: "m3", kind: "phrase", hint: "say KWA — point and ask" }),
   atom({ surface: "j'aime", meaningEn: "I like / I love", partOfSpeech: "phrase", fromModule: "m3", kind: "phrase", emoji: "❤️", hint: "zhem — je + aime squeezed into one word" }),
@@ -73,7 +73,7 @@ export const FR_M3_ATOMS: FrAtom[] = [
   atom({ surface: "chocolat", meaningEn: "chocolate", partOfSpeech: "noun", fromModule: "m3", kind: "vocab", gender: "m", emoji: "🍫", hint: "sho-ko-LAH — the t sleeps, like chat's" }),
   atom({ surface: "cinéma", meaningEn: "the movies", partOfSpeech: "noun", fromModule: "m3", kind: "vocab", gender: "m", emoji: "🎬", hint: "see-nay-MA" }),
   atom({ surface: "musique", meaningEn: "music", partOfSpeech: "noun", fromModule: "m3", kind: "vocab", gender: "f", emoji: "🎵", hint: "mu-ZEEK" }),
-  atom({ surface: "pizza", meaningEn: "pizza", partOfSpeech: "noun", fromModule: "m3", kind: "vocab", gender: "f", emoji: "🍕", hint: "peed-ZA — borrowed, and filed as a pink-f word" }),
+  atom({ surface: "pizza", meaningEn: "pizza", partOfSpeech: "noun", fromModule: "m3", kind: "vocab", gender: "f", emoji: "🍕", hint: "peed-ZA — borrowed, and filed as a feminine (la) word" }),
   atom({ surface: "glace", meaningEn: "ice cream", partOfSpeech: "noun", fromModule: "m3", kind: "vocab", gender: "f", emoji: "🍨", hint: "glass — one syllable" }),
   atom({ surface: "maison", meaningEn: "house", partOfSpeech: "noun", fromModule: "m3", kind: "vocab", gender: "f", emoji: "🏠", hint: "may-ZOHN — nasal ending" }),
 ];
@@ -86,7 +86,7 @@ function lesson1(): LessonStep[] {
     infoStep(
       "fr-m3-1-info-sides",
       "The two sides",
-      "Since «bonne nuit», words have worn pink-f and blue-m — you've been reading French gender all along. The secret: EVERY noun picks a side and keeps it. Blue-m words take «le» — «le chat», the cat. Pink-f words take «la» — «la musique». No shortcut from the meaning: learn each noun WITH its le or la, like a first name.",
+      "Since «bonne nuit», words have worn feminine (la) and masculine (le) — you've been reading French gender all along. The secret: EVERY noun picks a side and keeps it. Masculine (le) words take «le» — «le chat», the cat. Feminine (la) words take «la» — «la musique». No shortcut from the meaning: learn each noun WITH its le or la, like a first name.",
       "grammar",
     ),
     vocabMcq(
@@ -119,7 +119,7 @@ function lesson1(): LessonStep[] {
       audioText: "la musique",
       tokenGenders: { 0: "f", 1: "f" },
       revealNote:
-        "«musique» is a pink-f word, so its 'the' is «la» — and the chips glow to match, the same pink that dressed «bonne nuit».",
+        "«musique» is a feminine (la) word, so its 'the' is «la» — and the chips glow to match, the same pink that dressed «bonne nuit».",
     },
     cloze(
       "fr-m3-1-cloze-la",
@@ -129,7 +129,7 @@ function lesson1(): LessonStep[] {
       ["la", "le"],
       "the music",
       "la musique",
-      "«musique» lives on the pink-f side — its 'the' is «la».",
+      "«musique» lives on the feminine (la) side — its 'the' is «la».",
     ),
     {
       // TAIL: m1 courtesy by ear.
@@ -153,7 +153,7 @@ function lesson1(): LessonStep[] {
       ["le", "la"],
       "the dog",
       "le chien",
-      "«chien» is a blue-m word — «le». Alternate sides until it's a reflex.",
+      "«chien» is a masculine (le) word — «le». Alternate sides until it's a reflex.",
     ),
     listeningCompSentence({
       id: "fr-m3-1-lc-lechat",
@@ -201,7 +201,7 @@ function lesson2(): LessonStep[] {
     infoStep(
       "fr-m3-2-info-unune",
       "Never learn a side twice",
-      "«un» — your number one since counting — is also 'a' for blue-m words: «un livre», a book. Pink-f words take «une»: «une pizza» (oon). Same sides as le/la — learn a word's side once and both pairs are yours. Léa's «Un café ?» was literally 'ONE coffee' AND 'a coffee'.",
+      "«un» — your number one since counting — is also 'a' for masculine (le) words: «un livre», a book. Feminine (la) words take «une»: «une pizza» (oon). Same sides as le/la — learn a word's side once and both pairs are yours. Léa's «Un café ?» was literally 'ONE coffee' AND 'a coffee'.",
       "grammar",
     ),
     vocabMcq(
@@ -234,7 +234,7 @@ function lesson2(): LessonStep[] {
       audioText: "une pizza",
       tokenGenders: { 0: "f", 1: "f" },
       revealNote:
-        "«une» — the pink-f 'a'. Same side as «la»: la pizza, une pizza. One side, both pairs.",
+        "«une» — the feminine (la) 'a'. Same side as «la»: la pizza, une pizza. One side, both pairs.",
     },
     cloze(
       "fr-m3-2-cloze-une",
@@ -244,7 +244,7 @@ function lesson2(): LessonStep[] {
       ["une", "un"],
       "a pizza",
       "une pizza",
-      "«pizza» is a pink-f word, so its 'a' is «une».",
+      "«pizza» is a feminine (la) word, so its 'a' is «une».",
     ),
     {
       // TAIL: m1 by ear — the casual hello.
@@ -289,7 +289,7 @@ function lesson2(): LessonStep[] {
       ["un", "une"],
       "a book",
       "un livre",
-      "«livre» is a blue-m word — «un», the same side as «le».",
+      "«livre» is a masculine (le) word — «un», the same side as «le».",
     ),
     build(
       "fr-m3-2-build-lelivredelea",
@@ -310,7 +310,7 @@ function lesson2(): LessonStep[] {
       pairs: [
         { id: "p-livre", source: "livre", target: "book" },
         { id: "p-pizza", source: "pizza", target: "pizza" },
-        { id: "p-une", source: "une", target: "a (pink-f side)" },
+        { id: "p-une", source: "une", target: "a (feminine)" },
         { id: "p-de", source: "de", target: "of / from" },
         { id: "p-salut", source: "salut", target: "hi / bye (casual)" },
         { id: "p-cafe", source: "café", target: "coffee" },
@@ -459,7 +459,7 @@ function lesson3(): LessonStep[] {
       ["une", "un"],
       "it's an ice cream",
       "c'est une glace",
-      "«glace» is pink-f, so «une» — even inside a sentence, the side holds.",
+      "«glace» is feminine (la), so «une» — even inside a sentence, the side holds.",
     ),
     {
       id: "fr-m3-3-match",
@@ -572,7 +572,7 @@ function lesson4(): LessonStep[] {
       ["la", "le"],
       "I like music",
       "j'aime la musique",
-      "«musique» keeps its pink-f side even mid-sentence: «la».",
+      "«musique» keeps its feminine (la) side even mid-sentence: «la».",
     ),
     {
       // TAIL: m1 evening lane by ear.
@@ -872,7 +872,7 @@ function lesson6(): LessonStep[] {
       "«je» pulls «n'aime» — the squeezed ne rides along. «aimes» belongs to «tu».",
     ),
     {
-      // Same-lesson word by ear — la maison vs the pink-f crowd.
+      // Same-lesson word by ear — la maison vs the feminine (la) crowd.
       id: "fr-m3-6-hear-lamaison",
       type: "word_image_mcq",
       meaningEn: "la maison",
@@ -962,7 +962,7 @@ function lesson7(): LessonStep[] {
       ["le", "la"],
       "I like chocolate",
       "j'aime le chocolat",
-      "«chocolat» is blue-m — the side holds in every sentence it enters.",
+      "«chocolat» is masculine (le) — the side holds in every sentence it enters.",
     ),
     {
       id: "fr-m3-7-map-lechiendehugo",
@@ -1021,7 +1021,7 @@ function lesson7(): LessonStep[] {
       ["une", "un"],
       "it's a pizza",
       "c'est une pizza",
-      "Pink-f side, pink-f 'a': «une pizza».",
+      "Feminine (la) side, feminine (la) 'a': «une pizza».",
     ),
     listeningCompSentence({
       // TAIL: m2 by ear — the -e that wakes the t.
@@ -1103,7 +1103,7 @@ function checkpointLesson(): LessonStep[] {
       ["la", "le"],
       "the house",
       "la maison",
-      "«maison» is a pink-f word — «la».",
+      "«maison» is a feminine (la) word — «la».",
     ),
     speaking("fr-m3-8-speak-cestquoi-recall", "c'est quoi ?", "what is that?", [], "recall"),
     listeningCompSentence({
@@ -1139,7 +1139,7 @@ function checkpointLesson(): LessonStep[] {
       ["un", "une"],
       "it's a book",
       "c'est un livre",
-      "«livre» is blue-m — «un», the counting word doing article work.",
+      "«livre» is masculine (le) — «un», the counting word doing article work.",
     ),
     speaking("fr-m3-8-speak-lamusique-recall", "la musique", "the music", [], "recall"),
     listeningCompSentence({
@@ -1193,7 +1193,7 @@ function checkpointLesson(): LessonStep[] {
         { id: "p-the", source: "thé", target: "tea" },
         { id: "p-cinema", source: "cinéma", target: "the movies" },
         { id: "p-jaime", source: "j'aime", target: "I like / I love" },
-        { id: "p-une", source: "une", target: "a (pink-f side)" },
+        { id: "p-une", source: "une", target: "a (feminine)" },
         { id: "p-cestquoi", source: "c'est quoi ?", target: "what is that?" },
       ],
     },
@@ -1332,7 +1332,7 @@ function lesson9(): LessonStep[] {
       ["le", "la"],
       "do you like chocolate?",
       "tu aimes le chocolat ?",
-      "«chocolat» rides the blue-m side in questions too.",
+      "«chocolat» rides the masculine (le) side in questions too.",
     ),
     {
       id: "fr-m3-9-hear-lecinema",
@@ -1407,7 +1407,7 @@ function lesson10(): LessonStep[] {
       ["la", "le"],
       "it's the house",
       "c'est la maison",
-      "«maison» — pink-f, so «la», in any sentence.",
+      "«maison» — feminine (la), so «la», in any sentence.",
     ),
     listeningCompSentence({
       id: "fr-m3-10-lc-cestunchien",
@@ -1425,7 +1425,7 @@ function lesson10(): LessonStep[] {
       ["une", "un"],
       "it's an ice cream",
       "c'est une glace",
-      "Pink-f 'a': «une glace».",
+      "Feminine (la) 'a': «une glace».",
     ),
     listeningCompSentence({
       id: "fr-m3-10-lc-tuaimeslethe",
@@ -1472,7 +1472,7 @@ function lesson10(): LessonStep[] {
         { id: "p-chocolat", source: "chocolat", target: "chocolate" },
         { id: "p-tuaimes", source: "tu aimes", target: "you like" },
         { id: "p-cestquoi", source: "c'est quoi ?", target: "what is that?" },
-        { id: "p-une", source: "une", target: "a (pink-f side)" },
+        { id: "p-une", source: "une", target: "a (feminine)" },
       ],
     },
     {
