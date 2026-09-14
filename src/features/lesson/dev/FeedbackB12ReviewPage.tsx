@@ -54,7 +54,7 @@ const VERDICT_OPTIONS: { value: Verdict; label: string; active: string }[] = [
   { value: "note", label: "💬 note", active: "border-accent text-accent" },
 ];
 
-const LANES: FeedbackLane[] = ["A", "B", "C", "D", "E", "F", "G"];
+const LANES: FeedbackLane[] = ["A", "B", "C", "D", "E", "F", "G", "H"];
 
 const TODOS: string[] = [
   "Play Store package id + account type",

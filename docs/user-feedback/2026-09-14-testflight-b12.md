@@ -14,6 +14,11 @@ mistake; 68-2.jpg is the actual UI capture). Item #63 (build 10, still open)
 was re-read this pass per Spencer's request — no change to its row below,
 carried forward verbatim from the b5/b6 ledger.
 
+Row 86 is a same-day addition, outside the 21 API-pulled submissions above:
+Spencer hit "Failed to fetch dynamically imported module" directly on prod
+web (app.openlingoapp.com), no screenshot, added to this ledger (lane H) so
+it goes through the same review flow — see §6.
+
 Status legend: `open` / `fixed <sha>` / `wontfix (reason)` / `discuss`.
 
 ## Table
@@ -42,6 +47,19 @@ Status legend: `open` / `fixed <sha>` / `wontfix (reason)` / `discuss`.
 | 83 | 83 | Settings modal, tab row + Accessibility panel (`SettingsNav.tsx`) | "Scroll bar up top needs to be indicated as a scroll somehow and the settings page feels too flat, spruce it up some how please" | visual-polish | `SettingsNav.tsx:61` deliberately applies `no-scrollbar` to the horizontal tab row (touch scrollbars are hidden app-wide per the mobile doctrine) — the fix is an edge-fade gradient mask (not a native scrollbar) so the row visually implies more content off-screen. "Feels too flat" is a vague general polish ask — needs Spencer to point at specifics (shadows? section dividers? icon accents?) before scoping further. Size: S for the fade affordance, unscoped for "spruce it up." | Y (the "too flat" half is not concrete enough to size without him) | open |
 | 84 | 84 | Course map top header card (`TransitSignageHeader.tsx`, subtitle from `transitStrings.ts`) | "The top Japanese for beginners label seems useless, might be better to remove or replace with something else, they won't look at module view too often I think but it is wasted space" | info-density | Remove or repurpose the `学習路線図 — Japanese for Beginners` header card rendered by `TransitSignageHeader` in `TransitLearnPage.tsx:1982/2009` (title/subtitle come from `transitStrings.ts:40`, `LEARN_HEADER_SUBTITLE`). Candidate replacement: current-module quick-jump or streak/XP summary instead of a static label. Size: S to remove, M to replace with something useful. | Y (what replaces it, if anything) | open |
 | 85 | 85 | Test-out flow, `Build what you hear` step mid-run (works in this shot) | "I tried to test out and it seems like it didn't wait for the fetch the first time and instantly errored saying "no test out questions found" maybe this one needs a better wait" | nav-behavior | `PlacementTestPage.tsx:104–120` already gates `hasBank` on `courseReady === "ready"` (comment explicitly documents this exact race, fixed 2026-09-13 in 7d64a32b) via `useCourseReady()` (`src/features/lesson/data/useLessonContent.ts:62`). Spencer's report may predate that fix or be a residual edge case (e.g. registry population lagging the resolved promise by a tick on a cold app launch). Needs a retest on build 12 before further work; if it reproduces, add a short loading-spinner state instead of eagerly reading `hasBank` inside the same render as the `courseReady` flip. Size: S. | N (retest first; only needs him if it still repros and a design choice is needed) | open |
+| 86 | — | Prod web app (app.openlingoapp.com), a long-lived tab/PWA session open across a deploy | "Something went wrong — Failed to fetch dynamically imported module: https://app.openlingoapp.com/assets/ProtectedHome-DlN-DvKc.js" | infra | Root cause: the 16:35 UTC deploy (4de95f74) rebuilt with new chunk hashes and `deploy.yml`'s S3 sync immediately deleted the old build's `ProtectedHome-*.js`; CloudFront maps the resulting 403/404 to index.html with a 200, so the missing chunk came back as `text/html`; `lazyRetry.ts`'s one-reload-per-tab guard had already been spent on an earlier deploy (never build-keyed); and the SW's `hashed-assets` CacheFirst rule had no HTML guard, so all 3 retries hit a cached copy of the shell pinned under the chunk's URL. Fixed — see §6. | N | fixed (this commit) |
+
+## §6 — #86 fix summary (prod web, not a TestFlight screenshot submission)
+
+Found by Spencer directly on prod, not pulled from the App Store Connect feedback API — added to this ledger (lane H) so it goes through the same review flow. Five pieces, all in this commit:
+
+1. `vite.config.ts` stamps every build with `__LINGO_BUILD_ID__` (`GITHUB_SHA` in CI, `local-<timestamp>` otherwise).
+2. `lazyRetry.ts`'s reload guard is now keyed on that build id (`sessionStorage.lingo_chunk_reload = __LINGO_BUILD_ID__`) — a tab that already reloaded once for an OLDER deploy gets a fresh reload budget on the NEXT one, instead of going straight to the error boundary. Extracted the retry loop into a testable `loadChunkWithRetry`; 4 new cases in `lazyRetry.test.ts`.
+3. The service worker's `hashed-assets` runtime-caching rule now rejects any response whose `content-type` includes `text/html` (a `cacheWillUpdate` plugin, since the rule spans js/css/woff/woff2 and a single exact-match header value can't cover all three the way the `tts-clips` rule's guard does) — the SPA shell can no longer get pinned under a chunk's URL forever.
+4. `AppErrorBoundary.tsx` shows "Update available" copy for this error class (`/dynamically imported module|Importing a module script failed|Loading chunk|ChunkLoadError/i`) and clears the reload flag before its own manual Reload button fires, so a human-triggered reload also gets a fresh budget.
+5. `deploy.yml`'s S3 sync no longer deletes `assets/` or the hashed `content/v1/<lang>/*.json` files on the spot — they sync without `--delete`, and a new "prune old hashed assets" step deletes only objects that are both NOT part of the current build AND older than 7 days. Cost: ~33 MB/build × ~2 deploys/day × 7 days ≈ 0.5 GB steady state — cents/month at S3 standard pricing.
+
+Not reproducible on localhost (the dev server has no service worker and no deploy cycle) — verification has to happen on prod, after the deploy that ships this fix: keep a tab open across that NEXT deploy, then navigate Home.
 
 ## Fix lanes
 
@@ -57,7 +75,9 @@ Status legend: `open` / `fixed <sha>` / `wontfix (reason)` / `discuss`.
 
 **Lane F — FSRS test-out seeding.** Item: 80. Files: `src/features/flashcards/engine/srs.ts`, `srsStorage.ts`, `srsSync.ts` (six-write-surface gate — read before touching), `src/features/placement/engine/syncTestOutToServer.ts`, `applyPlacement.ts`. Isolated from every other lane (flashcards engine, not lesson/learn/shop UI); highest design risk of the six (new SRS write surface), do last and only after Spencer confirms the curve in §5.
 
-Lanes A–E touch disjoint file sets and can run as parallel Sonnet agents; Lane F should be sequenced after Spencer signs off on the interval table below, since it changes SRS state semantics rather than UI.
+**Lane H — deploy/SW survive-an-open-tab (prod #86).** Item: 86. Files: `vite.config.ts` (build id `define` + `hashed-assets` SW rule), `src/vite-env.d.ts`, `src/shared/utils/lazyRetry.ts` (+ `.test.ts`), `src/shared/components/AppErrorBoundary.tsx` (+ `.test.tsx`), `.github/workflows/deploy.yml`. Isolated from every other lane (infra/delivery, not app UI); see §6 for the fix summary.
+
+Lanes A–E touch disjoint file sets and can run as parallel Sonnet agents; Lane F should be sequenced after Spencer signs off on the interval table below, since it changes SRS state semantics rather than UI; Lane H is independent infra work, already built.
 
 ## §4 — #69 build-tile sizing: Duolingo reference (from memory, UNVERIFIED — no web fetch performed)
 

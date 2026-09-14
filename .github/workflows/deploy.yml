@@ -97,6 +97,22 @@ jobs:
         run: |
           # Hashed assets: cache forever (filenames change every build).
           #
+          # `assets/` is synced SEPARATELY, WITHOUT --delete (see the "prune
+          # old hashed assets" step below) — prod #86, 2026-09-14. A tab left
+          # open across a deploy still references the PREVIOUS build's chunk
+          # hashes (e.g. ProtectedHome-DlN-DvKc.js) for any route it hasn't
+          # navigated to yet; `--delete` here removed that object the instant
+          # this step ran, so the next lazy navigation in that tab fetched a
+          # 403/404 that CloudFront maps to index.html with a 200 — the chunk
+          # came back as 5 KB of `text/html`, which is what "Failed to fetch
+          # dynamically imported module" meant. The prune step below deletes
+          # orphaned hashed assets on a 7-day delay instead, which is long
+          # enough that no realistically-long-open tab still needs them.
+          # `content/v1/*` hashed module JSONs get the same treatment for the
+          # same reason (content-as-data, 2026-09-13) — only the manifest
+          # under content/v1/ is mutable/excluded here, the hashed module
+          # files are not, so they were exposed to the identical bug.
+          #
           # `--exclude "tts/*"` is LOAD-BEARING, do not remove it. This sync
           # mirrors dist/ onto the bucket root with --delete, and the TTS audio
           # corpus (~14.7k mp3s under tts/) lives in the same bucket but is NOT
@@ -111,9 +127,19 @@ jobs:
             --exclude sw.js \
             --exclude manifest.webmanifest \
             --exclude boot-guard.js \
-            --exclude "content/v1/manifest.json" \
+            --exclude "assets/*" \
+            --exclude "content/v1/*" \
             --exclude "tts/*" \
             --cache-control "public,max-age=31536000,immutable"
+          # Hashed assets + hashed content JSONs: same cache-control, but no
+          # --delete — see the comment above and the prune step below.
+          aws s3 sync dist/assets/ "s3://${{ vars.LINGO_S3_BUCKET }}/assets/" \
+            --cache-control "public,max-age=31536000,immutable"
+          if [ -d dist/content/v1 ]; then
+            aws s3 sync dist/content/v1/ "s3://${{ vars.LINGO_S3_BUCKET }}/content/v1/" \
+              --exclude "manifest.json" \
+              --cache-control "public,max-age=31536000,immutable"
+          fi
           # index.html: never cache — it's the pointer to the hashed assets.
           aws s3 cp dist/index.html "s3://${{ vars.LINGO_S3_BUCKET }}/index.html" \
             --cache-control "no-cache"
@@ -140,6 +166,80 @@ jobs:
             "s3://${{ vars.LINGO_S3_BUCKET }}/manifest.webmanifest" \
             --content-type "application/manifest+json" \
             --cache-control "no-cache"
+
+      - name: prune old hashed assets
+        # `assets/` and the hashed `content/v1/` module JSONs are synced
+        # above WITHOUT --delete (prod #86, 2026-09-14): a tab left open
+        # across a deploy keeps referencing the PREVIOUS build's chunk
+        # hashes (e.g. ProtectedHome-DlN-DvKc.js) for any route it hasn't
+        # navigated to yet. Deleting them the instant a new build lands
+        # broke every lazy navigation in that tab — CloudFront maps the
+        # resulting 403/404 to index.html with a 200, so the missing chunk
+        # comes back as 5 KB of `text/html` and every lazyRetry attempt
+        # fails against it ("Failed to fetch dynamically imported module").
+        #
+        # They can't accumulate forever either, so this prunes on a delay
+        # instead of on every deploy: an object under assets/ or
+        # content/v1/ is deleted only when (a) it is NOT part of THIS
+        # build's dist/ output, and (b) it is older than 7 days — long
+        # enough that no realistically-long-open tab still needs it.
+        # Cost math: ~33 MB of hashed assets per build x ~2 deploys/day x
+        # 7 days of retention ~= 0.5 GB steady state — cents per month at
+        # S3 standard pricing.
+        run: |
+          set -euo pipefail
+          BUCKET="${{ vars.LINGO_S3_BUCKET }}"
+          CUTOFF=$(date -u -d '7 days ago' +%s)
+
+          # $1 = S3 prefix (e.g. "assets/"), $2 = matching local dist dir,
+          # $3 = extended-regex of relative paths to NEVER prune (may be
+          # empty) — used to keep content/v1/manifest.json out of this
+          # entirely; it's mutable and already handled by its own `aws s3
+          # cp ... --cache-control no-cache` step above.
+          prune_prefix() {
+            local prefix="$1" local_dir="$2" keep_pattern="$3"
+
+            local current_keys
+            current_keys=$(cd "$local_dir" && find . -type f | sed 's#^\./##' | sort)
+
+            local to_delete=()
+            while IFS=$'\t' read -r key last_modified; do
+              [ -z "$key" ] && continue
+              local rel="${key#"$prefix"}"
+              if [ -n "$keep_pattern" ] && [[ "$rel" =~ $keep_pattern ]]; then
+                continue
+              fi
+              if printf '%s\n' "$current_keys" | grep -qxF "$rel"; then
+                continue # still part of this build's output
+              fi
+              local clean_mtime mtime
+              clean_mtime=$(echo "$last_modified" | sed -E 's/\.[0-9]+\+/+/')
+              mtime=$(date -u -d "$clean_mtime" +%s)
+              if [ "$mtime" -lt "$CUTOFF" ]; then
+                to_delete+=("$key")
+              fi
+            done < <(aws s3api list-objects-v2 --bucket "$BUCKET" --prefix "$prefix" \
+                        --query 'Contents[].[Key,LastModified]' --output text 2>/dev/null || true)
+
+            echo "prune $prefix: ${#to_delete[@]} object(s) older than 7 days and not in this build"
+            [ "${#to_delete[@]}" -eq 0 ] && return 0
+
+            local i=0
+            while [ "$i" -lt "${#to_delete[@]}" ]; do
+              local batch=("${to_delete[@]:$i:1000}")
+              local objects_json
+              objects_json=$(printf '%s\n' "${batch[@]}" \
+                | jq -R -s -c 'split("\n") | map(select(length > 0)) | {Objects: map({Key: .}), Quiet: true}')
+              aws s3api delete-objects --bucket "$BUCKET" --delete "$objects_json"
+              i=$((i + 1000))
+            done
+          }
+
+          prune_prefix "assets/" "dist/assets" ""
+          if [ -d dist/content/v1 ]; then
+            prune_prefix "content/v1/" "dist/content/v1" '^manifest\.json$'
+          fi
+
       - name: publish staged TTS audio
         # Clips authored since the last corpus publish ride the deploy so a
         # manifest update can never land without its audio (2026-08-15: M31

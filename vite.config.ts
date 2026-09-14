@@ -757,6 +757,27 @@ export default defineConfig(({ mode }) => {
             handler: "CacheFirst",
             options: {
               cacheName: "hashed-assets",
+              // A chunk deleted by a later deploy comes back as the SPA
+              // shell with a 200 (the distribution maps 403/404 →
+              // index.html), and CacheFirst would pin that HTML under the
+              // chunk's URL FOREVER — that's what "Failed to fetch
+              // dynamically imported module" meant for a tab left open
+              // across the 2026-09-14 16:35 UTC deploy (prod #86): all 3
+              // lazyRetry attempts hit the cached HTML. Same guard as the
+              // tts-clips rule below, statuses-only; this rule spans
+              // js/css/woff/woff2 (mixed content-types, and S3's inferred
+              // type isn't worth hardcoding) so the "not actually HTML"
+              // half of the guard is a `cacheWillUpdate` predicate instead
+              // of `cacheableResponse.headers`' single-exact-value match.
+              cacheableResponse: { statuses: [200] },
+              plugins: [
+                {
+                  cacheWillUpdate: async ({ response }: { response: Response }) => {
+                    const type = response.headers.get("content-type") ?? "";
+                    return type.includes("text/html") ? null : response;
+                  },
+                },
+              ],
               expiration: { maxEntries: 400, maxAgeSeconds: 60 * 60 * 24 * 365 },
             },
           },
@@ -799,6 +820,14 @@ export default defineConfig(({ mode }) => {
     }),
   ],
   publicDir: "src/pub",
+
+  // Build identity for the chunk-reload guard (`lazyRetry.ts`, prod #86,
+  // 2026-09-14): a tab open across a deploy must only burn its one
+  // automatic reload ONCE per build, not once ever — GITHUB_SHA changes
+  // every deploy, so the guard's sessionStorage flag naturally resets.
+  define: {
+    __LINGO_BUILD_ID__: JSON.stringify(process.env.GITHUB_SHA ?? `local-${Date.now()}`),
+  },
 
   // Audio is served SAME-ORIGIN in production: CloudFront fronts both the app
   // and `/tts/*` from one distribution, so the app resolves relative paths and

@@ -1,4 +1,5 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
+import { CHUNK_RELOAD_FLAG } from "@/shared/utils/lazyRetry";
 
 /**
  * Top-level React error boundary (TestFlight #64, build 11: a blank white
@@ -15,6 +16,20 @@ import { Component, type ErrorInfo, type ReactNode } from "react";
  */
 type Props = { children: ReactNode; onError?: (error: Error, info: ErrorInfo) => void };
 type State = { error: Error | null };
+
+// prod #86 (2026-09-14): a tab left open across a deploy hits this boundary
+// with "Failed to fetch dynamically imported module" (or the sibling
+// browser-native chunk-load phrasings) after `lazyRetry` has already burned
+// its 3 retries + 1 reload for the OLD build. The generic "something went
+// wrong" copy reads as a crash; it's actually just a stale tab. Swap in
+// copy that tells the user to reload, and clear the build-keyed reload flag
+// first so the manual Reload gets a full fresh retry budget for the NEW
+// build's chunks instead of inheriting the old build's spent guard.
+const CHUNK_ERROR_PATTERN = /dynamically imported module|Importing a module script failed|Loading chunk|ChunkLoadError/i;
+
+function isChunkLoadError(error: Error): boolean {
+  return CHUNK_ERROR_PATTERN.test(error.message);
+}
 
 export class AppErrorBoundary extends Component<Props, State> {
   state: State = { error: null };
@@ -35,6 +50,11 @@ export class AppErrorBoundary extends Component<Props, State> {
   render() {
     const { error } = this.state;
     if (!error) return this.props.children;
+    const chunkError = isChunkLoadError(error);
+    const heading = chunkError ? "Update available" : "Something went wrong";
+    const body = chunkError
+      ? "The app was updated while this page was open. Reload to get the new version."
+      : "The app hit an error it couldn’t recover from. Reloading usually fixes it.";
     return (
       <div
         role="alert"
@@ -54,14 +74,22 @@ export class AppErrorBoundary extends Component<Props, State> {
           textAlign: "center",
         }}
       >
-        <p style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>Something went wrong</p>
-        <p style={{ margin: 0, maxWidth: "22rem", color: "#6b625b", fontSize: 14 }}>
-          The app hit an error it couldn’t recover from. Reloading usually fixes it.
-        </p>
+        <p style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>{heading}</p>
+        <p style={{ margin: 0, maxWidth: "22rem", color: "#6b625b", fontSize: 14 }}>{body}</p>
         <div style={{ display: "flex", gap: 10, marginTop: 6, flexWrap: "wrap", justifyContent: "center" }}>
           <button
             type="button"
-            onClick={() => window.location.reload()}
+            onClick={() => {
+              // Reset the build-keyed reload guard so this manual reload
+              // doesn't inherit a spent retry budget from the build that
+              // just threw (prod #86).
+              try {
+                sessionStorage.removeItem(CHUNK_RELOAD_FLAG);
+              } catch {
+                // ignore
+              }
+              window.location.reload();
+            }}
             style={{
               minHeight: 44,
               padding: "10px 28px",

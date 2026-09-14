@@ -1,8 +1,10 @@
 /**
  * TestFlight build-12 feedback ledger, structured for the review page
  * (`/qa/feedback-b12`). Sourced verbatim from
- * `docs/user-feedback/2026-09-14-testflight-b12.md` (rows 63, 65–85; #63 is
- * carried forward from the b5/b6 ledger, still open).
+ * `docs/user-feedback/2026-09-14-testflight-b12.md` (rows 63, 65–86; #63 is
+ * carried forward from the b5/b6 ledger, still open. #86 is a prod web
+ * incident Spencer hit directly, not a TestFlight screenshot submission —
+ * added to this ledger anyway so it goes through the same review flow).
  *
  * `decision` currently mirrors that doc's "Proposed fix" column — it is a
  * plan, not a completed outcome. `link` / `eyeball` are left undefined for
@@ -12,7 +14,7 @@
 
 export type FeedbackTester = "Spencer" | "mom" | "sister" | "tester";
 export type FeedbackStatus = "open" | "built" | "fixed" | "discuss";
-export type FeedbackLane = "A" | "B" | "C" | "D" | "E" | "F" | "G";
+export type FeedbackLane = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H";
 
 export type FeedbackB12Item = {
   n: number;
@@ -387,5 +389,23 @@ export const FEEDBACK_B12_ITEMS: FeedbackB12Item[] = [
     link: "/ja/learn/test-out/m14",
     eyeball: "Cold-open this URL directly: should show a loading state, then a real 0/12 step, never 'no test-out questions'.",
     lane: "F",
+  },
+  {
+    n: 86,
+    build: 12,
+    tester: "Spencer",
+    shot: "86",
+    screen: "Prod web app (app.openlingoapp.com), a long-lived tab/PWA session open across a deploy",
+    verbatim:
+      "Something went wrong — Failed to fetch dynamically imported module: https://app.openlingoapp.com/assets/ProtectedHome-DlN-DvKc.js",
+    cls: "infra",
+    decision:
+      "BUILT, five pieces: (1) vite.config.ts now stamps every build with __LINGO_BUILD_ID__ (GITHUB_SHA in CI); (2) lazyRetry.ts keys its one-time chunk-reload guard on that build id, so a tab that already burned its reload on an OLDER deploy gets a fresh reload budget on the NEXT one instead of falling straight through to the error boundary; (3) the service worker's hashed-assets CacheFirst rule now rejects an HTML response instead of pinning the SPA shell under a chunk's URL forever (root cause: CloudFront maps a deleted chunk's 403/404 to index.html with a 200, and the old rule cached that as if it were the real .js); (4) AppErrorBoundary shows 'Update available' copy for this error class and clears the reload flag before its own manual Reload; (5) the deploy workflow no longer deletes the previous build's assets/ + hashed content/v1/ files immediately — they're kept 7 days (~0.5 GB steady state) so an already-open tab can still fetch them, then pruned.",
+    needsSpencer: false,
+    status: "built",
+    link: "/home",
+    eyeball:
+      "Not reproducible on localhost (dev server has no SW/deploy). Verify on prod after the NEXT deploy following this one: keep a tab open across the deploy, then navigate Home.",
+    lane: "H",
   },
 ];

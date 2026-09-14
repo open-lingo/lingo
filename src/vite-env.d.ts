@@ -15,6 +15,11 @@ interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
 
+// Injected by `define` in vite.config.ts — GITHUB_SHA in CI, a
+// `local-<timestamp>` fallback for local builds/dev. Used by
+// `lazyRetry.ts` to key the one-reload-per-build guard (prod #86).
+declare const __LINGO_BUILD_ID__: string;
+
 // Resolved by the `lesson-registry-bootstrap` plugin in vite.config.ts: the
 // eager curriculum table under vitest / CONTENT_EMIT, an empty module in
 // every real build. See src/features/lesson/data/lessonRegistry.ts.
