@@ -41,6 +41,9 @@
   --tmc-moon: #f0e8cc;
   --tmc-sky-day: #bee0f2;
   --tmc-sky-night: #141b33;
+  /* Unset by default (no art) — NetworkMap sets this per language on
+     `.tmc-map-panel`; `.tmc-bg-photo` only paints once it's non-empty. */
+  --tmc-bg-image: none;
 }
 /* Spanish course — a warmer tropical/Mayan scene. Buildings stay (they read as
    a distant town), but the signature landmarks get their own, more legible
@@ -140,6 +143,37 @@
   background-clip: content-box;
 }
 
+/* Panel wrapper for NetworkMap (desktop) — `position: relative` alone
+   (from the `relative` utility class) isn't enough for `.tmc-bg-photo`'s
+   negative z-index below: without an explicit z-index here too, the panel
+   never forms its own stacking context, and the negative-z-index child
+   escapes past it to paint behind unrelated page chrome instead of just
+   this panel's own content (the exact landmine documented on `.vnm-root`,
+   the mobile counterpart, above). */
+.tmc-map-panel {
+  z-index: 0;
+}
+/* photo backdrop layer (TestFlight #77 — desktop parity with the mobile
+   night-metro map's `.vnm-bg-photo`, same 0.44 opacity Spencer landed on).
+   `--tmc-bg-image` is set per-language on `.tmc-map-panel` inline (see
+   NETWORK_MAP_BACKGROUNDS in TransitLearnPage.tsx); unset by default so this
+   paints nothing where there's no art. Sits BELOW `.tmc-sky-layer` (z-index
+   -1 vs 0) so the sky gradient/moon and the opaque SVG scenery composite
+   over it — visible through the sky band and any gaps, same as mobile reads
+   through its navy fade. 150% width + the same slow parallax translateX as
+   `.tmc-sky-layer` (scroll handler, NetworkMap) — one scrolling backdrop,
+   not two independently-drifting layers. */
+.tmc-bg-photo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 150%;
+  background-image: var(--tmc-bg-image);
+  background-size: cover;
+  background-position: center;
+  opacity: 0.44;
+  pointer-events: none;
+}
 /* fixed ambient layer — pinned to the panel, NOT the scrolling map;
    slow parallax translate is applied inline from the scroll handler */
 .tmc-sky-layer {

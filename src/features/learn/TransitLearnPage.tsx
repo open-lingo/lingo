@@ -84,7 +84,18 @@ import {
 } from "@/features/placement/hooks/usePlacementDismissed";
 import { getStoredSettings } from "@/features/settings/storage";
 import { logSessionEvent } from "@/shared/telemetry/sessionLog";
+import tmcBgJaToriiWide from "@/assets/learn/vnm-bg-ja-torii-wide.jpg";
 import "./transitLearnPage.css";
+
+/** Desktop counterpart of VerticalNetworkMap's `VNM_BACKGROUNDS` (TestFlight
+ *  #77 — Spencer: "recreate the scrolling background image on desktop too").
+ *  Same design-call prototype scope: only JA has art; other languages render
+ *  the plain panel (no `--tmc-bg-image` set, so `.tmc-bg-photo` paints
+ *  nothing). Landscape-cropped render (1792x1024) of the same torii-shrine
+ *  subject as the mobile asset, mflux + Z-Image-Turbo (offline, local). */
+const NETWORK_MAP_BACKGROUNDS: Record<string, string> = {
+  ja: tmcBgJaToriiWide,
+};
 
 /* ── layout ──────────────────────────────────────────────────────────── */
 
@@ -1025,6 +1036,8 @@ function NetworkMap({
 }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const skyRef = useRef<HTMLDivElement>(null);
+  const bgPhotoRef = useRef<HTMLDivElement>(null);
+  const bgImage = NETWORK_MAP_BACKGROUNDS[lang];
   const hillsRef = useRef<SVGGElement>(null);
   const bldgRef = useRef<SVGGElement>(null);
   const cityRef = useRef<SVGGElement>(null);
@@ -1204,6 +1217,15 @@ function NetworkMap({
         const slack = clientW * 0.45;
         skyEl.style.transform = `translateX(${-Math.min(el.scrollLeft * 0.1, slack)}px)`;
       }
+      // photo backdrop rides the same slow parallax as the sky gradient —
+      // "scrolling background image" parity with mobile's .vnm-bg-photo
+      // (#77). Same 0.1x factor + slack cap keeps the 150%-wide layer from
+      // ever running out of image before the map does.
+      const bgEl = bgPhotoRef.current;
+      if (bgEl) {
+        const slack = clientW * 0.45;
+        bgEl.style.transform = `translateX(${-Math.min(el.scrollLeft * 0.1, slack)}px)`;
+      }
       // skyline layers counter-translate in map units → slower apparent speed
       hillsRef.current?.setAttribute("transform", `translate(${(el.scrollLeft * (1 - 0.18)) / s} 0)`);
       bldgRef.current?.setAttribute("transform", `translate(${(el.scrollLeft * (1 - 0.45)) / s} 0)`);
@@ -1236,7 +1258,21 @@ function NetworkMap({
   };
 
   return (
-    <div className="relative rounded-md border-2 border-text-primary bg-surface shadow-card overflow-hidden">
+    <div
+      className="tmc-map-panel relative rounded-md border-2 border-text-primary bg-surface shadow-card overflow-hidden"
+      style={bgImage ? { ["--tmc-bg-image" as string]: `url(${bgImage})` } : undefined}
+    >
+      {/* photo backdrop (TestFlight #77) — sits BEHIND FixedSky's sky
+          gradient/moon and the opaque SVG scenery, so it reads through the
+          sky band and any gaps exactly like the ambient sky layer already
+          does. `position: absolute` (not `fixed`) because this panel scrolls
+          its OWN content horizontally — it doesn't fill the viewport the way
+          the mobile page does, so pinning to the panel (not the viewport) is
+          the correct equivalent of `.vnm-bg-photo`. Needs `.tmc-map-panel`'s
+          own z-index (below) to form a stacking context, or this
+          negative-z-index layer escapes the panel's own paint order — same
+          landmine documented on `.vnm-root` in transitLearnPage.css. */}
+      {bgImage && <div ref={bgPhotoRef} className="tmc-bg-photo" aria-hidden />}
       <FixedSky skyRef={skyRef} />
 
       {/* demo/real toggle — design-review aid, preview route only */}
