@@ -298,7 +298,7 @@ lessons:
         blank: "fuiste"
         options: ["fuiste", "fue", "fui"]
         atoms: ["fuiste", "hermano"]
-        why: "You are the one being described, so «fuiste» — you were. «fue» would be someone else; «fui» would be you talking about yourself."
+        why: "You are the one being described, so «fuiste» — you were. «fue» would be someone else; «fui» would be me talking about myself."
       - kind: listenCompLit
         id: l2-lc-fuimimaestro
         es: "fue mi maestro"

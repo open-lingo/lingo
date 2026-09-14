@@ -805,7 +805,7 @@ const ES_M18_4: LessonContent = {
             audioText: "sí, hablan español",
           },
           replyGloss: "Yes, they speak Spanish.",
-          explanation: "Ana and Diego are a they: «hablan». «hablamos» would be you and Luis; «habla» is one person.",
+          explanation: "Ana and Diego are a they: «hablan». «hablamos» would be us (Luis and me); «habla» is one person.",
         },
       ],
     },

@@ -727,7 +727,7 @@ lessons:
               correctOptionId: "right"
               audioText: "sí, hablan español"
             replyGloss: "Yes, they speak Spanish."
-            explanation: "Ana and Diego are a they: «hablan». «hablamos» would be you and Luis; «habla» is one person."
+            explanation: "Ana and Diego are a they: «hablan». «hablamos» would be us (Luis and me); «habla» is one person."
       - kind: matchLit
         id: l4-match
         pairs:

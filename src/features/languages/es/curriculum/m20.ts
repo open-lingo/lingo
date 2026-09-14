@@ -292,7 +292,7 @@ const ES_M20_2: LessonContent = {
       ["fuiste", "fue", "fui"],
       "You were very good to my brother",
       "fuiste muy bueno con mi hermano",
-      "You are the one being described, so «fuiste» — you were. «fue» would be someone else; «fui» would be you talking about yourself.",
+      "You are the one being described, so «fuiste» — you were. «fue» would be someone else; «fui» would be me talking about myself.",
       ["fuiste", "hermano"],
     ),
     listeningCompSentence({

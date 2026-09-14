@@ -177,7 +177,7 @@ lessons:
         blank: "fuimos"
         options: ["fuimos", "fui", "vamos"]
         atoms: ["fuimos", "playa", "juntos"]
-        why: "More than one person went, together — «fuimos». «fui» would be just you; «vamos» slips back into now."
+        why: "More than one person went, together — «fuimos». «fui» would be just me (I went); «vamos» slips back into now."
       - kind: listenCompLit
         id: l1-lc-fuimosmercado
         es: "fuimos al mercado ayer"

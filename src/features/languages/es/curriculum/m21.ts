@@ -88,7 +88,7 @@ const ES_M21_1: LessonContent = {
       ["fuimos", "fui", "vamos"],
       "We went to the beach together",
       "fuimos a la playa juntos",
-      "More than one person went, together — «fuimos». «fui» would be just you; «vamos» slips back into now.",
+      "More than one person went, together — «fuimos». «fui» would be just me (I went); «vamos» slips back into now.",
       ["fuimos", "playa", "juntos"],
     ),
     listeningCompSentence({
