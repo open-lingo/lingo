@@ -2770,6 +2770,7 @@
     "けんきゅうされて",
     "げつようび",
     "げんき",
+    "げんご",
     "こ",
     "こうえん",
     "こうさてん",
@@ -3171,6 +3172,7 @@
     "にちようび",
     "にている",
     "にほん",
+    "にほんご",
     "にほんじん",
     "にる",
     "にわ",
@@ -3510,8 +3512,7 @@
     "ボタン",
     "ポスター",
     "ミカ",
-    "メモ",
-    "レストラン"
+    "メモ"
   ],
   "priorAtoms": [
     {
@@ -7325,6 +7326,22 @@
       "romaji": "kotae",
       "gloss": "the answer",
       "shortGloss": "answer",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "げんご",
+      "romaji": "gengo",
+      "gloss": "a language",
+      "shortGloss": "language",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "にほんご",
+      "romaji": "nihongo",
+      "gloss": "the Japanese language",
+      "shortGloss": "Japanese",
       "imageable": false,
       "kind": "vocab"
     },

@@ -2488,6 +2488,7 @@
     "いそごう",
     "いたい",
     "いただいた",
+    "いただきます",
     "いただく",
     "いち",
     "いちじ",
@@ -2775,6 +2776,7 @@
     "けんきゅうされて",
     "げつようび",
     "げんき",
+    "げんご",
     "こ",
     "こうえん",
     "こうさてん",
@@ -3189,6 +3191,7 @@
     "にちようび",
     "にている",
     "にほん",
+    "にほんご",
     "にほんじん",
     "にる",
     "にわ",
@@ -3498,6 +3501,7 @@
     "ろっぽん",
     "わ",
     "わかった",
+    "わかって",
     "わからない",
     "わかりにくい",
     "わかります",
@@ -3534,8 +3538,7 @@
     "ボタン",
     "ポスター",
     "ミカ",
-    "メモ",
-    "レストラン"
+    "メモ"
   ],
   "priorAtoms": [
     {
@@ -7353,6 +7356,22 @@
       "kind": "vocab"
     },
     {
+      "kana": "げんご",
+      "romaji": "gengo",
+      "gloss": "a language",
+      "shortGloss": "language",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "にほんご",
+      "romaji": "nihongo",
+      "gloss": "the Japanese language",
+      "shortGloss": "Japanese",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "ならって",
       "romaji": "naratte",
       "gloss": "learn from somebody (te-form)",
@@ -10893,6 +10912,16 @@
       }
     },
     {
+      "kana": "わかって",
+      "romaji": "wakatte",
+      "gloss": "understanding — te-form of わかる",
+      "shortGloss": "understand (understand)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "わかる",
+      "verbClass": "u"
+    },
+    {
       "kana": "やくそく",
       "kanji": "約束",
       "romaji": "yakusoku",
@@ -11467,6 +11496,16 @@
       "imageable": false,
       "kind": "adj-form",
       "derivedFrom": "はやい"
+    },
+    {
+      "kana": "いただきます",
+      "romaji": "itadakimasu",
+      "gloss": "humbly receive, get to (polite) — masu-form of いただく",
+      "shortGloss": "humbly receive (polite)",
+      "imageable": false,
+      "kind": "verb-form",
+      "derivedFrom": "いただく",
+      "verbClass": "u"
     },
     {
       "kana": "ないしょ",

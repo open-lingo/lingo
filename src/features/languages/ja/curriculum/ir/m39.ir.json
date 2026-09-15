@@ -1577,7 +1577,6 @@
         "いえ",
         "あめ",
         "ケーキ",
-        "レストラン",
         "がっこう",
         "しごと"
       ]
@@ -2693,6 +2692,7 @@
     "けど",
     "げつようび",
     "げんき",
+    "げんご",
     "こ",
     "こうえん",
     "こうさてん",
@@ -3028,6 +3028,7 @@
     "にじ",
     "にちようび",
     "にほん",
+    "にほんご",
     "にほんじん",
     "にわ",
     "にん",
@@ -7140,6 +7141,22 @@
       "romaji": "kotae",
       "gloss": "the answer",
       "shortGloss": "answer",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "げんご",
+      "romaji": "gengo",
+      "gloss": "a language",
+      "shortGloss": "language",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "にほんご",
+      "romaji": "nihongo",
+      "gloss": "the Japanese language",
+      "shortGloss": "Japanese",
       "imageable": false,
       "kind": "vocab"
     },

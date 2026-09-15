@@ -1701,28 +1701,39 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
     // the honest signal that the lesson's review pool needs re-authoring
     // rather than the selector needs another knob.
     //
-    // The emoji fallback stays in REGISTRY order: re-ranking it was tried and
-    // reverted — which emoji atom lands in a grid decides where several
-    // module-new words make their first appearance, so its order is entangled
-    // with the image-debut and provenance guards (m40–m45 went red, レストラン
-    // debuting on a match grid).
+    // The emoji fallback is ranked WINDOW-FIRST, registry order as the
+    // tiebreak (2026-09-15). Two earlier attempts at this were reverted
+    // because they turned the m40–m45 provenance guards red on レストラン: a
+    // courseAtoms row carrying an emoji that m39's `reviewPool` ASSERTED was
+    // known while no lesson had ever introduced it on an intro-capable step.
+    // Ranking recent-first surfaced it because window membership (unlike
+    // registry position) is driven by `priorVocab`, and `priorVocab` believed
+    // the assertion. The fix belongs at the source, not in this ranking: the
+    // reviewPool entry was dropped (m39.ir.yaml, 2026-09-15) so レストラン no
+    // longer clears `usableHere` at all until a lesson genuinely teaches it —
+    // it simply drops out of the fallback pool, ranked or not. With that
+    // authoring defect gone, ranking recent-first is safe: it cuts
+    // out-of-window grid draws by ~20× (a grid that falls through to the
+    // fallback now prefers this module's own six-module window over the
+    // whole registry, same rule as the filler pool below) and the provenance
+    // guards stay green because every remaining fallback candidate has a real
+    // debut somewhere in the course.
     const recentMatchable = recentOnly(matchable);
-    // The whole-registry emoji fallback stays in REGISTRY ORDER, and this is a
-    // deliberate stop, not an oversight. Ranking it recent-first was tried
-    // twice — it cuts out-of-window grid draws by ~20× — and both times it
-    // turned the m40–m45 provenance guards red on レストラン: an atom carrying
-    // an emoji that some module's `reviewPool` ASSERTS is known while no
-    // lesson has ever introduced it on an intro-capable step. The registry
-    // order simply never reached it. That is a registry/authoring
-    // inconsistency (a word asserted known but taught nowhere), it predates
-    // this lane, and re-ranking a pool is not the place to discover it. Logged
-    // as a finding instead; the fallback's stale draws are counted by the
-    // sweep, per module, and are an authoring signal about those lessons'
-    // `reviewPool`s.
+    const rankedFallback =
+      recentChoice === null
+        ? emojiPool.filter(usableHere)
+        : [...emojiPool.filter(usableHere)].sort((a, b) => {
+            // Array.prototype.sort is a stable sort (ES2019+), so ties
+            // (both recent, or both stale) keep their REGISTRY order —
+            // recency is the only thing this reorders.
+            const ra = recentOnly([a]).length > 0 ? 0 : 1;
+            const rb = recentOnly([b]).length > 0 ? 0 : 1;
+            return ra - rb;
+          });
     const picked = (
       recentMatchable.length >= 4
         ? recentMatchable
-        : [...recentMatchable, ...emojiPool.filter(usableHere)]
+        : [...recentMatchable, ...rankedFallback]
     ).slice(0, 6);
     const tileGlosses = picked.map(matchTileGloss);
     const matchAtoms = picked.map((a, i) => ({

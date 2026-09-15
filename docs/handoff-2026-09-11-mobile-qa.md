@@ -287,3 +287,17 @@ Mirror: memory `spencer-open-todos.md`.
   every manual play surface; match wrong-shake now fires. Left: the
   setTimeout auto-play sites in 5 cloze/kanji views (same race, follow-up);
   #141 note = IR edit done by Fable (m34 rule prose, recompiled).
+- Lap preflight RED on one gate: reviewWindowFloor m40 82 > budget 72, total
+  1689 > 1679. Cause: recompiling m34 (for the #141 note) exposed yaml→json
+  drift — 15 m34 vocab entries had never been compiled; `taughtVocab`
+  regenerated, m34 is m40's 6-module window edge, m40's thin-grid emoji
+  fallback (registry order) now draws 10 more m3 words. NOT raising the
+  budget (Spencer's ratchet rule): Sonnet lane fixing the cause — drop the
+  never-taught レストラン reviewPool assertion + rank the fallback
+  window-first (the change the floors lane held back). Push waits on it.
+- m40 gate FIXED at the cause (Sonnet): レストラン dropped from m39's
+  reviewPool (never taught anywhere; courseAtoms attribution to ja-m12-kata
+  is also wrong — residual), thin-grid emoji fallback ranked window-first,
+  m39–m46 recompiled, taughtVocab regenerated. Out-of-window draws
+  1,689 → 607 (m40 82 → 34); ratchets LOWERED to the new numbers; curriculum
+  13,348 green; 982 provenance tests green.

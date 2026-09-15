@@ -68,45 +68,26 @@ import { moduleIndexOf } from "@/features/lesson/data/contentFloors";
  * lanes land; never raise one. A module not listed must be at zero.
  */
 const OUT_OF_WINDOW_BUDGET: Readonly<Record<string, number>> = {
-  m12: 2,
-  m13: 37,
-  m14: 9,
-  m15: 34,
-  m16: 15,
-  m17: 13,
+  // Lowered 2026-09-16 after the thin-grid emoji fallback was ranked
+  // window-first and レストラン's false reviewPool assertion was dropped
+  // (m39): 1679 → 607 total. Modules not listed have budget 0.
+  m15: 28,
   m18: 67,
-  m19: 20,
-  m20: 29,
-  m21: 19,
-  m22: 4,
-  m23: 5,
-  m24: 22,
-  m25: 3,
-  m26: 38,
-  m27: 13,
-  m28: 9,
-  m29: 47,
-  m30: 42,
-  m31: 32,
-  m32: 33,
-  m33: 36,
-  m34: 32,
-  m35: 69,
-  m36: 54,
-  m37: 96,
-  m38: 84,
-  m39: 94,
-  m40: 72,
-  m41: 120,
-  m42: 98,
-  m43: 119,
-  m44: 93,
-  m45: 87,
-  m46: 132,
+  m35: 3,
+  m37: 27,
+  m38: 18,
+  m39: 34,
+  m40: 34,
+  m41: 76,
+  m42: 86,
+  m43: 83,
+  m44: 48,
+  m45: 43,
+  m46: 60,
 };
 
 /** The one number to watch fall. 2,821 before the lane. */
-const OUT_OF_WINDOW_TOTAL_BUDGET = 1679;
+const OUT_OF_WINDOW_TOTAL_BUDGET = 607;
 
 type Draw = { module: string; kind: string; step: string; kana: string };
 
