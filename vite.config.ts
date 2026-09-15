@@ -373,6 +373,72 @@ location.replace(${JSON.stringify(target)});
   };
 }
 
+/**
+ * Persistent save for the tile-sizing QA page (`/:lang/qa/tiles`, TestFlight
+ * #137 — Spencer 2026-09-15: "Save my sizing"). Unlike the other `/__lingo-*`
+ * mirrors above (which are read-only exhaust for an agent to tail), this one
+ * is READ BACK by the page itself: a `GET` returns whatever was last saved so
+ * "Load saved" can offer it, and a `POST` overwrites it. `docs/qa/` is
+ * created on first write.
+ *
+ * Dev-only by construction (`apply: "serve"` — never runs in `vite build`);
+ * the page also gates its Save button on `import.meta.env.DEV`, which is
+ * statically stripped from a production bundle, so the control cannot even
+ * render there — belt-and-suspenders with no server to talk to anyway.
+ */
+function tileSizingSaveMiddleware(): Plugin {
+  const outFile = path.resolve(__dirname, "docs/qa/tile-sizing.json");
+  return {
+    name: "tile-sizing-save-middleware",
+    apply: "serve",
+    configureServer(server) {
+      server.middlewares.use("/__qa/tile-sizing", (req, res) => {
+        if (req.method === "GET") {
+          try {
+            res.setHeader("Content-Type", "application/json");
+            res.end(fs.readFileSync(outFile, "utf8"));
+          } catch {
+            res.statusCode = 404;
+            res.end();
+          }
+          return;
+        }
+        if (req.method !== "POST") {
+          res.statusCode = 405;
+          res.end();
+          return;
+        }
+        const chunks: Buffer[] = [];
+        let size = 0;
+        req.on("data", (c: Buffer) => {
+          size += c.length;
+          if (size > 200_000) {
+            res.statusCode = 413;
+            res.end();
+            req.destroy();
+            return;
+          }
+          chunks.push(c);
+        });
+        req.on("end", () => {
+          try {
+            const body = Buffer.concat(chunks).toString("utf8");
+            const parsed = JSON.parse(body); // validate before writing
+            fs.mkdirSync(path.dirname(outFile), { recursive: true });
+            const pretty = JSON.stringify(parsed, null, 2) + "\n";
+            fs.writeFileSync(`${outFile}.tmp`, pretty);
+            fs.renameSync(`${outFile}.tmp`, outFile);
+            res.statusCode = 204;
+          } catch {
+            res.statusCode = 400;
+          }
+          res.end();
+        });
+      });
+    },
+  };
+}
+
 function qaNotesMiddleware(): Plugin {
   const notesFile = "/tmp/lingo-qa-notes.json";
   return {
@@ -652,6 +718,7 @@ export default defineConfig(({ mode }) => {
     devLogMiddleware(),
     harnessDriverPlugin(),
     qaNotesMiddleware(),
+    tileSizingSaveMiddleware(),
     simTargetMiddleware(),
     reviewQueueMiddleware(),
     spinePlanMiddleware(),

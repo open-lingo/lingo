@@ -728,6 +728,12 @@ export default function QaTestDrivePage() {
             Design galleries
           </span>
           <Link
+            to={`/${langId}/qa/tiles`}
+            className="rounded border border-accent px-2 py-0.5 font-semibold text-accent hover:bg-surface-muted"
+          >
+            Tile sizing
+          </Link>
+          <Link
             to={`/${langId}/qa/kanji-reveal`}
             className="rounded border border-accent px-2 py-0.5 font-semibold text-accent hover:bg-surface-muted"
           >

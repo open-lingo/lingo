@@ -180,9 +180,17 @@ export function BuildTileSurface({
     );
   // Okurigana-aligned shared ruby (Spencer QA 2026-07-17): the <rt> covers
   // only the kanji run — 飲(の)まない, never (のまない) over 飲まない.
+  //
+  // TestFlight #119/#117 (build-16 to-do, "no visible reading = big word",
+  // wired b16.1 2026-09-15): a MASTERED tile's furigana is hidden, leaving
+  // it in the same situation as a kana-only tile — nothing above its word —
+  // so it should grow the same way. `data-build-tile-reading="hidden"` lets
+  // `.build-tile-dense [data-build-tile-reading="hidden"]` (index.css) apply
+  // the same `--tile-kana-font` growth `[data-build-tile-kana]` gets.
   return (
     <KanjiRuby
       data-build-tile-kanji="true"
+      data-build-tile-reading={kanji.furiganaVisible ? undefined : "hidden"}
       lang="ja"
       surface={kanji.surface}
       reading={kanji.reading}

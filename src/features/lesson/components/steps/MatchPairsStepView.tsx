@@ -237,7 +237,7 @@ export function MatchPairsStepView({ step, onComplete, onContinue, hideMistakeDo
       </div>
 
       <div
-        className="relative grid min-h-0 flex-1 grid-cols-2 gap-x-3 gap-y-2 sm:gap-x-4"
+        className="relative grid min-h-0 flex-1 grid-cols-2 gap-x-3 gap-y-[var(--match-gap)] sm:gap-x-4"
         style={{
           gridTemplateRows: `repeat(${rows}, minmax(min-content, 1fr))`,
           // Cap the grid so 1fr rows resolve to card-sized tiles instead of
@@ -245,7 +245,14 @@ export function MatchPairsStepView({ step, onComplete, onContinue, hideMistakeDo
           // Spencer QA 2026-07-12: "don't scale the cards too tall; they
           // need to fit normally inside the lesson viewer." Short viewports
           // still compress below the cap via min-h-0/flex-1.
-          maxHeight: `calc(${rows} * 4.75rem + ${rows - 1} * 0.5rem)`,
+          //
+          // TOKENIZED (b16 2026-09-15): `--match-tile-h`/`--match-gap`
+          // default to 4.75rem/0.5rem — today's literal numbers, so this
+          // is a no-op by default. Wired to the SAME token the grid's own
+          // `gap-y` reads above, so a gap change on the QA page updates
+          // this ceiling formula too — otherwise rows would clip/overlap
+          // the moment Spencer moved the gap slider.
+          maxHeight: `calc(${rows} * var(--match-tile-h) + ${rows - 1} * var(--match-gap))`,
         }}
       >
         {/* Render row-by-row so the auto-rows lock both columns to the same
@@ -369,13 +376,18 @@ function SourceTile({
   // last row was clipped on a 15 Pro Max (TestFlight 2026-09-05 #22). Rows
   // own the height (1fr), so with the smaller floor the tiles still stretch
   // to fill whatever the grid gets.
+  // TOKENIZED (b16 2026-09-15): every clamp() bound above is multiplied
+  // by `--match-font-scale` (default 1 — today's numbers unchanged).
+  // Match tiles have FOUR distinct size tiers (audio/silent ×
+  // dense/wide rows) that must keep their relative proportions, so
+  // the QA page dials one scale rather than an absolute px size.
   const sizeClass = audioOnSelect
     ? denseRows
-      ? "text-[clamp(1.25rem,3.2cqh,2.5rem)] font-semibold py-1.5"
-      : "text-[clamp(1.75rem,4.5cqh,3rem)] font-semibold py-1.5"
+      ? "text-[clamp(calc(1.25rem*var(--match-font-scale)),calc(3.2cqh*var(--match-font-scale)),calc(2.5rem*var(--match-font-scale)))] font-semibold py-1.5"
+      : "text-[clamp(calc(1.75rem*var(--match-font-scale)),calc(4.5cqh*var(--match-font-scale)),calc(3rem*var(--match-font-scale)))] font-semibold py-1.5"
     : denseRows
-      ? "text-[clamp(1.125rem,3cqh,2.25rem)] font-medium py-1.5"
-      : "text-[clamp(1.375rem,3.8cqh,2.5rem)] font-medium py-1.5";
+      ? "text-[clamp(calc(1.125rem*var(--match-font-scale)),calc(3cqh*var(--match-font-scale)),calc(2.25rem*var(--match-font-scale)))] font-medium py-1.5"
+      : "text-[clamp(calc(1.375rem*var(--match-font-scale)),calc(3.8cqh*var(--match-font-scale)),calc(2.5rem*var(--match-font-scale)))] font-medium py-1.5";
   return (
     <button
       type="button"
@@ -459,13 +471,18 @@ function TargetTile({
   denseRows,
   audioOnSelect,
 }: SourceTileProps & { resolvedTarget?: string }) {
+  // TOKENIZED (b16 2026-09-15): every clamp() bound above is multiplied
+  // by `--match-font-scale` (default 1 — today's numbers unchanged).
+  // Match tiles have FOUR distinct size tiers (audio/silent ×
+  // dense/wide rows) that must keep their relative proportions, so
+  // the QA page dials one scale rather than an absolute px size.
   const sizeClass = audioOnSelect
     ? denseRows
-      ? "text-[clamp(1.125rem,3.2cqh,2.25rem)] font-semibold py-1.5"
-      : "text-[clamp(1.375rem,3.8cqh,2.5rem)] font-semibold py-1.5"
+      ? "text-[clamp(calc(1.125rem*var(--match-font-scale)),calc(3.2cqh*var(--match-font-scale)),calc(2.25rem*var(--match-font-scale)))] font-semibold py-1.5"
+      : "text-[clamp(calc(1.375rem*var(--match-font-scale)),calc(3.8cqh*var(--match-font-scale)),calc(2.5rem*var(--match-font-scale)))] font-semibold py-1.5"
     : denseRows
-      ? "text-[clamp(1rem,2.6cqh,1.75rem)] font-medium py-1.5"
-      : "text-[clamp(1.125rem,3cqh,1.875rem)] font-medium py-1.5";
+      ? "text-[clamp(calc(1rem*var(--match-font-scale)),calc(2.6cqh*var(--match-font-scale)),calc(1.75rem*var(--match-font-scale)))] font-medium py-1.5"
+      : "text-[clamp(calc(1.125rem*var(--match-font-scale)),calc(3cqh*var(--match-font-scale)),calc(1.875rem*var(--match-font-scale)))] font-medium py-1.5";
   return (
     <button
       type="button"

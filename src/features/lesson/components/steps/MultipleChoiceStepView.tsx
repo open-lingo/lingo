@@ -263,7 +263,12 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue, lessonId 
               ? `flex items-center justify-center px-4 font-bold ${singleWordSize}`
               : isShortGlyph
                 ? "flex items-center justify-center py-9 text-5xl sm:text-6xl font-bold"
-                : "px-4 py-6 text-left text-xl font-medium leading-snug";
+                // TOKENIZED (b16 2026-09-15): the "own group" MCQ tokens —
+              // regular/sentence layout ONLY. The three special layouts
+              // above (reveal-on-select, single-word, short-glyph) keep
+              // their literal sizes; the brief allocates just `--mcq-font`
+              // /`--mcq-py` for the one used by a standard 4-option MC.
+              : "px-4 py-[var(--mcq-py)] text-left text-[length:var(--mcq-font)] font-medium leading-snug";
 
           return (
             <button

@@ -99,10 +99,19 @@ Don't trust `docs/tasks/*.md` as current state.
 - Commits and pushes (only when asked; branch off `main` first if you do).
 
 **Before ANY push to main** (a push = a prod deploy):
-- `npm run preflight` — tsc + full suite + `CI=true` prod build. The CI=true
+- `npm run preflight` — tsc + full suite + `CI=true` prod build — **only when
+  the commit touches code or content** (`src/`, `scripts/`, `curriculum/`,
+  `public/`, `index.html`, `package*.json`, `vite.config*`, `ios/`, `android/`).
+  Docs-only commits (`docs/`, `*.md`, shots) push straight through; CI still
+  runs on every push and the deploy workflow verifies the served bundle.
+  Fold the ledger/triage docs into the code commit they describe — one push
+  per lap, not three (Spencer, 2026-09-15: 43 pushes in two days, most of them
+  docs, each paying a 5-minute preflight). The CI=true
   matters: vite-plugin-pwa only hard-fails over-cap precache assets under CI;
   a plain local build silently drops them (that split shipped nothing on
   2026-08-25 while looking green locally).
+- Triaging Spencer's feedback: read `docs/spencer-product-sentiment.md` first
+  and predict his verdict from it; update it whenever he explains a why.
 - After pushing, confirm the deploy RUN CONCLUSION (`gh run watch <id>
   --exit-status`; check `$?` directly or `${PIPESTATUS[0]}` — piping through
   `tail` swallows the exit code and has caused a false "deploy succeeded"

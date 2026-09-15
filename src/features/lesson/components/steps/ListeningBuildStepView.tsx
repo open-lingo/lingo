@@ -291,12 +291,40 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
           text-xl(20)→17, sm:px-5(20)→17.5, sm:py-2.5(10)→8.75,
           sm:text-3xl(30)→25.5 (all -15%/-12.5%, same factors as
           BuildSentenceStepView). */}
+      {/* TOKENIZED (b16 2026-09-15, TestFlight #124/#125 "inconsistent
+          across build types" — the ROOT of the complaint is that this view
+          never read BuildSentenceStepView's tile tokens). px/py/font below
+          are now `calc(var(--tile-px|py|font) * ratio)`, where each ratio
+          is this view's CURRENT absolute value ÷ BuildSentenceStepView's
+          dense-tier token — e.g. tray px 14/12.25=1.142857 (mobile),
+          17.5/14=1.25 (desktop). This is an exact reproduction of today's
+          numbers (verified pixel-identical, before/after shots), but now
+          moves proportionally with the SAME `/qa/tiles` build-tile slider
+          BuildSentenceStepView reads — one slider reaches both surfaces.
+          Ratios are NOT equal across all four class groups (tray vs bank,
+          mobile vs desktop) because the two views' numbers were tuned by
+          separate patches over 9 days; unifying the underlying NUMBERS
+          (not just the token wiring) is Spencer's call on the QA page,
+          not this lane's.
+
+          b16.1 (2026-09-15, same day — TestFlight #137 follow-up): the
+          tray gap (`gap-2 sm:gap-2.5` = 8/10px) matched `--tile-tray-gap`'s
+          OWN defaults exactly, so it now reads that token directly (zero
+          value change). The bank gap (`gap-3` = 12px, no `sm:` step) did
+          NOT match `--tile-gap` (8px default) — wiring it there would have
+          shrunk it, so it gets its own `--listen-bank-gap` token
+          (default 12px) instead: same #125 mismatch, now disclosed via a
+          named token rather than a literal class. Both bank/tray tile
+          boxes also pick up `--tile-box-h` (TestFlight #137, "every tile
+          the same height") — the SAME token BuildSentenceStepView's dense/
+          hugeBank/bigTiles tiers read, so "Lock tile heights" on the QA
+          page reaches every build surface in one write. */}
       <div className="grid min-h-[54px] rounded-2xl border-2 border-dashed border-border bg-surface-muted px-4 py-3 sm:min-h-[68px] sm:py-4">
-        <div aria-hidden className="[grid-area:1/1] invisible flex max-h-[92px] flex-wrap items-stretch gap-2 overflow-hidden sm:max-h-none sm:gap-2.5">
+        <div aria-hidden className="[grid-area:1/1] invisible flex max-h-[92px] flex-wrap items-stretch gap-[var(--tile-tray-gap)] overflow-hidden sm:max-h-none">
           {step.correctOrder.map((tile, i) => (
             <span
               key={`ghost-${i}`}
-              className="flex flex-col items-center justify-end rounded-xl border-2 px-[14px] py-[7px] text-[17px] font-bold leading-tight sm:px-[17.5px] sm:py-[8.75px] sm:text-[25.5px]"
+              className="flex flex-col items-center justify-end rounded-[var(--tile-radius)] border-2 min-h-[var(--tile-box-h)] px-[calc(var(--tile-px)*1.142857)] py-[calc(var(--tile-py)*1.75)] text-[length:calc(var(--tile-font)*1.030303)] font-bold leading-tight sm:px-[calc(var(--tile-px)*1.25)] sm:py-[calc(var(--tile-py)*1.25)] sm:text-[length:calc(var(--tile-font)*1.25)]"
             >
               {/* Ghost sizing MUST use the same glyphs (kanji + rt) as the
                   real tiles or the tray mis-sizes. */}
@@ -304,7 +332,7 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
             </span>
           ))}
         </div>
-        <div className="[grid-area:1/1] flex flex-wrap content-start items-stretch gap-2 sm:gap-2.5">
+        <div className="[grid-area:1/1] flex flex-wrap content-start items-stretch gap-[var(--tile-tray-gap)]">
           {placed.length === 0 ? (
             <span className="self-center text-base text-text-muted">
               Tap tiles to build what you hear
@@ -321,15 +349,19 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
               onTileHoverStart={peek.hoverStart}
               onTileHoverEnd={peek.hoverEnd}
               forceHelperFor={(id) => peek.revealed.has(id)}
-              className="flex flex-wrap content-start items-stretch gap-2.5"
-              tileClassName="flex flex-col items-center justify-end rounded-xl border-2 border-accent bg-accent-muted px-[14px] py-[7px] text-[17px] font-bold leading-tight text-accent sm:px-[17.5px] sm:py-[8.75px] sm:text-[25.5px] transition-colors duration-150 hover:bg-accent hover:text-white"
+              className="flex flex-wrap content-start items-stretch gap-[var(--tile-tray-gap)]"
+              tileClassName="flex flex-col items-center justify-end rounded-[var(--tile-radius)] border-2 border-accent bg-accent-muted text-accent min-h-[var(--tile-box-h)] px-[calc(var(--tile-px)*1.142857)] py-[calc(var(--tile-py)*1.75)] text-[length:calc(var(--tile-font)*1.030303)] font-bold leading-tight sm:px-[calc(var(--tile-px)*1.25)] sm:py-[calc(var(--tile-py)*1.25)] sm:text-[length:calc(var(--tile-font)*1.25)] transition-colors duration-150 hover:bg-accent hover:text-white"
             />
           )}
         </div>
       </div>
 
-      {/* Tile bank — buttons ~50% bigger font + matching padding. */}
-      <div className="relative flex flex-wrap items-stretch gap-3">
+      {/* Tile bank — buttons ~50% bigger font + matching padding. Gap is its
+          own token (`--listen-bank-gap`, default 12px) rather than
+          `--tile-gap` (default 8px) — TestFlight #125's "12px vs 8px"
+          bank/tray mismatch is a disclosed default, not silently changed by
+          this wiring (see the index.css token-block comment). */}
+      <div className="relative flex flex-wrap items-stretch gap-[var(--listen-bank-gap)]">
         {bankTiles.map((tile, i) => {
           const used = tileUsedFlags[i];
           return (
@@ -343,8 +375,8 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
               aria-pressed={used}
               className={
                 used
-                  ? "flex flex-col items-center justify-end rounded-xl border-2 border-border bg-surface-muted px-[14px] py-[7px] text-[17px] font-bold leading-tight text-text-muted opacity-40 sm:px-[17.5px] sm:py-[14px] sm:text-[25.5px]"
-                  : "flex flex-col items-center justify-end rounded-xl border-2 border-border bg-surface px-[14px] py-[7px] text-[17px] font-bold leading-tight text-text-primary transition-colors duration-150 hover:border-accent disabled:opacity-50 sm:px-[17.5px] sm:py-[14px] sm:text-[25.5px]"
+                  ? "flex flex-col items-center justify-end rounded-[var(--tile-radius)] border-2 border-border bg-surface-muted text-text-muted opacity-40 min-h-[var(--tile-box-h)] px-[calc(var(--tile-px)*1.142857)] py-[calc(var(--tile-py)*1.75)] text-[length:calc(var(--tile-font)*1.030303)] font-bold leading-tight sm:px-[calc(var(--tile-px)*1.25)] sm:py-[calc(var(--tile-py)*2)] sm:text-[length:calc(var(--tile-font)*1.25)]"
+                  : "flex flex-col items-center justify-end rounded-[var(--tile-radius)] border-2 border-border bg-surface text-text-primary transition-colors duration-150 hover:border-accent disabled:opacity-50 min-h-[var(--tile-box-h)] px-[calc(var(--tile-px)*1.142857)] py-[calc(var(--tile-py)*1.75)] text-[length:calc(var(--tile-font)*1.030303)] font-bold leading-tight sm:px-[calc(var(--tile-px)*1.25)] sm:py-[calc(var(--tile-py)*2)] sm:text-[length:calc(var(--tile-font)*1.25)]"
               }
             >
               <BuildTileSurface

@@ -21,6 +21,16 @@ describe("isFocusedFlow", () => {
     }
   });
 
+  it("focuses the tile-sizing QA frame at every width (TestFlight #137)", () => {
+    for (const isMobile of [true, false]) {
+      expect(isFocusedFlow("/ja/qa/tiles/frame", isMobile)).toBe(true);
+    }
+    // The parent dial page itself keeps the app shell — only the embedded
+    // frame route goes bare. (`isFocusedFlow` is tested against `pathname`
+    // only — query strings live in `location.search` and never reach it.)
+    expect(isFocusedFlow("/ja/qa/tiles", true)).toBe(false);
+  });
+
   it("focuses the flashcard review session on mobile only", () => {
     expect(isFocusedFlow("/ja/practice/flashcards/review", true)).toBe(true);
     expect(isFocusedFlow("/ja/practice/flashcards/review", false)).toBe(false);

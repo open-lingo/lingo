@@ -140,6 +140,12 @@ const QaTestDrivePage = lazyRetry(
 const FeedbackB12ReviewPage = lazyRetry(
   () => import("@/features/lesson/dev/FeedbackB12ReviewPage"),
 );
+const TileSizingQaPage = lazyRetry(
+  () => import("@/features/lesson/dev/TileSizingQaPage"),
+);
+const TileSizingQaFramePage = lazyRetry(
+  () => import("@/features/lesson/dev/TileSizingQaFramePage"),
+);
 const ReviewQueuePage = lazyRetry(
   () => import("@/features/lesson/dev/ReviewQueuePage"),
 );
@@ -588,6 +594,8 @@ const router = createBrowserRouter([
               { path: "lesson-preview", element: <LessonStepPreviewPage /> },
               { path: "qa", element: <QaTestDrivePage /> },
               { path: "qa/feedback-b12", element: <FeedbackB12ReviewPage /> },
+              { path: "qa/tiles", element: <TileSizingQaPage /> },
+              { path: "qa/tiles/frame", element: <TileSizingQaFramePage /> },
               { path: "qa/register", element: <RegisterVariantsPage /> },
               { path: "qa/tts-probe", element: <TtsProbePage /> },
               {

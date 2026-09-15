@@ -108,11 +108,23 @@ describe("mobile type floor", () => {
     // one case the class-name list above cannot catch. The `max(…, 0.75rem)`
     // floor is Spencer's 2026-09-09 "keep 12px" call and must stay present
     // regardless of the em ratio.
+    //
+    // TOKENIZED (b16 2026-09-15, tile-sizing QA page, TestFlight #137):
+    // both numbers now live in `:root` as `--ruby-font` and
+    // `--ruby-floor-romaji: 0.75rem` (see the token block near the top of
+    // index.css) — this rule reads them via `var()` instead of repeating
+    // the literals. The regex below pins the VARIABLE NAMES; a separate
+    // assertion pins the `:root` defaults so the effective value is still
+    // checked end to end. `--ruby-font` is now 0.72em (b16.1, 2026-09-15 —
+    // Spencer's own live mobile dial-in on the QA page superseded the b16
+    // 0.55em default; see the matching index.css comment).
     const css = readFileSync(CSS, "utf8");
     const start = css.indexOf(FLOOR_QUERY);
     expect(css.slice(start)).toMatch(
-      /\.kana-helper\s*\{\s*font-size:\s*max\(0\.55em,\s*0\.75rem\)/,
+      /\.kana-helper\s*\{\s*font-size:\s*max\(var\(--ruby-font\),\s*var\(--ruby-floor-romaji\)\)/,
     );
+    expect(css).toMatch(/--ruby-font:\s*0\.72em;/);
+    expect(css).toMatch(/--ruby-floor-romaji:\s*0\.75rem;/);
   });
 
   it("states the floor in rem so the accessibility font-size control reaches it", () => {

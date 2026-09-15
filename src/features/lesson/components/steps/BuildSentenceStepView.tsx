@@ -336,15 +336,52 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   // grow 1.2× into the reading band (`.build-tile-dense` hook, index.css).
   // Measured on the iOS 26.5 simulator (iPhone 15 Pro Max, 430×775) — see
   // the ledger entry for the before/after table.
+  //
+  // TOKENIZED (b16 2026-09-15, TestFlight #137 tile-sizing QA page):
+  // px/py/font now read `--tile-px`/`--tile-py`/`--tile-font` from
+  // index.css — no `sm:` prefix needed on px/font/py for the non-huge
+  // tier because the TOKEN itself is redefined at the 640px breakpoint,
+  // so one arbitrary-value class already picks up both values. hugeBank's
+  // `sm:` py/text stay a smaller tier than the non-huge tier at desktop
+  // ONLY (5.25/17 vs 7/20.4) — expressed as an exact multiplier of the
+  // same token (×0.75 / ×0.833333) so the QA page's single font/py slider
+  // still moves both tiers together, proportionally, without changing
+  // either default. px has no huge-vs-non-huge difference, so it needs no
+  // multiplier. Defaults verified pixel-identical against the pre-tokenize
+  // shipped classes (430×932 and 1280×900 before/after shots, b16).
+  // TestFlight #137 (b16.1, 2026-09-15, Spencer's live dial-in — "the
+  // height of EVERY tile should be the same, furigana should not change
+  // that"): `--tile-box-h` is a min-height floor on the box, default 0px
+  // (provably inert — see the index.css token block for why 0 and not an
+  // "observed floor" number). `justify-end` — NOT `justify-center` — is
+  // kept deliberately when the floor pushes a box taller than its content:
+  // it's the mechanism (see the "Duolingo-style per-row alignment" comment
+  // above) that keeps a ruby tile's WORD on the same baseline as a plain
+  // tile's word once both boxes share one height. Switching to
+  // `justify-center` here would centre a ruby tile's (reading+word) block
+  // as a unit, sliding its word EITHER higher or lower than a plain tile's
+  // centred word depending on reading height — re-breaking the exact
+  // misalignment `justify-end` was added to fix. Checked, not changed.
   const denseTileClass = hugeBank
-    ? "build-tile-dense flex flex-col items-center justify-end px-[12.25px] py-[4px] text-[16.5px] font-bold leading-tight sm:px-[14px] sm:py-[5.25px] sm:text-[17px]"
-    : "build-tile-dense flex flex-col items-center justify-end px-[12.25px] py-[4px] text-[16.5px] font-bold leading-tight sm:px-[14px] sm:py-[7px] sm:text-[20.4px]";
-  const bankTileClass = bigTiles
-    ? "px-[17.5px] py-[10.5px] text-[clamp(1.275rem,2.89cqh,1.9125rem)] font-bold"
-    : denseTileClass;
-  const placedTileClass = bigTiles
-    ? "px-[17.5px] py-[10.5px] text-[clamp(1.275rem,2.89cqh,1.9125rem)] font-bold"
-    : denseTileClass;
+    ? "build-tile-dense flex flex-col items-center justify-end min-h-[var(--tile-box-h)] px-[var(--tile-px)] py-[var(--tile-py)] text-[length:var(--tile-font)] font-bold leading-tight sm:py-[calc(var(--tile-py)*0.75)] sm:text-[length:calc(var(--tile-font)*0.833333)]"
+    : "build-tile-dense flex flex-col items-center justify-end min-h-[var(--tile-box-h)] px-[var(--tile-px)] py-[var(--tile-py)] text-[length:var(--tile-font)] font-bold leading-tight";
+  // `bigTiles` (≤6-tile / word-build) now reads the SAME `--tile-box-h`
+  // floor (b16.1) but keeps its own font/padding numbers, wrapped in ONE
+  // unitless multiplier token, `--tile-big-scale` (default 1 = today's
+  // exact numbers): its font is a `cqh`-driven `clamp()` with NO `sm:` step
+  // (roughly constant across viewports by design), while `--tile-px`/
+  // `--tile-font` DO step at 640px — multiplying a breakpoint-varying token
+  // by a fixed ratio would either shrink it on mobile or grow it on desktop
+  // relative to today's shipped constant, so the scale is self-relative
+  // (today's own px/py/clamp × 1) rather than derived from the dense
+  // tier's tokens. No per-row baseline concern here (unlike the dense
+  // tier) — this tier has never used `justify-end`, and the MCQ-shaped
+  // single-answer picker above already centres its options the same way —
+  // so a plain `items-center justify-center` is enough.
+  const bigTileClass =
+    "flex items-center justify-center min-h-[var(--tile-box-h)] px-[calc(17.5px*var(--tile-big-scale))] py-[calc(10.5px*var(--tile-big-scale))] text-[clamp(calc(1.275rem*var(--tile-big-scale)),2.89cqh,calc(1.9125rem*var(--tile-big-scale)))] font-bold";
+  const bankTileClass = bigTiles ? bigTileClass : denseTileClass;
+  const placedTileClass = bigTiles ? bigTileClass : denseTileClass;
 
   const handleEnter = useCallback(() => {
     if (!submitted && placed.length > 0) handleSubmit();
@@ -598,7 +635,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
             {step.correctOrder.map((tile, i) => (
               <span
                 key={`slot-${i}`}
-                className={`rounded-xl border-2 border-dashed border-border bg-surface-muted ${placedTileClass}`}
+                className={`rounded-[var(--tile-radius)] border-2 border-dashed border-border bg-surface-muted ${placedTileClass}`}
               >
                 <span className="invisible">
                   <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
@@ -615,7 +652,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
             onReorder={setPlacedIdx}
             strategy="wrap"
             className="[grid-area:1/1] flex flex-wrap gap-2"
-            tileClassName={`motion-safe:animate-tile-pop rounded-xl border-2 transition-colors duration-150 ${placedStateClass} ${placedTileClass}`}
+            tileClassName={`motion-safe:animate-tile-pop rounded-[var(--tile-radius)] border-2 transition-colors duration-150 ${placedStateClass} ${placedTileClass}`}
           />
         </div>
       ) : isWordBuild ? (
@@ -643,7 +680,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
             onReorder={setPlacedIdx}
             strategy="wrap"
             className="flex flex-wrap items-center justify-center gap-2"
-            tileClassName={`motion-safe:animate-tile-pop rounded-xl border-[1.5px] transition-colors duration-150 ${placedStateClass} ${placedTileClass}`}
+            tileClassName={`motion-safe:animate-tile-pop rounded-[var(--tile-radius)] border-[1.5px] transition-colors duration-150 ${placedStateClass} ${placedTileClass}`}
           />
         </div>
       ) : (
@@ -661,7 +698,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
            sets the real floor for a multi-row answer; this class is the
            visible floor for a short one, which is what forced the
            "too much scroll before placing anything" complaint. */
-        <div className="grid min-h-[48px] sm:min-h-[61px] rounded-2xl border-[1.5px] border-dashed border-border bg-surface-muted px-4 py-2.5">
+        <div className="grid min-h-[var(--tile-h)] rounded-2xl border-[1.5px] border-dashed border-border bg-surface-muted px-4 py-2.5">
           {/* The ghost reserves the FULL answer's height up front so the tray
               never reflows. On a 12+ tile bank that reservation is what
               overflows the stage: the empty tray holds three rows of nothing
@@ -675,11 +712,11 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
               banks the tray grows as tiles are placed instead of
               pre-reserving, and the bottom-anchored CTA absorbs the growth. */}
           {!hugeBank && (
-          <div aria-hidden className="[grid-area:1/1] invisible flex flex-wrap items-stretch gap-2 sm:gap-2.5">
+          <div aria-hidden className="[grid-area:1/1] invisible flex flex-wrap items-stretch gap-[var(--tile-tray-gap)]">
             {step.correctOrder.map((tile, i) => (
               <span
                 key={`ghost-${i}`}
-                className={`rounded-xl border-[1.5px] ${placedTileClass}`}
+                className={`rounded-[var(--tile-radius)] border-[1.5px] ${placedTileClass}`}
               >
                 {/* Ghost sizing MUST use the same glyphs (kanji + rt) as the
                     real tiles or the tray mis-sizes. */}
@@ -688,7 +725,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
             ))}
           </div>
           )}
-          <div className="[grid-area:1/1] flex flex-wrap content-start items-stretch gap-2 sm:gap-2.5">
+          <div className="[grid-area:1/1] flex flex-wrap content-start items-stretch gap-[var(--tile-tray-gap)]">
             {placed.length === 0 ? (
               <span className="self-center text-base text-text-muted">
                 {step.correctOrder.length === 1
@@ -704,8 +741,8 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
                 onRemove={removeTile}
                 onReorder={setPlacedIdx}
                 strategy="wrap"
-                className="flex flex-wrap content-start items-stretch gap-2 sm:gap-2.5"
-                tileClassName={`rounded-xl border-[1.5px] transition-colors duration-150 ${placedStateClass} ${placedTileClass}`}
+                className="flex flex-wrap content-start items-stretch gap-[var(--tile-tray-gap)]"
+                tileClassName={`rounded-[var(--tile-radius)] border-[1.5px] transition-colors duration-150 ${placedStateClass} ${placedTileClass}`}
               />
             )}
           </div>
@@ -713,7 +750,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
       )}
 
       {!isSingleAnswerPicker && (
-      <div className={`relative flex flex-wrap items-stretch gap-2 sm:gap-2.5 ${isWordBuild ? "justify-center" : ""}`}>
+      <div className={`relative flex flex-wrap items-stretch gap-[var(--tile-gap)] ${isWordBuild ? "justify-center" : ""}`}>
         {bankTiles.map((tile, i) => {
           const used = tileUsedFlags[i];
           return (
@@ -727,8 +764,8 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
               aria-pressed={used}
               className={
                 used
-                  ? `rounded-xl border-[1.5px] border-border bg-surface-muted text-text-muted opacity-40 ${bankTileClass}`
-                  : `rounded-xl border-[1.5px] border-border bg-surface text-text-primary transition-colors duration-150 hover:border-accent disabled:opacity-50 ${bankTileClass}`
+                  ? `rounded-[var(--tile-radius)] border-[1.5px] border-border bg-surface-muted text-text-muted opacity-40 ${bankTileClass}`
+                  : `rounded-[var(--tile-radius)] border-[1.5px] border-border bg-surface text-text-primary transition-colors duration-150 hover:border-accent disabled:opacity-50 ${bankTileClass}`
               }
             >
               <BuildTileSurface

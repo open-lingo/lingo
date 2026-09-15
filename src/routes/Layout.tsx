@@ -80,7 +80,18 @@ export function Layout() {
   // ≥lg (including inside lessons — it is how you leave one), and the top bar
   // is mobile-only. Signed-out surfaces (/login, /try, /get-started) keep the
   // top bar at every width since there is no sidebar to show.
-  const sidebarMode = isAuthenticated;
+  //
+  // `isTileQaFrame` is the one deliberate exception (TestFlight #137, b16.1
+  // 2026-09-15): `/qa/tiles/frame` is embedded in an iframe on the tile-
+  // sizing QA page, and unlike a real lesson — where the sidebar staying up
+  // at ≥lg is intentional ("it is how you leave") — this route has no
+  // navigation reason to keep it: the iframe is a fixed-size preview
+  // surface, not a page the learner is IN, and Spencer asked for "the
+  // element for desktop not the whole page". `focusedFlow` alone (below)
+  // does not suppress the sidebar — it only hides the header/tab-bar/ads —
+  // so this route needs its own carve-out rather than relying on that flag.
+  const isTileQaFrame = /\/qa\/tiles\/frame/.test(location.pathname);
+  const sidebarMode = isAuthenticated && !isTileQaFrame;
   // Fires POST /progress/me/touch once per session after auth.
   useTouchOnSession();
   // Reconciles the atom unlock ladder with the server (union both ways) and

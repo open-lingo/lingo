@@ -209,3 +209,20 @@ Mirror: memory `spencer-open-todos.md`.
   Cross-session RCA written: `docs/user-feedback/2026-09-15-recurring-complaints-rca.md`
   (recurrence matrix over #1–#143; 4 classes = 53% of defects, all recur every
   era; 7 structural fixes proposed, none started). No code changed this lap.
+- 2026-09-15 late — Talk-through with Spencer started (`docs/spencer-product-sentiment.md`
+  topics 1–2 logged). Preflight rule narrowed to code/content commits
+  (CLAUDE.md + memory). Tile sizing QA page BUILT in the worktree by a Sonnet
+  lane (`/:lang/qa/tiles`, tokens in `src/index.css`, defaults pixel-identical
+  to shipped); uncommitted, Spencer is dialling on localhost:5399. Gap found on
+  review: `--tile-h` is the tray floor, not a tile box height — a true
+  `--tile-box-h` + "lock heights" toggle is being added so his #137 rule (every
+  tile the same height) can be dialled. Xcode self-updated 02:46 and blocked
+  git until Spencer accepted the license in Terminal.
+- 2026-09-15 late — Tile QA page lane DONE (Sonnet, 2 passes): `/ja/qa/tiles`
+  with mobile/desktop iframes, per-pane sliders, physical-scale calibration,
+  lock-heights toggle, Save/Load (dev middleware → `docs/qa/tile-sizing.json`),
+  Spencer's mobile dial-in = new base defaults, hidden-reading kanji tiles grow
+  like kana. Topic 3 verdicts logged; content-floors lane dispatched (Opus).
+  Tile primitive brief written (+ overlay card, eyebrow/chip, option tokens;
+  research notes). Committing the QA lane as the baseline for the primitive
+  migration; push comes with the lap.

@@ -51,6 +51,122 @@ body {
   }
 }
 
+/* ── Tile sizing tokens (TestFlight #137, b16 2026-09-15) ────────────────
+   Single dial for build/match/MCQ tile geometry, driven live from
+   `/:lang/qa/tiles` (Spencer: "wait for me to zero in my build tiles sizing
+   first — no more knob-per-screenshot"). Base = phone; the 640px block below
+   is Tailwind's own `sm:` breakpoint, so every token lines up 1:1 with the
+   `sm:` classes that read it — a class can reference `var(--tile-font)`
+   with NO `sm:` prefix and still pick up the desktop value once the
+   viewport crosses 640px, because the TOKEN itself is redefined there.
+
+   DEFAULTS REPRODUCE TODAY'S RENDERING EXACTLY (verified with before/after
+   screenshots at 430×932 and 1280×900, b16 2026-09-15) — every number below
+   is read off the shipped classes, not chosen fresh:
+     --tile-font / --tile-px / --tile-py: BuildSentenceStepView's
+       `denseTileClass` (7-11 tile dense tier), the b13/b14 #87/#88/#113
+       values (mobile 16.5px/12.25px/4px → desktop 20.4px/14px/7px).
+     --tile-kana-font: the `.build-tile-dense [data-build-tile-kana]` 1.2×
+       kana-only growth (#113/#116).
+     --ruby-font / --ruby-floor-*: `.kana-helper`'s 0.55em (#70a/#73) and
+       its two mobile floors — 0.75rem for a romaji reading (Spencer's
+       2026-09-09 "keep 12px" call), 0.625rem for a kanji reading (#87/#88's
+       lower floor, so a kanji reading shrinks WITH the tile).
+     --tile-gap / --tile-tray-gap: the bank/tray `gap-2 sm:gap-2.5` rows.
+     --tile-radius: `rounded-xl` (0.75rem) on the tile boxes.
+     --tile-h: the sentence-tray's `min-h-[48px] sm:min-h-[61px]` floor
+       (#75 shrink) — a FLOOR, not a forced height, so it has zero visual
+       effect by default (every real tile is already taller).
+   `bigTiles` (≤6-tile / word-build) and ListeningBuildStepView's own
+   tray/bank now DO read these tokens (b16.1, TestFlight #137 follow-up —
+   see below); they read them through their own multiplier/ratio tokens
+   rather than the raw `--tile-px`/`--tile-font` so a single slider still
+   reproduces today's numbers exactly by default. Match and MCQ read
+   their own groups below, per the brief ("match and MCQ read their own
+   groups").
+
+   b16.1 (2026-09-15, same day, Spencer's live dial-in pass — TestFlight
+   #137 "the height of EVERY tile should be the same, furigana should not
+   change that"): three more tokens close the gap the b16 pass left open —
+     --tile-box-h: a min-height applied to EVERY build tile box (dense,
+       hugeBank, bigTiles, AND ListeningBuildStepView's bank/tray) so a
+       kanji tile's furigana band no longer makes its box taller than a
+       plain kana tile's box on the SAME row (measured on the QA page's
+       8-tile fixture before this token: 41.6px vs 35.7px). DEFAULT IS
+       LITERALLY 0px, not "the observed floor" (~28-35px) — 0 is the only
+       value provably inert for every fixture/breakpoint (a min-height
+       below every real tile's natural height has zero effect BY
+       CONSTRUCTION; a nonzero "looks safe" default is a claim that would
+       need re-verifying every time a tile's natural height changes). The
+       QA page's slider still ranges 28-80px per the brief so Spencer's
+       dial starts in the useful band — the default just sits below that
+       range on purpose; see tileSizingTokens.ts.
+     --tile-big-scale: a UNITLESS multiplier wrapping bigTiles' three
+       literal numbers (px/py/font-clamp) in `calc(N * var(--tile-big-scale))`.
+       Default 1 = today's exact numbers — bigTiles was never derived from
+       `--tile-font`/`--tile-px` to begin with (the first lane's comment at
+       BuildSentenceStepView.tsx explains why: no `sm:` step, cqh-driven
+       clamp), so "today's ratio" here means self-relative identity (1),
+       not a ratio against the dense tier's tokens.
+     --listen-bank-gap: ListeningBuildStepView's bank row used a literal
+       `gap-3` (12px, no `sm:` step) while its TRAY already matched
+       `--tile-tray-gap`'s defaults (8/10px) exactly — so the tray now
+       reads `--tile-tray-gap` directly (zero value change) and the bank
+       gets its OWN token defaulting to 12px rather than being folded into
+       `--tile-gap` (8px default), which would have silently shrunk it
+       (TestFlight #125, the "12px vs 8px" bank/tray gap mismatch — kept
+       as a disclosed default, not fixed by this token).
+
+   MOBILE DEFAULTS UPDATED 2026-09-15 (Spencer's own live dial-in on
+   `/:lang/qa/tiles`, saved to
+   scratchpad/fb16-research/spencer-mobile-tokens-2026-09-15.css and applied
+   here verbatim — "close to what I want for mobile"). DESKTOP (the
+   `@media (min-width: 640px)` block below) is UNCHANGED — he dialled mobile
+   only. This replaces the b16/#69/#70a/#73/#87/#88/#113 mobile numbers as
+   the new shipped baseline; "Reset to shipped defaults" on the QA page
+   reads these same values (tileSizingTokens.ts `base`), so it now resets
+   to Spencer's dial-in, not the pre-#137 numbers. */
+:root {
+  --tile-h: 20px;
+  --tile-font: 15.8px;
+  --tile-kana-font: 1.28em;
+  --ruby-font: 0.72em;
+  --ruby-floor-romaji: 0.75rem;
+  --ruby-floor-kanji: 0.7375rem;
+  --tile-px: 10.75px;
+  --tile-py: 4px;
+  --tile-gap: 8px;
+  --tile-tray-gap: 8px;
+  --tile-radius: 0.75rem;
+  --tile-box-h: 0px;
+  --tile-big-scale: 1;
+  --listen-bank-gap: 12px;
+
+  /* Match-pairs: own group. `--match-font-scale` is a unitless multiplier
+     (default 1 = today's numbers exactly) because match tiles render FOUR
+     distinct `clamp()` tiers (dense/wide × recognition/audio) that must
+     keep their relative proportions, not one absolute px size. */
+  --match-tile-h: 4.75rem;
+  --match-gap: 0.5rem;
+  --match-font-scale: 1;
+
+  /* Multiple-choice: own group, the regular/sentence option layout only
+     (the short-glyph / single-word / reveal-on-select layouts keep their
+     own literal sizes — see MultipleChoiceStepView.tsx). */
+  --mcq-font: 1.25rem;
+  --mcq-py: 1.5rem;
+}
+@media (min-width: 640px) {
+  :root {
+    --tile-h: 61px;
+    --tile-font: 20.4px;
+    --tile-px: 14px;
+    --tile-py: 7px;
+    --tile-gap: 10px;
+    --tile-tray-gap: 10px;
+  }
+}
+
 /* Native-app feel on mobile web:
    - overscroll-behavior: none kills pull-to-refresh + rubber-band on the
      page edges, so anchored lesson chrome feels solid.
@@ -440,7 +556,7 @@ ruby {
      call (2026-09-09) still holds; this only trims hosts big enough that the
      floor wasn't binding (e.g. the 24-30px cloze/listening sentence text,
      measured 15.6-19.5px before → 13.2-16.5px after). */
-  font-size: 0.55em;
+  font-size: var(--ruby-font);
   font-weight: 500;
   color: rgb(var(--color-accent)); /* reading aid rides the theme accent (marginalia red) */
   letter-spacing: 0.02em;
@@ -817,7 +933,7 @@ ruby {
      end — the 12px floor itself is Spencer's 2026-09-09 "keep 12px" call and
      is untouched by the #70a shrink. */
   .kana-helper {
-    font-size: max(0.55em, 0.75rem);
+    font-size: max(var(--ruby-font), var(--ruby-floor-romaji));
   }
   /* TestFlight #87/#88/#95 (Spencer, b13 2026-09-15 — "we didn't shrink the
      furigana small enough here and instead shrunk the other hiragana and
@@ -845,7 +961,7 @@ ruby {
      empty band above the word. Scoped to visible readings only, the hidden
      case falls back to font-size 0 and the tile drops to the kana height. */
   .kanji-ruby .kana-helper[data-visible="true"] {
-    font-size: max(0.55em, 0.625rem);
+    font-size: max(var(--ruby-font), var(--ruby-floor-kanji));
   }
 }
 
@@ -858,7 +974,20 @@ ruby {
    tile's word size (16.5 → 19.8px), which fills ~5px of the ~15px band and
    keeps the kanji tile's word the reference size. Kanji tiles are untouched
    (their reading already occupies that band). Dense tiers only — big tiles
-   (≤6) are already clamp-sized to the stage. */
-.build-tile-dense [data-build-tile-kana] {
-  font-size: 1.2em;
+   (≤6) are already clamp-sized to the stage.
+
+   TestFlight #119/#117 (build-16 to-do, Spencer-agreed, wired b16.1
+   2026-09-15 — "no visible reading = big word"): a MASTERED kanji tile's
+   furigana is hidden (`furiganaVisible: false`, BuildTileSurface.tsx), which
+   leaves it in the SAME situation as a kana-only tile — no reading occupying
+   the band above its word — but it never carried `data-build-tile-kana`
+   (that attribute is only on the plain-kana branch; the kanji branch renders
+   `KanjiRuby` instead). `BuildTileSurface` now tags a hidden-reading kanji
+   tile with `data-build-tile-reading="hidden"` on the same `<ruby>`; growing
+   its font-size grows the KANJI base only — the `<rt>` inside is already
+   collapsed to 0 by `.kana-helper[data-visible="false"]` above, so this
+   cannot un-hide a reading, only resize the visible glyph. */
+.build-tile-dense [data-build-tile-kana],
+.build-tile-dense [data-build-tile-reading="hidden"] {
+  font-size: var(--tile-kana-font);
 }
