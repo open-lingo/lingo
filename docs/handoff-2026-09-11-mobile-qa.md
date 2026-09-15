@@ -301,3 +301,15 @@ Mirror: memory `spencer-open-todos.md`.
   m39–m46 recompiled, taughtVocab regenerated. Out-of-window draws
   1,689 → 607 (m40 82 → 34); ratchets LOWERED to the new numbers; curriculum
   13,348 green; 982 provenance tests green.
+- 2026-09-16 — b15 lap PUSHED 32bf8b2e (preflight 17,783 green), deploy run
+  34968561756 green, prod `index-Mepi3KLq.css` carries `[data-tile]` + the
+  scale tokens (verified by content). Build 16 archive/upload/ASC submit
+  running from the MAIN tree. Open: clip upload (SSO), Spencer verdicts
+  (speaking-echo, 656 rewrites), naturalness sentence pass, alternates sweep,
+  audioTimer race follow-up, レストラン atom attribution residual.
+- Build 16 UPLOADED (delivery 1eedfabe-5ca8-4324-a873-18d9299197ce),
+  whatsNew set, group attached, beta review APPROVED. Warning from
+  xcodebuild after the Xcode self-update: "CoreSimulator is out of date
+  (1051.55.0 < 1171.7.0) — Simulator device support disabled" — the 15 Pro
+  Max simulator harness needs `sudo xcodebuild -runFirstLaunch` (or one
+  Xcode launch) before the next sizing measurement.
