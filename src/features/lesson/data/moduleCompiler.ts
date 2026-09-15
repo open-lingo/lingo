@@ -21,6 +21,13 @@ import {
   jaSurfaces,
 } from "@/features/lesson/data/stepTaxonomy";
 import { JA_COURSE_ATOMS_BY_KANA } from "@/features/languages/ja/courseAtoms";
+import { chooseRecentWindow } from "@/features/languages/ja/curriculum/recentVocabWindow";
+import {
+  REVIEW_POOL_FLOOR,
+  SENTENCE_REUSE_ECHO_TYPES,
+  SENTENCE_REUSE_MIN_GAP,
+  primarySentenceOf,
+} from "@/features/lesson/data/contentFloors";
 import { VERB_ENTRIES, ADJ_ENTRIES } from "@/features/languages/ja/conjugationTables";
 import { conjugateVerb } from "@/features/languages/ja/conjugationEngine";
 import {
@@ -622,6 +629,64 @@ function splitSentences(ja: string): { text: string; mark: string }[] {
 const SELECTION = SELECTION_TYPES;
 const INTRO_STEP_TYPES = TEACH_FIRST_INTRO_TYPES;
 
+/**
+ * RULE 2 (Spencer 2026-09-15): "one sentence should NEVER be less than two
+ * steps between re-uses even if the step type is different, and ideally we
+ * keep the space greater than 2 steps where we can."
+ *
+ * #138 is this rule's report — *"I was just asked this question in a
+ * different font"* — and it is a SEQUENCING defect, not an authoring one.
+ * A module deliberately drills one sentence through several modalities (a
+ * build beat, a listening-comp beat, a cloze on the same frame; and filler
+ * re-presents this lesson's own sentences by design — `sentencePairs`). The
+ * ordering passes just had no idea two steps were the same sentence, so the
+ * greedy interleaver, which only ever looked at step TYPE, happily put them
+ * back to back: 202 pairs at distance ≤ 2 across the JA course before this.
+ *
+ * So the constraint goes where the ordering decision already lives — the
+ * interleaver's within-type pick and `sequenceCost`, the one number
+ * `repairAdjacency` descends. Adding it to the shared cost is what keeps the
+ * three ordering passes from fighting (the `enforceIntroFirst` lesson in
+ * `repairAdjacency`'s doc comment: one cost function, decided once).
+ *
+ * Memoized per step object: `sequenceCost` runs inside repair's O(n²) swap
+ * search, and `primarySentenceOf` walks annotations.
+ */
+const SENTENCE_KEY_CACHE = new WeakMap<LessonStep, string>();
+function stepSentenceKey(step: LessonStep): string {
+  const hit = SENTENCE_KEY_CACHE.get(step);
+  if (hit !== undefined) return hit;
+  const { key, tokens } = primarySentenceOf(step);
+  // A one-token "sentence" is a WORD (a kana-row build of ねこ, a vocab MCQ).
+  // Spacing words out is what the interleaver's type rules already do.
+  const out = tokens >= 2 ? key : "";
+  SENTENCE_KEY_CACHE.set(step, out);
+  return out;
+}
+
+/**
+ * The key the HARD rule uses. Echo steps (`speaking` — saying aloud what the
+ * previous step assembled) are excluded: the interleaver's tiebreak still
+ * prefers to space them (it uses `stepSentenceKey`), but `sequenceCost` must
+ * not treat a production ladder as a defect, or the repair pass would spend
+ * its budget breaking up build→speak pairs instead of fixing real re-tests.
+ * Same hard/soft line the gate draws — see `SENTENCE_REUSE_ECHO_TYPES`.
+ */
+function hardSentenceKey(step: LessonStep): string {
+  if (SENTENCE_REUSE_ECHO_TYPES.has(step.type)) return "";
+  return stepSentenceKey(step);
+}
+
+/** Sentences asked in the `SENTENCE_REUSE_MIN_GAP - 1` steps before `at`. */
+function recentSentences(seq: readonly LessonStep[], at: number): Set<string> {
+  const out = new Set<string>();
+  for (let k = Math.max(0, at - (SENTENCE_REUSE_MIN_GAP - 1)); k < at; k++) {
+    const key = stepSentenceKey(seq[k]);
+    if (key) out.add(key);
+  }
+  return out;
+}
+
 /** Does `seq` respect every gate? Used to veto an adjacency-repair swap
  *  that would move a step ahead of a word's debut. */
 function precedenceHolds(
@@ -1065,6 +1130,43 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
   // introduces are excluded too: filler is interleaved, so nothing can
   // guarantee the distractor lands after the intro step.
   const moduleNew = new Set((ir.newAtoms ?? []).map((a) => a.kana));
+
+  /**
+   * RULE 3, content half — the six-module review window (Spencer 2026-09-15).
+   *
+   * #91: an advanced test-out asked "The door opens", an m5-level drill —
+   * *"they don't belong in more advanced course work outside of review."*
+   * #116: *"いいえ has no business in advanced review."* Both arrive here,
+   * because both pools this module builds — a lesson's declared `reviewPool`
+   * (match grids) and the module-wide filler pool — were bounded only by "has
+   * the learner met this word", which by m26 is 574 words deep.
+   *
+   * So every review/filler draw is narrowed to what the last six modules
+   * taught, plus this module's own vocabulary. The compiler has NO learner
+   * state, so it cannot honour the "unless the word is due" half of the rule —
+   * that half belongs to `dynamicReviewPrefix`, which reads FSRS and mixes the
+   * due material in 50/50. Compile-time content is the RECENT half by
+   * construction; the due half is added at load.
+   *
+   * The floor (`REVIEW_POOL_FLOOR`) widens the window when a module's declared
+   * vocabulary is too thin to fill a lesson without repeating itself — the
+   * `m10-neo-1` five-identical-MCQs failure. See `windowRecentKana`.
+   *
+   * `null` (no truthful window — every module ≤ m11) leaves the pool alone.
+   */
+  const recentChoice = chooseRecentWindow(
+    moduleId,
+    declaredPool,
+    (a) => a.kana,
+    REVIEW_POOL_FLOOR,
+    moduleNew,
+  );
+  const recentOnly = (candidates: Atom[]): Atom[] =>
+    recentChoice === null
+      ? candidates
+      : candidates.filter(
+          (a) => moduleNew.has(a.kana) || recentChoice.window.has(a.kana),
+        );
   // Introduced-by-declaration: `introduces:` on a strictly earlier lesson.
   const introducedBefore: Set<string>[] = [];
   {
@@ -1151,6 +1253,29 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
       return known.has(kana);
     };
     const usableHere = (a: Atom) => usableKana(a.kana);
+    /** Every word this module declares it introduces, in any lesson. */
+    const moduleIntroduces = new Set<string>(
+      ir.lessons.flatMap((l) => l.introduces ?? []),
+    );
+    /**
+     * Those of them NOT yet introduced at this lesson. No review/filler pool
+     * may surface one — nor any COMPOUND that contains one: the debut guard
+     * scans for the surface as a substring (Japanese has no spaces), so
+     * なつやすみ in an m16 filler MCQ reads as やすみ's first appearance and
+     * fails inv 30/44. Same substring trap `compile-ir.mjs` documents for
+     * `priorVocab`.
+     *
+     * `usableHere` cannot answer this on its own: `compile-ir.mjs` folds every
+     * earlier module's reviewPool words into `priorVocab`, so a word an
+     * earlier module merely REVIEWED and this one actually TEACHES reads as
+     * "met before" and is fair filler. Two characters minimum, or every filler
+     * containing a particle would match.
+     */
+    const pendingDebuts = [...moduleIntroduces].filter(
+      (k) => k.length >= 2 && !usableKana(k),
+    );
+    const leaksPendingDebut = (kana: string): boolean =>
+      pendingDebuts.some((k) => kana.includes(k));
     const role = roleOf(lesson);
     const isReview = role === "review";
     // Review lessons are named `-review` so the guards' review-lesson
@@ -1545,9 +1670,54 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
     const pool = (lesson.reviewPool ?? []).map(resolve).filter(usableHere);
     // Match pairs are EXCLUSIVELY words (Spencer 2026-07-24: "が is not a
     // word") — particles drill in cloze/build, never as match tiles.
-    const matchable = pool.filter((a) => !PARTICLES.includes(a.kana));
+    //
+    // …and never COURSE FURNITURE (#128, "Tanaka fail"). Character names
+    // (`NAMES`) have no entry in `courseAtoms` at all, so a name listed in a
+    // reviewPool falls through `resolve()`'s `?? { kana, meaningEn: kana }`
+    // branch and becomes an atom whose English meaning is its own kana. In a
+    // match grid that renders as a self-pair: the たなか card and its
+    // "translation" card both read たなか, and no elimination path exists.
+    // The furniture list is the same one `metBefore` uses, so the two cannot
+    // drift. A general guard rides along: any atom whose gloss IS its kana got
+    // there through the same fallback and is unmatchable for the same reason.
+    const matchable = pool.filter(
+      (a) =>
+        !PARTICLES.includes(a.kana) &&
+        !JA_COURSE_FURNITURE_KANA.includes(a.kana) &&
+        a.meaningEn !== a.kana,
+    );
+    // RULE 3 on the review grid (#116, "いいえ has no business in advanced
+    // review"). A hard filter here, unlike the filler pool below, because a
+    // grid takes SIX tiles from a pool the author usually sizes at six to ten
+    // — ranking is a no-op at that size, so preference cannot express the rule
+    // and only the filter can. What the grid keeps is therefore a statement
+    // about the AUTHORED `reviewPool`: where it is mostly stale, the grid
+    // falls through to the emoji fallback and the sweep counts it, which is
+    // the honest signal that the lesson's review pool needs re-authoring
+    // rather than the selector needs another knob.
+    //
+    // The emoji fallback stays in REGISTRY order: re-ranking it was tried and
+    // reverted — which emoji atom lands in a grid decides where several
+    // module-new words make their first appearance, so its order is entangled
+    // with the image-debut and provenance guards (m40–m45 went red, レストラン
+    // debuting on a match grid).
+    const recentMatchable = recentOnly(matchable);
+    // The whole-registry emoji fallback stays in REGISTRY ORDER, and this is a
+    // deliberate stop, not an oversight. Ranking it recent-first was tried
+    // twice — it cuts out-of-window grid draws by ~20× — and both times it
+    // turned the m40–m45 provenance guards red on レストラン: an atom carrying
+    // an emoji that some module's `reviewPool` ASSERTS is known while no
+    // lesson has ever introduced it on an intro-capable step. The registry
+    // order simply never reached it. That is a registry/authoring
+    // inconsistency (a word asserted known but taught nowhere), it predates
+    // this lane, and re-ranking a pool is not the place to discover it. Logged
+    // as a finding instead; the fallback's stale draws are counted by the
+    // sweep, per module, and are an authoring signal about those lessons'
+    // `reviewPool`s.
     const picked = (
-      matchable.length >= 4 ? matchable : [...matchable, ...emojiPool.filter(usableHere)]
+      recentMatchable.length >= 4
+        ? recentMatchable
+        : [...recentMatchable, ...emojiPool.filter(usableHere)]
     ).slice(0, 6);
     const tileGlosses = picked.map(matchTileGloss);
     const matchAtoms = picked.map((a, i) => ({
@@ -1602,8 +1772,19 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
     const middle: LessonStep[] = [...debutSteps, ...body];
     // Never TYPED-recall this lesson's own new words or any conjugated
     // form — the transform cells own their production timeline.
+    //
+    // …and never any word THIS MODULE owns the debut of, in any lesson
+    // (`moduleIntroduces`). `usableHere` cannot see these: `compile-ir.mjs`
+    // puts every earlier module's reviewPool words into `priorVocab`, so a
+    // word an earlier module merely REVIEWED and this one actually TEACHES
+    // reads as "met before" and is fair filler — landing it on a
+    // "Pick the word for …" MCQ before its own word_image_mcq debut and
+    // failing inv 30/44 (m16 やすみ, caught 2026-09-15 when the Rule 3 window
+    // re-dealt the filler pool). The image debut is the word's first
+    // appearance by ruling; filler is the one pool that could contradict it.
     const noTyped = new Set<string>([
       ...(lesson.introduces ?? []),
+      ...moduleIntroduces,
       ...(ir.newAtoms ?? []).filter((x) => x.derivedFrom).map((x) => x.kana),
     ]);
     let fi = 0;
@@ -1627,16 +1808,29 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
     // changes, so the number is expected, not a defect. Shipped 2026-09-09
     // despite exceeding the build brief's original 15% blast-radius
     // estimate — that estimate was a guess, not a measured constraint.
-    const modulePool = declaredPool.filter(usableHere);
+    // …narrowed to the six-module window (Rule 3 — see `recentOnly`). #91/#116
+    // are exactly this pool handing an advanced lesson an m5 word. `fullPool`
+    // is the un-windowed set, passed below as the filler's reachable fallback.
+    const fullPool = declaredPool
+      .filter(usableHere)
+      .filter((a) => !leaksPendingDebut(a.kana));
+    const modulePool = recentOnly(fullPool);
     while (middle.length + fixed < 18 && fi < 60) {
       // (The <=15% translate budget that used to gate the filler's typed slot
       // went away with the slot itself — filler emits no translate steps now,
       // so every compiled translate is an authored sentence beat.)
+      // RULE 3 as a RANK, not a hard filter: `pickAtom` walks the windowed
+      // pool first and only reaches the second argument once every recent
+      // word is already used for that modality. A hard filter cost 13 lessons
+      // their density floor (18 steps) — m37/m39/m42–m46 declare few new
+      // atoms against long review pools — and a short lesson is a worse
+      // defect than a slightly stale filler word. Measured: out-of-window
+      // filler draws fall from 1,278 to a handful rather than to zero.
       const f = reviewFiller(
         lid,
         fi,
         modulePool,
-        modulePool,
+        fullPool,
         noTyped,
         sentencePairs,
         usedFiller,
@@ -1815,10 +2009,26 @@ function interleave(
     if (!cands.length) cands = [...byType.keys()].filter((t) => t !== last);
     if (!cands.length) cands = [...byType.keys()];
     cands.sort((a, b) => rank(b) - rank(a));
+    // RULE 2 tiebreak: among equally abundant types, prefer one that can be
+    // filled WITHOUT repeating a sentence asked in the last two slots. Only a
+    // tiebreak — type abundance still decides, because adjacency is the hard
+    // bar and the repair pass below can fix a reuse that survives here.
+    const recent = recentSentences(out, out.length);
+    const canAvoid = (type: string) =>
+      usable.some((x) => x.type === type && !recent.has(stepSentenceKey(x)));
+    if (recent.size > 0 && cands.length > 1) {
+      const top = rank(cands[0]);
+      const tied = cands.filter((c) => rank(c) === top);
+      const clean = tied.find(canAvoid);
+      if (clean) cands = [clean, ...cands.filter((c) => c !== clean)];
+    }
     const t = cands[0];
     // Pick within the ELIGIBLE subset — `byType` was counted over `usable`,
-    // so the chosen type must be filled from it too.
-    const s = usable.find((x) => x.type === t)!;
+    // so the chosen type must be filled from it too. RULE 2: of that type's
+    // available steps, take one whose sentence was not just asked.
+    const s =
+      usable.find((x) => x.type === t && !recent.has(stepSentenceKey(x))) ??
+      usable.find((x) => x.type === t)!;
     remaining.splice(remaining.indexOf(s), 1);
     for (const k of opts?.gated?.get(s) ?? []) seen.add(k);
     selRun = SELECTION.has(s.type) ? (last && SELECTION.has(last) ? selRun + 1 : 1) : 0;
@@ -1845,18 +2055,36 @@ function repairAdjacency(
   floor: number,
   ok: (seq: LessonStep[]) => boolean = () => true,
 ): void {
-  for (let pass = 0; pass < 6; pass++) {
+  // Each pass fixes at most one violation (it breaks out of the search on the
+  // first strict improvement), so the cap is a violation budget per lesson.
+  // Raised 6 → 12 when Rule 2 joined the cost: the worst JA lesson carried 4
+  // same-sentence pairs on top of its type adjacencies.
+  for (let pass = 0; pass < 12; pass++) {
     const before = sequenceCost(seq, floor);
     if (before === 0) return;
     let improved = false;
     search: for (let i = floor + 1; i < seq.length; i++) {
-      if (seq[i].type !== seq[i - 1].type) continue;
-      // The transform ramp is LEGALLY consecutive (capped at 3 by the guard).
-      if (seq[i].type === "conjugation_transform") continue;
-      // Try relocating EITHER member of the offending pair. The old pass
+      const sameType =
+        seq[i].type === seq[i - 1].type && seq[i].type !== "conjugation_transform";
+      // Rule 2 offenders enter the same search. Without this the pass only
+      // ever looked at adjacent same-TYPE pairs, so a build and a
+      // listening-comp of one sentence — different types, the #138 shape —
+      // was never a candidate for relocation even though the cost function
+      // now counts it.
+      const reuses = (() => {
+        const key = hardSentenceKey(seq[i]);
+        if (!key) return false;
+        for (let k = Math.max(0, i - (SENTENCE_REUSE_MIN_GAP - 1)); k < i; k++) {
+          if (hardSentenceKey(seq[k]) === key) return true;
+        }
+        return false;
+      })();
+      if (!sameType && !reuses) continue;
+      // Try relocating ANY member of the offending pair. The old pass
       // only ever moved the later one, which deadlocks when that one is
       // immovable (the challenge step, pinned to its stretch window).
-      for (const victim of [i, i - 1]) {
+      // `i - 2` joins the list for Rule 2, whose pair may sit two apart.
+      for (const victim of [i, i - 1, i - 2]) {
         if (victim <= floor) continue;
         for (let j = seq.length - 1; j > floor; j--) {
           if (j === victim) continue;
@@ -1877,10 +2105,25 @@ function repairAdjacency(
   }
 }
 
+/**
+ * WEIGHT of an ordering-bar violation relative to a Rule 2 re-use.
+ *
+ * The two are not equal and must not be traded. Adjacent same-type steps and
+ * a 3-long selection-tap run are HARD guards — `moduleBarGuards` fails the
+ * module on either — while a same-sentence re-use is this lane's new rule and
+ * is enumerated where it survives. With a flat cost, `repairAdjacency` happily
+ * accepted a swap that cleared two re-uses and created one adjacency (net −1),
+ * which turned m40-neo-1 red. A weight ≥ the largest number of re-uses one
+ * swap can clear makes the descent lexicographic: fix every bar violation
+ * first, then re-uses, and never the other way.
+ */
+const ORDERING_BAR_WEIGHT = 100;
+
 /** Hard ordering-bar violations in `seq` past `floor`: adjacent same-type
- *  steps plus selection-tap runs longer than 2. One number for the repair
- *  pass to descend — the guard checks both, so repairing one by creating
- *  the other is not progress. */
+ *  steps, selection-tap runs longer than 2 (weighted `ORDERING_BAR_WEIGHT`
+ *  each), and same-sentence re-uses closer than `SENTENCE_REUSE_MIN_GAP`
+ *  (Rule 2, weight 1). One number for the repair pass to descend — the guards
+ *  check all three, so repairing one by creating another is not progress. */
 function sequenceCost(seq: LessonStep[], floor: number): number {
   let cost = 0;
   let selRun = 0;
@@ -1891,9 +2134,23 @@ function sequenceCost(seq: LessonStep[], floor: number): number {
       seq[i].type === seq[i - 1].type &&
       seq[i].type !== "conjugation_transform"
     )
-      cost++;
+      cost += ORDERING_BAR_WEIGHT;
     selRun = SELECTION.has(seq[i].type) ? selRun + 1 : 0;
-    if (selRun > 2) cost++;
+    if (selRun > 2) cost += ORDERING_BAR_WEIGHT;
+    // Rule 2. Counted from the whole sequence (the pinned prefix included):
+    // a rule card's examples are not steps, but a pinned transform ramp and
+    // the interleaved middle can still collide, and repair is free to move
+    // the middle member. Repair only accepts a STRICT improvement, so a
+    // violation it cannot move stops the pass instead of looping.
+    const key = hardSentenceKey(seq[i]);
+    if (key) {
+      for (let k = Math.max(0, i - (SENTENCE_REUSE_MIN_GAP - 1)); k < i; k++) {
+        if (hardSentenceKey(seq[k]) === key) {
+          cost++;
+          break;
+        }
+      }
+    }
   }
   return cost;
 }

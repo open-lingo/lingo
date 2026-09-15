@@ -41,6 +41,7 @@ import {
 } from "@/shared/speech";
 import { IS_NATIVE } from "@/shared/platform/native";
 import { useLang } from "@/shared/hooks/useLangPath";
+import { Badge } from "@/shared/components/ui";
 
 /**
  * Active-course language → speech-recognition locale codes. Without this
@@ -222,9 +223,9 @@ function SpeakingStepPlaceholder({
           margins split the free space evenly). Unsupported-browser branch —
           it renders less than the main one, so it strands more. */}
       <div className="mt-auto flex items-center justify-between">
-        <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
+        <Badge variant="eyebrow">
           {t("lesson.speaking.practiceLabel", "Speaking practice")}
-        </p>
+        </Badge>
         {onSilentSwap && <SilentSwapButton onSwap={onSilentSwap} />}
       </div>
 
@@ -294,11 +295,11 @@ function ReferenceCard({
     const langName = langKey ? t(langKey) : undefined;
     return (
       <div className="flex flex-col items-center gap-5 rounded-2xl border-[1.5px] border-border bg-surface px-6 py-10 shadow-[var(--shadow-card)]">
-        <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
+        <Badge variant="eyebrow">
           {langName
             ? t("lesson.speaking.sayItIn", "Say it in {{lang}}", { lang: langName })
             : t("lesson.speaking.sayItOutLoud", "Say it out loud")}
-        </p>
+        </Badge>
         <p className="text-center text-3xl font-bold tracking-tight text-text-primary">
           {step.translation}
         </p>
@@ -939,9 +940,9 @@ function SpeakingStepRecognized({
           midway between the header and the CTA. Top-aligned this stranded a
           215px void on a 430x932 phone (Spencer QA 2026-08-07). */}
       <div className="mt-auto flex items-center justify-between">
-        <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
+        <Badge variant="eyebrow">
           {t("lesson.speaking.practiceLabel", "Speaking practice")}
-        </p>
+        </Badge>
         {/* Past the katakana cutoff the module-position gate suppresses
             ALL romaji regardless of this toggle — a dead control that
             reads as "romaji is available here" (Gate 10 escalation,
@@ -1020,9 +1021,9 @@ function SpeakingStepRecognized({
             scored block once the verdict lands. */}
         {recog.transcript && verdict === "idle" && (
           <p className="rounded-xl bg-surface-muted px-4 py-2 text-base text-text-primary">
-            <span className="mr-2 text-xs font-bold uppercase tracking-wider text-text-muted">
+            <Badge as="span" variant="eyebrow" className="mr-2">
               {t("lesson.speaking.heard", "Heard")}
-            </span>
+            </Badge>
             <span className={isJa ? "font-japanese" : undefined} lang={isJa ? "ja" : lang}>
               {recog.transcript}
             </span>
@@ -1187,9 +1188,9 @@ function TranscriptCard({
           <Icon name={passed ? "check" : "close"} size={18} strokeWidth={3} />
         </span>
         <div className="flex-1">
-          <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
+          <Badge variant="eyebrow">
             {t("lesson.speaking.youSaid", "You said")}
-          </p>
+          </Badge>
           <p className={`${scriptClass}text-xl text-text-primary`} lang={scriptLang}>
             {transcriptKana || "—"}
           </p>
@@ -1203,9 +1204,9 @@ function TranscriptCard({
         <div className="mt-3 flex items-start gap-3 border-t border-border pt-2">
           <Icon name="target" size={18} aria-hidden className="shrink-0 text-text-muted" />
           <div className="flex-1">
-            <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
+            <Badge variant="eyebrow">
               {t("lesson.speaking.target", "Target")}
-            </p>
+            </Badge>
             <p className={`${scriptClass}text-xl text-text-primary`} lang={scriptLang}>
               {targetKana}
             </p>

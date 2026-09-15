@@ -1,6 +1,7 @@
-import { useEffect } from "react";
 import type { ReactiveGrammarTip } from "../types";
 import { Icon } from "@/shared/components/Icon";
+import { LessonOverlayCard } from "./overlays/LessonOverlayCard";
+import { Badge } from "@/shared/components/ui";
 
 /**
  * Reactive grammar intervention (workshop A, 2026-07-12): flashes once per
@@ -16,34 +17,17 @@ export function ReactiveGrammarTipCard({
   tip: ReactiveGrammarTip;
   onDismiss: () => void;
 }) {
-  // Step views listen for Enter on document (useLessonKeyboard), so
-  // without this a desktop learner's habitual Enter advances the lesson
-  // BEHIND the open modal — and the button's own Enter never fires
-  // (the hook preventDefault()s it). Capture-phase swallow: the modal
-  // owns the keyboard while it's up; Enter/Escape/Space dismiss.
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      e.stopPropagation();
-      if (e.key === "Enter" || e.key === "Escape" || e.key === " ") {
-        e.preventDefault();
-        onDismiss();
-      }
-    };
-    document.addEventListener("keydown", onKey, true);
-    return () => document.removeEventListener("keydown", onKey, true);
-  }, [onDismiss]);
-
+  // The wrapper, the scrim, the card box and the capture-phase keyboard
+  // swallow are all `LessonOverlayCard` now — including the `max-h` +
+  // `overflow-y-auto` this file never had (TestFlight #132: "this info card
+  // doesn't fit on the screen and has no scroll"). Its sibling
+  // `RuleHintCard` had that one line and this one didn't, which is the whole
+  // reason the primitive exists.
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 p-4 sm:items-center"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="grammar-tip-title"
-    >
-      <div className="w-full max-w-md rounded-2xl border-[1.5px] border-border bg-surface p-5 shadow-popover motion-safe:animate-fade-up">
-        <p className="text-xs font-bold uppercase tracking-wider text-warning">
+    <LessonOverlayCard labelledBy="grammar-tip-title" onDismissKey={onDismiss}>
+        <Badge variant="eyebrow" tone="warning">
           Quick fix
-        </p>
+        </Badge>
         <h2
           id="grammar-tip-title"
           className="mt-1 text-xl font-bold text-text-primary"
@@ -84,7 +68,6 @@ export function ReactiveGrammarTipCard({
         >
           Got it — try again
         </button>
-      </div>
-    </div>
+    </LessonOverlayCard>
   );
 }

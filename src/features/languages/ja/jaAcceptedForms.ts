@@ -45,10 +45,47 @@ const CASE_PARTICLES = ["は", "が", "を", "に", "で", "も", "へ", "と", 
 /**
  * Bare temporal adverbs may lead a sentence with no particle at all
  * (きょう これを しない). They scramble like a marked phrase does.
+ *
+ * Exported as a LIST (not just the Set below) so `translateVariants.ts`'s
+ * topic-は-optional rule can build its regex from the identical words —
+ * the two leniency mechanisms used to hand-maintain separate copies of this
+ * vocabulary and drifted: both were written against the 2026-08 daily-time
+ * set and never backfilled when m11's "vocab pack 2" wider-calendar words
+ * (きょねん/せんしゅう/らいげつ/ことし/せんげつ/まいとし/…) were added, so
+ *「きょねんは がくせいだった」 rejected the topic-dropped 「きょねん がくせいだった」
+ * and 「うたを いつ きいた？」 got zero scramble variants of its own kind (b15
+ * triage #121/#122, 2026-09-15). One list, derived once, closes both gaps
+ * and keeps them from re-drifting.
  */
-const BARE_TEMPORALS = new Set([
+export const BARE_TEMPORALS_LIST = [
   "きょう", "あした", "あす", "きのう", "いま", "けさ", "こんばん", "ごぜん", "ごご",
   "よる", "あさ", "ばん", "まいにち",
+  // m11 "vocab pack 2" wider-calendar words (courseAtoms.ts meaningEn:
+  // "last/this/next/every year|month|week", B067 2026-07-29) plus their
+  // later-registered synonyms (まいねん/まいげつ) — b15 #121, 2026-09-15.
+  "きょねん", "ことし", "らいねん",
+  "せんしゅう", "こんしゅう", "らいしゅう",
+  "せんげつ", "こんげつ", "らいげつ",
+  "まいとし", "まいねん", "まいげつ", "まいつき", "まいしゅう",
+] as const;
+const BARE_TEMPORALS = new Set<string>(BARE_TEMPORALS_LIST);
+
+/**
+ * Bare wh-question adverbs. Unlike CASE_PARTICLES or BARE_TEMPORALS members,
+ * these are matched as a whole CHUNK the same way BARE_TEMPORALS is — a
+ * wh-word that already carries a case particle (どこに, なにを, だれが) is a
+ * single fused token in every authored surface (courseAtoms/IR never write
+ * "どこ に" with a space), so it already ends in a CASE_PARTICLES member and
+ * is movable without this set. This set exists for the wh-words that carry
+ * NO particle of their own — いつ takes no に ("いつ takes no に — the particle
+ * belongs to a clock time, not to the question word", m11.ir.yaml rule card)
+ * and どう/なぜ/いくら are the same shape — plus どこ/なに/だれ/なんじ for the rarer
+ * bare occurrences (「えきは どこ？」-style predicate-less questions). Scoped
+ * like BARE_TEMPORALS: a listed word only ever moves as its own whole chunk,
+ * so a wh+particle fusion can never be split by a swap (b15 #122, 2026-09-15).
+ */
+const WH_WORDS = new Set([
+  "いつ", "どこ", "なに", "だれ", "なぜ", "どう", "いくら", "なんじ",
 ]);
 
 /** Sentences wider than this stop permuting — 4 movable chunks = 24 orders. */
@@ -394,7 +431,9 @@ function chunk(tokens: string[]): string[] {
 
 function isMovable(phrase: string): boolean {
   return (
-    CASE_PARTICLES.some((p) => phrase.endsWith(p)) || BARE_TEMPORALS.has(phrase)
+    CASE_PARTICLES.some((p) => phrase.endsWith(p)) ||
+    BARE_TEMPORALS.has(phrase) ||
+    WH_WORDS.has(phrase)
   );
 }
 

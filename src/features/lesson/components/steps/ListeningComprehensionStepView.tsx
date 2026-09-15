@@ -12,6 +12,7 @@ import { formatPrompt } from "../formatPrompt";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
 import { seededShuffle } from "@/shared/utils/seededShuffle";
 import { hasCoarsePointer } from "@/shared/platform/nativeScroll";
+import { Badge } from "@/shared/components/ui";
 
 const CELEBRATE_MS = 1100;
 
@@ -163,9 +164,9 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
           <Icon name="play" size={24} />
         </button>
         <div className="min-w-0">
-          <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
+          <Badge variant="eyebrow">
             Listen and answer
-          </p>
+          </Badge>
           {audioSilent && (
             <p role="status" className="text-sm text-warning">
               Audio unavailable right now — tap again to retry.

@@ -170,14 +170,6 @@ export const M5_NEO_7: LessonContent = {
       ],
       exercisedAtomKanas: ["うた", "を", "きく"],
     }),
-    build(
-      "ja-m5-neo-7-build-uta-kiku",
-      "Build this sentence: I'll listen to the song.",
-      "うたを きく",
-      ["うた", "を", "きく", "わかる"],
-      ["うた", "を", "きく"],
-      ["うた", "を", "きく"],
-    ),
     grammarRule({
       id: "ja-m5-neo-7-rule-kiku",
       title: "きく — listen",
@@ -206,6 +198,16 @@ export const M5_NEO_7: LessonContent = {
       distractorsEn: ["I get it.", "Gonna listen?", "You think so?"],
       exercisedAtomKanas: ["わかる"],
     }),
+    // (Moved down from right after lc-uta-kiku so the two うたを きく
+    // steps clear the >=3-index reuse gap.)
+    build(
+      "ja-m5-neo-7-build-uta-kiku",
+      "Build this sentence: I'll listen to the song.",
+      "うたを きく",
+      ["うた", "を", "きく", "わかる"],
+      ["うた", "を", "きく"],
+      ["うた", "を", "きく"],
+    ),
     translateStep({
       id: "ja-m5-neo-7-tr-un-wakaru",
       promptEn: "Translate: Yeah, I get it.",
@@ -297,14 +299,17 @@ export const M5_NEO_7: LessonContent = {
         "Rising tone turns bare わかる into the check; わかる。 (falling) would ANSWER it instead.",
       exercisedAtomKanas: ["わかる"],
     }),
-    listeningBuildSentence({
-      id: "ja-m5-neo-7-lbs-uta-kiku",
-      target: "うたを きく",
-      tiles: ["うた", "を", "きく", "わかる"],
-      correctOrder: ["うた", "を", "きく"],
-      promptEn: "I'll listen to the song.",
-      exercisedAtomKanas: ["うた", "を", "きく"],
-    }),
+    // (speak-un-wakaru moved up here — a non-selection beat has to sit
+    // between mcq-wakaru-check and lc-kore-wakaru, both tap-to-select,
+    // inv 25's run cap; lbs-uta-kiku then moves down past lc-kore-wakaru
+    // so the cloze-wo/lbs-uta-kiku うたを きく pair clears the >=3-index
+    // reuse gap.)
+    speaking(
+      "ja-m5-neo-7-speak-un-wakaru",
+      "うん、わかる",
+      "Yeah, I get it.",
+      ["うん", "わかる"],
+    ),
     listeningCompSentence({
       id: "ja-m5-neo-7-lc-kore-wakaru",
       audioText: "これ、わかる？",
@@ -317,12 +322,14 @@ export const M5_NEO_7: LessonContent = {
       ],
       exercisedAtomKanas: ["これ", "わかる"],
     }),
-    speaking(
-      "ja-m5-neo-7-speak-un-wakaru",
-      "うん、わかる",
-      "Yeah, I get it.",
-      ["うん", "わかる"],
-    ),
+    listeningBuildSentence({
+      id: "ja-m5-neo-7-lbs-uta-kiku",
+      target: "うたを きく",
+      tiles: ["うた", "を", "きく", "わかる"],
+      correctOrder: ["うた", "を", "きく"],
+      promptEn: "I'll listen to the song.",
+      exercisedAtomKanas: ["うた", "を", "きく"],
+    }),
     // ④ CAPSTONE (invariant 26): lesson verb きく + の possession (m4) +
     // も (m3) in one build — the stretch beat before the easy tail.
     build(
@@ -725,6 +732,20 @@ export const M5_NEO_9: LessonContent = {
       ],
       exercisedAtomKanas: ["それ", "のみもの", "ぎゅうにゅう", "わたし", "の"],
     }),
+    // (Moved up 2 slots ahead of build-kenno-tabemono / tr-watashino-nomimono
+    // so the lc/build たべものを かう pair below clears the >=3-index gap.)
+    listeningCompSentence({
+      id: "ja-m5-neo-9-lc-tabemono-kau",
+      audioText: "たべものを かう？",
+      question: "What does this sentence mean?",
+      correctMeaningEn: "Gonna buy food?",
+      distractorsEn: [
+        "Gonna eat the food?",
+        "Gonna buy a drink?",
+        "Going shopping?",
+      ],
+      exercisedAtomKanas: ["たべもの", "を", "かう"],
+    }),
     // Was a full-sentence recognition MCQ (invariant 28) — now a build; the
     // のみもの distractor tile keeps the food/drink contrast the options had.
     build(
@@ -746,18 +767,6 @@ export const M5_NEO_9: LessonContent = {
       ],
       audioText: "わたしの のみものだ",
       exercisedAtomKanas: ["わたし", "の", "のみもの"],
-    }),
-    listeningCompSentence({
-      id: "ja-m5-neo-9-lc-tabemono-kau",
-      audioText: "たべものを かう？",
-      question: "What does this sentence mean?",
-      correctMeaningEn: "Gonna buy food?",
-      distractorsEn: [
-        "Gonna eat the food?",
-        "Gonna buy a drink?",
-        "Going shopping?",
-      ],
-      exercisedAtomKanas: ["たべもの", "を", "かう"],
     }),
     build(
       "ja-m5-neo-9-build-tabemono-kau",
@@ -857,13 +866,15 @@ export const M5_NEO_10: LessonContent = {
       ],
       exercisedAtomKanas: ["ごはん", "を", "たべる"],
     }),
+    // (Swapped with build-gyuunyuu-nomu below so the two ごはんを たべる
+    // steps clear the >=3-index reuse gap.)
     build(
-      "ja-m5-neo-10-build-gohan-taberu",
-      "Build this sentence: I'll eat the rice.",
-      "ごはんを たべる",
-      ["ごはん", "を", "たべる", "のむ"],
-      ["ごはん", "を", "たべる"],
-      ["ごはん", "を", "たべる"],
+      "ja-m5-neo-10-build-gyuunyuu-nomu",
+      "Build this sentence: I'll drink milk.",
+      "ぎゅうにゅうを のむ",
+      ["ぎゅうにゅう", "を", "のむ", "たべる"],
+      ["ぎゅうにゅう", "を", "のむ"],
+      ["ぎゅうにゅう", "を", "のむ"],
     ),
     listeningCompSentence({
       id: "ja-m5-neo-10-lc-nani-nomu",
@@ -878,12 +889,12 @@ export const M5_NEO_10: LessonContent = {
       exercisedAtomKanas: ["なに", "を", "のむ"],
     }),
     build(
-      "ja-m5-neo-10-build-gyuunyuu-nomu",
-      "Build this sentence: I'll drink milk.",
-      "ぎゅうにゅうを のむ",
-      ["ぎゅうにゅう", "を", "のむ", "たべる"],
-      ["ぎゅうにゅう", "を", "のむ"],
-      ["ぎゅうにゅう", "を", "のむ"],
+      "ja-m5-neo-10-build-gohan-taberu",
+      "Build this sentence: I'll eat the rice.",
+      "ごはんを たべる",
+      ["ごはん", "を", "たべる", "のむ"],
+      ["ごはん", "を", "たべる"],
+      ["ごはん", "を", "たべる"],
     ),
     listeningCompSentence({
       id: "ja-m5-neo-10-lc-shashin-miru",

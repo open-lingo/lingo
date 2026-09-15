@@ -11,6 +11,7 @@ import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
 import { TransformRuleTable } from "./TransformRuleTable";
 import { SceneView } from "./SceneView";
 import { HIRAGANA_ROMAJI_OFF_MODULE } from "@/shared/settings/romanizationAutoFlip";
+import { Badge } from "@/shared/components/ui";
 import { useContentString, useContentStrings } from "../../hooks/useContentString";
 import {
   courseIdsFromLessonId,
@@ -459,9 +460,9 @@ export function GrammarRuleStepView({
 
       {step.antiPattern ? (
         <div className="rounded-2xl border-2 border-error/40 bg-error/10 px-5 py-4">
-          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-error">
+          <Badge variant="eyebrow" tone="error" className="mb-2">
             {t("lesson.grammarRule.dontDoThis", "Don't do this")}
-          </p>
+          </Badge>
           <p className="font-japanese text-lg text-text-primary line-through decoration-error/60 decoration-2">
             <AnnotatedJa text={step.antiPattern.ja} />
           </p>

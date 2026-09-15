@@ -987,7 +987,704 @@ ruby {
    its font-size grows the KANJI base only — the `<rt>` inside is already
    collapsed to 0 by `.kana-helper[data-visible="false"]` above, so this
    cannot un-hide a reading, only resize the visible glyph. */
-.build-tile-dense [data-build-tile-kana],
-.build-tile-dense [data-build-tile-reading="hidden"] {
+/* b16.2: the hook moved from the `.build-tile-dense` class the two views
+   used to compose onto the `Tile` primitive's own `data-density`, so the
+   selector cannot drift from the tier it describes. STILL DENSE/HUGE ONLY —
+   `listening_build` tiles never carried `.build-tile-dense` and so have
+   never grown a kana-only word into the reading band; keeping them out is
+   what makes this migration pixel-identical. Unifying them is a dial-in
+   decision (the report lists it), not a refactor. */
+[data-tile][data-variant="build"][data-density="dense"] [data-build-tile-kana],
+[data-tile][data-variant="build"][data-density="dense"] [data-build-tile-reading="hidden"],
+[data-tile][data-variant="build"][data-density="huge"] [data-build-tile-kana],
+[data-tile][data-variant="build"][data-density="huge"] [data-build-tile-reading="hidden"] {
   font-size: var(--tile-kana-font);
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   TILE PRIMITIVE — one block for every tile-shaped surface
+   (TestFlight #137 / #119 / #124 / #125, b16.2 2026-09-15)
+
+   Spencer: "standardize the class for tiles across everything and then
+   populate them differently on load depending on step type… better for
+   maintainability." Seven step views used to compose their own Tailwind
+   sizing strings (three build tiers with hand ratios, a listen tier with
+   1.142857-style multipliers, four match clamp() formulas, four MCQ option
+   layouts). They now render `<Tile>` (features/lesson/components/tiles/
+   Tile.tsx), which emits `data-tile` + `data-variant`/`data-density`/
+   `data-state`/`data-slot`/`data-size` and NOTHING else — every number
+   lives here.
+
+   WHY THIS BLOCK WINS. It sits after `@tailwind utilities` in source order
+   and its selectors are (0,2,0)+ where a utility is (0,1,0), so a caller's
+   `className` can add anything that does not collide, and must use `!`
+   (Tailwind's important modifier) to override a property this block sets.
+   The `collapsed` prop exists so no view has to do that.
+
+   EVERY NUMBER BELOW IS TODAY'S SHIPPED NUMBER, read off the class strings
+   at cfd672b7 — this block is a transcription, not a redesign. Ratios that
+   look arbitrary (listen px ×1.142857, huge sm font ×0.833333) are the
+   migration's temporary truth: two views tuned by separate patches over
+   nine days. Collapsing them is a dial-in decision on /:lang/qa/tiles, not
+   a refactor.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* ── Option + overlay-card token groups (b16.2) ────────────────────────
+   `--option-py`/`--option-font` DEFAULT TO the existing MCQ tokens rather
+   than duplicating their numbers, so the shipped `--mcq-py`/`--mcq-font`
+   sliders keep reaching option buttons and a new `--option-*` slider
+   overrides them. `--option-radius` is a LITERAL 0.75rem (today's
+   `rounded-xl`), deliberately NOT `var(--tile-radius)` — coupling the MCQ
+   corner to the build-tile slider would change what an existing slider
+   does. */
+:root {
+  --option-px: 1rem;              /* px-4 — every option layout today */
+  --option-py: var(--mcq-py);     /* regular/sentence tier padding-block */
+  --option-font: var(--mcq-font); /* regular/sentence tier font-size */
+  --option-radius: 0.75rem;       /* rounded-xl */
+  --option-gap: 0.75rem;          /* gap-3 on the MCQ/cloze option grids */
+  --card-pad: 1.25rem;            /* p-5 on the lesson overlay card */
+  --card-max-h: 85vh;             /* max-h-[85vh] (RuleHintCard's value) */
+}
+@media (min-width: 640px) {
+  :root {
+    --option-gap: 1rem; /* sm:gap-4 */
+  }
+}
+
+/* ── Every tile ─────────────────────────────────────────────────────── */
+[data-tile] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--tile-radius);
+  /* `transition-colors duration-150`, expanded. */
+  transition-property: color, background-color, border-color,
+    text-decoration-color, fill, stroke;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* The states whose shipped class string had NO `transition-colors`: a spent
+   BUILD/LISTEN bank tile, an invisible pre-sizer, an empty slot. (A matched
+   match tile and a dimmed particle-cloze option DO transition — hence the
+   variant scoping.) Reset to the initial values rather than
+   `transition-property: none`, so the computed style matches an element that
+   never had a transition at all. */
+[data-tile][data-variant="build"][data-state="spent"],
+[data-tile][data-variant="listen"][data-state="spent"],
+[data-tile][data-state="ghost"],
+[data-tile][data-state="slot"] {
+  transition-property: all;
+  transition-duration: 0s;
+  transition-timing-function: ease;
+  transition-delay: 0s;
+}
+/* The tray/slot pre-sizer: same box, same glyphs, no interaction, no paint.
+   The views' ghost rows are themselves `invisible`, so this is belt-and-
+   braces — it is what lets the pre-sizer be a bare <span> with no
+   interactive attributes at all. */
+[data-tile][data-state="ghost"] {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+
+/* ── build / listen: the row-baseline rule ────────────────────────────
+   A ruby tile (furigana band above the word) and a plain kana tile land on
+   the same flex-wrap line and already get equal BOX heights (align-items:
+   stretch). The raggedness was never box height — it was the WORD's
+   vertical anchor inside that box. `flex-direction: column` + `justify-
+   content: flex-end` bottom-anchors every word, so words share one
+   baseline across a row and any reading floats above it. This is a
+   PRIMITIVE DEFAULT, not a view override: it is the invariant that breaks
+   silently (the ghost/slot pre-sizers must share it or the tray mis-sizes,
+   and #137's uniform-height floor only reads right with `flex-end`). */
+/* SCOPED TO `build`, not to `dense`/`huge` alone: `match` uses the same two
+   density words for its own row tiers (`dense` = six or more rows), and an
+   unscoped selector handed every six-row match tile a column flex box,
+   `justify-content: flex-end` and `line-height: 1.25` — caught by the
+   computed-style parity probe, invisible in the screenshots because the QA
+   fixture has five pairs. */
+[data-tile][data-variant="build"][data-density="dense"],
+[data-tile][data-variant="build"][data-density="huge"],
+[data-tile][data-variant="listen"] {
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  font-weight: 700;
+  line-height: 1.25; /* leading-tight */
+}
+
+/* The #137 uniform-height floor. BUILD AND LISTEN ONLY, because that is
+   where it shipped (`min-h-[var(--tile-box-h)]`) and because `min-height` is
+   NOT inert on the other two: a match tile is a grid item in a
+   `minmax(min-content, 1fr)` row and an option is a grid item under
+   `auto-rows-fr`, where the shipped `min-height: auto` (content-based) is
+   what makes a compressed grid fall back to inner scroll instead of clipping
+   its text. Declaring 0px there would let both shrink under their content on
+   a short viewport — caught by the before/after computed-style diff, which
+   read `auto -> 0px` on every match and option tile. If the owner wants
+   "Lock tile heights" to reach match/MCQ too, this is the one line to widen,
+   with a short-viewport re-check. */
+[data-tile][data-variant="build"],
+[data-tile][data-variant="listen"] {
+  min-height: var(--tile-box-h);
+}
+
+/* ── build variant ────────────────────────────────────────────────────── */
+[data-tile][data-variant="build"] {
+  border-width: 1.5px;
+}
+/* The word-build SLOTS branch (first encounters) is the one build surface
+   that has always drawn a 2px border — both the dashed empty slot and the
+   tile that pops into it. */
+[data-tile][data-variant="build"][data-slot="slots"] {
+  border-width: 2px;
+}
+/* dense = the 7–11-tile sentence bank; huge = 12+ (its own tier so a 16-tile
+   bank still fits a 1280×700 window). Both read the same three tokens; huge
+   steps DOWN from the non-huge tier at `sm:` only, as an exact multiplier of
+   the same token so one slider moves both tiers proportionally. */
+[data-tile][data-variant="build"][data-density="dense"],
+[data-tile][data-variant="build"][data-density="huge"] {
+  padding: var(--tile-py) var(--tile-px);
+  font-size: var(--tile-font);
+}
+@media (min-width: 640px) {
+  [data-tile][data-variant="build"][data-density="huge"] {
+    padding-block: calc(var(--tile-py) * 0.75);
+    font-size: calc(var(--tile-font) * 0.833333);
+  }
+}
+/* big = ≤6-tile banks and word builds. Its font is a cqh-driven clamp() with
+   NO `sm:` step (roughly constant across viewports by design) while
+   `--tile-px`/`--tile-font` DO step at 640px, so this tier is scaled by one
+   unitless multiplier (`--tile-big-scale`, default 1 = today's exact
+   numbers) instead of being derived from the dense tier's tokens. No
+   per-row baseline concern here — this tier has never used `justify-end`. */
+[data-tile][data-variant="build"][data-density="big"] {
+  align-items: center;
+  justify-content: center;
+  padding: calc(10.5px * var(--tile-big-scale))
+    calc(17.5px * var(--tile-big-scale));
+  font-size: clamp(
+    calc(1.275rem * var(--tile-big-scale)),
+    2.89cqh,
+    calc(1.9125rem * var(--tile-big-scale))
+  );
+  font-weight: 700;
+}
+
+/* ── listen variant ───────────────────────────────────────────────────
+   ListeningBuildStepView's tiles are bigger than the dense build tier and
+   always were. Each ratio is this view's shipped absolute value ÷ the build
+   dense-tier token (tray px 14/12.25 = 1.142857 on mobile, 17.5/14 = 1.25
+   on desktop), so one `/qa/tiles` build slider reaches both surfaces while
+   reproducing today's numbers exactly. `data-slot="bank"` exists for ONE
+   difference: at `sm:` the bank's padding-block is ×2 where the tray's is
+   ×1.25 — nine days of separate patches, preserved as a disclosed
+   divergence rather than silently unified. */
+[data-tile][data-variant="listen"] {
+  border-width: 2px;
+  padding: calc(var(--tile-py) * 1.75) calc(var(--tile-px) * 1.142857);
+  font-size: calc(var(--tile-font) * 1.030303);
+}
+@media (min-width: 640px) {
+  [data-tile][data-variant="listen"] {
+    padding-inline: calc(var(--tile-px) * 1.25);
+    padding-block: calc(var(--tile-py) * 1.25);
+    font-size: calc(var(--tile-font) * 1.25);
+  }
+  [data-tile][data-variant="listen"][data-slot="bank"] {
+    padding-block: calc(var(--tile-py) * 2);
+  }
+}
+
+/* ── match variant ────────────────────────────────────────────────────
+   EIGHT size tiers, not four: source/target × audio/silent × dense(6+
+   rows)/wide. Every bound keeps its `cqh` term — the lesson stage is a
+   fixed-height container query, and flattening these to px is what makes a
+   six-row review match clip its last row on a 15 Pro Max — multiplied by
+   the unitless `--match-font-scale` (default 1) so the QA page dials all
+   eight tiers together and their relative proportions hold.
+   `border-radius` stays a literal 0.75rem (today's `rounded-xl`): match has
+   its own token group and must not follow the build-tile radius slider. */
+[data-tile][data-variant="match"] {
+  width: 100%;
+  border-width: 1.5px;
+  border-radius: 0.75rem;
+  padding-inline: 1rem;    /* px-4 */
+  padding-block: 0.375rem; /* py-1.5 */
+}
+[data-tile][data-variant="match"][data-side="source"][data-audio="true"][data-density="dense"] {
+  font-size: clamp(
+    calc(1.25rem * var(--match-font-scale)),
+    calc(3.2cqh * var(--match-font-scale)),
+    calc(2.5rem * var(--match-font-scale))
+  );
+  font-weight: 600;
+}
+[data-tile][data-variant="match"][data-side="source"][data-audio="true"][data-density="wide"] {
+  font-size: clamp(
+    calc(1.75rem * var(--match-font-scale)),
+    calc(4.5cqh * var(--match-font-scale)),
+    calc(3rem * var(--match-font-scale))
+  );
+  font-weight: 600;
+}
+[data-tile][data-variant="match"][data-side="source"][data-audio="false"][data-density="dense"] {
+  font-size: clamp(
+    calc(1.125rem * var(--match-font-scale)),
+    calc(3cqh * var(--match-font-scale)),
+    calc(2.25rem * var(--match-font-scale))
+  );
+  font-weight: 500;
+}
+[data-tile][data-variant="match"][data-side="source"][data-audio="false"][data-density="wide"] {
+  font-size: clamp(
+    calc(1.375rem * var(--match-font-scale)),
+    calc(3.8cqh * var(--match-font-scale)),
+    calc(2.5rem * var(--match-font-scale))
+  );
+  font-weight: 500;
+}
+[data-tile][data-variant="match"][data-side="target"][data-audio="true"][data-density="dense"] {
+  font-size: clamp(
+    calc(1.125rem * var(--match-font-scale)),
+    calc(3.2cqh * var(--match-font-scale)),
+    calc(2.25rem * var(--match-font-scale))
+  );
+  font-weight: 600;
+}
+[data-tile][data-variant="match"][data-side="target"][data-audio="true"][data-density="wide"] {
+  font-size: clamp(
+    calc(1.375rem * var(--match-font-scale)),
+    calc(3.8cqh * var(--match-font-scale)),
+    calc(2.5rem * var(--match-font-scale))
+  );
+  font-weight: 600;
+}
+[data-tile][data-variant="match"][data-side="target"][data-audio="false"][data-density="dense"] {
+  font-size: clamp(
+    calc(1rem * var(--match-font-scale)),
+    calc(2.6cqh * var(--match-font-scale)),
+    calc(1.75rem * var(--match-font-scale))
+  );
+  font-weight: 500;
+}
+[data-tile][data-variant="match"][data-side="target"][data-audio="false"][data-density="wide"] {
+  font-size: clamp(
+    calc(1.125rem * var(--match-font-scale)),
+    calc(3cqh * var(--match-font-scale)),
+    calc(1.875rem * var(--match-font-scale))
+  );
+  font-weight: 500;
+}
+
+/* ── option variant ───────────────────────────────────────────────────
+   47 hand-rolled answer buttons across 24 step views used to compose these
+   four MCQ layouts plus the two single-answer pickers and the particle
+   row. `data-size` is the geometry tier; `data-text` the length-based type
+   step some views apply; `data-tone` the one real colour divergence
+   (see the state block below). */
+[data-tile][data-variant="option"] {
+  border-width: 2px;
+  border-radius: var(--option-radius);
+  padding-inline: var(--option-px);
+}
+/* `sentence` — the regular/long-text MCQ option. NOT a flex box: it is a
+   left-aligned block of prose, and centring it (the primitive default)
+   would visibly re-lay every sentence option. */
+[data-tile][data-variant="option"][data-size="sentence"] {
+  display: block;
+  align-items: normal;
+  justify-content: normal;
+  text-align: left;
+  padding-block: var(--option-py);
+  font-size: var(--option-font);
+  font-weight: 500;
+  line-height: 1.375; /* leading-snug */
+}
+/* `word` — a word-only grid whose longest option is 3+ glyphs. */
+[data-tile][data-variant="option"][data-size="word"] {
+  padding-block: 2rem; /* py-8 */
+  font-size: 1.875rem; /* text-3xl */
+  line-height: 2.25rem;
+  font-weight: 700;
+}
+/* `word-glyph` — a word-only grid where every option is ≤2 glyphs. */
+[data-tile][data-variant="option"][data-size="word-glyph"] {
+  padding-block: 2.25rem; /* py-9 */
+  font-size: 3rem;        /* text-5xl */
+  line-height: 1;
+  font-weight: 700;
+}
+/* `glyph` — a ≤2-glyph option inside a MIXED grid. Same type as
+   `word-glyph` but NO horizontal padding, which is how it shipped. */
+[data-tile][data-variant="option"][data-size="glyph"] {
+  padding-inline: 0;
+  padding-block: 2.25rem;
+  font-size: 3rem;
+  line-height: 1;
+  font-weight: 700;
+}
+/* `reveal` — the translate-MCQ reveal-on-select grid: one uniform mid size
+   whatever the text length, with its own 120px floor. `max()` keeps the
+   #137 uniform-height token readable here instead of being shadowed. */
+[data-tile][data-variant="option"][data-size="reveal"] {
+  /* `max()` so the #137 token can still lift this tier, never below the
+     120px floor this layout shipped with. */
+  min-height: max(120px, var(--tile-box-h));
+  padding-block: 2rem;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+}
+/* `pick` — BuildSentenceStepView's single-answer picker (a one-slot "build"
+   is an MCQ wearing tray-and-bank clothes). Its shipped `py-6`/`text-xl`
+   ARE `--mcq-py`/`--mcq-font`'s defaults to the pixel, so it reads the
+   tokens: identical today, and one slider now moves the picker with the
+   MCQ options it was drawn to match. */
+[data-tile][data-variant="option"][data-size="pick"] {
+  padding-block: var(--option-py);
+  font-size: var(--option-font);
+  line-height: 1.75rem; /* text-xl's line-height */
+  font-weight: 700;
+}
+/* `pick-fluid` — ListeningBuildStepView's picker. Its padding is height-
+   relative on purpose: a fixed py-6 made each option 90px and clipped the
+   fourth behind the Check button at 375×812. */
+[data-tile][data-variant="option"][data-size="pick-fluid"] {
+  padding-block: clamp(0.5rem, 2.6cqh, 1.5rem);
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+}
+/* `particle` — the particle-cloze option row. flex-wrap, not a grid: a long
+   option (じゃないです) must widen its tile instead of wrapping mid-word. */
+[data-tile][data-variant="option"][data-size="particle"] {
+  height: clamp(3.5rem, 8cqh, 4.5rem);
+  min-width: fit-content;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: calc(25% - 0.75rem);
+  white-space: nowrap;
+  font-weight: 700;
+}
+/* Length-based type step (particle-cloze: long options step down a size). */
+[data-tile][data-variant="option"][data-text="sm"] {
+  font-size: 1.125rem; /* text-lg */
+  line-height: 1.75rem;
+}
+[data-tile][data-variant="option"][data-text="md"] {
+  font-size: 1.25rem; /* text-xl */
+  line-height: 1.75rem;
+}
+[data-tile][data-variant="option"][data-text="lg"] {
+  font-size: 1.5rem; /* text-2xl */
+  line-height: 2rem;
+}
+@media (min-width: 640px) {
+  [data-tile][data-variant="option"][data-size="word"],
+  [data-tile][data-variant="option"][data-size="reveal"] {
+    font-size: 2.25rem; /* sm:text-4xl */
+    line-height: 2.5rem;
+  }
+  [data-tile][data-variant="option"][data-size="word-glyph"],
+  [data-tile][data-variant="option"][data-size="glyph"] {
+    font-size: 3.75rem; /* sm:text-6xl */
+    line-height: 1;
+  }
+  [data-tile][data-variant="option"][data-text="sm"] {
+    font-size: 1.25rem; /* sm:text-xl */
+    line-height: 1.75rem;
+  }
+  [data-tile][data-variant="option"][data-text="md"] {
+    font-size: 1.5rem; /* sm:text-2xl */
+    line-height: 2rem;
+  }
+  [data-tile][data-variant="option"][data-text="lg"] {
+    font-size: 1.875rem; /* sm:text-3xl */
+    line-height: 2.25rem;
+  }
+}
+/* `collapsed` = the word-build pill's zero-width height pre-sizer
+   (`invisible w-0 overflow-hidden !px-0`): it fixes the row height without
+   occupying width, so the pill grows horizontally only. It lives HERE, after
+   every tier's geometry, because it has to beat the tier it sits inside —
+   placed earlier it lost `padding-inline` to the big tier's `padding`
+   shorthand and the box measured 37px wide instead of 0 — and it carries
+   THREE attributes so it also out-specifies that tier's (0,3,0) selector
+   rather than only out-ordering it. In the primitive so no view needs
+   Tailwind's `!` modifier to fight this block.
+   Border 0 to match the class string it replaces (no border utility): a
+   1.5px border here would silently add 3px to the pill's floor. */
+[data-tile][data-state="ghost"][data-collapsed="true"] {
+  width: 0;
+  padding-inline: 0;
+  overflow: hidden;
+  border-width: 0;
+  border-radius: 0;
+}
+
+/* An answered grid stops offering a pointer. (Build/listen BANK tiles keep
+   the UA pointer when disabled, as they always have — scoped to options.) */
+[data-tile][data-variant="option"]:disabled {
+  cursor: default;
+}
+
+/* ── States ───────────────────────────────────────────────────────────
+   The colour decision leaves the views entirely: `data-state` drives it.
+   Colours are per-variant because they ARE per-variant today — a correct
+   MCQ option is a filled accent tile, a correct particle-cloze option is a
+   success tint. That divergence is organic drift (both are "the right
+   answer"), but collapsing it is a visual decision, so `data-tone="success"`
+   carries it verbatim and the report lists it for the owner to settle. */
+[data-tile][data-state="idle"] {
+  border-color: rgb(var(--color-border));
+  background-color: rgb(var(--color-surface));
+  color: rgb(var(--color-text-primary));
+}
+@media (hover: hover) {
+  [data-tile][data-state="idle"]:hover {
+    border-color: rgb(var(--color-accent));
+  }
+  /* particle-cloze has always used a softer hover than the rest. */
+  [data-tile][data-variant="option"][data-tone="success"][data-state="idle"]:hover {
+    border-color: rgb(var(--color-accent) / 0.6);
+  }
+}
+[data-tile][data-variant="build"][data-state="idle"]:disabled,
+[data-tile][data-variant="listen"][data-state="idle"]:disabled {
+  opacity: 0.5;
+}
+/* A used bank tile. */
+[data-tile][data-state="spent"] {
+  border-color: rgb(var(--color-border));
+  background-color: rgb(var(--color-surface-muted));
+  color: rgb(var(--color-text-muted));
+  opacity: 0.4;
+}
+/* match's "already matched" pair and particle-cloze's not-picked-after-
+   submit option are the same idea at different opacities. */
+[data-tile][data-variant="match"][data-state="spent"] {
+  border-color: rgb(var(--color-accent));
+  background-color: rgb(var(--color-accent-muted));
+  color: rgb(var(--color-accent));
+  opacity: 0.6;
+}
+[data-tile][data-variant="option"][data-state="spent"] {
+  border-color: rgb(var(--color-border));
+  background-color: rgb(var(--color-surface));
+  color: rgb(var(--color-text-muted));
+  opacity: 0.6;
+}
+/* A tile the learner has placed in the tray. */
+[data-tile][data-state="placed"] {
+  border-color: rgb(var(--color-accent));
+  background-color: rgb(var(--color-accent-muted));
+  color: rgb(var(--color-accent));
+}
+@media (hover: hover) {
+  [data-tile][data-state="placed"]:hover {
+    background-color: rgb(var(--color-accent));
+    color: #fff;
+  }
+}
+/* Pre-submit selection: "picked, not locked" — deliberately a lighter tint
+   than the accent FILL that marks a submitted-correct answer, because when
+   both used the same fill, tap-to-peek looked like commit-to-answer. */
+[data-tile][data-state="selected"] {
+  border-color: rgb(var(--color-accent));
+  background-color: rgb(var(--color-accent-muted));
+  color: rgb(var(--color-accent));
+}
+[data-tile][data-variant="option"][data-tone="success"][data-state="selected"] {
+  background-color: rgb(var(--color-accent) / 0.1);
+}
+[data-tile][data-state="correct"] {
+  border-color: rgb(var(--color-accent));
+  background-color: rgb(var(--color-accent));
+  color: #fff;
+}
+[data-tile][data-variant="option"][data-tone="success"][data-state="correct"] {
+  border-color: rgb(var(--color-success));
+  background-color: rgb(var(--color-success) / 0.15);
+  color: rgb(var(--color-success));
+}
+[data-tile][data-state="wrong"] {
+  border-color: rgb(var(--color-error));
+  background-color: rgb(var(--color-error) / 0.15);
+  color: rgb(var(--color-error));
+}
+/* A WRONG-submitted tray keeps the learner's tiles in place but flips them
+   to the error palette — leaving a wrong answer accent-tinted reads as
+   "this was right" at the moment the verdict says otherwise. The tray's
+   tint is /10, not /15 (it sits under a full row of tiles). */
+[data-tile][data-variant="build"][data-state="wrong"],
+[data-tile][data-variant="match"][data-state="wrong"] {
+  background-color: rgb(var(--color-error) / 0.1);
+}
+/* An empty word-build slot: the dashed outline the tile pops into. */
+[data-tile][data-state="slot"] {
+  border-style: dashed;
+  border-color: rgb(var(--color-border));
+  background-color: rgb(var(--color-surface-muted));
+}
+
+/* ── Tray / bank / grid layout ────────────────────────────────────────
+   `TileTray` (same folder) owns the containers so gaps come from tokens
+   too. `data-kind` is the container role; the rest are the presets each
+   call site shipped. */
+[data-tile-tray][data-kind="bank"] {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: var(--tile-gap);
+}
+[data-tile-tray][data-kind="bank"][data-variant="listen"] {
+  /* Own token, default 12px: the listen bank's shipped `gap-3` did NOT
+     match `--tile-gap` (8px), and folding it in would have silently shrunk
+     it. TestFlight #125's bank/tray mismatch, kept as a named default. */
+  gap: var(--listen-bank-gap);
+}
+[data-tile-tray][data-kind="bank"][data-center="true"] {
+  justify-content: center;
+}
+/* The dashed drop area. An invisible ghost row inside sets its FLOOR (see
+   `row`), so placing the expected tiles never reflows the bank below; the
+   floor here is what a SHORT answer reserves. */
+[data-tile-tray][data-kind="tray"] {
+  display: grid;
+  min-height: var(--tile-h);
+  border-radius: 1rem; /* rounded-2xl */
+  border-width: 1.5px;
+  border-style: dashed;
+  border-color: rgb(var(--color-border));
+  background-color: rgb(var(--color-surface-muted));
+  padding: 0.625rem 1rem; /* py-2.5 px-4 */
+}
+[data-tile-tray][data-kind="tray"][data-variant="listen"] {
+  min-height: 54px;
+  border-width: 2px;
+  padding-block: 0.75rem; /* py-3 */
+}
+@media (min-width: 640px) {
+  [data-tile-tray][data-kind="tray"][data-variant="listen"] {
+    min-height: 68px;
+    padding-block: 1rem; /* sm:py-4 */
+  }
+}
+/* The word-build PILL (review contexts): no length hint, a compact centred
+   tray that hugs its tiles and grows horizontally as they pop in. */
+[data-tile-tray][data-kind="pill"] {
+  margin-inline: auto;
+  display: flex;
+  min-height: 54px;
+  width: fit-content;
+  max-width: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 1rem;
+  border-width: 1.5px;
+  border-style: dashed;
+  border-color: rgb(var(--color-border));
+  background-color: rgb(var(--color-surface-muted));
+  padding: 0.5rem 1rem;
+}
+/* The word-build SLOTS wrapper: ghost row and tile row share one grid cell
+   so the outlines and the tiles that fill them cannot drift apart. */
+[data-tile-tray][data-kind="slots"] {
+  margin-inline: auto;
+  display: grid;
+  width: fit-content;
+  max-width: 100%;
+}
+/* Rows inside a tray. `layer` stacks a row into the tray's single grid cell
+   (`[grid-area:1/1]`): ghost + real tiles occupy the same cell, so the tray
+   height is max(ghost, actual) and the box grows instead of overflowing. */
+[data-tile-tray][data-kind="row"] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: var(--tile-tray-gap);
+}
+[data-tile-tray][data-kind="row"][data-layer="true"] {
+  grid-area: 1 / 1;
+}
+[data-tile-tray][data-kind="row"][data-align="start"] {
+  align-content: flex-start;
+}
+[data-tile-tray][data-kind="row"][data-ghost="true"] {
+  visibility: hidden;
+}
+/* The listen tray's ghost is capped at two rows on phones: an 11-tile
+   answer's full-height reservation was 690px of a 743px scroller. */
+[data-tile-tray][data-kind="row"][data-clamp="true"] {
+  max-height: 92px;
+  overflow: hidden;
+}
+@media (min-width: 640px) {
+  [data-tile-tray][data-kind="row"][data-clamp="true"] {
+    max-height: none;
+  }
+}
+/* `tight` rows (word-build slots + pill) keep a FIXED 0.5rem gap: they never
+   read `--tile-tray-gap`, whose desktop default is 10px, so wiring them to
+   it would have grown those two rows on desktop only. */
+[data-tile-tray][data-kind="row"][data-gap="tight"] {
+  gap: 0.5rem;
+  align-items: center;
+}
+[data-tile-tray][data-kind="row"][data-gap="tight"][data-center="true"] {
+  justify-content: center;
+}
+/* Option grids. `--option-gap` is `gap-3 sm:gap-4`, the value every option
+   grid shipped. The 2×2 is the live path for a 4-option MCQ (the distractor
+   floor guarantees four); `auto-rows-fr` forces equal row heights, without
+   which a 2-mora kana option blew up to 5xl beside its 3-mora neighbours. */
+[data-tile-tray][data-kind="grid"] {
+  position: relative;
+  display: grid;
+  gap: var(--option-gap);
+}
+[data-tile-tray][data-kind="grid"][data-cols="2"] {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+}
+[data-tile-tray][data-kind="grid"][data-fr="true"] {
+  grid-auto-rows: 1fr;
+}
+/* The particle-cloze option row: flex-wrap, and its `gap-3` never had an
+   `sm:` step, so it is a literal rather than `--option-gap` (which grows to
+   1rem at 640px). Same reason `data-gap="tight"` exists on the grids. */
+[data-tile-tray][data-kind="options-row"] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+/* Option grids whose shipped `gap-3` has no `sm:` step (the ≤3-option
+   single-column fallbacks) pin the gap instead of reading the token. */
+[data-tile-tray][data-kind="grid"][data-gap="tight"] {
+  gap: 0.75rem;
+}
+/* The match grid: two columns, rows sized by the token formula so 1fr rows
+   resolve to card-sized tiles instead of stretching on tall viewports. */
+[data-tile-tray][data-kind="match-grid"] {
+  position: relative;
+  display: grid;
+  min-height: 0;
+  flex: 1 1 0%;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 0.75rem;
+  row-gap: var(--match-gap);
+}
+@media (min-width: 640px) {
+  [data-tile-tray][data-kind="match-grid"] {
+    column-gap: 1rem;
+  }
 }

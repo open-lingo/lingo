@@ -1,6 +1,7 @@
-import { useEffect } from "react";
 import type { RuleHint } from "../types";
 import { SceneView } from "./steps/SceneView";
+import { LessonOverlayCard } from "./overlays/LessonOverlayCard";
+import { Badge } from "@/shared/components/ui";
 
 /**
  * Learner-initiated rule peek ("See the rule").
@@ -15,9 +16,11 @@ import { SceneView } from "./steps/SceneView";
  * fully interactive: the learner can flip the direction and watch the verb
  * follow, which is the same manipulation the rule card offered.
  *
- * Keyboard handling mirrors ReactiveGrammarTipCard: step views listen for
- * Enter on document (useLessonKeyboard), so without a capture-phase swallow a
- * habitual Enter would advance the lesson BEHIND the open modal.
+ * Wrapper, scrim, card box and the capture-phase keyboard swallow come from
+ * `LessonOverlayCard` — this file and `ReactiveGrammarTipCard` shipped
+ * byte-identical copies of all four, and diverged on the one line
+ * (`max-h`/`overflow-y-auto`) that decided whether a long card could be
+ * scrolled (TestFlight #132).
  */
 export function RuleHintCard({
   hint,
@@ -29,30 +32,12 @@ export function RuleHintCard({
   remaining: number;
   onDismiss: () => void;
 }) {
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      e.stopPropagation();
-      if (e.key === "Enter" || e.key === "Escape" || e.key === " ") {
-        e.preventDefault();
-        onDismiss();
-      }
-    };
-    document.addEventListener("keydown", onKey, true);
-    return () => document.removeEventListener("keydown", onKey, true);
-  }, [onDismiss]);
-
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 p-4 sm:items-center"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="rule-hint-title"
-    >
-      <div className="max-h-[85vh] w-full max-w-md overflow-y-auto rounded-2xl border-[1.5px] border-border bg-surface p-5 shadow-popover motion-safe:animate-fade-up">
+    <LessonOverlayCard labelledBy="rule-hint-title" onDismissKey={onDismiss}>
         <div className="flex items-start justify-between gap-3">
-          <p className="text-xs font-bold uppercase tracking-wider text-accent">
+          <Badge variant="eyebrow" tone="accent">
             The rule
-          </p>
+          </Badge>
           {/* The counter only exists where peeks are RATIONED. Grammar review
               passes Infinity — the card is something the learner was already
               taught there, so capping it would just make them guess — and
@@ -90,7 +75,6 @@ export function RuleHintCard({
         >
           Back to the question
         </button>
-      </div>
-    </div>
+    </LessonOverlayCard>
   );
 }

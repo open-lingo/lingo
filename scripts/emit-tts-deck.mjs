@@ -13,10 +13,58 @@
  * + `pipeline.tts.upload` publish them to CloudFront. The app never sees a
  * path table — it derives `tts/v1/<lang>/<hash>.mp3` from
  * sha256("<lang>:<text>")[:16] (src/shared/tts/manifest.ts).
+ *
+ * ## Kanji-default synthesis (2026-09-15)
+ *
+ * CONFIRMED which string the app hashes: `getTtsUrl(text, lang)`
+ * (src/shared/tts/index.ts:75) calls `resolveTtsPath(lang, text)`
+ * (src/shared/tts/manifest.ts) which computes `sha256("<lang>:<text>")[:16]`
+ * over EXACTLY the `text` the call site passes — always the kana surface
+ * (audioKey / audioText / kana / targetPhrase / the `front` this emitter
+ * captures). It is NEVER the kanji-substituted display surface:
+ * `applyKanjiSurfaces` (src/features/languages/ja/secondScript/
+ * applyKanjiSurfaces.ts) rewrites ONLY `*Annotation` display fields and its
+ * own header comment says it "TOUCHES NOTHING ELSE" — `audioKey`/`audioText`/
+ * `targetPhrase` are explicitly named as never visited. So the hash key is
+ * kana, full stop — this is the "app hashes kana" branch of the brief, NOT
+ * the "hashes the surface" branch, so this is NOT a mass re-key: existing
+ * hashes for words that already have clips are unchanged, only the AUDIO
+ * BYTES behind them change (a same-hash overwrite, per tts-publish/
+ * README.md's sanctioned-exception pattern).
+ *
+ * Word-level default (this file): for a captured kana string that matches
+ * EXACTLY one `courseAtoms.ts` atom's `kana` (after excluding `kind:
+ * "particle"` entries — particles are never kanji-eligible), the emitted
+ * card carries an extra `speech` field holding that atom's `kanji`
+ * (first option, comma/slash-alternates split — see KANJI_ALT_SEP below).
+ * `front` stays the kana — it is still the ONLY field that determines the
+ * hash/URL.
+ *
+ * Homophone groups (≥2 atoms sharing one kana with different kanji, e.g.
+ * はし = 箸/橋) can't be auto-resolved from a bare kana string — there is no
+ * atomId at this stage, same reason `applyKanjiSurfaces` keys on atomId
+ * instead of kana. Policy: prefer the atom whose `id` carries no
+ * disambiguating hyphen-suffix (the "primary" one), tie-broken by source
+ * order. This exactly reproduces Spencer's already-shipped pick for はし
+ * (`hashi` → 箸, not `hashi-bridge` → 橋) rather than the JA_COURSE_ATOMS_BY_KANA
+ * "last-wins" convention, which would have picked 橋 and reversed his call —
+ * so this file deliberately does NOT reuse that convention. See
+ * `buildKanjiDefaultMap` below for the full 16-group resolution table it
+ * prints on every run.
+ *
+ * Sentence-level kanji substitution is OUT OF SCOPE here: doing it safely
+ * needs atomId resolution (ambiguous-homograph handling, conjugated-form
+ * exclusion) that only the compiled-lesson post-pass has. Sentences keep
+ * their existing per-string overrides in lingo-data's
+ * `pipeline/tts/speech_overrides_ja.json` (the mechanism that already
+ * shipped the ははは/母 and 「Xは？」 fixes) — this emitter now also writes
+ * every word-level `front`→`speech` pair it resolves into that same file
+ * via `scripts/tts-emit-speech-overrides.mjs`, run after this script.
  */
 import { readFileSync, writeFileSync, readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve, join } from "node:path";
+import { buildKanjiDefaultMap, withSpeech } from "./tts-kanji-default.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -73,6 +121,11 @@ try {
 } catch {
   // no ir/ directory yet — fine
 }
+
+// ── Kanji-default resolution (see the file-header doc) ─────────────────
+// Pure logic lives in tts-kanji-default.mjs (importable without triggering
+// this file's top-level side effects) — see it for the resolution policy.
+const KANJI_DEFAULT = buildKanjiDefaultMap(COURSE_ATOMS);
 
 const kanaSet = new Set();
 
@@ -247,10 +300,15 @@ for (const t of kanaSet) {
 }
 const cards = Array.from(deduped)
   .sort()
-  .map((t, i) => ({
-    id: `hira-${i.toString().padStart(3, "0")}-${t}`,
-    front: t,
-  }));
+  .map((t, i) =>
+    withSpeech(
+      {
+        id: `hira-${i.toString().padStart(3, "0")}-${t}`,
+        front: t,
+      },
+      KANJI_DEFAULT,
+    ),
+  );
 
 // ── Male-speaker dialogue deck (Keita) ─────────────────────────────────
 // Dialogue speakers get REAL distinct voices (Spencer 2026-07-19: "just
@@ -359,7 +417,12 @@ function writeDialogueDeck(file, name, languageId, set, note) {
         _note: note,
         cards: Array.from(set)
           .sort()
-          .map((t, i) => ({ id: `${name}-${i.toString().padStart(3, "0")}-${t}`, front: t })),
+          .map((t, i) =>
+            withSpeech(
+              { id: `${name}-${i.toString().padStart(3, "0")}-${t}`, front: t },
+              KANJI_DEFAULT,
+            ),
+          ),
       },
       null,
       2,
@@ -397,3 +460,8 @@ const deck = {
 
 writeFileSync(OUT, JSON.stringify(deck, null, 2) + "\n", "utf-8");
 console.log(`wrote ${cards.length} phrases → ${OUT}`);
+const withSpeechCount = cards.filter((c) => c.speech).length;
+console.log(
+  `  ${withSpeechCount} card(s) carry a kanji \`speech\` field (front/hash stays kana); ` +
+    "run scripts/tts-emit-speech-overrides.mjs next to feed them to the generator.",
+);

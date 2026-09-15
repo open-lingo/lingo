@@ -57,6 +57,7 @@ import {
   particleContrastsFor,
   siblingsOf,
 } from "@/features/languages/ja/jaSiblingSets";
+import { sameTileFamily } from "./contentFloors";
 
 /** Languages with a wired atom pool (`getAtomsUpToModule`) to draw fill
  *  distractors from. Any other language's lesson returns UNTOUCHED — a
@@ -210,12 +211,22 @@ function pickFillTiles(
   ];
   const picked: string[] = [];
   const seen = new Set<string>();
+  // #90 (Spencer b13, 2026-09-15): "This is a weird sentence, double uta
+  // aren't necessary no?" — a bank offered うた「歌」beside the answer's
+  // うたう「歌う」. Two surfaces of one stem are not two choices, so a fill
+  // candidate in the same family as ANY tile already in the bank (answer
+  // tokens included) is skipped, not shortened-into. `sameTileFamily` is
+  // strict-prefix + ≤2 kana tail, so tense contrasts (たべる/たべた) and
+  // particles are untouched — see its doc comment.
+  const familyGuard = [...step.tiles];
   for (const atom of ranked) {
     if (picked.length >= need) break;
     const key = atom.kana.toLowerCase();
     if (seen.has(key)) continue;
+    if (familyGuard.some((t) => sameTileFamily(t, atom.kana))) continue;
     seen.add(key);
     picked.push(atom.kana);
+    familyGuard.push(atom.kana);
   }
   return picked;
 }

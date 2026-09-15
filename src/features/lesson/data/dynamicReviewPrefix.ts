@@ -4,6 +4,7 @@ import {
   buildSwitchoverBeat,
   composeAtomSteps,
   scanReviewCandidates,
+  selectReviewHalves,
   type ReviewCandidate,
   type ReviewPick,
 } from "./buildSrsReviewLesson";
@@ -16,7 +17,10 @@ import {
 import { buildGrammarReviewQueue } from "@/features/flashcards/engine/grammarSrs";
 import { isDue, getToday } from "@/features/flashcards/engine/srs";
 import { parseModuleIndex } from "@/shared/settings/romanizationAutoFlip";
-import { seededShuffle } from "@/shared/utils/seededShuffle";
+import {
+  SENTENCE_REUSE_MIN_GAP,
+  primarySentenceOf,
+} from "./contentFloors";
 
 /**
  * B069 phase 1 (Spencer 2026-07-30, decision-brief-2026-07-29 §1, option 3):
@@ -28,13 +32,15 @@ import { seededShuffle } from "@/shared/utils/seededShuffle";
  * dormant `buildSrsReviewLesson` ride on top:
  *
  *   (a) the kana→kanji switchover beat (B061) when a candidate is ready,
- *   (b) due-atom review steps (sentence-context via the shared miner),
+ *   (b) the review portion — half FSRS-due, half recent (RULE 3, 2026-09-15;
+ *       sentence-context via the shared miner),
  *   (c) due Track B grammar-point steps,
  *   (d) reserved seats for new (never-reviewed) cards — the B065 intake.
  *
  * That is also the PRIORITY order when the segment is over budget: the beat
- * always ships whole, then due atoms, then grammar, then intake seats
- * (Spencer: "due-first when over budget").
+ * always ships whole, then the review portion, then grammar, then intake seats
+ * (Spencer: "due-first when over budget" — and within the review portion, due
+ * is the half that never yields, see `selectReviewHalves`).
  *
  * Grading needs NO new plumbing: the merged lesson keeps its
  * `ja-mN-neo-review-*` id, which `isDedicatedReviewLesson` already matches,
@@ -43,9 +49,12 @@ import { seededShuffle } from "@/shared/utils/seededShuffle";
  * `shouldWriteReviewLessonAtom`), and `latchCompletedSwitchover` pairs the
  * beat's reveal/cloze by id suffix on completion.
  *
- * EMPTY STATE: a learner with nothing due, nothing latched-pending and no
- * new candidates gets the authored lesson back BYTE-IDENTICAL (same object
- * reference — no copy, no reshuffle).
+ * EMPTY STATE: a learner with NOTHING UNLOCKED gets the authored lesson back
+ * BYTE-IDENTICAL (same object reference — no copy, no reshuffle), as does one
+ * with nothing due, nothing recent-and-studied, nothing latched-pending and no
+ * new candidates. Note that since RULE 3 the second case is rarer: an active
+ * learner always has recent non-due material, and giving them half a lesson of
+ * it is the point (#91/#116).
  */
 
 /**
@@ -61,25 +70,73 @@ export const DYNAMIC_REVIEW_PREFIX_CAP = 10;
  *  uses 2–4 for a whole lesson; the prefix is a fraction of one. */
 const PREFIX_MAX_GRAMMAR = 2;
 
+/** RULE 2's key for a step, or "" when it is not sentence-level. */
+function sentenceKeyOf(step: LessonStep): string {
+  const { key, tokens } = primarySentenceOf(step);
+  return tokens >= 2 ? key : "";
+}
+
 /**
  * Insert `steps` one at a time (priority order preserved) so that no two
  * adjacent steps share a type — including the seam against the last beat
- * step (`prevType`) and the first authored step (`followerType`). A step
- * with no legal slot is dropped: at CAP size that only happens to the
+ * step (`prevType`) and the first authored step (`followerType`) — and so
+ * that no two steps within `SENTENCE_REUSE_MIN_GAP` share a SENTENCE (RULE 2,
+ * Spencer 2026-09-15: "one sentence should NEVER be less than two steps
+ * between re-uses even if the step type is different").
+ *
+ * The sentence half matters here specifically because the prefix is composed
+ * from mined sentences and then glued in front of an AUTHORED body it has
+ * never seen: the merged lesson is the surface the learner walks, so the rule
+ * has to hold across the seam (`followerSentences`), not just inside the
+ * prefix. The compiler enforces the same rule for the authored body itself.
+ *
+ * A step with no legal slot is dropped: at CAP size that only happens to the
  * lowest-priority entries, which is the correct sacrifice.
+ *
+ * Exported for `reviewSplit.test.ts`: the live fixtures' mined sentences do not
+ * happen to collide with their authored bodies, so the seam guard is
+ * defensive there — the only way to show it works is to plant a collision.
  */
-function placeAvoidingSameType(
+export function placeAvoidingSameType(
   steps: readonly LessonStep[],
   prevType: string | undefined,
   followerType: string | undefined,
+  prevSentences: readonly string[] = [],
+  followerSentences: readonly string[] = [],
 ): LessonStep[] {
   const out: LessonStep[] = [];
   const typeAt = (i: number): string | undefined =>
     i < 0 ? prevType : out[i]?.type;
+  /** Sentence at absolute position `i` of [prev… , out…, follower…]. */
+  const sentenceAt = (i: number): string => {
+    if (i < 0) {
+      // -1 is the step immediately before `out[0]`, -2 the one before that.
+      const back = prevSentences[prevSentences.length + i];
+      return back ?? "";
+    }
+    if (i < out.length) return sentenceKeyOf(out[i]);
+    return followerSentences[i - out.length] ?? "";
+  };
+  /** Would placing `key` at index `i` sit within the gap of the same sentence? */
+  const sentenceClashAt = (key: string, i: number): boolean => {
+    if (!key) return false;
+    for (let d = 1; d < SENTENCE_REUSE_MIN_GAP; d++) {
+      if (sentenceAt(i - d) === key) return true;
+      // `i` is an INSERT position: what currently sits at i shifts to i+1, so
+      // the forward neighbours are at i, i+1, …
+      if (sentenceAt(i + d - 1) === key) return true;
+    }
+    return false;
+  };
 
   const insertInterior = (step: LessonStep): boolean => {
+    const key = sentenceKeyOf(step);
     for (let i = out.length - 1; i >= 0; i--) {
-      if (typeAt(i - 1) !== step.type && out[i].type !== step.type) {
+      if (
+        typeAt(i - 1) !== step.type &&
+        out[i].type !== step.type &&
+        !sentenceClashAt(key, i)
+      ) {
         out.splice(i, 0, step);
         return true;
       }
@@ -88,7 +145,10 @@ function placeAvoidingSameType(
   };
 
   for (const step of steps) {
-    if (typeAt(out.length - 1) !== step.type) {
+    if (
+      typeAt(out.length - 1) !== step.type &&
+      !sentenceClashAt(sentenceKeyOf(step), out.length)
+    ) {
       out.push(step);
       continue;
     }
@@ -138,13 +198,29 @@ export function buildDynamicReviewPrefix(lesson: LessonContent): LessonStep[] {
   );
   let budget = DYNAMIC_REVIEW_PREFIX_CAP - beat.length;
 
-  // (b) Due atoms — priority claim on the remaining budget ("due-first when
-  // over budget"). Seeded per DAY, not per call (`Date.now()` here would
-  // reshuffle the prefix under a mid-lesson re-resolve and desync step ids).
-  const due = scan.candidates.filter((c) => !c.isNewCard);
+  // (b) The REVIEW PORTION — half FSRS-due, half recent (RULE 3, Spencer
+  // 2026-09-15: "so half recent things, half fsrs learnings"). The split and
+  // the six-module window both live in `selectReviewHalves`, shared with the
+  // review-lesson tail builder; see its doc comment for the algorithm and the
+  // full quote.
+  //
+  // This replaces a due-only draw. Due-only is what shipped #91/#116: with
+  // nothing due the prefix was empty and the lesson fell back to compiled
+  // filler drawn from 574 words of met vocabulary, so an m31 learner got いいえ.
+  // Due still has the priority claim when the budget is tight — `slots` is
+  // what is left after the switchover beat, and `selectReviewHalves`
+  // backfills either half from the other.
+  //
+  // Seeded per DAY, not per call (`Date.now()` here would reshuffle the prefix
+  // under a mid-lesson re-resolve and desync step ids).
   const daySeed = `${lesson.id}-dyn-${getToday()}`;
-  const duePicks = seededShuffle(due, daySeed).slice(0, Math.max(0, budget));
-  budget -= duePicks.length;
+  const halves = selectReviewHalves({
+    scan,
+    slots: Math.max(0, budget),
+    seed: daySeed,
+  });
+  const reviewPicks = [...halves.due, ...halves.recent];
+  budget -= reviewPicks.length;
 
   // (c) Due Track B grammar. Due points only — new-point seeding stays with
   // the grammar review session; the prefix is retrieval, not grammar intake.
@@ -191,7 +267,7 @@ export function buildDynamicReviewPrefix(lesson: LessonContent): LessonStep[] {
   // whole pick list. `-review-2` skews production like the full builder's
   // position 2; everything else stays recognition-heavy.
   const isRecognitionHeavy = !/-review-2$/.test(lesson.id);
-  const picks: ReviewPick[] = [...duePicks, ...newSeats].map((c) => ({
+  const picks: ReviewPick[] = [...reviewPicks, ...newSeats].map((c) => ({
     atom: c.atom,
     dueModalities: c.dueModalities,
     isNewCard: c.isNewCard,
@@ -211,6 +287,11 @@ export function buildDynamicReviewPrefix(lesson: LessonContent): LessonStep[] {
     [...atomSteps, ...grammarSteps],
     beat[beat.length - 1]?.type,
     lesson.steps[0]?.type,
+    // RULE 2 across both seams: the beat's tail behind, the authored body's
+    // head ahead. `SENTENCE_REUSE_MIN_GAP - 1` steps on each side is exactly
+    // the reach of the rule.
+    beat.slice(-(SENTENCE_REUSE_MIN_GAP - 1)).map(sentenceKeyOf),
+    lesson.steps.slice(0, SENTENCE_REUSE_MIN_GAP - 1).map(sentenceKeyOf),
   );
   return [...beat, ...tail];
 }

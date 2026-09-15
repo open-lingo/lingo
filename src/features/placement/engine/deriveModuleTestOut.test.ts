@@ -9,6 +9,7 @@ import {
   TESTOUT_DERIVED_FLOOR,
 } from "./deriveModuleTestOut";
 import { mulberry32 } from "@/shared/utils/seededRng";
+import { primarySentenceOf } from "@/features/lesson/data/contentFloors";
 
 // 2026-07-19 (rewrite spine): the ja map replaced the old m3-m17 modules
 // with the dict-form-first spine — m3 (the m3-neo pilot) is the only ja
@@ -194,6 +195,110 @@ describe("deriveModuleTestOut", () => {
   });
 
   // ── Korean derivation (change 2 — KO test-outs now derive real steps) ──
+  /**
+   * #129 (Spencer, b15 2026-09-15): *"It gave me this sentence twice, can we
+   * make sure we don't get the same exact question and step type in test
+   * outs"* — served against m33, whose transitivity minimal pairs author
+   * さいふが おちる / さいふを おとす as a build beat, a listening-comp beat and
+   * two particle-cloze beats. Four distinct `step.id`s, one sentence, and the
+   * sampler deduped by step id ONLY.
+   */
+  describe("#129 — one sentence per session, not one step id", () => {
+    const sentenceKeys = (items: ReturnType<typeof collectGradable>) =>
+      items
+        .map((i) => primarySentenceOf(i.step))
+        .filter((x) => x.tokens >= 2)
+        .map((x) => x.key);
+
+    it("m33's minimal-pair sentences really are authored several times (fixture)", () => {
+      // Non-vacuity: if the content stopped repeating them, the assertions
+      // below would pass without exercising the dedupe at all.
+      const keys = sentenceKeys(collectGradable("m33"));
+      const counts = new Map<string, number>();
+      for (const k of keys) counts.set(k, (counts.get(k) ?? 0) + 1);
+      const repeated = [...counts].filter(([, n]) => n > 1);
+      expect(repeated.length, "m33 authors at least one sentence twice").toBeGreaterThan(0);
+    });
+
+    it("no derived session serves one sentence twice — deterministic draw", () => {
+      for (const mid of SHIPPED) {
+        const keys = sentenceKeys(deriveModuleTestOut(mid).items);
+        expect(new Set(keys).size, `${mid} duplicate sentence in test-out`).toBe(
+          keys.length,
+        );
+      }
+    });
+
+    it("no derived session serves one sentence twice — every seeded attempt", () => {
+      for (const mid of ["m33", "m31", "m3"]) {
+        for (let seed = 1; seed <= 40; seed++) {
+          const d = deriveModuleTestOut(mid, { rng: mulberry32(seed) });
+          const keys = sentenceKeys(d.items);
+          expect(
+            new Set(keys).size,
+            `${mid} seed ${seed} duplicate sentence: ${keys.join(" | ")}`,
+          ).toBe(keys.length);
+          // The dedupe must not cost the session its size or its coverage.
+          expect(d.steps.length, `${mid} seed ${seed} size`).toBe(TESTOUT_SIZE);
+          expect(
+            d.sectionsCovered,
+            `${mid} seed ${seed} coverage`,
+          ).toBeGreaterThanOrEqual(Math.min(d.sectionsTotal, TESTOUT_SIZE));
+        }
+      }
+    });
+
+    it("the dedupe fires: two items rendering one sentence cannot both be picked", () => {
+      // Proof the guard can fail. Two DIFFERENT step ids, same sentence, in
+      // two different sections — exactly the m33 shape. Old behaviour took
+      // both (distinct ids); the content key now allows only one.
+      const twin = (id: string, section: string) => ({
+        step: {
+          id,
+          type: "build_sentence",
+          prompt: "Build",
+          targetSentence: "さいふが おちる",
+          tiles: ["さいふ", "が", "おちる"],
+          correctOrder: ["さいふ", "が", "おちる"],
+          granularity: "word",
+        },
+        lessonId: `ja-m33-neo-${section}`,
+        section,
+        format: "build_sentence",
+      }) as unknown as ReturnType<typeof collectGradable>[number];
+      const other = (id: string, section: string, ja: string) => ({
+        step: {
+          id,
+          type: "build_sentence",
+          prompt: "Build",
+          targetSentence: ja,
+          tiles: ja.split(" "),
+          correctOrder: ja.split(" "),
+          granularity: "word",
+        },
+        lessonId: `ja-m33-neo-${section}`,
+        section,
+        format: "build_sentence",
+      }) as unknown as ReturnType<typeof collectGradable>[number];
+
+      const picked = pickCovering(
+        [
+          twin("a", "m33-1"),
+          other("a2", "m33-1", "ドアが あく"),
+          twin("b", "m33-2"),
+          other("b2", "m33-2", "まどを あける"),
+        ],
+        4,
+      );
+      const keys = picked
+        .map((p) => primarySentenceOf(p.step))
+        .filter((x) => x.tokens >= 2)
+        .map((x) => x.key);
+      expect(new Set(keys).size).toBe(keys.length);
+      expect(keys).toContain("さいふがおちる");
+    });
+  });
+
   describe("KO derivation", () => {
     it("collectGradable returns real KO steps for a KO grammar module", () => {
       const ko = collectGradable("m3", TESTOUT_FORMATS, "ko");

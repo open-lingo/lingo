@@ -7,6 +7,8 @@ import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { playJaAudio } from "@/shared/tts";
 import { SortableBuildTiles } from "./SortableBuildTiles";
+import { Tile } from "../tiles/Tile";
+import { TileTray, tileRowAttrs } from "../tiles/TileTray";
 import {
   BuildTileSurface,
   useBuildTileKanji,
@@ -233,51 +235,51 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
            the bank tiles ARE the options (MultipleChoiceStepView's visual
            language). Tap selects (replacing any prior pick); Check
            submits via the existing generic submit path. */
-        <div
-          className="relative grid gap-3"
+        <TileTray
+          kind="grid"
+          cols={1}
+          gap="tight"
           style={{ minHeight: "min(32.5rem, 44cqh)" }}
         >
           {bankTiles.map((tile, i) => {
             const isSelected = placedIdx.includes(i);
             const isAnswer = tile === step.correctOrder[0];
-            let optionStyle =
-              "border-border bg-surface text-text-primary hover:border-accent";
-            if (submitted && isAnswer) {
-              optionStyle = "border-accent bg-accent text-white";
-            } else if (submitted && isSelected && !isAnswer) {
-              optionStyle = "border-error bg-error/15 text-error";
-            } else if (isSelected) {
-              optionStyle = "border-accent bg-accent-muted text-accent";
-            }
             return (
-              <button
+              /* `size="pick-fluid"`: vertical padding is height-relative, not
+                 fixed. A fixed `py-6` made each option 90px, and four of them
+                 plus the play button, a two-line prompt and the CTA overflow
+                 the fixed lesson shell below ~900pt: at 393x852 (a 15 Pro Max
+                 in Display Zoom) that shows a scrollbar, and at 375x812 the
+                 last option is clipped BEHIND the Check button —
+                 unreachable. The clamp lives in the primitive now. */
+              <Tile
                 key={`tile-${i}`}
-                type="button"
+                variant="option"
+                size="pick-fluid"
+                state={
+                  submitted && isAnswer
+                    ? "correct"
+                    : submitted && isSelected
+                      ? "wrong"
+                      : isSelected
+                        ? "selected"
+                        : "idle"
+                }
                 disabled={submitted}
                 aria-pressed={isSelected}
                 onClick={() => addTile(i)}
                 onMouseEnter={() => peek.hoverStart(i)}
                 onMouseLeave={peek.hoverEnd}
-                /* Vertical padding is height-relative, not fixed.
-                   A fixed `py-6` made each option 90px, and four of them plus
-                   the play button, a two-line prompt and the CTA overflow the
-                   fixed lesson shell below ~900pt: at 393x852 (a 15 Pro Max in
-                   Display Zoom) that shows a scrollbar, and at 375x812 the last
-                   option is clipped BEHIND the Check button — unreachable.
-                   `cqh` is already the unit this grid sizes with, so the
-                   padding now shrinks with the container while the clamp keeps
-                   the roomy look on tall screens. Measured at 375/393/430. */
-                className={`flex items-center justify-center rounded-xl border-2 px-4 py-[clamp(0.5rem,2.6cqh,1.5rem)] text-xl font-bold transition-colors duration-150 ${optionStyle} ${submitted ? "cursor-default" : "cursor-pointer"}`}
               >
                 <BuildTileSurface
                   tile={tile}
                   kanji={tileKanji.get(tile)}
                   forceHelper={peek.revealed.has(i)}
                 />
-              </button>
+              </Tile>
             );
           })}
-        </div>
+        </TileTray>
       ) : (
       <>
       {/* Phone tier (TestFlight 2026-09-05 #3): 64px tiles at text-2xl
@@ -319,20 +321,18 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
           the same height") — the SAME token BuildSentenceStepView's dense/
           hugeBank/bigTiles tiers read, so "Lock tile heights" on the QA
           page reaches every build surface in one write. */}
-      <div className="grid min-h-[54px] rounded-2xl border-2 border-dashed border-border bg-surface-muted px-4 py-3 sm:min-h-[68px] sm:py-4">
-        <div aria-hidden className="[grid-area:1/1] invisible flex max-h-[92px] flex-wrap items-stretch gap-[var(--tile-tray-gap)] overflow-hidden sm:max-h-none">
+      <TileTray kind="tray" variant="listen">
+        <TileTray kind="row" layer ghost clamp aria-hidden>
           {step.correctOrder.map((tile, i) => (
-            <span
-              key={`ghost-${i}`}
-              className="flex flex-col items-center justify-end rounded-[var(--tile-radius)] border-2 min-h-[var(--tile-box-h)] px-[calc(var(--tile-px)*1.142857)] py-[calc(var(--tile-py)*1.75)] text-[length:calc(var(--tile-font)*1.030303)] font-bold leading-tight sm:px-[calc(var(--tile-px)*1.25)] sm:py-[calc(var(--tile-py)*1.25)] sm:text-[length:calc(var(--tile-font)*1.25)]"
-            >
-              {/* Ghost sizing MUST use the same glyphs (kanji + rt) as the
-                  real tiles or the tray mis-sizes. */}
+            /* A pre-sizer MUST use the same glyphs (kanji + rt) AND the same
+               box as the real tiles or the tray mis-sizes — `state="ghost"`
+               is a state of the primitive for exactly that reason. */
+            <Tile key={`ghost-${i}`} variant="listen" slot="tray" state="ghost">
               <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
-            </span>
+            </Tile>
           ))}
-        </div>
-        <div className="[grid-area:1/1] flex flex-wrap content-start items-stretch gap-[var(--tile-tray-gap)]">
+        </TileTray>
+        <TileTray kind="row" layer align="start">
           {placed.length === 0 ? (
             <span className="self-center text-base text-text-muted">
               Tap tiles to build what you hear
@@ -349,45 +349,42 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
               onTileHoverStart={peek.hoverStart}
               onTileHoverEnd={peek.hoverEnd}
               forceHelperFor={(id) => peek.revealed.has(id)}
-              className="flex flex-wrap content-start items-stretch gap-[var(--tile-tray-gap)]"
-              tileClassName="flex flex-col items-center justify-end rounded-[var(--tile-radius)] border-2 border-accent bg-accent-muted text-accent min-h-[var(--tile-box-h)] px-[calc(var(--tile-px)*1.142857)] py-[calc(var(--tile-py)*1.75)] text-[length:calc(var(--tile-font)*1.030303)] font-bold leading-tight sm:px-[calc(var(--tile-px)*1.25)] sm:py-[calc(var(--tile-py)*1.25)] sm:text-[length:calc(var(--tile-font)*1.25)] transition-colors duration-150 hover:bg-accent hover:text-white"
+              rowAttrs={tileRowAttrs({ align: "start" })}
+              tile={{ variant: "listen", slot: "tray", state: "placed" }}
             />
           )}
-        </div>
-      </div>
+        </TileTray>
+      </TileTray>
 
       {/* Tile bank — buttons ~50% bigger font + matching padding. Gap is its
           own token (`--listen-bank-gap`, default 12px) rather than
           `--tile-gap` (default 8px) — TestFlight #125's "12px vs 8px"
           bank/tray mismatch is a disclosed default, not silently changed by
           this wiring (see the index.css token-block comment). */}
-      <div className="relative flex flex-wrap items-stretch gap-[var(--listen-bank-gap)]">
+      <TileTray kind="bank" variant="listen">
         {bankTiles.map((tile, i) => {
           const used = tileUsedFlags[i];
           return (
-            <button
+            <Tile
               key={`tile-${i}`}
-              type="button"
+              variant="listen"
+              slot="bank"
+              state={used ? "spent" : "idle"}
               disabled={submitted || used}
               onClick={() => addTile(i)}
               onMouseEnter={() => peek.hoverStart(i)}
               onMouseLeave={peek.hoverEnd}
               aria-pressed={used}
-              className={
-                used
-                  ? "flex flex-col items-center justify-end rounded-[var(--tile-radius)] border-2 border-border bg-surface-muted text-text-muted opacity-40 min-h-[var(--tile-box-h)] px-[calc(var(--tile-px)*1.142857)] py-[calc(var(--tile-py)*1.75)] text-[length:calc(var(--tile-font)*1.030303)] font-bold leading-tight sm:px-[calc(var(--tile-px)*1.25)] sm:py-[calc(var(--tile-py)*2)] sm:text-[length:calc(var(--tile-font)*1.25)]"
-                  : "flex flex-col items-center justify-end rounded-[var(--tile-radius)] border-2 border-border bg-surface text-text-primary transition-colors duration-150 hover:border-accent disabled:opacity-50 min-h-[var(--tile-box-h)] px-[calc(var(--tile-px)*1.142857)] py-[calc(var(--tile-py)*1.75)] text-[length:calc(var(--tile-font)*1.030303)] font-bold leading-tight sm:px-[calc(var(--tile-px)*1.25)] sm:py-[calc(var(--tile-py)*2)] sm:text-[length:calc(var(--tile-font)*1.25)]"
-              }
             >
               <BuildTileSurface
                 tile={tile}
                 kanji={tileKanji.get(tile)}
                 forceHelper={peek.revealed.has(i)}
               />
-            </button>
+            </Tile>
           );
         })}
-      </div>
+      </TileTray>
       </>
       )}
       </div>

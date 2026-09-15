@@ -3,6 +3,8 @@ import { seededShuffle } from "@/shared/utils/seededShuffle";
 import { useTranslation } from "react-i18next";
 import type { MultipleChoiceStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
+import { Tile } from "../tiles/Tile";
+import { TileTray } from "../tiles/TileTray";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
@@ -24,6 +26,7 @@ import {
   optionAnchor,
   promptAnchor,
 } from "@/shared/i18n/content/anchors";
+import { Badge } from "@/shared/components/ui";
 
 const CELEBRATE_MS = 1100;
 
@@ -119,19 +122,20 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue, lessonId 
   // to 5xl + py-9 while its 3-mora neighbors stayed text-xl + py-6
   // (Spencer's 2026-05-17 sizing-inconsistency report).
   const optionsAre4 = step.options.length === 4;
-  const gridClasses = optionsAre4
-    ? "relative grid grid-cols-2 grid-rows-2 auto-rows-fr gap-3 sm:gap-4"
-    : "relative grid gap-3";
-
   // Word-only grid detection (single tokens, no sentences): these render
   // as centered word cards at ONE shared size tier — mixing a 5xl kana
   // with a tiny left-aligned 3-mora word in the same grid read as broken.
   const allSingleWords = step.options.every(
     (o) => o.text.trim().length <= 8 && !/\s/.test(o.text.trim()),
   );
+  // A word-only grid picks ONE tier for every option — the longest option
+  // decides. Pre-fix the ≤2-glyph cutoff was per option, which left とけい /
+  // きゅうり tiny and left-aligned beside a blown-up centred に (Spencer QA
+  // 2026-07-13, ja-m5-review-1: "bigger and take the center of the card if
+  // it is a single word").
   const singleWordSize = step.options.some((o) => o.text.trim().length > 2)
-    ? "py-8 text-3xl sm:text-4xl"
-    : "py-9 text-5xl sm:text-6xl";
+    ? ("word" as const)
+    : ("word-glyph" as const);
 
   const hasSubmittedWrong = submitted && !isCorrect;
   const showExplain = stepHasSentenceContent(step);
@@ -162,9 +166,9 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue, lessonId 
           >
             <Icon name="play" size={32} />
           </button>
-          <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
+          <Badge variant="eyebrow">
             {t("lesson.whichKanaStarts", "Which kana starts the word?")}
-          </p>
+          </Badge>
         </div>
       ) : (
         <div className="flex flex-wrap items-center gap-3">
@@ -201,12 +205,12 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue, lessonId 
           ones — no `dvh` floor that overflowed short/landscape viewports.
           The grid's own `auto-rows-fr` + tile content set the natural
           floor, so no fixed px minimum is needed. */}
-      <div
-        className={gridClasses}
+      <TileTray
+        kind="grid"
+        cols={optionsAre4 ? 2 : 1}
+        gap={optionsAre4 ? undefined : "tight"}
         style={{
-          minHeight: optionsAre4
-            ? "min(40rem, 52cqh)"
-            : "min(32.5rem, 44cqh)",
+          minHeight: optionsAre4 ? "min(40rem, 52cqh)" : "min(32.5rem, 44cqh)",
         }}
       >
         {order.map((idx) => {
@@ -216,68 +220,53 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue, lessonId 
           const isAnswer = opt.id === step.correctOptionId;
           const ann = step.optionAnnotations?.[idx];
 
-          // Default + selected-pre-submit + post-submit-correct/wrong.
-          // Pre-submit selection uses a lighter "picked, not locked"
-          // tint (border-accent + bg-accent-muted + text-accent) so it's
-          // clearly distinct from the full accent fill that marks a
-          // submitted-correct answer. Pre-fix (2026-05-17 R1.1) both
-          // states used the same green fill, which made tap-to-peek
-          // look like commit-to-answer.
-          let style =
-            "border-border bg-surface text-text-primary hover:border-accent";
+          // Default + selected-pre-submit + post-submit-correct/wrong, as
+          // ONE WORD each. Pre-submit selection is a lighter "picked, not
+          // locked" tint than the full accent fill that marks a submitted
+          // correct answer — pre-fix (2026-05-17 R1.1) both used the same
+          // green fill, which made tap-to-peek look like commit-to-answer.
+          // The colours themselves live in the primitive now.
+          const state = submitted && isAnswer
+            ? "correct"
+            : submitted && isSelected
+              ? "wrong"
+              : isSelected
+                ? "selected"
+                : "idle";
 
-          if (submitted && isAnswer) {
-            style = "border-accent bg-accent text-white";
-          } else if (submitted && isSelected && !isAnswer) {
-            style = "border-error bg-error/15 text-error";
-          } else if (isSelected) {
-            style = "border-accent bg-accent-muted text-accent";
-          }
-
-          // Layout per option:
-          // - translateMcq (reveal-on-select): all 4 options render at
-          //   one consistent size regardless of text length. Pre-fix the
-          //   isShortGlyph branch fired for 2-mora かぎ and blew it up
-          //   to text-5xl while 3-mora siblings stayed text-xl —
-          //   tiles looked broken. Spencer 2026-05-17: "set height and
-          //   width limits and then fill text". Now uniform mid-size +
-          //   min-height; grid auto-rows-fr keeps rows equal.
-          // - Word-only grids: EVERY tile centers at one uniform display
-          //   size — the longest option picks the tier. Pre-fix the ≤2
-          //   cutoff left とけい/きゅうり tiny and left-aligned next to a
-          //   blown-up centered に (Spencer QA 2026-07-13, ja-m5-review-1:
-          //   "bigger and take the center of the card if it is a single
-          //   word").
-          // - Regular MC short glyph (≤2 chars) in MIXED grids: big-glyph
-          //   center layout, classic alphabet drill.
-          // - Long text (sentences): left-aligned text-xl.
-          // Big-glyph treatment only when the WHOLE grid is glyphs — a
-          // lone short option (うん) in a mixed sentence grid rendered
-          // 3-4x its siblings (Gate 10 continuity run, 2026-07-20).
+          // Layout per option, as a size tier:
+          // - `reveal` (translateMcq): all 4 options at one size regardless
+          //   of text length. Pre-fix the isShortGlyph branch fired for
+          //   2-mora かぎ and blew it up to text-5xl while 3-mora siblings
+          //   stayed text-xl — tiles looked broken. Spencer 2026-05-17: "set
+          //   height and width limits and then fill text".
+          // - `word`/`word-glyph`: word-only grids, one uniform display size
+          //   picked by the longest option.
+          // - `glyph`: a ≤2-glyph option in a MIXED grid — the classic
+          //   alphabet drill. Big-glyph treatment ONLY when the whole grid is
+          //   glyphs: a lone short option (うん) in a mixed sentence grid
+          //   rendered 3-4× its siblings (Gate 10 continuity run 2026-07-20).
+          // - `sentence`: long text, left-aligned.
           const isShortGlyph =
             opt.text.length <= 2 &&
             step.options.every((o) => o.text.length <= 2);
-          const layout = step.optionsRevealRomajiOnSelect
-            ? "flex items-center justify-center py-8 px-4 text-3xl sm:text-4xl font-bold min-h-[120px]"
+          const size = step.optionsRevealRomajiOnSelect
+            ? ("reveal" as const)
             : allSingleWords
-              ? `flex items-center justify-center px-4 font-bold ${singleWordSize}`
+              ? singleWordSize
               : isShortGlyph
-                ? "flex items-center justify-center py-9 text-5xl sm:text-6xl font-bold"
-                // TOKENIZED (b16 2026-09-15): the "own group" MCQ tokens —
-              // regular/sentence layout ONLY. The three special layouts
-              // above (reveal-on-select, single-word, short-glyph) keep
-              // their literal sizes; the brief allocates just `--mcq-font`
-              // /`--mcq-py` for the one used by a standard 4-option MC.
-              : "px-4 py-[var(--mcq-py)] text-left text-[length:var(--mcq-font)] font-medium leading-snug";
+                ? ("glyph" as const)
+                : ("sentence" as const);
 
           return (
-            <button
+            <Tile
               key={opt.id}
-              type="button"
+              variant="option"
+              size={size}
+              state={state}
               disabled={submitted}
               aria-pressed={isSelected}
               onClick={() => setSelected(opt.id)}
-              className={`rounded-xl border-2 transition-colors duration-150 ${layout} ${style} ${submitted ? "cursor-default" : "cursor-pointer"}`}
             >
               {step.optionsHideRomaji ? (
                 // Test/quiz mode — render the kana raw so the romaji
@@ -296,10 +285,10 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue, lessonId 
                   <AnnotatedJa text={optText} forceShowHelper={showRomaji} />
                 );
               })()}
-            </button>
+            </Tile>
           );
         })}
-      </div>
+      </TileTray>
       </div>
 
       {/* Single bottom-anchored block: wrong-answer banner + CTA together

@@ -185,8 +185,9 @@ export function BuildTileSurface({
   // wired b16.1 2026-09-15): a MASTERED tile's furigana is hidden, leaving
   // it in the same situation as a kana-only tile — nothing above its word —
   // so it should grow the same way. `data-build-tile-reading="hidden"` lets
-  // `.build-tile-dense [data-build-tile-reading="hidden"]` (index.css) apply
-  // the same `--tile-kana-font` growth `[data-build-tile-kana]` gets.
+  // index.css's `[data-tile][data-variant="build"][data-density="dense"|"huge"]
+  // [data-build-tile-reading="hidden"]` rule apply the same
+  // `--tile-kana-font` growth `[data-build-tile-kana]` gets.
   return (
     <KanjiRuby
       data-build-tile-kanji="true"

@@ -89,7 +89,7 @@ function formattedVars(vars: TileVarMap, tier: "base" | "sm"): Record<string, st
   return out;
 }
 
-const GROUPS: TileTokenGroup[] = ["build", "match", "mcq"];
+const GROUPS: TileTokenGroup[] = ["build", "match", "mcq", "option", "card"];
 
 const BOX_H_KEY = "--tile-box-h";
 

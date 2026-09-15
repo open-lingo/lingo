@@ -100,3 +100,64 @@ sends `kana:`, so the fix is to synthesize from the kanji surface:
 Same rule as the 2026-08-20 entry: after the sync these three paths need a
 CloudFront invalidation (`/tts/v1/ja/<hash>.mp3`). わたし (#100) did NOT
 reproduce (live clip + 5 regenerations all read わたし) — left as is.
+
+## Exception logged 2026-09-15 (batch 2): kanji-default synthesis wave, 37 more OVERWRITE existing keys
+
+Fable to-do from the sweep above: "emit the kanji surface to TTS by default
+... regen the は-initial class." `scripts/emit-tts-deck.mjs` now resolves a
+per-word kanji default from `courseAtoms.ts` (particles excluded; homophone
+groups disambiguated "no-hyphen id wins" — see that file's header doc and
+`scripts/tts-kanji-default.mjs`) and writes it as each card's `speech`
+field, **`front`/the hash key stays kana** — confirmed 2026-09-15 that the
+app always hashes kana, never the kanji-substituted display surface
+(`applyKanjiSurfaces` never touches `audioKey`/`audioText`/`targetPhrase`).
+`scripts/tts-emit-speech-overrides.mjs` merged the resolved pairs into
+`pipeline/tts/speech_overrides_ja.json` (660 word-level entries, uncommitted
+there per the no-commit rule); regenerated via that file's existing
+`Job.speech` mechanism (`EdgeTtsProvider`, `ja-JP-NanamiNeural`) — same path
+the ははは/母 and 「Xは？」 fixes above already used.
+
+Target class: every atom kana starting with は/へ that has a kanji, every
+homophone-group winner (12 of the 16 groups noted in the 2026-09-11 ledger
+needed disambiguation; 4 resolve unambiguously once particles are excluded),
+plus わたし (explicitly flagged, #100 — regenerates from 私 even though the
+はh→わ defect didn't reproduce for it, per "kanji sources should be the
+default regardless"). 45 candidates generated; ASR-verified with the
+mlx-whisper large-v3-turbo harness (hiragana-biased prompt, pykakasi
+kanji→reading normalization) against the ORIGINAL kana reading — 40 passed
+exactly, 5 held back (not staged, old kana-sourced clip still live/unchanged):
+に/はち/はたち transcribed as Arabic numerals by Whisper (likely a
+verification-harness artifact, not an audio defect — not confirmed either
+way, needs a human listen before anyone re-attempts them) and は (歯) /
+はつか (二十日) genuinely mispronounced (は→"mi", はつか→garbled
+"はつかいません") — the single-mora/short-word edge-tts fragility this
+pipeline's own docs already call out.
+
+    64a98a80455fb613  あつい → 暑い          17c614408eb82378  あめ → 雨
+    449220ba8f9fb21a  かぜ → 風邪           bfcd800c8024d483  きる → 着る
+    46212b1e9d336e4c  しめる → 閉める        c83b26ed8eeb982e  と → 戸
+    6543a1a125f1f0ab  とる → 取る           1d6f1b47b63d5913  はいざら → 灰皿
+    4083d82b4836d062  はいる → 入る          72e2d3ea0a93882d  はがき → 葉書
+    b67b0ae30a76a1cc  はこ → 箱             b2191b70fdf42190  はこぶ → 運ぶ
+    f649994ba8c7e8b1  はしる → 走る          fb63eb9582900f4b  はじまる → 始まる
+    97ab451126ed4cc2  はじめ → 初め          8e3489d89e126bbe  はじめて → 初めて
+    44dcb42be9a6a089  はじめる → 始める       c7667a4c017a7287  はずかしい → 恥ずかしい
+    ebe48aaa5c659325  はたらく → 働く         6fee87ed851f722e  はっぴょう → 発表
+    9c168b1be94a108e  はつめい → 発明         06cf6df6b53c07a0  はな → 花
+    0ede7f6066162354  はなし → 話            d6e3fb2509581ac3  はなす → 話す
+    2be00470e35f3d2d  はは → 母             c60ae77675ffa250  はやい → 速い
+    310911911e14eb8f  はる → 春             4b51cedf7ed788a9  はれ → 晴れ
+    7b1d680925df3e51  はん → 半             c7d84f8f92e55e2b  はんぶん → 半分
+    8a26a2b9d987284e  ひく → 引く           ce12c350e4c492b6  ふく → 吹く
+    008df843576c5838  へた → 下手           8be715a6ae87582a  へや → 部屋
+    a1a1feb91fac9482  へる → 減る           f8b3956d04b55539  へん → 辺
+    3e5676b36e2edcaa  わたし → 私
+
+(はなたば/はれる/はし from batch 1 above also regenerated + re-verified this
+run — same bytes/hashes, already staged, not re-listed.)
+
+**Trevor: after the sync, all 37 of these paths (+ the 3 from batch 1 above,
+40 total) need a CloudFront invalidation** (`/tts/v1/ja/<hash>.mp3`) or the
+edge keeps serving the old kana-sourced pronunciation until the cache ages
+out. Upload + invalidation commands are in the session report (not run from
+here — no S3/CloudFront access in this lane).

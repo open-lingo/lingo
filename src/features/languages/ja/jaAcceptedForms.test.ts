@@ -14,7 +14,9 @@ import {
   dewaVariants,
   plainSentenceVariants,
   REGISTER_GRADED_FROM_MODULE,
+  BARE_TEMPORALS_LIST,
 } from "./jaAcceptedForms";
+import { JA_COURSE_ATOMS } from "./courseAtoms";
 import { expandAcceptedAnswers } from "@/features/lesson/components/steps/translateVariants";
 
 describe("politeSentenceVariants", () => {
@@ -126,6 +128,55 @@ describe("scrambleVariants", () => {
   it("bails rather than guess", () => {
     expect(scrambleVariants("かめは そこ")).toEqual([]); // too short
     expect(scrambleVariants("かばんの なかに ある。")).toEqual([]); // one movable chunk
+  });
+});
+
+describe("wh-word movable class (b15 #122, 2026-09-15)", () => {
+  // Spencer's exact rejected answer: いつ うたを きいた？ (sentence-initial) was
+  // authored, and うたを いつ きいた？ (wh immediately before the predicate) is
+  // equally natural Japanese — `isMovable()` had no wh-word class at all, so
+  // the run starting at いつ was length 1 and never cleared the `bestLen < 2`
+  // scramble threshold. Same sentence as `m11.ir.yaml:630`.
+  it("scrambles a bare いつ with an adjacent particle-marked chunk", () => {
+    const out = scrambleVariants("いつ うたを きいた？");
+    expect(out).toContain("うたを いつ きいた？");
+    expect(out.every((s) => s.endsWith("きいた？"))).toBe(true);
+  });
+
+  // どこ/なに/だれ fused with their particle (どこで, なにを, だれが) were ALREADY
+  // movable before this change — they end in a CASE_PARTICLES member. This
+  // pins that a bare wh-word (なぜ, which never takes a particle of its own,
+  // same shape as いつ) reorders with a genuinely particle-marked neighbour,
+  // and that the fused wh+particle unit itself is never torn apart by the
+  // swap (がっこうに stays whole; なぜ moves as a whole chunk, never mid-word).
+  it("scrambles a bare なぜ and keeps a wh+particle fusion intact", () => {
+    const out = scrambleVariants("なぜ がっこうに いかない？");
+    expect(out).toContain("がっこうに なぜ いかない？");
+    // Every variant is one of the two whole reorderings — nothing splits
+    // なぜ from がっこうに, and nothing splits どこ off of で mid-token.
+    for (const variant of out) {
+      expect(variant === "がっこうに なぜ いかない？").toBe(true);
+    }
+    const withDoko = scrambleVariants("どこで なぜ たべない？");
+    // どこで is one fused chunk in every variant — never split into どこ/で.
+    expect(withDoko.every((s) => /どこで/.test(s))).toBe(true);
+    expect(withDoko.every((s) => !/どこ\s+で/.test(s))).toBe(true);
+  });
+
+  it("never moves the wh-word (or anything else) past the predicate", () => {
+    const out = scrambleVariants("いつ うたを きいた？");
+    expect(out.every((s) => s.endsWith("きいた？"))).toBe(true);
+    expect(out.some((s) => /きいた？.+いつ/.test(s))).toBe(false);
+  });
+
+  // Regression: adding WH_WORDS must not broaden movability for a chunk that
+  // carries no particle and is not a wh-word — the exact case the "bails
+  // rather than guess" contiguous-run design exists for (2026-08-05 audit).
+  it("does not change order for a non-wh, non-particle leading chunk", () => {
+    const out = scrambleVariants("すみません バスで としょかんに いきますか");
+    // すみません itself never moves — it opens every variant unchanged.
+    expect(out.every((s) => s.startsWith("すみません "))).toBe(true);
+    expect(out).toContain("すみません としょかんに バスで いきますか");
   });
 });
 
@@ -632,6 +683,71 @@ describe("clause-opening topics", () => {
     expect(expandAcceptedAnswers(["しごとは あしたは ない"])).not.toContain(
       "しごと あしたは ない",
     );
+  });
+});
+
+describe("temporal topic-drop — m11 'vocab pack 2' later time words (b15 #121, 2026-09-15)", () => {
+  // Spencer's exact rejected answer: きょねんは がくせいだった was authored, and
+  // his bare きょねん がくせいだった is equally correct — `TEMPORALS` only had
+  // the 2026-08 daily-time set (きょう/あした/…) and was never backfilled when
+  // m11 added きょねん/ことし/らいねん/etc. Same sentence as `m11.ir.yaml:641`.
+  it("accepts きょねん がくせいだった for the authored きょねんは がくせいだった", () => {
+    expect(expandAcceptedAnswers(["きょねんは がくせいだった"])).toContain(
+      "きょねん がくせいだった",
+    );
+  });
+
+  it("accepts ことし がくせいだ for the authored ことしは がくせいだ (m31.ir.yaml:944 shape)", () => {
+    expect(expandAcceptedAnswers(["ことしは がくせいだ"])).toContain(
+      "ことし がくせいだ",
+    );
+  });
+
+  // The mirror direction (Rule 4's own precedent): a bare-authored clause
+  // accepts the topic-marked spelling too, for the new words as much as the
+  // old ones.
+  it("also accepts the topic-marked spelling of a bare-authored later time word", () => {
+    expect(expandAcceptedAnswers(["らいねん にほんに いく"])).toContain(
+      "らいねんは にほんに いく",
+    );
+  });
+
+  // BARE_TEMPORALS_LIST feeds scrambleVariants too (jaAcceptedForms' own
+  // widening) — the same word class should scramble like きょう always has.
+  it("scrambles a later time word the same way a daily-time word does", () => {
+    expect(scrambleVariants("きょねん がっこうに いかなかった")).toContain(
+      "がっこうに きょねん いかなかった",
+    );
+  });
+
+  // The two leniency lists (this file's topic-drop, jaAcceptedForms' scramble)
+  // are now ONE derived source (`BARE_TEMPORALS_LIST`) rather than two
+  // hand-maintained copies — assert every entry actually drops its topic は
+  // through `expandAcceptedAnswers`, so a future addition to the shared list
+  // is proven wired into BOTH mechanisms, not just declared in one.
+  it("every BARE_TEMPORALS_LIST word has its topic は droppable via expandAcceptedAnswers", () => {
+    const missing: string[] = [];
+    for (const word of BARE_TEMPORALS_LIST) {
+      const out = expandAcceptedAnswers([`${word}は テストだ`]);
+      if (!out.includes(`${word} テストだ`)) missing.push(word);
+    }
+    expect(missing).toEqual([]);
+  });
+
+  // Guards against the exact failure mode that created #121/#122: a future
+  // m-N "vocab pack" adding another bare last/this/next/every year|month|week
+  // atom without anyone remembering to backfill the leniency list. Mirrors
+  // the brief's own grep (`meaningEn` for "last|next|this|every … (year|
+  // week|month)").
+  it("courseAtoms carries no bare last/this/next/every year|month|week atom missing from BARE_TEMPORALS_LIST", () => {
+    const pattern = /^(last|this|next|every) (year|month|week)$/i;
+    const missing = JA_COURSE_ATOMS.filter(
+      (a) =>
+        a.kind === "vocab" &&
+        pattern.test(a.meaningEn) &&
+        !BARE_TEMPORALS_LIST.includes(a.kana as (typeof BARE_TEMPORALS_LIST)[number]),
+    ).map((a) => `${a.id} (${a.kana}, "${a.meaningEn}")`);
+    expect(missing).toEqual([]);
   });
 });
 

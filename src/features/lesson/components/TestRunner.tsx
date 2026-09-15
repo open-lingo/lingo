@@ -24,6 +24,7 @@ import { Button } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { reportGradedAnswer } from "../juice";
 import { Confetti } from "./Confetti";
+import { LessonOverlayCard } from "./overlays/LessonOverlayCard";
 import { playSfx } from "@/shared/audio/sfx";
 import { MultipleChoiceStepView } from "./steps/MultipleChoiceStepView";
 import { MatchPairsStepView } from "./steps/MatchPairsStepView";
@@ -342,12 +343,15 @@ function SkipConfirm({
 }) {
   const { t } = useTranslation();
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
-      role="dialog"
-      aria-modal="true"
-    >
-      <div className="w-full max-w-sm rounded-xl border border-border bg-surface p-6 shadow-xl">
+    /* Same overlay primitive as the two lesson cards — which means this
+       confirm now scrolls instead of overflowing on a short phone, the gap
+       the b15 postmortem called out as "worth the same check" here. It picks
+       up the lesson card's box (rounded-2xl / 1.5px border / shadow-popover /
+       `--card-pad`) in place of its own one-off `rounded-xl border p-6
+       shadow-xl`: an intentional design-language change, not a migration
+       artifact. No `onDismissKey` — a two-outcome confirm must not resolve
+       itself on a stray Enter. */
+    <LessonOverlayCard size="sm" align="center" scrim="dense">
         <h2 className="text-lg font-semibold text-text-primary">
           {t("lesson.rowTest.skipConfirmTitle", "Skip the row test?")}
         </h2>
@@ -373,7 +377,6 @@ function SkipConfirm({
             {t("lesson.rowTest.skip", "Skip")}
           </button>
         </div>
-      </div>
-    </div>
+    </LessonOverlayCard>
   );
 }

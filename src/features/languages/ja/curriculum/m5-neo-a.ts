@@ -435,14 +435,6 @@ export const M5_NEO_2: LessonContent = {
       ],
       exercisedAtomKanas: ["ごはん", "を", "たべる"],
     }),
-    build(
-      "ja-m5-neo-2-build-gohan",
-      "Build this sentence: I'll eat the rice.",
-      "ごはんを たべる",
-      ["ごはん", "を", "たべる", "は"],
-      ["ごはん", "を", "たべる"],
-      ["ごはん", "を", "たべる"],
-    ),
     cloze(
       "ja-m5-neo-2-cloze-shashin",
       "しゃしん",
@@ -458,6 +450,16 @@ export const M5_NEO_2: LessonContent = {
       "つきを みる",
       "I'll look at the moon.",
       ["つき", "を", "みる"],
+    ),
+    // (Moved 2 steps down from right after lc-gohan so the two ごはんを
+    // たべる steps clear the >=3-index reuse gap.)
+    build(
+      "ja-m5-neo-2-build-gohan",
+      "Build this sentence: I'll eat the rice.",
+      "ごはんを たべる",
+      ["ごはん", "を", "たべる", "は"],
+      ["ごはん", "を", "たべる"],
+      ["ごはん", "を", "たべる"],
     ),
     listeningCompSentence({
       id: "ja-m5-neo-2-lc-sushi",
@@ -702,18 +704,6 @@ export const M5_NEO_3: LessonContent = {
       ["これ", "を", "かう"],
       ["これ", "を", "かう"],
     ),
-    listeningCompSentence({
-      id: "ja-m5-neo-3-lc-kore-kau-q",
-      audioText: "これを かう？",
-      question: "What does this mean?",
-      correctMeaningEn: "You gonna buy this?",
-      distractorsEn: [
-        "I'll buy this.",
-        "Gonna drink this?",
-        "Is this yours?",
-      ],
-      exercisedAtomKanas: ["これ", "を", "かう"],
-    }),
     speaking(
       "ja-m5-neo-3-speak-gyuunyuu",
       "ぎゅうにゅうを のむ",
@@ -748,6 +738,20 @@ export const M5_NEO_3: LessonContent = {
         },
       ],
       exercisedAtomKanas: ["それ", "なに", "ぎゅうにゅう", "のむ", "うん"],
+    }),
+    // (Moved down from right after build-kore so the two これを かう
+    // steps clear the >=3-index reuse gap.)
+    listeningCompSentence({
+      id: "ja-m5-neo-3-lc-kore-kau-q",
+      audioText: "これを かう？",
+      question: "What does this mean?",
+      correctMeaningEn: "You gonna buy this?",
+      distractorsEn: [
+        "I'll buy this.",
+        "Gonna drink this?",
+        "Is this yours?",
+      ],
+      exercisedAtomKanas: ["これ", "を", "かう"],
     }),
     // Converted from a full-sentence recognition MCQ (invariant 28) — a
     // build makes the learner produce thing+を+verb.
@@ -1115,14 +1119,6 @@ export const M5_NEO_5: LessonContent = {
       "これを する。",
       "を pins the task to the verb — これを する = do THIS one.",
     ),
-    build(
-      "ja-m5-neo-5-build-sore-yaru",
-      "Build this sentence: I'll do that one.",
-      "それを やる",
-      ["それ", "を", "やる", "くる"],
-      ["それ", "を", "やる"],
-      ["それ", "を", "やる"],
-    ),
     translateStep({
       id: "ja-m5-neo-5-tr-nani",
       promptEn: "Translate: What are you gonna do?",
@@ -1139,6 +1135,16 @@ export const M5_NEO_5: LessonContent = {
       audioText: "なにを する？",
       exercisedAtomKanas: ["なに", "を", "する"],
     }),
+    // (Swapped after tr-nani so the two それを やる steps clear the
+    // >=3-index reuse gap.)
+    build(
+      "ja-m5-neo-5-build-sore-yaru",
+      "Build this sentence: I'll do that one.",
+      "それを やる",
+      ["それ", "を", "やる", "くる"],
+      ["それ", "を", "やる"],
+      ["それ", "を", "やる"],
+    ),
     // Quick gamified breather — emoji word check over a prior atom.
     vocabMcq("ja-m5-neo-5-vmcq-mid", L5_REVIEW[3], NEO_PRIOR_POOL),
     // Dialogue closers (invariant 30) — the chore Q→A pair.

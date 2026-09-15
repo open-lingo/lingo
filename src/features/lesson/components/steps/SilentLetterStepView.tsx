@@ -8,6 +8,7 @@ import { ExplainButton } from "../ExplainButton";
 import { Icon } from "@/shared/components/Icon";
 import { playJaAudio, getTtsUrl } from "@/shared/tts";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { Badge } from "@/shared/components/ui";
 
 const CELEBRATE_MS = 1100;
 
@@ -147,13 +148,13 @@ export function SilentLetterStepView({ step, onComplete, onContinue }: Props) {
         explanation={step.explanation}
         hasSubmittedWrong={hasSubmittedWrong}
       />
-      <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
+      <Badge variant="eyebrow">
         {step.prompt ??
           t(
             "lesson.silentLetter.instruction",
             "Tap every letter you do NOT hear",
           )}
-      </p>
+      </Badge>
 
       <div className="rounded-2xl border-2 border-info/40 bg-info/5 px-4 py-4 sm:px-5 sm:py-5">
         {/* On demand, not on mount: the word is on screen from the start, so

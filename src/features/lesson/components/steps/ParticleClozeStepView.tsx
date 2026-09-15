@@ -2,6 +2,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { ParticleClozeStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
+import { Tile } from "../tiles/Tile";
+import { TileTray } from "../tiles/TileTray";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
@@ -11,6 +13,7 @@ import { PromptAudioButton } from "./PromptAudioButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { useContentString } from "../../hooks/useContentString";
 import { courseIdsFromLessonId, explanationAnchor } from "@/shared/i18n/content/anchors";
+import { Badge } from "@/shared/components/ui";
 
 const CELEBRATE_MS = 1100;
 
@@ -168,11 +171,11 @@ export function ParticleClozeStepView({
           `basis-full` still lets the explanation drop onto its own line
           below when opened. */}
       <div className="mt-auto flex flex-wrap items-center justify-between gap-2">
-        <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
+        <Badge variant="eyebrow">
           {allOptionsAreParticles
             ? t("lesson.pickParticle", "Pick what fits the blank")
             : t("lesson.completeSentence", "Complete the sentence")}
-        </p>
+        </Badge>
         <ExplainButton
           layout="inline"
           explanation={resolvedExplanation}
@@ -230,42 +233,43 @@ export function ParticleClozeStepView({
           their tile instead of wrapping mid-word; whitespace-nowrap +
           min-w-fit guarantee it, equal flex-basis keeps short particle sets
           evenly sized, and long options step the type down one size. */}
-      <div className="flex flex-wrap gap-3">
+      <TileTray kind="options-row">
         {step.options.map((p) => {
           const picked = selected === p;
-          let style =
-            "border-border bg-surface text-text-primary hover:border-accent/60";
-          if (submitted) {
-            if (p === step.correctParticle) {
-              style = "border-success bg-success/15 text-success";
-            } else if (picked) {
-              style = "border-error bg-error/15 text-error";
-            } else {
-              style = "border-border bg-surface text-text-muted opacity-60";
-            }
-          } else if (picked) {
-            style = "border-accent bg-accent/10 text-accent";
-          }
-          const sizing =
-            p.length >= 5
-              ? "text-lg sm:text-xl"
-              : p.length >= 3
-                ? "text-xl sm:text-2xl"
-                : "text-2xl sm:text-3xl";
+          // `tone="success"` is this view's ONE divergence from the MCQ
+          // palette, carried verbatim: a correct particle is a success TINT
+          // here, where a correct MCQ option is a filled accent tile. Both
+          // mean "the right answer"; picking one is a visual decision, not a
+          // migration (it is listed in the b16.2 report for the owner).
+          const state = submitted
+            ? p === step.correctParticle
+              ? "correct"
+              : picked
+                ? "wrong"
+                : "spent"
+            : picked
+              ? "selected"
+              : "idle";
           return (
-            <button
+            <Tile
               key={p}
-              type="button"
+              variant="option"
+              size="particle"
+              tone="success"
+              /* Long options step the type down one tier — the tile widens
+                 rather than wrapping mid-word (じゃないです). */
+              text={p.length >= 5 ? "sm" : p.length >= 3 ? "md" : "lg"}
+              state={state}
               disabled={submitted}
               aria-pressed={picked}
               onClick={() => setSelected(p)}
-              className={`flex h-[clamp(3.5rem,8cqh,4.5rem)] min-w-fit flex-1 basis-[calc(25%-0.75rem)] items-center justify-center whitespace-nowrap rounded-xl border-2 px-4 font-japanese font-bold transition-colors ${sizing} ${style}`}
+              className="font-japanese"
             >
               {p}
-            </button>
+            </Tile>
           );
         })}
-      </div>
+      </TileTray>
 
       {/* Single bottom block: explanation + banner + CTA together so the
           button never moves on submit. Banner only on wrong — correct

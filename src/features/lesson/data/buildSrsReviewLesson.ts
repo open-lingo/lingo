@@ -4,6 +4,10 @@ import {
   type CourseAtom,
 } from "@/features/languages/ja/courseAtoms";
 import { getAllJaTaughtKana } from "@/features/languages/ja/curriculum/taughtVocab";
+import {
+  getJaRecentKanaWindow,
+  RECENT_WINDOW_MODULES,
+} from "@/features/languages/ja/curriculum/recentVocabWindow";
 import { makeGlobalTokenizer } from "./moduleCompiler";
 import { getAtomsUpToModule } from "./lessonAtomIndex";
 import {
@@ -161,6 +165,27 @@ export type ReviewCandidateScan = {
   candidates: ReviewCandidate[];
   /** Distractor pool — carded atoms only, MCQ-blocklist filtered. */
   pool: ReviewAtom[];
+  /**
+   * RULE 3's RECENT half (Spencer 2026-09-15): unlocked atoms taught inside the
+   * six-module look-back whose card is NOT due and which have been studied at
+   * least once. Registry-ordered like `candidates`.
+   *
+   * These are deliberately NOT in `candidates` — nothing about them is due, so
+   * the FSRS scheduler has no claim on them. They exist because the owner's
+   * rule has two halves: *"half recent things, half fsrs learnings."* `reps > 0`
+   * keeps this out of the new-card intake's lane (B065 reserved seats) and off
+   * the D6 tripwire (never grade a word introduced the same day).
+   *
+   * Empty for non-JA: the window is derived from the JA IR's truthful
+   * `priorVocab` record, and there is no equivalent for es/ko yet.
+   */
+  recentNotDue: ReviewCandidate[];
+  /**
+   * Window width actually used, in modules (Spencer's 6 unless the floor had
+   * to widen it), or `null` when no truthful window exists — every JA module
+   * at or below m11, and every non-JA course. Reported by the sweep.
+   */
+  recentWindowModules: number | null;
 };
 
 /**
@@ -176,6 +201,15 @@ export function scanReviewCandidates(
   const allAtoms = getAtomsUpToModule(moduleId, languageId);
   const unlockedIds = getUnlockedAtomIds();
   const candidates: ReviewCandidate[] = [];
+  const recentNotDue: ReviewCandidate[] = [];
+  // RULE 3, content half. `null` → no truthful window (≤ m11, or non-JA), in
+  // which case every unlocked atom counts as recent: a module inside its own
+  // six-module look-back has nothing to exclude.
+  const recentWindow =
+    languageId === "ja" ? getJaRecentKanaWindow(moduleId) : null;
+  const inWindow = (atom: CourseAtom): boolean =>
+    recentWindow === null ||
+    atom.kana.split("/").some((s) => recentWindow.has(s.trim()));
   for (const atom of allAtoms) {
     // The unlock store keys are canonical (`ja:<id>`); CourseAtom ids are
     // bare. Canonicalize before the membership check or nothing matches.
@@ -190,6 +224,11 @@ export function scanReviewCandidates(
     const dueModalities = isDue(state) ? getDueModalities(state) : [];
     if (dueModalities.length > 0 || isNewCard) {
       candidates.push({ atom, state, dueModalities, isNewCard });
+      continue;
+    }
+    // Not due, not new → RULE 3's recent half, if it is inside the window.
+    if (inWindow(atom)) {
+      recentNotDue.push({ atom, state, dueModalities: [], isNewCard: false });
     }
   }
   const pool: ReviewAtom[] = withoutMcqBlocked(
@@ -197,7 +236,60 @@ export function scanReviewCandidates(
       .filter((a) => getCardState(a.id))
       .map(atomToReviewAtom),
   );
-  return { unlockedIds, candidates, pool };
+  return {
+    unlockedIds,
+    candidates,
+    pool,
+    recentNotDue,
+    recentWindowModules: recentWindow === null ? null : RECENT_WINDOW_MODULES,
+  };
+}
+
+/**
+ * RULE 3 — the review split, in Spencer's words (2026-09-15, Topic 3):
+ *
+ *   "yeah that should be perfect and THEN we can add half of the lesson as
+ *    fsrs seeded reviews, the same way we do the review lesson tails, so half
+ *    recent things, half fsrs learnings."
+ *
+ * The algorithm, in five lines:
+ *  1. DUE target = floor(slots / 2); RECENT target = the rest.
+ *  2. DUE draws from every due card, ANY module — a due word may come from
+ *     anywhere (Anki semantics, #113), which is the whole exception clause.
+ *  3. RECENT draws only from `scan.recentNotDue` — inside the six-module
+ *     look-back, not due (#91/#116: "they don't belong in more advanced course
+ *     work outside of review", "いいえ has no business in advanced review").
+ *  4. Either half backfills from the other when short, so a learner with
+ *     nothing due still gets a full lesson and one drowning in due cards is
+ *     not padded with words they already know.
+ *  5. Both halves are shuffled on `seed` (per-day, not per-call — a re-resolve
+ *     mid-lesson must not reshuffle step ids).
+ *
+ * ONE helper, two call sites (`buildDynamicReviewPrefix` and
+ * `buildSrsReviewLesson`). The RCA's §2.2 lesson is that a rule re-derived per
+ * surface drifts; there is deliberately no second copy of this.
+ */
+export function selectReviewHalves(opts: {
+  scan: ReviewCandidateScan;
+  slots: number;
+  seed: string;
+}): { due: ReviewCandidate[]; recent: ReviewCandidate[] } {
+  const { scan, slots, seed } = opts;
+  if (slots <= 0) return { due: [], recent: [] };
+  const dueAll = scan.candidates.filter((c) => !c.isNewCard);
+  const recentAll = scan.recentNotDue;
+  const dueTarget = Math.floor(slots / 2);
+  const recentTarget = slots - dueTarget;
+  // Registry order is meaningful for `recentAll` (oldest first) but a review
+  // that always leads with the same words is a memorization surface, so both
+  // halves shuffle. Seeded → stable within a day.
+  const dueShuffled = seededShuffle(dueAll, `${seed}-due`);
+  const recentShuffled = seededShuffle(recentAll, `${seed}-recent`);
+  let due = dueShuffled.slice(0, dueTarget);
+  let recent = recentShuffled.slice(0, recentTarget);
+  if (due.length < dueTarget) recent = recentShuffled.slice(0, slots - due.length);
+  if (recent.length < recentTarget) due = dueShuffled.slice(0, slots - recent.length);
+  return { due, recent };
 }
 
 function atomToReviewAtom(a: CourseAtom): ReviewAtom {
@@ -563,10 +655,8 @@ export function buildSrsReviewLesson(opts: {
   const id = `${languageId}-${moduleId}-review-${position}`;
   const isRecognitionHeavy = position === 1;
 
-  const { unlockedIds, candidates, pool } = scanReviewCandidates(
-    moduleId,
-    languageId,
-  );
+  const scan = scanReviewCandidates(moduleId, languageId);
+  const { unlockedIds, candidates, pool } = scan;
 
   if (candidates.length < 4) {
     return {
@@ -602,17 +692,21 @@ export function buildSrsReviewLesson(opts: {
   // words out of the seats (D6). Shuffling it would silently break that.
   // The trailing slice is the only hard cap on lesson length — keep it even
   // though MAX_NEW < MAX_ATOMS makes it look redundant today.
-  const due = candidates.filter((c) => !c.isNewCard);
   const newCards = candidates.filter((c) => c.isNewCard).slice(0, MAX_NEW);
   const seed = `${id}-${Date.now()}`;
-  const pickedDue = seededShuffle(due, seed).slice(
-    0,
-    Math.max(0, MAX_ATOMS - newCards.length),
-  );
-  const picked = seededShuffle([...pickedDue, ...newCards], `${seed}-order`).slice(
-    0,
-    MAX_ATOMS,
-  );
+  // RULE 3: the non-intake remainder is split half due / half recent by the
+  // shared `selectReviewHalves` — the SAME helper the dynamic prefix uses, so
+  // the two review surfaces cannot disagree about what "half recent, half fsrs
+  // learnings" means.
+  const halves = selectReviewHalves({
+    scan,
+    slots: Math.max(0, MAX_ATOMS - newCards.length),
+    seed,
+  });
+  const picked = seededShuffle(
+    [...halves.due, ...halves.recent, ...newCards],
+    `${seed}-order`,
+  ).slice(0, MAX_ATOMS);
 
   const mined =
     languageId === "ja"

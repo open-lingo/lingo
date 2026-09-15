@@ -505,15 +505,33 @@ export const M3_NEO_2: LessonContent = {
       ],
       exercisedAtomKanas: ["ともだち", "がくせい", "は"],
     }),
-    build(
-      "ja-m3-neo-2-build-tomodachi",
-      "Build this sentence: My friend is a student.",
-      "ともだちは がくせいだ",
-      ["ともだち", "は", "がくせい", "だ", "トム"],
-      ["ともだち", "は", "がくせい", "だ"],
-      ["ともだち", "がくせい", "は"],
-    ),
+    // (Moved up from after speak-tomodachi — a non-selection beat has to
+    // sit between lc-spotlight-2 and the cloze-wa/lc-spotlight-1 pair
+    // below, both tap-to-select, inv 25's run cap.)
+    translateStep({
+      id: "ja-m3-neo-2-tr-watashi",
+      promptEn: "Translate: I'm a student.",
+      acceptedAnswers: [
+        "わたしは がくせいだ",
+        "わたしはがくせいだ",
+        "わたしは がくせい",
+        "わたしはがくせい",
+        "がくせいだ",
+      ],
+      audioText: "わたしは がくせいだ",
+      exercisedAtomKanas: ["わたし", "がくせい"],
+    }),
     // ④ Context MCQs — what does は spotlight?
+    cloze(
+      "ja-m3-neo-2-cloze-wa",
+      "すし",
+      " ごはんだ。",
+      "は",
+      ["は", "か", "の", "が"],
+      "Sushi is rice.",
+      "すしは ごはんだ。",
+      "The spotlight lands on sushi; the comment says what it is.",
+    ),
     listeningCompSentence({
       // Topic-tracking tested through plain translation — the "which part
       // is the topic?" metalanguage quiz displayed は on the answer and
@@ -528,16 +546,6 @@ export const M3_NEO_2: LessonContent = {
       ],
       exercisedAtomKanas: ["がくせい", "は"],
     }),
-    cloze(
-      "ja-m3-neo-2-cloze-wa",
-      "すし",
-      " ごはんだ。",
-      "は",
-      ["は", "か", "の", "が"],
-      "Sushi is rice.",
-      "すしは ごはんだ。",
-      "The spotlight lands on sushi; the comment says what it is.",
-    ),
     // ⑤ Production with audience cue.
     speaking(
       "ja-m3-neo-2-speak-tomodachi",
@@ -545,19 +553,6 @@ export const M3_NEO_2: LessonContent = {
       "My friend is a student.",
       ["ともだち", "がくせい"],
     ),
-    translateStep({
-      id: "ja-m3-neo-2-tr-watashi",
-      promptEn: "Translate: I'm a student.",
-      acceptedAnswers: [
-        "わたしは がくせいだ",
-        "わたしはがくせいだ",
-        "わたしは がくせい",
-        "わたしはがくせい",
-        "がくせいだ",
-      ],
-      audioText: "わたしは がくせいだ",
-      exercisedAtomKanas: ["わたし", "がくせい"],
-    }),
     listeningCompSentence({
       id: "ja-m3-neo-2-lc-tomu-tomodachi",
       audioText: "トムは ともだちだ。",
@@ -575,6 +570,14 @@ export const M3_NEO_2: LessonContent = {
       "たなかは せんせいだ",
       "Tanaka is a teacher.",
       ["せんせい"],
+    ),
+    build(
+      "ja-m3-neo-2-build-tomodachi",
+      "Build this sentence: My friend is a student.",
+      "ともだちは がくせいだ",
+      ["ともだち", "は", "がくせい", "だ", "トム"],
+      ["ともだち", "は", "がくせい", "だ"],
+      ["ともだち", "がくせい", "は"],
     ),
     // Closer dialogue — nationality words in the wild. Speakers state
     // their OWN nationality so every question grades on a stated fact:

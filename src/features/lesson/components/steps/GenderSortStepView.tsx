@@ -7,6 +7,7 @@ import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { ExplainButton } from "../ExplainButton";
 import { Icon } from "@/shared/components/Icon";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { Badge } from "@/shared/components/ui";
 
 const CELEBRATE_MS = 1100;
 
@@ -127,10 +128,10 @@ export function GenderSortStepView({ step, onComplete, onContinue }: Props) {
           at 390x844), and the placed chips are this step's answer: they are
           what the learner looks back at to read the marks, so they must sit
           where they were left. The slack goes below the tray instead. */}
-      <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
+      <Badge variant="eyebrow">
         {step.prompt ??
           t("lesson.genderSort.instruction", "Sort every word into its group")}
-      </p>
+      </Badge>
 
       {/* Two buckets. Fixed two-column grid at every width — the whole point
           is that there are exactly two classes, and a column that wraps to a

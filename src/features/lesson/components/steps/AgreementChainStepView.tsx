@@ -9,6 +9,7 @@ import { Icon } from "@/shared/components/Icon";
 import { playJaAudio, getTtsUrl } from "@/shared/tts";
 import { seededShuffle } from "@/shared/utils/seededShuffle";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { Badge } from "@/shared/components/ui";
 
 const CELEBRATE_MS = 1100;
 
@@ -114,10 +115,10 @@ export function AgreementChainStepView({ step, onComplete, onContinue }: Props) 
         explanation={step.explanation}
         hasSubmittedWrong={hasSubmittedWrong}
       />
-      <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
+      <Badge variant="eyebrow">
         {step.prompt ??
           t("lesson.agreementChain.instruction", "Make every word agree")}
-      </p>
+      </Badge>
 
       {/* The head noun, fixed. It is the thing everything else answers to, so
           it gets its own card above the sentence rather than sitting inside it

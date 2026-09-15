@@ -281,6 +281,27 @@ export function PlacementTestPage() {
     updateSetting,
   ]);
 
+  // Still-current-item guard (b15 #127, 2026-09-15). The advance effect above
+  // already calls `stopAllAudio()` synchronously the moment the engine picks
+  // the next item, but a manual play-button tap's own clip playback is
+  // ASYNC (network fetch + decode) — a tap made right at submit time can
+  // still be in flight when that stop fires, resolve afterwards, and start a
+  // fresh clip on the NEW screen. There is nothing else to cut it off there:
+  // unlike mid-lesson autoplay, a step the learner hasn't interacted with
+  // yet triggers no audio of its own to supersede the stale one. Re-asserting
+  // the stop once the NEXT item has actually MOUNTED closes that gap — a
+  // stale play that slips past the first stop still gets cut the instant the
+  // new step is on screen, rather than left to bleed for its full length.
+  // Page-only fix: the play buttons themselves live in step-view components
+  // this lane doesn't own (`features/lesson/components/steps/**`), so this
+  // narrows the race at the page boundary rather than closing it at the
+  // source; a per-tap "is this still the current item" check in those
+  // handlers would close it completely.
+  useEffect(() => {
+    if (!currentStep) return;
+    stopAllAudio();
+  }, [currentStep?.id]);
+
   const handleStepComplete = useCallback(
     (stepId: string, correct: boolean) => {
       setState((prev) =>

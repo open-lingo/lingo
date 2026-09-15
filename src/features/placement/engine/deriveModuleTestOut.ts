@@ -1,6 +1,7 @@
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { getMockLessonContent } from "@/features/lesson/data/mockLessons";
 import type { LessonStep } from "@/features/lesson/types";
+import { primarySentenceOf } from "@/features/lesson/data/contentFloors";
 import type { PlacementItemConfig } from "../questionBank";
 
 /**
@@ -143,6 +144,28 @@ export function collectGradable(
  *
  * Dupes only if the module has fewer than `size` questions.
  */
+/**
+ * CONTENT dedupe key for a candidate (#129).
+ *
+ * Spencer, b15: *"It gave me this sentence twice, can we make sure we don't
+ * get the same exact question and step type in test outs"* — served against
+ * m33, whose transitivity minimal pairs author さいふが おちる as a build beat,
+ * a listening-comp beat and two particle-cloze beats. Four distinct `step.id`s,
+ * one sentence. `usedIds` below dedupes by step id ONLY, so any two of them
+ * could land in the same 12-item session.
+ *
+ * `primarySentenceOf` folds spaces, punctuation and kanji surface (it reads
+ * annotation READINGS), so 電車が でる and でんしゃが でる are one key — the
+ * "different font" complaint (#138) is the same defect on the lesson side.
+ * "" for word-level items (match grids, vocab MCQ): those have no sentence to
+ * collide, and keying them on "" would dedupe every match_pairs step in the
+ * module down to one.
+ */
+function sentenceKeyOf(it: DerivedItem): string {
+  const { key, tokens } = primarySentenceOf(it.step);
+  return tokens >= 2 ? key : "";
+}
+
 export function pickCovering(
   items: DerivedItem[],
   size: number = TESTOUT_SIZE,
@@ -152,10 +175,20 @@ export function pickCovering(
   const sections = [...new Set(items.map((i) => i.section))];
   const chosen: DerivedItem[] = [];
   const usedIds = new Set<string>();
+  const usedSentences = new Set<string>();
   const take = (it: DerivedItem | undefined) => {
     if (!it) return;
     chosen.push(it);
     usedIds.add((it.step as { id: string }).id);
+    const key = sentenceKeyOf(it);
+    if (key) usedSentences.add(key);
+  };
+  const fresh = (pool: DerivedItem[]): DerivedItem[] => {
+    const out = pool.filter((p) => {
+      const key = sentenceKeyOf(p);
+      return !key || !usedSentences.has(key);
+    });
+    return out.length > 0 ? out : pool;
   };
   const pickFrom = (pool: DerivedItem[], preferMiddle: boolean): DerivedItem =>
     rng
@@ -165,10 +198,14 @@ export function pickCovering(
         : pool[0];
 
   // Round 1: one representative per section (deterministic = middle item past
-  // the intro; seeded = a random item from the section).
+  // the intro; seeded = a random item from the section). COVERAGE WINS over
+  // the sentence dedupe here — `fresh` falls back to the whole section pool
+  // when every item in it repeats an already-served sentence, because losing
+  // a skill section costs the test-out its meaning while a repeat costs a
+  // slot. Rounds 2+ (optional fills) enforce the dedupe strictly.
   for (const sec of sections) {
     const pool = items.filter((i) => i.section === sec);
-    take(pickFrom(pool, true));
+    take(pickFrom(fresh(pool), true));
     if (chosen.length >= size) break;
   }
   if (chosen.length >= size) {
@@ -184,16 +221,25 @@ export function pickCovering(
     const sec = sections[cursor % sections.length];
     cursor++;
     const pool = items.filter(
-      (i) => i.section === sec && !usedIds.has((i.step as { id: string }).id),
+      (i) =>
+        i.section === sec &&
+        !usedIds.has((i.step as { id: string }).id) &&
+        // Strict here: a fill is optional, a duplicate sentence is not
+        // acceptable. An exhausted section is skipped, exactly as an
+        // id-exhausted one already was.
+        (() => {
+          const key = sentenceKeyOf(i);
+          return !key || !usedSentences.has(key);
+        })(),
     );
     if (pool.length === 0) continue;
     const unseenFormat = pool.filter((p) => !usedFormats.has(p.format));
-    const fresh =
+    const pick =
       unseenFormat.length > 0
         ? pickFrom(unseenFormat, false)
         : pickFrom(pool, false);
-    take(fresh);
-    usedFormats.add(fresh.format);
+    take(pick);
+    usedFormats.add(pick.format);
   }
 
   return finishPick(chosen, size, rng);

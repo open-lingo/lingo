@@ -9,6 +9,7 @@ import { getTtsUrl, playJaAudio } from "@/shared/tts";
 import { ExplainButton } from "../ExplainButton";
 import { PromptAudioButton } from "./PromptAudioButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { Badge } from "@/shared/components/ui";
 
 const CELEBRATE_MS = 1100;
 
@@ -110,9 +111,9 @@ export function KanjiReadingStepView({ step, onComplete, onContinue }: Props) {
         explanation={step.explanation}
         hasSubmittedWrong={hasSubmittedWrong}
       />
-      <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
+      <Badge variant="eyebrow">
         {t("lesson.kanjiReading.instruction", "How do you read this?")}
-      </p>
+      </Badge>
 
       <div
         data-testid="kanji-reading-prompt"

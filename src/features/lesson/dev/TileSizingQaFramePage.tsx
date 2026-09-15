@@ -6,6 +6,8 @@ import { LessonModuleProvider } from "@/shared/contexts/LessonModuleContext";
 import { getToday } from "@/features/flashcards/engine/srs";
 import { setCardState, getCardState } from "@/features/flashcards/engine/srsStorage";
 import { TILE_QA_MESSAGE } from "./tileSizingMessage";
+import { LessonOverlayCard } from "../components/overlays/LessonOverlayCard";
+import { Tile, type TileDensity, type TileSize, type TileSlot, type TileState, type TileTone, type TileVariant } from "../components/tiles/Tile";
 
 /**
  * `/:lang/qa/tiles/frame?view=desktop|mobile` — the iframe target
@@ -190,6 +192,26 @@ function buildFixtures(): { title: string; step: LessonStep }[] {
         meaningEn: "I go to school.",
       },
     },
+    {
+      // The MCQ fixture above is a WORD grid, which uses the `word-glyph`
+      // size tier and therefore reads none of the `--option-*` tokens. This
+      // one is the sentence tier — the only option layout those tokens
+      // drive — so the Options sliders visibly move something.
+      title: "multiple_choice — 4 sentence options (option tokens)",
+      step: {
+        id: "qa-tiles-mcq-sentence",
+        type: "multiple_choice",
+        prompt: "What does 「みせで コーヒーを のむ」 mean?",
+        options: [
+          { id: "a", text: "I drink coffee at the shop." },
+          { id: "b", text: "I eat sushi at the school." },
+          { id: "c", text: "I drank a lot of coffee yesterday." },
+          { id: "d", text: "I watch television at the shop." },
+        ],
+        correctOptionId: "a",
+        explanation: "で marks where the action happens.",
+      },
+    },
   ];
 }
 
@@ -311,6 +333,62 @@ function FixtureCard({
   );
 }
 
+/**
+ * The overlay-card fixture: the REAL `LessonOverlayCard`, so the `--card-pad`
+ * and `--card-max-h` sliders drive the same component a lesson shows.
+ *
+ * `LessonOverlayCard` is `position: fixed`, which would cover this whole
+ * page. `transform: translate(0)` on the wrapper makes the wrapper a
+ * containing block for fixed descendants, so the card renders INSIDE this
+ * box at this box's scale — the standard trick, and the reason the wrapper
+ * carries a transform it otherwise would not need. The body text is
+ * deliberately long: `--card-max-h` is the cap that closes TestFlight #132
+ * ("this info card doesn't fit on the screen and has no scroll"), and you
+ * can only see a cap working against content that exceeds it.
+ */
+function OverlayCardFixture() {
+  return (
+    <div className="mb-24 rounded-xl border border-border bg-surface p-3">
+      <div className="mb-2 flex items-center justify-between gap-2">
+        <span className="text-xs font-bold uppercase tracking-wide text-text-muted">
+          lesson overlay card — --card-pad / --card-max-h
+        </span>
+      </div>
+      <div className="relative h-[460px] overflow-hidden rounded-lg [transform:translate(0)]">
+        <LessonOverlayCard labelledBy="qa-overlay-title">
+          <p className="text-xs font-bold uppercase tracking-wider text-accent">
+            The rule
+          </p>
+          <h2 id="qa-overlay-title" className="mt-1 text-xl font-bold text-text-primary">
+            に marks where something arrives
+          </h2>
+          <p className="mt-3 text-base leading-relaxed text-text-secondary">
+            がっこうに いく — the place you END UP takes に. で is where the
+            action happens; に is where it lands. がっこうで べんきょうする is
+            studying AT school; がっこうに いく is going TO school.
+          </p>
+          <p className="mt-3 text-base leading-relaxed text-text-secondary">
+            This paragraph and the ones below it exist so the card overflows
+            its cap: with `--card-max-h` at its 85vh default the card scrolls
+            instead of running off the bottom of the phone, which is the
+            behaviour TestFlight #132 asked for and which
+            `ReactiveGrammarTipCard` did not have before b16.2.
+          </p>
+          <p className="mt-3 text-base leading-relaxed text-text-secondary">
+            Drag `--card-pad` and watch every overlay in the lesson flow move
+            together: the rule peek, the reactive grammar tip, and the
+            row-test skip confirm all render this same box.
+          </p>
+          <p className="mt-3 text-base leading-relaxed text-text-secondary">
+            One more paragraph, to be sure the scroll is visible at desktop
+            heights too.
+          </p>
+        </LessonOverlayCard>
+      </div>
+    </div>
+  );
+}
+
 /** The step id of the "Lock tile heights" measurement source — the 8-tile
  *  mixed fixture the brief specifies (kanji+reading, hidden-reading kanji,
  *  kana-only, katakana). Locking broadcasts this fixture's tallest tile as
@@ -320,6 +398,42 @@ function FixtureCard({
  *  own per-fixture logic. */
 const LOCK_SOURCE_STEP_ID = "qa-tiles-build-8";
 
+/**
+ * `?variant=build&density=dense&state=idle[&slot=&size=&tone=&text=&side=&audio=1]`
+ * — ONE `Tile` on a bare background, nothing else on the page.
+ *
+ * This is the pixel-diff target for every tier/state combination, including
+ * the ones no fixture and no reachable lesson beat renders (the word-build
+ * slot outline, a wrong-submitted tray tile, the six-row match tiers, each
+ * option size). The combination is in the URL, so a diff harness can
+ * enumerate them without the page growing a fixture per combination.
+ */
+function SingleTile({ params }: { params: URLSearchParams }) {
+  const audio = params.get("audio");
+  return (
+    <div
+      id="tile-isolation"
+      className="flex min-h-screen items-center justify-center bg-background p-6"
+    >
+      <Tile
+        variant={(params.get("variant") ?? "build") as TileVariant}
+        density={(params.get("density") as TileDensity | null) ?? undefined}
+        state={(params.get("state") as TileState | null) ?? "idle"}
+        slot={(params.get("slot") as TileSlot | null) ?? undefined}
+        size={(params.get("size") as TileSize | null) ?? undefined}
+        tone={(params.get("tone") as TileTone | null) ?? undefined}
+        text={(params.get("text") as "sm" | "md" | "lg" | null) ?? undefined}
+        side={(params.get("side") as "source" | "target" | null) ?? undefined}
+        audio={audio === null ? undefined : audio === "1"}
+        collapsed={params.get("collapsed") === "1"}
+        className={params.get("class") ?? undefined}
+      >
+        {params.get("text-content") ?? "食べるあ"}
+      </Tile>
+    </div>
+  );
+}
+
 export default function TileSizingQaFramePage() {
   const [params] = useSearchParams();
   const view = params.get("view") === "desktop" ? "desktop" : "mobile";
@@ -327,6 +441,10 @@ export default function TileSizingQaFramePage() {
   const rootRef = useRef<HTMLDivElement>(null);
 
   seedMasteredAtomOnce();
+
+  // Single-instance mode short-circuits every fixture, measurement and
+  // postMessage below — it exists to be screenshotted, not dialled.
+  const isolationVariant = params.get("variant");
 
   // "Lock tile heights" (TestFlight #137): while locked, this frame measures
   // the 8-tile fixture itself and sets `--tile-box-h` directly — it does NOT
@@ -431,6 +549,8 @@ export default function TileSizingQaFramePage() {
     return () => ro.disconnect();
   }, [view]);
 
+  if (isolationVariant) return <SingleTile params={params} />;
+
   return (
     <LessonModuleProvider moduleIndex={20}>
       {/* Bare stage — no AppShell chrome (Spencer 2026-09-15: "I just need
@@ -459,6 +579,7 @@ export default function TileSizingQaFramePage() {
               remeasureKey={f.step.id === LOCK_SOURCE_STEP_ID ? remeasureNonce : undefined}
             />
           ))}
+          <OverlayCardFixture />
         </div>
       </div>
     </LessonModuleProvider>

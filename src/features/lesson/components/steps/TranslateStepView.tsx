@@ -23,6 +23,7 @@ import {
   koreanInputMatches,
 } from "@/features/languages/ko/romanization/romajaToHangul";
 import { formatPrompt } from "../formatPrompt";
+import { Badge } from "@/shared/components/ui";
 
 const CELEBRATE_MS = 1100;
 
@@ -203,9 +204,9 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
           void" bug (content top-aligned with nothing pushing the CTA
           down) doesn't come back. `sm:mt-auto` restores the original
           centred layout on desktop — unchanged there. */}
-      <p className="mt-3 sm:mt-auto text-xs font-bold uppercase tracking-wider text-text-muted">
+      <Badge variant="eyebrow" className="mt-3 sm:mt-auto">
         {directionLabel}
-      </p>
+      </Badge>
       <h2 className="text-2xl font-bold text-text-primary">
         {step.sourceLanguage === "target" ? (
           step.sourceAnnotation ? (
@@ -257,9 +258,9 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
             const preview = romajaToHangul(answer);
             return preview !== answer && /[가-힣]/.test(preview) ? (
               <p className="mt-2 text-sm text-text-secondary">
-                <span className="mr-2 text-xs font-bold uppercase tracking-wider text-text-muted">
+                <Badge as="span" variant="eyebrow" className="mr-2">
                   Hangul
-                </span>
+                </Badge>
                 <span lang="ko" className="text-lg font-semibold text-text-primary">
                   {preview}
                 </span>

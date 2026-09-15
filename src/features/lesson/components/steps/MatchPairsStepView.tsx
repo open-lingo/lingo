@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { MatchPairsStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
+import { Tile } from "../tiles/Tile";
+import { TileTray } from "../tiles/TileTray";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import {
   AnnotatedText as AnnotatedJa,
@@ -51,7 +53,10 @@ type Props = {
  * Sub-state per tile, so we can drive the visual feedback purely from a
  * single source of truth.
  */
-type TileState = "idle" | "selected" | "matched" | "wrong";
+/** The `Tile` states this view uses. A matched pair is `spent` — the same
+ *  "used up" state a placed build tile's bank copy carries, tinted per
+ *  variant by the primitive. */
+type TileState = "idle" | "selected" | "spent" | "wrong";
 
 /** Max wrong taps before the step fails out. Three-strike model per
  *  Spencer 2026-05-17: per-match grading, 3 dots at top, fail on 3rd
@@ -184,24 +189,13 @@ export function MatchPairsStepView({ step, onComplete, onContinue, hideMistakeDo
   }
 
   function tileState(side: "source" | "target", pairId: string): TileState {
-    if (matched.has(pairId)) return "matched";
+    if (matched.has(pairId)) return "spent";
     if (side === "source" && wrong.source === pairId) return "wrong";
     if (side === "target" && wrong.target === pairId) return "wrong";
     if (selected && selected.side === side && selected.pairId === pairId)
       return "selected";
     return "idle";
   }
-
-  const stateStyles: Record<TileState, string> = {
-    idle:
-      "border-border bg-surface text-text-primary hover:border-accent",
-    selected:
-      "border-accent bg-accent-muted text-accent",
-    matched:
-      "border-accent bg-accent-muted text-accent opacity-60",
-    wrong:
-      "motion-safe:animate-shake border-error bg-error/10 text-error",
-  };
 
   // Independently shuffle each column so source[i] never lines up with
   // target[i]. Deterministic per step.id (different seed suffix per
@@ -236,25 +230,7 @@ export function MatchPairsStepView({ step, onComplete, onContinue, hideMistakeDo
         {!hideMistakeDots && <MistakeDots used={mistakes} max={MAX_MISTAKES} />}
       </div>
 
-      <div
-        className="relative grid min-h-0 flex-1 grid-cols-2 gap-x-3 gap-y-[var(--match-gap)] sm:gap-x-4"
-        style={{
-          gridTemplateRows: `repeat(${rows}, minmax(min-content, 1fr))`,
-          // Cap the grid so 1fr rows resolve to card-sized tiles instead of
-          // stretching to fill the whole step area on tall viewports —
-          // Spencer QA 2026-07-12: "don't scale the cards too tall; they
-          // need to fit normally inside the lesson viewer." Short viewports
-          // still compress below the cap via min-h-0/flex-1.
-          //
-          // TOKENIZED (b16 2026-09-15): `--match-tile-h`/`--match-gap`
-          // default to 4.75rem/0.5rem — today's literal numbers, so this
-          // is a no-op by default. Wired to the SAME token the grid's own
-          // `gap-y` reads above, so a gap change on the QA page updates
-          // this ceiling formula too — otherwise rows would clip/overlap
-          // the moment Spencer moved the gap slider.
-          maxHeight: `calc(${rows} * var(--match-tile-h) + ${rows - 1} * var(--match-gap))`,
-        }}
-      >
+      <TileTray kind="match-grid" rows={rows}>
         {/* Render row-by-row so the auto-rows lock both columns to the same
          *  height per row even when the kana side has a ruby helper. */}
         {sourceOrder.map((pair, idx) => (
@@ -262,7 +238,7 @@ export function MatchPairsStepView({ step, onComplete, onContinue, hideMistakeDo
             key={`s-${pair.id}`}
             pair={pair}
             denseRows={rows >= 6}
-            style={stateStyles[tileState("source", pair.id)]}
+            state={tileState("source", pair.id)}
             disabled={matched.has(pair.id) || finished}
             onClick={() => handleClick("source", pair.id)}
             row={idx + 1}
@@ -276,14 +252,14 @@ export function MatchPairsStepView({ step, onComplete, onContinue, hideMistakeDo
             pair={pair}
             resolvedTarget={resolvedTargetsById.get(pair.id)}
             denseRows={rows >= 6}
-            style={stateStyles[tileState("target", pair.id)]}
+            state={tileState("target", pair.id)}
             disabled={matched.has(pair.id) || finished}
             onClick={() => handleClick("target", pair.id)}
             row={idx + 1}
             audioOnSelect={!!step.playAudioOnSelect}
           />
         ))}
-      </div>
+      </TileTray>
       </div>
 
       {failed && (
@@ -336,7 +312,7 @@ export function MistakeDots({ used, max }: { used: number; max: number }) {
 
 type TileProps = {
   pair: MatchPairsStep["pairs"][number];
-  style: string;
+  state: TileState;
   disabled: boolean;
   onClick: () => void;
   row: number;
@@ -359,7 +335,7 @@ type SourceTileProps = TileProps & {
 
 function SourceTile({
   pair,
-  style,
+  state,
   disabled,
   onClick,
   row,
@@ -367,34 +343,28 @@ function SourceTile({
   audioOnSelect,
   showSourceRomaji,
 }: SourceTileProps) {
-  // Fluid type; rows own the height (1fr) and tiles stretch to fill,
-  // so vertical padding stays minimal — big static py inflated each
-  // row's min-content floor and forced inner scroll on short windows.
-  // Six-row grids (review matches) get a step down: at 3.8cqh a 743px
-  // scroller sets 28px type, and a kanji tile with its furigana band is then
-  // 94px — six of them cannot share a 585px column with the prompt, so the
-  // last row was clipped on a 15 Pro Max (TestFlight 2026-09-05 #22). Rows
-  // own the height (1fr), so with the smaller floor the tiles still stretch
-  // to fill whatever the grid gets.
-  // TOKENIZED (b16 2026-09-15): every clamp() bound above is multiplied
-  // by `--match-font-scale` (default 1 — today's numbers unchanged).
-  // Match tiles have FOUR distinct size tiers (audio/silent ×
-  // dense/wide rows) that must keep their relative proportions, so
-  // the QA page dials one scale rather than an absolute px size.
-  const sizeClass = audioOnSelect
-    ? denseRows
-      ? "text-[clamp(calc(1.25rem*var(--match-font-scale)),calc(3.2cqh*var(--match-font-scale)),calc(2.5rem*var(--match-font-scale)))] font-semibold py-1.5"
-      : "text-[clamp(calc(1.75rem*var(--match-font-scale)),calc(4.5cqh*var(--match-font-scale)),calc(3rem*var(--match-font-scale)))] font-semibold py-1.5"
-    : denseRows
-      ? "text-[clamp(calc(1.125rem*var(--match-font-scale)),calc(3cqh*var(--match-font-scale)),calc(2.25rem*var(--match-font-scale)))] font-medium py-1.5"
-      : "text-[clamp(calc(1.375rem*var(--match-font-scale)),calc(3.8cqh*var(--match-font-scale)),calc(2.5rem*var(--match-font-scale)))] font-medium py-1.5";
+  // Fluid type; rows own the height (1fr) and tiles stretch to fill, so
+  // vertical padding stays minimal — big static py inflated each row's
+  // min-content floor and forced inner scroll on short windows. Six-row
+  // grids (review matches) step DOWN a tier: at 3.8cqh a 743px scroller
+  // sets 28px type, and a kanji tile with its furigana band is then 94px —
+  // six of them cannot share a 585px column with the prompt, so the last row
+  // was clipped on a 15 Pro Max (TestFlight 2026-09-05 #22).
+  //
+  // The four clamp() formulas that used to live here (and the four in
+  // `TargetTile`) are now `data-side`/`data-audio`/`data-density` in
+  // `src/index.css` § "TILE PRIMITIVE" — same eight tiers, same cqh bounds,
+  // same `--match-font-scale` multiplier, one place.
   return (
-    <button
-      type="button"
+    <Tile
+      variant="match"
+      side="source"
+      audio={audioOnSelect}
+      density={denseRows ? "dense" : "wide"}
+      state={state}
       disabled={disabled}
       onClick={onClick}
       style={{ gridColumn: 1, gridRow: row }}
-      className={`flex w-full items-center justify-center rounded-xl border-[1.5px] px-4 transition-colors duration-150 ${sizeClass} ${style}`}
     >
       {audioOnSelect && !showSourceRomaji ? (
         // No ROMAJI ever in this branch — audio is the reading channel and
@@ -419,7 +389,7 @@ function SourceTile({
       ) : (
         <AnnotatedJa text={pair.source} forceShowHelper={showSourceRomaji} />
       )}
-    </button>
+    </Tile>
   );
 }
 
@@ -464,34 +434,27 @@ function AudioSelectSourceSurface({
 function TargetTile({
   pair,
   resolvedTarget,
-  style,
+  state,
   disabled,
   onClick,
   row,
   denseRows,
   audioOnSelect,
 }: SourceTileProps & { resolvedTarget?: string }) {
-  // TOKENIZED (b16 2026-09-15): every clamp() bound above is multiplied
-  // by `--match-font-scale` (default 1 — today's numbers unchanged).
-  // Match tiles have FOUR distinct size tiers (audio/silent ×
-  // dense/wide rows) that must keep their relative proportions, so
-  // the QA page dials one scale rather than an absolute px size.
-  const sizeClass = audioOnSelect
-    ? denseRows
-      ? "text-[clamp(calc(1.125rem*var(--match-font-scale)),calc(3.2cqh*var(--match-font-scale)),calc(2.25rem*var(--match-font-scale)))] font-semibold py-1.5"
-      : "text-[clamp(calc(1.375rem*var(--match-font-scale)),calc(3.8cqh*var(--match-font-scale)),calc(2.5rem*var(--match-font-scale)))] font-semibold py-1.5"
-    : denseRows
-      ? "text-[clamp(calc(1rem*var(--match-font-scale)),calc(2.6cqh*var(--match-font-scale)),calc(1.75rem*var(--match-font-scale)))] font-medium py-1.5"
-      : "text-[clamp(calc(1.125rem*var(--match-font-scale)),calc(3cqh*var(--match-font-scale)),calc(1.875rem*var(--match-font-scale)))] font-medium py-1.5";
+  // Eight tiers (source/target × audio/silent × dense/wide) live in
+  // `src/index.css` § "TILE PRIMITIVE" now — see SourceTile above.
   return (
-    <button
-      type="button"
+    <Tile
+      variant="match"
+      side="target"
+      audio={audioOnSelect}
+      density={denseRows ? "dense" : "wide"}
+      state={state}
       disabled={disabled}
       onClick={onClick}
       style={{ gridColumn: 2, gridRow: row }}
-      className={`flex w-full items-center justify-center rounded-xl border-[1.5px] px-4 transition-colors duration-150 ${sizeClass} ${style}`}
     >
       {resolvedTarget ?? pair.target}
-    </button>
+    </Tile>
   );
 }

@@ -54,6 +54,7 @@ import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
 import { Icon } from "@/shared/components/Icon";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { seededShuffle } from "@/shared/utils/seededShuffle";
+import { Badge } from "@/shared/components/ui";
 // Voice routing + per-sentence playback are ALREADY solved for dialogue
 // (inv 23: one roster, real Keita/Nanami voices, zero pitch processing).
 // Reuse them rather than growing a second copy that can drift.
@@ -325,15 +326,17 @@ export function DialogueSimStepView({ step, onComplete, onContinue }: Props) {
             </p>
           )}
         </div>
-        <span
-          className="shrink-0 rounded-full bg-surface px-3 py-1 text-xs font-bold uppercase tracking-wider text-text-muted"
+        <Badge
+          as="span"
+          variant="eyebrow"
+          className="shrink-0 rounded-full bg-surface px-3 py-1"
           data-testid="sim-turn-progress"
         >
           {t("lesson.dialogueSim.turnProgress", "Turn {{n}} of {{total}}", {
             n: turnIdx + 1,
             total: turns.length,
           })}
-        </span>
+        </Badge>
       </div>
 
       {/* ── Transcript (the ONLY scroll area) ──────────────────────────────

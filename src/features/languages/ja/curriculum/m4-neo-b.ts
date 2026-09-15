@@ -213,14 +213,15 @@ export const M4_NEO_7: LessonContent = {
       ],
       exercisedAtomKanas: ["かばん", "の", "わたし", "ありがとう"],
     }),
-    build(
-      "ja-m4-neo-7-build-kore-kenno",
-      "Build this sentence: This is Ken's bag.",
-      "これは ケンの かばんだ",
-      ["これ", "は", "ケン", "の", "かばん", "だ"],
-      ["これ", "は", "ケン", "の", "かばん", "だ"],
-      ["これ", "かばん", "の"],
-    ),
+    sentenceMcq({
+      id: "ja-m4-neo-7-mcq-mikano",
+      prompt: "Your friend asks whose bag it is. It's Mika's — the short answer:",
+      correctKana: "ミカのだ。",
+      distractorsKana: ["ケンのだ。", "わたしのだ。", "ミカだ。"],
+      explanation:
+        "Xのだ answers 'whose?' in one beat: it's X's. ミカだ alone would say the BAG is Mika.",
+      exercisedAtomKanas: ["の"],
+    }),
     listeningCompSentence({
       id: "ja-m4-neo-7-lc-watashino",
       audioText: "わたしのだ。",
@@ -236,15 +237,14 @@ export const M4_NEO_7: LessonContent = {
       audioText: "わたしのだ",
       exercisedAtomKanas: ["わたし", "の"],
     }),
-    sentenceMcq({
-      id: "ja-m4-neo-7-mcq-mikano",
-      prompt: "Your friend asks whose bag it is. It's Mika's — the short answer:",
-      correctKana: "ミカのだ。",
-      distractorsKana: ["ケンのだ。", "わたしのだ。", "ミカだ。"],
-      explanation:
-        "Xのだ answers 'whose?' in one beat: it's X's. ミカだ alone would say the BAG is Mika.",
-      exercisedAtomKanas: ["の"],
-    }),
+    build(
+      "ja-m4-neo-7-build-kore-kenno",
+      "Build this sentence: This is Ken's bag.",
+      "これは ケンの かばんだ",
+      ["これ", "は", "ケン", "の", "かばん", "だ"],
+      ["これ", "は", "ケン", "の", "かばん", "だ"],
+      ["これ", "かばん", "の"],
+    ),
     listeningBuildSentence({
       id: "ja-m4-neo-7-lbs-kenno-kaban",
       target: "ケンの かばんだ",
@@ -391,13 +391,15 @@ export const M4_NEO_8: LessonContent = {
       ],
       exercisedAtomKanas: ["にほん", "くるま", "の"],
     }),
-    build(
-      "ja-m4-neo-8-build-nihon-kuruma",
-      "Build this sentence: It's a Japanese car.",
+    // (Each LC/build pair for にほんの くるまだ and アメリカの けいたいだ
+    // is spaced >=3 apart, with a non-selection beat always between two
+    // tap-to-select steps — cloze counts as SELECTION too, so it can't sit
+    // adjacent to the LCs either — inv 25.)
+    speaking(
+      "ja-m4-neo-8-speak-nihon-kuruma",
       "にほんの くるまだ",
-      ["にほん", "の", "くるま", "だ", "アメリカ"],
-      ["にほん", "の", "くるま", "だ"],
-      ["にほん", "くるま", "の"],
+      "It's a Japanese car.",
+      ["にほん", "くるま"],
     ),
     listeningCompSentence({
       id: "ja-m4-neo-8-lc-amerika-keitai",
@@ -412,12 +414,12 @@ export const M4_NEO_8: LessonContent = {
       exercisedAtomKanas: ["アメリカ", "けいたい", "の"],
     }),
     build(
-      "ja-m4-neo-8-build-amerika-keitai",
-      "Build this sentence: It's an American phone.",
-      "アメリカの けいたいだ",
-      ["アメリカ", "の", "けいたい", "だ", "にほん"],
-      ["アメリカ", "の", "けいたい", "だ"],
-      ["アメリカ", "けいたい", "の"],
+      "ja-m4-neo-8-build-nihon-kuruma",
+      "Build this sentence: It's a Japanese car.",
+      "にほんの くるまだ",
+      ["にほん", "の", "くるま", "だ", "アメリカ"],
+      ["にほん", "の", "くるま", "だ"],
+      ["にほん", "くるま", "の"],
     ),
     cloze(
       "ja-m4-neo-8-cloze-no",
@@ -429,11 +431,13 @@ export const M4_NEO_8: LessonContent = {
       "にほんの けいたいだ。",
       "の hangs the origin on the thing: a Japan-kind of phone.",
     ),
-    speaking(
-      "ja-m4-neo-8-speak-nihon-kuruma",
-      "にほんの くるまだ",
-      "It's a Japanese car.",
-      ["にほん", "くるま"],
+    build(
+      "ja-m4-neo-8-build-amerika-keitai",
+      "Build this sentence: It's an American phone.",
+      "アメリカの けいたいだ",
+      ["アメリカ", "の", "けいたい", "だ", "にほん"],
+      ["アメリカ", "の", "けいたい", "だ"],
+      ["アメリカ", "けいたい", "の"],
     ),
     // Same particle, first job — possession rides along so the two の
     // readings stay one system, not two rules.
@@ -834,13 +838,17 @@ export const M4_NEO_10: LessonContent = {
       ],
       exercisedAtomKanas: ["これ", "じてんしゃ"],
     }),
+    // (build-are-jitensha moved up here — a non-selection beat has to sit
+    // between the two VMCQ+LC pairs below, inv 25's tap-to-select cap;
+    // build-kore-jitensha moves down past lc-sore-jisho so the これは
+    // じてんしゃだ LC/build reuse gap clears >=3 indices.)
     build(
-      "ja-m4-neo-10-build-kore-jitensha",
-      "Build this sentence: This is a bicycle.",
-      "これは じてんしゃだ",
-      ["これ", "は", "じてんしゃ", "だ", "くるま"],
-      ["これ", "は", "じてんしゃ", "だ"],
-      ["これ", "じてんしゃ"],
+      "ja-m4-neo-10-build-are-jitensha",
+      "Build this sentence: That (over there) is a bicycle.",
+      "あれは じてんしゃだ",
+      ["あれ", "は", "じてんしゃ", "だ", "これ"],
+      ["あれ", "は", "じてんしゃ", "だ"],
+      ["あれ", "じてんしゃ"],
     ),
     vocabMcq(
       "ja-m4-neo-10-vmcq-jisho",
@@ -860,12 +868,12 @@ export const M4_NEO_10: LessonContent = {
       exercisedAtomKanas: ["それ", "じしょ"],
     }),
     build(
-      "ja-m4-neo-10-build-are-jitensha",
-      "Build this sentence: That (over there) is a bicycle.",
-      "あれは じてんしゃだ",
-      ["あれ", "は", "じてんしゃ", "だ", "これ"],
-      ["あれ", "は", "じてんしゃ", "だ"],
-      ["あれ", "じてんしゃ"],
+      "ja-m4-neo-10-build-kore-jitensha",
+      "Build this sentence: This is a bicycle.",
+      "これは じてんしゃだ",
+      ["これ", "は", "じてんしゃ", "だ", "くるま"],
+      ["これ", "は", "じてんしゃ", "だ"],
+      ["これ", "じてんしゃ"],
     ),
     // ② の recombinations over the new nouns.
     cloze(

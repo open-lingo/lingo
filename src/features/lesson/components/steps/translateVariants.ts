@@ -43,6 +43,7 @@ import {
   nDesuVariants,
   dewaVariants,
   REGISTER_GRADED_FROM_MODULE,
+  BARE_TEMPORALS_LIST,
 } from "@/features/languages/ja/jaAcceptedForms";
 
 /** Fixpoint guard — a pathological sentence must not expand unbounded. */
@@ -50,8 +51,13 @@ const MAX_VARIANTS = 2000;
 // ごご/ごぜん/ばん join the list on the same grounds as あさ/よる: a bare
 // time-of-day noun that can open a clause with or without its topic は
 // (「ごご ひまじゃない」 ≡ 「ごごは ひまじゃない」, m29).
-const TEMPORALS =
-  "きょう|あした|あす|きのう|いま|けさ|こんばん|ごぜん|ごご|よる|あさ|ばん|まいにち";
+//
+// Derived from `jaAcceptedForms`'s `BARE_TEMPORALS_LIST`, not a second
+// hand-maintained copy — the two leniency mechanisms (this file's topic-は
+// drop, that file's scramble) drifted out of sync for over a month (m11's
+// wider-calendar words never got backfilled into this file's own list; b15
+// #121, 2026-09-15). One source, so they cannot drift again.
+const TEMPORALS = BARE_TEMPORALS_LIST.join("|");
 const LEADING_TOPIC = /^(わたくし|わたし|ぼく)は\s*/;
 const LEADING_TEMPORAL_TOPIC = new RegExp(`^(${TEMPORALS})は\\s*`);
 

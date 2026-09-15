@@ -149,6 +149,31 @@ generalises to.
 - **Rule it generalises to:** selection code carries explicit floors and
   windows; "the pool had it" is never a reason a step was served.
 
+### Topic 4 — naturalness sweep + audio (#72 class, #93 #100 #106 #126 #127)
+
+- **Local judge with replacements.** "yes local judge and even local judge
+  replace if we can, have sonnet audit a few, but ideally a larger pass on
+  words would be great… just the json, we can mechanically feed it things".
+- **Kanji is the TTS source, always.** "kanji sources should be the default
+  regardless and regenerate whatever I flagged where you can."
+
+### Topic 5 — small verdicts (#122 #140, #141, #131, #136)
+
+- **Grading accepts any proper alternate.** "accept whatever is proper grammar
+  and has effectively the same meaning, local model pass might also be good
+  for this." → a local-model pass proposes `alsoAccept` alternates for every
+  build step (word order, adverb placement, wh-word position, topic drop);
+  Sonnet audits; max 3 per step (memory `build-also-accepted`).
+- **Follow native usage on kanji, explain on demand.** #141: "leave it if
+  that's what natives do but maybe we make a note in one of the explains if
+  they ever click it." こよう stays kana; the explanation mentions 来よう.
+- **Rule tables drill the word on screen.** #131: "ideally show the drilled
+  word's chips while they are learning." No alternate-example convention.
+- **Lesson-complete = three buttons, Return goes home.** #136: "return should
+  just take you back to the home page. target is 3 buttons… use your UI design
+  to pick colors that fit in the theme and appropriate sizing." Fable owns
+  the visual call; he sets the structure.
+
 ### Architecture (2026-09-15)
 
 - "standardize the class for tiles across everything and then populate them

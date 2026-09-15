@@ -23,6 +23,7 @@ import {
   type SortingStrategy,
 } from "@dnd-kit/sortable";
 import { BuildTileSurface, type BuildTileDisplay } from "./BuildTileSurface";
+import { Tile, type TileProps } from "../tiles/Tile";
 
 /** Reduced-motion read for the reorder slide. Checked at render (the setting
  *  does not change mid-step) to match how the rest of the lesson treats it. */
@@ -82,6 +83,8 @@ export function SortableBuildTiles({
   onRemove,
   onReorder,
   className,
+  rowAttrs,
+  tile,
   tileClassName,
   strategy = "horizontal",
   onTileHoverStart,
@@ -98,6 +101,14 @@ export function SortableBuildTiles({
   onRemove: (trayPosition: number) => void;
   onReorder: (next: number[]) => void;
   className?: string;
+  /** `tileRowAttrs(...)` from `TileTray` — this component owns its row div
+   *  (dnd-kit's `SortableContext` child), so the tray attributes are spread
+   *  in rather than rendered by `TileTray` itself. */
+  rowAttrs?: Record<string, string | undefined>;
+  /** Which `Tile` these placed tiles are. Geometry and state colour come
+   *  from the primitive; this component only adds the drag affordances. */
+  tile: Pick<TileProps, "variant" | "density" | "slot" | "state">;
+  /** Extra classes MERGED onto every tile (the pop animation). */
   tileClassName?: string;
   /** "wrap" for the flex-wrap sentence tray, "horizontal" for single rows. */
   strategy?: "horizontal" | "wrap";
@@ -197,11 +208,11 @@ export function SortableBuildTiles({
   // the context entirely keeps those cases byte-for-byte the old render.
   if (disabled || ids.length < 2) {
     return (
-      <div className={className}>
-        {tiles.map((tile, i) => (
-          <button
+      <div {...rowAttrs} className={className}>
+        {tiles.map((t, i) => (
+          <Tile
             key={`${ids[i]}`}
-            type="button"
+            {...tile}
             disabled={disabled}
             onClick={() => onRemove(i)}
             onMouseEnter={() => onTileHoverStart?.(ids[i])}
@@ -209,11 +220,11 @@ export function SortableBuildTiles({
             className={tileClassName}
           >
             <BuildTileSurface
-              tile={tile}
-              kanji={tileKanji.get(tile)}
+              tile={t}
+              kanji={tileKanji.get(t)}
               forceHelper={forceHelperFor?.(ids[i])}
             />
-          </button>
+          </Tile>
         ))}
       </div>
     );
@@ -243,13 +254,14 @@ export function SortableBuildTiles({
         items={ids as number[]}
         strategy={live ? liveReorderStrategy : horizontalListSortingStrategy}
       >
-        <div className={className}>
-          {tiles.map((tile, i) => (
+        <div {...rowAttrs} className={className}>
+          {tiles.map((t, i) => (
             <SortableTile
               key={ids[i]}
               id={ids[i]}
-              tile={tile}
-              kanji={tileKanji.get(tile)}
+              tile={t}
+              kanji={tileKanji.get(t)}
+              tileProps={tile}
               onRemove={() => onRemove(i)}
               onHoverStart={onTileHoverStart}
               onHoverEnd={onTileHoverEnd}
@@ -263,8 +275,8 @@ export function SortableBuildTiles({
       {live && (
         <DragOverlay dropAnimation={prefersReducedMotion() ? null : undefined}>
           {activeId != null && ids.includes(activeId) && (
-            <button
-              type="button"
+            <Tile
+              {...tile}
               aria-hidden="true"
               tabIndex={-1}
               className={`${tileClassName ?? ""} scale-105 opacity-90 shadow-lg`}
@@ -274,7 +286,7 @@ export function SortableBuildTiles({
                 kanji={tileKanji.get(tiles[ids.indexOf(activeId)])}
                 forceHelper={forceHelperFor?.(activeId)}
               />
-            </button>
+            </Tile>
           )}
         </DragOverlay>
       )}
@@ -286,6 +298,7 @@ function SortableTile({
   id,
   tile,
   kanji,
+  tileProps,
   onRemove,
   onHoverStart,
   onHoverEnd,
@@ -296,6 +309,7 @@ function SortableTile({
   id: number;
   tile: string;
   kanji?: BuildTileDisplay;
+  tileProps: Pick<TileProps, "variant" | "density" | "slot" | "state">;
   onRemove: () => void;
   onHoverStart?: (id: number) => void;
   onHoverEnd?: () => void;
@@ -317,9 +331,9 @@ function SortableTile({
   } = useSortable({ id, transition: prefersReducedMotion() ? null : undefined });
 
   return (
-    <button
+    <Tile
+      {...tileProps}
       ref={setNodeRef}
-      type="button"
       onClick={onRemove}
       onMouseEnter={() => onHoverStart?.(id)}
       onMouseLeave={onHoverEnd}
@@ -346,6 +360,6 @@ function SortableTile({
       {...listeners}
     >
       <BuildTileSurface tile={tile} kanji={kanji} forceHelper={forceHelper} />
-    </button>
+    </Tile>
   );
 }

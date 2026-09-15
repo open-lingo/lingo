@@ -8,6 +8,7 @@ import { playJaAudio, getTtsUrl } from "@/shared/tts";
 import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { Badge } from "@/shared/components/ui";
 
 const CELEBRATE_MS = 1100;
 
@@ -143,9 +144,9 @@ export function LiaisonListenStepView({ step, onComplete, onContinue }: Props) {
           at 1280x800) — the exact reflow CLAUDE.md § "Lesson UI stability
           rules" forbids. Top-anchored it is 0.0px at both. The slack goes below
           the notes instead. */}
-      <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
+      <Badge variant="eyebrow">
         {step.prompt}
-      </p>
+      </Badge>
 
       {/* Padding is FIXED across submit, and so is the play button below it.
           Both used to shrink at Check to buy the notes room; between them they

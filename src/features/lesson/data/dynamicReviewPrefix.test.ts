@@ -147,13 +147,24 @@ describe("dynamic segment conformance", () => {
     expect(withDynamicReviewPrefix(lesson)).toBe(lesson);
   });
 
-  it("unlocked-but-nothing-actionable → still byte-identical", () => {
-    // Unlocked atoms whose cards are neither due nor new, none of them
-    // switchover candidates: nothing due, nothing latched-pending, no
-    // intake — the authored lesson must come back untouched.
+  it("unlocked-but-nothing-DUE → the RECENT half is served (Rule 3, 2026-09-15)", () => {
+    // CONTRACT CHANGE, and a deliberate one. This case used to assert the
+    // authored lesson came back byte-identical: nothing due, nothing
+    // latched-pending, no intake → no prefix. That is exactly the hole
+    // TestFlight #91/#116 came through — with nothing due the prefix was
+    // empty, the session fell back to compiled filler drawn from everything
+    // the learner had ever met, and an m31 learner got いいえ.
+    //
+    // Spencer's rule (`docs/spencer-product-sentiment.md`, Topic 3): "half
+    // recent things, half fsrs learnings." A studied-but-resting card inside
+    // the six-module window IS the recent half, so it is served. The
+    // byte-identical guarantee now belongs to the genuinely empty state
+    // (nothing unlocked) — asserted by the test above and by the LIVE
+    // pipeline test below.
     const atoms = getAtomsUpToModule("m9", "ja")
       .filter((a) => !isSwitchoverAtom(a.id))
       .slice(0, 5);
+    const ids = new Set(atoms.map((a) => a.id));
     unlockAtomIds(atoms.map((a) => a.id));
     for (const a of atoms) {
       const s = dueState();
@@ -163,7 +174,21 @@ describe("dynamic segment conformance", () => {
       setCardState(a.id, s);
     }
     const lesson = fakeReviewLesson("m9");
-    expect(withDynamicReviewPrefix(lesson)).toBe(lesson);
+    const merged = withDynamicReviewPrefix(lesson);
+    expect(merged).not.toBe(lesson);
+    const dyn = merged.steps.filter(isDynStep);
+    expect(dyn.length, "the recent half fills the prefix").toBeGreaterThan(0);
+    // …and every step's TARGET (first credit, same convention the due-first
+    // test uses — later entries are sentence-context credit, not the draw)
+    // must be one of the atoms that qualified: unlocked, studied, not due.
+    for (const step of dyn.filter((x) => /-dyn-step-\d+$/.test(x.id))) {
+      const target = (step.exercisedAtoms ?? [])[0];
+      expect(ids.has(target), `${step.id} served un-eligible ${target}`).toBe(true);
+    }
+    // The authored body is still intact underneath.
+    expect(merged.steps.slice(dyn.length).map((x) => x.id)).toEqual(
+      lesson.steps.map((x) => x.id),
+    );
   });
 
   it("empty state through the LIVE pipeline: no dynamic steps at all", () => {

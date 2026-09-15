@@ -14,6 +14,7 @@ import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { tryGetLanguageModule } from "@/shared/language/registry";
 import type { LanguageId } from "@/shared/language/types";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { Badge } from "@/shared/components/ui";
 
 const TURN_GAP_MS = 550;
 const SENTENCE_GAP_MS = 175;
@@ -421,9 +422,9 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
           out of the box. An explicit min-height is both the shrink permission
           and the stop. */}
       <div className="flex min-h-[5.5rem] flex-col gap-2 rounded-2xl border-[1.5px] border-border bg-surface-muted/40 px-4 py-3">
-          <p className="shrink-0 text-xs font-bold uppercase tracking-wider text-text-muted">
+          <Badge variant="eyebrow" className="shrink-0">
             {t("lesson.dialogueListen.transcript", "Transcript")}
-          </p>
+          </Badge>
           {/* `max-h-72` caps it on a tall window; `flex-1 min-h-0` is what lets
               it give space back on a short one. The floor keeps at least one
               line legible — below that the step container scrolls instead,
@@ -458,13 +459,14 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
                       until m17, hiragana names lose it at m7 like all other
                       hiragana. English labels ("You", "Server") pass
                       through untouched. */}
-                  <span
-                    className={`shrink-0 text-xs font-bold uppercase tracking-wider pt-1 ${
-                      isActive ? "text-accent" : "text-text-muted"
-                    }`}
+                  <Badge
+                    as="span"
+                    variant="eyebrow"
+                    tone={isActive ? "accent" : "muted"}
+                    className="shrink-0 pt-1"
                   >
                     <AnnotatedJa text={line.speaker ?? ""} />
-                  </span>
+                  </Badge>
                   <p
                     className={`flex-1 font-japanese text-base text-text-primary ${
                       isActive ? "font-semibold" : "font-medium"
@@ -494,12 +496,12 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
           {currentQ?.prompt ?? ""}
         </h2>
         {totalQuestions > 1 && (
-          <span className="shrink-0 rounded-full bg-surface-muted px-3 py-1 text-xs font-bold uppercase tracking-wider text-text-muted">
+          <Badge as="span" variant="eyebrow" className="shrink-0 rounded-full bg-surface-muted px-3 py-1">
             {t("lesson.dialogueListen.qProgress", "{{n}} of {{total}}", {
               n: currentIdx + 1,
               total: totalQuestions,
             })}
-          </span>
+          </Badge>
         )}
       </div>
 

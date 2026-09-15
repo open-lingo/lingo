@@ -41,6 +41,7 @@ import {
 } from "@/features/languages/ja/courseAtoms";
 import { getAtomsUpToModule } from "./lessonAtomIndex";
 import { getJaTaughtKanaBeforeModule } from "@/features/languages/ja/curriculum/taughtVocab";
+import { getJaRecentKanaWindow } from "@/features/languages/ja/curriculum/recentVocabWindow";
 // ES pool: the aggregate registry is a LAZY getter (it breaks the
 // courseAtoms ↔ curriculum/m{n} import cycle) — call getEsCourseAtoms()
 // at fill time only, never snapshot it at module scope.
@@ -55,6 +56,7 @@ import {
   canonicalizeCardId,
   type SRSStore,
 } from "@/features/flashcards/engine/srsStorage";
+import { isDue } from "@/features/flashcards/engine/srs";
 import { seededShuffle } from "@/shared/utils/seededShuffle";
 import { getContentRevision } from "./lessonRegistry";
 
@@ -471,7 +473,26 @@ function buildMeaningFill(
   for (const atom of prior) {
     weakness.set(atom.id, weaknessScore(atom.id, ctx.todayMs, store));
   }
+  // RULE 3 (Spencer 2026-09-15): a review draw takes the last six modules'
+  // vocabulary, or anything FSRS says is DUE — nothing else. #116 is this pass
+  // handing an advanced grid いいえ because the atom's tag said "prior".
+  // Enforced as a RANK, not a filter, for one reason: a match grid has a fixed
+  // tile count and an unfillable grid is a broken step, not a clean one. So
+  // window-or-due candidates are taken first and the rest are backfill —
+  // reached only when the eligible set cannot fill the grid.
+  const recentWindow = getJaRecentKanaWindow(moduleId);
+  const inScope = (a: CourseAtom): boolean => {
+    if (recentWindow === null) return true; // ≤ m11: no truthful window
+    if (a.kana.split("/").some((v) => recentWindow.has(v.trim()))) return true;
+    const state = store[canonicalizeCardId(a.id)];
+    return state ? isDue(state) : false;
+  };
+  const scope = new Map<string, boolean>();
+  for (const atom of prior) scope.set(atom.id, inScope(atom));
   const ranked = [...shuffled].sort((a, b) => {
+    const sa = scope.get(a.id) ? 0 : 1;
+    const sb = scope.get(b.id) ? 0 : 1;
+    if (sa !== sb) return sa - sb; // window-or-due first, stale as backfill
     const wa = weakness.get(a.id) ?? 0;
     const wb = weakness.get(b.id) ?? 0;
     if (wa !== wb) return wb - wa; // weakest first

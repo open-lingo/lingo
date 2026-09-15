@@ -9,6 +9,7 @@ import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
 import { PromptAudioButton } from "./PromptAudioButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { Badge } from "@/shared/components/ui";
 
 const CELEBRATE_MS = 1100;
 
@@ -112,9 +113,9 @@ export function AspectChoiceClozeStepView({ step, onComplete, onContinue }: Prop
           this step used to run. See the block comment below: the chips ARE the
           learner's answer, and a split that collapses at Check drags every one
           of them up the screen at the moment they are marked. */}
-      <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
+      <Badge variant="eyebrow">
         {step.prompt}
-      </p>
+      </Badge>
 
       {/* NOTHING above or around the chips changes size at Check.
           This panel used to tighten on submit — narrower padding, a step down

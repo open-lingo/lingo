@@ -226,3 +226,45 @@ Mirror: memory `spencer-open-todos.md`.
   Tile primitive brief written (+ overlay card, eyebrow/chip, option tokens;
   research notes). Committing the QA lane as the baseline for the primitive
   migration; push comes with the lap.
+- 2026-09-15 late — Topic 4 verdicts: naturalness sweep = local judge WITH
+  replacements, JSON rows not code, Sonnet audits a sample (memory
+  `local-model-briefing`); TTS = kanji surface default + regen every flagged
+  clip. Lanes running: Tile primitive (Opus), content floors (Opus),
+  naturalness sweep (Sonnet + local Ollama), TTS kanji default (Sonnet).
+  Briefs in scratchpad `fb16-research/*-brief.md`.
+- 2026-09-15 late — Spencer: the QA page is useless until the primitives land
+  and "current QA page has issues" → Fable REWRITES `/ja/qa/tiles` personally
+  after the Tile lane (reuse the token registry / postMessage / lock logic,
+  new page). Tile agent told to keep the page working but not polish it.
+  Topic 5 verdicts logged; grading-leniency lane (Sonnet) dispatched; queued:
+  alternates sweep (after naturalness releases the local model), post-Tile UI
+  lane (#131 #136 #141 #142 #124b).
+- Spencer's QA-page spec: base "plain tile" section + one section per step
+  type scaling off it via multipliers with an override toggle; plan in
+  scratchpad `fb16-research/qa-page-rewrite-plan.md`. Fable writes it after
+  the Tile lane, own pass, then simulator-verified.
+- Grading-leniency lane DONE (uncommitted): BARE_TEMPORALS_LIST single source
+  (27 words) feeding both topic-drop and scramble; WH_WORDS movable class
+  (いつ なぜ どう いくら なんじ …); 12 new tests, 0 correctOrder collisions
+  course-wide; #127 mitigated page-side, full currentness guard queued to the
+  post-Tile UI lane. Files: jaAcceptedForms.ts(+test), translateVariants.ts,
+  PlacementTestPage.tsx, testOutAudioGuard.test.tsx.
+- TTS kanji-default lane DONE (uncommitted): app hashes KANA (no re-key);
+  emitter now carries a `speech` (kanji) field → lingo-data
+  `speech_overrides_ja.json` (660 pairs); 45 clips regenerated from kanji,
+  40 ASR-PASS staged as same-hash overwrites (README batch 2), 5 held (歯,
+  二十日 real misreads; 二/八/二十歳 inconclusive — human listen). CORRECTION:
+  the "6 dakuten typos" were NOT typos — つきだ is real content, the other
+  four are authored wrong-reading MCQ distractors swept by the emitter regex.
+  Fable: backed up the 40 live clips to scratchpad `tts-batch2-backup/`
+  (reversible), then upload --force + CloudFront invalidation (running).
+- Content-floors lane DONE (Opus, uncommitted, curriculum 13,342 + app 908
+  green): Rule 1 gate (≥5 answer tiles m12+) → 656/3,366 (19.5%) violations,
+  ALL authoring rewrites, budgets frozen per module, list in scratchpad
+  `fb16-research/content-floors-violations.md` (worst m12 70%, m38 73%);
+  Rule 2 spacing 202→1 hard (ja-m31-neo-10 exemption), compiler-level fix +
+  17 re-orders in m3–m5; Rule 3 window: out-of-window draws 2,821→1,679,
+  filler 1,322→542, 50/50 due/recent split shared by prefix + review tail;
+  #128 2→0, #90 12→0, #129 sentence-key dedupe. Open for Spencer: speaking
+  echo soft vs hard; 656 rewrites need Sonnet authoring lanes; レストラン
+  asserted-known-never-taught registry hazard.

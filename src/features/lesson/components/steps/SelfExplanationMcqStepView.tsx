@@ -9,6 +9,7 @@ import { getTtsUrl, playJaAudio } from "@/shared/tts";
 import { Icon } from "@/shared/components/Icon";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { formatPrompt } from "../formatPrompt";
+import { Badge } from "@/shared/components/ui";
 
 const CELEBRATE_MS = 1100;
 
@@ -123,9 +124,9 @@ export function SelfExplanationMcqStepView({ step, onComplete, onContinue }: Pro
           sits midway between the header and the CTA while the CTA stays
           bottom-anchored. Collapses to 0 when content overflows. */}
       <div className="mt-auto flex items-start gap-3 rounded-2xl border-2 border-info/30 bg-info/5 px-5 py-4">
-        <span className="mt-0.5 text-xs font-bold uppercase tracking-wider text-info shrink-0">
+        <Badge as="span" variant="eyebrow" tone="info" className="mt-0.5 shrink-0">
           {t("lesson.selfExplain.anchorTag", "You answered")}
-        </span>
+        </Badge>
         <p className="flex-1 text-base font-medium text-text-primary">
           <AnnotatedJa text={step.anchor.label} />
         </p>
@@ -186,9 +187,9 @@ export function SelfExplanationMcqStepView({ step, onComplete, onContinue }: Pro
         {/* Subtle reveal card on correct commit (the actual rule). */}
         {submitted && isCorrect && step.ruleExplanation && (
           <div className="rounded-2xl border-[1.5px] border-accent/40 bg-accent-muted/60 px-5 py-4 text-sm leading-relaxed text-text-primary">
-            <span className="block text-xs font-bold uppercase tracking-wider text-accent">
+            <Badge as="span" variant="eyebrow" tone="accent" className="block">
               {t("lesson.selfExplain.ruleReveal", "The rule")}
-            </span>
+            </Badge>
             <p className="mt-1.5">{step.ruleExplanation}</p>
           </div>
         )}

@@ -8,6 +8,7 @@ import { ExplainButton } from "../ExplainButton";
 import { Icon } from "@/shared/components/Icon";
 import { playJaAudio, getTtsUrl } from "@/shared/tts";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { Badge } from "@/shared/components/ui";
 
 const CELEBRATE_MS = 1100;
 
@@ -108,10 +109,10 @@ export function StressPatternStepView({ step, onComplete, onContinue }: Props) {
         explanation={step.explanation}
         hasSubmittedWrong={hasSubmittedWrong}
       />
-      <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
+      <Badge variant="eyebrow">
         {step.prompt ??
           t("lesson.stressPattern.instruction", "Which syllable is stressed?")}
-      </p>
+      </Badge>
 
       {/* The stimulus card never changes size above the syllable row — same
           padding and the same play-button size before and after Check — so the

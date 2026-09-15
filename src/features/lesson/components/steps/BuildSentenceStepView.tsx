@@ -10,6 +10,8 @@ import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
 import { useAutoPlayJaAudio, getTtsUrl, playJaAudio } from "@/shared/tts";
 import { SortableBuildTiles } from "./SortableBuildTiles";
+import { Tile } from "../tiles/Tile";
+import { TileTray, tileRowAttrs } from "../tiles/TileTray";
 import {
   BuildTileSurface,
   useBuildTileKanji,
@@ -20,6 +22,7 @@ import { useSettings } from "@/shared/contexts/SettingsContext";
 import { ExplainButton } from "../ExplainButton";
 import { notoEmojiUrl } from "@/shared/assets/notoEmoji";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { Badge } from "@/shared/components/ui";
 import { formatPrompt } from "../formatPrompt";
 import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
 import { useContentString } from "../../hooks/useContentString";
@@ -333,7 +336,8 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   // untouched (a 20.4px word already carries an 11.2px reading at 0.55em).
   // #113 (Spencer TestFlight b14, 2026-09-15): "word tiles are a bit too
   // small, maybe 10% bigger" → 15 → 16.5px; kana-only tiles additionally
-  // grow 1.2× into the reading band (`.build-tile-dense` hook, index.css).
+  // grow 1.2× into the reading band (the `--tile-kana-font` rule keyed on
+  // `[data-variant="build"][data-density="dense"|"huge"]`, index.css).
   // Measured on the iOS 26.5 simulator (iPhone 15 Pro Max, 430×775) — see
   // the ledger entry for the before/after table.
   //
@@ -362,26 +366,17 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   // as a unit, sliding its word EITHER higher or lower than a plain tile's
   // centred word depending on reading height — re-breaking the exact
   // misalignment `justify-end` was added to fix. Checked, not changed.
-  const denseTileClass = hugeBank
-    ? "build-tile-dense flex flex-col items-center justify-end min-h-[var(--tile-box-h)] px-[var(--tile-px)] py-[var(--tile-py)] text-[length:var(--tile-font)] font-bold leading-tight sm:py-[calc(var(--tile-py)*0.75)] sm:text-[length:calc(var(--tile-font)*0.833333)]"
-    : "build-tile-dense flex flex-col items-center justify-end min-h-[var(--tile-box-h)] px-[var(--tile-px)] py-[var(--tile-py)] text-[length:var(--tile-font)] font-bold leading-tight";
-  // `bigTiles` (≤6-tile / word-build) now reads the SAME `--tile-box-h`
-  // floor (b16.1) but keeps its own font/padding numbers, wrapped in ONE
-  // unitless multiplier token, `--tile-big-scale` (default 1 = today's
-  // exact numbers): its font is a `cqh`-driven `clamp()` with NO `sm:` step
-  // (roughly constant across viewports by design), while `--tile-px`/
-  // `--tile-font` DO step at 640px — multiplying a breakpoint-varying token
-  // by a fixed ratio would either shrink it on mobile or grow it on desktop
-  // relative to today's shipped constant, so the scale is self-relative
-  // (today's own px/py/clamp × 1) rather than derived from the dense
-  // tier's tokens. No per-row baseline concern here (unlike the dense
-  // tier) — this tier has never used `justify-end`, and the MCQ-shaped
-  // single-answer picker above already centres its options the same way —
-  // so a plain `items-center justify-center` is enough.
-  const bigTileClass =
-    "flex items-center justify-center min-h-[var(--tile-box-h)] px-[calc(17.5px*var(--tile-big-scale))] py-[calc(10.5px*var(--tile-big-scale))] text-[clamp(calc(1.275rem*var(--tile-big-scale)),2.89cqh,calc(1.9125rem*var(--tile-big-scale)))] font-bold";
-  const bankTileClass = bigTiles ? bigTileClass : denseTileClass;
-  const placedTileClass = bigTiles ? bigTileClass : denseTileClass;
+  // THE THREE TIERS ARE NOW ONE PROP. Every number that used to live in the
+  // class strings here (px/py/font per tier, the hugeBank `sm:` multipliers,
+  // bigTiles' cqh clamp, the `--tile-box-h` floor, and the
+  // `flex-col items-center justify-end` row-baseline rule) moved into the
+  // `Tile` primitive + `src/index.css` § "TILE PRIMITIVE" — same values, one
+  // place, and the QA page's sliders reach every build surface through it.
+  // The baseline rule in particular is a PRIMITIVE DEFAULT on purpose: it is
+  // what keeps a ruby tile's word on the same line as a plain tile's once
+  // both boxes share a height, and a view override is exactly how it used to
+  // break (the ghost/slot pre-sizers must share it or the tray mis-sizes).
+  const density = bigTiles ? "big" : hugeBank ? "huge" : "dense";
 
   const handleEnter = useCallback(() => {
     if (!submitted && placed.length > 0) handleSubmit();
@@ -470,9 +465,10 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   // accent "staged" tint; after a WRONG submit they must flip to the error
   // palette — leaving the learner's wrong answer green-tinted reads as
   // "this was right" at the exact moment the verdict says otherwise.
-  const placedStateClass = hasSubmittedWrong
-    ? "border-error bg-error/10 text-error"
-    : "border-accent bg-accent-muted text-accent hover:bg-accent hover:text-white";
+  // The colour decision is now one word. A WRONG submit flips the learner's
+  // own placed tiles to the error palette — leaving them accent-tinted read
+  // as "this was right" at the moment the verdict said otherwise.
+  const placedState = hasSubmittedWrong ? "wrong" : "placed";
 
   return (
     // QA 2026-07-12 (workshop C): tightened stacked gaps — tiles stay at
@@ -565,24 +561,25 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
             )}
           </span>
           {step.transformLabel && (
-            <span className="whitespace-nowrap rounded-full bg-accent-muted px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-accent">
+            <Badge as="span" variant="eyebrow" tone="accent" className="whitespace-nowrap rounded-full bg-accent-muted px-2.5 py-1">
               {step.transformLabel}
-            </span>
+            </Badge>
           )}
         </div>
       )}
 
       {isSingleAnswerPicker ? (
         /* MCQ-SHAPED SINGLE-ANSWER PICKER: no tray, no bank row — the
-           bank tiles ARE the options, styled like MultipleChoiceStepView.
+           bank tiles ARE the options, and they render as the same
+           `Tile variant="option"` MultipleChoiceStepView uses, so "styled
+           like the MCQ" is now structural instead of a copied class string.
            Tap selects (replacing any prior pick); Check submits via the
            existing generic submit path below. */
-        <div
-          className={
-            bankTiles.length === 4
-              ? "relative grid grid-cols-2 grid-rows-2 auto-rows-fr gap-3 sm:gap-4"
-              : "relative grid auto-rows-fr gap-3"
-          }
+        <TileTray
+          kind="grid"
+          cols={bankTiles.length === 4 ? 2 : 1}
+          fr
+          gap={bankTiles.length === 4 ? undefined : "tight"}
           style={{
             // Mirror MultipleChoiceStepView's sizing exactly — the picker
             // borrowed its look but not its GRID, so a 3-option bank was
@@ -602,47 +599,51 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
           {bankTiles.map((tile, i) => {
             const isSelected = placedIdx.includes(i);
             const isAnswer = tile === step.correctOrder[0];
-            let optionStyle =
-              "border-border bg-surface text-text-primary hover:border-accent";
-            if (submitted && isAnswer) {
-              optionStyle = "border-accent bg-accent text-white";
-            } else if (submitted && isSelected && !isAnswer) {
-              optionStyle = "border-error bg-error/15 text-error";
-            } else if (isSelected) {
-              optionStyle = "border-accent bg-accent-muted text-accent";
-            }
             return (
-              <button
+              <Tile
                 key={`tile-${i}`}
-                type="button"
+                variant="option"
+                size="pick"
+                state={
+                  submitted && isAnswer
+                    ? "correct"
+                    : submitted && isSelected
+                      ? "wrong"
+                      : isSelected
+                        ? "selected"
+                        : "idle"
+                }
                 disabled={submitted}
                 aria-pressed={isSelected}
                 onClick={() => addTile(i)}
-                className={`flex items-center justify-center rounded-xl border-2 px-4 py-6 text-xl font-bold transition-colors duration-150 ${optionStyle} ${submitted ? "cursor-default" : "cursor-pointer"}`}
               >
                 <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
-              </button>
+              </Tile>
             );
           })}
-        </div>
+        </TileTray>
       ) : showSlots ? (
         /* WORD-BUILD SLOTS (first encounters): one outlined slot per
            answer kana — pre-sized by invisible copies of the answer
            tiles, so geometry is exact and nothing ever reflows. Placed
            tiles pop into the slots left-to-right. */
-        <div className="mx-auto grid w-fit max-w-full">
-          <div aria-hidden className="[grid-area:1/1] flex flex-wrap gap-2">
+        <TileTray kind="slots">
+          <TileTray kind="row" layer gap="tight" aria-hidden>
             {step.correctOrder.map((tile, i) => (
-              <span
+              <Tile
                 key={`slot-${i}`}
-                className={`rounded-[var(--tile-radius)] border-2 border-dashed border-border bg-surface-muted ${placedTileClass}`}
+                as="span"
+                variant="build"
+                density="big"
+                slot="slots"
+                state="slot"
               >
                 <span className="invisible">
                   <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
                 </span>
-              </span>
+              </Tile>
             ))}
-          </div>
+          </TileTray>
           <SortableBuildTiles
             ids={placedIdx}
             tiles={placed}
@@ -651,10 +652,11 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
             onRemove={removeTile}
             onReorder={setPlacedIdx}
             strategy="wrap"
-            className="[grid-area:1/1] flex flex-wrap gap-2"
-            tileClassName={`motion-safe:animate-tile-pop rounded-[var(--tile-radius)] border-2 transition-colors duration-150 ${placedStateClass} ${placedTileClass}`}
+            rowAttrs={tileRowAttrs({ layer: true, gap: "tight" })}
+            tile={{ variant: "build", density: "big", slot: "slots", state: placedState }}
+            tileClassName="motion-safe:animate-tile-pop"
           />
-        </div>
+        </TileTray>
       ) : isWordBuild ? (
         /* WORD-BUILD PILL (review contexts): no length hint — a compact
            centered tray that hugs its tiles and visibly grows as they
@@ -664,13 +666,13 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
            too big, too much scroll initially forced" — floor shrunk
            64px→54px (-15%, matches the #69 tile-size cut) so a short
            answer doesn't reserve more empty height than one tile row. */
-        <div className="mx-auto flex min-h-[54px] w-fit max-w-full flex-wrap items-center justify-center gap-2 rounded-2xl border-[1.5px] border-dashed border-border bg-surface-muted px-4 py-2">
-          <span aria-hidden className={`invisible w-0 overflow-hidden !px-0 ${placedTileClass}`}>
+        <TileTray kind="pill">
+          <Tile variant="build" density="big" state="ghost" collapsed>
             <BuildTileSurface
               tile={step.correctOrder[0] ?? "あ"}
               kanji={tileKanji.get(step.correctOrder[0] ?? "あ")}
             />
-          </span>
+          </Tile>
           <SortableBuildTiles
             ids={placedIdx}
             tiles={placed}
@@ -679,10 +681,11 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
             onRemove={removeTile}
             onReorder={setPlacedIdx}
             strategy="wrap"
-            className="flex flex-wrap items-center justify-center gap-2"
-            tileClassName={`motion-safe:animate-tile-pop rounded-[var(--tile-radius)] border-[1.5px] transition-colors duration-150 ${placedStateClass} ${placedTileClass}`}
+            rowAttrs={tileRowAttrs({ gap: "tight", center: true })}
+            tile={{ variant: "build", density: "big", slot: "pill", state: placedState }}
+            tileClassName="motion-safe:animate-tile-pop"
           />
-        </div>
+        </TileTray>
       ) : (
         /* SENTENCE TRAY: an invisible ghost of the FULL answer sets the
            tray's FLOOR, so placing the expected tiles never reflows the
@@ -698,7 +701,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
            sets the real floor for a multi-row answer; this class is the
            visible floor for a short one, which is what forced the
            "too much scroll before placing anything" complaint. */
-        <div className="grid min-h-[var(--tile-h)] rounded-2xl border-[1.5px] border-dashed border-border bg-surface-muted px-4 py-2.5">
+        <TileTray kind="tray">
           {/* The ghost reserves the FULL answer's height up front so the tray
               never reflows. On a 12+ tile bank that reservation is what
               overflows the stage: the empty tray holds three rows of nothing
@@ -712,20 +715,19 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
               banks the tray grows as tiles are placed instead of
               pre-reserving, and the bottom-anchored CTA absorbs the growth. */}
           {!hugeBank && (
-          <div aria-hidden className="[grid-area:1/1] invisible flex flex-wrap items-stretch gap-[var(--tile-tray-gap)]">
-            {step.correctOrder.map((tile, i) => (
-              <span
-                key={`ghost-${i}`}
-                className={`rounded-[var(--tile-radius)] border-[1.5px] ${placedTileClass}`}
-              >
-                {/* Ghost sizing MUST use the same glyphs (kanji + rt) as the
-                    real tiles or the tray mis-sizes. */}
-                <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
-              </span>
-            ))}
-          </div>
+            <TileTray kind="row" layer ghost aria-hidden>
+              {step.correctOrder.map((tile, i) => (
+                /* A pre-sizer MUST use the same glyphs (kanji + rt) AND the
+                   same box as the real tiles or the tray mis-sizes — which
+                   is the whole reason `state="ghost"` is a state of the
+                   primitive rather than a class a view remembers to copy. */
+                <Tile key={`ghost-${i}`} variant="build" density={density} state="ghost">
+                  <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
+                </Tile>
+              ))}
+            </TileTray>
           )}
-          <div className="[grid-area:1/1] flex flex-wrap content-start items-stretch gap-[var(--tile-tray-gap)]">
+          <TileTray kind="row" layer align="start">
             {placed.length === 0 ? (
               <span className="self-center text-base text-text-muted">
                 {step.correctOrder.length === 1
@@ -741,32 +743,30 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
                 onRemove={removeTile}
                 onReorder={setPlacedIdx}
                 strategy="wrap"
-                className="flex flex-wrap content-start items-stretch gap-[var(--tile-tray-gap)]"
-                tileClassName={`rounded-[var(--tile-radius)] border-[1.5px] transition-colors duration-150 ${placedStateClass} ${placedTileClass}`}
+                rowAttrs={tileRowAttrs({ align: "start" })}
+                tile={{ variant: "build", density, slot: "tray", state: placedState }}
               />
             )}
-          </div>
-        </div>
+          </TileTray>
+        </TileTray>
       )}
 
       {!isSingleAnswerPicker && (
-      <div className={`relative flex flex-wrap items-stretch gap-[var(--tile-gap)] ${isWordBuild ? "justify-center" : ""}`}>
+      <TileTray kind="bank" center={isWordBuild}>
         {bankTiles.map((tile, i) => {
           const used = tileUsedFlags[i];
           return (
-            <button
+            <Tile
               key={`tile-${i}`}
-              type="button"
+              variant="build"
+              density={density}
+              slot="bank"
+              state={used ? "spent" : "idle"}
               disabled={submitted || used}
               onClick={() => addTile(i)}
               onMouseEnter={() => peek.hoverStart(i)}
               onMouseLeave={peek.hoverEnd}
               aria-pressed={used}
-              className={
-                used
-                  ? `rounded-[var(--tile-radius)] border-[1.5px] border-border bg-surface-muted text-text-muted opacity-40 ${bankTileClass}`
-                  : `rounded-[var(--tile-radius)] border-[1.5px] border-border bg-surface text-text-primary transition-colors duration-150 hover:border-accent disabled:opacity-50 ${bankTileClass}`
-              }
             >
               <BuildTileSurface
                 tile={tile}
@@ -774,10 +774,10 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
                 hideHelper={fadeTiles && !peek.revealed.has(i)}
                 forceHelper={peek.revealed.has(i)}
               />
-            </button>
+            </Tile>
           );
         })}
-      </div>
+      </TileTray>
       )}
       </div>
 

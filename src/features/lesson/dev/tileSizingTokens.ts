@@ -13,7 +13,7 @@
  * panes can never cross-contaminate each other.
  */
 
-export type TileTokenGroup = "build" | "match" | "mcq";
+export type TileTokenGroup = "build" | "match" | "mcq" | "option" | "card";
 
 export type TileTokenDef = {
   /** CSS custom property name, e.g. "--tile-font". */
@@ -21,7 +21,7 @@ export type TileTokenDef = {
   /** Human label shown next to the slider. */
   label: string;
   /** CSS unit appended to the slider's numeric value. "" = unitless. */
-  unit: "px" | "em" | "rem" | "";
+  unit: "px" | "em" | "rem" | "vh" | "";
   group: TileTokenGroup;
   min: number;
   max: number;
@@ -247,6 +247,107 @@ export const TILE_TOKEN_DEFS: readonly TileTokenDef[] = [
     sm: 1,
   },
 
+  // ── Answer options (b16.2) ───────────────────────────────────────────
+  //    The answer buttons migrated to `Tile variant="option"` so far (MCQ's
+  //    four layouts, particle-cloze, and the single-answer pickers in
+  //    build_sentence / listening_build) read these tokens for their
+  //    geometry. The other ~19 step views' option buttons still compose
+  //    their own padding — see the b16.2 report's "literals left behind". `--option-py`/`--option-font`
+  //    DEFAULT TO `var(--mcq-py)`/`var(--mcq-font)` in index.css rather than
+  //    duplicating their numbers, so the MCQ sliders below still reach the
+  //    sentence tier; moving an `--option-*` slider overrides the
+  //    indirection, and "Reset to shipped defaults" (which REMOVES the
+  //    property) restores it. The values here are those defaults so the
+  //    slider starts in the right place.
+  //    ⚠️ Only the `sentence` and `pick` option tiers read `--option-py`/
+  //    `--option-font`; the word/glyph/reveal/particle tiers are literal
+  //    sizes (see `src/index.css` § TILE PRIMITIVE). `--option-px` and
+  //    `--option-radius` reach every option tier.
+  {
+    key: "--option-px",
+    label: "Option padding X",
+    unit: "rem",
+    group: "option",
+    min: 0,
+    max: 3,
+    step: 0.0625,
+    base: 1,
+    sm: 1,
+  },
+  {
+    key: "--option-py",
+    label: "Option padding Y (sentence/pick tiers)",
+    unit: "rem",
+    group: "option",
+    min: 0.25,
+    max: 3,
+    step: 0.0625,
+    base: 1.5,
+    sm: 1.5,
+  },
+  {
+    key: "--option-font",
+    label: "Option font size (sentence/pick tiers)",
+    unit: "rem",
+    group: "option",
+    min: 0.75,
+    max: 2.5,
+    step: 0.0625,
+    base: 1.25,
+    sm: 1.25,
+  },
+  {
+    key: "--option-radius",
+    label: "Option corner radius",
+    unit: "rem",
+    group: "option",
+    min: 0,
+    max: 2,
+    step: 0.0625,
+    base: 0.75,
+    sm: 0.75,
+  },
+  {
+    key: "--option-gap",
+    label: "Option grid gap",
+    unit: "rem",
+    group: "option",
+    min: 0,
+    max: 2,
+    step: 0.0625,
+    base: 0.75,
+    sm: 1,
+  },
+
+  // ── Lesson overlay card (b16.2) ──────────────────────────────────────
+  //    `LessonOverlayCard` (rule hints, reactive grammar tips, the row-test
+  //    skip confirm). `--card-max-h` is the cap that closes TestFlight #132
+  //    ("this info card doesn't fit on the screen and has no scroll") — it
+  //    is a DEFAULT in the primitive, not opt-in, and this slider is how the
+  //    owner tunes it rather than re-deciding it per card.
+  {
+    key: "--card-pad",
+    label: "Card padding",
+    unit: "rem",
+    group: "card",
+    min: 0.5,
+    max: 3,
+    step: 0.0625,
+    base: 1.25,
+    sm: 1.25,
+  },
+  {
+    key: "--card-max-h",
+    label: "Card max height (vh)",
+    unit: "vh",
+    group: "card",
+    min: 40,
+    max: 100,
+    step: 1,
+    base: 85,
+    sm: 85,
+  },
+
   // ── Multiple choice (own group, regular/sentence layout only) ─────────
   {
     key: "--mcq-font",
@@ -305,6 +406,8 @@ const GROUP_LABEL: Record<TileTokenGroup, string> = {
   build: "Build tiles (build_sentence + listening_build)",
   match: "Match pairs",
   mcq: "Multiple choice",
+  option: "Answer options (every step type)",
+  card: "Lesson overlay card",
 };
 
 export function groupLabel(group: TileTokenGroup): string {

@@ -198,6 +198,10 @@ export const M4_NEO_1: LessonContent = {
       ["これ", "いぬ"],
     ),
     // ④ Wave-1 objects — image intro, then hear it, then produce it.
+    // (Each word's VMCQ+LC pair stays a run of 2 (the tap-to-select cap,
+    // inv 25) — a non-selection beat always follows before the next pair;
+    // each word's own production beat is pushed past the FOLLOWING pair so
+    // the LC/production reuse gap clears >=3 indices.)
     vocabMcq(
       "ja-m4-neo-1-vmcq-kaban",
       { kana: "かばん", meaningEn: "bag", emoji: "👜", fromModule: "m4" },
@@ -211,14 +215,10 @@ export const M4_NEO_1: LessonContent = {
       distractorsEn: ["This is a hat.", "This is a key.", "Is this a bag?"],
       exercisedAtomKanas: ["これ", "かばん"],
     }),
-    build(
-      "ja-m4-neo-1-build-kaban",
-      "Build this sentence: This is a bag.",
-      "これは かばんだ",
-      ["これ", "は", "かばん", "だ", "ぼうし"],
-      ["これ", "は", "かばん", "だ"],
-      ["これ", "かばん"],
-    ),
+    speaking("ja-m4-neo-1-speak-kaban", "これは かばんだ", "This is a bag.", [
+      "これ",
+      "かばん",
+    ]),
     vocabMcq(
       "ja-m4-neo-1-vmcq-keitai",
       { kana: "けいたい", meaningEn: "mobile phone", emoji: "📱", fromModule: "m4" },
@@ -236,18 +236,14 @@ export const M4_NEO_1: LessonContent = {
       ],
       exercisedAtomKanas: ["これ", "けいたい"],
     }),
-    translateStep({
-      id: "ja-m4-neo-1-tr-keitai",
-      promptEn: "Translate: This is a phone.",
-      acceptedAnswers: [
-        "これは けいたいだ",
-        "これはけいたいだ",
-        "これは けいたい",
-        "これはけいたい",
-      ],
-      audioText: "これは けいたいだ",
-      exercisedAtomKanas: ["これ", "けいたい"],
-    }),
+    build(
+      "ja-m4-neo-1-build-kaban",
+      "Build this sentence: This is a bag.",
+      "これは かばんだ",
+      ["これ", "は", "かばん", "だ", "ぼうし"],
+      ["これ", "は", "かばん", "だ"],
+      ["これ", "かばん"],
+    ),
     vocabMcq(
       "ja-m4-neo-1-vmcq-kuruma",
       { kana: "くるま", meaningEn: "car", emoji: "🚗", fromModule: "m4" },
@@ -265,6 +261,29 @@ export const M4_NEO_1: LessonContent = {
       ],
       exercisedAtomKanas: ["これ", "くるま"],
     }),
+    translateStep({
+      id: "ja-m4-neo-1-tr-keitai",
+      promptEn: "Translate: This is a phone.",
+      acceptedAnswers: [
+        "これは けいたいだ",
+        "これはけいたいだ",
+        "これは けいたい",
+        "これはけいたい",
+      ],
+      audioText: "これは けいたいだ",
+      exercisedAtomKanas: ["これ", "けいたい"],
+    }),
+    // Kana decode-build, traded up from the review tail 2026-09-15: the
+    // capstone re-asks これは けいたいだ, which `tr-keitai` directly above has
+    // just asked, and Rule 2 wants two steps between re-uses (#138). Both
+    // steps are `listening_build`, so trading places changes no type pattern.
+    listeningBuildWord(
+      "ja-m4-neo-1-rev-lb-hana",
+      "はな",
+      "flower",
+      ["は", "な"],
+      ["ば", "ま", "そ"],
+    ),
     build(
       "ja-m4-neo-1-build-kuruma",
       "Build this sentence: This is a car.",
@@ -273,19 +292,6 @@ export const M4_NEO_1: LessonContent = {
       ["これ", "は", "くるま", "だ"],
       ["これ", "くるま"],
     ),
-    speaking("ja-m4-neo-1-speak-kaban", "これは かばんだ", "This is a bag.", [
-      "これ",
-      "かばん",
-    ]),
-    // Hear-and-assemble beat on a taught sentence.
-    listeningBuildSentence({
-      id: "ja-m4-neo-1-capstone",
-      target: "これは けいたいだ",
-      tiles: ["これ", "は", "けいたい", "だ", "くるま"],
-      correctOrder: ["これ", "は", "けいたい", "だ"],
-      promptEn: "This is a phone.",
-      exercisedAtomKanas: ["これ", "けいたい"],
-    }),
     // Review tail — M1 atoms (house idiom: LC → vocabMcq → decode-build →
     // match grid).
     listeningCompSentence({
@@ -301,13 +307,16 @@ export const M4_NEO_1: LessonContent = {
       exercisedAtomKanas: [L1_REVIEW[1].kana],
     }),
     vocabMcq("ja-m4-neo-1-rev-mcq", L1_REVIEW[0], NEO_M1_POOL),
-    listeningBuildWord(
-      "ja-m4-neo-1-rev-lb-hana",
-      "はな",
-      "flower",
-      ["は", "な"],
-      ["ば", "ま", "そ"],
-    ),
+    // Hear-and-assemble beat on a taught sentence. Takes the decode-build's
+    // old slot (see above) so it sits five steps clear of `tr-keitai`.
+    listeningBuildSentence({
+      id: "ja-m4-neo-1-capstone",
+      target: "これは けいたいだ",
+      tiles: ["これ", "は", "けいたい", "だ", "くるま"],
+      correctOrder: ["これ", "は", "けいたい", "だ"],
+      promptEn: "This is a phone.",
+      exercisedAtomKanas: ["これ", "けいたい"],
+    }),
     reviewMatchPairs("ja-m4-neo-1-rev", L1_REVIEW),
   ],
 };
@@ -903,6 +912,9 @@ export const M4_NEO_4: LessonContent = {
       ["あれ", "は", "てがみ", "だ"],
       ["あれ", "てがみ"],
     ),
+    // Mid-lesson breather — review match grid between the two drill
+    // blocks (step-type variety, m3-neo L4 pattern).
+    reviewMatchPairs("ja-m4-neo-4-mid", L4_REVIEW.slice(6, 11)),
     translateStep({
       id: "ja-m4-neo-4-tr-tegami",
       promptEn: "Translate: This is a letter.",
@@ -915,9 +927,6 @@ export const M4_NEO_4: LessonContent = {
       audioText: "これは てがみだ",
       exercisedAtomKanas: ["これ", "てがみ"],
     }),
-    // Mid-lesson breather — review match grid between the two drill
-    // blocks (step-type variety, m3-neo L4 pattern).
-    reviewMatchPairs("ja-m4-neo-4-mid", L4_REVIEW.slice(6, 11)),
     // Invariant 28: full-sentence pick → build.
     build(
       "ja-m4-neo-4-build-are-isu",
