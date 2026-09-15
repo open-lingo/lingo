@@ -116,6 +116,16 @@ generalises to.
   Desktop untouched = the pre-dial-in numbers, restated in full so nothing
   mobile leaks upward.
 
+- **Equal rows, then desktop follows the mobile vision.** "I want them equal,
+  raise the floor… do a desktop pass… we have more room on desktop so scale
+  appropriately closer to previous sizing before we did this pass." → the
+  height floor is set to the kanji tile's height per breakpoint (45px mobile,
+  51px desktop) so kana-only and kanji rows match; desktop keeps its larger
+  pre-dial-in word/padding sizes but adopts the same structure (one row
+  height, tiers scale off the plain tile, listen bank no taller than the
+  tray). Rule: mobile is where he dials; desktop inherits the structure at
+  desktop proportions, never the mobile numbers.
+
 ### Topic 2 — kanji follows the learner (#115, #120, #133, #141, #119)
 
 - **No kanji ceiling.** "any taught kanji should surface, no ceiling, if they

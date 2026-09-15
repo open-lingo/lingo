@@ -343,3 +343,25 @@ Mirror: memory `spencer-open-todos.md`.
   desktop dense 20.4/14/7 = original. Tests: tileTokens + QA page green, tsc
   green. Preflight + push next.
 
+- 2026-09-15 10:05 (Fable): a8624814 PUSHED (tile dial-in #2 + audio
+  follow-up b12e4102; preflight: full suite green after the 0.62em furigana
+  pin followed Spencer's dial; CI build green). Spencer: "I want them equal,
+  raise the floor… do a desktop pass… closer to previous sizing… make sure we
+  QAd the primitives correctly and then we can push a new build to mobile and
+  prod" → 5e35c4d8 (LOCAL): mobile `--tile-box-h` 45px, desktop 51px (every
+  build-type row measures 45/51), desktop ≤6 tier py ×1.5→×1 and listen bank
+  py ×2→×1.25 (listen 77→67px), QA storage keys v1→v2. Primitives QA running:
+  mobile Playwright gate + step-pass (8 tile-bearing step types × all
+  viewports, DOM-measured). Then preflight → push → build 17.
+- 2026-09-15 ~10:00 primitives QA (Fable): step-pass `artifacts/ux-loop/
+  step-pass/tiles3` — build_sentence, listening_build, match_pairs,
+  multiple_choice, particle_cloze × iphone-se / iphone-14-promax / laptop-720 /
+  desktop-1080p, DOM-measured: 0 confirmed findings (no clipping, edge bleed,
+  overflow, tap-target or CTA-fold defects); shots eyeballed on 14 Pro Max +
+  laptop-720 — uniform rows, nothing clipped. Mobile Playwright gate running.
+  Short-answer lane audit: the first 20-row smoke "accepted" 19 but 7 added
+  words outside the closed list (とても ×5, なかで, わたしは) because the
+  gate tokenized unknown words into particle-like kana that its free-morpheme
+  allowlist waved through; gate + prompt fixes sent to the lane (bunsetsu-level
+  closed-list check, `added` must be verbatim from the list, ≤1 time word,
+  variety), smoke to re-run before the full pass.
