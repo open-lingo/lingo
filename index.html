@@ -28,11 +28,38 @@
       (including boot-guard.js) until it loads or times out. On a captive
       portal / flaky mobile link that request can hang for minutes — measured
       544 s in the headless QA harness — and the app shows pure white the whole
-      time (TestFlight #64 shape). boot-guard.js flips rel→stylesheet at boot;
-      a script-inserted stylesheet never blocks paint, and display=swap paints
-      the fallback fonts immediately.
+      time (TestFlight #64 shape). boot-guard.js flips rel→stylesheet at boot
+      (both links below); a script-inserted stylesheet never blocks paint.
     -->
-    <link id="lingo-fonts" rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=swap" />
+    <link id="lingo-fonts-latin" rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" />
+    <!--
+      Noto Sans JP / Noto Sans KR get their OWN link with display=OPTIONAL,
+      not swap (TestFlight b13 #107, Spencer: "kanji sized up very slightly
+      between switching over" on the flashcard reviewer). Root cause, measured
+      via Playwright with the Google Fonts request delayed 2.5s to reproduce a
+      cold/slow load: the fallback stack (Inter/ui-sans-serif/system-ui) and
+      Noto Sans JP report different ascent+descent for the SAME glyphs, and a
+      `ruby` element (kanji + furigana, `KanjiRuby.tsx`) sizes its box from
+      those metrics directly, ignoring the parent's fixed `line-height` — so
+      the box measurably grows the instant Noto Sans JP finishes loading and
+      `swap` repaints it in. Measured on the ja-course tsukareru card (390×844
+      Chromium, `.kanji-ruby` bounding box): 90×51.66px on the fallback →
+      90×54.66px after the swap (+3px height, +5.8%) — a visible "kanji sizes
+      up" jump mid-review, worse on a real device's slower/colder font fetch.
+      `optional` removes the SWAP, not the font: the browser paints with
+      whichever face (fallback or Noto Sans JP) is ready inside its very short
+      initial block window and commits to it for that paint — no later resize.
+      Noto Sans JP is still preloaded exactly as before, so on every load but
+      the very first on a slow network the learner gets it immediately; a
+      first-load-on-slow-network learner sees the OS's own CJK fallback
+      (Hiragino/Yu Gothic/Malgun Gothic — kana/kanji/hangul still render, just
+      not in Noto Sans JP) for that session, never a mid-card jump. Split into
+      its own link — Google Fonts' `display` param is per-request, and
+      Instrument Sans (the always-visible-immediately UI body face, see above)
+      must keep `swap` so a slow fetch still resolves it rather than sticking
+      on the system stack for the whole session.
+    -->
+    <link id="lingo-fonts-cjk" rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=optional" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <link rel="icon" type="image/x-icon" href="/icon.ico" />
     <!-- Home-screen install. Icons come from `scripts/generate-icons.mjs`.

@@ -819,4 +819,24 @@ ruby {
   .kana-helper {
     font-size: max(0.55em, 0.75rem);
   }
+  /* TestFlight #87/#88/#95 (Spencer, b13 2026-09-15 — "we didn't shrink the
+     furigana small enough here and instead shrunk the other hiragana and
+     kanji, needed to be the other way around… furigana too big, still too
+     much padding"): after the #69 tile cut the mobile build tile's word is
+     13.6px while the KANJI reading above it was pinned at this 12px floor —
+     a reading 88% the size of its word, with a 17px ruby band (Noto Sans JP
+     sizes the <rt> box from ascent+descent, ~1.45em) sitting over a 17px
+     word line. The 12px floor is Spencer's 2026-09-09 call for the ROMAJI
+     helper over kana and stays for that; a kanji reading is a different
+     aid (the learner already reads kana, it only disambiguates the kanji)
+     and gets its own, lower floor so it shrinks with the tile the way the
+     0.55em rule intends. 10px on the 15px tile word = a 0.67 ratio (was
+     0.88); the <rt> box 17px → 15px, i.e. 15.2px → 13px of band after the
+     margin trim. That band IS the "dead space above the non-furigana words"
+     on the same row (justify-end shares one baseline per row), so it
+     shrinks by the same 2px while the word grows 1.4px. Measured on the
+     ja-m30-neo-1 bank tile at 390×844 (Chromium): tile 42.7px → 40.8px. */
+  .kanji-ruby .kana-helper {
+    font-size: max(0.55em, 0.625rem);
+  }
 }

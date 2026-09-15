@@ -90,6 +90,7 @@ function CardFace({
         reading={card.reading}
         cardId={card.id}
         face={face}
+        posLabel={card.posLabel}
       />
     );
   }

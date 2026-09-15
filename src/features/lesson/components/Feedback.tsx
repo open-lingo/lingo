@@ -82,7 +82,19 @@ export function Feedback({
     <div
       role="alert"
       aria-live="assertive"
-      className={`mt-4 rounded-2xl border-[1.5px] px-5 py-4 text-sm ${
+      className={`rounded-2xl border-[1.5px] ${
+        // TestFlight #89 (Spencer, b13 2026-09-15 — "There should be no
+        // scroll here, so close should shrink text size and fix the box
+        // smaller"): the so-close nudge is a one-line hint, not a verdict —
+        // it stacked a 20px title over a two-line 16px note inside py-4 and
+        // pushed a 15-tile build step into a scroll on a 430×932 phone.
+        // Compact: title and note share one wrapped line at 14px, half the
+        // padding. Measured on the 13-tile ja-m31-neo-1 build step: card
+        // 118px → 63px at 390×844 (92px → 63px at 430×932), lesson-stage
+        // overflow 63px → 0 at 390×844. The wrong-answer banner keeps its
+        // full size (it has to show the correct sentence).
+        soClose ? "mt-2 px-4 py-2.5 text-sm" : "mt-4 px-5 py-4 text-sm"
+      } ${
         soClose || isFlagged
           ? "border-warning bg-warning/10 text-warning"
           : correct
@@ -90,7 +102,7 @@ export function Feedback({
             : "border-error bg-error/10 text-error"
       }`}
     >
-      <div className="flex items-center gap-2">
+      <div className={soClose ? "flex flex-wrap items-center gap-x-2 gap-y-0.5" : "flex items-center gap-2"}>
         <svg
           aria-hidden="true"
           className="h-5 w-5 shrink-0"
@@ -121,17 +133,17 @@ export function Feedback({
             </>
           )}
         </svg>
-        <span className="text-base font-bold">
+        <span className={soClose ? "text-sm font-bold" : "text-base font-bold"}>
           {soClose
             ? t("lesson.feedback.soClose", "So close")
             : correct
               ? t("lesson.feedback.correct", "Correct!")
               : t("lesson.feedback.notQuite", "Not quite")}
         </span>
+        {soClose && soCloseNote !== undefined && (
+          <span className="text-sm leading-snug">{soCloseNote}</span>
+        )}
       </div>
-      {soClose && soCloseNote !== undefined && (
-        <p className="mt-2 text-base leading-relaxed">{soCloseNote}</p>
-      )}
       {isFlagged && flaggedNote !== undefined && (
         <p className="mt-2 text-base leading-relaxed">{flaggedNote}</p>
       )}

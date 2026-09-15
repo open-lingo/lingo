@@ -101,6 +101,52 @@ describe("deriveModuleTestOut", () => {
     });
   });
 
+  /**
+   * Spencer 2026-09-15: *"image mcq is a bad test for testing out, needs to be
+   * black listed and filled with something else for sure."* word_image_mcq is
+   * picture recognition, not evidence the learner has the module's vocab/grammar.
+   */
+  describe("word_image_mcq is barred from every test-out surface", () => {
+    it("is not in TESTOUT_FORMATS", () => {
+      expect(TESTOUT_FORMATS.has("word_image_mcq")).toBe(false);
+    });
+
+    it("never reaches the gradable pool, in any shipped module or language", () => {
+      const offenders: string[] = [];
+      for (const lang of ["ja", "ko", "es"]) {
+        for (const m of getMockCourse(lang).modules) {
+          const items = collectGradable(m.id, TESTOUT_FORMATS, lang);
+          if (items.some((i) => i.format === "word_image_mcq")) {
+            offenders.push(`${lang}/${m.id}`);
+          }
+        }
+      }
+      expect(offenders).toEqual([]);
+    });
+
+    it("instrument control: word_image_mcq steps DO exist in the courses", () => {
+      // Guards the check above from passing vacuously if word_image_mcq steps
+      // vanished from the curriculum or collectGradable stopped walking.
+      const withImageMcq = new Set([...TESTOUT_FORMATS, "word_image_mcq"]);
+      const found = collectGradable("m3", withImageMcq).filter(
+        (i) => i.format === "word_image_mcq",
+      );
+      expect(found.length).toBeGreaterThan(0);
+    });
+
+    it("dropping it costs no module its floor or its section coverage", () => {
+      const thin: string[] = [];
+      for (const lang of ["ja", "ko", "es"]) {
+        for (const m of getMockCourse(lang).modules) {
+          const items = collectGradable(m.id, TESTOUT_FORMATS, lang);
+          if (items.length === 0) continue; // stub module, no derived path
+          if (items.length < TESTOUT_DERIVED_FLOOR) thin.push(`${lang}/${m.id}`);
+        }
+      }
+      expect(thin).toEqual([]);
+    });
+  });
+
   it("is deterministic (no rng) — same module yields the same picks", () => {
     const a = deriveModuleTestOut("m3").items.map((i) => (i.step as { id: string }).id);
     const b = deriveModuleTestOut("m3").items.map((i) => (i.step as { id: string }).id);

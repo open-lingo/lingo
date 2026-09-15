@@ -7,6 +7,8 @@ import {
   createInitialState,
   cardMaxDifficulty,
   cardEarliestDueDate,
+  cardLastReviewDate,
+  getToday,
 } from "./srs";
 import { getSRSStore, canonicalize } from "./srsStorage";
 
@@ -102,23 +104,44 @@ export type DeckWithCards = {
  * against it. `seenFronts` tracks that regardless of which kana (if any)
  * won the front first.
  */
-function dedupeSiblings<T extends { card: Flashcard }>(entries: T[]): T[] {
+/**
+ * Stateful sibling tracker sharing the exact key logic `dedupeSiblings` uses,
+ * so callers that need to dedupe a card *across* independently-built lists
+ * (e.g. new cards against already-admitted due cards, or new cards from one
+ * subscribed deck against another) can seed it with what's already served
+ * and then test/admit candidates one at a time in a specific priority order.
+ * A card with an empty `front` is never tracked (matches `dedupeSiblings`'
+ * historical behavior of always passing those through untouched).
+ */
+function createSiblingTracker() {
   const seenKeys = new Set<string>();
   const seenFronts = new Set<string>();
+  return {
+    has(card: Flashcard): boolean {
+      const frontKey = card.front.trim().toLowerCase();
+      if (!frontKey) return false;
+      const kana = card.reading?.kana ?? "";
+      return (
+        seenKeys.has(`${frontKey}|${kana}`) ||
+        (kana === "" ? seenFronts.has(frontKey) : seenKeys.has(`${frontKey}|`))
+      );
+    },
+    add(card: Flashcard): void {
+      const frontKey = card.front.trim().toLowerCase();
+      if (!frontKey) return;
+      const kana = card.reading?.kana ?? "";
+      seenKeys.add(`${frontKey}|${kana}`);
+      seenFronts.add(frontKey);
+    },
+  };
+}
+
+function dedupeSiblings<T extends { card: Flashcard }>(entries: T[]): T[] {
+  const tracker = createSiblingTracker();
   const out: T[] = [];
   for (const e of entries) {
-    const frontKey = e.card.front.trim().toLowerCase();
-    if (!frontKey) {
-      out.push(e);
-      continue;
-    }
-    const kana = e.card.reading?.kana ?? "";
-    const key = `${frontKey}|${kana}`;
-    const isDuplicate =
-      seenKeys.has(key) || (kana === "" ? seenFronts.has(frontKey) : seenKeys.has(`${frontKey}|`));
-    if (isDuplicate) continue;
-    seenKeys.add(key);
-    seenFronts.add(frontKey);
+    if (tracker.has(e.card)) continue;
+    tracker.add(e.card);
     out.push(e);
   }
   return out;
@@ -154,7 +177,19 @@ export function buildReviewQueue(
   review.sort((a, b) => cardMaxDifficulty(b.state) - cardMaxDifficulty(a.state));
 
   const reviewCards = dedupeSiblings(review).map((r) => r.card);
-  const newCards = unseenCards.slice(0, cap);
+
+  // Dedupe new cards against the due pile (and each other) before applying
+  // the cap, so a sibling already served as a due review doesn't also fill
+  // a new-card slot, and the cap counts unique facts, not raw entries.
+  const servedSiblings = createSiblingTracker();
+  for (const c of reviewCards) servedSiblings.add(c);
+  const newCards: Flashcard[] = [];
+  for (const card of unseenCards) {
+    if (newCards.length >= cap) break;
+    if (servedSiblings.has(card)) continue;
+    servedSiblings.add(card);
+    newCards.push(card);
+  }
   const queue = [...reviewCards, ...newCards];
 
   return {
@@ -203,7 +238,15 @@ export function buildQueueFromSubscriptions(
         unseenByDeck.set(sub.contentId, list);
       } else if (isDue(state)) {
         due.push({ card, state });
-      } else if (!isBuried(state)) {
+      } else if (!isBuried(state) && cardLastReviewDate(state) !== getToday()) {
+        // Anki parity (TestFlight b13 #113): a card already reviewed TODAY —
+        // graded Good/Easy and pushed days out, or Again/Hard and still
+        // genuinely `isDue` (handled above, not here) — must not resurface
+        // today via the free/extra-practice backfill below. Without this, a
+        // just-graduated card has the SOONEST not-yet-due date of anything
+        // in the pool and sorts straight back to the front the moment the
+        // due+new pile empties (or a background sync bumps the store
+        // revision and the session's queue rebuilds mid-review).
         notYetDue.push({ card, state });
       }
     }
@@ -215,16 +258,31 @@ export function buildQueueFromSubscriptions(
   // Bury same-fact siblings surfaced across merged decks (see dedupeSiblings).
   const reviewCards = dedupeSiblings(due).map((r) => r.card);
 
-  // New cards: per deck in subscription order, apply ordered/shuffled
+  // New cards: per deck in subscription order, apply ordered/shuffled.
+  // Dedupe against the due pile AND across decks (TestFlight b13 #108: a
+  // card can unlock into two subscribed decks at once with no SRS state
+  // yet, so both decks' unseen lists independently contain the sibling and
+  // it would otherwise be served twice before either has state). The due
+  // copy always wins (seeded first below); among new siblings, the earlier
+  // subscription in list order wins. A skipped duplicate doesn't consume a
+  // slot in the per-deck cap — the cap counts unique facts admitted.
+  const servedSiblings = createSiblingTracker();
+  for (const c of reviewCards) servedSiblings.add(c);
   const newCards: Flashcard[] = [];
   for (const sub of subscriptions) {
     const unseen = unseenByDeck.get(sub.contentId) ?? [];
     if (unseen.length === 0) continue;
-    let taken = unseen;
+    let candidates = unseen;
     if (sub.newCardOrder === "shuffled") {
-      taken = [...unseen].sort(() => Math.random() - 0.5);
+      candidates = [...unseen].sort(() => Math.random() - 0.5);
     }
-    const slice = taken.slice(0, sub.newCardsPerDay);
+    const slice: Flashcard[] = [];
+    for (const card of candidates) {
+      if (slice.length >= sub.newCardsPerDay) break;
+      if (servedSiblings.has(card)) continue;
+      servedSiblings.add(card);
+      slice.push(card);
+    }
     newCards.push(...slice);
   }
 

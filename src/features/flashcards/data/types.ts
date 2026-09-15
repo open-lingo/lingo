@@ -45,6 +45,11 @@ export type FlashcardBase = {
   definition?: string;
   context?: string;
   /**
+   * Short grammatical class shown as a badge, e.g. い-adj / な-adj / verb.
+   * Only set for Japanese course atoms with a known part-of-speech class.
+   */
+  posLabel?: string;
+  /**
    * Optional worked-example sentences using the card's vocabulary.
    * Shown in the detail sidebar after the user reveals the answer.
    */

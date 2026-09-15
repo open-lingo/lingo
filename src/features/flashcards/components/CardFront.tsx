@@ -26,20 +26,35 @@ type Props = {
   cardId?: string;
   face?: "prompt" | "answer";
   className?: string;
+  posLabel?: string;
 };
 
-export function CardFront({ text, reading, cardId, face = "answer", className }: Props) {
+export function CardFront({ text, reading, cardId, face = "answer", className, posLabel }: Props) {
   useSRSStoreRevision();
-  if (!reading) return <PlainText className={className}>{text}</PlainText>;
+  if (!reading && !posLabel) return <PlainText className={className}>{text}</PlainText>;
   const show =
     face === "answer" || !cardId ? true : !isMastered(getCardState(cardId));
   return (
-    <KanjiRuby
-      surface={reading.surface}
-      reading={reading.kana}
-      show={show}
-      className={className}
-      lang="ja"
-    />
+    <div className="flex flex-col items-center">
+      {posLabel && (
+        <span
+          data-testid="card-pos-label"
+          className="rounded-full border border-border px-2 py-0.5 text-[11px] font-semibold tracking-wide text-text-muted"
+        >
+          {posLabel}
+        </span>
+      )}
+      {reading ? (
+        <KanjiRuby
+          surface={reading.surface}
+          reading={reading.kana}
+          show={show}
+          className={className}
+          lang="ja"
+        />
+      ) : (
+        <PlainText className={className}>{text}</PlainText>
+      )}
+    </div>
   );
 }

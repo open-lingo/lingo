@@ -321,9 +321,19 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   // text-base(16)→13.6, sm:px-4(16)→14, sm:py-2(8)→7, sm:text-xl(20)→17,
   // sm:text-2xl(24)→20.4; bigTiles px-5(20)→17.5, py-3(12)→10.5,
   // clamp(1.5rem,3.4cqh,2.25rem)→clamp(1.275rem,2.89cqh,1.9125rem).
+  // #87/#88 (Spencer TestFlight b13, 2026-09-15): the #69 cut took the
+  // mobile WORD from 16→13.6px while the kanji reading above it stayed at
+  // its 12px floor — "we shrunk the other hiragana and kanji instead of the
+  // furigana, needed to be the other way around". The mobile word goes back
+  // up to 15px (−6% from the old 16px instead of −15%) and the reading's
+  // floor drops to 10px (`.kanji-ruby .kana-helper` in index.css); the
+  // vertical padding gives back the difference (5.25→4px) so the tile's box
+  // does not grow: measured 42.7px → 40.8px on the m30-neo-1 bank tile at
+  // 390×844 (Chromium), word 13.6→15px, reading 12→10px. sm: tiers are
+  // untouched (a 20.4px word already carries an 11.2px reading at 0.55em).
   const denseTileClass = hugeBank
-    ? "flex flex-col items-center justify-end px-[12.25px] py-[5.25px] text-[13.6px] font-bold leading-tight sm:px-[14px] sm:text-[17px]"
-    : "flex flex-col items-center justify-end px-[12.25px] py-[5.25px] text-[13.6px] font-bold leading-tight sm:px-[14px] sm:py-[7px] sm:text-[20.4px]";
+    ? "flex flex-col items-center justify-end px-[12.25px] py-[4px] text-[15px] font-bold leading-tight sm:px-[14px] sm:py-[5.25px] sm:text-[17px]"
+    : "flex flex-col items-center justify-end px-[12.25px] py-[4px] text-[15px] font-bold leading-tight sm:px-[14px] sm:py-[7px] sm:text-[20.4px]";
   const bankTileClass = bigTiles
     ? "px-[17.5px] py-[10.5px] text-[clamp(1.275rem,2.89cqh,1.9125rem)] font-bold"
     : denseTileClass;

@@ -406,7 +406,7 @@ const JA_COURSE_ATOMS_PART1: readonly CourseAtom[] = [
   { id: "aru", kana: "ある", romaji: "aru", meaningEn: "to be, to have (used for inanimate objects)", fromModule: "m6", kind: "vocab", blocked: true, note: "existence-of — rubric explicit block", pos: "verb", conjugation: { class: "godan" } },
   { id: "are", kana: "あれ", romaji: "are", shortGloss: "that (over there)", meaningEn: "that", fromModule: "m4", kind: "vocab", blocked: true, note: "demonstrative — rubric block", pos: "pronoun" },
   { id: "ii--yoi", kana: "いい / よい", romaji: "ii-/-yoi", meaningEn: "good", emoji: "👍", fromModule: "m12", kind: "vocab", note: "thumbs up as good proxy", pos: "adjective" },
-  { id: "ikaga", kana: "いかが", romaji: "ikaga", meaningEn: "how", fromModule: "future", freqRank: 18, introducedByLessonId: "ja-m21-6-2", kind: "vocab", blocked: true, note: "interrogative adverb — abstract grammar", pos: "adverb" },
+  { id: "ikaga", kana: "いかが", romaji: "ikaga", meaningEn: "how about… (polite offer)", fromModule: "future", freqRank: 18, introducedByLessonId: "ja-m21-6-2", kind: "vocab", blocked: true, note: "interrogative adverb — abstract grammar; polite offer register (〜はいかがですか)", pos: "adverb" },
   { id: "ikutsu", kana: "いくつ", romaji: "ikutsu", meaningEn: "how many?, how old?", fromModule: "future", freqRank: 19, introducedByLessonId: "ja-m14-6-2", kind: "vocab", blocked: true, note: "interrogative", pos: "adverb" },
   { id: "ichiban", kana: "いちばん", romaji: "ichiban", meaningEn: "best, first", emoji: "🥇", fromModule: "m26", introducedByLessonId: "ja-m22-1-1", blocked: true, kind: "vocab", pos: "adverb", note: "no picture debut (inv-30 census 2026-08-20): named first by its own module's rule card, which compiles to a pinned step no debut MCQ can precede (m20/m21 card-steals-the-picture rule; netsu precedent)" },
   { id: "itsumo", kana: "いつも", romaji: "itsumo", meaningEn: "always", fromModule: "m22", kind: "vocab", blocked: true, note: "frequency adverb", pos: "adverb" },
@@ -418,7 +418,7 @@ const JA_COURSE_ATOMS_PART1: readonly CourseAtom[] = [
   { id: "omawarisan", kana: "おまわりさん", romaji: "omawarisan", meaningEn: "friendly term for policeman", emoji: "👮", fromModule: "future", freqRank: 22, introducedByLessonId: "ja-m17-8-2", kind: "vocab", pos: "noun" },
   { id: "omoshiroi", kana: "おもしろい", romaji: "omoshiroi", meaningEn: "interesting", emoji: "🤩", fromModule: "m12", kind: "vocab", note: "starstruck = fascinated/interesting", pos: "adjective", conjugation: { class: "i-adj", entryId: "omoshiroi" } },
   { id: "kakaru", kana: "かかる", romaji: "kakaru", meaningEn: "to take time or money", fromModule: "m32", kind: "vocab", blocked: true, note: "abstract verb of cost/duration", pos: "verb", conjugation: { class: "godan", entryId: "kakaru" } },
-  { id: "kakeru", kana: "かける", romaji: "kakeru", meaningEn: "to call by phone", emoji: "📞", fromModule: "m32", blocked: true, kind: "vocab", pos: "verb", conjugation: { class: "ichidan" }, note: "no picture debut (inv-30 census 2026-08-20): でんわ's 📞 owns the glyph (m19/m24 ruling: a debut distractor the picture names equally well)" },
+  { id: "kakeru", kana: "かける", romaji: "kakeru", meaningEn: "to make (a phone call) — 電話をかける", emoji: "📞", fromModule: "m32", blocked: true, kind: "vocab", pos: "verb", conjugation: { class: "ichidan" }, note: "bare かける is not \"to call\" on its own — needs 電話を; no picture debut (inv-30 census 2026-08-20): でんわ's 📞 owns the glyph (m19/m24 ruling: a debut distractor the picture names equally well)" },
   { id: "kawaii", kana: "かわいい", romaji: "kawaii", meaningEn: "cute", emoji: "🥰", fromModule: "future", freqRank: 23, kind: "vocab", pos: "adjective", conjugation: { class: "i-adj" } },
   { id: "kirei", kana: "きれい", romaji: "kirei", meaningEn: "pretty, clean", emoji: "✨", fromModule: "m12", kind: "vocab", note: "sparkles as clean/pretty proxy", pos: "adjective", conjugation: { class: "na-adj", entryId: "kirei" } },
   { id: "koko", kana: "ここ", romaji: "koko", meaningEn: "here", fromModule: "m6", kind: "vocab", blocked: true, note: "spatial demonstrative — per rubric", pos: "pronoun" },
@@ -629,7 +629,7 @@ const JA_COURSE_ATOMS_PART1: readonly CourseAtom[] = [
   { id: "hajime", kana: "はじめ", kanji: "初め / 始め", romaji: "hajime", meaningEn: "beginning", emoji: "🚩", fromModule: "m46", introducedByLessonId: "ja-m46-neo-6", kind: "vocab", note: "checkered flag — start; cashed in m46 (compound-verb-hajimeru lesson)", pos: "noun" },
   { id: "hajimete", kana: "はじめて", kanji: "初めて", romaji: "hajimete", meaningEn: "for the first time", fromModule: "m11", kind: "vocab", blocked: true, note: "abstract adverb; taught by m11 vocab pack 2026-07-29 (B067); was m25 with dangling ja-m25-4-2 attribution — left unset so the lessonAtomIndex fallback attributes it", pos: "noun" },
   { id: "mae", kana: "まえ", kanji: "前", romaji: "mae", meaningEn: "before", fromModule: "m15", introducedByLessonId: "ja-m17-8-1", kind: "vocab", blocked: true, note: "polysemy: spatial 'in front' vs temporal 'before'; ambiguous", pos: "noun" },
-  { id: "benkyousuru", kana: "べんきょうする", kanji: "勉強", romaji: "benkyousuru", meaningEn: "to study", emoji: "📚", fromModule: "future", freqRank: 153, kind: "vocab", note: "books", pos: "verb", conjugation: { class: "irregular", entryId: "benkyousuru" } },
+  { id: "benkyousuru", kana: "べんきょうする", kanji: "勉強する", romaji: "benkyousuru", meaningEn: "to study", emoji: "📚", fromModule: "future", freqRank: 153, kind: "vocab", note: "books", pos: "verb", conjugation: { class: "irregular", entryId: "benkyousuru" } },
   { id: "doubutsu", kana: "どうぶつ", kanji: "動物", romaji: "doubutsu", meaningEn: "animal", emoji: "🐾", fromModule: "m26", kind: "vocab", note: "paw prints as animal cue", pos: "noun" },
   { id: "tsutomeru", kana: "つとめる", kanji: "勤める", romaji: "tsutomeru", meaningEn: "to work for someone", emoji: "💼", fromModule: "future", freqRank: 154, kind: "vocab", note: "briefcase as employment proxy", pos: "verb", conjugation: { class: "ichidan" } },
   { id: "kita", kana: "きた", kanji: "北", romaji: "kita", meaningEn: "north", emoji: "🧭", fromModule: "future", freqRank: 155, kind: "vocab", note: "compass for cardinal direction", pos: "noun" },
@@ -742,12 +742,12 @@ const JA_COURSE_ATOMS_PART1: readonly CourseAtom[] = [
   { id: "te", kana: "て", kanji: "手", romaji: "te", meaningEn: "hand", emoji: "✋", fromModule: "m22", kind: "vocab", pos: "noun" },
   { id: "osu", kana: "おす", kanji: "押す", romaji: "osu", meaningEn: "to push, to stamp something", emoji: "👆", fromModule: "m32", kind: "vocab", blocked: true, note: "pointing/pushing finger; blocked — 👆 reads as まっすぐ's ⬆️ at thumbnail size, and まっすぐ is met one lesson earlier", pos: "verb", conjugation: { class: "godan" } },
   { id: "motsu", kana: "もつ", kanji: "持つ", romaji: "motsu", meaningEn: "to hold", emoji: "✊", fromModule: "m14", kind: "vocab", note: "fist as holding cue; taught by m14 vocab pack 2026-07-29 (B067); was m15", pos: "verb", conjugation: { class: "godan", entryId: "motsu" } },
-  { id: "soujisuru", kana: "そうじする", kanji: "掃除", romaji: "soujisuru", meaningEn: "to clean, to sweep", emoji: "🧹", fromModule: "m45", introducedByLessonId: "ja-m45-neo-3", kind: "vocab", blocked: true, note: "broom; was a thr-n4/future-backlog suru-verb stub with no introducedByLessonId — m45 cashes it in for real (docs/ja-m45-brief-2026-09-10.md §1c), same reuse discipline as m43's ぜったい/m44's どうしたの. Cashed in rather than registering a fresh bare そうじ noun: そうじ IS the spine's intended vocabulary item and a fresh bare noun would collide with makeTokenizer's greedy longest-match against this row the moment an unspaced そうじ+する sentence is authored.", pos: "verb", conjugation: { class: "irregular" } },
+  { id: "soujisuru", kana: "そうじする", kanji: "掃除する", romaji: "soujisuru", meaningEn: "to clean, to sweep", emoji: "🧹", fromModule: "m45", introducedByLessonId: "ja-m45-neo-3", kind: "vocab", blocked: true, note: "broom; was a thr-n4/future-backlog suru-verb stub with no introducedByLessonId — m45 cashes it in for real (docs/ja-m45-brief-2026-09-10.md §1c), same reuse discipline as m43's ぜったい/m44's どうしたの. Cashed in rather than registering a fresh bare そうじ noun: そうじ IS the spine's intended vocabulary item and a fresh bare noun would collide with makeTokenizer's greedy longest-match against this row the moment an unspaced そうじ+する sentence is authored.", pos: "verb", conjugation: { class: "irregular" } },
   { id: "jugyou", kana: "じゅぎょう", kanji: "授業", romaji: "jugyou", meaningEn: "lesson, class work", emoji: "👨‍🏫", fromModule: "m7", introducedByLessonId: "ja-m7-neo-7", kind: "vocab", note: "teacher as class cue", pos: "noun" },
   { id: "toru-take", kana: "とる", kanji: "撮る", romaji: "toru", meaningEn: "to take a photo or record a movie", emoji: "📸", fromModule: "m30", kind: "vocab", note: "camera with flash", pos: "verb", conjugation: { class: "godan" } },
   { id: "oshieru", kana: "おしえる", kanji: "教える", romaji: "oshieru", meaningEn: "to teach, to tell", emoji: "👨‍🏫", fromModule: "m8", kind: "vocab", note: "teacher ZWJ glyph", pos: "verb", conjugation: { class: "ichidan", entryId: "oshieru" } },
   { id: "kyoushitsu", kana: "きょうしつ", kanji: "教室", romaji: "kyoushitsu", meaningEn: "classroom", emoji: "🏫", fromModule: "m16", kind: "vocab", note: "school; closest concrete", pos: "noun" },
-  { id: "sanposuru", kana: "さんぽする", kanji: "散歩", romaji: "sanposuru", meaningEn: "to stroll", emoji: "🚶", fromModule: "future", freqRank: 208, kind: "vocab", pos: "verb", conjugation: { class: "irregular" } },
+  { id: "sanposuru", kana: "さんぽする", kanji: "散歩する", romaji: "sanposuru", meaningEn: "to stroll", emoji: "🚶", fromModule: "future", freqRank: 208, kind: "vocab", pos: "verb", conjugation: { class: "irregular" } },
   { id: "bunshou", kana: "ぶんしょう", kanji: "文章", romaji: "bunshou", meaningEn: "sentence, text", emoji: "📝", fromModule: "future", freqRank: 209, kind: "vocab", pos: "noun" },
   { id: "atarashii", kana: "あたらしい", kanji: "新しい", romaji: "atarashii", meaningEn: "new", emoji: "🆕", fromModule: "m12", kind: "vocab", pos: "adjective", conjugation: { class: "i-adj", entryId: "atarashii" } },
   { id: "kata", kana: "かた", kanji: "方", romaji: "kata", meaningEn: "person, way of doing", fromModule: "future", freqRank: 210, introducedByLessonId: "ja-m19-4-2", kind: "vocab", blocked: true, note: "polysemous abstract noun (per rubric)", pos: "noun" },
@@ -866,7 +866,7 @@ const JA_COURSE_ATOMS_PART1: readonly CourseAtom[] = [
   { id: "e", kana: "え", kanji: "絵", romaji: "e", meaningEn: "picture", emoji: "🖼️", fromModule: "m24", kind: "vocab", note: "framed picture", pos: "noun" },
   { id: "midori", kana: "みどり", kanji: "緑", romaji: "midori", meaningEn: "green", emoji: "🟢", fromModule: "future", freqRank: 259, kind: "vocab", pos: "noun" },
   { id: "shimeru-tie", kana: "しめる", kanji: "締める", romaji: "shimeru", meaningEn: "to tie", emoji: "🎀", fromModule: "future", freqRank: 260, kind: "vocab", note: "ribbon", pos: "verb", conjugation: { class: "ichidan" } },
-  { id: "renshuusuru", kana: "れんしゅうする", kanji: "練習", romaji: "renshuusuru", meaningEn: "to practice", emoji: "📓", fromModule: "m34", kind: "vocab", note: "notebook as practice proxy", pos: "verb", conjugation: { class: "irregular" } },
+  { id: "renshuusuru", kana: "れんしゅうする", kanji: "練習する", romaji: "renshuusuru", meaningEn: "to practice", emoji: "📓", fromModule: "m34", kind: "vocab", note: "notebook as practice proxy", pos: "verb", conjugation: { class: "irregular" } },
   { id: "oku", kana: "おく", kanji: "置く", romaji: "oku", meaningEn: "to put", emoji: "📥", fromModule: "m30", kind: "vocab", blocked: true, note: "inbox tray — place/put", pos: "verb", conjugation: { class: "godan" } },
   { id: "narau", kana: "ならう", kanji: "習う", romaji: "narau", meaningEn: "to learn", emoji: "🎓", fromModule: "m30", kind: "vocab", blocked: true, pos: "verb", conjugation: { class: "godan" } },
   { id: "mimi", kana: "みみ", kanji: "耳", romaji: "mimi", meaningEn: "ear", emoji: "👂", fromModule: "m22", blocked: true, kind: "vocab", pos: "noun", note: "no picture debut (inv-30 census 2026-08-20): きく's 👂 owns the glyph (m19/m24 ruling: a debut distractor the picture names equally well)" },
@@ -1918,6 +1918,14 @@ export function courseAtomToFlashcard(
   const reading = atom.kanji
     ? { surface: atom.kanji, kana: atom.kana }
     : undefined;
+  const posLabel =
+    atom.conjugation?.class === "i-adj"
+      ? "い-adj"
+      : atom.conjugation?.class === "na-adj"
+        ? "な-adj"
+        : atom.pos === "verb"
+          ? "verb"
+          : undefined;
   return {
     id: canonicalAtomId(atom),
     front,
@@ -1929,6 +1937,7 @@ export function courseAtomToFlashcard(
     examples: opts?.example ? [opts.example] : undefined,
     unlocked: opts?.unlocked,
     parts: undefined,
+    posLabel,
   };
 }
 

@@ -53,13 +53,16 @@
   }
   log("armed: timeout=" + BOOT_TIMEOUT_MS + "ms native=" + isNative + " localDev=" + isLocalDev);
 
-  // Web fonts: index.html ships the Google Fonts CSS as a <link rel="preload">
-  // so it can never block first paint or the scripts below it. Promote it to a
-  // real stylesheet here (script-inserted stylesheets are non-blocking); until
-  // it lands, display=swap shows the system fallback fonts.
-  var fontsLink = doc.getElementById("lingo-fonts");
-  if (fontsLink && fontsLink.getAttribute("rel") !== "stylesheet") {
-    fontsLink.setAttribute("rel", "stylesheet");
+  // Web fonts: index.html ships the Google Fonts CSS as <link rel="preload">
+  // tags (two of them — Latin UI font on display=swap, CJK fonts on
+  // display=optional, TestFlight b13 #107) so neither can ever block first
+  // paint or the scripts below it. Promote every one of them to a real
+  // stylesheet here (script-inserted stylesheets are non-blocking).
+  var fontLinks = doc.querySelectorAll('link[rel="preload"][as="style"]');
+  for (var i = 0; i < fontLinks.length; i++) {
+    if (fontLinks[i].getAttribute("rel") !== "stylesheet") {
+      fontLinks[i].setAttribute("rel", "stylesheet");
+    }
   }
 
   function describe(err) {

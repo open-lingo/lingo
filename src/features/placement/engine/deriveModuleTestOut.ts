@@ -39,13 +39,19 @@ import type { PlacementItemConfig } from "../questionBank";
  *  a derivable pool) it removes 1–15 items per module, and NO module drops
  *  below TESTOUT_DERIVED_FLOOR or loses a skill section — the thinnest pool
  *  left is 25 items against a TESTOUT_SIZE of 12. Guarded by
- *  `deriveModuleTestOut.test.ts`. */
+ *  `deriveModuleTestOut.test.ts`.
+ *
+ *  `word_image_mcq` is EXCLUDED too (TestFlight #92, Spencer b13 2026-09-15:
+ *  *"image mcq is a bad test for testing out, needs to be black listed and
+ *  filled with something else for sure"*): picking a picture is recognition
+ *  of one noun, not evidence the learner has the module's grammar, and the
+ *  remaining formats fill the 12 slots — no module drops below the floor or
+ *  loses a section (guarded by the same test file). */
 export const TESTOUT_FORMATS: ReadonlySet<string> = new Set([
   "multiple_choice",
   "particle_cloze",
   "build_sentence",
   "fill_blank",
-  "word_image_mcq",
   "self_explanation_mcq",
   "match_pairs",
   "listening_comprehension",
