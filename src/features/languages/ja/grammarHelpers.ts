@@ -30,6 +30,7 @@ import type {
   WordImageMcqStep,
   SceneSpec,
 } from "@/features/lesson/types";
+import { parseRegisterCue } from "@/features/lesson/data/registerCue";
 import type { JapaneseAnnotation } from "@/shared/japanese/types";
 import {
   JA_COURSE_ATOMS,
@@ -1971,10 +1972,20 @@ export function sentenceMcq(opts: {
   const slot = slotFor(opts.id, 4);
   const correct = items.shift()!;
   items.splice(slot, 0, correct);
+  // Split a register cue out of the authored prompt HERE, in the factory, so
+  // every hand-authored call site gets it without editing a string. The
+  // grammar review pool authors twelve of these as
+  // `prompt: "Say politely: 'This tea is delicious.'"` — the cue is the
+  // whole exercise there (the distractors are the same sentence in the wrong
+  // register), and leaving it in the prompt put it in the gloss on every
+  // surface that re-reads a step's English. Task framings the table doesn't
+  // know ("Translate: …", "Build: …") pass through untouched.
+  const { text: prompt, cue } = parseRegisterCue(opts.prompt);
   return {
     id: opts.id,
     type: "multiple_choice",
-    prompt: opts.prompt,
+    prompt,
+    ...(cue ? { registerCue: cue } : {}),
     promptAudioText: opts.promptAudioText,
     options: items,
     correctOptionId: "correct",

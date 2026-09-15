@@ -536,7 +536,7 @@ lessons:
       - { kind: sentence, ja: "ミカは あした くると いう。", en: "Mika says she's coming tomorrow", exercises: [to-quotation, wa-topic], mode: build }
       - kind: dialogue
         lines:
-          - { speaker: "Ken", ja: "さくらと いう きっさてんは どう？", en: "How is the coffee shop called Sakura?" }
+          - { speaker: "Ken", ja: "さくらと いう きっさてんは どう？", en: "How about the coffee shop called Sakura?" }
           - { speaker: "Mika", ja: "しずかだと おもう。りょうりも おいしいと おもう。", en: "I think it's quiet. I think the food is delicious too." }
         questions:
           - { q: "What does Mika think of the coffee shop?", options: ["Quiet, with delicious food", "Noisy, with delicious food", "Quiet, but expensive", "She has never been there"], answer: "Quiet, with delicious food" }
@@ -687,5 +687,5 @@ lessons:
           - { speaker: "Ken", ja: "むずかしいと おもう。でも たのしいと おもう。あした きます。", en: "I think it's difficult. But I think it's fun. I'll come tomorrow." }
         questions:
           - { q: "What does Ken tell Tanaka?", options: ["It's difficult but fun, and he'll come tomorrow", "It's easy and fun, and he'll come tomorrow", "It's difficult and he won't come tomorrow", "He hasn't decided yet"], answer: "It's difficult but fun, and he'll come tomorrow" }
-      - { kind: challenge, ja: "さくらと いう きっさてんは しずかだから ミカと はなすと おもう。", en: "The coffee shop called Sakura is quiet, so I think I'll talk with Mika there", combines: [to-quotation, to-and, to-omoimasu, kara-because, na-adj-present], mode: build }
+      - { kind: challenge, ja: "さくらと いう きっさてんは しずかだから ミカと はなすと おもう。", en: "The coffee shop called Sakura is quiet, so I think I'll talk with Mika", combines: [to-quotation, to-and, to-omoimasu, kara-because, na-adj-present], mode: build }
     reviewPool: [おもう, いう, はなす, むずかしい, たのしい, ひと, みせ, きっさてん, じゅぎょう, とけい]

@@ -297,7 +297,7 @@
         },
         {
           "ja": "すしも とりにくも おいしいけど すしの ほうが すきだ。",
-          "en": "Sushi and chicken are both delicious, but sushi is the one I like more."
+          "en": "Sushi and chicken are both delicious, but I like sushi more."
         },
         {
           "ja": "どっちも たかい。",
@@ -614,7 +614,7 @@
             {
               "speaker": "Mika",
               "ja": "バスの ほうが やすい。でも でんしゃの ほうが すきだ。",
-              "en": "The bus is the cheaper one. But the train is the one I like more."
+              "en": "The bus is cheaper. But I like the train more."
             }
           ],
           "questions": [
@@ -821,7 +821,7 @@
         {
           "kind": "challenge",
           "ja": "うちは えきより とおいから じてんしゃで えきに いく。",
-          "en": "My place is farther than the station, so I'll go to the station by bike",
+          "en": "My place is far from the station, so I'll go to the station by bike",
           "combines": [
             "wa-topic",
             "kara-because",
@@ -920,7 +920,7 @@
         {
           "kind": "sentence",
           "ja": "ちかてつの ほうが やすいから ちかてつで いく。",
-          "en": "The subway is the cheaper one, so I'll go by subway",
+          "en": "The subway is cheaper, so I'll go by subway",
           "exercises": [
             "yori-comparison",
             "kara-because",
@@ -1177,7 +1177,7 @@
             {
               "speaker": "Mika",
               "ja": "じてんしゃの ほうが やすい。でも でんしゃの ほうが すきだ。",
-              "en": "The bike is the cheaper one. But the train is the one I like more."
+              "en": "The bike is cheaper. But I like the train more."
             }
           ],
           "questions": [
@@ -1992,7 +1992,7 @@
         {
           "kind": "sentence",
           "ja": "この えいがの ほうが ゆうめいだ。",
-          "en": "This movie is the more famous one",
+          "en": "This movie is more famous",
           "exercises": [
             "na-adj-present",
             "kono-sono-ano-dono"
@@ -2002,7 +2002,7 @@
         {
           "kind": "sentence",
           "ja": "すしの ほうが すきだから すしを たべる。",
-          "en": "Sushi is the one I like more, so I'll eat sushi",
+          "en": "I like sushi more, so I'll eat sushi",
           "exercises": [
             "na-adj-present",
             "suki-kirai-no",
@@ -2132,7 +2132,7 @@
         {
           "kind": "challenge",
           "ja": "としょかんの ほうが しずかだと おもうけど きっさてんの ほうが ちかい。",
-          "en": "I think the library is the quieter one, but the coffee shop is the closer one",
+          "en": "I think the library is quieter, but the coffee shop is closer",
           "combines": [
             "na-adj-present",
             "to-omoimasu",
@@ -2180,7 +2180,7 @@
         {
           "kind": "sentence",
           "ja": "すしも とりにくも おいしいけど すしの ほうが すきだ。",
-          "en": "Sushi and chicken are both delicious, but sushi is the one I like more",
+          "en": "Sushi and chicken are both delicious, but I like sushi more",
           "exercises": [
             "mo-also",
             "kedo",
@@ -2275,7 +2275,7 @@
         {
           "kind": "listening-comp",
           "audio": "すしも とりにくも おいしいけど すしの ほうが すきだ。",
-          "answer": "Sushi and chicken are both delicious, but sushi is the one I like more",
+          "answer": "Sushi and chicken are both delicious, but I like sushi more",
           "distractors": [
             "Sushi and chicken are both delicious, but chicken is the one I like more",
             "Sushi is delicious, but chicken isn't",
@@ -2625,7 +2625,7 @@
         {
           "kind": "listening-comp",
           "audio": "すしも とりにくも おいしいけど すしの ほうが すきだ。",
-          "answer": "Sushi and chicken are both delicious, but sushi is the one I like more",
+          "answer": "Sushi and chicken are both delicious, but I like sushi more",
           "distractors": [
             "Sushi and chicken are both delicious, but chicken is the one I like more",
             "Sushi is delicious, but chicken isn't",
@@ -3402,7 +3402,7 @@
     {
       "kana": "ううん",
       "romaji": "uun",
-      "gloss": "nope (casual no)",
+      "gloss": "nope",
       "shortGloss": "nope",
       "imageable": false,
       "kind": "vocab"
@@ -3451,8 +3451,8 @@
     {
       "kana": "ぼく",
       "romaji": "boku",
-      "gloss": "I, me (casual, usually male)",
-      "shortGloss": "I (casual)",
+      "gloss": "I, me",
+      "shortGloss": "I",
       "imageable": false,
       "kind": "vocab"
     },
@@ -3475,7 +3475,7 @@
     {
       "kana": "しります",
       "romaji": "shirimasu",
-      "gloss": "know (polite)",
+      "gloss": "know",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "しる"
@@ -3483,7 +3483,7 @@
     {
       "kana": "しりません",
       "romaji": "shirimasen",
-      "gloss": "don't know (polite)",
+      "gloss": "don't know",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "しる"
@@ -3499,7 +3499,7 @@
     {
       "kana": "わかります",
       "romaji": "wakarimasu",
-      "gloss": "understand (polite)",
+      "gloss": "understand",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "わかる"
@@ -3507,7 +3507,7 @@
     {
       "kana": "ちがいます",
       "romaji": "chigaimasu",
-      "gloss": "that's not right (polite)",
+      "gloss": "that's not right",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "ちがう"
@@ -3881,7 +3881,7 @@
     {
       "kana": "おぼえる",
       "romaji": "oboeru",
-      "gloss": "to memorise, to learn",
+      "gloss": "to memorize, to learn",
       "shortGloss": "memorise",
       "imageable": true,
       "kind": "verb",
@@ -3898,7 +3898,7 @@
     {
       "kana": "だった",
       "romaji": "datta",
-      "gloss": "was, were (plain)",
+      "gloss": "was, were",
       "shortGloss": "was (plain)",
       "imageable": false,
       "kind": "grammar-chunk"
@@ -3906,8 +3906,8 @@
     {
       "kana": "でした",
       "romaji": "deshita",
-      "gloss": "was, were (polite)",
-      "shortGloss": "was (polite)",
+      "gloss": "was, were",
+      "shortGloss": "was",
       "imageable": false,
       "kind": "grammar-chunk"
     },
@@ -4408,7 +4408,7 @@
     {
       "kana": "すき",
       "romaji": "suki",
-      "gloss": "likeable, like",
+      "gloss": "like",
       "shortGloss": "like",
       "imageable": false,
       "kind": "vocab"
@@ -4469,7 +4469,7 @@
     {
       "kana": "みがく",
       "romaji": "migaku",
-      "gloss": "to brush teeth, to polish",
+      "gloss": "to polish",
       "shortGloss": "polish",
       "imageable": true,
       "kind": "verb",
@@ -4545,7 +4545,7 @@
     {
       "kana": "とりにく",
       "romaji": "toriniku",
-      "gloss": "chicken meat",
+      "gloss": "chicken",
       "shortGloss": "chicken",
       "imageable": true,
       "kind": "vocab"
@@ -4901,7 +4901,7 @@
     {
       "kana": "ので",
       "romaji": "node",
-      "gloss": "because (softer)",
+      "gloss": "because",
       "shortGloss": "because",
       "imageable": false,
       "kind": "vocab"
@@ -5238,7 +5238,7 @@
     {
       "kana": "スポーツ",
       "romaji": "supootsu",
-      "gloss": "sport",
+      "gloss": "sports",
       "imageable": true,
       "kind": "vocab"
     },
@@ -5443,7 +5443,7 @@
     {
       "kana": "おじいさん",
       "romaji": "ojiisan",
-      "gloss": "grandfather, older man",
+      "gloss": "grandfather",
       "shortGloss": "older man",
       "kind": "vocab"
     },
@@ -5613,7 +5613,7 @@
     {
       "kana": "おりる",
       "romaji": "oriru",
-      "gloss": "to get off, to descend",
+      "gloss": "to get off",
       "shortGloss": "to get off",
       "kind": "vocab"
     },
@@ -5812,7 +5812,7 @@
     {
       "kana": "たべます",
       "romaji": "tabemasu",
-      "gloss": "eat (polite)",
+      "gloss": "eat",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "たべる",
@@ -5821,7 +5821,7 @@
     {
       "kana": "のみます",
       "romaji": "nomimasu",
-      "gloss": "drink (polite)",
+      "gloss": "drink",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "のむ",
@@ -5830,7 +5830,7 @@
     {
       "kana": "みます",
       "romaji": "mimasu",
-      "gloss": "watch (polite)",
+      "gloss": "watch",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "みる",
@@ -5839,7 +5839,7 @@
     {
       "kana": "いきます",
       "romaji": "ikimasu",
-      "gloss": "go, travel (polite)",
+      "gloss": "go, travel",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -5848,7 +5848,7 @@
     {
       "kana": "きます",
       "romaji": "kimasu",
-      "gloss": "come (polite)",
+      "gloss": "come",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる",
@@ -5857,7 +5857,7 @@
     {
       "kana": "します",
       "romaji": "shimasu",
-      "gloss": "do, make (polite)",
+      "gloss": "do, make",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "する",
@@ -5866,7 +5866,7 @@
     {
       "kana": "かいます",
       "romaji": "kaimasu",
-      "gloss": "buy (polite)",
+      "gloss": "buy",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "かう",
@@ -5875,7 +5875,7 @@
     {
       "kana": "ききます",
       "romaji": "kikimasu",
-      "gloss": "listen, ask (polite)",
+      "gloss": "listen, ask",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "きく",
@@ -5884,7 +5884,7 @@
     {
       "kana": "あそびます",
       "romaji": "asobimasu",
-      "gloss": "play (polite)",
+      "gloss": "play",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "あそぶ",
@@ -5893,7 +5893,7 @@
     {
       "kana": "あります",
       "romaji": "arimasu",
-      "gloss": "have, there is (polite)",
+      "gloss": "have, there is",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "ある",
@@ -5902,7 +5902,7 @@
     {
       "kana": "たべません",
       "romaji": "tabemasen",
-      "gloss": "don't eat (polite)",
+      "gloss": "don't eat",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "たべる",
@@ -5911,7 +5911,7 @@
     {
       "kana": "のみません",
       "romaji": "nomimasen",
-      "gloss": "don't drink (polite)",
+      "gloss": "don't drink",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "のむ",
@@ -5920,7 +5920,7 @@
     {
       "kana": "みません",
       "romaji": "mimasen",
-      "gloss": "don't watch (polite)",
+      "gloss": "don't watch",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "みる",
@@ -5929,7 +5929,7 @@
     {
       "kana": "いきません",
       "romaji": "ikimasen",
-      "gloss": "don't go, not traveling (polite)",
+      "gloss": "don't go",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -5938,7 +5938,7 @@
     {
       "kana": "きません",
       "romaji": "kimasen",
-      "gloss": "doesn't come (polite)",
+      "gloss": "doesn't come",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる",
@@ -5956,7 +5956,7 @@
     {
       "kana": "しません",
       "romaji": "shimasen",
-      "gloss": "don't do, won't make (polite)",
+      "gloss": "don't do, won't make",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "する",
@@ -5965,7 +5965,7 @@
     {
       "kana": "はたらきません",
       "romaji": "hatarakimasen",
-      "gloss": "don't work (polite)",
+      "gloss": "don't work",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "はたらく",
@@ -5974,7 +5974,7 @@
     {
       "kana": "ありません",
       "romaji": "arimasen",
-      "gloss": "doesn't have, isn't there (polite)",
+      "gloss": "doesn't have, isn't there",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "ある",
@@ -5992,7 +5992,7 @@
     {
       "kana": "はたらきます",
       "romaji": "hatarakimasu",
-      "gloss": "work (polite)",
+      "gloss": "work",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "はたらく",
@@ -6259,7 +6259,7 @@
     {
       "kana": "みせ",
       "romaji": "mise",
-      "gloss": "shop, store",
+      "gloss": "store",
       "shortGloss": "shop",
       "imageable": true,
       "kind": "vocab"

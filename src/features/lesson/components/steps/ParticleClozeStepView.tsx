@@ -15,6 +15,7 @@ import { playStepAudio, useCurrentStepId } from "../../hooks/useStepAudioGuard";
 import { useContentString } from "../../hooks/useContentString";
 import { courseIdsFromLessonId, explanationAnchor } from "@/shared/i18n/content/anchors";
 import { Badge } from "@/shared/components/ui";
+import { RegisterCueEyebrow } from "./RegisterCueEyebrow";
 
 const CELEBRATE_MS = 1100;
 
@@ -190,9 +191,15 @@ export function ParticleClozeStepView({
 
       <div className="rounded-2xl border-2 border-info/40 bg-info/5 px-5 py-6 text-center">
         {showMeaningUpFront ? (
-          <p className="mb-4 text-base text-text-secondary">
-            &ldquo;{step.meaningEn}&rdquo;
-          </p>
+          <>
+            {/* m34/m35 author the audience INTO the cloze prompt — the cue
+                is the question there ("Ask your teacher" vs a friend picks
+                くれない？). Badge it; the quoted line stays the gloss. */}
+            <RegisterCueEyebrow cue={step.registerCue} className="mb-1" />
+            <p className="mb-4 text-base text-text-secondary">
+              &ldquo;{step.meaningEn}&rdquo;
+            </p>
+          </>
         ) : null}
         <div className="font-japanese text-2xl leading-snug text-text-primary sm:text-3xl">
           {step.beforeAnnotation ? (

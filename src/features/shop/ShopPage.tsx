@@ -14,12 +14,39 @@ import { PageShell } from "@/shared/components/PageShell";
 import { useToast } from "@/shared/contexts/ToastContext";
 import { useApi } from "@/shared/api";
 import { ApiError } from "@/shared/api/client";
+import type { ButtonVariant } from "@/shared/components/ui/Button";
 import { SHOP_ITEMS, type ShopItem } from "./shopCatalog";
 import { useInvalidateShopQueries, useShopState } from "./useShopState";
 import { AdFreeShopSection } from "@/features/adFree/AdFreeShopSection";
 import { getBannerStyle } from "./bannerStyles";
 import { ShopItemPreview } from "./components/ShopItemPreview";
+import { ShopItemPreviewModal } from "./components/ShopItemPreviewModal";
+import { useEquippedDecorator } from "./useEquippedDecorator";
+import { useEquippedTitle } from "./useEquippedTitle";
+import { useEquippedBanner } from "./useEquippedBanner";
 import { useRewardedAd } from "@/features/ads/useRewardedAd";
+
+/** Minimal shape every `useEquipped*` hook satisfies — enough for the shop
+ *  card to equip/unequip without caring which cosmetic slot it is. */
+type EquipHook = {
+  equippedId: string | null;
+  equip: (itemId: string | null) => void;
+  isEquipping: boolean;
+};
+
+/** Which equip hook (if any) owns this item's slot. Powerups have none —
+ *  they stay on the plain Buy / Buy-again path. */
+function getEquipHook(
+  item: ShopItem,
+  decorator: EquipHook,
+  title: EquipHook,
+  banner: EquipHook,
+): EquipHook | null {
+  if (item.decoratorId) return decorator;
+  if (item.titleId) return title;
+  if (item.bannerId) return banner;
+  return null;
+}
 
 /**
  * Ownership filter applied to the whole page. "All" is the default; the
@@ -54,6 +81,12 @@ export default function ShopPage() {
   const [pendingId, setPendingId] = useState<string | null>(null);
   const [filter, setFilter] = useState<OwnershipFilter>("all");
   const rewardedAd = useRewardedAd();
+  // One equip hook per cosmetic slot, shared by every section below —
+  // each card looks up the slot it belongs to via getEquipHook rather than
+  // every section re-subscribing to the same settings query.
+  const decorator = useEquippedDecorator();
+  const title = useEquippedTitle();
+  const banner = useEquippedBanner();
 
   const purchaseMutation = useMutation({
     mutationFn: (itemId: string) => progress.purchaseShopItem(itemId),
@@ -236,7 +269,6 @@ export default function ShopPage() {
         <ShopSection
           title={t("shop.sectionPowerups", { defaultValue: "Power-ups" })}
           tint={{ chip: "bg-sky-500", tile: "bg-sky-500/15 text-sky-500" }}
-          cols="usable"
           items={grouped.powerups}
           lingots={lingots}
           statsReady={statsReady}
@@ -244,6 +276,9 @@ export default function ShopPage() {
           isOwned={isOwned}
           ownedQuantity={ownedQuantity}
           onPurchase={handlePurchase}
+          decorator={decorator}
+          equippedTitle={title}
+          banner={banner}
         />
       )}
 
@@ -258,6 +293,9 @@ export default function ShopPage() {
           isOwned={isOwned}
           ownedQuantity={ownedQuantity}
           onPurchase={handlePurchase}
+          decorator={decorator}
+          equippedTitle={title}
+          banner={banner}
         />
       )}
 
@@ -272,6 +310,9 @@ export default function ShopPage() {
           isOwned={isOwned}
           ownedQuantity={ownedQuantity}
           onPurchase={handlePurchase}
+          decorator={decorator}
+          equippedTitle={title}
+          banner={banner}
         />
       )}
 
@@ -286,6 +327,9 @@ export default function ShopPage() {
           isOwned={isOwned}
           ownedQuantity={ownedQuantity}
           onPurchase={handlePurchase}
+          decorator={decorator}
+          equippedTitle={title}
+          banner={banner}
         />
       )}
 
@@ -392,10 +436,10 @@ function FeaturedBanner({
           <Button
             type="button"
             variant="primary-3d"
-            size="sm"
-            className="shrink-0"
+            className="min-h-[44px] shrink-0"
             disabled={!statsReady || anyPending || !canAfford}
             onClick={() => onPurchase(item.id, item.price)}
+            data-testid="shop-buy-button"
           >
             {busy ? (
               t("common.loading", { defaultValue: "Loading…" })
@@ -415,7 +459,6 @@ function FeaturedBanner({
 
 type SectionProps = {
   title: string;
-  cols?: "cosmetic" | "usable";
   /** Section identity — `chip` colors the header marker, `tile` the
    *  icon previews. One sharp hue per section (power-ups ice, frames
    *  gold, titles violet); fixed hues w/ alpha stay theme-safe. */
@@ -427,12 +470,29 @@ type SectionProps = {
   isOwned: (id: string, consumable: boolean) => boolean;
   ownedQuantity: (id: string) => number;
   onPurchase: (itemId: string, price: number) => void;
+  /** Equip hooks for the three cosmetic slots — see `getEquipHook`. Every
+   *  section receives all three; only the sections whose items carry the
+   *  matching id actually use one. */
+  decorator: EquipHook;
+  equippedTitle: EquipHook;
+  banner: EquipHook;
+};
+
+/** Computed presentation for a card's primary action button — shared
+ *  between the card itself and the enlarged preview modal so "Preview"
+ *  never shows a different state than the card it was opened from. */
+type ActionState = {
+  label: string;
+  variant: ButtonVariant;
+  disabled: boolean;
+  showLock: boolean;
+  ownedBadge: string | null;
+  onClick: () => void;
 };
 
 function ShopSection({
   title,
   tint,
-  cols = "cosmetic",
   items,
   lingots,
   statsReady,
@@ -440,8 +500,66 @@ function ShopSection({
   isOwned,
   ownedQuantity,
   onPurchase,
+  decorator,
+  equippedTitle,
+  banner,
 }: SectionProps) {
   const { t } = useTranslation();
+  const [previewItem, setPreviewItem] = useState<ShopItem | null>(null);
+
+  // Any purchase in flight locks every buy control — see handlePurchase.
+  const anyPending = pendingId !== null;
+
+  function getAction(item: ShopItem): ActionState {
+    const owned = isOwned(item.id, item.consumable);
+    const qty = ownedQuantity(item.id);
+    const canAfford = statsReady && lingots !== null && lingots >= item.price;
+    const busy = pendingId === item.id;
+    const showBuyAgain = item.consumable && qty > 0;
+    const equipHook = getEquipHook(item, decorator, equippedTitle, banner);
+
+    // Owned cosmetic with an equip slot — Buy becomes Equip / Equipped.
+    if (equipHook && owned) {
+      const isEquipped = equipHook.equippedId === item.id;
+      return {
+        label: busy
+          ? t("common.loading", { defaultValue: "Loading…" })
+          : isEquipped
+            ? t("shop.equipped", { defaultValue: "Equipped" })
+            : t("shop.equip", { defaultValue: "Equip" }),
+        variant: isEquipped ? "outline" : "primary",
+        disabled: equipHook.isEquipping || isEquipped,
+        showLock: false,
+        ownedBadge: null,
+        onClick: () => equipHook.equip(item.id),
+      };
+    }
+
+    return {
+      label: busy
+        ? t("common.loading", { defaultValue: "Loading…" })
+        : showBuyAgain
+          ? t("shop.buyAgain", { defaultValue: "Buy again" })
+          : t("shop.buy", { defaultValue: "Buy" }),
+      variant: showBuyAgain ? "outline" : "primary",
+      disabled:
+        !statsReady ||
+        anyPending ||
+        (!item.consumable && owned) ||
+        (!canAfford && !showBuyAgain),
+      // "Locked" here is the affordability lock (not enough lingots) — the
+      // catalog has no level-gated items today, but the same lock
+      // affordance is what a future level-locked item would use too.
+      showLock: !canAfford && !showBuyAgain,
+      ownedBadge:
+        item.consumable && qty > 0
+          ? t("shop.ownedCount", { defaultValue: "×{{count}} owned", count: qty })
+          : null,
+      onClick: () => onPurchase(item.id, item.price),
+    };
+  }
+
+  const previewAction = previewItem ? getAction(previewItem) : null;
 
   return (
     <section>
@@ -451,84 +569,75 @@ function ShopSection({
         ) : null}
         {title}
       </h2>
+      {/* Phone (<640): 2 columns for every section — a 3rd narrow column at
+          phone width was what wrapped titles to 3 lines and description
+          text to 6-7 (TestFlight #143). sm/lg/xl grow from there. */}
       <ul
-        className={
-          cols === "usable"
-            ? "grid grid-cols-2 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-            : "grid grid-cols-3 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
-        }
+        data-testid="shop-cosmetic-grid"
+        className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
       >
         {items.map((item) => {
-          const owned = isOwned(item.id, item.consumable);
-          const qty = ownedQuantity(item.id);
-          const canAfford = statsReady && lingots !== null && lingots >= item.price;
-          const busy = pendingId === item.id;
-          // Any purchase in flight locks every buy control — see handlePurchase.
-          const anyPending = pendingId !== null;
-          const showBuyAgain = item.consumable && qty > 0;
+          const action = getAction(item);
+          const name = t(`shop.items.${item.titleKey}`, { defaultValue: item.id });
 
           return (
             <li key={item.id}>
               <Card padding="md" className="flex h-full flex-col">
                 <ShopItemPreview item={item} tint={tint?.tile} />
-                <div className="mt-3 min-w-0">
-                  <p className="font-semibold text-text-primary">
-                    {t(`shop.items.${item.titleKey}`, { defaultValue: item.id })}
+                <div className="mt-3 min-w-0 flex-1">
+                  {/* Name only — no description. Spencer/founder feedback
+                      (#143): "these don't need descriptions the visual
+                      speaks for itself." The i18n descriptionKey stays on
+                      the catalog item and its translations are untouched;
+                      this card just no longer renders it. */}
+                  <p className="line-clamp-2 text-sm font-semibold text-text-primary">
+                    {name}
                   </p>
-                  <p className="mt-0.5 text-sm text-text-secondary">
-                    {t(`shop.items.${item.descriptionKey}`, { defaultValue: "" })}
-                  </p>
-                </div>
-                <div className="mt-4 flex items-center justify-end gap-2">
-                  {!item.consumable && owned ? (
-                    <span className="text-xs font-medium text-success">
-                      {t("shop.owned", { defaultValue: "Owned" })}
+                  <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5">
+                    <span className="inline-flex items-center gap-1 text-xs font-medium text-text-secondary">
+                      <Icon name="gem" size={12} aria-hidden />
+                      {item.price}
                     </span>
-                  ) : item.consumable && qty > 0 ? (
-                    <span className="text-xs font-medium text-text-muted">
-                      {t("shop.ownedCount", { defaultValue: "×{{count}} owned", count: qty })}
-                    </span>
-                  ) : null}
+                    {action.ownedBadge && (
+                      <span className="text-xs text-text-muted">{action.ownedBadge}</span>
+                    )}
+                  </div>
                 </div>
-                <Button
-                  type="button"
-                  variant={showBuyAgain ? "outline" : "primary"}
-                  size="sm"
-                  className="mt-3 w-full"
-                  disabled={
-                    !statsReady ||
-                    anyPending ||
-                    (!item.consumable && owned) ||
-                    (!canAfford && !showBuyAgain)
-                  }
-                  onClick={() => onPurchase(item.id, item.price)}
-                >
-                  {busy ? (
-                    t("common.loading", { defaultValue: "Loading…" })
-                  ) : !item.consumable && owned ? (
-                    t("shop.owned", { defaultValue: "Owned" })
-                  ) : (
-                    // Price IS the label — a page of "Need more lingots"
-                    // read as switched-off; a price + lock still sells.
+                <div className="mt-3 flex flex-col gap-2">
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    className="min-h-[44px] w-full"
+                    onClick={() => setPreviewItem(item)}
+                  >
+                    {t("shop.preview", { defaultValue: "Preview" })}
+                  </Button>
+                  <Button
+                    type="button"
+                    variant={action.variant}
+                    className="min-h-[44px] w-full"
+                    disabled={action.disabled}
+                    onClick={action.onClick}
+                    data-testid="shop-buy-button"
+                  >
                     <span className="inline-flex items-center gap-1.5">
-                      {!canAfford && !showBuyAgain ? (
-                        <Icon name="lock" size={13} aria-hidden />
-                      ) : null}
-                      {showBuyAgain
-                        ? t("shop.buyAgain", { defaultValue: "Buy again" })
-                        : t("shop.buy", { defaultValue: "Buy" })}
-                      <span className="inline-flex items-center gap-0.5 font-bold">
-                        <Icon name="gem" size={13} aria-hidden />
-                        {item.price}
-                      </span>
+                      {action.showLock ? <Icon name="lock" size={13} aria-hidden /> : null}
+                      {action.label}
                     </span>
-                  )}
-                </Button>
+                  </Button>
+                </div>
               </Card>
             </li>
           );
         })}
       </ul>
+
+      <ShopItemPreviewModal
+        item={previewItem}
+        tint={tint?.tile}
+        onClose={() => setPreviewItem(null)}
+        action={previewAction}
+      />
     </section>
   );
 }

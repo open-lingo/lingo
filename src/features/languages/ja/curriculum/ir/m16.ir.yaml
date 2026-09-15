@@ -369,7 +369,7 @@ newAtoms:
   #    in the registry, so the L1 rule card is its introduction.
   - { kana: うち, romaji: uchi, gloss: "home, my place (where you live)", shortGloss: "home (my place)", imageable: false, kind: vocab }
   # ══ L3
-  - { kana: ので, romaji: node, gloss: "because (softer)", shortGloss: "because", imageable: false, kind: vocab }
+  - { kana: ので, romaji: node, gloss: "because", shortGloss: "because", imageable: false, kind: vocab }
   # ══ L4
   - { kana: けど, romaji: kedo, gloss: "but", imageable: false, kind: vocab }
   # ══ L6 — the span, the month suffix, and the module's second picture debut.
@@ -434,7 +434,7 @@ newAtoms:
   - { kana: すう, romaji: suu, gloss: "to smoke", imageable: false, kind: verb, verbClass: u }
   - { kana: たばこ, romaji: tabako, gloss: "tobacco, cigarettes", shortGloss: "cigarettes", imageable: true, kind: vocab }
   - { kana: はしる, romaji: hashiru, gloss: "to run", imageable: true, kind: verb, verbClass: u }
-  - { kana: スポーツ, romaji: supootsu, gloss: "sport", imageable: true, kind: vocab }
+  - { kana: スポーツ, romaji: supootsu, gloss: "sports", imageable: true, kind: vocab }
   - { kana: わるい, romaji: warui, gloss: "bad", imageable: false, kind: vocab }
   - { kana: よわい, romaji: yowai, gloss: "weak", imageable: false, kind: vocab }
   - { kana: たいせつ, romaji: taisetsu, gloss: "important", imageable: false, kind: vocab }
@@ -566,7 +566,7 @@ lessons:
       - { kind: sentence, ja: "じかんが ないので いかない。", en: "I have no time, so I'm not going", exercises: [node-because, nai-existence], mode: listening }
       - { kind: sentence, ja: "ここは しずかだけど すきじゃない。", en: "It's quiet here, but I don't like it", exercises: [kedo, na-adj-negative], mode: build }
       - { kind: sentence, ja: "さむいけど うみに いく。", en: "It's cold, but I'm going to the sea", exercises: [kedo, ni-location], mode: build }
-      - { kind: sentence, ja: "のんだけど まだ のみたい。", en: "I drank, but I still want more", exercises: [kedo, ta-form, v-tai], mode: build }
+      - { kind: sentence, ja: "のんだけど まだ のみたい。", en: "I drank, but I still want to drink", exercises: [kedo, ta-form, v-tai], mode: build }
       - { kind: sentence, ja: "たかいけど ほしい。", en: "Say to a friend: It's expensive, but I want it", exercises: [kedo, ga-hoshii], mode: translate }
       - { kind: particle-cloze, stem: "いそがしい", tail: " いく。", answer: "けど", options: ["けど", "から", "ので"], en: "I'm busy, but I'll go", explanation: "けど is the contrast — the second half goes AGAINST the first. から and ので would make being busy the REASON for going." }
       - { kind: listening-comp, audio: "やすいけど かわない。", answer: "It's cheap, but I won't buy it", distractors: ["It's cheap, so I'll buy it", "It's expensive, so I won't buy it", "It was cheap, so I bought it"], exercises: [kedo, nai-form] }
@@ -602,10 +602,10 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "あした だれが くる？", en: "Who's coming tomorrow?" }
-          - { speaker: "Ken", ja: "トムだ。アメリカから くる。ごぜんに えきに いく。", en: "Tom. He's coming from America. I'll go to the station in the morning." }
+          - { speaker: "Ken", ja: "トムだ。アメリカから くる。ごぜんに えきに いく。", en: "Tom. He's coming from America. He's going to the station in the morning." }
         questions:
           - { q: "Where is Tom coming from?", options: ["America", "Japan", "The university", "The station"], answer: "America" }
-      - { kind: challenge, ja: "にほんから くる ともだちに しゃしんを みせる。", en: "I'll show the photos to the friend coming from Japan", combines: [kara-origin, dictionary-form, ni-location, wo-object], mode: build }
+      - { kind: challenge, ja: "にほんから くる ともだちに しゃしんを みせる。", en: "I'll show the photo to the friend coming from Japan", combines: [kara-origin, dictionary-form, ni-location, wo-object], mode: build }
     reviewPool: [さむい, うち, ので, けど, えき, だいがく, ともだち, にほん, しゃしん, じゅぎょう]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -671,7 +671,7 @@ lessons:
     introduces: [たべませんでした, のみませんでした, しませんでした, いきませんでした, みませんでした, かいませんでした, きませんでした, さむかった]
     beats:
       - { kind: rule, grammarPointId: masu-past-negative }
-      - { kind: sentence, ja: "きのう ごはんを たべませんでした。", en: "Say politely: I didn't eat yesterday", exercises: [masu-past-negative, wo-object], mode: build }
+      - { kind: sentence, ja: "きのう ごはんを たべませんでした。", en: "Say politely: I didn't eat a meal yesterday", exercises: [masu-past-negative, wo-object], mode: build }
       - { kind: sentence, ja: "あさ ちゃを のみませんでした。", en: "Say politely: I didn't drink tea in the morning", exercises: [masu-past-negative, wo-object], mode: build }
       - { kind: sentence, ja: "きのうは なにも しませんでした。", en: "Say politely: I didn't do anything yesterday", exercises: [masu-past-negative, wa-topic], mode: build }
       - { kind: sentence, ja: "あさから ばんまで はたらく。", en: "I work from morning till evening", exercises: [made-until, kara-origin], mode: listening }
@@ -800,11 +800,11 @@ lessons:
     introduces: [すう, たばこ, はしる, スポーツ, わるい, よわい, たいせつ, すわない]
     beats:
       - { kind: rule, grammarPointId: karada-ni-warui }
-      - { kind: sentence, ja: "たばこは からだに わるい。", en: "Cigarettes are bad for you", exercises: [wa-topic, ni-location, i-adj-present], mode: build }
-      - { kind: sentence, ja: "からだに わるいから たばこを すわない。", en: "It's bad for me, so I don't smoke", exercises: [kara-because, nai-form, wo-object], mode: build }
+      - { kind: sentence, ja: "たばこは からだに わるい。", en: "Cigarettes are bad for the body", exercises: [wa-topic, ni-location, i-adj-present], mode: build }
+      - { kind: sentence, ja: "からだに わるいから たばこを すわない。", en: "It's bad for the body, so I don't smoke", exercises: [kara-because, nai-form, wo-object], mode: build }
       - { kind: sentence, ja: "スポーツが すきだから よく はしる。", en: "I like sports, so I run often", exercises: [kara-because, suki-kirai-no], mode: build }
       - { kind: sentence, ja: "あさ えきまで はしる。", en: "I run as far as the station in the morning", exercises: [made-until], mode: build }
-      - { kind: sentence, ja: "スポーツは からだに いい。", en: "Sports are good for you", exercises: [wa-topic, ni-location], mode: build }
+      - { kind: sentence, ja: "スポーツは からだに いい。", en: "Sports are good for the body", exercises: [wa-topic, ni-location], mode: build }
       - { kind: sentence, ja: "けいたいは めに わるい。", en: "Phones are bad for your eyes", exercises: [wa-topic, ni-location], mode: listening }
       - { kind: sentence, ja: "たいせつな とけいだから ミカに みせない。", en: "It's an important watch, so I won't show it to Mika", exercises: [kara-because, na-adj-present, nai-form], mode: build }
       - { kind: sentence, ja: "からだに わるいから すわない。", en: "Say to a friend: It's bad for me, so I don't smoke", exercises: [kara-because, nai-form], mode: translate }
@@ -859,7 +859,7 @@ lessons:
       - { kind: particle-cloze, stem: "たばこを ", tail: "。", answer: "すう", options: ["すう", "すわない", "はしる"], en: "I smoke", explanation: "the English is the plain habit — すう. すわない says I don't, and はしる is to run." }
       - { kind: sentence, ja: "スポーツが すきだから えきまで はしる。", en: "I like sports, so I run as far as the station", exercises: [kara-because, made-until], mode: build }
       - { kind: listening-comp, audio: "たばこは からだに わるいから すわない。", answer: "Cigarettes are bad for you, so I don't smoke", distractors: ["Cigarettes are expensive, so I don't buy them", "It's bad for me, but I smoke", "Running is good for you, so I run"], exercises: [kara-because, nai-form] }
-      - { kind: sentence, ja: "かぜが よわいから うみで およぐ。", en: "The wind is weak, so I'll swim in the sea", exercises: [kara-because, de-action], mode: build }
+      - { kind: sentence, ja: "かぜが よわいから うみで およぐ。", en: "The wind is light, so I'll swim in the sea", exercises: [kara-because, de-action], mode: build }
       - { kind: sentence, ja: "たいせつな しゃしんを ミカに みせる。", en: "I'll show Mika the important photo", exercises: [na-adj-present, ni-location, wo-object], mode: listening }
       - kind: dialogue
         lines:

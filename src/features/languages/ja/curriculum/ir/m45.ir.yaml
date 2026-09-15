@@ -218,7 +218,7 @@ newAtoms:
   # く-forms either).
   - { kana: きそく, kanji: 規則, romaji: kisoku, gloss: "a rule, a regulation", shortGloss: "rule", imageable: false, kind: vocab, pos: noun }
   - { kana: めいれい, kanji: 命令, romaji: meirei, gloss: "an order, a command", shortGloss: "order, command", imageable: false, kind: vocab, pos: noun }
-  - { kana: ゆるす, kanji: 許す, romaji: yurusu, gloss: "to forgive, to allow, to permit", shortGloss: "forgive, allow", imageable: false, kind: vocab, pos: verb, verbClass: u }
+  - { kana: ゆるす, kanji: 許す, romaji: yurusu, gloss: "to forgive", shortGloss: "forgive, allow", imageable: false, kind: vocab, pos: verb, verbClass: u }
   - { kana: ゆるさない, romaji: yurusanai, gloss: "doesn't allow, won't forgive (negative of ゆるす)", shortGloss: "doesn't allow", imageable: false, kind: verb-form, derivedFrom: ゆるす, verbClass: u }
   - { kana: させて, romaji: sasete, gloss: "make/let (someone) do, and — te-form of させる (causative of する)", shortGloss: "make/let do, and", imageable: false, kind: verb-form, derivedFrom: する, verbClass: irregular }
   - { kana: かえらせて, romaji: kaerasete, gloss: "make/let (someone) go back, and — te-form of かえらせる (causative of かえる)", shortGloss: "make/let go back, and", imageable: false, kind: verb-form, derivedFrom: かえる, verbClass: u }
@@ -295,7 +295,7 @@ lessons:
           - { speaker: "Mika", ja: "しかたが ないね。", en: "Can't be helped, huh." }
         questions:
           - { q: "Why is Ken troubled?", options: ["Because of homework", "Because of a test", "Because of a movie", "Because of the weather"], answer: "Because of homework" }
-      - { kind: challenge, ja: "がくせいが こまった ときは、せんせいが ほんを よませる。", en: "When the student got into trouble, the teacher made them read a book.", combines: [causative-form, toki, ta-form], mode: build }
+      - { kind: challenge, ja: "がくせいが こまった ときは、せんせいが ほんを よませる。", en: "When the student is in trouble, the teacher makes them read a book.", combines: [causative-form, toki, ta-form], mode: build }
     reviewPool: [しゅくだい, とき, おや, ほん, せんせい, がくせい]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -408,7 +408,7 @@ lessons:
           - { speaker: "Mika", ja: "どうしたの？", en: "What's wrong?" }
           - { speaker: "Ken", ja: "せんせいに しかられたよ。", en: "I got scolded by the teacher." }
           - { speaker: "Mika", ja: "だいじょうぶ？", en: "Are you okay?" }
-          - { speaker: "Ken", ja: "うん、だいじょうぶ。おやは しゅくだいを させるよ。", en: "Yeah, I'm okay. My parent makes me do homework now." }
+          - { speaker: "Ken", ja: "うん、だいじょうぶ。おやは しゅくだいを させるよ。", en: "Yeah, I'm okay. My parent makes me do homework." }
         questions:
           - { q: "What happened to Ken?", options: ["He was scolded by the teacher", "He praised the teacher", "He scolded a student", "He finished his homework happily"], answer: "He was scolded by the teacher" }
       - { kind: challenge, ja: "せんせいに しかられたから、おやは こどもに しゅくだいを させる。", en: "Since (the child) was scolded by the teacher, the parent makes the child do homework.", combines: [passive-rareru, causative-form, kara-because], mode: build }

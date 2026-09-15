@@ -1,4 +1,7 @@
 import type { JapaneseAnnotation } from "@/shared/japanese/types";
+import type { RegisterCue } from "./data/registerCue";
+
+export type { RegisterCue } from "./data/registerCue";
 
 export type StepType =
   | "info"
@@ -122,6 +125,23 @@ export type StepBase = {
    * review generator; see `grammarSrs.ts` + `buildSrsReviewLesson`.
    */
   exercisedGrammar?: string[];
+  /**
+   * The audience/politeness cue for a PRODUCTION step, lifted out of the
+   * English prompt at compile time (`data/registerCue.ts`).
+   *
+   * Authors write it inline — `en: "Say politely: I eat at home"` — because
+   * one convention is what four concurrent authoring lanes can hold in their
+   * heads. The compiler splits it, so the step's `prompt` / `sourceText` /
+   * `meaningEn` is the CLEAN gloss (Spencer #76: no register baked into the
+   * gloss) and the cue is data.
+   *
+   * Only the step the learner is answering renders it, as a `Badge`
+   * eyebrow. Every re-use surface (listening reveal, filler MCQ options,
+   * flashcards, lesson-complete, review/test-out) reads the same clean
+   * field and therefore cannot show it. Grading never consults this — the
+   * accepted answer is the authored Japanese, unchanged.
+   */
+  registerCue?: RegisterCue;
 };
 
 export type InfoStep = StepBase & {

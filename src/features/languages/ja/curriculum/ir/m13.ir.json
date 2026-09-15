@@ -551,7 +551,7 @@
     {
       "kana": "すき",
       "romaji": "suki",
-      "gloss": "likeable, like",
+      "gloss": "like",
       "shortGloss": "like",
       "imageable": false,
       "kind": "vocab"
@@ -612,7 +612,7 @@
     {
       "kana": "みがく",
       "romaji": "migaku",
-      "gloss": "to brush teeth, to polish",
+      "gloss": "to polish",
       "shortGloss": "polish",
       "imageable": true,
       "kind": "verb",
@@ -688,7 +688,7 @@
     {
       "kana": "とりにく",
       "romaji": "toriniku",
-      "gloss": "chicken meat",
+      "gloss": "chicken",
       "shortGloss": "chicken",
       "imageable": true,
       "kind": "vocab"
@@ -963,7 +963,7 @@
         {
           "kind": "sentence",
           "ja": "きょうは だいがくに いきたくない。",
-          "en": "I don't want to go to university today",
+          "en": "I don't want to go to college today",
           "exercises": [
             "wa-topic",
             "ni-location",
@@ -1439,7 +1439,7 @@
         {
           "kind": "sentence",
           "ja": "きょうは おおきい みせで かいものが したい。",
-          "en": "I want to go shopping at a big shop today",
+          "en": "I want to go shopping at a big store today",
           "exercises": [
             "de-action",
             "i-adj-present",
@@ -1495,7 +1495,7 @@
         {
           "kind": "sentence",
           "ja": "きのうは ごはんが たべたくなかった。",
-          "en": "I didn't want to eat yesterday",
+          "en": "I didn't want to eat a meal yesterday",
           "exercises": [
             "wa-topic",
             "i-adj-past-negative"
@@ -1505,7 +1505,7 @@
         {
           "kind": "sentence",
           "ja": "きのうは だいがくに いきたくなかった。",
-          "en": "I didn't want to go to university yesterday",
+          "en": "I didn't want to go to college yesterday",
           "exercises": [
             "wa-topic",
             "ni-location",
@@ -1609,19 +1609,19 @@
             {
               "speaker": "Ken",
               "ja": "ううん。だいがくに いきたくなかった。",
-              "en": "Nope. I didn't want to go to university."
+              "en": "Nope. I didn't want to go to college."
             }
           ],
           "questions": [
             {
               "q": "What does Ken say about yesterday?",
               "options": [
-                "He didn't want to go to university",
+                "He didn't want to go to college",
                 "He wanted to go shopping",
                 "He went shopping with Mika",
                 "He was at the station"
               ],
-              "answer": "He didn't want to go to university"
+              "answer": "He didn't want to go to college"
             }
           ]
         },
@@ -1792,7 +1792,7 @@
             {
               "speaker": "Mika",
               "ja": "ちゃが のみたい。トムは？",
-              "en": "I want tea. How about you, Tom?"
+              "en": "I want to drink tea. How about you, Tom?"
             },
             {
               "speaker": "Tom",
@@ -2463,7 +2463,7 @@
         {
           "kind": "sentence",
           "ja": "わたしは だいがくに いくのが きらいだ。",
-          "en": "I don't like going to university",
+          "en": "I don't like going to college",
           "exercises": [
             "wa-topic",
             "ni-location",
@@ -2474,7 +2474,7 @@
         {
           "kind": "sentence",
           "ja": "にぎやかな みせで かいものを するのが すきだ。",
-          "en": "I like shopping at a lively shop",
+          "en": "I like shopping at a lively store",
           "exercises": [
             "na-adj-present",
             "de-action",
@@ -3884,7 +3884,7 @@
     {
       "kana": "ううん",
       "romaji": "uun",
-      "gloss": "nope (casual no)",
+      "gloss": "nope",
       "shortGloss": "nope",
       "imageable": false,
       "kind": "vocab"
@@ -3933,8 +3933,8 @@
     {
       "kana": "ぼく",
       "romaji": "boku",
-      "gloss": "I, me (casual, usually male)",
-      "shortGloss": "I (casual)",
+      "gloss": "I, me",
+      "shortGloss": "I",
       "imageable": false,
       "kind": "vocab"
     },
@@ -3957,7 +3957,7 @@
     {
       "kana": "しります",
       "romaji": "shirimasu",
-      "gloss": "know (polite)",
+      "gloss": "know",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "しる"
@@ -3965,7 +3965,7 @@
     {
       "kana": "しりません",
       "romaji": "shirimasen",
-      "gloss": "don't know (polite)",
+      "gloss": "don't know",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "しる"
@@ -3981,7 +3981,7 @@
     {
       "kana": "わかります",
       "romaji": "wakarimasu",
-      "gloss": "understand (polite)",
+      "gloss": "understand",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "わかる"
@@ -3989,7 +3989,7 @@
     {
       "kana": "ちがいます",
       "romaji": "chigaimasu",
-      "gloss": "that's not right (polite)",
+      "gloss": "that's not right",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "ちがう"
@@ -4363,7 +4363,7 @@
     {
       "kana": "おぼえる",
       "romaji": "oboeru",
-      "gloss": "to memorise, to learn",
+      "gloss": "to memorize, to learn",
       "shortGloss": "memorise",
       "imageable": true,
       "kind": "verb",
@@ -4380,7 +4380,7 @@
     {
       "kana": "だった",
       "romaji": "datta",
-      "gloss": "was, were (plain)",
+      "gloss": "was, were",
       "shortGloss": "was (plain)",
       "imageable": false,
       "kind": "grammar-chunk"
@@ -4388,8 +4388,8 @@
     {
       "kana": "でした",
       "romaji": "deshita",
-      "gloss": "was, were (polite)",
-      "shortGloss": "was (polite)",
+      "gloss": "was, were",
+      "shortGloss": "was",
       "imageable": false,
       "kind": "grammar-chunk"
     },
@@ -4888,7 +4888,7 @@
     {
       "kana": "たべます",
       "romaji": "tabemasu",
-      "gloss": "eat (polite)",
+      "gloss": "eat",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "たべる",
@@ -4897,7 +4897,7 @@
     {
       "kana": "のみます",
       "romaji": "nomimasu",
-      "gloss": "drink (polite)",
+      "gloss": "drink",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "のむ",
@@ -4906,7 +4906,7 @@
     {
       "kana": "みます",
       "romaji": "mimasu",
-      "gloss": "watch (polite)",
+      "gloss": "watch",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "みる",
@@ -4915,7 +4915,7 @@
     {
       "kana": "いきます",
       "romaji": "ikimasu",
-      "gloss": "go, travel (polite)",
+      "gloss": "go, travel",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -4924,7 +4924,7 @@
     {
       "kana": "きます",
       "romaji": "kimasu",
-      "gloss": "come (polite)",
+      "gloss": "come",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる",
@@ -4933,7 +4933,7 @@
     {
       "kana": "します",
       "romaji": "shimasu",
-      "gloss": "do, make (polite)",
+      "gloss": "do, make",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "する",
@@ -4942,7 +4942,7 @@
     {
       "kana": "かいます",
       "romaji": "kaimasu",
-      "gloss": "buy (polite)",
+      "gloss": "buy",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "かう",
@@ -4951,7 +4951,7 @@
     {
       "kana": "ききます",
       "romaji": "kikimasu",
-      "gloss": "listen, ask (polite)",
+      "gloss": "listen, ask",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "きく",
@@ -4960,7 +4960,7 @@
     {
       "kana": "あそびます",
       "romaji": "asobimasu",
-      "gloss": "play (polite)",
+      "gloss": "play",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "あそぶ",
@@ -4969,7 +4969,7 @@
     {
       "kana": "あります",
       "romaji": "arimasu",
-      "gloss": "have, there is (polite)",
+      "gloss": "have, there is",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "ある",
@@ -4978,7 +4978,7 @@
     {
       "kana": "たべません",
       "romaji": "tabemasen",
-      "gloss": "don't eat (polite)",
+      "gloss": "don't eat",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "たべる",
@@ -4987,7 +4987,7 @@
     {
       "kana": "のみません",
       "romaji": "nomimasen",
-      "gloss": "don't drink (polite)",
+      "gloss": "don't drink",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "のむ",
@@ -4996,7 +4996,7 @@
     {
       "kana": "みません",
       "romaji": "mimasen",
-      "gloss": "don't watch (polite)",
+      "gloss": "don't watch",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "みる",
@@ -5005,7 +5005,7 @@
     {
       "kana": "いきません",
       "romaji": "ikimasen",
-      "gloss": "don't go, not traveling (polite)",
+      "gloss": "don't go",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -5014,7 +5014,7 @@
     {
       "kana": "きません",
       "romaji": "kimasen",
-      "gloss": "doesn't come (polite)",
+      "gloss": "doesn't come",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる",
@@ -5032,7 +5032,7 @@
     {
       "kana": "しません",
       "romaji": "shimasen",
-      "gloss": "don't do, won't make (polite)",
+      "gloss": "don't do, won't make",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "する",
@@ -5041,7 +5041,7 @@
     {
       "kana": "はたらきません",
       "romaji": "hatarakimasen",
-      "gloss": "don't work (polite)",
+      "gloss": "don't work",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "はたらく",
@@ -5050,7 +5050,7 @@
     {
       "kana": "ありません",
       "romaji": "arimasen",
-      "gloss": "doesn't have, isn't there (polite)",
+      "gloss": "doesn't have, isn't there",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "ある",
@@ -5068,7 +5068,7 @@
     {
       "kana": "はたらきます",
       "romaji": "hatarakimasu",
-      "gloss": "work (polite)",
+      "gloss": "work",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "はたらく",
@@ -5344,7 +5344,7 @@
     {
       "kana": "みせ",
       "romaji": "mise",
-      "gloss": "shop, store",
+      "gloss": "store",
       "shortGloss": "shop",
       "imageable": true,
       "kind": "vocab"

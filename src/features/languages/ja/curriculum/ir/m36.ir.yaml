@@ -160,7 +160,7 @@ newAtoms:
   - { kana: つかいやすい, romaji: tsukaiyasui, gloss: "easy to use", shortGloss: "easy to use", imageable: false, kind: adj-form, derivedFrom: つかう }
   - { kana: よみやすい, romaji: yomiyasui, gloss: "easy to read", shortGloss: "easy to read", imageable: false, kind: adj-form, derivedFrom: よむ }
   - { kana: わかりやすい, romaji: wakariyasui, gloss: "easy to follow", shortGloss: "easy to understand", imageable: false, kind: adj-form, derivedFrom: わかる }
-  - { kana: おぼえにくい, romaji: oboenikui, gloss: "hard to memorise", shortGloss: "hard to memorise", imageable: false, kind: adj-form, derivedFrom: おぼえる }
+  - { kana: おぼえにくい, romaji: oboenikui, gloss: "hard to memorize", shortGloss: "hard to memorize", imageable: false, kind: adj-form, derivedFrom: おぼえる }
   - { kana: わかりにくい, romaji: wakarinikui, gloss: "hard to follow", shortGloss: "hard to understand", imageable: false, kind: adj-form, derivedFrom: わかる }
   - { kana: あるきやすい, romaji: arukiyasui, gloss: "easy to walk", shortGloss: "easy to walk", imageable: false, kind: adj-form, derivedFrom: あるく }
   - { kana: あるきやすかった, romaji: arukiyasukatta, gloss: "was easy to walk", shortGloss: "was easy to walk", imageable: false, kind: adj-form, derivedFrom: あるきやすい }
@@ -299,7 +299,7 @@ lessons:
       - { kind: sentence, ja: "ねこは そとに でたがっている。", en: "The cat wants to go outside", exercises: [garu-tagaru, ni-location], mode: build }
       - { kind: listening-comp, audio: "いぬは こうえんに いきたがっている。", answer: "The dog wants to go to the park", distractors: ["The dog went to the park", "I want to go to the park", "The dog doesn't want to go anywhere"], q: "What does this mean?", explanation: "いきたがっている reports visible wanting-behavior, third person — you can SEE the dog wants this." }
       - { kind: sentence, ja: "ちょっと ふとる。", en: "I gain a bit of weight", exercises: [dictionary-form], mode: build }
-      - { kind: sentence, ja: "ちょっと やせる。", en: "I lose a bit of weight", exercises: [dictionary-form], mode: build }
+      - { kind: sentence, ja: "ちょっと やせる。", en: "I'll lose a bit of weight", exercises: [dictionary-form], mode: build }
       - { kind: kanji, kana: そと, kanji: 外, distractors: ["がい", "うち", "ほか"], exercises: [garu-tagaru] }
       - kind: dialogue
         lines:
@@ -320,12 +320,12 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: yasui-nikui }
       - { kind: sentence, ja: "この じしょは つかいやすい。", en: "This dictionary is easy to use", exercises: [yasui-nikui, kono-sono-ano-dono], mode: build }
-      - { kind: listening-comp, audio: "この ほんは わかりにくい。", answer: "This book is hard to follow", distractors: ["This book is easy to follow", "This book is hard to memorise", "This book was interesting"], exercises: [yasui-nikui] }
+      - { kind: listening-comp, audio: "この ほんは わかりにくい。", answer: "This book is hard to follow", distractors: ["This book is easy to follow", "This book is hard to memorize", "This book was interesting"], exercises: [yasui-nikui] }
       - { kind: sentence, ja: "この ことばは おぼえにくい。", en: "This word is hard to memorize", exercises: [yasui-nikui, kono-sono-ano-dono], mode: build }
       - { kind: particle-cloze, stem: "この じしょは ", tail: "。", answer: "つかいやすい", options: ["つかいやすい", "つかう", "わかりやすい"], en: "This dictionary is easy to use", explanation: "やすい rides the ます-stem exactly like たい — つかい+やすい。 つかう alone is just the bare dictionary form, no judgment at all. わかりやすい judges being EASY TO UNDERSTAND, not easy to USE — a different quality, wrong for a dictionary's handling." }
       - { kind: sentence, ja: "ミカの せつめいは わかりやすい。", en: "Mika's explanations are easy to follow", exercises: [yasui-nikui, no-possession], mode: build }
       - { kind: sentence, ja: "この ほんは よみやすい。", en: "This book is easy to read", exercises: [yasui-nikui, kono-sono-ano-dono], mode: build }
-      - { kind: listening-comp, audio: "この ことばは おぼえにくい。", answer: "This word is hard to memorise", distractors: ["This word is easy to memorise", "This word is easy to read", "This word is hard to say"], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "この ことばは おぼえにくい。", answer: "This word is hard to memorize", distractors: ["This word is easy to memorize", "This word is easy to read", "This word is hard to say"], q: "What does this mean?" }
       - { kind: sentence, ja: "この みちは あるきやすかった。", en: "This road was easy to walk", exercises: [yasui-nikui, ta-form], mode: build }
       - { kind: sentence, ja: "べんりな けいたいが ある。", en: "There's a convenient cell phone", exercises: [na-adj-present, ga-existence], mode: build }
       - { kind: kanji, kana: みち, kanji: 道, distractors: ["どう", "みぢ", "どうろ"], exercises: [yasui-nikui] }
@@ -334,7 +334,7 @@ lessons:
       - { kind: particle-cloze, stem: "ちかてつは ", tail: "だ。", answer: "べんり", options: ["べんり", "ふべん", "やすい"], en: "The subway is convenient", explanation: "べんり praises how HANDY something is. ふべん is its negative twin. やすい here would just be 'cheap' — a real word, but the wrong one; it never means 'convenient.'" }
       - kind: dialogue
         lines:
-          - { speaker: "Mika", ja: "この じしょは わかりやすい？", en: "Is this dictionary easy to follow?" }
+          - { speaker: "Mika", ja: "この じしょは わかりやすい？", en: "Is this dictionary easy to understand?" }
           - { speaker: "Tom", ja: "うん、つかいやすい。", en: "Yeah, easy to use." }
           - { speaker: "Mika", ja: "ちょっと おもいね。", en: "It's a bit heavy, though." }
         questions:
@@ -381,7 +381,7 @@ lessons:
     beats:
       - { kind: sentence, ja: "この じしょは つかいやすい。", en: "This dictionary is easy to use", exercises: [yasui-nikui, kono-sono-ano-dono], mode: build }
       - { kind: sentence, ja: "おんがくを ききながら しゅくだいを する。", en: "I do my homework while listening to music", exercises: [nagara, wo-object], mode: build }
-      - { kind: particle-cloze, stem: "この みちは ", tail: "。", answer: "あるきやすい", options: ["あるきやすい", "あるきながら", "あるく"], en: "This road is easy to walk", explanation: "やすい judges the road itself — easy to walk. ながら would need a SECOND action happening at the same time, which isn't here. あるく alone is just the bare fact, no judgment." }
+      - { kind: particle-cloze, stem: "この みちは ", tail: "。", answer: "あるきやすい", options: ["あるきやすい", "あるきながら", "あるく"], en: "This road is easy to walk on", explanation: "やすい judges the road itself — easy to walk. ながら would need a SECOND action happening at the same time, which isn't here. あるく alone is just the bare fact, no judgment." }
       - { kind: listening-comp, audio: "おとうとは こうえんに いきたがっている。", answer: "My little brother wants to go to the park", distractors: ["My little brother went to the park", "I want to go to the park", "My little brother doesn't want to go anywhere"], q: "What does this mean?" }
       - { kind: sentence, ja: "ねこは そとに でたがっている。", en: "The cat wants to go outside", exercises: [garu-tagaru, ni-location], mode: build }
       - { kind: sentence, ja: "この りょうりは おいしそう。", en: "This dish looks tasty", exercises: [sou-appearance, kono-sono-ano-dono], mode: build }
@@ -390,7 +390,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "この ことばは わかりにくい。", en: "This word is hard to understand." }
-          - { speaker: "Tom", ja: "うん。この じしょは わかりやすいよ。", en: "Yeah. This dictionary is easy to follow." }
+          - { speaker: "Tom", ja: "うん。この じしょは わかりやすいよ。", en: "Yeah. This dictionary is easy to understand." }
         questions:
           - { q: "What does Tom say is easy to follow?", options: ["The dictionary", "The word", "The book", "The class"], answer: "The dictionary" }
     reviewPool: [おんがく, じしょ, こうえん, りょうり, あめ, おとうと, ねこ, ことば]
@@ -443,7 +443,7 @@ lessons:
       - kind: sim
         scene: { emoji: "⛅", title: "The sky over the park", setting: "You and Ken were about to head to the park. He looks up." }
         turns:
-          - npc: { speaker: "Ken", ja: "そらが きれいじゃないね。", en: "The sky doesn't look very nice, does it." }
+          - npc: { speaker: "Ken", ja: "そらが きれいじゃないね。", en: "The sky isn't pretty, is it?" }
             goal: "Agree — it looks like rain."
             reply: { mode: build, tiles: ["ふりそう", "ふる", "だ", "ね"], answer: "ふりそうだね。" }
             replyGloss: "Looks like rain, doesn't it."
@@ -463,17 +463,17 @@ lessons:
     focus: "Everything the stem can carry: そう, たがる, やすい/にくい, ながら, すぎる — mixed, and read off real situations"
     introduces: []
     beats:
-      - { kind: sentence, ja: "この みちは あるきやすい。", en: "This road is easy to walk", exercises: [yasui-nikui, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "この みちは あるきやすい。", en: "This road is easy to walk on", exercises: [yasui-nikui, kono-sono-ano-dono], mode: build }
       - { kind: sentence, ja: "おんがくを ききながら あるく。", en: "I walk while listening to music", exercises: [nagara, wo-object], mode: build }
-      - { kind: particle-cloze, stem: "この みちは ", tail: "。", answer: "あるきやすい", options: ["あるきやすい", "あるきながら", "あるく"], en: "This road is easy to walk", explanation: "やすい judges the road itself. ながら would need a second action happening at the same time. あるく alone carries no judgment at all." }
+      - { kind: particle-cloze, stem: "この みちは ", tail: "。", answer: "あるきやすい", options: ["あるきやすい", "あるきながら", "あるく"], en: "This road is easy to walk on", explanation: "やすい judges the road itself. ながら would need a second action happening at the same time. あるく alone carries no judgment at all." }
       - { kind: sentence, ja: "ねこは そとに でたがっている。", en: "The cat wants to go outside", exercises: [garu-tagaru, ni-location], mode: build }
       - { kind: listening-comp, audio: "ミカは ねむそう。", answer: "Mika looks sleepy", distractors: ["Mika is sleepy", "Mika was sleepy yesterday", "Mika isn't sleepy at all"], q: "What does this mean?" }
-      - { kind: sentence, ja: "この じしょは わかりやすい。", en: "This dictionary is easy to follow", exercises: [yasui-nikui, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "この じしょは わかりやすい。", en: "This dictionary is easy to understand", exercises: [yasui-nikui, kono-sono-ano-dono], mode: build }
       - { kind: sentence, ja: "この みちは きけん。", en: "This road is dangerous", exercises: [kono-sono-ano-dono], mode: build }
       - { kind: particle-cloze, stem: "その みちより、この みちの ほうが ", tail: "。", answer: "あんぜん", options: ["あんぜん", "きけん", "たかい"], en: "This road is safer than that one", explanation: "あんぜん names the safety itself. きけん would flip the meaning to danger. たかい is a real word, just the wrong one — 'expensive,' nothing to do with safety." }
       - kind: dialogue
         lines:
-          - { speaker: "Tom", ja: "ケンは げんき？", en: "Is Ken okay?" }
+          - { speaker: "Tom", ja: "ケンは げんき？", en: "Is Ken doing well?" }
           - { speaker: "Mika", ja: "ううん、ねむいだけ。", en: "No, just sleepy." }
           - { speaker: "Tom", ja: "そう、ねむそうね。", en: "I see, he does look sleepy." }
         questions:

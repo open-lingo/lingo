@@ -285,12 +285,12 @@ lessons:
       - { kind: kanji, kana: やくそく, kanji: 約束, distractors: ["やすい", "やさしい", "やめる"], exercises: [ga-existence] }
       - kind: dialogue
         lines:
-          - { speaker: "Mika", ja: "あした たなかさんと やくそくが あるの。", en: "I have a promise with Tanaka tomorrow." }
+          - { speaker: "Mika", ja: "あした たなかさんと やくそくが あるの。", en: "I have plans with Tanaka tomorrow." }
           - { speaker: "Ken", ja: "そう。かならず いく？", en: "I see. Will you definitely go?" }
           - { speaker: "Mika", ja: "うん、たしかに いく。", en: "Yeah, for sure I'll go." }
         questions:
           - { q: "What does Mika say about tomorrow?", options: ["She will definitely go, since she has a promise", "She forgot about the promise", "She cancelled the promise", "She has no plans tomorrow"], answer: "She will definitely go, since she has a promise" }
-      - { kind: challenge, ja: "たなかさんとの やくそくが あるから、あしたも かならず いく。", en: "Since I have a promise with Tanaka, I'll definitely go tomorrow too.", combines: [kara-because, mo-also, dictionary-form], mode: build }
+      - { kind: challenge, ja: "たなかさんとの やくそくが あるから、あしたも かならず いく。", en: "Since I have plans with Tanaka, I'll definitely go tomorrow too.", combines: [kara-because, mo-also, dictionary-form], mode: build }
     reviewPool: [けっこん, たんじょうび, プレゼント, やくそく, たいせつ]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -353,7 +353,7 @@ lessons:
     focus: "Spiral L1-L3: the domain vocabulary, かもしれない, and the でしょう-deepen rehash — THIS MODULE ONLY"
     introduces: []
     beats:
-      - { kind: sentence, ja: "たなかさんとの やくそくが あるから、かならず いく。", en: "Since I have a promise with Tanaka, I'll definitely go.", exercises: [kara-because], mode: build }
+      - { kind: sentence, ja: "たなかさんとの やくそくが あるから、かならず いく。", en: "Since I have plans with Tanaka, I'll definitely go.", exercises: [kara-because], mode: build }
       - { kind: sentence, ja: "あめが ふるかもしれない。", en: "It might rain.", exercises: [kamoshirenai], mode: build }
       - { kind: particle-cloze, stem: "たなかさんは いそがしい", tail: "。", answer: "かもしれない", options: ["かもしれない", "かもしれません", "でしょう"], en: "Tanaka might be busy.", explanation: "'Might be,' at a casual register, needs plain かもしれない — かもしれません is the polite form and でしょう upgrades this to a confident guess instead of admitted uncertainty." }
       - { kind: sentence, ja: "テストは むずかしいでしょう。", en: "The test is probably hard.", exercises: [deshou-adjective], mode: build }
@@ -377,7 +377,7 @@ lessons:
     introduces: [よそう, はず]
     beats:
       - { kind: rule, grammarPointId: hazu, variant: intro }
-      - { kind: sentence, ja: "やくそくが あるから、たなかさんは くるはずだ。", en: "Since there's a promise, Tanaka should be coming.", exercises: [hazu, kara-because], mode: build }
+      - { kind: sentence, ja: "やくそくが あるから、たなかさんは くるはずだ。", en: "Since there are plans, Tanaka should be coming.", exercises: [hazu, kara-because], mode: build }
       - { kind: sentence, ja: "たなかさんは がくせいのはずだ。", en: "Tanaka should be a student.", exercises: [hazu], mode: build }
       - { kind: sentence, ja: "げんきなはずだ。", en: "Should be fine.", exercises: [hazu], mode: build }
       - { kind: sentence, ja: "このテストは むずかしいはずだ。", en: "This test should be hard.", exercises: [hazu], mode: build }
@@ -393,7 +393,7 @@ lessons:
           - { speaker: "Mika", ja: "そう。じゃあ、まとう。", en: "I see. Then let's wait." }
         questions:
           - { q: "Why does Ken think Tanaka should be coming?", options: ["Because there's a promise", "Because Tanaka said so directly", "Because he saw Tanaka on the way", "He has no reason at all"], answer: "Because there's a promise" }
-      - { kind: challenge, ja: "やくそくが あるから、たなかさんも ミカも くるはずだ。", en: "Since there's a promise, both Tanaka and Mika should be coming.", combines: [hazu, kara-because, mo-also], mode: build }
+      - { kind: challenge, ja: "やくそくが あるから、たなかさんも ミカも くるはずだ。", en: "Since there are plans, both Tanaka and Mika should be coming.", combines: [hazu, kara-because, mo-also], mode: build }
     reviewPool: [やくそく, テスト, むずかしい, げんき]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -458,7 +458,7 @@ lessons:
     focus: "Spiral L1-L6: every marker so far, over the feelings and promises domain — THIS MODULE ONLY"
     introduces: []
     beats:
-      - { kind: sentence, ja: "やくそくが あるから、たなかさんは くるはずだ。", en: "Since there's a promise, Tanaka should be coming.", exercises: [hazu, kara-because], mode: build }
+      - { kind: sentence, ja: "やくそくが あるから、たなかさんは くるはずだ。", en: "Since there are plans, Tanaka should be coming.", exercises: [hazu, kara-because], mode: build }
       - { kind: sentence, ja: "げんきなはずが ない。", en: "There's no way she's fine.", exercises: [hazu], mode: build }
       - { kind: particle-cloze, stem: "たなかさんは くる", tail: "が、まだ こない。", answer: "はずだった", options: ["はずだった", "はずだ", "はずがない"], en: "Tanaka was supposed to come, but hasn't yet.", explanation: "A broken expectation about something that already should have happened needs the past はずだった, not plain はずだ or the flat denial はずがない." }
       - { kind: sentence, ja: "しっぱいするかもしれないから、しんぱいだ。", en: "Since it might fail, I'm worried.", exercises: [kamoshirenai, kara-because], mode: build }
@@ -471,7 +471,7 @@ lessons:
           - { speaker: "Ken", ja: "うん、しんじよう。", en: "Yeah, let's believe it." }
         questions:
           - { q: "What does Mika say about the result?", options: ["It should succeed", "It will definitely fail", "She has no opinion", "It already failed"], answer: "It should succeed" }
-      - { kind: sentence, ja: "たなかさんは くるかもしれないが、やくそくが あるから、くるはずだ。", en: "Tanaka might come, but since there's a promise, he should be coming.", exercises: [kamoshirenai, hazu, kedo, kara-because], mode: build }
+      - { kind: sentence, ja: "たなかさんは くるかもしれないが、やくそくが あるから、くるはずだ。", en: "Tanaka might come, but since he has plans, he should be coming.", exercises: [kamoshirenai, hazu, kedo, kara-because], mode: build }
     reviewPool: [はず, あんしん, しんぱい, けっか, やくそく]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -481,10 +481,10 @@ lessons:
     focus: "Integration: かもしれない, はず, and でしょう-deepen inside one dialogue_sim — no new vocabulary"
     introduces: []
     beats:
-      - { kind: sentence, ja: "たなかさんは くるかもしれないが、やくそくが あるから、くるはずだ。", en: "Tanaka might come, but since there's a promise, he should be coming.", exercises: [kamoshirenai, hazu, kedo, kara-because], mode: build }
+      - { kind: sentence, ja: "たなかさんは くるかもしれないが、やくそくが あるから、くるはずだ。", en: "Tanaka might come, but since he has plans, he should be coming.", exercises: [kamoshirenai, hazu, kedo, kara-because], mode: build }
       - { kind: sentence, ja: "せいこうするか しっぱいするか まだ わからないが、きっと だいじょうぶでしょう。", en: "It's not known yet whether it'll succeed or fail, but surely it'll probably be fine.", exercises: [deshou, tabun-kitto], mode: listening }
       - { kind: sentence, ja: "せいこうするかもしれないし、しっぱいするかもしれない。", en: "It might succeed, and it might fail.", exercises: [kamoshirenai, shi-listing], mode: build }
-      - { kind: particle-cloze, stem: "たなかさんは くるかもしれないが、やくそくが あるから、", tail: "。", answer: "くるはずだ", options: ["くるはずだ", "くるかもしれない", "くるでしょう"], en: "Tanaka might come, but since there's a promise, he should be coming.", explanation: "はずだ fits once real evidence — the promise — is on the table, a step up from the bare guess かもしれない. Repeating かもしれない would ignore the promise entirely, and でしょう would undersell the concrete evidence into a vaguer guess." }
+      - { kind: particle-cloze, stem: "たなかさんは くるかもしれないが、やくそくが あるから、", tail: "。", answer: "くるはずだ", options: ["くるはずだ", "くるかもしれない", "くるでしょう"], en: "Tanaka might come, but since he has plans, he should be coming.", explanation: "はずだ fits once real evidence — the promise — is on the table, a step up from the bare guess かもしれない. Repeating かもしれない would ignore the promise entirely, and でしょう would undersell the concrete evidence into a vaguer guess." }
       - { kind: kanji, kana: しっぱい, kanji: 失敗, distractors: ["しんぶん", "しつれい", "しあわせ"], exercises: [kamoshirenai] }
       - kind: sim
         scene: { emoji: "🤔", title: "Will Tanaka show up?", setting: "Mika and Ken compare how sure they are that Tanaka will come to the promised meeting." }
@@ -497,7 +497,7 @@ lessons:
           - npc: { speaker: "Ken", ja: "でも、やくそくが あるよ。", en: "But I have plans." }
             goal: "Say that since there's a promise, he should come."
             reply: { mode: build, tiles: ["やくそくが", "あるから", "くるはずだ", "くるかもしれない", "こないはずだ"], answer: "やくそくが あるから くるはずだ。" }
-            replyGloss: "Since there's a promise, he should come."
+            replyGloss: "Since there are plans, he should come."
             explanation: "はずだ fits once concrete evidence — the promise — is on the table, a step up from the bare guess かもしれない."
       - { kind: listening-comp, audio: "テストは むずかしいかもしれないが、きっと せいこうするでしょう。", answer: "The test might be hard, but surely it'll probably succeed.", distractors: ["The test is definitely easy.", "The test will definitely fail.", "Nobody has any opinion about the test."], q: "What does this mean?" }
       - { kind: challenge, ja: "テストは むずかしいでしょうが、じゅぎょうが あったから、せいこうするはずだと おもうし、しっぱいするかもしれないとは おもわない。", en: "The test is probably hard, but since there was class, I think it should succeed, and what's more I don't think it might fail.", combines: [deshou-adjective, kara-because, hazu, kamoshirenai, to-omoimasu, shi-listing], mode: build }
@@ -514,7 +514,7 @@ lessons:
       - { kind: sentence, ja: "たなかさんは くるはずだ。", en: "Tanaka should be coming.", exercises: [hazu], mode: build }
       - { kind: sentence, ja: "たなかさんは くるでしょう。", en: "Tanaka will probably come.", exercises: [deshou], mode: build }
       - { kind: sentence, ja: "たなかさんは くるかもしれない。", en: "Tanaka might come.", exercises: [kamoshirenai], mode: build }
-      - { kind: particle-cloze, stem: "やくそくが あるから、たなかさんは くる", tail: "。もしかしたら こないかもしれないけど。", answer: "はずだ", options: ["はずだ", "でしょう", "かもしれない"], en: "Since there's a promise, Tanaka should come. Although maybe he won't.", explanation: "はずだ fits the concrete evidence just given — the promise. でしょう would undersell that evidence into a vaguer guess, and かもしれない already covers the weaker possibility in the second clause on its own." }
+      - { kind: particle-cloze, stem: "やくそくが あるから、たなかさんは くる", tail: "。もしかしたら こないかもしれないけど。", answer: "はずだ", options: ["はずだ", "でしょう", "かもしれない"], en: "Since he has plans, Tanaka should come. Although maybe he won't.", explanation: "はずだ fits the concrete evidence just given — the promise. でしょう would undersell that evidence into a vaguer guess, and かもしれない already covers the weaker possibility in the second clause on its own." }
       - { kind: listening-comp, audio: "たなかさんは ぜったい せいこうするにちがいない。", answer: "Tanaka will absolutely succeed, no doubt.", distractors: ["Tanaka might succeed.", "Tanaka will absolutely fail.", "Nobody has an opinion about Tanaka."], q: "What does this mean?" }
       - { kind: listening-comp, audio: "たなかさんは くるはずだが、こないかもしれない。", answer: "Tanaka should come, but he might not.", distractors: ["Tanaka will definitely come.", "Tanaka will definitely not come.", "Nobody knows anything about Tanaka's plans."], q: "What does this mean?" }
       - kind: dialogue
@@ -536,8 +536,8 @@ lessons:
     beats:
       - { kind: sentence, ja: "たなかさんは くるかもしれない。", en: "Tanaka might come.", exercises: [kamoshirenai], mode: build }
       - { kind: sentence, ja: "たなかさんは くるでしょう。", en: "Tanaka will probably come.", exercises: [deshou], mode: build }
-      - { kind: sentence, ja: "やくそくが あるから、たなかさんは くるはずだ。", en: "Since there's a promise, Tanaka should be coming.", exercises: [hazu, kara-because], mode: build }
-      - { kind: particle-cloze, stem: "やくそくが あるから、たなかさんは くる", tail: "。", answer: "はずだ", options: ["はずだ", "かもしれない", "でしょう"], en: "Since there's a promise, Tanaka should be coming.", explanation: "はずだ fits the concrete evidence — the promise — best; でしょう undersells it into a vaguer guess, and かもしれない would ignore the reason entirely." }
+      - { kind: sentence, ja: "やくそくが あるから、たなかさんは くるはずだ。", en: "Since there are plans, Tanaka should be coming.", exercises: [hazu, kara-because], mode: build }
+      - { kind: particle-cloze, stem: "やくそくが あるから、たなかさんは くる", tail: "。", answer: "はずだ", options: ["はずだ", "かもしれない", "でしょう"], en: "Since there are plans, Tanaka should be coming.", explanation: "はずだ fits the concrete evidence — the promise — best; でしょう undersells it into a vaguer guess, and かもしれない would ignore the reason entirely." }
       - { kind: sentence, ja: "せいこうするか しっぱいするか、まだ わからない。", en: "It's not known yet whether it'll succeed or fail.", exercises: [ka-question], mode: listening }
       - { kind: listening-comp, audio: "たなかさんは ぜったい せいこうするにちがいない。", answer: "Tanaka will absolutely succeed, no doubt.", distractors: ["Tanaka might succeed.", "Tanaka will absolutely fail.", "Nobody has an opinion about Tanaka."], q: "What does this mean?" }
       - kind: dialogue
@@ -558,15 +558,15 @@ lessons:
     introduces: []
     beats:
       - { kind: sentence, ja: "テストは むずかしいでしょうが、じゅぎょうが あったので、せいこうするはずだ。", en: "The test is probably hard, but since there was class, it should succeed.", exercises: [deshou-adjective, node-because, hazu], mode: build }
-      - { kind: sentence, ja: "やくそくが あるのに、たなかさんは くるかもしれないし、こないかもしれない。", en: "Even though there's a promise, Tanaka might come, and he might not come.", exercises: [noni-concession, kamoshirenai, shi-listing], mode: listening }
-      - { kind: particle-cloze, stem: "やくそくが あるから、たなかさんは くる", tail: "。もしかしたら こないかもしれないけど。", answer: "はずだ", options: ["はずだ", "でしょう", "かもしれない"], en: "Since there's a promise, Tanaka should come. Although maybe he won't.", explanation: "はずだ fits the concrete evidence — the promise — best of the three; でしょう would undersell that evidence into a vaguer guess, and かもしれない already covers the weaker possibility in the second clause on its own." }
+      - { kind: sentence, ja: "やくそくが あるのに、たなかさんは くるかもしれないし、こないかもしれない。", en: "Even though there are plans, Tanaka might come, and he might not come.", exercises: [noni-concession, kamoshirenai, shi-listing], mode: listening }
+      - { kind: particle-cloze, stem: "やくそくが あるから、たなかさんは くる", tail: "。もしかしたら こないかもしれないけど。", answer: "はずだ", options: ["はずだ", "でしょう", "かもしれない"], en: "Since he has plans, Tanaka should come. Although maybe he won't.", explanation: "はずだ fits the concrete evidence — the promise — best of the three; でしょう would undersell that evidence into a vaguer guess, and かもしれない already covers the weaker possibility in the second clause on its own." }
       - { kind: kanji, kana: かならず, kanji: 必ず, distractors: ["かなしい", "かない", "かようび"], exercises: [hazu] }
       - kind: dialogue
         lines:
           - { speaker: "Tanaka", ja: "テストの けっか、きっと せいこうするにちがいないよ。", en: "The test result, surely it'll succeed, no doubt." }
-          - { speaker: "Ken", ja: "たぶん だいじょうぶだろう。でも、やくそくが あるから、たなかさんが くるはずだと おもう。", en: "Probably it'll be fine. But since there's a promise, I think Tanaka should be coming." }
+          - { speaker: "Ken", ja: "たぶん だいじょうぶだろう。でも、やくそくが あるから、たなかさんが くるはずだと おもう。", en: "Probably it'll be fine. But since I have plans, I think Tanaka should be coming." }
           - { speaker: "Mika", ja: "うん、もしかしたら ちょっと おくれるかもしれないけど、ぜったい くるでしょう。", en: "Yeah, perhaps he might be a little late, but surely he'll probably definitely come." }
         questions:
           - { q: "According to the conversation, who sounds MOST certain that things will go well?", options: ["Tanaka, using にちがいない", "Ken, using だろう", "Mika, using かもしれない", "Nobody sounds certain at all"], answer: "Tanaka, using にちがいない" }
-      - { kind: challenge, ja: "テストは むずかしいでしょうが、やくそくが あるから、たなかさんは くるはずだと おもうし、しっぱいするかもしれないとは おもわない。", en: "The test is probably hard, but since there's a promise, I think Tanaka should come, and what's more I don't think it might fail.", combines: [certainty-ladder, deshou-adjective, kara-because, hazu, kamoshirenai, to-omoimasu, shi-listing], mode: build }
+      - { kind: challenge, ja: "テストは むずかしいでしょうが、やくそくが あるから、たなかさんは くるはずだと おもうし、しっぱいするかもしれないとは おもわない。", en: "The test is probably hard, but since there are plans, I think Tanaka should come, and I don't think it might fail.", combines: [certainty-ladder, deshou-adjective, kara-because, hazu, kamoshirenai, to-omoimasu, shi-listing], mode: build }
     reviewPool: [やくそく, たしか, かならず, もしかしたら, ぜったい, せいこう, しっぱい, よそう, はず, うたがう, しんじる, あんしん, しんぱい]

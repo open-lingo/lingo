@@ -42,6 +42,7 @@ import {
 import { IS_NATIVE } from "@/shared/platform/native";
 import { useLang } from "@/shared/hooks/useLangPath";
 import { Badge } from "@/shared/components/ui";
+import { RegisterCueEyebrow } from "./RegisterCueEyebrow";
 
 /**
  * Active-course language → speech-recognition locale codes. Without this
@@ -131,6 +132,9 @@ export function SpeakingStepView({ step, onComplete, onContinue }: Props) {
       granularity: "word",
       exercisedAtoms: step.exercisedAtoms,
       modality: "production",
+      // Carry the cue into the silent-build rung — same utterance, same
+      // register, and the nested BuildSentenceStepView badges it from data.
+      ...(step.registerCue ? { registerCue: step.registerCue } : {}),
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [step.id],
@@ -295,11 +299,16 @@ function ReferenceCard({
     const langName = langKey ? t(langKey) : undefined;
     return (
       <div className="flex flex-col items-center gap-5 rounded-2xl border-[1.5px] border-border bg-surface px-6 py-10 shadow-[var(--shadow-card)]">
+        {/* Pre-reveal, `translation` IS the production prompt — the learner
+            says the Japanese for it — so the register cue belongs here.
+            Post-reveal (below) the same string is a gloss under the answer
+            and carries no cue. */}
         <Badge variant="eyebrow">
           {langName
             ? t("lesson.speaking.sayItIn", "Say it in {{lang}}", { lang: langName })
             : t("lesson.speaking.sayItOutLoud", "Say it out loud")}
         </Badge>
+        <RegisterCueEyebrow cue={step.registerCue} />
         <p className="text-center text-3xl font-bold tracking-tight text-text-primary">
           {step.translation}
         </p>

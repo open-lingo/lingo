@@ -310,7 +310,7 @@ grammarPoints:
       - { ja: "いっしょに たべましょう。", en: "Let's eat together." }
       - { ja: "きっさてんで コーヒーを のみましょう。", en: "Let's drink coffee at the coffee shop." }
       - { ja: "あした いっしょに としょかんに いきましょう。", en: "Let's go to the library together tomorrow." }
-      - { ja: "じかんが あるから かいものを しましょう。", en: "We have time, so let's do the shopping." }
+      - { ja: "じかんが あるから かいものを しましょう。", en: "We have time, so let's go shopping." }
       - { ja: "げんきだから かわで およぎましょう。", en: "We're well, so let's swim in the river." }
     antiPattern: { ja: "いっしょに たべるましょう。", why: "ましょう replaces ます on the ます-form, never the dictionary form: いっしょに たべましょう。" }
 
@@ -318,7 +318,7 @@ grammarPoints:
     rule: "ませんか is the same invitation with the door left open. It is literally the polite negative plus か — won't you eat? — and that negative is doing real work: by asking whether you will NOT, it makes saying no easy, which is exactly why it is the polite way to invite somebody who might not want to come. Put the two side by side. 「いっしょに たべませんか」 offers. 「いっしょに たべましょう」 decides. Offer first; decide once they have said yes. Now the casual twin, which you will use far more than either. Drop the polite layer entirely, use the ない-form, and let your voice rise: 「いっしょに たべない？」 — wanna eat? That is the plain-form invitation and it is what friends actually say to each other. So there are three rungs and one meaning: 「たべない？」 to a friend, 「たべませんか」 to anybody else, 「たべましょう」 once it is settled. Nothing else moves — いっしょに still sits at the front, the object still takes を, and the verb is the only thing that changes register."
     examples:
       - { ja: "いっしょに たべませんか。", en: "Won't you eat with me?" }
-      - { ja: "あした えいがを みませんか。", en: "Won't you watch a movie tomorrow?" }
+      - { ja: "あした えいがを みませんか。", en: "Would you like to watch a movie tomorrow?" }
       - { ja: "いっしょに たべない？", en: "Wanna eat together? — to a friend" }
       - { ja: "あした きっさてんに いきませんか。", en: "Won't you go to the coffee shop tomorrow?" }
       - { ja: "あした うちに こない？", en: "Wanna come over tomorrow? — to a friend" }
@@ -342,7 +342,7 @@ newAtoms:
   - { kana: みられる, romaji: mirareru, gloss: "can watch (potential of みる)", shortGloss: "can watch", imageable: false, kind: verb }
   - { kana: こられる, romaji: korareru, gloss: "can come (potential of くる)", shortGloss: "can come", imageable: false, kind: verb }
   - { kana: たべれる, romaji: tabereru, gloss: "can eat (casual ら-dropped form)", shortGloss: "can eat (casual)", imageable: false, kind: verb }
-  - { kana: みれる, romaji: mireru, gloss: "can watch (casual ら-dropped form)", shortGloss: "can watch (casual)", imageable: false, kind: verb }
+  - { kana: みれる, romaji: mireru, gloss: "can watch (ら-dropped form)", shortGloss: "can watch", imageable: false, kind: verb }
   # ══ L3. する's suppletive potential. できる already has a courseAtoms row
   #    under a stale old-course m23 tag and is in NO neo module's priorVocab,
   #    so it is declared here for provenance — the m15-m23 move.
@@ -358,7 +358,7 @@ newAtoms:
   # ══ L6. Spontaneous perception — NOT the potential, which is the whole point
   #    of the card. 👁️ is みる's and め's; 👂 is みみ's and きく's.
   - { kana: みえる, romaji: mieru, gloss: "to be visible, to be in sight", shortGloss: "is visible", imageable: false, kind: verb }
-  - { kana: きこえる, romaji: kikoeru, gloss: "to be audible, to reach the ear", shortGloss: "is audible", imageable: false, kind: verb }
+  - { kana: きこえる, romaji: kikoeru, gloss: "to be heard, to reach the ear", shortGloss: "is audible", imageable: false, kind: verb }
   # ══ L7. Good at. じょうず has a row with 👌 — which is ALSO だいじょうぶ's, a
   #    MET word, so the debut MCQ would draw a distractor the picture names
   #    just as well (the m19 ruling). `imageable: false`.
@@ -368,13 +368,13 @@ newAtoms:
   #    card must name へた and a `kind: rule` beat compiles to a PINNED step
   #    ahead of the interleaved middle, so the card would steal the debut
   #    (m20/m21 rule, m22's いたい precedent). `imageable: false`.
-  - { kana: へた, romaji: heta, gloss: "unskillful, bad at", shortGloss: "bad at", imageable: false, kind: vocab }
+  - { kana: へた, romaji: heta, gloss: "bad at", shortGloss: "bad at", imageable: false, kind: vocab }
   - { kana: あるける, romaji: arukeru, gloss: "can walk (potential of あるく)", shortGloss: "can walk", imageable: false, kind: verb }
   # ══ L10. ましょう is a BOUND SUFFIX (inv 41) — checked against the whole live
   #    corpus first, ZERO Japanese surfaces contain it. しましょう is registered
   #    WHOLE because する's ます-stem し is 四 "four": a bare し tile would credit
   #    the number. いっしょ's 👫 is ともだち's, a met word — `imageable: false`.
-  - { kana: ましょう, romaji: mashou, gloss: "let's ~ (polite suggestion, on the ます-stem)", shortGloss: "let's ~", imageable: false, kind: vocab }
+  - { kana: ましょう, romaji: mashou, gloss: "let's ~", shortGloss: "let's ~", imageable: false, kind: vocab }
   - { kana: しましょう, romaji: shimashou, gloss: "let's do it (polite suggestion)", shortGloss: "let's do", imageable: false, kind: vocab }
   - { kana: いっしょ, romaji: issho, gloss: "together", shortGloss: "together", imageable: false, kind: vocab }
 
@@ -393,7 +393,7 @@ lessons:
       - { kind: sentence, ja: "あさは コーヒーが のめるけど ばんは ぎゅうにゅうを のむ。", en: "I can drink coffee in the morning, but at night I drink milk", exercises: [potential-form, wa-topic, kedo, wo-object], mode: build }
       - { kind: sentence, ja: "ミカは あした くうこうに いける。", en: "Mika can go to the airport tomorrow", exercises: [potential-form, wa-topic, ni-location], mode: listening }
       - { kind: sentence, ja: "ケンは じてんしゃで だいがくに いける。", en: "Ken can get to university by bicycle", exercises: [potential-form, de-action, ni-location, wa-topic], mode: build }
-      - { kind: sentence, ja: "じてんしゃが ないけど がっこうまで いける。", en: "I have no bicycle, but I can get as far as school", exercises: [potential-form, nai-existence, kedo, made-until], mode: build }
+      - { kind: sentence, ja: "じてんしゃが ないけど がっこうまで いける。", en: "I don't have a bicycle, but I can get to school", exercises: [potential-form, nai-existence, kedo, made-until], mode: build }
       - { kind: sentence, ja: "おさけが のめる。", en: "Say to a friend: I can drink sake", exercises: [potential-form], mode: translate }
       - { kind: particle-cloze, stem: "じかんが あるから きっさてんに ", tail: "。", answer: "いける", options: ["いける", "いく", "いった"], en: "I have time, so I can go to the coffee shop", explanation: "いく moves to the え row and adds る — いける, I can go. いく is the plain dictionary form and いった is the past." }
       - { kind: listening-comp, audio: "トムは かわで およげる。", answer: "Tom can swim in the river", distractors: ["Tom can't swim in the river", "Tom swam in the river", "Tom wants to swim in the river"], exercises: [potential-form, wa-topic] }
@@ -445,7 +445,7 @@ lessons:
       - { kind: rule, grammarPointId: dekiru }
       - { kind: sentence, ja: "にほんの りょうりが できる。", en: "I can cook Japanese food", exercises: [dekiru, no-possession], mode: build }
       - { kind: sentence, ja: "げんきだから あした さんぽが できる。", en: "I'm well, so I can go for a walk tomorrow", exercises: [dekiru, na-adj-present, kara-because], mode: build }
-      - { kind: sentence, ja: "あさは じかんが あるから かいものが できる。", en: "I have time in the morning, so I can do the shopping", exercises: [dekiru, wa-topic, ga-existence, kara-because], mode: build }
+      - { kind: sentence, ja: "あさは じかんが あるから かいものが できる。", en: "I have time in the morning, so I can go shopping", exercises: [dekiru, wa-topic, ga-existence, kara-because], mode: build }
       - { kind: sentence, ja: "なつやすみに りょこうが できるから きっぷを かう。", en: "I can travel in the summer vacation, so I'm buying a ticket", exercises: [dekiru, ni-time, kara-because, wo-object], mode: build }
       - { kind: sentence, ja: "ひまな とき うちで りょうりが できる。", en: "When I'm free, I can cook at home", exercises: [dekiru, toki, de-action], mode: listening }
       - { kind: sentence, ja: "ホテルで かいものが できるけど ちょっと たかい。", en: "You can shop at the hotel, but it's a bit expensive", exercises: [dekiru, de-action, kedo, i-adj-present], mode: build }
@@ -478,7 +478,7 @@ lessons:
       - { kind: particle-cloze, stem: "げんきだから かわで ", tail: "。", answer: "およげる", options: ["およげる", "およぐ", "およいだ"], en: "I'm well, so I can swim in the river", explanation: "およぐ moves to the え row and adds る — およげる, I can swim. およぐ is the dictionary form and およいだ is the past." }
       - { kind: sentence, ja: "としょかんで えいがが みられるから よく いく。", en: "You can watch movies at the library, so I go often", exercises: [potential-rareru, kara-because], mode: build }
       - { kind: listening-comp, audio: "ホテルで にほんの りょうりが たべられる。", answer: "You can eat Japanese food at the hotel", distractors: ["You can't eat Japanese food at the hotel", "I ate Japanese food at the hotel", "You can cook Japanese food at the hotel"], exercises: [potential-rareru, de-action] }
-      - { kind: sentence, ja: "あさは じかんが あるから かいものが できる。", en: "I have time in the morning, so I can do the shopping", exercises: [dekiru, kara-because], mode: build }
+      - { kind: sentence, ja: "あさは じかんが あるから かいものが できる。", en: "I have time in the morning, so I can go shopping", exercises: [dekiru, kara-because], mode: build }
       - { kind: sentence, ja: "あした くうこうに いける。", en: "Say to a friend: I can go to the airport tomorrow", exercises: [potential-form], mode: translate }
       - { kind: listening-comp, audio: "ケンは じてんしゃで だいがくに いける。", answer: "Ken can get to university by bicycle", distractors: ["Ken goes to university by bicycle every day", "Ken can't get to university by bicycle", "Ken went to university by bicycle"], exercises: [potential-form, de-action] }
       - { kind: sentence, ja: "なつやすみに りょこうが できるから きっぷを かう。", en: "I can travel in the summer vacation, so I'm buying a ticket", exercises: [dekiru, wo-object], mode: build }
@@ -505,7 +505,7 @@ lessons:
       - { kind: sentence, ja: "たべられない ものが あるけど すしは だいじょうぶだ。", en: "There are things I can't eat, but sushi is fine", exercises: [nai-form, ga-existence, kedo, na-adj-present], mode: build }
       - { kind: sentence, ja: "ねつが あるから きょうは さんぽが できない。", en: "I have a fever, so I can't go for a walk today", exercises: [nai-form, ga-existence, kara-because, wa-topic], mode: listening }
       - { kind: sentence, ja: "ミカは おさけが のめないから コーヒーを かう。", en: "Mika can't drink sake, so she's buying coffee", exercises: [nai-form, wa-topic, kara-because], mode: build }
-      - { kind: sentence, ja: "びょうきだから きょうは おさけが のめない。", en: "I'm ill, so I can't drink sake today", exercises: [nai-form, na-adj-present, kara-because, wa-topic], mode: build }
+      - { kind: sentence, ja: "びょうきだから きょうは おさけが のめない。", en: "I'm sick, so I can't drink sake today", exercises: [nai-form, na-adj-present, kara-because, wa-topic], mode: build }
       - { kind: sentence, ja: "たまごが たべられない。", en: "Say to a friend: I can't eat eggs", exercises: [nai-form], mode: translate }
       - { kind: particle-cloze, stem: "たまごが ", tail: "から とりにくを かう。", answer: "たべられない", options: ["たべられない", "たべられる", "たべない"], en: "I can't eat eggs, so I'll buy chicken", explanation: "たべられる is a る-verb, so its negative drops る and adds ない — たべられない. たべられる is the positive and たべない just means don't eat." }
       - { kind: listening-comp, audio: "ミカは ぜんぜん りょうりが できない。", answer: "Mika can't cook at all", distractors: ["Mika can cook a little", "Mika didn't cook at all", "Mika doesn't like cooking at all"], exercises: [nai-form, frequency-adverbs] }
@@ -557,13 +557,13 @@ lessons:
       - { kind: rule, grammarPointId: no-ga-jouzu }
       - { kind: sentence, ja: "ミカは およぐのが じょうずだから よく かわに いく。", en: "Mika is good at swimming, so she often goes to the river", exercises: [no-ga-jouzu, wa-topic, kara-because, frequency-adverbs], mode: build }
       - { kind: sentence, ja: "トムは りょうりを するのが じょうずだから いつも おいしい。", en: "Tom is good at cooking, so it's always delicious", exercises: [no-ga-jouzu, wo-object, kara-because, i-adj-present], mode: build }
-      - { kind: sentence, ja: "たなかせんせいは はなすのが じょうずだ。", en: "Tanaka is good at speaking", exercises: [no-ga-jouzu, wa-topic, dictionary-form], mode: build }
-      - { kind: sentence, ja: "あねは うたが じょうずだけど ぼくは ばんに きく。", en: "My older sister is good at singing, but I only listen in the evening", exercises: [no-ga-jouzu, kedo, wa-topic, ni-time], mode: build }
+      - { kind: sentence, ja: "たなかせんせいは はなすのが じょうずだ。", en: "Teacher Tanaka is good at speaking", exercises: [no-ga-jouzu, wa-topic, dictionary-form], mode: build }
+      - { kind: sentence, ja: "あねは うたが じょうずだけど ぼくは ばんに きく。", en: "My older sister is good at singing, but I listen in the evening", exercises: [no-ga-jouzu, kedo, wa-topic, ni-time], mode: build }
       - { kind: sentence, ja: "ケンは じてんしゃに のるのが じょうずだ。", en: "Ken is good at riding a bicycle", exercises: [no-ga-jouzu, ni-location, wa-topic], mode: listening }
       - { kind: sentence, ja: "でんわで かぞくと はなせるから げんきだ。", en: "I can talk to my family on the phone, so I'm doing fine", exercises: [potential-form, de-action, to-and, kara-because], mode: build }
       - { kind: sentence, ja: "ちちは りょうりを するのが じょうずじゃないけど いつも する。", en: "My father isn't good at cooking, but he always does it", exercises: [no-ga-jouzu, na-adj-negative, kedo, frequency-adverbs], mode: build }
       - { kind: sentence, ja: "ミカは およぐのが じょうずだ。", en: "Say to a friend: Mika is good at swimming", exercises: [no-ga-jouzu], mode: translate }
-      - { kind: particle-cloze, stem: "かわで およぐのが ", tail: "だから なつやすみが たのしい。", answer: "じょうず", options: ["じょうず", "すき", "きらい"], en: "She is good at swimming in the river, so the summer vacation are fun", explanation: "じょうず says the skill is there. すき says she likes it and きらい says she hates it — all three are real, but only one is about skill." }
+      - { kind: particle-cloze, stem: "かわで およぐのが ", tail: "だから なつやすみが たのしい。", answer: "じょうず", options: ["じょうず", "すき", "きらい"], en: "She is good at swimming in the river, so summer vacation is fun", explanation: "じょうず says the skill is there. すき says she likes it and きらい says she hates it — all three are real, but only one is about skill." }
       - { kind: listening-comp, audio: "トムは りょうりを するのが じょうずだ。", answer: "Tom is good at cooking", distractors: ["Tom likes cooking", "Tom isn't good at cooking", "Tom cooked something delicious"], exercises: [no-ga-jouzu, wa-topic] }
       - { kind: listening-comp, audio: "でんわで かぞくと はなせる。", answer: "I can talk to my family on the phone", distractors: ["I talked to my family on the phone", "I can't talk to my family on the phone", "I want to talk to my family on the phone"], exercises: [potential-form, to-and] }
       - kind: dialogue
@@ -592,7 +592,7 @@ lessons:
       - { kind: listening-comp, audio: "トムは りょうりを するのが じょうずだから いつも おいしい。", answer: "Tom is good at cooking, so it's always delicious", distractors: ["Tom likes cooking, so he does it a lot", "Tom isn't good at cooking, but he tries", "Tom cooked something delicious yesterday"], exercises: [no-ga-jouzu, kara-because] }
       - { kind: sentence, ja: "たべられない ものが あるけど すしは だいじょうぶだ。", en: "There are things I can't eat, but sushi is fine", exercises: [nai-form, kedo], mode: build }
       - { kind: sentence, ja: "でんわで かぞくと はなせる。", en: "Say to a friend: I can talk to my family on the phone", exercises: [potential-form], mode: translate }
-      - { kind: listening-comp, audio: "びょうきだから きょうは おさけが のめない。", answer: "I'm ill, so I can't drink sake today", distractors: ["I was ill, so I didn't drink sake yesterday", "I'm ill, but I can drink sake today", "I'm ill, so I don't want sake today"], exercises: [nai-form, kara-because] }
+      - { kind: listening-comp, audio: "びょうきだから きょうは おさけが のめない。", answer: "I'm sick, so I can't drink sake today", distractors: ["I was ill, so I didn't drink sake yesterday", "I'm ill, but I can drink sake today", "I'm ill, so I don't want sake today"], exercises: [nai-form, kara-because] }
       - { kind: sentence, ja: "かわが みえるから この ホテルが すきだ。", en: "I like this hotel because you can see the river", exercises: [mieru-kikoeru, kono-sono-ano-dono], mode: build }
       - { kind: sentence, ja: "ケンは じてんしゃに のるのが じょうずだ。", en: "Ken is good at riding a bicycle", exercises: [no-ga-jouzu, ni-location], mode: build }
       - kind: dialogue
@@ -642,7 +642,7 @@ lessons:
       - { kind: sentence, ja: "いっしょに たべましょう。", en: "Say politely: Let's eat together", exercises: [mashou, masu-present], mode: build }
       - { kind: sentence, ja: "きっさてんで コーヒーを のみましょう。", en: "Say politely: Let's drink coffee at the coffee shop", exercises: [mashou, de-action, wo-object], mode: build }
       - { kind: sentence, ja: "あした いっしょに としょかんに いきましょう。", en: "Say politely: Let's go to the library together tomorrow", exercises: [mashou, ni-location], mode: build }
-      - { kind: sentence, ja: "じかんが あるから かいものを しましょう。", en: "Say politely: We have time, so let's do the shopping", exercises: [mashou, ga-existence, kara-because, wo-object], mode: build }
+      - { kind: sentence, ja: "じかんが あるから かいものを しましょう。", en: "Say politely: We have time, so let's go shopping", exercises: [mashou, ga-existence, kara-because, wo-object], mode: build }
       - { kind: sentence, ja: "げんきだから かわで およぎましょう。", en: "Say politely: We're well, so let's swim in the river", exercises: [mashou, kara-because, de-action], mode: listening }
       - { kind: sentence, ja: "ばんに いっしょに えいがを みましょう。", en: "Say politely: Let's watch a movie together in the evening", exercises: [mashou, ni-time, wo-object], mode: build }
       - { kind: sentence, ja: "じかんが ないから バスに のりましょう。", en: "Say politely: We have no time, so let's take the bus", exercises: [mashou, nai-existence, kara-because, ni-location], mode: build }
@@ -652,7 +652,7 @@ lessons:
       - { kind: listening-comp, audio: "ひまだから かいものを しましょう。", answer: "We're free, so let's do the shopping", distractors: ["We're busy, so let's not go shopping", "I'm free, so I'll do the shopping", "We were free, so we did the shopping"], exercises: [mashou, kara-because] }
       - kind: dialogue
         lines:
-          - { speaker: "Tanaka", ja: "じかんが あるから かいものを しましょう。", en: "We have time, so let's do the shopping." }
+          - { speaker: "Tanaka", ja: "じかんが あるから かいものを しましょう。", en: "We have time, so let's go shopping." }
           - { speaker: "Mika", ja: "はい。いっしょに いきましょう。", en: "Yes. Let's go together." }
         questions:
           - { q: "What does Tanaka suggest?", options: ["Doing the shopping", "Going to the library", "Drinking coffee", "Swimming in the river"], answer: "Doing the shopping" }
@@ -675,7 +675,7 @@ lessons:
       - { kind: sentence, ja: "じかんが あるから いっしょに かわで およがない？", en: "Say to a friend: We have time, so wanna swim in the river", exercises: [masenka, nai-form, ga-existence, kara-because], mode: build }
       - { kind: sentence, ja: "ばんに いっしょに コーヒーを のみませんか。", en: "Say politely: Won't you have a coffee together in the evening", exercises: [masenka, ni-time, wo-object], mode: build }
       - { kind: sentence, ja: "あした えいがを みない？", en: "Say to a friend: Wanna watch a movie tomorrow", exercises: [masenka], mode: translate }
-      - { kind: particle-cloze, stem: "あした えいがを ", tail: "。", answer: "みませんか", options: ["みませんか", "みましょう", "みません"], en: "Won't you watch a movie tomorrow?", explanation: "ませんか is the invitation that leaves room to say no. みましょう decides for both of you and みません just says you don't watch." }
+      - { kind: particle-cloze, stem: "あした えいがを ", tail: "。", answer: "みませんか", options: ["みませんか", "みましょう", "みません"], en: "Would you like to watch a movie tomorrow?", explanation: "ませんか is the invitation that leaves room to say no. みましょう decides for both of you and みません just says you don't watch." }
       - { kind: listening-comp, audio: "あした いっしょに すしを たべませんか。", answer: "Won't you eat sushi with me tomorrow?", distractors: ["Let's eat sushi together tomorrow", "I won't eat sushi with you tomorrow", "Have you eaten sushi before?"], exercises: [masenka, masu-negative] }
       - { kind: listening-comp, audio: "ひまだから いっしょに かわで およがない？", answer: "We're free, so wanna swim in the river?", distractors: ["We're busy, so we can't swim in the river", "We were free, so we swam in the river", "I can't swim in the river"], exercises: [masenka, nai-form] }
       - kind: dialogue
@@ -698,7 +698,7 @@ lessons:
       - { kind: sentence, ja: "いっしょに たべましょう。", en: "Say politely: Let's eat together", exercises: [mashou, masu-present], mode: build }
       - { kind: sentence, ja: "あした えいがを みませんか。", en: "Say politely: Won't you watch a movie tomorrow", exercises: [masenka, ka-question], mode: listening }
       - { kind: sentence, ja: "ケンは およぐのが あまり じょうずじゃない。", en: "Ken isn't very good at swimming", exercises: [no-ga-heta, na-adj-negative], mode: build }
-      - { kind: sentence, ja: "じかんが あるから かいものを しましょう。", en: "Say politely: We have time, so let's do the shopping", exercises: [mashou, kara-because], mode: build }
+      - { kind: sentence, ja: "じかんが あるから かいものを しましょう。", en: "Say politely: We have time, so let's go shopping", exercises: [mashou, kara-because], mode: build }
       - { kind: particle-cloze, stem: "あした いっしょに かわで ", tail: "。", answer: "およぎましょう", options: ["およぎましょう", "およいだ", "およがない"], en: "Let's swim in the river together tomorrow", explanation: "ましょう replaces ます on the ます-form — およぎましょう, let's swim. およいだ is the plain past and およがない says you won't." }
       - { kind: sentence, ja: "いっしょに たべない？", en: "Say to a friend: Wanna eat together", exercises: [masenka, nai-form], mode: build }
       - { kind: listening-comp, audio: "ぼくは じてんしゃに のるのが へただから だいがくまで あるく。", answer: "I'm bad at riding a bicycle, so I walk to university", distractors: ["I'm good at riding a bicycle, so I ride to university", "I can't walk to university, so I ride a bicycle", "I walked to university yesterday"], exercises: [no-ga-heta, made-until] }

@@ -24,6 +24,8 @@ import { notoEmojiUrl } from "@/shared/assets/notoEmoji";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { Badge } from "@/shared/components/ui";
 import { formatPrompt } from "../formatPrompt";
+import { RegisterCueEyebrow } from "./RegisterCueEyebrow";
+import { registerCuedText, stripResolvedCue } from "../../data/registerCue";
 import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
 import { useContentString } from "../../hooks/useContentString";
 import { courseIdsFromLessonId, hintAnchor, explanationAnchor, promptAnchor } from "@/shared/i18n/content/anchors";
@@ -153,10 +155,34 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   // the pre-existing English behavior exactly under uiLocale === "en".
   const rid = lessonId ?? step.id;
   const ids = courseIdsFromLessonId(rid);
-  const resolvedPrompt = useContentString(
-    rid,
-    ids ? promptAnchor(ids.moduleId, rid, step.prompt, step.targetSentence) : null,
-    step.prompt,
+  // ANCHOR ON THE AUTHORED (CUED) ENGLISH, RENDER THE CLEAN GLOSS.
+  //
+  // `step.prompt` is now the cue-free gloss, but the content catalogs were
+  // extracted from the authored string and carry `enSourceHash` OF THAT
+  // STRING — `resolveContentString` compares the hash and falls back to
+  // English when it differs. Hashing the clean gloss would have staled 437
+  // Korean rows (measured 2026-09-15 across ja/m*.ko.json), i.e. silently
+  // reverted 437 prompts to English for KO learners. So the lookup is done
+  // over the reconstructed authored text, and the cue is removed from
+  // whatever comes BACK — which is the Korean cue for a Korean row
+  // ("친구에게 말하세요: …"), something no English-anchored regex could
+  // ever have stripped. `stripResolvedCue` is language-agnostic and is only
+  // ever reached when the step already carries a structured cue.
+  const cue = step.registerCue;
+  const resolvedPrompt = stripResolvedCue(
+    useContentString(
+      rid,
+      ids
+        ? promptAnchor(
+            ids.moduleId,
+            rid,
+            registerCuedText(step.prompt, cue),
+            step.targetSentence,
+          )
+        : null,
+      registerCuedText(step.prompt, cue),
+    ),
+    cue,
   );
   const resolvedHint = useContentString(
     rid,
@@ -495,6 +521,18 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
           emoji={step.audienceEmoji}
           label={step.audienceLabel ?? ""}
           politeness={step.politenessHint}
+        />
+      )}
+      {/* The cue reads FIRST (inv 8) — as an eyebrow above the prompt
+          rather than as the first six words of it, so the prompt itself is
+          the closest 1-to-1 gloss (Spencer #76) and every surface that
+          re-uses that gloss gets it clean. `register` beats are exempt:
+          they already draw the addressee (AudienceCue above) and would
+          otherwise say it twice. */}
+      {!step.audienceEmoji && (
+        <RegisterCueEyebrow
+          cue={cue}
+          className={isWordBuild ? "text-center" : undefined}
         />
       )}
       <h2 className={`font-semibold text-text-primary ${bigTiles ? "text-xl sm:text-2xl" : "text-lg"} ${isWordBuild || step.audienceEmoji ? "text-center" : ""}`}>

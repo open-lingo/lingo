@@ -471,12 +471,27 @@ function extractStep(step, lessonId, add, KANA_ROMAJI) {
     const jaAnchor =
       step.targetSentence ?? step.correctKana ?? step.audioText ?? step.ja;
     const jaBacked = typeof jaAnchor === "string" && hasJaScript(jaAnchor);
+    // EMIT THE AUTHORED (CUED) ENGLISH, NOT THE CLEAN GLOSS.
+    //
+    // The compiler lifts a register cue out of `prompt` into `registerCue`
+    // (src/features/lesson/data/registerCue.ts), so `step.prompt` is now the
+    // clean gloss. The committed catalogs — and the 437 `ja/m*.ko.json` rows
+    // whose Korean text carries the translated cue — were extracted from the
+    // AUTHORED string and are keyed to its `enSourceHash`. Emitting the clean
+    // gloss here would mark every one of those rows stale in one run, i.e.
+    // silently revert 437 prompts to English for KO learners for no content
+    // reason. So reconstruct it: this is `registerCuedText()` inlined, because
+    // this is a plain .mjs script with no TS import path. If the separator
+    // convention ever changes, it changes in BOTH places.
+    const authoredPrompt = step.registerCue?.raw
+      ? `${step.registerCue.raw}: ${step.prompt}`
+      : step.prompt;
     const anchor = jaBacked
       ? `${moduleId}/${lessonId}/ja:${jaAnchor}`
-      : `${moduleId}/${lessonId}/en:${sha256Hex16(step.prompt)}`;
+      : `${moduleId}/${lessonId}/en:${sha256Hex16(authoredPrompt)}`;
     const isBuildPrompt = step.type === "build_sentence" || step.type === "listening_build";
     const kind = isBuildPrompt ? "build-prompt" : jaBacked ? "ja-gloss" : "instruction";
-    add(anchor, step.prompt, [lessonId, stepId, "prompt"], kind);
+    add(anchor, authoredPrompt, [lessonId, stepId, "prompt"], kind);
   }
 
   if (typeof step.body === "string") {

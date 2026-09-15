@@ -536,3 +536,153 @@ Mirror: memory `spencer-open-todos.md`.
   Total iPad Phase B: 45 min wall. Remaining candidate: BottomTabBar hides
   at md: (shows on mini portrait, not Air/13"). Curriculum project 13,356
   green with the apply-lane edits. → build 18 in this lap.
+- 2026-09-15 12:25 1185c2c7 PUSHED (iPad Phase B + naturalness mechanical
+  tier + tooling + build number 18); preflight 630 files / 17,833 tests
+  green, CI build green. Deploy watch + build 18 archive/upload/ASC running.
+- 2026-09-15 12:05 BUILD 18 UPLOADED + APPROVED (delivery
+  3c05a978-f692-4d3b-8442-1105c032950c; what's-new set; group attached) —
+  first iPad-tuned build. Prod deploy 35004822246 / ci 35004822216 for
+  1185c2c7 in progress.
+- 2026-09-15 12:30 LAP CLOSED: deploy 35004822246 + ci 35004822216 SUCCESS
+  for 1185c2c7; prod serves index-3gqpMLSm.css with the tabletPortrait tier
+  and `--tap-bump` (3px only at ≥1024 landscape coarse). Build 18 approved.
+  Still running unattended: short-answer extension full run (propose → gate
+  → judge-gate → sample → report); queued behind it: words review lane
+  (gloss 86 with registry context; register/structure mechanical), sentence
+  review lanes (structure 293, gloss 229, british-university 11), register-cue
+  restructure (Opus), lexical sidecar (next pass).
+- 2026-09-15 12:35 FAN-OUT (worktree feedback-b12, no commits until all
+  land): words review lane (Sonnet; 143 rows: gloss 86 decided against
+  registry pos/shortGloss + module options, register 56 + structure 1
+  applied, uniqueness check on meaningEn), three sentence review lanes
+  (Sonnet; structure/gloss/british only, register rows skipped; m6–m20,
+  m21–m33, m34–m46; gates verbGlossFidelity + moduleConformance + mN-neo),
+  register-cue restructure (Opus; compiler parses "Say politely:"-style
+  prefixes into `registerCue`, views render a Badge eyebrow, new
+  registerCueAgreement gate with a frozen disagreement count). Extension
+  full run: propose 35/73 at 12:19 (~100 min left), watcher armed on
+  REPORT.md. Tokens: each Sonnet lane ~150–300k, Opus lane ~600k est.
+- 2026-09-15 12:45 TestFlight #144 (iPad b18: map shows 1% / M1 despite
+  test-out to m31) + #145 (iPhone b17: "is it not sending the progress
+  externally?") pulled; same account (58 gems, 385 XP, 2d streak on both)
+  ⇒ user row syncs, lesson completions do not. Suspects: test-out sync is
+  one fire-and-forget POST of ~360 attempts (syncTestOutToServer.ts) with
+  no retry; hydrate mapping in useProgressMe. Opus debugging lane
+  dispatched (root cause first, failing test, chunked/retried sync,
+  docs/user-feedback/2026-09-15-testflight-b18.md). Spencer's question
+  "did I need to prompt it to save?" — no: the save-my-XP button was
+  removed, lesson finish + test-out both auto-sync; the failure is silent.
+- 2026-09-15 ≈12:53 WORDS REVIEW LANE DONE (Sonnet, 253k tokens, 18 min):
+  143 rows → 134 applied (register 55, structure 1 incl. 鳴く pos
+  noun→verb, gloss 73 + 5 shortGloss follow-throughs), 14 skipped
+  (counter/grammar convention ×8, ageru = GIVING verb, saki, kuruma/soko
+  collisions, うん held). 61 matching newAtoms lines mirrored across 19
+  IR yaml + recompiled. Accepted synonym collisions (ane/oneesan "older
+  sister", gakusei/seito "student", naze/nande/doushite "why") — flag for
+  the Sonnet sample audit; no gate objects. Gates: conformance,
+  reviewWindowFloor, registry suites, 20 mN-neo: green except m26/m28
+  "every register cue is graded" = the concurrent register-cue lane's
+  in-progress compiler change, not content. NOTE: the lane used bare
+  `git stash` for isolation despite the brief — stash list verified clean
+  afterwards (only the old practice-wave entry); reinforce in briefs.
+- 2026-09-15 ≈12:56 SENTENCE LANE m34–m46 DONE (Sonnet, 266k, 21 min):
+  171 rows → 59 accepted, 11 amended, 101 rejected (≈60 = judge flagging
+  deliberate repeated conventions: てしまう "went and X", ておく "in
+  advance", たぶんきっと doubling; 6× きしゃ reporter≠train hallucination;
+  fragment-producing subject strips). 13 modules recompiled; gates
+  verbGlossFidelity + conformance + 13 mN-neo: 1612 pass, 0 fail. Left:
+  m43 explanation/distractor prose still "the promise" in unflagged spots.
+- 2026-09-15 ≈13:00 SENTENCE LANE m6–m20 DONE (Sonnet, 304k, 25 min):
+  117 rows → 75 applied, 5 already fixed in 1185c2c7, 37 rejected
+  (contrast wording そこ "by you"/まで "as far as"/へ "heading to" ×10,
+  vocative "you"+name ×4, みる≠read ×2, hallucinated grammar ×2 incl.
+  かいたかった=かう not かく, 1 factual error in the judge row). 2 gate
+  reverts (m13 duplicate MCQ option; m8 period → invariant-29). 12 modules
+  recompiled; verbGlossFidelity + conformance + 12 mN-neo: 1549 pass.
+- 2026-09-15 ≈13:02 SENTENCE LANE m21–m33 DONE (Sonnet, 303k, 27 min):
+  226 rows → 134 accepted, 30 amended, 62 rejected (んだ/んです
+  explanatory-cue convention ×24 in m27/m28/m31; subject/possessive
+  strips ×12; all 5 university→college; かみ=paper, はれ=clear, いっぱい=
+  cupful). 13 modules recompiled; verbGlossFidelity + conformance green;
+  13 mN-neo 1846/1850 — the 4 fails are the register-cue lane's
+  in-flight compiler change (m26–m29 "register cue is graded"), not
+  content. All three sentence lanes: 309 applied / 200 rejected of 514.
+- 2026-09-15 ≈12:55 #144/#145 ROOT CAUSE (Opus lane, 242k, 19 min): test-out
+  mirror POSTed 490 attempts in ONE batch (server max_length=100 →
+  422, zero rows written) AND durationSec:1 under the handler's floor of
+  5 (duration_below_floor) — fire-and-forget swallowed both. Hydrate path
+  exonerated by a 490-row control test (lands on m33). Fix: named server
+  mirrors in progress.ts, new testOutSyncQueue.ts (persist before
+  network, ≤100 chunks, remove only confirmed ids), drain on the existing
+  progressSync choke point, lessonSync also chunked (same class),
+  AlertBanner "Saved on this device" on PlacementResultScreen, dirty-count
+  badge. 15 new tests red→green; tsc clean. No server deploy needed
+  (patch file optional). Recovery = on build 19 pass "Test out of M33" on
+  the phone; builds ≤18 cannot be healed. b15 #123 was this same bug.
+  Latent (not changed, one decision): ja.reviewLessonRe stale for
+  ja-mN-neo-review-N ids; getCurrentModuleIndex vs getModuleStatus review
+  filtering mismatch.
+- 2026-09-15 ≈12:58 Spencer: "get to a point where we can push version 19,
+  include most recent feedback as well and check for potential slowness
+  on iPad" → lanes: shop #143 (Sonnet), iPad perf (Opus); then preflight,
+  push, build 19.
+- 2026-09-15 ≈13:08 REGISTER-CUE RESTRUCTURE DONE (Opus, 330k, 33 min):
+  978 cued steps across 11 prefix variants (0 unknown) parsed at the
+  runtime compiler into `step.registerCue {form, label}`; yaml/ir.json
+  untouched; views draw a RegisterCueEyebrow (Badge) on build/translate/
+  particle-cloze/MCQ/speaking/dialogue, listening_build carries but hides
+  it (would give away ます). Agreement gate 0/978 (one detector bug: はい
+  polite interjection), 11 indeterminate, both ratcheted with floors +
+  planted-failure test. Found + fixed a silent-green regression: 5 tests
+  matched /say politely/ on the string; now read registerCue.form (wider).
+  i18n: 437 KO rows keyed on the cued English kept valid via
+  registerCuedText/stripResolvedCue; extractor patched. TTS never voiced
+  the cue (kana-only harvest; hash = sha256("ja:"+kana)). ES/FR/KO: N/A.
+  Full app 3258/6, curriculum 13,361/6 — all 12 fails are content-lane
+  regressions: gloss-mismatch m11/m16/m34/m36/m37 (いく, わかる registry
+  glosses), glossFidelity m23 はいる→"stay at", particleCueAnswerability
+  m37 よ stance tag dropped. → fix-up lane after the audit lands.
+- 2026-09-15 ≈13:05 AUDIT (Sonnet, 156k, 11 min; seed 1337, 121/134 words,
+  53/309 sentences, 20 rejects): words 98.3%, m6–m20 100%, m21–m33
+  90.5%, m34–m46 77.8% (n=9); rejects 20/20 RIGHT. 6 rows to correct
+  (ryouri "food", imasu animate, m30 ておく pair, m12 topic subject,
+  m40/m41 partials) + systemic: 113 British "have got" forms remain in
+  m25, m27–m32, m38; partial sibling propagation in m20/m24/m28. All
+  sent to the fix-up lane (with the 12 gate failures). Lesson for the
+  class: apply lanes must grep siblings + run a pattern sweep, and the
+  atom-collision check belongs in the apply gate.
+- 2026-09-15 ≈13:06 SHOP #143 (Sonnet, 191k, 10 min): cosmetics cards =
+  visual + name (2-line clamp) + price + full-width Preview (secondary,
+  opens the existing Modal primitive with the enlarged visual and the
+  same action) and Buy/Equip/Equipped (primary, min-h 44); description
+  paragraph dropped from cards (i18n keys kept); grid 2/3/4/5 columns for
+  every section (the 3-col phone branch was the cause). 8/8 tests, tsc
+  clean. Follow-up sent: ad-free time cards still on the small pill.
+- 2026-09-15 13:12 FIX-UP LANE DONE (Sonnet, 203k, 13 min): 12 gate fails
+  fixed at root (いく/わかる registry glosses restored with a note — the
+  trailing sense exists so derived-form tiles have a substring to match;
+  m36 memorise→memorize cascade; m23 はいる "go into" ×4; m37 よ tag —
+  14 other candidates checked, all false positives). Audit A/B/C: 6 rows
+  corrected; British "have got" sweep 169 replacements (m25, m27–m32,
+  m34; m38 "gotten" was already US); m20/m24/m28 sibling strings
+  unified. Gates: content:emit ok, curriculum 13,367/0, app 3,269/0, tsc
+  clean. 16 modules recompiled.
+- 2026-09-15 14:05 iPAD PERF LANE DONE (Opus, 255k, 72 min): only
+  /ja/learn landscape had an iPad-specific cost — 150–180 ms/s main-thread
+  CPU at idle (portrait/phone 2.3): 90 twinkle stars animating on
+  display:none geometry in light theme (~80 ms/s), station pulse animating
+  SVG `r` → full 4974×696 map relayout every vsync (~62), ghost-train rAF
+  at 120 Hz to draw 30, keyframes running while hidden. Fixed in
+  TransitLearnPage.tsx + transitLearnPage.css only: light 174→84 ms/s,
+  pulse pixel-identical (0.00 px at 7 phases), rAF 25/s, parked on
+  visibilitychange. Fable added: dark theme twinkles every 4th star
+  (nth-of-type(4n); verified 30 running anims vs 98; lane measured
+  ~180→~100 ms/s). HELD for Spencer (visual): drop non-scaling-stroke on
+  the pulse (83→8 ms/s, ring thickens 2.5→6.3 px while fading); portrait
+  torii bg 1024² upscaled 2.3× (soft, not slow); rotation remounts the map
+  (~0.5 s per flip). Non-issues: zero idle network, flat heap, lazy chunks.
+  Playwright mobile ipad-air: 285 pass / 11 pre-existing fails (ja-vocab
+  div-in-p hydration; get-started/try/settings no .env in worktree).
+- 2026-09-15 14:10 PREFLIGHT for build 19 started in the worktree
+  (content:emit → tsc -b → vitest all → vite build); commit message at
+  $S/mobile/commit-b19.txt; asc-post19.sh what's-new written.

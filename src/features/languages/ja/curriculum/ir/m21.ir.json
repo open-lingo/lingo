@@ -370,7 +370,7 @@
     {
       "kana": "など",
       "romaji": "nado",
-      "gloss": "and so on, et cetera",
+      "gloss": "and so on",
       "shortGloss": "and so on",
       "imageable": false,
       "kind": "vocab"
@@ -378,7 +378,7 @@
     {
       "kana": "おかあさん",
       "romaji": "okaasan",
-      "gloss": "(someone else's) mother — honorific",
+      "gloss": "(someone else's) mother",
       "shortGloss": "their mother",
       "imageable": false,
       "kind": "vocab"
@@ -386,7 +386,7 @@
     {
       "kana": "おとうさん",
       "romaji": "otousan",
-      "gloss": "(someone else's) father — honorific",
+      "gloss": "(someone else's) father",
       "shortGloss": "their father",
       "imageable": false,
       "kind": "vocab"
@@ -394,7 +394,7 @@
     {
       "kana": "おにいさん",
       "romaji": "oniisan",
-      "gloss": "(someone else's) older brother — honorific",
+      "gloss": "(someone else's) older brother",
       "shortGloss": "their big brother",
       "imageable": false,
       "kind": "vocab"
@@ -402,7 +402,7 @@
     {
       "kana": "おねえさん",
       "romaji": "oneesan",
-      "gloss": "(someone else's) older sister — honorific",
+      "gloss": "(someone else's) older sister",
       "shortGloss": "their big sister",
       "imageable": false,
       "kind": "vocab"
@@ -418,7 +418,7 @@
     {
       "kana": "おさけ",
       "romaji": "osake",
-      "gloss": "sake, alcohol",
+      "gloss": "alcohol",
       "shortGloss": "sake",
       "kind": "vocab"
     },
@@ -544,7 +544,7 @@
         {
           "kind": "sentence",
           "ja": "そらや うみが きれいだ。",
-          "en": "The sky and the sea and all of it are beautiful",
+          "en": "The sky and the sea are beautiful",
           "exercises": [
             "ya-incomplete-list",
             "na-adj-present"
@@ -554,7 +554,7 @@
         {
           "kind": "sentence",
           "ja": "いけや かわに かめが いる。",
-          "en": "There are turtles in the ponds and rivers and places like that",
+          "en": "There are turtles in the ponds and rivers",
           "exercises": [
             "ya-incomplete-list",
             "ni-location",
@@ -565,7 +565,7 @@
         {
           "kind": "sentence",
           "ja": "みせで くつや ぼうしを かう。",
-          "en": "I'll buy shoes and a hat and a few other things at the shop",
+          "en": "I'll buy shoes and a hat at the shop",
           "exercises": [
             "ya-incomplete-list",
             "de-action",
@@ -586,7 +586,7 @@
         {
           "kind": "sentence",
           "ja": "やすみは うみや やまに いく。",
-          "en": "On my days off I'm going to the sea and the mountains and places like that",
+          "en": "On my days off I go to the sea and the mountains",
           "exercises": [
             "ya-incomplete-list",
             "wa-topic",
@@ -635,7 +635,7 @@
             "を",
             "から"
           ],
-          "en": "I'm going to the sea and the mountains and places like that",
+          "en": "I'm going to the sea and the mountains",
           "explanation": "や joins the places you are naming and leaves the list open. を marks a thing you act on, and から would make the sea a starting point."
         },
         {
@@ -654,7 +654,7 @@
         {
           "kind": "listening-comp",
           "audio": "みせで くつや ぼうしを かう。",
-          "answer": "I'll buy shoes and a hat and a few other things at the shop",
+          "answer": "I'll buy shoes and a hat at the shop",
           "distractors": [
             "I'll buy shoes and a hat at the shop — just those two",
             "I'll buy shoes and an umbrella and a few other things at the shop",
@@ -676,7 +676,7 @@
             {
               "speaker": "Tom",
               "ja": "うみや やまが すきだ。りょこうが すきだから。",
-              "en": "The sea, the mountains, that sort of thing. Because I like traveling."
+              "en": "I like the sea and mountains. Because I like traveling."
             }
           ],
           "questions": [
@@ -742,7 +742,7 @@
         {
           "kind": "sentence",
           "ja": "くつや ぼうしを かう。",
-          "en": "I'll buy shoes and a hat and a few other things",
+          "en": "I'll buy shoes and a hat",
           "exercises": [
             "ya-incomplete-list",
             "wo-object"
@@ -762,7 +762,7 @@
         {
           "kind": "sentence",
           "ja": "かぎと けいたいが かばんに ある。",
-          "en": "The key and the phone are in my bag",
+          "en": "The key and the phone are in the bag",
           "exercises": [
             "to-and",
             "ni-location",
@@ -794,7 +794,7 @@
         {
           "kind": "sentence",
           "ja": "きのこと たまごを たべたけど おいしくなかった。",
-          "en": "I ate the mushrooms and the eggs, but it wasn't delicious",
+          "en": "I ate the mushrooms and the eggs, but they weren't delicious",
           "exercises": [
             "to-and",
             "ta-form",
@@ -883,7 +883,7 @@
         {
           "kind": "challenge",
           "ja": "きょうは じしょと えんぴつを かうけど ほんや かばんは かわない。",
-          "en": "Today I'll buy a dictionary and a pencil, but I won't buy books or bags or anything like that",
+          "en": "Today I'll buy a dictionary and a pencil, but I won't buy books or bags",
           "combines": [
             "to-and",
             "ya-incomplete-list",
@@ -955,7 +955,7 @@
         {
           "kind": "sentence",
           "ja": "ケンの おとうさんは がっこうの せんせいだ。",
-          "en": "Ken's father is a teacher at the school",
+          "en": "Ken's father is a school teacher",
           "exercises": [
             "family-register",
             "no-possession",
@@ -1021,7 +1021,7 @@
         {
           "kind": "listening-comp",
           "audio": "ケンの おとうさんは がっこうの せんせいだ。",
-          "answer": "Ken's father is a teacher at the school",
+          "answer": "Ken's father is a school teacher",
           "distractors": [
             "My father is a teacher at the school",
             "Ken's mother is a teacher at the school",
@@ -1109,7 +1109,7 @@
         {
           "kind": "sentence",
           "ja": "そらや うみが きれいだ。",
-          "en": "The sky and the sea and all of it are beautiful",
+          "en": "The sky and the sea are beautiful",
           "exercises": [
             "ya-incomplete-list"
           ],
@@ -1138,7 +1138,7 @@
         {
           "kind": "sentence",
           "ja": "みせで くつや ぼうしを かう。",
-          "en": "I'll buy shoes and a hat and a few other things at the shop",
+          "en": "I'll buy shoes and a hat at the shop",
           "exercises": [
             "ya-incomplete-list",
             "de-action"
@@ -1171,7 +1171,7 @@
         {
           "kind": "sentence",
           "ja": "きのこと たまごを たべたけど おいしくなかった。",
-          "en": "I ate the mushrooms and the eggs, but it wasn't delicious",
+          "en": "I ate the mushrooms and the eggs, but they weren't delicious",
           "exercises": [
             "to-and",
             "ta-form",
@@ -1182,7 +1182,7 @@
         {
           "kind": "listening-comp",
           "audio": "いけや かわに かめが いる。",
-          "answer": "There are turtles in the ponds and rivers and places like that",
+          "answer": "There are turtles in the ponds and rivers",
           "distractors": [
             "There are turtles in the pond and the river — those two places",
             "There are birds in the ponds and rivers and places like that",
@@ -1229,7 +1229,7 @@
         {
           "kind": "sentence",
           "ja": "やすみは うみや やまに いく。",
-          "en": "On my days off I'm going to the sea and the mountains and places like that",
+          "en": "On my days off I go to the sea and the mountains",
           "exercises": [
             "ya-incomplete-list",
             "ni-location"
@@ -1242,7 +1242,7 @@
             {
               "speaker": "Ken",
               "ja": "ミカの おとうさんは いま うちに いる？",
-              "en": "Is your father at home right now?"
+              "en": "Is Mika's father at home right now?"
             },
             {
               "speaker": "Mika",
@@ -1359,7 +1359,7 @@
         {
           "kind": "sentence",
           "ja": "ケンの おねえさんは うたや おんがくが すきだから きっさてんで きく。",
-          "en": "Ken's older sister likes songs and music and things like that, so she listens at the coffee shop",
+          "en": "Ken's older sister likes songs and music, so she listens to them at the coffee shop",
           "exercises": [
             "no-possession",
             "ya-incomplete-list",
@@ -1424,7 +1424,7 @@
             {
               "speaker": "Tom",
               "ja": "ミカの おにいさんは がくせい？",
-              "en": "Is your older brother a student?"
+              "en": "Is Mika's older brother a student?"
             },
             {
               "speaker": "Mika",
@@ -1448,7 +1448,7 @@
         {
           "kind": "challenge",
           "ja": "ともだちの おねえさんは えいがや おんがくが すきだけど あねは りょうりが すきだ。",
-          "en": "My friend's older sister likes movies and music and things like that, but my older sister likes cooking",
+          "en": "My friend's older sister likes movies and music, but my older sister likes cooking",
           "combines": [
             "no-possession",
             "family-register",
@@ -1555,7 +1555,7 @@
         {
           "kind": "sentence",
           "ja": "のみものは ちゃや ぎゅうにゅうが すきだ。",
-          "en": "For drinks I like tea and milk and things like that",
+          "en": "For drinks, I like tea and milk",
           "exercises": [
             "ya-incomplete-list",
             "suki-kirai-no",
@@ -1717,7 +1717,7 @@
         {
           "kind": "sentence",
           "ja": "ちゃを なんばい のむ？",
-          "en": "How many cups of tea are you having",
+          "en": "How many cups of tea do you drink?",
           "exercises": [
             "counter-hai",
             "ka-question"
@@ -2002,7 +2002,7 @@
             {
               "speaker": "Tom",
               "ja": "ミカの かぞくは なんにん？",
-              "en": "How many people are in your family?"
+              "en": "How many people are in Mika's family?"
             },
             {
               "speaker": "Mika",
@@ -2281,7 +2281,7 @@
         {
           "kind": "sentence",
           "ja": "あねは えいがや おんがくが すきだ。",
-          "en": "My older sister likes movies and music and things like that",
+          "en": "My older sister likes movies and music",
           "exercises": [
             "suki-kirai-no",
             "ya-incomplete-list"
@@ -2368,7 +2368,7 @@
         {
           "kind": "listening-comp",
           "audio": "あねは えいがや おんがくが すきだ。",
-          "answer": "My older sister likes movies and music and things like that",
+          "answer": "My older sister likes movies and music",
           "distractors": [
             "My older sister likes movies and music — those two only",
             "My friend's older sister likes movies and music and things like that",
@@ -2422,7 +2422,7 @@
         {
           "kind": "challenge",
           "ja": "ミカの おねえさんは うみや やまが すきだから やすみは うみに いったり やまで あそんだり する。",
-          "en": "Mika's older sister likes the sea and the mountains and places like that, so on her days off she does things like go to the sea and play in the mountains",
+          "en": "Mika's older sister likes the sea and the mountains, so on her days off she does things like go to the sea and play in the mountains",
           "combines": [
             "suki-kirai-no",
             "ya-incomplete-list",
@@ -2501,7 +2501,7 @@
         {
           "kind": "sentence",
           "ja": "コーヒーや ちゃを ください。",
-          "en": "Coffee and tea and whatever else please",
+          "en": "Coffee and tea, please",
           "exercises": [
             "kudasai",
             "ya-incomplete-list"
@@ -2593,7 +2593,7 @@
             {
               "speaker": "Staff",
               "ja": "はい。のみものは コーヒーだけですか。",
-              "en": "Certainly. Is coffee all you'd like to drink?"
+              "en": "Yes. Is coffee the only drink?"
             }
           ],
           "questions": [
@@ -2612,7 +2612,7 @@
         {
           "kind": "challenge",
           "ja": "ふたりで きっさてんに いくから コーヒーや ちゃを ください。",
-          "en": "The two of us are going to the coffee shop, so coffee and tea and whatever else please",
+          "en": "The two of us are going to the coffee shop, so coffee and tea, please",
           "combines": [
             "kudasai",
             "counter-nin",
@@ -2655,7 +2655,7 @@
         {
           "kind": "sentence",
           "ja": "あねは えいがや おんがくが すきだ。",
-          "en": "My older sister likes movies and music and things like that",
+          "en": "My older sister likes movies and music",
           "exercises": [
             "suki-kirai-no",
             "ya-incomplete-list"
@@ -2765,7 +2765,7 @@
         {
           "kind": "sentence",
           "ja": "きのこと たまごを たべたけど おいしくなかった。",
-          "en": "I ate the mushrooms and the eggs, but it wasn't delicious",
+          "en": "I ate the mushrooms and the eggs, but they weren't delicious",
           "exercises": [
             "to-and",
             "ta-form",
@@ -2784,7 +2784,7 @@
             {
               "speaker": "Mika",
               "ja": "ちちは おさけや ちゃが すきだ。りょうりも すきだ。",
-              "en": "My father likes sake and tea and that sort of thing. He likes cooking too."
+              "en": "My father likes sake and tea. He likes cooking too."
             }
           ],
           "questions": [
@@ -2824,7 +2824,7 @@
         {
           "kind": "sentence",
           "ja": "ミカの おかあさんは えいがや おんがくが すきだから やすみは えいがを みに いく。",
-          "en": "Mika's mother likes movies and music and things like that, so on her days off she goes to watch a movie",
+          "en": "Mika's mother likes movies and music, so on her days off she goes to watch a movie",
           "exercises": [
             "family-register",
             "ya-incomplete-list",
@@ -2908,7 +2908,7 @@
             "を",
             "から"
           ],
-          "en": "I play at ponds and rivers and places like that",
+          "en": "I play at ponds and rivers",
           "explanation": "や joins the places you are naming and leaves the list open. を marks a thing you act on and から a starting point."
         },
         {
@@ -2945,7 +2945,7 @@
             {
               "speaker": "Tom",
               "ja": "ミカの おねえさんは やすみに なにを する？",
-              "en": "What does your older sister do on her days off?"
+              "en": "What does Mika's older sister do on her days off?"
             },
             {
               "speaker": "Mika",
@@ -3502,7 +3502,7 @@
     {
       "kana": "ううん",
       "romaji": "uun",
-      "gloss": "nope (casual no)",
+      "gloss": "nope",
       "shortGloss": "nope",
       "imageable": false,
       "kind": "vocab"
@@ -3551,8 +3551,8 @@
     {
       "kana": "ぼく",
       "romaji": "boku",
-      "gloss": "I, me (casual, usually male)",
-      "shortGloss": "I (casual)",
+      "gloss": "I, me",
+      "shortGloss": "I",
       "imageable": false,
       "kind": "vocab"
     },
@@ -3575,7 +3575,7 @@
     {
       "kana": "しります",
       "romaji": "shirimasu",
-      "gloss": "know (polite)",
+      "gloss": "know",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "しる"
@@ -3583,7 +3583,7 @@
     {
       "kana": "しりません",
       "romaji": "shirimasen",
-      "gloss": "don't know (polite)",
+      "gloss": "don't know",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "しる"
@@ -3599,7 +3599,7 @@
     {
       "kana": "わかります",
       "romaji": "wakarimasu",
-      "gloss": "understand (polite)",
+      "gloss": "understand",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "わかる"
@@ -3607,7 +3607,7 @@
     {
       "kana": "ちがいます",
       "romaji": "chigaimasu",
-      "gloss": "that's not right (polite)",
+      "gloss": "that's not right",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "ちがう"
@@ -3981,7 +3981,7 @@
     {
       "kana": "おぼえる",
       "romaji": "oboeru",
-      "gloss": "to memorise, to learn",
+      "gloss": "to memorize, to learn",
       "shortGloss": "memorise",
       "imageable": true,
       "kind": "verb",
@@ -3998,7 +3998,7 @@
     {
       "kana": "だった",
       "romaji": "datta",
-      "gloss": "was, were (plain)",
+      "gloss": "was, were",
       "shortGloss": "was (plain)",
       "imageable": false,
       "kind": "grammar-chunk"
@@ -4006,8 +4006,8 @@
     {
       "kana": "でした",
       "romaji": "deshita",
-      "gloss": "was, were (polite)",
-      "shortGloss": "was (polite)",
+      "gloss": "was, were",
+      "shortGloss": "was",
       "imageable": false,
       "kind": "grammar-chunk"
     },
@@ -4508,7 +4508,7 @@
     {
       "kana": "すき",
       "romaji": "suki",
-      "gloss": "likeable, like",
+      "gloss": "like",
       "shortGloss": "like",
       "imageable": false,
       "kind": "vocab"
@@ -4569,7 +4569,7 @@
     {
       "kana": "みがく",
       "romaji": "migaku",
-      "gloss": "to brush teeth, to polish",
+      "gloss": "to polish",
       "shortGloss": "polish",
       "imageable": true,
       "kind": "verb",
@@ -4645,7 +4645,7 @@
     {
       "kana": "とりにく",
       "romaji": "toriniku",
-      "gloss": "chicken meat",
+      "gloss": "chicken",
       "shortGloss": "chicken",
       "imageable": true,
       "kind": "vocab"
@@ -5001,7 +5001,7 @@
     {
       "kana": "ので",
       "romaji": "node",
-      "gloss": "because (softer)",
+      "gloss": "because",
       "shortGloss": "because",
       "imageable": false,
       "kind": "vocab"
@@ -5338,7 +5338,7 @@
     {
       "kana": "スポーツ",
       "romaji": "supootsu",
-      "gloss": "sport",
+      "gloss": "sports",
       "imageable": true,
       "kind": "vocab"
     },
@@ -5543,7 +5543,7 @@
     {
       "kana": "おじいさん",
       "romaji": "ojiisan",
-      "gloss": "grandfather, older man",
+      "gloss": "grandfather",
       "shortGloss": "older man",
       "kind": "vocab"
     },
@@ -5713,7 +5713,7 @@
     {
       "kana": "おりる",
       "romaji": "oriru",
-      "gloss": "to get off, to descend",
+      "gloss": "to get off",
       "shortGloss": "to get off",
       "kind": "vocab"
     },
@@ -6029,7 +6029,7 @@
     {
       "kana": "たべます",
       "romaji": "tabemasu",
-      "gloss": "eat (polite)",
+      "gloss": "eat",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "たべる",
@@ -6038,7 +6038,7 @@
     {
       "kana": "のみます",
       "romaji": "nomimasu",
-      "gloss": "drink (polite)",
+      "gloss": "drink",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "のむ",
@@ -6047,7 +6047,7 @@
     {
       "kana": "みます",
       "romaji": "mimasu",
-      "gloss": "watch (polite)",
+      "gloss": "watch",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "みる",
@@ -6056,7 +6056,7 @@
     {
       "kana": "いきます",
       "romaji": "ikimasu",
-      "gloss": "go, travel (polite)",
+      "gloss": "go, travel",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -6065,7 +6065,7 @@
     {
       "kana": "きます",
       "romaji": "kimasu",
-      "gloss": "come (polite)",
+      "gloss": "come",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる",
@@ -6074,7 +6074,7 @@
     {
       "kana": "します",
       "romaji": "shimasu",
-      "gloss": "do, make (polite)",
+      "gloss": "do, make",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "する",
@@ -6083,7 +6083,7 @@
     {
       "kana": "かいます",
       "romaji": "kaimasu",
-      "gloss": "buy (polite)",
+      "gloss": "buy",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "かう",
@@ -6092,7 +6092,7 @@
     {
       "kana": "ききます",
       "romaji": "kikimasu",
-      "gloss": "listen, ask (polite)",
+      "gloss": "listen, ask",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "きく",
@@ -6101,7 +6101,7 @@
     {
       "kana": "あそびます",
       "romaji": "asobimasu",
-      "gloss": "play (polite)",
+      "gloss": "play",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "あそぶ",
@@ -6110,7 +6110,7 @@
     {
       "kana": "あります",
       "romaji": "arimasu",
-      "gloss": "have, there is (polite)",
+      "gloss": "have, there is",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "ある",
@@ -6119,7 +6119,7 @@
     {
       "kana": "たべません",
       "romaji": "tabemasen",
-      "gloss": "don't eat (polite)",
+      "gloss": "don't eat",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "たべる",
@@ -6128,7 +6128,7 @@
     {
       "kana": "のみません",
       "romaji": "nomimasen",
-      "gloss": "don't drink (polite)",
+      "gloss": "don't drink",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "のむ",
@@ -6137,7 +6137,7 @@
     {
       "kana": "みません",
       "romaji": "mimasen",
-      "gloss": "don't watch (polite)",
+      "gloss": "don't watch",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "みる",
@@ -6146,7 +6146,7 @@
     {
       "kana": "いきません",
       "romaji": "ikimasen",
-      "gloss": "don't go, not traveling (polite)",
+      "gloss": "don't go",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -6155,7 +6155,7 @@
     {
       "kana": "きません",
       "romaji": "kimasen",
-      "gloss": "doesn't come (polite)",
+      "gloss": "doesn't come",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる",
@@ -6173,7 +6173,7 @@
     {
       "kana": "しません",
       "romaji": "shimasen",
-      "gloss": "don't do, won't make (polite)",
+      "gloss": "don't do, won't make",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "する",
@@ -6182,7 +6182,7 @@
     {
       "kana": "はたらきません",
       "romaji": "hatarakimasen",
-      "gloss": "don't work (polite)",
+      "gloss": "don't work",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "はたらく",
@@ -6191,7 +6191,7 @@
     {
       "kana": "ありません",
       "romaji": "arimasen",
-      "gloss": "doesn't have, isn't there (polite)",
+      "gloss": "doesn't have, isn't there",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "ある",
@@ -6209,7 +6209,7 @@
     {
       "kana": "はたらきます",
       "romaji": "hatarakimasu",
-      "gloss": "work (polite)",
+      "gloss": "work",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "はたらく",
@@ -6476,7 +6476,7 @@
     {
       "kana": "みせ",
       "romaji": "mise",
-      "gloss": "shop, store",
+      "gloss": "store",
       "shortGloss": "shop",
       "imageable": true,
       "kind": "vocab"

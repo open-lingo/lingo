@@ -415,11 +415,11 @@ lessons:
       - { kind: sentence, ja: "まどが あけてあるのに、へやは あつい。", en: "Even though the window has been left open, the room is hot.", exercises: [te-aru, noni-concession], mode: build }
       - { kind: sentence, ja: "パーティーの まえに、へやを かざっておく。", en: "Before the party, I'll decorate the room in advance.", exercises: [te-oku, mae-ni], mode: build }
       - { kind: particle-cloze, stem: "へやが ", tail: "から、きれいだ。", answer: "かざってある", options: ["かざってある", "かざっている", "かざる"], en: "Since the room has been decorated, it's pretty.", explanation: "'has been decorated' is the finished, deliberate state — かざってある. かざっている would be 'is in the middle of decorating' (an ongoing action needing someone doing it right now), and bare かざる is the plain dictionary form with no state marking." }
-      - { kind: listening-comp, audio: "ポスターが はってあるし、ほんも ならべてあるし、もう じゅんびは できたよ。", answer: "A poster has been stuck up, and the books have been arranged too, and what's more the preparations are done.", distractors: ["Nothing has been done yet.", "The poster fell off the wall.", "The books still need to be arranged."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "ポスターが はってあるし、ほんも ならべてあるし、もう じゅんびは できたよ。", answer: "A poster has been stuck up, and the books have been arranged too, and the preparations are done.", distractors: ["Nothing has been done yet.", "The poster fell off the wall.", "The books still need to be arranged."], q: "What does this mean?" }
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "へやは どう？", en: "How's the room?" }
-          - { speaker: "Mika", ja: "ポスターが はってあるし、ほんも ならべてあるし、もう じゅんびは できたよ。", en: "A poster has been stuck up, and the books have been arranged too, and what's more the preparations are done." }
+          - { speaker: "Mika", ja: "ポスターが はってあるし、ほんも ならべてあるし、もう じゅんびは できたよ。", en: "A poster has been stuck up, and the books have been arranged too, and the preparations are done." }
           - { speaker: "Ken", ja: "いいね。", en: "Nice." }
         questions:
           - { q: "What's true about the room now?", options: ["The poster and books are already arranged", "Nothing has been done yet", "Ken decorated the room", "The window is still closed"], answer: "The poster and books are already arranged" }
@@ -437,7 +437,7 @@ lessons:
       - { kind: sentence, ja: "まどが あけてある。", en: "The window has been left open.", exercises: [te-aru], mode: build }
       - { kind: sentence, ja: "ほんが たなに ならんでいる。", en: "The books are lined up on the shelf.", exercises: [transitivity-family-noticing], mode: build }
       - { kind: particle-cloze, stem: "ほんが たなに ", tail: "。", answer: "ならべてある", options: ["ならべてある", "ならんでいる", "ならべる"], en: "The books have been arranged on the shelf.", explanation: "'have been arranged' names the deliberate resultant state — ならべてある. ならんでいる would just say they're lined up, with no arranger implied, and bare ならべる drops the state marking entirely." }
-      - { kind: sentence, ja: "ポスターが かべに はってあるし、へやも かざってある。", en: "A poster has been stuck on the wall, and what's more the room has been decorated.", exercises: [te-aru, shi-listing], mode: build }
+      - { kind: sentence, ja: "ポスターが かべに はってあるし、へやも かざってある。", en: "A poster has been stuck on the wall, and the room has been decorated.", exercises: [te-aru, shi-listing], mode: build }
       - { kind: listening-comp, audio: "まどが あけてあるのに、へやは あつい。", answer: "Even though the window has been left open, the room is hot.", distractors: ["The window is closed, so the room is hot.", "Since the window is open, the room is cool.", "Nobody opened the window."], q: "What does this mean?" }
       - kind: dialogue
         lines:
@@ -491,10 +491,10 @@ lessons:
     focus: "Full production sweep: てある, ておく-vs-てある, and the pair family, no new vocabulary"
     introduces: []
     beats:
-      - { kind: sentence, ja: "まどが あけてあるし、すずしいし、いい。", en: "The window has been left open, and what's more it's cool, so it's nice.", exercises: [te-aru, shi-listing], mode: build }
+      - { kind: sentence, ja: "まどが あけてあるし、すずしいし、いい。", en: "The window has been left open, it's cool, so it's nice.", exercises: [te-aru, shi-listing], mode: build }
       - { kind: sentence, ja: "いま、パーティーの まえに へやを かざっておいたから、きれいだ。", en: "Since I decorated the room in advance before the party, it's pretty now.", exercises: [te-oku, mae-ni, kara-because, ta-form], mode: build }
       - { kind: sentence, ja: "ほんが たなに ならべてあるのに、あにが また こわした。", en: "Even though the books had been arranged on the shelf, my older brother broke it again.", exercises: [te-aru, noni-concession, ta-form], mode: build }
-      - { kind: particle-cloze, stem: "ポスターが かべに ", tail: "し、ほんも たなに ならべてある。", answer: "はってある", options: ["はってある", "はっている", "はる"], en: "A poster has been stuck on the wall, and what's more the books have been arranged on the shelf.", explanation: "'has been stuck' is the deliberate resultant state, はってある. はっている would be 'in the middle of sticking it up' (an ongoing action), and bare はる is the plain dictionary form with no state marking." }
+      - { kind: particle-cloze, stem: "ポスターが かべに ", tail: "し、ほんも たなに ならべてある。", answer: "はってある", options: ["はってある", "はっている", "はる"], en: "A poster has been stuck on the wall, and the books have been arranged on the shelf.", explanation: "'has been stuck' is the deliberate resultant state, はってある. はっている would be 'in the middle of sticking it up' (an ongoing action), and bare はる is the plain dictionary form with no state marking." }
       - { kind: listening-comp, audio: "うん、パーティーの まえに かざっておいたんだ。", answer: "Yeah, I decorated it in advance before the party.", distractors: ["No, I haven't decorated it yet.", "I'm decorating it right now.", "Someone else decorated it."], q: "What does this mean?" }
       - { kind: kanji, kana: たな, kanji: 棚, distractors: ["たに", "たたむ", "たのむ"], exercises: [te-aru] }
       - kind: dialogue

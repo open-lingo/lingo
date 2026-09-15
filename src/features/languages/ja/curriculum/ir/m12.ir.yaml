@@ -319,11 +319,11 @@ lessons:
       - { kind: particle-cloze, stem: "きのうは ", tail: "。", answer: "よかった", options: ["よかった", "いい", "おいしかった"], en: "Yesterday was good", explanation: "いい is the one adjective with a different stem — its past is よかった, never いかった." }
       - kind: dialogue
         lines:
-          - { speaker: "Tom", ja: "きのう ごはんは おいしかった？", en: "Was the rice good yesterday?" }
+          - { speaker: "Tom", ja: "きのう ごはんは おいしかった？", en: "Was the meal good yesterday?" }
           - { speaker: "Mika", ja: "うん、おいしかった。ちょっと たかかった。", en: "Yeah, it was good. It was a bit pricey." }
         questions:
-          - { q: "What did Mika say about the rice?", options: ["Good but a bit pricey", "Cheap and good", "Not good at all", "Old and cheap"], answer: "Good but a bit pricey" }
-      - { kind: challenge, ja: "きのう ともだちと おいしい ごはんを たべた。", en: "Say to a friend: I ate delicious rice with a friend yesterday", combines: [i-adj-present, wo-object, ta-form], mode: build }
+          - { q: "What did Mika say about the meal?", options: ["Good but a bit pricey", "Cheap and good", "Not good at all", "Old and cheap"], answer: "Good but a bit pricey" }
+      - { kind: challenge, ja: "きのう ともだちと おいしい ごはんを たべた。", en: "Say to a friend: I ate a delicious meal with a friend yesterday", combines: [i-adj-present, wo-object, ta-form], mode: build }
     reviewPool: [ごはん, ほん, やま, いえ, かさ, きのう, ともだち, うた, おおきい, ふるい, おいしい]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -452,7 +452,7 @@ lessons:
       - { kind: sentence, ja: "みせは しずかだった。", en: "Say to a friend: The shop was quiet", exercises: [wa-topic, na-adj-past], mode: build }
       - { kind: sentence, ja: "えきは にぎやかだった。", en: "Say to a friend: The station was lively", exercises: [wa-topic, na-adj-past], mode: build }
       - { kind: sentence, ja: "いえは きれいじゃなかった。", en: "Say to a friend: The house wasn't clean", exercises: [wa-topic, na-adj-past], mode: build }
-      - { kind: sentence, ja: "きのうは ひまじゃなかった。", en: "Yesterday wasn't a free day", exercises: [wa-topic, na-adj-past], mode: listening }
+      - { kind: sentence, ja: "きのうは ひまじゃなかった。", en: "Yesterday I wasn't free", exercises: [wa-topic, na-adj-past], mode: listening }
       - { kind: sentence, ja: "やまは ゆうめいだった。", en: "Say to a friend: The mountain was famous", exercises: [wa-topic, na-adj-past], mode: build }
       - { kind: sentence, ja: "はなは きれいだった。", en: "Say to a friend: The flowers were pretty", exercises: [wa-topic, na-adj-past], mode: build }
       - { kind: sentence, ja: "しずかな いえは ふるかった。", en: "Say to a friend: The quiet house was old", exercises: [na-adj-present, wa-topic, i-adj-past], mode: build }

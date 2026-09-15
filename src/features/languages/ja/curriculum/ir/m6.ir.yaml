@@ -261,7 +261,7 @@ lessons:
       - { kind: rule, grammarPointId: nai-form, variant: ru }
       - { kind: sentence, ja: "きゅうりを たべない。", en: "I won't eat the cucumber.", exercises: [nai-form], mode: build }
       - { kind: sentence, ja: "ごはんを たべない。", en: "I don't eat rice.", exercises: [nai-form, wo-object], mode: build }
-      - { kind: sentence, ja: "それを みない。", en: "I don't look at that one.", exercises: [nai-form], mode: build }
+      - { kind: sentence, ja: "それを みない。", en: "I don't look at that.", exercises: [nai-form], mode: build }
       - { kind: sentence, ja: "しゃしんを みない。", en: "I don't look at the photo.", exercises: [nai-form, wo-object], mode: translate }
       - { kind: sentence, ja: "すしを たべない。", en: "I don't eat sushi.", exercises: [nai-form, wo-object], mode: listening }
       - { kind: sentence, ja: "きょうは たべない。", en: "Today I won't eat.", exercises: [nai-form, wa-topic], mode: build }
@@ -269,10 +269,10 @@ lessons:
       - kind: dialogue
         speakers-ok: true
         lines:
-          - { speaker: Mika, ja: "ごはん、たべる？", en: "Gonna eat rice?" }
+          - { speaker: Mika, ja: "ごはん、たべる？", en: "Wanna eat?" }
           - { speaker: Tom,  ja: "たべない。", en: "I won't." }
         questions:
-          - { q: "Does Tom eat the rice?", options: ["No — he won't eat", "Yes — he eats it", "He eats a little", "He drinks instead"], answer: "No — he won't eat" }
+          - { q: "Does Tom eat?", options: ["No — he won't eat", "Yes — he eats it", "He eats a little", "He drinks instead"], answer: "No — he won't eat" }
       - { kind: capstone, ja: "ミカの ごはんを たべない。", en: "I won't eat Mika's rice.",
           combines: [no-possession,wo-object, nai-form], mode: build }
     reviewPool: [たべる, みる, ごはん, しゃしん, ふね, きょう]
@@ -291,7 +291,7 @@ lessons:
       - { kind: sentence, ja: "トムは わからない。", en: "Tom doesn't get it.", exercises: [nai-form, wa-topic], mode: build }
       - kind: sentence
         ja: "それは わからない。"
-        en: "I don't get that one."
+        en: "I don't know that."
         exercises: [nai-form, wa-topic, kore-sore-are-dore]
         mode: build
         # わかる pitfall (Spencer walk 2026-07-23): every learner reaches for
@@ -326,10 +326,10 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: nai-form, variant: irregular }
       - { kind: sentence, ja: "きょう しない。", en: "Today I won't do it.", exercises: [nai-form], mode: build }
-      - { kind: sentence, ja: "これを しない。", en: "I won't do this one.", exercises: [nai-form, wo-object, kore-sore-are-dore], mode: build }
+      - { kind: sentence, ja: "これを しない。", en: "I won't do this.", exercises: [nai-form, wo-object, kore-sore-are-dore], mode: build }
       - { kind: sentence, ja: "ケンは こない。", en: "Ken isn't coming.", exercises: [nai-form, wa-topic], mode: build }
       - { kind: sentence, ja: "ミカは こない。", en: "Mika isn't coming.", exercises: [nai-form, wa-topic], mode: translate, alsoAccept: ["ミカが こない。"] }
-      - { kind: sentence, ja: "それを しない。", en: "I won't do that one.", exercises: [nai-form, wo-object, kore-sore-are-dore], mode: build }
+      - { kind: sentence, ja: "それを しない。", en: "I won't do that.", exercises: [nai-form, wo-object, kore-sore-are-dore], mode: build }
       - { kind: sentence, ja: "ごはんを たべない。", en: "I don't eat rice.", exercises: [nai-form, wo-object], mode: build }
       - { kind: sentence, ja: "みずを のまない。", en: "I don't drink water.", exercises: [nai-form, wo-object], mode: listening }
       - kind: dialogue
@@ -396,7 +396,7 @@ lessons:
       - { kind: sentence, ja: "ほんが ある。", en: "There's a book.", exercises: [arimasu, ga-existence], mode: listening }
       - { kind: sentence, ja: "ぶたが いる。", en: "There's a pig.", exercises: [imasu, ga-existence], mode: build }
       - { kind: particle-cloze, stem: "ねこ", tail: " いる。", answer: "が",
-          options: ["が", "に", "を", "も"], en: "Look — there's a cat!",
+          options: ["が", "に", "を", "も"], en: "There's a cat.",
           explanation: "living things exist WITH いる, and が marks which one — ねこが いる." }
       - kind: dialogue
         speakers-ok: true
@@ -421,7 +421,7 @@ lessons:
       - { kind: sentence, ja: "かぎが ない。", en: "There's no key.", exercises: [nai-existence, ga-existence], mode: listening }
       - { kind: sentence, ja: "ねこが いない。", en: "There's no cat.", exercises: [nai-existence, ga-existence], mode: build }
       - { kind: sentence, ja: "いぬが いない。", en: "There's no dog.", exercises: [nai-existence, ga-existence], mode: translate, alsoAccept: ["いぬは いない。"], pitfall: { wrong: "いぬが ない。", title: "Alive → いない", why: "Dogs are alive — living things go missing with いない. ない is for things (かぎが ない); a missing dog is いぬが いない." } }
-      - { kind: sentence, ja: "きょうは ごはんが ない。", en: "There's no rice today.", exercises: [nai-existence, ga-existence], mode: build }
+      - { kind: sentence, ja: "きょうは ごはんが ない。", en: "There's no meal today.", exercises: [nai-existence, ga-existence], mode: build }
       - { kind: sentence, ja: "ひとが いない。", en: "There's no one.", exercises: [nai-existence, ga-existence], mode: listening }
       - { kind: sentence, ja: "ミカの かさが ない。", en: "Mika's umbrella is gone.", exercises: [nai-existence, ga-existence], mode: build }
       - { kind: sentence, ja: "きょうは せんせいが いない。", en: "Today the teacher isn't here.", exercises: [nai-existence, ga-existence, wa-topic], mode: build, alsoAccept: ["せんせいは きょう いない。"] }
@@ -507,8 +507,8 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: de-action-action }
       - { kind: sentence, ja: "いえで たべる。", en: "I eat at home.", exercises: [de-action, de-action], mode: build }
-      - { kind: sentence, ja: "うみで あそぶ。", en: "I play at the sea.", exercises: [de-action, de-action], mode: build }
-      - { kind: sentence, ja: "いえで ごはんを たべる。", en: "I eat rice at home.", exercises: [de-action, de-action, wo-object], mode: translate }
+      - { kind: sentence, ja: "うみで あそぶ。", en: "I play at the beach.", exercises: [de-action, de-action], mode: build }
+      - { kind: sentence, ja: "いえで ごはんを たべる。", en: "I eat a meal at home.", exercises: [de-action, de-action, wo-object], mode: translate }
       - { kind: sentence, ja: "かわで あそぶ。", en: "I play at the river.", exercises: [de-action, de-action], mode: listening }
       - { kind: sentence, ja: "いえに ねこが いる。", en: "There's a cat at home.", exercises: [ni-location, ni-location, ga-existence], mode: build }
       - { kind: sentence, ja: "えきで かう。", en: "I buy it at the station.", exercises: [de-action, de-action], mode: build }
@@ -585,7 +585,7 @@ lessons:
     focus: "End-of-module stretch: every m6 concept combined in longer sentences (Spencer 2026-07-24: the old modules' 'final challenge' pattern, revived for the neo spine)"
     introduces: []
     beats:
-      - { kind: sentence, ja: "きょうは ミカの いえで ごはんを たべない。", en: "Today I won't eat rice at Mika's house.", exercises: [wa-topic, no-possession, de-action, wo-object, nai-form], mode: build }
+      - { kind: sentence, ja: "きょうは ミカの いえで ごはんを たべない。", en: "Today I won't eat a meal at Mika's house.", exercises: [wa-topic, no-possession, de-action, wo-object, nai-form], mode: build }
       - { kind: sentence, ja: "かばんの なかに かぎが ない。", en: "There's no key in the bag.", exercises: [no-possession, spatial-relations, ni-location, ga-existence, nai-existence], mode: translate, alsoAccept: ["かぎは かばんの なかに ない。", "かばんに かぎが ない。"] }
       - { kind: sentence, ja: "せんせいは あそこに いる。", en: "The teacher is over there.", exercises: [wa-topic, koko-soko-asoko, ni-location, imasu], mode: build }
       # STRETCH BEAT (Spencer 2026-07-24: "more complicated ones, using at
@@ -624,7 +624,7 @@ lessons:
     focus: "mixed review of m6 (ない negatives, ある/いる + が, ここ/そこ/あそこ/どこ, に/で) — all-new surfaces, no new atoms"
     introduces: []
     beats:
-      - { kind: sentence, ja: "あさは ごはんを たべない。", en: "I don't eat rice in the morning.", exercises: [nai-form, wa-topic, wo-object], mode: translate, alsoAccept: ["ごはんは あさ たべない。"] }
+      - { kind: sentence, ja: "あさは ごはんを たべない。", en: "I don't eat breakfast in the morning.", exercises: [nai-form, wa-topic, wo-object], mode: translate, alsoAccept: ["ごはんは あさ たべない。"] }
       - { kind: sentence, ja: "きゅうりを かわない。", en: "I won't buy cucumbers.", exercises: [nai-form, wo-object], mode: build }
       - { kind: sentence, ja: "さくらが ある。", en: "There are cherry blossoms.", exercises: [arimasu, ga-existence], mode: build }
       - { kind: sentence, ja: "ぞうが いる。", en: "There's an elephant.", exercises: [imasu, ga-existence], mode: listening }

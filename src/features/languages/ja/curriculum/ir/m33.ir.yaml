@@ -361,7 +361,7 @@ lessons:
       - { kind: particle-cloze, stem: "エレベーターの ドアが ", tail: "。", answer: "あく", options: ["あく", "あける", "はいる"], en: "The elevator doors open", explanation: "が is the tell: nothing is being done to ドア, so the verb has to be the が-half, あく. あける needs somebody doing it, and that comes with を." }
       - { kind: listening-comp, audio: "ミカが まどを あける。", answer: "Mika opens the window", distractors: ["The window opens", "Mika closes the window", "Mika's window is open"], exercises: [jidoushi-tadoushi, wo-object] }
       - { kind: sentence, ja: "せんせいが きょうしつの ドアを あける。", en: "The teacher opens the classroom door", exercises: [jidoushi-tadoushi, wo-object, no-possession], mode: build }
-      - { kind: sentence, ja: "かぎが あく。", en: "The lock comes open", exercises: [jidoushi-tadoushi, ga-existence], mode: translate }
+      - { kind: sentence, ja: "かぎが あく。", en: "The lock opens", exercises: [jidoushi-tadoushi, ga-existence], mode: translate }
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "あついね。", en: "It's hot, isn't it." }
@@ -425,7 +425,7 @@ lessons:
       - { kind: listening-comp, audio: "かばんに ほんを いれる。", answer: "I put a book in my bag", distractors: ["A book goes in my bag", "I take a book out of my bag", "There's a book in my bag"], exercises: [jidoushi-tadoushi, ni-location] }
       - { kind: sentence, ja: "ひきだしが あく。", en: "The drawer opens", exercises: [jidoushi-tadoushi, ga-existence], mode: build }
       - { kind: particle-cloze, stem: "へやに ", tail: "。", answer: "はいる", options: ["はいる", "いれる", "しまる"], en: "I go into the room", explanation: "nothing in this sentence is marked を, so nothing is being put anywhere — the thing that moves is the subject, and that is はいる. いれる needs somebody doing the putting, and it would put を on what gets put in. The に never changes between the two." }
-      - { kind: sentence, ja: "ミカが ひきだしに さいふを いれる。", en: "Mika puts her wallet in the drawer", exercises: [jidoushi-tadoushi, wo-object, ni-location], mode: build }
+      - { kind: sentence, ja: "ミカが ひきだしに さいふを いれる。", en: "Mika puts the wallet in the drawer", exercises: [jidoushi-tadoushi, wo-object, ni-location], mode: build }
       - { kind: kanji, kana: きょうしつ, kanji: 教室, distractors: ["きょうしっ", "こうしつ", "きょうし"], exercises: [ni-location] }
       - { kind: sentence, ja: "かばんに かさを いれて ください。", en: "Please put the umbrella in the bag", exercises: [te-kudasai, wo-object, ni-location], mode: build }
       - { kind: sentence, ja: "きょうしつに はいる。", en: "I go into the classroom", exercises: [jidoushi-tadoushi, ni-location], mode: listening }
@@ -492,7 +492,7 @@ lessons:
       - { kind: sentence, ja: "ボタンを おすと、きかいが とまる。", en: "If you press the button, the machine stops", exercises: [to-conditional, jidoushi-tadoushi], mode: build }
       - { kind: sentence, ja: "たなかさんが きかいを とめる。", en: "Mr Tanaka stops the machine", exercises: [jidoushi-tadoushi, wo-object], mode: build }
       - { kind: particle-cloze, stem: "バスが えきに ", tail: "。", answer: "とまる", options: ["とまる", "とめる", "いれる"], en: "The bus stops at the station", explanation: "が is the tell: nothing is being done to バス, so the verb has to be the が-half, とまる. とめる needs somebody doing it, and that comes with を." }
-      - { kind: sentence, ja: "こうさてんの まえで くるまを とめる。", en: "I stop the car before the intersection", exercises: [jidoushi-tadoushi, de-action], mode: translate }
+      - { kind: sentence, ja: "こうさてんの まえで くるまを とめる。", en: "I stop the car in front of the intersection", exercises: [jidoushi-tadoushi, de-action], mode: translate }
       - kind: dialogue
         lines:
           - { speaker: "Tom", ja: "この でんしゃは えきに とまる？", en: "Does this train stop at the station?" }
@@ -534,10 +534,10 @@ lessons:
       - { kind: sentence, ja: "たなかさんが かいぎの じかんを きめる。", en: "Mr Tanaka decides the time of the meeting", exercises: [jidoushi-tadoushi, wo-object], mode: translate }
       - kind: dialogue
         lines:
-          - { speaker: "Tanaka", ja: "かいぎの じかんは きまる？", en: "Is the meeting time getting settled?" }
+          - { speaker: "Tanaka", ja: "かいぎの じかんは きまる？", en: "Is the meeting time settled?" }
           - { speaker: "Mika", ja: "うん、あした きまる。", en: "Yeah, it'll be settled tomorrow." }
           - { speaker: "Tanaka", ja: "だれが きめる？", en: "Who decides?" }
-          - { speaker: "Mika", ja: "たなかさんが きめる。", en: "You do." }
+          - { speaker: "Mika", ja: "たなかさんが きめる。", en: "Mr. Tanaka will decide." }
         questions:
           - { q: "Why does Tanaka switch from きまる to きめる?", options: ["Because the question is now about WHO does it", "Because きまる is past tense", "Because the meeting changed", "Because きめる is politer"], answer: "Because the question is now about WHO does it" }
       - { kind: challenge, ja: "あした かいぎの じかんが きまるから、でんわを して ください。", en: "The meeting time will be settled tomorrow, so please call", combines: [kara-because, te-kudasai, jidoushi-tadoushi, no-possession], mode: build }
@@ -653,8 +653,8 @@ lessons:
       # its sentence examples (Spencer 2026-08-19).
       - { kind: rule, grammarPointId: jidoushi-tadoushi, variant: glance }
       - { kind: sentence, ja: "えいがが はじまる。", en: "The movie starts", exercises: [jidoushi-tadoushi, ga-existence], mode: build }
-      - { kind: sentence, ja: "えいがを はじめる。", en: "I start the movie", exercises: [jidoushi-tadoushi, wo-object], mode: build }
-      - { kind: listening-comp, audio: "えいがが はじまる。", answer: "The movie starts", distractors: ["I start the movie", "The movie finishes", "The movie is starting now"], exercises: [jidoushi-tadoushi] }
+      - { kind: sentence, ja: "えいがを はじめる。", en: "I'll start the movie", exercises: [jidoushi-tadoushi, wo-object], mode: build }
+      - { kind: listening-comp, audio: "えいがが はじまる。", answer: "The movie starts", distractors: ["I'll start the movie", "The movie finishes", "The movie is starting now"], exercises: [jidoushi-tadoushi] }
       - { kind: sentence, ja: "じゅぎょうが はじまる。", en: "The class starts", exercises: [jidoushi-tadoushi, ga-existence], mode: build }
       - { kind: particle-cloze, stem: "かいぎが ", tail: "。", answer: "はじまる", options: ["はじまる", "はじめる", "おわる"], en: "The meeting starts", explanation: "が is the tell: nothing is being done to かいぎ, so the verb has to be the が-half, はじまる. はじめる needs somebody doing it, and that comes with を. おわる would also follow が — the English says starts, not ends." }
       - { kind: sentence, ja: "せんせいが じゅぎょうを はじめる。", en: "The teacher starts the class", exercises: [jidoushi-tadoushi, wo-object], mode: build }
@@ -715,7 +715,7 @@ lessons:
       - { kind: sentence, ja: "えきで でんしゃが とまる。", en: "The train stops at the station", exercises: [de-action, jidoushi-tadoushi], mode: translate, alsoAccept: ["でんしゃは えきに とまる。"] }
       - kind: dialogue
         lines:
-          - { speaker: "Tom", ja: "さいふが ない。", en: "My wallet's gone." }
+          - { speaker: "Tom", ja: "さいふが ない。", en: "My wallet is not here." }
           - { speaker: "Mika", ja: "ひきだしを あける？", en: "Shall I open the drawer?" }
           - { speaker: "Tom", ja: "うん。", en: "Yeah." }
           - { speaker: "Mika", ja: "さいふが はいっている。", en: "Your wallet's in there." }
@@ -779,9 +779,9 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Tanaka", ja: "かいぎは なんじに はじまる？", en: "What time does the meeting start?" }
-          - { speaker: "Mika", ja: "じゅうじ。きょう じかんが きまる。", en: "Ten. The time gets settled today." }
+          - { speaker: "Mika", ja: "じゅうじ。きょう じかんが きまる。", en: "Ten. The time will be settled today." }
           - { speaker: "Tanaka", ja: "だれが きめる？", en: "Who decides?" }
-          - { speaker: "Mika", ja: "たなかさんが きめる。", en: "You do." }
+          - { speaker: "Mika", ja: "たなかさんが きめる。", en: "Mr. Tanaka will decide." }
         questions:
           - { q: "Which of Mika's two verbs leaves the decider out?", options: ["きまる — it names nobody", "きめる — it names nobody", "Both of them", "Neither of them"], answer: "きまる — it names nobody" }
       - { kind: challenge, ja: "かいぎが はじまる まえに、まどを しめて でんきを けして ください。", en: "Before the meeting starts, please close the window and turn the light off", combines: [mae-ni, te-form, te-kudasai, jidoushi-tadoushi], mode: build }

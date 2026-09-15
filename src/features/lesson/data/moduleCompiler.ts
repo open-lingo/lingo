@@ -15,6 +15,7 @@ import type { LessonContent, LessonStep, ReactiveGrammarTip } from "@/features/l
 import type { IrSceneSpec } from "@/features/lesson/data/sceneResolve";
 import { resolveScene } from "@/features/lesson/data/sceneResolve";
 import { KANA_ROMAJI } from "@/shared/japanese/kanaTable";
+import { parseRegisterCue, stripRegisterCue } from "@/features/lesson/data/registerCue";
 import {
   SELECTION_TYPES,
   TEACH_FIRST_INTRO_TYPES,
@@ -402,43 +403,21 @@ function matchTileGloss(a: { meaningEn: string; shortGloss?: string }): string {
 }
 
 /**
- * Strips a register-cue prefix ("Say politely: I work from nine") from a
- * beat's `en` before re-presenting the sentence as its MEANING elsewhere in
- * the lesson (filler `listening_comprehension`, etc. — see the doc comment
- * at this function's one call site for the full "Inv 8" rationale: a beat's
- * `en` IS its typed prompt, so it may open with a directive the SPEAKER
- * needs, and re-showing that directive as the answer to "what does this
- * sentence mean?" is both wrong and a giveaway).
+ * Re-exported from `data/registerCue.ts`, which now owns the whole cue
+ * taxonomy (the structured `parseRegisterCue` the rung-1a doc asked for —
+ * "the CORRECT fix is a schema change: promote the cue out of the `en`
+ * string into a structured field" — plus this lossy strip for surfaces that
+ * only ever wanted the meaning). The re-export keeps
+ * `moduleCompiler.stripRegisterCue.test.ts` and any other importer pointing
+ * at the same symbol; there is exactly one implementation.
  *
- * Rung 1b (KO-source de-coupling #4, docs/ko-source-rung1a-2026-09-10.md
- * §2b / docs/ko-source-rung1b-2026-09-10.md): hoisted out of its enclosing
- * closure (was a local `meaningOf` const, pure in `en` — no closure
- * dependency) so it's directly unit-testable, and re-verified against a
- * Korean input. The rung 1a doc's own conclusion stands: the CORRECT fix is
- * a schema change — promote the cue out of the `en` string into a
- * structured `cue?: string` field on whatever authors a beat, so this
- * function becomes unconditional and needs no language-specific stripping
- * at all. That touches the IR shape + curriculum beat-authoring helpers,
- * which are off-limits this rung (concurrent JA authoring lanes editing
- * `curriculum/m*.ts` / IR YAML), so it is NOT done here.
- *
- * What IS true today, verified by `moduleCompiler.stripRegisterCue.test.ts`:
- * the regex is anchored on literal ASCII English cue verbs
- * (Say/Ask/Answer/Reply/Tell), so it can only ever match/strip
- * Latin-script text that starts with one of those five words — a
- * Korean-language cue (Hangul, or any other script) can never match this
- * pattern and always passes through completely unchanged, not stripped and
- * not collapsed to empty by the `|| en` fallback. That is the safe,
- * correct behaviour for content this function was never designed to
- * handle — it fails CLOSED (leaves the text alone) rather than silently
- * mis-stripping — but it means a Korean-authored cue convention gets ZERO
- * stripping (the Inv-8 giveaway-answer risk reappears for KO, exactly as
- * §2b describes) until the schema fix lands. Flagged as a known gap in
- * `docs/ko-source-rung1b-2026-09-10.md`, not silently accepted.
+ * The KO gap that doc flagged is closed on the PROMPT path: a step now
+ * carries `registerCue` as data and its `prompt` is the clean gloss, so a
+ * translated catalog row can be a clean gloss too and no language-specific
+ * stripping is needed to show one. `stripRegisterCue` survives only for
+ * text that is already English at the point of use.
  */
-export function stripRegisterCue(en: string): string {
-  return en.replace(/^(?:Say|Ask|Answer|Reply|Tell)\b[^:]{0,40}:\s*/i, "").trim() || en;
-}
+export { stripRegisterCue };
 
 // Kana-faithful romaji (Spencer ruling: は→ha, を→o, へ→he — the particle's
 // spelling, not its pronunciation). Display-only, for grammar-card examples.
@@ -1293,19 +1272,16 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
      *  modality — same concepts, different context (Spencer 2026-07-26) —
      *  instead of padding with unrelated single words.
      *
-     *  `en` here is the MEANING, not the beat's prompt. A beat's `en` IS its
-     *  prompt (inv 39), so it may open with a register cue — "Say politely: I
-     *  work from nine" (inv 8). Filler re-presents the sentence as a
-     *  listening-comprehension item asking "What does this sentence mean?",
-     *  and a directive addressed to the speaker is not a meaning: 164 options
-     *  across m5-m20 read "Say politely: …" as an answer to that question,
-     *  which is both wrong and a giveaway (only the authored sentence carries
-     *  a cue, so the cued option stands out). Strip the cue where the text
-     *  changes job; the build prompt keeps it. A colon is required, so a
-     *  sentence that genuinely MEANS "Say it one more time." is untouched.
-     *  (Hoisted to module scope as `stripRegisterCue` — see its doc comment
-     *  for the rung 1b KO-source de-coupling note.) */
-    const meaningOf = stripRegisterCue;
+     *  `en` here is the MEANING, and as of the register-cue split it is the
+     *  same clean gloss the production step shows: `parseRegisterCue` runs
+     *  once per sentence beat below and every consumer — this pool, the
+     *  build prompt, the listening reveal — is fed from its `text`. Before
+     *  that, a beat's `en` WAS its prompt (inv 39) and could open with a
+     *  directive, so filler had to strip it on the way out: 164 options
+     *  across m5-m20 read "Say politely: …" as the answer to "what does this
+     *  sentence mean?", which is both wrong and a giveaway (only the
+     *  authored sentence carried a cue, so the cued option stood out). There
+     *  is nothing left to strip here — the cue never enters the string. */
     const sentencePairs: { ja: string; en: string }[] = [];
     const ruleSteps: LessonStep[] = [];
     const body: LessonStep[] = [];
@@ -1434,13 +1410,24 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
             : beat.kind === "capstone"
               ? `${lid}-capstone`
               : sid("s");
-        sentencePairs.push({ ja: clean(beat.ja), en: meaningOf(beat.en) });
         const ex = exercised(beat.ja);
         let step: LessonStep;
+        // THE CUE IS DATA FROM HERE DOWN. `beat.en` is the authored string
+        // and may open with a register cue ("Say politely: I eat at home");
+        // `gloss` is that string with the cue removed and `cue` is the
+        // structured form. Every step below is built from `gloss`, so a
+        // step's English is the closest 1-to-1 gloss (Spencer #76) on every
+        // surface, and the directive travels as `registerCue` for the ONE
+        // view that must show it. Grading is untouched — the accepted
+        // answer is still `acceptedVariants(beat.ja)`.
+        const { text: gloss, cue } = parseRegisterCue(beat.en);
+        const withCue = <T extends LessonStep>(s: T): T =>
+          cue ? ({ ...s, registerCue: cue } as T) : s;
+        sentencePairs.push({ ja: clean(beat.ja), en: gloss });
         if (beat.mode === "translate") {
           step = translateStep({
             id,
-            promptEn: beat.en,
+            promptEn: gloss,
             acceptedAnswers: [
               ...acceptedVariants(beat.ja),
               ...(beat.alsoAccept ?? []).flatMap(acceptedVariants),
@@ -1466,20 +1453,21 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
             // TestFlight #142: reveal the real translation under the tray
             // after a correct submit — `promptEn` above stays the generic
             // pre-answer instruction (a real listening test), but the beat
-            // already carries the sentence's English via `meaningOf`.
-            translation: meaningOf(beat.en),
+            // already carries the sentence's English as `gloss`.
+            translation: gloss,
             exercisedAtomKanas: ex,
           });
         } else {
           const tiles = tokenize(beat.ja);
-          // A beat's `en` that already opens with a directive IS the prompt —
-          // prefixing "Build: " onto a register cue produced the double-framed
-          // "Build: Say to a friend: Yeah" on all 327 `Say …` beats course-wide.
-          // Inv 8 wants the cue to be the FIRST thing read, not the second.
-          const directive = /^(Say|Ask|Answer|Reply|Tell)\b/.test(beat.en);
+          // "Build: " is the framing for an un-cued gloss. A cued beat
+          // needs none: the badge frames it, and prefixing produced the
+          // double-framed "Build: Say to a friend: Yeah" on all 327 `Say …`
+          // beats course-wide before the strip existed. Inv 8 wanted the
+          // cue read FIRST — the eyebrow above the prompt is literally
+          // that, now without spending prompt text on it.
           step = build(
             id,
-            directive ? beat.en : `Build: ${beat.en}`,
+            cue ? gloss : `Build: ${gloss}`,
             buildTarget(beat.ja),
             tiles,
             tiles,
@@ -1510,6 +1498,7 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
         // against the grammar scheduler instead of dead metadata.
         const points = [...(beat.exercises ?? []), ...(beat.combines ?? [])];
         if (points.length) step.exercisedGrammar = [...new Set(points)];
+        step = withCue(step);
         if (beat.kind === "capstone" || beat.kind === "challenge")
           capstone = step;
         else body.push(step);
@@ -1598,9 +1587,21 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
         body.push(step);
       } else if (beat.kind === "particle-cloze") {
         const full = clean(`${beat.stem}${beat.answer}${beat.tail}`);
-        body.push(
-          cloze(sid("cloze"), beat.stem, beat.tail, beat.answer, beat.options, beat.en, full, beat.explanation),
+        // A cloze's `meaningEn` is its prompt (it renders above the frame),
+        // so it carries cues too — 21 of them, all in m34/m35's
+        // audience-choice beats where the cue IS the question.
+        const { text: clozeGloss, cue: clozeCue } = parseRegisterCue(beat.en);
+        const clozeStep = cloze(
+          sid("cloze"),
+          beat.stem,
+          beat.tail,
+          beat.answer,
+          beat.options,
+          clozeGloss,
+          full,
+          beat.explanation,
         );
+        body.push(clozeCue ? { ...clozeStep, registerCue: clozeCue } : clozeStep);
       } else if (beat.kind === "dialogue") {
         const questions = beat.questions.map((q, qi) => {
           const wrong = q.options.filter((o) => o !== q.answer);

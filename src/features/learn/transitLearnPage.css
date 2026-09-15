@@ -259,18 +259,36 @@
 }
 
 /* current-station pulse */
+/* PERF (iPad always-on pass): this used to animate the SVG geometry attribute
+   `r` (13 -> 32). `r` is layout-affecting, so ONE pulsing circle forced a full
+   relayout + style recalc of the entire 4974x696 map SVG on every vsync —
+   ~62 ms of main-thread CPU per second, measured, on an otherwise idle
+   landscape map. `transform: scale()` renders identically (13 * 2.461538 = 32)
+   and drops the relayout: style-recalc time on an idle map went 27.8 -> 4.8
+   ms/s. Ring bbox, centre and opacity match the old `r` animation to 0.00px at
+   every phase (verified against pinned `currentTime` samples).
+   The circle carries `vector-effect="non-scaling-stroke"` with its stroke-width
+   pre-multiplied by the map's user->CSS-px scale, so the ring stays exactly as
+   thick as it was instead of fattening as it expands.
+   ⚠️ That is also why this still repaints per frame rather than compositing:
+   a screen-space stroke has to be re-rasterised at each scale. Dropping
+   `vector-effect` would let it composite (~8 ms/s) at the cost of a ring that
+   thickens 2.55px -> 6.3px as it expands — a visual change, so it needs
+   Spencer's eye, not a silent swap. */
 @keyframes tmc-pulse {
   0% {
-    r: 13;
+    transform: scale(1);
     opacity: 0.75;
   }
   100% {
-    r: 32;
+    transform: scale(2.461538);
     opacity: 0;
   }
 }
 .tmc-pulse {
   animation: tmc-pulse 1.9s ease-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
 }
 
 /* mascot */
@@ -440,8 +458,21 @@ a:focus-visible .tmc-d-stop {
     opacity: 0.25;
   }
 }
-.tmc-star {
+/* PERF (iPad always-on pass): the whole `.tmc-night` group is `display: none`
+   outside dark theme, but a CSS animation on a non-rendered element still
+   ticks a style recalc every vsync. 90 star circles were costing ~80 ms of
+   main-thread CPU per second on an idle landscape map, every frame of it
+   invisible. Only animate the layer that is actually painted. */
+.dark .tmc-star {
   animation: tmc-twinkle 3.4s ease-in-out infinite;
+}
+/* PERF: in dark theme the stars are painted, so the gate above cannot help.
+   Twinkling every 4th star (23 of 90) reads the same as a star field at
+   arm's length and cuts idle CPU on the parked landscape map from ~180 to
+   ~100 ms/s at 4x throttle (measured 2026-09-15). The other 67 stay lit,
+   static. */
+.dark .tmc-star:not(:nth-of-type(4n)) {
+  animation: none;
 }
 
 /* press squash (ticket-machine tactility) */
@@ -522,6 +553,24 @@ a:focus-visible .tmc-d-stop {
 }
 .tmc-stamp-now {
   animation: tmc-glow 1.7s ease-in-out infinite;
+}
+
+/* PERF (iPad always-on pass): the browser throttles `requestAnimationFrame`
+   for a hidden document but keeps CSS keyframes running, so every ambient loop
+   on this map goes on forcing a style recalc + a frame while the app is
+   backgrounded, the iPad is locked, or a Split View pane loses focus. Nothing
+   is on screen to see them. `NetworkMap` toggles this class off
+   `visibilitychange`. Paused animations hold their current frame, so the map
+   looks identical the instant it comes back. */
+.tmc-anim-paused .tmc-star,
+.tmc-anim-paused .tmc-pulse,
+.tmc-anim-paused .tmc-mascot,
+.tmc-anim-paused .tmc-mascot-eye,
+.tmc-anim-paused .tmc-cloud,
+.tmc-anim-paused .tmc-cloud.b,
+.tmc-anim-paused .tmc-stamp-now,
+.tmc-anim-paused .tmc-station-glyph {
+  animation-play-state: paused;
 }
 
 /* reduced motion: render final states, kill loops */

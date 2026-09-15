@@ -123,7 +123,7 @@
       "examples": [
         {
           "ja": "ねつが あるんだ。",
-          "en": "The thing is, I've got a fever."
+          "en": "The thing is, I have a fever."
         },
         {
           "ja": "きょうは いかないんだ。",
@@ -183,7 +183,7 @@
       "examples": [
         {
           "ja": "ねつが あるから いかないんだ。",
-          "en": "I'm not going, because I've got a fever."
+          "en": "I'm not going, because I have a fever."
         },
         {
           "ja": "どうして たべないんだ？",
@@ -195,7 +195,7 @@
         },
         {
           "ja": "おかねが ないから かわないんだ。",
-          "en": "I'm not buying it, because I haven't got the money."
+          "en": "I'm not buying it, because I don't have the money."
         },
         {
           "ja": "どうして この くつを かうんだ？",
@@ -217,7 +217,7 @@
         },
         {
           "ja": "ねつが あるんです。",
-          "en": "I've got a fever, you see."
+          "en": "I have a fever, you see."
         },
         {
           "ja": "びょうきなんです。",
@@ -225,7 +225,7 @@
         },
         {
           "ja": "きょうは じかんが ないんです。",
-          "en": "The thing is, I haven't got time today."
+          "en": "The thing is, I don't have time today."
         },
         {
           "ja": "どうして いかないんだ？",
@@ -359,11 +359,11 @@
     },
     {
       "id": "ta-form",
-      "rule": "The past of なる is なった, and it is the form a change is usually reported in — because a change is something you notice after it has already happened. 「さむく なった」 is it's got cold. 「げんきに なった」 is he's better now. English often reaches for a present tense here (it IS cold now, he IS well now) and Japanese reaches for the past, because the news is the change rather than the state. Pair it with んだ and you have the most useful sentence shape in this module: 「かみが ながく なったんだ」, the thing is, the paper's got longer. Note what な does and does not do. なった is a VERB, so it takes ん straight after it — なったんだ, never なったなんだ. The な in なんだ only ever follows a noun or a な-adjective, and なった is neither. Two more things worth keeping straight. なった is the past of なる and not of ある: 「あった」 is a different verb with a different job. And a から clause in front of it puts the whole change in the past too — 「ふゆに なったから さむく なった」 — which is how you tell somebody what has changed and why, in one breath.",
+      "rule": "The past of なる is なった, and it is the form a change is usually reported in — because a change is something you notice after it has already happened. 「さむく なった」 is it's gotten cold. 「げんきに なった」 is he's better now. English often reaches for a present tense here (it IS cold now, he IS well now) and Japanese reaches for the past, because the news is the change rather than the state. Pair it with んだ and you have the most useful sentence shape in this module: 「かみが ながく なったんだ」, the thing is, the paper's gotten longer. Note what な does and does not do. なった is a VERB, so it takes ん straight after it — なったんだ, never なったなんだ. The な in なんだ only ever follows a noun or a な-adjective, and なった is neither. Two more things worth keeping straight. なった is the past of なる and not of ある: 「あった」 is a different verb with a different job. And a から clause in front of it puts the whole change in the past too — 「ふゆに なったから さむく なった」 — which is how you tell somebody what has changed and why, in one breath.",
       "examples": [
         {
           "ja": "さむく なったんだ。",
-          "en": "The thing is, it's got cold."
+          "en": "The thing is, it's gotten cold."
         },
         {
           "ja": "あには げんきに なった。",
@@ -375,7 +375,7 @@
         },
         {
           "ja": "かみが ながく なったんです。",
-          "en": "The thing is, the paper's got longer."
+          "en": "The thing is, the paper's gotten longer."
         },
         {
           "ja": "あねは せんせいに なった。",
@@ -611,7 +611,7 @@
         {
           "kind": "sentence",
           "ja": "ねつが あるから きょうは いかないんだ。",
-          "en": "I'm not going today, because I've got a fever",
+          "en": "I'm not going today, because I have a fever",
           "exercises": [
             "n-desu",
             "kara-because",
@@ -688,7 +688,7 @@
         {
           "kind": "sentence",
           "ja": "ねつが あるんだ。",
-          "en": "The thing is, I've got a fever",
+          "en": "The thing is, I have a fever",
           "exercises": [
             "n-desu"
           ],
@@ -704,7 +704,7 @@
             "だ",
             "です"
           ],
-          "en": "The thing is, I've got a fever",
+          "en": "The thing is, I have a fever",
           "explanation": "ある is a verb, so it takes ん and then だ. Bare だ finishes a NOUN and can never sit on a verb, and です cannot sit on a plain verb either — 「あるです」 is not Japanese. The noun version, なんだ, is the next lesson's job."
         },
         {
@@ -714,7 +714,7 @@
           "distractors": [
             "I'm going, because I'm free tomorrow",
             "I'm busy tomorrow, but I'm going",
-            "I'm not going, because I've got a fever"
+            "I'm not going, because I have a fever"
           ],
           "exercises": [
             "n-desu",
@@ -724,11 +724,11 @@
         {
           "kind": "listening-comp",
           "audio": "じかんが あるから コーヒーを のむんだ。",
-          "answer": "I drink coffee, because I've got time",
+          "answer": "I drink coffee, because I have time",
           "distractors": [
-            "I don't drink coffee, because I haven't got time",
-            "I drink tea, because I've got time",
-            "I've got time, but I don't drink coffee"
+            "I don't drink coffee, because I don't have time",
+            "I drink tea, because I have time",
+            "I have time, but I don't drink coffee"
           ],
           "exercises": [
             "n-desu",
@@ -741,12 +741,12 @@
             {
               "speaker": "Mika",
               "ja": "どうして きょう だいがくに いかないんだ？",
-              "en": "Why aren't you going to the university today?"
+              "en": "Why aren't you going to university today?"
             },
             {
               "speaker": "Tom",
               "ja": "ねつが あるんだ。びょういんに いく。",
-              "en": "I've got a fever. I'm going to the hospital."
+              "en": "I have a fever. I'm going to the hospital."
             }
           ],
           "questions": [
@@ -861,7 +861,7 @@
         {
           "kind": "sentence",
           "ja": "おかねが ないから かわないんだ。",
-          "en": "I'm not buying it, because I haven't got the money",
+          "en": "I'm not buying it, because I don't have the money",
           "exercises": [
             "desu-copula",
             "kara-because",
@@ -905,11 +905,11 @@
         {
           "kind": "listening-comp",
           "audio": "おかねが あるから とけいを かうんだ。",
-          "answer": "I'm buying a watch, because I've got the money",
+          "answer": "I'm buying a watch, because I have the money",
           "distractors": [
-            "I'm not buying a watch, because I haven't got the money",
-            "I'm buying glasses, because I've got the money",
-            "I've got the money, but I'm not buying a watch"
+            "I'm not buying a watch, because I don't have the money",
+            "I'm buying glasses, because I have the money",
+            "I have the money, but I'm not buying a watch"
           ],
           "exercises": [
             "desu-copula",
@@ -1097,7 +1097,7 @@
             "いくんだ",
             "かうんだ"
           ],
-          "en": "I'm not going, because I've got a fever",
+          "en": "I'm not going, because I have a fever",
           "explanation": "a fever is a reason to stay put, so the main clause has to be the negative. いくんだ would make the reason argue against itself, and かうんだ answers a question nobody asked."
         },
         {
@@ -1106,7 +1106,7 @@
           "answer": "I'm not buying a desk, because my room is cramped",
           "distractors": [
             "I'm buying a desk, because my room is cramped",
-            "I'm not buying a desk, because I haven't got the money",
+            "I'm not buying a desk, because I don't have the money",
             "My room is cramped, but I'm buying a desk"
           ],
           "exercises": [
@@ -1148,7 +1148,7 @@
               "options": [
                 "The room is cramped",
                 "The room is too quiet",
-                "He hasn't got a desk",
+                "He doesn't have a desk",
                 "He eats at the library"
               ],
               "answer": "The room is cramped"
@@ -1158,7 +1158,7 @@
         {
           "kind": "challenge",
           "ja": "へやが せまいから つくえを かうけど おかねが ないんだ。",
-          "en": "I'm buying a desk because my room is cramped, but I haven't got the money",
+          "en": "I'm buying a desk because my room is cramped, but I don't have the money",
           "combines": [
             "kara-because",
             "n-desu",
@@ -1192,7 +1192,7 @@
         {
           "kind": "sentence",
           "ja": "ねつが あるから きょうは いかないんだ。",
-          "en": "I'm not going today, because I've got a fever",
+          "en": "I'm not going today, because I have a fever",
           "exercises": [
             "n-desu",
             "kara-because"
@@ -1232,7 +1232,7 @@
         {
           "kind": "sentence",
           "ja": "おかねが ないから かわないんだ。",
-          "en": "I'm not buying it, because I haven't got the money",
+          "en": "I'm not buying it, because I don't have the money",
           "exercises": [
             "kara-because",
             "nai-existence"
@@ -1289,7 +1289,7 @@
         {
           "kind": "sentence",
           "ja": "ねつが あるんだ。",
-          "en": "The thing is, I've got a fever",
+          "en": "The thing is, I have a fever",
           "exercises": [
             "n-desu"
           ],
@@ -1340,7 +1340,7 @@
             {
               "speaker": "Mika",
               "ja": "じかんが ないんだ。あしたは やすみだから あした いく。",
-              "en": "I haven't got time. Tomorrow's a vacation, so I'll go tomorrow."
+              "en": "I don't have time. Tomorrow's a vacation, so I'll go tomorrow."
             }
           ],
           "questions": [
@@ -1398,7 +1398,7 @@
         {
           "kind": "sentence",
           "ja": "ねつが あるんです。",
-          "en": "Say politely: I've got a fever, you see",
+          "en": "Say politely: I have a fever, you see",
           "exercises": [
             "masu-present",
             "n-desu"
@@ -1418,7 +1418,7 @@
         {
           "kind": "sentence",
           "ja": "きょうは じかんが ないんです。",
-          "en": "Say politely: The thing is, I haven't got time today",
+          "en": "Say politely: The thing is, I don't have time today",
           "exercises": [
             "masu-present",
             "n-desu",
@@ -1461,7 +1461,7 @@
         {
           "kind": "sentence",
           "ja": "ねつが あるんです。",
-          "en": "Say politely: I've got a fever, you see",
+          "en": "Say politely: I have a fever, you see",
           "exercises": [
             "masu-present"
           ],
@@ -1538,7 +1538,7 @@
         {
           "kind": "challenge",
           "ja": "すみません ねつが あるから きょうは じゅぎょうに いかないんです。",
-          "en": "Say politely: Excuse me, I'm not going to class today because I've got a fever",
+          "en": "Say politely: Excuse me, I'm not going to class today because I have a fever",
           "combines": [
             "masu-present",
             "n-desu",
@@ -1724,7 +1724,7 @@
               "options": [
                 "He ate too much in the evening",
                 "He doesn't like the food",
-                "He hasn't got time",
+                "He doesn't have time",
                 "He's ill"
               ],
               "answer": "He ate too much in the evening"
@@ -1916,7 +1916,7 @@
             {
               "speaker": "Mika",
               "ja": "かわない。たかすぎるんだ。ちいさすぎる くつも きらいなんだ。",
-              "en": "I'm not. They're too expensive. And I don't like shoes that are too small."
+              "en": "I won't buy them. They're too expensive. And I don't like shoes that are too small."
             }
           ],
           "questions": [
@@ -2118,7 +2118,7 @@
             {
               "speaker": "Ken",
               "ja": "ちいさすぎるんだ。おかねも ないんだ。",
-              "en": "They're too small. And I haven't got the money either."
+              "en": "They're too small. And I don't have the money either."
             }
           ],
           "questions": [
@@ -2201,7 +2201,7 @@
         {
           "kind": "sentence",
           "ja": "つくえを かうから へやが せまく なるんだ。",
-          "en": "The thing is, my room gets cramped because I'll buy a desk",
+          "en": "My room will get cramped because I'm buying a desk",
           "exercises": [
             "ku-ni-naru",
             "kara-because",
@@ -2322,7 +2322,7 @@
         {
           "kind": "challenge",
           "ja": "バスが おそく なるから じてんしゃで いくけど じてんしゃは たかすぎるんだ。",
-          "en": "The bus gets slow, so I go by bike, but bikes are too expensive",
+          "en": "The bus will be late, so I'll go by bike, but bikes are too expensive",
           "combines": [
             "ku-ni-naru",
             "kara-because",
@@ -2360,7 +2360,7 @@
         {
           "kind": "sentence",
           "ja": "くすりを のむから げんきに なる。",
-          "en": "I take medicine, so I get better",
+          "en": "I'll take medicine, so I'll get better",
           "exercises": [
             "na-adj-present",
             "ku-ni-naru",
@@ -2464,7 +2464,7 @@
           "distractors": [
             "The thing is, autumn arrives, so it gets cool",
             "The thing is, spring arrives, so it gets cold",
-            "Spring arrived, so it has got warm"
+            "Spring arrived, so it has gotten warm"
           ],
           "exercises": [
             "na-adj-present",
@@ -2515,7 +2515,7 @@
         {
           "kind": "challenge",
           "ja": "はるに なるから やまに いく つもりだけど じかんが ないんだ。",
-          "en": "Spring is coming, so I mean to go to the mountains, but I haven't got time",
+          "en": "Spring is coming, so I plan to go to the mountains, but I don't have time",
           "combines": [
             "na-adj-present",
             "ku-ni-naru",
@@ -2555,7 +2555,7 @@
         {
           "kind": "sentence",
           "ja": "ふゆに なったから さむく なったんだ。",
-          "en": "Winter's here, so it's got cold — that's the thing",
+          "en": "Winter's here, so it's gotten cold — that's the thing",
           "exercises": [
             "ta-form",
             "ku-ni-naru",
@@ -2577,7 +2577,7 @@
         {
           "kind": "sentence",
           "ja": "かみが ながく なったんです。",
-          "en": "Say politely: The thing is, the paper's got longer",
+          "en": "Say politely: The thing is, the paper's gotten longer",
           "exercises": [
             "ta-form",
             "masu-present",
@@ -2621,7 +2621,7 @@
         {
           "kind": "sentence",
           "ja": "えいごが よく なったけど じゅぎょうは むずかしすぎるんだ。",
-          "en": "My English has got better, but the class is too difficult — that's the thing",
+          "en": "My English has gotten better, but the class is too difficult — that's the thing",
           "exercises": [
             "ta-form",
             "ku-ni-naru",
@@ -2632,7 +2632,7 @@
         {
           "kind": "sentence",
           "ja": "さむく なったんだ。",
-          "en": "The thing is, it's got cold",
+          "en": "The thing is, it's gotten cold",
           "exercises": [
             "ta-form",
             "ku-ni-naru"
@@ -2649,7 +2649,7 @@
             "なる",
             "だった"
           ],
-          "en": "Spring is here, so it's got warm",
+          "en": "Spring is here, so it's gotten warm",
           "explanation": "the から clause is already in the past, so the change it caused has happened too. なる would put the result in front of its own cause, and だった is the past of the copula rather than of なる."
         },
         {
@@ -2669,10 +2669,10 @@
         {
           "kind": "listening-comp",
           "audio": "えいごが よく なったんだ。",
-          "answer": "The thing is, my English has got better",
+          "answer": "The thing is, my English has gotten better",
           "distractors": [
-            "The thing is, my English has got worse",
-            "The thing is, the class has got better",
+            "The thing is, my English has gotten worse",
+            "The thing is, the class has gotten better",
             "My English is going to get better"
           ],
           "exercises": [
@@ -2699,7 +2699,7 @@
               "q": "What does Mika say about her older brother?",
               "options": [
                 "He's better now",
-                "He's got ill",
+                "He's gotten sick",
                 "He became a teacher",
                 "He's going to the hospital"
               ],
@@ -2753,7 +2753,7 @@
         {
           "kind": "sentence",
           "ja": "くすりを のむから げんきに なる。",
-          "en": "I take medicine, so I get better",
+          "en": "I'll take medicine, so I'll get better",
           "exercises": [
             "na-adj-present",
             "kara-because"
@@ -2763,7 +2763,7 @@
         {
           "kind": "sentence",
           "ja": "ふゆに なったから さむく なったんだ。",
-          "en": "Winter's here, so it's got cold — that's the thing",
+          "en": "Winter's here, so it's gotten cold — that's the thing",
           "exercises": [
             "ta-form",
             "ku-ni-naru"
@@ -2783,7 +2783,7 @@
         {
           "kind": "sentence",
           "ja": "かみが ながく なったんです。",
-          "en": "Say politely: The thing is, the paper's got longer",
+          "en": "Say politely: The thing is, the paper's gotten longer",
           "exercises": [
             "ta-form",
             "masu-present"
@@ -2830,7 +2830,7 @@
         {
           "kind": "sentence",
           "ja": "つくえを かうから へやが せまく なるんだ。",
-          "en": "The thing is, my room gets cramped because I'll buy a desk",
+          "en": "My room will get cramped because I'm buying a desk",
           "exercises": [
             "ku-ni-naru",
             "n-desu"
@@ -2840,7 +2840,7 @@
         {
           "kind": "sentence",
           "ja": "さむく なったんだ。",
-          "en": "The thing is, it's got cold",
+          "en": "The thing is, it's gotten cold",
           "exercises": [
             "ta-form",
             "ku-ni-naru"
@@ -2966,7 +2966,7 @@
         {
           "kind": "sentence",
           "ja": "つくえが おおきすぎるから へやが せまく なったんだ。",
-          "en": "The desk is too big, so my room has got cramped",
+          "en": "The desk is too big, so the room became cramped",
           "exercises": [
             "sugiru",
             "ku-ni-naru",
@@ -3085,7 +3085,7 @@
           ],
           "questions": [
             {
-              "q": "What does Mika say has got better?",
+              "q": "What does Mika say has gotten better?",
               "options": [
                 "Her English",
                 "The class",
@@ -3734,7 +3734,7 @@
     {
       "kana": "ううん",
       "romaji": "uun",
-      "gloss": "nope (casual no)",
+      "gloss": "nope",
       "shortGloss": "nope",
       "imageable": false,
       "kind": "vocab"
@@ -3783,8 +3783,8 @@
     {
       "kana": "ぼく",
       "romaji": "boku",
-      "gloss": "I, me (casual, usually male)",
-      "shortGloss": "I (casual)",
+      "gloss": "I, me",
+      "shortGloss": "I",
       "imageable": false,
       "kind": "vocab"
     },
@@ -3807,7 +3807,7 @@
     {
       "kana": "しります",
       "romaji": "shirimasu",
-      "gloss": "know (polite)",
+      "gloss": "know",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "しる"
@@ -3815,7 +3815,7 @@
     {
       "kana": "しりません",
       "romaji": "shirimasen",
-      "gloss": "don't know (polite)",
+      "gloss": "don't know",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "しる"
@@ -3831,7 +3831,7 @@
     {
       "kana": "わかります",
       "romaji": "wakarimasu",
-      "gloss": "understand (polite)",
+      "gloss": "understand",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "わかる"
@@ -3839,7 +3839,7 @@
     {
       "kana": "ちがいます",
       "romaji": "chigaimasu",
-      "gloss": "that's not right (polite)",
+      "gloss": "that's not right",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "ちがう"
@@ -4213,7 +4213,7 @@
     {
       "kana": "おぼえる",
       "romaji": "oboeru",
-      "gloss": "to memorise, to learn",
+      "gloss": "to memorize, to learn",
       "shortGloss": "memorise",
       "imageable": true,
       "kind": "verb",
@@ -4230,7 +4230,7 @@
     {
       "kana": "だった",
       "romaji": "datta",
-      "gloss": "was, were (plain)",
+      "gloss": "was, were",
       "shortGloss": "was (plain)",
       "imageable": false,
       "kind": "grammar-chunk"
@@ -4238,8 +4238,8 @@
     {
       "kana": "でした",
       "romaji": "deshita",
-      "gloss": "was, were (polite)",
-      "shortGloss": "was (polite)",
+      "gloss": "was, were",
+      "shortGloss": "was",
       "imageable": false,
       "kind": "grammar-chunk"
     },
@@ -4740,7 +4740,7 @@
     {
       "kana": "すき",
       "romaji": "suki",
-      "gloss": "likeable, like",
+      "gloss": "like",
       "shortGloss": "like",
       "imageable": false,
       "kind": "vocab"
@@ -4801,7 +4801,7 @@
     {
       "kana": "みがく",
       "romaji": "migaku",
-      "gloss": "to brush teeth, to polish",
+      "gloss": "to polish",
       "shortGloss": "polish",
       "imageable": true,
       "kind": "verb",
@@ -4877,7 +4877,7 @@
     {
       "kana": "とりにく",
       "romaji": "toriniku",
-      "gloss": "chicken meat",
+      "gloss": "chicken",
       "shortGloss": "chicken",
       "imageable": true,
       "kind": "vocab"
@@ -5233,7 +5233,7 @@
     {
       "kana": "ので",
       "romaji": "node",
-      "gloss": "because (softer)",
+      "gloss": "because",
       "shortGloss": "because",
       "imageable": false,
       "kind": "vocab"
@@ -5570,7 +5570,7 @@
     {
       "kana": "スポーツ",
       "romaji": "supootsu",
-      "gloss": "sport",
+      "gloss": "sports",
       "imageable": true,
       "kind": "vocab"
     },
@@ -5775,7 +5775,7 @@
     {
       "kana": "おじいさん",
       "romaji": "ojiisan",
-      "gloss": "grandfather, older man",
+      "gloss": "grandfather",
       "shortGloss": "older man",
       "kind": "vocab"
     },
@@ -5945,7 +5945,7 @@
     {
       "kana": "おりる",
       "romaji": "oriru",
-      "gloss": "to get off, to descend",
+      "gloss": "to get off",
       "shortGloss": "to get off",
       "kind": "vocab"
     },
@@ -6085,7 +6085,7 @@
     {
       "kana": "など",
       "romaji": "nado",
-      "gloss": "and so on, et cetera",
+      "gloss": "and so on",
       "shortGloss": "and so on",
       "imageable": false,
       "kind": "vocab"
@@ -6093,7 +6093,7 @@
     {
       "kana": "おかあさん",
       "romaji": "okaasan",
-      "gloss": "(someone else's) mother — honorific",
+      "gloss": "(someone else's) mother",
       "shortGloss": "their mother",
       "imageable": false,
       "kind": "vocab"
@@ -6101,7 +6101,7 @@
     {
       "kana": "おとうさん",
       "romaji": "otousan",
-      "gloss": "(someone else's) father — honorific",
+      "gloss": "(someone else's) father",
       "shortGloss": "their father",
       "imageable": false,
       "kind": "vocab"
@@ -6109,7 +6109,7 @@
     {
       "kana": "おにいさん",
       "romaji": "oniisan",
-      "gloss": "(someone else's) older brother — honorific",
+      "gloss": "(someone else's) older brother",
       "shortGloss": "their big brother",
       "imageable": false,
       "kind": "vocab"
@@ -6117,7 +6117,7 @@
     {
       "kana": "おねえさん",
       "romaji": "oneesan",
-      "gloss": "(someone else's) older sister — honorific",
+      "gloss": "(someone else's) older sister",
       "shortGloss": "their big sister",
       "imageable": false,
       "kind": "vocab"
@@ -6133,7 +6133,7 @@
     {
       "kana": "おさけ",
       "romaji": "osake",
-      "gloss": "sake, alcohol",
+      "gloss": "alcohol",
       "shortGloss": "sake",
       "kind": "vocab"
     },
@@ -6553,8 +6553,8 @@
     {
       "kana": "みれる",
       "romaji": "mireru",
-      "gloss": "can watch (casual ら-dropped form)",
-      "shortGloss": "can watch (casual)",
+      "gloss": "can watch (ら-dropped form)",
+      "shortGloss": "can watch",
       "imageable": false,
       "kind": "verb"
     },
@@ -6609,7 +6609,7 @@
     {
       "kana": "きこえる",
       "romaji": "kikoeru",
-      "gloss": "to be audible, to reach the ear",
+      "gloss": "to be heard, to reach the ear",
       "shortGloss": "is audible",
       "imageable": false,
       "kind": "verb"
@@ -6633,7 +6633,7 @@
     {
       "kana": "へた",
       "romaji": "heta",
-      "gloss": "unskillful, bad at",
+      "gloss": "bad at",
       "shortGloss": "bad at",
       "imageable": false,
       "kind": "vocab"
@@ -6649,7 +6649,7 @@
     {
       "kana": "ましょう",
       "romaji": "mashou",
-      "gloss": "let's ~ (polite suggestion, on the ます-stem)",
+      "gloss": "let's ~",
       "shortGloss": "let's ~",
       "imageable": false,
       "kind": "vocab"
@@ -6709,7 +6709,7 @@
     {
       "kana": "すずしい",
       "romaji": "suzushii",
-      "gloss": "cool, refreshing",
+      "gloss": "cool",
       "shortGloss": "cool",
       "kind": "vocab"
     },
@@ -6755,8 +6755,8 @@
     {
       "kana": "あき",
       "romaji": "aki",
-      "gloss": "fall",
-      "shortGloss": "fall",
+      "gloss": "autumn",
+      "shortGloss": "autumn",
       "kind": "vocab"
     },
     {
@@ -6794,7 +6794,7 @@
     {
       "kana": "だろう",
       "romaji": "darou",
-      "gloss": "probably (plain conjecture — mostly heard, not said)",
+      "gloss": "probably",
       "shortGloss": "probably (plain)",
       "imageable": false,
       "kind": "vocab"
@@ -6875,7 +6875,7 @@
     {
       "kana": "えいご",
       "romaji": "eigo",
-      "gloss": "English language",
+      "gloss": "English",
       "shortGloss": "English",
       "imageable": false,
       "kind": "vocab"
@@ -7067,7 +7067,7 @@
     {
       "kana": "たべます",
       "romaji": "tabemasu",
-      "gloss": "eat (polite)",
+      "gloss": "eat",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "たべる",
@@ -7076,7 +7076,7 @@
     {
       "kana": "のみます",
       "romaji": "nomimasu",
-      "gloss": "drink (polite)",
+      "gloss": "drink",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "のむ",
@@ -7085,7 +7085,7 @@
     {
       "kana": "みます",
       "romaji": "mimasu",
-      "gloss": "watch (polite)",
+      "gloss": "watch",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "みる",
@@ -7094,7 +7094,7 @@
     {
       "kana": "いきます",
       "romaji": "ikimasu",
-      "gloss": "go, travel (polite)",
+      "gloss": "go, travel",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -7103,7 +7103,7 @@
     {
       "kana": "きます",
       "romaji": "kimasu",
-      "gloss": "come (polite)",
+      "gloss": "come",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる",
@@ -7112,7 +7112,7 @@
     {
       "kana": "します",
       "romaji": "shimasu",
-      "gloss": "do, make (polite)",
+      "gloss": "do, make",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "する",
@@ -7121,7 +7121,7 @@
     {
       "kana": "かいます",
       "romaji": "kaimasu",
-      "gloss": "buy (polite)",
+      "gloss": "buy",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "かう",
@@ -7130,7 +7130,7 @@
     {
       "kana": "ききます",
       "romaji": "kikimasu",
-      "gloss": "listen, ask (polite)",
+      "gloss": "listen, ask",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "きく",
@@ -7139,7 +7139,7 @@
     {
       "kana": "あそびます",
       "romaji": "asobimasu",
-      "gloss": "play (polite)",
+      "gloss": "play",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "あそぶ",
@@ -7148,7 +7148,7 @@
     {
       "kana": "あります",
       "romaji": "arimasu",
-      "gloss": "have, there is (polite)",
+      "gloss": "have, there is",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "ある",
@@ -7157,7 +7157,7 @@
     {
       "kana": "たべません",
       "romaji": "tabemasen",
-      "gloss": "don't eat (polite)",
+      "gloss": "don't eat",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "たべる",
@@ -7166,7 +7166,7 @@
     {
       "kana": "のみません",
       "romaji": "nomimasen",
-      "gloss": "don't drink (polite)",
+      "gloss": "don't drink",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "のむ",
@@ -7175,7 +7175,7 @@
     {
       "kana": "みません",
       "romaji": "mimasen",
-      "gloss": "don't watch (polite)",
+      "gloss": "don't watch",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "みる",
@@ -7184,7 +7184,7 @@
     {
       "kana": "いきません",
       "romaji": "ikimasen",
-      "gloss": "don't go, not traveling (polite)",
+      "gloss": "don't go",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -7193,7 +7193,7 @@
     {
       "kana": "きません",
       "romaji": "kimasen",
-      "gloss": "doesn't come (polite)",
+      "gloss": "doesn't come",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる",
@@ -7211,7 +7211,7 @@
     {
       "kana": "しません",
       "romaji": "shimasen",
-      "gloss": "don't do, won't make (polite)",
+      "gloss": "don't do, won't make",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "する",
@@ -7220,7 +7220,7 @@
     {
       "kana": "はたらきません",
       "romaji": "hatarakimasen",
-      "gloss": "don't work (polite)",
+      "gloss": "don't work",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "はたらく",
@@ -7229,7 +7229,7 @@
     {
       "kana": "ありません",
       "romaji": "arimasen",
-      "gloss": "doesn't have, isn't there (polite)",
+      "gloss": "doesn't have, isn't there",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "ある",
@@ -7247,7 +7247,7 @@
     {
       "kana": "はたらきます",
       "romaji": "hatarakimasu",
-      "gloss": "work (polite)",
+      "gloss": "work",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "はたらく",
@@ -7514,7 +7514,7 @@
     {
       "kana": "みせ",
       "romaji": "mise",
-      "gloss": "shop, store",
+      "gloss": "store",
       "shortGloss": "shop",
       "imageable": true,
       "kind": "vocab"

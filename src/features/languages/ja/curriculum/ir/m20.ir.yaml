@@ -263,7 +263,7 @@ grammarPoints:
     rule: "Often both things are true and you still have a preference, and Japanese has a tidy way to say so. Put も on BOTH halves and you get 'both of them': 「でんしゃも バスも たかい」 — the train and the bus are both expensive. も is the same 'too' you have had since module 3; doubling it is what turns two separate 'too's into one pair. Then hang the comparison off the end with けど: 「でんしゃも バスも たかいけど でんしゃの ほうが たかい」. That is the shape of a real opinion — concede first, choose second — and it is far friendlier than flatly saying one thing is worse. When both things have already been named you can shorten the first half to どっちも, 'both of them': 「どっちも たかい」."
     examples:
       - { ja: "でんしゃも バスも たかいけど でんしゃの ほうが たかい。", en: "The train and the bus are both expensive, but the train is the more expensive one." }
-      - { ja: "すしも とりにくも おいしいけど すしの ほうが すきだ。", en: "Sushi and chicken are both delicious, but sushi is the one I like more." }
+      - { ja: "すしも とりにくも おいしいけど すしの ほうが すきだ。", en: "Sushi and chicken are both delicious, but I like sushi more." }
       - { ja: "どっちも たかい。", en: "Both are expensive." }
       - { ja: "としょかんも きっさてんも しずかだ。", en: "The library and the coffee shop are both quiet." }
       - { ja: "ミカも ケンも いそがしいけど ケンの ほうが いそがしい。", en: "Mika and Ken are both busy, but Ken is the busier one." }
@@ -349,7 +349,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "バスは やすい？", en: "Is the bus cheap?" }
-          - { speaker: "Mika", ja: "バスの ほうが やすい。でも でんしゃの ほうが すきだ。", en: "The bus is the cheaper one. But the train is the one I like more." }
+          - { speaker: "Mika", ja: "バスの ほうが やすい。でも でんしゃの ほうが すきだ。", en: "The bus is cheaper. But I like the train more." }
         questions:
           - { q: "What does Mika say about the bus?", options: ["It's the cheaper one", "It's the more expensive one", "She likes it more than the train", "She never takes it"], answer: "It's the cheaper one" }
       - { kind: challenge, ja: "でんしゃの ほうが バスより たかいけど でんしゃで がっこうに いく。", en: "The train is more expensive than the bus, but I go to school by train", combines: [yori-comparison, kedo, de-action, ni-location], mode: build }
@@ -380,7 +380,7 @@ lessons:
           - { speaker: "Ken", ja: "ううん がっこうより ちかい。あるく。", en: "Nope, it's closer than the school. I'll walk." }
         questions:
           - { q: "What does Ken say about the station?", options: ["It's closer than the school", "It's farther than the school", "It's next to the school", "He takes the bus to it"], answer: "It's closer than the school" }
-      - { kind: challenge, ja: "うちは えきより とおいから じてんしゃで えきに いく。", en: "My place is farther than the station, so I'll go to the station by bike", combines: [wa-topic, kara-because, de-action, ni-location], mode: build }
+      - { kind: challenge, ja: "うちは えきより とおいから じてんしゃで えきに いく。", en: "My place is far from the station, so I'll go to the station by bike", combines: [wa-topic, kara-because, de-action, ni-location], mode: build }
     reviewPool: [えき, がっこう, としょかん, びょういん, だいがく, きっさてん, うち, かばん, さむい, おおきい]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -397,7 +397,7 @@ lessons:
       - { kind: sentence, ja: "じてんしゃと くるまと どっちが やすい？", en: "Which is cheaper, a bike or a car", exercises: [to-and, i-adj-present], mode: listening }
       - { kind: sentence, ja: "えいがと おんがくと どっちが おもしろい？", en: "Which is more interesting, movies or music", exercises: [to-and, i-adj-present], mode: build }
       - { kind: sentence, ja: "どっちが ちかい？", en: "Which is the closer one", exercises: [to-and], mode: build }
-      - { kind: sentence, ja: "ちかてつの ほうが やすいから ちかてつで いく。", en: "The subway is the cheaper one, so I'll go by subway", exercises: [yori-comparison, kara-because, de-action], mode: build }
+      - { kind: sentence, ja: "ちかてつの ほうが やすいから ちかてつで いく。", en: "The subway is cheaper, so I'll go by subway", exercises: [yori-comparison, kara-because, de-action], mode: build }
       - { kind: sentence, ja: "でんしゃと バスと どっちが たかい？", en: "Say to a friend: Which is more expensive, the train or the bus", exercises: [to-and], mode: translate }
       - { kind: particle-cloze, stem: "でんしゃと バスと ", tail: "が たかい？", answer: "どっち", options: ["どっち", "どこ", "だれ"], en: "Which is more expensive, the train or the bus?", explanation: "どっち asks which of TWO things. どこ asks where and だれ asks who — neither can pick between a train and a bus." }
       - { kind: listening-comp, audio: "すしと とりにくと どっちが すき？", answer: "Which do you like more, sushi or chicken?", distractors: ["Do you like sushi and chicken?", "Which is more expensive, sushi or chicken?", "Which do you like more, sushi or bread?"], exercises: [to-and, suki-kirai-no] }
@@ -433,7 +433,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "じてんしゃと でんしゃと どっちが やすい？", en: "Which is cheaper, a bike or the train?" }
-          - { speaker: "Mika", ja: "じてんしゃの ほうが やすい。でも でんしゃの ほうが すきだ。", en: "The bike is the cheaper one. But the train is the one I like more." }
+          - { speaker: "Mika", ja: "じてんしゃの ほうが やすい。でも でんしゃの ほうが すきだ。", en: "The bike is cheaper. But I like the train more." }
         questions:
           - { q: "Which does Mika prefer?", options: ["The train", "The bike", "Neither of them", "She doesn't say"], answer: "The train" }
     reviewPool: [でんしゃ, バス, ちかてつ, えき, がっこう, としょかん, かばん, けいたい, ちかい, とおい]
@@ -559,8 +559,8 @@ lessons:
       - { kind: rule, grammarPointId: na-adj-present }
       - { kind: sentence, ja: "としょかんの ほうが きっさてんより しずかだ。", en: "The library is quieter than the coffee shop", exercises: [na-adj-present, yori-comparison], mode: build }
       - { kind: sentence, ja: "みせは としょかんより にぎやかだ。", en: "The shop is livelier than the library", exercises: [na-adj-present, wa-topic], mode: build }
-      - { kind: sentence, ja: "この えいがの ほうが ゆうめいだ。", en: "This movie is the more famous one", exercises: [na-adj-present, kono-sono-ano-dono], mode: build }
-      - { kind: sentence, ja: "すしの ほうが すきだから すしを たべる。", en: "Sushi is the one I like more, so I'll eat sushi", exercises: [na-adj-present, suki-kirai-no, kara-because], mode: listening }
+      - { kind: sentence, ja: "この えいがの ほうが ゆうめいだ。", en: "This movie is more famous", exercises: [na-adj-present, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "すしの ほうが すきだから すしを たべる。", en: "I like sushi more, so I'll eat sushi", exercises: [na-adj-present, suki-kirai-no, kara-because], mode: listening }
       - { kind: sentence, ja: "きょうの ほうが きのうより ひまだ。", en: "Today is freer than yesterday", exercises: [na-adj-present, yori-comparison], mode: build }
       # じかん is the ONE under-exposed CEJC top-150 word `exposure-audit`
       # hands to m20 (#130, seen once in the whole course before this) — inv 27.
@@ -577,7 +577,7 @@ lessons:
           - { speaker: "Mika", ja: "としょかんの ほうが しずかだ。でも きっさてんの ほうが ちかい。", en: "The library is the quieter one. But the coffee shop is the closer one." }
         questions:
           - { q: "What does Mika say about the coffee shop?", options: ["It's the closer one", "It's the quieter one", "It's both closer and quieter", "She never goes there"], answer: "It's the closer one" }
-      - { kind: challenge, ja: "としょかんの ほうが しずかだと おもうけど きっさてんの ほうが ちかい。", en: "I think the library is the quieter one, but the coffee shop is the closer one", combines: [na-adj-present, to-omoimasu, kedo, yori-comparison], mode: build }
+      - { kind: challenge, ja: "としょかんの ほうが しずかだと おもうけど きっさてんの ほうが ちかい。", en: "I think the library is quieter, but the coffee shop is closer", combines: [na-adj-present, to-omoimasu, kedo, yori-comparison], mode: build }
     reviewPool: [としょかん, きっさてん, みせ, えいが, カメラ, しずか, にぎやか, ゆうめい, ひま, じかん]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -589,7 +589,7 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: mo-also }
       - { kind: sentence, ja: "でんしゃも バスも たかいけど でんしゃの ほうが たかい。", en: "The train and the bus are both expensive, but the train is the more expensive one", exercises: [mo-also, kedo, yori-comparison], mode: build }
-      - { kind: sentence, ja: "すしも とりにくも おいしいけど すしの ほうが すきだ。", en: "Sushi and chicken are both delicious, but sushi is the one I like more", exercises: [mo-also, kedo, na-adj-present], mode: build }
+      - { kind: sentence, ja: "すしも とりにくも おいしいけど すしの ほうが すきだ。", en: "Sushi and chicken are both delicious, but I like sushi more", exercises: [mo-also, kedo, na-adj-present], mode: build }
       - { kind: sentence, ja: "どっちも たかい。", en: "Both are expensive", exercises: [mo-also], mode: build }
       - { kind: sentence, ja: "としょかんも きっさてんも しずかだ。", en: "The library and the coffee shop are both quiet", exercises: [mo-also, na-adj-present], mode: listening }
       - { kind: sentence, ja: "えいがも おんがくも おもしろいけど えいがの ほうが すきだ。", en: "Movies and music are both interesting, but I like movies more", exercises: [mo-also, kedo, na-adj-present], mode: build }
@@ -602,7 +602,7 @@ lessons:
       # inv 5 and by particleClozePlacement's ratchet. The frame still shows
       # both も, which is the shape the lesson is about.
       - { kind: particle-cloze, stem: "でんしゃも ", tail: "も たかい。", answer: "バス", options: ["バス", "ちかてつ", "じてんしゃ"], en: "The train and the bus are both expensive", explanation: "バス is the bus — and notice も sits on BOTH halves, which is what makes it 'both … and …' rather than 'the train too'. ちかてつ is the subway and じてんしゃ a bike." }
-      - { kind: listening-comp, audio: "すしも とりにくも おいしいけど すしの ほうが すきだ。", answer: "Sushi and chicken are both delicious, but sushi is the one I like more", distractors: ["Sushi and chicken are both delicious, but chicken is the one I like more", "Sushi is delicious, but chicken isn't", "Sushi and chicken are both expensive, but I like sushi more"], exercises: [mo-also, kedo] }
+      - { kind: listening-comp, audio: "すしも とりにくも おいしいけど すしの ほうが すきだ。", answer: "Sushi and chicken are both delicious, but I like sushi more", distractors: ["Sushi and chicken are both delicious, but chicken is the one I like more", "Sushi is delicious, but chicken isn't", "Sushi and chicken are both expensive, but I like sushi more"], exercises: [mo-also, kedo] }
       - { kind: listening-comp, audio: "この かさも あの かさも ごひゃくえんだ。", answer: "This umbrella and that umbrella are both 500 yen", distractors: ["This umbrella is 500 yen, but that one isn't", "This umbrella and that umbrella are both 900 yen", "This umbrella and that bag are both 500 yen"], exercises: [mo-also, numbers-100-10000] }
       - kind: dialogue
         lines:
@@ -655,7 +655,7 @@ lessons:
       - { kind: sentence, ja: "えきは がっこうより ちかい。", en: "The station is closer than the school", exercises: [wa-topic, yori-comparison], mode: build }
       - { kind: particle-cloze, stem: "としょかんの ほうが きっさてんより ", tail: "。", answer: "しずかだ", options: ["しずかだ", "にぎやかだ", "ちかい"], en: "The library is quieter than the coffee shop", explanation: "しずかだ is quiet, and it keeps its だ. にぎやかだ is its opposite and ちかい is about distance." }
       - { kind: sentence, ja: "この くつは さんぜんえんだけど あの くつは はっせんえんだ。", en: "These shoes are 3,000 yen, but those shoes are 8,000 yen", exercises: [ikura-price, kedo], mode: build }
-      - { kind: listening-comp, audio: "すしも とりにくも おいしいけど すしの ほうが すきだ。", answer: "Sushi and chicken are both delicious, but sushi is the one I like more", distractors: ["Sushi and chicken are both delicious, but chicken is the one I like more", "Sushi is delicious, but chicken isn't", "Sushi and chicken are both cheap, but I like sushi more"], exercises: [mo-also, kedo] }
+      - { kind: listening-comp, audio: "すしも とりにくも おいしいけど すしの ほうが すきだ。", answer: "Sushi and chicken are both delicious, but I like sushi more", distractors: ["Sushi and chicken are both delicious, but chicken is the one I like more", "Sushi is delicious, but chicken isn't", "Sushi and chicken are both cheap, but I like sushi more"], exercises: [mo-also, kedo] }
       - { kind: sentence, ja: "でんしゃと バスと どっちが たかい？", en: "Which is more expensive, the train or the bus", exercises: [to-and], mode: build }
       - { kind: sentence, ja: "どっちも たかい。", en: "Say to a friend: Both are expensive", exercises: [mo-also], mode: translate }
       - { kind: listening-comp, audio: "きっぷは はっぴゃくえんだから かわない。", answer: "The ticket is 800 yen, so I won't buy it", distractors: ["The ticket is 800 yen, so I'll buy it", "The ticket is 600 yen, so I won't buy it", "The bag is 800 yen, so I won't buy it"], exercises: [numbers-100-10000, kara-because] }

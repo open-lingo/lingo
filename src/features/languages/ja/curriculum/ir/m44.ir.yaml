@@ -276,7 +276,7 @@ newAtoms:
   # (last-wins, this module's own newAtoms) m13's unrelated たい-form
   # homograph みたい (見たい, "want to watch") for every sentence in this
   # module (see CORRECTED note above).
-  - { kana: みたい, romaji: mitai, gloss: "seems like, looks like (casual counterpart of ようだ — NOT みる+たい 'want to watch')", shortGloss: "seems like (casual)", imageable: false, kind: vocab }
+  - { kana: みたい, romaji: mitai, gloss: "seems like, looks like (counterpart of ようだ — NOT みる+たい 'want to watch')", shortGloss: "seems like", imageable: false, kind: vocab }
   # ══ L6 (neo-6), id you-ni-simile — the adverbial simile connector,
   # plus its new domain nouns (difference/characteristic).
   - { kana: ちがい, kanji: 違い, romaji: chigai, gloss: "a difference", shortGloss: "difference", imageable: false, kind: vocab, pos: noun }
@@ -318,7 +318,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "なんだか けむりの においが するね。", en: "Somehow there's a smell of smoke, huh." }
-          - { speaker: "Ken", ja: "ほんとだ。どこから？", en: "Really. From where?" }
+          - { speaker: "Ken", ja: "ほんとだ。どこから？", en: "Really. Where from?" }
           - { speaker: "Mika", ja: "わからない。でも、かぜが つめたい。", en: "I don't know. But the wind is cold." }
         questions:
           - { q: "What does Mika notice?", options: ["A smell of smoke", "A sound of thunder", "A taste of something sweet", "Nothing unusual"], answer: "A smell of smoke" }
@@ -470,11 +470,11 @@ lessons:
       - { kind: sentence, ja: "かがみのような うみ。", en: "A mirror-like sea.", exercises: [you-na-simile], mode: build }
       - { kind: sentence, ja: "ねこのような め。", en: "Cat-like eyes.", exercises: [you-na-simile], mode: build }
       - { kind: sentence, ja: "こどものような こえ。", en: "A childlike voice.", exercises: [you-na-simile], mode: listening }
-      - { kind: sentence, ja: "たなかさんは ちちに にている。", en: "Tanaka resembles his father.", exercises: [dictionary-form], mode: build }
+      - { kind: sentence, ja: "たなかさんは ちちに にている。", en: "Tanaka resembles my father.", exercises: [dictionary-form], mode: build }
       - { kind: sentence, ja: "ミカと いもうとは そっくりだ。", en: "Mika and her younger sister are exactly alike.", exercises: [na-adj-present], mode: build }
       - { kind: particle-cloze, stem: "にんぎょう", tail: " かお。", answer: "のような", options: ["のような", "のように", "なような"], en: "A doll-like face.", explanation: "のような modifies the NOUN that follows it (かお) — のように would instead describe a VERB or adjective's manner, and なような isn't a real connector shape at all." }
       - { kind: listening-comp, audio: "かがみのような うみ。", answer: "A mirror-like sea.", distractors: ["A stormy, rough sea.", "No sea at all.", "A frozen sea."], q: "What does this mean?" }
-      - { kind: listening-comp, audio: "たなかさんは ちちに にている。", answer: "Tanaka resembles his father.", distractors: ["Tanaka doesn't resemble his father at all.", "Tanaka is his own father.", "Tanaka has never met his father."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "たなかさんは ちちに にている。", answer: "Tanaka resembles my father.", distractors: ["Tanaka doesn't resemble his father at all.", "Tanaka is his own father.", "Tanaka has never met his father."], q: "What does this mean?" }
       - { kind: listening-comp, audio: "こどもは ちちに よく にる。", answer: "Children often resemble their father.", distractors: ["Children never resemble their father.", "Children are their father's exact copy.", "Children have never met their father."], q: "What does this mean?" }
       - { kind: kanji, kana: にる, kanji: 似る, distractors: ["にぎる", "にがい", "にんぎょう"], exercises: [you-na-simile] }
       - kind: sim
@@ -506,7 +506,7 @@ lessons:
       - { kind: sentence, ja: "こどもみたいだ。", en: "Seems like a child.", exercises: [mitai-casual], mode: build }
       - { kind: particle-cloze, stem: "こおり", tail: " つめたい。", answer: "のように", options: ["のように", "のような", "ように"], en: "As cold as ice.", explanation: "のように needs の before よう — simile always attaches through の onto the noun." }
       - { kind: sentence, ja: "にんぎょうのような かお。", en: "A doll-like face.", exercises: [you-na-simile], mode: build }
-      - { kind: listening-comp, audio: "たなかさんは ちちに にている。", answer: "Tanaka resembles his father.", distractors: ["Tanaka doesn't resemble his father at all.", "Tanaka is his own father.", "Tanaka has never met his father."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "たなかさんは ちちに にている。", answer: "Tanaka resembles my father.", distractors: ["Tanaka doesn't resemble his father at all.", "Tanaka is his own father.", "Tanaka has never met his father."], q: "What does this mean?" }
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "この おとは ねこのように きこえるね。", en: "This sound sounds like a cat, huh." }
@@ -557,7 +557,7 @@ lessons:
       - { kind: sentence, ja: "にんぎょうのような かお。", en: "A doll-like face.", exercises: [you-na-simile], mode: listening }
       - { kind: particle-cloze, stem: "かおが あかいから、かぜを ひいた", tail: "。", answer: "ようだ", options: ["ようだ", "のように", "のような"], en: "Since his face is red, it seems like he caught a cold.", explanation: "Direct-evidence guessing off a plain verb needs ようだ straight, no connector. のように/のような are simile shapes for comparing to a NOUN, not for stating a guess about reality." }
       - { kind: listening-comp, audio: "にんぎょうのような かお。", answer: "A doll-like face.", distractors: ["A very ugly face.", "No face at all.", "An old man's face."], q: "What does this mean?" }
-      - { kind: listening-comp, audio: "たなかさんは ちちに にている。", answer: "Tanaka resembles his father.", distractors: ["Tanaka doesn't resemble his father at all.", "Tanaka is his own father.", "Tanaka has never met his father."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "たなかさんは ちちに にている。", answer: "Tanaka resembles my father.", distractors: ["Tanaka doesn't resemble his father at all.", "Tanaka is his own father.", "Tanaka has never met his father."], q: "What does this mean?" }
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "たなかさん、かおが あかいね。かぜを ひいたようだけど、だいじょうぶかな。", en: "Tanaka's face is red, huh. Seems like he caught a cold, but I wonder if he's okay." }
@@ -588,7 +588,7 @@ lessons:
           - { speaker: "Mika", ja: "かさを もっていこう。ふんいきも なんだか しずかだしね。", en: "Let's take an umbrella. The atmosphere is also somehow quiet, after all." }
         questions:
           - { q: "What does Ken conclude from the signs?", options: ["It seems like it'll rain", "It seems like it'll be sunny", "He has no opinion", "It already rained"], answer: "It seems like it'll rain" }
-      - { kind: sentence, ja: "たなかさんは ちちに にている。", en: "Tanaka resembles his father.", exercises: [dictionary-form], mode: build }
+      - { kind: sentence, ja: "たなかさんは ちちに にている。", en: "Tanaka resembles my father.", exercises: [dictionary-form], mode: build }
     reviewPool: [におい, あじ, けむり, こおり, よう, みたい, ちがい, とくちょう, かがみ, にんぎょう, そっくり, にる, ふんいき, きざし, ようす]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -605,9 +605,9 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "たなかさん、かおが あかいね。かぜを ひいたようだけど、だいじょうぶかな。", en: "Tanaka's face is red, huh. Seems like he caught a cold, but I wonder if he's okay." }
-          - { speaker: "Ken", ja: "やくそくが あるから、くるはずだよ。しんじよう。", en: "Since there's a promise, he should be coming. Let's believe it." }
+          - { speaker: "Ken", ja: "やくそくが あるから、くるはずだよ。しんじよう。", en: "Since there are plans, he should be coming. Let's believe it." }
           - { speaker: "Mika", ja: "うん。こえも こどものように きこえたけど、げんきなようだし、あんしんだね。", en: "Yeah. His voice sounded childlike too, but he seems energetic, so that's a relief." }
         questions:
           - { q: "How does Mika sound about Tanaka's condition by the end?", options: ["Reassured — he seems fine after all", "Still very worried", "Certain he is seriously ill", "She has no opinion"], answer: "Reassured — he seems fine after all" }
-      - { kind: challenge, ja: "かおが あかいから かぜを ひいたようだが、やくそくが あるから、たなかさんは きっと くるはずだと しんじている。", en: "Since his face is red it seems like he caught a cold, but since there's a promise, I believe that Tanaka should definitely be coming.", combines: [evidential-family, youda-direct-evidence, hazu, kara-because, tabun-kitto], mode: build }
+      - { kind: challenge, ja: "かおが あかいから かぜを ひいたようだが、やくそくが あるから、たなかさんは きっと くるはずだと しんじている。", en: "Since his face is red it seems like he caught a cold, but since he has plans, I believe that Tanaka should definitely be coming.", combines: [evidential-family, youda-direct-evidence, hazu, kara-because, tabun-kitto], mode: build }
     reviewPool: [におい, あじ, けむり, こおり, よう, みたい, ちがい, とくちょう, かがみ, にんぎょう, そっくり, にる, ふんいき, きざし, ようす]

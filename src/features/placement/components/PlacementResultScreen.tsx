@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { AlertBanner } from "@/shared/components/ui/AlertBanner";
 import { Icon } from "@/shared/components/Icon";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getMockCourse } from "@/shared/domain/mockCourse";
@@ -13,6 +14,11 @@ function sortModuleIds(ids: string[]): string[] {
 type Props = {
   passedModules: string[];
   assumedModules?: string[];
+  /** True when the server hasn't confirmed the synthesised completions yet
+   *  (offline, or a rejected batch). b18 #144: the founder had no way to
+   *  know his test-out lived on one device only, and asked whether he "needed
+   *  to prompt it to save". Say so on the screen instead. */
+  progressSyncPending?: boolean;
   missedSkills?: MissedSkill[];
   skippedLessonCount: number;
   seededAtomCount: number;
@@ -108,6 +114,7 @@ export function PlacementResultScreen({
   isTestOut,
   testOutModuleLabel,
   itemResults,
+  progressSyncPending = false,
   onContinue,
 }: Props) {
   const { t } = useTranslation();
@@ -166,6 +173,21 @@ export function PlacementResultScreen({
             </p>
             <ModuleChips modules={sortModuleIds(assumedModules)} />
           </div>
+        )}
+        {passed && progressSyncPending && (
+          <AlertBanner
+            variant="warning"
+            className="w-full max-w-md text-left"
+            title={t(
+              "placement.testOutSyncPendingTitle",
+              "Saved on this device",
+            )}
+          >
+            {t("placement.testOutSyncPendingBody", {
+              defaultValue:
+                "We couldn't reach the server, so this credit hasn't synced to your other devices yet. It will retry on its own — no action needed.",
+            })}
+          </AlertBanner>
         )}
         <button
           onClick={onContinue}

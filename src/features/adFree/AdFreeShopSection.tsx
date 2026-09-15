@@ -155,9 +155,9 @@ export function AdFreeShopSection({ lingots, statsReady }: Props) {
                 <Button
                   type="button"
                   variant="primary"
-                  size="sm"
-                  className="mt-2.5 w-full sm:mt-3"
+                  className="mt-2.5 min-h-[44px] w-full sm:mt-3"
                   disabled={!statsReady || busy || !canAfford}
+                  data-testid="shop-buy-button"
                   title={
                     !canAfford && statsReady
                       ? t("adFree.shop.tooltipInsufficient", {

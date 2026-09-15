@@ -503,7 +503,7 @@
         {
           "kind": "sentence",
           "ja": "なつやすみに うみに いった ことが ある。",
-          "en": "I have been to the sea in the summer vacation",
+          "en": "I have been to the sea during summer vacation",
           "exercises": [
             "koto-ga-aru",
             "ni-time",
@@ -964,7 +964,7 @@
           "audio": "なつやすみに うみに いく つもりだ。",
           "answer": "I intend to go to the sea in the summer vacation",
           "distractors": [
-            "I have been to the sea in the summer vacation",
+            "I have been to the sea during summer vacation",
             "I want to go to the sea in the summer vacation",
             "I intend to go to the mountains in the summer vacation"
           ],
@@ -993,7 +993,7 @@
             {
               "speaker": "Tom",
               "ja": "なつやすみは なにを する つもり？",
-              "en": "What are you planning to do in the summer?"
+              "en": "What are you planning to do for summer vacation?"
             },
             {
               "speaker": "Mika",
@@ -1199,7 +1199,7 @@
             {
               "speaker": "Ken",
               "ja": "ううん、ない。なつやすみに いく つもりだ。",
-              "en": "No, never. I'm planning to go in the summer."
+              "en": "No, I haven't. I'm planning to go during summer vacation."
             }
           ],
           "questions": [
@@ -1651,7 +1651,7 @@
         {
           "kind": "sentence",
           "ja": "にほんの やまに いった ことが ある。",
-          "en": "I have been to a mountain in Japan",
+          "en": "I have been to the mountains in Japan",
           "exercises": [
             "kanji-set-2",
             "koto-ga-aru",
@@ -1766,7 +1766,7 @@
             "かわ",
             "うみ"
           ],
-          "en": "I have been to a mountain in Japan",
+          "en": "I have been to the mountains in Japan",
           "explanation": "やま is a mountain — the glyph 山 is a picture of three peaks. かわ is a river and うみ is the sea."
         },
         {
@@ -1903,7 +1903,7 @@
         {
           "kind": "sentence",
           "ja": "にほんの やまに いった ことが ある。",
-          "en": "I have been to a mountain in Japan",
+          "en": "I have been to the mountains in Japan",
           "exercises": [
             "kanji-set-2",
             "koto-ga-aru"
@@ -2012,7 +2012,7 @@
             {
               "speaker": "Mika",
               "ja": "ううん。およがない つもりだ。あしが いたい。",
-              "en": "No. I'm planning not to. My foot hurts."
+              "en": "No. I don't plan to swim. My foot hurts."
             }
           ],
           "questions": [
@@ -2078,7 +2078,7 @@
         {
           "kind": "sentence",
           "ja": "りょこうに いく とき カメラを かう つもりだ。",
-          "en": "When I go traveling, I intend to buy a camera first",
+          "en": "When I go traveling, I intend to buy a camera",
           "exercises": [
             "toki",
             "tsumori-desu",
@@ -2102,7 +2102,7 @@
         {
           "kind": "sentence",
           "ja": "うみに いった とき およいだ。",
-          "en": "When I got to the sea, I went swimming",
+          "en": "When I went to the sea, I swam",
           "exercises": [
             "toki",
             "ta-form"
@@ -2198,7 +2198,7 @@
             {
               "speaker": "Tom",
               "ja": "にほんに いった とき なにを たべた？",
-              "en": "What did you eat when you got to Japan?"
+              "en": "What did you eat when you went to Japan?"
             },
             {
               "speaker": "Mika",
@@ -2282,7 +2282,7 @@
         {
           "kind": "sentence",
           "ja": "うみで およいでから ちゃを のむ つもりだ。",
-          "en": "I intend to swim in the sea, then drink some tea",
+          "en": "I plan to drink some tea after swimming in the sea",
           "exercises": [
             "te-kara",
             "tsumori-desu",
@@ -2606,7 +2606,7 @@
         {
           "kind": "challenge",
           "ja": "ミカは がくせいの とき がいこくで はたらいた ことが あると おもうけど きいた ことが ない。",
-          "en": "I think Mika worked abroad back when she was a student, but I have never heard her say so",
+          "en": "I think Mika worked abroad when she was a student, but I've never heard that.",
           "combines": [
             "to-omoimasu",
             "toki",
@@ -2705,7 +2705,7 @@
             "いく",
             "いきたい"
           ],
-          "en": "When I got to the sea, I went swimming",
+          "en": "When I went to the sea, I swam",
           "explanation": "the swimming comes AFTER arriving, so the とき clause is past — いった. いく would put the swimming before the trip."
         },
         {
@@ -2754,7 +2754,7 @@
         {
           "kind": "listening-comp",
           "audio": "うみで およいでから ちゃを のむ つもりだ。",
-          "answer": "I intend to swim in the sea, then drink some tea",
+          "answer": "I plan to drink some tea after swimming in the sea",
           "distractors": [
             "I intend to drink tea, then swim in the sea",
             "I swam in the sea and then drank tea",
@@ -2874,7 +2874,7 @@
         {
           "kind": "sentence",
           "ja": "にほんに いった とき さくらを みたけど しゃしんが ない。",
-          "en": "When I got to Japan I saw cherry blossom, but I have no photo of it",
+          "en": "When I went to Japan I saw cherry blossoms, but I don't have a photo",
           "exercises": [
             "toki",
             "ta-form",
@@ -2944,7 +2944,7 @@
         {
           "kind": "listening-comp",
           "audio": "りょこうに いく とき カメラを かう つもりだ。",
-          "answer": "When I go traveling, I intend to buy a camera first",
+          "answer": "When I go traveling, I intend to buy a camera",
           "distractors": [
             "When I went traveling, I bought a camera",
             "I have bought a camera for the trip",
@@ -2977,7 +2977,7 @@
             {
               "speaker": "Tom",
               "ja": "うん。がくせいの とき はたらいた。なつやすみに いく つもりだ。",
-              "en": "Yeah. I worked there when I was a student. I'm going again in the summer."
+              "en": "Yeah. I worked when I was a student. I intend to go during summer vacation."
             }
           ],
           "questions": [
@@ -3571,7 +3571,7 @@
     {
       "kana": "ううん",
       "romaji": "uun",
-      "gloss": "nope (casual no)",
+      "gloss": "nope",
       "shortGloss": "nope",
       "imageable": false,
       "kind": "vocab"
@@ -3620,8 +3620,8 @@
     {
       "kana": "ぼく",
       "romaji": "boku",
-      "gloss": "I, me (casual, usually male)",
-      "shortGloss": "I (casual)",
+      "gloss": "I, me",
+      "shortGloss": "I",
       "imageable": false,
       "kind": "vocab"
     },
@@ -3644,7 +3644,7 @@
     {
       "kana": "しります",
       "romaji": "shirimasu",
-      "gloss": "know (polite)",
+      "gloss": "know",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "しる"
@@ -3652,7 +3652,7 @@
     {
       "kana": "しりません",
       "romaji": "shirimasen",
-      "gloss": "don't know (polite)",
+      "gloss": "don't know",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "しる"
@@ -3668,7 +3668,7 @@
     {
       "kana": "わかります",
       "romaji": "wakarimasu",
-      "gloss": "understand (polite)",
+      "gloss": "understand",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "わかる"
@@ -3676,7 +3676,7 @@
     {
       "kana": "ちがいます",
       "romaji": "chigaimasu",
-      "gloss": "that's not right (polite)",
+      "gloss": "that's not right",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "ちがう"
@@ -4050,7 +4050,7 @@
     {
       "kana": "おぼえる",
       "romaji": "oboeru",
-      "gloss": "to memorise, to learn",
+      "gloss": "to memorize, to learn",
       "shortGloss": "memorise",
       "imageable": true,
       "kind": "verb",
@@ -4067,7 +4067,7 @@
     {
       "kana": "だった",
       "romaji": "datta",
-      "gloss": "was, were (plain)",
+      "gloss": "was, were",
       "shortGloss": "was (plain)",
       "imageable": false,
       "kind": "grammar-chunk"
@@ -4075,8 +4075,8 @@
     {
       "kana": "でした",
       "romaji": "deshita",
-      "gloss": "was, were (polite)",
-      "shortGloss": "was (polite)",
+      "gloss": "was, were",
+      "shortGloss": "was",
       "imageable": false,
       "kind": "grammar-chunk"
     },
@@ -4577,7 +4577,7 @@
     {
       "kana": "すき",
       "romaji": "suki",
-      "gloss": "likeable, like",
+      "gloss": "like",
       "shortGloss": "like",
       "imageable": false,
       "kind": "vocab"
@@ -4638,7 +4638,7 @@
     {
       "kana": "みがく",
       "romaji": "migaku",
-      "gloss": "to brush teeth, to polish",
+      "gloss": "to polish",
       "shortGloss": "polish",
       "imageable": true,
       "kind": "verb",
@@ -4714,7 +4714,7 @@
     {
       "kana": "とりにく",
       "romaji": "toriniku",
-      "gloss": "chicken meat",
+      "gloss": "chicken",
       "shortGloss": "chicken",
       "imageable": true,
       "kind": "vocab"
@@ -5070,7 +5070,7 @@
     {
       "kana": "ので",
       "romaji": "node",
-      "gloss": "because (softer)",
+      "gloss": "because",
       "shortGloss": "because",
       "imageable": false,
       "kind": "vocab"
@@ -5407,7 +5407,7 @@
     {
       "kana": "スポーツ",
       "romaji": "supootsu",
-      "gloss": "sport",
+      "gloss": "sports",
       "imageable": true,
       "kind": "vocab"
     },
@@ -5612,7 +5612,7 @@
     {
       "kana": "おじいさん",
       "romaji": "ojiisan",
-      "gloss": "grandfather, older man",
+      "gloss": "grandfather",
       "shortGloss": "older man",
       "kind": "vocab"
     },
@@ -5782,7 +5782,7 @@
     {
       "kana": "おりる",
       "romaji": "oriru",
-      "gloss": "to get off, to descend",
+      "gloss": "to get off",
       "shortGloss": "to get off",
       "kind": "vocab"
     },
@@ -5922,7 +5922,7 @@
     {
       "kana": "など",
       "romaji": "nado",
-      "gloss": "and so on, et cetera",
+      "gloss": "and so on",
       "shortGloss": "and so on",
       "imageable": false,
       "kind": "vocab"
@@ -5930,7 +5930,7 @@
     {
       "kana": "おかあさん",
       "romaji": "okaasan",
-      "gloss": "(someone else's) mother — honorific",
+      "gloss": "(someone else's) mother",
       "shortGloss": "their mother",
       "imageable": false,
       "kind": "vocab"
@@ -5938,7 +5938,7 @@
     {
       "kana": "おとうさん",
       "romaji": "otousan",
-      "gloss": "(someone else's) father — honorific",
+      "gloss": "(someone else's) father",
       "shortGloss": "their father",
       "imageable": false,
       "kind": "vocab"
@@ -5946,7 +5946,7 @@
     {
       "kana": "おにいさん",
       "romaji": "oniisan",
-      "gloss": "(someone else's) older brother — honorific",
+      "gloss": "(someone else's) older brother",
       "shortGloss": "their big brother",
       "imageable": false,
       "kind": "vocab"
@@ -5954,7 +5954,7 @@
     {
       "kana": "おねえさん",
       "romaji": "oneesan",
-      "gloss": "(someone else's) older sister — honorific",
+      "gloss": "(someone else's) older sister",
       "shortGloss": "their big sister",
       "imageable": false,
       "kind": "vocab"
@@ -5970,7 +5970,7 @@
     {
       "kana": "おさけ",
       "romaji": "osake",
-      "gloss": "sake, alcohol",
+      "gloss": "alcohol",
       "shortGloss": "sake",
       "kind": "vocab"
     },
@@ -6433,7 +6433,7 @@
     {
       "kana": "たべます",
       "romaji": "tabemasu",
-      "gloss": "eat (polite)",
+      "gloss": "eat",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "たべる",
@@ -6442,7 +6442,7 @@
     {
       "kana": "のみます",
       "romaji": "nomimasu",
-      "gloss": "drink (polite)",
+      "gloss": "drink",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "のむ",
@@ -6451,7 +6451,7 @@
     {
       "kana": "みます",
       "romaji": "mimasu",
-      "gloss": "watch (polite)",
+      "gloss": "watch",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "みる",
@@ -6460,7 +6460,7 @@
     {
       "kana": "いきます",
       "romaji": "ikimasu",
-      "gloss": "go, travel (polite)",
+      "gloss": "go, travel",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -6469,7 +6469,7 @@
     {
       "kana": "きます",
       "romaji": "kimasu",
-      "gloss": "come (polite)",
+      "gloss": "come",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる",
@@ -6478,7 +6478,7 @@
     {
       "kana": "します",
       "romaji": "shimasu",
-      "gloss": "do, make (polite)",
+      "gloss": "do, make",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "する",
@@ -6487,7 +6487,7 @@
     {
       "kana": "かいます",
       "romaji": "kaimasu",
-      "gloss": "buy (polite)",
+      "gloss": "buy",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "かう",
@@ -6496,7 +6496,7 @@
     {
       "kana": "ききます",
       "romaji": "kikimasu",
-      "gloss": "listen, ask (polite)",
+      "gloss": "listen, ask",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "きく",
@@ -6505,7 +6505,7 @@
     {
       "kana": "あそびます",
       "romaji": "asobimasu",
-      "gloss": "play (polite)",
+      "gloss": "play",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "あそぶ",
@@ -6514,7 +6514,7 @@
     {
       "kana": "あります",
       "romaji": "arimasu",
-      "gloss": "have, there is (polite)",
+      "gloss": "have, there is",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "ある",
@@ -6523,7 +6523,7 @@
     {
       "kana": "たべません",
       "romaji": "tabemasen",
-      "gloss": "don't eat (polite)",
+      "gloss": "don't eat",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "たべる",
@@ -6532,7 +6532,7 @@
     {
       "kana": "のみません",
       "romaji": "nomimasen",
-      "gloss": "don't drink (polite)",
+      "gloss": "don't drink",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "のむ",
@@ -6541,7 +6541,7 @@
     {
       "kana": "みません",
       "romaji": "mimasen",
-      "gloss": "don't watch (polite)",
+      "gloss": "don't watch",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "みる",
@@ -6550,7 +6550,7 @@
     {
       "kana": "いきません",
       "romaji": "ikimasen",
-      "gloss": "don't go, not traveling (polite)",
+      "gloss": "don't go",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -6559,7 +6559,7 @@
     {
       "kana": "きません",
       "romaji": "kimasen",
-      "gloss": "doesn't come (polite)",
+      "gloss": "doesn't come",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる",
@@ -6577,7 +6577,7 @@
     {
       "kana": "しません",
       "romaji": "shimasen",
-      "gloss": "don't do, won't make (polite)",
+      "gloss": "don't do, won't make",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "する",
@@ -6586,7 +6586,7 @@
     {
       "kana": "はたらきません",
       "romaji": "hatarakimasen",
-      "gloss": "don't work (polite)",
+      "gloss": "don't work",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "はたらく",
@@ -6595,7 +6595,7 @@
     {
       "kana": "ありません",
       "romaji": "arimasen",
-      "gloss": "doesn't have, isn't there (polite)",
+      "gloss": "doesn't have, isn't there",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "ある",
@@ -6613,7 +6613,7 @@
     {
       "kana": "はたらきます",
       "romaji": "hatarakimasu",
-      "gloss": "work (polite)",
+      "gloss": "work",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "はたらく",
@@ -6880,7 +6880,7 @@
     {
       "kana": "みせ",
       "romaji": "mise",
-      "gloss": "shop, store",
+      "gloss": "store",
       "shortGloss": "shop",
       "imageable": true,
       "kind": "vocab"

@@ -286,14 +286,14 @@ newAtoms:
   - { kana: おわったら, romaji: "owattara", gloss: "if/when it finishes (finish, conditional)", shortGloss: "if it finishes (finish)", imageable: false, kind: verb-form, derivedFrom: おわる, verbClass: u }
   - { kana: みち, romaji: "michi", gloss: "a road, a street", shortGloss: "road", imageable: true, kind: vocab }
   - { kana: みぎ, romaji: "migi", gloss: "the right, the right-hand side", shortGloss: "right", imageable: true, kind: vocab }
-  - { kana: ひだり, romaji: "hidari", gloss: "the left, the left-hand side", shortGloss: "left", imageable: true, kind: vocab }
+  - { kana: ひだり, romaji: "hidari", gloss: "the left", shortGloss: "left", imageable: true, kind: vocab }
   - { kana: まっすぐ, romaji: "massugu", gloss: "straight ahead", shortGloss: "straight", imageable: true, kind: vocab }
   # ══ L5. The machines. おす is `imageable: false` because 👆 reads as まっすぐ's
   #    ⬆️ and まっすぐ is met two lessons earlier; まわす likewise, against
   #    まがる's ↩️. ボタン, きかい, うごく and おと each own a glyph nothing else
   #    in the course uses, so four of the six debut on a picture.
   - { kana: ボタン, romaji: "botan", gloss: "a button", shortGloss: "button", imageable: true, kind: vocab }
-  - { kana: おす, romaji: "osu", gloss: "to press, to push", shortGloss: "press", imageable: false, kind: verb, verbClass: u }
+  - { kana: おす, romaji: "osu", gloss: "to push", shortGloss: "press", imageable: false, kind: verb, verbClass: u }
   - { kana: きかい, romaji: "kikai", gloss: "a machine", shortGloss: "machine", imageable: true, kind: vocab }
   - { kana: うごく, romaji: "ugoku", gloss: "to move, to run (of a machine)", shortGloss: "move", imageable: true, kind: verb, verbClass: u }
   - { kana: おと, romaji: "oto", gloss: "a sound", shortGloss: "sound", imageable: true, kind: vocab }
@@ -348,7 +348,7 @@ lessons:
       - { kind: sentence, ja: "おかねが あったら、くるまを かう。", en: "If I had money, I'd buy a car", exercises: [tara, ga-existence, wo-object], mode: build }
       # The anti-pattern, drilled rather than only stated: ら lands on the PAST.
       - { kind: particle-cloze, stem: "あめが ", tail: "、いえに いる。", answer: "ふったら", options: ["ふったら", "ふる", "ついたら"], en: "If it rains, I'll stay home", explanation: "ら goes on the plain PAST, so ふる becomes ふった first and then ふったら. The bare dictionary form ふる cannot carry a condition at all, and ついたら is the right shape on the wrong verb — it is the rain that has to fall here." }
-      - { kind: sentence, ja: "その ほんを よんだら、わたしに かす。", en: "When I've read that book, I'll lend it to you", exercises: [tara, wo-object, ni-recipient], mode: build }
+      - { kind: sentence, ja: "その ほんを よんだら、わたしに かす。", en: "When you've read that book, you'll lend it to me", exercises: [tara, wo-object, ni-recipient], mode: build }
       - { kind: sentence, ja: "じかんが あったら、あそぶ。", en: "If I have time, I'll hang out", exercises: [tara, ga-existence], mode: translate }
       - { kind: kanji, kana: えき, kanji: 駅, distractors: ["えぎ", "うま", "やく"], exercises: [tara] }
       - { kind: sentence, ja: "くうこうに ついたら、でんわを かける。", en: "When I get to the airport, I'll call", exercises: [tara, ni-location, wo-object], mode: listening }
@@ -367,7 +367,7 @@ lessons:
         lines:
           - { speaker: "Mika", ja: "あした なにを する？", en: "What are you doing tomorrow?" }
           - { speaker: "Tom", ja: "あめが ふったら、いえに いる。", en: "If it rains, I'll stay home." }
-          - { speaker: "Mika", ja: "じかんが あったら、あそぶ？", en: "If you've got time, want to hang out?" }
+          - { speaker: "Mika", ja: "じかんが あったら、あそぶ？", en: "If you have time, want to hang out?" }
         questions:
           - { q: "What decides whether Tom stays home?", options: ["Whether it rains", "Whether Mika is free", "Whether he has money", "Whether he finishes his homework"], answer: "Whether it rains" }
       - { kind: challenge, ja: "うちに かえったら ばんごはんを たべて、しゅくだいを する。", en: "When I get home I'll have dinner and do my homework", combines: [tara, te-form, wo-object, ni-location], mode: build }
@@ -404,7 +404,7 @@ lessons:
       - { kind: sentence, ja: "やすみに なったら、りょこうを する。", en: "When vacation comes, I'll take a trip", exercises: [tara, ni-time, wo-object], mode: translate }
       - { kind: kanji, kana: はる, kanji: 春, distractors: ["ばる", "はろ", "しゅう"], exercises: [tara] }
       - { kind: sentence, ja: "がっこうに はいったら、ともだちが できる。", en: "When I start school, I'll make friends", exercises: [tara, dekiru, ga-existence], mode: build }
-      - { kind: sentence, ja: "じかんが あったら、あそびに いく。", en: "If I have time, I'll come over", exercises: [tara, ni-iku, ga-existence], mode: build }
+      - { kind: sentence, ja: "じかんが あったら、あそびに いく。", en: "If there is time, I'll go hang out", exercises: [tara, ni-iku, ga-existence], mode: build }
       - { kind: sentence, ja: "うちに かえったら、ほんを よむ。", en: "When I get home, I'll read a book", exercises: [tara, wo-object], mode: listening }
       - { kind: particle-cloze, stem: "だいがくに ", tail: "、にほんごを ならう。", answer: "はいったら", options: ["はいったら", "はいる", "かえったら"], en: "When I get into university, I'll study Japanese", explanation: "はいる is a う-verb ending in る, so its past is はいった — the same った you built for かう and まつ — and the conditional is はいったら. かえったら is built correctly but names the wrong event." }
       - { kind: sentence, ja: "ふゆに なったら、さむく なる。", en: "When winter comes, it gets cold", exercises: [tara, ku-ni-naru], mode: translate }
@@ -517,8 +517,8 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Tanaka", ja: "この きかいは どう つかう？", en: "How do you use this machine?" }
-          - { speaker: "Tom", ja: "この ボタンを おすと、うごく。", en: "If you press this button, it starts." }
-          - { speaker: "Tanaka", ja: "おとが きこえる？", en: "Can you hear a sound?" }
+          - { speaker: "Tom", ja: "この ボタンを おすと、うごく。", en: "If you press this button, it works." }
+          - { speaker: "Tanaka", ja: "おとが きこえる？", en: "Can you hear the sound?" }
           - { speaker: "Tom", ja: "うん。うごくと、おとが きこえる。", en: "Yeah. When it runs, you hear a sound." }
         questions:
           - { q: "When do you hear the sound?", options: ["Whenever the machine is running", "Only when you press the button twice", "Only in winter", "Never — it's silent"], answer: "Whenever the machine is running" }
@@ -604,10 +604,10 @@ lessons:
           - { speaker: "Tanaka", ja: "この おおきい ボタンは なに？", en: "What's this big button?" }
           - { speaker: "Tom", ja: "おすと、きかいが とまる。", en: "If you press it, the machine stops." }
           - { speaker: "Tanaka", ja: "しごとが おわったら、それを おす。", en: "When work finishes, you press it." }
-          - { speaker: "Tom", ja: "はい。", en: "Got it." }
+          - { speaker: "Tom", ja: "はい。", en: "Yes" }
         questions:
           - { q: "Why does Tanaka's last sentence use たら and not と?", options: ["Because it ends in a request, and と cannot take one", "Because the work has already finished", "Because ボタン is a katakana word", "Because Tanaka is being polite to Tom"], answer: "Because it ends in a request, and と cannot take one" }
-      - { kind: challenge, ja: "しごとが おわったら、きかいが とまるまで その ボタンを おして ください。", en: "When work finishes, please hold that button down until the machine stops", combines: [tara, to-conditional, te-kudasai, made-until], mode: build }
+      - { kind: challenge, ja: "しごとが おわったら、きかいが とまるまで その ボタンを おして ください。", en: "When the job is finished, please press that button until the machine stops", combines: [tara, to-conditional, te-kudasai, made-until], mode: build }
     reviewPool: [とまる, ボタン, きかい, ドア, かぎ, やすみ, うみ, しごと, えき, でんわ]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -655,22 +655,22 @@ lessons:
       - { kind: sentence, ja: "ちかてつに のったら どうですか。", en: "How about taking the subway?", exercises: [tara-dou, ni-location], mode: build }
       - { kind: sentence, ja: "せんせいに きいたら どうですか。", en: "How about asking the teacher?", exercises: [tara-dou, ni-recipient], mode: build }
       - { kind: sentence, ja: "くすりを のんだら どうですか。", en: "How about taking some medicine?", exercises: [tara-dou, wo-object], mode: build }
-      - { kind: sentence, ja: "はやく ねたら いい。", en: "You'd do well to sleep early", exercises: [tara-dou], mode: build }
+      - { kind: sentence, ja: "はやく ねたら いい。", en: "You should go to sleep early", exercises: [tara-dou], mode: build }
       - { kind: sentence, ja: "ちかみちを とおったら いい。", en: "You'd do well to take the shortcut", exercises: [tara-dou, wo-object], mode: build }
       - { kind: particle-cloze, stem: "いしゃに ", tail: " どうですか。", answer: "いったら", options: ["いったら", "いくと", "いく"], en: "How about going to a doctor?", explanation: "どうですか asks the other person what they think of the idea, and asking is something that might not happen — so the たら shape is the only one that fits. いくと would claim that going to a doctor always produces this question, which is nonsense." }
       - { kind: sentence, ja: "バスに のったら どうですか。", en: "How about taking the bus?", exercises: [tara-dou, ni-location], mode: listening }
-      - { kind: sentence, ja: "ともだちに きいたら いい。", en: "You'd do well to ask a friend", exercises: [tara-dou, ni-recipient], mode: translate }
+      - { kind: sentence, ja: "ともだちに きいたら いい。", en: "You should ask a friend", exercises: [tara-dou, ni-recipient], mode: translate }
       - { kind: sentence, ja: "この みちを まっすぐ いったら どうですか。", en: "How about going straight along this road?", exercises: [tara-dou, wo-object], mode: translate }
       - { kind: kanji, kana: くすり, kanji: 薬, distractors: ["くすい", "ぐすり", "やくそう"], exercises: [tara-dou] }
       - { kind: sentence, ja: "びょうきだから、はやく かえったら どうですか。", en: "You're sick, so how about going home early?", exercises: [tara-dou, kara-because], mode: build }
       - { kind: sentence, ja: "ちかてつに のったら、はやく つく。", en: "If you take the subway, you get there quickly", exercises: [tara, ni-location], mode: listening }
-      - { kind: particle-cloze, stem: "はやく ", tail: " いい。", answer: "ねたら", options: ["ねたら", "ねると", "ねる"], en: "You'd do well to sleep early", explanation: "〜たら いい recommends, and it is built on exactly the same たら — ねる gives ねた, then ねたら. It is softer than saying you should, because it only says the outcome would be good." }
+      - { kind: particle-cloze, stem: "はやく ", tail: " いい。", answer: "ねたら", options: ["ねたら", "ねると", "ねる"], en: "You should go to sleep early", explanation: "〜たら いい recommends, and it is built on exactly the same たら — ねる gives ねた, then ねたら. It is softer than saying you should, because it only says the outcome would be good." }
       - { kind: sentence, ja: "くすりを のんだら、よく なる。", en: "If you take the medicine, you'll get better", exercises: [tara, ku-ni-naru], mode: listening }
       - { kind: listening-comp, audio: "いしゃに いったら どうですか。", answer: "How about going to a doctor?", distractors: ["How about asking the teacher?", "I went to the doctor", "Please go to a doctor"], exercises: [tara-dou] }
       - { kind: listening-comp, audio: "ちかみちを とおったら いい。", answer: "You'd do well to take the shortcut", distractors: ["You'd do well to take this road", "If you take the shortcut, it's far", "How about taking the shortcut?"], exercises: [tara-dou] }
       - kind: dialogue
         lines:
-          - { speaker: "Mika", ja: "あたまが いたいんです。", en: "The thing is, I've got a headache." }
+          - { speaker: "Mika", ja: "あたまが いたいんです。", en: "The thing is, I have a headache." }
           - { speaker: "Tanaka", ja: "くすりを のんだら どうですか。", en: "How about taking some medicine?" }
           - { speaker: "Mika", ja: "のみましたけど、まだ いたいです。", en: "I did, but it still hurts." }
           - { speaker: "Tanaka", ja: "いしゃに いったら いいですよ。", en: "You'd do well to go to a doctor." }
@@ -756,7 +756,7 @@ lessons:
       - { kind: listening-comp, audio: "ボタンを おすと、きかいが うごく。", answer: "If you press the button, the machine starts", distractors: ["When work finishes, please press the button", "If you press the button, the machine stops", "The machine started, so I pressed the button"], exercises: [to-conditional, ga-existence] }
       - kind: dialogue
         lines:
-          - { speaker: "Tanaka", ja: "この きかいは ボタンを おすと うごく。", en: "This machine starts if you press the button." }
+          - { speaker: "Tanaka", ja: "この きかいは ボタンを おすと うごく。", en: "This machine works if you press the button." }
           - { speaker: "Tom", ja: "しごとが おわったら、きかいは とまる？", en: "Does the machine stop when work finishes?" }
           - { speaker: "Tanaka", ja: "いいえ。おわったら、その ボタンを おして ください。", en: "No. When it finishes, please press that button." }
         questions:
@@ -805,7 +805,7 @@ lessons:
       - { kind: listening-comp, audio: "うちから えきまで じゅっぷんぐらい かかる。", answer: "It takes about ten minutes from home to the station", distractors: ["It takes about ten hours from home to the station", "I'll leave home for the station around twenty past", "It takes about ten minutes from the station to home"], exercises: [gurai-goro, made-until] }
       - kind: dialogue
         lines:
-          - { speaker: "Tanaka", ja: "やすみに なったら、なにを しますか。", en: "What'll you do when vacation come?" }
+          - { speaker: "Tanaka", ja: "やすみに なったら、なにを しますか。", en: "What'll you do when vacation comes?" }
           - { speaker: "Mika", ja: "うみに いきたいです。ちかてつに のると、じゅっぷんぐらいです。", en: "I want to go to the sea. It's about ten minutes on the subway." }
           - { speaker: "Tom", ja: "あめが ふったら？", en: "And if it rains?" }
           - { speaker: "Mika", ja: "うちで ほんを よむ。はやく おわったら、でんわを して ください。", en: "I'll read at home. If you finish early, please call." }

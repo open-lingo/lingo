@@ -204,7 +204,7 @@ lessons:
       - { kind: rule, grammarPointId: te-ageru }
       - { kind: sentence, ja: "ともだちに ケーキを かってあげた。", en: "I bought my friend a cake", exercises: [te-ageru, ni-recipient, wo-object], mode: build }
       - { kind: sentence, ja: "いもうとに えいごを おしえてあげる。", en: "I'll teach my little sister English", exercises: [te-ageru, ni-recipient, family-register], mode: build }
-      - { kind: sentence, ja: "ケンに じしょを かしてあげた。", en: "I lent Ken my dictionary", exercises: [te-ageru, ni-recipient], mode: build }
+      - { kind: sentence, ja: "ケンに じしょを かしてあげた。", en: "I lent Ken a dictionary", exercises: [te-ageru, ni-recipient], mode: build }
       - { kind: sentence, ja: "おとうとに ほんを かってあげた。", en: "I bought my little brother a book", exercises: [te-ageru, ni-recipient, family-register], mode: build }
       - { kind: particle-cloze, stem: "ともだちに ケーキを ", tail: "。", answer: "かってあげた", options: ["かってあげた", "かってくれた", "かった"], en: "I bought my friend a cake", explanation: "あげる points OUTWARD — I'm doing my friend the favor. かってくれた would flip it: my friend bought ME a cake. かった alone is just the plain past, no favor framed at all." }
       - { kind: listening-comp, audio: "いもうとに えいごを おしえてあげる。", answer: "I'll teach my little sister English", distractors: ["My little sister will teach me English", "I teach English at school", "My little sister taught me English"], explanation: "あげる keeps the favor pointed at いもうと — teaching FOR her, not from her." }
@@ -260,7 +260,7 @@ lessons:
       - { kind: particle-cloze, stem: "ともだちが ", tail: "。", answer: "てつだってくれる", options: ["てつだってくれる", "てつだってあげる", "てつだってもらう"], en: "My friend helps me out", explanation: "くれる points the favor at the speaker's own side — が marks the friend as the GIVER, and the help lands on ME. あげる would send it away from me; もらう would need ME as the subject, not ともだち." }
       - { kind: sentence, ja: "いもうとに えいごを おしえてあげる。", en: "I'll teach my little sister English", exercises: [te-ageru, ni-recipient, family-register], mode: build }
       - { kind: listening-comp, audio: "せんせいを てつだってあげる。", answer: "Grammatically correct, but rude to say to your teacher", distractors: ["A normal, polite thing to say to your teacher", "Incorrect Japanese", "Only correct at a shop"], q: "Is this OK to say to your teacher?", explanation: "あげる bestows — fine toward a friend or a sibling, but aimed upward at a teacher it condescends, however kindly meant." }
-      - { kind: sentence, ja: "ケンに じしょを かしてあげた。", en: "I lent Ken my dictionary", exercises: [te-ageru, ni-recipient], mode: build }
+      - { kind: sentence, ja: "ケンに じしょを かしてあげた。", en: "I lent Ken a dictionary", exercises: [te-ageru, ni-recipient], mode: build }
       - { kind: sentence, ja: "あねが じしょを かしてくれた。", en: "My older sister lent me a dictionary", exercises: [te-kureru, wo-object], mode: build }
       - { kind: particle-cloze, stem: "あねが じしょを ", tail: "。", answer: "かしてくれた", options: ["かしてくれた", "かしてあげた", "かした"], en: "My older sister lent me a dictionary", explanation: "the favor lands on ME, so it's くれた — あねが marks HER as the giver. かしてあげた would mean I lent it to someone else. かした alone drops the favor framing entirely." }
       - { kind: sentence, ja: "つくえを はこんでもらった。", en: "I got someone to carry the desk", exercises: [te-morau, wo-object], mode: build }
@@ -381,7 +381,7 @@ lessons:
       - { kind: sentence, ja: "ちょっと てつだってくれる？", en: "Give me a hand?", exercises: [favor-ladder, chotto-softener], mode: build }
       - { kind: sentence, ja: "とけいを なおしてくれませんか。", en: "Could you fix my watch?", exercises: [favor-ladder, wo-object], mode: build }
       - { kind: sentence, ja: "しゃしんを とってもらえますか。", en: "Could I get you to take a photo?", exercises: [favor-ladder, wo-object], mode: build }
-      - { kind: particle-cloze, stem: "せんせい、しゃしんを とって", tail: "。", answer: "くれませんか", options: ["くれませんか", "くれない？", "くれません"], en: "Ask your teacher: could you take a photo?", explanation: "くれない？ is friend-register — wrong audience for a teacher. くれませんか is the polite rung, the same negative-softened ask in polite dress. くれません alone (no か) is only a flat negative statement — it doesn't ask anything." }
+      - { kind: particle-cloze, stem: "せんせい、しゃしんを とって", tail: "。", answer: "くれませんか", options: ["くれませんか", "くれない？", "くれません"], en: "Teacher, could you take a photo?", explanation: "くれない？ is friend-register — wrong audience for a teacher. くれませんか is the polite rung, the same negative-softened ask in polite dress. くれません alone (no か) is only a flat negative statement — it doesn't ask anything." }
       - { kind: sentence, ja: "つくえを はこんでくれない？", en: "Won't you carry the desk for me?", exercises: [favor-ladder, wo-object], mode: build }
       - { kind: sentence, ja: "ひとりしか いない。", en: "There's only one person", exercises: [shika-nai, nai-existence], mode: build }
       - { kind: sentence, ja: "みずだけ のむ。", en: "I'll just drink water", exercises: [dake, wo-object], mode: build }
@@ -436,7 +436,7 @@ lessons:
       - { kind: particle-cloze, stem: "せんせいを ", tail: "。", answer: "てつだいましょうか", options: ["てつだいましょうか", "てつだってあげる", "てつだってください"], en: "Shall I help my teacher?", explanation: "てつだいましょうか offers with plain will, politely — nothing bestowed. てつだってあげる is L2's trap: grammatically fine, and it condescends aimed upward. てつだってください flips it into a directive, asking THEM to help YOU instead." }
       - { kind: sentence, ja: "かばんが おもいから、てつだいましょうか。", en: "The bag is heavy, so shall I help?", exercises: [mashou, kara-because], mode: build }
       - { kind: sentence, ja: "はい、おねがい。", en: "Yes, please.", mode: build }
-      - { kind: sentence, ja: "だいじょうぶです。", en: "It's all right, no need.", mode: build }
+      - { kind: sentence, ja: "だいじょうぶです。", en: "It's all right.", mode: build }
       - { kind: listening-comp, audio: "てつだいましょうか。", answer: "A polite offer to help", distractors: ["A command to help", "A refusal to help", "A question about whether help happened"], q: "What is this?" }
       - { kind: kanji, kana: きょうしつ, kanji: 教室, distractors: ["きょうしっ", "こうしつ", "きょうし"], exercises: [mashou] }
       - kind: dialogue

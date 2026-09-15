@@ -788,10 +788,17 @@ describe("m28-neo pedagogy invariants", () => {
     let plainCues = 0;
     for (const [lessonId, step] of steps) {
       const rec = step as unknown as Record<string, unknown>;
-      const prompt = String(rec.promptEn ?? rec.sourceText ?? rec.prompt ?? "");
-      const wantsPolite = /say politely/i.test(prompt);
-      const wantsPlain = /say to a friend/i.test(prompt);
+      // READ THE STRUCTURED CUE, NOT THE PROMPT STRING. The compiler lifts
+      // the cue out of the English into `step.registerCue` and leaves the
+      // prompt as the clean gloss (`features/lesson/data/registerCue.ts`), so
+      // the old `/say politely/i` regex can no longer match anything. It is
+      // also strictly wider: the regex saw two of the eleven authored cue
+      // variants, `registerCue.form` sees all of them.
+      const cue = rec.registerCue as { form?: string } | undefined;
+      const wantsPolite = cue?.form === "polite";
+      const wantsPlain = cue?.form === "plain";
       if (!wantsPolite && !wantsPlain) continue;
+      const prompt = String(rec.promptEn ?? rec.sourceText ?? rec.prompt ?? "");
       for (const ja of sentencesOf(rec)) {
         const clause = ja.split(/[。？！]/).filter((c) => c.trim()).at(-1) ?? ja;
         const isPolite = POLITE.test(clause.trim());

@@ -56,6 +56,7 @@ import { Icon } from "@/shared/components/Icon";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { seededShuffle } from "@/shared/utils/seededShuffle";
 import { Badge } from "@/shared/components/ui";
+import { RegisterCueEyebrow } from "./RegisterCueEyebrow";
 // Voice routing + per-sentence playback are ALREADY solved for dialogue
 // (inv 23: one roster, real Keita/Nanami voices, zero pitch processing).
 // Reuse them rather than growing a second copy that can drift.
@@ -474,6 +475,13 @@ export function DialogueSimStepView({ step, onComplete, onContinue }: Props) {
 
       {/* ── Reply zone (shrink-0, never moves on submit) ─────────────────── */}
       <div className="shrink-0">
+        {/* A sim turn's `goal` is ALREADY a structured directive field — the
+            cue convention never applied to it (grep of all 41 IR yamls,
+            2026-09-15: 44 sim turns, 0 cue prefixes; the register is written
+            into the goal prose, "the way a friend would"). The badge renders
+            only if a step-level cue ever arrives, so the family stays
+            consistent and no sim beat needs a second convention. */}
+        <RegisterCueEyebrow cue={step.registerCue} className="mb-1" />
         <p className="m-0 mb-2 text-sm font-semibold text-text-primary">
           {turn.goal}
         </p>

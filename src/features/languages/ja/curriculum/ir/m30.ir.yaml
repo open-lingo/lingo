@@ -340,7 +340,7 @@ grammarPoints:
       - { ja: "とりあえず コーヒーを のんでみる。", en: "I'll try some coffee for a start." }
       - { ja: "わからないから せんせいに きいてみる。", en: "I don't understand, so I'll try asking the teacher." }
       - { ja: "この カメラを つかってみる。", en: "I'll give this camera a try." }
-      - { ja: "じかんが あるから としょかんに いってみる。", en: "I've got time, so I'll try going to the library." }
+      - { ja: "じかんが あるから としょかんに いってみる。", en: "I have time, so I'll try going to the library." }
     antiPattern: { ja: "この りょうりを たべるみる。", why: "the helper attaches to the て-form and never to the dictionary form — the main verb has to be たべて before みる can sit behind it: この りょうりを たべてみる。" }
 
   - id: ta-form
@@ -411,9 +411,9 @@ grammarPoints:
     rule: "Two helpers, one slot, and the question you will actually be asking yourself is which one. The answer is almost always sitting in the から clause, so this lesson is about listening to the reason. If the reason is that you DO NOT KNOW something, the helper is みる. 「わからないから じしょで しらべてみる。」 You look it up because the answer is not in your head yet, and the whole point of the sentence is finding out. If the reason is that something is COMING, the helper is おく. 「あした じゅぎょうが あるから ことばを おぼえておく。」 You learn the words because a class is on its way, and the point of the sentence is being ready for it. Ignorance takes みる. A deadline takes おく. Everything module 16 taught about から is unchanged: the reason clause comes FIRST, から goes on its end, and the main clause comes last — the reverse of English, which puts because in the middle. What is new is only that the main clause now ends in a helper. There is a third case worth knowing, and it is the one where both are true: you want to know AND you will need it later. Japanese lets you pick whichever is the point and neither is wrong — the reason simply tells the listener which one you cared about. One more verb worth flagging here: こたえる takes に for the thing being answered, not を — 「しつもんに こたえる」 is you answer TO a question, the same に that はなす and おくる already used above."
     examples:
       - { ja: "わからないから じしょで しらべてみる。", en: "I don't understand, so I'll try looking it up in the dictionary." }
-      - { ja: "あした じゅぎょうが あるから ことばを おぼえておく。", en: "I've got a class tomorrow, so I'll learn the words in advance." }
+      - { ja: "あした じゅぎょうが あるから ことばを おぼえておく。", en: "I have a class tomorrow, so I'll learn the words in advance." }
       - { ja: "だいがくが ちかいから じてんしゃに のってみる。", en: "The university is near, so I'll give the bicycle a go." }
-      - { ja: "らいげつ りょこうが あるから じゅんびを しておく。", en: "I've got a trip next month, so I'll get ready in advance." }
+      - { ja: "らいげつ りょこうが あるから じゅんびを しておく。", en: "I have a trip next month, so I'll get ready in advance." }
       - { ja: "せつめいが むずかしいから せんせいに はなしてみる。", en: "The explanation is difficult, so I'll try talking to the teacher." }
     antiPattern: { ja: "わからない じしょで しらべてみる。", why: "the reason clause needs から on its end — without it the two halves are just two sentences pushed together: わからないから じしょで しらべてみる。" }
 
@@ -535,21 +535,21 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: te-miru, variant: schema }
       - { kind: sentence, ja: "この りょうりを たべてみる。", en: "I'll give this dish a try", exercises: [te-miru, wo-object, kono-sono-ano-dono], mode: build }
-      - { kind: sentence, ja: "とりあえず コーヒーを のんでみる。", en: "I'll try some coffee for a start", exercises: [te-miru, wo-object], mode: build }
+      - { kind: sentence, ja: "とりあえず コーヒーを のんでみる。", en: "I'll try some coffee for now", exercises: [te-miru, wo-object], mode: build }
       - { kind: sentence, ja: "わからないから せんせいに きいてみる。", en: "I don't understand, so I'll try asking the teacher", exercises: [te-miru, kara-because, ni-location], mode: build }
       - { kind: sentence, ja: "この カメラを つかってみる。", en: "I'll give this camera a try", exercises: [te-miru, wo-object, kono-sono-ano-dono], mode: build }
-      - { kind: sentence, ja: "じかんが あるから としょかんに いってみる。", en: "I've got time, so I'll try going to the library", exercises: [te-miru, kara-because, ga-existence], mode: build }
+      - { kind: sentence, ja: "じかんが あるから としょかんに いってみる。", en: "I have time, so I'll try going to the library", exercises: [te-miru, kara-because, ga-existence], mode: build }
       - { kind: sentence, ja: "この おんがくを きいてみる。", en: "I'll give this music a listen", exercises: [te-miru, wo-object], mode: listening }
-      - { kind: sentence, ja: "あついから かわで およいでみる。", en: "It's hot, so I'll give the river a swim", exercises: [te-miru, kara-because, de-action], mode: build }
-      - { kind: sentence, ja: "とりあえず この えいごの てがみを よんでみる。", en: "I'll give this English letter a read for a start", exercises: [te-miru, no-possession, wo-object], mode: build }
+      - { kind: sentence, ja: "あついから かわで およいでみる。", en: "It's hot, so I'll try swimming in the river", exercises: [te-miru, kara-because, de-action], mode: build }
+      - { kind: sentence, ja: "とりあえず この えいごの てがみを よんでみる。", en: "For now, I'll try reading this English letter", exercises: [te-miru, no-possession, wo-object], mode: build }
       - { kind: sentence, ja: "この コーヒーを のんでみる。", en: "I'll give this coffee a try", exercises: [te-miru, wo-object], mode: translate }
       - { kind: particle-cloze, stem: "わからないから せんせいに ", tail: "。", answer: "きいてみる", options: ["きいてみる", "きくみる", "きいて"], en: "I don't understand, so I'll try asking the teacher", explanation: "きいて is an unfinished て-form until a helper is parked behind it, and みる is what finishes it here. きくみる puts the helper on the dictionary form instead of the て-form, and きいて alone never gets to the finding out: わからないから せんせいに きいてみる。" }
       - { kind: listening-comp, audio: "とりあえず この うたを きいてみる。", answer: "I'll give this song a listen for a start", distractors: ["I'll give this song a listen tomorrow", "I'm not going to listen to this song", "I'll give this dish a try for a start"], exercises: [te-miru, wo-object] }
-      - { kind: listening-comp, audio: "じかんが あるから やまに いってみる。", answer: "I've got time, so I'll try going to the mountain", distractors: ["I haven't got time, so I'm not going to the mountain", "I've got time, so I'll try going to the library", "I've got time, so I walk to the mountain every day"], exercises: [te-miru, kara-because] }
+      - { kind: listening-comp, audio: "じかんが あるから やまに いってみる。", answer: "I have time, so I'll try going to the mountain", distractors: ["I don't have time, so I'm not going to the mountain", "I have time, so I'll try going to the library", "I have time, so I walk to the mountain every day"], exercises: [te-miru, kara-because] }
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "この りょうりは からい？", en: "Is this dish spicy?" }
-          - { speaker: "Tom", ja: "わからない。とりあえず たべてみる。", en: "I don't know. I'll give it a try for a start." }
+          - { speaker: "Tom", ja: "わからない。とりあえず たべてみる。", en: "I don't know. I'll try eating it for now." }
         questions:
           - { q: "What does Tom say he will do?", options: ["Give the dish a try", "Ask the teacher", "Read the letter", "Go to the library"], answer: "Give the dish a try" }
       - { kind: challenge, ja: "この りょうりは からいけど おいしいから とりあえず たべてみる。", en: "This dish is spicy, but it's tasty, so I'll give it a try for a start", combines: [te-miru, kedo, kara-because, i-adj-present, wo-object], mode: build }
@@ -567,13 +567,13 @@ lessons:
       - { kind: sentence, ja: "おもしろい りょうりを たべてみた。", en: "I gave an interesting dish a try", exercises: [ta-form, te-miru, wo-object], mode: build }
       - { kind: sentence, ja: "あした えいごの ことばを しらべる。", en: "I'm looking the English words up tomorrow", exercises: [dictionary-form, no-possession, wo-object], mode: build }
       - { kind: sentence, ja: "あした りょこうに いくから きょう きめる。", en: "I'm going on a trip tomorrow, so I'll decide today", exercises: [dictionary-form, kara-because, ni-location], mode: build }
-      - { kind: sentence, ja: "むずかしいけど じゅぎょうを つづける。", en: "It's difficult, but I'll keep the class going", exercises: [dictionary-form, kedo, wo-object], mode: build }
+      - { kind: sentence, ja: "むずかしいけど じゅぎょうを つづける。", en: "It's difficult, but I'll keep taking the class", exercises: [dictionary-form, kedo, wo-object], mode: build }
       # Second carriers (rep-audit 2026-09-09, proposal 1): しらべる/きめる/
       # つづける each had exactly one distinct carrier sentence in the module.
-      - { kind: sentence, ja: "じかんが あるから いま しらべる。", en: "I've got time, so I'll look it up now", exercises: [dictionary-form, kara-because, ga-existence], mode: listening }
+      - { kind: sentence, ja: "じかんが あるから いま しらべる。", en: "I have time, so I'll look it up now", exercises: [dictionary-form, kara-because, ga-existence], mode: listening }
       - { kind: sentence, ja: "りょうりを きめる。", en: "I'll decide on the dish", exercises: [dictionary-form, wo-object], mode: translate }
       - { kind: sentence, ja: "たのしいから りょこうを つづける。", en: "It's fun, so I'll continue the trip", exercises: [dictionary-form, kara-because], mode: listening }
-      - { kind: sentence, ja: "かわで およいでみた。", en: "I gave the river a swim", exercises: [ta-form, te-miru, de-action], mode: listening }
+      - { kind: sentence, ja: "かわで およいでみた。", en: "I tried swimming in the river.", exercises: [ta-form, te-miru, de-action], mode: listening }
       - { kind: sentence, ja: "せんせいに きいてみたけど だめだった。", en: "I tried asking the teacher, but it was no good", exercises: [ta-form, te-miru, kedo], mode: build }
       - { kind: sentence, ja: "さいしょに この えいごの うたを きいてみた。", en: "I gave this English song a listen first", exercises: [ta-form, te-miru, no-possession], mode: build }
       - { kind: sentence, ja: "おもしろい りょうりを たべてみた。", en: "I gave an interesting dish a try", exercises: [ta-form, te-miru], mode: translate }
@@ -600,15 +600,15 @@ lessons:
       - { kind: sentence, ja: "じしょで しらべてみる。", en: "I'll try looking it up in the dictionary", exercises: [te-form, te-miru, de-action], mode: build }
       - { kind: sentence, ja: "わからないから えいごで しらべてみる。", en: "I don't understand, so I'll try looking it up in English", exercises: [te-form, te-miru, kara-because], mode: build }
       - { kind: kanji, kana: じしょ, kanji: 辞書, exercises: [te-form] }
-      - { kind: sentence, ja: "あした きめてみる。", en: "I'll have a go at deciding tomorrow", exercises: [te-form, te-miru, ni-time], mode: build }
-      - { kind: sentence, ja: "むずかしいけど じゅぎょうを つづけてみる。", en: "It's difficult, but I'll try keeping the class going", exercises: [te-form, te-miru, kedo], mode: build }
+      - { kind: sentence, ja: "あした きめてみる。", en: "I'll try to decide tomorrow", exercises: [te-form, te-miru, ni-time], mode: build }
+      - { kind: sentence, ja: "むずかしいけど じゅぎょうを つづけてみる。", en: "It's difficult, but I'll try to keep taking the class.", exercises: [te-form, te-miru, kedo], mode: build }
       - { kind: sentence, ja: "ことばを じしょで しらべてみた。", en: "I tried looking the word up in the dictionary", exercises: [te-form, ta-form, te-miru], mode: build }
-      - { kind: sentence, ja: "じかんが ないから あした きめてみる。", en: "I haven't got time, so I'll have a go at deciding tomorrow", exercises: [te-form, te-miru, nai-existence], mode: listening }
+      - { kind: sentence, ja: "じかんが ないから あした きめてみる。", en: "I don't have time, so I'll try to decide tomorrow.", exercises: [te-form, te-miru, nai-existence], mode: listening }
       - { kind: sentence, ja: "けっかが わからないから せんせいに きいてみる。", en: "I don't know the result, so I'll try asking the teacher", exercises: [te-form, te-miru, kara-because], mode: build }
       - { kind: sentence, ja: "じしょで しらべてみる。", en: "I'll try looking it up in the dictionary", exercises: [te-form, te-miru], mode: translate }
       - { kind: particle-cloze, stem: "ことばが わからないから じしょで ", tail: "。", answer: "しらべてみる", options: ["しらべてみる", "しらべてみた", "しらべる"], en: "I don't know the word, so I'll try looking it up in the dictionary", explanation: "not knowing the word is a reason still ahead of you, so the helper stays non-past. しらべてみた already happened, and bare しらべる drops the helper — and the finding out — altogether." }
       - { kind: listening-comp, audio: "むずかしいけど えいごの じゅぎょうを つづけてみる。", answer: "It's difficult, but I'll try keeping the English class going", distractors: ["It's difficult, so I'm not keeping the English class going", "It's easy, so I'll keep the English class going", "It's difficult, but I'll try keeping the music class going"], exercises: [te-form, te-miru] }
-      - { kind: listening-comp, audio: "じかんが ないから あした しらべてみる。", answer: "I haven't got time, so I'll try looking it up tomorrow", distractors: ["I've got time, so I'll look it up today", "I haven't got time, so I'll have a go at deciding tomorrow", "I haven't got time, so I'm not looking it up"], exercises: [te-form, nai-existence] }
+      - { kind: listening-comp, audio: "じかんが ないから あした しらべてみる。", answer: "I don't have time, so I'll try looking it up tomorrow", distractors: ["I have time, so I'll look it up today", "I don't have time, so I'll try to decide tomorrow.", "I don't have time, so I'm not looking it up"], exercises: [te-form, nai-existence] }
       - kind: dialogue
         lines:
           - { speaker: "Tom", ja: "この ことばの いみは？", en: "What does this word mean?" }
@@ -629,18 +629,18 @@ lessons:
       - { kind: sentence, ja: "わからないから せんせいに きいてみる。", en: "I don't understand, so I'll try asking the teacher", exercises: [te-miru, kara-because], mode: build }
       - { kind: sentence, ja: "さいしょに この コーヒーを のんでみた。", en: "I gave this coffee a try first", exercises: [ta-form, te-miru], mode: listening }
       - { kind: sentence, ja: "じしょで しらべてみる。", en: "I'll try looking it up in the dictionary", exercises: [te-form, te-miru], mode: build }
-      - { kind: sentence, ja: "むずかしいけど じゅぎょうを つづけてみる。", en: "It's difficult, but I'll try keeping the class going", exercises: [te-form, kedo], mode: build }
-      - { kind: particle-cloze, stem: "じかんが あるから としょかんに ", tail: "。", answer: "いってみる", options: ["いってみる", "いってみた", "たべてみる"], en: "I've got time, so I'll try going to the library", explanation: "having time is a reason still ahead of you, so the helper stays in the non-past. いってみた would put the trip in the past, and たべてみる has nothing to do with a library." }
-      - { kind: sentence, ja: "とりあえず コーヒーを のんでみる。", en: "I'll try some coffee for a start", exercises: [te-miru, wo-object], mode: build }
+      - { kind: sentence, ja: "むずかしいけど じゅぎょうを つづけてみる。", en: "It's difficult, but I'll try to keep taking the class.", exercises: [te-form, kedo], mode: build }
+      - { kind: particle-cloze, stem: "じかんが あるから としょかんに ", tail: "。", answer: "いってみる", options: ["いってみる", "いってみた", "たべてみる"], en: "I have time, so I'll try going to the library", explanation: "having time is a reason still ahead of you, so the helper stays in the non-past. いってみた would put the trip in the past, and たべてみる has nothing to do with a library." }
+      - { kind: sentence, ja: "とりあえず コーヒーを のんでみる。", en: "I'll try some coffee for now", exercises: [te-miru, wo-object], mode: build }
       - { kind: listening-comp, audio: "おもしろい りょうりを たべてみた。", answer: "I gave an interesting dish a try", distractors: ["I'll give an interesting dish a try", "I didn't give the interesting dish a try", "I gave an interesting drink a try"], exercises: [ta-form, te-miru] }
       - { kind: sentence, ja: "ことばを じしょで しらべてみた。", en: "I tried looking the word up in the dictionary", exercises: [te-form, ta-form], mode: build }
       - { kind: sentence, ja: "この カメラを つかってみる。", en: "I'll give this camera a try", exercises: [te-miru, wo-object], mode: translate }
       - { kind: listening-comp, audio: "せんせいに きいてみたけど だめだった。", answer: "I tried asking the teacher, but it was no good", distractors: ["I tried asking the teacher, and it was fine", "I didn't ask the teacher", "I tried asking my older brother, but it was no good"], exercises: [ta-form, kedo] }
-      - { kind: sentence, ja: "あついから かわで およいでみる。", en: "It's hot, so I'll give the river a swim", exercises: [te-miru, kara-because], mode: build }
-      - { kind: sentence, ja: "あした きめてみる。", en: "I'll have a go at deciding tomorrow", exercises: [te-form, te-miru], mode: build }
+      - { kind: sentence, ja: "あついから かわで およいでみる。", en: "It's hot, so I'll try swimming in the river", exercises: [te-miru, kara-because], mode: build }
+      - { kind: sentence, ja: "あした きめてみる。", en: "I'll try to decide tomorrow", exercises: [te-form, te-miru], mode: build }
       - kind: dialogue
         lines:
-          - { speaker: "Mika", ja: "この ことばの いみは わかった？", en: "Did you work out what this word means?" }
+          - { speaker: "Mika", ja: "この ことばの いみは わかった？", en: "Did you understand the meaning of this word?" }
           - { speaker: "Tom", ja: "ううん。じしょで しらべてみる。", en: "Nope. I'll try looking it up in the dictionary." }
         questions:
           - { q: "What does Tom say he will do?", options: ["Look it up in the dictionary", "Ask the teacher", "Decide today", "Go to the library"], answer: "Look it up in the dictionary" }
@@ -658,12 +658,12 @@ lessons:
       - { kind: sentence, ja: "あした りょこうに いくから じゅんびを しておく。", en: "I'm going on a trip tomorrow, so I'll get ready in advance", exercises: [te-oku, kara-because, ni-location], mode: build }
       - { kind: sentence, ja: "ちかてつの きっぷを かっておく。", en: "I'll buy the subway ticket in advance", exercises: [te-oku, no-possession, wo-object], mode: build }
       - { kind: sentence, ja: "せんしゅう ホテルの よやくを しておいた。", en: "I booked the hotel in advance last week", exercises: [te-oku, ta-form, no-possession], mode: build }
-      - { kind: sentence, ja: "とりあえず コーヒーを かっておく。", en: "First off, I'll buy some coffee in advance", exercises: [te-oku, wo-object], mode: listening }
-      - { kind: sentence, ja: "あさ いそがしいから きっぷを かっておいた。", en: "The morning is busy, so I bought the ticket in advance", exercises: [te-oku, ta-form, kara-because], mode: build, alsoAccept: ["あさが いそがしいから きっぷを かっておいた。"] }
-      - { kind: sentence, ja: "らいげつ りょこうが あるから じゅんびを しておく。", en: "I've got a trip next month, so I'll get ready in advance", exercises: [te-oku, kara-because, ga-existence], mode: build }
+      - { kind: sentence, ja: "とりあえず コーヒーを かっておく。", en: "For now, I'll buy some coffee.", exercises: [te-oku, wo-object], mode: listening }
+      - { kind: sentence, ja: "あさ いそがしいから きっぷを かっておいた。", en: "I'm busy in the morning, so I bought the ticket in advance", exercises: [te-oku, ta-form, kara-because], mode: build, alsoAccept: ["あさが いそがしいから きっぷを かっておいた。"] }
+      - { kind: sentence, ja: "らいげつ りょこうが あるから じゅんびを しておく。", en: "I have a trip next month, so I'll get ready in advance", exercises: [te-oku, kara-because, ga-existence], mode: build }
       - { kind: sentence, ja: "ホテルの よやくを しておく。", en: "I'll book the hotel in advance", exercises: [te-oku, wo-object], mode: translate }
       - { kind: particle-cloze, stem: "あした りょこうに いくから じゅんびを ", tail: "。", answer: "しておく", options: ["しておく", "してみる", "する"], en: "I'm going on a trip tomorrow, so I'll get ready in advance", explanation: "a trip tomorrow is a deadline, so the helper is おく — you get ready now so that later it is done. してみる would only be finding out what getting ready is like, and bare する says you get ready without saying when." }
-      - { kind: listening-comp, audio: "らいげつ りょこうが あるから ホテルの よやくを しておく。", answer: "I've got a trip next month, so I'll book the hotel in advance", distractors: ["I've got a trip next month, so I'll give the hotel a try", "I had a trip last month, so I booked the hotel", "I've got a class next month, so I'll book the hotel in advance"], exercises: [te-oku, kara-because] }
+      - { kind: listening-comp, audio: "らいげつ りょこうが あるから ホテルの よやくを しておく。", answer: "I have a trip next month, so I'll book the hotel in advance", distractors: ["I have a trip next month, so I'll give the hotel a try", "I had a trip last month, so I booked the hotel", "I have a class next month, so I'll book the hotel in advance"], exercises: [te-oku, kara-because] }
       - { kind: listening-comp, audio: "せんしゅう ちかてつの きっぷを かっておいた。", answer: "I bought the subway ticket in advance last week", distractors: ["I'll buy the subway ticket in advance next week", "I bought the bus ticket in advance last week", "I didn't buy the subway ticket last week"], exercises: [te-oku, ta-form] }
       - kind: dialogue
         lines:
@@ -687,10 +687,10 @@ lessons:
       - { kind: kanji, kana: でんき, kanji: 電気, exercises: [mae-ni] }
       - { kind: sentence, ja: "さむいから でんきを つけておく。", en: "It's cold, so I'll leave the light on", exercises: [te-oku, kara-because, i-adj-present], mode: build }
       # Second carrier (rep-audit 2026-09-09): つけて had one distinct carrier.
-      - { kind: sentence, ja: "へやの でんきを つけておく。", en: "I'll leave the room's light on, in advance", exercises: [te-oku, no-possession], mode: listening }
+      - { kind: sentence, ja: "へやの でんきを つけておく。", en: "I'll leave the room's light on", exercises: [te-oku, no-possession], mode: listening }
       - { kind: sentence, ja: "りょこうの まえに くるまを あらっておいた。", en: "I washed the car in advance, before the trip", exercises: [mae-ni, te-oku, ta-form], mode: build }
       - { kind: sentence, ja: "がっこうに いく まえに せつめいを よんでおく。", en: "I'll read the explanation before I go to school", exercises: [mae-ni, te-oku, ni-location], mode: listening }
-      - { kind: sentence, ja: "あした じゅぎょうが あるから せつめいを おぼえておく。", en: "I've got a class tomorrow, so I'll learn the explanation in advance", exercises: [te-oku, kara-because, ga-existence], mode: build }
+      - { kind: sentence, ja: "あした じゅぎょうが あるから せつめいを おぼえておく。", en: "I have a class tomorrow, so I'll remember the explanation", exercises: [te-oku, kara-because, ga-existence], mode: build }
       - { kind: sentence, ja: "うちに かえる まえに くるまを あらっておく。", en: "I'll wash the car before I go home", exercises: [mae-ni, te-oku, ni-location], mode: build }
       - { kind: sentence, ja: "かえる まえに でんきを けしておく。", en: "I'll turn the light off before I go home", exercises: [mae-ni, te-oku], mode: translate }
       - { kind: particle-cloze, stem: "さむいから でんきを ", tail: "。", answer: "つけておく", options: ["つけておく", "つけてみる", "つける"], en: "It's cold, so I'll leave the light on", explanation: "cold is a reason to leave the light on for later, so the helper is おく. つけてみる would only be trying the light out to see, and bare つける turns it on without saying anything stays that way." }
@@ -702,7 +702,7 @@ lessons:
           - { speaker: "Mika", ja: "うん。かえる まえに でんきを けしておく。", en: "Yeah. I'll turn the light off before I go." }
         questions:
           - { q: "What does Mika say she will do before she goes home?", options: ["Turn the light off", "Leave the light on", "Wash the car", "Learn the words"], answer: "Turn the light off" }
-      - { kind: challenge, ja: "あした じゅぎょうが あるから うちに かえる まえに ことばを おぼえておく。", en: "I've got a class tomorrow, so I'll learn the words in advance before I go home", combines: [mae-ni, te-oku, kara-because, ga-existence, ni-location], mode: build }
+      - { kind: challenge, ja: "あした じゅぎょうが あるから うちに かえる まえに ことばを おぼえておく。", en: "I have a class tomorrow, so I'll learn the words in advance before I go home", combines: [mae-ni, te-oku, kara-because, ga-existence, ni-location], mode: build }
     reviewPool: [でんき, ことば, じゅぎょう, くるま, りょこう, がっこう, へや, まど, うち, コーヒー]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -716,9 +716,9 @@ lessons:
       - { kind: sentence, ja: "しつもんを して こたえを きいてみた。", en: "I asked the question to see what the answer was", exercises: [te-miru, ta-form, wo-object], mode: build }
       - { kind: sentence, ja: "せつめいが むずかしいから あにに きいてみる。", en: "The explanation is difficult, so I'll try asking my older brother", exercises: [te-miru, kara-because, ga-existence], mode: build }
       - { kind: sentence, ja: "むずかしいけど とりあえず やってみる。", en: "It's difficult, but first off I'll give it a try", exercises: [te-miru, kedo], mode: build }
-      - { kind: sentence, ja: "せんせいに えいごを ならう。", en: "I take English lessons from the teacher", exercises: [dictionary-form, ni-location, wo-object], mode: build }
-      - { kind: sentence, ja: "せんせいに にほんごを ならう。", en: "I take Japanese lessons from the teacher", exercises: [dictionary-form, ni-location, wo-object], mode: build }
-      - { kind: listening-comp, audio: "せんせいに げんごを ならう。", answer: "I take language lessons from the teacher", distractors: ["I take English lessons from the teacher", "I take Japanese lessons from the teacher", "I took language lessons from the teacher"], exercises: [dictionary-form, ni-location] }
+      - { kind: sentence, ja: "せんせいに えいごを ならう。", en: "I learn English from the teacher", exercises: [dictionary-form, ni-location, wo-object], mode: build }
+      - { kind: sentence, ja: "せんせいに にほんごを ならう。", en: "I learn Japanese from the teacher", exercises: [dictionary-form, ni-location, wo-object], mode: build }
+      - { kind: listening-comp, audio: "せんせいに げんごを ならう。", answer: "I take language lessons from the teacher", distractors: ["I learn English from the teacher", "I learn Japanese from the teacher", "I took language lessons from the teacher"], exercises: [dictionary-form, ni-location] }
       - { kind: sentence, ja: "あねの いえに しゃしんを おくる。", en: "I'm sending the photo to my older sister's house", exercises: [dictionary-form, ni-location, wo-object], mode: build }
       - { kind: sentence, ja: "やまで しゃしんを とる。", en: "I take a photo on the mountain", exercises: [dictionary-form, de-action, wo-object], mode: build }
       # Second carriers (rep-audit 2026-09-09): おくる and とる each had one.
@@ -735,7 +735,7 @@ lessons:
       - { kind: particle-cloze, stem: "せつめいが むずかしいから あにに ", tail: "。", answer: "きいてみる", options: ["きいてみる", "ならう", "おくる"], en: "The explanation is difficult, so I'll try asking my older brother", explanation: "an explanation you did not follow is something you ASK about, so the て-form belongs to きく. ならう takes lessons over a long stretch, and おくる sends the explanation somewhere else instead of understanding it." }
       - { kind: listening-comp, audio: "あねに しつもんを して こたえを きいてみた。", answer: "I asked my older sister the question and heard what the answer was", distractors: ["I asked my older brother the question and heard what the answer was", "I asked my older sister the question but heard nothing", "I sent my older sister the question and heard what the answer was"], exercises: [te-miru, ta-form] }
       - { kind: listening-comp, audio: "たかいけど とりあえず かってみる。", answer: "It's expensive, but first off I'll give buying it a go", distractors: ["It's expensive, so I'm not buying it", "It's cheap, so first off I'll give buying it a go", "It was expensive, but I gave buying it a go"], exercises: [te-miru, kedo] }
-      - { kind: listening-comp, audio: "せんせいに にほんごを ならう。", answer: "I take Japanese lessons from the teacher", distractors: ["I take English lessons from the teacher", "I take language lessons from the teacher", "I took Japanese lessons from the teacher"], exercises: [dictionary-form, ni-location] }
+      - { kind: listening-comp, audio: "せんせいに にほんごを ならう。", answer: "I learn Japanese from the teacher", distractors: ["I learn English from the teacher", "I take language lessons from the teacher", "I took Japanese lessons from the teacher"], exercises: [dictionary-form, ni-location] }
       - kind: dialogue
         lines:
           - { speaker: "Tom", ja: "この しつもんの こたえは わかった？", en: "Did you work out the answer to this question?" }
@@ -764,7 +764,7 @@ lessons:
       - { kind: sentence, ja: "こたえが わからないから じしょで しらべてみる。", en: "I don't know the answer, so I'll try looking it up in the dictionary", exercises: [te-miru, kara-because], mode: translate }
       - { kind: listening-comp, audio: "がっこうに いく まえに せつめいを よんでおく。", answer: "I'll read the explanation before I go to school", distractors: ["I'll read the explanation after I go to school", "I'll learn the explanation before I go to school", "I'll read the words before I go to school"], exercises: [mae-ni, te-oku] }
       - { kind: sentence, ja: "しつもんを して こたえを きいてみた。", en: "I asked the question to see what the answer was", exercises: [te-miru, ta-form], mode: build }
-      - { kind: sentence, ja: "せんせいに えいごを ならう。", en: "I take English lessons from the teacher", exercises: [dictionary-form, ni-location], mode: build }
+      - { kind: sentence, ja: "せんせいに えいごを ならう。", en: "I learn English from the teacher", exercises: [dictionary-form, ni-location], mode: build }
       - kind: dialogue
         lines:
           - { speaker: "Tom", ja: "あした じゅぎょうが ある？", en: "Do you have a class tomorrow?" }
@@ -785,12 +785,12 @@ lessons:
       - { kind: sentence, ja: "あねの いえに しゃしんを おくっておく。", en: "I'll send the photo to my older sister's house in advance", exercises: [te-form, te-oku, ni-location], mode: build }
       - { kind: kanji, kana: しゃしん, kanji: 写真, exercises: [te-form] }
       - { kind: sentence, ja: "おんがくを ならってみたけど だめだった。", en: "I tried taking music lessons, but it was no good", exercises: [te-form, ta-form, kedo], mode: build }
-      - { kind: sentence, ja: "やまで しゃしんを とってみる。", en: "I'll have a go at taking a photo on the mountain", exercises: [te-form, te-miru, de-action], mode: build }
-      - { kind: sentence, ja: "まいにち れんしゅうを つづけてみる。", en: "I'll try keeping the practice going every day", exercises: [te-form, te-miru, frequency-adverbs], mode: listening }
+      - { kind: sentence, ja: "やまで しゃしんを とってみる。", en: "I'll try taking a photo on the mountain", exercises: [te-form, te-miru, de-action], mode: build }
+      - { kind: sentence, ja: "まいにち れんしゅうを つづけてみる。", en: "I'll try to keep practicing every day", exercises: [te-form, te-miru, frequency-adverbs], mode: listening }
       - { kind: sentence, ja: "あした つかうから しゃしんを おくっておいた。", en: "I'm using it tomorrow, so I sent the photo in advance", exercises: [te-form, te-oku, kara-because], mode: build }
       - { kind: sentence, ja: "やまの しゃしんを とってみた。", en: "I had a go at taking a photo of the mountain", exercises: [te-form, ta-form, no-possession], mode: build }
       - { kind: sentence, ja: "せんせいに えいごを ならってみる。", en: "I'll try taking English lessons from the teacher", exercises: [te-form, te-miru], mode: translate }
-      - { kind: particle-cloze, stem: "やまで しゃしんを ", tail: "。", answer: "とってみる", options: ["とってみる", "とっておく", "とる"], en: "I'll have a go at taking a photo on the mountain", explanation: "a photo you're curious how it will turn out is one you take and see, so the helper is みる. とっておく would be taking it now so it's already done for later, and bare とる just takes it without any of that." }
+      - { kind: particle-cloze, stem: "やまで しゃしんを ", tail: "。", answer: "とってみる", options: ["とってみる", "とっておく", "とる"], en: "I'll try taking a photo on the mountain", explanation: "a photo you're curious how it will turn out is one you take and see, so the helper is みる. とっておく would be taking it now so it's already done for later, and bare とる just takes it without any of that." }
       - { kind: listening-comp, audio: "まいにち あねに おんがくを ならう。", answer: "I take music lessons from my older sister every day", distractors: ["I take English lessons from my older sister every day", "I taught my older sister music every day", "I send my older sister some music every day"], exercises: [te-form, frequency-adverbs] }
       - { kind: listening-comp, audio: "あした つかうから てがみを おくっておいた。", answer: "I'm using it tomorrow, so I sent the letter in advance", distractors: ["I used it yesterday, so I sent the letter", "I'm using it tomorrow, so I'll take the letter in advance", "I'm using it tomorrow, so I sent the photo in advance"], exercises: [te-form, te-oku] }
       - kind: dialogue
@@ -811,9 +811,9 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: kara-because }
       - { kind: sentence, ja: "わからないから じしょで しらべてみる。", en: "I don't understand, so I'll try looking it up in the dictionary", exercises: [kara-because, te-miru, te-form], mode: build }
-      - { kind: sentence, ja: "あした じゅぎょうが あるから ことばを おぼえておく。", en: "I've got a class tomorrow, so I'll learn the words in advance", exercises: [kara-because, te-oku, ga-existence], mode: build }
+      - { kind: sentence, ja: "あした じゅぎょうが あるから ことばを おぼえておく。", en: "I have a class tomorrow, so I'll learn the vocabulary in advance", exercises: [kara-because, te-oku, ga-existence], mode: build }
       - { kind: kanji, kana: じてんしゃ, kanji: 自転車, exercises: [kara-because] }
-      - { kind: sentence, ja: "だいがくが ちかいから じてんしゃに のってみる。", en: "The university is near, so I'll give the bicycle a go", exercises: [kara-because, te-miru, ni-location], mode: build }
+      - { kind: sentence, ja: "だいがくが ちかいから じてんしゃに のってみる。", en: "The university is close, so I'll try riding a bike", exercises: [kara-because, te-miru, ni-location], mode: build }
       - { kind: sentence, ja: "せつめいが むずかしいから せんせいに はなしてみる。", en: "The explanation is difficult, so I'll try talking to the teacher", exercises: [kara-because, te-miru, ga-existence], mode: build }
       # `mode: build`, not `listening`: この lesson is あるいて's ONLY home, and a
       # `mode: listening` beat compiles to `listening_build`, which is NOT
@@ -821,15 +821,15 @@ lessons:
       # — the listening slot moved to the beat below, which debuts nothing.
       - { kind: sentence, ja: "がっこうが ちかいから あるいてみる。", en: "The school is near, so I'll try walking there", exercises: [kara-because, te-miru, ga-existence], mode: build }
       - { kind: sentence, ja: "しつもんは むずかしいけど こたえる。", en: "The question is difficult, but I'll answer it", exercises: [dictionary-form, kedo, wa-topic], mode: build }
-      - { kind: sentence, ja: "あした しつもんが あるから こたえを しらべておく。", en: "I've got a question tomorrow, so I'll look the answer up in advance", exercises: [kara-because, te-oku, ga-existence], mode: listening }
-      - { kind: sentence, ja: "だいがくが ちかいから じてんしゃに のってみる。", en: "The university is near, so I'll give the bicycle a go", exercises: [kara-because, te-miru], mode: translate }
-      - { kind: particle-cloze, stem: "あした じゅぎょうが あるから ことばを ", tail: "。", answer: "おぼえておく", options: ["おぼえておく", "おぼえてみる", "きいてみる"], en: "I've got a class tomorrow, so I'll learn the words in advance", explanation: "a class tomorrow is a deadline, so the helper is おく — you learn them now so that later they are learned. おぼえてみる would only be finding out what learning them is like, and きいてみる asks somebody instead of learning anything." }
+      - { kind: sentence, ja: "あした しつもんが あるから こたえを しらべておく。", en: "I have a question tomorrow, so I'll look the answer up in advance", exercises: [kara-because, te-oku, ga-existence], mode: listening }
+      - { kind: sentence, ja: "だいがくが ちかいから じてんしゃに のってみる。", en: "The university is close, so I'll try riding a bike", exercises: [kara-because, te-miru], mode: translate }
+      - { kind: particle-cloze, stem: "あした じゅぎょうが あるから ことばを ", tail: "。", answer: "おぼえておく", options: ["おぼえておく", "おぼえてみる", "きいてみる"], en: "I have a class tomorrow, so I'll learn the vocabulary in advance", explanation: "a class tomorrow is a deadline, so the helper is おく — you learn them now so that later they are learned. おぼえてみる would only be finding out what learning them is like, and きいてみる asks somebody instead of learning anything." }
       - { kind: listening-comp, audio: "せつめいが むずかしいから あねに はなしてみる。", answer: "The explanation is difficult, so I'll try talking to my older sister", distractors: ["The explanation is difficult, so I'll try talking to my older brother", "The explanation is easy, so I won't talk to my older sister", "The question is difficult, so I'll try talking to my older sister"], exercises: [kara-because, te-miru] }
       - { kind: listening-comp, audio: "この しつもんは むずかしいけど こたえる。", answer: "This question is difficult, but I'll answer it", distractors: ["This question is difficult, so I'm not answering it", "This question is easy, so I'll answer it", "This answer is difficult, but I'll write it"], exercises: [dictionary-form, kedo] }
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "だいがくまで バスに のる？", en: "Are you taking the bus to the university?" }
-          - { speaker: "Mika", ja: "ううん。ちかいから じてんしゃに のってみる。", en: "Nope. It's near, so I'll give the bicycle a go." }
+          - { speaker: "Mika", ja: "ううん。ちかいから じてんしゃに のってみる。", en: "Nope. It's close, so I'll try riding a bike." }
         questions:
           - { q: "How does Mika say she is getting to the university?", options: ["By bicycle", "By bus", "On foot", "By subway"], answer: "By bicycle" }
       - { kind: challenge, ja: "がっこうが ちかいから あるいてみたけど さむかった。", en: "The school is near, so I tried walking, but it was cold", combines: [kara-because, te-miru, ta-form, kedo, i-adj-past], mode: build }
@@ -845,25 +845,25 @@ lessons:
       - { kind: rule, grammarPointId: nai-form }
       - { kind: sentence, ja: "この りょうりを たべてみない？", en: "Won't you give this dish a try", exercises: [nai-form, te-miru, wo-object], mode: build }
       - { kind: sentence, ja: "とりあえず この コーヒーを のんでみない？", en: "Won't you give this coffee a try for a start", exercises: [nai-form, te-miru, wo-object], mode: build }
-      - { kind: sentence, ja: "ひまだから やままで あるいてみない？", en: "You're free, so won't you try walking to the mountain", exercises: [nai-form, te-miru, made-until], mode: build }
+      - { kind: sentence, ja: "ひまだから やままで あるいてみない？", en: "You're free, so why not try walking in the mountains?", exercises: [nai-form, te-miru, made-until], mode: build }
       - { kind: sentence, ja: "この おんがくを きいてみない？", en: "Won't you give this music a listen", exercises: [nai-form, te-miru, wo-object], mode: build }
       - { kind: sentence, ja: "むずかしいから きょうは しらべてみない。", en: "It's difficult, so I'm not going to look it up today", exercises: [nai-form, te-miru, kara-because], mode: listening }
-      - { kind: sentence, ja: "しつもんに こたえてみない？", en: "Won't you have a go at answering the question", exercises: [nai-form, te-miru, ni-location], mode: build }
+      - { kind: sentence, ja: "しつもんに こたえてみない？", en: "Why don't you try answering the question?", exercises: [nai-form, te-miru, ni-location], mode: build }
       - { kind: sentence, ja: "りょこうの まえに くつを みがいておく。", en: "I'll polish my shoes in advance, before the trip", exercises: [mae-ni, te-oku, no-possession], mode: build }
       # Second carriers (rep-audit 2026-09-09): こたえて and みがいて each had one.
       - { kind: listening-comp, audio: "せんせいの しつもんに こたえてみる。", answer: "I'll have a go at answering the teacher's question", distractors: ["I'll have a go at asking the teacher a question", "I won't answer the teacher's question", "I've already answered the teacher's question"], exercises: [te-miru] }
       - { kind: sentence, ja: "あさ くつを みがいておいた。", en: "I polished my shoes in advance this morning", exercises: [te-oku, ta-form], mode: build }
       - { kind: sentence, ja: "この コーヒーを のんでみない？", en: "Won't you give this coffee a try", exercises: [nai-form, te-miru], mode: translate }
-      - { kind: particle-cloze, stem: "ひまだから やままで ", tail: "？", answer: "あるいてみない", options: ["あるいてみない", "あるいてみた", "のってみない"], en: "You're free, so won't you try walking to the mountain", explanation: "the sentence is an invitation, so the helper takes ない and the question contour. あるいてみた puts the walk in the past, and のってみない offers a ride instead of a walk." }
+      - { kind: particle-cloze, stem: "ひまだから やままで ", tail: "？", answer: "あるいてみない", options: ["あるいてみない", "あるいてみた", "のってみない"], en: "You're free, so why not try walking in the mountains?", explanation: "the sentence is an invitation, so the helper takes ない and the question contour. あるいてみた puts the walk in the past, and のってみない offers a ride instead of a walk." }
       - { kind: listening-comp, audio: "らいげつ りょこうに いくから きっぷを かっとく。", answer: "I'm going on a trip next month, so I'll buy the ticket in advance", distractors: ["I went on a trip last month, so I bought the ticket", "I'm going on a trip next month, so I'll give the ticket a try", "I'm going on a trip next month, so I'll book the hotel in advance"], exercises: [te-oku, kara-because] }
-      - { kind: listening-comp, audio: "あした じゅぎょうが あるから じゅんびを しとく。", answer: "I've got a class tomorrow, so I'll get ready in advance", distractors: ["I had a class yesterday, so I got ready", "I've got a class tomorrow, so I'll have a go at getting ready", "I've got a trip tomorrow, so I'll get ready in advance"], exercises: [te-oku, kara-because] }
+      - { kind: listening-comp, audio: "あした じゅぎょうが あるから じゅんびを しとく。", answer: "I have a class tomorrow, so I'll get ready in advance", distractors: ["I had a class yesterday, so I got ready", "I have a class tomorrow, so I'll have a go at getting ready", "I have a trip tomorrow, so I'll get ready in advance"], exercises: [te-oku, kara-because] }
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "あした りょこうに いくから きっぷを かっとく。", en: "I'm going on the trip tomorrow, so I'll buy the ticket in advance." }
           - { speaker: "Tom", ja: "ホテルの よやくは ぼくが しとく。", en: "I'll do the hotel booking in advance." }
         questions:
           - { q: "What does Tom say he will do in advance?", options: ["The hotel booking", "Buying the ticket", "Polishing his shoes", "Answering the question"], answer: "The hotel booking" }
-      - { kind: challenge, ja: "きょうは ひまだから とりあえず この おもしろい りょうりを たべてみない？", en: "You're free today, so won't you give this interesting dish a try for a start", combines: [nai-form, te-miru, kara-because, kono-sono-ano-dono, i-adj-present], mode: build }
+      - { kind: challenge, ja: "きょうは ひまだから とりあえず この おもしろい りょうりを たべてみない？", en: "I'm free today, so why not try this interesting dish for now?", combines: [nai-form, te-miru, kara-because, kono-sono-ano-dono, i-adj-present], mode: build }
     reviewPool: [りょうり, コーヒー, やま, おんがく, しつもん, くつ, りょこう, ホテル, きっぷ, じしょ]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -874,16 +874,16 @@ lessons:
     introduces: []
     beats:
       - { kind: sentence, ja: "わからないから じしょで しらべてみる。", en: "I don't understand, so I'll try looking it up in the dictionary", exercises: [kara-because, te-miru], mode: build }
-      - { kind: sentence, ja: "あした じゅぎょうが あるから ことばを おぼえておく。", en: "I've got a class tomorrow, so I'll learn the words in advance", exercises: [kara-because, te-oku], mode: build }
+      - { kind: sentence, ja: "あした じゅぎょうが あるから ことばを おぼえておく。", en: "I have a class tomorrow, so I'll learn the vocabulary in advance", exercises: [kara-because, te-oku], mode: build }
       - { kind: sentence, ja: "せんせいに えいごを ならってみる。", en: "I'll try taking English lessons from the teacher", exercises: [te-form, te-miru], mode: listening }
       - { kind: sentence, ja: "この りょうりを たべてみない？", en: "Won't you give this dish a try", exercises: [nai-form, te-miru], mode: build }
       - { kind: sentence, ja: "せんしゅう ホテルの よやくを しておいた。", en: "I booked the hotel in advance last week", exercises: [te-oku, ta-form], mode: build }
-      - { kind: particle-cloze, stem: "あした しつもんが あるから こたえを ", tail: "。", answer: "しらべておく", options: ["しらべておく", "しらべてみる", "きめてみる"], en: "I've got a question tomorrow, so I'll look the answer up in advance", explanation: "a question tomorrow is a deadline, so the helper is おく. しらべてみる would only be finding out what looking it up is like, and きめてみる decides something rather than looking it up." }
-      - { kind: sentence, ja: "やまで しゃしんを とってみる。", en: "I'll have a go at taking a photo on the mountain", exercises: [te-form, te-miru], mode: build }
+      - { kind: particle-cloze, stem: "あした しつもんが あるから こたえを ", tail: "。", answer: "しらべておく", options: ["しらべておく", "しらべてみる", "きめてみる"], en: "I have a question tomorrow, so I'll look the answer up in advance", explanation: "a question tomorrow is a deadline, so the helper is おく. しらべてみる would only be finding out what looking it up is like, and きめてみる decides something rather than looking it up." }
+      - { kind: sentence, ja: "やまで しゃしんを とってみる。", en: "I'll try taking a photo on the mountain", exercises: [te-form, te-miru], mode: build }
       - { kind: listening-comp, audio: "むずかしいけど れんしゅうを つづけてみる。", answer: "It's difficult, but I'll try keeping the practice going", distractors: ["It's difficult, so I'm not keeping the practice going", "It's easy, so I'll keep the practice going", "It was difficult, but I kept the practice going"], exercises: [te-form, kedo] }
       - { kind: sentence, ja: "りょこうの まえに くつを みがいておく。", en: "I'll polish my shoes in advance, before the trip", exercises: [mae-ni, te-oku], mode: build }
       - { kind: sentence, ja: "しつもんを して こたえを きいてみた。", en: "I asked the question to see what the answer was", exercises: [te-miru, ta-form], mode: translate }
-      - { kind: listening-comp, audio: "だいがくが ちかいから じてんしゃに のってみる。", answer: "The university is near, so I'll give the bicycle a go", distractors: ["The university is far, so I'll take the subway", "The school is near, so I'll give the bicycle a go", "The university is near, so I'll try walking there"], exercises: [kara-because, te-miru] }
+      - { kind: listening-comp, audio: "だいがくが ちかいから じてんしゃに のってみる。", answer: "The university is close, so I'll try riding a bike", distractors: ["The university is far, so I'll take the subway", "The school is near, so I'll give the bicycle a go", "The university is near, so I'll try walking there"], exercises: [kara-because, te-miru] }
       - { kind: sentence, ja: "さむいから でんきを つけておく。", en: "It's cold, so I'll leave the light on", exercises: [te-oku, kara-because], mode: build }
       - { kind: sentence, ja: "せつめいが むずかしいから せんせいに はなしてみる。", en: "The explanation is difficult, so I'll try talking to the teacher", exercises: [kara-because, te-miru], mode: build }
       - { kind: sentence, ja: "むずかしいけど この しつもんに こたえる。", en: "It's difficult, but I'll answer this question", exercises: [dictionary-form, kedo, ni-location], mode: build }
@@ -904,12 +904,12 @@ lessons:
     beats:
       - { kind: sentence, ja: "らいげつ がいこくに いくから げんごを ならっておく。", en: "I'm going abroad next month, so I'll learn the language ahead of time", exercises: [te-oku, kara-because, ni-location, te-form], mode: build }
       - { kind: sentence, ja: "きっぷが たかかったから ちかてつに のってみた。", en: "The ticket was expensive, so I gave the subway a go", exercises: [te-miru, ta-form, kara-because, i-adj-past], mode: listening }
-      - { kind: sentence, ja: "ひまな とき やまの しゃしんを とってみる。", en: "When I'm free I have a go at taking photos of the mountain", exercises: [te-miru, toki, no-possession, na-adj-present], mode: build }
+      - { kind: sentence, ja: "ひまな とき やまの しゃしんを とってみる。", en: "When I'm free, I try taking photos of mountains", exercises: [te-miru, toki, no-possession, na-adj-present], mode: build }
       - { kind: sentence, ja: "しつもんが むずかしいから せんせいに おくっておいた。", en: "The questions are difficult, so I sent them to the teacher in advance", exercises: [te-oku, ta-form, kara-because, ni-location], mode: build }
-      - { kind: sentence, ja: "せつめいを よんだ とき こたえが わかった。", en: "When I read the explanation I worked out the answer", exercises: [toki, ta-form, ga-existence], mode: build }
+      - { kind: sentence, ja: "せつめいを よんだ とき こたえが わかった。", en: "When I read the explanation, I understood the answer", exercises: [toki, ta-form, ga-existence], mode: build }
       - { kind: sentence, ja: "いそがしいけど まいにち れんしゅうを つづけてみる。", en: "I'm busy, but I'll try keeping the practice going every day", exercises: [te-miru, te-form, kedo, frequency-adverbs], mode: build }
       - { kind: sentence, ja: "うるさいから まどを しめておく。", en: "It's noisy, so I'll keep the window shut", exercises: [te-oku, kara-because, i-adj-present], mode: build }
-      - { kind: sentence, ja: "やままで あるいてみない？", en: "Won't you try walking to the mountain", exercises: [nai-form, te-miru], mode: translate }
+      - { kind: sentence, ja: "やままで あるいてみない？", en: "Why don't you try walking to the mountain?", exercises: [nai-form, te-miru], mode: translate }
       - { kind: particle-cloze, stem: "らいげつ がいこくに いくから げんごを ", tail: "。", answer: "ならっておく", options: ["ならっておく", "ならってみる", "おくっておく"], en: "I'm going abroad next month, so I'll learn the language ahead of time", explanation: "going abroad next month is a deadline, so the helper is おく. ならってみる would only be finding out what learning the language is like, and おくっておく sends the language somewhere instead of learning it." }
       - { kind: listening-comp, audio: "うるさいから かえる まえに まどを しめておく。", answer: "It's noisy, so I'll shut the window before I go home", distractors: ["It's noisy, so I'll open the window before I go home", "It's cold, so I'll shut the window before I go home", "It's noisy, so I shut the window after I went home"], exercises: [mae-ni, te-oku, kara-because] }
       - { kind: listening-comp, audio: "じてんしゃが やすかったから かっておいた。", answer: "The bicycle was cheap, so I bought it in advance", distractors: ["The bicycle was expensive, so I didn't buy it", "The bicycle was cheap, so I gave it a go", "The car was cheap, so I bought it in advance"], exercises: [te-oku, ta-form, kara-because] }
@@ -917,7 +917,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Tanaka", ja: "らいげつ じゅぎょうが ありますよ。", en: "There's a class next month." }
-          - { speaker: "Mika", ja: "はい。かえる まえに ことばを おぼえておくんです。", en: "Yes. The thing is, I'll learn the words in advance before I go home." }
+          - { speaker: "Mika", ja: "はい。かえる まえに ことばを おぼえておくんです。", en: "Yes. The thing is, I'll memorize the words in advance, before I go home." }
           - { speaker: "Tom", ja: "ぼくは せんせいに しつもんを おくっておくんです。", en: "The thing is, I'll send the teacher my questions in advance." }
         questions:
           - { q: "What does Tom say he will do in advance?", options: ["Send the teacher his questions", "Learn the words before he goes home", "Go to the class next month", "Talk to Mika"], answer: "Send the teacher his questions" }

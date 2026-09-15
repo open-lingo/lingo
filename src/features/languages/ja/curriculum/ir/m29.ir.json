@@ -353,7 +353,7 @@
         },
         {
           "ja": "じかんが なかったから でんわを しませんでした。",
-          "en": "Say politely: I didn't phone, because I hadn't got time"
+          "en": "Say politely: I didn't phone, because I didn't have time"
         },
         {
           "ja": "その おんがくは よかったよ。",
@@ -391,7 +391,7 @@
         },
         {
           "ja": "めがねが ないんです。",
-          "en": "Say politely: The thing is, I haven't got my glasses"
+          "en": "Say politely: The thing is, I don't have my glasses"
         }
       ],
       "antiPattern": {
@@ -674,7 +674,7 @@
             "じゃない",
             "です"
           ],
-          "en": "Say to your teacher: I'm not free in the afternoon",
+          "en": "Teacher, I'm not free in the afternoon",
           "explanation": "the sentence is addressed to a teacher, so the negative wears its polite skin: じゃないです. じゃない is what you would say to a friend, and です turns the sentence round and says you ARE free."
         },
         {
@@ -716,7 +716,7 @@
             {
               "speaker": "Tom",
               "ja": "ううん ケンのじゃないよ。ミカのだ。",
-              "en": "No, it isn't Ken's. It's yours, Mika."
+              "en": "No, it isn't Ken's. It's Mika's."
             }
           ],
           "questions": [
@@ -1062,7 +1062,7 @@
             "ね",
             "よ"
           ],
-          "en": "You are both standing in the wind — say the wind's strong",
+          "en": "The wind is strong, isn't it?",
           "explanation": "you are both feeling the same wind, so the sentence is collecting agreement and takes ね. よ would be telling them something they could not know, which is not true of weather you are both standing in."
         },
         {
@@ -1626,7 +1626,7 @@
         {
           "kind": "sentence",
           "ja": "じかんが ないから さんぽに いきません。",
-          "en": "Say politely: I'm not going for a walk, because I haven't got time",
+          "en": "Say politely: I'm not going for a walk, because I don't have time",
           "exercises": [
             "masu-negative",
             "kara-because",
@@ -1786,7 +1786,7 @@
         {
           "kind": "sentence",
           "ja": "じかんが なかったから でんわを しませんでした。",
-          "en": "Say politely: I didn't phone, because I hadn't got time",
+          "en": "Say politely: I didn't phone, because I didn't have time",
           "exercises": [
             "masu-past",
             "masu-past-negative",
@@ -1867,7 +1867,7 @@
             "しました",
             "しなかった"
           ],
-          "en": "Say politely: I didn't phone, because I hadn't got time",
+          "en": "Say politely: I didn't phone, because I didn't have time",
           "explanation": "the cue is polite and the sentence is a past NEGATIVE, so it takes ませんでした. しました says you did phone, and しなかった is the same denial said to a friend."
         },
         {
@@ -1901,7 +1901,7 @@
         {
           "kind": "challenge",
           "ja": "ごぜんは じかんが なかったけど ごごは ひまだったから かいものに いきました。",
-          "en": "Say politely: I hadn't got time this morning, but I was free this afternoon, so I went shopping",
+          "en": "Say politely: I didn't have time this morning, but I was free this afternoon, so I went shopping",
           "combines": [
             "masu-past",
             "kedo",
@@ -1985,7 +1985,7 @@
             "いかない",
             "いきます"
           ],
-          "en": "Say to your teacher: I'm not going shopping this afternoon",
+          "en": "Teacher, I'm not going shopping this afternoon",
           "explanation": "a teacher is being addressed, so the negative takes its polite ending: いきません. いかない is what you would say to a friend, and いきます says you ARE going."
         },
         {
@@ -2013,11 +2013,11 @@
         {
           "kind": "listening-comp",
           "audio": "じかんが なかったから でんわを しませんでした。",
-          "answer": "I didn't phone, because I hadn't got time",
+          "answer": "I didn't phone, because I didn't have time",
           "distractors": [
             "I phoned, because I had time",
-            "I didn't phone, because I hadn't got any money",
-            "I don't phone, because I haven't got time"
+            "I didn't phone, because I didn't have any money",
+            "I don't phone, because I don't have time"
           ],
           "exercises": [
             "masu-past",
@@ -2081,19 +2081,19 @@
             {
               "speaker": "Tom",
               "ja": "いいえ しませんでした。じかんが なかったんです。",
-              "en": "No, I didn't. The thing is, I hadn't got time."
+              "en": "No, I didn't. The thing is, I didn't have time."
             }
           ],
           "questions": [
             {
               "q": "Why does Tom say he didn't phone?",
               "options": [
-                "He hadn't got time",
-                "He hadn't got any money",
+                "He didn't have time",
+                "He didn't have any money",
                 "He was abroad",
                 "He forgot the number"
               ],
-              "answer": "He hadn't got time"
+              "answer": "He didn't have time"
             }
           ]
         },
@@ -2179,7 +2179,7 @@
         {
           "kind": "sentence",
           "ja": "めがねが ないんです。",
-          "en": "Say politely: The thing is, I haven't got my glasses",
+          "en": "Say politely: The thing is, I don't have my glasses",
           "exercises": [
             "n-desu",
             "nai-existence"
@@ -2286,7 +2286,7 @@
               "q": "Why does Mika say she isn't going for a walk?",
               "options": [
                 "The wind is strong",
-                "She hasn't got time",
+                "She doesn't have time",
                 "It is snowing",
                 "The pond is cold"
               ],
@@ -2491,7 +2491,7 @@
         {
           "kind": "challenge",
           "ja": "ごぜんは じかんが ないけど ごごから いっしょに かいものに いきませんか。",
-          "en": "Say politely: I haven't got time this morning, but shall we go shopping together this afternoon",
+          "en": "Say politely: I don't have time this morning, but shall we go shopping together this afternoon",
           "combines": [
             "masenka",
             "kedo",
@@ -2661,7 +2661,7 @@
             "いきません",
             "だめ"
           ],
-          "en": "Say politely: Turn the invitation down gently",
+          "en": "Say politely: Sorry, this evening is a bit…",
           "explanation": "trailing off after ちょっと IS the refusal, and it is the one that leaves everybody comfortable. いきません is a flat no, and だめ tells the other person their idea was not allowed."
         },
         {
@@ -2689,19 +2689,19 @@
             {
               "speaker": "Mika",
               "ja": "すみません ごごは ちょっと。しごとが あるんです。",
-              "en": "Sorry, this afternoon is a bit… The thing is, I've got work."
+              "en": "Sorry, this afternoon is a bit… The thing is, I have work."
             }
           ],
           "questions": [
             {
               "q": "Why does Mika turn the invitation down?",
               "options": [
-                "She has got work",
+                "She has work",
                 "She is ill",
                 "She has no money",
                 "She is going abroad"
               ],
-              "answer": "She has got work"
+              "answer": "She has work"
             }
           ]
         },
@@ -2902,7 +2902,7 @@
               "npc": {
                 "speaker": "Ken",
                 "ja": "あそこの コーヒー やすかったっけ？",
-                "en": "Was the coffee there cheap, again?"
+                "en": "Was the coffee there cheap, right?"
               },
               "goal": "Tell him it was actually expensive.",
               "reply": {
@@ -2917,7 +2917,7 @@
                 ],
                 "answer": "たかかったじゃん。"
               },
-              "replyGloss": "No — it was expensive, remember?",
+              "replyGloss": "It was expensive, wasn't it?",
               "explanation": "じゃん pushes back with something you both already know. たかかったよ would be telling him news; たかかったね would agree with him — and he is wrong."
             },
             {
@@ -2960,7 +2960,7 @@
             {
               "speaker": "Mika",
               "ja": "かう？",
-              "en": "Buying it, then?"
+              "en": "Will you buy it?"
             }
           ],
           "questions": [
@@ -3062,13 +3062,13 @@
             "ね",
             "よ"
           ],
-          "en": "You are both reading the same letter — say it's long",
+          "en": "This letter is long, isn't it?",
           "explanation": "you are both looking at it, so the sentence is collecting agreement and takes ね. よ would be handing over news, and there is no news in something you can both see."
         },
         {
           "kind": "sentence",
           "ja": "めがねが ないんです。つくえの したに ありませんか。",
-          "en": "Say politely: The thing is, I haven't got my glasses — aren't they under the desk",
+          "en": "Say politely: The thing is, I don't have my glasses — aren't they under the desk",
           "exercises": [
             "n-desu",
             "nai-existence",
@@ -3268,7 +3268,7 @@
         {
           "kind": "sentence",
           "ja": "めがねが ないから てがみが わからないんです。",
-          "en": "Say politely: I can't make out the letter, because I haven't got my glasses",
+          "en": "Say politely: I can't make out the letter, because I don't have my glasses",
           "exercises": [
             "n-desu",
             "nai-existence",
@@ -3279,7 +3279,7 @@
         {
           "kind": "sentence",
           "ja": "ばんは しごとが あるから ちょっと。",
-          "en": "Say to a friend: I've got work this evening, so it's a bit difficult",
+          "en": "Say to a friend: I have work this evening, so it's a bit difficult",
           "exercises": [
             "chotto-softener",
             "kara-because",
@@ -4074,7 +4074,7 @@
     {
       "kana": "ううん",
       "romaji": "uun",
-      "gloss": "nope (casual no)",
+      "gloss": "nope",
       "shortGloss": "nope",
       "imageable": false,
       "kind": "vocab"
@@ -4123,8 +4123,8 @@
     {
       "kana": "ぼく",
       "romaji": "boku",
-      "gloss": "I, me (casual, usually male)",
-      "shortGloss": "I (casual)",
+      "gloss": "I, me",
+      "shortGloss": "I",
       "imageable": false,
       "kind": "vocab"
     },
@@ -4147,7 +4147,7 @@
     {
       "kana": "しります",
       "romaji": "shirimasu",
-      "gloss": "know (polite)",
+      "gloss": "know",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "しる"
@@ -4155,7 +4155,7 @@
     {
       "kana": "しりません",
       "romaji": "shirimasen",
-      "gloss": "don't know (polite)",
+      "gloss": "don't know",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "しる"
@@ -4171,7 +4171,7 @@
     {
       "kana": "わかります",
       "romaji": "wakarimasu",
-      "gloss": "understand (polite)",
+      "gloss": "understand",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "わかる"
@@ -4179,7 +4179,7 @@
     {
       "kana": "ちがいます",
       "romaji": "chigaimasu",
-      "gloss": "that's not right (polite)",
+      "gloss": "that's not right",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "ちがう"
@@ -4553,7 +4553,7 @@
     {
       "kana": "おぼえる",
       "romaji": "oboeru",
-      "gloss": "to memorise, to learn",
+      "gloss": "to memorize, to learn",
       "shortGloss": "memorise",
       "imageable": true,
       "kind": "verb",
@@ -4570,7 +4570,7 @@
     {
       "kana": "だった",
       "romaji": "datta",
-      "gloss": "was, were (plain)",
+      "gloss": "was, were",
       "shortGloss": "was (plain)",
       "imageable": false,
       "kind": "grammar-chunk"
@@ -4578,8 +4578,8 @@
     {
       "kana": "でした",
       "romaji": "deshita",
-      "gloss": "was, were (polite)",
-      "shortGloss": "was (polite)",
+      "gloss": "was, were",
+      "shortGloss": "was",
       "imageable": false,
       "kind": "grammar-chunk"
     },
@@ -5080,7 +5080,7 @@
     {
       "kana": "すき",
       "romaji": "suki",
-      "gloss": "likeable, like",
+      "gloss": "like",
       "shortGloss": "like",
       "imageable": false,
       "kind": "vocab"
@@ -5141,7 +5141,7 @@
     {
       "kana": "みがく",
       "romaji": "migaku",
-      "gloss": "to brush teeth, to polish",
+      "gloss": "to polish",
       "shortGloss": "polish",
       "imageable": true,
       "kind": "verb",
@@ -5217,7 +5217,7 @@
     {
       "kana": "とりにく",
       "romaji": "toriniku",
-      "gloss": "chicken meat",
+      "gloss": "chicken",
       "shortGloss": "chicken",
       "imageable": true,
       "kind": "vocab"
@@ -5573,7 +5573,7 @@
     {
       "kana": "ので",
       "romaji": "node",
-      "gloss": "because (softer)",
+      "gloss": "because",
       "shortGloss": "because",
       "imageable": false,
       "kind": "vocab"
@@ -5910,7 +5910,7 @@
     {
       "kana": "スポーツ",
       "romaji": "supootsu",
-      "gloss": "sport",
+      "gloss": "sports",
       "imageable": true,
       "kind": "vocab"
     },
@@ -6115,7 +6115,7 @@
     {
       "kana": "おじいさん",
       "romaji": "ojiisan",
-      "gloss": "grandfather, older man",
+      "gloss": "grandfather",
       "shortGloss": "older man",
       "kind": "vocab"
     },
@@ -6285,7 +6285,7 @@
     {
       "kana": "おりる",
       "romaji": "oriru",
-      "gloss": "to get off, to descend",
+      "gloss": "to get off",
       "shortGloss": "to get off",
       "kind": "vocab"
     },
@@ -6425,7 +6425,7 @@
     {
       "kana": "など",
       "romaji": "nado",
-      "gloss": "and so on, et cetera",
+      "gloss": "and so on",
       "shortGloss": "and so on",
       "imageable": false,
       "kind": "vocab"
@@ -6433,7 +6433,7 @@
     {
       "kana": "おかあさん",
       "romaji": "okaasan",
-      "gloss": "(someone else's) mother — honorific",
+      "gloss": "(someone else's) mother",
       "shortGloss": "their mother",
       "imageable": false,
       "kind": "vocab"
@@ -6441,7 +6441,7 @@
     {
       "kana": "おとうさん",
       "romaji": "otousan",
-      "gloss": "(someone else's) father — honorific",
+      "gloss": "(someone else's) father",
       "shortGloss": "their father",
       "imageable": false,
       "kind": "vocab"
@@ -6449,7 +6449,7 @@
     {
       "kana": "おにいさん",
       "romaji": "oniisan",
-      "gloss": "(someone else's) older brother — honorific",
+      "gloss": "(someone else's) older brother",
       "shortGloss": "their big brother",
       "imageable": false,
       "kind": "vocab"
@@ -6457,7 +6457,7 @@
     {
       "kana": "おねえさん",
       "romaji": "oneesan",
-      "gloss": "(someone else's) older sister — honorific",
+      "gloss": "(someone else's) older sister",
       "shortGloss": "their big sister",
       "imageable": false,
       "kind": "vocab"
@@ -6473,7 +6473,7 @@
     {
       "kana": "おさけ",
       "romaji": "osake",
-      "gloss": "sake, alcohol",
+      "gloss": "alcohol",
       "shortGloss": "sake",
       "kind": "vocab"
     },
@@ -6893,8 +6893,8 @@
     {
       "kana": "みれる",
       "romaji": "mireru",
-      "gloss": "can watch (casual ら-dropped form)",
-      "shortGloss": "can watch (casual)",
+      "gloss": "can watch (ら-dropped form)",
+      "shortGloss": "can watch",
       "imageable": false,
       "kind": "verb"
     },
@@ -6949,7 +6949,7 @@
     {
       "kana": "きこえる",
       "romaji": "kikoeru",
-      "gloss": "to be audible, to reach the ear",
+      "gloss": "to be heard, to reach the ear",
       "shortGloss": "is audible",
       "imageable": false,
       "kind": "verb"
@@ -6973,7 +6973,7 @@
     {
       "kana": "へた",
       "romaji": "heta",
-      "gloss": "unskillful, bad at",
+      "gloss": "bad at",
       "shortGloss": "bad at",
       "imageable": false,
       "kind": "vocab"
@@ -6989,7 +6989,7 @@
     {
       "kana": "ましょう",
       "romaji": "mashou",
-      "gloss": "let's ~ (polite suggestion, on the ます-stem)",
+      "gloss": "let's ~",
       "shortGloss": "let's ~",
       "imageable": false,
       "kind": "vocab"
@@ -7049,7 +7049,7 @@
     {
       "kana": "すずしい",
       "romaji": "suzushii",
-      "gloss": "cool, refreshing",
+      "gloss": "cool",
       "shortGloss": "cool",
       "kind": "vocab"
     },
@@ -7095,8 +7095,8 @@
     {
       "kana": "あき",
       "romaji": "aki",
-      "gloss": "fall",
-      "shortGloss": "fall",
+      "gloss": "autumn",
+      "shortGloss": "autumn",
       "kind": "vocab"
     },
     {
@@ -7134,7 +7134,7 @@
     {
       "kana": "だろう",
       "romaji": "darou",
-      "gloss": "probably (plain conjecture — mostly heard, not said)",
+      "gloss": "probably",
       "shortGloss": "probably (plain)",
       "imageable": false,
       "kind": "vocab"
@@ -7215,7 +7215,7 @@
     {
       "kana": "えいご",
       "romaji": "eigo",
-      "gloss": "English language",
+      "gloss": "English",
       "shortGloss": "English",
       "imageable": false,
       "kind": "vocab"
@@ -7558,8 +7558,8 @@
     {
       "kana": "せいと",
       "romaji": "seito",
-      "gloss": "pupil",
-      "shortGloss": "pupil",
+      "gloss": "student",
+      "shortGloss": "student",
       "kind": "vocab"
     },
     {
@@ -7600,7 +7600,7 @@
     {
       "kana": "つよい",
       "romaji": "tsuyoi",
-      "gloss": "strong, powerful",
+      "gloss": "strong",
       "shortGloss": "strong",
       "imageable": false,
       "kind": "vocab"
@@ -7813,7 +7813,7 @@
     {
       "kana": "たべます",
       "romaji": "tabemasu",
-      "gloss": "eat (polite)",
+      "gloss": "eat",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "たべる",
@@ -7822,7 +7822,7 @@
     {
       "kana": "のみます",
       "romaji": "nomimasu",
-      "gloss": "drink (polite)",
+      "gloss": "drink",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "のむ",
@@ -7831,7 +7831,7 @@
     {
       "kana": "みます",
       "romaji": "mimasu",
-      "gloss": "watch (polite)",
+      "gloss": "watch",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "みる",
@@ -7840,7 +7840,7 @@
     {
       "kana": "いきます",
       "romaji": "ikimasu",
-      "gloss": "go, travel (polite)",
+      "gloss": "go, travel",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -7849,7 +7849,7 @@
     {
       "kana": "きます",
       "romaji": "kimasu",
-      "gloss": "come (polite)",
+      "gloss": "come",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる",
@@ -7858,7 +7858,7 @@
     {
       "kana": "します",
       "romaji": "shimasu",
-      "gloss": "do, make (polite)",
+      "gloss": "do, make",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "する",
@@ -7867,7 +7867,7 @@
     {
       "kana": "かいます",
       "romaji": "kaimasu",
-      "gloss": "buy (polite)",
+      "gloss": "buy",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "かう",
@@ -7876,7 +7876,7 @@
     {
       "kana": "ききます",
       "romaji": "kikimasu",
-      "gloss": "listen, ask (polite)",
+      "gloss": "listen, ask",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "きく",
@@ -7885,7 +7885,7 @@
     {
       "kana": "あそびます",
       "romaji": "asobimasu",
-      "gloss": "play (polite)",
+      "gloss": "play",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "あそぶ",
@@ -7894,7 +7894,7 @@
     {
       "kana": "あります",
       "romaji": "arimasu",
-      "gloss": "have, there is (polite)",
+      "gloss": "have, there is",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "ある",
@@ -7903,7 +7903,7 @@
     {
       "kana": "たべません",
       "romaji": "tabemasen",
-      "gloss": "don't eat (polite)",
+      "gloss": "don't eat",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "たべる",
@@ -7912,7 +7912,7 @@
     {
       "kana": "のみません",
       "romaji": "nomimasen",
-      "gloss": "don't drink (polite)",
+      "gloss": "don't drink",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "のむ",
@@ -7921,7 +7921,7 @@
     {
       "kana": "みません",
       "romaji": "mimasen",
-      "gloss": "don't watch (polite)",
+      "gloss": "don't watch",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "みる",
@@ -7930,7 +7930,7 @@
     {
       "kana": "いきません",
       "romaji": "ikimasen",
-      "gloss": "don't go, not traveling (polite)",
+      "gloss": "don't go",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -7939,7 +7939,7 @@
     {
       "kana": "きません",
       "romaji": "kimasen",
-      "gloss": "doesn't come (polite)",
+      "gloss": "doesn't come",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる",
@@ -7957,7 +7957,7 @@
     {
       "kana": "しません",
       "romaji": "shimasen",
-      "gloss": "don't do, won't make (polite)",
+      "gloss": "don't do, won't make",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "する",
@@ -7966,7 +7966,7 @@
     {
       "kana": "はたらきません",
       "romaji": "hatarakimasen",
-      "gloss": "don't work (polite)",
+      "gloss": "don't work",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "はたらく",
@@ -7975,7 +7975,7 @@
     {
       "kana": "ありません",
       "romaji": "arimasen",
-      "gloss": "doesn't have, isn't there (polite)",
+      "gloss": "doesn't have, isn't there",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "ある",
@@ -7993,7 +7993,7 @@
     {
       "kana": "はたらきます",
       "romaji": "hatarakimasu",
-      "gloss": "work (polite)",
+      "gloss": "work",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "はたらく",
@@ -8260,7 +8260,7 @@
     {
       "kana": "みせ",
       "romaji": "mise",
-      "gloss": "shop, store",
+      "gloss": "store",
       "shortGloss": "shop",
       "imageable": true,
       "kind": "vocab"

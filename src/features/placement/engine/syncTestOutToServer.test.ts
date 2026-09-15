@@ -1,10 +1,33 @@
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import {
   buildTestOutAttempts,
   syncTestOutToServer,
 } from "./syncTestOutToServer";
-import type { ProgressApi } from "@/shared/api/progress";
+import {
+  SERVER_DURATION_FLOOR_SEC,
+  type BatchAttempt,
+  type ProgressApi,
+} from "@/shared/api/progress";
+import { clearTestOutSyncQueue } from "@/shared/domain/testOutSyncQueue";
+
+/** What the server answers for an accepted row. `syncTestOutToServer` only
+ *  counts ids the server confirms, so a mock that resolves `undefined`
+ *  legitimately reports 0 submitted (b18 #144 — the old code counted rows it
+ *  had merely POSTed, which is how a 100%-rejected batch looked like success). */
+function acceptAll(payload: { attempts: BatchAttempt[] }) {
+  return {
+    results: payload.attempts.map((a) => ({
+      clientAttemptId: a.clientAttemptId,
+      attemptId: `srv-${a.clientAttemptId}`,
+      accepted: true,
+      xpEarned: 0,
+      streakAfter: 0,
+      lingotsEarned: 0,
+      dailyTotalLessons: 0,
+    })),
+  };
+}
 
 describe("buildTestOutAttempts", () => {
   it("returns empty when no modules passed", () => {
@@ -17,8 +40,10 @@ describe("buildTestOutAttempts", () => {
     for (const a of attempts) {
       expect(a.passed).toBe(true);
       expect(a.score).toBe(1.0);
-      // Server validator is ge=1; 0 was silently 422'ing every sync.
-      expect(a.durationSec).toBe(1);
+      // Server floor is max(5, stepResults.length) — `router.py:363`.
+      // Anything under it comes back `duration_below_floor` and is dropped
+      // before the rollup write (b18 #144).
+      expect(a.durationSec).toBe(SERVER_DURATION_FLOOR_SEC);
       expect(a.stepResults).toEqual([]);
       expect(a.clientAttemptId).toMatch(/^testout-m3-/);
       expect(a.lessonId).toBeTruthy();
@@ -54,8 +79,13 @@ describe("buildTestOutAttempts", () => {
 });
 
 describe("syncTestOutToServer", () => {
+  beforeEach(() => {
+    localStorage.clear();
+    clearTestOutSyncQueue();
+  });
+
   it("includes the assumed (before-the-tested-module) modules, all isTestOut", async () => {
-    const batchAttempts = vi.fn().mockResolvedValue(undefined);
+    const batchAttempts = vi.fn(acceptAll);
     const progress = { batchAttempts } as unknown as ProgressApi;
 
     // Passed m10 ⇒ assumed earlier modules auto-completed. Both must sync.
@@ -68,6 +98,7 @@ describe("syncTestOutToServer", () => {
       "m5",
     ]);
 
+    // KO m3-m5 + m10 is under the server's 100-row cap, so one POST.
     expect(batchAttempts).toHaveBeenCalledTimes(1);
     const sent = batchAttempts.mock.calls[0][0].attempts;
     // Every synced attempt is flagged isTestOut so the server gates XP.
@@ -86,7 +117,7 @@ describe("syncTestOutToServer", () => {
   });
 
   it("de-dupes a module that appears in both passed and assumed", async () => {
-    const batchAttempts = vi.fn().mockResolvedValue(undefined);
+    const batchAttempts = vi.fn(acceptAll);
     const progress = { batchAttempts } as unknown as ProgressApi;
 
     await syncTestOutToServer(progress, ["m3"], "ja", ["m3"]);

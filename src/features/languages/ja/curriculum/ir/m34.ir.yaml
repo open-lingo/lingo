@@ -40,7 +40,7 @@ notes: |
      ku-ni-naru sibling). PAIRWISE across two lessons, contrast on L7.
   6. 〜(よ)うとする "attempt" as RECOGNITION (L9), with the explicit contrast
      the spine names: てみる is do-and-find-out (you did it); ようとする is
-     the attempt itself (you may never have got there). Learners collapse
+     the attempt itself (you may never have gotten there). Learners collapse
      these; the contrast beat exists because of that.
 
   DIALOGUE_SIM DEBUT (Spencer 2026-08-24: "get some good use of the dialogue
@@ -148,7 +148,7 @@ grammarPoints:
     antiPattern: { ja: "わたしが きめるから、けっこんすることになった。", why: "ことになる deliberately leaves the decider out — but this sentence's から-clause just named one: わたしが きめる. Once a decider is on the page, the wrap-up has to agree with it: けっこんすることにした、not ことになった。" }
 
   - id: you-to-suru
-    rule: "「〜ようとする」 is the attempt itself — will meeting the world, with no promise the world gave way. 「ドアを あけようとした」: I went to open the door. Maybe it opened; usually the sentence continues with what got in the way — けど、あかなかった. Keep it apart from module 30's てみる, because English \"try\" flattens them into one word: あけてみた means you DID open it, to find out what would happen; あけようとした means you may never have got it open at all. Do-and-see versus almost-did. You need only recognise this one for now — production comes later in the tier."
+    rule: "「〜ようとする」 is the attempt itself — will meeting the world, with no promise the world gave way. 「ドアを あけようとした」: I went to open the door. Maybe it opened; usually the sentence continues with what got in the way — けど、あかなかった. Keep it apart from module 30's てみる, because English \"try\" flattens them into one word: あけてみた means you DID open it, to find out what would happen; あけようとした means you may never have gotten it open at all. Do-and-see versus almost-did. You need only recognise this one for now — production comes later in the tier."
     examples:
       - { ja: "ドアを あけようとした。", en: "I tried to open the door." }
       - { ja: "あけようとしたけど、あかなかった。", en: "I tried to open it, but it wouldn't open." }
@@ -165,7 +165,7 @@ newAtoms:
   - { kana: けっこん, romaji: kekkon, gloss: "marriage, getting married", shortGloss: "marriage", imageable: false, kind: vocab }
   - { kana: そつぎょう, romaji: sotsugyou, gloss: "graduation", shortGloss: "graduation", imageable: false, kind: vocab }
   - { kana: もくひょう, romaji: mokuhyou, gloss: "a goal, a target", shortGloss: "goal", imageable: true, kind: vocab }
-  - { kana: ちょきん, romaji: chokin, gloss: "savings, saving money", shortGloss: "savings", imageable: false, kind: vocab }
+  - { kana: ちょきん, romaji: chokin, gloss: "savings", shortGloss: "savings", imageable: false, kind: vocab }
   # ══ Verbs. さがす RE-STAMPS the existing future-stamped atom `sagasu` (🔍,
   #    imageable — the magnifying glass IS searching). やめる/がんばる have no
   #    honest picture (a 💪 reads "strong", not "keep at it").
@@ -236,16 +236,16 @@ lessons:
       - { kind: sentence, ja: "コーヒーを のもう。", en: "Let's have a coffee", exercises: [volitional, wo-object], mode: build }
       - { kind: particle-cloze, stem: "コーヒーを ", tail: "。", answer: "のもう", options: ["のもう", "のむう", "のみよう"], en: "Let's have a coffee", explanation: "the u-verb's last sound moves to the o-row and takes う: のむ → のもう. のむう bolts う onto the dictionary form without the slide; のみよう borrows the ru-verb's よう on the wrong stem." }
       - { kind: sentence, ja: "としょかんに いこう。", en: "Let's go to the library", exercises: [volitional, ni-location], mode: build }
-      - { kind: sentence, ja: "あたらしい かばんを かおう。", en: "I'll buy a new bag", exercises: [volitional, i-adj-present, wo-object], mode: listening }
+      - { kind: sentence, ja: "あたらしい かばんを かおう。", en: "Let's buy a new bag", exercises: [volitional, i-adj-present, wo-object], mode: listening }
       - { kind: rule, grammarPointId: volitional, variant: mashou-is-polite }
       - { kind: sentence, ja: "いっしょに えきまで あるこう。", en: "Let's walk to the station together", exercises: [volitional, made-until], mode: build }
       - { kind: listening-comp, audio: "コーヒーを のみましょう。", answer: "Let's have a coffee (polite)", distractors: ["Let's have a coffee (to a friend)", "I don't drink coffee", "I had a coffee"], explanation: "のみましょう is のもう wearing the polite layer — same suggestion, dressed for a teacher or a stranger." }
       - { kind: sentence, ja: "えいがが はじまる まえに コーヒーを のもう。", en: "Let's have a coffee before the movie starts", exercises: [volitional, mae-ni, jidoushi-tadoushi], mode: build }
-      - { kind: sentence, ja: "あした てがみを だそう。", en: "I'll send the letter tomorrow", exercises: [volitional, wo-object], mode: build }
+      - { kind: sentence, ja: "あした てがみを だそう。", en: "Let's mail the letter tomorrow", exercises: [volitional, wo-object], mode: build }
       - { kind: sentence, ja: "でんきを けそう。", en: "Let's turn off the light", exercises: [volitional, jidoushi-tadoushi], mode: translate }
       - { kind: kanji, kana: としょかん, kanji: 図書館, distractors: ["ずしょかん", "としょうかん", "としょかいん"], exercises: [volitional] }
       - { kind: particle-cloze, stem: "せんせいに、コーヒーを ", tail: "。", answer: "のみましょう", options: ["のみましょう", "のもう", "のみます"], en: "Say to your teacher: Let's have a coffee", explanation: "のみましょう is のもう wearing the polite layer — the audience is your teacher, so the dressed-up form is right. のもう is the same will bare, for a friend. のみます is only a plain statement — it does not suggest anything." }
-      - { kind: sentence, ja: "みせに いって、のみものを かおう。", en: "Let's go to the shop and buy a drink", exercises: [volitional, te-form, wo-object], mode: build }
+      - { kind: sentence, ja: "みせに いって、のみものを かおう。", en: "Let's go to the store and buy a drink", exercises: [volitional, te-form, wo-object], mode: build }
       - { kind: listening-comp, audio: "としょかんに いこう。", answer: "Let's go to the library", distractors: ["I'm going to the library", "The library is closed", "Let's go to the shop"], q: "What does this mean?", explanation: "いこう is the bare will thrown forward — let's go — and に names the library as where." }
       - { kind: challenge, ja: "えいがが はじまる まえに みせに いって、のみものを かおう。", en: "Before the movie starts, let's go to the shop and buy drinks", combines: [volitional, mae-ni, te-form, jidoushi-tadoushi], mode: build }
     reviewPool: [コーヒー, としょかん, えき, かばん, てがみ, でんき, えいが, のみもの, みせ, いっしょ]
@@ -335,7 +335,7 @@ lessons:
       - { kind: particle-cloze, stem: "としょかんに ", tail: "。", answer: "いこう", options: ["いこう", "いく", "いった"], en: "Let's go to the library", explanation: "the volitional turns いく's last sound to the o-row and adds う: いこう. いく is the plain dictionary form, with no will in it. いった is the past — already gone, not about to go." }
       - { kind: sentence, ja: "しゅくだいを はじめよう。", en: "Let's start the homework", exercises: [volitional, jidoushi-tadoushi], mode: build }
       - { kind: listening-comp, audio: "でんきを けそう。", answer: "Let's turn off the light", distractors: ["I turned off the light", "The light goes out", "Please turn off the light"], exercises: [volitional, jidoushi-tadoushi] }
-      - { kind: sentence, ja: "あたらしい かばんを かおう。", en: "I'll buy a new bag", exercises: [volitional, i-adj-present, wo-object], mode: build }
+      - { kind: sentence, ja: "あたらしい かばんを かおう。", en: "Let's buy a new bag", exercises: [volitional, i-adj-present, wo-object], mode: build }
       - { kind: particle-cloze, stem: "せんせいに、コーヒーを ", tail: "。", answer: "のみましょう", options: ["のみましょう", "のもう", "のみます"], en: "Say to your teacher: Let's have a coffee", explanation: "のみましょう is のもう wearing the polite layer — the audience is your teacher, so the dressed-up form is right. のもう is the same will bare, for a friend. のみます is only a plain statement." }
       - { kind: sentence, ja: "テレビを みよう。", en: "Let's watch TV", exercises: [volitional, wo-object], mode: build }
       - { kind: sentence, ja: "こうえんで あそぼう？", en: "Want to hang out at the park?", exercises: [volitional, de-action], mode: listening }
@@ -407,7 +407,7 @@ lessons:
       - { kind: sentence, ja: "おかねを つかわないことにした。", en: "I decided not to spend money", exercises: [koto-ni-suru, nai-form, wo-object], mode: build }
       # Second carrier (rep-audit 2026-09-09): つかわない had one distinct
       # carrier. Different object and tense (ことにする, not ことにした).
-      - { kind: sentence, ja: "でんわを つかわないことにする。", en: "I'm deciding not to use the phone, starting now", exercises: [koto-ni-suru, nai-form], mode: build }
+      - { kind: sentence, ja: "でんわを つかわないことにする。", en: "I've decided not to use the phone", exercises: [koto-ni-suru, nai-form], mode: build }
       - { kind: kanji, kana: おかね, kanji: お金, distractors: ["おきん", "おがね", "おかめ"], exercises: [koto-ni-suru] }
       - kind: dialogue
         lines:
@@ -429,7 +429,7 @@ lessons:
       - { kind: rule, grammarPointId: koto-ni-naru }
       - { kind: sentence, ja: "らいげつ けっこんすることになった。", en: "It's been decided we're getting married next month", exercises: [koto-ni-naru], mode: build }
       - { kind: sentence, ja: "らいねん そつぎょうすることになる。", en: "It'll turn out that I graduate next year", exercises: [koto-ni-naru], mode: build }
-      - { kind: sentence, ja: "アメリカで はたらくことになった。", en: "It's been settled that I'll be working in America", exercises: [koto-ni-naru, de-action], mode: build }
+      - { kind: sentence, ja: "アメリカで はたらくことになった。", en: "It's been decided that I'll be working in America", exercises: [koto-ni-naru, de-action], mode: build }
       - { kind: sentence, ja: "けっこんすることにした。", en: "I decided to get married", exercises: [koto-ni-suru], mode: build }
       - { kind: sentence, ja: "けっこんすることになった。", en: "It's been decided that I'm getting married", exercises: [koto-ni-naru], mode: listening }
       - { kind: particle-cloze, stem: "だいがくを ", tail: "。", answer: "そつぎょうすることになった", options: ["そつぎょうすることになった", "そつぎょうすることにした", "そつぎょうした"], en: "It's been decided (nobody named) that I'll graduate from university", explanation: "ことになった leaves the decider out — nobody in the sentence claims the call, which fits a university handing down a result. ことにした would make it your own decision. そつぎょうした just reports the past event, with no decision framing at all." }
@@ -519,7 +519,7 @@ lessons:
       # one distinct carrier. A domain (work), not a frequency adverb.
       - { kind: sentence, ja: "しごとで がんばる。", en: "I do my best at work", exercises: [dictionary-form, de-action], mode: listening }
       - { kind: sentence, ja: "もくひょうが あるから、がんばろう。", en: "There's a goal, so let's do our best", exercises: [volitional, kara-because, ga-existence], mode: build }
-      - { kind: sentence, ja: "まいにち あるくことにする。", en: "I'm deciding to walk every day, starting now", exercises: [koto-ni-suru], mode: build }
+      - { kind: sentence, ja: "まいにち あるくことにする。", en: "I've decided to walk every day", exercises: [koto-ni-suru], mode: build }
       - { kind: sentence, ja: "ちょきんすることにした。", en: "I decided to save money", exercises: [koto-ni-suru], mode: build }
       - { kind: particle-cloze, stem: "ミカに「", tail: "」と いう。", answer: "がんばろう", options: ["がんばろう", "がんばります", "がんばる"], en: "Say to Mika: Let's do our best", explanation: "がんばろう is the bare will — right for a friend like Mika. がんばります is the same promise in polite dress, for せんせい. がんばる is only the bare dictionary form, with no suggestion in it at all." }
       - { kind: kanji, kana: まいにち, kanji: 毎日, distractors: ["まいび", "まえにち", "まいにつ"], exercises: [volitional] }
@@ -600,7 +600,7 @@ lessons:
         lines:
           - { speaker: "Mika", ja: "らいねんの もくひょうは？", en: "What's your goal for next year?" }
           - { speaker: "Tom", ja: "しごとを さがそうとおもう。ミカは？", en: "I think I'll look for a job. What about you, Mika?" }
-          - { speaker: "Mika", ja: "わたしは ちょきんすることにした。ともだちが らいげつ けっこんすることになったから。", en: "I decided to start saving. Because my friend is getting married next month, it's been decided." }
+          - { speaker: "Mika", ja: "わたしは ちょきんすることにした。ともだちが らいげつ けっこんすることになったから。", en: "I decided to save money. Because my friend is getting married next month." }
           - { speaker: "Tom", ja: "そう。がんばろう！", en: "I see. Let's do our best!" }
         questions:
           - { q: "What did Mika decide to do?", options: ["Start saving", "Look for a job", "Get married", "Quit her job"], answer: "Start saving" }

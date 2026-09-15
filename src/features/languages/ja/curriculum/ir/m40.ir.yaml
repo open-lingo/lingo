@@ -185,7 +185,7 @@ newAtoms:
   - { kana: さそわれた, romaji: sasowareta, gloss: "was invited (passive of さそう)", shortGloss: "was invited (invite)", imageable: false, kind: verb-form, derivedFrom: さそう, verbClass: u }
   # ══ L5 — creation/authorship passive: two suru-noun headwords plus a new
   # ichidan lemma, all hand-authored.
-  - { kana: はつめい, romaji: hatsumei, gloss: "invention, discovery", shortGloss: "invention", imageable: false, kind: vocab }
+  - { kana: はつめい, romaji: hatsumei, gloss: "invention", shortGloss: "invention", imageable: false, kind: vocab }
   - { kana: けんきゅう, romaji: kenkyuu, gloss: "research", shortGloss: "research", imageable: false, kind: vocab }
   - { kana: たてる, romaji: tateru, gloss: "to build", shortGloss: "build", imageable: true, kind: verb, verbClass: ru }
   - { kana: たてられる, romaji: taterareru, gloss: "to be built (passive of たてる)", shortGloss: "be built (build)", imageable: false, kind: verb-form, derivedFrom: たてる, verbClass: ru }
@@ -313,7 +313,7 @@ lessons:
         lines:
           - { speaker: "Ken", ja: "きずは だいじょうぶ？", en: "Is the wound okay?" }
           - { speaker: "Tom", ja: "うん、だいじょうぶ。", en: "Yeah, I'm fine." }
-          - { speaker: "Ken", ja: "よかった。", en: "Good." }
+          - { speaker: "Ken", ja: "よかった。", en: "That's a relief" }
         questions:
           - { q: "How is Tom's wound?", options: ["He's fine", "It's serious", "He went to the hospital", "He doesn't know"], answer: "He's fine" }
       - { kind: sentence, ja: "かばんが ぬすまれた。", en: "The bag was stolen.", exercises: [passive-form], mode: build }
@@ -342,7 +342,7 @@ lessons:
         lines:
           - { speaker: "Mika", ja: "この きかい なに？", en: "What's this machine?" }
           - { speaker: "Ken", ja: "タナカさんに よって はつめいされたんだ。", en: "It was invented by Mr. Tanaka." }
-          - { speaker: "Mika", ja: "いいね。", en: "That's amazing." }
+          - { speaker: "Mika", ja: "いいね。", en: "That's nice." }
         questions:
           - { q: "Who invented the machine?", options: ["Mr. Tanaka", "Mika", "Ken", "Nobody knows"], answer: "Mr. Tanaka" }
       - { kind: challenge, ja: "この きかいは タナカさんに よって けんきゅうされて、はつめいされた。", en: "This machine was researched and then invented by Tanaka.", combines: [niyotte-creation-passive, te-form, wa-topic], mode: build }
@@ -413,7 +413,7 @@ lessons:
         lines:
           - { speaker: "Mika", ja: "いえに ひがいは あった？", en: "Was there damage to the house?" }
           - { speaker: "Ken", ja: "うん、きずだけ。", en: "Yeah, just a scratch." }
-          - { speaker: "Mika", ja: "よかった。", en: "Good." }
+          - { speaker: "Mika", ja: "よかった。", en: "That's a relief" }
         questions:
           - { q: "How much damage was there?", options: ["Just a scratch", "A lot", "None at all", "He doesn't know"], answer: "Just a scratch" }
       - { kind: sentence, ja: "ともだちに えいがに さそわれた。", en: "I was invited to a movie by a friend.", exercises: [passive-rareru], mode: build }
@@ -426,7 +426,7 @@ lessons:
     focus: "Passive sentences ride every grammar point already known — し listing, のに concession, て-から order — production capstone before the second sim"
     introduces: []
     beats:
-      - { kind: sentence, ja: "せんせいに ほめられたし、 たのまれたし、 うれしかった。", en: "I was praised and what's more asked (a favor) by the teacher, so I was happy.", exercises: [passive-rareru, shi-listing], mode: build }
+      - { kind: sentence, ja: "せんせいに ほめられたし、 たのまれたし、 うれしかった。", en: "I was praised and asked a favor by the teacher, so I was happy.", exercises: [passive-rareru, shi-listing], mode: build }
       - { kind: sentence, ja: "どろぼうに さいふを ぬすまれたのに、げんきだった。", en: "Even though my wallet was stolen by a thief, I was fine.", exercises: [possessed-object-passive, noni-concession], mode: build }
       - { kind: particle-cloze, stem: "けいさつに よばれた", tail: "、たいへんだった。", answer: "ので", options: ["ので", "のに", "し"], en: "Since I was called in by the police, it was tough.", explanation: "ので states a plain reason — being called in explains the tough day directly, no clash. のに would need a contradiction; し would pile this in as one of several reasons, not state it alone as the cause." }
       - { kind: sentence, ja: "この きかいは はつめいされてから、けんきゅうされた。", en: "After this machine was invented, it was researched.", exercises: [niyotte-creation-passive, te-kara], mode: build }
@@ -472,7 +472,7 @@ lessons:
         lines:
           - { speaker: "Ken", ja: "この いえ すてきだね。", en: "This house is lovely." }
           - { speaker: "Tom", ja: "うん、ちちに よって たてられたんだ。", en: "Yeah, it was built by my father." }
-          - { speaker: "Ken", ja: "いいね。", en: "That's amazing." }
+          - { speaker: "Ken", ja: "いいね。", en: "That's nice." }
         questions:
           - { q: "Who built the house?", options: ["Tom's father", "Tom", "Ken", "A company"], answer: "Tom's father" }
       - { kind: challenge, ja: "どろぼうに とけいを ぬすまれたのに、けいさつに よばれたし、 たいへんだった。", en: "Even though my watch was stolen by a thief, I was called in by the police and what's more it was tough.", combines: [possessed-object-passive, noni-concession, shi-listing], mode: build }
@@ -494,7 +494,7 @@ lessons:
         lines:
           - { speaker: "Mika", ja: "けいさつに そうさされた？", en: "Were you investigated by the police?" }
           - { speaker: "Ken", ja: "ううん、どろぼうが そうさされたよ。", en: "No, the thief was investigated." }
-          - { speaker: "Mika", ja: "よかった。", en: "Good." }
+          - { speaker: "Mika", ja: "よかった。", en: "That's a relief" }
         questions:
           - { q: "Who was investigated?", options: ["The thief", "Ken", "Mika", "Nobody"], answer: "The thief" }
       - { kind: sentence, ja: "けいさつに よばれた。", en: "I was called in by the police.", exercises: [passive-rareru], mode: build }
@@ -518,5 +518,5 @@ lessons:
           - { speaker: "Tanaka", ja: "たいへんだったね。", en: "That sounds tough." }
         questions:
           - { q: "Why did Mika call the police?", options: ["Her wallet was stolen", "She saw a thief run", "She was scolded", "She found a machine"], answer: "Her wallet was stolen" }
-      - { kind: challenge, ja: "どろぼうに さいふを ぬすまれたので、けいさつに でんわしたし、 たいへんだった。", en: "Since my wallet was stolen by a thief, I called the police, and what's more it was tough.", combines: [possessed-object-passive, node-because, shi-listing, ta-form], mode: build }
+      - { kind: challenge, ja: "どろぼうに さいふを ぬすまれたので、けいさつに でんわしたし、 たいへんだった。", en: "Since my wallet was stolen by a thief, I called the police, and it was tough.", combines: [possessed-object-passive, node-because, shi-listing, ta-form], mode: build }
     reviewPool: [けいさつ, どろぼう, さいふ, とけい, きかい, ちち, たいへん, いえ]

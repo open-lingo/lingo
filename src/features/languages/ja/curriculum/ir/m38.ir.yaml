@@ -272,7 +272,7 @@ lessons:
       - { kind: kanji, kana: あめ, kanji: 雨, distractors: ["あま", "う", "さめ"], exercises: [chau] }
       - kind: dialogue
         lines:
-          - { speaker: "Ken", ja: "けいたいは？", en: "Where's your phone?" }
+          - { speaker: "Ken", ja: "けいたいは？", en: "And the phone?" }
           - { speaker: "Tom", ja: "なくしちゃった。", en: "I went and lost it (casual)." }
           - { speaker: "Ken", ja: "え、そう？", en: "Huh, really?" }
         questions:
@@ -449,7 +449,7 @@ lessons:
     beats:
       - { kind: sentence, ja: "のみものを かってくる。", en: "I'll go buy drinks and bring them back", exercises: [te-iku-kuru-space], mode: build }
       - { kind: sentence, ja: "ケンの うちに のみものを もっていく。", en: "I'll take drinks to Ken's place", exercises: [te-iku-kuru-space, ni-location], mode: build }
-      - { kind: particle-cloze, stem: "ケンは のみものを ", tail: "。", answer: "もってくる", options: ["もってくる", "もっていく", "かってくる"], en: "Ken will bring drinks (toward here)", explanation: "From Ken's own vantage the drinks travel TOWARD him — もってくる, matching his house as the anchor. もっていく would send them away, the wrong direction from his side. かってくる is a real verb too, but it means going to buy — a different errand from just carrying." }
+      - { kind: particle-cloze, stem: "ケンは のみものを ", tail: "。", answer: "もってくる", options: ["もってくる", "もっていく", "かってくる"], en: "Ken will bring drinks", explanation: "From Ken's own vantage the drinks travel TOWARD him — もってくる, matching his house as the anchor. もっていく would send them away, the wrong direction from his side. かってくる is a real verb too, but it means going to buy — a different errand from just carrying." }
       - { kind: listening-comp, audio: "ミカを つれてくる。", answer: "I'll bring Mika along (toward here)", distractors: ["I'll take Mika away", "Mika is coming by herself", "I'll buy something for Mika"], q: "What does this mean?" }
       - { kind: sentence, ja: "おかしも もっていく。", en: "I'll take candy too", exercises: [te-iku-kuru-space, mo-also], mode: build }
       - { kind: kanji, kana: えいが, kanji: 映画, exercises: [te-iku-kuru-space] }

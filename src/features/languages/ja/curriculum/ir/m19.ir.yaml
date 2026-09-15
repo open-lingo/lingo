@@ -396,7 +396,7 @@ newAtoms:
   - { kana: まち, romaji: machi, gloss: "town", shortGloss: "town", kind: vocab }
   - { kana: にわ, romaji: niwa, gloss: "garden", shortGloss: "garden", imageable: false, kind: vocab }
   - { kana: コンビニ, romaji: konbini, gloss: "convenience store", shortGloss: "convenience store", kind: vocab }
-  - { kana: おりる, romaji: oriru, gloss: "to get off, to descend", shortGloss: "to get off", kind: vocab }
+  - { kana: おりる, romaji: oriru, gloss: "to get off", shortGloss: "to get off", kind: vocab }
   - { kana: むこう, romaji: mukou, gloss: "the other side, over there", shortGloss: "over there", imageable: false, kind: vocab }
 
 lessons:
@@ -481,7 +481,7 @@ lessons:
       - { kind: listening-comp, audio: "ミカは うちから えきまで あるく。", answer: "Mika walks from home to the station", distractors: ["Mika goes from home to the station by bus", "Mika walks from the station to her home", "Mika waits at the station"], exercises: [de-action, kara-origin, made-until] }
       - kind: dialogue
         lines:
-          - { speaker: "Mika", ja: "なにで がっこうに いく？", en: "What do you go to school by?" }
+          - { speaker: "Mika", ja: "なにで がっこうに いく？", en: "How do you get to school?" }
           - { speaker: "Ken", ja: "でんしゃで いく。えきまで あるく。", en: "I go by train. I walk as far as the station." }
         questions:
           - { q: "How does Ken get to school?", options: ["He walks to the station, then takes the train", "He takes the bus the whole way", "He walks the whole way", "He goes by bike"], answer: "He walks to the station, then takes the train" }
@@ -510,7 +510,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Tanaka", ja: "あしたは がっこうへ きますか。", en: "Are you coming to school tomorrow?" }
-          - { speaker: "Mika", ja: "いきます。でんしゃで いきます。", en: "I am. I'm going by train." }
+          - { speaker: "Mika", ja: "いきます。でんしゃで いきます。", en: "I'm going. I'm going by train." }
         questions:
           - { q: "How is Mika getting to school?", options: ["By train", "By bus", "On foot", "By bike"], answer: "By train" }
     reviewPool: [がっこう, としょかん, びょういん, でんしゃ, バス, ちかてつ, あるく, かえる, へ, えき]
@@ -527,7 +527,7 @@ lessons:
       - { kind: sentence, ja: "ミカは ちゃを のみに きっさてんに いく。", en: "Mika is going to the coffee shop to drink tea", exercises: [ni-iku, wo-object, ni-location], mode: build }
       - { kind: sentence, ja: "えいがを みに いく。", en: "I'm going to watch a movie", exercises: [ni-iku, wo-object], mode: build }
       - { kind: sentence, ja: "トムは ともだちと かいものに いく。", en: "Tom is going shopping with a friend", exercises: [ni-iku, to-and], mode: listening }
-      - { kind: sentence, ja: "あした ともだちと あそびに いく。", en: "I'm going out to hang out with a friend tomorrow", exercises: [ni-iku, to-and, ni-time], mode: build }
+      - { kind: sentence, ja: "あした ともだちと あそびに いく。", en: "I'm going to hang out with a friend tomorrow", exercises: [ni-iku, to-and, ni-time], mode: build }
       - { kind: sentence, ja: "としょかんに ほんを みに いく。", en: "I'm going to the library to look at books", exercises: [ni-iku, ni-location, wo-object], mode: build }
       - { kind: sentence, ja: "すしを たべに いくけど かねが ない。", en: "I'm going out to eat sushi, but I have no money", exercises: [ni-iku, kedo, nai-existence], mode: build }
       - { kind: sentence, ja: "えいがを みに いく。", en: "Say to a friend: I'm going to watch a movie", exercises: [ni-iku], mode: translate }
@@ -623,7 +623,7 @@ lessons:
       - { kind: sentence, ja: "としょかんに ほんを みに いく。", en: "I'm going to the library to look at books", exercises: [ni-iku, ni-location], mode: build }
       - kind: dialogue
         lines:
-          - { speaker: "Mika", ja: "きょうは なんじから ひま？", en: "What time are you free from today?" }
+          - { speaker: "Mika", ja: "きょうは なんじから ひま？", en: "From what time are you free today?" }
           - { speaker: "Ken", ja: "ごご ごじから ひまだ。ごはんを たべに いく？", en: "I'm free from five in the afternoon. Shall we go out to eat?" }
         questions:
           - { q: "What does Ken suggest?", options: ["Going out to eat after five", "Going shopping at five", "Watching a movie at five", "Waiting at the station"], answer: "Going out to eat after five" }
@@ -666,14 +666,14 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: location-qa }
       - { kind: sentence, ja: "どこへ いく？", en: "Where are you heading", exercises: [location-qa, e-direction], mode: build }
-      - { kind: sentence, ja: "なにで がっこうに いく？", en: "What do you go to school by", exercises: [location-qa, de-action], mode: build }
+      - { kind: sentence, ja: "なにで がっこうに いく？", en: "How do you get to school?", exercises: [location-qa, de-action], mode: build }
       - { kind: sentence, ja: "でんしゃは なんじに くる？", en: "What time does the train come", exercises: [location-qa, ni-time], mode: build }
       - { kind: sentence, ja: "びょういんまで なんぷん あるく？", en: "How many minutes do you walk to the hospital", exercises: [location-qa, counter-fun, made-until], mode: listening }
       - { kind: sentence, ja: "としょかんは なんじから？", en: "What time is the library open from", exercises: [location-qa, kara-time], mode: build }
       - { kind: sentence, ja: "なんじまでに えきに いく？", en: "What time will you get to the station by", exercises: [location-qa, made-ni], mode: build }
       - { kind: sentence, ja: "きょうは いそがしいけど どこに いく？", en: "You're busy today, but where are you going", exercises: [location-qa, kedo, ni-location], mode: build }
-      - { kind: sentence, ja: "なにで がっこうに いく？", en: "Say to a friend: What do you go to school by", exercises: [location-qa], mode: translate }
-      - { kind: particle-cloze, stem: "", tail: "で がっこうに いく？", answer: "なに", options: ["なに", "どこ", "だれ"], en: "What do you go to school by?", explanation: "a vehicle is a THING, so it is なに — 「なにで いく？」. どこ asks where and だれ asks who." }
+      - { kind: sentence, ja: "なにで がっこうに いく？", en: "Say to a friend: How do you get to school?", exercises: [location-qa], mode: translate }
+      - { kind: particle-cloze, stem: "", tail: "で がっこうに いく？", answer: "なに", options: ["なに", "どこ", "だれ"], en: "How do you get to school?", explanation: "a vehicle is a THING, so it is なに — 「なにで いく？」. どこ asks where and だれ asks who." }
       - { kind: listening-comp, audio: "でんしゃは なんじに くる？", answer: "What time does the train come?", distractors: ["What time does the bus come?", "Where does the train come from?", "How many minutes until the train comes?"], exercises: [location-qa, ni-time] }
       - { kind: listening-comp, audio: "びょういんまで なんぷん あるく？", answer: "How many minutes do you walk to the hospital?", distractors: ["How many minutes do you walk to the library?", "What time do you go to the hospital?", "Do you walk to the hospital?"], exercises: [location-qa, counter-fun] }
       - kind: dialogue
@@ -793,7 +793,7 @@ lessons:
       - { kind: sentence, ja: "でんしゃを おりるから まちの むこうへ あるく。", en: "Say to a friend: I'm getting off the train, so I'll walk to the other side of town", exercises: [kara-because, e-direction], mode: translate }
       - kind: dialogue
         lines:
-          - { speaker: "Ken", ja: "あしたは なにで がっこうに いく？", en: "What are you going to school by tomorrow?" }
+          - { speaker: "Ken", ja: "あしたは なにで がっこうに いく？", en: "How are you going to school tomorrow?" }
           - { speaker: "Mika", ja: "えきまで あるく。そこから でんしゃで いく。", en: "I walk as far as the station. From there I go by train." }
         questions:
           - { q: "What does Mika do first?", options: ["Walks to the station", "Takes the train from home", "Takes the bus", "Goes by bike"], answer: "Walks to the station" }

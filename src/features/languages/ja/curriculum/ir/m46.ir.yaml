@@ -276,7 +276,7 @@ newAtoms:
   # + one past tense per the module's budget, notes decision #7). おわる
   # itself rides the prior m32 atom untouched — never declared here.
   - { kana: まま, romaji: mama, gloss: "as is, unchanged — leaving a state exactly as it was", shortGloss: "as is, staying so", imageable: false, kind: vocab, pos: noun }
-  - { kana: そのまま, romaji: sonomama, gloss: "just like that, exactly as it is", shortGloss: "just as is", imageable: false, kind: vocab, pos: expression }
+  - { kana: そのまま, romaji: sonomama, gloss: "as is", shortGloss: "just as is", imageable: false, kind: vocab, pos: expression }
   - { kana: いっしゅん, romaji: isshun, gloss: "an instant, a moment", shortGloss: "an instant", imageable: false, kind: vocab, pos: noun }
   - { kana: たべおわる, romaji: tabeowaru, gloss: "to finish eating (finish+たべる)", shortGloss: "finish to eat", imageable: false, kind: verb-form, derivedFrom: たべる, verbClass: ru }
   - { kana: たべおわった, romaji: tabeowatta, gloss: "finished eating (finish+たべる, past)", shortGloss: "finished to eat", imageable: false, kind: verb-form, derivedFrom: たべる, verbClass: ru }
@@ -304,7 +304,7 @@ lessons:
         lines:
           - { speaker: "Mika", ja: "さいきん いそがしい？", en: "Are you busy recently?" }
           - { speaker: "Ken", ja: "うん、テストの あいだ、れんしゅうしている。", en: "Yeah, the whole time it's test period, I'm practicing." }
-          - { speaker: "Mika", ja: "いそがしいね。", en: "That's busy, huh." }
+          - { speaker: "Mika", ja: "いそがしいね。", en: "You're busy, huh." }
         questions:
           - { q: "What is Ken doing during the test period?", options: ["Practicing the whole time", "Sleeping the whole time", "Traveling", "Waiting for a letter"], answer: "Practicing the whole time" }
       - { kind: challenge, ja: "やすみの あいだ、りょこうするので、さいきん いそがしい。", en: "Because (I) travel the whole vacation, (I'm) busy recently.", combines: [aida-duration, node-because, i-adj-present], mode: build }

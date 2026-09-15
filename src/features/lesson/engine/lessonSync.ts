@@ -20,6 +20,10 @@ import {
   markStreakCheckedToday,
   shouldCheckStreakOnNextSync,
 } from "./sessionStreak";
+import {
+  chunkAttempts,
+  getTestOutQueueCount,
+} from "@/shared/domain/testOutSyncQueue";
 
 /** Subscribers fire whenever the buffer changes — used by status hooks to
  *  refresh dirty counts without polling. */
@@ -74,7 +78,14 @@ export function isPendingAttemptDirty(attempt: PendingAttempt): boolean {
   return attempt.bufferedAt > attempt.syncedAt;
 }
 
-/** Items waiting to upload: completed attempts + in-progress lesson drafts. */
+/** Items waiting to upload: completed attempts + in-progress lesson drafts
+ *  + any test-out completions the server hasn't confirmed yet.
+ *
+ *  The test-out term is what makes "your progress isn't on the server yet"
+ *  VISIBLE (b18 #144/#145: the founder had no way to tell that 490 synthesised
+ *  completions had been rejected — the only trace was a console.warn). It
+ *  feeds the SyncManager row's badge, and its "Sync now" drains the same
+ *  queue via `syncLessonProgressWithServer`. */
 export function getLessonDirtyCount(): number {
   const pending = getPendingAttempts();
   // Any pending row (including a synced draft) covers local step events for that
@@ -89,7 +100,7 @@ export function getLessonDirtyCount(): number {
       .filter((e) => !lessonsWithPending.has(e.lessonId))
       .map((e) => e.lessonId),
   );
-  return count + orphanLessons.size;
+  return count + orphanLessons.size + getTestOutQueueCount();
 }
 
 function markDraftAttemptsSynced(clientAttemptIds: string[], syncedAt: string): void {
@@ -318,8 +329,31 @@ export async function performLessonSync(
   }
 
   const pendingBefore = getPendingAttempts();
-  const response = await syncFn(payload);
-  const results = response?.results ?? [];
+  // Chunked (b18 #144). `attempts` is capped at 100 server-side
+  // (`schemas.py:100`) and FastAPI rejects an oversized body IN FULL, before
+  // the handler — so a buffer that ever grew past 100 (a long offline
+  // stretch) would 422 on every tick forever, backing off to 10-minute
+  // retries of a payload that can never be accepted. `checkStreak` is a
+  // once-per-batch flag, so only the first chunk carries it.
+  const results: BatchAttemptResponse["results"] = [];
+  let failure: unknown = null;
+  let chunkIndex = 0;
+  for (const chunk of chunkAttempts(payload.attempts)) {
+    try {
+      const response = await syncFn({
+        attempts: chunk,
+        checkStreak: chunkIndex === 0 ? payload.checkStreak : false,
+      });
+      results.push(...(response?.results ?? []));
+    } catch (err) {
+      // Bank the chunks that DID land before surfacing the failure, or a
+      // late network drop would re-push (and the server would re-accept by
+      // idempotency, but the local buffer would never drain).
+      failure = err;
+      break;
+    }
+    chunkIndex += 1;
+  }
   const clearedIds = clientIdsToClearFromBatchResponse(ids, results);
 
   if (clearedIds.length > 0) {
@@ -365,5 +399,8 @@ export async function performLessonSync(
   }
 
   notify();
+  // Callers (LessonProgressHydrate's periodic tick) use the rejection to
+  // grow their backoff — preserve it after the bookkeeping above.
+  if (failure) throw failure;
   return clearedIds.length;
 }

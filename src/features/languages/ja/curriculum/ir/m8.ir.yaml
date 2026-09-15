@@ -167,7 +167,7 @@ newAtoms:
   - { kana: しょくじ, romaji: shokuji, gloss: "a meal", imageable: true, kind: vocab }
   - { kana: ちゃ, romaji: cha, gloss: "tea", imageable: false, kind: vocab }
   - { kana: こめ, romaji: kome, gloss: "rice (uncooked)", shortGloss: "rice (raw)", imageable: false, kind: vocab }
-  - { kana: みせ, romaji: mise, gloss: "shop, store", shortGloss: "shop", imageable: true, kind: vocab }
+  - { kana: みせ, romaji: mise, gloss: "store", shortGloss: "shop", imageable: true, kind: vocab }
 
 lessons:
   - id: m8-neo-1
@@ -179,7 +179,7 @@ lessons:
       - { kind: rule, grammarPointId: te-form, variant: connector }
       - { kind: sentence, ja: "いえで たべて。", en: "Eat at home", exercises: [te-form], mode: build }
       - { kind: sentence, ja: "ねこを みて。", en: "Look at the cat", exercises: [te-form], mode: build }
-      - { kind: sentence, ja: "りょうりを たべて。", en: "Eat the cuisine", exercises: [te-form, wo-object], mode: build }
+      - { kind: sentence, ja: "りょうりを たべて。", en: "Eat the food", exercises: [te-form, wo-object], mode: build }
       - { kind: sentence, ja: "そらを みて。", en: "Look at the sky", exercises: [te-form, wo-object], mode: translate }
       - { kind: sentence, ja: "ほんを みて。", en: "Look at the book", exercises: [te-form, wo-object], mode: listening }
       - { kind: sentence, ja: "みずを のむ。", en: "I drink water", exercises: [wo-object], mode: build }
@@ -239,7 +239,7 @@ lessons:
           - { speaker: "ミカ", ja: "ありがとう。", en: "Thanks." }
         questions:
           - { q: "What does Ken offer Mika?", options: ["Water", "Milk", "Tea", "Food"], answer: "Water" }
-      - { kind: challenge, ja: "ミカの いえで あそんで。", en: "Play at Mika's house", combines: [no-possession, de-action, te-form], mode: build }
+      - { kind: challenge, ja: "ミカの いえで あそんで。", en: "Hang out at Mika's house", combines: [no-possession, de-action, te-form], mode: build }
     reviewPool: [のむ, あそぶ, いそぐ, かす, みず, ぎゅうにゅう, かわ, ともだち]
 
   - id: m8-neo-r1
@@ -364,10 +364,10 @@ lessons:
       - { kind: sentence, ja: "みせで ちゃを かって。", en: "Buy tea at the shop", exercises: [de-action, wo-object, te-form], mode: build }
       - kind: dialogue
         lines:
-          - { speaker: "ミカ", ja: "みせは どこ？", en: "Where's the shop?" }
+          - { speaker: "ミカ", ja: "みせは どこ？", en: "Where's the store?" }
           - { speaker: "ケン", ja: "あそこだ。", en: "Over there." }
         questions:
-          - { q: "Where is the shop?", options: ["Over there", "Here", "At Mika's house", "Not stated"], answer: "Over there" }
+          - { q: "Where is the store?", options: ["Over there", "Here", "At Mika's house", "Not stated"], answer: "Over there" }
       - { kind: challenge, ja: "みせで こめを かってください。", en: "Say politely: Please buy rice at the shop", combines: [de-action, wo-object, te-kudasai], mode: build }
     reviewPool: [いく, かう, ちゃ, ごはん, いえ, ひと, ともだち]
 
@@ -401,14 +401,14 @@ lessons:
     focus: "the single most useful request a learner owns"
     introduces: [おしえる, おしえて]
     beats:
-      - { kind: sentence, ja: "せんせいが おしえる。", en: "The teacher tells us", exercises: [ga-existence], mode: build }
+      - { kind: sentence, ja: "せんせいが おしえる。", en: "The teacher teaches", exercises: [ga-existence], mode: build }
       - { kind: sentence, ja: "ともだちに おしえて。", en: "Tell your friend", exercises: [te-form], mode: build }
       - { kind: sentence, ja: "おしえて ください。", en: "Say politely: Please tell me", exercises: [te-kudasai], mode: build }
       - { kind: sentence, ja: "みせを おしえてください。", en: "Say politely: Please tell me the shop", exercises: [te-kudasai, wo-object], mode: translate }
       - { kind: sentence, ja: "なまえを おしえて。", en: "Tell me your name", exercises: [te-form, wo-object], mode: listening }
       - { kind: sentence, ja: "たなかさんに おしえてください。", en: "Say politely: Please tell Tanaka", exercises: [te-kudasai, ni-location], mode: build }
       - { kind: sentence, ja: "ミカに おしえて。", en: "Tell Mika", exercises: [te-form, ni-location], mode: build }
-      - { kind: particle-cloze, stem: "いえを ", tail: "ください。", answer: "おしえて", options: ["おしえて", "おしえる", "おしえます"], en: "Please tell me the house", explanation: "ください takes the て-form — おしえる → おしえて." }
+      - { kind: particle-cloze, stem: "いえを ", tail: "ください。", answer: "おしえて", options: ["おしえて", "おしえる", "おしえます"], en: "Please tell me your address", explanation: "ください takes the て-form — おしえる → おしえて." }
       - kind: dialogue
         lines:
           - { speaker: "トム", ja: "たなかさん、みせを おしえてください。", en: "Tanaka, please tell me where the shop is." }
@@ -502,8 +502,8 @@ lessons:
       # not licensed until m12's い-adjective + です card, and the polite "there
       # isn't" this learner owns is ありません. The English also promised a
       # "so" that the tile bank never offered. (Learner walk 2026-07-28.)
-      - { kind: sentence, ja: "ちゃが ありません。おしえてください。", en: "Say politely: There's no tea, please tell me", exercises: [ga-existence, nai-existence, te-kudasai], mode: build }
-      - { kind: sentence, ja: "ともだちの いえで ごはんを たべて。", en: "Eat rice at your friend's house", exercises: [no-possession, de-action, wo-object, te-form], mode: build }
+      - { kind: sentence, ja: "ちゃが ありません。おしえてください。", en: "Say politely: There's no tea, please let me know", exercises: [ga-existence, nai-existence, te-kudasai], mode: build }
+      - { kind: sentence, ja: "ともだちの いえで ごはんを たべて。", en: "Eat a meal at your friend's house", exercises: [no-possession, de-action, wo-object, te-form], mode: build }
       - { kind: sentence, ja: "せんせいに しゃしんを おしえてください。", en: "Say politely: Please tell the teacher about the photo", exercises: [ni-location, wo-object, te-kudasai], mode: listening }
       - { kind: sentence, ja: "みせは あそこに ありますか。", en: "Say politely: Is the shop over there", exercises: [wa-topic, koko-soko-asoko, ni-location, ka-question], mode: listening }
       - { kind: sentence, ja: "ミカの ちゃを のまないで。", en: "Don't drink Mika's tea", exercises: [no-possession, wo-object, nai-form], mode: build }

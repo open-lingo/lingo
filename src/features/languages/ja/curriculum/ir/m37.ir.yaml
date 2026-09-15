@@ -247,7 +247,7 @@ lessons:
       - { kind: particle-cloze, stem: "うちに ", tail: "、でんわする。", answer: "かえったら", options: ["かえったら", "かえれば", "かえる"], en: "When I get home, I'll call you", explanation: "the event is a one-time sequence, home then the call — たら: かえったら. かえれば would frame going home itself as a hypothesis, an odd claim about your own evening. かえる is just the bare fact, no condition at all." }
       - { kind: sentence, ja: "いそげば、まにあう。", en: "If you hurry, you'll make it", exercises: [ba-form], mode: listening }
       - { kind: listening-comp, audio: "れんしゅうすれば、じょうずに なる。", answer: "If you practise, you get good", distractors: ["If you practise, you got good", "Practising is good", "If you practise, it becomes difficult"], explanation: "ば hangs the general truth — practise, and skill follows, no particular occasion attached." }
-      - { kind: sentence, ja: "あめだったら、うちに いる。", en: "If it's rain, I'll stay home", exercises: [tara], mode: build }
+      - { kind: sentence, ja: "あめだったら、うちに いる。", en: "If it rains, I'll stay home", exercises: [tara], mode: build }
       - { kind: sentence, ja: "じかんが あれば、きてください。", en: "If you have time, please come", exercises: [ba-form, te-kudasai], mode: build }
       - { kind: kanji, kana: うち, kanji: 家, distractors: ["いえ", "か", "うちん"], exercises: [tara] }
       - kind: dialogue
@@ -291,7 +291,7 @@ lessons:
     introduces: []
     beats:
       - { kind: sentence, ja: "てんきが よければ、こうえんに いこう。", en: "If the weather's good, let's go to the park", exercises: [ba-form, ga-existence], mode: build }
-      - { kind: sentence, ja: "あめだったら、えいがを みよう。", en: "If it's rain, let's watch a movie", exercises: [tara], mode: build }
+      - { kind: sentence, ja: "あめだったら、えいがを みよう。", en: "If it rains, let's watch a movie", exercises: [tara], mode: build }
       - { kind: particle-cloze, stem: "てんきが ", tail: "、こうえんに いこう。", answer: "よければ", options: ["よければ", "いければ", "よかった"], en: "If the weather's good, let's go to the park", explanation: "いい makes its ば-form by SUPPLETION, not the regular adjective rule — よければ, never いければ. よかった is the past, already-decided; the weather hasn't been checked yet." }
       - { kind: sentence, ja: "みれば、わかる。", en: "If you look, you'll understand", exercises: [ba-form], mode: build }
       - { kind: sentence, ja: "たかければ、かわない。", en: "If it's expensive, I won't buy it", exercises: [ba-form], mode: listening }
@@ -324,7 +324,7 @@ lessons:
       - { kind: sentence, ja: "にほんに いくなら、きっぷを かっておいた ほうが いい。", en: "If you're going to Japan, you should buy the ticket in advance", exercises: [nara, hou-ga-ii, te-oku], mode: build }
       - { kind: sentence, ja: "それなら、いい。", en: "If that's the case, fine", exercises: [nara], mode: build }
       - { kind: particle-cloze, stem: "にほんに ", tail: "、きっぷを かっておいた ほうが いい。", answer: "いくなら", options: ["いくなら", "いく", "いった"], en: "If you're going to Japan, you should buy the ticket in advance", explanation: "なら picks up the PLAN as its topic — いくなら. いく alone is just the bare fact, no advice-frame attached. いった would mean the trip already happened — too late for advance-buying advice." }
-      - { kind: sentence, ja: "ひつようなら、てつだうよ。", en: "If it's necessary, I'll help, you know", exercises: [nara], mode: build }
+      - { kind: sentence, ja: "ひつようなら、てつだうよ。", en: "If it's necessary, I'll help, you know.", exercises: [nara], mode: build }
       - { kind: sentence, ja: "つごうが よければ、きてください。", en: "If it's convenient for you, please come", exercises: [ba-form, ga-existence], mode: build }
       - { kind: listening-comp, audio: "それなら、いい。", answer: "If that's the case, fine", distractors: ["That's not the case", "If that's not it, it's fine", "That's fine, thanks"], exercises: [nara] }
       - { kind: kanji, kana: にほん, kanji: 日本, distractors: ["にっぽん", "ひもと", "にほんじ"], exercises: [nara] }
@@ -335,7 +335,7 @@ lessons:
           - { speaker: "Mika", ja: "うん、そう する。", en: "Yeah, I'll do that." }
         questions:
           - { q: "What does Tom advise Mika to do before the trip?", options: ["Buy the ticket in advance", "Learn Japanese", "Book a hotel", "Pack a bag"], answer: "Buy the ticket in advance" }
-      - { kind: challenge, ja: "にほんに いくなら、じしょを かっておく。", en: "If you're going to Japan, I'll get a dictionary ready in advance", combines: [nara, te-oku, wo-object], mode: build }
+      - { kind: challenge, ja: "にほんに いくなら、じしょを かっておく。", en: "If you're going to Japan, I'll buy a dictionary in advance", combines: [nara, te-oku, wo-object], mode: build }
     reviewPool: [にほん, きっぷ, ホテル, かばん, りょこう, おかね, じしょ, えいが]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -347,10 +347,10 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: nara-vs-tara }
       - { kind: sentence, ja: "にほんに いくなら、かばんを かっておく。", en: "If I'm going to Japan, I'll buy a bag beforehand", exercises: [nara, te-oku], mode: build }
-      - { kind: sentence, ja: "にほんに いったら、かばんを かう。", en: "When I get to Japan, I'll buy a bag there", exercises: [tara], mode: build }
+      - { kind: sentence, ja: "にほんに いったら、かばんを かう。", en: "When I get to Japan, I'll buy a bag", exercises: [tara], mode: build }
       - { kind: particle-cloze, stem: "にほんに ", tail: "、かばんを かっておく。", answer: "いくなら", options: ["いくなら", "いったら", "いく"], en: "If I'm going to Japan, I'll buy a bag beforehand", explanation: "なら topicalizes the PLAN, so the buying can come BEFORE the trip — いくなら. いったら sequences: the buying would come AFTER arriving, the opposite of ておく. いく alone carries no advice-frame at all." }
-      - { kind: sentence, ja: "えいがを みるなら、この えいがが いい。", en: "If it's a movie you're after, this one is good", exercises: [nara], mode: build }
-      - { kind: listening-comp, audio: "にほんに いったら、かばんを かう。", answer: "When I get to Japan, I'll buy a bag there", distractors: ["If I'm going to Japan, I'll buy a bag beforehand", "I bought a bag when I got to Japan", "When I get to Japan, I won't buy a bag"], exercises: [tara] }
+      - { kind: sentence, ja: "えいがを みるなら、この えいがが いい。", en: "If you're watching a movie, this one is good.", exercises: [nara], mode: build }
+      - { kind: listening-comp, audio: "にほんに いったら、かばんを かう。", answer: "When I get to Japan, I'll buy a bag", distractors: ["If I'm going to Japan, I'll buy a bag beforehand", "I bought a bag when I got to Japan", "When I get to Japan, I won't buy a bag"], exercises: [tara] }
       - { kind: sentence, ja: "にほんに いくなら、おみやげを かっておく。", en: "If I'm going to Japan, I'll get souvenirs ready in advance", exercises: [nara, te-oku], mode: build }
       - { kind: kanji, kana: きっぷ, kanji: 切符, distractors: ["せっぷ", "きりふ", "きゅうふ"], exercises: [nara] }
       - kind: dialogue
@@ -373,7 +373,7 @@ lessons:
       - { kind: sentence, ja: "てんきが よければ、いこう。", en: "If the weather's good, let's go", exercises: [ba-form], mode: build }
       - { kind: sentence, ja: "にほんに いくなら、きっぷを かっておいた ほうが いい。", en: "If you're going to Japan, you should buy the ticket in advance", exercises: [nara, hou-ga-ii, te-oku], mode: build }
       - { kind: particle-cloze, stem: "にほんに ", tail: "、かばんを かっておく。", answer: "いくなら", options: ["いくなら", "いったら", "いく"], en: "If I'm going to Japan, I'll buy a bag beforehand", explanation: "なら topicalizes the PLAN, so the buying can come BEFORE the trip. いったら sequences: the buying would come AFTER arriving, the opposite of ておく. いく alone carries no advice-frame." }
-      - { kind: sentence, ja: "にほんに いったら、かばんを かう。", en: "When I get to Japan, I'll buy a bag there", exercises: [tara], mode: build }
+      - { kind: sentence, ja: "にほんに いったら、かばんを かう。", en: "When I get to Japan, I'll buy a bag", exercises: [tara], mode: build }
       - { kind: listening-comp, audio: "いそげば、まにあう。", answer: "If you hurry, you'll make it", distractors: ["If you hurry, you'll be late", "You hurried, so you made it", "If you don't hurry, you'll make it"] }
       - { kind: sentence, ja: "それなら、いい。", en: "If that's the case, fine", exercises: [nara], mode: build }
       - { kind: sentence, ja: "うちに かえったら、でんわする。", en: "When I get home, I'll call you", exercises: [tara], mode: listening }
@@ -419,7 +419,7 @@ lessons:
     introduces: []
     beats:
       - { kind: sentence, ja: "りょこうに いくなら、きっぷを かっておいた ほうが いい。", en: "If you're going on the trip, you should buy the ticket in advance", exercises: [nara, hou-ga-ii, te-oku], mode: build }
-      - { kind: sentence, ja: "あめだったら、うちに いる。", en: "If it's rain, I'll stay home", exercises: [tara], mode: build }
+      - { kind: sentence, ja: "あめだったら、うちに いる。", en: "If it rains, I'll stay home", exercises: [tara], mode: build }
       - { kind: particle-cloze, stem: "りょこうに ", tail: "、きっぷを かっておいた ほうが いい。", answer: "いくなら", options: ["いくなら", "いったら", "いく"], en: "If you're going on the trip, you should buy the ticket in advance", explanation: "なら topicalizes the PLAN, so the advice can land before the trip. いったら sequences: too late to be advance-buying. いく alone carries no advice-frame." }
       - { kind: listening-comp, audio: "やすければ やすいほど、いい。", answer: "The cheaper, the better", distractors: ["If it's cheap, that's fine", "The more expensive, the better", "It was cheap, so it was good"], exercises: [ba-hodo] }
       - { kind: listening-comp, audio: "でんしゃに まにあえば、だいじょうぶ。", answer: "If I make the train, it'll be fine", distractors: ["If I miss the train, it'll be fine", "I made the train, and it was fine", "If I make the train, it'll be a problem"] }
@@ -444,7 +444,7 @@ lessons:
             reply: { mode: choice, options: ["やすければ やすいほど いい。", "たかければ たかいほど いい。", "やすいだけ いい。"], answer: "やすければ やすいほど いい。" }
             replyGloss: "The cheaper, the better."
             explanation: "ば〜ほど dials one quality — cheap, dialled up. たかければ たかいほど would praise expense, and やすいだけ misuses だけ where the dialling shape belongs."
-      - { kind: listening-comp, audio: "えいがを みるなら、この えいがが いい。", answer: "If it's a movie you're after, this one is good", distractors: ["When you watch this movie, it gets good", "I watched this movie and it was good", "If you're going out, a movie is a bad idea"], exercises: [nara] }
+      - { kind: listening-comp, audio: "えいがを みるなら、この えいがが いい。", answer: "If you're watching a movie, this one is good.", distractors: ["When you watch this movie, it gets good", "I watched this movie and it was good", "If you're going out, a movie is a bad idea"], exercises: [nara] }
       - { kind: challenge, ja: "りょこうに いくなら、やすい ホテルを よやくした ほうが いい。", en: "If you're going on the trip, you should book a cheap hotel", combines: [nara, hou-ga-ii, ta-form], mode: build }
     reviewPool: [にほん, ホテル, きっぷ, なつやすみ, りょこう, おかね, かばん, えき]
 

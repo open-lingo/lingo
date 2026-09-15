@@ -374,7 +374,7 @@ lessons:
       - { kind: sentence, ja: "うたを きいて ください。", en: "Please listen to the song", exercises: [te-kudasai, wo-object], mode: listening }
       - { kind: sentence, ja: "きっさてんで まって ください。", en: "Please wait at the coffee shop", exercises: [te-kudasai, de-action], mode: build }
       - { kind: sentence, ja: "ミカの あたらしい しゃしんを みせて ください。", en: "Please show me Mika's new photo", exercises: [te-kudasai, no-possession, i-adj-present], mode: build }
-      - { kind: sentence, ja: "ちゃを ください。", en: "Ask for tea", exercises: [kudasai], mode: translate }
+      - { kind: sentence, ja: "ちゃを ください。", en: "Tea, please", exercises: [kudasai], mode: translate }
       - { kind: particle-cloze, stem: "しゃしんを ", tail: " ください。", answer: "みせて", options: ["みせて", "みて", "きいて"], en: "Please show me the photo", explanation: "みせて is show; みて is look. ください takes the て-form of whichever verb you mean." }
       - { kind: listening-comp, audio: "ここで まって ください。", answer: "Please wait here", distractors: ["Please look here", "Please wait at the station", "Please buy it here"], exercises: [te-kudasai, koko-soko-asoko] }
       - { kind: listening-comp, audio: "おおきい かばんを ください。", answer: "A big bag, please", distractors: ["A small bag, please", "Please show me the bag", "I want a big bag"], exercises: [kudasai, i-adj-present] }
@@ -460,7 +460,7 @@ lessons:
       - { kind: sentence, ja: "ふるい しゃしんを みせて ください。", en: "Please show me the old photo", exercises: [te-kudasai, i-adj-present], mode: build }
       - { kind: listening-comp, audio: "ケンは かいしゃで はたらいている。", answer: "Ken works at a company", distractors: ["Ken is going to a company", "Ken wants to work at a company", "Ken works at a shop"], exercises: [te-iru, de-action] }
       - { kind: sentence, ja: "きっさてんで うたを きいている。", en: "I'm listening to a song at the coffee shop", exercises: [te-iru, de-action, wo-object], mode: build }
-      - { kind: sentence, ja: "みずを ください。", en: "Ask for water", exercises: [kudasai], mode: translate }
+      - { kind: sentence, ja: "みずを ください。", en: "Water, please", exercises: [kudasai], mode: translate }
       - { kind: listening-comp, audio: "いま ごはんを たべている。", answer: "I'm eating right now", distractors: ["I already ate", "I want to eat now", "I'm making food now"], exercises: [te-iru, wo-object] }
       - { kind: sentence, ja: "ミカの あたらしい ふくを みせて ください。", en: "Please show me Mika's new clothes", exercises: [te-kudasai, no-possession, i-adj-present], mode: build }
       - kind: dialogue
@@ -485,7 +485,7 @@ lessons:
       - { kind: sentence, ja: "まだ しゃしんを みていない。", en: "I haven't seen the photo yet", exercises: [mada-mou, te-iru, wo-object], mode: listening }
       - { kind: sentence, ja: "ミカは まだ えきで まっている。", en: "Mika is still waiting at the station", exercises: [mada-mou, te-iru, de-action], mode: build }
       - { kind: sentence, ja: "もう ちゃを のんだ。", en: "I already drank the tea", exercises: [mada-mou, ta-form], mode: build }
-      - { kind: sentence, ja: "まだ あたらしい ふくを かっていない。", en: "I haven't bought the new clothes yet", exercises: [mada-mou, te-iru, i-adj-present], mode: build }
+      - { kind: sentence, ja: "まだ あたらしい ふくを かっていない。", en: "I haven't bought new clothes yet", exercises: [mada-mou, te-iru, i-adj-present], mode: build }
       - { kind: sentence, ja: "まだ ごはんを たべていない。", en: "Say to a friend: I haven't eaten yet", exercises: [mada-mou, te-iru], mode: translate }
       - { kind: particle-cloze, stem: "まだ ごはんを ", tail: "。", answer: "たべていない", options: ["たべていない", "たべている", "たべた"], en: "I haven't eaten yet", explanation: "まだ pairs with the negative ている — the door is still open. たべた would close it." }
       - { kind: listening-comp, audio: "もう ぎゅうにゅうを のんだ。", answer: "I already drank the milk", distractors: ["I haven't drunk the milk yet", "I'm drinking the milk now", "I already bought the milk"], exercises: [mada-mou, ta-form] }
@@ -649,14 +649,14 @@ lessons:
       - { kind: sentence, ja: "あさ ごはんを たべて だいがくに いく。", en: "In the morning I eat and then go to university", exercises: [te-form, wo-object, ni-location], mode: build }
       - { kind: sentence, ja: "きっさてんに いって ちゃを のんだ。", en: "I went to the coffee shop and drank tea", exercises: [te-form, ni-location, ta-form], mode: build }
       - { kind: sentence, ja: "みせに いって あたらしい ふくを かった。", en: "I went to the store and bought new clothes", exercises: [te-form, ni-location, ta-form, i-adj-present], mode: build }
-      - { kind: sentence, ja: "うたを きいて ごはんを たべた。", en: "I listened to a song and then ate", exercises: [te-form, wo-object, ta-form], mode: listening }
+      - { kind: sentence, ja: "うたを きいて ごはんを たべた。", en: "I listened to a song and then ate a meal", exercises: [te-form, wo-object, ta-form], mode: listening }
       - { kind: sentence, ja: "きょうは えきに いって ともだちと あそんだ。", en: "Today I went to the station and hung out with a friend", exercises: [te-form, ni-location, ta-form, wa-topic], mode: build }
       - { kind: sentence, ja: "ふるい しゃしんを みて ともだちと あそんだ。", en: "I looked at an old photo and hung out with a friend", exercises: [te-form, wo-object, i-adj-present, ta-form], mode: build }
       - { kind: sentence, ja: "しゃしんを みて うたを きいた。", en: "I looked at the photo and listened to a song", exercises: [te-form, wo-object, ta-form], mode: build }
       - { kind: sentence, ja: "あさ ちゃを のんで かいしゃに いく。", en: "Say to a friend: In the morning I drink tea and go to the company", exercises: [te-form, ni-location], mode: translate }
       - { kind: particle-cloze, stem: "あさ ごはんを ", tail: " だいがくに いく。", answer: "たべて", options: ["たべて", "たべる", "たべた"], en: "In the morning I eat and then go to university", explanation: "Only the last verb carries the tense — everything before it stays in the て-form." }
       - { kind: listening-comp, audio: "きっさてんに いって ほんを みた。", answer: "I went to the coffee shop and looked at a book", distractors: ["I looked at a book and went to the coffee shop", "I want to look at a book at the coffee shop", "I'm looking at a book at the coffee shop"], exercises: [te-form, ta-form] }
-      - { kind: listening-comp, audio: "うたを きいて ごはんを たべた。", answer: "I listened to a song and then ate", distractors: ["I ate and then listened to a song", "I'm listening to a song and eating", "I want to listen to a song and eat"], exercises: [te-form, ta-form] }
+      - { kind: listening-comp, audio: "うたを きいて ごはんを たべた。", answer: "I listened to a song and then ate a meal", distractors: ["I ate and then listened to a song", "I'm listening to a song and eating", "I want to listen to a song and eat"], exercises: [te-form, ta-form] }
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "きのうは なにを した？", en: "What did you do yesterday?" }
@@ -683,7 +683,7 @@ lessons:
       - { kind: sentence, ja: "つめたい みずが のみたい。", en: "I want to drink cold water", exercises: [i-adj-present, v-tai], mode: build }
       - { kind: sentence, ja: "みせは ろくじに ドアを しめる。", en: "The shop closes its doors at six", exercises: [akeru-shimeru, wa-topic, ni-time, wo-object], mode: listening }
       - { kind: sentence, ja: "ここで ドアを あけては いけません。", en: "You must not open the door here", exercises: [te-wa-ikemasen, koko-soko-asoko, wo-object], mode: build }
-      - { kind: sentence, ja: "トムは つめたい ちゃを もっている。", en: "Tom is holding a cold tea", exercises: [te-iru, wa-topic, i-adj-present, wo-object], mode: listening }
+      - { kind: sentence, ja: "トムは つめたい ちゃを もっている。", en: "Tom has cold tea", exercises: [te-iru, wa-topic, i-adj-present, wo-object], mode: listening }
       - { kind: sentence, ja: "あたらしい でんきが かいたい。", en: "I want to buy a new light", exercises: [i-adj-present, v-tai], mode: build }
       - { kind: sentence, ja: "ドアを あけないで ください。", en: "Please don't open the door", exercises: [naide-kudasai, wo-object], mode: build }
       - { kind: sentence, ja: "もう ちゃを のんだ。", en: "Say to a friend: I already drank the tea", exercises: [mada-mou, ta-form, wo-object], mode: translate }

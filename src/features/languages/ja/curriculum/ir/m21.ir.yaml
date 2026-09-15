@@ -293,7 +293,7 @@ newAtoms:
   #    registry (やま / やすい / やさい / やる / やすみ / なつやすみ / へや /
   #    にぎやか …) is strictly longer and is consumed whole.
   - { kana: や, romaji: ya, gloss: "and (an open list — A や B means A and B among others)", shortGloss: "and (some of)", imageable: false, kind: particle }
-  - { kana: など, romaji: nado, gloss: "and so on, et cetera", shortGloss: "and so on", imageable: false, kind: vocab }
+  - { kana: など, romaji: nado, gloss: "and so on", shortGloss: "and so on", imageable: false, kind: vocab }
   # ══ L3-L4. FAMILY II — the そと set the spine deferred from m17. All four
   #    already have courseAtoms rows (stale old-course m19 tags) and none is in
   #    priorVocab, so declaring them here fixes provenance and changes no
@@ -301,10 +301,10 @@ newAtoms:
   #    shared by おかあさん, おねえさん and MET あね, and 👨 by おとうさん and
   #    おにいさん — and a picture cannot express WHOSE family a person belongs
   #    to, which is the only thing separating this set from Family I.
-  - { kana: おかあさん, romaji: okaasan, gloss: "(someone else's) mother — honorific", shortGloss: "their mother", imageable: false, kind: vocab }
-  - { kana: おとうさん, romaji: otousan, gloss: "(someone else's) father — honorific", shortGloss: "their father", imageable: false, kind: vocab }
-  - { kana: おにいさん, romaji: oniisan, gloss: "(someone else's) older brother — honorific", shortGloss: "their big brother", imageable: false, kind: vocab }
-  - { kana: おねえさん, romaji: oneesan, gloss: "(someone else's) older sister — honorific", shortGloss: "their big sister", imageable: false, kind: vocab }
+  - { kana: おかあさん, romaji: okaasan, gloss: "(someone else's) mother", shortGloss: "their mother", imageable: false, kind: vocab }
+  - { kana: おとうさん, romaji: otousan, gloss: "(someone else's) father", shortGloss: "their father", imageable: false, kind: vocab }
+  - { kana: おにいさん, romaji: oniisan, gloss: "(someone else's) older brother", shortGloss: "their big brother", imageable: false, kind: vocab }
+  - { kana: おねえさん, romaji: oneesan, gloss: "(someone else's) older sister", shortGloss: "their big sister", imageable: false, kind: vocab }
   # ══ L5. The drinks the counter drips with. コーヒー has a courseAtoms row
   #    (kind "phrase", stale m8 tag) and is not in priorVocab; ☕ is already
   #    MET きっさてん's emoji, so it is imageable: false and debuts on the L5
@@ -314,7 +314,7 @@ newAtoms:
   #    the m20 rule, L5's card never mentions おさけ: a card compiles to a
   #    PINNED step ahead of the interleaved middle and would steal the picture.
   - { kana: コーヒー, romaji: koohii, gloss: "coffee", shortGloss: "coffee", imageable: false, kind: vocab }
-  - { kana: おさけ, romaji: osake, gloss: "sake, alcohol", shortGloss: "sake", kind: vocab }
+  - { kana: おさけ, romaji: osake, gloss: "alcohol", shortGloss: "sake", kind: vocab }
   # ══ L5-L6. THE CUP COUNTER, cell by cell. See the notes block: はい cannot be
   #    registered (it is the m3 interjection "yes", which owns the kana in the
   #    by-kana map — first-wins + ruling table), so no cell composes and every
@@ -355,11 +355,11 @@ lessons:
     introduces: [や, など]
     beats:
       - { kind: rule, grammarPointId: ya-incomplete-list }
-      - { kind: sentence, ja: "そらや うみが きれいだ。", en: "The sky and the sea and all of it are beautiful", exercises: [ya-incomplete-list, na-adj-present], mode: build }
-      - { kind: sentence, ja: "いけや かわに かめが いる。", en: "There are turtles in the ponds and rivers and places like that", exercises: [ya-incomplete-list, ni-location, imasu], mode: build }
-      - { kind: sentence, ja: "みせで くつや ぼうしを かう。", en: "I'll buy shoes and a hat and a few other things at the shop", exercises: [ya-incomplete-list, de-action, wo-object], mode: build }
+      - { kind: sentence, ja: "そらや うみが きれいだ。", en: "The sky and the sea are beautiful", exercises: [ya-incomplete-list, na-adj-present], mode: build }
+      - { kind: sentence, ja: "いけや かわに かめが いる。", en: "There are turtles in the ponds and rivers", exercises: [ya-incomplete-list, ni-location, imasu], mode: build }
+      - { kind: sentence, ja: "みせで くつや ぼうしを かう。", en: "I'll buy shoes and a hat at the shop", exercises: [ya-incomplete-list, de-action, wo-object], mode: build }
       - { kind: sentence, ja: "きのこや きゅうりを たべる。", en: "I eat mushrooms and cucumbers and things like that", exercises: [ya-incomplete-list, wo-object], mode: listening }
-      - { kind: sentence, ja: "やすみは うみや やまに いく。", en: "On my days off I'm going to the sea and the mountains and places like that", exercises: [ya-incomplete-list, wa-topic, ni-location], mode: build }
+      - { kind: sentence, ja: "やすみは うみや やまに いく。", en: "On my days off I go to the sea and the mountains", exercises: [ya-incomplete-list, wa-topic, ni-location], mode: build }
       - { kind: sentence, ja: "かばんに かぎや けいたいなどが ある。", en: "In my bag there are keys, a phone and so on", exercises: [ya-incomplete-list, ni-location, arimasu], mode: build }
       - { kind: sentence, ja: "さくらや ゆきが すきだから にほんが すきだ。", en: "I like cherry blossoms, snow, and such, so I like Japan", exercises: [ya-incomplete-list, kara-because, suki-kirai-no], mode: build }
       - { kind: sentence, ja: "いぬや ねこが すきだ。", en: "Say to a friend: I like dogs and cats and animals like that", exercises: [ya-incomplete-list], mode: translate }
@@ -368,13 +368,13 @@ lessons:
       # grammar-review deck, whose gate resolves every word through courseAtoms.
       # と is deliberately NOT an option — 「うみと やまが すきだ」 is correct
       # Japanese and the step would mark a right answer wrong (inv 35's は↔が rule).
-      - { kind: particle-cloze, stem: "うみ", tail: " やまに いく。", answer: "や", options: ["や", "を", "から"], en: "I'm going to the sea and the mountains and places like that", explanation: "や joins the places you are naming and leaves the list open. を marks a thing you act on, and から would make the sea a starting point." }
+      - { kind: particle-cloze, stem: "うみ", tail: " やまに いく。", answer: "や", options: ["や", "を", "から"], en: "I'm going to the sea and the mountains", explanation: "や joins the places you are naming and leaves the list open. を marks a thing you act on, and から would make the sea a starting point." }
       - { kind: listening-comp, audio: "あさは パンや たまごを たべる。", answer: "In the morning I eat bread and eggs and things like that", distractors: ["In the morning I eat bread and eggs — those two and nothing else", "In the morning I eat rice and eggs and things like that", "In the evening I eat bread and eggs and things like that"], exercises: [ya-incomplete-list] }
-      - { kind: listening-comp, audio: "みせで くつや ぼうしを かう。", answer: "I'll buy shoes and a hat and a few other things at the shop", distractors: ["I'll buy shoes and a hat at the shop — just those two", "I'll buy shoes and an umbrella and a few other things at the shop", "I'll buy shoes and a hat at the station"], exercises: [ya-incomplete-list, de-action] }
+      - { kind: listening-comp, audio: "みせで くつや ぼうしを かう。", answer: "I'll buy shoes and a hat at the shop", distractors: ["I'll buy shoes and a hat at the shop — just those two", "I'll buy shoes and an umbrella and a few other things at the shop", "I'll buy shoes and a hat at the station"], exercises: [ya-incomplete-list, de-action] }
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "なにが すき？", en: "What do you like?" }
-          - { speaker: "Tom", ja: "うみや やまが すきだ。りょこうが すきだから。", en: "The sea, the mountains, that sort of thing. Because I like traveling." }
+          - { speaker: "Tom", ja: "うみや やまが すきだ。りょこうが すきだから。", en: "I like the sea and mountains. Because I like traveling." }
         questions:
           - { q: "What does Tom say he likes?", options: ["The sea, the mountains and things like that", "Only the sea", "Only the mountains", "Nothing in particular"], answer: "The sea, the mountains and things like that" }
       - { kind: challenge, ja: "ミカと うみや かわに いくから かさを かう。", en: "I'm going to the sea and the river and places like that with Mika, so I'll buy an umbrella", combines: [ya-incomplete-list, to-and, kara-because, ni-location], mode: build }
@@ -389,12 +389,12 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: to-and }
       - { kind: sentence, ja: "くつと ぼうしを かう。", en: "I'll buy the shoes and the hat", exercises: [to-and, wo-object], mode: build }
-      - { kind: sentence, ja: "くつや ぼうしを かう。", en: "I'll buy shoes and a hat and a few other things", exercises: [ya-incomplete-list, wo-object], mode: build }
+      - { kind: sentence, ja: "くつや ぼうしを かう。", en: "I'll buy shoes and a hat", exercises: [ya-incomplete-list, wo-object], mode: build }
       - { kind: sentence, ja: "じてんしゃと くるまが ある。", en: "There's a bicycle and a car", exercises: [to-and, arimasu], mode: build }
-      - { kind: sentence, ja: "かぎと けいたいが かばんに ある。", en: "The key and the phone are in my bag", exercises: [to-and, ni-location, arimasu], mode: listening }
+      - { kind: sentence, ja: "かぎと けいたいが かばんに ある。", en: "The key and the phone are in the bag", exercises: [to-and, ni-location, arimasu], mode: listening }
       - { kind: sentence, ja: "つきと ほしが きれいだ。", en: "The moon and the stars are beautiful", exercises: [to-and, na-adj-present], mode: build }
       - { kind: sentence, ja: "ミカと ケンが きっさてんに いる。", en: "Mika and Ken are at the coffee shop", exercises: [to-and, ni-location, imasu], mode: build }
-      - { kind: sentence, ja: "きのこと たまごを たべたけど おいしくなかった。", en: "I ate the mushrooms and the eggs, but it wasn't delicious", exercises: [to-and, ta-form, kedo, i-adj-past], mode: build }
+      - { kind: sentence, ja: "きのこと たまごを たべたけど おいしくなかった。", en: "I ate the mushrooms and the eggs, but they weren't delicious", exercises: [to-and, ta-form, kedo, i-adj-past], mode: build }
       - { kind: sentence, ja: "いぬと ねこが いる。", en: "Say to a friend: There's a dog and a cat", exercises: [to-and], mode: translate }
       # CONTENT cloze, not a particle one: と was introduced in m8, so a true
       # particle cloze on it would be a REVIEW use of the type — banned by inv 5
@@ -409,7 +409,7 @@ lessons:
           - { speaker: "Mika", ja: "じしょと えんぴつが ある。それだけだ。", en: "A dictionary and a pencil. That's all." }
         questions:
           - { q: "What does Mika say is in her bag?", options: ["A dictionary and a pencil, and nothing else", "A dictionary and a pencil among other things", "Only a dictionary", "A book and a pencil"], answer: "A dictionary and a pencil, and nothing else" }
-      - { kind: challenge, ja: "きょうは じしょと えんぴつを かうけど ほんや かばんは かわない。", en: "Today I'll buy a dictionary and a pencil, but I won't buy books or bags or anything like that", combines: [to-and, ya-incomplete-list, kedo, nai-form], mode: build }
+      - { kind: challenge, ja: "きょうは じしょと えんぴつを かうけど ほんや かばんは かわない。", en: "Today I'll buy a dictionary and a pencil, but I won't buy books or bags", combines: [to-and, ya-incomplete-list, kedo, nai-form], mode: build }
     reviewPool: [パン, たまご, きのこ, じてんしゃ, くるま, かぎ, けいたい, じしょ, えんぴつ, かさ]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -423,7 +423,7 @@ lessons:
       - { kind: sentence, ja: "ちちは おんがくが すきだ。", en: "My father likes music", exercises: [family-register, suki-kirai-no], mode: build }
       - { kind: sentence, ja: "ミカの おかあさんは えいがが すきだ。", en: "Mika's mother likes movies", exercises: [family-register, no-possession, suki-kirai-no], mode: build }
       - { kind: sentence, ja: "ちちと ははが かいしゃで はたらく。", en: "My father and my mother work at a company", exercises: [family-register, to-and, de-action], mode: build }
-      - { kind: sentence, ja: "ケンの おとうさんは がっこうの せんせいだ。", en: "Ken's father is a teacher at the school", exercises: [family-register, no-possession, desu-copula], mode: listening }
+      - { kind: sentence, ja: "ケンの おとうさんは がっこうの せんせいだ。", en: "Ken's father is a school teacher", exercises: [family-register, no-possession, desu-copula], mode: listening }
       - { kind: sentence, ja: "せんせいの おかあさんは げんきだ。", en: "The teacher's mother is well", exercises: [family-register, no-possession, na-adj-present], mode: build }
       - { kind: sentence, ja: "ミカの おとうさんは いま うちに いる。", en: "Mika's father is at home right now", exercises: [family-register, ni-location, imasu], mode: build }
       - { kind: sentence, ja: "うちの ちちは ぎゅうにゅうや ちゃを のむ。", en: "My father drinks milk and tea and things like that", exercises: [family-register, ya-incomplete-list, wo-object], mode: build }
@@ -433,7 +433,7 @@ lessons:
       # is merely informal — so おかあさん is never offered as a wrong answer
       # against はは anywhere in this module.
       - { kind: particle-cloze, stem: "ともだちの ", tail: "は せんせいだ。", answer: "おかあさん", options: ["おかあさん", "はは", "あね"], en: "My friend's mother is a teacher", explanation: "はは is only ever your OWN mother and あね only your own older sister — somebody else's family always takes the honorific word, おかあさん." }
-      - { kind: listening-comp, audio: "ケンの おとうさんは がっこうの せんせいだ。", answer: "Ken's father is a teacher at the school", distractors: ["My father is a teacher at the school", "Ken's mother is a teacher at the school", "Ken's father is a student at the school"], exercises: [family-register, no-possession] }
+      - { kind: listening-comp, audio: "ケンの おとうさんは がっこうの せんせいだ。", answer: "Ken's father is a school teacher", distractors: ["My father is a teacher at the school", "Ken's mother is a teacher at the school", "Ken's father is a student at the school"], exercises: [family-register, no-possession] }
       - { kind: listening-comp, audio: "ちちと ははが かいしゃで はたらく。", answer: "My father and my mother work at a company", distractors: ["Ken's father and mother work at a company", "My father and my mother work at a school", "My father works at a company, but my mother doesn't"], exercises: [family-register, to-and] }
       - kind: dialogue
         lines:
@@ -451,21 +451,21 @@ lessons:
     focus: "The open list, the closed one, and the word that says whose mother you mean"
     introduces: []
     beats:
-      - { kind: sentence, ja: "そらや うみが きれいだ。", en: "The sky and the sea and all of it are beautiful", exercises: [ya-incomplete-list], mode: build }
+      - { kind: sentence, ja: "そらや うみが きれいだ。", en: "The sky and the sea are beautiful", exercises: [ya-incomplete-list], mode: build }
       - { kind: sentence, ja: "じてんしゃと くるまが ある。", en: "There's a bicycle and a car", exercises: [to-and, arimasu], mode: build }
       - { kind: sentence, ja: "ミカの おかあさんは えいがが すきだ。", en: "Mika's mother likes movies", exercises: [family-register, no-possession], mode: listening }
-      - { kind: sentence, ja: "みせで くつや ぼうしを かう。", en: "I'll buy shoes and a hat and a few other things at the shop", exercises: [ya-incomplete-list, de-action], mode: build }
+      - { kind: sentence, ja: "みせで くつや ぼうしを かう。", en: "I'll buy shoes and a hat at the shop", exercises: [ya-incomplete-list, de-action], mode: build }
       - { kind: sentence, ja: "ちちと ははが かいしゃで はたらく。", en: "My father and my mother work at a company", exercises: [family-register, to-and], mode: build }
       - { kind: particle-cloze, stem: "かばんに かぎ", tail: " けいたいなどが ある。", answer: "や", options: ["や", "を", "から"], en: "In my bag there are keys, a phone and so on", explanation: "や leaves the list open, and など says so out loud. を marks a thing you act on and から a starting point." }
-      - { kind: sentence, ja: "きのこと たまごを たべたけど おいしくなかった。", en: "I ate the mushrooms and the eggs, but it wasn't delicious", exercises: [to-and, ta-form, kedo], mode: build }
-      - { kind: listening-comp, audio: "いけや かわに かめが いる。", answer: "There are turtles in the ponds and rivers and places like that", distractors: ["There are turtles in the pond and the river — those two places", "There are birds in the ponds and rivers and places like that", "There are turtles in the sea and the rivers and places like that"], exercises: [ya-incomplete-list, imasu] }
+      - { kind: sentence, ja: "きのこと たまごを たべたけど おいしくなかった。", en: "I ate the mushrooms and the eggs, but they weren't delicious", exercises: [to-and, ta-form, kedo], mode: build }
+      - { kind: listening-comp, audio: "いけや かわに かめが いる。", answer: "There are turtles in the ponds and rivers", distractors: ["There are turtles in the pond and the river — those two places", "There are birds in the ponds and rivers and places like that", "There are turtles in the sea and the rivers and places like that"], exercises: [ya-incomplete-list, imasu] }
       - { kind: sentence, ja: "せんせいの おかあさんは げんきだ。", en: "The teacher's mother is well", exercises: [family-register, no-possession], mode: build }
       - { kind: sentence, ja: "いぬや ねこが すきだ。", en: "Say to a friend: I like dogs and cats and animals like that", exercises: [ya-incomplete-list], mode: translate }
       - { kind: listening-comp, audio: "うちの ちちは ぎゅうにゅうや ちゃを のむ。", answer: "My father drinks milk and tea and things like that", distractors: ["My father drinks milk and tea — those two only", "Mika's father drinks milk and tea and things like that", "My father drinks water and tea and things like that"], exercises: [family-register, ya-incomplete-list] }
-      - { kind: sentence, ja: "やすみは うみや やまに いく。", en: "On my days off I'm going to the sea and the mountains and places like that", exercises: [ya-incomplete-list, ni-location], mode: build }
+      - { kind: sentence, ja: "やすみは うみや やまに いく。", en: "On my days off I go to the sea and the mountains", exercises: [ya-incomplete-list, ni-location], mode: build }
       - kind: dialogue
         lines:
-          - { speaker: "Ken", ja: "ミカの おとうさんは いま うちに いる？", en: "Is your father at home right now?" }
+          - { speaker: "Ken", ja: "ミカの おとうさんは いま うちに いる？", en: "Is Mika's father at home right now?" }
           - { speaker: "Mika", ja: "ううん。ちちは かいしゃに いる。", en: "Nope. My father is at the company." }
         questions:
           - { q: "Where is Mika's father?", options: ["At the company", "At home", "At the school", "At the coffee shop"], answer: "At the company" }
@@ -485,18 +485,18 @@ lessons:
       - { kind: sentence, ja: "あにと あねが うちに いる。", en: "My older brother and my older sister are at home", exercises: [no-possession, to-and, imasu], mode: listening }
       - { kind: sentence, ja: "せんせいの おにいさんも せんせいだ。", en: "The teacher's older brother is a teacher too", exercises: [no-possession, family-register, mo-also], mode: build }
       - { kind: sentence, ja: "いもうとと おとうとは がっこうに いく。", en: "My younger sister and my younger brother go to school", exercises: [no-possession, to-and, ni-location], mode: build }
-      - { kind: sentence, ja: "ケンの おねえさんは うたや おんがくが すきだから きっさてんで きく。", en: "Ken's older sister likes songs and music and things like that, so she listens at the coffee shop", exercises: [no-possession, ya-incomplete-list, kara-because, de-action], mode: build }
+      - { kind: sentence, ja: "ケンの おねえさんは うたや おんがくが すきだから きっさてんで きく。", en: "Ken's older sister likes songs and music, so she listens to them at the coffee shop", exercises: [no-possession, ya-incomplete-list, kara-because, de-action], mode: build }
       - { kind: sentence, ja: "ミカの おにいさんは がくせいだ。", en: "Say to a friend: Mika's older brother is a student", exercises: [no-possession], mode: translate }
       - { kind: particle-cloze, stem: "せんせいの ", tail: "は だいがくに いく。", answer: "おねえさん", options: ["おねえさん", "あね", "いもうと"], en: "The teacher's older sister goes to university", explanation: "あね is only ever your OWN older sister and いもうと your own younger one — somebody else's older sister is おねえさん." }
       - { kind: listening-comp, audio: "ミカの おねえさんは だいがくに いく。", answer: "Mika's older sister goes to university", distractors: ["My older sister goes to university", "Mika's older brother goes to university", "Mika's older sister goes to school"], exercises: [no-possession, family-register] }
       - { kind: listening-comp, audio: "あにと あねが うちに いる。", answer: "My older brother and my older sister are at home", distractors: ["Mika's older brother and older sister are at home", "My older brother and my older sister are at the company", "My younger brother and younger sister are at home"], exercises: [no-possession, to-and] }
       - kind: dialogue
         lines:
-          - { speaker: "Tom", ja: "ミカの おにいさんは がくせい？", en: "Is your older brother a student?" }
+          - { speaker: "Tom", ja: "ミカの おにいさんは がくせい？", en: "Is Mika's older brother a student?" }
           - { speaker: "Mika", ja: "うん。あには だいがくに いく。", en: "Yeah. My older brother goes to university." }
         questions:
           - { q: "What does Mika say about her older brother?", options: ["He goes to university", "He works at a company", "He is a teacher", "He is at home"], answer: "He goes to university" }
-      - { kind: challenge, ja: "ともだちの おねえさんは えいがや おんがくが すきだけど あねは りょうりが すきだ。", en: "My friend's older sister likes movies and music and things like that, but my older sister likes cooking", combines: [no-possession, family-register, ya-incomplete-list, kedo], mode: build }
+      - { kind: challenge, ja: "ともだちの おねえさんは えいがや おんがくが すきだけど あねは りょうりが すきだ。", en: "My friend's older sister likes movies and music, but my older sister likes cooking", combines: [no-possession, family-register, ya-incomplete-list, kedo], mode: build }
     reviewPool: [あに, あね, いもうと, おとうと, きょうだい, おかあさん, おとうさん, だいがく, がっこう, かいしゃ]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -513,7 +513,7 @@ lessons:
       - { kind: sentence, ja: "コーヒーを ろっぱい のんだ。", en: "I drank six cups of coffee", exercises: [counter-hai, ta-form], mode: listening }
       - { kind: sentence, ja: "きっさてんで おさけは のまない。", en: "I don't drink sake at the coffee shop", exercises: [counter-hai, de-action, nai-form], mode: build }
       - { kind: sentence, ja: "あさは ぎゅうにゅうを いっぱい のむから げんきだ。", en: "In the morning I drink a glass of milk, so I'm well", exercises: [counter-hai, kara-because, na-adj-present], mode: build }
-      - { kind: sentence, ja: "のみものは ちゃや ぎゅうにゅうが すきだ。", en: "For drinks I like tea and milk and things like that", exercises: [ya-incomplete-list, suki-kirai-no, wa-topic], mode: build }
+      - { kind: sentence, ja: "のみものは ちゃや ぎゅうにゅうが すきだ。", en: "For drinks, I like tea and milk", exercises: [ya-incomplete-list, suki-kirai-no, wa-topic], mode: build }
       - { kind: sentence, ja: "みずを いっぱい のむ。", en: "Say to a friend: I'll drink a glass of water", exercises: [counter-hai], mode: translate }
       - { kind: particle-cloze, stem: "コーヒーを ", tail: " のむ。", answer: "さんばい", options: ["さんばい", "いっぱい", "ろっぱい"], en: "I drink three cups of coffee", explanation: "three cupfuls is さんばい — さん turns はい into ばい. いっぱい is one and ろっぱい is six." }
       - { kind: listening-comp, audio: "ちゃを ろっぱい のんだ。", answer: "I drank six cups of tea", distractors: ["I drank three cups of tea", "I drank six cups of coffee", "I drank six glasses of water"], exercises: [counter-hai, ta-form] }
@@ -538,7 +538,7 @@ lessons:
       - { kind: sentence, ja: "かぞくは よにんだ。", en: "There are four people in my family", exercises: [counter-nin, desu-copula], mode: build }
       - { kind: sentence, ja: "ふたりで コーヒーを よんはい のんだ。", en: "The two of us drank four coffees", exercises: [counter-nin, counter-hai, ta-form], mode: build }
       - { kind: sentence, ja: "ひとりで みずを ごはい のんだ。", en: "On my own I drank five glasses of water", exercises: [counter-nin, counter-hai, ta-form], mode: build }
-      - { kind: sentence, ja: "ちゃを なんばい のむ？", en: "How many cups of tea are you having", exercises: [counter-hai, ka-question], mode: build }
+      - { kind: sentence, ja: "ちゃを なんばい のむ？", en: "How many cups of tea do you drink?", exercises: [counter-hai, ka-question], mode: build }
       - { kind: sentence, ja: "さんにんで きっさてんに いく。", en: "The three of us are going to the coffee shop", exercises: [counter-nin, ni-location], mode: listening }
       - { kind: sentence, ja: "ミカの かぞくは ごにんだけど うちの かぞくは ふたりだ。", en: "There are five people in Mika's family, but there are two in mine", exercises: [counter-nin, no-possession, kedo], mode: build }
       - { kind: sentence, ja: "おさけを ごはい のんだから みずを のむ。", en: "I drank five glasses of sake, so I'll drink some water", exercises: [counter-hai, kara-because, wo-object], mode: build }
@@ -576,7 +576,7 @@ lessons:
       - { kind: sentence, ja: "いもうとと おとうとは がっこうに いく。", en: "My younger sister and my younger brother go to school", exercises: [to-and, ni-location], mode: build }
       - kind: dialogue
         lines:
-          - { speaker: "Tom", ja: "ミカの かぞくは なんにん？", en: "How many people are in your family?" }
+          - { speaker: "Tom", ja: "ミカの かぞくは なんにん？", en: "How many people are in Mika's family?" }
           - { speaker: "Mika", ja: "ごにんだ。ちちと ははと あにと いもうとと わたしだ。", en: "Five. My father, my mother, my older brother, my younger sister and me." }
         questions:
           - { q: "How many people are in Mika's family?", options: ["Five", "Four", "Three", "Six"], answer: "Five" }
@@ -627,7 +627,7 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: suki-kirai-no }
       - { kind: sentence, ja: "やすみは うみに いったり やまで あそんだり する。", en: "On my days off I do things like go to the sea and play in the mountains", exercises: [suki-kirai-no, tari-tari-suru, ni-location], mode: build }
-      - { kind: sentence, ja: "あねは えいがや おんがくが すきだ。", en: "My older sister likes movies and music and things like that", exercises: [suki-kirai-no, ya-incomplete-list], mode: build }
+      - { kind: sentence, ja: "あねは えいがや おんがくが すきだ。", en: "My older sister likes movies and music", exercises: [suki-kirai-no, ya-incomplete-list], mode: build }
       - { kind: sentence, ja: "ぼくは きのこが きらいだ。", en: "I dislike mushrooms", exercises: [suki-kirai-no, na-adj-present], mode: build }
       - { kind: sentence, ja: "いけや かわで あそんだり さくらを みたり する。", en: "I do things like play at ponds and rivers and look at the cherry blossom", exercises: [tari-tari-suru, ya-incomplete-list, de-action], mode: listening }
       - { kind: sentence, ja: "ミカの おにいさんは すしや りょうりが すきだ。", en: "Mika's older brother likes sushi and cooking and things like that", exercises: [suki-kirai-no, ya-incomplete-list, family-register], mode: build }
@@ -635,7 +635,7 @@ lessons:
       - { kind: sentence, ja: "ちちは おさけが すきだけど ははは ちゃが すきだ。", en: "My father likes sake, but my mother likes tea", exercises: [suki-kirai-no, kedo, family-register], mode: build }
       - { kind: sentence, ja: "えいがや おんがくが すきだ。", en: "Say to a friend: I like movies and music and things like that", exercises: [suki-kirai-no, ya-incomplete-list], mode: translate }
       - { kind: particle-cloze, stem: "やすみは やまで ", tail: " うみに いったり する。", answer: "あそんだり", options: ["あそんだり", "たべたり", "きいたり"], en: "On my days off I do things like play in the mountains and go to the sea", explanation: "あそんだり is the たり form of あそぶ — take the plain past あそんだ and add り. たべたり is eat and きいたり is listen." }
-      - { kind: listening-comp, audio: "あねは えいがや おんがくが すきだ。", answer: "My older sister likes movies and music and things like that", distractors: ["My older sister likes movies and music — those two only", "My friend's older sister likes movies and music and things like that", "My older sister likes movies and books and things like that"], exercises: [suki-kirai-no, ya-incomplete-list] }
+      - { kind: listening-comp, audio: "あねは えいがや おんがくが すきだ。", answer: "My older sister likes movies and music", distractors: ["My older sister likes movies and music — those two only", "My friend's older sister likes movies and music and things like that", "My older sister likes movies and books and things like that"], exercises: [suki-kirai-no, ya-incomplete-list] }
       - { kind: listening-comp, audio: "なつやすみは うみに いったり すしを たべたり する。", answer: "Over the summer vacation I do things like go to the sea and eat sushi", distractors: ["Over the summer vacation I go to the sea and eat sushi, and nothing else", "Over the summer vacation I do things like go to the mountains and eat sushi", "In the mornings I do things like go to the sea and eat sushi"], exercises: [tari-tari-suru] }
       - kind: dialogue
         lines:
@@ -643,7 +643,7 @@ lessons:
           - { speaker: "Mika", ja: "うみに いったり やまで あそんだり する。りょこうが すきだから。", en: "Things like going to the sea and playing in the mountains. Because I like traveling." }
         questions:
           - { q: "What does Mika say about the summer vacation?", options: ["Things like going to the sea and playing in the mountains", "Only going to the sea", "Only playing in the mountains", "Working at a company"], answer: "Things like going to the sea and playing in the mountains" }
-      - { kind: challenge, ja: "ミカの おねえさんは うみや やまが すきだから やすみは うみに いったり やまで あそんだり する。", en: "Mika's older sister likes the sea and the mountains and places like that, so on her days off she does things like go to the sea and play in the mountains", combines: [suki-kirai-no, ya-incomplete-list, tari-tari-suru, kara-because, family-register], mode: build }
+      - { kind: challenge, ja: "ミカの おねえさんは うみや やまが すきだから やすみは うみに いったり やまで あそんだり する。", en: "Mika's older sister likes the sea and the mountains, so on her days off she does things like go to the sea and play in the mountains", combines: [suki-kirai-no, ya-incomplete-list, tari-tari-suru, kara-because, family-register], mode: build }
     reviewPool: [たべたり, のんだり, みたり, きいたり, うみ, やま, えいが, おんがく, やすみ, りょうり]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -658,7 +658,7 @@ lessons:
       - { kind: sentence, ja: "ちゃを よんはい ください。", en: "Four teas please", exercises: [kudasai, counter-hai], mode: build }
       - { kind: sentence, ja: "おさけと みずを ください。", en: "Sake and water please", exercises: [kudasai, to-and], mode: build }
       - { kind: sentence, ja: "すみません のみものを ください。", en: "Excuse me — some drinks please", exercises: [kudasai, wo-object], mode: listening }
-      - { kind: sentence, ja: "コーヒーや ちゃを ください。", en: "Coffee and tea and whatever else please", exercises: [kudasai, ya-incomplete-list], mode: build }
+      - { kind: sentence, ja: "コーヒーや ちゃを ください。", en: "Coffee and tea, please", exercises: [kudasai, ya-incomplete-list], mode: build }
       - { kind: sentence, ja: "さんにんで いくから コーヒーを さんばい ください。", en: "The three of us are going, so three coffees please", exercises: [kudasai, counter-nin, counter-hai, kara-because], mode: build }
       - { kind: sentence, ja: "みずを ごはい ください。", en: "Five glasses of water please", exercises: [kudasai, counter-hai], mode: build }
       - { kind: sentence, ja: "ちゃを いっぱい ください。", en: "Say to the waiter: One tea please", exercises: [kudasai, counter-hai], mode: translate }
@@ -668,10 +668,10 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Tom", ja: "すみません コーヒーを さんばい ください。", en: "Excuse me — three coffees, please." }
-          - { speaker: "Staff", ja: "はい。のみものは コーヒーだけですか。", en: "Certainly. Is coffee all you'd like to drink?" }
+          - { speaker: "Staff", ja: "はい。のみものは コーヒーだけですか。", en: "Yes. Is coffee the only drink?" }
         questions:
           - { q: "How many coffees does Tom order?", options: ["Three", "One", "Four", "Six"], answer: "Three" }
-      - { kind: challenge, ja: "ふたりで きっさてんに いくから コーヒーや ちゃを ください。", en: "The two of us are going to the coffee shop, so coffee and tea and whatever else please", combines: [kudasai, counter-nin, ya-incomplete-list, kara-because, ni-location], mode: build }
+      - { kind: challenge, ja: "ふたりで きっさてんに いくから コーヒーや ちゃを ください。", en: "The two of us are going to the coffee shop, so coffee and tea, please", combines: [kudasai, counter-nin, ya-incomplete-list, kara-because, ni-location], mode: build }
     reviewPool: [コーヒー, おさけ, いっぱい, よんはい, ごはい, ちゃ, みず, のみもの, すし, すみません]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -682,7 +682,7 @@ lessons:
     introduces: []
     beats:
       - { kind: sentence, ja: "やすみは えいがを みたり おんがくを きいたり する。", en: "On my days off I do things like watch movies and listen to music", exercises: [tari-tari-suru], mode: build }
-      - { kind: sentence, ja: "あねは えいがや おんがくが すきだ。", en: "My older sister likes movies and music and things like that", exercises: [suki-kirai-no, ya-incomplete-list], mode: build }
+      - { kind: sentence, ja: "あねは えいがや おんがくが すきだ。", en: "My older sister likes movies and music", exercises: [suki-kirai-no, ya-incomplete-list], mode: build }
       - { kind: sentence, ja: "コーヒーを いっぱい ください。", en: "One coffee please", exercises: [kudasai, counter-hai], mode: listening }
       - { kind: sentence, ja: "ミカの おにいさんは がくせいだ。", en: "Mika's older brother is a student", exercises: [no-possession, family-register], mode: build }
       - { kind: sentence, ja: "じてんしゃと くるまが ある。", en: "There's a bicycle and a car", exercises: [to-and, arimasu], mode: build }
@@ -692,11 +692,11 @@ lessons:
       - { kind: sentence, ja: "うみに いったり やまに いったり するのが すきだ。", en: "I like doing things like going to the sea and going to the mountains", exercises: [tari-tari-suru, no-ga-suki], mode: build }
       - { kind: sentence, ja: "いぬや ねこが すきだ。", en: "Say to a friend: I like dogs and cats and animals like that", exercises: [ya-incomplete-list], mode: translate }
       - { kind: listening-comp, audio: "ちゃを なんばい のんだ？", answer: "How many cups of tea did you drink?", distractors: ["How many cups of coffee did you drink?", "How many people drank tea?", "Did you drink four cups of tea?"], exercises: [counter-hai, ta-form] }
-      - { kind: sentence, ja: "きのこと たまごを たべたけど おいしくなかった。", en: "I ate the mushrooms and the eggs, but it wasn't delicious", exercises: [to-and, ta-form, kedo], mode: build }
+      - { kind: sentence, ja: "きのこと たまごを たべたけど おいしくなかった。", en: "I ate the mushrooms and the eggs, but they weren't delicious", exercises: [to-and, ta-form, kedo], mode: build }
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "ミカの おとうさんは なにが すき？", en: "What does Mika's father like?" }
-          - { speaker: "Mika", ja: "ちちは おさけや ちゃが すきだ。りょうりも すきだ。", en: "My father likes sake and tea and that sort of thing. He likes cooking too." }
+          - { speaker: "Mika", ja: "ちちは おさけや ちゃが すきだ。りょうりも すきだ。", en: "My father likes sake and tea. He likes cooking too." }
         questions:
           - { q: "What does Mika say her father likes?", options: ["Sake, tea and cooking", "Only sake", "Only cooking", "Coffee and cooking"], answer: "Sake, tea and cooking" }
     reviewPool: [など, おかあさん, おとうさん, たべたり, のんだり, あそんだり, いったり, さんばい, なんばい, やすみ]
@@ -708,21 +708,21 @@ lessons:
     focus: "End-of-module stretch: a family, an open list, a たり list and a count in one sentence"
     introduces: []
     beats:
-      - { kind: sentence, ja: "ミカの おかあさんは えいがや おんがくが すきだから やすみは えいがを みに いく。", en: "Mika's mother likes movies and music and things like that, so on her days off she goes to watch a movie", exercises: [family-register, ya-incomplete-list, kara-because, ni-iku], mode: build }
+      - { kind: sentence, ja: "ミカの おかあさんは えいがや おんがくが すきだから やすみは えいがを みに いく。", en: "Mika's mother likes movies and music, so on her days off she goes to watch a movie", exercises: [family-register, ya-incomplete-list, kara-because, ni-iku], mode: build }
       - { kind: sentence, ja: "さんにんで きっさてんに いって コーヒーを さんばい のんだ。", en: "The three of us went to the coffee shop and drank three coffees", exercises: [counter-nin, counter-hai, ta-form], mode: build }
       - { kind: sentence, ja: "あにと あねは うみに いったり やまで あそんだり する。", en: "My older brother and my older sister do things like go to the sea and play in the mountains", exercises: [tari-tari-suru, to-and, no-possession], mode: listening }
       - { kind: sentence, ja: "ともだちの おにいさんは おさけが きらいだから ちゃを よんはい のんだ。", en: "My friend's older brother doesn't like sake, so he drank four cups of tea", exercises: [family-register, suki-kirai-no, kara-because, counter-hai], mode: build }
       - { kind: sentence, ja: "きっさてんで ほんを みたり おんがくを きいたり するのが すきだ。", en: "I like doing things like looking at a book and listening to music at the coffee shop", exercises: [tari-tari-suru, no-ga-suki, de-action], mode: build }
       - { kind: sentence, ja: "すみません コーヒーと ちゃを ください。", en: "Excuse me — a coffee and a tea please", exercises: [kudasai, to-and], mode: build }
       - { kind: sentence, ja: "ミカの おねえさんは がくせいだ。", en: "Say to a friend: Mika's older sister is a student", exercises: [family-register, no-possession], mode: translate }
-      - { kind: particle-cloze, stem: "いけ", tail: " かわで あそぶ。", answer: "や", options: ["や", "を", "から"], en: "I play at ponds and rivers and places like that", explanation: "や joins the places you are naming and leaves the list open. を marks a thing you act on and から a starting point." }
+      - { kind: particle-cloze, stem: "いけ", tail: " かわで あそぶ。", answer: "や", options: ["や", "を", "から"], en: "I play at ponds and rivers", explanation: "や joins the places you are naming and leaves the list open. を marks a thing you act on and から a starting point." }
       # Replaced 2026-07-27: the original repeated a sentence this module had
       # already taught AND reviewed. `challengeNovelty.test.ts` now gates this.
       - { kind: listening-comp, audio: "よにんで ちゃを ろっぱい のんだ。", answer: "The four of us drank six teas", distractors: ["The six of us drank four teas", "The four of us drank six coffees", "The four of us drank three teas"], exercises: [counter-nin, counter-hai] }
       - { kind: listening-comp, audio: "ちちは おさけが すきだけど ははは ちゃが すきだ。", answer: "My father likes sake, but my mother likes tea", distractors: ["My father likes tea, but my mother likes sake", "Mika's father likes sake, but her mother likes tea", "My father likes sake and my mother likes it too"], exercises: [suki-kirai-no, kedo] }
       - kind: dialogue
         lines:
-          - { speaker: "Tom", ja: "ミカの おねえさんは やすみに なにを する？", en: "What does your older sister do on her days off?" }
+          - { speaker: "Tom", ja: "ミカの おねえさんは やすみに なにを する？", en: "What does Mika's older sister do on her days off?" }
           - { speaker: "Mika", ja: "あねは うみに いったり やまで あそんだり する。りょこうが すきだから。", en: "My older sister does things like go to the sea and play in the mountains. Because she likes traveling." }
         questions:
           - { q: "What does Mika's older sister do on her days off?", options: ["Things like going to the sea and playing in the mountains", "Works at a company", "Goes to university", "Watches movies at home"], answer: "Things like going to the sea and playing in the mountains" }

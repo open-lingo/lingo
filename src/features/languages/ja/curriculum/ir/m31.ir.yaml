@@ -409,7 +409,7 @@ grammarPoints:
     examples:
       - { ja: "ともだちが けいたいを くれた。", en: "My friend gave me a cell phone." }
       - { ja: "ちちに おかねを もらった。", en: "I got money from my father." }
-      - { ja: "わたしは かさを もらった。", en: "As for me, I got an umbrella." }
+      - { ja: "わたしは かさを もらった。", en: "I got an umbrella." }
       - { ja: "いもうとが ケーキを くれたから うれしかった。", en: "My little sister gave me a cake, so I was happy." }
       - { ja: "ともだちに かさを かりた。", en: "I borrowed an umbrella from my friend." }
     antiPattern: { ja: "ともだちが わたしに けいたいを あげた。", why: "くれる is what carries a thing to your side, and it carries it without needing わたしに at all: ともだちが けいたいを くれた。" }
@@ -488,9 +488,9 @@ newAtoms:
   #    「いただいた」 tile as いただ · いた, the exact ます-stem minefield m24
   #    measured. None appears in any reviewPool, because the filler generator
   #    draws production targets from the pool.
-  - { kana: くださる, romaji: "kudasaru", gloss: "to give me (honorific, recognition only)", shortGloss: "give me (hon.)", imageable: false, kind: verb, verbClass: u }
+  - { kana: くださる, romaji: "kudasaru", gloss: "to give me", shortGloss: "give me (hon.)", imageable: false, kind: verb, verbClass: u }
   - { kana: くださった, romaji: "kudasatta", gloss: "gave me (honorific, recognition only)", shortGloss: "gave me (hon.)", imageable: false, kind: verb-form, derivedFrom: くださる }
-  - { kana: いただく, romaji: "itadaku", gloss: "to receive (honorific, recognition only)", shortGloss: "receive (hon.)", imageable: false, kind: verb, verbClass: u }
+  - { kana: いただく, romaji: "itadaku", gloss: "to receive", shortGloss: "receive (hon.)", imageable: false, kind: verb, verbClass: u }
   - { kana: いただいた, romaji: "itadaita", gloss: "received (honorific, recognition only)", shortGloss: "received (hon.)", imageable: false, kind: verb-form, derivedFrom: いただく }
   - { kana: しんせつ, romaji: "shinsetsu", gloss: "kind", shortGloss: "kind", imageable: false, kind: adjective }
 
@@ -500,7 +500,7 @@ newAtoms:
   #    verb the spine allocates; its past よろこんだ rides the godan んだ row.
   - { kana: かりた, romaji: "karita", gloss: "borrowed", shortGloss: "borrow (past)", imageable: false, kind: verb-form, derivedFrom: かりる }
   - { kana: かした, romaji: "kashita", gloss: "lent", shortGloss: "lend (past)", imageable: false, kind: verb-form, derivedFrom: かす }
-  - { kana: よろこぶ, romaji: "yorokobu", gloss: "to be delighted", shortGloss: "be delighted", imageable: false, kind: verb, verbClass: u }
+  - { kana: よろこぶ, romaji: "yorokobu", gloss: "to be happy", shortGloss: "be delighted", imageable: false, kind: verb, verbClass: u }
   - { kana: よろこんだ, romaji: "yorokonda", gloss: "was delighted", shortGloss: "was delighted", imageable: false, kind: verb-form, derivedFrom: よろこぶ }
 
   # ══ Negatives, spread across L7 and L11. Registered whole for the same
@@ -551,7 +551,7 @@ lessons:
           - { speaker: "Mika", ja: "いいね。ちちが わたしに とけいを くれる。", en: "Nice. My father's giving me a watch." }
         questions:
           - { q: "Who is giving, and who is getting?", options: ["Tom gives his friend a present; Mika's father gives her a watch", "Tom's friend gives him a present; Mika gives her father a watch", "Tom gives Mika a present; Mika gives Tom a watch", "Tom's friend and Mika's father both get presents"], answer: "Tom gives his friend a present; Mika's father gives her a watch" }
-      - { kind: challenge, ja: "あねは はなが すきだから せんせいに おおきい はなたばを あげる。", en: "My older sister likes flowers, so she gives the teacher a big bouquet", combines: [ageru, ni-recipient, kara-because, suki-kirai-no, i-adj-present], mode: build }
+      - { kind: challenge, ja: "あねは はなが すきだから せんせいに おおきい はなたばを あげる。", en: "My older sister likes flowers, so she will give the teacher a big bouquet", combines: [ageru, ni-recipient, kara-because, suki-kirai-no, i-adj-present], mode: build }
     reviewPool: [プレゼント, はなたば, おれい, ともだち, せんせい, がくせい, はな, じしょ, とけい, えんぴつ]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -574,7 +574,7 @@ lessons:
       - { kind: particle-cloze, stem: "せんせいに じしょを ", tail: "。", answer: "もらう", options: ["もらう", "くれる", "あげる"], en: "I get a dictionary from the teacher", explanation: "the teacher is marked with に, so the sentence is about ME and what I ended up with — that is もらう. くれる would need the teacher marked が and would make the sentence about the teacher instead." }
       - { kind: sentence, ja: "にほんへ いく まえに あねは ともだちに おみやげを もらう。", en: "Before going to Japan, my older sister gets a souvenir from her friend", exercises: [morau, wa-topic, ni-recipient, mae-ni], mode: build }
       - { kind: sentence, ja: "かいしゃの ひとに おかしを もらう。", en: "I get candy from the people at the company", exercises: [morau, no-possession, ni-recipient], mode: build }
-      - { kind: sentence, ja: "おかしが すきだから ともだちが ケーキを くれる。", en: "I like candy, so my friend gives me a cake", exercises: [kureru, kara-because, suki-kirai-no], mode: build }
+      - { kind: sentence, ja: "おかしが すきだから ともだちが ケーキを くれる。", en: "I like candy, so my friend gives me cake", exercises: [kureru, kara-because, suki-kirai-no], mode: build }
       - { kind: sentence, ja: "たんじょうびに おおきい ケーキを もらう。", en: "I get a big cake for my birthday", exercises: [morau, ni-time, i-adj-present], mode: build }
       - { kind: sentence, ja: "がくせいに ノートを もらう。", en: "I get a notebook from the student", exercises: [morau, ni-recipient, wo-object], mode: listening }
       - { kind: sentence, ja: "せんせいに じしょを もらう。", en: "I get a dictionary from the teacher", exercises: [morau, ni-recipient], mode: translate }
@@ -649,12 +649,12 @@ lessons:
       - { kind: sentence, ja: "しごとが あるけど ともだちから プレゼントを もらう。", en: "Even though I have work, I get a present from my friend", exercises: [kara-origin, morau, kedo], mode: build }
       - { kind: particle-cloze, stem: "ちちが おおきい とけいを ", tail: "。", answer: "くれる", options: ["くれる", "もらう", "あげる"], en: "My father gives me a big watch", explanation: "my father is marked が, so he is what the sentence is about and the watch comes to me — that is くれる. もらう would need ME as the subject and my father marked に." }
       - { kind: sentence, ja: "ははは せんせいに はなを あげる。", en: "My mother gives the teacher flowers", exercises: [ageru, family-register], mode: build }
-      - { kind: sentence, ja: "しごとを つづけるから かいしゃから きねんの とけいを もらう。", en: "Because I keep working, I get a commemorative watch from the company", exercises: [kara-origin, no-possession, kara-because], mode: build }
+      - { kind: sentence, ja: "しごとを つづけるから かいしゃから きねんの とけいを もらう。", en: "Because I'm continuing to work, I'll get a commemorative watch from the company", exercises: [kara-origin, no-possession, kara-because], mode: build }
       - { kind: listening-comp, audio: "いしゃが ちちに くすりを くれる。", answer: "The doctor gives my father medicine", distractors: ["My father gives the doctor medicine", "The doctor gives my mother medicine", "The doctor gives my father a letter"], exercises: [kureru, ni-recipient] }
       - { kind: sentence, ja: "あねは ともだちに おみやげを もらう。", en: "My older sister gets a souvenir from her friend", exercises: [morau, family-register], mode: build }
       - { kind: sentence, ja: "こんど いしゃから くすりを もらう。", en: "I'll get medicine from the doctor next time", exercises: [kara-origin, morau], mode: translate }
       - { kind: listening-comp, audio: "せんせいから おいわいの カードを もらう。", answer: "I get a congratulations card from the teacher", distractors: ["I give the teacher a congratulations card", "I get a thank-you card from the teacher", "I get a congratulations card from a student"], exercises: [kara-origin, morau] }
-      - { kind: sentence, ja: "おかしが すきだから ともだちが ケーキを くれる。", en: "I like candy, so my friend gives me a cake", exercises: [kureru, kara-because], mode: build }
+      - { kind: sentence, ja: "おかしが すきだから ともだちが ケーキを くれる。", en: "I like candy, so my friend gives me cake", exercises: [kureru, kara-because], mode: build }
       - { kind: sentence, ja: "だいがくに はいる とき たんじょうびに ちちに とけいを もらう。", en: "When I enter university, I get a watch from my father for my birthday", exercises: [morau, ni-time, toki], mode: build }
       - kind: dialogue
         lines:
@@ -749,12 +749,12 @@ lessons:
       - { kind: listening-comp, audio: "おとうとに じてんしゃを かした。", answer: "I lent my little brother my bicycle", distractors: ["I borrowed a bicycle from my little brother", "I lent my little sister my bicycle", "I gave my little brother a bicycle"], exercises: [ni-recipient, ta-form] }
       - kind: dialogue
         lines:
-          - { speaker: "Mika", ja: "あめだ。かさが ない。", en: "It's raining. I haven't got an umbrella." }
+          - { speaker: "Mika", ja: "あめだ。かさが ない。", en: "It's raining. I don't have an umbrella." }
           - { speaker: "Tom", ja: "ぼくのを かりる？", en: "Do you want to borrow mine?" }
           - { speaker: "Mika", ja: "うん。ありがとう。", en: "Yes. Thank you." }
         questions:
           - { q: "What does Tom offer Mika?", options: ["To borrow his umbrella", "To give her a card", "To buy her a ticket", "To walk her home"], answer: "To borrow his umbrella" }
-      - { kind: challenge, ja: "おかねが ないから ともだちに きっぷを かりたけど おれいの カードを あげた。", en: "I haven't got any money, so I borrowed a ticket from my friend, but I gave him a thank-you card", combines: [ni-recipient, ta-form, kedo, kara-because, nai-existence], mode: build }
+      - { kind: challenge, ja: "おかねが ないから ともだちに きっぷを かりたけど おれいの カードを あげた。", en: "I don't have any money, so I borrowed a ticket from my friend, but I gave him a thank-you card", combines: [ni-recipient, ta-form, kedo, kara-because, nai-existence], mode: build }
     reviewPool: [かさ, きっぷ, おかね, じてんしゃ, ぼうし, じしょ, てがみ, いもうと, おとうと, ともだち]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -805,7 +805,7 @@ lessons:
       # plain, which is the module's own established pattern — `register: plain`
       # holds and `m31-neo.test.ts` still sees no あげます/くれます/もらいます.
       - { kind: rule, grammarPointId: kureru, variant: honorific }
-      - { kind: sentence, ja: "じゅぎょうで きくから しんせつな せんせいに ノートを もらった。", en: "Because I ask questions in class, I got a notebook from a kind teacher", exercises: [ta-form, morau, na-adj-present, kara-because], mode: build }
+      - { kind: sentence, ja: "じゅぎょうで きくから しんせつな せんせいに ノートを もらった。", en: "Because I listen in class, I got a notebook from a kind teacher", exercises: [ta-form, morau, na-adj-present, kara-because], mode: build }
       - { kind: sentence, ja: "せんせいは しんせつだから じゅぎょうが すきだ。", en: "The teacher is kind, so I like the class", exercises: [na-adj-present, kara-because, suki-kirai-no], mode: build }
       - { kind: sentence, ja: "せんせいが しんせつに おしえるから せんせいに おれいの てがみを あげるんです。", en: "Because the teacher teaches so kindly, the thing is, I'm giving the teacher a thank-you letter", exercises: [ageru, n-desu, no-possession, kara-because], mode: build }
       - { kind: sentence, ja: "しんせつな がくせいが かさを くれた。", en: "A kind student gave me an umbrella", exercises: [ta-form, kureru, na-adj-present], mode: listening }
@@ -831,7 +831,7 @@ lessons:
           - { speaker: "Ken", ja: "せんせいは いつも いい プレゼントを くださる。", en: "The teacher always gives good presents." }
         questions:
           - { q: "What does Tom say happened?", options: ["Mika received a dictionary from the teacher", "The teacher received a dictionary from Mika", "Mika bought a dictionary", "Tom received a dictionary"], answer: "Mika received a dictionary from the teacher" }
-      - { kind: challenge, ja: "しんせつな せんせいに ノートを もらったから おれいの カードを あげた。", en: "A kind teacher gave me a notebook, so I gave her a thank-you card", combines: [ta-form, morau, ageru, kara-because, na-adj-present], mode: build }
+      - { kind: challenge, ja: "しんせつな せんせいに ノートを もらったから おれいの カードを あげた。", en: "A kind teacher gave me a notebook, so I gave them a thank-you card", combines: [ta-form, morau, ageru, kara-because, na-adj-present], mode: build }
     reviewPool: [しんせつ, ノート, てがみ, カード, かさ, くすり, きねん, せんせい, いしゃ, がくせい]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -843,7 +843,7 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: wa-topic, variant: viewpoint }
       - { kind: sentence, ja: "がっこうから かえる とき ちちに おかねを もらった。", en: "When I got home from school, I got money from my father", exercises: [wa-topic, morau, ta-form, toki], mode: build }
-      - { kind: sentence, ja: "わたしは かさを もらった。", en: "As for me, I got an umbrella", exercises: [wa-topic, morau, ta-form], mode: build }
+      - { kind: sentence, ja: "わたしは かさを もらった。", en: "I got an umbrella", exercises: [wa-topic, morau, ta-form], mode: build }
       - { kind: kanji, kana: おかね, kanji: お金, exercises: [wa-topic] }
       - { kind: sentence, ja: "いもうとが ケーキを くれたから よろこんだ。", en: "My little sister gave me a cake, so I was delighted", exercises: [kureru, ta-form, kara-because], mode: listening }
       - { kind: sentence, ja: "はなたばを あげたから ははは よろこぶ。", en: "I gave her a bouquet, so my mother is delighted", exercises: [ageru, ta-form, kara-because], mode: build }
@@ -851,7 +851,7 @@ lessons:
       # distinct carrier — different giver, gift and receiving verb (くれる
       # non-past, not あげる past).
       - { kind: sentence, ja: "しんせつな せんせいが ノートを くれるから がくせいは よろこぶ。", en: "The teacher is kind and gives a notebook, so the student is delighted", exercises: [kureru, na-adj-present, kara-because], mode: listening }
-      - { kind: sentence, ja: "いそぐから その ひとから なにも もらわない。", en: "I'm in a hurry, so I don't get anything from that person", exercises: [morau, nai-form, kara-origin, kara-because], mode: build }
+      - { kind: sentence, ja: "いそぐから その ひとから なにも もらわない。", en: "I'm in a hurry, so I won't get anything from that person", exercises: [morau, nai-form, kara-origin, kara-because], mode: build }
       - { kind: sentence, ja: "せんせいが きねんの カードを くれたんです。", en: "The thing is, the teacher gave me a commemorative card", exercises: [kureru, n-desu, ta-form], mode: build }
       - { kind: sentence, ja: "がっこうに はいる とき ともだちが けいたいを くれたから よろこんだ。", en: "When I entered school, my friend gave me a cell phone, so I was delighted", exercises: [kureru, ta-form, kara-because, toki], mode: build }
       - { kind: sentence, ja: "ちちに おかねを もらった。", en: "I got money from my father", exercises: [morau, ta-form], mode: translate }
@@ -861,7 +861,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "ぼくは けいたいを もらった。", en: "I got a cell phone." }
-          - { speaker: "Mika", ja: "わたしは かさを もらった。", en: "As for me, I got an umbrella." }
+          - { speaker: "Mika", ja: "わたしは かさを もらった。", en: "I got an umbrella." }
         questions:
           - { q: "Why does Mika say わたしは?", options: ["She is contrasting herself with Ken", "She is being polite", "She is asking a question", "She is talking about her sister"], answer: "She is contrasting herself with Ken" }
       - { kind: challenge, ja: "ともだちに おかねを かしたけど なにも もらわないから だいじょうぶだ。", en: "I lent my friend money, but I'm not getting anything for it, so it's fine", combines: [ta-form, kedo, morau, nai-form, kara-because], mode: build }
@@ -895,7 +895,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Tom", ja: "たんじょうびに なにを もらいたい？", en: "What do you want to get for your birthday?" }
-          - { speaker: "Mika", ja: "けいたいが ほしい。あねに もらいたい。", en: "I want a mobile. I want to get it from my older sister." }
+          - { speaker: "Mika", ja: "けいたいが ほしい。あねに もらいたい。", en: "I want a cell phone. I want to get it from my older sister." }
         questions:
           - { q: "What does Mika want, and from whom?", options: ["A mobile, from her older sister", "A cake, from her father", "A mobile, from Tom", "An umbrella, from her friend"], answer: "A mobile, from her older sister" }
       - { kind: challenge, ja: "はなが すきだから あねの たんじょうびに おおきい はなたばを あげたい。", en: "She likes flowers, so I want to give my older sister a big bouquet on her birthday", combines: [v-tai, ageru, kara-because, suki-kirai-no, no-possession], mode: build }
@@ -938,15 +938,15 @@ lessons:
     introduces: []
     beats:
       - { kind: sentence, ja: "らいげつ あねの たんじょうびだから きれいな はなたばを あげたい。", en: "It's my older sister's birthday next month, so I want to give her a beautiful bouquet", exercises: [ageru, v-tai, kara-because, na-adj-present], mode: build }
-      - { kind: sentence, ja: "びょうきの ときに ともだちが くだものを くれた。", en: "When I was ill my friend gave me some fruit", exercises: [kureru, ta-form, toki], mode: listening }
+      - { kind: sentence, ja: "びょうきの ときに ともだちが くだものを くれた。", en: "When I was sick my friend gave me some fruit", exercises: [kureru, ta-form, toki], mode: listening }
       - { kind: sentence, ja: "がいこくの ひとから きれいな カードを もらった。", en: "I got a beautiful card from someone from abroad", exercises: [kara-origin, morau, ta-form, na-adj-present], mode: build }
       - { kind: sentence, ja: "せんしゅう おとうとに じてんしゃを かした。", en: "I lent my little brother my bicycle last week", exercises: [ta-form, ni-recipient, family-register], mode: build }
-      - { kind: sentence, ja: "おかねが ないから ことしは なにも あげない。", en: "I haven't got any money, so I'm not giving anything this year", exercises: [ageru, nai-form, kara-because, nai-existence], mode: build }
+      - { kind: sentence, ja: "おかねが ないから ことしは なにも あげない。", en: "I don't have any money, so I'm not giving anything this year", exercises: [ageru, nai-form, kara-because, nai-existence], mode: build }
       - { kind: sentence, ja: "おいわいの ケーキを もらった とき よろこんだ。", en: "When I got the celebration cake I was delighted", exercises: [morau, ta-form, toki], mode: build }
       - { kind: sentence, ja: "ははは しんせつだから こどもに おかしを あげる。", en: "My mother is kind, so she gives the child candy", exercises: [ageru, na-adj-present, kara-because], mode: build }
       - { kind: sentence, ja: "ともだちに ぼうしを かりたけど あめだった。", en: "I borrowed a hat from my friend, but it rained", exercises: [ta-form, kedo, ni-recipient], mode: translate }
-      - { kind: particle-cloze, stem: "びょうきの ときに ともだちが くだものを ", tail: "。", answer: "くれた", options: ["くれた", "あげた", "かりた"], en: "When I was ill my friend gave me some fruit", explanation: "the fruit came to me while I was ill, so くれる is the verb and it has already happened. あげた would send it to my friend, and かりた would mean I have to give it back." }
-      - { kind: listening-comp, audio: "おかねが ないから ことしは なにも あげない。", answer: "I haven't got any money, so I'm not giving anything this year", distractors: ["I've got money, so I'll give something this year", "I haven't got any money, so I'm not getting anything this year", "I haven't got any time, so I'm not giving anything this year"], exercises: [ageru, nai-form, nai-existence] }
+      - { kind: particle-cloze, stem: "びょうきの ときに ともだちが くだものを ", tail: "。", answer: "くれた", options: ["くれた", "あげた", "かりた"], en: "When I was sick my friend gave me some fruit", explanation: "the fruit came to me while I was ill, so くれる is the verb and it has already happened. あげた would send it to my friend, and かりた would mean I have to give it back." }
+      - { kind: listening-comp, audio: "おかねが ないから ことしは なにも あげない。", answer: "I don't have any money, so I'm not giving anything this year", distractors: ["I have money, so I'll give something this year", "I don't have any money, so I'm not getting anything this year", "I don't have any time, so I'm not giving anything this year"], exercises: [ageru, nai-form, nai-existence] }
       - { kind: listening-comp, audio: "たなかせんせいが おいわいの はなたばを くださった。", answer: "Tanaka-sensei was kind enough to give me a celebration bouquet", distractors: ["I gave Tanaka-sensei a celebration bouquet", "Tanaka-sensei was kind enough to give me a celebration cake", "A student was kind enough to give me a celebration bouquet"], exercises: [kureru, ta-form] }
       - { kind: sentence, ja: "きれいな カードは すきだから もらった とき うれしかった。", en: "I like beautiful cards, so I was happy when I got one", exercises: [morau, ta-form, toki, suki-kirai-no], mode: build }
       - kind: dialogue
@@ -956,5 +956,5 @@ lessons:
           - { speaker: "Tom", ja: "ぼくは たなかせんせいに おれいの てがみを あげるんです。", en: "The thing is, I'm giving Tanaka-sensei a thank-you letter." }
         questions:
           - { q: "What does Tom say he will do?", options: ["Give Tanaka-sensei a thank-you letter", "Receive a souvenir", "Go on a trip next month", "Write to Mika"], answer: "Give Tanaka-sensei a thank-you letter" }
-      - { kind: challenge, ja: "がいこくに いく ともだちに きれいな はなたばを あげたいけど おかねが ないから あげない。", en: "I want to give my friend who is going abroad a beautiful bouquet, but I haven't got any money, so I won't", combines: [ageru, v-tai, kedo, kara-because, nai-existence, nai-form], mode: build }
+      - { kind: challenge, ja: "がいこくに いく ともだちに きれいな はなたばを あげたいけど おかねが ないから あげない。", en: "I want to give my friend who is going abroad a beautiful bouquet, but I don't have any money, so I won't", combines: [ageru, v-tai, kedo, kara-because, nai-existence, nai-form], mode: build }
     reviewPool: [はなたば, とけい, くだもの, じてんしゃ, おかね, ぼうし, おいわい, こども, ケーキ, カード]

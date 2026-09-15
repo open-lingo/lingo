@@ -246,7 +246,7 @@ lessons:
       - { kind: sentence, ja: "パンを ふたつ ください。", en: "Say politely: Two breads, please", exercises: [wo-object, counter-tsu, te-kudasai], mode: build }
       - kind: dialogue
         lines:
-          - { speaker: "ミカ", ja: "みせで かいものを する？", en: "Doing the shopping at the store?" }
+          - { speaker: "ミカ", ja: "みせで かいものを する？", en: "Are you shopping at the store?" }
           - { speaker: "ケン", ja: "うん。パンを かう。", en: "Yeah. I'll buy bread." }
         questions:
           - { q: "What will Ken buy?", options: ["Bread", "Tea", "A book", "Nothing"], answer: "Bread" }
@@ -283,15 +283,15 @@ lessons:
     focus: "counting what you are buying, out loud"
     introduces: []
     beats:
-      - { kind: sentence, ja: "パンを ひとつ かう。", en: "I buy one bread", exercises: [wo-object, counter-tsu], mode: build }
+      - { kind: sentence, ja: "パンを ひとつ かう。", en: "I buy one piece of bread", exercises: [wo-object, counter-tsu], mode: build }
       - { kind: sentence, ja: "ちゃを ふたつ ください。", en: "Say politely: Two teas, please", exercises: [wo-object, counter-tsu, te-kudasai], mode: translate }
       - { kind: sentence, ja: "ぼうしを みっつ かいます。", en: "Say politely: I'll buy three hats", exercises: [wo-object, counter-tsu, masu-present], mode: build }
       - { kind: sentence, ja: "ほんを ひとつ うる。", en: "I sell one book", exercises: [wo-object, counter-tsu], mode: listening }
       - { kind: sentence, ja: "かさを ふたつ かってください。", en: "Say politely: Please buy two umbrellas", exercises: [wo-object, counter-tsu, te-kudasai], mode: build }
       - { kind: sentence, ja: "みずを ひとつ ください。", en: "Say politely: One water, please", exercises: [wo-object, counter-tsu, te-kudasai], mode: build }
       - { kind: sentence, ja: "えんぴつが みっつ ある。", en: "There are three pencils", exercises: [ga-existence, counter-tsu, arimasu], mode: listening }
-      - { kind: particle-cloze, stem: "パンを ", tail: " かいます。", answer: "ふたつ", options: ["ふたつ", "ひとつ", "みっつ"], en: "I'll buy two breads", explanation: "ふたつ is two things." }
-      - { kind: challenge, ja: "みせで ミカの パンを ひとつ かって。", en: "Buy one of Mika's breads at the shop", combines: [de-action, no-possession, wo-object, counter-tsu, te-form], mode: build }
+      - { kind: particle-cloze, stem: "パンを ", tail: " かいます。", answer: "ふたつ", options: ["ふたつ", "ひとつ", "みっつ"], en: "I'll buy two pieces of bread", explanation: "ふたつ is two things." }
+      - { kind: challenge, ja: "みせで ミカの パンを ひとつ かって。", en: "Buy one of Mika's pieces of bread at the shop", combines: [de-action, no-possession, wo-object, counter-tsu, te-form], mode: build }
     reviewPool: [パン, ちゃ, ぼうし, かさ, みず, えんぴつ, ほん, みせ]
 
   - id: m9-neo-8
@@ -301,7 +301,7 @@ lessons:
     introduces: []
     beats:
       - { kind: sentence, ja: "たかいです。かいません。", en: "Say politely: It's expensive so I won't buy it", exercises: [desu-copula, masu-negative], mode: build }
-      - { kind: sentence, ja: "やすいです。かいます。", en: "Say politely: It's cheap so I'll buy it", exercises: [desu-copula, masu-present], mode: translate }
+      - { kind: sentence, ja: "やすいです。かいます。", en: "Say politely: It's cheap. I'll buy it.", exercises: [desu-copula, masu-present], mode: translate }
       - { kind: sentence, ja: "かねが ないです。", en: "Say politely: I don't have money", exercises: [ga-existence, nai-existence, desu-copula], mode: build }
       - { kind: sentence, ja: "パンは たかい。", en: "The bread is expensive", exercises: [wa-topic], mode: listening }
       - { kind: sentence, ja: "やすい パンを かう。", en: "I buy cheap bread", exercises: [wo-object], mode: build }
@@ -356,10 +356,10 @@ lessons:
       - { kind: sentence, ja: "ろく ななです。", en: "Say politely: It's six, seven", exercises: [numbers-1-10, desu-copula], mode: build }
       - kind: dialogue
         lines:
-          - { speaker: "ミカ", ja: "かいものを する？", en: "Doing the shopping?" }
-          - { speaker: "トム", ja: "うん。パンを みっつ かう。", en: "Yeah. I'll buy three breads." }
+          - { speaker: "ミカ", ja: "かいものを する？", en: "Shopping?" }
+          - { speaker: "トム", ja: "うん。パンを みっつ かう。", en: "Yeah. I'll buy three pieces of bread." }
         questions:
-          - { q: "How many breads will Tom buy?", options: ["Three", "Two", "One", "None"], answer: "Three" }
+          - { q: "How many pieces of bread will Tom buy?", options: ["Three", "Two", "One", "None"], answer: "Three" }
     reviewPool: [めがね, えんぴつ, かさ, ぼうし, パン, みせ, かね, えん, かいもの]
 
   - id: m9-neo-challenge

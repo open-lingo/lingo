@@ -1137,36 +1137,63 @@ function NetworkMap({
     return () => cancelAnimationFrame(raf);
   }, [layout, segs, lenCurrent, scale, s, current.x]);
 
+  /* PERF (iPad always-on pass): rAF is throttled for a hidden document, CSS
+     keyframes are not — an idle backgrounded map went on burning a style
+     recalc + a frame every vsync. Flag the hidden state on <html> so the
+     ambient loops in transitLearnPage.css can park (see `.tmc-anim-paused`). */
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const root = document.documentElement;
+    const apply = () =>
+      root.classList.toggle("tmc-anim-paused", document.visibilityState !== "visible");
+    apply();
+    document.addEventListener("visibilitychange", apply);
+    return () => {
+      document.removeEventListener("visibilitychange", apply);
+      root.classList.remove("tmc-anim-paused");
+    };
+  }, []);
+
   /* ghost train ambling the whole line on a slow loop */
   useEffect(() => {
     const ghost = ghostRef.current;
     const container = scrollerRef.current;
     if (!ghost || prefersReducedMotion()) return;
     let raf = 0;
-    let last = 0;
+    let timer: ReturnType<typeof setTimeout> | null = null;
     const LOOP_MS = 44000;
     // A 44s ambient amble doesn't need 60fps — 30fps halves the polyline
     // walk + DOM writes with no visible difference.
     const FRAME_MS = 1000 / 30;
     const tick = (now: number) => {
-      if (now - last >= FRAME_MS) {
-        last = now;
-        const gl = ((now % LOOP_MS) / LOOP_MS) * total;
-        const [px, py] = pointAt(layout.mainPts, segs, gl);
-        const [ax, ay] = pointAt(layout.mainPts, segs, Math.max(0, gl - 3));
-        const [bx, by] = pointAt(layout.mainPts, segs, Math.min(total, gl + 3));
-        const ang = (Math.atan2(by - ay, bx - ax) * 180) / Math.PI;
-        ghost.setAttribute("transform", `translate(${px} ${py}) rotate(${ang.toFixed(2)})`);
-      }
-      raf = requestAnimationFrame(tick);
+      raf = 0;
+      const gl = ((now % LOOP_MS) / LOOP_MS) * total;
+      const [px, py] = pointAt(layout.mainPts, segs, gl);
+      const [ax, ay] = pointAt(layout.mainPts, segs, Math.max(0, gl - 3));
+      const [bx, by] = pointAt(layout.mainPts, segs, Math.min(total, gl + 3));
+      const ang = (Math.atan2(by - ay, bx - ax) * 180) / Math.PI;
+      ghost.setAttribute("transform", `translate(${px} ${py}) rotate(${ang.toFixed(2)})`);
+      // PERF (iPad always-on pass): this used to re-request a frame on EVERY
+      // vsync and drop all but every 4th — i.e. 120 callbacks/s on a ProMotion
+      // iPad to render 30. Wait out the frame budget on a timer and ask for
+      // exactly one frame when the next one is due. rAF still gates the work
+      // on visibility, so a hidden page parks here instead of spinning.
+      timer = setTimeout(() => {
+        timer = null;
+        raf = requestAnimationFrame(tick);
+      }, FRAME_MS);
     };
     const start = () => {
-      if (!raf) raf = requestAnimationFrame(tick);
+      if (!raf && !timer) raf = requestAnimationFrame(tick);
     };
     const stop = () => {
       if (raf) {
         cancelAnimationFrame(raf);
         raf = 0;
+      }
+      if (timer) {
+        clearTimeout(timer);
+        timer = null;
       }
     };
     start();
@@ -1590,7 +1617,7 @@ function NetworkMap({
                 >
                   <circle className="tmc-hit" cx={st.x} cy={st.y} r={22} fill="transparent" stroke="none" />
                   {st.status === "current" && (
-                    <circle className="tmc-pulse" cx={st.x} cy={st.y} r={13} fill="none" strokeWidth={3} style={{ stroke: "var(--tmc-line-main)" }} />
+                    <circle className="tmc-pulse" cx={st.x} cy={st.y} r={13} fill="none" vectorEffect="non-scaling-stroke" strokeWidth={3 * s} style={{ stroke: "var(--tmc-line-main)" }} />
                   )}
                   <g className="tmc-station-glyph" style={{ animationDelay: `${st.index * 45}ms` }}>
                     {st.terminal ? (

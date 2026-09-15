@@ -413,7 +413,7 @@ lessons:
       - { kind: rule, grammarPointId: demo-concession }
       - { kind: sentence, ja: "がくせいでも わかる。", en: "Even a student understands.", exercises: [demo-concession], mode: build }
       - { kind: sentence, ja: "ひまでも いかない。", en: "Even though I'm free, I won't go.", exercises: [demo-concession], mode: build }
-      - { kind: sentence, ja: "あめでも いく。", en: "Even if it's rain, I'll go.", exercises: [demo-concession], mode: build }
+      - { kind: sentence, ja: "あめでも いく。", en: "Even if it rains, I'll go.", exercises: [demo-concession], mode: build }
       - { kind: sentence, ja: "この えいがは つまらない。", en: "This movie is boring.", exercises: [i-adj-present], mode: build }
       - { kind: sentence, ja: "たいへん つかれた。", en: "I got very tired.", exercises: [ta-form], mode: build }
       - { kind: particle-cloze, stem: "がくせい", tail: " わかる。", answer: "でも", options: ["でも", "ても", "のに"], en: "Even a student understands.", explanation: "でも glues onto a NOUN the way ても glues onto a verb or い-adjective — がくせい is a noun, so でも is the only fit. ×がくせいても isn't a word. のに would need something that already happened and clashed — nothing here has happened yet." }
@@ -422,7 +422,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "この えいが どう？", en: "How's this movie?" }
-          - { speaker: "Mika", ja: "つまらないよ。でも みる？", en: "It's boring. But want to watch it anyway?" }
+          - { speaker: "Mika", ja: "つまらないよ。でも みる？", en: "It's boring. But want to watch it?" }
           - { speaker: "Ken", ja: "ひまでも みない。", en: "Even though I'm free, I won't watch it." }
         questions:
           - { q: "What does Ken say about watching the movie?", options: ["He won't watch even though he's free", "He'll watch because he's free", "He's too busy to watch", "He already watched it"], answer: "He won't watch even though he's free" }
@@ -464,7 +464,7 @@ lessons:
     introduces: [さいこう, さいあく]
     beats:
       - { kind: rule, grammarPointId: shi-listing }
-      - { kind: sentence, ja: "おいしいし、やすいし、ほしい。", en: "It's tasty, and what's more it's cheap, so I want it.", exercises: [shi-listing], mode: build }
+      - { kind: sentence, ja: "おいしいし、やすいし、ほしい。", en: "It's tasty, it's cheap, and I want it.", exercises: [shi-listing], mode: build }
       - { kind: sentence, ja: "しずかだし、べんりだし、すきだ。", en: "It's quiet, and what's more it's convenient, so I like it.", exercises: [shi-listing], mode: build }
       - { kind: sentence, ja: "あめだし、さむいし、いえに いる。", en: "It's raining and it's cold, so I'm staying home.", exercises: [shi-listing], mode: build }
       - { kind: sentence, ja: "この みせは さいこうだ。", en: "This shop is the best.", exercises: [na-adj-present], mode: build }
@@ -474,9 +474,9 @@ lessons:
       - { kind: kanji, kana: さいこう, kanji: 最高, distractors: ["さいだい", "こうこう", "さいてい"], exercises: [shi-listing] }
       - kind: dialogue
         lines:
-          - { speaker: "Ken", ja: "この みせ どう？", en: "How's this shop?" }
-          - { speaker: "Mika", ja: "やすいし、おいしいし、さいこうだよ。", en: "It's cheap, and what's more it's tasty — it's the best." }
-          - { speaker: "Ken", ja: "そう、また こよう。", en: "Really — let's come again." }
+          - { speaker: "Ken", ja: "この みせ どう？", en: "How's this store?" }
+          - { speaker: "Mika", ja: "やすいし、おいしいし、さいこうだよ。", en: "It's cheap, it's tasty, and it's the best." }
+          - { speaker: "Ken", ja: "そう、また こよう。", en: "Yeah, let's come again." }
         questions:
           - { q: "What does Mika say about the shop?", options: ["It's cheap and tasty", "It's expensive but tasty", "It's cheap but not tasty", "It's far away"], answer: "It's cheap and tasty" }
       - { kind: challenge, ja: "やすいし、べんりだから、かおうと おもう。", en: "It's cheap, and what's more it's convenient, so I think I'll buy it.", combines: [shi-listing, kara-because, to-omoimasu], mode: build }
@@ -506,8 +506,8 @@ lessons:
       - { kind: sentence, ja: "きたないのに すきだ。", en: "It's dirty, and yet I like it.", exercises: [noni-concession], mode: listening }
       - kind: dialogue
         lines:
-          - { speaker: "Mika", ja: "あの みせ しっている？", en: "Do you know that shop?" }
-          - { speaker: "Tom", ja: "うん。やすいし、べんりだし、すきだよ。", en: "Yeah. It's cheap, and what's more it's convenient, so I like it." }
+          - { speaker: "Mika", ja: "あの みせ しっている？", en: "Do you know that store?" }
+          - { speaker: "Tom", ja: "うん。やすいし、べんりだし、すきだよ。", en: "Yeah. It's cheap, it's convenient, and I like it." }
           - { speaker: "Mika", ja: "こんど いこう。", en: "Let's go next time." }
         questions:
           - { q: "Why does Tom like the shop?", options: ["It's cheap and convenient", "It's expensive but nice", "It's close to school", "It's the only one nearby"], answer: "It's cheap and convenient" }
@@ -541,7 +541,7 @@ lessons:
           - { speaker: "Tanaka", ja: "そうか。わかった。", en: "I see. Understood." }
         questions:
           - { q: "Why didn't Ken do his homework?", options: ["He had no time", "He forgot", "He didn't want to", "He was sick"], answer: "He had no time" }
-      - { kind: challenge, ja: "むりなのに やったので、たすかった。", en: "Even though it was unreasonable I did it, so it worked out.", combines: [noni-concession, node-because, ta-form], mode: build }
+      - { kind: challenge, ja: "むりなのに やったので、たすかった。", en: "Even though it was unreasonable, I did it, so it was a relief.", combines: [noni-concession, node-because, ta-form], mode: build }
     reviewPool: [じかん, こうえん, テスト, あめ, しゅくだい, がっこう, せんせい, ともだち]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -552,24 +552,24 @@ lessons:
     introduces: [しかたない]
     beats:
       - { kind: sentence, ja: "つかれても いく。", en: "Even though I'm tired, I'll go.", exercises: [temo-concession], mode: build }
-      - { kind: sentence, ja: "やすいし、べんりだし、いく。", en: "It's cheap, and what's more it's convenient, so I'll go.", exercises: [shi-listing], mode: build }
-      - { kind: sentence, ja: "うるさくても、いくし、のむ。", en: "Even though it's noisy, I'll go, and what's more I'll have a drink.", exercises: [temo-concession, shi-listing], mode: build }
+      - { kind: sentence, ja: "やすいし、べんりだし、いく。", en: "It's cheap, it's convenient, so I'll go.", exercises: [shi-listing], mode: build }
+      - { kind: sentence, ja: "うるさくても、いくし、のむ。", en: "Even if it's noisy, I'll go and drink.", exercises: [temo-concession, shi-listing], mode: build }
       - { kind: sentence, ja: "しかたないよ。", en: "Oh well, can't be helped, you know.", exercises: [yo-emphasis], mode: build }
       - { kind: listening-comp, audio: "しかたないよ。", answer: "Oh well, can't be helped, you know.", distractors: ["It can definitely be helped.", "I refuse to help.", "It's already fixed."], q: "What does this mean?" }
       - { kind: particle-cloze, stem: "つかれ", tail: " いく。", answer: "ても", options: ["ても", "のに", "し"], en: "Even though I'm tired, I'll go.", explanation: "ても holds the plan steady regardless of being tired — a concession about something not yet decided. のに would need the going to have already happened and clash with the tiredness. し would just add tiredness as ANOTHER reason pointing the same way — the opposite relationship, not a concession at all." }
-      - { kind: listening-comp, audio: "うるさくても、いくし、のむ。", answer: "Even though it's noisy, I'll go, and what's more I'll have a drink.", distractors: ["It's noisy, so I won't go.", "It's quiet, so I'll go and have a drink.", "It's noisy, so I'll just look, not drink."] }
+      - { kind: listening-comp, audio: "うるさくても、いくし、のむ。", answer: "Even if it's noisy, I'll go and drink.", distractors: ["It's noisy, so I won't go.", "It's quiet, so I'll go and have a drink.", "It's noisy, so I'll just look, not drink."] }
       - { kind: kanji, kana: さいあく, kanji: 最悪, distractors: ["さいこう", "あくい", "さいだい"], exercises: [temo-concession] }
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "つかれてない？", en: "Aren't you tired?" }
           - { speaker: "Tom", ja: "つかれても、いくよ。やすいし、べんりだし。", en: "Even though I'm tired, I'll go. It's cheap, and it's convenient." }
-          - { speaker: "Mika", ja: "しかたないね、いっしょに いこう。", en: "Well, can't be helped — let's go together." }
+          - { speaker: "Mika", ja: "しかたないね、いっしょに いこう。", en: "Well, it can't be helped — let's go together." }
         questions:
           - { q: "Why does Tom go even though he's tired?", options: ["It's cheap and convenient", "Mika asked him to", "He has no choice", "He forgot he was tired"], answer: "It's cheap and convenient" }
       - kind: sim
         scene: { emoji: "🏪", title: "The errand that won't wait", setting: "It's late and Ken is tired, but the shop closes soon." }
         turns:
-          - npc: { speaker: "Ken", ja: "つかれたのに、いくの？", en: "You got tired, and yet you're going?" }
+          - npc: { speaker: "Ken", ja: "つかれたのに、いくの？", en: "You're tired, and yet you're going?" }
             goal: "Concede you're tired, but will go anyway."
             reply: { mode: build, tiles: ["つかれても", "いく", "つかれたから", "いかない"], answer: "つかれても いく。" }
             replyGloss: "Even though I'm tired, I'll go."
@@ -577,9 +577,9 @@ lessons:
           - npc: { speaker: "Ken", ja: "どうして いくの？", en: "Why are you going?" }
             goal: "List reasons: it's cheap, and what's more it's convenient."
             reply: { mode: build, tiles: ["やすいし", "べんりだし", "いく", "やすいから", "べんりだから"], answer: "やすいし、べんりだし、いく。" }
-            replyGloss: "It's cheap, and what's more it's convenient, so I'll go."
+            replyGloss: "It's cheap, it's convenient, so I'll go."
             explanation: "し stacks the two reasons with 'and what's more'. やすいから/べんりだから would each give only ONE reason and stop — the pile-up feeling is exactly what し adds that から can't."
-      - { kind: challenge, ja: "つかれても、やすいので、いくことに した。", en: "Even though I'm tired, since it's cheap, I decided to go.", combines: [temo-concession, node-because, koto-ni-suru], mode: build }
+      - { kind: challenge, ja: "つかれても、やすいので、いくことに した。", en: "Even if I get tired, since it's cheap, I decided to go.", combines: [temo-concession, node-because, koto-ni-suru], mode: build }
     reviewPool: [みせ, テスト, いえ, あめ, コンビニ, ともだち, がっこう, しごと]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -614,11 +614,11 @@ lessons:
     focus: "Every concession and reason grammar in one arc — のに、ても、でも／も、し, novel combinations, no new vocabulary"
     introduces: []
     beats:
-      - { kind: sentence, ja: "しごとが いそがしいのに、あそんだ。", en: "Work was busy, and yet I went out and played.", exercises: [noni-concession], mode: build }
-      - { kind: sentence, ja: "つかれても、やすいし、いくことに した。", en: "Even though I'm tired, since it's cheap, I decided to go.", exercises: [temo-concession, shi-listing, koto-ni-suru], mode: build }
+      - { kind: sentence, ja: "しごとが いそがしいのに、あそんだ。", en: "Work was busy, and yet I hung out.", exercises: [noni-concession], mode: build }
+      - { kind: sentence, ja: "つかれても、やすいし、いくことに した。", en: "Even if I get tired, since it's cheap, I decided to go.", exercises: [temo-concession, shi-listing, koto-ni-suru], mode: build }
       - { kind: particle-cloze, stem: "だれ", tail: " わかるのに、ケンは わからない。", answer: "でも", options: ["でも", "も", "ても"], en: "Even though anyone would understand, Ken doesn't understand.", explanation: "だれでも is the fixed 'no matter who' phrase. だれも would need a negative predicate to mean 'nobody'; ても doesn't attach to a bare question word this way." }
       - { kind: kanji, kana: こうえん, kanji: 公園, distractors: ["どうぶつえん", "ようちえん", "こうがい"], exercises: [noni-concession] }
-      - { kind: sentence, ja: "やすいし、さいこうだ。", en: "It's cheap, and what's more it's the best.", exercises: [shi-listing], mode: listening }
+      - { kind: sentence, ja: "やすいし、さいこうだ。", en: "It's cheap, and it's the best.", exercises: [shi-listing], mode: listening }
       - kind: dialogue
         lines:
           - { speaker: "Tanaka", ja: "きょうは どうだった？", en: "How was today?" }

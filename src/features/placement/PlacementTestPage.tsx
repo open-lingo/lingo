@@ -162,6 +162,9 @@ export function PlacementTestPage() {
   const [appliedResult, setAppliedResult] = useState<PlacementResult | null>(
     null,
   );
+  /** The synthesised completions the server hasn't confirmed. b18 #144: this
+   *  was a silent `console.warn` while the founder's iPad sat at M1. */
+  const [progressSyncPending, setProgressSyncPending] = useState(false);
 
   const moduleLabel = useMemo(() => {
     if (!moduleId) return undefined;
@@ -255,7 +258,7 @@ export function PlacementTestPage() {
           state.passedModules,
           langId,
           state.assumedModules,
-        );
+        ).then(({ pending }) => setProgressSyncPending(pending > 0));
       }
       return;
     }
@@ -392,6 +395,7 @@ export function PlacementTestPage() {
           itemResults={
             moduleId && state ? state.probeResults[moduleId] : undefined
           }
+          progressSyncPending={progressSyncPending}
           onContinue={() => navigate(langPath("learn"))}
         />
       </div>

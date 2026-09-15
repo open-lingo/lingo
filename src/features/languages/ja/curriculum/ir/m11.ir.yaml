@@ -225,11 +225,11 @@ newAtoms:
   - { kana: せんげつ, romaji: sengetsu, gloss: "last month", imageable: false, kind: vocab }
   - { kana: らいげつ, romaji: raigetsu, gloss: "next month", imageable: false, kind: vocab }
   - { kana: まいとし, romaji: maitoshi, gloss: "every year", imageable: false, kind: vocab }
-  - { kana: おぼえる, romaji: oboeru, gloss: "to memorise, to learn", shortGloss: "memorise", imageable: true, kind: verb, verbClass: ru }
+  - { kana: おぼえる, romaji: oboeru, gloss: "to memorize, to learn", shortGloss: "memorise", imageable: true, kind: verb, verbClass: ru }
   - { kana: はじめて, romaji: hajimete, gloss: "for the first time", shortGloss: "first time", imageable: false, kind: vocab }
   # ── copula past
-  - { kana: だった, romaji: datta, gloss: "was, were (plain)", shortGloss: "was (plain)", imageable: false, kind: grammar-chunk }
-  - { kana: でした, romaji: deshita, gloss: "was, were (polite)", shortGloss: "was (polite)", imageable: false, kind: grammar-chunk }
+  - { kana: だった, romaji: datta, gloss: "was, were", shortGloss: "was (plain)", imageable: false, kind: grammar-chunk }
+  - { kana: でした, romaji: deshita, gloss: "was, were", shortGloss: "was", imageable: false, kind: grammar-chunk }
   # ── polite past
   - { kana: たべました, romaji: tabemashita, gloss: "ate (eat, polite past)", imageable: false, kind: verb-form, derivedFrom: たべる, verbClass: ru }
   - { kana: のみました, romaji: nomimashita, gloss: "drank (drink, polite past)", imageable: false, kind: verb-form, derivedFrom: のむ, verbClass: u }

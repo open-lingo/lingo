@@ -109,24 +109,24 @@ grammarPoints:
     antiPattern: { ja: "これは せんせいです。", why: "これ points at THINGS — presenting a person takes the polite こちら." }
 
 newAtoms:
-  - { kana: ううん, romaji: uun, gloss: "nope (casual no)", shortGloss: "nope", imageable: false, kind: vocab }
+  - { kana: ううん, romaji: uun, gloss: "nope", shortGloss: "nope", imageable: false, kind: vocab }
   - { kana: ちがう, romaji: chigau, gloss: "that's not it, wrong", shortGloss: "that's wrong", imageable: false, kind: verb, verbClass: u }
   - { kana: ちょっと, romaji: chotto, gloss: "a little, a bit", shortGloss: "a little", imageable: false, kind: vocab }
   - { kana: だめ, romaji: dame, gloss: "no good, not allowed", shortGloss: "no good", imageable: false, kind: vocab }
   - { kana: けっこう, romaji: kekkou, gloss: "no thank you, that's enough", shortGloss: "no thanks", imageable: false, kind: vocab }
   - { kana: わたし, romaji: watashi, gloss: "I, me (neutral)", shortGloss: "I (neutral)", imageable: false, kind: vocab }
-  - { kana: ぼく, romaji: boku, gloss: "I, me (casual, usually male)", shortGloss: "I (casual)", imageable: false, kind: vocab }
+  - { kana: ぼく, romaji: boku, gloss: "I, me", shortGloss: "I", imageable: false, kind: vocab }
   - { kana: こちら, romaji: kochira, gloss: "this way, this person (polite)", shortGloss: "this way", imageable: false, kind: vocab }
   - { kana: しる, romaji: shiru, gloss: "to know", imageable: false, kind: verb, verbClass: u }
-  - { kana: しります, romaji: shirimasu, gloss: "know (polite)", imageable: false, kind: verb-form, derivedFrom: しる }
-  - { kana: しりません, romaji: shirimasen, gloss: "don't know (polite)", imageable: false, kind: verb-form, derivedFrom: しる }
+  - { kana: しります, romaji: shirimasu, gloss: "know", imageable: false, kind: verb-form, derivedFrom: しる }
+  - { kana: しりません, romaji: shirimasen, gloss: "don't know", imageable: false, kind: verb-form, derivedFrom: しる }
   # Four beats build 「しらない」 and it was never registered, so the tokenizer
   # shattered it into し・ら・ない and the tile bank asked the learner to
   # assemble a verb out of loose syllables. Registering the form is the fix;
   # the buildability gate now rejects single-character debris.
   - { kana: しらない, romaji: shiranai, gloss: "don't know", imageable: false, kind: verb-form, derivedFrom: しる }
-  - { kana: わかります, romaji: wakarimasu, gloss: "understand (polite)", imageable: false, kind: verb-form, derivedFrom: わかる }
-  - { kana: ちがいます, romaji: chigaimasu, gloss: "that's not right (polite)", imageable: false, kind: verb-form, derivedFrom: ちがう }
+  - { kana: わかります, romaji: wakarimasu, gloss: "understand", imageable: false, kind: verb-form, derivedFrom: わかる }
+  - { kana: ちがいます, romaji: chigaimasu, gloss: "that's not right", imageable: false, kind: verb-form, derivedFrom: ちがう }
   - { kana: いま, romaji: ima, gloss: "now", imageable: true, kind: vocab }
   - { kana: まあ, romaji: maa, gloss: "well, sort of", shortGloss: "well…", imageable: false, kind: vocab }
   - { kana: よく, romaji: yoku, gloss: "often, well", imageable: false, kind: vocab }
@@ -337,7 +337,7 @@ lessons:
     introduces: [しる, いま]
     beats:
       - { kind: rule, grammarPointId: masu-negative, variant: shiru }
-      - { kind: sentence, ja: "ともだちを しる。", en: "I know the friend", exercises: [], mode: build }
+      - { kind: sentence, ja: "ともだちを しる。", en: "get to know a friend", exercises: [], mode: build }
       - { kind: sentence, ja: "いま いく。", en: "Say to a friend: I'm going now", exercises: [], mode: build }
       - { kind: sentence, ja: "いま いきます。", en: "Say politely: I'm going now", exercises: [masu-present], mode: translate }
       - { kind: sentence, ja: "わたしは しりません。", en: "Say politely: I don't know", exercises: [wa-topic, masu-negative], mode: build }
@@ -407,7 +407,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "せんせい", ja: "こちらは トムさんです。", en: "This is Tom." }
-          - { speaker: "ミカ", ja: "はい、しります。", en: "Yes, I know him." }
+          - { speaker: "ミカ", ja: "はい、しります。", en: "Yes, I know." }
         questions:
           - { q: "Does Mika know Tom?", options: ["Yes", "No", "She just met him", "Not stated"], answer: "Yes" }
     reviewPool: [しる, いま, よく, まあ, ちょっと, だめ, けっこう, わたし, ぼく]

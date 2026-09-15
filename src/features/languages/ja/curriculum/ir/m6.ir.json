@@ -483,7 +483,7 @@
         {
           "kind": "sentence",
           "ja": "それを みない。",
-          "en": "I don't look at that one.",
+          "en": "I don't look at that.",
           "exercises": [
             "nai-form"
           ],
@@ -536,7 +536,7 @@
             {
               "speaker": "Mika",
               "ja": "ごはん、たべる？",
-              "en": "Gonna eat rice?"
+              "en": "Wanna eat?"
             },
             {
               "speaker": "Tom",
@@ -546,7 +546,7 @@
           ],
           "questions": [
             {
-              "q": "Does Tom eat the rice?",
+              "q": "Does Tom eat?",
               "options": [
                 "No — he won't eat",
                 "Yes — he eats it",
@@ -650,7 +650,7 @@
         {
           "kind": "sentence",
           "ja": "それは わからない。",
-          "en": "I don't get that one.",
+          "en": "I don't know that.",
           "exercises": [
             "nai-form",
             "wa-topic",
@@ -776,7 +776,7 @@
         {
           "kind": "sentence",
           "ja": "これを しない。",
-          "en": "I won't do this one.",
+          "en": "I won't do this.",
           "exercises": [
             "nai-form",
             "wo-object",
@@ -810,7 +810,7 @@
         {
           "kind": "sentence",
           "ja": "それを しない。",
-          "en": "I won't do that one.",
+          "en": "I won't do that.",
           "exercises": [
             "nai-form",
             "wo-object",
@@ -1161,7 +1161,7 @@
             "を",
             "も"
           ],
-          "en": "Look — there's a cat!",
+          "en": "There's a cat.",
           "explanation": "living things exist WITH いる, and が marks which one — ねこが いる."
         },
         {
@@ -1289,7 +1289,7 @@
         {
           "kind": "sentence",
           "ja": "きょうは ごはんが ない。",
-          "en": "There's no rice today.",
+          "en": "There's no meal today.",
           "exercises": [
             "nai-existence",
             "ga-existence"
@@ -1729,7 +1729,7 @@
         {
           "kind": "sentence",
           "ja": "うみで あそぶ。",
-          "en": "I play at the sea.",
+          "en": "I play at the beach.",
           "exercises": [
             "de-action",
             "de-action"
@@ -1739,7 +1739,7 @@
         {
           "kind": "sentence",
           "ja": "いえで ごはんを たべる。",
-          "en": "I eat rice at home.",
+          "en": "I eat a meal at home.",
           "exercises": [
             "de-action",
             "de-action",
@@ -2177,7 +2177,7 @@
         {
           "kind": "sentence",
           "ja": "きょうは ミカの いえで ごはんを たべない。",
-          "en": "Today I won't eat rice at Mika's house.",
+          "en": "Today I won't eat a meal at Mika's house.",
           "exercises": [
             "wa-topic",
             "no-possession",
@@ -2412,7 +2412,7 @@
         {
           "kind": "sentence",
           "ja": "あさは ごはんを たべない。",
-          "en": "I don't eat rice in the morning.",
+          "en": "I don't eat breakfast in the morning.",
           "exercises": [
             "nai-form",
             "wa-topic",

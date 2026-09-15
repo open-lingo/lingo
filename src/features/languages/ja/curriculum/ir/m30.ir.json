@@ -153,7 +153,7 @@
         },
         {
           "ja": "じかんが あるから としょかんに いってみる。",
-          "en": "I've got time, so I'll try going to the library."
+          "en": "I have time, so I'll try going to the library."
         }
       ],
       "antiPattern": {
@@ -362,7 +362,7 @@
         },
         {
           "ja": "あした じゅぎょうが あるから ことばを おぼえておく。",
-          "en": "I've got a class tomorrow, so I'll learn the words in advance."
+          "en": "I have a class tomorrow, so I'll learn the words in advance."
         },
         {
           "ja": "だいがくが ちかいから じてんしゃに のってみる。",
@@ -370,7 +370,7 @@
         },
         {
           "ja": "らいげつ りょこうが あるから じゅんびを しておく。",
-          "en": "I've got a trip next month, so I'll get ready in advance."
+          "en": "I have a trip next month, so I'll get ready in advance."
         },
         {
           "ja": "せつめいが むずかしいから せんせいに はなしてみる。",
@@ -768,7 +768,7 @@
         {
           "kind": "sentence",
           "ja": "とりあえず コーヒーを のんでみる。",
-          "en": "I'll try some coffee for a start",
+          "en": "I'll try some coffee for now",
           "exercises": [
             "te-miru",
             "wo-object"
@@ -800,7 +800,7 @@
         {
           "kind": "sentence",
           "ja": "じかんが あるから としょかんに いってみる。",
-          "en": "I've got time, so I'll try going to the library",
+          "en": "I have time, so I'll try going to the library",
           "exercises": [
             "te-miru",
             "kara-because",
@@ -821,7 +821,7 @@
         {
           "kind": "sentence",
           "ja": "あついから かわで およいでみる。",
-          "en": "It's hot, so I'll give the river a swim",
+          "en": "It's hot, so I'll try swimming in the river",
           "exercises": [
             "te-miru",
             "kara-because",
@@ -832,7 +832,7 @@
         {
           "kind": "sentence",
           "ja": "とりあえず この えいごの てがみを よんでみる。",
-          "en": "I'll give this English letter a read for a start",
+          "en": "For now, I'll try reading this English letter",
           "exercises": [
             "te-miru",
             "no-possession",
@@ -880,11 +880,11 @@
         {
           "kind": "listening-comp",
           "audio": "じかんが あるから やまに いってみる。",
-          "answer": "I've got time, so I'll try going to the mountain",
+          "answer": "I have time, so I'll try going to the mountain",
           "distractors": [
-            "I haven't got time, so I'm not going to the mountain",
-            "I've got time, so I'll try going to the library",
-            "I've got time, so I walk to the mountain every day"
+            "I don't have time, so I'm not going to the mountain",
+            "I have time, so I'll try going to the library",
+            "I have time, so I walk to the mountain every day"
           ],
           "exercises": [
             "te-miru",
@@ -902,7 +902,7 @@
             {
               "speaker": "Tom",
               "ja": "わからない。とりあえず たべてみる。",
-              "en": "I don't know. I'll give it a try for a start."
+              "en": "I don't know. I'll try eating it for now."
             }
           ],
           "questions": [
@@ -1008,7 +1008,7 @@
         {
           "kind": "sentence",
           "ja": "むずかしいけど じゅぎょうを つづける。",
-          "en": "It's difficult, but I'll keep the class going",
+          "en": "It's difficult, but I'll keep taking the class",
           "exercises": [
             "dictionary-form",
             "kedo",
@@ -1019,7 +1019,7 @@
         {
           "kind": "sentence",
           "ja": "じかんが あるから いま しらべる。",
-          "en": "I've got time, so I'll look it up now",
+          "en": "I have time, so I'll look it up now",
           "exercises": [
             "dictionary-form",
             "kara-because",
@@ -1050,7 +1050,7 @@
         {
           "kind": "sentence",
           "ja": "かわで およいでみた。",
-          "en": "I gave the river a swim",
+          "en": "I tried swimming in the river.",
           "exercises": [
             "ta-form",
             "te-miru",
@@ -1235,7 +1235,7 @@
         {
           "kind": "sentence",
           "ja": "あした きめてみる。",
-          "en": "I'll have a go at deciding tomorrow",
+          "en": "I'll try to decide tomorrow",
           "exercises": [
             "te-form",
             "te-miru",
@@ -1246,7 +1246,7 @@
         {
           "kind": "sentence",
           "ja": "むずかしいけど じゅぎょうを つづけてみる。",
-          "en": "It's difficult, but I'll try keeping the class going",
+          "en": "It's difficult, but I'll try to keep taking the class.",
           "exercises": [
             "te-form",
             "te-miru",
@@ -1268,7 +1268,7 @@
         {
           "kind": "sentence",
           "ja": "じかんが ないから あした きめてみる。",
-          "en": "I haven't got time, so I'll have a go at deciding tomorrow",
+          "en": "I don't have time, so I'll try to decide tomorrow.",
           "exercises": [
             "te-form",
             "te-miru",
@@ -1327,11 +1327,11 @@
         {
           "kind": "listening-comp",
           "audio": "じかんが ないから あした しらべてみる。",
-          "answer": "I haven't got time, so I'll try looking it up tomorrow",
+          "answer": "I don't have time, so I'll try looking it up tomorrow",
           "distractors": [
-            "I've got time, so I'll look it up today",
-            "I haven't got time, so I'll have a go at deciding tomorrow",
-            "I haven't got time, so I'm not looking it up"
+            "I have time, so I'll look it up today",
+            "I don't have time, so I'll try to decide tomorrow.",
+            "I don't have time, so I'm not looking it up"
           ],
           "exercises": [
             "te-form",
@@ -1442,7 +1442,7 @@
         {
           "kind": "sentence",
           "ja": "むずかしいけど じゅぎょうを つづけてみる。",
-          "en": "It's difficult, but I'll try keeping the class going",
+          "en": "It's difficult, but I'll try to keep taking the class.",
           "exercises": [
             "te-form",
             "kedo"
@@ -1459,13 +1459,13 @@
             "いってみた",
             "たべてみる"
           ],
-          "en": "I've got time, so I'll try going to the library",
+          "en": "I have time, so I'll try going to the library",
           "explanation": "having time is a reason still ahead of you, so the helper stays in the non-past. いってみた would put the trip in the past, and たべてみる has nothing to do with a library."
         },
         {
           "kind": "sentence",
           "ja": "とりあえず コーヒーを のんでみる。",
-          "en": "I'll try some coffee for a start",
+          "en": "I'll try some coffee for now",
           "exercises": [
             "te-miru",
             "wo-object"
@@ -1523,7 +1523,7 @@
         {
           "kind": "sentence",
           "ja": "あついから かわで およいでみる。",
-          "en": "It's hot, so I'll give the river a swim",
+          "en": "It's hot, so I'll try swimming in the river",
           "exercises": [
             "te-miru",
             "kara-because"
@@ -1533,7 +1533,7 @@
         {
           "kind": "sentence",
           "ja": "あした きめてみる。",
-          "en": "I'll have a go at deciding tomorrow",
+          "en": "I'll try to decide tomorrow",
           "exercises": [
             "te-form",
             "te-miru"
@@ -1546,7 +1546,7 @@
             {
               "speaker": "Mika",
               "ja": "この ことばの いみは わかった？",
-              "en": "Did you work out what this word means?"
+              "en": "Did you understand the meaning of this word?"
             },
             {
               "speaker": "Tom",
@@ -1644,7 +1644,7 @@
         {
           "kind": "sentence",
           "ja": "とりあえず コーヒーを かっておく。",
-          "en": "First off, I'll buy some coffee in advance",
+          "en": "For now, I'll buy some coffee.",
           "exercises": [
             "te-oku",
             "wo-object"
@@ -1654,7 +1654,7 @@
         {
           "kind": "sentence",
           "ja": "あさ いそがしいから きっぷを かっておいた。",
-          "en": "The morning is busy, so I bought the ticket in advance",
+          "en": "I'm busy in the morning, so I bought the ticket in advance",
           "exercises": [
             "te-oku",
             "ta-form",
@@ -1668,7 +1668,7 @@
         {
           "kind": "sentence",
           "ja": "らいげつ りょこうが あるから じゅんびを しておく。",
-          "en": "I've got a trip next month, so I'll get ready in advance",
+          "en": "I have a trip next month, so I'll get ready in advance",
           "exercises": [
             "te-oku",
             "kara-because",
@@ -1702,11 +1702,11 @@
         {
           "kind": "listening-comp",
           "audio": "らいげつ りょこうが あるから ホテルの よやくを しておく。",
-          "answer": "I've got a trip next month, so I'll book the hotel in advance",
+          "answer": "I have a trip next month, so I'll book the hotel in advance",
           "distractors": [
-            "I've got a trip next month, so I'll give the hotel a try",
+            "I have a trip next month, so I'll give the hotel a try",
             "I had a trip last month, so I booked the hotel",
-            "I've got a class next month, so I'll book the hotel in advance"
+            "I have a class next month, so I'll book the hotel in advance"
           ],
           "exercises": [
             "te-oku",
@@ -1842,7 +1842,7 @@
         {
           "kind": "sentence",
           "ja": "へやの でんきを つけておく。",
-          "en": "I'll leave the room's light on, in advance",
+          "en": "I'll leave the room's light on",
           "exercises": [
             "te-oku",
             "no-possession"
@@ -1874,7 +1874,7 @@
         {
           "kind": "sentence",
           "ja": "あした じゅぎょうが あるから せつめいを おぼえておく。",
-          "en": "I've got a class tomorrow, so I'll learn the explanation in advance",
+          "en": "I have a class tomorrow, so I'll remember the explanation",
           "exercises": [
             "te-oku",
             "kara-because",
@@ -1974,7 +1974,7 @@
         {
           "kind": "challenge",
           "ja": "あした じゅぎょうが あるから うちに かえる まえに ことばを おぼえておく。",
-          "en": "I've got a class tomorrow, so I'll learn the words in advance before I go home",
+          "en": "I have a class tomorrow, so I'll learn the words in advance before I go home",
           "combines": [
             "mae-ni",
             "te-oku",
@@ -2053,7 +2053,7 @@
         {
           "kind": "sentence",
           "ja": "せんせいに えいごを ならう。",
-          "en": "I take English lessons from the teacher",
+          "en": "I learn English from the teacher",
           "exercises": [
             "dictionary-form",
             "ni-location",
@@ -2064,7 +2064,7 @@
         {
           "kind": "sentence",
           "ja": "せんせいに にほんごを ならう。",
-          "en": "I take Japanese lessons from the teacher",
+          "en": "I learn Japanese from the teacher",
           "exercises": [
             "dictionary-form",
             "ni-location",
@@ -2077,8 +2077,8 @@
           "audio": "せんせいに げんごを ならう。",
           "answer": "I take language lessons from the teacher",
           "distractors": [
-            "I take English lessons from the teacher",
-            "I take Japanese lessons from the teacher",
+            "I learn English from the teacher",
+            "I learn Japanese from the teacher",
             "I took language lessons from the teacher"
           ],
           "exercises": [
@@ -2221,9 +2221,9 @@
         {
           "kind": "listening-comp",
           "audio": "せんせいに にほんごを ならう。",
-          "answer": "I take Japanese lessons from the teacher",
+          "answer": "I learn Japanese from the teacher",
           "distractors": [
-            "I take English lessons from the teacher",
+            "I learn English from the teacher",
             "I take language lessons from the teacher",
             "I took Japanese lessons from the teacher"
           ],
@@ -2427,7 +2427,7 @@
         {
           "kind": "sentence",
           "ja": "せんせいに えいごを ならう。",
-          "en": "I take English lessons from the teacher",
+          "en": "I learn English from the teacher",
           "exercises": [
             "dictionary-form",
             "ni-location"
@@ -2536,7 +2536,7 @@
         {
           "kind": "sentence",
           "ja": "やまで しゃしんを とってみる。",
-          "en": "I'll have a go at taking a photo on the mountain",
+          "en": "I'll try taking a photo on the mountain",
           "exercises": [
             "te-form",
             "te-miru",
@@ -2547,7 +2547,7 @@
         {
           "kind": "sentence",
           "ja": "まいにち れんしゅうを つづけてみる。",
-          "en": "I'll try keeping the practice going every day",
+          "en": "I'll try to keep practicing every day",
           "exercises": [
             "te-form",
             "te-miru",
@@ -2597,7 +2597,7 @@
             "とっておく",
             "とる"
           ],
-          "en": "I'll have a go at taking a photo on the mountain",
+          "en": "I'll try taking a photo on the mountain",
           "explanation": "a photo you're curious how it will turn out is one you take and see, so the helper is みる. とっておく would be taking it now so it's already done for later, and bare とる just takes it without any of that."
         },
         {
@@ -2712,7 +2712,7 @@
         {
           "kind": "sentence",
           "ja": "あした じゅぎょうが あるから ことばを おぼえておく。",
-          "en": "I've got a class tomorrow, so I'll learn the words in advance",
+          "en": "I have a class tomorrow, so I'll learn the vocabulary in advance",
           "exercises": [
             "kara-because",
             "te-oku",
@@ -2731,7 +2731,7 @@
         {
           "kind": "sentence",
           "ja": "だいがくが ちかいから じてんしゃに のってみる。",
-          "en": "The university is near, so I'll give the bicycle a go",
+          "en": "The university is close, so I'll try riding a bike",
           "exercises": [
             "kara-because",
             "te-miru",
@@ -2775,7 +2775,7 @@
         {
           "kind": "sentence",
           "ja": "あした しつもんが あるから こたえを しらべておく。",
-          "en": "I've got a question tomorrow, so I'll look the answer up in advance",
+          "en": "I have a question tomorrow, so I'll look the answer up in advance",
           "exercises": [
             "kara-because",
             "te-oku",
@@ -2786,7 +2786,7 @@
         {
           "kind": "sentence",
           "ja": "だいがくが ちかいから じてんしゃに のってみる。",
-          "en": "The university is near, so I'll give the bicycle a go",
+          "en": "The university is close, so I'll try riding a bike",
           "exercises": [
             "kara-because",
             "te-miru"
@@ -2803,7 +2803,7 @@
             "おぼえてみる",
             "きいてみる"
           ],
-          "en": "I've got a class tomorrow, so I'll learn the words in advance",
+          "en": "I have a class tomorrow, so I'll learn the vocabulary in advance",
           "explanation": "a class tomorrow is a deadline, so the helper is おく — you learn them now so that later they are learned. おぼえてみる would only be finding out what learning them is like, and きいてみる asks somebody instead of learning anything."
         },
         {
@@ -2845,7 +2845,7 @@
             {
               "speaker": "Mika",
               "ja": "ううん。ちかいから じてんしゃに のってみる。",
-              "en": "Nope. It's near, so I'll give the bicycle a go."
+              "en": "Nope. It's close, so I'll try riding a bike."
             }
           ],
           "questions": [
@@ -2929,7 +2929,7 @@
         {
           "kind": "sentence",
           "ja": "ひまだから やままで あるいてみない？",
-          "en": "You're free, so won't you try walking to the mountain",
+          "en": "You're free, so why not try walking in the mountains?",
           "exercises": [
             "nai-form",
             "te-miru",
@@ -2962,7 +2962,7 @@
         {
           "kind": "sentence",
           "ja": "しつもんに こたえてみない？",
-          "en": "Won't you have a go at answering the question",
+          "en": "Why don't you try answering the question?",
           "exercises": [
             "nai-form",
             "te-miru",
@@ -3024,7 +3024,7 @@
             "あるいてみた",
             "のってみない"
           ],
-          "en": "You're free, so won't you try walking to the mountain",
+          "en": "You're free, so why not try walking in the mountains?",
           "explanation": "the sentence is an invitation, so the helper takes ない and the question contour. あるいてみた puts the walk in the past, and のってみない offers a ride instead of a walk."
         },
         {
@@ -3044,11 +3044,11 @@
         {
           "kind": "listening-comp",
           "audio": "あした じゅぎょうが あるから じゅんびを しとく。",
-          "answer": "I've got a class tomorrow, so I'll get ready in advance",
+          "answer": "I have a class tomorrow, so I'll get ready in advance",
           "distractors": [
             "I had a class yesterday, so I got ready",
-            "I've got a class tomorrow, so I'll have a go at getting ready",
-            "I've got a trip tomorrow, so I'll get ready in advance"
+            "I have a class tomorrow, so I'll have a go at getting ready",
+            "I have a trip tomorrow, so I'll get ready in advance"
           ],
           "exercises": [
             "te-oku",
@@ -3085,7 +3085,7 @@
         {
           "kind": "challenge",
           "ja": "きょうは ひまだから とりあえず この おもしろい りょうりを たべてみない？",
-          "en": "You're free today, so won't you give this interesting dish a try for a start",
+          "en": "I'm free today, so why not try this interesting dish for now?",
           "combines": [
             "nai-form",
             "te-miru",
@@ -3129,7 +3129,7 @@
         {
           "kind": "sentence",
           "ja": "あした じゅぎょうが あるから ことばを おぼえておく。",
-          "en": "I've got a class tomorrow, so I'll learn the words in advance",
+          "en": "I have a class tomorrow, so I'll learn the vocabulary in advance",
           "exercises": [
             "kara-because",
             "te-oku"
@@ -3176,13 +3176,13 @@
             "しらべてみる",
             "きめてみる"
           ],
-          "en": "I've got a question tomorrow, so I'll look the answer up in advance",
+          "en": "I have a question tomorrow, so I'll look the answer up in advance",
           "explanation": "a question tomorrow is a deadline, so the helper is おく. しらべてみる would only be finding out what looking it up is like, and きめてみる decides something rather than looking it up."
         },
         {
           "kind": "sentence",
           "ja": "やまで しゃしんを とってみる。",
-          "en": "I'll have a go at taking a photo on the mountain",
+          "en": "I'll try taking a photo on the mountain",
           "exercises": [
             "te-form",
             "te-miru"
@@ -3226,7 +3226,7 @@
         {
           "kind": "listening-comp",
           "audio": "だいがくが ちかいから じてんしゃに のってみる。",
-          "answer": "The university is near, so I'll give the bicycle a go",
+          "answer": "The university is close, so I'll try riding a bike",
           "distractors": [
             "The university is far, so I'll take the subway",
             "The school is near, so I'll give the bicycle a go",
@@ -3343,7 +3343,7 @@
         {
           "kind": "sentence",
           "ja": "ひまな とき やまの しゃしんを とってみる。",
-          "en": "When I'm free I have a go at taking photos of the mountain",
+          "en": "When I'm free, I try taking photos of mountains",
           "exercises": [
             "te-miru",
             "toki",
@@ -3367,7 +3367,7 @@
         {
           "kind": "sentence",
           "ja": "せつめいを よんだ とき こたえが わかった。",
-          "en": "When I read the explanation I worked out the answer",
+          "en": "When I read the explanation, I understood the answer",
           "exercises": [
             "toki",
             "ta-form",
@@ -3401,7 +3401,7 @@
         {
           "kind": "sentence",
           "ja": "やままで あるいてみない？",
-          "en": "Won't you try walking to the mountain",
+          "en": "Why don't you try walking to the mountain?",
           "exercises": [
             "nai-form",
             "te-miru"
@@ -3475,7 +3475,7 @@
             {
               "speaker": "Mika",
               "ja": "はい。かえる まえに ことばを おぼえておくんです。",
-              "en": "Yes. The thing is, I'll learn the words in advance before I go home."
+              "en": "Yes. The thing is, I'll memorize the words in advance, before I go home."
             },
             {
               "speaker": "Tom",
@@ -4193,7 +4193,7 @@
     {
       "kana": "ううん",
       "romaji": "uun",
-      "gloss": "nope (casual no)",
+      "gloss": "nope",
       "shortGloss": "nope",
       "imageable": false,
       "kind": "vocab"
@@ -4242,8 +4242,8 @@
     {
       "kana": "ぼく",
       "romaji": "boku",
-      "gloss": "I, me (casual, usually male)",
-      "shortGloss": "I (casual)",
+      "gloss": "I, me",
+      "shortGloss": "I",
       "imageable": false,
       "kind": "vocab"
     },
@@ -4266,7 +4266,7 @@
     {
       "kana": "しります",
       "romaji": "shirimasu",
-      "gloss": "know (polite)",
+      "gloss": "know",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "しる"
@@ -4274,7 +4274,7 @@
     {
       "kana": "しりません",
       "romaji": "shirimasen",
-      "gloss": "don't know (polite)",
+      "gloss": "don't know",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "しる"
@@ -4290,7 +4290,7 @@
     {
       "kana": "わかります",
       "romaji": "wakarimasu",
-      "gloss": "understand (polite)",
+      "gloss": "understand",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "わかる"
@@ -4298,7 +4298,7 @@
     {
       "kana": "ちがいます",
       "romaji": "chigaimasu",
-      "gloss": "that's not right (polite)",
+      "gloss": "that's not right",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "ちがう"
@@ -4672,7 +4672,7 @@
     {
       "kana": "おぼえる",
       "romaji": "oboeru",
-      "gloss": "to memorise, to learn",
+      "gloss": "to memorize, to learn",
       "shortGloss": "memorise",
       "imageable": true,
       "kind": "verb",
@@ -4689,7 +4689,7 @@
     {
       "kana": "だった",
       "romaji": "datta",
-      "gloss": "was, were (plain)",
+      "gloss": "was, were",
       "shortGloss": "was (plain)",
       "imageable": false,
       "kind": "grammar-chunk"
@@ -4697,8 +4697,8 @@
     {
       "kana": "でした",
       "romaji": "deshita",
-      "gloss": "was, were (polite)",
-      "shortGloss": "was (polite)",
+      "gloss": "was, were",
+      "shortGloss": "was",
       "imageable": false,
       "kind": "grammar-chunk"
     },
@@ -5199,7 +5199,7 @@
     {
       "kana": "すき",
       "romaji": "suki",
-      "gloss": "likeable, like",
+      "gloss": "like",
       "shortGloss": "like",
       "imageable": false,
       "kind": "vocab"
@@ -5260,7 +5260,7 @@
     {
       "kana": "みがく",
       "romaji": "migaku",
-      "gloss": "to brush teeth, to polish",
+      "gloss": "to polish",
       "shortGloss": "polish",
       "imageable": true,
       "kind": "verb",
@@ -5336,7 +5336,7 @@
     {
       "kana": "とりにく",
       "romaji": "toriniku",
-      "gloss": "chicken meat",
+      "gloss": "chicken",
       "shortGloss": "chicken",
       "imageable": true,
       "kind": "vocab"
@@ -5692,7 +5692,7 @@
     {
       "kana": "ので",
       "romaji": "node",
-      "gloss": "because (softer)",
+      "gloss": "because",
       "shortGloss": "because",
       "imageable": false,
       "kind": "vocab"
@@ -6029,7 +6029,7 @@
     {
       "kana": "スポーツ",
       "romaji": "supootsu",
-      "gloss": "sport",
+      "gloss": "sports",
       "imageable": true,
       "kind": "vocab"
     },
@@ -6234,7 +6234,7 @@
     {
       "kana": "おじいさん",
       "romaji": "ojiisan",
-      "gloss": "grandfather, older man",
+      "gloss": "grandfather",
       "shortGloss": "older man",
       "kind": "vocab"
     },
@@ -6404,7 +6404,7 @@
     {
       "kana": "おりる",
       "romaji": "oriru",
-      "gloss": "to get off, to descend",
+      "gloss": "to get off",
       "shortGloss": "to get off",
       "kind": "vocab"
     },
@@ -6544,7 +6544,7 @@
     {
       "kana": "など",
       "romaji": "nado",
-      "gloss": "and so on, et cetera",
+      "gloss": "and so on",
       "shortGloss": "and so on",
       "imageable": false,
       "kind": "vocab"
@@ -6552,7 +6552,7 @@
     {
       "kana": "おかあさん",
       "romaji": "okaasan",
-      "gloss": "(someone else's) mother — honorific",
+      "gloss": "(someone else's) mother",
       "shortGloss": "their mother",
       "imageable": false,
       "kind": "vocab"
@@ -6560,7 +6560,7 @@
     {
       "kana": "おとうさん",
       "romaji": "otousan",
-      "gloss": "(someone else's) father — honorific",
+      "gloss": "(someone else's) father",
       "shortGloss": "their father",
       "imageable": false,
       "kind": "vocab"
@@ -6568,7 +6568,7 @@
     {
       "kana": "おにいさん",
       "romaji": "oniisan",
-      "gloss": "(someone else's) older brother — honorific",
+      "gloss": "(someone else's) older brother",
       "shortGloss": "their big brother",
       "imageable": false,
       "kind": "vocab"
@@ -6576,7 +6576,7 @@
     {
       "kana": "おねえさん",
       "romaji": "oneesan",
-      "gloss": "(someone else's) older sister — honorific",
+      "gloss": "(someone else's) older sister",
       "shortGloss": "their big sister",
       "imageable": false,
       "kind": "vocab"
@@ -6592,7 +6592,7 @@
     {
       "kana": "おさけ",
       "romaji": "osake",
-      "gloss": "sake, alcohol",
+      "gloss": "alcohol",
       "shortGloss": "sake",
       "kind": "vocab"
     },
@@ -7012,8 +7012,8 @@
     {
       "kana": "みれる",
       "romaji": "mireru",
-      "gloss": "can watch (casual ら-dropped form)",
-      "shortGloss": "can watch (casual)",
+      "gloss": "can watch (ら-dropped form)",
+      "shortGloss": "can watch",
       "imageable": false,
       "kind": "verb"
     },
@@ -7068,7 +7068,7 @@
     {
       "kana": "きこえる",
       "romaji": "kikoeru",
-      "gloss": "to be audible, to reach the ear",
+      "gloss": "to be heard, to reach the ear",
       "shortGloss": "is audible",
       "imageable": false,
       "kind": "verb"
@@ -7092,7 +7092,7 @@
     {
       "kana": "へた",
       "romaji": "heta",
-      "gloss": "unskillful, bad at",
+      "gloss": "bad at",
       "shortGloss": "bad at",
       "imageable": false,
       "kind": "vocab"
@@ -7108,7 +7108,7 @@
     {
       "kana": "ましょう",
       "romaji": "mashou",
-      "gloss": "let's ~ (polite suggestion, on the ます-stem)",
+      "gloss": "let's ~",
       "shortGloss": "let's ~",
       "imageable": false,
       "kind": "vocab"
@@ -7168,7 +7168,7 @@
     {
       "kana": "すずしい",
       "romaji": "suzushii",
-      "gloss": "cool, refreshing",
+      "gloss": "cool",
       "shortGloss": "cool",
       "kind": "vocab"
     },
@@ -7214,8 +7214,8 @@
     {
       "kana": "あき",
       "romaji": "aki",
-      "gloss": "fall",
-      "shortGloss": "fall",
+      "gloss": "autumn",
+      "shortGloss": "autumn",
       "kind": "vocab"
     },
     {
@@ -7253,7 +7253,7 @@
     {
       "kana": "だろう",
       "romaji": "darou",
-      "gloss": "probably (plain conjecture — mostly heard, not said)",
+      "gloss": "probably",
       "shortGloss": "probably (plain)",
       "imageable": false,
       "kind": "vocab"
@@ -7334,7 +7334,7 @@
     {
       "kana": "えいご",
       "romaji": "eigo",
-      "gloss": "English language",
+      "gloss": "English",
       "shortGloss": "English",
       "imageable": false,
       "kind": "vocab"
@@ -7677,8 +7677,8 @@
     {
       "kana": "せいと",
       "romaji": "seito",
-      "gloss": "pupil",
-      "shortGloss": "pupil",
+      "gloss": "student",
+      "shortGloss": "student",
       "kind": "vocab"
     },
     {
@@ -7719,7 +7719,7 @@
     {
       "kana": "つよい",
       "romaji": "tsuyoi",
-      "gloss": "strong, powerful",
+      "gloss": "strong",
       "shortGloss": "strong",
       "imageable": false,
       "kind": "vocab"
@@ -7998,7 +7998,7 @@
     {
       "kana": "たべます",
       "romaji": "tabemasu",
-      "gloss": "eat (polite)",
+      "gloss": "eat",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "たべる",
@@ -8007,7 +8007,7 @@
     {
       "kana": "のみます",
       "romaji": "nomimasu",
-      "gloss": "drink (polite)",
+      "gloss": "drink",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "のむ",
@@ -8016,7 +8016,7 @@
     {
       "kana": "みます",
       "romaji": "mimasu",
-      "gloss": "watch (polite)",
+      "gloss": "watch",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "みる",
@@ -8025,7 +8025,7 @@
     {
       "kana": "いきます",
       "romaji": "ikimasu",
-      "gloss": "go, travel (polite)",
+      "gloss": "go, travel",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -8034,7 +8034,7 @@
     {
       "kana": "きます",
       "romaji": "kimasu",
-      "gloss": "come (polite)",
+      "gloss": "come",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる",
@@ -8043,7 +8043,7 @@
     {
       "kana": "します",
       "romaji": "shimasu",
-      "gloss": "do, make (polite)",
+      "gloss": "do, make",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "する",
@@ -8052,7 +8052,7 @@
     {
       "kana": "かいます",
       "romaji": "kaimasu",
-      "gloss": "buy (polite)",
+      "gloss": "buy",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "かう",
@@ -8061,7 +8061,7 @@
     {
       "kana": "ききます",
       "romaji": "kikimasu",
-      "gloss": "listen, ask (polite)",
+      "gloss": "listen, ask",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "きく",
@@ -8070,7 +8070,7 @@
     {
       "kana": "あそびます",
       "romaji": "asobimasu",
-      "gloss": "play (polite)",
+      "gloss": "play",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "あそぶ",
@@ -8079,7 +8079,7 @@
     {
       "kana": "あります",
       "romaji": "arimasu",
-      "gloss": "have, there is (polite)",
+      "gloss": "have, there is",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "ある",
@@ -8088,7 +8088,7 @@
     {
       "kana": "たべません",
       "romaji": "tabemasen",
-      "gloss": "don't eat (polite)",
+      "gloss": "don't eat",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "たべる",
@@ -8097,7 +8097,7 @@
     {
       "kana": "のみません",
       "romaji": "nomimasen",
-      "gloss": "don't drink (polite)",
+      "gloss": "don't drink",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "のむ",
@@ -8106,7 +8106,7 @@
     {
       "kana": "みません",
       "romaji": "mimasen",
-      "gloss": "don't watch (polite)",
+      "gloss": "don't watch",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "みる",
@@ -8115,7 +8115,7 @@
     {
       "kana": "いきません",
       "romaji": "ikimasen",
-      "gloss": "don't go, not traveling (polite)",
+      "gloss": "don't go",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -8124,7 +8124,7 @@
     {
       "kana": "きません",
       "romaji": "kimasen",
-      "gloss": "doesn't come (polite)",
+      "gloss": "doesn't come",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "くる",
@@ -8142,7 +8142,7 @@
     {
       "kana": "しません",
       "romaji": "shimasen",
-      "gloss": "don't do, won't make (polite)",
+      "gloss": "don't do, won't make",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "する",
@@ -8151,7 +8151,7 @@
     {
       "kana": "はたらきません",
       "romaji": "hatarakimasen",
-      "gloss": "don't work (polite)",
+      "gloss": "don't work",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "はたらく",
@@ -8160,7 +8160,7 @@
     {
       "kana": "ありません",
       "romaji": "arimasen",
-      "gloss": "doesn't have, isn't there (polite)",
+      "gloss": "doesn't have, isn't there",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "ある",
@@ -8178,7 +8178,7 @@
     {
       "kana": "はたらきます",
       "romaji": "hatarakimasu",
-      "gloss": "work (polite)",
+      "gloss": "work",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "はたらく",
@@ -8445,7 +8445,7 @@
     {
       "kana": "みせ",
       "romaji": "mise",
-      "gloss": "shop, store",
+      "gloss": "store",
       "shortGloss": "shop",
       "imageable": true,
       "kind": "vocab"

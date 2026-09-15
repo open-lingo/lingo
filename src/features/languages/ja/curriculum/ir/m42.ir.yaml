@@ -376,7 +376,7 @@ lessons:
       - { kind: sentence, ja: "たいふうが くる。", en: "A typhoon is coming.", exercises: [dictionary-form], mode: build }
       - { kind: sentence, ja: "きのう じこが あった。", en: "There was an accident yesterday.", exercises: [ga-existence, ta-form], mode: build }
       - { kind: sentence, ja: "ニュースで じこの きじを よんだ。", en: "I read an article about the accident, in the news.", exercises: [de-action, wo-object, ta-form], mode: build }
-      - { kind: sentence, ja: "たいふうは たいへんだ。", en: "A typhoon is a serious thing.", exercises: [wa-topic, na-adj-present], mode: listening }
+      - { kind: sentence, ja: "たいふうは たいへんだ。", en: "Typhoons are serious.", exercises: [wa-topic, na-adj-present], mode: listening }
       - { kind: particle-cloze, stem: "きのう ", tail: "が あった。", answer: "じこ", options: ["じこ", "じしん", "たいふう"], en: "There was an accident yesterday.", explanation: "'accident' is じこ. じしん is an earthquake and たいふう is a typhoon — both real news words, but neither means 'accident.'" }
       - { kind: listening-comp, audio: "ニュースで じこが あった。", answer: "There was an accident, on the news.", distractors: ["There was an earthquake, on the news.", "A typhoon is coming, on the news.", "There is no news today."], q: "What does this mean?" }
       - { kind: listening-comp, audio: "たいふうが くる。", answer: "A typhoon is coming.", distractors: ["A typhoon came yesterday.", "There was no typhoon.", "An earthquake is coming."], q: "What does this mean?" }
@@ -413,7 +413,7 @@ lessons:
           - { speaker: "Mika", ja: "きじも よんだよ。あしたも あめが ふるそうだ。", en: "I read the article too. I heard it's going to rain tomorrow as well." }
         questions:
           - { q: "What did Tanaka hear about the show?", options: ["That it's interesting", "That it's boring", "That it's cancelled", "Nobody said anything about it"], answer: "That it's interesting" }
-      - { kind: challenge, ja: "きじを よんだから、あしたも たいふうが くるそうだと わかった。", en: "Since I read the article, I understood that I heard a typhoon is coming tomorrow too.", combines: [sou-hearsay, kara-because, mo-also, ta-form], mode: build }
+      - { kind: challenge, ja: "きじを よんだから、あしたも たいふうが くるそうだと わかった。", en: "Since I read the article, I found out that a typhoon is coming tomorrow too.", combines: [sou-hearsay, kara-because, mo-also, ta-form], mode: build }
     reviewPool: [じしん, たいふう, じこ, ニュース, おもしろい]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -607,7 +607,7 @@ lessons:
         lines:
           - { speaker: "Mika", ja: "たいふうが くるそうだし、あめも ふるらしいよ。", en: "I heard a typhoon is coming, and apparently it'll rain too." }
           - { speaker: "Ken", ja: "じゃあ、きょうは うちに いるね。", en: "Then I'll stay home today." }
-          - { speaker: "Mika", ja: "うん、それが いいと おもう。", en: "Yeah, I think that's best." }
+          - { speaker: "Mika", ja: "うん、それが いいと おもう。", en: "Yeah, I think that's good." }
         questions:
           - { q: "What does Ken decide to do?", options: ["Stay home today", "Go read the newspaper", "Go find the reporter", "Nothing, he ignores the news"], answer: "Stay home today" }
       - { kind: challenge, ja: "ニュースで じしんが あったと いっていたし、 たいふうも くるらしいから、きしゃは いそがしいそうだ。", en: "The news said there was an earthquake, and what's more apparently a typhoon is coming too, so I heard the reporter is busy.", combines: [to-itte-ita, shi-listing, rashii-hearsay, kara-because, sou-hearsay], mode: build }

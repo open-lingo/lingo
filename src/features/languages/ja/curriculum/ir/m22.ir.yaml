@@ -371,7 +371,7 @@ lessons:
     introduces: [いたい, あたま, おなか]
     beats:
       - { kind: rule, grammarPointId: ga-itai }
-      - { kind: sentence, ja: "おなかが いたいけど すしを たべる。", en: "My stomach hurts, but I'll eat sushi anyway", exercises: [ga-itai, kedo, wo-object], mode: build }
+      - { kind: sentence, ja: "おなかが いたいけど すしを たべる。", en: "My stomach hurts, but I'll eat sushi", exercises: [ga-itai, kedo, wo-object], mode: build }
       - { kind: sentence, ja: "おなかが いたいから ちゃを のむ。", en: "My stomach hurts, so I drink tea", exercises: [ga-itai, kara-because, wo-object], mode: build }
       - { kind: sentence, ja: "あたまも おなかも いたいから びょういんに いく。", en: "Both my head and my stomach hurt, so I'm going to the hospital", exercises: [ga-itai, mo-also, kara-because, ni-location], mode: build }
       - { kind: sentence, ja: "あさから おなかが いたい。", en: "My stomach has hurt since this morning", exercises: [ga-itai, kara-origin], mode: listening }
@@ -402,7 +402,7 @@ lessons:
       - { kind: sentence, ja: "てが いたいから きょうは かいしゃに いかない。", en: "My hand hurts, so I'm not going to the office today", exercises: [wa-topic, ga-itai, kara-because, nai-form], mode: build }
       - { kind: sentence, ja: "くちが いたいから パンを たべない。", en: "My mouth hurts, so I don't eat bread", exercises: [ga-itai, kara-because, nai-form], mode: build }
       - { kind: sentence, ja: "わたしは めが いたいから えいがを みない。", en: "My eyes hurt, so I don't watch movies", exercises: [wa-topic, ga-itai, kara-because, nai-form], mode: build }
-      - { kind: sentence, ja: "あには みみが いたいけど おんがくを きく。", en: "My older brother's ear hurts, but he listens to music anyway", exercises: [wa-topic, ga-itai, kedo], mode: listening }
+      - { kind: sentence, ja: "あには みみが いたいけど おんがくを きく。", en: "My older brother's ear hurts, but he listens to music", exercises: [wa-topic, ga-itai, kedo], mode: listening }
       - { kind: sentence, ja: "ミカは てが いたいから きょうは だいがくに いかない。", en: "Mika's hand hurts, so she isn't going to university today", exercises: [wa-topic, ga-itai, kara-because, nai-form], mode: build }
       - { kind: sentence, ja: "いもうとは くちが いたいから ぎゅうにゅうを のむ。", en: "My younger sister's mouth hurts, so she drinks milk", exercises: [wa-topic, ga-itai, kara-because], mode: build }
       - { kind: sentence, ja: "せんせいの おかあさんは めが いたい。", en: "The teacher's mother's eyes hurt", exercises: [wa-topic, no-possession, ga-itai], mode: build }
@@ -413,7 +413,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "どこが いたい？", en: "Where does it hurt?" }
-          - { speaker: "Mika", ja: "みみが いたい。あさから いたい。", en: "My ear hurts. It's hurt since this morning." }
+          - { speaker: "Mika", ja: "みみが いたい。あさから いたい。", en: "My ear hurts. It's been hurting since this morning." }
         questions:
           - { q: "What does Mika say hurts?", options: ["Her ear", "Her eye", "Her mouth", "Her hand"], answer: "Her ear" }
       - { kind: challenge, ja: "ミカの おかあさんは めが いたいから じゅぎょうで けいたいを みない。", en: "Mika's mother's eyes hurt, so she doesn't look at her phone in class", combines: [wa-topic, no-possession, ga-itai, kara-because, de-action], mode: build }
@@ -427,7 +427,7 @@ lessons:
     introduces: [ねつ, のど, びょうき, くすり]
     beats:
       - { kind: rule, grammarPointId: ga-existence }
-      - { kind: sentence, ja: "びょうきだから きょうは がっこうに いかない。", en: "I'm ill, so I'm not going to school today", exercises: [ga-existence, kara-because, nai-form], mode: build }
+      - { kind: sentence, ja: "びょうきだから きょうは がっこうに いかない。", en: "I'm sick, so I'm not going to school today", exercises: [ga-existence, kara-because, nai-form], mode: build }
       - { kind: sentence, ja: "ねつが あるから くすりを のむ。", en: "I have a fever, so I take medicine", exercises: [ga-existence, kara-because, wo-object], mode: build }
       - { kind: sentence, ja: "くすりが あるから だいじょうぶだ。", en: "There's medicine, so it's all right", exercises: [ga-existence, kara-because, na-adj-present], mode: build }
       - { kind: sentence, ja: "のどが いたいから ぎゅうにゅうを のむ。", en: "My throat hurts, so I drink milk", exercises: [ga-itai, kara-because, wo-object], mode: listening }
@@ -458,8 +458,8 @@ lessons:
       - { kind: sentence, ja: "わたしは めが いたいから えいがを みない。", en: "My eyes hurt, so I don't watch movies", exercises: [wa-topic, ga-itai], mode: build }
       - { kind: sentence, ja: "ねつが あるから びょういんに いく。", en: "I have a fever, so I'm going to the hospital", exercises: [ga-existence, kara-because], mode: listening }
       - { kind: sentence, ja: "てが いたいけど かいしゃに いく。", en: "My hand hurts, but I'm going to the office", exercises: [ga-itai, kedo], mode: build }
-      - { kind: sentence, ja: "びょうきだから きょうは がっこうに いかない。", en: "I'm ill, so I'm not going to school today", exercises: [ga-existence, kara-because], mode: build }
-      - { kind: particle-cloze, stem: "あには ", tail: "が いたいけど おんがくを きく。", answer: "みみ", options: ["みみ", "め", "くち"], en: "My older brother's ear hurts, but he listens to music anyway", explanation: "みみ is the ear, and music is what an ear hears. め is the eye and くち is the mouth." }
+      - { kind: sentence, ja: "びょうきだから きょうは がっこうに いかない。", en: "I'm sick, so I'm not going to school today", exercises: [ga-existence, kara-because], mode: build }
+      - { kind: particle-cloze, stem: "あには ", tail: "が いたいけど おんがくを きく。", answer: "みみ", options: ["みみ", "め", "くち"], en: "My older brother's ear hurts, but he listens to music", explanation: "みみ is the ear, and music is what an ear hears. め is the eye and くち is the mouth." }
       - { kind: sentence, ja: "くちが いたいから パンを たべない。", en: "My mouth hurts, so I don't eat bread", exercises: [ga-itai, nai-form], mode: build }
       - { kind: listening-comp, audio: "あたまも おなかも いたいから びょういんに いく。", answer: "Both my head and my stomach hurt, so I'm going to the hospital", distractors: ["My head hurts but my stomach doesn't, so I'm going to the hospital", "Both my head and my stomach hurt, so I'm staying at home", "Both my eyes and my ears hurt, so I'm going to the hospital"], exercises: [ga-itai, mo-also] }
       - { kind: sentence, ja: "うちに くすりが ないから みせに いく。", en: "There's no medicine at home, so I'm going to the shop", exercises: [ga-existence, nai-existence], mode: build }
@@ -486,7 +486,7 @@ lessons:
       - { kind: sentence, ja: "ときどき あしが いたいから くすりを のむ。", en: "Sometimes my leg hurts, so I take medicine", exercises: [frequency-adverbs, ga-itai, kara-because, wo-object], mode: build }
       - { kind: sentence, ja: "いつも あさに くすりを のむ。", en: "I always take medicine in the morning", exercises: [frequency-adverbs, ni-time, wo-object], mode: build }
       - { kind: sentence, ja: "あまり コーヒーを のまないから げんきだ。", en: "I don't drink much coffee, so I'm well", exercises: [frequency-adverbs, nai-form, kara-because], mode: build }
-      - { kind: sentence, ja: "ぜんぜん たべないから おなかが いたい。", en: "I'm not eating at all, so my stomach hurts", exercises: [frequency-adverbs, nai-form, ga-itai], mode: listening }
+      - { kind: sentence, ja: "ぜんぜん たべないから おなかが いたい。", en: "I haven't eaten at all, so my stomach hurts", exercises: [frequency-adverbs, nai-form, ga-itai], mode: listening }
       - { kind: sentence, ja: "よく のどが いたいから いつも ちゃを のむ。", en: "My throat often hurts, so I always drink tea", exercises: [frequency-adverbs, ga-itai, kara-because], mode: build }
       - { kind: sentence, ja: "ときどき あしが いたいけど びょういんに いかない。", en: "Sometimes my leg hurts, but I don't go to the hospital", exercises: [frequency-adverbs, ga-itai, kedo, nai-form], mode: build }
       - { kind: sentence, ja: "あまり えいがを みないから めは だいじょうぶだ。", en: "I don't watch many movies, so my eyes are fine", exercises: [frequency-adverbs, nai-form, kara-because, na-adj-present], mode: build }
@@ -497,7 +497,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "よく あたまが いたい？", en: "Does your head often hurt?" }
-          - { speaker: "Mika", ja: "ううん。ときどき いたい。くすりは あまり のまない。", en: "No. Sometimes. I don't take much medicine." }
+          - { speaker: "Mika", ja: "ううん。ときどき いたい。くすりは あまり のまない。", en: "No. Sometimes it hurts. I don't take much medicine." }
         questions:
           - { q: "What does Mika say about medicine?", options: ["She doesn't take much", "She takes it every morning", "She never has any at home", "She takes it when her head hurts"], answer: "She doesn't take much" }
       - { kind: challenge, ja: "ときどき あしが いたいけど あまり くすりを のまないから げんきだ。", en: "Sometimes my leg hurts, but I don't take much medicine, so I'm well", combines: [frequency-adverbs, ga-itai, kedo, nai-form, na-adj-present], mode: build }
@@ -553,7 +553,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "ちゃを なんぼん かう？", en: "How many bottles of tea are you buying?" }
-          - { speaker: "Ken", ja: "ろっぽん かう。おさけは いっぽん かう。", en: "Six. And one bottle of sake." }
+          - { speaker: "Ken", ja: "ろっぽん かう。おさけは いっぽん かう。", en: "I'll buy six. I'll buy one bottle of sake." }
         questions:
           - { q: "How many bottles of tea does Ken buy?", options: ["Six", "One", "Three", "He doesn't say"], answer: "Six" }
       - { kind: challenge, ja: "きっさてんで ちゃを ろっぽん かうけど おさけは ぜんぜん かわない。", en: "I'll buy six bottles of tea at the coffee shop, but I won't buy any sake at all", combines: [counter-hon, de-action, kedo, frequency-adverbs, nai-form], mode: build }
@@ -578,7 +578,7 @@ lessons:
       - { kind: sentence, ja: "ときどき あたまが いたい。", en: "Say to a friend: Sometimes my head hurts", exercises: [frequency-adverbs, ga-itai], mode: translate }
       - { kind: listening-comp, audio: "えんぴつを なんぼん かう？", answer: "How many pencils are you buying?", distractors: ["How many bottles of tea are you buying?", "Are you buying three pencils?", "How many people are buying pencils?"], exercises: [counter-hon, ka-question] }
       - { kind: sentence, ja: "あまり おさけを のみません。", en: "Say politely: I don't drink much alcohol", exercises: [masu-present, frequency-adverbs], mode: build }
-      - { kind: sentence, ja: "ぜんぜん たべないから おなかが いたい。", en: "I'm not eating at all, so my stomach hurts", exercises: [frequency-adverbs, ga-itai], mode: build }
+      - { kind: sentence, ja: "ぜんぜん たべないから おなかが いたい。", en: "I haven't eaten at all, so my stomach hurts", exercises: [frequency-adverbs, ga-itai], mode: build }
       - kind: dialogue
         lines:
           - { speaker: "Tanaka", ja: "きょうは げんきですか。", en: "Are you well today?" }
@@ -609,7 +609,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Tom", ja: "すみません あたまが いたいです。くすりを ください。", en: "Excuse me — I have a headache. Could I have some medicine." }
-          - { speaker: "Pharmacist", ja: "はい。みずは ありますか。", en: "Certainly. Do you have any water?" }
+          - { speaker: "Pharmacist", ja: "はい。みずは ありますか。", en: "Yes. Do you have any water?" }
         questions:
           - { q: "What does Tom ask for?", options: ["Medicine", "Water", "A doctor", "A phone number"], answer: "Medicine" }
       - { kind: challenge, ja: "ねつが ありますから くすりを いっぽんと みずを ごほん ください。", en: "Say politely: I have a fever, so could I have one bottle of medicine and five bottles of water", combines: [kudasai, counter-hon, masu-present, to-and, kara-because], mode: build }
@@ -628,7 +628,7 @@ lessons:
       - { kind: sentence, ja: "めが いたいですから えいがを みないで ください。", en: "Your eyes hurt, so please don't watch movies", exercises: [naide-kudasai, ga-itai, kara-because], mode: build }
       - { kind: sentence, ja: "うみで およがないで ください。", en: "Please don't swim in the sea", exercises: [naide-kudasai, de-action], mode: listening }
       - { kind: sentence, ja: "じゅぎょうで けいたいを みないで ください。", en: "Please don't look at your phone in class", exercises: [naide-kudasai, de-action, wo-object], mode: build }
-      - { kind: sentence, ja: "びょうきですから きょうは がっこうに いかないで ください。", en: "You're ill, so please don't go to school today", exercises: [naide-kudasai, desu-copula, kara-because], mode: build }
+      - { kind: sentence, ja: "びょうきですから きょうは がっこうに いかないで ください。", en: "You're sick, so please don't go to school today", exercises: [naide-kudasai, desu-copula, kara-because], mode: build }
       - { kind: sentence, ja: "くすりが ありますから おさけを かわないで ください。", en: "There's medicine, so please don't buy alcohol", exercises: [naide-kudasai, masu-present, kara-because], mode: build }
       - { kind: sentence, ja: "おさけを のまないで ください。", en: "Ask politely: Please don't drink alcohol", exercises: [naide-kudasai], mode: translate }
       - { kind: particle-cloze, stem: "おさけを ", tail: " ください。", answer: "のまないで", options: ["のまないで", "のまない", "のんで"], en: "Please don't drink alcohol", explanation: "ください needs the で — のまない stops halfway, and のんで asks for the opposite." }
@@ -686,7 +686,7 @@ lessons:
       - { kind: particle-cloze, stem: "うみで ", tail: " ください。", answer: "およがないで", options: ["およがないで", "およいで", "およがない"], en: "Please don't swim in the sea", explanation: "ください needs the で — およがない stops halfway, and およいで asks for the opposite." }
       - { kind: sentence, ja: "ねつが あるけど すしを たべても いい？", en: "Ask a friend: I have a fever, but may I eat sushi", exercises: [te-mo-ii, ga-existence], mode: build }
       - { kind: listening-comp, audio: "ちゃを よんほん ください。", answer: "Four bottles of tea, please", distractors: ["Five bottles of tea, please", "Four bottles of water, please", "How many bottles of tea?"], exercises: [kudasai, counter-hon] }
-      - { kind: sentence, ja: "びょうきですから きょうは がっこうに いかないで ください。", en: "You're ill, so please don't go to school today", exercises: [naide-kudasai, kara-because], mode: build }
+      - { kind: sentence, ja: "びょうきですから きょうは がっこうに いかないで ください。", en: "You're sick, so please don't go to school today", exercises: [naide-kudasai, kara-because], mode: build }
       - { kind: sentence, ja: "ちゃを のんでも いい？", en: "Ask a friend: May I drink some tea", exercises: [te-mo-ii], mode: translate }
       - { kind: listening-comp, audio: "あしが いたいけど うみで およいでも いい？", answer: "My leg hurts, but may I swim in the sea?", distractors: ["My leg hurts, so please don't swim in the sea", "My leg hurts, and I'm swimming in the sea", "My hand hurts, but may I swim in the sea?"], exercises: [te-mo-ii, ga-itai] }
       - { kind: sentence, ja: "ときどき あしが いたいけど びょういんに いかない。", en: "Sometimes my leg hurts, but I don't go to the hospital", exercises: [frequency-adverbs, ga-itai, kedo], mode: build }
@@ -710,7 +710,7 @@ lessons:
       - { kind: sentence, ja: "わたしは げんきだけど あには ねつが あるから びょういんに いく。", en: "I'm well, but my older brother has a fever, so he's going to the hospital", exercises: [wa-topic, ga-existence, kedo, kara-because], mode: build }
       - { kind: sentence, ja: "あしが いたいから きょうは バスで かえる。", en: "My leg hurts, so I'm going home by bus today", exercises: [ga-itai, kara-because, de-action, wa-topic], mode: listening }
       - { kind: sentence, ja: "すみません くすりを いっぽんと ちゃを よんほん ください。", en: "Excuse me — one bottle of medicine and four bottles of tea please", exercises: [kudasai, counter-hon, to-and], mode: build }
-      - { kind: sentence, ja: "びょうきですから きょうは じゅぎょうに いかないで ください。", en: "You're ill, so please don't go to class today", exercises: [naide-kudasai, desu-copula, kara-because], mode: build }
+      - { kind: sentence, ja: "びょうきですから きょうは じゅぎょうに いかないで ください。", en: "You're sick, so please don't go to class today", exercises: [naide-kudasai, desu-copula, kara-because], mode: build }
       - { kind: sentence, ja: "めも みみも いたいけど けいたいを みても いい？", en: "Ask a friend: Both my eyes and my ears hurt, but may I look at my phone", exercises: [te-mo-ii, ga-itai, mo-also, kedo], mode: build }
       - { kind: sentence, ja: "おなかが いたいです。", en: "Say politely: My stomach hurts", exercises: [masu-present, ga-itai], mode: translate }
       - { kind: particle-cloze, stem: "", tail: " くすりを のまないから いしゃに いかない。", answer: "あまり", options: ["あまり", "いつも", "ときどき"], en: "I don't take much medicine, so I don't go to a doctor", explanation: "あまり is the one that needs a negative — のまない closes it. いつも and ときどき go with a positive verb." }

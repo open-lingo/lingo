@@ -18,6 +18,7 @@ import { ExplainButton } from "../ExplainButton";
 import { stepHasSentenceContent } from "../../data/_stepPredicates";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { formatPrompt } from "../formatPrompt";
+import { RegisterCueEyebrow } from "./RegisterCueEyebrow";
 import { useContentString, useContentStrings } from "../../hooks/useContentString";
 import {
   courseIdsFromLessonId,
@@ -172,6 +173,12 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue, lessonId 
         </div>
       ) : (
         <div className="flex flex-wrap items-center gap-3">
+          {/* The grammar review pool authors twelve register MCQs whose
+              distractors are the same sentence in the wrong register — the
+              cue is the exercise. `sentenceMcq` splits it out of the prompt,
+              so it renders here and nowhere else. `basis-full` keeps it on
+              its own line above the prompt inside this wrapping flex row. */}
+          <RegisterCueEyebrow cue={step.registerCue} className="basis-full" />
           <h2 className="text-xl font-semibold text-text-primary">
             {step.promptAnnotation ? (
               <AnnotatedJa segments={step.promptAnnotation} />

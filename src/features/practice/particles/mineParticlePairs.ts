@@ -48,7 +48,13 @@ export type PairSentence = CorpusSentence & {
 function cleanPrompt(prompt: string): string | null {
   const s = prompt.trim();
   if (!s) return null;
-  // "Build: I go to school" → "I go to school"; "Say to a friend: Yeah" → "Yeah".
+  // "Build: I go to school" → "I go to school". The `Say|Ask|Answer|Reply|Tell`
+  // arm is now belt-and-braces for JA: the compiler lifts a register cue into
+  // `step.registerCue` and leaves `prompt` clean
+  // (`features/lesson/data/registerCue.ts`), so a cued build prompt arrives
+  // here already stripped. Kept because this walks EVERY course's compiled
+  // steps, and ES/FR/KO prompts of that shape are hand-authored strings that
+  // the JA compiler never sees.
   const m = /^(?:Build|Say|Ask|Answer|Reply|Tell)\b[^:]*:\s*(.+)$/s.exec(s);
   const out = (m ? m[1] : s).trim();
   // A prompt that is a question ABOUT the sentence, not its meaning.

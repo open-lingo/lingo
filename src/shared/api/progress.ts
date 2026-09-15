@@ -4,6 +4,35 @@ const PREFIX = "/api/core/v1/progress";
 
 // ─── Server schema mirrors ──────────────────────────────────────────────────
 
+/**
+ * Hard cap on `attempts` per POST /progress/lessons/batch —
+ * `lingo-core/app/progress/schemas.py:100`:
+ *
+ *   attempts: list[BatchAttempt] = Field(min_length=1, max_length=100)
+ *
+ * FastAPI validates the body BEFORE the handler runs, so an oversized POST
+ * is rejected **in full** with a 422 (no partial success, no per-attempt
+ * results). Every caller must chunk to this size. TestFlight b18 #144: a
+ * 490-attempt test-out batch was silently discarded this way.
+ */
+export const MAX_ATTEMPTS_PER_BATCH = 100;
+
+/**
+ * Per-attempt duration floor — `lingo-core/app/progress/router.py:363`:
+ *
+ *   min_duration = max(5, len(item.stepResults))
+ *   if item.durationSec < min_duration: -> accepted=False,
+ *                                          reason="duration_below_floor"
+ *
+ * A row under the floor is dropped before `update_lesson_rollup`, so it
+ * never becomes a completion. Synthesised rows (test-out) carry no step
+ * results, which makes 5s the effective floor for them.
+ */
+export const SERVER_DURATION_FLOOR_SEC = 5;
+
+/** Server clamps above this (`_MAX_DURATION_SEC`); mirrored to avoid churn. */
+export const SERVER_DURATION_CEILING_SEC = 3600;
+
 export interface GradedStepResult {
   stepIdx: number;
   conceptIds: string[];
