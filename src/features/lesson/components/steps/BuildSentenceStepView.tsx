@@ -331,9 +331,14 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   // does not grow: measured 42.7px → 40.8px on the m30-neo-1 bank tile at
   // 390×844 (Chromium), word 13.6→15px, reading 12→10px. sm: tiers are
   // untouched (a 20.4px word already carries an 11.2px reading at 0.55em).
+  // #113 (Spencer TestFlight b14, 2026-09-15): "word tiles are a bit too
+  // small, maybe 10% bigger" → 15 → 16.5px; kana-only tiles additionally
+  // grow 1.2× into the reading band (`.build-tile-dense` hook, index.css).
+  // Measured on the iOS 26.5 simulator (iPhone 15 Pro Max, 430×775) — see
+  // the ledger entry for the before/after table.
   const denseTileClass = hugeBank
-    ? "flex flex-col items-center justify-end px-[12.25px] py-[4px] text-[15px] font-bold leading-tight sm:px-[14px] sm:py-[5.25px] sm:text-[17px]"
-    : "flex flex-col items-center justify-end px-[12.25px] py-[4px] text-[15px] font-bold leading-tight sm:px-[14px] sm:py-[7px] sm:text-[20.4px]";
+    ? "build-tile-dense flex flex-col items-center justify-end px-[12.25px] py-[4px] text-[16.5px] font-bold leading-tight sm:px-[14px] sm:py-[5.25px] sm:text-[17px]"
+    : "build-tile-dense flex flex-col items-center justify-end px-[12.25px] py-[4px] text-[16.5px] font-bold leading-tight sm:px-[14px] sm:py-[7px] sm:text-[20.4px]";
   const bankTileClass = bigTiles
     ? "px-[17.5px] py-[10.5px] text-[clamp(1.275rem,2.89cqh,1.9125rem)] font-bold"
     : denseTileClass;
@@ -657,6 +662,19 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
            visible floor for a short one, which is what forced the
            "too much scroll before placing anything" complaint. */
         <div className="grid min-h-[48px] sm:min-h-[61px] rounded-2xl border-[1.5px] border-dashed border-border bg-surface-muted px-4 py-2.5">
+          {/* The ghost reserves the FULL answer's height up front so the tray
+              never reflows. On a 12+ tile bank that reservation is what
+              overflows the stage: the empty tray holds three rows of nothing
+              while the bank holds four rows of tiles — measured in the app
+              shell on the iPhone 15 Pro Max simulator (ja-m31-neo-1 step 5,
+              16 tiles): tray 180pt + bank 219pt + prompt/CTA → the fourth
+              bank row clipped under the CHECK button (TestFlight #114/#117,
+              b14 2026-09-15: "the dynamically scaling sentence bar is
+              enough"). Tiles move from bank to tray one at a time, so the
+              two together never need more than the bank alone: on huge
+              banks the tray grows as tiles are placed instead of
+              pre-reserving, and the bottom-anchored CTA absorbs the growth. */}
+          {!hugeBank && (
           <div aria-hidden className="[grid-area:1/1] invisible flex flex-wrap items-stretch gap-2 sm:gap-2.5">
             {step.correctOrder.map((tile, i) => (
               <span
@@ -669,6 +687,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
               </span>
             ))}
           </div>
+          )}
           <div className="[grid-area:1/1] flex flex-wrap content-start items-stretch gap-2 sm:gap-2.5">
             {placed.length === 0 ? (
               <span className="self-center text-base text-text-muted">

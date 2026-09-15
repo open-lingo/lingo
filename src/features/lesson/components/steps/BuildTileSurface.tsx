@@ -29,7 +29,7 @@ import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/Annotat
 import { KanjiRuby } from "@/shared/readingAnnotation/KanjiRuby";
 import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
 import { useSRSStoreRevision } from "@/features/flashcards/SRSStoreRevisionContext";
-import { getCardState, isMastered } from "@/features/flashcards/engine";
+import { getCardState, isMastered, isNew } from "@/features/flashcards/engine";
 import {
   auxiliarySuppressedTiles,
   resolveBuildTileKanji,
@@ -120,7 +120,17 @@ export function useBuildTileKanji(
       if (!resolved) continue;
       map.set(kana, {
         ...resolved,
-        furiganaVisible: !isMastered(getCardState(resolved.atomId)),
+        // Hidden only once the learner has actually REVIEWED the atom to
+        // mastery. Test-out seeding (2026-09-14, #80) writes long intervals
+        // with reps 0, and `isMastered` reads intervals alone — after
+        // Spencer tested out of a run of modules every kanji tile lost its
+        // reading at once (TestFlight #116, b14: "furigana doesn't show at
+        // all"). A never-graded card keeps its reading (#99: "they can
+        // always read the furigana").
+        furiganaVisible: (() => {
+          const state = getCardState(resolved.atomId);
+          return !isMastered(state) || isNew(state);
+        })(),
       });
     }
     return map;
@@ -158,11 +168,15 @@ export function BuildTileSurface({
 }) {
   if (!kanji)
     return (
-      <AnnotatedJa
-        text={tile}
-        hideHelper={hideHelper}
-        forceShowHelper={forceHelper}
-      />
+      // `data-build-tile-kana` lets dense tiles grow a kana-only word into
+      // the reading band a kanji sibling reserves (#113/#116, index.css).
+      <span data-build-tile-kana="true">
+        <AnnotatedJa
+          text={tile}
+          hideHelper={hideHelper}
+          forceShowHelper={forceHelper}
+        />
+      </span>
     );
   // Okurigana-aligned shared ruby (Spencer QA 2026-07-17): the <rt> covers
   // only the kanji run — 飲(の)まない, never (のまない) over 飲まない.

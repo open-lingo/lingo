@@ -836,7 +836,29 @@ ruby {
      on the same row (justify-end shares one baseline per row), so it
      shrinks by the same 2px while the word grows 1.4px. Measured on the
      ja-m30-neo-1 bank tile at 390×844 (Chromium): tile 42.7px → 40.8px. */
-  .kanji-ruby .kana-helper {
+  /* `[data-visible="true"]` is load-bearing (TestFlight #116, b14 2026-09-15
+     — "furigana doesn't show at all" with tall dead tiles): without it this
+     (0,2,0) rule, later in the file, out-specifies the (0,2,0)
+     `.kana-helper[data-visible="false"]` collapse above and a HIDDEN kanji
+     reading kept its 15px ruby band — measured on the iOS 26.5 simulator
+     (iPhone 15 Pro Max): tile 46.7px → 48.7px with the reading hidden, an
+     empty band above the word. Scoped to visible readings only, the hidden
+     case falls back to font-size 0 and the tile drops to the kana height. */
+  .kanji-ruby .kana-helper[data-visible="true"] {
     font-size: max(0.55em, 0.625rem);
   }
+}
+
+/* Dense build tiles (TestFlight #113/#116, Spencer b14 2026-09-15 — "word
+   tiles are a bit too small, maybe 10% bigger… the non-furigana should grow…
+   the rest of the tiles have their words grow to fill the vertical at least
+   a little bit"): a row shares one box height (align-items: stretch, words
+   bottom-anchored), so a kana-only tile next to a kanji tile has the whole
+   reading band above its word empty. The kana word grows into it: 1.2× the
+   tile's word size (16.5 → 19.8px), which fills ~5px of the ~15px band and
+   keeps the kanji tile's word the reference size. Kanji tiles are untouched
+   (their reading already occupies that band). Dense tiers only — big tiles
+   (≤6) are already clamp-sized to the stage. */
+.build-tile-dense [data-build-tile-kana] {
+  font-size: 1.2em;
 }
