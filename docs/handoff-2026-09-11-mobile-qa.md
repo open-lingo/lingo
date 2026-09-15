@@ -365,3 +365,89 @@ Mirror: memory `spencer-open-todos.md`.
   allowlist waved through; gate + prompt fixes sent to the lane (bunsetsu-level
   closed-list check, `added` must be verbatim from the list, ≤1 time word,
   variety), smoke to re-run before the full pass.
+- 2026-09-15 ~10:00 (Fable): 44000589 PUSHED (equal rows + desktop pass +
+  build number 17); preflight: 627 files green, one 20 s timeout in
+  kanjiCoverageAudit under triple load (judge + Playwright + preflight),
+  passes alone; CI build green (index-CbEq5QOF.css). IPA b17 archived +
+  exported from the MAIN tree (`$S/mobile/release-b17.sh`), upload running.
+  Mobile gate (worktree, no `.env`): /get-started and /try fail to render
+  (Auth0 config absent — environment, not a regression); layout specs
+  (overflow, cta-fold) clean; REAL pre-existing tap-target debt, not in this
+  lap's diff: /ja/vocab "Type"/"Module" sort buttons 301×20 overlap the Learn
+  nav; /settings range input 274×8 overlaps Start/Learn. → to-do list.
+  CoreSimulator service still stale (loaded 1051.55 vs 1171.7) — a reboot or
+  `sudo launchctl kickstart -k system/com.apple.CoreSimulator.CoreSimulatorService`
+  before the next simulator measurement.
+  Short-answer lane: gate fixed (bunsetsu-level closed-list check,
+  `added` verbatim, kana-run reject; 3 regression tests), old 20 proposals
+  re-gated 19→17 accepted with the 7 contaminated rows now rejected or
+  falling to a clean candidate; fresh smoke + full run re-launched (nohup),
+  still queued behind the judge (425/498 at 09:50, ~45 min).
+- 2026-09-15 09:50 BUILD 17 UPLOADED — delivery 77cca3f6-2598-4be0-9131-c8ea1c07e481
+  (altool, no errors). Mobile gate final: 1,756 passed / 529 skipped; failures
+  = 39 render-errors + 18 tap-target "did not render" (worktree has no
+  `.env`, Auth0 routes) + 1 safe-area navigation + 13 real tap-target rows on
+  /ja/vocab (Type/Module 301×20) and /settings (range 274×8) — pre-existing,
+  not in the lap diff. ASC post-processing (processing wait + TestFlight
+  group) next.
+- 2026-09-15 ~10:05 BUILD 17 APPROVED for TestFlight (beta review APPROVED on
+  first poll; what's-new set; group attached). Prod deploy for 44000589 still
+  running at this point (deploy 34990576319 / ci 34990576412).
+- 2026-09-15 09:58 LAP CLOSED: deploy 34990576319 + ci 34990576412 both
+  SUCCESS for 44000589; prod serves index-CbEq5QOF.css with
+  `--tile-box-h: 45px` (mobile) / `51px` (desktop). Build 17 approved.
+  Still running unattended: naturalness sentence pass (~35 min), then the
+  short-answer smoke (20 rows) and full run (656) on the same GPU.
+- 2026-09-15 10:05 short-answer lane smoke #2 (fixed gate): 20/20 pass the
+  closed list. Lead audit found the next attractor — 8/20 extended only by
+  prepending わたしは (one double-topic "わたしは あしたは…"), one orphan
+  particle bunsetsu ("ここ で"), two forced glosses ("Happy birthday …
+  tomorrow", "Water here, please"). Sent back: `pronoun-padding`,
+  `double-topic`, `orphan-particle` gate rules + prompt rejected shapes +
+  added-category histogram; full run held until smoke #3 is clean.
+- 2026-09-15 10:20 short-answer lane smoke #3: 20/20 closed-list clean,
+  variety acceptable (demonstrative 5, time 9, ちょっと 4, object/place 5,
+  adjective 2). Residual defects → two more machine gates before the full
+  run: `tail-preserved` (the original's final bunsetsu stays final — kills
+  the m31 run-on "…おめでとう ケーキを たべる") and a naturalness-judge pass
+  over every accepted patch (tense mismatch "きのうは たかいから…", "かいしゃの
+  しごと"). Then 12% Sonnet audit; application lanes apply with judgment,
+  never blindly.
+- 2026-09-15 10:45 naturalness SENTENCE pass DONE (4,978 rows, 5.3 h,
+  think:false): 1,920 "fix" (38.6%) — register 932, structure 669, gloss 253,
+  british 57, verb-choice 5, unnatural-ja 4; 11 JA replacements; worst
+  modules m7 128/147, m10 102/118, m29 139/164, m11 124/170. Suspect
+  over-flagging on "structure" (local judge strips English subjects/articles
+  as "added specificity"); Sonnet audit of the 161-row stratified sample
+  dispatched — precision per issue decides what ships mechanically. Words
+  register/structure re-run (165 rows) running concurrently with the
+  short-answer full run (656 rows, propose started 10:41) on the same model.
+- 2026-09-15 11:05 iPad quick QA (Chromium 820×1180 / 1180×820, dev server,
+  shots in scratchpad `ipad/`): nothing breaks. Portrait renders the
+  top-nav shell (no sidebar) with DESKTOP tile tokens — small tiles in a lot
+  of empty space, i.e. "small desktop", the opposite of Spencer's verdict
+  (portrait = roomiest mobile). Landscape renders the full desktop sidebar
+  layout = his verdict, just needs slightly bigger buttons/targets. Map in
+  both orientations = desktop metro "Path" view. Cookie banner covers the
+  bottom in every shot (same overlap as the QA page). Scoping doc in
+  progress (`docs/ipad-scoping-2026-09-15.md`). Spencer can try build 17 on
+  his iPad now — the binary is universal.
+- 2026-09-15 11:00 naturalness SENTENCE audit (Sonnet, 161 rows): local
+  "fix" precision 42% overall — structure 28% (subject/object-strip reason
+  = 93% false), gloss 60%, register 50%, british 86%, verb-choice 100% (n=5),
+  unnatural-ja 25% (hallucinated grammar errors — never apply); recall
+  0/30 misses; replacement acceptance 91% among true positives; 24/161 rows
+  carry confidence outside 0–1 (validate() leak in judge.mjs). Ship plan:
+  mechanical = british + verb-choice (minus "university"), auto-reject
+  subject-strip structure + no-op replacements + unnatural-ja; Sonnet review
+  lanes for the rest with the audit's failure patterns as guard rails; the
+  audit's top-40 real fixes applied first.
+- 2026-09-15 11:15 iPad scoping doc DONE: `docs/ipad-scoping-2026-09-15.md`
+  (Sonnet lane, lead-verified: binary already universal; the phone map is
+  forced on ANY coarse pointer with no width check — LearnHomeSwitch.tsx via
+  hasCoarsePointer(); sidebar at lg=1024 only reaches the 13" family in
+  portrait; lesson column max-w-2xl leaves 35–45% bare width on iPad;
+  simulators for mini/Air/Pro exist on iOS 26.5 and simctl works again).
+  Mechanism proposed for Spencer's verdict: tablet-portrait token tier +
+  orientation-gated sidebar screen + width/orientation-aware map policy;
+  ~37–41 h across measure / fix / App Store assets / Android parity.

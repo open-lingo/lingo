@@ -209,6 +209,16 @@ generalises to.
 - **Rule it generalises to:** bulk content repair = local model with a
   closed word list + machine gates, not hand authoring.
 
+### Topic 7 — iPad (2026-09-15)
+
+- **Landscape = desktop, portrait = roomy mobile.** "iPad horizontal to
+  mirror desktop UI with slightly bigger buttons and whatnot, and iPad
+  vertical to just be the roomiest iteration of mobile we can get." So the
+  layout tier is decided by orientation/width class, not by "touch = phone";
+  portrait iPad must not flip to the desktop shell at 640px. Scoping doc:
+  `docs/ipad-scoping-2026-09-15.md`. He tests on his own iPad from TestFlight
+  (the binary is already universal).
+
 ### Architecture (2026-09-15)
 
 - "standardize the class for tiles across everything and then populate them
