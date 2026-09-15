@@ -313,3 +313,9 @@ Mirror: memory `spencer-open-todos.md`.
   (1051.55.0 < 1171.7.0) — Simulator device support disabled" — the 15 Pro
   Max simulator harness needs `sudo xcodebuild -runFirstLaunch` (or one
   Xcode launch) before the next sizing measurement.
+- Audio follow-up lane DONE (Sonnet, uncommitted→committed locally): delayed
+  auto-play in 7 views routed through the step-audio guard (5 named + Agreement
+  cloze + StressPattern found by grep; ConjugationTransform had no cleanup at
+  all); shared fake-timer test across 6 views; レストラン re-attributed to
+  `fromModule: "future"` (never taught). Lesson+placement 1,375 green.
+  Held for the next push (one push per lap).

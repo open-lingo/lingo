@@ -6,8 +6,9 @@ import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { ExplainButton } from "../ExplainButton";
 import { Icon } from "@/shared/components/Icon";
-import { playJaAudio, getTtsUrl } from "@/shared/tts";
+import { getTtsUrl } from "@/shared/tts";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { playStepAudio, useCurrentStepId } from "../../hooks/useStepAudioGuard";
 import { Badge } from "@/shared/components/ui";
 
 const CELEBRATE_MS = 1100;
@@ -49,6 +50,9 @@ type Props = {
  * commit — measured at 375×667, the viewport where the growth actually bites.
  */
 export function StressPatternStepView({ step, onComplete, onContinue }: Props) {
+  // TestFlight #127: registers this step for the mount-play timer + manual
+  // replay button's currentness guard (see useStepAudioGuard's doc comment).
+  useCurrentStepId(step.id);
   const { t } = useTranslation();
   const [picked, setPicked] = useState<number | null>(null);
   const [submitted, setSubmitted] = useState(false);
@@ -64,7 +68,10 @@ export function StressPatternStepView({ step, onComplete, onContinue }: Props) {
   useEffect(() => {
     if (played.current || !hasAudio) return;
     played.current = true;
-    const timer = window.setTimeout(() => playJaAudio(step.audioText), 250);
+    const timer = window.setTimeout(
+      () => void playStepAudio(step.audioText, step.id),
+      250,
+    );
     return () => window.clearTimeout(timer);
   }, [step.audioText, hasAudio]);
 
@@ -127,7 +134,7 @@ export function StressPatternStepView({ step, onComplete, onContinue }: Props) {
         <div className="mb-4 flex justify-center">
           <button
             type="button"
-            onClick={() => playJaAudio(step.audioText)}
+            onClick={() => void playStepAudio(step.audioText, step.id)}
             disabled={!hasAudio}
             className="inline-flex h-11 w-11 items-center justify-center rounded-full border-2 border-accent-hover bg-accent text-white disabled:opacity-40 sm:h-12 sm:w-12"
             aria-label={t("lesson.play", "Play audio")}

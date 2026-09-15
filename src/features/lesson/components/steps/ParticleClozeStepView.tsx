@@ -7,7 +7,7 @@ import { TileTray } from "../tiles/TileTray";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
-import { playJaAudio, getTtsUrl } from "@/shared/tts";
+import { getTtsUrl } from "@/shared/tts";
 import { ExplainButton } from "../ExplainButton";
 import { PromptAudioButton } from "./PromptAudioButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
@@ -128,7 +128,7 @@ export function ParticleClozeStepView({
       const pick = selected;
       if (getTtsUrl(pick)) {
         optionAudioTimer.current = window.setTimeout(
-          () => playJaAudio(pick),
+          () => void playStepAudio(pick, step.id),
           320,
         );
       }

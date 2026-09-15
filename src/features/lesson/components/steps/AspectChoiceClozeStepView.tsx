@@ -4,7 +4,7 @@ import type { AspectChoiceClozeStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
-import { playJaAudio, getTtsUrl } from "@/shared/tts";
+import { getTtsUrl } from "@/shared/tts";
 import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
 import { PromptAudioButton } from "./PromptAudioButton";
@@ -84,7 +84,7 @@ export function AspectChoiceClozeStepView({ step, onComplete, onContinue }: Prop
       setCelebrating(true);
       window.setTimeout(() => setCelebrating(false), CELEBRATE_MS);
       if (hasFullAudio && fullAudio) {
-        audioTimer.current = window.setTimeout(() => playJaAudio(fullAudio), 320);
+        audioTimer.current = window.setTimeout(() => void playStepAudio(fullAudio, step.id), 320);
       }
     }
   }

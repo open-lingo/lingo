@@ -1,11 +1,11 @@
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import * as wanakana from "wanakana";
 import type { ConjugationTransformStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
-import { playJaAudio, getTtsUrl } from "@/shared/tts";
+import { getTtsUrl } from "@/shared/tts";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { playStepAudio, useCurrentStepId } from "../../hooks/useStepAudioGuard";
 import { PromptAudioButton } from "./PromptAudioButton";
@@ -94,7 +94,18 @@ export function ConjugationTransformStepView({ step, lessonId, onComplete, onCon
     return opts;
   }, [step.id, step.answer, step.distractors]);
 
+  // Pending correct-answer play, held in a ref so it's cancelled if the
+  // step unmounts before it fires — advancing must not let this step's
+  // answer audio bleed into the next step (TestFlight #127 — the other
+  // *ClozeStepView siblings already clear this on unmount; this one
+  // hadn't).
   const audioTimer = useRef<number | null>(null);
+  useEffect(
+    () => () => {
+      if (audioTimer.current !== null) window.clearTimeout(audioTimer.current);
+    },
+    [],
+  );
   const hasAnswerAudio = !!getTtsUrl(step.answer);
 
   const commit = useCallback(
@@ -126,7 +137,10 @@ export function ConjugationTransformStepView({ step, lessonId, onComplete, onCon
         setCelebrating(true);
         window.setTimeout(() => setCelebrating(false), CELEBRATE_MS);
         if (hasAnswerAudio) {
-          audioTimer.current = window.setTimeout(() => playJaAudio(step.answer), 320);
+          audioTimer.current = window.setTimeout(
+            () => void playStepAudio(step.answer, step.id),
+            320,
+          );
         }
       }
     },

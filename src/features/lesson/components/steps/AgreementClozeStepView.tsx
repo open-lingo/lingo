@@ -4,7 +4,7 @@ import type { AgreementClozeStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
-import { playJaAudio, getTtsUrl } from "@/shared/tts";
+import { getTtsUrl } from "@/shared/tts";
 import { ExplainButton } from "../ExplainButton";
 import { PromptAudioButton } from "./PromptAudioButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
@@ -88,7 +88,7 @@ export function AgreementClozeStepView({ step, onComplete, onContinue }: Props) 
       window.setTimeout(() => setCelebrating(false), CELEBRATE_MS);
       if (hasFullAudio && fullAudio) {
         audioTimer.current = window.setTimeout(
-          () => playJaAudio(fullAudio),
+          () => void playStepAudio(fullAudio, step.id),
           320,
         );
       }

@@ -5,7 +5,7 @@ import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
-import { getTtsUrl, playJaAudio } from "@/shared/tts";
+import { getTtsUrl } from "@/shared/tts";
 import { ExplainButton } from "../ExplainButton";
 import { PromptAudioButton } from "./PromptAudioButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
@@ -76,7 +76,7 @@ export function KanjiReadingStepView({ step, onComplete, onContinue }: Props) {
     // the corrective beat on a miss, and the confirmation on a hit.
     if (hasAudio && step.audioText) {
       const text = step.audioText;
-      audioTimer.current = window.setTimeout(() => playJaAudio(text), 320);
+      audioTimer.current = window.setTimeout(() => void playStepAudio(text, step.id), 320);
     }
   }
 

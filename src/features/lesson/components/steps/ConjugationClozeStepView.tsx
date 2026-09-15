@@ -5,7 +5,7 @@ import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
-import { playJaAudio, getTtsUrl } from "@/shared/tts";
+import { getTtsUrl } from "@/shared/tts";
 import { ExplainButton } from "../ExplainButton";
 import { PromptAudioButton } from "./PromptAudioButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
@@ -73,7 +73,7 @@ export function ConjugationClozeStepView({ step, onComplete, onContinue }: Props
       setCelebrating(true);
       window.setTimeout(() => setCelebrating(false), CELEBRATE_MS);
       if (hasFullAudio && fullAudio) {
-        audioTimer.current = window.setTimeout(() => playJaAudio(fullAudio), 320);
+        audioTimer.current = window.setTimeout(() => void playStepAudio(fullAudio, step.id), 320);
       }
     }
   }

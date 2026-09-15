@@ -147,7 +147,10 @@ describe("ConjugationClozeStepView", () => {
       fireEvent.click(screen.getByRole("button", { name: "Check" }));
       expect(playJaAudio).not.toHaveBeenCalled();
       vi.advanceTimersByTime(400);
-      expect(playJaAudio).toHaveBeenCalledWith(step.audioText);
+      // TestFlight #127: the delayed auto-play now routes through
+      // `playStepAudio` (useStepAudioGuard.ts), which forwards an explicit
+      // (possibly undefined) `lang` as a second argument to `playJaAudio`.
+      expect(playJaAudio).toHaveBeenCalledWith(step.audioText, undefined);
     } finally {
       vi.useRealTimers();
     }

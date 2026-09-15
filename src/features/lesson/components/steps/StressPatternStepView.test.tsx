@@ -101,7 +101,9 @@ describe("StressPatternStepView", () => {
     mount();
     expect(tts.playJaAudio).not.toHaveBeenCalled(); // 250ms settle first
     settleAutoplay();
-    expect(tts.playJaAudio).toHaveBeenCalledWith("habló");
+    // TestFlight #127: routed through `playStepAudio` (useStepAudioGuard.ts),
+    // which forwards an explicit (possibly undefined) `lang` second arg.
+    expect(tts.playJaAudio).toHaveBeenCalledWith("habló", undefined);
   });
 
   it("plays exactly once per step, however the learner pokes at it", () => {
