@@ -52,8 +52,8 @@ const CARD_HEIGHT_MM = 53.98;
 const SAFE_TOP_PT = 59;
 const SAFE_BOTTOM_PT = 34;
 
-const LS_VARS = { base: "lingo:qa-tiles-vars:mobile:v1", sm: "lingo:qa-tiles-vars:desktop:v1" } as const;
-const LS_MODES = { base: "lingo:qa-tiles-modes:mobile:v1", sm: "lingo:qa-tiles-modes:desktop:v1" } as const;
+const LS_VARS = { base: "lingo:qa-tiles-vars:mobile:v2", sm: "lingo:qa-tiles-vars:desktop:v2" } as const;
+const LS_MODES = { base: "lingo:qa-tiles-modes:mobile:v2", sm: "lingo:qa-tiles-modes:desktop:v2" } as const;
 const LS_CALIBRATION = "lingo:qa-tiles-calibration:v1";
 
 type SectionMode = "scale" | "abs";

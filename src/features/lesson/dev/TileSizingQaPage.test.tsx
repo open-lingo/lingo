@@ -79,8 +79,8 @@ describe("TileSizingQaPage", () => {
     mount();
     const slider = document.querySelector<HTMLInputElement>('[data-qa-section="base"] input[type="range"]')!;
     fireEvent.change(slider, { target: { value: slider.max } });
-    expect(JSON.parse(localStorage.getItem("lingo:qa-tiles-vars:mobile:v1") ?? "{}")[TILE_TOKEN_DEFS[0].key]).toBe(Number(slider.max));
-    expect(localStorage.getItem("lingo:qa-tiles-vars:desktop:v1")).not.toContain(`"${TILE_TOKEN_DEFS[0].key}":${slider.max}`);
+    expect(JSON.parse(localStorage.getItem("lingo:qa-tiles-vars:mobile:v2") ?? "{}")[TILE_TOKEN_DEFS[0].key]).toBe(Number(slider.max));
+    expect(localStorage.getItem("lingo:qa-tiles-vars:desktop:v2")).not.toContain(`"${TILE_TOKEN_DEFS[0].key}":${slider.max}`);
     fireEvent.click(screen.getByText(/Editing: Desktop/));
     const desktopSlider = document.querySelector<HTMLInputElement>('[data-qa-section="base"] input[type="range"]')!;
     expect(Number(desktopSlider.value)).toBe(TILE_TOKEN_DEFS[0].sm);
