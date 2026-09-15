@@ -257,7 +257,16 @@ Mirror: memory `spencer-open-todos.md`.
   the "6 dakuten typos" were NOT typos — つきだ is real content, the other
   four are authored wrong-reading MCQ distractors swept by the emitter regex.
   Fable: backed up the 40 live clips to scratchpad `tts-batch2-backup/`
-  (reversible), then upload --force + CloudFront invalidation (running).
+  (reversible), then upload --force + CloudFront invalidation. DONE 2026-09-15
+  09:15: 40/40 uploaded, invalidation IAQZ26T3EADC89PX8DEOL44WWH Completed,
+  all 40 live clips md5-match the staged files (LIVE_MATCH=40/40). Gotcha: the
+  CLI rejects 40 inline `--paths` args ("invalid invalidation paths"); pass
+  `--invalidation-batch file://batch.json` instead.
+- Topic 3 follow-ups logged (sentiment doc Topic 6): speaking echo stays SOFT
+  (code default already); the 656 short answers go to a LOCAL-MODEL mechanical
+  lane (closed word list per module + slot in 1–2 words + machine gates), brief
+  `fb16-research/extend-short-answers-brief.md`, tooling lane dispatched
+  (Sonnet), full pass queued behind the naturalness sentence pass (ETA ~10:20).
 - Content-floors lane DONE (Opus, uncommitted, curriculum 13,342 + app 908
   green): Rule 1 gate (≥5 answer tiles m12+) → 656/3,366 (19.5%) violations,
   ALL authoring rewrites, budgets frozen per module, list in scratchpad
@@ -319,3 +328,18 @@ Mirror: memory `spencer-open-todos.md`.
   all); shared fake-timer test across 6 views; レストラン re-attributed to
   `fromModule: "future"` (never taught). Lesson+placement 1,375 green.
   Held for the next push (one push per lap).
+- 2026-09-15 09:40 tile dial-in #2 BAKED (Fable): Spencer's saved
+  `docs/qa/tile-sizing.json` (mobile only) transcribed into `:root` +
+  `tileSizingTokens.ts` base values; abs tier values stored as ratios
+  (huge 1.032787/0.666667, listen 1.103825/2.4/0.8/1.066667). Listen tiles
+  now get the kana-only / hidden-reading growth (`--tile-kana-font`) like
+  dense/huge. ≤6-tile "big" tier rebuilt as scale-off-base
+  (`--big-font/px/py-scale`, mobile ×1 = plain tile, desktop 1/1.25/1.5 =
+  the shipped clamp() at 700px); `--tile-big-scale` removed. Desktop `sm`
+  block restated in full (ruby 1.2em/0.55em/0.625rem, match/option groups) —
+  the first dial-in had let mobile furigana sizes leak to desktop. Measured
+  (Chromium, frame route): mobile dense = big = 18.3px word, 44.6px kanji
+  row; listen 20.2px word, kana grown 25.9px, box 48.5 = kanji tile box;
+  desktop dense 20.4/14/7 = original. Tests: tileTokens + QA page green, tsc
+  green. Preflight + push next.
+

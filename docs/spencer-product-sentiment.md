@@ -107,6 +107,15 @@ generalises to.
   from a screenshot. Fable ships the dial, Spencer turns it, Fable commits
   the numbers. Any future sizing complaint routes to the QA page first.
 
+- **Second dial-in (2026-09-15, saved from the QA page):** mobile plain tile
+  18.3px word / 5×3.75px padding / 32px height floor; furigana 0.62em; ≤6-tile
+  and listening tiers now scale off the plain tile too (the ≤6 tier's old
+  cqh clamp was the reason his slider sat at the floor). "listening build…
+  words don't fill vertically if no kanji. make sure it follows the other
+  build types" → the kana-only growth rule applies to every build-type tile.
+  Desktop untouched = the pre-dial-in numbers, restated in full so nothing
+  mobile leaks upward.
+
 ### Topic 2 — kanji follows the learner (#115, #120, #133, #141, #119)
 
 - **No kanji ceiling.** "any taught kanji should surface, no ceiling, if they
@@ -173,6 +182,22 @@ generalises to.
   just take you back to the home page. target is 3 buttons… use your UI design
   to pick colors that fit in the theme and appropriate sizing." Fable owns
   the visual call; he sets the structure.
+
+### Topic 6 — floors follow-ups (2026-09-16)
+
+- **Speaking echo stays soft.** "ideally we do soft rule for speaking echo
+  run-ins." A build followed by "say it aloud" is the production ladder; the
+  reuse gate warns, never fails, on that pair.
+- **Short answers get extended by the local model, mechanically.** "can we
+  use a local model here? mechanical list of all words available and then
+  slot in two more or something into the sentences?" → for each of the 656
+  sub-5-tile answers (m12+): feed the sentence, its gloss, the exercised
+  grammar point and the list of words taught by that module; the model
+  extends to ≥ 5 tiles using ONLY those words; machine gates (taught-word
+  check, tile count, grammar particle still present, no reuse within the
+  lesson) filter; Sonnet audits a sample; Sonnet lanes patch the IR.
+- **Rule it generalises to:** bulk content repair = local model with a
+  closed word list + machine gates, not hand authoring.
 
 ### Architecture (2026-09-15)
 

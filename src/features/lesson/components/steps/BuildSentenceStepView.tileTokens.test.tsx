@@ -183,12 +183,12 @@ describe("build tiles pick a tier; the tier reads the tokens", () => {
     expect(huge).toContain("var(--huge-font-abs, calc(var(--tile-font) * var(--huge-font-scale)))");
   });
 
-  it("CSS: the big tier is wrapped in the --tile-big-scale multiplier", () => {
+  it("CSS: the big tier scales off the base tokens like huge and listen (b16.3)", () => {
     const big = ruleBody('[data-tile][data-variant="build"][data-density="big"] {');
-    expect(big).toContain("var(--tile-big-scale)");
-    // cqh stays cqh: the lesson stage is a fixed-height container query, and
-    // flattening this clamp to px is what clips tiles on short viewports.
-    expect(big).toContain("cqh");
+    expect(big).toContain("var(--big-py-abs, calc(var(--tile-py) * var(--big-py-scale)))");
+    expect(big).toContain("var(--big-px-abs, calc(var(--tile-px) * var(--big-px-scale)))");
+    expect(big).toContain("var(--big-font-abs, calc(var(--tile-font) * var(--big-font-scale)))");
+    expect(big).not.toContain("cqh");
   });
 
   it("CSS: build and listen carry the #137 uniform-height floor", () => {

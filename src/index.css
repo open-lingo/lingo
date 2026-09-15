@@ -101,8 +101,8 @@ body {
        QA page's slider still ranges 28-80px per the brief so Spencer's
        dial starts in the useful band — the default just sits below that
        range on purpose; see tileSizingTokens.ts.
-     --tile-big-scale: a UNITLESS multiplier wrapping bigTiles' three
-       literal numbers (px/py/font-clamp) in `calc(N * var(--tile-big-scale))`.
+     --big-font/px/py-scale: the ≤6-tile tier as ratios of the plain tile
+      (b16.3; replaced the `--tile-big-scale` clamp() multiplier).
        Default 1 = today's exact numbers — bigTiles was never derived from
        `--tile-font`/`--tile-px` to begin with (the first lane's comment at
        BuildSentenceStepView.tsx explains why: no `sm:` step, cqh-driven
@@ -127,39 +127,45 @@ body {
    reads these same values (tileSizingTokens.ts `base`), so it now resets
    to Spencer's dial-in, not the pre-#137 numbers. */
 :root {
+  /* MOBILE = Spencer's second dial-in (2026-09-15 15:11 UTC, saved from the
+     rewritten QA page to docs/qa/tile-sizing.json and transcribed here).
+     Absolute tier values he saved (huge 18.9px/2.5px, listen 20.2px/12px/
+     3px/4px) are stored as RATIOS of the base tile so one base slider still
+     moves every tier; the px results are identical. */
   --tile-h: 20px;
-  --tile-font: 15.8px;
+  --tile-font: 18.3px;
   --tile-kana-font: 1.28em;
-  --ruby-font: 0.72em;
+  --ruby-font: 0.62em;
   --ruby-floor-romaji: 0.75rem;
-  --ruby-floor-kanji: 0.7375rem;
-  --tile-px: 10.75px;
-  --tile-py: 4px;
-  --tile-gap: 8px;
+  --ruby-floor-kanji: 0.75rem;
+  --tile-px: 5px;
+  --tile-py: 3.75px;
+  --tile-gap: 5.5px;
   --tile-tray-gap: 8px;
   --tile-radius: 0.75rem;
-  --tile-box-h: 0px;
-  --tile-big-scale: 1;
-  --listen-bank-gap: 12px;
-  /* Scale-off-base tiers (QA-page rewrite 2026-09-15). Defaults = the
-     shipped ratios, so rendering is unchanged until a slider moves. */
-  --huge-font-scale: 1;
-  --huge-py-scale: 1;
-  --listen-font-scale: 1.030303;
-  --listen-px-scale: 1.142857;
-  --listen-py-scale: 1.75;
-  --listen-bank-py-scale: 1.75;
+  --tile-box-h: 32px;
+  --listen-bank-gap: 7px;
+  /* Scale-off-base tiers (QA-page rewrite 2026-09-15). */
+  --huge-font-scale: 1.032787;   /* 18.9 / 18.3 */
+  --huge-py-scale: 0.666667;     /* 2.5 / 3.75 */
+  --big-font-scale: 1;           /* ≤6-tile tier = the plain tile on mobile */
+  --big-px-scale: 1;
+  --big-py-scale: 1;
+  --listen-font-scale: 1.103825; /* 20.2 / 18.3 */
+  --listen-px-scale: 2.4;        /* 12 / 5 */
+  --listen-py-scale: 0.8;        /* 3 / 3.75 */
+  --listen-bank-py-scale: 1.066667; /* 4 / 3.75 */
   --match-px: 1rem;
-  --match-py: 0.375rem;
-  --match-radius: 0.75rem;
+  --match-py: 0.4375rem;
+  --match-radius: 1rem;
 
   /* Match-pairs: own group. `--match-font-scale` is a unitless multiplier
      (default 1 = today's numbers exactly) because match tiles render FOUR
      distinct `clamp()` tiers (dense/wide × recognition/audio) that must
      keep their relative proportions, not one absolute px size. */
-  --match-tile-h: 4.75rem;
+  --match-tile-h: 5.25rem;
   --match-gap: 0.5rem;
-  --match-font-scale: 1;
+  --match-font-scale: 0.91;
 
   /* Multiple-choice: own group, the regular/sentence option layout only
      (the short-glyph / single-word / reveal-on-select layouts keep their
@@ -169,18 +175,37 @@ body {
 }
 @media (min-width: 640px) {
   :root {
+    /* DESKTOP = the pre-dial-in shipped numbers, restated in full so no
+       mobile value leaks up through inheritance (the first dial-in left the
+       ruby tokens and the match/option groups undefined here, so desktop
+       silently inherited Spencer's MOBILE furigana sizes). Spencer dialled
+       mobile only; these are "what we had originally". */
     --tile-h: 61px;
     --tile-font: 20.4px;
+    --tile-kana-font: 1.2em;
+    --ruby-font: 0.55em;
+    --ruby-floor-romaji: 0.75rem;
+    --ruby-floor-kanji: 0.625rem;
     --tile-px: 14px;
     --tile-py: 7px;
     --tile-gap: 10px;
     --tile-tray-gap: 10px;
+    --tile-box-h: 0px;
+    --listen-bank-gap: 12px;
     --huge-font-scale: 0.833333;
     --huge-py-scale: 0.75;
+    --big-font-scale: 1;    /* shipped clamp() resolved to 20.4px at 700px */
+    --big-px-scale: 1.25;   /* 17.5 / 14 */
+    --big-py-scale: 1.5;    /* 10.5 / 7 */
     --listen-font-scale: 1.25;
     --listen-px-scale: 1.25;
     --listen-py-scale: 1.25;
     --listen-bank-py-scale: 2;
+    --match-px: 1rem;
+    --match-py: 0.375rem;
+    --match-radius: 0.75rem;
+    --match-tile-h: 4.75rem;
+    --match-font-scale: 1;
   }
 }
 
@@ -1006,15 +1031,19 @@ ruby {
    cannot un-hide a reading, only resize the visible glyph. */
 /* b16.2: the hook moved from the `.build-tile-dense` class the two views
    used to compose onto the `Tile` primitive's own `data-density`, so the
-   selector cannot drift from the tier it describes. STILL DENSE/HUGE ONLY —
-   `listening_build` tiles never carried `.build-tile-dense` and so have
-   never grown a kana-only word into the reading band; keeping them out is
-   what makes this migration pixel-identical. Unifying them is a dial-in
-   decision (the report lists it), not a refactor. */
+   selector cannot drift from the tier it describes. b16.3 (Spencer
+   2026-09-15, QA page): "listening build… words don't fill vertically if no
+   kanji. make sure it follows the other build types" — the listen variant
+   now grows a kana-only / hidden-reading word exactly like dense and huge
+   (it renders the same BuildTileSurface, so it already carries the hooks). */
 [data-tile][data-variant="build"][data-density="dense"] [data-build-tile-kana],
 [data-tile][data-variant="build"][data-density="dense"] [data-build-tile-reading="hidden"],
 [data-tile][data-variant="build"][data-density="huge"] [data-build-tile-kana],
-[data-tile][data-variant="build"][data-density="huge"] [data-build-tile-reading="hidden"] {
+[data-tile][data-variant="build"][data-density="huge"] [data-build-tile-reading="hidden"],
+[data-tile][data-variant="build"][data-density="big"] [data-build-tile-kana],
+[data-tile][data-variant="build"][data-density="big"] [data-build-tile-reading="hidden"],
+[data-tile][data-variant="listen"] [data-build-tile-kana],
+[data-tile][data-variant="listen"] [data-build-tile-reading="hidden"] {
   font-size: var(--tile-kana-font);
 }
 
@@ -1055,17 +1084,22 @@ ruby {
    corner to the build-tile slider would change what an existing slider
    does. */
 :root {
-  --option-px: 1rem;              /* px-4 — every option layout today */
-  --option-py: var(--mcq-py);     /* regular/sentence tier padding-block */
-  --option-font: var(--mcq-font); /* regular/sentence tier font-size */
+  /* Mobile = Spencer's 2026-09-15 dial-in (docs/qa/tile-sizing.json). */
+  --option-px: 0.4375rem;
+  --option-py: 1.25rem;
+  --option-font: 1.375rem;
   --option-radius: 0.75rem;       /* rounded-xl */
-  --option-gap: 0.75rem;          /* gap-3 on the MCQ/cloze option grids */
+  --option-gap: 0.875rem;
   --card-pad: 1.25rem;            /* p-5 on the lesson overlay card */
   --card-max-h: 85vh;             /* max-h-[85vh] (RuleHintCard's value) */
 }
 @media (min-width: 640px) {
   :root {
-    --option-gap: 1rem; /* sm:gap-4 */
+    /* Desktop = the shipped numbers (px-4, the MCQ tokens, sm:gap-4). */
+    --option-px: 1rem;
+    --option-py: var(--mcq-py);
+    --option-font: var(--mcq-font);
+    --option-gap: 1rem;
   }
 }
 
@@ -1124,6 +1158,7 @@ ruby {
    fixture has five pairs. */
 [data-tile][data-variant="build"][data-density="dense"],
 [data-tile][data-variant="build"][data-density="huge"],
+[data-tile][data-variant="build"][data-density="big"],
 [data-tile][data-variant="listen"] {
   flex-direction: column;
   align-items: center;
@@ -1177,23 +1212,19 @@ ruby {
   padding-block: var(--huge-py-abs, calc(var(--tile-py) * var(--huge-py-scale)));
   font-size: var(--huge-font-abs, calc(var(--tile-font) * var(--huge-font-scale)));
 }
-/* big = ≤6-tile banks and word builds. Its font is a cqh-driven clamp() with
-   NO `sm:` step (roughly constant across viewports by design) while
-   `--tile-px`/`--tile-font` DO step at 640px, so this tier is scaled by one
-   unitless multiplier (`--tile-big-scale`, default 1 = today's exact
-   numbers) instead of being derived from the dense tier's tokens. No
-   per-row baseline concern here — this tier has never used `justify-end`. */
+/* big = ≤6-tile banks and word builds. b16.3 (2026-09-15): this tier used
+   to be the one build surface NOT derived from the plain tile — a cqh clamp()
+   font, literal 10.5/17.5px padding, line-height 1.5, no kana-only growth —
+   and Spencer's second dial-in pinned its only slider at the floor trying to
+   make it match the 7–11 tier (measured: 15.3px word in a 45.6px box next to
+   an 18.3px word in a 38.8px box). It now scales off the base tokens exactly
+   like huge and listen; mobile defaults are ×1 = identical to the plain tile
+   (#137 "the height of every tile should be the same"), desktop keeps the
+   shipped proportions at the 1280×700 reference (font ×1, py ×1.5, px ×1.25). */
 [data-tile][data-variant="build"][data-density="big"] {
-  align-items: center;
-  justify-content: center;
-  padding: calc(10.5px * var(--tile-big-scale))
-    calc(17.5px * var(--tile-big-scale));
-  font-size: clamp(
-    calc(1.275rem * var(--tile-big-scale)),
-    2.89cqh,
-    calc(1.9125rem * var(--tile-big-scale))
-  );
-  font-weight: 700;
+  padding-block: var(--big-py-abs, calc(var(--tile-py) * var(--big-py-scale)));
+  padding-inline: var(--big-px-abs, calc(var(--tile-px) * var(--big-px-scale)));
+  font-size: var(--big-font-abs, calc(var(--tile-font) * var(--big-font-scale)));
 }
 
 /* ── listen variant ───────────────────────────────────────────────────

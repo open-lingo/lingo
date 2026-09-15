@@ -115,15 +115,17 @@ describe("mobile type floor", () => {
     // index.css) — this rule reads them via `var()` instead of repeating
     // the literals. The regex below pins the VARIABLE NAMES; a separate
     // assertion pins the `:root` defaults so the effective value is still
-    // checked end to end. `--ruby-font` is now 0.72em (b16.1, 2026-09-15 —
-    // Spencer's own live mobile dial-in on the QA page superseded the b16
-    // 0.55em default; see the matching index.css comment).
+    // checked end to end. `--ruby-font` is 0.62em on mobile (b16.3,
+    // 2026-09-15 — Spencer's second live dial-in on the QA page, saved to
+    // docs/qa/tile-sizing.json; b16.1 was 0.72em, b16 was 0.55em) and the
+    // desktop `sm` block restates 0.55em.
     const css = readFileSync(CSS, "utf8");
     const start = css.indexOf(FLOOR_QUERY);
     expect(css.slice(start)).toMatch(
       /\.kana-helper\s*\{\s*font-size:\s*max\(var\(--ruby-font\),\s*var\(--ruby-floor-romaji\)\)/,
     );
-    expect(css).toMatch(/--ruby-font:\s*0\.72em;/);
+    expect(css).toMatch(/--ruby-font:\s*0\.62em;/);
+    expect(css).toMatch(/--ruby-font:\s*0\.55em;/);
     expect(css).toMatch(/--ruby-floor-romaji:\s*0\.75rem;/);
   });
 
