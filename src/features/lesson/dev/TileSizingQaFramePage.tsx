@@ -80,6 +80,17 @@ function buildFixtures(): { title: string; step: LessonStep }[] {
       },
     },
     {
+      title: "build_sentence — 5 tiles (≤6 → big tier)",
+      step: {
+        id: "qa-tiles-build-5",
+        type: "build_sentence",
+        prompt: "Build: 'I drink coffee at the shop.'",
+        targetSentence: "みせで コーヒーを のむ",
+        tiles: ["みせで", "コーヒーを", "のむ", "たべる", "がっこうで"],
+        correctOrder: ["みせで", "コーヒーを", "のむ"],
+      } as LessonStep,
+    },
+    {
       title: "build_sentence — 16 tiles (hugeBank)",
       step: {
         id: "qa-tiles-build-16",
@@ -296,8 +307,8 @@ function FixtureCard({
     // (real production behavior, not a QA-page bug) — generous spacing
     // keeps that overflow from visually colliding with the next card's
     // heading instead of hiding it.
-    <div className="mb-24 rounded-xl border border-border bg-surface p-3">
-      <div className="mb-2 flex items-center justify-between gap-2">
+    <div className="mb-24 rounded-xl border border-border bg-surface p-3" data-qa-fixture-id={step.id}>
+      <div className="mb-2 flex flex-wrap items-baseline justify-between gap-x-2 gap-y-0.5">
         <span className="font-japanese text-xs font-bold uppercase tracking-wide text-text-muted">
           {title}
         </span>
@@ -348,7 +359,7 @@ function FixtureCard({
  */
 function OverlayCardFixture() {
   return (
-    <div className="mb-24 rounded-xl border border-border bg-surface p-3">
+    <div data-qa-fixture-id="qa-tiles-overlay" className="mb-24 rounded-xl border border-border bg-surface p-3">
       <div className="mb-2 flex items-center justify-between gap-2">
         <span className="text-xs font-bold uppercase tracking-wide text-text-muted">
           lesson overlay card — --card-pad / --card-max-h
@@ -495,6 +506,11 @@ export default function TileSizingQaFramePage() {
         for (const name of data.keys as string[]) {
           document.documentElement.style.removeProperty(name);
         }
+      } else if (data.type === TILE_QA_MESSAGE.scrollTo) {
+        const el = document.querySelector<HTMLElement>(
+          `[data-qa-fixture-id="${String(data.fixture)}"]`,
+        );
+        el?.scrollIntoView({ behavior: "smooth", block: "start" });
       } else if (data.type === TILE_QA_MESSAGE.setLock) {
         const next = !!data.locked;
         setLocked(next);

@@ -1,405 +1,146 @@
 /**
- * Token registry for the tile-sizing QA page (`/:lang/qa/tiles`,
- * TestFlight #137). Single source of truth for:
- *   - which CSS custom properties the page can dial (name, unit, slider
- *     range, group),
- *   - their SHIPPED defaults, read straight off `src/index.css`'s
- *     `:root` token block — base = phone (<640px), sm = desktop
- *     (`@media (min-width: 640px)`, Tailwind's own `sm:` breakpoint).
+ * Token registry for the tile-sizing QA page (`/:lang/qa/tiles`, TestFlight
+ * #137). Single source of truth for which CSS custom properties the page can
+ * dial, their slider ranges, and their SHIPPED defaults (mirroring
+ * `src/index.css`'s `:root` block: `base` = <640px, `sm` = the Tailwind
+ * `sm:` breakpoint). `src/index.css` is the source of truth for the VALUES;
+ * this file is the registry the sliders read — add a token in CSS first,
+ * then here.
  *
- * The page keeps TWO independent value maps (one per pane) seeded from
- * `base`/`sm` here; moving a mobile-pane slider only ever posts to the
- * mobile iframe's own document root, and likewise for desktop, so the two
- * panes can never cross-contaminate each other.
+ * Model (Spencer 2026-09-15, "they can scale off the plain tile"):
+ *   - `section: "base"` is the PLAIN TILE (build, dense tier). Every other
+ *     tile-shaped step type derives from it.
+ *   - `kind: "scale"` tokens are unitless multipliers over a base token; the
+ *     CSS reads `var(--X-abs, calc(base * var(--X-scale)))`, so the page can
+ *     flip a section to ABSOLUTE mode by setting `absKey` (and clearing it to
+ *     go back to scaling). Defaults reproduce today's shipped ratios exactly.
+ *   - `kind: "abs"` tokens are plain values in their own unit.
+ *   - `hidden` tokens stay in the value map (Copy CSS / Save still emit them)
+ *     but get no slider — `--mcq-*` are the legacy aliases `--option-*`
+ *     indirects through.
  */
 
 export type TileTokenGroup = "build" | "match" | "mcq" | "option" | "card";
+export type TileSection = "base" | "huge" | "big" | "listen" | "match" | "option" | "card";
+export type TileTier = "base" | "sm";
 
 export type TileTokenDef = {
-  /** CSS custom property name, e.g. "--tile-font". */
   key: string;
-  /** Human label shown next to the slider. */
   label: string;
-  /** CSS unit appended to the slider's numeric value. "" = unitless. */
   unit: "px" | "em" | "rem" | "vh" | "";
+  /** Legacy grouping kept for Copy CSS comments and older tests. */
   group: TileTokenGroup;
+  section: TileSection;
+  kind: "abs" | "scale";
   min: number;
   max: number;
   step: number;
-  /** Shipped default at <640px (the phone/base tier). */
   base: number;
-  /** Shipped default at ≥640px (the `sm:`/desktop tier). */
   sm: number;
+  /** For `kind: "scale"`: the absolute override property the CSS prefers when set. */
+  absKey?: string;
+  absUnit?: "px" | "rem";
+  absMin?: number;
+  absMax?: number;
+  absStep?: number;
+  hidden?: boolean;
 };
 
 export const TILE_TOKEN_DEFS: readonly TileTokenDef[] = [
-  // ── Build tiles (BuildSentenceStepView dense tier + ListeningBuildStepView
-  //    via fixed ratios — see comments at each call site) ──────────────────
-  {
-    key: "--tile-h",
-    label: "Tray floor height",
-    unit: "px",
-    group: "build",
-    min: 20,
-    max: 100,
-    step: 0.5,
-    // Mobile base updated 2026-09-15 — Spencer's own live dial-in on the QA
-    // page, saved to scratchpad/fb16-research/spencer-mobile-tokens-2026-09-15.css
-    // and applied verbatim (see the matching index.css comment). Desktop
-    // (`sm`) is untouched — he dialled mobile only.
-    base: 20,
-    sm: 61,
-  },
-  {
-    key: "--tile-font",
-    label: "Word size",
-    unit: "px",
-    group: "build",
-    min: 10,
-    max: 32,
-    step: 0.1,
-    base: 15.8,
-    sm: 20.4,
-  },
-  {
-    key: "--tile-kana-font",
-    label: "Kana-only word growth",
-    unit: "em",
-    group: "build",
-    min: 0.8,
-    max: 2,
-    step: 0.01,
-    base: 1.28,
-    sm: 1.2,
-  },
-  {
-    key: "--ruby-font",
-    label: "Furigana size",
-    unit: "em",
-    group: "build",
-    min: 0.3,
-    max: 1,
-    step: 0.01,
-    base: 0.72,
-    sm: 0.55,
-  },
-  {
-    key: "--ruby-floor-romaji",
-    label: "Romaji reading floor",
-    unit: "rem",
-    group: "build",
-    min: 0.4,
-    max: 1.2,
-    step: 0.0125,
-    base: 0.75,
-    sm: 0.75,
-  },
-  {
-    key: "--ruby-floor-kanji",
-    label: "Kanji reading floor",
-    unit: "rem",
-    group: "build",
-    min: 0.4,
-    max: 1.2,
-    step: 0.0125,
-    base: 0.7375,
-    sm: 0.625,
-  },
-  {
-    key: "--tile-px",
-    label: "Tile padding X",
-    unit: "px",
-    group: "build",
-    min: 4,
-    max: 30,
-    step: 0.25,
-    base: 10.75,
-    sm: 14,
-  },
-  {
-    key: "--tile-py",
-    label: "Tile padding Y",
-    unit: "px",
-    group: "build",
-    min: 0,
-    max: 20,
-    step: 0.25,
-    base: 4,
-    sm: 7,
-  },
-  {
-    key: "--tile-gap",
-    label: "Bank row gap",
-    unit: "px",
-    group: "build",
-    min: 0,
-    max: 24,
-    step: 0.5,
-    base: 8,
-    sm: 10,
-  },
-  {
-    key: "--tile-tray-gap",
-    label: "Tray row gap",
-    unit: "px",
-    group: "build",
-    min: 0,
-    max: 24,
-    step: 0.5,
-    base: 8,
-    sm: 10,
-  },
-  {
-    key: "--tile-radius",
-    label: "Tile corner radius",
-    unit: "rem",
-    group: "build",
-    min: 0,
-    max: 2,
-    step: 0.0625,
-    base: 0.75,
-    sm: 0.75,
-  },
-  // TestFlight #137 (b16.1, 2026-09-15): min-height floor applied to EVERY
-  // build tile box (dense/hugeBank/bigTiles AND ListeningBuildStepView's
-  // bank/tray) so furigana no longer makes one tile's box taller than its
-  // neighbour's. Default is LITERALLY 0 (provably inert for every fixture),
-  // which sits below this slider's 28px floor on purpose — see the
-  // index.css token-block comment for why 0 and not an "observed" number.
-  // "Lock tile heights" on the QA page drives this LIVE from a measurement
-  // instead of the slider; see TileSizingQaPage.tsx.
-  {
-    key: "--tile-box-h",
-    label: "Tile box min-height (uniform)",
-    unit: "px",
-    group: "build",
-    min: 28,
-    max: 80,
-    step: 0.5,
-    base: 0,
-    sm: 0,
-  },
-  // bigTiles' three literal numbers (px/py/font-clamp) wrapped in ONE
-  // unitless multiplier so a single slider scales the whole tier. Default 1
-  // = today's exact numbers — bigTiles was never derived from --tile-font/
-  // --tile-px (no `sm:` step, cqh-driven clamp), so "today's ratio" is
-  // self-relative identity, not a ratio against the dense tier's tokens.
-  {
-    key: "--tile-big-scale",
-    label: "Big-tile scale (≤6-tile / word-build, ×)",
-    unit: "",
-    group: "build",
-    min: 0.5,
-    max: 2,
-    step: 0.01,
-    base: 1,
-    sm: 1,
-  },
-  // ListeningBuildStepView's bank gap was a literal `gap-3` (12px, no `sm:`
-  // step) that did NOT match `--tile-gap`'s own default (8px) — wiring it
-  // there would have shrunk it. Own token, default 12, preserves today's
-  // TestFlight #125 "12px vs 8px" bank/tray mismatch as a disclosed default
-  // rather than silently changing it.
-  {
-    key: "--listen-bank-gap",
-    label: "Listen-build bank gap",
-    unit: "px",
-    group: "build",
-    min: 0,
-    max: 24,
-    step: 0.5,
-    base: 12,
-    sm: 12,
-  },
+  { key: "--tile-font", label: "Word size", unit: "px", group: "build", section: "base", kind: "abs", min: 10, max: 32, step: 0.1, base: 15.8, sm: 20.4 },
+  { key: "--tile-px", label: "Tile padding X", unit: "px", group: "build", section: "base", kind: "abs", min: 4, max: 30, step: 0.25, base: 10.75, sm: 14 },
+  { key: "--tile-py", label: "Tile padding Y", unit: "px", group: "build", section: "base", kind: "abs", min: 0, max: 20, step: 0.25, base: 4, sm: 7 },
+  { key: "--tile-box-h", label: "Tile height floor (lock uses this)", unit: "px", group: "build", section: "base", kind: "abs", min: 28, max: 80, step: 0.5, base: 0, sm: 0 },
+  { key: "--tile-radius", label: "Tile corner radius", unit: "rem", group: "build", section: "base", kind: "abs", min: 0, max: 2, step: 0.0625, base: 0.75, sm: 0.75 },
+  { key: "--tile-gap", label: "Bank row gap", unit: "px", group: "build", section: "base", kind: "abs", min: 0, max: 24, step: 0.5, base: 8, sm: 10 },
+  { key: "--tile-tray-gap", label: "Tray row gap", unit: "px", group: "build", section: "base", kind: "abs", min: 0, max: 24, step: 0.5, base: 8, sm: 10 },
+  { key: "--tile-h", label: "Sentence tray floor", unit: "px", group: "build", section: "base", kind: "abs", min: 20, max: 100, step: 0.5, base: 20, sm: 61 },
+  { key: "--tile-kana-font", label: "Kana-only word growth", unit: "em", group: "build", section: "base", kind: "abs", min: 0.8, max: 2, step: 0.01, base: 1.28, sm: 1.2 },
+  { key: "--ruby-font", label: "Furigana size", unit: "em", group: "build", section: "base", kind: "abs", min: 0.3, max: 1, step: 0.01, base: 0.72, sm: 0.55 },
+  { key: "--ruby-floor-romaji", label: "Romaji reading floor", unit: "rem", group: "build", section: "base", kind: "abs", min: 0.4, max: 1.2, step: 0.0125, base: 0.75, sm: 0.75 },
+  { key: "--ruby-floor-kanji", label: "Kanji reading floor", unit: "rem", group: "build", section: "base", kind: "abs", min: 0.4, max: 1.2, step: 0.0125, base: 0.7375, sm: 0.625 },
+  { key: "--huge-font-scale", label: "Word size × base", unit: "", group: "build", section: "huge", kind: "scale", min: 0.5, max: 1.5, step: 0.005, base: 1, sm: 0.833333, absKey: "--huge-font-abs", absUnit: "px", absMin: 10, absMax: 32, absStep: 0.1 },
+  { key: "--huge-py-scale", label: "Padding Y × base", unit: "", group: "build", section: "huge", kind: "scale", min: 0.25, max: 2, step: 0.01, base: 1, sm: 0.75, absKey: "--huge-py-abs", absUnit: "px", absMin: 0, absMax: 20, absStep: 0.25 },
+  { key: "--tile-big-scale", label: "Whole tier × (≤6 tiles / word build)", unit: "", group: "build", section: "big", kind: "abs", min: 0.5, max: 2, step: 0.01, base: 1, sm: 1 },
+  { key: "--listen-font-scale", label: "Word size × base", unit: "", group: "build", section: "listen", kind: "scale", min: 0.5, max: 2.5, step: 0.005, base: 1.030303, sm: 1.25, absKey: "--listen-font-abs", absUnit: "px", absMin: 10, absMax: 32, absStep: 0.1 },
+  { key: "--listen-px-scale", label: "Padding X × base", unit: "", group: "build", section: "listen", kind: "scale", min: 0.5, max: 2.5, step: 0.005, base: 1.142857, sm: 1.25, absKey: "--listen-px-abs", absUnit: "px", absMin: 4, absMax: 30, absStep: 0.25 },
+  { key: "--listen-py-scale", label: "Padding Y × base (tray)", unit: "", group: "build", section: "listen", kind: "scale", min: 0.5, max: 2.5, step: 0.005, base: 1.75, sm: 1.25, absKey: "--listen-py-abs", absUnit: "px", absMin: 0, absMax: 20, absStep: 0.25 },
+  { key: "--listen-bank-py-scale", label: "Padding Y × base (bank)", unit: "", group: "build", section: "listen", kind: "scale", min: 0.5, max: 2.5, step: 0.005, base: 1.75, sm: 2, absKey: "--listen-bank-py-abs", absUnit: "px", absMin: 0, absMax: 20, absStep: 0.25 },
+  { key: "--listen-bank-gap", label: "Bank gap", unit: "px", group: "build", section: "listen", kind: "abs", min: 0, max: 24, step: 0.5, base: 12, sm: 12 },
+  { key: "--match-tile-h", label: "Row height", unit: "rem", group: "match", section: "match", kind: "abs", min: 2, max: 8, step: 0.125, base: 4.75, sm: 4.75 },
+  { key: "--match-gap", label: "Row gap", unit: "rem", group: "match", section: "match", kind: "abs", min: 0, max: 2, step: 0.0625, base: 0.5, sm: 0.5 },
+  { key: "--match-font-scale", label: "Font scale (×, all 4 tiers)", unit: "", group: "match", section: "match", kind: "abs", min: 0.5, max: 2, step: 0.01, base: 1, sm: 1 },
+  { key: "--match-px", label: "Padding X", unit: "rem", group: "match", section: "match", kind: "abs", min: 0, max: 3, step: 0.0625, base: 1, sm: 1 },
+  { key: "--match-py", label: "Padding Y", unit: "rem", group: "match", section: "match", kind: "abs", min: 0, max: 2, step: 0.0625, base: 0.375, sm: 0.375 },
+  { key: "--match-radius", label: "Corner radius", unit: "rem", group: "match", section: "match", kind: "abs", min: 0, max: 2, step: 0.0625, base: 0.75, sm: 0.75 },
+  { key: "--option-px", label: "Option padding X", unit: "rem", group: "option", section: "option", kind: "abs", min: 0, max: 3, step: 0.0625, base: 1, sm: 1 },
+  { key: "--option-py", label: "Option padding Y (sentence/pick tiers)", unit: "rem", group: "option", section: "option", kind: "abs", min: 0.25, max: 3, step: 0.0625, base: 1.5, sm: 1.5 },
+  { key: "--option-font", label: "Option font size (sentence/pick tiers)", unit: "rem", group: "option", section: "option", kind: "abs", min: 0.75, max: 2.5, step: 0.0625, base: 1.25, sm: 1.25 },
+  { key: "--option-radius", label: "Option corner radius", unit: "rem", group: "option", section: "option", kind: "abs", min: 0, max: 2, step: 0.0625, base: 0.75, sm: 0.75 },
+  { key: "--option-gap", label: "Option grid gap", unit: "rem", group: "option", section: "option", kind: "abs", min: 0, max: 2, step: 0.0625, base: 0.75, sm: 1 },
+  { key: "--mcq-font", label: "Option font size", unit: "rem", group: "mcq", section: "option", kind: "abs", min: 0.75, max: 2.5, step: 0.0625, base: 1.25, sm: 1.25, hidden: true },
+  { key: "--mcq-py", label: "Option padding Y", unit: "rem", group: "mcq", section: "option", kind: "abs", min: 0.25, max: 3, step: 0.0625, base: 1.5, sm: 1.5, hidden: true },
+  { key: "--card-pad", label: "Card padding", unit: "rem", group: "card", section: "card", kind: "abs", min: 0.5, max: 3, step: 0.0625, base: 1.25, sm: 1.25 },
+  { key: "--card-max-h", label: "Card max height (vh)", unit: "vh", group: "card", section: "card", kind: "abs", min: 40, max: 100, step: 1, base: 85, sm: 85 },
+];
 
-  // ── Match pairs (own group) ───────────────────────────────────────────
-  {
-    key: "--match-tile-h",
-    label: "Row height",
-    unit: "rem",
-    group: "match",
-    min: 2,
-    max: 8,
-    step: 0.125,
-    base: 4.75,
-    sm: 4.75,
-  },
-  {
-    key: "--match-gap",
-    label: "Row gap",
-    unit: "rem",
-    group: "match",
-    min: 0,
-    max: 2,
-    step: 0.0625,
-    base: 0.5,
-    sm: 0.5,
-  },
-  {
-    key: "--match-font-scale",
-    label: "Font scale (×, all 4 tiers)",
-    unit: "",
-    group: "match",
-    min: 0.5,
-    max: 2,
-    step: 0.01,
-    base: 1,
-    sm: 1,
-  },
+export type TileSectionDef = {
+  id: TileSection;
+  label: string;
+  /** Which frame fixture(s) this section dials — the page scrolls the panes here. */
+  fixture: string;
+  /** Sections that derive from the plain tile get the scale/absolute toggle. */
+  derived: boolean;
+  note?: string;
+};
 
-  // ── Answer options (b16.2) ───────────────────────────────────────────
-  //    The answer buttons migrated to `Tile variant="option"` so far (MCQ's
-  //    four layouts, particle-cloze, and the single-answer pickers in
-  //    build_sentence / listening_build) read these tokens for their
-  //    geometry. The other ~19 step views' option buttons still compose
-  //    their own padding — see the b16.2 report's "literals left behind". `--option-py`/`--option-font`
-  //    DEFAULT TO `var(--mcq-py)`/`var(--mcq-font)` in index.css rather than
-  //    duplicating their numbers, so the MCQ sliders below still reach the
-  //    sentence tier; moving an `--option-*` slider overrides the
-  //    indirection, and "Reset to shipped defaults" (which REMOVES the
-  //    property) restores it. The values here are those defaults so the
-  //    slider starts in the right place.
-  //    ⚠️ Only the `sentence` and `pick` option tiers read `--option-py`/
-  //    `--option-font`; the word/glyph/reveal/particle tiers are literal
-  //    sizes (see `src/index.css` § TILE PRIMITIVE). `--option-px` and
-  //    `--option-radius` reach every option tier.
-  {
-    key: "--option-px",
-    label: "Option padding X",
-    unit: "rem",
-    group: "option",
-    min: 0,
-    max: 3,
-    step: 0.0625,
-    base: 1,
-    sm: 1,
-  },
-  {
-    key: "--option-py",
-    label: "Option padding Y (sentence/pick tiers)",
-    unit: "rem",
-    group: "option",
-    min: 0.25,
-    max: 3,
-    step: 0.0625,
-    base: 1.5,
-    sm: 1.5,
-  },
-  {
-    key: "--option-font",
-    label: "Option font size (sentence/pick tiers)",
-    unit: "rem",
-    group: "option",
-    min: 0.75,
-    max: 2.5,
-    step: 0.0625,
-    base: 1.25,
-    sm: 1.25,
-  },
-  {
-    key: "--option-radius",
-    label: "Option corner radius",
-    unit: "rem",
-    group: "option",
-    min: 0,
-    max: 2,
-    step: 0.0625,
-    base: 0.75,
-    sm: 0.75,
-  },
-  {
-    key: "--option-gap",
-    label: "Option grid gap",
-    unit: "rem",
-    group: "option",
-    min: 0,
-    max: 2,
-    step: 0.0625,
-    base: 0.75,
-    sm: 1,
-  },
-
-  // ── Lesson overlay card (b16.2) ──────────────────────────────────────
-  //    `LessonOverlayCard` (rule hints, reactive grammar tips, the row-test
-  //    skip confirm). `--card-max-h` is the cap that closes TestFlight #132
-  //    ("this info card doesn't fit on the screen and has no scroll") — it
-  //    is a DEFAULT in the primitive, not opt-in, and this slider is how the
-  //    owner tunes it rather than re-deciding it per card.
-  {
-    key: "--card-pad",
-    label: "Card padding",
-    unit: "rem",
-    group: "card",
-    min: 0.5,
-    max: 3,
-    step: 0.0625,
-    base: 1.25,
-    sm: 1.25,
-  },
-  {
-    key: "--card-max-h",
-    label: "Card max height (vh)",
-    unit: "vh",
-    group: "card",
-    min: 40,
-    max: 100,
-    step: 1,
-    base: 85,
-    sm: 85,
-  },
-
-  // ── Multiple choice (own group, regular/sentence layout only) ─────────
-  {
-    key: "--mcq-font",
-    label: "Option font size",
-    unit: "rem",
-    group: "mcq",
-    min: 0.75,
-    max: 2.5,
-    step: 0.0625,
-    base: 1.25,
-    sm: 1.25,
-  },
-  {
-    key: "--mcq-py",
-    label: "Option padding Y",
-    unit: "rem",
-    group: "mcq",
-    min: 0.25,
-    max: 3,
-    step: 0.0625,
-    base: 1.5,
-    sm: 1.5,
-  },
-] as const;
+export const TILE_SECTIONS: readonly TileSectionDef[] = [
+  { id: "base", label: "Plain tile — build, 7–11 tiles", fixture: "qa-tiles-build-8", derived: false, note: "Everything below scales off these." },
+  { id: "huge", label: "Build — 12+ tiles", fixture: "qa-tiles-build-16", derived: true },
+  { id: "big", label: "Build — ≤6 tiles / word build", fixture: "qa-tiles-build-5", derived: true },
+  { id: "listen", label: "Listening build", fixture: "qa-tiles-listen-9", derived: true },
+  { id: "match", label: "Match pairs", fixture: "qa-tiles-match-5", derived: false, note: "Own height; uniform within the grid (Spencer)." },
+  { id: "option", label: "Answer options — MCQ, cloze, pickers", fixture: "qa-tiles-mcq-4", derived: false },
+  { id: "card", label: "Overlay / rule card", fixture: "qa-tiles-overlay", derived: false },
+];
 
 export type TileVarMap = Record<string, number>;
 
-export function defaultVars(tier: "base" | "sm"): TileVarMap {
+export function defaultVars(tier: TileTier): TileVarMap {
   const out: TileVarMap = {};
-  for (const def of TILE_TOKEN_DEFS) out[def.key] = def[tier];
+  for (const def of TILE_TOKEN_DEFS) {
+    out[def.key] = def[tier];
+    if (def.absKey) out[def.absKey] = absDefault(def, tier);
+  }
   return out;
 }
 
+/** Today's effective absolute value of a scale token = base token × ratio. */
+export function absDefault(def: TileTokenDef, tier: TileTier): number {
+  const baseKey = def.key.endsWith("-font-scale")
+    ? "--tile-font"
+    : def.key.endsWith("-px-scale")
+      ? "--tile-px"
+      : "--tile-py";
+  const base = TILE_TOKEN_DEFS.find((d) => d.key === baseKey);
+  const v = (base ? base[tier] : 0) * def[tier];
+  return Math.round(v * 100) / 100;
+}
+
 /**
- * Format one token's value for CSS output. `value` is typed as possibly
- * `undefined` because `TileVarMap` is `Record<string, number>` in name only
- * — the actual object can be missing a key whenever it came from
- * `localStorage` (a blob saved before a token existed, e.g. Spencer's
- * pre-#137-follow-up mobile save had no `--tile-box-h`/`--tile-big-scale`/
- * `--listen-bank-gap` entries) or from `docs/qa/tile-sizing.json`. Falling
- * through to `${undefined}${unit}` produced literal `"undefinedpx"` in Copy
- * CSS / Save (Spencer, 2026-09-15) — `tier` picks which shipped default
- * (`base` or `sm`) to fall back to, so the OUTPUT is always a real number,
- * never a string with "undefined" in it.
+ * Format one token's value for CSS output. `value` may be missing when the
+ * map came from localStorage / the saved JSON (a blob saved before a token
+ * existed) — fall back to the shipped default for `tier` so the output is a
+ * real number, never "undefinedpx".
  */
-export function formatVar(
-  def: TileTokenDef,
-  value: number | undefined,
-  tier: "base" | "sm" = "base",
-): string {
+export function formatVar(def: TileTokenDef, value: number | undefined, tier: TileTier = "base"): string {
   const v = typeof value === "number" && Number.isFinite(value) ? value : def[tier];
   return `${v}${def.unit}`;
+}
+
+export function formatAbs(def: TileTokenDef, value: number | undefined, tier: TileTier = "base"): string {
+  const v = typeof value === "number" && Number.isFinite(value) ? value : absDefault(def, tier);
+  return `${v}${def.absUnit ?? "px"}`;
 }
 
 const GROUP_LABEL: Record<TileTokenGroup, string> = {
@@ -412,4 +153,8 @@ const GROUP_LABEL: Record<TileTokenGroup, string> = {
 
 export function groupLabel(group: TileTokenGroup): string {
   return GROUP_LABEL[group];
+}
+
+export function sectionTokens(section: TileSection): TileTokenDef[] {
+  return TILE_TOKEN_DEFS.filter((d) => d.section === section && !d.hidden);
 }

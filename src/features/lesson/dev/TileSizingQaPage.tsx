@@ -1,730 +1,614 @@
+/**
+ * `/:lang/qa/tiles` — tile sizing dial (TestFlight #137), rewritten
+ * 2026-09-15 to Spencer's spec: "sizing not applying evenly to the different
+ * step types, needs different separation for each step type AND they can
+ * scale off the plain tile."
+ *
+ * Model
+ *   - One PLAIN TILE section (build, dense tier). Every derived step type
+ *     (12+ tiles, ≤6 tiles, listening build) scales off it with unitless
+ *     multipliers; each derived section has a "scale / absolute" switch that
+ *     sets or clears the `--X-abs` override the CSS prefers (see
+ *     `tileSizingTokens.ts`). Match, options and the overlay card have their
+ *     own absolute tokens (Spencer: match may be its own height as long as it
+ *     is uniform).
+ *   - You edit ONE tier at a time (Mobile <640px / Desktop ≥640px, the app's
+ *     `sm:` breakpoint); both panes stay visible. Values persist per tier in
+ *     localStorage and can be saved to `docs/qa/tile-sizing.json` through the
+ *     dev-only Vite middleware (`/__qa/tile-sizing`).
+ *   - Mobile pane: a 430×932 iframe scaled to the phone's PHYSICAL size on
+ *     this screen (credit-card calibration). Desktop pane: a 1280px iframe of
+ *     the bare lesson element, scaled to fit its column, height from the
+ *     frame's reported content height, the outer pane scrolls.
+ *   - Clicking a section header scrolls both panes to the fixture it dials.
+ *
+ * Protocol with the iframes: `tileSizingMessage.ts`. Lock-heights logic lives
+ * in the frame (it measures and applies itself); the page only toggles it.
+ */
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { useLangPath } from "@/shared/hooks/useLangPath";
+import { TILE_QA_MESSAGE } from "./tileSizingMessage";
 import {
+  TILE_SECTIONS,
   TILE_TOKEN_DEFS,
+  absDefault,
   defaultVars,
+  formatAbs,
   formatVar,
-  groupLabel,
-  type TileTokenGroup,
+  sectionTokens,
+  type TileSection,
+  type TileTier,
+  type TileTokenDef,
   type TileVarMap,
 } from "./tileSizingTokens";
-import { TILE_QA_MESSAGE } from "./tileSizingMessage";
-
-/**
- * `/:lang/qa/tiles` — TestFlight #137's ask, verbatim (Spencer,
- * 2026-09-15): "views of desktop and mobile, potentially different
- * sliders for each, dynamically updating so I can dial it in. size it
- * same physical dimension as my phone too if we can relative to my mac."
- *
- * Two real `<iframe>`s of `/:lang/qa/tiles/frame` (one at 430×932 CSS px —
- * the 15 Pro Max logical size, one at 1280×900) render the REAL step
- * components — not copies — so a slider here changes production code.
- * Values persist per-pane in localStorage; "Copy CSS" hands Fable a
- * paste-ready `:root{…}` + `@media` block for `src/index.css`.
- */
-
-// Fixed width for BOTH panes' slider-grid wrapper (Spencer 2026-09-15: value
-// boxes pushed off-screen at 1440px). Neither pane's outer column has an
-// explicit width otherwise — it sizes to its widest child, which is the
-// mobile bezel (~356px scaled) on the left and the 1280px-wide iframe stage
-// on the right, so without an explicit width here the desktop slider grid
-// silently inherited 1280px and pushed its number/unit columns far off the
-// visible pane. Comfortably fits the widest label ("Kana-only word growth")
-// plus a usable slider track.
-const CONTROLS_W = 440;
 
 const MOBILE_W = 430;
 const MOBILE_H = 932;
 const DESKTOP_W = 1280;
-const DESKTOP_H = 900;
-// 15 Pro Max: 460 ppi physical / 3x device pixel ratio = 153.3 CSS px/inch.
-const PHONE_CSS_PX_PER_INCH = 153.3;
-const PHONE_PHYSICAL_WIDTH_MM = 71.6;
+const PHONE_CSS_PX_PER_INCH = 153.3; // 15 Pro Max: 460 ppi / 3
+const PHONE_SCREEN_WIDTH_MM = 71.6;
 const CARD_WIDTH_MM = 85.6;
 const CARD_HEIGHT_MM = 53.98;
-const SAFE_AREA_TOP_PT = 59;
-const SAFE_AREA_BOTTOM_PT = 34;
+const SAFE_TOP_PT = 59;
+const SAFE_BOTTOM_PT = 34;
 
-const LS_MOBILE = "lingo:qa-tiles-vars:mobile:v1";
-const LS_DESKTOP = "lingo:qa-tiles-vars:desktop:v1";
+const LS_VARS = { base: "lingo:qa-tiles-vars:mobile:v1", sm: "lingo:qa-tiles-vars:desktop:v1" } as const;
+const LS_MODES = { base: "lingo:qa-tiles-modes:mobile:v1", sm: "lingo:qa-tiles-modes:desktop:v1" } as const;
 const LS_CALIBRATION = "lingo:qa-tiles-calibration:v1";
 
+type SectionMode = "scale" | "abs";
+type ModeMap = Partial<Record<TileSection, SectionMode>>;
 type Calibration = { macCssPxPerInch: number; oneToOne: boolean };
-const DEFAULT_CALIBRATION: Calibration = { macCssPxPerInch: 127, oneToOne: false };
 
-function loadVars(key: string, tier: "base" | "sm"): TileVarMap {
-  const defaults = defaultVars(tier);
+function readJson<T>(key: string, fallback: T): T {
   try {
     const raw = localStorage.getItem(key);
-    if (!raw) return defaults;
-    const parsed = JSON.parse(raw) as Partial<TileVarMap>;
-    const out: TileVarMap = { ...defaults };
-    for (const [k, v] of Object.entries(parsed)) {
-      if (typeof v === "number" && Number.isFinite(v)) out[k] = v;
-    }
-    return out;
+    if (!raw) return fallback;
+    return { ...fallback, ...(JSON.parse(raw) as T) };
   } catch {
-    return defaults;
+    return fallback;
   }
 }
-
-function loadCalibration(): Calibration {
+function writeJson(key: string, value: unknown) {
   try {
-    const raw = localStorage.getItem(LS_CALIBRATION);
-    if (!raw) return DEFAULT_CALIBRATION;
-    return { ...DEFAULT_CALIBRATION, ...(JSON.parse(raw) as Partial<Calibration>) };
+    localStorage.setItem(key, JSON.stringify(value));
   } catch {
-    return DEFAULT_CALIBRATION;
+    /* private mode / blocked storage — the page still works for the session */
   }
 }
 
-// `tier` picks the fallback default `formatVar` uses for any key missing
-// from `vars` (e.g. a token added after Spencer's stored blob was saved) —
-// see the doc comment on `formatVar` in tileSizingTokens.ts. Never omit it:
-// the two call sites below are mobile ("base") and desktop ("sm").
-function formattedVars(vars: TileVarMap, tier: "base" | "sm"): Record<string, string> {
-  const out: Record<string, string> = {};
-  for (const def of TILE_TOKEN_DEFS) out[def.key] = formatVar(def, vars[def.key], tier);
-  return out;
+/** The exact {property: value} block a tier's frame should apply. Scale
+ *  tokens emit their scale key always and their abs key only in abs mode;
+ *  in scale mode the abs key is CLEARED so the CSS fallback (base × scale)
+ *  takes over again. */
+function resolveTier(vars: TileVarMap, modes: ModeMap, tier: TileTier) {
+  const set: Record<string, string> = {};
+  const clear: string[] = [];
+  for (const def of TILE_TOKEN_DEFS) {
+    set[def.key] = formatVar(def, vars[def.key], tier);
+    if (def.absKey) {
+      if (modes[def.section] === "abs") set[def.absKey] = formatAbs(def, vars[def.absKey], tier);
+      else clear.push(def.absKey);
+    }
+  }
+  return { set, clear };
 }
 
-const GROUPS: TileTokenGroup[] = ["build", "match", "mcq", "option", "card"];
+function cssBlock(vars: TileVarMap, modes: ModeMap, tier: TileTier): string {
+  const { set } = resolveTier(vars, modes, tier);
+  const lines = Object.entries(set).map(([k, v]) => `  ${k}: ${v};`);
+  return tier === "base"
+    ? `:root {\n${lines.join("\n")}\n}`
+    : `@media (min-width: 640px) {\n  :root {\n${lines.map((l) => "  " + l).join("\n")}\n  }\n}`;
+}
 
-const BOX_H_KEY = "--tile-box-h";
+function fmt(n: number, step: number) {
+  const d = step >= 1 ? 0 : Math.min(4, Math.ceil(-Math.log10(step)));
+  return n.toFixed(d).replace(/\.?0+$/, "");
+}
 
-function SliderPanel({
-  vars,
+function Slider({
+  label,
+  value,
+  min,
+  max,
+  step,
+  unit,
   onChange,
-  idPrefix,
-  locked,
-  lockedHeight,
+  onReset,
+  isDefault,
 }: {
-  vars: TileVarMap;
-  onChange: (key: string, value: number) => void;
-  idPrefix: string;
-  /** "Lock tile heights" (TestFlight #137) — while true, the --tile-box-h
-   *  row is disabled (the frame is driving it from a live measurement, not
-   *  this slider) and shows the measured value instead of the stored one. */
-  locked: boolean;
-  lockedHeight: number | null;
+  label: string;
+  value: number;
+  min: number;
+  max: number;
+  step: number;
+  unit: string;
+  onChange: (v: number) => void;
+  onReset: () => void;
+  isDefault: boolean;
 }) {
   return (
-    <div className="space-y-4">
-      {GROUPS.map((group) => (
-        <div key={group}>
-          <p className="mb-1 text-[11px] font-bold uppercase tracking-wide text-text-muted">
-            {groupLabel(group)}
-          </p>
-          {/* Fixed 4-column grid, not a flex row — a flex row's number/unit
-              cells got pushed off the right edge of the pane at 1440px
-              (Spencer's screenshot, 2026-09-15). `min-w-0` on the track
-              column lets the slider itself shrink instead of forcing the
-              row wider than the pane; both panes share this exact grid so
-              their columns line up. */}
-          <div className="space-y-1.5">
-            {TILE_TOKEN_DEFS.filter((d) => d.group === group).map((def) => {
-              const isBoxH = def.key === BOX_H_KEY;
-              const rowLocked = isBoxH && locked;
-              const displayValue = rowLocked ? (lockedHeight ?? vars[def.key]) : vars[def.key];
-              return (
-                <div
-                  key={def.key}
-                  className="grid grid-cols-[auto_1fr_4.5rem_2.5rem] items-center gap-2 text-xs"
-                >
-                  <label
-                    htmlFor={`${idPrefix}-${def.key}`}
-                    className={`w-36 shrink-0 truncate ${rowLocked ? "text-text-muted/60" : "text-text-secondary"}`}
-                    title={def.label}
-                  >
-                    {def.label}
-                    {rowLocked && " (locked)"}
-                  </label>
-                  <input
-                    id={`${idPrefix}-${def.key}`}
-                    type="range"
-                    min={def.min}
-                    max={def.max}
-                    step={def.step}
-                    disabled={rowLocked}
-                    value={displayValue}
-                    onChange={(e) => onChange(def.key, Number(e.target.value))}
-                    className="h-1.5 min-w-0 accent-accent disabled:opacity-40"
-                  />
-                  <input
-                    type="number"
-                    min={def.min}
-                    max={def.max}
-                    step={def.step}
-                    disabled={rowLocked}
-                    value={displayValue}
-                    onChange={(e) => onChange(def.key, Number(e.target.value))}
-                    className="w-full min-w-0 rounded border border-border bg-surface px-1 py-0.5 text-right text-xs text-text-primary disabled:opacity-40"
-                  />
-                  <span className="shrink-0 truncate text-text-muted">{def.unit || "×"}</span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      ))}
-    </div>
+    <label className="grid grid-cols-[minmax(0,1fr)_7rem_4.5rem_1.5rem] items-center gap-2 text-xs">
+      <span className="truncate text-text-muted" title={label}>
+        {label}
+      </span>
+      <input
+        type="range"
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        onChange={(e) => onChange(Number(e.target.value))}
+        className="w-full accent-accent"
+      />
+      <span className="flex items-center gap-1">
+        <input
+          type="number"
+          min={min}
+          max={max}
+          step={step}
+          value={fmt(value, step)}
+          onChange={(e) => {
+            const v = Number(e.target.value);
+            if (Number.isFinite(v)) onChange(v);
+          }}
+          className="w-14 rounded border border-border bg-surface px-1 py-0.5 text-right tabular-nums"
+        />
+        <span className="w-6 text-text-muted">{unit || "×"}</span>
+      </span>
+      <button
+        type="button"
+        onClick={onReset}
+        title="reset to shipped default"
+        className={`rounded px-1 text-[10px] ${isDefault ? "invisible" : "text-text-muted hover:text-text-primary"}`}
+      >
+        ↺
+      </button>
+    </label>
   );
 }
 
 export default function TileSizingQaPage() {
-  const { language } = useLanguage();
-  const langId = language?.id ?? "ja";
-
-  const [mobileVars, setMobileVars] = useState<TileVarMap>(() =>
-    loadVars(LS_MOBILE, "base"),
+  const langPath = useLangPath();
+  const [tier, setTier] = useState<TileTier>("base");
+  const [vars, setVars] = useState<Record<TileTier, TileVarMap>>(() => ({
+    base: readJson(LS_VARS.base, defaultVars("base")),
+    sm: readJson(LS_VARS.sm, defaultVars("sm")),
+  }));
+  const [modes, setModes] = useState<Record<TileTier, ModeMap>>(() => ({
+    base: readJson(LS_MODES.base, {}),
+    sm: readJson(LS_MODES.sm, {}),
+  }));
+  const [calibration, setCalibration] = useState<Calibration>(() =>
+    readJson(LS_CALIBRATION, { macCssPxPerInch: 127, oneToOne: false }),
   );
-  const [desktopVars, setDesktopVars] = useState<TileVarMap>(() =>
-    loadVars(LS_DESKTOP, "sm"),
-  );
-  const [calibration, setCalibration] = useState<Calibration>(loadCalibration);
-  const [copyStatus, setCopyStatus] = useState<string | null>(null);
-
-  // "Lock tile heights" (TestFlight #137). Locked = the FRAME measures its
-  // own 8-tile fixture and drives --tile-box-h itself; the slider for that
-  // one token is disabled and shows the measured value (SliderPanel above).
-  // The underlying slider STATE (mobileVars["--tile-box-h"]) is untouched
-  // while locked, so switching the toggle back off restores exactly what
-  // it held before — per the brief, "When off, it restores the slider
-  // value."
-  const [mobileLocked, setMobileLocked] = useState(false);
-  const [desktopLocked, setDesktopLocked] = useState(false);
-  const [mobileLockedHeight, setMobileLockedHeight] = useState<number | null>(null);
-  const [desktopLockedHeight, setDesktopLockedHeight] = useState<number | null>(null);
-
-  // Desktop pane content-height (Spencer 2026-09-15: "make it scrollable").
-  // The frame reports its own `scrollHeight`; the iframe is sized to fit it
-  // exactly and the OUTER pane (a fixed-height `overflow-y-auto` box, see the
-  // JSX below) is the only scroller — avoids a scrollbar nested inside
-  // another scrollbar.
-  const [desktopContentHeight, setDesktopContentHeight] = useState(DESKTOP_H);
-
-  // Save/Load (Spencer 2026-09-15: "Save my sizing") — dev-only middleware
-  // at POST/GET /__qa/tile-sizing (vite.config.ts, writes
-  // docs/qa/tile-sizing.json). `import.meta.env.DEV` is statically false in
-  // a production build, so the Save control cannot even render there.
-  const isDev = import.meta.env.DEV;
-  const [saveStatus, setSaveStatus] = useState<string | null>(null);
+  const [locked, setLocked] = useState<Record<TileTier, boolean>>({ base: false, sm: false });
+  const [lockedHeight, setLockedHeight] = useState<Record<TileTier, number | null>>({ base: null, sm: null });
+  const [desktopContentH, setDesktopContentH] = useState(1800);
+  const [ready, setReady] = useState<Record<TileTier, boolean>>({ base: false, sm: false });
+  const [status, setStatus] = useState<string | null>(null);
   const [hasSavedFile, setHasSavedFile] = useState(false);
+  const [openSections, setOpenSections] = useState<Record<string, boolean>>({ base: true });
+  const [showCalibration, setShowCalibration] = useState(false);
+  const mobileRef = useRef<HTMLIFrameElement>(null);
+  const desktopRef = useRef<HTMLIFrameElement>(null);
+  const desktopColRef = useRef<HTMLDivElement>(null);
+  const [desktopColW, setDesktopColW] = useState(640);
 
-  const mobileFrameRef = useRef<HTMLIFrameElement>(null);
-  const desktopFrameRef = useRef<HTMLIFrameElement>(null);
-  // Frames announce readiness via postMessage; until then, queued sends
-  // would land before the frame's listener attaches and be lost.
-  const mobileReady = useRef(false);
-  const desktopReady = useRef(false);
+  const frameFor = (t: TileTier) => (t === "base" ? mobileRef : desktopRef).current?.contentWindow ?? null;
 
-  const sendVars = useCallback(
-    (
-      frame: HTMLIFrameElement | null,
-      vars: TileVarMap,
-      tier: "base" | "sm",
-      locked: boolean,
-    ) => {
-      const formatted = formattedVars(vars, tier);
-      // While locked, the FRAME is the source of truth for --tile-box-h
-      // (it self-measures and self-applies) — omit it here so this push
-      // can never stomp the live-measured value out from under the lock.
-      // The frame also filters this key defensively on its own side.
-      if (locked) delete formatted[BOX_H_KEY];
-      frame?.contentWindow?.postMessage(
-        {
-          source: TILE_QA_MESSAGE.source,
-          type: TILE_QA_MESSAGE.setVars,
-          vars: formatted,
-        },
-        "*",
-      );
+  // Push the FULL resolved map for a tier (never a diff) so a reloaded
+  // frame converges. Skips --tile-box-h while that pane is locked.
+  const push = useCallback(
+    (t: TileTier) => {
+      const win = frameFor(t);
+      if (!win) return;
+      const { set, clear } = resolveTier(vars[t], modes[t], t);
+      if (locked[t]) delete set["--tile-box-h"];
+      win.postMessage({ source: TILE_QA_MESSAGE.source, type: TILE_QA_MESSAGE.setVars, vars: set }, "*");
+      if (clear.length) win.postMessage({ source: TILE_QA_MESSAGE.source, type: TILE_QA_MESSAGE.clearVars, keys: clear }, "*");
     },
-    [],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [vars, modes, locked],
   );
 
-  const postLock = useCallback((frame: HTMLIFrameElement | null, locked: boolean) => {
-    frame?.contentWindow?.postMessage(
-      { source: TILE_QA_MESSAGE.source, type: TILE_QA_MESSAGE.setLock, locked },
-      "*",
-    );
-  }, []);
-
   useEffect(() => {
-    localStorage.setItem(LS_MOBILE, JSON.stringify(mobileVars));
-    if (mobileReady.current) sendVars(mobileFrameRef.current, mobileVars, "base", mobileLocked);
-  }, [mobileVars, mobileLocked, sendVars]);
-
+    if (ready.base) push("base");
+    writeJson(LS_VARS.base, vars.base);
+    writeJson(LS_MODES.base, modes.base);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [vars.base, modes.base, ready.base]);
   useEffect(() => {
-    localStorage.setItem(LS_DESKTOP, JSON.stringify(desktopVars));
-    if (desktopReady.current) sendVars(desktopFrameRef.current, desktopVars, "sm", desktopLocked);
-  }, [desktopVars, desktopLocked, sendVars]);
+    if (ready.sm) push("sm");
+    writeJson(LS_VARS.sm, vars.sm);
+    writeJson(LS_MODES.sm, modes.sm);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [vars.sm, modes.sm, ready.sm]);
+  useEffect(() => writeJson(LS_CALIBRATION, calibration), [calibration]);
 
-  useEffect(() => {
-    localStorage.setItem(LS_CALIBRATION, JSON.stringify(calibration));
-  }, [calibration]);
-
-  // Offer "Load saved" if docs/qa/tile-sizing.json already exists (dev only).
-  useEffect(() => {
-    if (!isDev) return;
-    fetch("/__qa/tile-sizing")
-      .then((r) => setHasSavedFile(r.ok))
-      .catch(() => setHasSavedFile(false));
-  }, [isDev]);
-
-  // Frame → parent "ready" handshake: push the current pane's vars the
-  // instant a frame's listener attaches (covers first load AND any later
-  // iframe reload). Also handles the lock-measurement + content-height
-  // reports the frame sends while running.
   useEffect(() => {
     function onMessage(e: MessageEvent) {
-      const data = e.data;
-      if (!data || data.source !== TILE_QA_MESSAGE.source) return;
-      if (data.type === TILE_QA_MESSAGE.ready) {
-        if (data.view === "mobile") {
-          mobileReady.current = true;
-          sendVars(mobileFrameRef.current, mobileVars, "base", mobileLocked);
-          if (mobileLocked) postLock(mobileFrameRef.current, true);
-        } else if (data.view === "desktop") {
-          desktopReady.current = true;
-          sendVars(desktopFrameRef.current, desktopVars, "sm", desktopLocked);
-          if (desktopLocked) postLock(desktopFrameRef.current, true);
-        }
-      } else if (data.type === TILE_QA_MESSAGE.lockMeasured) {
-        const height = typeof data.height === "number" ? data.height : null;
-        if (data.view === "mobile") setMobileLockedHeight(height);
-        else if (data.view === "desktop") setDesktopLockedHeight(height);
-      } else if (data.type === TILE_QA_MESSAGE.contentHeight) {
-        // Only the desktop pane resizes its iframe to content — the mobile
-        // pane is sized to the phone's physical footprint, not content.
-        if (data.view === "desktop" && typeof data.height === "number") {
-          setDesktopContentHeight(Math.max(data.height, 200));
-        }
-      }
+      const d = e.data;
+      if (!d || d.source !== TILE_QA_MESSAGE.source) return;
+      const t: TileTier = d.view === "desktop" ? "sm" : "base";
+      if (d.type === TILE_QA_MESSAGE.ready) setReady((r) => ({ ...r, [t]: true }));
+      else if (d.type === TILE_QA_MESSAGE.lockMeasured) setLockedHeight((h) => ({ ...h, [t]: d.height ?? null }));
+      else if (d.type === TILE_QA_MESSAGE.contentHeight && t === "sm") setDesktopContentH(Math.max(600, Number(d.height) || 0));
     }
     window.addEventListener("message", onMessage);
     return () => window.removeEventListener("message", onMessage);
-    // Intentionally NOT depending on mobileVars/desktopVars — the vars
-    // effects above already re-push on every change; this handshake only
-    // needs the LATEST values, read fresh via refs' closures each call.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sendVars, postLock, mobileLocked, desktopLocked]);
+  }, []);
 
-  const resetPane = (pane: "mobile" | "desktop") => {
-    if (pane === "mobile") setMobileVars(defaultVars("base"));
-    else setDesktopVars(defaultVars("sm"));
+  useEffect(() => {
+    fetch("/__qa/tile-sizing")
+      .then((r) => setHasSavedFile(r.ok))
+      .catch(() => setHasSavedFile(false));
+  }, []);
+
+  useEffect(() => {
+    const el = desktopColRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => setDesktopColW(el.clientWidth));
+    ro.observe(el);
+    setDesktopColW(el.clientWidth);
+    return () => ro.disconnect();
+  }, []);
+
+  const setVar = (key: string, value: number) =>
+    setVars((v) => ({ ...v, [tier]: { ...v[tier], [key]: value } }));
+  const resetVar = (def: TileTokenDef) =>
+    setVars((v) => {
+      const next = { ...v[tier], [def.key]: def[tier] };
+      if (def.absKey) next[def.absKey] = absDefault(def, tier);
+      return { ...v, [tier]: next };
+    });
+  const setMode = (section: TileSection, mode: SectionMode) =>
+    setModes((m) => ({ ...m, [tier]: { ...m[tier], [section]: mode } }));
+  const resetSection = (section: TileSection) =>
+    setVars((v) => {
+      const next = { ...v[tier] };
+      for (const def of TILE_TOKEN_DEFS.filter((d) => d.section === section)) {
+        next[def.key] = def[tier];
+        if (def.absKey) next[def.absKey] = absDefault(def, tier);
+      }
+      return { ...v, [tier]: next };
+    });
+  const resetAll = () => {
+    setVars((v) => ({ ...v, [tier]: defaultVars(tier) }));
+    setModes((m) => ({ ...m, [tier]: {} }));
   };
 
-  const toggleLock = (pane: "mobile" | "desktop") => {
-    if (pane === "mobile") {
-      const next = !mobileLocked;
-      setMobileLocked(next);
-      postLock(mobileFrameRef.current, next);
-      if (!next) {
-        setMobileLockedHeight(null);
-        // Restore the slider's own value immediately rather than waiting
-        // for the next unrelated vars-push.
-        sendVars(mobileFrameRef.current, mobileVars, "base", false);
-      }
-    } else {
-      const next = !desktopLocked;
-      setDesktopLocked(next);
-      postLock(desktopFrameRef.current, next);
-      if (!next) {
-        setDesktopLockedHeight(null);
-        sendVars(desktopFrameRef.current, desktopVars, "sm", false);
-      }
-    }
+  const toggleLock = (t: TileTier) => {
+    const next = !locked[t];
+    setLocked((l) => ({ ...l, [t]: next }));
+    frameFor(t)?.postMessage({ source: TILE_QA_MESSAGE.source, type: TILE_QA_MESSAGE.setLock, locked: next }, "*");
+    if (!next) setTimeout(() => push(t), 0);
+  };
+  const adoptLockedHeight = (t: TileTier) => {
+    const h = lockedHeight[t];
+    if (h == null) return;
+    setVars((v) => ({ ...v, [t]: { ...v[t], "--tile-box-h": h } }));
+    if (locked[t]) toggleLock(t);
   };
 
-  // Resolved (fallback-applied) copies of both panes' vars — used for every
-  // OUTPUT (CSS text, JSON, Save), never the raw state maps directly. A raw
-  // map can be missing a key entirely (a token added after Spencer's stored
-  // blob was saved, or after `docs/qa/tile-sizing.json` was written); without
-  // this, Copy CSS emitted literal `"undefinedpx"` for those keys (Spencer,
-  // 2026-09-15). `formatVar`'s own fallback (tileSizingTokens.ts) covers the
-  // live iframes via `sendVars`; this covers everything the page ITSELF
-  // renders as text.
-  const resolvedMobile = useMemo(() => {
-    const out: TileVarMap = {};
-    for (const def of TILE_TOKEN_DEFS) {
-      const v = mobileVars[def.key];
-      out[def.key] = typeof v === "number" && Number.isFinite(v) ? v : def.base;
-    }
-    return out;
-  }, [mobileVars]);
-  const resolvedDesktop = useMemo(() => {
-    const out: TileVarMap = {};
-    for (const def of TILE_TOKEN_DEFS) {
-      const v = desktopVars[def.key];
-      out[def.key] = typeof v === "number" && Number.isFinite(v) ? v : def.sm;
-    }
-    return out;
-  }, [desktopVars]);
+  const scrollPanesTo = (fixture: string) => {
+    for (const t of ["base", "sm"] as TileTier[])
+      frameFor(t)?.postMessage({ source: TILE_QA_MESSAGE.source, type: TILE_QA_MESSAGE.scrollTo, fixture }, "*");
+  };
 
-  const cssText = useMemo(() => {
-    const base = TILE_TOKEN_DEFS.map(
-      (d) => `  ${d.key}: ${formatVar(d, resolvedMobile[d.key], "base")};`,
-    ).join("\n");
-    const smLines = TILE_TOKEN_DEFS.filter(
-      (d) => resolvedDesktop[d.key] !== resolvedMobile[d.key],
-    ).map((d) => `    ${d.key}: ${formatVar(d, resolvedDesktop[d.key], "sm")};`);
-    const smBlock =
-      smLines.length > 0
-        ? `\n@media (min-width: 640px) {\n  :root {\n${smLines.join("\n")}\n  }\n}\n`
-        : "";
-    return `:root {\n${base}\n}\n${smBlock}`;
-  }, [resolvedMobile, resolvedDesktop]);
-
-  const jsonText = useMemo(
-    () => JSON.stringify({ mobile: resolvedMobile, desktop: resolvedDesktop }, null, 2),
-    [resolvedMobile, resolvedDesktop],
+  const cssText = useMemo(
+    () => `${cssBlock(vars.base, modes.base, "base")}\n\n${cssBlock(vars.sm, modes.sm, "sm")}\n`,
+    [vars, modes],
   );
+  const jsonPayload = () => ({
+    mobile: resolveTier(vars.base, modes.base, "base").set,
+    desktop: resolveTier(vars.sm, modes.sm, "sm").set,
+    raw: { mobile: vars.base, desktop: vars.sm, modes },
+    savedAt: new Date().toISOString(),
+  });
 
+  const flash = (msg: string, ms = 2500) => {
+    setStatus(msg);
+    setTimeout(() => setStatus(null), ms);
+  };
   const copy = async (text: string, label: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      setCopyStatus(`${label} copied`);
+      flash(`${label} copied`);
     } catch {
-      setCopyStatus(`${label}: clipboard blocked — see console`);
       // eslint-disable-next-line no-console
       console.log(text);
+      flash(`${label}: clipboard blocked — printed to console`);
     }
-    setTimeout(() => setCopyStatus(null), 2000);
   };
-
   const save = async () => {
     try {
       const res = await fetch("/__qa/tile-sizing", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          mobile: resolvedMobile,
-          desktop: resolvedDesktop,
-          savedAt: new Date().toISOString(),
-        }),
+        body: JSON.stringify(jsonPayload()),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       setHasSavedFile(true);
       const now = new Date();
-      setSaveStatus(
-        `saved ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`,
-      );
+      flash(`saved ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")} → docs/qa/tile-sizing.json`, 4000);
     } catch {
-      setSaveStatus("save failed — see console");
-      // eslint-disable-next-line no-console
-      console.error("tile-sizing save failed");
+      flash("save failed — dev server only", 4000);
     }
-    setTimeout(() => setSaveStatus(null), 4000);
   };
-
-  const loadSaved = async () => {
+  const load = async () => {
     try {
       const res = await fetch("/__qa/tile-sizing");
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = (await res.json()) as { mobile?: TileVarMap; desktop?: TileVarMap };
-      if (data.mobile) setMobileVars({ ...defaultVars("base"), ...data.mobile });
-      if (data.desktop) setDesktopVars({ ...defaultVars("sm"), ...data.desktop });
-      setSaveStatus("loaded saved sizing");
+      const data = (await res.json()) as { raw?: { mobile?: TileVarMap; desktop?: TileVarMap; modes?: Record<TileTier, ModeMap> }; mobile?: TileVarMap; desktop?: TileVarMap };
+      const m = data.raw?.mobile ?? data.mobile;
+      const d = data.raw?.desktop ?? data.desktop;
+      if (m) setVars((v) => ({ ...v, base: { ...defaultVars("base"), ...m } }));
+      if (d) setVars((v) => ({ ...v, sm: { ...defaultVars("sm"), ...d } }));
+      if (data.raw?.modes) setModes(data.raw.modes);
+      flash("loaded docs/qa/tile-sizing.json");
     } catch {
-      setSaveStatus("load failed — see console");
-      // eslint-disable-next-line no-console
-      console.error("tile-sizing load failed");
+      flash("load failed", 4000);
     }
-    setTimeout(() => setSaveStatus(null), 4000);
   };
 
-  const scale = calibration.oneToOne
-    ? 1
-    : calibration.macCssPxPerInch / PHONE_CSS_PX_PER_INCH;
-  const scaledW = Math.round(MOBILE_W * scale);
-  const scaledH = Math.round(MOBILE_H * scale);
-  const phoneWidthOnScreenMm = calibration.oneToOne
-    ? null
-    : (scaledW / calibration.macCssPxPerInch) * 25.4;
+  // Physical scale for the mobile pane.
+  const scale = calibration.oneToOne ? 1 : calibration.macCssPxPerInch / PHONE_CSS_PX_PER_INCH;
+  const phoneW = Math.round(MOBILE_W * scale);
+  const phoneH = Math.round(MOBILE_H * scale);
+  const cardW = (CARD_WIDTH_MM / 25.4) * calibration.macCssPxPerInch;
+  const cardH = (CARD_HEIGHT_MM / 25.4) * calibration.macCssPxPerInch;
+  const desktopScale = Math.min(1, desktopColW / DESKTOP_W);
 
-  const cardWidthPx = (CARD_WIDTH_MM / 25.4) * calibration.macCssPxPerInch;
-  const cardHeightPx = (CARD_HEIGHT_MM / 25.4) * calibration.macCssPxPerInch;
+  const tierVars = vars[tier];
+  const tierModes = modes[tier];
+  const frameBase = `${langPath("/qa/tiles/frame")}`;
 
   return (
-    <div className="mx-auto max-w-[1600px] p-4">
-      <header className="mb-4 flex flex-wrap items-center justify-between gap-2">
-        <div>
-          <h1 className="text-lg font-bold text-text-primary">Tile sizing</h1>
-          <p className="text-xs text-text-muted">
-            TestFlight #137 — dial build/match/MCQ tile geometry live. Every
-            token defaults to today's shipped rendering; nothing changes
-            until a slider moves. Values persist per pane in this browser.
-          </p>
-        </div>
-        <Link
-          to={`/${langId}/qa`}
-          className="rounded border border-border bg-surface px-2 py-1 text-xs hover:bg-surface-muted"
-        >
-          ← QA hub
-        </Link>
-      </header>
-
-      {/* Physical-scale calibration */}
-      <section className="mb-4 rounded-xl border border-border bg-surface p-3">
-        <p className="mb-2 text-[11px] font-bold uppercase tracking-wide text-text-muted">
-          Physical scale (mobile pane)
-        </p>
-        <div className="flex flex-wrap items-center gap-4">
-          <label className="flex items-center gap-2 text-xs">
-            <input
-              type="checkbox"
-              checked={calibration.oneToOne}
-              onChange={(e) =>
-                setCalibration((c) => ({ ...c, oneToOne: e.target.checked }))
-              }
-            />
-            1:1 CSS px (no physical scaling)
-          </label>
-          <div
-            className={`flex items-center gap-2 text-xs ${calibration.oneToOne ? "opacity-40" : ""}`}
-          >
-            <span className="text-text-secondary">Mac screen px/inch</span>
-            <input
-              type="range"
-              min={80}
-              max={260}
-              step={1}
-              disabled={calibration.oneToOne}
-              value={calibration.macCssPxPerInch}
-              onChange={(e) =>
-                setCalibration((c) => ({
-                  ...c,
-                  macCssPxPerInch: Number(e.target.value),
-                }))
-              }
-              className="h-1.5 w-40 accent-accent"
-            />
-            <span className="w-10 text-text-muted">
-              {calibration.macCssPxPerInch}
-            </span>
-          </div>
-          <div className="text-xs text-text-muted">
-            scale = {scale.toFixed(3)}×
-            {phoneWidthOnScreenMm != null && (
-              <>
-                {" "}
-                · phone renders at ~{phoneWidthOnScreenMm.toFixed(1)}mm wide
-                (real: {PHONE_PHYSICAL_WIDTH_MM}mm)
-              </>
-            )}
-          </div>
-        </div>
-        <div
-          className={`mt-2 flex items-center justify-center rounded-lg border-2 border-dashed border-accent bg-accent-muted text-[10px] font-semibold text-accent ${calibration.oneToOne ? "opacity-40" : ""}`}
-          style={{ width: cardWidthPx, height: cardHeightPx }}
-        >
-          hold a credit card here — 85.60 × 53.98 mm
-        </div>
-      </section>
-
-      <div className="flex gap-4 overflow-x-auto">
-        {/* Mobile pane */}
-        <div className="shrink-0">
-          <h2 className="mb-2 text-sm font-semibold text-text-primary">
-            Mobile — 430×932 CSS px (15 Pro Max)
-          </h2>
-          <div className="mb-2 flex flex-wrap items-center gap-2">
+    <div className="min-h-screen bg-background px-4 pb-16 pt-3 text-text-primary">
+      {/* Header */}
+      <div className="mb-3 flex flex-wrap items-center gap-2">
+        <h1 className="mr-2 text-lg font-bold">Tile sizing</h1>
+        <div className="inline-flex overflow-hidden rounded-lg border border-border text-xs">
+          {(["base", "sm"] as TileTier[]).map((t) => (
             <button
+              key={t}
               type="button"
-              onClick={() => resetPane("mobile")}
-              className="rounded border border-border bg-surface px-2 py-1 text-xs hover:bg-surface-muted"
+              onClick={() => setTier(t)}
+              className={`px-3 py-1.5 font-semibold ${tier === t ? "bg-accent text-white" : "bg-surface text-text-muted hover:text-text-primary"}`}
             >
-              Reset to shipped defaults
+              {t === "base" ? "Editing: Mobile (<640px)" : "Editing: Desktop (≥640px)"}
             </button>
-            <label className="flex items-center gap-1.5 text-xs text-text-secondary">
-              <input
-                type="checkbox"
-                checked={mobileLocked}
-                onChange={() => toggleLock("mobile")}
-              />
-              Lock tile heights
-              {mobileLocked && (
-                <span className="text-text-muted">
-                  ({mobileLockedHeight != null ? `${mobileLockedHeight}px` : "measuring…"})
-                </span>
-              )}
-            </label>
-          </div>
-          <div
-            className="mb-3 max-h-56 min-w-0 overflow-y-auto rounded-lg border border-border bg-surface-muted/40 p-2"
-            style={{ width: CONTROLS_W }}
-          >
-            <SliderPanel
-              vars={mobileVars}
-              idPrefix="mobile"
-              locked={mobileLocked}
-              lockedHeight={mobileLockedHeight}
-              onChange={(key, value) =>
-                setMobileVars((v) => ({ ...v, [key]: value }))
-              }
-            />
-          </div>
-          {/* Scaled physical-size stage. The wrapper is sized to the
-              SCALED footprint so surrounding layout doesn't overlap the
-              transformed iframe (a scaled element keeps its original box
-              for layout purposes unless the container is resized to
-              match). */}
-          <div
-            className="relative overflow-hidden rounded-[2.5rem] border-[6px] border-text-primary/70 bg-black shadow-lg"
-            style={{ width: scaledW, height: scaledH }}
-          >
-            <div
-              style={{
-                width: MOBILE_W,
-                height: MOBILE_H,
-                transform: `scale(${scale})`,
-                transformOrigin: "top left",
-              }}
-            >
-              <iframe
-                ref={mobileFrameRef}
-                title="Mobile tile preview"
-                src={`/${langId}/qa/tiles/frame?view=mobile`}
-                width={MOBILE_W}
-                height={MOBILE_H}
-                style={{ border: "none", display: "block" }}
-              />
-              {/* Safe-area bezel overlay, drawn in the SAME unscaled
-                  coordinate space as the iframe so it scales with it. */}
-              <div
-                className="pointer-events-none absolute left-0 top-0 w-full border-b border-white/20 bg-black/35"
-                style={{ height: SAFE_AREA_TOP_PT }}
-              />
-              <div
-                className="pointer-events-none absolute bottom-0 left-0 w-full border-t border-white/20 bg-black/35"
-                style={{ height: SAFE_AREA_BOTTOM_PT }}
-              />
-            </div>
-          </div>
+          ))}
         </div>
-
-        {/* Desktop pane */}
-        <div className="shrink-0">
-          <h2 className="mb-2 text-sm font-semibold text-text-primary">
-            Desktop — 1280×900 CSS px
-          </h2>
-          <div className="mb-2 flex flex-wrap items-center gap-2">
-            <button
-              type="button"
-              onClick={() => resetPane("desktop")}
-              className="rounded border border-border bg-surface px-2 py-1 text-xs hover:bg-surface-muted"
-            >
-              Reset to shipped defaults
-            </button>
-            <label className="flex items-center gap-1.5 text-xs text-text-secondary">
-              <input
-                type="checkbox"
-                checked={desktopLocked}
-                onChange={() => toggleLock("desktop")}
-              />
-              Lock tile heights
-              {desktopLocked && (
-                <span className="text-text-muted">
-                  ({desktopLockedHeight != null ? `${desktopLockedHeight}px` : "measuring…"})
-                </span>
-              )}
-            </label>
-          </div>
-          <div
-            className="mb-3 max-h-56 min-w-0 overflow-y-auto rounded-lg border border-border bg-surface-muted/40 p-2"
-            style={{ width: CONTROLS_W }}
-          >
-            <SliderPanel
-              vars={desktopVars}
-              idPrefix="desktop"
-              locked={desktopLocked}
-              lockedHeight={desktopLockedHeight}
-              onChange={(key, value) =>
-                setDesktopVars((v) => ({ ...v, [key]: value }))
-              }
-            />
-          </div>
-          {/* Element-only, scrollable (Spencer 2026-09-15: "I just need the
-              element for desktop not the whole page, make it scrollable").
-              The frame itself renders bare now (FOCUSED_FLOW_PATTERN in
-              routes/focusedFlow.ts matches /qa/tiles/frame, and Layout.tsx
-              additionally drops the sidebar for this one route — see the
-              comments there) — this pane is a fixed-height (70vh) outer
-              scroller, and the iframe is sized to the frame's REPORTED
-              content height (contentHeight message) so there is exactly
-              one scrollbar, not one nested inside another.
-              Container width is the FULL `DESKTOP_W` (1280), not the old
-              900px cap — the iframe itself is 1280 wide (matching a real
-              desktop viewport's `sm:` tier), and the previous 900px
-              container with `overflow-hidden` was silently CROPPING the
-              right ~380px of every fixture (found while fixing this pane;
-              it read as part of the same "doesn't fit" complaint). The
-              outer row (`overflow-x-auto` below) already handles the
-              combined width being wider than the browser window. */}
-          <div
-            className="overflow-y-auto rounded-lg border border-border"
-            style={{ width: DESKTOP_W, height: "70vh" }}
-          >
-            <iframe
-              ref={desktopFrameRef}
-              title="Desktop tile preview"
-              src={`/${langId}/qa/tiles/frame?view=desktop`}
-              width={DESKTOP_W}
-              height={desktopContentHeight}
-              style={{ border: "none", display: "block" }}
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-4 flex flex-wrap items-center gap-2">
-        <button
-          type="button"
-          onClick={() => copy(cssText, "CSS")}
-          className="rounded border border-accent px-3 py-1.5 text-xs font-semibold text-accent hover:bg-surface-muted"
-        >
-          Copy CSS
-        </button>
-        <button
-          type="button"
-          onClick={() => copy(jsonText, "JSON")}
-          className="rounded border border-border bg-surface px-3 py-1.5 text-xs hover:bg-surface-muted"
-        >
-          Copy JSON
-        </button>
-        {isDev && (
-          <>
-            <button
-              type="button"
-              onClick={save}
-              className="rounded border border-accent px-3 py-1.5 text-xs font-semibold text-accent hover:bg-surface-muted"
-            >
-              Save
-            </button>
-            {hasSavedFile && (
+        <div className="ml-auto flex flex-wrap items-center gap-1.5 text-xs">
+          {import.meta.env.DEV && (
+            <>
+              <button type="button" onClick={save} className="rounded-lg bg-accent px-3 py-1.5 font-semibold text-white">
+                Save
+              </button>
               <button
                 type="button"
-                onClick={loadSaved}
-                className="rounded border border-border bg-surface px-3 py-1.5 text-xs hover:bg-surface-muted"
+                onClick={load}
+                disabled={!hasSavedFile}
+                className="rounded-lg border border-border px-3 py-1.5 disabled:opacity-40"
               >
                 Load saved
               </button>
-            )}
-          </>
-        )}
-        {copyStatus && (
-          <span className="text-xs text-text-muted">{copyStatus}</span>
-        )}
-        {saveStatus && (
-          <span className="text-xs text-text-muted">{saveStatus}</span>
-        )}
+            </>
+          )}
+          <button type="button" onClick={() => copy(cssText, "CSS")} className="rounded-lg border border-border px-3 py-1.5">
+            Copy CSS
+          </button>
+          <button type="button" onClick={() => copy(JSON.stringify(jsonPayload(), null, 2), "JSON")} className="rounded-lg border border-border px-3 py-1.5">
+            Copy JSON
+          </button>
+          <button type="button" onClick={resetAll} className="rounded-lg border border-border px-3 py-1.5 text-text-muted">
+            Reset {tier === "base" ? "mobile" : "desktop"} to shipped
+          </button>
+          <button
+            type="button"
+            onClick={() => setShowCalibration((s) => !s)}
+            className="rounded-lg border border-border px-3 py-1.5 text-text-muted"
+          >
+            Physical scale {calibration.oneToOne ? "off" : `${scale.toFixed(2)}×`}
+          </button>
+          {status && <span className="rounded bg-surface-muted px-2 py-1 text-text-muted">{status}</span>}
+        </div>
       </div>
 
-      <pre className="mt-3 max-h-64 overflow-auto rounded-lg border border-border bg-surface-muted/40 p-3 text-[11px] text-text-secondary">
-        {cssText}
-      </pre>
+      {showCalibration && (
+        <div className="mb-3 flex flex-wrap items-center gap-4 rounded-xl border border-border bg-surface p-3 text-xs">
+          <label className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              checked={calibration.oneToOne}
+              onChange={(e) => setCalibration((c) => ({ ...c, oneToOne: e.target.checked }))}
+            />
+            1:1 CSS px (no physical scaling)
+          </label>
+          <label className={`flex items-center gap-2 ${calibration.oneToOne ? "opacity-40" : ""}`}>
+            Mac screen px/inch
+            <input
+              type="range"
+              min={80}
+              max={200}
+              step={1}
+              disabled={calibration.oneToOne}
+              value={calibration.macCssPxPerInch}
+              onChange={(e) => setCalibration((c) => ({ ...c, macCssPxPerInch: Number(e.target.value) }))}
+            />
+            <span className="tabular-nums">{calibration.macCssPxPerInch}</span>
+          </label>
+          <span className="text-text-muted">
+            phone renders {((phoneW / calibration.macCssPxPerInch) * 25.4).toFixed(1)} mm wide (real {PHONE_SCREEN_WIDTH_MM} mm)
+          </span>
+          <div
+            className="flex items-center justify-center rounded-md border-2 border-dashed border-accent text-[10px] text-accent"
+            style={{ width: cardW, height: cardH }}
+          >
+            hold a credit card here — 85.60 × 53.98 mm
+          </div>
+        </div>
+      )}
+
+      {/* Body: controls | panes */}
+      <div className="grid gap-4 lg:grid-cols-[380px_minmax(0,1fr)]">
+        {/* Controls */}
+        <div className="max-h-[calc(100vh-6rem)] overflow-y-auto pr-1 lg:sticky lg:top-3">
+          {TILE_SECTIONS.map((sec) => {
+            const tokens = sectionTokens(sec.id);
+            const mode: SectionMode = tierModes[sec.id] ?? "scale";
+            const open = openSections[sec.id] ?? false;
+            return (
+              <section key={sec.id} className="mb-2 rounded-xl border border-border bg-surface" data-qa-section={sec.id}>
+                <header className="flex items-center gap-2 px-3 py-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setOpenSections((o) => ({ ...o, [sec.id]: !open }));
+                      scrollPanesTo(sec.fixture);
+                    }}
+                    className="flex min-w-0 flex-1 items-center gap-2 text-left text-sm font-semibold"
+                    title="show this step type in both panes"
+                  >
+                    <span className="text-text-muted">{open ? "▾" : "▸"}</span>
+                    <span className="truncate">{sec.label}</span>
+                  </button>
+                  {sec.derived && (
+                    <span className="inline-flex overflow-hidden rounded border border-border text-[10px]">
+                      {(["scale", "abs"] as SectionMode[]).map((m) => (
+                        <button
+                          key={m}
+                          type="button"
+                          onClick={() => setMode(sec.id, m)}
+                          className={`px-1.5 py-0.5 ${mode === m ? "bg-accent text-white" : "text-text-muted"}`}
+                          title={m === "scale" ? "multipliers over the plain tile" : "absolute values for this step type only"}
+                        >
+                          {m === "scale" ? "× base" : "absolute"}
+                        </button>
+                      ))}
+                    </span>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => resetSection(sec.id)}
+                    className="text-[10px] text-text-muted hover:text-text-primary"
+                    title="reset this section to shipped defaults"
+                  >
+                    reset
+                  </button>
+                </header>
+                {open && (
+                  <div className="space-y-1.5 border-t border-border px-3 py-2">
+                    {sec.note && <p className="text-[11px] text-text-muted">{sec.note}</p>}
+                    {sec.id === "base" && (
+                      <div className="mb-1 flex flex-wrap items-center gap-2 rounded-lg bg-surface-muted px-2 py-1.5 text-[11px]">
+                        <label className="flex items-center gap-1.5">
+                          <input type="checkbox" checked={locked[tier]} onChange={() => toggleLock(tier)} />
+                          Lock tile heights
+                        </label>
+                        <span className="text-text-muted">
+                          {locked[tier] && lockedHeight[tier] != null ? `every build tile → ${lockedHeight[tier]}px` : "measures the tallest 8-tile fixture tile and pins all build tiles to it"}
+                        </span>
+                        {locked[tier] && lockedHeight[tier] != null && (
+                          <button type="button" onClick={() => adoptLockedHeight(tier)} className="rounded border border-border px-1.5 py-0.5">
+                            adopt as floor
+                          </button>
+                        )}
+                      </div>
+                    )}
+                    {tokens.map((def) => {
+                      const useAbs = def.kind === "scale" && mode === "abs" && def.absKey;
+                      const key = useAbs ? def.absKey! : def.key;
+                      const shipped = useAbs ? absDefault(def, tier) : def[tier];
+                      const value = tierVars[key] ?? shipped;
+                      return (
+                        <Slider
+                          key={key}
+                          label={useAbs ? def.label.replace(" × base", "") : def.label}
+                          value={value}
+                          min={useAbs ? def.absMin! : def.min}
+                          max={useAbs ? def.absMax! : def.max}
+                          step={useAbs ? def.absStep! : def.step}
+                          unit={useAbs ? def.absUnit ?? "px" : def.unit}
+                          onChange={(v) => setVar(key, v)}
+                          onReset={() => resetVar(def)}
+                          isDefault={Math.abs(value - shipped) < 1e-9}
+                        />
+                      );
+                    })}
+                    {sec.derived && mode === "scale" && (
+                      <p className="text-[10px] text-text-muted">
+                        Effective now:{" "}
+                        {tokens
+                          .filter((d) => d.kind === "scale")
+                          .map((d) => `${d.label.replace(" × base", "")} ${fmt(absDefaultLive(d, tierVars, tier), 0.1)}px`)
+                          .join(" · ")}
+                      </p>
+                    )}
+                  </div>
+                )}
+              </section>
+            );
+          })}
+        </div>
+
+        {/* Panes */}
+        <div className="grid gap-4 2xl:grid-cols-[auto_minmax(0,1fr)]">
+          <div>
+            <div className="mb-1 flex items-center justify-between text-xs text-text-muted">
+              <span>Mobile — {MOBILE_W}×{MOBILE_H} CSS px (15 Pro Max){tier === "base" ? " · editing" : ""}</span>
+              <span>{calibration.oneToOne ? "1:1" : `${scale.toFixed(3)}× physical`}</span>
+            </div>
+            <div
+              className="relative overflow-hidden rounded-[2.2rem] border-[6px] border-black bg-black shadow-xl"
+              style={{ width: phoneW + 12, height: phoneH + 12 }}
+            >
+              <div className="absolute left-0 top-0 origin-top-left" style={{ transform: `scale(${scale})`, width: MOBILE_W, height: MOBILE_H }}>
+                <iframe
+                  ref={mobileRef}
+                  title="mobile"
+                  src={`${frameBase}?view=mobile`}
+                  width={MOBILE_W}
+                  height={MOBILE_H}
+                  className="block bg-background"
+                />
+                <div aria-hidden className="pointer-events-none absolute left-0 right-0 top-0 border-b border-dashed border-error/50" style={{ height: SAFE_TOP_PT }} />
+                <div aria-hidden className="pointer-events-none absolute bottom-0 left-0 right-0 border-t border-dashed border-error/50" style={{ height: SAFE_BOTTOM_PT }} />
+              </div>
+            </div>
+          </div>
+          <div ref={desktopColRef} className="min-w-0">
+            <div className="mb-1 flex items-center justify-between text-xs text-text-muted">
+              <span>Desktop — {DESKTOP_W} CSS px, lesson element only{tier === "sm" ? " · editing" : ""}</span>
+              <span>{desktopScale < 1 ? `${desktopScale.toFixed(2)}× to fit` : "1:1"}</span>
+            </div>
+            <div className="max-h-[calc(100vh-7rem)] overflow-y-auto rounded-xl border border-border bg-surface">
+              <div style={{ width: DESKTOP_W * desktopScale, height: desktopContentH * desktopScale }}>
+                <iframe
+                  ref={desktopRef}
+                  title="desktop"
+                  src={`${frameBase}?view=desktop`}
+                  width={DESKTOP_W}
+                  height={desktopContentH}
+                  className="block origin-top-left bg-background"
+                  style={{ transform: `scale(${desktopScale})` }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
+}
+
+/** Effective px of a scale token given the CURRENT base values (not the shipped ones). */
+function absDefaultLive(def: TileTokenDef, vars: TileVarMap, tier: TileTier): number {
+  const baseKey = def.key.endsWith("-font-scale") ? "--tile-font" : def.key.endsWith("-px-scale") ? "--tile-px" : "--tile-py";
+  const baseDef = TILE_TOKEN_DEFS.find((d) => d.key === baseKey);
+  const base = vars[baseKey] ?? (baseDef ? baseDef[tier] : 0);
+  return base * (vars[def.key] ?? def[tier]);
 }

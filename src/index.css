@@ -141,6 +141,17 @@ body {
   --tile-box-h: 0px;
   --tile-big-scale: 1;
   --listen-bank-gap: 12px;
+  /* Scale-off-base tiers (QA-page rewrite 2026-09-15). Defaults = the
+     shipped ratios, so rendering is unchanged until a slider moves. */
+  --huge-font-scale: 1;
+  --huge-py-scale: 1;
+  --listen-font-scale: 1.030303;
+  --listen-px-scale: 1.142857;
+  --listen-py-scale: 1.75;
+  --listen-bank-py-scale: 1.75;
+  --match-px: 1rem;
+  --match-py: 0.375rem;
+  --match-radius: 0.75rem;
 
   /* Match-pairs: own group. `--match-font-scale` is a unitless multiplier
      (default 1 = today's numbers exactly) because match tiles render FOUR
@@ -164,6 +175,12 @@ body {
     --tile-py: 7px;
     --tile-gap: 10px;
     --tile-tray-gap: 10px;
+    --huge-font-scale: 0.833333;
+    --huge-py-scale: 0.75;
+    --listen-font-scale: 1.25;
+    --listen-px-scale: 1.25;
+    --listen-py-scale: 1.25;
+    --listen-bank-py-scale: 2;
   }
 }
 
@@ -1150,11 +1167,15 @@ ruby {
   padding: var(--tile-py) var(--tile-px);
   font-size: var(--tile-font);
 }
-@media (min-width: 640px) {
-  [data-tile][data-variant="build"][data-density="huge"] {
-    padding-block: calc(var(--tile-py) * 0.75);
-    font-size: calc(var(--tile-font) * 0.833333);
-  }
+/* Scale-off-base model (Spencer 2026-09-15, QA-page rewrite): every derived
+   tier is `var(--X-abs, calc(base * var(--X-scale)))` — an ABSOLUTE override
+   wins when the QA page sets it, otherwise the tier scales off the plain
+   tile. The scale tokens carry the breakpoint (base vs sm defaults in
+   `:root`), so this rule no longer needs its own media query; at <640px the
+   huge scales default to 1 = identical to dense, exactly as shipped. */
+[data-tile][data-variant="build"][data-density="huge"] {
+  padding-block: var(--huge-py-abs, calc(var(--tile-py) * var(--huge-py-scale)));
+  font-size: var(--huge-font-abs, calc(var(--tile-font) * var(--huge-font-scale)));
 }
 /* big = ≤6-tile banks and word builds. Its font is a cqh-driven clamp() with
    NO `sm:` step (roughly constant across viewports by design) while
@@ -1186,18 +1207,12 @@ ruby {
    divergence rather than silently unified. */
 [data-tile][data-variant="listen"] {
   border-width: 2px;
-  padding: calc(var(--tile-py) * 1.75) calc(var(--tile-px) * 1.142857);
-  font-size: calc(var(--tile-font) * 1.030303);
+  padding-block: var(--listen-py-abs, calc(var(--tile-py) * var(--listen-py-scale)));
+  padding-inline: var(--listen-px-abs, calc(var(--tile-px) * var(--listen-px-scale)));
+  font-size: var(--listen-font-abs, calc(var(--tile-font) * var(--listen-font-scale)));
 }
-@media (min-width: 640px) {
-  [data-tile][data-variant="listen"] {
-    padding-inline: calc(var(--tile-px) * 1.25);
-    padding-block: calc(var(--tile-py) * 1.25);
-    font-size: calc(var(--tile-font) * 1.25);
-  }
-  [data-tile][data-variant="listen"][data-slot="bank"] {
-    padding-block: calc(var(--tile-py) * 2);
-  }
+[data-tile][data-variant="listen"][data-slot="bank"] {
+  padding-block: var(--listen-bank-py-abs, calc(var(--tile-py) * var(--listen-bank-py-scale)));
 }
 
 /* ── match variant ────────────────────────────────────────────────────
@@ -1212,9 +1227,9 @@ ruby {
 [data-tile][data-variant="match"] {
   width: 100%;
   border-width: 1.5px;
-  border-radius: 0.75rem;
-  padding-inline: 1rem;    /* px-4 */
-  padding-block: 0.375rem; /* py-1.5 */
+  border-radius: var(--match-radius);
+  padding-inline: var(--match-px);
+  padding-block: var(--match-py);
 }
 [data-tile][data-variant="match"][data-side="source"][data-audio="true"][data-density="dense"] {
   font-size: clamp(
@@ -1524,6 +1539,19 @@ ruby {
 [data-tile][data-variant="build"][data-state="wrong"],
 [data-tile][data-variant="match"][data-state="wrong"] {
   background-color: rgb(var(--color-error) / 0.1);
+}
+/* Match-pairs wrong-attempt shake. Pre-Tile-primitive code applied
+   `motion-safe:animate-shake` as a className — `.animate-shake` (defined
+   above, "Match pairs: shake on incorrect attempt") is plain CSS, not a
+   registered Tailwind utility, so Tailwind's JIT silently dropped the
+   `motion-safe:` variant and the shake never fired. The Tile migration
+   carried that (broken, invisible) behavior forward pixel-identically.
+   Fixed here with the equivalent plain-CSS media query, scoped to `match`
+   only — `build`'s wrong state never shook, even pre-migration. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-tile][data-variant="match"][data-state="wrong"] {
+    animation: shake 480ms cubic-bezier(.36, .07, .19, .97) both;
+  }
 }
 /* An empty word-build slot: the dashed outline the tile pops into. */
 [data-tile][data-state="slot"] {

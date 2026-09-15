@@ -268,3 +268,13 @@ Mirror: memory `spencer-open-todos.md`.
   #128 2→0, #90 12→0, #129 sentence-key dedupe. Open for Spencer: speaking
   echo soft vs hard; 656 rewrites need Sonnet authoring lanes; レストラン
   asserted-known-never-taught registry hazard.
+- Tile lane DONE (Opus): Tile/TileTray/LessonOverlayCard/Badge-eyebrow
+  primitives, 0-px pixel diff on every migrated view, ~30 option sites listed
+  as long tail. Checkpoint commit e66c118c. QA page REWRITTEN by Fable to
+  Spencer's spec: plain-tile base section + per-step-type sections (12+ tiles,
+  ≤6 tiles, listening) scaling off base via `--X-scale` tokens with an
+  absolute override (`--X-abs`) switch; match/options/card own absolute
+  tokens; one tier edited at a time; desktop pane = bare lesson element
+  scaled to fit; section headers scroll both panes to their fixture; new
+  5-tile fixture. CSS: huge/listen/match tiers now `var(--X-abs, calc(base *
+  var(--X-scale)))`, defaults = shipped ratios. tsc clean, dev tests 65/65.

@@ -179,8 +179,8 @@ describe("build tiles pick a tier; the tier reads the tokens", () => {
 
   it("CSS: hugeBank steps down at sm: as an exact multiple of the same tokens", () => {
     const huge = ruleBody('[data-tile][data-variant="build"][data-density="huge"] {');
-    expect(huge).toContain("calc(var(--tile-py) * 0.75)");
-    expect(huge).toContain("calc(var(--tile-font) * 0.833333)");
+    expect(huge).toContain("var(--huge-py-abs, calc(var(--tile-py) * var(--huge-py-scale)))");
+    expect(huge).toContain("var(--huge-font-abs, calc(var(--tile-font) * var(--huge-font-scale)))");
   });
 
   it("CSS: the big tier is wrapped in the --tile-big-scale multiplier", () => {
@@ -200,9 +200,9 @@ describe("build tiles pick a tier; the tier reads the tokens", () => {
 
   it("CSS: the listen tier is expressed as ratios of the build tokens", () => {
     const listen = ruleBody('[data-tile][data-variant="listen"] {');
-    expect(listen).toContain("calc(var(--tile-py) * 1.75)");
-    expect(listen).toContain("calc(var(--tile-px) * 1.142857)");
-    expect(listen).toContain("calc(var(--tile-font) * 1.030303)");
+    expect(listen).toContain("var(--listen-py-abs, calc(var(--tile-py) * var(--listen-py-scale)))");
+    expect(listen).toContain("var(--listen-px-abs, calc(var(--tile-px) * var(--listen-px-scale)))");
+    expect(listen).toContain("var(--listen-font-abs, calc(var(--tile-font) * var(--listen-font-scale)))");
   });
 
   it("CSS: every tile reads --tile-radius, and options their own group", () => {

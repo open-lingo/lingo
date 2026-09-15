@@ -30,4 +30,8 @@ export const TILE_QA_MESSAGE = {
    *  the content and let the OUTER pane be the only scroller (avoids a
    *  scrollbar-in-a-scrollbar). Sent on mount and on resize. */
   contentHeight: "content-height",
+  /** parent → frame: `{ fixture: string }` — scroll the pane to that
+   *  fixture's card (the QA page's section headers do this so the tiles a
+   *  slider affects are on screen). */
+  scrollTo: "scroll-to",
 } as const;
