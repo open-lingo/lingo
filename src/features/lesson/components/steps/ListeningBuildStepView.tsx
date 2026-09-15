@@ -5,7 +5,7 @@ import type { ListeningBuildStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
-import { playJaAudio } from "@/shared/tts";
+import { playStepAudio, useCurrentStepId } from "../../hooks/useStepAudioGuard";
 import { SortableBuildTiles } from "./SortableBuildTiles";
 import { Tile } from "../tiles/Tile";
 import { TileTray, tileRowAttrs } from "../tiles/TileTray";
@@ -67,6 +67,10 @@ function PromptWithEmphasis({ text }: { text: string }) {
 
 export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) {
   const { t } = useTranslation();
+  // TestFlight #127: registers this step as "current" so a play tap whose
+  // network fetch outlives the step (a fast advance) can tell it's stale
+  // once the clip resolves — see useStepAudioGuard's doc comment.
+  useCurrentStepId(step.id);
   // Bank INDICES, not texts — with duplicate glyphs (いいえ has two い)
   // text-tracking ghosted the leftmost instance instead of the tile the
   // learner actually clicked (Spencer 2026-06-13).
@@ -165,11 +169,16 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
   // worked. playJaAudio already handles clip-then-synthesis correctly.
   const [audioSilent, setAudioSilent] = useState(false);
   function handlePlay() {
-    void playJaAudio(step.targetSentence).then((result) =>
+    void playStepAudio(step.targetSentence, step.id).then((result) => {
+      // `null` = the step changed while the clip was in flight — the
+      // guard already cut it off; touching `audioSilent` here would be a
+      // stale update for a step that isn't on screen anymore (TestFlight
+      // #127).
+      if (result === null) return;
       // JA forbids synthesis by design, so a failed clip there really is
       // silence — say so instead of leaving a dead button.
-      setAudioSilent(result === "silent"),
-    );
+      setAudioSilent(result === "silent");
+    });
   }
 
   const hasSubmittedWrong = submitted && !isCorrect;
@@ -386,6 +395,18 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
         })}
       </TileTray>
       </>
+      )}
+      {/* TestFlight #142: "use the space: show the English when they get
+          it right." Under the tray, correct-only — pre-answer this would
+          leak the answer to what is supposed to be a listening exercise
+          (`prompt` above stays the generic "Build what you hear." cue).
+          Falls back to `step.prompt` for any step minted before this
+          field existed (the factory's own default), so this never renders
+          empty. */}
+      {submitted && isCorrect && (step.translation ?? step.prompt) && (
+        <p className="text-center text-sm text-text-muted">
+          {step.translation ?? step.prompt}
+        </p>
       )}
       </div>
 

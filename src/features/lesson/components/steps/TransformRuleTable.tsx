@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  getTransformRuleset,
-  getTransformRulesetFor,
-} from "@/features/languages/ja/conjugation/transformRulesets";
+import { getTransformRuleset } from "@/features/languages/ja/conjugation/transformRulesets";
 import type { TransformClass } from "@/features/languages/ja/conjugation/transformCells";
+import { Badge } from "@/shared/components/ui/Badge";
 
 /**
  * The conjugation rule table (spec 2026-07-23): one row per verb class,
@@ -28,7 +26,6 @@ export function TransformRuleTable({
   form,
   highlight,
   highlightSubgroup,
-  maskBase,
   focus = false,
 }: {
   form: string;
@@ -37,17 +34,20 @@ export function TransformRuleTable({
    *  one, a row that declares a DIFFERENT subgroup is not the active row —
    *  otherwise all five う-verb rows light at once. */
   highlightSubgroup?: string;
-  /** The drilled base verb — rows whose canonical example IS this word swap
-   *  to an alternate so the table never prints the card's own answer. */
-  maskBase?: string;
   /** Show only the highlighted row, with the rest behind an expander. */
   focus?: boolean;
 }) {
   const { t } = useTranslation();
   const [expanded, setExpanded] = useState(false);
-  const ruleset = maskBase
-    ? getTransformRulesetFor(form, maskBase)
-    : getTransformRuleset(form);
+  // Spencer, TestFlight #131 (2026-09-15): "ideally show the drilled word's
+  // chips while they are learning" — no alternate-example convention. The
+  // table always renders the CANONICAL row for the class being drilled, so
+  // a のむ drill shows のむ's own chips (い→ま＋ない), never a swapped-in
+  // いく. The row's own `isActive` accent tint (below) is what distinguishes
+  // "this is the rule being drilled" from the rest of the grid; the prompt
+  // above this table (the card's base→？ line) is already visually distinct
+  // from the chip row, so prompt vs rule doesn't need a second cue.
+  const ruleset = getTransformRuleset(form);
   if (!ruleset) return null;
   const isActive = (row: { group: TransformClass; subgroup?: string }) =>
     !!highlight &&
@@ -119,7 +119,7 @@ export function TransformRuleTable({
             ) : null}
           </span>
           <span
-            className={`flex flex-wrap items-center gap-1.5 font-japanese font-bold ${dense ? "text-base" : focused ? "text-lg sm:text-xl" : "text-lg"}`}
+            className={`flex flex-wrap items-center gap-1 font-japanese font-bold ${dense ? "text-sm" : focused ? "text-base sm:text-lg" : "text-base"}`}
           >
             {row.chips.map((chip, i) =>
               chip.kind === "sep" ? (
@@ -127,20 +127,23 @@ export function TransformRuleTable({
                   {chip.text}
                 </span>
               ) : (
-                <span
+                <Badge
                   key={i}
-                  className={`rounded-lg border px-2 py-0.5 ${
+                  variant={
                     chip.kind === "out"
-                      ? "border-error/60 text-error line-through decoration-2"
+                      ? "error"
                       : chip.kind === "in"
-                        ? "border-success/60 text-success"
+                        ? "success"
                         : chip.kind === "add"
-                          ? "border-warning/60 text-warning"
-                          : "border-border bg-surface-raised text-text-primary"
-                  }`}
+                          ? "warning"
+                          : "neutral"
+                  }
+                  size={dense ? "sm" : "md"}
+                  pill={false}
+                  className={`font-japanese font-bold ${dense ? "text-sm" : "text-base"} ${chip.kind === "out" ? "line-through decoration-2" : ""}`}
                 >
                   {chip.text}
-                </span>
+                </Badge>
               ),
             )}
           </span>

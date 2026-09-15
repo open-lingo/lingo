@@ -1868,6 +1868,17 @@ export function listeningBuildSentence(opts: {
   tiles: string[];
   correctOrder: string[];
   promptEn: string;
+  /**
+   * The sentence's full English translation — carried separately from
+   * `promptEn` (the PRE-answer cue, often generic: "Build what you
+   * hear.") so a caller can reveal it under the tray after a correct
+   * submit without leaking it into the listening challenge itself
+   * (TestFlight #142). Falls back to `promptEn` when the caller has
+   * nothing more specific — every existing call site already passes the
+   * literal translation there (see m3-neo.ts etc.), so this keeps their
+   * post-answer reveal working with no call-site changes.
+   */
+  translation?: string;
   /** Course-atom kana exercised by this step (resolves to FSRS atom IDs). */
   exercisedAtomKanas?: string[];
 }): ListeningBuildStep {
@@ -1884,6 +1895,7 @@ export function listeningBuildSentence(opts: {
     targetAnnotation: buildSentenceAnnotation(opts.target),
     exercisedAtoms: resolveAtomIds(opts.exercisedAtomKanas),
     modality: "production",
+    translation: opts.translation ?? opts.promptEn,
   };
 }
 

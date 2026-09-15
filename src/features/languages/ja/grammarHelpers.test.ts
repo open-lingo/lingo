@@ -72,6 +72,30 @@ describe("annotation builders carry atomId + gloss when reading matches an atom"
     ]);
   });
 
+  it("listeningBuildSentence(): translation defaults to promptEn when omitted (TestFlight #142)", () => {
+    const step = listeningBuildSentence({
+      id: "lb2",
+      target: "コーヒー",
+      tiles: ["コーヒー"],
+      correctOrder: ["コーヒー"],
+      promptEn: "Coffee.",
+    });
+    expect(step.translation).toBe("Coffee.");
+  });
+
+  it("listeningBuildSentence(): an explicit translation wins over promptEn (moduleCompiler's generic listening prompt)", () => {
+    const step = listeningBuildSentence({
+      id: "lb3",
+      target: "コーヒー",
+      tiles: ["コーヒー"],
+      correctOrder: ["コーヒー"],
+      promptEn: "Build what you hear.",
+      translation: "Coffee.",
+    });
+    expect(step.prompt).toBe("Build what you hear.");
+    expect(step.translation).toBe("Coffee.");
+  });
+
   it("listeningCompSentence(): transcript annotation resolves", () => {
     const step = listeningCompSentence({
       id: "lc1",

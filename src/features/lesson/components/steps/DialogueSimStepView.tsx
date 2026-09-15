@@ -46,7 +46,8 @@ import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { ExplainButton } from "../ExplainButton";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
-import { getTtsUrl } from "@/shared/tts";
+import { getTtsUrl, stopAllAudio } from "@/shared/tts";
+import { isStepStillCurrent, useCurrentStepId } from "../../hooks/useStepAudioGuard";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useReducedMotion } from "@/shared/hooks/useReducedMotion";
@@ -99,6 +100,11 @@ type Props = {
 };
 
 export function DialogueSimStepView({ step, onComplete, onContinue }: Props) {
+  // TestFlight #127: `playTokenRef` below already cancels WITHIN this
+  // component's lifetime; this closes the CROSS-STEP gap for an NPC-line
+  // or model-reply fetch still in flight when the step itself advances
+  // (see useStepAudioGuard's doc comment).
+  useCurrentStepId(step.id);
   const { t } = useTranslation();
   const silentMode = useSettings().settings.audio.silentMode;
   const reducedMotion = useReducedMotion();
@@ -164,8 +170,15 @@ export function DialogueSimStepView({ step, onComplete, onContinue }: Props) {
       void playLineAudio(
         tn.npc.audioText ?? tn.npc.kana,
         langForSpeaker(tn.npc.speaker, languageId),
-        () => playTokenRef.current === token,
+        () => playTokenRef.current === token && isStepStillCurrent(step.id),
       ).then(() => {
+        // TestFlight #127: the step may have advanced while this fetch
+        // was in flight — cut off whatever just started rather than lift
+        // the listen-first mask on a view that isn't on screen anymore.
+        if (!isStepStillCurrent(step.id)) {
+          stopAllAudio();
+          return;
+        }
         if (playTokenRef.current !== token) return;
         // The clip finished — this is what lifts the listen-first mask.
         setPlayedNpc((prev) =>
@@ -174,7 +187,7 @@ export function DialogueSimStepView({ step, onComplete, onContinue }: Props) {
         setActiveLine((cur) => (cur === idx ? null : cur));
       });
     },
-    [turns],
+    [turns, step.id],
   );
 
   // Auto-play the NPC line when a turn opens. Honors silentMode (auto = off,
@@ -243,11 +256,16 @@ export function DialogueSimStepView({ step, onComplete, onContinue }: Props) {
     // listen-and-respond drill — say it, then hear it said properly.
     if (!silentMode) {
       const token = ++playTokenRef.current;
+      // TestFlight #127: the commit itself can advance the lesson (last
+      // turn → onComplete below), so this reply clip's fetch can easily
+      // outlive the step it was meant for.
       void playLineAudio(
         modelReplyAudioText(turn),
         undefined,
-        () => playTokenRef.current === token,
-      );
+        () => playTokenRef.current === token && isStepStillCurrent(step.id),
+      ).then(() => {
+        if (!isStepStillCurrent(step.id)) stopAllAudio();
+      });
     }
     // One scenario = one result. Report overall correctness after the LAST
     // turn commits; the done-guard survives a remount mid-scenario.

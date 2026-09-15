@@ -5,7 +5,8 @@ import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
-import { getTtsUrl, playJaAudioToEnd } from "@/shared/tts";
+import { getTtsUrl, playJaAudioToEnd, stopAllAudio } from "@/shared/tts";
+import { isStepStillCurrent, useCurrentStepId } from "../../hooks/useStepAudioGuard";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import { useReducedMotion } from "@/shared/hooks/useReducedMotion";
 import { Icon } from "@/shared/components/Icon";
@@ -133,6 +134,11 @@ type Props = {
  * silent-mode contract: auto = off, on-demand = on).
  */
 export function DialogueListenStepView({ step, onComplete, onContinue }: Props) {
+  // TestFlight #127: the existing session/token refs below already cancel
+  // WITHIN this component's lifetime (Replay taps, the auto-play sequence);
+  // this closes the CROSS-STEP gap — a line's fetch that's still in flight
+  // when the step itself advances (see useStepAudioGuard's doc comment).
+  useCurrentStepId(step.id);
   const { t } = useTranslation();
   const silentMode = useSettings().settings.audio.silentMode;
   // Voice routing is per-language (dialogueVoices capability); the lesson
@@ -198,8 +204,17 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
         await playLineAudio(
           line.audioText ?? line.kana,
           langForSpeaker(line.speaker, languageId),
-          () => sessionRef.current === mySession,
+          () => sessionRef.current === mySession && isStepStillCurrent(step.id),
         );
+        // TestFlight #127: the step itself may have advanced while that
+        // await was in flight (network fetch for a cold clip) — the
+        // session check alone can't see that, since nothing inside THIS
+        // component incremented sessionRef. Cut off whatever just started
+        // and stop, rather than queue the next turn on a dead step.
+        if (!isStepStillCurrent(step.id)) {
+          stopAllAudio();
+          return;
+        }
         if (sessionRef.current !== mySession) return;
         await new Promise((r) => setTimeout(r, TURN_GAP_MS));
       }
@@ -207,7 +222,7 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
       setIsPlaying(false);
       setActiveLineIdx(null);
     })();
-  }, [step.lines, clearPendingTimeouts, markPlayed]);
+  }, [step.id, step.lines, clearPendingTimeouts, markPlayed]);
 
   // Auto-play on mount — silentMode honored. The dependency on step.id
   // means a remount on the same step (StrictMode dev) only triggers once
@@ -336,8 +351,15 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
     void playLineAudio(
       line.audioText ?? line.kana,
       langForSpeaker(line.speaker, languageId),
-      () => lineTapTokenRef.current === token,
+      () => lineTapTokenRef.current === token && isStepStillCurrent(step.id),
     ).then(() => {
+      // TestFlight #127: the step may have advanced while this tap's
+      // fetch was in flight — cut off whatever just started rather than
+      // touch this (now stale) view's highlight state.
+      if (!isStepStillCurrent(step.id)) {
+        stopAllAudio();
+        return;
+      }
       if (lineTapTokenRef.current !== token) return;
       setActiveLineIdx((cur) => (cur === idx ? null : cur));
     });

@@ -9,6 +9,7 @@ import { playJaAudio, getTtsUrl } from "@/shared/tts";
 import { ExplainButton } from "../ExplainButton";
 import { PromptAudioButton } from "./PromptAudioButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { playStepAudio, useCurrentStepId } from "../../hooks/useStepAudioGuard";
 import { Badge } from "@/shared/components/ui";
 
 const CELEBRATE_MS = 1100;
@@ -35,6 +36,9 @@ type Props = {
  * appears post-submit either way.
  */
 export function ConjugationClozeStepView({ step, onComplete, onContinue }: Props) {
+  // TestFlight #127: registers this step for the post-submit replay
+  // button's currentness guard (see useStepAudioGuard's doc comment).
+  useCurrentStepId(step.id);
   const { t } = useTranslation();
   const [selected, setSelected] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
@@ -168,7 +172,7 @@ export function ConjugationClozeStepView({ step, onComplete, onContinue }: Props
         <PromptAudioButton
           hasAudio={hasFullAudio}
           answered={submitted}
-          onPlay={() => fullAudio && playJaAudio(fullAudio)}
+          onPlay={() => fullAudio && playStepAudio(fullAudio, step.id)}
         />
       </div>
 

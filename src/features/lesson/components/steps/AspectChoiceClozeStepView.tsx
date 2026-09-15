@@ -9,6 +9,7 @@ import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
 import { PromptAudioButton } from "./PromptAudioButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { playStepAudio, useCurrentStepId } from "../../hooks/useStepAudioGuard";
 import { Badge } from "@/shared/components/ui";
 
 const CELEBRATE_MS = 1100;
@@ -38,6 +39,9 @@ type Props = {
  * the learner cannot learn from.
  */
 export function AspectChoiceClozeStepView({ step, onComplete, onContinue }: Props) {
+  // TestFlight #127: registers this step for the post-submit replay
+  // button's currentness guard (see useStepAudioGuard's doc comment).
+  useCurrentStepId(step.id);
   const { t } = useTranslation();
   const [selections, setSelections] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
@@ -210,7 +214,7 @@ export function AspectChoiceClozeStepView({ step, onComplete, onContinue }: Prop
         <PromptAudioButton
           hasAudio={hasFullAudio}
           answered={submitted}
-          onPlay={() => fullAudio && playJaAudio(fullAudio)}
+          onPlay={() => fullAudio && playStepAudio(fullAudio, step.id)}
         />
       </div>
 

@@ -75,12 +75,24 @@ export type BuildTileKanji = {
  *   - only atoms that pass the existing eligibility gates enumerate
  *     (`resolveEligibleKanjiAtomId` on the dictionary form + catalog entry);
  *   - an inflected kana that IS some course atom's kana maps ONLY when that
- *     atom is the verb's own kanji-less sibling (the 6 polite -ます anchor
- *     atoms: unambiguous kana, taught, no stored kanji) — then the display
- *     derives from the dictionary form while the SRS gate keys the REAL
- *     atom (のみます → 飲みます, mastery read on `nomimasu`). Any other
- *     real-atom kana (homographs, kanji-owning atoms) stays with the
- *     citation path;
+ *     atom is the verb's own kanji-less sibling (the -ます anchor atoms,
+ *     the negative/potential helper atoms, etc.: unambiguous kana, taught,
+ *     no stored kanji, AND — TestFlight #124b, 2026-09-15 — not itself an
+ *     independently conjugatable word). That last clause is the fix: 書ける
+ *     (potential of 書く) was binding to the unrelated かける "to call" atom
+ *     (courseAtoms.ts ~:1413 names it and two siblings — かえる/帰る "to go
+ *     back", つける/付ける "to turn on" — as potential forms authors
+ *     deliberately never registered for exactly this collision) because the
+ *     old guard only fired when the colliding atom HAD a stored `kanji`
+ *     field; かける and つける have none, so they slipped through. The
+ *     REAL distinguishing signal isn't kanji — it's whether the colliding
+ *     atom carries its OWN `conjugation` link: のまない/のめる/のみます
+ *     don't (they're registered surface forms with no independent
+ *     paradigm), so they still resolve; かける/かえる/つける do (each is
+ *     its own dictionary-form verb with a `conjugation.class`), so any of
+ *     them now blocks the bind exactly like an atom with stored kanji does.
+ *     Any other real-atom kana (homographs, kanji-owning atoms, atoms with
+ *     their own conjugation) stays with the citation path;
  *   - two words colliding on the same inflected kana poison that kana to
  *     null — ambiguous stays kana, at any module.
  */
@@ -93,8 +105,6 @@ type InflectedTileKanji = {
 };
 
 let inflectedMapCache: Map<string, InflectedTileKanji | null> | null = null;
-
-const HAS_HAN_INFLECT = /\p{Script=Han}/u;
 
 /** atom-per-kana counts (homograph detector), mirroring the resolver's. */
 let kanaCountCache: Map<string, number> | null = null;
@@ -122,10 +132,14 @@ function inflectedTileKanjiMap(): Map<string, InflectedTileKanji | null> {
     let boundAtomId = atomId;
     if (existing) {
       // The kana IS a taught atom. Safe only for the verb's own kanji-less
-      // sibling forms (のみます etc.): unambiguous, taught, no stored kanji.
+      // sibling forms (のみます etc.): unambiguous, taught, no stored
+      // kanji, and not itself an independently conjugatable verb/adj
+      // (TestFlight #124b — see the doc comment above for why `kanji`
+      // alone isn't enough: かける/つける have no kanji field either).
       if (kanaAtomCountLocal(kana) !== 1) return; // homograph → never
       if (existing.fromModule === "future") return; // untaught → never
-      if (existing.kanji && HAS_HAN_INFLECT.test(existing.kanji)) return; // owns kanji → citation path
+      if (existing.kanji) return; // owns kanji → citation path
+      if (existing.conjugation) return; // its own dictionary verb → never
       boundAtomId = existing.id; // SRS gate keys the real taught atom
     }
     const prev = map.get(kana);

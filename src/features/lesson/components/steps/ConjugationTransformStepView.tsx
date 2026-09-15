@@ -7,6 +7,7 @@ import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { playJaAudio, getTtsUrl } from "@/shared/tts";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { playStepAudio, useCurrentStepId } from "../../hooks/useStepAudioGuard";
 import { PromptAudioButton } from "./PromptAudioButton";
 import {
   getTransformStage,
@@ -59,6 +60,9 @@ type Props = {
  * TTS when a clip exists.
  */
 export function ConjugationTransformStepView({ step, lessonId, onComplete, onContinue }: Props) {
+  // TestFlight #127: registers this step for the post-submit replay
+  // button's currentness guard (see useStepAudioGuard's doc comment).
+  useCurrentStepId(step.id);
   const { t } = useTranslation();
   const form = step.form as TransformForm;
   const stage: TransformStage = step.ungraded
@@ -228,7 +232,6 @@ export function ConjugationTransformStepView({ step, lessonId, onComplete, onCon
           form={step.form}
           highlight={step.verbClass}
           highlightSubgroup={step.subgroup}
-          maskBase={step.base}
           focus
         />
       ) : null}
@@ -307,7 +310,7 @@ export function ConjugationTransformStepView({ step, lessonId, onComplete, onCon
       <PromptAudioButton
         hasAudio={hasAnswerAudio}
         answered={submitted}
-        onPlay={() => playJaAudio(step.answer)}
+        onPlay={() => playStepAudio(step.answer, step.id)}
         className="flex items-center justify-center"
       />
 

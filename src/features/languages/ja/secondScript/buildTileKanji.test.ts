@@ -146,6 +146,61 @@ describe("resolveBuildTileKanji", () => {
       // inflected map.
       expect(resolveBuildTileKanji("した", 99)).toBeNull();
     });
+
+    describe("kanji-less collision with an independently conjugatable verb (TestFlight #124b, 2026-09-15)", () => {
+      // 書ける (potential of 書く) used to bind to the UNRELATED かける
+      // "to make a phone call" atom, because the old guard only refused a
+      // collision when the colliding atom HAD a stored `kanji` field —
+      // かける has none. courseAtoms.ts ~:1413 documents all three of these
+      // pairs as potential forms authors deliberately never registered for
+      // exactly this reason; the inflected map must independently agree,
+      // since it derives potentials programmatically rather than reading
+      // that curated list.
+      it("かく → かける collides with the unrelated かける 'to call' atom (no kanji) — stays kana", () => {
+        const kakuAtomId = resolveEligibleKanjiAtomId("かく")!;
+        expect(kakuAtomId).toBeTruthy();
+        const kakeruAtom = JA_COURSE_ATOMS.find((a) => a.kana === "かける");
+        expect(kakeruAtom?.kanji).toBeUndefined(); // the exact bug precondition
+        expect(kakeruAtom?.conjugation).toBeTruthy(); // — but it's its OWN verb
+        expect(resolveBuildTileKanji("かける", 99)).toBeNull();
+      });
+
+      it("つける ('to turn on', no kanji, its own conjugation) never resolves as an inflected surface", () => {
+        // courseAtoms.ts ~:1413 names つく → つける as a rejected potential
+        // (collides with this atom). つく (着く, "to arrive") is itself
+        // gated off `resolveEligibleKanjiAtomId` for an unrelated reason
+        // (a `reservedInflections` collision), so this course's data can't
+        // actually exercise "つく enumerates つける" today — but the
+        // GUARD's job is the same regardless of which verb's potential
+        // would land on this kana: つける must never bind to anything, the
+        // same behavior as the かける case above.
+        const tsukeruAtom = JA_COURSE_ATOMS.find((a) => a.kana === "つける");
+        expect(tsukeruAtom?.kanji).toBeUndefined();
+        expect(tsukeruAtom?.conjugation).toBeTruthy();
+        expect(resolveBuildTileKanji("つける", 99)).toBeNull();
+      });
+
+      it("かう → かえる collides with the unrelated かえる 'to go back' atom (owns kanji) — stays kana, unchanged by the fix", () => {
+        // Already safe pre-fix (かえる has a stored kanji field, 帰る) — kept
+        // here so the three named pairs are verified together.
+        const kauAtomId = resolveEligibleKanjiAtomId("かう")!;
+        expect(kauAtomId).toBeTruthy();
+        const kaeruAtom = JA_COURSE_ATOMS.find((a) => a.kana === "かえる");
+        expect(kaeruAtom?.kanji).toBe("帰る");
+        expect(resolveBuildTileKanji("かえる", 99)).toBeNull();
+      });
+
+      it("no regression: the genuinely kanji-less sibling forms (no conjugation of their own) still resolve", () => {
+        // のまない/のめる/のみます are registered SURFACE forms of のむ with
+        // no independent `conjugation` link — the fix must not block them.
+        for (const kana of ["のまない", "のめる", "のみます"]) {
+          const atom = JA_COURSE_ATOMS.find((a) => a.kana === kana);
+          expect(atom, `${kana} should be a registered atom`).toBeTruthy();
+          expect(atom?.conjugation).toBeUndefined();
+          expect(resolveBuildTileKanji(kana, 99)).not.toBeNull();
+        }
+      });
+    });
   });
 
   describe("auxiliary-position suppression (Spencer prod QA 2026-08-21 — 見る on m30's てみる helper tile)", () => {

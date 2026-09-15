@@ -1463,6 +1463,11 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
             tiles,
             correctOrder: tiles,
             promptEn: "Build what you hear.",
+            // TestFlight #142: reveal the real translation under the tray
+            // after a correct submit — `promptEn` above stays the generic
+            // pre-answer instruction (a real listening test), but the beat
+            // already carries the sentence's English via `meaningOf`.
+            translation: meaningOf(beat.en),
             exercisedAtomKanas: ex,
           });
         } else {

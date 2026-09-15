@@ -278,3 +278,12 @@ Mirror: memory `spencer-open-todos.md`.
   scaled to fit; section headers scroll both panes to their fixture; new
   5-tile fixture. CSS: huge/listen/match tiers now `var(--X-abs, calc(base *
   var(--X-scale)))`, defaults = shipped ratios. tsc clean, dev tests 65/65.
+- Post-Tile UI lane DONE (Sonnet, full suite 17,783 green): renderSmoke fixed;
+  #131 rule table shows the drilled word's own chips (Badge primitives, fits
+  430px); #136 lesson-complete = Continue / Drill / Return→home, XP stat
+  removed; #142 listening_build reveals the English after a correct submit
+  (`translation` threaded through grammarHelpers→moduleCompiler); #124b
+  homograph guard blocks かける/書ける class; #127 `useStepAudioGuard` on
+  every manual play surface; match wrong-shake now fires. Left: the
+  setTimeout auto-play sites in 5 cloze/kanji views (same race, follow-up);
+  #141 note = IR edit done by Fable (m34 rule prose, recompiled).

@@ -9,6 +9,7 @@ import { getTtsUrl, playJaAudio } from "@/shared/tts";
 import { ExplainButton } from "../ExplainButton";
 import { PromptAudioButton } from "./PromptAudioButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { playStepAudio, useCurrentStepId } from "../../hooks/useStepAudioGuard";
 import { Badge } from "@/shared/components/ui";
 
 const CELEBRATE_MS = 1100;
@@ -39,6 +40,10 @@ type Props = {
  */
 export function KanjiReadingStepView({ step, onComplete, onContinue }: Props) {
   const { t } = useTranslation();
+  // TestFlight #127: the reward-audio replay button's tap is async
+  // (network fetch + decode) — this registers the step so a stale
+  // resolution after a fast advance can tell it's no longer current.
+  useCurrentStepId(step.id);
   const [selected, setSelected] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [celebrating, setCelebrating] = useState(false);
@@ -133,7 +138,7 @@ export function KanjiReadingStepView({ step, onComplete, onContinue }: Props) {
         <PromptAudioButton
           hasAudio={hasAudio}
           answered={submitted}
-          onPlay={() => step.audioText && playJaAudio(step.audioText)}
+          onPlay={() => step.audioText && playStepAudio(step.audioText, step.id)}
         />
       </div>
 

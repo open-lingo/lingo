@@ -105,7 +105,7 @@ grammarPoints:
 
   - id: volitional
     variant: ru-irregular
-    rule: "The ru-verbs do what ru-verbs always do: drop る, take よう. たべる→たべよう, みる→みよう, でる→でよう. And the two irregulars are two words to know, not a rule: する→しよう, くる→こよう. That closes the whole system — every verb you own can now carry your will. Notice the shape against the u-verbs: のもう ends in おう, たべよう ends in よう. If you hear 〜よう, you are looking at a ru-verb or an irregular; 〜おう and it was a u-verb."
+    rule: "The ru-verbs do what ru-verbs always do: drop る, take よう. たべる→たべよう, みる→みよう, でる→でよう. And the two irregulars are two words to know, not a rule: する→しよう, くる→こよう (in writing you will also meet 来よう, the same word in kanji). That closes the whole system — every verb you own can now carry your will. Notice the shape against the u-verbs: のもう ends in おう, たべよう ends in よう. If you hear 〜よう, you are looking at a ru-verb or an irregular; 〜おう and it was a u-verb."
     conjugation: { form: volitional, classes: [ru, irregular] }
     examples:
       - { ja: "ばんごはんを たべよう。", en: "Let's eat dinner." }

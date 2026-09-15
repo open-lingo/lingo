@@ -81,9 +81,9 @@ function stratifyByModule(rows) {
 
 export const SYSTEM_PROMPT = `You are grading English glosses in a Japanese course for US English-speaking adults, against these product rules (Spencer's own words, in quotes):
 
-1. Closest 1-to-1 English gloss, US English, no register baked into the answer text. "we need to use the CLOSEST English 1-1 word translation" — "Cheese are bad, chikatetsu is subway" (not "underground" — that's British) — "we just need the plain translation" (don't append a register note like "(casual)" onto the gloss itself; register commentary belongs in your reason field, never in replacement_en).
+1. Closest 1-to-1 English gloss, US English, no register baked into the answer text. "we need to use the CLOSEST English 1-1 word translation" — "Cheese are bad, chikatetsu is subway" (not "underground" — that's British) — "we just need the plain translation" (don't append a FORMALITY/POLITENESS note like "(casual)" or "(polite)" onto a plain vocab gloss; register commentary belongs in your reason field, never in replacement_en). This rule is narrow: it is about POLITENESS LEVEL ONLY (casual/plain/polite/humble/honorific). It does NOT mean every parenthetical is a violation — a parenthetical that states a grammatical derivation ("potential of X", "-te form of X") or disambiguates word sense (distinguishing two real course atoms, e.g. a time-approximator from an amount-approximator) is not register and must not be flagged as register OR structure; removing it would destroy real distinguishing information. Only flag register when the note is specifically about formality/politeness.
 2. Speak like an average 30-year-old. "we ideally want people speaking like your average 30 year old." Primary/most-common verb or word first — e.g. 電話する before かける for "to call [someone]"; 手紙を出す is fine for "to mail a letter."
-3. Object-drop is normal Japanese, not a defect. A sentence that omits a subject/object the context makes obvious is correct Japanese; do not flag the ja for that, and do not invent an explicit subject/object in the English gloss that is not implied.
+3. Object-drop is normal Japanese, not a defect. A sentence that omits a subject/object the context makes obvious is correct Japanese; do not flag the ja for that, and do not invent an explicit subject/object in the English gloss that is not implied. This is NOT the same as the です copula: です itself means "is/am/are" and a gloss like "It's coffee." for "コーヒー です" is NOT inventing structure — です already carries that meaning. Never flag a です-sentence gloss for "adding a subject the ja doesn't have"; English requires a subject to be a grammatical sentence and です supplies exactly that meaning.
 4. A gloss must not lie about structure. Do not add meaning, tense, or specificity the Japanese does not carry; do not strip meaning the Japanese does carry.
 5. Kanji/kana surface choice is not your concern here — judge only whether the EN gloss is the natural, correct, closest translation of the JA as given.
 
@@ -153,6 +153,33 @@ const WORKED_EXAMPLES = [
     reason: "Closest 1-to-1 translation, no issues.",
     replacement_en: "",
   },
+  {
+    ja: "およげる",
+    en: "can swim (potential of およぐ)",
+    verdict: "pass",
+    issue: "none",
+    reason:
+      "This is a CONJUGATION/grammar-point atom (potential form of およぐ) — the derivation note is the grammatical content being taught, not a politeness-register aside. Do NOT flag a parenthetical like '(potential of X)', '(-te form of X)', etc. as register or structure; it is accurate, load-bearing metadata that keeps this atom distinct from an unrelated plain-form atom. Only flag register when a note describes FORMALITY/POLITENESS (casual/polite/humble/honorific), not grammatical derivation.",
+    replacement_en: "",
+  },
+  {
+    ja: "コーヒー です",
+    en: "It's coffee.",
+    verdict: "pass",
+    issue: "none",
+    reason:
+      "です is the copula and genuinely MEANS 'is' — translating it as 'It's coffee.' does not add structure that isn't in the Japanese. The 'object/subject-drop is normal, don't invent one' rule is about Japanese OMITTING a subject/object; it does not mean the English gloss must drop the grammatical subject English requires to be a complete sentence. Do not strip a required English subject from a です-sentence gloss.",
+    replacement_en: "",
+  },
+  {
+    ja: "ごろ",
+    en: "around (of a point in time)",
+    verdict: "pass",
+    issue: "none",
+    reason:
+      "'(of a point in time)' is a SENSE-DISAMBIGUATOR, not a register note — it is what keeps ごろ (approximate TIME, 'around 3 o'clock') distinguishable from its near-synonym ぐらい (approximate AMOUNT, 'about 3 hours'). Stripping a disambiguator that distinguishes two real course atoms from each other would make them collide and is itself a structural lie by omission. Only flag register when a note is about formality/politeness, not when it disambiguates word sense.",
+    replacement_en: "",
+  },
 ];
 
 export function buildSchema() {
@@ -182,7 +209,7 @@ export function buildSchema() {
             reason: { type: "string", maxLength: 200 },
             replacement_en: { type: "string" },
             replacement_ja: { type: "string" },
-            confidence: { type: "number" },
+            confidence: { type: "number", minimum: 0, maximum: 1 },
           },
           required: [
             "row_id",
@@ -263,6 +290,14 @@ function validate(parsed, expectedIds) {
   for (const v of parsed.verdicts) {
     if (v.verdict === "fix" && (!v.replacement_en || v.replacement_en.trim() === "")) {
       return `row_id ${v.row_id}: verdict=fix requires a non-empty replacement_en`;
+    }
+    if (
+      typeof v.confidence !== "number" ||
+      Number.isNaN(v.confidence) ||
+      v.confidence < 0 ||
+      v.confidence > 1
+    ) {
+      return `row_id ${v.row_id}: confidence must be a number in [0,1], got ${JSON.stringify(v.confidence)}`;
     }
   }
   return null; // valid

@@ -63,7 +63,7 @@ function loadSet(setName) {
   return joined;
 }
 
-function stratifiedFixSample(joined, fraction) {
+function stratifiedFixSample(joined, fraction, minPerIssue = 1) {
   const fixes = joined.filter((j) => j.verdict.verdict === "fix");
   const byIssue = new Map();
   for (const f of fixes) {
@@ -73,7 +73,7 @@ function stratifiedFixSample(joined, fraction) {
   }
   const sample = [];
   for (const [issue, items] of byIssue) {
-    const n = Math.max(1, Math.round(items.length * fraction));
+    const n = Math.max(minPerIssue, Math.round(items.length * fraction));
     const picked = shuffle(items).slice(0, Math.min(n, items.length));
     sample.push(...picked);
   }
@@ -96,7 +96,7 @@ if (all.length === 0) {
   process.exit(1);
 }
 
-const { sample: fixSample, totalFixes } = stratifiedFixSample(all, 0.12);
+const { sample: fixSample, totalFixes } = stratifiedFixSample(all, 0.12, 6);
 const passSample = randomPassSample(all, 30);
 
 const auditRows = [...fixSample, ...passSample].map((j, i) => ({

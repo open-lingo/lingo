@@ -292,11 +292,14 @@ export function PlacementTestPage() {
   // the stop once the NEXT item has actually MOUNTED closes that gap — a
   // stale play that slips past the first stop still gets cut the instant the
   // new step is on screen, rather than left to bleed for its full length.
-  // Page-only fix: the play buttons themselves live in step-view components
-  // this lane doesn't own (`features/lesson/components/steps/**`), so this
-  // narrows the race at the page boundary rather than closing it at the
-  // source; a per-tap "is this still the current item" check in those
-  // handlers would close it completely.
+  // CLOSED (2026-09-15, same day): the per-tap "is this still the current
+  // item" check now lives at the source — `useStepAudioGuard.ts` — and every
+  // manual play handler (listen-build's play button, `PromptAudioButton`'s
+  // callers, DialogueSim/DialogueListen's line plays) routes through it.
+  // This page-level effect stays as a second layer (defense in depth for
+  // whatever was ALREADY playing before the step changed — the guard only
+  // catches plays that were still in flight), not because it's still
+  // carrying the whole fix.
   useEffect(() => {
     if (!currentStep) return;
     stopAllAudio();

@@ -11,6 +11,7 @@ import { playJaAudio, getTtsUrl } from "@/shared/tts";
 import { ExplainButton } from "../ExplainButton";
 import { PromptAudioButton } from "./PromptAudioButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { playStepAudio, useCurrentStepId } from "../../hooks/useStepAudioGuard";
 import { useContentString } from "../../hooks/useContentString";
 import { courseIdsFromLessonId, explanationAnchor } from "@/shared/i18n/content/anchors";
 import { Badge } from "@/shared/components/ui";
@@ -64,6 +65,9 @@ export function ParticleClozeStepView({
   lessonId,
 }: Props) {
   const { t } = useTranslation();
+  // TestFlight #127: registers this step for the post-submit replay
+  // button's currentness guard (see useStepAudioGuard's doc comment).
+  useCurrentStepId(step.id);
   const rid = lessonId ?? step.id;
   const ids = courseIdsFromLessonId(rid);
   const resolvedExplanation = useContentString(
@@ -132,7 +136,8 @@ export function ParticleClozeStepView({
   }
 
   function replayAudio() {
-    if (fullAudio) playJaAudio(fullAudio);
+    // TestFlight #127: guard against the fetch outliving this step.
+    if (fullAudio) void playStepAudio(fullAudio, step.id);
   }
 
   // Pill content: blank while unanswered, then the chosen / correct

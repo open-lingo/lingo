@@ -116,46 +116,35 @@ describe("TransformRuleTable focus mode", () => {
     expect(screen.queryByTestId("transform-rule-table-expand")).toBeNull();
   });
 
-  it("names the example verb, so a masked row can't read as the drilled one", () => {
-    // かう's row is masked to たつ. Alone on screen the chips た＋つ→た＋って
-    // read as past-tense た in a て lesson (Spencer, 2026-08-06: "did we
-    // accidentally insert ta here?"). Spelling out たつ is what stops that.
+  it("shows the drilled word's own chips — no alternate-example swap (#131)", () => {
+    // Spencer, TestFlight #131 (2026-09-15): "ideally show the drilled
+    // word's chips while they are learning" — no alternate-example
+    // convention. かう's canonical て row IS かう, so drilling かう must show
+    // か＋って on screen, never a swapped-in たつ/まつ.
     render(
-      <TransformRuleTable
-        form="te"
-        highlight="godan"
-        highlightSubgroup="tte"
-        maskBase="かう"
-        focus
-      />,
+      <TransformRuleTable form="te" highlight="godan" highlightSubgroup="tte" focus />,
     );
     const table = screen.getByTestId("transform-rule-table");
-    expect(within(table).getByText("たつ")).toBeTruthy();
+    expect(within(table).getByText("かう")).toBeTruthy();
+    expect(within(table).queryByText("たつ")).toBeNull();
   });
 
-  it("names no example when the masked row falls back to the abstract rule", () => {
-    // す has exactly one taught verb (はなす), so かす's mask has no sibling to
-    // show and drops to `す → して` with `examples: []`. An empty caption slot
-    // must not render.
+  it("shows the drilled word's own chips for a single-example row too", () => {
+    // す's canonical て row example is かす — with masking removed, the
+    // row's own example is what renders, never blanked or swapped.
     render(
-      <TransformRuleTable
-        form="te"
-        highlight="godan"
-        highlightSubgroup="shite"
-        maskBase="かす"
-        focus
-      />,
+      <TransformRuleTable form="te" highlight="godan" highlightSubgroup="shite" focus />,
     );
     const table = screen.getByTestId("transform-rule-table");
-    expect(within(table).queryByText("かす")).toBeNull();
-    expect(within(table).queryByText("はなす")).toBeNull();
+    expect(within(table).getByText("かす")).toBeTruthy();
   });
 
-  it("still masks the drilled verb in focus mode", () => {
-    // The leak rule outranks the layout rule: the focused row is the ONLY row
-    // on screen, so if it printed たべ＋て the card would answer itself.
-    render(<TransformRuleTable form="te" highlight="ichidan" maskBase="たべる" focus />);
+  it("prints the literal answer chips in focus mode (masking removed)", () => {
+    // Pre-#131 the leak rule blanked the focused row so it couldn't answer
+    // the card. Spencer reversed that call — the focused row now IS たべ＋て.
+    render(<TransformRuleTable form="te" highlight="ichidan" focus />);
     const table = screen.getByTestId("transform-rule-table");
-    expect(within(table).queryByText("たべ")).toBeNull();
+    // The stem chip "たべ" appears twice (struck side + replacement side).
+    expect(within(table).getAllByText("たべ").length).toBe(2);
   });
 });

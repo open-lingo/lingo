@@ -6,7 +6,7 @@ import { Button } from "@/shared/components/ui";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useUserStats } from "@/shared/hooks/useUserStats";
 import { playSfx } from "@/shared/audio/sfx";
-import { expectedXp, XP_PER_LEVEL as XP_RULES_PER_LEVEL } from "@/features/progress/xpRules";
+import { XP_PER_LEVEL as XP_RULES_PER_LEVEL } from "@/features/progress/xpRules";
 import { Confetti } from "./Confetti";
 import type { LessonContent } from "../types";
 
@@ -72,21 +72,22 @@ type Props = {
   onContinue: () => void;
   /** True when the learner is replaying an already-completed lesson. */
   isReview?: boolean;
-  /** XP multiplier — 1 for a fresh completion, < 1 for a review replay. */
-  xpMultiplier?: number;
   mastery?: LessonCompleteMastery;
   /** Copy for the primary CTA. LessonPage decides between "Next lesson →"
    *  and "Back to Learn" based on whether a next lesson exists. */
   primaryLabel?: string;
   /** Count of graded steps the learner got wrong on first attempt — when
-   *  > 0 the "Drill what you missed" secondary renders. */
+   *  > 0 the secondary CTA's label counts them and its target narrows to
+   *  just those cards. */
   missedCount?: number;
-  /** Handler for the "Drill what you missed" secondary. Required when
-   *  `missedCount > 0`; ignored otherwise. */
+  /** Handler for the secondary "Drill these words" CTA when there's a
+   *  specific miss-set to target. Omitted (0 misses) falls back to the
+   *  general flashcards review deck — the secondary is always shown
+   *  (outside review runs), never conditional on there being misses. */
   onDrillMissed?: () => void;
-  /** Handler for the tertiary binge-brake "I'm done — save my XP" button.
-   *  When omitted, the tertiary is hidden (used by tests / previews that
-   *  don't wire the side effect). */
+  /** Binge-brake telemetry: stamps the intentional-stop timestamp before
+   *  the tertiary "Return" button navigates home. Optional so tests /
+   *  previews that don't wire the side effect still get a working button. */
   onSaveAndExit?: () => void;
   /** Server-award mirror: a not-passed attempt (skipped row test or
    *  sub-threshold accuracy) earns 0 XP server-side, so the screen must
@@ -103,7 +104,6 @@ export function LessonComplete({
   totalGraded,
   onContinue,
   isReview = false,
-  xpMultiplier = 1,
   mastery,
   primaryLabel,
   missedCount = 0,
@@ -117,34 +117,37 @@ export function LessonComplete({
   const langPath = useLangPath();
   const percent = totalGraded > 0 ? Math.round((correctCount / totalGraded) * 100) : 100;
   const perfect = correctCount === totalGraded;
-  // Server-formula estimate (xpRules mirrors lingo-core/app/progress/xp.py)
-  // — the displayed number now matches what the batch sync will award,
-  // instead of the cosmetic lesson.xpReward. Not-passed attempts award 0
-  // server-side, so show 0.
-  const xp = passed
-    ? expectedXp({
-        lessonId: lesson.id,
-        perfect,
-        multiplier: xpMultiplier,
-      })
-    : 0;
   const { stats, isReady: statsReady } = useUserStats();
 
-  const xpShown = useCountUp(xp);
   const percentShown = useCountUp(percent);
 
   useEffect(() => {
     playSfx("complete");
   }, []);
 
+  // Secondary CTA target: the just-missed cards when there are any,
+  // otherwise the general flashcards review deck — the button is always
+  // present (outside a review run), never a dead end.
+  const handleDrillTheseWords =
+    onDrillMissed ?? (() => navigate(langPath("practice/flashcards/review")));
+
+  // Tertiary "Return": stamp the binge-brake intentional-stop bit (same
+  // side effect the old "I'm done — save my XP" button had), then go
+  // straight to the app home — not back into the lesson list (Spencer,
+  // TestFlight #136: "return should just take you back to the home page").
+  const handleReturn = () => {
+    onSaveAndExit?.();
+    navigate("/home");
+  };
+
   return (
     <div className="mx-auto flex min-h-[60vh] max-w-md flex-col items-center justify-center gap-6 py-12 text-center">
       {perfect && <Confetti />}
-      <div className="flex h-20 w-20 items-center justify-center rounded-full border-[1.5px] border-accent bg-accent-muted text-accent">
+      <div className="flex h-14 w-14 items-center justify-center rounded-full border-[1.5px] border-accent bg-accent-muted text-accent">
         {perfect ? (
-          <Icon name="partyPopper" size={40} />
+          <Icon name="partyPopper" size={28} />
         ) : (
-          <Icon name="check" size={40} strokeWidth={3} />
+          <Icon name="check" size={28} strokeWidth={3} />
         )}
       </div>
       <h1 className="text-3xl font-bold tracking-tight text-text-primary">
@@ -182,37 +185,28 @@ export function LessonComplete({
         </span>
       )}
 
-      <div className="flex w-full items-center justify-around gap-4 rounded-2xl border-[1.5px] border-border bg-surface px-6 py-5 shadow-[var(--shadow-card)]">
-        {/* Accuracy + Score only make sense when the lesson had graded steps.
-            Exposure-only lessons (phrase cards, info) have totalGraded === 0;
-            showing "100% / 0/0" reads as a bug, so collapse to XP only.
-            (Trevor's exposure fix + our count-up animation values.) */}
-        {totalGraded > 0 && (
-          <>
-            <Stat
-              label={t("lesson.accuracy", "Accuracy")}
-              value={`${percentShown}%`}
-              accent={percent >= 80}
-            />
-            <div className="h-10 w-px bg-border" aria-hidden />
-          </>
-        )}
-        <Stat
-          label={t("lesson.xpEarned", "XP earned")}
-          value={`+${xpShown}`}
-          accent
-        />
-        {totalGraded > 0 && (
-          <>
-            <div className="h-10 w-px bg-border" aria-hidden />
-            <Stat
-              label={t("lesson.score", "Score")}
-              value={`${correctCount}/${totalGraded}`}
-              accent={false}
-            />
-          </>
-        )}
-      </div>
+      {/* Accuracy + Score only make sense when the lesson had graded steps.
+          Exposure-only lessons (phrase cards, info) have totalGraded === 0,
+          so the card is skipped entirely rather than showing "100% / 0/0".
+          The "XP earned" stat that used to sit between these two was a
+          purely cosmetic re-derivation of the number LessonPage already
+          records server-side (TestFlight #136: redundant with the level
+          progress bar's fill below) — dropped, not replaced. */}
+      {totalGraded > 0 && (
+        <div className="flex w-full items-center justify-around gap-4 rounded-2xl border-[1.5px] border-border bg-surface px-5 py-3.5 shadow-[var(--shadow-card)]">
+          <Stat
+            label={t("lesson.accuracy", "Accuracy")}
+            value={`${percentShown}%`}
+            accent={percent >= 80}
+          />
+          <div className="h-10 w-px bg-border" aria-hidden />
+          <Stat
+            label={t("lesson.score", "Score")}
+            value={`${correctCount}/${totalGraded}`}
+            accent={false}
+          />
+        </div>
+      )}
 
       {statsReady && (stats.streak > 0 || stats.xp > 0) && (
         <div className="flex w-full items-center gap-4 rounded-2xl border-[1.5px] border-border bg-surface px-5 py-4 shadow-[var(--shadow-card)]">
@@ -290,56 +284,45 @@ export function LessonComplete({
         </div>
       ) : null}
 
+      {/* Spencer, TestFlight #136 (2026-09-15): "target is 3 buttons… use
+          your UI design to pick colors that fit in the theme and
+          appropriate sizing." Primary = accent (continue), secondary =
+          accent outline (drill), tertiary = surface-muted grey (return
+          home) — one fixed 3-action stack, not a conditional pile of up to
+          four. `min-h-[44px]` (px, not rem) meets the mobile tap-target
+          floor regardless of `--font-base` shrinking on short desktops. */}
       <div className="mt-4 flex w-full flex-col gap-3">
         <Button
           variant="primary-3d"
           onClick={onContinue}
-          className="w-full"
+          className="w-full min-h-[44px]"
         >
           {primaryLabel ?? t("lesson.nextLesson", "Next lesson →")}
         </Button>
 
-        {missedCount > 0 && onDrillMissed && (
-          <Button
-            variant="outline"
-            accent
-            onClick={onDrillMissed}
-            className="w-full"
-          >
-            {t("lesson.drillMissed", {
-              defaultValue: "Drill what you missed ({{n}})",
-              n: missedCount,
-            })}
-          </Button>
-        )}
-
         {!isReview && (
           <Button
             variant="outline"
-            onClick={() => navigate(langPath("practice/flashcards/review"))}
-            className="w-full"
+            accent
+            onClick={handleDrillTheseWords}
+            className="w-full min-h-[44px]"
           >
-            {t("lesson.reviewWords", "Review your words →")}
+            {missedCount > 0
+              ? t("lesson.drillTheseWordsMissed", {
+                  defaultValue: "Drill these words ({{n}})",
+                  n: missedCount,
+                })
+              : t("lesson.drillTheseWords", "Drill these words")}
           </Button>
         )}
 
-        {onSaveAndExit && (
-          <div className="flex flex-col items-center gap-1">
-            <Button
-              variant="ghost"
-              onClick={onSaveAndExit}
-              className="w-full text-text-secondary"
-            >
-              {t("lesson.saveAndExit", "I'm done — save my XP")}
-            </Button>
-            <span className="text-xs text-text-muted">
-              {t(
-                "lesson.saveAndExitHint",
-                "Locked in — see you tomorrow.",
-              )}
-            </span>
-          </div>
-        )}
+        <Button
+          variant="ghost"
+          onClick={handleReturn}
+          className="w-full min-h-[44px] bg-surface-muted text-text-secondary"
+        >
+          {t("lesson.returnHome", "Return")}
+        </Button>
       </div>
     </div>
   );

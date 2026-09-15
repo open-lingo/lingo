@@ -50,6 +50,11 @@ vi.mock("@/shared/hooks/useLangPath", () => ({
   useLangPath: () => (p: string) => `/ja/${p.replace(/^\//, "")}`,
   useLang: () => "ja",
 }));
+// WordImageMcqStepView reads useLanguage() for CJK script-class selection;
+// stub it the KanjiReadingStepView.test.tsx way (this suite IS JA-only).
+vi.mock("@/shared/contexts/LanguageContext", () => ({
+  useLanguage: () => ({ language: { id: "ja" } }),
+}));
 // Defaults with NO auto-off guard flipped (the deep-link scenario): any
 // hiding asserted below must come from the module-position gate.
 const defaultLearning = () => ({

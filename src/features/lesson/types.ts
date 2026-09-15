@@ -406,6 +406,14 @@ export type ListeningBuildStep = StepBase & {
   correctOrder: string[];
   granularity: "word" | "character";
   targetAnnotation?: JapaneseAnnotation[];
+  /**
+   * The FULL English translation of `targetSentence` — revealed under the
+   * tray only AFTER a correct submit (Spencer, TestFlight #142: "use the
+   * space: show the English when they get it right"). Never shown
+   * pre-answer: `prompt` (often the generic "Build what you hear.") is
+   * the only pre-answer cue, so this stays a real listening exercise.
+   */
+  translation?: string;
 };
 
 export type SpeakingStep = StepBase & {

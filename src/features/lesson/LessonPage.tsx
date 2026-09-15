@@ -814,15 +814,15 @@ function LessonPageInner() {
   }, [navigate, langPath]);
 
   /**
-   * "I'm done — save my XP" tertiary handler. Side effect: stamp the
-   * intentional-stop timestamp on the progress store (binge-brake
-   * telemetry), then exit to Learn. Distinct from the X-in-the-header
-   * exit and from leaving the tab — only this button stamps the bit.
+   * "Return" tertiary handler (TestFlight #136: the button now navigates
+   * home itself, not to Learn — see `LessonComplete`). This hook is just
+   * the binge-brake side effect: stamp the intentional-stop timestamp on
+   * the progress store. Distinct from the X-in-the-header exit and from
+   * leaving the tab — only this button stamps the bit.
    */
   const handleSaveAndExit = useCallback(() => {
     markLastStoppedCleanly();
-    handleExit();
-  }, [handleExit]);
+  }, []);
 
   if (!lesson) {
     return (
@@ -868,7 +868,6 @@ function LessonPageInner() {
         totalGraded={gradedSteps}
         onContinue={handleNextLesson}
         isReview={isReview}
-        xpMultiplier={isReview ? REVIEW_XP_MULTIPLIER : 1}
         passed={summaryPassed}
         wasSkipped={summaryWasSkipped}
         mastery={mastery}
