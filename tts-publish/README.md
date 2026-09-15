@@ -81,3 +81,22 @@ change" — the old bytes are mispronunciations (whisper-audited, 5/16 of the
 ははは class). **Trevor: after the sync, these five paths need a CloudFront
 invalidation** (`/tts/v1/ja/<hash>.mp3`) or the edge keeps serving laughter
 until the cache ages out.
+
+## Exception logged 2026-09-15: three repaired clips OVERWRITE existing keys
+
+TestFlight b13 #93/#106 (Spencer) + an ASR sweep of all 1,986 JA word clips
+(mlx-whisper large-v3-turbo, hiragana-biased prompt; report in the session
+ledger `docs/handoff-2026-09-11-mobile-qa.md`). The Edge voice reads a
+word-initial は as the particle "wa" deterministically for three bare-kana
+inputs (3/3 fresh regenerations each), and `emit-tts-deck.mjs` only ever
+sends `kana:`, so the fix is to synthesize from the kanji surface:
+
+    8530adec0baac792  はなたば → was "wanataba", now from 花束
+    7a73690384245d2c  はれる   → was "wareru",   now from 晴れる
+    7d9d47d68906587d  はし     → was "washi",    now from 箸 (chopsticks;
+                                the 橋 atom shares this kana-keyed clip —
+                                Spencer's call: "pick one kanji and use it")
+
+Same rule as the 2026-08-20 entry: after the sync these three paths need a
+CloudFront invalidation (`/tts/v1/ja/<hash>.mp3`). わたし (#100) did NOT
+reproduce (live clip + 5 regenerations all read わたし) — left as is.

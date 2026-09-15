@@ -469,7 +469,7 @@ const JA_COURSE_ATOMS_PART1: readonly CourseAtom[] = [
   { id: "nado", kana: "など", romaji: "nado", meaningEn: "et cetera", fromModule: "m21", introducedByLessonId: "ja-m21-3-2", kind: "vocab", blocked: true, note: "particle", pos: "noun" },
   { id: "naru", kana: "なる", romaji: "naru", meaningEn: "to become", emoji: "🔄", fromModule: "m27", introducedByLessonId: "ja-m27-4-1", kind: "vocab", blocked: true, note: "cycle reads as 'refresh' not 'become'", pos: "verb", conjugation: { class: "godan" } },
   { id: "haku", kana: "はく", romaji: "haku", meaningEn: "to wear, to put on trousers", emoji: "👖", fromModule: "future", freqRank: 49, kind: "vocab", note: "jeans as put-on-trousers cue", pos: "verb", conjugation: { class: "godan" } },
-  { id: "hashi", kana: "はし", romaji: "hashi", meaningEn: "chopsticks", emoji: "🥢", fromModule: "future", freqRank: 50, kind: "vocab", pos: "noun" },
+  { id: "hashi", kana: "はし", kanji: "箸", romaji: "hashi", meaningEn: "chopsticks", emoji: "🥢", fromModule: "future", freqRank: 50, kind: "vocab", pos: "noun" },
   { id: "furo", kana: "ふろ", romaji: "furo", meaningEn: "bath", emoji: "🛁", fromModule: "future", freqRank: 51, kind: "vocab", pos: "noun" },
   { id: "hoka", kana: "ほか", romaji: "hoka", meaningEn: "other, the rest", fromModule: "future", freqRank: 52, introducedByLessonId: "ja-m21-7-1", kind: "vocab", blocked: true, note: "abstract relational word", pos: "noun" },
   { id: "hontou", kana: "ほんとう", romaji: "hontou", meaningEn: "truth", fromModule: "future", freqRank: 53, kind: "vocab", blocked: true, note: "abstract noun; no concrete referent", pos: "noun" },
