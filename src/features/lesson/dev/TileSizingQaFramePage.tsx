@@ -8,17 +8,20 @@ import { setCardState, getCardState } from "@/features/flashcards/engine/srsStor
 import { TILE_QA_MESSAGE } from "./tileSizingMessage";
 import { LessonOverlayCard } from "../components/overlays/LessonOverlayCard";
 import { Tile, type TileDensity, type TileSize, type TileSlot, type TileState, type TileTone, type TileVariant } from "../components/tiles/Tile";
+import { TILE_TOKEN_DEFS, defaultVars, formatVar } from "./tileSizingTokens";
 
 /**
- * `/:lang/qa/tiles/frame?view=desktop|mobile` — the iframe target
- * `TileSizingQaPage` embeds twice (once at 430×932, once at 1280×900) so
- * real `@media` queries fire against a REAL viewport width. Renders the
- * six fixture step types Spencer asked for, through the SAME `StepRenderer`
- * production lessons use — no copies — so a token slider on the parent
- * changes the real components.
+ * `/:lang/qa/tiles/frame?view=desktop|mobile|tablet` — the iframe target
+ * `TileSizingQaPage` embeds three times (430×932, 1280×900, and 820×1180 for
+ * the iPad-portrait pass) so real `@media` queries fire against a REAL
+ * viewport width. Renders the six fixture step types Spencer asked for,
+ * through the SAME `StepRenderer` production lessons use — no copies — so a
+ * token slider on the parent changes the real components.
  *
- * `view` is read only for the on-page label; the actual desktop/mobile
- * split comes from whatever CSS width the parent gives this iframe.
+ * `view` is read only to label outgoing postMessages so the parent can tell
+ * the three frames apart (see `tileSizingMessage.ts`); the actual
+ * mobile/desktop/tablet split comes from whatever CSS width the parent gives
+ * this iframe.
  */
 
 // One atom seeded to a MASTERED state so its build tile renders with the
@@ -47,6 +50,53 @@ function seedMasteredAtomOnce() {
     recognition: masteredSub,
     production: masteredSub,
   });
+}
+
+// Seeded once per frame document, same pattern as `seedMasteredAtomOnce`
+// above (a module-level flag, not React state, because this only ever needs
+// to run once for the lifetime of this iframe's JS context).
+//
+// WHY THIS EXISTS: `index.css`'s `tabletPortrait` `:root` block is gated on
+// `pointer: coarse`, which is a real hardware signal — and this frame is an
+// 820px-wide iframe running inside a DESKTOP browser tab, so `pointer: coarse`
+// reads FALSE in here no matter what tier the parent is editing. `base`/`sm`
+// are width-only media queries, so a correctly-sized iframe reproduces them
+// from CSS alone with no help needed; `tabletPortrait` is the first tier with
+// a pointer clause, so it's the first tier an iframe cannot reproduce on its
+// own. Left alone, this frame renders the `sm` (desktop) tokens right up
+// until the parent's first `setVars` postMessage lands — e.g. `--tile-box-h`
+// would read the sm value (51px) instead of tabletPortrait's own default
+// (50.5px) for however long that round-trip takes.
+//
+// The fix: apply the tabletPortrait registry defaults as inline custom
+// properties on `documentElement` synchronously, before the "ready" handshake
+// even fires (this is called from the component body, not an effect — same
+// reasoning as `seedMasteredAtomOnce`, which also runs before first paint).
+// The parent's `setVars` pushes set these exact same property names via the
+// same `documentElement.style.setProperty` call (see the `onMessage` handler
+// below), so once a push lands it simply overwrites this seed — no special
+// handling needed to make the parent win. And because this seed applies
+// exactly once, ever, per iframe (the module-level guard), it cannot re-fire
+// later and stomp a value the "Lock tile heights" self-measurement path (also
+// below) has since set on `--tile-box-h`.
+let seededTabletPortraitDefaults = false;
+function seedTabletPortraitDefaultsOnce() {
+  if (seededTabletPortraitDefaults) return;
+  seededTabletPortraitDefaults = true;
+  const defaults = defaultVars("tabletPortrait");
+  for (const def of TILE_TOKEN_DEFS) {
+    document.documentElement.style.setProperty(def.key, formatVar(def, defaults[def.key], "tabletPortrait"));
+    // `def.absKey` is deliberately left UNSET here — this mirrors the
+    // parent's default "scale" mode: `resolveTier` in `TileSizingQaPage.tsx`
+    // only sets a scale token's `absKey` when that section's mode is "abs"
+    // (empty/default modes mean "scale", where the abs override is CLEARED
+    // so the CSS fallback `var(--X-abs, calc(base * var(--X-scale)))` takes
+    // over). `resolveTier` lives in the parent page, which this file may not
+    // import from — duplicated in miniature here rather than moved, per the
+    // instruction that only this file and the test file may change for this
+    // pass; `resolveTier` remains the source of truth for the full
+    // scale/abs contract.
+  }
 }
 
 function buildFixtures(): { title: string; step: LessonStep }[] {
@@ -447,11 +497,16 @@ function SingleTile({ params }: { params: URLSearchParams }) {
 
 export default function TileSizingQaFramePage() {
   const [params] = useSearchParams();
-  const view = params.get("view") === "desktop" ? "desktop" : "mobile";
+  const viewParam = params.get("view");
+  const view = viewParam === "desktop" ? "desktop" : viewParam === "tablet" ? "tablet" : "mobile";
   const fixtures = useMemo(buildFixtures, []);
   const rootRef = useRef<HTMLDivElement>(null);
 
   seedMasteredAtomOnce();
+  // Only the tablet frame needs this — see `seedTabletPortraitDefaultsOnce`'s
+  // doc comment for why it's specifically the tabletPortrait tier (not base
+  // or sm) that can't reproduce itself from CSS alone inside an iframe.
+  if (view === "tablet") seedTabletPortraitDefaultsOnce();
 
   // Single-instance mode short-circuits every fixture, measurement and
   // postMessage below — it exists to be screenshotted, not dialled.

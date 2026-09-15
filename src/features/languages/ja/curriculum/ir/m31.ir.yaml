@@ -716,7 +716,7 @@ lessons:
       - { kind: listening-comp, audio: "せんせいに おれいの てがみを あげた。", answer: "I gave the teacher a thank-you letter", distractors: ["I got a thank-you letter from the teacher", "I gave the teacher a thank-you card", "I gave the student a thank-you letter"], exercises: [ta-form, ageru] }
       - kind: dialogue
         lines:
-          - { speaker: "Ken", ja: "その けいたい、あたらしい？", en: "Is that mobile new?" }
+          - { speaker: "Ken", ja: "その けいたい、あたらしい？", en: "Is that cell phone new?" }
           - { speaker: "Mika", ja: "うん。たんじょうびに あねに もらった。", en: "Yeah. I got it from my older sister for my birthday." }
         questions:
           - { q: "Where did Mika's mobile come from?", options: ["Her older sister", "Her father", "She bought it", "Her friend"], answer: "Her older sister" }
@@ -786,7 +786,7 @@ lessons:
       - { kind: sentence, ja: "その とけいは たかいから ともだちに あげない。", en: "That watch is expensive, so I'm not giving it to my friend", exercises: [ageru, nai-form], mode: build }
       - kind: dialogue
         lines:
-          - { speaker: "Tom", ja: "その けいたい、あたらしい？", en: "Is that mobile new?" }
+          - { speaker: "Tom", ja: "その けいたい、あたらしい？", en: "Is that cell phone new?" }
           - { speaker: "Ken", ja: "うん。あねが くれた。", en: "Yeah. My older sister gave it to me." }
         questions:
           - { q: "Where did Ken's mobile come from?", options: ["His older sister gave it to him", "He borrowed it from his older sister", "He bought it", "His father gave it to him"], answer: "His older sister gave it to him" }
@@ -925,7 +925,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Tom", ja: "たんじょうびに なにを もらった？", en: "What did you get for your birthday?" }
-          - { speaker: "Ken", ja: "かぞくが けいたいを くれた。よろこんだ。", en: "My family gave me a mobile. I was delighted." }
+          - { speaker: "Ken", ja: "かぞくが けいたいを くれた。よろこんだ。", en: "My family gave me a cell phone. I was delighted." }
         questions:
           - { q: "What did Ken get?", options: ["A cell phone from his family", "A watch from his father", "An umbrella from a friend", "Money from his older sister"], answer: "A cell phone from his family" }
     reviewPool: [とけい, けいたい, はなたば, かさ, おかね, プレゼント, ノート, きねん, しんせつ, うれしい]

@@ -201,7 +201,7 @@ lessons:
       - { kind: sentence, ja: "しゃしんを みません。", en: "Say politely: I don't look at the photo", exercises: [masu-negative, wo-object], mode: listening }
       - { kind: sentence, ja: "ぎゅうにゅうを のみません。", en: "Say politely: I don't drink milk", exercises: [masu-negative, wo-object], mode: listening }
       - { kind: sentence, ja: "たなかさんは きません。", en: "Say politely: Tanaka isn't coming", exercises: [masu-negative, wa-topic], mode: build }
-      - { kind: particle-cloze, stem: "みずを ", tail: "。", answer: "のみません", options: ["のみません", "のみます", "たべません"], en: "I don't drink water. (polite)", explanation: "ません is the polite negative — の-み-ません, same stem as のみます." }
+      - { kind: particle-cloze, stem: "みずを ", tail: "。", answer: "のみません", options: ["のみません", "のみます", "たべません"], en: "I don't drink water.", explanation: "ません is the polite negative — の-み-ません, same stem as のみます." }
       - { kind: sentence, ja: "さんぽを しません。", en: "Say politely: I don't take walks", exercises: [masu-negative, wo-object], mode: build }
       - kind: dialogue
         lines:

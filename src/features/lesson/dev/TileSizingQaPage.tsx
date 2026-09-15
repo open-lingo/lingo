@@ -13,14 +13,18 @@
  *     own absolute tokens (Spencer: match may be its own height as long as it
  *     is uniform).
  *   - You edit ONE tier at a time (Mobile <640px / Desktop ≥640px, the app's
- *     `sm:` breakpoint); both panes stay visible. Values persist per tier in
- *     localStorage and can be saved to `docs/qa/tile-sizing.json` through the
- *     dev-only Vite middleware (`/__qa/tile-sizing`).
+ *     `sm:` breakpoint / Tablet portrait, the 640–1023px portrait+coarse-pointer
+ *     band — see `TileTier` in `tileSizingTokens.ts`); all three panes stay
+ *     visible. Values persist per tier in localStorage and can be saved to
+ *     `docs/qa/tile-sizing.json` through the dev-only Vite middleware
+ *     (`/__qa/tile-sizing`).
  *   - Mobile pane: a 430×932 iframe scaled to the phone's PHYSICAL size on
- *     this screen (credit-card calibration). Desktop pane: a 1280px iframe of
- *     the bare lesson element, scaled to fit its column, height from the
- *     frame's reported content height, the outer pane scrolls.
- *   - Clicking a section header scrolls both panes to the fixture it dials.
+ *     this screen (credit-card calibration). Tablet pane: an 820×1180 iframe
+ *     scaled the same physical way, calibrated to an 11" iPad Air instead of
+ *     the phone. Desktop pane: a 1280px iframe of the bare lesson element,
+ *     scaled to fit its column, height from the frame's reported content
+ *     height, the outer pane scrolls.
+ *   - Clicking a section header scrolls all three panes to the fixture it dials.
  *
  * Protocol with the iframes: `tileSizingMessage.ts`. Lock-heights logic lives
  * in the frame (it measures and applies itself); the page only toggles it.
@@ -52,9 +56,31 @@ const CARD_HEIGHT_MM = 53.98;
 const SAFE_TOP_PT = 59;
 const SAFE_BOTTOM_PT = 34;
 
-const LS_VARS = { base: "lingo:qa-tiles-vars:mobile:v2", sm: "lingo:qa-tiles-vars:desktop:v2" } as const;
-const LS_MODES = { base: "lingo:qa-tiles-modes:mobile:v2", sm: "lingo:qa-tiles-modes:desktop:v2" } as const;
+// Tablet pane: portrait iPad / Split View, calibrated to an 11" iPad Air M4
+// (2360×1640 physical px at 264 ppi, 2× render scale) rather than the phone's
+// 3× — CSS px per inch is physical-ppi / render-scale, same derivation as
+// `PHONE_CSS_PX_PER_INCH` above: 264 / 2 = 132.
+const TABLET_W = 820;
+const TABLET_H = 1180;
+const TABLET_CSS_PX_PER_INCH = 132; // 11" iPad Air M4: 264 ppi / 2× render scale
+// An iPad has no notch/Dynamic Island — these mirror the status-bar / home-
+// indicator heights the mobile Playwright gate uses for its iPad viewports
+// (not the phone's SAFE_TOP_PT/SAFE_BOTTOM_PT, which are notch-shaped).
+const TABLET_SAFE_TOP_PT = 24;
+const TABLET_SAFE_BOTTOM_PT = 20;
+
+const LS_VARS = {
+  base: "lingo:qa-tiles-vars:mobile:v2",
+  sm: "lingo:qa-tiles-vars:desktop:v2",
+  tabletPortrait: "lingo:qa-tiles-vars:tablet-portrait:v2",
+} as const;
+const LS_MODES = {
+  base: "lingo:qa-tiles-modes:mobile:v2",
+  sm: "lingo:qa-tiles-modes:desktop:v2",
+  tabletPortrait: "lingo:qa-tiles-modes:tablet-portrait:v2",
+} as const;
 const LS_CALIBRATION = "lingo:qa-tiles-calibration:v1";
+const TIERS: readonly TileTier[] = ["base", "sm", "tabletPortrait"];
 
 type SectionMode = "scale" | "abs";
 type ModeMap = Partial<Record<TileSection, SectionMode>>;
@@ -94,12 +120,17 @@ function resolveTier(vars: TileVarMap, modes: ModeMap, tier: TileTier) {
   return { set, clear };
 }
 
+/** The exact `@media` selector `index.css` gates its `tabletPortrait` `:root`
+ *  blocks on — copy verbatim, do not reformat (a test greps for it). */
+const TABLET_PORTRAIT_MEDIA =
+  "@media (min-width: 640px) and (orientation: portrait) and (pointer: coarse)";
+
 function cssBlock(vars: TileVarMap, modes: ModeMap, tier: TileTier): string {
   const { set } = resolveTier(vars, modes, tier);
   const lines = Object.entries(set).map(([k, v]) => `  ${k}: ${v};`);
-  return tier === "base"
-    ? `:root {\n${lines.join("\n")}\n}`
-    : `@media (min-width: 640px) {\n  :root {\n${lines.map((l) => "  " + l).join("\n")}\n  }\n}`;
+  if (tier === "base") return `:root {\n${lines.join("\n")}\n}`;
+  if (tier === "sm") return `@media (min-width: 640px) {\n  :root {\n${lines.map((l) => "  " + l).join("\n")}\n  }\n}`;
+  return `${TABLET_PORTRAIT_MEDIA} {\n  :root {\n${lines.map((l) => "  " + l).join("\n")}\n  }\n}`;
 }
 
 function fmt(n: number, step: number) {
@@ -175,28 +206,32 @@ export default function TileSizingQaPage() {
   const [vars, setVars] = useState<Record<TileTier, TileVarMap>>(() => ({
     base: readJson(LS_VARS.base, defaultVars("base")),
     sm: readJson(LS_VARS.sm, defaultVars("sm")),
+    tabletPortrait: readJson(LS_VARS.tabletPortrait, defaultVars("tabletPortrait")),
   }));
   const [modes, setModes] = useState<Record<TileTier, ModeMap>>(() => ({
     base: readJson(LS_MODES.base, {}),
     sm: readJson(LS_MODES.sm, {}),
+    tabletPortrait: readJson(LS_MODES.tabletPortrait, {}),
   }));
   const [calibration, setCalibration] = useState<Calibration>(() =>
     readJson(LS_CALIBRATION, { macCssPxPerInch: 127, oneToOne: false }),
   );
-  const [locked, setLocked] = useState<Record<TileTier, boolean>>({ base: false, sm: false });
-  const [lockedHeight, setLockedHeight] = useState<Record<TileTier, number | null>>({ base: null, sm: null });
+  const [locked, setLocked] = useState<Record<TileTier, boolean>>({ base: false, sm: false, tabletPortrait: false });
+  const [lockedHeight, setLockedHeight] = useState<Record<TileTier, number | null>>({ base: null, sm: null, tabletPortrait: null });
   const [desktopContentH, setDesktopContentH] = useState(1800);
-  const [ready, setReady] = useState<Record<TileTier, boolean>>({ base: false, sm: false });
+  const [ready, setReady] = useState<Record<TileTier, boolean>>({ base: false, sm: false, tabletPortrait: false });
   const [status, setStatus] = useState<string | null>(null);
   const [hasSavedFile, setHasSavedFile] = useState(false);
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({ base: true });
   const [showCalibration, setShowCalibration] = useState(false);
   const mobileRef = useRef<HTMLIFrameElement>(null);
   const desktopRef = useRef<HTMLIFrameElement>(null);
+  const tabletRef = useRef<HTMLIFrameElement>(null);
   const desktopColRef = useRef<HTMLDivElement>(null);
   const [desktopColW, setDesktopColW] = useState(640);
 
-  const frameFor = (t: TileTier) => (t === "base" ? mobileRef : desktopRef).current?.contentWindow ?? null;
+  const frameFor = (t: TileTier) =>
+    (t === "base" ? mobileRef : t === "tabletPortrait" ? tabletRef : desktopRef).current?.contentWindow ?? null;
 
   // Push the FULL resolved map for a tier (never a diff) so a reloaded
   // frame converges. Skips --tile-box-h while that pane is locked.
@@ -213,25 +248,33 @@ export default function TileSizingQaPage() {
     [vars, modes, locked],
   );
 
-  useEffect(() => {
-    if (ready.base) push("base");
-    writeJson(LS_VARS.base, vars.base);
-    writeJson(LS_MODES.base, modes.base);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [vars.base, modes.base, ready.base]);
-  useEffect(() => {
-    if (ready.sm) push("sm");
-    writeJson(LS_VARS.sm, vars.sm);
-    writeJson(LS_MODES.sm, modes.sm);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [vars.sm, modes.sm, ready.sm]);
+  // One effect per tier, looping over TIERS, instead of three copy-pasted
+  // effects — each tier still gets its own push-on-ready + localStorage
+  // write, keyed by its own LS_VARS/LS_MODES entry.
+  // ⚠️ Hooks inside a loop, legal ONLY because `TIERS` is a module-level
+  // frozen literal of fixed length — the hook order and count are identical on
+  // every render, which is all the rules-of-hooks invariant actually requires.
+  // If `TIERS` ever becomes derived or variable-length, unroll this into one
+  // explicit `useEffect` per tier instead; React's error there is obscure.
+  for (const t of TIERS) {
+    const tVars = vars[t];
+    const tModes = modes[t];
+    const tReady = ready[t];
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useEffect(() => {
+      if (tReady) push(t);
+      writeJson(LS_VARS[t], tVars);
+      writeJson(LS_MODES[t], tModes);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [tVars, tModes, tReady]);
+  }
   useEffect(() => writeJson(LS_CALIBRATION, calibration), [calibration]);
 
   useEffect(() => {
     function onMessage(e: MessageEvent) {
       const d = e.data;
       if (!d || d.source !== TILE_QA_MESSAGE.source) return;
-      const t: TileTier = d.view === "desktop" ? "sm" : "base";
+      const t: TileTier = d.view === "desktop" ? "sm" : d.view === "tablet" ? "tabletPortrait" : "base";
       if (d.type === TILE_QA_MESSAGE.ready) setReady((r) => ({ ...r, [t]: true }));
       else if (d.type === TILE_QA_MESSAGE.lockMeasured) setLockedHeight((h) => ({ ...h, [t]: d.height ?? null }));
       else if (d.type === TILE_QA_MESSAGE.contentHeight && t === "sm") setDesktopContentH(Math.max(600, Number(d.height) || 0));
@@ -293,18 +336,25 @@ export default function TileSizingQaPage() {
   };
 
   const scrollPanesTo = (fixture: string) => {
-    for (const t of ["base", "sm"] as TileTier[])
+    for (const t of TIERS)
       frameFor(t)?.postMessage({ source: TILE_QA_MESSAGE.source, type: TILE_QA_MESSAGE.scrollTo, fixture }, "*");
   };
 
+  // SOURCE ORDER MATTERS: base, then sm, then tabletPortrait LAST. Media
+  // queries add no specificity over each other — only source order breaks a
+  // tie — so the tabletPortrait block (≥640px, portrait, coarse pointer)
+  // only wins its overlap with the sm block (≥640px) because it appears
+  // after it here, exactly mirroring the block order in `index.css`.
   const cssText = useMemo(
-    () => `${cssBlock(vars.base, modes.base, "base")}\n\n${cssBlock(vars.sm, modes.sm, "sm")}\n`,
+    () =>
+      `${cssBlock(vars.base, modes.base, "base")}\n\n${cssBlock(vars.sm, modes.sm, "sm")}\n\n${cssBlock(vars.tabletPortrait, modes.tabletPortrait, "tabletPortrait")}\n`,
     [vars, modes],
   );
   const jsonPayload = () => ({
     mobile: resolveTier(vars.base, modes.base, "base").set,
     desktop: resolveTier(vars.sm, modes.sm, "sm").set,
-    raw: { mobile: vars.base, desktop: vars.sm, modes },
+    tabletPortrait: resolveTier(vars.tabletPortrait, modes.tabletPortrait, "tabletPortrait").set,
+    raw: { mobile: vars.base, desktop: vars.sm, tabletPortrait: vars.tabletPortrait, modes },
     savedAt: new Date().toISOString(),
   });
 
@@ -341,11 +391,18 @@ export default function TileSizingQaPage() {
     try {
       const res = await fetch("/__qa/tile-sizing");
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = (await res.json()) as { raw?: { mobile?: TileVarMap; desktop?: TileVarMap; modes?: Record<TileTier, ModeMap> }; mobile?: TileVarMap; desktop?: TileVarMap };
+      const data = (await res.json()) as {
+        raw?: { mobile?: TileVarMap; desktop?: TileVarMap; tabletPortrait?: TileVarMap; modes?: Record<TileTier, ModeMap> };
+        mobile?: TileVarMap;
+        desktop?: TileVarMap;
+        tabletPortrait?: TileVarMap;
+      };
       const m = data.raw?.mobile ?? data.mobile;
       const d = data.raw?.desktop ?? data.desktop;
+      const tp = data.raw?.tabletPortrait ?? data.tabletPortrait;
       if (m) setVars((v) => ({ ...v, base: { ...defaultVars("base"), ...m } }));
       if (d) setVars((v) => ({ ...v, sm: { ...defaultVars("sm"), ...d } }));
+      if (tp) setVars((v) => ({ ...v, tabletPortrait: { ...defaultVars("tabletPortrait"), ...tp } }));
       if (data.raw?.modes) setModes(data.raw.modes);
       flash("loaded docs/qa/tile-sizing.json");
     } catch {
@@ -360,6 +417,11 @@ export default function TileSizingQaPage() {
   const cardW = (CARD_WIDTH_MM / 25.4) * calibration.macCssPxPerInch;
   const cardH = (CARD_HEIGHT_MM / 25.4) * calibration.macCssPxPerInch;
   const desktopScale = Math.min(1, desktopColW / DESKTOP_W);
+  // Physical scale for the tablet pane — same escape hatch, calibrated to
+  // the iPad's CSS-px-per-inch instead of the phone's.
+  const tabletScale = calibration.oneToOne ? 1 : calibration.macCssPxPerInch / TABLET_CSS_PX_PER_INCH;
+  const tabletW = Math.round(TABLET_W * tabletScale);
+  const tabletH = Math.round(TABLET_H * tabletScale);
 
   const tierVars = vars[tier];
   const tierModes = modes[tier];
@@ -371,14 +433,18 @@ export default function TileSizingQaPage() {
       <div className="mb-3 flex flex-wrap items-center gap-2">
         <h1 className="mr-2 text-lg font-bold">Tile sizing</h1>
         <div className="inline-flex overflow-hidden rounded-lg border border-border text-xs">
-          {(["base", "sm"] as TileTier[]).map((t) => (
+          {TIERS.map((t) => (
             <button
               key={t}
               type="button"
               onClick={() => setTier(t)}
               className={`px-3 py-1.5 font-semibold ${tier === t ? "bg-accent text-white" : "bg-surface text-text-muted hover:text-text-primary"}`}
             >
-              {t === "base" ? "Editing: Mobile (<640px)" : "Editing: Desktop (≥640px)"}
+              {t === "base"
+                ? "Editing: Mobile (<640px)"
+                : t === "sm"
+                  ? "Editing: Desktop (≥640px)"
+                  : "Editing: Tablet portrait (820×1180)"}
             </button>
           ))}
         </div>
@@ -405,7 +471,7 @@ export default function TileSizingQaPage() {
             Copy JSON
           </button>
           <button type="button" onClick={resetAll} className="rounded-lg border border-border px-3 py-1.5 text-text-muted">
-            Reset {tier === "base" ? "mobile" : "desktop"} to shipped
+            Reset {tier === "base" ? "mobile" : tier === "sm" ? "desktop" : "tablet portrait"} to shipped
           </button>
           <button
             type="button"
@@ -555,9 +621,20 @@ export default function TileSizingQaPage() {
           })}
         </div>
 
-        {/* Panes */}
-        <div className="grid gap-4 2xl:grid-cols-[auto_minmax(0,1fr)]">
-          <div>
+        {/* Panes. `flex flex-wrap` (not a fixed 3-column grid): the mobile
+            and tablet panes are physically-scaled to near their real CSS px
+            footprint (the tablet pane alone is ~790px wide at typical Mac
+            calibration), so a rigid `grid-cols-[auto_auto_minmax(0,1fr)]`
+            starves the desktop pane's `minmax(0, 1fr)` track down to 0 width
+            (and the 0×0 iframe silently vanishes) on anything short of an
+            extra-wide monitor — verified empirically while wiring the third
+            pane. Flex-wrap instead drops the desktop pane to its own row
+            once the fixed-width panes don't leave it `min-w` room, which
+            degrades to the same "stack vertically" behavior the old
+            below-2xl breakpoint used, but based on actual available width
+            instead of a fixed viewport breakpoint. */}
+        <div className="flex flex-wrap items-start gap-4">
+          <div className="shrink-0">
             <div className="mb-1 flex items-center justify-between text-xs text-text-muted">
               <span>Mobile — {MOBILE_W}×{MOBILE_H} CSS px (15 Pro Max){tier === "base" ? " · editing" : ""}</span>
               <span>{calibration.oneToOne ? "1:1" : `${scale.toFixed(3)}× physical`}</span>
@@ -580,7 +657,40 @@ export default function TileSizingQaPage() {
               </div>
             </div>
           </div>
-          <div ref={desktopColRef} className="min-w-0">
+          <div className="shrink-0">
+            <div className="mb-1 flex items-center justify-between text-xs text-text-muted">
+              <span>Tablet portrait — {TABLET_W}×{TABLET_H} CSS px (iPad Air 11"){tier === "tabletPortrait" ? " · editing" : ""}</span>
+              <span>{calibration.oneToOne ? "1:1" : `${tabletScale.toFixed(3)}× physical`}</span>
+            </div>
+            {/* 1180 CSS px tall at ~0.96× physical scale still runs well past
+                any laptop screen — capped with the same scrolling-outer-pane
+                treatment the desktop pane below uses (`max-h-[calc(100vh-7rem)]
+                overflow-y-auto`) rather than a fixed-frame + inner-scroll (the
+                phone treatment), because the tablet pane is sized to its full
+                fixed height like the phone, not to measured content like
+                desktop — an inner scroll there would just hide the parts of
+                the frame the physical-scale calibration exists to show true. */}
+            <div className="max-h-[calc(100vh-7rem)] overflow-y-auto rounded-xl border border-border bg-surface">
+              <div
+                className="relative"
+                style={{ width: tabletW, height: tabletH }}
+              >
+                <div className="absolute left-0 top-0 origin-top-left" style={{ transform: `scale(${tabletScale})`, width: TABLET_W, height: TABLET_H }}>
+                  <iframe
+                    ref={tabletRef}
+                    title="tablet"
+                    src={`${frameBase}?view=tablet`}
+                    width={TABLET_W}
+                    height={TABLET_H}
+                    className="block bg-background"
+                  />
+                  <div aria-hidden className="pointer-events-none absolute left-0 right-0 top-0 border-b border-dashed border-error/50" style={{ height: TABLET_SAFE_TOP_PT }} />
+                  <div aria-hidden className="pointer-events-none absolute bottom-0 left-0 right-0 border-t border-dashed border-error/50" style={{ height: TABLET_SAFE_BOTTOM_PT }} />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div ref={desktopColRef} className="min-w-[320px] flex-1">
             <div className="mb-1 flex items-center justify-between text-xs text-text-muted">
               <span>Desktop — {DESKTOP_W} CSS px, lesson element only{tier === "sm" ? " · editing" : ""}</span>
               <span>{desktopScale < 1 ? `${desktopScale.toFixed(2)}× to fit` : "1:1"}</span>

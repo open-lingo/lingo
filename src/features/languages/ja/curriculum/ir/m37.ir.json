@@ -194,7 +194,7 @@
         },
         {
           "ja": "れんしゅうすれば、できる。",
-          "en": "If you practise, you can do it."
+          "en": "If you practice, you can do it."
         },
         {
           "ja": "はやく くれば、まにあう。",
@@ -242,7 +242,7 @@
         },
         {
           "ja": "れんしゅうすれば、じょうずに なる。",
-          "en": "If you practise, you get good."
+          "en": "If you practice, you get good."
         }
       ],
       "antiPattern": {
@@ -730,7 +730,7 @@
         {
           "kind": "sentence",
           "ja": "れんしゅうすれば、できる。",
-          "en": "If you practise, you can do it",
+          "en": "If you practice, you can do it",
           "exercises": [
             "ba-form",
             "dekiru"
@@ -1066,7 +1066,7 @@
         {
           "kind": "sentence",
           "ja": "れんしゅうすれば、できる。",
-          "en": "If you practise, you can do it",
+          "en": "If you practice, you can do it",
           "exercises": [
             "ba-form"
           ],
@@ -2246,7 +2246,7 @@
         {
           "kind": "sentence",
           "ja": "れんしゅうすれば、じょうずに なる。",
-          "en": "If you practise, you get good",
+          "en": "If you practice, you get good",
           "exercises": [
             "ba-form",
             "ku-ni-naru"
@@ -2494,6 +2494,7 @@
     "おしえて",
     "おしえる",
     "おして",
+    "おじいさん",
     "おす",
     "おそい",
     "おちそう",
@@ -2505,10 +2506,12 @@
     "おとうと",
     "おとした",
     "おとす",
+    "おとな",
     "おなか",
     "おにいさん",
     "おねえさん",
     "おねがい",
+    "おばあさん",
     "おぼえて",
     "おぼえなきゃ",
     "おぼえなければ",
@@ -2528,10 +2531,13 @@
     "およがない",
     "およぐ",
     "およげる",
+    "おりる",
     "おれい",
     "おわったら",
     "おわる",
     "おんがく",
+    "おんな",
+    "おんなのこ",
     "か",
     "かいぎ",
     "かいしゃ",
@@ -2541,6 +2547,7 @@
     "かいたがっている",
     "かいたくない",
     "かいたくなかった",
+    "かいだん",
     "かいて",
     "かいました",
     "かいます",
@@ -2664,6 +2671,7 @@
     "けど",
     "げつようび",
     "げんき",
+    "げんご",
     "こ",
     "こうえん",
     "こうさてん",
@@ -2816,6 +2824,7 @@
     "たすかる",
     "たって",
     "たつ",
+    "たてもの",
     "たなか",
     "たのしい",
     "たばこ",
@@ -2928,6 +2937,7 @@
     "どこですか",
     "どちら",
     "どっち",
+    "どなた",
     "どの",
     "どようび",
     "どれ",
@@ -2966,7 +2976,9 @@
     "にじ",
     "にちようび",
     "にほん",
+    "にほんご",
     "にほんじん",
+    "にわ",
     "にん",
     "ね",
     "ねこ",
@@ -3095,6 +3107,7 @@
     "ましょう",
     "また",
     "まだ",
+    "まち",
     "まっすぐ",
     "まって",
     "まつ",
@@ -3132,6 +3145,7 @@
     "みる",
     "みれる",
     "むかえ",
+    "むこう",
     "むずかしい",
     "むずかしすぎる",
     "め",
@@ -3226,6 +3240,7 @@
     "カード",
     "クラス",
     "ケーキ",
+    "コンビニ",
     "コーヒー",
     "シャワー",
     "スポーツ",
@@ -4966,7 +4981,7 @@
     {
       "kana": "ノート",
       "romaji": "nooto",
-      "gloss": "notebook, exercise book",
+      "gloss": "notebook",
       "shortGloss": "notebook",
       "imageable": true,
       "kind": "vocab"
@@ -5259,6 +5274,52 @@
       "kind": "vocab"
     },
     {
+      "kana": "おとな",
+      "romaji": "otona",
+      "gloss": "adult",
+      "shortGloss": "adult",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おんな",
+      "romaji": "onna",
+      "gloss": "woman",
+      "shortGloss": "woman",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おんなのこ",
+      "romaji": "onnanoko",
+      "gloss": "girl",
+      "shortGloss": "girl",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おじいさん",
+      "romaji": "ojiisan",
+      "gloss": "grandfather, older man",
+      "shortGloss": "older man",
+      "kind": "vocab"
+    },
+    {
+      "kana": "おばあさん",
+      "romaji": "obaasan",
+      "gloss": "grandmother, older woman",
+      "shortGloss": "older woman",
+      "kind": "vocab"
+    },
+    {
+      "kana": "どなた",
+      "romaji": "donata",
+      "gloss": "who (polite)",
+      "shortGloss": "who (polite)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "むずかしい",
       "romaji": "muzukashii",
       "gloss": "difficult",
@@ -5366,6 +5427,58 @@
       "romaji": "juppun",
       "gloss": "ten minutes",
       "shortGloss": "ten minutes",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たてもの",
+      "romaji": "tatemono",
+      "gloss": "building",
+      "shortGloss": "building",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "かいだん",
+      "romaji": "kaidan",
+      "gloss": "stairs",
+      "shortGloss": "stairs",
+      "kind": "vocab"
+    },
+    {
+      "kana": "まち",
+      "romaji": "machi",
+      "gloss": "town",
+      "shortGloss": "town",
+      "kind": "vocab"
+    },
+    {
+      "kana": "にわ",
+      "romaji": "niwa",
+      "gloss": "garden",
+      "shortGloss": "garden",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "コンビニ",
+      "romaji": "konbini",
+      "gloss": "convenience store",
+      "shortGloss": "convenience store",
+      "kind": "vocab"
+    },
+    {
+      "kana": "おりる",
+      "romaji": "oriru",
+      "gloss": "to get off, to descend",
+      "shortGloss": "to get off",
+      "kind": "vocab"
+    },
+    {
+      "kana": "むこう",
+      "romaji": "mukou",
+      "gloss": "the other side, over there",
+      "shortGloss": "over there",
       "imageable": false,
       "kind": "vocab"
     },
@@ -5839,8 +5952,8 @@
     {
       "kana": "ひこうき",
       "romaji": "hikouki",
-      "gloss": "an aeroplane",
-      "shortGloss": "aeroplane",
+      "gloss": "an airplane",
+      "shortGloss": "airplane",
       "imageable": false,
       "kind": "vocab"
     },
@@ -6167,8 +6280,8 @@
     {
       "kana": "あき",
       "romaji": "aki",
-      "gloss": "autumn",
-      "shortGloss": "autumn",
+      "gloss": "fall",
+      "shortGloss": "fall",
       "kind": "vocab"
     },
     {
@@ -6954,6 +7067,22 @@
       "romaji": "kotae",
       "gloss": "the answer",
       "shortGloss": "answer",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "げんご",
+      "romaji": "gengo",
+      "gloss": "a language",
+      "shortGloss": "language",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "にほんご",
+      "romaji": "nihongo",
+      "gloss": "the Japanese language",
+      "shortGloss": "Japanese",
       "imageable": false,
       "kind": "vocab"
     },

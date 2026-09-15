@@ -637,7 +637,7 @@ lessons:
       - { kind: sentence, ja: "きょうだいの なかで あにが いちばん じょうずだ。", en: "Of my siblings, my older brother is the most skilful", exercises: [na-adj-present, no-ga-jouzu], mode: build }
       - kind: dialogue
         lines:
-          - { speaker: "Ken", ja: "いぬと ねこと ぞうの なかで どれが いちばん おおきい？", en: "Of the dog, the cat and the elephant, which is the biggest?" }
+          - { speaker: "Ken", ja: "いぬと ねこと ぞうの なかで どれが いちばん おおきい？", en: "Of dogs, cats, and elephants, which is the biggest?" }
           - { speaker: "Mika", ja: "ぞう。ねこが いちばん ちいさい。", en: "The elephant. The cat's the smallest." }
         questions:
           - { q: "Which does Mika say is the smallest?", options: ["The cat", "The dog", "The elephant", "She says the dog and the cat are the same"], answer: "The cat" }

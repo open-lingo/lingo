@@ -231,7 +231,7 @@ grammarPoints:
     examples:
       - { ja: "おいしいし、やすいし、ほしい。", en: "It's tasty, and what's more it's cheap, so I want it." }
       - { ja: "しずかだし、べんりだし、すきだ。", en: "It's quiet, and what's more it's convenient, so I like it." }
-      - { ja: "あめだし、さむいし、いえに いる。", en: "It's raining, and what's more it's cold, so I'm staying home." }
+      - { ja: "あめだし、さむいし、いえに いる。", en: "It's raining and it's cold, so I'm staying home." }
     antiPattern: { ja: "おいしいから、やすいから、ほしい。", why: "から states one reason and stops — repeating it doesn't chain the way し does. Stacking reasons with the 'and what's more' feel needs し: おいしいし、やすいし、ほしい。" }
 
 newAtoms:
@@ -466,7 +466,7 @@ lessons:
       - { kind: rule, grammarPointId: shi-listing }
       - { kind: sentence, ja: "おいしいし、やすいし、ほしい。", en: "It's tasty, and what's more it's cheap, so I want it.", exercises: [shi-listing], mode: build }
       - { kind: sentence, ja: "しずかだし、べんりだし、すきだ。", en: "It's quiet, and what's more it's convenient, so I like it.", exercises: [shi-listing], mode: build }
-      - { kind: sentence, ja: "あめだし、さむいし、いえに いる。", en: "It's raining, and what's more it's cold, so I'm staying home.", exercises: [shi-listing], mode: build }
+      - { kind: sentence, ja: "あめだし、さむいし、いえに いる。", en: "It's raining and it's cold, so I'm staying home.", exercises: [shi-listing], mode: build }
       - { kind: sentence, ja: "この みせは さいこうだ。", en: "This shop is the best.", exercises: [na-adj-present], mode: build }
       - { kind: sentence, ja: "テストは さいあくだった。", en: "The test was the worst.", exercises: [ta-form], mode: build }
       - { kind: particle-cloze, stem: "やすい", tail: "、おいしいし、かいたい。", answer: "し", options: ["し", "から", "ので"], en: "It's cheap, and what's more it's tasty, so I want to buy it.", explanation: "し piles up reasons — cheap AND tasty, all pointing the same way. から/ので each state exactly ONE reason and stop there; they can't chain a second clause the way し does without simply repeating themselves." }

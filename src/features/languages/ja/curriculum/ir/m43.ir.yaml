@@ -274,12 +274,12 @@ lessons:
     focus: "Priming vocabulary for the certainty-ladder arc — no new grammar yet, all through particles and forms you already own"
     introduces: [やくそく, たしか, かならず]
     beats:
-      - { kind: sentence, ja: "たなかさんとの やくそくが ある。", en: "I have a promise with Tanaka.", exercises: [ga-existence], mode: build }
+      - { kind: sentence, ja: "たなかさんとの やくそくが ある。", en: "I have plans with Tanaka.", exercises: [ga-existence], mode: build }
       - { kind: sentence, ja: "かならず いく。", en: "I will definitely go.", exercises: [dictionary-form], mode: build }
       - { kind: sentence, ja: "たしかに、あしたは たんじょうびだ。", en: "For sure, tomorrow is the birthday.", exercises: [wa-topic, desu-copula], mode: build }
       - { kind: sentence, ja: "やくそくは たいせつだ。", en: "A promise is important.", exercises: [wa-topic, na-adj-present], mode: build }
       - { kind: sentence, ja: "かならず プレゼントを かう。", en: "I will definitely buy a present.", exercises: [wo-object, dictionary-form], mode: listening }
-      - { kind: particle-cloze, stem: "あしたの やくそくが あるから、", tail: " いく。", answer: "かならず", options: ["かならず", "たしか", "たぶん"], en: "Since there's a promise tomorrow, I will definitely go.", explanation: "かならず, 'without fail,' fits a resolve about your OWN action. たしか is for recalling a fact, not vowing to act, and たぶん pairs with uncertainty — the wrong tone for a firm promise." }
+      - { kind: particle-cloze, stem: "あしたの やくそくが あるから、", tail: " いく。", answer: "かならず", options: ["かならず", "たしか", "たぶん"], en: "Since I have plans tomorrow, I will definitely go.", explanation: "かならず, 'without fail,' fits a resolve about your OWN action. たしか is for recalling a fact, not vowing to act, and たぶん pairs with uncertainty — the wrong tone for a firm promise." }
       - { kind: listening-comp, audio: "けっこんの おいわいに プレゼントを かった。", answer: "I bought a present for the wedding celebration.", distractors: ["I forgot to buy a present for the wedding celebration.", "I received a present for the wedding celebration.", "There is no wedding celebration."], q: "What does this mean?" }
       - { kind: listening-comp, audio: "たなかさんとの やくそくは たいせつだ。", answer: "The promise with Tanaka is important.", distractors: ["The promise with Tanaka was cancelled.", "Tanaka forgot the promise.", "There is no promise with Tanaka."], q: "What does this mean?" }
       - { kind: kanji, kana: やくそく, kanji: 約束, distractors: ["やすい", "やさしい", "やめる"], exercises: [ga-existence] }
@@ -389,7 +389,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "たなかさん、くる？", en: "Is Tanaka coming?" }
-          - { speaker: "Ken", ja: "やくそくが あるから、くるはずだよ。", en: "Since there's a promise, he should be coming." }
+          - { speaker: "Ken", ja: "やくそくが あるから、くるはずだよ。", en: "Since they have plans, he should be coming." }
           - { speaker: "Mika", ja: "そう。じゃあ、まとう。", en: "I see. Then let's wait." }
         questions:
           - { q: "Why does Ken think Tanaka should be coming?", options: ["Because there's a promise", "Because Tanaka said so directly", "Because he saw Tanaka on the way", "He has no reason at all"], answer: "Because there's a promise" }
@@ -494,7 +494,7 @@ lessons:
             reply: { mode: build, tiles: ["くるかもしれない", "くるはずだ", "くるでしょう", "ぜったい こない"], answer: "くるかもしれない。" }
             replyGloss: "He might come."
             explanation: "かもしれない admits real uncertainty — the honest answer to 'not sure,' unlike はずだ (claims a concrete reason) or でしょう (a more confident guess)."
-          - npc: { speaker: "Ken", ja: "でも、やくそくが あるよ。", en: "But there's a promise." }
+          - npc: { speaker: "Ken", ja: "でも、やくそくが あるよ。", en: "But I have plans." }
             goal: "Say that since there's a promise, he should come."
             reply: { mode: build, tiles: ["やくそくが", "あるから", "くるはずだ", "くるかもしれない", "こないはずだ"], answer: "やくそくが あるから くるはずだ。" }
             replyGloss: "Since there's a promise, he should come."

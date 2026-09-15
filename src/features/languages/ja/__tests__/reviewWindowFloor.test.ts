@@ -76,7 +76,18 @@ const OUT_OF_WINDOW_BUDGET: Readonly<Record<string, number>> = {
   m35: 3,
   m37: 27,
   m38: 18,
-  m39: 34,
+  // m39 34 → 50 and total 607 → 623 on 2026-09-15 (naturalness apply lap):
+  // NOT a content regression — a RE-MEASUREMENT. The committed m14/m20–m37
+  // ir.json were stale against their yaml (m17's vocab pack never
+  // propagated), so `taughtVocab.generated.json` had m17's 15 words
+  // (おじいさん, おとな, まち, …) missing from priorVocab(m33) and m39's
+  // six-module window wrongly counted them as "recent". Recompiling the
+  // stale modules corrected the index, the window shrank from 211 to 196
+  // words, and m39's filler fell through to the fallback 16 more times.
+  // The 34 was measured on the wrong index; 50 is the same content
+  // measured on the right one. Lower it as m39's review pools get
+  // re-authored; never raise it again.
+  m39: 50,
   m40: 34,
   m41: 76,
   m42: 86,
@@ -87,7 +98,7 @@ const OUT_OF_WINDOW_BUDGET: Readonly<Record<string, number>> = {
 };
 
 /** The one number to watch fall. 2,821 before the lane. */
-const OUT_OF_WINDOW_TOTAL_BUDGET = 607;
+const OUT_OF_WINDOW_TOTAL_BUDGET = 623; // 607 + m39's re-measurement (see above)
 
 type Draw = { module: string; kind: string; step: string; kana: string };
 

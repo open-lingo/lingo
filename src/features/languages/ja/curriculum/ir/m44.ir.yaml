@@ -600,7 +600,7 @@ lessons:
     beats:
       - { kind: sentence, ja: "かぜを ひいたようだが、たなかさんは かならず くるはずだ。", en: "It seems like he caught a cold, but Tanaka should definitely be coming.", exercises: [youda-direct-evidence, hazu, kedo], mode: build }
       - { kind: sentence, ja: "そとは こおりのように つめたいのに、こどもは そとで あそんでいる。", en: "Even though it's as cold as ice outside, the child is playing outside.", exercises: [you-ni-simile, noni-concession, te-iru], mode: listening }
-      - { kind: particle-cloze, stem: "かおが あかいから、かぜを ひいた", tail: "が、たなかさんは くるはずだ。", answer: "ようだ", options: ["ようだ", "みたい", "のような"], en: "It seems like he caught a cold, but Tanaka should be coming.", explanation: "This is a formal-register sentence, so ようだ fits better than casual みたい; のような is the wrong construction shape entirely — it needs a following noun, not a clause continuation." }
+      - { kind: particle-cloze, stem: "かおが あかいから、かぜを ひいた", tail: "が、たなかさんは くるはずだ。", answer: "ようだ", options: ["ようだ", "みたい", "のような"], en: "His face is red so it seems like he caught a cold, but Tanaka should be coming.", explanation: "This is a formal-register sentence, so ようだ fits better than casual みたい; のような is the wrong construction shape entirely — it needs a following noun, not a clause continuation." }
       - { kind: kanji, kana: かがみ, kanji: 鏡, distractors: ["かみ", "かぞく", "かいしゃ"], exercises: [you-na-simile] }
       - kind: dialogue
         lines:

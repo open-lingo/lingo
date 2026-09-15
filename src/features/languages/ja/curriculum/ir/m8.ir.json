@@ -2407,7 +2407,7 @@
         {
           "kind": "sentence",
           "ja": "たなかさんの みせで こめを かってください。",
-          "en": "Say politely: Please buy rice at Tanaka's shop",
+          "en": "Say politely: Please buy rice at Tanaka's store",
           "exercises": [
             "no-possession",
             "de-action",
@@ -2431,7 +2431,7 @@
         {
           "kind": "sentence",
           "ja": "きょうは みせに いかない。",
-          "en": "I'm not going to the shop today",
+          "en": "I'm not going to the store today",
           "exercises": [
             "wa-topic",
             "ni-location",
@@ -3018,7 +3018,7 @@
     {
       "kana": "いきません",
       "romaji": "ikimasen",
-      "gloss": "don't go, not travelling (polite)",
+      "gloss": "don't go, not traveling (polite)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",

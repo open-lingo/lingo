@@ -217,6 +217,133 @@ body {
   }
 }
 
+/* ── TABLET PORTRAIT — the roomy-mobile tile tier (iPad pass 2026-09-15) ──
+   Spencer's direction (docs/ipad-scoping-2026-09-15.md §2, binding): an iPad
+   in LANDSCAPE mirrors desktop (it keeps the `sm` block above); an iPad in
+   PORTRAIT is "the roomiest iteration of MOBILE" — the mobile layout and the
+   MOBILE tile tokens, scaled up to use the extra width. So this block starts
+   from the `base` values above, not from the desktop ones.
+
+   ⚠️ ORDER IS LOAD-BEARING. This block must stay AFTER the
+   `@media (min-width: 640px)` block: both define `:root`, media queries add
+   no specificity, and 640–1023px portrait matches BOTH — so whichever is
+   later in source order wins. Moving this above the 640 block silently
+   reverts a portrait iPad to the desktop tokens with no visible error.
+
+   The four clauses, and what each one keeps out:
+     min-width: 640px  — phones (≤440px wide) stay on the `base` block. This
+       is also what makes an upper bound unnecessary: there is no NO-upper-
+       bound hazard, because the other two clauses already exclude everything
+       that isn't a portrait tablet.
+     orientation: portrait — a landscape iPad keeps the desktop tokens, which
+       is the whole product direction. This clause, not a max-width, is what
+       separates the two iPad modes.
+     (NO max-width) — the block originally stopped at 1023px, which left a 13"
+       iPad in PORTRAIT (1024×1366 CSS px) on the desktop tokens while its
+       LAYOUT was mobile: the sidebar and the learn map key off orientation,
+       not width (breakpoints.ts RAW_SCREENS), so that one model rendered a
+       mobile shell wrapped around desktop-sized tiles. Dropped 2026-09-15
+       (lead decision) — `min-width: 640` already excludes every phone and
+       `orientation: portrait` every landscape iPad, so the bound was doing no
+       work except creating that gap.
+     pointer: coarse   — a NARROW DESKTOP WINDOW (fine pointer, 800px wide,
+       taller than wide) must not get tablet tokens. This clause is the only
+       thing standing between "roomy iPad" and "every half-screen browser
+       window on a monitor".
+
+   Values are `base` × the factors fixed in the iPad brief — word ×1.15,
+   paddings ×1.25, gaps ×1.25, match/option ×1.15 — each snapped to the
+   token's own slider step (see tileSizingTokens.ts `tabletPortrait`).
+   Deliberately NOT scaled: `--*-scale` ratio tokens (they are already
+   relative to the base tile, so scaling the base moves them for free),
+   `--ruby-font`/`--tile-kana-font` (em-relative — they grow with the word),
+   the two ruby floors (Spencer's "keep 12px" readability floor is absolute,
+   not proportional) and the corner radii. */
+@media (min-width: 640px) and (orientation: portrait) and (pointer: coarse) {
+  :root {
+    --tile-h: 25px;
+    --tile-font: 21px;
+    --tile-kana-font: 1.28em;
+    --ruby-font: 0.62em;
+    --ruby-floor-romaji: 0.75rem;
+    --ruby-floor-kanji: 0.75rem;
+    --tile-px: 6.25px;
+    --tile-py: 4.75px;
+    --tile-gap: 7px;
+    --tile-tray-gap: 10px;
+    --tile-radius: 0.75rem;
+    /* MEASURED, not derived (the same way 45px/51px were): the height a KANJI
+       tile — word + its 12px reading band — reaches at the tokens above, so a
+       kana-only tile on the same row is exactly as tall (Spencer 2026-09-15:
+       "I want them equal, raise the floor"). Probed on the QA frame fixture
+       `qa-tiles-build-8` at 820×1180 with a coarse pointer and the floor
+       neutralised to 0: natural heights were 50.06px (kanji, word + reading
+       band) vs 45.09px (kana-only) — a 4.97px mismatch — so the floor is
+       50.06 ceiled to the next 0.5, the same derivation as base (44.56 -> 45)
+       and sm (50.63 -> 51). Re-measure if --tile-font / --tile-py /
+       --ruby-floor-* above change. */
+    --tile-box-h: 50.5px;
+    --listen-bank-gap: 9px;
+    --huge-font-scale: 1.032787;
+    --huge-py-scale: 0.666667;
+    --big-font-scale: 1;
+    --big-px-scale: 1;
+    --big-py-scale: 1;
+    --listen-font-scale: 1.103825;
+    --listen-px-scale: 2.4;
+    --listen-py-scale: 0.8;
+    --listen-bank-py-scale: 1.066667;
+    --match-px: 1.25rem;
+    --match-py: 0.5625rem;
+    --match-radius: 1rem;
+    --match-tile-h: 6rem;
+    --match-gap: 0.625rem;
+    --match-font-scale: 1.05;
+    --mcq-font: 1.4375rem;
+    --mcq-py: 1.875rem;
+    /* `--option-*` and `--card-*` are NOT here: they have their own
+       `:root` + `@media (min-width: 640px)` pair further down the file
+       (the b16.2 option/card group), and an override has to follow the
+       block it overrides. See the second tabletPortrait block there. */
+  }
+}
+
+/* ── Landscape-tablet tap-target bump (iPad pass 2026-09-15) ───────────
+   Spencer will run the app on an iPad in LANDSCAPE all day, doing one or two
+   lesson steps at a time, and asked for "slightly bigger buttons/tap targets"
+   there. `--tap-bump` is that ask, as one number.
+
+   It is 0px everywhere by default, so every declaration that reads it —
+   `calc(<shipped value> + var(--tap-bump))` — is PROVABLY INERT on iPhone and
+   on a desktop mouse: `calc(0.625rem + 0px)` is `0.625rem`. Nothing needs a
+   before/after screenshot to be trusted; the identity is in the arithmetic.
+   That is why the bump is a token threaded into the existing declarations
+   rather than a block of override rules — an override block would have to
+   restate every shipped padding value at matching specificity and would drift
+   the moment one of them changed.
+
+   The gate is `landscapeLg` (the Tailwind screen from hooks/breakpoints.ts)
+   AND `pointer: coarse`, which is exactly "an iPad/Android tablet held
+   sideways":
+     - iPhone (coarse, but never ≥1024 landscape) → 0. Unchanged.
+     - Portrait iPad → 0. It already gets the roomier tabletPortrait tile
+       tier; stacking a bump on top would double-dip.
+     - Desktop mouse at any size (fine pointer) → 0. Unchanged.
+   3px, not more: this is a comfort nicety on targets that already clear the
+   24×24 CSS px WCAG 2.2 SC 2.5.8 floor (CLAUDE.md), not a correctness fix, and
+   the lesson shell is fixed-height — a bigger bump would start pushing step
+   content toward the fold. Readers: `shared/components/ui/Button.tsx`
+   (sizeClasses / menu / primary-3d / icon), `routes/SidebarNav.tsx` (rail nav
+   rows) and the `[data-tile][data-variant="option"]` answer tiles below. */
+:root {
+  --tap-bump: 0px;
+}
+@media (min-width: 1024px) and (orientation: landscape) and (pointer: coarse) {
+  :root {
+    --tap-bump: 3px;
+  }
+}
+
 /* Native-app feel on mobile web:
    - overscroll-behavior: none kills pull-to-refresh + rubber-band on the
      page edges, so anchored lesson chrome feels solid.
@@ -1110,6 +1237,27 @@ ruby {
     --option-gap: 1rem;
   }
 }
+/* Tablet portrait, part 2 — the option/card half of the tier (iPad pass
+   2026-09-15). It lives HERE, not with the build/match half near the top of
+   the file, because these tokens have their own `:root` + 640px pair directly
+   above and media queries add no specificity: an override placed earlier in
+   the file would simply lose to the 640px block above for the 640–1023px
+   overlap. Same four-clause gate, same derivation (mobile × the brief's
+   factors: paddings/gaps ×1.25, font ×1.15, radius unscaled). `--option-py`
+   and `--option-font` are given absolute values rather than the desktop
+   block's `var(--mcq-*)` indirection so the QA page's third tier can dial
+   them independently of the MCQ legacy aliases. */
+@media (min-width: 640px) and (orientation: portrait) and (pointer: coarse) {
+  :root {
+    --option-px: 0.5625rem;
+    --option-py: 1.5625rem;
+    --option-font: 1.5625rem;
+    --option-radius: 0.75rem;
+    --option-gap: 1.125rem;
+    --card-pad: 1.5625rem;
+    --card-max-h: 85vh;
+  }
+}
 
 /* ── Every tile ─────────────────────────────────────────────────────── */
 [data-tile] {
@@ -1344,7 +1492,10 @@ ruby {
 [data-tile][data-variant="option"] {
   border-width: 2px;
   border-radius: var(--option-radius);
-  padding-inline: var(--option-px);
+  /* `--tap-bump` is 0px outside landscape-tablet — see its definition near
+     the top of this file. Every option-tier padding below reads it the same
+     way, so the whole answer-option group grows together. */
+  padding-inline: calc(var(--option-px) + var(--tap-bump));
 }
 /* `sentence` — the regular/long-text MCQ option. NOT a flex box: it is a
    left-aligned block of prose, and centring it (the primitive default)
@@ -1354,21 +1505,21 @@ ruby {
   align-items: normal;
   justify-content: normal;
   text-align: left;
-  padding-block: var(--option-py);
+  padding-block: calc(var(--option-py) + var(--tap-bump));
   font-size: var(--option-font);
   font-weight: 500;
   line-height: 1.375; /* leading-snug */
 }
 /* `word` — a word-only grid whose longest option is 3+ glyphs. */
 [data-tile][data-variant="option"][data-size="word"] {
-  padding-block: 2rem; /* py-8 */
+  padding-block: calc(2rem + var(--tap-bump)); /* py-8 */
   font-size: 1.875rem; /* text-3xl */
   line-height: 2.25rem;
   font-weight: 700;
 }
 /* `word-glyph` — a word-only grid where every option is ≤2 glyphs. */
 [data-tile][data-variant="option"][data-size="word-glyph"] {
-  padding-block: 2.25rem; /* py-9 */
+  padding-block: calc(2.25rem + var(--tap-bump)); /* py-9 */
   font-size: 3rem;        /* text-5xl */
   line-height: 1;
   font-weight: 700;
@@ -1377,7 +1528,7 @@ ruby {
    `word-glyph` but NO horizontal padding, which is how it shipped. */
 [data-tile][data-variant="option"][data-size="glyph"] {
   padding-inline: 0;
-  padding-block: 2.25rem;
+  padding-block: calc(2.25rem + var(--tap-bump));
   font-size: 3rem;
   line-height: 1;
   font-weight: 700;
@@ -1389,7 +1540,7 @@ ruby {
   /* `max()` so the #137 token can still lift this tier, never below the
      120px floor this layout shipped with. */
   min-height: max(120px, var(--tile-box-h));
-  padding-block: 2rem;
+  padding-block: calc(2rem + var(--tap-bump));
   font-size: 1.875rem;
   line-height: 2.25rem;
   font-weight: 700;

@@ -113,7 +113,7 @@
         },
         {
           "ja": "あにの ともだちは だいがくの がくせいだ。",
-          "en": "My older brother's friend is a university student."
+          "en": "My older brother's friend is a college student."
         },
         {
           "ja": "あねは ははの くるまを かった。",
@@ -805,7 +805,7 @@
         {
           "kind": "sentence",
           "ja": "あにの ともだちは だいがくの がくせいだ。",
-          "en": "My older brother's friend is a university student",
+          "en": "My older brother's friend is a college student",
           "exercises": [
             "no-possession",
             "desu-copula"
@@ -5442,7 +5442,7 @@
     {
       "kana": "ノート",
       "romaji": "nooto",
-      "gloss": "notebook, exercise book",
+      "gloss": "notebook",
       "shortGloss": "notebook",
       "imageable": true,
       "kind": "vocab"

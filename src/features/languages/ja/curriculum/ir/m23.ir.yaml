@@ -319,7 +319,7 @@ newAtoms:
   #    land in a later module". This is that module. のった is a new courseAtoms
   #    row; およいだ likewise (およぐ is taught, only its て-form and ない-form
   #    had rows). Neither string occurs anywhere in the existing corpus.
-  - { kana: ひこうき, romaji: hikouki, gloss: "an aeroplane", shortGloss: "aeroplane", imageable: false, kind: vocab }
+  - { kana: ひこうき, romaji: hikouki, gloss: "an airplane", shortGloss: "airplane", imageable: false, kind: vocab }
   - { kana: のる, romaji: noru, gloss: "to get on, to ride", shortGloss: "get on", imageable: false, kind: verb }
   - { kana: のった, romaji: notta, gloss: "got on, rode (get on, past)", shortGloss: "got on", imageable: false, kind: vocab }
   - { kana: およいだ, romaji: oyoida, gloss: "swam (swim, past)", shortGloss: "swam", imageable: false, kind: vocab }

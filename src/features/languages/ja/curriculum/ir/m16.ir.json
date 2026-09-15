@@ -656,7 +656,7 @@
     {
       "kana": "ノート",
       "romaji": "nooto",
-      "gloss": "notebook, exercise book",
+      "gloss": "notebook",
       "shortGloss": "notebook",
       "imageable": true,
       "kind": "vocab"
@@ -1142,7 +1142,7 @@
             {
               "speaker": "Mika",
               "ja": "トムが くる。トムは いそがしいから ごごに くる。",
-              "en": "Tom is. Tom is busy, so he's coming in the afternoon."
+              "en": "Tom is coming. Tom is busy, so he's coming in the afternoon."
             }
           ],
           "questions": [
@@ -2066,7 +2066,7 @@
             {
               "speaker": "Mika",
               "ja": "やすみは いつ？",
-              "en": "When is your vacation?"
+              "en": "When is your day off?"
             },
             {
               "speaker": "Tom",

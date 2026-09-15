@@ -207,7 +207,7 @@ grammarPoints:
     examples:
       - { ja: "あにの じてんしゃは たかかったけど あたらしい。", en: "My older brother's bicycle was expensive, but it's new." }
       - { ja: "ちちの かいしゃは えきの まえだ。", en: "My father's company is in front of the station." }
-      - { ja: "あにの ともだちは だいがくの がくせいだ。", en: "My older brother's friend is a university student." }
+      - { ja: "あにの ともだちは だいがくの がくせいだ。", en: "My older brother's friend is a college student." }
       - { ja: "あねは ははの くるまを かった。", en: "My older sister bought my mother's car." }
       - { ja: "あねの かばんは ははのだ。", en: "My older sister's bag is my mother's." }
     antiPattern: { ja: "あに じてんしゃは たかかったけど あたらしい。", why: "two nouns need の between them — without it あに and じてんしゃ are just two words sitting side by side: あにの じてんしゃは たかかったけど あたらしい。" }
@@ -383,7 +383,7 @@ lessons:
       - { kind: sentence, ja: "あにの じてんしゃは たかかったけど あたらしい。", en: "My older brother's bicycle was expensive, but it's new", exercises: [no-possession, kedo, i-adj-past], mode: build }
       - { kind: sentence, ja: "あねの かばんは ははのだ。", en: "My older sister's bag is my mother's", exercises: [no-possession, desu-copula], mode: build }
       - { kind: sentence, ja: "ちちの かいしゃは えきの まえだ。", en: "My father's company is in front of the station", exercises: [no-possession, desu-copula], mode: build }
-      - { kind: sentence, ja: "あにの ともだちは だいがくの がくせいだ。", en: "My older brother's friend is a university student", exercises: [no-possession, desu-copula], mode: listening }
+      - { kind: sentence, ja: "あにの ともだちは だいがくの がくせいだ。", en: "My older brother's friend is a college student", exercises: [no-possession, desu-copula], mode: listening }
       - { kind: sentence, ja: "あねは ははの くるまを かった。", en: "My older sister bought my mother's car", exercises: [no-possession, wo-object, ta-form], mode: build }
       - { kind: sentence, ja: "あには おんがくが すきだから よく きく。", en: "My older brother likes music, so he listens to it often", exercises: [no-possession, suki-kirai-no, kara-because], mode: build }
       - { kind: sentence, ja: "これは あにの しゃしんだから みせる。", en: "This is my older brother's photo, so I'll show it to you", exercises: [no-possession, kara-because], mode: build }

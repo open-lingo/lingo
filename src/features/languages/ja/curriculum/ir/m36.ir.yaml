@@ -99,7 +99,7 @@ grammarPoints:
     rule: "Stem + やすい: easy to. Stem + にくい: hard to. The same attachment site as たい (module 13) — よむ → よみやすい (easy to read), わかる → わかりにくい (hard to follow). And here is the payoff of building adjectives out of adjectives: the result IS an i-adjective, so everything you know about i-adjectives applies unchanged — よみやすかった, わかりにくくない, たべやすくて。 It is judgment about the THING, not about you: この じしょは つかいやすい praises the dictionary, not your skill. Pick the stem, pick the half, and the language does the rest with machinery you have owned for twenty modules."
     examples:
       - { ja: "この じしょは つかいやすい。", en: "This dictionary is easy to use." }
-      - { ja: "この ことばは おぼえにくい。", en: "This word is hard to memorise." }
+      - { ja: "この ことばは おぼえにくい。", en: "This word is hard to memorize." }
       - { ja: "ミカの せつめいは わかりやすい。", en: "Mika's explanations are easy to follow." }
       - { ja: "この みちは あるきやすかった。", en: "This road was easy to walk." }
     antiPattern: { ja: "この じしょは つかうやすい。", why: "やすい rides the ます-stem, exactly like たい: つかい + やすい. The dictionary form never takes the attachment." }
@@ -321,7 +321,7 @@ lessons:
       - { kind: rule, grammarPointId: yasui-nikui }
       - { kind: sentence, ja: "この じしょは つかいやすい。", en: "This dictionary is easy to use", exercises: [yasui-nikui, kono-sono-ano-dono], mode: build }
       - { kind: listening-comp, audio: "この ほんは わかりにくい。", answer: "This book is hard to follow", distractors: ["This book is easy to follow", "This book is hard to memorise", "This book was interesting"], exercises: [yasui-nikui] }
-      - { kind: sentence, ja: "この ことばは おぼえにくい。", en: "This word is hard to memorise", exercises: [yasui-nikui, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "この ことばは おぼえにくい。", en: "This word is hard to memorize", exercises: [yasui-nikui, kono-sono-ano-dono], mode: build }
       - { kind: particle-cloze, stem: "この じしょは ", tail: "。", answer: "つかいやすい", options: ["つかいやすい", "つかう", "わかりやすい"], en: "This dictionary is easy to use", explanation: "やすい rides the ます-stem exactly like たい — つかい+やすい。 つかう alone is just the bare dictionary form, no judgment at all. わかりやすい judges being EASY TO UNDERSTAND, not easy to USE — a different quality, wrong for a dictionary's handling." }
       - { kind: sentence, ja: "ミカの せつめいは わかりやすい。", en: "Mika's explanations are easy to follow", exercises: [yasui-nikui, no-possession], mode: build }
       - { kind: sentence, ja: "この ほんは よみやすい。", en: "This book is easy to read", exercises: [yasui-nikui, kono-sono-ano-dono], mode: build }

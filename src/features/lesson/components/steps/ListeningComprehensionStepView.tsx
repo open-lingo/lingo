@@ -11,7 +11,7 @@ import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { formatPrompt } from "../formatPrompt";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
 import { seededShuffle } from "@/shared/utils/seededShuffle";
-import { hasCoarsePointer } from "@/shared/platform/nativeScroll";
+import { useFormFactor } from "@/shared/platform/formFactor";
 import { Badge } from "@/shared/components/ui";
 
 const CELEBRATE_MS = 1100;
@@ -82,11 +82,15 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
   const [celebrating, setCelebrating] = useState(false);
   const [celebrationText, setCelebrationText] = useState("");
 
-  // Same touch/coarse-pointer detection the learn page uses to force the
-  // vertical map on phones (`LearnHomeSwitch.tsx`) — reused rather than
-  // inventing a second detector. A laptop with a touchscreen reports
-  // `fine` as its primary pointer, so this correctly leaves desktop alone.
-  const compact = hasCoarsePointer();
+  // Same shape predicate the learn page uses to force the vertical map
+  // (`LearnHomeSwitch.tsx`) — reused rather than inventing a second detector.
+  // A laptop with a touchscreen reports `fine` as its primary pointer, so this
+  // correctly leaves desktop alone. It was bare `hasCoarsePointer()` until the
+  // iPad pass (2026-09-15): a landscape iPad has MORE vertical room than a
+  // laptop, so trimming it to 3 options was the phone rule misfiring on a
+  // desktop-shaped surface (docs/ipad-scoping-2026-09-15.md §2 — "landscape
+  // iPad mirrors desktop"). Portrait iPad stays compact.
+  const { forceVerticalLearnMap: compact } = useFormFactor();
 
   const displayedOptions = useMemo(
     () => selectDisplayedOptions(step.options, step.correctOptionId, step.id, compact),

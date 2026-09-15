@@ -566,7 +566,7 @@ lessons:
       # hands to m20 (#130, seen once in the whole course before this) — inv 27.
       - { kind: sentence, ja: "きょうの ほうが きのうより じかんが ある。", en: "I have more time today than yesterday", exercises: [yori-comparison, ga-existence, arimasu], mode: build }
       - { kind: sentence, ja: "この カメラの ほうが あの カメラより きれいだ。", en: "This camera is nicer-looking than that camera", exercises: [na-adj-present, kono-sono-ano-dono], mode: build }
-      - { kind: sentence, ja: "としょかんの ほうが しずかだけど きっさてんに いく。", en: "The library is the quieter one, but I'll go to the coffee shop", exercises: [na-adj-present, kedo, ni-location], mode: build }
+      - { kind: sentence, ja: "としょかんの ほうが しずかだけど きっさてんに いく。", en: "The library is quieter, but I'll go to the coffee shop", exercises: [na-adj-present, kedo, ni-location], mode: build }
       - { kind: sentence, ja: "みせは としょかんより にぎやかだ。", en: "Say to a friend: The shop is livelier than the library", exercises: [na-adj-present], mode: translate }
       - { kind: particle-cloze, stem: "としょかんの ほうが きっさてんより ", tail: "。", answer: "しずかだ", options: ["しずかだ", "にぎやかだ", "ゆうめいだ"], en: "The library is quieter than the coffee shop", explanation: "しずかだ is quiet — and it keeps its だ, because a な-adjective cannot finish a sentence on its own. にぎやかだ is lively and ゆうめいだ is famous." }
       - { kind: listening-comp, audio: "みせは としょかんより にぎやかだ。", answer: "The shop is livelier than the library", distractors: ["The library is livelier than the shop", "The shop is quieter than the library", "The shop is more famous than the library"], exercises: [na-adj-present, wa-topic] }
@@ -592,7 +592,7 @@ lessons:
       - { kind: sentence, ja: "すしも とりにくも おいしいけど すしの ほうが すきだ。", en: "Sushi and chicken are both delicious, but sushi is the one I like more", exercises: [mo-also, kedo, na-adj-present], mode: build }
       - { kind: sentence, ja: "どっちも たかい。", en: "Both are expensive", exercises: [mo-also], mode: build }
       - { kind: sentence, ja: "としょかんも きっさてんも しずかだ。", en: "The library and the coffee shop are both quiet", exercises: [mo-also, na-adj-present], mode: listening }
-      - { kind: sentence, ja: "えいがも おんがくも おもしろいけど えいがの ほうが すきだ。", en: "Movies and music are both interesting, but movies are what I like more", exercises: [mo-also, kedo, na-adj-present], mode: build }
+      - { kind: sentence, ja: "えいがも おんがくも おもしろいけど えいがの ほうが すきだ。", en: "Movies and music are both interesting, but I like movies more", exercises: [mo-also, kedo, na-adj-present], mode: build }
       - { kind: sentence, ja: "この かさも あの かさも ごひゃくえんだ。", en: "This umbrella and that umbrella are both 500 yen", exercises: [mo-also, numbers-100-10000], mode: build }
       - { kind: sentence, ja: "たまごも きゅうりも やすいから みせで かう。", en: "Eggs and cucumbers are both cheap, so I'll buy them at the shop", exercises: [mo-also, kara-because, de-action], mode: build }
       - { kind: sentence, ja: "きょうも あしたも じかんが ある。", en: "I have time both today and tomorrow", exercises: [mo-also, ga-existence, arimasu], mode: build }

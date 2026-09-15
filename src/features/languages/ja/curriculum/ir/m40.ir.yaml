@@ -465,13 +465,13 @@ lessons:
       - { kind: sentence, ja: "この いえは ちちに よって たてられたし、きれいだし、すきだ。", en: "This house was built by my father, and what's more it's pretty, so I like it.", exercises: [niyotte-creation-passive, shi-listing], mode: build }
       - { kind: sentence, ja: "せんせいに たのまれたから、てつだう。", en: "Because I was asked by the teacher, I'll help.", exercises: [passive-rareru, kara-because], mode: build }
       - { kind: sentence, ja: "どろぼうに とけいを ぬすまれたのに、げんきだった。", en: "Even though my watch was stolen by a thief, I was fine.", exercises: [possessed-object-passive, noni-concession], mode: build }
-      - { kind: particle-cloze, stem: "この きかいは タナカさん", tail: " はつめいされたし、けんきゅうされた。", answer: "によって", options: ["によって", "に", "を"], en: "This machine was invented and what's more researched by Mr. Tanaka.", explanation: "によって is に + よって — the more formal cousin, reserved for who MADE something." }
+      - { kind: particle-cloze, stem: "この きかいは タナカさん", tail: " はつめいされたし、けんきゅうされた。", answer: "によって", options: ["によって", "に", "を"], en: "This machine was invented and researched by Mr. Tanaka.", explanation: "によって is に + よって — the more formal cousin, reserved for who MADE something." }
       - { kind: listening-comp, audio: "どろぼうに さいふを ぬすまれたのに、げんきだった。", answer: "Even though my wallet was stolen by a thief, I was fine.", distractors: ["My wallet was stolen, so I was upset.", "Nobody stole my wallet, so I was fine.", "I stole a wallet, and I was fine."], q: "What does this mean?" }
       - { kind: kanji, kana: たてる, kanji: 建てる, distractors: ["たつ", "けんちく", "たてもの"], exercises: [niyotte-creation-passive] }
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "この いえ すてきだね。", en: "This house is lovely." }
-          - { speaker: "Tom", ja: "うん、ちちに よって たてられたんだ。", en: "Yeah, my father built it." }
+          - { speaker: "Tom", ja: "うん、ちちに よって たてられたんだ。", en: "Yeah, it was built by my father." }
           - { speaker: "Ken", ja: "いいね。", en: "That's amazing." }
         questions:
           - { q: "Who built the house?", options: ["Tom's father", "Tom", "Ken", "A company"], answer: "Tom's father" }

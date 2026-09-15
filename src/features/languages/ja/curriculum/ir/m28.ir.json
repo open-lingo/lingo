@@ -131,7 +131,7 @@
         },
         {
           "ja": "じかんが ないから もう かえらなきゃ。",
-          "en": "I have to go home now, because I haven't got time."
+          "en": "I have to go home now, because I don't have time."
         },
         {
           "ja": "ねつが あるから くすりを のまなきゃ。",
@@ -165,7 +165,7 @@
         },
         {
           "ja": "じかんが ないから かえらなければ ならない。",
-          "en": "I have to go home, because I haven't got time."
+          "en": "I have to go home, because I don't have time."
         },
         {
           "ja": "もう おそいから いかなくちゃ。",
@@ -203,7 +203,7 @@
         },
         {
           "ja": "だいがくに はいる まえに ことばを おぼえなきゃ。",
-          "en": "I have to learn the words before I get into university."
+          "en": "I have to learn the language before I get into university."
         }
       ],
       "antiPattern": {
@@ -259,7 +259,7 @@
         },
         {
           "ja": "じかんが ないから バスに のった ほうが いい。",
-          "en": "You'd better take the bus, because you haven't got time."
+          "en": "You'd better take the bus, because you don't have time."
         },
         {
           "ja": "あした ひまだから えいがを みた ほうが いい。",
@@ -315,7 +315,7 @@
         },
         {
           "ja": "かえる まえに うちに でんわを しなきゃ。",
-          "en": "I have to phone home before I go back."
+          "en": "I have to call home before I go back."
         },
         {
           "ja": "せんせいと はなす まえに ことばを おぼえなきゃ。",
@@ -323,7 +323,7 @@
         },
         {
           "ja": "せいとは がっこうに いかなくちゃ。",
-          "en": "A pupil has to go to school."
+          "en": "A student has to go to school."
         }
       ],
       "antiPattern": {
@@ -629,7 +629,7 @@
         {
           "kind": "sentence",
           "ja": "じかんが ないから もう かえらなきゃ。",
-          "en": "I have to go home now, because I haven't got time",
+          "en": "I have to go home now, because I don't have time",
           "exercises": [
             "nakereba-naranai",
             "kara-because",
@@ -673,7 +673,7 @@
         {
           "kind": "sentence",
           "ja": "くすりを のまなきゃ。びょうきなんだ。",
-          "en": "I have to take medicine — the thing is, I'm ill",
+          "en": "I have to take medicine — the thing is, I'm sick",
           "exercises": [
             "nakereba-naranai",
             "n-desu",
@@ -839,7 +839,7 @@
         {
           "kind": "sentence",
           "ja": "じかんが ないから かえらなければ ならない。",
-          "en": "I have to go home, because I haven't got time",
+          "en": "I have to go home, because I don't have time",
           "exercises": [
             "nai-form",
             "nakereba-naranai",
@@ -953,7 +953,7 @@
             {
               "speaker": "Ken",
               "ja": "じかんが ないんだ。あした かいしゃに いかなければ ならない。",
-              "en": "I haven't got time. I have to go to the office tomorrow."
+              "en": "I don't have time. I have to go to the office tomorrow."
             }
           ],
           "questions": [
@@ -1071,7 +1071,7 @@
         {
           "kind": "sentence",
           "ja": "だいがくに はいる まえに ことばを おぼえなきゃ。",
-          "en": "I have to learn the words before I get into university",
+          "en": "I have to learn the language before I get into university",
           "exercises": [
             "kara-because",
             "nakereba-naranai",
@@ -1152,7 +1152,7 @@
             {
               "speaker": "Mika",
               "ja": "おかねが ないんだ。だいがくの じゅぎょうも あるから いそがしい。",
-              "en": "I haven't got any money. And I've got university classes too, so I'm busy."
+              "en": "I don't have any money. And I have university classes too, so I'm busy."
             }
           ],
           "questions": [
@@ -1235,7 +1235,7 @@
         {
           "kind": "sentence",
           "ja": "じかんが ないから もう かえらなきゃ。",
-          "en": "I have to go home now, because I haven't got time",
+          "en": "I have to go home now, because I don't have time",
           "exercises": [
             "nakereba-naranai",
             "kara-because"
@@ -1262,7 +1262,7 @@
             "はたらかなきゃ",
             "おぼえなきゃ"
           ],
-          "en": "I have to go home now, because I haven't got time",
+          "en": "I have to go home now, because I don't have time",
           "explanation": "no time left is a reason to leave, so the duty is かえる's. はたらかなきゃ would keep you where you are, and おぼえなきゃ has nothing to do with the clock."
         },
         {
@@ -1335,7 +1335,7 @@
         {
           "kind": "sentence",
           "ja": "だいがくに はいる まえに ことばを おぼえなきゃ。",
-          "en": "I have to learn the words before I get into university",
+          "en": "I have to learn the language before I get into university",
           "exercises": [
             "kara-because",
             "mae-ni"
@@ -1607,7 +1607,7 @@
         {
           "kind": "sentence",
           "ja": "びょうきだから やさいを たべた ほうが いい。",
-          "en": "You'd better eat vegetables, because you're ill",
+          "en": "You'd better eat vegetables, because you're sick",
           "exercises": [
             "hou-ga-ii",
             "ta-form",
@@ -1651,7 +1651,7 @@
         {
           "kind": "sentence",
           "ja": "じかんが ないから バスに のった ほうが いい。",
-          "en": "You'd better take the bus, because you haven't got time",
+          "en": "You'd better take the bus, because you don't have time",
           "exercises": [
             "hou-ga-ii",
             "kara-because",
@@ -1858,7 +1858,7 @@
         {
           "kind": "sentence",
           "ja": "じかんが ないから きょうは しない ほうが いい。",
-          "en": "You'd better not do it today, because you haven't got time",
+          "en": "You'd better not do it today, because you don't have time",
           "exercises": [
             "ta-form",
             "hou-ga-ii",
@@ -2021,7 +2021,7 @@
         {
           "kind": "sentence",
           "ja": "じかんが ないから バスに のった ほうが いい。",
-          "en": "You'd better take the bus, because you haven't got time",
+          "en": "You'd better take the bus, because you don't have time",
           "exercises": [
             "hou-ga-ii",
             "nai-existence"
@@ -2038,7 +2038,7 @@
             "のんだ",
             "かわない"
           ],
-          "en": "You'd better eat vegetables, because you're ill",
+          "en": "You'd better eat vegetables, because you're sick",
           "explanation": "vegetables are something you eat, so the advice is たべる's た-form. のんだ belongs to a drink, and かわない turns the advice into a shopping decision."
         },
         {
@@ -2220,7 +2220,7 @@
         {
           "kind": "sentence",
           "ja": "かえる まえに うちに でんわを しなきゃ。",
-          "en": "I have to phone home before I go back",
+          "en": "I have to call home before I go back",
           "exercises": [
             "kanji-set-3",
             "nakereba-naranai",
@@ -2258,7 +2258,7 @@
         {
           "kind": "sentence",
           "ja": "せいとは がっこうに いかなくちゃ。",
-          "en": "A pupil has to go to school",
+          "en": "A student has to go to school",
           "exercises": [
             "kanji-set-3",
             "nakereba-naranai",
@@ -2276,7 +2276,7 @@
             "のまなきゃ",
             "たべなきゃ"
           ],
-          "en": "I have to phone home before I go back",
+          "en": "I have to call home before I go back",
           "explanation": "a phone call is something you DO, so the duty belongs to する. のまなきゃ and たべなきゃ belong to a drink and a meal, and neither of them reaches anybody at home."
         },
         {
@@ -2296,11 +2296,11 @@
         {
           "kind": "listening-comp",
           "audio": "せいとは がっこうに いかなくちゃ。",
-          "answer": "A pupil has to go to school",
+          "answer": "A student has to go to school",
           "distractors": [
-            "A pupil has to go to the office",
+            "A student has to go to the office",
             "A teacher has to go to school",
-            "A pupil isn't going to school"
+            "A student isn't going to school"
           ],
           "exercises": [
             "kanji-set-3",
@@ -2313,17 +2313,17 @@
             {
               "speaker": "Ken",
               "ja": "かえる まえに うちに でんわを しなきゃ。",
-              "en": "I have to phone home before I go back."
+              "en": "I have to call home before I go back."
             },
             {
               "speaker": "Mika",
               "ja": "わたしも せんせいに でんわを しなきゃ。",
-              "en": "I have to phone the teacher too."
+              "en": "I have to call the teacher too."
             }
           ],
           "questions": [
             {
-              "q": "Who does Mika say she has to phone?",
+              "q": "Who does Mika say she has to call?",
               "options": [
                 "The teacher",
                 "Her home",
@@ -2337,7 +2337,7 @@
         {
           "kind": "challenge",
           "ja": "かいしゃの しごとが いそがしいから せんせいと はなす じかんが ないんだ。",
-          "en": "The work at the office is busy, so the thing is, I haven't got time to speak to the teacher",
+          "en": "Work at the office is busy, so I don't have time to speak to the teacher",
           "combines": [
             "kanji-set-3",
             "kara-because",
@@ -2748,7 +2748,7 @@
         {
           "kind": "challenge",
           "ja": "なつやすみに がいこくに いきたいけど おかねが ないから まいにち はたらかなきゃ。",
-          "en": "I want to go abroad over the summer vacation, but I haven't got the money, so I have to work every day",
+          "en": "I want to go abroad over the summer vacation, but I don't have the money, so I have to work every day",
           "combines": [
             "v-tai",
             "nakereba-naranai",
@@ -2853,7 +2853,7 @@
         {
           "kind": "sentence",
           "ja": "かえる まえに うちに でんわを しなきゃ。",
-          "en": "I have to phone home before I go back",
+          "en": "I have to call home before I go back",
           "exercises": [
             "kanji-set-3",
             "mae-ni"
@@ -3276,12 +3276,15 @@
     "おさけ",
     "おしえて",
     "おしえる",
+    "おじいさん",
     "おそい",
     "おとうさん",
     "おとうと",
+    "おとな",
     "おなか",
     "おにいさん",
     "おねえさん",
+    "おばあさん",
     "おぼえる",
     "おもい",
     "おもう",
@@ -3294,7 +3297,10 @@
     "およがない",
     "およぐ",
     "およげる",
+    "おりる",
     "おんがく",
+    "おんな",
+    "おんなのこ",
     "か",
     "かいしゃ",
     "かいた",
@@ -3302,6 +3308,7 @@
     "かいたかった",
     "かいたくない",
     "かいたくなかった",
+    "かいだん",
     "かいて",
     "かいました",
     "かいます",
@@ -3489,6 +3496,7 @@
     "たかすぎる",
     "たって",
     "たつ",
+    "たてもの",
     "たなか",
     "たのしい",
     "たばこ",
@@ -3564,6 +3572,7 @@
     "どこですか",
     "どちら",
     "どっち",
+    "どなた",
     "どの",
     "どようび",
     "どれ",
@@ -3594,6 +3603,7 @@
     "にちようび",
     "にほん",
     "にほんじん",
+    "にわ",
     "にん",
     "ねこ",
     "ねつ",
@@ -3681,6 +3691,7 @@
     "まえ",
     "ましょう",
     "まだ",
+    "まち",
     "まって",
     "まつ",
     "まで",
@@ -3710,6 +3721,7 @@
     "みられる",
     "みる",
     "みれる",
+    "むこう",
     "むずかしい",
     "むずかしすぎる",
     "め",
@@ -3771,6 +3783,7 @@
     "アメリカじん",
     "カメラ",
     "クラス",
+    "コンビニ",
     "コーヒー",
     "シャワー",
     "スポーツ",
@@ -5507,7 +5520,7 @@
     {
       "kana": "ノート",
       "romaji": "nooto",
-      "gloss": "notebook, exercise book",
+      "gloss": "notebook",
       "shortGloss": "notebook",
       "imageable": true,
       "kind": "vocab"
@@ -5800,6 +5813,52 @@
       "kind": "vocab"
     },
     {
+      "kana": "おとな",
+      "romaji": "otona",
+      "gloss": "adult",
+      "shortGloss": "adult",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おんな",
+      "romaji": "onna",
+      "gloss": "woman",
+      "shortGloss": "woman",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おんなのこ",
+      "romaji": "onnanoko",
+      "gloss": "girl",
+      "shortGloss": "girl",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "おじいさん",
+      "romaji": "ojiisan",
+      "gloss": "grandfather, older man",
+      "shortGloss": "older man",
+      "kind": "vocab"
+    },
+    {
+      "kana": "おばあさん",
+      "romaji": "obaasan",
+      "gloss": "grandmother, older woman",
+      "shortGloss": "older woman",
+      "kind": "vocab"
+    },
+    {
+      "kana": "どなた",
+      "romaji": "donata",
+      "gloss": "who (polite)",
+      "shortGloss": "who (polite)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "むずかしい",
       "romaji": "muzukashii",
       "gloss": "difficult",
@@ -5907,6 +5966,58 @@
       "romaji": "juppun",
       "gloss": "ten minutes",
       "shortGloss": "ten minutes",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "たてもの",
+      "romaji": "tatemono",
+      "gloss": "building",
+      "shortGloss": "building",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "かいだん",
+      "romaji": "kaidan",
+      "gloss": "stairs",
+      "shortGloss": "stairs",
+      "kind": "vocab"
+    },
+    {
+      "kana": "まち",
+      "romaji": "machi",
+      "gloss": "town",
+      "shortGloss": "town",
+      "kind": "vocab"
+    },
+    {
+      "kana": "にわ",
+      "romaji": "niwa",
+      "gloss": "garden",
+      "shortGloss": "garden",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "コンビニ",
+      "romaji": "konbini",
+      "gloss": "convenience store",
+      "shortGloss": "convenience store",
+      "kind": "vocab"
+    },
+    {
+      "kana": "おりる",
+      "romaji": "oriru",
+      "gloss": "to get off, to descend",
+      "shortGloss": "to get off",
+      "kind": "vocab"
+    },
+    {
+      "kana": "むこう",
+      "romaji": "mukou",
+      "gloss": "the other side, over there",
+      "shortGloss": "over there",
       "imageable": false,
       "kind": "vocab"
     },
@@ -6380,8 +6491,8 @@
     {
       "kana": "ひこうき",
       "romaji": "hikouki",
-      "gloss": "an aeroplane",
-      "shortGloss": "aeroplane",
+      "gloss": "an airplane",
+      "shortGloss": "airplane",
       "imageable": false,
       "kind": "vocab"
     },
@@ -6708,8 +6819,8 @@
     {
       "kana": "あき",
       "romaji": "aki",
-      "gloss": "autumn",
-      "shortGloss": "autumn",
+      "gloss": "fall",
+      "shortGloss": "fall",
       "kind": "vocab"
     },
     {

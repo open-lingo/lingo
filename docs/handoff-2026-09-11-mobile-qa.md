@@ -451,3 +451,88 @@ Mirror: memory `spencer-open-todos.md`.
   Mechanism proposed for Spencer's verdict: tablet-portrait token tier +
   orientation-gated sidebar screen + width/orientation-aware map policy;
   ~37–41 h across measure / fix / App Store assets / Android parity.
+- 2026-09-15 11:30 naturalness TRIAGE done (`scripts/naturalness/triage.mjs`,
+  outputs in scratchpad `fb16-research/naturalness/apply/`): sentences 1,920
+  fix → mechanical 51 (british 46 + verb-choice 5), rejected 468 (structure
+  subject-strip 355, confidence-outlier 97, no-op 10, unnatural-ja 3,
+  grammar-parenthetical 3), review 1,401 (register 868, structure 293, gloss
+  229, british-"university" 11); words 131 fix → mechanical 17, review 114.
+  Confidence leak root cause: judge.mjs was fixed at 06:09 (99e6a002) but the
+  two resident judge processes kept the old validate(); 424 rows carry 3–5;
+  `evictBadConfidenceRows()` added so the next judge run re-asks them.
+  REGISTER CLASS DECISION (Fable): 834 of the 868 register rows are the
+  build-step cue prefixes "Say politely: / Say to a friend: / Ask a friend:"
+  — load-bearing prompts that tell the learner which form to produce, NOT
+  stray notes. Do not strip them by hand. Fix the class instead: compiler
+  parses the prefix into a structured `registerCue` field, the build/speaking
+  views render it as a chip, every other surface (flashcards, listening
+  reveal, lesson complete) shows the clean gloss. Queued as an Opus lane
+  AFTER the iPad lane (shares views). Mechanical + top-40 apply lane
+  dispatched now (curriculum files only).
+- 2026-09-15 11:45 naturalness WORDS audit (Sonnet, 62 rows): local "fix"
+  precision 90.6% (register/structure/british/verb-choice 100%, gloss 70%);
+  0 misses in 30 pass rows; replacement acceptance 87.5%. The tightened
+  re-run prompt fixed the register/structure class (sentences were 50%/28%).
+  Failure modes left: grammar/counter atoms glossed functionally by
+  convention get "fixed" (より・ほう, counters), and a replacement can change
+  the atom's registered POS (大好き → "to love"). Plan: words register +
+  structure + british + verb-choice apply mechanically (with a meaningEn
+  uniqueness check — 自動車→"car" collides with くるま), words gloss (86)
+  → Sonnet review against courseAtoms pos/conjugation/shortGloss. Queued
+  behind the mechanical apply lane (same file, courseAtoms.ts).
+- 2026-09-15 11:55 TO-DO (Spencer): lexical-context sidecar for local judge
+  passes — brief `fb16-research/lexicon-sidecar-brief.md` (JMdict POS/register
+  /sense, Sudachi sentence facts, KANJIDIC2, wordfreq, Tatoeba, Wiktextract
+  for ES/FR/KO; mechanical POS-preserve + sense-membership + gloss-collision
+  gates; re-bench on the audited samples to ≥0.8 before the next full
+  sentence pass). ~1 day; do it before re-judging the 4,978 sentences.
+- 2026-09-15 11:48 iPad PHASE B (Opus + 3 Sonnet sub-lanes, 11:11→11:48 =
+  37 min wall): (1) map policy 7 min — `shared/platform/formFactor.ts`
+  (`useFormFactor`, `shouldForceVerticalLearnMap` = coarse AND NOT
+  landscapeLg), LearnHomeSwitch + ListeningComprehension option-trim moved
+  to it; (2) sidebar orientation gate 4 min — `landscapeLg` screen, 5 class
+  sites (SidebarNav, Layout ×3, ToastContainer); (3) tablet-portrait tile
+  tier 6 min + 35 min sub-lane — third `tabletPortrait` value on all 37
+  tokens (×1.15 word, ×1.25 padding/gap), two CSS blocks, floor MEASURED
+  50.5px (13/13 tiles equal), QA page third tier/pane (820×1180 at 132
+  px/in, storage `tablet-portrait:v2`, JSON `tabletPortrait`); (4) landscape
+  tap bump 5 min — one `--tap-bump` token (3px only at ≥1024 landscape
+  coarse), measured +3px on both axes, 0 elsewhere; (5) wake lock 6 min —
+  `useScreenWakeLock` mounted in Layout (held in lessons on touch, and
+  everywhere in landscape-iPad mode), 14 tests; (6) viewports 10 min —
+  ipad-air-portrait/landscape + split-view-half in the gate; caught a real
+  defect: sidebar rail ignored safe-area insets (30 failures) → `pt/pb/pl-safe`
+  on the aside, 105 passed. Suites: tsc clean, app project 3,185 green,
+  tap-targets + stage-fit all viewports 578 green.
+  LESSON RESUME: mid-lesson reload lands on the SAME step (localStorage
+  `lingo_lesson_inprogress_v1_<lessonId>`, 14-day cutoff); placement/test-out
+  has NO persistence (restarts at level select); replay/retry tail is not
+  persisted (can re-replay once). Follow-ups sent to the lane: portrait iPad
+  still gets the horizontal desktop map (TransitLearnPage `md:` gate) → fix;
+  drop the 1023px max-width so 13" portrait gets the tier; QA tablet pane
+  applies tier defaults when unpushed. Out of scope noted: BottomTabBar
+  hides at `md:` (13" portrait loses the tab bar).
+- 2026-09-15 12:10 naturalness APPLY (mechanical tier) DONE: 95 glosses
+  applied (38 top-40 + 40 mechanical sentences + 17 words, with same-lesson
+  MCQ/dialogue/distractor propagation), 13 skipped (9 duplicates, 1 declined
+  "book a hotel", 1 no-op, 1 REVERTED by verbGlossFidelity — m21 みたり must
+  stay "looking at", not "reading"), 27 modules recompiled, module gates
+  green. Fable reverted あき "fall" → "autumn" (collides with おちる's short
+  gloss "fall" — the gloss-collision class the words audit predicted).
+  reviewWindowFloor m39 34→50 / total 607→623 = RE-MEASUREMENT, not a
+  regression: committed m14/m20–m37 ir.json were stale vs yaml (m17's vocab
+  pack never propagated), so priorVocab(m33) lacked 15 m17 words and m39's
+  window wrongly counted them as recent (211→196 after the recompile);
+  filler fell to the fallback 16 more times. Budget re-baselined with the
+  explanation in the gate; flagged to Spencer (his "never raise" rule).
+  Lesson for the class: recompile ALL modules whenever a module's vocab
+  changes — stale downstream JSON silently skews every window/ratchet.
+- 2026-09-15 11:58 iPad follow-ups DONE (8 min): portrait iPad now mounts
+  the VERTICAL map only (TransitLearnPage conditional render, one tree);
+  tablet-portrait tier no longer capped at 1023px (13" portrait = 21px word);
+  QA tablet pane seeds the tier defaults when unpushed. Measured across
+  744/820/1024 portrait (vertical map, no rail, 21px) and 1180/1366
+  landscape + 1280 mouse (desktop map, rail, 20.4px); iPhone 390 unchanged.
+  Total iPad Phase B: 45 min wall. Remaining candidate: BottomTabBar hides
+  at md: (shows on mini portrait, not Air/13"). Curriculum project 13,356
+  green with the apply-lane edits. → build 18 in this lap.

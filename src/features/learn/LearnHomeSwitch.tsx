@@ -6,7 +6,7 @@ import { getMockCourse } from "@/shared/domain/mockCourse";
 import { prefetchLesson } from "@/shared/utils/routePrefetch";
 import { stringsFor, LEARN_HEADER_SUBTITLE } from "./transitStrings";
 import { useLearnViewMode, type LearnViewMode } from "./hooks/useLearnViewMode";
-import { hasCoarsePointer } from "@/shared/platform/nativeScroll";
+import { useFormFactor } from "@/shared/platform/formFactor";
 import { TransitSignageHeader } from "./components/TransitSignageHeader";
 import TransitLearnPage from "./TransitLearnPage";
 import { LearnPage } from "./LearnPage";
@@ -57,10 +57,19 @@ export function LearnHomeSwitch() {
   // On a phone the List page is the wrong shape — the vertical transit map is
   // the mobile learn experience. Force it there regardless of a stored "list"
   // preference (which predates the vertical map), and drop the toggle since
-  // List isn't an option on touch. Desktop keeps the Path⇄List switch.
-  const touch = hasCoarsePointer();
-  const effectiveMode: LearnViewMode = touch ? "map" : mode;
-  const toggle = touch ? undefined : <ViewToggle mode={mode} onChange={setMode} />;
+  // List isn't an option at that size. Desktop keeps the Path⇄List switch.
+  //
+  // ⚠️ This used to be `hasCoarsePointer()` alone, which forced a single-column
+  // vertical scroller onto a 1366×1024 iPad Pro in landscape purely because it
+  // is a touch device (docs/ipad-scoping-2026-09-15.md §1). The predicate is
+  // now shape-aware: touch AND not a landscape ≥1024 surface. The hook (not the
+  // one-shot function) is deliberate — an iPad rotates while the page is open,
+  // so this has to re-render on the orientation change.
+  const { forceVerticalLearnMap } = useFormFactor();
+  const effectiveMode: LearnViewMode = forceVerticalLearnMap ? "map" : mode;
+  const toggle = forceVerticalLearnMap ? undefined : (
+    <ViewToggle mode={mode} onChange={setMode} />
+  );
 
   // Warm the lesson chunk while the learner is on the path, so launching a
   // lesson (station / resume FAB) navigates instantly and the start wipe

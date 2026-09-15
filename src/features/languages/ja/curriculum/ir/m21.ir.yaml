@@ -267,7 +267,7 @@ grammarPoints:
     rule: "An open list and a preference belong together, because almost nobody likes exactly one thing. すき and きらい take が on the thing — they are adjectives, not verbs, however hard English fights you on it — and が is the particle the LAST item of a や list hands over to: 「あねは えいがや おんがくが すきだ」. My sister likes movies and music and that sort of thing. Every piece of that is already yours: や joins, が marks what is liked, だ finishes the な-adjective. The same works with a たり list when what you like is an activity rather than a thing, and there the nominalizer の from module 13 does the joining instead: 「うみに いったり やまで あそんだり するのが すきだ」. And the negative is the same shape with きらい in place of すき — the thing you dislike still takes が, never を."
     examples:
       - { ja: "あねは えいがや おんがくが すきだ。", en: "My older sister likes movies and music and things like that." }
-      - { ja: "ぼくは きのこが きらいだ。", en: "I don't like mushrooms." }
+      - { ja: "ぼくは きのこが きらいだ。", en: "I dislike mushrooms." }
       - { ja: "やすみは うみに いったり やまで あそんだり する。", en: "On my days off I do things like go to the sea and play in the mountains." }
       - { ja: "ミカの おかあさんは りょうりが すきだ。", en: "Mika's mother likes cooking." }
       - { ja: "いぬや ねこが すきだから うちに いぬが いる。", en: "I like dogs and cats and animals generally, so there's a dog at my place." }
@@ -361,7 +361,7 @@ lessons:
       - { kind: sentence, ja: "きのこや きゅうりを たべる。", en: "I eat mushrooms and cucumbers and things like that", exercises: [ya-incomplete-list, wo-object], mode: listening }
       - { kind: sentence, ja: "やすみは うみや やまに いく。", en: "On my days off I'm going to the sea and the mountains and places like that", exercises: [ya-incomplete-list, wa-topic, ni-location], mode: build }
       - { kind: sentence, ja: "かばんに かぎや けいたいなどが ある。", en: "In my bag there are keys, a phone and so on", exercises: [ya-incomplete-list, ni-location, arimasu], mode: build }
-      - { kind: sentence, ja: "さくらや ゆきが すきだから にほんが すきだ。", en: "I like cherry blossom and snow and all of it, so I like Japan", exercises: [ya-incomplete-list, kara-because, suki-kirai-no], mode: build }
+      - { kind: sentence, ja: "さくらや ゆきが すきだから にほんが すきだ。", en: "I like cherry blossoms, snow, and such, so I like Japan", exercises: [ya-incomplete-list, kara-because, suki-kirai-no], mode: build }
       - { kind: sentence, ja: "いぬや ねこが すきだ。", en: "Say to a friend: I like dogs and cats and animals like that", exercises: [ya-incomplete-list], mode: translate }
       # The ONE true particle_cloze in the module (inv 5 — や is the particle
       # m21 introduces). NO NAME in the frame: a cloze is harvested into the
@@ -628,7 +628,7 @@ lessons:
       - { kind: rule, grammarPointId: suki-kirai-no }
       - { kind: sentence, ja: "やすみは うみに いったり やまで あそんだり する。", en: "On my days off I do things like go to the sea and play in the mountains", exercises: [suki-kirai-no, tari-tari-suru, ni-location], mode: build }
       - { kind: sentence, ja: "あねは えいがや おんがくが すきだ。", en: "My older sister likes movies and music and things like that", exercises: [suki-kirai-no, ya-incomplete-list], mode: build }
-      - { kind: sentence, ja: "ぼくは きのこが きらいだ。", en: "I don't like mushrooms", exercises: [suki-kirai-no, na-adj-present], mode: build }
+      - { kind: sentence, ja: "ぼくは きのこが きらいだ。", en: "I dislike mushrooms", exercises: [suki-kirai-no, na-adj-present], mode: build }
       - { kind: sentence, ja: "いけや かわで あそんだり さくらを みたり する。", en: "I do things like play at ponds and rivers and look at the cherry blossom", exercises: [tari-tari-suru, ya-incomplete-list, de-action], mode: listening }
       - { kind: sentence, ja: "ミカの おにいさんは すしや りょうりが すきだ。", en: "Mika's older brother likes sushi and cooking and things like that", exercises: [suki-kirai-no, ya-incomplete-list, family-register], mode: build }
       - { kind: sentence, ja: "うみに いったり やまに いったり するのが すきだ。", en: "I like doing things like going to the sea and going to the mountains", exercises: [suki-kirai-no, tari-tari-suru, no-ga-suki], mode: build }
@@ -695,7 +695,7 @@ lessons:
       - { kind: sentence, ja: "きのこと たまごを たべたけど おいしくなかった。", en: "I ate the mushrooms and the eggs, but it wasn't delicious", exercises: [to-and, ta-form, kedo], mode: build }
       - kind: dialogue
         lines:
-          - { speaker: "Ken", ja: "ミカの おとうさんは なにが すき？", en: "What does your father like?" }
+          - { speaker: "Ken", ja: "ミカの おとうさんは なにが すき？", en: "What does Mika's father like?" }
           - { speaker: "Mika", ja: "ちちは おさけや ちゃが すきだ。りょうりも すきだ。", en: "My father likes sake and tea and that sort of thing. He likes cooking too." }
         questions:
           - { q: "What does Mika say her father likes?", options: ["Sake, tea and cooking", "Only sake", "Only cooking", "Coffee and cooking"], answer: "Sake, tea and cooking" }

@@ -288,7 +288,7 @@ grammarPoints:
     examples:
       - { ja: "あさ ごはんを たべて、だいがくに いく。", en: "In the morning I eat and then go to university." }
       - { ja: "きっさてんに いって、ちゃを のんだ。", en: "I went to the coffee shop and drank tea." }
-      - { ja: "みせに いって、あたらしい ふくを かった。", en: "I went to the shop and bought new clothes." }
+      - { ja: "みせに いって、あたらしい ふくを かった。", en: "I went to the store and bought new clothes." }
       - { ja: "うたを きいて、ごはんを たべた。", en: "I listened to a song and then ate." }
       - { ja: "きょうは えきに いって、ともだちと あそんだ。", en: "Today I went to the station and hung out with a friend." }
     antiPattern: { ja: "あさ ごはんを たべる、だいがくに いく。", why: "a plain verb cannot hand over to the next clause — the first verb goes into the て-form: あさ ごはんを たべて、だいがくに いく。" }
@@ -648,7 +648,7 @@ lessons:
       - { kind: rule, grammarPointId: te-form }
       - { kind: sentence, ja: "あさ ごはんを たべて だいがくに いく。", en: "In the morning I eat and then go to university", exercises: [te-form, wo-object, ni-location], mode: build }
       - { kind: sentence, ja: "きっさてんに いって ちゃを のんだ。", en: "I went to the coffee shop and drank tea", exercises: [te-form, ni-location, ta-form], mode: build }
-      - { kind: sentence, ja: "みせに いって あたらしい ふくを かった。", en: "I went to the shop and bought new clothes", exercises: [te-form, ni-location, ta-form, i-adj-present], mode: build }
+      - { kind: sentence, ja: "みせに いって あたらしい ふくを かった。", en: "I went to the store and bought new clothes", exercises: [te-form, ni-location, ta-form, i-adj-present], mode: build }
       - { kind: sentence, ja: "うたを きいて ごはんを たべた。", en: "I listened to a song and then ate", exercises: [te-form, wo-object, ta-form], mode: listening }
       - { kind: sentence, ja: "きょうは えきに いって ともだちと あそんだ。", en: "Today I went to the station and hung out with a friend", exercises: [te-form, ni-location, ta-form, wa-topic], mode: build }
       - { kind: sentence, ja: "ふるい しゃしんを みて ともだちと あそんだ。", en: "I looked at an old photo and hung out with a friend", exercises: [te-form, wo-object, i-adj-present, ta-form], mode: build }

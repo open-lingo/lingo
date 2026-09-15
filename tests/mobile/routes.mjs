@@ -64,6 +64,18 @@ export const VIEWPORTS = [
   { name: "android-360x780", width: 360, height: 780, insets: { top: 24, right: 0, bottom: 0, left: 0 } },
   { name: "android-384x832", width: 384, height: 832, insets: { top: 24, right: 0, bottom: 0, left: 0 } },
   { name: "tablet-portrait", width: 768, height: 1024, insets: { top: 24, right: 0, bottom: 20, left: 0 } },
+  // ── iPad tier (docs/ipad-scoping-2026-09-15.md §3 Phase A). No notch, so no
+  // side insets; unlike a phone, iPad keeps its status bar AND its
+  // home-indicator inset in both orientations (contrast the phone landscape
+  // entries in `EXTENDED_VIEWPORTS`/`_matrix.ts`, which drop the top inset
+  // because iOS hides the status bar in landscape on notched phones).
+  { name: "ipad-air-portrait", width: 820, height: 1180, insets: { top: 24, right: 0, bottom: 20, left: 0 } },
+  { name: "ipad-air-landscape", width: 1180, height: 820, insets: { top: 24, right: 0, bottom: 20, left: 0 } },
+  // Split View pane on an iPad Air in landscape: the pane keeps the device's
+  // landscape HEIGHT but gets ~half the width, so it is taller than wide.
+  // §2 of the scoping doc predicts this reads as `orientation: portrait`;
+  // this entry exists to confirm that empirically.
+  { name: "split-view-half", width: 678, height: 820, insets: { top: 24, right: 0, bottom: 20, left: 0 } },
 ];
 
 /**

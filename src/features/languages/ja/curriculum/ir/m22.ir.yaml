@@ -431,7 +431,7 @@ lessons:
       - { kind: sentence, ja: "ねつが あるから くすりを のむ。", en: "I have a fever, so I take medicine", exercises: [ga-existence, kara-because, wo-object], mode: build }
       - { kind: sentence, ja: "くすりが あるから だいじょうぶだ。", en: "There's medicine, so it's all right", exercises: [ga-existence, kara-because, na-adj-present], mode: build }
       - { kind: sentence, ja: "のどが いたいから ぎゅうにゅうを のむ。", en: "My throat hurts, so I drink milk", exercises: [ga-itai, kara-because, wo-object], mode: listening }
-      - { kind: sentence, ja: "びょうきだけど じゅぎょうに いく。", en: "I'm ill, but I'm going to class", exercises: [ga-existence, kedo, ni-location], mode: build }
+      - { kind: sentence, ja: "びょうきだけど じゅぎょうに いく。", en: "I'm sick, but I'm going to class", exercises: [ga-existence, kedo, ni-location], mode: build }
       - { kind: sentence, ja: "ねつが あるから びょういんに いく。", en: "I have a fever, so I'm going to the hospital", exercises: [ga-existence, kara-because, ni-location], mode: build }
       - { kind: sentence, ja: "うちに くすりが ないから みせに いく。", en: "There's no medicine at home, so I'm going to the shop", exercises: [ga-existence, nai-existence, kara-because, ni-location], mode: build }
       - { kind: sentence, ja: "ねつが ある。", en: "Say to a friend: I have a fever", exercises: [ga-existence], mode: translate }
@@ -466,7 +466,7 @@ lessons:
       - { kind: sentence, ja: "のどが いたい。", en: "Say to a friend: My throat hurts", exercises: [ga-itai], mode: translate }
       - { kind: listening-comp, audio: "ミカは てが いたいから きょうは だいがくに いかない。", answer: "Mika's hand hurts, so she isn't going to university today", distractors: ["Mika's hand hurts, but she's going to university today", "Mika's eyes hurt, so she isn't going to university today", "Mika's hand hurts, so she isn't going to school today"], exercises: [wa-topic, ga-itai] }
       - { kind: sentence, ja: "からだが いたいけど げんきだ。", en: "My body aches, but I'm well", exercises: [ga-itai, kedo], mode: build }
-      - { kind: sentence, ja: "びょうきだけど じゅぎょうに いく。", en: "I'm ill, but I'm going to class", exercises: [ga-existence, kedo], mode: build }
+      - { kind: sentence, ja: "びょうきだけど じゅぎょうに いく。", en: "I'm sick, but I'm going to class", exercises: [ga-existence, kedo], mode: build }
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "きょうは だいじょうぶ？", en: "Are you all right today?" }

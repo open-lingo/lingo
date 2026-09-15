@@ -493,7 +493,7 @@
         {
           "kind": "sentence",
           "ja": "たなかさんとの やくそくが ある。",
-          "en": "I have a promise with Tanaka.",
+          "en": "I have plans with Tanaka.",
           "exercises": [
             "ga-existence"
           ],
@@ -548,7 +548,7 @@
             "たしか",
             "たぶん"
           ],
-          "en": "Since there's a promise tomorrow, I will definitely go.",
+          "en": "Since I have plans tomorrow, I will definitely go.",
           "explanation": "かならず, 'without fail,' fits a resolve about your OWN action. たしか is for recalling a fact, not vowing to act, and たぶん pairs with uncertainty — the wrong tone for a firm promise."
         },
         {
@@ -1195,7 +1195,7 @@
             {
               "speaker": "Ken",
               "ja": "やくそくが あるから、くるはずだよ。",
-              "en": "Since there's a promise, he should be coming."
+              "en": "Since they have plans, he should be coming."
             },
             {
               "speaker": "Mika",
@@ -1794,7 +1794,7 @@
               "npc": {
                 "speaker": "Ken",
                 "ja": "でも、やくそくが あるよ。",
-                "en": "But there's a promise."
+                "en": "But I have plans."
               },
               "goal": "Say that since there's a promise, he should come.",
               "reply": {
@@ -5026,7 +5026,7 @@
     {
       "kana": "ノート",
       "romaji": "nooto",
-      "gloss": "notebook, exercise book",
+      "gloss": "notebook",
       "shortGloss": "notebook",
       "imageable": true,
       "kind": "vocab"
@@ -5997,8 +5997,8 @@
     {
       "kana": "ひこうき",
       "romaji": "hikouki",
-      "gloss": "an aeroplane",
-      "shortGloss": "aeroplane",
+      "gloss": "an airplane",
+      "shortGloss": "airplane",
       "imageable": false,
       "kind": "vocab"
     },
@@ -6325,8 +6325,8 @@
     {
       "kana": "あき",
       "romaji": "aki",
-      "gloss": "autumn",
-      "shortGloss": "autumn",
+      "gloss": "fall",
+      "shortGloss": "fall",
       "kind": "vocab"
     },
     {

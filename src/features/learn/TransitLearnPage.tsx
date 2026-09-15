@@ -45,6 +45,8 @@ import {
 } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useLang, useLangPath } from "@/shared/hooks/useLangPath";
+import { useViewport } from "@/shared/hooks/useViewport";
+import { useFormFactor } from "@/shared/platform/formFactor";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import type {
   CourseModule,
@@ -1808,6 +1810,37 @@ export default function TransitLearnPage({
   const [placementDismissedByUser, setPlacementDismissedByUser] = useState(false);
   const strings = stringsFor(lang);
 
+  // ── Which map? ────────────────────────────────────────────────────────
+  // Two completely different surfaces share this page: the horizontal SVG
+  // `NetworkMap` (a wide panning canvas with a parallax skyline, the signage
+  // header, the N5/N4 pill tabs and the end-of-line banner) and the vertical
+  // night-metro `VerticalNetworkMap` (one column, tier changes as inline
+  // stops on the path itself, no signage card — #84: Spencer called that card
+  // "useless… wasted space" where the vertical map is the only surface).
+  //
+  // This used to be a bare `md:`/`md:hidden` class pair, i.e. "≥768px CSS
+  // wide means desktop". That is wrong for a portrait iPad: 820–1024px of
+  // width with a coarse pointer got the horizontal panning map, the signage
+  // card and the pill tabs — the DESKTOP surface — inside an otherwise mobile
+  // shell, which is the opposite of the product direction ("portrait iPad is
+  // the roomiest iteration of MOBILE", docs/ipad-scoping-2026-09-15.md §2).
+  //
+  // So the choice is now a JS predicate, not CSS: width below `md` OR a
+  // portrait touch surface of any width. `isTabletPortrait` via the shared
+  // `useFormFactor()` hook, so this cannot drift from the tile-token tier or
+  // the sidebar gate — and because the hook subscribes to its media queries,
+  // ROTATING an iPad re-renders into the other map instead of waiting for a
+  // navigation.
+  //
+  // Rendering is CONDITIONAL rather than a `display:none` flip: the two maps
+  // are separate component trees (NetworkMap alone owns nine refs, a
+  // ResizeObserver-driven scale, a rAF train ride and three parallax
+  // handlers), and the class-pair version mounted BOTH on every viewport and
+  // ran both sets of effects. Only one mounts now.
+  const { isMobile } = useViewport();
+  const { tabletPortrait } = useFormFactor();
+  const wideMap = !isMobile && !tabletPortrait;
+
   // same FTUE fallback contract as the classic LearnPage: the first-session
   // arc owns the placement offer; this standalone prompt only appears once
   // the arc has run (it dismisses placement on finish)
@@ -2024,11 +2057,11 @@ export default function TransitLearnPage({
     return (
       <div className={cn("tmc-root w-full", effectiveTier === "n4" && "tmc-tier-n4")}>
         {/* #84 — Spencer: the "学習路線図 — Japanese for Beginners" signage
-            card is "useless… wasted space" on mobile/touch, where the
-            vertical map is the only learn surface. Desktop keeps it. */}
-        <div className="hidden md:block">
+            card is "useless… wasted space" wherever the vertical map is the
+            only learn surface (phone AND portrait tablet). Wide map keeps it. */}
+        {wideMap && (
           <TransitSignageHeader title={titleText} subtitle={LEARN_HEADER_SUBTITLE} />
-        </div>
+        )}
         {hasN4 && (
           <div className="mb-3">
             <TierTabs tier={effectiveTier} onChange={setTier} n5Label="N5 Line" n4Label="N4 Line" />
@@ -2055,12 +2088,13 @@ export default function TransitLearnPage({
       )}
     >
       {/* signage board header — #84: Spencer called the "学習路線図 —
-          Japanese for Beginners" card "useless… wasted space" on mobile
-          (where the vertical map is the only learn surface, so there's
-          nothing to toggle from it anyway — `right` is always the desktop
-          -only classic-view link there). Desktop keeps it unchanged. */}
-      <div className="hidden md:block">
-        <TransitSignageHeader
+          Japanese for Beginners" card "useless… wasted space" wherever the
+          vertical map is the only learn surface (so there's nothing to toggle
+          from it anyway — `right` is always the wide-map-only classic-view
+          link there). The wide map keeps it unchanged. */}
+      {wideMap && (
+        <div>
+          <TransitSignageHeader
           title={titleText}
           subtitle={
             preview
@@ -2080,21 +2114,22 @@ export default function TransitLearnPage({
               </Link>
             )
           }
-        />
-      </div>
-      {/* mobile/touch top spacer — replaces the breathing room the signage
+          />
+        </div>
+      )}
+      {/* Vertical-map top spacer — replaces the breathing room the signage
           header's own margin used to provide above the map, now that the
-          header itself is hidden below `md`. */}
-      <div className="h-3 md:hidden" aria-hidden />
+          header itself is not rendered on that path. */}
+      {!wideMap && <div className="h-3" aria-hidden />}
 
       {/* tier switcher — (a) compact pill/tabs near the map header. Only
           mounted when this course has n4 content at all (requirement 5). */}
-      {/* Desktop only: the horizontal NetworkMap has no in-map tier control,
-          so it keeps the pill tabs. On mobile the tier is changed from inline
-          stops on the vertical path itself (VerticalNetworkMap) — no reason to
-          advertise the N4 line at the top before the learner has arrived. */}
-      {hasN4 && (
-        <div className="mb-3 hidden flex-wrap items-center gap-2 md:flex">
+      {/* Wide map only: the horizontal NetworkMap has no in-map tier control,
+          so it keeps the pill tabs. On the vertical map the tier is changed
+          from inline stops on the path itself (VerticalNetworkMap) — no reason
+          to advertise the N4 line at the top before the learner has arrived. */}
+      {hasN4 && wideMap && (
+        <div className="mb-3 flex flex-wrap items-center gap-2">
           <TierTabs tier={effectiveTier} onChange={setTier} n5Label="N5 Line" n4Label="N4 Line" />
           <span className="text-[11px] text-text-muted">
             {effectiveTier === "n4" ? strings.n4LineName : strings.lineName}
@@ -2104,7 +2139,8 @@ export default function TransitLearnPage({
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(280px,320px)] lg:items-stretch 2xl:grid-cols-[minmax(0,1fr)_360px]">
         <div className="min-w-0">
-          <div className="relative hidden md:block">
+          {wideMap && (
+          <div className="relative">
             <NetworkMap layout={layout} currentIdx={currentIdx} lang={lang} demo={demo} onDemoChange={setDemo} demoToggle={preview} onOpen={open} onQuest={onSideQuestClick} langPath={p} />
             <ProgressFloatCard course={viewCourse} completedSet={completedSet} />
             {/* Resume button — docked inside the map boundary; fades in so
@@ -2114,16 +2150,18 @@ export default function TransitLearnPage({
               <ResumeFab course={viewCourse} completedSet={completedSet} />
             )}
           </div>
-          {/* (b) end-of-line interchange banner — DESKTOP only. It pairs with
+          )}
+          {/* (b) end-of-line interchange banner — WIDE MAP only. It pairs with
               the horizontal SVG map, which can't host an in-map interchange
-              node. Mobile gets the same affordance as inline stops on the
-              vertical path instead (below). */}
-          {hasN4 && (
-            <div className="hidden md:block">
+              node. The vertical map gets the same affordance as inline stops
+              on the path instead (below). */}
+          {hasN4 && wideMap && (
+            <div>
               <TierContinueBanner tier={effectiveTier} onSwitch={setTier} n4Label={strings.n4LineName} />
             </div>
           )}
-          <div className="md:hidden">
+          {!wideMap && (
+          <div>
             <VerticalNetworkMap
               layout={layout}
               currentIdx={currentIdx}
@@ -2138,6 +2176,7 @@ export default function TransitLearnPage({
               n4Label={strings.n4LineName}
             />
           </div>
+          )}
 
           {preview && (
             <p className="mt-3 max-w-[72ch] text-[13px] text-text-muted 2xl:text-[14px]">

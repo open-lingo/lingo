@@ -278,7 +278,7 @@ lessons:
           - { speaker: "Ken", ja: "いいね。テレビを みよう。", en: "Sounds good. Let's watch TV." }
         questions:
           - { q: "What does Mika suggest doing before the homework?", options: ["Eating dinner", "Watching TV", "Buying a drink", "Coming back tomorrow"], answer: "Eating dinner" }
-      - { kind: challenge, ja: "じかんが あるから、テレビを みて、りょうりを しよう。", en: "I've got time, so I'll watch TV and then cook", combines: [volitional, kara-because, te-form, wo-object], mode: build }
+      - { kind: challenge, ja: "じかんが あるから、テレビを みて、りょうりを しよう。", en: "I have time, so I'll watch TV and then cook", combines: [volitional, kara-because, te-form, wo-object], mode: build }
     reviewPool: [ばんごはん, しゅくだい, うち, あした, テレビ, へや, まど, りょうり]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -396,10 +396,10 @@ lessons:
       - { kind: rule, grammarPointId: koto-ni-suru }
       - { kind: sentence, ja: "かいしゃを やめる。", en: "I quit the company", exercises: [wo-object], mode: build }
       - { kind: sentence, ja: "かいしゃを やめることにした。", en: "I decided to quit the company", exercises: [koto-ni-suru, wo-object], mode: build }
-      - { kind: sentence, ja: "まいにち れんしゅうすることにする。", en: "I'm deciding to practise every day, starting now", exercises: [koto-ni-suru], mode: build }
+      - { kind: sentence, ja: "まいにち れんしゅうすることにする。", en: "I'm deciding to practice every day, starting now", exercises: [koto-ni-suru], mode: build }
       # Second carrier (rep-audit 2026-09-09): れんしゅうする had one
       # distinct carrier (repeated verbatim elsewhere in the module).
-      - { kind: sentence, ja: "えいごを れんしゅうすることにした。", en: "I decided to practise English", exercises: [koto-ni-suru, wo-object], mode: listening }
+      - { kind: sentence, ja: "えいごを れんしゅうすることにした。", en: "I decided to practice English", exercises: [koto-ni-suru, wo-object], mode: listening }
       - { kind: particle-cloze, stem: "かいしゃを やめる", tail: "。", answer: "ことにした", options: ["ことにした", "にした", "だった"], en: "I decided to quit the company", explanation: "する needs a THING to decide on, and a bare verb isn't one yet — こと does that job first: やめることにした. にした skips こと entirely. だった just reports a past state, with no decision in it at all." }
       - { kind: sentence, ja: "ちょきんを はじめることにした。", en: "I decided to start saving", exercises: [koto-ni-suru, jidoushi-tadoushi], mode: build }
       - { kind: listening-comp, audio: "たばこを やめることにした。", answer: "I decided to quit smoking", distractors: ["I decided to start smoking", "I want to quit smoking", "I already quit smoking"], exercises: [koto-ni-suru] }
@@ -462,7 +462,7 @@ lessons:
       - { kind: sentence, ja: "ちょきんを はじめることにした。", en: "I decided to start saving", exercises: [koto-ni-suru, jidoushi-tadoushi], mode: build }
       - { kind: particle-cloze, stem: "だいがくを ", tail: "。", answer: "そつぎょうすることになった", options: ["そつぎょうすることになった", "そつぎょうすることにした", "そつぎょうした"], en: "It's been decided (nobody named) that I'll graduate from university", explanation: "ことになった leaves the decider out — nobody in the sentence claims the call. ことにした would make it your own decision. そつぎょうした just reports the past event, with no decision framing at all." }
       - { kind: sentence, ja: "しょうらいの ゆめが ある。", en: "I have a dream for the future", exercises: [no-possession, ga-existence], mode: build }
-      - { kind: sentence, ja: "まいにち れんしゅうすることにする。", en: "I'm deciding to practise every day, starting now", exercises: [koto-ni-suru], mode: listening }
+      - { kind: sentence, ja: "まいにち れんしゅうすることにする。", en: "I'm deciding to practice every day, starting now", exercises: [koto-ni-suru], mode: listening }
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "しょうらい、なにを しようとおもう？", en: "What do you think you'll do in the future?" }
@@ -543,12 +543,12 @@ lessons:
             reply: { mode: build, tiles: ["がんばります", "がんばろう", "です", "は"], answer: "がんばります。" }
             replyGloss: "I'll do my best."
             explanation: "To your teacher, the effort-promise wears its polite dress: がんばります. がんばろう is the same word with the layers off — right for Ken, not for せんせい."
-          - npc: { speaker: "Tanaka", ja: "まいにち れんしゅうを しましょうか。", en: "Shall we practise every day?" }
+          - npc: { speaker: "Tanaka", ja: "まいにち れんしゅうを しましょうか。", en: "Shall we practice every day?" }
             goal: "Agree — let's do that, politely."
             reply: { mode: choice, options: ["はい、しましょう。", "うん、しよう。", "いいえ、しません。"], answer: "はい、しましょう。" }
             replyGloss: "Yes, let's."
             explanation: "しましょう is しよう in polite dress — the register ladder from L1, lived. うん、しよう would be the friend-register half aimed at a teacher; しません declines outright."
-      - { kind: challenge, ja: "ことしの もくひょうは むずかしいけど、まいにち れんしゅうして がんばろう。", en: "This year's goal is difficult, but let's practise every day and keep at it", combines: [volitional, kedo, te-form, wa-topic], mode: build }
+      - { kind: challenge, ja: "ことしの もくひょうは むずかしいけど、まいにち れんしゅうして がんばろう。", en: "This year's goal is difficult, but let's practice every day and keep at it", combines: [volitional, kedo, te-form, wa-topic], mode: build }
     reviewPool: [もくひょう, れんしゅう, まいにち, じゅぎょう, ことし, ちょきん, ゆめ]
 
   # ═══════════════════════════════════════════════════════════════════════

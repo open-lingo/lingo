@@ -24,13 +24,20 @@ vi.mock("@/shared/readingAnnotation/AnnotatedText", () => ({
   ),
 }));
 
-// Same seam LearnHomeSwitch.test.tsx uses to fake touch/coarse-pointer:
-// mock the shared detector rather than window.matchMedia, so each test
-// controls the mode explicitly instead of depending on jsdom's (absent)
-// matchMedia implementation.
+// Same seam LearnHomeSwitch.test.tsx uses to fake the form factor: mock the
+// shared predicate module rather than window.matchMedia, so each test controls
+// the mode explicitly instead of depending on happy-dom's matchMedia. The
+// compact branch is now "touch AND not landscape-≥1024" (iPad pass), so the
+// flag the view reads is `forceVerticalLearnMap`, not bare coarse-pointer.
 const pointer = { coarse: false };
-vi.mock("@/shared/platform/nativeScroll", () => ({
-  hasCoarsePointer: () => pointer.coarse,
+vi.mock("@/shared/platform/formFactor", () => ({
+  useFormFactor: () => ({
+    coarsePointer: pointer.coarse,
+    tabletPortrait: false,
+    landscapeLg: !pointer.coarse,
+    landscapeDesktopTouch: false,
+    forceVerticalLearnMap: pointer.coarse,
+  }),
 }));
 
 import {

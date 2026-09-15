@@ -273,7 +273,7 @@ lessons:
       - { kind: sentence, ja: "いま よじだ。", en: "Say to a friend: It's four o'clock now", exercises: [counter-ji, desu-copula], mode: build }
       - { kind: sentence, ja: "いま なんじですか。", en: "Say politely: What time is it now", exercises: [counter-ji, desu-copula, ka-question], mode: build }
       - { kind: sentence, ja: "じゅぎょうは くじだ。", en: "Say to a friend: Class is at nine", exercises: [wa-topic, counter-ji, desu-copula], mode: build }
-      - { kind: sentence, ja: "いま しちじはんだ。", en: "It's half past seven now", exercises: [counter-ji, desu-copula], mode: listening }
+      - { kind: sentence, ja: "いま しちじはんだ。", en: "It's seven-thirty now", exercises: [counter-ji, desu-copula], mode: listening }
       - { kind: sentence, ja: "とけいは じゅうじだ。", en: "Say to a friend: The clock says ten", exercises: [wa-topic, counter-ji, desu-copula], mode: build }
       - { kind: particle-cloze, stem: "いま ", tail: "だ。", answer: "よじ", options: ["よじ", "しちじ", "くじ"], en: "It's four o'clock now", explanation: "Four o'clock is よじ — the hour that refuses よん." }
       - { kind: sentence, ja: "いま ごじはんだ。", en: "Say to a friend: It's half past five now", exercises: [counter-ji, desu-copula], mode: build }
@@ -504,7 +504,7 @@ lessons:
       # grammar-review pool, whose comprehensibility gate resolves every token
       # against atoms taught by the point's module (a bare ミカ reads as
       # unexplained vocabulary there).
-      - { kind: particle-cloze, stem: "これは わたしの ほん", tail: "。", answer: "でした", options: ["でした", "だった", "です"], en: "This was my book (to a teacher)", explanation: "でした is the polite past of だ; だった is its plain twin and です is the polite non-past." }
+      - { kind: particle-cloze, stem: "これは わたしの ほん", tail: "。", answer: "でした", options: ["でした", "だった", "です"], en: "This was my book", explanation: "でした is the polite past of だ; だった is its plain twin and です is the polite non-past." }
       - { kind: sentence, ja: "とけいは ろくじでした。", en: "Say politely: The clock said six", exercises: [desu-past, wa-topic, counter-ji], mode: build }
       - kind: dialogue
         lines:

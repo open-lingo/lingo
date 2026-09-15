@@ -911,7 +911,7 @@
             {
               "speaker": "Mika",
               "ja": "かぜが つよいよ。ぼうしは ある？",
-              "en": "The wind's strong, you know. Have you got a hat?"
+              "en": "The wind's strong, you know. Do you have a hat?"
             }
           ],
           "questions": [
@@ -2076,7 +2076,7 @@
             {
               "speaker": "Tanaka",
               "ja": "ごぜんに でんわを しましたか。",
-              "en": "Did you phone this morning?"
+              "en": "Did you call this morning?"
             },
             {
               "speaker": "Tom",
@@ -2939,7 +2939,7 @@
                 ],
                 "answer": "うちで のまない？"
               },
-              "replyGloss": "Drink it at mine?",
+              "replyGloss": "Want to drink at my place?",
               "explanation": "で marks where the drinking happens — に would point a movement somewhere instead. And のまない？ borrows the negative to soften the ask, the same friendliness 「いかない？」 carries: a plain question with room to say no."
             }
           ]
@@ -3154,7 +3154,7 @@
             {
               "speaker": "Ken",
               "ja": "その さいふは きれいだね。",
-              "en": "That wallet's smart, isn't it."
+              "en": "That wallet is nice, isn't it?"
             },
             {
               "speaker": "Mika",
@@ -3389,7 +3389,7 @@
         {
           "kind": "challenge",
           "ja": "ごぜんは じかんが なかったんですけど ごごは ひまだから いっしょに いけを みませんか。",
-          "en": "Say politely: I hadn't got time this morning, but I'm free this afternoon, so shall we look at the pond together",
+          "en": "Say politely: I didn't have time this morning, but I'm free this afternoon, so shall we look at the pond together",
           "combines": [
             "masenka",
             "n-desu",
@@ -5796,7 +5796,7 @@
     {
       "kana": "ノート",
       "romaji": "nooto",
-      "gloss": "notebook, exercise book",
+      "gloss": "notebook",
       "shortGloss": "notebook",
       "imageable": true,
       "kind": "vocab"
@@ -6767,8 +6767,8 @@
     {
       "kana": "ひこうき",
       "romaji": "hikouki",
-      "gloss": "an aeroplane",
-      "shortGloss": "aeroplane",
+      "gloss": "an airplane",
+      "shortGloss": "airplane",
       "imageable": false,
       "kind": "vocab"
     },
@@ -7095,8 +7095,8 @@
     {
       "kana": "あき",
       "romaji": "aki",
-      "gloss": "autumn",
-      "shortGloss": "autumn",
+      "gloss": "fall",
+      "shortGloss": "fall",
       "kind": "vocab"
     },
     {

@@ -16,6 +16,7 @@ import { ToastContainer } from "@/shared/components/ToastContainer";
 import { StorageQuotaWatcher } from "@/shared/components/StorageQuotaWatcher";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useTouchOnSession } from "@/shared/hooks/useTouchOnSession";
+import { useScreenWakeLock } from "@/shared/platform/useScreenWakeLock";
 import { useUnlockMapSync } from "@/shared/hooks/useUnlockMapSync";
 import { useViewport } from "@/shared/hooks/useViewport";
 import { isFocusedFlow } from "@/routes/focusedFlow";
@@ -117,6 +118,14 @@ export function Layout() {
   // `md` only; see `@/routes/focusedFlow`.
   const { isMobile } = useViewport();
   const focusedFlow = isFocusedFlow(pathname, isMobile);
+  // Keep the display awake while a lesson/test/review session is on screen on
+  // a touch device, and unconditionally on a landscape tablet — Spencer leaves
+  // the iPad open in landscape all day and does one or two steps at a time, so
+  // the OS's idle timer fires mid-step (docs/ipad-scoping-2026-09-15.md §2).
+  // Feature-detected and non-throwing: a desktop browser and an unsupported
+  // WebKit both get a silent no-op. The shell is the right owner — the lock has
+  // to survive the route changes inside a session.
+  useScreenWakeLock({ inSession: focusedFlow });
   // Map-style pages own their width — the 2xl cap wastes a 4k viewport on
   // a page whose whole point is a wide panning canvas: the transit-map
   // preview, and the learn homepage itself where the map is live (ja).
@@ -170,7 +179,7 @@ export function Layout() {
   return (
     <div
       className={`flex min-h-screen flex-col bg-background text-text-primary ${
-        sidebarMode ? "lg:pl-60" : ""
+        sidebarMode ? "landscapeLg:pl-60" : ""
       }`}
     >
       {sidebarMode ? <SidebarNav /> : null}
@@ -189,7 +198,7 @@ export function Layout() {
           exercise (Duolingo-anatomy: no app nav inside a lesson). */}
       <header
         className={`sticky top-0 z-40 border-b border-border bg-surface pt-safe pl-safe pr-safe ${
-          sidebarMode ? "lg:hidden" : ""
+          sidebarMode ? "landscapeLg:hidden" : ""
         } ${focusedFlow ? "hidden" : ""}`}
       >
         <div className="mx-auto flex h-11 min-h-11 max-w-7xl items-center justify-between gap-2 px-3 sm:h-12 sm:px-4 sm:gap-4 lg:px-8">
@@ -478,7 +487,7 @@ export function Layout() {
             : // Extra bottom padding on mobile so page content clears the fixed
               // bottom tab bar; reset at md+ where the sidebar rail replaces it.
               `py-8 pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-8 min-h-[calc(100svh_-_2.75rem)] sm:min-h-[calc(100svh_-_3rem)] ${
-                sidebarMode ? "lg:min-h-[100svh]" : ""
+                sidebarMode ? "landscapeLg:min-h-[100svh]" : ""
               }`
         }`}
       >
@@ -519,7 +528,7 @@ export function Layout() {
       {isThemeEditorOpen && <ThemeEditorPanel />}
       <ToastContainer
         bottomOffsetClass={focusedFlow ? "bottom-52" : undefined}
-        topRightOnLg={sidebarMode}
+        topRightOnSidebar={sidebarMode}
       />
       <StorageQuotaWatcher />
     </div>

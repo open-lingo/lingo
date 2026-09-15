@@ -264,7 +264,7 @@
       "examples": [
         {
           "ja": "じゅぎょうの まえに ことばを おぼえておく。",
-          "en": "I'll learn the words in advance, before the class."
+          "en": "I'll memorize the words in advance, before the class."
         },
         {
           "ja": "かえる まえに でんきを けしておく。",
@@ -303,7 +303,7 @@
         },
         {
           "ja": "むずかしいけど とりあえず やってみる。",
-          "en": "It's difficult, but first off I'll give it a go."
+          "en": "It's difficult, but first off I'll give it a try."
         },
         {
           "ja": "この しつもんは むずかしいから せんせいに きいてみる。",
@@ -1368,7 +1368,7 @@
         {
           "kind": "challenge",
           "ja": "ことばが わからないけど じかんが ないから あした じしょで しらべてみる。",
-          "en": "I don't know the word, but I haven't got time, so I'll try looking it up in the dictionary tomorrow",
+          "en": "I don't know the word, but I don't have time, so I'll try looking it up in the dictionary tomorrow",
           "combines": [
             "te-form",
             "te-miru",
@@ -1812,7 +1812,7 @@
         {
           "kind": "sentence",
           "ja": "じゅぎょうの まえに ことばを おぼえておく。",
-          "en": "I'll learn the words in advance, before the class",
+          "en": "I'll memorize the words in advance, before the class",
           "exercises": [
             "mae-ni",
             "te-oku",
@@ -2043,7 +2043,7 @@
         {
           "kind": "sentence",
           "ja": "むずかしいけど とりあえず やってみる。",
-          "en": "It's difficult, but first off I'll give it a go",
+          "en": "It's difficult, but first off I'll give it a try",
           "exercises": [
             "te-miru",
             "kedo"
@@ -2326,7 +2326,7 @@
         {
           "kind": "sentence",
           "ja": "じゅぎょうの まえに ことばを おぼえておく。",
-          "en": "I'll learn the words in advance, before the class",
+          "en": "I'll memorize the words in advance, before the class",
           "exercises": [
             "mae-ni",
             "te-oku"
@@ -2336,7 +2336,7 @@
         {
           "kind": "sentence",
           "ja": "むずかしいけど とりあえず やってみる。",
-          "en": "It's difficult, but first off I'll give it a go",
+          "en": "It's difficult, but first off I'll give it a try",
           "exercises": [
             "te-miru",
             "kedo"
@@ -2440,7 +2440,7 @@
             {
               "speaker": "Tom",
               "ja": "あした じゅぎょうが ある？",
-              "en": "Have you got a class tomorrow?"
+              "en": "Do you have a class tomorrow?"
             },
             {
               "speaker": "Ken",
@@ -3499,7 +3499,7 @@
         {
           "kind": "challenge",
           "ja": "がいこくに いきたいけど おかねが ないから とりあえず げんごを ならってみる。",
-          "en": "I want to go abroad, but I haven't got the money, so I'll try learning the language for a start",
+          "en": "I want to go abroad, but I don't have the money, so I'll try learning the language for now",
           "combines": [
             "te-miru",
             "te-form",
@@ -5915,7 +5915,7 @@
     {
       "kana": "ノート",
       "romaji": "nooto",
-      "gloss": "notebook, exercise book",
+      "gloss": "notebook",
       "shortGloss": "notebook",
       "imageable": true,
       "kind": "vocab"
@@ -6886,8 +6886,8 @@
     {
       "kana": "ひこうき",
       "romaji": "hikouki",
-      "gloss": "an aeroplane",
-      "shortGloss": "aeroplane",
+      "gloss": "an airplane",
+      "shortGloss": "airplane",
       "imageable": false,
       "kind": "vocab"
     },
@@ -7214,8 +7214,8 @@
     {
       "kana": "あき",
       "romaji": "aki",
-      "gloss": "autumn",
-      "shortGloss": "autumn",
+      "gloss": "fall",
+      "shortGloss": "fall",
       "kind": "vocab"
     },
     {

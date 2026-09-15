@@ -1,8 +1,17 @@
 /**
  * `postMessage` protocol between `TileSizingQaPage` (parent) and
- * `TileSizingQaFramePage` (the desktop/mobile iframes). Kept as plain
+ * `TileSizingQaFramePage` (the desktop/mobile/tablet iframes). Kept as plain
  * string constants (not a class/enum) so the iframe and parent bundles
  * never need to share more than this one file.
+ *
+ * Every message from a frame carries a `view` field so the parent can tell
+ * which of its three iframes sent it: `"mobile"` (base tier, <640px),
+ * `"desktop"` (sm tier, the `?view=desktop` frame), or `"tablet"` (the
+ * tabletPortrait tier, the `?view=tablet` frame — added for the iPad
+ * portrait pass). `view` is not itself typed here (it travels as a plain
+ * string on `MessageEvent.data`, same as the rest of this protocol) — the
+ * parent's `TileSizingQaPage.tsx` and the frame's `TileSizingQaFramePage.tsx`
+ * are the two places that must agree on these three literal values.
  */
 export const TILE_QA_MESSAGE = {
   source: "lingo-qa-tiles",

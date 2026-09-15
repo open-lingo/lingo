@@ -49,7 +49,17 @@ function readJsonl(file) {
     .map((l) => JSON.parse(l));
 }
 
-function loadSet(setName) {
+// Some "sentence"/"challenge"/"particle-cloze" IR beats carry a TASK-PROMPT
+// en field ("Say politely: I eat at home") rather than a translation gloss —
+// the extractor couldn't tell these apart from real glosses mechanically.
+// The judge model reliably (and, on its own terms, correctly) flags the
+// "Say politely:"/"Say to a friend:" prefix as register-baked-into-the-gloss,
+// but that verdict is meaningless here: it's not a gloss at all, it's UI
+// instruction copy. Exclude by default so the audit sample measures real
+// gloss judgment quality, not this known extraction-scope artifact.
+const INSTRUCTION_PROMPT_RE = /^(Say|Tell|Ask|Answer|Respond|Reply)\b/i;
+
+function loadSet(setName, { excludeInstructionPrompts = true } = {}) {
   const rows = readJsonl(path.join(OUT_DIR, `rows-${setName}.jsonl`));
   const verdicts = readJsonl(path.join(OUT_DIR, `verdicts-${setName}.jsonl`));
   const rowById = new Map(rows.map((r) => [r.id, r]));
@@ -57,6 +67,8 @@ function loadSet(setName) {
     .map((v) => {
       const row = rowById.get(v.row_id);
       if (!row) return null;
+      if (excludeInstructionPrompts && INSTRUCTION_PROMPT_RE.test(row.en))
+        return null;
       return { setName, row, verdict: v };
     })
     .filter(Boolean);
@@ -85,9 +97,12 @@ function randomPassSample(joined, n) {
   return shuffle(passes).slice(0, Math.min(n, passes.length));
 }
 
-const words = loadSet("words");
-const sentences = loadSet("sentences");
-const all = [...words, ...sentences];
+// Optional CLI args restrict which set(s) to sample from: "words", "sentences",
+// or both (default). Lets Step 3 audit one pass at a time instead of mixing.
+const requestedSets = process.argv.slice(2);
+const setsToLoad =
+  requestedSets.length > 0 ? requestedSets : ["words", "sentences"];
+const all = setsToLoad.flatMap((s) => loadSet(s));
 
 if (all.length === 0) {
   console.error(
@@ -123,7 +138,10 @@ const auditRows = [...fixSample, ...passSample].map((j, i) => ({
   sonnetNote: null,
 }));
 
-const outFile = path.join(OUT_DIR, "audit-sample.jsonl");
+const outFile = path.join(
+  OUT_DIR,
+  `audit-sample-${setsToLoad.join("-")}.jsonl`,
+);
 fs.writeFileSync(
   outFile,
   auditRows.map((r) => JSON.stringify(r)).join("\n") + "\n",

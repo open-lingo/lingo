@@ -415,7 +415,7 @@ newAtoms:
   - { kana: かく, romaji: kaku, gloss: "to write", imageable: true, kind: verb, verbClass: u }
   - { kana: よむ, romaji: yomu, gloss: "to read", imageable: false, kind: verb, verbClass: u }
   - { kana: つかう, romaji: tsukau, gloss: "to use", imageable: true, kind: verb, verbClass: u }
-  - { kana: ノート, romaji: nooto, gloss: "notebook, exercise book", shortGloss: "notebook", imageable: true, kind: vocab }
+  - { kana: ノート, romaji: nooto, gloss: "notebook", shortGloss: "notebook", imageable: true, kind: vocab }
   - { kana: きょうしつ, romaji: kyoushitsu, gloss: "classroom", imageable: true, kind: vocab }
   - { kana: クラス, romaji: kurasu, gloss: "class", imageable: false, kind: vocab }
   - { kana: いみ, romaji: imi, gloss: "meaning", imageable: false, kind: vocab }
@@ -491,7 +491,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "あした だれが くる？", en: "Who's coming tomorrow?" }
-          - { speaker: "Mika", ja: "トムが くる。トムは いそがしいから ごごに くる。", en: "Tom is. Tom is busy, so he's coming in the afternoon." }
+          - { speaker: "Mika", ja: "トムが くる。トムは いそがしいから ごごに くる。", en: "Tom is coming. Tom is busy, so he's coming in the afternoon." }
         questions:
           - { q: "When is Tom coming?", options: ["In the afternoon", "In the morning", "At nine", "He isn't coming"], answer: "In the afternoon" }
       - { kind: challenge, ja: "ミカが すきな えいがは ゆうめいだから きっぷが たかい。", en: "The movie Mika likes is famous, so the tickets are expensive", combines: [wa-topic, ga-existence, na-adj-present, kara-because], mode: build }
@@ -629,7 +629,7 @@ lessons:
       - { kind: listening-comp, audio: "ろくがつから じゅうがつまで うみに いく。", answer: "I go to the sea from June to October", distractors: ["I go to the sea from October to June", "I went to the sea in June", "I don't go to the sea until October"], exercises: [made-until, kara-origin] }
       - kind: dialogue
         lines:
-          - { speaker: "Mika", ja: "やすみは いつ？", en: "When is your vacation?" }
+          - { speaker: "Mika", ja: "やすみは いつ？", en: "When is your day off?" }
           - { speaker: "Tom", ja: "ろくがつから。くがつまで にほんに いる。", en: "From June. I'll be in Japan until September." }
         questions:
           - { q: "When does Tom's vacation start?", options: ["June", "September", "January", "March"], answer: "June" }

@@ -494,9 +494,9 @@ lessons:
     focus: "End-of-module stretch: て, ください, register and location combined in shapes the teaching lessons never paired"
     introduces: []
     beats:
-      - { kind: sentence, ja: "たなかさんの みせで こめを かってください。", en: "Say politely: Please buy rice at Tanaka's shop", exercises: [no-possession, de-action, wo-object, te-kudasai], mode: build }
+      - { kind: sentence, ja: "たなかさんの みせで こめを かってください。", en: "Say politely: Please buy rice at Tanaka's store", exercises: [no-possession, de-action, wo-object, te-kudasai], mode: build }
       - { kind: sentence, ja: "ミカちゃんに たべものを おしえて。", en: "Tell Mika about the food", exercises: [register-audience, ni-location, wo-object, te-form], mode: translate }
-      - { kind: sentence, ja: "きょうは みせに いかない。", en: "I'm not going to the shop today", exercises: [wa-topic, ni-location, nai-form], mode: build }
+      - { kind: sentence, ja: "きょうは みせに いかない。", en: "I'm not going to the store today", exercises: [wa-topic, ni-location, nai-form], mode: build }
       # 「ちゃが ないです」 is fine Japanese and unteachable HERE: m7's です card
       # says flatly that です does not bolt onto a verb (たべるです), ~ないです is
       # not licensed until m12's い-adjective + です card, and the polite "there

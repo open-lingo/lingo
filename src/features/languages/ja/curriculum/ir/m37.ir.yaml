@@ -102,7 +102,7 @@ grammarPoints:
     conjugation: { form: ba, classes: [ru, irregular] }
     examples:
       - { ja: "たべれば、わかる。", en: "If you eat it, you'll understand." }
-      - { ja: "れんしゅうすれば、できる。", en: "If you practise, you can do it." }
+      - { ja: "れんしゅうすれば、できる。", en: "If you practice, you can do it." }
       - { ja: "はやく くれば、まにあう。", en: "If you come early, you'll make it." }
     antiPattern: { ja: "たべば、わかる。", why: "たべる is a ru-verb — it keeps its stem and takes れば: たべれば. たべば amputates the れ, treating it like a u-verb." }
 
@@ -119,7 +119,7 @@ grammarPoints:
     examples:
       - { ja: "うちに かえったら、でんわする。", en: "When I get home, I'll call you." }
       - { ja: "いそげば、まにあう。", en: "If you hurry, you'll make it." }
-      - { ja: "れんしゅうすれば、じょうずに なる。", en: "If you practise, you get good." }
+      - { ja: "れんしゅうすれば、じょうずに なる。", en: "If you practice, you get good." }
     antiPattern: { ja: "うちに かえれば、でんわする。", why: "not ungrammatical — but the sentence means \"when I get home\", a one-time sequence, and that is たら's home ground: かえったら、でんわする。 ば would frame going home as a hypothesis." }
 
   - id: nara
@@ -215,7 +215,7 @@ lessons:
     introduces: [たべれば, みれば, すれば, くれば, れんしゅうすれば, よければ, あれば]
     beats:
       - { kind: rule, grammarPointId: ba-form, variant: ru-irregular }
-      - { kind: sentence, ja: "れんしゅうすれば、できる。", en: "If you practise, you can do it", exercises: [ba-form, dekiru], mode: build }
+      - { kind: sentence, ja: "れんしゅうすれば、できる。", en: "If you practice, you can do it", exercises: [ba-form, dekiru], mode: build }
       - { kind: sentence, ja: "しつもんすれば、こたえてくれる。", en: "If you ask a question, they'll answer you", exercises: [ba-form, te-kureru], mode: build }
       - { kind: particle-cloze, stem: "この ほんを ", tail: "、わかる。", answer: "みれば", options: ["みれば", "みた", "みる"], en: "If you look at this book, you'll understand", explanation: "ば hangs the general if on the ru-verb's own stem — みれば. みた is the finished past, already looked. みる is just the bare fact, no condition." }
       - { kind: sentence, ja: "じかんが あれば、きてください。", en: "If you have time, please come", exercises: [ba-form, te-kudasai], mode: build }
@@ -270,7 +270,7 @@ lessons:
       - { kind: sentence, ja: "いけば、わかる。", en: "If you go, you'll understand", exercises: [ba-form], mode: build }
       - { kind: sentence, ja: "たかければ、かわない。", en: "If it's expensive, I won't buy it", exercises: [ba-form], mode: build }
       - { kind: particle-cloze, stem: "うちに ", tail: "、でんわする。", answer: "かえったら", options: ["かえったら", "かえれば", "かえる"], en: "When I get home, I'll call you", explanation: "a one-time sequence takes たら — かえったら. かえれば would frame going home itself as a hypothesis. かえる is just the bare fact, no condition." }
-      - { kind: sentence, ja: "れんしゅうすれば、できる。", en: "If you practise, you can do it", exercises: [ba-form], mode: build }
+      - { kind: sentence, ja: "れんしゅうすれば、できる。", en: "If you practice, you can do it", exercises: [ba-form], mode: build }
       - { kind: listening-comp, audio: "じかんが なければ、いかない。", answer: "If there's no time, I'm not going", distractors: ["If there's no time, I'm going anyway", "There was no time, so I didn't go", "If there's time, I'm not going"] }
       - { kind: sentence, ja: "じかんが あれば、きてください。", en: "If you have time, please come", exercises: [ba-form, te-kudasai], mode: build }
       - { kind: sentence, ja: "やすければ、かったら どう。", en: "If it's cheap, why not buy it", exercises: [ba-form, tara-dou], mode: listening }
@@ -482,7 +482,7 @@ lessons:
       - { kind: sentence, ja: "なつやすみに にほんに いくなら、きっぷを かっておいた ほうが いい。", en: "If you're going to Japan over summer vacation, you should buy the ticket in advance", exercises: [nara, hou-ga-ii, te-oku], mode: build }
       - { kind: sentence, ja: "てんきが よければ、うみに いこう。", en: "If the weather's good, let's go to the sea", exercises: [ba-form, ga-existence], mode: build }
       - { kind: particle-cloze, stem: "うちに ", tail: "、でんわする。", answer: "かえったら", options: ["かえったら", "かえれば", "かえる"], en: "When I get home, I'll call you", explanation: "a one-time sequence takes たら — かえったら. かえれば would frame going home itself as a hypothesis. かえる is just the bare fact, no condition." }
-      - { kind: sentence, ja: "れんしゅうすれば、じょうずに なる。", en: "If you practise, you get good", exercises: [ba-form, ku-ni-naru], mode: build }
+      - { kind: sentence, ja: "れんしゅうすれば、じょうずに なる。", en: "If you practice, you get good", exercises: [ba-form, ku-ni-naru], mode: build }
       - { kind: listening-comp, audio: "ホテルが やすければ、いい。", answer: "If the hotel is cheap, that's good", distractors: ["If the hotel is expensive, that's good", "The hotel was cheap, and that was good", "If the hotel isn't cheap, that's good"] }
       - { kind: sentence, ja: "きっぷを かえば、まにあう。", en: "If we buy the ticket, we'll make it", exercises: [ba-form], mode: build }
       - { kind: kanji, kana: じかん, kanji: 時間, distractors: ["じあいだ", "ときかん", "じま"], exercises: [ba-form] }

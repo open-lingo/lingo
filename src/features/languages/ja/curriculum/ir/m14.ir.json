@@ -323,7 +323,7 @@
         },
         {
           "ja": "みせに いって、あたらしい ふくを かった。",
-          "en": "I went to the shop and bought new clothes."
+          "en": "I went to the store and bought new clothes."
         },
         {
           "ja": "うたを きいて、ごはんを たべた。",
@@ -2546,7 +2546,7 @@
         {
           "kind": "sentence",
           "ja": "みせに いって あたらしい ふくを かった。",
-          "en": "I went to the shop and bought new clothes",
+          "en": "I went to the store and bought new clothes",
           "exercises": [
             "te-form",
             "ni-location",
@@ -3446,6 +3446,7 @@
     }
   ],
   "priorVocab": [
+    "あかい",
     "あさ",
     "あさって",
     "あした",
@@ -3478,6 +3479,7 @@
     "いきません",
     "いく",
     "いくら",
+    "いくらですか",
     "いけ",
     "いす",
     "いそいで",
@@ -3496,6 +3498,7 @@
     "ううん",
     "うえ",
     "うた",
+    "うたう",
     "うま",
     "うみ",
     "うる",
@@ -3679,6 +3682,7 @@
     "てがみ",
     "で",
     "でした",
+    "です",
     "でんわ",
     "と",
     "とけい",
@@ -3730,6 +3734,7 @@
     "はん",
     "ひと",
     "ひとつ",
+    "ひま",
     "ひゃく",
     "ふく",
     "ふたつ",
@@ -4056,7 +4061,6 @@
       "romaji": "gogo",
       "gloss": "p.m., afternoon",
       "shortGloss": "p.m.",
-      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -4603,6 +4607,13 @@
       "kind": "vocab"
     },
     {
+      "kana": "ひま",
+      "romaji": "hima",
+      "gloss": "free time",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "たべたい",
       "romaji": "tabetai",
       "gloss": "want to eat",
@@ -4821,7 +4832,7 @@
     {
       "kana": "なつやすみ",
       "romaji": "natsuyasumi",
-      "gloss": "summer holiday",
+      "gloss": "summer vacation",
       "shortGloss": "summer break",
       "imageable": true,
       "kind": "vocab"
@@ -4923,6 +4934,28 @@
       "romaji": "hayai",
       "gloss": "early",
       "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "とりにく",
+      "romaji": "toriniku",
+      "gloss": "chicken meat",
+      "shortGloss": "chicken",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "あかい",
+      "romaji": "akai",
+      "gloss": "red",
+      "imageable": true,
+      "kind": "vocab"
+    },
+    {
+      "kana": "うたう",
+      "romaji": "utau",
+      "gloss": "to sing",
+      "imageable": true,
       "kind": "vocab"
     },
     {
@@ -5229,7 +5262,7 @@
     {
       "kana": "いきません",
       "romaji": "ikimasen",
-      "gloss": "don't go, not travelling (polite)",
+      "gloss": "don't go, not traveling (polite)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -5545,7 +5578,7 @@
       "kana": "ちゃ",
       "romaji": "cha",
       "gloss": "tea",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -5553,7 +5586,7 @@
       "romaji": "kome",
       "gloss": "rice (uncooked)",
       "shortGloss": "rice (raw)",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -5655,7 +5688,7 @@
       "kana": "えん",
       "romaji": "en",
       "gloss": "yen",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {
@@ -5676,7 +5709,7 @@
       "kana": "かね",
       "romaji": "kane",
       "gloss": "money",
-      "imageable": true,
+      "imageable": false,
       "kind": "vocab"
     },
     {

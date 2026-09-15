@@ -85,7 +85,48 @@ class StubObserver {
 import TransitLearnPage from "./TransitLearnPage";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 
-function renderPage(initialEntry: string, lang: string, completed: string[] = []) {
+/**
+ * Which MAP the page mounts is a JS decision now, not a `md:` class pair
+ * (iPad pass 2026-09-15): the horizontal `NetworkMap` and the vertical
+ * night-metro map are separate trees and only ONE mounts. Tests that assert
+ * on a surface therefore have to say which shape they are modelling — before
+ * the change both trees were always in the DOM and these assertions could be
+ * mixed freely in one render.
+ *
+ * `wide` = a desktop window or a landscape iPad (horizontal map, signage
+ * header, N5/N4 pill tabs, end-of-line banner). `phone` = below `md`, or any
+ * portrait touch surface (vertical map, inline tier stops, no signage card).
+ */
+function stubShape(shape: "wide" | "phone") {
+  const width = shape === "wide" ? 1280 : 390;
+  window.matchMedia = ((query: string) => {
+    const min = /min-width:\s*(\d+)px/.exec(query);
+    let matches = !(min && width < Number(min[1]));
+    // No test here models a portrait TABLET, so every pointer/orientation
+    // clause resolves false — a phone is narrow enough that width alone
+    // already puts it on the vertical map.
+    if (query.includes("pointer: coarse") || query.includes("orientation:")) matches = false;
+    if (query.includes("prefers-reduced-motion")) matches = false;
+    return {
+      matches,
+      media: query,
+      addEventListener: () => {},
+      removeEventListener: () => {},
+      addListener: () => {},
+      removeListener: () => {},
+      onchange: null,
+      dispatchEvent: () => false,
+    };
+  }) as unknown as typeof window.matchMedia;
+}
+
+function renderPage(
+  initialEntry: string,
+  lang: string,
+  completed: string[] = [],
+  shape: "wide" | "phone" = "wide",
+) {
+  stubShape(shape);
   (globalThis as { __mockLang?: string }).__mockLang = lang;
   (globalThis as { __mockCompleted?: string[] }).__mockCompleted = completed;
   return render(
@@ -137,10 +178,15 @@ describe("TransitLearnPage tier switcher", () => {
   });
 
   it("ja with no param/storage defaults to n5 for a fresh learner", () => {
-    renderPage("/ja/learn", "ja");
-    expect(screen.getAllByText(/Plain sentences/).length).toBeGreaterThan(0);
+    // The pill tabs are a wide-map surface; the full station title is only
+    // spelled out on the vertical map (the SVG map abbreviates its labels),
+    // so the same derivation is checked once per shape.
+    renderPage("/ja/learn", "ja", [], "wide");
     const n5Tab = screen.getByRole("button", { name: "N5 Line" });
     expect(n5Tab).toHaveAttribute("aria-pressed", "true");
+    cleanup();
+    renderPage("/ja/learn", "ja", [], "phone");
+    expect(screen.getAllByText(/Plain sentences/).length).toBeGreaterThan(0);
   });
 
   it("default-tier derivation: finishing every n5 lesson now lands on the N4 line", () => {
@@ -174,19 +220,29 @@ describe("TransitLearnPage tier switcher", () => {
     expect(screen.getAllByText(/ZONE 3/).length).toBeGreaterThan(0);
   });
 
-  it("shows the end-of-line interchange affordance on n5 and the back affordance on n4", () => {
-    renderPage("/ja/learn?tier=n5", "ja");
-    // Two continue affordances now: the DESKTOP banner (`data-tm=tier-continue`)
-    // and the MOBILE inline path stop (`vnm-tier-continue`) — the top-of-page
-    // N5/N4 switcher + banner were removed on mobile in favour of stops on the
-    // path itself (2026-08-20). Both say "Continue onto the N4…".
-    expect(screen.getAllByRole("button", { name: /Continue onto the N4/ }).length).toBeGreaterThanOrEqual(2);
+  // The two shapes carry the SAME affordance in two different places: the
+  // wide map gets a banner below it (the horizontal SVG can't host an in-map
+  // interchange node), the vertical map gets an inline stop on the path
+  // itself (2026-08-20). Since the iPad pass only one tree mounts, so this
+  // asserts one per shape instead of counting both in one render.
+  it("shows the end-of-line interchange affordance on n5 — wide map: banner", () => {
+    renderPage("/ja/learn?tier=n5", "ja", [], "wide");
+    expect(screen.getAllByRole("button", { name: /Continue onto the N4/ }).length).toBeGreaterThanOrEqual(1);
+    expect(screen.queryByTestId("vnm-tier-continue")).toBeNull();
+  });
+
+  it("shows the end-of-line interchange affordance on n5 — vertical map: inline stop", () => {
+    renderPage("/ja/learn?tier=n5", "ja", [], "phone");
     expect(screen.getByTestId("vnm-tier-continue")).toBeInTheDocument();
-    cleanup();
-    renderPage("/ja/learn?tier=n4", "ja");
-    // Desktop back banner (exact "← N5 Line", distinct from the plain tier tab)
-    // plus the mobile inline back stop.
+    expect(screen.getByRole("button", { name: /Continue onto the N4/ })).toBeInTheDocument();
+  });
+
+  it("shows the back affordance on n4 in both shapes", () => {
+    // Wide: the exact "← N5 Line" banner, distinct from the plain tier tab.
+    renderPage("/ja/learn?tier=n4", "ja", [], "wide");
     expect(screen.getByRole("button", { name: "← N5 Line" })).toBeInTheDocument();
+    cleanup();
+    renderPage("/ja/learn?tier=n4", "ja", [], "phone");
     expect(screen.getByTestId("vnm-tier-back")).toBeInTheDocument();
   });
 });

@@ -361,6 +361,52 @@ async function waitForModelSlot() {
 // Main
 // ---------------------------------------------------------------------------
 
+function isValidConfidence(c) {
+  return typeof c === "number" && !Number.isNaN(c) && c >= 0 && c <= 1;
+}
+
+// Confidence-leak repair (2026-09-15): validate() only rejects a bad
+// confidence value for a batch that is ACTUALLY re-judged in this call. Rows
+// written by an earlier process that was already resident in memory when the
+// validate()/schema range check landed (a Node process doesn't hot-reload an
+// edited file — the ~5h sentences run and the original words run both
+// straddled that fix landing and kept writing unbounded confidence values
+// for their whole lifetime) are sitting in the output file looking "done"
+// and are never revisited by a normal resumable run. Before computing what's
+// "already judged", evict any row whose confidence is outside [0,1] from the
+// output file (keeping a timestamped backup) so it falls out of `done` and
+// gets naturally re-asked as part of `remaining` — same code path as every
+// other unjudged row, now under the validate() that actually enforces the
+// range.
+function evictBadConfidenceRows(outFile, setName) {
+  if (!fs.existsSync(outFile)) return 0;
+  const lines = fs.readFileSync(outFile, "utf8").split("\n").filter((l) => l.trim());
+  const keep = [];
+  let evicted = 0;
+  for (const line of lines) {
+    let parsed;
+    try {
+      parsed = JSON.parse(line);
+    } catch {
+      continue; // drop corrupt trailing line
+    }
+    if (isValidConfidence(parsed.confidence)) {
+      keep.push(line);
+    } else {
+      evicted++;
+    }
+  }
+  if (evicted > 0) {
+    const backup = `${outFile}.pre-confidence-repair-${new Date().toISOString().replace(/[:.]/g, "-")}.jsonl`;
+    fs.copyFileSync(outFile, backup);
+    fs.writeFileSync(outFile, keep.length ? keep.join("\n") + "\n" : "");
+    console.log(
+      `judge.mjs[${setName}]: confidence-leak repair — evicted ${evicted} row(s) with confidence outside [0,1] (backup: ${backup}); they will be re-asked this run`,
+    );
+  }
+  return evicted;
+}
+
 function loadDoneIds(outFile) {
   const done = new Set();
   if (fs.existsSync(outFile)) {
@@ -388,6 +434,7 @@ async function runSet(setName) {
     .split("\n")
     .map((l) => JSON.parse(l));
 
+  evictBadConfidenceRows(outFile, setName);
   const done = loadDoneIds(outFile);
   const remaining = stratifyByModule(allRows.filter((r) => !done.has(r.id)));
   console.log(

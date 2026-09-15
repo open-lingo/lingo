@@ -946,7 +946,7 @@
         {
           "kind": "sentence",
           "ja": "いま しちじはんだ。",
-          "en": "It's half past seven now",
+          "en": "It's seven-thirty now",
           "exercises": [
             "counter-ji",
             "desu-copula"
@@ -2354,7 +2354,7 @@
             "だった",
             "です"
           ],
-          "en": "This was my book (to a teacher)",
+          "en": "This was my book",
           "explanation": "でした is the polite past of だ; だった is its plain twin and です is the polite non-past."
         },
         {

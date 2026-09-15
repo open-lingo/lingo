@@ -257,7 +257,7 @@ grammarPoints:
   - id: desu-copula
     rule: "When the thing you are explaining ends in a NOUN or a な-adjective, one small piece appears that catches everybody out. A noun sentence needs its copula — 「びょうきだ」, not 「びょうき」 — and in front of ん that copula changes shape: だ becomes な. So 「びょうきだ」 explaining itself is 「びょうきなんだ」. The だ has not disappeared and it has not doubled; it has changed clothes. な-adjectives behave identically, because they are nouns wearing a hat: しずかだ becomes しずかなんだ, すきだ becomes すきなんだ. And nouns of every kind take it — 「ぼくの かさなんだ」, it's my umbrella; 「あしたは やすみなんだ」, tomorrow is a vacation. Now the trap, and it is worth saying out loud. い-adjectives do NOT take な. たかい is already a whole predicate with no copula in it, so it goes straight to んだ: 「たかいんだ」, never 「たかいなんだ」. The rule of thumb is short: if you would have said だ, say な instead. If you would not have, do not add one."
     examples:
-      - { ja: "びょうきなんだ。", en: "The thing is, I'm ill." }
+      - { ja: "びょうきなんだ。", en: "The thing is, I'm sick." }
       - { ja: "ぼくの かさなんだ。", en: "It's my umbrella, you see." }
       - { ja: "としょかんは しずかなんだ。", en: "It's because the library is quiet." }
       - { ja: "さかなが すきなんだ。", en: "The thing is, I like fish." }
@@ -279,7 +279,7 @@ grammarPoints:
     examples:
       - { ja: "どうして いかないんですか。", en: "Why aren't you going?" }
       - { ja: "ねつが あるんです。", en: "I've got a fever, you see." }
-      - { ja: "びょうきなんです。", en: "The thing is, I'm ill." }
+      - { ja: "びょうきなんです。", en: "The thing is, I'm sick." }
       - { ja: "きょうは じかんが ないんです。", en: "The thing is, I haven't got time today." }
       - { ja: "どうして いかないんだ？", en: "Why aren't you going? — the same question, said to a friend" }
     antiPattern: { ja: "どうして いかないんです。", why: "a polite QUESTION requires か — without it the sentence is a statement, and an unfinished one: どうして いかないんですか。" }
@@ -328,7 +328,7 @@ grammarPoints:
     rule: "The past of なる is なった, and it is the form a change is usually reported in — because a change is something you notice after it has already happened. 「さむく なった」 is it's got cold. 「げんきに なった」 is he's better now. English often reaches for a present tense here (it IS cold now, he IS well now) and Japanese reaches for the past, because the news is the change rather than the state. Pair it with んだ and you have the most useful sentence shape in this module: 「かみが ながく なったんだ」, the thing is, the paper's got longer. Note what な does and does not do. なった is a VERB, so it takes ん straight after it — なったんだ, never なったなんだ. The な in なんだ only ever follows a noun or a な-adjective, and なった is neither. Two more things worth keeping straight. なった is the past of なる and not of ある: 「あった」 is a different verb with a different job. And a から clause in front of it puts the whole change in the past too — 「ふゆに なったから さむく なった」 — which is how you tell somebody what has changed and why, in one breath."
     examples:
       - { ja: "さむく なったんだ。", en: "The thing is, it's got cold." }
-      - { ja: "あには げんきに なった。", en: "My older brother has got better." }
+      - { ja: "あには げんきに なった。", en: "My older brother has gotten better." }
       - { ja: "ふゆに なったから さむすぎるんだ。", en: "Winter's here, so it's too cold — that's the thing." }
       - { ja: "かみが ながく なったんです。", en: "The thing is, the paper's got longer." }
       - { ja: "あねは せんせいに なった。", en: "My older sister became a teacher." }
@@ -430,7 +430,7 @@ lessons:
       - { kind: sentence, ja: "あしたは いそがしいんだ。", en: "It's because I'm busy tomorrow", exercises: [n-desu, wa-topic, ni-time], mode: build }
       - { kind: sentence, ja: "どうして たべないんだ？", en: "Why aren't you eating", exercises: [n-desu, dare, nai-form], mode: build }
       - { kind: sentence, ja: "くすりを のむんだ。", en: "It's because I'm taking medicine", exercises: [n-desu, wo-object, dictionary-form], mode: listening }
-      - { kind: sentence, ja: "じかんが ないから ちゃを のまないんだ。", en: "I'm not drinking tea, because I haven't got time", exercises: [n-desu, kara-because, nai-existence], mode: build }
+      - { kind: sentence, ja: "じかんが ないから ちゃを のまないんだ。", en: "I'm not drinking tea, because I don't have time", exercises: [n-desu, kara-because, nai-existence], mode: build }
       - { kind: sentence, ja: "コーヒーを のんだんだ。", en: "The thing is, I drank the coffee", exercises: [n-desu, ta-form, wo-object], mode: build }
       - { kind: sentence, ja: "ねつが あるんだ。", en: "The thing is, I've got a fever", exercises: [n-desu], mode: translate }
       - { kind: particle-cloze, stem: "ねつが ある", tail: "。", answer: "んだ", options: ["んだ", "だ", "です"], en: "The thing is, I've got a fever", explanation: "ある is a verb, so it takes ん and then だ. Bare だ finishes a NOUN and can never sit on a verb, and です cannot sit on a plain verb either — 「あるです」 is not Japanese. The noun version, なんだ, is the next lesson's job." }
@@ -442,7 +442,7 @@ lessons:
           - { speaker: "Tom", ja: "ねつが あるんだ。びょういんに いく。", en: "I've got a fever. I'm going to the hospital." }
         questions:
           - { q: "Where does Tom say he is going?", options: ["To the hospital", "To the university", "To the library", "To the airport"], answer: "To the hospital" }
-      - { kind: challenge, ja: "びょうきだから くすりを のんだけど まだ ねつが あるんだ。", en: "I took medicine because I'm ill, but I've still got a fever", combines: [n-desu, kara-because, kedo, ta-form, mada-mou], mode: build }
+      - { kind: challenge, ja: "びょうきだから くすりを のんだけど まだ ねつが あるんだ。", en: "I took medicine because I'm sick, but I've still got a fever", combines: [n-desu, kara-because, kedo, ta-form, mada-mou], mode: build }
     reviewPool: [どうして, ねつ, のど, くすり, じゅぎょう, ちゃ, コーヒー, びょういん, だいがく, いそがしい]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -453,21 +453,21 @@ lessons:
     introduces: [なんだ, おかね]
     beats:
       - { kind: rule, grammarPointId: desu-copula }
-      - { kind: sentence, ja: "きょうは いかない。びょうきなんだ。", en: "I'm not going today — the thing is, I'm ill", exercises: [desu-copula, n-desu, nai-form], mode: build }
+      - { kind: sentence, ja: "きょうは いかない。びょうきなんだ。", en: "I'm not going today — the thing is, I'm sick", exercises: [desu-copula, n-desu, nai-form], mode: build }
       - { kind: sentence, ja: "この かさは ぼくの かさなんだ。", en: "This umbrella is my umbrella, you see", exercises: [desu-copula, no-possession, wa-topic], mode: build }
       - { kind: sentence, ja: "としょかんに いく。としょかんは しずかなんだ。", en: "I'm going to the library — the thing is, the library is quiet", exercises: [desu-copula, ni-location, na-adj-present], mode: build }
       - { kind: sentence, ja: "さかなが すきなんだ。", en: "The thing is, I like fish", exercises: [desu-copula, suki-kirai-no, ga-existence], mode: build }
       - { kind: sentence, ja: "あしたは やすみなんだ。", en: "It's a vacation tomorrow, you see", exercises: [desu-copula, wa-topic, ni-time], mode: listening }
       - { kind: sentence, ja: "おかねが ないから かわないんだ。", en: "I'm not buying it, because I haven't got the money", exercises: [desu-copula, kara-because, nai-existence], mode: build }
       - { kind: sentence, ja: "この とけいは たかいんだ。あにの とけいなんだ。", en: "This watch is expensive — it's my older brother's watch, you see", exercises: [desu-copula, n-desu, no-possession], mode: build }
-      - { kind: sentence, ja: "びょうきなんだ。", en: "The thing is, I'm ill", exercises: [desu-copula], mode: translate }
+      - { kind: sentence, ja: "びょうきなんだ。", en: "The thing is, I'm sick", exercises: [desu-copula], mode: translate }
       - { kind: particle-cloze, stem: "あしたは やすみ", tail: "。", answer: "なんだ", options: ["なんだ", "んだ", "だった"], en: "It's a vacation tomorrow, you see", explanation: "やすみ is a noun, so its copula comes first and turns into な. んだ would leave the noun with no copula at all, and だった puts a vacation that has not happened yet into the past." }
       - { kind: listening-comp, audio: "おかねが あるから とけいを かうんだ。", answer: "I'm buying a watch, because I've got the money", distractors: ["I'm not buying a watch, because I haven't got the money", "I'm buying glasses, because I've got the money", "I've got the money, but I'm not buying a watch"], exercises: [desu-copula, kara-because] }
       - { kind: listening-comp, audio: "あしたは やすみだから としょかんに いくんだ。", answer: "I'm going to the library, because tomorrow is a vacation", distractors: ["I'm not going to the library, because tomorrow is a vacation", "I'm going to the hospital, because tomorrow is a vacation", "Tomorrow is a day off, but I'm not going to the library"], exercises: [desu-copula, kara-because] }
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "どうして この めがねを かわないんだ？", en: "Why aren't you buying these glasses?" }
-          - { speaker: "Mika", ja: "おかねが ないんだ。この めがねは あねの めがねなんだ。", en: "I haven't got the money. And these glasses are my older sister's." }
+          - { speaker: "Mika", ja: "おかねが ないんだ。この めがねは あねの めがねなんだ。", en: "I don't have the money. And these glasses are my older sister's." }
         questions:
           - { q: "Whose glasses does Mika say these are?", options: ["Her older sister's", "Her own", "Her older brother's", "She doesn't say"], answer: "Her older sister's" }
       - { kind: challenge, ja: "この とけいは あにの とけいだから かわないんだ。ぼくのは やすい とけいなんだ。", en: "I'm not buying this watch because it's my older brother's — mine is a cheap watch", combines: [desu-copula, n-desu, kara-because, no-possession, wa-topic], mode: build }
@@ -487,7 +487,7 @@ lessons:
       - { kind: sentence, ja: "この かみは ふるいから みないんだ。", en: "I don't look at this paper because it's old", exercises: [kara-because, n-desu, wa-topic], mode: build }
       - { kind: sentence, ja: "どうして へやで たべないんだ？", en: "Why don't you eat in your room", exercises: [kara-because, n-desu, de-action], mode: listening }
       - { kind: sentence, ja: "へやに つくえが あるから ここで たべるんだ。", en: "There's a desk in my room, so I eat here", exercises: [kara-because, ga-existence, ni-location], mode: build }
-      - { kind: sentence, ja: "じかんが ないから としょかんに いかないんだ。", en: "I'm not going to the library, because I haven't got time", exercises: [kara-because, n-desu, nai-existence], mode: build }
+      - { kind: sentence, ja: "じかんが ないから としょかんに いかないんだ。", en: "I'm not going to the library because I don't have time", exercises: [kara-because, n-desu, nai-existence], mode: build }
       - { kind: sentence, ja: "どうして たべないんだ？", en: "Why aren't you eating", exercises: [kara-because, n-desu], mode: translate }
       - { kind: particle-cloze, stem: "ねつが あるから ", tail: "。", answer: "いかないんだ", options: ["いかないんだ", "いくんだ", "かうんだ"], en: "I'm not going, because I've got a fever", explanation: "a fever is a reason to stay put, so the main clause has to be the negative. いくんだ would make the reason argue against itself, and かうんだ answers a question nobody asked." }
       - { kind: listening-comp, audio: "へやが せまいから つくえを かわないんだ。", answer: "I'm not buying a desk, because my room is cramped", distractors: ["I'm buying a desk, because my room is cramped", "I'm not buying a desk, because I haven't got the money", "My room is cramped, but I'm buying a desk"], exercises: [kara-because, n-desu] }
@@ -525,7 +525,7 @@ lessons:
       - { kind: sentence, ja: "ねつが あるんだ。", en: "The thing is, I've got a fever", exercises: [n-desu], mode: translate }
       - { kind: listening-comp, audio: "この かみは ふるいから みないんだ。", answer: "I don't look at this paper because it's old", distractors: ["I look at this paper because it's old", "I don't look at this photo because it's old", "This paper is old, but I look at it"], exercises: [kara-because, n-desu] }
       - { kind: sentence, ja: "この かさは ぼくの かさなんだ。", en: "This umbrella is my umbrella, you see", exercises: [desu-copula, no-possession], mode: build }
-      - { kind: sentence, ja: "じかんが ないから としょかんに いかないんだ。", en: "I'm not going to the library, because I haven't got time", exercises: [kara-because, nai-existence], mode: build }
+      - { kind: sentence, ja: "じかんが ないから としょかんに いかないんだ。", en: "I'm not going to the library because I don't have time", exercises: [kara-because, nai-existence], mode: build }
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "どうして きょう としょかんに いかないんだ？", en: "Why aren't you going to the library today?" }
@@ -711,11 +711,11 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: ta-form }
       - { kind: sentence, ja: "ふゆに なったから さむく なったんだ。", en: "Winter's here, so it's got cold — that's the thing", exercises: [ta-form, ku-ni-naru, kara-because], mode: build }
-      - { kind: sentence, ja: "あには げんきに なった。", en: "My older brother has got better", exercises: [ta-form, na-adj-present, family-register], mode: build }
+      - { kind: sentence, ja: "あには げんきに なった。", en: "My older brother has gotten better", exercises: [ta-form, na-adj-present, family-register], mode: build }
       - { kind: sentence, ja: "かみが ながく なったんです。", en: "Say politely: The thing is, the paper's got longer", exercises: [ta-form, masu-present, ku-ni-naru], mode: build }
       - { kind: sentence, ja: "あねは せんせいに なった。", en: "My older sister became a teacher", exercises: [ta-form, na-adj-present, family-register], mode: build }
       - { kind: sentence, ja: "ふゆに なったから さむすぎるんだ。", en: "Winter's here, so it's too cold — that's the thing", exercises: [ta-form, sugiru, n-desu], mode: listening }
-      - { kind: sentence, ja: "だいがくが おおきく なったから としょかんも ひろく なった。", en: "The university has got bigger, so the library has got more spacious too", exercises: [ta-form, ku-ni-naru, mo-also], mode: build }
+      - { kind: sentence, ja: "だいがくが おおきく なったから としょかんも ひろく なった。", en: "The university became bigger, so the library became more spacious too", exercises: [ta-form, ku-ni-naru, mo-also], mode: build }
       - { kind: sentence, ja: "えいごが よく なったけど じゅぎょうは むずかしすぎるんだ。", en: "My English has got better, but the class is too difficult — that's the thing", exercises: [ta-form, ku-ni-naru, kedo], mode: build }
       - { kind: sentence, ja: "さむく なったんだ。", en: "The thing is, it's got cold", exercises: [ta-form, ku-ni-naru], mode: translate }
       - { kind: particle-cloze, stem: "はるに なったから あたたかく ", tail: "。", answer: "なった", options: ["なった", "なる", "だった"], en: "Spring is here, so it's got warm", explanation: "the から clause is already in the past, so the change it caused has happened too. なる would put the result in front of its own cause, and だった is the past of the copula rather than of なる." }
@@ -748,7 +748,7 @@ lessons:
       - { kind: sentence, ja: "つくえを かうから へやが せまく なるんだ。", en: "The thing is, my room gets cramped because I'll buy a desk", exercises: [ku-ni-naru, n-desu], mode: build }
       - { kind: sentence, ja: "さむく なったんだ。", en: "The thing is, it's got cold", exercises: [ta-form, ku-ni-naru], mode: translate }
       - { kind: listening-comp, audio: "ばんは がっこうが しずかに なるんだ。", answer: "The thing is, the school goes quiet in the evening", distractors: ["The thing is, the school gets busy in the evening", "The thing is, the library goes quiet in the evening", "The school was quiet in the evening"], exercises: [na-adj-present, n-desu] }
-      - { kind: sentence, ja: "あには げんきに なった。", en: "My older brother has got better", exercises: [ta-form, na-adj-present], mode: build }
+      - { kind: sentence, ja: "あには げんきに なった。", en: "My older brother has gotten better", exercises: [ta-form, na-adj-present], mode: build }
       - { kind: sentence, ja: "じゅぎょうが むずかしく なるから いそがしいんだ。", en: "The classes get harder, so I'm busy", exercises: [ku-ni-naru, kara-because], mode: build }
       - kind: dialogue
         lines:
@@ -766,8 +766,8 @@ lessons:
     introduces: []
     beats:
       - { kind: sentence, ja: "ふゆに なったから ふくを かうけど たかすぎるんです。", en: "Say politely: Winter's here, so I'm buying clothes, but they're too expensive", exercises: [ta-form, sugiru, masu-present, kedo], mode: build }
-      - { kind: sentence, ja: "くすりを のみすぎたから びょうきに なったんだ。", en: "I took too much medicine, so I got ill", exercises: [sugiru, na-adj-present, ta-form], mode: listening }
-      - { kind: sentence, ja: "えいごが よく なったから じゅぎょうが おもしろく なったんだ。", en: "My English has got better, so the class has become interesting", exercises: [ku-ni-naru, ta-form, kara-because], mode: build }
+      - { kind: sentence, ja: "くすりを のみすぎたから びょうきに なったんだ。", en: "I took too much medicine, so I got sick", exercises: [sugiru, na-adj-present, ta-form], mode: listening }
+      - { kind: sentence, ja: "えいごが よく なったから じゅぎょうが おもしろく なったんだ。", en: "My English has gotten better, so the class has become interesting", exercises: [ku-ni-naru, ta-form, kara-because], mode: build }
       - { kind: sentence, ja: "つくえが おおきすぎるから へやが せまく なったんだ。", en: "The desk is too big, so my room has got cramped", exercises: [sugiru, ku-ni-naru, n-desu], mode: build }
       # Was L5's capstone sentence with 「じゅぎょうに」 trimmed off — the hardest
       # beat of a teaching lesson handed back as a challenge beat. Rewritten to
@@ -793,7 +793,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Tanaka", ja: "えいごの じゅぎょうは どうですか。", en: "How is the English class?" }
-          - { speaker: "Mika", ja: "むずかしすぎるんです。えいごは よく なったんですけど。", en: "It's too difficult, you see. My English has got better, though." }
+          - { speaker: "Mika", ja: "むずかしすぎるんです。えいごは よく なったんですけど。", en: "It's too difficult, you see. My English has gotten better, though." }
         questions:
           - { q: "What does Mika say has got better?", options: ["Her English", "The class", "Her health", "The teacher"], answer: "Her English" }
       - { kind: challenge, ja: "なつに なったから かわで およぐけど およぎすぎるから いつも いそがしいんだ。", en: "Summer's here, so I swim in the river, but I swim too much, so I'm always busy", combines: [na-adj-present, sugiru, kedo, kara-because, n-desu], mode: build }

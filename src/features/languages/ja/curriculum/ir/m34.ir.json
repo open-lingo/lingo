@@ -1025,7 +1025,7 @@
         {
           "kind": "challenge",
           "ja": "じかんが あるから、テレビを みて、りょうりを しよう。",
-          "en": "I've got time, so I'll watch TV and then cook",
+          "en": "I have time, so I'll watch TV and then cook",
           "combines": [
             "volitional",
             "kara-because",
@@ -1662,7 +1662,7 @@
         {
           "kind": "sentence",
           "ja": "まいにち れんしゅうすることにする。",
-          "en": "I'm deciding to practise every day, starting now",
+          "en": "I'm deciding to practice every day, starting now",
           "exercises": [
             "koto-ni-suru"
           ],
@@ -1671,7 +1671,7 @@
         {
           "kind": "sentence",
           "ja": "えいごを れんしゅうすることにした。",
-          "en": "I decided to practise English",
+          "en": "I decided to practice English",
           "exercises": [
             "koto-ni-suru",
             "wo-object"
@@ -2076,7 +2076,7 @@
         {
           "kind": "sentence",
           "ja": "まいにち れんしゅうすることにする。",
-          "en": "I'm deciding to practise every day, starting now",
+          "en": "I'm deciding to practice every day, starting now",
           "exercises": [
             "koto-ni-suru"
           ],
@@ -2531,7 +2531,7 @@
               "npc": {
                 "speaker": "Tanaka",
                 "ja": "まいにち れんしゅうを しましょうか。",
-                "en": "Shall we practise every day?"
+                "en": "Shall we practice every day?"
               },
               "goal": "Agree — let's do that, politely.",
               "reply": {
@@ -2551,7 +2551,7 @@
         {
           "kind": "challenge",
           "ja": "ことしの もくひょうは むずかしいけど、まいにち れんしゅうして がんばろう。",
-          "en": "This year's goal is difficult, but let's practise every day and keep at it",
+          "en": "This year's goal is difficult, but let's practice every day and keep at it",
           "combines": [
             "volitional",
             "kedo",
@@ -5461,7 +5461,7 @@
     {
       "kana": "ノート",
       "romaji": "nooto",
-      "gloss": "notebook, exercise book",
+      "gloss": "notebook",
       "shortGloss": "notebook",
       "imageable": true,
       "kind": "vocab"
@@ -6432,8 +6432,8 @@
     {
       "kana": "ひこうき",
       "romaji": "hikouki",
-      "gloss": "an aeroplane",
-      "shortGloss": "aeroplane",
+      "gloss": "an airplane",
+      "shortGloss": "airplane",
       "imageable": false,
       "kind": "vocab"
     },
@@ -6760,8 +6760,8 @@
     {
       "kana": "あき",
       "romaji": "aki",
-      "gloss": "autumn",
-      "shortGloss": "autumn",
+      "gloss": "fall",
+      "shortGloss": "fall",
       "kind": "vocab"
     },
     {

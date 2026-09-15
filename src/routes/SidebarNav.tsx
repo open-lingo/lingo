@@ -20,10 +20,17 @@ const SyncManagerTrigger = lazyRetry(() =>
 );
 
 /**
- * Desktop (≥lg) left rail — the only nav on wide screens for signed-in users,
+ * Desktop left rail — the only nav on wide screens for signed-in users,
  * lessons included. Shares destinations with the top bar via useNavDestinations
- * so the two never diverge. Hidden below lg, where the top-bar header +
- * hamburger takes over. Fixed-position; Layout pads the page `lg:pl-60`.
+ * so the two never diverge. Fixed-position; Layout pads the page
+ * `landscapeLg:pl-60`.
+ *
+ * Gated on the `landscapeLg` screen (≥1024px AND landscape), not `lg:`
+ * (iPad pass, docs/ipad-scoping-2026-09-15.md §2): a portrait tablet gets the
+ * top-bar header + hamburger at ANY width, and every landscape screen ≥1024 —
+ * every desktop window, plus a landscape iPad — gets the rail. See
+ * `shared/hooks/breakpoints.ts` RAW_SCREENS for why this is unchanged on
+ * desktop.
  */
 export function SidebarNav() {
   const { t } = useTranslation();
@@ -31,7 +38,7 @@ export function SidebarNav() {
   const dests = useNavDestinations();
 
   return (
-    <aside className="fixed inset-y-0 left-0 z-40 hidden w-60 flex-col border-r border-border bg-surface lg:flex">
+    <aside className="fixed inset-y-0 left-0 z-40 hidden w-60 flex-col border-r border-border bg-surface pb-safe pl-safe pt-safe landscapeLg:flex">
       <div className="flex h-12 shrink-0 items-center gap-2 border-b border-border px-4">
         <span
           className="inline-block h-7 w-7 shrink-0 bg-current"
@@ -71,7 +78,11 @@ export function SidebarNav() {
             to={d.to}
             {...(d.prefetch ? makePrefetchHandlers(d.prefetch) : {})}
             aria-current={d.active ? "page" : undefined}
-            className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition ${
+            // py reads `--tap-bump` (0px everywhere but a landscape tablet,
+            // where it is 3px) so the rail's rows are a little easier to hit
+            // with a thumb on the iPad this rail now also serves. py-2 =
+            // 0.5rem, so this is identical wherever the token is 0.
+            className={`flex items-center gap-3 rounded-lg px-3 py-[calc(0.5rem+var(--tap-bump))] text-sm transition ${
               d.active
                 ? "bg-accent-muted font-semibold text-text-primary"
                 : "text-text-secondary hover:bg-surface-muted hover:text-text-primary"

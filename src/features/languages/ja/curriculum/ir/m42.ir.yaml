@@ -287,7 +287,7 @@ grammarPoints:
   - id: tte-quotative
     rule: "って is casual spoken quoting — the everyday shortcut for と言っていた. Put a complete plain-form sentence in front of it and って hands it over exactly the way と does: たなかさんが くるって, 'Tanaka said he's coming' (compare the more formal たなかさんが くると いっていた, same meaning, module 18's と plus this module's いっていた). Reach for って with friends, drop it for teachers or strangers — that register gap is the whole reason it exists next to と. It attaches after ANY plain sentence, questions included: なんで こないって？'why did they say they're not coming?'"
     examples:
-      - { ja: "たなかさんが くるって。", en: "Tanaka said he's coming." }
+      - { ja: "たなかさんが くるって。", en: "I heard Tanaka is coming." }
       - { ja: "きしゃが じこが あったって。", en: "The reporter said there was an accident." }
       - { ja: "ミカは いそがしいって。", en: "Mika said she's busy." }
       - { ja: "ケンは しらないって。", en: "Ken said he doesn't know." }
@@ -424,7 +424,7 @@ lessons:
     introduces: [って, うわさ, きしゃ]
     beats:
       - { kind: rule, grammarPointId: tte-quotative }
-      - { kind: sentence, ja: "たなかさんが くるって。", en: "Tanaka said he's coming.", exercises: [tte-quotative], mode: build }
+      - { kind: sentence, ja: "たなかさんが くるって。", en: "I heard Tanaka is coming.", exercises: [tte-quotative], mode: build }
       - { kind: sentence, ja: "きしゃが じこが あったって。", en: "The reporter said there was an accident.", exercises: [tte-quotative], mode: build }
       - { kind: sentence, ja: "ミカは いそがしいって。", en: "Mika said she's busy.", exercises: [tte-quotative], mode: build }
       - { kind: sentence, ja: "たいふうは こないって。", en: "They said the typhoon isn't coming.", exercises: [tte-quotative, nai-form], mode: listening }
@@ -476,7 +476,7 @@ lessons:
       - { kind: sentence, ja: "たなかさんは たいふうが くると いっていた。", en: "Tanaka said a typhoon was coming.", exercises: [to-itte-ita], mode: build }
       - { kind: sentence, ja: "きしゃは じこが あったと いっていた。", en: "The reporter said there was an accident.", exercises: [to-itte-ita, ta-form], mode: build }
       - { kind: sentence, ja: "きしゃは わたしに じしんを つたえた。", en: "The reporter conveyed news of the earthquake to me.", exercises: [ni-recipient, wo-object, ta-form], mode: build }
-      - { kind: sentence, ja: "きしゃは ニュースを つたえる。", en: "The reporter conveys the news.", exercises: [wo-object], mode: build }
+      - { kind: sentence, ja: "きしゃは ニュースを つたえる。", en: "The reporter reports the news.", exercises: [wo-object], mode: build }
       - { kind: sentence, ja: "せんせいは がくせいに じしんを しらせる。", en: "The teacher informs the students about the earthquake.", exercises: [ni-recipient, wo-object], mode: build }
       - { kind: particle-cloze, stem: "ケンは いそがしいと ", tail: "。", answer: "いっていた", options: ["いっていた", "いう", "いっている"], en: "Ken said he was busy.", explanation: "Reporting what Ken SAID, in the past, needs this lesson's fused carrier いっていた — ケンは いそがしいと いっていた。 Bare いう drops the past/report framing to a plain 'say', and いっている shifts it to right now ('is saying') — neither actually reports what he said earlier." }
       - { kind: listening-comp, audio: "せんせいは がくせいに じしんを しらせた。", answer: "The teacher informed the students about the earthquake.", distractors: ["The students informed the teacher.", "The teacher forgot to tell the students.", "Nobody told the students anything."], q: "What does this mean?" }
@@ -533,7 +533,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "きょう きしゃが いないね。", en: "The reporter isn't here today." }
-          - { speaker: "Mika", ja: "うわさで、びょうきらしいよ。", en: "According to the rumor, apparently he's sick." }
+          - { speaker: "Mika", ja: "うわさで、びょうきらしいよ。", en: "Rumor has it he's sick." }
           - { speaker: "Ken", ja: "わかった、たいへんだね。", en: "I see, that's tough." }
         questions:
           - { q: "What is apparently true about the reporter, per the rumor?", options: ["He's sick", "He's on vacation", "He quit his job", "He's at the broadcast"], answer: "He's sick" }

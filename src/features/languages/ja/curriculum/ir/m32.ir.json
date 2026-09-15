@@ -1765,7 +1765,7 @@
         {
           "kind": "challenge",
           "ja": "しごとが おわったら ともだちと うみに いきたいけど、あめが ふったら いかない。",
-          "en": "When work finishes I want to go to the sea with a friend, but if it rains I won't go",
+          "en": "When work finishes I want to go to the beach with a friend, but if it rains I won't go",
           "combines": [
             "tara",
             "v-tai",
@@ -2924,7 +2924,7 @@
         {
           "kind": "sentence",
           "ja": "びょうきだから、はやく かえったら どうですか。",
-          "en": "You're ill, so how about going home early?",
+          "en": "You're sick, so how about going home early?",
           "exercises": [
             "tara-dou",
             "kara-because"
@@ -3817,7 +3817,7 @@
         {
           "kind": "sentence",
           "ja": "びょうきだから、くすりを のんで はやく ねたら いい。",
-          "en": "You're ill, so you'd do well to take some medicine and sleep early",
+          "en": "You're sick, so you should take some medicine and go to sleep early",
           "exercises": [
             "kara-because",
             "te-form",
@@ -6410,7 +6410,7 @@
     {
       "kana": "ノート",
       "romaji": "nooto",
-      "gloss": "notebook, exercise book",
+      "gloss": "notebook",
       "shortGloss": "notebook",
       "imageable": true,
       "kind": "vocab"
@@ -7381,8 +7381,8 @@
     {
       "kana": "ひこうき",
       "romaji": "hikouki",
-      "gloss": "an aeroplane",
-      "shortGloss": "aeroplane",
+      "gloss": "an airplane",
+      "shortGloss": "airplane",
       "imageable": false,
       "kind": "vocab"
     },
@@ -7709,8 +7709,8 @@
     {
       "kana": "あき",
       "romaji": "aki",
-      "gloss": "autumn",
-      "shortGloss": "autumn",
+      "gloss": "fall",
+      "shortGloss": "fall",
       "kind": "vocab"
     },
     {

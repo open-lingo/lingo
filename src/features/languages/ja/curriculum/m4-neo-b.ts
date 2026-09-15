@@ -823,16 +823,16 @@ export const M4_NEO_10: LessonContent = {
     // word straight into pointer frames.
     vocabMcq(
       "ja-m4-neo-10-vmcq-jitensha",
-      { kana: "じてんしゃ", meaningEn: "bicycle", emoji: "🚲", fromModule: "m4" },
+      { kana: "じてんしゃ", meaningEn: "bike", emoji: "🚲", fromModule: "m4" },
       NEO_PRIOR_POOL,
     ),
     listeningCompSentence({
       id: "ja-m4-neo-10-lc-kore-jitensha",
       audioText: "これは じてんしゃだ。",
       question: "What does this mean?",
-      correctMeaningEn: "This is a bicycle.",
+      correctMeaningEn: "This is a bike.",
       distractorsEn: [
-        "That over there is a bicycle.",
+        "That over there is a bike.",
         "This is a car.",
         "This is a bag.",
       ],
@@ -844,7 +844,7 @@ export const M4_NEO_10: LessonContent = {
     // じてんしゃだ LC/build reuse gap clears >=3 indices.)
     build(
       "ja-m4-neo-10-build-are-jitensha",
-      "Build this sentence: That (over there) is a bicycle.",
+      "Build this sentence: That (over there) is a bike.",
       "あれは じてんしゃだ",
       ["あれ", "は", "じてんしゃ", "だ", "これ"],
       ["あれ", "は", "じてんしゃ", "だ"],
@@ -862,14 +862,14 @@ export const M4_NEO_10: LessonContent = {
       correctMeaningEn: "That (near you) is a dictionary.",
       distractorsEn: [
         "This (near me) is a dictionary.",
-        "That (near you) is a bicycle.",
+        "That (near you) is a bike.",
         "That (over there) is a dictionary.",
       ],
       exercisedAtomKanas: ["それ", "じしょ"],
     }),
     build(
       "ja-m4-neo-10-build-kore-jitensha",
-      "Build this sentence: This is a bicycle.",
+      "Build this sentence: This is a bike.",
       "これは じてんしゃだ",
       ["これ", "は", "じてんしゃ", "だ", "くるま"],
       ["これ", "は", "じてんしゃ", "だ"],
@@ -882,14 +882,14 @@ export const M4_NEO_10: LessonContent = {
       " じてんしゃ？",
       "の",
       ["の", "は", "も", "か"],
-      "Whose bicycle is it?",
+      "Whose bike is it?",
       "だれの じてんしゃ？",
-      "の hangs the owner question on the thing: whose bicycle.",
+      "の hangs the owner question on the thing: whose bike.",
     ),
     speaking(
       "ja-m4-neo-10-speak-dareno-jitensha",
       "だれの じてんしゃ？",
-      "Whose bicycle is it? (voice rises)",
+      "Whose bike is it? (voice rises)",
       ["だれ", "の", "じてんしゃ"],
     ),
     dialogueListen({
@@ -903,7 +903,7 @@ export const M4_NEO_10: LessonContent = {
       questions: [
         {
           id: "q1",
-          prompt: "Whose bicycle is the one near Mika?",
+          prompt: "Whose bike is the one near Mika?",
           correctText: "Tom's",
           distractors: ["Mika's", "Ken's", "Tanaka's"],
         },
@@ -933,14 +933,14 @@ export const M4_NEO_10: LessonContent = {
       correctMeaningEn: "Which one is the dictionary?",
       distractorsEn: [
         "Whose dictionary is it?",
-        "Which one is the bicycle?",
+        "Which one is the bike?",
         "Is that a dictionary?",
       ],
       exercisedAtomKanas: ["じしょ", "どれ"],
     }),
     build(
       "ja-m4-neo-10-build-tomuno",
-      "Build this sentence: It's Tom's bicycle.",
+      "Build this sentence: It's Tom's bike.",
       "トムの じてんしゃだ",
       ["トム", "の", "じてんしゃ", "だ", "わたし"],
       ["トム", "の", "じてんしゃ", "だ"],
@@ -948,7 +948,7 @@ export const M4_NEO_10: LessonContent = {
     ),
     translateStep({
       id: "ja-m4-neo-10-tr-watashino-jitensha",
-      promptEn: "Translate: It's my bicycle.",
+      promptEn: "Translate: It's my bike.",
       acceptedAnswers: [
         "わたしの じてんしゃだ",
         "わたしのじてんしゃだ",

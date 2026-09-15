@@ -23,7 +23,7 @@ import {
  * awareness, but neither lesson drills nor the recap quizzes them — modern
  * Japanese writes those sounds as じ・ず in nearly every word.
  *
- * Sub-1: chars 1-2 (だ で). Anchors: でんわ (telephone 📞), からだ (body).
+ * Sub-1: chars 1-2 (だ で). Anchors: でんわ (phone 📞), からだ (body).
  * Sub-2: char 3 (ど) + consolidation across all 3 d-kana. Anchor: どあ.
  * Sub-3: cumulative review + M1 cross-module sprinkle.
  */
@@ -41,7 +41,7 @@ const ctxSub1: RowContext = {
     { symbol: "と", romaji: "to" },
   ],
   words: [
-    { kana: "でんわ", meaningEn: "telephone", emoji: "📞" },
+    { kana: "でんわ", meaningEn: "phone", emoji: "📞" },
     { kana: "からだ", meaningEn: "body", emoji: "🧍" },
   ],
   tileBankPool: ["あ", "い", "う", "え", "お", "た", "ち", "つ", "て", "と", "ん", "わ", "か", "ら"],
@@ -55,7 +55,7 @@ const ctxSub2: RowContext = {
     { symbol: "ど", romaji: "do" },
   ],
   words: [
-    { kana: "でんわ", meaningEn: "telephone", emoji: "📞" },
+    { kana: "でんわ", meaningEn: "phone", emoji: "📞" },
     { kana: "からだ", meaningEn: "body", emoji: "🧍" },
     { kana: "どあ", meaningEn: "door", emoji: "🚪" },
   ],
@@ -123,23 +123,23 @@ export const MOCK_LESSON_JA_M2_D_1: LessonContent = {
     wordImageMcq(ctxSub1, "ja-d1-mcq-karada", "からだ"),
     speaking("ja-d1-speak-karada", "からだ", "body"),
 
-    // ─── Char 2: で (de) → でんわ (telephone) ───
+    // ─── Char 2: で (de) → でんわ (phone) ───
     symbolIntro(
       "ja-d1-intro-de",
       "で",
       "de",
       "de",
       "voiced て (te → de)",
-      "でんわ (denwa) = telephone",
+      "でんわ (denwa) = phone",
     ),
     wordImageMcq(ctxSub1, "ja-d1-mcq-denwa", "でんわ"),
-    speaking("ja-d1-speak-denwa", "でんわ", "telephone"),
+    speaking("ja-d1-speak-denwa", "でんわ", "phone"),
 
     // ─── Consolidation tail (R3 interleave) ───
     symbolToSound(ctxSub1, "ja-d1-s2s-da", "だ", "da", "voiced た"),
     recognition(ctxSub1, "ja-d1-recog-de", "で", "de", "voiced て"),
     symbolToSound(ctxSub1, "ja-d1-s2s-de", "で", "de", "voiced て"),
-    listeningBuild(ctxSub1, "ja-d1-build-denwa", "でんわ", "telephone"),
+    listeningBuild(ctxSub1, "ja-d1-build-denwa", "でんわ", "phone"),
     symbolToSound(ctxSub1, "ja-d1-s2s-da-2", "だ", "da", "voiced た"),
   ],
 };
@@ -180,7 +180,7 @@ export const MOCK_LESSON_JA_M2_D_2: LessonContent = {
     wordImageMcq(ctxSub2, "ja-d2-mcq-karada-redo", "からだ"),
 
     // Translate cluster broken with match_pairs.
-    translateMcq("ja-d2-translate-denwa", "telephone", "でんわ", D_WORD_POOL),
+    translateMcq("ja-d2-translate-denwa", "phone", "でんわ", D_WORD_POOL),
     matchKanaToRomaji("ja-d2-match-all", [
       { symbol: "だ", romaji: "da" },
       { symbol: "で", romaji: "de" },
@@ -191,14 +191,14 @@ export const MOCK_LESSON_JA_M2_D_2: LessonContent = {
     listeningBuild(ctxSub2, "ja-d2-build-doa", "どあ", "door"),
 
     // R3 tail: lc + speak interleave.
-    listeningComp("ja-d2-lc-denwa", "でんわ", "denwa", "telephone",
+    listeningComp("ja-d2-lc-denwa", "でんわ", "denwa", "phone",
       ["body", "door", "wind"]),
     speaking("ja-d2-speak-do", "ど", "the kana 'do'"),
     listeningComp("ja-d2-lc-karada", "からだ", "karada", "body",
-      ["telephone", "door", "time"]),
-    speaking("ja-d2-speak-denwa-2", "でんわ", "telephone"),
+      ["phone", "door", "time"]),
+    speaking("ja-d2-speak-denwa-2", "でんわ", "phone"),
     listeningComp("ja-d2-lc-doa", "どあ", "doa", "door",
-      ["telephone", "body", "elephant"]),
+      ["phone", "body", "elephant"]),
   ],
 };
 
@@ -227,9 +227,9 @@ export const MOCK_LESSON_JA_M2_D_3: LessonContent = {
 
     // Translate cluster interleaved with speaking + recognition.
     recognition(ctxSub3, "ja-d3-recog-da", "だ", "da", "voiced た"),
-    translateMcq("ja-d3-translate-denwa", "telephone", "でんわ", D_WORD_POOL),
+    translateMcq("ja-d3-translate-denwa", "phone", "でんわ", D_WORD_POOL),
     translateMcq("ja-d3-translate-karada", "body", "からだ", D_WORD_POOL),
-    speaking("ja-d3-speak-denwa", "でんわ", "telephone"),
+    speaking("ja-d3-speak-denwa", "でんわ", "phone"),
     recognition(ctxSub3, "ja-d3-recog-do", "ど", "do", "voiced と"),
     translateMcq("ja-d3-translate-doa", "door", "どあ", D_WORD_POOL),
     translateMcq(

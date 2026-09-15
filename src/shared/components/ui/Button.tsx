@@ -26,12 +26,25 @@ type ButtonStyleOptions = {
   className?: string;
 };
 
+// `--tap-bump` (src/index.css) is 0px on every surface except a LANDSCAPE
+// tablet (≥1024px + landscape + coarse pointer), where it is 3px — Spencer's
+// "slightly bigger buttons/tap targets" for the iPad he keeps open in
+// landscape all day (docs/ipad-scoping-2026-09-15.md §2, Q4).
+//
+// Threaded through the padding utilities as `calc(<the value py-2.5 already
+// meant> + var(--tap-bump))` rather than added as a `landscapeLg:` variant,
+// because Tailwind cannot express "landscapeLg AND coarse pointer" as one
+// utility — and because this way the shipped number stays in ONE place. Every
+// one of these is arithmetically identical to what it replaced whenever the
+// token is 0, so iPhone and desktop-mouse rendering cannot move: px-4 =
+// 1rem, py-2.5 = 0.625rem, px-3 = 0.75rem, py-1.5 = 0.375rem, px-6 = 1.5rem,
+// py-3 = 0.75rem, size-9 = 2.25rem (bumped on both axes, hence ×2).
 const sizeClasses: Record<ButtonSize, string> = {
-  md: "rounded-lg px-4 py-2.5 text-sm font-medium",
-  sm: "rounded-md px-3 py-1.5 text-xs font-medium",
-  icon: "size-9 shrink-0 rounded-full p-0",
+  md: "rounded-lg px-[calc(1rem+var(--tap-bump))] py-[calc(0.625rem+var(--tap-bump))] text-sm font-medium",
+  sm: "rounded-md px-[calc(0.75rem+var(--tap-bump))] py-[calc(0.375rem+var(--tap-bump))] text-xs font-medium",
+  icon: "size-[calc(2.25rem+var(--tap-bump)*2)] shrink-0 rounded-full p-0",
   /** Landing hero row — matches primary-3d footprint (padding + min height). */
-  hero: "min-h-12 gap-2 rounded-xl px-6 py-3 text-[15px] font-semibold",
+  hero: "min-h-12 gap-2 rounded-xl px-[calc(1.5rem+var(--tap-bump))] py-[calc(0.75rem+var(--tap-bump))] text-[15px] font-semibold",
 };
 
 // `!justify-start` overrides the `justify-center` in baseBehavior — menu
@@ -42,12 +55,12 @@ const sizeClasses: Record<ButtonSize, string> = {
 // mobile while still reading as compact on desktop (py-2 keeps the
 // vertical density on rows whose content already pushes past 44px).
 const menuRowLayout =
-  "min-h-[44px] w-full !justify-start gap-3 rounded-none px-4 py-2 text-left text-sm font-normal";
+  "min-h-[44px] w-full !justify-start gap-3 rounded-none px-4 py-[calc(0.5rem+var(--tap-bump))] text-left text-sm font-normal";
 
 // Layout is variant-owned (not size-driven) — primary-3d is a single
 // hero spec across landing + lesson, not a size scale.
 const primary3dLayout =
-  "min-h-12 gap-2 rounded-xl border-[1.5px] px-6 py-3 text-base font-bold uppercase tracking-wide";
+  "min-h-12 gap-2 rounded-xl border-[1.5px] px-[calc(1.5rem+var(--tap-bump))] py-[calc(0.75rem+var(--tap-bump))] text-base font-bold uppercase tracking-wide";
 
 // Filled accent variants get a solid muted disabled treatment instead of
 // opacity — fading white-on-accent to 50% drops the label below WCAG
