@@ -184,3 +184,28 @@ Mirror: memory `spencer-open-todos.md`.
 - 20:10 **Measured on the simulator (430×775 Safari viewport, dpr 3), dense build tile, BEFORE (= build 14):** word 15px, reading 10px, ruby box 36px, tile 46.7px (Chromium had said 40.8 — WebKit's ruby box is 5px taller); kana-only word 15px in a 46.7px tile (dead band). **Reading hidden (mastered) case:** tile 48.7px with an empty 15px band — the `.kanji-ruby .kana-helper` floor rule out-specified the `[data-visible=false]` collapse (both 0,2,0; mine later in the file). And the readings were hidden at all because `isMastered` reads intervals alone while #80 test-out seeding writes mastered-length intervals with reps 0 → Spencer's test-outs silenced every kanji tile at once (#117). **AFTER:** word 16.5px (+10%, #114), kana-only word 19.8px (1.2×, `.build-tile-dense [data-build-tile-kana]`), reading 10px, tile 48.7px; hidden-reading case rt 0px, ruby 25px (band gone); furigana gate = `!isMastered || isNew` (seeded, never-graded atoms keep their reading). 16-tile m31 step: stage overflow 0 → 32px in Safari's 775px viewport (the app's WKWebView has ~840px; checked in the app shell below). Lesson step tests green.
 - 20:25 **In the actual app shell (iPhone 15 Pro Max simulator, Capacitor dev-server harness):** ja-m30-neo-1 step 1 renders with the bigger words and 10px readings; ja-m31-neo-1 step 5 (16 tiles) had its FOURTH bank row clipped under CHECK — the empty tray's invisible full-answer ghost reserved ~180pt (3 rows) while the bank took ~219pt (4 rows). Fix: on huge banks (≥12 tiles) the ghost is skipped and the tray grows as tiles are placed (bank shrinks in step, CTA is bottom-anchored). Re-shot in the app shell: all 16 tiles visible, ~90pt spare above CHECK. Cap sync artifacts reverted (`Package.swift`, no server.url left in `capacitor.config.json`); iOS build 14→15.
 - 20:45 (2026-09-15) **PREFLIGHT GREEN (17,692) → f76e7f51 PUSHED.** DEPLOY 34919908570 SUCCESS: prod CSS index-BIzsPcQh.css carries both new rules (`.kanji-ruby .kana-helper[data-visible=true]` floor, `.build-tile-dense [data-build-tile-kana]{font-size:1.2em}`); ci 34919908598 green. **TestFlight build 15 UPLOADED + APPROVED** (delivery 2a536d8e-41e4-4ea3-b70b-ac02ce84b437, whatsNew set, External Beta attached, review APPROVED first poll). Spencer saw the post-change simulator shot and said "I like whatever this is". **To-do (Spencer's question, agreed in principle):** a kanji tile whose reading is hidden (mastered) should take the same 1.2× word as a kana-only tile — one rule, "no visible reading = big word", two tile shapes per row; ~5 lines (mark the tile reading-hidden, extend the 1.2× selector); ship in build 16 with a mixed-row simulator shot.
+
+### 2026-09-15 21:05 MDT — b15 feedback lap opened (#118–#143)
+
+- Pulled 26 new screenshot items (#118 on build 14, #119–#143 on build 15;
+  03:24Z–07:41Z, all Spencer, 15 Pro Max), 0 crashes. Shots copied to
+  `docs/user-feedback/2026-09-15-testflight-shots/118..143.jpg`.
+- Spencer's instruction: scope the JA course + step types with one Sonnet
+  agent first, then have agents read every item, locate the exact lesson step
+  (grep + file:line + local/prod links), and prepare a research doc so Fable
+  can work through the list with him. No fixes yet in this step.
+- Lanes: scope-brief agent → two enumeration agents (#118–#130, #131–#143) →
+  Fable assembles `docs/user-feedback/2026-09-15-testflight-b15.md`.
+- 21:20 Spencer: "so many things are surfacing again" → cross-session RCA
+  lane added: three Sonnet summarizers (era1 May→Sep 9 items #1–#62, era2
+  Sep 9–14 items #63–#86, era3 Sep 14–15 items #87–#143) tagging every
+  complaint with one fixed taxonomy so Fable can build a recurrence matrix
+  (fix → re-report chains). Brief: scratchpad `fb16-research/rca-brief.md`.
+  New standing rule saved to memory (`agent-briefing-checklist`): every agent
+  brief states purpose, seeds project + language context, names tools, fixes
+  the output format.
+- 22:10 Research doc written: `docs/user-feedback/2026-09-15-testflight-b15.md`
+  (26 items, all located; 4 answered, 9 mechanical, 9 decisions, 3 blocked).
+  Cross-session RCA written: `docs/user-feedback/2026-09-15-recurring-complaints-rca.md`
+  (recurrence matrix over #1–#143; 4 classes = 53% of defects, all recur every
+  era; 7 structural fixes proposed, none started). No code changed this lap.
